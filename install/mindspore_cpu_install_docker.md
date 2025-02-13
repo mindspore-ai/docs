@@ -12,7 +12,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_docker.md)
 
-[Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
+[Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，支持将开发者的应用和依赖包打包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
 
 本文档介绍如何在CPU环境的Linux系统上，使用Docker方式快速安装MindSpore。
 
@@ -61,55 +61,59 @@ docker run -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /b
 
 - 如果你安装的是指定版本`x.y.z`的容器。
 
-按照上述步骤进入MindSpore容器后，测试Docker是否正常工作，请运行下面的Python代码并检查输出：
+    按照上述步骤进入MindSpore容器后，测试Docker是否正常工作，请执行下面的Python代码，并检查输出：
 
-方法一：
+    **方法一：**
 
-```bash
-python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
-```
+    执行以下命令：
 
-如果输出：
+    ```bash
+    python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
+    ```
 
-```text
-MindSpore version: 版本号
-The result of multiplication calculation is correct, MindSpore has been installed on platform [CPU] successfully!
-```
+    如果输出：
 
-至此，你已经成功通过Docker方式安装了MindSpore CPU版本。
+    ```text
+    MindSpore version: 版本号
+    The result of multiplication calculation is correct, MindSpore has been installed on platform [CPU] successfully!
+    ```
 
-方法二：
+    至此，你已经成功通过Docker方式安装了MindSpore CPU版本。
 
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.ops as ops
+    **方法二：**
 
-ms.set_context(mode=ms.PYNATIVE_MODE)
-ms.set_device(device_target="CPU")
+    执行以下代码：
 
-x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
-y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
-print(ops.add(x, y))
-```
+    ```python
+    import numpy as np
+    import mindspore as ms
+    import mindspore.ops as ops
 
-代码成功运行时会输出：
+    ms.set_context(mode=ms.PYNATIVE_MODE)
+    ms.set_device(device_target="CPU")
 
-```text
-[[[[2. 2. 2. 2.]
-   [2. 2. 2. 2.]
-   [2. 2. 2. 2.]]
+    x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+    y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+    print(ops.add(x, y))
+    ```
 
-  [[2. 2. 2. 2.]
-   [2. 2. 2. 2.]
-   [2. 2. 2. 2.]]
+    代码成功执行时会输出：
 
-  [[2. 2. 2. 2.]
-   [2. 2. 2. 2.]
-   [2. 2. 2. 2.]]]]
-```
+    ```text
+    [[[[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]
 
-至此，你已经成功通过Docker方式安装了MindSpore CPU版本。
+    [[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]
+
+    [[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]]]
+    ```
+
+    至此，你已经成功通过Docker方式安装了MindSpore CPU版本。
 
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 
@@ -117,6 +121,6 @@ print(ops.add(x, y))
 
 - 如果你安装的是`devel`标签的容器，需要自行编译并安装MindSpore。
 
-    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Linux-x86_64操作系统和Source的安装方式，获得安装指南。运行容器后，下载MindSpore代码仓并参考安装指南，通过源码编译方式安装MindSpore CPU版本，并进行验证。
+    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Linux-x86_64操作系统和Source的安装方式，获得安装指南。运行容器后，下载MindSpore代码仓，并参考安装指南，通过源码编译方式安装MindSpore CPU版本，并进行验证。
 
 如果您想了解更多关于MindSpore Docker镜像的构建过程，请查看[docker repo](https://gitee.com/mindspore/mindspore/blob/master/scripts/docker/README.md#)了解详细信息。

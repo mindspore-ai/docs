@@ -2,7 +2,7 @@
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore CPU Nightly版本](#pip方式安装mindspore-cpu-200-nightly版本)
+- [pip方式安装MindSpore CPU Nightly版本](#pip方式安装mindspore-cpu-nightly版本)
     - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装Python](#安装python)
         - [安装GCC](#安装gcc)
@@ -28,7 +28,7 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 | --------------------- | ---------------- | ----------------------------- |
 | Ubuntu                | 18.04            | 运行MindSpore的操作系统       |
 | [Python](#安装python) | 3.9-3.11          | MindSpore的使用依赖Python环境 |
-| [GCC](#安装gcc)  | 7.3.0到9.4.0之间 | 用于编译MindSpore的C++编译器  |
+| [GCC](#安装gcc)  | 7.3.0-9.4.0 | 用于编译MindSpore的C++编译器  |
 
 下面给出第三方依赖的安装方法。
 
@@ -106,7 +106,7 @@ sudo apt-get install gcc-9 -y
 
 ## 下载安装MindSpore
 
-执行如下命令安装MindSpore：
+执行以下命令安装MindSpore：
 
 ```bash
 pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -114,10 +114,12 @@ pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 其中：
 
-- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
-- pip会自动安装当前最新版本的Nightly版本MindSpore，如果需要安装指定版本，请参照下方升级MindSpore版本相关指导，在下载时手动指定版本。
+- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
+- pip会自动安装当前最新版本的MindSpore Nightly版本，如果需要安装指定版本，请参照下方升级MindSpore版本相关指导，在下载时手动指定版本。
 
 ## 验证是否成功安装
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"

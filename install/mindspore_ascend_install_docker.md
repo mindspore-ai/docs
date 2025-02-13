@@ -14,7 +14,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_docker.md)
 
-[Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
+[Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，支持将开发者的应用和依赖包打包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
 
 本文档介绍如何在Ascend环境的Linux系统上，使用Docker方式快速安装MindSpore。
 
@@ -30,7 +30,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 ## 确认系统环境信息
 
-- 确认安装基于ARM的Ubuntu 18.04/CentOS 7.6 64位操作系统。
+- 确认安装基于ARM的Ubuntu 18.04 / CentOS 7.6 64位操作系统。
 
 - 确认安装[Docker 18.03或更高版本](https://docs.docker.com/get-docker/)。
 
@@ -40,7 +40,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 - 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.RC3.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.RC3.beta1`版本，还需在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -58,7 +58,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
 
 ## 运行MindSpore镜像
 
-执行以下命令启动Docker容器实例：
+执行以下命令，启动Docker容器实例：
 
 ```bash
 docker run -it -u root --ipc=host \
@@ -85,9 +85,11 @@ docker run -it -u root --ipc=host \
 
 ## 验证是否安装成功
 
-按照上述步骤进入MindSpore容器后，测试Docker容器是否正常工作，请运行下面的Python代码并检查输出：
+按照上述步骤进入MindSpore容器后，测试Docker容器是否正常工作，请执行下面的Python代码并检查输出：
 
-方法一：
+**方法一：**
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.run_check()"
@@ -102,7 +104,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 至此，你已经成功通过Docker方式安装了MindSpore Ascend版本。
 
-方法二：
+**方法二：**
+
+执行以下代码：
 
 ```python
 import numpy as np
@@ -115,7 +119,7 @@ y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x, y))
 ```
 
-代码成功运行时会输出：
+代码成功执行时会输出：
 
 ```text
 [[[[2. 2. 2. 2.]
@@ -140,10 +144,10 @@ print(ops.add(x, y))
 - 根据需要升级的MindSpore版本，升级对应的Ascend AI处理器配套软件包。
 - 直接使用以下命令获取最新的稳定镜像：
 
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
-```
+    ```bash
+    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+    ```
 
-其中：
+    其中：
 
-- `{tag}`对应上述表格中的标签。
+    - `{tag}`对应上述表格中的标签。

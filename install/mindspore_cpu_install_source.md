@@ -5,7 +5,7 @@
 - [源码编译方式安装MindSpore CPU版本](#源码编译方式安装mindspore-cpu版本)
     - [安装依赖软件](#安装依赖软件)
         - [安装Python](#安装python)
-        - [安装wheel-setuptools-PyYAML和Numpy](#安装wheel-setuptools-pyyaml和numpy)
+        - [安装wheel setuptools PyYAML和Numpy](#安装wheel-setuptools-pyyaml和numpy)
         - [安装GCC git tclsh patch和NUMA](#安装gcc-git-tclsh-patch和numa)
         - [安装CMake](#安装cmake)
         - [安装LLVM-可选](#安装llvm-可选)
@@ -33,7 +33,7 @@
 |[setuptools](#安装wheel-setuptools-pyyaml和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
 |[Numpy](#安装wheel-setuptools-pyyaml和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
-|[GCC](#安装gcc-git-tclsh-patch和numa)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc-git-tclsh-patch和numa)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
 |[git](#安装gcc-git-tclsh-patch和numa)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.22.2及以上|编译构建MindSpore的工具|
 |[tclsh](#安装gcc-git-tclsh-patch和numa)|-|MindSpore sqlite编译依赖|
@@ -88,7 +88,7 @@ pip install "numpy>=1.19.3,<=1.26.4"
 
 ### 安装GCC git tclsh patch和NUMA
 
-可以通过以下命令安装GCC，git，tclsh，patch和NUMA。
+可以通过以下命令安装GCC、git、tclsh、patch和NUMA。
 
 ```bash
 sudo apt-get install gcc-7 git tcl patch libnuma-dev -y
@@ -147,9 +147,9 @@ bash build.sh -e cpu -j4 -S on
 
 其中：
 
-- 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -j12`。
-- 默认从github下载依赖源码，当-S选项设置为`on`时，从对应的gitee镜像下载。
-- 关于`build.sh`更多用法请参看脚本头部的说明。
+- 如果编译机性能较好，可在执行中增加`-j{线程数}`来增加线程数量。如`bash build.sh -e cpu -j12`。
+- 默认从github下载依赖源码，当-S选项设置为`on`时，从对应的Gitee镜像下载。
+- 关于`build.sh`更多用法，请参看脚本头部的说明。
 
 ## 安装MindSpore
 
@@ -157,9 +157,11 @@ bash build.sh -e cpu -j4 -S on
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证安装是否成功
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
@@ -176,7 +178,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## 升级MindSpore版本
 
-在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行下述命令进行升级。
+在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行以下命令进行升级。
 
  ```bash
 pip install --upgrade mindspore-*.whl

@@ -24,7 +24,7 @@
 |-|-|-|
 |Ubuntu|18.04|运行MindSpore的操作系统|
 |[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
-|[GCC](#安装gcc)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
 
 下面给出第三方依赖的安装方法。
 
@@ -83,13 +83,13 @@ sudo apt-get install gcc-9 -y
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.5.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.5.0版本为例，执行以下命令。
 
 ```bash
 export MS_VERSION=2.5.0
 ```
 
-然后根据系统架构及Python版本执行如下命令安装MindSpore。
+然后根据系统架构及Python版本，执行以下命令安装MindSpore。
 
 ```bash
 # x86_64 + Python3.9
@@ -106,9 +106,11 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/aarch64/mindspore-${MS_VERSION/-/}-cp311-cp311-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
@@ -125,7 +127,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## 升级MindSpore版本
 
-当需要升级MindSpore版本时，可执行如下命令：
+当需要升级MindSpore版本时，可执行以下命令：
 
 ```bash
 pip install --upgrade mindspore=={version}

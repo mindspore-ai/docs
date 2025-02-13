@@ -24,7 +24,7 @@
 
 |软件名称|版本|作用|
 |-|-|-|
-|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
+|Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
@@ -61,7 +61,7 @@ conda activate mindspore_py39
 python --version
 ```
 
-如果您的环境为ARM架构，请确认当前使用的Python配套的pip版本>=19.3。使用以下命令升级pip。
+如果您的环境为ARM架构，请确认当前使用的Python配套的pip版本>=19.3。可以使用以下命令升级pip。
 
 ```bash
 python -m pip install -U pip
@@ -73,17 +73,17 @@ python -m pip install -U pip
 
 - 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.0.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.0.beta1`版本，还需在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
-安装昇腾AI处理器配套软件所包含的whl包。如果之前已经安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载对应的whl包。
+安装昇腾AI处理器配套软件所包含的whl包。如果之前已经安装过昇腾AI处理器配套软件包，需要先使用以下命令卸载对应的whl包。
 
 ```bash
 pip uninstall te topi hccl -y
 ```
 
-默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
+默认安装路径使用以下命令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
 
 ```bash
 pip install sympy
@@ -106,7 +106,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
     sudo yum install devtoolset-7
     ```
 
-    安装完成后，需要使用如下命令切换到GCC 7。
+    安装完成后，需要使用以下命令切换到GCC 7。
 
     ```bash
     scl enable devtoolset-7 bash
@@ -120,13 +120,13 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.5.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.5.0版本为例，执行以下命令。
 
 ```bash
 export MS_VERSION=2.5.0
 ```
 
-然后根据系统架构及Python版本执行如下命令安装MindSpore。
+然后根据系统架构及Python版本，执行以下命令安装MindSpore。
 
 ```bash
 # x86_64 + Python3.9
@@ -143,11 +143,11 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/aarch64/mindspore-${MS_VERSION/-/}-cp311-cp311-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 配置环境变量
 
-**如果昇腾AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
+**如果昇腾AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量，以下命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
@@ -162,7 +162,9 @@ source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
 
 ## 验证是否成功安装
 
-方法一：
+**方法一：**
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
@@ -177,7 +179,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 说明MindSpore安装成功了。
 
-方法二：
+**方法二：**
+
+执行以下代码：
 
 ```python
 import numpy as np
@@ -222,7 +226,7 @@ pip uninstall mindspore-ascend
 pip install mindspore=={version}
 ```
 
-从MindSpore 2.x版本升级时，执行如下命令：
+从MindSpore 2.x版本升级时，执行以下命令：
 
 ```bash
 pip install --upgrade mindspore=={version}
