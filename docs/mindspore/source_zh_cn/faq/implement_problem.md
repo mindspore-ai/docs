@@ -232,7 +232,7 @@ class VGG(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
 ```
 
-在MindSpore的ModelZoo里定义的`vgg16`，可以通过`layers`字段获取，如下:
+在MindSpore里定义的`vgg16`，可以通过`layers`字段获取，如下:
 
 ```python
 network = vgg16()

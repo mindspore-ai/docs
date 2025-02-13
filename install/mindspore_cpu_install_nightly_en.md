@@ -2,7 +2,7 @@
 
 <!-- TOC -->
 
-- [Installing MindSpore CPU Nightly by pip](#installing-mindspore-cpu-200-nightly-by-pip)
+- [Installing MindSpore CPU Nightly by pip](#installing-mindspore-cpu-nightly-by-pip)
     - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing Python](#installing-python)
         - [Installing GCC](#installing-gcc)

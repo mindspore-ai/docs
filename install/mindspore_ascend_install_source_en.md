@@ -12,9 +12,9 @@
         - [Installing git-lfs](#installing-git-lfs)
         - [Installing CMake](#installing-cmake)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
+    - [Configuring Environment Variables](#configuring-environment-variables)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
-    - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
 
