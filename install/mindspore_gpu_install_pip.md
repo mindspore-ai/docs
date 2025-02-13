@@ -29,14 +29,14 @@
 |[CUDA](#安装cuda)|10.1或11.1或11.6|MindSpore GPU使用的并行计算架构|
 |[cuDNN](#安装cudnn)|7.6.x或8.0.x或8.5.x|MindSpore GPU使用的深度神经网络加速库|
 |[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
-|[GCC](#安装gcc)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
 |[TensorRT](#安装tensorrt-可选)|7.2.2或8.4|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
 
 下面给出第三方依赖的安装方法。
 
 ### 安装CUDA
 
-MindSpore GPU支持CUDA 10.1，CUDA 11.1和CUDA 11.6。NVIDIA官方给出了多种安装方式和安装指导，详情可查看[CUDA下载页面](https://developer.nvidia.com/cuda-toolkit-archive)和[CUDA安装指南](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)。
+MindSpore GPU支持CUDA 10.1、CUDA 11.1和CUDA 11.6。NVIDIA官方给出了多种安装方式和安装指导，详情可查看[CUDA下载页面](https://developer.nvidia.com/cuda-toolkit-archive)和[CUDA安装指南](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)。
 下面仅给出Linux系统使用runfile方式安装的指导。
 
 在安装CUDA前需要先安装相关依赖，执行以下命令。
@@ -45,7 +45,7 @@ MindSpore GPU支持CUDA 10.1，CUDA 11.1和CUDA 11.6。NVIDIA官方给出了多�
 sudo apt-get install linux-headers-$(uname -r) gcc-7
 ```
 
-CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02；CUDA 11.6要求最小的显卡驱动版本为510.39.01。可以执行`nvidia-smi`指令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
+CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02；CUDA 11.6要求最小的显卡驱动版本为510.39.01。可以执行`nvidia-smi`命令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
 
 使用以下命令安装CUDA 11.6（推荐）。
 
@@ -77,7 +77,7 @@ echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >>
 source ~/.bashrc
 ```
 
-当默认路径/usr/local/cuda存在安装包的时候，LD_LIBRARY_PATH环境变量不起作用；原因是MindSpore采用DT_RPATH方式支持无环境变量启动，减少用户设置；DT_RPATH优先级比LD_LIBRARY_PATH环境变量高。
+当默认路径`/usr/local/cuda`存在安装包的时候，LD_LIBRARY_PATH环境变量不起作用；原因是MindSpore采用DT_RPATH方式支持无环境变量启动，减少用户设置；DT_RPATH优先级比LD_LIBRARY_PATH环境变量高。
 
 ### 安装cuDNN
 
@@ -90,7 +90,7 @@ sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.6/lib64
 sudo chmod a+r /usr/local/cuda-11.6/include/cudnn*.h /usr/local/cuda-11.6/lib64/libcudnn*
 ```
 
-如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换上述命令中的`/usr/local/cuda-11.6`为当前安装的CUDA路径。
+如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换以上命令中的`/usr/local/cuda-11.6`为当前安装的CUDA路径。
 
 ### 安装Python
 
@@ -196,7 +196,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/x86_64/mindspore-${MS_VERSION/-/}-cp311-cp311-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装MindSpore时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+在联网状态下，安装MindSpore时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
 
@@ -207,9 +207,11 @@ export PATH=/usr/local/cuda-11.6/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-11.6/lib64:$LD_LIBRARY_PATH
 ```
 
-如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换上述命令中的`/usr/local/cuda-11.6`为当前安装的CUDA路径。
+如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换以上命令中的`/usr/local/cuda-11.6`为当前安装的CUDA路径。
 
-方法一：
+**方法一：**
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='GPU');mindspore.run_check()"
@@ -224,7 +226,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 说明MindSpore安装成功了。
 
-方法二：
+**方法二：**
+
+执行以下代码：
 
 ```python
 import numpy as np
@@ -269,7 +273,7 @@ pip uninstall mindspore-gpu
 pip install mindspore=={version}
 ```
 
-从MindSpore 2.x版本升级时，执行如下命令：
+从MindSpore 2.x版本升级时，执行以下命令：
 
 ```bash
 pip install --upgrade mindspore=={version}

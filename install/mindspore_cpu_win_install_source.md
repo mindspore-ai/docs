@@ -24,9 +24,9 @@
 - 确认安装[CMake 3.22.2版本](https://cmake.org/files/v3.22/cmake-3.22.2-windows-x86_64.msi)。并将安装路径（不能出现中文等特殊字符）添加到系统环境变量 `Path` 中。
 - 确认安装Python（>=3.9.0）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
-- 确认安装[PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 并且 <= 6.0.2)。如果没有安装，可以使用 `pip install pyyaml` 进行安装。
+- 确认安装[PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 并且 <= 6.0.2)。如果没有安装，可以使用 `pip install pyyaml` 命令安装。
 - 确认安装[MSYS2软件](https://www.msys2.org/)。详细请查看[Windows上安装MSYS2软件](https://gitee.com/mindspore/docs/blob/master/install/third_party/msys_software_install.md)。
-- 确认安装[Numpy](https://pypi.org/project/numpy/) (>=1.19.3 并且 <= 1.26.4)。如果没有安装，可以使用 `pip install numpy` 进行安装。
+- 确认安装[Numpy](https://pypi.org/project/numpy/) (>=1.19.3 并且 <= 1.26.4)。如果没有安装，可以使用 `pip install numpy` 命令安装。
 
 ## 从代码仓下载源码
 
@@ -36,7 +36,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## 编译MindSpore
 
-在源码根目录下执行如下命令：
+在源码根目录下执行以下命令：
 
 ```bash
 call build.bat ms_vs_cpu
@@ -48,9 +48,11 @@ call build.bat ms_vs_cpu
 for %x in (output\mindspore*.whl) do pip install %x -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
+
+执行以下命令：
 
 ```bash
 cd ..
@@ -69,7 +71,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## 升级MindSpore版本
 
-在源码根目录下执行编译脚本`build.bat`成功后，在`output`目录下找到编译生成的whl安装包，然后执行下述命令进行升级。
+在源码根目录下执行编译脚本`build.bat`成功后，在`output`目录下找到编译生成的whl安装包，然后执行以下命令进行升级。
 
  ```bash
 pip install --upgrade mindspore-*.whl

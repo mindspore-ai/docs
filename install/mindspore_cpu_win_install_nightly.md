@@ -2,7 +2,7 @@
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore CPU Nightly版本-Windows](#pip方式安装mindspore-cpu-200-nightly版本-windows)
+- [pip方式安装MindSpore CPU Nightly版本-Windows](#pip方式安装mindspore-cpu-nightly版本-windows)
     - [确认系统环境信息](#确认系统环境信息)
     - [下载安装MindSpore](#下载安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
@@ -23,7 +23,7 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 
 ## 下载安装MindSpore
 
-执行如下命令安装MindSpore：
+执行以下命令安装MindSpore：
 
 ```bash
 pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -31,10 +31,12 @@ pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 其中：
 
-- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
-- pip会自动安装当前最新版本的Nightly版本MindSpore，如果需要安装指定版本，请参照下方升级MindSpore版本相关指导，在下载时手动指定版本。
+- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
+- pip会自动安装当前最新版本的MindSpore Nightly，如果需要安装指定版本，请参照下方升级MindSpore版本相关指导，在下载时手动指定版本。
 
 ## 验证是否成功安装
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
@@ -51,7 +53,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## 升级MindSpore版本
 
-当需要升级MindSpore版本时，可执行如下命令：
+当需要升级MindSpore版本时，可执行以下命令：
 
 ```bash
 pip install --upgrade mindspore-dev=={version}

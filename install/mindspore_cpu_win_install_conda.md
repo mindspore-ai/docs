@@ -13,7 +13,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_win_install_conda.md)
 
-[Conda](https://docs.conda.io/en/latest/)是一个开源跨平台语言无关的包管理与环境管理系统，允许用户方便地安装不同版本的二进制软件包与该计算平台需要的所有库。
+[Conda](https://docs.conda.io/en/latest/)是一个开源跨平台语言无关的包管理与环境管理系统，允许用户方便地安装不同版本的二进制软件包，以及该计算平台需要的所有库。
 
 本文档介绍如何在CPU环境的Windows系统上，使用Conda方式快速安装MindSpore。
 
@@ -29,7 +29,7 @@
 
 在Windows上使用Anaconda，请通过`开始 | Anaconda3 | Anaconda Promt`打开Anaconda命令行。
 
-根据您希望使用的Python版本创建对应的Conda虚拟环境并进入虚拟环境。
+根据您希望使用的Python版本，创建对应的Conda虚拟环境，并进入虚拟环境。
 如果您希望使用Python3.9.11版本：
 
 ```bash
@@ -39,15 +39,17 @@ conda activate mindspore_py39
 
 ## 安装MindSpore
 
-确认您处于Conda虚拟环境中，并执行如下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`mindspore=`后指定版本号。
+确认您处于Conda虚拟环境中，并执行以下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`conda install mindspore=`后指定版本号。
 
 ```bash
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
@@ -76,7 +78,7 @@ conda remove mindspore-cpu
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-从MindSpore 2.5.x版本升级时，执行如下命令：
+从MindSpore 2.5.x版本升级时，执行以下命令：
 
 ```bash
 conda update mindspore -c mindspore -c conda-forge

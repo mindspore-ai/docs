@@ -6,15 +6,15 @@
     - [安装依赖软件](#安装依赖软件)
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
-        - [安装wheel-setuptools-PyYAML和Numpy](#安装wheel-setuptools-pyyaml和numpy)
+        - [安装wheel setuptools PyYAML和Numpy](#安装wheel-setuptools-pyyaml和numpy)
         - [安装GCC](#安装gcc)
         - [安装git tclsh patch NUMA Flex](#安装git-tclsh-patch-numa-flex)
         - [安装git-lfs](#安装git-lfs)
         - [安装CMake](#安装cmake)
     - [从代码仓下载源码](#从代码仓下载源码)
+    - [配置环境变量](#配置环境变量)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
-    - [配置环境变量](#配置环境变量)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
 
@@ -30,7 +30,7 @@
 
 |软件名称|版本|作用|
 |-|-|-|
-|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
+|Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[wheel](#安装wheel-setuptools-pyyaml和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
@@ -39,9 +39,9 @@
 |[Numpy](#安装wheel-setuptools-pyyaml和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 |[git](#安装git-tclsh-patch-numa-flex)|-|MindSpore使用的源代码管理工具|
-|[git-lfs](#安装git-lfs)|-|MindSpore使用的源代码管理工具|
+|[git-lfs](#安装git-lfs)|-|MindSpore使用的源代码管理拓展工具|
 |[CMake](#安装cmake)|3.22.2及以上|编译构建MindSpore的工具|
-|[Flex](#安装git-tclsh-patch-numa-flex)|2.5.35及以上版本|MindSpore使用的词法分析器|
+|[Flex](#安装git-tclsh-patch-numa-flex)|2.5.35及以上|MindSpore使用的词法分析器|
 |[tclsh](#安装git-tclsh-patch-numa-flex)|-|MindSpore sqlite编译依赖|
 |[patch](#安装git-tclsh-patch-numa-flex)|2.5及以上|MindSpore使用的源代码补丁工具|
 |[NUMA](#安装git-tclsh-patch-numa-flex)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
@@ -84,17 +84,17 @@ python --version
 
 - 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.0.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.0.beta1`版本，还需在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
-安装昇腾AI处理器配套软件所包含的whl包。如果之前已经安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载对应的whl包。
+安装昇腾AI处理器配套软件所包含的whl包。如果之前已经安装过昇腾AI处理器配套软件包，需要先使用以下命令卸载对应的whl包。
 
 ```bash
 pip uninstall te topi hccl -y
 ```
 
-默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
+默认安装路径使用以下命令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
 
 ```bash
 pip install sympy
@@ -114,7 +114,7 @@ pip install pyyaml
 pip install "numpy>=1.19.3,<=1.26.4"
 ```
 
-运行环境使用的Numpy版本需不小于编译环境的Numpy版本，以保证框架内Numpy相关能力的正常使用。
+注意：运行环境使用的Numpy版本需不小于编译环境的Numpy版本，以保证框架内Numpy相关能力的正常使用。
 
 ### 安装GCC
 
@@ -131,7 +131,7 @@ pip install "numpy>=1.19.3,<=1.26.4"
     sudo yum install devtoolset-7
     ```
 
-    安装完成后，需要使用如下命令切换到GCC 7。
+    安装完成后，需要使用以下命令切换到GCC 7。
 
     ```bash
     scl enable devtoolset-7 bash
@@ -159,7 +159,7 @@ pip install "numpy>=1.19.3,<=1.26.4"
 
 ### 安装git-lfs
 
-- Ubuntu使用如下命令安装。
+- Ubuntu使用以下命令安装。
 
     ```bash
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
@@ -167,7 +167,7 @@ pip install "numpy>=1.19.3,<=1.26.4"
     git lfs install
     ```
 
-- CentOS 7使用如下命令安装。
+- CentOS 7使用以下命令安装。
 
     ```bash
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
@@ -199,7 +199,7 @@ pip install "numpy>=1.19.3,<=1.26.4"
 
 - 使用以下命令安装。
 
-    根据系统架构选择不同的下载链接。
+    根据系统架构，选择不同的下载链接。
 
     ```bash
     # x86使用
@@ -230,7 +230,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## 配置环境变量
 
-**如果昇腾AI处理器配套软件包没有安装在默认路径**，源码编译前以及安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
+**如果昇腾AI处理器配套软件包没有安装在默认路径**，源码编译前以及安装好MindSpore之后，需要导出Runtime相关环境变量，以下命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
@@ -255,9 +255,9 @@ bash build.sh -e ascend -S on
 
 其中：
 
-- `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e ascend -j4`。
-- 默认从github下载依赖源码，当-S选项设置为`on`时，从对应的gitee镜像下载。
-- 关于`build.sh`更多用法请参看脚本头部的说明。
+- `build.sh`中默认的编译线程数为8，如果编译机性能较差，可能会出现编译错误，可在执行中增加`-j{线程数}`来减少线程数量。如`bash build.sh -e ascend -j4`。
+- 默认从github下载依赖源码，当-S选项设置为`on`时，从对应的Gitee镜像下载。
+- 关于`build.sh`更多用法，请参看脚本头部的说明。
 
 ## 安装MindSpore
 
@@ -265,11 +265,13 @@ bash build.sh -e ascend -S on
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
 
-方法一：
+**方法一：**
+
+执行以下命令：
 
 ```bash
 python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
@@ -284,7 +286,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 说明MindSpore安装成功了。
 
-方法二：
+**方法二：**
+
+执行以下代码：
 
 ```python
 import numpy as np
@@ -317,7 +321,7 @@ print(ops.add(x, y))
 
 ## 升级MindSpore版本
 
-在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行下述命令进行升级。
+在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行以下命令进行升级。
 
 从MindSpore 1.x升级到MindSpore 2.x版本时，需要先手动卸载旧版本：
 
@@ -331,7 +335,7 @@ pip uninstall mindspore-ascend
 pip install mindspore-*.whl
 ```
 
-从MindSpore 2.x版本升级到最新版本时，执行如下命令：
+从MindSpore 2.x版本升级到最新版本时，执行以下命令：
 
  ```bash
 pip install --upgrade mindspore-*.whl
