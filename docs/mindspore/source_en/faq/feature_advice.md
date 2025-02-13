@@ -56,19 +56,13 @@ A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference cor
 
 ## Q: Does MindSpore only be run on Huawei own `Ascend`?
 
-A: MindSpore supports Huawei's own `Ascend`, `GPU` and `CPU` at the same time, and supports heterogeneous computing power.
+A: MindSpore supports Huawei's own `Ascend` in addition to `GPU` and `CPU`, which is support for heterogeneous computing power.
 
 <br/>
 
 ## Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?
 
 A: Due to hardware limitations of Protobuf, when exporting to ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports the importing of MINDIR and doesn't support the importing of ONNX formats. The importing of MINDIR does not have size limitation.
-
-<br/>
-
-## Q: Does MindSpore need a GPU computing unit? What hardware support is needed?
-
-A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#).
 
 <br/>
 
@@ -80,7 +74,7 @@ A: MindSpore provides pluggable device management interface, so that developer c
 
 ## Q: What is the relationship between MindSpore and ModelArts? Can we use MindSpore in ModelArts?
 
-A: ModelArts is Huawei public cloud online training and inference platform, and MindSpore is Huawei deep learning framework.
+A: ModelArts is Huawei public cloud online training and inference platform, and MindSpore is Huawei AI framework.
 
 <br/>
 
