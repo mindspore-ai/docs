@@ -582,12 +582,6 @@ Operators Compile
      - Type
      - Value Range
      - Description
-   * - MS_BUILD_PROCESS_NUM
-     - Specifies the number of parallel operator build processes during Ascend backend compilation.
-
-     - Integer
-     - The number of parallel operator build processes ranges from 1 to 24.
-     -
    * - MS_COMPILER_CACHE_ENABLE
      - Whether to save or load the compiled cache of the graph. After `MS_COMPILER_CACHE_ENABLE` is set to `1`, during the first execution, a compilation cache
        is generated and exported to a MINDIR file. When the network is executed again, if `MS_COMPILER_CACHE_ENABLE` is still set to `1` and the network scripts
@@ -623,22 +617,6 @@ Operators Compile
 
        4: Turn off op debug, generate the `*.cce` and `*_loc.json` files, generate UB fusion calculation description files (`{$kernel_name}_compute.json`) for fusion ops
      - When an AICore Error occurs, if you need to save the cce file of ops, you can set the `MS_COMPILER_OP_LEVEL` to 1 or 2
-   * - MS_DEV_DISABLE_PREBUILD
-     - Turn off operator prebuild processes during Ascend backend compilation. The prebuild processing may fix the attr `fusion_type` of the operate, and then affect the operator fusion. 
-       If the performance of fusion operator can not meet the expectations, try to turn on this environment variable to verify if there is the performance problem of fusion operator.
-
-     - Boolean
-     - true: turn off prebuild
-
-       false: enable prebuild
-     - 
-   * - MINDSPORE_OP_INFO_PATH
-     - Specify the path to the operator library load file
-     - string
-     - Absolute path of the file
-
-       Default: No setting.
-     - Inference only
    * - MS_ASCEND_CHECK_OVERFLOW_MODE
      - Setting the output mode of floating-point calculation results
      - String
