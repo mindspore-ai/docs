@@ -1,6 +1,6 @@
 [
     {
-        "version": "master",
+        "version": "r2.5.0",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -11,27 +11,27 @@
                 {
                     "label": "设计理念",
                     "url": "/docs/zh-CN/r2.5.0/design/overview.html",
-                    "id": "master-design"
+                    "id": "r2.5.0-design"
                 },
                 {
                     "label": "模型构建与训练",
                     "url": "/docs/zh-CN/r2.5.0/model_train/index.html",
-                    "id": "master-model_train"
+                    "id": "r2.5.0-model_train"
                 },
                 {
                     "label": "模型推理",
                     "url": "/docs/zh-CN/r2.5.0/model_infer/index.html",
-                    "id": "master-model_infer"
+                    "id": "r2.5.0-model_infer"
                 },
                 {
                     "label": "模型迁移",
                     "url": "/docs/zh-CN/r2.5.0/migration_guide/overview.html",
-                    "id": "master-migration_guide,master-note-api_mapping"
+                    "id": "r2.5.0-migration_guide,r2.5.0-note-api_mapping"
                 },
                 {
                     "label": "API文档",
                     "url": "/docs/zh-CN/r2.5.0/api_python/index.html",
-                    "id": "master-api_python"
+                    "id": "r2.5.0-api_python"
                 },
                 {
                     "label": "大模型开发",
@@ -40,12 +40,12 @@
                 {
                     "label": "香橙派开发",
                     "url": "/docs/zh-CN/r2.5.0/orange_pi/index.html",
-                    "id": "master-orange_pi"
+                    "id": "r2.5.0-orange_pi"
                 },
                 {
                     "label": "FAQ",
                     "url": "/docs/zh-CN/r2.5.0/faq/installation.html",
-                    "id": "master-faq"
+                    "id": "r2.5.0-faq"
                 },
                 {
                     "label": "RELEASE NOTES",
@@ -56,27 +56,27 @@
                 {
                     "label": "Design Concept",
                     "url": "/docs/en/r2.5.0/design/overview.html",
-                    "id": "master-design"
+                    "id": "r2.5.0-design"
                 },
                 {
                     "label": "Model Building and Training",
                     "url": "/docs/en/r2.5.0/model_train/index.html",
-                    "id": "master-model_train"
+                    "id": "r2.5.0-model_train"
                 },
                 {
                     "label": "Model Inference",
                     "url": "/docs/en/r2.5.0/model_infer/index.html",
-                    "id": "master-model_infer"
+                    "id": "r2.5.0-model_infer"
                 },
                 {
                     "label": "Model Migration",
                     "url": "/docs/en/r2.5.0/migration_guide/overview.html",
-                    "id": "master-migration_guide,master-note-api_mapping"
+                    "id": "r2.5.0-migration_guide,r2.5.0-note-api_mapping"
                 },
                 {
                     "label": "API",
                     "url": "/docs/en/r2.5.0/api_python/index.html",
-                    "id": "master-api_python"
+                    "id": "r2.5.0-api_python"
                 },
                 {
                     "label": "Large Model",
@@ -85,12 +85,12 @@
                 {
                     "label": "Orange Pi",
                     "url": "/docs/en/r2.5.0/orange_pi/index.html",
-                    "id": "master-orange_pi"
+                    "id": "r2.5.0-orange_pi"
                 },
                 {
                     "label": "FAQ",
                     "url": "/docs/en/r2.5.0/faq/installation.html",
-                    "id": "master-faq"
+                    "id": "r2.5.0-faq"
                 },
                 {
                     "label": "RELEASE NOTES",
@@ -101,7 +101,7 @@
         "theme": "theme-tutorials"
     },
     {
-        "version": "master",
+        "version": "r2.5.0",
         "label": {
             "zh": "教程",
             "en": "Tutorials"
@@ -110,7 +110,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "master",
+        "version": "r2.5.0",
         "label": {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
@@ -120,7 +120,7 @@
             "zh": [
                 {
                     "label": "概述",
-                    "url": "/lite?version=master"
+                    "url": "/lite?version=r2.5.0"
                 },
                 {
                     "label": "下载",
@@ -138,7 +138,7 @@
             "en": [
                 {
                     "label": "Overview",
-                    "url": "/lite/en?version=master"
+                    "url": "/lite/en?version=r2.5.0"
                 },
                 {
                     "label": "Downloads",
