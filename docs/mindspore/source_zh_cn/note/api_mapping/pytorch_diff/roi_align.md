@@ -20,21 +20,21 @@ class mindspore.ops.ROIAlign(pooled_height, pooled_width, spatial_scale, sample_
 
 ## 差异对比
 
-PyTorch：感兴趣区域对齐(RoI Align)。
+PyTorch：感兴趣区域对齐（RoI Align）。
 
-MindSpore：感兴趣区域对齐(RoI Align)，参数输入形式不同，对齐模式实现不同。
+MindSpore：感兴趣区域对齐（RoI Align）。与PyTorch相比，参数输入形式不同，对齐模式的实现也不同。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | ---   | ---   | ---        |---  |
 |参数 | 参数1 | input   | -  | 输入特征，此参数位于MindSpore算子的输入参数列表中 |
 |     | 参数2 | boxes  | -  | 边界框坐标，此参数位于MindSpore算子的输入参数列表中 |
 |     | 参数3 | output_size | [pooled_height, pooled_width]  | 特征尺寸，MindSopre分别用2个参数表示 |
-|     | 参数4 | spatial_scale  | spatial_scale  | 坐标缩放系数 |
-|     | 参数5 | sampling_ratio | sample_num  | 插值采样数 |
-|     | 参数6 | aligned | roi_end_mode  | 对齐的模式。False时实现相同，True时实现不同 |
+|     | 参数4 | spatial_scale  | spatial_scale  | - |
+|     | 参数5 | sampling_ratio | sample_num  | - |
+|     | 参数6 | aligned | roi_end_mode  | 对齐的模式。PyTorch对应的参数值为False和True，MindSpore对应的参数值为0和1 |
 |输入 | 输入1 | -   | features    | 输入特征 |
 |     | 输入2 | -   | rois    | roi坐标 |
-|输出 | 输出1 | Tensor | Tensor  | 对齐后的特征 |
+|输出 | 输出1 | Tensor | Tensor  | - |
 
 ## 代码示例
 
