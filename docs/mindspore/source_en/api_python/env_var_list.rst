@@ -216,11 +216,6 @@ Graph Compilation and Execution
      - String
      - 'on', indicating that disable to use bprop's graph cache
      - Experimental environment variable. When set env on, it will slow down building bprop's graph
-   * - MS_DEV_DISABLE_TRACE
-     - Disable trace function
-     - String
-     - 'on', indicating that disable trace function
-     - Experimental environment variable.
    * - MS_ENABLE_IO_REUSE
      - Turn on the graph input/output memory multiplexing flag
      - Integer
