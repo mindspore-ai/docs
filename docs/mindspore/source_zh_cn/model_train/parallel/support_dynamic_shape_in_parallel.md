@@ -11,14 +11,14 @@
 相关接口：
 
 - `class mindspore.Symbol(self, max=0, min=1, divisor=1, remainder=0, unique=False, **kawgs)`
-   ：符号，用来传递张量形状的符号信息（symbolic shape）的数据结构。 对于动态shape网络，相比只设置 shape
-   的未知维度（None），提供未知维度的数学符号信息能帮助框架更好地优化计算图，提高网络执行性能。该接口详细介绍请参考[Symbol API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Symbol.html)。
+   ：符号，用来传递张量形状的符号信息（symbolic shape）的数据结构。对于动态shape网络，相比只设置shape的未知维度（None），提供未知维度的数学符号信息能帮助框架更好地优化计算图，提高网络执行性能。该接口详细介绍请参考[Symbol API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Symbol.html)。
 
 ## 基本原理
 
-静态图下的并行能力本质上是在前端编译的自动微分PASS前，根据不同的并行策略对单卡计算图进行修改，基于现有静态图下的分布式并行训练能力基础上，MindSpore构建了支持动态Shape的能力。
-静态图下的动态Shape模型，在图编译阶段可以通过`Symbol(...)`对象表示动态Shape轴的切分信息，通过`set_inputs(...)`
-接口将信息带入图中。相比于`None`，`Symbol`类可以表示更加丰富的维度信息，如该维度的约束、最小/最大Shape值、余数等。
+静态图下的并行能力本质上是在前端编译的自动微分PASS前，根据不同的并行策略对单卡计算图进行修改。基于现有静态图下的分布式并行训练能力基础上，MindSpore构建了支持动态Shape的能力。
+
+静态图下的动态Shape模型，在图编译阶段可以通过`Symbol(...)`对象表示动态Shape轴的切分信息，通过`set_inputs(...)`接口将信息带入图中。相比于`None`，`Symbol`类可以表示更加丰富的维度信息，如该维度的约束、最小/最大Shape值、余数等。
+
 基于用户配置的动态轴信息，分布式并行组件会推导各层输入动态轴的引用关系，实现静态图下的动态Shape计算图表达。
 
 ## 操作实践
@@ -42,11 +42,11 @@
 
 ### 数据集加载
 
-这里我们使用MNIST手写体识别数据集，执行`run.sh`脚本即可自动下载、解压、配置数据集路径。 详细数据集加载代码请见源码文件，这里不进行赘述。
+这里我们使用MNIST手写体识别数据集，执行`run.sh`脚本即可自动下载、解压、配置数据集路径。详细数据集加载代码请见源码文件，这里不进行赘述。
 
 ### 构建前馈神经网络网络
 
-这里使用的前馈神经网络结构为MatMul+ReLU+MatMul+ReLU+MatMul的结构，并对除最后一个MatMul算子进行模型并行的切分。
+这里使用的前馈神经网络结构为MatMul+ReLU+MatMul+ReLU+MatMul的结构。在该结构中，除了最后一个MatMul算子外，其余算子均进行了模型并行的切分。
 
 同时，使用MindSpore提供的分布式并行接口，完成分布式组件的初始化。
 
@@ -87,7 +87,7 @@ class Network(nn.Cell):
 
 ### 定义优化器和损失函数
 
-损失函数我们使用SoftmaxCrossEntropyWithLogits，优化器使用随机梯度下降优化器。
+损失函数使用SoftmaxCrossEntropyWithLogits，优化器使用随机梯度下降优化器。
 
 ```python
 from mindspore import nn

@@ -4,9 +4,9 @@
 
 ## 概述
 
-模型训练对分布式训练架构的可靠性、可服务性要求比较高，MindSpore动态组网启动方式支持数据并行下容灾恢复，多卡数据并行训练场景集群(多个Worker和1个Scheduler)中存在进程异常退出，被重新拉起后，训练任务继续能正常执行。
+模型训练对分布式训练架构的可靠性和可服务性要求较高。MindSpore的动态组网启动方式支持数据并行下的容灾恢复功能。在多卡数据并行训练场景中（例如包含多个Worker和1个Scheduler的集群），如果某个进程异常退出并被重新拉起，训练任务仍能正常继续执行。
 
-具体来说，在图模式下，采用数据下沉模式进行训练，并开启数据并行模式，采用动态组网方式启动训练集群后，训练过程中如果有进程异常退出，保证在相同的环境变量（`MS_ENABLE_RECOVERY` 和 `MS_RECOVERY_PATH`）下，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。
+具体而言，在图模式下，采用数据下沉模式进行训练，并开启数据并行模式。采用动态组网方式启动训练集群后，如果在训练过程中有进程异常退出，在保证在相同环境变量（`MS_ENABLE_RECOVERY` 和 `MS_RECOVERY_PATH`）的前提下，能够重新拉起该进程对应的脚本后并继续训练，不会影响精度收敛。
 
 > 动态组网场景下的容灾恢复仅支持GPU，需要在Graph模式下运行。
 
@@ -14,7 +14,7 @@
 
 ## 操作实践
 
-下面以Ascend为例进行操作说明：
+下面以Ascend为例进行操作说明。
 
 ### 样例代码说明
 
@@ -54,7 +54,7 @@ model = ms.Model(net, loss_fn=loss_fn, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb, ckpoint_cb])
 ```
 
-每个Worker都开启保存checkpoint，并用不同的路径（如上述样例中的directory的设置使用了rank id，保证路径不会相同），防止同名checkpoint保存冲突。checkpoint用于异常进程恢复和正常进程回滚，训练的回滚是指集群中各个Worker都恢复到最新的checkpoint对应的状态，同时数据侧也回退到对应的step，然后继续训练。
+每个Worker都开启了checkpoint保存，并使用不同的保存路径（如上述样例中的directory的设置使用了rank id，保证路径不会相同），防止同名checkpoint保存冲突。checkpoint用于异常进程恢复和正常进程回滚，训练的回滚是指集群中各个Worker都恢复到最新的checkpoint对应的状态，同时数据侧也回退到对应的step，然后继续训练。
 
 保存checkpoint的间隔是可配置的，这个间隔决定了容灾恢复的粒度，间隔越小，恢复到上次保存checkpoint所回退的step数就越小，但保存checkpoint频繁也可能会影响训练效率，间隔越大则效果相反。keep_checkpoint_max至少设置为2(防止checkpoint保存失败)。
 
