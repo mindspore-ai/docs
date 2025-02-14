@@ -25,7 +25,7 @@
 
 ## 性能优化方式
 
-在MindSpore深度学习训练流程中，我们通常有以下三种手段可以对训练性能进行优化：
+在MindSpore深度学习训练流程中，我们通常有以下两种手段可以对训练性能进行优化：
 
 - **下沉模式**：MindSpore提供了数据图下沉、图下沉和循环下沉功能，可以极大地减少Host-Device交互开销，有效地提升训练与推理的性能。参考[下沉模式](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/train_process/optimize/sink_mode.html)教程了解更多信息。
 - **向量化加速接口Vmap**：``vmap`` 接口可以将模型或函数中高度重复的运算逻辑转换为并行的向量运算逻辑，从而获得更加精简的代码逻辑以及更高效的执行性能。参考[向量化加速接口Vmap](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/train_process/optimize/vmap.html)教程了解更多信息。
