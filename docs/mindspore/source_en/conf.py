@@ -536,5 +536,6 @@ else:
 with open(des_release, "w", encoding="utf-8") as p:
     content = re.sub(re_url, r'\1/r2.5.0', content)
     content = re.sub(re_url2, r'\1/v2.5.0', content)
+    content = re.sub('\[Environment Variables\]\(.*\)', '[Environment Variables](https://www.mindspore.cn/docs/en/r2.5.0/api_python/env_var_list.html#distributed-parallel)', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
