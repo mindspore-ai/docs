@@ -4,7 +4,7 @@
 
 由社区提供的PyTorch APIs和MindSpore APIs之间的映射，可能在参数、输入、输出、逻辑功能和特定场景等方面存在差异，可详见各API描述或已提供的差异对比。
 
-也欢迎更多的MindSpore开发者参与完善映射内容。关于PyTorch与MindSpore关于框架机制差异，请参考：[优化器对比](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/learning_rate_and_optimizer.html#优化器对比)，[随机数策略对比](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html#%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94)，[参数初始化对比](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html#parameter初始化)。
+也欢迎更多的MindSpore开发者参与完善映射内容。关于PyTorch与MindSpore的框架机制差异，请参考：[优化器对比](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/learning_rate_and_optimizer.html#优化器对比)，[随机数策略对比](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html#%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94)，[参数初始化对比](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html#parameter初始化)。
 
 ## API映射一致标准及例外场景
 
@@ -12,9 +12,9 @@ API映射一致标准：API功能一致，参数个数或顺序一致，参数�
 
 以下例外场景也被认为是API映射一致，
 
-**例外场景1**：相较于API映射一致标准，仅API参数的输入数据类型支持范围不一样，包含以下3种子场景：
+**例外场景1**：相较于API映射一致标准，仅API参数的输入数据类型支持范围不一样，包含以下2种子场景：
 
-（1）MindSpore的API支持传入int，float，bool等类型的参数，但不支持传入int8或float64等小位宽数据类型的参数。
+（1）MindSpore的API支持传入int、float、bool等类型的参数，但不支持传入int8或float64等小位宽数据类型的参数。
 
 （2）MindSpore的API不支持传入复数类型的参数。
 
