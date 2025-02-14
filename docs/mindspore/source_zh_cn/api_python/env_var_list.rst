@@ -216,11 +216,6 @@
      - String
      - "on"，表示关闭bprop缓存图功能
      - 实验性质的环境变量，关闭缓存功能会导致构图时间延长
-   * - MS_DEV_DISABLE_TRACE
-     - 关闭trace构图功能
-     - String
-     - "on"，表示关闭trace构图功能
-     - 实验性质的环境变量
    * - MS_ENABLE_IO_REUSE
      - 开启图输入输出内存复用标志
      - Integer
