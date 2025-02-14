@@ -645,7 +645,7 @@ if __name__ == "__main__":
                     if 'lite' in out_name:
                         css_path = f"theme-{out_name.split('/')[0]}/theme.css"
                         js_path = f"theme-{out_name.split('/')[0]}/theme.js"
-                    elif '/docs' in out_name:
+                    elif out_name == 'docs':
                         css_path = "theme-tutorials/theme.css"
                         js_path = "theme-tutorials/theme.js"
                     else:
