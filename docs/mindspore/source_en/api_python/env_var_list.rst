@@ -500,11 +500,6 @@ Distributed Parallel
      - String
      - Legal user directory.
      - The Worker and Scheduler processes perform the necessary persistence during execution, such as node information for restoring the grouping and training the intermediate state of the service, and are saved via files.
-   * - MS_HCCL_CM_INIT
-     - Whether to use the CM method to initialize the HCCL.
-     - Integer
-     - 1 for using the method, 0 for not using. The default is 0.
-     - This environment variable is only recommended to be turned on for Ascend hardware platforms with a large number of communication domains. Turning on this environment variable reduces the memory footprint of the HCCL collection communication libraries, and the training tasks are executed in the same way as the rank table startup.
    * - GROUP_INFO_FILE
      - Specify communication group information storage path
      - String
@@ -952,16 +947,6 @@ Profiler
 
        dynamic: Dynamic collection of performance data model.
      - This environment variable is enabled by CANN Profiling. Profiler reads this environment variable for checking to avoid repeatedly enabling CANN Profiling. Users don't need to set this environment variable manually.
-   * - PROFILER_SAMPLECONFIG
-     - Set the CANN msprof command line collection options
-     - String
-     - CANN msprof configuration string.
-     - This environment variable configures the environment variable for CANN msprof, which is read by Profiler to check whether msprof is enabled or not. Users do not need to set this environment variable manually.
-   * - MS_PROFILER_RUN_CONFIG
-     - Set the Profiler collection options
-     - String
-     - Configure the Profiler collection options in the format of a JSON string.
-     - This environment variable is usually set automatically by the program and the user does not need to set this environment variable manually.
 
 Dynamic Graph
 --------------

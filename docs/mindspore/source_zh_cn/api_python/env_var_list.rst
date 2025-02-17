@@ -503,11 +503,6 @@ Dump调试
      - String
      - 合法的用户目录。
      - Worker和Scheduler进程在执行过程中会进行必要的持久化，如用于恢复组网的节点信息以及训练业务中间状态等，并通过文件保存。
-   * - MS_HCCL_CM_INIT
-     - 是否使用CM方式初始化HCCL。
-     - Integer
-     - 1代表是，0代表否。默认为0。
-     - 此环境变量只在Ascend硬件平台并且通信域数量较多的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与rank table启动方式相同。
    * - GROUP_INFO_FILE
      - 指定通信域信息存储路径
      - String
@@ -954,16 +949,6 @@ Profiler
        dynamic：动态采集性能数据模式。
 
      - 此环境变量为CANN Profiling使能环境变量，Profiler读取此环境变量用于检查避免重复开启CANN Profiling。用户不需要手动设置此环境变量。
-   * - PROFILER_SAMPLECONFIG
-     - 设置CANN msprof命令行的采集选项
-     - String
-     - CANN msprof配置字符串
-     - 此环境变量为CANN msprof配置环境变量，Profiler读取此环境变量用于检查是否使能msprof。用户不需要手动设置此环境变量。
-   * - MS_PROFILER_RUN_CONFIG
-     - 设置Profiler采集配置选项
-     - String
-     - Profiler采集配置选项，格式为JSON字符串。
-     - 此环境变量通常由程序自动设置，用户无需手动设置此环境变量。
 
 动态图
 -----------
