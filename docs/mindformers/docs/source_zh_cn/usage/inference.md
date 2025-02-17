@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindFormers 提供了大模型推理能力，用户可以编写脚本调用 `pipeline` 高阶接口或者执行 `run_mindformer` 统一脚本启动推理。在推理模式下， `pipeline` 接口可以帮助用户轻松地设置和执行模型推理任务。 `pipeline` 接口简化了从数据准备到模型推理的整体流程。模块化设计允许用户通过配置文件或编程接口定义数据处理和推理的各个阶段，并且用户可以根据自己的需求定制数据处理逻辑和推理策略。使用 `run_mindformer` 统一脚本则可以不编写代码而直接通过配置文件启动。
+MindFormers 提供了大模型推理能力，用户可以执行 `run_mindformer` 统一脚本或者编写脚本调用 `pipeline` 高阶接口进行推理。使用 `run_mindformer` 统一脚本可以不编写代码而直接通过配置文件启动。 `pipeline` 接口可以帮助用户轻松地设置和执行模型推理任务。
 
 目前 MindFormers 文本生成推理支持的特性如下表：
 
@@ -23,10 +23,161 @@ MindFormers 提供了大模型推理能力，用户可以编写脚本调用 `pip
   根据需要的推理任务选择不同的模型，如文本生成可以选择 Llama2 等。
 
 2. **准备模型权重：**
-  权重来源有两种方式，一种是开源权重，从 HuggingFace 模型库中下载相应模型的开源权重，参考[权重格式转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)文档转换为ckpt格式。另一种是预训练或者微调后的分布式权重，可以参考[分布式权重的合并和切分](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html)文档得到合并后的单个推理权重，然后单卡推理可直接使用，多卡推理可以选择离线切分或者在线切分方式使用。
+  权重来源一般有两种，一种是开源权重，从 HuggingFace 模型库中下载相应模型的开源权重，参考[权重格式转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)文档转换为ckpt格式。另一种是预训练或者微调后的分布式权重，需要将得到的分布式权重（默认保存在`./output/checkpoint_network`）转换为单卡或多卡权重，再进行单卡或多卡推理。下文已提供基于命令行配置方式的操作指导，更多用法可以参考[分布式权重的合并和切分](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html)文档。
 
 3. **执行推理任务：**
   调用 `pipeline` 接口或使用 `run_mindformer` 统一脚本执行推理任务。
+
+## 基于 run_mindformer 脚本推理
+
+单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)，多卡推理需要借助 [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh) 启动。以 Llama2 为例，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)文件。
+
+> 推理时会自动下载Llama2模型所需词表文件 `tokenizer.model` （需要保障网络畅通）。如果本地有这个文件，可以提前把它放在 `./checkpoint_download/llama2/` 目录下。
+
+注意：如果推理使用的权重的切分方式与推理任务中模型的切分方式不同，例如下面这几种情况：
+
+- 多卡训练得到的权重在单卡上推理；
+- 八卡训练的权重在两卡上推理；
+- 已经切分好的分布式权重在单卡上推理，等等。
+
+需要额外对权重进行切分方式的转换，以匹配实际推理任务中模型的切分方式。建议使用在线自动切分的方式，通过设置命令参数 `--auto_trans_ckpt` 为 `True` 和 `--src_strategy_path_or_dir` 为权重的切分策略文件或目录路径（在训练后默认保存在`./output/strategy`下）在推理任务中自动进行切分。详细可以参考[分布式权重的合并和切分](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html)。
+
+### 单卡推理
+
+单卡推理的启动比较简单。如使用完整权重时，只需要执行以下命令即可启动推理任务：
+
+```shell
+python run_mindformer.py \
+--config configs/llama2/predict_llama2_7b.yaml \
+--run_mode predict \
+--use_parallel False \
+--load_checkpoint path/to/checkpoint.ckpt \
+--predict_data 'I love Beijing, because'
+```
+
+如果使用分布式权重文件进行推理，需要增加 `--auto_trans_ckpt` 和 `--src_strategy_path_or_dir` 的入参，启动命令如下：
+
+```shell
+python run_mindformer.py \
+--config configs/llama2/predict_llama2_7b.yaml \
+--run_mode predict \
+--use_parallel False \
+--auto_trans_ckpt True \
+--src_strategy_path_or_dir ./output/strategy
+--load_checkpoint path/to/checkpoint.ckpt \
+--predict_data 'I love Beijing, because'
+```
+
+### 多卡推理
+
+除了启动方式依赖 `msrun_launcher.sh` 脚本，多卡推理还需要注意两个地方，一个是并行配置，另一个是权重加载方式。
+
+当前版本推理模式仅支持模型并行，执行命令之前需要修改原有的[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)并行配置：
+
+```yaml
+# 修改前的配置
+parallel_config:
+  data_parallel: 8
+  model_parallel: 1
+  pipeline_stage: 1
+```
+
+```yaml
+# 修改后的配置
+parallel_config:
+  data_parallel: 1
+  model_parallel: 2
+  pipeline_stage: 1
+```
+
+> model_parallel配置和使用的卡数一致，并且权重离线切分生成策略文件使用的并行配置需要和实际推理任务的并行配置保持一致，当前用例model_parallel设置成2。
+
+当使用完整权重推理时，需要开启在线切分方式加载权重，参考以下命令：
+
+```shell
+bash scripts/msrun_launcher.sh "python run_mindformer.py \
+--config configs/llama2/predict_llama2_7b.yaml \
+--run_mode predict \
+--use_parallel True \
+--auto_trans_ckpt True \
+--load_checkpoint path/to/checkpoint.ckpt \
+--predict_data 'I love Beijing, because'" \
+2
+```
+
+当使用分布式权重推理，且权重的切分策略与模型的切分策略一致时，参考以下命令：
+
+```shell
+bash scripts/msrun_launcher.sh "python run_mindformer.py \
+--config configs/llama2/predict_llama2_7b.yaml \
+--run_mode predict \
+--use_parallel True \
+--load_checkpoint path/to/checkpoint_dir \
+--predict_data 'I love Beijing, because'" \
+2
+```
+
+当使用分布式权重推理，且权重的切分策略与模型的切分策略不一致时，需要打开在线切分功能加载权重，参考以下命令：
+
+```shell
+bash scripts/msrun_launcher.sh "python run_mindformer.py \
+--config configs/llama2/predict_llama2_7b.yaml \
+--run_mode predict \
+--use_parallel True \
+--auto_trans_ckpt True \
+--src_strategy_path_or_dir ./output/strategy
+--load_checkpoint path/to/checkpoint_dir \
+--predict_data 'I love Beijing, because'" \
+2
+```
+
+执行脚本会拉起多卡进程，日志会重定向至 `./output/msrun_log` 下。当前目录下出现 `text_generation_result.txt` 文件时，证明推理成功。若未出现该文件，可查看日志文件。
+
+### 多卡多batch推理
+
+多卡多batch推理的启动方式参考多卡推理，但是需要增加`predict_batch_size`的入参和修改`predict_data`的入参。
+
+`input_predict_data.txt`文件的内容和格式是每一行都是一个输入，问题的个数与`predict_batch_size`一致，可以参考以下格式：
+
+```txt
+I love Beijing, because
+I love Beijing, because
+I love Beijing, because
+I love Beijing, because
+```
+
+可以参考以下命令执行推理任务：
+
+```shell
+bash scripts/msrun_launcher.sh "python run_mindformer.py \
+--config configs/llama2/predict_llama2_7b.yaml \
+--run_mode predict \
+--predict_batch_size 4 \
+--use_parallel True \
+--auto_trans_ckpt True \
+--load_checkpoint path/to/checkpoint.ckpt \
+--predict_data path/to/input_predict_data.txt" \
+2
+```
+
+脚本执行入参的说明列表：
+
+|参数|参数说明|
+|:---------------------------------|:-------------------------------------------------------------------------|
+|config|yaml 配置文件的路径|
+|run_mode|运行的模式，推理设置为 predict|
+|predict_batch_size|batch 推理的 batch_size 大小|
+|use_parallel|是否使用多卡推理|
+|auto_trans_ckpt|多卡推理时需要配置为 True，自动权重切分，默认值为 False|
+|load_checkpoint|加载的权重路径|
+|predict_data|推理的输入数据，多 batch 推理时需要传输入数据的txt文件路径，包含多行输入|
+|2|多卡推理命令中的 2 是推理时使用的卡数|
+
+执行以上单卡推理和多卡推理命令的结果如下：
+
+```text
+'text_generation_text': [I love Beijing, because it is a city that is constantly constantly changing. I have been living here for ......]
+```
 
 ## 基于 pipeline 接口推理
 
@@ -109,123 +260,6 @@ python pipeline_inference.py
 'text_generation_text': [I love Beijing, because it is a city that is constantly constantly changing. I have been living here for ......]
 'text_generation_text': [LLaMA is a large-scale, open-source, multimodal, multilingual, multitask, and multimodal pretrained language model. It is ......]
 'text_generation_text': [Huawei is a company that has been around for a long time. ......]
-```
-
-## 基于 run_mindformer 脚本推理
-
-单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)，多卡推理需要借助 [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh) 启动。以 Llama2 为例，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)文件。
-
-> 推理时会自动下载Llama2模型所需词表文件 `tokenizer.model` （需要保障网络畅通）。如果本地有这个文件，可以提前把它放在 `./checkpoint_download/llama2/` 目录下。
-
-## 单卡推理
-
-单卡推理的启动比较简单，只需要执行以下命令即可启动推理任务：
-
-```shell
-python run_mindformer.py \
---config configs/llama2/predict_llama2_7b.yaml \
---run_mode predict \
---use_parallel False \
---load_checkpoint path/to/checkpoint.ckpt \
---predict_data 'I love Beijing, because'
-```
-
-## 多卡推理
-
-除了启动方式依赖 `msrun_launcher.sh` 脚本，多卡推理还需要注意两个地方，一个是并行配置，另一个是权重加载方式。
-
-当前版本推理模式仅支持模型并行，执行命令之前需要修改原有的[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)并行配置：
-
-```yaml
-# 修改前的配置
-parallel_config:
-  data_parallel: 8
-  model_parallel: 1
-  pipeline_stage: 1
-```
-
-```yaml
-# 修改后的配置
-parallel_config:
-  data_parallel: 1
-  model_parallel: 2
-  pipeline_stage: 1
-```
-
-> model_parallel配置和使用的卡数一致，并且权重离线切分生成策略文件使用的并行配置需要和实际推理任务的并行配置保持一致，当前用例model_parallel设置成2。
-
-当使用完整权重推理时，需要开启在线切分方式加载权重，参考以下命令：
-
-```shell
-bash scripts/msrun_launcher.sh "python run_mindformer.py \
---config configs/llama2/predict_llama2_7b.yaml \
---run_mode predict \
---use_parallel True \
---auto_trans_ckpt True \
---load_checkpoint path/to/checkpoint.ckpt \
---predict_data 'I love Beijing, because'" \
-2
-```
-
-当使用分布式权重推理时，需要关闭在线切分方式加载权重，参考以下命令：
-
-```shell
-bash scripts/msrun_launcher.sh "python run_mindformer.py \
---config configs/llama2/predict_llama2_7b.yaml \
---run_mode predict \
---use_parallel True \
---auto_trans_ckpt False \
---load_checkpoint path/to/checkpoint_dir \
---predict_data 'I love Beijing, because'" \
-2
-```
-
-执行脚本会拉起多卡进程，日志会重定向至 `./output/msrun_log` 下。当前目录下出现 `text_generation_result.txt` 文件时，证明推理成功。若未出现该文件，可查看日志文件。
-
-## 多卡多batch推理
-
-多卡多batch推理的启动方式参考多卡推理，但是需要增加`predict_batch_size`的入参和修改`predict_data`的入参。
-
-`input_predict_data.txt`文件的内容和格式是每一行都是一个输入，问题的个数与`predict_batch_size`一致，可以参考以下格式：
-
-```txt
-I love Beijing, because
-I love Beijing, because
-I love Beijing, because
-I love Beijing, because
-```
-
-可以参考以下命令执行推理任务：
-
-```shell
-bash scripts/msrun_launcher.sh "python run_mindformer.py \
---config configs/llama2/predict_llama2_7b.yaml \
---run_mode predict \
---predict_batch_size 4 \
---use_parallel True \
---auto_trans_ckpt True \
---load_checkpoint path/to/checkpoint.ckpt \
---predict_data path/to/input_predict_data.txt" \
-2
-```
-
-脚本执行入参的说明列表：
-
-|参数|参数说明|
-|:---------------------------------|:-------------------------------------------------------------------------|
-|config|yaml 配置文件的路径|
-|run_mode|运行的模式，推理设置为 predict|
-|predict_batch_size|batch 推理的 batch_size 大小|
-|use_parallel|是否使用多卡推理|
-|auto_trans_ckpt|多卡推理时需要配置为 True，自动权重切分，默认值为 False|
-|load_checkpoint|加载的权重路径|
-|predict_data|推理的输入数据，多 batch 推理时需要传输入数据的txt文件路径，包含多行输入|
-|2|多卡推理命令中的 2 是推理时使用的卡数|
-
-执行以上单卡推理和多卡推理命令的结果如下：
-
-```text
-'text_generation_text': [I love Beijing, because it is a city that is constantly constantly changing. I have been living here for ......]
 ```
 
 ## 更多信息
