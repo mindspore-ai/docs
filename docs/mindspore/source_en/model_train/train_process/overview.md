@@ -25,7 +25,7 @@ When the training task is over, evaluation functions (Metrics) are often needed 
 
 ## Performance Optimization Approaches
 
-In the MindSpore deep learning training process, we usually have the following three means to optimize the training performance:
+In the MindSpore deep learning training process, we usually have the following two means to optimize the training performance:
 
 - **Sinking Mode**: MindSpore provides data graph sinking, graph sinking and loop sinking functions, which can greatly reduce the Host-Device interaction overhead and effectively improve the performance of training and inference. Refer to the [Sinking Mode](https://www.mindspore.cn/docs/en/r2.5.0/model_train/train_process/optimize/sink_mode.html) tutorial for more information.
 - **Vectorization Acceleration Interface Vmap**: The ``vmap`` interface converts highly-repetitive arithmetic logic in a model or function into parallel vector arithmetic logic, to gain leaner code logic and more efficient execution performance. Refer to the [Vectorization Acceleration Interface Vmap](https://www.mindspore.cn/docs/en/r2.5.0/model_train/train_process/optimize/vmap.html) tutorial for more information.
