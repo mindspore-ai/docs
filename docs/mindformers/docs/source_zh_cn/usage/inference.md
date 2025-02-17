@@ -264,4 +264,4 @@ python pipeline_inference.py
 
 ## 更多信息
 
-更多关于不同模型的推理示例，请访问[MindFormers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/start/models.html)
+更多关于不同模型的推理示例，请访问[MindFormers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/start/models.html)。
