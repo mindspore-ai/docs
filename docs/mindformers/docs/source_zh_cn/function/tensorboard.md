@@ -21,12 +21,12 @@ tensorboard:
     log_timers_to_tensorboard: True
 ```
 
-|  参数名称                         | 说明                                                     | 类型   |
-|-------------------------------|--------------------------------------------------------|------|
-| tensorboard_dir               | 设置 TensorBoard 日志目录，指定事件文件的文件夹路径，必须设置项，设置后才会启用可视化工具    | str  |
-| tensorboard_queue_size        | 设置 TensorBoard 保存文件的最大队列长度，控制日志写入的速度，数字越大，写入速度越慢，默认为10 | int  |
-| log_loss_scale_to_tensorboard | 设置是否将 loss scale 信息记录到事件文件                             | bool |
-| log_timers_to_tensorboard     | 设置是否将计时器信息记录到事件文件，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量           | bool |
+| 参数名称                                      | 说明                                                      | 类型   |
+|-------------------------------------------|---------------------------------------------------------|------|
+| tensorboard.tensorboard_dir               | 设置 TensorBoard 事件文件的保存路径                                | str  |
+| tensorboard.tensorboard_queue_size        | 设置采集队列的最大缓存值，超过该值便会写入事件文件，默认值为10                        | int  |
+| tensorboard.log_loss_scale_to_tensorboard | 设置是否将 loss scale 信息记录到事件文件，默认为`False`                   | bool |
+| tensorboard.log_timers_to_tensorboard     | 设置是否将计时器信息记录到事件文件，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量，默认为`False` | bool |
 
 ## 查看训练数据
 

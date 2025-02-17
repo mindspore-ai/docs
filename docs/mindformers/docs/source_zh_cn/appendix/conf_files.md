@@ -278,9 +278,9 @@ MindFormers提供Profile作为模型性能调优的主要工具，详情可参�
 
 TensorBoard配置主要用于配置训练过程中与TensorBoard相关的参数，便于在训练过程中实时查看和监控训练信息，详情可参考[TensorBoard可视化训练监控](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/tensorboard.html)。以下是MindFormers中通用的TensorBoard配置项说明：
 
-| 参数                                        | 说明                                                    | 类型   |
-|-------------------------------------------|-------------------------------------------------------|------|
-| tensorboard.tensorboard_dir               | 设置 TensorBoard 日志目录，指定 TensorBoard 保存日志的文件夹路径         | str  |
-| tensorboard.tensorboard_queue_size        | 设置 TensorBoard 最大队列长度，控制日志写入的速度                       | int  |
-| tensorboard.log_loss_scale_to_tensorboard | 设置是否将 loss scale 信息记录到 TensorBoard                    | bool |
-| tensorboard.log_timers_to_tensorboard     | 设置是否将计时器信息记录到 TensorBoard，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量  | bool |
+| 参数名称                                      | 说明                                                      | 类型   |
+|-------------------------------------------|---------------------------------------------------------|------|
+| tensorboard.tensorboard_dir               | 设置 TensorBoard 事件文件的保存路径                                | str  |
+| tensorboard.tensorboard_queue_size        | 设置采集队列的最大缓存值，超过该值便会写入事件文件，默认值为10                        | int  |
+| tensorboard.log_loss_scale_to_tensorboard | 设置是否将 loss scale 信息记录到事件文件，默认为`False`                   | bool |
+| tensorboard.log_timers_to_tensorboard     | 设置是否将计时器信息记录到事件文件，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量，默认为`False` | bool |
