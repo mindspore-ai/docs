@@ -505,11 +505,6 @@ Distributed Parallel
      - String
      - Legal user directory.
      - The Worker and Scheduler processes perform the necessary persistence during execution, such as node information for restoring the grouping and training the intermediate state of the service, and are saved via files.
-   * - MS_HCCL_CM_INIT
-     - Whether to use the CM method to initialize the HCCL.
-     - Integer
-     - 1 for using the method, 0 for not using. The default is 0.
-     - This environment variable is only recommended to be turned on for Ascend hardware platforms with a large number of communication domains. Turning on this environment variable reduces the memory footprint of the HCCL collection communication libraries, and the training tasks are executed in the same way as the rank table startup.
    * - GROUP_INFO_FILE
      - Specify communication group information storage path
      - String
@@ -582,12 +577,6 @@ Operators Compile
      - Type
      - Value Range
      - Description
-   * - MS_BUILD_PROCESS_NUM
-     - Specifies the number of parallel operator build processes during Ascend backend compilation.
-
-     - Integer
-     - The number of parallel operator build processes ranges from 1 to 24.
-     -
    * - MS_COMPILER_CACHE_ENABLE
      - Whether to save or load the compiled cache of the graph. After `MS_COMPILER_CACHE_ENABLE` is set to `1`, during the first execution, a compilation cache
        is generated and exported to a MINDIR file. When the network is executed again, if `MS_COMPILER_CACHE_ENABLE` is still set to `1` and the network scripts
@@ -623,22 +612,6 @@ Operators Compile
 
        4: Turn off op debug, generate the `*.cce` and `*_loc.json` files, generate UB fusion calculation description files (`{$kernel_name}_compute.json`) for fusion ops
      - When an AICore Error occurs, if you need to save the cce file of ops, you can set the `MS_COMPILER_OP_LEVEL` to 1 or 2
-   * - MS_DEV_DISABLE_PREBUILD
-     - Turn off operator prebuild processes during Ascend backend compilation. The prebuild processing may fix the attr `fusion_type` of the operate, and then affect the operator fusion. 
-       If the performance of fusion operator can not meet the expectations, try to turn on this environment variable to verify if there is the performance problem of fusion operator.
-
-     - Boolean
-     - true: turn off prebuild
-
-       false: enable prebuild
-     - 
-   * - MINDSPORE_OP_INFO_PATH
-     - Specify the path to the operator library load file
-     - string
-     - Absolute path of the file
-
-       Default: No setting.
-     - Inference only
    * - MS_ASCEND_CHECK_OVERFLOW_MODE
      - Setting the output mode of floating-point calculation results
      - String
@@ -979,16 +952,6 @@ Profiler
 
        dynamic: Dynamic collection of performance data model.
      - This environment variable is enabled by CANN Profiling. Profiler reads this environment variable for checking to avoid repeatedly enabling CANN Profiling. Users don't need to set this environment variable manually.
-   * - PROFILER_SAMPLECONFIG
-     - Set the CANN msprof command line collection options
-     - String
-     - CANN msprof configuration string.
-     - This environment variable configures the environment variable for CANN msprof, which is read by Profiler to check whether msprof is enabled or not. Users do not need to set this environment variable manually.
-   * - MS_PROFILER_RUN_CONFIG
-     - Set the Profiler collection options
-     - String
-     - Configure the Profiler collection options in the format of a JSON string.
-     - This environment variable is usually set automatically by the program and the user does not need to set this environment variable manually.
 
 Dynamic Graph
 --------------
