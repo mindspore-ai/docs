@@ -508,11 +508,6 @@ Dump调试
      - String
      - 合法的用户目录。
      - Worker和Scheduler进程在执行过程中会进行必要的持久化，如用于恢复组网的节点信息以及训练业务中间状态等，并通过文件保存。
-   * - MS_HCCL_CM_INIT
-     - 是否使用CM方式初始化HCCL。
-     - Integer
-     - 1代表是，0代表否。默认为0。
-     - 此环境变量只在Ascend硬件平台并且通信域数量较多的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与rank table启动方式相同。
    * - GROUP_INFO_FILE
      - 指定通信域信息存储路径
      - String
@@ -583,12 +578,6 @@ Dump调试
      - 类型
      - 取值
      - 说明
-   * - MS_BUILD_PROCESS_NUM
-     - Ascend后端编译时，指定并行编译进程数。
-
-     - Integer
-     - 1~24：允许设置并行进程数取值范围
-     -
    * - MS_COMPILER_CACHE_ENABLE
      - 表示是否加载或者保存图编译缓存。当 `MS_COMPILER_CACHE_ENABLE` 被设置为 `1` 时，在第一次执行的过程中，一个编译缓存会被生成并且导出为一个MINDIR文件。当该网络被再次执行时，如果 `MS_COMPILER_CACHE_ENABLE` 仍然为 `1` 并且网络脚本没有被更改，那么这个编译缓存会被加载。
 
@@ -622,21 +611,6 @@ Dump调试
 
        4：生成TBE指令映射文件 `*.cce` 和UB融合计算描述文件 `{$kernel_name}_compute.json`
      - 发生AICore Error时，如果需要保存算子cce文件，可以设置 `MS_COMPILER_OP_LEVEL` 为1或2。
-   * - MS_DEV_DISABLE_PREBUILD
-     - Ascend后端编译时，关闭算子预编译，默认不设置此环境变量。算子预编译可能会修正算子注册的fusion_type属性进而影响到算子融合，如遇到融合算子性能较差时，可尝试开启此环境变量验证是否是融合算子本身问题。
-
-     - Boolean
-     - true：关闭预编译
-
-       false：使能预编译
-     -
-   * - MINDSPORE_OP_INFO_PATH
-     - 指定算子信息库加载文件路径
-     - string
-     - 文件绝对路径
-
-       默认：不设置。
-     - 仅推理使用
    * - MS_ASCEND_CHECK_OVERFLOW_MODE
      - 设置浮点计算结果输出模式
      - String
@@ -980,16 +954,6 @@ Profiler
        dynamic：动态采集性能数据模式。
 
      - 此环境变量为CANN Profiling使能环境变量，Profiler读取此环境变量用于检查避免重复开启CANN Profiling。用户不需要手动设置此环境变量。
-   * - PROFILER_SAMPLECONFIG
-     - 设置CANN msprof命令行的采集选项
-     - String
-     - CANN msprof配置字符串
-     - 此环境变量为CANN msprof配置环境变量，Profiler读取此环境变量用于检查是否使能msprof。用户不需要手动设置此环境变量。
-   * - MS_PROFILER_RUN_CONFIG
-     - 设置Profiler采集配置选项
-     - String
-     - Profiler采集配置选项，格式为JSON字符串。
-     - 此环境变量通常由程序自动设置，用户无需手动设置此环境变量。
 
 动态图
 -----------

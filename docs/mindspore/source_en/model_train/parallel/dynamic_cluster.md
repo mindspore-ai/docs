@@ -40,7 +40,7 @@ The relevant environment variables:
         <td align="left">Specifies the IP address of the Scheduler.</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">Legal IP address.</td>
-        <td align="left">IPv6 addresses are only supported on `Ascend` platform in current version. In IPv6 case, environment variable <b>MS_HCCL_CM_INIT</b> must be set to true.</td>
+        <td align="left">IPv6 addresses are only supported on `Ascend` platform in current version.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_SCHED_PORT</td>
@@ -99,13 +99,6 @@ The relevant environment variables:
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">Legal user directory.</td>
         <td align="left">The Worker and Scheduler processes perform the necessary persistence during execution, such as node information for restoring the networking and training the intermediate state of the service, and are saved via files.</td>
-    </tr>
-    <tr>
-        <td align="left" style="white-space:nowrap">MS_HCCL_CM_INIT</td>
-        <td align="left">Whether to use the CM method to initialize the HCCL.</td>
-        <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">1 for yes, other values for no. The default is no.</td>
-        <td align="left">This environment variable is only recommended to be turned on for <b>Ascend hardware platforms with a large number of communication domains</b>. Turning on this environment variable reduces the memory footprint of the HCCL collection of communication libraries, and the training tasks are executed in the same way as <b>rank table</b> startup method.<br>When it is set to 1, the graph compilation level can not be O0, otherwise <code>Environment variable settings conflict</code> exception will be thrown by MindSpore.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_ENABLE_LCCL</td>
