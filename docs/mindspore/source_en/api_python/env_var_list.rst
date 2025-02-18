@@ -216,11 +216,6 @@ Graph Compilation and Execution
      - String
      - 'on', indicating that disable to use bprop's graph cache
      - Experimental environment variable. When set env on, it will slow down building bprop's graph
-   * - MS_DEV_DISABLE_TRACE
-     - Disable trace function
-     - String
-     - 'on', indicating that disable trace function
-     - Experimental environment variable.
    * - MS_ENABLE_IO_REUSE
      - Turn on the graph input/output memory multiplexing flag
      - Integer
@@ -323,6 +318,10 @@ Graph Compilation and Execution
 
        enable_cluster_ops_only: Allow only the specified operators to participate in the fusion set. When this option is set, the above two options are ignored.
 
+       disable_fusion_pattern: Prevent the specified fusion pattern from participating in the fusion set.
+
+       enable_fusion_pattern_only: Allow only the specified fusion pattern to participate in the fusion set. When this option is set, the above option is ignored.
+
        enable_packet_ops_only: When enabling the kernel packet feature, this option restricts fusion to the specified operators only.
 
        disable_packet_ops: When enabling the kernel packet feature, this option prohibits fusion for the specified operators.
@@ -334,6 +333,8 @@ Graph Compilation and Execution
        dump_as_text: Save detailed information about key processes as text files in the `graph_kernel_dump` directory. Default value: `False`.
 
        enable_debug_mode: Insert synchronization points before and after the graph kernel mod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
+
+       path: use specified json file. When this option is set, the above options are ignored.
      - Refer to the `Custom Fusion <https://www.mindspore.cn/docs/en/master/model_train/custom_program/fusion_pass.html>`_
 
 Dump Debugging
@@ -365,11 +366,6 @@ Dump Debugging
      - Dump bprop ir file in current path 
      - String
      - 'on', indicating that dump bprop ir file in current path
-     - Experimental environment variable.
-   * - MS_DEV_DUMP_PACK
-     - Dump trace ir file in current path 
-     - String
-     - 'on', indicating that dump trace ir file in current path
      - Experimental environment variable.
    * - ENABLE_MS_DEBUGGER
      - Determines whether to enable Debugger during training.

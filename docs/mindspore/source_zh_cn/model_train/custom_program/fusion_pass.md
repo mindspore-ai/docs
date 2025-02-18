@@ -41,6 +41,8 @@
 - **enable_cluster_ops_only**：仅允许对应算子加入参与融合的算子集合。当设置该选项时，忽略以上两个选项。
 - **enable_packet_ops_only**：使能kernel packet功能时，设置该选项则仅融合指定算子。
 - **disable_packet_ops**：使能kernel packet功能时，设置该选项则禁止融合指定算子。
+- **disable_fusion_pattern**：禁止对应融合pattern参与融合。
+- **enable_fusion_pattern_only**：仅允许对应融合pattern参与融合。当设置该选项时，忽略以上选项。
 
 ### 指定自动/手动融合pass是否使能
 
@@ -53,6 +55,7 @@
 - **enable_debug_mode**：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
 > 说明： 格式为`--key=value`，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+> 说明： 支持通过`--path=example.json`读取文件配置方式，json的键值对分别为以上key和value对应的字符串，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`，example.json: { "enable_expand_ops" : "Square" }
 
 ## 获得Pass名称
 
