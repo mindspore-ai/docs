@@ -263,7 +263,7 @@ xxx install success
 (base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.4.10
 ```
 
-方式二：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，参考[昇思MindSpore官网安装教程](https://www.mindspore.cn/install)，在终端实行一下命令进行安装。
+方式二：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，参考[昇思MindSpore官网安装教程](https://www.mindspore.cn/install)，在终端实行以下命令进行安装。
 
 ```bash
 (base) HwHiAiUser@orangepiaipro:~$ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
