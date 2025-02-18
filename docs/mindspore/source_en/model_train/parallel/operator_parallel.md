@@ -4,7 +4,11 @@
 
 ## Overview
 
-With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel. Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is silced. The training of large models is enabled by reducing the memory consumption of a single device. For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/master/api_python/operator_list_parallel.html).
+With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel.
+
+Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is silced. The training of large models is enabled by reducing the memory consumption of a single device.
+
+For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/master/api_python/operator_list_parallel.html).
 
 > Hardware platforms supported by the operator-level parallel model include Ascend, GPU, and need to be run in Graph mode.
 
@@ -26,7 +30,9 @@ Related interfaces:
 
 MindSpore models each operator independently, and the user can set the shard strategy for each operator in the forward network (the unset operators are sharded by data parallelism by default).
 
-In the graph construction phase, the framework will traverse the forward graph, and shard and model each operator and its input tensor according to the shard strategy of the operator, such that the compute logic of that operator remains mathematically equivalent before and after the sharding. The framework internally uses Tensor Layout to express the distribution of the input and output tensors in the cluster. The Tensor Layout contains the mapping relationship between the tensor and the device, and the user does not need to perceive how each slice of the model is distributed in the cluster. The framework will automatically schedule the distribution. The framework will also traverse the Tensor Layout of the tensor between adjacent operators. If the output tensor of the previous operator is used as the input tensor of the next operator, and the Tensor Layout of the output tensor in the previous operator is different from that of the input tensor in the next operator, tensor redistribution is required between the two operators. For the training network, after the framework processes the distributed sharding of the forward operator, it can automatically complete the distributed sharding of the inverse operator by relying on the automatic differentiation capability of the framework.
+In the graph construction phase, the framework will traverse the forward graph, and shard and model each operator and its input tensor according to the shard strategy of the operator, such that the compute logic of that operator remains mathematically equivalent before and after the sharding. The framework internally uses Tensor Layout to express the distribution of the input and output tensors in the cluster. The Tensor Layout contains the mapping relationship between the tensor and the device, and the user does not need to perceive how each slice of the model is distributed in the cluster. The framework will automatically schedule the distribution.
+
+In addition, the framework will also traverse the Tensor Layout of the tensor between adjacent operators. If the output tensor of the previous operator is used as the input tensor of the next operator, and the Tensor Layout of the output tensor in the previous operator is different from that of the input tensor in the next operator, tensor redistribution is required between the two operators. For the training network, after the framework processes the distributed sharding of the forward operator, it can automatically complete the distributed sharding of the inverse operator by relying on the automatic differentiation capability of the framework.
 
 Tensor Layout is used to describe the distribution information about the Tensor in the cluster. Tensor can be sliced into clusters by certain dimensions and can also be replicated on clusters. In the following example, a two-dimensional matrix is sliced into two nodes in three ways: row slicing, column slicing and replication (each slicing corresponds to a Tensor Layout), as shown in the following figure:
 
@@ -84,7 +90,9 @@ Among them, `distributed_operator_parallel.py` is the script that defines the ne
 
 ### Configuring the Distributed Environment
 
-Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode, and initialize HCCL or NCCL communication through init. `max_size` limits the maximum amount of device memory a model can have, in order to leave enough device memory for communication on the Ascend hardware platform, GPU does not need to set. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode, and initialize HCCL or NCCL communication through init.
+
+In addition, on the Ascend hardware platform, a portion of the memory needs to be set aside in order to ensure that there is sufficient device memory for communications. `max_size` is set to limit the maximum amount of device memory a model can have, and GPU does not need to set. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import mindspore as ms

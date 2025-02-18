@@ -98,8 +98,7 @@ loss_fn = nn.SoftmaxCrossEntropyWithLogits(True)
 
 ### 构建基于动态Shape的神经网络训练框架
 
-训练代码入口为main.py，通过Symbol定义动态Shape轴，`Symbol(divisor=8)`
-的含义为该轴的Shape可以被8整除（可以按8切分）。通过`nn.Cell`的`set_inputs(...)`接口配置动态Shape的输入信息。
+训练代码入口为main.py，通过Symbol定义动态Shape轴，`Symbol(divisor=8)`的含义为该轴的Shape可以被8整除（可以按8切分）。通过`nn.Cell`的`set_inputs(...)`接口配置动态Shape的输入信息。
 
 最终，通过`Model(...)`接口将模型结构、损失函数、优化器组合在一起，调用`model.train(...)`接口完成模型训练。
 
