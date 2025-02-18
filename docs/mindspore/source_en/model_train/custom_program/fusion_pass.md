@@ -53,6 +53,8 @@ Currently, operator fusion-related optimization passes are included in the graph
 - **enable_cluster_ops_only**: Allow only the specified operators to participate in the fusion set. When this option is set, the above two options are ignored.
 - **enable_packet_ops_only**: When enabling the kernel packet feature, this option restricts fusion to the specified operators only.
 - **disable_packet_ops**: When enabling the kernel packet feature, this option prohibits fusion for the specified operators.
+- **disable_fusion_pattern**: Prevent the specified fusion pattern from participating in the fusion set.
+- **enable_fusion_pattern_only**: Allow only the specified fusion pattern to participate in the fusion set. When this option is set, the above option is ignored.
 
 ### Enabling or Disabling Automatic/Manual Fusion Pass  
 
@@ -66,6 +68,8 @@ Currently, operator fusion-related optimization passes are included in the graph
 
 > Note: with the format `"--key=value"`, multiple configuration items separated by space, multiple value items separated by commas, for example:
 > export `MS_DEV_GRAPH_KERNEL_FLAGS='--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add'`
+> Note: support config json by `--path=example.json`. The json key-value pair is the character string corresponding to the key and value. For example:
+> `export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`, example.json: { "enable_expand_ops" : "Square" }
 
 ## Obtaining Pass Names
 

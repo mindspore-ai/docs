@@ -318,6 +318,10 @@
 
        enable_cluster_ops_only：仅允许对应算子加入参与融合的算子集合。当设置该选项时，忽略以上两个选项。
 
+       disable_fusion_pattern：禁止对应融合pattern参与融合。
+
+       enable_fusion_pattern_only：仅允许对应融合pattern参与融合。当设置该选项时，忽略以上选项。
+
        enable_packet_ops_only：使能kernel packet功能时，设置该选项则仅融合指定算子。
 
        disable_packet_ops：使能kernel packet功能时，设置该选项则禁止融合指定算子。
@@ -329,6 +333,8 @@
        dump_as_text：将关键过程的详细信息生成文本文件保存到 `graph_kernel_dump` 目录里。默认值： `False` 。
 
        enable_debug_mode：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
+
+       path：指定读取json配置。当设置该选项时，忽略以上选项。
      - 详细说明参考 `自定义融合 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/fusion_pass.html>`_
 
 Dump调试
@@ -365,11 +371,6 @@ Dump调试
      - 在当前路径dump算子反向图的ir文件
      - String
      - "on"，表示在当前路径dump算子反向图的ir文件
-     - 实验性质的环境变量
-   * - MS_DEV_DUMP_PACK
-     - 在当前路径生成trace构图的ir文件
-     - String
-     - "on"，表示在当前路径生成trace构图的ir文件
      - 实验性质的环境变量
    * - ENABLE_MS_DEBUGGER
      - 是否在训练中启动Debugger
