@@ -253,48 +253,35 @@ xxx install success
 
 ## 3. MindSpore Upgrading
 
-### 3.1 Installing the Official Version of the Website (Taking MindSpore 2.3.1 as an example)
+### 3.1 Installing the Official Version of the Website (Taking MindSpore 2.4.10 as an example)
+
+Please note that both installation methods for MindSpore need to be performed under the HwHiAiUser user. Choose either method for installation.
+
+Method 1: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bottom of the page to open the terminal, and run the pip install command directly on the terminal.
 
 Method 1: Open the terminal as HwHiAiUser user and run the pip install command directly in the terminal.
 
 ```bash
-pip install mindspore==2.3.1
+(base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.4.10
 ```
 
-Method 2: Refer to [MindSpore official website installation tutorial](https://www.mindspore.cn/install/en) to install.
+Method 2: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bottom of the page to open the terminal, refer to [MindSpore official website installation tutorial](https://www.mindspore.cn/install/en) to install.
 
 ```bash
-
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.1/MindSpore/unified/aarch64/mindspore-2.3.1-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+(base) HwHiAiUser@orangepiaipro:~$ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 # Confirm the operating system and programming language, and the default environment of the Orange Pi development board is linux-aarch64 and python3.9
-
 ```
 
-### 3.2 Installing the MindSpore daily Package (Using the September 11 daily Package as an Example)
-
-The Orange Pi development board supports custom installation of MindSpore daily packages, which can be obtained from [this link](https://repo.mindspore.cn/mindspore/mindspore/version/) for the corresponding date.
-
-- Specific lookup procedure of target daily whl package is as follows:
-
-  1. Enter the directory prefixed with master. If there are multiple directories prefixed with master, it is recommended that you enter a directory with a later date.
-
-  2. Enter the unified directory.
-
-  3. According to the actual operating system information, enter the corresponding directory. Since the default operating system of Orange Pi board is linux-aarch64, enter the aarch64 directory. 4.
-
-  4. According to the actual python version information, find the corresponding daily whl package. Since the default Orange Pi board is python 3.9, the target daily package is mindspore-2.4.0-cp39-cp39-linux_aarch64.whl.
-
-  ![environment-setup-1-19](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/orange_pi/images/environment_setup_1-19.png)
-
-> This tutorial aims to let developers experience the latest version features, but because the daily package is not the official release version, there may be some problems during operation. Developers can submit issues through the [community](https://gitee.com/mindspore/mindspore), or can be modified and submit their own PR.
-
-- Download the whl package for installation and run the following command in the terminal.
+### 3.2 Installation Verification
 
 ```bash
-# wget download whl package
-wget https://repo.mindspore.cn/mindspore/mindspore/version/202409/20240911/master_20240911160029_917adc670d5f93049d35d6c3ab4ac6aa2339a74b_newest/unified/aarch64/mindspore-2.4.0-cp39-cp39-linux_aarch64.whl
+(base) HwHiAiUser@orangepiaipro:~$ python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
+```
 
-# Go to the path of the whl package in the terminal and run the pip install command to install it.
-pip install mindspore-2.4.0-cp39-cp39-linux_aarch64.whl
+If the output is as follows, it indicates that MindSpore has been successfully installed.
+
+```bash
+MindSpore version: 2.4.10
+The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
