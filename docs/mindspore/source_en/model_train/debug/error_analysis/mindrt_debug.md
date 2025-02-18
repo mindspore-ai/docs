@@ -118,7 +118,7 @@ The direct cause of this problem is usually a timeout caused by the subprocess o
 
 2. If the graph kernel fusion feature is used, it is possible that the AKG operator compilation of the graph is stuck and timed out, and you can try to turn off the graph kernel fusion feature;
 
-3. You can try to reduce the number of processes for parallel compilation of operators on Ascend by using the environment variable MS_BUILD_PROCESS_NUM setting, with a value range of 1-24;
+3. You can try to reduce the number of processes for parallel compilation of operators on Ascend;
 
 4. Check the memory and CPU usage of the host. It is possible that the host's memory and CPU usage are too high. As a result, the operator compilation process cannot be started and the compilation fails. You can try to identify the processes that occupy too much memory or CPU and optimize them；
 
