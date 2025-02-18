@@ -1,16 +1,16 @@
-# Disaster Recovery in Dynamic Cluster Scenarios
+# Disaster Recovery in Dynamic Networking Scenarios
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/disaster_recover.md)
 
 ## Overview
 
-The model training has high reliability and serviceability requirements for distributed training architecture. MindSpore dynamic cluster startup method supports data parallel disaster recovery. There is process abnormal exit in multi-card data parallel training scenarios cluster (multiple Workers and a Scheduler), after the process is pulled up again, the training task continues to be able to execute normally.
+The model training has high reliability and serviceability requirements for distributed training architecture. MindSpore dynamic networking startup method supports data parallel disaster recovery. There is process abnormal exit in multi-card data parallel training scenarios cluster (multiple Workers and a Scheduler), after the process is pulled up again, the training task continues to be able to execute normally.
 
-Specifically, in the graph mode, the data sink mode is used for training, and the data parallel mode is turned on. After the training cluster is started by dynamic cluster, if any process exits abnormally during the training process, it is guaranteed that the training can be continued after pulling up the corresponding script of the corresponding process under the same environment variables (`MS_ENABLE_RECOVERY` and `MS_RECOVERY_PATH`) and the accuracy convergence will not be affected.
+Specifically, in the graph mode, the data sink mode is used for training, and the data parallel mode is turned on. After the training cluster is started by dynamic networking, if any process exits abnormally during the training process, it is guaranteed that the training can be continued after pulling up the corresponding script of the corresponding process under the same environment variables (`MS_ENABLE_RECOVERY` and `MS_RECOVERY_PATH`) and the accuracy convergence will not be affected.
 
-> Disaster recovery in dynamic cluster scenarios only supports GPUs and needs to run in Graph mode.
+> Disaster recovery in dynamic networking scenarios only supports GPUs and needs to run in Graph mode.
 
-For more detailed instructions, see dynamic cluster environment variables in the [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
+For more detailed instructions, refer to [dynamic networking environment variables](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
 
 ## Operation Practice
 
@@ -35,7 +35,7 @@ The directory structure is as follows:
 
 ### Network Structure
 
-The network structure and dataset loading is consistent with the example in [Dynamic Cluster Startup Method](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
+The network structure and dataset loading is consistent with the example in [Dynamic Networking Startup Method](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
 
 ### Defining the Training Process
 
@@ -54,7 +54,7 @@ model = ms.Model(net, loss_fn=loss_fn, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb, ckpoint_cb])
 ```
 
-Each worker is enabled to save checkpoints with different paths (e.g., the directory setting in the above example uses a rank id to ensure that the paths are not the same) to prevent checkpoint saving conflicts with the same name. Checkpoint is used for abnormal process recovery and normal process rollback, and the rollback of training means that each Worker in the cluster is restored to the state corresponding to the latest checkpoint, and at the same time, the data side is also rolled back to the corresponding step, and then continue to train.
+Each worker is enabled to save checkpoints with different paths (e.g., the directory setting in the above example uses a rank id to ensure that the saving paths are not the same) to prevent checkpoint saving conflicts with the same name. Checkpoint is used for abnormal process recovery and normal process rollback, and the rollback of training means that each Worker in the cluster is restored to the state corresponding to the latest checkpoint, and at the same time, the data side is also rolled back to the corresponding step, and then continue to train.
 
 The interval between checkpoints is configurable, and determines the granularity of disaster recovery. The smaller the interval, the smaller the number of steps back to the last checkpoint save, but frequent checkpoint saves may also affect the training efficiency, and larger intervals have the opposite effect. keep_checkpoint_max is set to at least 2 (to prevent checkpoint saves from failing).
 

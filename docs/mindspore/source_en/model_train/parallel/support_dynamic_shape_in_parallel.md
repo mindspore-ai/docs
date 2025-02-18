@@ -4,38 +4,26 @@
 
 ## Overview
 
-In sequence to sequence training tasks, the unequal length of training corpus is a typical characteristic of this task.
-Especially in large-scale language model training scenarios based on the Transformer architecture, if the corpus is filled to the maximum length for training, there will be a lot of redundant calculations, wasting computing resources.
-At the same time, there will also be batches during training and reasoning Scenes with dynamic changes in size. The
-training of large models usually adopts distributed training based on static graphs, so distributed parallel components
-under static graphs need to provide dynamic Shape capabilities.
+In sequence to sequence training tasks, the unequal length of training corpus is a typical characteristic of this task. Especially in large-scale language model training scenarios based on the Transformer architecture, if the corpus is filled to the maximum length for training, there will be a lot of redundant calculations, wasting computing resources. At the same time, there will also be batches during training and reasoning Scenes with dynamic changes in size. The training of large models usually adopts distributed training based on static graphs, so distributed parallel components under static graphs need to provide dynamic Shape capabilities.
 
 > The parallel dynamic Shape function only supports execution under the Kernel By Kernel backend.
 
 Related interface：
 
 1. `class mindspore.Symbol(self, max=0, min=1, divisor=1, remainder=0, unique=False, **kawgs)`
-   ：Symbol is a data structure to indicate the symbolic info of shape. For dynamic shape networks, compared with only
-   setting the unknown dimensions(None) in Tensor, providing more symbolic shape info can help the framework better
-   optimize the computation graph, to improve the performance of network
-   execution. [Symbol API manual](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Symbol.html).
+   ：Symbol is a data structure to indicate the symbolic info of shape. For dynamic shape networks, compared with only setting the unknown dimensions(None) in Tensor, providing more symbolic shape info can help the framework better optimize the computation graph, to improve the performance of network execution. [Symbol API manual](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Symbol.html).
 
 ## Basic Principles
 
-The parallel capability in static graphs is essentially the ability to modify a single card computational graph based on
-different parallel strategies before the automatic differential PASS is compiled in the front-end. Based on the existing
-distributed parallel training capability in static graphs, MindSpore has built the ability to support dynamic shapes.
-The dynamic Shape model in a static graph can represent the segmentation information of the dynamic Shape axis through
-the `Symbol(...)` object during the graph compilation phase, and through the `set_inputs(...)` function The interface
-brings information into the diagram. Compared to `None`, the `Symbol` class can represent richer dimensional
-information, such as constraints, minimum/maximum Shape values, residues, etc. Based on the dynamic axis information
-configured by the user, distributed parallel components will derive the reference relationships of input dynamic axes at
-each layer, achieving the expression of dynamic Shape calculation graphs in static graphs.
+The parallel capability in static graphs is essentially the ability to modify a single card computational graph based on different parallel strategies before the automatic differential PASS is compiled in the front-end. Based on the existing distributed parallel training capability in static graphs, MindSpore has built the ability to support dynamic shapes.
+
+The dynamic shape model in a static graph can represent the segmentation information of the dynamic Shape axis through the `Symbol(...)` object during the graph compilation phase, and through the `set_inputs(...)` function The interface brings information into the diagram. Compared to `None`, the `Symbol` class can represent richer dimensional information, such as constraints, minimum/maximum Shape values, residues, etc.
+
+Based on the dynamic axis information configured by the user, distributed parallel components will derive the reference relationships of input dynamic axes at each layer, achieving the expression of dynamic Shape calculation graphs in static graphs.
 
 ## Practical Operation
 
-Now, take a typical feedforward neural network model as an example, we will introduce the use of dynamic shape in static
-graphs.
+Now, take a typical feedforward neural network model as an example, we will introduce the use of dynamic shape in static graphs.
 
 > You can download the complete sample code here.
 >
@@ -50,22 +38,17 @@ The directory structure is as follows:
        └── run.sh
 ```
 
-> This tutorial does not involve starting across physical nodes, as all processes are on the same node. This use case
-> uses MPI to train the processes.
+> This tutorial does not involve starting across physical nodes, as all processes are on the same node. This use case uses MPI to train the processes.
 
 ### Dataset Loading
 
-Here, we use the MNIST handwriting recognition dataset and execute the `run.sh` script to automatically download,
-decompress, and configure the dataset path. Please refer to the source code file for the detailed dataset loading code,
-which will not be elaborated here.
+Here, we use the MNIST handwriting recognition dataset and execute the `run.sh` script to automatically download, decompress, and configure the dataset path. Please refer to the source code file for the detailed dataset loading code, which will not be elaborated here.
 
 ### Building A Feedforward Neural Network
 
-The feedforward neural network structure used here is a MatMul+ReLU+MatMul+ReLU+MatMul structure, and the model is
-segmented except the last MatMul operator.
+The feedforward neural network structure used here is a MatMul+ReLU+MatMul+ReLU+MatMul structure. In this structure, all operators except the last MatMul operator are modeled with parallel cuts.
 
-At the same time, use the distributed parallel interface provided by MindSpore to complete the initialization of
-distributed components.
+At the same time, use the distributed parallel interface provided by MindSpore to complete the initialization of distributed components.
 
 ```python
 import mindspore as ms
@@ -104,8 +87,7 @@ class Network(nn.Cell):
 
 ### Defining Optimizers and Loss Functions
 
-We use `SoftmaxCrossEntropyWithLogits` as the loss function, and the optimizer uses a `SGD` (Stochastic Gradient
-Descent) optimizer.
+We use `SoftmaxCrossEntropyWithLogits` as the loss function, and the optimizer uses a `SGD` (Stochastic Gradient Descent) optimizer.
 
 ```python
 from mindspore import nn
@@ -116,12 +98,9 @@ loss_fn = nn.SoftmaxCrossEntropyWithLogits(True)
 
 ### Building a Neural Network Training Framework Based on Dynamic Shape
 
-The training code entry is main.py, and the dynamic Shape axis is defined through Symbol. The meaning
-of `Symbol(divisor=8)` is that the value of the axis can be divided by 8. Through `set_inputs(...)` interface
-of `nn.Cell` configures input information for dynamic Shapes.
+The training code entry is main.py, and the dynamic Shape axis is defined through Symbol. The meaning of `Symbol(divisor=8)` is that the value of the axis can be divided by 8. Through `set_inputs(...)` interface of `nn.Cell` configures input information for dynamic Shapes.
 
-Finally, the model structure, loss function, and optimizer are combined through the `Model(...)` interface, and
-the `model.train(...)` interface is called to complete model training.
+Finally, the model structure, loss function, and optimizer are combined through the `Model(...)` interface, and the `model.train(...)` interface is called to complete model training.
 
 ```python
 import mindspore as ms
@@ -169,5 +148,4 @@ mpirun -n 8 --output-filename log_output --merge-stderr-to-stdout python main.py
 
 ### Viewing Execution Results
 
-After successful execution, a training log will be generated in the current directory, such
-as `log_output/1/rank.0/stdout`. Observe the loss changes in the log to see if the model converges.
+After successful execution, a training log will be generated in the current directory, such as `log_output/1/rank.0/stdout`. Observe the loss changes in the log to see if the model converges.
