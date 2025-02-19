@@ -14,7 +14,7 @@
 
 在实践迁移之前，建议先分析MindSpore对迁移代码中的API支持程度，避免API不支持影响代码实现。
 
-这里分析的API专指网络执行图中的API，包含MindSpore的[算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html)及高级封装API，不包括数据处理中使用的API。数据处理过程中使用的API建议使用三方的实现代替，如numpy，opencv，pandas，PIL等。
+这里分析的API专指网络执行图中的API，包含MindSpore的[算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html)及高级封装API，不包括数据处理中使用的API。数据处理过程中使用的API建议使用三方的实现代替，如numpy、opencv、pandas、PIL等。
 
 分析API满足度有以下两种方式：
 
@@ -35,7 +35,7 @@ Visual Studio Code中Dev Toolkit插件使用指南请参考[Visual Studio Code A
 
 ### 手动查询API映射表
 
-以PyTorch的代码迁移为例，拿到参考代码实现后，可以通过过滤`torch`，`nn`，`ops`等关键字获取使用的API接口，如调用了其他库的方法，需要手动分析。然后对照[PyTorch与MindSpore API 映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)
+以PyTorch的代码迁移为例，拿到参考代码实现后，可以通过过滤`torch`、`nn`、`ops`等关键字获取使用的API接口，如调用了其他库的方法，需要手动分析。然后对照[PyTorch与MindSpore API 映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)
 或者[API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html) 查找对应的API实现。
 
 其他框架API的映射可以参考API命名与功能描述。注意，针对相同功能的API，MindSpore的命名可能与其他框架不同，同名API参数与功能也可能与其他框架有区别，均以官方描述为准。
@@ -53,8 +53,7 @@ Visual Studio Code中Dev Toolkit插件使用指南请参考[Visual Studio Code A
 
 ## 分析功能满足度
 
-MindSpore仍在持续迭代中，部分功能目前存在限制，在网络迁移过程中可能遇到受限功能使用的情况，所以在迁移之前，需要分析功能满足度。
-可从以下几个点进行分析：
+MindSpore仍在持续迭代中，部分功能目前存在限制，在网络迁移过程中可能遇到受限功能使用的情况，所以在迁移之前，需要分析功能满足度。可从以下几个点进行分析：
 
 1. 动态shape。
 2. 稀疏。
@@ -67,12 +66,11 @@ MindSpore仍在持续迭代中，部分功能目前存在限制，在网络迁�
 
 ### 稀疏
 
-MindSpore现在已经支持最常用的CSR和COO两种稀疏数据格式，但是由于目前支持稀疏算子有限，大部分稀疏的特性还存在限制。
-在此情况下，建议优先查找对应的算子是否支持稀疏计算，如不支持的话需要转换成普通算子。具体可查看[稀疏](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sparsity.html)。
+MindSpore现在已经支持最常用的CSR和COO两种稀疏数据格式，但是由于目前支持稀疏算子有限，大部分稀疏的特性还存在试用限制。在此情况下，建议优先查找对应的算子是否支持稀疏计算，如不支持的话需要转换成普通算子。具体可查看[稀疏](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sparsity.html)。
 
 ## 迁移场景好用功能和特性推荐
 
-MindSpore网络迁移过程中，主要的问题为：精度问题和性能问题。下面将介绍MindSpore定位这两个问题提供的相对成熟的功能及特性。
+MindSpore网络迁移过程中，可能遇到的主要问题为：精度问题和性能问题。下面将介绍MindSpore定位这两个问题提供的相对成熟的功能及特性。
 
 ### 精度问题
 
@@ -85,22 +83,22 @@ MindSpore网络迁移过程中，主要的问题为：精度问题和性能问�
 #### 可视化数据集
 
 MindRecord是MindSpore开发的一种高效数据格式，当出现精度问题时，可先检查自己的数据是否处理正确。
-如果源数据为TFRecord，可通过[TFRecord转换成MindRecord](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py)工具，将源数据转为MindRecord直接送入网络进行精度对比。
-也可通过[可视化TFRecord或MindRecord数据集](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py)工具，可视化数据进行数据检查。
+
+如果源数据为TFRecord，可通过[TFRecord转换成MindRecord](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py)工具，将源数据转为MindRecord，直接送入网络进行精度对比。也可通过[可视化TFRecord或MindRecord数据集](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py)工具，可视化数据进行数据检查。
 
 #### TroubleShooter
 
 [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)是MindSpore网络开发调试工具包，用于提供便捷、易用的调试能力。
-当前TroubleShooter支持的功能有：比较两组Tensor值(npy文件)是否相等；比较PyTorch和MindSpore的网络输出是否相等；比对MindSpore与PyTorch的ckpt/pth等。
-具体可参考[TroubleShooter的应用场景](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF)。
+
+当前TroubleShooter支持的功能有：比较两组Tensor值(npy文件)是否相等；比较PyTorch和MindSpore的网络输出是否相等；比对MindSpore与PyTorch的ckpt/pth等。具体可参考[TroubleShooter的应用场景](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF)。
 
 #### Dump
 
 MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件，一般用于网络迁移复杂问题定位（例如：算子溢出等）可以dump出算子级别的数据。
 
-获取Dump数据参考：[同步Dump数据获取介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)和[异步Dump数据获取介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-1)
+获取Dump数据参考：[同步Dump数据获取介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)和[异步Dump数据获取介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-1)。
 
-分析Dump数据参考：[同步Dump数据分析介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)和[异步Dump数据分析介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B-1)
+分析Dump数据参考：[同步Dump数据分析介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)和[异步Dump数据分析介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B-1)。
 
 具体可参考[Dump](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
 
@@ -110,7 +108,7 @@ Profiler可将训练和推理过程中的算子耗时等信息记录到文件中
 
 ### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)
 
-目前主流的深度学习框架有静态图(Graph)和动态图(PyNative)两种执行模式。
+目前主流的深度学习框架有静态图（Graph）和动态图（PyNative）两种执行模式。
 
 - 静态图模式下，程序在编译执行时，首先生成神经网络的图结构，然后再执行图中涉及的计算操作。因此，在静态图模式下，编译器可以通过使用图优化等技术来获得更好的执行性能，有助于规模部署和跨平台运行。
 
@@ -128,7 +126,7 @@ Profiler可将训练和推理过程中的算子耗时等信息记录到文件中
 
 ### [混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html)
 
-通常我们训练神经网络模型的时候，默认使用的数据类型为单精度FP32。近年来，为了加快训练时间、减少网络训练时候所占用的内存，并且保存训练出来的模型精度持平的条件下，业界提出越来越多的混合精度训练的方法。这里的混合精度训练是指在训练的过程中，同时使用单精度（FP32）和半精度（FP16）。
+通常我们训练神经网络模型的时候，默认使用的数据类型为单精度FP32。近年来，为了加快训练时间、减少网络训练时所占用的内存，并且保障训练出来的模型精度持平的条件下，业界提出越来越多的混合精度训练的方法。这里的混合精度训练是指在训练的过程中，同时使用单精度（FP32）和半精度（FP16）。
 
 ### [自动数据增强](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/augment.html)
 
@@ -136,7 +134,7 @@ MindSpore除了可以让用户自定义数据增强的使用，还提供了一�
 
 ### [梯度累加](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/gradient_accumulation.html)
 
-梯度累加是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
+梯度累加是一种将训练神经网络的数据样本按Batch拆分为几个小Batch、然后按顺序计算的方式。目的是为了解决由于内存不足，导致Batch size过大、神经网络无法训练，或者网络模型过大、无法加载的OOM（Out Of Memory）问题。
 
 ### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html)
 
