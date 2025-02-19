@@ -45,7 +45,7 @@ bash build.sh
 用户可以执行如下命令安装MindFormers：
 
 ```bash
-pip install mindformers=1.3.2
+pip install mindformers==1.3.2
 ```
 
 > 注意：此方式只安装了MindFormers基础软件包，模型文件和脚本等请从MindFormers gitee仓库中获取。

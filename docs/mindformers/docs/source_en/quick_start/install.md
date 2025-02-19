@@ -45,7 +45,7 @@ bash build.sh
 Users can install MindFormers by executing the following command:
 
 ```bash
-pip install mindformers=1.3.2
+pip install mindformers==1.3.2
 ```
 
 > Note: This method only installs the MindFormers base package, please get the model files, scripts, etc. from the MindFormers gitee repository.
