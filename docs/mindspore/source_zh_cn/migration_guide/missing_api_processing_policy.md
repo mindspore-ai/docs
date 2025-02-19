@@ -8,9 +8,9 @@
 
 在有些场景下API的功能是可以等价替换的，比如：
 
-- Squeeze，Flatten，ExpandDims等没有实际的计算，只是改变Tensor shape的API均可以用Reshape代替；
+- Squeeze、Flatten、ExpandDims等没有实际的计算，只是改变Tensor shape的API均可以用Reshape代替；
 
-- AdaptiveAvgPool，AdaptiveMaxPool在输出的shape是1时，与ReduceMean，ReduceMax在设置keep_dims=True时是等价的；
+- AdaptiveAvgPool、AdaptiveMaxPool在输出的shape是1时，与ReduceMean、ReduceMax在设置keep_dims=True时是等价的；
 
 - MaxPool和MaxPoolWithArgmax在不使用indices的情况是等价的；
 
@@ -18,7 +18,7 @@
 
 ## 2. 使用已有API包装等价功能逻辑
 
-对于一些缺失的API，可以基于MindSpore已有的API实现等价功能。下面举一个`sigmoid focal loss`的例子：
+对于一些缺失的API，可以基于MindSpore已有的API实现等价功能。下面举一个 `sigmoid focal loss` 的例子。
 
 先来分析一下这个API的算法基础。
 
@@ -236,7 +236,7 @@ test_compare(pred, target, weight, gamma=2.0, alpha=0.25, reduction='none', avg_
 
 当有些情况无法使用已有的API进行包装，或者用Cell封装的方式性能非常差，这个时候就需要使用自定义算子，详情请参考Custom算子的[使用指南](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/op_custom.html)。
 
-除了可以自己迁移实现API，也可以利用`Custom`算子的`aot`开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/use_third_party_op.html)。
+除了可以自己迁移实现API，也可以利用 `Custom` 算子的 `aot` 开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/use_third_party_op.html)。
 
 **注意，PyTorch实现的算子迁移到GPU和CPU上比较方便，这里展示的也大多是GPU和CPU的，Ascend的算子由于需要使用TBE进行算子开发，门槛较高，推荐使用官方实现的算子进行包装。**
 

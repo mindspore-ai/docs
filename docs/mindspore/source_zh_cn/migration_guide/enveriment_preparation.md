@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/enveriment_preparation.md)
 
-网络迁移首先需要配置MindSpore的开发环境，本章介绍了本地开发环境的安装指引和在线开发环境的使用教程。
+网络迁移首先需要配置MindSpore的开发环境，本章介绍了本地开发环境的安装指引，以及在线开发环境的使用教程。
 
 ## MindSpore本地安装
 
