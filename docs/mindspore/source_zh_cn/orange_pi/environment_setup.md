@@ -253,50 +253,39 @@ xxx install success
 
 ## 3. MindSpore升级
 
-### 3.1 安装官网正式版（以MindSpore2.3.1为例）
+### 3.1 安装官网正式版（以MindSpore2.4.10为例）
 
-方法一：以HwHiAiUser用户打开终端，在终端直接运行pip install命令。
+请注意，以下两种MindSpore的安装方式均需在HwHiAiUser用户下执行安装，任意选择其中一种方式安装即可。
+
+方式一：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，在终端直接运行pip install命令。
 
 ```bash
-pip install mindspore==2.3.1
+(base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.4.10
 ```
 
-方法二：参考[昇思MindSpore官网安装教程](https://www.mindspore.cn/install) 安装。
+方式二：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，参考[昇思MindSpore官网安装教程](https://www.mindspore.cn/install)，在终端执行以下命令进行安装。
 
 ```bash
-
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.1/MindSpore/unified/aarch64/mindspore-2.3.1-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+(base) HwHiAiUser@orangepiaipro:~$ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 注意确认操作系统和编程语言，香橙派开发板默认环境下是linux-aarch64和python3.9
-
 ```
 
-### 3.2 安装MindSpore daily包（以9月11日daily包为例）
+### 3.2 验证是否成功安装
 
-香橙派开发板支持自定义安装MindSpore daily包，可从[此链接](https://repo.mindspore.cn/mindspore/mindspore/version/)获取到对应日期的软件包。
-
-- 目标 daily whl包具体查找过程如下：
-
-  1. 进入以master为前缀的目录。若是出现多个目录前缀是master时，推荐进入日期更靠后的目录。
-
-  2. 进入unified目录。
-
-  3. 根据实际操作系统信息，进入对应目录。由于香橙派开发板默认操作系统为linux-aarch64，所以进入aarch64目录。
-
-  4. 根据实际python版本信息，找到对应daily whl包。由于香橙派开发板默认为python3.9，所以目标daily包为mindspore-2.4.0-cp39-cp39-linux_aarch64.whl。
-
-  ![environment-setup-1-19](./images/environment_setup_1-19.png)
-
-> 本教程旨在让开发者体验到最新的版本特性，但由于daily包并不是正式发布版本，在运行中可能会出现一些问题，开发者可通过[社区](https://gitee.com/mindspore/mindspore)提交issue，或可自行修改并提交PR。
-
-- 下载whl包进行安装，终端运行如下命令。
+执行以下命令：
 
 ```bash
-
-# wget下载whl包
-wget https://repo.mindspore.cn/mindspore/mindspore/version/202409/20240911/master_20240911160029_917adc670d5f93049d35d6c3ab4ac6aa2339a74b_newest/unified/aarch64/mindspore-2.4.0-cp39-cp39-linux_aarch64.whl
-
-# 在终端进入到whl包所在路径，再运行pip install命令进行安装
-pip install mindspore-2.4.0-cp39-cp39-linux_aarch64.whl
-
+(base) HwHiAiUser@orangepiaipro:~$ python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
 ```
+
+如果输出如下，说明MindSpore安装成功了。
+
+```bash
+MindSpore version: 2.4.10
+The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
+```
+
+
+
+
