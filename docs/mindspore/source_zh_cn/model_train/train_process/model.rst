@@ -96,7 +96,7 @@ Model基本介绍
 创建模型
 --------
 
-关于模型创建的讲解可以参考 `网络构建 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/model.html>`_ 。
+关于模型创建的描述可以参考 `网络构建 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/model.html>`_ 。
 
 .. code:: python
 
@@ -147,7 +147,7 @@ Model基本介绍
     ckpt_callback = ModelCheckpoint(prefix="mnist", directory="./checkpoint", config=config)
     loss_callback = LossMonitor(steps_per_epoch)
 
-通过MindSpore提供的\ ``model.fit``\ 接口可以方便地进行网络的训练与评估，\ ``LossMonitor``\ 可以监控训练过程中\ ``loss``\ 值的变化。
+通过MindSpore提供的\ ``model.fit``\ 接口可以方便地进行网络训练与评估，\ ``LossMonitor``\ 可以监控训练过程中\ ``loss``\ 值的变化。
 
 .. code:: python
 
