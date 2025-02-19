@@ -255,7 +255,7 @@ xxx install success
 
 ### 3.1 安装官网正式版（以MindSpore2.4.10为例）
 
-请注意以下MindSpore安装的两种方式均需在HwHiAiUser用户下执行安装，任意选择其中一种方式安装即可。
+请注意，以下两种MindSpore的安装方式均需在HwHiAiUser用户下执行安装，任意选择其中一种方式安装即可。
 
 方式一：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，在终端直接运行pip install命令。
 
