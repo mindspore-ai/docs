@@ -4,7 +4,12 @@
 
 ## Overview
 
-Operator fusion combines multiple independent operators into a larger, more complex operator to reduce runtime memory accesses and improve computational efficiency. This approach minimizes the storage and transmission of intermediate results, effectively reducing memory access overhead. Additionally, fusing multiple operators reduces the number of computations, which can significantly enhance computational efficiency on parallel computing devices like NPUs.
+Operator fusion combines multiple independent operators into a larger, more complex operator to reduce runtime memory accesses and improve computational efficiency.
+
+Specifically:
+
+- Minimize the storage and transmission of intermediate results, effectively reducing memory access overhead.
+- Fuse multiple operators reduces the number of computations, which can significantly enhance computational efficiency on parallel computing devices like NPUs.
 
 Currently, MindSpore supports two fusion methods:
 
@@ -66,10 +71,8 @@ Currently, operator fusion-related optimization passes are included in the graph
 - **dump_as_text**: Save detailed information about key processes as text files in the `graph_kernel_dump` directory. Default value: `False`.
 - **enable_debug_mode**: Insert synchronization points before and after the graph kernelmod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
 
-> Note: with the format `"--key=value"`, multiple configuration items separated by space, multiple value items separated by commas, for example:
-> export `MS_DEV_GRAPH_KERNEL_FLAGS='--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add'`
-> Note: support config json by `--path=example.json`. The json key-value pair is the character string corresponding to the key and value. For example:
-> `export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`, example.json: { "enable_expand_ops" : "Square" }
+> - With the format `"--key=value"`, multiple configuration items separated by space, multiple value items separated by commas, for example: export `MS_DEV_GRAPH_KERNEL_FLAGS='--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add'`
+> - Support config json by `--path=example.json`. The json key-value pair is the character string corresponding to the key and value. For example: `export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`, example.json: { "enable_expand_ops" : "Square" }
 
 ## Obtaining Pass Names
 

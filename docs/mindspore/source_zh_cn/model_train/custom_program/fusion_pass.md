@@ -4,7 +4,12 @@
 
 ## 概述
 
-算子融合是通过将多个独立的算子组合成一个更大、更复杂的算子，从而减少运行时内存访问、提高计算效率。可以减少中间结果的存储和传输，有效的减少访存的开销；另外，合并多个算子可以减少计算的次数，在NPU等并行计算设备上，可以有效提高计算效率。
+算子融合是通过将多个独立的算子组合成一个更大、更复杂的算子，从而减少运行时内存访问、提高计算效率。
+
+具体表现为：
+
+- 通过减少中间结果的存储和传输，有效地减少访存的开销。
+- 通过合并多个算子，减少计算的次数，在NPU等并行计算设备上，有效地提高计算效率。
 
 当前MindSpore有两种融合方式：
 
@@ -16,12 +21,12 @@
 - 调试网络时，用户根据自己的场景手动控制融合的开关，排除一些在该场景效果不佳的融合算子，或者使用更加激进的融合策略，提升网络计算的速度；
 - 遇到精度问题时，用户希望通过关闭部分算子融合进行问题定位问题，确定网络精度对应的算子问题。
 
-因此我们对于融合算子相关优化提供了相关接口，帮助用户自定义融合策略进行调试。
+因此我们对于融合算子相关优化提供了对应接口，帮助用户自定义融合策略进行调试。
 
 ## 调试接口
 
 当前算子融合相关优化Pass已经纳入图算优化控制点额范围。
-我们提供了环境变量`MS_DEV_GRAPH_KERNEL_FLAGS`可以控制相关图算优化Pass的开关，包括
+我们提供了环境变量`MS_DEV_GRAPH_KERNEL_FLAGS`可以控制相关图算优化Pass的开关，包括：
 
 ### 指定优化等级
 
@@ -54,8 +59,8 @@
 - **dump_as_text**：将关键过程的详细信息生成文本文件保存到`graph_kernel_dump`目录里。默认值： `False` 。
 - **enable_debug_mode**：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
-> 说明： 格式为`--key=value`，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
-> 说明： 支持通过`--path=example.json`读取文件配置方式，json的键值对分别为以上key和value对应的字符串，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`，example.json: { "enable_expand_ops" : "Square" }
+> - 格式为`--key=value`，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+> - 支持通过`--path=example.json`读取文件配置方式，json的键值对分别为以上key和value对应的字符串，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`，example.json: { "enable_expand_ops" : "Square" }
 
 ## 获得Pass名称
 
@@ -67,7 +72,7 @@
 
 ### 通过INFO信息
 
-在`[INFO]`信息中，我们提供了所有支持自定义开关的Pass列表。用户可以通过`export GLOG_v=1`来生成`[INFO]`信息。在`[INFO]`信息中，用户通过搜索`graph kernel pass`来获取的该Pass列表。比如下面的信息示例中，`graph kernel pass：`后为 所有可以自定义开关的Pass的名称。
+在`[INFO]`信息中，我们提供了所有支持自定义开关的Pass列表。用户可以通过`export GLOG_v=1`来生成`[INFO]`信息。在`[INFO]`信息中，用户通过搜索`graph kernel pass`来获取该Pass列表。比如下面的信息示例中，`graph kernel pass：`后为所有可以自定义开关的Pass名称。
 
 ```shell
 [INFO] PRE_ACT(631369,ffffb5450af0,python):2024-08-22-15:34:16.978.158 [mindspore/ccsrc/plugin/device/ascend/optimizer/backend_common_unify_mindir.cc:191] GetBackendFusionGroupPassManager] graph kernel passes: FlashAttentionFusionV1,FlashAttentionFusionV2,add_layer_norm_fusion,add_layer_norm_v3_fusion,add_layer_norm_ext_fusion,inference_swiglu_fusion,inference_matmul_split_fusion,shape_reshape,add_rms_norm_quant_fusion,rms_norm_quant_fusion,add_rms_norm_fusion,add_cast_rms_norm_cast_fusion,MatMulAllReduce,split_concat_fusion,matmul_elemwise_fusion,inference_qbmm_add_fusion,inference_qbmm_allreduce_add_fusion.
@@ -246,7 +251,7 @@
 
 ## 附录3：相关后端使能Pass列表
 
-**注意**：该列表会随着相关框架更新实时更新，但是仅供参考，具体使能Pass以上面两种方式为准。
+**注意**：该列表会随着相关框架更新实时更新，但是仅供参考。具体使能Pass以上面两种方式为准。
 
 | Pass 名称                           | 使能后端 |
 |-------------------------------------|----------|
