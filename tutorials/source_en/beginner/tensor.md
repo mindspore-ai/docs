@@ -6,13 +6,13 @@
 
 Tensor is a multilinear function that can be used to represent linear relationships between vectors, scalars, and other tensors. The basic examples of these linear relations are the inner product, the outer product, the linear map, and the Cartesian product. In the $n$ dimensional space, its coordinates have $n^{r}$ components. Each component is a function of coordinates, and these components are also linearly transformed according to certain rules when the coordinates are transformed. $r$ is called the rank or order of this tensor (not related to the rank or order of the matrix).
 
-A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors and sparse tensors.
+A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors.
 
 ```python
 import numpy as np
 import mindspore
 from mindspore import ops
-from mindspore import Tensor, CSRTensor, COOTensor
+from mindspore import Tensor
 ```
 
 ## Creating a Tensor
@@ -272,104 +272,3 @@ print(f"t: {t}", type(t))
 n: [2. 2. 2. 2. 2.] <class 'numpy.ndarray'>
 t: [2. 2. 2. 2. 2.] <class 'mindspore.common.tensor.Tensor'>
 ```
-
-## Sparse Tensor
-
-A sparse tensor is a special tensor in which the value of the most significant element is zero.
-
-In some scenarios (such as recommendation systems, molecular dynamics, graph neural networks), the data is sparse. If you use common dense tensors to represent the data, you may introduce many unnecessary calculations, storage, and communication costs. In this case, it is better to use sparse tensor to represent the data.
-
-MindSpore now supports the two most commonly used `CSR` and `COO` sparse data formats.
-
-The common structure of the sparse tensor is `<indices:Tensor, values:Tensor, shape:Tensor>`. `indices` means the indexes of non-zero elements, `values` means the values of non-zero elements, and `shape` means the dense shape of the sparse tensor. In this structure, we define data structure `CSRTensor` and `COOTensor`.
-
-### CSRTensor
-
-The compressed sparse row (`CSR`) is efficient in both storage and computation. All the non-zero values are stored in `values`, and their positions are stored in `indptr` (row) and `indices` (column). The meaning of each parameter is as follows:
-
-- `indptr`: 1-D integer tensor, indicating the start and end points of the non-zero elements in each row of the sparse data in `values`. The index data type can be int16, int32, or int64.
-
-- `indices`: 1-D integer tensor, indicating the position of the sparse tensor non-zero elements in the column and has the same length as `values`. The index data type can be int16, int32, or int64.
-
-- `values`: 1-D tensor, indicating that the value of the non-zero element corresponding to the `CSRTensor` and has the same length as `indices`.
-
-- `shape`: indicates the shape of a compressed sparse tensor. The data type is `Tuple`. Currently, only 2-D `CSRTensor` is supported.
-
-> For details about `CSRTensor`, see [mindspore.CSRTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.CSRTensor.html).
-
-The following are some examples of using the CSRTensor:
-
-```python
-indptr = Tensor([0, 1, 2])
-indices = Tensor([0, 1])
-values = Tensor([1, 2], dtype=mindspore.float32)
-shape = (2, 4)
-
-# Make a CSRTensor
-csr_tensor = CSRTensor(indptr, indices, values, shape)
-
-print(csr_tensor.astype(mindspore.float64).dtype)
-```
-
-```text
-Float64
-```
-
-The above code generates a `CSRTensor` as shown in the following equation:
-
-$$
- \left[
- \begin{matrix}
-   1 & 0 & 0 & 0 \\
-   0 & 2 & 0 & 0
-  \end{matrix}
-  \right]
-$$
-
-### COOTensor
-
-The `COO` (Coordinate Format) sparse tensor format is used to represent a collection of nonzero elements of a tensor on a given index. If the number of non-zero elements is `N` and the dimension of the compressed tensor is `ndims`. The meaning of each parameter is as follows:
-
-- `indices`: 2-D integer tensor. Each row indicates a non-zero element subscript. Shape: `[N, ndims]`. The index data type can be int16, int32, or int64.
-
-- `values`: 1-D tensor of any type, indicating the value of the non-zero element. Shape: `[N]`.
-
-- `shape`: indicates the shape of a compressed sparse tensor. Currently, only 2-D `COOTensor` is supported.
-
-> For details about `COOTensor`, see [mindspore.COOTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.COOTensor.html).
-
-The following are some examples of using COOTensor:
-
-```python
-indices = Tensor([[0, 1], [1, 2]], dtype=mindspore.int32)
-values = Tensor([1, 2], dtype=mindspore.float32)
-shape = (3, 4)
-
-# Make a COOTensor
-coo_tensor = COOTensor(indices, values, shape)
-
-print(coo_tensor.values)
-print(coo_tensor.indices)
-print(coo_tensor.shape)
-print(coo_tensor.astype(mindspore.float64).dtype)  # COOTensor to float64
-```
-
-```text
-[1. 2.]
-[[0 1]
- [1 2]]
-(3, 4)
-Float64
-```
-
-The preceding code generates `COOTensor` as follows:
-
-$$
- \left[
- \begin{matrix}
-   0 & 1 & 0 & 0 \\
-   0 & 0 & 2 & 0 \\
-   0 & 0 & 0 & 0
-  \end{matrix}
-  \right]
-$$
