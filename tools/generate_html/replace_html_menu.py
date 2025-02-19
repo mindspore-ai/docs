@@ -7,7 +7,7 @@ def replace_relurls(docs, old_p, new_p, re_list):
     for re_doc in re_list:
         re_cp = f'{re_doc}="(.*?)"'
         for href in re.findall(re_cp, docs):
-            if href.startswith('http') or href.startswith('#'):
+            if href.startswith('http') or href.startswith('#') or 'check-dark-mode.js' in href:
                 continue
             base_p1 = os.path.split(new_p)[0]
             now_dir = os.path.split(old_p)[0]
