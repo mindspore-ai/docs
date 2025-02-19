@@ -4,7 +4,9 @@
 
 ## 算子Functional接口
 
-MindSpore框架提供了丰富的Functional接口，这些接口定义在 `mindspore.ops` 下，以函数的形式直接定义了操作或计算过程，无需显式创建算子类实例。Functional接口提供了包括神经网络层函数、数学运算函数、Tensor操作函数、Parameter操作函数、微分函数、调试函数等类型的接口，这些接口可以直接在 `Cell` 的 `construct` 方法中使用，也可以作为独立的操作在数据处理或模型训练中使用。
+MindSpore框架提供了丰富的Functional接口，这些接口定义在 `mindspore.ops` 下，以函数的形式直接定义了操作或计算过程，无需显式创建算子类实例。
+
+Functional接口提供了包括神经网络层函数、数学运算函数、Tensor操作函数、Parameter操作函数、微分函数、调试函数等类型的接口，这些接口可以直接在 `Cell` 的 `construct` 方法中使用，也可以作为独立的操作在数据处理或模型训练中使用。
 
 MindSpore在 `Cell` 里使用Functional接口的流程如下所示：
 
@@ -51,7 +53,11 @@ print(output)
 
 ## 网络基本构成单元 Cell
 
-MindSpore框架中的核心构成单元 `mindspore.nn.Cell` 是构建神经网络的基本模块，负责定义网络的计算逻辑。`Cell` 不仅支持动态图（PyNative模式）下作为网络的基础组件，也能够在静态图（GRAPH模式）下被编译成高效的计算图执行。`Cell` 通过其 `construct` 方法定义了前向传播的计算过程，并可通过继承机制扩展功能，实现自定义的网络层或复杂结构。通过 `set_train` 方法，`Cell` 能够灵活地在训练与推理模式间切换，以适应不同算子在两种模式下的行为差异。此外，`Cell` 还提供了丰富的API，如混合精度、参数管理、梯度设置、Hook功能、重计算等，以支持模型的优化与训练。
+MindSpore框架中的核心构成单元 `mindspore.nn.Cell` 是构建神经网络的基本模块，负责定义网络的计算逻辑。`Cell` 不仅支持动态图（PyNative模式）下作为网络的基础组件，也能够在静态图（GRAPH模式）下被编译成高效的计算图执行。
+
+`Cell` 通过其 `construct` 方法定义了前向传播的计算过程，并可通过继承机制扩展功能，实现自定义的网络层或复杂结构。通过 `set_train` 方法，`Cell` 能够灵活地在训练与推理模式间切换，以适应不同算子在两种模式下的行为差异。
+
+此外，`Cell` 还提供了丰富的API，如混合精度、参数管理、梯度设置、Hook功能、重计算等，以支持模型的优化与训练。
 
 MindSpore 基本的 `Cell` 搭建过程如下所示：
 
@@ -84,7 +90,7 @@ MindSpore中，参数的名字一般是根据`__init__`定义的对象名字和�
 
 ### Parameter管理
 
-MindSpore 有两种数据对象：`Tensor` 和 `Parameter` 。其中 `Tensor` 对象仅参与运算，并不需要对其进行梯度求导和Parameter更新，而 `Parameter` 会根据其属性`requires_grad` 来决定是否传入优化器中。
+MindSpore有两种数据对象：`Tensor` 和 `Parameter` 。其中, `Tensor` 对象仅参与运算，并不需要对其进行梯度求导和Parameter更新，而 `Parameter` 会根据其属性`requires_grad` 来决定是否传入优化器中。
 
 #### Parameter获取
 
@@ -120,8 +126,7 @@ print(net.trainable_params())
 
 #### Parameter保存和加载
 
-MindSpore提供了`load_checkpoint`和`save_checkpoint`方法用来Parameter的保存和加载，需要注意的是Parameter保存时，保存的是Parameter列表，Parameter加载时对象必须是Cell。
-在Parameter加载时，可能Parameter名对不上，需要做一些修改，可以直接构造一个新的Parameter列表给到`load_checkpoint`加载到Cell。
+MindSpore提供了`load_checkpoint`和`save_checkpoint`方法用来保存和加载Parameter。需要注意的是：Parameter保存时，保存的是Parameter列表，Parameter加载时对象必须是Cell；在Parameter加载时，可能Parameter名对不上，需要做一些修改，可以直接构造一个新的Parameter列表给到`load_checkpoint`加载到Cell。
 
 ```python
 import mindspore as ms
@@ -209,7 +214,9 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
 ### Hook功能
 
-调试深度学习网络是每一个深度学习领域的从业者需要面对且投入精力较大的工作。由于深度学习网络隐藏了中间层算子的输入、输出数据以及反向梯度，只提供网络输入数据（特征量、权重）的梯度，导致无法准确地感知中间层算子的数据变化，从而降低了调试效率。为了方便用户准确、快速地对深度学习网络进行调试，MindSpore在动态图模式下设计了Hook功能，使用Hook功能可以捕获中间层算子的输入、输出数据以及反向梯度。
+调试深度学习网络是每一个深度学习领域的从业者需要面对且投入精力较大的工作。由于深度学习网络隐藏了中间层算子的输入、输出数据以及反向梯度，只提供网络输入数据（特征量、权重）的梯度，导致无法准确地感知中间层算子的数据变化，从而降低了调试效率。
+
+为了方便用户准确、快速地对深度学习网络进行调试，MindSpore在动态图模式下设计了Hook功能，使用Hook功能可以捕获中间层算子的输入、输出数据以及反向梯度。
 
 目前，动态图模式下 `MindSpore.nn.Cell` 提供了四种形式的Hook功能，分别是：`register_forward_pre_hook` 、 `register_forward_hook` 、`register_backward_hook` 和 `register_backward_pre_hook` 功能。详见[Hook编程](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/hook_program.html)。
 

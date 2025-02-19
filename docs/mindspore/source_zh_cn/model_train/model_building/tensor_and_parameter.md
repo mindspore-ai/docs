@@ -10,7 +10,7 @@
 
 ### Tensor索引支持
 
-Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动态图(PyNative)以及静态图(Graph)模式。
+Tensor支持单层与多层索引取值，赋值以及增强赋值，支持动态图(PyNative)以及静态图(Graph)模式。
 
 #### 索引取值
 
@@ -51,7 +51,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 - `bool`索引取值
 
-  支持单层和多层`bool`索引取值，单层`bool`索引取值：`tensor_x[True]`，多层`bool`索引取值：`tensor_x[True][True]...`。
+  支持单层和多层`bool`索引取值。单层`bool`索引取值：`tensor_x[True]`；多层`bool`索引取值：`tensor_x[True][True]...`。
 
   `bool`索引取值操作的是第零维，在取出所有数据后，会在`axis=0`轴上扩展一维，对应`True`/`False`，该维长度分别为1/0。`False`将会在`shape`中引入`0`，因此暂只支持`True`。
 
@@ -88,7 +88,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 - `ellipsis`索引取值
 
-  支持单层和多层`ellipsis`索引取值，单层`ellipsis`索引取值：`tensor_x[...]`，多层`ellipsis`索引取值：`tensor_x[...][...]...`。
+  支持单层和多层`ellipsis`索引取值。单层`ellipsis`索引取值：`tensor_x[...]`；多层`ellipsis`索引取值：`tensor_x[...][...]...`。
 
   `ellipsis`索引取值操作在所有维度上取出所有数据。一般多作为`Tuple`索引的组成元素，`Tuple`索引将于下面介绍。
 
@@ -117,7 +117,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 - `slice`索引取值
 
-  支持单层和多层`slice`索引取值，单层`slice`索引取值：`tensor_x[slice_index]`，多层`slice`索引取值：`tensor_x[slice_index0][slice_index1]...`。
+  支持单层和多层`slice`索引取值。单层`slice`索引取值：`tensor_x[slice_index]`；多层`slice`索引取值：`tensor_x[slice_index0][slice_index1]...`。
 
   `slice`索引取值操作的是第零维，取出第零维所切到位置的元素，`slice`不会降维，即使切到长度为1，区别于`int`索引取值。
 
@@ -125,7 +125,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
   多层索引取值可以理解为，后一层索引取值在前一层索引取值结果上再进行`slice`索引取值。
 
-  `slice`有`start`、`stop`和`step`组成。`start`默认值为0，`stop`默认值为该维长度，`step`默认值为1。
+  `slice`由`start`、`stop`和`step`组成。`start`默认值为0，`stop`默认值为该维长度，`step`默认值为1。
 
   例如，`tensor_x[:] == tensor_x[0:length:1]`。
 
@@ -157,7 +157,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 - `Tensor`索引取值
 
-  支持单层和多层`Tensor`索引取值，单层`Tensor`索引取值：`tensor_x[tensor_index]`，多层`Tensor`索引取值：`tensor_x[tensor_index0][tensor_index1]...`。
+  支持单层和多层`Tensor`索引取值。单层`Tensor`索引取值：`tensor_x[tensor_index]`；多层`Tensor`索引取值：`tensor_x[tensor_index0][tensor_index1]...`。
 
   `Tensor`索引取值操作的是第零维，取出第零维对应位置的元素。
 
@@ -239,11 +239,11 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 - `List`索引取值
 
-  支持单层和多层`List`索引取值，单层`List`索引取值：`tensor_x[list_index]`，多层`List`索引取值：`tensor_x[list_index0][list_index1]...`。
+  支持单层和多层`List`索引取值。单层`List`索引取值：`tensor_x[list_index]`；多层`List`索引取值：`tensor_x[list_index0][list_index1]...`。
 
   `List`索引取值操作的是第零维，取出第零维对应位置的元素。
 
-  索引`List`数据类型必须是int、bool或两者混合。若数据类型为int，则取值在[`-dimension_shape`, `dimension_shape-1`]之间；若数据类型为bool， 则限制bool个数为对应维度长度，筛选对应维度上值为`True`的元素；若值为前两者混合，则bool类型的`True/False`将转为int类型的`1/0`。
+  索引`List`数据类型必须是int、bool或两者混合。若数据类型为int，则取值在[`-dimension_shape`, `dimension_shape-1`]之间；若数据类型为bool， 则限制bool个数为对应维度长度，筛选对应维度上值为`True`的元素；若数据类型为前两者混合，则bool类型的`True/False`将转为int类型的`1/0`。
 
   `List`索引取值得到结果的`data_shape = list_index.shape + tensor_x.shape[1:]`。
 
@@ -287,7 +287,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 - `Tuple`索引取值
 
-  索引`Tuple`的数据类型可以为`int`、`bool`、`None`、`slice`、`ellipsis`、`Tensor`、`List`、`Tuple`。支持单层和多层`Tuple`索引取值，单层`Tuple`索引取值：`tensor_x[tuple_index]`，多层`Tuple`索引取值：`tensor_x[tuple_index0][tuple_index1]...`。`Tuple`中包含的`List`与`Tuple`包含元素规则与单独的`List`规则相同，其他元素规则与单独元素也相同。
+  索引`Tuple`的数据类型可以为`int`、`bool`、`None`、`slice`、`ellipsis`、`Tensor`、`List`、`Tuple`。支持单层和多层`Tuple`索引取值。单层`Tuple`索引取值：`tensor_x[tuple_index]`；多层`Tuple`索引取值：`tensor_x[tuple_index0][tuple_index1]...`。`Tuple`中包含的`List`与`Tuple`包含元素规则与单独的`List`规则相同，其他元素规则与单独元素也相同。
 
   索引`Tuple`中元素按照最终索引Broadcast规则，分为`Basic Index`、`Advanced Index`两类。`Basic Index`包含`slice`、`ellipsis`、`int`与`None`四种类型，`Advanced Index`包含`bool`、`Tensor`、`List`、`Tuple`等类型。索引过程中，所有的`Advanced Index`将会做Broadcast，若`Advaned Index`连续，最终broadcast shape将插入在第一个`Advanced Index`位置；若不连续，则broadcast shape插入在`0`位置。
 
@@ -703,8 +703,8 @@ print(t[0][0])
 
 由于视图与其原来的Tensor共享底层数据，因此如果在视图中修改数据，它也会反映在原来的Tensor中。
 
-通常，MindSpore算子操作会返回一个新的Tensor作为输出，例如[add()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html)。
-但在视图操作的情况下，输出是输入Tensor的视图，以避免不必要的数据复制。创建视图时不会发生数据移动，视图Tensor只是改变它解析相同数据的方式。
+通常，MindSpore算子操作会返回一个新的Tensor作为输出，例如[add()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html)。但在视图操作的情况下，输出是输入Tensor的视图，以避免不必要的数据复制。创建视图时不会发生数据移动，视图Tensor只是改变它解析相同数据的方式。
+
 使用Tensor Views可能会使内存储存连续的Tensor产生内存存储非连续的Tensor。用户应格外注意，因为连续性可能会对性能产生隐式影响。[transpose()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.transpose.html)是一个常见的例子。
 
 ```python

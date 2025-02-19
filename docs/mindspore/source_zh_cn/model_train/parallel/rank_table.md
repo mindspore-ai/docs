@@ -4,7 +4,7 @@
 
 ## 概述
 
-`rank table`启动是Ascend硬件平台独有的启动方式。该方式不依赖第三方库，采用单卡单进程运行方式，需要用户在脚本中创建与使用的卡的数量一致的进程。该方法在多机下各节点的脚本一致，方便快速批量部署。
+`rank table`启动是Ascend硬件平台独有的启动方式。该方式不依赖第三方库，采用单卡单进程运行方式，需要用户在脚本中创建与使用的卡数量一致的进程。该方法在多机下各节点的脚本一致，方便快速批量部署。
 
 相关配置：
 
@@ -27,13 +27,13 @@
 }
 ```
 
-其中需要根据实际训练环境修改的参数项有：
+其中，需要根据实际训练环境修改的参数项有：
 
 - `server_count`表示参与训练的机器数量。
 - `server_id`表示当前机器的IP地址。
-- `device_id`表示卡物理序号，即卡所在机器中的实际序号。
+- `device_id`表示卡的物理序号，即卡所在机器中的实际序号。
 - `device_ip`表示集成网卡的IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
-- `rank_id`表示卡逻辑序号，固定从0开始编号。
+- `rank_id`表示卡的逻辑序号，固定从0开始编号。
 
 ## 操作实践
 
@@ -60,7 +60,7 @@
 
 这里以数据并行为例，训练一个MNIST数据集的识别网络。
 
-首先指定运行模式、设备ID、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过init初始化HCCL通信。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+首先指定运行模式、设备ID、硬件设备等。与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过init初始化HCCL通信。此处若不设置`device_target`，则会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import os
@@ -189,7 +189,7 @@ done
 bash run_rank_table.sh
 ```
 
-运行结束后，日志文件保存`device0`、 `device1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中，示例如下：
+运行结束后，日志文件保存在`device0`、 `device1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中，示例如下：
 
 ```text
 epoch: 0, step: 0, loss is 2.3391366
@@ -208,9 +208,9 @@ epoch: 0, step: 100, loss is 0.53782797
 
 #### 多机多卡
 
-在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。确认的方法如下：
+在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于：单机内的NPU单元天然是互通的，而跨机器的则需要保证两台机器的网络是互通的。确认的方法如下：
 
-在1号服务器执行下述命令，会为每个设备配置2号服务器对应设备的`device ip`。例如将1号服务器卡0的目标IP配置为2号服务器的卡0的IP。配置命令需要使用`hccn_tool`工具。[`hccn_tool`](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)是一个HCCL的工具，由CANN包自带。
+在1号服务器执行下述命令，会为每个设备配置2号服务器对应设备的`device ip`。例如，将1号服务器卡0的目标IP配置为2号服务器的卡0的IP。配置命令需要使用`hccn_tool`工具。[`hccn_tool`](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)是一个HCCL的工具，由CANN包自带。
 
 ```bash
 hccn_tool -i 0 -netdetect -s address 192.*.92.131
@@ -223,7 +223,7 @@ hccn_tool -i 6 -netdetect -s address 192.*.94.141
 hccn_tool -i 7 -netdetect -s address 192.*.95.141
 ```
 
-`-i 0`指定设备ID。`-netdetect`指定网络检测对象IP属性。`-s address`表示设置属性为IP地址。`192.*.92.131`表示2号服务器的设备0的IP地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f)。
+其中，`-i 0`指定设备ID；`-netdetect`指定网络检测对象IP属性；`-s address`表示设置属性为IP地址；`192.*.92.131`表示2号服务器的设备0的IP地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f)。
 
 在1号服务器上面执行完上述命令后，通过下述命令开始检测网络链接状态。在此使用`hccn_tool`的另一个功能，此功能的含义可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/7d059b59)。
 
@@ -250,7 +250,9 @@ net health status: Success
 net health status: Fault
 ```
 
-在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本文档以16卡的配置文件为例，详细的配置文件说明可以参照本文档单机多卡部分的介绍。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
+在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件。本文档以16卡的配置文件为例进行介绍，详细的配置文件说明可参照本文档单机多卡部分的相关内容。
+
+需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
 
 ```json
 {
@@ -320,7 +322,7 @@ do
 done
 ```
 
-执行时，两台机器分别执行如下命令，其中rank_table.json按照本章节展示的16卡的分布式json文件参考配置。
+执行时，两台机器分别执行如下命令：
 
 ```bash
 # server0
@@ -329,11 +331,15 @@ bash run_rank_table_cluster.sh 0
 bash run_rank_table_cluster.sh 8
 ```
 
-运行结束后，日志文件保存`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。
+其中，rank_table.json按照本章节展示的16卡的分布式json文件参考配置。
+
+运行结束后，日志文件保存在`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。
 
 #### 跨集群
 
-对于如今的大模型而言，使用计算集群进行训练已经成为一种常态。然而，随着模型规模的不断提升，单一集群的资源难以满足模型训练所需的显存要求，因此支持跨集群通信成为了训练超大规模模型的前提。目前，昇腾硬件的HCCL通信库暂不支持跨集群通信，因此MindSpore框架提供了一套跨集群通信库，使得不同集群的NPU之间能够实现高效通信。借助这一通信库，用户可以突破单一集群的显存限制，实现超大规模模型的跨集群并行训练。
+对于如今的大模型而言，使用计算集群进行训练已经成为一种常态。然而，随着模型规模的不断提升，单一集群的资源难以满足模型训练所需的显存要求。因此，支持跨集群通信成为了训练超大规模模型的前提。
+
+目前，昇腾硬件的HCCL通信库暂不支持跨集群通信。因此，MindSpore框架提供了一套跨集群通信库，使得不同集群的NPU之间能够实现高效通信。借助这一通信库，用户可以突破单一集群的显存限制，实现超大规模模型的跨集群并行训练。
 
 目前，MindSpore框架仅需在多机多卡的json配置文件中添加跨集群的`cluster_list`配置项即可开启这一功能，本文档同样以2机16卡（假设两个机器不在同一集群）配置文件为例，介绍跨集群相关配置项的编写方法，详细的配置文件说明可以参照本文档单机多卡部分的介绍。
 
@@ -401,7 +407,7 @@ bash run_rank_table_cluster.sh 8
 }
 ```
 
-其中跨集群需要根据实际训练环境添加和修改的参数项有：
+其中，跨集群需要根据实际训练环境添加和修改的参数项有：
 
 - `server_id`表示当前机器的全局唯一标识。
 - `server_ip`表示当前机器的IP地址。
@@ -444,7 +450,7 @@ do
 done
 ```
 
-执行时，两个集群中的两台机器分别执行如下命令，其中`rank_table_cross_cluster_16pcs.json`按照本章节展示的2集群16卡的跨集群分布式json文件参考配置，每个集群的每台机器上使用的`rank_table_cross_cluster_16pcs.json`配置需要保持一致。
+执行时，两个集群中的两台机器分别执行如下命令：
 
 ```bash
 # server0
@@ -452,5 +458,7 @@ bash run_rank_table_cross_cluster.sh 0
 # server1
 bash run_rank_table_cross_cluster.sh 8
 ```
+
+其中，`rank_table_cross_cluster_16pcs.json`按照本章节展示的2集群16卡的跨集群分布式json文件参考配置，每个集群的每台机器上使用的`rank_table_cross_cluster_16pcs.json`配置需要保持一致。
 
 运行结束后，日志文件保存在各个集群中每台机器的`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。

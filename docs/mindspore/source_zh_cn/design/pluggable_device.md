@@ -22,7 +22,7 @@ MindSpore整体架构包括如下几个主要组件，它们之间存在相互�
 
 第三方芯片对接MindSpore的过程主要涉及MindSpore的后端，后端也分为多个组件，整体上分为两大类：
 
-- 一类硬件无关，如MemoryManager、MemoryPool、DeviceAddres等常用数据结构及相关算法以及包括GraphCompiler、GraphSchdeduler在内的能够调度整个流程、具有对图或单算子的初步处理和调度能力的组件；
+- 一类与硬件无关，如MemoryManager、MemoryPool、DeviceAddres等常用数据结构及相关算法以及包括GraphCompiler、GraphSchdeduler在内的能够调度整个流程、具有对图或单算子的初步处理和调度能力的组件；
 - 另一类与硬件相关，这部分通过对硬件的抽象，提供了多个接口，第三方芯片可以根据情况选择对接，实现硬件平台上特有的算子、图优化、内存分配、流分配等逻辑，并封装成动态库，程序运行时作为插件加载。第三方芯片对接时可以参考MindSpore默认内置的CPU/GPU/Ascend插件。
 
 为了方便第三方硬件对接，在MindSpore中提供了硬件抽象层，定义了标准化的硬件对接接口，抽象层被上层统一运行时中的GraphCompiler和GraphScheduler两个模块调用：
@@ -32,7 +32,7 @@ MindSpore整体架构包括如下几个主要组件，它们之间存在相互�
 
 同时，在框架中也提供了公共数据结构与算法，如debug工具、默认的内存池实现、数百个对Anf IR的常见操作、由MindSpore研发高效内存复用算法SOMAS等。
 
-硬件抽象层提供了Graph模式（GraphExecutor）和Kernel模式（KernelExecutor）用于两种对接方式，分别面向DSA架构（如NPU、XPU等）和通用架构的芯片（如GPU、CPU等）提供分类的对接接口，芯片厂商可以继承某种或两种抽象类并实现，根据对接方式的不同，如果对接Kernel模式还需实现DeviceResMananger、KernelMod、DeviceAddress等接口。
+硬件抽象层提供了Graph模式（GraphExecutor）和Kernel模式（KernelExecutor）用于两种对接方式，分别面向DSA架构（如NPU、XPU等）和通用架构的芯片（如GPU、CPU等）提供分类的对接接口。芯片厂商可以继承某种或两种抽象类并实现，根据对接方式的不同，如果对接Kernel模式还需实现DeviceResMananger、KernelMod、DeviceAddress等接口。
 
 ## Kernel模式对接
 
