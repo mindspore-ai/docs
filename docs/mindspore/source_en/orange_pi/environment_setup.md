@@ -265,7 +265,7 @@ Method 1: Open the terminal as HwHiAiUser user and run the pip install command d
 (base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.4.10
 ```
 
-Method 2: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bottom of the page to open the terminal, refer to [MindSpore official website installation tutorial](https://www.mindspore.cn/install/en) to install.
+Method 2: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bottom of the page to open the terminal. Refer to [MindSpore official website installation tutorial](https://www.mindspore.cn/install/en) to install.
 
 ```bash
 (base) HwHiAiUser@orangepiaipro:~$ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -274,6 +274,8 @@ Method 2: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bo
 ```
 
 ### 3.2 Installation Verification
+
+Execute the following command:
 
 ```bash
 (base) HwHiAiUser@orangepiaipro:~$ python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
