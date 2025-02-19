@@ -273,6 +273,8 @@ xxx install success
 
 ### 3.2 验证是否成功安装
 
+执行以下命令：
+
 ```bash
 (base) HwHiAiUser@orangepiaipro:~$ python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
 ```
