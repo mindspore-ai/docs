@@ -58,7 +58,7 @@ Currently, operator fusion-related optimization passes are included in the graph
 - **enable_cluster_ops_only**: Allow only the specified operators to participate in the fusion set. When this option is set, the above two options are ignored.
 - **enable_packet_ops_only**: When enabling the kernel packet feature, this option restricts fusion to the specified operators only.
 - **disable_packet_ops**: When enabling the kernel packet feature, this option prohibits fusion for the specified operators.
-- **disable_fusion_pattern**: Prevent the specified fusion pattern from participating in the fusion set.
+- **disable_fusion_pattern**: Prevent the specified fusion pattern from participating in the fusion set. The list of default fusion pattern can be found in Appendix 4.
 - **enable_fusion_pattern_only**: Allow only the specified fusion pattern to participate in the fusion set. When this option is set, the above option is ignored.
 
 ### Enabling or Disabling Automatic/Manual Fusion Pass  
@@ -72,11 +72,11 @@ Currently, operator fusion-related optimization passes are included in the graph
 - **enable_debug_mode**: Insert synchronization points before and after the graph kernelmod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
 
 > - With the format `"--key=value"`, multiple configuration items separated by space, multiple value items separated by commas, for example: export `MS_DEV_GRAPH_KERNEL_FLAGS='--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add'`
-> - Support config json by `--path=example.json`. The json key-value pair is the character string corresponding to the key and value. For example: `export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`, example.json: { "enable_expand_ops" : "Square" }
+> - Support config json by `--path=example.json`. The json key-value pair is the character string corresponding to the key and value. For example: `export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`, example.json: { "enable_expand_ops" : "Square" }.
 
 ## Obtaining Pass Names
 
-Users have two ways to obtain the corresponding pass names during debugging, or they can refer to the appendix list 3 for supported passes.
+Users have two ways to obtain the corresponding pass names during debugging, or they can refer to the Appendix 3 for supported passes.
 
 ### Through IR Names
 
@@ -284,3 +284,18 @@ For individual passes, users can also confirm whether they are enabled through l
 | matmul_elemwise_fusion              | Ascend   |
 | inference_qbmm_add_fusion           | Ascend   |
 | inference_qbmm_allreduce_add_fusion | Ascend   |
+
+## Appendix 4: List of Fusion Pattern for Relevant Backends
+
+| pattern name                        | Backend         |
+|-------------------------------------|-----------------|
+| elemwise_broadcast_fwd_depth        | Ascend GPU CPU  |
+| elemwise_broadcast_fwd_width        | Ascend GPU CPU  |
+| elemwise_broadcast_bwd_depth        | Ascend GPU CPU  |
+| elemwise_broadcast_bwd_width        | Ascend GPU CPU  |
+| reduce_fwd_depth                    | Ascend GPU CPU  |
+| reduce_fwd_width                    | Ascend GPU CPU  |
+| reshape                             | Ascend GPU CPU  |
+| slice                               | Ascend          |
+| elemany_addn                        | Ascend          |
+| matmul_depth                        | Ascend          |
