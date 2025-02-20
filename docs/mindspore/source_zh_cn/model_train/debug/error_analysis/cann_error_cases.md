@@ -13,7 +13,7 @@ export ASCEND_SLOG_PRINT_TO_STDOUT=1    # 配置开启日志打屏
 
 ## AICORE算子编译问题
 
-AICORE算子编译错误根据不同模块会以`E5`~`EB`开头，其中`E5`~`E8`错误码AICORE算子编译过程中一些校验报错，用户可以根据报错信息先尝试自行检查修正，而`E9`~`EB`错误码是TBE编译前后端报的错，一般来说报错就意味着算子规格TBE还不支持，可以从报错日志中获取具体信息。下面可以看一些具体的AICORE算子编译失败问题：
+AICORE算子编译错误根据不同模块会以`E5`~`EB`开头，其中`E5`~`E8`错误码AICORE算子编译过程中一些校验报错，用户可以根据报错信息先尝试自行检查修正，而`E9`~`EB`错误码是TBE编译前后端的报错，报错通常意味着算子规格TBE还不支持，可以从报错日志中获取具体信息。如下是一些具体的AICORE算子编译失败问题：
 
 ### E80000: StridedSliceGradD输入值非法
 
@@ -244,7 +244,7 @@ Traceback (most recent call last):
 RuntimeError: mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62 MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
 ```
 
-遇到此类报错，可以先排查跑程序的卡是否已经被其他程序占用。目前MindSpore在Ascend环境上同一Device（即同一张卡）只支持同时跑一个程序，在Atlas训练系列产品训练服务器上执行程序时会一次性申请32212254720KB（即30GB）的显存，故若报错信息中显示申请失败的显存大小为32212254720，则很有可能是该Device已经被其他程序占用，导致新程序申请显存失败。遇到这个问题只需确认卡未被其他程序占用后重新启动程序即可。若报错信息中显示申请失败的显存大小不为32212254720，而是其他任意数字，则可能是网络模型太大，超过了Device的显存（Atlas训练系列产品服务器为32GB），可以考虑改小batchsize、对网络模型进行优化或者使用模型并行等手段来作训练。
+遇到此类报错，可以先排查跑程序的卡是否已经被其他程序占用。目前MindSpore在Ascend环境上同一Device（即同一张卡）只支持同时跑一个程序，在Atlas训练系列产品训练服务器上执行程序时会一次性申请32212254720KB（即30GB）的显存。故若报错信息中显示申请失败的显存大小为32212254720，则很有可能是该Device已经被其他程序占用，导致新程序申请显存失败。遇到这个问题只需确认卡未被其他程序占用后重新启动程序即可。若报错信息中显示申请失败的显存大小不为32212254720，而是其他任意数字，则可能是网络模型太大，超过了Device的显存（Atlas训练系列产品服务器为32GB），可以考虑改小batchsize、对网络模型进行优化或者使用模型并行等手段来作训练。
 
 另外，当前MindSpore在程序初始化时会对Device的剩余片上显存做校验，若剩余片上显存小于总量的一半，就会报以下错误提示卡被占用：
 
@@ -376,13 +376,13 @@ mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:214 R
 
 1. 用户脚本中消费数据量大于生产数据量。
 
-2. 在执行多卡分布式程序时，其中某张卡的进程挂了可能会导致其他卡取数据超时。
+2. 在执行多卡分布式程序时，若某张卡的进程意外终止，可能会导致其他卡在数据读取时出现超时问题。
 
 如果排查后不是GetNext取数据超时的问题，用户可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
 
 ### EE1001: device id设置错误
 
-用户可以通过环境变量DEVICE_ID或者在context中设置device_id来指定自己的程序跑在哪张卡上，如果device id设置不合理，则有可能会报`EE1001`错误，如下述错误场景，服务器中一共只有8张卡，可供选择的device id范围为[0, 8)，而用户错误设置了device_id=8：
+用户可以通过环境变量DEVICE_ID或者在context中设置device_id来指定自己的程序在哪张卡上运行，如果device id设置不合理，则有可能会报`EE1001`错误，如下述错误场景，服务器中一共只有8张卡，可供选择的device id范围为[0, 8)，而用户错误设置了device_id=8：
 
 ```c++
 Traceback (most recent call last):
@@ -628,7 +628,7 @@ mindspore/ccsrc/plugin/device/ascend/hal/device/ge_runtime/task/hccl_task.cc:104
 
 ### EJ0001: HCCP初始化失败
 
-HCCP进程负责实现通信功能，HCCL可以调用HCCP的接口进行通信。HCCP初始化失败会报`EJ0001`错误，比如以下场景，当上一个八卡训练任务还未结束时就在同一服务器启动新的八卡训练任务就会导致初始化失败，需要等之前的八卡训练任务结束后才能启动新的八卡训练任务。
+HCCP进程负责实现通信功能，HCCL可以调用HCCP的接口进行通信。HCCP初始化失败会报`EJ0001`错误，比如以下场景，当上一个八卡训练任务还未结束时，在同一服务器启动新的八卡训练任务，会导致初始化失败。需要等之前的八卡训练任务结束后，才能启动新的八卡训练任务。
 
 ```c++
 [ERROR] HCCL(17381,python):2022-12-01-03:02:29.001.054 [network_manager.cc:64][hccl-17381-0-1669834948-hccl_world_group][0]call trace: ret -> 7
