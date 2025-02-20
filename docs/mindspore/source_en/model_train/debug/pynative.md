@@ -98,7 +98,7 @@ See [environment variables](https://www.mindspore.cn/docs/en/master/api_python/e
 
 When you need to see if the backpropagation accuracy is accurate under a dynamic graph, you can often utilize the backhook function of the dynamic graph to see if the gradient in the backpropagation is as expected.
 
-- To see if the gradient of a Parameter is as expected, you can register a hook with the Parameter
+- To see if the gradient of a Parameter is as expected, you can register a hook with the Parameter:
 
   Through
 
@@ -126,7 +126,7 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   print(output)
   ```
 
-  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.register_hook.html#mindspore.Tensor.register_hook)
+  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.register_hook.html#mindspore.Tensor.register_hook).
 
 - Viewing the gradient during execution can be done with `mindspore.ops.HookBackward`, for example:
 
@@ -155,7 +155,7 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   print(output)
   ```
 
-  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HookBackward.html)
+  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HookBackward.html).
 
 - Viewing the gradient of a particular Cell can be done with `mindspore.nn.Cell.register_backward_hook`, for example:
 
@@ -185,7 +185,7 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   print(output)
   ```
 
-  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)
+  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
 
 ## More Practical Examples
 

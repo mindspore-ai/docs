@@ -219,7 +219,7 @@ mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 
 查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop) ，`Crop` 要求输入样本的shape为 <H, W> 或 <H, W, C>，所以 `Crop` 会把(3, 16, 3)当成<H, W, C>，当H=3, W=16，C=3时自然裁剪不出H=8, W=8的区域。
 
-为了快速修复此问题，我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16), 再次执行就会发现用例通过。
+为了快速修复此问题，我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16)，再次执行就会发现用例通过。
 
 ```text
 >>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.RandomResize'>
@@ -279,7 +279,7 @@ for i, data in enumerate(dataset):
     print("data count", i)
 ```
 
-运行得到以下相关内容:
+运行得到以下相关内容：
 
 ```text
 [Dataset debugger] Print the [INPUT] of the operation [RandomResize].
@@ -300,7 +300,7 @@ E           ------------------------------------------------------------------
 E           mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 ```
 
-根据打印的信息我们就能很清楚的知道 `Crop` 在处理输入shape为(3, 16, 3)的时候出现了报错，同样查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)。我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16), 再次执行就会发现用例通过。
+根据打印的信息我们就能很清楚的知道 `Crop` 在处理输入shape为(3, 16, 3)的时候出现了报错，同样查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)。我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16)，再次执行就会发现用例通过。
 
 ```text
 [Dataset debugger] Print the [INPUT] of the operation [RandomResize].
@@ -389,7 +389,7 @@ You can increase the parameter num_parallel_workers in GeneratorDataset / optimi
 ```
 
 下面介绍一种调试数据集性能的方法，即使没有出现上述的WARNING信息，也可以调试数据性能，作为参考：
-构造一个简单的lenet训练网络，故意在代码上做一点手脚。
+构造一个简单的lenet训练网络，简单修改一点代码，使运行结果出现WARNING信息。
 
 ```python
 import time
@@ -483,7 +483,7 @@ model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accurac
 model.train(10, dataset_train, callbacks=[ms.LossMonitor()])
 ```
 
-在训练的时候，我们会获得非常多warning提示我们数据集性能较慢，但是观察到有Epoch time，per step time信息，因此训练其实也在进行，只是较慢。
+在训练的时候，我们会获得非常多warning提示数据集性能较慢，但是观察到有Epoch time，per step time信息，因此训练其实也在进行，只是较慢。
 
 ```text
 [WARNING] MD(90635,fffdf0ff91e0,python):2023-03-25-15:29:14.801.601 [mindspore/ccsrc/minddata/dataset/engine/datasetops/source/generator_op.cc:220] operator()] Bad performance attention, it takes more than 25 seconds to generator.__next__ new row, which might cause `GetNext` timeout problem when sink_mode=True. You can increase the parameter num_parallel_workers in GeneratorDataset / optimize the efficiency of obtaining samples in the user-defined generator function.
@@ -492,7 +492,7 @@ Epoch time: 60059.685 ms, per step time: 30029.843 ms, avg loss: 2.301
 ```
 
 此时，可以单独迭代数据集，查看每条数据的处理时间，以此判断数据集的性能如何：
-在上述代码的 `dataset_train = create_dataset("mnist/train")` 后面，可以加入以下代码用于调试数据集
+在上述代码的 `dataset_train = create_dataset("mnist/train")` 后面，可以加入以下代码用于调试数据集：
 
 ```python
 import time
@@ -515,7 +515,7 @@ data step 3 , time 480.023415324343
 data step 4 , time 480.051423635473
 ```
 
-可以看到，从第2条数据开始，每一条数据居然都要等到60s以上才处理完成, 对于上述“做过手脚的代码”其实是好解决的，检查一下代码会发现
+可以看到，从第2条数据开始，每一条数据都要等到60s以上才处理完成, 对于上述“修改过的代码”其实是好解决的，检查一下代码会发现：
 
 ```python
 def __getitem__(self, index):
@@ -664,7 +664,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
     RuntimeError: Unexpected error. Invalid file, DB file can not match file
     ```
 
-    使用MindSpore 1.4及之前版本时，在Windows环境下, 生成MindRecord格式数据集文件后移动位置，文件不能被正常加载到MindSpore中使用。
+    使用MindSpore 1.4及之前版本时，在Windows环境下，生成MindRecord格式数据集文件后移动位置，文件不能被正常加载到MindSpore中使用。
 
     参考解决方法：
 
@@ -986,7 +986,7 @@ ValueError: The data pipeline is not a tree (i.e. one node has 2 consumers)
 
 错误描述：
 
-dataset 定义上发生了分支，导致 dataset 无法确定分叉的走向。
+dataset 定义上出现了分叉，导致 dataset 无法确定分叉的走向。
 
 参考解决方法：
 

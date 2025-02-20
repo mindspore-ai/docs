@@ -176,7 +176,7 @@ if __name__ == "__main__":
 本例中，有如下几点需要说明：
 
 - 本例中需要将test_custom_aot.py和add.so放置在同一目录下，若add.so在其他目录，则需要将`Custom`第一个参数里路径修改为add.so的绝对路径。
-- 用Python lambda函数定义输出shape和数据类型推理函数，并分别传给`Custom`原语的`out_shape`和`out_dtype`参数。本例中lambda函数表明输出shape和数据类型和第一个输入张量的信息相同。
+- 用Python lambda函数定义输出shape和数据类型推理函数，并分别传给`Custom`原语的`out_shape`和`out_dtype`参数。本例中lambda函数表明输出shape和数据类型与第一个输入张量的信息相同。
 - 未注册算子信息，所以自定义算子的算子信息将会从算子输入中推理。
 
 执行用例：
@@ -206,7 +206,7 @@ python test_custom_aot.py
 
 当用户的AOT类型自定义算子文件为单一文件，且编译时不需要自定义的编译选项时，可以使用自动编译功能。如此，用户可以给自定义算子提供算子实现的源文件，MindSpore会自动把源文件编译成二进制库进行调用。当前该功能支持基于GCC的C++文件编译和基于NVCC的CUDA文件编译。在使用自动编译功能的时候，有如下几点需要说明：
 
-- MindSpore识别自动编译的方式为文件名后缀。为了使用自动编译功能，请使用后缀为`cpp`, `cc`或者`cu`的源文件。其他情况MindSpore将处理为二进制库的路径。
+- MindSpore识别自动编译的方式为文件名后缀。为了使用自动编译功能，请使用后缀为`cpp`、`cc`或者`cu`的源文件。其他情况MindSpore将处理为二进制库的路径。
 - 自动编译的结果在文件夹akg_kernel_meta下。
 - 默认编译选项为：
     - C++: `g++ -std=c++17 --shared -fPIC -D_GLIBCXX_USE_CXX11_ABI=0 -I./ -o $object_path, $source_path`
@@ -216,14 +216,14 @@ python test_custom_aot.py
 
 ### AOT类型自定义算子的属性和中间变量
 
-常用的算子当中，不少算子带有属性，比如convlution的kernel size、padding和strides。带有不同属性值的算子有着相同的计算逻辑，唯一的区别是初始化时赋予属性不同的数值。此外，在算子的计算过程中，可能需要一些额外的内存空间储存中间变量。下面的计算为例，如果我们考虑`input_1`和`input_2`计算`output`如下公式：
+常用的算子当中，不少算子带有属性，比如convlution的kernel size、padding和strides。带有不同属性值的算子有着相同的计算逻辑，唯一的区别是初始化时赋予属性不同的数值。此外，在算子的计算过程中，可能需要一些额外的内存空间储存中间变量。以如下公式为例，用`input_1`和`input_2`计算`output`：
 
 ```python
 tmp = Add(input_1, input_2)
 output = ReduceSum(tmp, axis, keep_dims)
 ```
 
-这里，我们需要在算子中添加如下中间变量和属性以在计算函数中使用，包括
+这里，我们需要在算子中添加如下中间变量和属性以在计算函数中使用，包括：
 
 - `tmp`为中间变量，记录加法的中间结果；
 - `axis`是类型为`int`的属性，`keep_dims`是类型为`bool`的属性。
@@ -289,7 +289,7 @@ extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes,
 
 ### 算子属性注册（Python）
 
-算子属性的在初始化时的赋值通过算子注册文件实现。对于每一个属性，我们为算子注册文件创建一个`attr`，设置属性名和属性的值。其注册方法为
+算子属性在初始化时的赋值，通过算子注册文件实现。对于每一个属性，我们为算子注册文件创建一个`attr`，设置属性名和属性的值。其注册方法为：
 
 ```python
 def attr(self, name=None, param_type=None, value_type=None, default_value=None, **kwargs)
@@ -311,7 +311,7 @@ tmp = Add(input_1, input_2)
 output = ReduceSum(tmp, axis, keep_dims)
 ```
 
-这里，我们需要在算子中添加如下中间变量和属性以在计算函数中使用，包括
+这里，我们需要在算子中添加如下中间变量和属性在计算函数中使用，包括：
 
 - `tmp`为中间变量，记录加法的中间结果；
 - `axis`是类型为`int`的属性，`keep_dims`是类型为`bool`的属性。
@@ -373,7 +373,7 @@ extern "C" int CustomKernelInit(int *ndims, int64_t **shapes, const char **dtype
 1. 创建一个`add_reduce_kernel_attr`对象指针：`add_reduce_kernel_attr *kernel_ptr = new add_reduce_kernel_attr`。
 2. 从`extra`中获取对应属性的值贮存在`kernel_ptr`中的成员变量中：`kernel_data_ptr->axis = extra->Attr<int64_t>("axis"); kernel_data_ptr->keep_dim = extra->Attr<bool>("keep_dim");`。这里`reduce_axis`和`keep_dim`分别为`int`和`bool`类型，我们用`extra->Attr<T>(std::string name)`接口的对应模板获取该类型属性的值。
     - 这里`T`支持类型为：`bool`、`string`、`int64_t`、`float`、`std::vector<int64_t>`、`std::vector<float>`、`std::vector<std::vector<int64_t>>`和`std::vector<std::vector<float>>`。
-3. 把`kernel_ptr`存在`extra`中供算子计算时使用：`extra->SetKernelData(kernel_ptr)`。
+3. 把`kernel_ptr`放在`extra`中供算子计算时使用：`extra->SetKernelData(kernel_ptr)`。
 
 #### 算子Shape推导函数
 
@@ -468,7 +468,7 @@ extern "C" int CustomKernel(int nparam, void **params, int *ndims, int64_t **sha
 在计算ReduceSum时我们使用了算子的属性值，操作如下：
 
 1. 把`extra_void`类型转化为`AotExtra`类型指针：`AotExtra *extra = static_cast<AotExtra *>(extra_void)`。
-2. 从`extra`中获取初始化函数中创立的`kernel_ptr`对象指针：`auto kernel_ptr = static_cast<add_reduce_kernel_attr *>(extra->KernelData())`。这里`extra->KernelData()`获得的是一个void对象指针，需要再进一步类型转化为`kernel_ptr`对象指针。
+2. 从`extra`中获取在初始化函数中创立的`kernel_ptr`对象指针：`auto kernel_ptr = static_cast<add_reduce_kernel_attr *>(extra->KernelData())`。这里`extra->KernelData()`获得的是一个void对象指针，需要再进一步将类型转化为`kernel_ptr`对象指针。
 3. 使用`kernel_ptr`中储存的属性值进行计算：`bool keep_dim = kernel_ptr->keep_dim; int64_t axis = kernel_ptr->axis;`。这里我们从`kernel_ptr`获得变量`keep_dim`和`axis`进行计算。
 
 ### 算子定义文件test_custom_aot.py
@@ -507,7 +507,7 @@ class ReduceDynNet(Cell):
 
 #### 算子注册
 
-算子属性的在初始化时的赋值通过算子注册文件实现。关于自定义算子注册的函数，参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关文档。对于每一个属性，我们为算子注册文件`reduce_cpu_info`创建一个`attr`，设置属性名和属性的值。
+算子属性在初始化时的赋值，通过算子注册文件实现。关于自定义算子注册的函数，参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关文档。对于每一个属性，我们为算子注册文件`reduce_cpu_info`创建一个`attr`，设置属性名和属性的值。
 
 这里每一个`attr`项有四个输入：第一个为名字，如`"axis"`或`"keep_dim"`；中间两个为`"required"`和`"all"`；最后一个输入需要指定输入名为`value=`，输入的值为属性的值，例如这里`value=axis`和`value=keep_dim`。这里我们从网络的输入确定这两个参数的值，这两个值应该和上面初始化函数和shape推导函数中使用的`extra->Attr<T>`模板接口的类型匹配。
 
@@ -515,9 +515,9 @@ class ReduceDynNet(Cell):
 
 #### 算子定义
 
-上面Python文件中通过自定义算子统一接口`Custom`定义了AOT类型的自定义算子：`self.program = ops.Custom("./kernel.cc:CustomKernel", None, out_types, "aot", reg_info=reduce_cpu_info)`。因为我们前面定了C++版本的shape推导函数之后，这里的`ouptut_shape`可以为`None`.
+上面Python文件中通过自定义算子统一接口`Custom`定义了AOT类型的自定义算子：`self.program = ops.Custom("./kernel.cc:CustomKernel", None, out_types, "aot", reg_info=reduce_cpu_info)`。因为我们前面定了C++版本的shape推导函数之后，这里的`ouptut_shape`可以为`None`。
 
-值得注意的是，这里的算子定义中我们直接使用源文件名`./kernel.cc`，如此我们采用MindSpore提供的自动编译功能。注意这个时候要保证环境中存在对应的编译器（这里为g++，gpu环境的cu文件则需要nvcc）。
+值得注意的是，在这里的算子定义中，我们直接使用源文件名`./kernel.cc`，如此我们采用MindSpore提供的自动编译功能。注意这个时候要保证环境中存在对应的编译器（这里为g++，gpu环境的cu文件则需要nvcc）。
 
 ### 算子调用
 
@@ -555,7 +555,7 @@ python test_custom_aot.py
 
 ## 多输出AOT类型自定义算子用法特性简介
 
-AOT类型的自定义算子支持多输出（输出为tuple)的情况。多输出的AOT类型的自定义算子需要定义的算子文件和单输出一样，但是需要根据多输出情况做对应修改，包括：
+AOT类型的自定义算子支持多输出（输出为tuple）的情况。多输出的AOT类型的自定义算子需要定义的算子文件和单输出一样，但是需要根据多输出情况做对应修改，包括：
 
 - 算子推导函数：需要把 `infer` 函数的输出写成tuple的形式；
 - 算子注册文件：需要列出多个输出的名字和数据类型信息；
@@ -566,9 +566,7 @@ AOT类型的自定义算子支持多输出（输出为tuple)的情况。多输�
 ### 算子推导文件
 
 多输出的情况下，算子推导函数应该写成tuple的形式。
-以输出的形状为常数的情况为例，下面自定义算子中的`out_shapes`为`([3], [3], [3])`，
-并且`out_dtypes`为`(mstype.float32, mstype.float32, mstype.float32)`，
-分别对应三个输出的形状和数据类型。
+以输出的形状为常数的情况为例，下面自定义算子中的`out_shapes`为`([3], [3], [3])`，并且`out_dtypes`为`(mstype.float32, mstype.float32, mstype.float32)`，分别对应三个输出的形状和数据类型。
 
 ```python
 self.program = ops.Custom(func, ([3], [3], [3]), (mstype.float32, mstype.float32, mstype.float32), "aot", bprop, reg)
@@ -654,7 +652,7 @@ extern "C" int CustomAddMulDiv(int nparam, void **params, int *ndims, int64_t **
 ```
 
 注意到，因为算子是两个输入和三个输出，因此`nparam`应该是5，而`params`数组中的五个指针应该依次为两个输入和三个输出。
-所以上面的代码中我们获得输入和输出的方法为
+所以上面的代码中我们获得输入和输出的方法为：
 
 ```c++
 void *input1 = params[0];
@@ -664,11 +662,11 @@ void *output2 = params[3];
 void *output3 = params[4];
 ```
 
-完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/add_mul_div.cu).
+完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/add_mul_div.cu)。
 
 ### 算子使用文件
 
-多输出的自定义算子在参与计算时，结果可以当做正常tuple使用，例如
+多输出的自定义算子在参与计算时，结果可以当做正常tuple使用，例如：
 
 ```python
 class AOTMultiOutputNet(Cell):
@@ -694,7 +692,7 @@ if __name__ == "__main__":
   print(output)
 ```
 
-此处`aot`作为自定义算子的输出，可以直接当做tuple使用进行计算。运行上面脚本，可以得到结果：
+此处`aot`作为自定义算子的输出，可以直接当做tuple使用进行计算。运行上面脚本，可以得到以下结果：
 
 ```text
 [3. 3. 3.]

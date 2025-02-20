@@ -51,14 +51,14 @@ TypeError: Cannot join the return values of different branches, perhaps you need
 Type Join Failed: dtype1 = Float32, dtype2 = Float16.
 ```
 
-此时由报错信息可知，报错原因是if语句不同分支返回值的类型不一致:一个是float32，另一个是float16，导致编译报错。
+此时由报错信息可知，报错原因是if语句不同分支返回值的类型不一致：一个是float32，另一个是float16，导致编译报错。
 
 ```c++
 ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
 Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
 ```
 
-由报错信息可知，报错原因是if语句不同分支返回值的维度shape不一致:一个是`2*3*4*5`的四位Tensor，另一个是标量，导致编译报错。
+由报错信息可知，报错原因是if语句不同分支返回值的维度shape不一致：一个是`2*3*4*5`的四位Tensor，另一个是标量，导致编译报错。
 
 参考实例链接：
 
@@ -134,6 +134,6 @@ E       mindspore/ccsrc/backend/common/session/kernel_build_client.h:100 Respons
 
 ## 资源不足
 
-在调试网络的时候，经常会遇到`Out Of Memory`报错，MindSpore在Ascend设备上对内存分成4层进行管理。包括Runtime，Context，双游标和内存复用。
+在调试网络的时候，经常会遇到`Out Of Memory`报错，MindSpore在Ascend设备上对内存分成4层进行管理。包括Runtime、Context、双游标和内存复用。
 
 关于MindSpore在昇腾后端（Ascend）上的内存管理及常见问题的具体内容，请参考[MindSpore Ascend 内存管理](https://www.hiascend.com/forum/thread-0229107352026042135-1-1.html)。

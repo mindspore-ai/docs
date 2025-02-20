@@ -14,7 +14,7 @@ When an error is reported during data processing, check whether C++ error messag
 
 *Figure 1*
 
-As shown in the following figure, `batch_op.cc` reports a C++ error. The batch operation combines multiple consecutive pieces of data in a dataset into a batch for data processing, which is implemented at the backend. According to the error description, the input data does not meet the parameter requirements of the batch operation. Data to be batch operated has the same shape, and the sizes of different shapes are displayed.
+As shown in the following figure, `batch_op.cc` reports a C++ error. The batch operation combines multiple consecutive pieces of data in a dataset into a batch for data processing, which is implemented at the backend. According to the error description, the input data does not meet the parameter requirements of the batch operation. Data to be batch operated has the same shape, and the data shape size required by the batch operation and the data shape size of the current error should be displayed.
 
 Data loading and processing has three phases: data preparation, data loading, and data augmentation. The following table lists common errors.
 
@@ -96,7 +96,7 @@ The error message is as follows:
 [ERROR]Check StridedSliceInfo1414: When there is a mask, the input is not supported to be split
 ```
 
-The following shows a piece of possible error code where the network input is a [2, 4] tensor. The network is sliced to obtain the first half of dimension 0 in the input tensor. It is equivalent to the x[:1, :]operation in NumPy, where x is the input tensor. On the network, the (2,1) policy is configured for the stridedslice operator to slice dimension 0.
+The following shows a piece of possible error code where the network input is a [2, 4] tensor. The network is sliced to obtain the first half of dimension 0 in the input tensor. It is equivalent to the x[:1, :]operation in NumPy, where x is the input tensor. On the network, the (2,1) policy is configured for the stridedslice operator to slice dimension 0, and the dimension 1 isn't sliced.
 
 ```python
 tensor = Tensor(ones((2, 4)))

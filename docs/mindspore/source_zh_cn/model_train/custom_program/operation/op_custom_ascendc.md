@@ -6,7 +6,7 @@
 
 AOT类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。AOT类型的自定义算子支持昇腾平台的Ascend C编程语言，这是一款专为算子开发而设计的高效编程语言。本指南将从用户角度出发，详细介绍基于Ascend C的自定义算子开发和使用流程，包括以下关键步骤：
 
-1. **自定义算子开发**：使用Ascend C编程语言，您可以快速开发自定义算子，降低开发成本并提高开发效率。
+1. **自定义算子开发**：使用Ascend C编程语言，可以快速开发自定义算子，降低开发成本并提高开发效率。
 2. **离线编译与部署**：完成算子开发后，进行离线编译，确保算子可以在Ascend AI处理器上高效运行，并进行部署。
 3. **MindSpore使用自定义算子**：将编译后的Ascend C自定义算子集成到MindSpore框架中，实现在实际AI应用中的使用。
 
@@ -26,16 +26,15 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 
 ### 环境准备
 
-确保您已具备以下条件以使用MindSpore的Ascend C自定义算子离线编译工具：
+确保已具备以下条件，以使用MindSpore的Ascend C自定义算子离线编译工具：
 
 - **Ascend C源码**: 包括host侧和kernel侧的自定义算子实现。
 - **MindSpore安装**: 确保已安装2.3.0及以上版本的MindSpore。
-- **CMake**: CMake>=3.16.0
+- **CMake**: CMake>=3.16.0。
 
 ### 离线编译与部署
 
-若在上述步骤中，已通过CANN的自定义算子编译工程完成编译和部署，则可跳过该步骤。MindSpore同样提供了自定义的编译工具，在您开发完自定义算子后，准备好自定义算子的
-kernel侧和host侧，您可按照下述步骤进行自定义算子的编译部署。
+若在上述步骤中，已通过CANN的自定义算子编译工程完成编译和部署，则可跳过该步骤。MindSpore同样提供了自定义的编译工具，在开发完自定义算子后，准备好自定义算子的kernel侧和host侧，可按照下述步骤进行自定义算子的编译部署。
 
 1. **获取编译工具**：
    将MindSpore安装包中的`custom_compiler`工具目录拷贝到您的工作目录。
@@ -131,7 +130,7 @@ net = AddCustomNet("AddCustom", lambda x, _: x)
 net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
 ```
 
-完整Ascend C自定义算子的样例代码，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc) ，样例工程的目录结构如下：
+完整Ascend C自定义算子的样例代码，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc)。样例工程的目录结构如下：
 
 ```text
 .
@@ -225,7 +224,7 @@ net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
     [INFO] RUNTIME(45311,python):2024-05-24-21:17:48.149.244 [stream.cc:682] 45311 FreeStreamId: Free stream_id=1600.
     ```
 
-    **解决方案**：上述问题一般是图模式下报错，根因是自定义算子使用时的注册信息与自定义算子实现中的原型定义不一致导致的，例如算子的实现中原型定义为
+    **解决方案**：上述问题一般是图模式下报错，根因是自定义算子使用时的注册信息与自定义算子实现中的原型定义不一致导致的，例如算子的实现中原型定义为：
 
     ```cpp
     class AddCustom : public OpDef {
@@ -303,4 +302,4 @@ net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
    RuntimeError: Launch kernel failed, name:Default/Custom-op0
    ```
 
-    **解决方案**： 从报错日志分析，用户指定`AddCustom`底层使用aclnn，但是却在aclop流程报错，说明算子选择未找到aclnn对应的符号，而使用了默认的aclop，这种情况请用户首先检查环境配置是否正确，包括是否正确安装自定义算子安装包或正确指定自定义算子的环境变量`ASCEND_CUSTOM_OPP_PATH`，打开info日志，过滤`op_api_convert.h`文件的日志，检查符号是否正确加载。
+    **解决方案**：从报错日志分析，用户指定`AddCustom`底层使用aclnn，但是却在aclop流程报错，说明算子选择未找到aclnn对应的符号，而使用了默认的aclop。若出现这种情况，请用户首先检查环境配置是否正确，包括是否正确安装自定义算子安装包或正确指定自定义算子的环境变量`ASCEND_CUSTOM_OPP_PATH`，打开info日志，过滤`op_api_convert.h`文件的日志，检查符号是否正确加载。
