@@ -15,13 +15,13 @@
 | 工具      | 工具说明         | 网络迁移用途         |
 | --------------------- | -------------------- | --------------------- |
 | [MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/index.html) | MindSpore Dev Toolkit是一款支持MindSpore开发的多平台Python IDE插件，提供创建项目、智能补全、API互搜和文档搜索等功能。 | 通过API扫描等能力，能够提升用户的网络迁移开发效率。          |
-| [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)   | TroubleShooter 是MindSpore网络开发调试工具包，用于提供便捷、易用的调试能力。 | 网络调试工具集（如：网络权重迁移、精度比对、代码跟踪、报错分析、执行跟踪等功能），帮助用户提高迁移调试效率。 |
+| [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)   | TroubleShooter是MindSpore网络开发调试工具包，用于提供便捷、易用的调试能力。 | 网络调试工具集，提供网络权重迁移、精度比对、代码跟踪、报错分析、执行跟踪等功能，帮助用户提高迁移调试效率。 |
 | [Profiler](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/profiler.html)     | Profiler可将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。 | 网络迁移后，如果执行性能不佳，可用Profiler进行性能分析，Profiler提供框架的host执行、以及算子执行的Profiler分析功能。 |
-| [Dump](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)                  | 提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。 | 一般用于网络迁移复杂问题定位（例如：算子溢出等）可以dump出算子级别的数据。 |
+| [Dump](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)                  | 提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。 | 一般用于网络迁移复杂问题（例如：算子溢出等）定位可以dump出算子级别的数据。 |
 
 ## 网络迁移工具应用实例
 
-本章节以一张网络（Vision Transformer）为例子完成网络迁移，并介绍关键迁移过程中各种工具的应用方法。
+本章节以一张网络（Vision Transformer）为例子，完成网络迁移，并介绍关键迁移过程中各种工具的应用方法。
 
 注：迁移网络的完整样例代码可参考如下链接
 
@@ -33,9 +33,7 @@
 
 ![img](images/api_scan.jpg)
 
-例如：`torch.cat`接口：
-
-在“说明”的URL（PyTorch与MindSpore API映射表）中可见如下API差异。
+例如：`torch.cat`接口，在“说明”的URL（PyTorch与MindSpore API映射表）中可见如下API差异。
 
 ![img](images/api_diff.jpg)
 
@@ -55,9 +53,9 @@ x = mindspore.ops.cat((cls_token, x), axis=1) # [B, 197, 768]
 
 在网络初步迁移构建完成后，我们可以先进行一些网络结构的基础比对，以验证迁移的网络结构是否正确。可以分别使用如下两种方式进行网络结构的比对：
 
-**步骤1：获取PyTorch ViT网络结构和权重参数(pth)**
+**步骤1：获取PyTorch ViT网络结构和权重参数（pth）**
 
-调用[ts.migrator.save_net_and_weight_params](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/save_net_and_weight_params.md#)接口，可以将网络对象保存成文件（与用print打印model对象的内容相同，这里model是一个nn.Module对象），并且会保存权重参数到pth文件以及映射文件（用于与MindSpore进行权重比对）。
+调用[ts.migrator.save_net_and_weight_params](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/save_net_and_weight_params.md#)接口，可以将网络对象保存成文件（与用print打印model对象的内容相同，这里model是一个nn.Module对象），并且会将权重参数保存到pth文件以及映射文件（用于与MindSpore进行权重比对）中。
 
 ```python
 def net_pt_vit(args):
@@ -74,9 +72,9 @@ def net_pt_vit(args):
 -rw-r--r-- 1 root root 343261393 Jul  5 20:36 torch_troubleshooter_create.pth （权重参数）
 ```
 
-**步骤2：获取MindSpore ViT网络结构和权重参数(ckpt)**
+**步骤2：获取MindSpore ViT网络结构和权重参数（ckpt）**
 
-调用[ts.migrator.save_net_and_weight_params](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/save_net_and_weight_params.md#)接口，可以将网络对象保存成文件（与用print打印model对象的内容相同，这里model是一个Cell对象），并且会保存权重参数到ckpt文件。
+调用[ts.migrator.save_net_and_weight_params](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/save_net_and_weight_params.md#)接口，可以将网络对象保存成文件（与用print打印model对象的内容相同，这里model是一个Cell对象），并且会将权重参数保存到ckpt文件中。
 
 ```python
 def net_ms_vit(args):
@@ -116,17 +114,17 @@ ts.migrator.compare_pth_and_ckpt(
 
 ### 网络正向结果验证
 
-在迁移的MindSpore网络可以正常执行后，即可进行网络正向结果验证，验证是通过比对PyTorch和MindSpore网络正向结果来完成的。这里提供了两种不同的验证方案，一种是半自动验证方案，一种是全自动验证方案，我们将分别介绍两种方案适用场景和使用方法。
+在迁移的MindSpore网络可以正常执行后，即可进行网络正向结果验证，验证是通过比对PyTorch和MindSpore网络正向结果来完成的。这里提供了两种不同的验证方案，一种是半自动验证方案，一种是全自动验证方案。我们将分别介绍两种方案适用场景和使用方法。
 
 #### 网络比对三个基本条件
 
-> 说明：此处只做简单说明，详细步骤可参考半自动验证方案的例子
+> 此处只做简单说明，详细步骤可参考半自动验证方案的例子。
 
 要进行PyTorch和MindSpore网络比对前，需要满足三个条件：
 
 1. 随机性固定并相同
 
-    可以在PyTorch和MindSpore使用[ts.migrator.fix_random](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/widget/fix_random.md#)来固定随机性，例如：
+    可以在PyTorch和MindSpore中使用[ts.migrator.fix_random](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/widget/fix_random.md#)来固定随机性，例如：
 
     ```python
     ts.widget.fix_random(16)
@@ -134,15 +132,15 @@ ts.migrator.compare_pth_and_ckpt(
 
 2. 输入数据样本一致
 
-    参考如下两步，可以用来保存和加载相同的数据样本（包含：数据和标签都可用此方法）。
+    参考如下两步，可以用来保存和加载相同的数据样本（数据和标签都可用此方法）。
 
-    - 步骤1：使用[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)保存PyTorch网络的某个数据样本为npy，[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)会自动编号为`0_images.npy`
+    1. 使用[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)保存PyTorch网络的某个数据样本为npy，[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)会自动编号为`0_images.npy`。
 
         ```python
         ts.save("/mindspore_model/vit/v1/temp_data/pt/npy/images.npy", images)
         ```
 
-    - 步骤2：再使用`np.load`将这个数据分别加载成PyTorch的Tenosr和MindSpore的Tensor
+    2. 再使用`np.load`将这个数据分别加载成PyTorch的Tenosr和MindSpore的Tensor。
 
         ```python
         images = torch.tensor(np.load('/mindspore_model/vit/v1/pytorch_org/vision_transformer/0_images.npy'))
@@ -153,7 +151,7 @@ ts.migrator.compare_pth_and_ckpt(
 
     一般我们会以PyTorch网络的权重为基准，转换为MindSpore的权重并加载，来实现统一的初始化权重参数，参考如下两步。
 
-    - 步骤1：保存PyTorch网络权重和转换映射，用于在MindSpore加载。
+    1. 保存PyTorch网络权重和转换映射，用于在MindSpore加载。
 
         使用[ts.migrator.save_net_and_weight_params](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/save_net_and_weight_params.md#)接口，保存PyTorch网络权重和转换映射。
         例如：
@@ -162,7 +160,7 @@ ts.migrator.compare_pth_and_ckpt(
         ts.migrator.save_net_and_weight_params(model, path="/mindspore_model/vit/v1/temp_data/pt_net_info/")
         ```
 
-    - 步骤2：在MindSpore网络转换并加载权重。
+    2. 在MindSpore网络转换并加载权重。
 
         使用[ts.migrator.convert_weight_and_load](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight_and_load.md#)接口转换PyTorch权重，并加载到MindSpore的网络中。例如：
 
@@ -258,13 +256,13 @@ def auto_run_ms_net(args):
 
 ![](images/image5.png)
 
-> 说明：当结果不一致的时候，可通过[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)接口，二分或逐层导出网络各层API的输出，并通过[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)接口批量比对，来定位到问题引入的API。
+> 当结果不一致的时候，可通过[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)接口，二分或逐层导出网络各层API的输出，并通过[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)接口批量比对，来定位到问题引入的API。
 
 ### 网络loss结果验证
 
-loss的验证方案，与正向结果的半自动验证方案类似，在满足比对的三个前提条件基础上，通过手工指定要保存的loss并使用ts.save接口进行保存，并使用[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)进行批量比对完成loss的结果验证，具体步骤参考正向结果的半自动验证方案即可。
+loss的验证方案，与正向结果的半自动验证方案类似，在满足比对的三个前提条件基础上，通过手工指定要保存的loss，使用ts.save接口进行保存，并使用[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)进行批量比对完成loss的结果验证，具体步骤参考正向结果的半自动验证方案即可。
 
-### 反向结果验证(含梯度、权重参数的比对)
+### 反向结果验证（含梯度、权重参数的比对）
 
 梯度的比对验证方案，思路也与正向结果的半自动验证方案类似，但调用方式略有不同，参考如下步骤操作。
 
@@ -374,19 +372,19 @@ ts.migrator.compare_pth_and_ckpt(weight_map_path="/mindspore_model/vit/v1/temp_d
 
 ![](images/image10.png)
 
-> 说明：如果比对结果不一致，可以往前回溯到梯度是否一致，如果梯度一致，则可以检查优化器使用是否正确，可参考网络逐层差异点排查章节，逐层进行问题定界排查。
+> 如果比对结果不一致，可以往前回溯到梯度是否一致，如果梯度一致，则可以检查优化器使用是否正确，可参考网络逐层差异点排查章节，逐层进行问题定界排查。
 
 ### 其他
 
 #### 网络逐层差异点排查
 
-在比较网络正向结果或者loss不一致时，我们需要定位问题原因，则可采取二分或者逐层保存API输出并进行数据比对的方式来排查差异引入点。此比对也需要满足比对的三个基本条件。
+在比较网络正向结果或者loss不一致时，我们需要定位问题原因，则可采取二分或者逐层保存API输出，并进行数据比对的方式来排查差异引入点。此比对也需要满足比对的三个基本条件。
 
 **步骤1：保存PyTorch的网络部分API输出**
 
 在网络中，使用[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)保存API的输出，用于排查网络差异引入点。
 
-> 说明：[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)支持保存Tensor（包括mindspore.Tensor和torch.tensor），以及Tensor构成的list/tuple/dict。当为list/tuple类型时，会按照顺序添加编号；当为dict类型时，文件名中会添加key，详细参考[troubleshooter.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)。
+> [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)支持保存Tensor（包括mindspore.Tensor和torch.tensor），以及Tensor构成的list/tuple/dict。当为list/tuple类型时，会按照顺序添加编号；当为dict类型时，文件名中会添加key。详细参考[troubleshooter.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)。
 
 ```python
 class Mlp(nn.Module):
@@ -445,7 +443,7 @@ class Mlp(nn.Cell):
 
 **步骤3：比对API输出结果，查找差异点**
 
-使用[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)接口对各层保存的数据进行比对，可以通过比对结果判定哪里引入了差异，以进行问题定位。
+使用[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)接口，对各层保存的数据进行比对，可以通过比对结果判定哪里引入了差异，以进行问题定位。
 
 ```python
 ts.migrator.compare_npy_dir('/mindspore_model/vit/v1/temp_data/pt/npy',
@@ -474,6 +472,6 @@ ts.migrator.convert_weight(weight_map_path="/mindspore_model/vit/v1/temp_data/pt
                            ms_file_save_path='/mindspore_model/vit/v1/ms_net.ckpt')
 ```
 
-执行`convert_weight`时会打印权重转换过程中的详细信息，包括名称、转换详情、参数的shape等信息，如下图所示。
+执行 `convert_weight` 时会打印权重转换过程中的详细信息，包括名称、转换详情、参数的shape等信息，如下图所示。
 
 ![](images/image11.png)
