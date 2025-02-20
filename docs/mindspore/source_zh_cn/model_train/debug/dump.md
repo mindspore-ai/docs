@@ -43,7 +43,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
    <td align="left">统计信息dump</td>
    <td align="left">支持host和device模式<sup>1</sup></td>
    <td align="left">仅支持host模式</td>
-   <td align="left">CPU不支持， GPU仅支持host模式</td>
+   <td align="left">CPU不支持，GPU仅支持host模式</td>
   </tr>
   <tr>
    <td align="left">数据采样dump</td>
@@ -140,7 +140,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
         - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。仅在op_debug_mode设置为0时支持指定算子dump。
         - `path`：Dump保存数据的绝对路径。
         - `net_name`：自定义的网络名称，例如："ResNet50"。
-        - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0或3时支持保存指定迭代，op_debug_mode设置为4时不支持指定迭代。
+        - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个，第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0或3时支持保存指定迭代，op_debug_mode设置为4时不支持指定迭代。
         - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。默认取值为"tensor"。保存统计信息仅在op_debug_mode设置为0时生效。
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为3时，只能设置`input_output`为同时保存算子输入和算子输出。在op_debug_mode设置为4时，只能保存算子输入。
         - `kernels`：该项可以配置三种格式：
@@ -241,7 +241,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
 ```
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
-- `rank_id`： 逻辑卡号。
+- `rank_id`：逻辑卡号。
 - `net_name`：`data_dump.json`配置文件中设置的网络名称。
 - `graph_id`：训练的图标号。
 - `iteration_id`：训练的轮次。
@@ -260,7 +260,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
 
 只当`saved_data`为"statistic"或者"full"时，才会生成`statistic.csv`，当`saved_data`为"tensor"或者"full"时，才会生成`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy`命名的完整张量信息。
 
-只当`save_kernel_args`为`true`时，才会生成`{op_type}.{op_name}.json`，保存算子的初始化信息。该json文件内部格式为算子各初始化参数的对应值，以`Matmul`算子为例， json信息如下：
+只当`save_kernel_args`为`true`时，才会生成`{op_type}.{op_name}.json`，保存算子的初始化信息。该json文件内部格式为算子各初始化参数的对应值，以`Matmul`算子为例，json信息如下：
 
 ```json
 {
@@ -279,7 +279,7 @@ Ascend O0/O1模式下Dump生成的数据文件是后缀名为`.npy`的文件，�
 
 可以用Numpy的`numpy.load`接口读取数据。
 
-Ascend O0/O1模式下生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type，Op Name，Task ID，Stream ID，Timestamp，IO，Slot，Data Size，Data Type，Shape以及用户配置的统计信息项。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
+Ascend O0/O1模式下生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type、Op Name、Task ID、Stream ID、Timestamp、IO、Slot、Data Size、Data Type、Shape以及用户配置的统计信息项。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
 
 Ascend O0/O1模式下生成的最终执行图文件后缀名分别为`.pb`和`.ir`，文件命名格式为：
 
@@ -427,7 +427,7 @@ x, w],    pri_format: NC1HWC0, pad: (0, 0, 0, 0), visited: true, pad_mod: same, 
 在Dump保存的数据对象文件目录下搜索到相应的文件名：
 `Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float16.npy`。
 
-还原数据的时候，通过执行：
+还原数据的时候，通过执行以下代码：
 
 ```python
 import numpy
@@ -468,7 +468,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
         - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
         - `path`：Dump保存数据的绝对路径。
         - `net_name`：自定义的网络名称，例如："ResNet50"。
-        - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0时支持保存指定迭代，op_debug_mode设置为3或4时不支持指定迭代。注意，使能Ascend O2模式下Dump时，sink size只能设置为1。
+        - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个，第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0时支持保存指定迭代，op_debug_mode设置为3或4时不支持指定迭代。注意，使能Ascend O2模式下Dump时，sink size只能设置为1。
         - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。Ascend O2模式下Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。保存统计信息仅支持op_debug_mode设置为0的场景。默认取值为"tensor"。
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
         - `kernels`：该项可以配置两种格式：
@@ -541,7 +541,7 @@ Ascend O2模式下Dump目录结构如下所示，主要特征为存在{step_id}�
 ```
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
-- `time`： dump目录的创建时间。
+- `time`：dump目录的创建时间。
 - `device_id`: 卡号。
 - `model_name`：模型名称，由MindSpore生成。
 - `model_id`：模型标号。
@@ -582,13 +582,13 @@ Ascend O2模式下Dump生成的数据文件是`bin`文件时，文件命名格�
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
-若配置`file_format`值为`npy`，则启用Ascend O2模式下Dump生成的数据文件命名规则与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)，溢出检测生成的溢出文件是`json`格式，溢出文件内容解析可参考[解析算子溢出数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devguide/appdevg/aclpythondevg/aclpythondevg_0078.html#ZH-CN_TOPIC_0000001781325073__section6864050111619) 。
+若配置`file_format`值为`npy`，则启用Ascend O2模式下Dump生成的数据文件命名规则与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)，溢出检测生成的溢出文件是`json`格式，溢出文件内容解析可参考[解析算子溢出数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devguide/appdevg/aclpythondevg/aclpythondevg_0078.html#ZH-CN_TOPIC_0000001781325073__section6864050111619)。
 
 选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)。
 
 ### 数据分析样例
 
-Ascend O2模式下Dump不会自动保存`.ir`文件，要想查看`.ir`文件，可以在执行用例前通过MindSpore的IR保存开关`export MS_DEV_SAVE_GRAPHS=2`, 执行用例后查看保存的`trace_code_graph_{xxx}`文件， 可以用vi打开。文件查看方式请参考Ascend O0模式下的数据分析样例。Ascend O2模式下，由于`.ir`文件中并不是最终执行图，不能保证算子文件和`.ir`文件中的算子名一一对应。保存最终的执行图请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0013.html) 。
+Ascend O2模式下Dump不会自动保存`.ir`文件，要想查看`.ir`文件，可以在执行用例前通过MindSpore的IR保存开关`export MS_DEV_SAVE_GRAPHS=2`，执行用例后查看保存的`trace_code_graph_{xxx}`文件，可以用vi打开。文件查看方式请参考Ascend O0模式下的数据分析样例。Ascend O2模式下，由于`.ir`文件中并不是最终执行图，不能保证算子文件和`.ir`文件中的算子名一一对应。保存最终的执行图请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0013.html) 。
 
 Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解析。如果Ascend O2模式下Dump配置文件中设置的`file_format`为"npy"，可以跳过以下步骤中的1、2，如果没有设置`file_format`，或者设置为"bin"，需要先转换成`.npy`格式的文件。
 
@@ -608,7 +608,7 @@ Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解
 
     {file path of dump} 可以是单个`.bin`文件的路径，也可以是包含`.bin`文件的文件夹路径。
 
-    若需要转换数据格式，可参考使用说明链接<https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/modelaccuracy/atlasaccuracy_16_0054.html> 。
+    若需要转换数据格式，可参考[使用说明链接](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/modelaccuracy/atlasaccuracy_16_0054.html)。
 
     如Dump生成的数据文件为：
 
@@ -638,7 +638,7 @@ Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解
 
     可知该文件是算子的第0个输入，数据的维度信息是`32x256x13x13`。
 
-3. 通过`numpy.load("file_name")`可以读取到对应数据。例：
+3. 通过`numpy.load("file_name")`可以读取到对应数据。样例如下：
 
     ```python
     import numpy
@@ -678,7 +678,7 @@ Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解
         - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。仅在op_debug_mode设置为0时支持指定算子dump。
         - `path`：Dump保存数据的绝对路径。
         - `net_name`：自定义的网络名称，例如："ResNet50"。
-        - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0或3时支持保存指定迭代，op_debug_mode设置为4时不支持指定迭代。
+        - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个，第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0或3时支持保存指定迭代，op_debug_mode设置为4时不支持指定迭代。
         - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。统计信息现只支持GPU场景，CPU场景若选"statistic"或"full"便会错误退出。默认取值为"tensor"。保存统计信息仅支持op_debug_mode设置为0的场景。
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为4时，只能保存算子输入。
         - `kernels`：该项可以配置三种格式：
@@ -773,7 +773,7 @@ Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解
 ```
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
-- `rank_id`： 逻辑卡号。
+- `rank_id`：逻辑卡号。
 - `net_name`：`data_dump.json`配置文件中设置的网络名称。
 - `graph_id`：训练的图标号。
 - `iteration_id`：训练的轮次。
@@ -797,13 +797,13 @@ CPU/GPU模式下Dump生成的数据文件是后缀名为`.npy`的文件，文件
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
 ```
 
-CPU/GPU模式下Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。
+CPU/GPU模式下Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}、{task_id}、{stream_id}、{input_output_index}、{slot}、{format}不变。
 
 ```text
 Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
 ```
 
-{iteration_id}目录下也可能会保存Parameter开头的文件（weight, bias等参数会保存成Parameter开头的文件。
+{iteration_id}目录下也可能会保存Parameter开头的文件（weight、bias等参数会保存成Parameter开头的文件。
 
 可以用Numpy的`numpy.load`接口读取数据。
 
@@ -840,7 +840,7 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例 ：
+以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例：
 
 ```python
 ...
@@ -1012,5 +1012,5 @@ GE dump的目录结构如下：
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其他类型数据的保存。
 - 使能Ascend O2模式下Dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2"})配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1"})配置全量异常dump。
-- 使能Ascend O2模式下Dump时，sink size只能设置为1。用户通常可以使用model.train()或ms.data_sink()接口配置sink size。下沉模式配置可参考使用说明链接<https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html>。
+- 使能Ascend O2模式下Dump时，sink size只能设置为1。用户通常可以使用model.train()或ms.data_sink()接口配置sink size。具体配置可参考[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html)。
 - 使能Ascend O2模式下Dump时，**统计值dump**如果是大数据量dump场景（如网络本身规模庞大，连续dump多个step等），可能会导致host侧内存被占满，导致数据流同步失败，建议使用新版[**统计值dump**](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)替代。

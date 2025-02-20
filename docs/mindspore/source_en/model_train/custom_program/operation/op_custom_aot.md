@@ -225,7 +225,7 @@ Currently, this function supports C++ file compilation based on GCC and CUDA fil
 Many commonly used operators have attributes, such as the kernel size, padding, and strides of the convlution operator.
 Operators with different attribute values have the same computational logic, with the only difference being the values of the attributes during initialization.
 In addition, during the calculation process of the operator, some additional memory spaces may be needed to store the intermediate variables.
-The following calculation is an example. If we consider the `input_1` and `input_2` to calculate `output` as follows:
+The following formula is an example. Use `input_1` and `input_2` to calculate `output`:
 
 ```python
 tmp = Add(input_1, input_2)

@@ -391,7 +391,7 @@ You can increase the parameter num_parallel_workers in GeneratorDataset / optimi
 ```
 
 Here is a way to debug the performance of the dataset, even if the above WARNING message does not appear, as a reference
-Construct a simple lenet training network with a little bit of deliberate tinkering with the code.
+Construct a simple lenet training network and simply modify the code so that there is a warning message in the run results.
 
 ```python
 import time
@@ -517,7 +517,7 @@ data step 3 , time 480.023415324343
 data step 4 , time 480.051423635473
 ```
 
-As you can see, from the 2nd data, each data actually has to wait for more than 60s before processing is completed, for the above "tampered with code" is actually a good solution, check the code will find that
+As you can see, from the 2nd data, each data actually has to wait for more than 60s before processing is completed, for the above "modified code" is actually a good solution, check the code will find that:
 
 ```python
 def __getitem__(self, index):

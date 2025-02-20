@@ -31,7 +31,7 @@ A number of generic loss functions are provided in the `mindspore.nn` module, an
 
 ## Customizing Optimizers
 
-The nn module in MindSpore provides commonly-used optimizers, such as nn.SGD, nn.Adam, and nn.Momentum, and when these optimizers can not meet the development needs, users can customize the optimizer.
+Commonly-used optimizers are provided in the `mindspore.nn` module, such as nn.SGD, nn.Adam, and nn.Momentum, and when these optimizers can not meet the development needs, users can customize the optimizer.
 
 ## Hook Programming
 
