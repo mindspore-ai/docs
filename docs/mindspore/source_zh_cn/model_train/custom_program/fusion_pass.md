@@ -46,7 +46,7 @@
 - **enable_cluster_ops_only**：仅允许对应算子加入参与融合的算子集合。当设置该选项时，忽略以上两个选项。
 - **enable_packet_ops_only**：使能kernel packet功能时，设置该选项则仅融合指定算子。
 - **disable_packet_ops**：使能kernel packet功能时，设置该选项则禁止融合指定算子。
-- **disable_fusion_pattern**：禁止对应融合pattern参与融合。
+- **disable_fusion_pattern**：禁止对应融合pattern参与融合。融合pattern名单见附录4。
 - **enable_fusion_pattern_only**：仅允许对应融合pattern参与融合。当设置该选项时，忽略以上选项。
 
 ### 指定自动/手动融合pass是否使能
@@ -60,7 +60,7 @@
 - **enable_debug_mode**：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
 > - 格式为`--key=value`，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
-> - 支持通过`--path=example.json`读取文件配置方式，json的键值对分别为以上key和value对应的字符串，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`，example.json: { "enable_expand_ops" : "Square" }
+> - 支持通过`--path=example.json`读取文件配置方式，json的键值对分别为以上key和value对应的字符串，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--path=example.json"`，example.json的内容为: { "enable_expand_ops" : "Square" }。
 
 ## 获得Pass名称
 
@@ -272,3 +272,18 @@
 | matmul_elemwise_fusion              | Ascend   |
 | inference_qbmm_add_fusion           | Ascend   |
 | inference_qbmm_allreduce_add_fusion | Ascend   |
+
+## 附录4：相关后端使能融合pattern列表
+
+| pattern 名称                        | 使能后端         |
+|-------------------------------------|-----------------|
+| elemwise_broadcast_fwd_depth        | Ascend GPU CPU  |
+| elemwise_broadcast_fwd_width        | Ascend GPU CPU  |
+| elemwise_broadcast_bwd_depth        | Ascend GPU CPU  |
+| elemwise_broadcast_bwd_width        | Ascend GPU CPU  |
+| reduce_fwd_depth                    | Ascend GPU CPU  |
+| reduce_fwd_width                    | Ascend GPU CPU  |
+| reshape                             | Ascend GPU CPU  |
+| slice                               | Ascend          |
+| elemany_addn                        | Ascend          |
+| matmul_depth                        | Ascend          |
