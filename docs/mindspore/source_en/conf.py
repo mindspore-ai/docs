@@ -233,7 +233,9 @@ try:
                       ("mindspore/common/dtype.py","del class",
                        "class QuantDtype(enum.Enum):","class QuantDtype():"),
                       ("mindspore/context.py","replace url",
-                       "70RC1/inferapplicationdev/graphdevg/atlasgeapi_07_0119.html","80RC3/apiref/ascendgraphapi/atlasgeapi_07_0146.html")]
+                       "70RC1/inferapplicationdev/graphdevg/atlasgeapi_07_0119.html","80RC3/apiref/ascendgraphapi/atlasgeapi_07_0146.html"),
+                      ("mindspore/context.py","replace url format",
+                       "lazy_inline.html>`","lazy_inline.html>`_")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
