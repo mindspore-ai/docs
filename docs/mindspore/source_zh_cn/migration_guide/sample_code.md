@@ -6,7 +6,7 @@
 
 ## 模型分析与准备
 
-假设已经按照[环境准备](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/enveriment_preparation.html)章节配置好了MindSpore的运行环境。且假设resnet50在models仓还没有实现。
+假设已经按照[环境准备](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/enveriment_preparation.html)章节配置好了MindSpore的运行环境，且resnet50在models仓还没有实现。
 
 首先需要分析算法及网络结构。
 
@@ -14,7 +14,7 @@
 
 [论文](https://arxiv.org/pdf/1512.03385.pdf)：Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun."Deep Residual Learning for Image Recognition"
 
-我们找到了一份[PyTorch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现，Cifar10数据处理，网络训练及推理流程。
+我们找到了一份[PyTorch ResNet50 Cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，里面包含了PyTorch ResNet的实现、Cifar10数据处理、网络训练及推理流程。
 
 ### checklist
 
@@ -56,7 +56,7 @@ Test set: Average loss: -9.7052, Accuracy: 91%
 Finished Training
 ```
 
-可以从[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)下载到训练时日志和保存的参数文件。
+可以从[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)下载训练时的日志和保存的参数文件。
 
 ### 分析API/特性缺失
 
@@ -72,7 +72,7 @@ Finished Training
   | `nn.Linear`            | `nn.Dense`         | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/Dense.html) |
   | `torch.flatten`        | `nn.Flatten`       | 无 |
 
-  可通过借助[MindSpore Dev Toolkit](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/migrator_with_tools.html#%E7%BD%91%E7%BB%9C%E8%BF%81%E7%A7%BB%E5%BC%80%E5%8F%91)API扫描工具，或查看[PyTorch API映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)来获取API差异。
+  可通过借助[MindSpore Dev Toolkit](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/migrator_with_tools.html#%E7%BD%91%E7%BB%9C%E8%BF%81%E7%A7%BB%E5%BC%80%E5%8F%91) API扫描工具，或查看[PyTorch API映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)来获取API差异。
 
 - 功能分析
 
@@ -85,9 +85,9 @@ Finished Training
   | `nn.distibuted`           | `set_auto_parallel_context`   |
   | `torch.optim.SGD`         | `nn.optim.SGD` or `nn.optim.Momentum` |
 
-（由于MindSpore 和 PyTorch 在接口设计上不完全一致，这里仅列出关键功能的比对）
+> 由于MindSpore 和 PyTorch 在接口设计上不完全一致，这里仅列出关键功能的比对。
 
-经过API和功能分析，我们发现，相比 PyTorch，MindSpore 上没有缺失的API和功能。
+经过API和功能分析，可以发现，相比 PyTorch，MindSpore 没有缺失的API和功能。
 
 ## MindSpore模型实现
 
@@ -203,7 +203,7 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32,
 
 ### 网络模型实现
 
-参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具发现，实现只有几个地方有差别：
+参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具发现，只有几个地方有实现差别：
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -529,13 +529,13 @@ optimizer = ms.nn.Adam(resnet.trainable_params(),
 
 ## 模型验证
 
-在[复现参考实现](#复现参考实现)章节我们获取到了训练好的PyTorch的参数，我们怎样将参数文件转换成MindSpore能够使用的checkpoint文件呢？
+在[复现参考实现](#复现参考实现)章节，我们获取到了训练好的PyTorch的参数，我们怎样将参数文件转换成MindSpore能够使用的checkpoint文件呢？
 
-基本需要以下几个流程：
+需要以下几个流程：
 
 1. 打印PyTorch的参数文件里所有参数的参数名和shape，打印需要加载参数的MindSpore Cell里所有参数的参数名和shape；
 2. 比较参数名和shape，构造参数映射关系；
-3. 按照参数映射将PyTorch的参数 -> numpy -> MindSpore的Parameter，构成Parameter List后保存成checkpoint；
+3. 按照参数映射关系，将“PyTorch的参数 -> numpy -> MindSpore的参数”，构成参数列表后保存成checkpoint；
 4. 单元测试：PyTorch加载参数，MindSpore加载参数，构造随机输入，对比输出。
 
 ### 打印参数
@@ -724,7 +724,7 @@ ckpt_path = "resnet50.ckpt"
 check_res(pth_path, ckpt_path)
 ```
 
-注意做单元测试时，需要给Cell打训练或推理的标签，PyTorch 训练 `.train()`，推理`.eval()`，MindSpore训练`.set_train()`，推理`.set_train(False)`。
+注意做单元测试时，需要给Cell打训练或推理的标签。PyTorch训练标签为 `.train()`，推理标签为 `.eval()`；MindSpore训练标签为 `.set_train()`，推理标签为 `.set_train(False)`。
 
 打印结果为：
 
@@ -756,8 +756,9 @@ tensor([[-15.1945,  -5.6529,   6.5738,   9.7807,  -2.4615,   3.0365,  -4.7216,
 diff 2.861023e-06
 ```
 
-可以看到最后的结果差不大，基本符合预期。
-当结果差很大时，可在完成参数映射后，固定PyTorch和MindSpore的随机性，再使用工具：[TroubleShooter API级别网络结果自动比较](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api_compare.md)进行网络正向和反向的结果对比，提升定位效率。
+可以看到最后的结果相差不大，基本符合预期。
+
+当结果相差很大时，可在完成参数映射后，固定PyTorch和MindSpore的随机性，再使用工具：[TroubleShooter API级别网络结果自动比较](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api_compare.md)，进行网络正向和反向的结果对比，提升定位效率。
 
 ## 推理流程
 
@@ -908,7 +909,7 @@ Loss: 0.3240, Accuracy: 91%
 
 推理精度一致。
 
-当推理结果不一致时，这里可借助工具[TroubleShooter比较MindSpore和PyTorch网络输出是否一致](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF5%E6%AF%94%E8%BE%83mindspore%E5%92%8Cpytorch%E7%BD%91%E7%BB%9C%E8%BE%93%E5%87%BA%E6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4)比较PyTorch和MindSpore网络的推理结果，定位网络输出哪里开始不一致，提升迁移效率。
+当推理结果不一致时，这里可借助工具[TroubleShooter比较MindSpore和PyTorch网络输出是否一致](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF5%E6%AF%94%E8%BE%83mindspore%E5%92%8Cpytorch%E7%BD%91%E7%BB%9C%E8%BE%93%E5%87%BA%E6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4)，比较PyTorch和MindSpore网络的推理结果，定位网络输出哪里开始不一致，提升迁移效率。
 
 ## 训练流程
 
