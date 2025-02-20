@@ -242,12 +242,64 @@ try:
 except:
     pass
 
+rep_old = """\newcommand{\grad}[2]{\nabla_{#1} f_{#2}(#2_{#2 - 1})}
+        \newcommand{\updateVar}[3]{#1_{#2} \leftarrow #1_{#2 - 1} \rho + #3_{#2} (1 - \rho)}
+
+        \begin{align*}
+            &\rule{150mm}{0.4pt} \\
+            &\textbf{Input}:
+                \gamma \text{ (lr)}, \: \theta_0 \text{ (params)}, \: f(\theta) \text{ (objective)},
+                \: \rho \text{ (decay)}, \: \lambda \text{ (weight decay)} \\
+            &\textbf{Initialize}:
+                \begin{cases}
+                    v_0 \leftarrow 0 \text{ (square avg)} \\
+                    u_0 \leftarrow 0 \text{ (accumulate variables)}
+                \end{cases} \\
+            &\rule{110mm}{0.4pt} \\
+            &\textbf{For } t = 1 \text{ to } \ldots \text{ do}: \\
+            &\quad g_t \leftarrow \grad{\theta}{t} \\
+            &\quad \text{If } \lambda \neq 0: \\
+            &\quad\quad g_t \leftarrow g_t + \lambda \theta_{t - 1} \\
+            &\quad v_t \leftarrow \updateVar{v}{t}{g^2} \\
+            &\quad \Delta x_t \leftarrow \frac{\sqrt{u_{t - 1} + \epsilon}}{\sqrt{v_t + \epsilon}} g_t \\
+            &\quad u_t \leftarrow \updateVar{u}{t}{\Delta x^2} \\
+            &\quad \theta_t \leftarrow \theta_{t - 1} - \gamma \Delta x_t \\
+            &\rule{110mm}{0.4pt} \\
+            &\bf{Return}: \theta_t \\
+            &\rule{110mm}{0.4pt}
+        \end{align*}"""
+
+rep_new = """\begin{aligned}
+            &\rule{150mm}{0.4pt}                                                                 \\
+            &\textbf{input}      : \gamma \text{ (lr)}, \: \theta_0 \text{ (params)},
+                \: f(\theta) \text{ (objective)}, \: \rho \text{ (decay)},
+                \: \lambda \text{ (weight decay)}                                                \\
+            &\textbf{initialize} :  v_0  \leftarrow 0 \: \text{ (square avg)},
+                \: u_0 \leftarrow 0 \: \text{ (accumulate variables)}                     \\[-1.ex]
+            &\rule{110mm}{0.4pt}                                                                 \\
+            &\textbf{for} \: t=1 \: \textbf{to} \: \ldots \: \textbf{do}                         \\
+            &\hspace{5mm}g_t           \leftarrow   \nabla_{\theta} f_t (\theta_{t-1})           \\
+            &\hspace{5mm}if \: \lambda \neq 0                                                    \\
+            &\hspace{10mm} g_t \leftarrow g_t + \lambda  \theta_{t-1}                            \\
+            &\hspace{5mm} v_t      \leftarrow v_{t-1} \rho + g^2_t (1 - \rho)                    \\
+            &\hspace{5mm}\Delta x_t    \leftarrow   \frac{\sqrt{u_{t-1} +
+                \epsilon }}{ \sqrt{v_t + \epsilon}  }g_t \hspace{21mm}                           \\
+            &\hspace{5mm} u_t  \leftarrow   u_{t-1}  \rho +
+                 \Delta x^2_t  (1 - \rho)                                                        \\
+            &\hspace{5mm}\theta_t      \leftarrow   \theta_{t-1} - \gamma  \Delta x_t            \\
+            &\rule{110mm}{0.4pt}                                                          \\[-1.ex]
+            &\bf{return} \:  \theta_t                                                     \\[-1.ex]
+            &\rule{110mm}{0.4pt}                                                          \\[-1.ex]
+        \end{aligned}"""
+
 # Repair error content defined in mindspore.
 try:
     decorator_list = [("mindspore/common/dtype.py","del decorator",
                        "@enum.unique","# generate api by del decorator."),
                       ("mindspore/common/dtype.py","del class",
-                       "class QuantDtype(enum.Enum):","class QuantDtype():")]
+                       "class QuantDtype(enum.Enum):","class QuantDtype():"),
+                      ("mindspore/experimental/optim/adadelta.py","replace math",
+                       rep_old, rep_new)]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
