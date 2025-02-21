@@ -4,7 +4,7 @@
 
 ## 概述
 
-在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若设置了环境变量`MS_DEV_SAVE_GRAPHS`的值为2，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
+在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若设置了环境变量`MS_DEV_SAVE_GRAPHS`的值为2，运行时会输出一些图编译过程中生成的中间文件，称为IR文件。当前主要有两种格式的IR文件：
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
 - dot后缀结尾的IR文件：若设置了环境变量`MS_DEV_SAVE_GRAPHS`的值为3, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。
@@ -15,7 +15,7 @@
 
 `.dot`文件可以通过graphviz转换为图片格式来查看，例如将dot转换为png的命令是`dot -Tpng *.dot -o *.png`。
 
-在训练脚本`train.py`中，我们添加如下代码，运行训练脚本时，MindSpore会自动将编译过程中产生的IR文件存放到指定路径。
+在训练脚本`train.py`中，添加如下代码，运行训练脚本时，MindSpore会自动将编译过程中产生的IR文件存放到指定路径。
 
 ```python
 import os
@@ -40,7 +40,7 @@ os.environ['MS_DEV_SAVE_GRAPHS_PATH'] = "path/to/ir/files"
 
 其中以数字下划线开头的IR文件是在前端编译图过程中生成的，编译过程中各阶段分别会保存一次计算图。下面介绍图编译过程中比较重要的阶段:
 
-- `bootstrap`阶段负责解析入口函数，该阶段会初步生成MindIR，如果查看IR文件，我们能观察到该一个基础的解析节点，代表图的入口函数，以及一个相应的有必需参数的调用节点。
+- `bootstrap`阶段负责解析入口函数，该阶段会初步生成MindIR，如果查看IR文件，可以观察到该一个基础的解析节点，代表图的入口函数，以及一个相应的有必需参数的调用节点。
 - `type_inference`阶段负责类型推导和符号解析。该阶段递归地解析程序的入口函数，解析对其他函数和对象的引用，并推断所有节点的数据类型和形状信息。与不支持的语法或未解决的引用相关的错误会在这个阶段被标记出来，为开发者提供早期反馈。
 - `optimize`阶段负责硬件无关的优化，自动微分与自动并行功能也是在该阶段展开。该阶段又可细分为若干个子阶段，在IR文件列表中，其中以`opt_pass_[序号]`为前缀的文件分别是这些子阶段结束后保存的IR文件，非框架开发人员无需过多关注；
 - `validate`阶段负责校验编译出来的计算图，如果到此阶段IR中还有仅临时使用的内部算子，则会报错退出；
@@ -231,12 +231,12 @@ print(out)
 
 以上内容可分为两个部分，第一部分为图的输入信息，第二部分为图的结构信息：
 
-- 第1行告诉了我们该网络的顶图名称 `@19_1___main___Net_construct_304`，也就是入口图。
-- 第2行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第23行的入口图`@19_1___main___Net_construct_304`；第84行的图`20_4_✓__main___Net_construct_311`，对应着网络中if条件为true时所运行的图；第120行的图`21_14_✗__main___Net_construct_314`，即对应着网络中if条件为false时所运行的图。
-- 第14行告诉了我们该网络有多少个输入。
+- 第1行表示该网络的顶图名称 `@19_1___main___Net_construct_304`，也就是入口图。
+- 第2行表示该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第23行的入口图`@19_1___main___Net_construct_304`；第84行的图`20_4_✓__main___Net_construct_311`，对应着网络中if条件为true时所运行的图；第120行的图`21_14_✗__main___Net_construct_314`，即对应着网络中if条件为false时所运行的图。
+- 第14行表示该网络有多少个输入。
 - 第16-17行是输入列表，遵循`%para[序号]_[name] : <[data_type], (shape)>`的格式。
 
-对于具体的图来说（此处我们以图`@19_1___main___Net_construct_304`为例）：
+对于具体的图来说（此处以图`@19_1___main___Net_construct_304`为例）：
 
 - 第23-81行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些在网路所调用的接口中所用到的算子。
 
@@ -267,13 +267,13 @@ print(out)
 dot -Tpng -o 01_type_inference_0003.png 01_type_inference_0003.dot
 ```
 
-转换之后得到类似下图的模型示意图，我们可以观察构建的静态图模型结构。不同的黑框区分了不同的子图，图与图之间的蓝色箭头表示相互之间的调用。蓝色区域表示参数，矩形表示图的参数列表，六边形和黑色箭头表示该参数作为CNode的输入参与计算过程。黄色矩形表示CNode节点，从图中可以看出，CNode输入从下标0开始，第0个输入（即紫色或绿色区域）表示该算子将要进行怎样的计算，通过虚箭头连接。类型一般为算子原语，也可以是另一张图。下标1之后的输入则为计算所需要的参数。
+转换之后得到类似下图的模型示意图，可以观察构建的静态图模型结构。不同的黑框区分了不同的子图，图与图之间的蓝色箭头表示相互之间的调用。蓝色区域表示参数，矩形表示图的参数列表，六边形和黑色箭头表示该参数作为CNode的输入参与计算过程。黄色矩形表示CNode节点，从图中可以看出，CNode输入从下标0开始，第0个输入（即紫色或绿色区域）表示该算子将要进行怎样的计算，通过虚箭头连接。类型一般为算子原语，也可以是另一张图。下标1之后的输入则为计算所需要的参数。
 
 ![01_type_inference_0003.png](./images/dot_to_png.png)
 
 ## 如何根据analyze_fail.ir文件分析图推导失败的原因
 
-MindSpore在编译图的过程中，经常会出现`type_inference`阶段的图推导失败的报错，通常我们能根据报错信息以及analyze_fail.ir文件，来定位出脚本中存在的问题。
+MindSpore在编译图的过程中，经常会出现`type_inference`阶段的图推导失败的报错，开发者通常可以根据报错信息以及analyze_fail.ir文件，来定位出脚本中存在的问题。
 
 ### 例子1：参数数量不匹配
 
@@ -340,9 +340,9 @@ MindSpore在编译图的过程中，经常会出现`type_inference`阶段的图�
 ```
 
 以上的报错信息为：“TypeError: The parameters number of the function is 2, but the number of provided arguments is 3...”。
-表明`FunctionGraph ID : func_40`只需要2个参数，但是却提供了3个参数。从“The function call stack ...”中，可以知道出错的代码为：“In file t2.py:18 ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
+表明`FunctionGraph ID : func_40`只需要2个参数，但是却提供了3个参数。从“The function call stack ...”中，可以知道出错的代码为：“In file t2.py:18 ... self.func(a, a, b)”，是因为该处的函数调用传入参数的数目过多。
 
-但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第28行括号中）：`/workspace/mindspore/rank_0/om/analyze_fail.ir`，文件中除了上述报错信息，还有如下内容（此处版本为MindSpore 2.3，后续版本中内容可能会有一些细微变化）：
+但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第28行括号中）：`/workspace/mindspore/rank_0/om/analyze_fail.ir`，文件中除了上述报错信息，还有如下内容（此处版本为MindSpore 2.3，后续版本中内容可能会有一些细微变化）：
 
 ```text
   1 # ===============================================================================================
@@ -467,7 +467,7 @@ MindSpore在编译图的过程中，经常会出现`type_inference`阶段的图�
 
 `analyze_fail.ir`文件与前文介绍过的ir文件格式一致，唯一有区别的地方在于`analyze_fail.ir`文件中会指出推导出错的节点所在的位置，即第71行的`------------------------> 1`。该箭头指向了推导出错的节点，为`%7(CNode_19) = %6(%4, %4, %5) ...`。
 根据`(%4, %4, %5)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def func(x, y):...`。
-在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，我们需要修改脚本中传入的参数个数以解决该问题。
+在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，需要修改脚本中传入的参数个数以解决该问题。
 
 ### 例子2：BiasAdd输入之间shape不匹配
 
@@ -529,7 +529,7 @@ MindSpore在编译图的过程中，经常会出现`type_inference`阶段的图�
  28  (See file '/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir)
 ```
 
-根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/workspace/mindspore/rank_0/om/analyze_fail.ir`，文件中除了上述报错信息，还有如下内容（此处版本为MindSpore 2.3，后续版本中内容可能会有一些细微变化）：
+根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/workspace/mindspore/rank_0/om/analyze_fail.ir`，文件中除了上述报错信息，还有如下内容（此处版本为MindSpore 2.3，后续版本中内容可能会有一些细微变化）：
 
 ```text
   1 # ===============================================================================================
@@ -713,7 +713,7 @@ MindSpore在编译图的过程中，经常会出现`type_inference`阶段的图�
 搜索`------------------------>`来到第68行，即推导出错的位置。根据`...(%4, %5)
       : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (`<null>`)`可知，算子`BiasAdd`的输入是`%4`和`%5`这两个节点。其中，`%4`的shape是`[3, 8]`，`%5`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
 
-因此，为了解决该问题，我们要么修改`%4`的shape，要么修改`%5`（即`self.bias`）的shape。
+因此，为了解决该问题，可以修改`%4`的shape，或修改`%5`（即`self.bias`）的shape。
 
 - 如果修改`%5`（也就是`self.bias`）的维度，只需要改成`self.bias = Parameter(initializer('zeros', [8]), name="bias")`。
-- 如果修改`%4`的shape，我们先要明白`%4`是什么。根据第59行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para0_x1, %3)`，第一个输入的shape是`[3, 32]`（即我们传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%4`的输出shape为`[3, 4]`，因此我们修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
+- 如果修改`%4`的shape，先要明白`%4`是什么。根据第59行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para0_x1, %3)`，第一个输入的shape是`[3, 32]`（即传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%4`的输出shape为`[3, 4]`，因此修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
