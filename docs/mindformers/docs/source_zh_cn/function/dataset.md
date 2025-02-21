@@ -2,6 +2,191 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/function/dataset.md)
 
+目前MindSpore Transformers的预训练和微调支持多种格式的数据集加载能力，包括Megatron多源数据集、MindRecord数据集以及在线数据集的加载方式。每种格式的数据集的具体使用方法的参考如下。
+
+## Megatron多源数据集
+
+Megatron多源数据集是指从多个不同来源收集的数据集，这些数据集可以包含不同的文本类型、格式和领域。使用多源数据集可以帮助模型学习到更广泛的语言特征和知识，从而提高模型的泛化能力和性能。Megatron框架目前实现的多源数据集，需要先将原数据集预处理成BIN格式的数据集。当前MindSpore Transformers已经原生适配了Megatron多源数据集，提供了制作BIN格式数据集的脚本，支持在训练任务中直接使用Megatron多源数据集。
+
+### 制作 BIN 格式数据集
+
+MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) 将文本数据转换成BIN格式数据集，该脚本当前仅支持处理特定形式的 JSON 格式的文件。用户需要先将原始数据集文件转换成特定形式的JSON格式的文件，再使用预处理脚本生成BIN格式的数据集文件。当前 MindSpore Transformers 中的一些模型已经提供了将特定开源数据集转换成特定形式 JSON 格式文件的脚本，用户如想使用自有数据集，则需要通过自行编写脚本的方式将其转换为所需形式。
+
+所需的 JSON 格式文件内容的形式如下：
+
+```json
+{"id": "0", "text": "The quick brown fox", "type": "Eng", "src": "www.nvidia.com", "title": "First Part"}
+{"id": "1", "text": "jumps over the lazy dog", "type": "Eng", "src": "The Internet", "title": "Second Part"}
+...
+```
+
+其中每条数据由若干键值对组成，支持的键及说明如下：
+
+- `"id"`: 数据的编号，按顺序编号即可，必须存在
+- `"text"`: 实际用作训练的文本数据，必须存在
+- `"type"`: 注明语言类型，可选
+- `"src"`：注明数据的来源，可选
+- `"title"`：注明数据的标题，可选
+
+下面以处理 Wiki 数据集并用作 Llama2 模型预训练为例，说明制作 BIN 格式数据集的详细步骤：
+
+1. 下载 Wiki 数据集
+
+   原始 Wiki 数据集的下载参考 [Llama2 数据集下载](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
+
+2. 生成 JSON 格式文件
+
+   Wiki 数据集的原始格式如下：
+
+   ![](image/wikitext_sample.png)
+
+   将 Wiki 数据集处理后的 JSON 文件 `wiki.json` 的格式如下 （省略长文本）：
+
+   ```json
+   {"id": 0, "text": "The gold dollar or gold one ..."}
+   {"id": 1, "text": "Super Mario Land is a 1989 ..."}
+   {"id": 2, "text": "The Sinclair Scientific Programmable ..."}
+   ...
+   ```
+
+3. 下载 Llama2 的词表文件
+
+   预处理脚本中会把原始文本数据使用模型的分词器 Tokenizer 处理成 Tokens 的形式，因此需要提前下载词表文件。
+
+   Llama2 词表文件的下载链接：[tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
+
+4. 使用预处理脚本生成 BIN 格式文件
+
+    处理成上述这样特定的 JSON 格式的文件后，调用 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) 将其转换成BIN格式的数据集，具体命令如下：
+
+    ```shell
+    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+    --input ./wiki.json \
+    --output-prefix wiki_processed_1024 \
+    --tokenizer-type LlamaTokenizer \
+    --vocab-file ./tokenizer.model \
+    --add_bos_token True \
+    --add_eos_token True \
+    --pad_or_stitch stitch \
+    --seq-length 1024 \
+    --workers 1
+    ```
+
+    配置参数说明：
+
+    - `--input`: JSON 格式文件的路径
+    - `--output-prefix`: 预处理后的输出文件的文件名前缀
+    - `--tokenizer-type`: 模型对应的 tokenizer 的类型
+    - `--vocab-file`: 模型分词器 Tokenizer 的词表文件路径
+    - `--add_bos_token`: 是否在数据的首位置添加 bos_token，默认为 False
+    - `--add_eos_token`: 是否在数据的末位置添加 eos_token，默认为 False
+    - `--pad_or_stitch`: 根据训练任务的要求，设置是否拼接还是补齐，pad为补齐模式，该模式会将长度不足的数据补齐至seq-length长度；stitch为拼接模式，该模式会将多条数据拼接成长度为seq-length的数据
+    - `--seq-length`: 预处理后每条数据长度
+    - `--workers`: 预处理时并行 worker 的数量
+
+执行以上命令之后，会得到两个文件，分别为 `.bin` 和 `.idx` 格式的文件，其中 `.bin` 格式文件存储实际的数据，`.idx` 格式文件存储每条数据的索引。
+
+### 在训练任务中使用多源数据集
+
+按照如下方式在训练任务中使用Megatron多源数据集：
+
+1. 准备`parallel_speed_up.json`文件
+
+   `parallel_speed_up.json` 是数据集并行通信配置文件，文件内容如下：
+
+   ```json
+   {
+       "compute_communicate_fusion_level": 3,
+       "dataset_broadcast_opt_level": 3
+   }
+   ```
+
+2. 设置环境变量
+
+    在命令行输入如下命令设置环境变量：
+
+    ```shell
+    export MS_DEV_DYNAMIC_SINK1=False
+    ```
+
+3. 修改训练任务的 YAML 配置文件
+
+    在 YAML 配置文件中配置Megatron多源数据集的相关参数。此处，以 Llama2-7B 模型预训练任务来举例说明，修改 [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的 `train_dataset` 、 `runner_config` 、 `parallel_config` 、 `parallel` 以及 `context` 配置项。具体修改及说明如下：
+
+    ```yaml
+    train_dataset: &train_dataset
+      data_loader:
+        type: BlendedMegatronDatasetDataLoader
+        datasets_type: "GPTDataset"
+        sizes:
+          - 1000
+          - 0
+          - 0
+        shuffle: False
+        input_columns: ["input_ids", "labels", "loss_mask", "position_ids"]
+        config:
+          seed: 1234
+          seq_length: 1024
+          split: "1, 0, 0"
+          data_path:
+            - 0.3
+            - "/path/to/my_wiki_test_1024_text_document"
+            - 0.7
+            - "/path/to/my_wiki_test_1024_text_document"
+          num_dataset_builder_threads: 1
+          eod_mask_loss: False
+          create_attention_mask: False
+    ```
+
+    其中：
+
+    - data_loader.type：dataloader 的类型，需设置为 `BlendedMegatronDatasetDataLoader` 。
+    - data_loader.datasets_type：数据集类型，当前仅支持 `GPTDataset` 。
+    - data_loader.sizes：`- 1000` ， `- 0` ， `- 0` 分别为训练集、测试集以及验证集采样的大小，当前只支持配置训练集。
+    - input_columns：设置训练数据集输入的数据列，一般配置为 `["input_ids", "labels", "loss_mask", "position_ids"]` 。
+    - data_loader.config.seed: 创建数据集时的随机数种子，默认值： `1234` 。
+    - data_loader.config.seq_length: 每条数据的长度，必须和 YAML 配置中的 model.model_config.seq_length 保持一致。
+    - data_loader.config.split：分割字符串，用逗号分隔训练集、测试集以及验证集的比重，用于从单个分布中绘制样本时分割数据集，当前只支持配置为 `"1, 0, 0"` 。
+    - data_loader.config.data_path：数字是每个数据集的比重，字符串是数据集 BIN 文件的路径，路径需要去掉文件格式后缀 `.bin` 。
+    - data_loader.config.num_dataset_builder_threads：创建数据集时使用的进程数，默认值： `1` 。
+    - data_loader.config.eod_mask_loss：是否使用 eod mask 的开关，默认值： `False` 。
+    - data_loader.config.create_attention_mask：是否构造 attention_mask，默认值：`True` 。
+
+    当前多源数据集目前还存在限制，仅支持非 full batch 的场景，需要根据以下对相应配置项进行修改：
+
+    ```yaml
+    runner_config:
+        sink_mode: True
+        sink_size: 1
+
+    parallel_config:
+        data_parallel: &dp 2
+        model_parallel: 2
+        pipeline_stage: 1
+
+    parallel:
+        full_batch: False
+        dataset_strategy: [[*dp, 1], [*dp, 1], [*dp, 1], [*dp, 1]]
+
+    context:
+        ascend_config:
+            parallel_speed_up_json_path: "/path/to/parallel_speed_up.json"
+    ```
+
+    需要注意的配置说明如下：
+
+    - parallel.dataset_strategy：仅支持 List of List 类型，List中子List的个数需要等于 train_dataset.input_columns 的长度，并且 List 中的每个子 List 需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子List的第1位数配置成 `*dp` ，其他位配置为 `1` 。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dataset_slice.html)。
+
+4. 编译 Megatron 数据集模块
+
+    MindSpore Transformers 内置了 Megatron 的数据集模块代码，需要在启动训练任务之前执行如下命令进行编译：
+
+    ```shell
+    pip install pybind11
+    cd mindformers/dataset/blended_datasets
+    make
+    ```
+
 ## MindRecord 数据集
 
 MindRecord 是由 MindSpore 开发的一种高效数据格式，用于存储机器学习或深度学习的数据集。
@@ -125,81 +310,6 @@ train_dataset_task:
 - input_columns：设置训练数据集输入的数据列。当前为预训练场景，设置为 `["input_ids"]` 。
 
 其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
-
-## BIN 格式数据集
-
-在大模型训练过程中，使用二进制格式（BIN格式）的数据集可以带来显著的性能和效率提升。当前 MindFormers 框架也适配了对 BIN 格式数据集的处理能力，包括如何制作 BIN 格式数据集和在任务中使用 BIN 格式数据集。
-
-### 如何制作 BIN 格式数据集
-
-当前 MindFormers 提供的预处理脚本仅支持处理 json 格式的文件，需要用户在使用预处理脚本前将原始数据集的文件格式转换成符合预处理脚本支持的 json 格式的文件，支持的 json 格式的文件格式如下：
-
-```json
-{"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
-{"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
-```
-
-以 Llama2 处理 Wiki数据集为例，原始Wiki数据集的下载参考 [Llama2 中的数据预处理案例](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，在处理成符合预处理脚本支持格式的数据集后，直接调用 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py)，具体命令如下：
-
-```shell
-python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
---input /path/to/wiki.json \
---output-prefix /path/to/my_wiki_1024 \
---tokenizer-type LlamaTokenizer \
---vocab-file /path/to/tokenizer.model \
---add_bos_token True \
---add_eos_token True \
---pad_or_stitch stitch \
---seq-length 1024 \
---workers 1
-```
-
-预处理脚本的入参说明如下：
-
-- input: 待处理的数据集处理成 json 格式后的文件路径
-- output-prefix: 预处理后的输出文件的文件名前缀
-- tokenizer-type: 模型对应的 tokenizer 的类型
-- vocab-file: 模型的 tokenizer.model 或者其他格式的 vocab file
-- add_bos_token: 是否在数据的首位置添加 bos_token，默认 False，具体设置参考各个模型要求
-- add_eos_token: 是否在数据的末位置添加 eos_token，默认 False，具体设置参考各个模型要求
-- pad_or_stitch: 根据训练任务的要求，设置是否拼接还是补齐，pad 为补齐，stitch 为拼接
-- seq-length: 数据集处理的数据长度，需用户自行设置
-- workers: 预处理时并行 worker 的数量
-
-执行以上命令之后，会得到两个文件，分别为 .bin 和 .idx 格式的文件。
-
-### 在任务中使用 BIN 格式数据集
-
-通过在 yaml 配置文件中配置数据集相关参数，可以让训练任务使用准备好的 BIN 格式数据集。
-
-此处，以 Llama2-7B 模型预训练任务来举例说明，在 [pretrain_llama2_7b.yaml 文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的配置参数的修改及说明如下：
-
-```yaml
-# dataset
-train_dataset: &train_dataset
-  data_loader:
-    type: IndexedDataLoader
-    path_prefix: ""
-    shuffle: False
-  input_columns: ["input_ids"]
-  num_parallel_workers: 8
-  python_multiprocessing: False
-  drop_remainder: True
-  batch_size: 6
-  repeat: 1
-  numa_enable: False
-  prefetch_size: 1
-
-train_dataset_task:
-  type: CausalLanguageModelDataset
-  dataset_config: *train_dataset
-```
-
-配置如下参数以使用 BIN 格式数据集：
-
-- data_loader.type：dataloader 的类型，此处需要设置为 `IndexedDataLoader` 。
-- data_loader.path_prefix：数据集文件名的前缀。
-- input_columns：设置训练数据集输入的数据列。当前为预训练场景，设置为 `["input_ids"]` 。
 
 ## 在线数据集
 
