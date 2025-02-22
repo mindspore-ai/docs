@@ -140,7 +140,7 @@ def compute_normalizer(emissions, mask, trans, start_trans, end_trans):
 
         # Perform the log_sum_exp operation on score_i to calculate the score of the next token.
         # shape: (batch_size, num_tags)
-        next_score = ops.logsumexp(next_score, axis=1)
+        next_score = ops.logsumexp(next_score, dim=1)
 
         # The score changes only when mask == 1.
         # shape: (batch_size, num_tags)
@@ -151,7 +151,7 @@ def compute_normalizer(emissions, mask, trans, start_trans, end_trans):
     score += end_trans
     # Calculate log_sum_exp based on the scores of all possible paths.
     # shape: (batch_size,)
-    return ops.logsumexp(score, axis=1)
+    return ops.logsumexp(score, dim=1)
 ```
 
 ### Viterbi Algorithm
