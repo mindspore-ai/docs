@@ -92,16 +92,16 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 ### 使用自定义算子
 
 MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html) ，
-使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并指定`func`参数为算子名字。根据`infer shape`函数的实现方式，存在以下两种使用方式：
+使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并指定`func`参数为算子名字。根据infer函数的实现方式，存在以下两种使用方式：
 
-- **python infer**：若算子的infer shape是python实现，即通过`out_shape`参数传入infer shape函数，则指定`func="CustomName"`
-- **c++ infer**：若算子的infer shape通过c++实现，则在func中传入infer shape实现文件的路径并用`:`隔开算子名字，例如：`func="add_custom_infer.cc:AddCustom`
+- **Python infer**：若算子的infer函数是Python实现，即通过`out_shape`参数传入infer shape函数，`out_dtype`参数传入infer type函数，则指定`func`为算子名，例如`func="CustomName"`
+- **C++ infer**：若算子的infer函数通过C++实现，则在func中传入infer实现文件的路径并用`:`隔开算子名字，例如：`func="add_custom_infer.cc:AddCustom`
 
 **使用样例**：
 
 ```python
 class AddCustomNet(Cell):
-    def __init__(self, func, out_shape):
+    def __init__(self, func, out_shape, out_dtype):
         super(AddCustomNet, self).__init__()
         reg_info = CustomRegOp("AddCustom") \
             .input(0, "x", "required") \
@@ -111,7 +111,7 @@ class AddCustomNet(Cell):
             .target("Ascend") \
             .get_op_info()
 
-        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=lambda x, _: x, func_type="aot", bprop=None,
+        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=out_dtype, func_type="aot", bprop=None,
                                      reg_info=reg_info)
 
     def construct(self, x, y):
@@ -124,10 +124,31 @@ x = np.ones([8, 2048]).astype(np.float16)
 y = np.ones([8, 2048]).astype(np.float16)
 
 # 通过lambda实现infer shape函数
-net = AddCustomNet("AddCustom", lambda x, _: x)
+net = AddCustomNet("AddCustom", lambda x, _: x, lambda x, _: x)
 
-# 使用c++实现infer shape，在func中传入infer shape的路径
-net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
+# 使用C++实现infer shape和infer type，在func中传入infer的路径
+net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None, None)
+```
+
+**C++ infer shape和infer type实现示例:**
+
+```cpp
+#include <vector>
+#include <stdint.h>
+#include "custom_aot_extra.h"
+enum TypeId : int {};
+
+extern "C" std::vector<int64_t> AddCustomInferShape(int *ndims, int64_t **shapes, AotExtra *extra) {
+  std::vector<int64_t> output_shape;
+  auto input0_size = ndims[0];
+  for (size_t i = 0; i < input0_size; i++) {
+    output_shape.push_back(shapes[0][i]);
+  }
+  return output_shape;
+}
+
+extern "C" TypeId MulInferType(std::vector<TypeId> type_ids, AotExtra *extra) { return type_ids[0]; }
+
 ```
 
 完整Ascend C自定义算子的样例代码，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc)。样例工程的目录结构如下：
@@ -136,7 +157,7 @@ net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
 .
 ├── compile_utils.py                //自定义算子编译公共文件
 ├── infer_file
-│   ├── custom_cpp_infer.cc         //自定义算子c++侧infer shape
+│   ├── custom_cpp_infer.cc         //自定义算子C++侧infer shape和infer type文件
 │   └── custom_aot_extra.h          //自定义算子infer shape编译依赖头文件
 ├── op_host                         //自定义算子源码op_host
 │   ├── add_custom.cpp
@@ -146,7 +167,8 @@ net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
 ├── test_compile_custom.py          //自定义算子编译用例
 ├── test_custom_aclnn.py            //自定义算子使用样例
 ├── test_custom_aclop.py            //自定义算子走aclop流程使用样例
-└── test_custom_ascendc.py          //自定义算子启动脚本，包含编译和执行，可作为阅读入口
+├── test_custom_ascendc.py          //自定义算子启动脚本，包含编译和执行，端到端流程
+└── test_custom_level0.py           //Custom接口使用简单示例，可作为阅读入口
 ```
 
 **注意事项**
@@ -160,7 +182,7 @@ net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
 ### 进一步阅读
 
 - **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_adv.html) 。
-- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [AOT类型自定义算子进阶用法](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_aot.html) 。
+- **AOT自定义算子**：对于C++的shape和type推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [AOT类型自定义算子进阶用法](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_aot.html) 。
 
 ## 常见问题
 

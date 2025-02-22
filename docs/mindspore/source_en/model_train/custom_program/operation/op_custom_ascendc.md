@@ -91,42 +91,62 @@ Before you begin, please make sure that the development, compilation, and deploy
 
 ### Using Custom Operators
 
-The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html). When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the `infer shape` function, there are two ways to use it:
+The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html). When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the infer function, there are two ways to use it:
 
-- **Python infer**: If the operator's infer shape is implemented in Python, that is, the infer shape function is passed through the `out_shape` parameter, specify `func="CustomName"`
-- **C++ infer**: If the operator's infer shape is implemented through C++, then pass the path of the infer shape implementation file in `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:AddCustom"`
+- **Python infer**: If the infer function of an operator is implemented in Python, that is, the infer shape function is passed through the `out_shape` parameter, and the infer type function is passed through the `out_dtype` parameter, then the `func` should be specified as the operator name, for example, `func="CustomName"`.
+- **C++ infer**: If the operator's infer function is implemented through C++, then pass the path of the infer function implementation file in `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:AddCustom"`
 
 **Usage Example**:
 
 ```python
 class AddCustomNet(Cell):
-    def __init__(self, func, out_shape):
-        super(AddCustomNet, self).__init__()
-        reg_info = CustomRegOp("AddCustom") \
-            .input(0, "x", "required") \
-            .input(1, "y", "required") \
-            .output(0, "z", "required") \
-            .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default) \
-            .target("Ascend") \
-            .get_op_info()
+   def __init__(self, func, out_shape, out_dtype):
+      super(AddCustomNet, self).__init__()
+      reg_info = CustomRegOp("AddCustom")
+         .input(0, "x", "required")
+         .input(1, "y", "required")
+         .output(0, "z", "required")
+         .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default)
+         .target("Ascend")
+         .get_op_info()
 
-        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=lambda x, _: x, func_type="aot", bprop=None,
-                                     reg_info=reg_info)
+      self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=out_dtype, func_type="aot", bprop=None,
+                                   reg_info=reg_info)
 
-    def construct(self, x, y):
-        res = self.custom_add(x, y)
-        return res
+   def construct(self, x, y):
+      res = self.custom_add(x, y)
+      return res
 
 mindspore.set_context(jit_config={"jit_level": "O0"})
 mindspore.set_device("Ascend")
 x = np.ones([8, 2048]).astype(np.float16)
 y = np.ones([8, 2048]).astype(np.float16)
 
-# # Implement the infer shape function through lambda
-net = AddCustomNet("AddCustom", lambda x, _: x)
+# # Implement the infer function through lambda
+net = AddCustomNet("AddCustom", lambda x, _: x, lambda x, _: x)
 
-# Use C++ to implement infer shape, pass the path of the infer shape in the func
-net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
+# Use C++ to implement infer shape and infer type, pass the path of the infer function in the func
+net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None, None)
+```
+
+**C++ implementation Examples of Infer Shape and Infer Type**
+
+```cpp
+#include <vector>
+#include <stdint.h>
+#include "custom_aot_extra.h"
+enum TypeId : int {};
+
+extern "C" std::vector<int64_t> AddCustomInferShape(int *ndims, int64_t **shapes, AotExtra *extra) {
+  std::vector<int64_t> output_shape;
+  auto input0_size = ndims[0];
+  for (size_t i = 0; i < input0_size; i++) {
+    output_shape.push_back(shapes[0][i]);
+  }
+  return output_shape;
+}
+
+extern "C" TypeId MulInferType(std::vector<TypeId> type_ids, AotExtra *extra) { return type_ids[0]; }
 ```
 
 For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
@@ -135,7 +155,7 @@ For a complete example of an Ascend C custom operator, you can refer to the [sam
 .
 ├── compile_utils.py                // Custom operator compilation common file
 ├── infer_file
-│   ├── custom_cpp_infer.cc         // Custom operator C++ side infer shape
+│   ├── custom_cpp_infer.cc         // Custom operator C++ side infer shape and infer type
 │   └── custom_aot_extra.h          // Custom operator infer shape compilation dependency header file
 ├── op_host                         // Custom operator source code op_host
 │   ├── add_custom.cpp
@@ -145,7 +165,8 @@ For a complete example of an Ascend C custom operator, you can refer to the [sam
 ├── test_compile_custom.py          // Custom operator compilation test case
 ├── test_custom_aclnn.py            // Custom operator usage example
 ├── test_custom_aclop.py            // Custom operator aclop usage example
-└── test_custom_ascendc.py          // Custom operator startup script, including compilation and execution, can be used as an entry for reading
+├── test_custom_ascendc.py         // Custom operator startup script, including compilation and execution, end-to-end process
+└── test_custom_level0.py           // A simple example of using the Custom interface, which can serve as an entry point for reading
 ```
 
 **Precautions**
@@ -159,7 +180,7 @@ For a complete example of an Ascend C custom operator, you can refer to the [sam
 ### Further Reading
 
 - **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html).
-- **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_aot.html).
+- **AOT Custom Operators**: For the implementation of shape and type inference functions in C++, as well as the advanced usage of AOT custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_aot.html).
 
 ## Common Issues
 

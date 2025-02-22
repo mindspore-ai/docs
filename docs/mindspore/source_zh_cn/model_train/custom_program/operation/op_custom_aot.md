@@ -287,6 +287,19 @@ extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes,
 - shapes (int64_t \*\*): 输入shape数组。
 - extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
+### type推导函数
+
+AOT类型的自定义算子也支持C++版本的type推导函数。算子type推导函数定义必须满足如下规范：
+
+```cpp
+extern "C" TypeId FuncNameInferType(std::vector<TypeId> type_ids, AotExtra *extra)
+```
+
+其中，函数名`FuncName`为算子主函数的名字。返回值为`TypeId`类型，为输出的type。参数列表的含义如下：
+
+- type_ids (std::vector<TypeId>): 输入的type数组。
+- extra (AotExtra \*): 用于带属性的自定义算子扩展，与shape推导函数的入参一致。
+
 ### 算子属性注册（Python）
 
 算子属性在初始化时的赋值，通过算子注册文件实现。对于每一个属性，我们为算子注册文件创建一个`attr`，设置属性名和属性的值。其注册方法为：
