@@ -58,4 +58,4 @@ After that, the offline model can be run through the benchmark tool or the model
 
 > At present, the offline models converted by the converter_lite tool after graph kernel fusion is enabled can only be run locally, and the model files cannot support cross-platform running function.
 >
-> You can determine whether graph fusion is successful by exporting the IR graph (configuring `export MS_DEV_DUMP_GRAPH_KERNEL_IR`) and checking if the fused graph structure has been generated.
+> You can determine whether graph fusion is successful by exporting the IR graph (configuring `export MS_DEV_DUMP_GRAPH_KERNEL_IR=on`) and checking if the fused graph structure has been generated.

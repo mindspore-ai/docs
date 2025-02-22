@@ -59,4 +59,4 @@ Ascend后端需要安装AKG融合算子实现，具体方法见[部署Ascend自�
 
 > 目前，使用使能图算融合之后的converter_lite工具转换出的离线模型只能在本机运行，模型文件不能支持跨平台运行功能。
 >
-> 可以通过导出IR图（配置`export MS_DEV_DUMP_GRAPH_KERNEL_IR`），查看是否生成融合后的图结构，来判断图算融合是否使能成功。
+> 可以通过导出IR图（配置`export MS_DEV_DUMP_GRAPH_KERNEL_IR=on`），查看是否生成融合后的图结构，来判断图算融合是否使能成功。
