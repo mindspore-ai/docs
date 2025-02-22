@@ -49,6 +49,10 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
 
    提供大模型训练阶段的可视化服务，用于监控和分析训练过程中的各种指标和信息。
 
+7. `训练高可用 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/high_availability.html>`_
+
+   提供大模型训练阶段的高可用能力，包括临终 CKPT 保存、UCE 故障容错恢复和进程级重调度恢复功能。
+
 使用MindFormers进行深度调优
 ------------------------------------
 
@@ -116,6 +120,7 @@ FAQ
    function/dataset
    function/resume_training
    function/tensorboard
+   function/high_availability
 
 .. toctree::
    :glob:
