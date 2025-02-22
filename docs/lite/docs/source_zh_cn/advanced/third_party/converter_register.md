@@ -24,7 +24,7 @@ MindSpore Lite转换工具的扩展能力，目前仅支持Linux系统。
 
 本章节以[add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)模型为例。该模型仅包含一个简单的Add算子，通过自定义的节点解析、图优化，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/register_kernel.html#custom算子)，最终输出Custom单算子模型。
 
-相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend)目录。
+相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend)路径下。
 
 ## 节点扩展
 
@@ -49,7 +49,7 @@ REG_NODE_PARSER(kFmkTypeTflite, ADD, std::make_shared<AddParserTutorial>());    
 
 ## 模型扩展
 
-示例代码请参考[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)的模型扩展的单元案例[ModelParserRegistryTest](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/tools/converter/registry/model_parser_registry_test.cc)。
+示例代码请参考MindSpore仓模型扩展的单元案例[ModelParserRegistryTest](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/tools/converter/registry/model_parser_registry_test.cc)。
 
 ### 优化扩展
 
@@ -149,7 +149,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
 ## 扩展配置
 
-在转换阶段，为了能够加载扩展模块，用户需要配置扩展动态库路径。扩展相关的参数有`plugin_path`，`disable_fusion`。参数的详细介绍如下所示：
+在转换阶段，为了能够加载扩展模块，用户需要配置扩展动态库路径。扩展相关的参数有`plugin_path`、`disable_fusion`。参数的详细介绍如下所示：
 
 | 参数              | 属性 | 功能描述             | 参数类型 | 默认值 | 取值范围            |
 | ----------------- | ---- | -------------------- | -------- | ------ | ------------------- |

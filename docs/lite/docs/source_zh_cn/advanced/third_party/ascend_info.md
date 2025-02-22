@@ -74,7 +74,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                
 MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型（Caffe、ONNX、TensorFlow、MindIR）转换为可在Ascend硬件上推理的模型。
 首先，通过转换工具转换成的`ms`模型；然后，使用转换工具配套的Runtime推理框架执行推理，具体流程如下：
 
-1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)Ascend专用converter工具，当前仅支持Linux
+1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)Ascend专用converter工具，当前仅支持Linux。
 
 2. 解压下载的包
 
@@ -133,9 +133,9 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 | 参数                        | 属性  | 功能描述                                                       | 参数类型 | 取值说明 |
 | -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
-| `input_format`             | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`，`"NHWC"` |
+| `input_format`             | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`、`"NHWC"` |
 | `input_shape_vector`       | 可选 | 指定模型输入Shape， 按模型输入次序排列，用`；`隔开。 | String | 例如: `"[1,2,3,4];[4,3,2,1]"` |
-| `precision_mode`           | 可选 | 配置模型精度模式。    | String | 可选有`"force_fp16"`，`"allow_fp32_to_fp16"`，`"must_keep_origin_dtype"`或者`"allow_mix_precision"`，默认为`"force_fp16"`|
+| `precision_mode`           | 可选 | 配置模型精度模式。    | String | 可选有`"force_fp16"`、`"allow_fp32_to_fp16"`、`"must_keep_origin_dtype"`或者`"allow_mix_precision"`，默认为`"force_fp16"`|
 | `op_select_impl_mode`      | 可选 | 配置算子选择模式。    | String | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
 | `dynamic_batch_size`       | 可选 | 指定[动态BatchSize](#动态batch-size)参数。 | String | `"2,4"`|
 | `dynamic_image_size`       | 可选 | 指定[动态分辨率](#动态分辨率)参数。  | String | `"96,96;32,32"` |
@@ -144,7 +144,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 ## 推理工具runtime
 
-converter得到转换模型后，使用配套的Runtime推理框架执行推理， 有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html)。
+converter得到转换模型后，使用配套的Runtime推理框架执行推理。有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html)。
 
 ## 执行benchmark
 
@@ -207,7 +207,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 注意事项
 
-    1）若用户执行推理业务时，每次处理的图片数量不固定，则可以通过配置该参数来动态分配每次处理的图片数量。例如用户执行推理业务时需要每次处理2张，4张，8张图片，则可以配置为2，4，8，申请了档位后，模型推理时会根据实际档位申请内存。<br/>
+    1）若用户执行推理业务时，每次处理的图片数量不固定，则可以通过配置该参数来动态分配每次处理的图片数量。例如用户执行推理业务时需要每次处理2张、4张、8张图片，则可以配置为2、4、8，申请了档位后，模型推理时会根据实际档位申请内存。<br/>
     2）如果用户设置的档位数值过大或档位过多，可能会导致模型编译失败，此时建议用户减少档位或调低档位数值。<br/>
     3）如果用户设置的档位数值过大或档位过多，在运行环境执行推理时，建议执行swapoff -a命令关闭swap交换区间作为内存的功能，防止出现由于内存不足，将swap交换空间作为内存继续调用，导致运行环境异常缓慢的情况。<br/>
 
@@ -244,7 +244,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 推理
 
-    使能动态分辨率， 进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html#输入维度resize)功能。
+    使能动态分辨率，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html#输入维度resize)功能。
 
 - 注意事项
 

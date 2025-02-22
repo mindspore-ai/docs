@@ -38,7 +38,7 @@ bash build.sh -I x86_64
 
 - Benchmark测试TensorRT推理
 
-    用户也可以使用MindSpore Lite的Benchmark工具测试TensorRT推理。编译出的Benchmark位置见[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)。将构建包传到具有TensorRT环境（TensorRT 6.0.1.5）的设备上使用Benchmark工具测试TensorRT推理，示例如下：
+    用户也可以使用MindSpore Lite的Benchmark工具测试TensorRT推理。编译出的Benchmark位置见[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)。将构建包传到具有TensorRT环境（TensorRT 6.0.1.5）的设备上，使用Benchmark工具测试TensorRT推理，示例如下：
 
     - 测性能
 
