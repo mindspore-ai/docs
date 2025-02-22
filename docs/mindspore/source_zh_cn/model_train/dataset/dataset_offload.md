@@ -6,9 +6,9 @@
 
 MindSpore提供了一种运算负载均衡的技术，可以将MindSpore的Tensor运算分配到不同的异构硬件上，一方面均衡不同硬件之间的运算开销，另一方面利用异构硬件的优势对运算进行加速。
 
-目前该异构硬件加速技术仅支持将数据处理操作均衡到网络侧，均衡数据处理管道与网络运算的计算开销。具体来说，目前数据处理管道的操作均在CPU侧运算，该功能将部分数据操作从CPU侧“移动”到网络端，利用昇腾Ascend或GPU的计算资源对数据数据处理的操作进行加速。
+目前MindSpore的异构硬件加速技术仅支持将数据处理操作均衡到网络侧，用于均衡数据处理管道与网络运算的计算开销。具体来说，目前数据处理管道的操作均在CPU侧运算，该功能将部分数据操作从CPU侧“移动”到网络端，利用昇腾Ascend或GPU的计算资源对数据处理的操作进行加速。
 
-该功能仅支持将作用于特定数据输入列末端的数据增强操作移至异构侧进行加速，输入列末端指的是作用于该数据的map操作所持有的位于末端且连续的数据增强操作。
+该功能仅支持将作用于特定数据输入列末端的数据增强操作移至异构侧进行加速。其中，输入列末端指的是作用于该数据的map操作所持有的位于末端且连续的数据增强操作。
 
 当前支持异构加速功能的数据增强操作有：
 
@@ -21,7 +21,7 @@ MindSpore提供了一种运算负载均衡的技术，可以将MindSpore的Tenso
 | RandomSharpness      | mindspore.dataset.vision.transforms.py     | 对图像进行随机锐化                      |
 | RandomVerticalFlip   | mindspore.dataset.vision.transforms.py     | 对图像进行随机垂直翻转                  |
 | Rescale              | mindspore.dataset.vision.transforms.py     | 对图像的像素值进行缩放                  |
-| TypeCast             | mindspore.dataset.transforms.transforms.py | 将张量强制转换为给定的MindSpore数据类型 |
+| TypeCast             | mindspore.dataset.transforms.transforms.py | 将Tensor强制转换为给定的MindSpore数据类型 |
 
 ## 流程
 
@@ -31,7 +31,7 @@ MindSpore提供了一种运算负载均衡的技术，可以将MindSpore的Tenso
 
 异构加速功能提供了两个API以允许用户启用此功能：
 
-1. map操作中提供offload入参，
+1. map操作中提供offload入参。
 
 2. 数据集全局配置mindspore.dataset.config中提供set_auto_offload接口。
 
