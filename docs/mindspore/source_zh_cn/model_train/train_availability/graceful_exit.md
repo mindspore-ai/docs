@@ -4,9 +4,9 @@
 
 ## 概述
 
-当训练集群中存在亚健康设备时，在亚健康设备发生故障之前完成checkpoint保存，并结束集群训练进程，可以有效避免集群损坏时权重数据丢失问题，同时也可以避免训练恢复时的训练数据数据回滚，加载checkpoint回滚等问题，有效避免训练资源浪费。
+当训练集群中存在亚健康设备时，如果能在亚健康设备发生故障之前完成 checkpoint 保存并结束集群训练进程，可以有效避免集群损坏时的权重数据丢失问题。同时，这也可以避免训练恢复时的数据回滚和 checkpoint 加载回滚等问题，从而减少训练资源的浪费。
 
-> 本文档为介绍使用进程优雅退出功能的用例，为说明具体使用方式，我们假设在第一个训练step时，就检测到退出配置信息，提前结束训练进程。你可以在这里下载完整代码：[process_graceful_exit](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/graceful_exit/) 。
+> 本文档介绍进程优雅退出功能的使用方法。为了说明具体使用方式，以在第一个训练step时检测到退出配置信息并提前结束训练进程为例。您可以在这里下载完整代码：[process_graceful_exit](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/graceful_exit/)。
 
 其中，`graceful_exit.py` 为训练脚本，`train.sh` 为 `msrun` 启动脚本, `graceful_exit.json` 为优雅退出配置文件。
 
@@ -145,9 +145,9 @@ export MS_ENABLE_GRACEFUL_EXIT=1
 
 ### Callback函数
 
-除了设置上述环境变量，还需要设置 `OnRequestExit` Callback函数，并传入参数 `config_file` 来给出优雅退出json文件路径。该函数会在训练进程的每一个step begin时刻，检查指定目录下是否存在优雅退出配置json文件。如果存在配置文件，且文件中的关键字 `GracefulExit` 为 `1` 时，在step end时刻会保存checkpoint文件，并退出训练进程。
+除了设置上述环境变量外，还需要设置 `OnRequestExit` Callback 函数，并通过参数 `config_file` 指定优雅退出配置文件的路径。该函数会在训练进程的每个 step 开始时检查指定目录下是否存在优雅退出配置文件。如果存在配置文件且文件中的关键字 `GracefulExit` 值为 `1`，则会在 step 结束时保存 checkpoint 文件并退出训练进程。
 
-Json文件中的关键字 `GracefulExit` 是在训练过程中动态配置的，一般是在识别到训练集群中存在亚健康设备、需要退出训练进程时修改。
+配置文件中的关键字 `GracefulExit` 是在训练过程中动态配置的，通常在识别到训练集群中存在亚健康设备且需要退出训练进程时进行修改。
 
 ```python
 # json文件中关键字：{"GracefulExit": 1}
@@ -226,7 +226,8 @@ msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=
 
 ## 说明
 
-如果没有重写TrainOneStepCell，则只需要配置 `MS_ENABLE_GRACEFUL_EXIT` 环境变量以及 `OnRequestExit` callback函数，以及按需在训练的某一时刻修改优雅退出配置文件，就可以实现进程优雅退出功能。
+如果没有重写 TrainOneStepCell，则只需要配置 `MS_ENABLE_GRACEFUL_EXIT` 环境变量和 `OnRequestExit` callback 函数，并在训练的某一时刻按需修改优雅退出配置文件，即可实现进程优雅退出功能。
+
 如果网络模型需要重写TrainOneStepCell，则：
 
 1. 继承父类TrainOneStepCell，construct方法里面添加如下 `if` 条件分支代码来保证优雅退出功能可以正常运行（继承于TrainOneStepCell，可以直接使用这些成员变量）：

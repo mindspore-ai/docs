@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore临终CKPT功能基于[MindIO TTP](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html)，主要针对大模型训练过程中故障恢复加速，临终Checkpoint特性通过在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临时CheckPoint数据，恢复训练时能够通过该CheckPoint数据恢复，减少故障造成的训练迭代损失。
+MindSpore临终CKPT功能基于[MindIO TTP](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html)，主要针对大模型训练过程中故障恢复加速，临终Checkpoint特性通过在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临时Checkpoint数据，恢复训练时能够通过该Checkpoint数据恢复，减少故障造成的训练迭代损失。
 
 下面以一个4卡数据并行网络训练为例，介绍如何配置临终CKPT功能。配置完成后，在训练中如遇到功能故障（主要包括：训练进程异常，训练进程异常退出），MindSpore和MindIO会停止所有卡的训练，检查最新的训练状态，并基于训练卡间的副本关系，确认是否存在可用的副本卡（好卡），如果存在则将对好卡进行临终CKPT的保存，否则按异常退出处理。如果发生故障后，能保存第n个step的CKPT文件，则下一次训练可从第n+1个step开始。
 
@@ -37,7 +37,7 @@ MindSpore临终CKPT功能基于[MindIO TTP](https://www.hiascend.com/document/de
 
 ## 环境准备
 
-临终CKPT功能开启需要先安装`MindIO TTP`, 详情参见[MindIO TTP](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html)。
+临终CKPT功能开启需要先安装 `MindIO TTP`, 详情参见[MindIO TTP](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html)。
 
 ## 准备数据
 
@@ -161,7 +161,7 @@ dataset = create_dataset(32)
 
 ## 优化器定义与封装
 
-开启临终CKPT功能需要设置TFT优化器，设置后可在梯度计算完成后，优化器更新前向MindIO TFT上报状态。TFT优化器用`OptTFTWrapper`来配置，详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
+开启临终CKPT功能需要设置TFT优化器，设置后可在梯度计算完成后，优化器更新前向MindIO TFT上报状态。TFT优化器用 `OptTFTWrapper` 来配置，详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
 
 ```python
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
@@ -236,12 +236,13 @@ msrun --worker_num=4 --local_worker_num=4 --master_port=10970 --join=False --log
 
 ## 异常注入
 
-常见的异常注入为查看训练的进程，并直接杀掉相应的进程来检验是否有临终Checkpoint文件生成。
-注意：由于MindIo的Controller控制器默认在0卡启动，因此杀死rank0的进程并不会生成Checkpoint文件。
+可以通过人为终止训练进程的方式来验证临终Checkpoint功能。首先使用 `npu-smi info` 命令查看训练进程，然后通过 `kill` 命令终止指定进程。
+
+注意：由于MindIO的Controller控制器默认在rank 0上启动，因此不建议终止rank 0的进程，否则将无法生成临终Checkpoint文件。建议选择其他rank的进程进行测试。
 
 ```bash
 npu-smi info # 查看训练进程
-kill -9 pid  # 杀死对应的训练进程
+kill -9 pid  # 终止对应的训练进程
 ```
 
 ## 配置环境变量并恢复训练
