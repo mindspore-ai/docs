@@ -39,7 +39,7 @@ MindSpore Lite训练后量化分为两类：
 [common_quant_param]
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
 # Full quantization support 8bit
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
@@ -92,7 +92,7 @@ auto_tune=false
 
 ### 全量化参数
 
-全量化参数主要包括`activation_quant_method`，`bias_correction` 和`target_device`。参数的详细介绍如下所示：
+全量化参数主要包括`activation_quant_method`、`bias_correction` 和`target_device`。参数的详细介绍如下所示：
 
 | 参数                    | 属性 | 功能描述               | 参数类型 | 默认值  | 取值范围                                                     |
 | ----------------------- | ---- | ---------------------- | -------- | ------- | ------------------------------------------------------------ |
@@ -105,7 +105,7 @@ auto_tune=false
 
 全量化需要提供100-500张的校准数据集进行预推理，用于计算全量化激活值的量化参数。如果存在多个输入Tensor，每个输入Tensor的校准数据集需要各自保存一个文件夹。
 
-针对BIN格式的校准数据集，`.bin`文件存储的是输入的数据Buffer，同时输入数据的Format需要和推理时输入数据的Format保持一致。针对四维数据，默认是`NHWC`。如果配置了转换工具的命令参数`inputDataFormat`，输入的Buffer的Format需要保持一致。
+针对BIN格式的校准数据集，`.bin`文件存储的是输入的数据Buffer，同时输入数据的Format需要和推理时输入数据的Format保持一致。针对四维数据，默认是`NHWC`。如果配置了转换工具的命令参数`inputDataFormat`，输入Buffer的Format需要保持一致。
 
 针对图片格式的校准数据集，后量化提供通道转换、归一化、缩放和裁剪等数据预处理功能。
 
@@ -189,8 +189,8 @@ quant_strategy=ACWL
 [common_quant_param]
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support 8bit
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization supports 8bit
 bit_num=0
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=5000
@@ -223,7 +223,7 @@ init_scale=0.02
 ```ini
 [common_quant_param]
 quant_type=WEIGHT_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=0
@@ -240,7 +240,7 @@ Ascend ON_THE_FLY量化还需新增`[ascend_context]`相关配置，Ascend ON_TH
 ```ini
 [common_quant_param]
 quant_type=WEIGHT_QUANT
-# Weight quantization support the number of bits (0,16]
+# Weight quantization supports the number of bits (0,16]
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=5000
@@ -277,7 +277,7 @@ provider=ge
 
 针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html#数据预处理)。
 
-用户配置全量化至少需要配置`[common_quant_param]`、`[data_preprocess_param]`、`[full_quant_param]`
+用户配置全量化至少需要配置`[common_quant_param]`、`[data_preprocess_param]`、`[full_quant_param]`。
 
 注意：
 
@@ -296,7 +296,7 @@ CPU全量化完整配置文件如下所示：
 ```ini
 [common_quant_param]
 quant_type=FULL_QUANT
-# Full quantization support 8bit
+# Full quantization supports 8bit
 bit_num=8
 
 [data_preprocess_param]
@@ -561,8 +561,8 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 [common_quant_param]
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=FULL_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support 8bit
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization supports 8bit
 bit_num=8
 # Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
 skip_quant_node=conv2d_1,add_8,concat_1

@@ -39,8 +39,8 @@ The common quantization parameter configuration is as follows:
 [common_quant_param]
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support 8bit
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization supports 8bit
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=0
@@ -187,8 +187,10 @@ The mixed bit weight quantification configuration file is as follows:
 
 ```ini
 [common_quant_param]
+# Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization supports 8bit
 bit_num=0
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=5000
@@ -222,7 +224,7 @@ The fixed bit weight quantization configuration file is as follows:
 ```ini
 [common_quant_param]
 quant_type=WEIGHT_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=0
@@ -239,7 +241,7 @@ We must add configuration about `[ascend_context]` for Ascend ON_THE_FLY quantif
 ```ini
 [common_quant_param]
 quant_type=WEIGHT_QUANT
-# Weight quantization support the number of bits (0,16]
+# Weight quantization supports the number of bits (0,16]
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=5000
@@ -295,7 +297,7 @@ The full CPU quantization complete configuration file is shown below:
 ```ini
 [common_quant_param]
 quant_type=FULL_QUANT
-# Full quantization support 8bit
+# Full quantization supports 8bit
 bit_num=8
 
 [data_preprocess_param]
@@ -558,8 +560,8 @@ Below is an example of `conv2d_1` `add_8` `concat_1` without quantifying the thr
 [common_quant_param]
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=FULL_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support 8bit
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization supports 8bit
 bit_num=8
 # Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
 skip_quant_node=conv2d_1,add_8,concat_1

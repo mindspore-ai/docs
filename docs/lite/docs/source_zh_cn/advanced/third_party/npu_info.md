@@ -13,8 +13,7 @@ DDK包含了使用NPU的对外接口（包括模型构建、加载，计算等�
 
 ### 编译构建
 
-在Linux环境下，使用MindSpore[源代码](https://gitee.com/mindspore/mindspore)根目录下的build.sh脚本可以构建集成NPU的MindSpore Lite包，命令如下，
-它将在MindSpore源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含NPU的动态库，libmindspore-lite动态库以及测试工具Benchmark。
+在Linux环境下，使用MindSpore[源代码](https://gitee.com/mindspore/mindspore)根目录下的build.sh脚本可以构建集成NPU的MindSpore Lite包，命令如下，它将在MindSpore源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含NPU的动态库，libmindspore-lite动态库以及测试工具Benchmark。
 
 ```bash
 export MSLITE_ENABLE_NPU=ON
@@ -28,10 +27,8 @@ bash build.sh -I arm64 -j8
 - 集成说明
 
     开发者需要集成使用NPU功能时，需要注意：
-    - 在代码中[配置NPU后端](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html#配置使用npu后端)，
-    有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html)。
-    - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)中编译选项为`-I arm64`或`-I arm32`时的内容，
-    配置好环境变量，将会动态加载libhiai.so、libhiai_ir.so、libhiai_ir_build.so、libhiai_hcl_model_runtime.so。例如：
+    - 在代码中[配置NPU后端](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html#配置使用npu后端)，有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html)。
+    - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)中编译选项为`-I arm64`或`-I arm32`时的内容，配置好环境变量，将会动态加载libhiai.so、libhiai_ir.so、libhiai_ir_build.so、libhiai_hcl_model_runtime.so。例如：
 
     ```bash
     export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH

@@ -143,9 +143,9 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 | 参数                 | 是否必选         | 参数说明                                    | 取值范围                        | 默认值   |
 |--------------------|--------------|-----------------------------------------|-----------------------------|-------|
-| enable_micro       | 是            | 模型会生成代码，否则生成.ms                         | true, false                 | false |
-| target             | 是            | 生成代码针对的平台                               | x86, Cortex-M, ARM32, ARM64 | x86   |
-| support_parallel   | 否            | 是否生成多线程推理代码，仅在x86、ARM32、ARM64平台可设置为true | true, false                 | false |
+| enable_micro       | 是            | 模型会生成代码，否则生成.ms                         | true、false                 | false |
+| target             | 是            | 生成代码针对的平台                               | x86、Cortex-M、ARM32、ARM64 | x86   |
+| support_parallel   | 否            | 是否生成多线程推理代码，仅在x86、ARM32、ARM64平台可设置为true | true、false                 | false |
 | save_path          | 否（多模型参数）     | 多模型生成代码文件路径                             | 无                           | 无     |
 | project_name       | 否（多模型参数）     | 多模型生成代码工程名                              | 无                           | 无     |
 | inputs_shape       | 否（动态shape参数） | 动态shape场景下模型的输入shape信息                  | 无                           | 无     |
@@ -516,7 +516,7 @@ mindspore-lite-{version}-linux-x64
 
 ## 代码集成及编译部署
 
-在生成代码的`benchmark`目录中，包含了对推理代码的接口调用示例，用户可参考benchmark例程，来对`src`推理代码进行集成开发以实现自身的应用。
+在生成代码的`benchmark`目录中，包含了对推理代码的接口调用示例，用户可参考benchmark例程，对`src`推理代码进行集成开发以实现自身的应用。
 
 ### 推理代码的调用接口
 
@@ -651,7 +651,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 #### 获取MCU启动代码及工程
 
 如果用户已经有自己的MCU工程，请忽略该章节。
-本章，以生成STM32F767芯片的启动工程为例，演示如何通过`STM32CubeMX`生成STM32芯片的MCU工程。
+本章以生成STM32F767芯片的启动工程为例，演示如何通过`STM32CubeMX`生成STM32芯片的MCU工程。
 
 - 启动`STM32CubeMX`，在`File`选项中选择`New Project`来新建工程。
 
@@ -716,7 +716,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
 - 修改main.c文件，调用benchmark函数
 
-    在`main.c`开头增加头文件引用，并在main函数中调用`benchmark.c`中的`benchmark`函数，benchmark文件夹内的程序为对生成的`src`内的推理代码进行推理调用并比较输出的示范样例程序，用户可以自由对它进行修改。
+    在`main.c`开头增加头文件引用，并在main函数中调用`benchmark.c`中的`benchmark`函数，benchmark文件夹内的程序为对生成的`src`内的推理代码进行推理调用并比较输出的示范样例程序，用户可以自由地修改。
 
     ```c++
     #include "benchmark/benchmark.h"
@@ -787,7 +787,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 #### 获取MCU启动代码及工程
 
 如果用户已经有自己的MCU工程，请忽略该章节。
-本章，以生成STM32F767芯片的启动工程为例，演示如何通过`STM32CubeMX`生成STM32芯片的MCU工程。
+本章以生成STM32F767芯片的启动工程为例，演示如何通过`STM32CubeMX`生成STM32芯片的MCU工程。
 
 - 启动`STM32CubeMX`，在`File`选项中选择`New Project`来新建工程。
 
@@ -966,7 +966,7 @@ bash ${STMSTM32CubePrg_PATH为}/bin/STM32_Programmer.sh -c port=SWD model=HOTPLU
 
 ${STMSTM32CubePrg_PATH为}为`STMSTM32CubePrg`安装路径。关于命令中的各参数含义，请参考`STMSTM32CubePrg`的使用手册。
 
-读取的数据被保存在`ret.bin`文件内，运行`cat ret.bin`，如果板端推理成功，`ret.bin`内保存着字符`1`，会显示如下：
+读取的数据被保存在`ret.bin`文件内，运行`cat ret.bin`，如果开发板端推理成功，`ret.bin`内保存着字符`1`，会显示如下：
 
 ```text
 1
