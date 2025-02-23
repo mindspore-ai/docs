@@ -78,61 +78,62 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 
 所有配置名和说明如下：
 
-| 配置名                         | 说明                       |
-|-----------------------------|--------------------------|
-| auto_trans_ckpt             | 是否开启自动在线权重切分或转换          |
-| auto_tune                   | 是否开启自动数据加速               |
-| autotune_per_step           | 设置自动数据加速的配置调整step间隔      |
-| callbacks                   | 回调函数配置                   |
-| context                     | 环境配置                     |
-| data_size                   | 数据集长度                    |
-| device_num                  | 设备数量（卡数）                 |
-| do_eval                     | 是否开启边训练边评估               |
-| enable_mindio_ttp_save_ckpt | 是否开启临终遗言和UCE故障快恢功能       |
-| eval_callbacks              | 评估回调函数配置                 |
-| exclude_cann_cpu            | 不使用CPU                   |
-| filepath_prefix             | 文件地址前缀                   |
-| infer_precision_sync        | 是否开启推理精度同步               |
-| init_start_profile          | 是否在Profiler初始化的时候开启数据采集  |
-| layer_decay                 | 层衰减系数                    |
-| layer_scale                 | 是否启用层衰减                  |
-| load_checkpoint             | 加载权重的模型名或权重路径            |
-| load_ckpt_format            | 加载权重的文件格式                |
-| local_rank                  | 当前rank                   |
-| lr_scale_factor             | 学习率缩放系数                  |
-| lr_schedule                 | 学习率                      |
-| metric                      | 评估函数                     |
-| micro_batch_interleave_num  | batch_size的拆分份数，多副本并行开关  |
-| model                       | 模型配置                     |
-| moe_config                  | 混合专家配置                   |
-| only_save_strategy          | 任务是否仅保存分布式策略文件           |
-| optimizer                   | 优化器                      |
-| output_dir                  | 保存checkpoint、strategy的路径 |
-| parallel_config             | 并行策略配置                   |
-| parallel                    | 自动并行配置                   |
-| postprocess_use_numpy       | 是否在后处理时使用 NumPy          |
-| processor                   | 推理时的数据处理                 |
-| profile_communication       | 是否在多设备训练中收集通信性能数据        |
-| profile_memory              | 是否收集Tensor内存数据           |
-| profile_start_step          | 性能分析开始的step              |
-| profile_stop_step           | 性能分析结束的step              |
-| profile                     | 是否开启性能分析工具               |
-| rank_id                     | 当前rank                   |
-| recompute_config            | 重计算配置                    |
-| remote_save_url             | 使用AICC训练作业时，目标桶的回传文件夹路径  |
-| remove_redundancy           | checkpoint保存时是否去除冗余      |
-| resume_training             | 为True时会加载训练过程信息          |
-| run_mode                    | 运行模式                     |
-| runner_config               | 运行配置                     |
-| seed                        | 随机种子                     |
-| src_strategy_path_or_dir    | 源权重分布式策略文件路径             |
-| tensorboard                 | TensorBoard配置            |
-| train_dataset_task          | 训练任务配置                   |
-| train_dataset               | 训练数据集配置                  |
-| train_percision_sync        | 是否开启训练精度同步               |
-| trainer                     | 训练流程配置                   |
-| use_gracefule_exit          | 是否启用优雅退出机制               |
-| use_parallel                | 是否开启并行                   |
+| 配置名                        | 说明                                                           |
+|----------------------------|--------------------------------------------------------------|
+| seed                       | 随机种子                                                         |
+| output_dir                 | 保存checkpoint、strategy的路径                                     |
+| run_mode                   | 运行模式                                                         |
+| use_parallel               | 是否开启并行                                                       |
+| resume_training            | 是否开启断点续训功能                                                   |
+| ignore_data_skip           | 是否忽略断点续训时跳过数据的机制，而从头开始读取数据集。只在 `resume_training` 值为`True`时记录 |
+| data_skip_steps            | 数据集跳过步数。只在 `ignore_data_skip` 被记录且值为`False`时记录               |
+| load_checkpoint            | 加载权重的模型名或权重路径                                                |
+| load_ckpt_format           | 加载权重的文件格式。只在 `load_checkpoint` 值不为空时记录                       |
+| auto_trans_ckpt            | 是否开启自动在线权重切分或转换。只在 `load_checkpoint` 值不为空时记录                 |
+| transform_process_num      | 转换checkpoint的进程数。只在 `auto_trans_ckpt` 被记录且值为`True`时记录        |
+| src_strategy_path_or_dir   | 源权重分布式策略文件路径。只在 `auto_trans_ckpt` 被记录且值为`True`时记录            |
+| load_ckpt_async            | 是否异步记载权重。只在 `load_checkpoint` 值不为空时记录                        |
+| only_save_strategy         | 任务是否仅保存分布式策略文件                                               |
+| profile                    | 是否开启性能分析工具                                                   |
+| profile_communication      | 是否在多设备训练中收集通信性能数据。只在 `profile` 值为`True`时记录                   |
+| profile_level              | 采集性能数据级别。只在 `profile` 值为`True`时记录                            |
+| profile_memory             | 是否收集Tensor内存数据。只在 `profile` 值为`True`时记录                      |
+| profile_start_step         | 性能分析开始的step。只在 `profile` 值为`True`时记录                         |
+| profile_stop_step          | 性能分析结束的step。只在 `profile` 值为`True`时记录                         |
+| profile_rank_ids           | 指定rank ids开启profiling。只在 `profile` 值为`True`时记录               |
+| profile_pipeline           | 是否按流水线并行每个stage的其中一张卡开启profiling。只在 `profile` 值为`True`时记录    |
+| init_start_profile         | 是否在Profiler初始化的时候开启数据采集                                      |
+| layer_decay                | 层衰减系数                                                        |
+| layer_scale                | 是否启用层衰减                                                      |
+| lr_scale                   | 是否开启学习率缩放                                                    |
+| lr_scale_factor            | 学习率缩放系数。只在 `lr_scale` 值为`True`时记录                            |
+| micro_batch_interleave_num | batch_size的拆分份数，多副本并行开关                                      |
+| remote_save_url            | 使用AICC训练作业时，目标桶的回传文件夹路径                                      |
+| callbacks                  | 回调函数配置                                                       |
+| context                    | 环境配置                                                         |
+| data_size                  | 数据集长度                                                        |
+| device_num                 | 设备数量（卡数）                                                     |
+| do_eval                    | 是否开启边训练边评估                                                   |
+| eval_callbacks             | 评估回调函数配置。只在 `do_eval` 值为`True`时记录                            |
+| eval_step_interval         | 评估step间隔。只在 `do_eval` 值为`True`时记录                            |
+| eval_epoch_interval        | 评估epoch间隔。只在 `do_eval` 值为`True`时记录                           |
+| eval_dataset               | 评估数据集配置。只在 `do_eval` 值为`True`时记录                             |
+| eval_dataset_task          | 评估任务配置。只在 `do_eval` 值为`True`时记录                              |
+| lr_schedule                | 学习率                                                          |
+| metric                     | 评估函数                                                         |
+| model                      | 模型配置                                                         |
+| moe_config                 | 混合专家配置                                                       |
+| optimizer                  | 优化器                                                          |
+| parallel_config            | 并行策略配置                                                       |
+| parallel                   | 自动并行配置                                                       |
+| recompute_config           | 重计算配置                                                        |
+| remove_redundancy          | checkpoint保存时是否去除冗余                                          |
+| runner_config              | 运行配置                                                         |
+| runner_wrapper             | wrapper配置                                                    |
+| tensorboard                | TensorBoard配置                                                |
+| train_dataset_task         | 训练任务配置                                                       |
+| train_dataset              | 训练数据集配置                                                      |
+| trainer                    | 训练流程配置                                                       |
 
 > 上述训练配置来源于:
 >
