@@ -4,7 +4,7 @@
 
 ## 概述
 
-我们推荐你从端侧Android图像分割demo入手，了解MindSpore Lite应用工程的构建、依赖项配置以及相关Java API的使用。
+推荐用户从端侧Android图像分割demo入手，了解MindSpore Lite应用工程的构建、依赖项配置以及相关Java API的使用。
 
 本教程基于MindSpore团队提供的Android“端侧图像分割”示例程序，演示了端侧部署的流程。  
 
@@ -12,7 +12,7 @@
 
 选择图像分割模型。
 
->你可以在这里找到[Android图像分割模型](https://download.mindspore.cn/model_zoo/official/lite/mobile_segment_lite/segment_model.ms)。
+> 你可以在这里找到[Android图像分割模型](https://download.mindspore.cn/model_zoo/official/lite/mobile_segment_lite/segment_model.ms)。
 >
 > 本示例中讲述了Java API的应用方法。
 >
@@ -72,7 +72,7 @@
 
 ## 示例程序详细说明  
 
-本端侧图像分割Android示例程序使用Java层，需读者具备一定的Android开发基础知识。
+本端侧图像分割Android示例程序使用Java层，读者需要具备一定的Android开发基础知识。
 
 ### 示例程序结构
 

@@ -188,7 +188,7 @@ xxx install success
 
 ```bash
 
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads # echo “source /usr/local/Ascend/ascend-toolkit/set_env.sh” >> ~/.bashrc
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads # echo 'source /usr/local/Ascend/ascend-toolkit/set_env.sh' >> ~/.bashrc
 (base) root@orangepiaipro: /home/HwHiAiUser/Downloads # source ~/.bashrc
 
 ```
