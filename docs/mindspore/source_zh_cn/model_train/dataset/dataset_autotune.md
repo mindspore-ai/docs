@@ -13,9 +13,7 @@ MindSpore提供了一种自动数据调优的工具——Dataset AutoTune，用�
 
 启动AutoTune后，MindSpore会根据一定的时间间隔，对数据处理管道的资源情况进行采样统计。
 
-当Dataset AutoTune收集到足够的信息时，它会基于这些信息分析当前的性能瓶颈是否在数据侧。
-如果是，Dataset AutoTune将调整数据处理管道的并行度，并加速数据集管道的运算。
-如果不是，Dataset AutoTune也会尝试减少数据管道的内存使用量，为CPU释放一些可用内存。
+当Dataset AutoTune收集到足够的信息时，它会基于这些信息分析当前的性能瓶颈是否在数据侧。如果是，Dataset AutoTune将调整数据处理管道的并行度，加速数据集管道的运算；如果不是，Dataset AutoTune也会尝试减少数据管道的内存使用量，为CPU释放可用内存。
 
 > 自动数据加速在默认情况下是关闭的。
 
@@ -160,8 +158,7 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
 
 - **如何通过LOG观察自动数据加速模块的效果：**
 
-  自动数据加速模块在默认情况下以INFO级别的LOG信息提醒用户其运行的情况，
-  当检测到数据侧为瓶颈且需要发生参数变更时，则会通过WARNING级别的LOG信息提醒用户正在调整的参数。
+  自动数据加速模块在默认情况下以INFO级别的LOG信息提醒用户其运行的情况。当检测到数据侧为瓶颈且需要发生参数变更时，会通过WARNING级别的LOG信息提醒用户正在调整的参数。
 
 - **如何阅读输出LOG：**
 
@@ -172,8 +169,7 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
   [WARNING] [auto_tune.cc:236 IsDSaBottleneck] Utilization: 2.24% < 75% threshold, dataset pipeline performance needs tuning.
   ```
 
-  原因主要是数据处理管道生成数据的速度较慢，网络侧很快就会读取完生成的数据，基于此情况，
-  自动数据加速模块调整可MapOp(ID:3)的工作线程数（"num_parallel_workers"）与BatchOp(ID:2)操作内部队列深度（"prefetch_size"）。
+  原因主要是数据处理管道生成数据的速度较慢，网络侧很快就会读取完生成的数据，基于此情况，自动数据加速模块调整可MapOp(ID:3)的工作线程数（"num_parallel_workers"）与BatchOp(ID:2)操作内部队列深度（"prefetch_size"）。
 
   ```text
   [WARNING] [auto_tune.cc:297 Analyse] Op (MapOp(ID:3)) is slow, input connector utilization=0.975806, output connector utilization=0.298387, diff= 0.677419 > 0.35 threshold.
@@ -250,8 +246,7 @@ new_dataset = ds.deserialize("/path/to/autotune_out_0.json")
 
 ### 在进行下一次训练之前
 
-在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集加载部分的代码进行调整，
-以便在下一次训练的开始时就可以在较优性能水平下运行数据处理管道。
+在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集加载部分的代码进行调整，以便在下一次训练的开始时就可以在较优性能水平下运行数据处理管道。
 
 另外，MindSpore也提供了相关的API用于全局调整数据处理管道操作的并行度与内部队列深度，请参考[mindspore.dataset.config](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html#配置):
 

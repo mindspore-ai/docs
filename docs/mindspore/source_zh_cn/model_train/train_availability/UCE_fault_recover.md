@@ -4,7 +4,7 @@
 
 ## 概述
 
-模型并行训练过程中，可能会遇到UCE(Uncorrectable Error)故障导致训练中断。重新启动训练，各种资源的开销是巨大的。为此MindSpore提供了故障恢复的方案。使得在发生故障时，模型在故障发生处快速恢复并继续训练，无需重启训练。
+在模型并行训练过程中，可能会遇到UCE（Uncorrectable Error）故障导致训练中断。重新启动训练会产生巨大的资源开销，为此MindSpore提供了故障恢复方案。该方案使模型能够在发生故障时，从故障发生处快速恢复并继续训练，无需重启训练。
 
 ### 场景限制
 
@@ -13,11 +13,11 @@
 
 ## 用例
 
-下面以一个4卡数据并行网络训练为例，介绍如何配置UCE故障快速恢复。 配置完成后，在训练中如遇到UCE故障，MindSpore和MindIO会停止所有卡的训练， 对故障卡进行清洗和修复， 从故障卡的备份卡拷贝参数到故障卡并继续训练。如果故障发生在第n个step， 那继续训练将从第n+1个step开始。
+下面以一个4卡数据并行网络训练为例，介绍如何配置UCE故障快速恢复。配置完成后，在训练中如遇到UCE故障，MindSpore和MindIO会停止所有卡的训练，对故障卡进行清洗和修复，从故障卡的备份卡拷贝参数到故障卡并继续训练。如果故障发生在第n个step，继续训练将从第n+1个step开始。
 
 ### 环境准备
 
-开启UCE快速恢复功能需要先安装`MindIO`, 详情参见[MindIO](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html)。
+开启UCE快速恢复功能需要先安装 `MindIO`, 详情参见[MindIO](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html)。
 
 ### 准备数据
 
@@ -30,7 +30,7 @@ unzip MNIST_Data.zip
 
 ### 模型定义
 
-开启UCE快速恢复功能需要设置TFT优化器, 在优化器更新前向MindIO TFT上报状态。用`OptTFTWrapper`来配置, 详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
+开启UCE快速恢复功能需要设置TFT优化器, 在优化器更新前向MindIO TFT上报状态。用 `OptTFTWrapper` 来配置, 详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
 
 ```python
 
@@ -138,7 +138,7 @@ model.train(5, dataset, callbacks=[time_monitor, loss_cb, tft_cb])
 
 ### 配置环境变量并启动训练
 
-开启UCE故障快速恢复功能，需要设置环境变量 `MS_ENABLE_TFT='{UCE:1, TTP:1}'`。 其中 `UCE:1` 表示开启UCE快速恢复功能，`TTP:1` 表示开启临终遗言功能。 开启UCE会默认开启临终遗言功能， 如果想仅开启临终功能，可以设置环境变量  `MS_ENABLE_TFT='{UCE:0, TTP:1}'` 。此外还需要设置环境变量 `MINDIO_FOR_MINDSPORE=1`， 使能 `MindIO` 适配 MindSpore。
+开启UCE故障快速恢复功能，需要设置环境变量 `MS_ENABLE_TFT='{UCE:1, TTP:1}'`。其中 `UCE:1` 表示开启UCE快速恢复功能，`TTP:1` 表示开启临终遗言功能。开启UCE会默认开启临终遗言功能，如果仅需开启临终遗言功能，可以设置环境变量 `MS_ENABLE_TFT='{UCE:0, TTP:1}'`。此外，还需要设置环境变量 `MINDIO_FOR_MINDSPORE=1`，使MindIO适配MindSpore。
 
 使用 `msrun` 命令启动训练。
 

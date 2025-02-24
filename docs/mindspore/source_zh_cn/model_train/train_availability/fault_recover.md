@@ -4,10 +4,11 @@
 
 ## 概述
 
-模型训练过程中，可能会遇到故障。重新启动训练，各种资源的开销是巨大的。为此MindSpore提供了故障恢复的方案，即周期性保存模型参数，使得模型在故障发生处快速恢复并继续训练。
-MindSpore以step或epoch为周期保存模型参数。模型参数保存在CheckPoint（简称ckpt）文件中。模型训练期间，发生故障，载入最新保存的模型参数，恢复在此处的状态，继续训练。
+在模型训练过程中可能会遇到故障，重新启动训练会产生巨大的资源开销。为此，MindSpore提供了故障恢复方案，通过周期性保存模型参数，使模型能够在故障发生处快速恢复并继续训练。
 
-> 本文档介绍故障恢复的用例，仅在每个epoch结束保存CheckPoint文件。
+MindSpore支持以step或epoch为周期保存模型参数。模型参数保存在Checkpoint（简称ckpt）文件中。当模型训练期间发生故障时，可以载入最新保存的模型参数，恢复到该状态继续训练。
+
+> 本文档介绍故障恢复的用例，仅在每个epoch结束保存Checkpoint文件。
 
 ## 数据和模型准备
 
@@ -99,30 +100,30 @@ optim = nn.Momentum(net.trainable_params(), 0.01, 0.9)  # 优化器
 model = Model(net, loss_fn=loss, optimizer=optim)  # Model封装
 ```
 
-## 周期性保存CheckPoint文件
+## 周期性保存Checkpoint文件
 
 ### 配置CheckpointConfig
 
-`mindspore.train.CheckpointConfig` 中可根据迭代的次数进行配置，配置迭代策略的参数如下：
+`mindspore.train.CheckpointConfig` 支持根据迭代次数进行配置，主要参数如下：
 
-- `save_checkpoint_steps` ：表示每隔多少个step保存一个CheckPoint文件，默认值为1。
-- `keep_checkpoint_max` ：表示最多保存多少个CheckPoint文件，默认值为5。
+- `save_checkpoint_steps`：表示每隔多少个step保存一个Checkpoint文件，默认值为1。
+- `keep_checkpoint_max`：表示最多保存多少个Checkpoint文件，默认值为5。
 
-在迭代策略脚本正常结束的情况下，会默认保存最后一个step的CheckPoint文件。
+在迭代过程正常结束时，会默认保存最后一个step的Checkpoint文件。
 
-模型训练过程中，使用 `Model.train` 里面的 `callbacks` 参数传入保存模型的对象 `ModelCheckpoint` （与 `mindspore.train.CheckpointConfig` 配合使用），可以周期性地保存模型参数，生成CheckPoint文件。
+模型训练过程中，使用 `Model.train` 里面的 `callbacks` 参数传入保存模型的对象 `ModelCheckpoint` （与 `mindspore.train.CheckpointConfig` 配合使用），可以周期性地保存模型参数，生成Checkpoint文件。
 
 ### 用户自定义保存数据
 
-`CheckpointConfig` 的参数 `append_info` 可以在CheckPoint文件中保存用户自定义信息。`append_info` 支持传入 ``epoch_num`` 、 ``step_num`` 和字典类型数据。``epoch_num`` 和 ``step_num`` 可以在CheckPoint文件中保存训练过程中的epoch数和step数。
+`CheckpointConfig` 的参数 `append_info` 可以在Checkpoint文件中保存用户自定义信息。`append_info` 支持传入 ``epoch_num`` 、 ``step_num`` 和字典类型数据。``epoch_num`` 和 ``step_num`` 可以在Checkpoint文件中保存训练过程中的epoch数和step数。
 字典类型数据的 `key` 必须是string类型，`value` 必须是int、float、bool、string、Parameter或Tensor类型。
 
 ```python
 # 用户自定义保存的数据
 append_info = ["epoch_num", "step_num", {"lr": 0.01, "momentum": 0.9}]
-# 数据下沉模式下，默认保存最后一个step的CheckPoint文件
+# 数据下沉模式下，默认保存最后一个step的Checkpoint文件
 config_ck = CheckpointConfig(append_info=append_info)
-# 保存的CheckPoint文件前缀是"lenet"，文件保存在"./lenet"路径下
+# 保存的Checkpoint文件前缀是"lenet"，文件保存在"./lenet"路径下
 ckpoint_cb = ModelCheckpoint(prefix='lenet', directory='./lenet', config=config_ck)
 
 # 模拟程序故障，默认是在第6个epoch结束后故障
@@ -132,43 +133,43 @@ my_callback = myCallback()
 model.train(10, train_dataset, callbacks=[ckpoint_cb, my_callback], dataset_sink_mode=True)
 ```
 
-## 自定义脚本找到最新的CheckPoint文件
+## 自定义脚本找到最新的Checkpoint文件
 
-程序在第6个epoch结束后发生故障。故障发生后，`./lenet` 目录下保存了最新生成的5个epoch的CheckPoint文件。
+程序在第6个epoch结束后发生故障。故障发生后，`./lenet` 目录下保存了最新生成的5个epoch的Checkpoint文件。
 
 ```text
 └── lenet
      ├── lenet-graph.meta  # 编译后的计算图
-     ├── lenet-2_1875.ckpt  # CheckPoint文件后缀名为'.ckpt'
+     ├── lenet-2_1875.ckpt  # Checkpoint文件后缀名为'.ckpt'
      ├── lenet-3_1875.ckpt  # 文件的命名方式表示保存参数所在的epoch和step数，这里为第3个epoch的第1875个step的模型参数
      ├── lenet-4_1875.ckpt
      ├── lenet-5_1875.ckpt
      └── lenet-6_1875.ckpt
 ```
 
-> 如果用户使用相同的前缀名，运行多次训练脚本，可能会生成同名CheckPoint文件。MindSpore为方便用户区分每次生成的文件，会在用户定义的前缀后添加”_”和数字加以区分。如果想要删除.ckpt文件时，请同步删除.meta 文件。例如：`lenet_3-2_1875.ckpt` 表示运行第4次脚本生成的第2个epoch的第1875个step的CheckPoint文件。
+> 如果用户使用相同的前缀名，运行多次训练脚本，可能会生成同名Checkpoint文件。MindSpore为方便用户区分每次生成的文件，会在用户定义的前缀后添加”_”和数字加以区分。如果想要删除.ckpt文件时，请同步删除.meta 文件。例如：`lenet_3-2_1875.ckpt` 表示运行第4次脚本生成的第2个epoch的第1875个step的Checkpoint文件。
 
-用户可以使用自定义脚本找到最新保存的CheckPoint文件。
+用户可以使用自定义脚本找到最新保存的Checkpoint文件。
 
 ```python
 ckpt_path = "./lenet"
 filenames = os.listdir(ckpt_path)
-# 筛选所有的CheckPoint文件名
+# 筛选所有的Checkpoint文件名
 ckptnames = [ckpt for ckpt in filenames if ckpt.endswith(".ckpt")]
-# 按照创建顺序从旧到新对CheckPoint文件名进行排序
+# 按照创建顺序从旧到新对Checkpoint文件名进行排序
 ckptnames.sort(key=lambda ckpt: os.path.getctime(ckpt_path + "/" + ckpt))
-# 获取最新的CheckPoint文件路径
+# 获取最新的Checkpoint文件路径
 ckpt_file = ckpt_path + "/" + ckptnames[-1]
 ```
 
 ## 恢复训练
 
-### 加载CheckPoint文件
+### 加载Checkpoint文件
 
-使用 `load_checkpoint` 和 `load_param_into_net` 方法加载最新保存的CheckPoint文件。
+使用 `load_checkpoint` 和 `load_param_into_net` 方法加载最新保存的Checkpoint文件。
 
-- `load_checkpoint` 方法会把CheckPoint文件中的网络参数加载到字典param_dict中。
-- `load_param_into_net` 方法会把字典param_dict中的参数加载到网络或者优化器中，加载后网络中的参数就是CheckPoint文件中保存的。
+- `load_checkpoint` 方法会把Checkpoint文件中的网络参数加载到字典param_dict中。
+- `load_param_into_net` 方法会把字典param_dict中的参数加载到网络或者优化器中，加载后网络中的参数就是Checkpoint文件中保存的。
 
 ```python
 # 将模型参数加载到param_dict中，这里加载的是训练过程中保存的模型参数和用户自定义保存的数据
@@ -180,7 +181,7 @@ mindspore.load_param_into_net(net, param_dict)
 
 ### 获取用户自定义数据
 
-用户可以从CheckPoint文件中获取训练时的epoch数和自定义保存的数据。注意，此时获取的数据是Parameter类型。
+用户可以从Checkpoint文件中获取训练时的epoch数和自定义保存的数据。注意，此时获取的数据是Parameter类型。
 
 ```python
 epoch_num = int(param_dict["epoch_num"].asnumpy())
@@ -199,7 +200,7 @@ model.train(10, train_dataset, callbacks=ckpoint_cb, initial_epoch=epoch_num, da
 
 ### 训练结束
 
-训练结束， `./lenet` 目录下新生成4个CheckPoint文件。根据CheckPoint文件名可以看出，在故障发生后，模型重新在第7个epoch进行训练，并在第10个epoch结束。故障恢复成功。
+训练结束， `./lenet` 目录下新生成4个Checkpoint文件。根据Checkpoint文件名可以看出，在故障发生后，模型重新在第7个epoch进行训练，并在第10个epoch结束。故障恢复成功。
 
 ```text
 └── lenet
