@@ -10,6 +10,10 @@
 
 当开发网络遇到内置算子不足以满足需求时，可以利用MindSpore的Python API中的 [Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
 
+## 自定义算子拼接
+
+在开发网络所需的内置算子时，如果该算子由多个小算子拼接组合，可以通过自定义算子拼接的方式进行开发。MindSpore提供了一款为算子开发而设计的高效编程范式，应用于静态图模式，通过C++构图提供了高效简洁的算子开发方式。
+
 ## 自定义神经网络层
 
 通常情况下，MindSpore提供的神经网络层接口和function函数接口能够满足模型构造需求，但由于AI领域不断推陈出新，因此有可能遇到新网络结构没有内置模块的情况。
