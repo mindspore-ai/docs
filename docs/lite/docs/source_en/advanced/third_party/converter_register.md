@@ -147,7 +147,7 @@ The model file `add_extend.ms` will be generated, the place of which is up to th
 
 ## Extension Configuration
 
-To load the extension module when converting, users need to configure the path of extended dynamic library. The parameters related to the extension include `plugin_path`, `disable_fusion`. The detailed description of the parameters is as follows:
+To load the extension module when converting, users need to configure the path of extended dynamic library. The parameters related to the extension include `plugin_path`, `disable_fusion`, `fusion_blacklists`. The detailed description of the parameters is as follows:
 
 | Parameter         | Attribute | Function Description                         | Parameter Type | Default Value | Value Range                                             |
 | ----------------- | --------- | -------------------------------------------- | -------------- | ------------- | ------------------------------------------------------- |
