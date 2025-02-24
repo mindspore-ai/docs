@@ -8,12 +8,12 @@ MindSpore Lite包含模块：
 
 | 模块               | 支持平台                | 说明                              |
 | ------------------ | ----------------------- | --------------------------------- |
-| converter          | Linux, Windows          | 模型转换工具                      |
-| runtime(cpp、java) | Linux, Windows, Android, iOS, OpenHarmony(OHOS) | 模型推理框架（Windows平台不支持java版runtime） |
-| benchmark          | Linux, Windows, Android, OpenHarmony(OHOS) | 基准测试工具                      |
-| benchmark_train    | Linux, Android          | 性能测试和精度校验工具              |
+| converter          | Linux、Windows          | 模型转换工具                      |
+| runtime(cpp、java) | Linux、Windows、Android、iOS、OpenHarmony(OHOS) | 模型推理框架（Windows平台不支持java版runtime） |
+| benchmark          | Linux、Windows、Android、OpenHarmony(OHOS) | 基准测试工具                      |
+| benchmark_train    | Linux、Android          | 性能测试和精度校验工具              |
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
-| minddata           | Linux, Android          | 图像处理库                        |
+| minddata           | Linux、Android          | 图像处理库                        |
 | codegen            | Linux                   | 模型推理代码生成工具               |
 | obfuscator         | Linux                   | 模型混淆工具                      |
 
@@ -79,7 +79,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 #### 模块构建编译选项
 
-模块的构建通过环境变量进行控制，用户可通过声明相关环境变量，控制编译构建的模块。在修改编译选项后，为使选项生效，在使用‵build.sh‵脚本进行编译时，不可添加`-i`参数进行增量编译。
+模块的构建通过环境变量进行控制，用户可通过声明相关环境变量，控制编译构建的模块。在修改编译选项后，为使选项生效，在使用`build.sh`脚本进行编译时，不可添加`-i`参数进行增量编译。
 
 - 通用模块编译选项
 
