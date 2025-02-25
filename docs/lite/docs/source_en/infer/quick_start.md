@@ -367,7 +367,7 @@ The inference process code is as follows. For details about the complete code, s
         std::unordered_map<std::string, mindspore::MSTensor>::iterator iter;
         iter = msOutputs.begin();
 
-        // The mobilenetv2.ms model output just one branch.
+        // The mobilenetv2.ms model outputs just one branch.
         auto outputTensor = iter->second;
 
         int tensorNum = outputTensor.ElementNum();

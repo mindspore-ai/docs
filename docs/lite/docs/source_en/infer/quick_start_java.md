@@ -74,7 +74,7 @@ try {
 
 ## Model Build
 
-Model build includes context configuration creation and model compilation. current graph build support file and mappedbytebuffer format. The following [sample code] describes model compilation by reading from a file.
+Model build includes context configuration creation and model compilation. current graph build support file and mappedbytebuffer format. The following sample code describes model compilation by reading from a file.
 
 ```java
 private static boolean compile(String modelPath) {

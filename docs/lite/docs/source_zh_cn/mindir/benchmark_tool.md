@@ -60,11 +60,11 @@
 | `--loopCount=<LOOPCOUNT>` | 可选 | 指定Benchmark工具进行基准测试时，测试模型的前向推理运行次数，其值为正整数。 | Integer | 10 | - |
 | `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
-| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照原始模型格式. 维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
+| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照原始模型格式。维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
 | `--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>` | 可选 | 指定余弦距离阈值，只有指定该参数并且其值大于-1时，才会计算余弦距离。 | Float           | -1.1    | -        | 暂不支持 |
 | `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | 2：表示中核<br/>1：表示大核<br/>0：表示不绑定 | 暂不支持 |
-| `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true, false | 暂不支持 |
-| `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false | 暂不支持 |
+| `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true、false | 暂不支持 |
+| `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true、false | 暂不支持 |
 | `--perfEvent=<PERFEVENT>` | 可选 | CPU性能验证时生效，指定PerfProfiler打印的CPU性能参数的具体内容，指定为CYCLE时，会打印算子的CPU周期数和指令条数；指定为CACHE时，会打印算子的缓存读取次数和缓存未命中次数；指定为STALL时，会打印CPU前端等待周期数和后端等待周期数。 | String | CYCLE | CYCLE/CACHE/STALL | 暂不支持 |
 | `--decryptKey=<DECRYPTKEY>` | 可选 | 用于解密文件的密钥，以十六进制字符表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | String | null | 注意密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。 | 暂不支持 |
 | `--cryptoLibPath=<CRYPTOLIBPATH>` | 可选 | OpenSSL加密库crypto的路径 | String | null | - | 暂不支持 |

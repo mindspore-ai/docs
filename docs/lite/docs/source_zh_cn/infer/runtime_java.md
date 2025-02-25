@@ -10,7 +10,7 @@ Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.m
 
 1. 模型读取(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)转换得到的`.ms`模型。
 2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)，保存需要的一些基本配置参数，用于指导模型编译和模型执行，包括设备类型、线程数、绑核模式和使能fp16混合精度推理。
-3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#build)接口进行模型加载和模型编译，目前支持加载文件和MappedByteBuffer两种方式。模型加载阶段将文件或者buffer解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
+3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#build)接口进行模型加载和模型编译，目前支持加载文件和MappedByteBuffer两种方式。模型加载阶段将文件或者buffer解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
 5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#predict)进行模型推理。
 6. 获得输出：图执行结束之后，可以通过`输出Tensor`得到推理结果。

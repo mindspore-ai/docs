@@ -114,7 +114,7 @@ auto gpu_device_info = std::make_shared<mindspore::GPUDeviceInfo>();
 if (gpu_device_info == nullptr) {
   std::cerr << "New GPUDeviceInfo failed." << std::endl;
 }
-// GPU use float16 operator as priority.
+// GPU uses float16 operator as priority.
 gpu_device_info->SetEnableFP16(true);
 // Set VNIDIA device id, only valid when GPU backend is TensorRT.
 gpu_device_info->SetDeviceID(0);
@@ -126,7 +126,7 @@ auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
 }
-// CPU use float16 operator as priority.
+// CPU uses float16 operator as priority.
 cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
@@ -135,19 +135,19 @@ device_list.push_back(cpu_device_info);
 >
 > - On `arm64`, the backend of GPU is based on OpenCL. GPUs of Mali and Adreno are supported. The OpenCL version is 2.0.
 >
-> The configuration is as follows:
+>   The configuration is as follows:
 >
-> CL_TARGET_OPENCL_VERSION=200
+>   CL_TARGET_OPENCL_VERSION=200
 >
-> CL_HPP_TARGET_OPENCL_VERSION=120
+>   CL_HPP_TARGET_OPENCL_VERSION=120
 >
-> CL_HPP_MINIMUM_OPENCL_VERSION=120
+>   CL_HPP_MINIMUM_OPENCL_VERSION=120
 >
 > - On `x86_64`, the backend of GPU is based on TensorRT. The TensorRT version is 6.0.1.5.
 >
-> Whether the attribute `SetEnableFP16` can be set successfully depends on the [CUDA computer capability](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix) of the current device.
+>   Whether the attribute `SetEnableFP16` can be set successfully depends on the [CUDA computer capability](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix) of the current device.
 >
-> The attribute `SetDeviceID` only valid for TensorRT, used to specify the NVIDIA device ID.
+>   The attribute `SetDeviceID` only valid for TensorRT, used to specify the NVIDIA device ID.
 
 ### Configuring the NPU Backend
 
@@ -167,7 +167,7 @@ auto npu_device_info = std::make_shared<mindspore::KirinNPUDeviceInfo>();
 if (npu_device_info == nullptr) {
   std::cerr << "New KirinNPUDeviceInfo failed." << std::endl;
 }
-// NPU set frequency to be 3.
+// NPU sets frequency to be 3.
 npu_device_info->SetFrequency(3);
 // The NPU device context needs to be push_back into device_list to work.
 device_list.push_back(npu_device_info);
@@ -177,7 +177,7 @@ auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
 }
-// CPU use float16 operator as priority.
+// CPU uses float16 operator as priority.
 cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
@@ -204,7 +204,7 @@ auto ascend_device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (ascend_device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
 }
-// Atlas 200/300/500 inference product set device id to be 0.
+// Atlas 200/300/500 inference product sets device id to be 0.
 ascend_device_info->SetDeviceId(0);
 // The Atlas 200/300/500 inference product device context needs to be push_back into device_list to work.
 device_list.push_back(ascend_device_info);
@@ -461,7 +461,7 @@ The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/b
 
 ```cpp
 mindspore::Context context;
-// enable NPU CPU GPU in inference. NPU is preferentially used, then the CPU, and GPU get the lowest priority.
+// enable NPU CPU GPU in inference. NPU is preferentially used, then the CPU, and GPU gets the lowest priority.
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::KirinNPUDeviceInfo>());
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::CPUDeviceInfo>());
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::GPUDeviceInfo>());

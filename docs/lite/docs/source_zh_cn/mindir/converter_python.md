@@ -120,7 +120,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | weight_file | str | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型权重文件路径。 | - | "" |
 | config_file | str | `--configFile=<CONFIGFILE>` | 否 | Converter的配置文件路径，可配置训练后量化或离线拆分算子并行或禁用算子融合功能并将插件设置为so路径等功能。 | - | "" |
 
-> `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.FmkType.html)
+> `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.FmkType.html)。
 >
 > `model_file`举例："/home/user/model.prototxt"。不同类型应模型后缀举例：TF: "model.pb" | CAFFE: "model.prototxt" | ONNX: "model.onnx" | TFLITE: "model.tflite"。
 >
@@ -205,4 +205,4 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 
 #### 在线转换
 
-get_config_info方法和set_config_info方法用于在线转换,具体请参考[set_config_info](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Converter.html#mindspore_lite.Converter.set_config_info)。
+get_config_info方法和set_config_info方法用于在线转换，具体请参考[set_config_info](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Converter.html#mindspore_lite.Converter.set_config_info)。

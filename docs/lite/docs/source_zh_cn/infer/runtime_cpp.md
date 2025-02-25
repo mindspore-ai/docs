@@ -64,7 +64,7 @@ device_list.push_back(cpu_device_info);
 >
 > float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到float32执行。
 >
-> 对于iOS设备,暂时只支持向`MutableDeviceInfo`添加CPU后端，且暂时不支持CPU后端float16的执行。
+> 对于iOS设备，暂时只支持向`MutableDeviceInfo`添加CPU后端，且暂时不支持CPU后端float16的执行。
 
 [Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)中包含的配置API如下：
 
@@ -114,7 +114,7 @@ auto gpu_device_info = std::make_shared<mindspore::GPUDeviceInfo>();
 if (gpu_device_info == nullptr) {
   std::cerr << "New GPUDeviceInfo failed." << std::endl;
 }
-// GPU use float16 operator as priority.
+// GPU uses float16 operator as priority.
 gpu_device_info->SetEnableFP16(true);
 // Set VNIDIA device id, only valid when GPU backend is TensorRT.
 gpu_device_info->SetDeviceID(0);
@@ -126,7 +126,7 @@ auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
 }
-// CPU use float16 operator as priority.
+// CPU uses float16 operator as priority.
 cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
@@ -135,18 +135,18 @@ device_list.push_back(cpu_device_info);
 >
 > - 在`arm64`上是基于OpenCL，支持Mali、Adreno的GPU，OpenCL版本为2.0。
 >
-> 具体配置为：
+>   具体配置为：
 >
-> CL_TARGET_OPENCL_VERSION=200
+>   CL_TARGET_OPENCL_VERSION=200
 >
-> CL_HPP_TARGET_OPENCL_VERSION=120
+>   CL_HPP_TARGET_OPENCL_VERSION=120
 >
-> CL_HPP_MINIMUM_OPENCL_VERSION=120
+>   CL_HPP_MINIMUM_OPENCL_VERSION=120
 >
 > - 在`x86_64`上是基于TensorRT的GPU，TensorRT版本为6.0.1.5。
 >
-> `SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
-> `SetDeviceID`属性仅在TensorRT的GPU上有效，用于指定NVIDIA显卡。
+>   `SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
+>   `SetDeviceID`属性仅在TensorRT的GPU上有效，用于指定NVIDIA显卡。
 
 ### 配置使用NPU后端
 
@@ -166,7 +166,7 @@ auto npu_device_info = std::make_shared<mindspore::KirinNPUDeviceInfo>();
 if (npu_device_info == nullptr) {
   std::cerr << "New KirinNPUDeviceInfo failed." << std::endl;
 }
-// NPU set frequency to be 3.
+// NPU sets frequency to be 3.
 npu_device_info->SetFrequency(3);
 // The NPU device context needs to be push_back into device_list to work.
 device_list.push_back(npu_device_info);
@@ -176,7 +176,7 @@ auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
 }
-// CPU use float16 operator as priority.
+// CPU uses float16 operator as priority.
 cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
@@ -203,7 +203,7 @@ auto ascend_device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (ascend_device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
 }
-// Atlas 200/300/500 inference product set device id to be 0.
+// Atlas 200/300/500 inference product sets device id to be 0.
 ascend_device_info->SetDeviceID(0);
 // The Atlas 200/300/500 inference product device context needs to be push_back into device_list to work.
 device_list.push_back(ascend_device_info);
@@ -460,7 +460,7 @@ MindSpore Lite 支持多硬件异构推理。
 
 ```cpp
 mindspore::Context context;
-// enable NPU CPU GPU in inference. NPU is preferentially used, then the CPU, and GPU get the lowest priority.
+// enable NPU CPU GPU in inference. NPU is preferentially used, then the CPU, and GPU gets the lowest priority.
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::KirinNPUDeviceInfo>());
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::CPUDeviceInfo>());
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::GPUDeviceInfo>());
@@ -541,7 +541,7 @@ MindSpore Lite 支持 OpenGL纹理输入，进行端到端的GPU同构推理，�
 
 3. Predict结果
 
-    绑定完成后直接调用ms_model_的 Predict 接口进行推理即可，模型输出会被拷贝到绑定的输出纹理 ID 对应的内存上，用户可从outputs上面获取推理结果
+    绑定完成后直接调用ms_model_的 Predict 接口进行推理即可，模型输出会被拷贝到绑定的输出纹理 ID 对应的内存上，用户可从outputs上面获取推理结果：
 
     ```cpp
     std::vector<MSTensor> outputs;
@@ -722,7 +722,7 @@ int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
   return 0;
 ```
 
-如使用converter_lite工具的命令为：
+使用converter_lite工具的命令为：
 
 ```bash
 ./converter_lite --fmk=MINDIR --modelFile=./lenet.mindir --outputFile=lenet_enc --encryptKey=30313233343536373839414243444546 --encryption=true
@@ -750,7 +750,7 @@ cd build
 logcat -s "MS_LITE"
 ```
 
-> 对iOS设备暂不支持日志查看。
+> iOS设备暂不支持日志查看。
 
 ### 获取版本号
 
