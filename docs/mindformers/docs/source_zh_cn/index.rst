@@ -9,14 +9,57 @@ MindSpore Transformers（也称MindFormers）套件的目标是构建一个大�
 
 MindFormers支持一键启动任意任务的单卡/多卡训练、微调、评估、推理流程，它通过简化操作、提供灵活性和自动化流程，使得深度学习任务的执行变得更加高效和用户友好，用户可以通过以下说明文档进行学习：
 
-- `开发迁移 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/dev_migration.html>`_
-- `预训练 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/pre_training.html>`_
-- `SFT微调 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/sft_tuning.html>`_
-- `低参微调 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/parameter_efficient_fine_tune.html>`_
-- `评测 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/evaluation.html>`_
-- `推理 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/inference.html>`_
-- `量化 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/quantization.html>`_
-- `MindIE服务化部署 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/mindie_deployment.html>`_
+.. raw:: html
+
+   <table style="width: 100%">
+      <tr>
+         <td style="text-align: center; width: 20%; border: none">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/docs/mindformers/docs/source_zh_cn/full-process_1.png">
+         </td>
+         <td style="text-align: center; width: 20%; border: none">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/docs/mindformers/docs/source_zh_cn/full-process_2.png">
+         </td>
+         <td style="text-align: center; width: 20%; border: none">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/docs/mindformers/docs/source_zh_cn/full-process_3.png">
+         </td>
+         <td style="text-align: center; width: 20%; border: none">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/docs/mindformers/docs/source_zh_cn/full-process_4.png">
+         </td>
+         <td style="text-align: center; width: 20%; border: none">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/docs/mindformers/docs/source_zh_cn/full-process_5.png">
+         </td>
+      </tr>
+      <tr>
+         <td style="text-align: center; width: 20%; border: none">
+            <ul style="text-align: left; display: inline-block;">
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/dev_migration.html"><span>开发迁移</span></a></li>
+            </ul>
+         </td>
+         <td style="text-align: center; width: 20%; border: none">
+            <ul style="text-align: left; display: inline-block;">
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/pre_training.html"><span>预训练</span></a></li>
+            </ul>
+         </td>
+         <td style="text-align: center; width: 20%; border: none">
+            <ul style="text-align: left; display: inline-block;">
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/sft_tuning.html"><span>SFT微调</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/parameter_efficient_fine_tune.html"><span>低参微调</span></a></li>
+            </ul>
+         </td>
+         <td style="text-align: center; width: 20%; border: none">
+            <ul style="text-align: left; display: inline-block;">
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/evaluation.html"><span>评测</span></a></li>
+            </ul>
+         </td>
+         <td style="text-align: center; width: 20%; border: none">
+            <ul style="text-align: left; display: inline-block;">
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/inference.html"><span>推理</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/quantization.html"><span>量化</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/mindie_deployment.html"><span>MindIE服务化部署</span></a></li>
+            </ul>
+         </td>
+      </tr>
+   </table>
 
 使用MindFormers进行灵活易用的个性化配置
 --------------------------------------------
