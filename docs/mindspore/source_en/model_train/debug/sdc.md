@@ -105,7 +105,7 @@ class Network(nn.Cell):
         x = self.flatten(x)
         x = self.matmul1(x, self.fc1_weight)
         # ====== begin ====== inject eod_mask =====================================================
-        ele_pos = ms.Tensor(0, ms.int64)
+        ele_pos = ms.Tensor(1, ms.int64)
         seed = ms.Tensor(0, ms.int64)
         offset = ms.Tensor(0, ms.int64)
         start = 0
@@ -142,7 +142,7 @@ def create_dataset(batch_size):
             self.dataset_size = 20
 
         def __getitem__(self, index):
-            image_np = np.random.randn(batch_size, 1, 28, 28).astype(np.float32)
+            image_np = np.random.randn(batch_size, 1, 28, 28).astype(np.float32) + 10
             label_np = np.random.randint(low=0, high=10, size=batch_size, dtype=np.int32)
             return ms.Tensor(image_np), ms.Tensor(label_np)
 
@@ -212,13 +212,13 @@ From the CANN log, by default the log path os `~/ascend/log/`, the main `ERROR` 
 
 ```bash
 $ cd ~/ascend/log/debug/
-$ grep -nr 'silent_check_v2.cc:1.*SilentCheck' device-*
-device-0/device-109652_20240913141212740.log:2508:[ERROR] AICPU(24515,aicpu_scheduler):2024-09-13-14:12:28.956.344 [silent_check_v2.cc:136][ComputeL1Error][tid:24528]SilentCheck get L1 Error, input message: val = [nan], pre_val = [0.100089], min_val = [0.089474], max_val = [0.130423], step = [6],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [1].
-device-0/device-109652_20240913141212740.log:2556:[ERROR] AICPU(24515,aicpu_scheduler):2024-09-13-14:12:28.961.061 [silent_check_v2.cc:136][ComputeL1Error][tid:24523]SilentCheck get L1 Error, input message: val = [nan], pre_val = [0.026273], min_val = [0.026273], max_val = [0.026949], step = [6],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [1].
-device-0/device-109652_20240913141212740.log:2604:[ERROR] AICPU(24515,aicpu_scheduler):2024-09-13-14:12:28.969.720 [silent_check_v2.cc:136][ComputeL1Error][tid:24524]SilentCheck get L1 Error, input message: val = [nan], pre_val = [0.005759], min_val = [0.005759], max_val = [0.005931], step = [6],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [1].
-device-0/device-109652_20240913141212740.log:2652:[ERROR] AICPU(24515,aicpu_scheduler):2024-09-13-14:12:28.977.256 [silent_check_v2.cc:136][ComputeL1Error][tid:24525]SilentCheck get L1 Error, input message: val = [nan], pre_val = [0.004188], min_val = [0.004188], max_val = [0.004272], step = [6],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [1].
-device-0/device-109652_20240913141212740.log:2786:[ERROR] AICPU(24515,aicpu_scheduler):2024-09-13-14:12:29.057.454 [silent_check_v2.cc:136][ComputeL1Error][tid:24526]SilentCheck get L1 Error, input message: val = [nan], pre_val = [nan], min_val = [0.089474], max_val = [0.130423], step = [7],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [1].
-device-0/device-109652_20240913141212740.log:2834:[ERROR] AICPU(24515,aicpu_scheduler):2024-09-13-14:12:29.062.242 [silent_check_v2.cc:136][ComputeL1Error][tid:24527]SilentCheck get L1 Error, input message: val = [nan], pre_val = [nan], min_val = [0.026273], max_val = [0.026949], step = [7],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [1].
+$ grep -nr 'silent_check_v[2-9].cc:.*SilentCheck' device-*
+device-0/device-299066_20250225184036913.log:1968:[ERROR] AICPU(26533,aicpu_scheduler):2025-02-25-18:40:56.176.403 [silent_check_v3.cc:250][ComputeL1Error][tid:26552]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[1.128970e-09], step=[5], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [1].
+device-0/device-299066_20250225184036913.log:2134:[ERROR] AICPU(26533,aicpu_scheduler):2025-02-25-18:40:56.269.071 [silent_check_v3.cc:250][ComputeL1Error][tid:26547]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[6.995705e-08], step=[6], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [1].
+device-0/device-299066_20250225184036913.log:2190:[ERROR] AICPU(26533,aicpu_scheduler):2025-02-25-18:40:56.275.860 [silent_check_v3.cc:250][ComputeL1Error][tid:26548]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[nan], step=[6], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [1].
+device-0/device-299066_20250225184036913.log:2246:[ERROR] AICPU(26533,aicpu_scheduler):2025-02-25-18:40:56.282.746 [silent_check_v3.cc:250][ComputeL1Error][tid:26549]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[1.526131e-09], step=[6], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [1].
+device-0/device-299066_20250225184036913.log:2357:[ERROR] AICPU(26533,aicpu_scheduler):2025-02-25-18:40:56.366.766 [silent_check_v3.cc:250][ComputeL1Error][tid:26549]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[nan], step=[7], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [1].
+device-0/device-299066_20250225184036913.log:2413:[ERROR] AICPU(26533,aicpu_scheduler):2025-02-25-18:40:56.373.589 [silent_check_v3.cc:250][ComputeL1Error][tid:26550]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[nan], step=[7], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [1].
 ```
 
 #### Execution Result of Setting NPU_ASD_ENABLE to 2
@@ -235,9 +235,8 @@ From the CANN log, by default the log path os `~/ascend/log/`, the main `ERROR` 
 
 ```bash
 $ cd ~/ascend/log/debug/
-$ grep -nr 'silent_check_v2.cc:1.*SilentCheck' device-*
-device-2/device-134035_20240913141623807.log:2204:[ERROR] AICPU(1685,aicpu_scheduler):2024-09-13-14:16:43.130.671 [silent_check_v2.cc:136][ComputeL1Error][tid:1695]SilentCheck get L1 Error, input message: val = [inf], pre_val = [0.105156], min_val = [0.089474], max_val = [0.130423], step = [5],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [2].
-$
+$ grep -nr 'silent_check_v[2-9].cc:.*SilentCheck' device-*
+device-2/device-305322_20250225184310213.log:1859:[ERROR] AICPU(25787,aicpu_scheduler):2025-02-25-18:43:29.395.610 [silent_check_v3.cc:250][ComputeL1Error][tid:25799]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[5.752283e-08], step=[5], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [2].
 ```
 
 #### Execution Result of Setting NPU_ASD_ENABLE to 3
@@ -255,15 +254,10 @@ From the CANN log, by default the log path os `~/ascend/log/`, the main `ERROR` 
 
 ```bash
 $ cd ~/ascend/log/debug/
-$ grep -nr 'silent_check_v2.cc:1.*SilentCheck' device-*
-device-2/device-151329_20240913141834821.log:2056:[INFO] AICPU(2249,aicpu_scheduler):2024-09-13-14:18:53.048.647 [silent_check_v2.cc:124][SilentCheck][tid:2257]c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000], npu_asd_detect = [3]
-device-2/device-151329_20240913141834821.log:2104:[INFO] AICPU(2249,aicpu_scheduler):2024-09-13-14:18:53.057.632 [silent_check_v2.cc:122][SilentCheck][tid:2258]val = [0.004220], pre_val = [0.004272], min_val = [0.004189], max_val = [0.004272], step = [4].
-device-2/device-151329_20240913141834821.log:2105:[INFO] AICPU(2249,aicpu_scheduler):2024-09-13-14:18:53.057.642 [silent_check_v2.cc:124][SilentCheck][tid:2258]c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000], npu_asd_detect = [3]
-device-2/device-151329_20240913141834821.log:2149:[INFO] AICPU(2249,aicpu_scheduler):2024-09-13-14:18:53.096.224 [silent_check_v2.cc:122][SilentCheck][tid:2257]val = [0.007812], pre_val = [0.007812], min_val = [0.007812], max_val = [0.007812], step = [5].
-device-2/device-151329_20240913141834821.log:2150:[INFO] AICPU(2249,aicpu_scheduler):2024-09-13-14:18:53.096.234 [silent_check_v2.cc:124][SilentCheck][tid:2257]c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000], npu_asd_detect = [3]
-device-2/device-151329_20240913141834821.log:2194:[INFO] AICPU(2249,aicpu_scheduler):2024-09-13-14:18:53.099.659 [silent_check_v2.cc:122][SilentCheck][tid:2258]val = [0.000000], pre_val = [0.000000], min_val = [0.000000], max_val = [0.000000], step = [5].
-device-2/device-151329_20240913141834821.log:2195:[INFO] AICPU(2249,aicpu_scheduler):2024-09-13-14:18:53.099.668 [silent_check_v2.cc:124][SilentCheck][tid:2258]c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000], npu_asd_detect = [3]
-device-2/device-151329_20240913141834821.log:2243:[ERROR] AICPU(2249,aicpu_scheduler):2024-09-13-14:18:53.127.190 [silent_check_v2.cc:136][ComputeL1Error][tid:2259]SilentCheck get L1 Error, input message: val = [inf], pre_val = [0.105156], min_val = [0.089474], max_val = [0.130423], step = [5],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [3].
+$ grep -nr 'silent_check_v[2-9].cc:.*SilentCheck' device-*
+device-2/device-311523_20250225184632284.log:1767:[INFO] AICPU(26559,aicpu_scheduler):2025-02-25-18:46:51.678.981 [silent_check_v3.cc:240][SilentCheck][tid:26572]SilentCheckV3 normal case, val=[3.350337e-08], max=[3.350337e-08], avg=[9.879098e-10], step=[4], c_threshold_l1=[1.000000e+06], c_threshold_l2=[1.000000e+04], beta1=[9.900000e-01], npu_asd_detect=[3].
+device-2/device-311523_20250225184632284.log:1829:[INFO] AICPU(26559,aicpu_scheduler):2025-02-25-18:46:51.684.993 [silent_check_v3.cc:240][SilentCheck][tid:26570]SilentCheckV3 normal case, val=[2.016393e+02], max=[2.016393e+02], avg=[7.349676e+00], step=[4], c_threshold_l1=[1.000000e+06], c_threshold_l2=[1.000000e+04], beta1=[9.900000e-01], npu_asd_detect=[3].
+device-2/device-311523_20250225184632284.log:1891:[ERROR] AICPU(26559,aicpu_scheduler):2025-02-25-18:46:51.762.577 [silent_check_v3.cc:250][ComputeL1Error][tid:26572]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[5.752281e-08], step=[5], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [3].
 ```
 
 ## Detection Results and Handling
