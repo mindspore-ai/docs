@@ -45,7 +45,7 @@ context = mslite.Context()
 
 ### 配置Ascend设备上下文
 
-当设备类型为Ascend时(目前分布式推理支持Atlas训练系列产品)，设置[Context.target](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target)为`Ascend`，并通过如下方式设置`DeviceID`、`RankID`。由于Ascend提供多个推理引擎后端，当前仅`ge`后端支持分布式推理，通过`ascend.provider`指定Ascend推理引擎后端为`ge`。示例代码如下。
+当设备类型为Ascend时(目前分布式推理支持Atlas训练系列产品)，设置[Context.target](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target)为`Ascend`，并通过如下方式设置`DeviceID`、`RankID`。由于Ascend提供多个推理引擎后端，当前仅`ge`后端支持分布式推理，通过`ascend.provider`指定Ascend推理引擎后端为`ge`。示例代码如下：
 
 ```python
 # set Ascend target and distributed info
@@ -57,7 +57,7 @@ context.ascend.provider = "ge"
 
 ### 配置使用GPU设备上下文
 
-当执行的后端为GPU时，设置[Context.target](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target)为`gpu`。GPU设备的分布式推理多进程应用由mpi拉起，mpi会自动设置每个进程的`RankID`，用户只需在环境变量中指定`CUDA_VISIBLE_DEVICES`，无需指定组网信息文件。因此，每个进程的`RankID`可以当作`DeviceID`使用。另外，GPU也提供多个推理引擎后端，当前仅`tensorrt`后端支持分布式推理，通过`gpu.provider`指定GPU推理引擎后端为`tensorrt`。示例代码如下。
+当执行的后端为GPU时，设置[Context.target](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target)为`gpu`。GPU设备的分布式推理多进程应用由mpi拉起，mpi会自动设置每个进程的`RankID`，用户只需在环境变量中指定`CUDA_VISIBLE_DEVICES`，无需指定组网信息文件。因此，每个进程的`RankID`可以当作`DeviceID`使用。另外，GPU也提供多个推理引擎后端，当前仅`tensorrt`后端支持分布式推理，通过`gpu.provider`指定GPU推理引擎后端为`tensorrt`。示例代码如下：
 
 ```python
 # set GPU target and distributed info
@@ -68,7 +68,7 @@ context.gpu.provider = "tensorrt"
 
 ## 模型创建、加载与编译
 
-与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_python.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)接口，可进行模型加载、编译和执行。创建[Model](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)并调用[Model.build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口来实现模型加载与模型编译，示例代码如下。
+与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_python.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)接口，可进行模型加载、编译和执行。创建[Model](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)并调用[Model.build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口来实现模型加载与模型编译，示例代码如下：
 
 ```python
 # create Model and build Model
@@ -78,7 +78,7 @@ model.build_from_file(model_path, mslite.ModelType.MINDIR, context, args.config_
 
 ## 模型输入数据填充
 
-首先，使用[Model.get_inputs](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.get_inputs)方法获取所有输入[Tensor](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Tensor.html#mindspore_lite.Tensor)，利用相关接口将Host数据填入。示例代码如下。
+首先，使用[Model.get_inputs](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.get_inputs)方法获取所有输入[Tensor](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Tensor.html#mindspore_lite.Tensor)，利用相关接口将Host数据填入。示例代码如下：
 
 ```python
 # set model input as ones
@@ -96,7 +96,7 @@ inputs = [mslite.Tensor(np_input) for np_input in np_inputs]
 
 ## 分布式推理执行
 
-调用[Model.predict](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口执行分布式推理，示例代码如下。
+调用[Model.predict](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口执行分布式推理，示例代码如下：
 
 ```python
 # execute inference

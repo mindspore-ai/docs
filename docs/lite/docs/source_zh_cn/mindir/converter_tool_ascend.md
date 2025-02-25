@@ -8,7 +8,7 @@
 
 ## 配置文件
 
-表1：配置[ascend_context]参数
+表1：配置ascend_context参数
 
 | 参数                        | 属性  | 功能描述                                                       | 参数类型 | 取值说明 |
 | -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
@@ -23,7 +23,7 @@
 | `aoe_mode` | 可选 | [AOE](https://www.hiascend.com/document/detail/zh/TensorFlowCommunity/800alpha001/migration/tfmigr1/tfmigr1_000052.html)自动调优模式 | String  | 可选有"subgraph tuning"、"operator tuning"或者"subgraph tuning、operator tuning"，默认不使能 |
 | `plugin_custom_ops` | 可选 | 用于使能ascend后端融合优化生成自定义算子 | String  | 可选有`All`、`None`、`FlashAttention`、`LayerNormV3`、`GeGluV2`、`GroupNormSilu`、`FFN`、`AddLayerNorm`、`MatMulAllReduce`和`BatchMatmulToMatmul`，其中`All`表示使能`FlashAttention`、`LayerNormV3`、`GeGluV2`和`GroupNormSilu`，默认`None`表示不使能 |
 | `custom_fusion_pattern` | 可选 | 指定使能模型中的自定义算子结构 | String  | `自定义算子类型:模型中原始算子名称:是否使能`，可以取值为`enable`或者`disable` |
-| `op_attrs` | 可选 | 指定融合的自定义算子属性 | String | `自定义算子名:属性:值`，目前算子仅支持`FlashAttention`，该算子支持3种可选配置属性：`input_layout`，`seq_threshold`，`inner_precise`，分别决定`FlashAttention`以`BNSD`（默认）、`BSH`或`BNSD_BSND`（`BNSD`表示`FlashAttention`输入和输出的`layout`均是`BNSD`，`BSH`表示输入和输出均是`BSH`，`BNSD_BSND`表示输入是`BNSD`，输出为`BSND`）形式进行融合、融合`FlashAttention`的`seq`阈值（默认`0`）、高性能（默认）或高精度 |
+| `op_attrs` | 可选 | 指定融合的自定义算子属性 | String | `自定义算子名:属性:值`，目前算子仅支持`FlashAttention`，该算子支持3种可选配置属性：`input_layout`、`seq_threshold`、`inner_precise`，分别决定`FlashAttention`以`BNSD`（默认）、`BSH`或`BNSD_BSND`（`BNSD`表示`FlashAttention`输入和输出的`layout`均是`BNSD`，`BSH`表示输入和输出均是`BSH`，`BNSD_BSND`表示输入是`BNSD`，输出为`BSND`）形式进行融合、融合`FlashAttention`的`seq`阈值（默认`0`）、高性能（默认）或高精度 |
 
 表2：配置[acl_init_options]参数
 
@@ -35,9 +35,9 @@
 | `ge.enableCompressWeight`    |  可选  | 可以对Weight进行数据压缩，提升性能。 | String | 可选有`"true"`、`"false"` |
 | `compress_weight_conf`       |  可选  | 要压缩的node节点列表配置文件路径，node节点主要为conv算子、fc算子。 | String | 配置文件路径 |
 | `ge.exec.precision_mode`     |  可选  | 选择算子精度模式。 | String | 可选有`"force_fp32"`、`"force_fp16"`、`"allow_fp32_to_fp16"`、`"must_keep_origin_dtype"`、`"allow_mix_precision"`，默认为`"force_fp16"` |
-| `ge.exec.disableReuseMemory` |  可选  | 内存复用开关。 | String | 可选有`"0"`、`"１"` |
+| `ge.exec.disableReuseMemory` |  可选  | 内存复用开关。 | String | 可选有`"0"`、`"1"` |
 | `ge.enableSingleStream`      |  可选  | 是否使能一个模型只使用一个stream。 | String | 可选有`"true"`、`"false"` |
-| `ge.aicoreNum`               |  可选  | 设置编译时使用的ai core数目。 | String | 默认`"１0"` |
+| `ge.aicoreNum`               |  可选  | 设置编译时使用的ai core数目。 | String | 默认`"10"` |
 | `ge.fusionSwitchFile`        |  可选  | 融合配置文件路径。 | String | 配置文件路径 |
 | `ge.enableSmallChannel`      |  可选  | 是否使能small channel的优化。 | String | 可选有`"0"`、`"1"` |
 | `ge.opSelectImplmode`        |  可选  | 选择算子实现模式。 | String | 可选有`"high_precision"`、`"high_performance"` |
@@ -48,8 +48,8 @@
 | `ge.opDebugLevel`            |  可选  | 算子debug功能开关。 | String | 可选有`"0"`、`"1"` |
 | `ge.exec.modify_mixlist`     |  可选  | 配置混合精度名单。 | String | 配置文件路径 |
 | `ge.enableSparseMatrixWeight`|  可选  | 使能全局稀疏特性。 | String | 可选有`"1"`、`"0"` |
-| `ge.externalWeight`          |  可选  | 是否将常量节点的权重单独保存到文件中。 | String | 可选有`"１"`、`"0"` |
-| `ge.deterministic`           |  可选  | 是否开启确定性计算。 | String | 可选有`"１"`、`"0"` |
+| `ge.externalWeight`          |  可选  | 是否将常量节点的权重单独保存到文件中。 | String | 可选有`"1"`、`"0"` |
+| `ge.deterministic`           |  可选  | 是否开启确定性计算。 | String | 可选有`"1"`、`"0"` |
 | `ge.host_env_os`             |  可选  | 支持编译环境操作系统与运行环境不一致。 | String | 可选有`"linux"` |
 | `ge.host_env_cpu`            |  可选  | 支持编译环境操作系统架构与运行环境不一致。 | String | 可选有`"aarch64"`、`"x86_64"` |
 | `ge.virtual_type`            |  可选  | 是否支持离线模型在昇腾虚拟化实例特性生成的虚拟设备上运行。 | String | 可选有`"0"`、`"1"` |
@@ -68,7 +68,7 @@
 | `ge.dynamicDims`                    | 可选 | 设置ND格式下的动态维度的档位。模型转换后可以用Model.get_model_info("dynamic_dims")获取 | String | 该参数需要与`input_shape`参数配合使用 |
 | `ge.inserOpFile`                    | 可选 | 输入预处理算子的配置文件路径。 | String | 配置文件路径 |
 | `ge.exec.precision_mode`            | 可选 | 选择算子精度模式。 | String | 可选有`"force_fp32"`、`"force_fp16"`、`"allow_fp32_to_fp16"`、`"must_keep_origin_dtype"`、`"allow_mix_precision"`，默认为`"force_fp16"` |
-| `ge.exec.disableReuseMemory`        | 可选 | 内存复用开关。 | String | 可选有`"0"`、`"１"` |
+| `ge.exec.disableReuseMemory`        | 可选 | 内存复用开关。 | String | 可选有`"0"`、`"1"` |
 | `ge.outputDataType`                 | 可选 | 网络输出数据类型。 | String | 可选有`"FP32"`、`"UINT8"`、`"FP16"` |
 | `ge.outputNodeName`                 | 可选 | 指定输出节点。 | String | 例如：`"node_name1:0;node_name1:1;node_name2:0"` |
 | `ge.INPUT_NODES_SET_FP16`           | 可选 | 指定输入数据类型为FP16的输入节点名称。 | String | `"node_name1;node_name2"` |
@@ -83,7 +83,7 @@
 | `ge.exec.op_precision_mode`         | 可选 | 设置具体某个算子的精度模式，通过该参数设置配置文件路径。 | String | 配置文件路径 |
 | `ge.shape_generalized_build_mode`   | 可选 | 图编译时shape编译方式。 | String | 可选有`"shape_generalized"`模糊编译、`"shape_precise"`精确编译 |
 | `op_debug_config`                   | 可选 | 内存检测功能开关。 | String | 配置文件路径 |
-| `ge.externalWeight`                 | 可选 | 是否将常量节点的权重单独保存到文件中。 | String | 可选有`"１"`、`"0"` |
+| `ge.externalWeight`                 | 可选 | 是否将常量节点的权重单独保存到文件中。 | String | 可选有`"1"`、`"0"` |
 | `ge.exec.exclude_engines`           | 可选 | 设置网络模型不使用某个或者某些加速引擎。 | String | 可选有`"AiCore"`、`"AiVec"`、`"AiCpu"` |
 
 ## 动态shape配置
@@ -134,7 +134,7 @@
 
 - 注意事项
 
-    1）若用户执行推理业务时，每次处理的图片数量不固定，则可以通过配置该参数来动态分配每次处理的图片数量。例如用户执行推理业务时需要每次处理2张，4张，8张图片，则可以配置为2,4,8，申请了档位后，模型推理时会根据实际档位申请内存。<br/>
+    1）若用户执行推理业务时，每次处理的图片数量不固定，则可以通过配置该参数来动态分配每次处理的图片数量。例如用户执行推理业务时需要每次处理2张、4张、8张图片，则可以配置为2,4,8，申请了档位后，模型推理时会根据实际档位申请内存。<br/>
     2）如果用户设置的档位数值过大或档位过多，可能会导致模型编译失败，此时建议用户减少档位或调低档位数值。<br/>
     3）如果用户设置的档位数值过大或档位过多，在运行环境执行推理时，建议执行swapoff -a命令关闭swap交换区间作为内存的功能，防止出现由于内存不足，将swap交换空间作为内存继续调用，导致运行环境异常缓慢的情况。<br/>
 
@@ -272,7 +272,7 @@ AOE是一款专门为Davinci平台打造的计算图形性能自动调优工具�
 
 Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型共享权重，支持模型中存在可以被更新的权重，即变量。当前仅AOE API调优支持模型中存在变量，默认的AOE工具调优不支持。环境变量、知识库路径的设置和使用、AOE调优缓存与AOE工具调优一致。详情可参考[AOE调优](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC2alpha002/devaids/auxiliarydevtool/aoerc_16_0002.html)。
 
-转换工具支持AOE API调优，当 `optimize=ascend_oriented`，配置文件中识别到 `[ascend_context]` 存在 `provider=ge` ，且 `[ascend_context]` 或 `[acl_option_cfg_param]` 中存在有效的 `aoe_mode` 或 `[aoe_global_options]` 存在有效的 `job_type` ，将启动AOE API调优。AOE API调优只产生知识库，不产生优化后的模型。
+转换工具支持AOE API调优。当 `optimize=ascend_oriented`，配置文件中识别到 `[ascend_context]` 存在 `provider=ge` ，且 `[ascend_context]` 或 `[acl_option_cfg_param]` 中存在有效的 `aoe_mode` 或 `[aoe_global_options]` 存在有效的 `job_type` ，将启动AOE API调优。AOE API调优只产生知识库，不产生优化后的模型。
 
 1. 指定 `provider` 为 ``ge``
 
@@ -395,7 +395,7 @@ MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模
 
 4. 查看昇腾算子库目录检查是否安装成功
 
-    完成部署自定义算子之后，进入昇腾算子库目录``/usr/local/Ascend/latest/opp/vendors/``，查看其下目录是否有对应的自定义算子文件，当前主要提供了基本算子样例和AKG图算融合算子实现，具体文件结构如下。
+    完成部署自定义算子之后，进入昇腾算子库目录``/usr/local/Ascend/latest/opp/vendors/``，查看其下目录是否有对应的自定义算子文件，当前主要提供了基本算子样例和AKG图算融合算子实现，具体文件结构如下：
 
     ```text
     /usr/local/Ascend/latest/opp/vendors/

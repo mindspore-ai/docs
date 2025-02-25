@@ -47,7 +47,7 @@ config.init(context);
 config.setWorkersNum(2);
 ```
 
-> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_java.html#创建配置上下文)。
+> Context的配置方法详见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_java.html#创建配置上下文)。
 >
 > 多model并发推理现阶段支持[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#devicetype)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#devicetype)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#devicetype)几种不同的硬件后端。在设置GPU后端的时候需要先设置GPU后端再设置CPU后端，否则会报错退出。
 >

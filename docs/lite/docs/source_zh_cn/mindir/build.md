@@ -163,7 +163,7 @@ sudo apt-get install llvm-12-dev -y
 
 ### 执行编译
 
-三后端合一包需配置如下环境变量
+三后端合一包需配置如下环境变量：
 
 ```bash
 export MSLITE_ENABLE_CLOUD_INFERENCE=on

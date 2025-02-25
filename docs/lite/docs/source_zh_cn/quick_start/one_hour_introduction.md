@@ -133,7 +133,7 @@ mindspore-lite-{version}-linux-x64
             ```
 
         在转换各种模型时，将`fmk`配置为模型类型对应的标志符号，同时通过modelFile参数传入模型文件。
-        通过outputFile，指定转换后输出的模型名，因未指定路径，生成的模型默认在当前路径，并带有`.ms`后缀，既`lenet.ms`。
+        通过outputFile，指定转换后输出的模型名，因未指定路径，生成的模型默认在当前路径，并带有`.ms`后缀，即`lenet.ms`。
 
 4. 执行转换
 
@@ -435,7 +435,7 @@ mindspore-lite-{version}-linux-x64
 
 #### 集成推理
 
-在上一节，我们使用了官方推理测试工具进行了模型推理测试，在本节，我们将以使用MindSpore Lite的C++接口进行集成为例，演示如何使用MindSpore Lite的发布件，进行集成开发，编写自己的推理程序。
+在上一节，我们使用了官方推理测试工具进行了模型推理测试。在本节，我们将以使用MindSpore Lite的C++接口进行集成为例，演示如何使用MindSpore Lite的发布件，进行集成开发，编写自己的推理程序。
 
 1. 环境要求
 
@@ -444,7 +444,7 @@ mindspore-lite-{version}-linux-x64
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
         - [CMake](https://cmake.org/download/) >= 3.12
 
-2. 得到版本发布件
+2. 获得版本发布件
 
     用户可通过MindSpore官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)查看各版本。
     在本例中，仍然采用了和前几节一样的发布件，用于本节集成开发，点击此处可直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.6.0-linux-x64.tar.gz)。
@@ -741,7 +741,7 @@ mindspore-lite-{version}-linux-x64
 
     (5) 执行推理
 
-    首先申请一个放置模型推理输出张量的数组`outputs`，然后调用模型推理接口`Predict`，将输入张量和输出张量作它的参数。
+    首先申请一个放置模型推理输出张量的数组`outputs`，然后调用模型推理接口`Predict`，将输入张量和输出张量作为参数。
     在推理成功后，输出张量被保存在`outputs`内。
 
     ```cpp
@@ -820,7 +820,7 @@ mindspore-lite-{version}-linux-x64
 
 用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，得到各版本的MindSpore Lite发布件。
 在本例中，我们选择的是软件系统为Windows、底层架构为x86_64的CPU发布件，以1.6.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/windows/mindspore-lite-1.6.0-win-x64.zip)。
-每个发布件的包结构会有不同，本例中，Windows发布件的包结构如下：
+每个发布件的包结构会有不同。本例中，Windows发布件的包结构如下：
 
 ```text
 mindspore-lite-{version}-win-x64

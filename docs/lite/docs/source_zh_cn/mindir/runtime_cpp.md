@@ -225,7 +225,7 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 
 当前有两种指定输入数据的方式：
 
-1. 通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)设置输入数据，可以避免host之间的拷贝，输入数据将最终直接拷贝到推理设备上。
+1. 通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)设置输入数据，可以避免host之间的拷贝，输入数据最终将直接拷贝到推理设备上。
 
     ```c++
     int SetTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -257,7 +257,7 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
       SetTensorHostData(&inputs, &input_buffer);
     ```
 
-2. 将输入数据拷贝到[MutableData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledata)返回的Tensor缓存中。注意，如果已通过`SetData`设置过数据地址，则`MutableData`返回的将是`SetData`的数据地址，此时需要先调用`SetData(nullptr)`。
+2. 将输入数据拷贝到[MutableData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledata)返回的Tensor缓存中。注意：如果已通过`SetData`设置过数据地址，则`MutableData`返回的将是`SetData`的数据地址，此时需要先调用`SetData(nullptr)`。
 
     ```c++
     int CopyTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -399,7 +399,7 @@ opt_dims=[1]
   }
 ```
 
-在模型推理时，如果模型的输入是动态的，通过`GetInputs`和`GetOutputs`返回的输入输出shape可能包括-1，即为动态shape，则需要通过[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)接口指定输入shape。如果输入Shape需要发生变化，比如`batch`维度发生变化，则需要重新调用`Resize`接口调整输入shape。
+在模型推理时，如果模型的输入是动态的，通过`GetInputs`和`GetOutputs`返回的输入输出shape可能包括-1，即为动态shape，则需要通过[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)接口指定输入shape。如果输入shape需要发生变化，比如`batch`维度发生变化，则需要重新调用`Resize`接口调整输入shape。
 
 调用`Resize`接口后，已调用和后续调用的`GetInputs`和`GetOutputs`中的Tensor的shape将发生变化。
 

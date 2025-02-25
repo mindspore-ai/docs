@@ -74,7 +74,7 @@ try {
 
 ## 模型编译
 
-模型编译主要包括创建配置上下文、编译等步骤。编译接口支持文件和mappedbytebuffer两种格式。下面[示例代码]描述的是从文件读取进行模型编译。
+模型编译主要包括创建配置上下文、编译等步骤。编译接口支持文件和mappedbytebuffer两种格式。下面示例代码描述的是从文件读取进行模型编译。
 
 ```java
 private static boolean compile(String modelPath) {

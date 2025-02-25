@@ -50,7 +50,7 @@ auto &device_list = context->MutableDeviceInfo();
 
 ### 配置Ascend设备上下文
 
-当设备类型为Ascend时(目前分布式推理支持Atlas训练系列产品)，新建[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)，并通过[AscendDeviceInfo::SetDeviceID](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)、[AscendDeviceInfo::SetRankID](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)分别设置`DeviceID`、`RankID`。由于Ascend提供多个推理引擎后端，当前仅`ge`后端支持分布式推理，通过[DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)指定Ascend推理引擎后端为`ge`。示例代码如下。
+当设备类型为Ascend时(目前分布式推理支持Atlas训练系列产品)，新建[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)，并通过[AscendDeviceInfo::SetDeviceID](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)、[AscendDeviceInfo::SetRankID](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)分别设置`DeviceID`、`RankID`。由于Ascend提供多个推理引擎后端，当前仅`ge`后端支持分布式推理，通过[DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)指定Ascend推理引擎后端为`ge`。示例代码如下：
 
 ```c++
 // for Atlas training series
@@ -69,7 +69,7 @@ device_list.push_back(device_info);
 
 ### 配置使用GPU设备上下文
 
-当设备类型为GPU时，新建[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)。GPU设备的分布式推理多进程应用由mpi拉起，mpi会自动设置每个进程的`RankID`，用户只需在环境变量中指定`CUDA_VISIBLE_DEVICES`，无需指定组网信息文件。因此，每个进程的`RankID`可以当作`DeviceID`使用。另外，GPU也提供多个推理引擎后端，当前仅`tensorrt`后端支持分布式推理，通过[DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)指定GPU推理引擎后端为`tensorrt`。示例代码如下。
+当设备类型为GPU时，新建[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)。GPU设备的分布式推理多进程应用由mpi拉起，mpi会自动设置每个进程的`RankID`，用户只需在环境变量中指定`CUDA_VISIBLE_DEVICES`，无需指定组网信息文件。因此，每个进程的`RankID`可以当作`DeviceID`使用。另外，GPU也提供多个推理引擎后端，当前仅`tensorrt`后端支持分布式推理，通过[DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)指定GPU推理引擎后端为`tensorrt`。示例代码如下：
 
 ```c++
 // for GPU
@@ -88,7 +88,7 @@ device_list.push_back(device_info);
 
 ## 模型创建、加载与编译
 
-与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)接口，可进行模型加载、编译和执行。对于Ascend设备，使用[Model::LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口载入配置文件[config_file.ini](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini)，GPU设备则不需要。最后，调用[Model::Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build-2)接口来实现模型加载与模型编译，示例代码如下。
+与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)接口，可进行模型加载、编译和执行。对于Ascend设备，使用[Model::LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口载入配置文件[config_file.ini](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini)，GPU设备则不需要。最后，调用[Model::Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build-2)接口来实现模型加载与模型编译，示例代码如下：
 
 ```c++
 mindspore::Model model;
@@ -110,7 +110,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ## 模型输入数据填充
 
-首先，使用[Model::GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法获取所有输入`Tensor`，通过[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)相关接口将Host数据填入。示例代码如下。
+首先，使用[Model::GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法获取所有输入`Tensor`，通过[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)相关接口将Host数据填入。示例代码如下：
 
 ```c++
 // helper function
@@ -146,7 +146,7 @@ if (GenerateInputDataWithRandom(inputs) != 0) {
 
 ## 分布式推理执行
 
-创建模型输出`Tensor`，类型为[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。调用[Model::Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)接口执行分布式推理，示例代码如下。
+创建模型输出`Tensor`，类型为[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。调用[Model::Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)接口执行分布式推理，示例代码如下：
 
 ```c++
 // Model Predict
