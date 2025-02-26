@@ -179,14 +179,14 @@ model = ms.Model(net,  optimizer=optimizer_wrapper)
 
 ## Callback配置
 
-开启临终CKPT功能需要设置 `TFTRegister` Callback对象，并传入参数来配置，详情参见[TFTRegister](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.TFTRegister.html)。
+开启临终CKPT功能需要设置 `TrainFaultTolerance` Callback对象，并传入参数来配置，详情参见[TrainFaultTolerance](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.TrainFaultTolerance.html)。
 
 ```python
 time_monitor = train.TimeMonitor(data_size=1)
 loss_cb = train.LossMonitor(1)
 
 # 设置TFT callback对象
-tft_cb = train.TFTRegister(0, "127.0.0.1", 30051, "./ttp_checkpoints/")
+tft_cb = train.TrainFaultTolerance()
 ```
 
 ## 续训配置
@@ -230,6 +230,8 @@ model.train(5, dataset, callbacks=[time_monitor, loss_cb, tft_cb])
 export MS_ENABLE_TFT='{TTP:1}'
 export MINDIO_FOR_MINDSPORE=1
 export DATA_PATH=${EXEC_PATH}/MNIST_DATA/train/
+export MS_TFT_IP = "127.0.0.1"
+export MS_TFT_PORT = 30051
 
 msrun --worker_num=4 --local_worker_num=4 --master_port=10970 --join=False --log_dir=msrun_log --cluster_time_out=300  mindio_ttp_case.py
 ```

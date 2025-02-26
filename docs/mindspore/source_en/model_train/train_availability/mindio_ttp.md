@@ -179,14 +179,14 @@ model = ms.Model(net,  optimizer=optimizer_wrapper)
 
 ## Callback Configuration
 
-To enable the power-off CKPT feature, you need to set the `TFTRegister` Callback object and pass in the parameters to configure it, see [TFTRegister](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.TFTRegister.html) for details.
+To enable the power-off CKPT feature, you need to set the `TrainFaultTolerance` Callback object and pass in the parameters to configure it, see [TrainFaultTolerance](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.TrainFaultTolerance.html) for details.
 
 ```python
 time_monitor = train.TimeMonitor(data_size=1)
 loss_cb = train.LossMonitor(1)
 
 # Set the TFT callback object
-tft_cb = train.TFTRegister(0, "127.0.0.1", 30051, "./ttp_checkpoints/")
+tft_cb = train.TrainFaultTolerance()
 ```
 
 ## Renewal Configuration
@@ -230,6 +230,8 @@ Use the `msrun` command to initiate training.
 export MS_ENABLE_TFT='{TTP:1}'
 export MINDIO_FOR_MINDSPORE=1
 export DATA_PATH=${EXEC_PATH}/MNIST_DATA/train/
+export MS_TFT_IP = "127.0.0.1"
+export MS_TFT_PORT = 30051
 
 msrun --worker_num=4 --local_worker_num=4 --master_port=10970 --join=False --log_dir=msrun_log --cluster_time_out=300  mindio_ttp_case.py
 ```
