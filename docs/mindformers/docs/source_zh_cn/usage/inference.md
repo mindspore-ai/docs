@@ -55,7 +55,10 @@ python run_mindformer.py \
 --predict_data 'I love Beijing, because'
 ```
 
-如果使用分布式权重文件进行推理，需要增加 `--auto_trans_ckpt` 和 `--src_strategy_path_or_dir` 的入参，启动命令如下：
+如果使用分布式权重文件进行推理，需要准备好分布式权重策略文件目录，并在启动任务时增加 `--auto_trans_ckpt` 和 `--src_strategy_path_or_dir` 的入参，启动命令如下：
+
+> 由于训练和推理任务都使用 `./output` 作为默认输出路径，因此使用之前的训练任务输出的策略文件作为推理任务的源权重策略文件时，需要将默认输出路径下的策略文件目录移动到其他位置，避免被推理任务的进程清空，如：
+> ```mv ./output/strategy/ ./strategy```
 
 ```shell
 python run_mindformer.py \
@@ -63,7 +66,7 @@ python run_mindformer.py \
 --run_mode predict \
 --use_parallel False \
 --auto_trans_ckpt True \
---src_strategy_path_or_dir ./output/strategy
+--src_strategy_path_or_dir ./strategy
 --load_checkpoint path/to/checkpoint.ckpt \
 --predict_data 'I love Beijing, because'
 ```
@@ -125,7 +128,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 --run_mode predict \
 --use_parallel True \
 --auto_trans_ckpt True \
---src_strategy_path_or_dir ./output/strategy
+--src_strategy_path_or_dir ./strategy
 --load_checkpoint path/to/checkpoint_dir \
 --predict_data 'I love Beijing, because'" \
 2
