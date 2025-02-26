@@ -108,13 +108,59 @@
 
   ![environment-setup-1-13](./images/environment_setup_1-13.png)
 
-## 2. CANN升级
+## 2. 开发板启动和网络连接
 
-### 2.1 Toolkit升级
+### 2.1 开发板启动
 
-步骤1 打开终端，切换root用户。
+将烧录好镜像的 TF卡插入开发板对应的插槽中，参考[香橙派官方资料](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-AIpro.html)中的《用户手册》，具体可参考“2.8 启动开发板的步骤”。
 
-使用`CTRL+ALT+T`快捷键或点击页面下方带有`$_`的图标打开终端。
+![environment-setup-1-20](./images/environment_setup_1-20.png)
+
+### 2.2 开发板网络连接
+
+为方便后续环境升级下载软件包以及运行代码方便，开发板需要进行网络连接。具体可参考《用户手册》“3.5 网络连接测试”。
+
+![environment-setup-1-21](./images/environment_setup_1-21.png)
+
+### 2.3 开发板SSH远程登录（可选）
+
+如果需要通过SSH远程方式登录开发板的话，具体可参考《用户手册》“3.6 SSH远程登录开发板”。
+
+![environment-setup-1-22](./images/environment_setup_1-22.png)
+
+### 2.4 设置Swap内存（可选）
+
+虽然开发板有 8GB 或 16GB 的大内存，但有些应用需要的内存大于 8GB 或 16GB，此时我们可以通过 Swap 内存来扩展系统能使用的最大内存容量。具体可参考《用户手册》“3.20 设置Swap内存的方法”。
+
+![environment-setup-1-23](./images/environment_setup_1-23.png)
+
+## 3. CANN升级
+
+### 3.1 CANN版本查询
+
+步骤1 使用`CTRL+ALT+T`快捷键或点击页面下方带有`$_`的图标打开终端，保持HwHiAiUser用户登录状态。
+
+![environment-setup-1-14](./images/environment_setup_1-14.png)
+
+步骤2 进入软件包安装信息文件目录。
+
+```bash
+(base) HwHiAiUser@orangepiaipro:~$ cd /usr/local/Ascend/ascend-toolkit/latest/aarch-linux
+```
+
+步骤3 执行以下命令获取版本信息。
+
+```bash
+(base) HwHiAiUser@orangepiaipro:~$ cat ascend_toolkit_install.info
+```
+
+### 3.2 CANN升级
+
+若当前CANN版本不满足开发需求，可按照如下内容对CANN版本进行升级。
+
+#### 3.2.1 Toolkit升级
+
+步骤1 使用`CTRL+ALT+T`快捷键或点击页面下方带有`$_`的图标打开终端，并切换root用户。
 
 ![environment-setup-1-14](./images/environment_setup_1-14.png)
 
@@ -130,7 +176,7 @@
 
 ```
 
-步骤2 删除镜像中已安装CANN包释放磁盘空间，防止安装新的CANN包时报错磁盘空间不足。
+步骤2 删除已安装CANN包释放磁盘空间，防止安装新的CANN包时报错磁盘空间不足。
 
 ```bash
 
@@ -139,7 +185,7 @@
 
 ```
 
-步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.0.RC2.alpha003版本为例，如下图：
+步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.0.RC3.alpha002版本为例，如下图：
 
 ![environment-setup-1-15](./images/environment_setup_1-15.png)
 
@@ -155,21 +201,21 @@
 (base) root@orangepiaipro: /usr/local/Ascend/ascend-toolkit# cd /home/HwHiAiUser/Downloads
 ```
 
-> Orange Pi AI Pro浏览器文件默认下载目录：/home/HwHiAiUser/Downloads，用户在更换保存路径时请同步修改上述命令中的路径。
+> OrangePi AIpro浏览器文件默认下载目录：/home/HwHiAiUser/Downloads，用户在更换保存路径时请同步修改上述命令中的路径。
 
 步骤5 给CANN包添加执行权限。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.0.RC2.alpha003_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.0.RC3.alpha002_linux-aarch64.run
 ```
 
 步骤6 执行以下命令升级软件。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.0.RC2.alpha003_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.0.RC3.alpha002_linux-aarch64.run --install
 ```
 
-安装时弹出此提示后输入Y，然后按回车键继续安装。
+安装时弹出此提示后输入Y，然后按回车键继续安装，该过程约需要10-15分钟，请耐心等待。
 
 ![environment-setup-1-16](./images/environment_setup_1-16.png)
 
@@ -182,20 +228,21 @@ xxx install success
 
 - xxx表示升级的实际软件包名。
 
-- 安装升级后的路径（以root用户默认安装升级路径为例）：“/usr/local/Ascend/ ascend-toolkit/
+- 安装升级后的路径（以root用户默认安装升级路径为例）：/usr/local/Ascend/ascend-toolkit/
 
-步骤7 配置并加载环境变量。
+> 如果输出不正确，需要按照以上步骤重新升级Toolkit。
+
+步骤7 加载环境变量。
 
 ```bash
 
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads # echo 'source /usr/local/Ascend/ascend-toolkit/set_env.sh' >> ~/.bashrc
 (base) root@orangepiaipro: /home/HwHiAiUser/Downloads # source ~/.bashrc
 
 ```
 
-### 2.2 Kernels升级
+#### 3.2.2 Kernels升级
 
-> 二进制算子包Kernels依赖CANN软件包Toolkit，执行升级时，当前环境需已安装配套版本的Toolkit，并使用同一用户安装。
+> 二进制算子包Kernels依赖CANN软件包Toolkit，执行升级时，当前环境需已安装配套版本的Toolkit，并使用同一root用户安装。
 
 步骤1 打开终端，并切换root用户。
 
@@ -227,18 +274,18 @@ npu-smi info
 (base) root@orangepiaipro: /usr/local/Ascend/ascend-toolkit# cd /home/HwHiAiUser/Downloads
 ```
 
-> Orange Pi AI Pro浏览器文件默认下载目录：/home/HwHiAiUser/Downloads
+> OrangePi AIpro浏览器文件默认下载目录：/home/HwHiAiUser/Downloads
 
 步骤5 给kernels包添加执行权限。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.0.RC2.alpha003_linux.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.0.RC3.alpha002_linux.run
 ```
 
 步骤6 执行以下命令升级软件。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.0.RC2.alpha003_linux.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.0.RC3.alpha002_linux.run --install
 ```
 
 升级完成后，若显示如下信息，则说明软件升级成功：
@@ -249,21 +296,39 @@ xxx install success
 
 - xxx表示升级的实际软件包名。
 
-- 安装升级后的路径（以root用户默认安装升级路径为例）：“/usr/local/Ascend/ ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe/kernel”。
+- 安装升级后的路径（以root用户默认安装升级路径为例）：/usr/local/Ascend/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe/kernel。
 
-## 3. MindSpore升级
+> 如果输出不正确，需要按照以上步骤重新升级Kernels。
 
-### 3.1 安装官网正式版（以MindSpore2.4.10为例）
+## 4. MindSpore升级
+
+### 4.1 MindSpore版本查询
+
+步骤1 使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，保持HwHiAiUser用户登录状态。
+
+![environment-setup-1-14](./images/environment_setup_1-14.png)
+
+步骤2 执行如下命令，查询当前MindSpore版本。
+
+```bash
+(base) HwHiAiUser@orangepiaipro:~$ pip show mindspore
+```
+
+若当前MindSpore版本不满足开发需求，可按照如下内容对MindSpore版本进行升级。
+
+### 4.2 升级MindSpore（以MindSpore2.4.10为例）
+
+#### 4.2.1 升级MindSpore
 
 请注意，以下两种MindSpore的安装方式均需在HwHiAiUser用户下执行安装，任意选择其中一种方式安装即可。
 
-方式一：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，在终端直接运行pip install命令。
+方式一：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，保持HwHiAiUser用户登录状态，在终端直接运行pip install命令。
 
 ```bash
 (base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.4.10
 ```
 
-方式二：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，参考[昇思MindSpore官网安装教程](https://www.mindspore.cn/install)，在终端执行以下命令进行安装。
+方式二：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，保持HwHiAiUser用户登录状态，参考[昇思MindSpore官网安装教程](https://www.mindspore.cn/install)，在终端执行以下命令进行安装。
 
 ```bash
 (base) HwHiAiUser@orangepiaipro:~$ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -271,7 +336,7 @@ xxx install success
 # 注意确认操作系统和编程语言，香橙派开发板默认环境下是linux-aarch64和python3.9
 ```
 
-### 3.2 验证是否成功安装
+#### 4.2.2 验证是否成功安装
 
 执行以下命令：
 
@@ -286,6 +351,10 @@ MindSpore version: 2.4.10
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
+> 如果输出不正确，需要按照4.2.1 MindSpore升级方式重新升级。
 
+## 下一步
 
+此时香橙派开发板环境搭建已经完成，可以在开发板上体验基于昇思MindSpore开发的模型在线推理。
 
+- [模型在线推理](./model_infer.md)
