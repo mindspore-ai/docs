@@ -329,7 +329,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 ![profiler_process.png](./images/profiler_process.png)
 
 性能调优最重要的就是对症下药，先定界问题，再对问题进行针对性调优。
-首先使用[MindStudio Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。最后，用户可以根据MindStudio Insight专家建议进行性能调优，每次调优后重跑训练，采集性能数据，并使用MindStudio Insight工具查看调优手段是否产生效果。重复这个过程，直到解决性能问题。
+首先使用[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/700/useguide/firstpage_0003.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。最后，用户可以根据MindStudio Insight专家建议进行性能调优，每次调优后重跑训练，采集性能数据，并使用MindStudio Insight工具查看调优手段是否产生效果。重复这个过程，直到解决性能问题。
 
 MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实软硬件运行数据，多维度分析性能数位，定位性能瓶颈点，支持百卡、千卡及以上规模的可视化集群性能分析。用户在MindStudio Insight中导入上一步采集的性能数据，根据下述流程使用可视化能力分析性能数据。
 
