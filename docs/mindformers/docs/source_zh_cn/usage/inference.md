@@ -57,7 +57,7 @@ run_mindformer.py的参数说明如下：
 |run_mode|运行的模式，推理设置为predict|
 |use_parallel|是否使用多卡推理|
 |load_checkpoint|加载的权重路径|
-|predict_data|推理的输入数据，多batch推理时需要传输入数据的txt文件路径，包含多行输入|
+|predict_data|推理的输入数据，多batch推理时需要传入输入数据的txt文件路径，包含多行输入|
 |auto_trans_ckpt|自动权重切分，默认值为False|
 |src_strategy_path_or_dir|权重的策略文件路径|
 |predict_batch_size|多batch推理的batch_size大小|
@@ -110,7 +110,6 @@ python run_mindformer.py \
 **修改前的配置：**
 
 ```yaml
-
 parallel_config:
   data_parallel: 8
   model_parallel: 1
