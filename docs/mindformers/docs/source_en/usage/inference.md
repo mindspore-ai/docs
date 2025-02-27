@@ -4,47 +4,73 @@
 
 ## Overview
 
-MindFormers provides the foundation model inference capability. Users can run the unified script `run_mindformer` or write a script to call the high-level `pipeline` API to start inference. If the unified script `run_mindformer` is used, you can directly start the system through the configuration file without writing code. The `pipeline` interface helps users to easily set up and perform model inference tasks.
+MindFormers provides the foundation model inference capability. Users can run the unified script `run_mindformer` or write a script to call the high-level `pipeline` API to start inference. If the unified script `run_mindformer` is used, you can directly start the system through the configuration file without writing code.
 
-The following table lists the features supported by MindFormers text generation and inference.
+## Basic Process
 
-|Feature|Concept|Function|
-|:------------|:---------------------------------------|:-----------------------------------------------------|
-|[Incremental inference](#incremental-inference)|Incremental inference indicates that the model can generate text step by step instead of generating all content at a time.|You can accelerate the text generation speed when the `text_generator` method is called to generate autoregressive text. use_past is set to True in the YAML file by default to enable incremental inference.|
-|[Batch inference](#multi-device-multi-batch-inference)|Batch inference is a method of processing multiple input samples at the same time.|You can input multiple samples to perform inference in batches. When the computing power of a single batch is insufficient, multi-batch inference can improve the inference throughput.|
-|[Stream inference](#stream-inference)|Stream inference is a processing method that allows a model to start to output a result after receiving a part of an input, instead of waiting for the entire input sequence to be completely received.|With the Streamer class provided, when the `text_generator` method is called to generate text, you can view each generated word in real time without waiting for all results to be generated.|
-|[Distributed inference](#multi-device-inference)|Distributed inference is a method of distributing computing tasks on multiple compute nodes for execution.|For models that cannot be deployed on a single device, you need to split the models using the multi-device distributed model before inference.|
+The inference process can be categorized into the following steps:
 
-## Procedure
+### 1. Models of Selective Inference
 
-Based on actual operations, the inference process can be divided into the following steps:
+Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Llama2, etc.
 
-1. **Selecting a model to be inferred:**
-  Select a model based on the required inference task. For example, select Llama2 for text generation.
+### 2. Preparing Model Weights
 
-2. **Preparing the model weight:**
-  There are two ways to obtain weights. One is to use open-source weights, which can be downloaded from the HuggingFace model library for the corresponding model and then converted to the ckpt format by referring to the [Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) document. The other is to use distributed weights after pre-training or fine-tuning. The obtained distributed weights (saved by default in `./output/checkpoint_network`)  are converted into single or multi-card weights, then perform single or multi-card inference. Guidance on this based on the command line configuration approach has been provided below, and more usage can be found in the [Merging and Splitting of Distributed Weights](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html) document.
+Model weights can be categorized into two types: complete weights and distributed weights, and the following instructions should be referred to when using them.
 
-3. **Executing inference tasks:**
-  Call the `pipeline` API or use the unified script `run_mindformer` to execute inference tasks.
+#### Complete Weights
 
-## Inference Based on the run_mindformer Script
+Complete weights can be obtained in two ways:
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) file.
+1. After downloading the open source weights of the corresponding model from the HuggingFace model library, refer to [Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) to convert them to the ckpt format.
+2. Pre-trained or fine-tuned distributed weights are used to generate a complete weight by [merging](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html).
 
-> During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_download/Llama2/` directory in advance.
+#### Distributed Weights
 
-Note: If the inference uses weights that are sliced differently from the way the model is sliced in the inference task, such as in the following cases:
+Distributed weights are typically obtained by pre-training or after fine-tuning and are stored by default in the `. /output/checkpoint_network` directory, which needs to be converted to single-card or multi-card weights before performing single-card or multi-card inference.
+
+If the inference uses a weight slicing that is different from the model slicing provided in the inference task, such as in these cases below, the weights need to be additionally converted to a slice that matches the slicing of the model in the actual inference task.
 
 - The weights obtained from multi-card training are reasoned on a single card;
 - The weights of the eight-card training are reasoned over two cards;
 - Already sliced distributed weights are reasoned on a single card, and so on.
 
-The weights need to be additionally transformed in terms of the way they are sliced to match the way the model is sliced in the actual inference task. It is recommended to use online autoslicing by setting the command parameters `--auto_trans_ckpt` to `-True` and `-src_strategy_path_or_dir` to the weighted slicing strategy file or directory path (which is saved by default after training under `./output/strategy`) are automatically sliced in the inference task. Details can be found in [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html).
+The command samples in the following contents are all used in the way of online autoslicing. It is recommended to use online autoslicing by setting the command parameters `--auto_trans_ckpt` to `-True` and `-src_strategy_path_or_dir` to the weighted slicing strategy file or directory path (which is saved by default after training under `./output/strategy`) are automatically sliced in the inference task. Details can be found in [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html).
+
+> Since both the training and inference tasks use `. /output` as the default output path, when using the strategy file output by the training task as the source weight strategy file for the inference task, you need to move the strategy file directory under the default output path to another location to avoid it being emptied by the process of the inference task, for example:
+>
+> ```mv ./output/strategy/ ./strategy```
+
+### 3. Executing inference tasks
+
+Call the `pipeline` API or use the unified script `run_mindformer` to execute inference tasks.
+
+## Inference Based on the run_mindformer Script
+
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh).
+
+The arguments to run_mindformer.py are described below:
+
+|Parameters|Parameter Descriptions|
+|:---------------------------------|:-------------------------------------------------------------------------|
+|config|Path to the yaml configuration file|
+|run_mode|The running mode, with inference set to predict|
+|use_parallel|Whether to use multicard inference|
+|load_checkpoint|the loaded weight path|
+|predict_data|Input data for inference. Multi-batch inference needs to pass the path to the txt file of the input data, which contains multiple lines of inputs.|
+|auto_trans_ckpt|Automatic weight slicing. Default value is False|
+|src_strategy_path_or_dir|Path to the strategy file for weights|
+|predict_batch_size|batch_size for multi-batch inference|
+
+msrun_launcher.sh includes the run_mindformer.py command and the number of inference cards as two parameters.
+
+The following will describe the usage of single and multi-card inference using Llama2 as an example, with the recommended configuration of the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) file.
+
+> During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_download/Llama2/` directory in advance.
 
 ## Single-Device Inference
 
-The startup of single-card inference is relatively simple. You just need to execute the following command to start the inference task:
+When using complete weight inference, the following command is executed to start the inference task:
 
 ```shell
 python run_mindformer.py \
@@ -68,31 +94,38 @@ python run_mindformer.py \
 --predict_data 'I love Beijing, because'
 ```
 
-## Multi-Device Inference
+The following result appears, proving that the inference was successful. The inference result is also saved to the `text_generation_result.txt` file in the current directory. The detailed log can be viewed in the `. /output/msrun_log` directory.
 
-In addition to the startup mode dependent on the `msrun_launcher.sh` script, there are also two places to pay attention to, one is the parallel configuration, the other is the weight loading method.
+```text
+'text_generation_text': [I love Beijing, because it is a city that is constantly constantly changing. I have been living here for ......]
+```
 
-The current version of inference mode only supports model parallelism. The original [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) parallel configuration needs to be modified before running the command:
+## Multi-Card Inference
+
+The configuration requirements for multi-card inference differ from those of single card, and you need to refer to the following instructions to modify the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) configuration.
+
+1. The configuration of model_parallel and the number of cards used need to be consistent. The following use case is 2-card inference, and model_parallel needs to be set to 2;
+2. The current version of multi-card inference does not support data parallelism, you need to set data_parallel to 1.
+
+**Configuration before modification:**
 
 ```yaml
-# Configuration before modification
 parallel_config:
   data_parallel: 8
   model_parallel: 1
   pipeline_stage: 1
 ```
 
+**Configuration after modifications:**
+
 ```yaml
-# The modified configuration
 parallel_config:
   data_parallel: 1
   model_parallel: 2
   pipeline_stage: 1
 ```
 
-> model_parallel configuration is consistent with the number of cards used, and the parallel configuration used by the weight offline segmentation generation policy file needs to be consistent with the parallel configuration of the actual inference task. The current use case model_parallel is set to 2.
-
-When full weight inference is used, you need to enable the online segmentation mode to load weights. For details, see the following command:
+When full weight inference is used, you need to enable the online slicing mode to load weights. For details, see the following command:
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
@@ -131,11 +164,11 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 2
 ```
 
-Executing the script will start the multi card process, and the logs will be redirected to the `./output/msrun_log` directory. When the `text_generation_result.txt` file appears in the current directory, it proves successful inference. If the file does not appear, you can view the log file.
+Inference results are viewed in the same way as single-card inference.
 
 ## Multi-Device Multi-Batch Inference
 
-Multi-card multi-batch inference is initiated in the same way as multi-card inference, but requires the addition of the `predict_batch_size` inputs and the modification of the `predict_data` inputs.
+Multi-card multi-batch inference is initiated in the same way as [multi-card inference](#multi-card-inference), but requires the addition of the `predict_batch_size` inputs and the modification of the `predict_data` inputs.
 
 The content and format of the `input_predict_data.txt` file is an input each line, and the number of questions is the same as the `predict_batch_size`, which can be found in the following format:
 
@@ -146,7 +179,7 @@ I love Beijing, because
 I love Beijing, because
 ```
 
-Refer to the following commands to perform inference tasks:
+Refer to the following commands to perform inference tasks, taking the full weight inference as an example:
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
@@ -160,24 +193,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 2
 ```
 
-The following table describes the input parameters for script execution.
-
-|Parameter|Description|
-|:---------------------------------|:-------------------------------------------------------------------------|
-|config|Path of the YAML file.|
-|run_mode|Running mode. Set it to **predict** for inference.|
-|predict_batch_size|Size of inferences in batches.|
-|use_parallel|Specifies whether to use the multi-device inference.|
-|auto_trans_ckpt|For multi-device inference, set this parameter to **True**, indicating automatic weight segmentation. The default value is **False**.|
-|load_checkpoint|Loaded weight path.|
-|predict_data|Input data for inference. For multi-batch inference, the path of the TXT file containing the input data needs to be specified.|
-|2|In the multi-device inference command, **2** indicates the number of devices used for inference.|
-
-The results of running the preceding single-device and multi-device inference commands are as follows:
-
-```text
-'text_generation_text': [I love Beijing, because it is a city that is constantly constantly changing. I have been living here for ......]
-```
+Inference results are viewed in the same way as single-card inference.
 
 ## Inference Based on Pipeline Interface
 
