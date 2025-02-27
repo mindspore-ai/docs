@@ -16,11 +16,11 @@
 
 ![训练流程图](../images/train_sequence_unify_api.png)
 
-> 更多C++API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+> 更多C++ API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
 
 ## 模型创建加载与编译
 
-MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)是训练的主入口，通过`Model`我们可以实现模型加载、模型编译和模型执行。
+MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)是训练的主入口。通过`Model`，我们可以实现模型加载、模型编译和模型执行。
 
 ### 读取模型
 
@@ -286,7 +286,7 @@ return model->Resize(inputs, new_shapes);
         return -1;
     }
 
-    // Assuming batch_size and data_size variables holds the Batch size and the size of a single data tensor, respectively:
+    // Assuming batch_size and data_size variables hold the Batch size and the size of a single data tensor, respectively:
     // And assuming sparse labels are used
     if ((inputs.at(data_index)->Size() != batch_size*data_size) ||
         (inputs.at(label_index)->ElementsNum() != batch_size)) {
@@ -332,7 +332,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     下列代码为使用`GetOutputsByNodeName`方法从当前会话中获取输出张量：
 
     ```cpp
-    // Assume that model is a vlaid model instance
+    // Assume that model is a valid model instance
     // Assume that model has a output node named output_node_name_0.
     auto output_vec = model->GetOutputsByNodeName("output_node_name_0");
     // Assume that output node named output_node_name_0 has only one output tensor.
@@ -355,7 +355,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     下列代码为使用`GetOutputByTensorName`方法从当前会话中获取输出张量：
 
     ```cpp
-    // Assume that model is a vlaid model instance
+    // Assume that model is a valid model instance
     // We can use GetOutputByTensorName method to get the names of all the output tensors of the model
     auto tensor_names = model->GetOutputTensorNames();
     // Use output tensor name returned by GetOutputTensorNames as key

@@ -759,7 +759,7 @@ diff 2.861023e-06
 ```
 
 The final result is similar and basically meets the expectation.
-When the results are very different, you can fix the randomness of PyTorch and MindSpore after completing the parameter mapping, and then use the tool: [TroubleShooter API level network results automatic comparison](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api_compare.md) for comparing the network forward and reverse results to improve the localization efficiency.
+When the results are very different, you can fix the randomness of PyTorch and MindSpore after completing the parameter mapping, and then use the tool: [msprobe](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe) for performing data collection and comparison of networks to improve the localization efficiency.
 
 ## Inference Process
 

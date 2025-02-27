@@ -175,7 +175,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
 
     需要注意的配置说明如下：
 
-    - parallel.dataset_strategy：仅支持 List of List 类型，List中子List的个数需要等于 train_dataset.input_columns 的长度，并且 List 中的每个子 List 需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子List的第1位数配置成 `*dp` ，其他位配置为 `1` 。具体原理可以参考[数据集切分](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/data_slice.html)。
+    - parallel.dataset_strategy：仅支持 List of List 类型，List中子List的个数需要等于 train_dataset.input_columns 的长度，并且 List 中的每个子 List 需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子List的第1位数配置成 `*dp` ，其他位配置为 `1` 。具体原理可以参考[数据集切分](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dataset_slice.html)。
 
 4. 编译 Megatron 数据集模块
 
