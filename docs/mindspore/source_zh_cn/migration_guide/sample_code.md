@@ -758,7 +758,7 @@ diff 2.861023e-06
 
 可以看到最后的结果相差不大，基本符合预期。
 
-当结果相差很大时，可在完成参数映射后，固定PyTorch和MindSpore的随机性，再使用工具：[TroubleShooter API级别网络结果自动比较](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api_compare.md)，进行网络正向和反向的结果对比，提升定位效率。
+当结果相差很大时，可在完成参数映射后，固定PyTorch和MindSpore的随机性，再使用工具：[msprobe](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe)，进行网络的数据采集和对比，提升定位效率。
 
 ## 推理流程
 

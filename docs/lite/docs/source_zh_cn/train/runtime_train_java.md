@@ -16,7 +16,7 @@
 
 ![训练流程图](../images/train_sequence_unify_api.png)
 
-> 更多javaAPI说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+> 更多java API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
 
 ## 模型创建加载与编译
 
@@ -49,7 +49,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ## 数据处理
 
@@ -97,7 +97,7 @@ liteModel.build(g, context, cfg);
     }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ## 执行训练
 
@@ -132,7 +132,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ### 推理
 

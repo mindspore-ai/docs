@@ -289,7 +289,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
         return -1;
     }
 
-    // Assuming batch_size and data_size variables holds the Batch size and the size of a single data tensor, respectively:
+    // Assuming batch_size and data_size variables hold the Batch size and the size of a single data tensor, respectively:
     // And assuming sparse labels are used
     if ((inputs.at(data_index)->Size() != batch_size*data_size) ||
         (inputs.at(label_index)->ElementsNum() != batch_size)) {
@@ -335,7 +335,7 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
     The following sample code shows how to obtain the output `MSTensor` from `Model` using the `GetOutputsByNodeName` method.
 
     ```cpp
-    // Assume that model is a vlaid model instance
+    // Assume that model is a valid model instance
     // Assume that model has a output node named output_node_name_0.
     auto output_vec = model->GetOutputsByNodeName("output_node_name_0");
     // Assume that output node named output_node_name_0 has only one output tensor.
@@ -358,7 +358,7 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
     The following sample code shows how to obtain the output `MSTensor` from `Model` using the `GetOutputByTensorName` method.
 
     ```cpp
-    // Assume that model is a vlaid model instance
+    // Assume that model is a valid model instance
     // We can use GetOutputByTensorName method to get the names of all the output tensors of the model
     auto tensor_names = model->GetOutputTensorNames();
     // Use output tensor name returned by GetOutputTensorNames as key

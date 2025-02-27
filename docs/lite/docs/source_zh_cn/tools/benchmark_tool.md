@@ -64,7 +64,7 @@
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
 | `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
-| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入. 维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
+| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入。维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
 | `--perfProfiling=<PERFPROFILING>` | 可选 | CPU性能验证时生效，指定是否使用PerfProfiler打印每个算子的CPU性能，当timeProfiling为true时无效。目前仅支持aarch64 CPU。 | Boolean | false | true, false |
 | `--perfEvent=<PERFEVENT>` | 可选 | CPU性能验证时生效，指定PerfProfiler打印的CPU性能参数的具体内容，指定为CYCLE时，会打印算子的CPU周期数和指令条数；指定为CACHE时，会打印算子的缓存读取次数和缓存未命中次数；指定为STALL时，会打印CPU前端等待周期数和后端等待周期数。 | String | CYCLE | CYCLE/CACHE/STALL |
 | `--decryptKey=<DECRYPTKEY>` | 可选 | 用于解密文件的密钥，以十六进制字符表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | String | null | 注意密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。 |
