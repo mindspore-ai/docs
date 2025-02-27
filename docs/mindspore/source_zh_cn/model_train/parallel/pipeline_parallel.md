@@ -4,13 +4,13 @@
 
 ## 概述
 
-近年来，神经网络的规模几乎是呈指数型增长。受单卡内存的限制，训练这些大模型用到的设备数量也在不断增加。受server间通信带宽低的影响，传统数据并行叠加模型并行的这种混合并行模式的性能表现欠佳，需要引入流水线并行。流水线并行能够将模型在空间上按阶段（Stage）进行切分，每个Stage只需执行网络的一部分，大大节省了内存开销，同时缩小了通信域，缩短了通信时间。MindSpore能够根据用户的配置，将单机模型自动地转换成流水线并行模式去执行。
+近年来，神经网络的规模几乎是呈指数型增长。受单卡内存的限制，训练这些大模型需要的设备数量也在不断增加。受server间通信带宽低的影响，传统的`数据并行+模型并行`这种混合并行模式的性能表现欠佳，需要引入流水线并行。流水线并行能够将模型在空间上按阶段（Stage）进行切分，每个Stage只需执行网络的一部分，大大节省了内存开销，同时缩小了通信域，缩短了通信时间。MindSpore能够根据用户的配置，将单机模型自动转换成流水线并行模式去执行。
 
 > 流水线并行模型支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
 
 相关接口：
 
-1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM, pipeline_result_broadcast=True)`：设置半自动并行模式，且设置`pipeline_stages`用来表明Stage的总数为NUM，必须在初始化网络之前调用。`pipeline_result_broadcast`表示流水线并行推理时，最后一个stage的结果是否广播给其余stage。
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM, pipeline_result_broadcast=True)`：设置半自动并行模式，且设置`pipeline_stages`用来表明Stage的总数为NUM，必须在初始化网络之前调用。`pipeline_result_broadcast`表示流水线并行推理时，最后一个stage的结果是否广播给其他stage。
 
 2. `nn.PipelineCell(loss_cell, micro_size)`：流水线并行需要在LossCell外再包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于Stage的数量。
 
@@ -20,7 +20,9 @@
 
 ## 基本原理
 
-流水线（Pipeline）并行是将神经网络中的算子切分成多个Stage，再把Stage映射到不同的设备上，使得不同设备去计算神经网络的不同部分。流水线并行适用于模型是线性的图结构。如图1所示，将4层MatMul的网络切分成4个Stage，分布到4台设备上。正向计算时，每台机器在算完本台机器上的MatMul之后将结果通过通信算子发送（Send）给下一台机器，同时，下一台机器通过通信算子接收（Receive）上一台机器的MatMul结果，同时开始计算本台机器上的MatMul；反向计算时，最后一台机器的梯度算完之后，将结果发送给上一台机器，同时，上一台机器接收最后一台机器的梯度结果，并开始计算本台机器的反向。
+流水线（Pipeline）并行是将神经网络中的算子切分成多个Stage，再把Stage映射到不同的设备上，使得不同设备去计算神经网络的不同部分。流水线并行适用于模型是线性的图结构。
+
+如图1所示，将4层MatMul的网络切分成4个Stage，分布到4台设备上。正向计算时，每台机器在算完本台机器上的MatMul之后将结果通过通信算子发送（Send）给下一台机器，同时，下一台机器通过通信算子接收（Receive）上一台机器的MatMul结果，同时开始计算本台机器上的MatMul；反向计算时，最后一台机器的梯度算完之后，将结果发送给上一台机器，同时，上一台机器接收最后一台机器的梯度结果，并开始计算本台机器的反向。
 
 ![image](images/pipeline_parallel_image_0_zh.png)
 
@@ -28,7 +30,9 @@
 
 ### Gpipe流水线并行调度
 
-简单地将模型切分到多设备上并不会带来性能的提升，因为模型的线性结构在同一时刻只有一台设备在工作，而其他设备在等待，造成了资源的浪费。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的调度，从而达到提升效率的目的，如图2所示。将小批次切分成4个微批次，4个微批次在4个组上执行形成流水线。微批次的梯度汇聚后用来更新参数，其中每台设备只存有并更新对应组的参数。其中白色序号代表微批次的索引。
+简单地将模型切分到多设备上并不会带来性能的提升，因为模型的线性结构在同一时刻只有一台设备在工作，而其他设备在等待，造成了资源的浪费。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的调度，从而达到提升效率的目的。
+
+如图2所示，将小批次切分成4个微批次，4个微批次在4个组上执行形成流水线。微批次的梯度汇聚后用来更新参数，其中每台设备只存储并更新对应组的参数。其中白色序号代表微批次的索引。
 
 ![image](images/pipeline_parallel_image_1_zh.png)
 
@@ -36,7 +40,9 @@
 
 ### 1F1B流水线并行调度
 
-MindSpore的流水线并行实现中对执行序进行了调整，来达到更优的内存管理。如图3所示，在编号为0的MicroBatch的正向执行完后立即执行其反向，这样做使得编号为0的MicroBatch的中间结果的内存得以更早地（相较于图2）释放，进而确保内存使用的峰值比图2的方式更低。
+MindSpore的流水线并行实现中了对执行序进行调整，来达到更优的内存管理。
+
+如图3所示，在编号为0的MicroBatch的正向计算执行完后，立即执行其反向。这样做使得其中间结果的内存得以更早地（相较于图2）释放，进而确保内存使用峰值比图2的方式更低。
 
 ![image](images/pipeline_parallel_image_2_zh.png)
 
@@ -44,7 +50,7 @@ MindSpore的流水线并行实现中对执行序进行了调整，来达到更�
 
 ### interleaved pipeline调度
 
-为了提升流水线并行的效率，减少Bubble的占比，Megatron-LM提出了一种新的流水线并行调度：“interleaved pipeline”。传统的流水线并行通常会在一个stage上放置几个连续的模型层（如：Transformer层），如图3所示。而在interleaved pipeline调度中，每个stage会对非连续的模型层进行交错式的计算，以更多的通信量来进一步降低Bubble的占比，如图4所示。例如：传统流水线并行每个stage有2个模型层，即：stage0有第0-1层，stage1有第2-3层，stage2有第4-5层，stage3有第6-7层；在interleaved pipeline中，stage0有第0层和第4层，stage1有第1层和第5层，stage2有第2层和第6层，stage3有第3层和第7层。
+为了提升流水线并行的效率，减少Bubble的占比，Megatron-LM提出了一种新的流水线并行调度策略：“interleaved pipeline”。传统的流水线并行通常会在一个stage上放置几个连续的模型层（如：Transformer层），如图3所示。而在interleaved pipeline调度中，每个stage会对非连续的模型层进行交错式的计算，以更多的通信量来进一步降低Bubble的占比，如图4所示。例如：传统流水线并行每个stage有2个模型层，即：stage0有第0-1层，stage1有第2-3层，stage2有第4-5层，stage3有第6-7层；在interleaved pipeline中，stage0有第0层和第4层，stage1有第1层和第5层，stage2有第2层和第6层，stage3有第3层和第7层。
 
 ![mpp2.png](images/megatron.png)
 
@@ -52,7 +58,7 @@ MindSpore的流水线并行实现中对执行序进行了调整，来达到更�
 
 ### MindSpore中的interleaved pipeline调度
 
-MindSpore在Megatron-LM的interleaved pipeline调度的基础上做了内存优化，具体做法是将部分前向的执行序往后移动，如图5所示，这样可以使得在内存峰值时刻，累积更少的MicroBatch内存。
+MindSpore在Megatron-LM的interleaved pipeline调度的基础上做了内存优化，具体做法是将部分前向的执行序往后移动，如图5所示。这样可以使得在内存峰值时刻，累积更少的MicroBatch内存。
 
 ![mpp2.png](images/mindspore.png)
 
@@ -80,7 +86,7 @@ MindSpore在Megatron-LM的interleaved pipeline调度的基础上做了内存优�
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=2`指定Stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口指定运行模式、运行设备、运行卡号等。与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=2`指，定Stage的总数。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -92,7 +98,7 @@ init()
 ms.set_seed(1)
 ```
 
-如果需要跑interleaved pipeline调度，还需要配置:`pipeline_config={'pipeline_scheduler':'1f1b', 'pipeline_interleave':True}`，需要注意的是，MindSpore的interleaved pipeline调度还在完善阶段，目前在O0或者O1模式下表现会更好。
+如果需要执行interleaved pipeline调度，还需要配置`pipeline_config={'pipeline_scheduler':'1f1b', 'pipeline_interleave':True}`。需要注意的是，MindSpore的interleaved pipeline调度功能还在完善阶段，目前在O0或者O1模式下表现会更好。
 
 ```python
 import mindspore as ms
@@ -127,10 +133,10 @@ data_set = create_dataset(32)
 
 ### 定义网络
 
-流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。如果要使能interleaved pipeline调度，`pipeline_stage`要按照前面章节中介绍的非连续模型层进行交错式配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
+流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。如果需要使能interleaved pipeline调度，`pipeline_stage`需按照前面章节中介绍的非连续模型层进行[交错式配置](#interleaved-pipeline调度)。在单卡模型基础上，增加`pipeline_stage`配置后如下：
 
-> - 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
-> - 在pipeline并行下，网络的输出不支持动态shape。
+> - pipeline并行场景下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率因为pipeline并行切分导致算子不生效。
+> - pipeline并行场景下，网络的输出不支持动态shape。
 
 ```python
 from mindspore import nn, ops, Parameter
@@ -201,7 +207,7 @@ stage0有第0层和第2层，stage1有第1层、第3层和第4层。
 
 ### 训练网络
 
-在这一步，我们需要定义损失函数、优化器以及训练过程，与单卡模型不同，在这部分需要调用两个接口来配置流水线并行：
+在这一步，我们需要定义损失函数、优化器以及训练过程。与单卡模型不同，这里调用两个接口来配置流水线并行：
 
 - 首先需要定义LossCell，本例中调用了`nn.WithLossCell`接口封装网络和损失函数。
 - 然后需要在LossCell外包一层`nn.PipelineCell`，并指定MicroBatch的size。详细请参考本章概述中的相关接口。
@@ -240,13 +246,12 @@ for epoch in range(10):
         i += 1
 ```
 
-> 目前流水线并行不支持自动混合精度特性。
->
-> 流水线并行训练更适合用`model.train`的方式，这是因为流水线并行下的TrainOneStep逻辑复杂，而`model.train`内部封装了针对流水线并行的TrainOneStepCell，易用性更好。
+> - 目前流水线并行不支持自动混合精度特性。
+> - 流水线并行训练更适合用`model.train`的方式，这是因为流水线并行下的TrainOneStep逻辑复杂，而`model.train`内部封装了针对流水线并行的TrainOneStepCell，易用性更好。
 
 ### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，使用`mpirun`启动方式进行分布式训练：
 
 ```bash
 bash run.sh
@@ -312,7 +317,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=4`指定Stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。`pipeline_result_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
+通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同。并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=4`指定Stage的总数。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。`pipeline_result_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其他stage，可以用于自回归推理场景。
 
 ```python
 
@@ -434,7 +439,7 @@ print(logits.asnumpy())
 
 ### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`msrun`启动方式，8卡的分布式推理脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以8卡的分布式推理脚本为例，使用`msrun`启动方式进行分布式训练：
 
 ```bash
 

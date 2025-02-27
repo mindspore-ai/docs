@@ -8,15 +8,15 @@
 
 多副本并行指在数据并行的基础上，进一步把每张卡上的输入数据沿Batch维度切分为多份，各部分之间的计算与通信相互独立。同时，一份数据的计算与其他份数据的通信相互掩盖，隐藏通信时延，提高训练速度、系统的吞吐量以及模型的性能。
 
-使用场景：当在半自动模式以及网络中存在模型并行时，第1份的切片数据的前向计算同时，第2份的数据将会进行模型并行的通信，以此来达到通信计算并发的性能加速。
+使用场景：在半自动模式以及网络中存在模型并行时，第1份的切片数据前向计算的同时，第2份的数据将会进行模型并行的通信，以此来达到通信计算并发的性能加速。
 
 相关接口：
 
-- `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`：这个函数的作用是将输入在第零维度拆成 `interleave_num`份，然后执行包裹的cell的计算。
+- `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`：将输入在第零维度拆成 `interleave_num`份，然后执行包裹的cell的计算。
 
 ## 基本原理
 
-将输入模型的数据按照batchsize维度进行切分，从而将现有的单副本形式修改成多副本的形式，使其底层在通信的时候，另一副本进行计算操作，无需等待，这样就能保证多副本的计算和通信的时间相互互补，提升模型性能，同时将数据拆成多副本的形式还能减少算子输入的参数量，从而减少单个算子的计算时间，对提升模型性能有很大帮助。
+将输入模型的数据以batchsize维度切分，从而将现有的单副本形式修改成多副本形式，使其底层在通信的时候，另一副本直接进行计算操作而无需等待。这样就能保证多副本的计算和通信同时进行，提升模型性能。另外，将数据拆成多副本的形式还能减少算子输入的参数量，从而减少单个算子的计算时间，对提升模型性能有很大帮助。
 
 ![多副本并行](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/multi_copy.png)
 
@@ -42,7 +42,7 @@
 
 ### 配置分布式环境
 
-首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为半自动并行模式，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+首先通过context接口指定运行模式、运行设备、运行卡号等。设置并行模式为半自动并行模式，并通过init初始化HCCL或NCCL通信。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -100,7 +100,7 @@ net = Network()
 
 ### 训练网络
 
-在这一步，我们需要定义损失函数、优化器以及训练过程，在这部分需要调用两个接口来配置多副本并行：
+在这一步，我们需要定义损失函数、优化器以及训练过程，调用两个接口来配置多副本并行：
 
 - 首先需要定义LossCell，本例中调用了`nn.WithLossCell`接口封装网络和损失函数。
 - 然后需要在LossCell外包一层`nn.MicroBatchInterleaved`，并指定interleave_num的size为2。详细请参考本章概述中的相关接口。
@@ -119,9 +119,9 @@ model.train(10, data_set, callbacks=[loss_cb])
 
 > 多副本并行训练更适合用`model.train`的方式，这是因为多副本并行下的TrainOneStep逻辑复杂，而`model.train`内部封装了针对多副本并行的TrainOneStepCell，易用性更好。
 
-### 运行单机八卡脚本
+### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，使用`mpirun`启动方式进行分布式训练：
 
 ```bash
 bash run.sh

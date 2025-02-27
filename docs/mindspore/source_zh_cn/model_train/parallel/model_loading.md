@@ -4,18 +4,22 @@
 
 ## 概述
 
-分布式下的模型加载主要是指分布式推理，即推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么每张卡均持有完整的权重，每张卡推理自身的输入数据，推理方式与单卡推理一致，只需要注意每卡加载同样的CheckPoint文件进行推理。
-本篇教程主要介绍在多卡训练过程中，每张卡上保存模型的切片，在推理阶段采用多卡形式，按照推理策略重新加载模型进行推理的过程。针对超大规模神经网络模型的参数个数过多，模型无法完全加载至单卡中进行推理的问题，可利用多卡进行分布式推理。
+分布式下的模型加载主要是指分布式推理，即推理阶段采用多卡进行推理。如果训练时采用数据并行，或者模型参数合并保存，那么每张卡均持有完整的权重。每张卡推理自身的输入数据，推理方式与单卡推理一致，只需要注意每卡加载同样的CheckPoint文件进行推理。
 
-> - 当模型非常大，本教程中使用[load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html)接口主机内存不足情况下，可以参考[模型转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#对目标网络执行编译) 章节，先对网络执行编译，然后执行分布式Checkpoint转换，就可以让每张卡加载自身对应的切片Checkpoint。
+本篇教程主要介绍多卡训练时，在推理阶段采用多卡形式，每张卡上保存模型的切片按照推理策略重新加载模型进行推理的过程。针对超大规模神经网络模型的参数个数过多、模型无法完全加载至单卡中进行推理的问题，可利用多卡进行分布式推理。
+
+> - 当模型非常大、使用[load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html)接口主机内存不足情况下，可以参考[模型转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#对目标网络执行编译)章节，先对网络执行编译，然后执行分布式Checkpoint转换，就可以让每张卡加载自身对应的切片Checkpoint。
 > - 若采用流水线分布式推理，则训练也必须采用流水线并行训练，并且流水线并行训练和推理所用的`device_num`以及`pipeline_stages`必须相同。流水线并行推理时，`micro_batch`为1，不需要调用`PipelineCell`，每个`stage`只需要加载本`stage`的Checkpoint文件。参考[流水线并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html)训练教程。
 
 相关接口：
 
-1. `mindspore.set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`：设置并行配置，其中`full_batch`表示是否全量导入数据集，为`True`时表明全量导入，每卡的数据相同，该场景中必须设置为`True`。`parallel_mode`为并行模式，该场景中必须设置为自动并行或者半自动并行模式。
+1. `mindspore.set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`：设置并行配置。其中`full_batch`表示是否全量导入数据集，为`True`时表明全量导入，每卡的数据相同，该场景中必须设置为`True`。`parallel_mode`表示设置并行模式，该场景中必须设置为自动并行或者半自动并行模式。
 
-2. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`：用于设置并行策略文件的配置。`strategy_ckpt_dict`是用于设置并行策略文件的配置，是字典类型。strategy_ckpt_dict = {"load_file": "./stra0.ckpt", "save_file": "./stra1.ckpt", "only_trainable_params": False}，其中：
-    - `load_file(str)`：加载并行切分策略的路径，训练阶段生成的策略文件的文件地址，分布式推理场景中该参数必须设置。默认值：`""`。
+2. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`：用于设置并行策略文件的配置。`strategy_ckpt_dict`是字典类型。
+
+    strategy_ckpt_dict = {"load_file": "./stra0.ckpt", "save_file": "./stra1.ckpt", "only_trainable_params": False}，其中：
+
+    - `load_file(str)`：加载并行切分策略的路径，训练阶段生成的策略文件的地址。在分布式推理场景中该参数必须设置。默认值：`""`。
     - `save_file(str)`：保存并行切分策略的路径。默认值：`""`。
     - `only_trainable_params(bool)`：仅保存/加载可训练参数的策略信息。默认值：`True`。
 
@@ -46,7 +50,7 @@
 
 其中，`test_loading.py`是定义网络结构和推理的脚本。`run_loading.sh`是执行脚本。
 
-用户首先需要按照[模型保存](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_saving.html)教程执行8卡分布式训练，训练结束后将会在当前路径生成Checkpoint文件目录以及切分策略文件：
+用户首先需要按照[模型保存](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_saving.html)教程执行8卡分布式训练。训练结束后，会在当前路径生成Checkpoint文件目录以及切分策略文件：
 
 ```text
 src_checkpoints/
@@ -55,7 +59,7 @@ src_strategy.ckpt
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，通过`strategy_ckpt_config`配置需要加载的分布式策略文件路径，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口指定运行模式、运行设备、运行卡号等。与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式。通过`strategy_ckpt_config`配置需要加载的分布式策略文件路径，并通过init初始化HCCL或NCCL通信。此处未配置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -115,7 +119,7 @@ net.layer3.matmul.shard(((2, 2), (2, 1)))
 
 ### 推理
 
-分布式推理与单机模式推理的区别在于，分布式推理需要调用`model.infer_predict_layout`接口和`ms.load_distributed_checkpoint`接口加载分布式参数，且输入类型必需为Tensor。代码如下：
+分布式推理与单机模式推理的区别在于：分布式推理需要调用`model.infer_predict_layout`接口和`ms.load_distributed_checkpoint`接口加载分布式参数，且输入类型必需为Tensor。代码如下：
 
 ```python
 import numpy as np
@@ -136,7 +140,7 @@ print(predict_result)
 
 ### 分布式场景导出MindIR文件
 
-在超大规模神经网络模型的场景中，针对因为参数量过大，导致模型无法进行单卡推理的问题，可以采用分布式推理方案。此时在运行推理任务前，需要导出多个MindIR文件。核心代码如下：
+在超大规模神经网络模型的场景中，为了解决因参数量过大导致模型无法进行单卡推理的问题，可以采用分布式推理方案。此时在运行推理任务前，需要导出多个MindIR文件。核心代码如下：
 
 ```python
 import mindspore as ms
@@ -146,11 +150,11 @@ from mindspore.communication import get_rank
 ms.export(net, predict_data, file_name='./mindir/net_rank_' + str(get_rank()), file_format='MINDIR')
 ```
 
-多卡训练、单卡推理的情况，导出MindIR的用法与单机相同。
+在多卡训练、单卡推理的情况下，导出MindIR的用法与单机相同。
 
-### 运行单机八卡脚本
+### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式推理脚本为例，进行分布式推理：
+接下来通过命令调用对应的脚本，以8卡的分布式推理脚本为例，使用`mpirun`启动方式进行分布式推理：
 
 ```bash
 bash run_loading.sh

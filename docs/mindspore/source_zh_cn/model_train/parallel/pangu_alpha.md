@@ -4,7 +4,7 @@
 
 ## 概述
 
-在MindSpore发布的鹏程·盘古模型[1]中，我们看到借助多维度自动混合并行可以实现超大规模Transformer网络的分布式训练。这篇文章将从网络脚本出发，详解模型各个组成部分的切分方式。
+在MindSpore发布的鹏程·盘古模型[1]中，借助多维度自动混合并行实现了超大规模Transformer网络的分布式训练。本篇将从网络脚本入手，详解介绍模型各个组成部分的切分方式。
 
 > 完整代码可以参考：[pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)
 
@@ -34,20 +34,20 @@
 - `pangu_alpha.py`：PanguAlpha模型定义脚本。其中，Transformer模型中常用的基础构造块，如TransformerEncoder、TransformerEncoderLayer等均需要使用MindSpore Transformers套件导入，详见[API文档](https://mindformers.readthedocs.io/zh-cn/latest/docs/api_python/README.html)。
 - `pangu_alpha_config.py`：PanguAlpha模型参数定义脚本。
 - `pangu_alpha_wrapcell.py`：PanguAlpha模型单步训练Cell定义脚本。
-- `train.py`：模型训练入口脚本。通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助框架自动完成切分。根据不同网络层运算量和计算方式的特点，选择合适的切分策略是本文关注的重点。此外，通过`enable_parallel_optimizer`和`pipeline_stages`参数可以配置优化器并行和流水线并行方式。
-- `predict.py`：模型推理入口脚本。支持分布式推理，与训练脚本类似，通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助框架自动完成切分。分布式推理场景下需要加载分布式权重。
+- `train.py`：模型训练入口脚本。通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助MindSpore自动完成切分。根据不同网络层运算量和计算方式的特点，选择合适的切分策略是本文介绍的重点。此外，通过`enable_parallel_optimizer`和`pipeline_stages`参数可以配置优化器并行和流水线并行方式。
+- `predict.py`：模型推理入口脚本。支持分布式推理，与训练脚本类似，通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助MindSpore自动完成切分。分布式推理场景下需要加载分布式权重。
 
 ## Embedding层
 
-在语言类模型训练中，输入的数据是由单词组成的句子，我们通常使用Embedding算法实现词的向量化，将单词及其位置信息映射为`config.hidden_size`大小维度的词向量。盘古模型中的Embedding层由位置编码和词嵌入两个部分组成，通过`mindformers.modules.VocabEmbedding`实现基本的数据并行和模型并行逻辑。
+在语言类模型的训练中，输入数据是由单词组成的句子，我们通常使用Embedding算法实现词的向量化，将单词及其位置信息映射为`config.hidden_size`大小维度的词向量。盘古模型中的Embedding层由位置编码和词嵌入两个部分组成，通过`mindformers.modules.VocabEmbedding`实现基本的数据并行和模型并行逻辑。
 
-如下代码所示，其中`Gather`算子接收两个输入，根据索引`input_ids`在查找表`embedding_table`中查找对应向量。查找表是在训练中需要学习的参数，静态占用卡上内存资源，我们可以根据查找表的大小决定对`Gather`算子采用数据并行策略切分索引batch维度，或者模型并行策略对查找表进行行切。当词表范围`config.vocab_size`较大时，建议对`word_embedding`选择模型并行策略，框架会自动引入计算和通信算子处理越界查找情况。
+如下方代码所示，`Gather`算子接收两个输入，根据索引`input_ids`在查找表`embedding_table`中查找对应向量。查找表是在训练中需要学习的参数，静态占用卡上内存资源。我们可以根据查找表的大小决定对`Gather`算子采用数据并行策略切分索引batch维度，或者采用模型并行策略对查找表进行行切。当词表范围`config.vocab_size`较大时，建议对`word_embedding`采用模型并行策略，MindSpore会自动引入计算和通信算子处理越界查找情况。
 
 - 数据并行策略 `gather.shard(((1, 1), (parallel_config.data_parallel, 1)))`
 
 - 模型并行策略 `gather.shard(((parallel_config.model_parallel, 1), (1, 1)))`
 
-> 脚本和文章中使用config.data_parallel和config.model_parallel指代数据并行切分维度大小和模型并行切分维度大小。
+> 本文示例和脚本中，使用`config.data_parallel`和`config.model_parallel`指代数据并行切分维度大小和模型并行切分维度大小。
 
 ```python
 import mindspore as ms
@@ -73,7 +73,7 @@ class VocabEmbedding(Cell):
         return output, self.embedding_table
 ```
 
-基于`mindformers.modules.VocabEmbedding`，我们可以实现词嵌入向量和位置嵌入向量的求和。我们定义了`Add`和`Dropout`算子，并且设置这两个算子对应的策略为数据并行。
+基于`mindformers.modules.VocabEmbedding`，我们可以实现词嵌入向量和位置嵌入向量的求和。示例中定义了`Add`和`Dropout`算子，并且设置这两个算子对应的策略为数据并行。
 
 ```python
 from mindspore.common.initializer import initializer
@@ -116,7 +116,7 @@ class EmbeddingLayer(nn.Cell):
 
 ## Decoder层
 
-训练大规模Transformer网络的关键困难在于如何解决随着层数增加造成的计算和内存瓶颈，选择合理的切分方式尤为重要。鹏程·盘古模型的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-Attention和FeedForward两部分构成，切分的原则是尽量减少通信，它们的切分方式可以参照下图：
+如何解决随着层数增加造成的计算和内存瓶颈，时训练大规模Transformer网络的关键问题，因此选择合理的切分方式尤为重要。鹏程·盘古模型的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-Attention和FeedForward两部分构成，切分的原则是尽量减少通信。切分方式参照下图：
 
 ![image](./images/pangu_strategy.png)
 
@@ -124,11 +124,11 @@ class EmbeddingLayer(nn.Cell):
 
 ### Self-Attention
 
-Self-Attention可以直接通过`mindformers.modules.MultiHeadAttention`实现。在计算Attention的过程中，需要将输入向量投影到Query、Key、Value三个向量，然后在Attention计算完成之后，需要将Attention的输出再经过Dense层。下面分别介绍这三个部分的策略配置。
+Self-Attention可以直接通过`mindformers.modules.MultiHeadAttention`实现。在计算Attention的过程中，需要将输入向量投影到Query、Key、Value三个向量，然后在Attention计算完成之后，将Attention的输出再经过Dense层。下面分别介绍这三部分的策略配置。
 
 - 三个Dense矩阵乘法
 
-  此处负责将shape为`[batch*sequence_length, hidden_size]`的输入tensor投影到三个向量，作为Attention计算的Query、Key、Value三个向量。
+  此处负责将shape为`[batch*sequence_length, hidden_size]`的输入tensor投影到三个向量，作为Attention计算的Query、Key、Value。
 
   对输入的batch维度及权重的output_channel维度进行混合并行切分：
 
@@ -169,7 +169,7 @@ Self-Attention可以直接通过`mindformers.modules.MultiHeadAttention`实现�
 
 ### FeedForward
 
-FeedForward可以直接调用`mindformers.modules.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和Attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维切分时框架会自动插入`AllReduce`算子，在模型并行维度上累加切片结果。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
+FeedForward可以直接调用`mindformers.modules.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和Attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维度切分时MindSpore会自动插入`AllReduce`算子，在模型并行维度上累加切片结果。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
 
 ```python
 from mindspore.common.initializer import initializer
@@ -306,7 +306,7 @@ class FeedForward(nn.Cell):
 
 ## Residual层
 
-Transformer结构中值得注意的一个细节是，每个子层都有残差连接，并且跟着layernorm操作。虽然layernorm中也包含权重，但是仅为`hidden_size`大小的一维向量，占网络权重比例很小，所以这里直接采用数据并行切分方式。
+Transformer结构中值得注意的是：每个子层都有残差连接，并且跟着layernorm操作。虽然layernorm中也包含权重，但是仅为`hidden_size`大小的一维向量，占网络权重比例很小，所以这里直接采用数据并行切分方式。
 
 ```python
 from mindspore import nn
@@ -317,7 +317,7 @@ layernorm1.shard(((parallel_config.data_parallel, 1),))
 
 ## 预测层
 
-计算loss前需要经过一个全连接层将输出特征从`config.hidden_size`映射回`config.vocab_size`维度得到logits。这里全连接层和`word_embedding`操作共享权重，所以要求全连接层权重的切分方式与Embedding层保持一致。
+计算loss前，需要经过一个全连接层，将输出特征从`config.hidden_size`映射回`config.vocab_size`维度，得到logits。这里全连接层和`word_embedding`操作共享权重，所以要求全连接层权重的切分方式与Embedding层保持一致。
 
 ```python
 import mindspore.ops as ops
@@ -352,7 +352,7 @@ class PanguAlpha_Head(nn.Cell):
         return logits
 ```
 
-在这篇文章中，我们了解到如何通过配置算子切分策略的方式在单机脚本基础上快速实现Transformer类网络的分布式训练。具体到网络结构，Embedding层、Decoder层、Residual层和Linear层都有各自的切分特点，用户可以通过掌握算子策略配置方法，提升分布式训练、调优效率。
+本文介绍了如何通过配置算子切分策略的方式，在单机脚本的基础上快速实现Transformer类网络的分布式训练。具体到网络结构，Embedding层、Decoder层、Residual层和Linear层都有各自的切分特点，用户可以通过掌握算子策略配置方法，提升分布式训练、调优效率。
 
 ## 参考文献
 

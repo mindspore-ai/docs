@@ -155,7 +155,7 @@ if bool(args_opt.is_recover):
 model.train(2, data_set, callbacks=[loss_cb, ckpoint_cb], dataset_sink_mode=True)
 ```
 
-### 运行单机八卡脚本
+### 运行单机8卡脚本
 
 接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式脚本为例，通过下命令运行8卡的并行训练脚本：
 
