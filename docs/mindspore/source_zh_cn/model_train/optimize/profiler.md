@@ -10,7 +10,7 @@
 
 1. 准备训练脚本；
 
-2. 在训练脚本中调用性能调试接口，如mindspore.Profiler以及mindspore.profiler.DynamicProfilerMonitor接口；
+2. 在训练脚本中调用性能调试接口，如mindspore.Profiler和mindspore.profiler.DynamicProfilerMonitor接口；
 
 3. 运行训练脚本；
 
@@ -18,7 +18,7 @@
 
 ## 使用方法
 
-收集训练性能数据有三种方式，用户可以根据不同场景使用Profiler使能方式，以下将介绍不同场景的使用方式。
+收集训练性能数据有三种方式，以下将介绍根据不同场景下，使用Profiler使能的方式。
 
 ### 方式一：mindspore.Profiler接口使能
 
@@ -84,8 +84,7 @@ with Profiler(schedule=schedule(wait=0, warmup=0, active=2, repeat=1, skip_first
 
 ### 方式二：动态profiler使能
 
-用户如果想要在训练过程中不中断训练流程，修改配置文件，完成新配置下的采集任务，可以使用mindspore.profiler.DynamicProfilerMonitor接口使能，
-该接口需要配置一个JSON配置文件，如不配置会生成一个默认配置的JSON文件。
+在训练过程中，如果用户想要在不中断训练流程的前提下，修改配置文件并完成新配置下的采集任务，可以使用mindspore.profiler.DynamicProfilerMonitor接口使能。该接口需要配置一个JSON文件，如不配置会生成一个默认配置的JSON文件。
 
 JSON配置样例如下：
 
@@ -103,9 +102,9 @@ JSON配置样例如下：
 }
 ```
 
-1. 用户需要在实例化DynamicProfilerMonitor前配置如上的JSON配置文件，详细参数介绍请参考[DynamicProfilerMonitor参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)，将配置文件保存在cfg_path中；
+1. 用户需要在实例化DynamicProfilerMonitor前，配置如上的JSON文件，并将配置文件保存在cfg_path中。详细参数介绍请参考[DynamicProfilerMonitor参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)；
 2. 在模型训练后调用DynamicProfilerMonitor的step接口采集数据；
-3. 用户如果想在训练中变更采集、解析任务，可以去修改JSON配置文件，如变更上述JSON配置中的start_step为8，stop_step为10，保存后，DynamicProfilerMonitor会自动识别出配置文件变更成新的采集、解析任务。
+3. 用户如果想在训练中变更采集、解析任务，可以修改JSON配置文件。如变更上述JSON配置中的start_step为8，stop_step为10。保存后，DynamicProfilerMonitor会自动识别出配置文件，变更成新的采集、解析任务。
 
 样例如下：
 
@@ -129,9 +128,9 @@ for _ in range(STEP_NUM):
 
 ### 方式三：环境变量使能
 
-用户如果想最简单地使能Profiler，可以使用环境变量使能方式，该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据，但该方式暂不支持
-schedule参数方式采集数据，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
-环境变量使能方式相关配置项，样例如下：
+用户如果想最简单地使能Profiler，可以使用环境变量使能方式。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。但该方式暂不支持使用schedule参数方式采集数据，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+
+环境变量使能方式的相关配置项样例如下：
 
 ```shell
 export MS_PROFILER_OPTIONS='
@@ -144,18 +143,18 @@ export MS_PROFILER_OPTIONS='
 "profiler_level": "Level0"}'
 ```
 
-加载完环境变量后，直接拉起训练脚本即可完成采集。需要注意的是该配置中**start**必须为true，才能达到使能效果，否则使能不生效。
+加载完环境变量后，直接拉起训练脚本即可完成采集。需要注意的是，该配置中**start**必须为true，才能达到使能效果，否则使能不生效。
 
 ## 性能数据
 
-用户通过MindSpore Profiler 采集、解析后的性能数据包括框架侧、CANN侧和device侧的原始性能数据，以及解析后的性能数据。
+用户通过MindSpore Profiler采集、解析后的性能数据包括框架侧、CANN侧和device侧的原始性能数据，以及解析后的性能数据。
 
 在使用MindSpore进行模型训练时，为了分析性能瓶颈、优化训练效率，我们需要收集并分析性能数据。MindSpore Profiler提供了完整的性能数据采集和分析能力，本文将详细介绍采集到的性能数据的存储结构和内容含义。
 
 性能数据采集完成后，原始数据会按照以下目录结构进行存储：
 
 > - 以下数据文件用户无需打开查看，可根据[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html)指导进行性能数据的查看和分析。
-> - 以下是结果文件全集，实际文件数量和内容根据用户的参数配置以及实际的训练场景来生成，如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
+> - 以下是结果文件全集，实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
 
 ```sh
 └── localhost.localdomain_*_ascend_ms  // 解析结果目录，命名格式：{worker_name}_{时间戳}_ascend_ms，默认情况下{worker_name}为{hostname}_{pid}
@@ -189,7 +188,8 @@ export MS_PROFILER_OPTIONS='
 
 MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整合，形成trace、kernel以及memory等性能数据文件。各文件详细说明如下文所示。
 
-`FRAMEWORK` 为框架侧的性能原始数据，无需关注；`PROF` 目录下为CANN Profling采集的性能数据，主要保存在 `mindstudio_profiler_output` 目录下。
+> - `FRAMEWORK` 为框架侧的性能原始数据，无需关注。
+> - `PROF` 目录下为CANN Profling采集的性能数据，主要保存在 `mindstudio_profiler_output` 目录下。
 
 ### communication.json
 
@@ -268,9 +268,9 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 ### kernel_details.csv
 
-`kernel_details.csv` 文件由 `ProfilerActivity.NPU` 开关控制，文件包含在NPU上执行的所有算子的信息，若用户前端调用了 `schedule` 进行 `step` 打点，则会增加 `Step Id` 字段。
+`kernel_details.csv` 文件由 `ProfilerActivity.NPU` 开关控制，文件包含在NPU上执行的所有算子的信息。若用户前端调用了 `schedule` 进行 `step` 打点，则会增加 `Step Id` 字段。
 
-与Ascend PyTorch Profiler接口采集数据结果的不同之处在于当 `with_stack` 开关开启之后，MindSpore Profiler会将堆栈信息拼接到 `Name` 字段中。
+与Ascend PyTorch Profiler接口采集数据结果的不同之处在于：当 `with_stack` 开关开启之后，MindSpore Profiler会将堆栈信息拼接到 `Name` 字段中。
 
 ### minddata_pipeline_raw_*.csv
 
@@ -291,7 +291,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 ### minddata_pipeline_summary_*.csv
 
-`minddata_pipeline_summary_*.csv` 与 `minddata_pipeline_summary_*.json` 文件内容相同，只是文件格式不同。它们记录更详细的dataset数据集操作性能指标并根据性能指标给出优化建议。
+`minddata_pipeline_summary_*.csv` 与 `minddata_pipeline_summary_*.json` 文件内容相同，只是文件格式不同。它们记录更详细的dataset数据集操作性能指标，并根据性能指标给出优化建议。
 
 | 字段名 | 字段解释 |
 |----------|----------|
@@ -316,7 +316,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 ### trace_view.json
 
-`trace_view.json` 建议使用MindStudio Insight工具 或 chrome://tracing/ 打开。MindSpore Profiler暂时不支持record_shapes与GC功能。
+`trace_view.json` 建议使用MindStudio Insight工具或 chrome://tracing/ 打开。MindSpore Profiler暂时不支持record_shapes与GC功能。
 
 ### 其他性能数据
 
@@ -329,11 +329,16 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 ![profiler_process.png](./images/profiler_process.png)
 
 性能调优最重要的就是对症下药，先定界问题，再对问题进行针对性调优。
-首先使用[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/700/useguide/firstpage_0003.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。最后，用户可以根据MindStudio Insight专家建议进行性能调优，每次调优后重跑训练，采集性能数据，并使用MindStudio Insight工具查看调优手段是否产生效果。重复这个过程，直到解决性能问题。
 
-MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实软硬件运行数据，多维度分析性能数位，定位性能瓶颈点，支持百卡、千卡及以上规模的可视化集群性能分析。用户在MindStudio Insight中导入上一步采集的性能数据，根据下述流程使用可视化能力分析性能数据。
+首先使用[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/700/useguide/firstpage_0003.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。
 
-### 1. 概览界面总览数据情况
+然后，用户可以根据MindStudio Insight进行性能调优，每次调优后重跑训练，采集性能数据，并使用MindStudio Insight工具查看调优手段是否产生效果。重复这个过程，直到解决性能问题。
+
+MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实软硬件运行数据，多维度分析性能数位，定位性能瓶颈点，支持百卡、千卡及以上规模的可视化集群性能分析。
+
+用户在MindStudio Insight中导入上一步采集的性能数据，根据下述流程使用可视化能力分析性能数据。
+
+### 概览界面总览数据情况
 
 可以通过概览界面了解每个模块的具体内容。
 
@@ -361,50 +366,52 @@ MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实�
 | 通信时间（未被覆盖）  | 未被覆盖的通信时长，即纯通信时长  |
 | 空闲时间   | 未进行计算或通信的时长  |
 
-### 2. 定界、分析问题
+### 定界、分析问题
 
 不同的指标现象可以定界不同的性能问题：
 
-- （1）计算问题：通常表现为通信域中总计算时间占比的极大值和极小值差异过大。如果某些计算卡的计算时间明显超出了正常范围，那很可能意味着这张卡承担了过于繁重的计算任务，比如要处理的数据量过大，或者模型计算的复杂程度过高，也有可能是卡本身的性能受到了限制。
+- 计算问题：通常表现为通信域中总计算时间占比的极大值和极小值差异过大。如果某些计算卡的计算时间明显超出了正常范围，那很可能意味着这张卡承担了过于繁重的计算任务，比如要处理的数据量过大，或者模型计算的复杂程度过高，也有可能是卡本身的性能受到了限制。
 
-- （2）调度问题：通常表现为通信域中空闲时间占比的极大值和极小值差异过大。如果计算卡的空闲时间过长，那就说明任务分配可能不太均衡，或者是存在卡之间互相等待数据的情况，这同样会对集群的性能造成不利影响。
+- 调度问题：通常表现为通信域中空闲时间占比的极大值和极小值差异过大。如果计算卡的空闲时间过长，那就说明任务分配可能不太均衡，或者是存在卡之间互相等待数据的情况，这同样会对集群的性能造成不利影响。
 
-- （3）通信问题：如果通信时间（未被覆盖）过长，那就表明计算和通信之间的协同出现了问题，可能对应多种情况。也许是通信协议不够优化，又或者是网络带宽不稳定，导致通信无法和计算良好配合。
+- 通信问题：如果通信时间（未被覆盖）过长，那就表明计算和通信之间的协同出现了问题，可能对应多种情况。也许是通信协议不够优化，又或者是网络带宽不稳定，导致通信无法和计算良好配合。
 
-#### 2.1 计算问题
+#### 计算问题
 
 当数据指标现象指示为**计算**问题时，可以直接查看异常卡的算子数据，并与正常卡进行比较。此时可以使用MindStudio Insight的卡间性能比对功能，设置两卡进入比对模式，并在算子界面查看结果。其中饼状图展示了各类算子的耗时占比，表格展示了各类算子的详细信息。
 
 ![operations.png](./images/operations.png)
 
-#### 2.2 调度问题
+#### 调度问题
 
 当数据指标现象指示为**调度**问题时，需要到时间线界面将异常卡和正常卡进行比较，进一步定位出现问题的算子。
 
 ![time_line_on_line.png](./images/time_line_on_line.png)
 
-进入时间线界面，选择HostToDevice连线类型，HostToDevice展示了CANN层算子到AscendHardware的算子的下发执行关系和CANN层算子到HCCL通信算子的下发执行关系，用于定位调度问题。
+进入时间线界面，选择HostToDevice连线类型。HostToDevice展示了CANN层算子到AscendHardware的算子的下发执行关系，以及CANN层算子到HCCL通信算子的下发执行关系，用于定位调度问题。
 
 ![time_line_cann.png](./images/time_line_cann.png)
 
-HostToDevice的连线通常有两种形态，倾斜和竖直。下图是一个存在调度问题的案例，如果HostToDevice连线如左侧所示，是倾斜的，说明此时间段调度任务安排合理，昇腾设备是满负荷执行计算和通信任务的。如果HostToDevice连线如右侧所示，是竖直的，说明昇腾设备此时快速执行完了CPU下发的任务，未满负荷进行计算和通信任务，这一般表示存在调度问题。
+HostToDevice的连线通常有两种形态：倾斜和竖直。下图是一个存在调度问题的案例。如果HostToDevice连线如左侧所示，是倾斜的，说明此时间段调度任务安排合理，昇腾设备是满负荷执行计算和通信任务的。如果HostToDevice连线如右侧所示，是竖直的，说明昇腾设备此时快速执行完了CPU下发的任务，未满负荷进行计算和通信任务，这一般表示存在调度问题。
 
 ![time_line_cann_details.png](./images/time_line_cann_details.png)
 
-#### 2.3 通信问题
+#### 通信问题
 
-当数据指标现象指示为**通信**问题时，需要进入通信界面进一步分析。通信界面用于展示集群中全网链路性能以及所有节点的通信性能，通过集群通信与计算重叠时间的分析可以找出集群训练中的慢主机或慢节点。通常，我们会根据关键指标通信矩阵、通信时长来分析性能问题。
+当数据指标现象指示为**通信**问题时，需要进入通信界面进一步分析。通信界面用于展示集群中全网链路性能以及所有节点的通信性能，通过集群通信与计算重叠时间的分析，可以找出集群训练中的慢主机或慢节点。通常，我们会根据关键指标通信矩阵、通信时长来分析性能问题。
 
 - 通信矩阵：
 
   下图是MindStudio Insight通信矩阵可视化界面，可以获取各个通信域下，卡间的带宽、传输大小、链路方式和传输时长情况等信息。
-  分析时可以先查看传输大小，分析在这个集合通信中，每张卡的传输量是否存在差异，是否有分配不均的情况。其次，再查看传输时长，如果某张卡的传输时长非常短，那它极有可能是在处理其他事情，导致下游卡长时间等待。最后可以查看带宽情况，如果不同卡间的带宽数据差异过大或带宽数值异常，那都意味着通信域中存在异常卡。
+
+  分析时可以先查看传输大小，分析在这个集合通信中，每张卡的传输量是否存在差异、是否有分配不均的情况。其次，再查看传输时长，如果某张卡的传输时长非常短，那它极有可能是在处理其他事情，导致下游卡长时间等待。最后可以查看带宽情况，如果不同卡间的带宽数据差异过大或带宽数值异常，那都意味着通信域中存在异常卡。
 
   ![communication_matrix.png](./images/communication_matrix.png)
 
 - 通信时长：
 
-  通信时长是指计算卡之间进行一次通信所花费的时间。导致通信耗时过长的因素很多，比如通信协议配置错误、传输数据量过大等等，只有找到这些通信耗时过长的链路并妥善解决问题，才能让数据在计算卡之间更加顺畅地传输，进而提高集群的整体性能。
+  通信时长是指计算卡之间进行一次通信所花费的时间。导致通信耗时过长的因素很多，比如通信协议配置错误、传输数据量过大等等。只有找到这些通信耗时过长的链路并妥善解决问题，才能让数据在计算卡之间更加顺畅地传输，进而提高集群的整体性能。
+
   用户选择具体通信域后，即可在通信时长界面中查看通信域中各个计算卡的耗时汇总情况，以及每个通信算子的时序图和通信时长的分布图，从而快速获得通信算子的相对位置关系以及详细通信数据。
 
   ![communication_time.png](./images/communication_time.png)
@@ -415,7 +422,7 @@ HostToDevice的连线通常有两种形态，倾斜和竖直。下图是一个�
 
 #### schedule配置错误问题
 
-schedule配置相关参数有5个，wait、warmup、active、repeat、skip_first。每个参数大小必须**大于等于0**；其中**active**必须**大于等于1**，否则抛出警告，并设置为默认值1；如果repeat设置为0，表示repeat参数不生效，Profiler会根据模型训练的次数来确定循环次数。
+schedule配置相关参数有5个：wait、warmup、active、repeat、skip_first。每个参数大小必须**大于等于0**；其中**active**必须**大于等于1**，否则抛出警告，并设置为默认值1；如果repeat设置为0，表示repeat参数不生效，Profiler会根据模型训练的次数来确定循环次数。
 
 #### schedule与step配置不匹配问题
 

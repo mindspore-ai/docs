@@ -4,18 +4,21 @@
 
 ## 概述
 
-本篇教程我们主要讲解，如何利用MindSpore进行分布式网络训练并保存模型文件。在分布式训练场景下，模型保存可以分为合并保存和非合并保存：合并保存需要额外的通信和内存开销，每张卡保存相同的模型文件，每个模型文件都包含网络的全部权重；非合并保存则只保存当前卡切分后的权重，有效减少了聚合需要的通信和内存开销。
+在分布式训练场景下，模型保存可以分为合并保存和非合并保存：合并保存需要额外的通信和内存开销，每张卡保存相同的模型文件，每个模型文件都包含网络的全部权重；非合并保存则只保存当前卡切分后的权重，有效减少了聚合需要的通信和内存开销。本篇教程主要介绍了如何基于MindSpore进行分布式网络训练并保存模型文件。
 
 相关接口：
 
-1. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`：用于设置并行策略文件的配置。`strategy_ckpt_dict`是用于设置并行策略文件的配置，是字典类型。strategy_ckpt_dict = {"load_file": "./stra0.ckpt", "save_file": "./stra1.ckpt", "only_trainable_params": False}，其中：
+1. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`：用于设置并行策略文件的配置。`strategy_ckpt_dict`是字典类型。
+
+    strategy_ckpt_dict = {"load_file": "./stra0.ckpt", "save_file": "./stra1.ckpt", "only_trainable_params": False}，其中：
+
     - `load_file(str)`：加载并行切分策略的路径。默认值：`""`。
     - `save_file(str)`：保存并行切分策略的路径，分布式训练场景中该参数必须设置。默认值：`""`。
     - `only_trainable_params(bool)`：仅保存/加载可训练参数的策略信息。默认值：`True`。
 
-2. `mindspore.train.ModelCheckpoint(prefix='CKP', directory=None, config=None)`：在训练过程中调用该接口保存网络参数。该接口中可以通过配置`config`来配置具体的策略，参见接口`mindspore.train.CheckpointConfig`，需要注意的是，并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突。
+2. `mindspore.train.ModelCheckpoint(prefix='CKP', directory=None, config=None)`：在训练过程中调用该接口保存网络参数。该接口中可以通过配置`config`来配置具体的策略，参见接口`mindspore.train.CheckpointConfig`。注意：并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突。
 
-3. `mindspore.train.CheckpointConfig(save_checkpoint_steps=10, integrated_save=True)`：配置保存Checkpoint的策略。`save_checkpoint_steps`表示每隔多少个step保存一次Checkpoint。`integrated_save`表示在自动并行场景下，是否合并保存拆分后的模型文件。合并保存功能仅支持在自动并行场景中使用，在手动并行场景中不支持。
+3. `mindspore.train.CheckpointConfig(save_checkpoint_steps=10, integrated_save=True)`：配置保存Checkpoint的策略。`save_checkpoint_steps`表示每隔多少个step保存一次Checkpoint。`integrated_save`表示在自动并行场景下，是否合并保存拆分后的模型文件。注意：合并保存功能仅支持在自动并行场景中使用，在手动并行场景中不支持。
 
 ## 操作实践
 
@@ -40,7 +43,7 @@
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，运行分布式训练的代码还需要指定并行模式，样例代码中指定并行模式`parallel_mode`为半自动并行模式，通过`strategy_ckpt_config`配置保存分布式策略文件，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口指定运行模式、运行设备、运行卡号等。与单卡脚本不同，运行分布式训练的代码还需要指定并行模式，样例代码中指定并行模式`parallel_mode`为半自动并行模式。通过`strategy_ckpt_config`配置保存分布式策略文件，并通过init初始化HCCL或NCCL通信。此处未配置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -125,7 +128,7 @@ data_set = create_dataset(32)
 
 ### 训练网络
 
-对于网络中切分的参数框架默认会自动聚合保存到模型文件，但考虑到在超大模型场景下，单个完整的模型文件过大会带来传输慢、难加载等问题，所以用户可以通过`CheckpointConfig`中`integrated_save`参数选择非合并保存，即每张卡保存各自卡上的参数切片。
+对于网络中切分的参数，MindSpore默认会自动聚合保存到模型文件。但考虑到在超大模型场景下，单个完整的模型文件过大会带来传输慢、难加载等问题，所以用户可以通过`CheckpointConfig`中`integrated_save`参数选择非合并保存，即每张卡保存各自卡上的参数切片。
 
 ```python
 import mindspore as ms
@@ -143,15 +146,15 @@ model = ms.Model(net, loss_fn=loss_fn, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb, ckpoint_cb])
 ```
 
-### 运行单机八卡脚本
+### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，使用`mpirun`启动方式进行分布式训练：
 
 ```bash
 bash run_saving.sh
 ```
 
-训练完后，日志文件保存到`log_output`目录下，Checkpoint文件保存在`src_checkpoints`文件夹下，Checkpoint的切分策略保存在`src_strategy.ckpt`文件中，当需要进行模型加载时，需要切分策略文件以及Checkpoint文件。文件目录结构如下：
+训练完后，日志文件保存到`log_output`目录下，Checkpoint文件保存在`src_checkpoints`文件夹下，Checkpoint的切分策略保存在`src_strategy.ckpt`文件中。进行模型加载时，需要切分策略文件以及Checkpoint文件。文件目录结构如下：
 
 ```text
 ├─ src_strategy.ckpt
@@ -189,7 +192,7 @@ epoch: 1 step: 200, loss is 2.257275342941284
 ...
 ```
 
-通过配置`mindspore.train.CheckpointConfig`中的`integrated_save`为`True`，可以开启合并保存，需要替换的代码如下：
+通过配置`mindspore.train.CheckpointConfig`中的`integrated_save`为`True`，可以开启合并保存。需要替换的代码如下：
 
 ```python
 ...

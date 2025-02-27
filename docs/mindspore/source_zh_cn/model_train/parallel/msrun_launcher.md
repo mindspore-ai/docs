@@ -212,7 +212,7 @@ msrun作为动态组网启动方式的封装，所有用户可自定义配置的
 
 这里以数据并行为例，训练一个MNIST数据集的识别网络。
 
-首先指定运行模式、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过`init()`初始化HCCL、NCCL或MCCL通信域。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+首先指定运行模式、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过`init()`初始化HCCL、NCCL或MCCL通信域。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms

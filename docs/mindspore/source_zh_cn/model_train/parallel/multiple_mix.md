@@ -123,9 +123,9 @@ model = ms.Model(net_with_grads, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
-### 运行单机八卡脚本
+### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，使用`mpirun`启动方式进行分布式训练：
 
 ```bash
 bash run_sapp_mix_train.sh

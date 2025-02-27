@@ -4,27 +4,28 @@
 
 ## 概述
 
-大模型训练中，模型并行能够有效减少内存负荷，但其引入的通信是一个显著的性能瓶颈。因此需要优化整网模型切分策略以期引入最小的通信量。
+大模型训练时，模型并行能够有效减少内存负荷，但其引入的通信开销会带来显著的性能问题。因此，我们需要优化整网模型切分策略，使引入的通信量最小化。
 
-张量并行（Tensor Parallel，简称TP）训练是将一个张量沿特定维度分成 `N` 块，每个设备只持有整个张量的 `1/N`，进行MatMul/BatchMatMul等算子计算，并引入额外通信保证最终结果正确。而高维张量并行则允许灵活控制对张量的切分次数和切分轴，支持1D、2D、3D切分。2D/3D切分相对与1D切分，在合适的切分策略下，通信量随着TP设备数增长更慢，在TP设备数较大时有着更低的额外通信量，达到提高训练速度的目的。
+张量并行（Tensor Parallel，简称TP）训练是将一个张量沿特定维度分成 `N` 块，每个设备只持有整个张量的 `1/N`，在每个设备上进行MatMul/BatchMatMul等算子计算，并引入额外通信以确保最终结果正确。而高维张量并行则允许灵活控制对张量的切分次数和切分轴，支持1D、2D、3D切分。在合适的切分策略下，相比于1D切分，2D/3D切分的通信量随着TP设备数增长更慢，在TP设备数较大时有着更低的额外通信量，达到提高训练速度的目的。
 
 > 本特性支持的硬件平台为Ascend，需要在Graph模式、半自动并行下运行。
 
-使用场景：在半自动模式下，网络中存在张量并行，且训练卡数较多时(一般不少于8卡)时，对MatMul/BatchMatMul进行2D/3D张量并行策略配置，并适配上下游算子的切分策略，可获得训练性能提升。
+使用场景：在半自动模式下，当网络中存在张量并行且训练卡数较多时(一般不少于8卡)时，对MatMul/BatchMatMul配置2D/3D张量并行策略，并适配上下游算子的切分策略，可获得训练性能提升。
 
 相关接口：
 
 1. `mindspore.ops.MatMul().add_prim_attr("enable_nd_tp", True)`：开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置MatMul的shard切分。
-2. `mindspore.ops.BatchMatMul().add_prim_attr("enable_nd_tp", True)`: 开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置MatMul的shard切分。
+
+2. `mindspore.ops.BatchMatMul().add_prim_attr("enable_nd_tp", True)`：开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置BatchMatMul的shard切分。
 
 开启上述开关后，shard切分根据不同的in_strategy决定采用2D或3D并行模式：
 
-1. 2D张量并行in_strategy配置，主要限定激活张量的reduce维和权重张量的最后两维的切分规则: `mindspore.ops.MatMul().shard(in_strategy = (layout("None",("x","y") ), layout("x", "y")))`
+1. 2D张量并行in_strategy配置，主要决定激活张量的reduce维和权重张量的最后两维的切分规则: `mindspore.ops.MatMul().shard(in_strategy = (layout("None",("x","y") ), layout("x", "y")))`
 
-2. 3D张量并行in_strategy配置，主要限定激活张量和权重张量的最后两维的切分: `mindspore.ops.MatMul().shard(in_strategy = (layout(("z","y"),"x" ), layout(("x","z"), "y")))`
+2. 3D张量并行in_strategy配置，主要决定激活张量和权重张量的最后两维的切分规则: `mindspore.ops.MatMul().shard(in_strategy = (layout(("z","y"),"x" ), layout(("x","z"), "y")))`
 
-> 1. 上述切分规则中的x、y、z即高维TP在不同维度上的切分设备数，需用户根据参与计算的张量的shape自行确定，原则将权重张量均匀切分的配置有更好的性能收益
-> 2. 如果MatMul / BatchMatMul开启了transpose_a或trainspose_b，则高维TP所涉及的切分layout也要调换到对应位置
+> - 上述切分规则中的x、y、z即高维TP在不同维度上的切分设备数，需用户根据参与计算的张量的shape自行确定。原则上将权重张量均匀切分的配置会获得更好的性能收益。
+> - 如果MatMul/BatchMatMul开启了transpose_a或trainspose_b，则高维TP涉及的切分layout也要调换到对应位置。
 
 ## 基本原理
 
@@ -32,7 +33,7 @@
 
 ### 1D张量并行计算通信行为
 
-1D张量并行中，每张卡上存着激活bsh的全部数据，仅在权重he和eh的一个维度上进行切分。激活和列切的权重进行第一次矩阵乘积后，与第二个行切的权重进行第二次矩阵乘积，得到的 `部分和`经过一次全部卡间的AllReduce通信，计算出最终正确的结果。
+1D张量并行时，每张卡上存着激活bsh的全部数据，仅在权重he和eh的一个维度上进行切分。激活和列切的权重进行第一次矩阵乘积后，与第二个行切的权重进行第二次矩阵乘积，得到的 `部分和`经过一次全部卡间的AllReduce通信，计算出最终正确的结果。
 
 ![image](images/high_dimension_tensor_parallel_image_0.png)
 
@@ -87,7 +88,7 @@
 
 ### 配置分布式环境
 
-首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为半自动并行模式，并通过init初始化HCCL或NCCL通信。
+首先通过context接口指定运行模式、运行设备、运行卡号等。设置并行模式为半自动并行模式，并通过init初始化HCCL或NCCL通信。
 
 ```python
 import mindspore as ms
@@ -100,7 +101,7 @@ init()
 
 ### 构造网络并计算
 
-算子定义中需调用add_prim_attr方法指定MatMul算子打开高维TP，并通过Layout指定Matmul算子切分方式。代码如下：
+算子定义中需调用`add_prim_attr`方法指定MatMul算子打开高维TP，并通过Layout指定Matmul算子切分方式。代码如下：
 
 ```python
 # 示例代码
@@ -139,9 +140,9 @@ output=net(input_data)
 print("The output is:", output)
 ```
 
-### 运行单机八卡脚本
+### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以 `msrun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，使用`msrun`启动方式进行分布式训练：
 
 ```bash
 bash run.sh

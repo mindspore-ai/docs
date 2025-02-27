@@ -4,7 +4,7 @@
 
 ## 概述
 
-OpenMPI（Open Message Passing Interface）是一个开源的、高性能的消息传递编程库，用于并行计算和分布式内存计算，它通过在不同进程之间传递消息来实现并行计算，适用于许多科学计算和机器学习任务。使用OpenMPI进行并行训练是一种通用的在计算集群或多核机器上利用并行计算资源来加速训练过程的方法。OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能。
+OpenMPI（Open Message Passing Interface）是一个开源的、高性能的消息传递编程库，用于并行计算和分布式内存计算。它通过在不同进程之间传递消息来实现并行计算，适用于许多科学计算和机器学习任务。使用OpenMPI进行并行训练，是一种通用的加速训练过程的方法，通过在计算集群或多核机器上充分利用并行计算资源来实现。OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能。
 
 与rank table启动不同的是，在Ascend硬件平台上通过OpenMPI的`mpirun`命令运行脚本，用户不需要配置`RANK_TABLE_FILE`环境变量。
 
@@ -26,7 +26,7 @@ OpenMPI（Open Message Passing Interface）是一个开源的、高性能的消�
     - `-mca orte_abort_on_non_zero_status 0`：当一个子进程异常退出时，OpenMPI会默认abort所有的子进程，如果不想自动abort子进程，可以加上此参数。
     - `-bind-to none`：OpenMPI会默认给拉起的子进程指定可用的CPU核数，如果不想限制进程使用的核数，可以加上此参数。
 
-> OpenMPI启动时会设置若干OPMI_*的环境变量，用户应避免在脚本中手动修改这些环境变量。
+> OpenMPI启动时会设置若干名为`OPMI_*`的环境变量，用户应避免在脚本中手动修改这些环境变量。
 
 ## 操作实践
 
@@ -56,7 +56,7 @@ OpenMPI（Open Message Passing Interface）是一个开源的、高性能的消�
 
 这里以数据并行为例，训练一个MNIST数据集的识别网络。
 
-首先指定运行模式、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过init初始化HCCL或NCCL通信。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+首先指定运行模式、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过init初始化HCCL或NCCL通信。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -169,7 +169,7 @@ epoch: 0, step: 100, loss is 0.6298542
 
 在运行多机多卡训练前，首先需要按照如下配置：
 
-1. 保证每个节点上都有相同的OpenMPI、NCCL、Python以及MindSpore版本。
+1. 保证每个节点上的OpenMPI、NCCL、Python以及MindSpore版本都相同。
 
 2. 配置主机间免密登陆，可参考以下步骤进行配置：
     - 每台主机确定同一个用户作为登陆用户（不推荐root）；
@@ -202,7 +202,7 @@ epoch: 0, step: 100, loss is 0.6298542
 
     每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名。上例表示在DEVICE1上有8张卡；ip为192.168.0.1的机器上也有8张卡。
 
-    2机16卡的执行脚本如下，需要传入变量`HOSTFILE`，表示hostfile文件的路径：
+    双机16卡的执行脚本如下，需要传入变量`HOSTFILE`，表示hostfile文件的路径：
 
     ```bash
     export DATA_PATH=./MNIST_Data/train/

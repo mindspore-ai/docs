@@ -62,7 +62,7 @@
 ### 配置分布式环境
 
 通过context接口可以指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为数据并行模式，并通过init根据不同的设备需求初始化HCCL、
-NCCL或者MCCL 通信。在数据并行模式还可以设置`gradients_mean`指定梯度聚合方式。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+NCCL或者MCCL 通信。在数据并行模式还可以设置`gradients_mean`指定梯度聚合方式。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -183,7 +183,7 @@ for epoch in range(10):
 
 ### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，使用`mpirun`启动方式进行分布式训练：
 
 ```bash
 bash run.sh

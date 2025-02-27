@@ -8,7 +8,7 @@
 
 MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力，可参考[Parameter Server模式](https://mindspore.cn/docs/zh-CN/master/model_train/parallel/parameter_server_training.html)训练教程。
 
-**动态组网**特性将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`负责组网和容灾恢复，因此无需借助OpenMPI的消息传递机制即可实现分布式训练。用户只需对启动脚本做少量修改，即可执行分布式训练。
+**动态组网**特性将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`负责组网和容灾恢复。因此无需借助OpenMPI的消息传递机制即可实现分布式训练。用户只需对启动脚本做少量修改，便可执行分布式训练。
 
 > 动态组网支持Ascend、GPU和CPU，因此动态组网启动脚本能在多种硬件平台间快速迁移，无需对其进行额外修改。
 
@@ -177,7 +177,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 
 这里以数据并行为例，训练一个MNIST数据集的识别网络。
 
-首先指定运行模式、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过`init()`初始化HCCL、NCCL或MCCL通信域。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+首先指定运行模式、硬件设备等。与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过`init()`初始化HCCL、NCCL或MCCL通信域。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -321,7 +321,7 @@ epoch: 0, step: 90, loss is 0.88950706
 
 #### 多机多卡
 
-多机训练场景下，需拆分启动脚本。下面以执行2机8卡训练，每台机器执行启动4个Worker为例：
+多机训练场景下，需拆分启动脚本。下面以执行双机8卡训练为例，每台机器执行启动4个Worker：
 
 脚本[run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1个`Scheduler`进程以及4个`Worker`进程：
 
@@ -386,7 +386,7 @@ do
 done
 ```
 
-> 多机任务`MS_WORKER_NUM`应当为集群中Worker节点总数。
+> 在多机任务中，`MS_WORKER_NUM`应当为集群中Worker节点总数。
 > 节点间网络需保持连通，可使用`telnet <scheduler ip> <scheduler port>`指令测试本节点是否和已启动的Scheduler节点连通。
 
 在节点1执行：
@@ -401,7 +401,7 @@ bash run_dynamic_cluster_1.sh
 bash run_dynamic_cluster_2.sh
 ```
 
-即可执行2机8卡分布式训练任务，结果应与单机多卡结果一致。
+即可执行双机8卡分布式训练任务，结果应与单机多卡结果一致。
 
 ## 容灾恢复
 
