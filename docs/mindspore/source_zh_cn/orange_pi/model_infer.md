@@ -78,12 +78,10 @@
 
 ## 3. 环境清理
 
-推理执行完成后，需要在 Jupyter Lab 界面中，导航至 KERNELS > Shut Down All，手动关闭已经在运行的kernel，以防止运行其他案例时报错内存不足，导致其他案例无法正常执行。
+推理执行完成后，需要在 Jupyter Lab 界面中，导航至 KERNELS > Shut Down All，手动关闭已经在运行的kernel，以防止运行其他案例时报内存不足的错误，导致其他案例无法正常执行。
 
 ![model-infer7](./images/model_infer7.png)
 
-## 下一步
+## 下一步建议
 
-具体基于昇思MindSpore的案例开发详见：
-
-- [开发入门](./dev_start.ipynb)
+具体基于昇思MindSpore的案例开发详见[开发入门](https://www.mindspore.cn/docs/zh-CN/master/orange_pi/dev_start.html)。

@@ -108,23 +108,23 @@
 
   ![environment-setup-1-13](./images/environment_setup_1-13.png)
 
-## 2. 开发板启动和网络连接
+## 2. 启动开发板和网络连接
 
-### 2.1 开发板启动
+### 2.1 启动开发板
 
-将烧录好镜像的 TF卡插入开发板对应的插槽中，参考[香橙派官方资料](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-AIpro.html)中的《用户手册》，具体可参考“2.8 启动开发板的步骤”。
+将烧录好镜像的TF卡插入开发板对应的插槽中，参考[香橙派官方资料](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-AIpro.html)中的《用户手册》，具体可参考“2.8 启动开发板的步骤”。
 
 ![environment-setup-1-20](./images/environment_setup_1-20.png)
 
-### 2.2 开发板网络连接
+### 2.2 网络连接
 
-为方便后续环境升级下载软件包以及运行代码方便，开发板需要进行网络连接。具体可参考《用户手册》“3.5 网络连接测试”。
+为方便后续环境升级下载软件包和运行代码，开发板需要完成网络连接。具体可参考《用户手册》“3.5 网络连接测试”。
 
 ![environment-setup-1-21](./images/environment_setup_1-21.png)
 
-### 2.3 开发板SSH远程登录（可选）
+### 2.3 SSH远程登录开发板（可选）
 
-如果需要通过SSH远程方式登录开发板的话，具体可参考《用户手册》“3.6 SSH远程登录开发板”。
+如果需要通过SSH远程方式登录开发板，具体可参考《用户手册》“3.6 SSH远程登录开发板”。
 
 ![environment-setup-1-22](./images/environment_setup_1-22.png)
 
@@ -242,7 +242,7 @@ xxx install success
 
 #### 3.2.2 Kernels升级
 
-> 二进制算子包Kernels依赖CANN软件包Toolkit，执行升级时，当前环境需已安装配套版本的Toolkit，并使用同一root用户安装。
+> 二进制算子包Kernels依赖CANN软件包Toolkit，执行升级时，当前环境需已安装配套版本的Toolkit，并使用root用户安装。
 
 步骤1 打开终端，并切换root用户。
 
@@ -353,8 +353,6 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 > 如果输出不正确，需要按照4.2.1 MindSpore升级方式重新升级。
 
-## 下一步
+## 下一步建议
 
-此时香橙派开发板环境搭建已经完成，可以在开发板上体验基于昇思MindSpore开发的模型在线推理。
-
-- [模型在线推理](./model_infer.md)
+此时香橙派开发板环境搭建已经完成，可以在开发板上体验基于昇思MindSpore开发的[模型在线推理](https://www.mindspore.cn/docs/zh-CN/master/orange_pi/model_infer.html)。
