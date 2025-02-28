@@ -242,7 +242,7 @@ try:
 except:
     pass
 
-rep_old = """\newcommand{\grad}[2]{\nabla_{#1} f_{#2}(#2_{#2 - 1})}
+rep_old = r"""\newcommand{\grad}[2]{\nabla_{#1} f_{#2}(#2_{#2 - 1})}
         \newcommand{\updateVar}[3]{#1_{#2} \leftarrow #1_{#2 - 1} \rho + #3_{#2} (1 - \rho)}
 
         \begin{align*}
@@ -269,7 +269,7 @@ rep_old = """\newcommand{\grad}[2]{\nabla_{#1} f_{#2}(#2_{#2 - 1})}
             &\rule{110mm}{0.4pt}
         \end{align*}"""
 
-rep_new = """\begin{aligned}
+rep_new = r"""\begin{aligned}
             &\rule{150mm}{0.4pt}                                                                 \\
             &\textbf{input}      : \gamma \text{ (lr)}, \: \theta_0 \text{ (params)},
                 \: f(\theta) \text{ (objective)}, \: \rho \text{ (decay)},
