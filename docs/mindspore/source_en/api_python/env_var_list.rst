@@ -971,3 +971,26 @@ Dynamic Graph
      - '1': Turn on graph distribution for calculating gradient.
        Not setting or other values: Turn off graph distribution.
      - If turn on, we use graph distribution
+
+Build from source
+------------------
+
+.. list-table::
+   :widths: 20 20 10 30 20
+   :header-rows: 1
+
+   * - Environment Variable
+     - Function
+     - Type
+     - Value Range
+     - Description
+   * - MSLIBS_CACHE_PATH
+     - Path where third-pary software built alongside MindSpore will be installed to, when building MindSpore from source code.
+     - String
+     - `~/.mslib`: Your expected path to install third-party software. Default value: None.
+     - When this environment variable is set, MindSpore will install third-party software built from source code to this path, enabling these software to be shared throughout multiple compilations and save time spent builing them.
+   * - MSLIBS_SERVER
+     - Website where third-pary software' source code is downloaded from when building MindSpore from source code.
+     - String
+     - `tools.mindspore.cn`: Official MindSpore image for downloading third-party source code. Default value: None.
+     - When this environment variable is set, MindSpore will download third-party source code from given address, avoiding issues due to unstable access to github.com, improving speed of downloading source code. This variable is inactive when `-S on` is set in your compile options.
