@@ -4,22 +4,25 @@
 
 ## 概述
 
-在进行分布式训练时，遇到故障是非常普遍的，类似于单卡训练，可以通过加载训练过程中保存的权重信息继续进行训练。区别于纯数据并行训练，当应用了模型并行后，权重是进行了切分的，卡与卡之间保存的权重信息可能不一致。
+在进行分布式训练时，遇到故障非常普遍，与单卡训练类似，通过加载训练过程中保存的权重信息，可以继续训练。区别于纯数据并行训练，应用了模型并行后，权重被切分，各卡之间保存的权重信息可能不一致。
 
-为了解决这个问题，一个方案是在保存权重checkpoint文件前，就将权重通过[AllGather](https://www.mindspore.cn/docs/zh-CN/master/api_python/samples/ops/communicate_ops.html#allgather) 算子进行汇聚，每张卡均存储一个完整的权重信息，这一个功能即`mindspore.train.CheckpointConfig(integrated_save=True)`接口中的合并保存。
+为解决上述问题，可以在保存权重checkpoint文件之前，将权重通过[AllGather](https://www.mindspore.cn/docs/zh-CN/master/api_python/samples/ops/communicate_ops.html#allgather)算子进行汇聚，每张卡均存储一个完整的权重信息。此功能即`mindspore.train.CheckpointConfig(integrated_save=True)`接口中的合并保存。
 
-但是，对于大模型来说，使用汇聚保存对各种资源的开销都过于巨大，因此，本文档介绍的是每张卡仅仅保存自身的权重信息的恢复方案。对于大模型来说，往往会同时应用上数据并行与模型并行，而数据并行的维度所划分的设备，它们持有的权重信息是完全一致的，这也为大模型提供了冗余的备份，本文档也将指出如何去获取这个冗余信息。
+但是，在大模型场景下，使用合并保存时各种资源的开销过于巨大。因此，本文档介绍了一种每张卡仅保存自身权重信息的恢复方案。大模型训练往往会同时应用数据并行与模型并行，基于数据并行的维度，其划分的设备持有的权重信息完全一致，这也为大模型提供了冗余备份。本文档将介绍如何获取上述冗余信息。
 
-关于并行策略与权重的切片划分的关系，可以进行如下映射。关于数据并行，模型并行的概念，请参考[算子级并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/operator_parallel.html) ；关于优化器并行，请参考[优化器并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html)。
+并行策略与权重切片划分的映射关系如下：
 
 - 数据并行 + 不开启优化器并行：并行通信域内的rank持有相同权重切片。
 - 模型并行：并行通信域内的rank持有不同权重切片。
 
-另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html) 下使用。
+> - 关于数据并行，模型并行的概念，请参考[算子级并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/operator_parallel.html)。
+> - 关于优化器并行，请参考[优化器并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html)。
+
+另外，需要注意的是，本文档介绍的分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html)下使用。
 
 相关环境变量：
 
-`GROUP_INFO_FILE=./group_info.pb`：保存切片的权重信息，该文件解析出来后将得到一个列表，该列表中的值为rank_id，代表这些rank_id中的权重是相同的。
+`GROUP_INFO_FILE=./group_info.pb`：保存切片的权重信息。解析该文件将得到一个列表，该列表中的值为rank_id，表示这些rank_id中的权重是相同的。
 
 ## 操作实践
 
@@ -43,7 +46,7 @@
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口指定运行模式、运行设备、运行卡号等。与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`，并通过init初始化HCCL或NCCL通信。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -140,7 +143,7 @@ model.train(2, data_set, callbacks=[loss_cb, ckpoint_cb], dataset_sink_mode=True
 
 ### 故障恢复
 
-分布式的故障恢复，需要事先获取切分的信息，因而，需要先调用`model.infer_train_layout`得到切分策略信息，继而再执行训练。
+分布式的故障恢复，需要事先获取切分的信息，因此需要先调用`model.infer_train_layout`得到切分策略信息，然后再执行训练。
 
 ```python
 import mindspore as ms
@@ -157,7 +160,7 @@ model.train(2, data_set, callbacks=[loss_cb, ckpoint_cb], dataset_sink_mode=True
 
 ### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式脚本为例，通过下命令运行8卡的并行训练脚本：
+接下来通过命令调用对应的脚本，以8卡的分布式脚本为例，使用`mpirun`启动方式运行并行训练脚本：
 
 ```bash
 bash run.sh
@@ -193,8 +196,8 @@ epoch: 1 step: 1875, loss is 0.71328689217567444
 epoch: 2 step: 1875, loss is 0.32782320742607117
 ```
 
-读取group_info.pb，可以获取到权重的冗余信息，该文件解析出来后将得到一个列表，该列表中的值为rank_id，表示这些列表中的rank_id对应的权重切片都是相同的，可以相互替换。
-如下面的例子，0卡的group_info.pb解析出来后，发现0卡和4卡的权重切分是完全一致的，当0卡的checkpoint丢失时，可以直接复制4卡checkpoint作为0卡的checkpoint，进行恢复。
+读取group_info.pb，获取权重的冗余信息。解析该文件得到一个列表，该列表中的值为rank_id，表示这些列表中的rank_id对应的权重切片都是相同的，可以相互替换。
+如下面的例子，0卡的group_info.pb解析出来后，发现0卡和4卡的权重切分是完全一致的。当0卡的checkpoint丢失时，可以直接复制4卡checkpoint作为0卡的checkpoint，进行恢复。
 
 ```python
 import mindspore as ms
@@ -202,7 +205,7 @@ rank_list = ms.restore_group_info_list("./checkpoints/rank_0/group_info.pb")
 print(rank_list) // [0, 4]
 ```
 
-而后，执行故障恢复训练脚本。
+然后，执行故障恢复训练脚本。
 
 ```bash
 bash recover.sh

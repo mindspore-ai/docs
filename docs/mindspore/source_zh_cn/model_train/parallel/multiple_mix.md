@@ -4,7 +4,7 @@
 
 ## 概述
 
-基于双递归搜索的多维混合并行是指用户可以配置重计算、优化器并行、流水线并行等优化方法，在用户配置的基础上，通过双递归策略搜索算法进行算子级策略自动搜索，进而生成最优的并行策略。
+基于双递归搜索的多维混合并行是指：用户可以配置重计算、优化器并行、流水线并行等优化方法，在用户配置的基础上，通过双递归策略搜索算法进行算子级策略自动搜索，进而生成最优的并行策略。
 
 ## 操作实践
 
@@ -28,7 +28,7 @@
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为自动并行模式，搜索模式`search_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，并通过init初始化HCCL或NCCL通信。`pipeline_stages`为流水线并行中stage的数量，且通过使能`enable_parallel_optimizer`开启优化器并行。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口指定运行模式、运行设备、运行卡号等。与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为自动并行模式，指定搜索模式`search_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，并通过init初始化HCCL或NCCL通信。`pipeline_stages`为流水线并行中stage的数量，且通过使能`enable_parallel_optimizer`开启优化器并行。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import os
