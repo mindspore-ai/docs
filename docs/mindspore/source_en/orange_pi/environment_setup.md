@@ -108,27 +108,27 @@ Here we introduce balenaEtcher, Rufus to burn the image, you can burn according 
 
   ![environment-setup-1-13](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/orange_pi/images/environment_setup_1-13.png)
 
-## 2. Development board Startup and Network Connection
+## 2. Development Board Startup and Network Connection
 
-### 2.1 Development board Startup
+### 2.1 Development Board Startup
 
-Insert the TF card with the burned image into the corresponding slot on the development board.  Click [here](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-AIpro.html) to jump to the official website, and refer to the "User Manual" in section 2.8 for specific steps to start the development board.
+Insert the TF card with the burned image into the corresponding slot on the development board. Click [here](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-AIpro.html) to jump to the official website, and refer to the "User Manual" in section 2.8 for specific steps to start the development board.
 
 ![environment-setup-1-20](../../source_zh_cn/orange_pi/images/environment_setup_1-20.png)
 
-### 2.2 Development board Network Connection
+### 2.2 Network Connection
 
 For the convenience of downloading software packages and running code for subsequent environment upgrades, the development board needs to be connected to a network. Please refer to "3.5 Network Connection Test" in the User Manual for details.
 
 ![environment-setup-1-21](../../source_zh_cn/orange_pi/images/environment_setup_1-21.png)
 
-### 2.3 Development board SSH Remote Login (Optional)
+### 2.3 Development Board SSH Remote Login (Optional)
 
 If you need to log in to the development board remotely through SSH, please refer to "3.6 SSH Remote Login to Development Board" in the User Manual for details.
 
 ![environment-setup-1-22](../../source_zh_cn/orange_pi/images/environment_setup_1-22.png)
 
-### 2.4 Set Swap Memory (Optional)
+### 2.4 Setting Swap Memory (Optional)
 
 Although the development board has 8GB or 16GB of large memory, some applications require more than 8GB or 16GB of memory. In this case, we can use Swap memory to expand the maximum memory capacity that the system can use. For specific instructions, please refer to the "3.20 Method for Setting Swap Memory" in the user manual.
 
@@ -178,7 +178,7 @@ Switch the root user, root user password: Mind@123.
 
 ```
 
-Step 2 Remove installed CANN packages from the image to free up disk space and prevent installing new CANN packages from reporting low disk space errors.
+Step 2 Remove installed CANN packages to free up disk space and prevent installing new CANN packages from reporting low disk space errors.
 
 ```bash
 
@@ -217,7 +217,7 @@ Step 6 Execute the following command to upgrade the software.
 (base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.0.RC3.alpha002_linux-aarch64.run --install
 ```
 
-Type Y when this prompt pops up during installation, then press Enter to continue the installation.
+Type Y when this prompt pops up during installation, then press Enter to continue the installation. This process takes about 10-15 minutes, please be patient.
 
 ![environment-setup-1-16](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/orange_pi/images/environment_setup_1-16.png)
 
@@ -244,7 +244,7 @@ Step 7 Configure and load environment variables.
 
 #### 3.2.2 Kernels Upgrading
 
-> The binary arithmetic package Kernels relies on the CANN package Toolkit. To perform the upgrade, the current environment needs to have the matching version of Toolkit installed and installed by the same user.
+> The binary arithmetic package Kernels relies on the CANN package Toolkit. To perform the upgrade, the current environment needs to have the matching version of Toolkit installed and installed by the root user.
 
 Step 1 Open a terminal and switch the root user.
 
@@ -304,13 +304,27 @@ xxx install success
 
 ## 4. MindSpore Upgrading
 
-### 4.1 Installing the Official Version of the Website (Taking MindSpore 2.4.10 as an example)
+### 4.1 Query MindSpore Version
+
+Step 1 Use `CTRL+ALT+T` or click on the icon with `$_` at the bottom of the page to open the terminal and keep the HwHiAiUser user logged in.
+
+![environment-setup-1-14](../../source_zh_cn/orange_pi/images/environment_setup_1-14.png)
+
+Step 2 Execute the following command to obtain version information.
+
+```bash
+(base) HwHiAiUser@orangepiaipro:~$ pip show mindspore
+```
+
+If the current MindSpore version does not meet the development requirements, the MindSpore version can be upgraded according to the following methods.
+
+### 4.2 Installing the Official Version of the Website (Taking MindSpore 2.4.10 as an example)
+
+#### 4.2.1 MindSpore Upgrading
 
 Please note that both installation methods for MindSpore need to be performed under the HwHiAiUser user. Choose either method for installation.
 
-Method 1: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bottom of the page to open the terminal, and run the pip install command directly on the terminal.
-
-Method 1: Open the terminal as HwHiAiUser user and run the pip install command directly in the terminal.
+Method 1: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bottom of the page to open the terminal, keep the HwHiAiUser user logged in, and run the pip install command directly on the terminal.
 
 ```bash
 (base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.4.10
@@ -324,7 +338,7 @@ Method 2: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bo
 # Confirm the operating system and programming language, and the default environment of the OrangePi AIpro development board is linux-aarch64 and python3.9
 ```
 
-### 4.2 Installation Verification
+#### 4.2.2 Installation Verification
 
 ```bash
 (base) HwHiAiUser@orangepiaipro:~$ python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
@@ -337,8 +351,6 @@ MindSpore version: 2.4.10
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
-## Next Step
+## Next Suggestion
 
-At this point, the OrangePi AIpro development board environment has been set up, and you can experience online model inference based on MindSpore development on the development board.
-
-- [Model Online Inference](./model_infer.md)
+At this point, the OrangePi AIpro development board environment has been set up, and you can experience [online model inference based on MindSpore development on the development board](https://www.mindspore.cn/docs/en/master/orange_pi/model_infer.html).

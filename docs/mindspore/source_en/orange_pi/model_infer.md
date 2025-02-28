@@ -78,8 +78,6 @@ After the inference execution is completed, it is necessary to navigate to `KERN
 
 ![model-infer7](../../source_zh_cn/orange_pi/images/model_infer7.png)
 
-## Next Step
+## Next Suggestion
 
-For specific case development based on MindSpore, please refer to:
-
-- [Quick Start](./dev_start.ipynb)
+For specific case development based on MindSpore, please refer to [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html)

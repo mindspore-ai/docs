@@ -4,6 +4,27 @@
 
 Since developers may perform custom model and case development in OrangePi AIpro (hereinafter: OrangePi Development Board), this chapter illustrates the development considerations in the OrangePi Development Board through a handwritten digit recognition case based on MindSpore.
 
+## Preparing Running Environment
+
+After obtaining the OrangePi AIpro development board, developers first need to confirm hardware resources, burn images, and upgrade CANN and MindSpore versions before running the case. The specific steps are as follows:
+
+- Hardware: OrangePi AIpro 16G 8-12T development board
+- Image: OrangePi AIpro official Ubuntu image
+- CANN：8.0.RC3.alpha
+- MindSpore：2.4.10
+
+### Image Burning
+
+To run this case, it is necessary to burn the Ubuntu image on the OrangePi AIpro official website. Please refer to [Image Burning](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#1-image-burning-taking-windows-as-an-example).
+
+### CANN Upgrading
+
+ Please refer to [CANN升级](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#3-cann-upgrading).
+
+### MindSpore Upgrading
+
+ Please refer to [MindSpore升级](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#3-mindspore-upgrading).
+
 ```python
 from mindspore import nn
 from mindspore.dataset import vision, transforms
@@ -334,3 +355,10 @@ Predicted: "[1 2 0 4 6 4 9 0 2 2]", Actual: "[1 2 0 4 6 9 9 0 2 2]"
 ```
 
 ## More examples of MindSpore-based OrangePi development boards are detailed in: [GitHub link](https://github.com/mindspore-courses/orange-pi-mindspore)
+
+The required environment for the operation of this case:
+
+- Hardware: OrangePi AIpro 16G 8-12T development board
+- Image: OrangePi AIpro official Ubuntu image
+- CANN：8.0.RC3.alpha
+- MindSpore：2.4.10
