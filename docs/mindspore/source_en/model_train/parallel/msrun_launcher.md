@@ -51,7 +51,7 @@ A parameters list of command line:
         <td align="left" style="white-space:nowrap">--node_rank</td>
         <td align="left">The index of the current node.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">An integer greater than 0. The default value is -1.</td>
+        <td align="left">An integer greater than or equal to 0 can be passed in. In case no value is passed, the default value is -1.</td>
         <td align="left">This parameter is ignored in single-machine multi-card scenario.<br>In multi-machine and multi-card scenarios, if this parameter is not set, the rank_id of the Worker process will be assigned automatically; <br>if it is set, the rank_id will be assigned to the Worker process on each node according to the index.<br>If the number of Worker processes per node is different, it is recommended that this parameter not be configured to automatically assign the rank_id.</td>
     </tr>
     <tr>

@@ -51,7 +51,7 @@
         <td align="left" style="white-space:nowrap">--node_rank</td>
         <td align="left">当前节点的索引。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">大于0的整数。默认值为-1。</td>
+        <td align="left">可传入大于等于0的整数。在不传入值的情况下，默认值为-1。</td>
         <td align="left">单机多卡场景下，此参数会被忽略。<br>多机多卡场景下，<br>若不设置此参数，Worker进程的rank_id会被自动分配；<br>若设置，则会按照索引为各节点上的Worker进程分配rank_id。<br>若每个节点Worker进程数量不同，建议不配置此参数，<br>以自动分配rank_id。</td>
     </tr>
     <tr>
