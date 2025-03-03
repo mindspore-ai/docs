@@ -302,7 +302,7 @@ xxx install success
 
 ## 4. MindSpore Upgrading
 
-### 4.1 Query MindSpore Version
+### 4.1 Querying MindSpore Version
 
 Step 1 Use `CTRL+ALT+T` or click on the icon with `$_` at the bottom of the page to open the terminal and keep the HwHiAiUser user logged in.
 

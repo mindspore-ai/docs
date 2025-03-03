@@ -7,7 +7,7 @@ At present, the system image of OrangePi AIpro development board has been realiz
 
 Before developing OrangePi AIpro, it is necessary to understand the following:
 
-- `MindSpore <https://www.mindspore.cn/>`_ 
+- `MindSpore <https://www.mindspore.cn/en>`_ 
 - `Linux <https://www.runoob.com/linux/linux-tutorial.html>`_ 
 - `Jupyter Notebook <https://jupyter.org/documentation>`_ 
 
