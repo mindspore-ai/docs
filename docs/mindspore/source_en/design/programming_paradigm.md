@@ -290,7 +290,7 @@ Define operator K, backward mode AD can be represented as:
 ```text
 v = (func, inputs)
 F(v): {
-    (result, bprop) = K(func)(K(inputs))
+    (result, bprop) = K(func)(inputs)
     df, dinputs = bprop(dout)
     v.df += df
     v.dinputs += dinputs
