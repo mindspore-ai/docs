@@ -232,7 +232,7 @@ print(out)
 以上内容可分为两个部分，第一部分为图的输入信息，第二部分为图的结构信息：
 
 - 第1行表示该网络的顶图名称 `@19_1___main___Net_construct_304`，也就是入口图。
-- 第2行表示该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第23行的入口图`@19_1___main___Net_construct_304`；第84行的图`20_4_✓__main___Net_construct_311`，对应着网络中if条件为true时所运行的图；第120行的图`21_14_✗__main___Net_construct_314`，即对应着网络中if条件为false时所运行的图。
+- 第2行表示该网络解析出来的图的数量，该IR文件展示了三张图的信息。分别为第23行的入口图`@19_1___main___Net_construct_304`；第84行的图`20_4_✓__main___Net_construct_311`，对应着网络中if条件为true时所运行的图；第120行的图`21_14_✗__main___Net_construct_314`，即对应着网络中if条件为false时所运行的图。
 - 第14行表示该网络有多少个输入。
 - 第16-17行是输入列表，遵循`%para[序号]_[name] : <[data_type], (shape)>`的格式。
 
@@ -710,8 +710,7 @@ MindSpore在编译图的过程中，经常会出现`type_inference`阶段的图�
 176 No more function graphs.
 ```
 
-搜索`------------------------>`来到第68行，即推导出错的位置。根据`...(%4, %5)
-      : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (`<null>`)`可知，算子`BiasAdd`的输入是`%4`和`%5`这两个节点。其中，`%4`的shape是`[3, 8]`，`%5`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
+搜索`------------------------>`来到第68行，即推导出错的位置。根据`...(%4, %5): (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (`<null>`)`可知，算子`BiasAdd`的输入是`%4`和`%5`这两个节点。其中，`%4`的shape是`[3, 8]`，`%5`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
 
 因此，为了解决该问题，可以修改`%4`的shape，或修改`%5`（即`self.bias`）的shape。
 

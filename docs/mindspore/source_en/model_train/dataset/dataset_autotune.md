@@ -4,8 +4,7 @@
 
 ## Overview
 
-MindSpore provides a tool named Dataset AutoTune to help optimize the dataset pipeline.
-Dataset AutoTune can automatically tune dataset pipelines to improve performance.
+MindSpore provides a tool named Dataset AutoTune to help optimize the dataset pipeline. Dataset AutoTune can automatically tune dataset pipelines to improve performance.
 
 This feature can automatically detect a bottleneck operation in the dataset pipeline and respond by automatically adjusting tunable parameters for dataset operations, like increasing the number of parallel workers or updating the prefetch size of dataset operations.
 
@@ -13,9 +12,7 @@ This feature can automatically detect a bottleneck operation in the dataset pipe
 
 With Dataset AutoTune enabled, MindSpore will sample dataset statistics at a given interval, which is tuneable by the user.
 
-Once Dataset AutoTune collects enough information, it will analyze whether the performance bottleneck is on the dataset side or not.
-If so, it will adjust the parallelism and speedup the dataset pipeline.
-If not, Dataset AutoTune will also try to reduce the memory usage of the dataset pipeline to release memory for CPU.
+Once Dataset AutoTune collects enough information, it will analyze whether the performance bottleneck is on the dataset side or not. If so, it will adjust the parallelism and speedup the dataset pipeline. If not, Dataset AutoTune will also try to reduce the memory usage of the dataset pipeline to release memory for CPU.
 
 > Dataset AutoTune is disabled by default.
 
@@ -192,8 +189,7 @@ Some analysis to explain the meaning of the log information:
   ```
 
   At the end of training, an improved configuration is created by Dataset AutoTune.
-  For num_parallel_workers, Dataset AutoTune suggests to set new value for each Operation or using global setting API.
-  For prefetch_size, Dataset AutoTune suggests to choose the maximum value and set by global setting API.
+  For num_parallel_workers, Dataset AutoTune suggests to set new value for each Operation or using global setting API. For prefetch_size, Dataset AutoTune suggests to choose the maximum value and set by global setting API.
 
   ```text
   [INFO] [auto_tune.cc:66 PrintTreeConfiguration] CifarOp(ID:5) num_parallel_workers: 2 prefetch_size: 2
@@ -249,13 +245,9 @@ The `new_dataset` is the tuned dataset object containing operations from Cifar t
 
 ### Before Next Training
 
-Before starting the next training process, the user can update the dataset loading code according to recommended improvements from Dataset AutoTune for a more efficient dataset pipeline.
+Before starting the next training process, the user can update the dataset loading code according to recommended improvements from Dataset AutoTune for a more efficient dataset pipeline. This allows the dataset pipeline to be run at an improved speed from the beginning of the training process.
 
-This allows the dataset pipeline to be run at an improved speed from the beginning of the training process.
-
-By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size.
-
-Please refer to [mindspore.dataset.config](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#config):
+By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size. Please refer to [mindspore.dataset.config](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#config).
 
 - [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
 - [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)
