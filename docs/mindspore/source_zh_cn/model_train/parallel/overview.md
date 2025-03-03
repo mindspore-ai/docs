@@ -23,13 +23,13 @@ MindSpore目前支持四种启动方式：
 
 - **数据并行模式**：数据并行模式下，数据集可以在样本维度拆分并下发到不同的卡上。如果您的数据集较大，而模型参数规模能在单卡运算，您可以选择这种并行模型。参考[数据并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/data_parallel.html)教程了解更多信息。
 - **自动并行模式**：融合了数据并行、算子级模型并行的分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择合适的并行模式。如果您的数据集和模型参数规模都较大，且希望自动配置并行策略，您可以选择这种并行模型。参考[自动并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/auto_parallel.html)教程了解更多信息。
-- **半自动并行模式**：相较于自动并行，该模式需要用户对算子手动配置切分策略实现并行。如果您数据集和模型参数规模都较大，且您对模型的结构比较熟悉，知道哪些“关键算子”容易成为计算瓶颈，为“关键算子”配置合适的切分策略可以获得更好的性能，您可以选择这种并行模式。此外该模式还可以手动配置优化器并行和流水线并行。参考[半自动并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/semi_auto_parallel.html)教程了解更多信息。
+- **半自动并行模式**：相较于自动并行，该模式需要用户对算子手动配置切分策略实现并行。如果您的数据集和模型参数规模都较大，且您对模型的结构比较熟悉，知道哪些“关键算子”容易成为计算瓶颈，为“关键算子”配置合适的切分策略可以获得更好的性能，您可以选择这种并行模式。此外该模式还可以手动配置优化器并行和流水线并行。参考[半自动并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/semi_auto_parallel.html)教程了解更多信息。
 - **手动并行模式**：在手动并行模式下，您可以基于通信原语例如`AllReduce`、`AllGather`、`Broadcast`等通信算子进行数据传输，手动实现分布式系统下模型的并行通信。您可以参考[手动并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/manual_parallel.html)教程了解更多信息。
 - **参数服务器模式**：相比于同步的训练方法，参数服务器具有更好的灵活性、可拓展性。您可以参考[参数服务器](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/parameter_server_training.html)模式教程了解更多信息。
 
 ## 保存和加载模型
 
-模型的保存可以分为合并保存和非合并保存，可以通过`mindspore.save_checkpoint`或者`mindspore.train.CheckpointConfig`中的`integrated_save`参数选择是否合并保存。合并保存模式下模型参数会自动聚合保存到模型文件中，而非合并保存模式下每张卡保存各自卡上的参数切片。关于各并行模式下的模型保存可以参考[模型保存](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_saving.html)教程。
+模型的保存可以分为合并保存和非合并保存，可以通过`mindspore.save_checkpoint`或者`mindspore.train.CheckpointConfig`中的`integrated_save`参数选择是否合并保存。合并保存模式下，模型参数会自动聚合保存到模型文件中，而非合并保存模式下，每张卡保存各自卡上的参数切片。关于各并行模式下的模型保存可以参考[模型保存](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_saving.html)教程。
 
 模型的加载可以分为完整加载和切片加载。若保存的是完整参数的模型文件，则可以直接通过`load_checkpoint`接口加载模型文件。若保存的是多卡下的参数切片文件，则需要考虑加载后的分布式切分策略或集群规模是否有变化。如果分布式切分策略或集群规模不变，则可以通过`load_distributed_checkpoint`接口加载各卡对应的参数切片文件，可以参考[模型加载](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_loading.html)教程。
 

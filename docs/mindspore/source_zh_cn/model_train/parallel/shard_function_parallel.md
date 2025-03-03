@@ -4,9 +4,9 @@
 
 ## 概述
 
-动态图支持语法更丰富，使用更为灵活，但是目前MindSpore的动态图模式不支持自动并行的各种特性；另外静态图当前仅支持通过给算子配置策略来实现不同的并行方式。针对这些问题，我们设计了函数式算子切分`shard`函数，与已有的`Primitive.shard()`方法不同，该函数以cell或function为单位设置并行策略。
+动态图支持语法更丰富，使用更为灵活，但是目前MindSpore的动态图模式不支持自动并行的各种特性，另外静态图当前仅支持通过给算子配置策略来实现不同的并行方式。针对这些问题，我们设计了函数式算子切分`shard`函数，与已有的`Primitive.shard()`方法不同，该函数以cell或function为单位设置并行策略。
 
-在动态图模式下，指定某一部分以图模式执行，并且执行各种并行操作；图模式下也可以使用该接口，指定某个模块的切分策略，其他未指定的模块会通过策略传播"sharding_propagation"自动配置策略。
+在动态图模式下，可以指定某一部分以图模式执行，并且执行各种并行操作。图模式下也可以使用该接口，指定某个模块的切分策略，其他未指定的模块会通过策略传播"sharding_propagation"自动配置策略。
 
 > 当前函数式算子切分仅支持""auto_parallel"与"semi_auto_parallel"，并自动将策略搜索算法设置为"sharding_propagation"。
 
@@ -43,9 +43,9 @@ MindSpore的图模式下，Shard function与Primitive.shard()类似，设置某�
 
 ### 样例代码说明
 
->你可以在这里下载完整的样例代码：
+> 你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/shard_function_parallel>。
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/shard_function_parallel>。
 
 目录结构如下：
 
@@ -153,7 +153,7 @@ class Net(nn.Cell):
     net = Net1()
     ```
 
-- 使用函数式接口`mindspore.shard`，由于`shard`函数的返回值为函数，使用函数式接口的时候，不能将已经实例过的类赋值为`shard`的返回值，因为MindSpore不支持将类实例赋值为其他类型
+- 使用函数式接口`mindspore.shard`，由于`shard`函数的返回值为函数，使用函数式接口的时候，不能将已经实例过的类赋值为`shard`的返回值，因为MindSpore不支持将类实例赋值为其他类型。
 
     ```python
     class NetError(Net):
@@ -299,7 +299,7 @@ echo "The program launch succeed, the log is under device0/train.log0."
 bash run_shard_function_example.sh 8 ../rank_table_8pcs.json
 ```
 
-执行过程中，框架会自动为`shard`的输入函数进行算子级别的模型并行，每个算子的并行策略由框架搜索得到，整个过程用户无感知。可以按如下操作存图
+执行过程中，框架会自动为`shard`的输入函数进行算子级别的模型并行，每个算子的并行策略由框架搜索得到，整个过程用户无感知。可以按如下操作存图。
 
 ```bash
 export MS_DEV_SAVE_GRAPHS=2

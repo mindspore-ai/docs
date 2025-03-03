@@ -4,31 +4,35 @@
 
 ## 概述
 
-对于一个新模型使用[Sharding Propagation](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/sharding_propagation.html)来配置并行策略，关键问题在于配置哪些算子的切分策略来获得较好的性能。由于策略传播的目标不是最小化端到端的迭代时间，而是最小化张量重排布的代价，因此，为“关键算子”配置合适的切分策略是十分重要的。然而，并不存在明确的规定约束哪些算子是必须配置切分策略的。尽管如此，基于我们训练大模型的经验，确实有一些原则可以用来指导新用户配置并行策略。这里，我们列出4条经验性的原则。
+对于一个新模型，使用[Sharding Propagation（切分策略传播算法）](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/sharding_propagation.html)配置并行策略时，关键问题在于配置哪些算子的切分策略，以获得较好的性能。策略传播的目标不是最小化端到端的迭代时间，而是最小化张量重排布的代价，因此为“关键算子”配置合适的切分策略尤为重要。虽然并不存在明确的规则指示哪些算子必须配置切分策略，但是基于MindSpore训练大模型的经验，我们总结了以下四条经验性原则，为新用户配置并行策略提供指导。
 
 ### 配置涉及权重的算子
 
-参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindFormers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
+参数权重的切分策略十分重要，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindFormers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
 
 ![sp_case1_zh](./images/sp_case1_zh.png "配置涉及权重的算子")
 
 ### 配置维度改变/轴改变的算子
 
-深度学习框架的算子大致可以分为两类：语义简单的维度保持的算子；会改变输入张量维度的算子。对于维度保持算子，策略传播算法可以较容易地将切分策略传播出去。但是，对于维度改变算子，显式地配置切分策略才能更好地表达用户的初始想法，避免策略传播算法推导出非用户期望的切分策略。常见的维度改变/轴改变算子有：[ReduceMean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html)、[ReduceSum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceSum.html)、[Transpose](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html)、[StridedSlice](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.StridedSlice.html)、[MatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html)与[BatchMatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchMatMul.html)。在下图的例子中，ReduceMean和MatMul是维度改变算子，它们被配置了切分策略。
+深度学习框架的算子大致可以分为两类：语义简单的维度保持算子、改变输入张量维度的算子。对于维度保持算子，策略传播算法可以较容易地将切分策略传播出去。但是，对于维度改变算子，显式地配置切分策略才能更好地表达用户的初始想法，避免策略传播算法推导出不符合用户期望的切分策略。常见的维度改变/轴改变算子有：[ReduceMean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html)、[ReduceSum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceSum.html)、[Transpose](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html)、[StridedSlice](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.StridedSlice.html)、[MatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html)与[BatchMatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchMatMul.html)。在下图的例子中，ReduceMean和MatMul是维度改变算子，它们被配置了切分策略。
 
 ![sp_case2_zh](./images/sp_case2_zh.png "配置维度改变的算子")
 
 ### 配置并行策略改变的边界算子
 
-对于类ResNet模型，模型的不同部分偏好的并行方式不同：前半部分使用数据并行，后半部分使用模型并行，以此获得最优的迭代性能。对于Llama类大模型，当vocab_size过大时，出于对内存的考虑，可能会选择模型并行切分；当sequence_length过大时，也可能会选择序列并行的策略。以上策略属于用户根据模型和硬件信息精心配置的策略。Sharding Propagation是一种朴素的寻找重排代价最低的算法，并不能自动找到精心配置的策略，因此，对于用户精心调优的算子策略，需要对其进行专门的配置。在下图的例子中，第一个MatMul配置了数据并行的策略，它会将数据并行的策略向前传播到模型的前半部分；第二个MatMul配置了模型并行的策略，它会将模型并行的策略向后传播到模型的后半部分。
+对于ResNet类模型，模型的不同部分偏好的并行方式不同：前半部分使用数据并行，后半部分使用模型并行，以此获得最优的迭代性能。
+
+对于Llama类大模型：当vocab_size过大时，出于对内存的考虑，可能会选择模型并行切分；当sequence_length过大时，可能会选择序列并行策略。
+
+以上策略是根据模型和硬件信息配置的特定策略。Sharding Propagation是一种朴素的寻找重排代价最低的算法，并不能自动配置这些特定策略，因此需要手动配置。在下图的例子中，第一个MatMul配置了数据并行的策略，它会将数据并行的策略向前传播到模型的前半部分；第二个MatMul配置了模型并行的策略，它会将模型并行的策略向后传播到模型的后半部分。
 
 ![sp_case3_zh](./images/sp_case3_zh.png "配置并行方式改变的边界算子")
 
 ### 配置融合算子
 
-对于融合大算子，如[FlashAttentionScore](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_ops_FlashAttentionScore.html#exhale-class-classmindspore-ops-flashattentionscore)、[rms_norm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.rms_norm.html)，也是需要用户手动配置策略的算子，融合算子的输入与输出逻辑相对复杂，传播出的没有重排的策略并不一定是用户所期望的策略，这些算子也需要显式配置算子级策略。
+对于融合大算子，如[FlashAttentionScore](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_ops_FlashAttentionScore.html#exhale-class-classmindspore-ops-flashattentionscore)和[rms_norm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.rms_norm.html)，也需要用户手动配置策略。融合算子的输入与输出逻辑相对复杂，传播出的未重排的策略并不一定满足用户期望，因此这些算子也需要显式配置算子级策略。
 
-用户在用策略传播时不仅需要对其传播算法本身有一定的了解，还要对要训练的模型的并行方式有一定的理解。如果存在某个由策略传播算法决定的算子的并行策略不符合用户的期望，那总可以通过多配置一个算子并行策略的方式解决。实际中，对于一个新模型，确实需要尝试几次才能获得性能较优的整体并行配置。
+用户在使用策略传播时，需要对其传播算法和训练模型的并行方式有一定的理解。如果某个由策略传播算法决定的算子并行策略不符合用户期望，可以通过多配置一个算子并行策略来解决。实际情况下，对于一个新模型，需要尝试多次才能获得性能较优的整体并行配置。
 
 ## 配置代码样例
 
@@ -118,6 +122,7 @@ class CoreAttention(nn.Cell):
 </table>
 
 再看[FlashAttention](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/modules/flash_attention.py)的例子:
+
 <table>
 <tr>
 <td valign='top'>
@@ -158,6 +163,7 @@ class FlashAttention(Cell):
 </table>
 
 若直接使用MindFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)。
+
 <table>
 <tr>
 <td valign='top'>
@@ -190,4 +196,4 @@ class LlamaForCausalLM(LlamaPretrainedModel):
 </tr>
 </table>
 
-**用户无法确认是否需要对算子配置策略时，可以不配置，由算法传播找寻最优策略，但是可能无法获得最佳的并行效果；若用户能够确认该算子需要配置什么策略，则可以进行配置帮助算法获得预期效果。**
+> 用户无法确认是否需要对算子配置策略时，可以不配置，由算法传播找寻最优策略，但是可能无法获得最佳的并行效果；若用户能够确认该算子需要配置什么策略，则可以自行配置，以获得预期效果。
