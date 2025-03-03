@@ -6,7 +6,7 @@
 
 When there are suboptimal devices in the training cluster, saving checkpoint and exiting the cluster training process before the failure occurs can effectively prevent the loss of weight data when the cluster is damaged. This also avoids issues such as training data rollback and loading checkpoint rollback when training recovery, effectively preventing the waste of training resources.
 
-> This document is an example of the training process exit gracefully. To illustrate the specific usage, we assume that the exit configuration detected at the first training step, and the training process is ended in advance. You can get the full sample code here: [process_graceful_exit](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/graceful_exit/) .
+> This document describes how to use the process graceful exit. In order to illustrate the specific usage, the example of detecting the exit configuration message at the first training step and terminating the training process early is used. You can get the full sample code here: [process_graceful_exit](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/graceful_exit/) .
 
 `graceful_exit.py` is the source code, `train.sh` is the start training script, and `graceful_exit.json` is the graceful exit config json file.
 
@@ -145,9 +145,9 @@ export MS_ENABLE_GRACEFUL_EXIT=1
 
 ### Callback Function
 
-In addition to the above of environment variable, it also needs to configure the callback function `OnRequestExit` , and passes the parameter `config_file` to provide the path of the graceful exit json file. This callback function will check if there is a graceful exit json file in the specified path at every training step begin. If the file exists, and the `GracefulExit` is `1` , it will save checkpoint and exit training process at current step end.
+In addition to the above of environment variable, it also needs to configure the callback function `OnRequestExit` , and specify the path to the graceful exit configuration file with the parameter `config_file`. This callback function will check if there is a graceful exit json file in the specified path at every training step begin. If the file exists, and the `GracefulExit` is `1` , it will save checkpoint and exit training process at current step end.
 
-The `GracefulExit` in the Json file is dynamically configured during training. Generally, the keyword is modified when suboptimal devices exist in the training cluster and the training process needs to exit.
+The `GracefulExit` in the configuration file is dynamically configured during training. Generally, the keyword is modified when suboptimal devices exist in the training cluster and the training process needs to exit.
 
 ```python
 # key in json file：‘{“GracefulExit”: 1}’

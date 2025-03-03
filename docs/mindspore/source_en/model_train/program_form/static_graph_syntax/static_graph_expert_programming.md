@@ -16,7 +16,7 @@ In order to mitigate the loss of compilation performance caused by inline, we pr
 
 In the large model scenario, the compilation time consumption problem is especially prominent. One is that the model structure of the large model has a deep hierarchy and a large number of nodes; the second is that when the large model is trained, the model size and the number of nodes are further increased due to enabling pipeline parallel. If the original graph size is O, then the pipeline parallel is turned on, and the size of the single node graph becomes (O/X)*Y where X is the the number of pipeline stages, and Y is the number of micro batch. Taking the Pangu 13B network as an example, the number of computational nodes in the computational graph reaches 135,000, and the duration of a single compilation can be close to 3 hours.
 
-We observe that the large model network structure similar to Pangu is composed of multiple layers, and when pipeline parallel is turned on, the layer structure of each micro batch is exactly the same. When pipeline parallel is turned on, `PipelineCell` uses a for loop to call the same structure of layers multiple times, as shown in the code below:
+The large model network structure similar to Pangu is composed of multiple layers, and when pipeline parallel is turned on, the layer structure of each micro batch is exactly the same. When pipeline parallel is turned on, `PipelineCell` uses a for loop to call the same structure of layers multiple times, as shown in the code below:
 
 ```python
 from mindspore import nn
@@ -37,7 +37,7 @@ class PipelineCell(nn.Cell):
 
 If we think of the loop body as a subgraph that is called frequently, and tell the compiler to defer inline processing by marking it as Lazy Inline, then we can achieve performance gains by drastically reducing the number of computational graph nodes during most phases of compilation. For example, the code above can preserve the subgraph structure of the `network` instance without inlining or without early inline, for which we provide the `@lazy_inline` decorator to implement delayed inlining.
 
-Taking the Pangu_alpha network as an example, the `network` handled in the `PipelineCell` function body is an instance of the `PanGUAlphaWithLoss` class. In order to implement a delayed inline, we need to add a `@ lazy_inline` decorator to the `__init__` function of the `PanGUAlphaWithLoss` class to mark that the subgraph structure of the `PanGUAlphaWithLoss` class needs to be preserved without inlining or with delayed inlining. as shown below:
+Taking the Pangu_alpha network as an example, the `network` handled in the `PipelineCell` function body is an instance of the `PanGUAlphaWithLoss` class. In order to implement a delayed inline, a `@ lazy_inline` decorator is added to the `__init__` function of the `PanGUAlphaWithLoss` class to mark that the subgraph structure of the `PanGUAlphaWithLoss` class needs to be preserved without inlining or with delayed inlining. as shown below:
 
 ```python
 from mindspore import nn
@@ -630,7 +630,7 @@ a = A(x)
 b = B(y)
 ```
 
-After inserting the Depend operator as follows:
+Inserting the Depend operator:
 
 ```python
 a = A(x)

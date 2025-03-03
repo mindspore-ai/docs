@@ -4,7 +4,7 @@
 
 MindSpore Dataset provides two types of data processing capabilities: pipeline mode and lightweight mode.
 
-1. Pipeline mode: provides the concurrent data processing pipeline capability based on C++ Runtime. Users can define processes such as dataset loading, data transforms, and data batching to implement efficient dataset loading, processing, and batching. In addition, the concurrency and cache can be adjusted to provide training data with zero Bottle Neck for NPU card training.
+1. Pipeline mode: provides the concurrent data processing pipeline capability based on C++ Runtime. Users can define processes such as dataset loading, data transforms, and data batch process to implement efficient dataset loading, processing, and batching. In addition, the concurrency and cache can be adjusted to provide training data with zero Bottle Neck for NPU card training.
 
 2. Lightweight mode: Users can perform data transform operations (e.g. Resize, Crop, HWC2CHW, etc.). Data processing of a single sample is performed.
 
@@ -18,7 +18,7 @@ Dataset pipeline defined by an API is used. After a training process is run, the
 
 As shown in the above figure, the mindspore dataset module makes it easy for users to define data preprocessing pipelines and transform samples in the dataset in the most efficient (multi-process / multi-thread) manner. The specific steps are as follows:
 
-- Loading datasets: Users can easily load supported datasets using the Dataset class([Standard-format Dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#standard-format), [Vision Dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#vision), [NLP Dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#text), [Audio Dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#audio)), or load Python layer customized datasets through UDF Loader + [GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset). At the same time, the loading class method can accept a variety of parameters such as sampler, data slicing, and data shuffle;
+- Dataset loading: Users can easily load supported datasets using the Dataset class([Standard-format Dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#standard-format), [Vision Dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#vision), [NLP Dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#text), [Audio Dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#audio)), or load Python layer customized datasets through UDF Loader + [GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset). At the same time, the loading class method can accept a variety of parameters such as sampler, data slicing, and data shuffle;
 
 - Dataset operation: The user uses the dataset object method [.shuffle](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.shuffle.html#mindspore.dataset.Dataset.shuffle) / [.filter](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.filter.html#mindspore.dataset.Dataset.filter) / [.skip](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.skip.html#mindspore.dataset.Dataset.skip) / [.split](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.split.html#mindspore.dataset.Dataset.split) / [.take](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.take.html#mindspore.dataset.Dataset.take) / … to further shuffle, filter, skip, and obtain the maximum number of samples of datasets;
 
@@ -34,7 +34,7 @@ The following describes common dataset loading methods, such as single dataset l
 
 #### Loading A Single Dataset
 
-The dataset loading class is used to load training datasets from local disks, OBS datasets, and shared storage to the memory. The dataset loading interface is as follows:
+The dataset loading class is used to load training datasets from local disks, OBS, and shared storage to the memory. The dataset loading interface is as follows:
 
 | Dataset API Category | API List  | Description |
 |---|---|---|
@@ -44,15 +44,15 @@ The dataset loading class is used to load training datasets from local disks, OB
 
 You can configure different parameters for loading [datasets](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#vision) to achieve different loading effects. Common parameters are as follows:
 
-1. **columns_list**: filters specified columns from the dataset. The parameter applies only to some dataset interfaces. The default value is None, indicating that all data columns are loaded.
+- `columns_list`: filters specified columns from the dataset. The parameter applies only to some dataset interfaces. The default value is None, indicating that all data columns are loaded.
 
-2. **num_parallel_workers**: maximum number of concurrent dataset reads. The default value is 8.
+- `num_parallel_workers`: configures the number of read concurrency for the dataset. The default value is 8.
 
-3. You can configure the sampling logic of the dataset by using the following parameters:
+- You can configure the sampling logic of the dataset by using the following parameters:
 
-    - **shuffle**: specifies whether to enable shuffle. The default value is True.
+    - `shuffle`: specifies whether to enable shuffle. The default value is True.
 
-    - **num_shards & shard_id**: specifies whether to shard a dataset. The default value is None, indicating that the dataset is not sharded.
+    - `num_shards` and `shard_id`: specifies whether to shard a dataset. The default value is None, indicating that the dataset is not sharded.
 
     - For more sampling logic, see [Data Sampling](https://www.mindspore.cn/docs/en/master/model_train/dataset/sampler.html).
 
@@ -60,58 +60,58 @@ You can configure different parameters for loading [datasets](https://www.mindsp
 
 Dataset combination can combine multiple datasets in series/parallel mode to form a new dataset object.
 
-**(1) Concatenate multiple datasets**
+- Concatenate multiple datasets
 
-```python
-import mindspore.dataset as ds
-import numpy as np
+    ```python
+    import mindspore.dataset as ds
+    import numpy as np
 
-ds.config.set_seed(1234)
+    ds.config.set_seed(1234)
 
-data = [1, 2, 3]
-dataset1 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
+    data = [1, 2, 3]
+    dataset1 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
 
-data = [4, 5, 6]
-dataset2 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
+    data = [4, 5, 6]
+    dataset2 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
 
-dataset = dataset1.concat(dataset2)
-for item in dataset.create_dict_iterator():
-    print(item)
-```
+    dataset = dataset1.concat(dataset2)
+    for item in dataset.create_dict_iterator():
+        print(item)
+    ```
 
-```text
-{'column_1': Tensor(shape=[], dtype=Int32, value= 3)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 2)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 1)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 6)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 5)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 4)}
-```
+    ```text
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 3)}
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 2)}
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 1)}
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 6)}
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 5)}
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 4)}
+    ```
 
-**(2) Paralleling multiple datasets**
+- Paralleling multiple datasets
 
-```python
-import mindspore.dataset as ds
-import numpy as np
+    ```python
+    import mindspore.dataset as ds
+    import numpy as np
 
-ds.config.set_seed(1234)
+    ds.config.set_seed(1234)
 
-data = [1, 2, 3]
-dataset1 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
+    data = [1, 2, 3]
+    dataset1 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
 
-data = [4, 5, 6]
-dataset2 = ds.NumpySlicesDataset(data=data, column_names=["column_2"])
+    data = [4, 5, 6]
+    dataset2 = ds.NumpySlicesDataset(data=data, column_names=["column_2"])
 
-dataset = dataset1.zip(dataset2)
-for item in dataset.create_dict_iterator():
-    print(item)
-```
+    dataset = dataset1.zip(dataset2)
+    for item in dataset.create_dict_iterator():
+        print(item)
+    ```
 
-```text
-{'column_1': Tensor(shape=[], dtype=Int32, value= 3), 'column_2': Tensor(shape=[], dtype=Int32, value= 6)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 2), 'column_2': Tensor(shape=[], dtype=Int32, value= 5)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 1), 'column_2': Tensor(shape=[], dtype=Int32, value= 4)}
-```
+    ```text
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 3), 'column_2': Tensor(shape=[], dtype=Int32, value= 6)}
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 2), 'column_2': Tensor(shape=[], dtype=Int32, value= 5)}
+    {'column_1': Tensor(shape=[], dtype=Int32, value= 1), 'column_2': Tensor(shape=[], dtype=Int32, value= 4)}
+    ```
 
 #### Dataset Segmentation
 
@@ -172,19 +172,29 @@ dataset.save("./train_dataset.mindrecord")
 
 ### Data Transforms
 
-You can use the `.map(...)` operation to transform samples, use the `.filter(...)` operation to filter samples, use the `.project(...)` operation to sort and filter multiple columns, and use the `.rename(...)` operation to rename a specified column. Use the `.shuffle(...)` operation to shuffle data based on the buffer size, use the `.skip(...)` operation to skip the first n samples of the dataset, and use the `.take(...)` operation to read only the first n samples of the dataset. The following describes how to use the `.map(...)`.
-
 #### Common Data Transforms
 
-1. Use the data transform operation provided by Dataset in `.map(...)`
+Users can use a variety of data transformation operations:
 
-    Dataset provides a rich list of built-in data transform operations that can be used directly in `.map(...)`. For details, see the [Map Transform Operation](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html#built-in-transforms).
+- `.map(...)` operation: transform samples.
+- `.filter(...)` operation: filter samples.
+- `.project(...)` operation: sort and filter multiple columns.
+- `.rename(...)` operation: rename a specified column.
+- `.shuffle(...)` operation: shuffle data based on the buffer size.
+- `.skip(...)` operation: skip the first n samples of the dataset.
+- `.take(...)` operation: read only the first n samples of the dataset.
 
-2. Use custom data transform operations in `.map(...)`
+The following describes how to use the `.map(...)`.
+
+- Use the data transform operation provided by Dataset in `.map(...)`
+
+    Dataset provides a rich list of built-in [data transform operations](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#) that can be used directly in `.map(...)`. For details, see the [Map Transform Operation](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html#built-in-transforms).
+
+- Use custom data transform operations in `.map(...)`
 
     Dataset also supports user-defined data transform operations. You only need to pass user-defined functions to `.map(...)` to return. For details, see [Customizing Map Transform Operations](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html#user-defined-transforms).
 
-3. Return the Dict data structure in `.map(...)`
+- Return the Dict data structure in `.map(...)`
 
     The dataset also supports the return of the Dict data structure in the user-defined data transform operation, which makes the defined data transform more flexible. For details, see [Custom Map Transform Operation Processing Dictionary Object](https://www.mindspore.cn/docs/en/master/model_train/dataset/python_objects.html#processing-dict-with-map-operation).
 
@@ -194,7 +204,7 @@ In addition to the preceding common data transform, the dataset also provides an
 
 ### Data Batch
 
-Dataset provides the `.batch(...)` operation, which can easily organize samples after data transform into batches.
+Dataset provides the `.batch(...)` operation, which can easily organize samples after data transform into batches. There are two methods:
 
 1. The default `.batch(...)` operation organizes batch_size samples into data whose shape is (batch_size, ...). For details, see the [Batch Operation](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html#batch-dataset).
 
@@ -202,7 +212,7 @@ Dataset provides the `.batch(...)` operation, which can easily organize samples 
 
 ### Dataset Iterator
 
-After defining the dataset loading **(xxDataset)** -> **data processing (.map)** -> **data batch (.batch)** dataset pipeline, you can use the iterator method `.create_dict_iterator(...)` / `.create_tuple_iterator(...)` to output data. For details, see [Dataset Iteration](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html#iterating-a-dataset).
+After defining the dataset loading `(xxDataset) -> data processing (.map) -> data batch (.batch)` dataset pipeline, you can use the iterator method `.create_dict_iterator(...)` / `.create_tuple_iterator(...)` to output data. For details, see [Dataset Iteration](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html#iterating-a-dataset).
 
 ### Performance Optimization
 
@@ -218,7 +228,7 @@ In addition, in the inference scenario, to achieve ultimate performance, you can
 
 You can directly use the data transform operation to process a piece of data. The return value is the data transform result.
 
-Data transform operations ([vision transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio)) can be used directly like calling a common function. Generally, the data transform object is initialized first, and then the data to be processed is transferred through the parenthesis method and the processing result is obtained.
+Data transform operations ([vision transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio)) can be used directly like calling a common function. Common usage is: first initialize the data transformation object, then call the data transformation operation method, pass in the data to be processed, and finally get the result of the process.
 
 ```python
 import os

@@ -5,9 +5,10 @@
 ## Overview
 
 Faults may be encountered during model training. The overhead of restarting the training with various resources is huge. For this purpose, MindSpore provides a fault recovery scheme, i.e., periodically saving the model parameters, which allows the model to recover quickly and continue training at the point of failure.
-MindSpore saves the model parameters in a step or epoch cycle. The model parameters are saved in CheckPoint (ckpt for short) files. If a fault occurs during model training, load the latest saved model parameters, restore the state here, and continue training.
 
-> This document describes the use case for fault recovery, saving the CheckPoint file only at the end of each epoch.
+MindSpore saves the model parameters in a step or epoch cycle. The model parameters are saved in Checkpoint (ckpt for short) files. If a fault occurs during model training, load the latest saved model parameters, restore the state here, and continue training.
+
+> This document describes the use case for fault recovery, saving the Checkpoint file only at the end of each epoch.
 
 ## Data and Model Preparation
 
@@ -99,30 +100,30 @@ optim = nn.Momentum(net.trainable_params(), 0.01, 0.9)  # Optimizer
 model = Model(net, loss_fn=loss, optimizer=optim)  # Model encapsulation
 ```
 
-## Periodically Saving CheckPoint Files
+## Periodically Saving Checkpoint Files
 
 ### Configuring CheckpointConfig
 
-`mindspore.train.CheckpointConfig` can be configured according to the number of iterations, and the parameters for configuring the iteration strategy are as follows:
+`mindspore.train.CheckpointConfig` supports configuration based on the number of iterations, with the following main parameters:
 
-- `save_checkpoint_steps`: indicates how many steps to save a CheckPoint file. The default value is 1.
-- `keep_checkpoint_max`: indicates the maximum number of CheckPoint files to be saved. The default value is 5.
+- `save_checkpoint_steps`: indicates how many steps to save a Checkpoint file. The default value is 1.
+- `keep_checkpoint_max`: indicates the maximum number of Checkpoint files to be saved. The default value is 5.
 
-If the iteration strategy script ends normally, the CheckPoint file of the last step is saved by default.
+If the iteration strategy script ends normally, the Checkpoint file of the last step is saved by default.
 
-During model training, the `callbacks` parameter in `Model.train` is used to pass in the object `ModelCheckpoint` of saving model (used in conjunction with `mindspore.train.CheckpointConfig`), which generates CheckPoint file.
+During model training, the `callbacks` parameter in `Model.train` is used to pass in the object `ModelCheckpoint` of saving model (used in conjunction with `mindspore.train.CheckpointConfig`), which generates Checkpoint file.
 
 ### User-defined Saved Data
 
-The parameter `append_info` of `CheckpointConfig` can save user-defined information in the CheckPoint file. `append_info` supports passing in ``epoch_num``, ``step_num`` and data of dictionary type. ``epoch_num`` and ``step_num`` can save the number of epochs and the number of steps during training in the CheckPoint file.
+The parameter `append_info` of `CheckpointConfig` can save user-defined information in the Checkpoint file. `append_info` supports passing in ``epoch_num``, ``step_num`` and data of dictionary type. ``epoch_num`` and ``step_num`` can save the number of epochs and the number of steps during training in the Checkpoint file.
 `key` of the dictionary type data must be of type string, and `value` must be of type int, float, bool, string, Parameter, or Tensor.
 
 ```python
 # User-defined saved data
 append_info = ["epoch_num", "step_num", {"lr": 0.01, "momentum": 0.9}]
-# In the data sinking mode, the CheckPoint file of the last step is saved by default
+# In the data sinking mode, the Checkpoint file of the last step is saved by default
 config_ck = CheckpointConfig(append_info=append_info)
-# The CheckPoint file is saved with the prefix "lenet" and is saved in ". /lenet" path
+# The Checkpoint file is saved with the prefix "lenet" and is saved in ". /lenet" path
 ckpoint_cb = ModelCheckpoint(prefix='lenet', directory='./lenet', config=config_ck)
 
 # Simulation program fault. The default is to fail at the end of the 6th epoch
@@ -132,43 +133,43 @@ my_callback = myCallback()
 model.train(10, train_dataset, callbacks=[ckpoint_cb, my_callback], dataset_sink_mode=True)
 ```
 
-## User-defined Script to Find the Latest CheckPoint File
+## User-defined Script to Find the Latest Checkpoint File
 
-The program fails at the end of the 6th epoch. After the failure, the `. /lenet` directory holds the CheckPoint files for the latest generated 5 epochs.
+The program fails at the end of the 6th epoch. After the failure, the `. /lenet` directory holds the Checkpoint files for the latest generated 5 epochs.
 
 ```text
 └── lenet
      ├── lenet-graph.meta  # Compiled compute graph
-     ├── lenet-2_1875.ckpt  # CheckPoint files with the suffix '.ckpt'
+     ├── lenet-2_1875.ckpt  # Checkpoint files with the suffix '.ckpt'
      ├── lenet-3_1875.ckpt  # The naming of the file indicates the number of epochs and steps where the parameters are stored. Here is the model parameters of the 1875th step of the 3rd epoch
      ├── lenet-4_1875.ckpt
      ├── lenet-5_1875.ckpt
      └── lenet-6_1875.ckpt
 ```
 
-> If the user runs the training script multiple times using the same prefix name, a CheckPoint file with the same name may be generated. MindSpore adds "_" and a number after the user-defined prefix to make it easier for users to distinguish between the files generated each time. If you want to delete the .ckpt file, please delete the .meta file at the same time. For example: `lenet_3-2_1875.ckpt` indicates the CheckPoint file for the 1875th step of the 2nd epoch generated by running the fourth script.
+> If the user runs the training script multiple times using the same prefix name, a Checkpoint file with the same name may be generated. MindSpore adds "_" and a number after the user-defined prefix to make it easier for users to distinguish between the files generated each time. If you want to delete the .ckpt file, please delete the .meta file at the same time. For example: `lenet_3-2_1875.ckpt` indicates the Checkpoint file for the 1875th step of the 2nd epoch generated by running the fourth script.
 
-Users can use user-defined scripts to find the latest saved CheckPoint files.
+Users can use user-defined scripts to find the latest saved Checkpoint files.
 
 ```python
 ckpt_path = "./lenet"
 filenames = os.listdir(ckpt_path)
-# Filter all CheckPoint file names
+# Filter all Checkpoint file names
 ckptnames = [ckpt for ckpt in filenames if ckpt.endswith(".ckpt")]
-# Sort CheckPoint file names from oldest to newest in order of creation
+# Sort Checkpoint file names from oldest to newest in order of creation
 ckptnames.sort(key=lambda ckpt: os.path.getctime(ckpt_path + "/" + ckpt))
-# Get the latest CheckPoint file path
+# Get the latest Checkpoint file path
 ckpt_file = ckpt_path + "/" + ckptnames[-1]
 ```
 
 ## Recovery Training
 
-### Loading CheckPoint File
+### Loading Checkpoint File
 
-Use the `load_checkpoint` and `load_param_into_net` methods to load the latest saved CheckPoint file.
+Use the `load_checkpoint` and `load_param_into_net` methods to load the latest saved Checkpoint file.
 
-- The `load_checkpoint` method will load the network parameters from the CheckPoint file into the dictionary param_dict.
-- The `load_param_into_net` method will load the parameters from the dictionary param_dict into the network or optimizer, and the parameters in the network after loading are the ones saved in the CheckPoint file.
+- The `load_checkpoint` method will load the network parameters from the Checkpoint file into the dictionary param_dict.
+- The `load_param_into_net` method will load the parameters from the dictionary param_dict into the network or optimizer, and the parameters in the network after loading are the ones saved in the Checkpoint file.
 
 ```python
 # Load the model parameters into param_dict. Here the model parameters saved during training and the user-defined saved data are loaded
@@ -180,7 +181,7 @@ mindspore.load_param_into_net(net, param_dict)
 
 ### Obtaining the User-defined Data
 
-The user can obtain the number of epochs and user-defined saved data from the CheckPoint file for training. Note that the data obtained at this point is of type Parameter.
+The user can obtain the number of epochs and user-defined saved data from the Checkpoint file for training. Note that the data obtained at this point is of type Parameter.
 
 ```python
 epoch_num = int(param_dict["epoch_num"].asnumpy())
@@ -199,7 +200,7 @@ model.train(10, train_dataset, callbacks=ckpoint_cb, initial_epoch=epoch_num, da
 
 ### Training Ends
 
-At the end of the training, `. /lenet` directory generates 4 new CheckPoint files. Based on the CheckPoint file names, it can be seen that the model is retrained at the 7th epoch and ends at the 10th epoch after the failure occurs. The fault recovery is successful.
+At the end of the training, `. /lenet` directory generates 4 new Checkpoint files. Based on the Checkpoint file names, it can be seen that the model is retrained at the 7th epoch and ends at the 10th epoch after the failure occurs. The fault recovery is successful.
 
 ```text
 └── lenet

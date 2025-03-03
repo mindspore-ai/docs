@@ -231,9 +231,9 @@ Use a text editing software (for example, `vi`) to open the `18_execute_0161.ir`
 
 The above contents can be divided into two parts. The first part is the input list and the second part is the graph structure:
 
-- Line 1 tells us `@19_1___main___Net_construct_304`, the name of the top MindSpore graph about the network, which is the entry graph.
-- Line 2 tells us the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 23 is the entry graph `@19_1___main___Net_construct_304`. Line 84 is graph `20_4_✓__main___Net_construct_311`, parsed from the block when the condition of the if statement in the network is true. Line 120 is graph `21_14_✗__main___Net_construct_314`, parsed from the block when the condition of the if statement in the network is false.
-- Line 14 tells us how many inputs are in the network.
+- Line 1 represents `@19_1___main___Net_construct_304`, the name of the top MindSpore graph about the network, which is the entry graph.
+- Line 2 represents the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 23 is the entry graph `@19_1___main___Net_construct_304`. Line 84 is graph `20_4_✓__main___Net_construct_311`, parsed from the block when the condition of the if statement in the network is true. Line 120 is graph `21_14_✗__main___Net_construct_314`, parsed from the block when the condition of the if statement in the network is false.
+- Line 14 represents how many inputs are in the network.
 - Line 16 to 17 are the input list, which is in the format of `%para[No.]_[name] : <[data_type], (shape)>`.
 
 Taking graph `@19_1___main___Net_construct_304` as an example:
@@ -339,9 +339,7 @@ An error happens.
 ```
 
 Above exception is "TypeError: The parameters number of the function is 2, but the number of provided arguments is 3...".
-And it tells us `FunctionGraph ID : func_40` only needs two parameters, but actually gives 3.
-We can find the related code is `self.func(a, a, b)` from 'The function call stack ... In file t2.py:18'.
-Easily, by checking the code, we know that we gave too much parameter to the calling function.
+And it tells us `FunctionGraph ID : func_40` only needs two parameters, but actually gives 3. From "The function call stack ...", we know that the error code is: "In file t2.py:18 ... self.func(a, a, b)", because the function call too many parameters.
 
 Sometimes when the exception information is not enough easy to understand, or we want to see the part of graph information that have evaluated, we use text editing software (e.g., vi) to open the file (in parentheses on line 28) that prompts in the error message: `/workspace/mindspore/rank_0/om/analyze_fail.ir` with the following additional content (Here is MindSpore 2.3, and the content may have some imperceptible changes with the version upgrade):
 
@@ -710,7 +708,7 @@ The above reports that the errors is caused by the mismatching of the shape of t
 176 No more function graphs.
 ```
 
-Search `------------------------>` to the position where inferring failed at line 68. According to `...(%4, %5)    : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (`<null>`)`, `BiasAdd`'s inputs are `%4` and `%5`. That `%4`' with shape `[3, 8]` and `%5` with shape `[4]` doesn't meet the requirement about `bias (Tensor) - The bias tensor, with shape (C). C must be the same as channel dimension C of input_x...` for `BiasAdd` API. Thus, an error happens.
+Search `------------------------>` to the position where inferring failed at line 68. According to `...(%4, %5)    : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (`<null>`)`, `BiasAdd`'s inputs are `%4` and `%5`. `%4`' with shape `[3, 8]` and `%5` with shape `[4]` doesn't meet the requirement about `bias (Tensor) - The bias tensor, with shape (C). C must be the same as channel dimension C of input_x...` for `BiasAdd` API. Thus, an error happens.
 
 To solve this problem, we need modify the shape of `%4` or `%5` (namely `self.bias`).
 

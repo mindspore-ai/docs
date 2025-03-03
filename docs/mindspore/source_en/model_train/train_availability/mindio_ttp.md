@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindSpore power-off CKPT is based on [MindIO TTP](https://www.hiascend.com/document/detail/en/mindx-dl/500/mindio/mindioug/mindio_001.html), which is mainly aimed at accelerating fault recovery during large model training, the power-off Checkpoint feature generates temporary CheckPoint data once by verifying the integrity and consistency of the intermediate state data after a fault occurs during the training process, which can be recovered by the CheckPoint data when resuming the training to reduce the loss of training iterations caused by faults.
+MindSpore power-off CKPT is based on [MindIO TTP](https://www.hiascend.com/document/detail/en/mindx-dl/500/mindio/mindioug/mindio_001.html), which is mainly aimed at accelerating fault recovery during large model training, the power-off Checkpoint feature generates temporary Checkpoint data once by verifying the integrity and consistency of the intermediate state data after a fault occurs during the training process, which can be recovered by the Checkpoint data when resuming the training to reduce the loss of training iterations caused by faults.
 
 The following is an example of how to configure the power-off CKPT function for a 4-card data parallel network training. After the configuration is completed, if there is a functional failure during training (mainly including: abnormal training process, abnormal exit of training process), MindSpore and MindIO will stop the training of all cards, check the latest training status, and based on the replica relationship between the training cards, confirm whether there is an available replica card (good card), if there is, then it will save the power-off CKPT for the good card, otherwise, it will be treated as abnormal exit treatment. If the CKPT file of the nth step can be saved after the failure, the next training can start from the n+1th step.
 
@@ -239,11 +239,12 @@ msrun --worker_num=4 --local_worker_num=4 --master_port=10970 --join=False --log
 ## Exception Injection
 
 A common exception injection is to look at the training process and kill the corresponding process directly to check if a power-off Checkpoint file has been generated.
+
 Note: Since MindIo's controller starts on card 0 by default, killing the rank0 process does not generate a Checkpoint file.
 
 ```bash
 npu-smi info # Check training process
-kill -9 pid  # Kill corresponding training process
+kill -9 pid  # Terminate corresponding training process
 ```
 
 ## Configuring Environment Variables and Re-training

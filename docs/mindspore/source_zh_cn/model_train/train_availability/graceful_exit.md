@@ -8,7 +8,7 @@
 
 > 本文档介绍进程优雅退出功能的使用方法。为了说明具体使用方式，以在第一个训练step时检测到退出配置信息并提前结束训练进程为例。您可以在这里下载完整代码：[process_graceful_exit](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/graceful_exit/)。
 
-其中，`graceful_exit.py` 为训练脚本，`train.sh` 为 `msrun` 启动脚本, `graceful_exit.json` 为优雅退出配置文件。
+其中，`graceful_exit.py` 为训练脚本，`train.sh` 为 `msrun` 启动脚本，`graceful_exit.json` 为优雅退出配置文件。
 
 ## 数据和模型准备
 
