@@ -11,22 +11,20 @@ import numpy as np
 import mindspore
 from mindspore import Tensor
 from mindspore.train import Model
-from mindspore import Profiler
 
 input_data = Tensor(np.random.randint(0, 255, [1, 1, 32, 32]), mindspore.float32)
 # Define the network structure of LeNet5. Refer to
 # https://gitee.com/mindspore/docs/blob/master/docs/mindspore/code/lenet.py
 # Init Profiler
 # Note that the Profiler should be initialized before model.predict
-profiler = Profiler()
-model = Model(LeNet5())
-result = model.predict(input_data)
-
-# Profiler end
-profiler.analyse()
+with mindspore.profiler.profile() as prof:
+    model = Model(LeNet5())
+    result = model.predict(input_data)
+    # Profiler end
+    prof.step()
 
 ```
 
 The performance profiling method for inference is basically the same as that for training. After collecting the performance data, you can analyze the performance by referring to [Performance Profiling](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html). Inference focuses on operator performance analysis, computation workload performance analysis, and timeline analysis.
 
-For details about the API, see [mindspore.Profiler](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html?highlight=profiler#mindspore.Profiler).
+For details about the API, see [mindspore.profiler.profile](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html).

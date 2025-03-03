@@ -61,8 +61,10 @@ if __name__ == '__main__':
     cfg_json = {
         "start_step": 2,
         "stop_step": 5,
-        "aicore_metrics": -1,
+        "aic_metrics": -1,
         "profiler_level": 0,
+        "profile_memory": False,
+        "mstx": False,
         "activities": 0,
         "analyse_mode": -1,
         "with_stack": False,

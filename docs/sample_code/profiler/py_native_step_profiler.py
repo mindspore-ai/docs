@@ -17,10 +17,10 @@
 
 import numpy as np
 
-import mindspore as ms
+import mindspore
 import mindspore.dataset as ds
-from mindspore import context, nn, Profiler
-from mindspore.profiler import schedule, tensor_board_trace_handler
+from mindspore import context, nn
+from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
 
 
 class Net(nn.Cell):
@@ -41,21 +41,36 @@ def train(test_net):
     optimizer = nn.Momentum(test_net.trainable_params(), 1, 0.9)
     loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
     data = ds.GeneratorDataset(generator_net(), ["data", "label"])
-    model = ms.train.Model(test_net, loss, optimizer)
+    model = mindspore.train.Model(test_net, loss, optimizer)
     model.train(1, data)
 
 
-if __name__ == '__main__':
-    context.set_context(mode=ms.PYNATIVE_MODE)
-    ms.set_device("Ascend")
+if __name__ == "__main__":
+    context.set_context(mode=mindspore.GRAPH_MODE)
+    mindspore.set_device("Ascend")
 
+    # Init Profiler
+    # pylint: disable=protected-access
+    experimental_config = mindspore.profiler._ExperimentalConfig(
+        profiler_level=ProfilerLevel.Level0,
+        aic_metrics=AicoreMetrics.AiCoreNone,
+        l2_cache=False,
+        mstx=False,
+        data_simplification=False,
+    )
+    steps = 10
     net = Net()
-    STEP_NUM = 15
-
-    # with mode
-    # Note that the result of skip_first + (wait + warmup + active) * repeat should not be greater than STEP_NUM
-    with Profiler(schedule=schedule(wait=1, warmup=1, active=2, repeat=1, skip_first=2),
-                  on_trace_ready=tensor_board_trace_handler) as prof:
-        for _ in range(STEP_NUM):
+    # Note that the Profiler should be initialized before model.train
+    with mindspore.profiler.profile(
+            activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
+            schedule=mindspore.profiler.schedule(
+                wait=1, warmup=1, active=2, repeat=1, skip_first=2
+            ),
+            on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
+            profile_memory=False,
+            experimental_config=experimental_config,
+    ) as prof:
+        # Train Model
+        for step in range(steps):
             train(net)
             prof.step()
