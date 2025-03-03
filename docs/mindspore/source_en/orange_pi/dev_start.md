@@ -10,7 +10,7 @@ After obtaining the OrangePi AIpro development board, developers first need to c
 
 - Hardware: OrangePi AIpro 16G 8-12T development board
 - Image: OrangePi AIpro official Ubuntu image
-- CANN：8.0.RC3.alpha
+- CANN：8.0.RC3.alpha002
 - MindSpore：2.4.10
 
 ### Image Burning
@@ -19,11 +19,11 @@ To run this case, it is necessary to burn the Ubuntu image on the OrangePi AIpro
 
 ### CANN Upgrading
 
- Please refer to [CANN升级](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#3-cann-upgrading).
+ Please refer to [CANN Upgrading](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#3-cann-upgrading).
 
 ### MindSpore Upgrading
 
- Please refer to [MindSpore升级](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#3-mindspore-upgrading).
+ Please refer to [MindSpore Upgrading](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#3-mindspore-upgrading).
 
 ```python
 from mindspore import nn
@@ -33,7 +33,7 @@ from mindspore.dataset import MnistDataset
 
 ## Setting Running Environment
 
-  max_size="2GB" : Set the maximum memory available to the device to 2GB.
+  max_device_memory="2GB" : Set the maximum memory available to the device to 2GB.
 
   mode=mindspore.GRAPH_MODE : Indicates running in GRAPH_MODE mode.
 
@@ -48,9 +48,15 @@ import mindspore
 mindspore.set_context(max_device_memory="2GB", mode=mindspore.GRAPH_MODE, device_target="Ascend",  jit_config={"jit_level":"O2"}, ascend_config={"precision_mode":"allow_mix_precision"})
 ```
 
-## Processing Dataset
+## Preparing and Loading Dataset
 
 MindSpore provides a Pipeline-based [data engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html) to realize efficient data preprocessing through [data loading and processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) to realize efficient data preprocessing. In this case, we use the Mnist dataset, which is automatically downloaded and then preprocessed using the data transforms provided by `mindspore.dataset`.
+
+```python
+#install download
+
+!pip install download
+```
 
 ```python
 # Download data from open datasets
@@ -360,5 +366,5 @@ The required environment for the operation of this case:
 
 - Hardware: OrangePi AIpro 16G 8-12T development board
 - Image: OrangePi AIpro official Ubuntu image
-- CANN：8.0.RC3.alpha
+- CANN：8.0.RC3.alpha002
 - MindSpore：2.4.10

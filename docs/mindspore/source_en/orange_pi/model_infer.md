@@ -8,7 +8,7 @@ This section describes how to download the Ascend MindSpore online inference cas
 
 ## 1. Downloading Case
 
-Step1 Download case code.
+Step1 Use the `CTRL+ALT+T` shortcut key or click on the icon with `$_ ` at the bottom of the page to open the terminal and download the case code.
 
 ```bash
 # Open a terminal on the development board and run the following command
@@ -37,6 +37,10 @@ The project catalog is listed below:
 11-Pix2Pix
 12-Diffusion  
 13-ResNet50_transfer
+14-qwen1.5-0.5b
+15-tinyllama
+16-DctNet
+17-DeepSeek-R1-Distill-Qwen-1.5B
 ```
 
 ## 2. Inference Execution
@@ -60,7 +64,7 @@ Then enter the URL link you see above in your browser to log into the Jupyter La
 
 ![model-infer3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/orange_pi/images/model_infer3.png)
 
-Step 2 In the Jupyter Lab interface, double-click the case directory shown in the figure below, take “04-FCN” as an example here, you can enter the case directory.
+Step 2 In the Jupyter Lab interface, double-click the case directory shown in the figure below, take “04-FCN” as an example here, you can enter the case directory. The operation process of other cases is similar, just select the corresponding case directory and. ipynb file.
 
 ![model-infer4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/orange_pi/images/model_infer4.png)
 
@@ -80,4 +84,4 @@ After the inference execution is completed, it is necessary to navigate to `KERN
 
 ## Next Suggestion
 
-For specific case development based on MindSpore, please refer to [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html)
+For specific case development based on MindSpore, please refer to [Quick Start](https://www.mindspore.cn/docs/en/master/orange_pi/dev_start.html)

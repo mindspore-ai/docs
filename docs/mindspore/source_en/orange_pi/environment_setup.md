@@ -160,9 +160,7 @@ If the current CANN version does not meet the development requirements, the CANN
 
 #### 3.2.1 Toolkit Upgrading
 
-Step 1 Open a terminal and switch the root user.
-
-Use `CTRL+ALT+T` or click on the icon with `$_` at the bottom of the page to open the terminal.
+Step 1 Use the `CTRL+ALT+T` or click on the icon with `$_` at the bottom of the page to open the terminal and switch to the root user.
 
 ![environment-setup-1-14](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/orange_pi/images/environment_setup_1-14.png)
 
@@ -234,7 +232,7 @@ xxx install success
 
 > If the output is incorrect, you need to follow the above steps to upgrade Toolkit again.
 
-Step 7 Configure and load environment variables.
+Step 7 Load environment variables.
 
 ```bash
 
@@ -350,6 +348,8 @@ If the output is as follows, it indicates that MindSpore has been successfully i
 MindSpore version: 2.4.10
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
+
+> If the output is incorrect, it needs to be upgraded again according to the MindSpore upgrade method in 4.2.1.
 
 ## Next Suggestion
 
