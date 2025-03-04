@@ -357,10 +357,10 @@ python mindformers/tools/transform_ckpt_lora.py \
 使用MindFormers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/safetensors/unified_safetensors.py)，按照如下方式进行safetensors权重合并。
 
 ```shell
-python mindformers/tools/convert_reversed.py \
+python toolkit/safetensors/unified_safetensors.py \
   --src_strategy_dirs src_strategy_path_or_dir \
   --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --tmp_dir tmp_dir \
+  --output_dir output_dir \
   --file_suffix "1_1" \
   --has_redundancy has_redundancy
 ```
@@ -373,9 +373,11 @@ python mindformers/tools/convert_reversed.py \
 
     **注意**：如果策略文件夹下已存在 `merged_ckpt_strategy.ckpt` 且仍传入文件夹路径，脚本会首先删除旧的 `merged_ckpt_strategy.ckpt`，再合并生成新的 `merged_ckpt_strategy.ckpt` 以用于权重转换。因此，请确保该文件夹具有足够的写入权限，否则操作将报错。
 - **mindspore_ckpt_dir**：分布式权重路径，请填写源权重所在文件夹的路径，源权重应按 `model_dir/rank_x/xxx.safetensors` 格式存放，并将文件夹路径填写为 `model_dir`。
-- **tmp_dir**：目标权重的保存路径，默认值为 "/new_llm_data/******/ckpt/nbg3_31b/tmp"，即目标权重将放置在 `/new_llm_data/******/ckpt/nbg3_31b/tmp` 目录下。
+- **output_dir**：目标权重的保存路径，默认值为 "/new_llm_data/******/ckpt/nbg3_31b/tmp"，即目标权重将放置在 `/new_llm_data/******/ckpt/nbg3_31b/tmp` 目录下。
 - **file_suffix**：目标权重文件的命名后缀，默认值为 "1_1"，即目标权重将按照 `*1_1.safetensors` 格式查找。
 - **has_redundancy**：合并的权重是否是去除冗余的权重，默认为 `True`。
+- **filter_out_param_prefix**：合并权重时可自定义过滤掉部分参数，过滤规则以前缀名匹配。如优化器参数"adam_"。
+- **max_process_num**：  合并最大进程数。默认值：64。
 
 ### 示例
 
@@ -384,10 +386,10 @@ python mindformers/tools/convert_reversed.py \
 如果合并去除冗余的safetensors权重，可以按照以下方式填写参数：
 
 ```shell
-python mindformers/tools/convert_reversed.py \
+python toolkit/safetensors/unified_safetensors.py \
   --src_strategy_dirs src_strategy_path_or_dir \
   --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --tmp_dir tmp_dir \
+  --output_dir output_dir \
   --file_suffix "1_1" \
   --has_redundancy True
 ```
@@ -397,10 +399,23 @@ python mindformers/tools/convert_reversed.py \
 如果合并非去除冗余的safetensors权重，可以按照以下方式填写参数：
 
 ```shell
-python mindformers/tools/convert_reversed.py \
+python toolkit/safetensors/unified_safetensors.py \
   --src_strategy_dirs src_strategy_path_or_dir \
   --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --tmp_dir tmp_dir \
+  --output_dir output_dir \
   --file_suffix "1_1" \
   --has_redundancy False
+```
+
+#### 场景三：过滤Adam优化器的safetensors权重
+
+如果合并过滤Adam优化器的safetensors权重，可以按照以下方式填写参数：
+
+```shell
+python toolkit/safetensors/unified_safetensors.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --output_dir output_dir \
+  --file_suffix "1_1" \
+  --filter_out_param_prefix "adam_"
 ```
