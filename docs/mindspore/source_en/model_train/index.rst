@@ -90,7 +90,6 @@ Model Building and Training
 
    train_availability/fault_recover
    train_availability/graceful_exit
-   train_availability/mindio_ttp
 
 .. toctree::
    :glob:
