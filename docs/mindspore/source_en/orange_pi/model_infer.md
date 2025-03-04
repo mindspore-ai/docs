@@ -8,7 +8,7 @@ This section describes how to download the Ascend MindSpore online inference cas
 
 ## 1. Downloading Case
 
-Step1 Use the `CTRL+ALT+T` shortcut key or click on the icon with `$_ ` at the bottom of the page to open the terminal and download the case code.
+Step1 Use the `CTRL+ALT+T` shortcut key or click on the icon with `$_` at the bottom of the page to open the terminal and download the case code.
 
 ```bash
 # Open a terminal on the development board and run the following command
