@@ -509,7 +509,7 @@ Distributed Parallel
    * - MS_SIMULATION_LEVEL
      - Specifies the simulation compilation level.
      - Integer
-     - 0 handles only hardware-independent compilation; 1 further handles hardware-related compilation. Not enabled by default.
+     - when set to 0, it will simulate graph compilation without occupying the card; when set to 1, it will simulate graph and kernel compilation without occupying the card; when set to 2, it will occupy the card and simulate graph and kernel compilation, making memory analysis more accurate; when set to 3, it will occupy the card and simulate the execution of kernels except communication kernels. Not enabled by default.
      - This environment variable is mainly used for single-card simulation of distributed multi-card specific rank card compilation scenarios and requires RANK_SIZE and RANK_ID to be used in conjunction with it.
    * - DUMP_PARALLEL_INFO
      - Enable dump parallel-related communication information in auto-parallel/semi-automatic parallelism mode. The dump path can be set by the environment variable `MS_DEV_SAVE_GRAPHS_PATH`.
