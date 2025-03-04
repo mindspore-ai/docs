@@ -38,12 +38,12 @@ Data Processing
      - Specifies the size of data queue in sink mode.
      - Integer
      - 1~128: Valid range of queue size.
-     - 
+     -
    * - MS_ENABLE_NUMA
      - Whether to enable numa feature in global context to improve end-to-end performance.
      - String
      - True: Enables the numa feature in global context.
-     - 
+     -
    * - MS_FREE_DISK_CHECK
      - Whether to enable the check of disk space.
      - String
@@ -64,7 +64,7 @@ Data Processing
      - true: enables pipeline tree optimization.
 
        false: disables pipeline tree optimization.
-     - 
+     -
 
 For more information, see `Single-Node Data Cache <https://mindspore.cn/docs/en/master/model_train/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/docs/en/master/model_train/dataset/optimize.html>`_.
 
@@ -86,7 +86,7 @@ Graph Compilation and Execution
      - 0: Specify the syntax support level of static graph mode as STRICT level. Only basic syntaxes is supported, and execution performance is optimal. Can be used for MindIR load and export.
 
        2: Specify the syntax support level of static graph mode as LAX level. More complex syntaxes are supported, compatible with all Python syntax as much as possible. Cannot be used for MindIR load and export due to some syntax that may not be able to be exported.
-     - 
+     -
    * - MS_JIT_MODULES
      - Specify which modules in static graph mode require JIT static compilation, and their functions and methods will be compiled into static calculation graphs.
      - String
@@ -135,11 +135,11 @@ Graph Compilation and Execution
      - Specify whether to save IR files.
      - Integer
      - 0: Disable saving IR files.
-       
+
        1: Some intermediate files will be generated during graph compilation.
-       
+
        2: Based on level1, generate more IR files related to backend process.
-      
+
        3: Based on level2, generate visualization computing graphs and detailed frontend IR graphs.
      -
    * - MS_DEV_SAVE_GRAPHS_PATH
@@ -157,7 +157,7 @@ Graph Compilation and Execution
        2 or not set: Display all information.
      -
    * - MS_DEV_DUMP_IR_INTERVAL
-     - Set to save an IR file every few IR files to reduce the number of IR files. 
+     - Set to save an IR file every few IR files to reduce the number of IR files.
      - Integer
      - 1 or not set: Save all IR files.
 
@@ -173,7 +173,7 @@ Graph Compilation and Execution
 
      - Integer
      - 1: Print detailed information about the DUMP IR, including inputs_tensor_map, outputs_tensor_map, and device_matrix.
-       
+
        No setting or other value: Not print detailed information of Dump IR.
      -
    * - MS_JIT_DISPLAY_PROGRESS
@@ -225,18 +225,6 @@ Graph Compilation and Execution
 
        Default value: 0
      - Ascend AI processor environment and graph compilation grade O2 process use only.
-   * - MS_DISABLE_REF_MODE
-     - Forcibly setting to turn off ref mode
-     - Integer
-     - 0: Does not turn off ref mode.
-
-       1: Forcibly turn off ref mode.
-
-       Default value: 0.
-
-     - This environment variable will be removed subsequently and is not recommended.
-
-       Ascend AI processor environment and graph compilation grade O2 process use only.
    * - MS_ENABLE_GRACEFUL_EXIT
      - Enable training process exit gracefully
      - Integer
@@ -251,7 +239,7 @@ Graph Compilation and Execution
 
        No setting or other value: Enables the optimization.
      - This environment variable will be removed subsequently.
-    
+
    * - MS_DEV_RUNTIME_CONF
      - Configure the runtime environment.
      - String
@@ -354,16 +342,16 @@ Dump Debugging
        or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
-     - 
+     -
    * - MS_DIAGNOSTIC_DATA_PATH
-     - When the `cloud-side Dump <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html>`_ is enabled, 
-       if the `path` field is not set or set to an empty string in the Dump configuration file, then `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` is regarded as path. 
+     - When the `cloud-side Dump <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html>`_ is enabled,
+       if the `path` field is not set or set to an empty string in the Dump configuration file, then `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` is regarded as path.
        If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
      - String
      - File path, only absolute path is supported.
      - This variable is used together with MINDSPORE_DUMP_CONFIG.
    * - MS_DEV_DUMP_BPROP
-     - Dump bprop ir file in current path 
+     - Dump bprop ir file in current path
      - String
      - 'on', indicating that dump bprop ir file in current path
      - Experimental environment variable.
@@ -380,9 +368,9 @@ Dump Debugging
      - 1: enables memory overcommitment for nodes selected on Debugger.
 
        0: disables memory overcommitment for nodes selected on Debugger.
-     - 
+     -
    * - MS_OM_PATH
-     - Specifies the save path for the file `analyze_fail.ir/*.npy` which is dumped if task exception or a compiling graph error occurred. 
+     - Specifies the save path for the file `analyze_fail.ir/*.npy` which is dumped if task exception or a compiling graph error occurred.
        The file will be saved to the path of `the_specified_directory` `/rank_${rank_id}/om/`.
      - String
      - File path, which can be a relative path or an absolute path.
@@ -415,9 +403,9 @@ Distributed Parallel
    * - RANK_ID
      - Specifies the logical ID of the Ascend AI Processor called during deep learning.
      - Integer
-     - The value ranges from 0 to 7. When multiple servers are running concurrently, `DEVICE_ID` in different servers may be the same. 
+     - The value ranges from 0 to 7. When multiple servers are running concurrently, `DEVICE_ID` in different servers may be the same.
        RANK_ID can be used to avoid this problem. `RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID`, and DEVICE_ID indicates the sequence number of the Ascend AI processor of the current host.
-     - 
+     -
    * - RANK_SIZE
      - Specifies the number of Ascend AI Processors to be called during deep learning.
 
@@ -464,7 +452,7 @@ Distributed Parallel
      - Specifies the Scheduler binding port number.
      - Integer
      - Port number in the range of 1024 to 65535.
-     - 
+     -
    * - MS_NODE_ID
      - Specifies the ID of this process, unique within the cluster.
      - String
@@ -495,7 +483,7 @@ Distributed Parallel
      - Turn on disaster tolerance.
      - Integer
      - 1 for on, 0 for off. The default is 0.
-     - 
+     -
    * - MS_RECOVERY_PATH
      - Persistent path folder.
      - String
@@ -505,7 +493,7 @@ Distributed Parallel
      - Specify communication group information storage path
      - String
      - Communication group information file path, supporting relative path and absolute path.
-     - 
+     -
    * - MS_SIMULATION_LEVEL
      - Specifies the simulation compilation level.
      - Integer
@@ -520,25 +508,25 @@ Distributed Parallel
      - The JSON file saved by each card contains the following fields:
 
        hccl_algo: Ensemble communication algorithm.
-       
+
        op_name: The name of the communication operator.
-        
+
        op_type: The type of communication operator.
-        
+
        shape: The shape information of the communication operator.
-        
+
        data_type: The data type of the communication operator.
-        
+
        global_rank_id: the global rank number.
-        
+
        comm_group_name: the communication domain name of the communication operator.
-       
+
        comm_group_rank_ids: The communication domain of the communication operator.
-       
+
        src_rank: The rank_id of peer operator of the Receive operator.
-       
+
        dest_rank: The rank_id of peer opposite of the Send operator.
-       
+
        sr_tag: The identity ID of different send-receive pairs when src and dest are the same.
    * - MS_CUSTOM_DEPEND_CONFIG_PATH
      - Insert the control edge based on the configuration file xxx.json specified by the user, and use the primitive ops.Depend in MindSpore expresses the dependency control relationship.
@@ -651,13 +639,13 @@ Log
      - This variable is used together with GLOG_logtostderr
 
        If the value of `GLOG_logtostderr` is 0, this variable must be set
-	   
+
        If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, the logs are output to the screen and not to the file
-	 
-       The log saving path is: `specified path/rank_${rank_id}/logs/`. Under non-distributed training scenario, `rank_id` is 0, while under distributed training scenario, `rank_id` is the ID of the current device in the cluster 
+
+       The log saving path is: `specified path/rank_${rank_id}/logs/`. Under non-distributed training scenario, `rank_id` is 0, while under distributed training scenario, `rank_id` is the ID of the current device in the cluster
 
        C++ and Python logs are output to different files. The C++ logs follow the `GLOG` log file naming rules. In this case `mindspore.machine name. user name.log.log level.timestamp.Process ID`, the Python log file name is `mindspore.log.process ID`.
-	   
+
        `GLOG_log_dir` can only contain upper and lower case letters, numbers, "-", "_", "/" characters, etc.
    * - GLOG_max_log_size
      - Control the size of the MindSpore C++ module log file. You can change the default maximum value of the log file with this environment variable
@@ -668,7 +656,7 @@ Log
      - Specifies the log output mode.
      - Integer
      - 1: logs are output to the screen
-       
+
        0: logs are output to a file
 
        Default: 1
@@ -677,7 +665,7 @@ Log
      - The log module will print logs to the screen when these logs are output to a file. This environment variable is used to control the log level printed to the screen in this scenario.
      - Integer
      - 0-DEBUG
-       
+
        1-INFO
 
        2-WARNING
@@ -687,18 +675,18 @@ Log
        4-CRITICAL
 
        Default: 2
-     - 
+     -
    * - GLOG_v
      - Specifies the log level.
      - Integer
      - 0-DEBUG
-       
+
        1-INFO
 
        2-WARNING
 
        3-ERROR, indicating that the program execution error, output error log, and the program may not terminate
-	   
+
        4-CRITICAL, indicating that the execution of the program is abnormal, and the program may not terminate
 
        Default: 2.
@@ -719,17 +707,17 @@ Log
      - Controls the number of mindspore Python module log files.
      - Integer
      - Default: 30
-     - 
+     -
    * - logger_maxBytes
      - Controls the size of the mindspore Python module log file.
      - Integer
      - Default: 52428800 bytes
-     - 
+     -
    * - MS_SUBMODULE_LOG_v
      - Specifies log levels of C++ sub modules of MindSpore.
      - Dict {String:Integer...}
      - 0-DEBUG
-       
+
        1-INFO
 
        2-WARNING
@@ -739,7 +727,7 @@ Log
      - The assignment way is:`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 
        The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/utils/log_adapter.cc>`_.
-	   
+
        For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
    * - GLOG_logfile_mode
      - The GLOG environment variable used to control the permissions of the GLOG log files in MindSpore
@@ -747,11 +735,11 @@ Log
      - Refer to the numerical representation of the Linux file permission setting, default value: 0640 (value taken)
      -
    * - MS_RDR_ENABLE
-     - Determines whether to enable running data recorder (RDR). 
+     - Determines whether to enable running data recorder (RDR).
        If a running exception occurs in MindSpore, the pre-recorded data in MindSpore is automatically exported to assist in locating the cause of the running exception.
      - Integer
      - 1：enables RDR
-       
+
        0：disables RDR
      - This variable is used together with `MS_RDR_MODE` and `MS_RDR_PATH`.
    * - MS_RDR_MODE
@@ -760,14 +748,14 @@ Log
      - 1：export data when training process terminates in exceptional scenario
 
        2：export data when training process terminates in both exceptional scenario and normal scenario.
-       
+
        Default: 1.
      - This variable is used together with `MS_RDR_ENABLE=1`.
    * - MS_RDR_PATH
      - Specifies the system path for storing the data recorded by running data recorder (RDR).
      - String
      - Directory path, which should be an absolute path.
-     - This variable is used together with `MS_RDR_ENABLE=1`. The final directory for recording data is `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/`. 
+     - This variable is used together with `MS_RDR_ENABLE=1`. The final directory for recording data is `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/`.
        `RANK_ID` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
    * - MS_EXCEPTION_DISPLAY_LEVEL
      - Control the display level of exception information
@@ -777,7 +765,7 @@ Log
        1: display exception information related to model developers
 
        Default: 0
-     - 
+     -
 
 Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux. Please set the log environment variables before `import mindspore` .
 
@@ -814,7 +802,7 @@ Feature Value Detection
        Decreasing the threshold can detect smaller fluctuations of abnormal data, increasing the detection rate, while increasing the threshold has the opposite effect
 
        By default, if this environment variable is not configured, `NPU_ASD_UPPER_THRESH=1000000,10000`
-     - 
+     -
    * - NPU_ASD_SIGMA_THRESH
      - Controls the relative numerical threshold for detection
      - String
@@ -823,7 +811,7 @@ Feature Value Detection
        Decreasing the threshold can detect smaller fluctuations of abnormal data, increasing the detection rate, while increasing the threshold has the opposite effect
 
        By default, if this environment variable is not configured, `NPU_ASD_SIGMA_THRESH=100000,5000`
-     - 
+     -
 
 For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/docs/en/master/model_train/debug/sdc.html>`_.
 
@@ -844,7 +832,7 @@ Third-party Library
      - Specifies the RPOTO dependent library path.
      - String
      - File path, which can be a relative path or an absolute path.
-     - 
+     -
    * - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
      - Choose which language to use for the Protocol Buffers back-end implementation
      - String
@@ -853,7 +841,7 @@ Third-party Library
        "python": implementation using python back-end
 
        No setting or other value: implementation using python backend
-     - 
+     -
    * - ASCEND_OPP_PATH
      - OPP package installation path
      - String
