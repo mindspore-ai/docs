@@ -53,8 +53,7 @@ Refer to [Missing API Processing Policy](https://www.mindspore.cn/docs/en/master
 
 ## Analyzing Function Compliance
 
-During continuous delivery of MindSpore, some functions are restricted. If restricted functions are involved during network migration, before migration, functional compliance needs to be analyzed.
-It can be analyzed from the following points:
+During continuous delivery of MindSpore, some functions are restricted. If restricted functions are involved during network migration, before migration, functional compliance needs to be analyzed. It can be analyzed from the following points:
 
 1. Dynamic shape.
 2. Sparse.
@@ -67,8 +66,7 @@ During the migration process, if you encounter issues related to dynamic shape, 
 
 ### Sparse
 
-MindSpore now supports the two most commonly used sparse data formats, CSR and COO, but due to the limited support for sparse operators at the moment, most of the sparse features are still limited.
-In this case, it is recommended to find whether the corresponding operator supports sparse computation first, and if not it needs to be converted to a normal operator. For details, see [Sparse](https://www.mindspore.cn/docs/en/master/migration_guide/sparsity.html).
+MindSpore now supports the two most commonly used sparse data formats, CSR and COO, but due to the limited support for sparse operators at the moment, most of the sparse features are still limited. In this case, it is recommended to find whether the corresponding operator supports sparse computation first, and if not it needs to be converted to a normal operator. For details, see [Sparse](https://www.mindspore.cn/docs/en/master/migration_guide/sparsity.html).
 
 ## Recommended Functions and Features for Migration Scenarios
 
@@ -85,12 +83,13 @@ Here are a few of the main tools used for positioning accuracy issues:
 #### Visualizing the Dataset
 
 MindRecord is an efficient data format developed by MindSpore that allows you to first check that your data is processed correctly when accuracy issues arise.
-If the source data is TFRecord, it can be converted to MindRecord by [TFRecord to MindRecord](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py) tool, and sent directly to the network for accuracy comparison.
-Use [visualize TFRecord or MindRecord datasets](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py) tool to visualize the data for data checking.
+
+If the source data is TFRecord, it can be converted to MindRecord by [TFRecord to MindRecord](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py) tool, and sent directly to the network for accuracy comparison. Use [visualize TFRecord or MindRecord datasets](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py) tool to visualize the data for data checking.
 
 #### TroubleShooter
 
 [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter) is a MindSpore web development debugging toolkit for providing convenient, easy-to-use debugging capabilities.
+
 The current functions supported by TroubleShooter are: comparing whether two sets of Tensor values (npy files) are equal; comparing whether the network outputs of PyTorch and MindSpore are equal; comparing the ckpt/pth of MindSpore and PyTorch, etc.
 See [TroubleShooter application scenarios](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF) for details.
 

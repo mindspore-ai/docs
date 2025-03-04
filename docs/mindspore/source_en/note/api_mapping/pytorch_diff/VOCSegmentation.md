@@ -66,7 +66,7 @@ MindSpore: A source dataset for reading and parsing VOC dataset.
 |     | Parameter15 | -    | num_shards | Number of shards that the dataset will be divided into |
 |     | Parameter16 | -    | shard_id | The shard ID within num_shards |
 |     | Parameter17 | -    | cache | Use tensor caching service to speed up dataset processing |
-|     | Parameter18 | -    | extra_metadata | Flag to add extra meta-data to row |
+|     | Parameter18 | -    | extra_metadata | Specifies whether to output an additional column of data representing image meta-information.|
 |     | Parameter19 | -    | decrypt | Image decryption function |
 
 ## Code Example

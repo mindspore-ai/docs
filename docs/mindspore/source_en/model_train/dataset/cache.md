@@ -2,13 +2,13 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/dataset/cache.md)
 
-If you need to repeatedly access remote datasets or load datasets from disks, you can use the single-node cache to cache datasets in the local memory to accelerate dataset loading.
-
-The cache operation depends on the cache server started on the current node. Functioning as a daemon process and independent of the training script, the cache server is mainly used to manage cached data, including storing, querying, and loading data, and writing cached data when the cache is not hit.
+Data cache refers to caching a dataset in local memory to speed up the reading of the dataset, and is suitable for situations that require multiple accesses to a remote dataset or multiple reads of a dataset from disk.
 
 If the memory space is insufficient to cache all datasets, you can configure a cache operation to cache the remaining data to disks.
 
-Currently, the cache service supports only single-node cache. That is, the client and server are deployed on the same machine. This service can be used in the following scenarios:
+The cache operation depends on the cache server started on the current node. Functioning as a daemon process and independent of the training script, the cache server is mainly used to manage cached data, including storing, querying, and loading data, and writing cached data when the cache is not hit.
+
+Currently, the cache service supports only <b>single-node cache<b>. That is, the client and server are deployed on the same machine. This service can be used in the following scenarios:
 
 - Cache the loaded original dataset.
 
@@ -24,9 +24,9 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
 ## Data Cache Process
 
-Before using the cache service, you need to install MindSpore and set the relevant environment variables.
-
-> At present, data cache can only be performed in the Linux environment. Ubuntu, EulerOS and CentOS can refer to the [relevant tutorials](https://help.ubuntu.com/community/SwapFaq#How_do_I_add_a_swap_file.3F) to learn how to increase the swap memory space. In addition, since the use of cache may cause the server's memory shortage, it is recommended that users increase the server's swap memory space to more than 100GB before using the cache.
+> - At present, data cache can only be performed in the Linux environment. Ubuntu, EulerOS and CentOS can refer to the [relevant tutorials](https://help.ubuntu.com/community/SwapFaq#How_do_I_add_a_swap_file.3F) to learn how to increase the swap memory space.
+> - In addition, since the use of cache may cause the server's memory shortage, it is recommended that users increase the server's swap memory space to more than 100GB before using the cache.
+> - The following commands are executed in the Jupyter manner, and the `!` command's primary role in Jupyter Notebook is to execute operating system commands.
 
 ### 1. Start the Cache Server
 
@@ -48,7 +48,7 @@ If the above information is output, it means that the cache server starts succes
 
 The preceding commands can use the `-h` and `-p` parameters to specify the server, or the user can specify it by configuring environment variables `MS_CACHE_HOST` and `MS_CACHE_PORT`. If not specified, the default operation is performed on servers with IP 127.0.0.1 and port number 50052.
 
-The `ps -ef|grep dataset-cache-server` command can be used to check if the server is started and query server parameters.
+The `ps -ef|grep dataset-cache-server` command can be used to check if the server is started or query server parameters.
 
 The `dataset-cache --server_info` command can also be used to check a detailed list of parameters for the server.
 
@@ -138,23 +138,27 @@ test_cache = ds.DatasetCache(session_id=session_id, size=0, spilling=False)
 - `num_connections`: specifies the number of established TCP/IP connections. The default value is 12.
 - `prefetch_size`: specifies the number of prefetched rows. The default value is 20.
 
-The following things that needs to be noted:
+Note:
 
-In actual use, you are advised to run the `dataset-cache -g` command to obtain a cache session id from the cache server and use it as the parameter of `session_id` to prevent errors caused by cache session nonexistence.
+- In actual use, you are advised to run the `dataset-cache -g` command to obtain a cache session id from the cache server and use it as the parameter of `session_id` to prevent errors caused by cache session nonexistence.
 
-`size=0` indicates that the memory space used by the cache is not limited manually, but automically controlled by the cache server according to system's total memory resources, and cache server's memory usage would be limited to within 80% of the total system memory.
+- The use of `size`:
 
-Users can also manually set `size` to a proper value based on the idle memory of the machine. Note that before setting the `size` parameter, make sure to check the available memory of the system and the size of the dataset to be loaded. If the memory space occupied by the dataset-cache-server or the space of the dataset to be loaded exceeds the available memory of the system, it may cause problems such as machine downtime/restart, automatic shutdown of dataset-cache-server, and failure of training process execution.
+    - `size=0` indicates that the memory space used by the cache is not limited manually, but automically controlled by the cache server according to system's total memory resources, and cache server's memory usage would be limited to within 80% of the total system memory.
 
-`spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the writing permission and the sufficient disk space on the configured disk path is  to store the cache data that spills to the disk. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
+    - Users can also manually set `size` to a proper value based on the idle memory of the machine. Note that before setting the `size` parameter, make sure to check the available memory of the system and the size of the dataset to be loaded. If the memory space occupied by the dataset-cache-server or the space of the dataset to be loaded exceeds the available memory of the system, it may cause problems such as machine downtime/restart, automatic shutdown of dataset-cache-server, and failure of training process execution.
 
-`spilling=False` indicates that no data is written once the configured memory space is used up on the cache server.
+- The use of `spilling=True`:
 
-If a dataset that does not support random access (such as `TFRecordDataset`) is used to load data and the cache service is enabled, ensure that the entire dataset is stored locally. In this scenario, if the local memory space is insufficient to store all data, spilling must be enabled to spill data to disks.
+    - `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the writing permission and the sufficient disk space on the configured disk path is  to store the cache data that spills to the disk. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
+
+    - `spilling=False` indicates that no data is written once the configured memory space is used up on the cache server.
+
+- If a dataset that does not support random access (such as `TFRecordDataset`) is used to load data and the cache service is enabled, ensure that the entire dataset is stored locally. In this scenario, if the local memory space is insufficient to store all data, spilling must be enabled to spill data to disks.
 
 ### 4. Insert a Cache Instance
 
-Currently, the cache service can be used to cache both original datasets and datasets processed by argumentation. The following example shows two usage methods.
+Currently, the cache service can be used to cache both original datasets and datasets processed by argumentation. The following examples show the processing of the two types of data separately.
 
 Note that both examples need to create a cache instance according to the method in step 3, and pass in the created `test_cache` as `cache` parameters in the dataset load or map operation.
 
@@ -452,13 +456,11 @@ In order to share large data sets among multiple servers and alleviate the disk 
 
 However, access to NFS datasets is often expensive, resulting in longer training sessions by using NFS datasets.
 
-In order to improve the training performance of the NFS dataset, we can choose to use a cache service to cache the dataset in memory as Tensor.
+In order to improve the training performance of the NFS dataset, we can choose to use a cache service to cache the dataset in memory as Tensor. Once cached, post-sequence epochs can read data directly from memory, avoiding the overhead of accessing remote NAS.
 
-Once cached, post-sequence epochs can read data directly from memory, avoiding the overhead of accessing remote NAS.
+It should be noted that in the data processing process of the training process, and the dataset usually needs to be **augmentated** with randomness after being **read**, such as `RandomCropDecodeResize`. If the cache is added to the operation with randomness, it will cause the results of the first enhancement operation to be cached, and the results read from the cache server in the later sequence are the first cached data, resulting in the loss of data randomness and affecting the accuracy of the training network.
 
-It should be noted that in the data processing process of the training process, and the dataset usually needs to be augmentated with randomness after loading, such as `RandomCropDecodeResize`. If the cache is added to the operation with randomness, it will cause the results of the first enhancement operation to be cached, and the results read from the cache server in the later sequence are the first cached data, resulting in the loss of data randomness and affecting the accuracy of the training network.
-
-Therefore, we can choose to add a cache directly after the data set reads the operation. This section takes this approach, using the MobileNetV2 network as a sample for an example.
+Therefore, we can choose to add a cache directly after the data set **reads** the operation. This section takes this approach, using the MobileNetV2 network as a sample for an example.
 
 For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mindspore/models/tree/master/official/cv/MobileNet/mobilenetv2).
 
@@ -481,7 +483,7 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
 
     > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/cache/cache_util.sh).
 
-2. In the Shell script `run_train_nfs_cache.sh` that starts NFS dataset training, turn on the cache server for the scenario trained with datasets located on NFS and generate a cache session saved in the Shell variable `CACHE_SESSION_ID`:
+2. In the Shell script `run_train_nfs_cache.sh` that starts NFS dataset training, turn on the cache server and generate a cache session saved in the Shell variable `CACHE_SESSION_ID`:
 
     ```bash
     CURPATH="${dirname "$0"}"
@@ -491,7 +493,7 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
     CACHE_SESSION_ID=$(generate_cache_session)
     ```
 
-3. Pass in the `CACHE_SESSION_ID` and other parameters when starting Python training:
+3. Pass in the `CACHE_SESSION_ID` and other parameters when starting the Python training script:
 
     ```text
     python train.py \
@@ -570,7 +572,7 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
     ...
     ```
 
-    The following table shows the average epoch time on gpu servers of using cache versus or not using cache:
+    A comparison of the average time per epoch on the GPU server for both cases, using cache and not using cache, is shown in the following table::
 
     ```text
     | 4p, MobileNetV2, imagenet2012            | without cache | with cache |
@@ -592,12 +594,12 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
 
 ## Cache Performance Tuning
 
-The cache service performance can be significantly improved in following scenarios:
+The cache service performance can be **significantly improved** in following scenarios:
 
 - Cache the data processed by augmentation, especially when the data processing pipeline contains high complexity operations such as decode. In this scenario, you do not need to perform the data augmentation operation repeatedly on each epoch, which saves a lot of time.
 - Use cache services during simple network training and inference. Compared with complex networks, simple networks require less training time. Therefore, the time performance is significantly improved when cache services are used in this scenario.
 
-However, we may not benefit from cache in the following scenarios:
+However, we may **not benefit from cache** in the following scenarios:
 
 - The system memory is insufficient or the cache is not hit, resulting in poor cache service time performance. You can check whether the available system memory is sufficient and set a proper cache size before using the cache.
 - Too much cache spilling will deteriorate the time performance. Therefore, try not to spill cache to disks when datasets that support random access (such as `ImageFolderDataset`) are used for data loading.

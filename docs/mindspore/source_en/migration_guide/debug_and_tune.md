@@ -10,12 +10,11 @@
     - The first loss is aligned with the benchmark, and subsequent losses are misaligned:
          The problem is mainly caused by the network reverse. This can be done with the help of [TroubleShooter comparing MindSpore to PyTorch ckpt/pth](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E6%AF%94%E5%AF%B9mindspore%E4%B8%8Epytorch%E7%9A%84ckptpth) to check the results of the network reverse update by comparing the values of the corresponding parameters of ckpt and pth.
     - Loss appears NAN/INF:
-         [TroubleShooter obtains INF/NAN value throw points](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/tracker.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E8%8E%B7%E5%8F%96infnan%E5%80%BC%E6%8A%9B%E5%87%BA%E7%82%B9) is used to identify the first location in the network where a NAN or INF appears.
-         Overflow operator detection is also available via the [Dump](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html) tool.
+         [TroubleShooter obtains INF/NAN value throw points](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/tracker.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E8%8E%B7%E5%8F%96infnan%E5%80%BC%E6%8A%9B%E5%87%BA%E7%82%B9) is used to identify the first location in the network where a NAN or INF appears. Overflow operator detection is also available via the [Dump](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html) tool.
 
 - The following common problems may be encountered during the graphics debugging phase:
     - Malloc device memory failed:
-         MindSpore failed to request memory on the device side, the original memory is that the device is occupied by other processes, you can check the running processes by ps -ef | grep "python".
+         MindSpore failed to request memory on the device side, the reason is that the device is occupied by other processes, you can check the running processes by ps -ef | grep "python".
     - Out of Memory:
          The possible reasons for failure to request dynamic memory are: batch size is too large, processing too much data leads to a large memory footprint; communication operators take up too much memory leading to a low overall memory reuse rate.
 
@@ -24,6 +23,7 @@
 ### Function Debugging
 
 During network migration, you are advised to use the PyNative mode for debugging. In PyNative mode, you can perform debugging, and log printing is user-friendly. After the debugging is complete, the graph mode is used. The graph mode is more user-friendly in execution performance. You can also find some problems in network compilation. For example, gradient truncation caused by third-party operators.
+
 For details, see [Error Analysis](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/error_scenario_analysis.html).
 
 ### Precision Tuning

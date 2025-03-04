@@ -6,7 +6,7 @@ The following uses the classic network ResNet50 as an example to describe the ne
 
 ## Model Analysis and Preparation
 
-Assume that the MindSpore operating environment has been configured according to [Environment Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/master/migration_guide/enveriment_preparation.html). Assume that ResNet-50 has not been implemented in the models repository.
+Assume that the MindSpore operating environment has been configured according to [Environment Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/master/migration_guide/enveriment_preparation.html), and ResNet-50 has not been implemented in the models repository.
 
 First, analyze the algorithm and network structure.
 
@@ -85,7 +85,7 @@ You can download training logs and saved parameter files from [resnet_pytorch_re
   | `nn.distibuted`           | `set_auto_parallel_context`   |
   | `torch.optim.SGD`         | `nn.optim.SGD` or `nn.optim.Momentum` |
 
-(The interface design of MindSpore is different from that of PyTorch. Therefore, only the comparison of key functions is listed here.)
+> The interface design of MindSpore is different from that of PyTorch. Therefore, only the comparison of key functions is listed here.
 
 After API and function analysis, we find that there are no missing APIs and functions on MindSpore compared with PyTorch.
 
@@ -726,7 +726,7 @@ ckpt_path = "resnet50.ckpt"
 check_res(pth_path, ckpt_path)
 ```
 
-During the unit test, you need to add training or inference labels to cells. PyTorch training uses `.train()` and inference uses `.eval()`, MindSpore training uses `.set_train()` and inference uses `.set_train(False)`.
+During the unit test, you need to add training or inference labels to cells. PyTorch training label uses `.train()` and inference label uses `.eval()`, MindSpore training label uses `.set_train()` and inference label uses `.set_train(False)`.
 
 Result:
 
@@ -759,6 +759,7 @@ diff 2.861023e-06
 ```
 
 The final result is similar and basically meets the expectation.
+
 When the results are very different, you can fix the randomness of PyTorch and MindSpore after completing the parameter mapping, and then use the tool: [msprobe](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe) for performing data collection and comparison of networks to improve the localization efficiency.
 
 ## Inference Process

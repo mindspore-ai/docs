@@ -2,13 +2,15 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/dataset/python_objects.md)
 
-Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`、user-defined `map` augmentation operation、`batch(per_batch_map=...)`). To achieve this feature, Dataset pipeline uses Python `dict` to manager different types. The main difference compared to other data types is that Python `dict` will not be converted to a C++ type, and instead a reference will be maintained in the pipeline.
+Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`、user-defined `map` augmentation operation、`batch(per_batch_map=...)`).
+
+To achieve this feature, Dataset pipeline uses Python `dict` to manager different types. The main difference compared to other data types is that Python `dict` will not be converted to a C++ type, and instead a reference will be maintained in the pipeline.
 
 Note that while currently Dataset pipeline supports to recognize `dict` objects, you can also wrap other Python types inside a dictionary and send them to Dataset pipeline to achieve the same behavior. This article describes how to construct dictionary type to Dataset pipeline and acquire through iterator.
 
 ## Sending Python `dict` to Dataset Pipeline
 
-Sending Python `dict` objects to the Dataset pipeline is possible through different methods:
+Sending Python `dict` objects to the Dataset pipeline is possible through different operations:
 
 1. using a `GeneratorDataset`, the user can customize it to return a `dict` object, or
 2. within a Python callable object used in a `map` operation, the user can customize it to return a `dict` object, or
@@ -18,7 +20,7 @@ Sending Python `dict` objects to the Dataset pipeline is possible through differ
 
 Here is an example of sending `dict` objects to the Dataset pipeline using `GeneratorDataset`.
 
-In the example, `my_generator` returns 2 elements, corresponding to 2 data columns, where the dictionary is considered as `col1`. Specifically, the rules for data processing pipelines typically check whether the return value can be converted to a NumPy type, but no typecast check if the return value is a dictionary. Furthermore, there is no limit on the internal items it stores (number and type of keys/values).
+In the example, `my_generator` returns 2 elements, corresponding to 2 data columns, where the dictionary is considered as `col1`, the first column. The rules for data processing pipelines typically check whether the return value can be converted to a NumPy type, but no typecast check if the return value is a dictionary. Furthermore, there is no limit on the internal items it stores (number and type of keys/values).
 
 ```python
 import mindspore.dataset as ds

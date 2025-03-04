@@ -15,9 +15,9 @@ This guide describes how to apply various migration-related tools to improve the
 | Tools      | Tool Description         | Applications to network migration         |
 | --------------------- | -------------------- | --------------------- |
 | [MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/en/master/index.html) | MindSpore Dev Toolkit is a development kit supporting the cross-platform Python IDE plug-in developed by MindSpore, and provides functions such as Project creation, intelligent supplement, API search, and Document search. | With capabilities such as API search, it is possible to improve the efficiency of users network migration development.          |
-| [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)   | TroubleShooter is a MindSpore web development debugging toolkit designed to provide convenient, easy-to-use debugging capabilities. | Network debugging toolset (e.g., network weight migration, accuracy comparison, code tracing, error reporting analysis, execution tracking and other functions) to help users improve migration debugging efficiency. |
+| [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)   | TroubleShooter is a MindSpore web development debugging toolkit designed to provide convenient, easy-to-use debugging capabilities. | Network debugging toolset, e.g., network weight migration, accuracy comparison, code tracing, error reporting analysis, execution tracking and other functions to help users improve migration debugging efficiency. |
 | [Profiler](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html)     | Profiler can record information such as operator time consumption during the training process into a file, which can be viewed and analyzed by the user through a visual interface, helping the user to debug neural network performance more efficiently. | After the network migration, if the execution performance is not good, you can use Profiler to analyze the performance. Profiler provides Profiler analysis of the host execution of the framework, as well as the execution of the operator. |
-| [Dump](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html)                  | The Dump function is provided to save the graphs from model training and the input and output data of the operators to a disk file. | Generally used for network migration complex problem localization (eg: operator overflow, etc.) and can dump out the operator-level data. |
+| [Dump](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html)                  | The Dump function is provided to save the graphs from model training and the input and output data of the operators to a disk file. | Generally used for network migration complex problem (eg: operator overflow, etc.) localization and can dump out the operator-level data. |
 
 ## Examples of Network Migration Tool Applications
 
@@ -33,9 +33,7 @@ The API scanning function of [MindSpore Dev Toolkit](https://www.mindspore.cn/de
 
 ![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/api_scan.jpg)
 
-For example, the `torch.cat` interface:
-
-The following API differences can be seen in the "Description" URL (PyTorch and MindSpore API Mapping Table).
+For example, the `torch.cat` interface. The following API differences can be seen in the "Description" URL (PyTorch and MindSpore API Mapping Table).
 
 ![](./images/api_diff.PNG)
 
@@ -120,7 +118,7 @@ After the migrated MindSpore network can be executed normally, the network forwa
 
 #### Three Basic Conditions for Network Comparison
 
-> Note: This is only a brief description. For detailed steps see the example of the semi-automatic Verification scheme.
+> Only a brief description is given here, and detailed steps can be found in the example of the semi-automatic validation scheme.
 
 There are three conditions that need to be met before PyTorch and MindSpore network comparison can be performed:
 
@@ -134,15 +132,15 @@ There are three conditions that need to be met before PyTorch and MindSpore netw
 
 2. Consistent input data sample
 
-    Refer to the following two steps, which can be used to save and load the same data samples (included: both data and labels can be used in this method).
+    Refer to the following two steps, which can be used to save and load the same data samples (both data and labels can be used in this method).
 
-    - Step 1: Use [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) to save a particular data sample of the PyTorch network as npy, and [ts.save]( https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) will be automatically numbered as `0_images.npy`
+    1. Use [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) to save a particular data sample of the PyTorch network as npy, and [ts.save]( https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) will be automatically numbered as `0_images.npy`
 
         ```python
         ts.save("/mindspore_model/vit/v1/temp_data/pt/npy/images.npy", images)
         ```
 
-    - Step 2: Then use `np.load` to load this data into PyTorch Tenosr and MindSpore Tensor, respectively
+    2. Then use `np.load` to load this data into PyTorch Tenosr and MindSpore Tensor, respectively
 
         ```python
         images = torch.tensor(np.load('/mindspore_model/vit/v1/pytorch_org/vision_transformer/0_images.npy'))
@@ -153,7 +151,7 @@ There are three conditions that need to be met before PyTorch and MindSpore netw
 
     Generally we will take the weights of the PyTorch network as a benchmark, convert them to MindSpore weights and load them to achieve a uniform initialization of the weight parameters. Refer to the following two steps:
 
-    - Step 1: Save PyTorch network weights and conversion mappings for loading in MindSpore.
+    1. Save PyTorch network weights and conversion mappings for loading in MindSpore.
 
         Use the [ts.migrator.save_net_and_weight_params](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/save_net_and_weight_params.md#) interface to save PyTorch network weights and transformation mappings.
         For example:
@@ -162,7 +160,7 @@ There are three conditions that need to be met before PyTorch and MindSpore netw
         ts.migrator.save_net_and_weight_params(model, path="/mindspore_model/vit/v1/temp_data/pt_net_info/")
         ```
 
-    - Step 2: Convert and load weights in the MindSpore network.
+    2. Convert and load weights in the MindSpore network.
 
         Use [ts.migrator.convert_weight_and_load](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight_and_load.md#) interface to convert PyTorch weights and load them into MindSpore network. For example:
 
@@ -258,7 +256,7 @@ After the interface is run, it prints some logs of the execution process, and fi
 
 ![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image5.png)
 
-> Note: When the results are inconsistent, the API output of each layer in the network can be exported dichotomously or layer-by-layer via the [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) interface and batch comparison is performed via the [ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#) interface to localize to the API where the problem was introduced.
+> When the results are inconsistent, the API output of each layer in the network can be exported dichotomously or layer-by-layer via the [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) interface and batch comparison is performed via the [ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#) interface to localize to the API where the problem was introduced.
 
 ### Network Loss Result Verification
 
@@ -374,7 +372,7 @@ Obtain the comparison result to the weight parameter value.
 
 ![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image10.png)
 
-> Note: If the comparison results are inconsistent, you can go backward to see if the gradients are consistent. If the gradients are consistent, you can check if the optimizer is used correctly, and you can refer to the section on Network Layer-by-Layer Difference Check for a layer-by-layer problem delimitation and exclusion.
+> If the comparison results are inconsistent, you can go backward to see if the gradients are consistent. If the gradients are consistent, you can check if the optimizer is used correctly, and you can refer to the section on Network Layer-by-Layer Difference Check for a layer-by-layer problem delimitation and exclusion.
 
 ### Others
 
@@ -386,7 +384,7 @@ When we need to locate the cause of the problem when comparing the network forwa
 
 In the network, use [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) to save the output of the API for checking network differences introduction points.
 
-> Note: [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) supports saving Tensor (including mindspore.Tensor and torch.tensor), and list/tuple/dict composed by Tensor. When it is list/tuple, the number will be added sequentially, while when it is dict, the key will be added in the filename. Please refer to [troubleshooter.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) for details.
+> [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) supports saving Tensor (including mindspore.Tensor and torch.tensor), and list/tuple/dict composed by Tensor. When it is list/tuple, the number will be added sequentially, while when it is dict, the key will be added in the filename. Please refer to [troubleshooter.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) for details.
 
 ```python
 class Mlp(nn.Module):

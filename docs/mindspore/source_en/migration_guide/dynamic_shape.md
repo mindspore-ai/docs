@@ -3,8 +3,11 @@
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/dynamic_shape.md)
 
 To know dynamic shape, you need to know what is a static shape.
+
 Static shape indicates that the shape of a tensor does not change during network execution.
+
 For example, on the ResNet50 network, if the input shape of an image is always `224*224`, the shapes of the output Tesnor of the four residual modules are `B*64*56*56`, `B*128*28*28`, `B*256*14*14`, and `B*512*7*7` respectively in the network training phase. `B` indicates `BatchSize`, which is also fixed during the training. In this case, all shapes on the network are static and no dynamic shape is available.
+
 If the input shape may no+t be `224*224`, the shape of the output tensor of the four residual modules varies with the input shape. In this case, the shape is dynamic instead of static. Generally, dynamic shape is introduced due to the following reasons:
 
 ## Input Shape not Fixed
@@ -77,8 +80,8 @@ During network training, there is a slicing operation `x[:k]`. Here, k is not a 
 **Solution**
 
 If this scenario is encountered to introduce a dynamic shape, the essence is that the dynamically changing values need to be modified to a fixed shape to solve the problem.
-As in the case of the TopK operator, if K is changing during execution, a dynamic shape is introduced.
-You can fix a maximum number of targets, first get the confidence level of all targets by static shape, then choose the K number of highest targets as the result output, and other targets are removed by mask mechanism. Sample code such as the multiclass_nms interface of [FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py).
+
+As in the case of the TopK operator, if K is changing during execution, a dynamic shape is introduced. You can fix a maximum number of targets, first get the confidence level of all targets by static shape, then choose the K number of highest targets as the result output, and other targets are removed by mask mechanism. Sample code such as the multiclass_nms interface of [FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py).
 
 ## Shape Changes Introduced by Different Branches of Control Flows
 
