@@ -85,9 +85,9 @@
      - 指定静态图模式的语法支持级别
      - Integer
      - 0：指定静态图模式的语法支持级别为STRICT，仅支持基础语法，且执行性能最佳。可用于MindIR导入导出。
-     
+
        2：指定静态图模式的语法支持级别为LAX，支持更多复杂语法，最大程度地兼容Python所有语法。由于存在可能无法导出的语法，不能用于MindIR导入导出。
-     - 
+     -
    * - MS_JIT_MODULES
      - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图
      - String
@@ -131,16 +131,16 @@
        3: 不保证网络的精度，显存消耗最少。
 
        默认值：1
-     - 
+     -
    * - MS_DEV_SAVE_GRAPHS
      - 是否保存IR文件
      - Integer
      - 0：不保存IR文件。
-       
+
        1：运行时会输出图编译过程中产生的一些中间文件。
-       
+
        2：在等级1的基础上，生成更多后端流程相关的IR文件。
-       
+
        3：在等级2的基础上，生成可视化计算图和更多详细的前端IR文件。
      -
    * - MS_DEV_SAVE_GRAPHS_PATH
@@ -173,7 +173,7 @@
      - 控制是否打印 DUMP IR 图的详细信息 tensor_map 和 device_matrix。
      - Integer
      - 1: 打印 DUMP IR 图详细信息，输出 inputs_tensor_map、outputs_tensor_map 和 device_matrix。
-       
+
        不设置或其他值：不打印上述 DUMP IR 相关详细信息。
      -
    * - MS_JIT_DISPLAY_PROGRESS
@@ -225,18 +225,6 @@
 
        默认值：0
      - 仅限Ascend AI处理器环境图编译等级为O2流程使用。
-   * - MS_DISABLE_REF_MODE
-     - 设置强制关闭ref模式
-     - Integer
-     - 0: 不关闭ref模式。
-
-       1: 强制关闭ref模式。
-
-       默认值: 0。
-
-     - 此环境变量后续将删除，不建议使用。
-
-       仅限Ascend AI处理器环境图编译等级为O2流程使用。
    * - MS_ENABLE_GRACEFUL_EXIT
      - 设置使能进程优雅退出
      - Integer
@@ -523,15 +511,15 @@ Dump调试
        hccl_algo: 集合通信算法。
 
        op_name: 通信算子名称。
- 
+
        op_type: 通信算子类型。
- 
+
        shape: 通信算子的shape信息。
- 
+
        data_type: 通信算子的数据类型。
- 
+
        global_rank_id: 全局rank编号。
- 
+
        comm_group_name: 通信算子的通信域名称。
 
        comm_group_rank_ids: 通信算子的通信域。
@@ -625,7 +613,7 @@ Dump调试
      - 指定自定义算子使用动态库的合法路径。
      - String
      - 动态库的合法路径。框架会根据自定义算子使用动态库的合法路径进行校验。当自定义算子使用的动态库不在路径中时，框架会报错并拒绝使用对应动态库。当设置为空时，不对自定义算子动态库进行校验。
-     
+
        默认：空。
      -
 
@@ -812,11 +800,11 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
      - 控制检测的绝对数值阈值
      - String
      - 格式为整型数据对，其中第一个元素控制绝对数值一级阈值，第二个元素控制绝对数值二级阈值
-       
+
        减小阈值可以检出波动更小的异常数据，增加检出率，增大阈值与之相反
-       
+
        在不配置该环境变量的默认情况下，`NPU_ASD_UPPER_THRESH=1000000,10000`
-     - 
+     -
    * - NPU_ASD_SIGMA_THRESH
      - 控制检测的相对数值阈值
      - String
@@ -825,7 +813,7 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
        减小阈值可以检出波动更小的异常数据，增加检出率，增大阈值与之相反
 
        在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
-     - 
+     -
 
 特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/sdc.html>`_ 。
 
