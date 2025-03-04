@@ -100,7 +100,7 @@
 
 |  Commercial edition Installation Guide  | Community edition download link (refer to commercial edition for instructions) |
 |--------|------------------|
-|TBD      | [CANN 8.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|[Ascend Training Solution 24.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100441839)      | [CANN 8.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 **Related Documents**
 
@@ -136,7 +136,7 @@
 
 |  Commercial edition Installation Guide  | Community edition download link (refer to commercial edition for instructions) |
 |--------|------------------|
-|TBD      | [CANN 8.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|[Ascend Training Solution 24.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100441839)      | [CANN 8.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 **Related Documents**
 
