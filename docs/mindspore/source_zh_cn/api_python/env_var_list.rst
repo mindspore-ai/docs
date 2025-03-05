@@ -39,6 +39,13 @@
      - Integer
      - 1~128：有效的队列容量大小设置范围
      -
+   * - MS_DEV_MINDRECORD_SHARD_BY_BLOCK
+     - 当对MindRecord进行分片采样时，是否切换数据的切分策略为按块采样
+     - String
+     - True: 数据的切分策略为按块采样
+
+       False: 数据的切分策略为按片采样
+     - 默认值：False。只对DistributedSampler采样器生效。
    * - MS_ENABLE_NUMA
      - 是否开启全局numa绑核功能，提升端到端性能
      - String
