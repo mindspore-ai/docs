@@ -869,20 +869,20 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
      - CUDA包安装的绝对路径
      - 仅限GPU环境需要，一般无需设置，如在GPU环境中安装了多种版本的CUDA，为了避免混淆，建议配置此环境变量。
    * - MS_ENABLE_TFT
-     - 使能`MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ 特性，表示启用 TTP、UCE 或 ARF 功能。
+     - 使能 `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ 特性，表示启用 TTP、UCE 或 ARF 功能。
      - String
      - "{TTP:1,UCE:1,ARF:1}"。TTP (Try To Persist)：临终 CKPT 功能、UCE (Uncorrectable Memory Error)：UCE 故障容错恢复功能、ARF (Air Refuelling)：进程级重调度恢复功能。三个特性可以分开使能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。其他值：未开启MindIO TFT。（开启 UCE 或者 ARF 功能时，默认开启 TTP 功能）
-     - 仅限 Ascend 后端并开启图模式。
+     - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。
    * - MS_TFT_IP
      - MindIO的controller线程所在IP，供processor链接。
      - String
      - IP地址。
-     - 仅限 Ascend 后端并开启图模式。
+     - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。
    * - MS_TFT_PORT
      - MindIO的controller线程绑定端口，供processor链接。
      - Integer
      - 正整数。
-     - 仅限 Ascend 后端并开启图模式。
+     - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。
    * - AITURBO
      - 使能华为云存储加速
      - String
