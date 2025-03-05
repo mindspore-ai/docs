@@ -12,7 +12,6 @@ MindFormers supports one-click start of single/multi-card training, fine-tuning,
 - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/dev/usage/dev_migration.html>`_
 - `Pretraining <https://www.mindspore.cn/mindformers/docs/en/dev/usage/pre_training.html>`_
 - `SFT Tuning <https://www.mindspore.cn/mindformers/docs/en/dev/usage/sft_tuning.html>`_
-- `Parameter-Efficient Fine-Tuning (PEFT) <https://www.mindspore.cn/mindformers/docs/en/dev/usage/parameter_efficient_fine_tune.html>`_
 - `Evaluation <https://www.mindspore.cn/mindformers/docs/en/dev/usage/evaluation.html>`_
 - `Inference <https://www.mindspore.cn/mindformers/docs/en/dev/usage/inference.html>`_
 - `Quantization <https://www.mindspore.cn/mindformers/docs/en/dev/usage/quantization.html>`_
@@ -91,7 +90,6 @@ FAQ
    usage/dev_migration
    usage/pre_training
    usage/sft_tuning
-   usage/parameter_efficient_fine_tune
    usage/evaluation
    usage/inference
    usage/quantization
