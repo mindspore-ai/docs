@@ -438,9 +438,11 @@ def en_file_handle(py_file_list, repo_path, dict1):
                 if meth_name:
                     interface_doc_dict[interface_name + '.' +
                                        meth_name] = [[begin_line, begin_line + len_doc + 1]]
-                else:
+                elif interface_name in interface_doc_dict:
                     interface_doc_dict[interface_name].append(
                         [begin_line, begin_line + len_doc + 1])
+                else:
+                    interface_doc_dict[interface_name] = [[begin_line, begin_line + len_doc + 1]]
             else:
                 len_doc = third_p.count('\n')
                 interface_name = sec_p.split('(')[0]
@@ -705,6 +707,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     generate_pr_list_en_sum = []
 
     sha_num = result[0]['sha']
+    base_raw = f'https://gitee.com/mindspore/mindspore/raw/{sha_num}'
 
     # pr文件处理
     # pylint: disable=R1702
@@ -750,11 +753,17 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                                         rp_dir, split_dict['mindspore_cn'], sum_p,
                                         '.'.join(api_name.split('.')[:-1])+'.method_'+api_name.split('.')[-1]+'.rst')
                                     if os.path.exists(path1):
-                                        pr_file_cn.append(path1.split(rp_dir)[-1][1:])
+                                        file_rel = path1.split(rp_dir)[-1][1:]
+                                        pr_file_cn.append(file_rel)
+                                        all_raw_rst[file_rel] = f'{base_raw}/{file_rel}'
                                     elif os.path.exists(path2):
-                                        pr_file_cn.append(path2.split(rp_dir)[-1][1:])
+                                        file_rel = path2.split(rp_dir)[-1][1:]
+                                        pr_file_cn.append(file_rel)
+                                        all_raw_rst[file_rel] = f'{base_raw}/{file_rel}'
                                     elif os.path.exists(path3):
-                                        pr_file_cn.append(path3.split(rp_dir)[-1][1:])
+                                        file_rel = path3.split(rp_dir)[-1][1:]
+                                        pr_file_cn.append(file_rel)
+                                        all_raw_rst[file_rel] = f'{base_raw}/{file_rel}'
                                     elif re.findall(r'mindspore\.mint\.(?!nn).*', api_name):
                                         pr_file_cn.append('need_auto')
                                         auto_need.append(api_name)
@@ -853,7 +862,6 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
 
     # 找出中文接口同定义
     samedfn_cn_list = []
-    base_raw = f'https://gitee.com/mindspore/mindspore/raw/{sha_num}'
     if pr_file_cn:
         samedfn_cn_list = supplement_pr_file_cn(
             pr_file_cn, rp_dir, all_samedfn_rslist, auto_need, base_raw, all_raw_rst)
@@ -975,6 +983,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         print(f'涉及修改的中文api如下：')
         for print_api in pr_file_cn:
             print(print_api)
+
         copy_file_list = get_all_copy_list(
             pr_file_cn, re.findall('([^/]*?)/pulls/', file_url)[0], clone_branch, rp_dir, all_raw_rst)
         copy_source(os.path.join(rp_dir, 'docs/api/api_python'),
@@ -1121,7 +1130,7 @@ def modify_style_files(pre_path, rp_dn, theme_p, version_p, lge_list):
                 if 'lite' in out_name:
                     css_path = f"theme-{out_name.split('/')[0]}/theme.css"
                     js_path = f"theme-{out_name.split('/')[0]}/theme.js"
-                elif '/docs' in out_name:
+                elif out_name == 'docs':
                     css_path = "theme-tutorials/theme.css"
                     js_path = "theme-tutorials/theme.js"
                 else:
