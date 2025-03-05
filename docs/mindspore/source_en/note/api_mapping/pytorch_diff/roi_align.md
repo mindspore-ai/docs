@@ -28,12 +28,12 @@ MindSpore: Computes the Region of Interest (RoI) Align operator. The input list 
 |Parameter | Parameter1 | input   | -  | The input features, defined in the input list of MindSpore  |
 |     | Parameter2 | boxes  | -  | Box coordinates, defined in the input list of MindSpore |
 |     | Parameter3 | output_size | [pooled_height, pooled_width]  | The size of output features, defined in two parameters in MindSpore |
-|     | Parameter4 | spatial_scale  | spatial_scale  | Scaling factor for box coordinates |
-|     | Parameter5 | sampling_ratio | sample_num  | Number of sampling points in the interpolation |
-|     | Parameter6 | aligned | roi_end_mode  | Align mode. The implementation is the same for False, but different for True |
+|     | Parameter4 | spatial_scale  | spatial_scale  | - |
+|     | Parameter5 | sampling_ratio | sample_num  | - |
+|     | Parameter6 | aligned | roi_end_mode  | Align mode.  are False and True, while parameter values for MindSpore are 0 and 1. |
 |Input | Input1 | -   | features    | The input features |
 |     | Input2 | -   | rois    | The input box coordinates |
-|Output | Output1 | Tensor | Tensor  | Aligned rois |
+|Output | Output1 | Tensor | Tensor  |- |
 
 ## Code Example
 

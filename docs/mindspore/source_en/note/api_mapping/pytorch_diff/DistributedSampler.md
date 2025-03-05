@@ -30,8 +30,8 @@ MindSpore: Split datasets into shards for distributed training. Drop data or mak
 |     | Parameter2 | num_replicas  | num_shards |- |
 |     | Parameter3 | rank  | shard_id  |- |
 |     | Parameter4 | shuffle  | shuffle  |- |
-|     | Parameter5 | seed | - | Sampling seed when `shuffle` is set to True. |
-|     | Parameter6 | drop_last  | - | Controls whether to drop the tail of the data to make it evenly divisible across the devices. |
+|     | Parameter5 | seed | - | Sampling seed when `shuffle` is set to True. MindSpore doesn't support this parameter. |
+|     | Parameter6 | drop_last  | - | Controls whether to drop the tail of the data to make it evenly divisible across the devices. MindSpore doesn't support this parameter. |
 |     | Parameter7 | -  | num_samples  |  Used to obtain partial samples. |
 |     | Parameter8 | -  | offset  | The starting shard ID where the elements in the dataset are sent to. |
 

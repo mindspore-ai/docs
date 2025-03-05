@@ -12,7 +12,7 @@ API mapping consistency criteria: consistent API function, consistent number or 
 
 The API mapping is also consistent in the following exception scenarios:
 
-**Exception Scenario 1**: Compared to the API mapping consistency criteria, only the input data types of API parameters are not supported in the same range, including the following 3 sub-scenarios:
+**Exception Scenario 1**: Compared to the API mapping consistency criteria, only the input data types of API parameters are not supported in the same range, including the following 2 sub-scenarios:
 
 (1) MindSpore API supports passing parameters of int, float, bool, but does not support passing parameters of small bit-width data types such as int8 or float64.
 

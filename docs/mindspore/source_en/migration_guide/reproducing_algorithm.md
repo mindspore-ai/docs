@@ -66,6 +66,7 @@ For example, the following records some tricks used by the YOLOX network during 
 **Note that the tricks used in the code are mainly reproduced. The tricks mentioned in some papers may not be useful.**
 
 In addition, you need to determine whether the paper can be implemented by modifying the existing MindSpore model. If yes, you can greatly reduce the development workload. For example, WGAN-PG can be developed based on WGAN.
+
 [MindSpore models](https://gitee.com/mindspore/models) is a model repository. It covers mainstream models in multiple fields, such as machine vision, natural language processing, voice, and recommendation system. You can check whether there are required models from the repository.
 
 ## Reproducing Paper Implementation

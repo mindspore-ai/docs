@@ -4,19 +4,19 @@
 
 ## Overview
 
-Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use of limited hardware resources to meet the performance requirements of operators and the entire network. The more information about the AOE can be got in [Introduction to AOE](https://www.hiascend.com/document/detail/en/canncommercial/700/devtools/auxiliarydevtool/aoe_16_001.html). This document mainly introduces how to use the AOE to tune in MindSpore training scenarios.
+[AOE](https://www.hiascend.com/document/detail/en/canncommercial/700/devtools/auxiliarydevtool/aoe_16_001.html)(Ascend Optimization Engine) is an automatic tuning tool that makes full use of limited hardware resources to meet the performance requirements of operators and the entire network. This document mainly introduces how to use the AOE to tune in MindSpore training scenarios.
 
 ## Enabling Tune
 
-[Environment Variable Configuration](https://www.hiascend.com/document/detail/en/canncommercial/700/devtools/auxiliarydevtool/aoe_16_060.html).
+1. [Environment Variable Configuration](https://www.hiascend.com/document/detail/en/canncommercial/700/devtools/auxiliarydevtool/aoe_16_060.html).
 
-Set `mindspore.device_context.ascend.op_tuning.aoe_tune_mode(mode)` to enable the AOE tool for online tuning. The value of `mode` is `"online"`，which turns on online tuning.
+2. Set `mindspore.device_context.ascend.op_tuning.aoe_tune_mode(mode)` to enable the AOE tool for online tuning. The value of `mode` is `"online"`，which turns on online tuning.
 
-Set `mindspore.device_context.ascend.op_tuning.aoe_job_type(type)` for tuning configuration. `type` is tuning type，and the value should be in `["1", "2"]`，default value is `2`.
+3. Set `mindspore.device_context.ascend.op_tuning.aoe_job_type(type)` for tuning configuration. `type` is tuning type，and the value should be in `["1", "2"]`，default value is `2`.
 
-1: subgraph tune.
+   - 1: subgraph tune.
 
-2: operator tune.
+   - 2: operator tune.
 
 Example of online tuning:
 
@@ -27,17 +27,17 @@ ms.device_context.ascend.op_tuning.aoe_job_type("2")
 ....
 ```
 
-After setting the above context, you can start the tuning according to the normal execution of the training script. During the execution of the use case, no operation is required. The result of the model is the result after tuning.
+After setting the above context, you can start the tuning according to the normal execution of the training script. During the execution of the use case, no operation is required. The result of the model is the tuning result.
 
 ## Tuning Result Viewing
 
 After the tuning starts, a file named `aoe_result_opat_{timestamp}_{pidxxx}.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://www.hiascend.com/document/detail/en/canncommercial/700/devtools/auxiliarydevtool/aoe_16_027.html) for specific analysis of this file.
 
-After the tuning is complete, the custom knowledge base will be generated if the conditions are met. If the `TUNE_BANK_PATH` (Environment variable of the knowledge base storage path) is specified, the knowledge base (generated after tuning) will be saved in the specified directory. Otherwise, the knowledge base will be in the following default path `${HOME}/Ascend/latest/data/aoe/custom/graph/${soc_version}`.
+After the tuning is complete, the custom knowledge base will be generated if the conditions are met. If the environment variable `TUNE_BANK_PATH` of the knowledge base storage path is specified, the knowledge base generated after tuning will be generated in the specified directory. Otherwise, the knowledge base will be in the following default path `${HOME}/Ascend/latest/data/aoe/custom/graph/${soc_version}`.
 
 ## Merging Knowledge Base
 
-After operator tuning, the generated tuning knowledge base supports merging, which is convenient for re-executing, or the other models.(Only the same Ascend AI Processor can be merged). The more specific merging methods can be found in [merging knowledge base](https://www.hiascend.com/document/detail/en/canncommercial/700/devtools/auxiliarydevtool/aoepar_16_063.html).
+After operator tuning, the generated tuning knowledge base supports merging, which is convenient for re-executing (or used for other scripts). Custom knowledge base merging is only supported for the same Ascend AI processor model. The more specific merging methods can be found in [merging knowledge base](https://www.hiascend.com/document/detail/en/canncommercial/700/devtools/auxiliarydevtool/aoepar_16_063.html) in `CANN` development tool guidelines.
 
 ## Notice
 

@@ -128,7 +128,7 @@ std::vector<at::Tensor> get_torch_tensors(int nparam, void** params, int* ndims,
 
 ### 3. 使用编译脚本 `setup.py` 生成so
 
-setup.py使用PyTorch Aten提供的 `cppextension` ，将上述 `c++`/`cuda` 源码编译成so文件。
+setup.py使用PyTorch Aten提供的 `cppextension` ，将上述 `c++`/`cuda` 源码编译成 `so` 文件。
 
 执行前需要确保已经安装PyTorch。
 

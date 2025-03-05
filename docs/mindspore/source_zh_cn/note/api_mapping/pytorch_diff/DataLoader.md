@@ -47,7 +47,7 @@ MindSpore：GeneratorDataset需要接收数据集加载类、采样器，及混�
 |     | 参数12 | multiprocessing_context   | -  | 多进程上下文，MindSpore不支持 |
 |     | 参数13 | generator   | -  | 自定义索引生成器，MindSpore不支持 |
 |     | 参数14 | prefetch_factor   | -  | MindSpore通过 `mindspore.dataset.config.set_prefetch_size` 支持 |
-|     | 参数15 | persistent_workers  | -  | 指定遍历完一次数据后是否释放数据集对象， MindSpore通过 `create_tuple_iterator` 的 `num_epoch` 参数支持，如果设置 `num_epoch` 大于1，则与 `persistent_workers` 为True一致 |
+|     | 参数15 | persistent_workers  | -  | 指定遍历完一次数据后是否释放数据集对象，MindSpore通过 `create_tuple_iterator` 的 `num_epoch` 参数支持，如果设置 `num_epoch` 大于1，则与 `persistent_workers` 为True一致 |
 |     | 参数16 | -   | column_names   | 指定数据集生成的列名 |
 |     | 参数17 | -   | column_types   | 指定生成数据集各个数据列的数据类型 |
 |     | 参数18 | -   | schema   | 数据格式策略，用于指定读取数据列的数据类型、数据维度等信息 |
