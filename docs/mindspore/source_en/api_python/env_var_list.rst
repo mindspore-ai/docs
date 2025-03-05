@@ -39,6 +39,13 @@ Data Processing
      - Integer
      - 1~128: Valid range of queue size.
      -
+   * - MS_DEV_MINDRECORD_SHARD_BY_BLOCK
+     - When performing sharding sampling on MindRecord, whether to switch the slicing strategy of the data to sampling by block.
+     - String
+     - True: The data segmentation strategy is block sampling.
+
+       False: The data segmentation strategy is slice sampling.
+     - Default: False. This only applies to the DistributedSampler sampler.
    * - MS_ENABLE_NUMA
      - Whether to enable numa feature in global context to improve end-to-end performance.
      - String
