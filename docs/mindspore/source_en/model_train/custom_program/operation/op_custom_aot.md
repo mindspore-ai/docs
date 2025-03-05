@@ -304,6 +304,19 @@ The meaning of the parameter list is as follows:
 - `shapes` (int64_t \*\*): Array of shapes for inputs.
 - `extra` (AotExtra \*): Pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
 
+### Type Inference Function
+
+The AOT custom operators also support type inference functions in C++ version. The definition of the operator's type inference function must meet the following specifications:
+
+```cpp
+extern "C" TypeId FuncNameInferType(std::vector<TypeId> type_ids, AotExtra *extra)
+```
+
+In this function, the name FuncName is the name of the main operator function. The return type is TypeId, which represents the output type. The meanings of the parameters are as follows:
+
+- `type_ids` (std::vector<TypeId>): An array of input types.
+- `extra` (AotExtra *): Used for extending custom operators with attributes, consistent with the input parameters of the shape inference function.
+
 ### Operator Attribute Registration (Python)
 
 The initialization of operator attributes is implemented through the operator registration function. For each attribute, we create an `attr` for the operator registration file, setting the attribute name and value. The registration function is as follows:
