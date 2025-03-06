@@ -100,6 +100,10 @@ MindSpore Transformers以其强大的功能集，为用户提供了灵活易用�
 
    支持safetensors格式的权重文件保存及加载功能。
 
+9. `细粒度激活值SWAP <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/fine_grained_activations_swap.html>`_
+
+   支持细粒度地选择特定激活值使能SWAP，用于降低模型训练的峰值内存开销。
+
 使用MindSpore Transformers进行深度调优
 --------------------------------------
 
@@ -168,6 +172,7 @@ FAQ
    function/monitor
    function/high_availability
    function/safetensors
+   function/fine_grained_activations_swap
 
 .. toctree::
    :glob:

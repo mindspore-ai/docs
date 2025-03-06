@@ -212,6 +212,7 @@ All configuration names and descriptions are listed below:
 | train_dataset_task         | Training task configuration                                                       |
 | train_dataset              | Training dataset configuration                                                      |
 | trainer                    | Training process configuration                                                       |
+| swap_config                | Fine-grained activations SWAP configuration |
 
 > The above training configurations are derived from:
 >
