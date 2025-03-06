@@ -13,6 +13,7 @@ Custom Operators
    operation/op_custom_aot
    operation/op_custom_ascendc
    operation/op_custom_julia
+   operation/op_custom_pyboost
 
 When built-in operators cannot meet requirements during network development, you can call the Python API `Custom <https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ primitive defined in MindSpore to quickly create different types of custom operators for use.
 
