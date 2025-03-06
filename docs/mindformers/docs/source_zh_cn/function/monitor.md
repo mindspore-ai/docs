@@ -212,6 +212,7 @@ local_loss与local_norm
 | train_dataset_task         | 训练任务配置                                                       |
 | train_dataset              | 训练数据集配置                                                      |
 | trainer                    | 训练流程配置                                                       |
+| swap_config                | 细粒度激活值SWAP配置                                                      |
 
 > 上述训练配置来源于：
 >
