@@ -12,7 +12,6 @@ MindFormers支持一键启动任意任务的单卡/多卡训练、微调、评�
 - `开发迁移 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/dev_migration.html>`_
 - `预训练 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/pre_training.html>`_
 - `SFT微调 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/sft_tuning.html>`_
-- `低参微调 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/parameter_efficient_fine_tune.html>`_
 - `评测 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/evaluation.html>`_
 - `推理 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/inference.html>`_
 - `量化 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/quantization.html>`_
@@ -100,7 +99,6 @@ FAQ
    usage/dev_migration
    usage/pre_training
    usage/sft_tuning
-   usage/parameter_efficient_fine_tune
    usage/evaluation
    usage/inference
    usage/quantization

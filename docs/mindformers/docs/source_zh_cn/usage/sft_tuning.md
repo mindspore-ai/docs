@@ -4,7 +4,7 @@
 
 ## 概述
 
-SFT（Supervised Fine-Tuning，监督微调）采用有监督学习思想，是指在源数据集上进行预训练，得到一个原始模型，然后在一个新的数据集上对原始模型进行参数调整，得到新的模型，使其在新的任务上有更好的表现。
+SFT（Supervised Fine-Tuning，监督微调）采用有监督学习思想，是指在预训练模型的基础上，通过调整部分或全部参数，使其更适应特定任务或数据集的过程。
 
 ## SFT微调的基本流程
 
@@ -30,15 +30,25 @@ SFT微调整体包含以下几个部分：
 5. **执行微调任务：**
    使用微调任务的数据集对预训练模型进行训练，更新模型参数，如果是全参微调则会对所有参数进行更新，微调任务完成后，便可以得到新的模型。
 
-## 基于MindFormers的全参微调实践
+## SFT微调方式
+
+MindSpore Transformers当前支持全参微调和LoRA低参微调两种SFT微调方式。全参微调是指在训练过程中对所有参数进行更新，适用于大规模数据精调，能获得最优的任务适应能力，但需要的计算资源较大。LoRA低参微调在训练过程中仅更新部分参数，相比全参微调显存占用更少、训练速度更快，但在某些任务中的效果不如全参微调。
+
+### LoRA 原理简介
+
+LoRA通过将原始模型的权重矩阵分解为两个低秩矩阵来实现参数量的显著减少。例如，假设一个权重矩阵W的大小为m x n，通过LoRA，该矩阵被分解为两个低秩矩阵A和B，其中A的大小为m x r，B的大小为r x n（r远小于m和n）。在微调过程中，仅对这两个低秩矩阵进行更新，而不改变原始模型的其他部分。
+
+这种方法不仅大幅度降低了微调的计算开销，还保留了模型的原始性能，特别适用于数据量有限、计算资源受限的环境中进行模型优化，详细原理可以查看论文 [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) 。
+
+## 使用MindSpore Transformers进行全参微调
 
 ### 选择预训练模型
 
-MindFormers目前已经支持业界主流大模型，该实践流程选择Llama2-7B模型SFT微调为例。
+MindSpore Transformers目前已经支持业界主流大模型，该实践流程选择Llama2-7B模型SFT微调为例。
 
 ### 下载模型权重
 
-MindFormers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。
+MindSpore Transformers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。
 
 词表下载链接：[tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
 
@@ -61,7 +71,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 - `tokenizer.json`：分词器的词汇配置文件<br>
 - `tokenizer.model`：模型的分词器<br>
 
-MindFormers提供权重转换脚本，通过执行[convert_weight.py转换脚本](https://gitee.com/mindspore/mindformers/blob/dev/convert_weight.py)，可以将HuggingFace的权重转换为完整的ckpt权重。
+MindSpore Transformers提供权重转换脚本，通过执行[convert_weight.py转换脚本](https://gitee.com/mindspore/mindformers/blob/dev/convert_weight.py)，可以将HuggingFace的权重转换为完整的ckpt权重。
 
 ```bash
 python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path {path}/MS_CKPT_NAME
@@ -77,7 +87,7 @@ output_path: 转换后的MindSpore权重文件保存路径
 
 ### 数据集准备
 
-MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调数据集。
+MindSpore Transformers提供**WikiText2**作为预训练数据集，**alpaca**作为微调数据集。
 
 | 数据集名称     |                 适用模型                  |   适用阶段    |                                                                            下载链接                                                                            |
 |:----------|:-------------------------------------:|:---------:| :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -87,7 +97,7 @@ MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调�
 
 **alpaca 数据预处理**
 
-1. 执行MindFormers中的[alpaca_converter.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，将数据集转换为多轮对话格式。
+1. 执行MindSpore Transformers中的[alpaca_converter.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，将数据集转换为多轮对话格式。
 
     ```bash
     python alpaca_converter.py \
@@ -102,7 +112,7 @@ MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调�
     output_path: 输出文件的保存路径
     ```
 
-2. 执行MindFormers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13。
+2. 执行MindSpore Transformers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13。
 
     ```bash
     python llama_preprocess.py \
@@ -141,7 +151,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 参数说明：
 
 ```commandline
-config：            模型的配置文件，文件在MindFormers代码仓中config目录下
+config：            模型的配置文件，文件在MindSpore Transformers代码仓中config目录下
 load_checkpoint：   checkpoint文件的路径
 train_dataset_dir： 训练数据集路径
 use_parallel：      是否开启并行
@@ -160,3 +170,70 @@ run_mode：          运行模式，train：训练，finetune：微调，predict
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
 
+## 使用MindSpore Transformers进行LoRA低参微调
+
+MindSpore Transformers支持配置化使能LoRA微调，无需对每个模型进行代码适配，而仅需修改全参微调的YAML配置文件中的模型配置，添加 `pet_config` 低参微调配置，即可使用其进行LoRA低参微调任务。以下展示了Llama2模型LoRA微调的YAML配置文件中的模型配置部分，并对 `pet_config` 参数进行了详细说明。
+
+### 示例配置文件（YAML）
+
+完整的YAML配置文件可以通过以下链接访问：[Llama2 LoRA微调 YAML 文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/lora_llama2_7b.yaml)。
+
+```yaml
+# model config
+model:
+  model_config:
+    type: LlamaConfig
+    batch_size: 1
+    seq_length: 4096
+    hidden_size: 4096
+    num_layers: 32
+    num_heads: 32
+    vocab_size: 32000
+    compute_dtype: "float16"
+    pet_config:
+      pet_type: lora
+      lora_rank: 16
+      lora_alpha: 16
+      lora_dropout: 0.05
+      target_modules: '.*wq|.*wk|.*wv|.*wo'
+  arch:
+    type: LlamaForCausalLM
+```
+
+### pet_config 参数详解
+
+在 model_config 中，pet_config 是LoRA微调的核心配置部分，用于指定LoRA的相关参数。具体参数说明如下：
+
+- **pet_type:** 指定参数高效微调技术（PET，Parameter-Efficient Tuning）的类型为LoRA。这意味着在模型的关键层中会插入LoRA模块，以减少微调时所需的参数量。
+- **lora_rank:** 定义了低秩矩阵的秩值。秩值越小，微调时需要更新的参数越少，从而减少计算资源的占用。这里设为16是一个常见的平衡点，在保持模型性能的同时，显著减少了参数量。
+- **lora_alpha:** 控制LoRA模块中权重更新的缩放比例。这个值决定了微调过程中，权重更新的幅度和影响程度。设为16表示缩放幅度适中，有助于稳定训练过程。
+- **lora_dropout:** 设置LoRA模块中的dropout概率。Dropout是一种正则化技术，用于减少过拟合风险。设置为0.05表示在训练过程中有5%的概率会随机“关闭”某些神经元连接，这在数据量有限的情况下尤为重要。
+- **target_modules:** 通过正则表达式指定LoRA将应用于模型中的哪些权重矩阵。在Llama中，这里的配置将LoRA应用于模型的自注意力机制中的Query（wq）、Key（wk）、Value（wv）和Output（wo）矩阵。这些矩阵在Transformer结构中扮演关键角色，插入LoRA后可以在减少参数量的同时保持模型性能。
+
+### Llama2-7B 的 LoRA 微调示例
+
+MindSpore Transformers 提供了 Llama2-7B 的 [LoRA 微调示例](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83)。微调过程中使用的数据集可以参考[数据集下载](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)获得。
+
+以 Llama2-7B 为例，可以执行以下 msrun 启动脚本，进行 8 卡分布式微调。
+
+```shell
+bash scripts/msrun_launcher.sh "run_mindformer.py \
+ --config configs/llama2/lora_llama2_7b.yaml \
+ --train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord \
+ --load_checkpoint /{path}/llama2_7b.ckpt \
+ --auto_trans_ckpt False \
+ --use_parallel True \
+ --run_mode finetune" 8
+```
+
+当权重的分布式策略和模型的分布式策略不一致时，需要对权重进行切分转换。加载权重路径应设置为以 `rank_0` 命名的目录的上一层路径，同时开启权重自动切分转换功能 `--auto_trans_ckpt True` 。关于分布式权重切分转换的场景和使用方式的更多说明请参考[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html)。
+
+```shell
+bash scripts/msrun_launcher.sh "run_mindformer.py \
+ --config configs/llama2/lora_llama2_7b.yaml \
+ --train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord \
+ --load_checkpoint /{path}/checkpoint/ \
+ --auto_trans_ckpt True \
+ --use_parallel True \
+ --run_mode finetune" 8
+```
