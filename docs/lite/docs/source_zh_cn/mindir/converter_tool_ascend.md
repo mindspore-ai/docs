@@ -24,6 +24,7 @@
 | `plugin_custom_ops` | 可选 | 用于使能ascend后端融合优化生成自定义算子 | String  | 可选有`All`、`None`、`FlashAttention`、`LayerNormV3`、`GeGluV2`、`GroupNormSilu`、`FFN`、`AddLayerNorm`、`MatMulAllReduce`和`BatchMatmulToMatmul`，其中`All`表示使能`FlashAttention`、`LayerNormV3`、`GeGluV2`和`GroupNormSilu`，默认`None`表示不使能 |
 | `custom_fusion_pattern` | 可选 | 指定使能模型中的自定义算子结构 | String  | `自定义算子类型:模型中原始算子名称:是否使能`，可以取值为`enable`或者`disable` |
 | `op_attrs` | 可选 | 指定融合的自定义算子属性 | String | `自定义算子名:属性:值`，目前算子仅支持`FlashAttention`，该算子支持3种可选配置属性：`input_layout`、`seq_threshold`、`inner_precise`，分别决定`FlashAttention`以`BNSD`（默认）、`BSH`或`BNSD_BSND`（`BNSD`表示`FlashAttention`输入和输出的`layout`均是`BNSD`，`BSH`表示输入和输出均是`BSH`，`BNSD_BSND`表示输入是`BNSD`，输出为`BSND`）形式进行融合、融合`FlashAttention`的`seq`阈值（默认`0`）、高性能（默认）或高精度 |
+| `stream_label_file` | 可选 | 指定算子多流配置文件路径 | String | 该配置文件按照 `流标签：算子名1,算子名2`的格式指定哪些算子在其他流执行，流标签为字符串，模型中默认已有一个流。该配置文件中配置的算子，会运行在新启动的流，如果希望起更多流，则可以配置多行并且每行配置不同的流标签。 |
 
 表2：配置[acl_init_options]参数
 
