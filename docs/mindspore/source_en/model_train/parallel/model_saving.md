@@ -4,18 +4,21 @@
 
 ## Overview
 
-In this tutorial, we mainly explain how to utilize MindSpore for distributed network training and saving model files. In a distributed training scenario, model saving can be divided into merged and non-merged saving: merged saving requires additional communication and memory overhead, and each card saves the same model file, each model file contains all the weights of the network, while non-merged saving saves only the weights of the current card slicing, which effectively reduces the communication and memory overhead required for aggregation.
+In distributed training scenarios, model saving can be categorized into merged and non-merged saving: merged saving requires additional communication and memory overheads, and the same model files are saved for each card, each of which contains all the weights of the network; non-merged saving saves only the weights of the current card cuts, which effectively reduces the communication and memory overheads required for aggregation. This tutorial describes how to train a distributed network and save model files based on MindSpore.
 
 Related interfaces:
 
-1. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`: The configuration used to set the parallel strategy file. `strategy_ckpt_dict` is used to set the configuration of the parallel strategy file and is of dictionary type. strategy_ckpt_dict = {"load_file": ". /stra0.ckpt", "save_file": ". /stra1.ckpt", "only_trainable_params": False}, where:
+1. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`: The configuration used to set the parallel strategy file. `strategy_ckpt_dict` is used to set the configuration of the parallel strategy file and is of dictionary type.
+
+    strategy_ckpt_dict = {"load_file": ". /stra0.ckpt", "save_file": ". /stra1.ckpt", "only_trainable_params": False}, where:
+
     - `load_file(str)`: The path to load the parallel sharding strategy. Default: `""`.
     - `save_file(str)`: Save the paths for the parallel sharding strategy. This parameter must be set for distributed training scenarios. Default: `""`.
     - `only_trainable_params(bool)`: Save/load strategy information for trainable parameters only. Default: `True`.
 
-2. `mindspore.train.ModelCheckpoint(prefix='CKP', directory=None, config=None)`: This interface is called to save network parameters during training. Specific strategy can be configured in this interface by configuring `config`, and see interface `mindspore.train.CheckpointConfig`. It should be noted that in parallel mode you need to specify a different checkpoint save path for each script running on each card, to prevent conflicts when reading and writing files.
+2. `mindspore.train.ModelCheckpoint(prefix='CKP', directory=None, config=None)`: This interface is called to save network parameters during training. Specific strategy can be configured in this interface by configuring `config`, and see interface `mindspore.train.CheckpointConfig`. Note: in parallel mode you need to specify a different checkpoint save path for each script running on each card, to prevent conflicts when reading and writing files.
 
-3. `mindspore.train.CheckpointConfig(save_checkpoint_steps=10, integrated_save=True)`: Configure the strategy for saving Checkpoints. `save_checkpoint_steps` indicates interval steps to save the checkpoint. `integrated_save` indicates whether to perform merged saving on the split model files in the automatic parallel scenario. The merged saving function is only supported in auto-parallel scenarios, not in manual parallel scenarios.
+3. `mindspore.train.CheckpointConfig(save_checkpoint_steps=10, integrated_save=True)`: Configure the strategy for saving Checkpoints. `save_checkpoint_steps` indicates interval steps to save the checkpoint. `integrated_save` indicates whether to perform merged saving on the split model files in the automatic parallel scenario. Note: The merged saving function is only supported in auto-parallel scenarios, not in manual parallel scenarios.
 
 ## Operation Practice
 
@@ -40,7 +43,7 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-Specify the run mode, run device, run card number via the context interface. Unlike single card scripts, scripts that perform distributed training also needs to specify a parallel mode. Sample code specify the parallel mode `parallel_mode` as semi-parallel mode. Configure and save the distributed strategy file via `strategy_ckpt_config` and initialize HCCL or NCCL communication via init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number via the context interface. Unlike single card scripts, scripts that perform distributed training also needs to specify a parallel mode. Sample code specify the parallel mode `parallel_mode` as semi-parallel mode. Configure and save the distributed strategy file via `strategy_ckpt_config` and initialize HCCL or NCCL communication via init. Here the `device_target` is not configured, and the backend hardware device corresponding to the MindSpore package is automatically specified.
 
 ```python
 import mindspore as ms
@@ -145,7 +148,7 @@ model.train(10, data_set, callbacks=[loss_cb, ckpoint_cb])
 
 ### Running Stand-alone 8-card Script
 
-Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed training script as an example, and perform the distributed training:
+Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run_saving.sh

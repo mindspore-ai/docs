@@ -72,7 +72,7 @@
 | [MSKernelCallBack](#mskernelcallback)            | MindSpore回调函数包装器。               | √      | √      |
 | [MSCallBackParam](#mscallbackparam)              | MindSpore回调函数的参数。               | √      | √      |
 
-### Mindspore Lite 训练配置
+### MindSpore Lite 训练配置
 
 | 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------|---------------------------------------------------|--------|--------|

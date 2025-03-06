@@ -16,7 +16,7 @@
 
 - **RmsNorm&Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出成每个token的概率分布返回。
 
-使用Mindspore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装，下面以一个典型的Transformer模型为例，简单描述如何构建模型过程。
+使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装，下面以一个典型的Transformer模型为例，简单描述如何构建模型过程。
 
 ## TransformerModel
 

@@ -147,7 +147,7 @@ for epoch in range(2):
 
 ### Running Stand-alone 8-card Script
 
-Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed inference script as an example, and perform the distributed inference:
+Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run.sh
@@ -185,4 +185,3 @@ MAX_COMM_OP_REUSE_NUM: 3
 ```
 
 It denotes an upper bound of 3 on the number of communication operators that can be reused.
-

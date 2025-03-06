@@ -84,7 +84,7 @@ You can refer to the following APIs to collect the number of network parameters:
 def count_params(net):
     """Count number of parameters in the network
     Args:
-        net (mindspore.nn.Cell): Mindspore network instance
+        net (mindspore.nn.Cell): MindSpore network instance
     Returns:
         total_params (int): Total number of trainable params
     """

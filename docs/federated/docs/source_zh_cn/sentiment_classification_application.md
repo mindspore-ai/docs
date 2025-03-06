@@ -192,13 +192,13 @@ if __name__ == '__main__':
 
 1. 获取MindSpore Lite AAR包
 
-   参考[Mindspore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+   参考[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
 
    ```text
    mindspore-lite-full-{version}.aar
    ```
 
-2. 获取Mindspore Federated 端侧jar包。
+2. 获取MindSpore Federated 端侧jar包。
 
    参考[横向端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 

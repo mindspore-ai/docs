@@ -192,13 +192,13 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 
 1. Obtain MindSpore Lite AAR package
 
-   For details, see [Mindspore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html).
+   For details, see [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html).
 
    ```text
    mindspore-lite-full-{version}.aar
    ```
 
-2. Obtain Mindspore Federated device-side jar package
+2. Obtain MindSpore Federated device-side jar package
 
    For details, see [On-Device Deployment](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html).
 

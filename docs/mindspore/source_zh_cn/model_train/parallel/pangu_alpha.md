@@ -116,7 +116,7 @@ class EmbeddingLayer(nn.Cell):
 
 ## Decoder层
 
-如何解决随着层数增加造成的计算和内存瓶颈，时训练大规模Transformer网络的关键问题，因此选择合理的切分方式尤为重要。鹏程·盘古模型的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-Attention和FeedForward两部分构成，切分的原则是尽量减少通信。切分方式参照下图：
+如何解决随着层数增加造成的计算和内存瓶颈，是训练大规模Transformer网络的关键问题，因此选择合理的切分方式尤为重要。鹏程·盘古模型的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-Attention和FeedForward两部分构成，切分的原则是尽量减少通信。切分方式参照下图：
 
 ![image](./images/pangu_strategy.png)
 

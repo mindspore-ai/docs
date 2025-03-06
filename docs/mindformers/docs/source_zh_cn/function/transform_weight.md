@@ -377,7 +377,7 @@ python toolkit/safetensors/unified_safetensors.py \
 - **file_suffix**：目标权重文件的命名后缀，默认值为 "1_1"，即目标权重将按照 `*1_1.safetensors` 格式查找。
 - **has_redundancy**：合并的权重是否是去除冗余的权重，默认为 `True`。
 - **filter_out_param_prefix**：合并权重时可自定义过滤掉部分参数，过滤规则以前缀名匹配。如优化器参数"adam_"。
-- **max_process_num**：  合并最大进程数。默认值：64。
+- **max_process_num**：合并最大进程数。默认值：64。
 
 ### 示例
 

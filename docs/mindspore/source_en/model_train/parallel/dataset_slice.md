@@ -4,7 +4,7 @@
 
 ## Overview
 
-When performing distributed training, taking image data as an example, when the size of a single image is too large, such as large-format images of remote sensing satellites, when an image is too large, it is necessary to slice the image and read a portion of each card to perform distributed training. Scenarios that deal with dataset slicing need to be combined with model parallelism to achieve the desired effect of reducing video memory, so this feature is provided based on automatic parallelism. The sample used in this tutorial is not a large-format network, and is intended as an example only. Real-life applications to large-format networks often require detailed design of parallel strategies.
+When performing distributed training, taking image data as an example, when a single image is too large it needs to be sliced, with each card reading a portion of the image for distributed training. When dealing with the scenario of dataset slicing, it is necessary to work with model parallelism in order to achieve the effect of reducing graph memory. Therefore, MindSpore provides this feature based on automatic parallelism. The samples used in this tutorial are not large-format networks, and are for illustrative purposes only. For real-life application to large-scale networks (e.g. remote sensing satellites), it is often necessary to design the parallelism strategy in detail.
 
 > Dataset sharding is only supported in fully-automatic mode and semi-automatic mode, and is not involved in data parallel mode.
 
@@ -16,7 +16,7 @@ Related interfaces:
 
     - Each input is allowed to be sliced in at most one dimension. If `set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,)))` or `dataset_strategy=((1, 1, 1, 8), (1,))` is supported, each input is sliced in just one dimension at most, but not `dataset_strategy=((1, 1, 4, 2), (1,))`, whose first input is sliced into two dimensions.
 
-    - The input with the highest dimension, the number of slices, must be more than the other dimensions. If `dataset_strategy=((1, 1, 1, 8), (8,))` or `dataset_strategy=((1, 1, 1, 1, 1), (1,))` is supported, the input with the most dimensions is the first one, with the number of slices of 8, and the rest of the inputs have no more than 8 slices, but not `dataset_ strategy=((1, 1, 1, 1), (8,))`, whose input with the most dimensions is the first input with a slice of 1, but the second input has a cut of 8, which exceeds the slices of the first input.
+    - For the input with the highest dimension, the number of slices must be more than the other dimensions. If `dataset_strategy=((1, 1, 1, 8), (8,))` or `dataset_strategy=((1, 1, 1, 1, 1), (1,))` is supported, the input with the most dimensions is the first one, with the number of slices of 8, and the rest of the inputs have no more than 8 slices, but not `dataset_ strategy=((1, 1, 1, 1), (8,))`, whose input with the most dimensions is the first input with a slice of 1, but the second input has a cut of 8, which exceeds the slices of the first input.
 
 ## Operation Practices
 
@@ -143,7 +143,7 @@ for epoch in range(1):
 
 ### Running Stand-alone 8-card Script
 
-Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed training script as an example, and perform the distributed training:
+Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run.sh

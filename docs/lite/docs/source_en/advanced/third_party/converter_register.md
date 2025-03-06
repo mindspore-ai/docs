@@ -16,7 +16,7 @@ graph-optimization extension: After parsing a model, a graph structure defined b
 
 The expansion capability of MindSpore Lite conversion tool only support on Linux system currently.
 
-In this chapter, we will show the users a sample of extending Mindspore Lite converter tool, covering the example of expanding node, example of optimizing graph, compiling and linking. The example will help the users understand the extension ability as soon as possible.
+In this chapter, we will show the users a sample of extending MindSpore Lite converter tool, covering the example of expanding node, example of optimizing graph, compiling and linking. The example will help the users understand the extension ability as soon as possible.
 
 > Due to that model-parse extension is a modular extension ability, the chapter will not introduce in details. However, we still provide the users with a simplified unit case for inference.
 
@@ -98,7 +98,7 @@ For the sample code, please refer to [pass](https://gitee.com/mindspore/mindspor
 
 - Compilation and Build
 
-  Execute the script [build.sh](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/converter_extend/build.sh) in the directory of `mindspore/lite/examples/converter_extend`. And then, the released package of Mindspore Lite will be downloaded and the demo will be compiled automatically.
+  Execute the script [build.sh](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/converter_extend/build.sh) in the directory of `mindspore/lite/examples/converter_extend`. And then, the released package of MindSpore Lite will be downloaded and the demo will be compiled automatically.
 
   ```bash
   bash build.sh

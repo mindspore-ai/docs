@@ -4,7 +4,7 @@
 
 ## Overview
 
-In the PengCheng·PanGu model [1] published by MindSpore, we see that distributed training of very large Transformer networks can be achieved with the help of multi-dimensional automatic hybrid parallelism. This article will explain the sharding method of each component in the model in detail, starting from the network script.
+In the PengCheng·PanGu model [1] published by MindSpore, distributed training of large Transformer networks can be achieved with the help of multi-dimensional automatic hybrid parallelism. This article will explain the sharding method of each component in the model in detail, starting from the network script.
 
 > For the complete code, refer to [pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)
 
@@ -34,20 +34,20 @@ The directory structure is as follows, detailed execute command please refer to 
 - `pangu_alpha.py`: Define the PanguAlpha model. In this script, those basic building blocks of a general Transformer model, such as TransformerEncoder and TransformerEncoderLayer, are imported from MindSpore Transformers suite. See the [API Documentation](https://mindformers.readthedocs.io/zh-cn/latest/docs/api_python/README.html).
 - `pangu_alpha_config.py`: Define configurations of PanguAlpha model.
 - `pangu_alpha_wrapcell.py`: Define the one step training cell。
-- `train.py`: The training entry script. In this script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. According to the features of operation volume and calculation methods in different network layers, choosing the appropriate sharding strategy is the focus of this paper. In addition, you can configure the optimizer parallelism and pipeline parallelism through the `enable_parallel_optimizer` and `pipeline_stages` parameters.
-- `predict.py`: The predicting entry script. This script supports parallel prediction. Same as training script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. Distributed inference scenarios require loading distributed weights.
+- `train.py`: The training entry script. In this script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of MindSpore by configuring the sharding strategy for the operator. According to the features of operation volume and calculation methods in different network layers, choosing the appropriate sharding strategy is the focus of this paper. In addition, you can configure the optimizer parallelism and pipeline parallelism through the `enable_parallel_optimizer` and `pipeline_stages` parameters.
+- `predict.py`: The predicting entry script. This script supports parallel prediction. Same as training script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of MindSpore by configuring the sharding strategy for the operator. Distributed inference scenarios require loading distributed weights.
 
 ## Embedding Layer
 
 In language model training, the input data are sentences composed of words, and we usually use the Embedding algorithm to implement word vectorization, which maps the words and their location information into word vectors of size dimension `config.hidden_size`. The Embedding layer in the PanGu model consists of two parts, location encoding and word embedding, and implements basic data parallelism and model parallelism logic through `mindformers.modules.VocabEmbedding`.
 
-The following code shows that the `Gather` operator takes two inputs and finds the corresponding vectors in the lookup table `embedding_table` according to the index `input_ids`. The lookup table is a parameter to be learned during training and statically occupies memory resources on the card. We can decide to use a data parallel strategy for the `Gather` operator to slice the index batch dimension or a model parallel strategy to row slice the lookup table depending on the size of the lookup table. When the word list range `config.vocab_size` is large, it is recommended to choose a model parallel strategy for `word_embedding`, and the framework will automatically introduce computation and communication operators to handle out-of-bounds lookup cases.
+The following code shows that the `Gather` operator takes two inputs and finds the corresponding vectors in the lookup table `embedding_table` according to the index `input_ids`. The lookup table is a parameter to be learned during training and statically occupies memory resources on the card. We can decide to use a data parallel strategy for the `Gather` operator to slice the index batch dimension or a model parallel strategy to row slice the lookup table depending on the size of the lookup table. When the word list range `config.vocab_size` is large, it is recommended to choose a model parallel strategy for `word_embedding`, and MindSpore will automatically introduce computation and communication operators to handle out-of-bounds lookup cases.
 
 - Data parallel strategy `gather.shard(((1, 1), (parallel_config.data_parallel, 1)))`
 
 - Model parallel strategy `gather.shard(((parallel_config.model_parallel, 1), (1, 1)))`
 
-> The scripts and articles use config.data_parallel and config.model_parallel to refer to the data parallel slice dimension size and the model parallel slice dimension size.
+> In the examples and scripts, use config.data_parallel and config.model_parallel to refer to the data parallel slice dimension size and the model parallel slice dimension size.
 
 ```python
 import mindspore as ms
@@ -116,7 +116,7 @@ class EmbeddingLayer(nn.Cell):
 
 ## Decoder Layer
 
-The key difficulty in training large-scale Transformer networks is how to solve the computational and memory bottlenecks caused by the increasing number of layers, and it is especially important to choose a reasonable slicing. The main network of the PengCheng-PanGu model consists of multiple Decoders with the same structure but do not share weights, and the Decoder is composed of two parts, Self-Attention and FeedForward. The principle of slicing is to minimize the communication, and their slicing can be referred to the following figure:
+How to solve the computational and memory bottlenecks caused by the increase in the number of layers is a key issue in training large-scale Transformer networks, so it is particularly important to choose a reasonable slicing. The main network of the PengCheng-PanGu model consists of multiple Decoders with the same structure but do not share weights, and the Decoder is composed of two parts, Self-Attention and FeedForward. The principle of slicing is to minimize the communication, and their slicing can be referred to the following figure:
 
 ![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_train/parallel/images/pangu_strategy.png)
 
@@ -169,7 +169,7 @@ Self-Attention can be implemented directly via `mindformers.modules.MultiHeadAtt
 
 ### FeedForward
 
-FeedForward can be implemented by calling `mindformers.modules.FeedForward` directly. The FeedForward network layer consists of two matrix multiplications. The first matrix multiplication slices in the same way as Attention, outputting matrix rows and sliced columns, i.e., in the `batch` dimension and the `output dimension`. In order to avoid introducing redistribution communication between operators, the second matrix multiplication slices the input_channel dimension of the weights, i.e. `matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), ( parallel_config.model_parallel, 1)))`. The framework automatically inserts the `AllReduce` operator when the relevant dimension is sliced, and accumulates the slicing results in the model parallel dimension. The output matrix is sliced in the `batch` dimension only, plus the bias term `add.shard(((parallel_config.data_parallel, 1), (1,)))`.
+FeedForward can be implemented by calling `mindformers.modules.FeedForward` directly. The FeedForward network layer consists of two matrix multiplications. The first matrix multiplication slices in the same way as Attention, outputting matrix rows and sliced columns, i.e., in the `batch` dimension and the `output dimension`. In order to avoid introducing redistribution communication between operators, the second matrix multiplication slices the input_channel dimension of the weights, i.e. `matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), ( parallel_config.model_parallel, 1)))`. MindSpore automatically inserts the `AllReduce` operator when the relevant dimension is sliced, and accumulates the slicing results in the model parallel dimension. The output matrix is sliced in the `batch` dimension only, plus the bias term `add.shard(((parallel_config.data_parallel, 1), (1,)))`.
 
 ```python
 from mindspore.common.initializer import initializer
@@ -352,7 +352,7 @@ class PanguAlpha_Head(nn.Cell):
         return logits
 ```
 
-In this article, we learn how to quickly implement distributed training of Transformer-like networks on the basis of a stand-alone script by configuring an operator sharding strategy. When specific to the network structure, Embedding layer, Decoder layer, Residual layer and Linear layer all have their own slicing features, and users can improve the distributed training and tuning efficiency by mastering the operator strategy configuration method.
+This paper describes how to quickly implement distributed training of Transformer-like networks on the basis of a stand-alone script by means of configuring the operator slicing strategy. When specific to the network structure, Embedding layer, Decoder layer, Residual layer and Linear layer all have their own slicing features, and users can improve the distributed training and tuning efficiency by mastering the operator strategy configuration method.
 
 ## References
 

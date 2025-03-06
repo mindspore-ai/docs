@@ -171,7 +171,7 @@ for epoch in range(10):
 
 ### Running a Stand-alone Eight-Card Script
 
-Next, the corresponding scripts are invoked by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
+Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run.sh

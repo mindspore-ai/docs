@@ -202,7 +202,7 @@ if __name__ == '__main__':
 
 ## Accessing SSL or TLS enabled Serving Service
 
-Mindspore Serving supports server and client communicating based on `SSL/TLS`.
+MindSpore Serving supports server and client communicating based on `SSL/TLS`.
 
 `SSL/TLS`is a secure communication protocol that can be used to verify the identity of a client or server, encrypt all data, and secure communication.
 Digital certificates are used to identify the server or client, and private keys are used to decrypt data and sign information digests.

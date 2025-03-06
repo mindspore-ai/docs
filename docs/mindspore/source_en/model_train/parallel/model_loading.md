@@ -5,6 +5,7 @@
 ## Overview
 
 Model loading under distribution mainly refers to distributed inference, i.e., the inference phase is performed using multi-card. If data parallel is used for training or model parameters are saved in merge, then each card holds full weights and each card infers about its own input data in the same way as single-card inference. It should be noted that each card loads the same CheckPoint file for inference.
+
 This tutorial focuses on the process of saving slices of the model on each card during the multi-card training process, and reloading the model for inference according to the inference strategy in the inference phase using the multi-card format. For the problem that the number of parameters in the ultra-large-scale neural network model is too large and the model cannot be fully loaded into single card for inference, distributed inference can be performed using multiple cards.
 
 > - When the model is very large and the [load_distributed_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html) interface that is used in this tutorials has insufficient host memory, refer to the [model transformation](https://www.mindspore.cn/docs/en/master/model_train/parallel/model_transformation.html#performing-compilation-on-the-target-network) section to perform compilation on the target network , and execute distributed checkpoint transformation. use the way that each card loads its own corresponding sliced checkpoint.
@@ -14,7 +15,10 @@ Related interfaces:
 
 1. `mindspore.set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`: Set the parallel configuration, where `full_batch` indicates whether the dataset is imported in full, and `True` indicates a full import with the same data for each card, which must be set to `True` in this scenario. `parallel_mode` is the parallel mode, which must be set to auto-parallel or semi-auto-parallel in this scenario.
 
-2. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`: The configuration used to set the parallel strategy file. `strategy_ckpt_dict` is used to set the configuration of the parallel strategy file and is of dictionary type. strategy_ckpt_dict = {"load_file": ". /stra0.ckpt", "save_file": ". /stra1.ckpt", "only_trainable_params": False}, where:
+2. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`: The configuration used to set the parallel strategy file. `strategy_ckpt_dict` is used to set the configuration of the parallel strategy file and is of dictionary type.
+
+    strategy_ckpt_dict = {"load_file": ". /stra0.ckpt", "save_file": ". /stra1.ckpt", "only_trainable_params": False}, where:
+
     - `load_file(str)`: Path to load the parallel sharding strategy. File address of the strategy file generated in the training phase. This parameter must be set in distributed inference scenarios. Default: `""`.
     - `save_file(str)`: The path where the parallel sharding strategy is saved. Default: `""`.
     - `only_trainable_params(bool)`: Save/load strategy information for trainable parameters only. Default: `True`.
@@ -55,7 +59,7 @@ src_strategy.ckpt
 
 ### Configuring a Distributed Environment
 
-Specify the run mode, run device, run card number via the context interface. Unlike single card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as semi-parallel mode. Configure the path to the distributed strategy file to be loaded via `strategy_ckpt_config` and initialize HCCL or NCCL communication via init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number via the context interface. Unlike single card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as semi-parallel mode. Configure the path to the distributed strategy file to be loaded via `strategy_ckpt_config` and initialize HCCL or NCCL communication via init. Here `device_target` is not configured, the backend hardware device corresponding to the MindSpore package is automatically specified.
 
 ```python
 import mindspore as ms
@@ -150,7 +154,7 @@ For the case of multi-card training and single-card infereence, exporting MindIR
 
 ### Running Stand-alone 8-card Script
 
-Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed inference script as an example, and perform the distributed inference:
+Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run_loading.sh

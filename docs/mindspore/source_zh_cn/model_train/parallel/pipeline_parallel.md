@@ -86,7 +86,7 @@ MindSpore在Megatron-LM的interleaved pipeline调度的基础上做了内存优�
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等。与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=2`指，定Stage的总数。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口指定运行模式、运行设备、运行卡号等。与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=2`指定Stage的总数。此处未设置`device_target`，会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
