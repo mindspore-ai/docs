@@ -53,6 +53,10 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
 
    提供大模型训练阶段的高可用能力，包括临终 CKPT 保存、UCE 故障容错恢复和进程级重调度恢复功能。
 
+8. `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html>`_
+
+   支持safetensors格式的权重文件保存及加载功能。
+
 使用MindFormers进行深度调优
 ------------------------------------
 
@@ -121,6 +125,7 @@ FAQ
    function/resume_training
    function/tensorboard
    function/high_availability
+   function/safetensors
 
 .. toctree::
    :glob:
