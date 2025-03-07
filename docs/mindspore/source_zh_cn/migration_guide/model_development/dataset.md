@@ -18,7 +18,7 @@ MindSpore和PyTorch的数据构建基本流程主要包括两个方面：数据�
 
 ### 处理常见数据集
 
-MindSpore提供了很多不同领域的[常见数据集的加载接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html)。
+MindSpore提供了很多不同领域的[常见数据集的加载接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.loading.html)。
 除以上业界常用数据集外，MindSpore还开发了MindRecord数据格式以应对高效的读取、超大型数据存储与读取场景，感兴趣可以参阅[MindRecord](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/record.html)。由于此文章是介绍同类API及写法差异，故选取一个较为经典的数据集API作为迁移对比示例。其他数据集接口差异详细可参考PyTorch与MindSpore API映射表的 [torchaudio](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torchaudio)、[torchtext](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torchtext)、[torchvision](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torchvision) 模块。
 
 这里以FashionMnistDataset举例。下图展示了PyTorch的API使用方法（左边部分），以及MindSpore的API使用方法（右边部分）。主要的读取流程为：使用FashionMnist API加载源数据集，再使用transforms对数据内容进行变换，最后根据对数据集进行`batch`操作。两侧代码对应的关键部分，均使用颜色框进行了标记。

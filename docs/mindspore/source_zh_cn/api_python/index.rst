@@ -19,8 +19,6 @@ API 文档
    mindspore.common.initializer
    mindspore.runtime
    mindspore.dataset
-   mindspore.dataset.transforms
-   mindspore.mindrecord
    mindspore.nn.probability
    mindspore.rewrite
    mindspore.multiprocessing
@@ -62,7 +60,7 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 参数初始化。
    * - `mindspore.hal <./mindspore.hal.html>`_
      - 设备管理、流管理、事件管理与内存管理的接口。
-   * - `mindspore.dataset <./mindspore.dataset.html>`_
+   * - `mindspore.dataset <./mindspore.dataset.loading.html>`_
      - 加载和处理各种数据集的接口。
    * - `mindspore.dataset.transforms <./mindspore.dataset.transforms.html>`_
      - 通用数据变换。
