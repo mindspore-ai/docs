@@ -14,7 +14,7 @@ Arithmetic operators and assignment operators support the `Number` and `Tensor` 
 
 notes:
 
-- In native python the `~` operator get the bitwise inversion of its integer argument; in Mindspore the `~` redefined to get logic not for `Tensor(Bool)`.
+- In native python the `~` operator get the bitwise inversion of its integer argument; in MindSpore the `~` redefined to get logic not for `Tensor(Bool)`.
 
 ## Binary Arithmetic Operators
 

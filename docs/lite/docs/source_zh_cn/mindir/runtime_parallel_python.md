@@ -158,7 +158,7 @@ print("total run time: ", total_end_time - total_start_time, " s")
 
 ## 一键配置Python环境
 
-在[mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)目录下执行lite-server-cpu-pip.sh脚本。该脚本会安装python、pip、numpy以及wheel，下载模型文件和模型输入数据，重新安装Mindspore Lite whl包，检查MindSpore Lite whl包安装情况。
+在[mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)目录下执行lite-server-cpu-pip.sh脚本。该脚本会安装python、pip、numpy以及wheel，下载模型文件和模型输入数据，重新安装MindSpore Lite whl包，检查MindSpore Lite whl包安装情况。
 
 ```bash
 bash lite-server-cpu-pip.sh

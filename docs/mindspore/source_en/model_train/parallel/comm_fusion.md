@@ -199,7 +199,7 @@ for epoch in range(10):
 
 ### Running Stand-alone 8-card Script
 
-Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed training script as an example, and perform the distributed training:
+Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run.sh

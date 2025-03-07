@@ -6,7 +6,7 @@
 #include<tensor_c.h>
 ```
 
-tensor_c.h提供了控制Mindspore MSTensor(后文简称：MSTensor)的接口，借助该接口，用户可以创建、销毁张量，也可以获取或者修改张量的属性。
+tensor_c.h提供了控制MindSpore MSTensor(后文简称：MSTensor)的接口，借助该接口，用户可以创建、销毁张量，也可以获取或者修改张量的属性。
 
 ## 公有函数
 

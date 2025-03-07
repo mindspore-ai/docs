@@ -233,7 +233,7 @@ The inference process code is as follows. For details about the complete code, s
         Build context and set model parameters. Create a model from context and model data.
 
         ```cpp
-        // To create a Mindspore network inference environment.
+        // To create a MindSpore network inference environment.
         void **labelEnv = new void *;
         MSNetWork *labelNet = new MSNetWork;
         *labelEnv = labelNet;

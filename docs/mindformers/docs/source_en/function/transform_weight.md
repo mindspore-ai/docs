@@ -357,10 +357,10 @@ python mindformers/tools/transform_ckpt_lora.py \
 Use the [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/safetensors/unified_safetensors.py) provided by MindFormers to perform safetensors weight merging.
 
 ```shell
-python mindformers/tools/convert_reversed.py \
+python toolkit/safetensors/unified_safetensors.py \
   --src_strategy_dirs src_strategy_path_or_dir \
   --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --tmp_dir tmp_dir \
+  --output_dir output_dir \
   --file_suffix "1_1" \
   --has_redundancy has_redundancy
 ```
@@ -373,9 +373,11 @@ python mindformers/tools/convert_reversed.py \
 
     **Note**: If a `merged_ckpt_strategy.ckpt` already exists in the strategy folder and is still transferred to the folder path, the script deletes the old `merged_ckpt_strategy.ckpt` and then merges files into a new `merged_ckpt_strategy.ckpt` for weight conversion. Therefore, ensure that the folder has enough write permission. Otherwise, an error will be reported.
 - **mindspore_ckpt_dir**: The path of distributed weight, please fill in the path of the folder where the source weight is located, the source weights should be stored as `model_dir/rank_x/xxx.safetensors`, and fill in the folder path as `model_dir`.
-- **tmp_dir**: Path for saving target weights, default value is "/new_llm_data/******/ckpt/nbg3_31b/tmp", target weights will be saved in `/new_llm_data/******/ckpt/nbg3_31b/tmp`.
+- **output_dir**: Path for saving target weights, default value is "/new_llm_data/******/ckpt/nbg3_31b/tmp", target weights will be saved in `/new_llm_data/******/ckpt/nbg3_31b/tmp`.
 - **file_suffix**: Naming suffix of target weight file, default value is "1_1", The target weight will be searched in the format of `*1_1.safetensors`.
 - **has_redundancy**: Is the merged weights which remove redundancy, default value is `True`.
+- **filter_out_param_prefix**: Customize the parameters to be filtered out when merging weights, and the filtering rules are based on prefix name matching. For example, optimizer parameter "adam_".
+- **max_process_num**: Maximum number of processes to merge. Default value: 64.
 
 ### Examples
 
@@ -384,10 +386,10 @@ python mindformers/tools/convert_reversed.py \
 If merging the safetensors weights which have removed redundancy, you can set the parameters as follows:
 
 ```shell
-python mindformers/tools/convert_reversed.py \
+python toolkit/safetensors/unified_safetensors.py \
   --src_strategy_dirs src_strategy_path_or_dir \
   --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --tmp_dir tmp_dir \
+  --output_dir output_dir \
   --file_suffix "1_1" \
   --has_redundancy True
 ```
@@ -397,11 +399,23 @@ python mindformers/tools/convert_reversed.py \
 If merging the safetensors weights which did not remove redundancy, you can set the parameters as follows:
 
 ```shell
-python mindformers/tools/convert_reversed.py \
+python toolkit/safetensors/unified_safetensors.py \
   --src_strategy_dirs src_strategy_path_or_dir \
   --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --tmp_dir tmp_dir \
+  --output_dir output_dir \
   --file_suffix "1_1" \
   --has_redundancy False
 ```
 
+#### Scenario 3: Safetensors weights of Adam optimizer are filtered
+
+If merge the filtered safetensors weights of Adam optimizer, you can fill in the parameters as follows:
+
+```shell
+python toolkit/safetensors/unified_safetensors.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --output_dir output_dir \
+  --file_suffix "1_1" \
+  --filter_out_param_prefix "adam_"
+```

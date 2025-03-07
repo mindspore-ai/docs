@@ -4,7 +4,7 @@
 
 ## Overview
 
-Model parallelism can effectively reduce the memory load in large model training, but the communication it introduces is a significant performance bottleneck. Therefore, the whole network model slicing strategy needs to be optimized in order to introduce minimal amount of communication.
+Model parallelism can effectively reduce the memory load during large model training, but the communication overhead it introduces can cause significant performance problems. Therefore, we need to optimize the whole network model slicing strategy to minimize the introduced communication.
 
 Tensor Parallel (TP) training is the process of dividing a tensor into `N` blocks along a specific dimension, with each device holding only `1/N` of the entire tensor, performing MatMul/BatchMatMul and other arithmetic computations, and introducing additional communication to ensure that the final result is correct. The high-dimensional tensor parallelism allows flexible control of the number of slices and axes of the tensor, and supports 1D, 2D, and 3D slices. 2D/3D slices are slower to grow with the number of TP devices under a suitable slicing strategy compared to 1D slices, and have lower extra communication when the number of TP devices is larger, which achieves the purpose of improving training speed.
 
@@ -15,6 +15,7 @@ Usage Scenario: In semi-automatic mode, when there is tensor parallelism in the 
 Related interfaces:
 
 1. `mindspore.ops.MatMul().add_prim_attr("enable_nd_tp", True)`: To turn on the 2D/3D communication/computation mode using AllGather, MatMul and ReduceScatter, you must configure MatMul's shard slice using Layout.
+
 2. `mindspore.ops.BatchMatMul().add_prim_attr("enable_nd_tp", True)`: To turn on the 2D/3D communication/computation mode using AllGather, MatMul and ReduceScatter, you must configure MatMul's shard slice using Layout.
 
 With the above switch turned on, shard slicing determines whether 2D or 3D parallel mode is used depending on the in_strategy:
@@ -23,8 +24,8 @@ With the above switch turned on, shard slicing determines whether 2D or 3D paral
 
 2. 3D tensor parallel in_strategy configurations, mainly limiting the activation tensor and the last two dimensions of the weight tensor: `mindspore.ops.MatMul().shard(in_strategy = (layout(("z","y"),"x" ), layout(("x","z"), "y")))`
 
-> 1. The x, y, z in the above slicing rule, i.e., the number of slicing devices for high-dimensional TP in different dimensions, should be determined by the user according to the shape of the tensor involved in the computation, and the principle of evenly slicing the weight tensor configuration has a better performance gain.
-> 2. If MatMul / BatchMatMul has transpose_a or trainspose_b turned on, the slice layout involved in the high-dimensional TP is also switched to the corresponding position.
+> - The x, y, z in the above slicing rule, i.e., the number of slicing devices for high-dimensional TP in different dimensions, should be determined by the user according to the shape of the tensor involved in the computation, and the principle of evenly slicing the weight tensor configuration has a better performance gain.
+> - If MatMul / BatchMatMul has transpose_a or trainspose_b turned on, the slice layout involved in the high-dimensional TP is also switched to the corresponding position.
 
 ## Basic Principle
 
@@ -100,7 +101,7 @@ init()
 
 ### Constructing the Network and Computing
 
-The operator definition needs to call the add_prim_attr method to specify the MatMul operator to open the high-dimensional TP, and specify the Matmul operator slice method via Layout. The code is as follows:
+The operator definition needs to call the `add_prim_attr` method to specify the MatMul operator to open the high-dimensional TP, and specify the Matmul operator slice method via Layout. The code is as follows:
 
 ```python
 # sample code
@@ -141,7 +142,7 @@ print("The output is:", output)
 
 ### Running a Standalone Eight-Card Script
 
-Next, the corresponding scripts are called by commands, using the `msrun` startup method and the 8-card distributed training script as an example:
+Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run.sh

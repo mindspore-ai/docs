@@ -38,7 +38,7 @@ mindspore.set_offload_context(offload_config=offload_config)
     - `"auto_offload": False`: set off the auto-offload strategy, parameter data will strictly follow the previous configuration option.
     - `"offload_cpu_size": "512GB", "offload_disk_size": "1024GB"`: The cpu memory and disk size available for offload are set respectively.
     - `"offload_path": "./offload/"`: sets the path to the disk file to be used for offload.
-    - `"enable_pinned_mem": True`: set to turn on page locking, which when turned on speeds up copying between On-Chip and CPU memory.
+    - `"enable_pinned_mem": True`: set to turn on page locking, which when turned on speeds up copying between `On-Chip and CPU` memory.
     - `"host_mem_block_size":"1GB"`: set the cpu lock page memory pool block size.
     - `"enable_aio": True`: set to turn on file asynchronous IO, which when turned on speeds up DDR-to-disk copying. (Requires compilation with the -o option, and only supports Linux environments with aio installed)
 

@@ -26,7 +26,7 @@ Related commands:
     - `-mca orte_abort_on_non_zero_status 0`: When a child process exits abnormally, OpenMPI will abort all child processes by default. If you don't want to abort child processes automatically, you can add this parameter.
     - `-bind-to none`: OpenMPI will specify the number of available CPU cores for the child process to be pulled up by default. If you don't want to limit the number of cores used by the process, you can add this parameter.
 
-> OpenMPI starts up with a number of OPMI_* environment variables, and users should avoid manually modifying these environment variables in scripts.
+> OpenMPI starts up with a number of environment variables named  `OPMI_*`, and users should avoid manually modifying these environment variables in scripts.
 
 ## Operation Practice
 

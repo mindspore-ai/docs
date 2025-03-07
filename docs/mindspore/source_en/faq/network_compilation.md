@@ -37,7 +37,7 @@ A: MindSpore does not support the `yield` syntax in graph mode.
 
 A: In the inference stage of front-end compilation, the abstract types of nodes, including `type` and `shape`, will be inferred. Common abstract types include `AbstractScalar`, `AbstractTensor`, `AbstractFunction`, `AbstractTuple`, `AbstractList`, etc. In some scenarios, such as multi-branch scenarios, the abstract types of the return values of different branches will be `join` to infer the abstract type of the returned result. If these abstract types do not match, or `type`/`shape` are inconsistent, the above exception will be thrown.
 
-When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.ir` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir). The code sample is as follows:
+When an error similar to `Type Join Failed: dtype1 = Float32, dtype2 = Float16` appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.ir` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir). The code sample is as follows:
 
 ```python
 import numpy as np
@@ -82,7 +82,7 @@ The function call stack (See file 'analyze_fail.ir' for more details. Get instru
         ^
 ```
 
-When an error similar to "Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple" appears, it means that the abstract types do not match, resulting in the failure to join abstract types. The code sample is as follows:
+When an error similar to `Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple` appears, it means that the abstract types do not match, resulting in the failure to join abstract types. The code sample is as follows:
 
 ```python
 import mindspore.ops as ops
@@ -125,7 +125,7 @@ The function call stack:
 
 <br/>
 
-## Q: What can I do if an error "The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout'" is reported during compilation?
+## Q: What can I do if an error `The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout'` is reported during compilation?
 
 A: The inputs of user-defined back propagation function `bprop` should contain all the inputs of the forward network, `out` and `dout`. The example is as follow:
 
@@ -165,13 +165,13 @@ In file test.py(13)
 
 <br/>
 
-## Q: What can I do if an error "There isn't any branch that can be evaluated" is reported during compilation?
+## Q: What can I do if an error `There isn't any branch that can be evaluated` is reported during compilation?
 
-A: When an error "There isn't any branch that can be evaluated" appears, it means that there may be infinite recursion or loop in the code, which causes that each branch of the if condition is unable to deduce the correct type and dimension information.
+A: When an error `There isn't any branch that can be evaluated` appears, it means that there may be infinite recursion or loop in the code, which causes that each branch of the if condition is unable to deduce the correct type and dimension information.
 
 <br/>
 
-## Q: What can I do if an error "Exceed function call depth limit 1000" is reported during compilation?
+## Q: What can I do if an error `Exceed function call depth limit 1000` is reported during compilation?
 
 A: When Exceed function call depth limit 1000 is displayed, this indicates that there is an infinite recursive loop in the code, or the code is too complex. The type derivation process causes the stack depth to exceed the set maximum depth.
 
@@ -181,13 +181,13 @@ Otherwise, setting recursion_limit can change the recursive depth of MindSpore, 
 
 <br/>
 
-## Q: What can I do if an error that 'could not get source code' and 'MindSpore can not compile temporary source code in terminal. Please write source code to a python file and run the file.' is displayed during compilation?
+## Q: What can I do if an error that `could not get source code' and 'MindSpore can not compile temporary source code in terminal. Please write source code to a python file and run the file.` is displayed during compilation?
 
 A: When compiling a network, MindSpore uses `inspect.getsourcelines(self.fn)` to get the file located in the network code. If the network is the temporary code which is edited in terminal, MindSpore will report an error as the title. It can be solved if writing the network to a Python file.
 
 <br/>
 
-## Q: What can I do when an error that 'Corresponding forward node candidate:' and 'Corresponding code candidate:' is reported?
+## Q: What can I do when an error that `'Corresponding forward node candidate:' and 'Corresponding code candidate:'` is reported?
 
 A: "Corresponding forward node candidate:" is the code in the associated forward network, indicating that the backpropagation operator corresponds to the forward code. "Corresponding code candidate:" means that the operator is fused by these code, and the separator "-" is used to distinguish different code.
 
@@ -228,7 +228,7 @@ For example：
 
 <br/>
 
-## Q: Why does screen print "Start compiling and it will take a while. Please wait..." and "End compiling." when running?
+## Q: Why does screen print `Start compiling and it will take a while. Please wait...` and `End compiling.` when running?
 
 A: When accelerated execution is required, MindSpore will convert Python source code into a function-style IR based on graph representation and do dome optimizations. This process is also known as the compilation process. When printing "Start compiling and it will take a while. Please wait...", MindSpore starts the graph compilation process. When printing "End compiling.", it means the graph compilation process is over.
 
@@ -241,7 +241,7 @@ Currently there are the following two scenarios where the message will print:
 
 <br/>
 
-## Q: What does it mean when a warning "On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization." is reported?
+## Q: What does it mean when a warning `On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization.` is reported?
 
 A: Since the Ascend platform cannot actually return a memory address, in the whole graph sinking mode, there will be some problems when there are parameters in the return value in the control flow scenario. In order to avoid problems, switch to the unified runtime mode for this scenario, and switch from the whole graph sinking mode to the unified runtime mode, the network performance may be degraded. If the return value of the control flow subgraph only uses the value of the parameter, you can obtain the  parameter value through the value interface of the parameter to avoid performance degradation caused by mode switching.
 
@@ -293,7 +293,7 @@ out: (Tensor(shape=[], dtype=Int64, value=8), Tensor(shape=[], dtype=Int64, valu
 
 <br/>
 
-## Q:What can I do if an error "The input number of parameters is not Compatible." is reported when loading a MindIR?
+## Q:What can I do if an error `The input number of parameters is not Compatible.` is reported when loading a MindIR?
 
 A: First, check whether the number of exported parameters and the number of imported parameters match.
 If the match, you need to check if a non-Tensor scenario in the exported parameters.
@@ -304,7 +304,7 @@ If the data is a scalar type, you can export the scalar to Tensor type, and if t
 
 <br/>
 
-## Q: What can I do if an error "ValueError: The shape of sense must not be dynamic shape." is reported?
+## Q: What can I do if an error `ValueError: The shape of sense must not be dynamic shape.` is reported?
 
 A: In graph mode, when the GradOperation is called and the parameter 'sens_param' is True, and setting the dynamic shape of sense through 'nn.Cell.set_inputs' will cause an error. The code example is as follows:
 
@@ -411,7 +411,7 @@ A: The "External" type indicates that an object that cannot be natively supporte
 
 <br/>
 
-## Q: What can I do if an error "Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute." is reported?
+## Q: What can I do if an error `Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute.` is reported?
 
 A: When the compilation process is triggered, that is, when the code is compiled into a static computational diagram
 , see [Graph Mode Execution Principle](https://www.mindspore.cn/docs/en/master/model_train/program_form/overview.html), using the JIT Fallback feature by default, the above exception will be thrown when entering the compilation process again.
@@ -623,7 +623,7 @@ print("out:", out)
 
 <br/>
 
-## Q: What can I do if an error "ValueError: The value Parameter (name=name_a, shape=(1,), dtype=Float32, requires_grad=True) , its name 'name_a' already exists. Please set a unique name for the parameter." is reported? What does it mean?
+## Q: What can I do if an error `ValueError: The value Parameter (name=name_a, shape=(1,), dtype=Float32, requires_grad=True) , its name 'name_a' already exists. Please set a unique name for the parameter.` is reported? What does it mean?
 
 A: The graph mode requires the name of the parameter to be unique. If there are two or more Parameters with the same name, the network cannot distinguish different objects, which will cause errors. We can troubleshoot the Parameters with the same name in the script from the following angles, and set a unique name for the Parameter in it.
 

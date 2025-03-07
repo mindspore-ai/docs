@@ -172,7 +172,7 @@ for epoch in range(5):
 
 ### Running Stand-alone 8-card Script
 
-In order to save enough log information, you need to set the log level to INFO by adding the command `export GLOG_v=1` to the executing script. Next, the corresponding script is called by the command, and the distributed training script with `mpirun` startup method and 8 cards is used as an example for distributed training:
+In order to save enough log information, you need to set the log level to INFO by adding the command `export GLOG_v=1` to the executing script. Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run.sh

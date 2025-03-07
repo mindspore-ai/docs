@@ -6,7 +6,7 @@ This document describes the steps on how to install the MSYS2 software on a Wind
 
 ## Software Background
 
-FFmpeg software, as a third-party software introduced by Mindspore, needs to rely on MSYS2 software for source code compilation on Windows platform.
+FFmpeg software, as a third-party software introduced by MindSpore, needs to rely on MSYS2 software for source code compilation on Windows platform.
 
 ## Installation Steps
 

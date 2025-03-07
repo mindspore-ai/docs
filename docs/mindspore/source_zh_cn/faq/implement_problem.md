@@ -84,7 +84,7 @@ A: 可以直接加载CheckPoint统计，可能额外统计了动量和optimizer�
 def count_params(net):
     """Count number of parameters in the network
     Args:
-        net (mindspore.nn.Cell): Mindspore network instance
+        net (mindspore.nn.Cell): MindSpore network instance
     Returns:
         total_params (int): Total number of trainable params
     """

@@ -330,7 +330,7 @@ A: Above question is relatively common, and there are two feasible solutions, yo
 
 <br/>
 
-### Q: What should I do if an error message `ImportError: libgmpxx.so: cannot open shared object file: No such file or directory` is displayed when running `import mindspore` in a script after the source code of mindspore and gmp are compiled and installed?
+### Q: What should I do if an error message `ImportError: libgmpxx.so: cannot open shared object file: No such file or directory` is displayed when running `import mindspore` in a script after the source code of MindSpore and gmp are compiled and installed?
 
 A: The reason is that we didn't set `--enable-cxx` when installing gmp. The correct steps for installing gmp is (suppose that we have download gmp installation repository):
 
@@ -344,18 +344,18 @@ $sudo make install
 
 <br/>
 
-### Q: What should I do if an warning message `UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.` is displayed when running Mindspore?
+### Q: What should I do if an warning message `UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.` is displayed when running MindSpore?
 
 A: The above issue occurs in environments with a newer version of numpy (>=1.22.0) version of ARM python 3.9 installed. We observed such warnings on ARM environment, with python 3.9 and numpy >=1.22.0 installed. The wharnings come from numpy and not from MindSpore. If the wharnings affect the normal debugging of the code, you can consider manually installing an earlier version of numpy (<=1.21.2) to circumvent it.
 
 <br/>
 
-### Q: What should I do if an error message `AttributeError: module 'six' has no attribute 'ensure_text'` is displayed when running Mindspore?
+### Q: What should I do if an error message `AttributeError: module 'six' has no attribute 'ensure_text'` is displayed when running MindSpore?
 
 A: The reason for the above issue is that a newer version of `asttokens` (>=2.0.6) is installed, but the version of `six` on which it depends does not match. It can be solved by updating the `six` version (>=1.12.0).
 
 <br/>
 
-### Q: What should I do if an error message `ModuleNotFoundError: No module named 'requests'` is displayed when running Mindspore?
+### Q: What should I do if an error message `ModuleNotFoundError: No module named 'requests'` is displayed when running MindSpore?
 
 A: The reason for the above issue is that python package requests is missing in current python environment, it can be solved by running `pip install requests`.

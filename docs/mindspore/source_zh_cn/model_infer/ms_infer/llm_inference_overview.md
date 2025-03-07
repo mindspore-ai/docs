@@ -349,4 +349,4 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
 
 - **大语言模型离线推理**
 
-    由于大语言模型体积巨大，因此MindSpore大语言模型推理推荐用户使用更灵活的在线推理（权重CKPT+网络脚本），但是在一些特定场景，如端侧或者边缘侧大模型，由于运行环境受限，不一定有Python或者Mindspore包的环境下，用户可以使用MindSpore Lite离线推理方案。此时，用户需要将模型导出成MindSpore的统一模型表达MindIR文件，并将其传给MindSpore Lite运行时，具体教程可以参考[模型导出](./model_export.md)和[Lite推理概述](../lite_infer/overview.md)。
+    由于大语言模型体积巨大，因此MindSpore大语言模型推理推荐用户使用更灵活的在线推理（权重CKPT+网络脚本），但是在一些特定场景，如端侧或者边缘侧大模型，由于运行环境受限，不一定有Python或者MindSpore包的环境下，用户可以使用MindSpore Lite离线推理方案。此时，用户需要将模型导出成MindSpore的统一模型表达MindIR文件，并将其传给MindSpore Lite运行时，具体教程可以参考[模型导出](./model_export.md)和[Lite推理概述](../lite_infer/overview.md)。

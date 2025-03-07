@@ -6,7 +6,7 @@
 
 Currently, MindSpore Serving can be deployed only in the Linux environment.
 
-MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Atlas training series, Atlas 200/300/500 inference product, Atlas inference series, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.
+MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Atlas training series, Atlas 200/300/500 inference product, Atlas inference series, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, MindSpore Lite inference framework will be used.
 
 MindSpore and MindSpore Lite have different build packages for different hardware platforms. The following table lists the target devices and model formats supported by each build package.
 

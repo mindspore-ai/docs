@@ -392,9 +392,9 @@ After the network is reversely differential, the resulting differential network 
 
 ### Forward Automatic Differentiation Implementation
 
-Besides `grad`, Mindspore has developed forward mode automatic differentiation method `jvp` (Jacobian-Vector-Product).
+Besides `grad`, MindSpore has developed forward mode automatic differentiation method `jvp` (Jacobian-Vector-Product).
 
-Compared to reverse mode AD, forward mode AD is more suitable for networks whose input dimension is smaller than output dimension. Mindspore forward mode AD is developed based on reversed mode Grad function.
+Compared to reverse mode AD, forward mode AD is more suitable for networks whose input dimension is smaller than output dimension. MindSpore forward mode AD is developed based on reversed mode Grad function.
 
 ![auto-gradient-jvp](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/auto_gradient_jvp.png)
 

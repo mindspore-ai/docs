@@ -18,7 +18,7 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 ## Usage
 
-There are three ways to collect training performance data, users can use the Profiler enabling method according to different scenarios. The following will introduce the usage of different scenarios.
+There are three ways to collect training performance data, and the following describes how to use Profiler enablement depending on the scenario.
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
@@ -84,8 +84,7 @@ For the complete case, refer to [PyNative mode collection complete code example]
 
 ### Method 2: Dynamic Profiler Enabling
 
-Users can use the mindspore.profiler.DynamicProfilerMonitor interface to enable Profiler without interrupting the training process, modify the configuration file, and complete the collection task under the new configuration. This interface requires a JSON configuration file, if not configured, a JSON file with a default configuration will be generated.
-This interface requires a JSON configuration file, if not configured, a JSON file with a default configuration will be generated.
+Users can use the mindspore.profiler.DynamicProfilerMonitor interface to enable Profiler without interrupting the training process, modify the configuration file, and complete the collection task under the new configuration. This interface requires a JSON configuration file, if not configured, a JSON file with a default configuration will be generated. This interface requires a JSON configuration file, if not configured, a JSON file with a default configuration will be generated.
 
 JSON configuration example as follows:
 
@@ -103,7 +102,7 @@ JSON configuration example as follows:
 }
 ```
 
-1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, see [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
+1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, and save the configuration files in cfg_path. See [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
 2. Call the step interface of DynamicProfilerMonitor after the model training to collect data;
 3. If users want to change the collection and analysis tasks during training, they can modify the JSON configuration file, such as changing the start_step in the above JSON configuration to 8, stop_step to 10, save it, and DynamicProfilerMonitor will automatically identify that the configuration file has changed to the new collection and analysis tasks.
 
@@ -189,7 +188,8 @@ After collecting performance data, the original data will be stored according to
 
 MindSpore Profiler interface will associate and integrate the framework side data and CANN Profling data to form trace, kernel, and memory performance data files. The detailed description of each file is as follows.
 
-`FRAMEWORK` is the performance raw data of the framework side, no need to pay attention to it; `PROF` directory is the performance data collected by CANN Profling, mainly saved in the `mindstudio_profiler_output` directory.
+> - `FRAMEWORK` is the performance raw data of the framework side, no need to pay attention to it.
+> - `PROF` directory is the performance data collected by CANN Profling, mainly saved in the `mindstudio_profiler_output` directory.
 
 ### communication.json
 
@@ -329,11 +329,16 @@ In the process of large model training, due to some unpredictable introduction, 
 ![profiler_process.png](images/profiler_process.png)
 
 The most important thing in performance tuning is to apply the right medicine to the problem, delimit the problem first, and then perform targeted tuning to the problem.
-The first to use [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/700/useguide/firstpage_0003.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication. Finally, users can tune performance based on expert advice from MindStudio Insight. Re-run the training after each tuning, collect performance data, and use the MindStudio Insight tool to see if the tuning method produced results. Repeat this process until the performance issue is resolved.
 
-MindStudio Insight provides a wealth of tuning and analysis methods, visualizing the real software and hardware operation data, analyzing performance data in multiple dimensions, locating performance bottlenecks, and supporting visual cluster performance analysis of the scale of heckcal, kcal and above. The user imports the performance data collected in the previous step into MindStudio Insight and uses the visualization capabilities to analyze the performance data according to the following process.
+The first to use [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/700/useguide/firstpage_0003.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication.
 
-### 1. Overview of the data
+Finally, users can tune performance based on expert advice from MindStudio Insight. Re-run the training after each tuning, collect performance data, and use the MindStudio Insight tool to see if the tuning method produced results. Repeat this process until the performance issue is resolved.
+
+MindStudio Insight provides a wealth of tuning and analysis methods, visualizing the real software and hardware operation data, analyzing performance data in multiple dimensions, locating performance bottlenecks, and supporting visual cluster performance analysis of the scale of heckcal, kcal and above.
+
+The user imports the performance data collected in the previous step into MindStudio Insight and uses the visualization capabilities to analyze the performance data according to the following process.
+
+### Overview of the Data
 
 You can learn about each module through the overview interface.
 
@@ -351,21 +356,21 @@ You can learn about each module through the overview interface.
 | communication duration (not covered)  | The communication duration that is not covered, that is, the pure communication duration  |
 | Idle time   | Duration of no calculation or communication  |
 
-### 2. Definition and Analysis of Problems
+### Definition and Analysis of Problems
 
 Different indicator phenomena can delimit different performance problems:
 
-- (1) Calculation problem: usually manifested as a large difference between the maximum value and the minimum value of the total calculation time in the communication domain. If the calculation time of some computing cards is obviously beyond the normal range, it is likely to mean that the card has undertaken too heavy computing tasks, such as the amount of data to be processed is too large, or the complexity of the model calculation is too high, or the performance of the card itself is limited.
+- Calculation problem: usually manifested as a large difference between the maximum value and the minimum value of the total calculation time in the communication domain. If the calculation time of some computing cards is obviously beyond the normal range, it is likely to mean that the card has undertaken too heavy computing tasks, such as the amount of data to be processed is too large, or the complexity of the model calculation is too high, or the performance of the card itself is limited.
 
-- (2) Scheduling problem: Usually manifested as a large difference between the maximum and minimum of the proportion of idle time in the communication domain. If the idle time of the compute cards is too long, it indicates that the task distribution may be unbalanced, or there is a situation in which the cards are waiting for data from each other, which also adversely affects the performance of the cluster.
+- Scheduling problem: Usually manifested as a large difference between the maximum and minimum of the proportion of idle time in the communication domain. If the idle time of the compute cards is too long, it indicates that the task distribution may be unbalanced, or there is a situation in which the cards are waiting for data from each other, which also adversely affects the performance of the cluster.
 
-- (3) Communication problems: If the communication time (not covered) is too long, it indicates that there is a problem with the coordination between calculation and communication, which may correspond to a variety of situations. Perhaps the communication protocol is not optimized enough, or the network bandwidth is unstable, resulting in communication and calculation can not be well matched.
+- Communication problems: If the communication time (not covered) is too long, it indicates that there is a problem with the coordination between calculation and communication, which may correspond to a variety of situations. Perhaps the communication protocol is not optimized enough, or the network bandwidth is unstable, resulting in communication and calculation can not be well matched.
 
-#### 2.1 Computation Problems
+#### Computation Problems
 
 When the data indicator phenomenon indicates a **computation** problem, the operator data of the abnormal card can be directly viewed and compared with the normal card. In this case, you can use the performance comparison function of MindStudio Insight to set the two cards to the comparison mode and view the result on the operator interface.
 
-#### 2.2 Scheduling Problems
+#### Scheduling Problems
 
 When the data indicator phenomenon indicates a **scheduling** problem, it is necessary to go to the timeline interface to compare the abnormal card with the normal card to further locate the operator that has the problem.
 
@@ -373,7 +378,7 @@ On the timeline screen, select the connection type of HostToDevice. HostToDevice
 
 The connection of HostToDevice usually has two forms, inclined and vertical. The following figure shows a case of scheduling problems. If the connection of HostToDevice is inclined as shown on the left, it indicates that the scheduling task is arranged properly during this time period, and the ascending device performs calculation and communication tasks at full load. If the HostToDevice cable is vertical as shown on the right, it indicates that the ascending device quickly completes the tasks sent by the CPU and performs calculation and communication tasks under full load. This generally indicates a scheduling problem.
 
-#### 2.3 Communication Problems
+#### Communication Problems
 
 When the data indicator symptom indicates a **communication** problem, you need to enter the communication interface for further analysis. The communication interface is used to display the link performance of the whole network and the communication performance of all nodes in the cluster. By analyzing the overlap time of cluster communication and calculation, the slow host or slow node in the cluster training can be found out. Typically, we analyze performance issues in terms of key metrics communication matrix, communication duration.
 

@@ -12,7 +12,7 @@ Usage Scenario: When there is model parallel in semi-automatic mode as well as i
 
 Related interfaces:
 
-- `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`: This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
+- `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`: split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
 
 ## Basic Principle
 
@@ -42,7 +42,7 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-Specify the run mode, run device, run card number via the context interface. The parallel mode is semi-parallel mode and initializes HCCL or NCCL communication with init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number via the context interface. The parallel mode is semi-parallel mode and initializes HCCL or NCCL communication with init. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import mindspore as ms
@@ -121,7 +121,7 @@ model.train(10, data_set, callbacks=[loss_cb])
 
 ### Running Stand-alone 8-card Script
 
-Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed training script as an example, and perform the distributed training:
+Next, the corresponding scripts are invoked by commands. As an example, the 8-card distributed training script uses the `mpirun` startup method for distributed training:
 
 ```bash
 bash run.sh

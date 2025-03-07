@@ -737,7 +737,7 @@ bash build.sh
 cd build
 ```
 
-Run Mindspore Lite inference on the encrypted model file:
+Run MindSpore Lite inference on the encrypted model file:
 
 ```bash
 ./runtime_cpp  --modelFile=./lenet_enc.ms 6 30313233343536373839414243444546 ${your_openssl_path}
