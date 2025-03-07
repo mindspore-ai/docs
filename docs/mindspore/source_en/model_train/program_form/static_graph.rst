@@ -18,13 +18,19 @@ Static Graph
 Overview
 --------
 
-In graph mode, Python code is not executed by the Python interpreter.Instead, the code is compiled into a static computation graph, and then the static computation graph is executed.
+In Just-In-Time Compilation (JIT) mode, Python code is not executed by the Python interpreter.Instead, the code is compiled into a static computation graph, and then the static computation graph is executed.
 
 In static graph mode, MindSpore converts Python source code into
 Intermediate Representation IR by means of source code conversion and
 optimizes IR graphs on this basis, and finally executes the optimized
 graphs on hardware devices. MindSpore uses a functional IR based on
 graph representations, called MindIR. See `middle representation MindIR <https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir>`_ for details .
+
+Currently, there are three main methods for converting Python source code into Intermediate Representation (IR): parsing based on the Abstract Syntax Tree (AST), parsing based 
+on ByteCode, and the method based on operator call tracing (Trace). For detailed information about these three modes,
+please refer to  `Dynamic and Static Combination <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#dynamic-and-static-combination>`_ . These three modes differ 
+to some extent in terms of syntax support. This document will first elaborate in detail on the syntax support in the scenario based on the Abstract Syntax Tree (AST), 
+and then introduce the differences in syntax support when constructing the computation graph based on ByteCode and operator tracing (Trace) methods, respectively.
 
 MindSpore static graph execution process actually consists of two steps,
 corresponding to the Define and Run phases of the static graph, but in
@@ -35,7 +41,8 @@ in the Cell ``__call__`` method, so the actual calling process is:
 ``model(inputs) = model.compile(inputs) + model.construct(inputs)``,
 where ``model`` is the instantiated Cell object.
 
-The way to use the Graph mode is to set ``ms.set_context(mode=ms.GRAPH_MODE)``, then
+Just-In-Time (JIT) compilation can be achieved using the `JIT interface <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#jit>`_ . 
+Another way is to use the Graph mode by setting ``ms.set_context(mode=ms.GRAPH_MODE)``, then
 write the code in the ``construct`` function of the ``Cell`` so that the
 code in the ``construct`` function will be compiled into a static
 computation graph. For details about the definition of ``Cell``, click
@@ -64,14 +71,15 @@ article for more information. All backends are supported at all levels.
    due to some syntax that may not be able to be exported.
 
 The following describes the data types, syntax, and related operations
-supported during static graph building. These rules apply only to graph
-mode.
+supported during static graph building. These rules apply only to JIT
+mode. Below is an introduction to the details of syntax support based
+on the Abstract Syntax Tree (AST)..
 
-Basic Syntaxes (STRICT Level)
------------------------------
+AST Basic Syntaxes (STRICT Level)
+-----------------------------------------
 
-Constants and Variables Within Static Graphs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Constants and Variables Within JIT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In static graphs, constants and variables are an important concept for
 understanding static graph syntax, and many syntaxes support different
@@ -1523,11 +1531,11 @@ compilation <https://www.mindspore.cn/docs/en/master/faq/network_compilation.htm
       out1: 3
       out2: 3
 
-Extended Syntaxes (LAX level)
------------------------------
+AST Extended Syntaxes (LAX level)
+-----------------------------------
 
 The following mainly introduces the static graph syntax supported by the
-current extension.
+current extension base on AST compilation.
 
 Calling the Third-party Libraries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2389,3 +2397,78 @@ points:
 3. When extending the static graph syntax, more syntax is supported, and
    the ability to import and export cannot be used with MindIR due to
    use Python.
+
+Syntax Based on Bytecode Graph Construction
+-------------------------------------------
+
+The method of constructing computation graphs based on bytecode does not support the relaxed mode.
+Its syntax support scope is largely consistent with the strict mode of static graphs, with the main differences including:
+
+1. When constructing graphs based on bytecode, encountering unsupported syntax will not result in an error. Instead, the 
+unsupported parts will be split and executed in dynamic graph mode. For detailed information, 
+please refer to `bytecode <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#bytecode>`_ . Therefore, 
+the unsupported syntax mentioned later in this document for constructing computation graphs based on bytecode refers to syntax that 
+cannot be compiled into static graphs, but the normal operation of the network will not be affected.
+
+2. When constructing graphs based on bytecode, side-effect operations related to attribute settings can be included in the graph. For example:
+
+.. code:: python
+
+   import mindspore as ms
+   import mindspore.nn as nn
+   from mindspore import jit
+
+   class Net(nn.Cell):
+       def __init__(self):
+           super(Net, self).__init__()
+           self.attr = 1
+
+       @jit(capture_mode="bytecode")
+       def construct(self, x):
+           self.attr = x + 1
+           return self.x
+
+   net = Net()
+   x = ms.Tensor([1, 2, 3], dtype=ms.int32)
+   ret = net(x)
+
+   print("ret: ", ret)
+   print("net.attr: ", net.attr)
+
+The results are as follows:
+
+.. code:: text
+
+   ret: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
+
+   net.attr: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
+
+3. When constructing graphs based on bytecode, control flow involving variable scenarios cannot be included in the graph. For related information 
+on variables, please refer to `Variable Generation Scenarios <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#variable-generation-scenarios>`_ . 
+An example is as follows:
+
+.. code:: python
+
+   import mindspore as ms
+   from mindspore import jit
+
+   @jit(capture_mode="bytecode")
+   def func(x):
+       a = 0
+       m = x * 3
+       for _ in range(m):
+           a = a + 1
+       return a
+
+   x = ms.Tensor([1], dtype=ms.int32)
+   ret = func(x)
+
+   print("ret: ", ret)
+
+The results are as follows:
+
+.. code:: text
+
+   ret: 3
+
+In the above example, m is a variable, so the entire for loop control flow cannot be included in the graph and needs to be executed in dynamic graph mode.
