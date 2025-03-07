@@ -22,16 +22,18 @@
 概述
 ----
 
-在Graph模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
+在即时编译（Just-In-Time Compilation，JIT）模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
 
 在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate
 Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考\ `中间表示MindIR <https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir>`_\ 。
+
+目前，将Python源码转换为中间表示（IR）的方法主要有三种：基于抽象语法树（Abstract Syntax Tree, AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法，有关三种模式的详细介绍，请见\ `动静结合 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html#%E5%8A%A8%E9%9D%99%E7%BB%93%E5%90%88>`_\ 。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
 
 MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时用户并不会分别感知到这两阶段，MindSpore将两阶段均封装在Cell的\ ``__call__``\ 方法中，因此实际调用过程为：
 
 ``model(inputs) = model.compile(inputs) + model.construct(inputs)``\ ，其中\ ``model``\ 为实例化Cell对象。
 
-使用Graph模式需要设置\ ``ms.set_context(mode=ms.GRAPH_MODE)``\ ，使用\ ``Cell``\ 类并且在\ ``construct``\ 函数中编写执行代码，此时\ ``construct``\ 函数的代码将会被编译成静态计算图。\ ``Cell``\ 定义详见\ `Cell
+即时编译可以使用\ `JIT接口 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html#jit>`_\ ，或者使用Graph模式需要设置\ ``ms.set_context(mode=ms.GRAPH_MODE)``\ ，使用\ ``Cell``\ 类并且在\ ``construct``\ 函数中编写执行代码，此时\ ``construct``\ 函数的代码将会被编译成静态计算图。\ ``Cell``\ 定义详见\ `Cell
 API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>`_\ 。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项\ ``jit_syntax_level``\ ，其值必须在[STRICT，LAX]范围内，选择\ ``STRICT``\ 则认为使用基础语法，不扩展静态图语法。默认值为\ ``LAX``\ ，更多请参考本文的\ `扩展语法（LAX级别） <#扩展语法lax级别>`_\ 章节。全部级别都支持所有后端。
@@ -40,15 +42,15 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 -  LAX:
    支持更多复杂语法，最大程度地兼容Python所有语法。由于存在可能无法导出的语法，不能用于MindIR导入导出。
 
-本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于Graph模式。
+本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于即时编译模式，以下是关于基于抽象语法树（AST）的语法支持详情的介绍。
 
-基础语法（STRICT级别）
-----------------------
+AST基础语法（STRICT级别）
+------------------------------
 
-静态图内的常量与变量
-~~~~~~~~~~~~~~~~~~~~
+即时编译下的常量与变量
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-在静态图中，常量与变量是理解静态图语法的一个重要概念，很多语法在常量输入和变量输入情况下支持的方法与程度是不同的。因此，在介绍静态图具体支持的语法之前，本小节先会对静态图中常量与变量的概念进行说明。
+在即时编译模式下，常量与变量是理解静态图语法的一个重要概念，很多语法在常量输入和变量输入情况下支持的方法与程度是不同的。因此，在介绍静态图具体支持的语法之前，本小节先会对静态图中常量与变量的概念进行说明。
 
 在静态图模式下，一段程序的运行会被分为编译期以及执行期。
 在编译期，程序会被编译成一张中间表示图，并且程序不会真正的执行，而是通过抽象推导的方式对中间表示进行静态解析。这使得在编译期时，我们无法保证能获取到所有中间表示中节点的值。
@@ -1279,10 +1281,10 @@ Python内置函数
       out1: 3
       out2: 3
 
-扩展语法（LAX级别）
--------------------
+AST扩展语法（LAX级别）
+------------------------
 
-下面主要介绍当前扩展支持的静态图语法。
+下面主要介绍基于抽象语法树构图场景下，当前扩展支持的静态图语法。
 
 调用第三方库
 ~~~~~~~~~~~~
@@ -2060,3 +2062,71 @@ Type机制。当\ ``tensor``\ 函数的\ ``dtype``\ 确定时，函数内部会�
 2. 在扩展静态图语法时，支持了更多的语法，但执行性能可能会受影响，不是最佳。
 
 3. 在扩展静态图语法时，支持了更多的语法，由于使用Python的能力，不能使用MindIR导入导出的能力。
+
+基于字节码构图语法介绍
+-------------------------
+
+基于字节码构建计算图的方式不支持宽松模式，其语法支持范围与静态图的严格模式基本一致，主要差异包括：
+
+1. 基于字节码构图时，若遇到不支持的语法，不会报错，而是会通过裂图的方式将不支持的部分转换成动态图的方式进行执行。相关详细介绍请见\ `bytecode <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html#bytecode>`_\ 。因此，本文后续介绍的基于字节码构建计算图时不支持的语法，均指这些语法无法被编译到静态图中，网络的正常运行不会被影响。
+
+2. 基于字节码构图时，属性设置相关的副作用操作可以入图，例如：
+
+.. code:: python
+
+   import mindspore as ms
+   import mindspore.nn as nn
+   from mindspore import jit
+
+   class Net(nn.Cell):
+       def __init__(self):
+           super(Net, self).__init__()
+           self.attr = 1
+
+       @jit(capture_mode="bytecode")
+       def construct(self, x):
+           self.attr = x + 1
+           return self.x
+
+   net = Net()
+   x = ms.Tensor([1, 2, 3], dtype=ms.int32)
+   ret = net(x)
+
+   print("ret: ", ret)
+   print("net.attr: ", net.attr)
+
+运行结果如下：
+
+.. code:: text
+
+   ret: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
+
+   net.attr: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
+
+3. 基于字节码构图时，变量场景的控制流无法入图。有关变量的相关介绍请见\ `变量产生场景 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html#%E5%8F%98%E9%87%8F%E4%BA%A7%E7%94%9F%E5%9C%BA%E6%99%AF>`_\ 。示例如下：
+
+.. code:: python
+
+   import mindspore as ms
+   from mindspore import jit
+
+   @jit(capture_mode="bytecode")
+   def func(x):
+       a = 0
+       m = x * 3
+       for _ in range(m):
+           a = a + 1
+       return a
+
+   x = ms.Tensor([1], dtype=ms.int32)
+   ret = func(x)
+
+   print("ret: ", ret)
+
+运行结果如下：
+
+.. code:: text
+
+   ret: 3
+
+上述用例中，m为变量，因此整个for循环控制流无法入图，需要按照动态图的方式运行。
