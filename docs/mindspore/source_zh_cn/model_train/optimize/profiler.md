@@ -10,7 +10,7 @@
 
 1. 准备训练脚本；
 
-2. 在训练脚本中调用性能调试接口，如mindspore.Profiler和mindspore.profiler.DynamicProfilerMonitor接口；
+2. 在训练脚本中调用性能调试接口，如mindspore.profiler.profile以及mindspore.profiler.DynamicProfilerMonitor接口；
 
 3. 运行训练脚本；
 
@@ -20,24 +20,25 @@
 
 收集训练性能数据有三种方式，以下将介绍根据不同场景下，使用Profiler使能的方式。
 
-### 方式一：mindspore.Profiler接口使能
+### 方式一：mindspore.profiler.profile接口使能
 
-在训练脚本中添加MindSpore Profiler相关接口，Profiler接口详细介绍请参考[MindSpore Profiler参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html)。
+在训练脚本中添加MindSpore profile相关接口，profile接口详细介绍请参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html)。
 
 **Graph模式采集样例：**
 
 **Graph**模式下，用户可以通过Callback方式来使能Profiler。
 
 ```python
-import mindspore as ms
-from mindspore import Profiler
+import mindspore
 
-class StopAtStep(ms.Callback):
+class StopAtStep(mindspore.Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
         self.stop_step = stop_step
-        self.profiler = Profiler(start_profile=False, output_path='./profiler_data')
+        experimental_config = mindspore.profiler._ExperimentalConfig()
+        self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
+                                                   on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"))
 
     def on_train_step_begin(self, run_context):
         cb_params = run_context.original_args()
@@ -48,9 +49,10 @@ class StopAtStep(ms.Callback):
     def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
+        if self.start_step <= step_num <= self.stop_step:
+            self.profiler.step()
         if step_num == self.stop_step:
             self.profiler.stop()
-            self.profiler.analyse()
 ```
 
 完整案例请参考[graph模式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/graph_start_stop_profiler.py)。
@@ -64,18 +66,33 @@ class StopAtStep(ms.Callback):
 样例如下：
 
 ```python
-from mindspore import Profiler
-from mindspore.profiler import schedule, tensor_board_trace_handler
+import mindspore
 
-STEP_NUM = 15
+# 定义模型训练次数
+steps = 15
+
 # 定义训练模型网络
 net = Net()
-with Profiler(schedule=schedule(wait=0, warmup=0, active=2, repeat=1, skip_first=0),
-              on_trace_ready=tensor_board_trace_handler) as prof:
-    for _ in range(STEP_NUM):
-        train(net)
-        # 调用step采集
-        prof.step()
+
+# 配置可扩展参数
+experimental_config = mindspore.profiler._ExperimentalConfig(
+                        profiler_level=ProfilerLevel.Level0,
+                        aic_metrics=AicoreMetrics.AiCoreNone,
+                        l2_cache=False,
+                        mstx=False,
+                        data_simplification=False)
+
+# 初始化profile
+with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
+                                    schedule=mindspore.profiler.schedule(wait=, warmup=0, active=2,
+                                            repeat=1, skip_first=0),
+                                    on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
+                                    profile_memory=False,
+                                    experimental_config=experimental_config) as prof
+        for step in range(steps):
+            train(net)
+            # 调用step采集
+            prof.step()
 ```
 
 使能后落盘数据中kernel_details.csv中包含了Step ID一列信息，且Step ID为0,1，表示采集的是第0个step以及第1个step数据。
@@ -92,8 +109,10 @@ JSON配置样例如下：
 {
    "start_step": 2,
    "stop_step": 5,
-   "aicore_metrics": -1,
+   "aic_metrics": -1,
    "profiler_level": 0,
+   "profile_memory": false,
+   "mstx": false,
    "activities": 0,
    "analyse_mode": -1,
    "parallel_strategy": false,
@@ -138,7 +157,7 @@ export MS_PROFILER_OPTIONS='
 "output_path": "/XXX",
 "activities": ["CPU", "NPU"],
 "with_stack": true,
-"aicore_metrics": "AicoreNone",
+"aic_metrics": "AicoreNone",
 "l2_cache": false,
 "profiler_level": "Level0"}'
 ```

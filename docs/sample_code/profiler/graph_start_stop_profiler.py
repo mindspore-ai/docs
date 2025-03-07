@@ -16,12 +16,11 @@
 import numpy as np
 
 from mindspore import nn
-import mindspore as ms
+import mindspore
 import mindspore.dataset as ds
-from mindspore import Profiler
 
 
-class StopAtStep(ms.Callback):
+class StopAtStep(mindspore.Callback):
     """
     Start profiling base on step.
 
@@ -33,7 +32,11 @@ class StopAtStep(ms.Callback):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
         self.stop_step = stop_step
-        self.profiler = Profiler(start_profile=False, output_path='./profiler_data')
+        # pylint: disable=protected-access
+        experimental_config = mindspore.profiler._ExperimentalConfig()
+        self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
+                                                   on_trace_ready=mindspore.profiler.tensorboard_trace_handler(
+                                                       "./data"))
 
     def on_train_step_begin(self, run_context):
         cb_params = run_context.original_args()
@@ -44,9 +47,10 @@ class StopAtStep(ms.Callback):
     def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
+        if self.start_step <= step_num <= self.stop_step:
+            self.profiler.step()
         if step_num == self.stop_step:
             self.profiler.stop()
-            self.profiler.analyse()
 
 
 class Net(nn.Cell):
@@ -65,8 +69,8 @@ def generator():
 
 
 if __name__ == '__main__':
-    ms.set_context(mode=ms.GRAPH_MODE)
-    ms.set_device("Ascend")
+    mindspore.set_context(mode=mindspore.GRAPH_MODE)
+    mindspore.set_device("Ascend")
 
     profile_call_back = StopAtStep(5, 8)
 
@@ -74,5 +78,5 @@ if __name__ == '__main__':
     optimizer = nn.Momentum(net.trainable_params(), 1, 0.9)
     loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
     data = ds.GeneratorDataset(generator, ["data", "label"])
-    model = ms.Model(net, loss, optimizer)
+    model = mindspore.Model(net, loss, optimizer)
     model.train(3, data, callbacks=[profile_call_back], dataset_sink_mode=False)

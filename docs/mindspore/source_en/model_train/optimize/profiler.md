@@ -10,7 +10,7 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 1. Prepare the training script;
 
-2. Call the performance debugging interface in the training script, such as mindspore.Profiler and mindspore.profiler.DynamicProfilerMonitor interfaces;
+2. Call the performance debugging interface in the training script, such as mindspore.profiler.profile and mindspore.profiler.DynamicProfilerMonitor interfaces;
 
 3. Run the training script;
 
@@ -29,15 +29,16 @@ Add the MindSpore Profiler related interfaces in the training script, see [MindS
 In **Graph** mode, users can enable Profiler through Callback.
 
 ```python
-import mindspore as ms
-from mindspore import Profiler
+import mindspore
 
-class StopAtStep(ms.Callback):
+class StopAtStep(mindspore.Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
         self.stop_step = stop_step
-        self.profiler = Profiler(start_profile=False, output_path='./profiler_data')
+        experimental_config = mindspore.profiler._ExperimentalConfig()
+        self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
+                                                   on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"))
 
     def on_train_step_begin(self, run_context):
         cb_params = run_context.original_args()
@@ -48,9 +49,10 @@ class StopAtStep(ms.Callback):
     def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
+        if self.start_step <= step_num <= self.stop_step:
+            self.profiler.step()
         if step_num == self.stop_step:
             self.profiler.stop()
-            self.profiler.analyse()
 ```
 
 For the complete case, refer to [graph mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/graph_start_stop_profiler.py)
@@ -64,18 +66,33 @@ For example, if you want to collect the performance data of the first two steps,
 Sample as follows:
 
 ```python
-from mindspore import Profiler
-from mindspore.profiler import schedule, tensor_board_trace_handler
+import mindspore
 
+# Define model training times
 STEP_NUM = 15
+
 # Define the training model network
 net = Net()
-with Profiler(schedule=schedule(wait=0, warmup=0, active=2, repeat=1, skip_first=0),
-              on_trace_ready=tensor_board_trace_handler) as prof:
-    for _ in range(STEP_NUM):
-        train(net)
-        # Call step to collect
-        prof.step()
+
+# Configure the extensibility parameters
+experimental_config = mindspore.profiler._ExperimentalConfig(
+                        profiler_level=ProfilerLevel.Level0,
+                        aic_metrics=AicoreMetrics.AiCoreNone,
+                        l2_cache=False,
+                        mstx=False,
+                        data_simplification=False)
+
+# Initialize profile
+with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
+                                    schedule=mindspore.profiler.schedule(wait=, warmup=0, active=2,
+                                            repeat=1, skip_first=0),
+                                    on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
+                                    profile_memory=False,
+                                    experimental_config=experimental_config) as prof
+        for step in range(steps):
+            train(net)
+            # Call step collection
+            prof.step()
 ```
 
 After enabling, the Step ID column information is included in the kernel_details.csv file, and the Step ID is 0,1, indicating that the data collected is the 0th and 1st step data.
@@ -92,8 +109,10 @@ JSON configuration example as follows:
 {
    "start_step": 2,
    "stop_step": 5,
-   "aicore_metrics": -1,
+   "aic_metrics": -1,
    "profiler_level": 0,
+   "profile_memory": false,
+   "mstx": false,
    "activities": 0,
    "analyse_mode": -1,
    "parallel_strategy": false,
@@ -138,7 +157,7 @@ export MS_PROFILER_OPTIONS='
 "output_path": "/XXX",
 "activities": ["CPU", "NPU"],
 "with_stack": true,
-"aicore_metrics": "AicoreNone",
+"aic_metrics": "AicoreNone",
 "l2_cache": false,
 "profiler_level": "Level0"}'
 ```
