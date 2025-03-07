@@ -9,12 +9,13 @@
 [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) is an open-source language model evaluation framework that provides evaluation of more than 60 standard academic datasets, supports multiple evaluation modes such as HuggingFace model evaluation, PEFT adapter evaluation, and vLLM inference evaluation, and supports customized prompts and evaluation metrics, including the evaluation tasks of the loglikelihood, generate_until, and loglikelihood_rolling types.
 After MindFormers is adapted based on the Harness evaluation framework, the MindFormers model can be loaded for evaluation.
 
-The currently adapted models and supported evaluation tasks are shown in the table below (the remaining models and evaluation tasks are actively being adapted, please pay attention to version updates):
+The currently verified models and supported evaluation tasks are shown in the table below (the remaining models and evaluation tasks are actively being verified and adapted, please pay attention to version updates):
 
-| Adapted models | Supported evaluation tasks |
-|----------------|----------------------------|
-| Llama3-8B      | Gsm8k、Boolq、Mmlu、Ceval     |
-| Qwen2-7B       | Gsm8k、Boolq、Mmlu、Ceval     |
+| Verified models | Supported evaluation tasks                     |
+|-----------------|------------------------------------------------|
+| Llama3   | gsm8k, ceval-valid, mmlu, cmmlu, race, lambada |
+| Llama3.1 | gsm8k, ceval-valid, mmlu, cmmlu, race, lambada |
+| Qwen2    | gsm8k, ceval-valid, mmlu, cmmlu, race, lambada |
 
 ### Installation
 
@@ -22,7 +23,7 @@ Harness supports two installation methods: pip installation and source code comp
 
 #### pip Installation
 
-Users can execute the following command to install Harness:
+Users can execute the following command to install Harness (Recommend using version 0.4.4):
 
 ```shell
 pip install lm_eval==0.4.4
@@ -41,76 +42,124 @@ pip install -e .
 
 ### Usage
 
-#### Viewing a Dataset Evaluation Task
-
-Users can view all the evaluation tasks supported by Harness through the following command:
-
-```shell
-#!/bin/bash
-
-python toolkit/benchmarks/eval_with_harness.py --tasks list
-```
-
-#### Starting the Single-Device Evaluation Script
+#### Preparations Before Evaluation
 
 - Preparations Before Evaluation
 
-  1. Create a model directory MODEL_DIR.
-  2. Store the YAML file(\*.yaml), and tokenizer file(\*_tokenizer.py) in the model directory. For details, Please refer to the description documents of each model in the [model library](../start/models.md);
-  3. Configure the yaml file. Refer to [configuration description](../appendix/conf_files.md).
+  1. Create a new directory with e.g. the name `model_dir` for storing the model yaml files.
+  2. Place the model inference yaml configuration file (predict_xxx_.yaml) in the directory created in the previous step. The directory location of the reasoning yaml configuration file for different models refers to [model library](../start/models.md).
+  3. Configure the yaml file. If the model class, model Config class, and model Tokenzier class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
 
-      YAML configuration example:
+      Using [predict_1lama3_1_8b. yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
 
       ```yaml
       run_mode: 'predict'    # Set inference mode
-      model:
-        model_config:
-          use_past: True
-          checkpoint_name_or_path: "model.ckpt"    # path of ckpt
+      load_checkpoint: 'model.ckpt'    # path of ckpt
       processor:
         tokenizer:
           vocab_file: "tokenizer.model"    # path of tokenizer
+          type: Llama3Tokenizer
+          auto_register: llama3_tokenizer.Llama3Tokenizer
       ```
 
-- Executing the Following Evaluation Command
+      For detailed instructions on each configuration item, please refer to the [configuration description](../appendix/conf_files.md).
+
+#### Evaluation Example
+
+Execute the script of [run_harness.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_harness.sh) to evaluate.
+
+The following table lists the parameters of the script of `run_harness.sh`:
+
+| Parameter           | Type | Description                                                                                                                                                                                   | Required |
+|---------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory. | No       |
+| `--model`       | str  | The value must be `mf`, indicating the MindFormers evaluation policy.                                                                                                                          | Yes      |
+| `--model_args`  | str  | Model and evaluation parameters. For details, see MindFormers model parameters.                                                                                                            | Yes      |
+| `--tasks`       | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                 | Yes      |
+| `--batch_size`  | int  | Number of batch processing samples.                                                                                                                                                           | No       |
+
+The following table lists the parameters of `model_args`:
+
+| Parameter          | Type | Description                                                              | Required |
+|--------------|------|--------------------------------------------------------------------------|----------|
+| `pretrained`   | str  | Model directory.                                                         | Yes      |
+| `max_length`   | int  | Maximum length of model generation.                                      | No       |
+| `use_parallel` | bool | Enable parallel strategy (It must be enabled for multi card evaluation). | No       |
+| `tp`           | int  | The number of parallel tensors.                                          | No       |
+| `dp`           | int  | The number of parallel data.                                             | No       |
+
+1. Single Card Evaluation Example
 
    ```shell
-   #!/bin/bash
-
-   python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrained=MODEL_DIR,device_id=0" --tasks TASKS
+      source toolkit/benchmarks/run_harness.sh \
+       --register_path mindformers/research/llama3_1 \
+       --model mf \
+       --model_args pretrained=model_dir \
+       --tasks gsm8k
    ```
 
-   > Execute script path:[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_harness.py)
+2. Multi Card Evaluation Example
 
-#### Evaluation Parameters
+   ```shell
+      source toolkit/benchmarks/run_harness.sh \
+       --register_path mindformers/research/llama3_1 \
+       --model mf \
+       --model_args pretrained=model_dir,use_parallel=True,tp=4,dp=1 \
+       --tasks ceval-valid \
+       --batch_size BATCH_SIZE WORKER_NUM
+   ```
 
-Harness parameters
+    - `BATCH_SIZE` is the sample size for batch processing of models;
+    - `WORKER_NUM` is the number of compute devices.
 
-| Parameter           | Type | Description                     | Required|
-|---------------|-----|---------------------------|------|
-| `--model`       | str | The value must be **mf**, indicating the MindFormers evaluation policy.| Yes   |
-| `--model_args`  | str | Model and evaluation parameters. For details, see "MindFormers model parameters."      | Yes   |
-| `--tasks`       | str | Dataset name. Multiple datasets can be specified and separated by commas (,).      | Yes   |
-| `--batch_size`  | int | Number of batch processing samples.                   | No   |
-| `--limit`       | int | Number of samples for each task. This parameter is mainly used for function tests.         | No   |
+3. Multi Computer and Multi Card Example
 
-MindFormers model parameters
+   Node 0 (Master) Command:
 
-| Parameter          | Type  | Description                             | Required|
-|--------------|------|-----------------------------------|------|
-| `pretrained`   | str  | Model directory.                           | Yes   |
-| `use_past`     | bool | Specifies whether to enable incremental inference. This parameter must be enabled for evaluation tasks of the generate_until type.| No   |
-| `device_id`    | int  | Device ID.                             | No   |
+      ```shell
+         source toolkit/benchmarks/run_harness.sh \
+          --register_path mindformers/research/llama3_1 \
+          --model mf \
+          --model_args pretrained=model_dir,use_parallel=True,tp=8,dp=1 \
+          --tasks lambada \
+          --batch_size 2 8 4 192.168.0.0 8118 0 output/msrun_log False 300
+      ```
 
-### Evaluation Example
+   Node 1 (Secondary Node) Command:
 
-```shell
-#!/bin/bash
+      ```shell
+         source toolkit/benchmarks/run_harness.sh \
+          --register_path mindformers/research/llama3_1 \
+          --model mf \
+          --model_args pretrained=model_dir,use_parallel=True,tp=8,dp=1 \
+          --tasks lambada \
+          --batch_size 2 8 4 192.168.0.0 8118 1 output/msrun_log False 300
+      ```
 
-python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrained=./llama3-8b,use_past=True" --tasks gsm8k
-```
+   Node n (Nth Node) Command:
 
-The evaluation result is as follows. Filter indicates the output mode of the matching model, Metric indicates the evaluation metric, Value indicates the evaluation score, and Stderr indicates the score error.
+      ```shell
+         source toolkit/benchmarks/run_harness.sh \
+          --register_path mindformers/research/llama3_1 \
+          --model mf \
+          --model_args pretrained=model_dir,use_parallel=True,tp=8,dp=1 \
+          --tasks lambada \
+          --batch_size BATCH_SIZE WORKER_NUM LOCAL_WORKER MASTER_ADDR MASTER_PORT NODE_RANK output/msrun_log False CLUSTER_TIME_OUT
+      ```
+
+   - `BATCH_SIZE` is the sample size for batch processing of models;
+   - `WORKER_NUM` is the total number of compute devices used on all nodes;
+   - `LOCAL_WORKER` is the number of compute devices used on the current node;
+   - `MASTER_ADDR` is the ip address of the primary node to be started in distributed mode;
+   - `MASTER_PORT` is the Port number bound for distributed startup;
+   - `NODE_RANK` is the Rank ID of the current node;
+   - `CLUSTER_TIME_OUT`is the waiting time for distributed startup, in seconds.
+
+   To execute the multi-node multi-device script for evaluating, you need to run the script on different nodes and set MASTER_ADDR to the IP address of the primary node. The IP address should be the same across all nodes, and only the NODE_RANK parameter varies across nodes.
+
+### Viewing the Evaluation Results
+
+After executing the evaluation command, the evaluation results will be printed out on the terminal. Taking gsm8k as an example, the evaluation results are as follows, where Filter corresponds to the way the matching model outputs results, n-shot corresponds to content format of dataset, Metric corresponds to the evaluation metric, Value corresponds to the evaluation score, and Stderr corresponds to the score error.
 
 | Tasks | Version | Filter           | n-shot | Metric      |   | Value  |   | Stderr |
 |-------|--------:|------------------|-------:|-------------|---|--------|---|--------|
