@@ -181,6 +181,7 @@ After collecting performance data, the original data will be stored according to
     ├── profiler_metadata.json
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler interface collects performance data
     │   ├── api_statistic.csv          // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
+    │   ├── ascend_mindspore_profiler_*.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, all other files will not be generated
     │   ├── communication.json         // Provides visualization data for performance analysis in multi-card or cluster scenarios, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
     │   ├── communication_matrix.json  // Communication small operator basic information file, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
     │   ├── dataset.csv                // Generated when activities contains ProfilerActivity.CPU

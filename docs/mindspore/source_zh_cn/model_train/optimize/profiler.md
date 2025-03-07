@@ -181,6 +181,7 @@ export MS_PROFILER_OPTIONS='
     ├── profiler_metadata.json
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler接口采集性能数据
     │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
+    │   ├── ascend_mindspore_profiler_*.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则其它所有性能文件都不会生成
     │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置profiler_level=ProfilerLevel.Level1或profiler_level=ProfilerLevel.Level2生成
     │   ├── communication_matrix.json  // 通信小算子基本信息文件，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── dataset.csv                // activities中配置ProfilerActivity.CPU生成
