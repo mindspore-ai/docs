@@ -18,7 +18,7 @@ In different modes, the Dump features supported by MindSpore are not entirely th
 >
 > - Dumping constant data is only supported in CPU/GPU mode, while not supported in Ascend O0/O1/O2 mode.
 >
-> - In Ascend O2 mode, Dump supports both .npy and .bin file formats for data, while other modes only support the .npy file format for Dump data.
+> - O2 mode Dump under Ascend has been migrated to the msprobe tool. For more details, please see [msprobe Tool MindSpore Scene Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
 >
 > - Currently, Dump does not support heterogeneous training, meaning it does not support CPU/Ascend mixed training or GPU/Ascend mixed training.
 
@@ -27,8 +27,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
 <table align="center">
   <tr>
    <td colspan="2" align="center">Feature</td>
-   <td align="center">Ascend O0/Ascend O1</td>
-   <td align="center">Ascend O2</td>
+   <td align="center">Ascend O0/O1</td>
    <td align="center">CPU/GPU</td>
   </tr>
   <tr>
@@ -36,25 +35,21 @@ MindSpore supports different Dump functionalities under various modes, as shown 
    <td align="left">Full network data dump</td>
    <td align="left">Supported</td>
    <td align="left">Supported</td>
-   <td align="left">Supported</td>
   </tr>
   <tr>
    <td rowspan="2" align="left">Partial Data Dump</td>
    <td align="left">Statistics Dump</td>
    <td align="left">Supports both host and device modes<sup>1</sup></td>
-   <td align="left">Supports only host mode</td>
    <td align="left">Not Supported On CPU, GPU Supports only host mode</td>
   </tr>
   <tr>
    <td align="left">Data Sampling Dump</td>
    <td align="left">Supported</td>
    <td align="left">Not Supported</td>
-   <td align="left">Not Supported</td>
   </tr>
   <tr>
    <td align="left">Overflow Dump</td>
    <td align="left">Dump overflow operators</td>
-   <td align="left">Supported</td>
    <td align="left">Supported</td>
    <td align="left">Not Supported</td>
   </tr>
@@ -63,11 +58,9 @@ MindSpore supports different Dump functionalities under various modes, as shown 
    <td align="left">Specify Operator Name</td>
    <td align="left">Supported</td>
    <td align="left">Supported</td>
-   <td align="left">Supported</td>
   </tr>
   <tr>
    <td align="left">Specify Iteration</td>
-   <td align="left">Supported</td>
    <td align="left">Supported</td>
    <td align="left">Supported</td>
   </tr>
@@ -75,17 +68,14 @@ MindSpore supports different Dump functionalities under various modes, as shown 
    <td align="left">Specify Device</td>
    <td align="left">Supported</td>
    <td align="left">Supported</td>
-   <td align="left">Supported</td>
   </tr>
   <tr>
    <td align="left">Specify File Format</td>
    <td align="left">Not Applicable</td>
-   <td align="left">Supported</td>
    <td align="left">Not Applicable</td>
   </tr>
   <tr>
    <td align="left">set_dump</td>
-   <td align="left">Supported</td>
    <td align="left">Supported</td>
    <td align="left">Supported</td>
   </tr>
@@ -93,13 +83,11 @@ MindSpore supports different Dump functionalities under various modes, as shown 
    <td rowspan="2" align="left">Auxiliary Information Dump</td>
    <td align="left">Graph IR Dump</td>
    <td align="left">Supported</td>
-   <td align="left">Not Supported</td>
    <td align="left">Supported</td>
   </tr>
   <tr>
    <td align="left">Execution Sequence Dump</td>
    <td align="left">Supported</td>
-   <td align="left">Not Supported</td>
    <td align="left">Supported</td>
   </tr>
 </table>
@@ -438,212 +426,7 @@ Generate the numpy.array data.
 
 ## Dump in Ascend O2 Mode
 
-### Dump Step
-
-1. Create configuration file:`data_dump.json`.
-
-    The name and location of the JSON file can be customized.
-
-    ```json
-    {
-        "common_dump_settings": {
-            "op_debug_mode": 0,
-            "dump_mode": 0,
-            "path": "/absolute_path",
-            "net_name": "ResNet50",
-            "iteration": "0|5-8|100-120",
-            "saved_data": "tensor",
-            "input_output": 0,
-            "kernels": ["Default/Conv-op12"],
-            "support_device": [0,1,2,3,4,5,6,7],
-            "statistic_category": ["max", "min", "l2norm"],
-            "file_format": "npy"
-        }
-    }
-    ```
-
-    - `common_dump_settings`:
-
-        - `op_debug_mode`: This attribute is used for operator overflow debugging. 0: disable overflow check function; 3: enable overflow check function; 4: enable the lightweight exception dump function. Set it to 0 when Dump data is processed. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped.
-        - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node. Specified data dump is supported only when "dump_mode' is set to `0`.
-        - `path`: The absolute path to save Dump data.
-        - `net_name`: The customized net name: "ResNet50".
-        - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. Specified iteration dump is supported only when "op_debug_mode" is set to `0`, not supported when when "op_debug_mode" is set to `3` or `4`. When Ascend O2 dump is enabled, sink size can only be set to 1.
-        - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Dump in Ascend O2 Mode statistics dump is only supported when `file_format` is set to `npy`, using "statistic" or "full" when `file_format` is set to `bin` will result in exception. Statistic dump is only supported when "op_debug_mode" is set to `0`.
-        - `input_output`: When set to 0, it means to Dump the operator's input and output; when set to 1, it means to Dump the operator's input; setting it to 2 means to Dump the output of the operator.
-        - `kernels`: This item can be configured in two formats:
-             1. List of operator names. Specifying operator needs to first set the environment variable for saving the graph file to save the graph, and then obtain the operator name from the saved graph file. Please refer to the documentation on Ascend Developer Zone [DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000050.html) , [DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000051.html) and [DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000052.html) for details about the environment variable for saving the graph file.
-             2. Regular expressions of operator names. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
-        - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
-        - `statistic_category`: This attribute is used by users to configure the category of statistical information to be saved, and only takes effect when saving statistical information is enabled(i.e.`saved_data` is set to `statistic` or `full`). The type is a string list, where the optional values of the strings are as follows:
-
-            - "max": represents the maximum value of the elements in tensor;
-            - "min": represents the minimum value of the elements in tensor;
-            - "avg": represents the average value of elements in tensor;
-            - "count": represents the number of the elements in tensor;
-            - "negative zero count": represents the number of the elements which is less then zero in tensor;
-            - "positive zero count": represents the number of the elements which is greater then zero in tensor;
-            - "nan count": represents the number of `Nan` elements in the tensor;
-            - "negative inf count": represents the number of `-Inf` elements in the tensor;
-            - "positive inf count": represents the number of `+Inf` elements in the tensor;
-            - "zero count": represents the number of zero elements in the tensor;
-            - "md5": represents the MD5 value of the tensor;
-            - "l2norm": represents L2Norm value of the tensor.
-
-            This field is optional, with default values of ["max", "min", "l2norm"].
-
-        - `file_format`: Dump file type. It can be either `npy` and `bin`. `npy`: data will be dumped in npy files as host format. `bin`: data will be dumped in protobuf file as device format and need to be transformed to parse using the provided data analysis tool. Please refer to [Ascend O2 Mode Dump Data Analysis Sample](#data-analysis-sample-1) for details. The default value is `bin`.
-        - `overflow_number`：Specify the number of data to overflow dump. This field is required only when `op_debug_mode` is set to 3 and `file_format` is set to `npy`. It can control the overflow data to be dumped in chronological order until the specified value is reached, and the overflow data will no longer be dumped. The default value is 0, which means dumping all overflow data.
-
-2. Set Dump environment variable.
-
-    ```bash
-    export MINDSPORE_DUMP_CONFIG=${Absolute path of data_dump.json}
-    ```
-
-    If the `path` field is not set or set to an empty string in the Dump configuration file, you also need to configure the environment variable `MS_DIAGNOSTIC_DATA_PATH`.
-
-    ```bash
-    export MS_DIAGNOSTIC_DATA_PATH=${yyy}
-    ```
-
-    Then "$MS_DIAGNOSTIC_DATA_PATH/debug_dump" is regarded as `path`. If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
-
-    - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
-    - Dump environment variables need to be configured before calling `mindspore.communication.init`.
-
-3. Execute the training script to dump data.
-
-    You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
-
-4. Refer to [Ascend O2 Mode Dump Data Analysis Sample](#data-analysis-sample-1) to analyze the Dump data file.
-
-> - If you need to dump all or part of the operator, you can modify the `dump_mode` option in the json configuration file to 0 or 1.
-> - Due to the slow Dump speed, enabling Dump in large model scenarios can extend the communication interval between different cards, leading to communication operator timeouts. This issue can be resolved by adjusting the timeout duration for the communication operators. For the Ascend backend, you can set the HCCL_EXEC_TIMEOUT environment variable. For detailed instructions, please refer to the [Ascend CANN documentation](https://www.hiascend.com/document/detail/zh/canncommercial/80RC1/apiref/envvar/envref_07_0072.html).
-
-### Introduction to Data Object Directory and Data File
-
-When the graph compilation level is not O0 or O1, the Dump directory structure is as follows, where the main feature is the {step_id} directory, which represents user side training step id:
-
-```text
-{path}/
-    - {step_id}/
-        - {time}/
-            - {device_id}/
-                - {model_name}/
-                    - {model_id}/
-                        - {iteration_id}/
-                            statistic.csv
-                            {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                            mapping.csv
-    acl_dump_{device_id}.json
-```
-
-- `path`: the absolute path set in the `data_dump.json` configuration file.
-- `device_id`: the id of the device.
-- `model_name`: the model name generated by MindSpore.
-- `model_id`: the id of the model.
-- `graph_id`: the id of the training graph.
-- `iteration_id`: the iteration of the training.
-- `op_type`: the type of the operator.
-- `op_name`: the name of the operator.
-- `task_id`: the id of the task, if unable to fetch the value, the default is set to 65535.
-- `stream_id`: the id of the stream, if unable to fetch the value, the default is set to 65535.
-- `timestamp`: the time stamp.
-- `step_id`: user side training step id.
-
-The `acl_damp_{device_id}.json` file in the {path} directory is an intermediate file generated by Ascend O2 Mode dump during interface calls, and generally does not need to be paid attention to.
-
-The overflow file (file `Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`) is only saved when overflow dump is enabled and overflow is detected.
-
-If set `file_format` to `npy`, the operator file will be saved as a npy format file, and the overflow file will be saved as a json format file. The file naming formats are:
-
-```text
-{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy
-Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}.output.0.json
-```
-
-If the length of the tensor file name defined according to the naming rules exceeds the OS file name length limit (usually 255 characters), the tensor file will be renamed to a string of random numbers. The mapping relationship will be written to the file 'mapping.csv' in the same directory.
-
-If set `file_format` to `npy`, it can be loaded by `numpy.load`.
-
-If not configured `file_format` or set `file_format` to `bin`, after the training is started, the original data file generated by Ascend O2 Mode Dump or overflow files generated by overflow detection are in protobuf format. They need to be parsed using the data analysis tool that comes with the HiSilicon Run package. For details, please refer to [How to view dump data files](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/atlasaccuracy_16_0078.html).
-
-The data format on the Device side may be different from the definition in the calculation diagram on the Host side. The bin file data format of the Ascend O2 Mode dump is the Device side format. If you want to convert to the Host side format, you can refer to [How to convert dump data file format](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/atlasaccuracy_16_0077.html).
-
-If the file is saved in `bin` format, the file naming format is:
-
-```text
-{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-```
-
-Take the Conv2D-op12 of AlexNet network as an example: `Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802`, where `Conv2D` is `{op_type}`, `Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12` is `{op_name}`, and `2` is `{task_id' }`, `7` is `{stream_id' }`, `161243956333802` is `{timestamp}`.
-
-If ".", "/", "\", and spaces appear in `op_type` and `op_name`, they will be converted to underscores.
-
-If setting `file_format` to `npy`, the naming convention of data files generated by Ascend O2 Mode dump is the same as those of Ascend O0/O1 dump. Please refer to [Introduction to Ascend O0/O1 Dump Data File](#introduction-to-data-object-directory-and-data-file). The overflow file generated by overflow detection is in the `json` format, and the content analysis of the overflow file can refer to the [Analyzing the Data File of an Overflow/Underflow Operator](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/infacldevg/aclcppdevg/aclcppdevg_000160.html) .
-
-The `saved_data` option only takes effect when `file_format` is "npy". If `saved_data` is "statistic" or "full", tensor statistics will be dumped in `statistic.csv`. When `saved_data` is "tensor" or "full", full tensor data will be dumped in `{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`. The format of the statistic file will be the same as that of Ascend O0/O1 dump. Please refer to [Introduction to Ascend O0/O1 Dump Data File](#introduction-to-data-object-directory-and-data-file).
-
-### Data Analysis Sample
-
-Ascend O2 Mode dump does not automatically save `.ir` files. To view `.ir` files, you can use MindSpore IR save switch `export MS_DEV_SAVE_GRAPHS=2` before executing the use case. After executing the use case, you can view the saved `tracecode_graph_ xxx}` file, which can be opened with `vi`. Please refer to the data analysis example of Ascend O0/O1 dump for the file viewing method. Since the `.ir` file is not the final execution graph, it cannot be guaranteed that the operator names in the operator file correspond one-to-one with those in the `.ir` file. Please refer to the documentation on Ascend Developer Zone [DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000050.html) , [DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000051.html) and [DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000052.html) to save the final execution graph.
-
-In Ascend O2 mode, dump data files will be generated in the corresponding directory described above. The parsing of these data files can be done through the following three steps: If `file_format` in the Dump configure file is set to "npy", then the step 1, 2 in the follows steps can be skipped. If `file_format` is not set or set to "bin", the tensor files need to be converted to `.npy` format.
-
-1. Parse the dumped file using `msaccucmp.py` provied in the run package, the path where the `msaccucmp.py` file is located may be different on different environments. You can find it through the `find` command:
-
-    ```bash
-    find ${run_path} -name "msaccucmp.py"
-    ```
-
-    - `run_path`: The installation path of the run package.
-
-2. After finding the `msaccucmp.py`, go to the `/absolute_path` directory and run the following command to parse the Dump data:
-
-    ```bash
-    python ${The absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
-    ```
-
-    The {file path of dump} can be path to a single `.bin` file, or the folder that include the `.bin` files.
-
-    If you need to convert the data format, please refer to the user instructions link <https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/atlasaccuracy_16_0077.html>.
-
-    For example, the data file generated by Dump is:
-
-    ```text
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802
-    ```
-
-    Then execute:
-
-    ```bash
-    python3.7.5 msaccucmp.py convert -d /path/to/Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802 -out ./output -f NCHW -t npy
-    ```
-
-    All input and output data for this operator can be generated under `./output`. Each data is saved as a file with the `.npy` suffix in the format `NCHW`. The result is as follows:
-
-    ```text
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.1.384x256x3x3.npy
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.output.0.32x384x13x13.npy
-    ```
-
-    At the end of the file name, you can see which input or output the file is the operator, and the dimensional information of the data. For example, by the first `.npy` file name
-
-    ```text
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy
-    ```
-
-    It can be seen that the file is the 0th input of the operator, and the dimension information of the data is `32x256x13x13`.
-
-3. The corresponding data can be read through `numpy.load("file_name")`. For example:
-
-    ```python
-    import numpy
-    numpy.load("Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy")
-    ```
+O2 mode Dump under Ascend has been migrated to the msprobe tool. For more details, please see [msprobe Tool MindSpore Scene Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
 
 ## Dump in CPU/GPU Mode
 
@@ -973,37 +756,6 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 ```
 
 Generate the numpy.array data.
-
-## Other Description
-
-### Other Dump Function
-
-In some special scenarios, the GE dump mode can be applied under development guidance.
-
-To enable GE dump, set the environment variable MINDSPORE_DUMP_CONFIG and ENABLE_MS_GE_DUMP to 1. This mode applies only to the scenario where the compilation level of the graph is O2. The format of the configuration file is the same as that of the Ascend O2 Dump configuration file. The op_debug_mode field cannot be set to 4. Other parameters are the same as those of the Ascend O2 Dump configuration file.
-
-```bash
-export ENABLE_MS_GE_DUMP=1
-```
-
-The GE Dump directory structure is as follows:
-
-```text
-{path}/
-    - {time}/
-        - {device_id}/
-            - {model_name}/
-                - {model_id}/
-                    - {iteration_id}/
-                        statistic.csv
-                        {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                        Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                        mapping.csv
-```
-
-Among them, the meanings of `path`, `time`, `device_id`, `model_name`, `model_id`, `iteration_id`, `op_type`, `op_name`, `task_id`, `stream_id`, and `timestamp` are the same as those of Ascend O2 Dump.
-
-This method will be abandoned in the future and is not recommended for use.
 
 ## Notices
 

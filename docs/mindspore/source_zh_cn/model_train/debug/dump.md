@@ -18,7 +18,7 @@ MindSpore在不同模式下支持的Dump功能不完全相同，需要的配置�
 >
 > - CPU/GPU模式支持dump常量数据，Ascend O0/O1/O2模式不支持Dump常量数据。
 >
-> - Ascend O2模式支持dump数据格式`.npy`和`.bin`文件，其他模式只支持dump数据格式`.npy`文件。
+> - Ascend O2模式Dump已迁移到msprobe工具，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
 >
 > - Dump暂不支持异构训练，即不支持CPU/Ascend混合训练或GPU/Ascend混合训练。
 
@@ -27,8 +27,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
 <table align="center">
   <tr>
    <td colspan="2" align="center">功能</td>
-   <td align="center">Ascend O0/Ascend O1</td>
-   <td align="center">Ascend O2</td>
+   <td align="center">Ascend O0/O1</td>
    <td align="center">CPU/GPU</td>
   </tr>
   <tr>
@@ -36,25 +35,21 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
    <td align="left">整网数据dump</td>
    <td align="left">支持</td>
    <td align="left">支持</td>
-   <td align="left">支持</td>
   </tr>
   <tr>
    <td rowspan="2" align="left">部分数据dump</td>
    <td align="left">统计信息dump</td>
    <td align="left">支持host和device模式<sup>1</sup></td>
-   <td align="left">仅支持host模式</td>
    <td align="left">CPU不支持，GPU仅支持host模式</td>
   </tr>
   <tr>
    <td align="left">数据采样dump</td>
    <td align="left">支持</td>
    <td align="left">不支持</td>
-   <td align="left">不支持</td>
   </tr>
   <tr>
    <td align="left">溢出dump</td>
    <td align="left">dump溢出算子</td>
-   <td align="left">支持</td>
    <td align="left">支持</td>
    <td align="left">不支持</td>
   </tr>
@@ -63,11 +58,9 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
    <td align="left">指定算子名称</td>
    <td align="left">支持</td>
    <td align="left">支持</td>
-   <td align="left">支持</td>
   </tr>
   <tr>
    <td align="left">指定迭代</td>
-   <td align="left">支持</td>
    <td align="left">支持</td>
    <td align="left">支持</td>
   </tr>
@@ -75,17 +68,14 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
    <td align="left">指定device</td>
    <td align="left">支持</td>
    <td align="left">支持</td>
-   <td align="left">支持</td>
   </tr>
   <tr>
    <td align="left">指定file_format</td>
    <td align="left">不涉及</td>
-   <td align="left">支持</td>
    <td align="left">不涉及</td>
   </tr>
   <tr>
    <td align="left">set_dump</td>
-   <td align="left">支持</td>
    <td align="left">支持</td>
    <td align="left">支持</td>
   </tr>
@@ -93,13 +83,11 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
    <td rowspan="2" align="left">辅助信息dump</td>
    <td align="left">图ir dump</td>
    <td align="left">支持</td>
-   <td align="left">不支持</td>
    <td align="left">支持</td>
   </tr>
   <tr>
    <td align="left">执行序dump</td>
    <td align="left">支持</td>
-   <td align="left">不支持</td>
    <td align="left">支持</td>
   </tr>
 </table>
@@ -438,212 +426,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
 
 ## Ascend下O2模式Dump
 
-### 操作步骤
-
-1. 创建配置文件`data_dump.json`。
-
-    JSON文件的名称和位置可以自定义设置。
-
-    ```json
-    {
-        "common_dump_settings": {
-            "op_debug_mode": 0,
-            "dump_mode": 0,
-            "path": "/absolute_path",
-            "net_name": "ResNet50",
-            "iteration": "0|5-8|100-120",
-            "saved_data": "tensor",
-            "input_output": 0,
-            "kernels": ["Default/Conv-op12"],
-            "support_device": [0,1,2,3,4,5,6,7],
-            "statistic_category": ["max", "min", "l2norm"],
-            "file_format": "npy"
-        }
-    }
-    ```
-
-    - `common_dump_settings`:
-
-        - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成3，表示开启溢出检测功能；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
-        - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
-        - `path`：Dump保存数据的绝对路径。
-        - `net_name`：自定义的网络名称，例如："ResNet50"。
-        - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个，第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0时支持保存指定迭代，op_debug_mode设置为3或4时不支持指定迭代。注意，使能Ascend O2模式下Dump时，sink size只能设置为1。
-        - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。Ascend O2模式下Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。保存统计信息仅支持op_debug_mode设置为0的场景。默认取值为"tensor"。
-        - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
-        - `kernels`：该项可以配置两种格式：
-          1. 算子的名称列表。指定算子需要先设置保存图文件的环境变量来保存图，再从保存的图文件中获取算子名称。保存图文件的环境变量请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0013.html) 。
-          2. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
-        - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
-        - `statistic_category`: 该属性用于用户配置要保存的统计信息类别，仅在开启了保存统计信息(即`saved_data`设置为"statistic"或"full")时生效。类型为字符串列表，其中的字符串可选值如下：
-
-            - "max": 表示Tensor中元素的最大值；
-            - "min": 表示Tensor中元素的最小值；
-            - "avg": 表示Tensor中元素的平均值；
-            - "count": 表示Tensor中元素的个数；
-            - "negative zero count": 表示Tensor中小于0的元素个数；
-            - "positive zero count": 表示Tensor中大于0的元素个数；
-            - "nan count": 表示Tensor中元素的`Nan`的个数；
-            - "negative inf count": 表示Tensor中`-Inf`元素的个数；
-            - "positive inf count": 表示Tensor中`+Inf`元素的个数；
-            - "zero count": 表示Tensor中元素`0`的个数；
-            - "md5": 表示Tensor的MD5值；
-            - "l2norm": 表示Tensor的L2Norm值。
-
-        该字段为可选，默认值为["max", "min", "l2norm"]。
-
-        - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[Ascend O2模式下数据分析样例](#数据分析样例-1)。默认取值为`bin`。
-        - `overflow_number`：指定溢出dump的数据个数。该字段仅在`op_debug_mode`设置为3开启溢出检测功能，且`file_format`设置为`npy`时需要配置，可控制溢出数据按时间序dump，到指定数值后溢出数据不再dump。默认值为0，表示dump全部溢出数据。
-
-2. 设置数据Dump的环境变量。
-
-    ```bash
-    export MINDSPORE_DUMP_CONFIG=${Absolute path of data_dump.json}
-    ```
-
-   如果Dump配置文件没有设置`path`字段或者设置为空字符串，还需要配置环境变量`MS_DIAGNOSTIC_DATA_PATH`。
-
-   ```bash
-   export MS_DIAGNOSTIC_DATA_PATH=${yyy}
-   ```
-
-   则“$MS_DIAGNOSTIC_DATA_PATH/debug_dump”就会被当做`path`的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。
-
-   - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-   - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
-
-3. 执行用例Dump数据。
-
-   可以在训练脚本中设置`set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
-
-4. 参考[Ascend O2模式下数据分析样例](#数据分析样例-1)解析Dump数据文件。
-
-> - 若需要dump全量或部分算子，则可以修改json配置文件中的`dump_mode`选项为0或1。
-> - 由于Dump速度较慢，在大模型场景下开启Dump会延长不同卡之间的通信间隔时间，从而导致通信算子超时。可以通过调整通信算子的超时时间来解决此问题。对于Ascend后端，可以设置HCCL_EXEC_TIMEOUT环境变量，具体设置方法请参考[昇腾CANN文档](https://www.hiascend.com/document/detail/zh/canncommercial/80RC1/apiref/envvar/envref_07_0072.html)。
-
-### 数据对象目录和数据文件介绍
-
-Ascend O2模式下Dump目录结构如下所示，主要特征为存在{step_id}目录，代表用户侧的训练轮次：
-
-```text
-{path}/
-    - {step_id}/
-        - {time}/
-            - {device_id}/
-                - {model_name}/
-                    - {model_id}/
-                        - {iteration_id}/
-                            statistic.csv
-                            {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                            mapping.csv
-    acl_dump_{device_id}.json
-```
-
-- `path`：`data_dump.json`配置文件中设置的绝对路径。
-- `time`：dump目录的创建时间。
-- `device_id`: 卡号。
-- `model_name`：模型名称，由MindSpore生成。
-- `model_id`：模型标号。
-- `iteration_id`：GE侧训练的轮次。
-- `op_type`：算子类型。
-- `op_name`：算子名称。
-- `task_id`：任务标号，如果获取不到，默认为65535。
-- `stream_id`：流标号，如果获取不到，默认为65535。
-- `timestamp`：时间戳。
-- `step_id`: 用户侧的训练轮次。
-
-在{path}目录的`acl_dump_{device_id}.json`文件，是Ascend O2模式下Dump在接口调用过程中生成的中间文件，一般情况下无需关注。
-
-其中，溢出文件（`Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`文件）只会在开启溢出Dump且检测到溢出时保存。
-
-若配置文件中`file_format`值设置为`npy`，算子文件会保存成npy格式的文件，溢出文件会被保存成json格式的文件。文件命名格式分别为：
-
-```text
-{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy
-Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}.output.0.json
-```
-
-如果按命名规则定义的张量文件名称长度超过了OS文件名称长度限制（一般是255个字符），则会将该张量文件重命名为一串随机数字，映射关系会保存在同目录下的“mapping.csv”。
-
-若配置文件中`file_format`值设置为`npy`，可以直接用`numpy.load`加载。
-
-若未配置`file_format`值或`file_format`值为`bin`，启动训练后，Ascend O2模式下Dump生成的原始数据文件或溢出检测生成的溢出文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/modelaccuracy/atlasaccuracy_16_0055.html)。
-
-数据在Device侧的格式可能和Host侧计算图中的定义不同，Ascend O2模式下Dump的bin数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/modelaccuracy/atlasaccuracy_16_0054.html)。
-
-Ascend O2模式下Dump生成的数据文件是`bin`文件时，文件命名格式为：
-
-```text
-{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-```
-
-以AlexNet网络的Conv2D-op12为例：`Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802`，其中`Conv2D`是`{op_type}`，`Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12`是`{op_name}`，`2`是`{task_id}`，`7`是`{stream_id}`，`161243956333802`是`{timestamp}`。
-
-如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
-
-若配置`file_format`值为`npy`，则启用Ascend O2模式下Dump生成的数据文件命名规则与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)，溢出检测生成的溢出文件是`json`格式，溢出文件内容解析可参考[解析算子溢出数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devguide/appdevg/aclpythondevg/aclpythondevg_0078.html#ZH-CN_TOPIC_0000001781325073__section6864050111619)。
-
-选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)。
-
-### 数据分析样例
-
-Ascend O2模式下Dump不会自动保存`.ir`文件，要想查看`.ir`文件，可以在执行用例前通过MindSpore的IR保存开关`export MS_DEV_SAVE_GRAPHS=2`，执行用例后查看保存的`trace_code_graph_{xxx}`文件，可以用vi打开。文件查看方式请参考Ascend O0模式下的数据分析样例。Ascend O2模式下，由于`.ir`文件中并不是最终执行图，不能保证算子文件和`.ir`文件中的算子名一一对应。保存最终的执行图请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0013.html) 。
-
-Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解析。如果Ascend O2模式下Dump配置文件中设置的`file_format`为"npy"，可以跳过以下步骤中的1、2，如果没有设置`file_format`，或者设置为"bin"，需要先转换成`.npy`格式的文件。
-
-1. 使用run包中提供的`msaccucmp.py`解析Dump出来的文件。不同的环境上`msaccucmp.py`文件所在的路径可能不同，可以通过`find`命令进行查找：
-
-    ```bash
-    find ${run_path} -name "msaccucmp.py"
-    ```
-
-    - `run_path`：run包的安装路径。
-
-2. 找到`msaccucmp.py`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
-
-    ```bash
-    python ${The absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
-    ```
-
-    {file path of dump} 可以是单个`.bin`文件的路径，也可以是包含`.bin`文件的文件夹路径。
-
-    若需要转换数据格式，可参考[使用说明链接](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/modelaccuracy/atlasaccuracy_16_0054.html)。
-
-    如Dump生成的数据文件为：
-
-    ```text
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802
-    ```
-
-    则执行：
-
-    ```bash
-    python3.7.5 msaccucmp.py convert -d /path/to/Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802 -out ./output -f NCHW -t npy
-    ```
-
-    则可以在`./output`下生成该算子的所有输入输出数据。每个数据以`.npy`后缀的文件保存，数据格式为`NCHW`。生成结果如下：
-
-    ```text
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.1.384x256x3x3.npy
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.output.0.32x384x13x13.npy
-    ```
-
-    在文件名的末尾可以看到该文件是算子的第几个输入或输出，以及数据的维度信息。例如，通过第一个`.npy`文件名
-
-    ```text
-    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy
-    ```
-
-    可知该文件是算子的第0个输入，数据的维度信息是`32x256x13x13`。
-
-3. 通过`numpy.load("file_name")`可以读取到对应数据。样例如下：
-
-    ```python
-    import numpy
-    numpy.load("Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy")
-    ```
+Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
 
 ## CPU/GPU模式Dump
 
@@ -973,37 +756,6 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 ```
 
 生成numpy.array数据。
-
-## 其他说明
-
-### 其他dump方法
-
-在一些特殊场景下，可在开发指导下应用GE dump模式。
-
-如果要使能GE dump，除了配置环境变量MINDSPORE_DUMP_CONFIG之外，还需要另外配置环境变量ENABLE_MS_GE_DUMP=1，该方式仅支持图编译等级为O2的场景。配置文件的格式和Ascend O2模式下Dump相同，op_debug_mode字段不支持配置为4，其余各项参数和Ascend O2模式下Dump相同。
-
-```bash
-export ENABLE_MS_GE_DUMP=1
-```
-
-GE dump的目录结构如下：
-
-```text
-{path}/
-    - {time}/
-        - {device_id}/
-            - {model_name}/
-                - {model_id}/
-                    - {iteration_id}/
-                        statistic.csv
-                        {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                        Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                        mapping.csv
-```
-
-其中， `path`、`time`、`device_id`、`model_name`、`model_id`、`iteration_id`、`op_type`、`op_name`、`task_id`、`stream_id`、`timestamp`的含义和Ascend O2模式下Dump的相同。
-
-该方式在将来会被废弃，不推荐使用。
 
 ## 注意事项
 
