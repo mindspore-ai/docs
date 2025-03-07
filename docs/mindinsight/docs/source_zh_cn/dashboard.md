@@ -185,7 +185,7 @@
 
 ## 优化过程可视化
 
-优化过程可视化可以将将神经网络训练路径周围的优化空间展示出来，更多信息请查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/landscape.html)。
+优化过程可视化可以将神经网络训练路径周围的优化空间展示出来，更多信息请查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/landscape.html)。
 
 ## 注意事项
 
