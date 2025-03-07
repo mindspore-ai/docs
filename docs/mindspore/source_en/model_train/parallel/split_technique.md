@@ -32,6 +32,12 @@ Fusion large operators, such as [FlashAttentionScore](https://www.mindspore.cn/l
 
 Users working with strategy propagation need to have some understanding not only of its propagation algorithm itself, but also of the parallelism of the model to be trained. If there exists a certain operator whose parallelization strategy determined by the strategy propagation algorithm does not meet the user's expectations, that can always be solved by configuring an additional operator parallelization strategy. In practice, for a new model, it does take several attempts to obtain an overall parallel configuration with better performance.
 
+### Configuring Operators Across the Network
+
+Strategy propagation should prioritize forward propagation (from front to back) followed by backward propagation (from back to front). Forward propagation algorithms can more accurately derive the optimal strategy compared to backward propagation. Therefore, it is recommended that users prioritize configuring operators with inputs located at the front of the network, especially the very first input operators in the entire network. In the example shown in the figure below, it is necessary to prioritize configuring the ReLU operator and the Add operator. If the MatMul operator is configured first, the strategy obtained by the algorithm when propagating back to the ReLU and Add operators may not necessarily be the optimal strategy.
+
+![sp_case4_zh](./images/sp_case4.png "prioritize configuring input operators")
+
 ## Configuring Code Samples
 
 Taking the encapsulated class [RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/experimental/graph/tensor_parallel/layers.py) in MindFormers as an example:

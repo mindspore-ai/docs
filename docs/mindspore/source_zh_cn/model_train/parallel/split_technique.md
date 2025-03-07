@@ -34,6 +34,12 @@
 
 用户在使用策略传播时，需要对其传播算法和训练模型的并行方式有一定的理解。如果某个由策略传播算法决定的算子并行策略不符合用户期望，可以通过多配置一个算子并行策略来解决。实际情况下，对于一个新模型，需要尝试多次才能获得性能较优的整体并行配置。
 
+### 配置整网算子
+
+策略传播优先从前向后传播，然后从后向前传播。从前往后算法传播比起从后往前反向传播，能够更准确地得到最优策略，所以建议用户优先配置网络位置靠前输入的算子，尤其是整个网络最前面的输入算子。下图的例子中，需要优先配置relu算子和add算子，如果优先配置matmul，反向传播策略回relu算子和add算子时算法得到的策略就不一定是最优策略。
+
+![sp_case4_zh](./images/sp_case4_zh.png "优先配置输入算子")
+
 ## 配置代码样例
 
 以MindFormers中封装的类[RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/experimental/graph/tensor_parallel/layers.py)为例：
