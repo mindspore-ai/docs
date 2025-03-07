@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindFormers 提供了大模型推理能力，用户可以执行 `run_mindformer` 统一脚本，或者编写代码调用 `pipeline` 高阶接口进行推理。使用 `run_mindformer` 统一脚本可以不编写代码，直接通过配置文件启动，用法更便捷。
+MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_mindformer` 统一脚本，或者编写代码调用高阶接口进行推理。使用 `run_mindformer` 统一脚本可以不编写代码，直接通过配置文件启动，用法更便捷。
 
 ## 基本流程
 
@@ -43,24 +43,25 @@ MindFormers 提供了大模型推理能力，用户可以执行 `run_mindformer`
 
 ### 3. 执行推理任务
 
-使用 `run_mindformer` 统一脚本或调用 `pipeline` 接口执行推理任务。
+使用 `run_mindformer` 统一脚本或调用高阶接口执行推理任务。
 
-## 基于 run_mindformer 脚本推理
+## 使用 run_mindformer 一键启动脚本推理
 
 单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh)来启动。
 
 run_mindformer.py的参数说明如下：
 
-|参数|参数说明|
-|:---------------------------------|:-------------------------------------------------------------------------|
-|config|yaml配置文件的路径|
-|run_mode|运行的模式，推理设置为predict|
-|use_parallel|是否使用多卡推理|
-|load_checkpoint|加载的权重路径|
-|predict_data|推理的输入数据，多batch推理时需要传入输入数据的txt文件路径，包含多行输入|
-|auto_trans_ckpt|自动权重切分，默认值为False|
-|src_strategy_path_or_dir|权重的策略文件路径|
-|predict_batch_size|多batch推理的batch_size大小|
+| 参数                     | 参数说明                                         |
+| :----------------------- |:---------------------------------------------|
+| config                   | yaml配置文件的路径                                  |
+| run_mode                 | 运行的模式，推理设置为predict                           |
+| use_parallel             | 是否使用多卡推理                                     |
+| load_checkpoint          | 加载的权重路径                                      |
+| predict_data             | 推理的输入数据，多batch推理时需要传入输入数据的txt文件路径，包含多行输入     |
+| auto_trans_ckpt          | 自动权重切分，默认值为False                             |
+| src_strategy_path_or_dir | 权重的策略文件路径                                    |
+| predict_batch_size       | 多batch推理的batch_size大小                        |
+| modal_type               | 多模态推理场景下，模型推理输入对应模态，图片路径对应'image'，文本对应'text' |
 
 msrun_launcher.sh包括run_mindformer.py命令和推理卡数两个参数。
 
@@ -195,11 +196,42 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 
 推理结果查看方式，与单卡推理相同。
 
-## 基于 pipeline 接口推理
+### 多模态推理
+
+以`cogvlm2-llama3-chat-19B`模型为例，可以参考以下流程启动推理任务：
+
+修改模型配置文件[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml)。
+
+```shell
+model:
+  model_config:
+    use_past: True                         # 开启增量推理
+    is_dynamic: False                      # 关闭动态shape
+
+  tokenizer:
+    vocab_file: "/{path}/tokenizer.model"  # 指定tokenizer文件路径
+```
+
+启动推理脚本
+
+```shell
+python run_mindformer.py \
+ --config configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml \
+ --run_mode predict \
+ --predict_data "/path/image.jpg" "Please describe this image." \  # 模型推理输入，第一个输入是图片路径，第二个输入是文本
+ --modal_type image text \                                         # 模型推理输入对应模态，图片路径对应'image'，文本对应'text'
+ --load_checkpoint /{path}/cogvlm2-image-llama3-chat.ckpt
+```
+
+## 基于高阶接口推理
+
+MindSpore Transformers除了提供 `run_mindformer` 统一脚本进行推理外，也支持用户自定义调用高阶接口`pipeline`或`chat`接口实现。
+
+### Pipeline接口
 
 基于 `pipeline` 接口的自定义文本生成推理任务流程，支持单卡推理和多卡推理。关于如何使用 `pipeline` 接口启动任务并输出结果，可以参考以下实现方式，具体参数说明可以查看 [pipeline 接口的API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers/mindformers.pipeline.html#mindformers.pipeline)。
 
-### 增量推理
+#### 增量推理
 
 ```python
 from mindformers import build_context
@@ -217,6 +249,8 @@ tokenizer = AutoTokenizer.from_pretrained('llama2_7b')
 # 模型实例化
 # 修改成本地的权重路径
 model = AutoModel.from_pretrained('llama2_7b', checkpoint_name_or_path="path/to/llama2_7b.ckpt", use_past=True)
+# 模型实例化可使用魔乐社区模型在线加载，传入仓库名，格式为MindSpore-Lab/model_name
+# model = AutoModel.from_pretrained('MindSpore-Lab/qwen1_5_7b-chat')
 
 # pipeline启动非流式推理任务
 text_generation_pipeline = pipeline(task="text_generation", model=model, tokenizer=tokenizer)
@@ -239,7 +273,7 @@ python pipeline_inference.py
 'text_generation_text': [Huawei is a company that has been around for a long time. ......]
 ```
 
-### 流式推理
+#### 流式推理
 
 ```python
 from mindformers import build_context
@@ -257,6 +291,8 @@ tokenizer = AutoTokenizer.from_pretrained('llama2_7b')
 # 模型实例化
 # 修改成本地的权重路径
 model = AutoModel.from_pretrained('llama2_7b', checkpoint_name_or_path="path/to/llama2_7b.ckpt", use_past=True)
+# 模型实例化可使用魔乐社区模型在线加载，传入模型名为Repo_id，格式为MindSpore-Lab/model_name
+# model = AutoModel.from_pretrained('MindSpore-Lab/qwen1_5_7b-chat')
 
 # pipeline启动流式推理任务
 streamer = TextStreamer(tokenizer)
@@ -278,6 +314,46 @@ python pipeline_inference.py
 'text_generation_text': [Huawei is a company that has been around for a long time. ......]
 ```
 
+### chat接口
+
+基于 `chat` 接口的对话文本生成推理任务流程，通过提供的分词器添加聊天模板后，对用户的查询进行推断。可以参考以下实现方式，具体参数说明可以查看 [chat 接口的API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.chat)。
+
+```python
+from mindformers import build_context
+from mindformers import AutoModel, AutoTokenizer
+
+# 构造输入
+query = "Hello!"
+
+# 初始化环境
+build_context({'context': {'mode': 0}, 'parallel': {}, 'parallel_config': {}})
+
+# 实例化tokenizer
+tokenizer = AutoTokenizer.from_pretrained('llama2_7b')
+
+# 模型实例化
+# 修改成本地的权重路径
+model = AutoModel.from_pretrained('llama2_7b', checkpoint_name_or_path="path/to/llama2_7b.ckpt", use_past=True)
+# 模型实例化可使用魔乐社区模型在线加载，传入仓库名，格式为MindSpore-Lab/model_name
+# model = AutoModel.from_pretrained('MindSpore-Lab/qwen1_5_7b-chat')
+
+# 调用chat接口启动推理任务
+response, history = model.chat(tokenizer=tokenizer, query=query, max_length=32)
+print(response)
+```
+
+通过将示例保存到 `chat_inference.py` 中，并且修改加载权重的路径，然后直接执行 `chat_inference.py` 脚本。
+
+```shell
+python chat_inference.py
+```
+
+执行以上命令的推理结果如下：
+
+```text
+Thanks, sir.
+```
+
 ## 更多信息
 
-更多关于不同模型的推理示例，请访问[MindFormers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
+更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
