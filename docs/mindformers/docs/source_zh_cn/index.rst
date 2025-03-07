@@ -15,7 +15,7 @@ MindFormers支持一键启动任意任务的单卡/多卡训练、微调、评�
 - `评测 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/evaluation.html>`_
 - `推理 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/inference.html>`_
 - `量化 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/quantization.html>`_
-- `MindIE服务化部署 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/mindie_deployment.html>`_
+- `服务化部署 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/mindie_deployment.html>`_
 - `动态图并行开发 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/pretrain_gpt.html>`_
 - `多模态理解模型开发指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/multi_modal.html>`_
 

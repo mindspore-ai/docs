@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindFormers provides the foundation model inference capability. Users can run the unified script `run_mindformer` or write a script to call the high-level `pipeline` API to start inference. If the unified script `run_mindformer` is used, you can directly start the system through the configuration file without writing code.
+MindSpore Transformers provides the foundation model inference capability. Users can run the unified script `run_mindformer` or write a script to call the high-level API to start inference. If the unified script `run_mindformer` is used, you can directly start the system through the configuration file without writing code.
 
 ## Basic Process
 
@@ -43,7 +43,7 @@ The command samples in the following contents are all used in the way of online 
 
 ### 3. Executing inference tasks
 
-Call the `pipeline` API or use the unified script `run_mindformer` to execute inference tasks.
+Call the high-level API or use the unified script `run_mindformer` to execute inference tasks.
 
 ## Inference Based on the run_mindformer Script
 
@@ -51,16 +51,17 @@ For single-device inference, you can directly run [run_mindformer.py](https://gi
 
 The arguments to run_mindformer.py are described below:
 
-|Parameters|Parameter Descriptions|
-|:---------------------------------|:-------------------------------------------------------------------------|
-|config|Path to the yaml configuration file|
-|run_mode|The running mode, with inference set to predict|
-|use_parallel|Whether to use multicard inference|
-|load_checkpoint|the loaded weight path|
-|predict_data|Input data for inference. Multi-batch inference needs to pass the path to the txt file of the input data, which contains multiple lines of inputs.|
-|auto_trans_ckpt|Automatic weight slicing. Default value is False|
-|src_strategy_path_or_dir|Path to the strategy file for weights|
-|predict_batch_size|batch_size for multi-batch inference|
+| Parameters               | Parameter Descriptions                                                                                                                             |
+|:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+| config                   | Path to the yaml configuration file                                                                                                                |
+| run_mode                 | The running mode, with inference set to predict                                                                                                    |
+| use_parallel             | Whether to use multicard inference                                                                                                                 |
+| load_checkpoint          | the loaded weight path                                                                                                                             |
+| predict_data             | Input data for inference. Multi-batch inference needs to pass the path to the txt file of the input data, which contains multiple lines of inputs. |
+| auto_trans_ckpt          | Automatic weight slicing. Default value is False                                                                                                   |
+| src_strategy_path_or_dir | Path to the strategy file for weights                                                                                                              |
+| predict_batch_size       | batch_size for multi-batch inference                                                                                                               |
+| modal_type               | Given modal type corresponds to predict data in multimodal inference scenario.                                                                     |
 
 msrun_launcher.sh includes the run_mindformer.py command and the number of inference cards as two parameters.
 
@@ -195,11 +196,42 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 
 Inference results are viewed in the same way as single-card inference.
 
-## Inference Based on Pipeline Interface
+## Multimodal Inference
+
+Use `cogvlm2-llama3-chat-19B` model as example and see the following process with details：
+
+Modify configuration yaml file[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml).
+
+```shell
+model:
+  model_config:
+    use_past: True
+    is_dynamic: False
+
+  tokenizer:
+    vocab_file: "/{path}/tokenizer.model"  
+```
+
+Run inference scripts.
+
+```shell
+python run_mindformer.py \
+ --config configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml \
+ --run_mode predict \
+ --predict_data "/path/image.jpg" "Please describe this image." \  # input data,first input is image path,second input is text path.
+ --modal_type image text \                                         # modal type for input data,'image' type for image path,'text' type for text path.
+ --load_checkpoint /{path}/cogvlm2-image-llama3-chat.ckpt
+```
+
+## Inference Based on High-level Interface
+
+MindSpore Transformers not only provide a unified script for 'run_indformer' inference, but also support user-defined calls to high-level interfaces such as' pipeline 'or' chat 'for implementation.
+
+### Pipeline Interface
 
 Customized text generation inference task flow based on `pipeline` interface, supporting single card inference and multi-card inference. About how to use `pipeline` interface to start the task and output the result, you can refer to the following implementation. The specific parameter description can be viewed [pipeline interface API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers/mindformers.pipeline.html#mindformers.pipeline).
 
-### Incremental Inference
+#### Incremental Inference
 
 ```python
 from mindformers import build_context
@@ -217,6 +249,8 @@ tokenizer = AutoTokenizer.from_pretrained('llama2_7b')
 # Instantiate a model.
 # Modify the path to the local weight path.
 model = AutoModel.from_pretrained('llama2_7b', checkpoint_name_or_path="path/to/llama2_7b.ckpt", use_past=True)
+# Model instantiation is also supported from modelers.cn.Given repo id which format is MindSpore-Lab/model_name
+# model = AutoModel.from_pretrained('MindSpore-Lab/qwen1_5_7b-chat')
 
 # Start a non-stream inference task in the pipeline.
 text_generation_pipeline = pipeline(task="text_generation", model=model, tokenizer=tokenizer)
@@ -239,7 +273,7 @@ The inference result is as follows:
 'text_generation_text': [Huawei is a company that has been around for a long time. ......]
 ```
 
-### Stream Inference
+#### Stream Inference
 
 ```python
 from mindformers import build_context
@@ -257,6 +291,8 @@ tokenizer = AutoTokenizer.from_pretrained('llama2_7b')
 # Instantiate a model.
 # Modify the path to the local weight path.
 model = AutoModel.from_pretrained('llama2_7b', checkpoint_name_or_path="path/to/llama2_7b.ckpt", use_past=True)
+# Model instantiation is also supported from modelers.cn.Given repo id which format is MindSpore-Lab/model_name
+# model = AutoModel.from_pretrained('MindSpore-Lab/qwen1_5_7b-chat')
 
 # Start a stream inference task in the pipeline.
 streamer = TextStreamer(tokenizer)
@@ -278,6 +314,46 @@ The inference result is as follows:
 'text_generation_text': [Huawei is a company that has been around for a long time. ......]
 ```
 
+### chat Interface
+
+Based on the 'chat' interface, the process of generating dialogue text inference tasks involves adding chat templates through the provided tokenizer to infer user queries. You can refer to the following implementation methods, and specific parameter descriptions can be viewed [chat interface API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.chat).
+
+```python
+from mindformers import build_context
+from mindformers import AutoModel, AutoTokenizer
+
+# Construct the input content.
+query = "Hello!"
+
+# Initialize the environment.
+build_context({'context': {'mode': 0}, 'parallel': {}, 'parallel_config': {}})
+
+# Instantiate a tokenizer.
+tokenizer = AutoTokenizer.from_pretrained('llama2_7b')
+
+# Instantiate a model.
+# Modify the path to the local weight path.
+model = AutoModel.from_pretrained('llama2_7b', checkpoint_name_or_path="path/to/llama2_7b.ckpt", use_past=True)
+# Model instantiation is also supported from modelers.cn.Given repo id which format is MindSpore-Lab/model_name
+# model = AutoModel.from_pretrained('MindSpore-Lab/qwen1_5_7b-chat')
+
+# Start a stream inference task with chat.
+response, history = model.chat(tokenizer=tokenizer, query=query, max_length=32)
+print(response)
+```
+
+Save the example to `chat_inference.py`, modify the path for loading the weight, and run the `chat_inference.py` script.
+
+```shell
+python chat_inference.py
+```
+
+The inference result is as follows:
+
+```text
+Thanks, sir.
+```
+
 ## More Information
 
-For more inference examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
