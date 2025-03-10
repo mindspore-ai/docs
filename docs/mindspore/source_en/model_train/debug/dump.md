@@ -156,6 +156,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
             This field is optional, with default values of ["max", "min", "l2norm"].
 
         - `overflow_number`：Specify the number of data to overflow dump. This field is required only when `op_debug_mode` is set to 3 and only the overflow operator is saved. It can control the overflow data to be dumped in chronological order until the specified value is reached, and the overflow data will no longer be dumped. The default value is 0, which means dumping all overflow data.
+        - `initial_iteration`: Specifies the initial iteration number for Dump, which must be a non-negative integer. If set to 10, the iteration count for the initial Dump will start from 10. Default value: 0.
 
     - `e2e_dump_settings`:
 
