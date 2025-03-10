@@ -140,7 +140,7 @@ llama-2-7b-hf
     ms.save_checkpoint(ckpt_list, ms_ckpt_path)
     ```
 
-    执行成功后，在ms_ckpt_path的会生成一个ckpt文件。
+    执行成功后，在ms_ckpt_path的路径下会生成一个ckpt文件。
 
     将上述代码合到同一个weight_convert.py文件里，具体如下：
 
