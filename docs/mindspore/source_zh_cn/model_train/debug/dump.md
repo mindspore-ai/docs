@@ -156,6 +156,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
         该字段为可选，默认值为["max", "min", "l2norm"]。
 
         - `overflow_number`：指定溢出dump的数据个数。该字段仅在`op_debug_mode`设置为3，只保存溢出算子时需要配置，可控制溢出数据按时间序dump，到指定数值后溢出数据不再dump。默认值为0，表示dump全部溢出数据。
+        - `initial_iteration`：指定Dump的初始迭代数，需为非负整数。若设置为10，则Dump初始落盘的iteration将从10开始计数。默认值：0。
 
     - `e2e_dump_settings`:
 
