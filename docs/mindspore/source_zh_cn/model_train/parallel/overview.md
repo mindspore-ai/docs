@@ -6,17 +6,6 @@
 
 要实现分布式并行训练和推理，您可以参考以下指引：
 
-## 启动方式
-
-MindSpore目前支持四种启动方式：
-
-- **msrun**：是动态组网的封装，允许用户使用单命令行指令在各节点拉起分布式任务，安装MindSpore后即可使用，不依赖外部配置或者模块，支持Ascend/GPU/CPU。
-- **动态组网**：通过MindSpore内部动态组网模块启动，不依赖外部配置或者模块，支持Ascend/GPU/CPU。
-- **mpirun**：通过多进程通信库OpenMPI启动，支持Ascend/GPU。
-- **rank table**：配置rank_table表后，通过脚本启动和卡数对应的进程，支持Ascend。
-
-详细可参考[分布式并行启动方式](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/startup_method.html)章节。
-
 ## 并行模式
 
 目前MindSpore可以采取下述的几种并行模式，您可以按需求选择：

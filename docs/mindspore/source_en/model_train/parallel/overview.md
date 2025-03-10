@@ -6,17 +6,6 @@ In deep learning, as the size of the dataset and number of parameters grows, the
 
 To implement distributed parallel training and inference, you can refer to the following guidelines:
 
-## Startup Methods
-
-MindSpore currently supports four startup methods:
-
-- **msrun**: Capsulation of dynamic cluster. It allows user to launch distributed jobs using one single command in each node. It could be used after MindSpore is installed. This method does not rely on third-party libraries and configuration files. Ascend/GPU/CPU support.
-- **Dynamic Networking**: Start via MindSpore internal dynamic grouping module, no dependency on external configurations or modules, Ascend/GPU/CPU support.
-- **mpirun**: Start via the multi-process communication library OpenMPI, with Ascend/GPU support.
-- **rank table**: After configuring the rank_table table, Ascend is supported by start scripts and processes corresponding to the number of cards.
-
-Refer to the [Distributed Parallel Startup Methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html) section for details.
-
 ## Parallel Modes
 
 Currently MindSpore can take the following parallel mode, and you can choose according to your needs:
