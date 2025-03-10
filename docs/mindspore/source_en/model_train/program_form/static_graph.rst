@@ -21,32 +21,17 @@ Overview
 In Just-In-Time Compilation (JIT) mode, Python code is not executed by the Python interpreter.Instead, the code is compiled into a static computation graph, and then the static computation graph is executed.
 
 In static graph mode, MindSpore converts Python source code into
-Intermediate Representation IR by means of source code conversion and
-optimizes IR graphs on this basis, and finally executes the optimized
-graphs on hardware devices. MindSpore uses a functional IR based on
-graph representations, called MindIR. See `middle representation MindIR <https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir>`_ for details .
+Intermediate Representation IR by means of source code conversion and optimizes IR graphs on this basis, and finally executes the optimized graphs on hardware devices. MindSpore uses a functional IR based on graph representations, called MindIR. See `middle representation MindIR <https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir>`_ for details.
 
-Currently, there are three main methods for converting Python source code into Intermediate Representation (IR): parsing based on the Abstract Syntax Tree (AST), parsing based 
-on ByteCode, and the method based on operator call tracing (Trace). For detailed information about these three modes,
-please refer to  `Dynamic and Static Combination <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#dynamic-and-static-combination>`_ . These three modes differ 
-to some extent in terms of syntax support. This document will first elaborate in detail on the syntax support in the scenario based on the Abstract Syntax Tree (AST), 
-and then introduce the differences in syntax support when constructing the computation graph based on ByteCode and operator tracing (Trace) methods, respectively.
+Currently, there are three main methods for converting Python source code into Intermediate Representation (IR): parsing based on the Abstract Syntax Tree (AST), parsing based on ByteCode, and the method based on operator call tracing (Trace). For detailed information about these three modes, please refer to  `Dynamic and Static Combination <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#dynamic-and-static-combination>`_ . These three modes differ 
+to some extent in terms of syntax support. This document will first elaborate in detail on the syntax support in the scenario based on the Abstract Syntax Tree (AST), and then introduce the differences in syntax support when constructing the computation graph based on ByteCode and operator tracing (Trace) methods, respectively.
 
-MindSpore static graph execution process actually consists of two steps,
-corresponding to the Define and Run phases of the static graph, but in
-practice, the user will not perceive these two phases when the
-instantiated Cell object is called. MindSpore encapsulates both phases
-in the Cell ``__call__`` method, so the actual calling process is:
+MindSpore static graph execution process actually consists of two steps, corresponding to the Define and Run phases of the static graph, but in practice, the user will not perceive these two phases when the instantiated Cell object is called. MindSpore encapsulates both phases in the Cell ``__call__`` method, so the actual calling process is:
 
-``model(inputs) = model.compile(inputs) + model.construct(inputs)``,
-where ``model`` is the instantiated Cell object.
+``model(inputs) = model.compile(inputs) + model.construct(inputs)``, where ``model`` is the instantiated Cell object.
 
 Just-In-Time (JIT) compilation can be achieved using the `JIT interface <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#jit>`_ . 
-Another way is to use the Graph mode by setting ``ms.set_context(mode=ms.GRAPH_MODE)``, then
-write the code in the ``construct`` function of the ``Cell`` so that the
-code in the ``construct`` function will be compiled into a static
-computation graph. For details about the definition of ``Cell``, click
-`Cell API document <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html>`_.
+Another way is to use the Graph mode by setting ``ms.set_context(mode=ms.GRAPH_MODE)``, then write the code in the ``construct`` function of the ``Cell`` so that the code in the ``construct`` function will be compiled into a static computation graph. For details about the definition of ``Cell``, click `Cell API document <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html>`_.
 
 Due to syntax parsing restrictions, the supported data types, syntax,
 and related operations during graph building are not completely
@@ -64,16 +49,16 @@ syntax. The default value is 'LAX', please refer to the `Extended
 Syntaxes (LAX level) <#extended-syntaxes-lax-level>`_ section of this
 article for more information. All backends are supported at all levels.
 
--  STRICT: Only basic syntaxes is supported, and execution performance
-   is optimal. Can be used for MindIR load and export.
--  LAX: Supporting more complex syntaxes, compatible with all Python
-   syntax as much as possible. Cannot be used for MindIR load and export
-   due to some syntax that may not be able to be exported.
+- STRICT: Only basic syntaxes is supported, and execution performance
+  is optimal. Can be used for MindIR load and export.
+- LAX: Supporting more complex syntaxes, compatible with all Python
+  syntax as much as possible. Cannot be used for MindIR load and export
+  due to some syntax that may not be able to be exported.
 
 The following describes the data types, syntax, and related operations
 supported during static graph building. These rules apply only to JIT
 mode. Below is an introduction to the details of syntax support based
-on the Abstract Syntax Tree (AST)..
+on the Abstract Syntax Tree (AST).
 
 AST Basic Syntaxes (STRICT Level)
 -----------------------------------------
