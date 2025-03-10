@@ -19,7 +19,7 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
 
 `in_strategy(tuple)`：指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`tuple(int)`或`mindspore.Layout`。
 
-`out_strategy(None, tuple)`：指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None，目前尚未使能，后续会开放。在深度学习模型中，输出策略会根据`set_auto_parallel_context`里`full_batch`的取值，被替换为数据并行(False)和重复计算(True)。
+`out_strategy(None, tuple)`：指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None。在深度学习模型中，输出策略会根据`set_auto_parallel_context`里`full_batch`的取值，被替换为数据并行(False)和重复计算(True)。
 
 `parameter_plan(None, dict)`：指定各参数的切分策略，传入字典时，键是str类型的参数名，值是一维`tuple(int)`或一维`tuple(mindspore.Layout)`，表示相应的切分策略，如果参数名错误或对应参数已经设置了切分策略，该参数的设置会被跳过。默认值：None，表示不设置。
 
