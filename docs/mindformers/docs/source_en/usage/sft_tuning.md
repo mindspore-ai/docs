@@ -30,15 +30,15 @@ Based on actual operations, SFT may be decomposed into the following steps:
 5. **Performing a fine-tuning task:**
    Use the dataset of the fine-tuning task to train the pre-trained model and update the model parameters. If all parameters are fine-tuned, all parameters are updated. After the fine-tuning task is complete, a new model can be obtained.
 
-## SFT fine-tuning methods
+## SFT Fine-Tuning Methods
 
 MindSpore Transformers currently supports two SFT fine-tuning methods: full-parameter fine-tuning and LoRA low-parameter fine-tuning. Full-parameter fine-tuning refers to updating all parameters during training, which is suitable for large-scale data fine-tuning, and can get the optimal adaptability to the task, but requires larger computational resources.LoRA low-parameter fine-tuning only updates some parameters during training, which uses less memory and is faster than full-parameter fine-tuning, but is not as effective as full-parameter fine-tuning in some tasks.
 
-### Introduction to the LoRA Principle**.
+### Introduction to the LoRA Principle
 
 LoRA achieves a significant reduction in the number of parameters by decomposing the weight matrix of the original model into two low-rank matrices. For example, suppose a weight matrix W has size m x n. With LoRA, this matrix is decomposed into two low-rank matrices A and B, where A has size m x r and B has size r x n (r is much smaller than m and n). During the fine-tuning process, only these two low-rank matrices are updated without changing the rest of the original model.
 
-This approach not only drastically reduces the computational overhead of fine-tuning, but also preserves the original performance of the model, which is especially suitable for model optimization in environments with limited data volume and restricted computational resources. For detailed principles, you can check the paper [LoRA: Low-Rank Adaptation of Large Language Models](https:// arxiv.org/abs/2106.09685).
+This approach not only drastically reduces the computational overhead of fine-tuning, but also preserves the original performance of the model, which is especially suitable for model optimization in environments with limited data volume and restricted computational resources. For detailed principles, you can check the paper [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685).
 
 ## Using MindSpore Transformers for Full-Parameter Fine-Tuning
 

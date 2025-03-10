@@ -24,8 +24,7 @@
 
 在即时编译（Just-In-Time Compilation，JIT）模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
 
-在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate
-Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考\ `中间表示MindIR <https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir>`_\ 。
+在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考\ `中间表示MindIR <https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir>`_\ 。
 
 目前，将Python源码转换为中间表示（IR）的方法主要有三种：基于抽象语法树（Abstract Syntax Tree, AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法，有关三种模式的详细介绍，请见\ `动静结合 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html#%E5%8A%A8%E9%9D%99%E7%BB%93%E5%90%88>`_\ 。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
 

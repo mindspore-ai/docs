@@ -69,7 +69,7 @@ The following will describe the usage of single and multi-card inference using L
 
 > During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_download/Llama2/` directory in advance.
 
-## Single-Device Inference
+### Single-Device Inference
 
 When using complete weight inference, the following command is executed to start the inference task:
 
@@ -101,7 +101,7 @@ The following result appears, proving that the inference was successful. The inf
 'text_generation_text': [I love Beijing, because it is a city that is constantly constantly changing. I have been living here for ......]
 ```
 
-## Multi-Card Inference
+### Multi-Card Inference
 
 The configuration requirements for multi-card inference differ from those of single card, and you need to refer to the following instructions to modify the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) configuration.
 
@@ -167,7 +167,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 
 Inference results are viewed in the same way as single-card inference.
 
-## Multi-Device Multi-Batch Inference
+### Multi-Device Multi-Batch Inference
 
 Multi-card multi-batch inference is initiated in the same way as [multi-card inference](#multi-card-inference), but requires the addition of the `predict_batch_size` inputs and the modification of the `predict_data` inputs.
 
@@ -196,7 +196,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 
 Inference results are viewed in the same way as single-card inference.
 
-## Multimodal Inference
+### Multimodal Inference
 
 Use `cogvlm2-llama3-chat-19B` model as example and see the following process with details：
 
@@ -205,11 +205,11 @@ Modify configuration yaml file[predict_cogvlm2_image_llama3_chat_19b.yaml](https
 ```shell
 model:
   model_config:
-    use_past: True
-    is_dynamic: False
+    use_past: True                         # Turn on incremental inference
+    is_dynamic: False                      # Turn off dynamic shape
 
   tokenizer:
-    vocab_file: "/{path}/tokenizer.model"  
+    vocab_file: "/{path}/tokenizer.model"  # Specify the tokenizer file path
 ```
 
 Run inference scripts.
@@ -225,7 +225,7 @@ python run_mindformer.py \
 
 ## Inference Based on High-level Interface
 
-MindSpore Transformers not only provide a unified script for 'run_indformer' inference, but also support user-defined calls to high-level interfaces such as' pipeline 'or' chat 'for implementation.
+MindSpore Transformers not only provide a unified script for `run_indformer` inference, but also support user-defined calls to high-level interfaces such as `pipeline` or `chat` for implementation.
 
 ### Pipeline Interface
 
@@ -316,7 +316,7 @@ The inference result is as follows:
 
 ### chat Interface
 
-Based on the 'chat' interface, the process of generating dialogue text inference tasks involves adding chat templates through the provided tokenizer to infer user queries. You can refer to the following implementation methods, and specific parameter descriptions can be viewed [chat interface API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.chat).
+Based on the `chat` interface, the process of generating dialogue text inference tasks involves adding chat templates through the provided tokenizer to infer user queries. You can refer to the following implementation methods, and specific parameter descriptions can be viewed [chat interface API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.chat).
 
 ```python
 from mindformers import build_context
