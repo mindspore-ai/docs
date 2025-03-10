@@ -75,6 +75,7 @@ Model Building and Training
 
    custom_program/overview
    custom_program/op_custom
+   custom_program/meta_dsl
    custom_program/initializer
    custom_program/loss
    custom_program/optimizer

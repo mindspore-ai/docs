@@ -10,6 +10,10 @@ Currently MindSpore provides some ways to customize higher-order programming, an
 
 When the built-in operators are not sufficient, you can utilize the [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) principle to quickly and easily define and use different types of custom operators.
 
+## Custom operator combination
+
+When developing the built-in operators required by the network, if the operator is composed of multiple small operators, it can be developed by custom operator combination. MindSpore provides an efficient programming paradigm designed for operator development, which is applied to static graph mode and provides an efficient and concise operator development method through C++ composition.
+
 ## Customizing Neural Network Layers
 
 Typically, the neural network layer interface and function function interface provided by MindSpore are able to meet the model construction requirements, but since the AI field is constantly pushing the boundaries, it is possible to encounter new network structures without built-in modules.
