@@ -14,6 +14,8 @@
 
 2. `mindspore.nn.Cell.shard()`以及`mindspore.ops.Primitive.shard()`：指定算子切分策略，其余算子的策略通过传播算法推导得到。目前`mindspore.nn.Cell.shard()`接口同时支持PyNative模式与Graph模式；`mindspore.ops.Primitive.shard()`接口仅可在Graph模式下使用。
 
+3. `mindspore.Layout()`: 指定`device_matrix`和`tensor_map`，可作为`in_strategy`和`out_strategy`传入`mindspore.nn.Cell.shard()`进行算子切分策略设置。
+
 总而言之，切分策略传播算法需要用户手动配置关键算子的切分策略。
 
 ## 基本原理
