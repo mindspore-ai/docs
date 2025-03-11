@@ -91,7 +91,6 @@
 
    train_availability/fault_recover
    train_availability/graceful_exit
-   train_availability/UCE_fault_recover
 
 .. toctree::
    :glob:
