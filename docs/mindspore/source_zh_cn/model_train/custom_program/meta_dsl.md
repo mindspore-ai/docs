@@ -98,7 +98,7 @@ auto false_branch = [&]() { Return(Value(y)); };
 auto out = If(condition, true_branch, false_branch, (x, y))
 ```
 
-对应的Python源码是:
+对应的Python源码是：
 
 ```python
 if x == 2:
@@ -124,7 +124,7 @@ auto cumsum = [&](const NodePtr &index, const NodePtr &res) { Return(Call(Prim(A
 auto out = For(lower, upper, cumsum, x);
 ```
 
-对应的Python源码是:
+对应的Python源码是：
 
 ```python
 def cumsum(index, res):
@@ -182,7 +182,7 @@ auto cumsum = [&](const NodePtr &input, const NodePtr &elem) {
 auto [res, ys] = Scan(cumsum, init, xs);
 ```
 
-对应的Python源码是:
+对应的Python源码是：
 
 ```python
 def cumsum(input, elem):
@@ -215,7 +215,7 @@ return res, ys
 
 ### `Raise`
 
-功能：用于抛异常。
+功能：用于抛出异常。
 
 参数：报错类型、报错信息。
 

@@ -10,7 +10,7 @@ Currently MindSpore provides some ways to customize higher-order programming, an
 
 When the built-in operators are not sufficient, you can utilize the [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) principle to quickly and easily define and use different types of custom operators.
 
-## Custom operator combination
+## Custom Operator Combination
 
 When developing the built-in operators required by the network, if the operator is composed of multiple small operators, it can be developed by custom operator combination. MindSpore provides an efficient programming paradigm designed for operator development, which is applied to static graph mode and provides an efficient and concise operator development method through C++ composition.
 
