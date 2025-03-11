@@ -14,6 +14,8 @@ Related interfaces:
 
 2. `mindspore.nn.Cell.shard()` and `mindspore.ops.Primitive.shard()`: Specifies the operator sharding strategy, and the strategy for the rest of the operators is derived by the propagation algorithm. Currently the `mindspore.nn.Cell.shard()` interface can be used in PyNative mode and Graph mode; The `mindspore.ops.Primitive.shard()` interface can only be used in Graph mode.
 
+3. `mindspore.Layout()`: Specify `device_matrix` and `tensor_map`, which can be passed as `in_strategy` and `out_strategy` to `mindspore.nn.Cell.shard()` for setting the operator sharding strategy.
+
 In summary, the sharding strategy propagation algorithm requires the user to manually configure the sharding strategy of the key operator.
 
 ## Basic Principles
