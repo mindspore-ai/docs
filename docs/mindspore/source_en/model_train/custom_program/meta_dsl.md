@@ -10,7 +10,7 @@ Meta DSL programming paradigm is an efficient programming paradigm designed for 
 
 This guide is designed to help developers fully understand the functional interfaces and reference examples of the Meta DSL programming paradigm.
 
-## Functional interfaces
+## Functional Interfaces
 
 ### REGISTER_FUNCTION_OP
 
@@ -115,7 +115,7 @@ Parameter:
 1. lower: The start index of loop.
 2. upper: The end index of loop.
 3. loop_func: The loop function, takes two arguments.
-4. init_val:The init value. Supports Tensor, number, str, bool, list, tuple, dict.
+4. init_val: The init value. Supports Tensor, number, str, bool, list, tuple, dict.
 
 Example:
 
@@ -169,7 +169,7 @@ Parameter:
 
 1. loop_func: The loop function, takes two arguments.
 2. init: An initial loop carry value. Supports Tensor, number, str, bool, list, tuple, dict.
-3. xs: The value over which to scan. Supports list, tuple, None
+3. xs: The value over which to scan. Supports list, tuple, None.
 4. length: Optional. The length of the array xs. The default value is ``None``.
 
 Example:
@@ -225,7 +225,7 @@ Example: `Raise("ValueError", "Not supported")`
 
 Function: Determine the input type.
 
-Parameter: input and type fro comparison. The latter is the `TypeId` enumeration type, such as `TypeId::kObjectTypeTensorType`、`TypeId::kNumberTypeInt`、`TypeId::kNumberTypeFloat`、`TypeId::kNumberTypeBool`.
+Parameter: input and type for comparison. The latter is the `TypeId` enumeration type, such as `TypeId::kObjectTypeTensorType`, `TypeId::kNumberTypeInt`, `TypeId::kNumberTypeFloat`, `TypeId::kNumberTypeBool`.
 
 Example: `IsInstance(x, TypeId::kObjectTypeTensorType)`, `IsInstance(x, {TypeId::kNumberTypeInt, TypeId::kNumberTypeFloat})`
 
@@ -307,9 +307,9 @@ Function: logic NOT.
 
 Example: `Not(x)`
 
-## Reference examples
+## Reference Examples
 
-### Simple scenario
+### Simple Scenario
 
 Assume that operator `CustomOp` has three inputs `x`, `y`, `z`, which is composed of operator `A` and operator `B`.
 
@@ -324,7 +324,7 @@ BeginFunction(CustomOp, x, y, z) {
 EndFunction(CustomOp)
 ```
 
-### Control flow if-else scenario
+### Control Flow if-else Scenario
 
 Assume that operator `CustomOp` has two inputs `x` and `y`, which is composed of operator `A` and operator `B`.
 
@@ -340,7 +340,7 @@ BeginFunction(CustomOp, x, y) {
 EndFunction(CustomOp)
 ```
 
-### Complex scenario
+### Complex Scenario
 
 Take the operator `Dense` as an example. It is composed of multiple small operators.
 
