@@ -4,7 +4,7 @@
 
 在阅读本章节之前，请先阅读MindSpore官网教程[损失函数](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/loss.html)。
 
-MindSpore官网教程损失函数中讲解了内置、自定义和多标签损失函数，以及在模型训练中的使用指导，这里就MindSpore的损失函数与PyTorch的损失函数在功能和接口差异方面给出差异列表。
+MindSpore官网教程损失函数中讲解了内置、自定义和多标签损失函数，以及在模型训练中的使用指导。这里就MindSpore的损失函数与PyTorch的损失函数在功能和接口差异方面给出差异列表。
 
 | torch.nn | torch.nn.functional | mindspore.nn | mindspore.ops | 差异说明 |
 | -------- | ------------------- | ------------ | ------------- | ------- |

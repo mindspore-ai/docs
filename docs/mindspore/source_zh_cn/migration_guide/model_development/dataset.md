@@ -21,7 +21,7 @@ MindSpore和PyTorch的数据构建基本流程主要包括两个方面：数据�
 MindSpore提供了很多不同领域的[常见数据集的加载接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.loading.html)。
 除以上业界常用数据集外，MindSpore还开发了MindRecord数据格式以应对高效的读取、超大型数据存储与读取场景，感兴趣可以参阅[MindRecord](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/record.html)。由于此文章是介绍同类API及写法差异，故选取一个较为经典的数据集API作为迁移对比示例。其他数据集接口差异详细可参考PyTorch与MindSpore API映射表的 [torchaudio](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torchaudio)、[torchtext](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torchtext)、[torchvision](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torchvision) 模块。
 
-这里以FashionMnistDataset举例。下图展示了PyTorch的API使用方法（左边部分），以及MindSpore的API使用方法（右边部分）。主要的读取流程为：使用FashionMnist API加载源数据集，再使用transforms对数据内容进行变换，最后根据对数据集进行`batch`操作。两侧代码对应的关键部分，均使用颜色框进行了标记。
+这里以FashionMnistDataset举例。下图展示了PyTorch的API使用方法（左图所示），以及MindSpore的API使用方法（右图所示）。主要的读取流程为：使用FashionMnist API加载源数据集，再使用transforms对数据内容进行变换，最后对数据集进行`batch`操作。两侧代码对应的关键部分，均使用颜色框进行了标记。
 
 ![FashionMnistDataset](../images/fashionmnist_ms_pytorch.png)
 
@@ -35,11 +35,11 @@ MindSpore提供了很多不同领域的[常见数据集的加载接口](https://
 
 2. 对数据集本身进行混洗、批处理、并行加载等功能支持的方式不同：
 
-   * PyTorch支持在 `DataLoader` 中配置参数 `shuffle` 、`batch` 、`num_workers` 等来实现相应功能。
+   * PyTorch支持在 `DataLoader` 中配置 `shuffle` 、`batch` 、`num_workers` 等参数来实现相应功能。
 
-   * 由于接口API设计的差异，MindSpore则直接在数据集API接口，通过参数 `shuffle` 、 `num_parallel_workers` 承载了混洗、并行加载功能，然后在数据增强结束后，使用 `batch` 操作将数据集中连续的数据合并为一个批处理数据。`batch` 操作详情请参考[batch](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch)，由于API设计差异，需要注意MindSpore中 `batch` 操作的参数 `drop_remainder` 与 PyTorch的DataLoader中的参数 `drop_last` 含义一致。
+   * 由于接口API设计的差异，MindSpore直接在数据集API接口，通过参数 `shuffle` 、 `num_parallel_workers` 承载了混洗、并行加载功能，并在数据增强结束后，使用 `batch` 操作将数据集中连续的数据合并为一个批处理数据。`batch` 操作详情请参考[batch](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch)。由于API设计差异，需要注意MindSpore中 `batch` 操作的参数 `drop_remainder` 与 PyTorch的DataLoader中的参数 `drop_last` 含义一致。
 
-   除了FashionMnist API，所有的数据集加载API均有相同的参数设计，上述例子中的 `batch` 操作均适用于所有数据集API。下面以一个可以返回假图像的数据集API `FakeImageDataset` 再次举例并使用相关的数据操作：
+   除了FashionMnist API，所有的数据集加载API均有相同的参数设计，上述例子中的 `batch` 操作均适用于所有数据集API。以下是一个可以返回假图像的数据集API `FakeImageDataset` 的示例以及相关的数据操作：
 
    ```python
    import mindspore.dataset as ds
@@ -64,7 +64,7 @@ MindSpore提供了很多不同领域的[常见数据集的加载接口](https://
 
    batch操作也可以使用一些batch内的增强操作，详情可参考[YOLOv3](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py#L177)。
 
-   上面提到的**数据集加载API含有相同的参数**，在这里介绍一些常用的：
+   上面提到的**数据集加载API含有相同的参数**，下面介绍一些常用的：
 
    | 属性 | 介绍 |
    | ---- | ---- |
@@ -75,7 +75,7 @@ MindSpore提供了很多不同领域的[常见数据集的加载接口](https://
    | shard_id(int) | 用于分布式场景，取第几份数据(0~n-1，n为设置的 `num_shards` )，与 `num_shards` 配合使用 |
    | num_parallel_workers(int) | 并行配置的线程数 |
 
-   这里还是以 `FakeImageDataset` 举个例子：
+   以 `FakeImageDataset` 为例：
 
    ```python
    import mindspore.dataset as ds
@@ -133,14 +133,14 @@ MindSpore提供了很多不同领域的[常见数据集的加载接口](https://
 
    * PyTorch在读取常见数据集时将数据增强操作作为参数传给API接口。
 
-   * MindSpore通过 [map](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html) 的方式进行一系列数据增强操作。简单来说 `map` 会从上一个数据节点一条一条获取数据，并对每条数据进行指定的变换操作。传入 `map` 操作的数据增强操作可以包含MindSpore预先提供的各类数据增强方法：[audio](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html#%E9%9F%B3%E9%A2%91)、[text](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html#%E6%96%87%E6%9C%AC)、[vision](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html#%E8%A7%86%E8%A7%89)、[通用](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html)。详情请参考[数据变换 Transforms](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E6%95%B0%E6%8D%AE%E5%8F%98%E6%8D%A2)。也可以是Python函数，函数里可以自由使用 opencv、PIL、pandas 等一些第三方的库或方法。需要注意的是：
+   * MindSpore通过 [map](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html) 的方式进行一系列数据增强操作。简单来说 `map` 会从上一个数据节点一条一条获取数据，并对每条数据进行指定的变换操作。传入 `map` 的数据增强操作可以包含MindSpore预先提供的各类数据增强方法：[audio](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html#%E9%9F%B3%E9%A2%91)、[text](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html#%E6%96%87%E6%9C%AC)、[vision](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html#%E8%A7%86%E8%A7%89)、[通用](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html)。详情请参考[数据变换 Transforms](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E6%95%B0%E6%8D%AE%E5%8F%98%E6%8D%A2)。也可以是Python函数，函数里可以自由使用 opencv、PIL、pandas 等一些第三方的库或方法。需要注意的是：
 
    > 数据集加载和数据增强的过程中，不能使用MindSpore的ops或者nn算子，否则会产生异常。
 
 ### 处理自定义数据集
 
 除了常见的数据集之外，当遇到需要定制加载逻辑的场景，就需要使用自定义数据集API，MindSpore中对应的API为 `GeneratorDataset` 、PyTorch中对应的API为 `DataLoader` 。
-PyTorch和MindSpore构造自定义 Dataset 对象的基本流程都需要创建一个迭代器类，如下面的 `MyCustomDataset` ，在该类中定义 `__init__` 、 `__getitem__` 、 `__len__` 三个方法。
+PyTorch和MindSpore构造自定义 Dataset 对象的基本流程都需要创建一个迭代器类，如下图的 `MyCustomDataset` ，在该类中定义 `__init__` 、 `__getitem__` 、 `__len__` 三个方法。
 
 ![GeneratorDataset](../images/generatordataset_dataloader.png)
 
@@ -150,11 +150,11 @@ PyTorch和MindSpore构造自定义 Dataset 对象的基本流程都需要创建�
 
    * PyTorch自定义一个数据加载类，该类需要继承 `torch.utils.data.Dataset` ，然后传给 `DataLoader` 来生成数据迭代对象。
 
-   * MindSpore自定义的数据加载类不需要继承 `mindspore.dataset.Dataset` ，就可以传给自定义数据集接口 `GeneratorDataset` 来生成数据迭代对象。需要注意的是，使用自定义数据集 `GeneratorDataset` 时需要给每一个输出列设置一个列名，如上面的 `column_names=["image"]` ，表示迭代器的第一个输出列叫 `image` 。在后续的数据增强以及数据迭代获取阶段，可以通过数据列名字来分别对不同列进行处理。详细可参考[与torch.utils.data.DataLoader的差异](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/DataLoader.html) 。在自定义数据加载类时需要注意以下事项：
+   * MindSpore自定义的数据加载类不需要继承 `mindspore.dataset.Dataset` ，就可以传给自定义数据集接口 `GeneratorDataset` 来生成数据迭代对象。需要注意的是，使用自定义数据集 `GeneratorDataset` 时需要给每一个输出列设置一个列名，如上图中的 `column_names=["image"]` ，表示迭代器的第一个输出列名为 `image` 。在后续的数据增强以及数据迭代获取阶段，可以通过数据列名，分别对不同列进行处理。详细可参考[与torch.utils.data.DataLoader的差异](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/DataLoader.html) 。在自定义数据加载类时需要注意以下事项：
 
    > 在迭代器类中不能使用MindSpore的算子。
    >
-   > 迭代器的输出需要是numpy的array。
+   > 迭代器的输出需为numpy的array。
    >
    > 定义可随机访问数据集时，必须要设置 `__len__` 方法，返回的结果一定要是真实的数据集大小，设置大了在getitem取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见[自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86) 。
 
@@ -204,7 +204,7 @@ PyTorch和MindSpore构造自定义 Dataset 对象的基本流程都需要创建�
     </tr>
     </table>
 
-    当PyTorch使用了 `torch` 算子在数据处理中做了运算，MindSpore不能直接使用对应的 `ops` 算子(详细可参考[PyTorch与MindSpore API映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)) 对数据做运算，需要将其替换为第三方的库或方法比如 numpy、opencv、PIL、pandas等。一般来说MindSpore的算子在numpy中都能找到对应的方法，如果对应方法的功能不一致，可以向[MindSpore社区](https://gitee.com/mindspore/mindspore/issues)进行反馈。
+    当PyTorch使用了 `torch` 算子在数据处理中做了运算，那么MindSpore不能直接使用对应的 `ops` 算子(详细可参考[PyTorch与MindSpore API映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)) 对数据做运算，需要将其替换为第三方的库或方法比如 numpy、opencv、PIL、pandas等。一般来说MindSpore的算子在numpy中都能找到对应的方法，如果对应方法的功能不一致，可以向[MindSpore社区](https://gitee.com/mindspore/mindspore/issues)进行反馈。
 
 3. 数据处理格式不同：
 
@@ -212,7 +212,7 @@ PyTorch和MindSpore构造自定义 Dataset 对象的基本流程都需要创建�
 
    * MindSpore的 `vision` 数据变换处理数据默认是 `HWC` 格式。详细可参考[torchvision和dataset.vision的差异](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torchvision) 。
 
-   需要留意的是在网络中是否需要将数据格式从 `HWC` 转为 `CHW` ，这个要根据网络结构的第一个输入格式是否匹配数据格式进行判断，由于数据处理是按照 `HWC` 处理的，得到的结果一般也是 `HWC` ，若需要转换，则在数据处理的最后一个 `map` 调用 [HWC2CHW](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.HWC2CHW.html) 方法。
+   需要留意的是，在网络中是否需要将数据格式从 `HWC` 转为 `CHW` ，需根据网络结构的第一个输入格式是否匹配数据格式进行判断。由于数据处理是按照 `HWC` 处理的，得到的结果一般也是 `HWC` ，若需要转换，则在数据处理的最后一个 `map` 调用 [HWC2CHW](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.HWC2CHW.html) 方法。
 
 ## 数据迭代差异对比
 

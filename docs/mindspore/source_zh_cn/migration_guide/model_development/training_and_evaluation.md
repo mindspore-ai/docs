@@ -4,7 +4,7 @@
 
 ## 通用运行环境设置
 
-我们在进行网络训练和推理前，一般需要先进行运行环境设置，这里给出一个通用的运行环境配置：
+我们在进行网络训练和推理前，一般需要先设置运行环境。一个通用的运行环境配置示例如下：
 
 ```python
 import mindspore as ms
@@ -66,14 +66,14 @@ device_num: 1
 device_id: 0
 ```
 
-上面这个过程只是一个最基本的运行环境配置，如需要添加一些高级的功能，请参考[set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
+上面这个过程只是一个最基本的运行环境配置。如需要添加一些高级的功能，请参考[set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
 
 ## 通用脚本架
 
 models仓提供的一个通用的[脚本架](https://gitee.com/mindspore/models/tree/master/utils/model_scaffolding)用于：
 
-1. yaml参数文件解析，参数获取
-2. ModelArts云上云下统一工具
+1. yaml参数文件解析，参数获取。
+2. ModelArts云上云下统一工具。
 
 一般会将src目录下的python文件放到model_utils目录下进行使用，如[resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet/src/model_utils)。
 
@@ -107,13 +107,13 @@ res = model.eval(dataset)
 print("result:", res, "ckpt=", config.checkpoint_path)
 ```
 
-一般网络构造，数据处理等源代码会放到`src`目录下，脚本架会放到`src.model_utils`目录下，具体示例可以参考[MindSpore models](https://gitee.com/mindspore/models)里的实现。
+一般网络构造、数据处理等源代码会放到`src`目录下，脚本架会放到`src.model_utils`目录下，具体示例可以参考[MindSpore models](https://gitee.com/mindspore/models)里的实现。
 
-有的时候推理流程无法包成Model进行操作，这时可以将推理流程展开成for循环的形式，可以参考[ssd 推理](https://gitee.com/mindspore/models/blob/master/official/cv/SSD/eval.py)。
+当推理流程无法包成Model进行操作时，可以将推理流程展开成for循环的形式，可以参考[ssd 推理](https://gitee.com/mindspore/models/blob/master/official/cv/SSD/eval.py)。
 
 ### 推理验证
 
-在模型分析与准备阶段，我们会拿到参考实现的训练好的参数（参考实现README里或者进行训练复现）。由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)文件加载到网络中进行推理验证。
+在模型分析与准备阶段，我们可以获取到参考实现中训练好的参数（参考实现README里或者进行训练复现）。由于模型算法的实现与框架没有关系，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)文件，加载到网络中进行推理验证。
 
 整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)。
 
@@ -247,7 +247,7 @@ class Trainer:
 
 ### 分布式训练
 
-多卡分布式训练除了分布式相关的配置项和梯度聚合外，其他部分和单卡的训练流程是一样的。需要注意的是多卡并行其实在MindSpore上是起多个python的进程执行的，在MindSpore1.8版本以前，在Ascend环境上，需要手动起多个进程：
+多卡分布式训练的过程与单卡训练过程基本相同，唯一的区别在于分布式相关的配置项和梯度聚合外。需要注意的是，MindSpore的多卡并行实际上是启动了多个python进程。在MindSpore 1.8版本以前，在Ascend环境中需要手动启动多个进程。示例代码如下：
 
 ```shell
 if [ $# != 4 ]
@@ -302,7 +302,7 @@ do
 done
 ```
 
-MindSpore1.8之后，可以和GPU一样使用mpirun启动：
+MindSpore 1.8之后，可以和GPU一样使用mpirun启动：
 
 ```shell
 if [ $# != 2 ]
@@ -335,10 +335,10 @@ cd $BASE_PATH
 mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFIG_FILE --device_num=$RANK_SIZE > log.txt 2>&1 &
 ```
 
-如果在GPU上，可以通过`export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`来设置使用哪些卡，Ascend上目前不支持指定卡号。
+如果在GPU上，可以通过`export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`来设置使用哪些卡。Ascend上目前不支持指定卡号。
 
 详情请参考[分布式案例](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/distributed_case.html)。
 
 ## 离线推理
 
-除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/ms_infer/llm_inference_overview.html#模型推理)。
+除了在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/ms_infer/llm_inference_overview.html#模型推理)。
