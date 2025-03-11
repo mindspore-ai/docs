@@ -134,7 +134,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 
 #### 精度测试
 
-Benchmark工具进行的精度测试主要是通过设置标杆数据来对比验证MindSpore Lite模型输出的精确性。在精确度测试任务中，除了需要设置`modelFile`参数以外，还必须设置`benchmarkDataFile`参数。例如：
+Benchmark工具进行的精度测试主要是通过设置[标杆数据（input.bin和output.out）](https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_golden_data.html) 来对比验证MindSpore Lite模型输出的精确性。在精确度测试任务中，除了需要设置`modelFile`参数以外，还必须设置`benchmarkDataFile`参数。例如：
 
 ```bash
 ./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
