@@ -16,7 +16,7 @@ The core of MindSpore training data processing engine is to efficiently and flex
 
 Please refer to the instructions for usage: [Data Loading And Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/overview.html)
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/data_engine_en.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/design/images/data/data_engine_en.png)
 
 MindSpore training data engine also provides efficient loading and sampling capabilities of datasets in fields, such as scientific computing-electromagnetic simulation, remote sensing large-format image processing, helping MindSpore achieve full-scene support.
 
