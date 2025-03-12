@@ -337,6 +337,8 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                 generate_interface_list.append(
                     f'.. autofunction:: mindspore.mint.{func_name}&&&{yaml_fp}')
                 generate_interface_list.append(
+                    f'.. autofunction:: mindspore.mint.nn.functional.{func_name}&&&{yaml_fp}')
+                generate_interface_list.append(
                     f'.. autofunction:: mindspore.ops.{func_name}&&&{yaml_fp}')
 
     return list(set(generate_interface_list))
