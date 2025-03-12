@@ -11,7 +11,7 @@
 
   use_third_party_op
 
-MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/installation.html>`_ ，本章也整理了一下在迁移文档中提及的常见问题及解决方法。
+MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/installation.html>`_ ，本章也整理了在迁移文档中提及的常见问题及解决方法。
 
 - 环境准备
 
@@ -29,9 +29,9 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
 - 数据处理
 
-  **Q: 怎么将PyTorch的`dataset`转换成MindSpore的`dataset`？**
+  **Q: 怎么将PyTorch的 `dataset` 转换成MindSpore的 `dataset` ？**
 
-  A: MindSpore和PyTorch的自定义数据集逻辑是比较类似的，首先需要用户先定义一个自己的 `dataset` 类，该类负责定义 `__init__` 、 `__getitem__` 、 `__len__` 来读取自己的数据集，然后将该类实例化为一个对象（如: `dataset/dataset_generator` ），最后将这个实例化对象传入 `GeneratorDataset` (mindspore用法)/ `DataLoader` (pytorch用法)，至此即可以完成自定义数据集加载了。
+  A: MindSpore和PyTorch的自定义数据集逻辑类似。首先用户需先定义一个自己的 `dataset` 类，该类负责定义 `__init__` 、 `__getitem__` 、 `__len__` 来读取自己的数据集，然后将该类实例化为一个对象（如: `dataset/dataset_generator` ），最后将这个实例化对象传入 `GeneratorDataset` (mindspore用法)，或 `DataLoader` (pytorch用法)，至此完成了自定义数据集加载。
 
   而MindSpore在 `GeneratorDataset` 的基础上提供了进一步的 `map` -> `batch` 操作，可以很方便地让用户在 `map` 内添加一些其他的自定义操作，并将其 `batch` 起来。
 
@@ -63,7 +63,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 为什么在迭代数据的时候会报错：“Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx” ？**
 
-  A: 这是因为GeneratorDataset的 column_names 参数指定的列名数量与 source 参数输出的数据数量不匹配。
+  A: 这是因为GeneratorDataset的 `column_names` 参数指定的列名数量，与 `source` 参数输出的数据数量不匹配。
 
 
   **Q: 使用 GeneratorDataset 或 map 进行加载/处理数据时，可能会因为语法错误、计算溢出等问题导致数据报错，如何进行排查和调试？**
@@ -73,7 +73,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 数据增强 map 操作出错，如何调试 map 操作中各个数据处理算子？**
 
-  A: 可以通过单个算子执行的方式调试或者通过数据管道调试模式调试 map 操作。详细可参考 `数据处理调试方法二 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%952-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BAmap%E6%93%8D%E4%BD%9C%E5%87%BA%E9%94%99%E8%B0%83%E8%AF%95map%E6%93%8D%E4%BD%9C%E4%B8%AD%E5%90%84%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%97%E5%AD%90>`_ 。
+  A: 可以通过单个算子执行的方式调试，或者通过数据管道调试模式进行调试 map 操作。详细可参考 `数据处理调试方法二 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%952-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BAmap%E6%93%8D%E4%BD%9C%E5%87%BA%E9%94%99%E8%B0%83%E8%AF%95map%E6%93%8D%E4%BD%9C%E4%B8%AD%E5%90%84%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%97%E5%AD%90>`_ 。
 
 
   **Q: 在训练的时候，会获得非常多warning提示我们数据集性能较慢应该怎么处理？**
@@ -96,17 +96,17 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 如何处理梯度溢出造成训练不稳定的问题？**
 
-  A: 网络溢出一般表现为loss Nan/INF，loss突然变得很大等。MindSpore提供 `dump数据 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_ 获取到溢出算子信息。当网络中出现梯度下溢时，可使用loss scale配套梯度求导使用，详细可参考 `loss scale <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html#loss-scale>`_ ；当网络出现梯度爆炸时，可考虑添加梯度裁剪，详细可参考 `梯度裁剪 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html#%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA>`_ 。
+  A: 网络溢出一般表现为loss Nan/INF，或loss突然变得很大等现象。MindSpore提供 `dump数据 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_ 获取到溢出算子信息。当网络中出现梯度下溢时，可使用loss scale配套梯度求导使用，详细可参考 `loss scale <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html#loss-scale>`_ ；当网络出现梯度爆炸时，可考虑添加梯度裁剪，详细可参考 `梯度裁剪 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html#%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA>`_ 。
 
 - 调试调优
 
   **Q: 请问想加载PyTorch预训练好的模型用于MindSpore模型finetune有什么方法？**
 
-  A: 需要把PyTorch和MindSpore的参数进行一一对应，因为网络定义的灵活性，所以没办法提供统一的转化脚本。
+  A: 需要把PyTorch和MindSpore的参数进行一一对应，由于网络定义的灵活性，无法提供统一的转化脚本。
 
-  一般情况下，CheckPoint文件中保存的就是参数名和参数值，调用相应框架的读取接口后，获取到参数名和数值后，按照MindSpore格式，构建出对象，就可以直接调用MindSpore接口保存成MindSpore格式的CheckPoint文件了。
+  一般情况下，CheckPoint文件中保存的是参数名和参数值。在调用了相应框架的读取接口，并且获取到参数名和数值后，按照MindSpore的格式构建对象，即可直接调用MindSpore的接口，并将其保存成MindSpore格式的CheckPoint文件。
 
-  其中主要的工作量为对比不同框架间的parameter名称，做到两个框架的网络中所有parameter name一一对应(可以使用一个map进行映射)，下面代码的逻辑转化parameter格式，不包括对应parameter name。
+  其中主要的工作量为对比不同框架间的参数（parameter）名称，做到两个框架的网络中所有参数名（parameter name）一一对应（可以使用一个map进行映射）。以下示例代码的逻辑是转化parameter格式，不包括对应parameter name。
 
   .. code-block:: python
 
@@ -142,25 +142,25 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 模型训练过程中，第一个step耗时很长，该怎么优化？**
 
-  A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详细可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html>`_ 。
+  A: 模型训练过程中，第一个step包含网络编译时长。如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详细可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html>`_ 。
 
   **Q: 模型训练过程中，非首个step耗时很长，该怎么优化？**
 
-  A: 模型训练过程中，非首个step的耗时包括迭代间隙、前反向计算和迭代拖尾，如果想要优化非首step的性能，需要先获取网络的迭代轨迹，再分析哪部分是性能瓶颈，最近进行性能优化。
+  A: 模型训练过程中，非首个step的耗时包括迭代间隙、前反向计算和迭代拖尾。如果想要优化非首step的性能，需要先获取网络的迭代轨迹，再分析哪部分是性能瓶颈，针对性地进行性能优化。
 
   **Q: 加载标杆权重进行模型推理验证正向流程时，有warning警告显示权重未加载成功，该如何解决？**
 
-  A: load_checkpoint过程中，如果有权重未加载上，MindSpore会给出warning提示，一般加载失败有两种原因：1、权重名称对不上；2、权重在网络中缺失。
+  A: load_checkpoint过程中，如果有权重未加载成功，MindSpore会给出warning提示。一般加载失败有两种原因：1、权重名称对不上；2、权重在网络中缺失。
 
-  如果权重名称对不上，需要打印MindSpore的权重名称和标杆的权重名称，看是否MindSpore的权重名称多了backbone或network等前缀，如果是，检查MindSpore在初始化 `Cell <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>`_ 时是否加上auto_prefix=False。
+  如果权重名称对不上，需要打印MindSpore的权重名称和标杆的权重名称，检查是否因为MindSpore的权重名称多了backbone或network等前缀，如果是，检查MindSpore在初始化 `Cell <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>`_ 时是否加上auto_prefix=False。
 
-  如果权重名称缺失，需要分析是否合理，如果合理，可忽略告警提示，如果不合理，需要分析网络定义是否错误，进行定位修改。
+  如果权重名称缺失，需要分析是否合理。如果合理，可忽略告警提示；如果不合理，需要分析网络定义是否错误，进行定位修改。
 
   **Q: 迁移过程使用PyNative进行调测，流程成功，切换成Graph模式，为什么会出现一堆的报错？**
 
-  A: PyNative模式下模型进行推理的行为与一般Python代码无异。但是切换成Graph模式时，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。
+  A: PyNative模式下，模型进行推理的行为与一般Python代码无异。但是切换成Graph模式时，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。
 
-  而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以construct函数的编写会存在部分限制。
+  而这一步操作中，MindSpore目前还未能支持完整的Python语法全集，所以construct函数的编写会存在部分限制。
   
   如：PyNative模式下可直接判断某个Tensor值是否为0，但切换成Graph模式则会报错不支持。
 
@@ -190,7 +190,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: Graph模式静态图训练过程中出现报错，该怎么有效地定位到报错原因？**
 
-  A: 引发静态图报错的原因很多，一般失败会有日志打印，如果不能直观地从日志中获取报错信息，可通过export GLOG_v=1指定日志级别获取更详细的报错信息进行分析。
+  A: 引发静态图报错的原因很多，一般失败会有日志打印，如果不能直观地从日志中获取报错信息，可通过设置export GLOG_v=1来指定日志级别，以获取更详细的报错信息进行分析。
 
   同时计算图编译发生报错时，会自动保存analyze_failed.ir文件，可帮助分析报错代码的位置。详细可参考 `静态图模式错误分析 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/error_scenario_analysis.html>`_ 。
 
@@ -198,9 +198,9 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   A: 出现该报错可能有两个原因：1、资源被占用；2、显存不够。
      
-  当资源被占用时，可通过pkill -9 python释放资源，再重新训练。
+  当资源被占用时，可通过命令pkill -9 python释放资源，再重新训练。
      
-  当显存不够时，可尝试降低batch_size；分析内存查看是否通信算子太多导致整体内存复用率较低。
+  当显存不够时，可尝试降低batch_size，或分析内存使用情况，查看是否因为通信算子太多导致整体内存复用率较低。
      
   详细可参考 `资源不够问题分析 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3>`_ 。
 

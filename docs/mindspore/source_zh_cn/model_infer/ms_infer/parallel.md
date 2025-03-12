@@ -24,6 +24,7 @@
 以MindSpore原始实现的`nn.Dense`为起点，分别构建列切和行切的矩阵乘实现。
 
 1. 通信域的创建和管理，大模型配置的管理
+
     构建`CommunicationHelper`类管理模型并行的域。
 
     ```python
@@ -72,7 +73,8 @@
     ```
 
 2. 列切矩阵乘
-    `ColumnParallelLinear`类，在通过模型并行的设备数计算切分后的权重shape并初始化，列切是切分`out_channels`；在模型前向，调用矩阵乘计算出并行的结果；最后可以选择对并行的结果进行`AllGather`，以得到完整的输出。
+
+    `ColumnParallelLinear`类，根据模型并行的设备数，计算切分后的权重shape并初始化。列切是切分`out_channels`，在模型前向，调用矩阵乘计算出并行的结果。最后可以选择对并行的结果进行`AllGather`，以得到完整的输出。
 
     MindSpore训推一体框架支持开启infer_boost，该参数会使MS框架开启高性能自研算子库。启动该模式需要：
     - 设置变量：
@@ -88,7 +90,7 @@
     export ASCEND_HOME_PATH={$ascend_custom_path}
     ```
 
-    以模型并行device数是2时为例，设置环境变量和初始化通信组，并配置大模型参数config。
+    以模型并行device数是2为例，设置环境变量以及初始化通信组，并配置大模型参数config。
 
     ```python
     from mindspore import nn, Parameter, ops, Tensor
@@ -192,7 +194,7 @@
 
 3. 行切矩阵乘
 
-    与列切相同，`RowParallelLinear`根据模型并行域的大小切分权重；在初始化时，切分方向是行，因此切分`in_channels`维度后初始化；在模型前向，输入与权重进行矩阵乘后，需要对所有`device`上的结果进行`AllReduce`
+    与列切相同，`RowParallelLinear`根据模型并行域的大小切分权重。在初始化时，切分方向是行，因此切分`in_channels`维度后初始化。在模型前向，输入与权重进行矩阵乘后，需要对所有`device`上的结果进行`AllReduce`。
 
     行切矩阵乘模块实现如下：
 
@@ -245,7 +247,8 @@
     ```
 
 4. Embedding
-   除了矩阵乘之外，Embedding层也可以进行并行计算。将Embedding权重切分多若干个device上，每个device负责映射不同范围token_ids。
+
+   除了矩阵乘之外，Embedding层也可以进行并行计算。将Embedding权重切分至若干个device上，每个device负责映射不同范围token_ids。
 
    ![embedding1](images/embedding1.png)
    具体而言
@@ -316,11 +319,11 @@
 
 ![Column+Row](images/column+row.png)
 
-根据以上的分析，可以将[模型构建](./model_dev.md)中构建的TransformerModel模型修改为支持并行切分的模型结构。
+根据以上分析，可以将[模型构建](./model_dev.md)中构建的TransformerModel模型修改为支持并行切分的模型结构。
 
 1. Attention
 
-    以MHA(Multi Head Attention)为例，Transformer中典型的Attention模块是多头的，每个注意力头相互独立，因此在保证单个注意力头完整的情况下，激活值在`hidden_size`的维度是可切。如假设一个MHA的头数`num_heads`是16，每个头的维度`head_dim`是256，`hidden_size`就是4096，计算Q/K/V的Linear的in/out都是4096。当模型并行`tensor_model_parallel=4`时，这些Linear被切分到4个device，每个device(4096,1024)，等于每个device计算4个头。
+    以MHA(Multi Head Attention)为例，Transformer中典型的Attention模块是多头的，每个注意力头相互独立。因此在保证单个注意力头完整的情况下，激活值在`hidden_size`的维度是可切的。例如，假设一个MHA的头数（`num_heads`）是16，每个头的维度（`head_dim`）是256，那么`hidden_size`就是4096，计算Q/K/V的Linear的in/out都是4096。当模型并行设置为`tensor_model_parallel=4`时，这些Linear被切分到4个device，每个device的shape为(4096,1024)，意味着每个device计算4个头。
 
     ![MHA](images/MHA.png)
 
@@ -368,7 +371,7 @@
 
 2. MLP
 
-   MLP模块其实是2个全连接层，也可以使用矩阵乘的并行切分来处理，具体代码如下：
+   MLP模块为2个全连接层，也可以使用矩阵乘的并行切分来处理，具体代码如下：
 
     ```python
     class ParallelMLP(nn.Cell):
@@ -443,7 +446,7 @@
             return hidden_state
     ```
 
-具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/model_dev.py)脚本，运行下面命令进行验证：
+具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/model_dev.py)脚本，通过运行如下命令进行验证：
 
 ```shell
 msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py

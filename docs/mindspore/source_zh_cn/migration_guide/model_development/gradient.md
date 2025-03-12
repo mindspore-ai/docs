@@ -56,34 +56,34 @@ class GradNetWrtX(nn.Cell):
 
 #### PyTorch的自动微分
 
-我们知道 PyTorch 是基于计算路径追踪的自动微分，当我们定义一个网络结构后， 并不会建立反向图，而是在执行正向图的过程中，`Variable` 或 `Parameter` 记录每一个正向计算对应的反向函数，并生成一个动态计算图，用于后续的梯度计算。当在最终的输出处调用 `backward` 时，就会从根节点到叶节点应用链式法则计算梯度。PyTorch 的动态计算图所存储的节点实际是 `Function` 函数对象，每当对 `Tensor` 执行一步运算后，就会产生一个 `Function` 对象，它记录了反向传播中必要的信息。反向传播过程中，`autograd` 引擎会按照逆序，通过 `Function` 的 `backward` 依次计算梯度。 这一点我们可以通过 `Tensor` 的隐藏属性查看。
+我们知道 PyTorch 是基于计算路径追踪的自动微分，当我们定义一个网络结构后， 并不会建立反向图，而是在执行正向图的过程中，`Variable` 或 `Parameter` 记录每一个正向计算对应的反向函数，并生成一个动态计算图，用于后续的梯度计算。当在最终的输出处调用 `backward` 时，就会从根节点到叶节点应用链式法则计算梯度。PyTorch 的动态计算图所存储的节点实际是 `Function` 函数对象，每当对 `Tensor` 执行一步运算后，就会产生一个 `Function` 对象，它记录了反向传播中必要的信息。反向传播过程中，`autograd` 引擎会按照逆序，通过 `Function` 的 `backward` 依次计算梯度。 这一点我们可以查看 `Tensor` 的隐藏属性。
 
 #### MindSpore的自动微分
 
-在图模式下，MindSpore 的自动微分是基于图结构的微分，和 PyTorch 不同，它不会在正向计算过程中记录任何信息，仅仅执行正常的计算流程（在PyNative模式下和 PyTorch 类似）。那么问题来了，如果整个正向计算都结束了，MindSpore 也没有记录任何信息，那它是如何知道反向传播怎么执行的呢？
+在图模式下，MindSpore 的自动微分是基于图结构的微分，和 PyTorch 不同，它不会在正向计算过程中记录任何信息，仅仅执行正常的计算流程（在PyNative模式下，该流程和 PyTorch 类似）。那么问题来了，如果整个正向计算都结束了，MindSpore 也没有记录任何信息，那它如何知道反向传播是怎么执行的呢？
 
-MindSpore 在做自动微分时，通过对正向图的分析得到反向传播信息，其结果与正向计算中具体的数值无关，仅和正向图结构有关。通过对正向图的自动微分，我们得到了反向图。将反向图添加到用户定义的正向图之后，组成一个最终的计算图。不过后添加的反向图和其中的反向算子我们并不感知，也无法手动添加，只能通过 MindSpore 为我们提供的接口自动添加，这样做也避免了我们在反向构图时引入错误。
+MindSpore 在做自动微分时，通过对正向图的分析得到反向传播信息，其结果与正向计算中具体的数值无关，仅和正向图结构有关。通过对正向图的自动微分，我们得到了反向图。将反向图添加到用户定义的正向图之后，组成一个最终的计算图。不过后添加的反向图和其中的反向算子我们并不感知，也无法手动添加，只能通过 MindSpore 提供的接口自动添加，这样做也避免了我们在反向构图时引入错误。
 
-最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子，也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的 `Cell`，这个 `Cell` 里都是根据正向图推导出来的反向算子。
+最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子。也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的 `Cell`，这个 `Cell` 里都是根据正向图推导出来的反向算子。
 
-而这个帮助我们构建反向图的接口就是 [grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.grad.html) 。
+这个帮助我们构建反向图的接口是 [grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.grad.html) 。
 
 通过`grad`接口得到反向图之后，对于输入的任何一组数据，不仅能计算正向输出，还能计算所有权重的梯度。由于图结构固定，不保存中间变量，所以这个新计算图可以被反复调用。
 
-同理，之后我们再给网络加上优化器结构时，优化器也会加上优化器相关的算子，也就是再给这个计算图加上我们不感知的优化器算子，最终，计算图就构建完成。
+同理，之后我们再给网络加上优化器结构时，优化器也会加上优化器相关的算子，即再给这个计算图加上我们不感知的优化器算子。最终，计算图就构建完成。
 
-在 MindSpore 中，大部分操作都会最终转换成真实的算子操作，最终加入到计算图中，因此，我们实际执行的计算图中算子的数量远多于我们最初定义的计算图中算子的数量。
+在 MindSpore 中，大部分操作最终都会转换成真实的算子操作，最终加入到计算图中。因此，我们实际执行的计算图中算子的数量远多于我们最初定义的计算图中算子的数量。
 
-在MindSpore中，提供了[TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepCell.html)和[TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html)这两个接口来包装整个训练流程，如果在常规的训练流程外有其他的操作，如梯度裁剪、规约、中间变量返回等，需要自定义训练的Cell，详情请参考[训练及推理流程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html)。
+在MindSpore中，提供了[TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepCell.html)和[TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html)这两个接口来包装整个训练流程。如果在常规的训练流程外有其他的操作，如梯度裁剪、规约、中间变量返回等，需要自定义训练的Cell，详情请参考[训练及推理流程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html)。
 
 ### 接口对比
 
 #### torch.autograd.backward
 
 [torch.autograd.backward](https://pytorch.org/docs/stable/generated/torch.autograd.backward.html)对于一个标量，调用它的backward方法后会根据链式法则自动计算出叶子节点的梯度值。对于向量和矩阵，需要定义grad_tensor来计算矩阵的梯度。
-通常在调用一次backward后，PyTorch会自动把计算图销毁，所以要想对某个变量重复调用backward，则需要将retain_graph参数设置为True。
-若需要计算更高阶的梯度，需要将create_graph设置为True。
-z.backward()和torch.autograd.backward(z)两种表达等价。
+通常在调用一次backward后，PyTorch会自动把计算图销毁。若想对某个变量重复调用backward，则需要将`retain_graph`参数设置为``True``。
+若需要计算更高阶的梯度，需要将`create_graph`参数设置为``True``。
+此外，在Pytorch中，z.backward()和torch.autograd.backward(z)这两种表达等价。
 
 该接口在MindSpore中用mindspore.grad实现。上述PyTorch用例可转化为：
 
@@ -297,9 +297,9 @@ out1 (tensor(1.),)
 
 #### torch.no_grad
 
-在 PyTorch 中，默认情况下，执行正向计算时会记录反向传播所需的信息，在推理阶段或无需反向传播网络中，这一操作是冗余的，会额外耗时，因此，PyTorch 提供了`torch.no_grad` 来取消该过程。
+在 PyTorch 中，默认情况下，执行正向计算时会记录反向传播所需的信息。而在推理阶段或无需反向传播网络中，这一操作是冗余的且会额外耗时。因此，PyTorch 提供了`torch.no_grad` 来取消该过程。
 
-而 MindSpore 只有在调用`grad`才会根据正向图结构来构建反向图，正向执行时不会记录任何信息，所以 MindSpore 并不需要该接口，也可以理解为 MindSpore 的正向计算均在`torch.no_grad` 情况下进行的。
+而 MindSpore 只有在调用`grad`时才会根据正向图结构来构建反向图，且正向执行时不会记录任何信息。因此 MindSpore 并不需要该接口，也可以理解为 MindSpore 的正向计算均在`torch.no_grad` 模式下进行。
 
 ```python
 import torch
@@ -323,9 +323,9 @@ z.requires_grad False
 
 #### torch.enable_grad
 
-若 PyTorch 开启了 `torch.no_grad` 禁用了梯度计算，可以使用此接口启用。
+若 PyTorch 开启 `torch.no_grad` 禁用了梯度计算，可以使用此接口启用。
 
-而 MindSpore 只有在调用`grad`才会根据正向图结构来构建反向图，正向执行时不会记录任何信息，所以 MindSpore 并不需要该接口，也可以理解为 MindSpore 的反向计算均在`torch.enable_grad` 情况下进行的。
+而 MindSpore 只有在调用`grad`时才会根据正向图结构来构建反向图，且正向执行时不会记录任何信息。因此 MindSpore 并不需要该接口，也可以理解为 MindSpore 的反向计算均在`torch.enable_grad` 模式下进行。
 
 ```python
 import torch
@@ -350,9 +350,9 @@ z.requires_grad True
 
 #### retain_graph
 
-由于 PyTorch 是基于函数式的自动微分，所以默认每次执行完反向传播后都会自动清除记录的信息，从而进行下一次迭代。这就会导致当我们想再次利用这些反向图和梯度信息时，由于已被删除而获取失败。因此，PyTorch 提供了`backward(retain_graph=True)` 来主动保留这些信息。
+由于 PyTorch 是基于函数式的自动微分，所以默认每次执行完反向传播后都会自动清除记录的信息，从而进行下一次迭代。这会导致当我们想再次利用这些反向图和梯度信息时，由于已被清除而获取失败。因此，PyTorch 提供了`backward(retain_graph=True)`主动保留这些信息。
 
-而 MindSpore 则不需要这个功能，MindSpore 是基于计算图的自动微分，反向图信息在调用`grad`后便永久的记录在计算图中，只要再次调用计算图就可以获取梯度信息。
+而 MindSpore 则不需要这个功能。因为MindSpore是基于计算图的自动微分，反向图信息在调用`grad`后便永久地记录在计算图中，只要再次调用计算图就可以获取梯度信息。
 
 ## MindSpore自动微分接口
 
@@ -365,13 +365,13 @@ z.requires_grad True
 
 - fn (Union[Cell, Function]) - 待求导的函数或网络（Cell）。
 
-- grad_position (Union[NoneType, int, tuple[int]]) - 指定求导输入位置的索引，默认值：0。
+- grad_position (Union[NoneType, int, tuple[int]]) - 指定求导输入位置的索引。默认值：``0``。
 
-- weights (Union[ParameterTuple, Parameter, list[Parameter]]) - 训练网络中需要返回梯度的网络参数，默认值：None。
+- weights (Union[ParameterTuple, Parameter, list[Parameter]]) - 训练网络中需要返回梯度的网络参数。默认值：``None``。
 
-- has_aux (bool) - 是否返回辅助参数的标志。若为True， fn 输出数量必须超过一个，其中只有 fn 第一个输出参与求导，其他输出值将直接返回。默认值：False。
+- has_aux (bool) - 是否返回辅助参数的标志。若为``True``， 则`fn`输出数量必须超过一个，其中只有`fn`第一个输出参与求导，其他输出值将直接返回。默认值：``False``。
 
-其中`grad_position`和`weights`共同决定要输出哪些值的梯度，has_aux在有多个输出时配置对第一个输入求梯度还是全部输出求梯度。
+其中`grad_position`和`weights`共同决定要输出哪些值的梯度。当存在多个输出时，`has_aux`的配置决定了对第一个输入求梯度，还是对全部输出求梯度。
 
 | grad_position | weights | output |
 | ------------- | ------- | ------ |
@@ -383,9 +383,9 @@ z.requires_grad True
 | (0, 1)      | weights | (第一个输入的梯度, 第二个输入的梯度), (weights的梯度) |
 | None       | None   | 报错  |
 
-下面实际运行一个示例，看下具体是怎么用的。
+下面运行一个实例，以确切了解它的操作流程。
 
-首先，构造一个带参数的网络，这个网络有两个输出loss和logits，其中loss是我们用于求梯度的输出。
+首先，构造一个带参数的网络，这个网络有两个输出，分别为`loss`和`logits`，其中`loss`是我们用于求梯度的输出。
 
 ```python
 import mindspore as ms
@@ -597,7 +597,7 @@ print("logit", logit)
 
 ### mindspore.value_and_grad
 
-[mindspore.value_and_grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.value_and_grad.html)这个接口和上面的grad的参数是一样的，只不过这个接口可以一次性计算网络的正向结果和梯度。
+[mindspore.value_and_grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.value_and_grad.html)接口和上述grad的参数是一样的，只不过此接口可以一次性计算网络的正向结果和梯度。
 
 | grad_position | weights | output |
 | ------------- | ------- | ------ |
@@ -633,17 +633,17 @@ grad ((Tensor(shape=[1, 3], dtype=Float32, value=
 
 由 GradOperation 高阶函数生成的梯度函数可以通过构造参数自定义。
 
-这个函数和grad的功能差不多，当前版本不推荐使用，详情请参考API内描述。
+这个函数和grad的功能类似，当前版本不推荐使用，详情请参考API内描述。
 
 ## loss scale
 
 由于在混合精度的场景，在求梯度的过程中可能会遇到梯度下溢，一般我们会使用loss scale配套梯度求导使用。
 
-> 在Ascend上因为Conv、Sort、TopK等算子只能是float16的，MatMul由于性能问题最好也是float16的，所以建议loss scale操作作为网络训练的标配。[Ascend 上只支持float16的算子列表](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#4训练精度)。
+> 在Ascend上，由于Conv、Sort、TopK等算子的数据类型只支持float16，且MatMul因性能问题，推荐使用的数据类型也为float16，因此建议loss scale操作作为网络训练的标准配置。[Ascend 上只支持float16的算子列表](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#4训练精度)。
 >
 > 溢出可以通过[dump数据](https://mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)获取到溢出算子信息。
 >
-> 一般溢出表现为loss Nan/INF，loss突然变得很大等。
+> 一般溢出表现为loss Nan/INF，或loss突然变大等。
 
 ```python
 from mindspore.amp import StaticLossScaler, all_finite
@@ -687,15 +687,15 @@ grad (Tensor(shape=[1, 3], dtype=Float32, value=
 True
 ```
 
-loss scale的原理非常简单，通过给loss乘一个比较大的值，通过梯度的链式传导，在计算梯度的链路上乘一个比较大的值，防止在梯度反向传播过程中过小而出现精度问题。
+loss scale的原理非常简单，通过给loss乘一个较大的值，在梯度链式传导过程中，再在计算梯度的链路上乘一个较大的值，从而防止在反向传播过程中梯度过小导致的精度问题。
 
-在计算完梯度之后，需要把loss和梯度除回原来的值，保证整个计算过程正确。
+在计算完梯度之后，需要把loss和梯度做“除”的操作，缩放回原来的值，以保证整个计算过程正确。
 
-最后一般需要使用all_finite来判断下是否有溢出，如果没有溢出的话就可以使用优化器进行参数更新了。
+最后，一般需要使用`all_finite`来判断下是否有溢出，如果没有溢出，则可以使用优化器更新参数。
 
 ## 梯度裁剪
 
-当训练过程中遇到梯度爆炸或者梯度特别大，训练不稳定的情况，可以考虑添加梯度裁剪，这里对常用的使用global_norm进行梯度裁剪的场景举例说明：
+当训练过程中遇到梯度爆炸或者梯度过大，导致训练不稳定的情况，可以考虑添加梯度裁剪。以下是一个`global_norm`进行梯度裁剪的示例：
 
 ```python
 from mindspore import ops
@@ -705,6 +705,6 @@ grad = ops.clip_by_global_norm(grad)
 
 ## 梯度累加
 
-梯度累加是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算，用以解决由于内存不足，导致Batch size过大，神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
+梯度累加是一种训练神经网络的方法。它将数据样本按Batch拆分为几个小Batch，然后按顺序计算。这种方法用于解决由于内存不足导致的OOM（Out Of Memory）问题，例如当Batch size过大时，神经网络无法训练，或者网络模型过大而无法加载。
 
 详情请参考[梯度累加](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/gradient_accumulation.html)。

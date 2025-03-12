@@ -10,7 +10,7 @@
 
 ### 优化器支持差异
 
-PyTorch和MindSpore同时支持的优化器异同比较详见[API映射表](https://mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torch-optim)。MindSpore暂不支持的优化器：LBFGS，NAdam，RAdam。
+PyTorch和MindSpore同时支持的优化器异同比较详见[API映射表](https://mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torch-optim)。MindSpore暂不支持的优化器：LBFGS、NAdam、RAdam。
 
 针对mindspore.experimental.optim内的优化器，与PyTorch通用差异参数如下：
 
@@ -23,9 +23,9 @@ PyTorch和MindSpore同时支持的优化器异同比较详见[API映射表](http
 
 ### 优化器的执行和使用差异
 
-PyTorch单步执行优化器时，一般需要手动执行 `zero_grad()` 方法将历史梯度设置为0(或None)，然后使用 `loss.backward()` 计算当前训练step的梯度，最后调用优化器的 `step()` 方法实现网络权重的更新；
+PyTorch单步执行优化器时，一般需要手动执行 `zero_grad()` 方法将历史梯度设置为 ``0`` （或 ``None`` ），然后使用 `loss.backward()` 计算当前训练step的梯度，最后调用优化器的 `step()` 方法实现网络权重的更新；
 
-MindSpore中优化器的使用，只需要直接对梯度进行计算，然后使用 `optimizer(grads)` 执行网络权重的更新。
+使用MindSpore中的优化器时，只需要直接对梯度进行计算，然后使用 `optimizer(grads)` 执行网络权重的更新。
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -119,7 +119,7 @@ MindSpore入参类型为 `list(Parameter)`，`list(dict)`，不支持迭代器�
 
 - 参数分组：
 
-    PyTorch支持所有参数分组；MindSpore仅支持特定key分组："params"，"lr"，"weight_decay"，"grad_centralization"，"order_params"。
+    PyTorch支持所有参数分组；MindSpore仅支持特定key分组："params"、"lr"、"weight_decay"、"grad_centralization"、"order_params"。
 
     <div class="wy-table-responsive">
     <table class="colwidths-auto docutils align-default">
@@ -163,9 +163,9 @@ MindSpore当前不支持训练过程中修改优化器参数，但提供了修�
 
 ### 权重衰减
 
-PyTorch中修改 `weight_decay` 示例如下；
+PyTorch中修改 `weight_decay` 示例如下。
 
-MindSpore中实现动态weight decay：用户可以继承 `Cell` 自定义动态weight decay的类，传入优化器中。
+MindSpore中实现动态 `weight decay` 的方法：用户可以继承 `Cell` 自定义动态 `weight decay` 的类，传入优化器中。
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -386,7 +386,7 @@ optim = nn.SGD(params, learning_rate=decay_lr)
 
 PyTorch：
 
-- 固定学习率情况下，通常通过 `optimizer.state_dict()` 进行学习率的查看和打印，例如参数分组时，对于第n个参数组，使用 `optimizer.state_dict()['param_groups'][n]['lr']`，参数不分组时，使用 `optimizer.state_dict()['param_groups'][0]['lr']`；
+- 固定学习率情况下，通常通过 `optimizer.state_dict()` 进行学习率的查看和打印。例如参数分组时，对于第n个参数组，使用 `optimizer.state_dict()['param_groups'][n]['lr']`；参数不分组时，使用 `optimizer.state_dict()['param_groups'][0]['lr']`；
 
 - 动态学习率情况下，可以使用 `LRScheduler` 的 `get_lr` 方法获取当前学习率，或使用 `print_lr` 方法打印学习率。
 
@@ -483,9 +483,9 @@ opt = nn.Momentum(group_param, learning_rate=1e-3, weight_decay=0.0, momentum=0.
 
 需要注意以下几点：
 
-1. 每一个分组的参数列表不能是空的；
-2. 如果没有设置`weight_decay`和`lr`则使用优化器里设置的值，设置了的话使用分组参数字典里的值；
-3. 每个分组里的`lr`都可以是静态或动态的，但不能再分组；
+1. 每一个分组的参数列表不能为空；
+2. 如果没有设置`weight_decay`和`lr`，则使用优化器里设置的值；如果已设置，则使用分组参数字典里的值；
+3. 每个分组里的`lr`可以是静态或动态的，但不能再分组；
 4. 每个分组里的`weight_decay`都需要是符合规范的浮点数；
 5. 所有分组里的参数不能重复，并且其交集是需要做参数更新的所有参数。
 
@@ -501,7 +501,7 @@ MindSpore的学习率支持静态、动态、分组三种，其中静态学习�
 
 分组学习率如上一小节参数分组中介绍的。
 
-因为MindSpore的学习率是参数，我们也可以通过给`learning_rate`参数赋值的方式修改训练过程中学习率的值，如[LearningRateScheduler Callback](https://www.mindspore.cn/docs/zh-CN/master/_modules/mindspore/train/callback/_lr_scheduler_callback.html#LearningRateScheduler)，这种方法只支持优化器中传入静态的学习率。关键代码如下：
+因为MindSpore的学习率是参数，我们也可以通过给`learning_rate`参数赋值的方式修改训练过程中学习率的值，如[LearningRateScheduler Callback](https://www.mindspore.cn/docs/zh-CN/master/_modules/mindspore/train/callback/_lr_scheduler_callback.html#LearningRateScheduler)。这种方法只支持优化器中传入静态的学习率。关键代码如下：
 
 ```python
 import mindspore as ms

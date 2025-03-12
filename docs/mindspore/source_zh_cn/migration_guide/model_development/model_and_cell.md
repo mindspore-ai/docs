@@ -10,17 +10,17 @@ PyTorch和MindSpore的基础逻辑如下图所示：
 
 可以看到，PyTorch和MindSpore在实现流程中一般都需要网络定义、正向计算、反向计算、梯度更新等步骤。
 
-- 网络定义：在网络定义中，一般会定义出需要的前向网络，损失函数和优化器。在Net()中定义前向网络，PyTorch的网络继承nn.Module；类似地，MindSpore的网络继承nn.Cell。在MindSpore中，损失函数和优化器除了使用MindSpore中提供的外，用户还可以使用自定义的优化器。可参考[模型模块自定义](https://mindspore.cn/docs/zh-CN/master/model_train/index.html)。可以使用functional/nn等接口拼接需要的前向网络、损失函数和优化器。
+- 网络定义：在网络定义中，一般会定义需要的前向网络，损失函数和优化器。在Net()中定义前向网络，PyTorch的网络继承nn.Module，类似地，MindSpore的网络继承nn.Cell。在MindSpore中，损失函数和优化器除了使用MindSpore中提供的外，用户还可以使用自定义的优化器。可参考[模型模块自定义](https://mindspore.cn/docs/zh-CN/master/model_train/index.html)。可以使用functional或nn等接口拼接需要的前向网络、损失函数和优化器。
 
-- 正向计算：运行实例化后的网络，可以得到logit，将logit和target作为输入计算loss。需要注意的是，如果正向计算的函数有多个输出，在反向计算时需要注意多个输出对于计算结果的影响。
+- 正向计算：运行实例化后的网络，可以得到logit，并将logit和target作为输入计算loss。需要注意的是，如果正向计算的函数有多个输出，在反向计算时需要注意多个输出对于计算结果的影响。
 
-- 反向计算：得到loss后，我们可以进行反向计算。在PyTorch中可使用loss.backward()计算梯度，在MindSpore中，先用mindspore.grad()定义出反向传播方程net_backward，再将输入传入net_backward中，即可计算梯度。如果正向计算的函数有多个输出，在反向计算时，可将has_aux设置为True，即可保证只有第一个输出参与求导，其他输出值将直接返回。对于反向计算中接口用法区别详见[自动微分对比](./gradient.md)。
+- 反向计算：得到loss后，我们可以进行反向计算。在PyTorch中可使用loss.backward()计算梯度，而在MindSpore中，先用mindspore.grad()定义反向传播方程net_backward，再将输入传入net_backward中，即可计算梯度。如果正向计算的函数有多个输出，在反向计算时，可将has_aux设置为True，即可保证只有第一个输出参与求导，其他输出值将直接返回。对于反向计算中接口用法区别详见[自动微分对比](./gradient.md)。
 
 - 梯度更新：将计算后的梯度更新到网络的Parameters中。在PyTorch中使用optim.step()；在MindSpore中，将Parameter的梯度传入定义好的optim中，即可完成梯度更新。
 
 ## 网络基本构成单元 Cell
 
-MindSpore的网络搭建主要使用[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)进行图的构造，用户需要定义一个类继承 `Cell` 这个基类，在 `init` 里声明需要使用的API及子模块，在 `construct` 里进行计算， `Cell` 在 `GRAPH_MODE` (静态图模式)下将编译为一张计算图，在 `PYNATIVE_MODE` (动态图模式)下作为神经网络的基础模块。
+MindSpore的网络搭建主要使用[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)进行图的构造。用户需要定义一个类来继承 `Cell` 这个基类，在 `init` 里声明需要使用的API及子模块，在 `construct` 里进行计算， `Cell` 在 `GRAPH_MODE` （静态图模式）下将编译为一张计算图，在 `PYNATIVE_MODE` （动态图模式）下作为神经网络的基础模块。
 
 PyTorchhe 和 MindSpore 基本的 `Cell` 搭建过程如下所示：
 
@@ -90,9 +90,9 @@ print(my_net.trainable_params())
 </tr>
 </table>
 
-MindSpore中，参数的名字一般是根据`__init__`定义的对象名字和参数定义时用的名字组成的，比如上面的例子中，卷积的参数名为`net.weight`，其中，`net`是`self.net = forward_net`中的对象名，`weight`是Conv2d中定义卷积的参数时的`name`：`self.weight = Parameter(initializer(self.weight_init, shape), name='weight')`。
+MindSpore中，参数名称一般是根据`__init__`定义的对象名称和参数定义时使用的名称组成的。例如，在上述例子中，卷积的参数名为`net.weight`，其中，`net`是`self.net = forward_net`中定义的对象名，而`weight`是Conv2d中定义卷积参数时的`name`：`self.weight = Parameter(initializer(self.weight_init, shape), name='weight')`。
 
-MindSpore的Cell提供了`auto_prefix`接口用来判断Cell中的参数名是否加对象名这层信息，默认是`True`，也就是加对象名。如果`auto_prefix`设置为`False`，则上面这个例子中打印的`Parameter`的`name`是`weight`。通常骨干网络`auto_prefix`应设置为True。用于训练的优化器、 :class:`mindspore.nn.TrainOneStepCell` 等，应设置为False，以避免骨干网络的权重参数名被误改。
+MindSpore的Cell提供了`auto_prefix`接口，用来判断是否在Cell中的参数名中添加对象名，默认是``True``，即添加对象名。如果`auto_prefix`设置为``False``，则上面例子中打印的`Parameter`的`name`是`weight`。通常骨干网络（backbone network）的`auto_prefix`应设置为``True``。而用于训练的优化器，例如 [mindspore.nn.TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell) 等，应设置为``False``，以避免骨干网络的权重参数名被误改。
 
 ## 单元测试
 
@@ -122,8 +122,7 @@ print(diff)
 
 可以发现MindSpore和PyTorch的输出不一样，什么原因呢？
 
-查询[API差异文档](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/Conv2d.html)发现，`Conv2d`的默认参数在MindSpore和PyTorch上有区别，
-MindSpore默认使用`same`模式，PyTorch默认使用`pad`模式，迁移时需要改一下MindSpore `Conv2d`的`pad_mode`：
+查询[API差异文档](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/Conv2d.html)，发现`Conv2d`的默认参数在MindSpore和PyTorch上有区别。MindSpore默认使用`same`模式，而PyTorch默认使用`pad`模式，迁移时需要改一下MindSpore `Conv2d`的`pad_mode`，示例代码如下：
 
 ```python
 import numpy as np
@@ -161,23 +160,23 @@ print(diff)
 
 ## Cell常用的方法介绍
 
-`Cell`是MindSpore中神经网络的基本构成单元，提供了很多设置标志位以及好用的方法，下面来介绍一些常用的方法。
+`Cell`是MindSpore中神经网络的基本构成单元，提供了很多设置标志位的方法以及其他好用的方法，下面来介绍一些常用的方法。
 
 ### 手动混合精度
 
 MindSpore提供了一种自动混合精度的方法，详见[Model](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html)的amp_level属性。
 
-但是有的时候开发网络时希望混合精度策略更加的灵活，MindSpore也提供了[to_float](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.to_float)的方法手动地添加混合精度。
+然而，在网络开发的过程中，希望有更灵活的混合精度策略。MindSpore也提供了[to_float](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.to_float)的方法，用于手动添加混合精度。
 
-`to_float(dst_type)`: 在`Cell`和所有子`Cell`的输入上添加类型转换，以使用特定的浮点类型运行。
+`to_float(dst_type)`: 在`Cell`和所有子`Cell`的输入添加类型转换，以使用特定的浮点类型运行。
 
-如果 `dst_type` 是 `ms.float16` ，`Cell`的所有输入(包括作为常量的input， `Parameter`， `Tensor`)都会被转换为`float16`。
+如果 `dst_type` 是 `ms.float16` ，则`Cell`的所有输入（包括作为常量的input， `Parameter`， `Tensor`）都会被转换为`float16`。
 
-自定义的`to_float`和Model里的`amp_level`冲突，使用自定义的混合精度就不要设置Model里的`amp_level`。
+自定义的`to_float`和Model里的`amp_level`有冲突关系。即如果使用自定义的混合精度，则不要设置Model里的`amp_level`。
 
-`torch.nn.Module` 的 `to` 接口可以实现类似功能。
+PyTorch中`torch.nn.Module` 的 `to` 接口可以实现类似功能。
 
-PyTorch和MindSpore中，将一个网络里所有的BN和loss改成`float32`类型，其余操作是`float16`类型，可以这么做：
+PyTorch和MindSpore中，可以将一个网络里所有的BatchNorm和loss设置为`float32`类型，而其余操作设置为`float16`类型，示例如下：
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -277,9 +276,9 @@ net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 
 ### Parameter管理
 
-在 PyTorch 中，可以存储数据的对象总共有四种，分别时`Tensor`、`Variable`、`Parameter`、`Buffer`。这四种对象的默认行为均不相同，当用户不需要求梯度时，通常使用 `Tensor`和 `Buffer`两类数据对象，当用户需要求梯度时，通常使用 `Variable` 和 `Parameter` 两类对象。PyTorch 在设计这四种数据对象时，功能上存在冗余（`Variable` 后续会被废弃也说明了这一点）。
+在PyTorch中，可以存储数据的对象总共有四种，分别时`Tensor`、`Variable`、`Parameter`、`Buffer`。这四种对象的默认行为均不相同，当用户不需要求梯度时，通常使用 `Tensor`和 `Buffer`两类数据对象；当用户需要求梯度时，通常使用 `Variable` 和 `Parameter` 两类对象。PyTorch 在设计这四种数据对象时，功能上存在冗余（`Variable` 后续会被废弃也说明了这一点）。
 
-MindSpore 优化了数据对象的设计逻辑，仅保留了两种数据对象：`Tensor` 和 `Parameter`，其中 `Tensor` 对象仅参与运算，并不需要对其进行梯度求导和Parameter更新，而 `Parameter` 数据对象和 PyTorch 的 `Parameter` 意义相同，会根据其属性`requires_grad` 来决定是否对其进行梯度求导和Parameter更新。在网络迁移时，只要是在PyTorch中未进行Parameter更新的数据对象，均可在MindSpore中声明为 `Tensor`。
+MindSpore优化了数据对象的设计逻辑，仅保留了两种数据对象：`Tensor` 和 `Parameter`。其中 `Tensor` 对象仅参与运算，并不需要对其进行梯度求导和Parameter更新，而 `Parameter` 数据对象和 PyTorch 的 `Parameter` 意义相同，会根据其属性`requires_grad` 来决定是否对其进行梯度求导和Parameter更新。在网络迁移时，只要是在PyTorch中未进行Parameter更新的数据对象，均可在MindSpore中声明为 `Tensor`。
 
 #### Parameter获取
 
@@ -289,7 +288,7 @@ MindSpore 优化了数据对象的设计逻辑，仅保留了两种数据对象�
 
 - get_parameters：获取网络结构中的所有Parameter，返回`Cell`中`Parameter`的迭代器。
 
-- trainable_params：获取`Parameter`中`requires_grad`为`True`的属性，返回可训Parameter的列表。
+- trainable_params：获取`Parameter`中`requires_grad`为``True``的属性，返回可训练的Parameter列表。
 
 在定义优化器时，使用`net.trainable_params()`获取需要进行Parameter更新的Parameter列表。
 
@@ -358,12 +357,12 @@ print(net.trainable_params())
 
 #### 梯度冻结
 
-除了使用给Parameter设置`requires_grad=False`来不更新Parameter外，还可以使用`stop_gradient`来阻断梯度计算以达到冻结Parameter的作用。那什么时候使用`requires_grad=False`，什么时候使用`stop_gradient`呢？
+除了通过给Parameter设置`requires_grad=False`达到不更新Parameter的目的，还可以使用`stop_gradient`来阻断梯度计算以达到冻结Parameter的作用。那什么时候使用`requires_grad=False`，什么时候使用`stop_gradient`呢？
 
 ![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/model_development/images/parameter_freeze.png)
 
-如上图所示，`requires_grad=False`不更新部分Parameter，但是反向的梯度计算还是正常执行的；
-`stop_gradient`会直接截断反向梯度，当需要冻结的Parameter之前没有需要训练的Parameter时，两者在功能上是等价的。
+如上图所示，`requires_grad=False`不更新部分Parameter，但是反向的梯度计算仍然正常执行；
+而`stop_gradient`会直接截断反向梯度，当需要冻结的Parameter之前没有需要训练的Parameter时，两者在功能上是等价的。
 但是`stop_gradient`会更快（少执行了一部分反向梯度计算）。
 当冻结的Parameter之前有需要训练的Parameter时，只能使用`requires_grad=False`。
 另外，`stop_gradient`需要加在网络的计算链路里，作用的对象是Tensor：
@@ -376,8 +375,8 @@ y = B(a)
 
 #### Parameter保存和加载
 
-MindSpore提供了`load_checkpoint`和`save_checkpoint`方法用来Parameter的保存和加载，需要注意的是Parameter保存时，保存的是Parameter列表，Parameter加载时对象必须是Cell。
-在Parameter加载时，可能Parameter名对不上需要做一些修改，可以直接构造一个新的Parameter列表给到`load_checkpoint`加载到Cell。
+MindSpore提供了`load_checkpoint`和`save_checkpoint`方法用来保存和加载Parameter。需要注意的是，当保存Parameter时，保存的是Parameter列表，而加载Parameter时，对象必须是Cell。
+在加载Parameter时，出现Parameter名对不上的情况，就需要做一些修改，可以直接构造一个新的Parameter列表保存于`load_checkpoint`加载到Cell。
 
 `torch.nn.Module` 提供 `state_dict` 、 `load_state_dict` 等接口保存加载模型的Parameter。
 
@@ -475,9 +474,9 @@ bias [1.]
 
 ##### 默认权重初始化不同
 
-我们知道权重初始化对网络的训练十分重要。每个nn接口一般会有一个隐式的声明权重，在不同的框架中，隐式的声明权重可能不同。即使功能一致，隐式声明的权重初始化方式分布如果不同，也会对训练过程产生影响，甚至无法收敛。
+权重初始化对网络的训练十分重要。每个nn接口一般会有一个隐式的声明权重，在不同的框架中，隐式的声明权重可能不同。即使功能一致，隐式声明的权重初始化方式分布如果不同，也会对训练过程产生影响，甚至无法收敛。
 
-常见隐式声明权重的nn接口：Conv、Dense(Linear)、Embedding、LSTM 等，其中区别较大的是 Conv 类和 Dense 两种接口。MindSpore和PyTorch的 Conv 类和 Dense 隐式声明的权重和偏差初始化方式分布相同。
+常见隐式声明权重的nn接口有Conv、Dense(Linear)、Embedding、LSTM 等，其中区别较大的是Conv类和Dense两种接口。MindSpore和PyTorch的Conv类和Dense类隐式声明的权重和偏差初始化方式分布相同。
 
 - Conv2d
 
@@ -495,7 +494,7 @@ bias [1.]
 
 其中，$k=\frac{groups}{in\_features}$ 。
 
-对于没有正则化的网络，如没有 BatchNorm 算子的 GAN 网络，梯度很容易爆炸或者消失，权重初始化就显得十分重要，各位开发者应注意权重初始化带来的影响。
+对于没有正则化的网络，如没有BatchNorm算子的GAN网络，梯度很容易爆炸或者消失。此时，权重初始化就显得十分重要，各位开发者应注意权重初始化带来的影响。
 
 ##### Parameter初始化API对比
 
@@ -533,14 +532,14 @@ x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
 </tr>
 </table>
 
-- `mindspore.common.initializer` 用于在并行模式中延迟Tensor的数据的初始化。只有在调用了 `init_data()` 之后，才会使用指定的 `init` 来初始化Tensor的数据。每个Tensor只能使用一次 `init_data()` 。在运行以上代码之后，`x` 其实尚未完成初始化。如果此时 `x` 被用来计算，将会作为0来处理。然而，在打印时，会自动调用 `init_data()` 。
-- `torch.nn.init` 需要一个Tensor作为输入，将输入的Tensor原地修改为目标结果，运行上述代码之后，x将不再是非初始化状态，其元素将服从均匀分布。
+- `mindspore.common.initializer` 用于在并行模式中延迟Tensor的数据初始化。只有在调用了 `init_data()` 之后，才会使用指定的 `init` 来初始化Tensor的数据。每个Tensor只能调用一次 `init_data()` 。在运行上述代码后，`x` 其实尚未完成初始化。如果此时将 `x` 用于计算，将会作为0来处理。然而，在打印Tensor时，会自动调用 `init_data()` 。
+- `torch.nn.init` 需要一个Tensor作为输入，将输入的Tensor原地修改为目标结果。运行上述代码之后，`x`将不再是非初始化状态，其元素将服从均匀分布。
 
 ##### 自定义初始化Parameter
 
-MindSpore封装的高阶API里一般会给Parameter一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行Parameter初始化的方法。
+MindSpore封装的高阶API里一般会默认初始化Parameter，当这个初始化分布与需要使用的初始化以及PyTorch的初始化不一致时，需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行Parameter初始化的方法。
 
-Parameter的相关介绍请参考[网络参数](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的Parameter进行初始化。
+Parameter的相关介绍请参考[网络参数](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/initializer.html)。本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并说明怎样给`Cell`里的Parameter进行初始化。
 
 > 注意本节的方法不能在`construct`里执行，在网络中修改Parameter的值请使用[assign](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.assign.html)。
 
@@ -710,13 +709,13 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
 ### 训练评估模式切换
 
-`torch.nn.Module` 提供 `train(mode=True)` 接口设置模型处于训练模式和 `eval` 接口设置模型处于评估模式。这两种模式的区别主要体现在Dropout和BN等层的行为以及权重更新上。
+`torch.nn.Module` 提供 `train(mode=True)` 接口，用来设置模型处于训练模式，以及提供 `eval` 接口设置模型处于评估模式。这两种模式的区别主要体现在Dropout和BN等层的行为以及权重更新上。
 
 - Dropout和BN层的行为：
 
-  训练模式下，Dropout层会按照设定的Parameter `p` 来随机关闭一部分神经元，这意味着在前向传播过程中，这部分神经元不会有任何贡献。BN层会继续计算均值和方差，并对数据进行相应的归一化。
+  在训练模式下，Dropout层会按照设定的Parameter `p` 来随机关闭一部分神经元。这意味着在前向传播过程中，这部分神经元不会有任何贡献。BN层会继续计算均值和方差，并对数据进行相应的归一化。
 
-  评估模式下，Dropout层不会关闭任何神经元，即所有的神经元都会被用于前向传播。BN层会使用训练阶段计算得到的运行均值和运行方差。
+  在评估模式下，Dropout层不会关闭任何神经元，即所有的神经元都会被用于前向传播。BN层会使用训练阶段计算得到的运行均值和运行方差。
 
 - 权重更新：
 
@@ -724,7 +723,7 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
   在评估模式下，模型的权重不会被更新。即使进行了前向传播并计算了损失，也不会进行反向传播来更新权重。这是因为评估模式主要用于测试模型的性能，而不是训练模型。
 
-`mindspore.nn.Cell` 提供 `set_train(mode=True)` 接口实现模式的切换。`mode` 设置成 ``True`` 时，模型处于训练模式；`mode` 设置成 ``False`` 时，模型处于评估模式。
+`mindspore.nn.Cell` 提供 `set_train(mode=True)` 接口实现模式的切换。当`mode` 设置成 ``True`` 时，模型处于训练模式；当`mode` 设置成 ``False`` 时，模型处于评估模式。
 
 ### 设备相关
 
@@ -777,7 +776,7 @@ ms_net = mindspore.nn.Dense(3, 4)
 
 - 场景2
 
-    限制：构图时不要使用自定义类型，而应该使用MindSpore提供的数据类型和Python基础类型，可以使用基于这些类型的tuple/list组合。
+    限制：构图时不要使用自定义类型，而应该使用MindSpore提供的数据类型和Python基础类型，可以使用基于这些类型的tuple或list组合。
     措施：使用基础类型进行组合，可以考虑增加函数参数量。函数入参数没有限制，并且可以使用不定长输入。
 
 - 场景3
@@ -787,9 +786,9 @@ ms_net = mindspore.nn.Dense(3, 4)
 
 ## 自定义反向
 
-但是有的时候MindSpore不支持某些处理，需要使用一些三方的库的方法，但是我们又不想截断网络的梯度，这时该怎么办呢？这里介绍一种在`PYNATIVE_MODE`模式下，通过自定义反向规避此问题的方法：
+MindSpore不支持某些处理的时候，需要使用一些第三方库的方法，但又不想截断网络的梯度，这时该怎么办呢？这里介绍一种在`PYNATIVE_MODE`模式下，通过自定义反向规避此问题的方法：
 
-有这么一个场景，需要随机有放回的选取大于0.5的值，且每个batch的shape固定是`max_num`。但是这个随机有放回的操作目前没有MindSpore的API支持，这时我们在`PYNATIVE_MODE`下使用numpy的方法来计算，然后自己构造一个梯度传播的过程。
+假设一个场景：需要随机有放回地选取大于0.5的值，且每个batch的shape固定是`max_num`。但是这个随机有放回的操作目前没有MindSpore的API支持，这时我们在`PYNATIVE_MODE`下使用numpy的方法来计算，然后自行构造一个梯度传播的过程，示例如下。
 
 ```python
 import numpy as np
