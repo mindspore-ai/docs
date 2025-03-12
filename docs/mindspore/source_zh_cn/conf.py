@@ -476,9 +476,24 @@ try:
 except Exception as e:
     print(e)
 
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary, MsCnPlataclnnAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
+
+# 获取mint和aclnn算子的映射关系
+mint_aclnn_path = '../../../resource/api_updates/mint_aclnn_cn.md'
+with open(mint_aclnn_path, 'r', encoding='utf-8') as f:
+    mint_aclnn_content = f.read()
+
+mint_aclnn = dict()
+for mint_n, aclnn_str in re.findall(r'\n\| \[(.*?)\].*?\|(.*?)\|', mint_aclnn_content):
+    new_mint_n = 'mindspore.' + mint_n
+    all_aclnn = ''
+    for aclnn_n, url in re.findall(r'\[(aclnn.*?)\]\((.*?)\)', aclnn_str):
+        all_aclnn += f'`{aclnn_n} <{url}>`_ , '
+    if not all_aclnn:
+        all_aclnn = '无'
+    mint_aclnn[new_mint_n] = all_aclnn
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
@@ -486,8 +501,10 @@ def setup(app):
     app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
     app.add_directive('mscnplatwarnautosummary', MsCnPlatWarnAutoSummary)
+    app.add_directive('mscnplataclnnautosummary', MsCnPlataclnnAutoSummary)
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
+    app.add_config_value('mint_aclnn', {}, True)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_js_file('js/mermaid-9.3.0.js')
 
