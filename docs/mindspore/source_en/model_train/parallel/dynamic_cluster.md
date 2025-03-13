@@ -84,7 +84,7 @@ The relevant environment variables:
         <td align="left">Specifies the IP address used for communication and networking between processes.</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">Legitimate IP address.</td>
-        <td align="left">This environment variable must be set when using IPv6. But when MS_SCHED_HOST is set to <b>::1</b>(Representing local loopback interface in IPv6), there's no need to set MS_WORKER_IP because MindSpore will use local loopback interface to communicate by default.</td>
+        <td align="left">This environment variable is suggested to be set when using IPv6. But when MS_SCHED_HOST is set to <b>::1</b>(Representing local loopback interface in IPv6), there's no need to set MS_WORKER_IP because MindSpore will use local loopback interface to communicate by default.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_ENABLE_RECOVERY</td>
