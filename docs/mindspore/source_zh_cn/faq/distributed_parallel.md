@@ -189,3 +189,22 @@ A: 这是因为在使用msrun启动分布式框架且通过hostname指定主节�
 1. 输入的主机名是错误的，或者该主机名在DNS中不存在。Linux中可以通过命令`nslookup <hostname>`或`dig <hostname>`来手动查询DNS记录，也可以通过命令`cat /etc/hosts`查看环境上的静态DNS解析文件信息。
 2. DNS服务器无法正常访问。Linux中可以通过命令`cat /etc/resolv.conf`来查看DNS服务器配置。
 3. 防火墙或者安全软件组织了DNS查询。Linux中可以通过命令`systemctl status firewalld`和`service iptables status`来查看防火墙和iptable状态。
+
+<br/>
+
+## Q: 多机场景使用动态组网或msrun启动分布式任务时，报错device id越界，如何解决？
+
+```text
+RuntimeError: Ascend kernel runtime initialization failed, device id: 9. The details refer to 'Ascend Error Message'.
+
+---------------------------------------------------
+-Framework Error Message: (For framework developers)
+---------------------------------------------------
+Call aclrtSetDevice failed, ret[107001]. Got device count[8] and device id[9], please check if device id is valid.
+```
+
+A: 这是因为在多机场景，分布式框架会依据hostname自动分配device id/local rank id；若hostname一致，则会导致分配的值超过节点上实际存在的卡的数量。在Linux系统中，可通过以下方式来查询和修改hostname：
+
+1. 通过命令`hostname`或者`hostnamectl`来查看当前的主机名。
+2. 通过编辑文件`/etc/hosts`或者使用命令`hostnamectl set-hostname <hostname>`来修改主机名。
+3. 通过命令`hostname <hostname>`来临时修改主机名。
