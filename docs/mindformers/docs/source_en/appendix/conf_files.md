@@ -4,11 +4,11 @@
 
 ## Overview
 
-Different parameters usually need to be configured during the training and inference process of a model. MindFormers supports the use of `YAML` files to centrally manage and adjust the configurable items, which makes the configuration of the model more structured and improves its maintainability at the same time.
+Different parameters usually need to be configured during the training and inference process of a model. MindSpore Transformers supports the use of `YAML` files to centrally manage and adjust the configurable items, which makes the configuration of the model more structured and improves its maintainability at the same time.
 
 ## Description of the YAML File Contents
 
-The `YAML` file provided by MindFormers contains configuration items for different functions, which are described below according to their contents.
+The `YAML` file provided by MindSpore Transformers contains configuration items for different functions, which are described below according to their contents.
 
 ### Basic Configuration
 
@@ -31,8 +31,8 @@ Context configuration is mainly used to specify the [mindspore.set_context](http
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| context.mode                | Set the backend execution mode, `0` means GRAPH_MODE. MindFormers currently only supports running in GRAPH_MODE mode.                                                                                          | int      |
-| context.device_target       | Set the backend execution device. MindFormers is only supported on `Ascend` devices.                                                                                                              | str      |
+| context.mode                | Set the backend execution mode, `0` means GRAPH_MODE. MindSpore Transformers currently only supports running in GRAPH_MODE mode.                                                                                          | int      |
+| context.device_target       | Set the backend execution device. MindSpore Transformers is only supported on `Ascend` devices.                                                                                                              | str      |
 | context.device_id           | Set the execution device ID. The value must be within the range of available devices, and the default value is `0`.                                                                                                                      | int      |
 | context.enable_graph_kernel | Enable graph fusion to optimize network execution performance, defaults to `False`. See [graph fusion](https://www.mindspore.cn/docs/en/master/model_train/optimize/graph_fusion_engine.html) for details.                    | bool     |
 | context.max_call_depth      | Set the maximum depth of a function call. The value must be a positive integer, and the default value is `1000`.                                                                                                                    | int      |
@@ -44,7 +44,7 @@ Context configuration is mainly used to specify the [mindspore.set_context](http
 
 ### Model Configuration
 
-Since the configuration will vary from model to model, only the generic configuration of models in MindFormers is described here.
+Since the configuration will vary from model to model, only the generic configuration of models in MindSpore Transformers is described here.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |--------------------------------------------|--------------------------------------------------------------------------------------------------|------|
@@ -81,7 +81,7 @@ In addition to the basic configuration of the model above, the MoE model needs t
 | moe_config.moe_intermediate_size                    | Set the size of the intermediate dimension of the expert layer                                                     | int  |
 | moe_config.capacity_factor              | Set the expert capacity factor                                                                     | int  |
 | moe_config.num_experts_chosen             | Set the number of experts to select per token                                                                                      | int  |
-| moe_config.enable_sdrop              | Set whether to enable token drop policy `sdrop`, since MindFormers's MoE is a static shape implementation so it can't retain all tokens                                                                       | bool  |
+| moe_config.enable_sdrop              | Set whether to enable token drop policy `sdrop`, since MindSpore Transformers's MoE is a static shape implementation so it can't retain all tokens                                                                       | bool  |
 | moe_config.aux_loss_factor              | Set the weights of the equilibrium loss                                                                       | list[float]  |
 | moe_config.first_k_dense_replace              | Set the enable block of the moe layer, generally set to 1 to indicate that moe is not enabled in the first block                                                                       | int  |
 | moe_config.balance_via_topk_bias              | Set whether to enable `aux_loss_free` load balancing algorithm                                                                                         | bool  |
@@ -92,7 +92,7 @@ In addition to the basic configuration of the model above, the MoE model needs t
 
 ### Model Training Configuration
 
-When starting model training, in addition to model-related parameters, you also need to set the parameters of trainer, runner_config, learning rate, and optimizer and other modules required for training, MindFormers provides the following configuration items.
+When starting model training, in addition to model-related parameters, you also need to set the parameters of trainer, runner_config, learning rate, and optimizer and other modules required for training, MindSpore Transformers provides the following configuration items.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types |
 |---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
@@ -137,7 +137,7 @@ When starting model training, in addition to model-related parameters, you also 
 
 ### Parallel Configuration
 
-In order to improve the performance of the model, it is usually necessary to configure the parallelism strategy for the model in large-scale cluster usage scenarios. For details, please refer to [Distributed Parallelism](https://www.mindspore.cn/mindformers/docs/en/dev/function/distributed_parallel.html), the parallel configuration in MindFormers is as follows.
+In order to improve the performance of the model, it is usually necessary to configure the parallelism strategy for the model in large-scale cluster usage scenarios. For details, please refer to [Distributed Parallelism](https://www.mindspore.cn/mindformers/docs/en/dev/function/distributed_parallel.html), the parallel configuration in MindSpore Transformers is as follows.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -168,7 +168,7 @@ In order to improve the performance of the model, it is usually necessary to con
 
 ### Model Optimization Configuration
 
-MindFormers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html#recomputation) for details.
+MindSpore Transformers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html#recomputation) for details.
 
 | Parameters                                         | Descriptions                                                                                            | Types           |
 |----------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------|
@@ -182,7 +182,7 @@ MindFormers provides recomputation-related configurations to reduce the memory f
 
 ### Callbacks Configuration
 
-MindFormers provides encapsulated Callbacks function class, mainly to achieve to return to the model training state and output in the model training process, save the model weight file and other operations. Currently the following Callbacks function class is supported.
+MindSpore Transformers provides encapsulated Callbacks function class, mainly to achieve to return to the model training state and output in the model training process, save the model weight file and other operations. Currently, the following Callbacks function class is supported.
 
 1. MFLossMonitor
 
@@ -191,7 +191,7 @@ MindFormers provides encapsulated Callbacks function class, mainly to achieve to
    | Parameters                     | Descriptions                                                                                                                                                                                                                                                                                                | Types |
    |--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
    | learning_rate                  | Set the initial learning rate in `MFLossMonitor`. The default value is `None`                                                                                                                                                                                                                               | float |
-   | per_print_times                | Set the interval for printing log information in `MFLossMonitor`. The default value is `1`, that is, the log information is printed every step                                                                                                                                                              | int   |
+   | per_print_times                | Set the frequency for printing log information in `MFLossMonitor`. The default value is `1`, that is, the log information is printed every step                                                                                                                                                             | int   |
    | micro_batch_num                | Set the size of the micro batch data in each step in the training, which is used to calculate the actual loss value. If this parameter is not set, the value of this parameter is the same as that of `parallel_config.micro_batch_num` in [Parallel Configuration](#parallel-configuration)                | int   |
    | micro_batch_interleave_num     | Set the size of the interleave micro batch data in each step of the training. This parameter is used to calculate the actual loss value. If this parameter is not set, the value of this parameter is the same as that of `micro_batch_interleave_num` in [Parallel Configuration](#parallel-configuration) | int   |
    | origin_epochs                  | Set the initial number of training epochs in `MFLossMonitor`. If this parameter is not set, the value of this parameter is the same as that of `runner_config.epochs` in [Model Training Configuration](#model-training-configuration)                                                                      | int   |
@@ -239,7 +239,7 @@ callbacks:
 
 ### Processor Configuration
 
-Processor is mainly used to preprocess the inference data of the input model. Since the Processor configuration items are not fixed, only the generic configuration items of Processor in MindFormers are explained here.
+Processor is mainly used to preprocess the inference data of the input model. Since the Processor configuration items are not fixed, only the generic configuration items of Processor in MindSpore Transformers are explained here.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |--------------------------------|--------------------------------------|-----|
@@ -251,7 +251,7 @@ Processor is mainly used to preprocess the inference data of the input model. Si
 
 ### Model Evaluation Configuration
 
-MindFormers provides model evaluation function, and also supports model evaluation while training. The following is the configuration related to model evaluation.
+MindSpore Transformers provides model evaluation function, and also supports model evaluation while training. The following is the configuration related to model evaluation.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |---------------------|-------------------------------------------------------------|------|
@@ -265,7 +265,7 @@ MindFormers provides model evaluation function, and also supports model evaluati
 
 ### Profile Configuration
 
-MindFormers provides Profile as the main tool for model performance tuning, please refer to [Performance Tuning Guide](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html) for more details. The following is the Profile related configuration.
+MindSpore Transformers provides Profile as the main tool for model performance tuning, please refer to [Performance Tuning Guide](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html) for more details. The following is the Profile related configuration.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------|------|
@@ -276,9 +276,28 @@ MindFormers provides Profile as the main tool for model performance tuning, plea
 | profile_memory        | Set whether to collect Tensor memory data                                                                                                            | bool |
 | init_start_profile    | Set whether to turn on collecting performance data when the Profiler is initialized; this parameter does not take effect when `profile_start_step` is set. This parameter needs to be set to `True` when `profile_memory` is turned on.                                  | bool |
 
+### Metric Monitoring Configuration
+
+The metric monitoring configuration is primarily used to configure methods to record metrics during training, please refer to [Training Metrics Monitoring](https://www.mindspore.cn/mindformers/docs/en/dev/function/monitor.html) for more details.Below is a description of the common metric monitoring configuration options in MindSpore Transformers:
+
+| Parameters                              | Descriptions                                                                                                                                                                                                                                             | Types         |
+|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| monitor_config.monitor_on               | Set whether to enable monitoring. The default is `False`, which will disable all parameters below.                                                                                                                                                       | bool          |
+| monitor_config.dump_path                | Set the save path for metric files of `local_norm`, `device_local_norm` and `local_loss` during training. Defaults to './dump' when not set or set to `null`                                                                                             | str           |
+| monitor_config.target                   | Set the (partial) name of target parameters monitored by metric `optimizer state` and `local_norm`, can be regular expression.Defaults to ['.*'] when not set or set to `null`, that is, specify all parameters.                                         | list[str]     |
+| monitor_config.invert                   | Set whether to invert the targets specified in `monitor_config.target`, defaults to `False`.                                                                                                                                                             | bool          |
+| monitor_config.step_interval            | Set the frequency for metric recording. The default value is `1`, that is, the metrics are recorded every step.                                                                                                                                          | int           |
+| monitor_config.local_loss_format        | Set the format to record metric `local_loss`, can be string 'tensorboard' and 'log' (represent write to Tensorboard and write to log respectively), or list composed of them, or `null`. Defaults to `null`, that is, do not monitor this metric.        | str/list[str] |
+| monitor_config.local_norm_format        | Set the format to record metric `local_norm`, can be string 'tensorboard' and 'log' (represent write to Tensorboard and write to log respectively), or list composed of them, or `null`. Defaults to `null`, that is, do not monitor this metric.        | str/list[str] |
+| monitor_config.device_local_norm_format | Set the format to record metric `device_local_norm`, can be string 'tensorboard' and 'log' (represent write to Tensorboard and write to log respectively), or list composed of them, or `null`. Defaults to `null`, that is, do not monitor this metric. | str/list[str] |
+| monitor_config.optimizer_state_format   | Set the format to record metric `optimizer state`, can be string 'tensorboard' and 'log' (represent write to Tensorboard and write to log respectively), or list composed of them, or `null`. Defaults to `null`, that is, do not monitor this metric.   | str/list[str] |
+| monitor_config.weight_state_format      | Set the format to record metric `weight L2-norm`, can be string 'tensorboard' and 'log' (represent write to Tensorboard and write to log respectively), or list composed of them, or `null`. Defaults to `null`, that is, do not monitor this metric.    | str/list[str] |
+| monitor_config.throughput_baseline      | Set the baseline of metric `throughput linearity`的, must be positive number. Defaults to `null`, that is, do not monitor this metric.                                                                                                                    | int/float     |
+| monitor_config.print_struct             | Set whether to print all trainable parameters' name of model. If set to `True`, print all trainable parameters' name at the beginning of the first step, and exit training process after step end. Defaults to `False`.                                  | bool          |
+
 ### TensorBoard Configuration
 
-The TensorBoard configuration is primarily used to configure parameters related to TensorBoard during training, allowing for real-time monitoring and visualization of training metrics, please refer to [TensorBoard Visual Training Monitoring](https://www.mindspore.cn/mindformers/docs/en/dev/function/tensorboard.html) for more details. Below is a description of the common TensorBoard configuration options in MindFormers:
+The TensorBoard configuration is primarily used to configure parameters related to TensorBoard during training, allowing for real-time monitoring and visualization of training metrics, please refer to [Training Metrics Monitoring](https://www.mindspore.cn/mindformers/docs/en/dev/function/monitor.html) for more details. Below is a description of the common TensorBoard configuration options in MindSpore Transformers:
 
 | Parameters                                  | Descriptions                                                                                                                                                | Types  |
 |---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
