@@ -84,7 +84,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">指定当前进程和其他进程进行通信和组网使用的IP地址。</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">合法的IP地址。</td>
-        <td align="left">在使用IPv6地址进行组网时，此环境变量必须被设置。但当用户设置MS_SCHED_HOST为<b>::1</b>时（代表IPv6的本地回环地址），无需设置此环境变量，这是因为MindSpore会默认使用本地回环地址进行通信。</td>
+        <td align="left">在使用IPv6地址进行组网时，建议设置此环境变量。但当用户设置MS_SCHED_HOST为<b>::1</b>时（代表IPv6的本地回环地址），无需设置此环境变量，这是因为MindSpore会默认使用本地回环地址进行通信。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_ENABLE_RECOVERY</td>
