@@ -529,7 +529,7 @@ O2 mode Dump under Ascend has been migrated to the msprobe tool. For more detail
 
     You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
-4. Read and parse dump data through `numpy.load`, refer to [Introduction to CPU/GPU Dump Data File](#introduction-to-data-object-directory-and-data-file-2).
+4. Read and parse dump data through `numpy.load`, refer to [Introduction to CPU/GPU Dump Data File](#introduction-to-data-object-directory-and-data-file-1).
 
 ### Introduction to Data Object Directory and Data File
 

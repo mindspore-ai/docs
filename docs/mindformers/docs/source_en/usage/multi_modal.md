@@ -15,7 +15,7 @@ The unified architecture of multimodal models in **MindFormers** primarily inclu
     - [Non-text Modality Processing Module](#non-text-modality-processing-module)
     - [Cross-Modal Interaction Module](#cross-modal-interaction-module)
     - [Text Generation Module](#text-generation-module)
-- [Multimodal Model Practice](#multimodal-understanding-model-practice)
+- [Multimodal Model Practice](#multimodal-model-practice)
 
 ## Dataset Construction
 

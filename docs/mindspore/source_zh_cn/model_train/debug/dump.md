@@ -467,7 +467,7 @@ Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprob
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为4时，只能保存算子输入。
         - `kernels`：该项可以配置三种格式：
           1. 算子的名称列表。通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2开启IR保存开关并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#如何保存ir)。
-          需要注意的是，是否设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[CPU/GPU模式下Dump数据对象目录](#数据对象目录和数据文件介绍-2)。
+          需要注意的是，是否设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[CPU/GPU模式下Dump数据对象目录](#数据对象目录和数据文件介绍-1)。
           2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。
           3. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
         - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念，但是在json格式的配置文件中仍需保留该字段。
@@ -529,7 +529,7 @@ Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprob
 
    可以在训练脚本中设置`set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
-4. 通过`numpy.load`读取和解析CPU/GPU模式下Dump数据，参考[CPU/GPU模式下Dump数据文件介绍](#数据对象目录和数据文件介绍-2)。
+4. 通过`numpy.load`读取和解析CPU/GPU模式下Dump数据，参考[CPU/GPU模式下Dump数据文件介绍](#数据对象目录和数据文件介绍-1)。
 
 ### 数据对象目录和数据文件介绍
 
