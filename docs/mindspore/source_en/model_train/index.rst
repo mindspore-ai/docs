@@ -59,7 +59,6 @@ Model Building and Training
    parallel/data_parallel
    parallel/semi_auto_parallel
    parallel/auto_parallel
-   parallel/model_save_load
    parallel/recover
 
 .. toctree::
