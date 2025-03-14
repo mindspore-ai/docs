@@ -386,7 +386,10 @@ do
 done
 ```
 
-> The multi-machine task `MS_WORKER_NUM` should be the total number of Worker nodes in the cluster.
+> In a multi-machine task, it is necessary to set a different hostname for each host node, otherwise an error is reported that device id out of range. Refer to [FAQ](https://www.mindspore.cn/docs/en/master/faq/distributed_parallel.html#q-When-starting-distributed-framework-using-dynamic-cluster-or-msrun-in-multi-machine-scenario-an-error-is-reported-that-device-id-is-out-of-range-how-can-we-solve-it).
+>
+> In a multi-machine task, `MS_WORKER_NUM` should be the total number of Worker nodes in the cluster.
+>
 > To keep the inter-node network connected, use the `telnet <scheduler ip> <scheduler port>` command to test whether this node is connected to the started Scheduler node.
 
 Execute on Node 1:

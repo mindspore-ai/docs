@@ -189,3 +189,22 @@ A: This is because when starting the distributed framework with msrun and specif
 1. The input hostname is incorrect, or the hostname does not exist in DNS. You can manually query the DNS information in Linux by using the command `nslookup <hostname>` or `dig <hostname>`, or you can query the static DNS resolution on the environment by using the command `cat /etc/hosts`.
 2. DNS servers cannot be accessed normally. You can check the DNS server configuration in Linux with the command `cat /etc/resolv.conf`.
 3. The firewall or security software organizes DNS queries. You can use the commands `systemctl status firewalld` and `service iptables status` in Linux to query the firewall and iptable status.
+
+<br/>
+
+## Q: When starting distributed framework using dynamic cluster or msrun in multi-machine scenario, an error is reported that device id is out of range. How can we solve it?
+
+```text
+RuntimeError: Ascend kernel runtime initialization failed, device id: 9. The details refer to 'Ascend Error Message'.
+
+---------------------------------------------------
+-Framework Error Message: (For framework developers)
+---------------------------------------------------
+Call aclrtSetDevice failed, ret[107001]. Got device count[8] and device id[9], please check if device id is valid.
+```
+
+A: This is because in a multi-machine scenario, the distributed framework automatically assigns a device_id/local_rank_id based on the hostname; if the hostname is the same, the assigned value will exceed the number of cards actually present on the machine. The hostname can be queried and modified in the following ways on a Linux system:
+
+1. view the current hostname by the command `hostname` or `hostnamectl`.
+2. You can modify the hostname by editing the file `/etc/hosts` or by using the command `hostnamectl set-hostname <hostname>`.
+3. The hostname can be changed temporarily by using the command `hostname <hostname>`.

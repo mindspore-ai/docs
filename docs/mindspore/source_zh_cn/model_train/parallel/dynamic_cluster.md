@@ -386,7 +386,10 @@ do
 done
 ```
 
+> 在多机器任务中，需要为每个主机节点设置不同的主机名，否则会出现报错`deivce id`越界。可参考[FAQ](https://www.mindspore.cn/docs/zh-CN/master/faq/distributed_parallel.html#q-多机场景使用动态组网或msrun启动分布式任务时报错device-id越界如何解决)。
+>
 > 在多机任务中，`MS_WORKER_NUM`应当为集群中Worker节点总数。
+>
 > 节点间网络需保持连通，可使用`telnet <scheduler ip> <scheduler port>`指令测试本节点是否和已启动的Scheduler节点连通。
 
 在节点1执行：
