@@ -649,3 +649,65 @@ data2 = data2.map(pyfunc, input_columns="image", python_multiprocessing=True)
 ```
 
 <br/>
+
+## Q: GeneratorDataset和map在哪些场景下支持调用dvpp算子？
+
+A: 对于GeneratorDataset和map来说：
+
+<table>
+    <tr>
+        <td rowspan="2"></td>
+        <td rowspan="2" style="text-align: center">多线程</td>
+        <td colspan="2" style="text-align: center">多进程</td>
+    </tr>
+    <tr>
+        <td style="text-align: center">spawn</td>
+        <td style="text-align: center">fork</td>
+    </tr>
+    <tr>
+        <td>独立进程</td>
+        <td>数据处理：支持<br>数据处理 + 网络训练：不支持</td>
+        <td>数据处理：支持<br>数据处理 + 网络训练：支持</td>
+        <td>数据处理：支持<br>数据处理 + 网络训练：不支持</td>
+    </tr>
+    <tr>
+        <td>非独立进程</td>
+        <td>数据处理：支持<br>数据处理 + 网络训练：支持</td>
+        <td>数据处理：支持<br>数据处理 + 网络训练：支持</td>
+        <td>数据处理：支持<br>数据处理 + 网络训练：不支持</td>
+    </tr>
+</table>
+
+不支持场景说明：可能会出现scoped acquire::dec_ref(): internal error、nullptr、coredump、out of memory、卡住等报错行为。
+
+1. 不支持独立进程（其中使用多线程的方式执行数据处理）下执行数据处理 + 网络训练：因为独立进程以fork方式创建出来，同时运行网络时，会在主进程中先设置device，那么fork出来的dataset独立进程中不能重新设置device，创建流会失败。
+
+    部分报错信息如下：
+
+    ```text
+    terminate called after throwing an instance of 'std::runtime_error'
+      what():  scoped acquire::dec_ref(): internal error:
+    Fatal Python error: Aborted
+
+    Current thread 0x0000fffd90b18120 (most recent call first):
+    <no Python frame>
+    ```
+
+2. 不支持fork模式启动多进程的方式执行数据处理 + 网络训练：因为fork方式创建出的数据处理子进程中调用dvpp操作时，在网络运行过程中可能会出现gil抢占的问题。
+
+    部分报错信息如下：
+
+    ```text
+    Fatal Python error: Segmentation fault
+
+    Thread 0x0000fffef36cd120 (most recent call first):
+    File "/opt/buildtools/python-3.9.11/lib/python3.9/threading.py", line 312 in wait
+    File "/opt/buildtools/python-3.9.11/lib/python3.9/multiprocessing/queue.py", line 233 in _feed
+    File "/opt/buildtools/python-3.9.11/lib/python3.9/threading.py", line 910 in run
+    File "/opt/buildtools/python-3.9.11/lib/python3.9/threading.py", line 973 in _bootstrap_inner
+    File "/opt/buildtools/python-3.9.11/lib/python3.9/threading.py", line 930 in _bootstrap
+    ```
+
+建议：替换成上面已支持的场景。
+
+<br/>
