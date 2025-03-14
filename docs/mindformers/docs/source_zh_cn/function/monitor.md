@@ -179,7 +179,7 @@ local_loss与local_norm
 | profile_stop_step          | 性能分析结束的step。只在 `profile` 值为`True`时记录                         |
 | profile_rank_ids           | 指定rank ids开启profiling。只在 `profile` 值为`True`时记录               |
 | profile_pipeline           | 是否按流水线并行每个stage的其中一张卡开启profiling。只在 `profile` 值为`True`时记录    |
-| init_start_profile         | 是否在Profiler初始化的时候开启数据采集                                      |
+| init_start_profile         | 是否在Profiler初始化的时候开启数据采集。只在 `profile` 值为`True`时记录                                      |
 | layer_decay                | 层衰减系数                                                        |
 | layer_scale                | 是否启用层衰减                                                      |
 | lr_scale                   | 是否开启学习率缩放                                                    |
