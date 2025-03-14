@@ -30,7 +30,6 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 - Constructing Dataset
 
   **Q: How do I convert a PyTorch `dataset` to a MindSpore `dataset`?**
-
   A: The customized dataset logic of MindSpore is similar to that of PyTorch. You need to define a `dataset` class containing `__init__`, `__getitem__`, and `__len__` to read your dataset, instantiate the class into an object (for example, `dataset/dataset_generator`), and transfer the instantiated object to `GeneratorDataset` (on MindSpore) or `DataLoader` (on PyTorch). Then, you are ready to load the customized dataset.
   
   MindSpore provides further `map`->`batch` operations based on `GeneratorDataset`. Users can easily add other customized operations to `map` and start `batch`.
@@ -62,7 +61,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
   **Q: Why does it report an error when iterating over the data: "Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx" ?**
 
-  A: This is because the number of column names specified in the column_names parameter of GeneratorDataset does not match the number of data output by the source parameter.
+  A: This is because the number of column names specified in the `column_names` parameter of GeneratorDataset does not match the number of data output by the `source` parameter.
 
 
   **Q: When using GeneratorDataset or map to load/process data, there may be syntax errors, calculation overflow and other issues that cause data errors, how to troubleshoot and debug?**
@@ -151,7 +150,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
   A: During the load_checkpoint process, if there are weights that are not loaded, MindSpore will give a warning prompt. Generally there are two reasons for loading failure: 1, the weight name is not correct; 2, the weight is missing in the network.
 
-  If the weight names don't match, you need to print MindSpore weight names and the benchmark weight names to see if MindSpore weight names have extra prefixes such as backbone or network, and if so, check whether MindSpore adds auto_prefix=False when initializing `Cell <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html>`_ when initializing _ with auto_prefix=False.
+  If the weight names don't match, you need to print MindSpore weight names and the benchmark weight names to check if MindSpore weight names have extra prefixes such as backbone or network, and if so, check whether MindSpore adds auto_prefix=False when initializing `Cell <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html>`_ when initializing _ with auto_prefix=False.
 
   If the weight name is missing, you need to analyze whether it is reasonable or not. If it is reasonable, you can ignore the alarm prompts, if it is not reasonable, you need to analyze whether the network definition is wrong, and locate and modify it.
 

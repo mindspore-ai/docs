@@ -276,7 +276,7 @@ net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 
 ### Parameter管理
 
-在PyTorch中，可以存储数据的对象总共有四种，分别时`Tensor`、`Variable`、`Parameter`、`Buffer`。这四种对象的默认行为均不相同，当用户不需要求梯度时，通常使用 `Tensor`和 `Buffer`两类数据对象；当用户需要求梯度时，通常使用 `Variable` 和 `Parameter` 两类对象。PyTorch 在设计这四种数据对象时，功能上存在冗余（`Variable` 后续会被废弃也说明了这一点）。
+在PyTorch中，可以存储数据的对象总共有四种，分别是`Tensor`、`Variable`、`Parameter`、`Buffer`。这四种对象的默认行为均不相同，当用户不需要求梯度时，通常使用 `Tensor`和 `Buffer`两类数据对象；当用户需要求梯度时，通常使用 `Variable` 和 `Parameter` 两类对象。PyTorch 在设计这四种数据对象时，功能上存在冗余（`Variable` 后续会被废弃也说明了这一点）。
 
 MindSpore优化了数据对象的设计逻辑，仅保留了两种数据对象：`Tensor` 和 `Parameter`。其中 `Tensor` 对象仅参与运算，并不需要对其进行梯度求导和Parameter更新，而 `Parameter` 数据对象和 PyTorch 的 `Parameter` 意义相同，会根据其属性`requires_grad` 来决定是否对其进行梯度求导和Parameter更新。在网络迁移时，只要是在PyTorch中未进行Parameter更新的数据对象，均可在MindSpore中声明为 `Tensor`。
 

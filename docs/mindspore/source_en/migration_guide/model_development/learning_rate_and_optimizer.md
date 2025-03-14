@@ -23,7 +23,7 @@ Here are the common differences between optimizers in mindspore.experimental.opt
 
 ### Optimizer Execution and Usage Differences
 
-When PyTorch executes the optimizer in a single step, it is usually necessary to manually execute the `zero_grad()` method to set the historical gradient to 0 (or None), then use `loss.backward()` to calculate the gradient of the current training step, and finally call the `step()` method of the optimizer to update the network weights;
+When PyTorch executes the optimizer in a single step, it is usually necessary to manually execute the `zero_grad()` method to set the historical gradient to ``0`` (or ``None``), then use `loss.backward()` to calculate the gradient of the current training step, and finally call the `step()` method of the optimizer to update the network weights;
 
 The use of the optimizer in MindSpore requires only a direct calculation of the gradients and then uses `optimizer(grads)` to perform the update of the network weights.
 
@@ -164,7 +164,7 @@ MindSpore currently does not support modifying optimizer parameters during train
 
 Modify `weight_decay` in PyTorch is as below.
 
-Implement dynamic weight decay in MindSpore: Users can inherit the class of `Cell` custom dynamic weight decay and pass it into the optimizer.
+Implement dynamic `weight decay` in MindSpore: Users can inherit the class of `Cell` custom dynamic `weight decay` and pass it into the optimizer.
 
 <table class="colwidths-auto docutils align-default">
 <tr>

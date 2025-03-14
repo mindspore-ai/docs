@@ -92,7 +92,7 @@ Outputs:
 
 In MindSpore, a parameter name is generally formed based on an object name defined by `__init__` and a name used during parameter definition. For example, in the foregoing example, a convolutional parameter name is `net.weight`, where `net` is an object name in `self.net = forward_net`, and `weight` is `name`: `self.weight = Parameter(initializer(self.weight_init, shape), name='weight')` when a convolutional parameter is defined in Conv2d.
 
-The cell in MindSpore provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is `True`, that is, object names should be added. If `auto_prefix` is set to `False`, the `name` of `Parameter` printed in the preceding example is `weight`. In general, the backbone network should be set to True. The optimizer for training, such as :class:`mindspore.nn.TrainOneStepCell`, should be set to False, to avoid the parameter name in backbone be changed by mistake.
+The cell in MindSpore provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is ```True```, that is, object names should be added. If `auto_prefix` is set to ``False``, the `name` of `Parameter` printed in the preceding example is `weight`. In general, the backbone network should be set to ``True``. The optimizer for training, such as [mindspore.nn.TrainOneStepCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell), should be set to False, to avoid the parameter name in backbone be changed by mistake.
 
 ## Unit Test
 
@@ -175,9 +175,9 @@ If `dst_type` is `ms.float16`, all inputs of `Cell` (including input, `Parameter
 
 Customized `to_float` conflicts with `amp_level` in Model. Don't set `amp_level` in Model if you use custom mixed precision.
 
-The `to` interface of `torch.nn.Module` accomplishes similar functions.
+The `to` interface of `torch.nn.Module` in PyTorch accomplishes similar functions.
 
-In PyTorch and MindSpore, changing all the BNs and losses in a network to be of type `float32` and the rest of the operations to be of type `float16` can be done:
+In PyTorch and MindSpore, changing all the BatchNorm and losses in a network to be of type `float32` and the rest of the operations to be of type `float16` can be done:
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -289,7 +289,7 @@ MindSpore optimizes the design logic of data objects by keeping only two kinds o
 
 - get_parameters: Obtain all Parameters in the network structure, and return an iterator of `Parameter` in `Cell`.
 
-- trainable_params: Obtain the attributes of `Parameter` where `requires_grad` is `True`, and return a list of trainable Parameters.
+- trainable_params: Obtain the attributes of `Parameter` where `requires_grad` is ``True``, and return a list of trainable Parameters.
 
 When defining the optimizer, use `net.trainable_params()` to get the list of Parameters for which Parameter updates are required.
 
@@ -533,8 +533,8 @@ x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
 </tr>
 </table>
 
-- `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`. Every Tensor could only use `init_data` once. After running the code above, `x` is still not fully initialized. If it is used for further calculation, 0 will be used. However, when printing the Tensor, `init_data()` will be called automatically.
-- `torch.nn.init` takes a Tensor as input, and the input Tensor will be changed to the target in-place. After running the code above, x is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
+- `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`. Every Tensor could only use `init_data()` once. After running the code above, `x` is still not fully initialized. If it is used for further calculation, 0 will be used. However, when printing the Tensor, `init_data()` will be called automatically.
+- `torch.nn.init` takes a Tensor as input, and the input Tensor will be changed to the target in-place. After running the code above, `x` is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
 
 ##### Customizing Initialization Parameters
 
@@ -710,7 +710,7 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
 ### Training and Evaluation Mode Switching
 
-The `torch.nn.Module` provides the `train(mode=True)` interface to set the model in training mode and the `eval` interface to set the model in evaluation mode. The difference between these two modes is mainly in the behavior of layers such as Dropout and BN, as well as weight updates.
+The `torch.nn.Module` provides the `train(mode=True)` interface to set the model in training mode and provides the `eval` interface to set the model in evaluation mode. The difference between these two modes is mainly in the behavior of layers such as Dropout and BN, as well as weight updates.
 
 - Behavior of Dropout and BN layers:
 
@@ -789,7 +789,7 @@ Compared with the detailed syntax description, the common restrictions are as fo
 
 Sometimes, MindSpore does not support some processing and needs to use some third-party library methods. However, we do not want to truncate the network gradient. In this case, what should we do? This section describes how to customize backward network construction to avoid this problem in `PYNATIVE_MODE`.
 
-In the following scenario, a value greater than 0.5 needs to be randomly selected, and the shape of each batch is fixed to `max_num`. However, the random put-back operation is not supported by MindSpore APIs. In this case, NumPy is used for computation in `PYNATIVE_MODE`, and then a gradient propagation process is constructed.
+Assuming that a value greater than 0.5 needs to be randomly selected, and the shape of each batch is fixed to `max_num`. However, the random put-back operation is not supported by MindSpore APIs. In this case, NumPy is used for computation in `PYNATIVE_MODE`, and then a gradient propagation process is constructed. The sample code is as follows:
 
 ```python
 import numpy as np
