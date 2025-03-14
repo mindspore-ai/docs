@@ -59,13 +59,8 @@ Model Building and Training
    parallel/data_parallel
    parallel/semi_auto_parallel
    parallel/auto_parallel
-   parallel/manual_parallel
-   parallel/parameter_server_training
    parallel/model_save_load
    parallel/recover
-   parallel/optimize_technique
-   parallel/others
-   parallel/distributed_case
 
 .. toctree::
    :glob:
