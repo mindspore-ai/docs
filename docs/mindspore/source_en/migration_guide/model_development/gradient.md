@@ -81,8 +81,8 @@ MindSpore provides the [TrainOneStepCell](https://www.mindspore.cn/docs/en/maste
 #### torch.autograd.backward
 
 [torch.autograd.backward](https://pytorch.org/docs/stable/generated/torch.autograd.backward.html). For a scalar, calling its backward method automatically computes the gradient values of the leaf nodes according to the chaining law. For vectors and matrices, you need to define grad_tensor to compute the gradient of the matrix.
-Typically after calling backward once, PyTorch automatically destroys the computation graph, so to call backward repeatedly on a variable, you need to set the return_graph parameter to True.
-If you need to compute higher-order gradients, you need to set create_graph to True.
+Typically after calling backward once, PyTorch automatically destroys the computation graph, so to call backward repeatedly on a variable, you need to set the `return_graph` parameter to ``True``.
+If you need to compute higher-order gradients, you need to set `create_graph` to ``True``.
 The two expressions z.backward() and torch.autograd.backward(z) are equivalent.
 
 This interface is implemented in MindSpore using mindspore.grad. The above PyTorch use case can be transformed into:
@@ -366,13 +366,13 @@ There are four configurable parameters in [mindspore.grad](https://www.mindspore
 
 - fn (Union[Cell, Function]) - The function or network (Cell) to be derived.
 
-- grad_position (Union[NoneType, int, tuple[int]]) - Specifies the index of the input position for the derivative. Default value: 0.
+- grad_position (Union[NoneType, int, tuple[int]]) - Specifies the index of the input position for the derivative. Default value: ``0``.
 
-- weights (Union[ParameterTuple, Parameter, list[Parameter]]) - The network parameter that needs to return the gradient in the training network. Default value: None.
+- weights (Union[ParameterTuple, Parameter, list[Parameter]]) - The network parameter that needs to return the gradient in the training network. Default value: ``None``.
 
-- has_aux (bool) - Mark for whether to return the auxiliary parameters. If True, the number of fn outputs must be more than one, where only the first output of fn is involved in the derivation and the other output values will be returned directly. Default value: False.
+- has_aux (bool) - Mark for whether to return the auxiliary parameters. If ``True``, the number of `fn` outputs must be more than one, where only the first output of `fn` is involved in the derivation and the other output values will be returned directly. Default value: ``False``.
 
-where `grad_position` and `weights` together determine which values of the gradient are to be output, and has_aux configures whether to find the gradient on the first input or on all outputs when there are multiple outputs.
+where `grad_position` and `weights` together determine which values of the gradient are to be output, and `has_aux` configures whether to find the gradient on the first input or on all outputs when there are multiple outputs.
 
 | grad_position | weights | output |
 | ------------- | ------- | ------ |
@@ -386,7 +386,7 @@ where `grad_position` and `weights` together determine which values of the gradi
 
 Run an actual example to see exactly how it works.
 
-First, a network with parameters is constructed, which has two outputs loss and logits, where loss is the output we use to find the gradient.
+First, a network with parameters is constructed, which has two outputs `loss` and `logits`, where `loss` is the output we use to find the gradient.
 
 ```python
 import mindspore as ms
@@ -640,7 +640,7 @@ This function is similar to the function of grad, and it is not recommended in t
 
 Since the gradient overflow may be encountered in the process of finding the gradient in the mixed accuracy scenario, we generally use the loss scale to accompany the gradient derivation.
 
-> On Ascend, because operators such as Conv, Sort, and TopK can only be float16, and MatMul is preferably float16 due to performance issues, it is recommended that loss scale operations be used as standard for network training. [List of operators on Ascend only support float16][https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#4-training-accuracy].
+> On Ascend, because operators such as Conv, Sort, and TopK can only be float16, and the recommended data type for MatMul is float16 due to performance issues, it is recommended that loss scale operations be used as standard for network training. [List of operators on Ascend only support float16][https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#4-training-accuracy].
 >
 > The overflow can obtain overflow operator information via [dump data](https://mindspore.cn/docs/en/master/model_train/debug/dump.html).
 >
@@ -692,11 +692,11 @@ The principle of loss scale is very simple. By multiplying a relatively large va
 
 After calculating the gradient, you need to divide the loss and gradient back to the original value to ensure that the whole calculation process is correct.
 
-Finally, you generally need to use all_finite to determine if there is an overflow, and if there is no overflow you can use the optimizer to update the parameters.
+Finally, you generally need to use `all_finite` to determine if there is an overflow, and if there is no overflow you can use the optimizer to update the parameters.
 
 ## Gradient Cropping
 
-When the training process encountered gradient explosion or particularly large gradient, and training instability, you can consider adding gradient cropping. Here is an example of using global_norm for gradient cropping scenarios:
+When the training process encountered gradient explosion or particularly large gradient, and training instability, you can consider adding gradient cropping. Here is an example of using `global_norm` for gradient cropping scenarios:
 
 ```python
 from mindspore import ops

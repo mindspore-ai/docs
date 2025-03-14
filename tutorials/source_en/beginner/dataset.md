@@ -6,7 +6,7 @@
 
 Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network.
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html) and achieves efficient data preprocessing through `Dataset`, `Transforms` and `batch` operator. The pipeline nodes are:
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html) and achieves efficient data preprocessing through `Dataset`, `Transforms` and `Batch` operator. The pipeline nodes are:
 
 1. Dataset is the start of Pipeline and is used to load raw data to memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html#user-defined) for loading customized datasets.
 

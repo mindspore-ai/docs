@@ -141,7 +141,7 @@ You can see the following differences between MindSpore and PyTorch in reading c
 ### Processing Custom Datasets
 
 In addition to common datasets, when encountering scenarios that require customized loading logic, you need to use a custom dataset API, the corresponding API in MindSpore is `GeneratorDataset` , and the corresponding API in PyTorch is `DataLoader` .
-The basic process of constructing custom Dataset objects in PyTorch and MindSpore requires the creation of an iterator class, such as `MyCustomDataset` below, in which `__init__` , `__getitem__` , `__len__` three methods are defined.
+The basic process of constructing custom Dataset objects in PyTorch and MindSpore requires the creation of an iterator class, such as `MyCustomDataset` in the following image, in which `__init__` , `__getitem__` , `__len__` three methods are defined.
 
 ![GeneratorDataset ](../images/generatordataset_dataloader.png)
 
@@ -151,7 +151,7 @@ You can see the following differences between MindSpore and PyTorch in defining 
 
    * PyTorch customize a data loading class, the class needs to inherit `torch.utils.data.Dataset` , and then passed to the `DataLoader` to generate data iteration object.
 
-   * MindSpore custom data loading class does not need to inherit from `mindspore.dataset.Dataset` and can be passed to the custom dataset interface `GeneratorDataset` to generate data iteration objects. It is important to note that when using a custom dataset `GeneratorDataset` , you need to set a column name for each output column, e.g. `column_names=["image"]` above, which means that the first output column of the iterator is called `image` . In the subsequent data augmentation and iterative data acquisition phases, different columns can be processed separately by using the data column names. For details, please refer to [Differences from torch.utils.data.DataLoader](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/DataLoader.html). The following things need to be kept in mind when customizing the data loading class:
+   * MindSpore custom data loading class does not need to inherit from `mindspore.dataset.Dataset` and can be passed to the custom dataset interface `GeneratorDataset` to generate data iteration objects. It is important to note that when using a custom dataset `GeneratorDataset` , you need to set a column name for each output column, e.g. `column_names=["image"]` in the above image, which means that the first output column of the iterator is called `image` . In the subsequent data augmentation and iterative data acquisition phases, different columns can be processed separately by using the data column names. For details, please refer to [Differences from torch.utils.data.DataLoader](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/DataLoader.html). The following things need to be kept in mind when customizing the data loading class:
 
    > You can't use MindSpore's operators in the iterator class.
    >
