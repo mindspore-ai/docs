@@ -571,8 +571,6 @@ class Documenter:
             mint_doc = re.sub(r'(\n[ ]+(-|\*) GPU(/CPU)?:.*\n|\n[ ]+(-|\*) CPU(/GPU)?:.*\n)', '\n', docstring)
             mint_doc = re.sub(r'(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
             mint_doc = re.sub(r'(Supported Platforms:\n\s+?)`.*', r'\1``Ascend``', mint_doc)
-            mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
-            mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
             for j in spec_tp:
                 if isinstance(j[1], list) and j[0] in mint_doc and usename in j[1]:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{usename}', mint_doc)
@@ -581,9 +579,14 @@ class Documenter:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                     break
             if not re.findall(f'>>> .*?{usename}', mint_doc):
-                docstring = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?(?!\w)', rf'\1{usename}', mint_doc)
+                mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?(?!\w)', rf'\1{usename}', mint_doc)
+            if re.findall(rf'>>> .*?ops\.\w+\(', mint_doc):
+                mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint, ops', mint_doc)
+                mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint, ops')
             else:
-                docstring = mint_doc
+                mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
+                mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
+            docstring = mint_doc
         elif docstring and 'mindspore.is_tensor' in self.fullname:
             docstring = docstring.replace('>>> from mindspore import Tensor, ops', '>>> from mindspore import Tensor, is_tensor')
             docstring = docstring.replace('>>> ops.is_tensor', '>>> is_tensor')
