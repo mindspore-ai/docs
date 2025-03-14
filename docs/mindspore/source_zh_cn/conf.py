@@ -448,6 +448,32 @@ del_redundant_api_file(des_sir, ['mindspore.numpy.rst'], 'numpy', 'mindspore.num
 del_redundant_api_file(des_sir, ['mindspore.scipy.rst'], 'scipy', 'mindspore.scipy.', scipy_del)
 del_redundant_api_file(des_sir, ['mindspore/mindspore.Tensor.rst'], 'mindspore/Tensor', 'mindspore.Tensor.', tensor_del)
 
+with open('./api_python/mindspore.hal.rst', 'r+', encoding='utf-8') as f:
+    hal_content = f.read()
+    hal_content = hal_content.replace('mscnplatformautosummary', 'mscnautosummary')
+    f.seek(0)
+    f.truncate()
+    f.write(hal_content)
+
+err_loss_str = """损失函数
+^^^^^^^^^^^^^^^^^^^
+
+.. mscnplatwarnautosummary::
+    :toctree: mint
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.mint.nn.L1Loss
+"""
+
+with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
+    mint_content = f.read()
+    mint_content = mint_content.replace(err_loss_str, '')
+    mint_content = mint_content.replace('\n    mindspore.mint.nn.MSELoss', '\n    mindspore.mint.nn.L1Loss\n    mindspore.mint.nn.MSELoss')
+    f.seek(0)
+    f.truncate()
+    f.write(mint_content)
+
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 

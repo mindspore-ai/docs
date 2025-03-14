@@ -404,6 +404,13 @@ if os.path.exists(Tensor_list_path):
 if os.path.exists(dataset_list_path):
     os.remove(dataset_list_path)
 
+with open('./api_python/mindspore.hal.rst', 'r+', encoding='utf-8') as f:
+    hal_content = f.read()
+    hal_content = hal_content.replace('msplatformautosummary', 'autosummary')
+    f.seek(0)
+    f.truncate()
+    f.write(hal_content)
+
 def ops_interface_name():
 
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
@@ -428,6 +435,25 @@ except:
     pass
 
 mint_sum = mint_interface_name()
+
+err_loss_str = """Loss Functions
+^^^^^^^^^^^^^^^^^^^
+
+.. msplatwarnautosummary::
+    :toctree: mint
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.mint.nn.L1Loss
+"""
+
+with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
+    mint_content = f.read()
+    mint_content = mint_content.replace(err_loss_str, '')
+    mint_content = mint_content.replace('\n    mindspore.mint.nn.MSELoss', '\n    mindspore.mint.nn.L1Loss\n    mindspore.mint.nn.MSELoss')
+    f.seek(0)
+    f.truncate()
+    f.write(mint_content)
 
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
