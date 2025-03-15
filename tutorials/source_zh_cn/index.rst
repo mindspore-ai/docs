@@ -33,6 +33,14 @@ MindSpore教程
    nlp
    generative
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 并行
+   :hidden:
+
+   parallel/distributed_case
+
 .. raw:: html
 
    <div class="container">
