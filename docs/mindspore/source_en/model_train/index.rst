@@ -54,10 +54,11 @@ Model Building and Training
    :hidden:
    :caption: Distributed Parallelism
 
-   parallel/overview
    parallel/startup_method
    parallel/data_parallel
-   parallel/semi_auto_parallel
+   parallel/operator_parallel
+   parallel/optimizer_parallel
+   parallel/pipeline_parallel
    parallel/auto_parallel
    parallel/recover
 
@@ -220,7 +221,7 @@ Training
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./parallel/overview.html" class="article-link">
+                     <a href="./parallel/data_parallel.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Distributed Parallelism</span>
