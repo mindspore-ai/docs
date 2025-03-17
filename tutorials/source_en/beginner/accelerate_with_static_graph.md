@@ -6,7 +6,7 @@
 
 ## Background
 
-The AI compilation framework is divided into two modes of operation, namely, dynamic graph mode and static graph mode. MindSpore runs in dynamic graph mode by default, but it also supports manual switching to static graph mode. The details of the two modes are as follows:
+The AI compilation framework is divided into two modes of operation: dynamic graph mode and static graph mode. MindSpore runs in dynamic graph mode by default, but it also supports manual switching to static graph mode. The details of the two modes are as follows:
 
 ### Dynamic Graph Mode
 
