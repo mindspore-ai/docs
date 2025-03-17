@@ -60,7 +60,6 @@
    parallel/optimizer_parallel
    parallel/pipeline_parallel
    parallel/auto_parallel
-   parallel/recover
 
 .. toctree::
    :glob:
