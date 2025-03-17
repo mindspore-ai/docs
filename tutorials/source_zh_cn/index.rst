@@ -26,6 +26,14 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 编译
+   :hidden:
+
+   compile/jit_compilation
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 实践案例
    :hidden:
 
