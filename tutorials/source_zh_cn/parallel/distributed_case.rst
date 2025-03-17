@@ -8,4 +8,4 @@
 .. toctree::
   :maxdepth: 1
 
-  multiple_mix
+  multiple_mixed
