@@ -65,13 +65,6 @@ MindSpore将单机版本的程序转换成并行版本的程序。该转换是�
 切分策略传播算法
 ~~~~~~~~~~~~~~~~
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-   :alt: 查看源文件
-   :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/sharding_propagation.md
-
-概述
-^^^^^^^^
-
 切分策略传播算法是指：用户仅需手动定义计算图中几个关键算子的策略，其余算子的策略由算法自动生成。因为关键算子的策略已被定义，所以该算法的代价模型主要描述算子之间的重排布代价（Redistribution Cost），优化目标为全图重排代价最小。主要算子策略已被定义，意味着压缩了搜索空间，这种方案的搜索时间较短，其策略性能依赖于关键算子策略的定义。因此使用切分策略传播算法需要用户具备一定的分析、定义策略的能力。
 
 .. note::
@@ -108,13 +101,6 @@ MindSpore将单机版本的程序转换成并行版本的程序。该转换是�
 
 双递归策略搜索算法
 ~~~~~~~~~~~~~~~~~~~~
-
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-   :alt: 查看源文件
-   :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/sapp.md
-
-概述
-^^^^^^^^
 
 双递归策略搜索算法（Symbolic Automatic Parallel Planner，简称SAPP）基于符号化自动策略生成。SAPP算法能够对于巨大网络以及大规模切分瞬间生成最优策略。SAPP基于并行原理建模，通过建立抽象机来描述硬件集群拓扑，并通过符号化简优化代价模型。其代价模型比较的不是预估的绝对时延，而是不同并行策略的相对代价，因此能够大大压缩搜索空间，在百卡集群上能够保证分钟级的搜索时间。
 
