@@ -84,7 +84,7 @@ MindSpore Lite文档
    tools/benchmark
    tools/cropper_tool
    tools/obfuscator_tool
-   tools/golden_data_tool
+   tools/benchmark_golden_data
 
 .. toctree::
    :glob:

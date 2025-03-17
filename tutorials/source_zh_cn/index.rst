@@ -34,20 +34,20 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 并行
+   :hidden:
+
+   parallel/distributed_case
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 实践案例
    :hidden:
 
    cv
    nlp
    generative
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 并行
-   :hidden:
-
-   parallel/distributed_case
 
 .. raw:: html
 
