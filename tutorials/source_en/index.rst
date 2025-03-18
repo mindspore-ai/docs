@@ -26,6 +26,14 @@ MindSpore Tutorial
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Compilation
+   :hidden:
+
+   compile/jit_compilation
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Practical Cases
    :hidden:
 
