@@ -142,7 +142,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 模型训练过程中，第一个step耗时很长，该怎么优化？**
 
-  A: 模型训练过程中，第一个step包含网络编译时长。如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详细可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html>`_ 。
+  A: 模型训练过程中，第一个step包含网络编译时长。如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详细可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph_expert_programming.html>`_ 。
 
   **Q: 模型训练过程中，非首个step耗时很长，该怎么优化？**
 
@@ -178,7 +178,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
       loss = loss/response_gt
       return loss
 
-  详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html>`_ 。
+  详细可参考 `静态图语法支持 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html>`_ 。
 
   **Q: 训练过程中出现报错：“RuntimeError: Launch kernel failed, name:Default/...” 怎么办？**
 

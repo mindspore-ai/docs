@@ -140,7 +140,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
   **Q: During model training, the first step takes a long time, how to optimize it?**
 
-  A: During the model training process, the first step contains the network compilation time. If you want to optimize the performance of the first step, you can analyze whether the model compilation can be optimized. For details, please refer to `Static graph network compilation performance optimization <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html>`_.
+  A: During the model training process, the first step contains the network compilation time. If you want to optimize the performance of the first step, you can analyze whether the model compilation can be optimized. For details, please refer to `Static graph network compilation performance optimization <https://www.mindspore.cn/tutorials/en/master/compile/static_graph_expert_programming.html>`_.
 
   **Q: The non-first step takes a long time during model training, how to optimize it?**
 
@@ -176,7 +176,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
       loss = loss/response_gt
       return loss
 
-  See `Static diagram syntax support <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html>`_ for details.
+  See `Static diagram syntax support <https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html>`_ for details.
 
   **Q: What can I do if the error is reported during training: RuntimeError: "Launch kernel failed, name:Default/... What to do" ?**
 

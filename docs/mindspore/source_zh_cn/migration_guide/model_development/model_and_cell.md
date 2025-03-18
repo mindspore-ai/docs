@@ -765,7 +765,7 @@ ms_net = mindspore.nn.Dense(3, 4)
 
 `PyNative`模式下模型进行**推理**的行为与一般Python代码无异。但是在训练过程中，注意**一旦将Tensor转换成numpy做其他的运算后将会截断网络的梯度，相当于PyTorch的detach**。
 
-而在使用`GRAPH_MODE`时，通常会出现语法限制。在这种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html)。
+而在使用`GRAPH_MODE`时，通常会出现语法限制。在这种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)。
 
 相较于详细的语法说明，常见的限制可以归结为以下几点：
 

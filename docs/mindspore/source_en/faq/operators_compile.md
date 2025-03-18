@@ -59,7 +59,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 ## Q: When the `Tile` operator in operations executes `__infer__`, the `value` is `None`. Why is the value lost?
 
-A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html).
+A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html).
 
 <br/>
 

@@ -26,6 +26,20 @@ MindSpore Tutorial
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Compilation
+   :hidden:
+
+   compile/static_graph
+   compile/jit_compilation
+   compile/operators
+   compile/statements
+   compile/python_builtin_functions
+   compile/static_graph_expert_programming
+   compile/dynamic_shape
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Practical Cases
    :hidden:
 
