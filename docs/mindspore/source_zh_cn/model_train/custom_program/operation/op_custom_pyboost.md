@@ -6,7 +6,7 @@
 
 动态图模式下，网络流程更容易调试，可以支持执行单算子、普通函数和网络，以及单独求梯度等操作。有关动态图的相关内容可以参考[动态图](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html)。
 
-基于[Custom的自定义算子表达](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom.ipynb)虽然可以同时支持静态图和动态图，但是需要定义的内容较多。因此MindSpore针对动态图的自定义算子定义方式做了优化，方便用户使用的同时，还能提升自定义算子的执行性能。
+基于[Custom的自定义算子表达](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/op_custom.html)虽然可以同时支持静态图和动态图，但是需要定义的内容较多。因此MindSpore针对动态图的自定义算子定义方式做了优化，方便用户使用的同时，还能提升自定义算子的执行性能。
 
 下面以一个昇腾平台的乘法算子为例讲解，相关算子文件和更多用例参见[仓库代码](https://gitee.com/mindspore/mindspore/blob/master/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
 

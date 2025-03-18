@@ -47,7 +47,7 @@ qwen2_7b
 Safetensors分布式权重可通过以下两种方式获取：
 
 1. 通过MindSpore Transformers分布式训练生成。
-2. 将原有分布式ckpt权重通过[格式转换脚本](https://www.mindspore.cn/docs/zh-CN/dev/api_python/mindspore/mindspore.ckpt_to_safetensors.html)生成Safetensors格式。
+2. 将原有分布式ckpt权重通过[格式转换脚本](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ckpt_to_safetensors.html)生成Safetensors格式。
 
 分布式Safetensors示例目录结构：
 

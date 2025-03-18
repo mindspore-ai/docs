@@ -61,8 +61,6 @@ out = net(input_x2)
 
 Detailed instructions for using set_inputs can be found in the [Cell.set_inputs API Ducumentation](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_inputs).
 
-Distributed parallel scenarios on how to use dynamic shapes can be found in the [Distributed Parallel Support for Dynamic Shape Documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/support_dynamic_shape_in_parallel.html).
-
 ## API Support
 
 1. In the current version, only part of the API in MindSpore can support dynamic shape compilation and execution, and we will continue to improve the ability to support the full range of APIs. The current [mindspore.mint](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mint.html) interfaces support dynamic shape.
