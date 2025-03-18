@@ -179,7 +179,9 @@ auto cumsum = [&](const NodePtr &input, const NodePtr &elem) {
   auto out = Call(Prim(Add), input, elem);
   Return(Tuple(out, out));
 };
-auto [res, ys] = Scan(cumsum, init, xs);
+auto output = Scan(cumsum, init, xs);
+auto res = GetItem(output, Value(0));
+auto ys = GetItem(output, Value(1));
 ```
 
 The corresponding Python code is:
