@@ -16,9 +16,13 @@
 """Recompute Example"""
 
 import numpy as np
+import mindspore
 from mindspore.nn import Cell
 from mindspore.common import Tensor, Parameter
 from mindspore import context, ops, nn
+from mindspore.common.initializer import initializer, One
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore.nn.utils import no_init_parameters
 
 context.set_context(mode=context.GRAPH_MODE)
 
@@ -41,7 +45,7 @@ class Block(Cell):
         self.expand_dims = ops.ExpandDims()
         self.sub = ops.Sub()
         self.mul = ops.Mul()
-        self.y = Parameter(Tensor(np.ones((8, 128, 128)).astype(np.float32)))
+        self.y = Parameter(initializer(One(), [8, 128, 128], mindspore.float32))
 
     def construct(self, x):
         """Network definition"""
@@ -90,7 +94,9 @@ class Grad(Cell):
 
 
 input_x = Tensor(np.ones((8, 128, 16, 32)).astype(np.float32))
-network = Net()
+with no_init_parameters():
+    network = Net()
 grad_network = Grad(network)
+grad_network = AutoParallel(grad_network, parallel_mode="semi_auto")
 output = grad_network(input_x)
 print(output)
