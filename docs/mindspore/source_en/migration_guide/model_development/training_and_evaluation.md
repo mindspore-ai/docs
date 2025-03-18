@@ -336,8 +336,6 @@ mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFI
 
 If on the GPU, you can set which cards to use by `export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`. Specifying the card number is not currently supported on Ascend.
 
-Please refer to [Distributed Case](https://www.mindspore.cn/docs/en/master/model_train/parallel/distributed_case.html) for more details.
-
 ## Offline Inference
 
 In addition to the possibility of online inference, MindSpore provides many offline inference methods for different environments. Please refer to [Model Inference](https://www.mindspore.cn/docs/en/master/model_infer/ms_infer/llm_inference_overview.html) for details.

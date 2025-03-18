@@ -151,7 +151,7 @@ for s, f in function_dict.items():
 
 ### 测试一个简单的函数
 
-定义一个函数 `funtion(a,b,c)=a*b+c`，并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_funtion.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_funtion.py)脚本：
+定义一个函数 `funtion(a,b,c)=a*b+c`，并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_funtion.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_function.py)脚本：
 
 ```shell
 export GLOG_v=3  # 可选，设置更高的MindSpore日志级别，以减少一些系统打印，让结果看起来更美观

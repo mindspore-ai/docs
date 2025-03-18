@@ -6,7 +6,7 @@
 
 In dynamic graph mode, network workflows are easier to debug, supporting operations like single-operator execution, normal functions/networks, and standalone gradient computations. For details about dynamic graphs, refer to [Dynamic Graph](https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html).
 
-While [Custom operator expressions](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom.ipynb) support both static and dynamic graphs, they require extensive definitions. MindSpore optimizes the custom operator definition for dynamic graphs to enhance usability and execution performance.
+While [Custom operator expressions](https://www.mindspore.cn/docs/en/master/model_train/custom_program/op_custom.html) support both static and dynamic graphs, they require extensive definitions. MindSpore optimizes the custom operator definition for dynamic graphs to enhance usability and execution performance.
 
 This guide demonstrates a multiplication operator implementation on Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/master/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
 
