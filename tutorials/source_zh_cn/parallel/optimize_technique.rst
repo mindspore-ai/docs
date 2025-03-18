@@ -1,4 +1,4 @@
-优化方法
+并行优化策略
 ========================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
