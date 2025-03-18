@@ -1,12 +1,12 @@
-# Just-in-time Compilation
+# 即时编译 (Just-in-time Compilation)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/compile/jit-compilation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/jit_compilation.md)
 
-In this section, we will further explore the working principles of MindSpore and how to run it efficiently. The `mindspore.jit()` transformation performs JIT(just-in-time) compilation on MindSpore Python functions to enable efficient execution in subsequent processes. This compilation occurs during the function’s first execution and may take some time.
+在本节中，我们将进一步探讨MindSpore的工作原理，以及如何使其高效运行。`mindspore.jit()` 转换会执行对MindSpore Python函数的即时编译（just-in-time compilation），以便在后续过程中高效执行。它发生在函数第一次执行的时候，这个过程会花费一些时间。
 
-## How to use JIT
+## 对函数进行JIT编译
 
-### Define a function
+### 函数定义
 
 ```python
 from mindspore import Tensor
@@ -15,7 +15,7 @@ def f(a: Tensor, b: Tensor, c: Tensor):
     return a * b + c
 ```
 
-### Wrapping functions using `mindspore.jit`
+### 使用 `mindspore.jit` 包装
 
 ```python
 import mindspore
@@ -23,57 +23,57 @@ import mindspore
 jitted_f = mindspore.jit(f)
 ```
 
-### Running
+### 运行
 
 ```python
 import numpy as np
 import mindspore
 from mindspore import Tensor
 
+# 构造数据
 f_input = [Tensor(np.random.randn(2, 3), mindspore.float32) for _ in range(3)]
 
-# Run the original function
+# 运行原始函数
 out = f(*f_input)
 print(f"{out=}")
 
-# run the JIT-compiled function
+# 运行jit转换后的函数
 out = jitted_f(*f_input)
 print(f"{out=}")
 ```
 
-> `mindspore.jit` cannot compile temporary source code entered directly in the terminal, it must be executed as a `.py` file.
+> mindspore.jit不能在终端中使用临时源代码进行编译，必须作为`.py`文件运行。
 
-## Advanced Usages
+## 更多的用法
 
-### Common Configurations
+### 常用配置介绍
 
-For details about the mindspore.jit interface, refer to the [API documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html). Common configurations include:
+`mindspore.jit`接口详情见[API 文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)，常用配置如下：
 
-- capture_mode: Specifies the method used to create the computational `graph` (e.g., `ast` for building by parsing Python code, `bytecode` for building from Python bytecode, and `trace` for constructing by tracing Python code execution).
-- jit_level: Controls the level of compilation optimization (e.g., default is `O0`; for additional optimization, choose `O1`).
-- fullgraph: Determines whether to compile the entire function into a computational `graph`. Defaults to False, allowing jit to maximize compatibility with Python syntax. Setting this to True usually yields better performance but requires stricter syntax adherence.
-- backend: Specifies the backend used for compilation.
+- capture_mode: 用于指定创建`图`的方式（如：`ast`通过解析Python构建， `bytecode`通过解析Python字节码构建， `trace`通过追踪Python代码的执行进行构建。）
+- jit_level: 用于控制编译优化的级别。（如： 默认O0， 使用更多的优化可选择O1）
+- fullgraph: 是否将整个函数编译为`图`，默认为False，jit会尽可能兼容函数中的Python语法，设置为True一般可以获得更好的性能，但对语法要求更高。
+- backend: 用于指定编译的后端。
 
-### How to Use
+### 使用方法
 
-The following provides the usage for `ast`, `bytecode`, and `trace` modes respectively.
+下面分别给出了`ast`、`bytecode`和`trace`方式下的用法。
 
 ```python
 import mindspore
 
-# constructing graph with ast mode
-jitted_by_ast_and_levelO0_f = mindspore.jit(f, capture_mode="ast", jit_level="O0")
+# 使用ast方式构建图
+jitted_by_ast_and_levelO0_f = mindspore.jit(f, capture_mode="ast", jit_level="O0") # 这个是默认配置，跟上面的jitted_f是一样的
 jitted_by_ast_and_levelO1_f = mindspore.jit(f, capture_mode="ast", jit_level="O1")
 jitted_by_ast_and_ge_f = mindspore.jit(f, capture_mode="ast", backend="GE")
 
-# constructing graph with bytecode mode
+# 使用bytecode方式构建图
 jitted_by_bytecode_and_levelO0_f = mindspore.jit(f, capture_mode="bytecode", jit_level="O0")
 jitted_by_bytecode_and_levelO1_f = mindspore.jit(f, capture_mode="bytecode", jit_level="O1")
 jitted_by_bytecode_and_ge_f = mindspore.jit(f, capture_mode="bytecode", backend="GE")
 
 
-# constructing graph with trace mode
-# direct conversion via mindspore.jit(f, capture_mode="trace", ...) is not supported. instead, functions must be wrapped using the decorator @mindspore.jit(capture_mode="trace", ...)
+# 使用trace方式构建图，不支持直接通过mindspore.jit(f, capture_mode="trace", ...)的方式转换
 @mindspore.jit(capture_mode="trace", jit_level="O0")
 def jitted_by_trace_and_levelO0_f(a, b, c):
     return a * b + c
@@ -86,11 +86,13 @@ def jitted_by_trace_and_levelO1_f(a, b, c):
 def jitted_by_trace_and_ge_f(a, b, c):
     return a * b + c
 
-# use fullgraph (example as ast mode)
+# 使用fullgraph (这里以ast为例子)
 jitted_by_ast_and_levelO0_fullgraph_f = mindspore.jit(f, capture_mode="ast", jit_level="O0", fullgraph=True)
 jitted_by_ast_and_levelO1_fullgraph_f = mindspore.jit(f, capture_mode="ast", jit_level="O1", fullgraph=True)
 jitted_by_ast_and_ge_fullgraph_f = mindspore.jit(f, capture_mode="ast", backend="GE", fullgraph=True)
 
+
+# 用字典记录，方便后续调用
 function_dict = {
     "function ": f,
 
@@ -112,12 +114,12 @@ function_dict = {
 }
 ```
 
-> When using trace mode to build the graph, direct conversion using `mindspore.jit(f, capture_mode="trace", ...)` is not supported. Instead, functions must be wrapped using the decorator `@mindspore.jit(capture_mode="trace", ...)`.
+> 当构建图的方式选择为trace的时候不支持直接通过`mindspore.jit(f, capture_mode="trace", ...)`的方式转换，需要通过装饰器`@mindspore.jit(capture_mode="trace", ...)`用法对函数进行包装。
 
-### Running
+### 运行
 
 ```python
-# make data
+# 构造数据
 dataset = [[Tensor(np.random.randn(2, 3), mindspore.float32) for _ in range(3)] for i in range(1000)]
 
 for s, f in function_dict.items():
@@ -128,37 +130,37 @@ for s, f in function_dict.items():
     time_to_prepare = time.time() - s_time
     s_time = time.time()
 
-    # run each function 1000 times
+    # 每个函数都运行1000次
     for _ in range(1000):
         out = f(*dataset[i])
 
     time_to_run_thousand_times = time.time() - s_time
 
-    print(f"{s}, out shape: {out.shape}, time to prepare: {time_to_prepare:.2f}s, time to run a thousand times: {time_to_run_thousand_times:.2f}s")
+    print(f"{s}, out shape: {out.shape}, time to prepare: {time_to_prepare:.2f}s, time to run thousand times: {time_to_run_thousand_times:.2f}s")
 ```
 
-## Experiments and Results
+## 我们做的一些实验
 
-Below, we present several experiments conducted on the `Atlas A2` training product series. Note that results may vary significantly under different hardware and software conditions, and thus, the following results are for reference only.
+下面展示了我们在Atlas A2训练系列产品上运行的一些实验，不同的软硬件条件下，可能会有很大的差异，以下结果仅供参考。
 
-Explanation of Results:
+结果说明：
 
-- time to prepare: potential jitted object reuse and device memory copy may lead to inaccurate comparison.
+- *准备时间(time to prepare)：潜在的jitted后的对象重用和设备内存拷贝等，可能会导致比较结果不准确。
 
-- time to run a thousand times: potential asynchronous execution operations may lead to inaccurate testing times.
+- *运行一千次的时间(time to run thousand times)：潜在的异步执行操作等，可能会导致测试时间不准确。
 
-### Test a simple function
+### 测试一个简单的函数
 
-Define a function `f(a, b, c)=a*b+c` and convert it using `mindspore.jit`. You can run the script [simple_function.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_function.py) using the following command:
+定义一个函数 `funtion(a,b,c)=a*b+c`，并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_funtion.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_function.py)脚本：
 
 ```shell
-export GLOG_v=3  # Optionally, set a higher MindSpore log level to reduce some system print outputs, making the results more intuitive.
+export GLOG_v=3  # 可选，设置更高的MindSpore日志级别，以减少一些系统打印，让结果看起来更美观
 python code/simple_funtion.py
 ```
 
-Results：
+结果如下：
 
-| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run a thousand times |
+| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run thousand times |
 | --- | --- | --- | --- | --- | --- | --- |
 | false | -     | -          | -             | -     | ~4.16s | **~0.09s**    |
 |||||||||
@@ -178,19 +180,19 @@ Results：
 | true  | O1    | ast        | ms_backend    | true  | ~0.03s | **~0.53s**   |
 | true  | -     | ast        | ge            | true  | ~0.14s | ~0.99s   |
 
-### Test a simple conv module
+### 测试一个简单的卷积模块 (Conv Module)
 
-Define the `BasicBlock` module, used in the `ResNet`, and convert it using `mindspore.jit`. You can run the script [simple_conv.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_conv.py) using the following command:
+定义一个在经典网络`resnet`中使用到的核心模块`BasicBlock`, 并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_conv.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_conv.py)脚本：
 
 ```shell
 python code/simple_conv.py
 ```
 
-Results：
+结果如下：
 
 **forward**
 
-| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run a thousand times |
+| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run thousand times |
 | --- | --- | --- | --- | --- | --- | --- |
 | false | -     | -          | -             | -     | ~6.86s | ~1.80s    |
 | true  | O0    | ast        | ms_backend    | false | ~0.88s | **~1.00s**    |
@@ -198,25 +200,25 @@ Results：
 
 **forward + backward**
 
-| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run a thousand times |
+| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run thousand times |
 | --- | --- | --- | --- | --- | --- | --- |
 | false | -     | -          | -             | -     | ~1.93s | ~5.69s    |
 | true  | O0    | ast        | ms_backend    | false | ~0.84s | ~1.89s    |
 | true  | O1    | ast        | ms_backend    | false | ~0.80s | **~1.87s**    |
 
-### Test a simple attention module
+### 测试一个简单的注意力模块 (Attention Module)
 
-Define the `LlamaAttention` module, used in the `Llama3`, and convert it using `mindspore.jit`. You can run the script [simple_attention.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_attention.py) using the following command:
+我们定义一个在经典网络`llama3`中使用到的核心模块`LlamaAttention`, 并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_attention.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_attention.py)脚本：
 
 ```shell
 python code/simple_attention.py
 ```
 
-Results：
+结果如下：
 
 **forward**
 
-| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run a thousand times |
+| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run thousand times |
 | --- | --- | --- | --- | --- | --- | --- |
 | false | -     | -          | -             | -     | ~4.73s | ~4.28s    |
 | true  | O0    | ast        | ms_backend    | false | ~1.69s | ~4.46s    |
@@ -224,7 +226,7 @@ Results：
 
 **forward + backward**
 
-| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run a thousand times |
+| enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run thousand times |
 | --- | --- | --- | --- | --- | --- | --- |
 | false | -     | -          | -             | -     | ~0.16s | ~12.15s    |
 | true  | O0    | ast        | ms_backend    | false | ~1.78s | ~5.30s    |
