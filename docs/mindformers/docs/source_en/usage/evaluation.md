@@ -48,7 +48,7 @@ pip install -e .
 
   1. Create a new directory with e.g. the name `model_dir` for storing the model yaml files.
   2. Place the model inference yaml configuration file (predict_xxx_.yaml) in the directory created in the previous step. The directory location of the reasoning yaml configuration file for different models refers to [model library](../start/models.md).
-  3. Configure the yaml file. If the model class, model Config class, and model Tokenzier class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
+  3. Configure the yaml file. If the model class, model Config class, and model Tokenzier class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
 
       Using [predict_1lama3_1_8b. yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
 
@@ -72,7 +72,7 @@ The following table lists the parameters of the script of `run_harness.sh`:
 
 | Parameter           | Type | Description                                                                                                                                                                                   | Required |
 |---------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory. | No       |
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory. | No       |
 | `--model`       | str  | The value must be `mf`, indicating the MindFormers evaluation policy.                                                                                                                          | Yes      |
 | `--model_args`  | str  | Model and evaluation parameters. For details, see MindFormers model parameters.                                                                                                            | Yes      |
 | `--tasks`       | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                 | Yes      |

@@ -15,7 +15,7 @@
 使用`Model` 搭建一个神经网络一般分为如下四步：
 
 - **数据集预处理**：使用 ``mindspore.dataset`` 加载数据集后对数据集进行缩放，归一化，格式转换等操作。参考[数据集预处理](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html)教程了解更多信息。
-- **模型创建**：使用 ``mindspore.nn.Cell`` 构建神经网络，在\ ``__init__``\内初始化神经网络层，在 ``construct`` 函数内构建神经网络正向执行逻辑。参考[模型创建](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/model.html)教程了解更多信息。
+- **模型创建**：使用 ``mindspore.nn.Cell`` 构建神经网络，在 ``__init__`` 内初始化神经网络层，在 ``construct`` 函数内构建神经网络正向执行逻辑。参考[模型创建](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/model.html)教程了解更多信息。
 - **定义损失函数和优化器**：使用 ``mindspore.nn`` 定义损失函数和优化器函数。参考[定义损失函数和优化器](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/model.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%92%8C%E4%BC%98%E5%8C%96%E5%99%A8)教程了解更多信息。
 - **训练及保存模型**：使用 ``ModelCheckpoint`` 接口保存网络模型和参数，使用 ``model.fit`` 进行网络的训练和评估，使用 ``LossMonitor`` 监控训练过程中 ``loss`` 的变化。参考[训练及保存模型](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/model.html#%E8%AE%AD%E7%BB%83%E5%8F%8A%E4%BF%9D%E5%AD%98%E6%A8%A1%E5%9E%8B)教程了解更多信息。
 
