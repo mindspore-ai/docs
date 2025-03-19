@@ -107,13 +107,13 @@ This class requires two methods: `Forward` (forward pass) and `Backward` (backwa
 
 #### Forward Computation
 
-The user implements the forward computation of a customized operator through the `Forward` method. First focus on the following function signature. Its first input is fixed to `AutogradContext *`, and the rest of the inputs support `BaseTensorPtr`, `std::string`, or other base types, the number of which is determined by the number of inputs to the operator.
+The user implements the forward computation of a customized operator through the `Forward` method. First focus on the following function prototype. Its first input is fixed to `AutogradContext *`, and the rest of the inputs support `BaseTensorPtr`, `std::string`, or other base types, the number of which is determined by the number of inputs to the operator.
 
 ```c++
 static BaseTensorPtr Forward(AutogradContext *ctx, const BaseTensorPtr &x, const BaseTensorPtr &y)
 ```
 
-Here is the forward function calculation part. The user first creates a data type `x->data_type()` with size `BroadcastInferShape(x, y)` and then uses `CustomLaunchAclnn` to call the `aclnnMul` operator to perform the calculation. For knowledge related to the compilation of aclnn operators, you can refer to the relevant sections in [AOT type custom operators (Ascend platform)](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_ascendc.html#offline-compilation-and-deployment).
+Here is the forward function calculation part. The user first creates a Tensor with a data type of `x->data_type()` and a size of `BroadcastInferShape(x, y)`, then uses `CustomLaunchAclnn` to invoke the `aclnnMul` operator for computation. For knowledge related to the compilation of aclnn operators, you can refer to the relevant sections in [AOT type custom operators (Ascend platform)](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_ascendc.html#offline-compilation-and-deployment).
 
 ```c++
 auto output = std::make_shared<BaseTensor>(x->data_type(), BroadcastInferShape(x, y));
@@ -132,7 +132,7 @@ if (x_require_grad || y_require_grad) {
 
 #### Backward Computation
 
-The user implements the inverse computation of a customized operator through the `Forward` method. First focus on the following function signature. Its first input is fixed to `AutogradContext *` and its second input is fixed to `BaseTensorPtrList`.
+The user implements the inverse computation of a customized operator through the `Backward` method. First focus on the following function prototype. Its first input is fixed to `AutogradContext *` and its second input is fixed to `BaseTensorPtrList`.
 
 ```c++
 static BaseTensorPtrList Backward(AutogradContext *ctx, BaseTensorPtrList grad_outputs)
