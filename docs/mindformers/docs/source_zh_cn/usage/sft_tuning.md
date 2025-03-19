@@ -135,6 +135,23 @@ MindSpore Transformers提供**WikiText2**作为预训练数据集，**alpaca**�
 
 ### 执行微调任务
 
+#### 单卡训练
+
+执行`run_mindformer.py`启动单卡的微调任务，下面提供了一个使用示例：
+
+以Llama2模型单卡微调为例，由于单卡显存有限，无法运行完整的Llama2-7B模型，所以缩层进行示例，修改`finetune_llama2_7b.yaml`，将其中`num_layers`设置为2。
+
+启动命令如下：
+
+```shell
+python run_mindformer.py \
+ --config configs/llama2/finetune_llama2_7b.yaml \
+ --train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord \
+ --load_checkpoint /{path}/llama2_7b.ckpt \
+ --use_parallel False \
+ --run_mode finetune
+```
+
 #### 单机训练
 
 以Llama2-7B为例，执行msrun启动脚本，进行8卡分布式训练，启动命令如下：

@@ -135,6 +135,23 @@ The following uses the alpaca dataset as an example. After downloading the datas
 
 ### Performing a Fine-tuning Task
 
+#### Single-Card Training
+
+Execute `run_mindformer.py` to start the fine-tuning task on a single card. Below is an example usage:
+
+Taking the fine-tuning of the Llama2 model on a single card as an example, due to the limited NPU memory, it is not possible to run the full Llama2-7B model, so we reduce the layers for the example. Modify `finetune_llama2_7b.yaml` and set `num_layers` to 2.
+
+The startup command is as follows:
+
+```shell
+python run_mindformer.py \
+ --config configs/llama2/finetune_llama2_7b.yaml \
+ --train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord \
+ --load_checkpoint /{path}/llama2_7b.ckpt \
+ --use_parallel False \
+ --run_mode finetune
+```
+
 #### Single-Node Training
 
 Take Llama2-7B as an example. Run the startup script **msrun** to perform 8-device distributed training. The startup command is as follows:
