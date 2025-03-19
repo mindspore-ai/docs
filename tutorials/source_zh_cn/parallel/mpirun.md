@@ -1,6 +1,6 @@
 # mpirun启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/mpirun.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/mpirun.md)
 
 ## 概述
 
@@ -156,12 +156,6 @@ epoch: 0, step: 10, loss is 1.6298866
 epoch: 0, step: 20, loss is 1.3729795
 epoch: 0, step: 30, loss is 1.2199347
 epoch: 0, step: 40, loss is 0.85778403
-epoch: 0, step: 50, loss is 1.0849445
-epoch: 0, step: 60, loss is 0.9102987
-epoch: 0, step: 70, loss is 0.7571399
-epoch: 0, step: 80, loss is 0.7989929
-epoch: 0, step: 90, loss is 1.0189024
-epoch: 0, step: 100, loss is 0.6298542
 ...
 ```
 
