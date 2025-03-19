@@ -29,6 +29,7 @@ API
    mindspore.hal
    mindspore.experimental
    env_var_list
+   ../note/api_mapping/pytorch_api_mapping
 
 MindSpore provides rich interfaces for model building, training, and inference. The functions of each module interface are described below.
 

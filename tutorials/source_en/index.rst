@@ -26,6 +26,20 @@ MindSpore Tutorial
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Data Processing
+   :hidden:
+
+   dataset/sampler
+   dataset/record
+   dataset/eager
+   dataset/python_objects
+   dataset/augment
+   dataset/cache
+   dataset/optimize
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Compilation
    :hidden:
 
@@ -36,6 +50,65 @@ MindSpore Tutorial
    compile/python_builtin_functions
    compile/static_graph_expert_programming
    compile/dynamic_shape
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Debugging and Tuning
+   :hidden:
+
+   debug/pynative
+   debug/dump
+   debug/sdc
+   debug/profiler
+   debug/error_analysis
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Custom Cases
+   :hidden:
+
+   custom_program/op_custom
+   custom_program/fusion_pass
+   custom_program/hook_program
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Infer
+   :hidden:
+
+   model_infer/ms_infer/llm_inference_overview
+   model_infer/ms_infer/weight_prepare
+   model_infer/ms_infer/model_dev
+   model_infer/ms_infer/parallel
+   model_infer/ms_infer/weight_split
+   model_infer/ms_infer/model_export
+   model_infer/ms_infer/quantization
+   model_infer/ms_infer/profiling
+   model_infer/ms_infer/custom_operator
+   model_infer/lite_infer/overview
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: High Availability
+   :hidden:
+
+   train_availability/fault_recover
+   train_availability/disaster_recover
+   train_availability/graceful_exit
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Orange Pi
+   :hidden:
+
+   orange_pi/environment_setup
+   orange_pi/model_infer
+   orange_pi/dev_start
 
 .. toctree::
    :glob:

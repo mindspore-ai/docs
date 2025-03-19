@@ -26,6 +26,20 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 数据处理
+   :hidden:
+
+   dataset/sampler
+   dataset/record
+   dataset/eager
+   dataset/python_objects
+   dataset/augment
+   dataset/cache
+   dataset/optimize
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 编译
    :hidden:
 
@@ -44,6 +58,65 @@ MindSpore教程
    :hidden:
 
    parallel/distributed_case
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 调试调优
+   :hidden:
+
+   debug/pynative
+   debug/dump
+   debug/sdc
+   debug/profiler
+   debug/error_analysis
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 自定义案例
+   :hidden:
+
+   custom_program/op_custom
+   custom_program/fusion_pass
+   custom_program/hook_program
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 推理
+   :hidden:
+
+   model_infer/ms_infer/llm_inference_overview
+   model_infer/ms_infer/weight_prepare
+   model_infer/ms_infer/model_dev
+   model_infer/ms_infer/parallel
+   model_infer/ms_infer/weight_split
+   model_infer/ms_infer/model_export
+   model_infer/ms_infer/quantization
+   model_infer/ms_infer/profiling
+   model_infer/ms_infer/custom_operator
+   model_infer/lite_infer/overview
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 高可用
+   :hidden:
+
+   train_availability/fault_recover
+   train_availability/disaster_recover
+   train_availability/graceful_exit
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 香橙派
+   :hidden:
+
+   orange_pi/environment_setup
+   orange_pi/model_infer
+   orange_pi/dev_start
 
 .. toctree::
    :glob:
