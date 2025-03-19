@@ -105,7 +105,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_flags_custom, get_logits_processor, get_logits_warper, prepare_inputs_for_generation, process_logits, slice_incremental_inputs, update_model_kwargs_before_generate, chunk_prefill_infer
+    :exclude-members: add_flags_custom, get_logits_processor, get_logits_warper, prepare_inputs_for_generation, process_logits, slice_incremental_inputs, update_model_kwargs_before_generate, chunk_prefill_infer, prepare_inputs_for_generation_mcore, forward_mcore, infer_mcore, add_flags_custom_mcore
     :members:
 
 {% elif fullname=="mindformers.models.ChatGLM2ForConditionalGeneration" %}
@@ -161,7 +161,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name, obtain_qkv_ffn_concat_keys
+    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name, obtain_qkv_ffn_concat_keys, obtain_name_map
     :members:
 
 {% elif fullname=="mindformers.models.PreTrainedTokenizer" %}
@@ -218,6 +218,13 @@
 
 .. autoclass:: {{ name }}
     :exclude-members: eval_batch_size, get_device_id, get_device_num, get_rank_id, local_process_index, process_index, set_evaluate, set_push_to_hub, set_testing, to_dict, to_json_string, train_batch_size, world_size
+    :members:
+
+{% elif fullname=="mindformers.TrainingStateMonitor" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: epoch_begin, epoch_end, step_begin, step_end
     :members:
 
 {% elif fullname in ["mindformers.AutoModelForCausalLM", "mindformers.AutoModelForZeroShotImageClassification", "mindformers.AutoModel"] %}
