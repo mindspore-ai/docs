@@ -1,4 +1,4 @@
-# Copyright 2023 Huawei Technologies Co., Ltd
+# Copyright 2025 Huawei Technologies Co., Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,9 +18,10 @@ import mindspore as ms
 import mindspore.dataset as ds
 from mindspore import nn
 from mindspore.communication import init
+from mindspore.nn.utils import no_init_parameters
+from mindspore.parallel.auto_parallel import AutoParallel
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 
 class DenseLayer(nn.Cell):
@@ -52,7 +53,10 @@ class Net(nn.Cell):
         x = self.layer3(x)
         return x
 
-net = Net()
+with no_init_parameters():
+    net = Net()
+    optimizer = nn.SGD(net.trainable_params(), 1e-2)
+
 # 配置通信融合
 net.head.set_comm_fusion(0)
 net.layer1.set_comm_fusion(1)
@@ -77,7 +81,6 @@ def create_dataset(batch_size):
     return dataset
 
 data_set = create_dataset(32)
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
 
 def forward_fn(data, target):
@@ -88,12 +91,14 @@ def forward_fn(data, target):
 
 grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 
-@ms.jit
 def train_step(inputs, targets):
     """train_step"""
     (loss_value, _), grads = grad_fn(inputs, targets)
     optimizer(grads)
     return loss_value
+
+# set parallel mode
+train_step = AutoParallel(train_step, parallel_mode="semi_auto")
 
 for epoch in range(10):
     i = 0
