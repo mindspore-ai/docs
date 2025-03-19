@@ -8,4 +8,4 @@ MindSpore是面向“端-边-云”全场景设计的AI框架，为用户提供A
 
 同时，基于动态图模式，MindSpore提供@jit的装饰器优化能力，可以指定函数通过[@jit](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html#jit)装饰优化，装饰部分会被整体解析，构建成C++计算图，进行全局分析，编译优化，从而加速被装饰部分的整体执行性能。这一过程我们也称之为静态化加速。
 
-除了动态图模式，MindSpore进一步提供了[静态图](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html)的编程模式，相关MindSpore模型构建接口不变，无需添加@jit装饰，MindSpore框架会针对所有开发在nn.cell类中construct函数的定义内容，整体编译解析，构建针对网络的完整静态图，进行模型整图级编译优化与执行。这样能针对整网，基于AI模型训练、推理的特点，进行模型级专有的优化，获取更高的执行性能。
+除了动态图模式，MindSpore进一步提供了[静态图](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)的编程模式，相关MindSpore模型构建接口不变，无需添加@jit装饰，MindSpore框架会针对所有开发在nn.cell类中construct函数的定义内容，整体编译解析，构建针对网络的完整静态图，进行模型整图级编译优化与执行。这样能针对整网，基于AI模型训练、推理的特点，进行模型级专有的优化，获取更高的执行性能。

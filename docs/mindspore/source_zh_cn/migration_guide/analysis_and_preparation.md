@@ -114,7 +114,7 @@ Profiler可将训练和推理过程中的算子耗时等信息记录到文件中
 
 - 动态图模式下，程序按照代码的编写顺序逐行执行，在执行正向过程中根据反向传播的原理，动态生成反向执行图。这种模式下，编译器将神经网络中的各个算子逐一下发到设备进行计算操作，方便用户编写和调试神经网络模型。
 
-### [调用自定义类](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html#使用jit-class)
+### [调用自定义类](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph_expert_programming.html#使用jit-class)
 
 在静态图模式下，通过使用`jit_class`修饰自定义类，用户可以创建、调用该自定义类的实例，并且可以获取其属性和方法。
 

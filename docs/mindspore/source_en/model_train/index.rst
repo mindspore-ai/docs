@@ -9,7 +9,6 @@ Model Building and Training
 
    program_form/overview
    program_form/pynative
-   program_form/static_graph
 
 .. toctree::
    :glob:

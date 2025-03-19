@@ -1,23 +1,13 @@
-静态图
+图模式编程介绍
 ===============
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/zh_cn/model_train/program_form/static_graph_syntax/mindspore_static_graph_syntax_support.ipynb
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/compile/mindspore_static_graph_syntax_support.ipynb
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/zh_cn/model_train/program_form/static_graph_syntax/mindspore_static_graph_syntax_support.py
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/compile/mindspore_static_graph_syntax_support.py
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/program_form/static_graph_syntax/static_graph_syntax_support.ipynb
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/static_graph.rst
     :alt: 查看源文件
-
-.. toctree::
-    :maxdepth: 1
-    :hidden:
-
-    static_graph_syntax/operators
-    static_graph_syntax/statements
-    static_graph_syntax/python_builtin_functions
-    static_graph_syntax/static_graph_expert_programming.ipynb
-    static_graph_syntax/dynamic_shape
 
 概述
 ----
@@ -206,7 +196,7 @@ Number
 支持在网络里定义\ ``Number``\ ，即支持语法：\ ``y = 1``\ 、\ ``y = 1.2``\ 、\ ``y = True``\ 。
 
 当数据为常量时，编译时期可以获取到数值，在网络中可以支持强转\ ``Number``\ 的语法：\ ``y = int(x)``\ 、\ ``y = float(x)``\ 、\ ``y = bool(x)``\ 。
-当数据为变量时，即需要在运行时期才可以获取到数值，也支持使用int()，float()，bool()等内置函数\ `Python内置函数 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html>`_\ 进行数据类型的转换。例如：
+当数据为变量时，即需要在运行时期才可以获取到数值，也支持使用int()，float()，bool()等内置函数\ `Python内置函数 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/python_builtin_functions.html>`_\ 进行数据类型的转换。例如：
 
 .. code:: python
 
@@ -998,7 +988,7 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/minds
 运算符
 ~~~~~~
 
-算术运算符和赋值运算符支持\ ``Number``\ 和\ ``Tensor``\ 运算，也支持不同\ ``dtype``\ 的\ ``Tensor``\ 运算。详见\ `运算符 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/operators.html>`_\ 。
+算术运算符和赋值运算符支持\ ``Number``\ 和\ ``Tensor``\ 运算，也支持不同\ ``dtype``\ 的\ ``Tensor``\ 运算。详见\ `运算符 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/operators.html>`_\ 。
 
 原型
 ~~~~
@@ -1101,12 +1091,12 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/minds
 语句
 ~~~~
 
-当前静态图模式支持部分Python语句，包括raise语句、assert语句、pass语句、return语句、break语句、continue语句、if语句、for语句、while语句、with语句、列表生成式、生成器表达式、函数定义语句等，详见\ `Python语句 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/statements.html>`_\ 。
+当前静态图模式支持部分Python语句，包括raise语句、assert语句、pass语句、return语句、break语句、continue语句、if语句、for语句、while语句、with语句、列表生成式、生成器表达式、函数定义语句等，详见\ `Python语句 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/statements.html>`_\ 。
 
 Python内置函数
 ~~~~~~~~~~~~~~
 
-当前静态图模式支持部分Python内置函数，其使用方法与对应的Python内置函数类似，详见\ `Python内置函数 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html>`_\ 。
+当前静态图模式支持部分Python内置函数，其使用方法与对应的Python内置函数类似，详见\ `Python内置函数 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/python_builtin_functions.html>`_\ 。
 
 网络定义
 ~~~~~~~~
@@ -1245,7 +1235,7 @@ Python内置函数
 
 4. 对标Python内置数据类型，除去当前图模式下支持的\ `Python内置数据类型 <#python内置数据类型>`_\ ，复数\ ``complex``\ 和集合\ ``set``\ 类型是不支持的。列表\ ``list``\ 和字典\ ``dictionary``\ 的一些高阶用法在基础语法场景下是不支持的，需要在JIT语法支持级别选项\ ``jit_syntax_level``\ 为\ ``LAX``\ 时才支持，更多请参考本文的\ `扩展语法（LAX级别） <#扩展语法lax级别>`_\ 章节。
 
-5. 对标Python的内置函数，在基础语法场景下，除去当前图模式下支持的\ `Python内置函数 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html>`_\ ，仍存在部分内置函数在图模式下是不支持的，例如：basestring、bin、bytearray、callable、chr、cmp、compile、
+5. 对标Python的内置函数，在基础语法场景下，除去当前图模式下支持的\ `Python内置函数 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/python_builtin_functions.html>`_\ ，仍存在部分内置函数在图模式下是不支持的，例如：basestring、bin、bytearray、callable、chr、cmp、compile、
    delattr、dir、divmod、eval、execfile、file、frozenset、hash、hex、id、input、issubclass、iter、locals、long、memoryview、next、object、oct、open、ord、property、raw_input、reduce、reload、repr、reverse、set、slice、sorted、unichr、unicode、vars、xrange、\__import\_\_。
 
 6. Python提供了很多第三方库，通常需要通过import语句调用。在图模式下JIT语法支持级别为STRICT时，不能直接使用第三方库。如果需要在图模式下使用第三方库的数据类型或者调用第三方库的方法，需要在JIT语法支持级别选项\ ``jit_syntax_level``\ 为\ ``LAX``\ 时才支持，更多请参考本文的\ `扩展语法（LAX级别） <#扩展语法lax级别>`_\ 中的\ `调用第三方库 <#调用第三方库>`_\ 章节。
@@ -1454,7 +1444,7 @@ AST扩展语法（LAX级别）
 在静态图语法重载了以下运算符: ['+', '-',
 '\*','/','//','%','\*\*','<<','>>','&','\|','^', 'not', '==', '!=', '<',
 '>', '<=', '>=', 'in', 'not in',
-'y=x[0]']。图模式重载的运算符详见\ `运算符 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/operators.html>`_\ 。列表中的运算符在输入图模式中不支持的输入类型时将使用扩展静态图语法支持，并使输出结果与动态图模式下的输出结果一致。
+'y=x[0]']。图模式重载的运算符详见\ `运算符 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/operators.html>`_\ 。列表中的运算符在输入图模式中不支持的输入类型时将使用扩展静态图语法支持，并使输出结果与动态图模式下的输出结果一致。
 
 代码用例如下。
 
@@ -1771,7 +1761,7 @@ AST扩展语法（LAX级别）
 
 扩展内置函数的支持范围。Python内置函数完善支持更多输入类型，例如第三方库数据类型。
 
-例如下面的例子，\ ``x.asnumpy()``\ 和\ ``np.ndarray``\ 均是扩展支持的类型。更多内置函数的支持情况可见\ `Python内置函数 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html>`_\ 章节。
+例如下面的例子，\ ``x.asnumpy()``\ 和\ ``np.ndarray``\ 均是扩展支持的类型。更多内置函数的支持情况可见\ `Python内置函数 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/python_builtin_functions.html>`_\ 章节。
 
 .. code:: python
 
@@ -2102,7 +2092,7 @@ Type机制。当\ ``tensor``\ 函数的\ ``dtype``\ 确定时，函数内部会�
 
    net.attr: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
 
-3. 基于字节码构图时，变量场景的控制流无法入图。有关变量的相关介绍请见\ `变量产生场景 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html#%E5%8F%98%E9%87%8F%E4%BA%A7%E7%94%9F%E5%9C%BA%E6%99%AF>`_\ 。示例如下：
+3. 基于字节码构图时，变量场景的控制流无法入图。有关变量的相关介绍请见\ `变量产生场景 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html#%E5%8F%98%E9%87%8F%E4%BA%A7%E7%94%9F%E5%9C%BA%E6%99%AF>`_\ 。示例如下：
 
 .. code:: python
 

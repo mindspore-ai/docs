@@ -55,7 +55,7 @@ MindSpore provides three JIT compilation methods, namely, ast, bytecode and trac
 
 #### ast
 
-In dynamic graph mode, the user can modify a function to execute in static graph mode by using the `@jit(capture_mode=“ast”)` decorator, which we call ast. Also, since ast is the current default configuration for jit acceleration, you can also use `@jit` to decorate directly. Users need to manually specify the functions that need to be run in static graph mode to get more precise performance benefits. At the same time, because the static graph mode requires functions to be compiled first, the syntax and data structures used inside the functions need to strictly follow the [Static Graph Syntax Specification](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html). If there is any unresolvable syntax or data structure in the function, it will be compiled and reported as an error.
+In dynamic graph mode, the user can modify a function to execute in static graph mode by using the `@jit(capture_mode=“ast”)` decorator, which we call ast. Also, since ast is the current default configuration for jit acceleration, you can also use `@jit` to decorate directly. Users need to manually specify the functions that need to be run in static graph mode to get more precise performance benefits. At the same time, because the static graph mode requires functions to be compiled first, the syntax and data structures used inside the functions need to strictly follow the [Static Graph Syntax Specification](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html). If there is any unresolvable syntax or data structure in the function, it will be compiled and reported as an error.
 
 **ast Usage**
 
@@ -103,7 +103,7 @@ In the above use case, the tensor_cal function is modified by the @jit decorator
 
 - The vast majority of calculations and optimizations for MindSpore static graphs are based on optimizations for Tensor calculations, so we recommend that the functions that are modified should be the kind of functions that are used to perform real data calculations, rather than simple scalar calculations or transformations of data structures.
 
-- Functions modified by `@jit` that have constants in their inputs will result in a recompile each time that the function input value changes. See [Constants and Variables within Static Graphs](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#constants-and-variables-within-static-graphs) for the concept of variable constants. Therefore, it is recommended that the modified function takes as input Tensor or data modified by Mutable. Avoid additional performance loss due to multiple compilations.
+- Functions modified by `@jit` that have constants in their inputs will result in a recompile each time that the function input value changes. See [Constants and Variables within Static Graphs](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#constants-and-variables-within-static-graphs) for the concept of variable constants. Therefore, it is recommended that the modified function takes as input Tensor or data modified by Mutable. Avoid additional performance loss due to multiple compilations.
 
 #### bytecode
 

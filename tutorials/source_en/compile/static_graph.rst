@@ -1,19 +1,9 @@
-Static Graph
+Introduction to Graph Mode Programming
 =========================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/program_form/static_graph.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/compile/static_graph.rst
     :alt: View Source On Gitee
-
-.. toctree::
-    :maxdepth: 1
-    :hidden:
-
-    static_graph_syntax/operators
-    static_graph_syntax/statements
-    static_graph_syntax/python_builtin_functions
-    static_graph_syntax/static_graph_expert_programming.ipynb
-    static_graph_syntax/dynamic_shape
 
 Overview
 --------
@@ -258,7 +248,7 @@ compile time, the forcible conversion to ``Number`` is supported in the
 network. The syntax ``y = int(x)``, ``y = float(x)``, and
 ``y = bool(x)`` are supported. When the data is a variable, i.e., you
 can get the value only at runtime. It also supports data type conversion
-using built-in functions `Python Built-in Functions <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html>`_ such as int(), float() and
+using built-in functions `Python Built-in Functions <https://www.mindspore.cn/tutorials/en/master/compile/python_builtin_functions.html>`_ such as int(), float() and
 bool(). For example:
 
 .. code:: python
@@ -366,7 +356,7 @@ List
 When 'JIT_SYNTAX_LEVEL' is set to 'LAX', static graph mode can support
 the inplace operation of some 'List' objects, see `Supporting List
 Inplace Modification
-Operations <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#supporting-list-inplace-modification-operations-1>`_.
+Operations <https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#supporting-list-inplace-modification-operations-1>`_.
 
 The basic usage scenarios of 'List' are as follows:
 
@@ -1170,7 +1160,7 @@ Operators
 Arithmetic operators and assignment operators support the ``Number`` and
 ``Tensor`` operations, as well as the ``Tensor`` operations of different
 ``dtype``. For more details, please refer to
-`Operators <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/operators.html>`_
+`Operators <https://www.mindspore.cn/tutorials/en/master/compile/operators.html>`_
 
 Primaries
 ~~~~~~~~~
@@ -1287,7 +1277,7 @@ statement, pass statement, return statement, break statement, continue
 statement, if statement, for statement, while statement, with statement,
 list comprehension, generator expression and function definition
 statement. For more details, please refer to
-`Statements <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/statements.html>`_
+`Statements <https://www.mindspore.cn/tutorials/en/master/compile/statements.html>`_
 
 Python Built-in Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1298,7 +1288,7 @@ Currently supported Python built-in functions include ``int``,
 ``max``, ``min`` , ``sum``, ``abs``, ``partial``, ``map``, ``range``,
 ``enumerate``, ``super``, ``pow``, ``filter``. The use of built-in
 functions in graph mode is similar to the corresponding Python built-in
-functions. For more details, please refer to `Python Built-in Functions <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html>`_.
+functions. For more details, please refer to `Python Built-in Functions <https://www.mindspore.cn/tutorials/en/master/compile/python_builtin_functions.html>`_.
 
 Network Definition
 ~~~~~~~~~~~~~~~~~~
@@ -1466,7 +1456,7 @@ compilation <https://www.mindspore.cn/docs/en/master/faq/network_compilation.htm
    for more information.
 
 5. In the basic syntax scenario, in addition to the `Python Built-in
-   Functions <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html>`_
+   Functions <https://www.mindspore.cn/tutorials/en/master/compile/python_builtin_functions.html>`_
    supported in the current graph mode, there are still some built-in
    functions that are not supported in graph mode. For example:
    basestring, bin, bytearray, callable, chr, cmp, compile, delattr,
@@ -1711,7 +1701,7 @@ is overloaded: ['+', '-',
 '\*','/','//','%','\*\*','<<','>>','&','\|','^', 'not', '==', '!=', '<',
 '>', '<=', '>=', 'in', 'not in', 'y=x[0]']. For more details, please
 refer to
-`Operators <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/operators.html>`_.
+`Operators <https://www.mindspore.cn/tutorials/en/master/compile/operators.html>`_.
 When getting unsupported input type, those operators need to use
 extended static graph syntax to support, and make the output consistent
 with the output in the pynative mode.
@@ -2056,7 +2046,7 @@ types.
 
 For example, in the following example, 'x.asnumpy()' and 'np.ndarray'
 are both types supported by extensions. More support for built-in
-functions can be found in the `Python built-in functions <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html>`_
+functions can be found in the `Python built-in functions <https://www.mindspore.cn/tutorials/en/master/compile/python_builtin_functions.html>`_
 section.
 
 .. code:: python
@@ -2429,7 +2419,7 @@ The results are as follows:
    net.attr: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
 
 3. When constructing graphs based on bytecode, control flow involving variable scenarios cannot be included in the graph. For related information 
-on variables, please refer to `Variable Generation Scenarios <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#variable-generation-scenarios>`_ . 
+on variables, please refer to `Variable Generation Scenarios <https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#variable-generation-scenarios>`_ . 
 An example is as follows:
 
 .. code:: python
