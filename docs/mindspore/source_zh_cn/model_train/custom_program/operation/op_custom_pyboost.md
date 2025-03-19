@@ -107,13 +107,13 @@ class CustomMul : public Function<CustomMul>
 
 #### 正向计算
 
-用户通过`Forward`方法实现自定义算子的正向计算。首先关注如下函数签名。其第一个输入固定为`AutogradContext *`，其余输入支持`BaseTensorPtr`、`std::string`，或者其它基础类型，其个数由算子的输入个数决定。
+用户通过`Forward`方法实现自定义算子的正向计算。首先关注如下函数原型。其第一个输入固定为`AutogradContext *`，其余输入支持`BaseTensorPtr`、`std::string`，或者其它基础类型，其个数由算子的输入个数决定。
 
 ```c++
 static BaseTensorPtr Forward(AutogradContext *ctx, const BaseTensorPtr &x, const BaseTensorPtr &y)
 ```
 
-下面是正向函数计算部分。用户先创建一个数据类型为`x->data_type()`，大小为`BroadcastInferShape(x, y)`，然后使用`CustomLaunchAclnn`调用`aclnnMul`算子进行计算。对于aclnn算子的编译相关知识，可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_ascendc.html#编译与部署方法)中的相关章节。
+下面是正向函数计算部分。用户先创建一个数据类型为`x->data_type()`，大小为`BroadcastInferShape(x, y)`的`Tensor`，然后使用`CustomLaunchAclnn`调用`aclnnMul`算子进行计算。对于aclnn算子的编译相关知识，可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_ascendc.html#编译与部署方法)中的相关章节。
 
 ```c++
 auto output = std::make_shared<BaseTensor>(x->data_type(), BroadcastInferShape(x, y));
@@ -132,7 +132,7 @@ if (x_require_grad || y_require_grad) {
 
 #### 反向计算
 
-用户通过`Forward`方法实现自定义算子的反向计算。首先关注如下函数签名。其第一个输入固定为`AutogradContext *`，第二个输入固定为`BaseTensorPtrList`。
+用户通过`Backward`方法实现自定义算子的反向计算。首先关注如下函数原型。其第一个输入固定为`AutogradContext *`，第二个输入固定为`BaseTensorPtrList`。
 
 ```c++
 static BaseTensorPtrList Backward(AutogradContext *ctx, BaseTensorPtrList grad_outputs)
