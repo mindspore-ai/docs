@@ -2,131 +2,117 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/overview.md)
 
-## Overview
+## Introduction
 
-Artificial intelligence (AI) frameworks have been in development for more than a decade, and four main lines drive the evolution and development of AI frameworks:
+Artificial Intelligence (AI) frameworks have been evolving for over a decade, driven by four main trajectories:
 
-1. For developers: Balance efficiency and operation performance of algorithm development.
-2. For hardware: Fully utilize the performance of the chip and cluster.
-3. For algorithm and data: In terms of calculation scale, need to address the increasing challenges of the model; in terms of computational paradigm, need to handle the new computational loads that are constantly emerging.
-4. For deployment: AI capabilities need to be deployed to every device, every application, and every industry.
+1. Developer-oriented: Balancing algorithm development efficiency and runtime performance.
+2. Hardware-oriented: Fully leveraging the performance of chips and clusters.
+3. Algorithm and data-oriented: Addressing the challenges of increasingly larger models from a computational scale perspective; handling emerging computational workloads from a computational paradigm perspective.
+4. Deployment-oriented: Deploying AI capabilities to every device, application, and industry.
 
-MindSpore is an AI framework designed for "device-edge-cloud" full scenarios, aiming to bridge the gap between AI algorithm research and production deployment.
+MindSpore is an AI framework designed for "device-edge-cloud" full-scenario applications, aiming to bridge the gap between AI algorithm research and production deployment:
 
-During the algorithm research phase, provide developers with a unified programming experience to improve the efficiency of algorithm development. During the production phase, automatic parallelism can greatly accelerate the development and debugging efficiency of distributed training, while fully exploiting the computing power of heterogeneous hardware. During the deployment stage, based on the "device-edge-cloud" unified architecture, it addresses the challenges of enterprise-level deployment and security trustworthiness.
+- During algorithm research, it provides developers with a unified programming experience to improve algorithm development efficiency;
+- In production, automatic parallelism can greatly accelerate the development and debugging efficiency of distributed training while fully exploiting the computing power of heterogeneous hardware;
+- During deployment, it addresses the challenges of enterprise-level deployment and security based on a unified "device-edge-cloud" architecture.
 
 ## Overall Architecture
 
-The overall MindSpore architecture is divided into four layers:
+The overall architecture of MindSpore is as follows:
 
-1. Model layer, providing users with usable-upon-unpacking function. This layer mainly contains repositories for expanding hot research areas, such as pre-built models and development kits, graph neural networks (GNN), deep probabilistic programming, and science computing library.
-2. MindExpression layer, providing users with interfaces for AI model development, training, and inference. Support users to develop and debug neural networks with native Python syntax. Its unique ability to unify dynamic and static graphs allows developers to balance development efficiency and execution performance, while the layer provides a full-scenario unified C++/Python interface during the production and deployment phases.
-3. MindCompiler, as the core of the AI framework, compiles front-end expressions into a more efficient underlying language for execution, using the full-scenario unified [MindIR](https://mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir) as the medium, and performs simultaneous global performance optimization, including hardware-independent optimization such as automatic differentiation and algebraic simplification, as well as hardware-related optimization such as graph-kernel fusion and operator generation.
-4. At runtime, the underlying hardware operator is docked and called according to the compiled and optimized results of the upper layer, while the "device-edge-cloud" unified runtime architecture supports "device-edge-cloud" AI collaboration, including federated learning.
+1. Model Suite: Provides developers with ready-to-use models and development kits, such as the large model suite MindSpore Transformers, MindSpore ONE, and scientific computing libraries for hot research areas;
+2. Deep Learning + Scientific Computing: Provides developers with various Python interfaces required for AI model development, maximizing compatibility with developers' habits in the Python ecosystem;
+3. Core: As the core of the AI framework, it builds the Tensor data structure, basic operation operators, autograd module for automatic differentiation, Parallel module for parallel computing, compile capabilities, and runtime management module.
 
-![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/beginner/images/introduction2.png)
+![arch](./images/arch_en.png)
 
-## Design Concept
+## Design Philosophy
 
-MindSpore is a full-scenario deep learning framework that aims to achieve three goals: easy development, efficient execution, and unified deployment for all scenarios. Ease of development is characterized by a friendly API and low debugging difficulty; efficient execution includes computational efficiency, data preprocessing efficiency, and distributed training efficiency; and full-scenario means that the framework supports cloud, edge, and device-side scenarios at the same time.
+MindSpore is a full-scenario deep learning framework designed to achieve three major goals: easy development, efficient execution, and unified deployment across all scenarios. Easy development is reflected in API friendliness and low debugging difficulty; efficient execution includes computational efficiency, data preprocessing efficiency, and distributed training efficiency; full-scenario means the framework simultaneously supports cloud, edge, and device-side scenarios.
 
-### Functional and Object Fusion Programming Paradigm
+### Fusion of Functional and Object-Oriented Programming Paradigms
 
-MindSpore offers both object-oriented and function-oriented [programming paradigms](https://www.mindspore.cn/docs/en/master/design/programming_paradigm.html), both of which can be used to build network algorithms and training processes.
+MindSpore provides both object-oriented and function-oriented [programming paradigms](https://www.mindspore.cn/docs/en/master/design/programming_paradigm.html), both of which can be used to construct network algorithms and training processes.
 
-The user can define the AI network or a layer of the network based on the derivation of the nn.Cell class for the desired function, and assemble various layers defined by nested calls of objects to complete the definition of the whole AI network.
+Developers can derive from the nn.Cell class to define AI networks or layers with required functionality, and assemble various defined layers through nested object calls to complete the definition of the entire AI network.
 
-Also users can define a Python pure function that can be converted by MindSpore source-to-source compilation, and speed up its execution with the functions or decorators provided by MindSpore. Python pure functions can support subfunction nesting, control logic, and even recursive function expressions while satisfying the requirements of MindSpore static syntax. Therefore, based on this programming paradigm, users have the flexibility to enable a number of functional features, to express business logic more easily.
+At the same time, developers can also define a pure Python function that can be source-to-source compiled by MindSpore, and accelerate its execution through functions or decorators provided by MindSpore. Under the requirements of MindSpore's static syntax, pure Python functions can support nested subfunctions, control logic, and even recursive function expressions. Therefore, based on this programming paradigm, developers can flexibly enable certain functional features, making it easier to express business logic.
 
-MindSpore implements [functional differential programming](https://www.mindspore.cn/docs/en/master/design/programming_paradigm.html#functional-differential-programming) for function objects that can be differentiated, based on a chain of calls, according to the calling relationship. Adopting such an automatic differentiation strategy is more in line with the mathematical semantics and has an intuitive correspondence with the composite function in basic algebra. As long as the derivation formula of the basic function is known, the derivation formula of the composite function composed of any basic function can be derived.
+MindSpore implements [functional differential programming](https://www.mindspore.cn/docs/en/master/design/programming_paradigm.html#functional-differential-programming), which performs differentiation based on the call chain according to the calling relationship for function objects that can be differentiated. This automatic differentiation strategy better aligns with mathematical semantics and has an intuitive correspondence with composite functions in basic algebra. As long as the derivative formulas of basic functions are known, the derivative formula of a composite function composed of any basic functions can be derived.
 
-Also based on the functional programming paradigm, MindSpore provides a wealth of higher-order functions such as vmap, shard, and other built-in higher-order functions. Like the differential derivative function grad, it allows the user to conveniently construct a function or an object that can be used as an argument to a higher-order function. Higher-order functions are internally compiled and optimized to generate optimized versions of user-specific functions, implementing features such as vectorized transformations, distributed parallel slicing, and other functions.
+At the same time, based on the functional programming paradigm, MindSpore provides rich higher-order functions such as vmap, shard, and other built-in higher-order functions. Like the differential function grad, these allow developers to conveniently construct a function or object as a parameter for higher-order functions. Higher-order functions, after internal compilation optimization, generate optimized versions of developers' functions, implementing features such as vectorization transformation and distributed parallel partitioning.
 
-### [Unified Programming Experience with Dynamic Graph and Static Graph](https://www.mindspore.cn/docs/en/master/model_train/program_form/overview.html)
+### [Unified Programming Experience for Dynamic and Static Graphs](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/overview.html)
 
-Traditional AI frameworks have two main forms of programming execution, static graph mode and dynamic graph mode.
+Traditional AI frameworks mainly have two programming execution forms: static graph mode and dynamic eager mode.
 
-Based on the framework interface called by the user, the static graph mode will be compiled and executed as the graph structure of the neural network before executing the computational operations involved in the graph during compilation execution.
+Dynamic eager mode effectively solves the high programming threshold problem of static graphs. Since the program is executed in the order of code writing without whole-graph compilation optimization, there is relatively less room for performance optimization, especially for optimization targeting DSA and other proprietary hardware.
 
-The static graph mode can effectively perceive the relationship situation between the operators of each layer in the neural network and perform effective compilation optimization based on the compilation technique to improve the performance. However, traditional static graphs require user-aware composition interfaces, making it more complicated to set up or debug networks, and difficult to interleave with common Python libraries and custom Python functions.
+Static graph mode generates the graph structure of a neural network at compile time based on the interfaces called by developers, and then executes the computational operations involved in the graph.
 
-Dynamic graph mode can effectively solve the more complex problems of programming static graphs. However, because the program is executed in the order in which the code is written, no integral-graph compilation optimization is done, resulting in less room for relative performance optimization, especially for proprietary hardware such as DSA, which is more difficult to enable.
+Static graph mode can effectively perceive the relationships between operators at different layers of a neural network and perform effective compilation optimization based on compilation technology to improve performance. However, traditional static graphs require developers to be aware of graph construction interfaces, making network building or debugging more complex, and difficult to interleave with common Python libraries and custom Python functions.
 
-MindSpore builds the graph structure of neural networks based on the native Python, which can be more easily and flexibly expressed than the traditional static graph model. MindSpore's innovative build source conversion capability extracts ASTs for computational graph construction based on python statements, so it can support users to construct computational graphs using python's native control syntax (conditional statements, loops, etc.) and some other advanced APIs such as tuples, lists, and Lambda expressions, and perform automatic differentiation of computational graphs. As a result, there is also better compatibility between the programming interfaces for dynamic and static graphs, e.g., consistent control-flow oriented writing.
+MindSpore builds the graph structure of neural networks based on Python, which provides more usable and flexible expressiveness compared to traditional static graph modes. MindSpore innovatively builds source code conversion capabilities, constructing computational graphs based on Python statements by extracting AST, thus supporting developers' use of native Python syntax (conditions/loops, etc.) and other operations such as tuples, lists, and lambda expressions to build computational graphs and perform automatic differentiation. Therefore, MindSpore can better accommodate both dynamic and static graph programming interfaces, maintaining consistency at the code level, such as control flow writing.
 
-The native Python expression enables the execution of static graph mode directly based on the Python control flow keyword, making the programming of dynamic and static graphs more uniform. At the same time, users can flexibly control the dynamic and static graph mode of Python code fragments based on interfaces of MindSpore. That is, it is possible to execute the local functions of the program in static graph mode while the other functions are executed in dynamic graph mode. Thus, when interleaved with common Python libraries and custom Python functions, users have the flexibility to specify function fragments for static graph optimization acceleration without sacrificing the ease of programming for interleaved execution.
+Native Python expressions can directly enable static graph mode execution based on Python control flow keywords, making the programming unification of dynamic and static graphs higher. At the same time, developers can flexibly control Python code fragments in dynamic and static graph modes based on MindSpore's interfaces. That is, local functions can be executed in static graph mode (mindspore.jit) while other functions are executed in dynamic graph mode. This allows developers to flexibly specify function fragments for static graph optimization and acceleration when interleaving with common Python libraries and custom Python functions, without sacrificing the programming ease of interleaved execution.
 
-### [Distributed Parallism](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html)
+### [Distributed Parallel Computing](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html)
 
-MindSpore addresses the problem of increasingly large DL networks that require complex and multiple distributed parallel strategies, and the framework provides a built-in multi-dimensional distributed training strategy that can be flexibly assembled and used by users. It also simplifies the complexity of parallel programming for users by hiding communication operations through parallel abstraction.
+As large model parameters continue to grow, complex and diverse distributed parallel strategies are needed to address this challenge. MindSpore has built-in multi-dimensional distributed training strategies that developers can flexibly assemble and use. Through parallel abstraction, communication operations are hidden, simplifying the complexity of parallel programming for developers.
 
-Transparent and efficient distributed training capabilities are provided through automatic parallel strategy search. "Transparent" means that users can change one line of configuration, submit one version of Python code, and run that version of Python code on multiple devices for training. "Efficient" means that the algorithm chooses a parallel strategy with minimal cost, reducing computational and communication overhead.
+Through automatic parallel strategy search, MindSpore provides transparent and efficient distributed training capabilities. "Transparent" means that developers only need to change one line of configuration and submit one version of Python code to run this version of Python code on multiple devices for training. "Efficient" means that the algorithm selects parallel strategies at minimal cost, reducing computational and communication overhead.
 
-MindSpore introduces Tensor Redistribution (TR) in parallelized strategy search, which enables the device layout of the output tensor to be converted before being input to subsequent operators. MindSpore identifies the output data overlap of the operator under different input data slices, and based on this, it performs slice derivation and automatically generates the corresponding tensor redistribution plan. Based on this plan, multiple parallel strategies such as data parallelism and model parallelism can be expressed uniformly.
+MindSpore introduced Tensor Redistribution (TR) technology in parallel strategy search, which allows the device layout of output tensors to be converted before being input to subsequent operators. MindSpore identifies the output data overlap situation of operators under different input data slices and performs slice inference based on this, automatically generating corresponding tensor rearrangement plans. Based on this plan, various parallel strategies such as data parallelism and model parallelism can be uniformly expressed.
 
-At the same time, MindSpore is oriented to distributed training, and also provides various parallel strategies such as pipeline parallelism, optimizer parallelism, and recomputation for users to use.
+At the same time, MindSpore also provides various parallel strategies such as pipeline parallelism, optimizer parallelism, and recomputation for developers to use.
 
-### High-performance Hardware
+### High-Performance Hardware Utilization
 
-MindSpore provides rich hardware-independent optimizations such as IR fusion, algebraic simplification, constant folding, common subexpression elimination based on compilation technology. MindSpore also provides various hardware optimization capabilities for different hardware such as NPU and GPU, so as to better utilize the large-scale computing acceleration capability of hardware.
+Based on compilation technology, MindSpore provides rich hardware-independent optimizations such as IR fusion, algebraic simplification, constant folding, and common subexpression elimination. At the same time, it also provides various hardware optimization capabilities for different hardware such as NPU and GPU, thereby better leveraging the large-scale computational acceleration capabilities of hardware.
 
-MindSpore offers some more distinctive techniques in addition to the usual optimizations of traditional AI frameworks:
+As large model parameters continue to grow, complex and diverse distributed parallel strategies are needed to address this challenge. MindSpore has built-in multi-dimensional distributed training strategies that developers can flexibly assemble and use. Through parallel abstraction, communication operations are hidden, simplifying the complexity of parallel programming for developers.
 
-#### [Graph-kernel Fusion](https://www.mindspore.cn/docs/en/master/design/graph_fusion_engine.html)
+Through automatic parallel strategy search, MindSpore provides transparent and efficient distributed training capabilities. "Transparent" means that developers only need to change one line of configuration and submit one version of Python code to run this version of Python code on multiple devices for training. "Efficient" means that the algorithm selects parallel strategies at minimal cost, reducing computational and communication overhead.
 
-Mainstream AI computing frameworks such as MindSpore provide operators to users that are usually defined in terms of understandable and easy use for user. Each operator carries a different amount of computation and varies in computational complexity. However, from the hardware execution point of view, this natural, user perspective-based division of operator computation volume is not efficient and does not fully utilize the computational power of hardware resources, which is mainly reflected in the following aspects:
+MindSpore introduced Tensor Redistribution (TR) technology in parallel strategy search, which allows the device layout of output tensors to be converted before being input to subsequent operators. MindSpore identifies the output data overlap situation of operators under different input data slices and performs slice inference based on this, automatically generating corresponding tensor rearrangement plans. Based on this plan, various parallel strategies such as data parallelism and model parallelism can be uniformly expressed.
 
-1. Computationally overloaded and overly complex operators, which usually makes it difficult to generate well-cut high-performance operator, thereby reducing equipment utilization.
-2. Operators that are too small in computation may also cause latency in computation and thus reduce equipment utilization, as the computation cannot effectively hide the data moving overhead.
-3. Hardware Devices are usually multi-core, many-core architectures. When the operator shape is small or other reasons cause insufficient computational parallelism, it may cause some cores to be idle, thus reducing the device utilization. In particular, chips based on Domain Specific Architecture (DSA for short) are more sensitive to these factors. It has been a big challenge to maximize the performance of hardware operator while making the operator easy to use.
+At the same time, MindSpore also provides various parallel strategies such as pipeline parallelism, optimizer parallelism, and recomputation for developers to use.
 
-In terms of AI framework design, the current industry mainstream adopts a separate layer implementation approach of graph and operator layers. The graph layer is responsible for fusing or regrouping the computational graph, and the operator layer is responsible for compiling the fused or regrouped operators into high-performance executable operators. The graph layer is usually processed and optimized by using Tensor-based High-Level IR, while the operator layer is analyzed and optimized by using computational instruction-based Low-Level IR. This artificial separate-layer process significantly increases the difficulty of performing collaborative optimization in both graph and computational layers.
+### High-Performance Hardware Utilization
 
-MindSpore has adopted the technique of graph kernel fusion to better solve this problem in the past few years. Typical networks in different categories such as NLP and recommendation show significant gains in training speed after enabling graph kernel fusion. One of the main reasons is the presence of a large number of small operator combinations in these networks, which have more opportunities for fusion optimization.
+Based on compilation technology, MindSpore provides rich hardware-independent optimizations such as IR fusion, algebraic simplification, constant folding, and common subexpression elimination. At the same time, it also provides various hardware optimization capabilities for different hardware such as NPU and GPU, thereby better leveraging the large-scale computational acceleration capabilities of hardware.
+
+#### [Graph-Algorithm Fusion](https://www.mindspore.cn/docs/zh-CN/master/design/graph_fusion_engine.html)
+
+Mainstream AI computing frameworks like MindSpore typically define operators from the perspective of developer understanding and ease of use. Each operator carries varying amounts of computation and computational complexity. However, from a hardware execution perspective, this natural operator computational division based on the developer's perspective is not efficient and cannot fully utilize hardware computational capabilities. This is mainly reflected in:
+
+1. Operators with excessive computational volume or complexity are usually difficult to generate well-partitioned high-performance operators, thereby reducing device utilization;
+2. Operators with too little computational volume may cause computational waiting latency due to the inability to effectively hide data movement overhead, thereby reducing device utilization;
+3. Hardware devices are typically multi-core or many-core structures, and when operator shapes are small or other reasons cause insufficient computational parallelism, some cores may remain idle, thereby reducing device utilization. This is especially sensitive for chips based on Domain Specific Architecture (DSA). How to maximize hardware computational performance while ensuring operators are easy to use has always been a significant challenge.
+
+In terms of AI framework design, the industry mainstream currently adopts a layered implementation method with graph layer and operator layer. The graph layer is responsible for fusing or reorganizing the computational graph, while the operator layer is responsible for compiling the fused or reorganized operators into high-performance executable operators. The graph layer typically uses High-Level IR processing and optimization based on Tensor, while the operator layer uses Low-Level IR analysis and optimization based on computational instructions. This artificial layering significantly increases the difficulty of coordinated optimization between the graph and operator layers.
+
+In its technical practice over the past few years, MindSpore has adopted graph-algorithm fusion technology to better solve this problem. The training speed of mainstream SOTA models has shown significant benefits after enabling graph-algorithm fusion.
 
 #### Competitive Optimization for Ascend Hardware
 
-The Device in On Device usually refers to the Ascend AI processor. The AI CORE, AICPU and CPU are integrated on the Ascend chip, where the AI CORE is responsible for large Tensor Vector operations, the AI CPU is responsible for scalar operations, and the CPU is responsible for logic control and task distribution.
+In "On Device", device typically refers to the Ascend AI processor. Ascend chips integrate AI CORE, AI CPU, and CPU. Among them, AICORE is responsible for large Tensor Vector operations, AICPU is responsible for scalar operations, and CPU is responsible for logical control and task distribution.
 
-The CPU on the Host side is responsible for sending the graph or operator down to the Ascend chip. With the functions of computing, logic control and task distribution, the Ascend chip does not need to interact frequently with the CPU on the Host side, but only needs to return the final result after computation to the Host side to realize the whole graph sinking to the Device for execution, avoiding frequent Host-Device interaction and reducing the overhead.
+The Host-side CPU is responsible for dispatching graphs or operators to the Ascend chip. Since the Ascend chip has the functions of computation, logical control, and task distribution, it does not need to interact frequently with the Host-side CPU, only needing to return the final computed results to the Host side, achieving whole-graph sinking to Device execution, avoiding frequent Host-Device interaction, and reducing overhead.
 
-The whole computational graph is sunk to the Device to reduce the Host-Device interaction overhead. It can be combined with cyclic sinking to achieve multiple Step sinking to further reduce the number of Host-Device interactions.
+The computational graph sinks entirely to the Device for execution, reducing Host-Device interaction overhead. It can be combined with loop sinking to achieve multiple Step sinking, further reducing the number of interactions between Host and Device.
 
-The iteration-offload is an optimization based on the On Device execution to further reduce the number of interactions between the Host side and the Device side. Normally, each step returns a result, and the iteration-offload controls number of steps at which the result is returned.
+Loop sinking is an optimization based on On Device execution, aimed at further reducing the number of interactions between the Host side and the Device side. Typically, each step returns a result, but loop sinking controls how often results are returned, such as every several steps.
 
-Data sink means that the data is transferred directly to the Device through the channel.
+Data sinking means that data is directly transmitted to the Device through channels.
 
-#### Algorithm Optimization
+### [Unified Deployment Across All Scenarios](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html)
 
-The algorithm optimization includes second-order optimization, boost optimization, etc.
+MindSpore is an AI framework that integrates training and inference, supporting both training and inference functions. At the same time, MindSpore supports various chips such as CPU, GPU, and NPU, and provides unified programming interfaces and can generate offline models that can be loaded and executed on various hardware.
 
-### [Unified Deployment for All Scenarios](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html)
+According to actual execution environments and business requirements, MindSpore provides multiple specification versions, supporting deployment on cloud, servers, mobile and other embedded devices, and ultra-lightweight devices such as earphones.
 
-MindSpore is an all-in-one AI framework that supports both training and inference. MindSpore also supports CPU, GPU, NPU and other chips, and provides a unified programming interface on different chips and generates offline models that can be loaded and executed on multiple hardware.
+### [Third-Party Hardware Integration](https://www.mindspore.cn/docs/zh-CN/master/design/pluggable_device.html)
 
-MindSpore provides a variety of versions according to the actual execution environment and business requirements, supports deployment and execution on embedded devices such as cloud, server, and cell phones, and ultra-lightweight devices such as headsets.
-
-### [Third-Party Hardware Access](https://www.mindspore.cn/docs/en/master/design/pluggable_device.html)
-
-MindSpore builds an open AI architecture based on the unified MindIR, which supports plug-in, standardization and low-cost access of third-party chips, and can access GPU series chips as well as various DSA chips. MindSpore provides two kinds of chip access methods, Kernel mode access and Graph mode access, and chip makers can choose the access method according to their own characteristics.
-
-### [Overall Security and Trustworthiness Design](https://www.mindspore.cn/mindarmour/docs/en/master/design.html)
-
-MindSpore takes into account the rich need for security and trustworthiness when deployed by enterprises. In the continuous evolution and refinement of various technologies geared towards secure and trustworthy directions, with built-in frameworks:
-
-1. Adversarial attack defense
-
-    Adversarial attacks are a growing threat to the security of machine learning models. Attackers can deceive machine learning models by adding small perturbations to the original samples that are not easily perceived by humans.
-
-    To defend against adversarial attacks, MindSpore security component MindSpore Armour provides attack (adversarial sample generation), defense (adversarial sample detection and adversarial training), and evaluation (model robustness evaluation and visualization). Given a model and input data, the attack module provides a simple API that is capable of generating corresponding adversarial samples in both black-box and white-box attack scenarios. These generated adversarial samples are fed into the defense module to improve the generalization ability and robustness of the machine learning model. The defense module also implements multiple detection algorithms that can distinguish between adversarial and normal samples based on malicious content or attack behavior. The evaluation module provides a variety of evaluation metrics that enable developers to easily assess and visualize the robustness of their models.
-
-2. Privacy protection artificial intelligence
-
-    Privacy protection is also an important topic for AI applications. MindSpore Armour considers privacy protection in machine learning and provides corresponding privacy protection features.
-
-    To address the problem that trained models may leak sensitive information in the training dataset, MindSpore Armour implements a series of differential privacy optimizers that automatically add noise to the gradients generated by the inverse computation, thus providing differential privacy guarantees for trained models. In particular, the optimizer adaptively adds noise according to the training process, enabling better model availability with the same privacy budget. A monitoring module is also provided to enable dynamic monitoring of the privacy budget consumption during training. Users can use these differential privacy optimizers just like normal optimizers.
-
-3. Device-side learning and federated learning
-
-    While deep learning models trained on large datasets are somewhat general, in some scenarios these models are still not applicable to the user's own data or personalization tasks. MindSpore offers an device-side training solution that allows users to train their own personalized models or fine-tune existing models on their devices, while avoiding data privacy, bandwidth limitations and network connectivity issues. The device-side will provide a variety of training strategies, such as initialized training strategies, migration learning, and incremental learning. MindSpore supports federated learning where models can learn more general knowledge by sending model updates/gradients to the cloud side to share different data.
-
+Based on the unified MindIR, MindSpore has built an open AI architecture that supports third-party chip plugins, standardization, and low-cost rapid integration, which can connect to GPU series chips as well as various DSA chips. MindSpore provides two chip integration methods: Kernel mode and Graph mode, allowing chip manufacturers to choose the integration method according to their own characteristics.
