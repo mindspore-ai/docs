@@ -39,7 +39,7 @@
 
     ```
 
-3. 完成模型加载后，可以使用MindSpore进行推理，参考[推理模型总览](https://www.mindspore.cn/docs/zh-CN/master/model_infer/ms_infer/llm_inference_overview.html)。
+3. 完成模型加载后，可以使用MindSpore进行推理，参考[推理模型总览](https://www.mindspore.cn/tutorials/zh-CN/master/model_infer/ms_infer/llm_inference_overview.html)。
 
 ## 用于迁移学习
 

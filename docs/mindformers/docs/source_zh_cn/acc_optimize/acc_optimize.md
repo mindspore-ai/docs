@@ -110,7 +110,7 @@
 
 ## 精度调试工具介绍
 
-精度定位中，主要使用MindSpore的Dump工具，详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
+精度定位中，主要使用MindSpore的Dump工具，详细介绍参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)。
 
 MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。以下给出全量算子Dump的JSON示例：
 
@@ -134,7 +134,7 @@ MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网�
 }
 ```
 
-配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
+配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)。
 
 配置好JSON文件后，设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
@@ -146,7 +146,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 ### 其他介绍
 
-除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
+除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
 
 ## 模型迁移精度定位通用流程
 

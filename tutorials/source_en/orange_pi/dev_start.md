@@ -1,6 +1,6 @@
 # Quick Start
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/orange_pi/dev_start.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/dev_start.md)
 
 Since developers may perform custom model and case development in OrangePi AIpro (hereinafter: OrangePi Development Board), this chapter illustrates the development considerations in the OrangePi Development Board through a handwritten digit recognition case based on MindSpore.
 
@@ -15,15 +15,15 @@ After obtaining the OrangePi AIpro development board, developers first need to c
 
 ### Image Burning
 
-To run this case, it is necessary to burn the Ubuntu image on the OrangePi AIpro official website. Please refer to [Image Burning](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#1-image-burning-taking-windows-as-an-example).
+To run this case, it is necessary to burn the Ubuntu image on the OrangePi AIpro official website. Please refer to [Image Burning](https://www.mindspore.cn/tutorials/en/master/orange_pi/environment_setup.html#1-image-burning-taking-windows-as-an-example).
 
 ### CANN Upgrading
 
- Please refer to [CANN Upgrading](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#3-cann-upgrading).
+ Please refer to [CANN Upgrading](https://www.mindspore.cn/tutorials/en/master/orange_pi/environment_setup.html#3-cann-upgrading).
 
 ### MindSpore Upgrading
 
- Please refer to [MindSpore Upgrading](https://www.mindspore.cn/docs/en/master/orange_pi/environment_setup.html#3-mindspore-upgrading).
+ Please refer to [MindSpore Upgrading](https://www.mindspore.cn/tutorials/en/master/orange_pi/environment_setup.html#3-mindspore-upgrading).
 
 ```python
 from mindspore import nn

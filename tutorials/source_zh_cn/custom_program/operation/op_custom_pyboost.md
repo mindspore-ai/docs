@@ -1,6 +1,6 @@
 # 动态图场景的自定义算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_pyboost.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_pyboost.md)
 
 ## 概述
 
@@ -113,7 +113,7 @@ class CustomMul : public Function<CustomMul>
 static BaseTensorPtr Forward(AutogradContext *ctx, const BaseTensorPtr &x, const BaseTensorPtr &y)
 ```
 
-下面是正向函数计算部分。用户先创建一个数据类型为`x->data_type()`，大小为`BroadcastInferShape(x, y)`的`Tensor`，然后使用`CustomLaunchAclnn`调用`aclnnMul`算子进行计算。对于aclnn算子的编译相关知识，可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_ascendc.html#编译与部署方法)中的相关章节。
+下面是正向函数计算部分。用户先创建一个数据类型为`x->data_type()`，大小为`BroadcastInferShape(x, y)`的`Tensor`，然后使用`CustomLaunchAclnn`调用`aclnnMul`算子进行计算。对于aclnn算子的编译相关知识，可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_ascendc.html#编译与部署方法)中的相关章节。
 
 ```c++
 auto output = std::make_shared<BaseTensor>(x->data_type(), BroadcastInferShape(x, y));

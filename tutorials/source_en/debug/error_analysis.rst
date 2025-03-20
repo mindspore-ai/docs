@@ -2,7 +2,7 @@ Error Reporting Analysis
 =========================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/debug/error_analysis.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis.rst
     :alt: View Source on Gitee
 
 .. toctree::
@@ -83,7 +83,7 @@ The general process of MindSpore network training is data loading and processing
 3) Analyze the location where the error is reported based on the Python call stack and the error information. In dynamic graph mode, it is easier to determine the location of the code error. In the static graph mode, you need to analyze the location of the error report according to the error message "The Traceback of Net Construct Code" part of the error message.
 4) Based on possible error problem scenarios and types, hypothesize the possible causes of the error problem.
 
-Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/error_scenario_analysis.html>`_ based on different scenarios.
+Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/error_scenario_analysis.html>`_ based on different scenarios.
 
 Error Search
 ^^^^^^^^^^^^^

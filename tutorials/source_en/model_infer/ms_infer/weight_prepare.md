@@ -1,6 +1,6 @@
 # Obtaining and Preparing Large Language Model Weights
 
-[![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_infer/ms_infer/weight_prepare.md)
+[![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_infer/ms_infer/weight_prepare.md)
 
 Model weights are the most crucial parameters for large language models and are usually directly related to the model's final performance. Therefore, obtaining effective and reliable model weight files is a very important step in preparing for large language model inference. In general, there are two solutions for obtaining model weight files:
 

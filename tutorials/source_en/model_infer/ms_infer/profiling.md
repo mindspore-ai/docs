@@ -1,6 +1,6 @@
 # Model Performance Profiler
 
-[![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_infer/ms_infer/profiling.md)
+[![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_infer/ms_infer/profiling.md)
 
 MindSpore provides the profiler API to collect neural network performance data. Currently, it supports the analysis of data related to AI Core operators, AI CPU operators, host CPU operators, memory, device communication, clusters, and more.
 
@@ -25,6 +25,6 @@ with mindspore.profiler.profile() as prof:
 
 ```
 
-The performance profiling method for inference is basically the same as that for training. After collecting the performance data, you can analyze the performance by referring to [Performance Profiling](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html). Inference focuses on operator performance analysis, computation workload performance analysis, and timeline analysis.
+The performance profiling method for inference is basically the same as that for training. After collecting the performance data, you can analyze the performance by referring to [Performance Profiling](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html). Inference focuses on operator performance analysis, computation workload performance analysis, and timeline analysis.
 
 For details about the API, see [mindspore.profiler.profile](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html).

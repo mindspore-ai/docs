@@ -2,11 +2,11 @@
 ============
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/zh_cn/model_train/custom_program/operation/mindspore_op_custom.ipynb
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/custom_program/operation/mindspore_op_custom.ipynb
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/zh_cn/model_train/custom_program/operation/mindspore_op_custom.py
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/custom_program/operation/mindspore_op_custom.py
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom.ipynb
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom.ipynb
     :alt: 查看源文件
 
 .. toctree::
@@ -51,11 +51,11 @@
      - Python
      - `CPU`
      - 快速算法验证的场景
-   * - `aot <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_aot.html>`_
+   * - `aot <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_aot.html>`_
      - Ascend C/CUDA/C++
      - `Ascend` `GPU` `CPU`
      - 需要高性能算子的场景
-   * - `julia <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_julia.html>`_
+   * - `julia <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_julia.html>`_
      - Julia
      - `CPU`
      - 科学计算场景
@@ -72,9 +72,9 @@
 
 为了帮助大家更好地使用自定义算子，我们以 `pyfunc类型自定义算子 <#自定义算子用例>`_ 中作为自定义算子的范例展示。此外，我们提供了其他自定义算子的教程包括：
 
-- aot类型自定义算子： `Ascend平台 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_ascendc.html>`_ 和 `GPU/CPU平台 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_aot.html>`_ ；
-- `julia类型自定义算子 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_julia.html>`_ ；
-- `自定义算子进阶用法 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_adv.html>`_ ：算子注册和反向算子。
+- aot类型自定义算子： `Ascend平台 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_ascendc.html>`_ 和 `GPU/CPU平台 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_aot.html>`_ ；
+- `julia类型自定义算子 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_julia.html>`_ ；
+- `自定义算子进阶用法 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_adv.html>`_ ：算子注册和反向算子。
 
 .. note::
    更多示例可参考MindSpore源码中 `tests/st/graph_kernel/custom <https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom>`_ 下的用例。

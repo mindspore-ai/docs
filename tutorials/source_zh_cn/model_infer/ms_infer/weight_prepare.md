@@ -1,6 +1,6 @@
 # 大语言模型权重获取和准备
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/weight_prepare.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/weight_prepare.md)
 
 模型权重作为大语言模型最为重要的参数，通常直接和模型最终效果强相关，因此获取有效可靠的模型权重文件，成为准备大语言模型推理非常重要的一步。总的来说，获取模型权重文件有两大类方案：
 

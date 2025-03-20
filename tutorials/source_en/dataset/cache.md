@@ -1,6 +1,6 @@
 # Single-Node Data Cache
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/dataset/cache.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/dataset/cache.md)
 
 Data cache refers to caching a dataset in local memory to speed up the reading of the dataset, and is suitable for situations that require multiple accesses to a remote dataset or multiple reads of a dataset from disk.
 

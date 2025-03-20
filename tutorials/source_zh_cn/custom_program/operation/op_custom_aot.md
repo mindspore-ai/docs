@@ -1,10 +1,10 @@
 # AOT类型自定义算子（CPU/GPU平台）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_aot.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_aot.md)
 
 ## 概述
 
-AOT类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。AOT类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。对于Ascend平台的自定义算子开发，参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_ascendc.html)。
+AOT类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。AOT类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。对于Ascend平台的自定义算子开发，参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_ascendc.html)。
 
 这篇教程中，我们提供几个简单的AOT类型自定义算子在CPU和GPU平台的用例作为展示。对于更多完整的AOT类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py)。
 
@@ -33,7 +33,7 @@ extern "C" int CustomFunc(int nparam, void **params, int *ndims, int64_t **shape
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_adv.html#算子信息注册)。
+若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_adv.html#算子信息注册)。
 
 下面通过例子介绍GPU平台和CPU平台上AOT类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
 

@@ -189,7 +189,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 说明: label是一个数组，numpy类型，这里面可以存 1，1，0，1，0，1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
-可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/record.html#转换成record格式)教程。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/record.html#转换成record格式)教程。
 
 <br/>
 
@@ -201,7 +201,7 @@ A: 首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时
 
 ## Q: MindSpore设计了专门用于数据处理的框架，有相关的设计和用法介绍？
 
-A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline，并以高效（多进程/多线程）的方式处理数据集中样本，同时MindSpore Dataset也提供了多样化的API加载和处理数据集，详细介绍请参阅[数据处理Pipeline介绍](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.loading.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pipeline%E4%BB%8B%E7%BB%8D)。如果想进一步对数据处理Pipeline进行性能调优，请参阅[数据处理性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html)。
+A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline，并以高效（多进程/多线程）的方式处理数据集中样本，同时MindSpore Dataset也提供了多样化的API加载和处理数据集，详细介绍请参阅[数据处理Pipeline介绍](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.loading.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pipeline%E4%BB%8B%E7%BB%8D)。如果想进一步对数据处理Pipeline进行性能调优，请参阅[数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/optimize.html)。
 
 <br/>
 
@@ -495,7 +495,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
     2022-05-09-11:36:01.893.412 -> 2022-05-09-11:36:02.006.771
     ```
 
-    改进方法：查看最后一条 `push_end_time` 时间与GetNext报错时间，如果超过默认GetNext超时时间（默认：1900s，且可通过 `mindspore.device_context.ascend.op_debug.execute_timeout(xx)`来进行修改），说明数据预处理性能差，可参考 [数据处理性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html) 对数据预处理部分进行优化。
+    改进方法：查看最后一条 `push_end_time` 时间与GetNext报错时间，如果超过默认GetNext超时时间（默认：1900s，且可通过 `mindspore.device_context.ascend.op_debug.execute_timeout(xx)`来进行修改），说明数据预处理性能差，可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/optimize.html) 对数据预处理部分进行优化。
 
 4. 当日志输出类似如下时，表示数据预处理产生了182条数据，正在向设备发送第183条数据，并且 `device_queue` 显示设备侧有充足的数据缓存。
 
@@ -545,7 +545,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
     2022-05-09-14:31:04.064.571 ->
     ```
 
-    改进方法：可参考 [数据处理性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html) 对数据预处理部分进行优化。
+    改进方法：可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/optimize.html) 对数据预处理部分进行优化。
 
 <br/>
 

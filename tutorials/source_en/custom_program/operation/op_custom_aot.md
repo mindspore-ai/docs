@@ -1,12 +1,12 @@
 # AOT-Type Custom Operators(CPU/GPU)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom_aot.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_custom_aot.md)
 
 ## Overview
 
 AOT (Ahead-Of-Time) type of custom operators employ a pre-compilation approach, which requires network developers to manually write the source code files corresponding to the operator implementation functions based on specific interfaces. These source code files need to be compiled into dynamic link libraries (DLLs) in advance. During network runtime, the framework will automatically invoke and execute the functions contained within these dynamic link libraries.
 
-AOT-type custom operators support the CUDA language for GPU platforms and the C and C++ languages for CPU platforms. For the development of custom operators specifically on the Ascend platform, please refer to [AOT-Type Custom Operators(Ascend)](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_ascendc.html).
+AOT-type custom operators support the CUDA language for GPU platforms and the C and C++ languages for CPU platforms. For the development of custom operators specifically on the Ascend platform, please refer to [AOT-Type Custom Operators(Ascend)](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_ascendc.html).
 
 In this tutorial, we provide several simple use cases of AOT-type custom operators on both CPU and GPU platforms as demonstrations. For more comprehensive examples of AOT-type custom operators, please refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py) section in the MindSpore source code.
 
@@ -35,7 +35,7 @@ In the Python script, the format for the `func` input in `Custom` is `Path_To_Fu
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
 
-If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
+If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
 
 The following examples introduce the development process of AOT-type custom operator on GPU platform and CPU platform, where the custom operator implements the function of adding two input tensors.
 
