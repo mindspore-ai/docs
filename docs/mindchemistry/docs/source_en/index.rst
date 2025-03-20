@@ -1,5 +1,5 @@
 MindSpore Chemistry
-===================
+=====================
 
 Introduction
 ------------
@@ -26,13 +26,14 @@ efficiency, and seek to facilitate an innovative paradigm of joint
 research between AI and chemistry, providing experts with novel
 perspectives and efficient tools.
 
-.. figure:: ./images/mindchemistry_arch.png
+
+.. figure:: ./images/mindchemistry_archi.png
    :alt: MindSpore Chemistry Architecture
 
 Latest News
 -----------
-
--  🔥\ ``2024.07.30`` MindChemistry 0.1.0 is released.
+- `2025.03.30` MindChemistry 0.2.0 has been released, featuring several powerful applications, including NequIP, Allegro, DeephE3nn, Matformer, and DiffCSP.
+- `2024.07.30` MindChemistry 0.1.0 has been released.
 
 Features
 --------
@@ -40,30 +41,7 @@ Features
 Applications
 ~~~~~~~~~~~~
 
--  Material Generation
-
-   -  **Scenario**\ ：Inorganic chemistry
-   -  **Dataset**\ ：High-entropy alloy dataset. The high-entropy alloy
-      dataset includes the chemical composition of known high-entropy
-      alloys and thermodynamic properties of the alloys. It provides
-      chemical composition information such as the metal element types
-      and corresponding percentages as well as thermodynamic properties
-      such as magnetostrictive effects and Curie temperatures.
-   -  **Task**\ ：High-entropy alloy composition design. We integrate
-      Machine learning-enabled high-entropy alloy discovery[1] approach
-      for designing novel high-entropy alloys with low thermal expansion
-      coefficients(TEC) in active learning fashion. In the active
-      learning circle, candidates of high-enropy alloys are firstly
-      generated based on the AI model and the candidate components are
-      filtered based on the prediction model and the predicted thermal
-      expansion coefficient calculated by the thermodynamics. Finally,
-      the researchers need to determine the final high-entropy alloy
-      components based on experimental verification.
-
-.. figure:: ./images/high-alloy.png
-   :alt: MindSpore high alloy Architecture
-
--  **Property Prediction**\ ：
+-  **Force Prediction**\ ：
 
    -  **Scenario**\ ：Organic chemistry
    -  **Dataset**: Revised Molecular Dynamics 17(rMD17). rMD17 dataset
@@ -72,7 +50,7 @@ Applications
       such as the atomic numbers and positions as well as molecular
       property information such as energies and forces.
    -  **Task**\ ：Molecular energy prediction. We integrate the NequIP
-      model [2] and Allegro model [3], according to the position of each
+      model [1] and Allegro model [2], according to the position of each
       atom in the molecular system and structure description of the
       atomic number information construction diagram, and calculate the
       energy of the molecular system based on the equivariant
@@ -81,47 +59,37 @@ Applications
 .. figure:: ./images/nequip.png
    :alt: MindSpore nequip Architecture
 
--  **Electronic Structure Prediction**\ ：
+-  **DFT Prediction**\ ：
 
-   -  **Scenario**: Materials
+   -  **Scenario**: Materials Chemistry
    -  **Dataset**: Bilayer graphene dataset. The dataset contains
       descriptive information such as atomic positions and atomic
       numbers, as well as property information such as Hamiltonian.
    -  **Task**: Density Functional Theory Hamiltonian Prediction. We
-      integrate the DeephE3nn model [4], an equivariant neural network based
+      integrate the DeephE3nn model [3], an equivariant neural network based
       on E3, to predict a Hamiltonian by using the structure of atoms.
 
--  **Prediction of crystalline material properties**:
+-  **Property Prediction**:
 
-   -  **Scenario**: Materials
+   -  **Scenario**: Materials Chemistry
    -  **Dataset**: JARVIS-DFT 3D dataset. The dataset contains
       descriptive information such as atomic position and atomic number
       of crystal materials, as well as property information such as
       energy and force field.
    -  **Task**: Prediction of crystalline material properties. We
-      integrate the Matformer model [5] based on graph neural networks and
+      integrate the Matformer model [4] based on graph neural networks and
       Transformer architectures, for predicting various properties of
       crystalline materials.
 
-Modules
-~~~~~~~
+-  **Structure Generation**:
 
--  **Equivariant Computing**
-
-   -  **Introduction**\ ：Symmetry is an essential property in science
-      domain. Equivarient neural network adopts intuitive representation
-      as input and computing equivariently with respect to spatial
-      rotation, shift and inversion. Adopting equivariant neural network
-      for modeling scientific scenarios results in higher representation
-      effectiveness for data and high efficiency for model training.
-   -  **Functions**\ ：E(3) computing modules integrates basic modules
-      such as Irreps, Spherical Harmonics and Tensor Products. Based on
-      the basic modules, equivariant neural network layers such as
-      equivariant Activation, Linear and Convolution layers are provided
-      for constructing user customed equivariant neural networks.
-
-.. figure:: ./images/e3.png
-   :alt: MindSpore e3 Architecture
+    - **Scenario**: Materials Chemistry
+    - **Dataset**:
+        - Perov-5: A perovskite dataset in which each unit cell contains five fixed atoms, and the structures are relatively similar.
+        - Carbon-24: A carbon crystal dataset, where each crystal contains between 6 and 24 carbon atoms, with various different material structures.
+        - MP-20: A dataset collected from the MP database, featuring experimental structures with up to 20 atoms per unit cell. The materials and structures are highly diverse.
+        - MPTS-52: An advanced version of MP-20, expanding the number of atoms per unit cell to 52. The materials and structures are highly diverse.
+    - **Task**: Crystal material structure prediction. We integrated the DiffCSP model [5], which is based on a graph neural network and diffusion model architecture, to predict the crystal material structures given their composition.
 
 Installation
 ------------
@@ -194,10 +162,9 @@ Community
 Core Contributor
 ~~~~~~~~~~~~~~~~
 
-Thanks goes to these wonderful people 🧑‍🤝‍🧑:
+Thanks goes to these wonderful people:
 
-yufan, wangzidong, liuhongsheng, gongyue, gengchenhua, linghejing,
-yanchaojie, suyun, wujian, caowenbin
+wujian, wangyuheng, Lin Peijia, gengchenhua, caowenbin，Siyu Yang
 
 Contribution Guide
 ------------------
@@ -213,25 +180,15 @@ License
 References
 ----------
 
-[1] Rao Z, Tung P Y, Xie R, et al. Machine learning-enabled high-entropy
-alloy discovery[J]. Science, 2022, 378(6615): 78-85.
+[1] Batzner S, Musaelian A, Sun L, et al. E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials[J]. Nature communications, 2022, 13(1): 2453.
 
-[2] Batzner S, Musaelian A, Sun L, et al. E(3)-equivariant graph neural
-networks for data-efficient and accurate interatomic potentials[J].
-Nature communications, 2022, 13(1): 2453.
+[2] Musaelian A, Batzner S, Johansson A, et al. Learning local equivariant representations for large-scale atomistic dynamics[J]. Nature communications, 2023, 14(1): 579.
 
-[3] Musaelian A, Batzner S, Johansson A, et al. Learning local
-equivariant representations for large-scale atomistic dynamics[J].
-Nature communications, 2023, 14(1): 579.
+[3] Xiaoxun Gong, He Li, Nianlong Zou, et al. General framework for E(3)-equivariant neural network representation of density functional theory Hamiltonian[J]. Nature communications, 2023, 14: 2848.
 
-[4] Xiaoxun Gong, He Li, Nianlong Zou, et al. General framework for
-E(3)-equivariant neural network representation of density functional
-theory Hamiltonian[J].
-Nature communications, 2023, 14: 2848.
+[4] Keqiang Yan, Yi Liu, Yuchao Lin, Shuiwang ji, et al. Periodic Graph Transformers for Crystal Material Property Prediction[J]. arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
 
-[5] Keqiang Yan, Yi Liu, Yuchao Lin, Shuiwang ji, et al. Periodic
-Graph Transformers for Crystal Material Property Prediction[J].
-arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
+[5] Jiao Rui and Huang Wenbing and Lin Peijia, et al. Crystal structure prediction by joint equivariant diffusion[J]. Advances in Neural Information Processing Systems, 2024, 36.
 
 .. toctree::
    :maxdepth: 1
@@ -246,7 +203,7 @@ arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
    :caption: User Guide
    :hidden:
 
-   user/molecular_generation
+   user/structure_generation
    user/molecular_prediction
 
 .. toctree::
