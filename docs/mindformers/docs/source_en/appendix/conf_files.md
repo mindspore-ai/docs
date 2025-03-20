@@ -163,6 +163,8 @@ In order to improve the performance of the model, it is usually necessary to con
 | parallel.parallel_optimizer_config.gradient_accumulation_shard  | Set whether the cumulative gradient variable is sliced on the data-parallel dimension, only effective if `enable_parallel_optimizer=True`                                                                                                                                    | bool |
 | parallel.parallel_optimizer_config.parallel_optimizer_threshold | Set the threshold for the optimizer weight parameter cut, effective only if `enable_parallel_optimizer=True`.                                                                                                                                             | int  |
 | parallel.parallel_optimizer_config.optimizer_weight_shard_size  | Set the size of the optimizer weight parameter to slice the communication domain, requiring the value to be integrable by `parallel_config.data_parallel`, effective only if `enable_parallel_optimizer=True`.                                                                                                  | int  |
+| parallel.pipeline_config.pipeline_interleave  | Enable interleave pipeline parallel，you should set this variable to be `true` when using Seq-Pipe.                                       | bool  |
+| parallel.pipeline_config.pipeline_scheduler  | Set the scheduling strategy of Seq-Pipe，we only support `"seqpipe"` now.                                                       | str  |
 
 > Configure the parallel strategy to satisfy device_num = data_parallel × model_parallel × context_parallel × pipeline_stage.
 

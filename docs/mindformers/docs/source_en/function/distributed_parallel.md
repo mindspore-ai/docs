@@ -123,6 +123,38 @@ Parameter Descriptions:
 
 For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
 
+### Pipeline Parallelism
+
+#### Sequence Pipeline Parallelism (Seq-Pipe)
+
+The model inputs are segmented along the sequence dimension and unfolded into multiple sequence chunks. In the original 1F1B (One Forward One Backward) and 1F1B-Interleave methods, the scheduling unit is reduced to a Sequence Chunk. `seq_split_num` represents the number of Sequence Chunk; when `seq_split_num`=1, it degrades to 1F1B or 1F1B-Interleave.
+
+MindSpore Transformers supports configuring the Seq-Pipe pipeline parallelism, which can be enabled through the following configuration items:
+
+```yaml
+# parallel context
+parallel:
+  pipeline_config:
+    pipeline_interleave: true
+    pipeline_scheduler: 'seqpipe'
+
+# parallel config
+parallel_config:
+  seq_split_num: 2
+```
+
+Parameter Descriptions:
+
+- pipeline_scheduler: The scheduling strategy for the pipeline, currently, mindspore transformers only supports setting this to `"seqpipe"`.
+- seq_split_num: The number of Sequence Chunk which splits along the sequence dimension of the input.
+
+Notes:
+
+- Currently, only Llama and DeepSeek series models are supported.
+- Using Megatron's multi-source datasets for training is not yet supported.
+
+For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html), specifically the section on parallel configuration.
+
 ## MindSpore Transformers Distributed Parallel Application Practices
 
 In the [Llama3-70B fine-tuning configuration](https://gitee.com/kong_de_shu/mindformers/blob/dev/research/llama3/finetune_llama3_70b.yaml#) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
