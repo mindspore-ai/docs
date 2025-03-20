@@ -9,3 +9,4 @@
   :maxdepth: 1
 
   multiple_mixed
+  ms_opertaor
