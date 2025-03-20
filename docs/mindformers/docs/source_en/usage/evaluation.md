@@ -7,7 +7,7 @@
 ### Introduction
 
 [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) is an open-source language model evaluation framework that provides evaluation of more than 60 standard academic datasets, supports multiple evaluation modes such as HuggingFace model evaluation, PEFT adapter evaluation, and vLLM inference evaluation, and supports customized prompts and evaluation metrics, including the evaluation tasks of the loglikelihood, generate_until, and loglikelihood_rolling types.
-After MindFormers is adapted based on the Harness evaluation framework, the MindFormers model can be loaded for evaluation.
+After MindSpore Transformers is adapted based on the Harness evaluation framework, the MindSpore Transformers model can be loaded for evaluation.
 
 The currently verified models and supported evaluation tasks are shown in the table below (the remaining models and evaluation tasks are actively being verified and adapted, please pay attention to version updates):
 
@@ -34,9 +34,8 @@ pip install lm_eval==0.4.4
 Users can execute the following command to compile and install Harness:
 
 ```bash
-git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
+git clone --depth 1 -b v0.4.4 https://github.com/EleutherAI/lm-evaluation-harness
 cd lm-evaluation-harness
-git checkout v0.4.4
 pip install -e .
 ```
 
@@ -72,9 +71,9 @@ The following table lists the parameters of the script of `run_harness.sh`:
 
 | Parameter           | Type | Description                                                                                                                                                                                   | Required |
 |---------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory. | No       |
-| `--model`       | str  | The value must be `mf`, indicating the MindFormers evaluation policy.                                                                                                                          | Yes      |
-| `--model_args`  | str  | Model and evaluation parameters. For details, see MindFormers model parameters.                                                                                                            | Yes      |
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory. | No(The cheat code is required)     |
+| `--model`       | str  | The value must be `mf`, indicating the MindSpore Transformers evaluation policy.                                                                                                                          | Yes      |
+| `--model_args`  | str  | Model and evaluation parameters. For details, see MindSpore Transformers model parameters.                                                                                                            | Yes      |
 | `--tasks`       | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                 | Yes      |
 | `--batch_size`  | int  | Number of batch processing samples.                                                                                                                                                           | No       |
 
@@ -171,26 +170,25 @@ After executing the evaluation command, the evaluation results will be printed o
 ### Overview
 
 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit)
-is an open source toolkit designed for large visual language model evaluation, supporting one-click evaluation of large visual language models on various benchmarks, without the need for complicated data preparation, making the evaluation process easier. It supports a variety of graphic multimodal evaluation sets and video multimodal evaluation sets, a variety of API models and open source models based on PyTorch and HF, and customized prompts and evaluation metrics. After adapting MindFormers based on VLMEvalKit evaluation framework, it supports loading multimodal large models in MindFormers for evaluation.
+is an open source toolkit designed for large visual language model evaluation, supporting one-click evaluation of large visual language models on various benchmarks, without the need for complicated data preparation, making the evaluation process easier. It supports a variety of graphic multimodal evaluation sets and video multimodal evaluation sets, a variety of API models and open source models based on PyTorch and HF, and customized prompts and evaluation metrics. After adapting MindSpore Transformers based on VLMEvalKit evaluation framework, it supports loading multimodal large models in MindSpore Transformers for evaluation.
 
 The currently adapted models and supported evaluation datasets are shown in the table below (the remaining models and evaluation datasets are actively being adapted, please pay attention to version updates):
 
-| Adapted models | Supported evaluation datasets              |
-|--|--------------------------------------------|
-| cogvlm2-llama3-chat-19B | MME, MMBench, COCO Caption, MMMU, Text-VQA |
-| cogvlm2-video-llama3-chat | MMBench-Video, MVBench                     |
+| Adapted models | Supported evaluation datasets                     |
+|--|---------------------------------------------------|
+| cogvlm2-image-llama3-chat | MME,MMBench,COCO Caption,MMMU_DEV_VAL,TextVQA_VAL |
+| cogvlm2-video-llama3-chat | MMBench-Video,MVBench                             |
 
 ### Supported Feature Descriptions
 
 1. Supports automatic download of evaluation datasets;
-2. Support for user-defined input of multiple datasets and models;
-3. Generate results with one click.
+2. Generate results with one click.
 
 ### Installation
 
-Users can follow the following steps to compile and install:
+#### Download the code and compile, install dependency packages
 
-1. Download and modify the code: Due to issues with open source frameworks running MVBench datasets, it is necessary to modify the code by importing [patch](https://github.com/open-compass/VLMEvalKit/issues/633).
+1. Download and modify the code: Due to known issues with open source frameworks running MVBench datasets, it is necessary to modify the code by importing patch. Get [eval.patch](https://github.com/user-attachments/files/17956417/eval.patch) and download and place it in the local directory. When importing the patch, use the absolute path of the patch.
 
     Execute the following command：
 
@@ -198,34 +196,168 @@ Users can follow the following steps to compile and install:
     git clone https://github.com/open-compass/VLMEvalKit.git
     cd VLMEvalKit
     git checkout 78a8cef3f02f85734d88d534390ef93ecc4b8bed
-    git apply eval.patch
+    git apply /path/to/eval.patch
     ```
 
-2. Installation
+2. Install dependency packages
 
-    There are two installation methods to choose from:
+    Find the requirements.txt (VLMEvalKit/requirements.txt) file in the downloaded code and modify it to the following content:
 
-   (1) Used to install Python packages in the current directory (.)(Long time-consuming, easily to debug, commonly used in development environments):
-
-    ```bash
-    pip install -e .
+    ```txt
+    gradio==4.40.0
+    huggingface_hub==0.24.2
+    imageio==2.35.1
+    matplotlib==3.9.1
+    moviepy==1.0.3
+    numpy==1.26.4
+    omegaconf==2.3.0
+    openai==1.3.5
+    opencv-python==4.10.0.84
+    openpyxl==3.1.5
+    pandas==2.2.2
+    peft==0.12.0
+    pillow==10.4.0
+    portalocker==2.10.1
+    protobuf==5.27.2
+    python-dotenv==1.0.1
+    requests==2.32.3
+    rich==13.7.1
+    sentencepiece==0.2.0
+    setuptools==69.5.1
+    sty==1.0.6
+    tabulate==0.9.0
+    tiktoken==0.7.0
+    timeout-decorator==0.5.0
+    torch==2.4.1
+    tqdm==4.66.4
+    transformers==4.43.3
+    typing_extensions==4.12.2
+    validators==0.33.0
+    xlsxwriter==3.2.0
+    torchvision==0.20.1
     ```
 
-   (2) Read dependencies list from the [requirements.txt](https://github.com/open-compass/VLMEvalKit/blob/main/requirements.txt) file and install these dependencies(Short time-consumption)：
+    Execute Command:
 
     ```bash
     pip install -r requirements.txt
     ```
 
+#### Install FFmpeg
+
+For Ubuntu systems follow the steps below to install:
+
+1. Update the system package list and install the system dependency libraries required for compiling FFmpeg and decode.
+
+      ```bash
+      apt-get update
+      apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev libsdl2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev yasm libx264-dev libfdk-aac-dev libmp3lame-dev libopus-dev libvpx-dev
+      ```
+
+2. Download the compressed source code package of FFmpeg4.1.11 from the FFmpeg official website, unzip the source code package and enter the decompressed directory; Configure compilation options for FFmpeg: specify the installation path (absolute path) of FFmpeg, generate shared libraries, enable support for specific codecs, and enable no free and GPL licensed features; Compile and install FFmpeg.
+
+      ```bash
+      wget --no-check-certificate https://www.ffmpeg.org/releases/ffmpeg-4.1.11.tar.gz
+      tar -zxvf ffmpeg-4.1.11.tar.gz
+      cd ffmpeg-4.1.11
+      ./configure --prefix=/{path}/ffmpeg-xxx --enable-shared --enable-libx264 --enable-libfdk-aac --enable-libmp3lame --enable-libopus --enable-libvpx --enable-nonfree --enable-gpl
+      make && make install
+      ```
+
+Install OpenEuler system according to the following steps:
+
+1. Download the compressed source code package of FFmpeg4.1.11 from the FFmpeg official website, unzip the source code package and enter the decompressed directory; Configure compilation options for FFmpeg: specify the installation path (absolute path) for FFmpeg; Compile and install FFmpeg.
+
+      ```bash
+      wget --no-check-certificate https://www.ffmpeg.org/releases/ffmpeg-4.1.11.tar.gz
+      tar -zxvf ffmpeg-4.1.11.tar.gz
+      cd ffmpeg-4.1.11
+      ./configure --enable-shared --disable-x86asm --prefix=/path/to/ffmpeg
+      make && make install
+      ```
+
+2. Configure environment variables, `FFMPEG-PATH` requires specifying the absolute path for installing FFmpeg so that the system can correctly locate and use FFmpeg and its related libraries.
+
+      ```bash
+      vi ~/.bashrc
+      export FFMPEG_PATH=/path/to/ffmpeg/
+      export LD_LIBRARY_PATH=$FFMPEG_PATH/lib:$LD_LIBRARY_PATH
+      source ~/.bashrc
+      ```
+
+#### Install Decord
+
+Install Ubuntu system according to the following steps:
+
+1. Pull the Decord code, enter the Decord directory, initialize and update Decord dependencies, and execute the following command:
+
+      ```bash
+      git clone https://github.com/dmlc/decord.git
+      cd decord
+      ```
+
+2. Create and enter the build directory, configure the compilation options for Decord, disable CUDA support, enable Release mode (optimize performance), specify the installation path for FFmpeg, and compile the `decord` library. Copy the compiled libdecord.so library file to the system library directory and to the `python` directory of `decord`.
+
+      ```bash
+      mkdir build
+      cd build
+      cmake .. -DUSE_CUDA=0 -DCMAKE_BUILD_TYPE=Release -DFFMPEG_DIR=/{path}/ffmpeg-4.1.11 && make
+      cp libdecord.so /usr/local/lib/
+      cp libdecord.so ../python/decord/libdecord.so
+      ```
+
+3. Go to the python folder in the `decord` directory, install the numpy dependency, and install the python package for Decord. Add the library path (absolute path) of FFmpeg to the environment variable 'LD_LIBRARY_PATH' to ensure that the runtime can find the shared library of FFmpeg.
+
+      ```bash
+      cd /path/to/decord/python
+      pip install numpy
+      python setup.py install
+      export LD_LIBRARY_PATH=/path/to/ffmpeg-4.1.11/lib/:$LD_LIBRARY_PATH
+      ```
+
+4. Execute Python commands to test if the Decord installation is successful. If there are no errors, it means the installation is successful.
+
+      ```bash
+      python -c "import decord; from decord import VideoReader"
+      ```
+
+For OpenEuler systems follow the steps below to install:
+
+1. Pull the Decord code and enter the `decord` directory.
+
+      ```bash
+      git clone --recursive https://github.com/dmlc/decord
+      cd decord
+      ```
+
+2. Create and enter the build directory, configure the compilation options for Decord, specify the installation path (absolute path) for ffmpeg, and compile the `decord` library; Enter the `python` folder in the `decord` directory, configure environment variables, and specify `PYTHONPATH`; Install the python package for Decord.
+
+      ```bash
+      mkdir build && cd build
+      cmake -DFFMPEG_DIR=/path/ffmpeg-4.1.11 ..
+      make
+      cd ../python
+      pwd=$PWD
+      echo "PYTHONPATH=$PYTHONPATH:$pwd" >> ~/.bashrc
+      source ~/.bashrc
+      python3 setup.py install
+      ```
+
+3. Execute python commands to test if the Decord installation is successful. If there are no errors, it means the installation is successful.
+
+      ```bash
+      python -c "import decord; from decord import VideoReader"
+      ```
+
 ### Evaluation
 
 #### Preparations Before Evaluation
 
-1. Create a model directory model_path;
-2. Store the YAML file(\*.yaml), and tokenizer file(\*_tokenizer.py) in the model directory. For details, Please refer to the description documents of each model in the [model library](../start/models.md);
-3. Configure the yaml file. Refer to [configuration description](../appendix/conf_files.md).
+1. Create a new directory, for example named model_ir, to store the model yaml file;
+2. Place the model inference yaml configuration file (predict_xxx_. yaml) in the directory created in the previous step. For details, Please refer to the inference content of description documents for each model in the [model library](../start/models.md);
+3. Configure the yaml file.
 
-    yaml configuration example:
+    Using [predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml) configuration as an example:
 
     ```yaml
     load_checkpoint: "/{path}/model.ckpt"  # Specify the path to the weights file
@@ -238,51 +370,38 @@ Users can follow the following steps to compile and install:
         vocab_file: "/{path}/tokenizer.model"  # Specify the tokenizer file path
     ```
 
-#### Launching a Single-Card Evaluation Script
+    Configure the yaml file. Refer to [configuration description](../appendix/conf_files.md).
+4. The MMBench-Video dataset evaluation requires the use of the gpt-4-turb model for evaluation and scoring. Please prepare the corresponding apikey in advance.
+
+#### Pull up the evaluation task
+
+Execute the script in the root directory of the MindSpore Transformers local code repository: [run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_vlmevalkit.sh)
+
+Execute the following command to initiate the evaluation task:
 
 ```shell
 #!/bin/bash
 
-python eval_with_vlmevalkit.py \
-  --data dataset \
-  --model model_name \
-  --verbose \
-  --work-dir /{path}/evaluate_result \
-  --model-path /{path}/model_path \
-  --config-path /{path}/config_path
+source toolkit/benchmarks/run_vlmevalkit.sh \
+ --data MMMU_DEV_VAL \
+ --model cogvlm2-image-llama3-chat \
+ --verbose \
+ --work_dir /path/to/cogvlm2-image-eval-result \
+ --model_path model_dir
 ```
 
-Execute script path: [eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_vlmevalkit.py)
+### Evaluation Parameters
 
-#### Evaluation Parameters
-
-| Parameters            | Type  | Descriptions                                                                                                                                        | Compulsory(Y/N)|
-|---------------|-----|-----------------------------------------------------------------------------------------------------------------------------------------------------|------|
-| `--data`      | str | Name of the dataset, multiple datasets can be passed in, split by spaces.                                                                           | Y    |
-| `--model`  | str | Name of the model.                                                                                                                                  | Y    |
-| `--verbose`       | /   | Outputs logs from the evaluation run.                                                                                                               | N    |
-| `--work-dir`  | str | Directory for storing evaluation results. By default, evaluation results are stored in the folder whose name is the same as the model name. | N    |
-| `--model-path` | str | The folder path containing the model tokenizer files and configuration files.                                       | Y    |
-| `--config-path`       | str | Model configuration file path.                               | Y   |
+| Parameters      | Type  | Descriptions                                                                                                                               | Compulsory(Y/N)|
+|-----------------|-----|--------------------------------------------------------------------------------------------------------------------------------------------|------|
+| `--data`        | str | Name of the dataset, multiple datasets can be passed in, split by spaces.                                                                  | Y    |
+| `--model`       | str | Name of the model.                                                                                                                         | Y    |
+| `--verbose`     | /   | Outputs logs from the evaluation run.                                                                                                      | N    |
+| `--work_dir`    | str | Directory for storing evaluation results. By default, evaluation results are stored in the folder whose name is the same as the model name. | N    |
+| `--model_path`  | str | The folder path containing the model configuration file.                                                                                   | Y    |
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory. | No(The cheat code is required)     |
 
 If the server does not support online downloading of image datasets due to network limitations, you can upload the downloaded .tsv dataset file to the ~/LMUData directory on the server for offline evaluation. (For example: ~/LMUData/MME.tsv or ~/LMUData/MMBench_DEV_EN.tsv or ~/LMUData/COCO_VAL.tsv)
-
-The MMbench-Video dataset evaluation requires the use of the gpt-4-turb model for evaluation and scoring. Please prepare the corresponding apikey in advance.
-
-### Evaluation Sample
-
-```shell
-#!/bin/bash
-
-export USE_ROPE_SELF_DEFINE=True
-python eval_with_vlmevalkit.py \
-  --data COCO_VAL \
-  --model cogvlm2-llama3-chat-19B \
-  --verbose \
-  --work-dir /{path}/evaluate_result \
-  --model-path /{path}/cogvlm2_model_path \
-  --config-path /{path}/cogvlm2_config_path
-```
 
 ### Viewing Review Results
 
@@ -313,59 +432,63 @@ The results of the evaluation examples are as follows, where `Bleu` and `ROUGE_L
 
 1. Download Dataset
 
-    Download[Videos of Video-Bench](https://huggingface.co/datasets/LanguageBind/Video-Bench), the achieved effect is as follows:
+    Download [Videos of Video-Bench](https://huggingface.co/datasets/LanguageBind/Video-Bench), place it in the following directory format after decompression:
 
     ```text
     egs/VideoBench/
-    ├── Eval_video
-    │   └── ActivityNet
-    │       └── Mp4 and other files
-    │   └── Driving-decision-making
-    │       └── Mp4 and other files
-    |    ...
+      └── Eval_video
+            ├── ActivityNet
+            │     ├── v__2txWbQfJrY.mp4
+            │     ...
+            ├── Driving-decision-making
+            │     ├── 1.mp4
+            │     ...
+            ...
     ```
 
 2. Download Json
 
-    Download[Jsons of Video-Bench](https://github.com/PKU-YuanGroup/Video-Bench/tree/main?tab=readme-ov-file), the achieved effect is as follows:
+    Download [Jsons of Video-Bench](https://github.com/PKU-YuanGroup/Video-Bench/tree/main?tab=readme-ov-file), place it in the following directory format after decompression:
 
     ```text
     egs/Video-Bench/
-    ├── Eval_QA
-    │   └── QA and other json files
-    |    ...
+      └── Eval_QA
+            ├── Youcook2_QA_new.json等json文件
+            ...
     ```
+
+> Notes: The text data in Video-Bench is stored in the path format of 'egs/VideoBench/Eval-QA'(The directory should have at least two layers, and the last layer should be `EvalQA`); The video data in Video-Bench is stored in the path format of "egs/VideoBench/Eval_video"(The directory should have at least two layers, and the last layer should be `Eval_video`).
 
 3. Download the correct answers to all questions
 
-    Download[Answers of Video-Bench](https://huggingface.co/spaces/LanguageBind/Video-Bench/resolve/main/file/ANSWER.json).
+    Download [Answers of Video-Bench](https://huggingface.co/spaces/LanguageBind/Video-Bench/resolve/main/file/ANSWER.json).
 
 ### Evaluation
 
 #### Executing Inference Script to Obtain Inference Results
 
 ```shell
-    python eval_with_videobench.py \
-    --model_path model_path \
-    --config_path config_path \
-    --dataset_name dataset_name \
-    --Eval_QA_root Eval_QA_root \
-    --Eval_Video_root Eval_Video_root \
-    --chat_conversation_output_folder output
+python toolkit/benchmarks/eval_with_videobench.py \
+--model_path model_path \
+--dataset_name dataset_name \
+--Eval_QA_root Eval_QA_root \
+--Eval_Video_root Eval_Video_root \
+ --chat_conversation_output_folder output
 ```
 
-Execute script path: [eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_videobench.py)
+The execution script path can refer to the link: [eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_videobench.py)
+
+> The parameter `Eval_QA_root` path is filled in the previous directory of Eval-QA; The parameter `Eval_Video_root` path is filled in the previous directory of Eval_video.
 
 **Parameters Description**
 
-| **Parameters**                 | **Compulsory(Y/N)** | **Description**                                                                                                 |
-|----------------------|---------------------|-----------------------------------------------------------------------------------------------------------------|
-| model_path           | Y                   | The folder path for storing model related files, including model configuration files and model vocabulary files. |
-| config_path          | Y                   | Model configuration file path.                                                                                  |
-| dataset_name         | N                   | Evaluation datasets name, default to None, evaluates all subsets of VideoBench.                                 |
-| Eval_QA_root         | Y                   | Directory for storing JSON files of VideoBench dataset.                         |
-| Eval_Video_root      | Y                   | The video file directory for storing the VideoBench dataset.                                                    |
-| chat_conversation_output_folder | N                   | Directory for generating result files. By default, it is stored in the Chat_desults folder of the current directory.                                                                         |
+| **Parameters**                      | **Compulsory(Y/N)** | **Description**                                                                                                 |
+|-------------------------------------|---------------------|-----------------------------------------------------------------------------------------------------------------|
+| `--model_path`                      | Y                   | The folder path for storing model related files, including model configuration files and model vocabulary files. |
+| `--dataset_name`                    | N                   | Evaluation datasets name, default to None, evaluates all subsets of VideoBench.                                 |
+| `--Eval_QA_root`                    | Y                   | Directory for storing JSON files of VideoBench dataset.                         |
+| `--Eval_Video_root`                 | Y                   | The video file directory for storing the VideoBench dataset.                                                    |
+| `--chat_conversation_output_folder` | N                   | Directory for generating result files. By default, it is stored in the Chat_desults folder of the current directory.                                                                         |
 
 After running, a dialogue result file will be generated in the chat_conversation_output_folder directory.
 

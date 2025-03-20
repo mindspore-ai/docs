@@ -6,7 +6,7 @@
 
 ### 基本介绍
 
-[LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness)是一个开源语言模型评测框架，提供60多种标准学术数据集的评测，支持HuggingFace模型评测、PEFT适配器评测、vLLM推理评测等多种评测方式，支持自定义prompt和评测指标，包含loglikelihood、generate_until、loglikelihood_rolling三种类型的评测任务。基于Harness评测框架对MindFormers进行适配后，支持加载MindFormers模型进行评测。
+[LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness)是一个开源语言模型评测框架，提供60多种标准学术数据集的评测，支持HuggingFace模型评测、PEFT适配器评测、vLLM推理评测等多种评测方式，支持自定义prompt和评测指标，包含loglikelihood、generate_until、loglikelihood_rolling三种类型的评测任务。基于Harness评测框架对MindSpore Transformers进行适配后，支持加载MindSpore Transformers模型进行评测。
 
 目前已验证过的模型和支持的评测任务如下表所示（其余模型和评测任务正在积极验证和适配中，请关注版本更新）：
 
@@ -33,9 +33,8 @@ pip install lm_eval==0.4.4
 用户可以执行如下命令编译并安装Harness：
 
 ```bash
-git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
+git clone --depth 1 -b v0.4.4 https://github.com/EleutherAI/lm-evaluation-harness
 cd lm-evaluation-harness
-git checkout v0.4.4
 pip install -e .
 ```
 
@@ -69,8 +68,8 @@ run_harness.sh脚本参数配置如下表：
 
 | 参数               | 类型  | 参数介绍                                                                                           | 是否必须 |
 |------------------|-----|------------------------------------------------------------------------------------------------|------|
-| `--register_path`| str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/tree/dev/research)目录下的模型目录 | 否    |
-| `--model`        | str | 需设置为 `mf` ，对应为MindFormers评估策略                                                                  | 是    |
+| `--register_path`| str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/tree/dev/research)目录下的模型目录 | 否（外挂代码必填）    |
+| `--model`        | str | 需设置为 `mf` ，对应为MindSpore Transformers评估策略                                                                  | 是    |
 | `--model_args`   | str | 模型及评估相关参数，见下方模型参数介绍                                                                            | 是    |
 | `--tasks`        | str | 数据集名称。可传入多个数据集，使用逗号（，）分隔                                                                         | 是    |
 | `--batch_size`   | int | 批处理样本数                                                                                         | 否    |
@@ -170,26 +169,25 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 ### 基本介绍
 
 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit)
-是一款专为大型视觉语言模型评测而设计的开源工具包，支持在各种基准测试上对大型视觉语言模型进行一键评估，无需进行繁重的数据准备工作，让评估过程更加简便。 它支持多种图文多模态评测集和视频多模态评测集，支持多种API模型以及基于PyTorch和HF的开源模型，支持自定义prompt和评测指标。基于VLMEvalKit评测框架对MindFormers进行适配后，支持加载MindFormers中多模态大模型进行评测。
+是一款专为大型视觉语言模型评测而设计的开源工具包，支持在各种基准测试上对大型视觉语言模型进行一键评估，无需进行繁重的数据准备工作，让评估过程更加简便。 它支持多种图文多模态评测集和视频多模态评测集，支持多种API模型以及基于PyTorch和HF的开源模型，支持自定义prompt和评测指标。基于VLMEvalKit评测框架对MindSpore Transformers进行适配后，支持加载MindSpore Transformers中多模态大模型进行评测。
 
 目前已适配的模型和支持的评测数据集如下表所示（其余模型和评测数据集正在积极适配中，请关注版本更新）：
 
-| 适配的模型 | 支持的评测任务                                |
-|--|----------------------------------------|
-| cogvlm2-llama3-chat-19B | MME、MMBench、COCO Caption、MMMU、Text-VQA |
-| cogvlm2-video-llama3-chat | MMBench-Video、MVBench                  |
+| 适配的模型 | 支持的评测任务                                           |
+|--|---------------------------------------------------|
+| cogvlm2-image-llama3-chat | MME、MMBench、COCO Caption、MMMU_DEV_VAL、TextVQA_VAL |
+| cogvlm2-video-llama3-chat | MMBench-Video、MVBench                             |
 
 ### 支持特性说明
 
 1. 支持自动下载评测数据集；
-2. 支持用户自定义输入多种数据集和模型；
-3. 一键生成评测结果。
+2. 一键生成评测结果。
 
 ### 安装
 
-用户可以按照以下步骤进行编译安装：
+#### 下载代码并编译，安装依赖包
 
-1. 下载并修改代码：由于开源框架在跑MVBench数据集时存在问题，所以需要使用导入[patch](https://github.com/open-compass/VLMEvalKit/issues/633)的方式修改代码。
+1. 下载并修改代码：由于开源框架在跑MVBench数据集时存在已知问题，所以需要使用导入patch补丁的方式修改源码。获取[eval.patch](https://github.com/user-attachments/files/17956417/eval.patch)，下载放入本地目录中。导入patch时要使用patch文件的绝对路径。
 
     执行以下命令：
 
@@ -197,34 +195,168 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
     git clone https://github.com/open-compass/VLMEvalKit.git
     cd VLMEvalKit
     git checkout 78a8cef3f02f85734d88d534390ef93ecc4b8bed
-    git apply eval.patch
+    git apply /path/to/eval.patch
     ```
 
-2. 安装
+2. 安装依赖包
 
-    共有两种安装方式供大家选择：
+    在下载好的代码中，找到requirements.txt（VLMEvalKit/requirements.txt）文件，修改成如下内容：
 
-   （1） 用于安装当前目录（.）下的Python包（耗时长，易于调试，常用于开发环境）：
-
-    ```bash
-    pip install -e .
+    ```txt
+    gradio==4.40.0
+    huggingface_hub==0.24.2
+    imageio==2.35.1
+    matplotlib==3.9.1
+    moviepy==1.0.3
+    numpy==1.26.4
+    omegaconf==2.3.0
+    openai==1.3.5
+    opencv-python==4.10.0.84
+    openpyxl==3.1.5
+    pandas==2.2.2
+    peft==0.12.0
+    pillow==10.4.0
+    portalocker==2.10.1
+    protobuf==5.27.2
+    python-dotenv==1.0.1
+    requests==2.32.3
+    rich==13.7.1
+    sentencepiece==0.2.0
+    setuptools==69.5.1
+    sty==1.0.6
+    tabulate==0.9.0
+    tiktoken==0.7.0
+    timeout-decorator==0.5.0
+    torch==2.4.1
+    tqdm==4.66.4
+    transformers==4.43.3
+    typing_extensions==4.12.2
+    validators==0.33.0
+    xlsxwriter==3.2.0
+    torchvision==0.20.1
     ```
 
-    （2） 从[requirements.txt](https://github.com/open-compass/VLMEvalKit/blob/main/requirements.txt)文件中读取依赖列表，并安装这些依赖（耗时短）：
+    执行命令：
 
     ```bash
     pip install -r requirements.txt
     ```
 
+#### 安装FFmpeg
+
+Ubuntu系统按照如下步骤安装：
+
+1. 更新系统包列表，安装编译FFmpeg所需的系统依赖库。
+
+      ```bash
+      apt-get update
+      apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev libsdl2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev yasm libx264-dev libfdk-aac-dev libmp3lame-dev libopus-dev libvpx-dev
+      ```
+
+2. 从FFmpeg官网下载FFmpeg4.1.11的源码压缩包，解压源码包并进入解压后的目录；配置FFmpeg的编译选项：指定FFmpeg的安装路径（绝对路径），生成共享库，启用对特定编解码器的支持，启用非自由和GPL许可的功能；编译并安装FFmpeg。
+
+      ```bash
+      wget --no-check-certificate https://www.ffmpeg.org/releases/ffmpeg-4.1.11.tar.gz
+      tar -zxvf ffmpeg-4.1.11.tar.gz
+      cd ffmpeg-4.1.11
+      ./configure --prefix=/{path}/ffmpeg-xxx --enable-shared --enable-libx264 --enable-libfdk-aac --enable-libmp3lame --enable-libopus --enable-libvpx --enable-nonfree --enable-gpl
+      make && make install
+      ```
+
+OpenEuler系统按照如下步骤安装：
+
+1. 从FFmpeg官网下载FFmpeg4.1.11的源码压缩包，解压源码包并进入解压后的目录；配置FFmpeg的编译选项：指定FFmpeg的安装路径（绝对路径）；编译并安装FFmpeg。
+
+      ```bash
+      wget --no-check-certificate https://www.ffmpeg.org/releases/ffmpeg-4.1.11.tar.gz
+      tar -zxvf ffmpeg-4.1.11.tar.gz
+      cd ffmpeg-4.1.11
+      ./configure --enable-shared --disable-x86asm --prefix=/path/to/ffmpeg
+      make && make install
+      ```
+
+2. 配置环境变量，`FFMPEG_PATH`需要指定安装FFmpeg的绝对路径，以便系统能够正确找到和使用FFmpeg及其相关库。
+
+      ```bash
+      vi ~/.bashrc
+      export FFMPEG_PATH=/path/to/ffmpeg/
+      export LD_LIBRARY_PATH=$FFMPEG_PATH/lib:$LD_LIBRARY_PATH
+      source ~/.bashrc
+      ```
+
+#### 安装Decord
+
+Ubuntu系统按照如下步骤安装：
+
+1. 拉取Decord代码，进入`decord`目录，执行以下命令：
+
+      ```bash
+      git clone --recursive -b v0.6.0 https://github.com/dmlc/decord.git
+      cd decord
+      ```
+
+2. 创建并进入`build`目录，配置Decord的编译选项，禁用CUDA支持，启用Release模式（优化性能），指定FFmpeg的安装路径，编译Decord库。将编译生成的libdecord.so库文件复制到系统库目录，复制到`decord`的`python`目录。
+
+      ```bash
+      mkdir build
+      cd build
+      cmake .. -DUSE_CUDA=0 -DCMAKE_BUILD_TYPE=Release -DFFMPEG_DIR=/{path}/ffmpeg-4.1.11 && make
+      cp libdecord.so /usr/local/lib/
+      cp libdecord.so ../python/decord/libdecord.so
+      ```
+
+3. 进入`decord`目录中的`python`文件夹，安装`numpy`依赖项，安装Decord的python包。将FFmpeg的库路径（绝对路径）添加到`LD_LIBRARY_PATH`环境变量中，确保运行时能够找到FFmpeg的共享库。
+
+      ```bash
+      cd /path/to/decord/python
+      pip install numpy
+      python setup.py install
+      export LD_LIBRARY_PATH=/path/to/ffmpeg-4.1.11/lib/:$LD_LIBRARY_PATH
+      ```
+
+4. 执行Python命令，测试Decord是否安装成功，没有报错即为安装成功。
+
+      ```bash
+      python -c "import decord; from decord import VideoReader"
+      ```
+
+OpenEuler系统按照如下步骤安装：
+
+1. 拉取Decord代码，进入`decord`目录。
+
+      ```bash
+      git clone --recursive -b v0.6.0 https://github.com/dmlc/decord
+      cd decord
+      ```
+
+   2. 创建并进入`build`目录，配置Decord的编译选项，指定FFmpeg的安装路径(绝对路径)，编译Decord库；进入`decord`目录中的python文件夹，配置环境变量，指定`PYTHONPATH`；安装Decord的python包。
+
+         ```bash
+         mkdir build && cd build
+         cmake -DFFMPEG_DIR=/path/ffmpeg-4.1.11 ..
+         make
+         cd ../python
+         pwd=$PWD
+         echo "PYTHONPATH=$PYTHONPATH:$pwd" >> ~/.bashrc
+         source ~/.bashrc
+         python3 setup.py install
+         ```
+
+3. 执行python命令，测试Decord是否安装成功，没有报错即为安装成功。
+
+      ```bash
+      python -c "import decord; from decord import VideoReader"
+      ```
+
 ### 评测
 
 #### 评测前准备
 
-1. 创建模型目录model_path；
-2. 模型目录下须放置yaml配置文件（\*.yaml）、分词器文件（\*_tokenizer.model），获取方式参考[模型库](../start/models.md)中各模型说明文档；
-3. 配置yaml配置文件，参考[配置文件说明](../appendix/conf_files.md)。
+1. 创建一个新目录，例如名称为`model_dir`，用于存储模型yaml文件；
+2. 在上个步骤创建的目录中放置模型推理yaml配置文件（predict_xxx_.yaml），不同模型的推理yaml配置文件的目录位置参考[模型库](../start/models.md)各模型说明文档中的模型文件树；
+3. 配置yaml配置文件。
 
-    yaml配置样例：
+    以[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml)配置为例：
 
     ```yaml
     load_checkpoint: "/{path}/model.ckpt"  # 指定权重文件路径
@@ -237,50 +369,38 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
         vocab_file: "/{path}/tokenizer.model"  # 指定tokenizer文件路径
     ```
 
-#### 启动单卡评测脚本
+   配置yaml文件，参考[配置文件说明](../appendix/conf_files.md)。
+4. MMbench-Video数据集评测需要使用gpt-4-turbo模型进行评测打分，请提前准备好相应的apikey。
+
+#### 拉起评测任务
+
+在MindSpore Transformers本地代码仓根目录下执行脚本：[run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_vlmevalkit.sh)。
+
+执行如下命令拉起评测任务：
 
 ```shell
 #!/bin/bash
 
-python eval_with_vlmevalkit.py \
-  --data dataset \
-  --model model_name \
-  --verbose \
-  --work-dir /{path}/evaluate_result \
-  --model-path /{path}/model_path \
-  --config-path /{path}/config_path
+source toolkit/benchmarks/run_vlmevalkit.sh \
+ --data MMMU_DEV_VAL \
+ --model cogvlm2-image-llama3-chat \
+ --verbose \
+ --work_dir /path/to/cogvlm2-image-eval-result \
+ --model_path model_dir
 ```
 
-执行脚本路径：[eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_vlmevalkit.py)
+### 评测参数
 
-#### 评测参数
-
-| 参数            | 类型  | 参数介绍                             | 是否必须 |
-|---------------|-----|----------------------------------|------|
-| `--data`      | str | 数据集名称，可传入多个数据集，空格分割。             | 是    |
-| `--model`  | str | 模型名称。                            | 是    |
-| `--verbose`       | /   | 输出评测运行过程中的日志。                    | 否    |
-| `--work-dir`  | str | 存放评测结果的目录，默认存储在当前目录与模型名称相同的文件夹下。 | 否    |
-| `--model-path` | str | 包含模型分词器文件、配置文件的文件夹路径。            | 是    |
-| `--config-path`       | str | 模型配置文件路径。                        | 是    |
+| 参数                | 类型  | 参数介绍                                                                                           | 是否必须      |
+|-------------------|-----|------------------------------------------------------------------------------------------------|-----------|
+| `--data`          | str | 数据集名称，可传入多个数据集，空格分割。                                                                           | 是         |
+| `--model`         | str | 模型名称。                                                                                          | 是         |
+| `--verbose`       | /   | 输出评测运行过程中的日志。                                                                                  | 否         |
+| `--work_dir`      | str | 存放评测结果的目录，默认存储在当前目录与模型名称相同的文件夹下。                                                               | 否         |
+| `--model_path`    | str | 包含配置文件的文件夹路径。                                                                                  | 是         |
+| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/blob/dev/research)目录下的模型目录。 | 否（外挂代码必填） |
 
 如果因网络限制，服务器不支持在线下载图文数据集时，可以将本地下载好的以.tsv结尾的数据集文件上传至服务器~/LMUData目录下，进行离线评测。（例如：~/LMUData/MME.tsv 或 ~/LMUData/MMBench_DEV_EN.tsv 或 ~/LMUData/COCO_VAL.tsv）
-
-MMbench-Video数据集评测需要使用gpt-4-turbo模型进行评测打分，请提前准备好相应的apikey。
-
-### 评测样例
-
-```shell
-#!/bin/bash
-
-python eval_with_vlmevalkit.py \
-  --data COCO_VAL \
-  --model cogvlm2-llama3-chat-19B \
-  --verbose \
-  --work-dir /{path}/evaluate_result \
-  --model-path /{path}/cogvlm2_model_path \
-  --config-path /{path}/cogvlm2_config_path
-```
 
 ### 查看评测结果
 
@@ -311,59 +431,63 @@ python eval_with_vlmevalkit.py \
 
 1. 数据集下载
 
-    下载[Video-Bench中的视频数据](https://huggingface.co/datasets/LanguageBind/Video-Bench)，达到的效果如下所示：
+    下载[Video-Bench中的视频数据](https://huggingface.co/datasets/LanguageBind/Video-Bench)，解压后按照如下目录格式进行放置：
 
     ```text
     egs/VideoBench/
-    ├── Eval_video
-    │   └── ActivityNet
-    │       └── mp4等文件
-    │   └── Driving-decision-making
-    │       └── mp4等文件
-    |    ...
+      └── Eval_video
+            ├── ActivityNet
+            │     ├── v__2txWbQfJrY.mp4
+            │     ...
+            ├── Driving-decision-making
+            │     ├── 1.mp4
+            │     ...
+            ...
     ```
 
 2. 文本下载
 
-    下载[Video-Bench中的文本数据](https://github.com/PKU-YuanGroup/Video-Bench/tree/main?tab=readme-ov-file)，达到的效果如下所示：
+    下载[Video-Bench中的文本数据](https://github.com/PKU-YuanGroup/Video-Bench/tree/main?tab=readme-ov-file)，解压后按照如下目录格式进行放置：
 
     ```text
     egs/Video-Bench/
-    ├── Eval_QA
-    │   └── QA等json文件
-    |    ...
+      └── Eval_QA
+            ├── Youcook2_QA_new.json等json文件
+            ...
     ```
 
 3. 所有问题的正确答案下载
 
     下载[Video-Bench中的答案数据](https://huggingface.co/spaces/LanguageBind/Video-Bench/resolve/main/file/ANSWER.json)。
 
+> 注：Video-Bench中的文本数据按照“egs/VideoBench/Eval_QA”（目录至少两层，且最后一层是`Eval_QA`）的路径格式进行存储；Video-Bench中的视频数据按照“egs/VideoBench/Eval_video”（目录至少两层，且最后一层是`Eval_video`）的路径格式进行存储。
+
 ### 评测
+
+执行脚本路径可参考链接：[eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_videobench.py)。
 
 #### 执行推理脚本，获取推理结果
 
 ```shell
-    python eval_with_videobench.py \
-    --model_path model_path \
-    --config_path config_path \
-    --dataset_name dataset_name \
-    --Eval_QA_root Eval_QA_root \
-    --Eval_Video_root Eval_Video_root \
-    --chat_conversation_output_folder output
+python toolkit/benchmarks/eval_with_videobench.py \
+--model_path model_path \
+--dataset_name dataset_name \
+--Eval_QA_root Eval_QA_root \
+--Eval_Video_root Eval_Video_root \
+--chat_conversation_output_folder output
 ```
 
-执行脚本路径：[eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_videobench.py)
+> 参数`Eval_QA_root`填写Eval_QA的上一层目录；参数`Eval_Video_root`填写Eval_video的上一层目录。
 
 **参数说明**
 
-| **参数**                 | **是否必选** | **说明**                                     |
-|------------------------|---------|--------------------------------------------|
-| model_path             | 是       | 存储模型相关文件的文件夹路径，包含模型配置文件及模型词表文件。            |
-| config_path            | 是       | 模型配置文件路径。                                  |
-| dataset_name           | 否       | 评测数据子集名称，默认为None，评测VideoBench的所有子集。        |
-| Eval_QA_root           | 是       | 存放VideoBench数据集的json文件目录。 |
-| Eval_Video_root        | 是       | 存放VideoBench数据集的视频文件目录。                    |
-| chat_conversation_output_folder | 否       | 生成结果文件的目录。默认存放在当前目录的Chat_results文件夹下。      |
+| **参数**                             | **是否必选** | **说明**                                     |
+|------------------------------------|---------|--------------------------------------------|
+| `--model_path`                     | 是       | 存储模型相关文件的文件夹路径，包含模型配置文件及模型词表文件。            |
+| `--dataset_name`                   | 否       | 评测数据子集名称，默认为None，评测VideoBench的所有子集。        |
+| `--Eval_QA_root`                   | 是       | 存放VideoBench数据集的json文件目录。 |
+| `--Eval_Video_root`                | 是       | 存放VideoBench数据集的视频文件目录。                    |
+| `--chat_conversation_output_folder` | 否       | 生成结果文件的目录。默认存放在当前目录的Chat_results文件夹下。      |
 
 运行结束后，在chat_conversation_output_folder目录下会生成对话结果文件。
 
