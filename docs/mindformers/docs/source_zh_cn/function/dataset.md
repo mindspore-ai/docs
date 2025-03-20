@@ -96,7 +96,6 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
 
    ```json
    {
-       "compute_communicate_fusion_level": 3,
        "dataset_broadcast_opt_level": 3
    }
    ```
@@ -152,7 +151,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
     - data_loader.config.eod_mask_loss：是否使用 eod mask 的开关，默认值： `False` 。
     - data_loader.config.create_attention_mask：是否构造 attention_mask，默认值：`True` 。
 
-    当前多源数据集目前还存在限制，仅支持非 full batch 的场景，需要根据以下对相应配置项进行修改：
+    当前多源数据集目前还存在限制，仅支持非 full batch 的场景，且不支持序列流水线并行特性，需要根据以下对相应配置项进行修改：
 
     ```yaml
     runner_config:
