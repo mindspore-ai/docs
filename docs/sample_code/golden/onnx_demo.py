@@ -13,6 +13,7 @@ Arguments:
 import os
 import argparse
 import ast
+import onnx
 import numpy as np
 import onnxruntime as rt
 
@@ -24,8 +25,8 @@ def generate_random_input_data_and_run_model(args):
     if not os.path.exists(os.path.join(args.savePath)):
         print(f"mkdir: {args.savePath}")
         os.makedirs(args.savePath)
-    # model = onnx.load(args.modelFile)
-    # graph = model.graph
+    model = onnx.load(args.modelFile)
+    graph = model.graph
     # org_output_num = len(graph.output)
     sess = rt.InferenceSession(args.modelFile)
     input_tensors = sess.get_inputs()
@@ -90,8 +91,12 @@ def generate_random_input_data_and_run_model(args):
 
     # run model
     res = sess.run(None, input_dict)
-    result = np.array(res[i])
-    np.savez(os.path.join(args.savePath, f"output.npz"), array1=result)
+    i = 0
+    output_dict = {}
+    for output in graph.output:
+        output_dict[output.name] = res[i]
+        i += 1
+    np.savez(os.path.join(args.savePath, f"output.npz"), **output_dict)
     # return input_dict, res
 
 

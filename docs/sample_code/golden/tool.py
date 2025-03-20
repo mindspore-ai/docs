@@ -9,6 +9,10 @@ def save_bin(args):
     """
     Specific implementation
     """
+    if not os.path.exists(args.savePath):
+        print(f"mkdir:{args.savePath}")
+        os.makedirs(args.savePath)
+
     try:
         input_dict = np.load(args.inputFile)
         print(f"Loaded inputs from {args.inputFile}: {list(input_dict.keys())}")
