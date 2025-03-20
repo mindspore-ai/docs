@@ -1,38 +1,28 @@
 MindSpore Chemistry文档
-=======================
+=========================
 
 介绍
 ----
 
 传统化学研究长期以来面临着众多挑战，实验设计、合成、表征和分析的过程往往耗时、昂贵，并且高度依赖专家经验。AI与化学的协同可以克服传统方法的局限性、开拓全新的研究范式，结合AI模型与化学知识，可以高效处理大量数据、挖掘隐藏的关联信息，构建仿真模型，从而加快化学反应的设计和优化，实现材料的性质预测，并辅助设计新材料。
 
-**MindSpore
-Chemistry**\ （MindChemistry）是基于MindSpore构建的化学领域套件，支持多体系（有机/无机/复合材料化学）、多尺度任务（微观分子生成/预测、宏观反应优化）的AI+化学仿真，致力于高效使能AI与化学的融合研究，践行和牵引AI与化学联合多研究范式跃迁，为化学领域专家的研究提供全新视角与高效的工具。
+**MindSpore Chemistry**\ （MindChemistry）是基于MindSpore构建的化学领域套件，支持多体系（有机/无机/复合材料化学）、多尺度任务（微观分子生成/预测、宏观反应优化）的AI+化学仿真，致力于高效使能AI与化学的融合研究，践行和牵引AI与化学联合多研究范式跃迁，为化学领域专家的研究提供全新视角与高效的工具。
 
 .. figure:: ./images/mindchemistry_archi_cn.png
    :alt: MindSpore Chemistry Architecture
 
 最新消息
 --------
-
--  ``2024.07.30`` 2024年7月30日 MindChemistry 0.1.0版本发布。
+-  `2025.03.30` MindChemistry 0.2.0版本发布，包括多个应用案例，支持NequIP、Allegro、DeephE3nn、Matformer以及DiffCSP模型。
+-  `2024.07.30` MindChemistry 0.1.0版本发布。
 
 特性
-----
+-----
 
 应用案例
 ~~~~~~~~
 
--  **分子生成**\ ：
-
-   -  **体系**\ ：无机化学
-   -  **数据**\ ：高熵合金数据集。高熵合金数据集中包含了已知高熵合金的组分以及热动力学性质等信息，提供金属组分类型及组分比例，以及居里温度、磁致伸缩等热动力学性质信息。
-   -  **任务**\ ：高熵合金组分设计。我们集成了基于主动学习进行高熵合金设计的方法[1]，设计热膨胀系数极低的高熵合金组分。在主动学习流程中，首先基于AI模型生成候选的高熵合金组分，并基于预测模型和热动力学计算预测热膨胀系数对候选组分进行筛选，最终需要研究者基于实验验证确定最终的高熵合金组分。
-
-.. figure:: ./images/high-alloy_cn.png
-   :alt: MindSpore high alloy Architecture
-
--  **分子预测**\ ：
+-  **力场模拟**\ ：
 
    -  **体系**\ ：有机化学
    -  **数据**\ ：Revised Molecular Dynamics
@@ -42,29 +32,29 @@ Chemistry**\ （MindChemistry）是基于MindSpore构建的化学领域套件，
 .. figure:: ./images/nequip_cn.png
    :alt: MindSpore nequip Architecture
 
--  **电子结构预测**\ ：
+-  **DFT模拟**\ ：
 
    -  **体系**\ ：材料化学
    -  **数据**\ ：双层石墨烯数据集。该数据集包含了原子位置、原子数等描述信息以及哈密顿量等性质信息。
    -  **任务**\ ：密度泛函理论哈密顿量预测。我们集成了DeephE3nn模型[4]，基于E3的等变神经网络，利用原子的结构去预测其的哈密顿量。
 
--  **晶体材料性质预测**\ ：
+-  **性质预测**\ ：
 
    -  **体系**\ ：材料化学
    -  **数据**\ ：JARVIS-DFT
       3D数据集。该数据集包含了晶体材料的原子位置、原子数等描述信息以及能量、力场等性质信息。
    -  **任务**\ ：晶体材料性质预测。我们集成了Matformer模型[5]，基于图神经网络和Transformer架构的模型，用于预测晶体材料的各种性质。
 
-功能模块
-~~~~~~~~
+-  **结构生成**\ ：
 
--  **等变计算库**
+   - **体系**：材料化学  
+   - **数据**：  
+      - **Perov-5**：钙钛矿数据集，每个晶胞中固定5个原子，结构接近。  
+      - **Carbon-24**：碳晶体数据集，包含6到24个碳原子的不同结构。  
+      - **MP-20**：MP数据集中的实验数据，胞内不超过20个原子。  
+      - **MPTS-52**：MP-20的进阶版，胞内最多52个原子。
+   - **任务**：晶体材料结构预测。集成了 **DiffCSP** 模型[5]，基于图神经网络和扩散模型，预测晶体材料的结构。
 
-   -  **简介**\ ：对称性是科学领域的重要性质。等变神经网络以具有物理意义表征刻画化合物体系输入，并使得输入与输出在空间平移、旋转和反演等变换中具有等变性。使用等变神经网络来对科学场景建模可以提高数据的表征效率和模型的训练效率。
-   -  **核心模块**\ ：等变计算库中集成了不可约表示、球谐函数以及张量积等基础模块，实现底层逻辑与运算过程，并基于基础模块构建了等变激活层、等变线性层和等变卷积层等神经网络层，可以更方便地调用从而构建等变神经网络。
-
-.. figure:: ./images/e3_cn.png
-   :alt: MindSpore e3 Architecture
 
 安装教程
 --------
@@ -136,8 +126,7 @@ master        master >=2.3     >=3.8
 
 感谢以下开发者做出的贡献：
 
-yufan, wangzidong, liuhongsheng, gongyue, gengchenhua, linghejing,
-yanchaojie, suyun, wujian, caowenbin
+wujian, wangyuheng, Lin Peijia, gengchenhua, caowenbin, Siyu Yang
 
 贡献指南
 --------
@@ -152,25 +141,15 @@ yanchaojie, suyun, wujian, caowenbin
 引用
 ----
 
-[1] Rao Z, Tung P Y, Xie R, et al. Machine learning-enabled high-entropy
-alloy discovery[J]. Science, 2022, 378(6615): 78-85.
+[1] Batzner S, Musaelian A, Sun L, et al. E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials[J]. Nature communications, 2022, 13(1): 2453.
 
-[2] Batzner S, Musaelian A, Sun L, et al. E(3)-equivariant graph neural
-networks for data-efficient and accurate interatomic potentials[J].
-Nature communications, 2022, 13(1): 2453.
+[2] Musaelian A, Batzner S, Johansson A, et al. Learning local equivariant representations for large-scale atomistic dynamics[J]. Nature communications, 2023, 14(1): 579.
 
-[3] Musaelian A, Batzner S, Johansson A, et al. Learning local
-equivariant representations for large-scale atomistic dynamics[J].
-Nature communications, 2023, 14(1): 579.
+[3] Xiaoxun Gong, He Li, Nianlong Zou, et al. General framework for E(3)-equivariant neural network representation of density functional theory Hamiltonian[J]. Nature communications, 2023, 14: 2848.
 
-[4] Xiaoxun Gong, He Li, Nianlong Zou, et al. General framework for
-E(3)-equivariant neural network representation of density functional
-theory Hamiltonian[J].
-Nature communications, 2023, 14: 2848.
+[4] Keqiang Yan, Yi Liu, Yuchao Lin, Shuiwang ji, et al. Periodic Graph Transformers for Crystal Material Property Prediction[J]. arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
 
-[5] Keqiang Yan, Yi Liu, Yuchao Lin, Shuiwang ji, et al. Periodic
-Graph Transformers for Crystal Material Property Prediction[J].
-arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
+[5] Jiao Rui and Huang Wenbing and Lin Peijia, et al. Crystal structure prediction by joint equivariant diffusion[J]. Advances in Neural Information Processing Systems, 2024, 36.
 
 .. toctree::
    :maxdepth: 1
@@ -185,7 +164,7 @@ arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
    :caption: 使用者指南
    :hidden:
 
-   user/molecular_generation
+   user/structure_generation
    user/molecular_prediction
 
 .. toctree::
