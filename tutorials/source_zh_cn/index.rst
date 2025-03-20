@@ -74,7 +74,7 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 自定义案例
+   :caption: 自定义编程
    :hidden:
 
    custom_program/op_custom
@@ -114,6 +114,7 @@ MindSpore教程
    :caption: 香橙派
    :hidden:
 
+   orange_pi/overview
    orange_pi/environment_setup
    orange_pi/model_infer
    orange_pi/dev_start

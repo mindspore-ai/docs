@@ -66,7 +66,7 @@ MindSpore Tutorial
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Custom Cases
+   :caption: Custom programming
    :hidden:
 
    custom_program/op_custom
@@ -106,6 +106,7 @@ MindSpore Tutorial
    :caption: Orange Pi
    :hidden:
 
+   orange_pi/overview
    orange_pi/environment_setup
    orange_pi/model_infer
    orange_pi/dev_start
