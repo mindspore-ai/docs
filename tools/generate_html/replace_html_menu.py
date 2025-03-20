@@ -48,10 +48,11 @@ def replace_html_menu(html_path, hm_ds_path):
                             rp_str += f'<li class="toctree-l1"><a class="reference internal" href="{i}.html">' +\
                                 title_name[0]+'</a></li>\n'
                     # 特殊页面处理
-                    if '/migration_guide' in root:
-                        rp_dict[os.path.join(html_path, 'note', 'api_mapping')] = rp_str
-                    elif '/api_python' in root:
+                    # if '/migration_guide' in root:
+                    #     rp_dict[os.path.join(html_path, 'note', 'api_mapping')] = rp_str
+                    if '/api_python' in root:
                         rp_dict[os.path.join(html_path, 'note')] = rp_str
+                        rp_dict[os.path.join(html_path, 'note', 'api_mapping')] = rp_str
                 else:
                     toc_docs = re.findall('.. toctree::(?:.|\n|)+?:caption: (.*)\n\n((?:.|\n|)+?)\n\n', content+'\n')
                     for title, toc_doc in toc_docs:
@@ -106,9 +107,7 @@ def replace_html_menu(html_path, hm_ds_path):
                         if href.startswith('https://'):
                             continue
                         abs_p1 = os.path.join(p_key, href)
-                        if 'note/api_mapping' in p_key:
-                            abs_p1 = os.path.join(html_path, 'migration_guide', href)
-                        elif '/note' in p_key and 'api_mapping' not in root:
+                        if '/note' in p_key:
                             abs_p1 = os.path.join(html_path, 'api_python', href)
                         rel_p = os.path.relpath(abs_p1, root)
                         rel_p = rel_p.replace('\\', '/')
@@ -241,7 +240,7 @@ def replace_html_menu(html_path, hm_ds_path):
             new_search = os.path.join(html_path, mod, 'search.html')
             new_search_doc = replace_relurls(search_doc, new_search, search_p, ['href', 'src', 'action', 'data-url_root'])
             if mod == 'note':
-                mod_ind = os.path.join(html_path, 'migration_guide', 'index.html')
+                mod_ind = os.path.join(html_path, 'api_python', 'index.html')
             else:
                 mod_ind = os.path.join(html_path, mod, 'index.html')
             with open(mod_ind, 'r', encoding='utf-8') as f:
@@ -263,7 +262,7 @@ def replace_html_menu(html_path, hm_ds_path):
 
     if (!spec_re.test(pathname)) {
       var results = results.filter(function(e,i,arry) {
-        if (pathname.includes('migration_guide')) {
+        if (pathname.includes('api_python')) {
           return pathname.includes(arry[i][0].split('/')[0]) || arry[i][0].includes('note/')
         } else {
           return pathname.includes(arry[i][0].split('/')[0])
