@@ -29,6 +29,7 @@ API 文档
    mindspore.hal
    mindspore.experimental
    env_var_list
+   ../note/api_mapping/pytorch_api_mapping
 
 MindSpore提供了丰富的模型构建、训练、推理等接口，各模块接口功能说明如下。
 
