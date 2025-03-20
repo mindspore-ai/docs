@@ -38,7 +38,7 @@ The dataset loading class is used to load training datasets from local disks, OB
 
 | Dataset API Category | API List  | Description |
 |---|---|---|
-| Standard-format Datasets | [MindDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset), [TFRecordDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.TFRecordDataset.html#mindspore.dataset.TFRecordDataset), [CSVDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CSVDataset.html#mindspore.dataset.CSVDataset), etc. | MindDataset depends on the MindRecord format. For details, see [Format Conversion](https://www.mindspore.cn/docs/en/master/model_train/dataset/record.html) |
+| Standard-format Datasets | [MindDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset), [TFRecordDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.TFRecordDataset.html#mindspore.dataset.TFRecordDataset), [CSVDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CSVDataset.html#mindspore.dataset.CSVDataset), etc. | MindDataset depends on the MindRecord format. For details, see [Format Conversion](https://www.mindspore.cn/tutorials/en/master/dataset/record.html) |
 | Customized Datasets | [GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset), [RandomDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.RandomDataset.html#mindspore.dataset.RandomDataset), etc. | GeneratorDataset loads user-defined DataLoaders. For details, see [Custom DataSets](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html#customizing-dataset) |
 | Common Datasets | [ImageFolderDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.ImageFolderDataset.html#mindspore.dataset.ImageFolderDataset), [Cifar10Dataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset), [IWSLT2017Dataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.IWSLT2017Dataset.html#mindspore.dataset.IWSLT2017Dataset), [LJSpeechDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.LJSpeechDataset.html#mindspore.dataset.LJSpeechDataset), etc. | Used for commonly used open source datasets |
 
@@ -54,7 +54,7 @@ You can configure different parameters for loading [datasets](https://www.mindsp
 
     - `num_shards` and `shard_id`: specifies whether to shard a dataset. The default value is None, indicating that the dataset is not sharded.
 
-    - For more sampling logic, see [Data Sampling](https://www.mindspore.cn/docs/en/master/model_train/dataset/sampler.html).
+    - For more sampling logic, see [Data Sampling](https://www.mindspore.cn/tutorials/en/master/dataset/sampler.html).
 
 #### Dataset Combination
 
@@ -196,11 +196,11 @@ The following describes how to use the `.map(...)`.
 
 - Return the Dict data structure in `.map(...)`
 
-    The dataset also supports the return of the Dict data structure in the user-defined data transform operation, which makes the defined data transform more flexible. For details, see [Custom Map Transform Operation Processing Dictionary Object](https://www.mindspore.cn/docs/en/master/model_train/dataset/python_objects.html#processing-dict-with-map-operation).
+    The dataset also supports the return of the Dict data structure in the user-defined data transform operation, which makes the defined data transform more flexible. For details, see [Custom Map Transform Operation Processing Dictionary Object](https://www.mindspore.cn/tutorials/en/master/dataset/python_objects.html#processing-dict-with-map-operation).
 
 #### Automatic Augmentation
 
-In addition to the preceding common data transform, the dataset also provides an automatic data transform mode, which can automatically perform data transform processing on an image based on a specific policy. For details, see [Automatic Augmentation](https://www.mindspore.cn/docs/en/master/model_train/dataset/augment.html).
+In addition to the preceding common data transform, the dataset also provides an automatic data transform mode, which can automatically perform data transform processing on an image based on a specific policy. For details, see [Automatic Augmentation](https://www.mindspore.cn/tutorials/en/master/dataset/augment.html).
 
 ### Data Batch
 
@@ -208,7 +208,7 @@ Dataset provides the `.batch(...)` operation, which can easily organize samples 
 
 1. The default `.batch(...)` operation organizes batch_size samples into data whose shape is (batch_size, ...). For details, see the [Batch Operation](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html#batch-dataset).
 
-2. The customized `.batch(..., per_batch_map, ...)` operation allows users to organize multiple [np.ndarray, nd.ndarray, ...] data records in batches based on the customized logic. For details, see [Customizing Batch Operation](https://www.mindspore.cn/docs/en/master/model_train/dataset/python_objects.html#processing-dict-with-batch-operation).
+2. The customized `.batch(..., per_batch_map, ...)` operation allows users to organize multiple [np.ndarray, nd.ndarray, ...] data records in batches based on the customized logic. For details, see [Customizing Batch Operation](https://www.mindspore.cn/tutorials/en/master/dataset/python_objects.html#processing-dict-with-batch-operation).
 
 ### Dataset Iterator
 
@@ -218,11 +218,11 @@ After defining the dataset loading `(xxDataset) -> data processing (.map) -> dat
 
 #### Data Processing Performance Optimization
 
-If the performance of the data processing pipeline is insufficient, you can further optimize the performance by referring to [Data Processing Performance Optimization](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html) to meet end-to-end training performance requirements.
+If the performance of the data processing pipeline is insufficient, you can further optimize the performance by referring to [Data Processing Performance Optimization](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html) to meet end-to-end training performance requirements.
 
 #### Single-node Data Cache
 
-In addition, in the inference scenario, to achieve ultimate performance, you can use the [Single-node Data Cache](https://www.mindspore.cn/docs/en/master/model_train/dataset/cache.html) to cache datasets in the local memory to accelerate dataset reading and preprocessing.
+In addition, in the inference scenario, to achieve ultimate performance, you can use the [Single-node Data Cache](https://www.mindspore.cn/tutorials/en/master/dataset/cache.html) to cache datasets in the local memory to accelerate dataset reading and preprocessing.
 
 ## Lightweight Mode
 
@@ -268,4 +268,4 @@ print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
 Image.type: <class 'PIL.Image.Image'>, Image.shape: (569, 320)
 ```
 
-For more examples, see [Lightweight Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/eager.html).
+For more examples, see [Lightweight Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/eager.html).

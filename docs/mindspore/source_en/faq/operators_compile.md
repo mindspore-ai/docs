@@ -71,7 +71,7 @@ A: TBE (Tensor Boost Engine) operator is Huawei's self-developed Ascend operator
 
 ## Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?
 
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/docs/en/master/model_train/custom_program/op_custom.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/op_custom.html).
 
 <br/>
 

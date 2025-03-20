@@ -210,7 +210,7 @@ if __name__ == "__main__":
     export(network, inputs, file_name="ResNet_SCOP", file_format='MINDIR')
 ```
 
-导出剪枝模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/ms_infer/llm_inference_overview.html)。
+导出剪枝模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/tutorials/zh-CN/master/model_infer/ms_infer/llm_inference_overview.html)。
 
 ## 算法效果汇总
 

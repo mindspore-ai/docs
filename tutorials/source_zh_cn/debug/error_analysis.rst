@@ -2,7 +2,7 @@
 ========
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/debug/error_analysis.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/error_analysis.rst
     :alt: 查看源文件
 
 .. toctree::
@@ -89,7 +89,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 3) 根据Python调用栈以及报错信息，分析发生报错的位置。在动态图模式下，代码报错位置较容易判断。在静态图模式下，需要结合报错信息中“The Traceback of Net Construct Code”部分内容，分析报错位置。
 4) 基于可能的报错问题场景以及类型，假设导致报错问题的可能原因。
 
-具体如何根据不同场景进行错误分析，请参考\ `错误分析 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/error_scenario_analysis.html>`__\ 。
+具体如何根据不同场景进行错误分析，请参考\ `错误分析 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/error_analysis/error_scenario_analysis.html>`__\ 。
 
 错误搜索
 ^^^^^^^^

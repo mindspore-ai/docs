@@ -73,8 +73,8 @@
        false: 关闭pipeline树优化
      -
 
-具体用法详见 `单节点数据缓存 <https://mindspore.cn/docs/zh-CN/master/model_train/dataset/cache.html>`_
-和 `数据处理性能优化 <https://mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html>`_ 。
+具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/zh-CN/master/dataset/cache.html>`_
+和 `数据处理性能优化 <https://mindspore.cn/tutorials/zh-CN/master/dataset/optimize.html>`_ 。
 
 图编译执行
 ----------
@@ -238,7 +238,7 @@
      - 1：使用进程优雅退出功能。
 
        不设置或者其他值: 不使用进程优雅退出功能。
-     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/docs/zh-CN/master/model_train/train_availability/graceful_exit.html>`_ 。
+     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/tutorials/zh-CN/master/train_availability/graceful_exit.html>`_ 。
    * - MS_DEV_BOOST_INFER
      - 针对前端图编译提供编译优化开关。该开关可加速类型推导模块，以加速网络编译。
      - Integer
@@ -330,7 +330,7 @@
        enable_debug_mode：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
        path：指定读取json配置。当设置该选项时，忽略以上选项。
-     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/fusion_pass.html>`_
+     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/fusion_pass.html>`_
 
 Dump调试
 --------
@@ -345,13 +345,13 @@ Dump调试
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html>`_
        或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -
    * - MS_DIAGNOSTIC_DATA_PATH
-     - 使用 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_ 时，
+     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
        若Dump配置文件中设置了 `path` 字段，则仍以该字段的实际取值为准。
      - String
@@ -397,7 +397,7 @@ Dump调试
      - 0~600，单位：秒，默认值为0。当取值为0时，表示使用默认超时时间，即 `mindspore.get_context("op_timeout")` 的取值。
      - 该环境变量仅仅在MS_DUMP_SLICE_SIZE不为零的情况下生效。目前二阶段的等待时间无法超过mindspore.get_context("op_timeout")的值。
 
-具体用法详见 `Dump功能调试 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_ 。
+具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html>`_ 。
 
 分布式并行
 -----------
@@ -822,7 +822,7 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
        在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
      -
 
-特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/sdc.html>`_ 。
+特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/sdc.html>`_ 。
 
 三方库
 ------

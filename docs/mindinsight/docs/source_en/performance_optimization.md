@@ -43,7 +43,7 @@ By observing the `queue relationship between operators` in the Data Processing t
 
 *Figure 3: Data Preparation Details - Data Processing*
 
-We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
+We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
 
 We find that the num_parallel_workers parameter of map operation is 1(default value) by observing the code part of data processing in ResNet50, and code is shown below:
 

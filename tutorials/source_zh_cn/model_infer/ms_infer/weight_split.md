@@ -1,6 +1,6 @@
 # 多卡模型权重切分
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/weight_split.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/weight_split.md)
 
 模型在完成训练后，可以加载训练好的权重进行推理，而推理所需的显存较训练时显著降低，因此需要对模型权重进行重新切分和加载。
 

@@ -772,7 +772,7 @@ A: 以下场景会触发重新编译：
 
 ## Q: 静态图模式如何判断有几张图？什么情况会切分子图？多子图有什么影响？如何避免出现多子图？
 
-A: 1、子图数量可以通过查看IR文件并搜索"Total subgraphs"获取。关于如何查看分析IR文件，请参考 [IR文件分析](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html)。
+A: 1、子图数量可以通过查看IR文件并搜索"Total subgraphs"获取。关于如何查看分析IR文件，请参考 [IR文件分析](https://www.mindspore.cn/tutorials/zh-CN/master/debug/error_analysis/mindir.html)。
 
 2、图模式切分子图，常见于控制流场景，如if/while等。除了用户手动编写，MindSpore框架内部实现的控制流语法也可能会切分出多张子图。
 

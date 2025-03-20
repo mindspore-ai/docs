@@ -775,7 +775,7 @@ A: The following scenarios will trigger recompilation:
 
 ## Q: How to determine how many graphs there are in static graph mode? When will the subgraph be divided? What is the impact of multiple subgraphs? How to avoid multiple subgraphs?
 
-A: 1. The number of subgraphs can be obtained by viewing the IR file and searching for "Total subgraphs". For how to view and analyze IR files, please refer to [MindSpore IR Introduction](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindir.html)
+A: 1. The number of subgraphs can be obtained by viewing the IR file and searching for "Total subgraphs". For how to view and analyze IR files, please refer to [MindSpore IR Introduction](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindir.html)
 
 2. Subgraph segmentation in static graph mode is common in control flow scenarios, such as if/while. In addition to manual writing by users, the control flow syntax within the MindSpore may also lead to dividing into multiple subgraphs.
 

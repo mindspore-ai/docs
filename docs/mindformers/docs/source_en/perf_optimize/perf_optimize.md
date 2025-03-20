@@ -128,7 +128,7 @@ MindFormers itself integrates profiling data collection with the following steps
 
    By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the output_dir field of the model's yaml configuration file.
 
-   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
+   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
 
    In addition, it can also analyze the performance between different ranks in the cluster by counting the computation time, communication time, and unmasked communication time of each rank in the cluster, so as to determine whether there exists an unbalanced computation load, which affects the overall efficiency of the cluster, and carry out targeted optimization.
 
@@ -279,7 +279,7 @@ An excerpt of some of the IR graph:
 
   Transpose with the 15% output above to get <Tensor[Float16], (1, 4, 4096, 128)>.
 
-It is recommended to change the number of layers of the model to a smaller size when saving IR graph, to reduce the time of compiling and saving graph, and to facilitate fast debugging. For details, please refer to [Introduction to IR file](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindir.html#ir-introduction) and [Analysis samples](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
+It is recommended to change the number of layers of the model to a smaller size when saving IR graph, to reduce the time of compiling and saving graph, and to facilitate fast debugging. For details, please refer to [Introduction to IR file](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindir.html#ir-introduction) and [Analysis samples](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
 
 #### SAPP Automatic Load Balancing Tool
 

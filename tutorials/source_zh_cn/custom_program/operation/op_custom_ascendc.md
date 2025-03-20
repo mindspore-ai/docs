@@ -1,6 +1,6 @@
 # AOT类型自定义算子（Ascend平台）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_ascendc.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_ascendc.md)
 
 ## 概述
 
@@ -10,7 +10,7 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 2. **离线编译与部署**：完成算子开发后，进行离线编译，确保算子可以在Ascend AI处理器上高效运行，并进行部署。
 3. **MindSpore使用自定义算子**：将编译后的Ascend C自定义算子集成到MindSpore框架中，实现在实际AI应用中的使用。
 
-本章内容旨在帮助开发者全面了解并掌握Ascend C自定义算子的整个生命周期，从开发到部署，再到在MindSpore中的有效利用。对于其他平台的AOT自定义算子开发，参考[AOT类型自定义算子（CPU/GPU平台）](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_aot.html)。
+本章内容旨在帮助开发者全面了解并掌握Ascend C自定义算子的整个生命周期，从开发到部署，再到在MindSpore中的有效利用。对于其他平台的AOT自定义算子开发，参考[AOT类型自定义算子（CPU/GPU平台）](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_aot.html)。
 
 ## 自定义算子开发
 
@@ -181,8 +181,8 @@ extern "C" TypeId MulInferType(std::vector<TypeId> type_ids, AotExtra *extra) { 
 
 ### 进一步阅读
 
-- **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_adv.html) 。
-- **AOT自定义算子**：对于C++的shape和type推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [AOT类型自定义算子进阶用法](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_aot.html) 。
+- **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_adv.html) 。
+- **AOT自定义算子**：对于C++的shape和type推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [AOT类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_aot.html) 。
 
 ## 常见问题
 

@@ -1,6 +1,6 @@
 # Custom Operator with Third Party Frontend
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom_julia.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_custom_julia.md)
 
 As one of the future development goals of MindSpore,  the fusion of AI and scientific computing draws more and more attention from the industry. Based on the flexibility of the representation, MindSpore custom operator also makes exploration on the scientific computing, and introduces the programming frontend for HPC to MindSpore via custom operator.
 
@@ -12,7 +12,7 @@ The custom operator of julia type uses Julia to describe the internal calculatio
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic of the operator output shape and the data type.
 
-If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
+If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
 
 ## Custom Operator Use Cases of julia Type
 
