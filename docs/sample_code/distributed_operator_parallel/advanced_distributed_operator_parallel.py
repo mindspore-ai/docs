@@ -1,4 +1,4 @@
-# Copyright 2024 Huawei Technologies Co., Ltd
+# Copyright 2025 Huawei Technologies Co., Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,13 +19,15 @@ import os
 import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.runtime as rt
-from mindspore import nn, ops, Layout
+from mindspore import nn, ops
 from mindspore.communication import init
 from mindspore.common.initializer import initializer
+from mindspore.nn.utils import no_init_parameters
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore.parallel import Layout
 
 ms.set_context(mode=ms.GRAPH_MODE)
 rt.set_memory(max_size="28GB")
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 ms.set_seed(1)
 
@@ -37,10 +39,12 @@ class Network(nn.Cell):
         self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
         self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
         self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
-        self.matmul1 = ops.MatMul()
-        self.relu1 = ops.ReLU()
-        self.matmul2 = ops.MatMul()
-        self.relu2 = ops.ReLU()
+        layout = Layout((2, 2, 2), ("dp", "sp", "mp"))
+        layout2 = Layout((8,), ("tp",))
+        self.matmul1 = ops.MatMul().shard((layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None")))
+        self.relu1 = ops.ReLU().shard(((4, 1),))
+        self.matmul2 = ops.MatMul().shard((layout2("None", "tp"), layout2("tp", "None")))
+        self.relu2 = ops.ReLU().shard(((8, 1),))
         self.matmul3 = ops.MatMul()
 
     def construct(self, x):
@@ -51,14 +55,6 @@ class Network(nn.Cell):
         x = self.relu2(x)
         logits = self.matmul3(x, self.fc3_weight)
         return logits
-
-net = Network()
-layout = Layout((2, 2, 2), ("dp", "sp", "mp"))
-net.matmul1.shard((layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None")))
-net.relu1.shard(((4, 1),))
-layout2 = Layout((8,), ("tp",))
-net.matmul2.shard((layout2("None", "tp"), layout2("tp", "None")))
-net.relu2.shard(((8, 1),))
 
 def create_dataset(batch_size):
     """create dataset"""
@@ -75,29 +71,39 @@ def create_dataset(batch_size):
     dataset = dataset.batch(batch_size)
     return dataset
 
-data_set = create_dataset(32)
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
-loss_fn = nn.CrossEntropyLoss()
+def test_advanced_distributed_operator_parallel():
+    """
+    Test advanced distributed operator parallel
+    """
+    data_set = create_dataset(32)
 
-def forward_fn(data, target):
-    """forward propagation"""
-    logits = net(data)
-    loss = loss_fn(logits, target)
-    return loss, logits
+    with no_init_parameters():
+        net = Network()
+        optimizer = nn.SGD(net.trainable_params(), 1e-2)
 
-grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+    loss_fn = nn.CrossEntropyLoss()
 
-@ms.jit
-def train_step(inputs, targets):
-    """train_step"""
-    (loss_value, _), grads = grad_fn(inputs, targets)
-    optimizer(grads)
-    return loss_value
+    def forward_fn(data, target):
+        """forward propagation"""
+        logits = net(data)
+        loss = loss_fn(logits, target)
+        return loss, logits
 
-for epoch in range(10):
-    i = 0
-    for image, label in data_set:
-        loss_output = train_step(image, label)
-        if i % 10 == 0:
-            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_output))
-        i += 1
+    grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+
+
+    def train_step(inputs, targets):
+        """train_step"""
+        (loss_value, _), grads = grad_fn(inputs, targets)
+        optimizer(grads)
+        return loss_value
+
+    parallel_net = AutoParallel(train_step, parallel_mode="semi_auto")
+
+    for epoch in range(10):
+        i = 0
+        for image, label in data_set:
+            loss_output = parallel_net(image, label)
+            if i % 10 == 0:
+                print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_output))
+            i += 1
