@@ -58,6 +58,7 @@ MindSpore教程
    :hidden:
 
    parallel/distributed_case
+   parallel/optimize_technique
 
 .. toctree::
    :glob:
