@@ -8,15 +8,15 @@ The currently supported hardware is the [Atlas 800T A2](https://www.hiascend.com
 
 The current recommended Python version for the suite is 3.10.
 
-|      MindFormers       |       MindSpore        |          CANN          |   Firmware & Drivers   |  Mirror Links  |
+|      MindSpore Transformers       |       MindSpore        |          CANN          |   Firmware & Drivers   |  Mirror Links  |
 |:----------------------:|:----------------------:|:----------------------:|:----------------------:|:--------------:|
 | In-Development Version | In-Development Version | In-Development Version | In-Development Version | Not applicable |
 
-**Currently MindFormers recommends using a software package relationship as above.**
+**Currently MindSpore Transformers recommends using a software package relationship as above.**
 
 Historical version matching relationship:
 
-|                     MindFormers                      |                  MindSpore                  |                                                                         CANN                                                                         |                                                                  Firmware & Drivers                                                                   |                             Mirror Links                             |
+|                     MindSpore Transformers                      |                  MindSpore                  |                                                                         CANN                                                                         |                                                                  Firmware & Drivers                                                                   |                             Mirror Links                             |
 |:----------------------------------------------------:|:-------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
 | [1.3.2](https://pypi.org/project/mindformers/1.3.2/) | [2.4.10](https://www.mindspore.cn/install/) | [8.0.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [24.1.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/168.html) |
 | [1.2.0](https://pypi.org/project/mindformers/1.2.0/) | [2.3.0](https://www.mindspore.cn/install/)  |                     [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1)                     |                                       [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community)                                        | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
@@ -27,9 +27,9 @@ Historical version matching relationship:
 
 2. Install CANN and MindSpore: Use the officially provided Docker image (CANN, MindSpore are already included in the image, no need to install them manually) or follow the [Manual Installation](https://www.mindspore.cn/install/en) section on the MindSpore website for installation.
 
-## Installing MindFormers
+## Installing MindSpore Transformers
 
-Currently only source code compilation installation is supported for in-development version, users can execute the following command to install MindFormers:
+Currently only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
 
 ```bash
 git clone -b dev https://gitee.com/mindspore/mindformers.git
@@ -39,7 +39,7 @@ bash build.sh
 
 ## Installation Verification
 
-To determine whether MindFormers has been successfully installed, execute the following code:
+To determine whether MindSpore Transformers has been successfully installed, execute the following code:
 
 ```python
 import mindformers as mf

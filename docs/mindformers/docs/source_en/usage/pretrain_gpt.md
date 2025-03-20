@@ -4,7 +4,7 @@
 
 ## Overview
 
-This tutorial demonstrates how to use MindFormers dynamic graph parallel framework to train GPT models. This framework supports tensor parallel, pipeline parallel, sequence parallel and other parallel scenarios, as well as support for the use of distributed optimizer dynamic learning rate and other scenarios, to help developers quickly and easily build and train GPT pre-training models based on dynamic graph parallel framework.
+This tutorial demonstrates how to use MindSpore Transformers dynamic graph parallel framework to train GPT models. This framework supports tensor parallel, pipeline parallel, sequence parallel and other parallel scenarios, as well as support for the use of distributed optimizer dynamic learning rate and other scenarios, to help developers quickly and easily build and train GPT pre-training models based on dynamic graph parallel framework.
 
 ## Operating Practice
 

@@ -31,7 +31,7 @@
 | hidden_size       | transformer隐藏层大小                                        | 对应Megatron hidden-size参数，检查是否一致。                                         |
 | intermediate_size | Feed-Forward Network的隐藏层大小                             | 对应Megatron中ffn-hidden-size参数，检查是否一致。                                     |
 | n_kv_heads        | kv分组数                                                     | 对应Megatron中的num-query-groups，检查是否一致。                                     |
-| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindFormers中使用指定的正则化函数，无法通过配置修改。Megatron中可通过normalization自定义配置，检查是否一致。   |
+| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindSpore Transformers中使用指定的正则化函数，无法通过配置修改。Megatron中可通过normalization自定义配置，检查是否一致。   |
 | rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                     |
 | dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议两边都关闭，减少随机因素。                     |
 | 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，需要保持一致。 <br>2. 不同硬件下进行精度比对时，重点检查融合计算部分是否有计算差异。 |
@@ -45,15 +45,15 @@
 | capacity_factor          | 专家容量系数                           | 对应Megatron的moe_expert_capacity_factor参数，检查是否一致。                                                                     |
 | aux_loss_factor          | 负载均衡loss贡献因子                     | 开启时，建议小于0.05。若进行精度对齐，不建议开启，否则会与Megatron的loss打印方式不一致。                                                                |
 | enable_sdrop             | 是否开启sdrop（drop实现）方式              | 建议设置成true，对应Megatron需要设置如下参数：<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
-| router_dense_type        | 决定专家的dense层                      | MindFormers中可配置，建议使用FP32计算，防止溢出；Megatron中不可配置。                                                                      |
-| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子只有在设置`enable_sdrop=True`时才生效，精度对齐建议设置成True。                                                         |
+| router_dense_type        | 决定专家的dense层                      | MindSpore Transformers中可配置，建议使用FP32计算，防止溢出；Megatron中不可配置。                                                                      |
+| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindSpore Transformers中融合算子只有在设置`enable_sdrop=True`时才生效，精度对齐建议设置成True。                                                         |
 | use_shared_expert_gating | 共享专家网络中是否使用gating系数              | 检查网络的共享专家是否使用gating系数，如果有，设置成True。                                                                                   |
 
 ### 优化器CheckList
 
 | **关键参数**       | **说明**               | **检查项**                                                   |
 | ------------------ | ---------------------- | ------------------------------------------------------------ |
-| adam优化器         | 优化器类型             | 若Megatron使用adam优化器，MindFormers的数学等价实现为AdamW。 |
+| adam优化器         | 优化器类型             | 若Megatron使用adam优化器，MindSpore Transformers的数学等价实现为AdamW。 |
 | eps                | adam优化器极小值参数   | 检查参数是否一致，推荐值1e-8。                               |
 | beta1              | adam优化器梯度动量参数 | 检查参数是否一致，推荐值0.9。                                |
 | beta2              | adam优化器梯度方差参数 | 检查参数是否一致，推荐值0.95。                               |
@@ -67,7 +67,7 @@
 
 | **关键参数**    | **说明**             | **检查项**                                                   |
 | --------------- | -------------------- | ------------------------------------------------------------ |
-| param_init_type | 权重初始化类型       | MindFormers通常会设置param_init_dtype类型为FP32，这是因为梯度通信类型是跟权重类型一致，控制通信类型为FP32。而Megatron的梯度通信类型默认为FP32，不与权重类型绑定。 |
+| param_init_type | 权重初始化类型       | MindSpore Transformers通常会设置param_init_dtype类型为FP32，这是因为梯度通信类型是跟权重类型一致，控制通信类型为FP32。而Megatron的梯度通信类型默认为FP32，不与权重类型绑定。 |
 | init-method-std | 权重随机初始化的分布 | 若使用权重随机初始化，需要检查随机分布中的mean/std等参数是否一致。 |
 
 ### 混合精度CheckList
@@ -78,7 +78,7 @@
 | layernorm_compute_type | LayerNorm/RMSNorm的计算精度                             | Megatron不可配置，需要检查实现是否保持一致。                                                                                          |
 | softmax_compute_type   | MindSpore使用FA时，内部Softmax固定用FA计算，仅在小算子拼接实现时可配置计算类型。 | Megatron不可配置，需要检查实现是否保持一致。                                                                                          |
 | rotary_dtype           | 旋转位置编码的计算精度                                        | Megatron不可配置，需要检查实现是否保持一致。                                                                                          |
-| 各权重计算             | Embedding、lm_head等各权重精度计算                          | 由于MindFormers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要确认权重计算前，是否将权重数据类型转为BF16/FP16。                                       |
+| 各权重计算             | Embedding、lm_head等各权重精度计算                          | 由于MindSpore Transformers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要确认权重计算前，是否将权重数据类型转为BF16/FP16。                                       |
 | bias add               | 线性层的bias                                           | 线性层若有bias，检查add的计算精度是否一致。                                                                                           |
 | residual add           | 残差相加                                               | 检查残差的计算精度是否与标杆一致。                                                                                                   |
 | loss                   | loss计算模块                                           | 检查整个loss模块的计算精度是否与标杆一致。                                                                                             |
@@ -105,8 +105,8 @@
 | 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即`export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`。         |
 | 图算融合      | 关闭图算融合，即`enable_graph_kernel: False`。                                                          |
 | 训推模板一致  | 若进行SFT训练，需要确认训练推理时使用的输入模板一致。                                                                 |
-| 版本检查      | 检查MindSpore、MindFormers、CANN版本是否配套，建议使用最新的配套版本。                                              |
-| 与开源差异    | MindFormers中已支持主流的开源LLM模型，也经过了较为充分的测试。如果用户基于MindFormers中开源模型进行开发，可以重点排查与MindFormers开源模型的差异。 |
+| 版本检查      | 检查MindSpore、MindSpore Transformers、CANN版本是否配套，建议使用最新的配套版本。                                              |
+| 与开源差异    | MindSpore Transformers中已支持主流的开源LLM模型，也经过了较为充分的测试。如果用户基于MindSpore Transformers中开源模型进行开发，可以重点排查与MindSpore Transformers开源模型的差异。 |
 
 ## 精度调试工具介绍
 
@@ -266,7 +266,7 @@ $$
 localnorm = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
 $$
 
-其中 $x_1 ， x_2， \cdots， x_n$ 为某一个权重的梯度。MindFormers中支持通过yaml配置打印local norm，配置方式如下所示：
+其中 $x_1 ， x_2， \cdots， x_n$ 为某一个权重的梯度。MindSpore Transformers中支持通过yaml配置打印local norm，配置方式如下所示：
 
 ```yaml
 # wrapper cell config
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-MindFormers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindFormers与PyTorch梯度的对应关系，参考如下修改代码：
+MindSpore Transformers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindSpore Transformers与PyTorch梯度的对应关系，参考如下修改代码：
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
@@ -463,7 +463,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 ![local norm](./image/local_norm.png)
 
-排查原因为MindFormers使用FP32进行权重初始化，前向计算及反向计算Embedding时均使用FP32精度计算；而PyTorch的前向及反向计算均为BF16，由此导致了计算出来的local norm值存在差异。
+排查原因为MindSpore Transformers使用FP32进行权重初始化，前向计算及反向计算Embedding时均使用FP32精度计算；而PyTorch的前向及反向计算均为BF16，由此导致了计算出来的local norm值存在差异。
 
 计算精度对齐后，排查优化器计算也没有问题，开始进行长稳训练对齐。
 
@@ -479,7 +479,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 * 通过Dump的文件排查，识别训练过程中存在计算精度不一致的地方，并将不一致的地方统一。
 
-* Weight decay实现不一致，用户PyTorch网络所有权重均进行weight decay。MindFormers中bias权重及一维权重默认不进行weight decay。
+* Weight decay实现不一致，用户PyTorch网络所有权重均进行weight decay。MindSpore Transformers中bias权重及一维权重默认不进行weight decay。
 
 修复问题后，再次进行实验，训练1万step，loss差异在0轴附近波动，且小于0.03， 精度符合预期，单卡精度对齐。
 

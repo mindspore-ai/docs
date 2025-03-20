@@ -107,7 +107,7 @@ RMSNorm一般使用高精度（FP32）计算，计算之前需要将输入从低
 
 #### profiler工具
 
-MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
+MindSpore Transformers本身集成了profiling数据采集的功能，使用步骤如下：
 
 1. 修改配置文件
 
@@ -236,7 +236,7 @@ MindStudio Insight工具以时间线（Timeline）的形式呈现全流程在线
 
 #### IR 图
 
-在[MindFormers配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的.ir后缀的中间文件，这些被称为IR文件。默认情况下，这些文件会保存在当前执行目录下的graph目录中。IR文件是一种比较直观易懂的文本格式文件，用于描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
+在[MindSpore Transformers配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的.ir后缀的中间文件，这些被称为IR文件。默认情况下，这些文件会保存在当前执行目录下的graph目录中。IR文件是一种比较直观易懂的文本格式文件，用于描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
 
 ```yaml
 context:
@@ -345,7 +345,7 @@ MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均�
 
 ### 计算时长瓶颈
 
-正常情况下，计算时长应主要集中于matmul、flash attention等计算密集的算子上，如果在profiling分析中发现耗时异常的计算算子导致性能瓶颈的，可尝试替换等价算子，并同步提交算子性能issue至MindFormers或MindSpore。
+正常情况下，计算时长应主要集中于matmul、flash attention等计算密集的算子上，如果在profiling分析中发现耗时异常的计算算子导致性能瓶颈的，可尝试替换等价算子，并同步提交算子性能issue至MindSpore Transformers或MindSpore。
 
 在模型调优层面，可以尝试以下方法解决缓解计算时长瓶颈：
 
@@ -403,7 +403,7 @@ pipeline场景下主要开销是引入了计算闲置（bubble），其大概估
 
 pipeline_interleave(virtual pipeline)官网配置介绍：[set_auto_parallel_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html?highlight=pipeline_interleave)。
 
-MindFormers中，开启多流水交织需要在parallel中配置，例如使用1f1b排布方式：
+MindSpore Transformers中，开启多流水交织需要在parallel中配置，例如使用1f1b排布方式：
 
 ```yaml
 parallel:
@@ -575,7 +575,7 @@ recompute_config:
 
 3. 使能Llama的`细粒度多副本`策略，掩盖模型并行策略下的大部分通信行为；
 
-   多副本并行的介绍可以参考[MindSpore多副本并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/multiple_copy.html)，在MindFormers中通过`fine_grain_interleave`项来配置细粒度多副本的行为，参考配置如下：
+   多副本并行的介绍可以参考[MindSpore多副本并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/multiple_copy.html)，在MindSpore Transformers中通过`fine_grain_interleave`项来配置细粒度多副本的行为，参考配置如下：
 
    ```yaml
    model:
@@ -587,7 +587,7 @@ recompute_config:
 
 4. 使能`pp_interleave`并行策略，将`pp_interleave_num`配置为3，有效减小bubble占比；
 
-   多流水交织特性介绍可以参考[MindSpore流水线并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html)，在MindFormers中的参考配置如下：
+   多流水交织特性介绍可以参考[MindSpore流水线并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html)，在MindSpore Transformers中的参考配置如下：
 
    ```yaml
    parallel:

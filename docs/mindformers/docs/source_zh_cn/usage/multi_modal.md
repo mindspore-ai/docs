@@ -5,9 +5,9 @@
 多模态理解模型（Multimodal Model）是指能够处理并结合来自不同模态（如文字、图像、音频、视频等）的信息进行学习和推理的人工智能模型。
 传统的单一模态模型通常只关注单一数据类型，如文本分类模型只处理文本数据，图像识别模型只处理图像数据。而多模态理解模型则通过融合不同来源的数据来完成更复杂的任务，从而能够理解和生成更加丰富、全面的内容。
 
-本文档旨在介绍MindFormers中的多模态理解模型，文档提供详细的步骤和示例指导用户使用MindFormers构建自定义的多模态理解模型和数据处理等模块。此外，用户还可以根据文档内容，完成模型的训练和推理等任务。
+本文档旨在介绍MindSpore Transformers中的多模态理解模型，文档提供详细的步骤和示例指导用户使用MindSpore Transformers构建自定义的多模态理解模型和数据处理等模块。此外，用户还可以根据文档内容，完成模型的训练和推理等任务。
 
-MindFormers中多模态理解模型统一架构主要包括如下几个部分的内容：
+MindSpore Transformers中多模态理解模型统一架构主要包括如下几个部分的内容：
 
 - [数据集构建](#数据集构建)
 - [数据处理模块](#数据处理模块)
@@ -20,7 +20,7 @@ MindFormers中多模态理解模型统一架构主要包括如下几个部分的
 
 ## 数据集构建
 
-在训练多模态理解模型之前，通常需要先完成多模态数据集的构建，MindFormers目前提供多模态数据的`dataset`类和`dataloader`类，用户可直接使用：
+在训练多模态理解模型之前，通常需要先完成多模态数据集的构建，MindSpore Transformers目前提供多模态数据的`dataset`类和`dataloader`类，用户可直接使用：
 
 - [BaseMultiModalDataLoader](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/dataloader/multi_modal_dataloader.py)是多模态数据集加载类，主要完成从`json`文件中读取数据的功能；
 - [ModalToTextSFTDataset](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/modal_to_text_sft_dataset.py)是多模态数据集处理类，主要完成多模态数据处理，以及数据集批处理、数据集重复等操作，具体多模态数据处理可参考[数据处理模块](#数据处理模块)；
@@ -182,7 +182,7 @@ print(processor(multi_modal_data).keys())
 
 ### 模型配置类
 
-MindFormers中多模态理解模型相关参数主要通过模型配置类进行控制，下面以`CogVLM2Config`类为例介绍如何构建模型配置类，
+MindSpore Transformers中多模态理解模型相关参数主要通过模型配置类进行控制，下面以`CogVLM2Config`类为例介绍如何构建模型配置类，
 具体实现可参考[CogVLM2Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/cogvlm2/cogvlm2_config.py)。
 
 ```python
@@ -234,11 +234,11 @@ model:
 ```
 
 在该配置文件中，将`EVAModel`、`EVA02Config`作为`vision_model`模型及其配置类，将`CogVLM2VideoLM`、`LlamaConfig`作为`llm_model`模型及其配置类，
-由此构成多模态理解模型`CogVLM2ForCausalLM`，这些类都是MindFormers已实现的模块，下面将介绍如何实现自定义模块。
+由此构成多模态理解模型`CogVLM2ForCausalLM`，这些类都是MindSpore Transformers已实现的模块，下面将介绍如何实现自定义模块。
 
 ### 非文本模态处理模块
 
-MindFormers提供`ViT`、`EVA02`等模型作为视觉信息处理模块，下面以`EVA02`模型为例介绍如何构建非文本模态处理模块，
+MindSpore Transformers提供`ViT`、`EVA02`等模型作为视觉信息处理模块，下面以`EVA02`模型为例介绍如何构建非文本模态处理模块，
 具体可参考[EVAModel](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva.py)
 和[EVA02Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva_config.py)。
 
@@ -288,7 +288,7 @@ class VisionMLPAdapter(nn.Cell):
 
 ### 文本生成模块
 
-MindFormers提供`Llama2`、`Llama3`等语言大模型作为文本生成模块，与非文本模态处理模块、跨模态交互模块共同构成多模态理解模型。
+MindSpore Transformers提供`Llama2`、`Llama3`等语言大模型作为文本生成模块，与非文本模态处理模块、跨模态交互模块共同构成多模态理解模型。
 
 ```python
 @MindFormerRegister.register(MindFormerModuleType.MODELS)

@@ -6,7 +6,7 @@
 
 MindIE, full name Mind Inference Engine, is a high-performance inference framework based on Ascend hardware. For more information, please refer to [Official Document](https://www.hiascend.com/software/mindie).
 
-MindFormers are hosted in the model application layer MindIE LLM, and large models in MindFormers can be deployed through MindIE Service.
+MindSpore Transformers are hosted in the model application layer MindIE LLM, and large models in MindSpore Transformers can be deployed through MindIE Service.
 
 The model support for MindIE inference can be found in [model repository](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
 
@@ -14,9 +14,9 @@ The model support for MindIE inference can be found in [model repository](https:
 
 ### Software Installation
 
-1. Install MindFormers
+1. Install MindSpore Transformers
 
-   Refer to [MindFormers Official Installation Guide](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html) for installation.
+   Refer to [MindSpore Transformers Official Installation Guide](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html) for installation.
 
 2. Install MindIE
 

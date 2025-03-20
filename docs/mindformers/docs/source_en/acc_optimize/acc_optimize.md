@@ -31,7 +31,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | hidden_size       | Transformer hidden layer size                                        | Correspond to the Megatron hidden-size parameter and check for consistency.                                            |
 | intermediate_size | Feed-Forward Network hidden layer size                             | Correspond to the Megatron ffn-hidden-size parameter and check for consistency.                                        |
 | n_kv_heads        | Number of kv groups                                                     | Correspond to the Megatron num-query-groups parameter and check for consistency.                                        |
-| Regularization function        | Regularization functions, common structures are LayerNorm, RMSNorm                     | The specified regularization function is used in MindFormers and cannot be modified by configuration. The configuration can be customized in Megatron by normalization to check for consistency. |
+| Regularization function        | Regularization functions, common structures are LayerNorm, RMSNorm                     | The specified regularization function is used in MindSpore Transformers and cannot be modified by configuration. The configuration can be customized in Megatron by normalization to check for consistency. |
 | rms_norm_eps      | Regularized epsilon parameters                                          | Correspond to the Megatron layernorm_epsilon parameter and check for consistency.                                         |
 | dropout           | dropout in the network                                              | Currently, when MindSpore enables dropout, recalculation cannot be enabled; if precision comparison is carried out, it is recommended that both sides be closed to reduce the random factor.|
 | Fusion computation          | Common fusion operators include FA, ROPE, Norm, SwigLU; some users will fuse Wq, Wk, Wv for computation | 1. For accuracy comparison under the same hardware, if fusion algorithms are used, they should be consistent. <br>2. When comparing accuracy on different hardware, focus on checking whether there is any difference in the calculation of the fusion calculation part.    |
@@ -45,15 +45,15 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | capacity_factor          | Expert capacity factor                                      | Correspond to the Megatron moe_expert_capacity_factor parameter and check for consistency. |
 | aux_loss_factor          | Load balancing loss contribution factor                              | When turned on, it is recommended to be less than 0.05. If precision alignment is performed, it is not recommended to be turned on, and is inconsistent with Megatron loss printing method. |
 | enable_sdrop             | Whether to enable the sdrop (drop implementation) method                                 | It is recommended to set it to true; the corresponding Megatron needs to set the following parameters:<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
-| router_dense_type        | Decide the expert sense layer                                 | Configurable in MindFormers, FP32 calculations are recommended to prevent overflow; not configurable in Megatron. |
-| use_fused_ops_topkrouter | Whether to use the fusion operator for dispatch as well as combine indexing calculations | Fusion operator in MindFormers takes effect when `enable_sdrop=True`, precision alignment is recommended to be set to True. |
+| router_dense_type        | Decide the expert sense layer                                 | Configurable in MindSpore Transformers, FP32 calculations are recommended to prevent overflow; not configurable in Megatron. |
+| use_fused_ops_topkrouter | Whether to use the fusion operator for dispatch as well as combine indexing calculations | Fusion operator in MindSpore Transformers takes effect when `enable_sdrop=True`, precision alignment is recommended to be set to True. |
 | use_shared_expert_gating | Whether the gating factor is used in the shared expert network                  | Check if the network sharing expert has a gating factor, if so set it to True.       |
 
 ### Optimizer CheckList
 
 | **Key parameters**          | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
-| adam optimizer           | optimizer type             | If Megatron uses the adam optimizer, the mathematically equivalent implementation of MindFormers is AdamW. |
+| adam optimizer           | optimizer type             | If Megatron uses the adam optimizer, the mathematically equivalent implementation of MindSpore Transformers is AdamW. |
 | eps               | adam optimizer minimal value parameter   | Check the parameters for consistency, recommended value is 1e-8.                            |
 | beta1             | adam optimizer gradient momentum parameters | Check the parameters for consistency, recommended value is 0.9.                             |
 | beta2             | adam optimizer gradient variance parameter | Check the parameters for consistency, recommended value is 0.95.                            |
@@ -67,7 +67,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 | **Key parameters**          | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
-| param_init_type | Weight initialization type       | MindFormers usually sets the param_init_dtype type to FP32. This is because the gradient communication type needs to be the same as the weight type, controlling the communication type to be FP32. Megatron gradient communication type defaults to FP32 and is not tied to the weight type. |
+| param_init_type | Weight initialization type       | MindSpore Transformers usually sets the param_init_dtype type to FP32. This is because the gradient communication type needs to be the same as the weight type, controlling the communication type to be FP32. Megatron gradient communication type defaults to FP32 and is not tied to the weight type. |
 | init-method-std | Distribution of weights randomly initialized | If weighted random initialization is used, parameters such as mean/std in the random distribution need to be checked for consistency. |
 
 ### Mixed-precision CheckList
@@ -78,7 +78,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | layernorm_compute_type | LayerNorm/RMSNorm compute precision | Megatron is not configurable, need to check that implementations are consistent.                 |
 | softmax_compute_type   | When MindSpore uses FA, the internal Softmax fix is calculated with FA. Type of calculation is configurable only for small arithmetic splicing implementations     | Megatron is not configurable, needs to check if the implementation is consistent.                 |
 | rotary_dtype           | Calculation accuracy of rotary position encoding                                       | Megatron is not configurable, needs to check if the implementation is consistent. |
-| Calculation of weights             | accuracy calculation for each weight such as, Embedding, lm_head | Since MindFormers weight initialization needs to be set to FP32, and the usual calculation precision is BF16/FP16, it is necessary to check whether the weight data type is converted to BF16/FP16 before weight calculation.|
+| Calculation of weights             | accuracy calculation for each weight such as, Embedding, lm_head | Since MindSpore Transformers weight initialization needs to be set to FP32, and the usual calculation precision is BF16/FP16, it is necessary to check whether the weight data type is converted to BF16/FP16 before weight calculation.|
 | bias add               | bias in the linear layer                                                 | If bias is present, Linear layer checks consistency in the computational accuracy of add.                  |
 | residual add           | sum of residuals                                                     | Check that the accuracy of the calculation of the residuals is consistent with the benchmarks                             |
 | loss                   | Loss Calculation Module               | Check that the accuracy of the calculation in the entire loss module is consistent with the benchmarks                     |
@@ -105,8 +105,8 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | Overflow Detection | Overflow Status Aligns PyTorch, suggest to use INFNAN_MODE, i.e., `export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`. |
 | Graph Operator Fusion | Turn off graph operator fusion, i.e. `enable_graph_kernel: False`. |
 | Training Inference Template Consistency | If training SFT, you need to make sure that the input template used for training inference is consistent.  |
-| Version Check | Check whether the versions of MindSpore, MindFormers and CANN are compatible, it is recommended to use the latest compatible version.          |
-| Differences with Open Source | MindFormers has supported the mainstream open source LLM models, and has been more fully tested. If you are developing based on the open source models in MindFormers, you can focus on checking the differences with the open source models in MindFormers. |
+| Version Check | Check whether the versions of MindSpore, MindSpore Transformers and CANN are compatible, it is recommended to use the latest compatible version.          |
+| Differences with Open Source | MindSpore Transformers has supported the mainstream open source LLM models, and has been more fully tested. If you are developing based on the open source models in MindSpore Transformers, you can focus on checking the differences with the open source models in MindSpore Transformers. |
 
 ## Introduction to Accuracy Debugging Tools
 
@@ -266,7 +266,7 @@ $$
 localnorm = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
 $$
 
-Where $x_1 , x_2, \cdots, x_n$ is the gradient of a particular weight. MindFormers supports printing the local norm via yaml configuration as shown below:
+Where $x_1 , x_2, \cdots, x_n$ is the gradient of a particular weight. MindSpore Transformers supports printing the local norm via yaml configuration as shown below:
 
 ```yaml
 # wrapper cell config
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-For MindFormers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindFormers and PyTorch gradient. Refer to the following modified code:
+For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
@@ -463,7 +463,7 @@ First the loss alignment of step1 is confirmed to be OK. Comparing the local nor
 
 ![local norm](./image/local_norm.png)
 
-The reason for this is that MindFormers uses FP32 for weight initialization, and FP32 precision is used for both forward and backward Embedding calculations, while PyTorch forward and backward calculations are BF16, which leads to differences in the calculated local norm values.
+The reason for this is that MindSpore Transformers uses FP32 for weight initialization, and FP32 precision is used for both forward and backward Embedding calculations, while PyTorch forward and backward calculations are BF16, which leads to differences in the calculated local norm values.
 
 Once the computational accuracy is aligned, the exhaustive optimizer computation is also fine, and the long stable training alignment starts.
 
@@ -479,7 +479,7 @@ Perform problem troubleshooting. Identify the following problems:
 
 * Identify inconsistencies in computational accuracy during training through Dump file exclusion, and harmonize inconsistencies.
 
-* Weight decay implementation is inconsistent, weight decay is performed on all weights in user PyTorch network. bias weights and one-dimensional weights in MindFormers do not have weight decay by default.
+* Weight decay implementation is inconsistent, weight decay is performed on all weights in user PyTorch network. bias weights and one-dimensional weights in MindSpore Transformers do not have weight decay by default.
 
 After fixing the problem, experiment again, train 10,000 steps, the loss difference fluctuates around the 0 axis and is less than 0.03, the accuracy meets the expectation, and the single-card accuracy is aligned.
 

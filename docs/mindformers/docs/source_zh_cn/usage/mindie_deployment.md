@@ -6,7 +6,7 @@
 
 MindIE，全称Mind Inference Engine，是基于昇腾硬件的高性能推理框架。详情参考[官方介绍文档](https://www.hiascend.com/software/mindie)。
 
-MindFormers承载在模型应用层MindIE LLM中，通过MindIE Service可以部署MindFormers中的大模型。
+MindSpore Transformers承载在模型应用层MindIE LLM中，通过MindIE Service可以部署MindSpore Transformers中的大模型。
 
 MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
 
@@ -14,9 +14,9 @@ MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mind
 
 ### 软件安装
 
-1. 安装MindFormers
+1. 安装MindSpore Transformers
 
-   参考[MindFormers官方安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html)进行安装。
+   参考[MindSpore Transformers官方安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html)进行安装。
 
 2. 安装MindIE
 

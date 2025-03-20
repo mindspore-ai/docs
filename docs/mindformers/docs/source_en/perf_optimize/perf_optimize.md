@@ -107,7 +107,7 @@ In FeedForward, the middle part of the memory tends to be large. SiLU and Mul re
 
 #### profiler Tool
 
-MindFormers itself integrates profiling data collection with the following steps:
+MindSpore Transformers itself integrates profiling data collection with the following steps:
 
 1. Modify the configuration files
 
@@ -236,7 +236,7 @@ Click anywhere on the timeline page tree or graphical pane can be performed usin
 
 #### IR Graph
 
-In the [MindFormers configuration file](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html), just turn on save_graphs, and the runtime will output some intermediate files ending with the .ir suffix generated during the graph compilation process, which we call IR files. By default, a directory of graphs will be generated in the current task execution directory, and all IR graphs will be saved in this. It is a relatively intuitive and easy to understand document describing the structure of the model in text format, which can be viewed directly with text editing software. Refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html) for the meaning of the configuration items, and the configuration method is as follows:
+In the [MindSpore Transformers configuration file](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html), just turn on save_graphs, and the runtime will output some intermediate files ending with the .ir suffix generated during the graph compilation process, which we call IR files. By default, a directory of graphs will be generated in the current task execution directory, and all IR graphs will be saved in this. It is a relatively intuitive and easy to understand document describing the structure of the model in text format, which can be viewed directly with text editing software. Refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html) for the meaning of the configuration items, and the configuration method is as follows:
 
 ```yaml
 context:
@@ -345,7 +345,7 @@ All the above three parallel strategies use more computing devices to share memo
 
 ### Computing Length Bottleneck
 
-Under normal cases, the computation time should be mainly focused on computation-intensive operators such as matmul, flash attention, etc. If the computation operators with abnormal time consuming are found to cause performance bottlenecks in profiling analysis, we can try to replace the equivalent operators, and synchronize the submission of operator performance issue to MindFormers or MindSpore.
+Under normal cases, the computation time should be mainly focused on computation-intensive operators such as matmul, flash attention, etc. If the computation operators with abnormal time consuming are found to cause performance bottlenecks in profiling analysis, we can try to replace the equivalent operators, and synchronize the submission of operator performance issue to MindSpore Transformers or MindSpore.
 
 At the model tuning level, the following methods can be tried to solve the problem of alleviating the computational length bottleneck:
 
@@ -403,7 +403,7 @@ However, in some training scenarios, global batch size is a more critical traini
 
 pipeline_interleave(virtual pipeline) official website configuration description:[set_auto_parallel_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html?highlight=pipeline_interleave).
 
-In MindFormers, turning on multi-stream interleaving needs to be configured in parallel, e.g. using 1f1b scheduling:
+In MindSpore Transformers, turning on multi-stream interleaving needs to be configured in parallel, e.g. using 1f1b scheduling:
 
 ```yaml
 parallel:
@@ -575,7 +575,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 3. Enable Llama's `fine-grained multi-copy` policy masks most of the communication behavior under the model-parallel policy;
 
-   An introduction to multi-copy parallel can be found in the [MindSpore Multicopy Parallelism Documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/multiple_copy.html), and the behavior of fine-grained multicopy parallelism can be configured in MindFormers through the ` fine_grain_interleave` item. The reference configuration is as follows:
+   An introduction to multi-copy parallel can be found in the [MindSpore Multicopy Parallelism Documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/multiple_copy.html), and the behavior of fine-grained multicopy parallelism can be configured in MindSpore Transformers through the ` fine_grain_interleave` item. The reference configuration is as follows:
 
    ```yaml
    model:
@@ -587,7 +587,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 4. Enable the `pp_interleave` parallel policy and configure `pp_interleave_num` to 3 to effectively reduce the percentage of bubbles;
 
-   An introduction to the multi-streaming interleaving feature can be found in the [MindSpore pipeline parallelism documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/pipeline_parallel.html). In MindFormers the reference configuration is as follows:
+   An introduction to the multi-streaming interleaving feature can be found in the [MindSpore pipeline parallelism documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/pipeline_parallel.html). In MindSpore Transformers the reference configuration is as follows:
 
    ```yaml
    parallel:

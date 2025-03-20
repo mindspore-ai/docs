@@ -16,6 +16,6 @@ A: The model sharding strategy file documents the sharding strategy for model we
 
 ## Q: How Can I Do When `socket.gaierror: [Errno -2] Name or service not known` or `socket.gaierror: [Errno -3] Temporary failure in name resolution` is Reported in `ranktable` Generation File?
 
-A: Starting from `MindFormers r1.2.0` version, cluster startup is unified using `msrun` method, and `ranktable` startup method is deprecated.
+A: Starting from `MindSpore Transformers r1.2.0` version, cluster startup is unified using `msrun` method, and `ranktable` startup method is deprecated.
 
 <br/>

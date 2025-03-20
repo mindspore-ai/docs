@@ -16,6 +16,6 @@ A: 模型切分策略文件记录了模型权重在分布式场景下的切分�
 
 ## Q: 生成`ranktable`文件报错`socket.gaierror: [Errno -2] Name or service not known`或者`socket.gaierror: [Errno -3] Temporary failure in name resolution`，怎么解决？
 
-A: 从`MindFormers r1.2.0`版本开始，集群启动统一使用`msrun`方式，`ranktable`启动方式已废弃。
+A: 从`MindSpore Transformers r1.2.0`版本开始，集群启动统一使用`msrun`方式，`ranktable`启动方式已废弃。
 
 <br/>

@@ -4,9 +4,9 @@
 
 Multimodal models refer to artificial intelligence models capable of processing and combining information from different modalities (such as text, images, audio, video, etc.) for learning and inference. Traditional single-modality models typically focus on a single type of data, such as text classification models handling only text data or image recognition models handling only image data. In contrast, multimodal models integrate data from different sources to accomplish more complex tasks, enabling them to understand and generate richer and more comprehensive content.
 
-This document aims to introduce the multimodal models in MindFormers, providing detailed steps and examples to guide users in building custom multimodal models and data processing modules using MindFormers. Additionally, users can follow the document to complete tasks such as model training and inference.
+This document aims to introduce the multimodal models in MindSpore Transformers, providing detailed steps and examples to guide users in building custom multimodal models and data processing modules using MindSpore Transformers. Additionally, users can follow the document to complete tasks such as model training and inference.
 
-The unified architecture of multimodal models in **MindFormers** primarily includes the following components:
+The unified architecture of multimodal models in **MindSpore Transformers** primarily includes the following components:
 
 - [Dataset Construction](#dataset-construction)
 - [Data Processing Modules](#data-processing-modules)
@@ -19,7 +19,7 @@ The unified architecture of multimodal models in **MindFormers** primarily inclu
 
 ## Dataset Construction
 
-Before training a multimodal model, it is often necessary to first construct a multimodal dataset. MindFormers currently provides `dataset` and `dataloader` classes for multimodal data, which users can directly utilize:
+Before training a multimodal model, it is often necessary to first construct a multimodal dataset. MindSpore Transformers currently provides `dataset` and `dataloader` classes for multimodal data, which users can directly utilize:
 
 - [BaseMultiModalDataLoader](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/dataloader/multi_modal_dataloader.py) is the multimodal dataset loading class. It handles the functionality of reading data from a `json` file.
 - [ModalToTextSFTDataset](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/modal_to_text_sft_dataset.py) is the multimodal dataset processing class. It handles multimodal data processing, as well as operations like batch processing and data repetition. For more details on multimodal data processing, refer to the [Data Processing Modules](#data-processing-modules).
@@ -180,7 +180,7 @@ A multimodal large model typically consists of three parts: a non-text modality 
 
 ### Model Configuration Class
 
-In MindFormers, the parameters related to multimodal models are mainly controlled through the model configuration class. Below, we use the `CogVLM2Config` class as an example to explain how to build the model configuration class.  
+In MindSpore Transformers, the parameters related to multimodal models are mainly controlled through the model configuration class. Below, we use the `CogVLM2Config` class as an example to explain how to build the model configuration class.  
 For the specific implementation, refer to [CogVLM2Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/cogvlm2/cogvlm2_config.py).
 
 ```python
@@ -232,11 +232,11 @@ model:
 ```
 
 In this configuration file, `EVAModel` and `EVA02Config` are used as the `vision_model` and its configuration class, while `CogVLM2VideoLM` and `LlamaConfig` are used as the `llm_model` and its configuration class.  
-Together, they form the multimodal model `CogVLM2ForCausalLM`. These classes are all pre-implemented modules in MindFormers. Below, we will explain how to implement custom modules.
+Together, they form the multimodal model `CogVLM2ForCausalLM`. These classes are all pre-implemented modules in MindSpore Transformers. Below, we will explain how to implement custom modules.
 
 ### Non-Text Modality Processing Module
 
-MindFormers provides models like `ViT` and `EVA02` as visual information processing modules. Below, we use the `EVA02` model as an example to explain how to construct a non-text modality processing module.  
+MindSpore Transformers provides models like `ViT` and `EVA02` as visual information processing modules. Below, we use the `EVA02` model as an example to explain how to construct a non-text modality processing module.  
 For more details, refer to [EVAModel](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva.py) and [EVA02Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva_config.py).
 
 ```python
@@ -285,7 +285,7 @@ In the `VisionMLPAdapter`, the output of the `EVAModel` is processed through ope
 
 ### Text Generation Module
 
-MindFormers provides large language models such as `Llama2` and `Llama3` as text generation modules, which, together with the non-text modality processing module and cross-modal interaction module, form the multimodal model.
+MindSpore Transformers provides large language models such as `Llama2` and `Llama3` as text generation modules, which, together with the non-text modality processing module and cross-modal interaction module, form the multimodal model.
 
 ```python
 @MindFormerRegister.register(MindFormerModuleType.MODELS)

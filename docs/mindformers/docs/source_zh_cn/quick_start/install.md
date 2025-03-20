@@ -8,15 +8,15 @@
 
 当前套件建议使用的Python版本为3.10。
 
-| MindFormers | MindSpore | CANN | 固件与驱动 | 镜像链接 |
+| MindSpore Transformers | MindSpore | CANN | 固件与驱动 | 镜像链接 |
 |:-----------:|:---------:|:----:|:-----:|:----:|
 |    在研版本     |   在研版本    | 在研版本 | 在研版本  | 不涉及  |
 
-**当前MindFormers建议使用如上的软件配套关系。**
+**当前MindSpore Transformers建议使用如上的软件配套关系。**
 
 历史版本配套关系：
 
-|                     MindFormers                      |                  MindSpore                  |                                                                         CANN                                                                         |                                                                         固件与驱动                                                                         |                                 镜像链接                                 |
+|                     MindSpore Transformers                      |                  MindSpore                  |                                                                         CANN                                                                         |                                                                         固件与驱动                                                                         |                                 镜像链接                                 |
 |:----------------------------------------------------:|:-------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
 | [1.3.2](https://pypi.org/project/mindformers/1.3.2/) | [2.4.10](https://www.mindspore.cn/install/) | [8.0.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [24.1.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/168.html) |
 | [1.2.0](https://pypi.org/project/mindformers/1.2.0/) | [2.3.0](https://www.mindspore.cn/install/)  |                     [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1)                     |                                       [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community)                                        | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
@@ -27,9 +27,9 @@
 
 2. 安装CANN和MindSpore：使用官方提供的Docker镜像（镜像中已包含CANN、MindSpore，无需手动安装）或者按照MindSpore官网的[手动安装](https://www.mindspore.cn/install/)章节进行安装。
 
-## 安装MindFormers
+## 安装MindSpore Transformers
 
-目前在研版本仅支持源码编译安装，用户可以执行如下命令安装MindFormers：
+目前在研版本仅支持源码编译安装，用户可以执行如下命令安装MindSpore Transformers：
 
 ```bash
 git clone -b dev https://gitee.com/mindspore/mindformers.git
@@ -39,7 +39,7 @@ bash build.sh
 
 ## 验证是否成功安装
 
-判断MindFormers是否安装成功可以执行以下代码：
+判断MindSpore Transformers是否安装成功可以执行以下代码：
 
 ```python
 import mindformers as mf

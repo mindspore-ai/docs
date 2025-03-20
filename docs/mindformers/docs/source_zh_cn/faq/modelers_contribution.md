@@ -6,11 +6,11 @@
 
 魔乐社区是一个模型托管平台，用户可以将自定义模型上传至[魔乐社区](https://modelers.cn/)进行托管。
 
-### MindFormers内置模型
+### MindSpore Transformers内置模型
 
-若用户的自定义模型使用了MindFormers提供的内置模型，即模型代码位于mindformers/models下的模型，且对模型结构代码未进行任何修改，则只需上传模型的权重文件和配置即可。
+若用户的自定义模型使用了MindSpore Transformers提供的内置模型，即模型代码位于mindformers/models下的模型，且对模型结构代码未进行任何修改，则只需上传模型的权重文件和配置即可。
 
-如，用户使用MindFormers的内置ChatGLM2模型，进行了微调训练，想分享微调后的模型权重，那么上传模型配置和权重文件即可。
+如，用户使用MindSpore Transformers的内置ChatGLM2模型，进行了微调训练，想分享微调后的模型权重，那么上传模型配置和权重文件即可。
 
 下面是保存模型配置和权重的示例代码：
 

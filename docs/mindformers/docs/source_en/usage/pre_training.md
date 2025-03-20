@@ -4,7 +4,7 @@
 
 ## Overview
 
-Pretraining refers to training a model on large-scale unlabeled data, so that the model can comprehensively capture a wide range of features of a language. A pretrained model can learn knowledge at the vocabulary, syntax, and semantic levels. After fine-tuning, the knowledge is applied in downstream tasks to optimize the performance of specific tasks. The objective of the MindFormers framework pretraining is to help developers quickly and conveniently build and train pretrained models based on the Transformer architecture.
+Pretraining refers to training a model on large-scale unlabeled data, so that the model can comprehensively capture a wide range of features of a language. A pretrained model can learn knowledge at the vocabulary, syntax, and semantic levels. After fine-tuning, the knowledge is applied in downstream tasks to optimize the performance of specific tasks. The objective of the MindSpore Transformers framework pretraining is to help developers quickly and conveniently build and train pretrained models based on the Transformer architecture.
 
 ## Procedure
 
@@ -22,9 +22,9 @@ Based on actual operations, the basic pretraining process can be divided into th
 4. **Saving a model:**
    After the training is complete, save the model weight to the specified location.
 
-## MindFormers-based Pretraining Practice
+## MindSpore Transformers-based Pretraining Practice
 
-Currently, MindFormers supports mainstream foundation models in the industry. In this practice, Llama2-7B and Llama3-70B are used to demonstrate [Single-Node Training](#single-node-training) and [Multi-Node Training](#multi-node-training), respectively.
+Currently, MindSpore Transformers supports mainstream foundation models in the industry. In this practice, Llama2-7B and Llama3-70B are used to demonstrate [Single-Node Training](#single-node-training) and [Multi-Node Training](#multi-node-training), respectively.
 
 ### Preparing a Dataset
 
@@ -51,7 +51,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --run_mode train" 8
 
  # Parameters:
- config:            model configuration file, which is stored in the config directory of the MindFormers code repository.
+ config:            model configuration file, which is stored in the config directory of the MindSpore Transformers code repository.
  train_dataset_dir: path of the training dataset.
  use_parallel:      specifies whether to enable parallelism.
  run_mode:          running mode. The value can be train, finetune, or predict (inference).
@@ -76,7 +76,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
  # Parameters:
  register_path:     The registered path of the model API is a directory path that contains Python scripts of the model (can be the path of the model folder in the 'research' directory).
- config:            model configuration file, which is stored in the config directory of the MindFormers code repository.
+ config:            model configuration file, which is stored in the config directory of the MindSpore Transformers code repository.
  train_dataset_dir: path of the training dataset.
  use_parallel:      specifies whether to enable parallelism.
  run_mode:          running mode. The value can be train, finetune, or predict (inference).

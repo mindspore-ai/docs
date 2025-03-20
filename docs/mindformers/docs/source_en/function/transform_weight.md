@@ -4,9 +4,9 @@
 
 ## Overview
 
-In a current distributed training and inference environment, if a pre-trained weight does not match a distributed strategy, the pre-trained weight needs to be converted to adapt to the corresponding distributed strategy. MindFormers provides a set of weight conversion tools to meet the requirements in different scenarios. This tool can be used to slice a single-device weight into multi-device weights, convert between multi-device weights, and merge multi-device weights into a single-device weight. You can select [Automatic Conversion](#automatic-conversion) or [Offline Conversion](#offline-conversion) as required so that a model can quickly switch between different distributed scenarios.
+In a current distributed training and inference environment, if a pre-trained weight does not match a distributed strategy, the pre-trained weight needs to be converted to adapt to the corresponding distributed strategy. MindSpore Transformers provides a set of weight conversion tools to meet the requirements in different scenarios. This tool can be used to slice a single-device weight into multi-device weights, convert between multi-device weights, and merge multi-device weights into a single-device weight. You can select [Automatic Conversion](#automatic-conversion) or [Offline Conversion](#offline-conversion) as required so that a model can quickly switch between different distributed scenarios.
 
-In addition, MindFormers supports [LoRA Weight Merging](#lora-weight-merging) to facilitate the deployment of models fine-tuned using LoRA.
+In addition, MindSpore Transformers supports [LoRA Weight Merging](#lora-weight-merging) to facilitate the deployment of models fine-tuned using LoRA.
 
 ## Automatic Conversion
 
@@ -148,7 +148,7 @@ Training a large-scale model usually needs a cluster of servers. In the multi-no
 
 #### Scenario 1: A shared disk exists between servers.
 
-If there is a shared disk between servers, you can use MindFormers to automatically convert a weight before multi-node multi-device training. Assume that `/data` is the shared disk between the servers and the MindFormers project code is stored in the `/data/mindformers` directory.
+If there is a shared disk between servers, you can use MindSpore Transformers to automatically convert a weight before multi-node multi-device training. Assume that `/data` is the shared disk between the servers and the MindSpore Transformers project code is stored in the `/data/mindformers` directory.
 
 - **Single-process conversion**
 
@@ -300,7 +300,7 @@ For details about the principles and implementation of LoRA, see the following r
 
 ### Instructions
 
-Use the [LoRA weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/transform_ckpt_lora.py) provided by MindFormers to merge LoRA weights as follows:
+Use the [LoRA weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/transform_ckpt_lora.py) provided by MindSpore Transformers to merge LoRA weights as follows:
 
 ```shell
 python mindformers/tools/transform_ckpt_lora.py \
@@ -354,7 +354,7 @@ python mindformers/tools/transform_ckpt_lora.py \
 
 ### Instructions
 
-Use the [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/safetensors/unified_safetensors.py) provided by MindFormers to perform safetensors weight merging.
+Use the [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/safetensors/unified_safetensors.py) provided by MindSpore Transformers to perform safetensors weight merging.
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \

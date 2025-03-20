@@ -1,17 +1,17 @@
 # Weight Format Conversion
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/function/weight_conversion.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/weight_conversion.md)
 
 ## Overview
 
-MindFormers provides a unified weight conversion tool that allows model weights to convert between the HuggingFace and MindFormers formats. This helps you:
+MindSpore Transformers provides a unified weight conversion tool that allows model weights to convert between the HuggingFace and MindSpore Transformers formats. This helps you:
 
-- Convert a HuggingFace weight to a MindFormers one for fine-tuning, evaluation, or inference on MindFormers.
-- Convert the weights trained or fine-tuned using MindFormers to HuggingFace weights and uses them on other frameworks.
+- Convert a HuggingFace weight to a MindSpore Transformers one for fine-tuning, evaluation, or inference on MindSpore Transformers.
+- Convert the weights trained or fine-tuned using MindSpore Transformers to HuggingFace weights and uses them on other frameworks.
 
 ## Conversion Procedure
 
-To perform weight conversion, clone the complete HuggingFace repository of the model to be converted locally, and execute the `mindformers/convert_weight.py` script. This script automatically converts the HuggingFace model weight file into a weight file applicable to MindFormers. If you want to convert a MindFormers weight to a HuggingFace one, set
+To perform weight conversion, clone the complete HuggingFace repository of the model to be converted locally, and execute the `mindformers/convert_weight.py` script. This script automatically converts the HuggingFace model weight file into a weight file applicable to MindSpore Transformers. If you want to convert a MindSpore Transformers weight to a HuggingFace one, set
 `reversed` to `True`.
 
 ```shell
@@ -21,9 +21,9 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 ### Parameters
 
 - model: model name.
-- reversed: converts a MindFormers weight to the HuggingFace one.
+- reversed: converts a MindSpore Transformers weight to the HuggingFace one.
 - input_path: path of the HuggingFace weight folder, which points to the downloaded weight file.
-- output_path: path for storing the MindFormers weight file after conversion.
+- output_path: path for storing the MindSpore Transformers weight file after conversion.
 - dtype: weight data type after conversion.
 - n_head: takes effect only for the BLOOM model. Set this parameter to `16` when `bloom_560m` is used and to `32` when `bloom_7.1b` is used.
 - hidden_size: takes effect only for the BLOOM model. Set this parameter to `1024` when `bloom_560m` is used and to `4096` when `bloom_7.1b` is used.
@@ -33,13 +33,13 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ## Conversion Example
 
-Assume that you have downloaded the [Llama2 model weight](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path. To convert it to the MindFormers weight and save it in the `/home/user/ms_weights` path, run the following command:
+Assume that you have downloaded the [Llama2 model weight](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path. To convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
 
 ```bash
 python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
 ```
 
-After the preceding steps are performed, the HuggingFace weight is successfully converted to a MindFormers weight, facilitating model training or inference on MindFormers.
+After the preceding steps are performed, the HuggingFace weight is successfully converted to a MindSpore Transformers weight, facilitating model training or inference on MindSpore Transformers.
 
 ## Supported Models
 
@@ -63,12 +63,12 @@ After the preceding steps are performed, the HuggingFace weight is successfully 
 
 1. Add the `convert_weight.py` and `convert_reversed.py` files to the extended model directory.
 2. Compile the `convert_pt_to_ms` and `convert_ms_to_pt` weight conversion functions in the files. The function parameters are `input_path`, `output_path`, `dtype`, and an additional parameter `**kwargs`.
-3. Add the extended model name and conversion function import paths to the `convert_map` and `reversed_convert_map` dictionaries in the `convert_weight.py` file in the MindFormers root directory.
+3. Add the extended model name and conversion function import paths to the `convert_map` and `reversed_convert_map` dictionaries in the `convert_weight.py` file in the MindSpore Transformers code root directory.
 4. Call the `parser.add_argument()` method in the `main` function to add the additional parameter.
 
 ## Example of Developing Model Weight Conversion
 
-Llama is used as an example. To convert a HuggingFace weight to a MindFormers one, define the `convert_pt_to_ms` function in [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py).
+Llama is used as an example. To convert a HuggingFace weight to a MindSpore Transformers one, define the `convert_pt_to_ms` function in [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py).
 
 ```python
 def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
@@ -101,7 +101,7 @@ def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
     return True
 ```
 
-To convert a MindFormers weight to a HuggingFace one, define the `convert_ms_to_pt` function in [convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_reversed.py).
+To convert a MindSpore Transformers weight to a HuggingFace one, define the `convert_ms_to_pt` function in [convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_reversed.py).
 
 ```python
 def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):
