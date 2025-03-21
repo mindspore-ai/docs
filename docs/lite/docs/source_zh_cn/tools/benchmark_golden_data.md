@@ -56,7 +56,7 @@ out_0 2 2 3
 
 1. 随机生成输入，进行模型推理，再将输入输出保存为`.npz`格式。
 
-   [onnx_demo.py示例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/golden/onnx_demo.py) 支持基于ONNX模型随机生成数据，或手动输入数据，并执行推理获得输出数据。手动输入数据时，可以通过参数`--inDataFile`来确定输入数据路径。如果模型是动态shape类型，需通过参数`--inputShape`来确定输入尺寸。 参数`--inDataFile`和`--inputShape`非必须，用户可以根据自身的使用场景来自由选用。下面是示例代码的基础使用示例：
+   [onnx_demo.py示例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/golden/onnx_demo.py) 支持基于ONNX模型随机生成数据，或手动输入数据，并执行推理获得输出数据。手动输入数据时，可以通过参数`--inDataFile`来确定输入数据路径。如果模型是动态shape类型，需通过参数`--inputShape`来确定输入尺寸。参数`--inDataFile`和`--inputShape`非必须，用户可以根据自身的使用场景来自由选用。下面是示例代码的基础使用示例：
 
    ```bash
     python onnx_demo.py --modelFile "/path/to/model_example.onnx" --savePath "/path/to/data_example"
@@ -130,4 +130,3 @@ def save_bin(args):
                 text_file.write(f"{k} ")
             text_file.write('\n')
 ```
-
