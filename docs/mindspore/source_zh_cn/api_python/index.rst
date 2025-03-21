@@ -16,6 +16,7 @@ API 文档
    mindspore.train
    mindspore.communication
    mindspore.communication.comm_func
+   mindspore.parallel
    mindspore.common.initializer
    mindspore.runtime
    mindspore.dataset

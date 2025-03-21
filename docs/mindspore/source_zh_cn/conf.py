@@ -273,15 +273,6 @@ probability_dir = './api_python/probability'
 if os.path.exists(probability_dir):
     shutil.rmtree(probability_dir)
 
-if os.path.exists('./model_train/program_form/static_graph_syntax/static_graph_syntax_support.ipynb'):
-    os.remove('./model_train/program_form/static_graph_syntax/static_graph_syntax_support.ipynb')
-
-if os.path.exists('./model_train/train_process/model/model.ipynb'):
-    os.remove('./model_train/train_process/model/model.ipynb')
-
-if os.path.exists('./model_train/custom_program/operation/op_custom.ipynb'):
-    os.remove('./model_train/custom_program/operation/op_custom.ipynb')
-
 # 删除多余的接口的文件
 white_list = ['mindspore.ops.comm_note.rst', 'mindspore.mint.comm_note.rst']
 

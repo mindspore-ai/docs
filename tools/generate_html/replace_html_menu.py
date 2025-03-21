@@ -22,6 +22,46 @@ def replace_relurls(docs, old_p, new_p, re_list):
 
 # pylint: disable=C0301
 
+def modify_menu_num(html_path):
+    """左侧目录中去除多余的锚点目录"""
+    # pylint: disable=W0621
+    # pylint: disable=R1702
+    # pylint: disable=W0612
+    for root, dirs, files in os.walk(html_path):
+        for file in files:
+            if not file.endswith('.html'):
+                continue
+            with open(os.path.join(root, file), 'r', encoding='utf-8') as f:
+                h_content = f.read()
+
+            new_content = h_content
+            # 拥有子目录的文件的特殊处理
+            if file != 'index.html':
+                toctree_lev = re.findall(f'<li class="toctree-l([0-9]) current"><a class="current reference internal" href="#">.*?</a><ul>', h_content)
+                extra_re = []
+                if toctree_lev:
+                    extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n</li>\n<li class="toctree-l{toctree_lev[0]}', h_content)
+                    if not extra_re:
+                        extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n</li>\n</ul>\n</li>\n<li class="toctree-l{toctree_lev[0]}', h_content)
+                    if not extra_re:
+                        extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n</li>\n</ul>\n</li>\n</ul>\n\n', h_content)
+                    if not extra_re:
+                        extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n<p class="caption"', h_content)
+
+                if extra_re:
+                    extra_ul = '<ul>\n' + '\n'.join(re.findall('<li class="toctree-l[0-9]">.*?href="[^#].*?</li>', extra_re[0])) + '\n</ul>'
+
+                    # extra_ul = re.sub('toctree-l[0-9]', 'toctree-l2', extra_ul)
+                    new_content = h_content.replace(extra_re[0], extra_ul)
+                if toctree_lev and toctree_lev[0] != "1":
+                    new_content = re.sub('<li class="toctree-l[2-9]">.*?href="[^#].*?#.*?>.*?</li>', '', new_content)
+            new_content = re.sub(r'<ul>[\n ]+?</ul>', '', new_content)
+            if new_content != h_content:
+                with open(os.path.join(root, file), 'w', encoding='utf-8') as f:
+                    f.write(new_content)
+
+# pylint: disable=C0301
+
 # 为有index的目录生成基础大纲目录 --> dict
 def replace_html_menu(html_path, hm_ds_path):
     """替换左侧目录内容"""
