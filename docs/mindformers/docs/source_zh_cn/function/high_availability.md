@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindFormers 高可用特性提供了如下三个功能：
+MindSpore Transformers 高可用特性提供了如下三个功能：
 
 - **临终 CKPT 功能**：主要针对大模型训练过程中的故障恢复加速，该特性在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临终 CheckPoint 数据，恢复训练时能够通过该 CheckPoint 数据恢复，减少故障造成的训练迭代损失。
 - **UCE 故障容错恢复功能**：主要是针对大模型训练过程中片上内存的 UCE 故障检测，并完成在线修复，达到 Step 级重计算。
@@ -16,7 +16,7 @@ MindFormers 高可用特性提供了如下三个功能：
 
 三个功能可同时开启，也可以单独开启。组合开启这三个功能时，依次生效的顺序是：UCE故障容错恢复 -> 进程级重调度恢复 -> 临终CKPT，如果其中一个功能可以恢复，就不会执行下一个功能。临终CKPT功能作为最后的保障，完成该功能后整个训练进程会退出，所以在另外两个功能开启时会默认开启。
 
-临终CKPT保存Checkpoint文件以及通过该文件进行续训均使用现有MindFormers的能力，在使用方式上一致，只是临终CKPT依赖于strategy文件，因此在训练和续训时均需要配置该文件夹。
+临终CKPT保存Checkpoint文件以及通过该文件进行续训均使用现有MindSpore Transformers的能力，在使用方式上一致，只是临终CKPT依赖于strategy文件，因此在训练和续训时均需要配置该文件夹。
 
 当异常触发临终的 CKPT 保存时，如果未开启去冗余保存，每个数据并行域只有一张卡保存了 CKPT，其余卡不会保存 CKPT；所以在恢复训练时，同样需要使能高可用特性才能恢复，否则其他卡无法找到可用的 CKPT，会报错退出。用户可通过计算分布式保存的CKPT数量是否为小于集群数量，来判断该CKPT是否由临终CKPT功能触发。
 
@@ -42,7 +42,7 @@ export MS_TFT_PORT=30051
     - **ARF (Air Refuelling)**：进程级重调度恢复功能
     - 开启 UCE 或者 ARF 功能时，默认开启 TTP 功能
 
-- `MS_TFT_IP` 和 `MS_TFT_PORT` 分别表示 TFT Controller 的 IP 和端口号，无默认值，需要用户指定。如果由 MindFormers 启动 Controller，则配置用户集群中 rank0 节点的 IP 和端口号。如果用户自行启动 Controller，则配置 Controller 的 IP 和端口号。
+- `MS_TFT_IP` 和 `MS_TFT_PORT` 分别表示 TFT Controller 的 IP 和端口号，无默认值，需要用户指定。如果由 MindSpore Transformers 启动 Controller，则配置用户集群中 rank0 节点的 IP 和端口号。如果用户自行启动 Controller，则配置 Controller 的 IP 和端口号。
 
 ### YAML 配置
 
@@ -50,7 +50,7 @@ YAML配置包含两部分：临终CKPT的保存及恢复配置和高可用的副
 
 #### 保存及恢复配置
 
-临终的CKPT保存和恢复能力分别用于初始训练和续训，这部分复用现有的MindFormers的配置，以下分别介绍初始训练和续训的配置。
+临终的CKPT保存和恢复能力分别用于初始训练和续训，这部分复用现有的MindSpore Transformers的配置，以下分别介绍初始训练和续训的配置。
 
 - **初始训练配置**
 

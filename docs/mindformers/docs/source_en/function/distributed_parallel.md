@@ -19,9 +19,9 @@ In actual applications, different parallelism strategies apply to different scen
 
 > The parallelism strategy configuration in the YAML file provided by the repository has been optimized. Currently, you are recommended to use semi-automatic parallelism for optimal performance and stability.
 
-## Parallelism Features Supported by MindFormers
+## Parallelism Features Supported by MindSpore Transformers
 
-MindFormers supports multiple parallelism features. You can use these features to optimize the training of different model architectures and hardware configurations. The following table outlines these parallelism features and provides links to the details in the MindSpore documentation.
+MindSpore Transformers supports multiple parallelism features. You can use these features to optimize the training of different model architectures and hardware configurations. The following table outlines these parallelism features and provides links to the details in the MindSpore documentation.
 
 | **Parallelism Feature**                     | **Description**                                                                         |
 |-----------------------------------|---------------------------------------------------------------------------------|
@@ -33,7 +33,7 @@ MindFormers supports multiple parallelism features. You can use these features t
 | **[Long sequence parallelism](#long-sequence-parallelism)** | Slices all inputs and output activations by sequence to further reduce the GPU memory usage of the model for processing long sequence inputs.|
 | **[Multi-copy parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/pipeline_parallel.html#mindspore-interleaved-pipeline-scheduler)**                  | Implements fine-grained parallel control among multiple copies to optimize performance and resource utilization. This mode is suitable for efficient training of models with large specifications.                                    |
 
-For details about how to configure distributed parallel parameters, see [MindFormers Configuration Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+For details about how to configure distributed parallel parameters, see [MindSpore Transformers Configuration Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
 
 ## Introduction to Parallel Characterization
 
@@ -45,7 +45,7 @@ From generative AI to scientific models, long sequence training is becoming very
 
 Long Sequence Parallel Algorithm, Ring Attention, is a representative technique for long sequence parallelism in the current industry, which is used to solve the memory overhead problem during long sequence training, while realizing computation and communication masking. The Ring Attention algorithm utilizes the chunking property of Attention, when the sequence parallelism is N, Q, K, V are sliced into N sub-chunks, and each card calls the Flash Attention algorithm to compute the Attention result of the local QKV sub-chunks respectively. Since each card only needs to compute the Attention of the sliced QKV sub-chunks, its memory occupation is reduced significantly. Ring Attention uses ring communication to collect and send sub-chunks to neighboring cards while doing FA computation to maximize the masking of computation and communication, which guarantees the overall performance of long sequence parallelism.
 
-MindFormers has support for configuring Ring Attention sequence parallel schemes, which can be enabled with the following configuration item:
+MindSpore Transformers has support for configuring Ring Attention sequence parallel schemes, which can be enabled with the following configuration item:
 
 ```yaml
 model:
@@ -64,13 +64,13 @@ Parameter Descriptions:
 - use_ring_attention: Whether to enable Ring Attention, default is False.
 - context_parallel:  The number of sequence parallel slices, default is 1, configure according to user requirements.
 
-For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindFormers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
 
 #### Ulysses Sequence Parallelism
 
 The [Ulysses long sequence parallelism scheme](https://arxiv.org/abs/2309.14509) proposed by DeepSpeed slices the individual samples in the seq dimension to different compute cards; then, prior to the attention computation, an all-to-all communication operation is performed on the QKVs to allow each compute card to receive the complete sequence, allowing each computation card to compute different attention heads in parallel. Finally, another all-to-all is used after the ATTENTION computation to collect results on the attention head while re-slicing on the seq dimension. This scheme effectively extends the length of the trained sequences while keeping the communication relatively low.
 
-MindFormers has support for configuring the Ulysses Sequence Parallel Scheme, which can be enabled with the following configuration item:
+MindSpore Transformers has support for configuring the Ulysses Sequence Parallel Scheme, which can be enabled with the following configuration item:
 
 ```yaml
 model:
@@ -95,13 +95,13 @@ Parameter Descriptions:
 - enable_alltoall: Generate alltoall communication operator, default is False, when the parameter is not enabled, it will be replaced by a combination of other operators such as allgather. See MindSpore `set_auto_parallel_context` [interface documentation] (https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html). We expect to be able to directly input allto_all communication operators when we enable the Ulysses scenario, so we turn this configuration item on.
 - context_parallel_algo: Set to `ulysses_cp` to enable Ulysses sequence parallelism.
 
-For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindFormers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
 
 #### Hybrid Sequence Parallelism
 
 Currently, both Ulysses and Ring Attention sequence parallel schemes have certain limitations. Although Ring Attention sequence parallel scheme can theoretically expand the sequence length infinitely, the communication and computation bandwidth utilization is low, and the performance is inferior to that of Ulysses sequence parallel scheme when the sequence block size is low. The sequence parallelism of Ulysses in GQA and MQA scenarios is limited by the number of Heads and the expansion of sequence length is limited. Hybrid sequence parallelism fuses Ulysses and Ring Attention sequence parallelism scheme, which can solve the above defects.
 
-MindFormers has support for configuring hybrid sequence parallel schemes, which can be enabled with the following configuration items:
+MindSpore Transformers has support for configuring hybrid sequence parallel schemes, which can be enabled with the following configuration items:
 
 ```yaml
 parallel:
@@ -121,9 +121,9 @@ Parameter Descriptions:
 - context_parallel_algo: hybrid sequence parallelism is turned on when set to `hybird_cp`.
 - ulysses_degree_in_cp: the number of parallel slices of the Ulysses sequence.
 
-For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindFormers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
 
-## MindFormers Distributed Parallel Application Practices
+## MindSpore Transformers Distributed Parallel Application Practices
 
 In the [Llama3-70B fine-tuning configuration](https://gitee.com/kong_de_shu/mindformers/blob/dev/research/llama3/finetune_llama3_70b.yaml#) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
 

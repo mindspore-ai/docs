@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/appendix/env_variables.md)
 
-以下是 MindFormers 支持的环境变量。
+以下是 MindSpore Transformers 支持的环境变量。
 
 ## 调试变量
 

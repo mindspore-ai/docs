@@ -6,7 +6,7 @@
 
 量化（Quantization）作为一种重要的大模型压缩技术，通过对模型中的浮点参数转为低精度的整数参数，实现对参数的压缩。随着模型的参数和规格不断增大，量化在模型部署中能有效减少模型存储空间和加载时间，提高模型的推理性能。
 
-MindFormers 集成 MindSpore Golden Stick 工具组件，提供统一量化推理流程，方便用户开箱即用。
+MindSpore Transformers 集成 MindSpore Golden Stick 工具组件，提供统一量化推理流程，方便用户开箱即用。
 
 ## 配套安装
 
@@ -108,7 +108,7 @@ llama2_13b_rtn_a16w8_dir
 
 ### 下载模型权重
 
-MindFormers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过[模型权重转换](#模型权重转换)后进行使用。
+MindSpore Transformers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过[模型权重转换](#模型权重转换)后进行使用。
 
 词表下载链接：[tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
 
@@ -138,7 +138,7 @@ cp output/rtn-a16w8_ckpt/rank_0/rtn-a16w8.ckpt /data/tutorial/llama2_13b_rtn_a16
 
 ### 量化配置文件准备
 
-MindFormers已提供[predict_llama2_13b_rtn.yaml配置文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_rtn.yaml)，将其拷贝至`llama2_13b_rtn_a16w8_dir`目录中。
+MindSpore Transformers已提供[predict_llama2_13b_rtn.yaml配置文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_rtn.yaml)，将其拷贝至`llama2_13b_rtn_a16w8_dir`目录中。
 
 ```shell
 cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w8_dir
@@ -148,7 +148,7 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
 1. **脚本实例**
 
-   替换MindFormers下的[run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/dev/scripts/examples/llama2/run_llama2_generate.py)脚本为以下代码。
+   替换MindSpore Transformers下的[run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/dev/scripts/examples/llama2/run_llama2_generate.py)脚本为以下代码。
 
    此实践基于`AutoModel.from_pretrained()`接口实例化量化模型，需调整该接口内的参数为之前创建的目录路径。
 
@@ -238,7 +238,7 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
 2. **执行脚本启动命令**
 
-   MindFormers提供`Llama2`模型的快速推理脚本，支持单卡、多卡以及多batch推理。
+   MindSpore Transformers提供`Llama2`模型的快速推理脚本，支持单卡、多卡以及多batch推理。
 
    ```shell
    # 脚本使用

@@ -19,9 +19,9 @@ MindSpore 的并行模式包括数据并行、模型并行、流水线并行、�
 
 > 仓库中提供的 YAML 文件中并行策略配置已经优化，当前推荐用户使用半自动并行，以确保最佳性能和稳定性。
 
-## MindFormers 支持的并行特性
+## MindSpore Transformers 支持的并行特性
 
-MindFormers 支持多种并行特性，开发者可以利用这些特性来优化不同模型架构和硬件配置的训练。以下表格概述了这些并行特性，并提供了指向 MindSpore 文档中详细说明的链接。
+MindSpore Transformers 支持多种并行特性，开发者可以利用这些特性来优化不同模型架构和硬件配置的训练。以下表格概述了这些并行特性，并提供了指向 MindSpore 文档中详细说明的链接。
 
 | **并行特性**                      | **描述**                                                                          |
 |-----------------------------------|---------------------------------------------------------------------------------|
@@ -33,7 +33,7 @@ MindFormers 支持多种并行特性，开发者可以利用这些特性来优�
 | **[长序列并行](#长序列并行)**  | 设计用于处理长序列输入的模型，对所有的input输入和所有的输出activation在sequence维度上进行切分，对于超长序列输入场景进一步减少显存占用。 |
 | **[多副本并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html#mindspore%E4%B8%AD%E7%9A%84interleaved-pipeline%E8%B0%83%E5%BA%A6)**                   | 用于在多个副本之间实现精细的并行控制，优化性能和资源利用率，适合大规格模型的高效训练。                                     |
 
-关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
 
 ## 并行特性介绍
 
@@ -45,7 +45,7 @@ MindFormers 支持多种并行特性，开发者可以利用这些特性来优�
 
 长序列并行算法 Ring Attention 是当前业界长序列并行的代表性技术，用于解决长序列训练时的内存开销问题，同时实现计算与通信掩盖。Ring Attention 算法利用 Attention 的分块计算性质，当序列并行度为 N 时，将 Q，K，V 分别切分为 N 个子块，每张卡分别调用 Flash Attention 算子来计算本地 QKV 子块的 Attention 结果。由于每张卡只需要计算切分后 QKV 子块的 Attention，其内存占用大幅降低。Ring Attention 在做 FA 计算的同时采用环形通信向相邻卡收集和发送子块，实现计算与通信的最大化掩盖，保障了长序列并行的整体性能。
 
-MindFormers已支持配置Ring Attention序列并行方案，可通过以下配置项使能：
+MindSpore Transformers已支持配置Ring Attention序列并行方案，可通过以下配置项使能：
 
 ```yaml
 model:
@@ -64,13 +64,13 @@ parallel_config:
 - use_ring_attention：是否开启Ring Attention，默认为False。
 - context_parallel：序列并行切分数量，默认为1，根据用户需求配置。
 
-关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
 
 #### Ulysses序列并行
 
 DeepSpeed提出的[Ulysses长序列并行方案](https://arxiv.org/abs/2309.14509)，将各个样本在seq维度切分给不同的计算卡；然后，在attention计算之前，对QKV执行all-to-all通信操作，以使每个计算卡接收完整的序列，使得各计算卡可以并行计算不同的注意力头；最后，在attention计算后使用另一个all-to-all来在注意力头上收集结果，同时重新在seq维度上进行切分。该方案可以有效扩展训练的序列长度，同时保持相对较低的通信量。
 
-MindFormers已支持配置Ulysses序列并行方案，可通过以下配置项使能：
+MindSpore Transformers已支持配置Ulysses序列并行方案，可通过以下配置项使能：
 
 ```yaml
 model:
@@ -95,13 +95,13 @@ parallel_config:
 - enable_alltoall：生成alltoall通信算子，默认为False，不启用时将会由allgather等其他算子组合完成等价替代，可参考MindSpore `set_auto_parallel_context`[接口文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html)；启用Ulysses方案时我们期望能够直接插入alltoall通信算子，因此将该配置项打开。
 - context_parallel_algo：设置为`ulysses_cp`开启Ulysses序列并行。
 
-关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
 
 #### 混合序列并行
 
 目前Ulysses和Ring Attention序列并行方案均存在一定局限性，Ring Attention序列并行方案虽然理论上序列长度能够无限拓展，但通信和计算带宽利用率较低，在序列块大小较低时性能劣于Ulysses序列并行方案。而Ulysses在GQA、MQA场景下的序列并行受Head数量限制，序列长度的扩展有限。混合序列并行融合了Ulysses和Ring Attention序列并行方案，可以解决上述缺陷。
 
-MindFormers已支持配置混合序列并行方案，可通过以下配置项使能：
+MindSpore Transformers已支持配置混合序列并行方案，可通过以下配置项使能：
 
 ```yaml
 parallel:
@@ -121,9 +121,9 @@ parallel_config:
 - context_parallel_algo：设置为`hybird_cp`时开启混合序列并行。
 - ulysses_degree_in_cp：Ulysses序列并行切分数量。
 
-关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
 
-## MindFormers 分布式并行应用实践
+## MindSpore Transformers 分布式并行应用实践
 
 在官网提供的[Llama3-70B微调配置](https://gitee.com/kong_de_shu/mindformers/blob/dev/research/llama3/finetune_llama3_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
 

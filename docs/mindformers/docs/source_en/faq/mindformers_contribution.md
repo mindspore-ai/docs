@@ -1,20 +1,20 @@
-# MindFormers Contribution Guidelines
+# MindSpore Transformers Contribution Guidelines
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/faq/mindformers_contribution.md)
 
-## Contributing Code to MindFormers
+## Contributing Code to MindSpore Transformers
 
 ### Code Style Requirements
 
-Please follow this style for MindFormers review, maintenance and development.
+Please follow this style for MindSpore Transformers review, maintenance and development.
 
 - Coding Guide
 
-  The MindFormers community uses the `Python PEP 8` coding style. It is recommended to install the following plugins in your IDE to check code format: `Lizard`, `ShellCheck` and `PyLint`.
+  The MindSpore Transformers community uses the `Python PEP 8` coding style. It is recommended to install the following plugins in your IDE to check code format: `Lizard`, `ShellCheck` and `PyLint`.
 
 - Unit Testing Guide
 
-  The MindFormers community uses the Python unit testing framework pytest. Annotation names need to reflect the design intent of the test case.
+  The MindSpore Transformers community uses the Python unit testing framework pytest. Annotation names need to reflect the design intent of the test case.
 
 - Reconstruction Guide
 
@@ -30,9 +30,9 @@ Please follow this style for MindFormers review, maintenance and development.
 
 ### Fork-Pull Development Model Guide
 
-- Fork MindFormers code repository
+- Fork MindSpore Transformers code repository
 
-  Before submitting code to the MindFormers project, please make sure that you have forked this project to your own code repository. There may be parallel development between the MindFormers code repository and your own code repository, so please be aware of the consistency between them.
+  Before submitting code to the MindSpore Transformers project, please make sure that you have forked this project to your own code repository. There may be parallel development between the MindSpore Transformers code repository and your own code repository, so please be aware of the consistency between them.
 
 - Clone remote code repository
 
@@ -51,9 +51,9 @@ Please follow this style for MindFormers review, maintenance and development.
   git checkout -b {new branch name} origin/dev
   ```
 
-- Submit PR to MindFormers code repository
+- Submit PR to MindSpore Transformers code repository
 
-  In the last step, you need to pull a compare request between the new branch and the `MindFormers` master branch. After completing the pull request, `Jenkins CI` will be automatically set up for build testing. PR should be merged into the upstream dev branch as soon as possible to minimize the risk of merging.
+  In the last step, you need to pull a compare request between the new branch and the `MindSpore Transformers` master branch. After completing the pull request, `Jenkins CI` will be automatically set up for build testing. PR should be merged into the upstream dev branch as soon as possible to minimize the risk of merging.
 
   ```shell
   # Add all changes to the staging area
@@ -75,7 +75,7 @@ Please follow this style for MindFormers review, maintenance and development.
 
 ### Documentation and Code Format
 
-If you wish to merge custom models into the `MindFormers` code repository, there are a few things to keep in mind:
+If you wish to merge custom models into the `MindSpore Transformers` code repository, there are a few things to keep in mind:
 
 1. The file format and location should follow the norms.
 2. Register the new model in the code to adapt it for higher-order interface use.

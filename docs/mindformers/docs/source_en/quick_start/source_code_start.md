@@ -2,11 +2,11 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/quick_start/source_code_start.md)
 
-This section shows how to use MindFormers to quickly pull up a LoRA low-parameter fine-tuning task based on the Llama2-7B model. To use other models and tasks via MindFormers, please read the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+This section shows how to use MindSpore Transformers to quickly pull up a LoRA low-parameter fine-tuning task based on the Llama2-7B model. To use other models and tasks via MindSpore Transformers, please read the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
 
 ## Preparing Weights File
 
-MindFormers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the `Llama2` documentation and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
+MindSpore Transformers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the `Llama2` documentation and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
 
 | Model Name | MindSpore Weights | HuggingFace Weights |
 | ------ | ------ | ------ |
@@ -26,7 +26,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 3. Data Preprocessing
 
-    The following command needs to be executed in the MindFormers root directory, and replaces {path} with the local path below.
+    The following command needs to be executed in the MindSpore Transformers code root directory, and replaces {path} with the local path below.
 
     1. Execute [mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py), and use the fastchat tool to add prompt templates to convert the raw dataset into a multi-round conversation format.
 
@@ -73,7 +73,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 ## Initiating Fine-tuning
 
-In the MindFormers root directory, use the `run_mindformer.py` unified script to pull up tasks:
+In the MindSpore Transformers code root directory, use the `run_mindformer.py` unified script to pull up tasks:
 
 - Specify the `config` path `configs/llama2/lora_llama2_7b.yaml` via `--config`.
 - Specify dataset path `/{path}/alpaca-fastchat4096.mindrecord` via `-train_dataset_dir`.

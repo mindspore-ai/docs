@@ -10,7 +10,7 @@
 
 业界的量化算法分为两类：量化感知训练和训练后量化。MindSpore Lite支持训练后量化。
 
-MindSpore Lite训练后量当前支持三种具体算法，规格如下：
+MindSpore Lite训练后量化当前支持三种具体算法，规格如下：
 
 | 算法类型 | 对权重量化 | 对激活量化 | 模型大小压缩效果 | 推理加速效果 | 精度损失效果 |
 | -------- | ---------- | ---------- | ---------------- | ------------ | ------------ |
@@ -112,9 +112,9 @@ provider=ge
 
 针对CV模型需要提升模型运行速度、降低模型运行功耗的场景，可以使用训练后全量化功能。下面对全量化的使用方式和效果进行阐述。
 
-全量化计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100 - 500个左右，**且校准数据集需处理成`NHWC`的Format**。
+全量化计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100 - 500个左右，**且校准数据集需处理成`NHWC`的格式**。
 
-针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html#数据预处理)。
+针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86%E5%8F%82%E6%95%B0)。
 
 用户配置全量化至少需要配置`[common_quant_param]`、`[data_preprocess_param]`、`[full_quant_param]`。
 
@@ -227,13 +227,13 @@ Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/
 
 **Ascend全量化静态Shape参数配置**
 
-- Ascend相关环境变量Ascend全量化静态Shape场景下转换命令的一般形式为：
+- Ascend相关环境变量在Ascend全量化静态Shape场景下转换命令的一般形式为：
 
     ```bash
     ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
     ```
 
-- Ascend全量化参数静态shape场景，只需在`[full_quant_param]`新增配置`target_device=ASCEND`。
+- 静态shape场景下，Ascend全量化参数只需在`[full_quant_param]`新增配置`target_device=ASCEND`。
 
     ```ini
     [full_quant_param]
@@ -554,7 +554,7 @@ skip_quant_node=conv2d_1,add_8,concat_1
 | [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz) | [ImageNet](http://image-net.org/) | 70.96%       | 70.56%               |
 | [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | 71.56%       | 71.53%               |
 
- 以上所有结果均在x86环境上测得。
+以上所有结果均在x86环境上测得。
 
 ### 全量化
 
@@ -564,7 +564,7 @@ skip_quant_node=conv2d_1,add_8,concat_1
 | [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz) | [ImageNet](http://image-net.org/) | KL       | 70.96%       | 70.31%             | 校准数据集随机选择ImageNet Validation数据集中的100张 |
 | [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | MAX_MIN  | 71.56%       | 71.16%             | 校准数据集随机选择ImageNet Validation数据集中的100张 |
 
- 以上所有结果均在x86环境、CPU硬件后端上测得。
+以上所有结果均在x86环境、CPU硬件后端上测得。
 
 ### 动态量化
 
@@ -588,5 +588,4 @@ skip_quant_node=conv2d_1,add_8,concat_1
   | Weight Quant(8 Bit) | FP16          | 12            | 32,285     | 2.307       | 0.99998        | 3.58333     | -37.13%      | -44.56%      |
   | **Dynamic Quant**   | **INT8+FP32** | **12**        | **22,181** | **2.074**   | **0.9993**     | **3.58333** | **-56.81%**  | **-50.16%**  |
 
- 以上所有结果均在x86环境上测得。
-
+  以上所有结果均在x86环境上测得。

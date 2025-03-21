@@ -6,7 +6,7 @@
 
 Quantization is an important technology for compressing foundation models. It converts floating-point parameters in a model into low-precision integer parameters to compress the parameters. As the parameters and specifications of a model increase, quantization can effectively reduce the model storage space and loading time during model deployment, improving the model inference performance.
 
-MindFormers integrates the MindSpore Golden Stick tool component to provide a unified quantization inference process, facilitating out-of-the-box use.
+MindSpore Transformers integrates the MindSpore Golden Stick tool component to provide a unified quantization inference process, facilitating out-of-the-box use.
 
 ## Auxiliary Installation
 
@@ -47,7 +47,7 @@ Based on actual operations, quantization may be decomposed into the following st
    Run the conversion script `quant_ckpt.py` in the mindspore_gs library to convert the original weight in step 2 to the quantization weight.
 
 4. **Preparing the quantization configuration file:**
-   Use the built-in quantization inference configuration file of MindFormers that matches the model. The quantization-related configuration item is `model.model_config.quantization_config`.
+   Use the built-in quantization inference configuration file of MindSpore Transformers that matches the model. The quantization-related configuration item is `model.model_config.quantization_config`.
 
    The following uses the `llama2_13b_rtn` quantization model as an example. The default quantization configuration is as follows:
 
@@ -108,7 +108,7 @@ llama2_13b_rtn_a16w8_dir
 
 ### Downloading the Model Weights
 
-MindFormers provides pretrained weights and vocabulary files that have been converted for pretraining, fine-tuning, and inference. You can also download the official HuggingFace weights and perform the operations in [Converting Model Weights](#converting-model-weights) before using these weights.
+MindSpore Transformers provides pretrained weights and vocabulary files that have been converted for pretraining, fine-tuning, and inference. You can also download the official HuggingFace weights and perform the operations in [Converting Model Weights](#converting-model-weights) before using these weights.
 
 You can download the vocabulary at [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model).
 
@@ -138,7 +138,7 @@ cp output/rtn-a16w8_ckpt/rank_0/rtn-a16w8.ckpt /data/tutorial/llama2_13b_rtn_a16
 
 ### Preparing the Quantization Configuration File
 
-The configuration file [predict_llama2_13b_rtn.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_rtn.yaml) is provided in MindFormers. You need to copy it to the `llama2_13b_rtn_a16w8_dir` directory.
+The configuration file [predict_llama2_13b_rtn.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_rtn.yaml) is provided in MindSpore Transformers. You need to copy it to the `llama2_13b_rtn_a16w8_dir` directory.
 
 ```shell
 cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w8_dir
@@ -148,7 +148,7 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
 1. **Script instances**
 
-   Replace the [run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/dev/scripts/examples/llama2/run_llama2_generate.py) script in MindFormers with the following code.
+   Replace the [run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/dev/scripts/examples/llama2/run_llama2_generate.py) script in MindSpore Transformers with the following code.
 
    In this practice, the quantization model is instantiated based on the `AutoModel.from_pretrained()` API. You need to modify the parameters in the API to the created directory.
 
@@ -238,7 +238,7 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
 2. **Startup script**
 
-   MindFormers provides a quick inference script for the `Llama2` model, supporting single-device, multi-device, and multi-batch inferences.
+   MindSpore Transformers provides a quick inference script for the `Llama2` model, supporting single-device, multi-device, and multi-batch inferences.
 
    ```shell
    # Script usage

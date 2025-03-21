@@ -4,20 +4,315 @@
 
 ## Overview
 
-Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance. In MindSpore Lite, this function is integrated into the model conversion tool `converter_lite`. The quantized model can be transformed by configuring a `quantization profile`.
+Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance. In MindSpore Lite, this can be achieved by using the model conversion tool `converter_lite`, which configures the `quantization profile` and then converts the quantized model.
 
-MindSpore Lite quantization after training is classified into two types:
+## Quantization Algorithm
 
-1. Weight quantization: quantizes a weight of a model and compresses only the model size. `float32` inference is still performed during inference.
-2. Full quantization: quantizes the weight and activation value of a model. The `int` operation is performed during inference to improve the model inference speed and reduce power consumption.
+There are two kinds of quantization algorithms: quantization-aware training and post-training quantization. MindSpore Lite supports post-training quantization.
+
+MindSpore Lite post-training quantization currently supports three specific algorithms with the following specifications:
+
+| Algorithm Types | Quantification of Weights | Quantification of Activation |  Compression Effect of Model Size | Inference Acceleration Effect | Precision Loss Effect |
+| -------- | ---------- | ---------- | ---------------- | ------------ | ------------ |
+| weight quantification | Y         | N         | Excellent               | Average         | Excellent           |
+| full quantization   | Y         | Y         | Excellent               | Good           | Average         |
+| dynamic quantification | Y         | Y         | Excellent               | Good         | Good         |
+
+### Weight Quantization
+
+Weight quantization supports mixed bit quantization, as well as fixed bit quantization between 1 and 16 and ON_THE_FLY quantization. The lower the number of bits, the greater the model compression rate, but the loss of accuracy is usually also great. The following describes the use and effect of weighted quantization.
+
+#### Mixed Bit Quantization
+
+Mixed bit quantization automatically searches for the most appropriate number of bits for the current layer based on the distribution of model parameters, using the user-set `init_scale` as the initial value. Mixed bit quantization will be enabled when `bit_num` of the configuration parameter is set to 0.
+
+The general form of the mixed bit weights quantization conversion command is:
+
+```bash
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
+```
+
+The mixed bit weights quantization configuration profile is shown below:
+
+```ini
+[common_quant_param]
+# Supports WEIGHT_QUANT or FULL_QUANT
+quant_type=WEIGHT_QUANT
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization supports 8bit
+bit_num=0
+# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
+min_quant_weight_size=5000
+# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
+min_quant_weight_channel=5
+
+[mixed_bit_weight_quant_param]
+# Initialization scale in (0,1).
+# A larger value can get a larger compression ratio, but it may also cause a larger error.
+init_scale=0.02
+```
+
+Users can adjust the parameters of weight quantization according to the model and their needs.
+> The default initial value of init_scale is 0.02, which searches for a compression rate comparable to that of 6-7 fixed bits.
+>
+> Mixed bits need to search for the best bits, the waiting time may be long, if you need to view the log, you can set export GLOG_v=1 before execution for printing the related Info level log.
+
+#### Fixed Bit Quantization
+
+Fixed bit weight quantization supports fixed bit quantization between 1 and 16, and users can adjust the parameters of weight quantization according to the model and their own needs.
+
+The general form of the mixed bit weights quantization conversion command is:
+
+```bash
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
+```
+
+The fixed bit weights quantization configuration profile is shown below:
+
+```ini
+[common_quant_param]
+quant_type=WEIGHT_QUANT
+# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+bit_num=8
+# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
+min_quant_weight_size=0
+# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
+min_quant_weight_channel=16
+```
+
+#### ON_THE_FLY Quantization
+
+Ascend ON_THE_FLY quantization indicates runtime weight inverse quantization. Only Ascend inference is supported at this stage.
+
+Ascend ON_THE_FLY quantization also requires a new `[ascend_context]` related configuration, the Ascend ON_THE_FLY quantization configuration file is shown below:
+
+```ini
+[common_quant_param]
+quant_type=WEIGHT_QUANT
+# Weight quantization supports the number of bits (0,16]
+bit_num=8
+# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
+min_quant_weight_size=5000
+# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
+min_quant_weight_channel=5
+
+[weight_quant_param]
+dequant_strategy=ON_THE_FLY
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=True
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=False
+
+[ascend_context]
+# The converted model is suitable for Ascend GE processes
+provider=ge
+```
+
+### Full Quantization
+
+For the scenarios where the CV model needs to improve the model running speed and reduce the power consumption of the model running, the post-training full quantization can be used. The following describes the use and effect of full quantization.
+
+To fully quantize the quantization parameters for calculating the activation values, the user needs to provide a calibration dataset. The calibration dataset should preferably come from real inference scenarios that characterize the actual inputs to the model, in the order of 100 - 500, **and the calibration dataset needs to be processed into `NHWC` format**.
+
+For image data, it currently supports the functions of channel adjustment, normalization, scaling, cropping and other preprocessing. The user can set the appropriate [parameters](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html#data-preprocessing-parameters) according to the preprocessing operation required for inference.
+
+User configuration of full quantization requires at least `[common_quant_param]`, `[data_preprocess_param]`, and `[full_quant_param]`.
+
+> The model calibration data must be co-distributed with the training data, and the Format of the calibration data and that of the inputs of the exported floating-point model need to be consistent.
+
+The general form of the full quantization conversion command is:
+
+```bash
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg
+```
+
+#### CPU
+
+The complete configuration file of full CPU quantization is shown below:
+
+```ini
+[common_quant_param]
+quant_type=FULL_QUANT
+# Full quantization supports 8bit
+bit_num=8
+
+[data_preprocess_param]
+# Calibration dataset path, the format is input_name_1:input_1_dir,input_name_2:input_2_dir
+# Full quantification must provide correction dataset
+calibrate_path=input_name_1:/mnt/image/input_1_dir,input_name_2:input_2_dir
+# Calibration data size
+calibrate_size=100
+# Input type supports IMAGE or BIN
+# When set to IMAGE, the image data will be read
+# When set to BIN, the `.bin` binary file will be read
+input_type=IMAGE
+# The output format of the preprocessed image
+# Supports RGB or GRAY or BGR
+image_to_format=RGB
+# Image normalization
+# dst = (src - mean) / std
+normalize_mean=[127.5, 127.5, 127.5]
+normalize_std=[127.5, 127.5, 127.5]
+# Image resize
+resize_width=224
+resize_height=224
+# Resize method supports LINEAR or NEAREST or CUBIC
+resize_method=LINEAR
+# Image center crop
+center_crop_width=224
+center_crop_height=224
+
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+```
+
+> Full quantization requires the execution of inference, the waiting time may be long, if you need to view the log, you can set export GLOG_v=1 before execution for printing the related Info level log.
+
+The full quantization (weighted PerChannel quantization method) parameter `[full_quant_param]` is configured as shown below:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# Enable PerChannel quantization.
+per_channel=true
+```
+
+The full quantization (weighted PerLayer quantization method) parameter `[full_quant_param]` is configured as shown below:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# Enable PerLayer quantization.
+per_channel=false
+```
+
+#### NVIDIA GPU
+
+NVIDIA GPU full quantization parameter configuration, just add a new configuration `target_device=NVGPU` to `[full_quant_param]`:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Supports specific hardware backends
+target_device=NVGPU
+```
+
+#### DSP
+
+DSP full quantization parameter configuration, just add a new configuration `target_device=DSP` to `[full_quant_param]`:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error.
+bias_correction=false
+# Supports specific hardware backends
+target_device=DSP
+```
+
+#### Ascend
+
+Ascend quantization needs to configure Ascend-related configuration at [offline conversion](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html#description-of-parameters) first, i.e. `optimize` needs to be set to `ascend_oriented`, and then configure Ascend related environment variables during conversion.
+
+**Ascend Fully Quantized Static Shape Parameter Configuration**
+
+- The general form of the conversion command for Ascend-related environment variables in the Ascend fully quantized static shape scenario is:
+
+    ```bash
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
+    ```
+
+- In static shape scenario, Ascend fully quantized parameter just adds a new configuration `target_device=ASCEND` to `[full_quant_param]`.
+
+    ```ini
+    [full_quant_param]
+    # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+    activation_quant_method=MAX_MIN
+    # Whether to correct the quantization error.
+    bias_correction=true
+    # Supports specific hardware backends
+    target_device=ASCEND
+    ```
+
+**Ascend full quantization supports dynamic Shape parameters**. The conversion command needs to set the same inputShape of the calibration dataset, which can be found in [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html#description-of-parameters).
+
+- The general form of the conversion command in the Ascend fully quantized static shape scenario is:
+
+    ```bash
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
+    ```
+
+- Ascend fully quantized parameter dynamic shape scenarios also needs to add new `[ascend_context]` related configurations.
+
+    ```ini
+    [full_quant_param]
+    # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+    activation_quant_method=MAX_MIN
+    # Whether to correct the quantization error.
+    bias_correction=true
+    # Supports specific hardware backends
+    target_device=ASCEND
+
+    [ascend_context]
+    input_shape=input_1:[-1,32,32,4]
+    dynamic_dims=[1~4],[8],[16]
+
+    # 其中，input_shape中的"-1"表示设置动态batch
+    ```
+
+### Dynamic Quantization
+
+For the scenarios where the NLP model needs to improve the model running speed and reduce the model running power consumption, the dynamic quantization function can be used. The use and effect of dynamic quantization are described below.
+
+The weights for dynamic quantization are quantified in the offline conversion phase, whereas activation is quantified only in the runtime phase.
+
+The general form of the dynamic quantization conversion command is:
+
+```bash
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/dynamic_quant.cfg
+```
+
+The dynamic quantization profile is shown below:
+
+```ini
+[common_quant_param]
+quant_type=DYNAMIC_QUANT
+bit_num=8
+
+[dynamic_quant_param]
+# If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
+quant_strategy=ACWL
+```
+
+> In order to ensure quantization accuracy, dynamic quantization currently does not support setting the operation mode of the FP16.
+>
+> Currently dynamic quantization will be further accelerated in ARM architectures that support SDOT instructions.
 
 ## Configuration Parameter
 
-Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `fixed bit weight quantization parameter [weight_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, `data preprocess parameter [data_preprocess_param]` and `dynamic quantization parameter [dynamic_quant_param]`.
+Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). The configuration file adopts the style of [`INI`](https://en.wikipedia.org/wiki/INI_file), For quantization, configurable parameters include:
+
+- `[common_quant_param]: Public quantization parameters`
+- `[weight_quant_param]: Fixed bit weight parameters`
+- `[mixed_bit_weight_quant_param]: Mixed bit weight parameters`
+- `[full_quant_param]: Full quantization parameters`
+- `[data_preprocess_param]: Data preprocessing parameters`
+- `[dynamic_quant_param]: Dynamic quantization parameters`
 
 ### Common Quantization Parameter
 
-common quantization parameters are the basic settings for post training quantization, mainly including `quant_type`, `bit_num`, `min_quant_weight_size`, and `min_quant_weight_channel`. The detailed description of the parameters is as follows:
+common quantization parameters are the basic settings for post training quantization. The detailed description of the parameters is as follows:
 
 | Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                 |
 | -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
@@ -56,7 +351,7 @@ enable_encode = true
 
 ### Fixed Bit Weight Quantization Parameters
 
-The fixed bit weight quantization parameters include `dequant_strategy`, `per_channel`, `bias_correction`. The detailed description of the parameters is as follows:
+The detailed description of the fixed bit weight quantization parameters is as follows:
 
 | Parameter  | Attribute | Function Description                                | Parameter Type | Default Value | Value Range                                                                                             |
 |------------------|----|-----------------------------------------------------|---------|------|---------------------------------------------------------------------------------------------------------|
@@ -75,7 +370,7 @@ bias_correction=False
 
 ### Mixed Bit Weight Quantization Parameter
 
-The mixed bit weight quantization parameters include `init_scale`. When enable the mixed bit weight quantization, the optimal number of bits will be automatically searched for different layers. The detailed description of the parameters is as follows:
+When enable the mixed bit weight quantization, the optimal number of bits will be automatically searched for different layers. The detailed description of the parameters is as follows:
 
 | Parameter  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range |
 | ---------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------- |
@@ -92,7 +387,7 @@ auto_tune=false
 
 ### Full Quantization Parameters
 
-The full quantization parameters mainly include `activation_quant_method`, `bias_correction` and `target_device`. The detailed description of the parameters is as follows:
+The detailed description of the full quantization parameters is as follows:
 
 | Parameter               | Attribute | Function Description                                | Parameter Type | Default Value | Value Range                                                  |
 | ----------------------- | --------- | --------------------------------------------------- | -------------- | ------------- | ------------------------------------------------------------ |
@@ -155,7 +450,7 @@ center_crop_height=224
 
 ### Dynamic Quantization Parameters
 
-The dynamic quantization parameter `quant_strategy` sets the dynamic quantizaiton strategy. The detailed description of the parameter is as follows:
+The detailed description of the dynamic quantization parameter is as follows:
 
 | Parameter  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range |
 | ---------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------- |
@@ -169,392 +464,68 @@ The dynamic quantization parameter configuration is as follows:：
 quant_strategy=ACWL
 ```
 
-## Weight Quantization
+## Quantization Debugging
 
-Weight quantization supports mixed bit quantization, as well as fixed bit quantization between 1 and 16. The lower the number of bits, the greater the model compression rate, but the accuracy loss is usually larger. The following describes how to use weight quantization and its effects.
+Turning on the quantization debugging function enables you to get a statistical report of the data distribution, which can be used to assess the quantization error and assist in deciding whether the model (operator) is suitable for quantization. For full quantization, N data distribution statistics reports will be generated based on the number of corrected datasets provided, i.e., one report will be generated for each round; for weighted quantization, only 1 data distribution statistics report will be generated.
 
-### Mixed Bit Weight Quantization
-
-Currently, weight quantization supports mixed bit quantization. According to the distribution of model parameters and the initial value of `init_scale` set by the user, the number of bits that is most suitable for the current layer will be automatically searched out. When the `bit_num` of the configuration parameter is set to 0, mixed bit quantization will be enabled.
-
-The general form of the mixed bit weight requantization command is:
-
-```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
-```
-
-The mixed bit weight quantification configuration file is as follows:
-
-```ini
-[common_quant_param]
-# Supports WEIGHT_QUANT or FULL_QUANT
-quant_type=WEIGHT_QUANT
-# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization supports 8bit
-bit_num=0
-# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
-min_quant_weight_size=5000
-# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
-min_quant_weight_channel=5
-
-[mixed_bit_weight_quant_param]
-# Initialization scale in (0,1).
-# A larger value can get a larger compression ratio, but it may also cause a larger error.
-init_scale=0.02
-```
-
-Users can adjust the weighted parameters according to the model and their own needs.
-
-> The init_scale default value is 0.02, and the compression rate is equivalent to the compression effect of 6-7 fixed bits quantization.
->
-> Mixed bits need to search for the best bit, and the waiting time may be longer. If you need to view the log, you can set export GLOG_v=1 before the execution to print the relevant Info level log.
-
-### Fixed Bit Weight Quantization
-
-Fixed-bit weighting supports fixed-bit quantization between 1 and 16, and users can adjust the weighting parameters according to the requirement.
-
-The general form of the fixed bit weight quantization conversion command is:
-
-```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
-```
-
-The fixed bit weight quantization configuration file is as follows:
-
-```ini
-[common_quant_param]
-quant_type=WEIGHT_QUANT
-# Weight quantization supports the number of bits [0,16]. Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-bit_num=8
-# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
-min_quant_weight_size=0
-# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
-min_quant_weight_channel=16
-```
-
-### Ascend ON_THE_FLY Quantization
-
-Ascend ON_THE_FLY quantization means runtime weight dequantization. At this stage, only the MINDIR model is supported.
-
-We must add configuration about `[ascend_context]` for Ascend ON_THE_FLY quantification as follow:
-
-```ini
-[common_quant_param]
-quant_type=WEIGHT_QUANT
-# Weight quantization supports the number of bits (0,16]
-bit_num=8
-# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
-min_quant_weight_size=5000
-# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
-min_quant_weight_channel=5
-
-[weight_quant_param]
-dequant_strategy=ON_THE_FLY
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=True
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=False
-
-[ascend_context]
-# The converted model is suitable for Ascend GE processes
-provider=ge
-```
-
-### Partial Model Accuracy Result
-
-| Model | Test Dataset | FP32 Model Accuracy | Weight Quantization Accuracy (8 bits) |
-| --------            | -------              | -----            | -----     |
-| [Inception_V3](https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz) | [ImageNet](http://image-net.org/) |  77.60%   |   77.53%  |
-| [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz)      | [ImageNet](http://image-net.org/) |  70.96%  |  70.56% |
-| [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz)      | [ImageNet](http://image-net.org/) | 71.56%  |  71.53%  |
-
-> All the preceding results are obtained in the x86 environment.
-
-## Full Quantization
-
-In CV scenarios where the model running speed needs to be improved and the model running power consumption needs to be reduced, the full quantization after training can be used. The following describes how to use full quantization and its effects.
-
-To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100 - 500, **and the calibration dataset needs to be processed into the Format of `NHWC`**.
-
-For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html#data-preprocessing) according to the preprocessing operation requirements.
-
-Full quantization config's info must include `[common_quant_param]`, `[data_preprocess_param]`, `[full_quant_param]`.
-
-Note:
-
-- The model calibration data must be co-distributed with the training data, and the Format of the calibration data and the inputs of the exported floating-point model need to be consistent.
-
-The general form of the full quantization conversion command is:
-
-```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg
-```
-
-### CPU
-
-The full CPU quantization complete configuration file is shown below:
-
-```ini
-[common_quant_param]
-quant_type=FULL_QUANT
-# Full quantization supports 8bit
-bit_num=8
-
-[data_preprocess_param]
-# Calibration dataset path, the format is input_name_1:input_1_dir,input_name_2:input_2_dir
-# Full quantification must provide correction dataset
-calibrate_path=input_name_1:/mnt/image/input_1_dir,input_name_2:input_2_dir
-# Calibration data size
-calibrate_size=100
-# Input type supports IMAGE or BIN
-# When set to IMAGE, the image data will be read
-# When set to BIN, the `.bin` binary file will be read
-input_type=IMAGE
-# The output format of the preprocessed image
-# Supports RGB or GRAY or BGR
-image_to_format=RGB
-# Image normalization
-# dst = (src - mean) / std
-normalize_mean=[127.5, 127.5, 127.5]
-normalize_std=[127.5, 127.5, 127.5]
-# Image resize
-resize_width=224
-resize_height=224
-# Resize method supports LINEAR or NEAREST or CUBIC
-resize_method=LINEAR
-# Image center crop
-center_crop_width=224
-center_crop_height=224
-
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-```
-
-> Full quantization requires the execution of inference, and the waiting time may be long. If you need to view the log, you can set export GLOG_v=1 before execution for printing the related Info level log.
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=true
-```
-
-The full quantization parameter (PerLayer quantization type) `[full_quant_param]` configuration is as follows:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=false
-```
-
-Partial Model Accuracy Result
-
-| Model                                                        | Test Dataset                      | quant_method | FP32 Model Accuracy | Full Quantization Accuracy (8 bits) | Description                                                  |
-| --------            | -------      | -----          | -----            | -----     | -----  |
-| [Inception_V3](https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz) | [ImageNet](http://image-net.org/) | KL       | 77.60%              | 77.40%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
-| [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz) | [ImageNet](http://image-net.org/) | KL       | 70.96%              | 70.31%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
-| [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | MAX_MIN  | 71.56%              | 71.16%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
-
-> All the preceding results are obtained in the x86 environment.
-
-### NVDIA
-
-NVIDIA GPU full quantization parameter configuration. Just add a new configuration `target_device=NVGPU` to `[full_quant_param]`:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Supports specific hardware backends
-target_device=NVGPU
-```
-
-### DSP
-
-DSP full quantization parameter configuration only need add `target_device=DSP` to `[full_quant_param]`, and the command is as follows:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error.
-bias_correction=false
-# Supports specific hardware backends
-target_device=DSP
-```
-
-### Ascend
-
-Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html#description-of-parameters) and we also need to set environment for Ascend.
-
-Ascend quantization static shape parameter configuration
-
-- In the static shape scenario, the general form of the conversion command for Ascend quantization as follow:
-
-    ```bash
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
-    ```
-
-- Ascend static shape quantizion only need add `target_device=ASCEND` to `[full_quant_param]` likes as follows:
-
-    ```ini
-    [full_quant_param]
-    # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-    activation_quant_method=MAX_MIN
-    # Whether to correct the quantization error.
-    bias_correction=true
-    # Supports specific hardware backends
-    target_device=ASCEND
-    ```
-
-Ascend quantization also support dynamic shape. It is worth noting that the conversion command must set the same inputShape as the calibration dataset. For details, please refer to [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description).
-
-- In the dynamic shape scenario, the general form of the conversion command for Ascend quantization as follow:
-
-    ```bash
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
-    ```
-
-- We must add configuration about `[ascend_context]` for dynamic shape as follow:
-
-    ```ini
-    [full_quant_param]
-    # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-    activation_quant_method=MAX_MIN
-    # Whether to correct the quantization error.
-    bias_correction=true
-    # Supports specific hardware backends
-    target_device=ASCEND
-
-    [ascend_context]
-    input_shape=input_1:[-1,32,32,4]
-    dynamic_dims=[1~4],[8],[16]
-
-    # "-1" in input_shape indicates that the batch size is dynamic.
-    ```
-
-## Dynamic Quantization
-
-In NLP scenarios where the model running speed needs to be improved and the model running power consumption needs to be reduced, the dynamic quantization after training can be used. The following describes how to use dynamic quantization and its effects.
-
-In dynamic quantization, the weights are quantized at the convert, and the activation are quantized at the runtime. Compared to static quantization, no calibration dataset is required.
-
-The general form of the dynamic quantization conversion command is:
-
-```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/dynamic_quant.cfg
-```
-
-The dynamic quantization profile is as follows:
-
-```ini
-[common_quant_param]
-quant_type=DYNAMIC_QUANT
-bit_num=8
-
-[dynamic_quant_param]
-# If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
-quant_strategy=ACWL
-```
-
-> In order to ensure the quantization accuracy, the dynamic quantization does not support setting the FP16 mode .
->
-> The dynamic quantization will have a further acceleration effect on the ARM architecture that supports SDOT instructions.
-
-### Partial Model Performance Results
-
-- tinybert_encoder
-
-| Model Type          | Runtime Mode  | Model Size(M) | RAM(K)     | Latency(ms) | Cos-Similarity | Compression Ratio | Memory compared to FP32 | Latency compared to FP32 |
-| ------------------- | ------------- | ------------- | ---------- | ----------- | -------------- | ----------------- | ----------------------- | ------------------------ |
-| FP32                | FP32          | 20            | 29,029     | 9.916       | 1              |                   |                         |                          |
-| FP32                | FP16          | 20            | 18,208     | 5.75        | 0.99999        | 1                 | -37.28%                 | -42.01%                  |
-| FP16                | FP16          | 12            | 18,105     | 5.924       | 0.99999        | 1.66667           | -37.63%                 | -40.26%                  |
-| Weight Quant(8 Bit) | FP16          | 5.3           | 19,324     | 5.764       | 0.99994        | 3.77358           | -33.43%                 | -41.87%                  |
-| **Dynamic Quant**   | **INT8+FP32** | **5.2**       | **15,709** | **4.517**   | **0.99668**    | **3.84615**       | **-45.89%**             | **-54.45%**              |
-
-- tinybert_decoder
-
-| Model Type          | Runtime Mode  | Model Size(M) | RAM(K)     | Latency(ms) | Cos-Similarity | Compression Ratio | Memory compared to FP32 | Latency compared to FP32 |
-| ------------------- | ------------- | ------------- | ---------- | ----------- | -------------- | ----------------- | ----------------------- | ------------------------ |
-| FP32                | FP32          | 43            | 51,355     | 4.161       | 1              |                   |                         |                          |
-| FP32                | FP16          | 43            | 29,462     | 2.184       | 0.99999        | 1                 | -42.63%                 | -47.51%                  |
-| FP16                | FP16          | 22            | 29,440     | 2.264       | 0.99999        | 1.95455           | -42.67%                 | -45.59%                  |
-| Weight Quant(8 Bit) | FP16          | 12            | 32,285     | 2.307       | 0.99998        | 3.58333           | -37.13%                 | -44.56%                  |
-| **Dynamic Quant**   | **INT8+FP32** | **12**        | **22,181** | **2.074**   | **0.9993**     | **3.58333**       | **-56.81%**             | **-50.16%**              |
-
-## Quantization Debug
-
-Turn on the quantization Debug function, you can get the data distribution statistics report, which is used to evaluate the quantization error and assist the decision-making model (operator) whether it is suitable for quantization. For full quantification, N data distribution statistics reports will be generated according to the number of correction datasets provided, that is, one report will be generated for each round; for weighting, only one data distribution statistics report will be generated.
-
-When setting the `debug_info_save_path` parameter, the relevant debug report will be generated in the `/home/workspace/mindspore/debug_info_save_path` folder:
+Setting the `debug_info_save_path` parameter will generate a Debug report in the `/home/workspace/mindspore/debug_info_save_path` folder:
 
 ```ini
 [common_quant_param]
 debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 ```
 
-The quantized output summary report `output_summary.csv` contains the accuracy information of the output layer Tensor of the entire network. The related fields are as follows：
+The quantization output summary report `output_summary.csv` contains information about the accuracy of the Tensor in the output layer of the whole graph, and the relevant fields are shown below:
 
 | Type           | Name              |
 | -------------- | ----------------- |
-| Round       | The calibration training round   |
-| TensorName       | The tensor name          |
-| CosineSimilarity | Cosine similarity compared with the original data  |
+| Round       | Calibration training rounds          |
+| TensorName       | name of the Tensor          |
+| CosineSimilarity | Cosine similarity compared to the original data      |
 
-The data distribution statistics report `report_*.csv`will count the original data distribution of each Tensor and the data distribution after dequantization of the quantized Tensor. The relevant fields of the data distribution statistics report are as follows:
+The data distribution statistics report `round_*.csv` counts the distribution of the original data for each Tensor and the distribution of the data after inverse quantization of the quantized Tensor. The relevant fields of the data distribution statistics report are shown below:
 
-| Type             | Name                                                         |
-| ---------------- | ------------------------------------------------------------ |
-| NodeName         | The node name                                                |
-| NodeType         | The node type                                                |
-| TensorName       | The tensor name                                              |
-| InOutFlag        | The input or output tensor                                   |
-| DataTypeFlag     | The data type, use Origin for original model, use Dequant for quantization model |
-| TensorTypeFlag   | The data types such as input and output, use Activation, and constants, etc., use Weight. |
-| Min              | The minimum value                                            |
-| Q1               | The 25% quantile                                             |
-| Median           | The median                                                   |
-| Q3               | The 75% quantile                                             |
-| MAX              | The maximum                                                  |
-| Mean             | The mean                                                     |
-| Var              | The var                                                      |
-| Sparsity         | The sparsity                                                 |
-| Clip             | The Clip                                                     |
-| CosineSimilarity | Cosine similarity compared with the original data            |
+| Type             | Name                                                     |
+| ---------------- | -------------------------------------------------------- |
+| NodeName         | Node name                                  |
+| NodeType         | Node type                                                 |
+| TensorName       | Tensor名                                                 |
+| InOutFlag        | Tensor output, output type                                     |
+| DataTypeFlag     | Data type, Origin for raw data, Dequant for inverse quantized data      |
+| TensorTypeFlag   | Data classes such as inputs and outputs are represented as Activation, and constants are represented as Weight. |
+| Min              | Minimum, 0% quantile point                                         |
+| Q1               | 25% quantile point点                                                |
+| Median           | Median, 50% quantile point点                                        |
+| Q3               | 75% quantile point点                                                |
+| MAX              | Max value, 100% quantile point点                                       |
+| Mean             | Mean                                    |
+| Var              | variance                                                     |
+| Sparsity         | Sparsity                                                   |
+| Clip             | truncation rate                                                   |
+| CosineSimilarity | Cosine similarity compared to the original data                               |
 
-The quantization parameter report `quant_param.csv` contains the quantization parameter information of all quantized Tensors. The related fields of the quantization parameter are as follows:
+The quantization parameter report `quant_param.csv` contains information about the quantization parameters of all quantization Tensor, the fields related to quantization parameters are shown below:
 
-| Type           | Name                                 |
-| -------------- | ------------------------------------ |
-| NodeName       | The node name                        |
-| NodeType       | The node type                        |
-| TensorName     | The tensor name                      |
-| ElementsNum    | The Tensor elements num              |
-| Dims           | The tensor dims                      |
-| Scale          | The quantization parameter scale     |
-| ZeroPoint      | The quantization parameter zeropoint |
-| Bits           | The number of quantization bits      |
-| CorrectionVar  | Bias correction coefficient-variance |
-| CorrectionMean | Bias correction coefficient-mean     |
+| Type           | Name              |
+| -------------- | ----------------- |
+| NodeName       | Node name            |
+| NodeType       | Node type          |
+| TensorName     | Tensor name          |
+| ElementsNum    | Tensor data volume      |
+| Dims           | Tensor dimension        |
+| Scale          | Quantization parameter scale     |
+| ZeroPoint      | Quantization parameter ZeroPoint |
+| Bits           | Quantization bit        |
+| CorrectionVar  | Error correction factor - variance |
+| CorrectionMean | Error correction factor - mean |
 
-> Mixed bit quantization is non-standard quantization, the quantization parameter file may not exist.
+> Since mixed bit quantization is non-standard quantization, this quantization parameter file may not exist.
 
-### Skipping Quantization Node
+### Partial Operators Skip Quantization
 
-Quantization is to convert the float32 operator to the int8 operator. The current quantization strategy is to quantify all the nodes contained in a certain type of operator that can be supported, but there are some nodes that are more sensitive and will cause larger errors after quantization. At the same time, the inference speed of some layers after quantization is much lower than that of float16. It supports non-quantization of the specified layer, which can effectively improve the accuracy and inference speed.
+Quantization is to convert float32 operator to int8 operator. The current quantization strategy is the Node contained in a certain class of supportable operators will be quantized, but there is a part of the Node sensitivity is high, the quantization will trigger a large error, while some layers of quantization after the inference speed is much lower than the inference speed of float16. Supporting the specified layer without quantization can effectively improve the accuracy and inference speed.
 
-Below is an example of `conv2d_1` `add_8` `concat_1` without quantifying the three nodes:
+The following is an example of `conv2d_1`, `add_8` and `concat_1` Node without quantization:
 
 ```ini
 [common_quant_param]
@@ -567,8 +538,54 @@ bit_num=8
 skip_quant_node=conv2d_1,add_8,concat_1
 ```
 
-### Recommendations
+### Suggestions for Use
 
-1. By filtering `InOutFlag == Output && DataTypeFlag == Dequant`, the output layer of all quantization operators can be filtered out, and the accuracy loss of the operator can be judged by looking at the quantized output `CosineSimilarity`, the closer to 1 the smaller the loss.
-2. For merging operators such as Add and Concat, if the distribution of `min` and `max` between different input Tensors is quite different, which is likely to cause large errors, you can set `skip_quant_node` to not quantize them.
-3. For operators with a higher cutoff rate `Clip`, you can set `skip_quant_node` to not quantize it.
+1. By filtering `InOutFlag == Output && DataTypeFlag == Dequant`, you can filter out the output layer of all quantization operators, and determine the loss of precision of the operator by looking at the `CosineSimilarity` of the quantization output, the closer to 1 the smaller the loss.
+2. For merge class operators such as Add and Concat, if the `min` and `max` distributions between different input Tensors have large differences, which is easy to trigger a large error, you can set `skip_quant_node` to unquantize them.
+3. For operators with a high truncation rate `Clip`, you can set `skip_quant_node` to unquantize them.
+
+## Classical Model Accuracy Results
+
+### Weight Quantization
+
+| Models                                                         | Test datasets                        | FP32 model accuracy | Weight quantization accuracy (8bit) |
+| ------------------------------------------------------------ | --------------------------------- | ------------ | -------------------- |
+| [Inception_V3](https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz) | [ImageNet](http://image-net.org/) | 77.60%       | 77.53%               |
+| [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz) | [ImageNet](http://image-net.org/) | 70.96%       | 70.56%               |
+| [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | 71.56%       | 71.53%               |
+
+All of the above results were measured on x86 environment.
+
+### Full Quantization
+
+| Model                                                        | Test Dataset                      | quant_method | FP32 Model Accuracy | Full Quantization Accuracy (8 bits) | Description                                                  |
+| --------            | -------      | -----          | -----            | -----     | -----  |
+| [Inception_V3](https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz) | [ImageNet](http://image-net.org/) | KL       | 77.60%              | 77.40%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
+| [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz) | [ImageNet](http://image-net.org/) | KL       | 70.96%              | 70.31%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
+| [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | MAX_MIN  | 71.56%              | 71.16%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
+
+All of the above results were measured on x86 environment, CPU hardware backend.
+
+### Dynamic Quantization
+
+- tinybert_encoder model dynamic quantization vs. other quantization algorithms.
+
+  | Model Type          | Runtime Mode  | Model Size(M) | RAM(K)     | Latency(ms) | Cos-Similarity | Compression Ratio | Memory compared to FP32 | Latency compared to FP32 |
+  | ------------------- | ------------- | ------------- | ---------- | ----------- | -------------- | ----------------- | ----------------------- | ------------------------ |
+  | FP32                | FP32          | 20            | 29,029     | 9.916       | 1              |                   |                         |                          |
+  | FP32                | FP16          | 20            | 18,208     | 5.75        | 0.99999        | 1                 | -37.28%                 | -42.01%                  |
+  | FP16                | FP16          | 12            | 18,105     | 5.924       | 0.99999        | 1.66667           | -37.63%                 | -40.26%                  |
+  | Weight Quant(8 Bit) | FP16          | 5.3           | 19,324     | 5.764       | 0.99994        | 3.77358           | -33.43%                 | -41.87%                  |
+  | **Dynamic Quant**   | **INT8+FP32** | **5.2**       | **15,709** | **4.517**   | **0.99668**    | **3.84615**       | **-45.89%**             | **-54.45%**              |
+
+- tinybert_decoder model dynamic quantization vs. other quantization algorithms.
+
+  | Model Type          | Runtime Mode  | Model Size(M) | RAM(K)     | Latency(ms) | Cos-Similarity | Compression Ratio | Memory compared to FP32 | Latency compared to FP32 |
+  | ------------------- | ------------- | ------------- | ---------- | ----------- | -------------- | ----------------- | ----------------------- | ------------------------ |
+  | FP32                | FP32          | 43            | 51,355     | 4.161       | 1              |                   |                         |                          |
+  | FP32                | FP16          | 43            | 29,462     | 2.184       | 0.99999        | 1                 | -42.63%                 | -47.51%                  |
+  | FP16                | FP16          | 22            | 29,440     | 2.264       | 0.99999        | 1.95455           | -42.67%                 | -45.59%                  |
+  | Weight Quant(8 Bit) | FP16          | 12            | 32,285     | 2.307       | 0.99998        | 3.58333           | -37.13%                 | -44.56%                  |
+  | **Dynamic Quant**   | **INT8+FP32** | **12**        | **22,181** | **2.074**   | **0.9993**     | **3.58333**       | **-56.81%**             | **-50.16%**              |
+
+  All of the above results were measured on x86 environment.

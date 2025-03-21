@@ -10,7 +10,7 @@ To train a deep learning model, saving the weights of the model is a critical st
 
 ### Directory Structure
 
-During training, MindFormers generates two weight saving folders in the output directory: `checkpoint` and `checkpoint_network`.
+During training, MindSpore Transformers generates two weight saving folders in the output directory: `checkpoint` and `checkpoint_network`.
 
 | Folder               | Description                                                 |
 |--------------------|-----------------------------------------------------|
@@ -81,7 +81,7 @@ In the preceding example, the weights are saved every 500 steps. A maximum of th
 
 ### Overview
 
-MindFormers supports **step-level resumable training**, which allows the checkpoints of a model to be saved during training. If the training is interrupted, you can load a saved checkpoint to resume the training. This feature is crucial for processing large-scale training tasks, and can effectively reduce time and resource waste caused by unexpected interruptions. In addition, to resume a training where the dataset remains unchanged but the `global batch size` is changed, for example, when the cluster is changed or the configuration is modified, this tool supports automatic scaling of the number of resumable training steps and skipped data steps in the same proportion.
+MindSpore Transformers supports **step-level resumable training**, which allows the checkpoints of a model to be saved during training. If the training is interrupted, you can load a saved checkpoint to resume the training. This feature is crucial for processing large-scale training tasks, and can effectively reduce time and resource waste caused by unexpected interruptions. In addition, to resume a training where the dataset remains unchanged but the `global batch size` is changed, for example, when the cluster is changed or the configuration is modified, this tool supports automatic scaling of the number of resumable training steps and skipped data steps in the same proportion.
 
 ### Configuration and Usage
 
