@@ -1049,9 +1049,6 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/minds
 
 ``Dictionary``\ 的索引取值请参考本文的\ `Dictionary <#dictionary>`_\ 章节。
 
-``Tensor``\ 的索引取详见\ `Tensor
-索引取值文档 <https://www.mindspore.cn/docs/zh-CN/master/model_train/model_building/tensor_and_parameter.html#索引取值>`_\ 。
-
 调用
 ^^^^
 

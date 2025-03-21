@@ -589,7 +589,7 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 超参问题处理
 
-AI训练中的超参包含全局学习率，epoch和batch等，如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/optimizer.html#学习率)。
+AI训练中的超参包含全局学习率，epoch和batch等。
 
 ### 模型结构问题处理
 

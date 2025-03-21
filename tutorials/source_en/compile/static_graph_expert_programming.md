@@ -571,7 +571,7 @@ select net cost time: 0.483151912689209
 
 Usage scenario: When processing batch data without dependency and the related operator supports Vmap function, you can use Vmap to replace for loop to process batch data to optimize the execution performance (and also improve the compilation performance).
 
-MindSpore already supports the Vmap feature. A detailed description of Vmap can be found in [Automatic Vectorization Vmap](https://www.mindspore.cn/docs/en/master/model_train/train_process/optimize/vmap.html).
+MindSpore already supports the Vmap feature.
 
 A code sample that uses Vmap to replace a for loop to process batch data to optimize compilation performance is shown below:
 

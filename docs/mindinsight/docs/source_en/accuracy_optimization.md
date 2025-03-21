@@ -587,7 +587,7 @@ Perform operations such as standardization, normalization, and channel conversio
 
 ### Hyperparameter Problem Handling
 
-Hyperparameters in AI training include the global learning rate, epoch, and batch. For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/optimizer.html).
+Hyperparameters in AI training include the global learning rate, epoch, and batch.
 
 ### Model Structure Problem Handling
 

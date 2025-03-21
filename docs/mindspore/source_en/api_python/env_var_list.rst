@@ -776,8 +776,6 @@ Log
 
 Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux. Please set the log environment variables before `import mindspore` .
 
-For more detailed information about RDR, refer to `Running Data Recorder <https://www.mindspore.cn/docs/en/master/model_train/debug/rdr.html#running-data-recorder>`_ .
-
 Feature Value Detection
 ------------------------------
 
