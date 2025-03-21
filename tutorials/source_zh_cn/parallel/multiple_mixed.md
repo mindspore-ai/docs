@@ -8,7 +8,7 @@
 
 ## 操作实践
 
-下面以Ascend或者GPU单机8卡为例，进行基于双递归搜索的多维混合并行案例说明：
+下面以Ascend单机8卡为例，进行基于双递归搜索的多维混合并行案例说明：
 
 ### 样例代码说明
 
@@ -70,14 +70,9 @@ class Network(nn.Cell):
         logits = self.layer3(x)
         return logits
 
-# 配置每一层在流水线并行中的pipeline_stage编号
-net = Network()
-net.layer1.pipeline_stage = 0
-net.relu1.pipeline_stage = 0
-net.layer2.pipeline_stage = 1
-net.relu2.pipeline_stage = 1
-net.layer3.pipeline_stage = 1
-
+with no_init_parameters():
+    net = Network()
+    optimizer = nn.SGD(net.trainable_params(), 1e-2)
 # 配置relu算子的重计算
 net.relu1.recompute()
 net.relu2.recompute()
@@ -90,9 +85,13 @@ net.relu2.recompute()
 ```python
 import os
 import mindspore.dataset as ds
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore import nn, train
+from mindspore.communication import init
 
 def create_dataset(batch_size):
-    dataset_path = os.getenv("DATA_PATH")
+    """create dataset"""
+    dataset_path = "./MNIST_Data/train"
     dataset = ds.MnistDataset(dataset_path)
     image_transforms = [
         ds.vision.Rescale(1.0 / 255.0, 0),
@@ -116,17 +115,22 @@ data_set = create_dataset(32)
 import mindspore as ms
 from mindspore import nn, train
 
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.MAELoss()
 loss_cb = train.LossMonitor()
-net_with_grads = nn.Pipeline(nn.WithLossCell(net, loss_fn), 4)
+# 配置每一层在流水线并行中的pipeline_stage编号
+net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4,
+                                stage_config={"_backbone.layer1" : 0,
+                                              "_backbone.relu1" : 0,
+                                              "_backbone.layer2" : 1,
+                                              "_backbone.relu2" : 1,
+                                              "_backbone.layer3" : 1,})
 model = ms.Model(net_with_grads, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
-### 运行单机八卡脚本
+### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，以`msrun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
 
 ```bash
 bash run_sapp_mix_train.sh

@@ -18,17 +18,10 @@ import os
 import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.runtime as rt
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore.nn.utils import no_init_parameters
 from mindspore import nn, train
 from mindspore.communication import init
-
-os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
-ms.set_context(mode=ms.GRAPH_MODE)
-rt.set_memory(max_size="25GB")
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
-ms.set_auto_parallel_context(pipeline_stages=2, enable_parallel_optimizer=True)
-init()
-ms.set_seed(1)
-
 class Network(nn.Cell):
     """Network"""
     def __init__(self):
@@ -49,20 +42,9 @@ class Network(nn.Cell):
         logits = self.layer3(x)
         return logits
 
-net = Network()
-# 配置每一层在流水线并行中的pipeline_stage编号
-net.layer1.pipeline_stage = 0
-net.relu1.pipeline_stage = 0
-net.layer2.pipeline_stage = 1
-net.relu2.pipeline_stage = 1
-net.layer3.pipeline_stage = 1
-# 配置relu算子的重计算
-net.relu1.recompute()
-net.relu2.recompute()
-
 def create_dataset(batch_size):
     """create dataset"""
-    dataset_path = os.getenv("DATA_PATH")
+    dataset_path = "./MNIST_Data/train"
     dataset = ds.MnistDataset(dataset_path)
     image_transforms = [
         ds.vision.Rescale(1.0 / 255.0, 0),
@@ -75,11 +57,31 @@ def create_dataset(batch_size):
     dataset = dataset.batch(batch_size)
     return dataset
 
-data_set = create_dataset(32)
-
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
-loss_fn = nn.MAELoss()
-loss_cb = train.LossMonitor()
-net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
-model = ms.Model(net_with_grads, optimizer=optimizer)
-model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
+def test_parallel_sapp():
+    """set stage_config and train"""
+    os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+    ms.set_context(mode=ms.GRAPH_MODE)
+    rt.set_memory(max_size="25GB")
+    init()
+    ms.set_seed(1)
+    with no_init_parameters():
+        net = Network()
+        optimizer = nn.SGD(net.trainable_params(), 1e-2)
+    # 配置relu算子的重计算
+    net.relu1.recompute()
+    net.relu2.recompute()
+    data_set = create_dataset(32)
+    loss_fn = nn.MAELoss()
+    loss_cb = train.LossMonitor()
+    # 配置每一层在流水线并行中的pipeline_stage编号
+    net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4,
+                                     stage_config={"_backbone.layer1": 0,
+                                                   "_backbone.relu1": 0,
+                                                   "_backbone.layer2": 1,
+                                                   "_backbone.relu2": 1,
+                                                   "_backbone.layer3": 1,})
+    net_with_grads_new = AutoParallel(net_with_grads, parallel_mode="recursive_programming")
+    net_with_grads_new.full_batch = True
+    net_with_grads_new.pipeline(stages=2, scheduler="1f1b")
+    model = ms.Model(net_with_grads_new, optimizer=optimizer)
+    model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
