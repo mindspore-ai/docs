@@ -1,4 +1,4 @@
-# Copyright 2023 Huawei Technologies Co., Ltd
+# Copyright 2025 Huawei Technologies Co., Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@
 import numpy as np
 import mindspore as ms
 from mindspore import nn, ops, Tensor
-from mindspore.parallel.shard import Layout
+from mindspore.parallel import Layout
 from mindspore.common.initializer import initializer
 from mindspore.communication import init
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore.nn.utils import no_init_parameters
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, device_num=8)
 init()
 ms.set_seed(1)
 
@@ -43,7 +44,8 @@ class Network(nn.Cell):
         x = self.relu(x)
         return self.matmul2(x, self.fc2_weight)
 
-net = Network()
+with no_init_parameters():
+    net = Network()
 
 in_layout = Layout((2, 4), ("x", "y"))
 net.matmul1.add_prim_attr("enable_nd_tp", True)
@@ -53,5 +55,6 @@ net.matmul2.add_prim_attr("enable_nd_tp", True)
 net.matmul2.shard(in_strategy=(in_layout("None", ("y", "x")), in_layout("y", "x")))
 
 input_data = Tensor(np.ones((1024, 256)), dtype=ms.float32)
+net = AutoParallel(net)
 output = net(input_data)
 print("The output is:", output)
