@@ -1,4 +1,4 @@
-# Copyright 2023 Huawei Technologies Co., Ltd
+# Copyright 2025 Huawei Technologies Co., Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,13 +20,14 @@ import mindspore as ms
 import mindspore.dataset as ds
 from mindspore import nn
 from mindspore.communication import init, get_rank
+from mindspore.nn.utils import no_init_parameters
+from mindspore.parallel.auto_parallel import AutoParallel
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
+
 slice_h_num = 1
 slice_w_num = 4
-ms.set_auto_parallel_context(dataset_strategy=((1, 1, slice_h_num, slice_w_num), (1,)))
 
 class Network(nn.Cell):
     """Network"""
@@ -48,7 +49,9 @@ class Network(nn.Cell):
         logits = self.layer3(x)
         return logits
 
-net = Network()
+with no_init_parameters():
+    net = Network()
+    optimizer = nn.SGD(net.trainable_params(), 1e-2)
 
 ds.config.set_seed(1000) # set dataset seed to make sure that all cards read the same data
 def create_dataset(batch_size):
@@ -72,7 +75,6 @@ def create_dataset(batch_size):
     return dataset
 
 data_set = create_dataset(32)
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
 
 def forward_fn(data, target):
@@ -82,6 +84,10 @@ def forward_fn(data, target):
     return loss, logits
 
 grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+
+# set parallel mode and dataset_strategy
+grad_fn = AutoParallel(grad_fn, parallel_mode="semi_auto")
+grad_fn.dataset_strategy(config=((1, 1, slice_h_num, slice_w_num), (1,)))
 
 for epoch in range(5):
     i = 0
