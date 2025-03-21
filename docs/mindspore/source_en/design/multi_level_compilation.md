@@ -102,14 +102,6 @@ In the training process of large-scale deep learning models, in order to achieve
 
 Traditional multi-stream concurrency methods usually rely on manual configuration, which is not only cumbersome and error-prone, but also difficult to achieve optimal concurrency when facing complex computational graphs. MindSpore's auto-stream allocation feature automatically identifies and allocates concurrency opportunities in computational graphs through intelligent algorithms, and assigns different operators to different streams for execution. This automated allocation process not only simplifies the user's operation, but also dynamically adjusts the stream allocation strategy at runtime to adapt to different computing environments and resource conditions.
 
-### DryRun
-
-MindSpore DryRun feature is able to simulate the memory consumption of each rank in a large cluster in the local environment, so as to perform efficient device memory simulation without relying on actual large cluster resources. This feature is important for the development and debugging of large-scale deep learning models, especially in the resource-constrained or early stages of development, and can significantly improve the development efficiency and resource utilization.
-
-![jit_level_dryrun](./images/multi_level_compilation/jit_level_dryrun.png)
-
-Typically, during the training of large-scale deep learning models, the device memory consumption among different RANKS (i.e., compute nodes) is complex and variable. In order to achieve the best performance under a fixed device memory limit, developers need to debug and test the model several times in a large cluster environment, which is not only time-consuming but also costly. By simulating the memory consumption of each rank locally, Dry Run enables developers to evaluate and optimize the reasonableness of their model's parallelism strategy in advance without using a large cluster.
-
 ### Memory Management
 
 ![jit_level_memory_manage](./images/multi_level_compilation/jit_level_memory_manage.png)

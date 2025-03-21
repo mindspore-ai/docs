@@ -75,6 +75,7 @@ MindSpore教程
    debug/sdc
    debug/profiler
    debug/error_analysis
+   debug/dryrun
 
 .. toctree::
    :glob:
