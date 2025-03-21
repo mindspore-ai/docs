@@ -15,4 +15,10 @@ if [ ! -d "${EXEC_PATH}/MNIST_Data" ]; then
 fi
 export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
 
-mpirun -n 8 --output-filename log_output --merge-stderr-to-stdout python distributed_operator_parallel.py
+msrun --worker_num=8 \
+      --local_worker_num=8 \
+      --master_addr=127.0.0.1 \
+      --master_port=10969 \
+      --join=True \
+      --log_dir=./log_output \
+      pytest -s -v distributed_operator_parallel.py::test_distributed_operator_parallel

@@ -59,6 +59,7 @@ MindSpore教程
    
    parallel/startup_methods
    parallel/data_parallel
+   parallel/operator_parallel
    parallel/optimizer_parallel
    parallel/pipeline_parallel
    parallel/distributed_case
