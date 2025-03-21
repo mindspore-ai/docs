@@ -18,7 +18,7 @@ import sphinx
 import urllib3
 from git import Repo
 from lxml import etree
-from replace_html_menu import replace_html_menu
+from replace_html_menu import replace_html_menu, modify_menu_num
 
 # 下载仓库
 def git_clone(repo_url, repo_dir):
@@ -634,6 +634,12 @@ if __name__ == "__main__":
             pool.close()
             pool.join()
             print('docs所有页面search链接已修改！')
+        ts_path = f"{MAINDIR}/{args.version}/output/tutorials/zh-CN/master"
+        if os.path.exists(ts_path):
+            modify_menu_num(ts_path)
+            print('tutorials中文目录大纲调整完成！')
+            modify_menu_num(ts_path.replace('zh-CN', 'en'))
+            print('tutorials英文目录大纲调整完成！')
 
         # 替换样式相关内容
         theme_list = []

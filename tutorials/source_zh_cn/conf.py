@@ -115,7 +115,9 @@ sys.path.append(os.path.abspath('../../resource/sphinx_ext'))
 import nbsphinx_mod
 
 # handle some files.
-del_file_path_list = ['./advanced/model/model.ipynb','./advanced/modules/cell.ipynb']
+del_file_path_list = ['./advanced/model/model.ipynb','./advanced/modules/cell.ipynb',
+                      './custom_program/operation/op_custom.ipynb', './compile/static_graph_syntax_support.ipynb'
+                      ]
 for i in del_file_path_list:
     if os.path.exists(i):
         os.remove(i)
