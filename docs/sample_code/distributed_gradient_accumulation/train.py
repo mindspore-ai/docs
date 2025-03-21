@@ -1,4 +1,4 @@
-# Copyright 2023 Huawei Technologies Co., Ltd
+# Copyright 2025 Huawei Technologies Co., Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,11 +20,11 @@ import mindspore as ms
 import mindspore.dataset as ds
 from mindspore import nn, train
 from mindspore.communication import init
-from mindspore.nn import GradAccumulationCell
+from mindspore.parallel import GradAccumulation
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore.nn.utils import no_init_parameters
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
-ms.set_auto_parallel_context(enable_parallel_optimizer=True)
 init()
 
 class Network(nn.Cell):
@@ -45,7 +45,9 @@ class Network(nn.Cell):
         logits = self.dense_relu_sequential(x)
         return logits
 
-net = Network()
+with no_init_parameters():
+    net = Network()
+    optimizer = nn.SGD(net.trainable_params(), 1e-2)
 
 def create_dataset(batch_size):
     """create dataset"""
@@ -63,9 +65,10 @@ def create_dataset(batch_size):
     return dataset
 
 data_set = create_dataset(32)
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
 loss_cb = train.LossMonitor(100)
-net = GradAccumulationCell(nn.WithLossCell(net, loss_fn), 4)
+net = GradAccumulation(nn.WithLossCell(net, loss_fn), 4)
+net = AutoParallel(net)
+net.hsdp()
 model = ms.Model(net, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb])
