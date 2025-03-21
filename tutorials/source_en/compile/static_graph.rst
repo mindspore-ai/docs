@@ -1,5 +1,5 @@
 Introduction to Graph Mode Programming
-=========================
+=========================================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
     :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/compile/static_graph.rst
@@ -1228,9 +1228,6 @@ Index value of ``List`` refers to chapter `List <#list>`_ of this page.
 
 Index value of ``Dictionary`` refers to chapter
 `Dictionary <#dictionary>`_ of this page.
-
-Index value of ``Tensor`` refers to `Tensor index value
-document <https://www.mindspore.cn/docs/en/master/model_train/model_building/tensor_and_parameter.html#index-values>`_.
 
 Calls
 ^^^^^

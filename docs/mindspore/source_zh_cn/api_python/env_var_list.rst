@@ -778,8 +778,6 @@ Dump调试
 
 注意：glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。请在 `import mindspore` 之前设置日志相关环境变量。
 
-RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/rdr.html#running-data-recorder>`_ 。
-
 特征值检测
 ------------
 

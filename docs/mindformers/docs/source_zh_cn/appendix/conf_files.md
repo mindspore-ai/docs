@@ -34,7 +34,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | context.mode                | 设置后端执行模式，`0`表示GRAPH_MODE，MindSpore Transformers目前仅支持在GRAPH_MODE模式下运行 | int      |
 | context.device_target       | 设置后端执行设备，MindSpore Transformers仅支持在`Ascend`设备上运行      | str      |
 | context.device_id           | 设置执行设备ID，其值必须在可用设备范围内，默认值为`0`        | int      |
-| context.enable_graph_kernel | 是否开启图算融合去优化网络执行性能, 默认值为`False`，详情可参考[图算融合](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/graph_fusion_engine.html) | bool     |
+| context.enable_graph_kernel | 是否开启图算融合去优化网络执行性能, 默认值为`False` | bool     |
 | context.max_call_depth      | 设置函数调用的最大深度，其值必须为正整数，默认值为`1000`     | int      |
 | context.max_device_memory   | 设置设备可用的最大内存，格式为"xxGB"，默认值为`1024GB`       | str      |
 | context.mempool_block_size  | 设置内存块大小，格式为"xxGB"，默认值为`1GB`                  | str      |
@@ -100,7 +100,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | trainer.model_name                          | 设置模型名称，格式为'{name}_xxb'，表示模型的某一规格                                                                                                                                    | str   |
 | runner_config.epochs                        | 设置模型训练的轮数                                                                                                                                                           | int   |
 | runner_config.batch_size                    | 设置批处理数据的样本数，该配置会覆盖数据集配置中的`batch_size`                                                                                                                               | int   |
-| runner_config.sink_mode                     | 是否开启数据下沉模式，详情可参考[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html)                                                | bool  |
+| runner_config.sink_mode                     | 是否开启数据下沉模式                                                | bool  |
 | runner_config.sink_size                     | 设置每次从Host下发到Device的迭代数量，仅`sink_mode=True`时生效                                                                                                                        | int   |
 | runner_config.gradient_accumulation_steps   | 设置梯度累积步数，默认值为1，表示不开启梯度累积                                                                                                                                            | int   |
 | runner_wrapper.type                         | 设置wrapper类，一般设置'MFTrainOneStepCell'即可                                                                                                                               | str   |
