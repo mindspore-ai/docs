@@ -1,6 +1,6 @@
 # msrun启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/msrun_launcher.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/msrun_launcher.md)
 
 ## 概述
 
@@ -331,12 +331,6 @@ epoch: 0, step: 0, loss is 2.3499548
 epoch: 0, step: 10, loss is 1.6682479
 epoch: 0, step: 20, loss is 1.4237018
 epoch: 0, step: 30, loss is 1.0437132
-epoch: 0, step: 40, loss is 1.0643986
-epoch: 0, step: 50, loss is 1.1021575
-epoch: 0, step: 60, loss is 0.8510884
-epoch: 0, step: 70, loss is 1.0581372
-epoch: 0, step: 80, loss is 1.0076828
-epoch: 0, step: 90, loss is 0.88950706
 ...
 ```
 

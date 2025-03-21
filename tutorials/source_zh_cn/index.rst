@@ -56,7 +56,11 @@ MindSpore教程
    :maxdepth: 1
    :caption: 并行
    :hidden:
-
+   
+   parallel/startup_methods
+   parallel/data_parallel
+   parallel/optimizer_parallel
+   parallel/pipeline_parallel
    parallel/distributed_case
    parallel/optimize_technique
 

@@ -1,14 +1,14 @@
-# rank table Startup
+# rank table启动
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/rank_table.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/rank_table.md)
 
-## Overview
+## 概述
 
-`rank table` startup is a startup method unique to the Ascend hardware platform. This method does not rely on third-party libraries and runs as a single process on a single card, requiring the user to create a process in the script that matches the number of cards in use. This method is consistent across nodes in multiple machines and facilitates rapid batch deployment.
+`rank table`启动是Ascend硬件平台独有的启动方式。该方式不依赖第三方库，采用单卡单进程运行方式，需要用户在脚本中创建与使用的卡数量一致的进程。该方法在多机下各节点的脚本一致，方便快速批量部署。
 
-Related Configurations:
+相关配置：
 
-`rank table` mainly need to configure the rank_table file, taking the 2-card environment configuration file `rank_table_2pcs.json` as an example:
+`rank table`主要需要配置rank_table文件，以2卡环境配置文件`rank_table_2pcs.json`为例：
 
 ```json
 {
@@ -27,19 +27,19 @@ Related Configurations:
 }
 ```
 
-The parameter items that need to be modified according to the actual training environment are:
+其中，需要根据实际训练环境修改的参数项有：
 
-- `server_count` represents the number of machines involved in training.
-- `server_id` represents the IP address of the current machine.
-- `device_id` represents the physical serial number of the card, i.e., the actual serial number in the machine where the card is located.
-- `device_ip` represents the IP address of the integrated NIC. You can execute the command `cat /etc/hccn.conf` on the current machine, and the key value of `address_x` is the IP address of the NIC.
-- `rank_id` represents the card logical serial number, fixed numbering from 0.
+- `server_count`表示参与训练的机器数量。
+- `server_id`表示当前机器的IP地址。
+- `device_id`表示卡的物理序号，即卡所在机器中的实际序号。
+- `device_ip`表示集成网卡的IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
+- `rank_id`表示卡的逻辑序号，固定从0开始编号。
 
-## Operation Practice
+## 操作实践
 
-> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
+> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
 
-The directory structure is as follows:
+目录结构如下：
 
 ```text
 └─ sample_code
@@ -54,13 +54,13 @@ The directory structure is as follows:
     ...
 ```
 
-`net.py` defines the network structure and the training process, `run_rank_table.sh`, `run_rank_table_cluster.sh` and `run_rank_table_cross_cluster.sh` are executing the scripts. `rank_table_8pcs.json`, `rank_table_16pcs.json` and `rank_table_cross_cluster_16pcs.json` are 8 cards, 16 cards and cross cluster 16 cards rank_table config file.
+其中，`net.py`是定义网络结构和训练过程，`run_rank_table.sh`、`run_rank_table_cluster.sh`、`run_rank_table_cross_cluster.sh`是执行脚本。`rank_table_8pcs.json`、`rank_table_16pcs.json`、`rank_table_cross_cluster_16pcs.json`分别是8卡、16卡和跨集群16卡的rank_table配置文件。
 
-### 1. Preparing Python Training Scripts
+### 1. 准备Python训练脚本
 
-Here, as an example of data parallel, a recognition network is trained for the MNIST dataset.
+这里以数据并行为例，训练一个MNIST数据集的识别网络。
 
-First specify the operation mode, hardware device, etc. Unlike single card scripts, parallel scripts also need to specify configuration items such as parallel mode and initialize HCCL or NCCL communication via init. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
+首先指定运行模式、设备ID、硬件设备等。与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过init初始化HCCL通信。此处若不设置`device_target`，则会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import os
@@ -75,7 +75,7 @@ init()
 ms.set_seed(1)
 ```
 
-Then build the following network:
+然后构建如下网络：
 
 ```python
 from mindspore import nn
@@ -94,7 +94,7 @@ class Network(nn.Cell):
 net = Network()
 ```
 
-Finally, the dataset is processed and the training process is defined:
+最后是数据集处理和定义训练过程：
 
 ```python
 import os
@@ -142,11 +142,11 @@ for epoch in range(10):
         i += 1
 ```
 
-### 2. Preparing the Startup Script
+### 2. 准备启动脚本
 
-#### Single-Machine Multi-Card
+#### 单机多卡
 
-The `rank table` method uses a single-card single-process operation, i.e., 1 process runs on each card, with the same number of processes as the number of cards in use. Each process creates a directory to store log information and operator compilation information. Below is an example of how to run a distributed training script using 8 cards:
+`rank table`方式采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
 ```bash
 RANK_SIZE=8
@@ -177,40 +177,32 @@ do
 done
 ```
 
-Distributed-related environment variables are:
+分布式相关的环境变量有：
 
-- `RANK_TABLE_FILE`: Path to the networking information file.
-- `DEVICE_ID`: The actual serial number of the current card on the machine.
-- `RANK_ID`: The logical serial number of the current card.
+- `RANK_TABLE_FILE`：组网信息文件的路径。
+- `DEVICE_ID`：当前卡在机器上的实际序号。
+- `RANK_ID`：当前卡的逻辑序号。
 
-After configuring `rank_table_8pcs.json` in the current path, execute the following command:
+在当前路径配置好`rank_table_8pcs.json`后，执行以下指令：
 
 ```bash
 bash run_rank_table.sh
 ```
 
-After running, the log files are saved in `device0`, `device1` and other directories, `env*.log` records information about environment variables, and the output is saved in `train*.log`, as shown in the example below:
+运行结束后，日志文件保存在`device0`、 `device1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中，示例如下：
 
 ```text
 epoch: 0, step: 0, loss is 2.3391366
 epoch: 0, step: 10, loss is 1.8047495
 epoch: 0, step: 20, loss is 1.2186875
-epoch: 0, step: 30, loss is 1.3065228
-epoch: 0, step: 40, loss is 1.0825632
-epoch: 0, step: 50, loss is 1.0281029
-epoch: 0, step: 60, loss is 0.8405618
-epoch: 0, step: 70, loss is 0.7346531
-epoch: 0, step: 80, loss is 0.688364
-epoch: 0, step: 90, loss is 0.51331174
-epoch: 0, step: 100, loss is 0.53782797
 ...
 ```
 
-#### Multi-Machine Multi-Card
+#### 多机多卡
 
-In the Ascend environment, the communication of NPU units across machines is the same as the communication of individual NPU units within a single machine, still through the HCCL. The difference is that the NPU units within a single machine are naturally interoperable, while the cross-machine ones need to ensure that the networks of the two machines are interoperable. The method of confirmation is as follows:
+在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于：单机内的NPU单元天然是互通的，而跨机器的则需要保证两台机器的网络是互通的。确认的方法如下：
 
-Executing the following command on server 1 will configure each device with the `device ip` of the corresponding device on server 2. For example, configure the destination IP of card 0 on server 1 as the ip of card 0 on server 2. Configuration commands require the `hccn_tool` tool. The [`hccn_tool`](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents) is an HCCL tool that comes with the CANN package.
+在1号服务器执行下述命令，会为每个设备配置2号服务器对应设备的`device ip`。例如，将1号服务器卡0的目标IP配置为2号服务器的卡0的IP。配置命令需要使用`hccn_tool`工具。[`hccn_tool`](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)是一个HCCL的工具，由CANN包自带。
 
 ```bash
 hccn_tool -i 0 -netdetect -s address 192.*.92.131
@@ -223,9 +215,9 @@ hccn_tool -i 6 -netdetect -s address 192.*.94.141
 hccn_tool -i 7 -netdetect -s address 192.*.95.141
 ```
 
-`-i 0` specifies the device ID. `-netdetect` specifies the network detection object IP attribute. `-s address` indicates that the attribute is set to an IP address. `192.*.92.131` indicates the ip address of device 0 on server 2. The interface command can be referenced [here](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f).
+其中，`-i 0`指定设备ID；`-netdetect`指定网络检测对象IP属性；`-s address`表示设置属性为IP地址；`192.*.92.131`表示2号服务器的设备0的IP地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f)。
 
-After executing the above command on server 1, start checking the network link status with the following command. Another function of `hccn_tool` is used here, the meaning of which can be found [here](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/7d059b59).
+在1号服务器上面执行完上述命令后，通过下述命令开始检测网络链接状态。在此使用`hccn_tool`的另一个功能，此功能的含义可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/7d059b59)。
 
 ```bash
 hccn_tool -i 0 -net_health -g
@@ -238,19 +230,21 @@ hccn_tool -i 6 -net_health -g
 hccn_tool -i 7 -net_health -g
 ```
 
-If the connection is successful, the corresponding output is as follows:
+如果连接正常，对应的输出如下：
 
 ```bash
 net health status: Success
 ```
 
-If the connection fails, the corresponding output is as follows:
+如果连接失败，对应的输出如下：
 
 ```bash
 net health status: Fault
 ```
 
-After confirming that the network of the NPU units between the machines is smooth, configure the json configuration file of the multi-machine, this document takes the configuration file of the 16 cards as an example. The detailed description of the configuration file can be referred to the introduction of single-machine multi-card part in this document. It should be noted that in the configuration of the multi-machine json file, it is required that the order of rank_id is consistent with the dictionary order of server_id.
+在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件。本文档以16卡的配置文件为例进行介绍，详细的配置文件说明可参照本文档单机多卡部分的相关内容。
+
+需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
 
 ```json
 {
@@ -288,7 +282,7 @@ After confirming that the network of the NPU units between the machines is smoot
 }
 ```
 
-After preparing the configuration file, you can carry out the organization of distributed multi-machine training scripts. In the case of 2-machine 16-card, the scripts on the two machines are similar to the scripts run on single-machine multi-card, the difference being the specification of different rank_id variables.
+准备好配置文件后，可以进行分布式多机训练脚本的组织，以2机16卡为例，两台机器上编写的脚本与单机多卡的运行脚本类似，区别在于指定不同的rank_id变量。
 
 ```bash
 RANK_SIZE=16
@@ -320,7 +314,7 @@ do
 done
 ```
 
-During execution, the following commands are executed on the two machines, where rank_table.json is configured according to the 16-card distributed json file reference shown in this section.
+执行时，两台机器分别执行如下命令：
 
 ```bash
 # server0
@@ -329,13 +323,17 @@ bash run_rank_table_cluster.sh 0
 bash run_rank_table_cluster.sh 8
 ```
 
-After running, the log files are saved in the directories `device_0`, `device_1`. The information about the environment variables is recorded in `env*.log`, and the output is saved in `train*.log`.
+其中，rank_table.json按照本章节展示的16卡的分布式json文件参考配置。
 
-#### Cross Cluster
+运行结束后，日志文件保存在`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。
 
-For today's large-scale models, using compute clusters for training has become the norm. However, as model sizes continue to grow, the resources of a single cluster can no longer meet the memory requirements for model training. Therefore, support for cross-cluster communication has become a prerequisite for training ultra-large-scale models. Currently, the HCCL communication library of Ascend hardware does not support cross-cluster communication. To address this issue, MindSpore provides a cross-cluster communication library that enables efficient communication between NPUs in different clusters. With this library, users can overcome the memory limitations of a single cluster and achieve cross-cluster parallel training for ultra-large-scale models.
+#### 跨集群
 
-Currently, the MindSpore framework enables this feature simply by adding the `cluster_list` configuration item for cross-cluster communication in the multi-node, multi-card JSON configuration file. This document uses a 2-node, 16-card setup (assuming the two machines are not in the same cluster) as an example to illustrate how to write the relevant configuration items for cross-cluster scenarios. For detailed information about the configuration file, please refer to the single-node, multi-card section in this document.
+对于如今的大模型而言，使用计算集群进行训练已经成为一种常态。然而，随着模型规模的不断提升，单一集群的资源难以满足模型训练所需的显存要求。因此，支持跨集群通信成为了训练超大规模模型的前提。
+
+目前，昇腾硬件的HCCL通信库暂不支持跨集群通信。因此，MindSpore框架提供了一套跨集群通信库，使得不同集群的NPU之间能够实现高效通信。借助这一通信库，用户可以突破单一集群的显存限制，实现超大规模模型的跨集群并行训练。
+
+目前，MindSpore框架仅需在多机多卡的json配置文件中添加跨集群的`cluster_list`配置项即可开启这一功能，本文档同样以2机16卡（假设两个机器不在同一集群）配置文件为例，介绍跨集群相关配置项的编写方法，详细的配置文件说明可以参照本文档单机多卡部分的介绍。
 
 ```json
 {
@@ -401,18 +399,18 @@ Currently, the MindSpore framework enables this feature simply by adding the `cl
 }
 ```
 
-For cross-cluster scenarios, the parameters that need to be added or modified based on the actual training environment are as follows:
+其中，跨集群需要根据实际训练环境添加和修改的参数项有：
 
-- `server_id` represents the globally unique identifier of the current machine.
-- `server_ip` represents the IP address of the current machine.
-- `dpu_ip` represents the virtual IP address of the card within the tenant VPC, used for cross-cluster communication.
-- `numa_id` represents the NUMA-affined CPU core ID of the card on the current machine.
-- `cluster_id` represents the globally unique identifier of the cluster.
-- `network_type` represents the type of network between machines within the cluster, currently set to "ROCE."
-- `az_id` represents the AZ (Availability Zone) ID where the cluster is located.
-- `server_list` represents the list of machines included in the current cluster.
+- `server_id`表示当前机器的全局唯一标识。
+- `server_ip`表示当前机器的IP地址。
+- `dpu_ip`表示卡在租户VPC内的虚拟IP地址，用于跨集群通信。
+- `numa_id`表示卡在当前机器上NUMA亲和的CPU核序号。
+- `cluster_id`表示集群的全局唯一标识。
+- `network_type`表示集群内的机器间的网络类型，目前都是"ROCE"。
+- `az_id`表示集群所在的AZ id。
+- `server_list`表示当前集群包含的机器列表。
 
-Once the configuration file is prepared, the distributed training script for cross-cluster scenarios remains consistent with the distributed training script for multi-node, multi-card setups described in this document. Using a 2-cluster, 16-card setup as an example, the scripts on the two machines in the two clusters are the same as those used in multi-node, multi-card scenarios. The only difference lies in specifying different rank_id variables.
+准备好配置文件后，跨集群的分布式训练脚本与本文档多机多卡的分布式训练脚本保持一致，以2集群16卡为例，两个集群的两台机器上编写的脚本与多机多卡的运行脚本相同，区别在于指定不同的rank_id变量。
 
 ```bash
 RANK_SIZE=16
@@ -444,7 +442,7 @@ do
 done
 ```
 
-During execution, the two machines in the two clusters run the following commands, respectively. The `rank_table_cross_cluster_16pcs.json` file is configured based on the 2-cluster, 16-card cross-cluster distributed JSON file example shown in this section. The `rank_table_cross_cluster_16pcs.json` configuration used on each machine in both clusters must remain consistent.
+执行时，两个集群中的两台机器分别执行如下命令：
 
 ```bash
 # server0
@@ -453,4 +451,6 @@ bash run_rank_table_cross_cluster.sh 0
 bash run_rank_table_cross_cluster.sh 8
 ```
 
-After execution, log files are saved in the `device_0`, `device_1`, and other corresponding directories on each machine in the clusters. The `env*.log` files record information about the environment variables, while the output results are stored in the `train*.log` files.
+其中，`rank_table_cross_cluster_16pcs.json`按照本章节展示的2集群16卡的跨集群分布式json文件参考配置，每个集群的每台机器上使用的`rank_table_cross_cluster_16pcs.json`配置需要保持一致。
+
+运行结束后，日志文件保存在各个集群中每台机器的`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。
