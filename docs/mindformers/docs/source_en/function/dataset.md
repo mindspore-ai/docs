@@ -2,6 +2,190 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/dataset.md)
 
+At present, MindSpore Transformers' pre-training and fine-tuning support the ability to load datasets in multiple formats, including loading methods for Megatron Dataset, MindRecord Dataset, and online datasets. The specific usage instructions for each format of dataset are as follows.
+
+## Megatron Dataset
+
+Megatron Dataset refers to a dataset collected from multiple different sources, it contains different text types, formats, and domains. Using dataset can help models learn a wider range of language features and knowledge, thereby improving their generalization ability and performance. The current implementation of the Megatron framework requires preprocessing the original dataset into a BIN format dataset. MindSpore Transformers have been natively adapted to the Megatron Dataset, providing scripts for creating BIN format datasets and supporting direct use of the Megatron Dataset in training tasks.
+
+### How to Make a BIN Format Dataset
+
+MindSpore Transformers provides a preprocessing script [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py), which can convert text data to a BIN format dataset. This script currently only supports processing files in a specific JSON format. Users need to first convert the original dataset file into a specific JSON format file, and then use a preprocessing script to generate a BIN format dataset file. Some models in MindSpore Transformers currently provide scripts for converting specific open-source datasets into JSON format files. If users want to use their own datasets, they need to write their own scripts to convert them into the desired format.
+
+The format of the required JSON format file content is as follows:
+
+```json
+{"id": "0", "text": "The quick brown fox", "type": "Eng", "src": "www.nvidia.com", "title": "First Part"}
+{"id": "1", "text": "jumps over the lazy dog", "type": "Eng", "src": "The Internet", "title": "Second Part"}
+...
+```
+
+Each piece of data consists of several key value pairs, and the supported keys and descriptions are as follows:
+
+- `"id"`: The numbering of the data should be in order, required
+- `"text"`: Text data actually used for training, required
+- `"type"`: Indicate language type, optional
+- `"src"`: Indicate the source of the data, optional
+- `"title"`: Indicate the title of the data, optional
+
+Taking the processing of Wiki datasets and their use as pre-training for Llama2 models as an example, the detailed steps for creating BIN format datasets are explained below:
+
+1. Download Wiki Dataset
+
+   For the original Wiki Dataset downloading, refer to [Llama2 Dataset Download](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
+
+2. Generate JSON Format File
+
+   The original format of the Wiki Dataset is as follows:
+
+   ![](image/wikitext_sample.png)
+
+   The format of the JSON file `wiki.json` after processing the Wiki Dataset is as follows (omitting long text):
+
+   ```json
+   {"id": 0, "text": "The gold dollar or gold one ..."}
+   {"id": 1, "text": "Super Mario Land is a 1989 ..."}
+   {"id": 2, "text": "The Sinclair Scientific Programmable ..."}
+   ...
+   ```
+
+3. Download The Vocabulary File For Llama2
+
+   In the preprocessing script, the raw text data will be processed into Tokens using the Tokenizer of the model, therefore, it is necessary to download the vocabulary file in advance.
+
+   Download link for Llama2 vocabulary file: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
+
+4. Generate BIN Format Files Using Preprocessing Scripts
+
+    After processing into the specific JSON format file mentioned above, using [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) to convert it into a BIN format dataset, the specific command is as follows:
+
+    ```shell
+    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+    --input ./wiki.json \
+    --output-prefix wiki_processed_1024 \
+    --tokenizer-type LlamaTokenizer \
+    --vocab-file ./tokenizer.model \
+    --add_bos_token True \
+    --add_eos_token True \
+    --pad_or_stitch stitch \
+    --seq-length 1024 \
+    --workers 1
+    ```
+
+    Configuration parameter description:
+
+    - `--input`: Path to JSON format file
+    - `--output-prefix`: The file name prefix of the preprocessed output file
+    - `--tokenizer-type`: The type of tokenizer corresponding to the model
+    - `--vocab-file`: The path of the vocabulary file for the tokenizer model tokenizer
+    - `--add_bos_token`: Add bos_token at the beginning of the data, Default: False
+    - `--add_eos_token`: Add eos_token at the ending of the data, Default: False
+    - `--pad_or_stitch`: According to the requirements of the training task, set whether to splice or fill in, pad is in fill in mode, this mode will fill in the data with insufficient length to the seq length; Stitch is a concatenation mode that concatenates multiple pieces of data into data with a length of seq length
+    - `--seq-length`: Preprocess the length of each piece of data
+    - `--workers`: The number of parallel workers during preprocessing
+
+After executing the above command, two files will be obtained, in `.bin` and `.idx` formats respectively. The `.bin` format file stores the actual data, and `.idx` format file stores the index of each piece of data.
+
+### Using Megatron Datasets in Training Tasks
+
+Use the Megatron multi-source dataset in the training task as follows:
+
+1. Prepare the `parallel_speed_up.json` file
+
+   `parallel_speed_up.json` is a dataset parallel communication configuration file, and the file content is as follows:
+
+   ```json
+   {
+       "dataset_broadcast_opt_level": 3
+   }
+   ```
+
+2. Set environment variables
+
+    Enter the following command at the command line to set environment variables:
+
+    ```shell
+    export MS_DEV_DYNAMIC_SINK1=False
+    ```
+
+3. Modify YAML configuration files for training tasks
+
+    Configure the relevant parameters of Megatron Dataset in YAML configuration file. Here, taking the Llama2-7B model pre-training task as an example, modify `train_dataset` , `runner_config` , `parallel_config` , `parallel` and `context` in  [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39). The specific modifications and explanations are as follows:
+
+    ```yaml
+    train_dataset: &train_dataset
+      data_loader:
+        type: BlendedMegatronDatasetDataLoader
+        datasets_type: "GPTDataset"
+        sizes:
+          - 1000
+          - 0
+          - 0
+        shuffle: False
+        input_columns: ["input_ids", "labels", "loss_mask", "position_ids"]
+        config:
+          seed: 1234
+          seq_length: 1024
+          split: "1, 0, 0"
+          data_path:
+            - 0.3
+            - "/path/to/my_wiki_test_1024_text_document"
+            - 0.7
+            - "/path/to/my_wiki_test_1024_text_document"
+          num_dataset_builder_threads: 1
+          eod_mask_loss: False
+          create_attention_mask: False
+    ```
+
+    Among them:
+
+    - data_loader.type: The type of dataloader, should be set to `BlendedMegatronDatasetDataLoader`.
+    - data_loader.datasets_type: Dataset type, currently only supports `GPTDataset`.
+    - data_loader.sizes: `- 1000` ， `- 0` ， `- 0` are the sampling sizes for the training set, test set, and validation set, respectively. Currently, only the training set can be configured.
+    - input_columns: Set the input data columns for the training dataset, typically configured as `["input_ids", "labels", "loss_mask", "position_ids"]` .
+    - data_loader.config.seed: Random number seed when creating a dataset. Default: `1234` .
+    - data_loader.config.seq_length: The length of each piece of data must be consistent with the model.model_config.seq_length in the YAML configuration.
+    - data_loader.config.split: Split string, separate the weights of the training set, test set, and validation set with commas, used to split the dataset when drawing samples from a single distribution. Currently, only supports configuration as `"1, 0, 0"` .
+    - data_loader.config.data_path: The number is the weight of each dataset, and the string is the path of the dataset BIN file, which needs to remove the file format suffix `.bin` .
+    - data_loader.config.num_dataset_builder_threads: The number of processes used when creating the dataset. Default: `1` .
+    - data_loader.config.eod_mask_loss: Do you want to use the switch of eod mask. Default: `False` .
+    - data_loader.config.create_attention_mask: Whether to construct attention_mask. Default: `True` .
+
+    There are still limitations to the current Megatron Dataset, which only supports non full batch scenarios, and it does not support the parallel feature of seq_pipe. The corresponding configuration items need to be modified according to the following:
+
+    ```yaml
+    runner_config:
+        sink_mode: True
+        sink_size: 1
+
+    parallel_config:
+        data_parallel: &dp 2
+        model_parallel: 2
+        pipeline_stage: 1
+
+    parallel:
+        full_batch: False
+        dataset_strategy: [[*dp, 1], [*dp, 1], [*dp, 1], [*dp, 1]]
+
+    context:
+        ascend_config:
+            parallel_speed_up_json_path: "/path/to/parallel_speed_up.json"
+    ```
+
+    The configuration instructions that need to be noted are as follows:
+
+    - parallel.dataset_strategy: Only support List of List type, parallel.dataset_strategy: Only support List of List type. The number of sub lists in a List needs to be equal to the length of train_dataset.input_columns, and each sub List in the List needs to be consistent with the shape of the data returned by the dataset. Generally, parallel data partitioning is performed in the first dimension of the data, so the first bit of the sub List is configured as `*dp` , and the other bits are configured as `1` . The specific principle can be referred to [Dataset Segmentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/dataset_slice.html).
+
+4. Compile Megatron Dataset module
+
+    MindSpore Transformers have built-in Megatron Dataset module code, before starting the training task, the following command needs to be executed for compilation:
+
+    ```shell
+    pip install pybind11
+    cd mindformers/dataset/blended_datasets
+    make
+    ```
+
 ## MindRecord Dataset
 
 MindRecord is an efficient data format developed by MindSpore for storing machine learning or deep learning datasets.
