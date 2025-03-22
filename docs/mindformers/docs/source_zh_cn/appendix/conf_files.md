@@ -267,14 +267,21 @@ MindSpore Transformers提供模型评估功能，同时支持模型边训练边�
 
 MindSpore Transformers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/perf_optimize/perf_optimize.html)。以下是Profile相关配置。
 
-| 参数                    | 说明                                                                                                                            | 类型   |
-|-----------------------|-------------------------------------------------------------------------------------------------------------------------------|------|
-| profile               | 是否开启性能采集工具，详情可参考[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html) | bool |
-| profile_start_step    | 设置开始采集性能数据的step数                                                                                                              | int  |
-| profile_stop_step     | 设置停止采集性能数据的step数                                                                                                              | int  |
-| profile_communication | 设置是否在多设备训练中收集通信性能数据，使用单卡训练时，该参数无效，默认值为`False`                                                                                 | bool |
-| profile_memory        | 设置是否收集Tensor内存数据                                                                                                              | bool |
-| init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效。开启`profile_memory`时需要将该参数设为`True`。                                    | bool |
+| 参数                    | 说明                                                                                                                                        | 类型   |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------|
+| profile               | 是否开启性能采集工具，默认值为`False`，详情可参考[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html) | bool |
+| profile_start_step    | 设置开始采集性能数据的step数，默认值为`1`                                                                                                                  | int  |
+| profile_stop_step     | 设置停止采集性能数据的step数，默认值为`10`                                                                                                                 | int  |
+| profile_communication | 设置是否在多设备训练中收集通信性能数据，使用单卡训练时，该参数无效，默认值为`False`                                                                                             | bool |
+| profile_memory        | 设置是否收集Tensor内存数据，默认值为`True`                                                                                                               | bool |
+| profile_rank_ids      | 设置开启性能采集的rank ids，默认值为`None`，表示所有rank id均开启性能采集                                                                                           | list |
+| profile_pipeline      | 设置是否按流水线并行每个stage的其中一张卡开启性能采集，默认值为`False`                                                                                                 | bool |
+| profile_output        | 设置保存性能采集生成文件的文件夹路径                                                                                                                        | str  |
+| profile_level         | 设置采集数据的级别，可选值为(0, 1, 2)，默认值为`1`                                                                                                           | int  |
+| with_stack            | 设置是否收集Python侧的调用栈数据，默认值为`False`                                                                                                           | bool |
+| data_simplification   | 设置是否开启数据精简，开启后将在导出性能采集数据后删除FRAMEWORK目录以及其他多余数据，默认为`False`                                                                                 | int  |
+| init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效，开启`profile_memory`时需要将该参数设为`True`                                                 | bool |
+| mstx                  | 设置是否开启mstx记录step时延，默认值为`False`                                                                                                            | bool |
 
 ### 指标监控配置
 
