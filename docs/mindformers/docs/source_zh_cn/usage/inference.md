@@ -18,22 +18,22 @@ MindFormers 提供了大模型推理能力，用户可以执行 `run_mindformer`
 
 模型权重可分为完整权重和分布式权重两种，使用时需参考以下说明。
 
-#### 完整权重
+#### 2.1 完整权重
 
 完整权重可以通过以下两种方式获得：
 
 1. 从HuggingFace模型库中下载相应模型的开源权重后，参考[权重格式转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/weight_conversion.html)将其转换为ckpt格式。
 2. 预训练或者微调后的分布式权重，通过[合并](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/transform_weight.html)生成一个完整权重。
 
-#### 分布式权重
+#### 2.2 分布式权重
 
 分布式权重一般通过预训练或者微调后获得，默认保存在`./output/checkpoint_network`目录，需要先转换为单卡或多卡权重，再进行单卡或多卡推理。
 
 如果推理使用的权重切分方式，与推理任务中提供的模型切分方式不同，例如以下这几种情况，则需要额外对权重进行切分方式的转换，以匹配实际推理任务中模型的切分方式。
 
-- 多卡训练得到的权重在单卡上推理；
-- 8卡训练的权重在2卡上推理；
-- 已经切分好的分布式权重在单卡上推理等。
+1. 多卡训练得到的权重在单卡上推理；
+2. 8卡训练的权重在2卡上推理；
+3. 已经切分好的分布式权重在单卡上推理等。
 
 下文的命令示例均采用了在线自动切分的方式，通过设置参数 `--auto_trans_ckpt` 为 `True` 和 `--src_strategy_path_or_dir` 为权重的切分策略文件或目录路径（预训练或者微调后，默认保存在`./output/strategy`下）在推理任务中自动完成切分。更多用法可参考[分布式权重的合并和切分](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/transform_weight.html)。
 
