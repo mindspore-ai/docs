@@ -89,7 +89,7 @@ python run_mindformer.py \
 --run_mode predict \
 --use_parallel False \
 --auto_trans_ckpt True \
---src_strategy_path_or_dir ./strategy
+--src_strategy_path_or_dir ./strategy \
 --load_checkpoint path/to/checkpoint_dir \
 --predict_data 'I love Beijing, because'
 ```
@@ -158,7 +158,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 --run_mode predict \
 --use_parallel True \
 --auto_trans_ckpt True \
---src_strategy_path_or_dir ./strategy
+--src_strategy_path_or_dir ./strategy \
 --load_checkpoint path/to/checkpoint_dir \
 --predict_data 'I love Beijing, because'" \
 2
