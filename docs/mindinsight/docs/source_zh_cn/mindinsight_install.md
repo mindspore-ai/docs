@@ -11,6 +11,11 @@
     - Python 3.11.4版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.11.4/Python-3.11.4.tgz)。
 - MindSpore Insight与MindSpore的版本需保持一致。
 - 依赖参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)。
+- 由于Flask-Core==3.0.10和gunicorn==21.2.0存在安全漏洞，建议升级三方库为Flask-Core>=4.0.2和gunicorn>=21.2.1。具体安全漏洞参考如下：
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6866
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6844
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6839
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6827
 
 ## 安装方式
 

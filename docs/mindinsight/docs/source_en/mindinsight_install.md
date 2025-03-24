@@ -11,6 +11,11 @@
     - Python 3.11.4 (64-bit): [Python official website](https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.11.4/Python-3.11.4.tgz).
 - The versions of MindSpore Insight and MindSpore must be consistent.
 - All dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt).
+- Due to the security vulnerabilities in Flask-Core==3.0.10 and gunicorn==21.2.0, it is recommended to upgrade the third-party database to Flask-Core>=4.0.2 and gunicorn>=21.2.1, the specific security vulnerabilities are as follows:
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6866
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6844
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6839
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6827
 
 ## Installation Methods
 
