@@ -20,7 +20,7 @@ For details, see the configuration class [LlamaConfig](https://www.mindspore.cn/
 
 ### Writing a Model
 
-The MindSpore Transformers foundation model is developed based on the MindSpore framework. If your model has been implemented based on PyTorch, see [MindSpore Network Construction](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html). Developers only need to pay attention to the implementation of the model network.
+The MindSpore Transformers foundation model is developed based on the MindSpore framework. Developers only need to pay attention to the implementation of the model network.
 
 MindSpore Transformers provides the [PretrainedModel](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.PreTrainedModel.html) class, which is responsible for storage model configurations and processing the methods of loading and saving models. All model classes must be inherited from the PretrainedModel class, and the model input must be the same. That is, the input parameters of the `construct` method of the model must be the same. For details about the input parameters and meanings, see the Llama model class [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaForCausalLM.html) in MindSpore Transformers. In addition, the model class must implement some abstract methods of the base class, including:
 

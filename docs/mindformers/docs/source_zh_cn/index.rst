@@ -44,7 +44,6 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
          <td style="text-align: center; width: 20%; border: none">
             <ul style="text-align: left; display: inline-block;">
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/sft_tuning.html"><span>SFT微调</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/parameter_efficient_fine_tune.html"><span>低参微调</span></a></li>
             </ul>
          </td>
          <td style="text-align: center; width: 20%; border: none">

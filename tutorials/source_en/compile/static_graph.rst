@@ -13,14 +13,14 @@ In Just-In-Time Compilation (JIT) mode, Python code is not executed by the Pytho
 In static graph mode, MindSpore converts Python source code into
 Intermediate Representation IR by means of source code conversion and optimizes IR graphs on this basis, and finally executes the optimized graphs on hardware devices. MindSpore uses a functional IR based on graph representations, called MindIR. See `middle representation MindIR <https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir>`_ for details.
 
-Currently, there are three main methods for converting Python source code into Intermediate Representation (IR): parsing based on the Abstract Syntax Tree (AST), parsing based on ByteCode, and the method based on operator call tracing (Trace). For detailed information about these three modes, please refer to  `Dynamic and Static Combination <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#dynamic-and-static-combination>`_ . These three modes differ 
+Currently, there are three main methods for converting Python source code into Intermediate Representation (IR): parsing based on the Abstract Syntax Tree (AST), parsing based on ByteCode, and the method based on operator call tracing (Trace). These three modes differ 
 to some extent in terms of syntax support. This document will first elaborate in detail on the syntax support in the scenario based on the Abstract Syntax Tree (AST), and then introduce the differences in syntax support when constructing the computation graph based on ByteCode and operator tracing (Trace) methods, respectively.
 
 MindSpore static graph execution process actually consists of two steps, corresponding to the Define and Run phases of the static graph, but in practice, the user will not perceive these two phases when the instantiated Cell object is called. MindSpore encapsulates both phases in the Cell ``__call__`` method, so the actual calling process is:
 
 ``model(inputs) = model.compile(inputs) + model.construct(inputs)``, where ``model`` is the instantiated Cell object.
 
-Just-In-Time (JIT) compilation can be achieved using the `JIT interface <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#jit>`_ . 
+Just-In-Time (JIT) compilation can be achieved using the `JIT interface` . 
 Another way is to use the Graph mode by setting ``ms.set_context(mode=ms.GRAPH_MODE)``, then write the code in the ``construct`` function of the ``Cell`` so that the code in the ``construct`` function will be compiled into a static computation graph. For details about the definition of ``Cell``, click `Cell API document <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html>`_.
 
 Due to syntax parsing restrictions, the supported data types, syntax,
@@ -2377,8 +2377,7 @@ The method of constructing computation graphs based on bytecode does not support
 Its syntax support scope is largely consistent with the strict mode of static graphs, with the main differences including:
 
 1. When constructing graphs based on bytecode, encountering unsupported syntax will not result in an error. Instead, the 
-unsupported parts will be split and executed in dynamic graph mode. For detailed information, 
-please refer to `bytecode <https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html#bytecode>`_ . Therefore, 
+unsupported parts will be split and executed in dynamic graph mode. Therefore, 
 the unsupported syntax mentioned later in this document for constructing computation graphs based on bytecode refers to syntax that 
 cannot be compiled into static graphs, but the normal operation of the network will not be affected.
 
