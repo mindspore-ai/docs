@@ -322,7 +322,7 @@ Packing the dataset into a fixed size `batch` is a compromise method for model o
 
 Generally we set a fixed batch size to divide the continuous data into several batches (batches). The batched data is increased by one dimension, and the size is `batch_size`.
 
-![op-batch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_train/dataset/images/op_batch.png)
+![op-batch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/dataset/images/op_batch.png)
 
 ```python
 data = ([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10], [11, 12]], [0, 1, 0, 1, 0, 1])

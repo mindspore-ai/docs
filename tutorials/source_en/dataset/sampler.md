@@ -12,7 +12,7 @@ MindSpore provides multiple samplers, such as `RandomSampler`, `WeightedRandomSa
 
 The following uses the CIFAR-10 dataset as an example to describe how to use several common MindSpore samplers.
 
-![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_train/dataset/images/cifar10.jpg)
+![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/dataset/images/cifar10.jpg)
 
 > The sample code in this section relies on `matplotlib`, which can be installed with the command `pip install matplotlib`. If the code is run in Notebook, you need to restart the kernel after the installation to execute the subsequent code.
 
