@@ -46,7 +46,7 @@ def train(test_net):
 
 
 if __name__ == "__main__":
-    context.set_context(mode=mindspore.GRAPH_MODE)
+    context.set_context(mode=mindspore.PYNATIVE_MODE)
     mindspore.set_device("Ascend")
 
     # Init Profiler
