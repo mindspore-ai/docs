@@ -84,11 +84,11 @@ experimental_config = mindspore.profiler._ExperimentalConfig(
 
 # 初始化profile
 with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
-                                    schedule=mindspore.profiler.schedule(wait=, warmup=0, active=2,
+                                    schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=2,
                                             repeat=1, skip_first=0),
                                     on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
                                     profile_memory=False,
-                                    experimental_config=experimental_config) as prof
+                                    experimental_config=experimental_config) as prof:
         for step in range(steps):
             train(net)
             # 调用step采集
