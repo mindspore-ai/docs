@@ -18,22 +18,22 @@ Depending on the required inference task, different models are chosen, e.g. for 
 
 Model weights can be categorized into two types: complete weights and distributed weights, and the following instructions should be referred to when using them.
 
-#### Complete Weights
+#### 2.1 Complete Weights
 
 Complete weights can be obtained in two ways:
 
 1. After downloading the open source weights of the corresponding model from the HuggingFace model library, refer to [Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) to convert them to the ckpt format.
 2. Pre-trained or fine-tuned distributed weights are used to generate a complete weight by [merging](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html).
 
-#### Distributed Weights
+#### 2.2 Distributed Weights
 
 Distributed weights are typically obtained by pre-training or after fine-tuning and are stored by default in the `. /output/checkpoint_network` directory, which needs to be converted to single-card or multi-card weights before performing single-card or multi-card inference.
 
 If the inference uses a weight slicing that is different from the model slicing provided in the inference task, such as in these cases below, the weights need to be additionally converted to a slice that matches the slicing of the model in the actual inference task.
 
-- The weights obtained from multi-card training are reasoned on a single card;
-- The weights of the eight-card training are reasoned over two cards;
-- Already sliced distributed weights are reasoned on a single card, and so on.
+1. The weights obtained from multi-card training are reasoned on a single card;
+2. The weights of the eight-card training are reasoned over two cards;
+3. Already sliced distributed weights are reasoned on a single card, and so on.
 
 The command samples in the following contents are all used in the way of online autoslicing. It is recommended to use online autoslicing by setting the command parameters `--auto_trans_ckpt` to `-True` and `-src_strategy_path_or_dir` to the weighted slicing strategy file or directory path (which is saved by default after training under `./output/strategy`) are automatically sliced in the inference task. Details can be found in [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html).
 
@@ -41,7 +41,7 @@ The command samples in the following contents are all used in the way of online 
 >
 > ```mv ./output/strategy/ ./strategy```
 
-### 3. Executing inference tasks
+### 3. Executing Inference Tasks
 
 Call the high-level API or use the unified script `run_mindformer` to execute inference tasks.
 
