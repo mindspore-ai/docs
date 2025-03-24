@@ -67,6 +67,7 @@ Sample as follows:
 
 ```python
 import mindspore
+from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
 
 # Define model training times
 STEP_NUM = 15

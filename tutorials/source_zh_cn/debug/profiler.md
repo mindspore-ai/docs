@@ -67,6 +67,7 @@ class StopAtStep(mindspore.Callback):
 
 ```python
 import mindspore
+from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
 
 # 定义模型训练次数
 steps = 15
