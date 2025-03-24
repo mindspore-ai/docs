@@ -195,7 +195,16 @@ According to the preceding result, the sampler obtains two samples for each labe
 
 Samples dataset shards in the distributed training.
 
-The following sample uses distributedsampler to divide the constructed dataset into 4 slices, take a sample in the each slice, sample 3 samples in total, and display the read data.
+The following example demonstrates a dataset with 12 samples and uses a distributed sampler to divide the dataset into 4 shards, with the sampling rules for each shard as follows:
+
+| shard id |  sample id  |
+| -------- | ----------- |
+| shard 0  |  0, 4, 8    |
+| shard 1  |  1, 5, 9    |
+| shard 2  |  2, 6, 10   |
+| shard 3  |  3, 7, 11   |
+
+Each shard contains 3 samples. Below is an illustration of the sampled data included in shard 0.
 
 ```python
 from mindspore.dataset import DistributedSampler
@@ -204,7 +213,7 @@ from mindspore.dataset import DistributedSampler
 data_source = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 # Divide the constructed dataset into four slices, and sample 3 samples in total.
-sampler = DistributedSampler(num_shards=4, shard_id=0, shuffle=False, num_samples=3)
+sampler = DistributedSampler(num_shards=4, shard_id=0, shuffle=False)
 dataset = NumpySlicesDataset(data_source, column_names=["data"], sampler=sampler)
 
 # Print the dataset.
