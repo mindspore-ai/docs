@@ -20,7 +20,7 @@ MindSpore Transformers提供了[PretrainedConfig](https://www.mindspore.cn/mindf
 
 ### 编写模型
 
-MindSpore Transformers的大模型基于MindSpore框架进行开发，如果您的模型已基于PyTorch实现，可以参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html)。其中开发者只需要关心模型网络本身的实现。
+MindSpore Transformers的大模型基于MindSpore框架进行开发，其中开发者只需要关心模型网络本身的实现。
 
 MindSpore Transformers提供了[PretrainedModel](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PreTrainedModel.html)类，负责存储模型配置并处理加载、保存模型的方法。所有模型的类都应该继承于PretrainedModel类，并且模型的输入应该是统一的，即模型的`construct`方法的入参应该一致，具体入参和含义可以参考MindSpore Transformers中的Llama模型类[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaForCausalLM.html)。同时，模型类必须实现基类的一些抽象方法，包括：
 

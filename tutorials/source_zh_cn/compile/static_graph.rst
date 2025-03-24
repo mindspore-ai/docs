@@ -16,13 +16,13 @@
 
 在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考\ `中间表示MindIR <https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir>`_\ 。
 
-目前，将Python源码转换为中间表示（IR）的方法主要有三种：基于抽象语法树（Abstract Syntax Tree, AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法，有关三种模式的详细介绍，请见\ `动静结合 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html#%E5%8A%A8%E9%9D%99%E7%BB%93%E5%90%88>`_\ 。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
+目前，将Python源码转换为中间表示（IR）的方法主要有三种：基于抽象语法树（Abstract Syntax Tree, AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法 。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
 
 MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时用户并不会分别感知到这两阶段，MindSpore将两阶段均封装在Cell的\ ``__call__``\ 方法中，因此实际调用过程为：
 
 ``model(inputs) = model.compile(inputs) + model.construct(inputs)``\ ，其中\ ``model``\ 为实例化Cell对象。
 
-即时编译可以使用\ `JIT接口 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html#jit>`_\ ，或者使用Graph模式需要设置\ ``ms.set_context(mode=ms.GRAPH_MODE)``\ ，使用\ ``Cell``\ 类并且在\ ``construct``\ 函数中编写执行代码，此时\ ``construct``\ 函数的代码将会被编译成静态计算图。\ ``Cell``\ 定义详见\ `Cell
+即时编译可以使用 `JIT接口` ，或者使用Graph模式需要设置\ ``ms.set_context(mode=ms.GRAPH_MODE)``\ ，使用\ ``Cell``\ 类并且在\ ``construct``\ 函数中编写执行代码，此时\ ``construct``\ 函数的代码将会被编译成静态计算图。\ ``Cell``\ 定义详见\ `Cell
 API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>`_\ 。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项\ ``jit_syntax_level``\ ，其值必须在[STRICT，LAX]范围内，选择\ ``STRICT``\ 则认为使用基础语法，不扩展静态图语法。默认值为\ ``LAX``\ ，更多请参考本文的\ `扩展语法（LAX级别） <#扩展语法lax级别>`_\ 章节。全部级别都支持所有后端。
@@ -2054,7 +2054,7 @@ Type机制。当\ ``tensor``\ 函数的\ ``dtype``\ 确定时，函数内部会�
 
 基于字节码构建计算图的方式不支持宽松模式，其语法支持范围与静态图的严格模式基本一致，主要差异包括：
 
-1. 基于字节码构图时，若遇到不支持的语法，不会报错，而是会通过裂图的方式将不支持的部分转换成动态图的方式进行执行。相关详细介绍请见\ `bytecode <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/pynative.html#bytecode>`_\ 。因此，本文后续介绍的基于字节码构建计算图时不支持的语法，均指这些语法无法被编译到静态图中，网络的正常运行不会被影响。
+1. 基于字节码构图时，若遇到不支持的语法，不会报错，而是会通过裂图的方式将不支持的部分转换成动态图的方式进行执行。因此，本文后续介绍的基于字节码构建计算图时不支持的语法，均指这些语法无法被编译到静态图中，网络的正常运行不会被影响。
 
 2. 基于字节码构图时，属性设置相关的副作用操作可以入图，例如：
 

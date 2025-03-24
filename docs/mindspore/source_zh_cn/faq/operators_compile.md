@@ -71,7 +71,7 @@ A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，�
 
 ## Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？
 
-A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/op_custom.html)。
+A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/op_custom.html)。
 
 <br/>
 

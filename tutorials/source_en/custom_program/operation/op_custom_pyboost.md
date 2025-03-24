@@ -4,7 +4,7 @@
 
 ## Overview
 
-In dynamic graph mode, network workflows are easier to debug, supporting operations like single-operator execution, normal functions/networks, and standalone gradient computations. For details about dynamic graphs, refer to [Dynamic Graph](https://www.mindspore.cn/docs/en/master/model_train/program_form/pynative.html).
+In dynamic graph mode, network workflows are easier to debug, supporting operations like single-operator execution, normal functions/networks, and standalone gradient computations.
 
 While [Custom operator expressions](https://www.mindspore.cn/tutorials/en/master/custom_program/op_custom.html) support both static and dynamic graphs, they require extensive definitions. MindSpore optimizes the custom operator definition for dynamic graphs to enhance usability and execution performance.
 

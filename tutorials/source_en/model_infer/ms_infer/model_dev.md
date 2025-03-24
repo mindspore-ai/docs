@@ -6,7 +6,7 @@
 
 Currently, the backbone networks of mainstream large language models are mainly based on the transformer structure. The most important part is the computation of the self-attention mechanism. The following figure uses the Llama2 large language model as an example to describe the backbone network structure.
 
-![LLAMA network structure](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/images/llm_llama_network_arch.png)
+![LLAMA network structure](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_llama_network_arch.png)
 
 The core layer of Llama2 consists of the following parts:
 
@@ -26,7 +26,7 @@ In a typical transformer model, each layer consists of the normalization, attent
 
     Currently, the mainstream attention uses the Muli-Head Attention (MHA) structure. The following figure shows the MHA structure. You can construct the attention network based on this structure.
 
-    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/images/MHA.png)
+    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
 
     The following is an example of the attention code:
 
