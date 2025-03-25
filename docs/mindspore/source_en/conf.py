@@ -315,6 +315,14 @@ try:
 except:
     pass
 
+with open(os.path.join(base_path, 'mindspore/ops/operations/comm_ops.py'), "r+", encoding="utf8") as f:
+    content = f.read()
+    content = re.sub('(class SendNet(?:.|\n|)+?)net = Net\(\)', r'\1net = SendNet()', content)
+    content = re.sub('(class ReceiveNet(?:.|\n|)+?)net = Net\(\)', r'\1net = ReceiveNet()', content)
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
 # add @functools.wraps
 try:
     decorator_list = [("mindspore/common/_tensor_overload.py", ".*?_mint")]
@@ -451,6 +459,14 @@ with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
     mint_content = f.read()
     mint_content = mint_content.replace(err_loss_str, '')
     mint_content = mint_content.replace('\n    mindspore.mint.nn.MSELoss', '\n    mindspore.mint.nn.L1Loss\n    mindspore.mint.nn.MSELoss')
+    f.seek(0)
+    f.truncate()
+    f.write(mint_content)
+
+with open('./api_python/samples/ops/communicate_ops.md', 'r+', encoding='utf-8') as f:
+    commun_content = f.read()
+    commun_content = commun_content.replace('input_ = Tensor(np.ones([2, 8]).astype(np.float32))\nnet = Net()', 'input_ = Tensor(np.ones([2, 8]).astype(np.float32))\nnet = SendNet()')
+    commun_content = commun_content.replace('net = Net()\noutput = net()', 'net = ReceiveNet()\noutput = net()')
     f.seek(0)
     f.truncate()
     f.write(mint_content)
