@@ -474,6 +474,14 @@ with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
     f.truncate()
     f.write(mint_content)
 
+with open('./api_python/samples/ops/communicate_ops.md', 'r+', encoding='utf-8') as f:
+    commun_content = f.read()
+    commun_content = commun_content.replace('input_ = Tensor(np.ones([2, 8]).astype(np.float32))\nnet = Net()', 'input_ = Tensor(np.ones([2, 8]).astype(np.float32))\nnet = SendNet()')
+    commun_content = commun_content.replace('net = Net()\noutput = net()', 'net = ReceiveNet()\noutput = net()')
+    f.seek(0)
+    f.truncate()
+    f.write(mint_content)
+
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 
