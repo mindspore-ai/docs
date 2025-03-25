@@ -29,6 +29,15 @@
    parallel/pipeline_parallel
    parallel/auto_parallel
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :hidden:
+   :caption: 编译
+
+   compile/graph_construction
+
+
 构建
 ---------
 

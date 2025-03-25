@@ -29,6 +29,14 @@ Model Building and Training
    parallel/pipeline_parallel
    parallel/auto_parallel
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :hidden:
+   :caption: compile
+
+   compile/graph_construction
+
 Building
 ---------
 
