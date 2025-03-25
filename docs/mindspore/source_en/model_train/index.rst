@@ -23,7 +23,6 @@ Model Building and Training
    :hidden:
    :caption: Distributed Parallelism
 
-   parallel/startup_method
    parallel/data_parallel
    parallel/operator_parallel
    parallel/optimizer_parallel

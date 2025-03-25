@@ -38,7 +38,7 @@
 
 ### 配置分布式环境
 
-并通过init初始化通信。
+通过init初始化通信。
 
 ```python
 import mindspore as ms
@@ -117,8 +117,7 @@ with no_init_parameters():
 
 ### 训练网络
 
-在这一步，需要定义损失函数以及训练过程，通过顶层 `AutoParallel` 类包裹 grad_fn 实现并行设置，设置并行模式为半自动并行模式
-`semi_auto`。此外，配置数据集`dataset_strategy`切分策略`config`为((1, 1, 1, 4), (1,))，代表垂直方向不切分，水平方向切分4块。
+在这一步，需要定义损失函数以及训练过程，通过顶层 `AutoParallel` 类包裹 grad_fn 实现并行设置，设置并行模式为半自动并行模式`semi_auto`。此外，配置数据集`dataset_strategy`切分策略`config`为((1, 1, 1, 4), (1,))，代表垂直方向不切分，水平方向切分4块。
 本例采用函数式方式编写，这部分与单卡模型一致：
 
 ```python

@@ -6,7 +6,7 @@
 
 ## 准备权重文件
 
-MindSpore Transformers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考`Llama2`文档以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
+MindSpore Transformers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考[Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#模型权重转换)文档以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
 
 | 模型名称 | MindSpore权重 | HuggingFace权重 |
 | ------ | ------ | ------ |
