@@ -123,6 +123,38 @@ parallel_config:
 
 关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
 
+### 流水线并行
+
+#### 序列流水线并行（Seq-Pipe）
+
+模型输入按sequence维度进行切分，展开为多个序列块（Sequence Chunk）。在原有的1F1B和1F1B-Interleave上，将调度单位缩小为Sequence Chunk。`seq_split_num`为切分个数，当`seq_split_num`=1时，退化为1F1B或1F1B-Interleave。
+
+MindSpore Transformers已支持配置Seq-Pipe流水线并行方案，可通过以下配置项使能：
+
+```yaml
+# parallel context
+parallel:
+  pipeline_config:
+    pipeline_interleave: true
+    pipeline_scheduler: 'seqpipe'
+
+# parallel config
+parallel_config:
+  seq_split_num: 2
+```
+
+参数说明：
+
+- pipeline_scheduler：流水线的调度策略，目前mindformers只支持设置为`"seqpipe"`。
+- seq_split_num：输入按序列维度的切分个数。
+
+注意：
+
+- 目前仅支持Llama和DeepSeek系列模型。
+- 目前暂不支持使用Megatron的多源数据集进行训练的场景。
+
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+
 ## MindSpore Transformers 分布式并行应用实践
 
 在官网提供的[Llama3-70B微调配置](https://gitee.com/kong_de_shu/mindformers/blob/dev/research/llama3/finetune_llama3_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：

@@ -163,6 +163,8 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | parallel.parallel_optimizer_config.gradient_accumulation_shard  | 设置累计的梯度变量是否在数据并行的维度上进行切分，仅`enable_parallel_optimizer=True`时生效                                                                                                                                    | bool |
 | parallel.parallel_optimizer_config.parallel_optimizer_threshold | 设置优化器权重参数切分的阈值，仅`enable_parallel_optimizer=True`时生效。                                                                                                                                             | int  |
 | parallel.parallel_optimizer_config.optimizer_weight_shard_size  | 设置优化器权重参数切分通信域的大小，要求该值可以整除`parallel_config.data_parallel`，仅`enable_parallel_optimizer=True`时生效。                                                                                                  | int  |
+| parallel.pipeline_config.pipeline_interleave  | 使能interleave，使用Seq-Pipe流水线并行时需设置为`true`                                                                                                  | bool  |
+| parallel.pipeline_config.pipeline_scheduler  | Seq-Pipe的流水线调度策略，目前只支持`"seqpipe"`                                                                                                  | str  |
 
 > 配置并行策略时应满足device_num = data_parallel × model_parallel × context_parallel × pipeline_stage。
 
