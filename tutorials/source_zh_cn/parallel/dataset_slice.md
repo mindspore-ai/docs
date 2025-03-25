@@ -12,9 +12,9 @@
 
 1. `mindspore.dataset.vision.SlicePatches(num_height=1, num_width=1)`：在水平和垂直方向上将Tensor切片为多个块。适合于Tensor高宽较大的使用场景。其中`num_height`为垂直方向的切块数量，`num_width`为水平方向的切块数量。更多参数可以参考[SlicePatches](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html)。
 
-2. `AutoParallel.dataset_strategy(config=((1, 1, 1, 8), (8,)))`：表示数据集分片策略。`dataset_strategy`接口有以下几点限制：
+2. `dataset_strategy(config=((1, 1, 1, 8), (8,)))`：表示数据集分片策略，具体可以参考[AutoParallel并行配置](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)。`dataset_strategy`接口有以下几点限制：
 
-    - 每个输入至多允许在一维进行切分。如支持`AutoParallel.dataset_strategy(config=((1, 1, 1, 8), (8,)))`或者`config=((1, 1, 1, 8), (1,))`，每个输入至多切分了一维；但是不支持`config=((1, 1, 4, 2), (1,))`，其第一个输入切分了两维。
+    - 每个输入至多允许在一维进行切分。如支持`dataset_strategy(config=((1, 1, 1, 8), (8,)))`或者`config=((1, 1, 1, 8), (1,))`，每个输入至多切分了一维；但是不支持`config=((1, 1, 4, 2), (1,))`，其第一个输入切分了两维。
 
     - 维度最高的一个输入，切分的数目，一定要比其他维度的多。如支持`config=((1, 1, 1, 8), (8,))`或者`config=((1, 1, 1, 1), (1,))`，其维度最多的输入为第一个输入，切分份数为8，其余输入切分均不超过8；但是不支持`config=((1, 1, 1, 1), (8,))`，其维度最多的输入为第一维，切分份数为1，但是其第二个输入切分份数却为8，超过了第一个输入的切分份数。
 

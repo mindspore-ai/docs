@@ -42,7 +42,7 @@ config={"openstate": True, "allreduce": {"mode": "auto", "config": None}}。其�
 
 MindSpore提供两种接口来使能通信融合，下面分别进行介绍：
 
-1. 自动并行场景下的配置
+1. 并行场景下的配置
 
     ```python
     net = AutoParallel(net, parallel_mode="semi_auto")
