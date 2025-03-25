@@ -24,6 +24,8 @@ MindSpore Transformers提供的`YAML`文件中包含对于不同功能的配置�
 | resume_training   | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                     | bool |
 | load_ckpt_format  | 加载的模型权重的格式，可选`ckpt`、`safetensors`                                                                                                                                                                                    | str  |
 | remove_redundancy | 加载的模型权重是否去除了冗余。默认值为`False`                                                                                                                                                                                           | bool |
+| train_precision_sync | 训练确定性计算开关。默认值为`None`                                                                                                                                                                                                                                                                                        | Optional[bool] |
+| infer_precision_sync | 推理确定性计算开关。默认值为`None`                                                                                                                                                                                                                                                                                        | Optional[bool] |
 
 ### Context配置
 
