@@ -114,19 +114,38 @@ MindSpore Transformers itself integrates profiling data collection with the foll
    Turn on the profiling switch in the model configuration file with the following parameters to be changed:
 
    ```yaml
-   profile: True  # Whether to enable performance analysis tools
-   profile_start_step: 5  # Step that starts performance analysis
-   profile_stop_step: 6  # Step that ends performance analysis
-   init_start_profile: False  # Enabled when Profiler is initialized, profile_start_step will not take effect after it is enabled.
-   profile_communication: False # Whether to collect communication performance data in multi-NPU training
-   profile_memory: True  # Collect Tensor memory data
+   profile: True                  # Whether to enable performance analysis tools
+   profile_start_step: 5          # Step that starts performance analysis
+   profile_stop_step: 6           # Step that ends performance analysis
+   init_start_profile: False      # Enabled when Profiler is initialized, profile_start_step will not take effect after it is enabled.
+   profile_communication: False   # Whether to collect communication performance data in multi-NPU training
+   profile_memory: True           # Collect Tensor memory data
+   mstx: True                     # Whether to enable mstx step-time recording.
    ```
 
-   profile_start_step and profile_stop_step determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, and it should be set to 2 to 4 steps. Since the first step involves compilation, it is recommended to start collecting from step 3.
+   `profile_start_step` and `profile_stop_step` determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, and it should be set to 2 to 4 steps. Since the first step involves compilation, it is recommended to start collecting from step 3.
+
+   The parameters of profiling configuration are shown as below:
+
+   | Parameters            | Descriptions                                                                                                                                                                                                                            | Types |
+   |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+   | profile               | Whether to enable the performance capture tool. Default: `False`.                                                                                                                                                                       | bool  |
+   | profile_start_step    | Set the number of steps to start collecting performance data. Default: `1`.                                                                                                                                                             | int   |
+   | profile_stop_step     | Set the number of steps to stop collecting performance data. Default: `10`.                                                                                                                                                             | int   |
+   | profile_communication | Set whether communication performance data is collected in multi-device training, this parameter is invalid when using single card training. Default: `False`.                                                                          | bool  |
+   | profile_memory        | Set whether to collect Tensor memory data. Default: `True`.                                                                                                                                                                             | bool  |
+   | profile_rank_ids      | Specify rank ids to enable collecting performance data. Defaults to `None`, which means all rank ids are enabled.                                                                                                                       | list  |
+   | profile_pipeline      | Set whether to enable collecting performance data on one card of each parallel stage. Default: `False`.                                                                                                                                 | bool  |
+   | profile_output        | Set the directory of saving performance data.                                                                                                                                                                                           | str   |
+   | profile_level         | Set the collection level. Should be one of (0, 1, 2). Default: `1`.                                                                                                                                                                     | int   |
+   | with_stack            | Set whether to collect Python-side stack trace data. Default: `False`.                                                                                                                                                                  | bool  |
+   | data_simplification   | Set whether to enable data simplification, which will delete the FRAMEWORK directory and other extraneous data after exporting performance data. Default: `False`.                                                                      | int   |
+   | init_start_profile    | Set whether to turn on collecting performance data when the Profiler is initialized; this parameter does not take effect when `profile_start_step` is set. This parameter needs to be set to `True` when `profile_memory` is turned on. | bool  |
+   | mstx                  | Set whether to enable mstx step time recording. Default: `False`.                                                                                                                                                                       | bool  |
 
 2. View Data
 
-   By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the output_dir field of the model's yaml configuration file.
+   By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the `profile_output` or `output_dir` field of the model's yaml configuration file, and the former has higher priority.
 
    The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
 
