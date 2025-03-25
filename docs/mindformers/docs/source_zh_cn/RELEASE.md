@@ -20,7 +20,7 @@
 
 | 模型                                                                                             | 规格                                                                |
 |------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
-| [TeleChat2](https://gitee.com/mindspore/mindformers/tree/r1.3.0/research/telechat2) | TeleChat2-7b (微调、推理)、TeleChat2-35b (微调、推理)、TeleChat2-115b (微调、推理) |
+| [TeleChat2](https://gitee.com/mindspore/mindformers/tree/v1.3.2/research/telechat2) | TeleChat2-7b (微调、推理)、TeleChat2-35b (微调、推理)、TeleChat2-115b (微调、推理) |
 
 ### Bugfix
 

@@ -6,7 +6,7 @@
 
 ## 准备权重文件
 
-MindFormers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考`Llama2`文档以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
+MindFormers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考[Llama2](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md)文档以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
 
 | 模型名称 | MindSpore权重 | HuggingFace权重 |
 | ------ | ------ | ------ |
@@ -28,7 +28,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 
     需要在MindFormers根目录下执行以下操作，并将下文中的{path}替换成本地路径。
 
-    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
+    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
 
         ```shell
           python mindformers/tools/dataset_preprocess/llama/alpaca_converter.py \
@@ -41,7 +41,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
         - data_path:   输入下载的文件路径。
         - output_path: 输出文件的保存路径。
 
-    2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
+    2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
 
         ```shell
           python mindformers/tools/dataset_preprocess/llama/llama_preprocess.py \
@@ -107,4 +107,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 说明微调任务已拉起，微调进度可在`output/msrun_log/`目录下查看。
 
-关于Llama2更多细节，以及更多的启动方式，请具体参考`Llama2` 的 [README](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#llama-2)文档获取更多支持。
+关于Llama2更多细节，以及更多的启动方式，请具体参考`Llama2` 的 [README](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#llama-2)文档获取更多支持。

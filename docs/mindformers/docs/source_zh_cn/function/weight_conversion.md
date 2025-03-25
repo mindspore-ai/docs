@@ -32,7 +32,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ## 转换示例
 
-假设用户已经下载了[Llama2模型的权重](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)
+假设用户已经下载了[Llama2模型的权重](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)
 ，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindFormers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
 
 ```bash
@@ -68,7 +68,7 @@ python convert_weight.py --model llama --input_path /home/user/torch_weights --o
 
 ## 模型权重转换开发示例
 
-此处以Llama为例。如若希望转换HuggingFace权重至MindFormers权重，需在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/models/llama/convert_weight.py)内定义`convert_pt_to_ms`函数：
+此处以Llama为例。如若希望转换HuggingFace权重至MindFormers权重，需在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/models/llama/convert_weight.py)内定义`convert_pt_to_ms`函数：
 
 ```python
 def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
@@ -101,7 +101,7 @@ def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
     return True
 ```
 
-而若是希望转换MindFormers权重至HuggingFace权重，则需在[convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/models/llama/convert_reversed.py)内定义`convert_ms_to_pt`函数：
+而若是希望转换MindFormers权重至HuggingFace权重，则需在[convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/models/llama/convert_reversed.py)内定义`convert_ms_to_pt`函数：
 
 ```python
 def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):

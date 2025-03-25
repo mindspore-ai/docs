@@ -47,7 +47,7 @@ Call the `pipeline` API or use the unified script `run_mindformer` to execute in
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/msrun_launcher.sh).
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/v1.3.2/scripts/msrun_launcher.sh).
 
 The arguments to run_mindformer.py are described below:
 
@@ -64,7 +64,7 @@ The arguments to run_mindformer.py are described below:
 
 msrun_launcher.sh includes the run_mindformer.py command and the number of inference cards as two parameters.
 
-The following will describe the usage of single and multi-card inference using Llama2 as an example, with the recommended configuration of the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml) file.
+The following will describe the usage of single and multi-card inference using Llama2 as an example, with the recommended configuration of the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/predict_llama2_7b.yaml) file.
 
 > During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_download/Llama2/` directory in advance.
 
@@ -102,7 +102,7 @@ The following result appears, proving that the inference was successful. The inf
 
 ## Multi-Card Inference
 
-The configuration requirements for multi-card inference differ from those of single card, and you need to refer to the following instructions to modify the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml) configuration.
+The configuration requirements for multi-card inference differ from those of single card, and you need to refer to the following instructions to modify the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/predict_llama2_7b.yaml) configuration.
 
 1. The configuration of model_parallel and the number of cards used need to be consistent. The following use case is 2-card inference, and model_parallel needs to be set to 2;
 2. The current version of multi-card inference does not support data parallelism, you need to set data_parallel to 1.

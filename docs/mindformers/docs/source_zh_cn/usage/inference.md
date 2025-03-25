@@ -47,7 +47,7 @@ MindFormers 提供了大模型推理能力，用户可以执行 `run_mindformer`
 
 ## 基于 run_mindformer 脚本推理
 
-单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/msrun_launcher.sh)来启动。
+单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/v1.3.2/scripts/msrun_launcher.sh)来启动。
 
 run_mindformer.py的参数说明如下：
 
@@ -64,7 +64,7 @@ run_mindformer.py的参数说明如下：
 
 msrun_launcher.sh包括run_mindformer.py命令和推理卡数两个参数。
 
-下面将以 Llama2 为例介绍单卡和多卡推理的用法，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml)文件。
+下面将以 Llama2 为例介绍单卡和多卡推理的用法，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/predict_llama2_7b.yaml)文件。
 
 > 推理时会自动下载Llama2模型所需的词表文件 `tokenizer.model` （需要保障网络畅通）。如果本地有这个文件，可以提前把它放在 `./checkpoint_download/llama2/` 目录下。
 
@@ -102,7 +102,7 @@ python run_mindformer.py \
 
 ### 多卡推理
 
-多卡推理的配置要求与单卡存在差异，需参考如下说明修改[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml)配置。
+多卡推理的配置要求与单卡存在差异，需参考如下说明修改[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/predict_llama2_7b.yaml)配置。
 
 1. 模型并行model_parallel的配置和使用的卡数需保持一致，下文用例为2卡推理，需将model_parallel设置成2；
 2. 当前版本的多卡推理不支持数据并行，需将data_parallel设置为1。

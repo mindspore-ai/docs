@@ -29,7 +29,7 @@ MindFormers supports multiple parallelism features. You can use these features t
 | **[Model parallelism](https://www.mindspore.cn/docs/en/r2.4.10/model_train/parallel/operator_parallel.html)**                    | Distributes model parameters to multiple devices. This mode applies to the scenario where a single device cannot accommodate the entire model.                                               |
 | **[Pipeline parallelism](https://www.mindspore.cn/docs/en/r2.4.10/model_train/parallel/pipeline_parallel.html)**                  | Divides an ultra-large model into multiple phases with each running on different devices for efficient training.                                       |
 | **[Optimizer parallelism](https://www.mindspore.cn/docs/en/r2.4.10/model_train/parallel/optimizer_parallel.html)**                  | Distributes the optimizer computation to multiple devices to reduce memory usage and improve training efficiency.                                                  |
-| **[Sequence parallelism](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/feature_cards/Long_Sequence_Training.md)**                    | Slices the LayerNorm and Dropout inputs at the Transformer layer by sequence to reduce the GPU memory pressure of a single device. This mode applies to a model for processing long sequence inputs.       |
+| **[Sequence parallelism](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/feature_cards/Long_Sequence_Training.md)**                    | Slices the LayerNorm and Dropout inputs at the Transformer layer by sequence to reduce the GPU memory pressure of a single device. This mode applies to a model for processing long sequence inputs.       |
 | **Context parallelism** | Slices all inputs and output activations by sequence to further reduce the GPU memory usage of the model for processing long sequence inputs.|
 | **[Multi-copy parallelism](https://www.mindspore.cn/docs/en/r2.4.10/model_train/parallel/pipeline_parallel.html#mindspore-interleaved-pipeline-scheduler)**                  | Implements fine-grained parallel control among multiple copies to optimize performance and resource utilization. This mode is suitable for efficient training of models with large specifications.                                    |
 
@@ -37,7 +37,7 @@ For details about how to configure distributed parallel parameters, see [MindFor
 
 ## MindFormers Distributed Parallel Application Practices
 
-In the [Llama3-70B fine-tuning configuration](https://gitee.com/kong_de_shu/mindformers/blob/dev/research/llama3/finetune_llama3_70b.yaml#) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
+In the [Llama3-70B fine-tuning configuration](https://gitee.com/kongdeshuo/mindformers/blob/dev/research/llama3/llama3_70b/finetune_llama3_70b.yaml) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
 
 - **Data parallelism**: No additional data parallelism is enabled (`data_parallel: 1`).
 - **Model parallelism**: A model is sliced into eight parts, which are computed on different devices (`model_parallel: 8`).

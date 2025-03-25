@@ -226,7 +226,7 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
       # 原始代码
   ```
 
-* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
+* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
 
   ```python
   import numpy as np
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-MindFormers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/wrapper/wrapper.py)实现，注意，需要用户自行找到MindFormers与PyTorch梯度的对应关系，参考如下修改代码：
+MindFormers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/wrapper/wrapper.py)实现，注意，需要用户自行找到MindFormers与PyTorch梯度的对应关系，参考如下修改代码：
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
