@@ -89,13 +89,13 @@ The following is an example of a MindRecord dataset based on a json format file,
     writer.commit()
     ```
 
-For the detailed cases, refer to [Examples of Data Preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
+For the detailed cases, refer to [Examples of Data Preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
 
 ### Using MindRecord Format Datasets in Tasks
 
 You can make a training or evaluation task use a prepared MindRecord format dataset by configuring dataset-related parameters in the yaml configuration file.
 
-Here, as an example, for the Llama2-7B model pretraining task, the default configuration parameters and descriptions in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml#L39) are as follows:
+Here, as an example, for the Llama2-7B model pretraining task, the default configuration parameters and descriptions in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/pretrain_llama2_7b.yaml#L39) are as follows:
 
 ```yaml
 # dataset
@@ -139,7 +139,7 @@ Currently the preprocessing script provided by MindFormers only supports process
 {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
 ```
 
-Llama2 processing of a Wiki dataset as an example, for the download of the original Wiki dataset, see [Example of data preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，Call [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) directly after processing the dataset into a format that matches the format supported by the preprocessing scripts. The specific commands are as follows:
+Llama2 processing of a Wiki dataset as an example, for the download of the original Wiki dataset, see [Example of data preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，Call [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) directly after processing the dataset into a format that matches the format supported by the preprocessing scripts. The specific commands are as follows:
 
 ```shell
 python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
@@ -172,7 +172,7 @@ After executing the above command, you will get two files in .bin and .idx forma
 
 The training task can be made to use a prepared BIN format dataset by configuring dataset-related parameters in the yaml configuration file.
 
-Here, taking the Llama2-7B model pretraining task as an example, the configuration parameters in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml#L39) are modified and described as follows:
+Here, taking the Llama2-7B model pretraining task as an example, the configuration parameters in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/pretrain_llama2_7b.yaml#L39) are modified and described as follows:
 
 ```yaml
 # dataset
@@ -294,7 +294,7 @@ If you want to process the data directly for the whole dataset instead of proces
 
 #### Training Processes Loaded Directly from the Remote Repository
 
-Modify the task configuration file [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/finetune_llama2_7b.yaml).
+Modify the task configuration file [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/finetune_llama2_7b.yaml).
 
 Modify the following parameters:
 
@@ -409,7 +409,7 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
 
 #### Training Processes Loaded Directly from the Remote Repository
 
-Modify the task configuration file [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml).
+Modify the task configuration file [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml).
 
 Modify the following parameters:
 

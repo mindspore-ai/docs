@@ -48,7 +48,7 @@ All tokenizer classes must be inherited from the PretrainedTokenizer or Pretrain
 
 If a PyTorch-based model weight already exists, you can convert the weight to that in the MindSpore format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/weight_conversion.html).
 
-For details about how to prepare a dataset, see [Dataset](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/dataset.html) or the model document, for example, [Llama2 Description Document > Dataset Preparation](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
+For details about how to prepare a dataset, see [Dataset](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/dataset.html) or the model document, for example, [Llama2 Description Document > Dataset Preparation](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
 
 ### Preparing a `YAML` File
 
@@ -56,7 +56,7 @@ MindFormers uses a `YAML` file to configure all parameters required by a task, i
 
 The code of the customized model is not in the MindFormers library, and the customized module in the code is not registered with MindFormers. Therefore, the customized model cannot be automatically instantiated. The code is also called external code (for example, the code in the `research` directory). Therefore, you need to add the `auto_register` configuration item for automatically registering any module to the corresponding module configuration in the `YAML` file and set the configuration items to the relative import paths of the API to be registered. When the run_mindformer.py script is executed to start the task, you need to add the input parameter `--register_path` of the registration path and set it to the relative path of the directory where the external code is located.
 
-For example, in the `YAML` file [`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3_1/predict_llama3_1_8b.yaml) of the Llama3.1-8B model inference in the `research` directory, the configuration item `auto_register` is added for automatic registration to register the customized `Llama3Tokenizer` in [`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3_1/llama3_1_tokenizer.py).
+For example, in the `YAML` file [`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3_1/predict_llama3_1_8b.yaml) of the Llama3.1-8B model inference in the `research` directory, the configuration item `auto_register` is added for automatic registration to register the customized `Llama3Tokenizer` in [`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3_1/llama3_1_tokenizer.py).
 
 ```yaml
 ...
@@ -89,9 +89,9 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 |  register_path  | Path of the directory where the external code is located.  |
 |  predict_data   | Input data for inference.      |
 
-`register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3_1/llama3_1.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
+`register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3_1/llama3_1.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
 
-For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/appendix/conf_files.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama2-7B fine-tuning configuration file](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/finetune_llama2_7b.yaml).
+For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/appendix/conf_files.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama2-7B fine-tuning configuration file](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/finetune_llama2_7b.yaml).
 
 After all the preceding basic elements are prepared, you can refer to other documents in the MindFormers tutorial to perform model training, fine-tuning, and inference. For details about subsequent model debugging and optimization, see [Large Model Accuracy Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/acc_optimize/acc_optimize.html) and [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/perf_optimize/perf_optimize.html).
 
@@ -120,18 +120,18 @@ The differences are as follows:
 - In Llama3-8B, the special word metaindex is modified. Therefore, `bos_token_id` is set to `128000`, `eos_token_id` is set to `128001`, and `pad_token_id` is set to `128002`.
 - In Llama3-8B, the value of **theta** in the rotation position code is changed to **500000**. Therefore, `theta` is set to `500000`.
 
-After modifying the corresponding content in the `YAML` file of Llama2-7B, you can obtain the [Llama3-8B configuration file](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/finetune_llama3_8b_8k_800T_A2_64G.yaml).
+After modifying the corresponding content in the `YAML` file of Llama2-7B, you can obtain the [Llama3-8B configuration file](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3/finetune_llama3_8b_8k_800T_A2_64G.yaml).
 
 #### Tokenizer
 
-Llama3-8B re-implements the tokenizer. According to the official implementation, PretrainedTokenizer is inherited from MindFormers to implement Llama3Tokenizer, which is written in [llama3_tokenizer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/llama3_tokenizer.py).
+Llama3-8B re-implements the tokenizer. According to the official implementation, PretrainedTokenizer is inherited from MindFormers to implement Llama3Tokenizer, which is written in [llama3_tokenizer.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3/llama3_tokenizer.py).
 
 #### Weight Conversion
 
-The parameters of Llama3-8B are the same as those of Llama2-7B. Therefore, the weight conversion process of Llama2-7B can be reused. For details, see [Llama3 Document > Weight Conversion](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/llama3.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E8%BD%AC%E6%8D%A2).
+The parameters of Llama3-8B are the same as those of Llama2-7B. Therefore, the weight conversion process of Llama2-7B can be reused. For details, see [Llama3 Document > Weight Conversion](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3/llama3.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E8%BD%AC%E6%8D%A2).
 
 #### Dataset Processing
 
-The tokenizer of Llama3-8B is different from that of Llama2-7B. Therefore, you need to replace the tokenizer of Llama3-8B to preprocess data based on the dataset processing script of Llama2-7B. For details, see [conversation.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/conversation.py) and [llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/llama_preprocess.py).
+The tokenizer of Llama3-8B is different from that of Llama2-7B. Therefore, you need to replace the tokenizer of Llama3-8B to preprocess data based on the dataset processing script of Llama2-7B. For details, see [conversation.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3/conversation.py) and [llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3/llama_preprocess.py).
 
-For details about the implementation of Llama3 in MindFormers, see [Llama3 folder](https://gitee.com/mindspore/mindformers/tree/r1.3.0/research/llama3) in the MindFormers repository. For details about how to use Llama3 in MindFormers, see [LLama3 documents](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/llama3.md).
+For details about the implementation of Llama3 in MindFormers, see [Llama3 folder](https://gitee.com/mindspore/mindformers/tree/v1.3.2/research/llama3) in the MindFormers repository. For details about how to use Llama3 in MindFormers, see [LLama3 documents](https://gitee.com/mindspore/mindformers/blob/v1.3.2/research/llama3/llama3.md).

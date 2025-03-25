@@ -121,7 +121,7 @@ MindFormers itself integrates profiling data collection with the following steps
 
    By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the output_dir field of the model's yaml configuration file.
 
-   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
+   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
 
 #### MindStudio Insight
 
@@ -254,15 +254,15 @@ In practice, multiple parallelization strategies are usually used in combination
 
 * Small parameter models
 
-  When the model size is small (e.g. 7B), pure data parallelism + optimizer parallelism can be used, and gradient accumulation can be further turned on if memory is rich. Use 8-card training, [Llama2-7B parallelism strategy recommended configuration](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml).
+  When the model size is small (e.g. 7B), pure data parallelism + optimizer parallelism can be used, and gradient accumulation can be further turned on if memory is rich. Use 8-card training, [Llama2-7B parallelism strategy recommended configuration](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/pretrain_llama2_7b.yaml).
 
 * Moderate parameter models
 
-  For moderate model sizes (e.g. 13B), further pipeline parallelism can be used and recomputation can be tuned. Use 8-card training, [Llama2-13B parallel strategy recommended configuration](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_13b.yaml).
+  For moderate model sizes (e.g. 13B), further pipeline parallelism can be used and recomputation can be tuned. Use 8-card training, [Llama2-13B parallel strategy recommended configuration](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/pretrain_llama2_13b.yaml).
 
 * Large parameter models
 
-  When the model size is large (e.g., 70B), model parallelism needs to be turned on, while sequence parallelism and multicopy parallelism are also recommended. Use 64-card training, [Llama2-70B parallel strategy recommended configuration](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_70b.yaml).
+  When the model size is large (e.g., 70B), model parallelism needs to be turned on, while sequence parallelism and multicopy parallelism are also recommended. Use 64-card training, [Llama2-70B parallel strategy recommended configuration](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/predict_llama2_70b.yaml).
 
 ### Memory Optimization
 

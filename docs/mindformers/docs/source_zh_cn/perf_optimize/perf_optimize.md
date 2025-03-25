@@ -121,7 +121,7 @@ MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
 
    采集工具默认会在`./output`路径下创建一个`profile`文件夹，该路径可通过模型yaml配置文件的output_dir字段进行设置。
 
-   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/profiler.html)，主要收集算子、任务等运行耗时、CPU利用率及内存消耗等信息，用于性能调优分析。
+   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html)，主要收集算子、任务等运行耗时、CPU利用率及内存消耗等信息，用于性能调优分析。
 
 #### MindStudio Insight
 
@@ -254,15 +254,15 @@ MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均�
 
 * 小参数模型
 
-  模型规模较小时（如7B），可使用纯数据并行+优化器并行，如果内存富裕可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml)。
+  模型规模较小时（如7B），可使用纯数据并行+优化器并行，如果内存富裕可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/pretrain_llama2_7b.yaml)。
 
 * 中等参数模型
 
-  模型规模适中时（如13B），可进一步使用流水线并行，并调整重计算。使用8卡训练，[Llama2-13B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_13b.yaml)。
+  模型规模适中时（如13B），可进一步使用流水线并行，并调整重计算。使用8卡训练，[Llama2-13B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/pretrain_llama2_13b.yaml)。
 
 * 大参数模型
 
-  模型规模较大时（如70B），需开启模型并行，同时序列并行与多副本并行也建议开启。使用64卡训练，[Llama2-70B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_70b.yaml)。
+  模型规模较大时（如70B），需开启模型并行，同时序列并行与多副本并行也建议开启。使用64卡训练，[Llama2-70B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/v1.3.2/configs/llama2/predict_llama2_70b.yaml)。
 
 ### 内存优化
 

@@ -61,7 +61,7 @@ Take the [Llama2-7B model](https://huggingface.co/meta-llama/Llama-2-7b-hf/tree/
 - `tokenizer.json`: tokenizer vocabulary configuration file.<br>
 - `tokenizer.model`: tokenizer of the model.<br>
 
-MindFormers provides a weight conversion script. You can run the conversion script [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/convert_weight.py) to convert the HuggingFace weights to the complete CKPT weights.
+MindFormers provides a weight conversion script. You can run the conversion script [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/convert_weight.py) to convert the HuggingFace weights to the complete CKPT weights.
 
 ```bash
 python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path {path}/MS_CKPT_NAME
@@ -87,7 +87,7 @@ The following uses the alpaca dataset as an example. After downloading the datas
 
 **alpaca Data Preprocessing**
 
-1. Run the [alpaca_converter.py script](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py) in MindFormers to convert the dataset into the multi-round dialog format.
+1. Run the [alpaca_converter.py script](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py) in MindFormers to convert the dataset into the multi-round dialog format.
 
     ```bash
     python alpaca_converter.py \
@@ -102,7 +102,7 @@ The following uses the alpaca dataset as an example. After downloading the datas
     output_path: path for storing output files.
     ```
 
-2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindFormers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later in advance.
+2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindFormers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later in advance.
 
     ```bash
     python llama_preprocess.py \

@@ -20,7 +20,7 @@ The following new models are now supported:
 
 | Model                                                                                   | Specifications                                                                                                |
 |-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| [TeleChat2](https://gitee.com/mindspore/mindformers/tree/r1.3.0/research/telechat2) | TeleChat2-7b (finetune, inference), TeleChat2-35b (finetune, inference), TeleChat2-115b (finetune, inference) |
+| [TeleChat2](https://gitee.com/mindspore/mindformers/tree/v1.3.2/research/telechat2) | TeleChat2-7b (finetune, inference), TeleChat2-35b (finetune, inference), TeleChat2-115b (finetune, inference) |
 
 ### Bugfix
 
