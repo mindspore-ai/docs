@@ -46,7 +46,7 @@ def modify_menu_num(html_path):
                     if not extra_re:
                         extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n</li>\n</ul>\n</li>\n</ul>\n\n', h_content)
                     if not extra_re:
-                        extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n<p class="caption"', h_content)
+                        extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n</li>\n</ul>\n<p class="caption"', h_content)
 
                 if extra_re:
                     extra_ul = '<ul>\n' + '\n'.join(re.findall('<li class="toctree-l[0-9]">.*?href="[^#].*?</li>', extra_re[0])) + '\n</ul>'

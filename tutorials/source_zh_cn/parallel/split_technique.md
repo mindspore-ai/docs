@@ -130,7 +130,8 @@ class FlashAttention(Cell):
         mp = parallel_config.model_parallel
         cp = parallel_config.context_parallel
         cp_ds = parallel_config.get_ulysses_cp_num()
-        fa_strategies = self._generate_flash_attention_strategy(dp, mp, cp, cp_ds)
+        fa_strategies = self._generate_flash_attention_strategy(
+            dp, mp, cp, cp_ds)
         self.flash_attention.shard(fa_strategies)
 +       if self.use_alibi_mask:
 +           self.alibi_rescale_mul.shard(((dp, mp, cp, 1), (1,)))
@@ -148,7 +149,8 @@ class FlashAttention(Cell):
         mp = parallel_config.model_parallel
         cp = parallel_config.context_parallel
         cp_ds = parallel_config.get_ulysses_cp_num()
-        fa_strategies = self._generate_flash_attention_strategy(dp, mp, cp, cp_ds)
+        fa_strategies = self._generate_flash_attention_strategy(
+            dp, mp, cp, cp_ds)
         self.flash_attention.shard(fa_strategies)
         return self
 ```

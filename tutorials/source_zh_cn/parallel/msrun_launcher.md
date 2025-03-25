@@ -87,7 +87,7 @@
         <td align="left">设置单卡模拟编译等级。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">默认为-1，即关闭单卡模拟编译功能。</td>
-        <td align="left">若用户配置此参数，msrun只会拉起单进程模拟编译，不做算子执行。此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>若设置为0，只做前端图编译；若设置为1，进一步执行后端图编译，在执行图阶段退出。</td>
+        <td align="left">若用户配置此参数，msrun只会拉起单进程模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>若设置为0，只做前端图编译；若设置为1，进一步执行后端图编译，在执行图阶段退出。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_rank_id</td>
@@ -101,35 +101,35 @@
         <td align="left">rank_table配置文件，只在昇腾平台下有效。</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">rank_table配置文件路径，默认为空。</td>
-        <td align="left">此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。<br>由于rank_table配置文件反映的是物理层面分布式集群信息，在使用该配置时，请确保对于当前进程可见的Device与rank_table配置保持一致。<br>可通过环境变量<code>ASCEND_RT_VISIBLE_DEVICES</code>设置对于当前进程可见的Device。</td>
+        <td align="left">此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。<br>由于rank_table配置文件反映的是物理层面分布式集群信息，在使用该配置时，<br>请确保对于当前进程可见的Device与rank_table配置保持一致。<br>可通过环境变量<code>ASCEND_RT_VISIBLE_DEVICES</code>设置对于当前进程可见的Device。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--worker_log_name</td>
         <td align="left">设置worker日志名。</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">worker日志文件名，默认为<code>worker_[rank].log</code>。</td>
-        <td align="left">此参数代表支持用户配置worker日志名，并且支持分别通过<code>{ip}</code>和<code>{hostname}</code>在worker日志名中配置<code>ip</code>和<code>hostname</code>。<br>worker日志名的后缀默认为<code>rank</code>。</td>
+        <td align="left">此参数代表支持用户配置worker日志名，并且支持分别通过<code>{ip}</code>和<code>{hostname}</code><br>在worker日志名中配置<code>ip</code>和<code>hostname</code>。<br>worker日志名的后缀默认为<code>rank</code>。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--tail_worker_log</td>
         <td align="left">输出worker日志到控制台。</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">一个或多个与worker进程rank_id关联的整数。默认为-1。</td>
-        <td align="left">此参数代表<code>--join=True</code>情况下，默认输出当前节点所有worker日志，并且支持用户指定一个或多个卡的worker日志输出到控制台。<br>这个参数需要在[0, local_worker_num]范围内。</td>
+        <td align="left">此参数代表<code>--join=True</code>情况下，默认输出当前节点所有worker日志，<br>并且支持用户指定一个或多个卡的worker日志输出到控制台。<br>这个参数需要在[0, local_worker_num]范围内。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script</td>
         <td align="left">用户Python脚本。</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">合法的脚本路径。</td>
-        <td align="left">一般情况下，此参数为python脚本路径，msrun会默认以<code>python task_script task_script_args</code>方式拉起进程。<br>msrun还支持此参数为pytest，此场景下任务脚本及任务参数在参数<code>task_script_args</code>传递。</td>
+        <td align="left">一般情况下，此参数为python脚本路径，<br>msrun会默认以<code>python task_script task_script_args</code>方式拉起进程。<br>msrun还支持此参数为pytest，此场景下任务脚本及任务参数<br>在参数<code>task_script_args</code>传递。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script_args</td>
         <td align="left">用户Python脚本的参数。</td>
         <td align="left"></td>
         <td align="left">参数列表。</td>
-        <td align="left">例如：<code>msrun --worker_num=8 --local_worker_num=8 train.py <b>--device_target=Ascend --dataset_path=/path/to/dataset</b></code></td>
+        <td align="left">例如：<code>msrun --worker_num=8 --local_worker_num=8 train.py <br><b>--device_target=Ascend --dataset_path=/path/to/dataset</b></code></td>
     </tr>
 </table>
 
