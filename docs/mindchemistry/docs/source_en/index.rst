@@ -106,6 +106,7 @@ and install the corresponding whl package.
 MindChemistry Branch MindSpore Python
 ============= ====== ========= ======
 master        master >=2.3     >=3.8
+0.2.0         r0.7   >=2.5.0   >=3.11
 0.1.0         r0.6   >=2.2.12  >=3.8
 ============= ====== ========= ======
 
