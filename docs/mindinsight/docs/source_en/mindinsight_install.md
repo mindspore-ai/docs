@@ -13,6 +13,11 @@
     - Confirm that [node.js](https://nodejs.org/en/download/) 10.19.0 or later is installed.
     - Confirm that [wheel](https://pypi.org/project/wheel/) 0.32.0 or later is installed.
 - All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r2.3/requirements.txt).
+- Due to the security vulnerabilities in Flask-Core==3.0.10 and gunicorn==21.2.0, it is recommended to upgrade the third-party database to Flask-Core>=4.0.2 and gunicorn>=21.2.1, the specific security vulnerabilities are as follows:
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6866
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6844
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6839
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6827
 
 ## Installation Methods
 

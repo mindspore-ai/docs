@@ -13,6 +13,11 @@
     - 确认安装[node.js](https://nodejs.org/en/download/) 10.19.0及以上版本。
     - 确认安装[wheel](https://pypi.org/project/wheel/) 0.32.0及以上版本。
 - 其他依赖参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r2.3/requirements.txt)。
+- 由于Flask-Core==3.0.10和gunicorn==21.2.0存在安全漏洞，建议升级三方库为Flask-Core>=4.0.2和gunicorn>=21.2.1。具体安全漏洞参考如下：
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6866
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6844
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6839
+    - https://nvd.nist.gov/vuln/detail/CVE-2024-6827
 
 ## 安装方式
 
