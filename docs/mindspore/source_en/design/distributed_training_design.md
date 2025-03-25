@@ -189,7 +189,7 @@ A typical computational process for MindSpore heterogeneous parallel training is
 3. The framework is sliced according to the computational graph operator flag.
 4. The framework schedules different back-end execution subgraphs.
 
-Current scenarios that typically use heterogeneous parallel computing are: optimizer heterogeneity, Embedding heterogeneity, and PS heterogeneity.
+Current scenario that typically uses heterogeneous parallel computing is optimizer heterogeneity.
 
 ### Optimizer Heterogeneity
 
@@ -283,88 +283,6 @@ class AdamWeightDecayOp(Optimizer):
 ```
 
 Steps 4 and 5 can also be directly fused into the optimizer operator for further optimization. The complete optimizer heterogeneous training process can be found at: <https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha>.
-
-### Embedding Heterogeneity
-
-In some networks where large Embedding tables need to be checked, the Embedding tables are often hundreds of gigabytes in size, which is limited by the accelerator memory size and cannot be executed by loading the entire table directly onto the accelerator. By putting the operators connected to the weight table on the CPU for execution, we avoid the problem that the accelerator cannot train the network due to memory limitation.
-
-![heterogeneous-heter-embed](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/heter-embed.png)
-
-1. Configure EmbeddingLookup operator to CPU execution
-
-   ```python
-   import mindspore.nn as nn
-   import mindspore.ops as ops
-   import mindspore as ms
-   from mindspore.common.initializer import initializer
-   class EmbeddingLookupNet(nn.Cell):
-       def __init__(self, vocab_size, embedding_size, param_init='normal'):
-           super(EmbeddingLookupNet, self).__init__()
-           self.embeddinglookup = ops.EmbeddingLookup().set_device('CPU')
-           self.embedding_table = ms.Parameter(initializer(param_init, [vocab_size, embedding_size]), name='embedding_table')
-
-       def construct(self, indices):
-           out = self.embeddinglookup(self.embedding_table, indices, 0)
-           return out
-   ```
-
-2. Configure related sparse optimizer of EmbeddingLookup to CPU execution
-
-   ```python
-   from mindspore.nn import LazyAdam
-   net = EmbeddingLookupNet(1000, 100)
-   params = net.trainable_params()
-   optimizer = LazyAdam(params)
-   optimizer.target = "CPU"
-   ```
-
-A sample code for setting up the EmbeddingLookup operator is as follows:
-
-```python
-import mindspore.nn as nn
-import mindspore.ops as ops
-import mindspore as ms
-from mindspore.common.initializer import initializer
-
-class EmbeddingLookup(nn.Cell):
-    def __init__(self, vocab_size, embedding_size, param_init='normal',
-                 target='CPU', sparse=True):
-        """Initialize EmbeddingLookup."""
-        super(EmbeddingLookup, self).__init__()
-        validator.check_value_type('sparse', sparse, [bool], self.cls_name)
-        self.vocab_size = validator.check_positive_int(vocab_size, 'vocab_size')
-        self.target = target
-        self.sparse = sparse
-        if sparse:
-            self.gatherv2 = ops.SparseGatherV2()
-        else:
-            self.gatherv2 = ops.Gather()
-        self.embeddinglookup = ops.EmbeddingLookup().set_device('CPU')
-        self.embedding_size = validator.check_positive_int(embedding_size, 'embedding_size')
-        self.embedding_table = ms.Parameter(initializer(param_init, [self.vocab_size, self.embedding_size]),
-                                            name='embedding_table')
-
-    def construct(self, indices):
-        if self.target == "CPU":
-            out = self.embeddinglookup(self.embedding_table, indices, 0)
-        else:
-            out = self.gatherv2(self.embedding_table, indices, 0)
-        return out
-```
-
-EmbeddingLookup, FTRL, LazyAdam and other operators in the current nn directory are encapsulated the heterogeneous interface, and the user only needs to set the target attribute to CPU or DEVICE to switch the execution backend.
-
-For the overall calling process, refer to <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>.
-
-### PS Heterogeneity
-
-When the EmbeddingTable reaches T level and the single machine memory cannot be put down, Parameter Server is used to pull and update the weights by heterogeneous Pull/Push operators.
-
-![heterogeneous-heter-ps](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/heter-ps.png)
-
-Parameter Server encapsulates heterogeneous processes, and users only need to configure parameters to use PS. For the detailed configuration process, refer to [Parameter Server training process](https://www.mindspore.cn/docs/en/master/model_train/parallel/parameter_server_training.html).
-
-In addition, the process of using PS is also available in the wide&deep network and can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>.
 
 ### Constraints
 

@@ -23,7 +23,6 @@
    :hidden:
    :caption: 分布式并行
 
-   parallel/startup_method
    parallel/data_parallel
    parallel/operator_parallel
    parallel/optimizer_parallel

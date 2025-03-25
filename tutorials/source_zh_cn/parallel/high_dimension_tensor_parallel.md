@@ -49,7 +49,7 @@
 - 处理器数量依次为P、 P = xy、 P = xyz
 - 进行两次matmul运算的张量shape为: activation: (bs, h), weight1: (h, e), weight2: (e, h)
 
-### 相关接口：
+### 相关接口
 
 1. `mindspore.ops.MatMul().add_prim_attr("enable_nd_tp", True)`：开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置MatMul的shard切分。
 2. `mindspore.ops.BatchMatMul().add_prim_attr("enable_nd_tp", True)`: 开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置MatMul的shard切分。
