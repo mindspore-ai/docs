@@ -70,13 +70,9 @@ class Network(nn.Cell):
         logits = self.layer3(x)
         return logits
 
-net = Network()
-# Configure the pipeline_stage number for each layer in pipeline parallel
-net.layer1.pipeline_stage = 0
-net.relu1.pipeline_stage = 0
-net.layer2.pipeline_stage = 1
-net.relu2.pipeline_stage = 1
-net.layer3.pipeline_stage = 1
+with no_init_parameters():
+    net = Network()
+    optimizer = nn.SGD(net.trainable_params(), 1e-2)
 # Configure recomputation of relu operators
 net.relu1.recompute()
 net.relu2.recompute()
@@ -89,9 +85,13 @@ The dataset is loaded in the same way as the single-card model, with the followi
 ```python
 import os
 import mindspore.dataset as ds
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore import nn, train
+from mindspore.communication import init
 
 def create_dataset(batch_size):
-    dataset_path = os.getenv("DATA_PATH")
+    """create dataset"""
+    dataset_path = "./MNIST_Data/train"
     dataset = ds.MnistDataset(dataset_path)
     image_transforms = [
         ds.vision.Rescale(1.0 / 255.0, 0),
@@ -115,17 +115,22 @@ This part is consistent with the pipeline parallel training code. Two additional
 import mindspore as ms
 from mindspore import nn, train
 
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.MAELoss()
 loss_cb = train.LossMonitor()
-net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
+# Configure the pipeline_stage number for each layer in pipeline parallel
+net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4,
+                                stage_config={"_backbone.layer1" : 0,
+                                              "_backbone.relu1" : 0,
+                                              "_backbone.layer2" : 1,
+                                              "_backbone.relu2" : 1,
+                                              "_backbone.layer3" : 1,})
 model = ms.Model(net_with_grads, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
 ### Running a Stand-alone Eight-Card Script
 
-Next, the corresponding scripts are invoked by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
+Next, the corresponding scripts are invoked by commands, using the `msrun` startup method and the 8-card distributed training script as an example of distributed training:
 
 ```bash
 bash run_sapp_mix_train.sh

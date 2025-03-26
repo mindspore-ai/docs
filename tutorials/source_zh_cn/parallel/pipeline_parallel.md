@@ -121,12 +121,12 @@ class Network(nn.Cell):
 
 ### 训练网络定义
 
-在这一步，我们需要定义损失函数、优化器以及训练过程。需要注意的是，这里对网络和优化器的定义都需要延后初始化。除此之外, 还需要增加 `PipelineGradReducer` 接口，用于处理流水线并行下的梯度，该接口的第一个参数为需要更新的网络参数, 第二个为是否使用优化器并行。
+在这一步，我们需要定义损失函数、优化器以及训练过程。需要注意的是，这里对网络和优化器的定义都需要延后初始化。除此之外，还需要增加 `PipelineGradReducer` 接口，用于处理流水线并行下的梯度，该接口的第一个参数为需要更新的网络参数，第二个为是否使用优化器并行。
 
 与单卡模型不同，在这部分需要调用两个接口来配置流水线并行：
 
 - 首先需要定义LossCell，本例中调用了`nn.WithLossCell`接口封装网络和损失函数。
-- 然后需要在LossCell外包一层`Pipeline`，并指定MicroBatch的size,并通过`stage_config`配置每个包含训练参数的`Cell`的`pipeline_stage`。
+- 然后需要在LossCell外包一层`Pipeline`，并指定MicroBatch的size，并通过`stage_config`配置每个包含训练参数的`Cell`的`pipeline_stage`。
 
 ```python
 import mindspore as ms
@@ -159,7 +159,7 @@ def train_one_step(inputs, target):
 
 ```
 
-使能interleaved pipeline调度，`Pipeline`中的`stage_config`需要对非连续模型层需要进行交错式配置，配置如下：
+使能interleaved pipeline调度，`Pipeline`中的`stage_config`需要对非连续模型层进行交错式配置，配置如下：
 
 ```python
 net_with_loss = Pipeline(nn.WithLossCell(net, loss_fn), 4, stage_config={"_backbone.flatten":0,
@@ -168,7 +168,7 @@ net_with_loss = Pipeline(nn.WithLossCell(net, loss_fn), 4, stage_config={"_backb
 
 ## 并行配置
 
-我们需要进一步设置并行有关的配置，指定并行模式`semi_auto`为半自动并行模式，此外，还需开启流水线并行，配置`pipeline`,并通过配置`stages`数来指定stage的总数。
+我们需要进一步设置并行有关的配置，指定并行模式`semi_auto`为半自动并行模式，此外，还需开启流水线并行，配置`pipeline`，并通过配置`stages`数来指定stage的总数。
 
 ```python
 import mindspore as ms
@@ -179,7 +179,7 @@ parallel_net.pipeline(stages=2)
 
 ```
 
-如果需要跑interleaved pipeline调度，还需要配置:`parallel_net.pipeline(stages=2, interleave=True)`，需要注意的是，MindSpore的interleaved pipeline调度还在完善阶段，目前在O0或者O1模式下表现会更好。
+如果需要跑interleaved pipeline调度，还需要配置：`parallel_net.pipeline(stages=2, interleave=True)`，需要注意的是，MindSpore的interleaved pipeline调度还在完善阶段，目前在O0或者O1模式下表现会更好。
 
 ```python
 import mindspore as ms
@@ -350,7 +350,7 @@ net.head.pipeline_stage = 3
 
 在上一步中，`embed`被`self.word_embedding`和`self.head`两层共享，并且这两层被切分到了不同的stage上。
 
-我们需要进一步设置并行有关的配置，用`AutoParallel`再包裹一次network,指定并行模式`semi_auto`为半自动并行模式，此外，还需开启流水线并行，配置`pipeline`,并通过配置`stages`数来指定stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备（默认为Ascend）。`output_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
+我们需要进一步设置并行有关的配置，用`AutoParallel`再包裹一次network，指定并行模式`semi_auto`为半自动并行模式，此外，还需开启流水线并行，配置`pipeline`，并通过配置`stages`数来指定stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备（默认为Ascend）。`output_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
 
 在执行推理前，先编译计算图`parallel_net.compile()`，再调用`sync_pipeline_shared_parameters(parallel_net)`接口，框架自动同步stage间的共享权重。
 

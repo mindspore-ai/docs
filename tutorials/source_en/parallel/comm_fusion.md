@@ -42,7 +42,7 @@ comm_fusion={"openstate": True, "allreduce": {"mode": "auto", "config": None}}, 
 
 MindSpore provides two interfaces to enable communication fusion, each of which is described below:
 
-1. Configuration in auto-parallel scenarios
+1. Configuration in parallel scenarios
 
     ```python
     net = AutoParallel(net, parallel_mode="semi_auto")

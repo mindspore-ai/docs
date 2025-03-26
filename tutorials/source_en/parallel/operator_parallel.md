@@ -4,67 +4,13 @@
 
 ## Overview
 
-With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel. Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is silced. The training of large models is enabled by reducing the memory consumption of a single device. For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/master/api_python/operator_list_parallel.html).
+With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel. Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model and distributing the operators to multiple devices, reducing memory consumption on a single device, thus enabling the training of large models.
 
-> Hardware platforms supported by the operator-level parallel model include Ascend, GPU, and need to be run in Graph mode.
+MindSpore provides two levels of granularity: operator-level parallelism and higher-order operator-level parallelism. Operator-level parallelism describes the tensor dimensionality distribution through a simple slicing strategy, which meets the requirements of most scenarios. Higher-order operator parallelism supports complex slicing scenarios through open device scheduling descriptions.
 
-Related interfaces:
+## Operator-Level Parallel Practice
 
-1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`: Sets the semi-automatic parallel mode, which must be called before initializing the network.
-
-2. `mindspore.ops.Primitive.shard()`: Specify the operator slicing strategy, see [Basic Principle](#basic-principle) in this chapter for detailed examples.
-
-3. `mindspore.ops.Primitive.add_prim_attr()`: To meet different scenario requirements, some operators can be configured for their distributed implementation via the `add_prim_attr` interface, and these configurations are only available for `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` modes, for example:
-
-    - `ops.Gather().add_prim_attr("manual_split", split_tuple)`: This interface configures the first input of the Gather operator to be non-uniformly sliced, which is only valid for axis=0. `split_tuple` is a tuple with elements of type int, the sum of the elements must be equal to the length of the 0th dimension of the first input in the Gather operator, and the number of tuples must be equal to the number of 0th dimensional slices of the first input in the Gather operator.
-    - `ops.Gather().add_prim_attr("primitive_target", "CPU")`: This interface configures the Gather operator to execute on the CPU for heterogeneous scenarios.
-    - `ops.Reshape().add_prim_attr("skip_redistribution")`: Do not apply tensor redistribution (For tensor redistribution, see [Basic Principle](#basic-principle)) before and after ops.Reshape.
-    - `ops.ReduceSum().add_prim_attr("cross_batch")`: This interface only supports Reduce operators. When cross_batch is configurated, if the sliced axis is same as the calculated axis of reduce ops, the synchronization will not be added to each cards, which causes different result that is different from that of single card.
-    - `ops.TensorScatterUpdate().add_prim_attr("self_define_shard", True)`: When set `self_define_shard` to an operator, input/output layout can config to this operator (whatever this operator supports sharding). However, user needs to ensure the correctness of input/output layout and accuracy of operator.
-
-## Basic Principle
-
-MindSpore models each operator independently, and the user can set the shard strategy for each operator in the forward network (the unset operators are sharded by data parallelism by default).
-
-In the graph construction phase, the framework will traverse the forward graph, and shard and model each operator and its input tensor according to the shard strategy of the operator, such that the compute logic of that operator remains mathematically equivalent before and after the sharding. The framework internally uses Tensor Layout to express the distribution of the input and output tensors in the cluster. The Tensor Layout contains the mapping relationship between the tensor and the device, and the user does not need to perceive how each slice of the model is distributed in the cluster. The framework will automatically schedule the distribution. The framework will also traverse the Tensor Layout of the tensor between adjacent operators. If the output tensor of the previous operator is used as the input tensor of the next operator, and the Tensor Layout of the output tensor in the previous operator is different from that of the input tensor in the next operator, tensor redistribution is required between the two operators. For the training network, after the framework processes the distributed sharding of the forward operator, it can automatically complete the distributed sharding of the inverse operator by relying on the automatic differentiation capability of the framework.
-
-Tensor Layout is used to describe the distribution information about the Tensor in the cluster. Tensor can be sliced into clusters by certain dimensions and can also be replicated on clusters. In the following example, a two-dimensional matrix is sliced into two nodes in three ways: row slicing, column slicing and replication (each slicing corresponds to a Tensor Layout), as shown in the following figure:
-
-If the two-dimensional matrix is sliced to four nodes, there are four types of slices: simultaneously slices both row and column, replication, row slicing + replication, and column slicing + replication, as shown below:
-
-Tensor Redistribution is used to handle the conversion between different Tensor Layout, which can convert the Tensor from one layout to another in the cluster. All redistribution operations are decomposed into combinations of operators such as "set communication+split+concat". The following two figures illustrate several Tensor Redistribution operations.
-
-*Figure: Tensor is sliced to redistribution of two nodes*
-
-*Figure: Tensor is sliced to redistribution of four nodes*
-
-Users can set the sharding strategy of the operator by using the shard() interface, which describes how each dimension of each input tensor of the operator is sliced. For example, MatMul().shard(((a, b), (b, c))) means that MatMul has two input tensors, and the rows of the first input tensor are uniformly sliced in a copies and the columns are uniformly sliced in b copies. The rows of the second input tensor are uniformly sliced in b copies and the columns are uniformly sliced in c copies.
-
-```python
-import mindspore.nn as nn
-from mindspore import ops
-import mindspore as ms
-
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, device_num=4)
-
-class DenseMatMulNet(nn.Cell):
-    def __init__(self):
-        super(DenseMatMulNet, self).__init__()
-        self.matmul1 = ops.MatMul().shard(((4, 1), (1, 1)))
-        self.matmul2 = ops.MatMul().shard(((1, 1), (1, 4)))
-    def construct(self, x, w, v):
-        y = self.matmul1(x, w)
-        z = self.matmul2(y, v)
-        return z
-```
-
-In the above example, the user computes two consecutive two-dimensional matrix multiplications on 4 cards: `Z = (X * W) * V` . For the first matrix multiplication `Y = X * W`, the user wants to slice X by rows in 4 parts (i.e. data parallelism), while for the second matrix multiplication `Z = Y * V`, the user wants to slice V by columns in 4 parts (i.e. model parallelism):
-
-Since the Tensor Layout output from the first operator is the 0th dimensional sliced to the cluster, while the second operator requires the first input Tensor to be replicated on the cluster. So in the graph compilation stage, the difference in Tensor Layout between the two operator outputs/inputs is automatically recognized, thus the algorithm for Tensor redistribution is automatically derived. The Tensor redistribution required for this example is an AllGather operator (note: MindSpore AllGather operator automatically merges multiple input Tensors in dimension 0)
-
-## Operation Practices
-
-The following is an illustration of operator-level parallelism by taking an Ascend or GPU single-machine 8-card as an example.
+The illustration of the operator-level parallel operation is based on the Ascend single-machine 8-card example:
 
 ### Sample Code Description
 
@@ -76,7 +22,8 @@ The directory structure is as follows:
 └─ sample_code
     ├─ distributed_operator_parallel
        ├── distributed_operator_parallel.py
-       └── run.sh
+       ├── run.sh
+       └── ...
     ...
 ```
 
@@ -84,7 +31,7 @@ Among them, `distributed_operator_parallel.py` is the script that defines the ne
 
 ### Configuring the Distributed Environment
 
-Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode, and initialize HCCL or NCCL communication through init. `max_size` limits the maximum amount of device memory a model can have, in order to leave enough device memory for communication on the Ascend hardware platform, GPU does not need to set. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
+Unlike single card scripts, parallel scripts also need to initialize the communication domain through the `init` interface. In addition, limiting the model's maximum available device memory via the `max_size` of the `set_memory` interface leaves enough device memory for communication on the Ascend hardware platform.
 
 ```python
 import mindspore as ms
@@ -92,7 +39,6 @@ from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.runtime.set_memory(max_size="28GB")
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 ms.set_seed(1)
 ```
@@ -137,10 +83,10 @@ class Network(nn.Cell):
         self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
         self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
         self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
-        self.matmul1 = ops.MatMul()
-        self.relu1 = ops.ReLU()
-        self.matmul2 = ops.MatMul()
-        self.relu2 = ops.ReLU()
+        self.matmul1 = ops.MatMul().shard(((2, 4), (4, 1)))
+        self.relu1 = ops.ReLU().shard(((4, 1),))
+        self.matmul2 = ops.MatMul().shard(((1, 8), (8, 1)))
+        self.relu2 = ops.ReLU().shard(((8, 1),))
         self.matmul3 = ops.MatMul()
 
     def construct(self, x):
@@ -152,24 +98,21 @@ class Network(nn.Cell):
         logits = self.matmul3(x, self.fc3_weight)
         return logits
 
-net = Network()
-net.matmul1.shard(((2, 4), (4, 1)))
-net.relu1.shard(((4, 1),))
-net.matmul2.shard(((1, 8), (8, 1)))
-net.relu2.shard(((8, 1),))
 ```
 
-The `ops.MatMul()` and `ops.ReLU()` operators for the above networks are configured with slicing strategy, in the case of `net.matmul1.shard(((2, 4), (4, 1)))`, which has a slicing strategy of: rows of the first input are sliced in 2 parts and columns in 4 parts; rows of the second input are sliced in 4 parts. For `net.relu2.shard(((8, 1),))`, its slicing strategy is: the row of the first input is sliced in 8 parts. Note that since the two `ops.ReLU()` here have different slicing strategies, have to be defined twice separately.
+The `ops.MatMul()` and `ops.ReLU()` operators for the above networks are configured with slicing strategy, in the case of `ops.MatMul().shard(((2, 4), (4, 1)))`, which has a slicing strategy of: rows of the first input are sliced in 2 parts and columns in 4 parts; rows of the second input are sliced in 4 parts. For `ops.ReLU().shard(((8, 1),))`, its slicing strategy is: the row of the first input is sliced in 8 parts. Note that since the two `ops.ReLU()` here have different slicing strategies, i.e., `ops.ReLU().shard(((4, 1),))` and `ops.ReLU().shard(((8, 1),))` have to be defined twice separately.
 
-### Training the Network
+### Training Network Definition
 
-In this step, we need to define the loss function, the optimizer, and the training process, which is the same as that of the single-card:
+In this step, we need to define the loss function, the optimizer, and the training process. Note that due to the huge number of parameters of the large model, the graphics memory will be far from sufficient if parameter initialization is performed when defining the network on a single card. Therefore, delayed initialization is required when defining the network in conjunction with the `no_init_parameters` interface to delay parameter initialization until the parallel multicard phase. Here both network and optimizer definitions need to be delayed initialized.
 
 ```python
-import mindspore as ms
-from mindspore import nn
+from mindspore.nn.utils import no_init_parameters
 
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
+with no_init_parameters():
+    net = Network()
+    optimizer = nn.SGD(net.trainable_params(), 1e-2)
+
 loss_fn = nn.CrossEntropyLoss()
 
 def forward_fn(data, target):
@@ -177,18 +120,34 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
 
-@ms.jit
 def train_step(inputs, targets):
     (loss_value, _), grads = grad_fn(inputs, targets)
     optimizer(grads)
     return loss_value
 
+```
+
+### Parallel Configuration
+
+We need to further set up the parallelism-related configuration by specifying the parallel mode `semi-auto` as semi-automatic parallel.
+
+```python
+from mindspore.parallel.auto_parallel import AutoParallel
+
+parallel_net = AutoParallel(train_step, parallel_mode="semi_auto")
+```
+
+### Training Loop
+
+This step performs a training loop, the outer loop is the number of epochs to train and the inner loop traverses the dataset, calling `parallel_net` to train and obtain the loss values.
+
+```python
 for epoch in range(10):
     i = 0
     for image, label in data_set:
-        loss_output = train_step(image, label)
+        loss_output = parallel_net(image, label)
         if i % 10 == 0:
             print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_output))
         i += 1
@@ -196,7 +155,7 @@ for epoch in range(10):
 
 ### Running the Single-machine Eight-card Script
 
-Next, the corresponding scripts are invoked by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
+Next, the corresponding scripts are invoked by commands, using the `msrun` startup method and the 8-card distributed training script as an example of distributed training:
 
 ```bash
 bash run.sh
@@ -206,29 +165,142 @@ After training, the log files are saved to the `log_output` directory, where par
 
 ```text
 └─ log_output
-    └─ 1
-        ├─ rank.0
-        |   └─ stdout
-        ├─ rank.1
-        |   └─ stdout
+    ├─ scheduler.log
+    ├─ worker_0.log
+    ├─ worker_1.log
 ...
 ```
 
-The results on the Loss section are saved in `log_output/1/rank.*/stdout`, and example is as follows:
+The results on the Loss section are saved in `log_output/worker_*.log`, and example is as follows:
 
 ```text
-epoch: 0, step: 0, loss is 2.3026192
-epoch: 0, step: 10, loss is 2.2928686
-epoch: 0, step: 20, loss is 2.279024
-epoch: 0, step: 30, loss is 2.2548661
-epoch: 0, step: 40, loss is 2.192434
-epoch: 0, step: 50, loss is 2.0514572
-epoch: 0, step: 60, loss is 1.7082529
-epoch: 0, step: 70, loss is 1.1759918
-epoch: 0, step: 80, loss is 0.94476485
-epoch: 0, step: 90, loss is 0.73854053
-epoch: 0, step: 100, loss is 0.71934
+epoch: 0 step: 0, loss is 2.3016002
+epoch: 0 step: 10, loss is 2.2889402
+epoch: 0 step: 20, loss is 2.2843816
+epoch: 0 step: 30, loss is 2.248126
+epoch: 0 step: 40, loss is 2.1581488
+epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+
+## Higher-Order Operator-Level Parallel Practice
+
+An illustration of higher-order operator-level parallel operations follows, using the Ascend single 8-card as an example:
+
+### Sample Code Description
+
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+
+The directory structure is as follows:
+
+```text
+└─ sample_code
+    ├─ distributed_operator_parallel
+       ├── advanced_distributed_operator_parallel.py
+       ├── run_advanced.sh
+       └── ...
+    ...
+```
+
+Among them, `advanced_distributed_operator_parallel.py` is the script that defines the network structure and the training process. `run_advanced.sh` is the execution script.
+
+### Environment Configuration
+
+Before performing higher-order operator-level parallelism, the environment is first configured, and the process is consistent with operator-level parallelism, which can be found in [Configure Distributed Environment](#configuring-the-distributed-environment) and [Dataset Load](#loading-the-dataset).
+
+### Defining the Network
+
+Higher-order operator-level parallelism extends the functionality of the `shard` interface by additionally accepting the new quantity type `tuple(Layout)` type for both the `in_strategy`/`out_strategy` in-parameters of the `shard` interface.
+
+Layout is initialized using the device matrix, and requires an alias for each axis of the device matrix, such as "layout = Layout((2, 2, 2), name = ("dp", "sp", "mp"))", which describes a total of 8 cards arranged in the shape of (2, 2, 2), and each axis is aliased to "dp", "sp", "mp".
+
+The call to Layout passes in these axes, and each tensor picks which axis of the device each dimension is expected to map to according to its shape, and also determines the number of parts to be sliced, e.g., here "dp" means 2 parts in 2 devices in the highest dimension of the device layout; "sp" means 2 parts in 2 devices in the middle dimension of the device layout; "mp" means 2 parts in 2 devices in the lowest dimension of the device layout. In particular, one dimension of the tensor may be mapped to multiple dimensions of the device to express multiple slices in one dimension.
+
+```python
+
+import mindspore as ms
+from mindspore import nn, ops
+
+class Network(nn.Cell):
+    """Network"""
+    def __init__(self):
+        super().__init__()
+        self.flatten = ops.Flatten()
+        self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
+        self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
+        self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
+        layout = Layout((2, 2, 2), ("dp", "sp", "mp"))
+        layout2 = Layout((8,), ("tp",))
+        self.matmul1 = ops.MatMul().shard((layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None")))
+        self.relu1 = ops.ReLU().shard(((4, 1),))
+        self.matmul2 = ops.MatMul().shard((layout2("None", "tp"), layout2("tp", "None")))
+        self.relu2 = ops.ReLU().shard(((8, 1),))
+        self.matmul3 = ops.MatMul()
+
+    def construct(self, x):
+        x = self.flatten(x)
+        x = self.matmul1(x, self.fc1_weight)
+        x = self.relu1(x)
+        x = self.matmul2(x, self.fc2_weight)
+        x = self.relu2(x)
+        logits = self.matmul3(x, self.fc3_weight)
+        return logits
+
+```
+
+In the network defined above, `self.matmul1 = ops.MatMul().shard((layout("mp", ("sp", "dp")), layout(("sp", "dp")), "None"))` The layout for slicing the input tensor x is `layout("mp", ("sp ", "dp"))`, i.e., the first dimension is sliced into 2 parts by mp, and the second dimension combines sp and dp for a total of 2*2=4 parts.
+
+The layout for slicing the weight self.fc1_weight is `layout(("sp", "dp"), "None")`, i.e., the first dimension merges sp and dp and slices it into 4 parts, and the second dimension is not sliced.
+
+Similarly, `self.matmul2 = ops.MatMul().shard((layout2("None", "tp"), layout2("tp", "None")))` When slicing the input tensor x first dimension by rows not sliced and columns sliced into 8 parts by tp, and when slicing the weight self.fc2_weight, the rows are sliced into 8 parts by tp and the columns are not sliced.
+
+Taking `self.matmul1 = ops.MatMul().shard((layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None"))` as an example, the slicing will produce the following table of device and data slice mappings:
+
+| device coordinates (dp, sp, mp) | input x slice         | weight fc1_weight slice     |
+|-----------------------|----------------------|---------------------------|
+| (0, 0, 0)             | `x[0:16, 0:196]`     | `fc1_weight[0:196, 0:512]` |
+| (0, 0, 1)             | `x[16:32, 0:196]`    | `fc1_weight[0:196, 0:512]` |
+| (0, 1, 0)             | `x[0:16, 196:392]`   | `fc1_weight[196:392, 0:512]` |
+| (0, 1, 1)             | `x[16:32, 196:392]`  | `fc1_weight[196:392, 0:512]` |
+| (1, 0, 0)             | `x[0:16, 392:588]`   | `fc1_weight[392:588, 0:512]` |
+| (1, 0, 1)             | `x[16:32, 392:588]`  | `fc1_weight[392:588, 0:512]` |
+| (1, 1, 0)             | `x[0:16, 588:784]`   | `fc1_weight[588:784, 0:512]` |
+| (1, 1, 1)             | `x[16:32, 588:784]`  | `fc1_weight[588:784, 0:512]` |
+
+### Training Process
+
+The training flow for higher-order operator-level parallelism is identical to operator-level parallelism, and can be found in [Training Network Definition](#training-network-definition), [Parallel Configuration](#parallel-configuration), and [Training Loop](#training-loop).
+
+### Running the Single-machine Eight-card Script
+
+Next, the corresponding scripts are invoked by commands, using the `msrun` startup method and the 8-card distributed training script as an example of distributed training:
+
+```bash
+bash run_advanced.sh
+```
+
+After training, the log files are saved to the `advanced_log_output` directory, where part of the file directory structure is as follows:
+
+```text
+└─ advanced_log_output
+    ├─ scheduler.log
+    ├─ worker_0.log
+    ├─ worker_1.log
+...
+```
+
+The results are saved in `advanced_log_output/worker_*.log`, and example is as follows:
+
+```text
+epoch: 0 step: 0, loss is 2.3016002
+epoch: 0 step: 10, loss is 2.2889402
+epoch: 0 step: 20, loss is 2.2843816
+epoch: 0 step: 30, loss is 2.248126
+epoch: 0 step: 40, loss is 2.1581488
+epoch: 0 step: 50, loss is 1.8051043
+...
+```
+
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
