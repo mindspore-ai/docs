@@ -24,7 +24,6 @@
 - `mpirun <https://www.mindspore.cn/tutorials/zh-CN/master/parallel/mpirun.html>`_：此方式依赖开源库OpenMPI，启动命令简单，多机需要保证两两之间免密登录，推荐有OpenMPI使用经验的用户使用此种启动方式。
 - `rank table <https://www.mindspore.cn/tutorials/zh-CN/master/parallel/rank_table.html>`_：此方式需要在Ascend硬件平台使用，不依赖第三方库。手动配置rank_table文件后，就可以通过脚本启动并行程序，多机脚本一致，方便批量部署。
 
-
 四种启动方式的硬件支持情况如下表：
 
 +-------------------------+--------------+-----------------+-------------+
