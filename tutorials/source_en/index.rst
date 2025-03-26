@@ -54,6 +54,20 @@ MindSpore Tutorial
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Parallel
+   :hidden:
+
+   parallel/startup_method
+   parallel/data_parallel
+   parallel/operator_parallel
+   parallel/optimizer_parallel
+   parallel/pipeline_parallel
+   parallel/optimize_technique
+   parallel/distributed_case
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Debugging and Tuning
    :hidden:
 

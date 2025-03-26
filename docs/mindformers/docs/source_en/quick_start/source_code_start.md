@@ -6,7 +6,7 @@ This section shows how to use MindSpore Transformers to quickly pull up a LoRA l
 
 ## Preparing Weights File
 
-MindSpore Transformers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the [Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md) documentation and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
+MindSpore Transformers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the [Llama2 documentation](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md) and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
 
 | Model Name | MindSpore Weights | HuggingFace Weights |
 | ------ | ------ | ------ |
