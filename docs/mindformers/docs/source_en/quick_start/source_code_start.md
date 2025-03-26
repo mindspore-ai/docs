@@ -73,14 +73,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 ## Initiating Fine-tuning
 
-In the MindFormers root directory, use the `run_mindformer.py` unified script to pull up tasks:
-
-- Specify the `config` path `configs/llama2/lora_llama2_7b.yaml` via `--config`.
-- Specify dataset path `/{path}/alpaca-fastchat4096.mindrecord` via `-train_dataset_dir`.
-- Specify the weights file path `/{path}/llama2_7b.ckpt` via `--load_checkpoint`.
-- Turn on weight auto-sharding via `--auto_trans_ckpt True`.
-- Experiment with eight NPUs and turn on multiprocessing with `--use_parallel True`.
-- Set the running mode to `finetune` via `--run_mode finetune`, i.e., fine-tune.
+In the MindSpore Transformers code root directory, execute the following command to launch the fine-tuning task:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -91,6 +84,19 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --use_parallel True \
  --run_mode finetune" 8
 ```
+
+**Command Explanation:**  
+
+- **`scripts/msrun_launcher.sh`**: Script for launching distributed tasks.  
+- **`"run_mindformer.py ..."`**: Parameter string for the Python task executed on each card, including:  
+    - **`run_mindformer.py`**: One-click startup script.  
+    - **`--config`**: Specifies the task configuration file path, e.g., `configs/llama2/lora_llama2_7b.yaml`.  
+    - **`--train_dataset_dir`**: Specifies the dataset path, e.g., `/{path}/alpaca-fastchat4096.mindrecord`.  
+    - **`--load_checkpoint`**: Specifies the checkpoint file path, e.g., `/{path}/llama2_7b.ckpt`.  
+    - **`--auto_trans_ckpt True`**: Enables automatic checkpoint partitioning.  
+    - **`--use_parallel True`**: Enables distributed task execution.  
+    - **`--run_mode finetune`**: Sets the run mode to fine-tuning.  
+- **`8`**: Sets the task to runs on 8 NPUs.  
 
 When the following log appears on the console:
 
