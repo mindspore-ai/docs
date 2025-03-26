@@ -39,6 +39,7 @@ def modify_menu_num(html_path):
             if file != 'index.html':
                 toctree_lev = re.findall(f'<li class="toctree-l([0-9]) current"><a class="current reference internal" href="#">.*?</a><ul>', h_content)
                 extra_re = []
+                p_end = 0
                 if toctree_lev:
                     extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n</li>\n<li class="toctree-l{toctree_lev[0]}', h_content)
                     if not extra_re:
@@ -47,11 +48,14 @@ def modify_menu_num(html_path):
                         extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n</li>\n</ul>\n</li>\n</ul>\n\n', h_content)
                     if not extra_re:
                         extra_re = re.findall(f'<li class="toctree-l{toctree_lev[0]} current"><a class="current reference internal" href="#">.*?</a>(<ul>(?:.|\n|)+?</ul>)\n</li>\n</ul>\n<p class="caption"', h_content)
+                        p_end = 1
 
                 if extra_re:
                     extra_ul = '<ul>\n' + '\n'.join(re.findall('<li class="toctree-l[0-9]">.*?href="[^#].*?</li>', extra_re[0])) + '\n</ul>'
 
                     # extra_ul = re.sub('toctree-l[0-9]', 'toctree-l2', extra_ul)
+                    if toctree_lev[0] != "1" and p_end:
+                        extra_ul += (int(toctree_lev[0])-1)*'</ul>'
                     new_content = h_content.replace(extra_re[0], extra_ul)
                 if toctree_lev and toctree_lev[0] != "1":
                     new_content = re.sub('<li class="toctree-l[2-9]">.*?href="[^#].*?#.*?>.*?</li>', '', new_content)
