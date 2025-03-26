@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/dataset.md)
 
-At present, MindSpore Transformers' pre-training and fine-tuning support the ability to load datasets in multiple formats, including loading methods for Megatron Dataset, MindRecord Dataset, and online datasets. The specific usage instructions for each format of dataset are as follows.
+At present, MindSpore Transformers' pre-training and fine-tuning support the ability to load datasets in multiple formats, including loading methods for Megatron Dataset, MindRecord Dataset, and HuggingFace datasets. The specific usage instructions for each format of dataset are as follows.
 
 ## Megatron Dataset
 
@@ -385,66 +385,205 @@ Configure the following parameters to use the BIN format dataset:
 - data_loader.path_prefix: the prefix of the dataset file name.
 - input_columns: set the data columns for training dataset input. Currently a pre-training scenario, set to `[“input_ids”]` .
 
-## Online Dataset
+## HuggingFace Datasets
 
-Access to [modelers](https://modelers.cn/datasets) and [HuggingFace repository](https://huggingface.co/datasets), loading datasets online and expanding dataset sources.
+Currently, the dataset loading functionality has been integrated with the [ModelScope Open-Source Community](https://modelers.cn/datasets) and the [HuggingFace Community](https://huggingface.co/datasets), supporting online dataset loading and preprocessing. Additionally, datasets can be [packed](#dataset-packing) to enhance model training efficiency.
 
-### Docking HuggingFace Open Source Community
+### Usage Instructions
 
-1. Environmental preparations
+HuggingFace datasets support online and offline loading of datasets from both the HuggingFace community and the MoLo open-source community. Below is an introduction to environment preparation, the dataset loading process, and how to configure the use of HuggingFace datasets in configuration files.
 
-      The `HF_ENDPOINT` environment variable controls the actual remote repository used by the open source community HuggingFace. When not configured, it defaults to `https://huggingFace.co`, and for domestic environments, it needs to be configured to the mirror address ``export HF_ENDPOINT=https://hf- mirror.com``.
+#### Integrating with Open-Source Communities
 
-2. Installing dependencies
+- Integrating with HuggingFace Community
 
-   ```shell
-   git clone https://gitee.com/openmind-ai/openmind-hub.git
-   cd openmind-hub
-   pip install -e .
-   cd ..
-   pip install datasets==2.18.0
-   git clone https://gitee.com/openmind-ai/openmind-extension-for-datasets.git
-   cd openmind-extension-for-datasets
-   pip install -e .
-   cd ..
-   ```
+   To use datasets from the HuggingFace community, follow these steps:
 
-### Docking Modelers Open Source Community
+  1. Environment Setup
 
-1. Environmental preparations
+     The environment variable `HF_ENDPOINT` controls the remote repository used by HuggingFace. By default, it is set to `https://huggingFace.co`. For users in China, it is recommended to configure it to the mirror address:
 
-   The `OPENMIND_HUB_ENDPOINT` environment variable controls the actual remote repository used by the Modelers Open Source community, and defaults to ``export OPENMIND_HUB_ENDPOINT=https://telecom.openmind.cn`` when not configured.
+     ```shell
+     export HF_ENDPOINT=https://hf-mirror.com
+     ```
 
-2. Installing dependencies
+  2. Install Dependencies
 
-   ```shell
-   git clone https://gitee.com/openmind-ai/openmind-hub.git
-   cd openmind-hub
-   pip install -e .
-   cd ..
-   pip install datasets==2.18.0
-   git clone https://gitee.com/foundation-models/openmind-datasets.git
-   cd openmind-datasets
-   pip install -e .
-   cd ..
-   ```
+     ```shell
+     pip install datasets
+     ```
+
+- Integrating with ModelScope Open-Source Community
+
+   To use datasets from the ModelScope Open-Source Community, follow these steps:
+
+   1. Environment Setup
+
+      The environment variable `OPENMIND_HUB_ENDPOINT` controls the remote repository used by the ModelScope Open-Source Community. By default, it is set to:
+
+      ```shell
+      export OPENMIND_HUB_ENDPOINT=https://telecom.openmind.cn
+      ```
+
+   2. Install Dependencies
+
+      ```shell
+      git clone https://gitee.com/openmind-ai/openmind-hub.git
+      cd openmind-hub
+      pip install -e .
+      cd ..
+      git clone https://gitee.com/foundation-models/openmind-datasets.git
+      cd openmind-datasets
+      pip install -e .
+      cd ..
+      ```
 
 > When the openmind-datasets component is installed in the environment, the default interface is the Modelers open source community, if you want to interface with HuggingFace, the environment variable `USE_OM` can control which community to interface with, the default value is `ON` for the Modelers community, change it to `OFF` to interface with the HuggingFace community.
 
-### Custom Data handler
+#### Dataset Loading Process
 
-Users can use custom data handler logic to perform various data preprocessing customization logic on loaded remote datasets.
+![commondataloader.png](../../source_zh_cn/function/image/commondataloader.png)
 
-#### Parameters
+The online dataset loading and processing functionality is primarily implemented through `CommonDataLoader`. The data loading part can be customized via configuration files, with detailed configuration instructions available in the [dataloader parameter description](#dataloader-parameter-description). The online loading module requires users to implement customizations for different datasets. For example, the `AlpacaInstructDataHandler` class can be used to preprocess the `alpaca` dataset. For more information, please refer to [Custom Data Handler](#custom-data-handler).
 
-- type: The name of the custom data handler, which must inherit from ``BaseInstructDataHandler``.
-- tokenizer_name: name of the tokenizer used.
-- seq_length: length of the sequence.
-- output_columns: output columns after data preprocessing.
-- prompt_key: the name of the column after adding prompt processing.
-- tokenizer: the configuration parameter of the tokenizer, it can be a dictionary or a string, or you can directly configure the ``tokenizer`` object.
+#### dataloader Parameter Description
 
-#### Development Sample 1
+The online dataset loading feature is enabled by configuring the `data_loader` in the configuration file. Below is an example configuration for online dataset loading:
+
+```yaml
+train_dataset:
+  input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+  construct_args_key: *input_columns
+  data_loader:
+    type: CommonDataLoader
+    load_func: 'load_dataset'
+    shuffle: False
+    split: "train"
+    path: "llm-wizard/alpaca-gpt4-data"
+    is_dynamic: False
+    packing: pack
+    handler:
+      - type: AlpacaInstructDataHandler
+        tokenizer_name: llama2_7b
+        seq_length: 4096
+        prompt_key: "conversations"
+        output_columns: ["input_ids", "labels"]
+      - type: PackingHandler
+        seq_length: 4096
+        output_columns: ["input_ids", "labels", "actual_seq_len"]
+    adaptor_config:
+       compress_mask: False
+    column_names: *input_columns
+```
+
+Parameter descriptions for `data_loader` are as follows:
+
+| Parameter Name | Description                                                                                                                                                                                                                            | Type |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|
+| type           | Fixed as `CommonDataLoader`. This module supports loading datasets from HuggingFace and the ModelScope open-source community.                                                                                                          | str  |
+| packing        | Packing configuration when processing datasets with `handler`. Options include `pack` and `truncate`.                                                                                                                                  | str  |
+| load_func      | The function used to load datasets. Options are `load_dataset` and `load_from_disk`. Use `load_from_disk` for data saved via the `save_to_disk` function, and `load_dataset` for other scenarios. The default value is `load_dataset`. | str  |
+| path           | When `load_func=load_dataset`, this parameter aligns with the interface in [datasets.load_dataset](https://huggingface.co/docs/datasets/loading). When `load_func=load_from_disk`, it specifies the dataset loading path.              | str  |
+| data_files     | When `load_func=load_dataset`, this parameter aligns with the interface in [datasets.load_dataset](https://huggingface.co/docs/datasets/loading). It is ineffective when `load_func=load_from_disk`.                                   | str  |
+| handler        | Multiple `handlers` can be configured to preprocess the loaded dataset in sequence. For details, refer to the [handler parameter description](#handler-parameter-description).                                                         | list |
+| adaptor_config | Dataset-related configuration during model training. Currently supports `compress_mask`, effective when `packing` is set. If enabled, it returns a compressed data mask. Default is `False`.                                           | dict |
+| shuffle        | Indicates whether random sampling is enabled when loading the dataset.                                                                                                                                                                 | bool |
+| column_names   | Specifies the column names returned by the dataset. If not set, all columns are returned.                                                                                                                                              | list |
+| is_dynamic     | Indicates whether the dataset returns dynamic-length data. Default is `False`.                                                                                                                                                         | bool |
+
+> In addition to the above configurations, all parameters from the [datasets.load_dataset](https://huggingface.co/docs/datasets/loading) interface are supported with the same meanings and functions.
+
+When packing is configured, the dataset returns an `actual_seq_len` column. For more information, refer to the `actual_seq_qlen` and `ctual_seq_kvlen` parameter descriptions in the [documentation](https://www.hiascend.com/document/detail/zh/Pytorch/600/ptmoddevg/trainingmigrguide/performance_tuning_0027.html).
+
+### Feature Introduction
+
+#### Dynamic Sequence Length Fine-Tuning
+
+`CommonDataLoader` supports dynamic shape fine-tuning using HuggingFace datasets, which can be loaded online or offline. Below, we use the `alpaca` dataset as an example to demonstrate the configuration for dynamic shape fine-tuning.
+
+- Online Loading
+
+  The online dataset name is `llm-wizard/alpaca-gpt4-data`. You can search and download it from the [HuggingFace official website](https://huggingface.co/datasets) or load it directly using the online name.
+
+  Example configuration for online loading:
+
+  ```yaml
+   train_dataset:
+     input_columns: &input_columns ["input_ids", "labels"]
+     dynamic_batch: True                    # Enable dynamic shape
+     divisor: 32                            # With divisor and remainder configured, seq_length in dynamic shape will become a multiple of divisor and the sum of remainder
+     remainder: 1
+     data_loader:
+       type: CommonDataLoader
+       shuffle: True
+       split: "train"                       # Subset name of the online dataset
+       path: "llm-wizard/alpaca-gpt4-data"  # Online dataset name
+       is_dynamic: True
+       handler:
+         - type: AlpacaInstructDataHandler
+           tokenizer_name: llama2_7b
+           seq_length: 4096
+           prompt_key: "conversations"
+           output_columns: *input_columns
+     seed: 0
+     num_parallel_workers: 8
+     python_multiprocessing: False
+     drop_remainder: True
+     repeat: 1
+     numa_enable: False
+     prefetch_size: 1
+   ```
+
+  1. For parameter descriptions in `train_dataset`, please refer to the [documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html).
+
+  2. `AlpacaInstructDataHandler` is an online processing script developed for the `alpaca` dataset. If using a different dataset, you need to implement a custom data handler by referring to the [Custom Data Handler](#custom-data-handler) guide.
+
+- Offline Loading
+
+  For offline loading, you need to prepare the JSON files of the `alpaca` dataset. The offline configuration differs from the online configuration only in the following parameters:
+
+  ```yaml
+   train_dataset:
+     data_loader:
+       path: "json"                               # loading datasets using the load_dataset interface
+       data_files: '/path/alpaca_gpt4_data.json'  # the file path of the alpaca dataset
+   ```
+
+After configuring the dataset loading method, you also need to set `is_dynamic=True` in the model configuration to enable dynamic shape training for the model.
+
+```yaml
+model_config:
+  is_dynamic: True
+```
+
+Since dynamic shapes may lead to operator compilation caching, it is recommended to set the following environment variables to limit the number of cached compilations when running in a memory-constrained environment. This helps prevent out-of-memory issues:
+
+```shell
+export ACLNN_CACHE_LIMIT=10
+export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
+```
+
+- The `ACLNN_CACHE_LIMIT` parameter description can be found in the [documentation](https://www.hiascend.com/document/detail/zh/canncommercial/800/apiref/envvar/envref_07_0031.html).
+- `MS_DEV_RUNTIME_CONF` is a parameter in MindSpore for setting the operator cache queue length. The value `64` represents the length of the sequence, which defaults to `1024`. This can be adjusted based on the actual environment. Setting the value too small may affect model training performance.
+
+After completing all the configurations above, you can proceed with dynamic shape fine-tuning by referring to the documentation for the specific model you are using.
+
+#### Custom Data Handler
+
+Users can define custom data handlers to apply various preprocessing logic to the loaded dataset.
+
+- Handler Parameter Description
+
+| Parameter Name | Description                                                                                                                           |   Type   |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------|:--------:|
+| type           | Custom data handler name. A custom handler must inherit from `BaseInstructDataHandler`.                                               |   str    |
+| tokenizer_name | Name of the tokenizer used.                                                                                                           |   str    |
+| tokenizer      | Tokenizer configuration parameters. Can be a dictionary, string, or a `tokenizer` object. Takes lower priority than `tokenizer_name`. | dict/str |
+| seq_length     | Maximum sequence length, usually the same as the model's sequence length.                                                             |   int    |
+| output_columns | Column names of the processed data returned after preprocessing.                                                                      |   list   |
+| prompt_key     | Column name for data after applying prompt processing.                                                                                |   str    |
+
+- Development Sample 1
 
 The custom data handler is usually placed in the `mindformers/dataset/handler` directory, and the customized one needs to inherit the abstract base class ``BaseInstructDataHandler``.
 You need to implement ``format_func`` and ``tokenize_func`` methods, which preprocess each data loaded. Refer to ``alpaca_handler.py``.
@@ -464,7 +603,7 @@ The ``BaseInstructDataHandler`` provides an implementation of the entry ``handle
 The ``format_func`` is used to implement how to convert the raw data into the desired data format, and the ``tokenize_func`` method is used to take the processed data and perform a customized tokenization.
 The input parameter ``example`` in the example is each of the samples obtained.
 
-#### Development Sample 2
+- Development Sample 2
 
 If you want to process the data directly for the whole dataset instead of processing each piece of data in batches, you can implement the entry ``handle`` method in custom handler, and you will get the complete dataset, as shown below:
 
@@ -474,9 +613,7 @@ If you want to process the data directly for the whole dataset instead of proces
         return dataset.rename_columns({"content":"prompt","summary":"answer"})
 ```
 
-### alpaca Dataset Sample
-
-#### Training Processes Loaded Directly from the Remote Repository
+- alpaca Dataset Sample
 
 Modify the task configuration file [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml).
 
@@ -489,29 +626,14 @@ train_dataset:
     type: CommonDataLoader
     shuffle: True
     split: "train"
-    path: "AI_Connect/alpaca"
-    input_columns: *input_columns
+    path: "llm-wizard/alpaca-gpt4-data"
     handler:
-      type: AlpacaInstructDataHandler
-      tokenizer_name: llama2_13b
-      seq_length: 4096
-      prompt_key: "conversations"
-      output_columns: *input_columns
+      - type: AlpacaInstructDataHandler
+        tokenizer_name: llama2_7b
+        seq_length: 4096
+        prompt_key: "conversations"
+        output_columns: *input_columns
 ```
-
-Configure the following parameters to use the alpaca dataset:
-
-- input_columns: column names of the input data.
-- data_loader.type: name of the class for data loading processing.
-- data_loader.shuffle: whether the dataset is shuffled.
-- data_loader.path: the remote path to load the dataset.
-- data_loader.input_columns: which field conversions are used when datasets are converted to ms.datasets.
-- data_loader.handler: data preprocessor class configuration, no data processing when empty.
-- data_loader.handler.type: the class name of the data preprocessor class.
-- data_loader.handler.tokenizer_name: name of the tokenizer.
-- data_loader.handler.seq_length: length of the sequence.
-- data_loader.handler.prompt_key: name of the data column after adding prompt processing.
-- data_loader.handler.output_columns: columns to be output after data preprocessing.
 
 The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
 
@@ -556,9 +678,9 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
             mask.extend(conv_out['attention_mask'][1:])
         d = {'input_ids': ids, 'attention_mask': mask}
         # pylint: disable=W0212
-        d = self.tokenizer._pad(d, max_length=self.seq_length + 1, padding_strategy='max_length')
+        if not self.dynamic:
+            d = self.tokenizer._pad(d, max_length=self.seq_length + 1, padding_strategy='max_length')
         input_id = d['input_ids'][:self.seq_length + 1]
-        # attention_mask.append(d['attention_mask'])
         target = np.array(d['input_ids'])
         total_len = int(np.not_equal(target, self.tokenizer.pad_token_id).sum())
         cur_len = 1
@@ -576,6 +698,11 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
             target[cur_len: cur_len + instruction_len] = self.ignore_token_id
 
             cur_len += round_len
+        if self.dynamic:
+            return {
+                "input_ids": input_id,
+                "labels": target[:len(input_id)].tolist()
+            }
         target[cur_len:] = self.ignore_token_id
         if cur_len < self.seq_length + 1:
             if cur_len != total_len:
@@ -589,9 +716,7 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
         }
 ```
 
-### ADGEN Dataset Sample
-
-#### Training Processes Loaded Directly from the Remote Repository
+- ADGEN Dataset Sample
 
 Modify the task configuration file [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml).
 
@@ -604,10 +729,9 @@ train_dataset: &train_dataset
     path: "xxx/ADGEN"
     split: "train"
     shuffle: True
-    input_columns: ["prompt", "answer"]
     handler:
-      type: AdgenInstructDataHandler
-      output_columns: ["content", "summary"]
+      - type: AdgenInstructDataHandler
+        output_columns: ["prompt", "answer"]
   tokenizer:
     type: ChatGLM3Tokenizer
     vocab_file: "/path/to/tokenizer.model"
@@ -627,17 +751,6 @@ train_dataset: &train_dataset
   seed: 0
 ```
 
-Configure the following parameters to use the ADGEN dataset:
-
-- data_loader.type: class name of the data loading process.
-- data_loader.path: path of the loaded dataset.
-- data_loader.shuffle: whether to shuffle the dataset.
-- data_loader.split: subset of the dataset, default is train set.
-- data_loader.input_columns: which fields to use when converting datasets to ms.datasets.
-- data_loader.handler: custom data handler.
-- data_loader.handler.type: name of the type of the custom data handler.
-- data_loader.handler.output_columns: the names of the dataset columns that will be output after processing.
-
 The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
 
 Custom adgen_handler:
@@ -648,5 +761,90 @@ class AdgenInstructDataHandler(BaseInstructDataHandler):
     """agden data handler"""
     def handle(self, dataset):
         """data handler"""
-        return dataset.rename_columns({"content":"prompt","summary":"answer"})
+        return dataset.rename_columns({"content": "prompt", "summary": "answer"})
+```
+
+#### Dataset Packing
+
+Configuring `PackingHandler` in `CommonDataLoader` allows for packing processing of the data. Currently, the original data needs to be processed into `input_ids` and `labels` that can be fed into the model during the preprocessing step.
+
+- Parameter Description
+
+| Parameter Name | Description                                                                                                                                                                                                                                                  | Type |
+|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|
+| type           | Fixed as `PackingHandler`. This module supports packing data. When `packing=pack` or `packing=truncate` is configured in [dataloader](#dataloader-parameter-description), it performs non-truncating and truncating concatenation of the data, respectively. | str  |
+| seq_length     | Maximum sequence length of the data after packing.                                                                                                                                                                                                           | int  |
+| pad_token      | Token ID used for padding `input_ids` when the packed sample does not reach the maximum length. Default value is 0.                                                                                                                                          | int  |
+| ignore_token   | Token ID used for padding `labels` when the packed sample does not reach the maximum length. Default value is -100.                                                                                                                                          | int  |
+
+- Packing Example
+
+By following the configuration below, the `alpaca` dataset can be preprocessed to achieve online packing.
+
+```yaml
+train_dataset:
+  input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+  construct_args_key: *input_columns
+  data_loader:
+    type: CommonDataLoader
+    shuffle: False
+    split: "train"
+    path: "llm-wizard/alpaca-gpt4-data"
+    packing: pack
+    handler:
+      - type: AlpacaInstructDataHandler
+        tokenizer_name: llama2_7b
+        seq_length: 4096
+        prompt_key: "conversations"
+        output_columns: ["input_ids", "labels"]
+      - type: PackingHandler
+        seq_length: 4096
+        output_columns: ["input_ids", "labels", "actual_seq_len"]
+    adaptor_config:
+       compress_mask: False
+```
+
+Using the above configuration file to process the `alpaca` dataset will execute the following steps:
+
+1. The raw text data will be processed into `input_ids` and `labels` using `AlpacaInstructDataHandler` and the `tokenizer` of `llama2_7b`.
+2. `PackingHandler` will be used to perform packing on the processed `input_ids` and `labels`, resulting in concatenated `input_ids` and `labels` up to the `seq_length`. The `actual_seq_len` refers to the sequence length of each sub-sample in the concatenated sample. During training, this parameter will be used to generate the corresponding data mask.
+3. If `compress_mask=False` is set in `adaptor_config`, a complete data mask will be returned during training. Otherwise, `actual_seq_len` will be returned.
+
+#### Offline Dataset Processing
+
+In addition to supporting online dataset loading and processing, `CommonDataLoader` also supports offline dataset processing and saving.
+
+The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/tree/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py) script can be used to process Huggingface datasets offline and save them.
+
+- Parameter Description
+
+| Parameter Name | Description                                                                                                                                                               | Type |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|
+| config         | Configuration file for offline data processing, which is used in the same way as online processing. Refer to [dataloader](#dataloader-parameter-description) for details. | str  |
+| save_path      | Path where the preprocessed dataset will be saved.                                                                                                                        | str  |
+| register_path  | Registration path for the model API, which includes the Python files related to the model, typically the model folder under the `research` directory.                     | int  |
+
+- Usage Example
+
+You can use the configuration file provided in the [dataset packing feature](#dataset-packing-feature) example and execute the following command.
+
+```shell
+python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
+  --config data_process.yaml \
+  --save_path /path/processed_data
+```
+
+If you need to load the saved dataset, you should modify the YAML configuration as follows:
+
+```yaml
+train_dataset:
+  input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+  construct_args_key: *input_columns
+  data_loader:
+    type: CommonDataLoader
+    shuffle: False
+    load_func: "load_from_disk"
+    path: "/path/processed_data"
+    adaptor_config:
+       compress_mask: False
 ```
