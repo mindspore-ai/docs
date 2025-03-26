@@ -111,14 +111,14 @@ parallel:
 parallel_config:
   ...
   context_parallel: 16
-  context_parallel_algo: hybird_cp  # Enable hybrid sequence parallel
+  context_parallel_algo: hybrid_cp  # Enable hybrid sequence parallel
   ulysses_degree_in_cp: 8
   ...
 ```
 
 Parameter Descriptions:
 
-- context_parallel_algo: hybrid sequence parallelism is turned on when set to `hybird_cp`.
+- context_parallel_algo: hybrid sequence parallelism is turned on when set to `hybrid_cp`.
 - ulysses_degree_in_cp: the number of parallel slices of the Ulysses sequence.
 
 For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
