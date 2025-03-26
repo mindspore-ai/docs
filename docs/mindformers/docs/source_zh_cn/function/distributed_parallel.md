@@ -111,14 +111,14 @@ parallel:
 parallel_config:
   ...
   context_parallel: 16
-  context_parallel_algo: hybird_cp  # 使能混合序列并行
+  context_parallel_algo: hybrid_cp  # 使能混合序列并行
   ulysses_degree_in_cp: 8
   ...
 ```
 
 参数说明：
 
-- context_parallel_algo：设置为`hybird_cp`时开启混合序列并行。
+- context_parallel_algo：设置为`hybrid_cp`时开启混合序列并行。
 - ulysses_degree_in_cp：Ulysses序列并行切分数量。
 
 关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
