@@ -95,14 +95,14 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 当控制台出现如下日志时：
 
 ```shell
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:0, log file:output/msrun_log/worker_0.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:1, log file:output/msrun_log/worker_1.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:2, log file:output/msrun_log/worker_2.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:3, log file:output/msrun_log/worker_3.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:4, log file:output/msrun_log/worker_4.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:5, log file:output/msrun_log/worker_5.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:6, log file:output/msrun_log/worker_6.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:7, log file:output/msrun_log/worker_7.log. Environment variable [RANK_ID] is exported.
+Start worker process with rank id:0, log file:output/msrun_log/worker_0.log. Environment variable [RANK_ID=0] is exported.
+Start worker process with rank id:1, log file:output/msrun_log/worker_1.log. Environment variable [RANK_ID=1] is exported.
+Start worker process with rank id:2, log file:output/msrun_log/worker_2.log. Environment variable [RANK_ID=2] is exported.
+Start worker process with rank id:3, log file:output/msrun_log/worker_3.log. Environment variable [RANK_ID=3] is exported.
+Start worker process with rank id:4, log file:output/msrun_log/worker_4.log. Environment variable [RANK_ID=4] is exported.
+Start worker process with rank id:5, log file:output/msrun_log/worker_5.log. Environment variable [RANK_ID=5] is exported.
+Start worker process with rank id:6, log file:output/msrun_log/worker_6.log. Environment variable [RANK_ID=6] is exported.
+Start worker process with rank id:7, log file:output/msrun_log/worker_7.log. Environment variable [RANK_ID=7] is exported.
 ```
 
 说明微调任务已拉起，微调进度可在`output/msrun_log/`目录下查看。

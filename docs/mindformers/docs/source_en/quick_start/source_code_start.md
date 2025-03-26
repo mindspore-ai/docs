@@ -95,14 +95,14 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 When the following log appears on the console:
 
 ```shell
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:0, log file:output/msrun_log/worker_0.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:1, log file:output/msrun_log/worker_1.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:2, log file:output/msrun_log/worker_2.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:3, log file:output/msrun_log/worker_3.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:4, log file:output/msrun_log/worker_4.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:5, log file:output/msrun_log/worker_5.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:6, log file:output/msrun_log/worker_6.log. Environment variable [RANK_ID] is exported.
-[mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:7, log file:output/msrun_log/worker_7.log. Environment variable [RANK_ID] is exported.
+Start worker process with rank id:0, log file:output/msrun_log/worker_0.log. Environment variable [RANK_ID=0] is exported.
+Start worker process with rank id:1, log file:output/msrun_log/worker_1.log. Environment variable [RANK_ID=1] is exported.
+Start worker process with rank id:2, log file:output/msrun_log/worker_2.log. Environment variable [RANK_ID=2] is exported.
+Start worker process with rank id:3, log file:output/msrun_log/worker_3.log. Environment variable [RANK_ID=3] is exported.
+Start worker process with rank id:4, log file:output/msrun_log/worker_4.log. Environment variable [RANK_ID=4] is exported.
+Start worker process with rank id:5, log file:output/msrun_log/worker_5.log. Environment variable [RANK_ID=5] is exported.
+Start worker process with rank id:6, log file:output/msrun_log/worker_6.log. Environment variable [RANK_ID=6] is exported.
+Start worker process with rank id:7, log file:output/msrun_log/worker_7.log. Environment variable [RANK_ID=7] is exported.
 ```
 
 It indicates that the fine-tuning task is started, the progress can be monitored in the `output/msrun_log/` directory.
