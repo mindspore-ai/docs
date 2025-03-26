@@ -73,14 +73,7 @@ MindSpore Transformers提供已经转换完成的预训练权重、词表文件�
 
 ## 启动微调
 
-在MindSpore Transformers代码根目录下，使用`run_mindformer.py`统一脚本拉起任务：
-
-- 通过 `--config` 指定`config`路径 `configs/llama2/lora_llama2_7b.yaml`。
-- 通过 `--train_dataset_dir` 指定数据集路径  `/{path}/alpaca-fastchat4096.mindrecord`。
-- 通过 `--load_checkpoint` 指定权重文件路径 `/{path}/llama2_7b.ckpt`。
-- 通过 `--auto_trans_ckpt True` 打开权重自动切分功能。
-- 使用八块NPU进行实验，通过 `--use_parallel True` 开启多进程工作。
-- 通过 `--run_mode finetune` 设定运行模式为 `finetune`，即进行微调。
+在MindSpore Transformers代码根目录下，执行如下命令拉起微调任务：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -91,6 +84,19 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --use_parallel True \
  --run_mode finetune" 8
 ```
+
+**命令说明：**
+
+- `scripts/msrun_launcher.sh`：分布式任务拉起脚本。
+- `"run_mindformer.py ..."`：每张卡上执行的Python任务的参数字符串，其中参数包括：
+    - `run_mindformer.py`：一键启动脚本。
+    - `--config`：指定任务配置文件路径 `configs/llama2/lora_llama2_7b.yaml` 。
+    - `--train_dataset_dir`：指定数据集路径 `/{path}/alpaca-fastchat4096.mindrecord` 。
+    - `--load_checkpoint`：指定权重文件路径 `/{path}/llama2_7b.ckpt` 。
+    - `--auto_trans_ckpt True`：打开权重自动切分功能。
+    - `--use_parallel True`：设置为分布式任务。
+    - `--run_mode finetune`：设定运行模式为微调。
+- `8`：设置任务使用8张NPU。
 
 当控制台出现如下日志时：
 
