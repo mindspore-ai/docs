@@ -97,7 +97,7 @@ net.layer2.set_comm_fusion(1)
 net.layer3.set_comm_fusion(2)
 ```
 
-> 这里为了减少通信成本，为不同层配置了通信融合，详细可以参考[通信算子融合](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/comm_fusion.html)。
+> 这里为了减少通信成本，为不同层配置了通信融合，详细可以参考[通信算子融合](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/comm_fusion.html)。
 
 ## 训练网络定义
 

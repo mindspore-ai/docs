@@ -153,7 +153,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
 
 #### DryRun Memory Evaluation Tools
 
-Current memory evaluation tools mainly use MindSpore dryrun. The simulated compilation is described in MindSpore [Environment Variables Documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) and [msrun Documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/msrun_launcher.html). The training process for simulation compilation can be pulled up by enabling the environment variable `export MS_SIMULATION_LEVEL=1` before the training process starts or by configuring the `-sim_level` function in the msrun startup item.
+Current memory evaluation tools mainly use MindSpore dryrun. The simulated compilation is described in MindSpore [Environment Variables Documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) and [msrun Documentation](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html). The training process for simulation compilation can be pulled up by enabling the environment variable `export MS_SIMULATION_LEVEL=1` before the training process starts or by configuring the `-sim_level` function in the msrun startup item.
 
 DryRun can be used to analyze whether the required memory exceeds the maximum available memory. If it exceeds, the configuration needs to be readjusted. The maximum available memory can be configured using the following fields, the recommended value is `58GB`. If it is set too large, it may cause other components to run out of memory. Typically the larger the cluster training size used, the larger the memory usage of the other components, and the lower the maximum memory available to the MindSpore process. For example on a thousand card cluster, this maximum available memory value is typically set to `54GB`.
 
@@ -594,7 +594,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 3. Enable Llama's `fine-grained multi-copy` policy masks most of the communication behavior under the model-parallel policy;
 
-   An introduction to multi-copy parallel can be found in the [MindSpore Multicopy Parallelism Documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/multiple_copy.html), and the behavior of fine-grained multicopy parallelism can be configured in MindSpore Transformers through the ` fine_grain_interleave` item. The reference configuration is as follows:
+   An introduction to multi-copy parallel can be found in the [MindSpore Multicopy Parallelism Documentation](https://www.mindspore.cn/tutorials/en/master/parallel/multiple_copy.html), and the behavior of fine-grained multicopy parallelism can be configured in MindSpore Transformers through the ` fine_grain_interleave` item. The reference configuration is as follows:
 
    ```yaml
    model:

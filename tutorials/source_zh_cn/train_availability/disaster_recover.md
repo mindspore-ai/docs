@@ -10,7 +10,7 @@
 
 > 动态组网场景下的容灾恢复仅支持GPU，需要在Graph模式下运行。
 
-更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html)。
+更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)。
 
 ## 操作实践
 
@@ -35,7 +35,7 @@
 
 ### 网络结构
 
-网络结构和数据集加载与[动态组网启动](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html)中的示例一致。
+网络结构和数据集加载与[动态组网启动](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)中的示例一致。
 
 ### 定义训练过程
 

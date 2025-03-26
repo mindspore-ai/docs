@@ -153,7 +153,7 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
 
 #### DryRun内存评估工具
 
-当前内存评估工具主要使用MindSpore的模拟编译(dryrun)。模拟编译使用方式在MindSpore的[环境变量文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)和[msrun文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/msrun_launcher.html)中呈现。可以通过在训练进程开始前使能环境变量`export MS_SIMULATION_LEVEL=1`或者在msrun启动项配置`--sim_level`功能，即可拉起模拟编译的训练进程。
+当前内存评估工具主要使用MindSpore的模拟编译(dryrun)。模拟编译使用方式在MindSpore的[环境变量文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)和[msrun文档](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)中呈现。可以通过在训练进程开始前使能环境变量`export MS_SIMULATION_LEVEL=1`或者在msrun启动项配置`--sim_level`功能，即可拉起模拟编译的训练进程。
 
 可以使用DryRun分析所需内存是否超过最大可用内存。如果超过，需要重新调整配置。最大可用内存可通过如下字段配置，推荐值为`58GB`，如果设置过大，可能导致其他组件内存不足。通常使用的集群训练规模越大，其他组件内存占用越大，MindSpore进程可用的最大内存也会随之降低，例如在千卡集群上，该最大可用内存值一般设置为`54GB`。
 
@@ -594,7 +594,7 @@ recompute_config:
 
 3. 使能Llama的`细粒度多副本`策略，掩盖模型并行策略下的大部分通信行为；
 
-   多副本并行的介绍可以参考[MindSpore多副本并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/multiple_copy.html)，在MindSpore Transformers中通过`fine_grain_interleave`项来配置细粒度多副本的行为，参考配置如下：
+   多副本并行的介绍可以参考[MindSpore多副本并行文档](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/multiple_copy.html)，在MindSpore Transformers中通过`fine_grain_interleave`项来配置细粒度多副本的行为，参考配置如下：
 
    ```yaml
    model:

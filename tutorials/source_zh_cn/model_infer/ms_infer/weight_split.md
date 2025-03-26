@@ -151,10 +151,10 @@ def save_strategy_file(state_dict, strategy_file_name):
         raise e
 ```
 
-得到推理网络的并行策略文件后，可以根据[执行分布式checkpoint转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#执行分布式checkpoint转换)方法，将训练权重转换为推理所需权重。
+得到推理网络的并行策略文件后，可以根据[执行分布式checkpoint转换](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/model_transformation.html#执行分布式checkpoint转换)方法，将训练权重转换为推理所需权重。
 
 具体端到端的权重切分代码工程可以参考[权重切分](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/param_split.py)。
 
 ## 权重加载
 
-分布式权重加载可以参考[加载转换得到的checkpoint文件](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#加载转换得到的checkpoint文件)教程。
+分布式权重加载可以参考[加载转换得到的checkpoint文件](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/model_transformation.html#加载转换得到的checkpoint文件)教程。
