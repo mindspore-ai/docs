@@ -41,9 +41,8 @@ bash build.sh
 
 To determine whether MindSpore Transformers has been successfully installed, execute the following code:
 
-```python
-import mindformers as mf
-mf.run_check()
+```bash
+python -c "import mindformers as mf;mf.run_check()"
 ```
 
 A similar result as below proves that the installation was successful:
