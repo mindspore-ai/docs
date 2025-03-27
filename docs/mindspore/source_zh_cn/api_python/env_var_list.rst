@@ -451,7 +451,7 @@ Dump调试
 
        MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。
 
-       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/parameter_server_training.html>`_ 。
+       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效。
      - Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。
    * - MS_SCHED_HOST
      - 指定Scheduler的IP地址。
@@ -555,7 +555,7 @@ Dump调试
        delete_depend_list(List[string])：需要被删除的算子名称列表，算子名称不存在或者和graph_id不匹配，删除节点的动作将失效。
 
 
-动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html>`_ 。
+动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html>`_ 。
 
 算子编译
 --------

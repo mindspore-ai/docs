@@ -4,7 +4,7 @@
 
 ## 概述
 
-`msrun`是[动态组网](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`，以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html)。`msrun`同时支持`Ascend`，`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
+`msrun`是[动态组网](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`，以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)。`msrun`同时支持`Ascend`，`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
 
 > - `msrun`在用户安装MindSpore后即可使用，可使用指令`msrun --help`查看支持参数。
 > - `msrun`支持`图模式`以及`PyNative模式`。
@@ -186,7 +186,7 @@
     </tr>
 </table>
 
-msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html)。
+msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)。
 
 ## 启动分布式任务
 

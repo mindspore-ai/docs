@@ -174,7 +174,7 @@ Use the Megatron multi-source dataset in the training task as follows:
 
     The configuration instructions that need to be noted are as follows:
 
-    - parallel.dataset_strategy: Only support List of List type, parallel.dataset_strategy: Only support List of List type. The number of sub lists in a List needs to be equal to the length of train_dataset.input_columns, and each sub List in the List needs to be consistent with the shape of the data returned by the dataset. Generally, parallel data partitioning is performed in the first dimension of the data, so the first bit of the sub List is configured as `*dp` , and the other bits are configured as `1` . The specific principle can be referred to [Dataset Segmentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/dataset_slice.html).
+    - parallel.dataset_strategy: Only support List of List type, parallel.dataset_strategy: Only support List of List type. The number of sub lists in a List needs to be equal to the length of train_dataset.input_columns, and each sub List in the List needs to be consistent with the shape of the data returned by the dataset. Generally, parallel data partitioning is performed in the first dimension of the data, so the first bit of the sub List is configured as `*dp` , and the other bits are configured as `1` . The specific principle can be referred to [Dataset Segmentation](https://www.mindspore.cn/tutorials/en/master/parallel/dataset_slice.html).
 
 4. Compile Megatron Dataset module
 

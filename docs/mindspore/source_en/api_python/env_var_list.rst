@@ -448,7 +448,7 @@ Distributed Parallel
 
        MS_WORKER: represents the Worker process, which generally sets up the distributed training process for this role.
 
-       MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode. Please refer to `Parameter Server mode <https://www.mindspore.cn/docs/en/master/model_train/parallel/parameter_server_training.html>`_ .
+       MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode.
      - The Worker and Parameter Server processes register with the Scheduler process to complete the networking.
    * - MS_SCHED_HOST
      - Specifies the IP address of the Scheduler.
@@ -554,7 +554,7 @@ Distributed Parallel
        delete_depend_list(List[string]): A list of operator names that need to be deleted. If the operator name does not exist or does not match the graph_id, the action of deleting the node will be invalid.
 
 
-See `Dynamic Cluster <https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
+See `Dynamic Cluster <https://www.mindspore.cn/tutorials/en/master/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
 
 Operators Compile
 -----------------
