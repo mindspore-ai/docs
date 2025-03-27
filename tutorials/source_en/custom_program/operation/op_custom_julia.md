@@ -6,8 +6,7 @@ As one of the future development goals of MindSpore,  the fusion of AI and scien
 
 ## Defining Custom Operator of julia Type
 
-Julia is a high level general programming language which has high performance and is easy to use.
-Julia is firstly designed for scientific computing, and also gain the favor of general users due to its high effience.
+Julia is a high level general programming language which has high performance and is easy to use. Julia is firstly designed for scientific computing, and also gain the favor of general users due to its high effience.
 The custom operator of julia type uses Julia to describe the internal calculation logic of the operator. The framework will automatically call this function during the network runtime.
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic of the operator output shape and the data type.
@@ -40,6 +39,7 @@ import mindspore.ops as ops
 ms.set_device(device_target="CPU")
 
 if __name__ == "__main__":
+    # Define custom operators of type julia
     op = ops.Custom("./add.jl:Add:add", out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="julia")
     x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
     x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
@@ -101,51 +101,51 @@ Matters need attention:
     end
     ```
 
-Taking matrix multiplication as an example:
+    Taking matrix multiplication as an example:
 
-```julia
-# julia array is column-major, numpy array is row-major
-# user should change julia or numpy's layout to keep same behavior
-#= EXAMPLE
-A[2,3]               B[3,4]               C[2,4]
-NUMPY:
-[[1, 2, 3]       [[1, 2, 3, 4]         [[38, 44, 50,  56]
- [4, 5, 6]]       [5, 6, 7, 8]          [83, 98, 113,128]]
-                  [9,10,11,12]]
-JULIA:
-change_input_to_row_major:
-1.inputs read numpy data from memory:
-[[1, 3, 5]       [[1, 4, 7,10]
- [2, 4, 6]]       [2, 5, 8,11]
-                  [3, 6, 9,12]]
-2.inputs after reshape(reverse(shape)):
-[[1, 4]          [[1, 5, 9]
- [2, 5]           [2, 6,10]
- [3, 6]]          [3, 7,11]
-                  [4, 8,12]]
-3.inputs after transpose/permutedims:
-[[1, 2, 3]       [[1, 2, 3, 4]         [[38, 44, 50,  56]
- [4, 5, 6]]       [5, 6, 7, 8]          [83, 98, 113,128]]
-                  [9,10,11,12]]
-change_output_to_row_major:
-1.output after transpose/permutedims:
-                                       [[38, 83]
-                                        [44, 98]
-                                        [50,113]
-                                        [56,128]
-2.output after reshape:
-                                       [[38, 50, 83, 113]
-                                        [44, 56, 98, 128]]
-3.output read numpy data from memory:
-                                       [[38, 44, 50,  56]
-                                        [83, 98,113, 128]]
-=#
-function foo!(x, y, z)
-    x = change_input_to_row_major(x)
-    y = change_input_to_row_major(y)
-    z .= gemm(x, y, z)
-    z .= change_output_to_row_major(z)
-end
-```
+    ```julia
+    # julia array is column-major, numpy array is row-major
+    # user should change julia or numpy's layout to keep same behavior
+    #= EXAMPLE
+    A[2,3]               B[3,4]               C[2,4]
+    NUMPY:
+    [[1, 2, 3]       [[1, 2, 3, 4]         [[38, 44, 50,  56]
+    [4, 5, 6]]       [5, 6, 7, 8]          [83, 98, 113,128]]
+                    [9,10,11,12]]
+    JULIA:
+    change_input_to_row_major:
+    1.inputs read numpy data from memory:
+    [[1, 3, 5]       [[1, 4, 7,10]
+    [2, 4, 6]]       [2, 5, 8,11]
+                    [3, 6, 9,12]]
+    2.inputs after reshape(reverse(shape)):
+    [[1, 4]          [[1, 5, 9]
+    [2, 5]           [2, 6,10]
+    [3, 6]]          [3, 7,11]
+                    [4, 8,12]]
+    3.inputs after transpose/permutedims:
+    [[1, 2, 3]       [[1, 2, 3, 4]         [[38, 44, 50,  56]
+    [4, 5, 6]]       [5, 6, 7, 8]          [83, 98, 113,128]]
+                    [9,10,11,12]]
+    change_output_to_row_major:
+    1.output after transpose/permutedims:
+                                        [[38, 83]
+                                            [44, 98]
+                                            [50,113]
+                                            [56,128]
+    2.output after reshape:
+                                        [[38, 50, 83, 113]
+                                            [44, 56, 98, 128]]
+    3.output read numpy data from memory:
+                                        [[38, 44, 50,  56]
+                                            [83, 98,113, 128]]
+    =#
+    function foo!(x, y, z)
+        x = change_input_to_row_major(x)
+        y = change_input_to_row_major(y)
+        z .= gemm(x, y, z)
+        z .= change_output_to_row_major(z)
+    end
+    ```
 
 For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.

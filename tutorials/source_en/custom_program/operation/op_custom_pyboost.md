@@ -99,7 +99,7 @@ It should be noted that in order to use the data structures provided by MindSpor
 
 In order to facilitate the implementation of user-defined operators and inverses, MindSpore provides a computational function class template `Function`. Users can define the following computational function class according to the operator class name they choose:
 
-```cpp
+```c++
 class CustomMul : public Function<CustomMul>
 ```
 

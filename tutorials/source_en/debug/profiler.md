@@ -70,7 +70,7 @@ import mindspore
 from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
 
 # Define model training times
-STEP_NUM = 15
+steps = 15
 
 # Define the training model network
 net = Net()

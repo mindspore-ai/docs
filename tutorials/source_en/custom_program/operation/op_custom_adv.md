@@ -66,6 +66,10 @@ if __name__ == "__main__":
     print(dx)
 ```
 
+```text
+[ 2.  8. 18.]
+```
+
 The following points need to be explained in this example:
 
 - The backpropagation function uses a custom operator of akg type, and the operator definition and use need to be separated, that is, the custom operator is defined outside the `custom_bprop` function and used inside the `custom_bprop` function.

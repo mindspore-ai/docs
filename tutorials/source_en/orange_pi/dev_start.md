@@ -153,6 +153,8 @@ Shape of image [N, C, H, W]: (64, 1, 28, 28) Float32
 Shape of label: (64,) Int32
 ```
 
+## Model Building
+
 ```python
 # Define model
 class Network(nn.Cell):
@@ -325,7 +327,7 @@ print("Saved Model to model.ckpt")
 Saved Model to model.ckpt
 ```
 
-## Loading Models
+## Loading Weights
 
 Loading the saved weights is a two-step process:
 
@@ -347,20 +349,37 @@ print(param_not_load)
 
 > `param_not_load` is the list of parameters that were not loaded. Being empty means all parameters were loaded successfully.
 
+## Model Inference
+
+The loaded model can be used directly for predictive inference.
+
 ```python
+import matplotlib.pyplot as plt
+
 model.set_train(False)
 for data, label in test_dataset:
     pred = model(data)
     predicted = pred.argmax(1)
-    print(f'Predicted: "{predicted[:10]}", Actual: "{label[:10]}"')
+    print(f'Predicted: "{predicted[:6]}", Actual: "{label[:6]}"')
+
+    # Display the number and the predicted value of the number
+    plt.figure()
+    for i in range(6):
+        plt.subplot(2, 3, i + 1)
+        # If the prediction is correct, it will be displayed in blue; if the prediction is incorrect, it will be displayed in red
+        color = 'blue' if predicted[i] == label[i] else 'red'
+        plt.title('Predicted:{}'.format(predicted[i]), color=color)
+        plt.imshow(data.asnumpy()[i][0], interpolation="None", cmap="gray")
+        plt.axis('off')
+    plt.show()
     break
 ```
 
 ```text
-Predicted: "[1 2 0 4 6 4 9 0 2 2]", Actual: "[1 2 0 4 6 9 9 0 2 2]"
+Predicted: "[2 1 0 4 1 7]", Actual: "[2 1 0 4 1 7]"
 ```
 
-## More examples of MindSpore-based OrangePi development boards are detailed in: [GitHub link](https://github.com/mindspore-courses/orange-pi-mindspore)
+More examples of MindSpore-based OrangePi development boards are detailed in: [GitHub link](https://github.com/mindspore-courses/orange-pi-mindspore)
 
 The required environment for the operation of this case:
 

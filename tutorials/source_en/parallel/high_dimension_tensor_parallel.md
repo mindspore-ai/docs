@@ -30,7 +30,7 @@ The 2D tensor parallelism slices both the activation bsh and the weight he by tw
 
 *Figure : 2D tensor parallel computing communication behavior (as an example of a MatMul computation under 4-card parallelism)*
 
-### 3D Tensor Parallel Computing Communication Behavior
+#### 3D Tensor Parallel Computing Communication Behavior
 
 3D tensor parallelism further splits the total cardinality into x, y, and z communication groups for finer-grained slicing. Relative to 2D tensor parallelism, 3D tensor parallelism shifts a portion of the AllGather communication to weight he. This operation reduces the total communication introduced when the relative weight of the shape of the activated bsh is large. As shown in the 8-card parallel case in the following figure, the overall process is: activation in communication group y for AllGather, weights in communication group z for AllGather -> matrix product, the resulting partial sum -> ReduceScatter in communication group x to get the final result. The last 4 cards communication calculation is similar to the first 4 cards, the second MatMul communication calculation communication is similar to the first MatMul, none of the following figures are shown.
 
