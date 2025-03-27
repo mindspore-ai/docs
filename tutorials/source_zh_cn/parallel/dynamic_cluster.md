@@ -118,7 +118,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left" style="white-space:nowrap">MS_NODE_TIMEOUT</td>
         <td align="left">节点心跳超时时间，单位：秒。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为300秒</td>
+        <td align="left">默认为30秒</td>
         <td align="left">此数值代表Scheduler以及Worker间心跳超时时间，若此时间窗口内没有心跳消息，则集群异常退出。</td>
     </tr>
     <tr>
