@@ -786,6 +786,8 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
         env_warn = ''
         fourth_str = ''
         try:
+            if name.split('.')[-1][0].isupper() and '.. py:method::' in content:
+                content = content.split('.. py:method::')[0]
             if re.findall(r'\.\. warning::\n', content):
                 indent = re.findall(r'([ ]+)\.\. warning::\n', content)[0]
                 if re.findall(rf'\.\. warning::\n((?:.|\n|)+?)\n\n{indent}\S', content):
@@ -847,6 +849,8 @@ class MsCnPlataclnnAutoSummary(MsCnAutoSummary):
         env_warn = ''
         fourth_str = ''
         try:
+            if name.split('.')[-1][0].isupper() and '.. py:method::' in content:
+                content = content.split('.. py:method::')[0]
             if re.findall(r'\.\. warning::\n', content):
                 indent = re.findall(r'([ ]+)\.\. warning::\n', content)[0]
                 if re.findall(rf'\.\. warning::\n((?:.|\n|)+?)\n\n{indent}\S', content):
