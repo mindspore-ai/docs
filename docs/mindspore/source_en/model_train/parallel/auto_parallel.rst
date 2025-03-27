@@ -80,13 +80,17 @@ Basic Principles
 
 Given a computation graph, **Sharding Propagation** is a functionality that propagates the Sharding Strategies from configured operator to the whole graph, with the goal of minimizing the communication cost in Tensor Redistribution.
 
-The input of Sharding Propagation is a computation graph, in which nodes represent operators, and edges encode the data-dependency relationship of operators. From a model definition with some operators configured Sharding Strategies, Sharding Propagation executes as follows:
+The input to the sharding strategy propagation is a computational graph with some operator sharding strategy, where points denote operators and directed edges denote data dependencies. Sharding Propagation executes as follows:
 
 1. Generate possible Sharding Strategies for non-configured operators;
 2. Generate Tensor Redistributions and the associated communication costs for each edge;
 3. Start from the configured operators, and propagate the Sharding Strategies to non-configured operators using BFS, with the goal of minimizing the communication cost along each edge.
 
-The following figure illustrates an example process of applying Sharding Propagation. Given an computation graph with some configured strategies, it first enumerates possible strategies for non-configured operators, as shown in figure (b). Next, it enumerates possible strategies and the Tensor Redistribution costs for each edge. Demonstrated in figure (c), the strategy for an edge is defined as a pair [*s_strategy*, *t_strategy*], where *s_strategy* and *t_strategy* denote Sharding Strategy for source operator and target operator, respectively. Finally, starting from the configured operator, it determines the next operator’s Sharding Strategy, such that the communication cost in Tensor Redistribution is minimized. The propagation ends when the Sharding Strategies for all operators are settled, as shown in figure (d).
+The following figure illustrates an example process of applying Sharding Propagation:
+
+1. Given an computation graph with some configured strategies, it first enumerates possible strategies for non-configured operators, as shown in figure (b).
+2. Next, it enumerates possible strategies and the Tensor Redistribution costs for each edge. Demonstrated in figure (c), the strategy for an edge is defined as a pair [*s_strategy*, *t_strategy*], where *s_strategy* and *t_strategy* denote Sharding Strategy for source operator and target operator, respectively. 
+3. Finally, starting from the configured operator, it determines the next operator’s Sharding Strategy, such that the communication cost in Tensor Redistribution is minimized. The propagation ends when the Sharding Strategies for all operators are settled, as shown in figure (d).
 
 .. image:: ./images/sharding_propagation.png
    :alt: An example process of applying Sharding Propagation
