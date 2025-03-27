@@ -194,6 +194,13 @@ def get_param_func(func):
 
 def get_obj(obj):
     if isinstance(obj, type):
+        try:
+            test_source = inspect_.getsource(obj.__init__)
+        except:
+            return obj.__new__
+        obj_init = getattr(obj, '__init__', None)
+        if obj.__name__ not in str(obj_init) and hasattr(obj, '__new__'):
+            return obj.__new__
         return obj.__init__
 
     return obj
