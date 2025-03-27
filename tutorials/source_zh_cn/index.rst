@@ -132,6 +132,7 @@ MindSpore教程
    :caption: 实践案例
    :hidden:
 
+   model_migration/model_migration
    cv
    nlp
    generative
