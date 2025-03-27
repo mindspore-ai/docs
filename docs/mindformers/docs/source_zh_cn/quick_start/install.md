@@ -6,7 +6,7 @@
 
 当前支持的硬件为[Atlas 800T A2](https://www.hiascend.com/hardware/ai-server?tag=900A2)训练服务器。
 
-当前套件建议使用的Python版本为3.10。
+当前套件建议使用的Python版本为3.11.4。
 
 | MindSpore Transformers | MindSpore | CANN | 固件与驱动 | 镜像链接 |
 |:-----------:|:---------:|:----:|:-----:|:----:|

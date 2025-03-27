@@ -6,7 +6,7 @@
 
 The currently supported hardware is the [Atlas 800T A2](https://www.hiascend.com/hardware/ai-server?tag=900A2) training server.
 
-The current recommended Python version for the suite is 3.10.
+The current recommended Python version for the suite is 3.11.4.
 
 |      MindSpore Transformers       |       MindSpore        |          CANN          |   Firmware & Drivers   |  Mirror Links  |
 |:----------------------:|:----------------------:|:----------------------:|:----------------------:|:--------------:|
