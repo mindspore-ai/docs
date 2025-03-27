@@ -24,7 +24,7 @@ The directory structure is as follows:
 
 Among them, `distributed_optimizer_parallel.py` is the script that defines the network structure and the training process. `run.sh` is the execution script.
 
-### Configuring the Distributed Environment
+## Configuring the Distributed Environment
 
 Specify the run mode, run device, run card number through the context interface. Unlike single-card scripts, parallel scripts also need to initialize HCCL or NCCL communication through init.
 
@@ -37,7 +37,7 @@ init()
 ms.set_seed(1)
 ```
 
-### Loading the Dataset
+## Loading the Dataset
 
 In the optimizer parallel scenario, the dataset is loaded in the same way as single-card is loaded, with the following code:
 
@@ -63,7 +63,7 @@ def create_dataset(batch_size):
 data_set = create_dataset(32)
 ```
 
-### Defining the Network and Optimizer
+## Defining the Network and Optimizer
 
 The optimizer parallel network structure is essentially the same as the single card network structure, with the difference being the addition of a configuration for communication operator fusion and the need for delayed initialization of the network and optimizer:
 
@@ -99,7 +99,7 @@ net.layer3.set_comm_fusion(2)
 
 > Here communication fusion is configured for different layers in order to reduce the communication cost. Details can be found in [Communication Operator Fusion](https://www.mindspore.cn/tutorials/en/master/parallel/comm_fusion.html).
 
-### Training Network Definition
+## Training Network Definition
 
 In this step, we need to define the loss function and the training process, which is the same as that of the single-card:
 
@@ -151,7 +151,7 @@ for epoch in range(10):
         i += 1
 ```
 
-### Running the Single-machine Eight-card Script
+## Running the Single-machine Eight-card Script
 
 Next, the corresponding scripts are invoked by commands, using the `msrun` startup method and the 8-card distributed training script as an example of distributed training:
 

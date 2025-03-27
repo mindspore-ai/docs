@@ -100,22 +100,22 @@ The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore
 
 ```python
 class AddCustomNet(Cell):
-   def __init__(self, func, out_shape, out_dtype):
-      super(AddCustomNet, self).__init__()
-      reg_info = CustomRegOp("AddCustom")
-         .input(0, "x", "required")
-         .input(1, "y", "required")
-         .output(0, "z", "required")
-         .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default)
-         .target("Ascend")
-         .get_op_info()
+    def __init__(self, func, out_shape, out_dtype):
+        super(AddCustomNet, self).__init__()
+        reg_info = CustomRegOp("AddCustom") \
+            .input(0, "x", "required") \
+            .input(1, "y", "required") \
+            .output(0, "z", "required") \
+            .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default) \
+            .target("Ascend") \
+            .get_op_info()
 
-      self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=out_dtype, func_type="aot", bprop=None,
-                                   reg_info=reg_info)
+        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=out_dtype, func_type="aot", bprop=None,
+                                     reg_info=reg_info)
 
-   def construct(self, x, y):
-      res = self.custom_add(x, y)
-      return res
+    def construct(self, x, y):
+        res = self.custom_add(x, y)
+        return res
 
 mindspore.set_context(jit_config={"jit_level": "O0"})
 mindspore.set_device("Ascend")

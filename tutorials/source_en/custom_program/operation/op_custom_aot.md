@@ -4,9 +4,7 @@
 
 ## Overview
 
-AOT (Ahead-Of-Time) type of custom operators employ a pre-compilation approach, which requires network developers to manually write the source code files corresponding to the operator implementation functions based on specific interfaces. These source code files need to be compiled into dynamic link libraries (DLLs) in advance. During network runtime, the framework will automatically invoke and execute the functions contained within these dynamic link libraries.
-
-AOT-type custom operators support the CUDA language for GPU platforms and the C and C++ languages for CPU platforms. For the development of custom operators specifically on the Ascend platform, please refer to [AOT-Type Custom Operators(Ascend)](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_ascendc.html).
+AOT (Ahead-Of-Time) type of custom operators employ a pre-compilation approach, which requires network developers to manually write the source code files corresponding to the operator implementation functions based on specific interfaces. These source code files need to be compiled into dynamic link libraries (DLLs) in advance. During network runtime, the framework will automatically invoke and execute the functions contained within these dynamic link libraries. AOT-type custom operators support the CUDA language for GPU platforms and the C and C++ languages for CPU platforms. For the development of custom operators specifically on the Ascend platform, please refer to [AOT-Type Custom Operators(Ascend)](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_ascendc.html).
 
 In this tutorial, we provide several simple use cases of AOT-type custom operators on both CPU and GPU platforms as demonstrations. For more comprehensive examples of AOT-type custom operators, please refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py) section in the MindSpore source code.
 
@@ -14,8 +12,8 @@ In this tutorial, we provide several simple use cases of AOT-type custom operato
 
 The custom operator of AOT-type adopts the AOT compilation method, which requires network developers to hand-write the source code file of the operator implementation based on a specific interface and compiles the source code file into a dynamic library in advance, and then the framework will automatically call and run the function defined in the dynamic library. In terms of the development language of the operator implementation, the GPU platform supports CUDA, and the CPU platform supports C and C++. The interface specification of the operator implementation in the source file is as follows:
 
-```cpp
-extern "C" int func_name(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream, void *extra);
+```text
+extern "C" int CustomFunc(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream, void *extra);
 ```
 
 where the function name `func_name` can be replaced with any valid function name. The return value is of type int. 0 means normal exit, and non-zero means an exception occurs. The meaning of the parameter list is as follows:
@@ -43,7 +41,7 @@ The following examples introduce the development process of AOT-type custom oper
 
 Use the CUDA language to write the source file add.cu for the operator implementation:
 
-```cpp
+```c++
 #define THREADS 1024
 __global__ void CustomAddKernel(float *input1, float *input2, float *output, size_t size) {
   auto idx = blockIdx.x * THREADS + threadIdx.x;
@@ -78,7 +76,7 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
 
 Compile add.cu into a dynamic library add.so:
 
-```bash
+```shell
 nvcc --shared -Xcompiler -fPIC -o add.so add.cu
 ```
 
@@ -109,7 +107,7 @@ The following points need to be explained in this example:
 
 Execute case:
 
-```bash
+```shell
 python test_custom_aot.py
 ```
 
@@ -124,7 +122,7 @@ The execution result is as follows:
 
 Use C/C++ language to write the source file add.cc for the operator implementation:
 
-```cpp
+```c++
 #include <string.h>
 using size_t = decltype(sizeof(int));
 using int64_t = decltype(sizeof(long));
@@ -152,13 +150,13 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
 
 Compile add.cc into a dynamic library add.so:
 
-```bash
+```shell
 g++ --shared -fPIC -o add.so add.cc
 ```
 
 Write the test case test_custom_aot.py:
 
-```python
+```text
 import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
@@ -183,7 +181,7 @@ The following points need to be explained in this example:
 
 Execute case:
 
-```bash
+```shell
 python test_custom_aot.py
 ```
 
@@ -193,8 +191,6 @@ The execution result is as follows:
 [[2. 2.]
  [4. 4.]]
 ```
-
-For more complete examples of AOT-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py) in the MindSpore source code.
 
 ## The Introduction to the Advanced Usage Features of AOT-type Custom Operators
 
