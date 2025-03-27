@@ -26,7 +26,7 @@ Related commands:
     - `-mca orte_abort_on_non_zero_status 0`: When a child process exits abnormally, OpenMPI will abort all child processes by default. If you don't want to abort child processes automatically, you can add this parameter.
     - `-bind-to none`: OpenMPI will specify the number of available CPU cores for the child process to be pulled up by default. If you don't want to limit the number of cores used by the process, you can add this parameter.
 
-> OpenMPI starts up with a number of OPMI_* environment variables, and users should avoid manually modifying these environment variables in scripts.
+> OpenMPI starts up with a number of `OPMI_*` environment variables, and users should avoid manually modifying these environment variables in scripts.
 
 ## Operation Practice
 
@@ -156,12 +156,6 @@ epoch: 0, step: 10, loss is 1.6298866
 epoch: 0, step: 20, loss is 1.3729795
 epoch: 0, step: 30, loss is 1.2199347
 epoch: 0, step: 40, loss is 0.85778403
-epoch: 0, step: 50, loss is 1.0849445
-epoch: 0, step: 60, loss is 0.9102987
-epoch: 0, step: 70, loss is 0.7571399
-epoch: 0, step: 80, loss is 0.7989929
-epoch: 0, step: 90, loss is 1.0189024
-epoch: 0, step: 100, loss is 0.6298542
 ...
 ```
 

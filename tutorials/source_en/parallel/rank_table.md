@@ -60,7 +60,7 @@ The directory structure is as follows:
 
 Here, as an example of data parallel, a recognition network is trained for the MNIST dataset.
 
-First specify the operation mode, hardware device, etc. Unlike single card scripts, parallel scripts also need to specify configuration items such as parallel mode and initialize HCCL or NCCL communication via init. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
+First specify the operation mode, device ID, hardware device, etc. Unlike single card scripts, parallel scripts also need to specify configuration items such as parallel mode and initialize HCCL or NCCL communication via init. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import os
@@ -195,14 +195,6 @@ After running, the log files are saved in `device0`, `device1` and other directo
 epoch: 0, step: 0, loss is 2.3391366
 epoch: 0, step: 10, loss is 1.8047495
 epoch: 0, step: 20, loss is 1.2186875
-epoch: 0, step: 30, loss is 1.3065228
-epoch: 0, step: 40, loss is 1.0825632
-epoch: 0, step: 50, loss is 1.0281029
-epoch: 0, step: 60, loss is 0.8405618
-epoch: 0, step: 70, loss is 0.7346531
-epoch: 0, step: 80, loss is 0.688364
-epoch: 0, step: 90, loss is 0.51331174
-epoch: 0, step: 100, loss is 0.53782797
 ...
 ```
 
@@ -250,7 +242,9 @@ If the connection fails, the corresponding output is as follows:
 net health status: Fault
 ```
 
-After confirming that the network of the NPU units between the machines is smooth, configure the json configuration file of the multi-machine, this document takes the configuration file of the 16 cards as an example. The detailed description of the configuration file can be referred to the introduction of single-machine multi-card part in this document. It should be noted that in the configuration of the multi-machine json file, it is required that the order of rank_id is consistent with the dictionary order of server_id.
+After confirming that the network of the NPU units between the machines is smooth, configure the json configuration file of the multi-machine, this document takes the configuration file of the 16 cards as an example. The detailed description of the configuration file can be referred to the introduction of single-machine multi-card part in this document.
+
+It should be noted that in the configuration of the multi-machine json file, it is required that the order of rank_id is consistent with the dictionary order of server_id.
 
 ```json
 {
@@ -320,7 +314,7 @@ do
 done
 ```
 
-During execution, the following commands are executed on the two machines, where rank_table.json is configured according to the 16-card distributed json file reference shown in this section.
+During execution, the following commands are executed on the two machines:
 
 ```bash
 # server0
@@ -329,11 +323,15 @@ bash run_rank_table_cluster.sh 0
 bash run_rank_table_cluster.sh 8
 ```
 
+Where rank_table.json follows the 16-card distributed json file reference configuration shown in this section.
+
 After running, the log files are saved in the directories `device_0`, `device_1`. The information about the environment variables is recorded in `env*.log`, and the output is saved in `train*.log`.
 
 #### Cross Cluster
 
-For today's large-scale models, using compute clusters for training has become the norm. However, as model sizes continue to grow, the resources of a single cluster can no longer meet the memory requirements for model training. Therefore, support for cross-cluster communication has become a prerequisite for training ultra-large-scale models. Currently, the HCCL communication library of Ascend hardware does not support cross-cluster communication. To address this issue, MindSpore provides a cross-cluster communication library that enables efficient communication between NPUs in different clusters. With this library, users can overcome the memory limitations of a single cluster and achieve cross-cluster parallel training for ultra-large-scale models.
+For today's large-scale models, using compute clusters for training has become the norm. However, as model sizes continue to grow, the resources of a single cluster can no longer meet the memory requirements for model training. Therefore, support for cross-cluster communication has become a prerequisite for training ultra-large-scale models.
+
+Currently, the HCCL communication library of Ascend hardware does not support cross-cluster communication. To address this issue, MindSpore provides a cross-cluster communication library that enables efficient communication between NPUs in different clusters. With this library, users can overcome the memory limitations of a single cluster and achieve cross-cluster parallel training for ultra-large-scale models.
 
 Currently, the MindSpore framework enables this feature simply by adding the `cluster_list` configuration item for cross-cluster communication in the multi-node, multi-card JSON configuration file. This document uses a 2-node, 16-card setup (assuming the two machines are not in the same cluster) as an example to illustrate how to write the relevant configuration items for cross-cluster scenarios. For detailed information about the configuration file, please refer to the single-node, multi-card section in this document.
 
@@ -444,7 +442,7 @@ do
 done
 ```
 
-During execution, the two machines in the two clusters run the following commands, respectively. The `rank_table_cross_cluster_16pcs.json` file is configured based on the 2-cluster, 16-card cross-cluster distributed JSON file example shown in this section. The `rank_table_cross_cluster_16pcs.json` configuration used on each machine in both clusters must remain consistent.
+During execution, the two machines in the two clusters run the following commands, respectively:
 
 ```bash
 # server0
@@ -452,5 +450,7 @@ bash run_rank_table_cross_cluster.sh 0
 # server1
 bash run_rank_table_cross_cluster.sh 8
 ```
+
+The `rank_table_cross_cluster_16pcs.json` file is configured based on the 2-cluster, 16-card cross-cluster distributed JSON file example shown in this section. The `rank_table_cross_cluster_16pcs.json` configuration used on each machine in both clusters must remain consistent.
 
 After execution, log files are saved in the `device_0`, `device_1`, and other corresponding directories on each machine in the clusters. The `env*.log` files record information about the environment variables, while the output results are stored in the `train*.log` files.

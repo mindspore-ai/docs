@@ -175,4 +175,4 @@ epoch: 0 step: 30, loss is 2.2938071
 ...
 ```
 
-Other startup methods such as dynamic network and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html).
+Other startup methods such as dynamic network and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).

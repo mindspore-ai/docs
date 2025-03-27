@@ -4,7 +4,7 @@
 
 ## Overview
 
-For a new model using [Sharding Propagation](https://www.mindspore.cn/docs/en/master/model_train/parallel/sharding_propagation.html) to configure the parallelization strategy, the key issue is to configure which operator's slicing strategy will yield better performance. Since the goal of strategy propagation is to minimize the cost of tensor rearranging rather than minimizing the end-to-end iteration time, it is important to configure the appropriate cut strategy for the "key operators". However, there is no explicit rule governing which operators must be configured with a sharding strategy. Nevertheless, based on our experience in training large models, there are some principles that can be used to guide new users in configuring parallel strategies. Here, we list 3 empirical principles.
+For a new model using `Sharding Propagation` to configure the parallelization strategy, the key issue is to configure which operator's slicing strategy will yield better performance. Since the goal of strategy propagation is to minimize the cost of tensor rearranging rather than minimizing the end-to-end iteration time, it is important to configure the appropriate cut strategy for the "key operators". However, there is no explicit rule governing which operators must be configured with a sharding strategy. Nevertheless, based on our experience in training large models, there are some principles that can be used to guide new users in configuring parallel strategies. Here, we list 4 empirical principles.
 
 ### Configuring Operators Involving Weights
 
@@ -23,8 +23,6 @@ The operators of deep learning frameworks can be broadly categorized into two ty
 For ResNet-like models, different parts of the model have different preferred parallel: the first half uses data parallel, and the second half uses model parallel for optimal iterative performance. For Llama-like large models, when vocab_size is too large, model parallel slicing may be chosen for memory considerations; when sequence_length is too large, the strategy of sequence parallelism may also be chosen. The above strategies belong to those carefully configured by the user based on the model and hardware information.Sharding Propagation is a plain algorithm to find the least cost of rearrangement, and it does not find the carefully configured strategies automatically, so for the operator strategies carefully tuned by the user, it is necessary to configure them exclusively. In the example below, the first MatMul is configured with a strategy for data parallel, which will propagate the strategy for data parallel forward to the first half of the model, while the second MatMul is configured with a strategy for model parallel, which will propagate the strategy for model parallel backward to the second half of the model.
 
 ![sp_case3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/model_train/parallel/images/sp_case3.png "Configuring Boundary Operators that Change in Parallel Method")
-
-Users working with strategy propagation need to have some understanding not only of its propagation algorithm itself, but also of the parallelism of the model to be trained. If there exists a certain operator whose parallel strategy determined by the strategy propagation algorithm does not meet the user's expectations, that can always be solved by configuring an additional operator parallel strategy. In practice, for a new model, it does take several attempts to obtain an overall parallel configuration with better performance.
 
 ### Configuring Fusion Operators
 
@@ -132,7 +130,8 @@ class FlashAttention(Cell):
         mp = parallel_config.model_parallel
         cp = parallel_config.context_parallel
         cp_ds = parallel_config.get_ulysses_cp_num()
-        fa_strategies = self._generate_flash_attention_strategy(dp, mp, cp, cp_ds)
+        fa_strategies = self._generate_flash_attention_strategy(
+            dp, mp, cp, cp_ds)
         self.flash_attention.shard(fa_strategies)
 +       if self.use_alibi_mask:
 +           self.alibi_rescale_mul.shard(((dp, mp, cp, 1), (1,)))
@@ -150,7 +149,8 @@ class FlashAttention(Cell):
         mp = parallel_config.model_parallel
         cp = parallel_config.context_parallel
         cp_ds = parallel_config.get_ulysses_cp_num()
-        fa_strategies = self._generate_flash_attention_strategy(dp, mp, cp, cp_ds)
+        fa_strategies = self._generate_flash_attention_strategy(
+            dp, mp, cp, cp_ds)
         self.flash_attention.shard(fa_strategies)
         return self
 ```

@@ -6,58 +6,6 @@
 
 In recent years, the scale of neural networks has increased exponentially. Limited by the memory on a single device, the number of devices used for training large models is also increasing. Due to the low communication bandwidth between servers, the performance of the conventional hybrid parallelism (data parallel + model parallel) is poor. Therefore, pipeline parallelism needs to be introduced. Pipeline parallel can divide a model in space based on stage. Each stage needs to execute only a part of the network, which greatly reduces memory overheads, shrinks the communication domain, and shortens the communication time. MindSpore can automatically convert a standalone model to the pipeline parallel mode based on user configurations.
 
-> Hardware platforms supported by the pipeline parallel model include Ascend, GPU, and need to be run in Graph mode.
-
-Related interfaces:
-
-1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM, pipeline_result_broadcast=True)`: Set semi-automatic parallel mode and set `pipeline_stages` to indicate that the total number of stages is NUM and call it before initializing the network. `pipeline_result_broadcast`: A switch that broadcast the last stage result to all other stage in pipeline parallel inference.
-
-2. `nn.PipelineCell(loss_cell, micro_size)`: pipeline parallelism requires wrapping a layer of `PipelineCell` around the LossCell and specifying the size of the MicroBatch. In order to improve machine utilization, MindSpore slices the MiniBatch into finer-grained MicroBatches, and the final loss is the sum of the loss values computed by all MicroBatches, where the size of the MicroBatch must be greater than or equal to the number of stages.
-
-3. `nn.PipelineGradReducer(parameters)`: pipeline parallelism requires using `PipelineGradReducer` for gradient reduction. Because the output of pipeline parallelism is derived by the addition of several micro-batch outputs, as the gradient do.
-
-4. `mindspore.parallel.sync_pipeline_shared_parameters(net)`: Synchronize pipeline parallel stage shared parameters.
-
-## Basic Principle
-
-Pipeline parallel is the splitting of operators in a neural network into multiple stages, and then mapping the stages to different devices, so that different devices can compute different parts of the neural network. Pipeline parallel is suitable for graph structures where the model is linear. As shown in Figure 1, the network of 4 layers of MatMul is split into 4 stages and distributed to 4 devices. In forward calculations, each machine sends the result to the next machine through the communication operator after calculating the MatMul on the machine, and at the same time, the next machine receives (Receive) the MatMul result of the previous machine through the communication operator, and starts to calculate the MatMul on the machine; In reverse calculation, after the gradient of the last machine is calculated, the result is sent to the previous machine, and at the same time, the previous machine receives the gradient result of the last machine and begins to calculate the reverse of the current machine.
-
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/pipeline_parallel_image_0_zh.png)
-
-*Figure 1: Schematic diagram of graph splitting in pipeline parallel*
-
-### GPipe Pipeline Parallel Scheduler
-
-Simply splitting the model onto multiple devices does not bring about a performance gain, because the linear structure of the model has only one device at work at a time, while other devices are waiting, resulting in a waste of resources. In order to improve efficiency, the pipeline parallel further divides the small batch (MiniBatch) into more fine-grained micro batches (MicroBatch), and adopts a pipeline execution sequence in the micro batch, so as to achieve the purpose of improving efficiency, as shown in Figure 2. The small batches are cut into 4 micro-batches, and the 4 micro-batches are executed on 4 groups to form a pipeline. The gradient aggregation of the micro-batch is used to update the parameters, where each device only stores and updates the parameters of the corresponding group. where the white ordinal number represents the index of the micro-batch.
-
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/pipeline_parallel_image_1_zh.png)
-
-*Figure 2: Schematic diagram of a pipeline parallel execution timeline with MicroBatch*
-
-### 1F1B Pipeline Parallel Scheduler
-
-In MindSpore's pipeline parallel implementation, the execution order has been adjusted for better memory management. As shown in Figure 3, the reverse of the MicroBatch numbered 0 is performed immediately after its forward execution, so that the memory of the intermediate result of the numbered 0 MicroBatch is freed earlier (compared to Figure 2), thus ensuring that the peak memory usage is lower than in the way of Figure 2.
-
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/pipeline_parallel_image_2_zh.png)
-
-*Figure 3: MindSpore Pipeline Parallel Execution Timeline Diagram*
-
-### Interleaved Pipeline Scheduler
-
-In order to improve the efficiency of pipeline parallelism and reduce the proportion of bubbles, Megatron LM proposes a new pipeline parallel scheduling called "interleaved pipeline". Traditional pipeline parallelism typically places several consecutive model layers (such as Transformer layers) on a stage, as shown in Figure 3. In the scheduling of interleaved pipeline, each stage performs interleaved calculations on non-continuous model layers to further reduce the proportion of bubbles with more communication, as shown in Figure 4. For example, in traditional pipeline parallelism, each stage has 2 model layers, namely: stage 0 has layers 0 and 1, stage 1 has layers 2 and 3, stage 2 has layers 4 and 5, and stage 3 has layers 6 and 7, while in interleaved pipeline, stage 0 has layers 0 and 4, stage 1 has layers 1 and 5, stage 2 has layers 2 and 6, and stage 3 has layers 3 and 7.
-
-![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/megatron.png)
-
-*Figure 4: Scheduler of Interleaved Pipeline*
-
-### MindSpore Interleaved Pipeline Scheduler
-
-MindSpore has made memory optimization based on Megatron LM interleaved pipeline scheduling by moving some forward execution sequences back, as shown in Figure 5, which can accumulate less MicroBatch memory during memory peak hours.
-
-![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/mindspore.png)
-
-*Figure 5: MindSpore Scheduler of Interleaved Pipeline*
-
 ## Training Operation Practices
 
 The following is an illustration of pipeline parallel operation using Ascend or GPU single-machine 8-card as an example:
@@ -80,24 +28,15 @@ The directory structure is as follows:
 
 ### Configuring the Distributed Environment
 
-Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode and initialize HCCL or NCCL communication via init. In addition, `pipeline_stages=2` should be configured to specify the total number of stages. Not setting `device_target` here automatically specifies the backend hardware device corresponding to the MindSpore package.
+Specify the run mode. Unlike single-card scripts, parallel scripts also need to initialize HCCL or NCCL communication via init.
 
 ```python
 import mindspore as ms
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=2)
 init()
 ms.set_seed(1)
-```
-
-If you need to run interleaved pipeline scheduling, you also need to configure: ` pipeline_config={'pipeline_scheduler ':'1f1b', 'pipeline_interleave': True} `. It should be noted that MindSpore's interleaved pipeline scheduling is still in the improvement stage and currently performs better in the kernel by kernel mode.
-
-```python
-import mindspore as ms
-
-ms.set_auto_parallel_context(pipeline_config={'pipeline_scheduler':'1f1b', 'pipeline_interleave':True})
 ```
 
 ### Loading the Dataset
@@ -127,7 +66,7 @@ data_set = create_dataset(32)
 
 ### Defining the Network
 
-The pipeline parallel network structure is basically the same as the single-card network structure, and the difference is the addition of pipeline parallel strategy configuration. Pipeline parallel requires the user to define the parallel strategy by calling the `pipeline_stage` interface to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` interface is `Cell`. All `Cells` containing training parameters need to be configured with `pipeline_stage`, and `pipeline_stage` should be configured in the order of network execution, from smallest to largest. If you want to enable interleaved pipeline scheduling, the `pipeline_stage` should be configured in an interleaved manner according to the non-continuous model layer introduced in the previous chapter. After adding `pipeline_stage` configuration based on the single-card model is as follows:
+The pipeline parallel network structure is basically the same as the single-card network structure. It should be noted that:
 
 > - Under pipeline parallelism, when enabling Print/Summary/TensorDump related operators, the operator needs to be used in a Cell with the pipeline_stage attribute. Otherwise, there is a possibility that the operator will not take effect due to pipeline parallel split.
 > - Under pipeline parallelism, the output of the network does not support dynamic shapes.
@@ -178,42 +117,31 @@ class Network(nn.Cell):
         logits = self.layer3(x)
         return logits
 
-net = Network()
-net.layer1.pipeline_stage = 0
-net.relu1.pipeline_stage = 0
-net.layer2.pipeline_stage = 0
-net.relu2.pipeline_stage = 1
-net.layer3.pipeline_stage = 1
 ```
 
-To enable interleaved pipeline scheduling, the non-contiguous model layers need to be configured in an interleaved manner as follows:
+### Training Network Definition
 
-```python
-net.layer1.pipeline_stage = 0
-net.relu1.pipeline_stage = 1
-net.layer2.pipeline_stage = 0
-net.relu2.pipeline_stage = 1
-net.layer3.pipeline_stage = 1
-```
+In this step, we need to define the loss function, the optimizer, and the training process. It should be noted that the definitions of both the network and the optimizer here require deferred initialization. Besides, the interface `PipelineGradReducer` is needed to handle gradient of pipeline parallelism, the first parameter of this interface is the network parameter to be updated, and the second one is whether to use optimizer parallelism.
 
-Stage 0 includes layer 0 and layer 2, while stage 1 includes layer 1, layer 3, and layer 4.
-
-### Training the Network
-
-In this step, we need to define the loss function, the optimizer, and the training process, and unlike the single-card model, two interfaces need to be called in this section to configure the pipeline parallel:
+Unlike the single-card model, two interfaces need to be called in this section to configure the pipeline parallel:
 
 - First define the LossCell. In this case the `nn.WithLossCell` interface is called to encapsulate the network and loss functions.
-- Finally, wrap the LossCell with `nn.PipelineCell`, and specify the size of MicroBatch. For detailed information, refer to the related interfaces in the overview.
-
-Besides, the interface `nn.PipelineGradReducer` is needed to handle gradient of pipeline parallelism, the first parameter of this interface is the network parameter to be updated.
+- Finally, wrap the LossCell with `Pipeline`, and specify the size of MicroBatch. Configure the `pipeline_stage` for each `Cell` containing training parameters via `stage_config`.
 
 ```python
 import mindspore as ms
 from mindspore import nn, ops
+from mindspore.parallel.nn import Pipeline, PipelineGradReducer
+from mindspore.nn.utils import no_init_parameters
 
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
+with no_init_parameters():
+    net = Network()
+    optimizer = nn.SGD(net.trainable_params(), 1e-2)
+    pp_grad_reducer = PipelineGradReducer(optimizer.parameters, opt_shard=False)
+
 loss_fn = nn.CrossEntropyLoss()
-net_with_loss = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
+net_with_loss = Pipeline(nn.WithLossCell(net, loss_fn), 4, stage_config={"_backbone.flatten":0,
+                            "_backbone.layer1": 0, "_backbone.relu1": 0, "_backbone.layer2": 1, "_backbone.relu2": 1, "_backbone.layer3": 1})
 net_with_loss.set_train()
 
 def forward_fn(inputs, target):
@@ -221,7 +149,6 @@ def forward_fn(inputs, target):
     return loss
 
 grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters)
-pp_grad_reducer = nn.PipelineGradReducer(optimizer.parameters)
 
 @ms.jit
 def train_one_step(inputs, target):
@@ -230,10 +157,47 @@ def train_one_step(inputs, target):
     optimizer(grads)
     return loss, grads
 
+```
+
+To enable interleaved pipeline scheduling, the `stage_config` in `Pipeline` needs to be interleaved for the discontinuous model layers, configured as follows:
+
+```python
+net_with_loss = Pipeline(nn.WithLossCell(net, loss_fn), 4, stage_config={"_backbone.flatten":0,
+                            "_backbone.layer1": 1, "_backbone.relu1": 0, "_backbone.layer2": 1, "_backbone.relu2": 0, "_backbone.layer3": 1})
+```
+
+## Parallel Configuration
+
+We need to further set up the parallelism-related configuration by specifying the parallelism mode `semi-auto` as semi-automatic parallelism. It is also necessary to turn on pipeline parallelism, configure `pipeline`, and specify the total number of stages by configuring the `stages` count.
+
+```python
+import mindspore as ms
+from mindspore.parallel.auto_parallel import AutoParallel
+
+parallel_net = AutoParallel(train_one_step, parallel_mode="semi_auto")
+parallel_net.pipeline(stages=2)
+
+```
+
+If you need to run interleaved pipeline scheduling, you also need to configure:`parallel_net.pipeline(stages=2, interleave=True)`. It should be noted that MindSpore interleaved pipeline scheduling is still in the refinement stage and currently performs better in O0 or O1 mode.
+
+```python
+import mindspore as ms
+import mindspore.parallel.auto_parallel import AutoParallel
+
+parallel_net = AutoParallel(train_one_step, parallel_mode="semi_auto")
+parallel_net.pipeline(stages=2, interleave=True)
+```
+
+## 训练循环
+
+This step performs the training loop, the outer loop is the number of epochs to train and the inner loop traverses the dataset and calls parallel_net to train and get the loss values.
+
+```python
 for epoch in range(10):
     i = 0
     for data, label in data_set:
-        loss, grads = train_one_step(data, label)
+        loss, grads = parallel_net(data, label)
         if i % 10 == 0:
             print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss))
         i += 1
@@ -245,7 +209,7 @@ for epoch in range(10):
 
 ### Running the Single-host with 8 Devices Script
 
-Next, the corresponding scripts are called by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
+Next, the corresponding scripts are called by commands, using the `msrun` startup method and the 8-card distributed training script as an example of distributed training:
 
 ```bash
 bash run.sh
@@ -255,15 +219,13 @@ After training, the log files are saved to the `log_output` directory, where par
 
 ```text
 └─ log_output
-    └─ 1
-        ├─ rank.0
-        |   └─ stdout
-        ├─ rank.1
-        |   └─ stdout
+    ├─ scheduler.log
+    ├─ worker_0.log
+    ├─ worker_1.log
 ...
 ```
 
-The results are saved in `log_output/1/rank.*/stdout`, and the example is as below:
+The results are saved in `log_output/worker_*.log`, and the example is as below:
 
 ```text
 epoch: 0 step: 0, loss is 9.137518
@@ -285,11 +247,11 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 [  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
-Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html).
+Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
 
 ## Inference Operation Practices
 
-The following is an illustration of pipeline parallel inference operation using Ascend or GPU single-machine 8-card as an example:
+The following is an illustration of pipeline parallel inference operation using Ascend single-machine 8-card as an example:
 
 ### Sample Code Description
 
@@ -311,7 +273,7 @@ The directory structure is as follows:
 
 ### Configuring the Distributed Environment
 
-Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode and initialize HCCL or NCCL communication via init. In addition, `pipeline_stages=4` should be configured to specify the total number of stages. Not setting `device_target` here automatically specifies the backend hardware device corresponding to the MindSpore package. `pipeline_result_broadcast=True` specifies broadcast last stage inference to other stages. It is useful during auto-regression inference.
+Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to initialize HCCL or NCCL communication via init.
 
 ```python
 
@@ -319,8 +281,6 @@ import mindspore as ms
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, dataset_strategy="full_batch",
-                             pipeline_stages=4, pipeline_result_broadcast=True)
 init()
 ms.set_seed(1)
 
@@ -328,7 +288,7 @@ ms.set_seed(1)
 
 ### Defining the Network
 
-The pipeline parallel network structure is basically the same as the single-card network structure, and the difference is the addition of pipeline parallel strategy configuration. Pipeline parallel requires the user to define the parallel strategy by calling the `pipeline_stage` interface to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` interface is `Cell`. All `Cells` containing training parameters need to be configured with `pipeline_stage`, and `pipeline_stage` should be configured in the order of network execution, from smallest to largest. Configuration after adding `pipeline_stage` based on the single-card model is as follows:
+Pipeline parallel requires the user to define the parallel strategy by calling the `pipeline_stage` interface to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` interface is `Cell`. All `Cells` containing training parameters need to be configured with `pipeline_stage`, and `pipeline_stage` should be configured in the order of network execution, from smallest to largest. Configuration after adding `pipeline_stage` based on the single-card model is as follows:
 
 ```python
 
@@ -386,9 +346,13 @@ net.head.pipeline_stage = 3
 
 ### Inferring the Network
 
-wrap the netork with `PipelineCellInference`, and specify the size of MicroBatch. `PipelineCellInference` splits input into several micro batch, then executes the network, and finally concats the results along the batch axis through `ops.Concat` operator.
+Wrap the netork with `PipelineCellInference`, and specify the size of MicroBatch. `PipelineCellInference` splits input into several micro batch, then executes the network, and finally concats the results along the batch axis through `ops.Concat` operator.
 
-In the previous step, the parameter `embed` is shared by `self.word_embedding` and `self.head` layer, and these two layers are split into different stages. Before inference, executing `inference_network.compile()` and `sync_pipeline_shared_parameters(inference_network)`, the framework will synchronize the shared parameter automatically.
+In the previous step, the parameter `embed` is shared by `self.word_embedding` and `self.head` layer, and these two layers are split into different stages.
+
+We need to further set up the parallelism-related configuration by wrapping the network again with `AutoParallel`, specifying the parallelism mode `semi-auto` as semi-automatic parallelism, in addition to turning on pipeline parallelism, configuring `pipeline`, and specifying the total number of stages by configuring the number of `stages`. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package (default is Ascend). `output_broadcast=True` indicates that the result of the last stage will be broadcast to the remaining stages when pipelined parallel inference is performed, which can be used in autoregressive inference scenarios.
+
+Before inference, executing `parallel_net.compile()` and `sync_pipeline_shared_parameters(parallel_net)`, the framework will synchronize the shared parameter between stages automatically.
 
 ```python
 
@@ -420,13 +384,17 @@ class PipelineCellInference(nn.Cell):
 inference_network = PipelineCellInference(network=net, micro_batch_num=4)
 inference_network.set_train(False)
 
+parallel_net = AutoParallel(inference_network, parallel_mode="semi_auto")
+parallel_net.dataset_strategy("full_batch")
+parallel_net.pipeline(stages=4, output_broadcast=True)
+
 # Compile and synchronize shared parameter.
 input_ids = Tensor(np.random.randint(low=0, high=32, size=(8, 1)), ms.int32)
-inference_network.compile(input_ids)
-sync_pipeline_shared_parameters(inference_network)
+parallel_net.compile(input_ids)
+sync_pipeline_shared_parameters(parallel_net)
 
 # Execute the inference network
-logits = inference_network(input_ids)
+logits = parallel_net(input_ids)
 print(logits.asnumpy())
 
 ```
@@ -441,20 +409,20 @@ bash run_inference.sh
 
 ```
 
-After training, the log files are saved to the `log_output` directory, where part of the file directory structure is as follows:
+After training, the log files are saved to the `pipeline_inference_logs` directory, where part of the file directory structure is as follows:
 
 ```text
 
 └─ pipeline_inference_logs
-   ├── scheduler.log
-   ├── worker_0.log
-   ├── worker_1.log
-   ├── worker_2.log
+   ├── scheduler.log
+   ├── worker_0.log
+   ├── worker_1.log
+   ├── worker_2.log
 ...
 
 ```
 
-The results are saved in `pipeline_inference_logs/worker_0.log`, and the example is as below:
+The results are saved in `pipeline_inference_logs/worker_*.log`, and the example is as below:
 
 ```text
 

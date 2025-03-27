@@ -50,7 +50,7 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-First, the parallel mode is specified as [data parallel](https://www.mindspore.cn/docs/en/master/model_train/parallel/data_parallel.html) mode through the context interface, and the communication is initialized through init.
+First, the parallel mode is specified as [data parallel](https://www.mindspore.cn/tutorials/en/master/parallel/data_parallel.html) mode through the context interface, and the communication is initialized through init.
 
 ```python
 import mindspore as ms
