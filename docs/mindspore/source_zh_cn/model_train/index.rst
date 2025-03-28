@@ -36,6 +36,7 @@
    :caption: 编译
 
    compile/graph_construction
+   compile/graph_optimization
 
 
 构建
