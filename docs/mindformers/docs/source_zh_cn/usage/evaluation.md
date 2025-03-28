@@ -370,7 +370,13 @@ OpenEuler系统按照如下步骤安装：
     ```
 
    配置yaml文件，参考[配置文件说明](../appendix/conf_files.md)。
-4. MMbench-Video数据集评测需要使用gpt-4-turbo模型进行评测打分，请提前准备好相应的apikey。
+4. MMbench-Video数据集评测需要使用GPT-4 Turbo模型进行评测打分，请提前准备好相应的API Key，并放在VLMEvalKit/.env文件中，内容如下所示：
+
+   ```text
+   OPENAI_API_KEY=your_apikey
+   ```
+
+5. MVBench数据集评测开始时，如果提示需要输入HuggingFace密钥，请按提示输入，保证后续评测的正常执行。
 
 #### 拉起评测任务
 
