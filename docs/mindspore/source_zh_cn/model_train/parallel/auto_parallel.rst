@@ -67,11 +67,11 @@ MindSpore将单机版本的程序转换成并行版本的程序。该转换是�
 切分策略传播算法是指：用户仅需手动定义计算图中几个关键算子的策略，其余算子的策略由算法自动生成。因为关键算子的策略已被定义，所以该算法的代价模型主要描述算子之间的重排布代价（Redistribution Cost），优化目标为全图重排代价最小。主要算子策略已被定义，意味着压缩了搜索空间，这种方案的搜索时间较短，其策略性能依赖于关键算子策略的定义。因此使用切分策略传播算法需要用户具备一定的分析、定义策略的能力。
 
 .. note::
-   切分策略传播算法支持的硬件平台包括 Ascend、GPU，此外还同时支持 PyNative 模式和 Graph 模式。
+   切分策略传播算法支持的硬件平台为Ascend，此外还同时支持 PyNative 模式和 Graph 模式。
 
 相关接口：
 
-1. ``mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")``：设置并行模式为自动并行，且搜索模式为切分策略传播算法。
+1. ``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="recursive_programming")``：设置并行模式为自动并行，且搜索模式为切分策略传播算法。
 
 2. ``mindspore.nn.Cell.shard()`` 以及 ``mindspore.ops.Primitive.shard()``：指定算子切分策略，其余算子的策略通过传播算法推导得到。目前 ``mindspore.nn.Cell.shard()`` 接口同时支持 PyNative 模式与 Graph 模式；``mindspore.ops.Primitive.shard()`` 接口仅可在 Graph 模式下使用。
 
@@ -104,16 +104,14 @@ MindSpore将单机版本的程序转换成并行版本的程序。该转换是�
 双递归策略搜索算法（Symbolic Automatic Parallel Planner，简称SAPP）基于符号化自动策略生成。SAPP算法能够对于巨大网络以及大规模切分瞬间生成最优策略。SAPP基于并行原理建模，通过建立抽象机来描述硬件集群拓扑，并通过符号化简优化代价模型。其代价模型比较的不是预估的绝对时延，而是不同并行策略的相对代价，因此能够大大压缩搜索空间，在百卡集群上能够保证分钟级的搜索时间。
 
 .. note::
-   双递归策略搜索算法支持的硬件平台包括 Ascend、GPU，需要在 Graph 模式下运行。
+   双递归策略搜索算法支持的硬件平台为Ascend，需要在 Graph 模式下运行。
 
 相关接口：
-
-``mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")``：设置并行模式为自动并行，且搜索模式为双递归策略搜索算法。
-
-除了以上 context，双递归策略搜索算法无需额外配置。
+``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="recursive_programming")``
+除了以上 ``AutoParallel`` 接口，双递归策略搜索算法无需额外配置。
 
 基本原理
-^^^^^^^^
+^^^^^^^^^
 
 双递归策略搜索算法是一种全自动的算子级策略搜索方案，用户无需对模型进行任何配置，算法可以自动搜索出通信代价最小的并行策略。
 
