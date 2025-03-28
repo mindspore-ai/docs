@@ -485,7 +485,7 @@ Parameter descriptions for `data_loader` are as follows:
 | load_func      | The function used to load datasets. Options are `load_dataset` and `load_from_disk`. Use `load_from_disk` for data saved via the `save_to_disk` function, and `load_dataset` for other scenarios. The default value is `load_dataset`. | str  |
 | path           | When `load_func=load_dataset`, this parameter aligns with the interface in [datasets.load_dataset](https://huggingface.co/docs/datasets/loading). When `load_func=load_from_disk`, it specifies the dataset loading path.              | str  |
 | data_files     | When `load_func=load_dataset`, this parameter aligns with the interface in [datasets.load_dataset](https://huggingface.co/docs/datasets/loading). It is ineffective when `load_func=load_from_disk`.                                   | str  |
-| handler        | Multiple `handlers` can be configured to preprocess the loaded dataset in sequence. For details, refer to the [handler parameter description](#handler-parameter-description).                                                         | list |
+| handler        | Multiple `handlers` can be configured to preprocess the loaded dataset in the order specified. For details on `handler` configuration, refer to the handler parameter description in [Custom Data Handler](#custom-data-handler).      | list |
 | adaptor_config | Dataset-related configuration during model training. Currently supports `compress_mask`, effective when `packing` is set. If enabled, it returns a compressed data mask. Default is `False`.                                           | dict |
 | shuffle        | Indicates whether random sampling is enabled when loading the dataset.                                                                                                                                                                 | bool |
 | column_names   | Specifies the column names returned by the dataset. If not set, all columns are returned.                                                                                                                                              | list |
@@ -826,7 +826,7 @@ The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/tree/dev/to
 
 - Usage Example
 
-You can use the configuration file provided in the [dataset packing feature](#dataset-packing-feature) example and execute the following command.
+You can use the configuration file provided in the [dataset packing](#dataset-packing) example and execute the following command.
 
 ```shell
 python toolkit/data_preprocess/huggingface/datasets_preprocess.py \

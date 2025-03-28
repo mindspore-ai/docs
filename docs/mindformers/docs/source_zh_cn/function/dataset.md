@@ -404,7 +404,7 @@ train_dataset:
 | load_func      | 加载数据集调用接口名，可选值为`load_dataset`或`load_from_disk`，读取通过`save_to_disk`接口保存的数据使用`load_from_disk`，其他场景使用`load_dataset`，默认值为`load_dataset`                   | str  |
 | path           | 在`load_func=load_dataset`时，该参数含义与[datasets.load_dataset](https://huggingface.co/docs/datasets/loading)中接口相同，在`load_func=load_from_disk`时，该参数为加载数据集路径 | str  |
 | data_files     | 在`load_func=load_dataset`时，该参数含义与[datasets.load_dataset](https://huggingface.co/docs/datasets/loading)中接口相同，在`load_func=load_from_disk`时不生效          | str  |
-| handler        | 可配置多个`handler`，按配置顺序对加载后的数据集进行预处理，`handler`配置说明参考[handler参数说明](#handler参数说明)                                                                         | list |
+| handler        | 可配置多个`handler`，按配置顺序对加载后的数据集进行预处理，`handler`配置说明参考[自定义数据handler](#自定义数据handler)中的handler参数说明                                                          | list |
 | adaptor_config | 在模型训练过程中数据集的相关配置，当前支持设置`compress_mask`，在设置`packing`时生效，开启后返回压缩后的数据掩码，默认为`False`                                                                      | dict |
 | shuffle        | 是否在读取数据集时开启随机采样                                                                                                                                      | bool |
 | column_names   | 设置数据集返回的列名，不指定时返回所有列                                                                                                                                 | list |
@@ -745,7 +745,7 @@ train_dataset:
 
 - 使用示例
 
-使用[数据集packing功能](#数据集packing功能)中提供的packing示例的配置文件即可，执行如下命令。
+使用[数据集packing](#数据集packing)中提供的packing示例的配置文件即可，执行如下命令。
 
 ```shell
 python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
