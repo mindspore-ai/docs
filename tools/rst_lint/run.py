@@ -7,7 +7,8 @@ from docutils import nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst import directives
 from docutils.parsers.rst.directives import register_directive
-from docutils.parsers.rst.roles import register_generic_role
+from docutils.parsers.rst.roles import register_generic_role, set_classes
+from docutils.parsers.rst.directives.admonitions import BaseAdmonition
 from sphinx import addnodes
 from sphinx.ext.autodoc.directive import AutodocDirective
 from sphinx.domains.changeset import VersionChange
@@ -43,6 +44,23 @@ class CustomDirectiveMethod(Directive):
 
     def run(self):
         """run method."""
+        text = '\n'.join(self.content)
+        classes = []
+        node = nodes.container(text)
+        node['classes'].extend(classes)
+        self.add_name(node)
+        self.state.nested_parse(self.content, self.content_offset, node)
+        return [node]
+
+class CustomDirectiveFunc(Directive):
+    """Base class of customized directives for python method in sphinx."""
+    has_content = True
+    required_arguments = 1
+    optional_arguments = 3
+    final_argument_whitespace = True
+
+    def run(self):
+        """run function."""
         text = '\n'.join(self.content)
         classes = []
         node = nodes.container(text)
@@ -152,10 +170,40 @@ class CustomVersionChange(VersionChange):
             messages = []
         return [node]+messages
 
+class CustomDirectiveSeeAlso(BaseAdmonition):
+    """Customizing SeeAlso."""
+    has_content = True
+    final_argument_whitespace = True
+    option_spec = {'class': directives.class_option,
+                   'name': directives.unchanged}
+    node_class = addnodes.seealso
+
+    def run(self):
+        set_classes(self.options)
+        self.assert_has_content()
+        text = '\n'.join(self.content)
+        admonition_node = self.node_class(text, **self.options)
+        self.add_name(admonition_node)
+        if self.node_class is nodes.admonition:
+            title_text = self.arguments[0]
+            textnodes, messages = self.state.inline_text(title_text,
+                                                         self.lineno)
+            title = nodes.title(title_text, '', *textnodes)
+            title.source, title.line = (
+                self.state_machine.get_source_and_line(self.lineno))
+            admonition_node += title
+            admonition_node += messages
+            if not 'classes' in self.options:
+                admonition_node['classes'] += ['admonition-' +
+                                               nodes.make_id(title_text)]
+        self.state.nested_parse(self.content, self.content_offset,
+                                admonition_node)
+        return [admonition_node]
+
 # Register directive.
 register_directive('py:class', CustomDirective)
 register_directive('py:method', CustomDirectiveMethod)
-register_directive('py:function', CustomDirective)
+register_directive('py:function', CustomDirectiveFunc)
 register_directive('py:property', CustomDirective)
 register_directive('py:data', CustomDirective)
 register_directive('py:obj', CustomDirective)
@@ -174,9 +222,11 @@ register_directive('mscnplatformautosummary', CustomDirectiveNoNested)
 register_directive('mscnnoteautosummary', CustomDirectiveNoNested)
 register_directive('mscnmathautosummary', CustomDirectiveNoNested)
 register_directive('mscnplatwarnautosummary', CustomDirectiveNoNested)
+register_directive('mscnplataclnnautosummary', CustomDirectiveNoNested)
 register_directive('currentmodule', CurrentModule)
 register_directive('literalinclude', CustomLiteralInclude)
 register_directive('deprecated', CustomVersionChange)
+register_directive('seealso', CustomDirectiveSeeAlso)
 
 # Register roles.
 register_generic_role('class', nodes.literal)
