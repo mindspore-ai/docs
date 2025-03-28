@@ -84,16 +84,16 @@ A parameters list of command line:
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_level</td>
-        <td align="left">Set single card simulated compilation level.</td>
+        <td align="left">Set simulated compilation level.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">Default: -1. Disable simulated compilation.</td>
-        <td align="left">If this parameter is set, msrun starts only a single process for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> If set to 0, only compile the frontend graph; If set to 1, further compile backend graph compilation and exit during the execution phase</td>
+        <td align="left">If this parameter is set, msrun starts only the processes for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> The settings for the simulated compilation level can be found in the document: <a href="https://www.mindspore.cn/tutorials/en/master/debug/dryrun.html">DryRun</a>.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_rank_id</td>
         <td align="left">rank_id of the simulated process.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">Default: 0.</td>
+        <td align="left">Default: -1. Disable simulated compilation for a single process.</td>
         <td align="left">Set rank id of the simulated process.</td>
     </tr>
     <tr>

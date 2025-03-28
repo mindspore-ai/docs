@@ -84,16 +84,16 @@
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_level</td>
-        <td align="left">设置单卡模拟编译等级。</td>
+        <td align="left">设置模拟编译等级。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为-1，即关闭单卡模拟编译功能。</td>
-        <td align="left">若用户配置此参数，msrun只会拉起单进程模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>若设置为0，只做前端图编译；若设置为1，进一步执行后端图编译，在执行图阶段退出。</td>
+        <td align="left">默认为-1，即关闭模拟编译功能。</td>
+        <td align="left">若用户配置此参数，msrun只会拉起进程的模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>模拟编译等级的设置可参考文档：<a href="https://www.mindspore.cn/tutorials/zh-CN/master/debug/dryrun.html">DryRun</a>。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_rank_id</td>
         <td align="left">单卡模拟编译的rank_id。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为0。</td>
+        <td align="left">默认为-1，即关闭单进程的模拟编译功能。</td>
         <td align="left">设置单卡模拟编译进程的rank_id。</td>
     </tr>
     <tr>
