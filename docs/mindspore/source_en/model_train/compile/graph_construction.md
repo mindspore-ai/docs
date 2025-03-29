@@ -10,7 +10,7 @@ MindSpore provides three JIT compilation methods, namely, ast, bytecode and trac
 
 ## Ast
 
-In dynamic graph mode, the user can modify a function to execute in ast mode by using the `@jit(capture_mode=“ast”)` decorator. The syntax and data structures used inside the functions which decorated by ast mode need to strictly follow the [Static Graph Syntax Specification](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html). The ast approach compiles Python code via a source-to-source method, which first parses the Python source code of model definitions into an Abstract Syntax Tree (AST), then converts the AST into MindIR. For example, the following Python code:
+In dynamic graph mode, the user can modify a function to execute in ast mode by using the `@jit(capture_mode=“ast”)` decorator. The syntax and data structures used inside the functions which decorated by ast mode need to strictly follow the [Static Graph Syntax Specification](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html). The ast approach compiles Python code via a source-to-source method, which first parses the Python source code of model definitions into an Abstract Syntax Tree (AST), then converts the AST into MindIR. For example, the following Python code:
 
 ```python
 @jit
@@ -83,7 +83,7 @@ In the above use case, the tensor_cal function is modified by the @jit decorator
 
 - The vast majority of calculations and optimizations for MindSpore static graphs are based on optimizations for Tensor calculations, so we recommend that the functions that are modified should be the kind of functions that are used to perform real data calculations, rather than simple scalar calculations or transformations of data structures.
 
-- Functions modified by `@jit` that have constants in their inputs will result in a recompile each time that the function input value changes. See [Constants and Variables within Static Graphs](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#constants-and-variables-within-static-graphs) for the concept of variable constants. Therefore, it is recommended that the modified function takes as input Tensor or data modified by Mutable. Avoid additional performance loss due to multiple compilations.
+- Functions modified by `@jit` that have constants in their inputs will result in a recompile each time that the function input value changes. See [Constants and Variables Within JIT](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#constants-and-variables-within-jit) for the concept of variable constants. Therefore, it is recommended that the modified function takes as input Tensor or data modified by Mutable. Avoid additional performance loss due to multiple compilations.
 
 ## Bytecode
 
