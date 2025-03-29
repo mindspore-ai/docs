@@ -181,11 +181,15 @@ def get_param_func(func):
             source_code = source_code.replace(func.__doc__, '')
         all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
         if "@classmethod" in source_code:
-            all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+            all_params = re.sub("(self|cls)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
             if ',' in all_params_str[0][0]:
                 all_params = re.sub("(self|cls)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+        elif "def __new__" in source_code:
+            all_params = re.sub("(self|cls|value)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params:
+                all_params = re.sub("(self|cls|value)(, |,)", '', all_params_str[0][0].replace("\n", ""))
         else:
-            all_params = re.sub("(self)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+            all_params = re.sub("(self)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
             if ',' in all_params_str[0][0]:
                 all_params = re.sub("(self)(, |,)", '', all_params_str[0][0].replace("\n", ""))
         return all_params
@@ -197,9 +201,6 @@ def get_obj(obj):
         try:
             test_source = inspect_.getsource(obj.__init__)
         except:
-            return obj.__new__
-        obj_init = getattr(obj, '__init__', None)
-        if obj.__name__ not in str(obj_init) and hasattr(obj, '__new__'):
             return obj.__new__
         return obj.__init__
 
