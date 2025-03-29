@@ -2,11 +2,19 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/dump.md)
 
-为了对训练过程进行分析，用户需要感知训练过程中算子的输入和输出数据。
+为了对训练过程进行分析，MindSpore提供了Dump功能，用于保存训练过程中算子的输入和输出数据。
 
-- 对于静态图模式，MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。
+## 功能演进
 
-- 对于动态图模式，前向过程可以使用Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。jit以及反向过程属于图编译的部分可以使用Ascend O0/O1功能，将算子的输入输出数据保存到磁盘文件。
+MindSpore Dump功能已陆续迁移到[msprobe工具](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe)。
+
+> [msprobe](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe) 是 MindStudio Training Tools 工具链下精度调试部分的工具包。主要包括精度预检、溢出检测和精度比对等功能，目前适配 PyTorch 和 MindSpore 框架。
+
+其中动态图、静态图Ascend O2模式Dump已完全迁移到msprobe工具，通过msprobe工具入口使能，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
+
+静态图Ascend OO/O1和CPU/GPU模式仍然通过框架入口使能，后续会陆续迁移到msprobe工具。
+
+## 配置指南
 
 MindSpore在不同模式下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同，因此需要根据运行的模式选择对应的Dump配置：
 
@@ -17,8 +25,6 @@ MindSpore在不同模式下支持的Dump功能不完全相同，需要的配置�
 > - Ascend下O0/O1/O2模式的区别请见[set_context的参数jit_level](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
 >
 > - CPU/GPU模式支持dump常量数据，Ascend O0/O1/O2模式不支持Dump常量数据。
->
-> - Ascend O2模式Dump已迁移到msprobe工具，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
 >
 > - Dump暂不支持异构训练，即不支持CPU/Ascend混合训练或GPU/Ascend混合训练。
 
@@ -428,6 +434,22 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
 ## Ascend下O2模式Dump
 
 Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
+
+采集方式请参考示例代码[《msprobe静态图场景采集》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#71-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)；
+
+配置文件示例请参考[《config.json 配置示例》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/03.config_examples.md#2-mindspore-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)中的“MindSpore 静态图场景”；
+
+详细配置介绍请参考[《config.json 配置文件介绍》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/02.config_introduction.md#11-%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE)。
+
+> 迁移到msporbe后部分功能暂不支持：
+>
+> 1. 数据切片保存，对应原配置中sample_num和sample_mode字段；
+>
+> 2. set_dump能力，对应原配置中dump_mode为2的场景；
+>
+> 3. tensor和statistic同时保存，对应原配置中saved_data为full的场景；
+>
+> 4. MD5和其他统计量无法同时开启，对应原配置中statistic_category字段。
 
 ## CPU/GPU模式Dump
 
