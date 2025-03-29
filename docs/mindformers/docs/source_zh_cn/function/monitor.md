@@ -79,7 +79,7 @@ callbacks:
 tensorboard --logdir=./worker/tensorboard/ --host=0.0.0.0 --port=6006
 ```
 
- 参数名称   | 说明                                                     |
+|参数名称   | 说明                                                     |
 |--------|--------------------------------------------------------|
 | logdir | TensorBoard保存事件文件的文件夹路径                                |
 | host   | 默认是 127.0.0.1，表示只允许本机访问；设置为 0.0.0.0 可以允许外部设备访问，请注意信息安全 |
@@ -113,7 +113,7 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 | model-flops-throughput-per-npu | 模型算力吞吐量，单位为TFLOPS/npu（万亿次浮点数运算每秒每卡）                                       |
 | B-samples-per-day    | 集群数据吞吐量，单位为B samples/day（十亿样本每天），记录需要设置`log_timers_to_tensorboard`为`True` |
 
-在 Tensorboard 的 SCALARS 页面中，上述指标（假设名为 `scalar_name`）除了最后两个外都存在 `scalar_name` 和 `scalar_name-vs-samples` 两个下拉标签页。其中 `scalar_name` 下展示了该标量随训练迭代步数进行变化的折线图； `scalar_name-vs-samples` 下展示了该标量随样本数进行变化的折线图。如下图所示为学习率`learning-rate`的曲线图示例：
+在 Tensorboard 的 SCALARS 页面中，上述指标（假设名为 `scalar_name`）除了最后两个，其他都存在 `scalar_name` 和 `scalar_name-vs-samples` 两个下拉标签页。其中 `scalar_name` 下展示了该标量随训练迭代步数进行变化的折线图； `scalar_name-vs-samples` 下展示了该标量随样本数进行变化的折线图。如下图所示为学习率`learning-rate`的曲线图示例：
 
 ![/tensorboard_scalar](./image/tensorboard_scalar.png)
 
@@ -181,7 +181,7 @@ local_loss与local_norm
 | profile_pipeline           | 是否按流水线并行每个stage的其中一张卡开启profiling。只在 `profile` 值为`True`时记录    |
 | init_start_profile         | 是否在Profiler初始化的时候开启数据采集。只在 `profile` 值为`True`时记录                                      |
 | layer_decay                | 层衰减系数                                                        |
-| layer_scale                | 是否启用层衰减                                                      |
+| layer_scale                | 是否启用层缩放                                                      |
 | lr_scale                   | 是否开启学习率缩放                                                    |
 | lr_scale_factor            | 学习率缩放系数。只在 `lr_scale` 值为`True`时记录                            |
 | micro_batch_interleave_num | batch_size的拆分份数，多副本并行开关                                      |
@@ -213,7 +213,7 @@ local_loss与local_norm
 | train_dataset              | 训练数据集配置                                                      |
 | trainer                    | 训练流程配置                                                       |
 
-> 上述训练配置来源于:
+> 上述训练配置来源于：
 >
 > 1. 用户在训练启动命令 `run_mindformer.py` 中传入的配置参数；
 > 2. 用户在训练配置文件 `yaml` 中设置的配置参数；

@@ -534,7 +534,7 @@ class XXXInstructDataHandler(BaseInstructDataHandler):
 
 - alpaca 数据集示例
 
-修改任务配置文件 [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml) 。
+修改任务配置文件 [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml)。
 
 修改如下参数：
 
@@ -637,7 +637,7 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
 
 - ADGEN 数据集示例
 
-修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml) 。
+修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml)。
 
 修改如下参数：
 

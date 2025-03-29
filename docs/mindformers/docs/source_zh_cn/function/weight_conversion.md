@@ -32,8 +32,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ## 转换示例
 
-假设用户已经下载了[Llama2模型的权重](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)
-，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindSpore Transformers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
+假设用户已经下载了[Llama2模型的权重](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindSpore Transformers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
 
 ```bash
 python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
