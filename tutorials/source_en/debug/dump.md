@@ -2,11 +2,19 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/dump.md)
 
-The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation.
+To analyze the training process, MindSpore provides the dump function to store the input and output data of operators during the training process.
 
-- For dynamic graph mode, the forward process can utilize Python's native execution capabilities, allowing users to view and record the corresponding inputs and outputs during the execution of the network script. The JIT and backward processes, which are part of graph compilation, can use Ascend O0/O1 functionality to save the input and output data of operators to disk files.
+## Feature Evolution
 
-- For the static graph mode, MindSpore provides the Dump function to save the graph and the input and output data of the operator during model training to a disk file.
+The MindSpore Dump functionality has been gradually migrated to the [msprobe tool](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe).
+
+> [msprobe](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe) is a toolkit under the MindStudio Training Tools suite, specifically for accuracy debugging. It primarily includes functionalities such as accuracy pre-inspection, overflow detection, and accuracy comparison. Currently, it is compatible with the PyTorch and MindSpore frameworks.
+
+The Dump features for dynamic graphs and static graphs in Ascend O2 mode have been fully migrated to the msprobe tool and are enabled through the msprobe tool entry point. For more details, please refer to the [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
+
+For graphs in Ascend OO/O1 modes and CPU/GPU modes, these functionalities are still enabled through the framework entry points but will be gradually migrated to the msprobe tool in subsequent updates.
+
+## Configuration Guide
 
 In different modes, the Dump features supported by MindSpore are not entirely the same, and the required configuration files and the generated data formats vary accordingly. Therefore, you need to select the corresponding Dump configuration based on the running mode:
 
@@ -17,8 +25,6 @@ In different modes, the Dump features supported by MindSpore are not entirely th
 > - The differences between Ascend O0, O1, and O2 modes can be found in [the parameter jit_level of the set_context method](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html).
 >
 > - Dumping constant data is only supported in CPU/GPU mode, while not supported in Ascend O0/O1/O2 mode.
->
-> - O2 mode Dump under Ascend has been migrated to the msprobe tool. For more details, please see [msprobe Tool MindSpore Scene Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
 >
 > - Currently, Dump does not support heterogeneous training, meaning it does not support CPU/Ascend mixed training or GPU/Ascend mixed training.
 
@@ -428,6 +434,22 @@ Generate the numpy.array data.
 ## Dump in Ascend O2 Mode
 
 O2 mode Dump under Ascend has been migrated to the msprobe tool. For more details, please see [msprobe Tool MindSpore Scene Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
+
+For data collection methods, please refer to the example code in [Graph Scenario Data Collection with msprobe](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#71-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF);
+
+For configuration file examples, please refer to the "MindSpore Graph Scenario" section in [config.json Configuration Examples](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/03.config_examples.md#2-mindspore-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF);
+
+For detailed configuration descriptions, please refer to the [Introduction to config.json Configuration File](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/02.config_introduction.md#11-%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE).
+
+> After migrating to msprobe, some features are temporarily not supported:
+>
+> 1. Data slicing storage, corresponding to the sample_num and sample_mode fields in the original configuration;
+>
+> 2. set_dump capability, corresponding to scenarios where dump_mode is set to 2 in the original configuration;
+>
+> 3. Simultaneous saving of tensor and statistics, corresponding to the saved_data field being set to full in the original configuration;
+>
+> 4. Simultaneous enabling of MD5 and other statistics, corresponding to the statistic_category field in the original configuration.
 
 ## Dump in CPU/GPU Mode
 
