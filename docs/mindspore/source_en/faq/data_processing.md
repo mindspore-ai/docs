@@ -189,7 +189,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: The data schema can be defined as follows:`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 Note: A label is an array of the numpy type, where label values 1, 1, 0, 1, 0, 1 are stored. These label values correspond to the same data, that is, the binary value of the same image.
-For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/tutorials/en/master/dataset/record.html#Converting-Dataset-to-Record-Format).
+For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/tutorials/en/master/dataset/record.html#converting-dataset-to-record-format).
 
 <br/>
 
@@ -201,7 +201,7 @@ A: The MNIST gray scale image dataset is used for MindSpore training. Therefore,
 
 ## Q: Can you introduce the data processing framework in MindSpore?
 
-A: MindSpore Dataset module makes it easy for users to define data preprocessing pipelines and transform samples efficiently with multiprocessing or multithreading. MindSpore Dataset also provides variable APIs for users to load and process datasets, more introduction please refer to [MindSpore Dataset](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#introduction-to-data-processing-pipeline). If you want to further study the performance optimization of dataset pipeline, please read [Optimizing Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html).
+A: MindSpore Dataset module makes it easy for users to define data preprocessing pipelines and transform samples efficiently with multiprocessing or multithreading. MindSpore Dataset also provides variable APIs for users to load and process datasets, more introduction please refer to [MindSpore Dataset](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html). If you want to further study the performance optimization of dataset pipeline, please read [Optimizing Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html).
 
 <br/>
 

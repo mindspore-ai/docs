@@ -57,11 +57,11 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
         - dataset_type: Preprocessed data types. The options include "wiki" and "qa."
             - "wiki" is used to process the Wikitext2 dataset, which is suitable for the pre-training and evaluation stages.
             - "qa" is used to process the Alpaca dataset, converting it into a question-answer format, which is suitable for the fine-tuning stage.
-            For other dataset conversion scripts, please refer to the corresponding  [model documentation](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
-        - input_glob:   Path to the converted alpaca file.
-        - model_file:   Path to the model tokenizer.model file.
-        - seq_length:   Sequence length of the output data.
-        - output_file:  Save path of the output file.
+            For other dataset conversion scripts, please refer to the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+        - input_glob: Path to the converted alpaca file.
+        - model_file: Path to the model tokenizer.model file.
+        - seq_length: Sequence length of the output data.
+        - output_file: Save path of the output file.
 
     3. The console outputs the following, proving that the format conversion was successful.
 
@@ -87,16 +87,16 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 **Command Explanation:**  
 
-- **`scripts/msrun_launcher.sh`**: Script for launching distributed tasks.  
-- **`"run_mindformer.py ..."`**: Parameter string for the Python task executed on each card, including:  
-    - **`run_mindformer.py`**: One-click startup script.  
-    - **`--config`**: Specifies the task configuration file path, e.g., `configs/llama2/lora_llama2_7b.yaml`.  
-    - **`--train_dataset_dir`**: Specifies the dataset path, e.g., `/{path}/alpaca-fastchat4096.mindrecord`.  
-    - **`--load_checkpoint`**: Specifies the checkpoint file path, e.g., `/{path}/llama2_7b.ckpt`.  
-    - **`--auto_trans_ckpt True`**: Enables automatic checkpoint partitioning.  
-    - **`--use_parallel True`**: Enables distributed task execution.  
-    - **`--run_mode finetune`**: Sets the run mode to fine-tuning.  
-- **`8`**: Sets the task to runs on 8 NPUs.  
+- `scripts/msrun_launcher.sh`: Script for launching distributed tasks.  
+- `"run_mindformer.py ..."`: Parameter string for the Python task executed on each card, including:  
+    - `run_mindformer.py`: One-click startup script.  
+    - `--config`: Specifies the task configuration file path, e.g., `configs/llama2/lora_llama2_7b.yaml`.  
+    - `--train_dataset_dir`: Specifies the dataset path, e.g., `/{path}/alpaca-fastchat4096.mindrecord`.  
+    - `--load_checkpoint`: Specifies the checkpoint file path, e.g., `/{path}/llama2_7b.ckpt`.  
+    - `--auto_trans_ckpt True`: Enables automatic checkpoint partitioning.  
+    - `--use_parallel True`: Enables distributed task execution.  
+    - `--run_mode finetune`: Sets the run mode to fine-tuning.  
+- `8`: Sets the task to runs on 8 NPUs.  
 
 When the following log appears on the console:
 

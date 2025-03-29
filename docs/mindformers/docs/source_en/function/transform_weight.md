@@ -102,7 +102,7 @@ Parameters in the `yaml` file related to **offline weight conversion** are descr
 
 ### Offline Conversion Configuration
 
-#### Generating Distributed strategy
+#### Generating Distributed Strategy
 
 MindSpore generates a distributed strategy file (ckpt format) corresponding to the number of cards in the `output/strategy` folder after running a distributed task, which can be used in offline weight conversion.
 
@@ -282,7 +282,7 @@ If there is no shared disk between servers, you need to use the offline weight c
   only_save_strategy: False
   ```
 
-### ModelArts training
+### ModelArts Training
 
 Training in ModelArts is similar to multi-node multi-device training on physical machines. Automatic weight conversion can also be enabled. You can set `auto_trans_ckpt=True` in the hyperparameters of a training task to enable automatic weight conversion and set `transform_process_num > 1` to enable multi-process conversion.
 

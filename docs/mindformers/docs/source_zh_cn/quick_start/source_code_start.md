@@ -38,7 +38,7 @@ MindSpore Transformers提供已经转换完成的预训练权重、词表文件�
 
         **参数说明**
 
-        - data_path:   输入下载的文件路径。
+        - data_path: 输入下载的文件路径。
         - output_path: 输出文件的保存路径。
 
     2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。

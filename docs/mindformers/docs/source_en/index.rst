@@ -43,6 +43,10 @@ With its powerful feature set, MindSpore Transformers provides users with flexib
 
    Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
 
+6. `Training Metrics Monitoring <https://www.mindspore.cn/mindformers/docs/en/dev/function/monitor.html>`_
+
+   Provides visualization services for the training phase of large models for monitoring and analyzing various indicators and information during the training process.
+
 Deep Optimizing with MindSpore Transformers
 ---------------------------------------------
 
@@ -108,6 +112,7 @@ FAQ
    function/distributed_parallel
    function/dataset
    function/resume_training
+   function/monitor
 
 .. toctree::
    :glob:

@@ -23,7 +23,7 @@ To run this case, it is necessary to burn the Ubuntu image on the OrangePi AIpro
 
 ### MindSpore Upgrading
 
- Please refer to [MindSpore Upgrading](https://www.mindspore.cn/tutorials/en/master/orange_pi/environment_setup.html#3-mindspore-upgrading).
+ Please refer to [MindSpore Upgrading](https://www.mindspore.cn/tutorials/en/master/orange_pi/environment_setup.html#4-mindspore-upgrading).
 
 ```python
 from mindspore import nn

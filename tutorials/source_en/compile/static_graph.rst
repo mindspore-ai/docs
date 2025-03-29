@@ -2415,7 +2415,7 @@ The results are as follows:
    net.attr: Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])
 
 3. When constructing graphs based on bytecode, control flow involving variable scenarios cannot be included in the graph. For related information 
-on variables, please refer to `Variable Generation Scenarios <https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#variable-generation-scenarios>`_ . 
+on variables, please refer to `Variables Generate Scenes <https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#variables-generate-scenes>`_ . 
 An example is as follows:
 
 .. code:: python
