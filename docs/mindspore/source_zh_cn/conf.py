@@ -455,6 +455,13 @@ with open('./api_python/mindspore.hal.rst', 'r+', encoding='utf-8') as f:
     f.truncate()
     f.write(hal_content)
 
+with open('./api_python/mindspore/mindspore.jit.rst', 'r+', encoding='utf-8') as f:
+    jit_content = f.read()
+    jit_content = jit_content.replace('"PIJi"', '"PIJit"')
+    f.seek(0)
+    f.truncate()
+    f.write(jit_content)
+
 err_loss_str = """损失函数
 ^^^^^^^^^^^^^^^^^^^
 
