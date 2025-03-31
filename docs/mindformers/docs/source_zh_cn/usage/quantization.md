@@ -194,7 +194,7 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
        model_name = config.trainer.model_name
 
        # 实例化tokenizer
-       tokenizer = LlamaTokenizer.from_pretrained(model_name)
+       tokenizer = LlamaTokenizer("path/to/tokenizer.model")
        # 实例化模型
        network = AutoModel.from_pretrained("/data/tutorial/llama2_13b_rtn_a16w8_dir",
                                            download_checkpoint=False)

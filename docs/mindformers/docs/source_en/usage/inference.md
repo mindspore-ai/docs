@@ -225,7 +225,9 @@ python run_mindformer.py \
 
 ## Inference Based on High-level Interface
 
-MindSpore Transformers not only provide a unified script for `run_indformer` inference, but also support user-defined calls to high-level interfaces such as `pipeline` or `chat` for implementation.
+> For security reasons, it is not recommended to use high-level interfaces for inference. This chapter will be deprecated in the next version. If you have any questions or suggestions, please submit feedback through [Community Issue](https://gitee.com/mindspore/mindformers/issue/new). Thank you for your understanding and support!
+
+MindSpore Transformers not only provides a unified script for `run_mindformer` inference, but also supports user-defined calls to high-level interfaces such as `pipeline` or `chat` for implementation.
 
 ### Pipeline Interface
 
