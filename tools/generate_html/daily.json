@@ -75,5 +75,14 @@
     "whl_name" : "mindformers-.*-py3-none-any.whl$",
     "environ" : "MFM_PATH",
     "uninstall_name" : "mindformers"
+},
+{
+    "id" : 9 ,
+    "name" : "mindflow",
+    "branch" : "master",
+    "whl_path" : "mindscience/website/mindflow/gpu/x86_64/cuda-11.1/",
+    "whl_name" : "mindflow_gpu-.*-py3-none-any.whl$",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : "mindflow_gpu"
 }
 ]
