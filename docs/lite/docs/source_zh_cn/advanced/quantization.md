@@ -26,13 +26,13 @@ MindSpore Lite训练后量化当前支持三种具体算法，规格如下：
 
 混合比特量化会根据模型参数的分布情况，使用用户设置的`init_scale`作为初始值，自动搜索出最适合当前层的比特数。配置参数的`bit_num`设置为0时，将启用混合比特量化。
 
-混合比特权重量化转换命令的一般形式为：
+混合比特量化转换命令的一般形式为：
 
 ```bash
 ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
 ```
 
-混合比特权重量化配置文件如下所示：
+混合比特量化配置文件如下所示：
 
 ```ini
 [common_quant_param]
@@ -61,13 +61,13 @@ init_scale=0.02
 
 固定比特的权重量化支持1~16之间的固定比特量化，用户可根据模型及自身需要对权重量化的参数作出调整。
 
-固定比特权重量化转换命令的一般形式为：
+固定比特量化转换命令的一般形式为：
 
 ```bash
 ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
 ```
 
-固定比特权重量化配置文件如下所示：
+固定比特量化配置文件如下所示：
 
 ```ini
 [common_quant_param]
@@ -304,8 +304,8 @@ quant_strategy=ACWL
 训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用[`INI`](https://en.wikipedia.org/wiki/INI_file)的格式，针对量化场景，目前可配置的参数包括：
 
 - `[common_quant_param]：公共量化参数`
-- `[weight_quant_param]：固定比特权重量化参数`
-- `[mixed_bit_weight_quant_param]：混合比特权重量化参数`
+- `[weight_quant_param]：固定比特量化参数`
+- `[mixed_bit_weight_quant_param]：混合比特量化参数`
 - `[full_quant_param]：全量化参数`
 - `[data_preprocess_param]：数据预处理参数`
 - `[dynamic_quant_param]：动态量化参数`
@@ -349,28 +349,9 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 enable_encode = true
 ```
 
-### 固定比特权重量化参数
+### 混合比特量化参数
 
-固定比特权重量化参数的详细介绍如下所示：
-
-| 参数             | 属性 | 功能描述                           | 参数类型 | 默认值 | 取值范围                                         |
-| ---------------- | ---- | ---------------------------------- | -------- | ------ | ------------------------------------------------ |
-| dequant_strategy | 可选 | 权重量化模式                       | String   | -      | ON_THE_FLY。使能后，启用Ascend在线反量化模式。   |
-| per_channel      | 可选 | 采用PerChannel或者PerLayer量化方式 | Boolean  | True   | True，False。设置成False，启用PerLayer量化方式。 |
-| bias_correction  | 可选 | 是否对量化误差进行校正             | Boolean  | True   | True，False。使能后，将提升量化模型的精度。      |
-
-```ini
-[weight_quant_param]
-dequant_strategy=ON_THE_FLY
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=True
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=False
-```
-
-### 混合比特权重量化参数
-
-启用混合比特权重量化后，将会针对不同层自动搜索最优的比特数。混合比特权重量化参数的详细介绍如下所示：
+启用混合比特量化后，将会针对不同层自动搜索最优的比特数。混合比特量化参数的详细介绍如下所示：
 
 | 参数       | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围    |
 | ---------- | ---- | ------------------------------------------------------------ | -------- | ------ | ----------- |
@@ -385,6 +366,45 @@ init_scale=0.02
 auto_tune=false
 ```
 
+### 固定比特量化参数
+
+固定比特量化参数的详细介绍如下所示：
+
+| 参数            | 属性 | 功能描述                           | 参数类型 | 默认值 | 取值范围                                         |
+| --------------- | ---- | ---------------------------------- | -------- | ------ | ------------------------------------------------ |
+| per_channel     | 可选 | 采用PerChannel或者PerLayer量化方式 | Boolean  | True   | True，False。设置成False，启用PerLayer量化方式。 |
+| bias_correction | 可选 | 是否对量化误差进行校正             | Boolean  | True   | True，False。使能后，将提升量化模型的精度。      |
+
+固定比特量化参数配置如下所示：
+
+```ini
+[weight_quant_param]
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=True
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=False
+```
+
+### ON_THE_FLY量化参数
+
+ON_THE_FLY量化参数的详细介绍如下所示：
+
+| 参数             | 属性 | 功能描述     | 参数类型 | 默认值 | 取值范围                                       |
+| ---------------- | ---- | ------------ | -------- | ------ | ---------------------------------------------- |
+| dequant_strategy | 可选 | 权重量化模式 | String   | -      | ON_THE_FLY。使能后，启用Ascend在线反量化模式。 |
+
+ON_THE_FLY量化参数配置如下所示：
+
+```ini
+[weight_quant_param]
+# Enable ON_THE_FLY quantization
+dequant_strategy=ON_THE_FLY
+
+[ascend_context]
+# The converted model is suitable for Ascend GE processes
+provider=ge
+```
+
 ### 全量化参数
 
 全量化参数的详细介绍如下所示：
@@ -395,6 +415,20 @@ auto_tune=false
 | bias_correction         | 可选 | 是否对量化误差进行校正                                       | Boolean  | True    | True，False。使能后，将能提升量化模型的精度。                |
 | per_channel             | 可选 | 采用PerChannel或PerLayer的量化方式                           | Boolean  | True    | True，False。设置为False，启用PerLayer量化方式。             |
 | target_device           | 可选 | 全量化支持多硬件后端。设置特定硬件后，量化模型会调用专有硬件量化算子库进行推理；如果未设置，转换模型调用通用量化算子库。 | String   | -       | NVGPU: 转换后的量化模型可以在NVIDIA GPU上执行量化推理；<br/>DSP: 转换后的量化模型可以在DSP硬件上执行量化推理；<br/>ASCEND: 转换后的量化模型可以在ASCEND硬件上执行量化推理。 |
+
+全量化参数配置如下所示：
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# Enable PerChannel quantization.
+per_channel=true
+# Supports specific hardware backends
+target_device=NVGPU
+```
 
 ### 数据预处理参数
 
