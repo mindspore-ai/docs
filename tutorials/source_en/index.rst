@@ -57,6 +57,7 @@ MindSpore Tutorial
    :caption: Parallel
    :hidden:
 
+   parallel/overview
    parallel/startup_method
    parallel/data_parallel
    parallel/operator_parallel

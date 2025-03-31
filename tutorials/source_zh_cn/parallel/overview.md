@@ -67,4 +67,3 @@ MindSpore提供两种粒度的算子级并行能力：算子级并行和高阶�
 
 - **基于双递归搜索的多维混合并行案例**：基于双递归搜索的多维混合并行是指用户可以配置重计算、优化器并行、流水线并行等优化方法，在用户配置的基础上，通过双递归策略搜索算法进行算子级策略自动搜索，进而生成最优的并行策略。详细可参考[基于双递归搜索的多维混合并行案例](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/multiple_mixed.html)。
 - **在K8S集群上进行分布式训练**：MindSpore Operator是遵循Kubernetes的Operator模式（基于CRD-Custom Resource Definition功能），实现的在Kubernetes上进行分布式训练的插件。其中，MindSpore Operator在CRD中定义了Scheduler、PS、Worker三种角色，用户只需通过简单的YAML文件配置，就可以轻松地在K8S上进行分布式训练。MindSpore Operator的代码仓详见：[ms-operator](https://gitee.com/mindspore/ms-operator/)。详细可参考[在K8S集群上进行分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/ms_operator.html)。
-
