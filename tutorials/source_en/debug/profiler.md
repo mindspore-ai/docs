@@ -18,15 +18,15 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 ## Usage
 
-There are three ways to collect training performance data, and the following describes how to use Profiler enablement depending on the scenario.
+There are four ways to collect training performance data, and the following describes how to use Profiler enablement depending on the scenario.
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
 Add the MindSpore Profiler related interfaces in the training script, see [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html) for details.
 
-**Graph mode collection example:**
+The interface supports two collection modes: CallBack mode and custom for loop mode, and supports both Graph and PyNative modes.
 
-In **Graph** mode, users can enable Profiler through Callback.
+#### CallBack Mode Collection Example
 
 ```python
 import mindspore
@@ -38,6 +38,7 @@ class StopAtStep(mindspore.Callback):
         self.stop_step = stop_step
         experimental_config = mindspore.profiler._ExperimentalConfig()
         self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
+                                                   schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=self.stop_step - self.start_step + 1, repeat=1, skip_first=0),
                                                    on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"))
 
     def on_train_step_begin(self, run_context):
@@ -55,11 +56,11 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-For the complete case, refer to [graph mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/graph_start_stop_profiler.py)
+For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)
 
-**PyNative mode collection example:**
+#### Example Collection in a Custom for Loop Mode
 
-In **PyNative** mode, users can enable Profiler through setting schedule and on_trace_ready parameters.
+In custom for loop mode, users can enable Profiler through setting schedule and on_trace_ready parameters.
 
 For example, if you want to collect the performance data of the first two steps, you can use the following configuration to collect.
 
@@ -85,8 +86,8 @@ experimental_config = mindspore.profiler._ExperimentalConfig(
 
 # Initialize profile
 with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
-                                    schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=2,
-                                            repeat=1, skip_first=0),
+                                    schedule=mindspore.profiler.schedule(wait=1, warmup=1, active=2,
+                                            repeat=1, skip_first=2),
                                     on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
                                     profile_memory=False,
                                     experimental_config=experimental_config) as prof:
@@ -96,13 +97,13 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
             prof.step()
 ```
 
-After enabling, the Step ID column information is included in the kernel_details.csv file, and the Step ID is 0,1, indicating that the data collected is the 0th and 1st step data.
+After the function is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 2 steps, wait 1 step, warmup 1 step, and collection starts from the 4th step. Then the fourth and fifth steps are collected, so the Step ID is 4 and 5, indicating that the fourth and fifth steps are collected.
 
-For the complete case, refer to [PyNative mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/py_native_step_profiler.py)
+For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)
 
 ### Method 2: Dynamic Profiler Enabling
 
-Users can use the mindspore.profiler.DynamicProfilerMonitor interface to enable Profiler without interrupting the training process, modify the configuration file, and complete the collection task under the new configuration. This interface requires a JSON configuration file, if not configured, a JSON file with a default configuration will be generated. This interface requires a JSON configuration file, if not configured, a JSON file with a default configuration will be generated.
+Users can use the mindspore.profiler.DynamicProfilerMonitor interface to enable Profiler without interrupting the training process, modify the configuration file, and complete the collection task under the new configuration. This interface requires a JSON configuration file. The JSON file must be named "profiler_config.json", if not configured, a default JSON configuration file is generated.
 
 JSON configuration example as follows:
 
@@ -112,10 +113,11 @@ JSON configuration example as follows:
    "stop_step": 5,
    "aic_metrics": -1,
    "profiler_level": 0,
+   "activities": 0,
+   "export_type": 0,
    "profile_memory": false,
    "mstx": false,
-   "activities": 0,
-   "analyse_mode": -1,
+   "analyse_mode": 0,
    "parallel_strategy": false,
    "with_stack": false,
    "data_simplification": true
@@ -148,7 +150,7 @@ For the complete case, refer to [dynamic profiler enabling method case](https://
 
 ### Method 3: Environment Variable Enabling
 
-Users can use the environment variable enabling method to enable Profiler most simply, this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training, but this method does not support the schedule parameter collection data, other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) for details.
+Users can use the environment variable enabling method to enable Profiler most simply, this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) for details.
 
 Environment variable enabling method related configuration items, sample as follows:
 
@@ -165,6 +167,18 @@ export MS_PROFILER_OPTIONS='
 
 After loading the environment variable, start the training script directly to complete the collection. Note that in this configuration, **start** must be true to achieve the enabling effect, otherwise the enabling will not take effect.
 
+### Method 4: Off-line Parsing
+
+If users want to analyze the collected performance data, you can use mindspore.profiler.profiler.analyse interface for offline analysis. For details about the analyse interface, please refer to [offline parse analyse interface parameters](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html).
+
+The offline analysis sample is shown below:
+
+```python
+from mindspore.profiler.profiler import analyse
+
+analyse("./profiler_data_path") # './profiler_data_path' is the data path
+```
+
 ## Performance Data
 
 Users can collect, parse, and analyze performance data through MindSpore Profiler, including raw performance data from the framework side, CANN side, and device side, as well as parsed performance data.
@@ -177,34 +191,36 @@ After collecting performance data, the original data will be stored according to
 > - The following is the full set of result files, the actual file number and content depend on the user's parameter configuration and the actual training scenario, if the user does not configure the related parameters or does not involve the related scenarios in the training, the corresponding data files will not be generated.  
 
 ```sh
-└── localhost.localdomain_*_ascend_ms  // Analysis result directory, named format: {worker_name}_{timestamp}_ascend_ms, by default {worker_name} is {hostname}_{pid}
-    ├── profiler_info.json             // For multi-card or cluster scenarios, the naming rule is profiler_info_{Rank_ID}.json, used to record Profiler related metadata
-    ├── profiler_metadata.json
-    ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler interface collects performance data
+└── localhost.localdomain_*_ascend_ms  // Collection and analysis result directory, named format: {worker_name}_{timestamp}_ascend_ms, by default {worker_name} is {hostname}_{pid}
+    ├── profiler_info_{Rank_ID}.json             // Used to record Profiler related metadata, Rank_ID is the card number
+    ├── profiler_metadata.json         // It is used to store information and other Profiler related metadata that users add through the add_metadata interface
+    ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler interface parses performance data
     │   ├── api_statistic.csv          // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
-    │   ├── ascend_mindspore_profiler_*.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, all other files will not be generated
+    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, all other files will not be generated. This file is not currently available for display in MindStudio Insight tools
+    │   ├── communication_analyzer.db    // Record communication time and bandwidth information, and configure ExportType.Db generation in export_type of the _ExperimentalConfig interface. If ExportType.Text is not configured at the same time, all other performance files will not be generated. This file is not currently available for display in MindStudio Insight tools
     │   ├── communication.json         // Provides visualization data for performance analysis in multi-card or cluster scenarios, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
-    │   ├── communication_matrix.json  // Communication small operator basic information file, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
+    │   ├── communication_matrix.json  // It provides a visual data basis for performance analysis of communication scenarios such as multi-card or cluster, and contains basic information about communication small operators. Communication small operator basic information file, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
     │   ├── dataset.csv                // Generated when activities contains ProfilerActivity.CPU
     │   ├── data_preprocess.csv        // Generated when profiler_level=ProfilerLevel.Level2
     │   ├── kernel_details.csv         // Generated when activities contains ProfilerActivity.NPU
     │   ├── l2_cache.csv               // Generated when l2_cache=True
     │   ├── memory_record.csv          // Generated when profile_memory=True
-    │   ├── minddata_pipeline_raw_*.csv       // Generated when data_process=True and call mindspore.dataset
-    │   ├── minddata_pipeline_summary_*.csv   // Generated when data_process=True and call mindspore.dataset
-    │   ├── minddata_pipeline_summary_*.json  // Generated when data_process=True and call mindspore.dataset
+    │   ├── minddata_pipeline_raw_*.csv       // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
+    │   ├── minddata_pipeline_summary_{Rank_ID}.csv   // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
+    │   ├── minddata_pipeline_summary_{Rank_ID}.json  // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
     │   ├── npu_module_mem.csv         // Generated when profile_memory=True
     │   ├── operator_memory.csv        // Generated when profile_memory=True
     │   ├── op_statistic.csv           // AI Core and AI CPU operator call count and time data
     │   ├── step_trace_time.csv        // Iteration calculation and communication time statistics
-    │   └── trace_view.json
-    ├── FRAMEWORK                      // Framework side performance raw data, no need to pay attention to it, delete this directory when data_simplification=True
+    │   └── trace_view.json            // Record time information for the entire training/reasoning task
+    ├── FRAMEWORK                      // The raw performance data on the framework side is not required
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN layer performance data, named format: PROF_{number}_{timestamp}_{string}, delete other data when data_simplification=True, only retain the original performance data in this directory
           ├── analyze                  // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
-          ├── device_*
-          ├── host
-          ├── mindstudio_profiler_log
-          └── mindstudio_profiler_output
+          ├── device_{Rank_ID}         // CANN Profling Performance data collected on the device
+          ├── host                     // CANN Profling Performance data collected on the host
+          ├── mindstudio_profiler_log     // CANN Profling parsed log files. Delete this directory when data_simplification is set to True.
+          └── mindstudio_profiler_output     // CANN Profling parsed performance data. Delete this directory when data_simplification is set to True.
+    └── logs                           // MindSpore Log files parsed by the Profiler interface
 ```
 
 MindSpore Profiler interface will associate and integrate the framework side data and CANN Profling data to form trace, kernel, and memory performance data files. The detailed description of each file is as follows.
@@ -320,7 +336,7 @@ The difference from the data collected by the Ascend PyTorch Profiler interface 
 | op_names | Operation name |
 | pipeline_ops | Operation pipeline |
 | num_workers | Number of operation workers |
-| queue_queue_size | Output queue size |
+| queue_average_size  | Average output size |
 | queue_utilization_pct | Output queue usage rate |
 | queue_empty_freq_pct | Output queue idle frequency |
 | children_ids | Child operation ID |
@@ -338,6 +354,8 @@ The difference from the data collected by the Ascend PyTorch Profiler interface 
 ### trace_view.json
 
 `trace_view.json` is recommended to be opened using MindStudio Insight tool or chrome://tracing/. MindSpore Profiler does not support the record_shapes and GC functions.
+
+For detailed introduction, refer to [trace_view.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html).
 
 ### Other Performance Data
 
@@ -418,7 +436,7 @@ When the data indicator symptom indicates a **communication** problem, you need 
 
 #### schedule Configuration Error Problem
 
-schedule configuration related parameters have 5 parameters: wait, warmup, active, repeat, skip_first. Each parameter must be **greater than or equal to 0**; **active** must be **greater than or equal to 1**, otherwise a warning will be thrown and set to the default value 1; if repeat is set to 0, it means that the repeat parameter does not take effect, Profiler will determine the number of loops according to the number of model training times.
+schedule configuration related parameters have 5 parameters: wait, warmup, active, repeat, skip_first. Each parameter must be **greater than or equal to 0**; **active** must be **greater than or equal to 1**, otherwise a warning will be thrown and set to the default value 1; if repeat is set to 0, the Profiler will determine the repeat value according to the number of training times of the model, in which case it will generate more than one collection of incomplete performance data. The data in the last step is abnormal data that users do not need to pay attention to.
 
 #### schedule and step Configuration Mismatch Problem
 

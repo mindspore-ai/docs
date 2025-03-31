@@ -938,9 +938,12 @@ Profiler
 
        activities (list, optional) - Set the devices for collecting performance data, multiple devices can be specified, default value: [CPU, NPU]. Possible values: [CPU], [NPU], [CPU, NPU].
 
-       aicore_metrics (str, optional) - Set the type of AI Core metrics. Default value: AicoreNone. Possible values: AicoreNone, ArithmeticUtilization, PipeUtilization, Memory, MemoryL0, ResourceConflictRatio, MemoryUB, L2Cache.
+       aic_metrics (str, optional) - Set the type of AI Core metrics. Default value: AicoreNone. Possible values: AicoreNone, ArithmeticUtilization, PipeUtilization, Memory, MemoryL0, ResourceConflictRatio, MemoryUB, L2Cache, MemoryAccess.
 
        profiler_level (str, optional) - Set the level of performance data collection. Default value: Level0. Possible values: Level0, Level1, Level2.
+
+       Refer to other parameters, see `Description of MindSpore profile parameters <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profile.html>`_.
+
      - This environment variable enables one of two ways to enable performance data collection with the input parameter instantiation Profiler method.
    * - PROFILING_MODE
      - Set the mode of CANN Profiling

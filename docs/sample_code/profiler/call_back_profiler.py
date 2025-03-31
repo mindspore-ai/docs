@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""Graph mode call back start stop example."""
+"""Call back start stop example."""
 import numpy as np
 
 from mindspore import nn
@@ -28,6 +28,7 @@ class StopAtStep(mindspore.Callback):
         start_step (int): The start step number.
         stop_step (int): The stop step number.
     """
+
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
@@ -35,6 +36,10 @@ class StopAtStep(mindspore.Callback):
         # pylint: disable=protected-access
         experimental_config = mindspore.profiler._ExperimentalConfig()
         self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
+                                                   schedule=mindspore.profiler.schedule(wait=0, warmup=0,
+                                                                                        active=self.stop_step -
+                                                                                        self.start_step + 1,
+                                                                                        repeat=1, skip_first=0),
                                                    on_trace_ready=mindspore.profiler.tensorboard_trace_handler(
                                                        "./data"))
 
@@ -55,6 +60,7 @@ class StopAtStep(mindspore.Callback):
 
 class Net(nn.Cell):
     """The test net"""
+
     def __init__(self):
         super(Net, self).__init__()
         self.fc = nn.Dense(2, 2)
@@ -69,7 +75,7 @@ def generator():
 
 
 if __name__ == '__main__':
-    mindspore.set_context(mode=mindspore.GRAPH_MODE)
+    mindspore.set_context(mode=mindspore.GRAPH_MODE, jit_config={"jit_level": "O2"})
     mindspore.set_device("Ascend")
 
     profile_call_back = StopAtStep(5, 8)
