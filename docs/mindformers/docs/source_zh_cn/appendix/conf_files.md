@@ -285,7 +285,7 @@ MindSpore Transformers提供Profile作为模型性能调优的主要工具，详
 | with_stack            | 设置是否收集Python侧的调用栈数据，默认值为`False`                                                                                                           | bool |
 | data_simplification   | 设置是否开启数据精简，开启后将在导出性能采集数据后删除FRAMEWORK目录以及其他多余数据，默认为`False`                                                                                 | int  |
 | init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效，开启`profile_memory`时需要将该参数设为`True`                                                 | bool |
-| mstx                  | 设置是否开启mstx记录step时延，默认值为`False`                                                                                                            | bool |
+| mstx                  | 设置是否收集mstx时间戳记录，包括训练step、HCCL通信算子等，默认值为`False`                                                                                                            | bool |
 
 ### 指标监控配置
 

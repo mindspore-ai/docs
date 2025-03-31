@@ -120,7 +120,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
    init_start_profile: False      # Enabled when Profiler is initialized, profile_start_step will not take effect after it is enabled.
    profile_communication: False   # Whether to collect communication performance data in multi-NPU training
    profile_memory: True           # Collect Tensor memory data
-   mstx: True                     # Whether to enable mstx step-time recording.
+   mstx: True                     # Whether to enable mstx timestamp recording.
    ```
 
    `profile_start_step` and `profile_stop_step` determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, and it should be set to 2 to 4 steps. Since the first step involves compilation, it is recommended to start collecting from step 3.
@@ -141,7 +141,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
    | with_stack            | Set whether to collect Python-side stack trace data. Default: `False`.                                                                                                                                                                  | bool  |
    | data_simplification   | Set whether to enable data simplification, which will delete the FRAMEWORK directory and other extraneous data after exporting performance data. Default: `False`.                                                                      | int   |
    | init_start_profile    | Set whether to turn on collecting performance data when the Profiler is initialized; this parameter does not take effect when `profile_start_step` is set. This parameter needs to be set to `True` when `profile_memory` is turned on. | bool  |
-   | mstx                  | Set whether to enable mstx step time recording. Default: `False`.                                                                                                                                                                       | bool  |
+   | mstx                  | Set whether to enable mstx timestamp recording, including training step, HCCL-operators and etc. Default: `False`.                                                                                                                      | bool  |
 
 2. View Data
 
@@ -150,6 +150,28 @@ MindSpore Transformers itself integrates profiling data collection with the foll
    The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
 
    In addition, it can also analyze the performance between different ranks in the cluster by counting the computation time, communication time, and unmasked communication time of each rank in the cluster, so as to determine whether there exists an unbalanced computation load, which affects the overall efficiency of the cluster, and carry out targeted optimization.
+
+3. View mstx timestamp
+
+   The collection tool does not generate files of mstx information directly, so it need to be extract from `profile` folder manually via command line. Taking the first device for example, the corresponding directory structure is shown below:
+
+   ```sh
+   output
+   └── profile
+       └── rank_0
+           └── {hostname}_{pid}_{timestamp}_ascend_ms
+               └── PROF_{number}_{timestamp}_{string}
+   ```
+
+   Execute the command below:
+
+   ```shell
+   msprof --export=on --output={path}/output/profile/rank_0/{hostname}_{pid}_{timestamp}_ascend_ms/PROF_{number}_{timestamp}_{string} # replace with the real path
+   ```
+
+   A `mindstudio_profiler_output` folder will be generated under PROF_{number}_{timestamp}_{string} directory after command is over, and the file named `msprof_tx_{timestamp}.csv` records mstx information, containing timestamp and description of training steps, HCCL-operators, etc., as shown in the figure below:
+
+   ![mstx](./images/mstx.png)
 
 #### DryRun Memory Evaluation Tools
 
