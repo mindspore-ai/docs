@@ -371,7 +371,13 @@ For OpenEuler systems follow the steps below to install:
     ```
 
     Configure the yaml file. Refer to [configuration description](../appendix/conf_files.md).
-4. The MMBench-Video dataset evaluation requires the use of the gpt-4-turb model for evaluation and scoring. Please prepare the corresponding apikey in advance.
+4. The MMBench-Video dataset evaluation requires the use of the GPT-4 Turbo model for evaluation and scoring. Please prepare the corresponding API Key in advance and put it in the VLMEvalKit/.env file as follows:
+
+   ```text
+   OPENAI_API_KEY=your_apikey
+   ```
+
+5. At the beginning of MVBench dataset evaluation, if you are prompted to enter the HuggingFace key, please follow the prompts to ensure the normal execution of subsequent evaluation.
 
 #### Pull up the evaluation task
 
