@@ -239,7 +239,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 
 ## torch.linalg
 
-| PyTorch 2.1 APIs                                                                                                   | MindSpore APIs                                                                                                                | 说明 |
+| PyTorch 2.1 APIs                                                                                                   | MindSpore APIs                                                                                                                | Descriptions |
 | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---- |
 | [torch.linalg.inv](https://pytorch.org/docs/2.1/generated/torch.linalg.inv.html) | [mindspore.mint.linalg.inv](https://www.mindspore.cn/docs/en/master/api_python/mint/mindspore.mint.linalg.inv.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.linalg.matrix_norm](https://pytorch.org/docs/2.1/generated/torch.linalg.matrix_norm.html) | [mindspore.mint.linalg.matrix_norm](https://www.mindspore.cn/docs/en/master/api_python/mint/mindspore.mint.linalg.matrix_norm.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
@@ -399,7 +399,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 
 ## torch.special
 
-| PyTorch 2.1 APIs                                                                                                   | MindSpore APIs                                                                                                                | 说明 |
+| PyTorch 2.1 APIs                                                                                                   | MindSpore APIs                                                                                                                | Descriptions |
 | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---- |
 | [torch.special.erfc](https://pytorch.org/docs/2.1/special.html#torch.special.erfc) | [mindspore.mint.special.erfc](https://www.mindspore.cn/docs/en/master/api_python/mint/mindspore.mint.special.erfc.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.special.exp2](https://pytorch.org/docs/2.1/special.html#torch.special.exp2) | [mindspore.mint.special.exp2](https://www.mindspore.cn/docs/en/master/api_python/mint/mindspore.mint.special.exp2.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |

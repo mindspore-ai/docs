@@ -733,7 +733,7 @@ Using the above configuration file to process the `alpaca` dataset will execute 
 
 In addition to supporting online dataset loading and processing, `CommonDataLoader` also supports offline dataset processing and saving.
 
-The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/tree/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py) script can be used to process Huggingface datasets offline and save them.
+The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py) script can be used to process Huggingface datasets offline and save them.
 
 - Parameter Description
 

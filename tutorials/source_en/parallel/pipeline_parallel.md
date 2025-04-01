@@ -189,7 +189,7 @@ parallel_net = AutoParallel(train_one_step, parallel_mode="semi_auto")
 parallel_net.pipeline(stages=2, interleave=True)
 ```
 
-## 训练循环
+## Training Loop
 
 This step performs the training loop, the outer loop is the number of epochs to train and the inner loop traverses the dataset and calls parallel_net to train and get the loss values.
 

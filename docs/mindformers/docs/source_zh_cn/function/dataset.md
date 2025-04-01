@@ -733,7 +733,7 @@ train_dataset:
 
 `CommonDataLoader`除了支持数据集在线加载与处理，还支持离线处理数据集并进行保存。
 
-使用[datasets_preprocess.py](https://gitee.com/mindspore/mindformers/tree/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py)脚本可以离线处理 HuggingFace 数据集并进行保存。
+使用[datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py)脚本可以离线处理 HuggingFace 数据集并进行保存。
 
 - 参数说明
 

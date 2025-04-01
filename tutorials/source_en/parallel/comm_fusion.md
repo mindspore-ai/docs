@@ -139,7 +139,7 @@ class Net(nn.Cell):
         x = self.layer3(x)
         return x
 
-# 延后初始化
+# Delayed initialization
 with no_init_parameters():
     net = Net()
     optimizer = nn.SGD(net.trainable_params(), 1e-2)
