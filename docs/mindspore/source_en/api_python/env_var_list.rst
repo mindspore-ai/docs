@@ -266,8 +266,6 @@ Graph Compilation and Execution
 
        compile_statistics: Whether to enable compile statistics, with a default value of false.
 
-       ge_kernel: Whether to enable O2/O1/O0 runtime unification, with a default value of true.
-
        backend_compile_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable complie cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
 
        view: Whether to enable view kernels, only effective in O0 or O1 mode, with a default value of true.
