@@ -196,8 +196,8 @@ After collecting performance data, the original data will be stored according to
     ├── profiler_metadata.json         // It is used to store information and other Profiler related metadata that users add through the add_metadata interface
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler interface parses performance data
     │   ├── api_statistic.csv          // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
-    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, all other files will not be generated. This file is not currently available for display in MindStudio Insight tools
-    │   ├── communication_analyzer.db    // Record communication time and bandwidth information, and configure ExportType.Db generation in export_type of the _ExperimentalConfig interface. If ExportType.Text is not configured at the same time, all other performance files will not be generated. This file is not currently available for display in MindStudio Insight tools
+    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, all other files will not be generated.
+    │   ├── communication_analyzer.db    // Record communication time and bandwidth information, and configure ExportType.Db generation in export_type of the _ExperimentalConfig interface. If ExportType.Text is not configured at the same time, all other performance files will not be generated.
     │   ├── communication.json         // Provides visualization data for performance analysis in multi-card or cluster scenarios, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
     │   ├── communication_matrix.json  // It provides a visual data basis for performance analysis of communication scenarios such as multi-card or cluster, and contains basic information about communication small operators. Communication small operator basic information file, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
     │   ├── dataset.csv                // Generated when activities contains ProfilerActivity.CPU
@@ -227,6 +227,18 @@ MindSpore Profiler interface will associate and integrate the framework side dat
 
 > - `FRAMEWORK` is the performance raw data of the framework side, no need to pay attention to it.
 > - `PROF` directory is the performance data collected by CANN Profling, mainly saved in the `mindstudio_profiler_output` directory.
+
+## ascend_mindspore_profiler_{Rank_ID}.db
+
+The `ascend_mindspore_profiler_{Rank_ID}.db` file is controlled by the `ExportType.Db` switch and mainly collects all performance data in .db format.
+
+For detailed introduction, refer to [ascend_mindspore_profiler_{Rank_ID}.db](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0026.html).
+
+### communication_analyzer.db
+
+`communication_analyzer.db` file is controlled by the `ExportType.Db` switch, the file is mainly unified communication class segment time, copy information, bandwidth and other information, in order to carry out communication data analysis. Communication data exists only in multi-card, multi-node, or cluster scenarios.
+
+For detailed introduction, refer to [communication_analyzer.db](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html).
 
 ### communication.json
 
