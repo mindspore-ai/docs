@@ -937,9 +937,12 @@ Profiler
 
        activities (list, 可选) - 设置采集性能数据的设备，可传多个设备，默认值：[CPU, NPU]。可取值：[CPU]、[NPU]、[CPU, NPU]。
 
-       aicore_metrics (str, 可选) - 设置AI Core指标类型。默认值：AicoreNone。可取值：AicoreNone、ArithmeticUtilization、PipeUtilization、Memory、MemoryL0、ResourceConflictRatio、MemoryUB、L2Cache。
+       aic_metrics (str, 可选) - 设置AI Core指标类型。默认值：AicoreNone。可取值：AicoreNone、ArithmeticUtilization、PipeUtilization、Memory、MemoryL0、ResourceConflictRatio、MemoryUB、L2Cache、MemoryAccess。
 
        profiler_level (str, 可选) - 设置采集性能数据级别。默认值：Level0。可取值：Level0、Level1、Level2。
+
+       其他参数可参考 `MindSpore profile参数详解 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html>`_ 。
+
      - 此环境变量使能与输入参数实例化Profiler方式使能性能数据采集的方式二选一。
    * - PROFILING_MODE
      - 设置CANN Profiling的模式

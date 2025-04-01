@@ -13,13 +13,13 @@
 # limitations under the License.
 # ============================================================================
 
-"""KBK Profiler step Example"""
+"""For loop Profiler Example"""
 
 import numpy as np
 
 import mindspore
 import mindspore.dataset as ds
-from mindspore import context, nn
+from mindspore import nn
 from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
 
 
@@ -46,7 +46,7 @@ def train(test_net):
 
 
 if __name__ == "__main__":
-    context.set_context(mode=mindspore.PYNATIVE_MODE)
+    mindspore.set_context(mode=mindspore.PYNATIVE_MODE)
     mindspore.set_device("Ascend")
 
     # Init Profiler

@@ -18,15 +18,15 @@
 
 ## 使用方法
 
-收集训练性能数据有三种方式，以下将介绍根据不同场景下，使用Profiler使能的方式。
+收集训练性能数据有四种方式，以下将介绍根据不同场景下，使用Profiler使能的方式。
 
 ### 方式一：mindspore.profiler.profile接口使能
 
 在训练脚本中添加MindSpore profile相关接口，profile接口详细介绍请参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html)。
 
-**Graph模式采集样例：**
+该接口支持两种采集方式：CallBack方式和自定义for循环方式，且在Graph和PyNative两种模式下都支持。
 
-**Graph**模式下，用户可以通过Callback方式来使能Profiler。
+#### CallBack方式采集样例
 
 ```python
 import mindspore
@@ -38,6 +38,7 @@ class StopAtStep(mindspore.Callback):
         self.stop_step = stop_step
         experimental_config = mindspore.profiler._ExperimentalConfig()
         self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
+                                                   schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=self.stop_step - self.start_step + 1, repeat=1, skip_first=0),
                                                    on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"))
 
     def on_train_step_begin(self, run_context):
@@ -55,11 +56,11 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-完整案例请参考[graph模式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/graph_start_stop_profiler.py)。
+完整案例请参考[CallBack方式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)。
 
-**PyNative模式采集样例：**
+#### 自定义for循环方式采集样例
 
-**PyNative**模式下，用户可以通过设置schedule以及on_trace_ready参数来使能Profiler。
+自定义for循环方式下，用户可以通过设置schedule以及on_trace_ready参数来使能Profiler。
 
 例如用户想要采集前两个step的性能数据，可以使用如下配置的schedule进行采集。
 
@@ -85,8 +86,8 @@ experimental_config = mindspore.profiler._ExperimentalConfig(
 
 # 初始化profile
 with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
-                                    schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=2,
-                                            repeat=1, skip_first=0),
+                                    schedule=mindspore.profiler.schedule(wait=1, warmup=1, active=2,
+                                            repeat=1, skip_first=2),
                                     on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
                                     profile_memory=False,
                                     experimental_config=experimental_config) as prof:
@@ -96,13 +97,13 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
             prof.step()
 ```
 
-使能后落盘数据中kernel_details.csv中包含了Step ID一列信息，且Step ID为0,1，表示采集的是第0个step以及第1个step数据。
+使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息，根据schedule的配置，skip_first跳过2步，wait等待1步，warmup预热1步，从第4步开始采集，根据active为2，则采集第4、5步，因此Step ID为4、5，表示采集的是第4、5个step。
 
-完整案例参考[PyNative模式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/py_native_step_profiler.py)
+完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)
 
 ### 方式二：动态profiler使能
 
-在训练过程中，如果用户想要在不中断训练流程的前提下，修改配置文件并完成新配置下的采集任务，可以使用mindspore.profiler.DynamicProfilerMonitor接口使能。该接口需要配置一个JSON文件，如不配置会生成一个默认配置的JSON文件。
+在训练过程中，如果用户想要在不中断训练流程的前提下，修改配置文件并完成新配置下的采集任务，可以使用mindspore.profiler.DynamicProfilerMonitor接口使能。该接口需要配置一个JSON文件，该JSON文件的命名必须为"profiler_config.json"，如果不配置则会生成一个默认的JSON配置文件。
 
 JSON配置样例如下：
 
@@ -112,10 +113,11 @@ JSON配置样例如下：
    "stop_step": 5,
    "aic_metrics": -1,
    "profiler_level": 0,
+   "activities": 0,
+   "export_type": 0,
    "profile_memory": false,
    "mstx": false,
-   "activities": 0,
-   "analyse_mode": -1,
+   "analyse_mode": 0,
    "parallel_strategy": false,
    "with_stack": false,
    "data_simplification": true
@@ -148,7 +150,7 @@ for _ in range(STEP_NUM):
 
 ### 方式三：环境变量使能
 
-用户如果想最简单地使能Profiler，可以使用环境变量使能方式。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。但该方式暂不支持使用schedule参数方式采集数据，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+用户如果想最简单地使能Profiler，可以使用环境变量使能方式。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。该方式暂不支持schedule、on_trace_ready、experimental_config参数，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
 
 环境变量使能方式的相关配置项样例如下：
 
@@ -165,6 +167,18 @@ export MS_PROFILER_OPTIONS='
 
 加载完环境变量后，直接拉起训练脚本即可完成采集。需要注意的是，该配置中**start**必须为true，才能达到使能效果，否则使能不生效。
 
+### 方式四：离线解析
+
+用户如果想重新解析已经采集的性能数据，可以使用mindspore.profiler.profiler.analyse接口进行离线解析。analyse接口详细介绍请参考[离线解析analyse接口参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html)。
+
+离线解析样例如下：
+
+```python
+from mindspore.profiler.profiler import analyse
+
+analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路径
+```
+
 ## 性能数据
 
 用户通过MindSpore Profiler采集、解析后的性能数据包括框架侧、CANN侧和device侧的原始性能数据，以及解析后的性能数据。
@@ -177,34 +191,36 @@ export MS_PROFILER_OPTIONS='
 > - 以下是结果文件全集，实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
 
 ```sh
-└── localhost.localdomain_*_ascend_ms  // 解析结果目录，命名格式：{worker_name}_{时间戳}_ascend_ms，默认情况下{worker_name}为{hostname}_{pid}
-    ├── profiler_info.json             // 多卡或集群场景命名规则为 profiler_info_{Rank_ID}.json，用于记录Profiler相关的元数据
-    ├── profiler_metadata.json
-    ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler接口采集性能数据
+└── localhost.localdomain_*_ascend_ms  // 采集、解析结果目录，命名格式：{worker_name}_{时间戳}_ascend_ms，默认情况下{worker_name}为{hostname}_{pid}
+    ├── profiler_info_{Rank_ID}.json    // 用于记录Profiler相关的元数据，Rank_ID为卡号
+    ├── profiler_metadata.json          // 用来保存用户通过add_metadata接口添加的信息和其他Profiler相关的元数据
+    ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler接口解析性能数据
     │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
-    │   ├── ascend_mindspore_profiler_*.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则其它所有性能文件都不会生成
+    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则其它所有性能文件都不会生成，该文件暂不支持在MindStudio Insight工具展示
+    │   ├── communication_analyzer.db    // 记录通信耗时和通信带宽信息，在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则其它所有性能文件都不会生成，该文件暂不支持在MindStudio Insight工具展示
     │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置profiler_level=ProfilerLevel.Level1或profiler_level=ProfilerLevel.Level2生成
-    │   ├── communication_matrix.json  // 通信小算子基本信息文件，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
+    │   ├── communication_matrix.json  // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，包含通信小算子的基本信息，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── dataset.csv                // activities中配置ProfilerActivity.CPU生成
     │   ├── data_preprocess.csv        // 配置 profiler_level=ProfilerLevel.Level2 生成
     │   ├── kernel_details.csv         // activities中配置ProfilerActivity.NPU生成
     │   ├── l2_cache.csv               // 配置 l2_cache=True 生成
     │   ├── memory_record.csv          // 配置 profile_memory=True 生成
-    │   ├── minddata_pipeline_raw_*.csv       // 配置 data_process=True 且调用mindspore.dataset接口时生成
-    │   ├── minddata_pipeline_summary_*.csv   // 配置 data_process=True 且调用mindspore.dataset接口时生成
-    │   ├── minddata_pipeline_summary_*.json  // 配置 data_process=True 且调用mindspore.dataset接口时生成
+    │   ├── minddata_pipeline_raw_{Rank_ID}.csv       // 配置 data_process=True 且训练/推理代码中调用mindspore.dataset模块时生成
+    │   ├── minddata_pipeline_summary_{Rank_ID}.csv   // 配置 data_process=True 且训练/推理代码中调用mindspore.dataset模块时生成
+    │   ├── minddata_pipeline_summary_{Rank_ID}.json  // 配置 data_process=True 且训练/推理代码中调用mindspore.dataset模块时生成
     │   ├── npu_module_mem.csv         // 配置 profile_memory=True 生成
     │   ├── operator_memory.csv        // 配置 profile_memory=True 生成
     │   ├── op_statistic.csv           // AI Core和AI CPU算子调用次数及耗时数据
     │   ├── step_trace_time.csv        // 迭代中计算和通信的时间统计
-    │   └── trace_view.json
-    ├── FRAMEWORK                      // 框架侧的性能原始数据，无需关注，data_simplification=True时删除此目录
+    │   └── trace_view.json            // 记录整个训练/推理任务的时间信息
+    ├── FRAMEWORK                      // 框架侧的原始性能数据，无需关注
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN层的性能数据，命名格式：PROF_{数字}_{时间戳}_{字符串}，data_simplification=True时，仅保留此目录下的原始性能数据，删除其他数据
           ├── analyze                  // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
-          ├── device_*
-          ├── host
-          ├── mindstudio_profiler_log
-          └── mindstudio_profiler_output
+          ├── device_{Rank_ID}                 // CANN Profling采集的device侧的性能数据
+          ├── host                     // CANN Profling采集的host侧的性能数据
+          ├── mindstudio_profiler_log  // CANN Profling解析的日志文件，data_simplification=True时删除此目录
+          └── mindstudio_profiler_output  // CANN Profling解析的性能数据，data_simplification=True时删除此目录
+    └── logs                           // MindSpore Profiler接口解析的日志文件
 ```
 
 MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整合，形成trace、kernel以及memory等性能数据文件。各文件详细说明如下文所示。
@@ -320,7 +336,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 | op_names | 操作名称 |
 | pipeline_ops | 操作管道 |
 | num_workers | 操作进程数量 |
-| queue_queue_size | 输出队列大小 |
+| queue_average_size | 输出平均大小 |
 | queue_utilization_pct | 输出队列使用率 |
 | queue_empty_freq_pct | 输出队列空闲频率 |
 | children_ids | 子操作编号 |
@@ -338,6 +354,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 ### trace_view.json
 
 `trace_view.json` 建议使用MindStudio Insight工具或 chrome://tracing/ 打开。MindSpore Profiler暂时不支持record_shapes与GC功能。
+详细介绍请参考[trace_view.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html)。
 
 ### 其他性能数据
 
@@ -443,7 +460,7 @@ HostToDevice的连线通常有两种形态：倾斜和竖直。下图是一个�
 
 #### schedule配置错误问题
 
-schedule配置相关参数有5个：wait、warmup、active、repeat、skip_first。每个参数大小必须**大于等于0**；其中**active**必须**大于等于1**，否则抛出警告，并设置为默认值1；如果repeat设置为0，表示repeat参数不生效，Profiler会根据模型训练的次数来确定循环次数。
+schedule配置相关参数有5个：wait、warmup、active、repeat、skip_first。每个参数大小必须**大于等于0**；其中**active**必须**大于等于1**，否则抛出警告，并设置为默认值1；如果repeat设置为0，Profiler会根据模型训练次数来确定repeat值，此时会多生成一个采集不完整的的性能数据，最后一个step的数据用户无需关注，为异常数据。
 
 #### schedule与step配置不匹配问题
 
