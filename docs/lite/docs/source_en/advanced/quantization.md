@@ -26,13 +26,13 @@ Weight quantization supports mixed bit quantization, as well as fixed bit quanti
 
 Mixed bit quantization automatically searches for the most appropriate number of bits for the current layer based on the distribution of model parameters, using the user-set `init_scale` as the initial value. Mixed bit quantization will be enabled when `bit_num` of the configuration parameter is set to 0.
 
-The general form of the mixed bit weights quantization conversion command is:
+The general form of the mixed bit quantization conversion command is:
 
 ```bash
 ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
 ```
 
-The mixed bit weights quantization configuration profile is shown below:
+The mixed bit quantization configuration profile is shown below:
 
 ```ini
 [common_quant_param]
@@ -61,13 +61,13 @@ Users can adjust the parameters of weight quantization according to the model an
 
 Fixed bit weight quantization supports fixed bit quantization between 1 and 16, and users can adjust the parameters of weight quantization according to the model and their own needs.
 
-The general form of the mixed bit weights quantization conversion command is:
+The general form of the mixed bit quantization conversion command is:
 
 ```bash
 ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
 ```
 
-The fixed bit weights quantization configuration profile is shown below:
+The fixed bit quantization configuration profile is shown below:
 
 ```ini
 [common_quant_param]
@@ -268,7 +268,7 @@ Ascend quantization needs to configure Ascend-related configuration at [offline 
     input_shape=input_1:[-1,32,32,4]
     dynamic_dims=[1~4],[8],[16]
 
-    # 其中，input_shape中的"-1"表示设置动态batch
+    # where "-1" in input_shape means the dynamic batch is set.
     ```
 
 ### Dynamic Quantization
@@ -304,8 +304,8 @@ quant_strategy=ACWL
 Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). The configuration file adopts the style of [`INI`](https://en.wikipedia.org/wiki/INI_file), For quantization, configurable parameters include:
 
 - `[common_quant_param]: Public quantization parameters`
-- `[weight_quant_param]: Fixed bit weight parameters`
-- `[mixed_bit_weight_quant_param]: Mixed bit weight parameters`
+- `[weight_quant_param]: Fixed bit quantization parameters`
+- `[mixed_bit_weight_quant_param]: Mixed bit quantization parameters`
 - `[full_quant_param]: Full quantization parameters`
 - `[data_preprocess_param]: Data preprocessing parameters`
 - `[dynamic_quant_param]: Dynamic quantization parameters`
@@ -349,40 +349,60 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 enable_encode = true
 ```
 
-### Fixed Bit Weight Quantization Parameters
+### Fixed Bit Quantization Parameters
 
-The detailed description of the fixed bit weight quantization parameters is as follows:
+The detailed description of the fixed bit quantization parameters is as follows:
 
 | Parameter  | Attribute | Function Description                                | Parameter Type | Default Value | Value Range                                                                                             |
 |------------------|----|-----------------------------------------------------|---------|------|---------------------------------------------------------------------------------------------------------|
-| dequant_strategy | Optional | Weight Quantization mode                            | String  | -    | ON_THE_FLY. After this parameter is enabled, Ascend online antiquantization mode is activated.                                          |
-| per_channel      | Optional | Select PerChannel or PerLayer quantization type.    | Boolean | True | True or False. Set to false to enable Perlayer quantization.                                            |
-| bias_correction  | Optional | Indicate whether to correct the quantization error. |     Boolean    |    True  | True or False. After this parameter is enabled, the accuracy of the quantization model can be improved. |
+| init_scale | optional | Initialize the scale. Larger values will result in greater compression, but will also result in varying degrees of precision loss. | float    | 0.02   | (0 , 1)     |
+| auto_tune  | optional | The `init_scale` parameter will automatically search for a set of `init_scale` values for which the model output Tensor has a cosine similarity around 0.995 after setting. | Boolean  | False  | True, False |
+
+The mixed bit quantization parameter configuration is shown below:
+
+```ini
+[mixed_bit_weight_quant_param]
+init_scale=0.02
+auto_tune=false
+```
+
+### Mixed Bit Quantization Parameter
+
+The details of the fixed bit quantization parameters are shown below:
+
+| Parameter  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range |
+| ---------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------- |
+| per_channel     | optional | Quantization by PerChannel or PerLayer | Boolean  | True   | True, False. set to False to enable the PerLayer quantization method. |
+| bias_correction | optional | Whether to correct for quantization errors             | Boolean  | True   | True, False. If it is enabled, the accuracy of the quantization model will be improved.      |
+
+The mixed bit quantization parameter configuration is as follows:
 
 ```ini
 [weight_quant_param]
-dequant_strategy=ON_THE_FLY
 # If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
 per_channel=True
 # Whether to correct the quantization error. Recommended to set to true.
 bias_correction=False
 ```
 
-### Mixed Bit Weight Quantization Parameter
+### ON_THE_FLY Quantization Parameters
 
-When enable the mixed bit weight quantization, the optimal number of bits will be automatically searched for different layers. The detailed description of the parameters is as follows:
+The detailed description of the ON_THE_FLY quantization parameters is as follows:
 
-| Parameter  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range |
-| ---------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------- |
-| init_scale | Optional  | Initialize the scale. The larger the value, the greater the compression rate, but it will also cause varying degrees of accuracy loss. | Float          | 0.02          | (0 , 1)     |
-| auto_tune  | Optional  | Automatically search for the init_scale parameter. After setting, it will automatically search for a set of `init_scale` values whose cosine similarity of the model output Tensor is around 0.995. | Boolean        | False         | True，False |
+| Parameter               | Attribute | Function Description                                | Parameter Type | Default Value | Value Range                                                  |
+| ----------------------- | --------- | --------------------------------------------------- | -------------- | ------------- | ------------------------------------------------------------ |
+| dequant_strategy | optional | Weight quantification model | String   | -      | ON_THE_FLY. If it is enabled, the Ascend online inverse quantization mode is enabled. |
 
-The mixed bit quantization parameter configuration is as follows:
+The ON_THE_FLY quantization parameter is configured as shown below:
 
 ```ini
-[mixed_bit_weight_quant_param]
-init_scale=0.02
-auto_tune=false
+[weight_quant_param]
+# Enable ON_THE_FLY quantization
+dequant_strategy=ON_THE_FLY
+
+[ascend_context]
+# The converted model is suitable for Ascend GE processes
+provider=ge
 ```
 
 ### Full Quantization Parameters
@@ -396,7 +416,21 @@ The detailed description of the full quantization parameters is as follows:
 | per_channel         | Optional  | Select PerChannel or PerLayer quantization type. | Boolean        | True          | True or False. Set to false to enable Perlayer quantization. |
 | target_device         | Optional  | Full quantization supports multiple hardware backends. After setting the specific hardware, the converted quantization model can execute the proprietry hardware quantization operator library. If not setting, universal quantization lib will be called. | String        | -          | NVGPU: The quantized model can perform quantitative inference on the NVIDIA GPU. <br/>DSP: The quantized model can perform quantitative inference on the DSP devices.<br/>ASCEND: The quantized model can perform quantitative inference on the ASCEND devices. |
 
-### Data Preprocessing
+The fully quantization parameter configuration is shown below:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# Enable PerChannel quantization.
+per_channel=true
+# Supports specific hardware backends
+target_device=NVGPU
+```
+
+### Data Preprocessing Parameters
 
 Full quantization needs to provide 100-500 calibration data sets for pre-inference, which is used to calculate the quantization parameters of full quantization activation values. If there are multiple input Tensors, the calibration dataset for each input Tensor needs to be saved in a separate folder.
 
@@ -494,10 +528,10 @@ The data distribution statistics report `round_*.csv` counts the distribution of
 | DataTypeFlag     | Data type, Origin for raw data, Dequant for inverse quantized data      |
 | TensorTypeFlag   | Data classes such as inputs and outputs are represented as Activation, and constants are represented as Weight. |
 | Min              | Minimum, 0% quantile point                                         |
-| Q1               | 25% quantile point点                                                |
-| Median           | Median, 50% quantile point点                                        |
-| Q3               | 75% quantile point点                                                |
-| MAX              | Max value, 100% quantile point点                                       |
+| Q1               | 25% quantile point                                                |
+| Median           | Median, 50% quantile point                                        |
+| Q3               | 75% quantile point                                                |
+| MAX              | Max value, 100% quantile point                                       |
 | Mean             | Mean                                    |
 | Var              | variance                                                     |
 | Sparsity         | Sparsity                                                   |
