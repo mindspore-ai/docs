@@ -150,7 +150,7 @@ For the complete case, refer to [dynamic profiler enabling method case](https://
 
 ### Method 3: Environment Variable Enabling
 
-Users can use the environment variable enabling method to enable Profiler most simply, this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) for details.
+Users can use the environment variable enabling method to enable Profiler most simply. Currently, only single-card scenarios are supported. this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) for details.
 
 Environment variable enabling method related configuration items, sample as follows:
 
@@ -308,6 +308,8 @@ The information of this performance data file is as follows:
 `kernel_details.csv` file is controlled by the `ProfilerActivity.NPU` switch, the file contains the information of all operators executed on NPU. If the user calls `schedule` in the front end to collect `step` data, the `Step Id` field will be added.
 
 The difference from the data collected by the Ascend PyTorch Profiler interface is that when the `with_stack` switch is turned on, MindSpore Profiler will concatenate the stack information to the `Name` field.
+
+For other fields, see [kernel_details.csv](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html).
 
 ### minddata_pipeline_raw_*.csv
 

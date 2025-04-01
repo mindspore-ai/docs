@@ -150,7 +150,7 @@ for _ in range(STEP_NUM):
 
 ### 方式三：环境变量使能
 
-用户如果想最简单地使能Profiler，可以使用环境变量使能方式。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。该方式暂不支持schedule、on_trace_ready、experimental_config参数，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+用户如果想最简单地使能Profiler，可以使用环境变量使能方式，目前只支持单卡场景。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。该方式暂不支持schedule、on_trace_ready、experimental_config参数，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
 
 环境变量使能方式的相关配置项样例如下：
 
@@ -308,6 +308,8 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 `kernel_details.csv` 文件由 `ProfilerActivity.NPU` 开关控制，文件包含在NPU上执行的所有算子的信息。若用户前端调用了 `schedule` 进行 `step` 打点，则会增加 `Step Id` 字段。
 
 与Ascend PyTorch Profiler接口采集数据结果的不同之处在于：当 `with_stack` 开关开启之后，MindSpore Profiler会将堆栈信息拼接到 `Name` 字段中。
+
+其他字段请参考[kernel_details.csv](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html)。
 
 ### minddata_pipeline_raw_*.csv
 
