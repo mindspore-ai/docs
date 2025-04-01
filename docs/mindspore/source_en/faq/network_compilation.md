@@ -56,7 +56,7 @@ class Net(nn.Cell):
         if a > b:    # The type of the two branches has inconsistent return values.
             return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
         else:
-            return self.cast(self.relu(x), ms.float16)    # shape: (2, 3, 4, 5)， dtype:Float16
+            return self.cast(self.relu(x), ms.float16)    # shape: (2, 3, 4, 5), dtype:Float16
 
 input_x = ms.Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
 input_a = ms.Tensor(2, ms.float32)
@@ -191,7 +191,7 @@ A: When compiling a network, MindSpore uses `inspect.getsourcelines(self.fn)` to
 
 A: "Corresponding forward node candidate:" is the code in the associated forward network, indicating that the backpropagation operator corresponds to the forward code. "Corresponding code candidate:" means that the operator is fused by these code, and the separator "-" is used to distinguish different code.
 
-For example：
+For example:
 
 - The operator FusionOp_BNTrainingUpdate_ReLUV2 reported an error and printed the following code:
 

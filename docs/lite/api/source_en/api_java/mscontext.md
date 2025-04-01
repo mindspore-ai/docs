@@ -212,7 +212,7 @@ If MSContext is not initialized, this function will return -1 and output null po
 void setThreadAffinity(ArrayList<Integer> coreList)
 ```
 
-Set the thread lists to CPU cores, if two different `setThreadAffinity` are set for a single MSContext at the same time，only `coreList` will take effect and `mode` will not.
+Set the thread lists to CPU cores, if two different `setThreadAffinity` are set for a single MSContext at the same time, only `coreList` will take effect and `mode` will not.
 If MSContext is not initialized, this function will do nothing and output null pointer information in the log.
 
 - Parameters

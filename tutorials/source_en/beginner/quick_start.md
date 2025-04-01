@@ -36,7 +36,7 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
-The directory structure of MNIST Dataset is as following：
+The directory structure of MNIST Dataset is as following:
 
 ```text
 MNIST_Data

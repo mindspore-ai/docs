@@ -27,9 +27,9 @@ For more information, see [mindspore.dataset.audio.MelSpectrogram](https://minds
 
 ## Differences
 
-PyTorch：Create MelSpectrogram for a raw audio signal. Customized window function and different parameter configs for window function are both supported.
+PyTorch: Create MelSpectrogram for a raw audio signal. Customized window function and different parameter configs for window function are both supported.
 
-MindSpore：Create MelSpectrogram for a raw audio signal.
+MindSpore: Create MelSpectrogram for a raw audio signal.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

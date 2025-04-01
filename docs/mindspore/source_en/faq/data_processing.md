@@ -213,7 +213,7 @@ A: Firstly, above error refers to failed sending data to the device through the 
 
 2. **When error raised in the graph compiling stage, as training has not started** (for example, the loss has not been printed in the log), please check the error log if there are errors reported by the network related operators or the environment configuration resulted Errors (such as hccl.json is incorrect, resulted abnormal initialization of multi-card communication)
 
-3. **When error raised during the training process**, usually this is caused by the mismatch between the amount of data (batch number) has been sent and the amount of data (step number) required for network training. You can print and check the number of batches of an epoch with `get_dataset_size` interface，several possible reason are as follows:
+3. **When error raised during the training process**, usually this is caused by the mismatch between the amount of data (batch number) has been sent and the amount of data (step number) required for network training. You can print and check the number of batches of an epoch with `get_dataset_size` interface, several possible reason are as follows:
 
     - With checking the print times of loss to figure out that when data amount(trained steps) is just an integer multiple of the batches number in an epoch, there may be a processing existence problem in the data processing part involving Epoch processing, such as the following case:
 
@@ -554,7 +554,7 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
 
 ## Q: How to handle data processing error `Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device MOC total size:65464696832 Device MOC free size:3596279808 may be other processes occupying this card, ...` ?
 
-A：This is usually caused by the use of customized data enhancement operations (which include Ascend-based data enhancement operations) and enabling multiprocessing mode, resulting in multiple processes using the same card resources to run out of device memory.
+A: This is usually caused by the use of customized data enhancement operations (which include Ascend-based data enhancement operations) and enabling multiprocessing mode, resulting in multiple processes using the same card resources to run out of device memory.
 
 The error message is as follows:
 

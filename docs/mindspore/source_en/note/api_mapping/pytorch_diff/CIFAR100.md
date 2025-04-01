@@ -41,7 +41,7 @@ MindSpore: Read the CIFAR-100 dataset(only support CIFAR-10 binary version). Dow
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
-|     | Parameter2 | train      | -    | Usage of this dataset，supported by `usage` in MindSpore |
+|     | Parameter2 | train      | -    | Usage of this dataset, supported by `usage` in MindSpore |
 |     | Parameter3 | transform    | -   | Supported by `mindspore.dataset.map` operation |
 |     | Parameter4 | target_transform    | -   | Supported by `mindspore.dataset.map` operation |
 |     | Parameter5 | download    | -   | Not supported by MindSpore |

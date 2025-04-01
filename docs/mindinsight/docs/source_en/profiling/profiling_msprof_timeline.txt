@@ -22,7 +22,7 @@ How to view the timeline:
    .. figure:: ./images/timeline_option.png
       :alt: timeline_option.png
 
-   *Figure：Timeline download page*
+   *Figure: Timeline download page*
 
    As shown in the figure above:
 
@@ -37,7 +37,7 @@ How to view the timeline:
    .. figure:: ./images/timeline_detail.png
       :alt: timeline_detail.png
 
-   *Figure：Timeline（2 ranks）Analysis*
+   *Figure: Timeline (2 ranks) Analysis*
 
    As shown in the figure above:
 
@@ -57,7 +57,7 @@ Recommended usage of perfetto:
   in the pop-up details bar below.
 
 
-How to use timeline to solve practical problems：
+How to use timeline to solve practical problems:
 
 1. Firstly, we recommend filtering and download summary data containing all ranks and graphs,
    identify performance bottlenecks based on overall network execution to avoid premature optimization.

@@ -101,7 +101,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/
 
 4. Define `dataset_loader`.
 
-   As shown below， the new dataset used for fine-tuning is the [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html). It is noted here we need to download the `binary version` dataset. After downloading and decompression, the following code can be used for data loading and processing. It is noted the `dataset_path` is the path to the dataset and should be given by the user.
+   As shown below, the new dataset used for fine-tuning is the [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html). It is noted here we need to download the `binary version` dataset. After downloading and decompression, the following code can be used for data loading and processing. It is noted the `dataset_path` is the path to the dataset and should be given by the user.
 
    ```python
    def create_cifar10dataset(dataset_path, batch_size, usage='train', shuffle=True):

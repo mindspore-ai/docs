@@ -220,9 +220,9 @@ device_list.push_back(cpu_device_info);
 
 ### Configuring the CoreML Backend
 
-If the backend to be executed is CoreML, you need to instantiate the [CoreMLDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_CoreMLDelegate.html) class，and use [SetDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html?highlight=SetDelegate) to pass the instance object into the context object. It is slightly different from the configuring steps of backends defined by hardware such as NPU and GPU.
+If the backend to be executed is CoreML, you need to instantiate the [CoreMLDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_CoreMLDelegate.html) class, and use [SetDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html?highlight=SetDelegate) to pass the instance object into the context object. It is slightly different from the configuring steps of backends defined by hardware such as NPU and GPU.
 
-The following sample code shows how to create the CPU and CoreML heterogeneous inference backend：
+The following sample code shows how to create the CPU and CoreML heterogeneous inference backend:
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -679,9 +679,9 @@ if (build_ret != mindspore::kSuccess) {
 
 ### Decrypted Model Prediction
 
-If the model is encrypted by the [converter_lite tool](https://mindspore.cn/mindarmour/docs/en/master/model_encrypt_protection.html#on-device-model-protection)，the decryption key and decryption library are necessary to pass into the program. The `dec_key` should be the same as the encryption key used in converter_lite tool，which both are hexadecimal character strings, for example, the hexadecimal string corresponding to b'0123456789ABCDEF is 30313233343536373839414243444546. On the Linux platform, you can use the xxd tool to convert the key represented by bytes to a hexadecimal string. The `crypto_lib_path` is the path for the installed OpenSSL library, for example, "/home/root/openssl".
+If the model is encrypted by the [converter_lite tool](https://mindspore.cn/mindarmour/docs/en/master/model_encrypt_protection.html#on-device-model-protection), the decryption key and decryption library are necessary to pass into the program. The `dec_key` should be the same as the encryption key used in converter_lite tool, which both are hexadecimal character strings, for example, the hexadecimal string corresponding to b'0123456789ABCDEF is 30313233343536373839414243444546. On the Linux platform, you can use the xxd tool to convert the key represented by bytes to a hexadecimal string. The `crypto_lib_path` is the path for the installed OpenSSL library, for example, "/home/root/openssl".
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc) demonstrates how to load graph and build model separately：
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc) demonstrates how to load graph and build model separately:
 
 ```cpp
 int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
@@ -796,7 +796,7 @@ class CustomAddInfer : public kernel::KernelInterface {
     (*outputs)[0].SetDataType((*inputs)[0].DataType());
     auto ret = CheckInputs(inputs);
     if (ret == kLiteInferInvalid) {
-      (*outputs)[0].SetShape({-1});        // set the shape as {-1}，which represents the inferring process will be called again when running
+      (*outputs)[0].SetShape({-1});        // set the shape as {-1}, which represents the inferring process will be called again when running
       return kLiteInferInvalid;
     } else if (ret != kSuccess) {
       return kLiteError;
@@ -826,7 +826,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - Prepare: The interface will be called during graph compilation. Users can make preparations or necessary verifications for the current node before running.
 
-    - Execute：The interface is running interface. Users can call **dynamic inference** [PreProcess](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc) in this interface.
+    - Execute: The interface is running interface. Users can call **dynamic inference** [PreProcess](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc) in this interface.
 
       ```cpp
       Status CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // Check function when running, to judge whether the shape inference is needed

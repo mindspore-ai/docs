@@ -104,7 +104,7 @@ bash run_mindie.sh --model-name xxx --model-path /path/to/model
 
 # Parameter descriptions
 --model-name: Mandatory, set MindIE backend name
---model-path：Mandatory, set model folder path, such as /path/to/mf_model/qwen1_5_72b
+--model-path: Mandatory, set model folder path, such as /path/to/mf_model/qwen1_5_72b
 --help      : Instructions for using the script
 ```
 

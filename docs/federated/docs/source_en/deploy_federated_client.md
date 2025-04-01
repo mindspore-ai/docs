@@ -107,23 +107,23 @@ Open a command window and enter: gcc --version
 The following output identifies a successful installation:
   gcc version version number
 
-Open a command window and enter：git --version
+Open a command window and enter: git --version
 The following output identifies a successful installation:
   git version version number
 
-Open a command window and enter：cmake --version
+Open a command window and enter: cmake --version
 The following output identifies a successful installation:
   cmake version version number
 
-Open a command window and enter：gradle --version
+Open a command window and enter: gradle --version
 The following output identifies a successful installation:
   Gradle version number
 
-Open a command window and enter：mvn --version
+Open a command window and enter: mvn --version
 The following output identifies a successful installation:
   Apache Maven version number
 
-Open a command window and enter：java --version
+Open a command window and enter: java --version
 The following output identifies a successful installation:
   openjdk version version number
 

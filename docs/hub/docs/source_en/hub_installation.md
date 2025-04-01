@@ -113,4 +113,4 @@ def _get_network_from_cache(name, path, *args, **kwargs):
     ......
 ```
 
-**Note**: Some files of the previous model may be replaced when the next model is loaded. However，necessary model files must exist during model training. Therefore, you must finish training the previous model before the next model loads.
+**Note**: Some files of the previous model may be replaced when the next model is loaded. However, necessary model files must exist during model training. Therefore, you must finish training the previous model before the next model loads.

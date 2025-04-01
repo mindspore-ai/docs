@@ -93,7 +93,7 @@ It should be noted that the encryption and decryption algorithm has been updated
 
 ### CPU Model Optimization
 
-If the converted ms model is running on android cpu backend, and hope the model compile with lower latency.  Try to turn on this optimization，Add the configuration item `[cpu_option_cfg_param]` in the `configFile` to get a lower compile latency model。At present, the optimization is only available when the model include Matmul operator and its data type is `float32` or dynamic quantization is enabled.
+If the converted ms model is running on android cpu backend, and hope the model compile with lower latency. Try to turn on this optimization. Add the configuration item `[cpu_option_cfg_param]` in the `configFile` to get a lower compile latency model. At present, the optimization is only available when the model include Matmul operator and its data type is `float32` or dynamic quantization is enabled.
 
 | Parameter | Attribute | Function Description | Value Range |
 |--------|--------|--------|--------|

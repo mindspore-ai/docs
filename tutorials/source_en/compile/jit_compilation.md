@@ -156,7 +156,7 @@ export GLOG_v=3  # Optionally, set a higher MindSpore log level to reduce some s
 python code/simple_funtion.py
 ```
 
-Results：
+Results:
 
 | enable jit | jit level | capture mode | backend | fullgraph | *time to prepare | *time to run a thousand times |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -186,7 +186,7 @@ Define the `BasicBlock` module, used in the `ResNet`, and convert it using `mind
 python code/simple_conv.py
 ```
 
-Results：
+Results:
 
 **forward**
 
@@ -212,7 +212,7 @@ Define the `LlamaAttention` module, used in the `Llama3`, and convert it using `
 python code/simple_attention.py
 ```
 
-Results：
+Results:
 
 **forward**
 

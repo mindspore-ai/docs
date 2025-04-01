@@ -317,7 +317,7 @@ common quantization parameters are the basic settings for post training quantiza
 | Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                 |
 | -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
 | `quant_type`               | Mandatory | The quantization type. When set to WEIGHT_QUANT, weight quantization is enabled; when set to FULL_QUANT, full quantization is enabled; when set to DYNAMIC_QUANT, dynamic quantization is enabled. | String         | -             | WEIGHT_QUANT,<br/> FULL_QUANT,<br/>DYNAMIC_QUANT |
-| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization and Dynamic quantization supports 8bit quantization. | Integer        | 8             | WEIGHT_QUANT:\[0，16]<br/>FULL_QUANT: 8<br/>DYNAMIC_QUANT:8 |
+| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization and Dynamic quantization supports 8bit quantization. | Integer        | 8             | WEIGHT_QUANT:\[0, 16]<br/>FULL_QUANT: 8<br/>DYNAMIC_QUANT:8 |
 | `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | [0, 65535]                                  |
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
 | `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. | String   | -      | -                                     |
@@ -442,13 +442,13 @@ For the image calibration dataset, post training quantization provides data prep
 | ------------------ | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------------------------ |
 | calibrate_path     | Mandatory | The directory where the calibration dataset is stored; if the model has multiple inputs, please fill in the directory where the corresponding data is located one by one, and separate the directory paths with `,` | String         | -             | input_name_1:/mnt/image/input_1_dir,input_name_2:input_2_dir |
 | calibrate_size     | Mandatory | Calibration data size                                        | Integer        | -             | [1, 65535]                                                   |
-| input_type         | Mandatory | Correction data file format type                             | String         | -             | IMAGE, BIN <br>IMAGE：image file data <br>BIN：binary `.bin` file data |
+| input_type         | Mandatory | Correction data file format type                             | String         | -             | IMAGE, BIN <br>IMAGE: image file data <br>BIN: binary `.bin` file data |
 | image_to_format    | Optional  | Image format conversion                                      | String         | -             | RGB, GRAY, BGR                                               |
 | normalize_mean     | Optional  | Normalized mean<br/>dst = (src - mean) / std                 | Vector         | -             | Channel 3: [mean_1, mean_2, mean_3] <br/>Channel 1: [mean_1] |
 | normalize_std      | Optional  | Normalized standard deviation<br/>dst = (src - mean) / std   | Vector         | -             | Channel 3: [std_1, std_2, std_3] <br/>Channel 1: [std_1]     |
 | resize_width       | Optional  | Resize width                                                 | Integer        | -             | [1, 65535]                                                   |
 | resize_height      | Optional  | Resize height                                                | Integer        | -             | [1, 65535]                                                   |
-| resize_method      | Optional  | Resize algorithm                                             | String         | -             | LINEAR, NEAREST, CUBIC<br/>LINEAR：Bilinear interpolation<br/>NEARST：Nearest neighbor interpolation<br/>CUBIC：Bicubic interpolation |
+| resize_method      | Optional  | Resize algorithm                                             | String         | -             | LINEAR, NEAREST, CUBIC<br/>LINEAR: Bilinear interpolation<br/>NEARST: Nearest neighbor interpolation<br/>CUBIC: Bicubic interpolation |
 | center_crop_width  | Optional  | Center crop width                                            | Integer        | -             | [1, 65535]                                                   |
 | center_crop_height | Optional  | Center crop height                                           | Integer        | -             | [1, 65535]                                                   |
 
@@ -490,7 +490,7 @@ The detailed description of the dynamic quantization parameter is as follows:
 | ---------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------- |
 | quant_strategy | Optional | the dynamic quantizaiton strategy | String  | ALWC   |  ALWC: Enable activation perlayer and weight perchannel quantization; <br/>ACWL: Enable activation perchannel and weight perlayer quantization. |
 
-The dynamic quantization parameter configuration is as follows:：
+The dynamic quantization parameter configuration is as follows:
 
 ```ini
 [dynamic_quant_param]

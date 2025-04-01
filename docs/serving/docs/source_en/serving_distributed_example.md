@@ -8,7 +8,7 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
 Distributed inference means that multiple cards are used in the inference phase, in order to solve the problem that too many parameters are in the very large scale neural network and the model cannot be fully loaded into a single card for inference, multi-cards can be used for distributed inference. This document describes the process of deploying the distributed inference service, which is similar to the process of deploying the [single-card inference service](https://www.mindspore.cn/serving/docs/en/master/serving_example.html), and these two can refer to each other.
 
-The architecture of the distributed inference service shows as follows：
+The architecture of the distributed inference service shows as follows:
 
 ![image](images/distributed_servable.png)
 

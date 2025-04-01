@@ -1,5 +1,5 @@
 """
-针对API相关文档PR进行网页构建，实现预览功能。
+Build web pages for API related document PR and implement preview functionality.
 """
 import argparse
 import copy

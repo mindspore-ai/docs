@@ -23,7 +23,7 @@ class mindspore.dataset.GeneratorDataset(
     num_shards=None, shard_id=None, python_multiprocessing=True, max_rowsize=None)
 ```
 
-For more information, see [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
+For more information, see [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
 
 ## Difference
 

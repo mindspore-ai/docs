@@ -190,7 +190,7 @@ The currently adapted models and supported evaluation datasets are shown in the 
 
 1. Download and modify the code: Due to known issues with open source frameworks running MVBench datasets, it is necessary to modify the code by importing patch. Get [eval.patch](https://github.com/user-attachments/files/17956417/eval.patch) and download and place it in the local directory. When importing the patch, use the absolute path of the patch.
 
-    Execute the following command：
+    Execute the following command:
 
     ```bash
     git clone https://github.com/open-compass/VLMEvalKit.git

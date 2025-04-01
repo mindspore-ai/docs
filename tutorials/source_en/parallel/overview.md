@@ -61,7 +61,7 @@ If there is a requirement for performance, throughput, or scale, or if you don't
     - **Host&Device Heterogeneous**: When the number of parameters exceeds the upper limit of Device memory, you can put some operators with large memory usage and small computation on the Host side, which can simultaneously utilize the characteristics of large memory on the Host side and fast computation on the Device side, and improve the utilization rate of the device. For details, please refer to the [Host&Device Heterogeneous](https://www.mindspore.cn/tutorials/en/master/parallel/host_device_training.html) tutorial.
 - **Communication Optimization**:
 
-    - **Communication Fusion**: Communication fusion can merge the communication operators of the same source and target nodes into a single communication process, avoiding the extra overhead caused by multiple communications. For details, please refer to the [Communication Fusion](https://www.mindspore.cn/tutorials/en/master/parallel/comm_fusion.html)。
+    - **Communication Fusion**: Communication fusion can merge the communication operators of the same source and target nodes into a single communication process, avoiding the extra overhead caused by multiple communications. For details, please refer to the [Communication Fusion](https://www.mindspore.cn/tutorials/en/master/parallel/comm_fusion.html).
 
 ## Distributed High-Level Configuration Examples
 

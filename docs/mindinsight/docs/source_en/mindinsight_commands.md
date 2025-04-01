@@ -37,7 +37,7 @@ Optional parameters are as follows:
 |`--reload-interval <RELOAD_INTERVAL>`|Optional|Specifies the interval (unit: second) for loading data.|Integer|3|0~300|The value 0 indicates that data is loaded only once.|
 |`--summary-base-dir <SUMMARY_BASE_DIR>`|Optional|Specifies the root directory for loading training log data.|String|./|-|MindSpore Insight traverses the direct subdirectories in this directory and searches for log files. If a direct subdirectory contains log files, it is identified as the log file directory. If a root directory contains log files, it is identified as the log file directory. In the ModelArts development environment, this parameter can be specified as an OBS path. Please refer to [ModelArts documentation](https://support.huaweicloud.com/intl/en-us/devtool-modelarts/develop-modelarts-0068.html) for more information.|
 
-`--workspace` log directory description：
+`--workspace` log directory description:
 
 | Module name   | Log directory description                                    | Log format                                |
 | ------------- | ------------------------------------------------------------ | ----------------------------------------- |

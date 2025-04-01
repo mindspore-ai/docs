@@ -63,7 +63,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    python get_sha256.py --file ../googlenet.ckpt
    ```
 
-4. Check the format of the markdown file locally using `hub/mshub_res/tools/md_validator.py` by running the following command. The output is `All Passed`，which indicates that the format and content of the `.md` file meets the requirements.
+4. Check the format of the markdown file locally using `hub/mshub_res/tools/md_validator.py` by running the following command. The output is `All Passed`, which indicates that the format and content of the `.md` file meets the requirements.
 
    ```bash
    python md_validator.py --check_path ../assets/mindspore/1.6/googlenet_cifar10.md

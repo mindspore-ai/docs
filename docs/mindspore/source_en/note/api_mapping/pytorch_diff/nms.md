@@ -22,7 +22,7 @@ For more information, see [mindspore.ops.NMSWithMask](https://mindspore.cn/docs/
 
 PyTorch: Performs non-maximum suppression (NMS), shapes of `boxes` and `scores` are (N, 4) and (N, 1), represents the boxes and scores respectively.
 
-MindSpore: Performs non-maximum suppression (NMS), shapes of `bboxes` is (N, 5), represents the boxes and scores in (x0、y0、x1、y1, score) format. Only supports up to 2864 input boxes at one time on Ascend.
+MindSpore: Performs non-maximum suppression (NMS), shapes of `bboxes` is (N, 5), represents the boxes and scores in (x0, y0, x1, y1, score) format. Only supports up to 2864 input boxes at one time on Ascend.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

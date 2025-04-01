@@ -7,9 +7,9 @@
 MindSpore Insight provides a number of indicators from the perspective of single device and cluster to help users find performance bottlenecks. This paper focuses on the explanation of methodology. The purpose is to guide users how to use these indicators to find the performance bottlenecks in the network step by step.
 For the meaning of each indicator, users can refer to the following tutorials:
 
-[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
+[Performance Profiling(Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
 
-[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
+[Performance Profiling(GPU)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
 
 [Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_of_cluster.html)
 
@@ -23,7 +23,7 @@ MindSpore Insight provides Step Trace as the performance analyse entry. Step Tra
 
 - Step Interval: If this phase takes a long time, it indicates that the data processing speed cannot keep up with the training speed.
 - Forward and Backward Propagation: This phase is the duration for executing the forward and backward operations on the network, which handles the main calculation work of a step.
-- Step Tail：This phase is the duration for performing parameter aggregation and update operations in parallel training.
+- Step Tail: This phase is the duration for performing parameter aggregation and update operations in parallel training.
 
 As shown in Figure 1:
 
@@ -41,7 +41,7 @@ Ideally, the training data should be loaded and enhanced on the Host side and se
 
 #### Feed Mode
 
-Step 1：Please jump to the `step interval` tab on the `data preparation details` page to see how the size curve changes in the host queue. If the size in this queue is 0 in most cases, indicating that the data processing is a performance bottleneck, please refer to step 2 and continue to locate which operation should be optimized, otherwise the process of obtaining data from the iterator of the dataset module and sending it to device is a performance bottleneck, and users can continue to confirm in the following two steps:
+Step 1: Please jump to the `step interval` tab on the `data preparation details` page to see how the size curve changes in the host queue. If the size in this queue is 0 in most cases, indicating that the data processing is a performance bottleneck, please refer to step 2 and continue to locate which operation should be optimized, otherwise the process of obtaining data from the iterator of the dataset module and sending it to device is a performance bottleneck, and users can continue to confirm in the following two steps:
 
 - Make sure if there is time-consuming custom logic in the script after getting data from the iterator of the dataset module, such as additional data cleaning, conversion, etc(MindSpore Insight can not obtain the time spent by the customized logic and the user is required to obtain the duration manually). If so, the user is required to optimize for this custom logic. Code is shown below:
 
@@ -58,18 +58,18 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 
 - If there is no time-consuming customized logic in the script, it indicates that sending data from host to device is time-consuming, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues).
 
-Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html) and try to optimize the data processing performance.
+Step 2: Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html) and try to optimize the data processing performance.
 
 #### Data Sinking Mode
 
-Step 1：Please jump to the `step interval` tab on the `data preparation details` page to see how the size curve changes in the data queue.
+Step 1: Please jump to the `step interval` tab on the `data preparation details` page to see how the size curve changes in the data queue.
 
 - If size is not always 0 in the data queue, it indicates that the data preparation process is not the bottleneck. Based on daily tuning experience, the high probability of this is that GetNext operators are time-consuming, and users can go to the `Operator Time Consumption Rank` page to view GetNext operators in the AICPU tab. If it is confirmed that the GetNext operators take a long time, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) .
 - If there is 0 in the data queue, go to Step 2.
 
 Step 2: See how the size curve changes in the host queue. If none of the size in the queue is 0, it indicates that the process by which training data is sent from host to device is a performance bottleneck, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues). Otherwise it indicates that the data processing process is the performance bottleneck, please refer to Step 3 to continue to locate which operation of data processing has performance problems.
 
-Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html) and try to optimize the data processing performance.
+Step 3: Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/optimize.html) and try to optimize the data processing performance.
 
 ### Long Forward And Backward Propagation
 
@@ -112,12 +112,12 @@ For clusters with fewer devices, users can directly observe the histogram to con
 
 For data parallel, the cluster step trace page provides step interval, forward and backward propagation, and step tail of all devices in the cluster.
 
-Step 1：Observe the step interval in the cluster step trace page
+Step 1: Observe the step interval in the cluster step trace page
 
 - Users should make sure if the step interval of one device is much longer than others first. If yes, it indicates that this device is a slow node and has a performance problem in the data preparation phase and users can jump to the corresponding single device page. Refer to the [Long Step Interval](#long-step-interval) section of `Single Device Performance Tuning` to continue to locate the reasons why this phase takes a long time.
 - If the step interval time of all devices are very long, it means that there is room for optimization in this phase. Users can jump to the single device page of any device and referring to the [Long Step Interval](#long-step-interval) section of `Single Device Performance Tuning` to continue to locate the reasons why this phase takes a long time.
 
-Step 2：Observe the forward and backward propagation in the cluster step trace page
+Step 2: Observe the forward and backward propagation in the cluster step trace page
 
 - Users should make sure if the forward and backward propagation of one device is much longer than others first. If yes, it indicates that this device is a slow node and has a performance problem in the data preparation phase and users can jump to the corresponding single device page. Refer to the [Long Forward And Backward Propagation](#long-forward-and-backward-propagation) section of `Single Device Performance Tuning` to continue to locate the reasons why this phase takes a long time.
 - If the forward and backward propagation time of all devices are very long, it means that there is room for optimization in this phase. Users can jump to the single device page of any device and referring to the [Long Forward And Backward Propagation](#long-forward-and-backward-propagation) section of `Single Device Performance Tuning` to continue to locate the reasons why this phase takes a long time.
@@ -157,7 +157,7 @@ Users need to have a certain understanding of the principle of model parallelism
 - If users find that communication operator will not be inserted if users divide another operator, please change the parallel strategy and divide another operator to decrease communication operator.
 - If users find that one communication operator must be inserted but takes a very long time, please go to step 4 to continue analyse.
 
-Step 4：Users can go to the `cluster communication` page to check each time-consuming stage of the communication operator, as shown in the figure below.
+Step 4: Users can go to the `cluster communication` page to check each time-consuming stage of the communication operator, as shown in the figure below.
 
 ![operator_performance.png](./images/operator_performance.png)
 
@@ -184,8 +184,8 @@ Step 2: Observe the stage time in the cluster step trace page
 
 Ideally, the time consumed by each stage should be basically the same, otherwise a fast stage waiting for slow stage to send data can drag down the performance of the cluster. There are several main reasons for the inconsistency of each stage, which can be confirmed by the user one by one.
 
-- Unbalanced FLOPs：Users can jump to the `FLOPs Heatmap Analyse` tab on `Resource Utilization` page to check the distribution of FLOPs. If there is a big difference in the FLOPs of each stage, users need to readjust the operators divided into each stage to try to ensure that the FLOPs of each stage is balanced.
-- Slow node：Users can screen the stage that takes a long time and sort the computation time to see if there is any obvious abnormality in this indicator of a device in the stage. If yes, the user can jump to the single card page, and refer to the subsection [Long Forward And Backward Propagation](#long-forward-and-backward-propagation) of "Single Device Performance Tuning" to continue positioning.
+- Unbalanced FLOPs: Users can jump to the `FLOPs Heatmap Analyse` tab on `Resource Utilization` page to check the distribution of FLOPs. If there is a big difference in the FLOPs of each stage, users need to readjust the operators divided into each stage to try to ensure that the FLOPs of each stage is balanced.
+- Slow node: Users can screen the stage that takes a long time and sort the computation time to see if there is any obvious abnormality in this indicator of a device in the stage. If yes, the user can jump to the single card page, and refer to the subsection [Long Forward And Backward Propagation](#long-forward-and-backward-propagation) of "Single Device Performance Tuning" to continue positioning.
 - Due to operator division in a stage, more communication operators are inserted, which lengthens the whole time of the stage. Users can screen the stage that takes a long time and observe the proportion of pure communication time (not including the receive operator) in the stage to the total iteration time. If the proportion is high, please refer to step 3 of [Model Parallel](#model-parallel) to analyze whether the operator division can be optimized.
 
 Step 3: Observe the communication time (including the receive operator only) in the cluster step trace page

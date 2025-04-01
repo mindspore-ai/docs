@@ -10,7 +10,7 @@ Using demo to open the target image:
 
 ![image_before_transfer](images/before_transfer.png)
 
-Selecting the first standard image from left to perform the style transfer, as shown in the figure：
+Selecting the first standard image from left to perform the style transfer, as shown in the figure:
 
 ![image_after_transfer](images/after_transfer.png)
 

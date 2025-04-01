@@ -38,7 +38,7 @@ The implementation of this scheme is divided into the binary case and the onehot
 
 ### Onehot Labels Protection
 
-1. For n classes of labels, calculate $p_1 = \frac{e^{eps}}{n - 1 + e^{eps}}$，$p_2 = \frac{1}{n - 1 + e^{eps}}$.
+1. For n classes of labels, calculate $p_1 = \frac{e^{eps}}{n - 1 + e^{eps}}$, $p_2 = \frac{1}{n - 1 + e^{eps}}$.
 2. Randomly scramble the labels according to the following probabilities: the probability of keeping the current label unchanged is $p_1$ and the probability of changing to any of the other n - 1 classes is $p_2$.
 
 ## Quick Experience

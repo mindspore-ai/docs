@@ -35,7 +35,7 @@ There are two ways to collect neural network performance data. You can enable Pr
 
     In GPU scenarios, users can customize the callback mode to collect performance data. Data preparation stage and data sinking mode do not support this mode.
 
-    The following is the example：
+    The following is the example:
 
     ```python
     import mindspore as ms
@@ -209,9 +209,9 @@ Resource utilization includes cpu usage analysis.
 
 ![resource_visibility_gpu.png](./images/resource_visibility_gpu.png)
 
-*Figure 4：Overview of resource utilization*
+*Figure 4: Overview of resource utilization*
 
-Overview of resource utilization：Including CPU utilization analysis. You can view the details by clicking the View Details button in the upper right corner.
+Overview of resource utilization: Including CPU utilization analysis. You can view the details by clicking the View Details button in the upper right corner.
 
 ### CPU Utilization Analysis
 

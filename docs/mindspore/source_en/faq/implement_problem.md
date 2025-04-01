@@ -427,7 +427,7 @@ output = net(x, y)
 print(output, type(output))
 ```
 
-output：
+output:
 
 ```text
 4 <class 'int'>
@@ -447,9 +447,9 @@ Therefore, in the scenario where the subsequent operator clearly needs to use in
 
 A: The reason for this error is that the user did not configure the operator parameters correctly, so that the memory space applied by the operator exceeded the system memory limit, and the system failed to allocate memory. The following uses mindspore.ops.UniformCandidateSampler as an example for description.
 
-- UniformCandidateSampler samples a set of classes by using uniform distribution. According to the parameter `num_sampled` set by the user，the shape of output tensor would be `(num_sampled,)`.
+- UniformCandidateSampler samples a set of classes by using uniform distribution. According to the parameter `num_sampled` set by the user, the shape of output tensor would be `(num_sampled,)`.
 
-- When the user sets `num_sampled=int64.max`，the memory space requested by the output tensor exceeds the system memory limit, causing `bad_alloc`.
+- When the user sets `num_sampled=int64.max`, the memory space requested by the output tensor exceeds the system memory limit, causing `bad_alloc`.
 
 Therefore, the user needs to set the operator parameters appropriately to avoid such errors.
 
@@ -491,7 +491,7 @@ In addition, CANN may throw some Inner Errors, for example, the error code is "E
 
 ## Q: How to control the Tensor value printed by the `print` method?
 
-A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` to control the output value. In the Graph static graph mode, because the `print` method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html)。
+A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` to control the output value. In the Graph static graph mode, because the `print` method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html).
 <br/>
 
 ## Q: How does `Tensor.asnumpy()` share the underlying storage with Tensor?

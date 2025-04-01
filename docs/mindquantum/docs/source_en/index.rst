@@ -190,7 +190,7 @@ MindSpore Quantum Documentation
                               <span class="doc-head-content">API</span>
                            </div>
                            <div class="doc-article-desc">
-                              MindSpore Quantum API description list。
+                              MindSpore Quantum API description list.
                            </div>
                         </div>
                      </a>

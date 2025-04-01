@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/dataset/python_objects.md)
 
-Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`、user-defined `map` augmentation operation、`batch(per_batch_map=...)`).
+Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`, user-defined `map` augmentation operation, `batch(per_batch_map=...)`).
 
 To achieve this feature, Dataset pipeline uses Python `dict` to manager different types. The main difference compared to other data types is that Python `dict` will not be converted to a C++ type, and instead a reference will be maintained in the pipeline.
 

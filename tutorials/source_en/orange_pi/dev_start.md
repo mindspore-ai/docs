@@ -10,8 +10,8 @@ After obtaining the OrangePi AIpro development board, developers first need to c
 
 - Hardware: OrangePi AIpro 16G 8-12T development board
 - Image: OrangePi AIpro official Ubuntu image
-- CANN：8.0.RC3.alpha002
-- MindSpore：2.4.10
+- CANN: 8.0.RC3.alpha002
+- MindSpore: 2.4.10
 
 ### Image Burning
 
@@ -385,5 +385,5 @@ The required environment for the operation of this case:
 
 - Hardware: OrangePi AIpro 16G 8-12T development board
 - Image: OrangePi AIpro official Ubuntu image
-- CANN：8.0.RC3.alpha002
-- MindSpore：2.4.10
+- CANN: 8.0.RC3.alpha002
+- MindSpore: 2.4.10

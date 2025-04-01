@@ -18,7 +18,7 @@ The following figure shows the overall MindSpore architecture:
 
 - **Multi-domain Expansion**: Provide large model suite, domain suite, AI4S suite, provide users with usable-upon-unpacking models and functional interfaces, which are easy to use for R&D and reference realization based on the pre-built models of the suite.
 - **Developer-Friendly**: MindExpression layer provides users with interfaces for AI model development, training, and inference, and supports users to develop and debug neural networks with native Python syntax, and its unique ability to unify dynamic and static graphs enables developers to take into account the development efficiency and execution performance, while the layer provides unified C++/Python interfaces for the whole scenario in the production and deployment phases.
-- **Runtime-Efficient**：
+- **Runtime-Efficient**:
     - Data processing (MindSpore Data): provides high-performance data loading, data preprocessing functions.
     - Computational graph construction (MindChute): provides a variety of composition mechanisms, supports the construction of computational graph translation based on Python AST, also supports the ability to build computational graphs based on Python bytecode.
     - Compiler Optimization (MindCompiler): the key module of the static graph model, mediated by the full-scenario unified intermediate expression (MindIR), compiles the front-end functions as a whole into the underlying language with higher execution efficiency, and at the same time performs global performance optimizations, including hardware-independent optimizations such as auto-differentiation and algebraic reduction, and hardware-relevant optimizations such as graph-operation fusion and operation generation.
