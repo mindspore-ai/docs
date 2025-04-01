@@ -194,7 +194,6 @@
 |[mindspore.ops.remainder](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.remainder.html)|✔️|✔️|✔️|
 |[mindspore.ops.repeat_interleave](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.repeat_interleave.html)|✔️|✔️|✔️|
 |[mindspore.ops.reshape](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.reshape.html)|✔️|✔️|✔️|
-|[mindspore.ops.reverse](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.reverse.html)|✔️|✔️|✔️|
 |[mindspore.ops.reverse_sequence](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.reverse_sequence.html)|✔️|✔️|✔️|
 |[mindspore.ops.roll](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.roll.html)|❌|✔️|❌|
 |[mindspore.ops.round](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.round.html)|✔️|✔️|✔️|

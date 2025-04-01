@@ -247,7 +247,7 @@ The `new_dataset` is the tuned dataset object containing operations from Cifar t
 
 Before starting the next training process, the user can update the dataset loading code according to recommended improvements from Dataset AutoTune for a more efficient dataset pipeline. This allows the dataset pipeline to be run at an improved speed from the beginning of the training process.
 
-By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size. Please refer to [mindspore.dataset.config](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#config).
+By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size. Please refer to [mindspore.dataset.config](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html#config).
 
 - [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
 - [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)

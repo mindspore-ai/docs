@@ -9,23 +9,23 @@ The following table lists models supported by MindFormers.
 | [CodeLlama](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/codellama.md)             | 34B                           |    Dense LLM     | In-development version |
 | [CogVLM2-Image](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/cogvlm2_image.md)     | 19B                           |        MM        | In-development version |
 | [CogVLM2-Video](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/cogvlm2_video.md)     | 13B                           |        MM        | In-development version |
-| [DeepSeek-V3](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3)                      | 671B                          |    Sparse LLM    | In-development version |
-| [DeepSeek-V2](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2)                      | 236B                          |    Sparse LLM    | In-development version |
-| [DeepSeek-Coder-V1.5](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5)            | 7B                            |    Dense LLM     | In-development version |
-| [DeepSeek-Coder](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek)                    | 33B                           |    Dense LLM     | In-development version |
+| [DeepSeek-V3](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek3)                      | 671B                          |    Sparse LLM    | In-development version |
+| [DeepSeek-V2](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek2)                      | 236B                          |    Sparse LLM    | In-development version |
+| [DeepSeek-Coder-V1.5](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek1_5)            | 7B                            |    Dense LLM     | In-development version |
+| [DeepSeek-Coder](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek)                    | 33B                           |    Dense LLM     | In-development version |
 | [GLM4](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/glm4.md)                       | 9B                            |    Dense LLM     | In-development version |
-| [GLM3-32K](https://gitee.com/mindspore/mindformers/blob/dev/research/glm32k)                            | 6B                            |    Dense LLM     | In-development version |
+| [GLM3-32K](https://gitee.com/mindspore/mindformers/tree/dev/research/glm32k)                            | 6B                            |    Dense LLM     | In-development version |
 | [GLM3](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/glm3.md)                       | 6B                            |    Dense LLM     | In-development version |
-| [InternLM2](https://gitee.com/mindspore/mindformers/blob/dev/research/internlm2)                        | 7B/20B                        |    Dense LLM     | In-development version |
-| [Llama3.1](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1)                          | 8B/70B                        |    Dense LLM     | In-development version |
-| [Llama3](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3)                              | 8B/70B                        |    Dense LLM     | In-development version |
+| [InternLM2](https://gitee.com/mindspore/mindformers/tree/dev/research/internlm2)                        | 7B/20B                        |    Dense LLM     | In-development version |
+| [Llama3.1](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3_1)                          | 8B/70B                        |    Dense LLM     | In-development version |
+| [Llama3](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3)                              | 8B/70B                        |    Dense LLM     | In-development version |
 | [Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md)                   | 7B/13B/70B                    |    Dense LLM     | In-development version |
-| [Mixtral](https://gitee.com/mindspore/mindformers/blob/dev/research/mixtral)                            | 8x7B                          |    Sparse LLM    | In-development version |
-| [Qwen2](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2)                                | 0.5B/1.5B/7B/57B/57B-A14B/72B | Dense/Sparse LLM | In-development version |
-| [Qwen1.5](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen1_5)                            | 7B/14B/72B                    |    Dense LLM     | In-development version |
-| [Qwen-VL](https://gitee.com/mindspore/mindformers/blob/dev/research/qwenvl)                             | 9.6B                          |        MM        | In-development version |
+| [Mixtral](https://gitee.com/mindspore/mindformers/tree/dev/research/mixtral)                            | 8x7B                          |    Sparse LLM    | In-development version |
+| [Qwen2](https://gitee.com/mindspore/mindformers/tree/dev/research/qwen2)                                | 0.5B/1.5B/7B/57B/57B-A14B/72B | Dense/Sparse LLM | In-development version |
+| [Qwen1.5](https://gitee.com/mindspore/mindformers/tree/dev/research/qwen1_5)                            | 7B/14B/72B                    |    Dense LLM     | In-development version |
+| [Qwen-VL](https://gitee.com/mindspore/mindformers/tree/dev/research/qwenvl)                             | 9.6B                          |        MM        | In-development version |
 | [Whisper](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/whisper.md)                 | 1.5B                          |        MM        | In-development version |
-| [Yi](https://gitee.com/mindspore/mindformers/blob/dev/research/yi)                                      | 6B/34B                        |    Dense LLM     | In-development version |
+| [Yi](https://gitee.com/mindspore/mindformers/tree/dev/research/yi)                                      | 6B/34B                        |    Dense LLM     | In-development version |
 | [Baichuan2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/baichuan2/baichuan2.md)        | 7B/13B                        |    Dense LLM     |         1.3.2          |
 | [GLM2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/glm2.md)                    | 6B                            |    Dense LLM     |         1.3.2          |
 | [GPT2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/gpt2.md)                    | 124M/13B                      |    Dense LLM     |         1.3.2          |

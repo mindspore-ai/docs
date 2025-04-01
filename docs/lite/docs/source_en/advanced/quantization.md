@@ -523,7 +523,7 @@ The data distribution statistics report `round_*.csv` counts the distribution of
 | ---------------- | -------------------------------------------------------- |
 | NodeName         | Node name                                  |
 | NodeType         | Node type                                                 |
-| TensorName       | Tensor名                                                 |
+| TensorName       | Tensor name                                                 |
 | InOutFlag        | Tensor output, output type                                     |
 | DataTypeFlag     | Data type, Origin for raw data, Dequant for inverse quantized data      |
 | TensorTypeFlag   | Data classes such as inputs and outputs are represented as Activation, and constants are represented as Weight. |

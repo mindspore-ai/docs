@@ -329,17 +329,17 @@ OpenEuler系统按照如下步骤安装：
       cd decord
       ```
 
-   2. 创建并进入`build`目录，配置Decord的编译选项，指定FFmpeg的安装路径(绝对路径)，编译Decord库；进入`decord`目录中的python文件夹，配置环境变量，指定`PYTHONPATH`；安装Decord的python包。
+2. 创建并进入`build`目录，配置Decord的编译选项，指定FFmpeg的安装路径(绝对路径)，编译Decord库；进入`decord`目录中的python文件夹，配置环境变量，指定`PYTHONPATH`；安装Decord的python包。
 
-         ```bash
-         mkdir build && cd build
-         cmake -DFFMPEG_DIR=/path/ffmpeg-4.1.11 ..
-         make
-         cd ../python
-         pwd=$PWD
-         echo "PYTHONPATH=$PYTHONPATH:$pwd" >> ~/.bashrc
-         source ~/.bashrc
-         python3 setup.py install
+      ```bash
+      mkdir build && cd build
+      cmake -DFFMPEG_DIR=/path/ffmpeg-4.1.11 ..
+      make
+      cd ../python
+      pwd=$PWD
+      echo "PYTHONPATH=$PYTHONPATH:$pwd" >> ~/.bashrc
+      source ~/.bashrc
+      python3 setup.py install
          ```
 
 3. 执行python命令，测试Decord是否安装成功，没有报错即为安装成功。

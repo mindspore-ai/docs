@@ -225,7 +225,7 @@ python run_mindformer.py \
 
 ## 基于高阶接口推理
 
-> 基于安全性考虑，当前暂不推荐使用高阶接口进行推理，本章节将于下个版本下线。如有任何问题或建议，请通过[社区Issue](https://gitee.com/mindspore/mindformers/issue/new)提交反馈。感谢您的理解与支持！
+> 基于安全性考虑，当前暂不推荐使用高阶接口进行推理，本章节将于下个版本下线。如有任何问题或建议，请通过[社区Issue](https://gitee.com/mindspore/mindformers/issues/new)提交反馈。感谢您的理解与支持！
 
 MindSpore Transformers除了提供 `run_mindformer` 统一脚本进行推理外，也支持用户自定义调用高阶接口`pipeline`或`chat`接口实现。
 

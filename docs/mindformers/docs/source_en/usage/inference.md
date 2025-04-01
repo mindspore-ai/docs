@@ -219,13 +219,13 @@ python run_mindformer.py \
  --config configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml \
  --run_mode predict \
  --predict_data "/path/image.jpg" "Please describe this image." \  # input data,first input is image path,second input is text path.
- --modal_type image text \                                         # modal type for input data,'image' type for image path,'text' type for text path.
+ --modal_type image text \                                         # modal type for input data, 'image' type for image path, 'text' type for text path.
  --load_checkpoint /{path}/cogvlm2-image-llama3-chat.ckpt
 ```
 
 ## Inference Based on High-level Interface
 
-> For security reasons, it is not recommended to use high-level interfaces for inference. This chapter will be deprecated in the next version. If you have any questions or suggestions, please submit feedback through [Community Issue](https://gitee.com/mindspore/mindformers/issue/new). Thank you for your understanding and support!
+> For security reasons, it is not recommended to use high-level interfaces for inference. This chapter will be deprecated in the next version. If you have any questions or suggestions, please submit feedback through [Community Issue](https://gitee.com/mindspore/mindformers/issues/new). Thank you for your understanding and support!
 
 MindSpore Transformers not only provides a unified script for `run_mindformer` inference, but also supports user-defined calls to high-level interfaces such as `pipeline` or `chat` for implementation.
 

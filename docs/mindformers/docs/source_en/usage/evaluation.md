@@ -6,8 +6,7 @@
 
 ### Introduction
 
-[LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) is an open-source language model evaluation framework that provides evaluation of more than 60 standard academic datasets, supports multiple evaluation modes such as HuggingFace model evaluation, PEFT adapter evaluation, and vLLM inference evaluation, and supports customized prompts and evaluation metrics, including the evaluation tasks of the loglikelihood, generate_until, and loglikelihood_rolling types.
-After MindSpore Transformers is adapted based on the Harness evaluation framework, the MindSpore Transformers model can be loaded for evaluation.
+[LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) is an open-source language model evaluation framework that provides evaluation of more than 60 standard academic datasets, supports multiple evaluation modes such as HuggingFace model evaluation, PEFT adapter evaluation, and vLLM inference evaluation, and supports customized prompts and evaluation metrics, including the evaluation tasks of the loglikelihood, generate_until, and loglikelihood_rolling types. After MindSpore Transformers is adapted based on the Harness evaluation framework, the MindSpore Transformers model can be loaded for evaluation.
 
 The currently verified models and supported evaluation tasks are shown in the table below (the remaining models and evaluation tasks are actively being verified and adapted, please pay attention to version updates):
 
@@ -42,8 +41,6 @@ pip install -e .
 ### Usage
 
 #### Preparations Before Evaluation
-
-- Preparations Before Evaluation
 
   1. Create a new directory with e.g. the name `model_dir` for storing the model yaml files.
   2. Place the model inference yaml configuration file (predict_xxx_.yaml) in the directory created in the previous step. The directory location of the reasoning yaml configuration file for different models refers to [model library](../start/models.md).
@@ -87,6 +84,8 @@ The following table lists the parameters of `model_args`:
 | `tp`           | int  | The number of parallel tensors.                                          | No       |
 | `dp`           | int  | The number of parallel data.                                             | No       |
 
+Harness evaluation supports single-device single-card, single-device multiple-card, and multiple-device multiple-card scenarios, with sample evaluations for each scenario listed below:
+
 1. Single Card Evaluation Example
 
    ```shell
@@ -111,7 +110,7 @@ The following table lists the parameters of `model_args`:
     - `BATCH_SIZE` is the sample size for batch processing of models;
     - `WORKER_NUM` is the number of compute devices.
 
-3. Multi Computer and Multi Card Example
+3. Multi-Device and Multi-Card Example
 
    Node 0 (Master) Command:
 
@@ -186,7 +185,7 @@ The currently adapted models and supported evaluation datasets are shown in the 
 
 ### Installation
 
-#### Download the code and compile, install dependency packages
+#### Downloading the Cde and Compiling, Installing Dependency Packages
 
 1. Download and modify the code: Due to known issues with open source frameworks running MVBench datasets, it is necessary to modify the code by importing patch. Get [eval.patch](https://github.com/user-attachments/files/17956417/eval.patch) and download and place it in the local directory. When importing the patch, use the absolute path of the patch.
 
@@ -243,7 +242,7 @@ The currently adapted models and supported evaluation datasets are shown in the 
     pip install -r requirements.txt
     ```
 
-#### Install FFmpeg
+#### Installing FFmpeg
 
 For Ubuntu systems follow the steps below to install:
 
@@ -285,7 +284,7 @@ Install OpenEuler system according to the following steps:
       source ~/.bashrc
       ```
 
-#### Install Decord
+#### Installing Decord
 
 Install Ubuntu system according to the following steps:
 
@@ -379,7 +378,7 @@ For OpenEuler systems follow the steps below to install:
 
 5. At the beginning of MVBench dataset evaluation, if you are prompted to enter the HuggingFace key, please follow the prompts to ensure the normal execution of subsequent evaluation.
 
-#### Pull up the evaluation task
+#### Pulling Up the Evaluation Task
 
 Execute the script in the root directory of the MindSpore Transformers local code repository: [run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_vlmevalkit.sh)
 
@@ -459,17 +458,19 @@ The results of the evaluation examples are as follows, where `Bleu` and `ROUGE_L
     ```text
     egs/Video-Bench/
       └── Eval_QA
-            ├── Youcook2_QA_new.json等json文件
+            ├── Youcook2_QA_new.json and other json files
             ...
     ```
-
-> Notes: The text data in Video-Bench is stored in the path format of 'egs/VideoBench/Eval-QA'(The directory should have at least two layers, and the last layer should be `EvalQA`); The video data in Video-Bench is stored in the path format of "egs/VideoBench/Eval_video"(The directory should have at least two layers, and the last layer should be `Eval_video`).
 
 3. Download the correct answers to all questions
 
     Download [Answers of Video-Bench](https://huggingface.co/spaces/LanguageBind/Video-Bench/resolve/main/file/ANSWER.json).
 
+> Notes: The text data in Video-Bench is stored in the path format of 'egs/VideoBench/Eval-QA'(The directory should have at least two layers, and the last layer should be `EvalQA`); The video data in Video-Bench is stored in the path format of "egs/VideoBench/Eval_video"(The directory should have at least two layers, and the last layer should be `Eval_video`).
+
 ### Evaluation
+
+The execution script path can refer to the link: [eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_videobench.py).
 
 #### Executing Inference Script to Obtain Inference Results
 
@@ -481,8 +482,6 @@ python toolkit/benchmarks/eval_with_videobench.py \
 --Eval_Video_root Eval_Video_root \
  --chat_conversation_output_folder output
 ```
-
-The execution script path can refer to the link: [eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_videobench.py)
 
 > The parameter `Eval_QA_root` path is filled in the previous directory of Eval-QA; The parameter `Eval_Video_root` path is filled in the previous directory of Eval_video.
 
