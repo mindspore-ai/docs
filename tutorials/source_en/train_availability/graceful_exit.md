@@ -150,7 +150,7 @@ In addition to the above of environment variable, it also needs to configure the
 The `GracefulExit` in the configuration file is dynamically configured during training. Generally, the keyword is modified when suboptimal devices exist in the training cluster and the training process needs to exit.
 
 ```python
-# key in json file：‘{“GracefulExit”: 1}’
+# key in json file: ‘{“GracefulExit”: 1}’
 config_json = r"./graceful_exit.json"
 
 # callback function

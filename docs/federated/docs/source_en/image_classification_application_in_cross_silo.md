@@ -125,7 +125,7 @@ The following directory structure of the folder `cross_silo_femnist/femnist/35_7
 │   │   ├── 1  # Store image data corresponding to category 1
 │   │   │        ......
 │   │   └── 61  # Store image data corresponding to category 61
-│   └── test  # Test dataset，with the same directory structure as train
+│   └── test  # Test dataset, with the same directory structure as train
 │              ......
 │
 └── dataset_6  # The dataset of Client 6
@@ -134,7 +134,7 @@ The following directory structure of the folder `cross_silo_femnist/femnist/35_7
     │   ├── 1  # Store image data corresponding to category 1
     │   │        ......
     │   └── 61  # Store image data corresponding to category 61
-    └── test  # Test dataset，with the same directory structure as train
+    └── test  # Test dataset, with the same directory structure as train
 ```
 
 ## Defining the Network

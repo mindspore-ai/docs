@@ -53,7 +53,7 @@ For details about the network definition, see [source code](https://gitee.com/mi
 
 ### Generating a Device-Side Model File
 
-User can generate a Device-Side Model File as follow, or download the generated [ALBERT Device-Side Model File](https://gitee.com/link?target=https%3A%2F%2Fmindspore-website.obs.cn-north-4.myhuaweicloud.com%2Fnotebook%2Fmodels%2Falbert_supervise.mindir.ms)。
+User can generate a Device-Side Model File as follow, or download the generated [ALBERT Device-Side Model File](https://gitee.com/link?target=https%3A%2F%2Fmindspore-website.obs.cn-north-4.myhuaweicloud.com%2Fnotebook%2Fmodels%2Falbert_supervise.mindir.ms).
 
 #### Exporting a Model as a MindIR File
 

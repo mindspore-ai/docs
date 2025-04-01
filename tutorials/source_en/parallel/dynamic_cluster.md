@@ -116,7 +116,7 @@ The relevant environment variables:
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_NODE_TIMEOUT</td>
-        <td align="left">Node heartbeat timeout in seconds。</td>
+        <td align="left">Node heartbeat timeout in seconds.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">The default is 30 seconds.</td>
         <td align="left">This value represents the heartbeat timeout time between the scheduler and the worker. If there are no heartbeat messages within this time window, the cluster will exit abnormally.</td>

@@ -281,7 +281,7 @@ curl -k \
      "role":"SERVER"},
     {"node_id","worker_fl_{timestamp}::{random}",
      "tcp_address":"",
-     "role":"WORKER"}，
+     "role":"WORKER"},
     {"node_id","worker_fl_{timestamp}::{random}",
      "tcp_address":"",
      "role":"WORKER"}

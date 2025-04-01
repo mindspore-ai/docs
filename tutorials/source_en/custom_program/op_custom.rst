@@ -69,9 +69,9 @@ Different custom operator defining methods use different development languages t
 
 To help you better use custom operators, we have used [the pyfunc-type custom operator](#an-example-of-custom-operators) as an example of a custom operator. In addition, we provide tutorials for other custom operators including:
 
-- AOT-type custom op on `Ascend backend <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_ascendc.html>`_ and `GPU/CPU backend <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_aot.html>`_ ；
-- `Julia-type custom op <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_julia.html>`_ ；
-- `Advanced usage of custom operators <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_adv.html>`_ ：registering the operator information and defining the backward functions for operators.
+- AOT-type custom op on `Ascend backend <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_ascendc.html>`_ and `GPU/CPU backend <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_aot.html>`_ ;
+- `Julia-type custom op <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_julia.html>`_ ;
+- `Advanced usage of custom operators <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_adv.html>`_ : registering the operator information and defining the backward functions for operators.
 
 .. note::
     More examples can be found in the MindSpore source code `tests/st/graph_kernel/custom <https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom>`_ .

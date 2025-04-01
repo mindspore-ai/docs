@@ -141,7 +141,7 @@ Use the Megatron multi-source dataset in the training task as follows:
 
     - data_loader.type: The type of dataloader, should be set to `BlendedMegatronDatasetDataLoader`.
     - data_loader.datasets_type: Dataset type, currently only supports `GPTDataset`.
-    - data_loader.sizes: `- 1000` ， `- 0` ， `- 0` are the sampling sizes for the training set, test set, and validation set, respectively. Currently, only the training set can be configured.
+    - data_loader.sizes: `- 1000` , `- 0` , `- 0` are the sampling sizes for the training set, test set, and validation set, respectively. Currently, only the training set can be configured.
     - input_columns: Set the input data columns for the training dataset, typically configured as `["input_ids", "labels", "loss_mask", "position_ids"]` .
     - data_loader.config.seed: Random number seed when creating a dataset. Default: `1234` .
     - data_loader.config.seq_length: The length of each piece of data must be consistent with the model.model_config.seq_length in the YAML configuration.
@@ -556,7 +556,7 @@ train_dataset:
 
 The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
 
-Custom data handler：
+Custom data handler:
 
 ```python
 @MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)

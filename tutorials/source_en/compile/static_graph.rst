@@ -1662,7 +1662,7 @@ Custom classes can be used in graph mode, and classes can be
 instantiated and object properties and methods can be used.
 
 For example, where 'GetattrClass' is a user-defined class that does not
-use the '@jit_class' decoration and does not inherit 'nn. Cell\`。
+use the '@jit_class' decoration and does not inherit 'nn. Cell\`.
 
 .. code:: python
 
@@ -1753,7 +1753,7 @@ The results are as follows:
    True
 
 ``tuple`` in ``tuple`` is an unsupported operation in original graph
-mode，and will be supported by static graph syntax.
+mode, and will be supported by static graph syntax.
 
 Base Type
 ~~~~~~~~~

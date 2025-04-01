@@ -77,7 +77,7 @@ spec:
   msReplicaSpecs:
     Scheduler:
       replicas: 1  # The number of Scheduler
-      restartPolicy: Never  # Restart the policy Always，OnFailure，Never
+      restartPolicy: Never  # Restart the policy Always, OnFailure, Never
       template:
         spec:
           volumes: # File mounts, such as datasets, network scripts, and so on

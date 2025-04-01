@@ -12,7 +12,7 @@ Cloud-side MindSpore Lite contains modules:
 | runtime(cpp, java) | Linux    | Model Inference Framework |
 | benchmark          | Linux    | Benchmarking Tool |
 | minddata           | Linux    | Image Processing Library   |
-| akg                | Linux                   | Polyhedral-based deep learning operator compiler（[Auto Kernel Generator](https://gitee.com/mindspore/akg)） |
+| akg                | Linux                   | Polyhedral-based deep learning operator compiler ([Auto Kernel Generator](https://gitee.com/mindspore/akg)) |
 
 ## Environment Requirements
 

@@ -46,7 +46,7 @@ Then, ResNet-50 is used as an example to describe steps related to SCOP training
 
 ### Knockoff Data
 
-Initialize the ResNet-50, load the pre-trained model, replace nodes using PrunerKfCompressAlgo to obtain the network in the knockoff phase (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py)), and train the network.（Note: dataset_sink_mode in Knockoff Data phase must be set to False, because SCOP will modify dataset in Knockoff Data phase）
+Initialize the ResNet-50, load the pre-trained model, replace nodes using PrunerKfCompressAlgo to obtain the network in the knockoff phase (For details, users can refer to [API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py)), and train the network. (Note: dataset_sink_mode in Knockoff Data phase must be set to False, because SCOP will modify dataset in Knockoff Data phase)
 
 ```python
 from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
@@ -218,7 +218,7 @@ After the pruned model is exported, [use MindSpore for inference](https://www.mi
 
 ### Summary of Training
 
-Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/tree/r1.9/).
+Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0), [MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/), [MindSpore Models](https://gitee.com/mindspore/models/tree/r1.9/).
 
 | algorithm| network  |  dataset     |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc | pruning rate | parameter size(MB) |
 | -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- | ------------ | ------------------ |

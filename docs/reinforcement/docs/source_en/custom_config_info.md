@@ -46,10 +46,10 @@ from dqn.src.dqn import DQNPolicy
 
 policy_params = {
     'epsi_high': 0.1,        # epsi_high/epsi_low/decay control the proportion of exploitation and exploration
-    'epsi_low': 0.1,         # epsi_high：the highest probability of exploration，epsi_low：the lowest probability of exploration，
-    'decay': 200,            # decay：the step decay
-    'state_space_dim': 0,    # the dimension of state space，0 means that it will read from the environment automatically
-    'action_space_dim': 0,   # the dimension of action space，0 means that it will read from the environment automatically
+    'epsi_low': 0.1,         # epsi_high: the highest probability of exploration, epsi_low: the lowest probability of exploration
+    'decay': 200,            # decay: the step decay
+    'state_space_dim': 0,    # the dimension of state space, 0 means that it will read from the environment automatically
+    'action_space_dim': 0,   # the dimension of action space, 0 means that it will read from the environment automatically
     'hidden_size': 100,      # the dimension of hidden layer
 }
 

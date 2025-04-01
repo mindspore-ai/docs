@@ -127,7 +127,7 @@ export NCCL_IB_HCA=mlx
 
 <br/>
 
-## Q：What can we do when single-machine multi-card training is successful, but after expanding the script to multi-machine multi-card, other hosts prompt all kinds of errors?
+## Q: What can we do when single-machine multi-card training is successful, but after expanding the script to multi-machine multi-card, other hosts prompt all kinds of errors?
 
 There are various types of errors reported. Here are a few typical ones:
 

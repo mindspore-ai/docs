@@ -120,7 +120,7 @@ The direct cause of this problem is usually a timeout caused by the subprocess o
 
 3. You can try to reduce the number of processes for parallel compilation of operators on Ascend;
 
-4. Check the memory and CPU usage of the host. It is possible that the host's memory and CPU usage are too high. As a result, the operator compilation process cannot be started and the compilation fails. You can try to identify the processes that occupy too much memory or CPU and optimize them；
+4. Check the memory and CPU usage of the host. It is possible that the host's memory and CPU usage are too high. As a result, the operator compilation process cannot be started and the compilation fails. You can try to identify the processes that occupy too much memory or CPU and optimize them;
 
 5. If you encounter this issue in a training environment on the cloud, you can try restarting the kernel.
 

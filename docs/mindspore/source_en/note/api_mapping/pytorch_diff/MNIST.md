@@ -41,7 +41,7 @@ MindSpore: Read the MNIST dataset. Downloading dataset from web is not supported
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
-|     | Parameter2 | train      | -    | Usage of this dataset，supported by `usage` in MindSpore |
+|     | Parameter2 | train      | -    | Usage of this dataset, supported by `usage` in MindSpore |
 |     | Parameter3 | transform    | -   | Supported by `mindspore.dataset.map` operation |
 |     | Parameter4 | target_transform    | -   | Supported by `mindspore.dataset.map` operation |
 |     | Parameter5 | download    | -   | Not supported by MindSpore |

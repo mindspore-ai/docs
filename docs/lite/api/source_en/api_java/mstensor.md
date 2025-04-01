@@ -59,7 +59,7 @@ Create MindSpore MSTensor.
 - Parameters
 
     - `tensorName`: tensor name.
-    - `obj`: Array object of java or a scalar，support dtype：float, double, int, long, boolean.
+    - `obj`: Array object of java or a scalar, support dtype: float, double, int, long, boolean.
 
 - Returns
 

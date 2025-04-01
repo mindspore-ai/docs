@@ -124,6 +124,6 @@ import torch
 import mindspore as ms
 out_ms = ms.Tensor([1], dtype=ms.int32) + ms.Tensor(1, dtype=ms.int64)
 out_torch = torch.tensor([1], dtype=torch.int32) + torch.tensor(1, dtype=torch.int64)
-print(out_ms.dtype)    # The output is：Int64
-print(out_torch.dtype) # The output is：torch.int32
+print(out_ms.dtype)    # The output is: Int64
+print(out_torch.dtype) # The output is: torch.int32
 ```

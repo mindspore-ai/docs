@@ -30,10 +30,10 @@ model = Model(network, loss_fn, optimizer)
 # Combination Method 2:
 loss_net = WithLossCell(network, loss_fn)
 model = Model(loss_net, optimizer=optimizer)
-# Set Callback function：
+# Set Callback function:
 monitor_cb = LossMonitor(16)
 ckpoint_cb = ModelCheckpoint('network', config=CheckpointConfig(32))
-# Perform training process：
+# Perform training process:
 model.train(1024, dataset, callbacks=[monitor_cb, ckpoint_cb])
 ```
 
@@ -49,10 +49,10 @@ md = Sponge(system, potential, updater)
 # Combination Method 2:
 sim = SimulationCell(system, potential, cutoff=1.0)
 md = Sponge(sim, optimizer= updater)
-# Set Callback function：
+# Set Callback function:
 run_info = RunInfo(10)
 cb_h5md = WriteH5MD(system, 'traj.h5md', save_freq=10)
-# Perform simulation process：
+# Perform simulation process:
 md.run(1000, callbacks=[run_info, cb_h5md])
 ```
 

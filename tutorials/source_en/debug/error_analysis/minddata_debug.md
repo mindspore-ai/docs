@@ -38,7 +38,7 @@ After running the error reported as follows, you can observe that the error mess
 
 * Dataset Pipeline Error Message: error summary, here suggests that due to the Python code execution error caused by the error exit.
 * Python Call Stack: Call information from the Python code, showing the call stack before the Python exception was generated.
-* C++ Call Stack：C++ code call information for framework developers to debug.
+* C++ Call Stack: C++ code call information for framework developers to debug.
 
 ```text
 ------------------------------------------------------------------

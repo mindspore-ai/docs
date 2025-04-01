@@ -24,9 +24,9 @@ For more information, see [mindspore.dataset.audio.SpectralCentroid](https://min
 
 ## Differences
 
-PyTorch：Compute the spectral centroid for each channel along the time axis. Customized window function and different parameter configs for window function are both supported.
+PyTorch: Compute the spectral centroid for each channel along the time axis. Customized window function and different parameter configs for window function are both supported.
 
-MindSpore：Compute the spectral centroid for each channel along the time axis.
+MindSpore: Compute the spectral centroid for each channel along the time axis.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

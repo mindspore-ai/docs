@@ -9,7 +9,7 @@ analysis.
 
 *Figure:Overview of resource utilization*
 
-Overview of resource utilization：Including CPU utilization analysis and
+Overview of resource utilization: Including CPU utilization analysis and
 memory usage analysis. You can view the details by clicking the \ ``View
 Details``\ button in the upper right corner.
 
@@ -72,7 +72,7 @@ Common scenarios of CPU utilization:
    The default sampling interval is 1000ms. You can change the sampling
    interval through
    ``mindspore.dataset.config.get_monitor_sampling_interval()``. For
-   details：
+   details: 
 
    `dataset API sampling interval <https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_monitor_sampling_interval.html#mindspore.dataset.config.set_monitor_sampling_interval>`_ .
 

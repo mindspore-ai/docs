@@ -228,7 +228,7 @@ Or when the training task is finished, the cluster exits automatically, no need 
 
 ### Results
 
-- Use data：
+- Use data:
 
   COCO dataset is split into 100 copies, and the first two copies are taken as two worker datasets respectively
 

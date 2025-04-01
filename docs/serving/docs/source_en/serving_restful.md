@@ -227,9 +227,9 @@ The response format is the same as the request format. The information in the `J
 
    |  Serving Output Type | RESTful json Data Type   | Description  |  Example  |
    |  ----  | ----  |  ---- | ---- |
-   | `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64` | json integer | All types of integer data are represented as JSON integer | 1，[1,2,3,4]  |
-   | `float16`, `float32`, `float64` | json float | All types of float data are represented as JSON float | 1.0，[[1.2, 2.3], [3.0, 4.5]]  |
-   | `bool` | json bool | Bool data is represented as json bool | true，false，[[true],[false]]  |
+   | `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64` | json integer | All types of integer data are represented as JSON integer | 1, [1,2,3,4]  |
+   | `float16`, `float32`, `float64` | json float | All types of float data are represented as JSON float | 1.0, [[1.2, 2.3], [3.0, 4.5]]  |
+   | `bool` | json bool | Bool data is represented as json bool | true, false, [[true],[false]]  |
    | `string` | json str | String data is represented as json string | "news_car"  |
    | `bytes` | base64 object | Bytes data is represented as a base64 object | {"b64":"AQACAAIAAwADAAQA"}  |
 

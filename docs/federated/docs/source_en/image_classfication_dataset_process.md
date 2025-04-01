@@ -144,7 +144,7 @@ Refer to [leaf dataset instruction](https://github.com/TalwalkarLab/leaf) to dow
 
 6. Convert a json file to an image file.
 
-    Refer to the following code：
+    Refer to the following code:
 
     ```python
     import os

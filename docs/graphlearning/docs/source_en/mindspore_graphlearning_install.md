@@ -30,7 +30,7 @@ You can install MindSpore Graph Learning either by pip or by source code.
 
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/master/requirements.txt). In other cases, you need to manually install dependency items.
 > - `{system_structure}` denotes the Linux system architecture, and the option is `x86_64` and `arrch64`.
-> - `{cuda_verison}` denotes the CUDA version, and the option is `10.1`, `11.1` and `11.6`。
+> - `{cuda_verison}` denotes the CUDA version, and the option is `10.1`, `11.1` and `11.6`.
 
 #### Installation by Source Code
 

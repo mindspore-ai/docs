@@ -347,17 +347,17 @@ Optimizations for memory bottleneck scenarios are listed below:
 
 All the above three parallel strategies use more computing devices to share memory consumption to solve the memory bottleneck problem. The cost is that it requires more hardware resources and introduces additional communication, and the training throughput is not as good as data-parallel training on a cluster of the same size.
 
-* **Optimizer Parallel**：
+* **Optimizer Parallel**:
     * Applicable scenarios: In scenarios with data-parallel DP, the model weights and optimizer states are sliced to each card in the DP domain, dramatically reducing video memory consumption;
     * Benefits: Model weights and optimizer states are sliced within the DP domain, saving significant memory usage;
     * Overhead: The calculation introduces a certain amount of communication to accomplish weight aggregation;
     * Usage recommendation: Turning it on is recommended in most cases, and the saved video memory can be used to adjust the parallel slicing strategy to improve performance overall.
-* **[Full Recomputation & Selective Recomputation](#recomputation)**：
+* **[Full Recomputation & Selective Recomputation](#recomputation)**:
     * Applicable scenarios: After the slicing strategy is determined, the memory usage is still partially exceeded, the full recomputation & selective recomputation strategies can be adjusted to further optimize the memory usage;
     * Benefits: Save memory usage;
     * Overhead: The computation time grows further;
     * Usage recommendation: Prioritize the use of selective recomputation and control the computational overhead from recomputation as much as possible when not exceeding memory usage.
-* **Short Sequence Parallel**：
+* **Short Sequence Parallel**:
     * Applicable scenarios: Under MP slicing, short sequence parallelism is enabled, and the sequence dimension is sliced by MP at LayerNorm, with the communication volume remaining unchanged, reducing the activation value memory and the Norm part of the computation;
     * Benefits: Save memory usage and computation time without increasing communication and requiring additional card count resources;
     * Usage recommendation: It is recommended to turn it on in all MP scenarios.
@@ -368,20 +368,20 @@ Under normal cases, the computation time should be mainly focused on computation
 
 At the model tuning level, the following methods can be tried to solve the problem of alleviating the computational length bottleneck:
 
-* **Fusion Operator Replacement**：
+* **Fusion Operator Replacement**:
     * The use of fusion operators equivalently replaces partial combinations of operators, and fusion operators typically result in performance and memory gains.
-* **Recomputation & Selective Recomputation**：
+* **Recomputation & Selective Recomputation**:
     * Involving a balanced trade-off between time and space, reducing the number of recomputation layers can effectively utilize free memory to improve computational performance when free memory is available.
 
 ### Unmasked Communication Bottleneck
 
 The communication time share of the training process can be obtained through the profiling tool, which includes masked and unmasked communication. Masked communication and computation are executed at the same time, which does not affect the training efficiency, while unmasked communication causes computation to wait for the communication, which is too time-consuming and will affect the training performance, and needs to be optimized.
 
-* **IR Graphs Analyze Redundant Communication Operators**：
+* **IR Graphs Analyze Redundant Communication Operators**:
   Analyze the distribution of communication operators during the model forward process by configuring the environment variable `export MS_DEV_SAVE_GRAPHS=1`, saving the training IR graph, and seeing if it meets expectations;
   If there is a sequence of communication operators at unreasonable locations, it is likely that the operator slicing strategy configured in the model is incorrect, resulting in triggering tensor rearrangement, and the framework automatically inserts a larger number of communication operators to ensure computational equivalence;
   This part of the redundant communication introduced due to communication rearrangement is likely to lead to the emergence of a large number of unmasked communications, resulting in a performance bottleneck, the solution is to modify the shard policy of the corresponding location operator to configure correctly, to solve the problem of communication rearrangement.
-* **Multi-copy & Fine-grained Multi-copy Parallel**：
+* **Multi-copy & Fine-grained Multi-copy Parallel**:
   After analyzing and solving the communication rearrangement problem, if there are still a high number of unmasked communications, try using a multicopy or fine-grained multicopy parallel strategy;
   In model parallel scenarios, enabling multicopy or fine-grained multicopy parallel, communication time and computation time can be partially masked from each other, thus reducing communication bottlenecks.
 
@@ -393,7 +393,7 @@ This kind of IO bottleneck usually occurs in the scenario of shared storage of l
 
 The idea of solving IO bottlenecks is to optimize the amount of IO and IO behavior.
 
-**full_batch=false**：
+**full_batch=false**:
 
 full_batch is a control item for the data aggregation behavior of MindSpore. When configured to true, each card takes the global batch size amount of data, and then completes the slicing of the data within the graph, taking only the required data in the corresponding DP domain for training. This approach leads to steep pressure on IO in large-scale clusters, where there is DP-fold redundancy in the amount of IO read by each card, which occurs on each card and aggregates to overstress the shared storage, affecting IO performance. It is recommended to change the behavior mode to full_batch=false when encountering IO bottlenecks, which has been verified to be able to optimize the IO efficiency in a more obvious way, and the configuration mode can be referred to MindSpore[set_auto_parallel_context interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context). yaml example is listed below:
 
@@ -418,7 +418,7 @@ In order to reduce the bubble idle, we can start from the formula, in the case o
 
 However, in some training scenarios, global batch size is a more critical training hyperparameter, which may not be able to be adjusted arbitrarily. In this case, we can try to optimize the bubble ratio by using the pp interleave feature.
 
-**Pipeline Interleaving**：
+**Pipeline Interleaving**:
 
 pipeline_interleave(virtual pipeline) official website configuration description:[set_auto_parallel_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html?highlight=pipeline_interleave).
 
@@ -546,7 +546,7 @@ After the final tuning, the Llama2-13B performance was optimized to 2562tokens/s
 
 Based on the Llama2-70B model configuration, adjust the model hyperparameter, expand the number of parameters to xxxB, use 1024 card cluster + shared storage for training, and set the GBS (global batch size) to 128. The following performance bottleneck analysis for this case is given as a reference for optimization.
 
-**Case Bottleneck Analysis**：
+**Case Bottleneck Analysis**:
 
 Firstly, the approximate memory required for model training is tested by DryRun to determine the overall slicing strategy, on the basis of which adjustments are made, and the initial slicing strategy obtained: `DP=8 MP=8 PP=16 micro_batch_num=16`.
 
@@ -558,7 +558,7 @@ The initial slicing strategy was tested to collect performance and memory data t
 * **To Much bubbles**: The PP stage slices reach 16, while micro_batch_num is limited to 16 by the gbs, so that there are too many bubbles in the pipeline flow;
 * **Load Imbalance Between Stages**: stage 0 and stage 1 memory consumption is too high and the load balancing policy needs to be adjusted.
 
-**Optimization methods**：
+**Optimization methods**:
 
 For the bottleneck points analyzed above, we can apply the following optimization methods:
 

@@ -41,15 +41,15 @@ Features
 Applications
 ~~~~~~~~~~~~
 
--  **Force Prediction**\ ：
+-  **Force Prediction**\ :
 
-   -  **Scenario**\ ：Organic chemistry
+   -  **Scenario**\ : Organic chemistry
    -  **Dataset**: Revised Molecular Dynamics 17(rMD17). rMD17 dataset
       includes molecular dynamics simulations of multiple organic
       chemical moleculars. It provides chemical desciptive information
       such as the atomic numbers and positions as well as molecular
       property information such as energies and forces.
-   -  **Task**\ ：Molecular energy prediction. We integrate the NequIP
+   -  **Task**\ : Molecular energy prediction. We integrate the NequIP
       model [1] and Allegro model [2], according to the position of each
       atom in the molecular system and structure description of the
       atomic number information construction diagram, and calculate the
@@ -59,7 +59,7 @@ Applications
 .. figure:: ./images/nequip.png
    :alt: MindSpore nequip Architecture
 
--  **DFT Prediction**\ ：
+-  **DFT Prediction**\ :
 
    -  **Scenario**: Materials Chemistry
    -  **Dataset**: Bilayer graphene dataset. The dataset contains
@@ -165,7 +165,7 @@ Core Contributor
 
 Thanks goes to these wonderful people:
 
-wujian, wangyuheng, Lin Peijia, gengchenhua, caowenbin，Siyu Yang
+wujian, wangyuheng, Lin Peijia, gengchenhua, caowenbin, Siyu Yang
 
 Contribution Guide
 ------------------

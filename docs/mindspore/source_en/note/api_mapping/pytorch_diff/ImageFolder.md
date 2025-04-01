@@ -62,7 +62,7 @@ MindSpore: A source dataset that reads images from a tree of directories. Transf
 
 ## Code Example
 
-Assume that we have a directory with the following structure：
+Assume that we have a directory with the following structure:
 
 ```text
 imageset/

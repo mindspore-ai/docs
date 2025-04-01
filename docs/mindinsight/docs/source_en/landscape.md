@@ -8,7 +8,7 @@ Neural network training is essentially an optimization process of high-dimension
 
 ![gradi_descent.png](./images/gradient_descent.png)
 
-Figure1: Gradient Descent Method（[Picture Source](https://www.pianshen.com/article/81321136968/)）
+Figure1: Gradient Descent Method([Picture Source](https://www.pianshen.com/article/81321136968/))
 
 ## Practice Guidance
 
@@ -345,11 +345,11 @@ It is mentioned in the paper ([Visualizing the Loss Landscape of Neural Nets](ht
 
 ![loss_landscape_result_2](./images/loss_landscape_result_2.png)
 
-Figure 10: Loss Graphic Comparison-3D Map-Overlay-ResNet network overlapped by different widths (top (resnet_interval_1)-widths 4，bottom (resnet_interval_2)-widths 1)
+Figure 10: Loss Graphic Comparison-3D Map-Overlay-ResNet network overlapped by different widths (top (resnet_interval_1)-widths 4, bottom (resnet_interval_2)-widths 1)
 
 ![loss_landscape_result_3](./images/loss_landscape_result_3.png)
 
-Figure 11: Loss Graphic Comparison-Isoline Map-Comparison of different widths of ResNet network（left-widths 4，right-widths 1）
+Figure 11: Loss Graphic Comparison-Isoline Map-Comparison of different widths of ResNet network(left-widths 4, right-widths 1)
 
 By comparing the Loss Graph in Figure 10 with that in Figure 11, it can be seen that when training the same epoch, the convergence point of the network with wider width is more flat and broad, and the experiment shows that the generalization ability is also stronger.
 

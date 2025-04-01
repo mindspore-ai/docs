@@ -194,7 +194,7 @@ Method 2: Enable environment variables
 
 Before running the network script, configure Profiler configuration items.
 
-Note：
+Note:
 
 - To enable using environment variables, please set the device ID through the environment variables before the script starts executing. Prohibit using the set_context function to set the device ID in the script.
 
@@ -204,7 +204,7 @@ Note：
 
 - `start` (bool, mandatory) - Set to true to enable Profiler. Set false to disable performance data collection. Default value: false.
 
-- `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value： "./data".
+- `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value: "./data".
 
 - `op_time` (bool, optional) - Indicates whether to collect operators performance data. Default values: true.
 
@@ -226,7 +226,7 @@ Note：
 
 - `with_stack` (bool, optional) - Whether to collect frame host call stack data on the Python side. This data is presented in the form of a flame graph in the timeline. When using this parameter, the parameter op_time must be set to true. Default value: false .
 
-Method 3：Enable Dynamic Profile
+Method 3: Enable Dynamic Profile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 mindspore.profiler.DynamicProfilerMonitor provides the ability to dynamically modify the configuration parameters of the profiler without interrupting the training process. The following is an example of the generated JSON configuration file for initialization.
@@ -329,7 +329,7 @@ mindspore.profiler.DynamicProfilerMonitor provides the ability to dynamically mo
           "data_simplification": false
         }
 
-- Example 2：DynamicProfilerMonitor is used in MindFormers.
+- Example 2: DynamicProfilerMonitor is used in MindFormers.
 
     - Step 1: Add DynamicProfilerMonitor to MindFormers to register it to the training process. Modify the _build_profile_cb function in mindformers/trainer/trainer.py to change its default ProfileMonitor to DynamicProfilerMonitor, and the modification example is as follows.
 

@@ -198,7 +198,7 @@ Inference results are viewed in the same way as single-card inference.
 
 ### Multimodal Inference
 
-Use `cogvlm2-llama3-chat-19B` model as example and see the following process with details：
+Use `cogvlm2-llama3-chat-19B` model as example and see the following process with details:
 
 Modify configuration yaml file[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml).
 

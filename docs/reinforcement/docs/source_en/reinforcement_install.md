@@ -13,19 +13,19 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Rei
 ```
 
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see requirements.txt). In other cases, you need to manually install dependency items.
-> - `{ms_version}` refers to the MindSpore version that matches with MindSpore Reinforcement. For example, if you want to install MindSpore Reinforcement 0.1.0, then `{ms_version}` should be 1.5.0。
+> - `{ms_version}` refers to the MindSpore version that matches with MindSpore Reinforcement. For example, if you want to install MindSpore Reinforcement 0.1.0, then `{ms_version}` should be 1.5.0.
 > - `{mr_version}` refers to the version of MindSpore Reinforcement. For example, when you are downloading MindSpore Reinforcement 0.1.0, `{mr_version}` should be 0.1.0.
 
 ## Installation by Source Code
 
-Download [source code](https://github.com/mindspore-lab/mindrl)，and enter `reinforcement` directory.
+Download [source code](https://github.com/mindspore-lab/mindrl), and enter `reinforcement` directory.
 
 ```shell
 bash build.sh
 pip install output/mindspore_rl-0.1.0-py3-none-any.whl
 ```
 
-The `build.sh` is the compile script under the `reinforcement` directory。
+The `build.sh` is the compile script under the `reinforcement` directory.
 
 ## Installation Verification
 

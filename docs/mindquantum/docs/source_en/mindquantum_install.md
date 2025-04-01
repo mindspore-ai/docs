@@ -16,7 +16,7 @@ You can install MindInsight either by pip or by source code.
 pip install mindquantum
 ```
 
-> - Refer to [MindSpore](https://www.mindspore.cn/versions) to find different version of packages。
+> - Refer to [MindSpore](https://www.mindspore.cn/versions) to find different version of packages.
 
 ### Installing by Source Code
 

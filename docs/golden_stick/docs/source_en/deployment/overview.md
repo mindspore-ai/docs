@@ -12,8 +12,8 @@ Above all, from the overall perspective of the model compression algorithm, its 
 
 ## Three Steps for Model Deployment
 
-1. [Model Convert](https://www.mindspore.cn/golden_stick/docs/en/master/deployment/convert.html)：The algorithmically optimized model is further converted into a standard MindSpore network;
-2. Model Export：Export the model to MindIR format, MindSpore Golden Stick uses MindSpore interface for exporting model to MindIR, see [mindspore.export documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.export.html) for details.
+1. [Model Convert](https://www.mindspore.cn/golden_stick/docs/en/master/deployment/convert.html): The algorithmically optimized model is further converted into a standard MindSpore network;
+2. Model Export: Export the model to MindIR format, MindSpore Golden Stick uses MindSpore interface for exporting model to MindIR, see [mindspore.export documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.export.html) for details.
 3. Model Inference: The MindIR model exported after algorithm optimization will be deployed on the device, GPU or Ascend. Device deployment is divided into two steps, see [lite converting tools](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) and [lite inference](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html) for details.
 
 ![](../images/deployment/arc.png)

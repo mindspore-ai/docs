@@ -170,7 +170,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `LogNormal` and `TransformedDistribution` to implement the public APIs in the base class. `LogNormal` supports the following public APIs:
 
-- `mean`, `mode`, `var`, and `sd`：Input parameters *loc* (for location) and *scale* (for scale) are optional.
+- `mean`, `mode`, `var`, and `sd`: Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `entropy`: Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *loc_b*, and *scale_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'LogNormal'* is supported. *loc_b* and *scale_b* indicate the location and scale of distribution *b*, respectively. Input parameters *loc* and *scale* of distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters location *loc* and scale *scale* are optional.
@@ -207,7 +207,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `Gumbel` and `TransformedDistribution` to implement the public APIs in the base class. `Gumbel` supports the following public APIs:
 
-- `mean`, `mode`, `var`, and `sd`：No parameter.
+- `mean`, `mode`, `var`, and `sd`: No parameter.
 - `entropy`: No parameter.
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *loc_b*, and *scale_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Gumbel'* is supported. *loc_b* and *scale_b* indicate the location and scale of distribution *b*.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory.
@@ -226,7 +226,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `Logistic` and `TransformedDistribution` to implement the public APIs in the base class. `Logistic` supports the following public APIs:
 
-- `mean`, `mode`, `var`, and `sd`：Input parameters *loc* (for location) and *scale* (for scale) are optional.
+- `mean`, `mode`, `var`, and `sd`: Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `entropy`: Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters location *loc* and scale *scale* are optional.
 - `sample`: Input parameters sample shape *shape*, location *loc* and scale *scale* are optional.

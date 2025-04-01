@@ -240,7 +240,7 @@ Benchmark tool provides Dump function (currently only supports `CPU` and mobile 
    export MINDSPORE_DUMP_CONFIG=/path/to/data_dump.json
    ```
 
-    Note：
+    Note:
 
     - The environment variables need to be set before the benchmark is executed. The settings will not take effect during the execution of the benchmark.
 

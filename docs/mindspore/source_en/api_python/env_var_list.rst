@@ -743,16 +743,16 @@ Log
      - Determines whether to enable running data recorder (RDR).
        If a running exception occurs in MindSpore, the pre-recorded data in MindSpore is automatically exported to assist in locating the cause of the running exception.
      - Integer
-     - 1：enables RDR
+     - 1: enables RDR
 
-       0：disables RDR
+       0: disables RDR
      - This variable is used together with `MS_RDR_MODE` and `MS_RDR_PATH`.
    * - MS_RDR_MODE
      - Determines the exporting mode of running data recorder (RDR).
      - Integer
-     - 1：export data when training process terminates in exceptional scenario
+     - 1: export data when training process terminates in exceptional scenario
 
-       2：export data when training process terminates in both exceptional scenario and normal scenario.
+       2: export data when training process terminates in both exceptional scenario and normal scenario.
 
        Default: 1.
      - This variable is used together with `MS_RDR_ENABLE=1`.

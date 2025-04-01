@@ -10,9 +10,9 @@ This chapter introduces the common methods and cases of performance tuning, as w
 
 Please refer to the tutorials for the function introduction and instructions of MindSpore Profiler.
 
-[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
+[Performance Profiling(Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
 
-[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
+[Performance Profiling(GPU)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
 
 [Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_of_cluster.html)
 

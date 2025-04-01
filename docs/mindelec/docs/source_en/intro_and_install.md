@@ -32,8 +32,8 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/min
 ```
 
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/master/MindElec/setup.py)), point cloud data sampling depends on [pythonocc](https://github.com/tpaviot/pythonocc-core), which you need to install manually.
-> - `{arch}` specifies system architecture，for example, when using x86-64 Linux，`{arch}` should be x86_64, and aarch64 for ARM system(64-bit).
-> - `{ms_version}` refers to the MindSpore version that matches with MindSpore Elec. For example, if you want to install MindSpore Elec 0.1.0, then,`{ms_version}` should be 1.5.0。
+> - `{arch}` specifies system architecture, for example, when using x86-64 Linux, `{arch}` should be x86_64, and aarch64 for ARM system(64-bit).
+> - `{ms_version}` refers to the MindSpore version that matches with MindSpore Elec. For example, if you want to install MindSpore Elec 0.1.0, then,`{ms_version}` should be 1.5.0.
 > - `{me_version}` refers to the version of MindSpore Elec. For example, when you are downloading MindSpore Elec 0.1.0, `{me_version}` should be 0.1.0.
 > - `{python_version}` specifies version of python, cp37-cp37m for python of version 3.7.5, and cp39-cp39 for python of version 3.9.0.
 

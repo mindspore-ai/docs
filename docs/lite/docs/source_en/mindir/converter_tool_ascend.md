@@ -68,7 +68,7 @@ Table 3: Configure [acl_build_options] parameter
 | `ge.dynamicImageSize`               | Optional | Set dynamic resolution parameters for input images. | String | This parameter needs to be used in conjunction with the `input_shape` parameter |
 | `ge.dynamicDims`                    | Optional | Set the gear of dynamic dimensions in ND format. After the model is converted, it can be obtained using the Model.get_model_info ("dynamic_dims") method | String | This parameter needs to be used in conjunction with the `input_shape` parameter |
 | `ge.inserOpFile`                    | Optional | Enter the configuration file path for the preprocessing operator. | String | path of config file |
-| `ge.exec.precision_mode`            | Optional | Enter the configuration file path for the preprocessing operator. | String | Options: `"force_fp32"`, `"force_fp16"`, `"allow_fp32_to_fp16"`, `"must_keep_origin_dtype"`, `"allow_mix_precision"`，Default: `"force_fp16"` |
+| `ge.exec.precision_mode`            | Optional | Enter the configuration file path for the preprocessing operator. | String | Options: `"force_fp32"`, `"force_fp16"`, `"allow_fp32_to_fp16"`, `"must_keep_origin_dtype"`, `"allow_mix_precision"`, Default: `"force_fp16"` |
 | `ge.exec.disableReuseMemory`        | Optional | Memory reuse switch. | String | Options: `"0"`, `"1"` |
 | `ge.outputDataType`                 | Optional | Network output data type. | String | Options: `"FP32"`, `"UINT8"`, `"FP16"` |
 | `ge.outputNodeName`                 | Optional | Specify output nodes. | String | For example: `"node_name1:0;node_name1:1;node_name2:0"` |

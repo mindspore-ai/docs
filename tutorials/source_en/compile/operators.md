@@ -27,9 +27,9 @@ notes:
 | `%` |`Number` % `Number`, `Tensor` % `Tensor`, `Number` % `Tensor`, `Tensor` % `Number`, `Tuple` % `Tensor`, `Tensor` % `Tuple`, `List` % `Tensor`, `Tensor` % `List`.|
 | `**` |`Number` \*\* `Number`, `Tensor` \*\* `Tensor`, `Number` \*\* `Tensor`, `Tensor` \*\* `Number`, `Tuple` \*\* `Tensor`, `Tensor` \*\* `Tuple`,  `List` \*\* `Tensor`, `Tensor` \*\* `List`.|
 | `//` |`Number` // `Number`, `Tensor` // `Tensor`, `Number` // `Tensor`, `Tensor` // `Number`, `Tuple` // `Tensor`, `Tensor` // `Tuple`,  `List` // `Tensor`, `Tensor` // `List`.|
-| `&`     | `Number` & `Number`、`Tensor` & `Tensor`、`Number` & `Tensor`、`Tensor` & `Number`.                                                                                                                                                                  |
-| `∣`      | `Number` &#124; `Number`、`Tensor` &#124; `Tensor`、`Number` &#124; `Tensor`、`Tensor` &#124; `Number`.                                                                                                                                                             |
-| `^`     | `Number` ^ `Number`、`Tensor` ^ `Tensor`、`Number` ^ `Tensor`、`Tensor` ^ `Number`.                                                                                                                                                                  |
+| `&`     | `Number` & `Number`, `Tensor` & `Tensor`, `Number` & `Tensor`, `Tensor` & `Number`.                                                                                                                                                                  |
+| `∣`      | `Number` &#124; `Number`, `Tensor` &#124; `Tensor`, `Number` &#124; `Tensor`, `Tensor` &#124; `Number`.                                                                                                                                                             |
+| `^`     | `Number` ^ `Number`, `Tensor` ^ `Tensor`, `Number` ^ `Tensor`, `Tensor` ^ `Number`.                                                                                                                                                                  |
 | `<<`    | `Number` << `Number`.                                                                                                                                                                                                                             |
 | `>>`    | `Number` >> `Number`.                                                                                                                                                                                                                             |
 | `@`    | `Tensor` @ `Tensor`.                                                                                                                                                                                                                             |
@@ -42,19 +42,19 @@ Restrictions:
 
 ## Assignment Operators
 
-| Assignment Operator | Supported Type、 |
+| Assignment Operator | Supported Type,  |
 | :----------- |:--------|
 | `=`          |All Built-in Python Types that MindSpore supported and MindSpore User-defined Data Types.|
 | `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, `Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `Tuple` += `Tuple`.|
 | `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, `Number` -= `Tensor`, `Tensor` -= `Number`, `Tuple` -= `Tensor`, `Tensor` -= `Tuple`, `List` -= `Tensor`, `Tensor` -= `List`.|
 | `*=` |`Number` \*= `Number`, `Tensor` \*= `Tensor`, `Number` \*= `Tensor`, `Tensor` \*= `Number`, `List` \*= `Number`, `Number` \*= `List`, `Tuple` \*= `Number`, `Number` \*= `Tuple`, `Tuple` \*= `Tensor`, `Tensor` \*= `Tuple`,  `List` \*= `Tensor`, `Tensor` \*= `List`.|
 | `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, `Number` /= `Tensor`, `Tensor` /= `Number`, `Tuple` /= `Tensor`, `Tensor` /= `Tuple`, `List` /= `Tensor`, `Tensor` /= `List`.|
-| `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, `Number` %= `Tensor`, `Tensor` %= `Number`, `Tuple` %= `Tensor`, `Tensor` %= `Tuple`,  `List` %= `Tensor`、`Tensor` %= `List`.|
+| `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, `Number` %= `Tensor`, `Tensor` %= `Number`, `Tuple` %= `Tensor`, `Tensor` %= `Tuple`,  `List` %= `Tensor`, `Tensor` %= `List`.|
 | `**=` |`Number` \*\*= `Number`, `Tensor` \*\*= `Tensor`, `Number` \*\*= `Tensor`, `Tensor` \*\*= `Number`, `Tuple` \*\*= `Tensor`, `Tensor` \*\*= `Tuple`,  `List` \*\*= `Tensor`, `Tensor` \*\*= `List`.|
 | `//=` |`Number` //= `Number`, `Tensor` //= `Tensor`, `Number` //= `Tensor`, `Tensor` //= `Number`, `Tuple` //= `Tensor`, `Tensor` //= `Tuple`, `List` //= `Tensor`, `Tensor` //= `List`.|
-| `&=`     | `Number` &= `Number`、`Tensor` &= `Tensor`、`Number` &= `Tensor`、`Tensor` &= `Number`.                                                                                                                                                                              |
-| `∣=`      | `Number` &#124;= `Number`、`Tensor` &#124;= `Tensor`、`Number` &#124;= `Tensor`、`Tensor` &#124;= `Number`.                                                                                                                                                         |
-| `^=`     | `Number` ^= `Number`、`Tensor` ^= `Tensor`、`Number` ^= `Tensor`、`Tensor` ^= `Number`.                                                                                                                                                                              |
+| `&=`     | `Number` &= `Number`, `Tensor` &= `Tensor`, `Number` &= `Tensor`, `Tensor` &= `Number`.                                                                                                                                                                              |
+| `∣=`      | `Number` &#124;= `Number`, `Tensor` &#124;= `Tensor`, `Number` &#124;= `Tensor`, `Tensor` &#124;= `Number`.                                                                                                                                                         |
+| `^=`     | `Number` ^= `Number`, `Tensor` ^= `Tensor`, `Number` ^= `Tensor`, `Tensor` ^= `Number`.                                                                                                                                                                              |
 | `<<=`    | `Number` <<= `Number`.                                                                                                                                                                                                                                         |
 | `>>=`    | `Number` >>= `Number`.                                                                                                                                                                                                                                         |
 | `@=`    | `Tensor` @= `Tensor`.                                                                                                                                                                                                                                         |
