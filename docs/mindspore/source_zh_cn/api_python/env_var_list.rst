@@ -266,8 +266,6 @@
 
        compile_statistics: 是否开启编译性能统计，默认值为false。
 
-       ge_kernel: 是否使能O2/O1/O0运行时统一，默认值为true。
-
        backend_compile_cache: 是否使用图编译等级O0/O1下的后端编译缓存，仅在前端编译缓存（MS_COMPILER_CACHE_ENABLE）开启时生效，默认值为true。
 
        view: 是否使能view算子功能，仅在O0或O1模式下生效，默认值为true。
