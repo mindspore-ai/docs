@@ -1,9 +1,9 @@
 MindSpore Transformers Documentation
 =====================================
 
-The goal of MindSpore Transformers (also known as MindFormers) suite is to build a full-process development suite for training, fine-tuning, evaluating, inference, and deploying large models, providing the industry mainstream Transformer class of pre-trained models and SOTA downstream task applications, and covering a rich range of parallel features, with the expectation of helping users to easily realize large model training and innovative research and development.
+MindSpore Transformers (also known as MindFormers) is a MindSpore-native foundation model suite designed to provide full-flow development capabilities for foundation model training, fine-tuning, evaluating, inference and deploying, providing the industry mainstream Transformer class of pre-trained models and SOTA downstream task applications, and covering a rich range of parallel features, with the expectation of helping users to easily realize large model training and innovative research and development.
 
-Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/models.html>`_ to get an initial understanding of MindFormers architecture and model support. Refer to the `Installation <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/quick_start/install.html>`_ and `Quick Start <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/quick_start/source_code_start.html>`_ to get started with MindFormers.
+Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported functional features and foundation models. Further, refer to the `Installation <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/quick_start/install.html>`_ and `Quick Start <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/quick_start/source_code_start.html>`_ to get started with MindSpore Transformers.
 
 If you have any suggestions for MindFormers, please contact us via `issue <https://gitee.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
 
@@ -18,8 +18,10 @@ MindFormers supports one-click start of single/multi-card training, fine-tuning,
 - `Quantization <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/usage/quantization.html>`_
 - `MindIE Service Deployment <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/usage/mindie_deployment.html>`_
 
-Flexible and Easy-to-Use Personalized Configuration with MindFormers
-----------------------------------------------------------------------
+Code repository address: <https://gitee.com/mindspore/mindformers>
+
+Flexible and Easy-to-Use Personalized Configuration with MindSpore Transformers
+-------------------------------------------------------------------------------------------
 
 With its powerful feature set, MindFormers provides users with flexible and easy-to-use personalized configuration options. Specifically, it comes with the following key features:
 
@@ -37,7 +39,7 @@ With its powerful feature set, MindFormers provides users with flexible and easy
 
 4. `Dataset <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/dataset.html>`_
 
-   Support multiple forms of datasets.
+   Support multiple types and formats of datasets.
 
 5. `Weight Saving and Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/resume_training.html>`_
 
