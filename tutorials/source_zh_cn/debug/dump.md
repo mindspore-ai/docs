@@ -98,7 +98,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
   </tr>
 </table>
 
-> 1. 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
+> 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
 
 ## Ascend下O0/O1模式Dump
 
@@ -158,8 +158,8 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
             - "md5": 表示Tensor的MD5值；
             - "l2norm": 表示Tensor的L2Norm值，支持在device统计和在host统计。
 
-        以上除了标记了支持device统计的，其他都仅支持在host统计。
-        该字段为可选，默认值为["max", "min", "l2norm"]。
+            以上除了标记了支持device统计的，其他都仅支持在host统计。
+            该字段为可选，默认值为["max", "min", "l2norm"]。
 
         - `overflow_number`：指定溢出dump的数据个数。该字段仅在`op_debug_mode`设置为3，只保存溢出算子时需要配置，可控制溢出数据按时间序dump，到指定数值后溢出数据不再dump。默认值为0，表示dump全部溢出数据。
         - `initial_iteration`：指定Dump的初始迭代数，需为非负整数。若设置为10，则Dump初始落盘的iteration将从10开始计数。默认值：0。

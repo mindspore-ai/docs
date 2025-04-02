@@ -98,7 +98,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
   </tr>
 </table>
 
-> 1. In terms of statistics, the computing speed of the device is faster than that of the host(currently only supported on Ascend backend), but the host has more statistical indicators than the device. Refer to the `statistic_category` option for details.
+> In terms of statistics, the computing speed of the device is faster than that of the host(currently only supported on Ascend backend), but the host has more statistical indicators than the device. Refer to the `statistic_category` option for details.
 
 ## Dump in Ascend O0/O1 Mode
 
@@ -142,7 +142,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
            Note that whether setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Ascend O0/O1 Dump Data Object Directory](#introduction-to-data-object-directory-and-data-file).
            2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
            3. Regular expressions are supported. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
-        - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
+        - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. In distributed training scenarios where data on individual devices needs to be dumped, you can specify only the device Id that needs to be dumped in `support_device`. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
         - `statistic_category`: This attribute is used by users to configure the category of statistical information to be saved, and only takes effect when saving statistical information is enabled(i.e.`saved_data` is set to `statistic` or `full`). The type is a string list, where the optional values of the strings are as follows:
 
             - "max": represents the maximum value of the elements in tensor, supporting both device and host statistics;

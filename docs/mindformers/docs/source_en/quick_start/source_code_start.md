@@ -26,7 +26,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 3. Data Preprocessing
 
-    The following command needs to be executed in the MindSpore Transformers code root directory, and replaces {path} with the local path below.
+    The following command needs to be executed in the MindSpore Transformers code root directory, and replaces {path} below with the local path where the dataset files are stored.
 
     1. Execute [mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py), and use the fastchat tool to add prompt templates to convert the raw dataset into a multi-round conversation format.
 

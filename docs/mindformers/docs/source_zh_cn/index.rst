@@ -1,9 +1,9 @@
 MindSpore Transformers 文档
 =========================================
 
-MindSpore Transformers套件的目标是构建一个大模型训练、微调、评估、推理、部署的全流程开发套件，提供业内主流的Transformer类预训练模型和SOTA下游任务应用，涵盖丰富的并行特性，期望帮助用户轻松地实现大模型训练和创新研发。
+MindSpore Transformers（也称MindFormers）是一个MindSpore原生的大模型套件，旨在提供大模型训练、微调、评估、推理、部署等全流程开发能力，提供业内主流的Transformer类预训练模型和SOTA下游任务应用，涵盖丰富的并行特性，期望帮助用户轻松地实现大模型训练和创新研发。
 
-用户可以参阅 `整体架构 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/overview.html>`_ 和 `模型库 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html>`_ 来初步了解MindSpore Transformers的架构和模型支持度；参考 `安装 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html>`_ 和 `快速启动 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/source_code_start.html>`_ 章节，迅速上手MindSpore Transformers。
+用户可以参阅 `整体架构 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/overview.html>`_ 和 `模型库 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html>`_ ，快速了解MindSpore Transformers的系统架构，及所支持的功能特性和大模型清单。进一步地，可参考 `安装 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html>`_ 和 `快速启动 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/source_code_start.html>`_ 章节，上手探索MindSpore Transformers。
 
 如果您对MindSpore Transformers有任何建议，请通过 `issue <https://gitee.com/mindspore/mindformers/issues>`_ 与我们联系，我们将及时处理。
 
@@ -61,10 +61,12 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
       </tr>
    </table>
 
+代码仓地址： <https://gitee.com/mindspore/mindformers>
+
 使用MindSpore Transformers进行灵活易用的个性化配置
 -----------------------------------------------------
 
-MindSpore Transformers以其强大的功能集，为用户提供了灵活且易于使用的个性化配置选项。具体来说，它具备以下几个关键特性：
+MindSpore Transformers以其强大的功能集，为用户提供了灵活易用的个性化配置选项。其关键特性包括：
 
 1. `权重格式转换 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html>`_
 
@@ -80,7 +82,7 @@ MindSpore Transformers以其强大的功能集，为用户提供了灵活且易�
 
 4. `数据集 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html>`_
 
-   支持多种形式的数据集。
+   支持多种类型和格式的数据集。
 
 5. `权重保存与断点续训 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html>`_
 
