@@ -26,7 +26,7 @@ MindSpore Transformers提供已经转换完成的预训练权重、词表文件�
 
 3. 数据预处理。
 
-    需要在MindSpore Transformers代码根目录下执行以下操作，并将下文中的{path}替换成本地路径。
+    需要在MindSpore Transformers代码根目录下执行以下操作，并将下文中的{path}替换成存放数据集文件的本地路径。
 
     1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
 
