@@ -45,17 +45,6 @@ def train(test_net):
     model.train(1, data)
 
 
-def change_cfg_json(json_path):
-    with open(json_path, 'r', encoding='utf-8') as file:
-        data = json.load(file)
-
-    data['start_step'] = 6
-    data['stop_step'] = 7
-
-    with open(json_path, 'w', encoding='utf-8') as file:
-        json.dump(data, file, ensure_ascii=False, indent=4)
-
-
 if __name__ == '__main__':
     mindspore.set_context(mode=mindspore.PYNATIVE_MODE)
     mindspore.set_device("Ascend")
@@ -87,9 +76,5 @@ if __name__ == '__main__':
     dp = DynamicProfilerMonitor(cfg_path=output_path, output_path=output_path)
     for i in range(STEP_NUM):
         train(net)
-        # Modify the configuration file after step 7. For example, change start_step to 8 and stop_step to 10
-        if i == 5:
-            # Modify parameters in the JSON file
-            change_cfg_json(os.path.join(output_path, "profiler_config.json"))
         # Call step collection
         dp.step()
