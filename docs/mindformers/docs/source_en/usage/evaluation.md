@@ -228,7 +228,7 @@ The currently adapted models and supported evaluation datasets are shown in the 
     tabulate==0.9.0
     tiktoken==0.7.0
     timeout-decorator==0.5.0
-    torch==2.4.1
+    torch==2.5.1
     tqdm==4.66.4
     transformers==4.43.3
     typing_extensions==4.12.2
