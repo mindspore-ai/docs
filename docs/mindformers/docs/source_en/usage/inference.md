@@ -243,7 +243,7 @@ from mindformers import AutoModel, AutoTokenizer, pipeline, TextStreamer
 inputs = ["I love Beijing, because", "LLaMA is a", "Huawei is a company that"]
 
 # Initialize the environment.
-build_context({'context': {'mode': 0}, 'parallel': {}, 'parallel_config': {}})
+build_context({'context': {'mode': 0}, 'run_mode': 'predict', 'parallel': {}, 'parallel_config': {}})
 
 # Instantiate a tokenizer.
 tokenizer = AutoTokenizer.from_pretrained('llama2_7b')
@@ -285,7 +285,7 @@ from mindformers import AutoModel, AutoTokenizer, pipeline, TextStreamer
 inputs = ["I love Beijing, because", "LLaMA is a", "Huawei is a company that"]
 
 # Initialize the environment.
-build_context({'context': {'mode': 0}, 'parallel': {}, 'parallel_config': {}})
+build_context({'context': {'mode': 0}, 'run_mode': 'predict', 'parallel': {}, 'parallel_config': {}})
 
 # Instantiate a tokenizer.
 tokenizer = AutoTokenizer.from_pretrained('llama2_7b')
@@ -328,7 +328,7 @@ from mindformers import AutoModel, AutoTokenizer
 query = "Hello!"
 
 # Initialize the environment.
-build_context({'context': {'mode': 0}, 'parallel': {}, 'parallel_config': {}})
+build_context({'context': {'mode': 0}, 'run_mode': 'predict', 'parallel': {}, 'parallel_config': {}})
 
 # Instantiate a tokenizer.
 tokenizer = AutoTokenizer.from_pretrained('llama2_7b')

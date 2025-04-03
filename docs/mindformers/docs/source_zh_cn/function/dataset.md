@@ -122,7 +122,6 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
           - 0
           - 0
         shuffle: False
-        input_columns: ["input_ids", "labels", "loss_mask", "position_ids"]
         config:
           seed: 1234
           seq_length: 1024
@@ -135,6 +134,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
           num_dataset_builder_threads: 1
           eod_mask_loss: False
           create_attention_mask: False
+      input_columns: ["input_ids", "labels", "loss_mask", "position_ids"]
     ```
 
     其中：
