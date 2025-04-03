@@ -2,11 +2,11 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindformers/docs/source_en/quick_start/source_code_start.md)
 
-This section shows how to use MindFormers to quickly pull up a LoRA low-parameter fine-tuning task based on the Llama2-7B model. To use other models and tasks via MindFormers, please read the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/models.html).
+This section shows how to use MindSpore Transformers to quickly pull up a LoRA low-parameter fine-tuning task based on the Llama2-7B model. To use other models and tasks via MindSpore Transformers, please read the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/models.html).
 
 ## Preparing Weights File
 
-MindFormers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the [Llama2 documentation](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md) and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
+MindSpore Transformers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the [Llama2 documentation](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md) and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
 
 | Model Name | MindSpore Weights | HuggingFace Weights |
 | ------ | ------ | ------ |

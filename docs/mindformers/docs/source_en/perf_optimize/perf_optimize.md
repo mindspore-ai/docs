@@ -100,7 +100,7 @@ In FeedForward, the middle part of the memory tends to be large. SiLU and Mul re
 
 #### profiler Tool
 
-MindFormers itself integrates profiling data collection with the following steps:
+MindSpore Transformers itself integrates profiling data collection with the following steps:
 
 1. Modify the configuration files
 
@@ -157,7 +157,7 @@ Click anywhere on the timeline page tree or graphical pane can be performed usin
 
 #### IR Graph
 
-In the [MindFormers configuration file](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/appendix/conf_files.html), just turn on save_graphs, and the runtime will output some intermediate files ending with the .ir suffix generated during the graph compilation process, which we call IR files. By default, a directory of graphs will be generated in the current task execution directory, and all IR graphs will be saved in this. It is a relatively intuitive and easy to understand document describing the structure of the model in text format, which can be viewed directly with text editing software. Refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/appendix/conf_files.html) for the meaning of the configuration items, and the configuration method is as follows:
+In the [MindSpore Transformers configuration file](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/appendix/conf_files.html), just turn on save_graphs, and the runtime will output some intermediate files ending with the .ir suffix generated during the graph compilation process, which we call IR files. By default, a directory of graphs will be generated in the current task execution directory, and all IR graphs will be saved in this. It is a relatively intuitive and easy to understand document describing the structure of the model in text format, which can be viewed directly with text editing software. Refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/appendix/conf_files.html) for the meaning of the configuration items, and the configuration method is as follows:
 
 ```yaml
 context:

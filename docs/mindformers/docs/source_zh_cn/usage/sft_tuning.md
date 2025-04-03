@@ -30,15 +30,15 @@ SFT微调整体包含以下几个部分：
 5. **执行微调任务：**
    使用微调任务的数据集对预训练模型进行训练，更新模型参数，如果是全参微调则会对所有参数进行更新，微调任务完成后，便可以得到新的模型。
 
-## 基于MindFormers的全参微调实践
+## 基于MindSpore Transformers的全参微调实践
 
 ### 选择预训练模型
 
-MindFormers目前已经支持业界主流大模型，该实践流程选择Llama2-7B模型SFT微调为例。
+MindSpore Transformers目前已经支持业界主流大模型，该实践流程选择Llama2-7B模型SFT微调为例。
 
 ### 下载模型权重
 
-MindFormers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。
+MindSpore Transformers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。
 
 词表下载链接：[tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
 
@@ -61,7 +61,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 - `tokenizer.json`：分词器的词汇配置文件<br>
 - `tokenizer.model`：模型的分词器<br>
 
-MindFormers提供权重转换脚本，通过执行[convert_weight.py转换脚本](https://gitee.com/mindspore/mindformers/blob/v1.3.2/convert_weight.py)，可以将HuggingFace的权重转换为完整的ckpt权重。
+MindSpore Transformers提供权重转换脚本，通过执行[convert_weight.py转换脚本](https://gitee.com/mindspore/mindformers/blob/v1.3.2/convert_weight.py)，可以将HuggingFace的权重转换为完整的ckpt权重。
 
 ```bash
 python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path {path}/MS_CKPT_NAME
@@ -77,7 +77,7 @@ output_path: 转换后的MindSpore权重文件保存路径
 
 ### 数据集准备
 
-MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调数据集。
+MindSpore Transformers提供**WikiText2**作为预训练数据集，**alpaca**作为微调数据集。
 
 | 数据集名称     |                 适用模型                  |   适用阶段    |                                                                            下载链接                                                                            |
 |:----------|:-------------------------------------:|:---------:| :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -87,7 +87,7 @@ MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调�
 
 **alpaca 数据预处理**
 
-1. 执行MindFormers中的[alpaca_converter.py脚本](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，将数据集转换为多轮对话格式。
+1. 执行MindSpore Transformers中的[alpaca_converter.py脚本](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，将数据集转换为多轮对话格式。
 
     ```bash
     python alpaca_converter.py \
@@ -102,7 +102,7 @@ MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调�
     output_path: 输出文件的保存路径
     ```
 
-2. 执行MindFormers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13。
+2. 执行MindSpore Transformers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13。
 
     ```bash
     python llama_preprocess.py \
@@ -141,7 +141,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 参数说明：
 
 ```commandline
-config：            模型的配置文件，文件在MindFormers代码仓中config目录下
+config：            模型的配置文件，文件在MindSpore Transformers代码仓中config目录下
 load_checkpoint：   checkpoint文件的路径
 train_dataset_dir： 训练数据集路径
 use_parallel：      是否开启并行

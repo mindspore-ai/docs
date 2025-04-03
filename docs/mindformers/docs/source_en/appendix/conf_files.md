@@ -4,11 +4,11 @@
 
 ## Overview
 
-Different parameters usually need to be configured during the training and inference process of a model. MindFormers supports the use of `YAML` files to centrally manage and adjust the configurable items, which makes the configuration of the model more structured and improves its maintainability at the same time.
+Different parameters usually need to be configured during the training and inference process of a model. MindSpore Transformers supports the use of `YAML` files to centrally manage and adjust the configurable items, which makes the configuration of the model more structured and improves its maintainability at the same time.
 
 ## Description of the YAML File Contents
 
-The `YAML` file provided by MindFormers contains configuration items for different functions, which are described below according to their contents.
+The `YAML` file provided by MindSpore Transformers contains configuration items for different functions, which are described below according to their contents.
 
 ### Basic Configuration
 
@@ -29,8 +29,8 @@ Context configuration is mainly used to specify the [mindspore.set_context](http
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| context.mode                | Set the backend execution mode, `0` means GRAPH_MODE. MindFormers currently only supports running in GRAPH_MODE mode.                                                                                          | int      |
-| context.device_target       | Set the backend execution device. MindFormers is only supported on `Ascend` devices.                                                                                                              | str      |
+| context.mode                | Set the backend execution mode, `0` means GRAPH_MODE. MindSpore Transformers currently only supports running in GRAPH_MODE mode.                                                                                          | int      |
+| context.device_target       | Set the backend execution device. MindSpore Transformers is only supported on `Ascend` devices.                                                                                                              | str      |
 | context.device_id           | Set the execution device ID. The value must be within the range of available devices, and the default value is `0`.                                                                                                                      | int      |
 | context.enable_graph_kernel | Enable graph fusion to optimize network execution performance, defaults to `False`. See [graph fusion](https://www.mindspore.cn/docs/en/r2.4.10/model_train/optimize/graph_fusion_engine.html) for details.                    | bool     |
 | context.max_call_depth      | Set the maximum depth of a function call. The value must be a positive integer, and the default value is `1000`.                                                                                                                    | int      |
@@ -41,7 +41,7 @@ Context configuration is mainly used to specify the [mindspore.set_context](http
 
 ### Model Configuration
 
-Since the configuration will vary from model to model, only the generic configuration of models in MindFormers is described here.
+Since the configuration will vary from model to model, only the generic configuration of models in MindSpore Transformers is described here.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |--------------------------------------------|--------------------------------------------------------------------------------------------------|------|
@@ -83,7 +83,7 @@ In addition to the basic configuration of the model above, the MoE model needs t
 
 ### Model Training Configuration
 
-When starting model training, in addition to model-related parameters, you also need to set the parameters of trainer, runner_config, learning rate, and optimizer and other modules required for training, MindFormers provides the following configuration items.
+When starting model training, in addition to model-related parameters, you also need to set the parameters of trainer, runner_config, learning rate, and optimizer and other modules required for training, MindSpore Transformers provides the following configuration items.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types |
 |---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
@@ -128,7 +128,7 @@ When starting model training, in addition to model-related parameters, you also 
 
 ### Parallel Configuration
 
-In order to improve the performance of the model, it is usually necessary to configure the parallelism strategy for the model in large-scale cluster usage scenarios. For details, please refer to [Distributed Parallelism](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/distributed_parallel.html), the parallel configuration in MindFormers is as follows.
+In order to improve the performance of the model, it is usually necessary to configure the parallelism strategy for the model in large-scale cluster usage scenarios. For details, please refer to [Distributed Parallelism](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/distributed_parallel.html), the parallel configuration in MindSpore Transformers is as follows.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -156,7 +156,7 @@ In order to improve the performance of the model, it is usually necessary to con
 
 ### Model Optimization Configuration
 
-MindFormers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/perf_optimize/perf_optimize.html#recomputation) for details.
+MindSpore Transformers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/perf_optimize/perf_optimize.html#recomputation) for details.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types           |
 |----------------------------------------------------|-------------------------------|-----------------|
@@ -168,7 +168,7 @@ MindFormers provides recomputation-related configurations to reduce the memory f
 
 ### Callbacks Configuration
 
-MindFormers provides encapsulated Callbacks function class, mainly to achieve to return to the model training state and output in the model training process, save the model weight file and other operations. Currently the following Callbacks function class is supported.
+MindSpore Transformers provides encapsulated Callbacks function class, mainly to achieve to return to the model training state and output in the model training process, save the model weight file and other operations. Currently the following Callbacks function class is supported.
 
 1. MFLossMonitor
 
@@ -227,7 +227,7 @@ callbacks:
 
 ### Processor Configuration
 
-Processor is mainly used to preprocess the inference data of the input model. Since the Processor configuration items are not fixed, only the generic configuration items of Processor in MindFormers are explained here.
+Processor is mainly used to preprocess the inference data of the input model. Since the Processor configuration items are not fixed, only the generic configuration items of Processor in MindSpore Transformers are explained here.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |--------------------------------|--------------------------------------|-----|
@@ -239,7 +239,7 @@ Processor is mainly used to preprocess the inference data of the input model. Si
 
 ### Model Evaluation Configuration
 
-MindFormers provides model evaluation function, and also supports model evaluation while training. The following is the configuration related to model evaluation.
+MindSpore Transformers provides model evaluation function, and also supports model evaluation while training. The following is the configuration related to model evaluation.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |---------------------|-------------------------------------------------------------|------|
@@ -253,7 +253,7 @@ MindFormers provides model evaluation function, and also supports model evaluati
 
 ### Profile Configuration
 
-MindFormers provides Profile as the main tool for model performance tuning, please refer to [Performance Tuning Guide](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/perf_optimize/perf_optimize.html) for more details. The following is the Profile related configuration.
+MindSpore Transformers provides Profile as the main tool for model performance tuning, please refer to [Performance Tuning Guide](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/perf_optimize/perf_optimize.html) for more details. The following is the Profile related configuration.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------|------|

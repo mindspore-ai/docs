@@ -2,11 +2,11 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindformers/docs/source_zh_cn/quick_start/source_code_start.md)
 
-本节展示如何使用MindFormers快速拉起一个基于 Llama2-7B 模型的LoRA低参微调任务。如果想要通过MindFormers使用其他模型和任务，请阅读对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/start/models.html)。
+本节展示如何使用MindSpore Transformers快速拉起一个基于 Llama2-7B 模型的LoRA低参微调任务。如果想要通过MindSpore Transformers使用其他模型和任务，请阅读对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/start/models.html)。
 
 ## 准备权重文件
 
-MindFormers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考[Llama2文档](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#模型权重转换)以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
+MindSpore Transformers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考[Llama2文档](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#模型权重转换)以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
 
 | 模型名称 | MindSpore权重 | HuggingFace权重 |
 | ------ | ------ | ------ |

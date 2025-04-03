@@ -7,7 +7,7 @@
 ### Introduction
 
 [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) is an open-source language model evaluation framework that provides evaluation of more than 60 standard academic datasets, supports multiple evaluation modes such as HuggingFace model evaluation, PEFT adapter evaluation, and vLLM inference evaluation, and supports customized prompts and evaluation metrics, including the evaluation tasks of the loglikelihood, generate_until, and loglikelihood_rolling types.
-After MindFormers is adapted based on the Harness evaluation framework, the MindFormers model can be loaded for evaluation.
+After MindSpore Transformers is adapted based on the Harness evaluation framework, the MindSpore Transformers model can be loaded for evaluation.
 
 The currently adapted models and supported evaluation tasks are shown in the table below (the remaining models and evaluation tasks are actively being adapted, please pay attention to version updates):
 
@@ -88,13 +88,13 @@ Harness parameters
 
 | Parameter           | Type | Description                     | Required|
 |---------------|-----|---------------------------|------|
-| `--model`       | str | The value must be **mf**, indicating the MindFormers evaluation policy.| Yes   |
-| `--model_args`  | str | Model and evaluation parameters. For details, see "MindFormers model parameters."      | Yes   |
+| `--model`       | str | The value must be **mf**, indicating the MindSpore Transformers evaluation policy.| Yes   |
+| `--model_args`  | str | Model and evaluation parameters. For details, see "MindSpore Transformers model parameters."      | Yes   |
 | `--tasks`       | str | Dataset name. Multiple datasets can be specified and separated by commas (,).      | Yes   |
 | `--batch_size`  | int | Number of batch processing samples.                   | No   |
 | `--limit`       | int | Number of samples for each task. This parameter is mainly used for function tests.         | No   |
 
-MindFormers model parameters
+MindSpore Transformers model parameters
 
 | Parameter          | Type  | Description                             | Required|
 |--------------|------|-----------------------------------|------|
@@ -122,7 +122,7 @@ The evaluation result is as follows. Filter indicates the output mode of the mat
 ### Overview
 
 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit)
-is an open source toolkit designed for large visual language model evaluation, supporting one-click evaluation of large visual language models on various benchmarks, without the need for complicated data preparation, making the evaluation process easier. It supports a variety of graphic multimodal evaluation sets and video multimodal evaluation sets, a variety of API models and open source models based on PyTorch and HF, and customized prompts and evaluation metrics. After adapting MindFormers based on VLMEvalKit evaluation framework, it supports loading multimodal large models in MindFormers for evaluation.
+is an open source toolkit designed for large visual language model evaluation, supporting one-click evaluation of large visual language models on various benchmarks, without the need for complicated data preparation, making the evaluation process easier. It supports a variety of graphic multimodal evaluation sets and video multimodal evaluation sets, a variety of API models and open source models based on PyTorch and HF, and customized prompts and evaluation metrics. After adapting MindSpore Transformers based on VLMEvalKit evaluation framework, it supports loading multimodal large models in MindSpore Transformers for evaluation.
 
 ### Supported Feature Descriptions
 

@@ -4,11 +4,11 @@
 
 ## 概述
 
-在模型的训练和推理过程中通常需要配置不同的参数，MindFormers支持使用`YAML`文件集中管理和调整可配置项，使模型的配置更加结构化，同时提高了其可维护性。
+在模型的训练和推理过程中通常需要配置不同的参数，MindSpore Transformers支持使用`YAML`文件集中管理和调整可配置项，使模型的配置更加结构化，同时提高了其可维护性。
 
 ## YAML文件内容说明
 
-MindFormers提供的`YAML`文件中包含对于不同功能的配置项，下面按照配置项的内容对其进行说明。
+MindSpore Transformers提供的`YAML`文件中包含对于不同功能的配置项，下面按照配置项的内容对其进行说明。
 
 ### 基础配置
 
@@ -29,8 +29,8 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 | 参数                        | 说明                                                         | 类型     |
 | --------------------------- | ------------------------------------------------------------ | -------- |
-| context.mode                | 设置后端执行模式，`0`表示GRAPH_MODE，MindFormers目前仅支持在GRAPH_MODE模式下运行 | int      |
-| context.device_target       | 设置后端执行设备，MindFormers仅支持在`Ascend`设备上运行      | str      |
+| context.mode                | 设置后端执行模式，`0`表示GRAPH_MODE，MindSpore Transformers目前仅支持在GRAPH_MODE模式下运行 | int      |
+| context.device_target       | 设置后端执行设备，MindSpore Transformers仅支持在`Ascend`设备上运行      | str      |
 | context.device_id           | 设置执行设备ID，其值必须在可用设备范围内，默认值为`0`        | int      |
 | context.enable_graph_kernel | 是否开启图算融合去优化网络执行性能, 默认值为`False`，详情可参考[图算融合](https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/optimize/graph_fusion_engine.html) | bool     |
 | context.max_call_depth      | 设置函数调用的最大深度，其值必须为正整数，默认值为`1000`     | int      |
@@ -41,7 +41,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### 模型配置
 
-由于不同的模型配置会有差异，这里仅对MindFormers中模型的通用配置进行说明。
+由于不同的模型配置会有差异，这里仅对MindSpore Transformers中模型的通用配置进行说明。
 
 | 参数                                         | 说明                                                                                               | 类型   |
 |--------------------------------------------|--------------------------------------------------------------------------------------------------|------|
@@ -77,13 +77,13 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | moe_config.moe_intermediate_size                    | 设置专家层中间维度大小                                                     | int  |
 | moe_config.capacity_factor              | 设置专家容量因子                                                                     | int  |
 | moe_config.num_experts_chosen             | 设置每个token选择专家数目                                                                                      | int  |
-| moe_config.enable_sdrop              | 设置是否使能token丢弃策略`sdrop`，由于MindFormers的MoE是静态shape实现所以不能保留所有token                                                                       | bool  |
+| moe_config.enable_sdrop              | 设置是否使能token丢弃策略`sdrop`，由于MindSpore Transformers的MoE是静态shape实现所以不能保留所有token                                                                       | bool  |
 | moe_config.aux_loss_factor              | 设置均衡性loss的权重                                                                       | list[float]  |
 | moe_config.first_k_dense_replace              | 设置moe层的使能block，一般设置为1，表示第一个block不使能moe                                                                       | int  |
 
 ### 模型训练配置
 
-启动模型训练时，除了模型相关参数，还需要设置trainer、runner_config、学习率以及优化器等训练所需模块的参数，MindFormers提供了如下配置项。
+启动模型训练时，除了模型相关参数，还需要设置trainer、runner_config、学习率以及优化器等训练所需模块的参数，MindSpore Transformers提供了如下配置项。
 
 | 参数                                          | 说明                                                                                                                                                                  | 类型    |
 |---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
@@ -128,7 +128,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### 并行配置
 
-为了提升模型的性能，在大规模集群的使用场景中通常需要为模型配置并行策略，详情可参考[分布式并行](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/distributed_parallel.html)，MindFormers中的并行配置如下。
+为了提升模型的性能，在大规模集群的使用场景中通常需要为模型配置并行策略，详情可参考[分布式并行](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/function/distributed_parallel.html)，MindSpore Transformers中的并行配置如下。
 
 | 参数                                                              | 说明                                                                                                                                                                                               | 类型   |
 |-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -156,7 +156,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### 模型优化配置
 
-MindFormers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/perf_optimize/perf_optimize.html#重计算)。
+MindSpore Transformers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/perf_optimize/perf_optimize.html#重计算)。
 
 | 参数                                                 | 说明                            | 类型        |
 |----------------------------------------------------|-------------------------------|-----------|
@@ -168,7 +168,7 @@ MindFormers提供重计算相关配置，以降低模型在训练时的内存占
 
 ### Callbacks配置
 
-MindFormers提供封装后的Callbacks函数类，主要实现在模型训练过程中返回模型的训练状态并输出、保存模型权重文件等一些操作，目前支持以下几个Callbacks函数类。
+MindSpore Transformers提供封装后的Callbacks函数类，主要实现在模型训练过程中返回模型的训练状态并输出、保存模型权重文件等一些操作，目前支持以下几个Callbacks函数类。
 
 1. MFLossMonitor
 
@@ -227,7 +227,7 @@ callbacks:
 
 ### Processor配置
 
-Processor主要用于对输入模型的推理数据进行预处理，由于Processor配置项不固定，这里仅对MindFormers中的Processor通用配置项进行说明。
+Processor主要用于对输入模型的推理数据进行预处理，由于Processor配置项不固定，这里仅对MindSpore Transformers中的Processor通用配置项进行说明。
 
 | 参数                             | 说明                                   | 类型  |
 |--------------------------------|--------------------------------------|-----|
@@ -239,7 +239,7 @@ Processor主要用于对输入模型的推理数据进行预处理，由于Proce
 
 ### 模型评估配置
 
-MindFormers提供模型评估功能，同时支持模型边训练边评估功能，以下是模型评估相关配置。
+MindSpore Transformers提供模型评估功能，同时支持模型边训练边评估功能，以下是模型评估相关配置。
 
 | 参数                  | 说明                                                         | 类型   |
 |---------------------|------------------------------------------------------------|------|
@@ -253,7 +253,7 @@ MindFormers提供模型评估功能，同时支持模型边训练边评估功能
 
 ### Profile配置
 
-MindFormers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/perf_optimize/perf_optimize.html)，以下是Profile相关配置。
+MindSpore Transformers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/perf_optimize/perf_optimize.html)，以下是Profile相关配置。
 
 | 参数                    | 说明                                                                                                                            | 类型   |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------------|------|

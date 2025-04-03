@@ -1,13 +1,13 @@
 MindSpore Transformers Documentation
 =====================================
 
-MindSpore Transformers (also known as MindFormers) is a MindSpore-native foundation model suite designed to provide full-flow development capabilities for foundation model training, fine-tuning, evaluating, inference and deploying, providing the industry mainstream Transformer class of pre-trained models and SOTA downstream task applications, and covering a rich range of parallel features, with the expectation of helping users to easily realize large model training and innovative research and development.
+MindSpore Transformers is a MindSpore-native foundation model suite designed to provide full-flow development capabilities for foundation model training, fine-tuning, evaluating, inference and deploying, providing the industry mainstream Transformer class of pre-trained models and SOTA downstream task applications, and covering a rich range of parallel features, with the expectation of helping users to easily realize large model training and innovative research and development.
 
 Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported functional features and foundation models. Further, refer to the `Installation <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/quick_start/install.html>`_ and `Quick Start <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/quick_start/source_code_start.html>`_ to get started with MindSpore Transformers.
 
-If you have any suggestions for MindFormers, please contact us via `issue <https://gitee.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
+If you have any suggestions for MindSpore Transformers, please contact us via `issue <https://gitee.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
 
-MindFormers supports one-click start of single/multi-card training, fine-tuning, evaluation, and inference processes for any task, which makes the execution of deep learning tasks more efficient and user-friendly by simplifying the operation, providing flexibility, and automating the process. Users can learn from the following explanatory documents:
+MindSpore Transformers supports one-click start of single/multi-card training, fine-tuning, evaluation, and inference processes for any task, which makes the execution of deep learning tasks more efficient and user-friendly by simplifying the operation, providing flexibility, and automating the process. Users can learn from the following explanatory documents:
 
 - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/usage/dev_migration.html>`_
 - `Pretraining <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/usage/pre_training.html>`_
@@ -23,11 +23,11 @@ Code repository address: <https://gitee.com/mindspore/mindformers>
 Flexible and Easy-to-Use Personalized Configuration with MindSpore Transformers
 -------------------------------------------------------------------------------------------
 
-With its powerful feature set, MindFormers provides users with flexible and easy-to-use personalized configuration options. Specifically, it comes with the following key features:
+With its powerful feature set, MindSpore Transformers provides users with flexible and easy-to-use personalized configuration options. Specifically, it comes with the following key features:
 
 1. `Weight Format Conversion <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/weight_conversion.html>`_
 
-   Provides a unified weight conversion tool that converts model weights between the formats used by HuggingFace and MindFormers.
+   Provides a unified weight conversion tool that converts model weights between the formats used by HuggingFace and MindSpore Transformers.
 
 2. `Distributed Weight Slicing and Merging <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/function/transform_weight.html>`_
 
@@ -45,8 +45,8 @@ With its powerful feature set, MindFormers provides users with flexible and easy
 
    Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
 
-Deep Optimizing with MindFormers
-------------------------------------
+Deep Optimizing with MindSpore Transformers
+---------------------------------------------------
 
 - `Precision Optimizing <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/acc_optimize/acc_optimize.html>`_
 - `Performance Optimizing <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/perf_optimize/perf_optimize.html>`_
@@ -62,7 +62,7 @@ FAQ
 
 - `Model-Related <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/faq/model_related.html>`_
 - `Function-Related <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/faq/func_related.html>`_
-- `MindFormers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/faq/mindformers_contribution.html>`_
+- `MindSpore Transformers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/faq/mindformers_contribution.html>`_
 - `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/r1.3.2/faq/modelers_contribution.html>`_
 
 .. toctree::

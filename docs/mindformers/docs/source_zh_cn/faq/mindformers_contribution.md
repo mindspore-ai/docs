@@ -1,20 +1,20 @@
-# MindFormers贡献指南
+# MindSpore Transformers贡献指南
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindformers/docs/source_zh_cn/faq/mindformers_contribution.md)
 
-## 贡献代码至MindFormers
+## 贡献代码至MindSpore Transformers
 
 ### 代码风格要求
 
-请遵循此风格，以便MindFormers审查、维护和开发。
+请遵循此风格，以便MindSpore Transformers审查、维护和开发。
 
 - 编码指南
 
-  MindFormers社区使用`Python PEP 8` 编码风格。建议在IDE中安装以下插件，用于检查代码格式：`Lizard`、`ShellCheck` 和`PyLint`。
+  MindSpore Transformers社区使用`Python PEP 8` 编码风格。建议在IDE中安装以下插件，用于检查代码格式：`Lizard`、`ShellCheck` 和`PyLint`。
 
 - 单元测试指南
 
-  MindFormers社区使用Python单元测试框架pytest。注释名称需反映测试用例的设计意图。
+  MindSpore Transformers社区使用Python单元测试框架pytest。注释名称需反映测试用例的设计意图。
 
 - 重构指南
 
@@ -30,9 +30,9 @@
 
 ### Fork-Pull 开发模型指导
 
-- Fork MindFormers代码仓
+- Fork MindSpore Transformers代码仓
 
-  在提交代码至MindFormers项目之前，请确保已fork此项目到您自己的代码仓。MindFormers代码仓和您自己的代码仓之间可能会并行开发，请注意它们之间的一致性。
+  在提交代码至MindSpore Transformers项目之前，请确保已fork此项目到您自己的代码仓。MindSpore Transformers代码仓和您自己的代码仓之间可能会并行开发，请注意它们之间的一致性。
 
 - 克隆远程代码仓
 
@@ -51,9 +51,9 @@
   git checkout -b {新分支名称} origin/dev
   ```
 
-- 提交PR到MindFormers代码仓
+- 提交PR到MindSpore Transformers代码仓
 
-  在最后一步中，您需要在新分支和`MindFormers`主分支之间拉取比较请求。完成拉取请求后，`Jenkins CI`将自动设置，进行构建测试。PR应该尽快合并到上游dev分支中，以降低合并的风险。
+  在最后一步中，您需要在新分支和`MindSpore Transformers`主分支之间拉取比较请求。完成拉取请求后，`Jenkins CI`将自动设置，进行构建测试。PR应该尽快合并到上游dev分支中，以降低合并的风险。
 
   ```shell
   # 添加所有更改到暂存区
@@ -75,7 +75,7 @@
 
 ### 文件及代码格式
 
-若希望将自定义模型合入`MindFormers`代码仓库，需要注意几点：
+若希望将自定义模型合入`MindSpore Transformers`代码仓库，需要注意几点：
 
 1. 文件格式及位置要遵循规范。
 2. 将新模型在代码中进行注册，以适配高阶接口使用。

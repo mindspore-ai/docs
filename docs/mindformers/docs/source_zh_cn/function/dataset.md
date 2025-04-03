@@ -128,11 +128,11 @@ train_dataset_task:
 
 ## BIN 格式数据集
 
-在大模型训练过程中，使用二进制格式（BIN格式）的数据集可以带来显著的性能和效率提升。当前 MindFormers 框架也适配了对 BIN 格式数据集的处理能力，包括如何制作 BIN 格式数据集和在任务中使用 BIN 格式数据集。
+在大模型训练过程中，使用二进制格式（BIN格式）的数据集可以带来显著的性能和效率提升。当前 MindSpore Transformers 框架也适配了对 BIN 格式数据集的处理能力，包括如何制作 BIN 格式数据集和在任务中使用 BIN 格式数据集。
 
 ### 如何制作 BIN 格式数据集
 
-当前 MindFormers 提供的预处理脚本仅支持处理 json 格式的文件，需要用户在使用预处理脚本前将原始数据集的文件格式转换成符合预处理脚本支持的 json 格式的文件，支持的 json 格式的文件格式如下：
+当前 MindSpore Transformers 提供的预处理脚本仅支持处理 json 格式的文件，需要用户在使用预处理脚本前将原始数据集的文件格式转换成符合预处理脚本支持的 json 格式的文件，支持的 json 格式的文件格式如下：
 
 ```json
 {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}

@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindFormers provides the foundation model inference capability. Users can run the unified script `run_mindformer` or write a script to call the high-level `pipeline` API to start inference. If the unified script `run_mindformer` is used, you can directly start the system through the configuration file without writing code.
+MindSpore Transformers provides the foundation model inference capability. Users can run the unified script `run_mindformer` or write a script to call the high-level `pipeline` API to start inference. If the unified script `run_mindformer` is used, you can directly start the system through the configuration file without writing code.
 
 ## Basic Process
 
@@ -280,4 +280,4 @@ The inference result is as follows:
 
 ## More Information
 
-For more inference examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/models.html).
+For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/start/models.html).
