@@ -70,6 +70,7 @@ data_set = create_dataset(32)
 
 > - 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
 > - 在pipeline并行下，网络的输出不支持动态shape。
+> - 在pipeline并行下，推荐使用lazy_inline装饰器来缩短编译时间，并且仅支持将lazy_inline装饰器配置在最外层的Cell上。
 
 ```python
 from mindspore import nn, ops, Parameter
