@@ -39,6 +39,8 @@ from mindspore.train.callback import OnRequestExit
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.communication.management import init
 from mindspore.context import ParallelMode
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore.nn.utils import no_init_parameters
 
 context.set_context(mode=context.GRAPH_MODE)
 
@@ -166,15 +168,16 @@ def graceful_exit_case():
     context.set_context(mode=context.GRAPH_MODE)
     ms.set_device("Ascend")
 
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, device_num=device_num)
     init()
 
     # build
-    network = LeNet5(10)
+    with no_init_parameters():
+        network = LeNet5(10)
+        net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
     ds_train = create_dataset(os.path.join(DATASET_PATH, "train"), 32, 1)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    parallel_net = AutoParallel(network, parallel_mode='semi_auto')
+    model = Model(parallel_net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     # graceful exit json file：{"GracefulExit": 1}
     reset_json = r"./graceful_exit.json"
