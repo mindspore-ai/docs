@@ -36,6 +36,7 @@ Model Building and Training
    :caption: compile
 
    compile/graph_construction
+   compile/graph_optimization
 
 Building
 ---------
