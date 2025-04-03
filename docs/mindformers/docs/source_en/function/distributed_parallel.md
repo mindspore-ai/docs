@@ -19,9 +19,9 @@ In actual applications, different parallelism strategies apply to different scen
 
 > The parallelism strategy configuration in the YAML file provided by the repository has been optimized. Currently, you are recommended to use semi-automatic parallelism for optimal performance and stability.
 
-## Parallelism Features Supported by MindFormers
+## Parallelism Features Supported by MindSpore Transformers
 
-MindFormers supports multiple parallelism features. You can use these features to optimize the training of different model architectures and hardware configurations. The following table outlines these parallelism features and provides links to the details in the MindSpore documentation.
+MindSpore Transformers supports multiple parallelism features. You can use these features to optimize the training of different model architectures and hardware configurations. The following table outlines these parallelism features and provides links to the details in the MindSpore documentation.
 
 | **Parallelism Feature**                     | **Description**                                                                         |
 |-----------------------------------|---------------------------------------------------------------------------------|
@@ -33,9 +33,9 @@ MindFormers supports multiple parallelism features. You can use these features t
 | **Context parallelism** | Slices all inputs and output activations by sequence to further reduce the GPU memory usage of the model for processing long sequence inputs.|
 | **[Multi-copy parallelism](https://www.mindspore.cn/docs/en/r2.4.10/model_train/parallel/pipeline_parallel.html#mindspore-interleaved-pipeline-scheduler)**                  | Implements fine-grained parallel control among multiple copies to optimize performance and resource utilization. This mode is suitable for efficient training of models with large specifications.                                    |
 
-For details about how to configure distributed parallel parameters, see [MindFormers Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/appendix/conf_files.html).
+For details about how to configure distributed parallel parameters, see [MindSpore Transformers Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/appendix/conf_files.html).
 
-## MindFormers Distributed Parallel Application Practices
+## MindSpore Transformers Distributed Parallel Application Practices
 
 In the [Llama3-70B fine-tuning configuration](https://gitee.com/kongdeshuo/mindformers/blob/dev/research/llama3/llama3_70b/finetune_llama3_70b.yaml) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
 

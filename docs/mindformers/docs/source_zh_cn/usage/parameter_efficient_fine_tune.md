@@ -4,7 +4,7 @@
 
 ## 概述
 
-在深度学习模型的微调过程中，通常需要更新模型所有的权重，这会导致大量的计算资源消耗。LoRA（Low-Rank Adaptation）是一种通过将模型的部分权重矩阵分解为低秩矩阵来显著减少微调所需参数量的技术。结合华为昇腾AI处理器及MindSpore深度学习框架，以及MindFormers大模型套件，LoRA能够轻松应用于大规模预训练模型（如Llama2）的低参微调，提供高效且灵活的模型定制化能力。
+在深度学习模型的微调过程中，通常需要更新模型所有的权重，这会导致大量的计算资源消耗。LoRA（Low-Rank Adaptation）是一种通过将模型的部分权重矩阵分解为低秩矩阵来显著减少微调所需参数量的技术。结合华为昇腾AI处理器及MindSpore深度学习框架，以及MindSpore Transformers大模型套件，LoRA能够轻松应用于大规模预训练模型（如Llama2）的低参微调，提供高效且灵活的模型定制化能力。
 
 ## LoRA 原理简介
 
@@ -27,9 +27,9 @@ LoRA通过将原始模型的权重矩阵分解为两个低秩矩阵来实现参�
 
 6. **评估与保存**：在微调过程中或结束后，评估模型的性能，并保存微调后的模型权重。
 
-## 使用MindFormers进行Llama2的LoRA低参微调
+## 使用MindSpore Transformers进行Llama2的LoRA低参微调
 
-在昇腾AI处理器的分布式环境中，可以通过MindFormers套件轻松实现LoRA的低参微调流程。以下展示了Llama2模型LoRA微调中的核心配置部分，并对 `pet_config` 参数进行了详细说明。
+在昇腾AI处理器的分布式环境中，可以通过MindSpore Transformers套件轻松实现LoRA的低参微调流程。以下展示了Llama2模型LoRA微调中的核心配置部分，并对 `pet_config` 参数进行了详细说明。
 
 ### 示例配置文件（YAML）
 
@@ -71,7 +71,7 @@ model:
 
 ### Llama2-7B 的 LoRA 微调示例
 
-MindFormers 提供了 Llama2-7B 的 [LoRA 微调示例](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83)。微调过程中使用的数据集可以参考[数据集下载](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)获得。
+MindSpore Transformers 提供了 Llama2-7B 的 [LoRA 微调示例](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83)。微调过程中使用的数据集可以参考[数据集下载](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)获得。
 
 以 Llama2-7B 为例，可以执行以下 msrun 启动脚本，进行 8 卡分布式微调。
 

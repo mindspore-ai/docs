@@ -4,9 +4,9 @@
 
 ## 概述
 
-在当前的分布式训练和推理环境中，当预训练权重与分布式策略不匹配时，需要对预训练权重进行转换，以适应相应的分布式策略。为满足不同场景下的权重转换需求，MindFormers提供了一套权重转换工具。该工具支持单卡权重切分为多卡权重、多卡权重之间的转换、多卡权重合并为单卡权重。用户可根据具体需求选择[自动转换](#自动转换)或[离线转换](#离线转换)，帮助模型在不同分布式场景之间快速切换。
+在当前的分布式训练和推理环境中，当预训练权重与分布式策略不匹配时，需要对预训练权重进行转换，以适应相应的分布式策略。为满足不同场景下的权重转换需求，MindSpore Transformers提供了一套权重转换工具。该工具支持单卡权重切分为多卡权重、多卡权重之间的转换、多卡权重合并为单卡权重。用户可根据具体需求选择[自动转换](#自动转换)或[离线转换](#离线转换)，帮助模型在不同分布式场景之间快速切换。
 
-此外，MindFormers还支持[LoRA权重的合并](#lora权重合并)，方便用户部署使用LoRA微调后的模型。
+此外，MindSpore Transformers还支持[LoRA权重的合并](#lora权重合并)，方便用户部署使用LoRA微调后的模型。
 
 ## 自动转换
 
@@ -184,7 +184,7 @@ bash transform_checkpoint.sh \
 
 #### 场景一：服务器之间有共享盘
 
-在服务器之间有共享盘的场景下，可以使用 MindFormers 的自动权重转换功能在多机多卡训练之前自动进行权重转换。假设 `/data` 为服务器的共享盘，且 MindFormers 的工程代码位于 `/data/mindformers` 路径下。
+在服务器之间有共享盘的场景下，可以使用 MindSpore Transformers 的自动权重转换功能在多机多卡训练之前自动进行权重转换。假设 `/data` 为服务器的共享盘，且 MindSpore Transformers 的工程代码位于 `/data/mindformers` 路径下。
 
 - **单进程转换**
 
@@ -336,7 +336,7 @@ LoRA（Low-Rank Adaptation）的基本原理是对原始模型的参数进行低
 
 ### 使用说明
 
-使用MindFormers提供的[LoRA权重合并脚本](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/transform_ckpt_lora.py)，按照如下方式进行LoRA权重合并。
+使用MindSpore Transformers提供的[LoRA权重合并脚本](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/transform_ckpt_lora.py)，按照如下方式进行LoRA权重合并。
 
 ```shell
 python mindformers/tools/transform_ckpt_lora.py \

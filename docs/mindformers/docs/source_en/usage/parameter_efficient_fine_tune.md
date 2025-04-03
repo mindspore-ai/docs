@@ -4,7 +4,7 @@
 
 ## Overview
 
-In the fine-tuning process of a deep learning model, all weights of the model need to be updated, which causes a large amount of computing resource consumption. Low-rank adaptation (LoRA) is a technology that significantly reduces the number of parameters required for fine-tuning by decomposing a partial weight matrix of a model into low-rank matrices. With Huawei Ascend AI processors, MindSpore deep learning framework, and MindFormers foundation model suite, LoRA can be used for PEFT of large-scale pretrained models (such as Llama2), providing efficient and flexible model customization capabilities.
+In the fine-tuning process of a deep learning model, all weights of the model need to be updated, which causes a large amount of computing resource consumption. Low-rank adaptation (LoRA) is a technology that significantly reduces the number of parameters required for fine-tuning by decomposing a partial weight matrix of a model into low-rank matrices. With Huawei Ascend AI processors, MindSpore deep learning framework, and MindSpore Transformers foundation model suite, LoRA can be used for PEFT of large-scale pretrained models (such as Llama2), providing efficient and flexible model customization capabilities.
 
 ## LoRA Principles
 
@@ -27,9 +27,9 @@ The following key steps are required for LoRA PEFT:
 
 6. **Evaluation and saving**: During or after fine-tuning, evaluate the model performance, and save the fine-tuned model weight.
 
-## Using MindFormers for LoRA PEFT of Llama2
+## Using MindSpore Transformers for LoRA PEFT of Llama2
 
-In the distributed environment of Ascend AI processors, the MindFormers suite can be used to easily implement the LoRA PEFT. The following shows the core configuration part of the LoRA fine-tuning of the Llama2 model and details the `pet_config` parameters.
+In the distributed environment of Ascend AI processors, the MindSpore Transformers suite can be used to easily implement the LoRA PEFT. The following shows the core configuration part of the LoRA fine-tuning of the Llama2 model and details the `pet_config` parameters.
 
 ### YAML File Example
 
@@ -71,7 +71,7 @@ By configuring these parameters, LoRA can effectively reduce the computing resou
 
 ### Examples of LoRA Fine-Tuning for Llama2-7B
 
-MindFormers provides [the LoRA fine-tuning examples](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83) of Llama2-7B. For details about the dataset used during fine-tuning, see [dataset downloading](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json).
+MindSpore Transformers provides [the LoRA fine-tuning examples](https://gitee.com/mindspore/mindformers/blob/v1.3.2/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83) of Llama2-7B. For details about the dataset used during fine-tuning, see [dataset downloading](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json).
 
 Take Llama2-7B as an example. You can run the following **msrun** startup script to perform 8-device distributed fine-tuning.
 

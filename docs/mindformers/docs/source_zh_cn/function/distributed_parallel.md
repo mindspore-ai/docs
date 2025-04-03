@@ -19,9 +19,9 @@ MindSpore 的并行模式包括数据并行、模型并行、流水线并行、�
 
 > 仓库中提供的 YAML 文件中并行策略配置已经优化，当前推荐用户使用半自动并行，以确保最佳性能和稳定性。
 
-## MindFormers 支持的并行特性
+## MindSpore Transformers 支持的并行特性
 
-MindFormers 支持多种并行特性，开发者可以利用这些特性来优化不同模型架构和硬件配置的训练。以下表格概述了这些并行特性，并提供了指向 MindSpore 文档中详细说明的链接。
+MindSpore Transformers 支持多种并行特性，开发者可以利用这些特性来优化不同模型架构和硬件配置的训练。以下表格概述了这些并行特性，并提供了指向 MindSpore 文档中详细说明的链接。
 
 | **并行特性**                      | **描述**                                                                          |
 |-----------------------------------|---------------------------------------------------------------------------------|
@@ -33,9 +33,9 @@ MindFormers 支持多种并行特性，开发者可以利用这些特性来优�
 | **上下文并行**  | 设计用于处理长序列输入的模型，对所有的input输入和所有的输出activation在sequence维度上进行切分，对于超长序列输入场景进一步减少显存占用。 |
 | **[多副本并行](https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/parallel/pipeline_parallel.html#mindspore%E4%B8%AD%E7%9A%84interleaved-pipeline%E8%B0%83%E5%BA%A6)**                   | 用于在多个副本之间实现精细的并行控制，优化性能和资源利用率，适合大规格模型的高效训练。                                     |
 
-关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/appendix/conf_files.html) 中的并行配置章节下的具体内容。
 
-## MindFormers 分布式并行应用实践
+## MindSpore Transformers 分布式并行应用实践
 
 在官网提供的[Llama3-70B微调配置](https://gitee.com/kongdeshuo/mindformers/blob/dev/research/llama3/llama3_70b/finetune_llama3_70b.yaml)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
 

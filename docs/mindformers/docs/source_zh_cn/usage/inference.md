@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindFormers 提供了大模型推理能力，用户可以执行 `run_mindformer` 统一脚本，或者编写代码调用 `pipeline` 高阶接口进行推理。使用 `run_mindformer` 统一脚本可以不编写代码，直接通过配置文件启动，用法更便捷。
+MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_mindformer` 统一脚本，或者编写代码调用 `pipeline` 高阶接口进行推理。使用 `run_mindformer` 统一脚本可以不编写代码，直接通过配置文件启动，用法更便捷。
 
 ## 基本流程
 
@@ -280,4 +280,4 @@ python pipeline_inference.py
 
 ## 更多信息
 
-更多关于不同模型的推理示例，请访问[MindFormers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/start/models.html)。
+更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/start/models.html)。

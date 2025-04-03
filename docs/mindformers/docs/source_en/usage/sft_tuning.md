@@ -30,15 +30,15 @@ Based on actual operations, SFT may be decomposed into the following steps:
 5. **Performing a fine-tuning task:**
    Use the dataset of the fine-tuning task to train the pre-trained model and update the model parameters. If all parameters are fine-tuned, all parameters are updated. After the fine-tuning task is complete, a new model can be obtained.
 
-## MindFormers-based Full-Parameter Fine-Tuning Practice
+## MindSpore Transformers-based Full-Parameter Fine-Tuning Practice
 
 ### Selecting a Pretrained Model
 
-MindFormers supports mainstream foundation models in the industry. This practice uses the Llama2-7B model for SFT as an example.
+MindSpore Transformers supports mainstream foundation models in the industry. This practice uses the Llama2-7B model for SFT as an example.
 
 ### Downloading the Model Weights
 
-MindFormers provides pretrained weights and vocabulary files that have been converted for pretraining, fine-tuning, and inference. You can also download the official HuggingFace weights and convert model weights before using these weights.
+MindSpore Transformers provides pretrained weights and vocabulary files that have been converted for pretraining, fine-tuning, and inference. You can also download the official HuggingFace weights and convert model weights before using these weights.
 
 You can download the vocabulary at [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model).
 
@@ -61,7 +61,7 @@ Take the [Llama2-7B model](https://huggingface.co/meta-llama/Llama-2-7b-hf/tree/
 - `tokenizer.json`: tokenizer vocabulary configuration file.<br>
 - `tokenizer.model`: tokenizer of the model.<br>
 
-MindFormers provides a weight conversion script. You can run the conversion script [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/convert_weight.py) to convert the HuggingFace weights to the complete CKPT weights.
+MindSpore Transformers provides a weight conversion script. You can run the conversion script [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/convert_weight.py) to convert the HuggingFace weights to the complete CKPT weights.
 
 ```bash
 python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path {path}/MS_CKPT_NAME
@@ -77,7 +77,7 @@ output_path: path for storing the converted MindSpore weight file.
 
 ### Preparing a Dataset
 
-MindFormers provides **WikiText2** as the pretraining dataset and **alpaca** as the fine-tuning dataset.
+MindSpore Transformers provides **WikiText2** as the pretraining dataset and **alpaca** as the fine-tuning dataset.
 
 | Dataset    |                 Applicable Model                 |   Applicable Phase   |              Download Link     |
 |:----------|:-------------------------------------:|:---------:| :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -87,7 +87,7 @@ The following uses the alpaca dataset as an example. After downloading the datas
 
 **alpaca Data Preprocessing**
 
-1. Run the [alpaca_converter.py script](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py) in MindFormers to convert the dataset into the multi-round dialog format.
+1. Run the [alpaca_converter.py script](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py) in MindSpore Transformers to convert the dataset into the multi-round dialog format.
 
     ```bash
     python alpaca_converter.py \
@@ -102,7 +102,7 @@ The following uses the alpaca dataset as an example. After downloading the datas
     output_path: path for storing output files.
     ```
 
-2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindFormers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later in advance.
+2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindSpore Transformers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later in advance.
 
     ```bash
     python llama_preprocess.py \
@@ -141,7 +141,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 Parameters:
 
 ```commandline
-config:            model configuration file, which is stored in the config directory of the MindFormers code repository.
+config:            model configuration file, which is stored in the config directory of the MindSpore Transformers code repository.
 load_checkpoint:   path of the checkpoint file.
 train_dataset_dir: path of the training dataset.
 use_parallel:      specifies whether to enable parallelism.

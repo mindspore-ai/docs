@@ -4,7 +4,7 @@
 
 ## 概述
 
-预训练是指在大规模无标注数据上训练模型，使其能够全面捕捉语言的广泛特性。通过预训练，模型可以学习到词汇、句法和语义等层面的知识，这些知识在下游任务中通过微调得到应用，从而优化特定任务的性能。MindFormers框架的预训练目标是帮助开发者快速、便捷地构建和训练基于Transformer架构的预训练模型。
+预训练是指在大规模无标注数据上训练模型，使其能够全面捕捉语言的广泛特性。通过预训练，模型可以学习到词汇、句法和语义等层面的知识，这些知识在下游任务中通过微调得到应用，从而优化特定任务的性能。MindSpore Transformers框架的预训练目标是帮助开发者快速、便捷地构建和训练基于Transformer架构的预训练模型。
 
 ## 预训练的基本操作流程
 
@@ -22,15 +22,15 @@
 4. **保存模型：**
    训练完成后，将模型权重保存到指定位置。
 
-## 基于MindFormers的预训练实践
+## 基于MindSpore Transformers的预训练实践
 
-MindFormers目前已经支持业界主流大模型，该实践流程选择以Llama2-7B和Llama3-70B分别展示[单机训练](#单机训练)和[多机训练](#多机训练)。
+MindSpore Transformers目前已经支持业界主流大模型，该实践流程选择以Llama2-7B和Llama3-70B分别展示[单机训练](#单机训练)和[多机训练](#多机训练)。
 
 ### 数据集准备
 
 | 数据集名称   |    适用模型    |   适用阶段   |                                      下载链接                                       |
 |:--------|:----------:|:--------:|:-------------------------------------------------------------------------------:|
-| Wikitext2 | Llama2-7B  | Pretrain | [Link](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/dataset/wikitext-2/wikitext-2-v1.zip) |
+| Wikitext2 | Llama2-7B  | Pretrain | [Link](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindSpore Transformers/dataset/wikitext-2/wikitext-2-v1.zip) |
 | Wiki103 | Llama3-70B | Pretrain |    [Link](https://dagshub.com/DagsHub/WIkiText-103/src/main/dataset/tokens)     |
 
 ### 数据预处理
@@ -51,7 +51,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --run_mode train" 8
 
  # 参数说明：
- config：            模型的配置文件，文件在MindFormers代码仓中config目录下
+ config：            模型的配置文件，文件在MindSpore Transformers代码仓中config目录下
  train_dataset_dir： 训练数据集路径
  use_parallel：      是否开启并行
  run_mode：          运行模式，train：训练，finetune：微调，predict：推理
@@ -74,7 +74,7 @@ bash scripts/msrun_launcher.sh "research/llama3/run_llama3.py \
  64 8 {MASTER_ADDR} 8118 {node_num} output/msrun_log False 300
 
  # 参数说明：
- config：            模型的配置文件，文件在MindFormers代码仓中config目录下
+ config：            模型的配置文件，文件在MindSpore Transformers代码仓中config目录下
  train_dataset_dir： 训练数据集路径
  use_parallel：      是否开启并行
  run_mode：          运行模式，train：训练，finetune：微调，predict：推理
@@ -84,4 +84,4 @@ bash scripts/msrun_launcher.sh "research/llama3/run_llama3.py \
 
 ## 更多信息
 
-更多关于不同模型的训练示例，请访问[MindFormers已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/start/models.html)。
+更多关于不同模型的训练示例，请访问[MindSpore Transformers已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/start/models.html)。

@@ -128,11 +128,11 @@ The rest of the parameters can be described in "model training configuration" an
 
 ## BIN Format Dataset
 
-The use of datasets in binary format (BIN format) can lead to significant performance and efficiency gains during large model training. The current MindFormers framework also adapts the ability to work with BIN format datasets, including how to make BIN format datasets and use BIN format datasets in tasks.
+The use of datasets in binary format (BIN format) can lead to significant performance and efficiency gains during large model training. The current MindSpore Transformers framework also adapts the ability to work with BIN format datasets, including how to make BIN format datasets and use BIN format datasets in tasks.
 
 ### How to Make a BIN Format Dataset
 
-Currently the preprocessing script provided by MindFormers only supports processing files in json format, which requires the user to convert the file format of the original dataset to a file in json format that meets the support of the preprocessing script before using the preprocessing script, and the supported file formats in json format are as follows:
+Currently the preprocessing script provided by MindSpore Transformers only supports processing files in json format, which requires the user to convert the file format of the original dataset to a file in json format that meets the support of the preprocessing script before using the preprocessing script, and the supported file formats in json format are as follows:
 
 ```json
 {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}

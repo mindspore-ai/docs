@@ -6,7 +6,7 @@
 
 ### 基本介绍
 
-[LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness)是一个开源语言模型评测框架，提供60多种标准学术数据集的评测，支持HuggingFace模型评测、PEFT适配器评测、vLLM推理评测等多种评测方式，支持自定义prompt和评测指标，包含loglikelihood、generate_until、loglikelihood_rolling三种类型的评测任务。基于Harness评测框架对MindFormers进行适配后，支持加载MindFormers模型进行评测。
+[LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness)是一个开源语言模型评测框架，提供60多种标准学术数据集的评测，支持HuggingFace模型评测、PEFT适配器评测、vLLM推理评测等多种评测方式，支持自定义prompt和评测指标，包含loglikelihood、generate_until、loglikelihood_rolling三种类型的评测任务。基于Harness评测框架对MindSpore Transformers进行适配后，支持加载MindSpore Transformers模型进行评测。
 
 目前已适配的模型和支持的评测任务如下表所示（其余模型和评测任务正在积极适配中，请关注版本更新）：
 
@@ -87,13 +87,13 @@ Harness主要参数
 
 | 参数            | 类型  | 参数介绍                      | 是否必须 |
 |---------------|-----|---------------------------|------|
-| `--model`      | str | 须设置为mf，对应为MindFormers评估策略 | 是    |
+| `--model`      | str | 须设置为mf，对应为MindSpore Transformers评估策略 | 是    |
 | `--model_args`  | str | 模型及评估相关参数，见下方模型参数介绍       | 是    |
 | `--tasks`       | str | 数据集名称，可传入多个数据集，逗号分割       | 是    |
 | `--batch_size` | int | 批处理样本数                    | 否    |
 | `--limit`       | int | 每个任务的样本数，多用于功能测试          | 否    |
 
-MindFormers模型参数
+MindSpore Transformers模型参数
 
 | 参数           | 类型   | 参数介绍                              | 是否必须 |
 |--------------|------|-----------------------------------|------|
@@ -121,7 +121,7 @@ python eval_with_harness.py --model mf --model_args "pretrained=./llama3-8b,use_
 ### 基本介绍
 
 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit)
-是一款专为大型视觉语言模型评测而设计的开源工具包，支持在各种基准测试上对大型视觉语言模型进行一键评估，无需进行繁重的数据准备工作，让评估过程更加简便。 它支持多种图文多模态评测集和视频多模态评测集，支持多种API模型以及基于PyTorch和HF的开源模型，支持自定义prompt和评测指标。基于VLMEvalKit评测框架对MindFormers进行适配后，支持加载MindFormers中多模态大模型进行评测。
+是一款专为大型视觉语言模型评测而设计的开源工具包，支持在各种基准测试上对大型视觉语言模型进行一键评估，无需进行繁重的数据准备工作，让评估过程更加简便。 它支持多种图文多模态评测集和视频多模态评测集，支持多种API模型以及基于PyTorch和HF的开源模型，支持自定义prompt和评测指标。基于VLMEvalKit评测框架对MindSpore Transformers进行适配后，支持加载MindSpore Transformers中多模态大模型进行评测。
 
 ### 支持特性说明
 
