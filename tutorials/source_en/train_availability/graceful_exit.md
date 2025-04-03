@@ -39,6 +39,8 @@ from mindspore.train.callback import OnRequestExit
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.communication.management import init
 from mindspore.context import ParallelMode
+from mindspore.parallel.auto_parallel import AutoParallel
+from mindspore.nn.utils import no_init_parameters
 
 context.set_context(mode=context.GRAPH_MODE)
 
@@ -83,7 +85,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     return mnist_ds
 
 
-# define the traning model
+# define the training model
 def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
     """weight initial for conv layer"""
     weight = weight_variable()
