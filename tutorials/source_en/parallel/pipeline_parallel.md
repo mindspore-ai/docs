@@ -70,6 +70,7 @@ The pipeline parallel network structure is basically the same as the single-card
 
 > - Under pipeline parallelism, when enabling Print/Summary/TensorDump related operators, the operator needs to be used in a Cell with the pipeline_stage attribute. Otherwise, there is a possibility that the operator will not take effect due to pipeline parallel split.
 > - Under pipeline parallelism, the output of the network does not support dynamic shapes.
+> - Under pipeline parallelism, suggests to use lazy_inline decorator to reduce compile time, and only support to set the lazy_inline decorator to the outermost cell.
 
 ```python
 from mindspore import nn, ops, Parameter
