@@ -38,6 +38,17 @@
    compile/graph_construction
    compile/graph_optimization
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :hidden:
+   :caption: 运行时
+
+   runtime/memory_manager
+   runtime/multilevel_pipeline
+   runtime/multistream_concurrency
+   runtime/pluggable_backend
+
 
 构建
 ---------
@@ -98,6 +109,26 @@
                         </div>
                         <div class="doc-article-desc">
                            通过分布式并行，降低对内存、计算性能等硬件的需求，为处理大规模数据和复杂模型提供了强大的计算能力和性能优势。
+                        </div>
+                     </div>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-6">
+            <div class="doc-article-list">
+               <div class="doc-article-item">
+                  <a href="./runtime/memory_manager.html" class="article-link">
+                     <div>
+                        <div class="doc-article-head">
+                           <span class="doc-head-content">运行时</span>
+                        </div>
+                        <div class="doc-article-desc">
+                           负责模型的高效执行，提供内存管理、多级流水、多流并发、多后端接入等功能。
                         </div>
                      </div>
                   </a>
