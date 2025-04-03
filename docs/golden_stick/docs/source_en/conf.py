@@ -193,37 +193,105 @@ for root,dirs,files in os.walk(src_dir_api):
             os.remove(os.path.join(moment_dir,file))
         shutil.copy(os.path.join(src_dir_api,file),os.path.join(moment_dir,file))
 
-os.makedirs(os.path.join(moment_dir, 'ptq/images/en'), exist_ok=True)
+readme_path = os.path.join(os.getenv("GS_PATH"), 'README.md')
 
-if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
-    os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
-    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README.md'),
-                os.path.join(moment_dir, 'ptq/round_to_nearest.md'))
-    with open(os.path.join(moment_dir, 'ptq/round_to_nearest.md'), 'r+', encoding='utf-8') as f:
+with open(readme_path, 'r', encoding='utf-8') as f:
+    content = f.read()
+
+ind_content = 'MindSpore Golden Stick\n=============================\n'
+
+sc_doc = re.findall('\n## Overview\n((?:.|\n|)+?)\n## ', content)
+if sc_doc:
+    ind_content += re.sub('!\[(.*?)\]\((.*?)\)', r'.. image:: \2', sc_doc[0])
+    ind_content = re.sub('\n\n> (.+)', r'\n\n.. note::\n    \1', ind_content)
+    ind_content = re.sub('\n> (.+)', r'\n    \1', ind_content)
+    ind_content += "\n\n`For more details, please refer to Code repository <https://gitee.com/mindspore/golden-stick>`_\n"
+
+ind_content += """
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Installation and Deployment
+
+   install
+
+Compression Algorithm
+------------------------
+
+"""
+
+toctree = []
+
+spec_copy = []
+toctree_list = re.findall('<thead>(?:.|\n|)+?</thead>\n[ ]+?<tbody>(?:.|\n|)+?</tbody>', content)
+if toctree_list:
+    for i in toctree_list:
+        toctree_n = re.findall('<th .*<div.*?>(.*?)</div>', i)
+        if 'demo' in toctree_n[-1] or 'TBD' in toctree_n[-1] or toctree_n[-1] == 'Overview' or toctree_n[-1] == 'Others':
+            continue
+        toctree_p = []
+        if re.findall('<th .*?<a href="(.*?)"', i) and 'README_CN.' not in re.findall('<th .*?<a href="(.*?)"', i)[0].split('/')[-1]:
+            href = re.findall('<th .*?<a href="(.*?)"', i)[0]
+            toctree_p.append('/'.join(re.findall('<th .*?<a href="(.*?)"', i)[0].split('/')[:-1])+'/overview')
+            docs_p = '/'.join(href.replace('mindspore_gs/', '').split('/')[:-1]) + '/overview.' + href.split('.')[-1]
+            spec_copy.append([href, docs_p])
+        if re.findall('<td .*?<a href="(.*?)">(.*?)<', i):
+            for href, name in re.findall('<td .*?<a href="(.*?)">(.*?)<', i):
+                if 'demo' not in name and 'README_CN.' not in href.split('/')[-1]:
+                    toctree_p.append('/'.join(href.split('/')[:-1]))
+                    docs_p = '/'.join(href.replace('mindspore_gs/', '').split('/')[:-1]) + '.' + href.split('.')[-1]
+                    spec_copy.append([href, docs_p])
+        toctree.append([toctree_n[-1], toctree_p])
+
+for toc_n, toc_p in toctree:
+    ind_content += f'.. toctree::\n   :glob:\n   :maxdepth: 1\n   :caption: {toc_n}\n\n'
+    for p in toc_p:
+        p_new = p.replace('mindspore_gs/', '')
+        ind_content += f'   {p_new}\n'
+    ind_content += '\n'
+
+with open(os.path.join(src_dir_api, 'index.rst'), 'r', encoding='utf-8') as f:
+    api_ind = f.read()
+
+api_toc = re.findall('.. toctree::(?:.|\n|)+', api_ind)[0]
+ind_content += api_toc
+
+ind_content += """
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
+"""
+with open(os.path.join('./index.rst'), 'w', encoding='utf-8') as f:
+    f.write(ind_content)
+
+for gs_p, f_p in spec_copy:
+    ori_p = os.path.join(os.getenv("GS_PATH"), gs_p)
+    target_dir = os.path.join(moment_dir, '/'.join(f_p.split('/')[:-1]))
+    os.makedirs(target_dir, exist_ok=True)
+    if os.path.exists(os.path.join(moment_dir, f_p)):
+        os.remove(os.path.join(moment_dir, f_p))
+    shutil.copy(ori_p, os.path.join(moment_dir, f_p))
+
+    with open(os.path.join(moment_dir, f_p), 'r+', encoding='utf-8') as f:
         content = f.read()
-        content = re.sub('\n\[查看中文\].*\n', '', content, 1)
+        if f_p.endswith('.md'):
+            content = re.sub('\n\[查看中文\].*\n', '', content)
+        elif f_p.endswith('.ipynb'):
+            content = re.sub('\n.*\[查看中文\].*\n.*\n', '\n', content, 1)
         f.seek(0)
         f.truncate()
         f.write(content)
-    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/images/en')
-    if os.path.exists(images_path):
-        for i in os.listdir(images_path):
-            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/en', i))
 
-if not os.path.exists(os.path.join(moment_dir, 'ptq/ptq.md')):
-    os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
-    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/README.md'),
-                os.path.join(moment_dir, 'ptq/ptq.md'))
-    with open(os.path.join(moment_dir, 'ptq/ptq.md'), 'r+', encoding='utf-8') as f:
-        content = f.read()
-        content = re.sub('\n\[查看中文\].*\n', '', content, 1)
-        f.seek(0)
-        f.truncate()
-        f.write(content)
-    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/images/en')
+    images_path = '/'.join(ori_p.split('/')[:-1]) + '/images/en'
+    os.makedirs(os.path.join(target_dir, 'images/en'), exist_ok=True)
     if os.path.exists(images_path):
         for i in os.listdir(images_path):
-            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/en', i))
+            if os.path.exists(os.path.join(target_dir, 'images/en', i)):
+                os.remove(os.path.join(target_dir, 'images/en', i))
+            shutil.copy(os.path.join(images_path, i), os.path.join(target_dir, 'images/en', i))
 
 if not os.path.exists(os.path.join(moment_dir, 'install.md')):
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/en/install.md'),

@@ -80,17 +80,10 @@ MindSpore Flow介绍
 
    mindflow.cell
    mindflow.cfd
-   mindflow.common
+   mindflow.core
    mindflow.data
    mindflow.geometry
-   mindflow.loss
-   mindflow.operators
    mindflow.pde
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 参考文档
 
 .. toctree::
    :glob:

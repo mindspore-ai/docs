@@ -105,7 +105,7 @@ html_theme = 'sphinx_rtd_theme'
 
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../../../resource/jieba.txt'}
+html_search_options = {'dict': '../../../../resource/jieba.txt'}
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
