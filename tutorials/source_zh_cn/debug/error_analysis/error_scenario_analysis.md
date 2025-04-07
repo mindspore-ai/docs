@@ -86,7 +86,7 @@ MindSpore提供分布式并行训练功能，支持多种并行模式。分布�
 
 ### 策略配置错误
 
-当用户通过 `mindspore.set_auto_parallel_context(parallel_mode="semi_auto_parallel")`使能自动并行之后，大概率会遇到一些策略检查的报错。这些策略检查来自于特定算子的切分限制。以下举三个例子来说明如何针对这三种错误进行分析。
+当用户通过 `mindspore.parallel.auto_parallel.AutoParallel` 使能自动并行之后，大概率会遇到一些策略检查的报错。这些策略检查来自于特定算子的切分限制。以下举三个例子来说明如何针对这三种错误进行分析。
 
 #### 算子本身的逻辑导致的策略检查报错
 

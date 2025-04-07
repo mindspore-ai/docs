@@ -118,9 +118,9 @@ paralell_net = AutoParallel(net, parallel_mode='semi_auto')
 针对上述例子中"[[a0, a1, a2, a3], [a4, a5, a6, a7]]"切分到不连续卡上的情况，可以通过如下Layout表达：
 
 ```python
+# a = [[a0, a1, a2, a3], [a4, a5, a6, a7]]
 from mindspore import Layout
-a = [[a0, a1, a2, a3], [a4, a5, a6, a7]]
-layout = Layout((2, 2, 2), name = ("dp", "sp", "mp"))
+layout = Layout((2, 2, 2), alias_name = ("dp", "sp", "mp"))
 a_strategy = layout("mp", ("sp", "dp"))
 ```
 
@@ -138,7 +138,7 @@ from mindspore.parallel.auto_parallel import AutoParallel
 class DenseMatMulNet(nn.Cell):
     def __init__(self):
         super(DenseMatMulNet, self).__init__()
-        layout = Layout((2, 2, 2), name = ("dp", "sp", "mp"))
+        layout = Layout((2, 2, 2), alias_name = ("dp", "sp", "mp"))
         in_strategy = (layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None"))
         out_strategy = (layout(("mp", "sp", "dp"), "None"), )
         self.matmul1 = ops.MatMul().shard(in_strategy, out_strategy)

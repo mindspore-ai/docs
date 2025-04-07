@@ -108,9 +108,9 @@ In particular, one dimension of the tensor may be mapped to multiple dimensions 
 The above example of "[[a0, a1, a2, a3], [a4, a5, a6, a7]]" sliced to discontinuous cards can be expressed by Layout as follows:
 
 ```python
+# a = [[a0, a1, a2, a3], [a4, a5, a6, a7]]
 from mindspore import Layout
-a = [[a0, a1, a2, a3], [a4, a5, a6, a7]]
-layout = Layout((2, 2, 2), name = ("dp", "sp", "mp"))
+layout = Layout((2, 2, 2), alias_name = ("dp", "sp", "mp"))
 a_strategy = layout("mp", ("sp", "dp"))
 ```
 
@@ -128,7 +128,7 @@ from mindspore.parallel.auto_parallel import AutoParallel
 class DenseMatMulNet(nn.Cell):
     def __init__(self):
         super(DenseMatMulNet, self).__init__()
-        layout = Layout((2, 2, 2), name = ("dp", "sp", "mp"))
+        layout = Layout((2, 2, 2), alias_name = ("dp", "sp", "mp"))
         in_strategy = (layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None"))
         out_strategy = (layout(("mp", "sp", "dp"), "None"), )
         self.matmul1 = ops.MatMul().shard(in_strategy, out_strategy)
