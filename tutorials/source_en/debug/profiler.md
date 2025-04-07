@@ -152,6 +152,8 @@ For the complete case, refer to [dynamic profiler enabling method case](https://
 
 Users can use the environment variable enabling method to enable Profiler most simply. Currently, only single-card scenarios are supported. this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) for details.
 
+> If environment variables are enabled, set device_id using environment variables before executing the script. Do not use set_context to set device_id in the script.
+
 Environment variable enabling method related configuration items, sample as follows:
 
 ```shell
@@ -196,12 +198,12 @@ After collecting performance data, the original data will be stored according to
     ├── profiler_metadata.json         // It is used to store information and other Profiler related metadata that users add through the add_metadata interface
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler interface parses performance data
     │   ├── api_statistic.csv          // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
-    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, all other files will not be generated.
-    │   ├── communication_analyzer.db    // Record communication time and bandwidth information, and configure ExportType.Db generation in export_type of the _ExperimentalConfig interface. If ExportType.Text is not configured at the same time, all other performance files will not be generated.
+    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, the performance file of the text type is not generated
+    │   ├── communication_analyzer.db    // Record communication time and bandwidth information, and configure ExportType.Db generation in export_type of the _ExperimentalConfig interface. If ExportType.Text is not configured at the same time, the performance file of the text type is not generated
     │   ├── communication.json         // Provides visualization data for performance analysis in multi-card or cluster scenarios, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
     │   ├── communication_matrix.json  // It provides a visual data basis for performance analysis of communication scenarios such as multi-card or cluster, and contains basic information about communication small operators. Communication small operator basic information file, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
     │   ├── dataset.csv                // Generated when activities contains ProfilerActivity.CPU
-    │   ├── data_preprocess.csv        // Generated when profiler_level=ProfilerLevel.Level2
+    │   ├── data_preprocess.csv        // Generated when profiler_level=ProfilerLevel.Level2, if the model does not have an AICPU operator, the file will not be generated even if the collection level is set to Level2
     │   ├── kernel_details.csv         // Generated when activities contains ProfilerActivity.NPU
     │   ├── l2_cache.csv               // Generated when l2_cache=True
     │   ├── memory_record.csv          // Generated when profile_memory=True
@@ -218,8 +220,8 @@ After collecting performance data, the original data will be stored according to
           ├── analyze                  // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
           ├── device_{Rank_ID}         // CANN Profling Performance data collected on the device
           ├── host                     // CANN Profling Performance data collected on the host
-          ├── mindstudio_profiler_log     // CANN Profling parsed log files. Delete this directory when data_simplification is set to True.
-          └── mindstudio_profiler_output     // CANN Profling parsed performance data. Delete this directory when data_simplification is set to True.
+          ├── mindstudio_profiler_log     // CANN Profling parsed log files. Delete this directory when data_simplification is set to True
+          └── mindstudio_profiler_output     // CANN Profling parsed performance data. Delete this directory when data_simplification is set to True
     └── logs                           // MindSpore Log files parsed by the Profiler interface
 ```
 
