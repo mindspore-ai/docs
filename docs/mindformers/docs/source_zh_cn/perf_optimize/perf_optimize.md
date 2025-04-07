@@ -120,7 +120,7 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
    init_start_profile: False      # Profiler初始化的时候开启，开启后profile_start_step将不生效。
    profile_communication: False   # 是否在多NPU训练中收集通信性能数据
    profile_memory: True           # 收集Tensor内存数据
-   mstx: True                     # 是否通过mstx收集step时延记录
+   mstx: True                     # 是否收集mstx时间戳记录，包括训练step、通信算子等
    ```
 
    profile_start_step和profile_stop_step用于确定采集区间，因为采集耗时较长，不推荐将区间设置过大，建议设置为2到4步。且由于第一个step涉及编译，推荐从第3步开始采集。
@@ -141,7 +141,7 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
    | with_stack            | 设置是否收集Python侧的调用栈数据，默认值为`False`。                                                           | bool |
    | data_simplification   | 设置是否开启数据精简，开启后将在导出性能采集数据后删除FRAMEWORK目录以及其他多余数据，默认为`False`。                                 | int  |
    | init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效。开启`profile_memory`时需要将该参数设为`True`。 | bool |
-   | mstx                  | 设置是否开启mstx记录step时延，默认值为`False`。                                                            | bool |
+   | mstx                  | 设置是否收集mstx时间戳记录，包括训练step、HCCL通信算子等，默认值为`False`。                                            | bool |
 
 2. 查看数据
 
@@ -150,6 +150,28 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
    生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html)，主要收集算子、任务等运行耗时、CPU利用率及内存消耗等信息，用于性能调优分析。
 
    此外还可以通过统计集群中每个rank的计算时间、通信时间、未掩盖通信时间，分析集群中不同rank间的性能情况，以此判断是否存在计算负载不均衡的情况，影响了集群的整体效率，并对此进行针对性优化。
+
+3. 查看mstx信息
+
+   mstx记录信息不会由采集工具直接生成，需要手动通过命令行从`profile`文件夹中提取。以第一张卡为例，如下为相应的目录结构:
+
+   ```sh
+   output
+   └── profile
+       └── rank_0
+           └── {hostname}_{pid}_{时间戳}_ascend_ms
+               └── PROF_{数字}_{时间戳}_{字符串}
+   ```
+
+   执行以下命令：
+
+   ```shell
+   msprof --export=on --output={path}/output/profile/rank_0/{hostname}_{pid}_{时间戳}_ascend_ms/PROF_{数字}_{时间戳}_{字符串} # 替换为实际路径
+   ```
+
+   执行完毕后会在PROF_{数字}_{时间戳}_{字符串}目录下生成`mindstudio_profiler_output`文件夹，其中命名为`msprof_tx_{时间戳}.csv`的文件即为mstx记录信息，包含训练step、HCCL通信算子等数据的时间戳和相应的描述内容，如下图所示：
+
+   ![mstx](./images/mstx.png)
 
 #### DryRun内存评估工具
 

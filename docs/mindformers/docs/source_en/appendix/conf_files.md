@@ -285,7 +285,7 @@ MindSpore Transformers provides Profile as the main tool for model performance t
 | with_stack            | Set whether to collect Python-side stack trace data. Default: `False`.                                                                                                                                                                  | bool  |
 | data_simplification   | Set whether to enable data simplification, which will delete the FRAMEWORK directory and other extraneous data after exporting performance data. Default: `False`.                                                                      | int   |
 | init_start_profile    | Set whether to turn on collecting performance data when the Profiler is initialized; this parameter does not take effect when `profile_start_step` is set. This parameter needs to be set to `True` when `profile_memory` is turned on. | bool  |
-| mstx                  | Set whether to enable mstx step time recording. Default: `False`.                                                                                                                                                                       | bool  |
+| mstx                  | Set whether to enable mstx timestamp recording, including training step, HCCL-operators and etc. Default: `False`.                                                                                                                                                                      | bool  |
 
 ### Metric Monitoring Configuration
 
