@@ -122,7 +122,6 @@ Use the Megatron multi-source dataset in the training task as follows:
           - 0
           - 0
         shuffle: False
-        input_columns: ["input_ids", "labels", "loss_mask", "position_ids"]
         config:
           seed: 1234
           seq_length: 1024
@@ -135,6 +134,7 @@ Use the Megatron multi-source dataset in the training task as follows:
           num_dataset_builder_threads: 1
           eod_mask_loss: False
           create_attention_mask: False
+      input_columns: ["input_ids", "labels", "loss_mask", "position_ids"]
     ```
 
     Among them:
