@@ -77,3 +77,50 @@ print(outputs.shape)
 ```text
 (1, 10)
 ```
+
+### Syntax Support Scope
+
+Not all Python syntax and data types are supported for MindIR export. MindIR export has a specific support scope, and if the syntax falls outside this scope, an error will be reported during the export process.
+
+First, MindIR export only supports **strict-level graph mode**. For detailed support scope, please refer to the [Static Graph Syntax Support Documentation](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html).
+
+Second, in addition to the syntax restrictions of strict-level graph mode, MindIR has additional constraints on the types of return values. For example, returning `mindspore.dtype` is not supported. The following program will raise an error during MindIR export.
+
+```python
+import mindspore as ms
+from mindspore import nn, ops, Tensor
+
+class Model(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.dtype = ops.DType()
+
+    def construct(self, x: Tensor) -> ms.dtype:
+        return self.dtype(x)
+```
+
+Furthermore, if a `Parameter` object is created outside `nn.Cell`, MindIR does not support exporting that Parameter. This typically occurs in the following scenarios:
+
+- A `Parameter` is created directly in the global scope of the script.
+- A `Parameter` is created in a non `nn.Cell` class.
+- Random number generation api from the [mindspore.mint](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mint.html) package are used, such as `mint.randn`, `mint.randperm`, etc., because these random number interfaces create `Parameter` in the global scope.
+
+For example, the following two programs will raise errors during the export process.
+
+```python
+from mindspore import Tensor, Parameter, nn
+
+param = Parameter(Tensor([1, 2, 3, 4]))  # Created outside nn.Cell
+
+class Model(nn.Cell):
+    def construct(self, x: Tensor) -> Tensor:
+        return x + param
+```
+
+```python
+from mindspore import Tensor, nn, mint
+
+class Model(nn.Cell):
+    def construct(self, n: int) -> Tensor:
+        return mint.randn(n)
+```
