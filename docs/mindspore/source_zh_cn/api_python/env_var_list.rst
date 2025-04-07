@@ -315,10 +315,6 @@
 
        enable_fusion_pattern_only：仅允许对应融合pattern参与融合。当设置该选项时，忽略以上选项。
 
-       enable_packet_ops_only：使能kernel packet功能时，设置该选项则仅融合指定算子。
-
-       disable_packet_ops：使能kernel packet功能时，设置该选项则禁止融合指定算子。
-
        enable_pass：默认关闭的pass可以通过该选项强制使能。
 
        disable_pass：默认使能的pass可以通过该选项强制关闭。

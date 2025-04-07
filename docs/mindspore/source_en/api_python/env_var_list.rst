@@ -315,10 +315,6 @@ Graph Compilation and Execution
 
        enable_fusion_pattern_only: Allow only the specified fusion pattern to participate in the fusion set. When this option is set, the above option is ignored.
 
-       enable_packet_ops_only: When enabling the kernel packet feature, this option restricts fusion to the specified operators only.
-
-       disable_packet_ops: When enabling the kernel packet feature, this option prohibits fusion for the specified operators.
-
        enable_pass: Enable passes that are disabled by default using this option.
 
        disable_pass: Disable passes that are enabled by default using this option.

@@ -44,8 +44,6 @@
 - **enable_cluster_ops**：在默认融合算子名单的基础上，把对应算子加入参与融合的算子集合。例如，通过设置 `--enable_cluster_ops=MatMul` 可以让MatMul算子参与融合。当前默认融合的算子名单见附录2。
 - **disable_cluster_ops**：禁止对应算子加入参与融合的算子集合。
 - **enable_cluster_ops_only**：仅允许对应算子加入参与融合的算子集合。当设置该选项时，忽略以上两个选项。
-- **enable_packet_ops_only**：使能kernel packet功能时，设置该选项则仅融合指定算子。
-- **disable_packet_ops**：使能kernel packet功能时，设置该选项则禁止融合指定算子。
 - **disable_fusion_pattern**：禁止对应融合pattern参与融合。融合pattern名单见附录4。
 - **enable_fusion_pattern_only**：仅允许对应融合pattern参与融合。当设置该选项时，忽略以上选项。
 
