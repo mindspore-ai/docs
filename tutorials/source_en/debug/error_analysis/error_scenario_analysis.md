@@ -86,7 +86,7 @@ MindSpore provides the distributed parallel training function and supports multi
 
 ### Incorrect Policy Configuration
 
-Policy check errors may be reported after you enable automatic parallelism using `mindspore.set_auto_parallel_context(parallel_mode="semi_auto_parallel")`. These policy check errors are reported due to specific operator slicing restrictions. The following uses three examples to describe how to analyze the three types of errors.
+Policy check errors may be reported after you enable automatic parallelism using `mindspore.parallel.auto_parallel.AutoParallel` .These policy check errors are reported due to specific operator slicing restrictions. The following uses three examples to describe how to analyze the three types of errors.
 
 #### Incorrect Operator Logic
 

@@ -69,7 +69,7 @@ After the neural network model is trained, you can export the model or load the 
 
     As a scale of neural network models and datasets continuously increases, parallel distributed training becomes a common practice of neural network training. However, the strategy selection and compilation of parallel distributed training are very complex, which severely restricts training efficiency of a deep learning model and hinders development of deep learning. MindSpore unifies the coding methods of single device and distributed training. Developers do not need to write complex distributed strategies. They can implement distributed training by adding a small amount of code to the single device code, which improves the efficiency of neural network training, greatly reduces the threshold of AI development, and enables users to quickly implement model ideas.
 
-    For example, they can set `set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL)` to automatically establish a cost model, and select an optimal parallel mode for users.
+    For example, they can set `mindspore.parallel.auto_parallel.AutoParallel` to automatically establish a cost model, and select an optimal parallel mode for users.
 
 ### API Level Structure
 

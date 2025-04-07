@@ -75,6 +75,7 @@ data_set = create_dataset(32)
 ```python
 import mindspore as ms
 from mindspore import nn, ops
+from mindspore.common.initializer import initializer
 
 class Network(nn.Cell):
     def __init__(self):
@@ -120,7 +121,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 
 def train_step(inputs, targets):
     (loss_value, _), grads = grad_fn(inputs, targets)
@@ -222,6 +223,8 @@ epoch: 0 step: 50, loss is 1.8051043
 
 import mindspore as ms
 from mindspore import nn, ops
+from mindspore.common.initializer import initializer
+from mindspore.parallel import Layout
 
 class Network(nn.Cell):
     """Network"""
