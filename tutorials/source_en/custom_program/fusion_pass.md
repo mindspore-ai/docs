@@ -56,8 +56,6 @@ Currently, operator fusion-related optimization passes are included in the graph
 - **enable_cluster_ops**: Add specified operators to the set of operators participating in fusion based on the default fusion operator list. For example, setting `--enable_cluster_ops=MatMul` allows the MatMul operator to participate in fusion. The list of default fusion operators can be found in Appendix 2.
 - **disable_cluster_ops**: Prevent the specified operators from participating in the fusion set.
 - **enable_cluster_ops_only**: Allow only the specified operators to participate in the fusion set. When this option is set, the above two options are ignored.
-- **enable_packet_ops_only**: When enabling the kernel packet feature, this option restricts fusion to the specified operators only.
-- **disable_packet_ops**: When enabling the kernel packet feature, this option prohibits fusion for the specified operators.
 - **disable_fusion_pattern**: Prevent the specified fusion pattern from participating in the fusion set. The list of default fusion pattern can be found in Appendix 4.
 - **enable_fusion_pattern_only**: Allow only the specified fusion pattern to participate in the fusion set. When this option is set, the above option is ignored.
 
