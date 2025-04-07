@@ -314,6 +314,7 @@ optimizer(grads)
 import mindspore as ms
 from mindspore import nn
 from mindspore.amp import StaticLossScaler, all_finite
+from mindspore.communication import init, get_group_size
 
 class Trainer:
     """一个有两个loss的训练示例"""
@@ -339,9 +340,9 @@ class Trainer:
 
     def get_grad_reducer(self):
         grad_reducer = nn.Identity()
-        parallel_mode = ms.get_auto_parallel_context("parallel_mode")
         # 判断是否是分布式场景，分布式场景的设置参考上面通用运行环境设置
-        reducer_flag = (parallel_mode != ms.ParallelMode.STAND_ALONE)
+        group_size = get_group_size()
+        reducer_flag = (group_size != 1)
         if reducer_flag:
             grad_reducer = nn.DistributedGradReducer(self.weights)
         return grad_reducer

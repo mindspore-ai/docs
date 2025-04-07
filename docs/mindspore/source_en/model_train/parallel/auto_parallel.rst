@@ -69,7 +69,7 @@ The sharding strategy propagation algorithm means that the user only needs to ma
 
 Related interfaces:
 
-1. ``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="recursive_programming")``: Set the parallel mode to auto-parallel and the search mode to the sharding strategy propagation algorithm.
+1. ``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="recursive_programming")``: Set the parallel mode and select the Strategy Propagation Algorithm or Recursive Algorithm via ``parallel_mode``.
 
 2. ``mindspore.nn.Cell.shard()`` and ``mindspore.ops.Primitive.shard()``: Specifies the operator sharding strategy, and the strategy for the rest of the operators is derived by the propagation algorithm. Currently the ``mindspore.nn.Cell.shard()`` interface can be used in PyNative mode and Graph mode; The ``mindspore.ops.Primitive.shard()`` interface can only be used in Graph mode.
 
@@ -89,7 +89,7 @@ The input to the sharding strategy propagation is a computational graph with som
 The following figure illustrates an example process of applying Sharding Propagation:
 
 1. Given an computation graph with some configured strategies, it first enumerates possible strategies for non-configured operators, as shown in figure (b).
-2. Next, it enumerates possible strategies and the Tensor Redistribution costs for each edge. Demonstrated in figure (c), the strategy for an edge is defined as a pair [*s_strategy*, *t_strategy*], where *s_strategy* and *t_strategy* denote Sharding Strategy for source operator and target operator, respectively. 
+2. Next, it enumerates possible strategies and the Tensor Redistribution costs for each edge. Demonstrated in figure (c), the strategy for an edge is defined as a pair [*s_strategy*, *t_strategy*], where *s_strategy* and *t_strategy* denote Sharding Strategy for source operator and target operator, respectively.
 3. Finally, starting from the configured operator, it determines the next operator’s Sharding Strategy, such that the communication cost in Tensor Redistribution is minimized. The propagation ends when the Sharding Strategies for all operators are settled, as shown in figure (d).
 
 .. image:: ./images/sharding_propagation.png
