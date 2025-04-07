@@ -152,6 +152,8 @@ for _ in range(STEP_NUM):
 
 用户如果想最简单地使能Profiler，可以使用环境变量使能方式，目前只支持单卡场景。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。该方式暂不支持schedule、on_trace_ready、experimental_config参数，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
 
+> 使用环境变量使能方式，请在脚本开始执行之前通过环境变量设置好device_id。禁止在脚本中通过set_context函数设置device_id。
+
 环境变量使能方式的相关配置项样例如下：
 
 ```shell
@@ -196,12 +198,12 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
     ├── profiler_metadata.json          // 用来保存用户通过add_metadata接口添加的信息和其他Profiler相关的元数据
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler接口解析性能数据
     │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
-    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则其它所有性能文件都不会生成
-    │   ├── communication_analyzer.db    // 记录通信耗时和通信带宽信息，在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则其它所有性能文件都不会生成
+    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
+    │   ├── communication_analyzer.db    // 记录通信耗时和通信带宽信息，在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
     │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置profiler_level=ProfilerLevel.Level1或profiler_level=ProfilerLevel.Level2生成
     │   ├── communication_matrix.json  // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，包含通信小算子的基本信息，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── dataset.csv                // activities中配置ProfilerActivity.CPU生成
-    │   ├── data_preprocess.csv        // 配置 profiler_level=ProfilerLevel.Level2 生成
+    │   ├── data_preprocess.csv        // 配置 profiler_level=ProfilerLevel.Level2 生成，如果模型无AICPU算子，那么即使采集等级设置为Level2，也不会生成该文件
     │   ├── kernel_details.csv         // activities中配置ProfilerActivity.NPU生成
     │   ├── l2_cache.csv               // 配置 l2_cache=True 生成
     │   ├── memory_record.csv          // 配置 profile_memory=True 生成
