@@ -14,7 +14,7 @@ The core of MindSpore training data processing engine is to efficiently and flex
 - Provide an automatic data augmentation mode, and perform automatic data augmentation on images based on specific strategies.
 - Provide single-node data caching capability to solve the problem of repeated loading and processing of data, reduce data processing overhead, and improve device-to-device training efficiency.
 
-Please refer to the instructions for usage: [Data Loading And Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/overview.html)
+Please refer to the instructions for usage: [Data Loading And Processing](https://www.mindspore.cn/docs/en/master/features/dataset/overview.html)
 
 ![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/design/images/data/data_engine_en.png)
 

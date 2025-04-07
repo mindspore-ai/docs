@@ -15,7 +15,7 @@
                 },
                 {
                     "label": "特性介绍",
-                    "url": "/docs/zh-CN/master/model_train/index.html",
+                    "url": "/docs/zh-CN/master/features/index.html",
                     "id": "master-model_train"
                 },
                 {
@@ -40,8 +40,8 @@
                     "id": "master-design"
                 },
                 {
-                    "label": "Characteristic Introduction",
-                    "url": "/docs/en/master/model_train/index.html",
+                    "label": "Feature Description",
+                    "url": "/docs/en/master/features/index.html",
                     "id": "master-model_train"
                 },
                 {

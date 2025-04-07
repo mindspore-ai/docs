@@ -42,7 +42,7 @@ MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/ma
 
 同时，基于函数式编程范式，MindSpore提供了丰富高阶函数如vmap、shard等内置高阶函数功能。与微分求导函数grad一样，可以让开发者方便的构造一个函数或对象，作为高阶函数的参数。高阶函数经过内部编译优化，生成针对开发者函数的优化版本，实现如向量化变换、分布式并行切分等特点功能。
 
-### [动静统一的编程体验](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/overview.html)
+### [动静统一的编程体验](https://www.mindspore.cn/docs/zh-CN/master/features/program_form/overview.html)
 
 传统AI框架主要有两种编程执行形态，静态图模式和动态图模式。
 

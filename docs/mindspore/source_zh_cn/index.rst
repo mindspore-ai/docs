@@ -7,7 +7,7 @@ MindSpore 文档
    :hidden:
 
    design/index
-   model_train/index
+   features/index
    api_python/index
    faq/index
    RELEASE
@@ -35,7 +35,7 @@ MindSpore 文档
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./model_train/models/official_models.html" class="article-link">
+                     <a href="./features/models/official_models.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">模型库</span>
@@ -103,7 +103,7 @@ MindSpore 文档
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./model_train/program_form/static_graph.html" class="article-link">
+                     <a href="./features/program_form/static_graph.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">语法支持</span>

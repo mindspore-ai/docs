@@ -14,7 +14,7 @@
                 },
                 {
                     "label": "模型构建与训练",
-                    "url": "/docs/zh-CN/master/model_train/index.html"
+                    "url": "/docs/zh-CN/master/features/index.html"
                 },
                 {
                     "label": "模型推理",
@@ -56,7 +56,7 @@
                 },
                 {
                     "label": "Model Building and Training",
-                    "url": "/docs/en/master/model_train/index.html"
+                    "url": "/docs/en/master/features/index.html"
                 },
                 {
                     "label": "Model Inference",

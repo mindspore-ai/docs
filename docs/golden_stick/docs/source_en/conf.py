@@ -203,9 +203,14 @@ ind_content = 'MindSpore Golden Stick\n=============================\n'
 sc_doc = re.findall('\n## Overview\n((?:.|\n|)+?)\n## ', content)
 if sc_doc:
     ind_content += re.sub('!\[(.*?)\]\((.*?)\)', r'.. image:: \2', sc_doc[0])
+    ind_content = re.sub('.. image:: docs/.*?/(images/.*)', r'.. image:: ./\1', ind_content)
     ind_content = re.sub('\n\n> (.+)', r'\n\n.. note::\n    \1', ind_content)
     ind_content = re.sub('\n> (.+)', r'\n    \1', ind_content)
-    ind_content += "\n\n`For more details, please refer to Code repository <https://gitee.com/mindspore/golden-stick>`_\n"
+    ind_content += "\n\nCode repository address: <https://gitee.com/mindspore/golden-stick>\n"
+
+gsdocs_image = os.path.join(os.getenv("GS_PATH"), 'docs/en/images')
+if not os.path.exists(os.path.join(moment_dir, 'images')):
+    shutil.copytree(gsdocs_image, os.path.join(moment_dir, 'images'))
 
 ind_content += """
 .. toctree::
@@ -214,9 +219,6 @@ ind_content += """
    :caption: Installation and Deployment
 
    install
-
-Compression Algorithm
-------------------------
 
 """
 
