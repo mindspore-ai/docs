@@ -43,7 +43,7 @@ MindSpore implements [functional differential programming](https://www.mindspore
 
 At the same time, based on the functional programming paradigm, MindSpore provides rich higher-order functions such as vmap, shard, and other built-in higher-order functions. Like the differential function grad, these allow developers to conveniently construct a function or object as a parameter for higher-order functions. Higher-order functions, after internal compilation optimization, generate optimized versions of developers' functions, implementing features such as vectorization transformation and distributed parallel partitioning.
 
-### [Unified Programming Experience for Dynamic and Static Graphs](https://www.mindspore.cn/docs/en/master/model_train/program_form/overview.html)
+### [Unified Programming Experience for Dynamic and Static Graphs](https://www.mindspore.cn/docs/en/master/features/program_form/overview.html)
 
 Traditional AI frameworks mainly have two programming execution forms: static graph mode and dynamic eager mode.
 

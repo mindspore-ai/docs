@@ -576,7 +576,7 @@ recompute_config:
 
 2. embedding参数配置优化器并行：大词表占用内存过多，且词表权重的优化器并行需额外配置，配置后有效缓解首个stage显存不足问题；
 
-   优化器并行使用介绍可参考[MindSpore优化器并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html)；此外，Llama模型还对embedding层的优化器有额外配置，[LlamaConfig API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig)中的`parallel_optimizer`项即为控制embedding优化器并行的控制项；
+   优化器并行使用介绍可参考[MindSpore优化器并行文档](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/optimizer_parallel.html)；此外，Llama模型还对embedding层的优化器有额外配置，[LlamaConfig API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig)中的`parallel_optimizer`项即为控制embedding优化器并行的控制项；
    配置样例如下：
 
    ```yaml
@@ -606,7 +606,7 @@ recompute_config:
 
 4. 使能`pp_interleave`并行策略，将`pp_interleave_num`配置为3，有效减小bubble占比；
 
-   多流水交织特性介绍可以参考[MindSpore流水线并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html)，在MindSpore Transformers中的参考配置如下：
+   多流水交织特性介绍可以参考[MindSpore流水线并行文档](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/pipeline_parallel.html)，在MindSpore Transformers中的参考配置如下：
 
    ```yaml
    parallel:

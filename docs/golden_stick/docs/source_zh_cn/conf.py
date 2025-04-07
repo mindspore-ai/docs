@@ -229,9 +229,14 @@ ind_content = 'MindSpore Golden Stick 文档\n=============================\n'
 sc_doc = re.findall('\n## 概述\n((?:.|\n|)+?)\n## ', content)
 if sc_doc:
     ind_content += re.sub('!\[(.*?)\]\((.*?)\)', r'.. image:: \2', sc_doc[0])
+    ind_content = re.sub('.. image:: docs/.*?/(images/.*)', r'.. image:: ./\1', ind_content)
     ind_content = re.sub('\n\n> (.+)', r'\n\n.. note::\n    \1', ind_content)
     ind_content = re.sub('\n> (.+)', r'\n    \1', ind_content)
-    ind_content += "\n\n`更多详情可见代码仓 <https://gitee.com/mindspore/golden-stick>`_\n"
+    ind_content += "\n\n代码仓地址： <https://gitee.com/mindspore/golden-stick>\n"
+
+gsdocs_image = os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/images')
+if not os.path.exists(os.path.join(moment_dir, 'images')):
+    shutil.copytree(gsdocs_image, os.path.join(moment_dir, 'images'))
 
 ind_content += """
 .. toctree::
@@ -240,9 +245,6 @@ ind_content += """
    :caption: 安装部署
 
    install
-
-压缩算法
-----------
 
 """
 

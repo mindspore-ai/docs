@@ -411,7 +411,7 @@ A: “External” 类型表示在图模式中使用了无法原生支持的对�
 
 ## Q: 编译时报错`Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute.`怎么办？
 
-A: 当触发编译流程，即代码编译成静态计算图时，见[Graph模式执行原理](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/overview.html)，同时在默认使用JIT Fallback特性时，再次进入编译流程时，则会抛出以上异常。
+A: 当触发编译流程，即代码编译成静态计算图时，见[Graph模式执行原理](https://www.mindspore.cn/docs/zh-CN/master/features/program_form/overview.html)，同时在默认使用JIT Fallback特性时，再次进入编译流程时，则会抛出以上异常。
 
 下面以JIT Fallback支持调用第三方库的对象和方法为例：
 

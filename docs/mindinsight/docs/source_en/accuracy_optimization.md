@@ -581,7 +581,7 @@ For details about visualized data analysis during training, see [Viewing Dashboa
 
 ### Data Problem Handling
 
-Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing and Loading Data](https://www.mindspore.cn/docs/en/master/model_train/index.html).
+Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing and Loading Data](https://www.mindspore.cn/docs/en/master/features/index.html).
 
 > For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map) API.
 

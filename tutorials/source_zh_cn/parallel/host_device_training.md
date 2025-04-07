@@ -50,7 +50,7 @@
 
 ### 配置分布式环境
 
-首先通过context接口指定并行模式为[数据并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/data_parallel.html)模式，并通过init初始化通信。
+首先通过context接口指定并行模式为[数据并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/data_parallel.html)模式，并通过init初始化通信。
 
 ```python
 import mindspore as ms
