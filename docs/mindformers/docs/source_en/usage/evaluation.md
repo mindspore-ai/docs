@@ -62,6 +62,15 @@ pip install -e .
       ```
 
       For detailed instructions on each configuration item, please refer to the [configuration description](../appendix/conf_files.md).
+  4. If you use the `ceval-valid`, `mmlu`, `cmmlu`, `race`, and `lambada` datasets for evaluation, you need to set `use_flash_attention` to `False`. Using `predict_lama3_1_8b.yaml` as an example, modify the yaml as follow:
+
+      ```yaml
+      model:
+        model_config:
+          # ...
+          use_flash_attention: False  # Set to False
+          # ...
+       ```
 
 #### Evaluation Example
 
