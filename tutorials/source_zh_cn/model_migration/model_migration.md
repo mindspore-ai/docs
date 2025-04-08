@@ -362,10 +362,7 @@ class Trainer:
         loss = self.loss_scale.unscale(loss)
         grads = self.loss_scale.unscale(grads)
         grads = self.grad_reducer(grads)
-        state = all_finite(grads)
-        if state:
-            self.opt(grads)
-
+        self.opt(grads)
         return loss, loss1, loss2
 
     def train(self, epochs):
