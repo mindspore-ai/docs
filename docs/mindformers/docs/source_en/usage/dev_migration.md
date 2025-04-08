@@ -64,7 +64,7 @@ processor:
   return_tensors: ms
   tokenizer:
     model_max_length: 8192
-    vocab_file: "/path/tokenizer.json"
+    vocab_file: "/path/tokenizer.model"
     pad_token: "<|reserved_special_token_0|>"
     type: Llama3Tokenizer
     auto_register: llama3_1_tokenizer.Llama3Tokenizer
@@ -74,6 +74,8 @@ processor:
 
 The relative import path `auto_register: llama3_1_tokenizer.Llama3Tokenizer` of `Llama3Tokenizer` is configured under `tokenizer`.
 
+Also, `vocab_file` under `tokenizer` should configure as the real path to the tokenizer `tokenizer.model`.
+
 Run the following command to start the inference job:
 
 ```bash
@@ -82,12 +84,12 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 
 **Parameters**
 
-|       Parameter       | Description           |
-|:---------------:|:--------------|
-|     config      | Path of the `YAML` file.|
-| load_checkpoint | Loaded weight path.      |
-|  register_path  | Path of the directory where the external code is located.  |
-|  predict_data   | Input data for inference.      |
+|    Parameter    | Description                                               |
+|:---------------:|:----------------------------------------------------------|
+|     config      | Path of the `YAML` file.                                  |
+| load_checkpoint | Loaded weight path.                                       |
+|  register_path  | Path of the directory where the external code is located. |
+|  predict_data   | Input data for inference.                                 |
 
 `register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
 

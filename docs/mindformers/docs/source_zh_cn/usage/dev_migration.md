@@ -64,7 +64,7 @@ processor:
   return_tensors: ms
   tokenizer:
     model_max_length: 8192
-    vocab_file: "/path/tokenizer.json"
+    vocab_file: "/path/tokenizer.model"
     pad_token: "<|reserved_special_token_0|>"
     type: Llama3Tokenizer
     auto_register: llama3_1_tokenizer.Llama3Tokenizer
@@ -73,6 +73,8 @@ processor:
 ```
 
 其中在`tokenizer`下配置了`Llama3Tokenizer`的相对导入路径`auto_register: llama3_1_tokenizer.Llama3Tokenizer`。
+
+另外，需要在`tokenizer`下设置`vocab_file`为模型分词器`tokenizer.model`的真实路径。
 
 可以运行如下命令拉起推理任务：
 
