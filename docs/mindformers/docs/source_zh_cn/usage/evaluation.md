@@ -59,6 +59,15 @@ pip install -e .
         ```
 
         关于每个配置项的详细说明请参考[配置文件说明](../appendix/conf_files.md)。
+  4. 如果使用`ceval-valid`、`mmlu`、`cmmlu`、`race`、`lambada`数据集进行评测，需要将`use_flash_attention`设置为`False`，以`predict_llama3_1_8b.yaml`为例，修改yaml如下：
+
+       ```yaml
+       model:
+         model_config:
+           # ...
+           use_flash_attention: False  # 设置为False
+           # ...
+       ```
 
 #### 评测样例
 
