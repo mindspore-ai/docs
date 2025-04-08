@@ -204,8 +204,7 @@ In this scenario, when the new dataset is used, the model training starts from s
    ```yaml
    load_checkpoint: './output/checkpoint'
    resume_training: True
-   trainer:
-      ignore_data_skip: True
+   ignore_data_skip: True
    ```
 
 - **Expected result**: The model is trained from scratch based on the new dataset without skipping any steps.
@@ -219,9 +218,8 @@ In this case, the model has been partially trained based on the new dataset (for
    ```yaml
    load_checkpoint: './output/checkpoint'
    resume_training: True
-   trainer:
-     ignore_data_skip: False
-     data_skip_steps: 2
+   ignore_data_skip: False
+   data_skip_steps: 2
    ```
 
 - **Expected result**: The model skips the first `2` steps and continues the training from step `3` based on the new dataset.
@@ -235,9 +233,8 @@ If `global batch size` is changed (for example, doubled) when a training is resu
    ```yaml
    load_checkpoint: './output/checkpoint'
    resume_training: True
-   trainer:
-     ignore_data_skip: False
-     data_skip_steps: 1
+   ignore_data_skip: False
+   data_skip_steps: 1
    ```
 
 - **Expected result**: The model adjusts the number of skipped steps based on the new setting of `global batch size` and continues the training from the specified position.
