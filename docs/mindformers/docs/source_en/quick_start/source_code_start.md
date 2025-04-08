@@ -18,17 +18,11 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 1. The dataset file alpaca_data.json used in the fine-tuning process can be obtained at [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca).
 
-2. Install the fastchat tool. The version must be greater than or equal to 0.2.13.
-
-    ```shell
-      pip install fastchat>=0.2.13
-    ```
-
-3. Data Preprocessing
+2. Data Preprocessing
 
     The following command needs to be executed in the MindSpore Transformers code root directory, and replaces {path} below with the local path where the dataset files are stored.
 
-    1. Execute [mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py), and use the fastchat tool to add prompt templates to convert the raw dataset into a multi-round conversation format.
+    1. Execute [mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/v1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py), and add prompt templates to convert the raw dataset into a multi-round conversation format.
 
         ```shell
           python mindformers/tools/dataset_preprocess/llama/alpaca_converter.py \
