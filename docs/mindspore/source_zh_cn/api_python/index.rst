@@ -58,6 +58,8 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 集合通信接口。
    * - `mindspore.communication.comm_func <./mindspore.communication.comm_func.html>`_
      - 集合通信函数式接口。
+   * - `mindspore.parallel <./mindspore.parallel.html>`_
+     - 自动并行接口。
    * - `mindspore.common.initializer <./mindspore.common.initializer.html>`_
      - 参数初始化。
    * - `mindspore.hal <./mindspore.hal.html>`_
