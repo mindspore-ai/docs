@@ -18,17 +18,11 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 
 1. 微调过程中使用的数据集文件alpaca_data.json在[Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca)下载获得。
 
-2. 安装fastchat工具，版本要求>=0.2.13。
-
-    ```shell
-      pip install fastchat>=0.2.13
-    ```
-
-3. 数据预处理。
+2. 数据预处理。
 
     需要在MindFormers根目录下执行以下操作，并将下文中的{path}替换成本地路径。
 
-    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
+    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，添加prompt模板，将原始数据集转换为多轮对话格式。
 
         ```shell
           python mindformers/tools/dataset_preprocess/llama/alpaca_converter.py \
