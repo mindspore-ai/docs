@@ -290,6 +290,31 @@ except:
 sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.6.0', content)
+                new_content = re.sub(re_url2, r'\1/v2.6.0', new_content)
+                new_content = re.sub(re_url3, r'\1/r1.1.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r1.5.0', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
+
 # Copy source files of en python api from mindspore repository.
 copy_path = 'docs/api/api_python_en'
 repo_path = os.getenv("MS_PATH")
@@ -330,7 +355,7 @@ if os.path.exists(dataset_list_path):
 def ops_interface_name():
 
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
     primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", content)
 
@@ -339,7 +364,7 @@ def ops_interface_name():
 def mint_interface_name():
     mint_p = 'mindspore.mint.rst'
     src_target_path = os.path.join(src_dir_en, mint_p)
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
     mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
 
@@ -405,13 +430,18 @@ for cur, _, files in os.walk(des_sir):
     for i in files:
         if os.path.join(cur, i) in no_viewsource_list:
             continue
-        if i.endswith('.md'):
+        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = content
-                md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                if 'resource/_static/logo_source' not in new_content:
-                    new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                new_content = re.sub(re_url, r'\1/r2.6.0', content)
+                new_content = re.sub(re_url3, r'\1/r1.1.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r1.5.0', new_content)
+                if i.endswith('.rst'):
+                    new_content = re.sub(re_url2, r'\1/v2.6.0', new_content)
+                # if i.endswith('.md'):
+                #     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                #     if 'resource/_static/logo_source' not in new_content:
+                #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
@@ -504,5 +534,7 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
+    content = re.sub(re_url, r'\1/rr2.6.0', content)
+    content = re.sub(re_url2, r'\1/vr2.6.0', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
