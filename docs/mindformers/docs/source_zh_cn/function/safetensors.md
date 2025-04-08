@@ -211,7 +211,7 @@ MindSpore Transformers支持step级断点续训功能，允许在训练中保存
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2_7b/distributed_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/output/checkpoint'                # 加载权重文件路径
 load_ckpt_format: 'safetensors'                      # 加载权重文件格式
 resume_training: True                                # 断点续训功能开关
 callbacks:
@@ -219,13 +219,14 @@ callbacks:
     checkpoint_format: safetensors                   # 保存权重文件格式
 ```
 
-若分布式权重多卡续训且改变切分策略，先需要将原分布式权重文件[合并完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)后传入，修改配置项后启动原训练任务：
+若分布式权重多卡续训且改变切分策略，需额外传入源切分策略文件路径，修改配置项后启动原训练任务：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2_7b/ms_unified_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2_7b/distributed_safetenosrs'# 加载源分布式权重文件路径
+src_strategy_path_or_dir: '/output/src_strategy'    # 加载源策略文件，用于合并源分布式权重为完整权重
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
-auto_trans_ckpt: True                               # 完整权重时需打开此配置项，开启在线切分功能
+auto_trans_ckpt: True                               # 开启在线切分功能
 resume_training: True                               # 断点续训功能开关
 parallel_config:                                    # 配置目标分布式策略
   data_parallel: 2
@@ -235,6 +236,8 @@ callbacks:
   - type: CheckpointMonitor
     checkpoint_format: safetensors                  # 保存权重文件格式
 ```
+
+大集群规模场景下，避免在线合并过程耗时过长占用训练资源，推荐将原分布式权重文件离线[合并完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)后传入，无需传入源切分策略文件路径。
 
 更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/resume_training.html)
 
