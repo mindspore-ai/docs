@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Build web pages for API related document PR and implement preview functionality.
 """

@@ -77,7 +77,7 @@ The configuration of operator-level parallelism in MindSpore is implemented thro
 
 To cope with these complex scenarios, this tutorial introduces a higher-order operator-level parallel configuration method with an open device arrangement description.
 
-[Operator-level Parallelism](https://www.mindspore.cn/docs/en/master/features/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For example, for a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
+[Operator-level Parallelism](https://www.mindspore.cn/tutorials/en/master/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For example, for a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
 
 ![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
 

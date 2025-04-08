@@ -598,7 +598,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 2. Embedding parameter configuration optimizer parallelism: large vocabulary occupies too much memory, and the optimizer parallelism of vocabulary weights needs additional configuration, which effectively alleviates the problem of insufficient memory in the first stage;
 
-   An introduction to the use of optimizer parallelism can be found in [MindSpore Optimizer Parallelism Documentation](https://www.mindspore.cn/docs/en/master/features/parallel/optimizer_parallel.html). In addition, the Llama model has additional configurations for optimizers in the embedding layer, the `parallel_optimizer` in the [LlamaConfig API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig) controls the parallelism of the embedding optimizer;
+   An introduction to the use of optimizer parallelism can be found in [MindSpore Optimizer Parallelism Documentation](https://www.mindspore.cn/tutorials/en/master/parallel/optimizer_parallel.html). In addition, the Llama model has additional configurations for optimizers in the embedding layer, the `parallel_optimizer` in the [LlamaConfig API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig) controls the parallelism of the embedding optimizer;
    A sample configuration is shown below:
 
    ```yaml
@@ -628,7 +628,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 4. Enable the `pp_interleave` parallel policy and configure `pp_interleave_num` to 3 to effectively reduce the percentage of bubbles;
 
-   An introduction to the multi-streaming interleaving feature can be found in the [MindSpore pipeline parallelism documentation](https://www.mindspore.cn/docs/en/master/features/parallel/pipeline_parallel.html). In MindSpore Transformers the reference configuration is as follows:
+   An introduction to the multi-streaming interleaving feature can be found in the [MindSpore pipeline parallelism documentation](https://www.mindspore.cn/tutorials/en/master/parallel/pipeline_parallel.html). In MindSpore Transformers the reference configuration is as follows:
 
    ```yaml
    parallel:
