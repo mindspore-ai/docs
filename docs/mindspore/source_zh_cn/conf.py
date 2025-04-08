@@ -215,7 +215,9 @@ shutil.copy(layout_src, layout_target)
 
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../../../resource/jieba.txt'}
+import jieba
+
+jieba.load_userdict('../../../resource/jieba.txt')
 
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
 # import anchor_mod
