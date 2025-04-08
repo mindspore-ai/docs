@@ -185,9 +185,9 @@ def get_param_func(func):
             if ',' in all_params_str[0][0]:
                 all_params = re.sub("(self|cls)(, |,)", '', all_params_str[0][0].replace("\n", ""))
         elif "def __new__" in source_code:
-            all_params = re.sub("(self|cls|value)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+            all_params = re.sub("(self|cls|value|iterable)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
             if ',' in all_params:
-                all_params = re.sub("(self|cls|value)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+                all_params = re.sub("(self|cls|value|iterable)(, |,)", '', all_params_str[0][0].replace("\n", ""))
         else:
             all_params = re.sub("(self)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
             if ',' in all_params_str[0][0]:
