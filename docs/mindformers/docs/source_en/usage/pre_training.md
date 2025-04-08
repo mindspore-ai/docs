@@ -1,6 +1,6 @@
 # Pretraining
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/pre_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/usage/pre_training.md)
 
 ## Overview
 
@@ -35,13 +35,13 @@ Currently, MindSpore Transformers supports mainstream foundation models in the i
 
 ### Data Preprocessing
 
-For details about how to process the Llama2-7B and Llama3-70B datasets, see [the Wikitext2 data preprocessing](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md) and [the Wiki103 data preprocessing](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md), respectively.
+For details about how to process the Llama2-7B and Llama3-70B datasets, see [the Wikitext2 data preprocessing](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md) and [the Wiki103 data preprocessing](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/llama3/README.md), respectively.
 
 ## Executing a Pretrained Task
 
 ### Single-Node Training
 
-Take Llama2-7B as an example. Specify the configuration file [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py) script in msrun mode to perform 8-device distributed training. The startup command is as follows:
+Take Llama2-7B as an example. Specify the configuration file [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/pretrain_llama2_7b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py) script in msrun mode to perform 8-device distributed training. The startup command is as follows:
 
 ```bash
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -61,7 +61,7 @@ After the task is executed, the **checkpoint** folder is generated in the **mind
 
 ### Multi-Node Training
 
-Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_70b/pretrain_llama3_70b.yaml) configuration file to run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py) in msrun mode to perform 8-node 64-device pretraining. To perform distributed training on a multi-node multi-device script, you need to run the script on different nodes and set the **MASTER_ADDR** parameter to the IP address of the primary node. The IP addresses of all nodes are the same, and only the values of **NODE_RANK** are different for different nodes. For details about the parameter positions, see [msrun Launching Guide](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html).
+Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/llama3/llama3_70b/pretrain_llama3_70b.yaml) configuration file to run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py) in msrun mode to perform 8-node 64-device pretraining. To perform distributed training on a multi-node multi-device script, you need to run the script on different nodes and set the **MASTER_ADDR** parameter to the IP address of the primary node. The IP addresses of all nodes are the same, and only the values of **NODE_RANK** are different for different nodes. For details about the parameter positions, see [msrun Launching Guide](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/msrun_launcher.html).
 
 ```shell
 # Node 0: Set the IP address of node 0 to the value of MASTER_ADDR, which is used as the IP address of the primary node. There are 64 devices in total with 8 devices for each node.
@@ -82,8 +82,8 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  run_mode:          running mode. The value can be train, finetune, or predict (inference).
 ```
 
-**Note**: During multi-node distributed training, some performance problems may occur. To ensure the efficiency and stability of the training process, you are advised to optimize and adjust the performance by referring to [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html).
+**Note**: During multi-node distributed training, some performance problems may occur. To ensure the efficiency and stability of the training process, you are advised to optimize and adjust the performance by referring to [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/perf_optimize/perf_optimize.html).
 
 ## More Information
 
-For more training examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+For more training examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).

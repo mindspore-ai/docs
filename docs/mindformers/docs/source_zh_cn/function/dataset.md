@@ -1,6 +1,6 @@
 # 数据集
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/function/dataset.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/function/dataset.md)
 
 目前MindSpore Transformers的预训练和微调支持多种格式的数据集加载能力，包括Megatron多源数据集、MindRecord数据集以及HuggingFace数据集的加载方式。每种格式的数据集的具体使用方法的参考如下。
 
@@ -10,7 +10,7 @@ Megatron多源数据集是指从多个不同来源收集的数据集，这些数
 
 ### 制作 BIN 格式数据集
 
-MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) 将文本数据转换成BIN格式数据集，该脚本当前仅支持处理特定形式的 JSON 格式的文件。用户需要先将原始数据集文件转换成特定形式的JSON格式的文件，再使用预处理脚本生成BIN格式的数据集文件。当前 MindSpore Transformers 中的一些模型已经提供了将特定开源数据集转换成特定形式 JSON 格式文件的脚本，用户如想使用自有数据集，则需要通过自行编写脚本的方式将其转换为所需形式。
+MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) 将文本数据转换成BIN格式数据集，该脚本当前仅支持处理特定形式的 JSON 格式的文件。用户需要先将原始数据集文件转换成特定形式的JSON格式的文件，再使用预处理脚本生成BIN格式的数据集文件。当前 MindSpore Transformers 中的一些模型已经提供了将特定开源数据集转换成特定形式 JSON 格式文件的脚本，用户如想使用自有数据集，则需要通过自行编写脚本的方式将其转换为所需形式。
 
 所需的 JSON 格式文件内容的形式如下：
 
@@ -32,7 +32,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
 
 1. 下载 Wiki 数据集
 
-   原始 Wiki 数据集的下载参考 [Llama2 数据集下载](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
+   原始 Wiki 数据集的下载参考 [Llama2 数据集下载](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
 
 2. 生成 JSON 格式文件
 
@@ -57,7 +57,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
 
 4. 使用预处理脚本生成 BIN 格式文件
 
-    处理成上述这样特定的 JSON 格式的文件后，调用 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) 将其转换成BIN格式的数据集，具体命令如下：
+    处理成上述这样特定的 JSON 格式的文件后，调用 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) 将其转换成BIN格式的数据集，具体命令如下：
 
     ```shell
     python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
@@ -110,7 +110,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
 
 3. 修改训练任务的 YAML 配置文件
 
-    在 YAML 配置文件中配置Megatron多源数据集的相关参数。此处，以 Llama2-7B 模型预训练任务来举例说明，修改 [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的 `train_dataset` 、 `runner_config` 、 `parallel_config` 、 `parallel` 以及 `context` 配置项。具体修改及说明如下：
+    在 YAML 配置文件中配置Megatron多源数据集的相关参数。此处，以 Llama2-7B 模型预训练任务来举例说明，修改 [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的 `train_dataset` 、 `runner_config` 、 `parallel_config` 、 `parallel` 以及 `context` 配置项。具体修改及说明如下：
 
     ```yaml
     train_dataset: &train_dataset
@@ -174,7 +174,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
 
     需要注意的配置说明如下：
 
-    - parallel.dataset_strategy：仅支持 List of List 类型，List中子List的个数需要等于 train_dataset.input_columns 的长度，并且 List 中的每个子 List 需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子List的第1位数配置成 `*dp` ，其他位配置为 `1` 。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dataset_slice.html)。
+    - parallel.dataset_strategy：仅支持 List of List 类型，List中子List的个数需要等于 train_dataset.input_columns 的长度，并且 List 中的每个子 List 需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子List的第1位数配置成 `*dp` ，其他位配置为 `1` 。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/dataset_slice.html)。
 
 4. 编译 Megatron 数据集模块
 
@@ -193,7 +193,7 @@ MindRecord 是由 MindSpore 开发的一种高效数据格式，用于存储机�
 MindRecord 格式旨在提高数据处理效率，尤其是在大规模数据训练场景下，可以更快地加载和处理数据。
 MindRecord 文件通常包含了模型训练所需的输入样本，这些样本经过预处理（如编码、归一化等），以优化读取速度和内存使用。
 
-更多关于 MindRecord 相关接口的实现及案例，请参考 [MindSpore 中关于 《MindRecord》 的相关文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mindrecord.html)
+更多关于 MindRecord 相关接口的实现及案例，请参考 [MindSpore 中关于 《MindRecord》 的相关文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.mindrecord.html)
 
 ### 如何制作 MindRecord 数据集
 
@@ -273,13 +273,13 @@ MindRecord 模块提供了一些方法帮助用户将不同数据集转换为 Mi
     writer.commit()
     ```
 
-详细案例可以参考 [Llama2 中的数据预处理案例](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
+详细案例可以参考 [Llama2 中的数据预处理案例](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
 
 ### 在任务中使用 MindRecord 格式数据集
 
 通过在 yaml 配置文件中配置数据集相关参数，可以让训练或评测任务使用准备好的 MindRecord 格式数据集。
 
-此处，以 Llama2-7B 模型预训练任务来举例说明，在 [pretrain_llama2_7b.yaml 文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的默认配置参数及说明如下：
+此处，以 Llama2-7B 模型预训练任务来举例说明，在 [pretrain_llama2_7b.yaml 文件](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的默认配置参数及说明如下：
 
 ```yaml
 # dataset
@@ -308,7 +308,7 @@ train_dataset_task:
 - data_loader.dataset_dir：数据集文件路径。
 - input_columns：设置训练数据集输入的数据列。当前为预训练场景，设置为 `["input_ids"]` 。
 
-其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
+其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
 ## HuggingFace数据集
 
@@ -453,7 +453,7 @@ train_dataset:
      prefetch_size: 1
    ```
 
-   1. `train_dataset`中参数说明可参考[文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)；
+   1. `train_dataset`中参数说明可参考[文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html)；
 
    2. `AlpacaInstructDataHandler`是针对`alpaca`数据集开发的在线处理脚本，如果使用其他数据集，用户需要参考[自定义数据handler](#自定义数据handler)完成自定义数据处理的功能实现。
 
@@ -534,7 +534,7 @@ class XXXInstructDataHandler(BaseInstructDataHandler):
 
 - alpaca 数据集示例
 
-修改任务配置文件 [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml)。
+修改任务配置文件 [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/finetune_llama2_7b.yaml)。
 
 修改如下参数：
 
@@ -554,7 +554,7 @@ train_dataset:
         output_columns: *input_columns
 ```
 
-其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
+其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
 自定义数据 handler：
 
@@ -637,7 +637,7 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
 
 - ADGEN 数据集示例
 
-修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml)。
+修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml)。
 
 修改如下参数：
 
@@ -670,7 +670,7 @@ train_dataset: &train_dataset
   seed: 0
 ```
 
-其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
+其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
 自定义 adgen_handler：
 
@@ -733,7 +733,7 @@ train_dataset:
 
 `CommonDataLoader`除了支持数据集在线加载与处理，还支持离线处理数据集并进行保存。
 
-使用[datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py)脚本可以离线处理 HuggingFace 数据集并进行保存。
+使用[datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/toolkit/data_preprocess/huggingface/datasets_preprocess.py)脚本可以离线处理 HuggingFace 数据集并进行保存。
 
 - 参数说明
 

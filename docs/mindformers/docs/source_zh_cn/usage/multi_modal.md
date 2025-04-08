@@ -1,6 +1,6 @@
 # 多模态理解模型开发
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/multi_modal.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/usage/multi_modal.md)
 
 多模态理解模型（Multimodal Model）是指能够处理并结合来自不同模态（如文字、图像、音频、视频等）的信息进行学习和推理的人工智能模型。
 传统的单一模态模型通常只关注单一数据类型，如文本分类模型只处理文本数据，图像识别模型只处理图像数据。而多模态理解模型则通过融合不同来源的数据来完成更复杂的任务，从而能够理解和生成更加丰富、全面的内容。
@@ -22,8 +22,8 @@ MindSpore Transformers中多模态理解模型统一架构主要包括如下几�
 
 在训练多模态理解模型之前，通常需要先完成多模态数据集的构建，MindSpore Transformers目前提供多模态数据的`dataset`类和`dataloader`类，用户可直接使用：
 
-- [BaseMultiModalDataLoader](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/dataloader/multi_modal_dataloader.py)是多模态数据集加载类，主要完成从`json`文件中读取数据的功能；
-- [ModalToTextSFTDataset](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/modal_to_text_sft_dataset.py)是多模态数据集处理类，主要完成多模态数据处理，以及数据集批处理、数据集重复等操作，具体多模态数据处理可参考[数据处理模块](#数据处理模块)；
+- [BaseMultiModalDataLoader](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/dataset/dataloader/multi_modal_dataloader.py)是多模态数据集加载类，主要完成从`json`文件中读取数据的功能；
+- [ModalToTextSFTDataset](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/dataset/modal_to_text_sft_dataset.py)是多模态数据集处理类，主要完成多模态数据处理，以及数据集批处理、数据集重复等操作，具体多模态数据处理可参考[数据处理模块](#数据处理模块)；
 
 以下是`Cogvlm2-Video`模型的训练数据集`json`文件部分内容示例：
 
@@ -63,17 +63,17 @@ print(dataset_loader[0])
 
 ## 数据处理模块
 
-在多模态理解模型的训练和推理过程中，都需要使用数据处理模块实现对多模态数据的预处理，该模块在训练时会在ModalToTextSFTDataset中被调用，推理时则是在[MultiModalToTextPipeline](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/pipeline/mindformers.pipeline.MultiModalToTextPipeline.html#mindformers.pipeline.MultiModalToTextPipeline)中被调用。
+在多模态理解模型的训练和推理过程中，都需要使用数据处理模块实现对多模态数据的预处理，该模块在训练时会在ModalToTextSFTDataset中被调用，推理时则是在[MultiModalToTextPipeline](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/pipeline/mindformers.pipeline.MultiModalToTextPipeline.html#mindformers.pipeline.MultiModalToTextPipeline)中被调用。
 
 下图是多模态数据的处理流程图，图中的自定义模块需要用户根据实际需求实现，其他模块直接调用即可。
 
 ![multi_modal.png](image/multi_modal.png)
 
-下面以[CogVLm2-Video模型数据预处理模块](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/cogvlm2/cogvlm2_processor.py)为例，介绍多模态数据处理模块中各组成部分的功能。
+下面以[CogVLm2-Video模型数据预处理模块](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/cogvlm2/cogvlm2_processor.py)为例，介绍多模态数据处理模块中各组成部分的功能。
 
 1. BaseXModalToTextProcessor主要用于接收用于推理的多模态原始数据并对进行预处理操作，同时也实现了推理结果后处理操作，该类用户可直接使用；
 2. BaseXModalToTextTransform主要用于将`BaseXModalToTextProcessor`或多模态数据集返回的数据分别处理为推理或训练数据，该类用户可直接使用；
-3. [ModalContentTransformTemplate](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.multi_modal.ModalContentTransformTemplate.html#mindformers.models.multi_modal.ModalContentTransformTemplate)是所有模态训推数据构建模块的抽象类，由于数据具体操作与模型相关，因此用户需要根据需求实现对应的自定义数据构建类，在`Cogvlm2-Video`模型中实现了`CogVLM2ContentTransformTemplate`类，实现了对视频以及文本数据的处理；
+3. [ModalContentTransformTemplate](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/models/mindformers.models.multi_modal.ModalContentTransformTemplate.html#mindformers.models.multi_modal.ModalContentTransformTemplate)是所有模态训推数据构建模块的抽象类，由于数据具体操作与模型相关，因此用户需要根据需求实现对应的自定义数据构建类，在`Cogvlm2-Video`模型中实现了`CogVLM2ContentTransformTemplate`类，实现了对视频以及文本数据的处理；
 4. ModalContentBuilder是所有单模态数据处理的抽象类，如果模型要处理多个模态的数据，就需要在自定义数据构建类初始化时创建多个对应的单模态数据处理类，在`Cogvlm2-Video`模型中实现了`CogVLM2VideoContentBuilder`类用于处理视频数据，并使用通用文本数据处理类`BaseTextContentBuilder`类处理文本数据。
 
 下面是`Cogvlm2-Video`模型训练、推理数据预处理的示例代码。
@@ -82,7 +82,7 @@ print(dataset_loader[0])
 
 在多模态理解模型训练任务中，数据预处理的配置通常会写在`train_dataset`中，`Cogvlm2-Video`模型训练配置文件中数据集相关配置如下：
 
-[finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml)
+[finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml)
 
 ```yaml
 train_dataset: &train_dataset
@@ -129,7 +129,7 @@ for item in multi_modal_dataset:
 
 `Cogvlm2-Video`模型推理配置文件中数据处理模块的配置如下：
 
-[predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml)
+[predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml)
 
 ```yaml
 processor:
@@ -183,7 +183,7 @@ print(processor(multi_modal_data).keys())
 ### 模型配置类
 
 MindSpore Transformers中多模态理解模型相关参数主要通过模型配置类进行控制，下面以`CogVLM2Config`类为例介绍如何构建模型配置类，
-具体实现可参考[CogVLM2Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/cogvlm2/cogvlm2_config.py)。
+具体实现可参考[CogVLM2Config](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/cogvlm2/cogvlm2_config.py)。
 
 ```python
 @MindFormerRegister.register(MindFormerModuleType.CONFIG)
@@ -201,10 +201,10 @@ class CogVLM2Config(PretrainedConfig):
 
 1. `@MindFormerRegister.register(MindFormerModuleType.CONFIG)`主要用于注册自定义的模型配置类，注册后的模型配置类可在`yaml`文件中通过名称进行调用；
 2. `vision_model`和`llm_model`分别表示视觉模型以及文本生成模型的配置类，作为多模态理解模型配置类的入参，并在类初始化过程中对其进行处理；
-3. `PretrainedConfig`是所有模型配置的基类，具体可参考[PretrainedConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PretrainedConfig.html#mindformers.models.PretrainedConfig)。
+3. `PretrainedConfig`是所有模型配置的基类，具体可参考[PretrainedConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/models/mindformers.models.PretrainedConfig.html#mindformers.models.PretrainedConfig)。
 
 在配置文件中，按如下结构对模型进行配置，
-具体实现可参考[predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml)。
+具体实现可参考[predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml)。
 
 ```yaml
 model:
@@ -239,8 +239,8 @@ model:
 ### 非文本模态处理模块
 
 MindSpore Transformers提供`ViT`、`EVA02`等模型作为视觉信息处理模块，下面以`EVA02`模型为例介绍如何构建非文本模态处理模块，
-具体可参考[EVAModel](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva.py)
-和[EVA02Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva_config.py)。
+具体可参考[EVAModel](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/eva02/eva.py)
+和[EVA02Config](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/eva02/eva_config.py)。
 
 ```python
 from mindformers.tools.register import MindFormerRegister, MindFormerModuleType
@@ -261,7 +261,7 @@ class EVAModel(EVA02PreTrainedModel):
 参数说明：
 
 1. `@MindFormerRegister.register(MindFormerModuleType.MODELS)`主要用于注册自定义的模型类，注册后的模型类可在`yaml`文件中通过名称进行调用；
-2. `EVA02PreTrainedModel`继承自`PreTrainedModel`类，主要用于指定模型配置类以及模型参数名的前缀，`EVAModel`作为模型的具体实现，承自`EVA02PreTrainedModel`类，相关API说明可参考[PreTrainedModel](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PreTrainedModel.html#mindformers.models.PreTrainedModel)；
+2. `EVA02PreTrainedModel`继承自`PreTrainedModel`类，主要用于指定模型配置类以及模型参数名的前缀，`EVAModel`作为模型的具体实现，承自`EVA02PreTrainedModel`类，相关API说明可参考[PreTrainedModel](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/models/mindformers.models.PreTrainedModel.html#mindformers.models.PreTrainedModel)；
 3. `EVAModel`主要对数据中的视觉信息进行处理，将处理后的视觉特征输入**跨模态交互模块**。
 
 ### 跨模态交互模块
@@ -325,8 +325,8 @@ class MultiModalForCausalLM(BaseXModalToTextModel):
 
 在实现多模态数据集、数据处理模块以及多模态理解模型构建之后，就可以通过模型配置文件启动模型预训练、微调、推理等任务，为此需要构建对应的模型配置文件。
 
-具体模型配置文件可参考[predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml)和[finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml)分别对应模型推理和微调，其中参数具体含义可查阅[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)。
+具体模型配置文件可参考[predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml)和[finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml)分别对应模型推理和微调，其中参数具体含义可查阅[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html)。
 
 在用户自定义的配置文件中`model`、`processor`、`train_dataset`等部分内容需要对应用户自定义的**数据集**、**数据处理模块**以及**多模态理解模型**进行设置。
 
-编辑自定义的配置文件之后，参考[CogVLM2-Video模型文档](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/cogvlm2_video.md)启动模型[推理](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/cogvlm2_video.md#推理)和[微调](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/cogvlm2_video.md#微调)任务即可。
+编辑自定义的配置文件之后，参考[CogVLM2-Video模型文档](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md)启动模型[推理](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md#推理)和[微调](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md#微调)任务即可。

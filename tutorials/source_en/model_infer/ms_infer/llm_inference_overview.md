@@ -1,6 +1,6 @@
 # MindSpore Large Language Model Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_infer/ms_infer/llm_inference_overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/model_infer/ms_infer/llm_inference_overview.md)
 
 ## Background
 
@@ -103,9 +103,9 @@ pip install mindspore
 pip install mindformers
 ```
 
-You can also install the Python package that adapts to your environment by referring to the official installation document. For details, see [MindSpore Installation](https://www.mindspore.cn/install/en) and [MindFormers Installation](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html).
+You can also install the Python package that adapts to your environment by referring to the official installation document. For details, see [MindSpore Installation](https://www.mindspore.cn/install/en) and [MindFormers Installation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/quick_start/install.html).
 
-If you wish to use model quantization to enhance inference performance, you need to install the **mindspore_gs** package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/install.html).
+If you wish to use model quantization to enhance inference performance, you need to install the **mindspore_gs** package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/install.html).
 
 ### Weight Preparation
 
@@ -124,7 +124,7 @@ After downloading, you will need to convert the Hugging Face weight format to Mi
 python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindspore_ckpt_path "/path/to/mindspore_ckpt"
 ```
 
-You can obtain the conversion script from [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py).
+You can obtain the conversion script from [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/llama/convert_weight.py).
 
 For details, see [Large Language Model Weights Obtaining and Preparation](./weight_prepare.md).
 
@@ -145,7 +145,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-In this code, **tokenizer.model** is a file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while **config** is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model. You can obtain the sample from [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml). (Note: Change the CKPT weight path to the actual weight path.) For details, see [Llama 2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#-18).
+In this code, **tokenizer.model** is a file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while **config** is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model. You can obtain the sample from [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_7b.yaml). (Note: Change the CKPT weight path to the actual weight path.) For details, see [Llama 2](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#-18).
 
 In addition, if you have special requirements for the model or have a deep understanding of deep learning, you can build your own model. For details, see [Model Development](./model_dev.md).
 
@@ -203,17 +203,17 @@ Once the model is constructed, you can utilize the model object for text generat
 
     Note: Each inference step involves postprocessing, specifically selecting generated tokens from the token probability distribution. The simplest way to obtain the highest probability token is by using argmax. The MindFormers model incorporates this processing into the generate API. If you build a large language model yourself, you will need to implement this part separately.
 
-In addition to utilizing the capabilities provided by the MindFormers model suite, you can also build your own preprocessing and postprocessing. Given the complexity of the logic, you may refer to the relevant implementations in MindFormers. For details, see [llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama_tokenizer.py) and [text_generator.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/generation/text_generator.py).
+In addition to utilizing the capabilities provided by the MindFormers model suite, you can also build your own preprocessing and postprocessing. Given the complexity of the logic, you may refer to the relevant implementations in MindFormers. For details, see [llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/llama/llama_tokenizer.py) and [text_generator.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/generation/text_generator.py).
 
 ### Model Parallelism
 
 For large language models with many model parameters, such as Llama2-70B and Qwen2-72B, the parameter scale usually exceeds the memory capacity of a GPU or NPU. Therefore, multi-device parallel inference is required. MindSpore large language model inference can shard the original large language model into N parallel models so that they can be executed on multiple devices in parallel. This not only enables inference for super-large models but also enhances performance by leveraging more resources from the multiple devices. The model scripts provided by the MindFormers model suite can be used to shard a model into multi-device models for execution. You can perform the following steps to deploy the model on multiple devices.
 
-- **Weight sharding**: Because the original weight files are too large, when executing on multiple devices, the overall weight needs to be sharded into multiple weights for each device and passed to the model process corresponding to each device. You can use the script in the MindFormers model suite to perform weight sharding. For details, see [Weight Conversion](https://gitee.com/mindspore/mindformers/blob/dev/docs/feature_cards/Transform_Ckpt.md).
+- **Weight sharding**: Because the original weight files are too large, when executing on multiple devices, the overall weight needs to be sharded into multiple weights for each device and passed to the model process corresponding to each device. You can use the script in the MindFormers model suite to perform weight sharding. For details, see [Weight Conversion](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/feature_cards/Transform_Ckpt.md).
 
     Here is an example of how to shard the Llama2-7B model for parallel execution on two devices.
 
-    - **Generating a target parallel strategy file** When MindSpore performs sharding, you need to specify the sharding mode. The information is stored in the parallel strategy file and can be generated using the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py) script. Open the YAML file corresponding to the Llama2-7B model and modify the following configuration:
+    - **Generating a target parallel strategy file** When MindSpore performs sharding, you need to specify the sharding mode. The information is stored in the parallel strategy file and can be generated using the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py) script. Open the YAML file corresponding to the Llama2-7B model and modify the following configuration:
 
         - Set **only_save_strategy** to **True**, indicating that generating parallel sharding strategy files is enabled.
 
@@ -229,7 +229,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
 
         msrun is a parallel execution tool provided by MindSpore. The **input_data** parameter can accept any content to ensure that the model process can be executed properly. After the program is executed, the **strategy** directory is generated in the **output** directory, that is, the parallel sharding strategy file for two-device parallel inference.
 
-    - **Sharding model weight CKPT file**: Call the conversion script to shard and generate the weight CKPT files. For details, see [transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py).
+    - **Sharding model weight CKPT file**: Call the conversion script to shard and generate the weight CKPT files. For details, see [transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/ckpt_transform/transform_checkpoint.py).
 
         Run the following command to shard the weight into two-device parallel weights:
 
@@ -275,7 +275,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
 
     - Change **parallel_config.model_parallel** to the required number of parallel devices. **data_parallel** is usually set to **1** in the inference scenario. No additional configuration is required.
 
-    For details about the network script code, see [llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py).
+    For details about the network script code, see [llama.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/llama/llama.py).
 
 - **Model inference**: Different from single-device inference, multi-device inference requires multiple processes to be started at the same time for parallel inference. Therefore, compared with directly running a script, multi-device inference requires multiple groups of related processes to be run at a time. The MindSpore framework provides the msrun parallel running tool. The usage method is as follows.
 

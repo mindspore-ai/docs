@@ -1,6 +1,6 @@
 # mindspore.jit 实践
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/jit_compilation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/compile/jit_compilation.md)
 
 在本节中，我们将进一步探讨MindSpore的工作原理，以及如何使其高效运行。`mindspore.jit()` 转换会执行对MindSpore Python函数的即时编译（just-in-time compilation），以便在后续过程中高效执行。它发生在函数第一次执行的时候，这个过程会花费一些时间。
 
@@ -48,7 +48,7 @@ print(f"{out=}")
 
 ### 常用配置介绍
 
-`mindspore.jit`接口详情见[API 文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)，常用配置如下：
+`mindspore.jit`接口详情见[API 文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.jit.html)，常用配置如下：
 
 - capture_mode: 用于指定创建`图`的方式（如：`ast`通过解析Python构建， `bytecode`通过解析Python字节码构建， `trace`通过追踪Python代码的执行进行构建。）
 - jit_level: 用于控制编译优化的级别。（如： 默认O0， 使用更多的优化可选择O1）
@@ -151,7 +151,7 @@ for s, f in function_dict.items():
 
 ### 测试一个简单的函数
 
-定义一个函数 `funtion(a,b,c)=a*b+c`，并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_funtion.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_function.py)脚本：
+定义一个函数 `funtion(a,b,c)=a*b+c`，并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_funtion.py](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/compile/code/simple_function.py)脚本：
 
 ```shell
 export GLOG_v=3  # 可选，设置更高的MindSpore日志级别，以减少一些系统打印，让结果看起来更美观
@@ -182,7 +182,7 @@ python code/simple_funtion.py
 
 ### 测试一个简单的卷积模块 (Conv Module)
 
-定义一个在经典网络`resnet`中使用到的核心模块`BasicBlock`, 并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_conv.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_conv.py)脚本：
+定义一个在经典网络`resnet`中使用到的核心模块`BasicBlock`, 并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_conv.py](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/compile/code/simple_conv.py)脚本：
 
 ```shell
 python code/simple_conv.py
@@ -208,7 +208,7 @@ python code/simple_conv.py
 
 ### 测试一个简单的注意力模块 (Attention Module)
 
-我们定义一个在经典网络`llama3`中使用到的核心模块`LlamaAttention`, 并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_attention.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_attention.py)脚本：
+我们定义一个在经典网络`llama3`中使用到的核心模块`LlamaAttention`, 并使用 `mindspore.jit` 进行转换, 可以通过以下命令运行[simple_attention.py](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/compile/code/simple_attention.py)脚本：
 
 ```shell
 python code/simple_attention.py

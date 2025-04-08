@@ -1,6 +1,6 @@
 # Safetensors权重
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/function/safetensors.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/function/safetensors.md)
 
 ## 概述
 
@@ -15,7 +15,7 @@ Safetensors文件主要分为两种类型：完整权重文件和分布式权重
 Safetensors完整权重可通过以下两种方式获取：
 
 1. 直接从Huggingface上下载。
-2. 通过MindSpore Transformers分布式训练后通过[合并脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)生成。
+2. 通过MindSpore Transformers分布式训练后通过[合并脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)生成。
 
 Huggingface Safetensors示例目录结构:
 
@@ -47,7 +47,7 @@ qwen2_7b
 Safetensors分布式权重可通过以下两种方式获取：
 
 1. 通过MindSpore Transformers分布式训练生成。
-2. 将原有分布式ckpt权重通过[格式转换脚本](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ckpt_to_safetensors.html)生成Safetensors格式。
+2. 将原有分布式ckpt权重通过[格式转换脚本](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.ckpt_to_safetensors.html)生成Safetensors格式。
 
 分布式Safetensors示例目录结构：
 
@@ -85,7 +85,7 @@ qwen2_7b
 
 ### 预训练任务示例
 
-以Llama2-7B为例，修改配置项[pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)确认权重保存格式：
+以Llama2-7B为例，修改配置项[pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/pretrain_llama2_7b.yaml)确认权重保存格式：
 
 ```yaml
 callbacks:
@@ -106,11 +106,11 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
 
-更多详情请参考：[预训练介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/pre_training.html)
+更多详情请参考：[预训练介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/pre_training.html)
 
 ### 微调任务示例
 
-若使用完整权重多卡在线微调，以Qwen2-7B模型为例，修改配置项[finetune_qwen2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml)：
+若使用完整权重多卡在线微调，以Qwen2-7B模型为例，修改配置项[finetune_qwen2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -126,7 +126,7 @@ callbacks:
     checkpoint_format: safetensors                  # 保存权重文件格式
 ```
 
-若使用分布式权重多卡在线微调，以Qwen2-7B模型为例，修改配置项[finetune_qwen2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml)：
+若使用分布式权重多卡在线微调，以Qwen2-7B模型为例，修改配置项[finetune_qwen2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -154,11 +154,11 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
 
-更多详情请参考：[SFT微调介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/sft_tuning.html)
+更多详情请参考：[SFT微调介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/sft_tuning.html)
 
 ### 推理任务示例
 
-若使用完整权重多卡在线推理，以Qwen2-7B模型为例，修改配置项[predict_qwen2_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml)：
+若使用完整权重多卡在线推理，以Qwen2-7B模型为例，修改配置项[predict_qwen2_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -171,7 +171,7 @@ parallel_config:
   pipeline_stage: 1
 ```
 
-若使用分布式权重多卡在线推理，以Qwen2-7B模型为例，修改配置项[predict_qwen2_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml)：
+若使用分布式权重多卡在线推理，以Qwen2-7B模型为例，修改配置项[predict_qwen2_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -201,7 +201,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 'text_generation_text': [I love Beijing, because it is a city with a long history and culture.......]
 ```
 
-更多详情请参考：[推理介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/inference.html)
+更多详情请参考：[推理介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/inference.html)
 
 ### 断点续训任务示例
 
@@ -219,7 +219,7 @@ callbacks:
     checkpoint_format: safetensors                   # 保存权重文件格式
 ```
 
-若分布式权重多卡续训且改变切分策略，先需要将原分布式权重文件[合并完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)后传入，修改配置项后启动原训练任务：
+若分布式权重多卡续训且改变切分策略，先需要将原分布式权重文件[合并完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)后传入，修改配置项后启动原训练任务：
 
 ```yaml
 # 修改后的配置
@@ -236,5 +236,5 @@ callbacks:
     checkpoint_format: safetensors                  # 保存权重文件格式
 ```
 
-更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html)
+更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/resume_training.html)
 

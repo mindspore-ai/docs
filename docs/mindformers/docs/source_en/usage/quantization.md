@@ -1,6 +1,6 @@
 # Quantization
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/quantization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/usage/quantization.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ MindSpore Transformers integrates the MindSpore Golden Stick tool component to p
 
 ## Auxiliary Installation
 
-Before using the quantization inference function, install MindSpore Golden Stick. For details, see [Installation](https://gitee.com/mindspore/golden-stick/blob/master/README.md/#documents).
+Before using the quantization inference function, install MindSpore Golden Stick. For details, see [Installation](https://gitee.com/mindspore/golden-stick/blob/r1.1.0/README.md/#documents).
 
 Download the source code and go to the `golden_stick` directory.
 
@@ -41,7 +41,7 @@ Based on actual operations, quantization may be decomposed into the following st
    Select a language model. Currently, the Llama2_13B and Llama2_70B models support quantization.
 
 2. **Downloading the model weights:**
-   Download the weight of the corresponding model from the HuggingFace model library and convert the model to the CKPT format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html).
+   Download the weight of the corresponding model from the HuggingFace model library and convert the model to the CKPT format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/weight_conversion.html).
 
 3. **Converting the quantization model weight:**
    Run the conversion script `quant_ckpt.py` in the mindspore_gs library to convert the original weight in step 2 to the quantization weight.
@@ -138,7 +138,7 @@ cp output/rtn-a16w8_ckpt/rank_0/rtn-a16w8.ckpt /data/tutorial/llama2_13b_rtn_a16
 
 ### Preparing the Quantization Configuration File
 
-The configuration file [predict_llama2_13b_rtn.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_rtn.yaml) is provided in MindSpore Transformers. You need to copy it to the `llama2_13b_rtn_a16w8_dir` directory.
+The configuration file [predict_llama2_13b_rtn.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_13b_rtn.yaml) is provided in MindSpore Transformers. You need to copy it to the `llama2_13b_rtn_a16w8_dir` directory.
 
 ```shell
 cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w8_dir
@@ -148,11 +148,11 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
 1. **Script instances**
 
-   Replace the [run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/dev/scripts/examples/llama2/run_llama2_generate.py) script in MindSpore Transformers with the following code.
+   Replace the [run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/scripts/examples/llama2/run_llama2_generate.py) script in MindSpore Transformers with the following code.
 
    In this practice, the quantization model is instantiated based on the `AutoModel.from_pretrained()` API. You need to modify the parameters in the API to the created directory.
 
-   You can call the `generate` API to obtain the inference result. For details about the parameters, see the [AutoModel](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers/mindformers.AutoModel.html) and [generate](https://www.mindspore.cn/mindformers/docs/en/dev/generation/mindformers.generation.GenerationMixin.html) API documents.
+   You can call the `generate` API to obtain the inference result. For details about the parameters, see the [AutoModel](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/mindformers/mindformers.AutoModel.html) and [generate](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/generation/mindformers.generation.GenerationMixin.html) API documents.
 
    ```python
    """llama2 predict example."""

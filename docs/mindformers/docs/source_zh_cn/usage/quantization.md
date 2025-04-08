@@ -1,6 +1,6 @@
 # 量化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/quantization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/usage/quantization.md)
 
 ## 概述
 
@@ -41,7 +41,7 @@ pip show mindspore_gs
    选择一个语言模型，当前支持量化的模型为Llama2_13B和Llama2_70B。
 
 2. **下载模型权重：**
-   从 HuggingFace 模型库中下载相应模型的权重，参考[权重格式转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)文档转换为ckpt格式。
+   从 HuggingFace 模型库中下载相应模型的权重，参考[权重格式转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/weight_conversion.html)文档转换为ckpt格式。
 
 3. **量化模型权重转换：**
    运行mindspore_gs库中的转换脚本`quant_ckpt.py`，将步骤2中的原始权重转换为量化权重。
@@ -138,7 +138,7 @@ cp output/rtn-a16w8_ckpt/rank_0/rtn-a16w8.ckpt /data/tutorial/llama2_13b_rtn_a16
 
 ### 量化配置文件准备
 
-MindSpore Transformers已提供[predict_llama2_13b_rtn.yaml配置文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_rtn.yaml)，将其拷贝至`llama2_13b_rtn_a16w8_dir`目录中。
+MindSpore Transformers已提供[predict_llama2_13b_rtn.yaml配置文件](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_13b_rtn.yaml)，将其拷贝至`llama2_13b_rtn_a16w8_dir`目录中。
 
 ```shell
 cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w8_dir
@@ -148,11 +148,11 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
 1. **脚本实例**
 
-   替换MindSpore Transformers下的[run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/dev/scripts/examples/llama2/run_llama2_generate.py)脚本为以下代码。
+   替换MindSpore Transformers下的[run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/scripts/examples/llama2/run_llama2_generate.py)脚本为以下代码。
 
    此实践基于`AutoModel.from_pretrained()`接口实例化量化模型，需调整该接口内的参数为之前创建的目录路径。
 
-   通过调用`generate`接口获取推理结果。具体参数说明可参考[AutoModel](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers/mindformers.AutoModel.html#mindformers.AutoModel)和[generate](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.generate)接口文档。
+   通过调用`generate`接口获取推理结果。具体参数说明可参考[AutoModel](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/mindformers/mindformers.AutoModel.html#mindformers.AutoModel)和[generate](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.generate)接口文档。
 
    ```python
    """llama2 predict example."""

@@ -1,6 +1,6 @@
 # SFT微调
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/sft_tuning.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/usage/sft_tuning.md)
 
 ## 概述
 
@@ -71,7 +71,7 @@ MindSpore Transformers提供已经转换完成的预训练权重、词表文件�
 - `tokenizer.json`：分词器的词汇配置文件<br>
 - `tokenizer.model`：模型的分词器<br>
 
-MindSpore Transformers提供权重转换脚本，通过执行[convert_weight.py转换脚本](https://gitee.com/mindspore/mindformers/blob/dev/convert_weight.py)，可以将HuggingFace的权重转换为完整的ckpt权重。
+MindSpore Transformers提供权重转换脚本，通过执行[convert_weight.py转换脚本](https://gitee.com/mindspore/mindformers/blob/r1.5.0/convert_weight.py)，可以将HuggingFace的权重转换为完整的ckpt权重。
 
 ```bash
 python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path {path}/MS_CKPT_NAME
@@ -97,7 +97,7 @@ MindSpore Transformers提供**WikiText2**作为预训练数据集，**alpaca**�
 
 **alpaca 数据预处理**
 
-1. 执行MindSpore Transformers中的[alpaca_converter.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，将数据集转换为多轮对话格式。
+1. 执行MindSpore Transformers中的[alpaca_converter.py脚本](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，将数据集转换为多轮对话格式。
 
     ```bash
     python alpaca_converter.py \
@@ -112,7 +112,7 @@ MindSpore Transformers提供**WikiText2**作为预训练数据集，**alpaca**�
     output_path: 输出文件的保存路径
     ```
 
-2. 执行MindSpore Transformers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13。
+2. 执行MindSpore Transformers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13。
 
     ```bash
     python llama_preprocess.py \
@@ -179,7 +179,7 @@ run_mode：          运行模式，train：训练，finetune：微调，predict
 
 #### 多机训练
 
-多机多卡微调任务与启动预训练类似，可参考[多机多卡的预训练命令](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/pre_training.html#%E5%A4%9A%E6%9C%BA%E8%AE%AD%E7%BB%83)，并对命令进行如下修改：
+多机多卡微调任务与启动预训练类似，可参考[多机多卡的预训练命令](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/pre_training.html#%E5%A4%9A%E6%9C%BA%E8%AE%AD%E7%BB%83)，并对命令进行如下修改：
 
 1. 增加启动脚本入参`--load_checkpoint /{path}/llama2_7b.ckpt`加载预训练权重。
 2. 设置启动脚本中的`--train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord`加载微调数据集。
@@ -193,7 +193,7 @@ MindSpore Transformers支持配置化使能LoRA微调，无需对每个模型进
 
 ### 示例配置文件（YAML）
 
-完整的YAML配置文件可以通过以下链接访问：[Llama2 LoRA微调 YAML 文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/lora_llama2_7b.yaml)。
+完整的YAML配置文件可以通过以下链接访问：[Llama2 LoRA微调 YAML 文件](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/lora_llama2_7b.yaml)。
 
 ```yaml
 # model config
@@ -229,7 +229,7 @@ model:
 
 ### Llama2-7B 的 LoRA 微调示例
 
-MindSpore Transformers 提供了 Llama2-7B 的 [LoRA 微调示例](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83)。微调过程中使用的数据集可以参考[数据集下载](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)获得。
+MindSpore Transformers 提供了 Llama2-7B 的 [LoRA 微调示例](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83)。微调过程中使用的数据集可以参考[数据集下载](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)获得。
 
 以 Llama2-7B 为例，可以执行以下 msrun 启动脚本，进行 8 卡分布式微调。
 
@@ -243,7 +243,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --run_mode finetune" 8
 ```
 
-当权重的分布式策略和模型的分布式策略不一致时，需要对权重进行切分转换。加载权重路径应设置为以 `rank_0` 命名的目录的上一层路径，同时开启权重自动切分转换功能 `--auto_trans_ckpt True` 。关于分布式权重切分转换的场景和使用方式的更多说明请参考[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html)。
+当权重的分布式策略和模型的分布式策略不一致时，需要对权重进行切分转换。加载权重路径应设置为以 `rank_0` 命名的目录的上一层路径，同时开启权重自动切分转换功能 `--auto_trans_ckpt True` 。关于分布式权重切分转换的场景和使用方式的更多说明请参考[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/transform_weight.html)。
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

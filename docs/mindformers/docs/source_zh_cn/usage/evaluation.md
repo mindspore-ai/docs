@@ -1,6 +1,6 @@
 # 评测
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/evaluation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/usage/evaluation.md)
 
 ## Harness评测
 
@@ -44,9 +44,9 @@ pip install -e .
 
   1. 创建一个新目录，例如名称为`model_dir`，用于存储模型yaml文件。
   2. 在上个步骤创建的目录中，放置模型推理yaml配置文件（predict_xxx_.yaml）。不同模型的推理yaml配置文件所在目录位置，请参考[模型库](../start/models.md)。
-  3. 配置yaml文件。如果yaml中模型类、模型Config类、模型Tokenzier类使用了外挂代码，即代码文件在[research](https://gitee.com/mindspore/mindformers/tree/dev/research)目录或其他外部目录下，需要修改yaml文件：在相应类的`type`字段下，添加`auto_register`字段，格式为“module.class”（其中“module”为类所在脚本的文件名，“class”为类名。如果已存在，则不需要修改）。
+  3. 配置yaml文件。如果yaml中模型类、模型Config类、模型Tokenzier类使用了外挂代码，即代码文件在[research](https://gitee.com/mindspore/mindformers/tree/r1.5.0/research)目录或其他外部目录下，需要修改yaml文件：在相应类的`type`字段下，添加`auto_register`字段，格式为“module.class”（其中“module”为类所在脚本的文件名，“class”为类名。如果已存在，则不需要修改）。
 
-      以[predict_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)配置为例，对其中的部分配置项进行如下修改：
+      以[predict_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)配置为例，对其中的部分配置项进行如下修改：
 
         ```yaml
         run_mode: 'predict'       # 设置推理模式
@@ -62,13 +62,13 @@ pip install -e .
 
 #### 评测样例
 
-执行脚本[run_harness.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_harness.sh)进行评测。
+执行脚本[run_harness.sh](https://gitee.com/mindspore/mindformers/blob/r1.5.0/toolkit/benchmarks/run_harness.sh)进行评测。
 
 run_harness.sh脚本参数配置如下表：
 
 | 参数               | 类型  | 参数介绍                                                                                           | 是否必须 |
 |------------------|-----|------------------------------------------------------------------------------------------------|------|
-| `--register_path`| str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/tree/dev/research)目录下的模型目录 | 否（外挂代码必填）    |
+| `--register_path`| str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/tree/r1.5.0/research)目录下的模型目录 | 否（外挂代码必填）    |
 | `--model`        | str | 需设置为 `mf` ，对应为MindSpore Transformers评估策略                                                                  | 是    |
 | `--model_args`   | str | 模型及评估相关参数，见下方模型参数介绍                                                                            | 是    |
 | `--tasks`        | str | 数据集名称。可传入多个数据集，使用逗号（，）分隔                                                                         | 是    |
@@ -356,7 +356,7 @@ OpenEuler系统按照如下步骤安装：
 2. 在上个步骤创建的目录中放置模型推理yaml配置文件（predict_xxx_.yaml），不同模型的推理yaml配置文件的目录位置参考[模型库](../start/models.md)各模型说明文档中的模型文件树；
 3. 配置yaml配置文件。
 
-    以[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml)配置为例：
+    以[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml)配置为例：
 
     ```yaml
     load_checkpoint: "/{path}/model.ckpt"  # 指定权重文件路径
@@ -380,7 +380,7 @@ OpenEuler系统按照如下步骤安装：
 
 #### 拉起评测任务
 
-在MindSpore Transformers本地代码仓根目录下执行脚本：[run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_vlmevalkit.sh)。
+在MindSpore Transformers本地代码仓根目录下执行脚本：[run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/r1.5.0/toolkit/benchmarks/run_vlmevalkit.sh)。
 
 执行如下命令拉起评测任务：
 
@@ -404,7 +404,7 @@ source toolkit/benchmarks/run_vlmevalkit.sh \
 | `--verbose`       | /   | 输出评测运行过程中的日志。                                                                                  | 否         |
 | `--work_dir`      | str | 存放评测结果的目录，默认存储在当前目录与模型名称相同的文件夹下。                                                               | 否         |
 | `--model_path`    | str | 包含配置文件的文件夹路径。                                                                                  | 是         |
-| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/blob/dev/research)目录下的模型目录。 | 否（外挂代码必填） |
+| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research)目录下的模型目录。 | 否（外挂代码必填） |
 
 如果因网络限制，服务器不支持在线下载图文数据集时，可以将本地下载好的以.tsv结尾的数据集文件上传至服务器~/LMUData目录下，进行离线评测。（例如：~/LMUData/MME.tsv 或 ~/LMUData/MMBench_DEV_EN.tsv 或 ~/LMUData/COCO_VAL.tsv）
 
@@ -470,7 +470,7 @@ source toolkit/benchmarks/run_vlmevalkit.sh \
 
 ### 评测
 
-执行脚本路径可参考链接：[eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_videobench.py)。
+执行脚本路径可参考链接：[eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/toolkit/benchmarks/eval_with_videobench.py)。
 
 #### 执行推理脚本，获取推理结果
 

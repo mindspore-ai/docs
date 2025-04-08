@@ -1,6 +1,6 @@
 # Dataset
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/dataset.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/function/dataset.md)
 
 At present, MindSpore Transformers' pre-training and fine-tuning support the ability to load datasets in multiple formats, including loading methods for Megatron Dataset, MindRecord Dataset, and HuggingFace datasets. The specific usage instructions for each format of dataset are as follows.
 
@@ -10,7 +10,7 @@ Megatron Dataset refers to a dataset collected from multiple different sources, 
 
 ### How to Make a BIN Format Dataset
 
-MindSpore Transformers provides a preprocessing script [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py), which can convert text data to a BIN format dataset. This script currently only supports processing files in a specific JSON format. Users need to first convert the original dataset file into a specific JSON format file, and then use a preprocessing script to generate a BIN format dataset file. Some models in MindSpore Transformers currently provide scripts for converting specific open-source datasets into JSON format files. If users want to use their own datasets, they need to write their own scripts to convert them into the desired format.
+MindSpore Transformers provides a preprocessing script [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py), which can convert text data to a BIN format dataset. This script currently only supports processing files in a specific JSON format. Users need to first convert the original dataset file into a specific JSON format file, and then use a preprocessing script to generate a BIN format dataset file. Some models in MindSpore Transformers currently provide scripts for converting specific open-source datasets into JSON format files. If users want to use their own datasets, they need to write their own scripts to convert them into the desired format.
 
 The format of the required JSON format file content is as follows:
 
@@ -32,7 +32,7 @@ Taking the processing of Wiki datasets and their use as pre-training for Llama2 
 
 1. Download Wiki Dataset
 
-   For the original Wiki Dataset downloading, refer to [Llama2 Dataset Download](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
+   For the original Wiki Dataset downloading, refer to [Llama2 Dataset Download](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
 
 2. Generate JSON Format File
 
@@ -57,7 +57,7 @@ Taking the processing of Wiki datasets and their use as pre-training for Llama2 
 
 4. Generate BIN Format Files Using Preprocessing Scripts
 
-    After processing into the specific JSON format file mentioned above, using [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) to convert it into a BIN format dataset, the specific command is as follows:
+    After processing into the specific JSON format file mentioned above, using [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) to convert it into a BIN format dataset, the specific command is as follows:
 
     ```shell
     python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
@@ -110,7 +110,7 @@ Use the Megatron multi-source dataset in the training task as follows:
 
 3. Modify YAML configuration files for training tasks
 
-    Configure the relevant parameters of Megatron Dataset in YAML configuration file. Here, taking the Llama2-7B model pre-training task as an example, modify `train_dataset` , `runner_config` , `parallel_config` , `parallel` and `context` in  [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39). The specific modifications and explanations are as follows:
+    Configure the relevant parameters of Megatron Dataset in YAML configuration file. Here, taking the Llama2-7B model pre-training task as an example, modify `train_dataset` , `runner_config` , `parallel_config` , `parallel` and `context` in  [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/pretrain_llama2_7b.yaml#L39). The specific modifications and explanations are as follows:
 
     ```yaml
     train_dataset: &train_dataset
@@ -174,7 +174,7 @@ Use the Megatron multi-source dataset in the training task as follows:
 
     The configuration instructions that need to be noted are as follows:
 
-    - parallel.dataset_strategy: Only support List of List type, parallel.dataset_strategy: Only support List of List type. The number of sub lists in a List needs to be equal to the length of train_dataset.input_columns, and each sub List in the List needs to be consistent with the shape of the data returned by the dataset. Generally, parallel data partitioning is performed in the first dimension of the data, so the first bit of the sub List is configured as `*dp` , and the other bits are configured as `1` . The specific principle can be referred to [Dataset Segmentation](https://www.mindspore.cn/tutorials/en/master/parallel/dataset_slice.html).
+    - parallel.dataset_strategy: Only support List of List type, parallel.dataset_strategy: Only support List of List type. The number of sub lists in a List needs to be equal to the length of train_dataset.input_columns, and each sub List in the List needs to be consistent with the shape of the data returned by the dataset. Generally, parallel data partitioning is performed in the first dimension of the data, so the first bit of the sub List is configured as `*dp` , and the other bits are configured as `1` . The specific principle can be referred to [Dataset Segmentation](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/dataset_slice.html).
 
 4. Compile Megatron Dataset module
 
@@ -193,7 +193,7 @@ MindRecord is an efficient data format developed by MindSpore for storing machin
 The MindRecord format is designed to improve data processing efficiency, especially in large-scale data training scenarios where data can be loaded and processed faster.
 MindRecord files typically contain the input samples needed for model training, which are preprocessed (e.g., encoded, normalized) to optimize read speed and memory usage.
 
-For more information about the implementation of MindRecord related interfaces and examples, please refer to the [documentation about MindRecord in MindSpore](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mindrecord.html).
+For more information about the implementation of MindRecord related interfaces and examples, please refer to the [documentation about MindRecord in MindSpore](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.mindrecord.html).
 
 ### How to Make a MindRecord Dataset
 
@@ -273,13 +273,13 @@ The following is an example of a MindRecord dataset based on a json format file,
     writer.commit()
     ```
 
-For the detailed cases, refer to [Examples of Data Preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
+For the detailed cases, refer to [Examples of Data Preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
 
 ### Using MindRecord Format Datasets in Tasks
 
 You can make a training or evaluation task use a prepared MindRecord format dataset by configuring dataset-related parameters in the yaml configuration file.
 
-Here, as an example, for the Llama2-7B model pretraining task, the default configuration parameters and descriptions in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) are as follows:
+Here, as an example, for the Llama2-7B model pretraining task, the default configuration parameters and descriptions in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/pretrain_llama2_7b.yaml#L39) are as follows:
 
 ```yaml
 # dataset
@@ -308,7 +308,7 @@ Configure the following parameters to use MindRecord format datasets:
 - data_loader.dataset_dir: The path to the dataset file.
 - input_columns: Sets the data columns for the input of the training dataset. Currently a pre-training scenario, set to `["input_ids"]`.
 
-The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/appendix/conf_files.html).
 
 ## HuggingFace Datasets
 
@@ -453,7 +453,7 @@ When packing is configured, the dataset returns an `actual_seq_len` column. For 
      prefetch_size: 1
    ```
 
-  1. For parameter descriptions in `train_dataset`, please refer to the [documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html).
+  1. For parameter descriptions in `train_dataset`, please refer to the [documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html).
 
   2. `AlpacaInstructDataHandler` is an online processing script developed for the `alpaca` dataset. If using a different dataset, you need to implement a custom data handler by referring to the [Custom Data Handler](#custom-data-handler) guide.
 
@@ -534,7 +534,7 @@ If you want to process the data directly for the whole dataset instead of proces
 
 - alpaca Dataset Sample
 
-Modify the task configuration file [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml).
+Modify the task configuration file [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/finetune_llama2_7b.yaml).
 
 Modify the following parameters:
 
@@ -554,7 +554,7 @@ train_dataset:
         output_columns: *input_columns
 ```
 
-The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/appendix/conf_files.html).
 
 Custom data handler:
 
@@ -637,7 +637,7 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
 
 - ADGEN Dataset Sample
 
-Modify the task configuration file [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml).
+Modify the task configuration file [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml).
 
 Modify the following parameters:
 
@@ -670,7 +670,7 @@ train_dataset: &train_dataset
   seed: 0
 ```
 
-The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/appendix/conf_files.html).
 
 Custom adgen_handler:
 
@@ -733,7 +733,7 @@ Using the above configuration file to process the `alpaca` dataset will execute 
 
 In addition to supporting online dataset loading and processing, `CommonDataLoader` also supports offline dataset processing and saving.
 
-The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py) script can be used to process Huggingface datasets offline and save them.
+The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/toolkit/data_preprocess/huggingface/datasets_preprocess.py) script can be used to process Huggingface datasets offline and save them.
 
 - Parameter Description
 

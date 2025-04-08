@@ -1,6 +1,6 @@
 # Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/inference.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/usage/inference.md)
 
 ## Overview
 
@@ -22,8 +22,8 @@ Model weights can be categorized into two types: complete weights and distribute
 
 Complete weights can be obtained in two ways:
 
-1. After downloading the open source weights of the corresponding model from the HuggingFace model library, refer to [Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) to convert them to the ckpt format.
-2. Pre-trained or fine-tuned distributed weights are used to generate a complete weight by [merging](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html).
+1. After downloading the open source weights of the corresponding model from the HuggingFace model library, refer to [Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/weight_conversion.html) to convert them to the ckpt format.
+2. Pre-trained or fine-tuned distributed weights are used to generate a complete weight by [merging](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/transform_weight.html).
 
 #### 2.2 Distributed Weights
 
@@ -35,7 +35,7 @@ If the inference uses a weight slicing that is different from the model slicing 
 2. The weights of the eight-card training are reasoned over two cards;
 3. Already sliced distributed weights are reasoned on a single card, and so on.
 
-The command samples in the following contents are all used in the way of online autoslicing. It is recommended to use online autoslicing by setting the command parameters `--auto_trans_ckpt` to `-True` and `-src_strategy_path_or_dir` to the weighted slicing strategy file or directory path (which is saved by default after training under `./output/strategy`) are automatically sliced in the inference task. Details can be found in [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html).
+The command samples in the following contents are all used in the way of online autoslicing. It is recommended to use online autoslicing by setting the command parameters `--auto_trans_ckpt` to `-True` and `-src_strategy_path_or_dir` to the weighted slicing strategy file or directory path (which is saved by default after training under `./output/strategy`) are automatically sliced in the inference task. Details can be found in [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/transform_weight.html).
 
 > Since both the training and inference tasks use `. /output` as the default output path, when using the strategy file output by the training task as the source weight strategy file for the inference task, you need to move the strategy file directory under the default output path to another location to avoid it being emptied by the process of the inference task, for example:
 >
@@ -47,7 +47,7 @@ Call the high-level API or use the unified script `run_mindformer` to execute in
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh).
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.5.0/scripts/msrun_launcher.sh).
 
 The arguments to run_mindformer.py are described below:
 
@@ -65,7 +65,7 @@ The arguments to run_mindformer.py are described below:
 
 msrun_launcher.sh includes the run_mindformer.py command and the number of inference cards as two parameters.
 
-The following will describe the usage of single and multi-card inference using Llama2 as an example, with the recommended configuration of the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) file.
+The following will describe the usage of single and multi-card inference using Llama2 as an example, with the recommended configuration of the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_7b.yaml) file.
 
 > During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_download/Llama2/` directory in advance.
 
@@ -103,7 +103,7 @@ The following result appears, proving that the inference was successful. The inf
 
 ### Multi-Card Inference
 
-The configuration requirements for multi-card inference differ from those of single card, and you need to refer to the following instructions to modify the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) configuration.
+The configuration requirements for multi-card inference differ from those of single card, and you need to refer to the following instructions to modify the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_7b.yaml) configuration.
 
 1. The configuration of model_parallel and the number of cards used need to be consistent. The following use case is 2-card inference, and model_parallel needs to be set to 2;
 2. The current version of multi-card inference does not support data parallelism, you need to set data_parallel to 1.
@@ -200,7 +200,7 @@ Inference results are viewed in the same way as single-card inference.
 
 Use `cogvlm2-llama3-chat-19B` model as example and see the following process with details:
 
-Modify configuration yaml file[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml).
+Modify configuration yaml file[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml).
 
 ```shell
 model:
@@ -231,7 +231,7 @@ MindSpore Transformers not only provides a unified script for `run_mindformer` i
 
 ### Pipeline Interface
 
-Customized text generation inference task flow based on `pipeline` interface, supporting single card inference and multi-card inference. About how to use `pipeline` interface to start the task and output the result, you can refer to the following implementation. The specific parameter description can be viewed [pipeline interface API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers/mindformers.pipeline.html#mindformers.pipeline).
+Customized text generation inference task flow based on `pipeline` interface, supporting single card inference and multi-card inference. About how to use `pipeline` interface to start the task and output the result, you can refer to the following implementation. The specific parameter description can be viewed [pipeline interface API documentation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/mindformers/mindformers.pipeline.html#mindformers.pipeline).
 
 #### Incremental Inference
 
@@ -318,7 +318,7 @@ The inference result is as follows:
 
 ### chat Interface
 
-Based on the `chat` interface, the process of generating dialogue text inference tasks involves adding chat templates through the provided tokenizer to infer user queries. You can refer to the following implementation methods, and specific parameter descriptions can be viewed [chat interface API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.chat).
+Based on the `chat` interface, the process of generating dialogue text inference tasks involves adding chat templates through the provided tokenizer to infer user queries. You can refer to the following implementation methods, and specific parameter descriptions can be viewed [chat interface API documentation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.chat).
 
 ```python
 from mindformers import build_context
@@ -358,4 +358,4 @@ Thanks, sir.
 
 ## More Information
 
-For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).

@@ -1,12 +1,12 @@
 # Calling Source Code to Start
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/quick_start/source_code_start.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/quick_start/source_code_start.md)
 
-This section shows how to use MindSpore Transformers to quickly pull up a LoRA low-parameter fine-tuning task based on the Llama2-7B model. To use other models and tasks via MindSpore Transformers, please read the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+This section shows how to use MindSpore Transformers to quickly pull up a LoRA low-parameter fine-tuning task based on the Llama2-7B model. To use other models and tasks via MindSpore Transformers, please read the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).
 
 ## Preparing Weights File
 
-MindSpore Transformers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the [Llama2 documentation](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md) and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
+MindSpore Transformers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the [Llama2 documentation](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md) and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
 
 | Model Name | MindSpore Weights | HuggingFace Weights |
 | ------ | ------ | ------ |
@@ -28,7 +28,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
     The following command needs to be executed in the MindSpore Transformers code root directory, and replaces {path} below with the local path where the dataset files are stored.
 
-    1. Execute [mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py), and use the fastchat tool to add prompt templates to convert the raw dataset into a multi-round conversation format.
+    1. Execute [mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py), and use the fastchat tool to add prompt templates to convert the raw dataset into a multi-round conversation format.
 
         ```shell
           python mindformers/tools/dataset_preprocess/llama/alpaca_converter.py \
@@ -41,7 +41,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
         - data_path:   Input the path to the downloaded file.
         - output_path: Save path of the output file.
 
-    2. Execute [mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py), and generate MindRecord data and convert data with prompt templates to MindRecord format.
+    2. Execute [mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py), and generate MindRecord data and convert data with prompt templates to MindRecord format.
 
         ```shell
           python mindformers/tools/dataset_preprocess/llama/llama_preprocess.py \
@@ -57,7 +57,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
         - dataset_type: Preprocessed data types. The options include "wiki" and "qa."
             - "wiki" is used to process the Wikitext2 dataset, which is suitable for the pre-training and evaluation stages.
             - "qa" is used to process the Alpaca dataset, converting it into a question-answer format, which is suitable for the fine-tuning stage.
-            For other dataset conversion scripts, please refer to the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+            For other dataset conversion scripts, please refer to the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).
         - input_glob: Path to the converted alpaca file.
         - model_file: Path to the model tokenizer.model file.
         - seq_length: Sequence length of the output data.
@@ -113,4 +113,4 @@ Start worker process with rank id:7, log file:output/msrun_log/worker_7.log. Env
 
 It indicates that the fine-tuning task is started, the progress can be monitored in the `output/msrun_log/` directory.
 
-For more details on Llama2, and more startup approaches, please refer specifically to the `Llama2` [README](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#llama-2) documentation for more support.
+For more details on Llama2, and more startup approaches, please refer specifically to the `Llama2` [README](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#llama-2) documentation for more support.

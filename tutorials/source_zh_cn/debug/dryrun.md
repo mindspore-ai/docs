@@ -1,6 +1,6 @@
 # DryRun
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/dryrun.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/debug/dryrun.md)
 
 ## 概述
 
@@ -54,7 +54,7 @@ Actual peak memory usage (with fragments): 26244M
 
 #### MS_SIMULATION_LEVEL=3
 
-在`2`的基础上增加了计算算子的运行统计，占用CPU资源以及与需要模拟的卡数相对应的计算资源。在显存分析的基础上，增加了当前卡的计算算子执行，用户可以结合[MindSpore Profiler](https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html)分析计算算子耗时。
+在`2`的基础上增加了计算算子的运行统计，占用CPU资源以及与需要模拟的卡数相对应的计算资源。在显存分析的基础上，增加了当前卡的计算算子执行，用户可以结合[MindSpore Profiler](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/profiler.html)分析计算算子耗时。
 
 开启profiling后，可以找到`trace_view.json`文件，如下图所示：
 

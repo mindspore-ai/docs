@@ -1,6 +1,6 @@
 # Weight Format Conversion
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/weight_conversion.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/function/weight_conversion.md)
 
 ## Overview
 
@@ -32,7 +32,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ## Conversion Example
 
-Assume that you have downloaded the [Llama2 model weight](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path. To convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
+Assume that you have downloaded the [Llama2 model weight](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path. To convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
 
 ```bash
 python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
@@ -67,7 +67,7 @@ After the preceding steps are performed, the HuggingFace weight is successfully 
 
 ## Example of Developing Model Weight Conversion
 
-Llama is used as an example. To convert a HuggingFace weight to a MindSpore Transformers one, define the `convert_pt_to_ms` function in [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py).
+Llama is used as an example. To convert a HuggingFace weight to a MindSpore Transformers one, define the `convert_pt_to_ms` function in [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/llama/convert_weight.py).
 
 ```python
 def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
@@ -100,7 +100,7 @@ def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
     return True
 ```
 
-To convert a MindSpore Transformers weight to a HuggingFace one, define the `convert_ms_to_pt` function in [convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_reversed.py).
+To convert a MindSpore Transformers weight to a HuggingFace one, define the `convert_ms_to_pt` function in [convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/llama/convert_reversed.py).
 
 ```python
 def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):

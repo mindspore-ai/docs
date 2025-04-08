@@ -1,6 +1,6 @@
 # 切分技巧
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/split_technique.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/parallel/split_technique.md)
 
 ## 概述
 
@@ -8,13 +8,13 @@
 
 ### 配置涉及权重的算子
 
-参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindFormers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
+参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindFormers](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
 
 ![sp_case1_zh](./images/sp_case1_zh.png "配置涉及权重的算子")
 
 ### 配置维度改变/轴改变的算子
 
-深度学习框架的算子大致可以分为两类：语义简单的维度保持的算子；会改变输入张量维度的算子。对于维度保持算子，策略传播算法可以较容易地将切分策略传播出去。但是，对于维度改变算子，显式地配置切分策略才能更好地表达用户的初始想法，避免策略传播算法推导出非用户期望的切分策略。常见的维度改变/轴改变算子有：[ReduceMean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html)、[ReduceSum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceSum.html)、[Transpose](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html)、[StridedSlice](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.StridedSlice.html)、[MatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html)与[BatchMatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchMatMul.html)。在下图的例子中，ReduceMean和MatMul是维度改变算子，它们被配置了切分策略。
+深度学习框架的算子大致可以分为两类：语义简单的维度保持的算子；会改变输入张量维度的算子。对于维度保持算子，策略传播算法可以较容易地将切分策略传播出去。但是，对于维度改变算子，显式地配置切分策略才能更好地表达用户的初始想法，避免策略传播算法推导出非用户期望的切分策略。常见的维度改变/轴改变算子有：[ReduceMean](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.ReduceMean.html)、[ReduceSum](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.ReduceSum.html)、[Transpose](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.Transpose.html)、[StridedSlice](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.StridedSlice.html)、[MatMul](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.MatMul.html)与[BatchMatMul](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.BatchMatMul.html)。在下图的例子中，ReduceMean和MatMul是维度改变算子，它们被配置了切分策略。
 
 ![sp_case2_zh](./images/sp_case2_zh.png "配置维度改变的算子")
 
@@ -26,13 +26,13 @@
 
 ### 配置融合算子
 
-对于融合大算子，如[FlashAttentionScore](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_ops_FlashAttentionScore.html#exhale-class-classmindspore-ops-flashattentionscore)、[rms_norm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.rms_norm.html)，也是需要用户手动配置策略的算子，融合算子的输入与输出逻辑相对复杂，传播出的没有重排的策略并不一定是用户所期望的策略，这些算子也需要显式配置算子级策略。
+对于融合大算子，如[FlashAttentionScore](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/generate/classmindspore_ops_FlashAttentionScore.html#exhale-class-classmindspore-ops-flashattentionscore)、[rms_norm](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.rms_norm.html)，也是需要用户手动配置策略的算子，融合算子的输入与输出逻辑相对复杂，传播出的没有重排的策略并不一定是用户所期望的策略，这些算子也需要显式配置算子级策略。
 
 用户在用策略传播时不仅需要对其传播算法本身有一定的了解，还要对要训练的模型的并行方式有一定的理解。如果存在某个由策略传播算法决定的算子的并行策略不符合用户的期望，那总可以通过多配置一个算子并行策略的方式解决。实际中，对于一个新模型，确实需要尝试几次才能获得性能较优的整体并行配置。
 
 ## 配置代码样例
 
-以MindFormers中封装的类[RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/experimental/graph/tensor_parallel/layers.py)为例：
+以MindFormers中封装的类[RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/experimental/graph/tensor_parallel/layers.py)为例：
 
 <table>
 <tr>
@@ -78,7 +78,7 @@ class RowParallelLinear(nn.Cell):
 </tr>
 </table>
 
-另一个例子是[CoreAttention](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/experimental/graph/transformer/transformer.py)，根据上述原则配置：
+另一个例子是[CoreAttention](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/experimental/graph/transformer/transformer.py)，根据上述原则配置：
 <table>
 <tr>
 <td valign='top'>
@@ -117,7 +117,7 @@ class CoreAttention(nn.Cell):
 </tr>
 </table>
 
-再看[FlashAttention](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/modules/flash_attention.py)的例子:
+再看[FlashAttention](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/modules/flash_attention.py)的例子:
 <table>
 <tr>
 <td valign='top'>
@@ -159,7 +159,7 @@ class FlashAttention(Cell):
 </tr>
 </table>
 
-若直接使用MindFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)。
+若直接使用MindFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/llama/llama.py)。
 <table>
 <tr>
 <td valign='top'>

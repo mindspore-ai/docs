@@ -1,6 +1,6 @@
 # DryRun
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/dryrun.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/debug/dryrun.md)
 
 ## Overview
 
@@ -54,7 +54,7 @@ As shown in the figure, this graph displays the workspace size of the IndexSelec
 
 #### MS_SIMULATION_LEVEL=3
 
-Adds runtime statistics of computing operators on top of `2`, occupying CPU resources and computing resources corresponding to the number of cards to be simulated. In addition to memory analysis, it includes the execution of computing operators on the current card. Users can analyze the time consumption of computing operators in conjunction with [MindSpore Profiler](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html).
+Adds runtime statistics of computing operators on top of `2`, occupying CPU resources and computing resources corresponding to the number of cards to be simulated. In addition to memory analysis, it includes the execution of computing operators on the current card. Users can analyze the time consumption of computing operators in conjunction with [MindSpore Profiler](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/profiler.html).
 
 After enabling profiling, the `trace_view.json` file can be found, as shown below:
 
