@@ -58,6 +58,8 @@ MindSpore provides rich interfaces for model building, training, and inference. 
      - Collection communication interface.
    * - `mindspore.communication.comm_func <./mindspore.communication.comm_func.html>`_
      - Collection communication functional interface.
+   * - `mindspore.parallel <./mindspore.parallel.html>`_
+     - Auto Parallel interface.
    * - `mindspore.common.initializer <./mindspore.common.initializer.html>`_
      - Parameter initialization.
    * - `mindspore.hal <./mindspore.hal.html>`_
