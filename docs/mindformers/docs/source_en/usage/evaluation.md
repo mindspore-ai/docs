@@ -402,7 +402,7 @@ source toolkit/benchmarks/run_vlmevalkit.sh \
 | `--data`        | str | Name of the dataset, multiple datasets can be passed in, split by spaces.                                                                  | Y    |
 | `--model`       | str | Name of the model.                                                                                                                         | Y    |
 | `--verbose`     | /   | Outputs logs from the evaluation run.                                                                                                      | N    |
-| `--work_dir`    | str | Directory for storing evaluation results. By default, evaluation results are stored in the folder whose name is the same as the model name. | N    |
+| `--work_dir`    | str | Directory for storing evaluation results. By default, evaluation results are stored in the `outputs` folder of the current execution directory by default. | N    |
 | `--model_path`  | str | The folder path containing the model configuration file.                                                                                   | Y    |
 | `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research) directory. | No(The cheat code is required)     |
 
@@ -517,3 +517,15 @@ python Step3_merge_into_one_json.py \
 The script path in the above evaluation scoring command is: [Step2_chatgpt_judge.py](https://github.com/PKU-YuanGroup/Video-Bench/blob/main/Step2_chatgpt_judge.py), or [Step3_merge_into_one_json.py](https://github.com/PKU-YuanGroup/Video-Bench/blob/main/Step3_merge_into_one_json.py).
 
 Since ChatGPT may answer some formatting errors, you need to run below Step2_chatgpt_judge.py multiple times to ensure that each question is validated by chatgpt.
+
+## FAQ
+
+1. Use Harness or VLMEvalKit for evaluation, when loading the HuggingFace datasets, report `SSLError`:
+
+   Refer to [SSL Error reporting solution](https://stackoverflow.com/questions/71692354/facing-ssl-error-with-huggingface-pretrained-models).
+
+   Note: Turning off SSL verification is risky and may be exposed to MITM. It is only recommended to use it in the test environment or in the connection you fully trust.
+
+2. An `AssertionError` occurs when MVBench dataset is used in VLMEvalKit for evaluation:
+
+   Because the open source framework `VLMEvalKit` has known problems when running `MVBench` dataset. Modify the file by referring to the [issue](https://github.com/open-compass/VLMEvalKit/issues/888) of the open-source framework, or delete the files generated during the evaluation and run the command again (specified by the `--work_dir` parameter, in the `outputs` folder of the current execution directory by default).

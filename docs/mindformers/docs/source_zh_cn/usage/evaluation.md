@@ -402,7 +402,7 @@ source toolkit/benchmarks/run_vlmevalkit.sh \
 | `--data`          | str | 数据集名称，可传入多个数据集，空格分割。                                                                           | 是         |
 | `--model`         | str | 模型名称。                                                                                          | 是         |
 | `--verbose`       | /   | 输出评测运行过程中的日志。                                                                                  | 否         |
-| `--work_dir`      | str | 存放评测结果的目录，默认存储在当前目录与模型名称相同的文件夹下。                                                               | 否         |
+| `--work_dir`      | str | 存放评测结果的目录，默认存储在当前执行目录的`outputs`文件夹下。                                                           | 否         |
 | `--model_path`    | str | 包含配置文件的文件夹路径。                                                                                  | 是         |
 | `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research)目录下的模型目录。 | 否（外挂代码必填） |
 
@@ -517,3 +517,15 @@ python Step3_merge_into_one_json.py \
 上述评测打分命令中的脚本路径为：[Step2_chatgpt_judge.py](https://github.com/PKU-YuanGroup/Video-Bench/blob/main/Step2_chatgpt_judge.py)、[Step3_merge_into_one_json.py](https://github.com/PKU-YuanGroup/Video-Bench/blob/main/Step3_merge_into_one_json.py)
 
 ChatGPT可能会将部分问题的回答视为格式错误，因此需要多次运行Step2_chatgpt_judge.py以确保每个问题都由ChatGPT进行验证。
+
+## FAQ
+
+1. 使用Harness或VLMEvalKit进行评测，在加载HuggingFace数据集时，报错`SSLError`：
+
+   参考[SSL Error报错解决方案](https://stackoverflow.com/questions/71692354/facing-ssl-error-with-huggingface-pretrained-models)。
+
+   注意：关闭SSL校验存在风险，可能暴露在中间人攻击（MITM）下。仅建议在测试环境或你完全信任的连接里使用。
+
+2. 使用VLMEvalKit中的MVBench数据集进行评测，出现`AssertionError`：
+
+   由于开源框架`VLMEvalKit`在跑`MVBench`数据集时存在已知问题，请参考开源框架的[issue](https://github.com/open-compass/VLMEvalKit/issues/888)进行修改，或删除评测过程中产生的文件（由参数`--work_dir`指定，默认在当前执行目录的`outputs`文件夹）重新执行。
