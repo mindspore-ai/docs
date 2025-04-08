@@ -352,6 +352,12 @@ def en_file_handle(py_file_list, repo_path, dict1):
 
     # 接口模块分类
     module_path_name = [
+        ['mindspore/python/mindspore/parallel/nn', 'mindspore.parallel.nn'],
+        ['mindspore/python/mindspore/parallel/auto_parallel', 'mindspore.parallel.auto_parallel'],
+        ['mindspore/python/mindspore/parallel', 'mindspore.parallel'],
+        ['mindspore/python/mindspore/device_context/cpu', 'mindspore.device_context.cpu'],
+        ['mindspore/python/mindspore/device_context/gpu', 'mindspore.device_context.gpu'],
+        ['mindspore/python/mindspore/device_context/ascend', 'mindspore.device_context.ascend'],
         ['mindspore/python/mindspore/runtime', 'mindspore.runtime'],
         ['mindspore/python/mindspore/rewrite', 'mindspore.rewrite'],
         ['mindspore/python/mindspore/hal', 'mindspore.hal'],
