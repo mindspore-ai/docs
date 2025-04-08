@@ -261,6 +261,16 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
           f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
 
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+
 for cur, _, files in os.walk(moment_dir):
     for i in files:
         flag_copy = 0
@@ -276,10 +286,14 @@ for cur, _, files in os.walk(moment_dir):
                         new_content = content
                         if '.. include::' in content and '.. automodule::' in content:
                             continue
-                        if 'autosummary::' not in content and "\n=====" in content:
+                        if 'autosummary::' not in content and "\n======" in content:
                             re_view_ = re_view + copy_path + cur.split(moment_dir)[-1] + '/' + i + \
                                        '\n    :alt: 查看源文件\n\n'
                             new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                        new_content = re.sub(re_url, r'\1/r2.6.0', new_content)
+                        new_content = re.sub(re_url2, r'\1/v2.6.0', new_content)
+                        new_content = re.sub(re_url3, r'\1/r1.1.0', new_content)
+                        new_content = re.sub(re_url4, r'\1/r1.5.0', new_content)
                         if new_content != content:
                             f.seek(0)
                             f.truncate()
