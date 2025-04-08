@@ -1,6 +1,6 @@
 # 大模型精度调优指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/acc_optimize/acc_optimize.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/acc_optimize/acc_optimize.md)
 
 ## 精度问题概述和场景
 
@@ -110,7 +110,7 @@
 
 ## 精度调试工具介绍
 
-精度定位中，主要使用MindSpore的Dump工具，详细介绍参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)。
+精度定位中，主要使用MindSpore的Dump工具，详细介绍参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/dump.html)。
 
 MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。以下给出全量算子Dump的JSON示例：
 
@@ -134,7 +134,7 @@ MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网�
 }
 ```
 
-配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)。
+配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/dump.html)。
 
 配置好JSON文件后，设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
@@ -146,7 +146,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 ### 其他介绍
 
-除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
+除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/dump.html)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
 
 ## 模型迁移精度定位通用流程
 
@@ -187,7 +187,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 #### 权重转换
 
-训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字，以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)。
+训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字，以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/weight_conversion.html)。
 
 MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行训练，保证每个step一致。
 
@@ -226,7 +226,7 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
       # 原始代码
   ```
 
-* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
+* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
 
   ```python
   import numpy as np
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-MindSpore Transformers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindSpore Transformers与PyTorch梯度的对应关系，参考如下修改代码：
+MindSpore Transformers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindSpore Transformers与PyTorch梯度的对应关系，参考如下修改代码：
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):

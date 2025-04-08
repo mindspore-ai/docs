@@ -1,6 +1,6 @@
 # Service Deployment
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/mindie_deployment.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/usage/mindie_deployment.md)
 
 ## Introduction
 
@@ -8,7 +8,7 @@ MindIE, full name Mind Inference Engine, is a high-performance inference framewo
 
 MindSpore Transformers are hosted in the model application layer MindIE LLM, and large models in MindSpore Transformers can be deployed through MindIE Service.
 
-The model support for MindIE inference can be found in [model repository](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+The model support for MindIE inference can be found in [model repository](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).
 
 ## Environment Setup
 
@@ -16,7 +16,7 @@ The model support for MindIE inference can be found in [model repository](https:
 
 1. Install MindSpore Transformers
 
-   Refer to [MindSpore Transformers Official Installation Guide](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html) for installation.
+   Refer to [MindSpore Transformers Official Installation Guide](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/quick_start/install.html) for installation.
 
 2. Install MindIE
 
@@ -86,9 +86,9 @@ processor:
     merges_file: "/path/to/mf_model/qwen1_5_72b/merges.txt"  # merges file absolute path
 ```
 
-For model weight downloading and conversions, refer to the [Weight Format Conversion Guide](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html).
+For model weight downloading and conversions, refer to the [Weight Format Conversion Guide](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/weight_conversion.html).
 
-Required files and configurations may vary from model to model. Refer to the model-specific inference sections in [Model Repository](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html) for details.
+Required files and configurations may vary from model to model. Refer to the model-specific inference sections in [Model Repository](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html) for details.
 
 ### Starting MindIE
 
@@ -346,4 +346,4 @@ The validation is successful with the following returned inference result:
 
 ## Model List
 
-Examples of MindIE inference for other models can be found in the introduction documentation for each model in [Model Library](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+Examples of MindIE inference for other models can be found in the introduction documentation for each model in [Model Library](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).

@@ -1,6 +1,6 @@
 # Supervised Fine-Tuning (SFT)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/sft_tuning.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/usage/sft_tuning.md)
 
 ## Overview
 
@@ -71,7 +71,7 @@ Take the [Llama2-7B model](https://huggingface.co/meta-llama/Llama-2-7b-hf/tree/
 - `tokenizer.json`: tokenizer vocabulary configuration file.<br>
 - `tokenizer.model`: tokenizer of the model.<br>
 
-MindSpore Transformers provides a weight conversion script. You can run the conversion script [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/convert_weight.py) to convert the HuggingFace weights to the complete CKPT weights.
+MindSpore Transformers provides a weight conversion script. You can run the conversion script [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/convert_weight.py) to convert the HuggingFace weights to the complete CKPT weights.
 
 ```bash
 python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path {path}/MS_CKPT_NAME
@@ -97,7 +97,7 @@ The following uses the alpaca dataset as an example. After downloading the datas
 
 **alpaca Data Preprocessing**
 
-1. Run the [alpaca_converter.py script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py) in MindSpore Transformers to convert the dataset into the multi-round dialog format.
+1. Run the [alpaca_converter.py script](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py) in MindSpore Transformers to convert the dataset into the multi-round dialog format.
 
     ```bash
     python alpaca_converter.py \
@@ -112,7 +112,7 @@ The following uses the alpaca dataset as an example. After downloading the datas
     output_path: path for storing output files.
     ```
 
-2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindSpore Transformers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later in advance.
+2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindSpore Transformers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later in advance.
 
     ```bash
     python llama_preprocess.py \
@@ -179,7 +179,7 @@ After the task is executed, the **checkpoint** folder is generated in the **mind
 
 #### Multi-Node Training
 
-The multi-node multi-device fine-tuning task is similar to the pretrained task. You can refer to the [multi-node multi-device pretraining command](https://www.mindspore.cn/mindformers/docs/en/dev/usage/pre_training.html#multi-node-training) and modify the command as follows:
+The multi-node multi-device fine-tuning task is similar to the pretrained task. You can refer to the [multi-node multi-device pretraining command](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/usage/pre_training.html#multi-node-training) and modify the command as follows:
 
 1. Add the input parameter `--load_checkpoint /{path}/llama2_7b.ckpt` to the startup script to load the pretrained weights.
 2. Set `--train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord` in the startup script to load the fine-tuning dataset.
@@ -193,7 +193,7 @@ MindSpore Transformers supports configurable enablement of LoRA fine-tuning, whi
 
 ### YAML File Example
 
-For details about the complete YAML file, see [the Llama2 LoRA fine-tuning YAML file](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/lora_llama2_7b.yaml).
+For details about the complete YAML file, see [the Llama2 LoRA fine-tuning YAML file](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/lora_llama2_7b.yaml).
 
 ```yaml
 # model config
@@ -229,7 +229,7 @@ In **model_config**, **pet_config** is the core setting part of LoRA fine-tuning
 
 ### Examples of LoRA Fine-Tuning for Llama2-7B
 
-MindSpore Transformers provides [the LoRA fine-tuning examples](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83) of Llama2-7B. For details about the dataset used during fine-tuning, see [dataset downloading](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json).
+MindSpore Transformers provides [the LoRA fine-tuning examples](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83) of Llama2-7B. For details about the dataset used during fine-tuning, see [dataset downloading](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json).
 
 Take Llama2-7B as an example. You can run the following **msrun** startup script to perform 8-device distributed fine-tuning.
 
@@ -243,7 +243,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --run_mode finetune" 8
 ```
 
-When the distributed strategy of the weights does not match the distributed strategy of the model, the weights need to be transformed. The load weight path should be set to the upper path of the directory named with `rank_0`, and the weight auto transformation function should be enabled by setting `--auto_trans_ckpt True` . For a more detailed description of the scenarios and usage of distributed weight transformation, please refer to [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html).
+When the distributed strategy of the weights does not match the distributed strategy of the model, the weights need to be transformed. The load weight path should be set to the upper path of the directory named with `rank_0`, and the weight auto transformation function should be enabled by setting `--auto_trans_ckpt True` . For a more detailed description of the scenarios and usage of distributed weight transformation, please refer to [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/transform_weight.html).
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

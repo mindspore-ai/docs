@@ -1,12 +1,12 @@
 # 快速启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/quick_start/source_code_start.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/quick_start/source_code_start.md)
 
-本节展示如何使用MindSpore Transformers快速拉起一个基于 Llama2-7B 模型的LoRA低参微调任务。如果想要通过MindSpore Transformers使用其他模型和任务，请阅读对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
+本节展示如何使用MindSpore Transformers快速拉起一个基于 Llama2-7B 模型的LoRA低参微调任务。如果想要通过MindSpore Transformers使用其他模型和任务，请阅读对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/start/models.html)。
 
 ## 准备权重文件
 
-MindSpore Transformers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考[Llama2文档](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#模型权重转换)以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
+MindSpore Transformers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考[Llama2文档](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#模型权重转换)以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
 
 | 模型名称 | MindSpore权重 | HuggingFace权重 |
 | ------ | ------ | ------ |
@@ -28,7 +28,7 @@ MindSpore Transformers提供已经转换完成的预训练权重、词表文件�
 
     需要在MindSpore Transformers代码根目录下执行以下操作，并将下文中的{path}替换成存放数据集文件的本地路径。
 
-    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
+    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
 
         ```shell
           python mindformers/tools/dataset_preprocess/llama/alpaca_converter.py \
@@ -41,7 +41,7 @@ MindSpore Transformers提供已经转换完成的预训练权重、词表文件�
         - data_path: 输入下载的文件路径。
         - output_path: 输出文件的保存路径。
 
-    2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
+    2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
 
         ```shell
           python mindformers/tools/dataset_preprocess/llama/llama_preprocess.py \
@@ -57,7 +57,7 @@ MindSpore Transformers提供已经转换完成的预训练权重、词表文件�
         - dataset_type: 预处理数据类型。选项包括 "wiki" 和 "qa" 两种。
             - "wiki" 用于处理 Wikitext2 数据集，该数据集适用于预训练和评测阶段。
             - "qa" 用于处理 alpaca 数据集，将该数据集转换为问答格式，该数据集适用于微调阶段。
-            其他的数据集转换脚本请参考对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
+            其他的数据集转换脚本请参考对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/start/models.html)。
         - input_glob: 转换后的alpaca的文件路径。
         - model_file: 模型tokenizer.model文件路径。
         - seq_length: 输出数据的序列长度。
@@ -113,4 +113,4 @@ Start worker process with rank id:7, log file:output/msrun_log/worker_7.log. Env
 
 说明微调任务已拉起，微调进度可在`output/msrun_log/`目录下查看。
 
-关于Llama2更多细节，以及更多的启动方式，请具体参考`Llama2` 的 [README](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#llama-2)文档获取更多支持。
+关于Llama2更多细节，以及更多的启动方式，请具体参考`Llama2` 的 [README](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#llama-2)文档获取更多支持。

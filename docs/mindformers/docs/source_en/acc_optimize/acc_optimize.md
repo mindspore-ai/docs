@@ -1,6 +1,6 @@
 # Large Model Accuracy Optimization Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/acc_optimize/acc_optimize.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/acc_optimize/acc_optimize.md)
 
 ## Overview and Scenarios of Accuracy Issues
 
@@ -110,7 +110,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ## Introduction to Accuracy Debugging Tools
 
-In accuracy localization, MindSpore's Dump tool is mainly used. For details, please refer to [Dump Function Debugging](https://www.mindspore.cn/tutorials/en/master/debug/dump.html).
+In accuracy localization, MindSpore's Dump tool is mainly used. For details, please refer to [Dump Function Debugging](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/dump.html).
 
 MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all the operator data in the network, saving the tensor and statistics in the statistic.csv table. The following gives a JSON example of full operator Dump:
 
@@ -134,7 +134,7 @@ MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all
 }
 ```
 
-Refer to [Dump Function Debug](https://www.mindspore.cn/tutorials/en/master/debug/dump.html) for the field meanings of the configuration parameters.
+Refer to [Dump Function Debug](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/dump.html) for the field meanings of the configuration parameters.
 
 After configuring the JSON file, set the Dump environment variable to point to the configured JSON file, you need to set the absolute path:
 
@@ -146,7 +146,7 @@ After setting the environment variables, start the program training to get the c
 
 ### Other Introductions
 
-In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/tutorials/en/master/debug/dump.html) for configuration and use. In addition, TroubleShooter web development debugging is also provided, can be used in the weight conversion, weight comparison and other scenarios. For more information, refer to [TroubleShooter tool introduction](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter).
+In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/dump.html) for configuration and use. In addition, TroubleShooter web development debugging is also provided, can be used in the weight conversion, weight comparison and other scenarios. For more information, refer to [TroubleShooter tool introduction](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter).
 
 ## Generalized Processes for Accuracy Positioning
 
@@ -187,7 +187,7 @@ Since features such as model parallelism, flow parallelism, sequence parallelism
 
 #### Weight Conversion
 
-During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for weight conversion.
+During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/weight_conversion.html) for weight conversion.
 
 Both MindSpore and PyTorch support `bin` format data, loading the same dataset for training ensures consistency from step to step.
 
@@ -226,7 +226,7 @@ The training process fixes randomness and turns on deterministic computation in 
       # Original code
   ```
 
-* MindSpore code, in [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
+* MindSpore code, in [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
 
   ```python
   import numpy as np
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
+For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):

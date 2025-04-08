@@ -1,6 +1,6 @@
 # 推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/inference.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/usage/inference.md)
 
 ## 概述
 
@@ -22,8 +22,8 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 完整权重可以通过以下两种方式获得：
 
-1. 从HuggingFace模型库中下载相应模型的开源权重后，参考[权重格式转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)将其转换为ckpt格式。
-2. 预训练或者微调后的分布式权重，通过[合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html)生成一个完整权重。
+1. 从HuggingFace模型库中下载相应模型的开源权重后，参考[权重格式转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/weight_conversion.html)将其转换为ckpt格式。
+2. 预训练或者微调后的分布式权重，通过[合并](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/transform_weight.html)生成一个完整权重。
 
 #### 2.2 分布式权重
 
@@ -35,7 +35,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 2. 8卡训练的权重在2卡上推理；
 3. 已经切分好的分布式权重在单卡上推理等。
 
-下文的命令示例均采用了在线自动切分的方式，通过设置参数 `--auto_trans_ckpt` 为 `True` 和 `--src_strategy_path_or_dir` 为权重的切分策略文件或目录路径（预训练或者微调后，默认保存在`./output/strategy`下）在推理任务中自动完成切分。更多用法可参考[分布式权重的合并和切分](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html)。
+下文的命令示例均采用了在线自动切分的方式，通过设置参数 `--auto_trans_ckpt` 为 `True` 和 `--src_strategy_path_or_dir` 为权重的切分策略文件或目录路径（预训练或者微调后，默认保存在`./output/strategy`下）在推理任务中自动完成切分。更多用法可参考[分布式权重的合并和切分](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/function/transform_weight.html)。
 
 > 由于训练和推理任务都使用 `./output` 作为默认输出路径，当使用训练任务所输出的策略文件，作为推理任务的源权重策略文件时，需要将默认输出路径下的策略文件目录移动到其他位置，避免被推理任务的进程清空，如：
 >
@@ -47,7 +47,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ## 使用 run_mindformer 一键启动脚本推理
 
-单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh)来启动。
+单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.5.0/scripts/msrun_launcher.sh)来启动。
 
 run_mindformer.py的参数说明如下：
 
@@ -65,7 +65,7 @@ run_mindformer.py的参数说明如下：
 
 msrun_launcher.sh包括run_mindformer.py命令和推理卡数两个参数。
 
-下面将以 Llama2 为例介绍单卡和多卡推理的用法，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)文件。
+下面将以 Llama2 为例介绍单卡和多卡推理的用法，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_7b.yaml)文件。
 
 > 推理时会自动下载Llama2模型所需的词表文件 `tokenizer.model` （需要保障网络畅通）。如果本地有这个文件，可以提前把它放在 `./checkpoint_download/llama2/` 目录下。
 
@@ -103,7 +103,7 @@ python run_mindformer.py \
 
 ### 多卡推理
 
-多卡推理的配置要求与单卡存在差异，需参考如下说明修改[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)配置。
+多卡推理的配置要求与单卡存在差异，需参考如下说明修改[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_7b.yaml)配置。
 
 1. 模型并行model_parallel的配置和使用的卡数需保持一致，下文用例为2卡推理，需将model_parallel设置成2；
 2. 当前版本的多卡推理不支持数据并行，需将data_parallel设置为1。
@@ -200,7 +200,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 
 以`cogvlm2-llama3-chat-19B`模型为例，可以参考以下流程启动推理任务：
 
-修改模型配置文件[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml)。
+修改模型配置文件[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml)。
 
 ```shell
 model:
@@ -231,7 +231,7 @@ MindSpore Transformers除了提供 `run_mindformer` 统一脚本进行推理外�
 
 ### Pipeline接口
 
-基于 `pipeline` 接口的自定义文本生成推理任务流程，支持单卡推理和多卡推理。关于如何使用 `pipeline` 接口启动任务并输出结果，可以参考以下实现方式，具体参数说明可以查看 [pipeline 接口的API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers/mindformers.pipeline.html#mindformers.pipeline)。
+基于 `pipeline` 接口的自定义文本生成推理任务流程，支持单卡推理和多卡推理。关于如何使用 `pipeline` 接口启动任务并输出结果，可以参考以下实现方式，具体参数说明可以查看 [pipeline 接口的API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/mindformers/mindformers.pipeline.html#mindformers.pipeline)。
 
 #### 增量推理
 
@@ -318,7 +318,7 @@ python pipeline_inference.py
 
 ### chat接口
 
-基于 `chat` 接口的对话文本生成推理任务流程，通过提供的分词器添加聊天模板后，对用户的查询进行推断。可以参考以下实现方式，具体参数说明可以查看 [chat 接口的API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.chat)。
+基于 `chat` 接口的对话文本生成推理任务流程，通过提供的分词器添加聊天模板后，对用户的查询进行推断。可以参考以下实现方式，具体参数说明可以查看 [chat 接口的API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.chat)。
 
 ```python
 from mindformers import build_context
@@ -358,4 +358,4 @@ Thanks, sir.
 
 ## 更多信息
 
-更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
+更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/start/models.html)。

@@ -1,6 +1,6 @@
 # Just-in-time Compilation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/compile/jit_compilation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/compile/jit_compilation.md)
 
 In this section, we will further explore the working principles of MindSpore and how to run it efficiently. The `mindspore.jit()` transformation performs JIT(just-in-time) compilation on MindSpore Python functions to enable efficient execution in subsequent processes. This compilation occurs during the function’s first execution and may take some time.
 
@@ -47,7 +47,7 @@ print(f"{out=}")
 
 ### Common Configurations
 
-For details about the mindspore.jit interface, refer to the [API documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html). Common configurations include:
+For details about the mindspore.jit interface, refer to the [API documentation](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.jit.html). Common configurations include:
 
 - capture_mode: Specifies the method used to create the computational `graph` (e.g., `ast` for building by parsing Python code, `bytecode` for building from Python bytecode, and `trace` for constructing by tracing Python code execution).
 - jit_level: Controls the level of compilation optimization (e.g., default is `O0`; for additional optimization, choose `O1`).
@@ -149,7 +149,7 @@ Explanation of Results:
 
 ### Test a simple function
 
-Define a function `f(a, b, c)=a*b+c` and convert it using `mindspore.jit`. You can run the script [simple_function.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_function.py) using the following command:
+Define a function `f(a, b, c)=a*b+c` and convert it using `mindspore.jit`. You can run the script [simple_function.py](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/compile/code/simple_function.py) using the following command:
 
 ```shell
 export GLOG_v=3  # Optionally, set a higher MindSpore log level to reduce some system print outputs, making the results more intuitive.
@@ -180,7 +180,7 @@ Results:
 
 ### Test a simple conv module
 
-Define the `BasicBlock` module, used in the `ResNet`, and convert it using `mindspore.jit`. You can run the script [simple_conv.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_conv.py) using the following command:
+Define the `BasicBlock` module, used in the `ResNet`, and convert it using `mindspore.jit`. You can run the script [simple_conv.py](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/compile/code/simple_conv.py) using the following command:
 
 ```shell
 python code/simple_conv.py
@@ -206,7 +206,7 @@ Results:
 
 ### Test a simple attention module
 
-Define the `LlamaAttention` module, used in the `Llama3`, and convert it using `mindspore.jit`. You can run the script [simple_attention.py](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/code/simple_attention.py) using the following command:
+Define the `LlamaAttention` module, used in the `Llama3`, and convert it using `mindspore.jit`. You can run the script [simple_attention.py](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/compile/code/simple_attention.py) using the following command:
 
 ```shell
 python code/simple_attention.py

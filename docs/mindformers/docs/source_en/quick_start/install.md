@@ -1,6 +1,6 @@
 # Installation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/quick_start/install.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/quick_start/install.md)
 
 ## Confirming Version Matching Relationship
 
@@ -23,7 +23,7 @@ Historical version matching relationship:
 
 ## Installing Dependent Software
 
-1. Install Firmware and Driver: Download the firmware and driver package through the [Confirming Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html#confirming-version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html) for installation.
+1. Install Firmware and Driver: Download the firmware and driver package through the [Confirming Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/quick_start/install.html#confirming-version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html) for installation.
 
 2. Install CANN and MindSpore: Use the officially provided Docker image (CANN, MindSpore are already included in the image, no need to install them manually) or follow the [Manual Installation](https://www.mindspore.cn/install/en) section on the MindSpore website for installation.
 
@@ -32,7 +32,7 @@ Historical version matching relationship:
 Currently only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
 
 ```bash
-git clone -b dev https://gitee.com/mindspore/mindformers.git
+git clone -b r1.5.0 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```

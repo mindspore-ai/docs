@@ -1,6 +1,6 @@
 # Multimodal Model Development
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/multi_modal.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/usage/multi_modal.md)
 
 Multimodal models refer to artificial intelligence models capable of processing and combining information from different modalities (such as text, images, audio, video, etc.) for learning and inference. Traditional single-modality models typically focus on a single type of data, such as text classification models handling only text data or image recognition models handling only image data. In contrast, multimodal models integrate data from different sources to accomplish more complex tasks, enabling them to understand and generate richer and more comprehensive content.
 
@@ -21,8 +21,8 @@ The unified architecture of multimodal models in **MindSpore Transformers** prim
 
 Before training a multimodal model, it is often necessary to first construct a multimodal dataset. MindSpore Transformers currently provides `dataset` and `dataloader` classes for multimodal data, which users can directly utilize:
 
-- [BaseMultiModalDataLoader](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/dataloader/multi_modal_dataloader.py) is the multimodal dataset loading class. It handles the functionality of reading data from a `json` file.
-- [ModalToTextSFTDataset](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/modal_to_text_sft_dataset.py) is the multimodal dataset processing class. It handles multimodal data processing, as well as operations like batch processing and data repetition. For more details on multimodal data processing, refer to the [Data Processing Modules](#data-processing-modules).
+- [BaseMultiModalDataLoader](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/dataset/dataloader/multi_modal_dataloader.py) is the multimodal dataset loading class. It handles the functionality of reading data from a `json` file.
+- [ModalToTextSFTDataset](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/dataset/modal_to_text_sft_dataset.py) is the multimodal dataset processing class. It handles multimodal data processing, as well as operations like batch processing and data repetition. For more details on multimodal data processing, refer to the [Data Processing Modules](#data-processing-modules).
 
 Below is an example of part of the training dataset `json` file for the `CogVLM2-Video` model:
 
@@ -62,17 +62,17 @@ print(dataset_loader[0])
 
 ## Data Processing Modules
 
-During the training and inference of multimodal models, the data processing modules are required to perform preprocessing on multimodal data. This module is invoked during training in the ModalToTextSFTDataset, and during inference in the [MultiModalToTextPipeline](https://www.mindspore.cn/mindformers/docs/en/dev/pipeline/mindformers.pipeline.MultiModalToTextPipeline.html#mindformers.pipeline.MultiModalToTextPipeline).
+During the training and inference of multimodal models, the data processing modules are required to perform preprocessing on multimodal data. This module is invoked during training in the ModalToTextSFTDataset, and during inference in the [MultiModalToTextPipeline](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/pipeline/mindformers.pipeline.MultiModalToTextPipeline.html#mindformers.pipeline.MultiModalToTextPipeline).
 
 Below is a flowchart of the multimodal data processing. The custom modules in the diagram need to be implemented by the user according to their specific requirements, while other modules can be directly invoked.
 
 ![multi_modal.png](../../source_zh_cn/usage/image/multi_modal.png)
 
-Then, using the [CogVLM2-Video model data preprocessing module](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/cogvlm2/cogvlm2_processor.py) as an example, we will introduce the functionality of the components of the multimodal data processing module.
+Then, using the [CogVLM2-Video model data preprocessing module](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/cogvlm2/cogvlm2_processor.py) as an example, we will introduce the functionality of the components of the multimodal data processing module.
 
 1. BaseXModalToTextProcessor is mainly used to receive raw multimodal data for inference and perform preprocessing operations. It also implements post-processing operations for inference results, and users can directly use this class.
 2. BaseXModalToTextTransform is mainly used to process the data returned by `BaseXModalToTextProcessor` or the multimodal dataset into data suitable for inference or training. This class can also be directly used by users.
-3. [ModalContentTransformTemplate](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.multi_modal.ModalContentTransformTemplate.html#mindformers.models.multi_modal.ModalContentTransformTemplate) is the abstract class for all modality-specific data construction modules. Since data operations are model-dependent, users need to implement corresponding custom data construction classes based on their needs. In the `CogVLM2-Video` model, the `CogVLM2ContentTransformTemplate` class is implemented to handle both video and text data.
+3. [ModalContentTransformTemplate](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/models/mindformers.models.multi_modal.ModalContentTransformTemplate.html#mindformers.models.multi_modal.ModalContentTransformTemplate) is the abstract class for all modality-specific data construction modules. Since data operations are model-dependent, users need to implement corresponding custom data construction classes based on their needs. In the `CogVLM2-Video` model, the `CogVLM2ContentTransformTemplate` class is implemented to handle both video and text data.
 4. ModalContentBuilder is the abstract class for single-modality data processing. If the model needs to handle data from multiple modalities, corresponding single-modality data processing classes need to be created during the initialization of the custom data construction class. In the `CogVLM2-Video` model, the `CogVLM2VideoContentBuilder` class is implemented to handle video data, while the general text data processing class `BaseTextContentBuilder` is used to process text data.
 
 Below is an example of the data preprocessing code for training and inference in the `CogVLM2-Video` model.
@@ -81,7 +81,7 @@ Below is an example of the data preprocessing code for training and inference in
 
 In multimodal model training tasks, data preprocessing configurations are typically written in the `train_dataset` section. The following is an example of the dataset-related configuration in the `CogVLM2-Video` model training configuration file:
 
-[finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml)
+[finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml)
 
 ```yaml
 train_dataset: &train_dataset
@@ -128,7 +128,7 @@ for item in multi_modal_dataset:
 
 The data processing module configuration in the `CogVLM2-Video` model inference configuration file is as follows:
 
-[predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml)
+[predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml)
 
 ```yaml
 processor:
@@ -181,7 +181,7 @@ A multimodal large model typically consists of three parts: a non-text modality 
 ### Model Configuration Class
 
 In MindSpore Transformers, the parameters related to multimodal models are mainly controlled through the model configuration class. Below, we use the `CogVLM2Config` class as an example to explain how to build the model configuration class.  
-For the specific implementation, refer to [CogVLM2Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/cogvlm2/cogvlm2_config.py).
+For the specific implementation, refer to [CogVLM2Config](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/cogvlm2/cogvlm2_config.py).
 
 ```python
 @MindFormerRegister.register(MindFormerModuleType.CONFIG)
@@ -199,10 +199,10 @@ Parameter Explanation:
 
 1. `@MindFormerRegister.register(MindFormerModuleType.CONFIG)` is mainly used to register a custom model configuration class. Once registered, the model configuration class can be called by its name in the `yaml` file.
 2. `vision_model` and `llm_model` represent the configuration classes for the vision model and text generation model, respectively. They are passed as parameters to the multimodal model configuration class and processed during the class initialization.
-3. `PretrainedConfig` is the base class for all model configurations. For more details, refer to [PretrainedConfig](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.PretrainedConfig.html#mindformers.models.PretrainedConfig).
+3. `PretrainedConfig` is the base class for all model configurations. For more details, refer to [PretrainedConfig](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/models/mindformers.models.PretrainedConfig.html#mindformers.models.PretrainedConfig).
 
 In the configuration file, the model should be configured as follows.  
-For the specific implementation, refer to [predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml).
+For the specific implementation, refer to [predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml).
 
 ```yaml
 model:
@@ -237,7 +237,7 @@ Together, they form the multimodal model `CogVLM2ForCausalLM`. These classes are
 ### Non-Text Modality Processing Module
 
 MindSpore Transformers provides models like `ViT` and `EVA02` as visual information processing modules. Below, we use the `EVA02` model as an example to explain how to construct a non-text modality processing module.  
-For more details, refer to [EVAModel](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva.py) and [EVA02Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva_config.py).
+For more details, refer to [EVAModel](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/eva02/eva.py) and [EVA02Config](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/eva02/eva_config.py).
 
 ```python
 from mindformers.tools.register import MindFormerRegister, MindFormerModuleType
@@ -258,7 +258,7 @@ class EVAModel(EVA02PreTrainedModel):
 Parameter Explanation:
 
 1. `@MindFormerRegister.register(MindFormerModuleType.MODELS)` is mainly used to register a custom model class. Once registered, the model class can be called by its name in the `yaml` file.
-2. `EVA02PreTrainedModel` inherits from the `PreTrainedModel` class and is mainly used to specify the model configuration class and the prefix for model parameter names. `EVAModel` is the specific implementation of the model, inheriting from the `EVA02PreTrainedModel` class. For more details, refer to the [PreTrainedModel](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.PreTrainedModel.html#mindformers.models.PreTrainedModel) API.
+2. `EVA02PreTrainedModel` inherits from the `PreTrainedModel` class and is mainly used to specify the model configuration class and the prefix for model parameter names. `EVAModel` is the specific implementation of the model, inheriting from the `EVA02PreTrainedModel` class. For more details, refer to the [PreTrainedModel](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/models/mindformers.models.PreTrainedModel.html#mindformers.models.PreTrainedModel) API.
 3. `EVAModel` mainly processes visual information in the data and feeds the processed visual features into the **cross-modal interaction module**.
 
 ### Cross-Modal Interaction Module
@@ -322,8 +322,8 @@ Parameter Explanation:
 
 After implementing the multimodal dataset, data processing modules, and multimodal model construction, you can start model pre-training, fine-tuning, inference, and other tasks by using the model configuration file. This requires creating the corresponding model configuration file.
 
-For specific model configuration files, refer to [predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml) and [finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml), which correspond to model inference and fine-tuning, respectively. For the meaning of specific parameters, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+For specific model configuration files, refer to [predict_cogvlm2_video_llama3_chat_13b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml) and [finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml), which correspond to model inference and fine-tuning, respectively. For the meaning of specific parameters, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/appendix/conf_files.html).
 
 In the user-defined configuration file, sections such as `model`, `processor`, and `train_dataset` need to correspond to the user's custom **dataset**, **data processing module**, and **multimodal model**.
 
-After editing the custom configuration file, refer to the [CogVLM2-Video model documentation](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/cogvlm2_video.md) to start model [inference](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/cogvlm2_video.md#推理) and [fine-tuning](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/cogvlm2_video.md#微调) tasks.
+After editing the custom configuration file, refer to the [CogVLM2-Video model documentation](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md) to start model [inference](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md#推理) and [fine-tuning](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md#微调) tasks.

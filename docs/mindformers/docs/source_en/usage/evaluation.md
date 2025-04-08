@@ -1,6 +1,6 @@
 # Evaluation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/evaluation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/usage/evaluation.md)
 
 ## Harness Evaluation
 
@@ -44,9 +44,9 @@ pip install -e .
 
   1. Create a new directory with e.g. the name `model_dir` for storing the model yaml files.
   2. Place the model inference yaml configuration file (predict_xxx_.yaml) in the directory created in the previous step. The directory location of the reasoning yaml configuration file for different models refers to [model library](../start/models.md).
-  3. Configure the yaml file. If the model class, model Config class, and model Tokenzier class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
+  3. Configure the yaml file. If the model class, model Config class, and model Tokenzier class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/tree/r1.5.0/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
 
-      Using [predict_1lama3_1_8b. yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
+      Using [predict_1lama3_1_8b. yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
 
       ```yaml
       run_mode: 'predict'    # Set inference mode
@@ -62,13 +62,13 @@ pip install -e .
 
 #### Evaluation Example
 
-Execute the script of [run_harness.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_harness.sh) to evaluate.
+Execute the script of [run_harness.sh](https://gitee.com/mindspore/mindformers/blob/r1.5.0/toolkit/benchmarks/run_harness.sh) to evaluate.
 
 The following table lists the parameters of the script of `run_harness.sh`:
 
 | Parameter           | Type | Description                                                                                                                                                                                   | Required |
 |---------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory. | No(The cheat code is required)     |
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research) directory. | No(The cheat code is required)     |
 | `--model`       | str  | The value must be `mf`, indicating the MindSpore Transformers evaluation policy.                                                                                                                          | Yes      |
 | `--model_args`  | str  | Model and evaluation parameters. For details, see MindSpore Transformers model parameters.                                                                                                            | Yes      |
 | `--tasks`       | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                 | Yes      |
@@ -356,7 +356,7 @@ For OpenEuler systems follow the steps below to install:
 2. Place the model inference yaml configuration file (predict_xxx_. yaml) in the directory created in the previous step. For details, Please refer to the inference content of description documents for each model in the [model library](../start/models.md);
 3. Configure the yaml file.
 
-    Using [predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml) configuration as an example:
+    Using [predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml) configuration as an example:
 
     ```yaml
     load_checkpoint: "/{path}/model.ckpt"  # Specify the path to the weights file
@@ -380,7 +380,7 @@ For OpenEuler systems follow the steps below to install:
 
 #### Pulling Up the Evaluation Task
 
-Execute the script in the root directory of the MindSpore Transformers local code repository: [run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_vlmevalkit.sh)
+Execute the script in the root directory of the MindSpore Transformers local code repository: [run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/r1.5.0/toolkit/benchmarks/run_vlmevalkit.sh)
 
 Execute the following command to initiate the evaluation task:
 
@@ -404,7 +404,7 @@ source toolkit/benchmarks/run_vlmevalkit.sh \
 | `--verbose`     | /   | Outputs logs from the evaluation run.                                                                                                      | N    |
 | `--work_dir`    | str | Directory for storing evaluation results. By default, evaluation results are stored in the folder whose name is the same as the model name. | N    |
 | `--model_path`  | str | The folder path containing the model configuration file.                                                                                   | Y    |
-| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory. | No(The cheat code is required)     |
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research) directory. | No(The cheat code is required)     |
 
 If the server does not support online downloading of image datasets due to network limitations, you can upload the downloaded .tsv dataset file to the ~/LMUData directory on the server for offline evaluation. (For example: ~/LMUData/MME.tsv or ~/LMUData/MMBench_DEV_EN.tsv or ~/LMUData/COCO_VAL.tsv)
 
@@ -470,7 +470,7 @@ The results of the evaluation examples are as follows, where `Bleu` and `ROUGE_L
 
 ### Evaluation
 
-The execution script path can refer to the link: [eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_videobench.py).
+The execution script path can refer to the link: [eval_with_videobench.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/toolkit/benchmarks/eval_with_videobench.py).
 
 #### Executing Inference Script to Obtain Inference Results
 
