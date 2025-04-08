@@ -20,13 +20,13 @@ The model support for MindIE inference can be found in [model repository](https:
 
 2. Install MindIE
 
-   Refer to [MindIE Installation Dependencies Documentation](https://www.hiascend.com/document/detail/zh/mindie/10RC3/envdeployment/instg/mindie_instg_0010.html) to complete the dependency installation. After that, go to [MindIE Resource Download Center](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) to download the package and install it.
+   Refer to [MindIE Installation Dependencies Documentation](https://www.hiascend.com/document/detail/zh/mindie/100/envdeployment/instg/mindie_instg_0010.html) to complete the dependency installation. After that, go to [MindIE Resource Download Center](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) to download the package and install it.
 
    MindIE and CANN versions must be matched, version matching relationship is as follows.
 
-   |                                            MindIE                                             |                                            CANN-toolkit                                             |                                            CANN-kernels                                             |
-   |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------:|
-   | [1.0.RC3](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) |
+   |                                           MindIE                                            |                                        CANN-toolkit                                         |                                        CANN-kernels                                         |
+   |:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
+   | [1.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) |
 
 ### Environment Variables
 
