@@ -16,7 +16,7 @@
 内存管理相关接口详见[runtime接口](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.runtime.html#%E5%86%85%E5%AD%98)，其中最为重要的两个接口为内存设置接口和内存碎片管理接口：
 
 1. 内存设置接口：[mindspore.runtime.set_memory](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/runtime/mindspore.runtime.set_memory.html#mindspore.runtime.set_memory)，设置使用内存池管理的内存参数以及内存复用算法。
-2. 内存碎片管理接口：[环境变量MS_ALLOC_CONF](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html#%E5%9B%BE%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C)，根据硬件驱动是否具备虚拟内存跟物理内存映射能力来确定行为，如果具备则默认打开，否则则默认关闭。可通过export MS_ALLOC_CONF=“enable_vmm:false”强制关闭。
+2. 内存碎片管理接口：[环境变量MS_ALLOC_CONF](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html#%E5%9B%BE%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C)，根据硬件驱动是否具备虚拟内存跟物理内存映射能力来确定行为，如果具备则默认打开，否则默认关闭。可通过export MS_ALLOC_CONF=“enable_vmm:false”强制关闭。
 
 ## 内存池
 
@@ -47,11 +47,11 @@
 
 **动态内存复用**
 
-动态内存复用刚好跟静态内存相反，将内存复用关系转移到执行阶段，执行过程中完全动态分配内存，执行时即来即申请，根据引用计数确保使用完就释放，达到动态复用效果。主要步骤为：
+动态内存复用刚好跟静态内存复用相反，将内存复用关系转移到执行阶段，执行过程中完全动态分配内存，执行时即来即申请，根据引用计数确保使用完就释放，达到动态复用效果。主要步骤为：
 
 1. 记录每个tensor的user个数，称为引用计数。
 2. 执行中tensor每被消费一次，则将引用计数减1。
-3. 引用计算减为0，则释放给内存池。
+3. 引用计数减为0，则释放给内存池。
 4. 重置第1步的初始引用计数。
 
 - 优点：图执行阶段动态内存复用，完全泛通用，尤其对于动态shape和控制流场景非常友好。

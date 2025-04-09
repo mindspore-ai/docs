@@ -38,6 +38,14 @@ Feature Description
    compile/graph_construction
    compile/graph_optimization
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :hidden:
+   :caption: Runtime
+
+   runtime/memory_manager
+
 .. raw:: html
 
    <div class="container">
@@ -112,6 +120,26 @@ Feature Description
                      </a>
                   </div>
                </div>
+         </div>
+      </div>
+   </div>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-6">
+            <div class="doc-article-list">
+               <div class="doc-article-item">
+                  <a href="./runtime/memory_manager.html" class="article-link">
+                     <div>
+                        <div class="doc-article-head">
+                           <span class="doc-head-content">Runtime</span>
+                        </div>
+                        <div class="doc-article-desc">
+                           For the efficient execution of the model, providing memory management, multi-level streaming, multi-stream concurrency, and multi-backend access.
+                        </div>
+                     </div>
+                  </a>
+               </div>
+            </div>
          </div>
       </div>
    </div>
