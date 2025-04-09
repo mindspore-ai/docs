@@ -49,6 +49,10 @@ With its powerful feature set, MindSpore Transformers provides users with flexib
 
    Provides visualization services for the training phase of large models for monitoring and analyzing various indicators and information during the training process.
 
+7. `Training High Availability <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/high_availability.html>`_
+
+   Provide high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery.
+
 Deep Optimizing with MindSpore Transformers
 ---------------------------------------------
 
@@ -115,6 +119,7 @@ FAQ
    function/dataset
    function/resume_training
    function/monitor
+   function/high_availability
 
 .. toctree::
    :glob:
