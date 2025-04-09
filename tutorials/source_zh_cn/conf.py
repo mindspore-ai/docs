@@ -108,7 +108,7 @@ html_search_language = 'zh'
 
 import jieba
 
-jieba.load_userdict('../../../resource/jieba.txt')
+jieba.load_userdict('../../resource/jieba.txt')
 
 html_static_path = ['_static']
 
