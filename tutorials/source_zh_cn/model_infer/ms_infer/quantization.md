@@ -150,7 +150,7 @@ print(output)
 
 ### 感知量化训练实例讲解
 
-- [SimQAT算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/quantization/simqat.html)：一种基础的基于伪量化技术的感知量化算法。
+- [SimQAT算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/quantization/simulated_quantization.html)：一种基础的基于伪量化技术的感知量化算法。
 - [SLB量化算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/quantization/slb.html)：一种非线性的低比特感知量化算法。
 
 ### 剪枝方法实例讲解
