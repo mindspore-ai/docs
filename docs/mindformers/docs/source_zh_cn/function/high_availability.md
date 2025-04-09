@@ -59,7 +59,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和高可用的�
     load_checkpoint: ''    # 初次训练时配置为空
     src_strategy_path_or_dir: '/output/strategy/'
     only_save_strategy: False
-    resume_training: False  # 初次训练配置为 False
+    resume_training: False  # 初次训练时配置为 False
     run_mode: 'train'
 
     callbacks:
@@ -90,7 +90,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和高可用的�
 
 #### 副本关系配置
 
-高可用的三个功能的关键是配置出权重和优化器的副本冗余关系，配置的核心是数据并行域的维度大于 2，如果叠加优化器并行，需要同时保证优化器的副本数大于 2。所以配置分两类，开优化器并行和不开优化器并行。下面以 8 卡为例，介绍如何配置。
+高可用的三个功能的关键是配置出权重和优化器的副本冗余关系，配置的核心是数据并行域的维度大于 2，如果叠加优化器并行，需要同时保证优化器的副本数大于 2。所以配置分两类，开启优化器并行和不开启优化器并行。下面以 8 卡为例，介绍如何配置。
 
 - **不开启优化器并行**
 
@@ -190,8 +190,8 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和高可用的�
     注意：需要将 `/YourDataSetPath` 换成实际数据集的路径。
 4. 待训练执行若干个 step 之后，终止 worker 进程，触发临终 CKPT 保存
 
-    注意： 通过上述启动方式， MindIO Controller 附着在 worker 0 进程上，此种情况下不能终止 worker 0，否则导致 MindIO Controller 退出，
-    无法触发临终 CKPT。但是通过 taskd 方式启动训练时，MindIO Controller 是个单独的进程，可以终止 woker 0 进程。
+    注意：通过上述启动方式， MindIO Controller 附着在 worker 0 进程上，此种情况下不能终止 worker 0，否则导致 MindIO Controller 退出，
+    无法触发临终 CKPT。但是通过 taskd 方式启动训练时，MindIO Controller 是个单独的进程，可以终止 worker 0 进程。
 5. 确认临终的 CheckPoint 生成
 
     在整个训练进程结束后，通过日志确认最终生成的 CheckPoint 文件的合理性，具体操作如下：
@@ -234,4 +234,4 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和高可用的�
     - rank 0 和 rank 4 权重存在副本关系，临终的 Checkpoint 保存在 rank 0
     - rank 3 和 rank 7 权重存在副本关系，临终的 Checkpoint 保存在 rank 3
     - rank 2 和 rank 6 权重存在副本关系，临终的 Checkpoint 保存在 rank 2
-    - rank 1 和 rank 5 权重存在副本关系，由于 woker 1 终止，临终的 Checkpoint 保存在 rank 5
+    - rank 1 和 rank 5 权重存在副本关系，由于 worker 1 终止，临终的 Checkpoint 保存在 rank 5
