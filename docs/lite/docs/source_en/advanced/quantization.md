@@ -114,7 +114,7 @@ For the scenarios where the CV model needs to improve the model running speed an
 
 To fully quantize the quantization parameters for calculating the activation values, the user needs to provide a calibration dataset. The calibration dataset should preferably come from real inference scenarios that characterize the actual inputs to the model, in the order of 100 - 500, **and the calibration dataset needs to be processed into `NHWC` format**.
 
-For image data, it currently supports the functions of channel adjustment, normalization, scaling, cropping and other preprocessing. The user can set the appropriate [Data Preprocessing](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/quantization.html#data-preprocessing) according to the preprocessing operation required for inference.
+For image data, it currently supports the functions of channel adjustment, normalization, scaling, cropping and other preprocessing. The user can set the appropriate [Data Preprocessing Parameters](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/quantization.html#data-preprocessing-parameters) according to the preprocessing operation required for inference.
 
 User configuration of full quantization requires at least `[common_quant_param]`, `[data_preprocess_param]`, and `[full_quant_param]`.
 

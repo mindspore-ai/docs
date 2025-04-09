@@ -413,7 +413,7 @@ source toolkit/benchmarks/run_vlmevalkit.sh \
 | `--verbose`       | /   | 输出评测运行过程中的日志。                                                                                  | 否         |
 | `--work_dir`      | str | 存放评测结果的目录，默认存储在当前执行目录的`outputs`文件夹下。                                                           | 否         |
 | `--model_path`    | str | 包含配置文件的文件夹路径。                                                                                  | 是         |
-| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research)目录下的模型目录。 | 否（外挂代码必填） |
+| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/tree/r1.5.0/research)目录下的模型目录。 | 否（外挂代码必填） |
 
 如果因网络限制，服务器不支持在线下载图文数据集时，可以将本地下载好的以.tsv结尾的数据集文件上传至服务器~/LMUData目录下，进行离线评测。（例如：~/LMUData/MME.tsv 或 ~/LMUData/MMBench_DEV_EN.tsv 或 ~/LMUData/COCO_VAL.tsv）
 
