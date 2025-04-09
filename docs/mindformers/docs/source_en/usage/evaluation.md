@@ -77,7 +77,7 @@ The following table lists the parameters of the script of `run_harness.sh`:
 
 | Parameter           | Type | Description                                                                                                                                                                                   | Required |
 |---------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory. | No(The cheat code is required)     |
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory. | No(The cheat code is required)     |
 | `--model`       | str  | The value must be `mf`, indicating the MindSpore Transformers evaluation policy.                                                                                                                          | Yes      |
 | `--model_args`  | str  | Model and evaluation parameters. For details, see MindSpore Transformers model parameters.                                                                                                            | Yes      |
 | `--tasks`       | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                 | Yes      |
@@ -413,7 +413,7 @@ source toolkit/benchmarks/run_vlmevalkit.sh \
 | `--verbose`     | /   | Outputs logs from the evaluation run.                                                                                                      | N    |
 | `--work_dir`    | str | Directory for storing evaluation results. By default, evaluation results are stored in the `outputs` folder of the current execution directory by default. | N    |
 | `--model_path`  | str | The folder path containing the model configuration file.                                                                                   | Y    |
-| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/blob/dev/research) directory. | No(The cheat code is required)     |
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory. | No(The cheat code is required)     |
 
 If the server does not support online downloading of image datasets due to network limitations, you can upload the downloaded .tsv dataset file to the ~/LMUData directory on the server for offline evaluation. (For example: ~/LMUData/MME.tsv or ~/LMUData/MMBench_DEV_EN.tsv or ~/LMUData/COCO_VAL.tsv)
 
