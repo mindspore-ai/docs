@@ -270,11 +270,11 @@ class Network(nn.Cell):
         self.matmul3 = mint.matmul
 
     def construct(self, x):
-        x = self.flatten(x, start_dim=1, end_dim=3)
+        x = self.flatten(x)
         x = self.matmul1(x, self.fc1_weight)
-        x = self.relu1(x)
+        x = self.relu1(x, dim=0, keepdims=True)
         x = self.matmul2(x, self.fc2_weight)
-        x = self.relu2(x)
+        x = self.relu2(x, dim=0, keepdims=True)
         logits = self.matmul3(x, self.fc3_weight)
         return logits
 
