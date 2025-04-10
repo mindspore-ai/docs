@@ -15,9 +15,9 @@ Safetensors文件主要分为两种类型：完整权重文件和分布式权重
 Safetensors完整权重可通过以下两种方式获取：
 
 1. 直接从Huggingface上下载。
-2. 通过MindSpore Transformers分布式训练后通过[合并脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)生成。
+2. 通过MindSpore Transformers分布式训练后，通过[合并脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)生成完整权重。
 
-Huggingface Safetensors示例目录结构:
+Huggingface Safetensors示例目录结构：
 
 ```text
 qwen2_7b
@@ -29,7 +29,7 @@ qwen2_7b
         └── model.safetensors.index.json        # Huggingface权重参数和文件的存储关系映射json文件
 ```
 
-MindSpore Safetensors示例目录结构:
+MindSpore Safetensors示例目录结构：
 
 ```text
 qwen2_7b
@@ -47,7 +47,7 @@ qwen2_7b
 Safetensors分布式权重可通过以下两种方式获取：
 
 1. 通过MindSpore Transformers分布式训练生成。
-2. 将原有分布式ckpt权重通过[格式转换脚本](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ckpt_to_safetensors.html)生成Safetensors格式。
+2. 通过[格式转换脚本](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ckpt_to_safetensors.html)，将原有分布式ckpt权重转换为Safetensors格式。
 
 分布式Safetensors示例目录结构：
 
@@ -239,5 +239,5 @@ callbacks:
 
 大集群规模场景下，避免在线合并过程耗时过长占用训练资源，推荐将原分布式权重文件离线[合并完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html#safetensors%E6%9D%83%E9%87%8D%E7%A6%BB%E7%BA%BF%E5%90%88%E5%B9%B6)后传入，无需传入源切分策略文件路径。
 
-更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html)
+更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html)。
 
