@@ -70,14 +70,14 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: dump_info_to_modelarts, epoch_begin, epoch_end, print_output_info, step_begin, step_end
+    :exclude-members: dump_info_to_modelarts, epoch_begin, epoch_end, print_output_info, step_begin, step_end, on_train_step_begin, on_train_step_end, on_train_epoch_begin
     :members:
 
 {% elif fullname=="mindformers.core.ProfileMonitor" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: step_begin, step_end
+    :exclude-members: step_begin, step_end, on_train_step_end, on_train_step_begin
     :members:
 
 {% elif fullname=="mindformers.core.PromptAccMetric" %}
@@ -161,7 +161,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name, obtain_qkv_ffn_concat_keys, obtain_name_map
+    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name, obtain_qkv_ffn_concat_keys, obtain_name_map, check_pipeline_stage
     :members:
 
 {% elif fullname=="mindformers.models.PreTrainedTokenizer" %}
@@ -224,7 +224,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: epoch_begin, epoch_end, step_begin, step_end
+    :exclude-members: epoch_begin, epoch_end, step_begin, step_end, on_train_epoch_begin, on_train_step_begin, on_train_step_end
     :members:
 
 {% elif fullname in ["mindformers.AutoModelForCausalLM", "mindformers.AutoModelForZeroShotImageClassification", "mindformers.AutoModel"] %}

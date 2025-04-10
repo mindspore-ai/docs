@@ -10,6 +10,14 @@
     :exclude-members: construct
     :members:
 
+{% elif fullname=="mindspore_gs.ptq.PTQ" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :members:
+    :inherited-members:
+    :exclude-members: loss, set_save_mindir_path, set_save_mindir, callbacks
+
 {% elif objname[0].istitle() %}
 {{ fullname | underline }}
 
