@@ -28,7 +28,7 @@
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为自动并行模式，搜索模式`search_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，并通过init初始化HCCL或NCCL通信。`pipeline_stages`为流水线并行中stage的数量，且通过使能`enable_parallel_optimizer`开启优化器并行。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import os
@@ -38,8 +38,6 @@ from mindspore.communication import init
 os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.runtime.set_memory(max_size="25GB")
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
-ms.set_auto_parallel_context(pipeline_stages=2, enable_parallel_optimizer=True)
 init()
 ms.set_seed(1)
 ```
@@ -109,7 +107,7 @@ data_set = create_dataset(32)
 
 ### 训练网络
 
-这部分与流水线并行的训练代码一致。在单机训练代码基础上需要调用两个额外的接口：`nn.WithLossCell`用于封装网络和损失函数、`nn.PipelineCell`用于封装LossCell和配置MicroBatch大小。代码如下：
+这部分与流水线并行的训练代码一致。在单机训练代码基础上需要调用两个额外的接口：`nn.WithLossCell`用于封装网络和损失函数、`ms.parallel.nn.Pipeline`用于封装LossCell和配置MicroBatch大小。通过`Autoparallel`接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，`stages`为流水线并行中stage的数量，`hsdp`用于开启优化器并行。代码如下：
 
 ```python
 import mindspore as ms
@@ -118,12 +116,16 @@ from mindspore import nn, train
 loss_fn = nn.MAELoss()
 loss_cb = train.LossMonitor()
 # 配置每一层在流水线并行中的pipeline_stage编号
-net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4,
-                                stage_config={"_backbone.layer1" : 0,
-                                              "_backbone.relu1" : 0,
-                                              "_backbone.layer2" : 1,
-                                              "_backbone.relu2" : 1,
-                                              "_backbone.layer3" : 1,})
+net_with_grads = ms.parallel.nn.Pipeline(nn.WithLossCell(net, loss_fn), 4,
+                                            stage_config={"_backbone.layer1": 0,
+                                                        "_backbone.relu1": 0,
+                                                        "_backbone.layer2": 1,
+                                                        "_backbone.relu2": 1,
+                                                        "_backbone.layer3": 1,})
+net_with_grads_new = AutoParallel(net_with_grads, parallel_mode="recursive_programming")
+net_with_grads_new.hsdp()
+net_with_grads_new.full_batch = True
+net_with_grads_new.pipeline(stages=2, scheduler="1f1b")
 model = ms.Model(net_with_grads, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```

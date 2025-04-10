@@ -74,12 +74,12 @@ def test_parallel_sapp():
     loss_fn = nn.MAELoss()
     loss_cb = train.LossMonitor()
     # 配置每一层在流水线并行中的pipeline_stage编号
-    net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4,
-                                     stage_config={"_backbone.layer1": 0,
-                                                   "_backbone.relu1": 0,
-                                                   "_backbone.layer2": 1,
-                                                   "_backbone.relu2": 1,
-                                                   "_backbone.layer3": 1,})
+    net_with_grads = ms.parallel.nn.Pipeline(nn.WithLossCell(net, loss_fn), 4,
+                                             stage_config={"_backbone.layer1": 0,
+                                                           "_backbone.relu1": 0,
+                                                           "_backbone.layer2": 1,
+                                                           "_backbone.relu2": 1,
+                                                           "_backbone.layer3": 1,})
     net_with_grads_new = AutoParallel(net_with_grads, parallel_mode="recursive_programming")
     net_with_grads_new.full_batch = True
     net_with_grads_new.pipeline(stages=2, scheduler="1f1b")
