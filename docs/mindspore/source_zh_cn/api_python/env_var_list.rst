@@ -692,7 +692,7 @@ Dump调试
        默认值：2
      - 指定日志级别后，将会输出大于或等于该级别的日志信息
    * - VLOG_v
-     - 控制verbose日志的输出
+     - 控制verbose日志的输出，在 `import mindspore` 之前通过export来配置该环境变量
      - String
      - 通过命令：
        `export VLOG_v=20000;python -c 'import mindspore';` 查看MindSpore可用的 verbose 日志级别。
