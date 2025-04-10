@@ -28,7 +28,7 @@ The directory structure is as follows:
 
 ### Configuring Distributed Environment
 
-Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as auto-parallel and the search mode `search_mode` as double recursive strategy search mode `recursive_programming` for auto-slicing of the data parallel and model parallel, and initialize HCCL or NCCL communication with init. `pipeline_stages` is the number of stages in pipeline parallel, and optimizer parallel is enabled by enabling `enable_parallel_optimizer`. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+Initialize HCCL or NCCL communication with init. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import os
@@ -38,8 +38,6 @@ from mindspore.communication import init
 os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.runtime.set_memory(max_size="25GB")
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
-ms.set_auto_parallel_context(pipeline_stages=2, enable_parallel_optimizer=True)
 init()
 ms.set_seed(1)
 ```
@@ -109,7 +107,7 @@ data_set = create_dataset(32)
 
 ### Training the Network
 
-This part is consistent with the pipeline parallel training code. Two additional interfaces need to be called based on the stand-alone training code: `nn.WithLossCell` for wrapping the network and loss function, and `nn.PipelineCell` for wrapping the LossCell and configuring the MicroBatch size. The code is as follows:
+This part is consistent with the pipeline parallel training code. Two additional interfaces need to be called based on the stand-alone training code: `nn.WithLossCell` for wrapping the network and loss function, and `nn.Pipeline` for wrapping the LossCell and configuring the MicroBatch size. Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as  double recursive strategy search mode `recursive_programming` for auto-slicing of the data parallel and model parallel. `stages` is the number of stages in pipeline parallel, and optimizer parallel is enabled by `hsdp`. The code is as follows:
 
 ```python
 import mindspore as ms
@@ -117,13 +115,17 @@ from mindspore import nn, train
 
 loss_fn = nn.MAELoss()
 loss_cb = train.LossMonitor()
-# Configure the pipeline_stage number for each layer in pipeline parallel
-net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4,
-                                stage_config={"_backbone.layer1" : 0,
-                                              "_backbone.relu1" : 0,
-                                              "_backbone.layer2" : 1,
-                                              "_backbone.relu2" : 1,
-                                              "_backbone.layer3" : 1,})
+# 配置每一层在流水线并行中的pipeline_stage编号
+net_with_grads = ms.parallel.nn.Pipeline(nn.WithLossCell(net, loss_fn), 4,
+                                            stage_config={"_backbone.layer1": 0,
+                                                        "_backbone.relu1": 0,
+                                                        "_backbone.layer2": 1,
+                                                        "_backbone.relu2": 1,
+                                                        "_backbone.layer3": 1,})
+net_with_grads_new = AutoParallel(net_with_grads, parallel_mode="recursive_programming")
+net_with_grads_new.hsdp()
+net_with_grads_new.full_batch = True
+net_with_grads_new.pipeline(stages=2, scheduler="1f1b")
 model = ms.Model(net_with_grads, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
