@@ -168,11 +168,11 @@ After training, the log files are saved to the `log_output` directory, and the p
 The part results of the Loss are saved in `log_output/1/rank.*/stdout`. The example is as follows:
 
 ```text
-epoch: 0 step: 0, loss is 2.3084016
-epoch: 0 step: 10, loss is 2.3107638
-epoch: 0 step: 20, loss is 2.2864391
-epoch: 0 step: 30, loss is 2.2938071
+epoch: 0 step: 0, loss is 2.3026438
+epoch: 0 step: 50, loss is 2.2963896
+epoch: 0 step: 100, loss is 2.2882829
+epoch: 0 step: 150, loss is 2.2822685
 ...
 ```
 
-Other startup methods such as dynamic network and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/startup_method.html).

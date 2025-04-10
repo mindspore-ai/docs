@@ -24,6 +24,12 @@ To use the Benchmark tool, you need to do the following environment preparation 
 
     ${PACKAGE_ROOT_PATH} is the root directory of the compiled package after unpacking.
 
+- If benchmarking based on Ascend, use the following command to switch:
+
+    ```bash
+    export ASCEND_DEVICE_ID=$RANKK_ID
+    ```
+
 ### Description of Parameters
 
 When using the compiled Benchmark tool to benchmark the model, the command format is shown below.
