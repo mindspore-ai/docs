@@ -45,6 +45,9 @@ Feature Description
    :caption: Runtime
 
    runtime/memory_manager
+   runtime/multilevel_pipeline
+   runtime/multistream_concurrency
+   runtime/pluggable_backend
 
 .. raw:: html
 
