@@ -367,7 +367,7 @@
 
 ## 内容注意事项
 
-1. 类（class，如mindspore.nn模块）文档中包含参数、输入、输出、异常；函数（function，如mindspore.ops模块）和方法（method，如mindspore.Tensor中的方法）文档中包含参数、返回、异常。
+1. 类（class，如mindspore.nn模块）文档中可能包含参数、输入、输出、异常；函数（function，如mindspore.ops模块）和方法（method，如mindspore.Tensor中的方法）文档中可能包含参数、返回、异常。
 
 2. 参数模块：
 
