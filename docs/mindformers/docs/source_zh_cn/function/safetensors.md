@@ -211,7 +211,7 @@ MindSpore Transformers支持step级断点续训功能，允许在训练中保存
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/output/checkpoint'                # 加载权重文件路径
+load_checkpoint: '/output/checkpoint'                # 加载源分布式权重文件路径
 load_ckpt_format: 'safetensors'                      # 加载权重文件格式
 resume_training: True                                # 断点续训功能开关
 callbacks:
@@ -223,7 +223,7 @@ callbacks:
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2_7b/distributed_safetenosrs'# 加载源分布式权重文件路径
+load_checkpoint: '/output/checkpoint'               # 加载源分布式权重文件路径
 src_strategy_path_or_dir: '/output/src_strategy'    # 加载源策略文件，用于合并源分布式权重为完整权重
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 开启在线切分功能
