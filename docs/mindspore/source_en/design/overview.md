@@ -71,18 +71,6 @@ At the same time, MindSpore also provides various parallel strategies such as pi
 
 Based on compilation technology, MindSpore provides rich hardware-independent optimizations such as IR fusion, algebraic simplification, constant folding, and common subexpression elimination. At the same time, it also provides various hardware optimization capabilities for different hardware such as NPU and GPU, thereby better leveraging the large-scale computational acceleration capabilities of hardware.
 
-As large model parameters continue to grow, complex and diverse distributed parallel strategies are needed to address this challenge. MindSpore has built-in multi-dimensional distributed training strategies that developers can flexibly assemble and use. Through parallel abstraction, communication operations are hidden, simplifying the complexity of parallel programming for developers.
-
-Through automatic parallel strategy search, MindSpore provides transparent and efficient distributed training capabilities. "Transparent" means that developers only need to change one line of configuration and submit one version of Python code to run this version of Python code on multiple devices for training. "Efficient" means that the algorithm selects parallel strategies at minimal cost, reducing computational and communication overhead.
-
-MindSpore introduced Tensor Redistribution (TR) technology in parallel strategy search, which allows the device layout of output tensors to be converted before being input to subsequent operators. MindSpore identifies the output data overlap situation of operators under different input data slices and performs slice inference based on this, automatically generating corresponding tensor rearrangement plans. Based on this plan, various parallel strategies such as data parallelism and model parallelism can be uniformly expressed.
-
-At the same time, MindSpore also provides various parallel strategies such as pipeline parallelism, optimizer parallelism, and recomputation for developers to use.
-
-### High-Performance Hardware Utilization
-
-Based on compilation technology, MindSpore provides rich hardware-independent optimizations such as IR fusion, algebraic simplification, constant folding, and common subexpression elimination. At the same time, it also provides various hardware optimization capabilities for different hardware such as NPU and GPU, thereby better leveraging the large-scale computational acceleration capabilities of hardware.
-
 #### [Graph-Algorithm Fusion](https://www.mindspore.cn/docs/en/master/design/multi_level_compilation.html#graph-kernel-fusion)
 
 Mainstream AI computing frameworks like MindSpore typically define operators from the perspective of developer understanding and ease of use. Each operator carries varying amounts of computation and computational complexity. However, from a hardware execution perspective, this natural operator computational division based on the developer's perspective is not efficient and cannot fully utilize hardware computational capabilities. This is mainly reflected in:

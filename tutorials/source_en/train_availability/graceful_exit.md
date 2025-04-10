@@ -163,24 +163,26 @@ When configuring the `OnRequestExit` callback function, you can configure saving
 
 ```python
 def graceful_exit_case():
-    # initialize
+    # init
     device_num = 8
     context.set_context(mode=context.GRAPH_MODE)
     ms.set_device("Ascend")
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, device_num=device_num)
+
     init()
 
-    # model building
-    network = LeNet5(10)
+    # build
+    with no_init_parameters():
+        network = LeNet5(10)
+        net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
     ds_train = create_dataset(os.path.join(DATASET_PATH, "train"), 32, 1)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    parallel_net = AutoParallel(network, parallel_mode='semi_auto')
+    model = Model(parallel_net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
-    # the dependency file `reset.json`, like `{"GracefulExit": 1}`
+    # graceful exit json file：{"GracefulExit": 1}
     reset_json = r"./graceful_exit.json"
 
-    # callback func
+    # callback
     cb = OnRequestExit(file_name="LeNet", config_file=reset_json)
     # train
     model.train(1, ds_train, callbacks=[cb, LossMonitor()], dataset_sink_mode=False)

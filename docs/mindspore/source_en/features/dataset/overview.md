@@ -64,7 +64,6 @@ Dataset combination can combine multiple datasets in series/parallel mode to for
 
     ```python
     import mindspore.dataset as ds
-    import numpy as np
 
     ds.config.set_seed(1234)
 
@@ -92,7 +91,6 @@ Dataset combination can combine multiple datasets in series/parallel mode to for
 
     ```python
     import mindspore.dataset as ds
-    import numpy as np
 
     ds.config.set_seed(1234)
 
@@ -119,7 +117,6 @@ The dataset is divided into a training dataset and a validation dataset, which a
 
 ```python
 import mindspore.dataset as ds
-import numpy as np
 
 data = [1, 2, 3, 4, 5, 6]
 dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"], shuffle=False)
@@ -156,8 +153,8 @@ for item in eval_dataset.create_dict_iterator():
 Re-save the dataset to the MindRecord data format.
 
 ```python
+import os
 import mindspore.dataset as ds
-import numpy as np
 
 ds.config.set_seed(1234)
 
@@ -231,7 +228,6 @@ You can directly use the data transform operation to process a piece of data. Th
 Data transform operations ([vision transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio)) can be used directly like calling a common function. Common usage is: first initialize the data transformation object, then call the data transformation operation method, pass in the data to be processed, and finally get the result of the process.
 
 ```python
-import os
 from download import download
 from PIL import Image
 import mindspore.dataset.vision as vision
