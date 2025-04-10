@@ -19,8 +19,8 @@ Because of the multi-threaded asynchronous behavior of the framework under the M
 When an error occurs, set the context first, then set the dynamic graph into synchronized execution mode:
 
 ```python
-import mindspore as ms
-ms.set_context(pynative_synchronize=True)
+import mindspore
+mindspore.runtime.launch_blocking()
 ```
 
 After the setup is complete, re-execute the script. At this point, the script error will be accurately error in the correct call stack, you can call the stack information to distinguish between different types of errors.
@@ -109,9 +109,8 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   to register hook, such as
 
   ```python
-  import mindspore as ms
+  import mindspore
   from mindspore import Tensor
-  ms.set_context(mode=ms.PYNATIVE_MODE)
   def hook_fn(grad):
       return grad * 2
 
@@ -121,8 +120,8 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
       z = z * y
       return z
 
-  ms_grad = ms.grad(hook_test, grad_position=(0,1))
-  output = ms_grad(Tensor(1, ms.float32), Tensor(2, ms.float32))
+  ms_grad = mindspore.value_and_grad(hook_test, grad_position=(0,1))
+  output = ms_grad(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
   print(output)
   ```
 
@@ -131,11 +130,9 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
 - Viewing the gradient during execution can be done with `mindspore.ops.HookBackward`, for example:
 
   ```python
-  import mindspore as ms
+  import mindspore
   from mindspore import ops
   from mindspore import Tensor
-  from mindspore.ops import GradOperation
-  ms.set_context(mode=ms.PYNATIVE_MODE)
   def hook_fn(grad):
       print(grad)
 
@@ -146,11 +143,10 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
       z = z * y
       return z
 
-  grad_all = GradOperation(get_all=True)
   def backward(x, y):
-      return grad_all(hook_test)(x, y)
+      return mindspore.value_and_grad(hook_test, grad_position=(0,1))(x, y)
 
-  output = backward(Tensor(1, ms.float32), Tensor(2, ms.float32))
+  output = backward(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
 
   print(output)
   ```
@@ -161,9 +157,8 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
 
   ```python
   import numpy as np
-  import mindspore as ms
+  import mindspore
   from mindspore import Tensor, nn, ops
-  ms.set_context(mode=ms.PYNATIVE_MODE)
   def backward_hook_fn(cell_id, grad_input, grad_output):
       print("backward input: ", grad_input)
       print("backward output: ", grad_output)
@@ -178,9 +173,9 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
           x = x + x
           x = self.relu(x)
           return x
-  grad = ops.GradOperation(get_all=True)
+
   net = Net()
-  output = grad(net)(Tensor(np.ones([1]).astype(np.float32)))
+  output = mindspore.value_and_grad(net, grad_position=(0,1))(Tensor(np.ones([1]).astype(np.float32)))
 
   print(output)
   ```

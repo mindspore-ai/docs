@@ -19,8 +19,8 @@
 当出现错误时，首先设置context，将动态图设置成同步执行模式：
 
 ```python
-import mindspore as ms
-ms.set_context(pynative_synchronize=True)
+import mindspore
+mindspore.runtime.launch_blocking()
 ```
 
 设置完成后，重新执行脚本。此时脚本出错的时候就会出错在正确的调用栈位置了，可以根据调用栈信息区分不同的错误类型。
@@ -109,9 +109,8 @@ def some_function():
   来注册hook，例如：
 
   ```python
-  import mindspore as ms
+  import mindspore
   from mindspore import Tensor
-  ms.set_context(mode=ms.PYNATIVE_MODE)
   def hook_fn(grad):
       return grad * 2
 
@@ -121,8 +120,8 @@ def some_function():
       z = z * y
       return z
 
-  ms_grad = ms.grad(hook_test, grad_position=(0,1))
-  output = ms_grad(Tensor(1, ms.float32), Tensor(2, ms.float32))
+  ms_grad = mindspore.value_and_grad(hook_test, grad_position=(0,1))
+  output = ms_grad(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
   print(output)
   ```
 
@@ -131,11 +130,9 @@ def some_function():
 - 可以通过`mindspore.ops.HookBackward`查看执行过程中的梯度，例如：
 
   ```python
-  import mindspore as ms
+  import mindspore
   from mindspore import ops
   from mindspore import Tensor
-  from mindspore.ops import GradOperation
-  ms.set_context(mode=ms.PYNATIVE_MODE)
   def hook_fn(grad):
       print(grad)
 
@@ -146,11 +143,10 @@ def some_function():
       z = z * y
       return z
 
-  grad_all = GradOperation(get_all=True)
   def backward(x, y):
-      return grad_all(hook_test)(x, y)
+      return mindspore.value_and_grad(hook_test, grad_position=(0,1))(x, y)
 
-  output = backward(Tensor(1, ms.float32), Tensor(2, ms.float32))
+  output = backward(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
 
   print(output)
   ```
@@ -161,9 +157,8 @@ def some_function():
 
   ```python
   import numpy as np
-  import mindspore as ms
+  import mindspore
   from mindspore import Tensor, nn, ops
-  ms.set_context(mode=ms.PYNATIVE_MODE)
   def backward_hook_fn(cell_id, grad_input, grad_output):
       print("backward input: ", grad_input)
       print("backward output: ", grad_output)
@@ -178,9 +173,9 @@ def some_function():
           x = x + x
           x = self.relu(x)
           return x
-  grad = ops.GradOperation(get_all=True)
+
   net = Net()
-  output = grad(net)(Tensor(np.ones([1]).astype(np.float32)))
+  output = mindspore.value_and_grad(net, grad_position=(0,1))(Tensor(np.ones([1]).astype(np.float32)))
 
   print(output)
   ```
