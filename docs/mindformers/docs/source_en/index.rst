@@ -53,6 +53,10 @@ With its powerful feature set, MindSpore Transformers provides users with flexib
 
    Provide high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery.
 
+8. `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/safetensors.html>`_
+
+   Support the function of saving and loading weight files in safetensors format.
+
 Deep Optimizing with MindSpore Transformers
 ---------------------------------------------
 
@@ -120,6 +124,7 @@ FAQ
    function/resume_training
    function/monitor
    function/high_availability
+   function/safetensors
 
 .. toctree::
    :glob:
