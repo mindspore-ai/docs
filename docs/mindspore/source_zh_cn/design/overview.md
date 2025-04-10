@@ -70,7 +70,7 @@ MindSpore在并行化策略搜索中引入了张量重排布技术（Tensor Redi
 
 MindSpore基于编译技术，提供了丰富的硬件无关优化，如IR融合、代数化简、常数折叠、公共子表达式消除等。同时针对NPU、GPU等不同硬件，也提供各种硬件优化能力，从而更好的发挥硬件的大规模计算加速能力。
 
-#### [图算融合](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/graph_fusion_engine.html)
+#### [图算融合](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/multi_level_compilation.html#图算融合)
 
 MindSpore等主流AI计算框架对开发者提供的算子通常是从开发中可理解、易使用角度进行定义。每个算子承载的计算量不等，计算复杂度也各不相同。但从硬件执行角度看，这种天然的、基于用开发者角度的算子计算量划分，并不高效，也无法充分发挥硬件资源计算能力。主要体现在：
 

@@ -50,10 +50,6 @@ There are fewer graph optimizations for the O0 mode, and the basic optimizations
 
   No-task node refers to Reshape, ExpandDims, Squeeze, Flatten, FlattenGrad, Reformat, etc. There is no computational logic in these algorithms, and they do not modify the memory layout, but only modify the information of the shape, format. At the end of the compilation of the graph, the No-task node is converted to ref node, the output has the same address as the input, and the kernel launch is skipped in the execution process, so as to achieve the purpose of execution performance optimization.
 
-### Graph-Kernel Fusion
-
-Primarily for an O1 model. Refer to [Introduction to the O1 Model](https://www.mindspore.cn/docs/en/r2.6.0/design/multi_level_compilation.html#introduction-to-the-o1-model) for details.
-
 ### Operator Selection
 
 Operators are the basic execution units in deep learning frameworks, and they are responsible for performing specific computational tasks, such as matrix multiplication, convolution, pooling. Operator selection requires comprehensive consideration of factors such as operator type, data type, hardware platform, and operator optimization in order to select the optimal operator for deep learning tasks. The operator types in the backend of MindSpore Ascend are Aclnn kernel/Aclop kernel/Hccl kernel /Cpu kernel, and the process of operator selection is shown as follows:
@@ -139,7 +135,58 @@ In order to decouple the back-end architecture and third-party hardware docking,
 
 O1 is mainly targeted at implementing general-purpose, generalizable AI compilation optimizations on top of O0 to support better execution performance requirements for most general-purpose training and inference scenarios.
 
-In the current phase, O1 mainly supports graph-kernel fusion optimization. The main idea is to automatically identify neighboring fusable nodes in the computational graph during the static graph compilation phase, and then fuse them into executable operators with larger granularity. Through graph-kernel fusion, optimization effects such as increasing the computational locality of operators and reducing the overall global memory access bandwidth overhead are achieved. As verified by real-world tests on 15+ networks, O1 is able to achieve an average of 15% performance acceleration compared to O0. Especially for access-intensive networks, the optimization effect of O1 is more significant. For details on the design of graph fusion, please refer to: [Graph Fusion Engine](https://www.mindspore.cn/docs/en/r2.6.0/design/graph_fusion_engine.html).
+In the current phase, O1 mainly supports graph-kernel fusion optimization. The main idea is to automatically identify neighboring fusable nodes in the computational graph during the static graph compilation phase, and then fuse them into executable operators with larger granularity. Through graph-kernel fusion, optimization effects such as increasing the computational locality of operators and reducing the overall global memory access bandwidth overhead are achieved. As verified by real-world tests on 15+ networks, O1 is able to achieve an average of 15% performance acceleration compared to O0. Especially for access-intensive networks, the optimization effect of O1 is more significant.
+
+### Graph-Kernel Fusion
+
+Mainstream AI computing frameworks such as MindSpore provide operators to users that is usually defined in terms of understandable and easy use for user. Each operator carries a different amount of computation and varies in computational complexity. However, from the hardware execution point of view, this natural, user perspective-based division of operator computation volume is not efficient and does not fully utilize the computational power of hardware resources, which is mainly reflected in the following aspects:
+
+1. Computationally overloaded and overly complex operators, which usually makes it difficult to generate well-cut high-performance operator, thereby reducing equipment utilization.
+2. Operators that are too small in computation may also cause latency in computation and thus reduce equipment utilization, as the computation cannot effectively hide the data moving overhead.
+3. Hardware Devices are usually multi-core, many-core architectures. When the operator shape is small or other reasons cause insufficient computational parallelism, it may cause some cores to be idle, thus reducing the device utilization. In particular, chips based on Domain Specific Architecture (DSA for short) are more sensitive to these factors. It has been a big challenge to maximize the performance of hardware operator while making the operator easy to use.
+
+In terms of AI framework design, the current industry mainstream adopts a separate layer implementation approach of graph and operator layers. The graph layer is responsible for fusing or regrouping the computational graph, and the operator layer is responsible for compiling the fused or regrouped operators into high-performance executable operators. The graph layer is usually processed and optimized by using Tensor-based High-Level IR, while the operator layer is analyzed and optimized by using computational instruction-based Low-Level IR. This artificial separate-layer process significantly increases the difficulty of performing collaborative optimization in both graph and computational layers.
+
+MindSpore has adopted the technique of graph-kernel fusion to better solve this problem in the past few years. Typical networks in different categories such as NLP and recommendation show significant gains in training speed after enabling graph-kernel fusion. One of the main reasons is the presence of a large number of small operator combinations in these networks, which have more opportunities for fusion optimization.
+
+#### Graph-Kernel Fusion Architecture and Overall Process
+
+The overall architecture of graph-kernel fusion is shown in the figure below. The main idea in the graph layer is to turn on the composite operator, then perform cross-boundary aggregation and optimization, and finally perform Kernel operator splitting. The main steps include:
+
+1. Composite Expansion: Expand the composite operator into the basic operator and form the Composite subgraph to facilitate subsequent cross-boundary optimization and operator splitting.
+2. Cross-OP Aggregation: Aggregate adjacent elementary operators or Composite subgraphs to form larger aggregated subgraphs for subsequent cross-boundary optimization and operator splitting.
+3. High-Level Optimization: Based on the aggregated subgraphs obtained in the above two steps, we can perform a large number of cross-boundary optimizations, such as algebraic simplification, common subexpression extraction (CSE).
+4. Kernel Partition: Based on the computational features and the performance of the fusion operator, the operator splitting is performed on the aggregated computational subgraph.
+
+The optimized computational graph is passed to MindSpore AKG as a subgraph for further back-end optimization and target code generation.
+
+![graphkernel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/design/images/graphkernel.png)
+
+By following these steps, we can obtain two aspects of performance gains:
+
+1. Cross-boundary performance optimization gains between different operators.
+2. The optimal granularity of the fusion operator is obtained by reorganizing and splitting the entire computational graph.
+
+#### Fusion Operator Acceleration Optimization (MindSpore AKG)
+
+As mentioned earlier, in scenarios such as HPC and deep neural network training, graph-kernel fusion optimization can bring exponential performance improvements. However, with the increasing capability of graph-kernel fusion, the development of fusion operator becomes a bottleneck point to continue to improve the graph-kernel fusion capability. The automatic generation technology of fusion operators can solve the problem of high programming threshold for developing fusion operators based on DSA, allowing programmers to focus on the implementation logic of operators during operator development without focusing on back-end optimization, which greatly improves their development efficiency. Especially for scenarios with complex back-end hardware architectures and the presence of complex operators and fusion operators, automatic operator generation techniques are more critical.
+
+Therefore, **MindSpore AKG accelerates optimization and automatic generation of fusion operator based on Polyhedral Compilation Technology (Polyhedral Model)**, can help fused operators optimized by MindSpore graph-kernel fusion module to automatically generate high-performance kernel on **heterogeneous hardware platforms** (GPU/Ascend) and improve MindSpore training performance.
+
+Architecture and Overall Process:
+
+The overall framework of MindSpore AKG is shown in the figure above:
+
+- IR Normalization
+    - The input of MindSpore AKG is the fused subgraph optimized by MindSpore graph-kernel fusion module, and the operator in the subgraph is expressed by various descriptions such as TVM's Compute/IR Builder/Hybrid. The DSL is then converted to Halide IR ([Halide](https://halide-lang.org/), a common language used to develop high-performance image processing and Array computation, which can be used as an intermediate expression for decoupling algorithms and optimization) and IR normalization.
+    - After the initial simplification and optimization is completed, the Halide IR is transformed into the scheduling tree required by the Poly module.
+- Poly module scheduling optimization
+    - Using the Pluto scheduling algorithm in Polyhedral technology to achieve automatic fusion of loops, automatic rearrangement and other transformations to automatically generate an initial schedule that satisfies parallelism and data locality for the fusion operator.
+    - To quickly adapt to different hardware backends, the optimization pass in the Poly module is divided into hardware-independent generic optimizations and hardware-related specific optimizations, which are stitched and combined according to hardware features at compilation time, to achieve fast adaptation of heterogeneous hardware backends. The pass such as Auto-slicing, auto-mapping and auto-memory boosting will give different optimizations depending on the nature of the hardware architecture.
+- Backends optimization
+    - In order to further improve the performance of the operator, we developed corresponding optimization passes for different hardware backends, such as data alignment and instruction mapping in Ascend backend, vectorized access and insertion of synchronization instructions in GPU backend, and finally generated the corresponding platform code.
+
+### other graph optimization techniques
 
 In addition to graph-kernel fusion, O1 may be gradually extended to add some other graph optimization techniques in subsequent releases. For example:
 
