@@ -66,7 +66,7 @@ To convert Hugging Face weight files into MindSpore weight files, perform the fo
 
     hf_ckpt_path="/path/to/huggingface/ckpt"
 
-    model_hf = LlamaForCausalM.from_pretrained(os.path.dirname(hf_ckpt_path))
+    model_hf = LlamaForCausalLM.from_pretrained(os.path.dirname(hf_ckpt_path))
 
     hf_weights = model_hf.state_dict()
 
@@ -182,7 +182,7 @@ Executing this Python code will load the weights of Llama2 and print out the nam
             return ms.Tensor(np_value, dtype=dtype)
         return ms.Tensor(np_value, dtype=ms.bfloat16) if value.dtype == torch.bfloat16 else ms.Tensor(np_value)
 
-    model_hf = LlamaForCausalM.from_pretrained(os.path.dirname(hf_ckpt_path))
+    model_hf = LlamaForCausalLM.from_pretrained(os.path.dirname(hf_ckpt_path))
 
     hf_weights = model_hf.state_dict()
 
