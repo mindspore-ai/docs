@@ -17,7 +17,7 @@ The MindSpore framework provides a DryRun mechanism that mocks all device-side i
 Users can set the simulation level by enabling the environment variable `export MS_SIMULATION_LEVEL=0/1/2/3` according to their needs.
 
 > - This feature is for simulation execution and cannot obtain the correct output information of operators. In scenarios involving dynamic shapes in static graphs, there may be cases where the input shape of an operator depends on the output shape of the previous operator, making this feature unsuitable for such situations.
-> - In dynamic graph scenarios, the [mock interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock) needs to be used to manually adapt the script.
+> - In dynamic graph scenarios, the [mock interface](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock) needs to be used to manually adapt the script.
 
 #### MS_SIMULATION_LEVEL=0
 
