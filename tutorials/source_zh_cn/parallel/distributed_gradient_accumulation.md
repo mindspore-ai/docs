@@ -24,6 +24,8 @@
 
 `mindspore.parallel.GradAccumulation(network, micro_size)`：用更细粒度的MicroBatch包装网络。`micro_size`是MicroBatch的大小。
 
+> - 在梯度累加场景下，推荐使用lazy_inline装饰器来缩短编译时间，并且仅支持将lazy_inline装饰器配置在最外层的Cell上。
+
 ## 操作实践
 
 下面以Ascend单机8卡为例，进行梯度累加操作说明：

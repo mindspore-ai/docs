@@ -24,6 +24,8 @@ The core idea of gradient accumulation is to add the gradients of multiple Micro
 
 `mindspore.parallel.GradAccumulation(network, micro_size)`: Wrap the network with a finer-grained MicroBatch. `micro_size` is the size of the MicroBatch.
 
+> - Under grad accumulation situation, suggests to use lazy_inline decorator to reduce compile time, and only support to set the lazy_inline decorator to the outermost cell.
+
 ## Operation Practice
 
 The following is an illustration of the gradient accumulation operation using Ascend or GPU stand-alone 8-card as an example:
