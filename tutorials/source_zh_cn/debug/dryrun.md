@@ -16,6 +16,9 @@ MindSpore框架提供了DryRun机制，模拟（mock）所有的device侧接口�
 
 用户可以根据自己的需求，通过使能环境变量 `export MS_SIMULATION_LEVEL=0/1/2/3`，设置模拟运行的级别。
 
+> - 该特性为模拟执行，无法获取算子正确的输出信息，静态图涉及动态shape的场景下，存在算子的输入shape依赖上一个算子的输出shape的情况，因此不适用该特性。
+> - 动态图场景需要采用[mock接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock)自行适配脚本。
+
 #### MS_SIMULATION_LEVEL=0
 
 模型编译，仅占用CPU资源。用户可以观察到脚本和模型配置是否存在编译问题，如并行策略和设置卡数不匹配、数据集和模型输入长度不匹配等。编译完成后，也可以根据各个模块的编译时间进行针对性优化。
@@ -61,3 +64,6 @@ Actual peak memory usage (with fragments): 26244M
 ![op_time_consuming](./images/op_time_consuming.png)
 
 我们可以看到，该计算算子的耗时为0.109ms。
+
+> - 由于该特性以实际执行单卡模拟多卡执行，通信算子均为模拟执行，因此无法得到准确的计算结果。部分算子对输入值敏感的场景，无法使用该方式模拟。
+> - 这是一个实验特性，可能会被更改或者删除。
