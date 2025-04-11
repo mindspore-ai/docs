@@ -370,7 +370,7 @@ The online dataset loading and processing functionality is primarily implemented
 The online dataset loading feature is enabled by configuring the `data_loader` in the configuration file. Below is an example configuration for online dataset loading:
 
 ```yaml
-train_dataset:
+train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
   construct_args_key: *input_columns
   data_loader:
@@ -427,31 +427,31 @@ When packing is configured, the dataset returns an `actual_seq_len` column. For 
   Example configuration for online loading:
 
   ```yaml
-   train_dataset:
-     input_columns: &input_columns ["input_ids", "labels"]
-     dynamic_batch: True                    # Enable dynamic shape
-     divisor: 32                            # With divisor and remainder configured, seq_length in dynamic shape will become a multiple of divisor and the sum of remainder
-     remainder: 1
-     data_loader:
-       type: CommonDataLoader
-       shuffle: True
-       split: "train"                       # Subset name of the online dataset
-       path: "llm-wizard/alpaca-gpt4-data"  # Online dataset name
-       is_dynamic: True
-       handler:
-         - type: AlpacaInstructDataHandler
-           tokenizer_name: llama2_7b
-           seq_length: 4096
-           prompt_key: "conversations"
-           output_columns: *input_columns
-     seed: 0
-     num_parallel_workers: 8
-     python_multiprocessing: False
-     drop_remainder: True
-     repeat: 1
-     numa_enable: False
-     prefetch_size: 1
-   ```
+  train_dataset: &train_dataset
+    input_columns: &input_columns ["input_ids", "labels"]
+    dynamic_batch: True                    # Enable dynamic shape
+    divisor: 32                            # With divisor and remainder configured, seq_length in dynamic shape will become a multiple of divisor and the sum of remainder
+    remainder: 1
+    data_loader:
+      type: CommonDataLoader
+      shuffle: True
+      split: "train"                       # Subset name of the online dataset
+      path: "llm-wizard/alpaca-gpt4-data"  # Online dataset name
+      is_dynamic: True
+      handler:
+        - type: AlpacaInstructDataHandler
+          tokenizer_name: llama2_7b
+          seq_length: 4096
+          prompt_key: "conversations"
+          output_columns: *input_columns
+    seed: 0
+    num_parallel_workers: 8
+    python_multiprocessing: False
+    drop_remainder: True
+    repeat: 1
+    numa_enable: False
+    prefetch_size: 1
+  ```
 
   1. For parameter descriptions in `train_dataset`, please refer to the [documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html).
 
@@ -539,7 +539,7 @@ Modify the task configuration file [finetune_llama2_7b.yaml](https://gitee.com/m
 Modify the following parameters:
 
 ```yaml
-train_dataset:
+train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels"]
   data_loader:
     type: CommonDataLoader
@@ -552,6 +552,13 @@ train_dataset:
         seq_length: 4096
         prompt_key: "conversations"
         output_columns: *input_columns
+  seed: 0
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  repeat: 1
+  numa_enable: False
+  prefetch_size: 1
 ```
 
 The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
@@ -645,12 +652,14 @@ Modify the following parameters:
 train_dataset: &train_dataset
   data_loader:
     type: CommonDataLoader
-    path: "xxx/ADGEN"
+    path: "HasturOfficial/adgen"
     split: "train"
     shuffle: True
     handler:
       - type: AdgenInstructDataHandler
-        output_columns: ["prompt", "answer"]
+    phase: "train"
+    version: 3
+    column_names: ["prompt", "answer"]
   tokenizer:
     type: ChatGLM3Tokenizer
     vocab_file: "/path/to/tokenizer.model"
@@ -665,8 +674,6 @@ train_dataset: &train_dataset
   repeat: 1
   numa_enable: False
   prefetch_size: 1
-  phase: "train"
-  version: 3
   seed: 0
 ```
 
@@ -701,7 +708,7 @@ Configuring `PackingHandler` in `CommonDataLoader` allows for packing processing
 By following the configuration below, the `alpaca` dataset can be preprocessed to achieve online packing.
 
 ```yaml
-train_dataset:
+train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
   construct_args_key: *input_columns
   data_loader:
@@ -721,6 +728,13 @@ train_dataset:
         output_columns: ["input_ids", "labels", "actual_seq_len"]
     adaptor_config:
        compress_mask: False
+  seed: 0
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  repeat: 1
+  numa_enable: False
+  prefetch_size: 1
 ```
 
 Using the above configuration file to process the `alpaca` dataset will execute the following steps:
@@ -756,7 +770,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 If you need to load the saved dataset, you should modify the YAML configuration as follows:
 
 ```yaml
-train_dataset:
+train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
   construct_args_key: *input_columns
   data_loader:
