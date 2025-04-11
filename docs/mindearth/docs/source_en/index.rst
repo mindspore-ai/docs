@@ -43,6 +43,7 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
 
    nowcasting/DgmrNet
    nowcasting/Nowcastnet
+   nowcasting/prediffnet
 
 .. toctree::
    :maxdepth: 1
