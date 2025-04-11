@@ -16,6 +16,9 @@ The MindSpore framework provides a DryRun mechanism that mocks all device-side i
 
 Users can set the simulation level by enabling the environment variable `export MS_SIMULATION_LEVEL=0/1/2/3` according to their needs.
 
+> - This feature is for simulation execution and cannot obtain the correct output information of operators. In scenarios involving dynamic shapes in static graphs, there may be cases where the input shape of an operator depends on the output shape of the previous operator, making this feature unsuitable for such situations.
+> - In dynamic graph scenarios, the [mock interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock) needs to be used to manually adapt the script.
+
 #### MS_SIMULATION_LEVEL=0
 
 Model compilation, only occupying CPU resources. Users can observe whether there are compilation issues in the script and model configuration, such as mismatches between parallel strategies and the number of cards set, or mismatches between dataset and model input lengths. After compilation, users can also perform targeted optimizations based on the compilation time of each module.
@@ -61,3 +64,6 @@ After enabling profiling, the `trace_view.json` file can be found, as shown belo
 ![op_time_consuming](./images/op_time_consuming.png)
 
 We can see that the time consumption of this computing operator is 0.109ms.
+
+> - This feature simulates multi-NPU execution on a single NPU. All communication operators are simulated. Therefore, accurate calculation results cannot be obtained. This method cannot be used to simulate scenarios where some operators are sensitive to input values.
+> - This is an experimental feature and may be modified or removed in the future.
