@@ -98,6 +98,7 @@ FAQ
    :hidden:
 
    usage/dev_migration
+   usage/multi_modal
    usage/pre_training
    usage/sft_tuning
    usage/evaluation
@@ -105,7 +106,6 @@ FAQ
    usage/quantization
    usage/mindie_deployment
    usage/pretrain_gpt
-   usage/multi_modal
 
 .. toctree::
    :glob:
