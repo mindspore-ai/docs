@@ -33,7 +33,7 @@ Feature Description
    :glob:
    :maxdepth: 1
    :hidden:
-   :caption: compile
+   :caption: Compile
 
    compile/graph_construction
    compile/graph_optimization

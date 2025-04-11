@@ -33,7 +33,7 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
          <td style="text-align: center; width: 20%; border: none">
             <ul style="text-align: left; display: inline-block;">
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/dev_migration.html"><span>开发迁移</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/dev_migration.html"><span>多模态理解模型开发</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/multi_modal.html"><span>多模态理解模型开发</span></a></li>
             </ul>
          </td>
          <td style="text-align: center; width: 20%; border: none">
@@ -145,6 +145,7 @@ FAQ
    :hidden:
 
    usage/dev_migration
+   usage/multi_modal
    usage/pre_training
    usage/sft_tuning
    usage/evaluation
@@ -152,7 +153,6 @@ FAQ
    usage/quantization
    usage/mindie_deployment
    usage/pretrain_gpt
-   usage/multi_modal
 
 .. toctree::
    :glob:
