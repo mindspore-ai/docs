@@ -370,7 +370,7 @@ HuggingFace数据集可实现HuggingFace社区以及魔乐开源社区中的数�
 在线数据集加载功能通过在配置文件中对`data_loader`进行配置来使能，下面是在线数据集加载相关配置的示例：
 
 ```yaml
-train_dataset:
+train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
   construct_args_key: *input_columns
   data_loader:
@@ -427,31 +427,31 @@ train_dataset:
   在线加载配置文件示例：
 
   ```yaml
-   train_dataset:
-     input_columns: &input_columns ["input_ids", "labels"]
-     dynamic_batch: True                    # 开启动态shape
-     divisor: 32                            # 配置divisor和remainder后，动态shape中seq_length会成为divisor的倍数以及remainder的和
-     remainder: 1
-     data_loader:
-       type: CommonDataLoader
-       shuffle: True
-       split: "train"                       # 在线数据集子集名称
-       path: "llm-wizard/alpaca-gpt4-data"  # 在线数据集名称
-       is_dynamic: True
-       handler:
-         - type: AlpacaInstructDataHandler
-           tokenizer_name: llama2_7b
-           seq_length: 4096
-           prompt_key: "conversations"
-           output_columns: *input_columns
-     seed: 0
-     num_parallel_workers: 8
-     python_multiprocessing: False
-     drop_remainder: True
-     repeat: 1
-     numa_enable: False
-     prefetch_size: 1
-   ```
+  train_dataset: &train_dataset
+    input_columns: &input_columns ["input_ids", "labels"]
+    dynamic_batch: True                    # 开启动态shape
+    divisor: 32                            # 配置divisor和remainder后，动态shape中seq_length会成为divisor的倍数以及remainder的和
+    remainder: 1
+    data_loader:
+      type: CommonDataLoader
+      shuffle: True
+      split: "train"                       # 在线数据集子集名称
+      path: "llm-wizard/alpaca-gpt4-data"  # 在线数据集名称
+      is_dynamic: True
+      handler:
+        - type: AlpacaInstructDataHandler
+          tokenizer_name: llama2_7b
+          seq_length: 4096
+          prompt_key: "conversations"
+          output_columns: *input_columns
+    seed: 0
+    num_parallel_workers: 8
+    python_multiprocessing: False
+    drop_remainder: True
+    repeat: 1
+    numa_enable: False
+    prefetch_size: 1
+  ```
 
    1. `train_dataset`中参数说明可参考[文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html)；
 
@@ -539,7 +539,7 @@ class XXXInstructDataHandler(BaseInstructDataHandler):
 修改如下参数：
 
 ```yaml
-train_dataset:
+train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels"]
   data_loader:
     type: CommonDataLoader
@@ -552,6 +552,13 @@ train_dataset:
         seq_length: 4096
         prompt_key: "conversations"
         output_columns: *input_columns
+  seed: 0
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  repeat: 1
+  numa_enable: False
+  prefetch_size: 1
 ```
 
 其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
@@ -645,12 +652,14 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
 train_dataset: &train_dataset
   data_loader:
     type: CommonDataLoader
-    path: "xxx/ADGEN"
+    path: "HasturOfficial/adgen"
     split: "train"
     shuffle: True
     handler:
       - type: AdgenInstructDataHandler
-        output_columns: ["prompt", "answer"]
+    phase: "train"
+    version: 3
+    column_names: ["prompt", "answer"]
   tokenizer:
     type: ChatGLM3Tokenizer
     vocab_file: "/path/to/tokenizer.model"
@@ -665,8 +674,6 @@ train_dataset: &train_dataset
   repeat: 1
   numa_enable: False
   prefetch_size: 1
-  phase: "train"
-  version: 3
   seed: 0
 ```
 
@@ -701,7 +708,7 @@ class AdgenInstructDataHandler(BaseInstructDataHandler):
 按照如下配置，对`alpaca`数据集进行预处理，即可实现在线packing。
 
 ```yaml
-train_dataset:
+train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
   construct_args_key: *input_columns
   data_loader:
@@ -721,6 +728,13 @@ train_dataset:
         output_columns: ["input_ids", "labels", "actual_seq_len"]
     adaptor_config:
        compress_mask: False
+  seed: 0
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  repeat: 1
+  numa_enable: False
+  prefetch_size: 1
 ```
 
 使用上述配置文件处理`alpaca`数据集，会执行如下流程：
@@ -756,7 +770,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 如果需要加载保存后的数据集，需要对yaml进行如下修改：
 
 ```yaml
-train_dataset:
+train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
   construct_args_key: *input_columns
   data_loader:
