@@ -1,6 +1,6 @@
 # 横向联邦-安全聚合训练
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/pairwise_encryption_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/pairwise_encryption_training.md)
 
 联邦学习过程中，用户数据仅用于本地设备训练，不需要上传至中心服务器，可以避免用户个人数据的直接泄露。然而传统联邦学习框架中，模型以明文形式上云，仍然存在间接泄露用户隐私的风险。攻击者获取到用户上传的明文模型后，可以通过重构、模型逆向等攻击方式恢复用户的个人训练数据，导致用户隐私泄露。
 
