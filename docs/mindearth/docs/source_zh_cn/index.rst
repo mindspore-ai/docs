@@ -43,6 +43,7 @@ MindSpore Earth介绍
 
    nowcasting/DgmrNet
    nowcasting/Nowcastnet
+   nowcasting/prediffnet
 
 .. toctree::
    :maxdepth: 1
