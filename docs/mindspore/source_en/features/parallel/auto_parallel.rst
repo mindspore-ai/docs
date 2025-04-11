@@ -3,7 +3,7 @@ Automatic Parallel Strategy Search
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
     :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/parallel/auto_parallel.rst
-    :alt: View Source on Gitee
+    :alt: View Source On Gitee
 
 The auto-parallel mode allows the user to automatically build the cost model and find a parallel strategy with shorter training time without paying attention to the strategy configuration. Currently MindSpore supports the following two different auto-parallel schemes:
 

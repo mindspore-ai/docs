@@ -149,7 +149,9 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 # Repair error decorators defined in mindflow.
 try:
     decorator_list = [("mindflow/operators/derivatives.py","generate api",
-                       "@constexpr","# generate api by del decorator.")]
+                       "@constexpr","# generate api by del decorator."),
+                      ("mindflow/core/derivatives.py","generate api",
+                       "@constexpr","# generate api by del decorator."),]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:

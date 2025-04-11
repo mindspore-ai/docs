@@ -220,7 +220,7 @@
     :exclude-members: eval_batch_size, get_device_id, get_device_num, get_rank_id, local_process_index, process_index, set_evaluate, set_push_to_hub, set_testing, to_dict, to_json_string, train_batch_size, world_size
     :members:
 
-{% elif fullname=="mindformers.TrainingStateMonitor" %}
+{% elif fullname=="mindformers.core.TrainingStateMonitor" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
