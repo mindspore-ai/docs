@@ -28,7 +28,7 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
     Builds the `CommunicationHelper` class to manage the model parallel domain.
 
     ```python
-    from mindspore.communication import create_group, get_group_size
+    from mindspore.communication import create_group, get_group_size, get_rank
     ```
 
     ```python
@@ -43,6 +43,9 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
 
         def get_tensor_model_parallel_group_size(self):
             return get_group_size(group=self.group_name)
+
+        def get_tensor_model_parallel_group_rank(self):
+            return get_rank(group=self.group_name)
 
         def get_tensor_model_parallel_group(self):
             return self.group_name
@@ -311,6 +314,8 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
     input_ids = np.random.randint(0, config.vocab_size, size=(config.batch_size, config.seq_length), dtype=np.int32)
     input_ids = Tensor(input_ids)
 
+    vocab_parallel_embedding = VocabParallelEmbedding(num_embeddings=config.vocab_size,
+                                                      embedding_dim=config.hidden_size)
     embedding_output = vocab_parallel_embedding(input_ids)
     print(embedding_output.shape)
     ```
