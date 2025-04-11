@@ -21,9 +21,9 @@ Return value: the converted integer.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func(x):
     a = int(3)
     b = int(3.6)
@@ -33,7 +33,7 @@ def func(x):
     f = int(x)
     return a, b, c, d, e, f
 
-x = ms.Tensor([-1.0], ms.float32)
+x = mindspore.tensor([-1.0], mindspore.float32)
 a, b, c, d, e, f = func(x)
 print("a: ", a)
 print("b: ", b)
@@ -67,9 +67,9 @@ Return value: the converted floating-point number.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func(x):
     a = float(1)
     b = float(112)
@@ -78,7 +78,7 @@ def func(x):
     e = float(x.asnumpy())
     return a, b, c, d, e
 
-x = ms.Tensor([-1], ms.int32)
+x = mindspore.tensor([-1], mindspore.int32)
 a, b, c, d, e = func(x)
 print("a: ", a)
 print("b: ", b)
@@ -110,15 +110,15 @@ Return value: the converted boolean scalar.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = bool()
     b = bool(0)
     c = bool("abc")
     d = bool([1, 2, 3, 4])
-    e = bool(ms.Tensor([10]).asnumpy())
+    e = bool(mindspore.tensor([10]).asnumpy())
     return a, b, c, d, e
 
 a, b, c, d, e = func()
@@ -153,14 +153,14 @@ For example, a is an empty string:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = str()
     b = str(0)
     c = str([1, 2, 3, 4])
-    d = str(ms.Tensor([10]))
+    d = str(mindspore.tensor([10]))
     e = str(np.array([1, 2, 3, 4]))
     return a, b, c, d, e
 
@@ -196,14 +196,14 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = tuple((1, 2, 3))
     b = tuple(np.array([1, 2, 3]))
     c = tuple({'a': 1, 'b': 2, 'c': 3})
-    d = tuple(ms.Tensor([1, 2, 3]))
+    d = tuple(mindspore.tensor([1, 2, 3]))
     return a, b, c, d
 
 a, b, c, d = func()
@@ -236,14 +236,14 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = list((1, 2, 3))
     b = list(np.array([1, 2, 3]))
     c = list({'a':1, 'b':2, 'c':3})
-    d = list(ms.Tensor([1, 2, 3]))
+    d = list(mindspore.tensor([1, 2, 3]))
     return a, b, c, d
 a_t, b_t, c_t, d_t = func()
 print("a_t: ", a_t)
@@ -268,9 +268,9 @@ Function: Used to create a dictionary.
 Examples of code usage are as follows:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = dict()                                          # Create an empty dictionary
     b = dict(a='a', b='b', t='t')                       # Pass in keywords
@@ -312,23 +312,23 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-@ms.jit_class
+@mindspore.jit_class
 class MSClass1:
     def __init__(self):
         self.num0 = 0
 
 ms_obj = MSClass1()
 
-@ms.jit
+@mindspore.jit
 def func(x):
     a = getattr(ms_obj, 'num0')
     b = getattr(ms_obj, 'num1', 2)
     c = getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))
     return a, b, c
 
-x = ms.Tensor([-1.0], ms.float32)
+x = mindspore.tensor([-1.0], mindspore.float32)
 a, b, c = func(x)
 print("a: ", a)
 print("b: ", b)
@@ -365,21 +365,20 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
-from mindspore import Tensor
+import mindspore
 
-@ms.jit_class
+@mindspore.jit_class
 class MSClass1:
     def __init__(self):
         self.num0 = 0
 
 ms_obj = MSClass1()
 
-@ms.jit
+@mindspore.jit
 def func():
     a = hasattr(ms_obj, 'num0')
     b = hasattr(ms_obj, 'num1')
-    c = hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")
+    c = hasattr(mindspore.tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")
     return a, b, c
 
 a, b, c = func()
@@ -412,11 +411,11 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-z = ms.Tensor(np.ones((6, 4, 5)))
+z = mindspore.tensor(np.ones((6, 4, 5)))
 
-@ms.jit()
+@mindspore.jit()
 def test(w):
     x = (2, 3, 4)
     y = [2, 3, 4]
@@ -430,7 +429,7 @@ def test(w):
     w_len = len(w.asnumpy())
     return x_len, y_len, d_len, z_len, n_len, w_len
 
-input_x = ms.Tensor([1, 2, 3, 4])
+input_x = mindspore.tensor([1, 2, 3, 4])
 x_len, y_len, d_len, z_len, n_len, w_len = test(input_x)
 print('x_len:{}'.format(x_len))
 print('y_len:{}'.format(y_len))
@@ -470,22 +469,22 @@ Return value: If `obj` is an instance of `type`, return `True`. Otherwise, retur
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 import numpy as np
 
-z = ms.Tensor(np.ones((6, 4, 5)))
+z = mindspore.tensor(np.ones((6, 4, 5)))
 
-@ms.jit()
+@mindspore.jit()
 def test(w):
     x = (2, 3, 4)
     y = [2, 3, 4]
     x_is_tuple = isinstance(x, tuple)
     y_is_list = isinstance(y, list)
-    z_is_tensor = isinstance(z, ms.Tensor)
+    z_is_tensor = isinstance(z, mindspore.Tensor)
     w_is_ndarray = isinstance(w.asnumpy(), np.ndarray)
     return x_is_tuple, y_is_list, z_is_tensor, w_is_ndarray
 
-w = ms.Tensor(np.array([-1, 2, 4]))
+w = mindspore.tensor(np.array([-1, 2, 4]))
 x_is_tuple, y_is_list, z_is_tensor, w_is_ndarray = test(w)
 print('x_is_tuple:{}'.format(x_is_tuple))
 print('y_is_list:{}'.format(y_is_list))
@@ -518,10 +517,9 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
-from mindspore import Tensor
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = all(['a', 'b', 'c', 'd'])
     b = all(['a', 'b', '', 'd'])
@@ -531,7 +529,7 @@ def func():
     f = all((0, 1, 2, 3))
     g = all([])
     h = all(())
-    x = Tensor(np.array([0, 1, 2, 3]))
+    x = mindspore.tensor(np.array([0, 1, 2, 3]))
     i = all(x.asnumpy())
     return a, b, c, d, e, f, g, h, i
 
@@ -577,10 +575,9 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
-from mindspore import Tensor
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = any(['a', 'b', 'c', 'd'])
     b = any(['a', 'b', '', 'd'])
@@ -590,7 +587,7 @@ def func():
     f = any((0, '', False))
     g = any([])
     h = any(())
-    x = Tensor(np.array([0, 1, 2, 3]))
+    x = mindspore.tensor(np.array([0, 1, 2, 3]))
     i = any(x.asnumpy())
     return a, b, c, d, e, f, g, h, i
 
@@ -637,9 +634,9 @@ Return value: the value after rounding.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = round(10)
     b = round(10.123)
@@ -689,9 +686,9 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = max([0, 1, 2, 3])
     b = max((0, 1, 2, 3))
@@ -699,8 +696,8 @@ def func():
     d = max(np.array([1, 2, 3, 4]))
     e = max(('a', 'b', 'c'))
     f = max((1, 2, 3), (1, 4))
-    g = max(ms.Tensor([1, 2, 3]))
-    return a, b, c, ms.Tensor(d), e, f, g
+    g = max(mindspore.tensor([1, 2, 3]))
+    return a, b, c, mindspore.tensor(d), e, f, g
 
 a, b, c, d, e, f, g = func()
 print("a: ", a)
@@ -738,9 +735,9 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = min([0, 1, 2, 3])
     b = min((0, 1, 2, 3))
@@ -748,8 +745,8 @@ def func():
     d = min(np.array([1, 2, 3, 4]))
     e = min(('a', 'b', 'c'))
     f = min((1, 2, 3), (1, 4))
-    g = min(ms.Tensor([1, 2, 3]))
-    return a, b, c, ms.Tensor(d), e, f, g
+    g = min(mindspore.tensor([1, 2, 3]))
+    return a, b, c, mindspore.tensor(d), e, f, g
 
 a, b, c, d, e, f, g = func()
 print("a: ", a)
@@ -791,17 +788,17 @@ For example:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = sum([0, 1, 2])
     b = sum((0, 1, 2), 10)
     c = sum(np.array([1, 2, 3]))
-    d = sum(ms.Tensor([1, 2, 3]), 10)
-    e = sum(ms.Tensor([[1, 2], [3, 4]]))
-    f = sum([1, ms.Tensor([[1, 2], [3, 4]]), ms.Tensor([[1, 2], [3, 4]])], ms.Tensor([[1, 1], [1, 1]]))
-    return a, b, ms.Tensor(c), d, e, f
+    d = sum(mindspore.tensor([1, 2, 3]), 10)
+    e = sum(mindspore.tensor([[1, 2], [3, 4]]))
+    f = sum([1, mindspore.tensor([[1, 2], [3, 4]]), mindspore.tensor([[1, 2], [3, 4]])], mindspore.tensor([[1, 1], [1, 1]]))
+    return a, b, mindspore.tensor(c), d, e, f
 
 a, b, c, d, e, f = func()
 print("a: ", a)
@@ -837,14 +834,13 @@ Return value: the absolute value of the input.
 For example:
 
 ```python
-import mindspore as ms
-from mindspore import Tensor
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = abs(-45)
     b = abs(100.12)
-    c = abs(Tensor([-1, 2]).asnumpy())
+    c = abs(mindspore.tensor([-1, 2]).asnumpy())
     return a, b, c
 
 a, b, c = func()
@@ -880,12 +876,12 @@ Return value: Return a new sequence.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
 def add(x, y):
     return x + y
 
-@ms.jit()
+@mindspore.jit()
 def test():
     elements_a = (1, 2, 3)
     elements_b = (4, 5, 6)
@@ -920,9 +916,9 @@ Return value: Return a new sequence.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit()
+@mindspore.jit()
 def test():
     elements_a = (1, 2, 3)
     elements_b = (4, 5, 6)
@@ -964,9 +960,9 @@ Return value: Return a `Tuple`.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit()
+@mindspore.jit()
 def test():
     x = range(0, 6, 2)
     y = range(0, 5)
@@ -1008,12 +1004,12 @@ Return value: A `Tuple`.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 import numpy as np
 
-y = ms.Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
+y = mindspore.tensor(np.array([[1, 2], [3, 4], [5, 6]]))
 
-@ms.jit()
+@mindspore.jit()
 def test():
     x = (100, 200, 300, 400)
     m = enumerate(x, 3)
@@ -1053,10 +1049,8 @@ Return value: method of the parent class.
 For example:
 
 ```python
-import mindspore as ms
-from mindspore import nn, set_context
-
-set_context(mode=ms.GRAPH_MODE)
+import mindspore
+from mindspore import nn
 
 class FatherNet(nn.Cell):
     def __init__(self, x):
@@ -1074,6 +1068,7 @@ class SingleSubNet(FatherNet):
         super(SingleSubNet, self).__init__(x)
         self.z = z
 
+    @mindspore.jit
     def construct(self, x, y):
         ret_father_construct = super().construct(x, y)
         ret_father_test = super(SingleSubNet, self).test_father(x)
@@ -1111,13 +1106,13 @@ Return value: `y` power of `x`, `Number`, or `Tensor`
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 import numpy as np
 
-x = ms.Tensor(np.array([1, 2, 3]))
-y = ms.Tensor(np.array([1, 2, 3]))
+x = mindspore.tensor(np.array([1, 2, 3]))
+y = mindspore.tensor(np.array([1, 2, 3]))
 
-@ms.jit()
+@mindspore.jit()
 def test(x, y):
     return pow(x, y)
 
@@ -1145,13 +1140,13 @@ Return value: none
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 import numpy as np
 
-x = ms.Tensor(np.array([1, 2, 3]), ms.int32)
-y = ms.Tensor(3, ms.int32)
+x = mindspore.tensor(np.array([1, 2, 3]), mindspore.int32)
+y = mindspore.tensor(3, mindspore.int32)
 
-@ms.jit()
+@mindspore.jit()
 def test(x, y):
     print(x)
     print(y)
@@ -1184,14 +1179,14 @@ Return value: Return a new sequence.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
 def is_odd(x):
     if x % 2:
         return True
     return False
 
-@ms.jit()
+@mindspore.jit()
 def test():
     elements1 = (1, 2, 3, 4, 5)
     ret1 = filter(is_odd, elements1)
@@ -1221,9 +1216,9 @@ Examples of code usage are as follows:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-@ms.jit
+@mindspore.jit
 def func():
     a = type(1)
     b = type(1.0)
@@ -1231,7 +1226,7 @@ def func():
     d = type((1, 2, 3))
     e = type({'a': 1, 'b': 2})
     f = type(np.array([1, 2, 3]))
-    g = type(ms.Tensor([1, 2, 3]))
+    g = type(mindspore.tensor([1, 2, 3]))
     return a, b, c, d, e, f, g
 
 a, b, c, d, e, f, g = func()
