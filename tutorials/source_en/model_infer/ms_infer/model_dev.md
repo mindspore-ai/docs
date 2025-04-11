@@ -37,16 +37,16 @@ In a typical transformer model, each layer consists of the normalization, attent
             self.num_heads_per_partition = config.num_heads
             self.head_dim = config.hidden_size // config.num_heads
             self.norm_factor = math.sqrt(self.head_dim)
-            self.q = nn.Linear(in_channels=config.hidden_size,
+            self.q = nn.Dense(in_channels=config.hidden_size,
                                           out_channels=config.hidden_size,
                                           weight_init='normal',
                                           has_bias=config.has_bias)
-            self.k = nn.Linear(in_channels=config.hidden_size,
+            self.k = nn.Dense(in_channels=config.hidden_size,
                                           out_channels=config.hidden_size,
                                           weight_init='normal',
                                           dtype=config.dtype,
                                           has_bias=config.has_bias)
-            self.v = nn.Linear(in_channels=config.hidden_size,
+            self.v = nn.Dense(in_channels=config.hidden_size,
                                           out_channels=config.hidden_size,
                                           weight_init='normal',
                                           dtype=config.dtype,
@@ -54,7 +54,7 @@ In a typical transformer model, each layer consists of the normalization, attent
             self.flash_attention = ops.operations.nn_ops.FlashAttentionScore(head_num=self.num_heads_per_partition,
                                                                             scale_value=1.0/self.norm_factor,
                                                                             next_tokens=0)
-            self.out = nn.Linear(in_channels=config.hidden_size,
+            self.out = nn.Dense(in_channels=config.hidden_size,
                                          out_channels=config.hidden_size,
                                          weight_init='normal',
                                          dtype=config.dtype,
@@ -88,12 +88,12 @@ In a typical transformer model, each layer consists of the normalization, attent
     class MLP(nn.Cell):
         def __init__(self, config):
             super().__init__()
-            self.w1 = nn.Linear(in_channels=config.hidden_size,
+            self.w1 = nn.Dense(in_channels=config.hidden_size,
                                            out_channels=config.ffn_hidden_size,
                                            weight_init='normal',
                                            dtype=config.dtype,
                                            has_bias=config.has_bias)
-            self.w2 = nn.Linear(in_channels=config.ffn_hidden_size,
+            self.w2 = nn.Dense(in_channels=config.ffn_hidden_size,
                                         out_channels=config.hidden_size,
                                         weight_init='normal',
                                         dtype=config.dtype,
