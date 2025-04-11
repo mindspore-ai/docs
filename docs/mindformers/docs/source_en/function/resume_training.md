@@ -104,7 +104,7 @@ Based on the input parameters, there are four cases.
 | Weight folder path        | True            | **Scenario 1: Single-node system, multi-node system+shared directory, or ModelArts**<br>1. Resumes the training based on the weights recorded in meta.json files and supports fault recovery.<br>2. Resumes the training based on the latest weight of all ranks if the meta.json file of any rank is missing.<br>**Scenario 2: Multi-node+non-shared directory**<br>Resumes the training based on the latest weight of all ranks.| √         |
 | Weight folder path        | Weight file name          | Resumes the training based on the weights specified by resume_training.                                                                                                                                               | √         |
 
-In addition, you can modify the following parameters under the `trainer` field in the configuration file to use related functions.
+In addition, you can modify the following parameters in the configuration file to use related functions.
 
 | Parameter              | Description                                                                                                         |
 |------------------|-------------------------------------------------------------------------------------------------------------|
