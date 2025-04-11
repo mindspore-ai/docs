@@ -17,7 +17,7 @@ MindSpore框架提供了DryRun机制，模拟（mock）所有的device侧接口�
 用户可以根据自己的需求，通过使能环境变量 `export MS_SIMULATION_LEVEL=0/1/2/3`，设置模拟运行的级别。
 
 > - 该特性为模拟执行，无法获取算子正确的输出信息，静态图涉及动态shape的场景下，存在算子的输入shape依赖上一个算子的输出shape的情况，因此不适用该特性。
-> - 动态图场景需要采用[mock接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock)自行适配脚本。
+> - 动态图场景需要采用[mock接口](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock)自行适配脚本。
 
 #### MS_SIMULATION_LEVEL=0
 
