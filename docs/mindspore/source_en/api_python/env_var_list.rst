@@ -693,7 +693,7 @@ Log
        Default: 2.
      - After a log level is specified, output log messages greater than or equal to that level
    * - VLOG_v
-     - Specifies the MindSpore verbose log level.
+     - Specifies the MindSpore verbose log level, configure the environment variable using export before `import mindspore`.
      - String
      - By command:
        `export VLOG_v=20000;python -c 'import mindspore';` view the available verbose log levels for MindSpore.
