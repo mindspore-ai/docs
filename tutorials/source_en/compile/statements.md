@@ -13,13 +13,14 @@ It is worth noting that the ability of the raise statement in the variable scena
 For example:
 
 ```python
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
 
+    @mindspore.jit
     def construct(self, x, y):
         if x <= y:
             raise ValueError("x should be greater than y.")
@@ -27,9 +28,8 @@ class Net(nn.Cell):
             x += 1
         return x
 
-ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
-net(ms.Tensor(-2), ms.Tensor(-1))
+net(mindspore.tensor(-2), mindspore.tensor(-1))
 ```
 
 The output result:
@@ -43,20 +43,20 @@ ValueError: x should be greater than y.
 Supports the use of assert for exception checking, `assert` syntax format: `assert[Expression [, args]]`, where `Expression` is the judgment condition. If the condition is true, nothing will be done, while if the condition is false, an exception message of type `AssertError` will be thrown. The `args` are user-supplied exception arguments, which can usually be strings or other objects.
 
 ```python
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
 
+    @mindspore.jit
     def construct(self, x):
         assert x in [2, 3, 4]
         return x
 
-ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
-net(ms.Tensor(-1))
+net(mindspore.tensor(-1))
 ```
 
 Appears normally in the output:
@@ -70,12 +70,11 @@ AssertionError.
 The `pass` statement doesn't do anything and is usually used as a placeholder to maintain structural integrity. For example:
 
 ```python
-import mindspore as ms
-from mindspore import nn, set_context
-
-set_context(mode=ms.GRAPH_MODE)
+import mindspore
+from mindspore import nn
 
 class Net(nn.Cell):
+  @mindspore.jit
   def construct(self, x):
     i = 0
     while i < 5:
@@ -102,12 +101,11 @@ ret: 50.625
 The `return` statement usually returns the result to the place where it was called, and statements after the `return` statement are not executed. If the return statement does not have any expression or the function does not have a `return` statement, a `None` object is returned by default. There can be more than one `return` statement within a function, depending on the situation. For example:
 
 ```python
-import mindspore as ms
-from mindspore import nn, set_context
-
-set_context(mode=ms.GRAPH_MODE)
+import mindspore
+from mindspore import nn
 
 class Net(nn.Cell):
+  @mindspore.jit
   def construct(self, x):
       if x > 0:
         return x
@@ -128,11 +126,9 @@ ret: 10
 As above, there can be multiple `return` statements in a control flow scenario statement. If there is no `return` statement in a function, the None object is returned by default, as in the following use case:
 
 ```python
-from mindspore import jit, context
+import mindspore
 
-context.set_context(mode=context.GRAPH_MODE)
-
-@jit
+@mindspore.jit
 def foo():
   x = 3
   print("x:", x)
@@ -146,12 +142,11 @@ assert res is None
 The `break` statement is used to terminate a loop statement, i.e., it stops execution of the loop statement even if the loop condition does not have a `False` condition or if the sequence is not fully recursive, usually used in `while` and `for` loops. In nested loops, the `break` statement stops execution of the innermost loop.
 
 ```python
-import mindspore as ms
-from mindspore import nn, set_context
-
-set_context(mode=ms.GRAPH_MODE)
+import mindspore
+from mindspore import nn
 
 class Net(nn.Cell):
+  @mindspore.jit
   def construct(self, x):
     for i in range(8):
       if i > 5:
@@ -176,19 +171,17 @@ ret: 1920
 The `continue` statement is used to jump out of the current loop statement and into the next round of the loop. This is different from the `break` statement, which is used to terminate the entire loop statement. `continue` is also used in `while` and `for` loops. For example:
 
 ```python
-import mindspore as ms
-from mindspore import nn, set_context
-
-set_context(mode=ms.GRAPH_MODE)
+import mindspore
+from mindspore import nn
 
 class Net(nn.Cell):
+  @mindspore.jit
   def construct(self, x):
     for i in range(4):
       if i > 2:
         x *= 3
         continue
     return x
-
 
 net = Net()
 ret = net(3)
@@ -222,14 +215,14 @@ Restrictions:
 Example 1:
 
 ```python
-import mindspore as ms
+import mindspore
 
-x = ms.Tensor([1, 4], ms.int32)
-y = ms.Tensor([0, 3], ms.int32)
+x = mindspore.tensor([1, 4], mindspore.int32)
+y = mindspore.tensor([0, 3], mindspore.int32)
 m = 1
 n = 2
 
-@ms.jit()
+@mindspore.jit()
 def test_cond(x, y):
     if (x > y).any():
         return m
@@ -251,14 +244,14 @@ ret:1
 Example 2:
 
 ```python
-import mindspore as ms
+import mindspore
 
-x = ms.Tensor([1, 4], ms.int32)
-y = ms.Tensor([0, 3], ms.int32)
+x = mindspore.tensor([1, 4], mindspore.int32)
+y = mindspore.tensor([0, 3], mindspore.int32)
 m = 1
 n = 2
 
-@ms.jit()
+@mindspore.jit()
 def test_cond(x, y):
     out = 3
     if (x > y).any():
@@ -282,13 +275,13 @@ ret:1
 Example 3:
 
 ```python
-import mindspore as ms
+import mindspore
 
-x = ms.Tensor([1, 4], ms.int32)
-y = ms.Tensor([0, 3], ms.int32)
+x = mindspore.tensor([1, 4], mindspore.int32)
+y = mindspore.tensor([0, 3], mindspore.int32)
 m = 1
 
-@ms.jit()
+@mindspore.jit()
 def test_cond(x, y):
     out = 2
     if (x > y).any():
@@ -331,11 +324,11 @@ Example:
 
 ```python
 import numpy as np
-import mindspore as ms
+import mindspore
 
-z = ms.Tensor(np.ones((2, 3)))
+z = mindspore.tensor(np.ones((2, 3)))
 
-@ms.jit()
+@mindspore.jit()
 def test_cond():
     x = (1, 2, 3)
     for i in x:
@@ -374,12 +367,12 @@ Restrictions:
 Example 1:
 
 ```python
-import mindspore as ms
+import mindspore
 
 m = 1
 n = 2
 
-@ms.jit()
+@mindspore.jit()
 def test_cond(x, y):
     while x < y:
         x += 1
@@ -401,7 +394,7 @@ ret:1
 Example 2:
 
 ```python
-import mindspore as ms
+import mindspore
 
 m = 1
 n = 2
@@ -409,7 +402,7 @@ n = 2
 def ops1(a, b):
     return a + b
 
-@ms.jit()
+@mindspore.jit()
 def test_cond(x, y):
     out = m
     while x < y:
@@ -439,12 +432,12 @@ Usage: `def function_name(args): statements...`.
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
 def number_add(x, y):
     return x + y
 
-@ms.jit()
+@mindspore.jit()
 def test(x, y):
     return number_add(x, y)
 
@@ -471,9 +464,9 @@ A `lambda` expression is used to generate an anonymous function. Unlike normal f
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit()
+@mindspore.jit()
 def test(x, y):
     number_add = lambda x, y: x + y
     return number_add(x, y)
@@ -503,13 +496,13 @@ Return Value: Returns some functions with fixed input value.
 The example is as follows:
 
 ```python
-import mindspore as ms
+import mindspore
 from mindspore import ops
 
 def add(x, y):
     return x + y
 
-@ms.jit()
+@mindspore.jit()
 def test():
     add_ = ops.partial(add, x=2)
     m = add_(y=3)
@@ -546,9 +539,9 @@ List comprehension are used to generate lists. Usage: `[arg for loop if statemen
 The example is as follows:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit()
+@mindspore.jit()
 def test():
     l = [x * x for x in range(1, 11) if x % 2 == 0]
     return l
@@ -586,9 +579,9 @@ Dict comprehension is used to generate lists. Usage: `{key, value for loop if st
 The example is as follows:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit()
+@mindspore.jit()
 def test():
     x = [('a', 1), ('b', 2), ('c', 3)]
     res = {k: v for (k, v) in x if v > 1}
@@ -628,9 +621,9 @@ Generator expressions are used to generate lists. Usage: `(arg for loop if state
 For example:
 
 ```python
-import mindspore as ms
+import mindspore
 
-@ms.jit()
+@mindspore.jit()
 def test():
     l = (x * x for x in range(1, 11) if x % 2 == 0)
     return l
@@ -656,17 +649,14 @@ It is worth noting that the class used in the with statement needs to be decorat
 For example:
 
 ```python
-import mindspore as ms
-import mindspore.nn as nn
-from mindspore import set_context
+import mindspore
+from mindspore import nn
 
-set_context(mode=ms.GRAPH_MODE)
-
-@ms.jit_class
+@mindspore.jit_class
 class Sample:
     def __init__(self):
         super(Sample, self).__init__()
-        self.num = ms.Tensor([2])
+        self.num = mindspore.tensor([2])
 
     def __enter__(self):
         return self.num * 2
@@ -675,6 +665,7 @@ class Sample:
         return self.num * 4
 
 class TestNet(nn.Cell):
+    @mindspore.jit
     def construct(self):
         res = 1
         obj = Sample()
