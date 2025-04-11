@@ -47,7 +47,7 @@ class SimpleNetworkHelper(NetworkHelper):
         return self.attrs.get(name, None)
 
     def generate(self, network: nn.Cell, input_ids: np.ndarray, max_new_tokens=1, **kwargs):
-        input_ids = np.pad(input_ids, ((0, 0), (0, self.get_spec("seq_length") - inputs_ids.shape[1])), 'constant', constant_values=0)
+        input_ids = np.pad(input_ids, ((0, 0), (0, self.get_spec("seq_length") - input_ids.shape[1])), 'constant', constant_values=0)
         network(Tensor(input_ids, dtype=ms.dtype.float16))
 
 net = SimpleNet() # The float model that needs to be quantized
