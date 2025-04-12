@@ -100,10 +100,7 @@ MindSpore Tutorial
    model_infer/ms_infer/model_dev
    model_infer/ms_infer/parallel
    model_infer/ms_infer/weight_split
-   model_infer/ms_infer/model_export
    model_infer/ms_infer/quantization
-   model_infer/ms_infer/profiling
-   model_infer/ms_infer/custom_operator
    model_infer/lite_infer/overview
 
 .. toctree::
