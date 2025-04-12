@@ -339,14 +339,10 @@ For details about model quantization, see [Quantization](./quantization.md).
 
 ## Advanced Usage
 
-- **Profiling model inference performance**
-
-    MindSpore large language model inference allows you to collect profiling data for analyzing key performance bottlenecks in the network structure. This data serves as input for subsequent performance tuning. For details, see [Model Performance Profiler](./profiling.md).
-
 - **Using custom operators to optimize model inference**
 
-    The MindSpore large language model inference supports the use of custom operators to optimize operators in specific scenarios or implement operator fusion on the network. Custom operators can be enabled or disabled by simply modifying the operator API in the network script. For details, see [Custom Operators](./custom_operator.md).
+    The MindSpore large language model inference supports the use of custom operators to optimize operators in specific scenarios or implement operator fusion on the network. Custom operators can be enabled or disabled by simply modifying the operator API in the network script. For details, see [Custom Operators](../../custom_program/operation/op_custom_ascendc.md).
 
 - **Offline inference of large language models**
 
-    Given the substantial size of large language models, you are advised to use more flexible online inference (weight CKPT and network script) for MindSpore large language model inference. However, in specific scenarios, such as running device or edge large models with limited running environments lacking Python or MindSpore packages, you can use the MindSpore Lite offline inference solution. In this case, you need to export the model into a MindIR file, MindSpore's unified model representation, and pass it to MindSpore Lite for running. For details, see [Model Export](./model_export.md) and [Lite Inference Overview](../lite_infer/overview.md).
+    Given the substantial size of large language models, you are advised to use more flexible online inference (weight CKPT and network script) for MindSpore large language model inference. However, in specific scenarios, such as running device or edge large models with limited running environments lacking Python or MindSpore packages, you can use the MindSpore Lite offline inference solution. In this case, you need to export the model into a MindIR file, MindSpore's unified model representation, and pass it to MindSpore Lite for running. For details, see [Lite Inference Overview](../lite_infer/overview.md).
