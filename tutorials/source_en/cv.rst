@@ -8,5 +8,4 @@ Computer Vision
    cv/transfer_learning
    cv/vit
    cv/fcn8s
-   cv/shufflenet
    cv/ssd
