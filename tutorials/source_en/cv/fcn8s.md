@@ -500,9 +500,6 @@ from mindspore import Tensor
 import mindspore.nn as nn
 from mindspore.train import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor, Model
 
-device_target = "GPU"
-mindspore.set_context(mode=mindspore.PYNATIVE_MODE, device_target=device_target)
-
 train_batch_size = 4
 num_classes = 21
 # Initialize the model structure.
@@ -532,10 +529,7 @@ scale_factor = 4
 scale_window = 3000
 loss_scale_manager = ms.amp.DynamicLossScaleManager(scale_factor, scale_window)
 # Initialize the model.
-if device_target == "Ascend":
-    model = Model(net, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale_manager, metrics={"pixel accuracy": PixelAccuracy(), "mean pixel accuracy": PixelAccuracyClass(), "mean IoU": MeanIntersectionOverUnion(), "frequency weighted IoU": FrequencyWeightedIntersectionOverUnion()})
-else:
-    model = Model(net, loss_fn=loss, optimizer=optimizer, metrics={"pixel accuracy": PixelAccuracy(), "mean pixel accuracy": PixelAccuracyClass(), "mean IoU": MeanIntersectionOverUnion(), "frequency weighted IoU": FrequencyWeightedIntersectionOverUnion()})
+model = Model(net, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale_manager, metrics={"pixel accuracy": PixelAccuracy(), "mean pixel accuracy": PixelAccuracyClass(), "mean IoU": MeanIntersectionOverUnion(), "frequency weighted IoU": FrequencyWeightedIntersectionOverUnion()})
 
 # Set the parameters for saving the CKPT file.
 time_callback = TimeMonitor(data_size=iters_per_epoch)
@@ -581,10 +575,7 @@ ckpt_file = "FCN8s.ckpt"
 param_dict = load_checkpoint(ckpt_file)
 load_param_into_net(net, param_dict)
 
-if device_target == "Ascend":
-    model = Model(net, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale_manager, metrics={"pixel accuracy": PixelAccuracy(), "mean pixel accuracy": PixelAccuracyClass(), "mean IoU": MeanIntersectionOverUnion(), "frequency weighted IoU": FrequencyWeightedIntersectionOverUnion()})
-else:
-    model = Model(net, loss_fn=loss, optimizer=optimizer, metrics={"pixel accuracy": PixelAccuracy(), "mean pixel accuracy": PixelAccuracyClass(), "mean IoU": MeanIntersectionOverUnion(), "frequency weighted IoU": FrequencyWeightedIntersectionOverUnion()})
+model = Model(net, loss_fn=loss, optimizer=optimizer, loss_scale_manager=loss_scale_manager, metrics={"pixel accuracy": PixelAccuracy(), "mean pixel accuracy": PixelAccuracyClass(), "mean IoU": MeanIntersectionOverUnion(), "frequency weighted IoU": FrequencyWeightedIntersectionOverUnion()})
 
 # Instantiate a dataset.
 dataset = SegDataset(image_mean=IMAGE_MEAN,
