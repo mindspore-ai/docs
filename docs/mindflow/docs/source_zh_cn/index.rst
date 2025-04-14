@@ -54,6 +54,9 @@ MindSpore Flow介绍
    data_driven/2D_unsteady
    data_driven/flow_around_sphere
    data_driven/navier_stokes_FNO3D
+   data_driven/burgers_SNO1D
+   data_driven/navier_stokes_SNO2D
+   data_driven/navier_stokes_SNO3D
 
 .. toctree::
    :glob:
@@ -63,6 +66,7 @@ MindSpore Flow介绍
    data_mechanism_fusion/pde_net
    data_mechanism_fusion/percnn2d
    data_mechanism_fusion/percnn3d
+   data_mechanism_fusion/phympgn
 
 .. toctree::
    :glob:
@@ -73,6 +77,7 @@ MindSpore Flow介绍
    cfd_solver/sod_tube
    cfd_solver/couette
    cfd_solver/riemann2d
+   cfd_solver/acoustic
 
 .. toctree::
    :maxdepth: 1
