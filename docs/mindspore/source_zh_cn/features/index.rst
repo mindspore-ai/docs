@@ -62,7 +62,7 @@
                               <span class="doc-head-content">编程形态</span>
                            </div>
                            <div class="doc-article-desc">
-                              提供动态图、静态图、动静统一的编程形态，使开发者可以兼顾开发效率和执行性能。
+                              提供动静统一的编程形态，兼顾开发效率和执行性能。
                            </div>
                         </div>
                      </a>
@@ -78,7 +78,7 @@
                               <span class="doc-head-content">数据处理</span>
                            </div>
                            <div class="doc-article-desc">
-                              数据处理Pipeline和数据处理轻量化两种数据处理模式。
+                              提供高性能数据处理引擎。
                            </div>
                         </div>
                      </a>
@@ -117,7 +117,7 @@
                               <span class="doc-head-content">编译</span>
                            </div>
                            <div class="doc-article-desc">
-                              包含多种编译优化技术。
+                              介绍编译构图和图优化特性，包括代数化简和冗余消除等。
                            </div>
                         </div>
                      </a>
