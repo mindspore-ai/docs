@@ -108,7 +108,6 @@ MindSpore Tutorial
    :hidden:
 
    train_availability/fault_recover
-   train_availability/disaster_recover
    train_availability/graceful_exit
 
 .. toctree::
