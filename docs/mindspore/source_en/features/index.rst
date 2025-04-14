@@ -62,7 +62,7 @@ Feature Description
                               <span class="doc-head-content">Programming Forms</span>
                            </div>
                            <div class="doc-article-desc">
-                              Provide dynamic diagrams, static diagrams, dynamic and static unified programming form, so that developers can take into account the development efficiency and execution performance.
+                              Provide dynamic and static unified programming form, which can take into account the development efficiency and execution performance.
                            </div>
                         </div>
                      </a>
@@ -78,7 +78,7 @@ Feature Description
                               <span class="doc-head-content">Data Loading and Processing</span>
                            </div>
                            <div class="doc-article-desc">
-                              Two data processing models, Data Processing Pipeline and Data Processing Lightweight.
+                              Provide a high-performance data processing engine.
                            </div>
                         </div>
                      </a>
@@ -117,7 +117,7 @@ Feature Description
                               <span class="doc-head-content">Compile</span>
                            </div>
                            <div class="doc-article-desc">
-                              Multiple compilation optimization techniques are included.
+                              Describe the compilation composition and graph optimization features, including algebraic simplification and redundancy elimination.
                            </div>
                         </div>
                      </a>

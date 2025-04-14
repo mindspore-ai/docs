@@ -125,7 +125,7 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 实践案例
+   :caption: 模型案例
    :hidden:
 
    model_migration/model_migration
@@ -136,72 +136,174 @@ MindSpore教程
 .. raw:: html
 
    <div class="container">
-	   <div class="row">
+      <div class="row">
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./beginner/quick_start.html" class="article-link">
+                     <a href="./beginner/introduction.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">快速入门</span>
+                              <span class="doc-head-content">快速上手</span>
                            </div>
                            <div class="doc-article-desc">
-                              贯穿MindSpore深度学习的基本流程，以LeNet5网络模型为例子，实现深度学习中的常见任务。
+                              贯穿MindSpore深度学习的基本流程，包括数据处理、模型加载与保存、图模式加速等实践案例。
                            </div>
                         </div>
                      </a>
                   </div>
-					</div>
-			</div>
-			<div class="col-md-6">
+               </div>
+         </div>
+         <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./cv/resnet50.html" class="article-link">
+                     <a href="./dataset/sampler.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">计算机视觉实践案例</span>
+                              <span class="doc-head-content">数据处理</span>
                            </div>
                            <div class="doc-article-desc">
-                              提供计算机视觉领域的典型网络实现，以及完整的训练、评估、预测流程。
+                              提供数据处理相关增强、缓存、pipeline等功能案例。
                            </div>
                         </div>
                      </a>
                   </div>
-					</div>
-			</div>
+               </div>
+         </div>
       </div>
       <div class="row">
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./nlp/sentiment_analysis.html" class="article-link">
+                     <a href="./compile/static_graph.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">自然语言处理实践案例</span>
+                              <span class="doc-head-content">编译</span>
                            </div>
                            <div class="doc-article-desc">
-                              提供自然语言处理领域的典型网络实现，以及完整的训练、评估、预测流程。
+                              提供MindSpore编译语法支持案例以及图模式编程案例。
                            </div>
                         </div>
                      </a>
                   </div>
-					</div>
-			</div>
+               </div>
+         </div>
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./generative/gan.html" class="article-link">
+                     <a href="./parallel/overview.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">生成式实践案例</span>
+                              <span class="doc-head-content">并行</span>
                            </div>
                            <div class="doc-article-desc">
-                              提供生成式领域的典型网络实现，以及完整的训练、评估、预测流程。
+                              提供数据并行、算子级并行、优化器并行等实践案例和优化策略。
                            </div>
                         </div>
                      </a>
                   </div>
-					</div>
-			</div>
-	   </div>
-	</div>
+               </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./debug/pynative.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">调试调优</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              提供dump、profiler、dryrun等功能调试案例。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./custom_program/op_custom.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">自定义编程</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              提供自定义算子、自定义融合实践案例。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./model_infer/ms_infer/llm_inference_overview.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">推理</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              介绍MindSpore推理端到端流程，包括模型构建、权重切分等功能。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./train_availability/fault_recover.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">高可用</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              介绍训练高可用特性，包括故障恢复、进程优雅退出等功能。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./orange_pi/overview.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">香橙派</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              提供香橙派环境搭建、开发、推理等功能案例。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./model_migration/model_migration.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">模型案例</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              提供模型迁移指导以及各类CV、NLP、生成式模型构建案例。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+      </div>
+   </div>
