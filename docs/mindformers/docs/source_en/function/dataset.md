@@ -379,7 +379,6 @@ train_dataset: &train_dataset
     shuffle: False
     split: "train"
     path: "llm-wizard/alpaca-gpt4-data"
-    is_dynamic: False
     packing: pack
     handler:
       - type: AlpacaInstructDataHandler
@@ -387,11 +386,12 @@ train_dataset: &train_dataset
         seq_length: 4096
         prompt_key: "conversations"
         output_columns: ["input_ids", "labels"]
+        is_dynamic: False
       - type: PackingHandler
         seq_length: 4096
         output_columns: ["input_ids", "labels", "actual_seq_len"]
     adaptor_config:
-       compress_mask: False
+      compress_mask: False
     column_names: *input_columns
 ```
 
@@ -437,13 +437,13 @@ When packing is configured, the dataset returns an `actual_seq_len` column. For 
       shuffle: True
       split: "train"                       # Subset name of the online dataset
       path: "llm-wizard/alpaca-gpt4-data"  # Online dataset name
-      is_dynamic: True
       handler:
         - type: AlpacaInstructDataHandler
           tokenizer_name: llama2_7b
           seq_length: 4096
           prompt_key: "conversations"
           output_columns: *input_columns
+          is_dynamic: True
     seed: 0
     num_parallel_workers: 8
     python_multiprocessing: False
