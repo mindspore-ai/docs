@@ -185,7 +185,7 @@
 
 ```
 
-步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.0.RC3.alpha002版本为例，如下图：
+步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.0.0.beta1版本为例，如下图：
 
 ![environment-setup-1-15](./images/environment_setup_1-15.png)
 
@@ -206,13 +206,13 @@
 步骤5 给CANN包添加执行权限。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.0.RC3.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.0.0_linux-aarch64.run
 ```
 
 步骤6 执行以下命令升级软件。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.0.RC3.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.0.0_linux-aarch64.run --install
 ```
 
 安装时弹出此提示后输入Y，然后按回车键继续安装，该过程约需要10-15分钟，请耐心等待。
@@ -279,13 +279,13 @@ npu-smi info
 步骤5 给kernels包添加执行权限。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.0.RC3.alpha002_linux.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.0.0_linux-aarch64.run
 ```
 
 步骤6 执行以下命令升级软件。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.0.RC3.alpha002_linux.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.0.0_linux-aarch64.run --install
 ```
 
 升级完成后，若显示如下信息，则说明软件升级成功：
@@ -316,7 +316,7 @@ xxx install success
 
 若当前MindSpore版本不满足开发需求，可按照如下内容对MindSpore版本进行升级。
 
-### 4.2 升级MindSpore（以MindSpore2.4.10为例）
+### 4.2 升级MindSpore（以MindSpore2.5.0为例）
 
 #### 4.2.1 升级MindSpore
 
@@ -325,13 +325,13 @@ xxx install success
 方式一：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，保持HwHiAiUser用户登录状态，在终端直接运行pip install命令。
 
 ```bash
-(base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.4.10
+(base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.5.0
 ```
 
 方式二：使用CTRL+ALT+T快捷键或点击页面下方带有$_的图标打开终端，保持HwHiAiUser用户登录状态，参考[昇思MindSpore官网安装教程](https://www.mindspore.cn/install)，在终端执行以下命令进行安装。
 
 ```bash
-(base) HwHiAiUser@orangepiaipro:~$ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+(base) HwHiAiUser@orangepiaipro:~$ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.5.0/MindSpore/unified/aarch64/mindspore-2.5.0-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 注意确认操作系统和编程语言，香橙派开发板默认环境下是linux-aarch64和python3.9
 ```
@@ -347,7 +347,7 @@ xxx install success
 如果输出如下，说明MindSpore安装成功了。
 
 ```bash
-MindSpore version: 2.4.10
+MindSpore version: 2.5.0
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
