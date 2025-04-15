@@ -4,11 +4,11 @@
 
 ## Background
 
-With the arrival of the era of deep learning large models, the bigger the network size is,  the bigger the challenge of graph compilation performance, execution performance and debugging and tuning efficiency is. For this reason, MindSpore proposes a multi-level compilation architecture, which provides three compilation and execution modes, O0/O1/O2, which are different from each other in terms of graph optimization, operator fusion, memory management, and execution modes, and is designed to provide a diversity of graph mode. Users can choose the most suitable compilation and execution mode according to their own network characteristics and needs:
+With the arrival of the era of deep learning large models, the bigger the network size is,  the bigger the challenge of graph compilation performance, execution performance and debugging and tuning efficiency is. For this reason, MindSpore proposes a multilevel compilation architecture that provides an O(n) multilevel compilation execution model, which are different from each other in terms of graph optimization, operator fusion, memory management, and execution modes, and is designed to provide a diversity of graph mode. Users can choose the most suitable compilation and execution mode according to their own network characteristics and needs:
 
 1. O0 mode: this is a basic compilation and execution mode, where all optimizations are turned off except those necessary to affect the functionality, and a single-calculus execution is used for execution. Therefore, the execution performance may not be optimal, but it can guarantee the original structure of the graph, which is convenient for users to debug and understand, and the compilation performance is also better. Add and Mul single operator execution is shown in the following figure.
 2. O1 mode: this mode performs some basic optimizations, such as common graph optimization and automatic operator fusion optimization, and uses single operator execution for execution. Compared with O0, because of enabling the fusion optimization, the execution performance of O1 can be improved, but it may affect the original structure of the graph, so the compilation performance and debugging and tuning efficiency is lost. In the following figure, Add and Mul are fused into a single fused_op execution.
-3. O2 mode: this is a more advanced optimization mode, fundamentally different from O0/O1, using whole graph sinking execution. Due to the increased graph conversion overhead, the compilation performance loss is larger, and will have a greater impact on the original structure of the graph, making debugging and understanding more difficult. Since there is no host scheduling overhead, the performance improvement is more obvious in the host bound scenario. In the following figure. Add and Mul are converted into a whole graph sinking execution.
+3. O2 mode: this is a more advanced optimization mode, currently not implemented, the subsequent deeper optimization can use this mode.
 
 ![jit_level_example](./images/multi_level_compilation/jit_level_example.png)
 
@@ -16,23 +16,17 @@ With the arrival of the era of deep learning large models, the bigger the networ
 
 ![jit_level_framework](./images/multi_level_compilation/jit_level_framework.png)
 
-1. Graph representation: configure multiple compilation levels via context interface jit_config={“jit_level”: “O0/O1/O2”}. The default Altas training product is O2, the rest are O0.
-2. Graph compilation: different compilation modes are selected according to the configured multi-level compilation levels, where O0 is the most basic native composition and compilation, O1 adds an automatic operator fusion function on the basis of O0, and O2 is mainly a whole graph sink execution.
-3. Graph execution: O0 and O1 are both single operator executors, which improve host scheduling performance through runtime multistage pipeline; O2 is a whole graph executor with no host scheduling overhead.
+1. Multi-level compilation external interface: configure multi-level compilation level through [mindspore.jit(jit_level=“O0/O1”)](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit), jit_level defaults to O0. We usually recommend that users use O0 mode for network debugging tuning. After debugging is ready, for better performance you can turn on O1 to run the network.
+2. Backend graph compilation: According to the configured multi-level compilation level, different compilation modes are selected. O0 is the most basic native composition and compilation, and O1 adds automatic operator fusion function on the basis of O0, with the main functions of graph optimization, graph-operator fusion, operator selection, and execution sequence scheduling, of which graph-operator fusion is a unique function in O1 mode.
+3. Backend graph execution: The O0 and O1 modes are the same at the execution level, and both use a single operator way of scheduling execution, with the main functions of multi-stream concurrency, multi-level streaming, HAL management, and memory management.
 
 ## Introduction to the O0 Model
 
-O0 is the basic graph compilation and execution mode, except for the necessary impact on the functionality of the optimization, other optimizations are turned off, the use of native graph structure for compilation and execution, easy to debug and tuning, with better compilation performance. The following chapters introduce the basic features of O0 one by one.
-
-### Partition Composition
-
-![jit_level_partition](./images/multi_level_compilation/jit_level_partition.png)
-
-MindIR is a functional IR based on graph representation, with rich expression syntax, supports complex control flow expression and heterogeneous expression. From MindIR to the back-end hardware arithmetic execution process needs to go through the back-end graph processing and runtime scheduling, especially the hardware capacity can not support complex control flow and CPU heterogeneous execution, so MindIR needs to be sliced to construct subgraphs, the sliced subgraphs are optimized in hardware, and the optimized subgraphs are connected to the sliced nodes at runtime to be dispensed for execution.
+O0 is the basic graph compilation and execution mode, except for the necessary impact on the functionality of the optimization, other optimizations are turned off, the use of native graph structure for compilation and execution, easy to debug and tuning, with better compilation performance. The following mainly introduces the functions related to backend graph compilation, and the functions related to backend graph execution are detailed in [runtime](https://www.mindspore.cn/docs/en/master/features/runtime/memory_manager.html).
 
 ### Graph Optimization
 
-There are fewer graph optimizations for the O0 mode, and the basic optimizations are mainly back-end LazyInline and No-task node execution optimizations, which are described below.
+There are fewer graph optimizations for the O0 mode, and the basic optimizations are mainly back-end LazyInline and No-task node execution optimizations.
 
 - **Back-end LazyInline**
 
@@ -52,7 +46,9 @@ There are fewer graph optimizations for the O0 mode, and the basic optimizations
 
 ### Operator Selection
 
-Operators are the basic execution units in deep learning frameworks, and they are responsible for performing specific computational tasks, such as matrix multiplication, convolution, pooling. Operator selection requires comprehensive consideration of factors such as operator type, data type, hardware platform, and operator optimization in order to select the optimal operator for deep learning tasks. The operator types in the backend of MindSpore Ascend are Aclnn kernel/Aclop kernel/Hccl kernel /Cpu kernel, and the process of operator selection is shown as follows:
+Operators are the basic execution units in deep learning frameworks, and they are responsible for performing specific computational tasks, such as matrix multiplication, convolution, pooling. Operator selection requires comprehensive consideration of factors such as operator type, data type, hardware platform, and operator optimization in order to select the optimal operator for deep learning tasks.
+
+The operator types in the backend of MindSpore Ascend are Aclnn kernel/Aclop kernel/Hccl kernel /Cpu kernel, and the process of operator selection is shown as follows:
 
 ![jit_level_kernelselect](./images/multi_level_compilation/jit_level_kernelselect.png)
 
@@ -74,62 +70,7 @@ Execution order scheduling is a complex problem of solving optimal operator conc
 
 - First, the optimization module needs to address the complexity of solving for optimal operator concurrency. Due to the large number of operators in the computational graph and their interdependencies, finding an execution order that maximizes concurrency while maintaining the logical correctness of the computational graph is a challenging task.
 - Second, memory constraints are a critical factor that cannot be ignored in execution order optimization. Increasing concurrency, while improving computational efficiency, tends to significantly increase peak memory requirements, which may lead to Overflow of Memory (OOM) errors, especially in resource-constrained environments. Therefore, the optimization module must weigh the relationship between concurrency and memory usage to ensure that concurrency is increased without exceeding the memory capacity of the system.
-- MindSpore's execution order adjustment module combines rule-based and heuristic-based strategies to provide two execution order scheduling algorithms, bfs/dfs, to realize fine-tuning of the execution order of computational graphs, thus ensuring computational efficiency while effectively coping with multiple challenges such as memory constraints and system stability.
-
-### Compilation Cache
-
-Compilation cache refers to caching the computational graphs that have been compiled during the first compilation of the graph so that they can be used directly in the next training without recompilation, which is mainly used to improve the efficiency of cluster fault recovery training. Under the large model and large cluster training scenario, due to the high probability of failure of large clusters, the frequency of the second breakpoint training is very high, coupled with the large graph scale of the large model, the compilation of the graph often takes a long time, so with the support of the graph compilation cache function, it can greatly improve the efficiency of the cluster failure recovery training.
-
-![jit_level_compile_cache](./images/multi_level_compilation/jit_level_compile_cache.png)
-
-### Multi-Level Pipeline
-
-Multi-level pipeline is a key performance optimization function point at runtime. For the scheduling of an operator, the runtime needs to process InferShape (with updating shape), Resize (with tiling calculation and updating memory size) and Launch (with memory application and release). If these processes are processed serially at host, it will easily lead to a long processing time at host, which leads to the device waiting for execution and affects the execution performance. For this reason, we have implemented a multilevel pipeline function for operator scheduling, where InferShape, Resize and Launch are pipelined in parallel through three queues: Infer Queue, Resize Queue and Launch Queue, which greatly improves the performance of runtime scheduling:
-
-![jit_level_rt_pipeline](./images/multi_level_compilation/jit_level_rt_pipeline.png)
-
-After the first operator collects the input, it only needs to send the InferShape task to the Infer queue, i.e. to send the output data of the operator to the next operator, after InferShape is completed send the Resize task of that operator to the Resize queue, and finally after Resize is completed send the LaunchKernel task to the Launch queue.
-
-### Multi-Stream Concurrency
-
-In the training process of large-scale deep learning models, in order to achieve as much communication and computation overlap as possible, the importance of communication and computation stream concurrency for execution performance is obvious. To address this challenge, MindSpore implements automatic stream allocation and event insertion in framework to optimize the execution efficiency and resource utilization of the computation graph. The introduction of these features not only improves the concurrency capability of computation graphs, but also significantly reduces device memory overhead, resulting in higher performance and lower latency in large model training.
-
-![jit_level_multi_stream](./images/multi_level_compilation/jit_level_multi_stream.png)
-
-Traditional multi-stream concurrency methods usually rely on manual configuration, which is not only cumbersome and error-prone, but also difficult to achieve optimal concurrency when facing complex computational graphs. MindSpore's auto-stream allocation feature automatically identifies and allocates concurrency opportunities in computational graphs through intelligent algorithms, and assigns different operators to different streams for execution. This automated allocation process not only simplifies the user's operation, but also dynamically adjusts the stream allocation strategy at runtime to adapt to different computing environments and resource conditions.
-
-### Memory Management
-
-![jit_level_memory_manage](./images/multi_level_compilation/jit_level_memory_manage.png)
-
-Memory is the most important resource in AI model training, memory management is undoubtedly an extremely critical function in the deep learning framework, responsible for the model's memory allocation and reuse, the performance of memory allocation and release as well as the efficiency of memory reuse are very high requirements. Memory management is mainly about allocating memory to operators before they are sent out, and releasing memory after they are sent out in order to reuse them later, and the key function points are memory pool and memory reuse algorithm.
-
-**memory pool**: As a base for memory management, it mainly uses the BestFit best-fit memory allocation algorithm and supports dynamic expansion of memory blocks and defragmentation:
-
-![jit_level_memory_pool](./images/multi_level_compilation/jit_level_memory_pool.png)
-
-1. slicing operation: When memory is allocated, free areas are sorted according to their size, the first free area that meets the requirements is found, allocated on demand, the excess is sliced, and a new free memory block is inserted.
-2. Merge operation: When memory is reclaimed, neighboring free memory blocks are reclaimed and merged into one large free memory block.
-3. Expansion operation: During memory allocation, when there is no free memory in the free area to meet the requirements, the memory pool is expanded by applying for a certain size of memory through the interface.
-4. defragmentation: during memory allocation, when a single block of free memory is not enough for allocation, but the actual remaining memory is enough, defragmentation will be triggered to free up a block of free memory.
-
-**memory reuse algorithm**: As the core competitiveness of memory management, it is divided into static SOMAS multiplexing and dynamic reference counting multiplexing, the two algorithms have their own advantages and disadvantages, and more scenarios are the combination of the two algorithms, which are chosen to be used on demand according to the characteristics of the network structure:
-
-- static SOMAS: SOMAS (Safe Optimized Memory Allocation Solver) aggregates and analyzes the computational graph parallel flow and data dependency, obtains the ancestor relationship between operators to construct the tensor global lifetime mutual exclusion constraints, and uses various heuristic algorithms to solve the optimal memory static planning, minimize the memory fragmentation, and achieve memory reuse close to the theoretical limit. Static SOMAS obtains the optimal memory planning for the graph compilation phase analyzing the graph phase, but dynamic shape cannot be used due to the inability to obtain the real shape in the compilation phase.
-- Dynamic reference counting: allocate memory during execution, completely dynamic, compilation stage does not analyze the structure of the graph in advance, according to the reference counting to ensure that after ending use, release it immediately, to achieve the effect of dynamic reuse. Dynamic reference counting allocates memory dynamically during execution, which is applicable to any scenario, but is prone to fragmentation.
-
-### Stream Management
-
-MindSpore's device stream management is a key feature in the back-end of the framework, designed to efficiently manage and schedule streams on compute devices to optimize the execution efficiency and resource utilization of compute graphs. Device stream management ensures efficient concurrent execution of computation and communication tasks in a multi-computing resource environment through intelligent stream allocation and scheduling strategies, thus improving overall performance.
-
-![jit_level_stream_manage](./images/multi_level_compilation/jit_level_stream_manage.png)
-
-The **Stream Manager** plays a central role in MindSpore architecture. It is responsible for the creation, distribution, and destruction of streams, ensuring that each compute task is executed on the appropriate stream. The Stream Manager schedules tasks to different streams based on the type and priority of the task, as well as the load on the device, to achieve optimal resource utilization and task concurrency.
-The **Event Manager** monitors and manages synchronization and dependencies between streams. By recording and triggering events, the Event Manager ensures that tasks on different streams are executed in the correct order, avoiding data contention and resource conflicts. The Event Manager also supports the triggering and processing of asynchronous events (e.g., memory reclamation), which further enhances the concurrency and responsiveness of the system.
-
-### HAL Management
-
-In order to decouple the back-end architecture and third-party hardware docking, MindSpore provides a hardware abstraction layer, defines a standardized hardware docking interface, and realizes the decoupling of the framework and the hardware, see [three-party hardware interconnection](https://www.mindspore.cn/docs/en/master/design/pluggable_device.html).
+- MindSpore's execution order adjustment module combines rule-based and heuristic-based strategies to provide both bfs/dfs execution order orchestration algorithms [mindspore.jit(option={“exec_order”: “bfs/dfs”})](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit) to achieve fine-grained adjustment of the execution order of the computation graph, so as to effectively deal with multiple challenges such as memory constraints and system stability while ensuring computational efficiency.
 
 ## Introduction to the O1 Model
 
@@ -192,12 +133,3 @@ In addition to graph-kernel fusion, O1 may be gradually extended to add some oth
 
 1. KernelPacket: automatic fusion and optimization of shape computations in dynamic shape scenarios;
 2. Communicative-kernel fusion: fusion of communication operators with computational operators.
-
-## Introduction to the O2 Model
-
-The O2 level uses graph sinking execution to execute the computational graph down to the Device side. Compared with O0 and O1 modes, O2 mode can perform large granularity graph optimization based on the global information of the graph, such as graph fusion, communication operator fusion, UB fusion, as well as a separate memory reuse strategy under O2. Most notably, the O2 mode sinks the model to the device side, eliminating the interaction between the operator host and the device, and essentially no host scheduling overhead. However there are some disadvantages of the O2 model, for example:
-
-1. The compilation time of O2 mode is longer, especially when the model size is larger.
-2. The execution granularity of O2 mode is computational graphs, which has some differences compared with user scripts at the operator granularity, thus making debugging and tuning more difficult.
-
-Therefore, in small and medium-sized models, it is easy to appear host bound, if you want to get the ultimate execution performance, it is recommended to use O2 mode.
