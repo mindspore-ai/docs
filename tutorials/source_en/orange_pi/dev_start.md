@@ -8,10 +8,10 @@ Since developers may perform custom model and case development in OrangePi AIpro
 
 After obtaining the OrangePi AIpro development board, developers first need to confirm hardware resources, burn images, and upgrade CANN and MindSpore versions before running the case. The specific steps are as follows:
 
-- Hardware: OrangePi AIpro 16G 8-12T development board
-- Image: OrangePi AIpro official Ubuntu image
-- CANN: 8.0.RC3.alpha002
-- MindSpore: 2.4.10
+| OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
+| :----:| :----: | :----:| :----: |
+| 8T 16G | Ubuntu | 8.0.RC3.alpha002| 2.4.10 |
+| 8T 16G | Ubuntu | 8.0.0beta1| 2.5.0 |
 
 ### Image Burning
 
