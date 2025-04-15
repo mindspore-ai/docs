@@ -225,7 +225,7 @@ MindSpore Tutorial
                      <a href="./custom_program/op_custom.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">Custom programming</span>
+                              <span class="doc-head-content">Custom Programming</span>
                            </div>
                            <div class="doc-article-desc">
                               Provide custom operator and customized convergence practice cases.
@@ -243,7 +243,7 @@ MindSpore Tutorial
                      <a href="./model_infer/ms_infer/llm_inference_overview.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">Infer</span>
+                              <span class="doc-head-content">Inference</span>
                            </div>
                            <div class="doc-article-desc">
                               Describe the device-to-device process of MindSpore inference, including model building and weight segmentation.
