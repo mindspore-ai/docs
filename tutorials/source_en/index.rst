@@ -124,7 +124,7 @@ MindSpore Tutorial
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Practical Cases
+   :caption: Model Cases
    :hidden:
 
    cv
@@ -134,72 +134,174 @@ MindSpore Tutorial
 .. raw:: html
 
    <div class="container">
-	   <div class="row">
+      <div class="row">
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./beginner/quick_start.html" class="article-link">
+                     <a href="./beginner/introduction.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Quick Start</span>
                            </div>
                            <div class="doc-article-desc">
-                              Run through the basic process of MindSpore deep learning, using the LeNet5 network model as an example of a common task in deep learning.
+                              Basic processes of MindSpore deep learning, including data processing, model loading and saving, and graph mode acceleration.
                            </div>
                         </div>
                      </a>
                   </div>
-					</div>
-			</div>
-			<div class="col-md-6">
+               </div>
+         </div>
+         <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./cv/resnet50.html" class="article-link">
+                     <a href="./dataset/sampler.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">Computer Vision Practice Cases</span>
+                              <span class="doc-head-content">Data Processing</span>
                            </div>
                            <div class="doc-article-desc">
-                              Provides typical network implementations in the field of computer vision, as well as a complete training, evaluation, and prediction process.
+                              Provide cases of data processing enhancement, cache, and pipeline functions.
                            </div>
                         </div>
                      </a>
                   </div>
-					</div>
-			</div>
+               </div>
+         </div>
       </div>
       <div class="row">
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./nlp/sentiment_analysis.html" class="article-link">
+                     <a href="./compile/static_graph.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">Examples of Natural Language Processing in Practice</span>
+                              <span class="doc-head-content">Compilation</span>
                            </div>
                            <div class="doc-article-desc">
-                              Provides typical network implementations in the field of natural language processing, as well as a complete training, evaluation, and prediction process.
+                              Provide MindSpore compilation syntax support cases and graph mode programming cases.
                            </div>
                         </div>
                      </a>
                   </div>
-					</div>
-			</div>
+               </div>
+         </div>
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./generative/gan.html" class="article-link">
+                     <a href="./parallel/overview.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">Generative Practice Examples</span>
+                              <span class="doc-head-content">Parallel</span>
                            </div>
                            <div class="doc-article-desc">
-                              Provides typical network implementations in the generative field, as well as a complete training, evaluation, and prediction process.
+                              Provide practice cases and optimization policies, such as data parallelism, operator-level parallelism, and optimizer parallelism.
                            </div>
                         </div>
                      </a>
                   </div>
-					</div>
-			</div>
-	   </div>
-	</div>
+               </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./debug/pynative.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">Debugging and Tuning</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Provide debugging cases for dump, profiler, and dryrun functions.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./custom_program/op_custom.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">Custom programming</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Provide custom operator and customized convergence practice cases.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./model_infer/ms_infer/llm_inference_overview.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">Infer</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Describe the device-to-device process of MindSpore inference, including model building and weight segmentation.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./train_availability/fault_recover.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">High Availability</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Describe the training HA feature, including fault recovery and graceful process exit.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./orange_pi/overview.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">Orange Pi</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Provide cases of setting up, developing, and reasoning the Orange Pie environment.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+         <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./model_migration/cv.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">Model Cases</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              Provide model migration guidance and various CV, NLP, and generative model building cases.
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+         </div>
+      </div>
+   </div>
