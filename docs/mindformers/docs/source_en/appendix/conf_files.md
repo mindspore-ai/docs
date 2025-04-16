@@ -174,17 +174,26 @@ In order to improve the performance of the model, it is usually necessary to con
 
 ### Model Optimization Configuration
 
-MindSpore Transformers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html#recomputation) for details.
+1. MindSpore Transformers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html#recomputation) for details.
 
-| Parameters                                         | Descriptions                                                                                            | Types           |
-|----------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------|
-| recompute_config.recompute                         | Enable recompute.                                                                                       | bool/list/tuple |
-| recompute_config.select_recompute                  | Turn on recomputation to recompute only for the operators in the attention layer.                        | bool/list       |
-| recompute_config.parallel_optimizer_comm_recompute | Whether to recompute AllGather communication introduced in parallel by the optimizer.                    | bool/list       |
-| recompute_config.mp_comm_recompute                 | Whether to recompute communications introduced by model parallel.                                        | bool            |
-| recompute_config.recompute_slice_activation        | Whether to output slices for Cells kept in memory.                                                       | bool            |
-| recompute_config.select_recompute_exclude          | Disable recomputation for the specified operator, valid only for the Primitive operators.               | bool/list       |
-| recompute_config.select_comm_recompute_exclude     | Disable communication recomputation for the specified operator, valid only for the Primitive operators. | bool/list       |
+   | Parameters                                         | Descriptions                                                                                            | Types           |
+   |----------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------|
+   | recompute_config.recompute                         | Whether to enable recompute.                                                                                        | bool/list/tuple |
+   | recompute_config.select_recompute                  | Turn on recomputation to recompute only for the operators in the attention layer.                        | bool/list       |
+   | recompute_config.parallel_optimizer_comm_recompute | Whether to recompute AllGather communication introduced in parallel by the optimizer.                    | bool/list       |
+   | recompute_config.mp_comm_recompute                 | Whether to recompute communications introduced by model parallel.                                        | bool            |
+   | recompute_config.recompute_slice_activation        | Whether to output slices for Cells kept in memory.                                                       | bool            |
+   | recompute_config.select_recompute_exclude          | Disable recomputation for the specified operator, valid only for the Primitive operators.               | bool/list       |
+   | recompute_config.select_comm_recompute_exclude     | Disable communication recomputation for the specified operator, valid only for the Primitive operators. | bool/list       |
+
+2. MindSpore Transformers provides fine-grained activations SWAP-related configurations to reduce the memory footprint of the model during training, see [Fine-Grained Activations SWAP](https://www.mindspore.cn/mindformers/docs/en/dev/function/fine_grained_activations_swap.html) for details.
+
+   | Parameters                                         | Descriptions                                                                                            | Types           |
+   |----------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------|
+   | swap_config.swap | Enable activations SWAP. | bool |
+   | swap_config.default_prefetch | Control the timing of releasing memory in forward phase and starting prefetch in backward phase of the default SWAP strategy, only taking effect when swap=True, layer_swap=None, and op_swap=None. | int |
+   | swap_config.layer_swap | Select specific layers to enable activations SWAP. | list |
+   | swap_config.op_swap | Select specific operators within layers to enable activations SWAP. | list |
 
 ### Callbacks Configuration
 
