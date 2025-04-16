@@ -8,6 +8,24 @@
 
 .. autofunction:: {{ fullname }}
 
+{% elif fullname=="mindflow.cell.DDPMScheduler" %}
+
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :inherited-members:
+    :exclude-members:
+    :members:
+
+{% elif fullname=="mindflow.cell.DDIMScheduler" %}
+
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :inherited-members:
+    :exclude-members:
+    :members:
+
 {% elif objname[0].istitle() %}
 {{ fullname | underline }}
 
