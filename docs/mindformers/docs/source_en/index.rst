@@ -57,6 +57,10 @@ With its powerful feature set, MindSpore Transformers provides users with flexib
 
    Support the function of saving and loading weight files in safetensors format.
 
+9. `Fine-Grained Activations SWAP <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/fine_grained_activations_swap.html>_`
+
+   Support fine-grained selection of specific activations to enable SWAP and reduce peak memory overhead during model training.
+
 Deep Optimizing with MindSpore Transformers
 ---------------------------------------------
 
@@ -125,6 +129,7 @@ FAQ
    function/monitor
    function/high_availability
    function/safetensors
+   function/fine_grained_activations_swap
 
 .. toctree::
    :glob:
