@@ -141,7 +141,7 @@ Table 1 [acl_option_cfg_param] parameter configuration
 | `dynamic_batch_size`       | Optional| Specifies the [dynamic batch size](#dynamic-batch-size) parameter.| String | `"2,4"`|
 | `dynamic_image_size`       | Optional| Specifies the [dynamic image size](#dynamic-image-size) parameter.| String | `"96,96;32,32"` |
 | `fusion_switch_config_file_path` | Optional| Configure the path and name of the [fusion pattern switch](https://www.hiascend.com/document/detail/zh/canncommercial/700/devtools/auxiliarydevtool/aoepar_16_034.html) file.| String   | -      |
-| `insert_op_config_file_path` | Optional| Inserts the [AIPP](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC2alpha002/devaids/auxiliarydevtool/atlasatc_16_0025.html) operator into a model.| String  | [AIPP](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC2alpha002/devaids/auxiliarydevtool/atlasatc_16_0025.html) configuration file path|
+| `insert_op_config_file_path` | Optional| Inserts the [AIPP](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/81RC1alpha001/devaids/devtools/atc/atlasatc_16_0016.html) operator into a model.| String  | [AIPP](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/81RC1alpha001/devaids/devtools/atc/atlasatc_16_0016.html) configuration file path|
 
 ## Runtime
 
