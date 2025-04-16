@@ -1,6 +1,6 @@
 [
     {
-        "version": "br_ops",
+        "version": "br_ops_iter",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -10,13 +10,13 @@
             "zh": [
                 {
                     "label": "API文档",
-                    "url": "/docs/zh-CN/br_ops/api_python/index.html"
+                    "url": "/docs/zh-CN/br_ops_iter/api_python/index.html"
                 }
             ],
             "en": [
                 {
                     "label": "API",
-                    "url": "/docs/en/br_ops/api_python/index.html"
+                    "url": "/docs/en/br_ops_iter/api_python/index.html"
                 }
             ]
         },

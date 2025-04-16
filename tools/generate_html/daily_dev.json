@@ -2,9 +2,9 @@
 {
     "id" : 1 ,
     "name" : "mindspore",
-    "branch" : "br_ops",
-    "html_version" : "br_ops",
-    "whl_path" : "/mindspore/website/br_ops/cpu/x86_64",
+    "branch" : "br_ops_iter",
+    "html_version" : "br_ops_iter",
+    "whl_path" : "/mindspore/website/br_ops_iter/cpu/x86_64",
     "whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$",
     "environ" : "MS_PATH",
     "uninstall_name" : "mindspore"
@@ -12,8 +12,8 @@
 {
     "id" : 2 ,
     "name" : "tutorials",
-    "branch" : "br_ops",
-    "html_version" : "br_ops",
+    "branch" : "br_ops_iter",
+    "html_version" : "br_ops_iter",
     "whl_path" : "",
     "whl_name" : "",
     "environ" : "",

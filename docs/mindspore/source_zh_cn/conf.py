@@ -390,7 +390,7 @@ for cur, _, files in os.walk(des_sir):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
-                    new_content = re.sub(re_url, r'\1/br_ops', content)
+                    new_content = re.sub(re_url, r'\1/br_ops_iter', content)
                     if i.endswith('.md'):
                         md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                         if 'resource/_static/logo_source' not in new_content:
