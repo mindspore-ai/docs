@@ -120,6 +120,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | train_dataset.batch_size                    | 同`runner_config.batch_size`                                                                                                                                         | int   |
 | train_dataset.input_columns                 | 设置训练数据集输入的数据列                                                                                                                                                       | list  |
 | train_dataset.output_columns                | 设置训练数据集输出的数据列                                                                                                                                                       | list  |
+| train_dataset.construct_args_key            | 设置模型`construct`输入的数据集部分`keys`, 按照字典序传入模型，当模型的传参顺序和数据集输入的顺序不一致时使用该功能                    | list |
 | train_dataset.column_order                  | 设置训练数据集输出数据列的顺序                                                                                                                                                     | list  |
 | train_dataset.num_parallel_workers          | 设置读取训练数据集的进程数                                                                                                                                                       | int   |
 | train_dataset.python_multiprocessing        | 是否开启Python多进程模式提升数据处理性能                                                                                                                                             | bool  |
