@@ -99,7 +99,7 @@
      - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图
      - String
      - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如： `export MS_JIT_MODULES=mindflow,mindyolo`。
-     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库，请参考 `调用第三方库 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/compile/static_graph.html#%E8%B0%83%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93-1>`_ 。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
+     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
    * - MS_JIT_IGNORE_MODULES
      - 指定静态图模式下哪些模块是第三方库，不进行JIT静态编译，其函数方法会被解释执行。
      - String
