@@ -61,7 +61,7 @@
     "id" : 7 ,
     "name" : "mindchemistry",
     "branch" : "master",
-    "whl_path" : "/mindscience/newest/mindchemistry/gpu/x86_64/cuda-11.1/",
+    "whl_path" : "/mindscience/website/mindchemistry/gpu/x86_64/cuda-11.1/",
     "whl_name" : "mindchemistry_gpu-.*-cp39-cp39-linux_x86_64.whl$",
     "environ" : "MSC_PATH",
     "uninstall_name" : "mindchemistry_gpu"
@@ -80,9 +80,18 @@
     "id" : 9 ,
     "name" : "mindflow",
     "branch" : "master",
-    "whl_path" : "mindscience/newest/mindflow/gpu/x86_64/cuda-11.1/",
+    "whl_path" : "mindscience/website/mindflow/gpu/x86_64/cuda-11.1/",
     "whl_name" : "mindflow_gpu-.*-py3-none-any.whl$",
     "environ" : "MSC_PATH",
     "uninstall_name" : "mindflow_gpu"
+},
+{
+    "id" : 10 ,
+    "name" : "mindearth",
+    "branch" : "master",
+    "whl_path" : "mindscience/website/mindearth/gpu/x86_64/cuda-11.1/",
+    "whl_name" : "mindearth_gpu-.*-py3-none-any.whl$",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : "mindearth_gpu"
 }
 ]
