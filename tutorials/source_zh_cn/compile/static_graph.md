@@ -1,6 +1,6 @@
 # 图模式编程介绍
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/static_graph.rst)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/static_graph.md)
 
 ## 概述
 
@@ -23,7 +23,7 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 ，或者使用Graph模式需要设置`ms.set_context(mode=ms.GRAPH_MODE)`，使用`Cell`类并且在`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell
 API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
 
-由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在\[STRICT，LAX\]范围内，选择`STRICT`则认为使用基础语法，不扩展静态图语法。默认值为`LAX`，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)章节。全部级别都支持所有后端。
+由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在\[STRICT，LAX\]范围内，选择`STRICT`则认为使用基础语法，不扩展静态图语法。默认值为`LAX`。全部级别都支持所有后端。
 
 - STRICT: 仅支持基础语法，且执行性能最佳。可用于MindIR导入导出。
 - LAX:
@@ -1138,12 +1138,12 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
     RuntimeError: Unsupported statement 'Try'.
     ```
 
-4. 对标Python内置数据类型，除去当前图模式下支持的[Python内置数据类型](#python内置数据类型)，复数`complex`和集合`set`类型是不支持的。列表`list`和字典`dictionary`的一些高阶用法在基础语法场景下是不支持的，需要在JIT语法支持级别选项`jit_syntax_level`为`LAX`时才支持，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)章节。
+4. 对标Python内置数据类型，除去当前图模式下支持的[Python内置数据类型](#python内置数据类型)，复数`complex`和集合`set`类型是不支持的。列表`list`和字典`dictionary`的一些高阶用法在基础语法场景下是不支持的，需要在JIT语法支持级别选项`jit_syntax_level`为`LAX`时才支持。
 
 5. 对标Python的内置函数，在基础语法场景下，除去当前图模式下支持的[Python内置函数](https://www.mindspore.cn/tutorials/zh-CN/master/compile/python_builtin_functions.html)，仍存在部分内置函数在图模式下是不支持的，例如：basestring、bin、bytearray、callable、chr、cmp、compile、
     delattr、dir、divmod、eval、execfile、file、frozenset、hash、hex、id、input、issubclass、iter、locals、long、memoryview、next、object、oct、open、ord、property、raw_input、reduce、reload、repr、reverse、set、slice、sorted、unichr、unicode、vars、xrange、\_\_import\_\_。
 
-6. Python提供了很多第三方库，通常需要通过import语句调用。在图模式下JIT语法支持级别为STRICT时，不能直接使用第三方库。如果需要在图模式下使用第三方库的数据类型或者调用第三方库的方法，需要在JIT语法支持级别选项`jit_syntax_level`为`LAX`时才支持，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)中的[调用第三方库](#调用第三方库)章节。
+6. Python提供了很多第三方库，通常需要通过import语句调用。在图模式下JIT语法支持级别为STRICT时，不能直接使用第三方库。如果需要在图模式下使用第三方库的数据类型或者调用第三方库的方法，需要在JIT语法支持级别选项`jit_syntax_level`为`LAX`时才支持。
 
 7. 在图模式下，不感知在图外对类的属性的修改，即图外对类的属性修改不会生效。例如：
 
