@@ -271,7 +271,7 @@ AOE是一款专门为Davinci平台打造的计算图形性能自动调优工具�
 
 ### AOE API调优
 
-Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型共享权重，支持模型中存在可以被更新的权重，即变量。当前仅AOE API调优支持模型中存在变量，默认的AOE工具调优不支持。环境变量、知识库路径的设置和使用、AOE调优缓存与AOE工具调优一致。详情可参考[AOE调优](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC2alpha002/devaids/auxiliarydevtool/aoerc_16_0002.html)。
+Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型共享权重，支持模型中存在可以被更新的权重，即变量。当前仅AOE API调优支持模型中存在变量，默认的AOE工具调优不支持。环境变量、知识库路径的设置和使用、AOE调优缓存与AOE工具调优一致。详情可参考[AOE调优](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/81RC1alpha001/devaids/devtools/aoe/aoerc_16_0002.html)。
 
 转换工具支持AOE API调优。当 `optimize=ascend_oriented`，配置文件中识别到 `[ascend_context]` 存在 `provider=ge` ，且 `[ascend_context]` 或 `[acl_option_cfg_param]` 中存在有效的 `aoe_mode` 或 `[aoe_global_options]` 存在有效的 `job_type` ，将启动AOE API调优。AOE API调优只产生知识库，不产生优化后的模型。
 
