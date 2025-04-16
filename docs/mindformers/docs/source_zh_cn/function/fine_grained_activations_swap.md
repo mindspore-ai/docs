@@ -38,7 +38,7 @@
 > 当前MindSpore框架将内存搬运与内存释放解耦。将激活值从device侧卸载至host侧时，即便数据已全部卸载，其在device侧占用的内存空间并未被立刻释放，而是需要再触发释放操作。内存释放操作触发前，会检测激活值卸载是否完成，若未完成，则进程会原地等待，直至激活值卸载完成。
 
 | 配置项 | 类型 | 说明 |
-|:--:|:--:|:--:|
+|:--:|:--:|:---|
 | swap | Bool | 默认值False。当为False时，本特性的四个功能接口全部不生效；当为True时，激活值SWAP功能开启，并检查`layer_swap`与`op_swap`是否为None，若均为None，则启用默认的SWAP策略，该策略将对所有层中的`flash_attention`算子使能SWAP。若`layer_swap`与`op_swap`存在非None值，则屏蔽默认策略并按照`layer_swap`与`op_swap`的配置使能SWAP功能。 |
 | default_prefetch | Int | 默认值1。当swap=True、layer_None、op_swap=None时生效。`default_prefetch`用于调控默认SWAP策略的激活值内存释放时机和预取开始时机。当`default_prefetch`较大时，正向阶段释放内存时机较晚，激活值占用的device内存会在激活值卸载完成后被长期锁住，不被其他数据块复用，同时反向阶段开始将激活值从host侧拷贝至device侧的时机较早，申请相应内存空间的时间较早，内存压力未得到真正缓解；当`default_prefetch`较小时，正向阶段内存释放时机较早，存在等待激活值拷贝任务完成的空等时间，且反向阶段预取的开始时机较晚，若在使用激活值计算时仍未完成激活值预取，则也会引入等待时间，影响端到端性能。因此开放本接口，供用户调试内存释放时机与激活值预期时机，以达到最少的内存占用和最优的端到端性能。|
 | layer_swap | List | 默认值None。当为None时，本接口不生效；当为List类型时，本接口包含若干Dict类型的列表元素，每个Dict类型元素包含`backward_prefetch`与`layers`两个键，提供使能SWAP的预取时机（即开始搬回操作的时机）和对应的层索引。 |
@@ -53,7 +53,7 @@
 3. 重计算的YAML配置接口只支持从前至后选择特定数量的层使能重计算，而不支持选择特定层或特定层的特定算子使能重计算，这意味着同时使用SWAP与重计算时，SWAP只能使能靠后的层或靠后层中的算子，无法获取SWAP特性的最大收益。因此当且仅当`swap=True`时，重计算接口功能将按下表调整。
 
 | 接口名称 | 原功能 | 开启SWAP后功能 |
-|:-:|:-:|:-:|
+|:--:|:---|:---|
 | recompute | 确定各pipeline stage中使能重计算的层数 | 不感知pipeline stage，仅接受bool/list类型入参。当为bool类型时，所有层使能重计算；当为list类型时，列表元素为层索引，按索引选择特定层使能重计算 |
 | select_recompute | 确定各pipeline stage中特定算子使能重计算的层数 | 不感知pipeline stage，对于每个算子的键值对，仅接受bool/list类型入参。当为bool类型时，所有层使能重计算；当为list类型时，列表元素为层索引，按索引选择特定层使能重计算 |
 | select_comm_recompute | 确定各pipeline stage中通信算子使能重计算的层数 | 不感知pipeline stage，仅接受bool/list类型入参。当为bool类型时，所有层使能重计算；当为list类型时，列表元素为层索引，按索引选择特定层使能重计算 |
