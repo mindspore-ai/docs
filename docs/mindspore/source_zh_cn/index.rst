@@ -1,7 +1,7 @@
 MindSpore 文档
 =========================
 
-**br_ops页面仅用于算法开发使用，部分文档链接可能无效，如需查看请切换至** `br_base分支 <https://www.mindspore.cn/docs/zh-CN/br_base/api_python/index.html>`_
+**br_ops_iter页面仅用于算法开发使用，部分文档链接可能无效，如需查看请切换至** `br_base分支 <https://www.mindspore.cn/docs/zh-CN/br_base/api_python/index.html>`_
 
 .. toctree::
    :glob:

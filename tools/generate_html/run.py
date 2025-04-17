@@ -538,7 +538,7 @@ if __name__ == "__main__":
              release_url=args.release_url, generate_list=generate_list_p)
 
         # 替换页面左侧目录部分
-        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/br_ops"
+        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/br_ops_iter"
         if os.path.exists(ms_path):
             replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
             print('docs中文目录大纲调整完成！')
