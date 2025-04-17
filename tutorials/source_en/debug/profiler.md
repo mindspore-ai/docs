@@ -230,7 +230,7 @@ MindSpore Profiler interface will associate and integrate the framework side dat
 > - `FRAMEWORK` is the performance raw data of the framework side, no need to pay attention to it.
 > - `PROF` directory is the performance data collected by CANN Profling, mainly saved in the `mindstudio_profiler_output` directory.
 
-## ascend_mindspore_profiler_{Rank_ID}.db
+### ascend_mindspore_profiler_{Rank_ID}.db
 
 The `ascend_mindspore_profiler_{Rank_ID}.db` file is controlled by the `ExportType.Db` switch and mainly collects all performance data in .db format.
 
