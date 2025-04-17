@@ -200,7 +200,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
     │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
     │   ├── communication_analyzer.db    // 记录通信耗时和通信带宽信息，在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
-    │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置profiler_level=ProfilerLevel.Level1或profiler_level=ProfilerLevel.Level2生成
+    │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── communication_matrix.json  // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，包含通信小算子的基本信息，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── dataset.csv                // activities中配置ProfilerActivity.CPU生成
     │   ├── data_preprocess.csv        // 配置 profiler_level=ProfilerLevel.Level2 生成，如果模型无AICPU算子，那么即使采集等级设置为Level2，也不会生成该文件
@@ -230,7 +230,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 > - `FRAMEWORK` 为框架侧的性能原始数据，无需关注。
 > - `PROF` 目录下为CANN Profling采集的性能数据，主要保存在 `mindstudio_profiler_output` 目录下。
 
-## ascend_mindspore_profiler_{Rank_ID}.db
+### ascend_mindspore_profiler_{Rank_ID}.db
 
 `ascend_mindspore_profiler_{Rank_ID}.db` 文件由 `ExportType.Db` 开关控制，文件主要汇总所有性能数据的.db格式文件。
 详细介绍请参考[ascend_mindspore_profiler_{Rank_ID}.db](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0026.html)。
