@@ -216,12 +216,12 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
     │   ├── step_trace_time.csv        // 迭代中计算和通信的时间统计
     │   └── trace_view.json            // 记录整个训练/推理任务的时间信息
     ├── FRAMEWORK                      // 框架侧的原始性能数据，无需关注
-    └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN层的性能数据，命名格式：PROF_{数字}_{时间戳}_{字符串}，data_simplification=True时，仅保留此目录下的原始性能数据，删除其他数据
+    └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN层的性能数据，命名格式：PROF_{数字}_{时间戳}_{字符串}，data_simplification=True 时，仅保留此目录下的原始性能数据，删除其他数据
           ├── analyze                  // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
           ├── device_{Rank_ID}                 // CANN Profling采集的device侧的性能数据
           ├── host                     // CANN Profling采集的host侧的性能数据
-          ├── mindstudio_profiler_log  // CANN Profling解析的日志文件，data_simplification=True时删除此目录
-          └── mindstudio_profiler_output  // CANN Profling解析的性能数据，data_simplification=True时删除此目录
+          ├── mindstudio_profiler_log  // CANN Profling解析的日志文件，data_simplification=True 时删除此目录
+          └── mindstudio_profiler_output  // CANN Profling解析的性能数据，data_simplification=True 时删除此目录
     └── logs                           // MindSpore Profiler接口解析的日志文件
 ```
 
