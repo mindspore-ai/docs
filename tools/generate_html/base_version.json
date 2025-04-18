@@ -16,7 +16,7 @@
                 {
                     "label": "特性介绍",
                     "url": "/docs/zh-CN/master/features/index.html",
-                    "id": "master-model_train"
+                    "id": "master-features"
                 },
                 {
                     "label": "API文档",
@@ -42,7 +42,7 @@
                 {
                     "label": "Feature Description",
                     "url": "/docs/en/master/features/index.html",
-                    "id": "master-model_train"
+                    "id": "master-features"
                 },
                 {
                     "label": "API",

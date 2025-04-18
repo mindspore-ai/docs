@@ -220,7 +220,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if links:
                     for link_ in links[::-1]:
                         href = link_.get("href", "")
-                        if href.startswith('r1.5.0_'):
+                        if href.startswith('dev_'):
                             url = search_url+href+data[i]['whl_search']
                             break
                 if not url:
