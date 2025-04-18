@@ -85,3 +85,5 @@ MindSpore provides rich interfaces for model building, training, and inference. 
      - Interface of device management, stream management, event management and memory management.
    * - `Environment Variables <./env_var_list.html>`_
      - Notes related to environment variables.
+   * - `PyTorch and MindSpore API Mapping Table <../note/api_mapping/pytorch_api_mapping.html>`_
+     - API mapping relationship and difference analysis between PyTorch and MindSpore.
