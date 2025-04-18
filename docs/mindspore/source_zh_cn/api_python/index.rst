@@ -85,3 +85,5 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 设备管理、流管理、事件管理与内存管理的接口。
    * - `环境变量 <./env_var_list.html>`_
      - 环境变量相关说明。
+   * - `PyTorch与MindSpore API映射表 <../note/api_mapping/pytorch_api_mapping.html>`_
+     - PyTorch与MindSpore的API映射关系和差异分析。
