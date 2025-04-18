@@ -14,7 +14,7 @@
 
 3. 运行训练脚本；
 
-4. 通过[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html)软件查看性能数据。
+4. 通过[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/AscendInsight_0002.html)软件查看性能数据。
 
 ## 使用方法
 
@@ -189,7 +189,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
 
 性能数据采集完成后，原始数据会按照以下目录结构进行存储：
 
-> - 以下数据文件用户无需打开查看，可根据[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html)指导进行性能数据的查看和分析。
+> - 以下数据文件用户无需打开查看，可根据[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/AscendInsight_0002.html)指导进行性能数据的查看和分析。
 > - 以下是结果文件全集，实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
 
 ```sh
@@ -197,7 +197,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
     ├── profiler_info_{Rank_ID}.json    // 用于记录Profiler相关的元数据，Rank_ID为卡号
     ├── profiler_metadata.json          // 用来保存用户通过add_metadata接口添加的信息和其他Profiler相关的元数据
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler接口解析性能数据
-    │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
+    │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level0或Level1或Level2生成
     │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
     │   ├── communication_analyzer.db    // 记录通信耗时和通信带宽信息，在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
     │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
@@ -217,7 +217,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
     │   └── trace_view.json            // 记录整个训练/推理任务的时间信息
     ├── FRAMEWORK                      // 框架侧的原始性能数据，无需关注
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN层的性能数据，命名格式：PROF_{数字}_{时间戳}_{字符串}，data_simplification=True 时，仅保留此目录下的原始性能数据，删除其他数据
-          ├── analyze                  // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
+          ├── analyze                  // 多卡或集群等存在通信的场景配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
           ├── device_{Rank_ID}                 // CANN Profling采集的device侧的性能数据
           ├── host                     // CANN Profling采集的host侧的性能数据
           ├── mindstudio_profiler_log  // CANN Profling解析的日志文件，data_simplification=True 时删除此目录
@@ -242,66 +242,13 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 ### communication.json
 
-该性能数据文件信息如下所示：
-
-- hcom\_allGather\_\*@group
-    - Communication Time Info
-        - Start Timestamp\(μs\)
-        - Elapse Time\(ms\)
-        - Transit Time\(ms\)
-        - Wait Time\(ms\)
-        - Synchronization Time\(ms\)
-        - Idel Time\(ms\)
-        - Wait Time Ratio
-        - Synchronization Time Ratio
-    - Communication Bandwidth Info
-        - RDMA
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
-        - HCCS
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
-        - PCIE
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
-        - SDMA
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
-        - SIO
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
+`communication.json` 文件记录通信类算子的通信耗时、带宽等详细信息。
+详细介绍请参考[communication.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html)。
 
 ### communication_matrix.json
 
-该性能数据文件信息样例如下所示：
-
-- allgather\-top1@\*
-    - src\_rank\-dst\_rank
-        - Transport Type
-        - Transit Size\(MB\)
-        - Transit Time\(ms\)
-        - Bandwidth\(GB/s\)
-        - op_name
+`communication_matrix.json` 文件记录通信小算子基本的信息，包含通信size、通信带宽、通信rank等信息。
+详细介绍请参考[communication_matrix.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html)。
 
 ### dataset.csv
 
@@ -323,9 +270,9 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 其他字段请参考[kernel_details.csv](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html)。
 
-### minddata_pipeline_raw_*.csv
+### minddata_pipeline_raw_{Rank_ID}.csv
 
-`minddata_pipeline_raw_*.csv` 记录dataset数据集操作的性能指标。
+`minddata_pipeline_raw_{Rank_ID}.csv` 记录dataset数据集操作的性能指标。
 
 | 字段名 | 字段解释 |
 |----------|----------|
@@ -340,9 +287,9 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 | parent_id | 父操作编号 |
 | children_id | 子操作编号 |
 
-### minddata_pipeline_summary_*.csv
+### minddata_pipeline_summary_{Rank_ID}.csv
 
-`minddata_pipeline_summary_*.csv` 与 `minddata_pipeline_summary_*.json` 文件内容相同，只是文件格式不同。它们记录更详细的dataset数据集操作性能指标，并根据性能指标给出优化建议。
+`minddata_pipeline_summary_{Rank_ID}.csv` 与 `minddata_pipeline_summary_{Rank_ID}.json` 文件内容相同，只是文件格式不同。它们记录更详细的dataset数据集操作性能指标，并根据性能指标给出优化建议。
 
 | 字段名 | 字段解释 |
 |----------|----------|
@@ -382,7 +329,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 性能调优最重要的就是对症下药，先定界问题，再对问题进行针对性调优。
 
-首先使用[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/700/useguide/firstpage_0003.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。
+首先使用[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/useguide/firstpage_0003.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。
 
 然后，用户可以根据MindStudio Insight进行性能调优，每次调优后重跑训练，采集性能数据，并使用MindStudio Insight工具查看调优手段是否产生效果。重复这个过程，直到解决性能问题。
 
