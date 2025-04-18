@@ -315,7 +315,7 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
     input_ids = Tensor(input_ids)
 
     vocab_parallel_embedding = VocabParallelEmbedding(num_embeddings=config.vocab_size,
-                                                      embedding_dim=config.hidden_size)
+                                                   embedding_dim=config.hidden_size)
     embedding_output = vocab_parallel_embedding(input_ids)
     print(embedding_output.shape)
     ```
