@@ -14,7 +14,7 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 3. Run the training script;
 
-4. View the performance data through [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html).
+4. View the performance data through [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/AscendInsight_0002.html).
 
 ## Usage
 
@@ -189,7 +189,7 @@ When using MindSpore to train a model, in order to analyze performance bottlenec
 
 After collecting performance data, the original data will be stored according to the following directory structure:
 
-> - The following data files are not required to be opened and viewed by users. Users can refer to the [MindStudio Insight user guide](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html) for viewing and analyzing performance data.
+> - The following data files are not required to be opened and viewed by users. Users can refer to the [MindStudio Insight user guide](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/AscendInsight_0002.html) for viewing and analyzing performance data.
 > - The following is the full set of result files, the actual file number and content depend on the user's parameter configuration and the actual training scenario, if the user does not configure the related parameters or does not involve the related scenarios in the training, the corresponding data files will not be generated.  
 
 ```sh
@@ -197,7 +197,7 @@ After collecting performance data, the original data will be stored according to
     ├── profiler_info_{Rank_ID}.json             // Used to record Profiler related metadata, Rank_ID is the card number
     ├── profiler_metadata.json         // It is used to store information and other Profiler related metadata that users add through the add_metadata interface
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler interface parses performance data
-    │   ├── api_statistic.csv          // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
+    │   ├── api_statistic.csv          // Generated when profiler_level=profilerlevel.Level 0 or Level1 or Level2
     │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, the performance file of the text type is not generated
     │   ├── communication_analyzer.db    // Record communication time and bandwidth information, and configure ExportType.Db generation in export_type of the _ExperimentalConfig interface. If ExportType.Text is not configured at the same time, the performance file of the text type is not generated
     │   ├── communication.json         // Provides visualization data for performance analysis in multi-card or cluster scenarios, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
@@ -217,7 +217,7 @@ After collecting performance data, the original data will be stored according to
     │   └── trace_view.json            // Record time information for the entire training/reasoning task
     ├── FRAMEWORK                      // The raw performance data on the framework side is not required
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN layer performance data, named format: PROF_{number}_{timestamp}_{string}, delete other data when data_simplification=True, only retain the original performance data in this directory
-          ├── analyze                  // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
+          ├── analyze                  // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2 in scenarios where there is communication such as multiple cards or clusters
           ├── device_{Rank_ID}         // CANN Profling Performance data collected on the device
           ├── host                     // CANN Profling Performance data collected on the host
           ├── mindstudio_profiler_log     // CANN Profling parsed log files. Delete this directory when data_simplification is set to True
@@ -244,66 +244,15 @@ For detailed introduction, refer to [communication_analyzer.db](https://www.hias
 
 ### communication.json
 
-The information of this performance data file is as follows:
+`communication.json` file records detailed information such as communication time consumption and bandwidth of communication class operators.
 
-- hcom\_allGather\_\*@group
-    - Communication Time Info
-        - Start Timestamp\(μs\)
-        - Elapse Time\(ms\)
-        - Transit Time\(ms\)
-        - Wait Time\(ms\)
-        - Synchronization Time\(ms\)
-        - Idel Time\(ms\)
-        - Wait Time Ratio
-        - Synchronization Time Ratio
-    - Communication Bandwidth Info
-        - RDMA
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
-        - HCCS
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
-        - PCIE
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
-        - SDMA
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
-        - SIO
-            - Transit Size\(MB\)
-            - Transit Time\(ms\)
-            - Bandwidth\(GB/s\)
-            - Large Packet Ratio
-            - Size Distribution
-                - "Package Size\(MB\)": \[count, dur\]
+For detailed introduction, refer to [communication.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html).
 
 ### communication_matrix.json
 
-The information of this performance data file is as follows:
+`communication_matrix.json` file records the basic information of the communication small operator, including communication size, communication bandwidth, communication rank and other information.
 
-- allgather\-top1@\*
-    - src\_rank\-dst\_rank
-        - Transport Type
-        - Transit Size\(MB\)
-        - Transit Time\(ms\)
-        - Bandwidth\(GB/s\)
-        - op_name
+For detailed introduction, refer to [communication_matrix.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html).
 
 ### dataset.csv
 
@@ -325,9 +274,9 @@ The difference from the data collected by the Ascend PyTorch Profiler interface 
 
 For other fields, see [kernel_details.csv](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html).
 
-### minddata_pipeline_raw_*.csv
+### minddata_pipeline_raw_{Rank_ID}.csv
 
-`minddata_pipeline_raw_*.csv` records the performance metrics of the dataset operation.
+`minddata_pipeline_raw_{Rank_ID}.csv` records the performance metrics of the dataset operation.
 
 | Field Name | Field Explanation |
 |----------|----------|
@@ -342,9 +291,9 @@ For other fields, see [kernel_details.csv](https://www.hiascend.com/document/det
 | parent_id | Parent operation ID |
 | children_id | Child operation ID |
 
-### minddata_pipeline_summary_*.csv
+### minddata_pipeline_summary_{Rank_ID}.csv
 
-`minddata_pipeline_summary_*.csv` and `minddata_pipeline_summary_*.json` have the same content, but different file formats. They record more detailed performance metrics of dataset operations and provide optimization suggestions based on these metrics.
+`minddata_pipeline_summary_{Rank_ID}.csv` and `minddata_pipeline_summary_{Rank_ID}.json` have the same content, but different file formats. They record more detailed performance metrics of dataset operations and provide optimization suggestions based on these metrics.
 
 | Field Name | Field Explanation |
 |----------|----------|
@@ -385,7 +334,7 @@ In the process of large model training, due to some unpredictable introduction, 
 
 The most important thing in performance tuning is to apply the right medicine to the problem, delimit the problem first, and then perform targeted tuning to the problem.
 
-The first to use [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/700/useguide/firstpage_0003.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication.
+The first to use [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/useguide/firstpage_0003.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication.
 
 Finally, users can tune performance based on expert advice from MindStudio Insight. Re-run the training after each tuning, collect performance data, and use the MindStudio Insight tool to see if the tuning method produced results. Repeat this process until the performance issue is resolved.
 
