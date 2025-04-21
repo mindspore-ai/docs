@@ -22,7 +22,7 @@ It can be seen that the 0-axis of the tensor, e.g. "[a0, a1, a2, a3]" slices to 
 
 *Figure: Schematic of a 2D tensor arranged according to a sharding strategy*
 
-As can be seen from the above example, directly slicing the input and output tensor of the operator according to the number of slices fails to express some slicing scenarios with special statements.
+As can be seen from the above example, directly slicing the input and output tensor of the operator according to the number of slices fails to express some slicing scenarios with special appeals.
 
 ## Interface Configuration
 
