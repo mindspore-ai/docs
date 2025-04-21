@@ -140,7 +140,7 @@ MindSpore和PyTorch构建模型的方法差不多，使用算子的差别可以�
 
 PyTorch提供了 `state_dict()` 用于参数状态的查看及保存，`load_state_dict` 用于模型参数的加载。
 
-MindSpore可以使用使用 `save_checkpoint` 与`load_checkpoint` 。
+MindSpore可以使用 `save_checkpoint` 与`load_checkpoint` 。
 
 <table class="colwidths-auto docutils align-default">
 <tr>
