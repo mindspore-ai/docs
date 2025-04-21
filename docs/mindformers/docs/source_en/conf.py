@@ -219,8 +219,8 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindformers')):
         if i.endswith('.py'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url, r'\1/r2.6.0', content)
-                new_content = re.sub(re_url2, r'\1/v2.6.0', new_content)
+                new_content = re.sub(re_url, r'\1/r2.6.0rc1', content)
+                new_content = re.sub(re_url2, r'\1/v2.6.0-rc1', new_content)
                 new_content = re.sub(re_url3, r'\1/r1.1.0', new_content)
                 new_content = re.sub(re_url4, r'\1/r1.5.0', new_content)
                 if new_content != content:

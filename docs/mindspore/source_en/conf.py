@@ -306,8 +306,8 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
         if i.endswith('.py'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url, r'\1/r2.6.0', content)
-                new_content = re.sub(re_url2, r'\1/v2.6.0', new_content)
+                new_content = re.sub(re_url, r'\1/r2.6.0rc1', content)
+                new_content = re.sub(re_url2, r'\1/v2.6.0-rc1', new_content)
                 new_content = re.sub(re_url3, r'\1/r1.1.0', new_content)
                 new_content = re.sub(re_url4, r'\1/r1.5.0', new_content)
                 if new_content != content:
@@ -433,11 +433,11 @@ for cur, _, files in os.walk(des_sir):
         if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url, r'\1/r2.6.0', content)
+                new_content = re.sub(re_url, r'\1/r2.6.0rc1', content)
                 new_content = re.sub(re_url3, r'\1/r1.1.0', new_content)
                 new_content = re.sub(re_url4, r'\1/r1.5.0', new_content)
                 if i.endswith('.rst'):
-                    new_content = re.sub(re_url2, r'\1/v2.6.0', new_content)
+                    new_content = re.sub(re_url2, r'\1/v2.6.0-rc1', new_content)
                 # if i.endswith('.md'):
                 #     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                 #     if 'resource/_static/logo_source' not in new_content:
@@ -534,7 +534,7 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
-    content = re.sub(re_url, r'\1/r2.6.0', content)
-    content = re.sub(re_url2, r'\1/v2.6.0', content)
+    content = re.sub(re_url, r'\1/r2.6.0rc1', content)
+    content = re.sub(re_url2, r'\1/v2.6.0-rc1', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
