@@ -1,6 +1,6 @@
 # Building a Parallel Large Language Model Network
 
-[![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_infer/ms_infer/parallel.md)
+[![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/model_infer/ms_infer/parallel.md)
 
 In recent years, with the rapid development of deep learning technologies, especially the emergence of large-scale pre-trained models (such as ChatGPT, LLaMA, and Pangu), the AI field has made significant progress. However, as model sizes continue to expand, the computing resources required by these large models, particularly GPU memory, are growing exponentially. For example, the Pangu model with 71 billion parameters requires approximately 142 GB of GPU memory at half-precision (FP16). In addition, the increasing sequence length of large models places immense pressure on GPU memory.
 The constraints of GPU memory not only affect model loading but also limit batch sizes. Smaller batch sizes may lead to decreased inference efficiency, consequently impacting the overall throughput of the system.
@@ -13,13 +13,13 @@ When the number of model parameters is too large to fit into the GPU memory capa
 
 ### Basic MatMul Module
 
-![matmul1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/gmm.png)
-![matmul2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/matmul.png)
+![matmul1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/model_infer/ms_infer/images/gmm.png)
+![matmul2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/model_infer/ms_infer/images/matmul.png)
 
 In large model computations, matrix multiplication (MatMul) accounts for a significant portion of both weight and computation workload. MatMul exhibits both column-wise parallelism and row-wise parallelism.
 
-![Column-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/column.png)
-![Row-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/row.png)
+![Column-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/model_infer/ms_infer/images/column.png)
+![Row-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/model_infer/ms_infer/images/row.png)
 
 Starting with the original implementation of `nn.Dense` in MindSpore, we can build implementations for both column-wise and row-wise MatMul.
 
@@ -253,11 +253,11 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
 
    In addition to MatMul, the Embedding layer can also be parallelized. The Embedding weights can be sharded across multiple devices, with each device responsible for mapping a different range of token IDs.
 
-   ![embedding1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/embedding1.png)
+   ![embedding1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/model_infer/ms_infer/images/embedding1.png)
 
    Specifically:
 
-   ![embedding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/embedding2.png)
+   ![embedding2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/model_infer/ms_infer/images/embedding2.png)
 
    Based on nn.Embedding, build an Embedding layer for model parallelism.
 
@@ -324,7 +324,7 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
 
 It can be seen that the tensor is processed sequentially. First, it passes through the `ColumnParallelLinear` column-wise MatMul to obtain the parallel results. Then, it is input to the `RowParallelLinear` row-wise MatMul, resulting in the complete output of the two MatMul operations.
 
-![Column+Row](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/column%2Brow.png)
+![Column+Row](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/model_infer/ms_infer/images/column%2Brow.png)
 
 Based on the preceding analysis, you can change the TransformerModel built in [Building a Large Language Model Inference Network from Scratch](./model_dev.md) to a model structure that supports parallelism.
 
@@ -332,7 +332,7 @@ Based on the preceding analysis, you can change the TransformerModel built in [B
 
     Take multi-head attention (MHA) as an example. The typical attention module in a Transformer is multi-headed, with each attention head operating independently. Therefore, when a single attention head is complete, the activation value can be sharded along the `hidden_size` dimension. For example, assume that the number of MHA headers (`num_heads`) is 16, the dimension (`head_dim`) of each header is 256, then the `hidden_size` is 4096, and the linears of Q/K/V have in/out dimensions of 4096. When the model parallelism is set to `tensor_model_parallel=4`, these linears are sharded into four devices. Each device(4096,1024) means that each device computes 4 heads.
 
-    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
+    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
 
     The following is an example of the Attention module code:
 
@@ -453,7 +453,7 @@ Based on the preceding analysis, you can change the TransformerModel built in [B
             return hidden_state
     ```
 
-For details about the end-to-end large language model code project, see [model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/model_dev.py) script. Run the following command to verify the code:
+For details about the end-to-end large language model code project, see [model_dev.py](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/infer_code/model_dev.py) script. Run the following command to verify the code:
 
 ```shell
 msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py

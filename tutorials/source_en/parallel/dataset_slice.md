@@ -1,6 +1,6 @@
 # Dataset Slicing
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/dataset_slice.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/parallel/dataset_slice.md)
 
 ## Overview
 
@@ -10,9 +10,9 @@ When performing distributed training, taking image data as an example, when the 
 
 ### Related Interfaces
 
-1. `mindspore.dataset.vision.SlicePatches(num_height=1, num_width=1)`: Slices the Tensor into multiple blocks horizontally and vertically. Suitable for scenarios where the Tensor has a large height and width. `num_height` is the number of slices in vertical direction and `num_width` is the number of slices in horizontal direction. More parameters can be found in [SlicePatches](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html).
+1. `mindspore.dataset.vision.SlicePatches(num_height=1, num_width=1)`: Slices the Tensor into multiple blocks horizontally and vertically. Suitable for scenarios where the Tensor has a large height and width. `num_height` is the number of slices in vertical direction and `num_width` is the number of slices in horizontal direction. More parameters can be found in [SlicePatches](https://www.mindspore.cn/docs/en/br_base/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html).
 
-2. `dataset_strategy(config=((1, 1, 1, 8), (8,)))`: indicates dataset slicing strategy. For more details, [AutoParallel Parallel Configuration](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html). The `dataset_strategy` interface has the following limitations:
+2. `dataset_strategy(config=((1, 1, 1, 8), (8,)))`: indicates dataset slicing strategy. For more details, [AutoParallel Parallel Configuration](https://www.mindspore.cn/docs/en/br_base/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html). The `dataset_strategy` interface has the following limitations:
 
     - Each input is allowed to be sliced in at most one dimension. If `dataset_strategy(config=((1, 1, 1, 8), (8,)))` or `config=((1, 1, 1, 8), (1,))` is supported, each input is sliced in just one dimension at most, but not `config=((1, 1, 4, 2), (1,))`, whose first input is sliced into two dimensions.
 
@@ -22,7 +22,7 @@ When performing distributed training, taking image data as an example, when the 
 
 ### Sample Code Description
 
-> Download the full sample code here: [dataset_slice](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dataset_slice).
+> Download the full sample code here: [dataset_slice](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/dataset_slice).
 
 The directory structure is as follows:
 

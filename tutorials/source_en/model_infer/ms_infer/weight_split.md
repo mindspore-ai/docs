@@ -1,6 +1,6 @@
 # Multi-device Model Weight Sharding
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_infer/ms_infer/weight_split.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/model_infer/ms_infer/weight_split.md)
 
 After the model training is complete, the trained weights can be loaded for inference. The GPU memory required for inference is significantly lower than that required for training. Therefore, the model weights need to be sharded and loaded again.
 
@@ -153,4 +153,4 @@ def save_strategy_file(state_dict, strategy_file_name):
 
 After the parallel strategy file of the inference network is obtained, the training weight can be converted into the weight required for inference according to the method of Executing Distributed Checkpoint Transformation.
 
-For details about the end-to-end weight sharding code project, see [Weight Sharding](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/param_split.py).
+For details about the end-to-end weight sharding code project, see [Weight Sharding](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/infer_code/param_split.py).

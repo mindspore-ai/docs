@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_win_install_source.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/install/mindspore_cpu_win_install_source.md)
 
 本文档介绍如何在CPU环境的Windows系统上，使用源码编译方法快速安装MindSpore。
 
@@ -25,7 +25,7 @@
 - 确认安装Python（>=3.9.0）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 - 确认安装[PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 并且 <= 6.0.2)。如果没有安装，可以使用 `pip install pyyaml` 命令安装。
-- 确认安装[MSYS2软件](https://www.msys2.org/)。详细请查看[Windows上安装MSYS2软件](https://gitee.com/mindspore/docs/blob/master/install/third_party/msys_software_install.md)。
+- 确认安装[MSYS2软件](https://www.msys2.org/)。详细请查看[Windows上安装MSYS2软件](https://gitee.com/mindspore/docs/blob/br_base/install/third_party/msys_software_install.md)。
 - 确认安装[Numpy](https://pypi.org/project/numpy/) (>=1.19.3 并且 <= 1.26.4)。如果没有安装，可以使用 `pip install numpy` 命令安装。
 
 ## 从代码仓下载源码
@@ -48,7 +48,7 @@ call build.bat ms_vs_cpu
 for %x in (output\mindspore*.whl) do pip install %x -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
+在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/br_base/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
 

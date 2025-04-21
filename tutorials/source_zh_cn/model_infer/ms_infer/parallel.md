@@ -1,6 +1,6 @@
 # 构建可并行的大语言模型网络
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/model_infer/ms_infer/parallel.md)
 
 在过去几年中，随着深度学习技术的迅速发展，尤其是大规模预训练模型（如GPT、LLaMA以及盘古等）的出现，人工智能领域取得了巨大的进步。然而，随着模型规模的不断扩展，这些大模型所需的计算资源，特别是显存需求，呈指数级增长。以盘古71B为例，在半精度（FP16）下，这些参数本身就需要约142GB的显存。同时大模型日益膨胀的序列长度也给显存带了极大的压力。
 显存不仅影响了模型的加载，还限制了批处理（batch size）较小的批处理可能会降低推理效率的下降，进而影响整个系统的吞吐量。
@@ -451,7 +451,7 @@
             return hidden_state
     ```
 
-具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/model_dev.py)脚本，通过运行如下命令进行验证：
+具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/infer_code/model_dev.py)脚本，通过运行如下命令进行验证：
 
 ```shell
 msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py

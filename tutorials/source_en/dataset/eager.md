@@ -1,6 +1,6 @@
 # Lightweight Data Processing
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/dataset/eager.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/dataset/eager.md)
 
 MindSpore provides a lightweight data processing way, called Eager mode.
 
@@ -10,13 +10,13 @@ In the Eager mode, transforms is executed in the form of a functional call. The 
 
 MindSpore currently supports executing various Transforms in the Eager mode, as shown below. For more details, please refer to the API documentation.
 
-- [vision module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), data transform implemented based on OpenCV/Pillow.
+- [vision module](https://mindspore.cn/docs/en/br_base/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), data transform implemented based on OpenCV/Pillow.
 
-- [text module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), data transform implemented based on Jieba, ICU4C, etc.
+- [text module](https://mindspore.cn/docs/en/br_base/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), data transform implemented based on Jieba, ICU4C, etc.
 
-- [audio module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio), data transform implemented based on C++, etc.
+- [audio module](https://mindspore.cn/docs/en/br_base/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio), data transform implemented based on C++, etc.
 
-- [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms), general-purpose data transform implemented based on C++/Python/NumPy.
+- [transforms module](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms), general-purpose data transform implemented based on C++/Python/NumPy.
 
 ## Eager Mode
 
@@ -48,7 +48,7 @@ Successfully downloaded file to ./banana.jpg
 
 This example will use Transform in the `mindspore.dataset.vision` module to transform a given image.
 
-The Eager mode of the Vision Transform supports `numpy.array` or `PIL.Image` type data as input parameters. For more examples, please refer to: [Illustration Of Vision Transforms](https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/vision_gallery.html)
+The Eager mode of the Vision Transform supports `numpy.array` or `PIL.Image` type data as input parameters. For more examples, please refer to: [Illustration Of Vision Transforms](https://www.mindspore.cn/docs/en/br_base/api_python/samples/dataset/vision_gallery.html)
 
 ```python
 import numpy as np
@@ -97,7 +97,7 @@ Image.type: <class 'PIL.Image.Image'>, Image.shape: (360, 360)
 
 This example will transform the given text by using the Transforms in the `text` module.
 
-Eager mode of Text Transforms supports `numpy.array` type data as input parameters. For more examples, please refer to: [Illustration Of Text Transforms](https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/text_gallery.html)
+Eager mode of Text Transforms supports `numpy.array` type data as input parameters. For more examples, please refer to: [Illustration Of Text Transforms](https://www.mindspore.cn/docs/en/br_base/api_python/samples/dataset/text_gallery.html)
 
 ```python
 import mindspore.dataset.text.transforms as text
@@ -125,7 +125,7 @@ ToNumber result: [123456], int32
 
 This example will transform the given audio by using the Transforms in the `audio` module.
 
-Eager mode of Audio Transforms supports `numpy.array` type data as input parameters. For more examples, please refer to: [Illustration Of Audio Transforms](https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/audio_gallery.html)
+Eager mode of Audio Transforms supports `numpy.array` type data as input parameters. For more examples, please refer to: [Illustration Of Audio Transforms](https://www.mindspore.cn/docs/en/br_base/api_python/samples/dataset/audio_gallery.html)
 
 ```python
 import numpy as np

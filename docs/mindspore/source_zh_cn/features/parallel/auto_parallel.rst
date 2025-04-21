@@ -1,8 +1,8 @@
 自动并行策略搜索
 ========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/parallel/auto_parallel.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/features/parallel/auto_parallel.rst
     :alt: 查看源文件
 
 自动并行策略搜索模式能够让用户无需关心策略配置，自动地建立代价模型，找到训练时间较短的并行策略。当前MindSpore支持如下两种不同的自动并行策略搜索方案：

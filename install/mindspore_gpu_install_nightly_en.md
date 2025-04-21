@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_pip_en.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/install/mindspore_gpu_install_pip_en.md)
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest changes on MindSpore.
 
@@ -190,7 +190,7 @@ pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 Of which,
 
 - MindSpore Nightly supports CUDA10.1, 11.1 and 11.6, it will configure automatically according to the version of CUDA installed in your environment.
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependency by yourself.
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/br_base/setup.py)). In other cases, you need to install dependency by yourself.
 - pip will be installing the latest version of MindSpore GPU Nightly automatically. If you wish to specify the version to be installed, please refer to the instruction below regarding to version update, and specify version manually.
 
 ## Installation Verification

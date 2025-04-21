@@ -1,6 +1,6 @@
 # MindSpore Design Overview
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/design/overview.md)
 
 ## Introduction
 
@@ -33,17 +33,17 @@ MindSpore is a full-scenario deep learning framework designed to achieve three m
 
 ### Fusion of Functional and Object-Oriented Programming Paradigms
 
-MindSpore provides both object-oriented and function-oriented [programming paradigms](https://www.mindspore.cn/docs/en/master/design/programming_paradigm.html), both of which can be used to construct network algorithms and training processes.
+MindSpore provides both object-oriented and function-oriented [programming paradigms](https://www.mindspore.cn/docs/en/br_base/design/programming_paradigm.html), both of which can be used to construct network algorithms and training processes.
 
 Developers can derive from the nn.Cell class to define AI networks or layers with required functionality, and assemble various defined layers through nested object calls to complete the definition of the entire AI network.
 
 At the same time, developers can also define a pure Python function that can be source-to-source compiled by MindSpore, and accelerate its execution through functions or decorators provided by MindSpore. Under the requirements of MindSpore's static syntax, pure Python functions can support nested subfunctions, control logic, and even recursive function expressions. Therefore, based on this programming paradigm, developers can flexibly enable certain functional features, making it easier to express business logic.
 
-MindSpore implements [functional differential programming](https://www.mindspore.cn/docs/en/master/design/programming_paradigm.html#functional-differential-programming), which performs differentiation based on the call chain according to the calling relationship for function objects that can be differentiated. This automatic differentiation strategy better aligns with mathematical semantics and has an intuitive correspondence with composite functions in basic algebra. As long as the derivative formulas of basic functions are known, the derivative formula of a composite function composed of any basic functions can be derived.
+MindSpore implements [functional differential programming](https://www.mindspore.cn/docs/en/br_base/design/programming_paradigm.html#functional-differential-programming), which performs differentiation based on the call chain according to the calling relationship for function objects that can be differentiated. This automatic differentiation strategy better aligns with mathematical semantics and has an intuitive correspondence with composite functions in basic algebra. As long as the derivative formulas of basic functions are known, the derivative formula of a composite function composed of any basic functions can be derived.
 
 At the same time, based on the functional programming paradigm, MindSpore provides rich higher-order functions such as vmap, shard, and other built-in higher-order functions. Like the differential function grad, these allow developers to conveniently construct a function or object as a parameter for higher-order functions. Higher-order functions, after internal compilation optimization, generate optimized versions of developers' functions, implementing features such as vectorization transformation and distributed parallel partitioning.
 
-### [Unified Programming Experience for Dynamic and Static Graphs](https://www.mindspore.cn/docs/en/master/features/program_form/overview.html)
+### [Unified Programming Experience for Dynamic and Static Graphs](https://www.mindspore.cn/docs/en/br_base/features/program_form/overview.html)
 
 Traditional AI frameworks mainly have two programming execution forms: static graph mode and dynamic eager mode.
 
@@ -57,7 +57,7 @@ MindSpore builds the graph structure of neural networks based on Python, which p
 
 Native Python expressions can directly enable static graph mode execution based on Python control flow keywords, making the programming unification of dynamic and static graphs higher. At the same time, developers can flexibly control Python code fragments in dynamic and static graph modes based on MindSpore's interfaces. That is, local functions can be executed in static graph mode (mindspore.jit) while other functions are executed in dynamic graph mode. This allows developers to flexibly specify function fragments for static graph optimization and acceleration when interleaving with common Python libraries and custom Python functions, without sacrificing the programming ease of interleaved execution.
 
-### [Distributed Parallel Computing](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html)
+### [Distributed Parallel Computing](https://www.mindspore.cn/docs/en/br_base/design/distributed_training_design.html)
 
 As large model parameters continue to grow, complex and diverse distributed parallel strategies are needed to address this challenge. MindSpore has built-in multi-dimensional distributed training strategies that developers can flexibly assemble and use. Through parallel abstraction, communication operations are hidden, simplifying the complexity of parallel programming for developers.
 
@@ -71,7 +71,7 @@ At the same time, MindSpore also provides various parallel strategies such as pi
 
 Based on compilation technology, MindSpore provides rich hardware-independent optimizations such as IR fusion, algebraic simplification, constant folding, and common subexpression elimination. At the same time, it also provides various hardware optimization capabilities for different hardware such as NPU and GPU, thereby better leveraging the large-scale computational acceleration capabilities of hardware.
 
-#### [Graph-Algorithm Fusion](https://www.mindspore.cn/docs/en/master/design/multi_level_compilation.html#graph-kernel-fusion)
+#### [Graph-Algorithm Fusion](https://www.mindspore.cn/docs/en/br_base/design/multi_level_compilation.html#graph-kernel-fusion)
 
 Mainstream AI computing frameworks like MindSpore typically define operators from the perspective of developer understanding and ease of use. Each operator carries varying amounts of computation and computational complexity. However, from a hardware execution perspective, this natural operator computational division based on the developer's perspective is not efficient and cannot fully utilize hardware computational capabilities. This is mainly reflected in:
 
@@ -95,12 +95,12 @@ Loop sinking is an optimization based on On Device execution, aimed at further r
 
 Data sinking means that data is directly transmitted to the Device through channels.
 
-### [Unified Deployment Across All Scenarios](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html)
+### [Unified Deployment Across All Scenarios](https://www.mindspore.cn/docs/en/br_base/design/all_scenarios.html)
 
 MindSpore is an AI framework that integrates training and inference, supporting both training and inference functions. At the same time, MindSpore supports various chips such as CPU, GPU, and NPU, and provides unified programming interfaces and can generate offline models that can be loaded and executed on various hardware.
 
 According to actual execution environments and business requirements, MindSpore provides multiple specification versions, supporting deployment on cloud, servers, mobile and other embedded devices, and ultra-lightweight devices such as earphones.
 
-### [Third-Party Hardware Integration](https://www.mindspore.cn/docs/en/master/design/pluggable_device.html)
+### [Third-Party Hardware Integration](https://www.mindspore.cn/docs/en/br_base/design/pluggable_device.html)
 
 Based on the unified MindIR, MindSpore has built an open AI architecture that supports third-party chip plugins, standardization, and low-cost rapid integration, which can connect to GPU series chips as well as various DSA chips. MindSpore provides two chip integration methods: Kernel mode and Graph mode, allowing chip manufacturers to choose the integration method according to their own characteristics.

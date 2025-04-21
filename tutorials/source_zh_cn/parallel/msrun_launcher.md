@@ -1,10 +1,10 @@
 # msrun启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/msrun_launcher.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/parallel/msrun_launcher.md)
 
 ## 概述
 
-`msrun`是[动态组网](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`，以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)。`msrun`同时支持`Ascend`，`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
+`msrun`是[动态组网](https://www.mindspore.cn/tutorials/zh-CN/br_base/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`，以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/br_base/parallel/dynamic_cluster.html)。`msrun`同时支持`Ascend`，`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
 
 > - `msrun`在用户安装MindSpore后即可使用，可使用指令`msrun --help`查看支持参数。
 > - `msrun`支持`图模式`以及`PyNative模式`。
@@ -87,7 +87,7 @@
         <td align="left">设置模拟编译等级。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">默认为-1，即关闭模拟编译功能。</td>
-        <td align="left">若用户配置此参数，msrun只会拉起进程的模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>模拟编译等级的设置可参考文档：<a href="https://www.mindspore.cn/tutorials/zh-CN/master/debug/dryrun.html">DryRun</a>。</td>
+        <td align="left">若用户配置此参数，msrun只会拉起进程的模拟编译，不做算子执行。<br>此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>模拟编译等级的设置可参考文档：<a href="https://www.mindspore.cn/tutorials/zh-CN/br_base/debug/dryrun.html">DryRun</a>。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_rank_id</td>
@@ -186,13 +186,13 @@
     </tr>
 </table>
 
-msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html)。
+msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/tutorials/zh-CN/br_base/parallel/dynamic_cluster.html)。
 
 ## 启动分布式任务
 
 启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
-> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/startup_method)。
 
 目录结构如下：
 
@@ -299,7 +299,7 @@ for epoch in range(10):
 
 下面以执行单机8卡训练为例：
 
-脚本[msrun_single.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_single.sh)使用msrun指令在当前节点拉起1个`Scheduler`进程以及8个`Worker`进程（无需设置`master_addr`，默认为`127.0.0.1`；单机无需设置`node_rank`）：
+脚本[msrun_single.sh](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/startup_method/msrun_single.sh)使用msrun指令在当前节点拉起1个`Scheduler`进程以及8个`Worker`进程（无需设置`master_addr`，默认为`127.0.0.1`；单机无需设置`node_rank`）：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -338,7 +338,7 @@ epoch: 0, step: 30, loss is 1.0437132
 
 下面以执行2机8卡训练，每台机器执行启动4个Worker为例：
 
-脚本[msrun_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_1.sh)在节点1上执行，使用msrun指令拉起1个`Scheduler`进程以及4个`Worker`进程，配置`master_addr`为节点1的IP地址（msrun会自动检测到当前节点IP与`master_addr`匹配而拉起`Scheduler`进程），通过`node_rank`设置当前节点为0号节点：
+脚本[msrun_1.sh](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/startup_method/msrun_1.sh)在节点1上执行，使用msrun指令拉起1个`Scheduler`进程以及4个`Worker`进程，配置`master_addr`为节点1的IP地址（msrun会自动检测到当前节点IP与`master_addr`匹配而拉起`Scheduler`进程），通过`node_rank`设置当前节点为0号节点：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -357,7 +357,7 @@ echo "start training"
 msrun --worker_num=8 --local_worker_num=4 --master_addr=<node_1 ip address> --master_port=8118 --node_rank=0 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
 ```
 
-脚本[msrun_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_2.sh)在节点2上执行，使用msrun指令拉起4个`Worker`进程，配置`master_addr`为节点1的IP地址，通过`node_rank`设置当前节点为1号节点：
+脚本[msrun_2.sh](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/startup_method/msrun_2.sh)在节点2上执行，使用msrun指令拉起4个`Worker`进程，配置`master_addr`为节点1的IP地址，通过`node_rank`设置当前节点为1号节点：
 
 ```bash
 EXEC_PATH=$(pwd)

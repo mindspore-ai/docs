@@ -1,6 +1,6 @@
 # 比较与torchaudio.datasets.YESNO的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/YESNO.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/YESNO.md)
 
 ## torchaudio.datasets.YESNO
 
@@ -28,7 +28,7 @@ class mindspore.dataset.YesNoDataset(
     cache=None)
 ```
 
-更多内容详见[mindspore.dataset.YesNoDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.YesNoDataset.html#mindspore.dataset.YesNoDataset)。
+更多内容详见[mindspore.dataset.YesNoDataset](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset/mindspore.dataset.YesNoDataset.html#mindspore.dataset.YesNoDataset)。
 
 ## 差异对比
 

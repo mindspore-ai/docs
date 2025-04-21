@@ -1,6 +1,6 @@
 # 模型在线推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/orange_pi/model_infer.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/orange_pi/model_infer.md)
 
 本章节将介绍如何在OrangePi AIpro（下称：香橙派开发板）下载昇思MindSpore在线推理案例，并启动Jupyter Lab界面执行推理。
 
@@ -84,4 +84,4 @@
 
 ## 下一步建议
 
-具体基于昇思MindSpore的案例开发详见[开发入门](https://www.mindspore.cn/tutorials/zh-CN/master/orange_pi/dev_start.html)。
+具体基于昇思MindSpore的案例开发详见[开发入门](https://www.mindspore.cn/tutorials/zh-CN/br_base/orange_pi/dev_start.html)。

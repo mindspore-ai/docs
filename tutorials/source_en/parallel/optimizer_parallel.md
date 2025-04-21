@@ -1,6 +1,6 @@
 # Optimizer Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/optimizer_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/parallel/optimizer_parallel.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ The following is an illustration of optimizer parallel operation using an Ascend
 
 ## Sample Code Description
 
-> Download the full sample code: [distributed_optimizer_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel).
+> Download the full sample code: [distributed_optimizer_parallel](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_optimizer_parallel).
 
 The directory structure is as follows:
 
@@ -97,7 +97,7 @@ net.layer2.set_comm_fusion(1)
 net.layer3.set_comm_fusion(2)
 ```
 
-> Here communication fusion is configured for different layers in order to reduce the communication cost. Details can be found in [Communication Operator Fusion](https://www.mindspore.cn/tutorials/en/master/parallel/comm_fusion.html).
+> Here communication fusion is configured for different layers in order to reduce the communication cost. Details can be found in [Communication Operator Fusion](https://www.mindspore.cn/tutorials/en/br_base/parallel/comm_fusion.html).
 
 ## Training Network Definition
 
@@ -186,4 +186,4 @@ epoch: 0, step: 100, loss is 0.6854114
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/br_base/parallel/startup_method.html).

@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/generative/pix2pix.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/generative/pix2pix.md)
 
 # Pix2Pix for Image Translation
 
@@ -27,7 +27,7 @@ The formula is a loss function of cGAN. `D` tries to correctly classify real ima
 
 $$arg\min_{G}\max_{D}L_{cGAN}(G,D)$$
 
-![pix2pix1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/generative/images/pix2pix_1.png)
+![pix2pix1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/generative/images/pix2pix_1.png)
 
 To compare the differences between cGAN and GAN, the objectives of GAN can be expressed as follows:
 
@@ -88,7 +88,7 @@ After the data is processed, you can set up the network. The generator, discrimi
 
 U-Net is a fully convolutional structure proposed by the pattern recognition and image processing team of University of Freiburg in Germany. It is divided into two parts. The left part is the compression path formed by convolution and downsampling operations, and the right part is the expansion path formed by convolution and upsampling. The input of each expanded network block is formed by combining the features sampled at the upper layer and the features of the compression path part. The network model is a U-shaped structure and therefore is called U-Net. Compared with the common network where the sampling is reduced to a low dimension and then increased to the original resolution, the U-Net adds skip-connection. The corresponding feature maps and the decoded feature maps of the same size are combined by channel. It is used to reserve pixel-level details at different resolutions.
 
-![pix2pix2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/generative/images/pix2pix_2.png)
+![pix2pix2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/generative/images/pix2pix_2.png)
 
 #### Defining the U-Net Skip Connection Block
 
@@ -442,7 +442,7 @@ plt.show()
 
 The inference effect of each dataset is as follows:
 
-![pix2pix3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/generative/images/pix2pix_3.png)
+![pix2pix3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/generative/images/pix2pix_3.png)
 
 ## Reference
 

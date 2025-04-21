@@ -1,6 +1,6 @@
 # Dynamic Cluster Startup
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/dynamic_cluster.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/parallel/dynamic_cluster.md)
 
 ## Overview
 
@@ -157,7 +157,7 @@ The relevant environment variables:
 
 Dynamic cluster startup scripts are consistent across hardware platforms. The following is an example of how to write a startup script for Ascend:
 
-> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 
@@ -260,7 +260,7 @@ for epoch in range(10):
 
 #### Single-Machine Multi-Card
 
-The content of the single-machine multi-card startup script [run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster.sh) is as follows. Taking the single-machine 8-card as an example:
+The content of the single-machine multi-card startup script [run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/startup_method/run_dynamic_cluster.sh) is as follows. Taking the single-machine 8-card as an example:
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -317,7 +317,7 @@ epoch: 0, step: 30, loss is 1.0437132
 
 The startup script needs to be split in the multi-machine training scenario. The following is an example of performing 2-machine 8-card training, with each machine executing the startup 4 Worker:
 
-The script [run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh) starts 1 `Scheduler` process and 4 `Worker` processes on node 1:
+The script [run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/startup_method/run_dynamic_cluster_1.sh) starts 1 `Scheduler` process and 4 `Worker` processes on node 1:
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -352,7 +352,7 @@ export MS_ROLE=MS_SCHED                       # Set the startup process to the M
 python ./net.py > device/scheduler.log 2>&1 &    # Start training script
 ```
 
-The script [run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_2.sh) starts `Worker5` to `Worker8` on node 2 (without executing Scheduler):
+The script [run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/startup_method/run_dynamic_cluster_2.sh) starts `Worker5` to `Worker8` on node 2 (without executing Scheduler):
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -380,7 +380,7 @@ do
 done
 ```
 
-> In a multi-machine task, you need to set a different hostname for each host node, otherwise you will get an error reporting `deivce id` out of bounds. Refer to [FAQ](https://www.mindspore.cn/docs/en/master/faq/distributed_parallel.html#q-when-starting-distributed-framework-using-dynamic-cluster-or-msrun-in-multi-machine-scenario,-an-error-is-reported-that-device-id-is-out-of-range-how-can-we-solve-it?).
+> In a multi-machine task, you need to set a different hostname for each host node, otherwise you will get an error reporting `deivce id` out of bounds. Refer to [FAQ](https://www.mindspore.cn/docs/en/br_base/faq/distributed_parallel.html#q-when-starting-distributed-framework-using-dynamic-cluster-or-msrun-in-multi-machine-scenario,-an-error-is-reported-that-device-id-is-out-of-range-how-can-we-solve-it?).
 >
 > In a multi-machine task, `MS_WORKER_NUM` should be the total number of Worker nodes in the cluster.
 >
@@ -430,4 +430,4 @@ The `config.json` configuration file specified by `config_file_path` needs to ad
 - `cipher_list`: Cipher suite (list of supported SSL encrypted types)
 - `cert_expire_warning_time_in_da`: The warning time of certificate expiration.
 
-The secret key in the p12 file is stored in cipher text, and the password needs to be passed in when starting. Please refer to the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) for the `client_password` and `server_password` fields.
+The secret key in the p12 file is stored in cipher text, and the password needs to be passed in when starting. Please refer to the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) for the `client_password` and `server_password` fields.

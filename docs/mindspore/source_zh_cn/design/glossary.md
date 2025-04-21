@@ -1,6 +1,6 @@
 # 术语
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/glossary.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/design/glossary.md)
 
 |  术语/缩略语  |  说明  |
 | -----    | -----    |
@@ -63,8 +63,8 @@
 |  TFRecord  |  Tensorflow定义的数据格式。  |
 |  Tensor  |  张量，存储多维数组的数据结构。最常见的是标量、向量或矩阵。  |
 |  广播  |  在矩阵数学运算中，是将操作数的shape扩展到与该运算兼容的维。在分布式并行中，是某卡上的参数同步到其他卡上。  |
-|  计算图下沉  | 计算图整图下沉到Device上执行，减少Host-Device交互开销。详见[面向昇腾硬件的竞争力优化](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html#面向昇腾硬件的竞争力优化)。 |
-|  循环下沉  |  在On Device执行的基础上的优化，目的是进一步减少Host侧和Device侧之间的交互次数。详见[面向昇腾硬件的竞争力优化](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html#面向昇腾硬件的竞争力优化)。  |
+|  计算图下沉  | 计算图整图下沉到Device上执行，减少Host-Device交互开销。详见[面向昇腾硬件的竞争力优化](https://www.mindspore.cn/docs/zh-CN/br_base/design/overview.html#面向昇腾硬件的竞争力优化)。 |
+|  循环下沉  |  在On Device执行的基础上的优化，目的是进一步减少Host侧和Device侧之间的交互次数。详见[面向昇腾硬件的竞争力优化](https://www.mindspore.cn/docs/zh-CN/br_base/design/overview.html#面向昇腾硬件的竞争力优化)。  |
 |  数据下沉  |  数据通过通道直接传送到Device上。  |
 |  图模式  |  又称静态图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。  |
 |  PyNative模式  |  动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。  |

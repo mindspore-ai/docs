@@ -1,16 +1,16 @@
 # Network Compilation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/network_compilation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/faq/network_compilation.md)
 
 ## Q: What is the set of syntaxes supported by static graph mode?
 
-A: Static graph mode can support a subset of common Python syntax to support the construction and training of neural networks. Some Python syntax is not supported yet. For more detailed supported syntax set, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html). In order to facilitate users to choose whether to extend the static graph syntax, the static graph mode provides JIT syntax support level options. For some network scenarios, it is recommended to use basic syntax (nn/ops, etc.) rather than extended syntax (such as numpy third-party library). In addition, it is recommended to use [Advanced Programming Techniques with Static Graphs](https://www.mindspore.cn/tutorials/en/master/compile/static_graph_expert_programming.html) to optimize compilation performance.
+A: Static graph mode can support a subset of common Python syntax to support the construction and training of neural networks. Some Python syntax is not supported yet. For more detailed supported syntax set, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/tutorials/en/br_base/compile/static_graph.html). In order to facilitate users to choose whether to extend the static graph syntax, the static graph mode provides JIT syntax support level options. For some network scenarios, it is recommended to use basic syntax (nn/ops, etc.) rather than extended syntax (such as numpy third-party library). In addition, it is recommended to use [Advanced Programming Techniques with Static Graphs](https://www.mindspore.cn/tutorials/en/br_base/compile/static_graph_expert_programming.html) to optimize compilation performance.
 
 <br/>
 
 ## Q: What can I do if an error "'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function" is reported?
 
-A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](<https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html>) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
+A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](<https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.Parameter.html>) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
 
 <br/>
 
@@ -37,7 +37,7 @@ A: MindSpore does not support the `yield` syntax in graph mode.
 
 A: In the inference stage of front-end compilation, the abstract types of nodes, including `type` and `shape`, will be inferred. Common abstract types include `AbstractScalar`, `AbstractTensor`, `AbstractFunction`, `AbstractTuple`, `AbstractList`, etc. In some scenarios, such as multi-branch scenarios, the abstract types of the return values of different branches will be `join` to infer the abstract type of the returned result. If these abstract types do not match, or `type`/`shape` are inconsistent, the above exception will be thrown.
 
-When an error similar to `Type Join Failed: dtype1 = Float32, dtype2 = Float16` appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.ir` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir). The code sample is as follows:
+When an error similar to `Type Join Failed: dtype1 = Float32, dtype2 = Float16` appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.ir` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/en/br_base/design/all_scenarios.html#mindspore-ir-mindir). The code sample is as follows:
 
 ```python
 import numpy as np
@@ -300,7 +300,7 @@ If the match, you need to check if a non-Tensor scenario in the exported paramet
 
 When the exported data input is a non-Tensor, the exported input will be solidified into MindIR as a constant, making the input in MindIR less than the Construct input for network construction.
 
-If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type, you can use the [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
+If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type, you can use the [mutable](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
 
 <br/>
 
@@ -414,7 +414,7 @@ A: The "External" type indicates that an object that cannot be natively supporte
 ## Q: What can I do if an error `Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute.` is reported?
 
 A: When the compilation process is triggered, that is, when the code is compiled into a static computational diagram
-, see [Graph Mode Execution Principle](https://www.mindspore.cn/docs/en/master/features/program_form/overview.html), using the JIT Fallback feature by default, the above exception will be thrown when entering the compilation process again.
+, see [Graph Mode Execution Principle](https://www.mindspore.cn/docs/en/br_base/features/program_form/overview.html), using the JIT Fallback feature by default, the above exception will be thrown when entering the compilation process again.
 
 Taking JIT Fallback support for calling objects and methods from third-party libraries as an example:
 
@@ -534,7 +534,7 @@ net = Net()
 out = net(Tensor(x))
 ```
 
-3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/en/master/compile/static_graph_expert_programming.html#using-jit-class).
+3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/tutorials/en/br_base/compile/static_graph.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/en/br_base/compile/static_graph_expert_programming.html#using-jit-class).
 
 ```python
 import mindspore as ms
@@ -769,13 +769,13 @@ A: The following scenarios will trigger recompilation:
 
 - The length of Tuple or List changes.
 
-- When the input of network is tuple[Tensor], list[Tensor] or Dict[Tensor], even if the shape and dtype of the Tensor inside do not change. For more details, please refer to [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html).
+- When the input of network is tuple[Tensor], list[Tensor] or Dict[Tensor], even if the shape and dtype of the Tensor inside do not change. For more details, please refer to [mutable](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.mutable.html).
 
 <br/>
 
 ## Q: How to determine how many graphs there are in static graph mode? When will the subgraph be divided? What is the impact of multiple subgraphs? How to avoid multiple subgraphs?
 
-A: 1. The number of subgraphs can be obtained by viewing the IR file and searching for "Total subgraphs". For how to view and analyze IR files, please refer to [MindSpore IR Introduction](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindir.html)
+A: 1. The number of subgraphs can be obtained by viewing the IR file and searching for "Total subgraphs". For how to view and analyze IR files, please refer to [MindSpore IR Introduction](https://www.mindspore.cn/tutorials/en/br_base/debug/error_analysis/mindir.html)
 
 2. Subgraph segmentation in static graph mode is common in control flow scenarios, such as if/while. In addition to manual writing by users, the control flow syntax within the MindSpore may also lead to dividing into multiple subgraphs.
 

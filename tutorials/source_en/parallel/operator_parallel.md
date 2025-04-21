@@ -1,6 +1,6 @@
 # Operator-level Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/operator_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/parallel/operator_parallel.md)
 
 ## Overview
 
@@ -16,7 +16,7 @@ The illustration of the ops operator parallel operation is based on the Ascend s
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -186,7 +186,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/br_base/parallel/startup_method.html).
 
 ### mint Operator Parallel Practice
 
@@ -194,7 +194,7 @@ The illustration of the mint operator parallel operation is based on the Ascend 
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -338,7 +338,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/br_base/parallel/startup_method.html).
 
 ## Higher-Order Operator-Level Parallel Practice
 
@@ -348,7 +348,7 @@ An illustration of higher-order ops operator parallel operations follows, using 
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -462,7 +462,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/br_base/parallel/startup_method.html).
 
 ### Higher-Order mint Operator Parallel Practice
 
@@ -470,7 +470,7 @@ An illustration of higher-order mint operator parallel operations follows, using
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -604,4 +604,4 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/br_base/parallel/startup_method.html).

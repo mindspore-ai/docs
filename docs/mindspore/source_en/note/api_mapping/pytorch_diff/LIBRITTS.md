@@ -1,6 +1,6 @@
 # Differences with torchaudio.datasets.LIBRITTS
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LIBRITTS.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LIBRITTS.md)
 
 ## torchaudio.datasets.LIBRITTS
 
@@ -29,7 +29,7 @@ class mindspore.dataset.LibriTTSDataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.LibriTTSDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.LibriTTSDataset.html#mindspore.dataset.LibriTTSDataset).
+For more information, see [mindspore.dataset.LibriTTSDataset](https://mindspore.cn/docs/en/br_base/api_python/dataset/mindspore.dataset.LibriTTSDataset.html#mindspore.dataset.LibriTTSDataset).
 
 ## Differences
 

@@ -1,4 +1,0 @@
-Host侧耗时分析
---------------
-
-如果开启了Host侧时间收集功能，在训练结束后可以在ascend_timeline_display_[rank_id].json下查看耗时信息。可以用 ``chrome://tracing`` 来展示。可以使用W/S/A/D来放大、缩小、左移、右移地查看耗时信息。

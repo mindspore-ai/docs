@@ -1,6 +1,6 @@
 # 比较与torchaudio.datasets.CMUARCTIC的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CMUARCTIC.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CMUARCTIC.md)
 
 ## torchaudio.datasets.CMUARCTIC
 
@@ -29,7 +29,7 @@ class mindspore.dataset.CMUArcticDataset(
     cache=None)
 ```
 
-更多内容详见[mindspore.dataset.CMUArcticDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.CMUArcticDataset.html#mindspore.dataset.CMUArcticDataset)。
+更多内容详见[mindspore.dataset.CMUArcticDataset](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset/mindspore.dataset.CMUArcticDataset.html#mindspore.dataset.CMUArcticDataset)。
 
 ## 差异对比
 

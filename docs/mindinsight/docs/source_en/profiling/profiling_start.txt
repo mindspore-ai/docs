@@ -1,5 +1,0 @@
-Launch MindSpore Insight
--------------------------
-
-The MindSpore Insight launch command can refer to `MindSpore Insight
-Commands <https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html>`__.

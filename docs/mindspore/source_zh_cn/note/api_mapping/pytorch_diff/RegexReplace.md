@@ -1,6 +1,6 @@
 # 比较与torchtext.data.functional.custom_replace的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RegexReplace.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RegexReplace.md)
 
 ## torchtext.data.functional.custom_replace
 
@@ -16,7 +16,7 @@ torchtext.data.functional.custom_replace(replace_pattern)
 class mindspore.dataset.text.RegexReplace(pattern, replace, replace_all=True)
 ```
 
-更多内容详见[mindspore.dataset.text.RegexReplace](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.RegexReplace.html#mindspore.dataset.text.RegexReplace)。
+更多内容详见[mindspore.dataset.text.RegexReplace](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/dataset_text/mindspore.dataset.text.RegexReplace.html#mindspore.dataset.text.RegexReplace)。
 
 ## 使用方式
 
