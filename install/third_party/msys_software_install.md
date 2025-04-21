@@ -1,6 +1,6 @@
 # Windows上安装MSYS2软件
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/install/third_party/msys_software_install.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/install/third_party/msys_software_install.md)
 
 本文档介绍如何在Windows系统上，安装MSYS2软件的步骤。
 

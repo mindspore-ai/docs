@@ -1,6 +1,6 @@
 # 内存管理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/runtime/memory_manager.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/features/runtime/memory_manager.md)
 
 ## 概述
 
@@ -13,10 +13,10 @@
 
 ## 接口
 
-内存管理相关接口详见[runtime接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.runtime.html#%E5%86%85%E5%AD%98)，其中最为重要的两个接口为内存设置接口和内存碎片管理接口：
+内存管理相关接口详见[runtime接口](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore.runtime.html#%E5%86%85%E5%AD%98)，其中最为重要的两个接口为内存设置接口和内存碎片管理接口：
 
-1. 内存设置接口：[mindspore.runtime.set_memory](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_memory.html#mindspore.runtime.set_memory)，设置使用内存池管理的内存参数以及内存复用算法。
-2. 内存碎片管理接口：[环境变量MS_ALLOC_CONF](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html#%E5%9B%BE%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C)，根据硬件驱动是否具备虚拟内存跟物理内存映射能力来确定行为，如果具备则默认打开，否则默认关闭。可通过export MS_ALLOC_CONF=“enable_vmm:false”强制关闭。
+1. 内存设置接口：[mindspore.runtime.set_memory](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/runtime/mindspore.runtime.set_memory.html#mindspore.runtime.set_memory)，设置使用内存池管理的内存参数以及内存复用算法。
+2. 内存碎片管理接口：[环境变量MS_ALLOC_CONF](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/env_var_list.html#%E5%9B%BE%E7%BC%96%E8%AF%91%E6%89%A7%E8%A1%8C)，根据硬件驱动是否具备虚拟内存跟物理内存映射能力来确定行为，如果具备则默认打开，否则默认关闭。可通过export MS_ALLOC_CONF=“enable_vmm:false”强制关闭。
 
 ## 内存池
 

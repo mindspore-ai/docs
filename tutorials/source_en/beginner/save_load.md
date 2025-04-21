@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/save_load.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/beginner/save_load.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || **Save and Load** || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/br_base/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/br_base/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/br_base/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/br_base/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/br_base/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/br_base/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/br_base/beginner/train.html) || **Save and Load** || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/br_base/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/br_base/beginner/mixed_precision.html)
 
 # Saving and Loading the Model
 
@@ -52,7 +52,7 @@ print(param_not_load)
 
 ## Saving and Loading MindIR
 
-In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface (only support strict graph mode).
+In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/br_base/design/all_scenarios.html#mindspore-ir-mindir) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface (only support strict graph mode).
 
 ```python
 mindspore.set_context(mode=mindspore.GRAPH_MODE, jit_syntax_level=mindspore.STRICT)
@@ -82,7 +82,7 @@ print(outputs.shape)
 
 Not all Python syntax and data types are supported for MindIR export. MindIR export has a specific support scope, and if the syntax falls outside this scope, an error will be reported during the export process.
 
-First, MindIR export only supports **strict-level graph mode**. For detailed support scope, please refer to the [Static Graph Syntax Support Documentation](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html).
+First, MindIR export only supports **strict-level graph mode**. For detailed support scope, please refer to the [Static Graph Syntax Support Documentation](https://www.mindspore.cn/tutorials/en/br_base/compile/static_graph.html).
 
 Second, in addition to the syntax restrictions of strict-level graph mode, MindIR has additional constraints on the types of return values. For example, returning `mindspore.dtype` is not supported. The following program will raise an error during MindIR export.
 
@@ -103,7 +103,7 @@ Furthermore, if a `Parameter` object is created outside `nn.Cell`, MindIR does n
 
 - A `Parameter` is created directly in the global scope of the script.
 - A `Parameter` is created in a non `nn.Cell` class.
-- Random number generation api from the [mindspore.mint](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mint.html) package are used, such as `mint.randn`, `mint.randperm`, etc., because these random number interfaces create `Parameter` in the global scope.
+- Random number generation api from the [mindspore.mint](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore.mint.html) package are used, such as `mint.randn`, `mint.randperm`, etc., because these random number interfaces create `Parameter` in the global scope.
 
 For example, the following two programs will raise errors during the export process.
 

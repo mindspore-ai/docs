@@ -1,6 +1,6 @@
 # 多后端接入
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/runtime/pluggable_backend.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/features/runtime/pluggable_backend.md)
 
 ## 概述
 
@@ -8,7 +8,7 @@
 
 ## 接口
 
-多后端实现，可通过mindspore.jit(backend="xx")指定使用的后端，详见[jit接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
+多后端实现，可通过mindspore.jit(backend="xx")指定使用的后端，详见[jit接口](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
 
 ## 基本原理
 

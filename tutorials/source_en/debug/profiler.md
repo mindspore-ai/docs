@@ -1,6 +1,6 @@
 # Ascend Performance Tuning
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/profiler.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/debug/profiler.md)
 
 ## Overview
 
@@ -22,7 +22,7 @@ There are four ways to collect training performance data, and the following desc
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
-Add the MindSpore Profiler related interfaces in the training script, see [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html) for details.
+Add the MindSpore Profiler related interfaces in the training script, see [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.Profiler.html) for details.
 
 The interface supports two collection modes: CallBack mode and custom for loop mode, and supports both Graph and PyNative modes.
 
@@ -56,7 +56,7 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)
+For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/profiler/call_back_profiler.py)
 
 #### Example Collection in a Custom for Loop Mode
 
@@ -99,7 +99,7 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 
 After the function is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 2 steps, wait 1 step, warmup 1 step, and collection starts from the 4th step. Then the fourth and fifth steps are collected, so the Step ID is 4 and 5, indicating that the fourth and fifth steps are collected.
 
-For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)
+For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/profiler/for_loop_profiler.py)
 
 ### Method 2: Dynamic Profiler Enabling
 
@@ -124,7 +124,7 @@ JSON configuration example as follows:
 }
 ```
 
-1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, and save the configuration files in cfg_path. See [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
+1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, and save the configuration files in cfg_path. See [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
 2. Call the step interface of DynamicProfilerMonitor after the model training to collect data;
 3. If users want to change the collection and analysis tasks during training, they can modify the JSON configuration file, such as changing the start_step in the above JSON configuration to 8, stop_step to 10, save it, and DynamicProfilerMonitor will automatically identify that the configuration file has changed to the new collection and analysis tasks.
 
@@ -146,11 +146,11 @@ for _ in range(STEP_NUM):
 
 At this point, the results include two folders: rank0_start2_stop5 and rank0_start8_stop10, representing the collection of steps 2-5 and 8-10 respectively.
 
-For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py).
+For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/profiler/dynamic_profiler.py).
 
 ### Method 3: Environment Variable Enabling
 
-Users can use the environment variable enabling method to enable Profiler most simply. Currently, only single-card scenarios are supported. this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) for details.
+Users can use the environment variable enabling method to enable Profiler most simply. Currently, only single-card scenarios are supported. this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/br_base/api_python/env_var_list.html) for details.
 
 > If environment variables are enabled, set device_id using environment variables before executing the script. Do not use set_context to set device_id in the script.
 
@@ -171,7 +171,7 @@ After loading the environment variable, start the training script directly to co
 
 ### Method 4: Off-line Parsing
 
-If users want to analyze the collected performance data, you can use mindspore.profiler.profiler.analyse interface for offline analysis. For details about the analyse interface, please refer to [offline parse analyse interface parameters](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html).
+If users want to analyze the collected performance data, you can use mindspore.profiler.profiler.analyse interface for offline analysis. For details about the analyse interface, please refer to [offline parse analyse interface parameters](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.profiler.profiler.analyse.html).
 
 The offline analysis sample is shown below:
 

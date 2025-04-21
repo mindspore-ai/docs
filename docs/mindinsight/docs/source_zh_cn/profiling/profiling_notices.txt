@@ -1,8 +1,0 @@
-注意事项
---------
-
-- 训练加推理过程暂不支持性能调试，目前支持单独训练或推理的性能调试。
-- 迭代轨迹目前仅支持Graph模式单图和多子图场景，暂不支持PyNative、异构等场景。
-- 多子图场景迭代轨迹只展示迭代整体耗时。
-- 基于step开启、基于epoch开启、迭代轨迹分析和集群分析仅支持Graph模式。
-- MindSpore Profiler Python API不能和\ ``PROFILING_MODE``\ 环境变量同时使能profiling。

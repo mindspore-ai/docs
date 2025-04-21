@@ -1,6 +1,6 @@
 # Data Processing Debugging Methods and Common Errors Analysis
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis/minddata_debug.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/debug/error_analysis/minddata_debug.md)&nbsp;&nbsp;
 
 ## Data Processing Debugging Methods
 
@@ -218,7 +218,7 @@ mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 
 According to the printed information you can see that `Crop` processed the first sample and reported an error. The shape of the first sample (32, 32, 3), was transformed by `RandomResize` to (3, 16, 3), but the shape transformed by `Crop` did not printed and then an error is reported. So it is the fact that the shape cannot be processed by `Crop` that causes the error. Further, according to the Dataset Pipeline Error Message, the input sample has a height of only 3, but is expected to be cropped to a region with a high dimension of 8, hence the error is reported.
 
-Checking the [API description](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html) of `Crop` , `Crop` requires the input sample to be in shape <H, W> or <H, W, C>, so `Crop` treats (3, 48, 48) as <H, W, C>, and naturally it can't crop out the region with H=8, W=8 when H=3, W=48, C=48.
+Checking the [API description](https://www.mindspore.cn/docs/en/br_base/api_python/dataset_vision/mindspore.dataset.vision.Crop.html) of `Crop` , `Crop` requires the input sample to be in shape <H, W> or <H, W, C>, so `Crop` treats (3, 48, 48) as <H, W, C>, and naturally it can't crop out the region with H=8, W=8 when H=3, W=48, C=48.
 
 To quickly fix this, We just need to change the parameter size of `RandomResize` from (3, 16) to (16, 16), and run it again to find that the use case passes.
 
@@ -241,13 +241,13 @@ data (8, 8, 48)
 
 #### Way Two: Debugging Map Operation Through Data Pipline Debugging Mode
 
-We can also turn on the dataset pipline debug mode by calling the [set_debug_mode](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) .
+We can also turn on the dataset pipline debug mode by calling the [set_debug_mode](https://mindspore.cn/docs/en/br_base/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) .
 When debug mode is enabled, the random seed is set to 1 if it is not already set, so that executing the dataset pipeline in debug mode can yield deterministic results.
 
 The process is as follows:
 
 1. Print the shape and type of the input and output data for each transform op in the `map` operator.
-2. Enable the dataset pipeline debug mode and use either a predefined debug hook provided by MindData or a user-defined debug hook. It must define the class inherited from [DebugHook](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.debug.DebugHook.html).
+2. Enable the dataset pipeline debug mode and use either a predefined debug hook provided by MindData or a user-defined debug hook. It must define the class inherited from [DebugHook](https://mindspore.cn/docs/en/br_base/api_python/dataset/mindspore.dataset.debug.DebugHook.html).
 
 The following is a modification of the `Way One` use case, using the predefined debug hooks provided by MindData.
 
@@ -302,7 +302,7 @@ E           mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 ```
 
 Based on the printed information, we can clearly see that `Crop` is getting an error when processing the input shape of
-(3, 16, 3). Refer to `Crop`'s [API description](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html), and we just need to change the parameter size of `RandomResize` from (3, 16) to (16, 16), and run it again to see that the use case passes.
+(3, 16, 3). Refer to `Crop`'s [API description](https://www.mindspore.cn/docs/en/br_base/api_python/dataset_vision/mindspore.dataset.vision.Crop.html), and we just need to change the parameter size of `RandomResize` from (3, 16) to (16, 16), and run it again to see that the use case passes.
 
 ```text
 [Dataset debugger] Print the [INPUT] of the operation [RandomResize].

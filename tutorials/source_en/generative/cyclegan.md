@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/generative/cyclegan.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/generative/cyclegan.md)
 
 # CycleGAN for Image Style Migration
 
@@ -16,13 +16,13 @@ An important application field of this model is domain adaptation, which can be 
 
 Essentially, a CycleGAN consists of two mirror-symmetric GANs. The following figure shows the CycleGAN structure. (The figure comes from the original paper.)
 
-![CycleGAN](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/generative/images/CycleGAN.png)
+![CycleGAN](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/generative/images/CycleGAN.png)
 
 For ease of understanding, apples and oranges are used as examples. In the preceding figure, $X$ indicates apples, $Y$ indicates oranges, $G$ indicates an apple-to-orange style generator, $F$ indicates an orange-to-apple style generator, and $D_{X}$ and $D_{Y}$ are corresponding discriminators. For details about the structures of the generators and discriminators, see the following code. The model can finally output weights of the two models, and separately migrate styles of the two images to each other to generate new images.
 
 An important part of this model is loss functions, in which the cycle consistency loss is the most important function. The following figure shows the process of calculating the cycle loss. (The figure comes from the original paper.)
 
-![Cycle Consistency Loss](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/generative/images/CycleGAN_1.png)
+![Cycle Consistency Loss](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/generative/images/CycleGAN_1.png)
 
 In the preceding figure, the apple image $x$ passes through the generator $G$ to obtain the pseudo orange $\hat{Y}$, and then sends the pseudo orange $\hat{Y}$ result to the generator $F$ to generate the apple-style result $\hat{x}$. Finally, the generated apple-style result $\hat{x}$ and the original apple image $x$ are used to calculate the cycle consistency loss, and vice versa. Cycle loss captures the intuition that if we translate from one domain to the other and back again we should arrive at where we started. For details about the training process, see the following code.
 
@@ -102,7 +102,7 @@ The model structure of generators in this case is the same as that of the ResNet
 
 The structure of the generators is as follows:
 
-![CycleGAN Generator](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/generative/images/CycleGAN_2.jpg)
+![CycleGAN Generator](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/generative/images/CycleGAN_2.jpg)
 
 For details about the model structure, see the following code:
 

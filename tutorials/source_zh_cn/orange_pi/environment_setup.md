@@ -1,6 +1,6 @@
 # 环境搭建指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/orange_pi/environment_setup.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/orange_pi/environment_setup.md)
 
 本章节将介绍如何在OrangePi AIpro上烧录镜像，自定义安装CANN和MindSpore，并配置运行环境。
 
@@ -355,4 +355,4 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## 下一步建议
 
-此时香橙派开发板环境搭建已经完成，可以在开发板上体验基于昇思MindSpore开发的[模型在线推理](https://www.mindspore.cn/tutorials/zh-CN/master/orange_pi/model_infer.html)。
+此时香橙派开发板环境搭建已经完成，可以在开发板上体验基于昇思MindSpore开发的[模型在线推理](https://www.mindspore.cn/tutorials/zh-CN/br_base/orange_pi/model_infer.html)。

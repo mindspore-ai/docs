@@ -1,6 +1,6 @@
 # Multi-Level Compilation Architecture
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/multi_level_compilation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/design/multi_level_compilation.md)
 
 ## Background
 
@@ -16,13 +16,13 @@ With the arrival of the era of deep learning large models, the bigger the networ
 
 ![jit_level_framework](./images/multi_level_compilation/jit_level_framework.png)
 
-1. Multi-level compilation external interface: configure multi-level compilation level through [mindspore.jit(jit_level=“O0/O1”)](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit), jit_level defaults to O0. We usually recommend that users use O0 mode for network debugging tuning. After debugging is ready, for better performance you can turn on O1 to run the network.
+1. Multi-level compilation external interface: configure multi-level compilation level through [mindspore.jit(jit_level=“O0/O1”)](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.jit.html#mindspore.jit), jit_level defaults to O0. We usually recommend that users use O0 mode for network debugging tuning. After debugging is ready, for better performance you can turn on O1 to run the network.
 2. Backend graph compilation: According to the configured multi-level compilation level, different compilation modes are selected. O0 is the most basic native composition and compilation, and O1 adds automatic operator fusion function on the basis of O0, with the main functions of graph optimization, graph-operator fusion, operator selection, and execution sequence scheduling, of which graph-operator fusion is a unique function in O1 mode.
 3. Backend graph execution: The O0 and O1 modes are the same at the execution level, and both use a single operator way of scheduling execution, with the main functions of multi-stream concurrency, multi-level streaming, HAL management, and memory management.
 
 ## Introduction to the O0 Model
 
-O0 is the basic graph compilation and execution mode, except for the necessary impact on the functionality of the optimization, other optimizations are turned off, the use of native graph structure for compilation and execution, easy to debug and tuning, with better compilation performance. The following mainly introduces the functions related to backend graph compilation, and the functions related to backend graph execution are detailed in [runtime](https://www.mindspore.cn/docs/en/master/features/runtime/memory_manager.html).
+O0 is the basic graph compilation and execution mode, except for the necessary impact on the functionality of the optimization, other optimizations are turned off, the use of native graph structure for compilation and execution, easy to debug and tuning, with better compilation performance. The following mainly introduces the functions related to backend graph compilation, and the functions related to backend graph execution are detailed in [runtime](https://www.mindspore.cn/docs/en/br_base/features/runtime/memory_manager.html).
 
 ### Graph Optimization
 
@@ -70,7 +70,7 @@ Execution order scheduling is a complex problem of solving optimal operator conc
 
 - First, the optimization module needs to address the complexity of solving for optimal operator concurrency. Due to the large number of operators in the computational graph and their interdependencies, finding an execution order that maximizes concurrency while maintaining the logical correctness of the computational graph is a challenging task.
 - Second, memory constraints are a critical factor that cannot be ignored in execution order optimization. Increasing concurrency, while improving computational efficiency, tends to significantly increase peak memory requirements, which may lead to Overflow of Memory (OOM) errors, especially in resource-constrained environments. Therefore, the optimization module must weigh the relationship between concurrency and memory usage to ensure that concurrency is increased without exceeding the memory capacity of the system.
-- MindSpore's execution order adjustment module combines rule-based and heuristic-based strategies to provide both bfs/dfs execution order orchestration algorithms [mindspore.jit(option={“exec_order”: “bfs/dfs”})](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit) to achieve fine-grained adjustment of the execution order of the computation graph, so as to effectively deal with multiple challenges such as memory constraints and system stability while ensuring computational efficiency.
+- MindSpore's execution order adjustment module combines rule-based and heuristic-based strategies to provide both bfs/dfs execution order orchestration algorithms [mindspore.jit(option={“exec_order”: “bfs/dfs”})](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.jit.html#mindspore.jit) to achieve fine-grained adjustment of the execution order of the computation graph, so as to effectively deal with multiple challenges such as memory constraints and system stability while ensuring computational efficiency.
 
 ## Introduction to the O1 Model
 
@@ -101,7 +101,7 @@ The overall architecture of graph-kernel fusion is shown in the figure below. Th
 
 The optimized computational graph is passed to MindSpore AKG as a subgraph for further back-end optimization and target code generation.
 
-![graphkernel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/graphkernel.png)
+![graphkernel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/docs/mindspore/source_zh_cn/design/images/graphkernel.png)
 
 By following these steps, we can obtain two aspects of performance gains:
 

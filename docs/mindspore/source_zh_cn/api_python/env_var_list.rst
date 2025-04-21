@@ -1,8 +1,8 @@
 环境变量
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/api_python/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/api_python/env_var_list.rst
     :alt: 查看源文件
 
 本文介绍MindSpore的环境变量。
@@ -73,8 +73,8 @@
        false: 关闭pipeline树优化
      -
 
-具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/zh-CN/master/dataset/cache.html>`_
-和 `数据处理性能优化 <https://mindspore.cn/tutorials/zh-CN/master/dataset/optimize.html>`_ 。
+具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/zh-CN/br_base/dataset/cache.html>`_
+和 `数据处理性能优化 <https://mindspore.cn/tutorials/zh-CN/br_base/dataset/optimize.html>`_ 。
 
 图编译执行
 ----------
@@ -238,7 +238,7 @@
      - 1：使用进程优雅退出功能。
 
        不设置或者其他值: 不使用进程优雅退出功能。
-     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/tutorials/zh-CN/master/train_availability/graceful_exit.html>`_ 。
+     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/tutorials/zh-CN/br_base/train_availability/graceful_exit.html>`_ 。
    * - MS_DEV_BOOST_INFER
      - 针对前端图编译提供编译优化开关。该开关可加速类型推导模块，以加速网络编译。
      - Integer
@@ -324,7 +324,7 @@
        enable_debug_mode：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
        path：指定读取json配置。当设置该选项时，忽略以上选项。
-     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/fusion_pass.html>`_
+     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/fusion_pass.html>`_
 
 Dump调试
 --------
@@ -339,13 +339,13 @@ Dump调试
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html>`_
-       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/br_base/debug/dump.html>`_
+       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/br_base/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -
    * - MS_DIAGNOSTIC_DATA_PATH
-     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html>`_ 时，
+     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/br_base/debug/dump.html>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
        若Dump配置文件中设置了 `path` 字段，则仍以该字段的实际取值为准。
      - String
@@ -391,7 +391,7 @@ Dump调试
      - 0~600，单位：秒，默认值为0。当取值为0时，表示使用默认超时时间，即 `mindspore.get_context("op_timeout")` 的取值。
      - 该环境变量仅仅在MS_DUMP_SLICE_SIZE不为零的情况下生效。目前二阶段的等待时间无法超过mindspore.get_context("op_timeout")的值。
 
-具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html>`_ 。
+具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/zh-CN/br_base/debug/dump.html>`_ 。
 
 分布式并行
 -----------
@@ -549,7 +549,7 @@ Dump调试
        delete_depend_list(List[string])：需要被删除的算子名称列表，算子名称不存在或者和graph_id不匹配，删除节点的动作将失效。
 
 
-动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html>`_ 。
+动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/zh-CN/br_base/parallel/dynamic_cluster.html>`_ 。
 
 算子编译
 --------
@@ -618,7 +618,7 @@ Dump调试
        默认：空。
      -
 
-常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/operators_compile.html>`_ 。
+常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/br_base/faq/operators_compile.html>`_ 。
 
 日志
 ----
@@ -729,7 +729,7 @@ Dump调试
 
        其中被指定子模块的日志级别将覆盖 `GLOG_v` 在此模块内的设置，
        此处子模块的日志级别 `LogLevel` 与 `GLOG_v` 的日志级别含义相同，
-       MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/utils/log_adapter.cc>`_。
+       MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/br_base/mindspore/core/utils/log_adapter.cc>`_。
 
        例如可以通过 `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`
        把 `PARSER` 和 `ANALYZER` 模块的日志级别设为WARNING，其他模块的日志级别设为INFO
@@ -816,7 +816,7 @@ Dump调试
        在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
      -
 
-特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/sdc.html>`_ 。
+特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/zh-CN/br_base/debug/sdc.html>`_ 。
 
 三方库
 ------
@@ -939,7 +939,7 @@ Profiler
 
        profiler_level (str, 可选) - 设置采集性能数据级别。默认值：Level0。可取值：Level0、Level1、Level2。
 
-       其他参数可参考 `MindSpore profile参数详解 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html>`_ 。
+       其他参数可参考 `MindSpore profile参数详解 <https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.profiler.profile.html>`_ 。
 
      - 此环境变量使能与输入参数实例化Profiler方式使能性能数据采集的方式二选一。
    * - PROFILING_MODE

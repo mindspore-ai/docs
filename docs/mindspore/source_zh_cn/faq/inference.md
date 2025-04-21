@@ -1,6 +1,6 @@
 # 推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/inference.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/faq/inference.md)
 
 ## Q: 原先基于MindSpore安装包进行Atlas 200/300/500推理产品推理，新版本MindSpore发布包不支持Atlas 200/300/500推理产品平台的推理？如何使用Atlas 200/300/500推理产品进行推理？（MindSpore Atlas 200/300/500推理产品推理功能发布包变更说明）
 

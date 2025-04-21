@@ -1,6 +1,6 @@
 # 梯度累加
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/distributed_gradient_accumulation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/parallel/distributed_gradient_accumulation.md)
 
 ## 简介
 
@@ -32,7 +32,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_gradient_accumulation](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_gradient_accumulation)。
+> 下载完整的样例代码：[distributed_gradient_accumulation](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_gradient_accumulation)。
 
 目录结构如下：
 

@@ -1,6 +1,6 @@
 # Ascend性能调优
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/profiler.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/debug/profiler.md)
 
 ## 概述
 
@@ -22,7 +22,7 @@
 
 ### 方式一：mindspore.profiler.profile接口使能
 
-在训练脚本中添加MindSpore profile相关接口，profile接口详细介绍请参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html)。
+在训练脚本中添加MindSpore profile相关接口，profile接口详细介绍请参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.profiler.profile.html)。
 
 该接口支持两种采集方式：CallBack方式和自定义for循环方式，且在Graph和PyNative两种模式下都支持。
 
@@ -56,7 +56,7 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-完整案例请参考[CallBack方式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)。
+完整案例请参考[CallBack方式采集完整代码样例](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/profiler/call_back_profiler.py)。
 
 #### 自定义for循环方式采集样例
 
@@ -99,7 +99,7 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 
 使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息，根据schedule的配置，skip_first跳过2步，wait等待1步，warmup预热1步，从第4步开始采集，根据active为2，则采集第4、5步，因此Step ID为4、5，表示采集的是第4、5个step。
 
-完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)
+完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/profiler/for_loop_profiler.py)
 
 ### 方式二：动态profiler使能
 
@@ -124,7 +124,7 @@ JSON配置样例如下：
 }
 ```
 
-1. 用户需要在实例化DynamicProfilerMonitor前，配置如上的JSON文件，并将配置文件保存在cfg_path中。详细参数介绍请参考[DynamicProfilerMonitor参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)；
+1. 用户需要在实例化DynamicProfilerMonitor前，配置如上的JSON文件，并将配置文件保存在cfg_path中。详细参数介绍请参考[DynamicProfilerMonitor参数详解](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)；
 2. 在模型训练后调用DynamicProfilerMonitor的step接口采集数据；
 3. 用户如果想在训练中变更采集、解析任务，可以修改JSON配置文件。如变更上述JSON配置中的start_step为8，stop_step为10。保存后，DynamicProfilerMonitor会自动识别出配置文件，变更成新的采集、解析任务。
 
@@ -146,11 +146,11 @@ for _ in range(STEP_NUM):
 
 此时生成的结果文件包含两个文件夹：rank0_start2_stop5以及rank0_start8_stop10，分别代表采集的step为2-5和8-10。
 
-完整案例请参考[动态Profiler使能方式案例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py)。
+完整案例请参考[动态Profiler使能方式案例](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/profiler/dynamic_profiler.py)。
 
 ### 方式三：环境变量使能
 
-用户如果想最简单地使能Profiler，可以使用环境变量使能方式，目前只支持单卡场景。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。该方式暂不支持schedule、on_trace_ready、experimental_config参数，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+用户如果想最简单地使能Profiler，可以使用环境变量使能方式，目前只支持单卡场景。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。该方式暂不支持schedule、on_trace_ready、experimental_config参数，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/env_var_list.html)。
 
 > 使用环境变量使能方式，请在脚本开始执行之前通过环境变量设置好device_id。禁止在脚本中通过set_context函数设置device_id。
 
@@ -171,7 +171,7 @@ export MS_PROFILER_OPTIONS='
 
 ### 方式四：离线解析
 
-用户如果想重新解析已经采集的性能数据，可以使用mindspore.profiler.profiler.analyse接口进行离线解析。analyse接口详细介绍请参考[离线解析analyse接口参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html)。
+用户如果想重新解析已经采集的性能数据，可以使用mindspore.profiler.profiler.analyse接口进行离线解析。analyse接口详细介绍请参考[离线解析analyse接口参数详解](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.profiler.profiler.analyse.html)。
 
 离线解析样例如下：
 

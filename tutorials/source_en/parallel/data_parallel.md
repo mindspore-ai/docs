@@ -1,6 +1,6 @@
 # Data Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/data_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/parallel/data_parallel.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ The following is an illustration of data parallel operation using the Ascend sin
 
 ## Sample Code Description
 
-> You can download the full sample code here: <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_data_parallel>.
+> You can download the full sample code here: <https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_data_parallel>.
 
 The directory structure is as follows:
 
@@ -143,7 +143,7 @@ for epoch in range(10):
         i += 1
 ```
 
-> This can also be trained using [Model.train](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train).
+> This can also be trained using [Model.train](https://www.mindspore.cn/docs/en/br_base/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train).
 
 ## Running Single-machine Eight-card Script
 
@@ -175,4 +175,4 @@ epoch: 0 step: 150, loss is 2.2822685
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/br_base/parallel/startup_method.html).

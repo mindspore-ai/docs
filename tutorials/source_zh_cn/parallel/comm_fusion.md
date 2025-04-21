@@ -1,6 +1,6 @@
 # 分布式训练通信融合
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/comm_fusion.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/parallel/comm_fusion.md)
 
 ## 简介
 
@@ -50,7 +50,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍：
     net.comm_fusion(config=config)
     ```
 
-    在自动并行或半自动并行场景下，用户在通过`net = AutoParallel(net, parallel_mode="semi_auto")`来配置并行策略时，可以利用该顶层`AutoParallel`类提供的`comm_fusion`接口的参数`congfig`来设置并行策略，输入格式为{"通信类型": {"mode":str, "config": None int 或者 list}}。具体可以参考[并行配置](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)中的`comm_fusion`。在这种场景下，优先推荐此种配置方法。
+    在自动并行或半自动并行场景下，用户在通过`net = AutoParallel(net, parallel_mode="semi_auto")`来配置并行策略时，可以利用该顶层`AutoParallel`类提供的`comm_fusion`接口的参数`congfig`来设置并行策略，输入格式为{"通信类型": {"mode":str, "config": None int 或者 list}}。具体可以参考[并行配置](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)中的`comm_fusion`。在这种场景下，优先推荐此种配置方法。
 
 2. 利用`Cell`提供的接口
 
@@ -60,7 +60,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍：
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_comm_fusion](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion)。
+> 下载完整的样例代码：[distributed_comm_fusion](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_comm_fusion)。
 
 目录结构如下：
 
@@ -95,7 +95,7 @@ init()
 
 为了避免上述问题，可以将网络参数进行分组融合：在下一组参数进行的计算的同时，进行上组参数的通信，使得计算和通信能够互相隐藏，可以通过限定fusion buffer的大小，或者index分区的方法进行分组融合。
 
-更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/master/tests/ut/python/parallel/test_comm_fusion.py)。
+更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/br_base/tests/ut/python/parallel/test_comm_fusion.py)。
 
 > 用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
 

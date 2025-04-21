@@ -1,8 +1,8 @@
 Error Reporting Analysis
 =========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/debug/error_analysis.rst
     :alt: View Source On Gitee
 
 .. toctree::
@@ -53,7 +53,7 @@ Understanding the meaning of error description information plays an important ro
 MindSpore error messages are processed by using Python
 Traceback processing, including Python stack information, error types and error descriptions, error messages related to networkdevelopers, and error messages related to framework developers. As shown in the following figure:
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/debug/images/graph_errmsg.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_zh_cn/debug/images/graph_errmsg.png
 
 -  Python stack information:
 
@@ -83,7 +83,7 @@ The general process of MindSpore network training is data loading and processing
 3) Analyze the location where the error is reported based on the Python call stack and the error information. In dynamic graph mode, it is easier to determine the location of the code error. In the static graph mode, you need to analyze the location of the error report according to the error message "The Traceback of Net Construct Code" part of the error message.
 4) Based on possible error problem scenarios and types, hypothesize the possible causes of the error problem.
 
-Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/error_scenario_analysis.html>`_ based on different scenarios.
+Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/tutorials/en/br_base/debug/error_analysis/error_scenario_analysis.html>`_ based on different scenarios.
 
 Error Search
 ^^^^^^^^^^^^^
@@ -94,7 +94,7 @@ Based on the error message and the location of the error code, combined with the
 
    MindSpore provides FAQ for common error reporting issues, including data processing, compilation execution, distributed parallelism and other scenarios. Based on the problem scenarios derived from the error analysis, you can search for problems by using the error description information.
 
-   The search address is as follows: \ `FAQ <https://www.mindspore.cn/docs/en/master/faq/installation.html>`__\ .
+   The search address is as follows: \ `FAQ <https://www.mindspore.cn/docs/en/br_base/faq/installation.html>`__\ .
 
 -  Error reporting case
 
@@ -135,7 +135,7 @@ Strategy Selection
 
    Dynamic diagram mode uses asynchronous execution by default in order to improve the efficiency of dynamic diagram execution, and error information are displayed at the last stage of execution. In Figure 3, you can see that the asynchronous execution method of error reporting will have alarm messages that interfere with the error reporting analysis.
 
-   MindSpore provides a way to switch synchronous execution by setting \ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)`` to switch to synchronous execution. If the operator execution error occurs, the task terminates directly and displays the current error message. For details, see \ `PyNative Synchronous Execution <https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html>`__\ .
+   MindSpore provides a way to switch synchronous execution by setting \ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)`` to switch to synchronous execution. If the operator execution error occurs, the task terminates directly and displays the current error message. For details, see \ `PyNative Synchronous Execution <https://www.mindspore.cn/tutorials/en/br_base/beginner/accelerate_with_static_graph.html>`__\ .
 
 -  Dichotomy Strategy
 
@@ -166,7 +166,7 @@ Debugging Verification
 
    1. ops.print\_
 
-      In static graph mode, MindSpore provides `ops.print_ <https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.print_.html>`_ interface to print Tensor information or string information in the computational graph.
+      In static graph mode, MindSpore provides `ops.print_ <https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.print_.html>`_ interface to print Tensor information or string information in the computational graph.
       The outputs are printed to screen by default, and it can also be saved in a file.
 
    2. Debugger
@@ -210,16 +210,16 @@ Network execution debugging is the corresponding debugging capability provided b
 |                           |                                          | such as: accuracy, loss, preci sion, recall, F1.                                                            |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | print\_ interface                        | The print\_ interface prints out the Tensor or                                                              | `print\_ interface introduction <https://www.minds    |
-|                           |                                          | string information entered by the user.                                                                     | pore.cn/docs/en/master/api_python/ops/                |
+|                           |                                          | string information entered by the user.                                                                     | pore.cn/docs/en/br_base/api_python/ops/               |
 |                           |                                          |                                                                                                             | /mindspore.ops.print_.html>`_                         |
 |                           |                                          |                                                                                                             |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Intermediate file saving                 | Used to save the intermediate files generated                                                               | `Reading IR <https://www.mindspore.cn/tutorials       |
-|                           |                                          | during the diagram compilation process, which we call IR files, to support                                  | /en/master/debug/error_analysis                       |
+|                           |                                          | during the diagram compilation process, which we call IR files, to support                                  | /en/br_base/debug/error_analysis                      |
 |                           |                                          | the diagnosis of problems related to diagram structure and diagram information.                             | /mindir.html>`_                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Data Dump                                | When training the network, if the training result deviates from the expectation,                            | `Dump function debugging <https://www.mindspore.cn/   |
-|                           |                                          | the operator input and output data are saved for debugging by the Du mp function.                           | tutorials/en/master/debug/dump.html>`_                |
+|                           |                                          | the operator input and output data are saved for debugging by the Du mp function.                           | tutorials/en/br_base/debug/dump.html>`_               |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 | Execution control         | Callback                                 | Users can use callback functions to perform specific actions                                                |                                                       |
 |                           |                                          | at specific times or to observe network information                                                         |                                                       |
@@ -227,7 +227,7 @@ Network execution debugging is the corresponding debugging capability provided b
 |                           |                                          | dynamically adjust parameters, terminate training tasks early.                                              |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Hook                                     | The Hook function in pynative mode captures the input and output data                                       | `Hook function <https://www.mindspore.cn/             |
-|                           |                                          | and the backward gradient of the middle layer operator.                                                     | tutorials/en/master/custom_program/                   |
+|                           |                                          | and the backward gradient of the middle layer operator.                                                     | tutorials/en/br_base/custom_program/                  |
 |                           |                                          | Four forms of Hook functions are available:                                                                 | hook_program.html>`_                                  |
 |                           |                                          | HookBackward operator and register_forward_pre_hook, register_forward_hook,                                 |                                                       |
 |                           |                                          | and register_backward_hook functions                                                                        |                                                       |
@@ -235,7 +235,7 @@ Network execution debugging is the corresponding debugging capability provided b
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Synchronous execution                    | In dynamic graph mode, operators are executed asynchronously                                                | `Synchronized execution of dynamic graph <https://    |
 |                           |                                          | on the device to improve performance,                                                                       | www.mindspore.cn/tutorials/en/                        |
-|                           |                                          | so operator execution errors may be displayed at the end of program execution.                              | master/beginner/accelerate_with_static_graph.html     |
+|                           |                                          | so operator execution errors may be displayed at the end of program execution.                              | br_base/beginner/accelerate_with_static_graph.html    |
 |                           |                                          | In this case, MindSpore provides a synchronous execution setting                                            | #dynamic-graph-mode>`_                                |
 |                           |                                          | to control whether the arithmetic is executed asynchronously on the device.                                 |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
@@ -249,7 +249,7 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 | Function classification | Main debugging functions |  Description of use                                           | Detailed introduction                                 |
 +=========================+==========================+===============================================================+=======================================================+
 | Process records         | Logs                     | used to record information at each stage of the framework     | `Log-related environment variables and configurations |
-|                         |                          | implementation to provide information for understanding       | <https://www.mindspore.cn/docs/en/master              |
+|                         |                          | implementation to provide information for understanding       | <https://www.mindspore.cn/docs/en/br_base             |
 |                         |                          | the framework implementation process or for problem diagnosis.| /api_python/env_var_list.html>`_                      |
 |                         |                          |                                                               |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+

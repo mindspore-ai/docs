@@ -1,6 +1,6 @@
 # 比较与torchvision.transforms.RandomAffine的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RandomAffine.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RandomAffine.md)
 
 ## torchvision.transforms.RandomAffine
 
@@ -16,7 +16,7 @@ class torchvision.transforms.RandomAffine(degrees, translate=None, scale=None, s
 class mindspore.dataset.vision.RandomAffine(degrees, translate=None, scale=None, shear=None, resample=Inter.NEAREST, fill_value=0)
 ```
 
-更多内容详见[mindspore.dataset.vision.RandomAffine](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomAffine.html)。
+更多内容详见[mindspore.dataset.vision.RandomAffine](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset_vision/mindspore.dataset.vision.RandomAffine.html)。
 
 ## 差异对比
 

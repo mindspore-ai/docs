@@ -1,6 +1,6 @@
 # Multi-dimensional Hybrid Parallel Case Based on Double Recursive Search
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/multiple_mixed.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/parallel/multiple_mixed.md)
 
 ## Overview
 
@@ -12,7 +12,7 @@ The following is a multi-dimensional hybrid parallel case based on double recurs
 
 ### Example Code Description
 
-> Download the complete example code: [multiple_mix](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/multiple_mix).
+> Download the complete example code: [multiple_mix](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/multiple_mix).
 
 The directory structure is as follows:
 

@@ -1,6 +1,6 @@
 # 网络构建与训练常见错误分析
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/error_analysis/mindrt_debug.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/debug/error_analysis/mindrt_debug.md)&nbsp;&nbsp;
 
 静态图模式下，网络构建与训练过程的常见的报错类型如下所示：
 
@@ -18,7 +18,7 @@ ValueError: For 'set_context', package type mindspore-gpu support 'device_target
 
 [MindSpore 配置问题 - 'set_context'配置报错](https://www.hiascend.com/forum/thread-0229106885219029083-1-1.html)。
 
-关于context配置的详细使用说明请参考['set_context'](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
+关于context配置的详细使用说明请参考['set_context'](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.set_context.html)。
 
 ## 语法问题
 
@@ -62,7 +62,7 @@ Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
 
 参考实例链接：
 
-[MindSpore 语法问题 - Type(Shape) Join Failed](https://www.mindspore.cn/docs/zh-CN/master/faq/network_compilation.html?highlight=type%20join%20failed)
+[MindSpore 语法问题 - Type(Shape) Join Failed](https://www.mindspore.cn/docs/zh-CN/br_base/faq/network_compilation.html?highlight=type%20join%20failed)
 
 for语句以及while语句可能存在循环次数过大，导致函数调用栈超限的问题。报错信息如下所示：
 

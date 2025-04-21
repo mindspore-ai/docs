@@ -1,6 +1,6 @@
 # Dataset AutoTune for Dataset Pipeline
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/dataset/dataset_autotune.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/dataset/dataset_autotune.md)
 
 ## Overview
 
@@ -54,7 +54,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## Constraints
 
 - Both Dataset Profiling and Dataset AutoTune cannot be enabled concurrently, since Profiling's additional processing interferes with Dataset AutoTune's optimization processing. If both of them are enabled at the same time, a warning message will prompt the user to check whether there is a mistake. Do ensure Profiling is disabled when using Dataset AutoTune.
-- [Offload for Dataset](https://www.mindspore.cn/tutorials/en/master/dataset/dataset_offload.html) and Dataset AutoTune can be enabled simultaneously. If any dataset node has been offloaded for hardware acceleration, the more efficient dataset pipeline configuration file will not be stored and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
+- [Offload for Dataset](https://www.mindspore.cn/tutorials/en/br_base/dataset/dataset_offload.html) and Dataset AutoTune can be enabled simultaneously. If any dataset node has been offloaded for hardware acceleration, the more efficient dataset pipeline configuration file will not be stored and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
 - If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), any attempt to deserialize the saved and improved dataset pipeline configuration file will report an error. In this case, it is recommended to manually modify the dataset pipeline script based on the contents of the tuning configuration file to achieve the purpose of a more efficient dataset pipeline.
 - In the distributed training scenario, `set_enable_autotune()` must be called after cluster communication has been initialized (mindspore.communication.management.init()), otherwise AutoTune can only detect device with id 0 and create only one tuned file (the number of expected tuned files equal to the number of devices). See the following example:
 
@@ -247,7 +247,7 @@ The `new_dataset` is the tuned dataset object containing operations from Cifar t
 
 Before starting the next training process, the user can update the dataset loading code according to recommended improvements from Dataset AutoTune for a more efficient dataset pipeline. This allows the dataset pipeline to be run at an improved speed from the beginning of the training process.
 
-By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size. Please refer to [mindspore.dataset.config](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html#config).
+By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size. Please refer to [mindspore.dataset.config](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore.dataset.loading.html#config).
 
-- [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
-- [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)
+- [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/en/br_base/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
+- [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/en/br_base/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)
