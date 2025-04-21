@@ -379,6 +379,10 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
           f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
 
+re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
 for cur, _, files in os.walk(des_sir):
     for i in files:
         if os.path.join(cur, i) in no_viewsource_list:
@@ -387,7 +391,7 @@ for cur, _, files in os.walk(des_sir):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
-                    new_content = content
+                    new_content = re.sub(re_url, r'\1/br_base', content)
                     if i.endswith('.md'):
                         md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                         if 'resource/_static/logo_source' not in new_content:
