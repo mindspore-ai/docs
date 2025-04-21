@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/generative/diffusion.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/generative/diffusion.md)
 
 # Diffusion Model
 
@@ -12,7 +12,7 @@ Actually, the idea of diffusion-based generative models was already introduced b
 
 The method stated in this document is achieved on MindSpore AI framework and refers to Phil Wang's [Denoising Diffusion Probabilistic Model, in PyTorch](https://github.com/lucidrains/denoising-diffusion-pytorch) (which is achieved based on [TensorFlow](https://github.com/hojonathanho/diffusion)).
 
-![Image-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/generative/images/diffusion_1.png)
+![Image-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/generative/images/diffusion_1.png)
 
 We adopt the discrete time (potential variable model) in the experiment. In addition, you can see [other opinions](https://twitter.com/sedielem/status/1530894256168222722?s=20&t=mfv4afx1GcNQU5fZklpACw) on diffusion models.
 
@@ -51,7 +51,7 @@ Processing images using a diffusion model consists of 2 processes.
 
 - A reverse denoising diffusion process $p_\theta$ that learns to gradually denoise pure noise through a neural network to generate an actual image.
 
-![Image-2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/generative/images/diffusion_2.png)
+![Image-2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/generative/images/diffusion_2.png)
 
 Both the forward and reverse processes indexed by $t$ occur within the number of limited time steps $T$ (the DDPM authors use $T = 1000$). We start with $t=0$, sample the real image $\mathbf{x}_0$ from the data distribution. A cat image from ImageNet is used to show the forward diffusion process, which samples some noise from a Gaussian distribution at each time step $t$ and adds the noise to the image of the previous time step. Assume that a sufficiently large $T$ and a well behaved schedule for adding noise at each time step, you will end up with what is called an [Isotropic Gaussian Distribution](https://math.stackexchange.com/questions/1991961/gaussian-distribution-is-isotropic) at $t = T$ via a gradual process.
 
@@ -138,7 +138,7 @@ $\mathbf{x}_0$ is the initial (real and undamaged) image here, $\mathbf{\epsilon
 
 The training algorithm is shown as follows:
 
-![Image-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/generative/images/diffusion_3.png)
+![Image-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/generative/images/diffusion_3.png)
 
 In other words:
 
@@ -160,7 +160,7 @@ What we always use here is very similar to the [autoencoder](https://en.wikipedi
 
 As for model architecture, the DDPM authors chose U-Net, which is introduced by [Ronneberger et al., 2015](https://arxiv.org/abs/1505.04597) and got the highest level achievement in medical image segmentation at that time. Like any autoencoder, this network consists of a bottleneck in the middle, ensuring that the network learns only the most important information. Importantly, it introduces residual connections between the encoder and decoder, greatly improving gradient flows (which is inspired by [He et al., 2015](https://arxiv.org/abs/1512.03385)).
 
-![Image-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/generative/images/diffusion_4.jpg)
+![Image-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/generative/images/diffusion_4.jpg)
 
 We can see that the U-Net model downsamples the input (that is, makes the input smaller in terms of spatial resolution), and then performs upsampling.
 
@@ -818,7 +818,7 @@ dict_keys(['image'])
 
 Since we will sample from the model during training (to track progress), we define the following code: Sampling is summarized in this document as algorithm 2.
 
-![Image-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/generative/images/diffusion_5.png)
+![Image-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/generative/images/diffusion_5.png)
 
 Generating a new image from a diffusion model is achieved by reversing the diffusion process: starting with $T$, we sample pure noise from the Gaussian distribution, and then use our neural network to gradually denoise (using the conditional probability it learns), until we finally end up at the time step $t = 0$. As shown above, we can derive a slightly less denoised image $\mathbf{x}_{t-1 }$ by plugging in the reparametrization of the mean,
 using our noise predictor. Note that the variance is known in advance.

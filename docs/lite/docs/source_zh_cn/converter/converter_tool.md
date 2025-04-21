@@ -1,6 +1,6 @@
 # 端侧模型转换
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/converter/converter_tool.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/converter/converter_tool.md)
 
 ## 概述
 
@@ -16,7 +16,7 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)模型转换工具。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
     ```bash
@@ -83,9 +83,9 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - `--fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`--fp16`不会再次生效。总而言之，该选项只会在序列化时对模型中的float32的权重生效。
 > - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
-> - `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[量化](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/advanced/quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/advanced/third_party/converter_register.html#扩展配置)。
+> - `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[量化](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/third_party/converter_register.html#扩展配置)。
 > - `--optimize`该参数是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该参数设置为none，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成general，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成gpu_oriented，表示转换过程中会完成通用优化和针对GPU后端的额外优化（转换出来的模型只支持GPU后端）。如果设置成ascend_oriented，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
-> - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
+> - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
     需要注意的是，加解密算法在1.7版本进行了更新，导致新版的converter工具不支持对1.6及其之前版本的MindSpore加密导出的模型进行转换。
 > - `--input_shape`参数以及dynamicDims参数在转换时会被存入模型中，在使用模型时可以调用model.get_model_info("input_shape")以及model.get_model_info("dynamic_dims")来获取。
 
@@ -170,7 +170,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
     CONVERT RESULT SUCCESS:0
     ```
 
-> 量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/advanced/quantization.html>。
+> 量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/quantization.html>。
 
 ## Windows环境使用说明
 
@@ -178,7 +178,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)模型转换工具。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量PATH。
 
   ```bash
@@ -207,7 +207,7 @@ mindspore-lite-{version}-win-x64
 
 ### 参数说明
 
-参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html#参数说明)。
+参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html#参数说明)。
 
 ### 使用示例
 

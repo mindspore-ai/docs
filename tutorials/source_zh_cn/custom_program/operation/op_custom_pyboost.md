@@ -1,14 +1,14 @@
 # 动态图场景的自定义算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/custom_program/operation/op_custom_pyboost.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/custom_program/operation/op_custom_pyboost.md)
 
 ## 概述
 
 动态图模式下，网络流程更容易调试，可以支持执行单算子、普通函数和网络，以及单独求梯度等操作。
 
-基于[Custom的自定义算子表达](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/op_custom.html)虽然可以同时支持静态图和动态图，但是需要定义的内容较多。因此MindSpore针对动态图的自定义算子定义方式做了优化，方便用户使用的同时，还能提升自定义算子的执行性能。
+基于[Custom的自定义算子表达](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/custom_program/op_custom.html)虽然可以同时支持静态图和动态图，但是需要定义的内容较多。因此MindSpore针对动态图的自定义算子定义方式做了优化，方便用户使用的同时，还能提升自定义算子的执行性能。
 
-下面以一个昇腾平台的乘法算子为例讲解，相关算子文件和更多用例参见[仓库代码](https://gitee.com/mindspore/mindspore/blob/v2.6.0/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
+下面以一个昇腾平台的乘法算子为例讲解，相关算子文件和更多用例参见[仓库代码](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
 
 ## 算子定义
 
@@ -113,7 +113,7 @@ class CustomMul : public Function<CustomMul>
 static BaseTensorPtr Forward(AutogradContext *ctx, const BaseTensorPtr &x, const BaseTensorPtr &y)
 ```
 
-下面是正向函数计算部分。用户先创建一个数据类型为`x->data_type()`，大小为`BroadcastInferShape(x, y)`的`Tensor`，然后使用`CustomLaunchAclnn`调用`aclnnMul`算子进行计算。对于aclnn算子的编译相关知识，可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/operation/op_custom_ascendc.html#编译与部署方法)中的相关章节。
+下面是正向函数计算部分。用户先创建一个数据类型为`x->data_type()`，大小为`BroadcastInferShape(x, y)`的`Tensor`，然后使用`CustomLaunchAclnn`调用`aclnnMul`算子进行计算。对于aclnn算子的编译相关知识，可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/custom_program/operation/op_custom_ascendc.html#编译与部署方法)中的相关章节。
 
 ```c++
 auto output = std::make_shared<BaseTensor>(x->data_type(), BroadcastInferShape(x, y));

@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/cv/fcn8s.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/cv/fcn8s.md)
 
 # FCN for Image Semantic Segmentation
 
@@ -6,7 +6,7 @@ Fully convolutional network (FCN) is a framework for image semantic segmentation
 
 FCN is the first end-to-end network for pixel-level prediction.
 
-![fcn-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/fcn_1.png)
+![fcn-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/fcn_1.png)
 
 ## Semantic Segmentation
 
@@ -16,7 +16,7 @@ Semantic segmentation is an important part of image understanding in image proce
 
 A purpose of semantic segmentation is to classify each pixel in an image. Different from a common classification task that outputs only a class, the semantic segmentation task outputs an image whose size is the same as that of the input, and each pixel of the output image corresponds to a class of each pixel of the input image. In the image field, semantics refers to the content of an image. The following figure shows some semantic segmentation instances.
 
-![fcn-2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/fcn_2.png)
+![fcn-2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/fcn_2.png)
 
 ## Model Introduction
 
@@ -28,19 +28,19 @@ The fully convolutional neural network mainly uses the following three technolog
 
     VGG-16 is used as the FCN backbone. The input of VGG-16 is a 224 x 224 RGB image, and the output is 1000 prediction values. VGG-16 accepts only fixed-size input, discards spatial coordinates, and generates non-spatial output. There are three fully-connected layers in total in the VGG-16, and the fully-connected layers may also be considered as convolutions covering an entire region. Converting a fully-connected layer into a convolutional layer can change a network output from a one-dimensional non-spatial output to a two-dimensional matrix, and generate a heatmap mapped to an input image by using the output.
 
-   ![fcn-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/fcn_3.png)
+   ![fcn-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/fcn_3.png)
 
 2. Upsampling
 
     A convolution operation and a pooling operation in a convolution process reduce the size of a feature map. To obtain dense image prediction of the size of an original image, an upsampling operation needs to be performed on the obtained feature map. The parameters of bilinear interpolation are used to initialize the parameters of upsampling inverse convolution, and then the nonlinear upsampling is learned through backpropagation. Upsampling is performed in the network for end-to-end learning through backpropagation of pixel loss.
 
-    ![fcn-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/fcn_4.png)
+    ![fcn-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/fcn_4.png)
 
 3. Skip layer
 
     Upsampling is performed on the feature map of the last layer to obtain the segmentation of the original image size. The segmentation is a prediction with a step of 32 pixels, which is called FCN-32s. Because the feature map at the last layer is too small and too many details are lost, the skips structure is used to combine the prediction at the last layer with the prediction at the shallower layer. Then, the prediction result can obtain more local details. The 2x upsampling is performed on the prediction (FCN-32s) of the bottom layer (stride 32) to obtain an image of the original size, and the image is fused (added) with the prediction performed from the pool 4 layer (stride 16). This part of network is called FCN-16s. Then, the 2x upsampling is performed on this part of prediction again and fused with the prediction obtained from the pool 3 layer. This part of network is called FCN-8s. The skips structure combines deep global information with shallow local information.
 
-    ![fcn-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/fcn_5.png)
+    ![fcn-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/fcn_5.png)
 
 ## Network Features
 
@@ -206,7 +206,7 @@ The following figure shows the FCN process.
 6. FCN-16s deconvolutes the output of conv 7 to double the size of the original image to 1/16 of the original image, fuses the output with the feature map output by pool 4, and then expands the output to the original size through deconvolution.
 7. FCN-8s deconvolutes the output of conv 7 to increase the size by four times, deconvolutes the feature map output by pool 4 to increase the size by two times, and takes out the feature map output by pool 3. After the three are fused, the size is increased to the original size through deconvolution.
 
-![fcn-6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/fcn_6.png)
+![fcn-6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/fcn_6.png)
 
 Use the following code to build an FCN-8s network.
 

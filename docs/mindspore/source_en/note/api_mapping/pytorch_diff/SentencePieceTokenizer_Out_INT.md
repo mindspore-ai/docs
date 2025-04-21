@@ -1,6 +1,6 @@
 # Differences with torchtext.data.functional.sentencepiece_numericalizer
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SentencePieceTokenizer_Out_INT.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SentencePieceTokenizer_Out_INT.md)
 
 ## torchtext.data.functional.sentencepiece_numericalizer
 
@@ -21,7 +21,7 @@ class mindspore.dataset.text.SentencePieceTokenizer(
 )
 ```
 
-For more information, see [mindspore.dataset.text.SentencePieceTokenizer](https://mindspore.cn/docs/en/r2.6.0/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer).
+For more information, see [mindspore.dataset.text.SentencePieceTokenizer](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer).
 
 ## Differences
 

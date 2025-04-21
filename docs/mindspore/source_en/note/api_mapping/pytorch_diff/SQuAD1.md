@@ -1,6 +1,6 @@
 # Differences with torchtext.datasets.SQuAD1
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SQuAD1.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SQuAD1.md)
 
 ## torchtext.datasets.SQuAD1
 
@@ -26,7 +26,7 @@ class mindspore.dataset.SQuADDataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.SQuADDataset](https://mindspore.cn/docs/en/r2.6.0/api_python/dataset/mindspore.dataset.SQuADDataset.html#mindspore.dataset.SQuADDataset).
+For more information, see [mindspore.dataset.SQuADDataset](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset/mindspore.dataset.SQuADDataset.html#mindspore.dataset.SQuADDataset).
 
 ## Differences
 

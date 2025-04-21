@@ -1,6 +1,6 @@
 # Calling Source Code to Start
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/quick_start/source_code_start.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_en/quick_start/source_code_start.md)
 
 This section shows how to use MindSpore Transformers to quickly pull up a LoRA low-parameter fine-tuning task based on the Llama2-7B model. To use other models and tasks via MindSpore Transformers, please read the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).
 

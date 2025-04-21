@@ -1,6 +1,6 @@
 # Device-side Training (Java)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/train/runtime_train_java.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/train/runtime_train_java.md)
 
 ## Overview
 
@@ -16,19 +16,19 @@ The following figure shows the detailed training process:
 
 ![img](../images/side_train_sequence_unify_api.png)
 
-> For more javaAPI description, please refer to [API Documentation](https://www.mindspore.cn/lite/api/en/r2.6.0/index.html).
+> For more javaAPI description, please refer to [API Documentation](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/index.html).
 
 ## Model Creating, Loading and Building
 
-[Model](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#model) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
+[Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#model) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the MindSpore Model Converter Tool. These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Graph](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/graph.html#graph) class which holds the model data such as the network structure, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the MindSpore Model Converter Tool. These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Graph](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/graph.html#graph) class which holds the model data such as the network structure, weights data and operators attributes.
 
 ### Creating Contexts
 
-[MSContext](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/mscontext.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
+[MSContext](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/mscontext.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
 Currently, only CPU device is supported in training.
 
 ### Creating TrainLoop
@@ -50,7 +50,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Data Processing
 
@@ -98,7 +98,7 @@ The following codes shows the Mnist data reading and data preprocessing process:
     }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Execute Training
 
@@ -133,7 +133,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ### Evaluating
 
@@ -162,7 +162,7 @@ public boolean setTrainMode(boolean isTrain)
 
 ### Resizing the Input Dimension
 
-When MindSpore Lite is used for inference, if you need to Resize the input shape, you can call [resize](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#resize) of Model after you have finished creating [Model](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#model) and have completed model compilation [build](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#build), to resize the shape of the input Tensor.
+When MindSpore Lite is used for inference, if you need to Resize the input shape, you can call [resize](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#resize) of Model after you have finished creating [Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#model) and have completed model compilation [build](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#build), to resize the shape of the input Tensor.
 
 > Some networks do not support variable dimensions. As a result, an error message is displayed and the model exits unexpectedly. For example, the model contains the MatMul operator, one input tensor of the MatMul operator is the weight, and the other input tensor is the input. If a variable dimension API is called, the input tensor does not match the shape of the weight tensor. As a result, the training fails.
 
@@ -179,7 +179,7 @@ bool ret = model.resize(inputs, dims);
 Before graph execution, whether it is during training or inference, the input data must be filled-in into the model input tensors.
 MindSpore Lite provides the following methods to obtain model input tensors:
 
-1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#getinputsbytensorname) method to obtain model input tensors that are connected to the model input node based on the tensor name.
+1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#getinputsbytensorname) method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
     ```java
      /**
@@ -191,7 +191,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     public MSTensor getInputByTensorName(String tensorName);
     ```
 
-2. Use the [getInputs](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#getinputs) method to directly obtain the vectors of all model input tensors.
+2. Use the [getInputs](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#getinputs) method to directly obtain the vectors of all model input tensors.
 
     ```java
     /**
@@ -207,7 +207,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
 3. Copying Data
 
-    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/mstensor.html#mstensor) API documentation.
+    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/mstensor.html#mstensor) API documentation.
 
     The following sample code shows how to get the complete graph input tensor from `Model` and how to convert the model input data to `MSTensor` type.
 
@@ -223,7 +223,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
 MindSpore Lite provides the following methods to obtain the output tensor of a model:
 
-1. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#getoutputsbynodename) method to obtain the output tensors that belong to a certain node:
+1. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#getoutputsbynodename) method to obtain the output tensors that belong to a certain node:
 
     ```java
     /**
@@ -235,7 +235,7 @@ MindSpore Lite provides the following methods to obtain the output tensor of a m
     public List<MSTensor> getOutputsByNodeName(String nodeName);
     ```
 
-2. Use the [getOutputByTensorName](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#getoutputbytensorname) method to obtain an output tensor, based on the tensor name.
+2. Use the [getOutputByTensorName](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#getoutputbytensorname) method to obtain an output tensor, based on the tensor name.
 
     ```java
           /**
@@ -246,7 +246,7 @@ MindSpore Lite provides the following methods to obtain the output tensor of a m
         public MSTensor getOutputByTensorName(String tensorName);
     ```
 
-3. Use the [getOutputs](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#getoutputs) method to obtain all the output tensors, ordered by their tensor names.
+3. Use the [getOutputs](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#getoutputs) method to obtain all the output tensors, ordered by their tensor names.
 
     ```java
         /**

@@ -1,6 +1,6 @@
 # Differences with torchvision.transforms.ToPILImage
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ToPIL.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ToPIL.md)
 
 ## torchvision.transforms.ToPILImage
 
@@ -18,7 +18,7 @@ For more information, see [torchvision.transforms.ToPILImage](https://pytorch.or
 class mindspore.dataset.vision.ToPIL
 ```
 
-For more information, see [mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/en/r2.6.0/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL).
+For more information, see [mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL).
 
 ## Differences
 

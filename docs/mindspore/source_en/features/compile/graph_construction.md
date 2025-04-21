@@ -1,16 +1,16 @@
 # Graph Construction
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/features/compile/graph_construction.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/features/compile/graph_construction.md)
 
 MindSpore provides JIT (just-in-time) technology to optimize the performance. The JIT mode parses the code into an intermediate representation (IR) graph by means of AST tree parsing, Python bytecode parsing or code execution tracing, which serves as a unique representation of the code, and the compiler optimizes the code by optimizing the IR graph to improve the runtime performance. In contrast to the dynamic graph model, this JIT compilation model is called the static graph model.
 
-Based on JIT technology, MindSpore provides a dynamic-static combination approach to improve the operational efficiency of the user's network. The combination of dynamic and static, that is, in the overall run as a dynamic graph, specifies certain code blocks to run as a static graph. Code blocks that run as static graphs are compiled first and then executed, and global optimizations are performed during the compilation period to obtain performance gains during the execution period. Users can modify functions with the `@jit` decorator to specify that they execute according to the pattern of a static graph. For the documentation on the `@jit` decorator, refer to [jit API documentation](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.jit.html#mindspore.jit).
+Based on JIT technology, MindSpore provides a dynamic-static combination approach to improve the operational efficiency of the user's network. The combination of dynamic and static, that is, in the overall run as a dynamic graph, specifies certain code blocks to run as a static graph. Code blocks that run as static graphs are compiled first and then executed, and global optimizations are performed during the compilation period to obtain performance gains during the execution period. Users can modify functions with the `@jit` decorator to specify that they execute according to the pattern of a static graph. For the documentation on the `@jit` decorator, refer to [jit API documentation](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.jit.html#mindspore.jit).
 
 MindSpore provides three JIT compilation methods, namely, ast, bytecode and trace. The ast converts the functions that are identified by the users manually and need to be executed in accordance with the ast into a static graph through the AST tree parsing. The bytecode is through the Python bytecode parsing, in the dynamic graph as much as possible to build a static graph. The part that can not be converted to a static graph will be in accordance with the dynamic graph for the purpose of combining static and dynamic. The trace constructs a static graph by tracing the execution path of Python code and is currently an experimental feature. Subsequent introduction will explain in detail the difference among the three principles and their respective characteristics.
 
 ## Ast
 
-In dynamic graph mode, the user can modify a function to execute in ast mode by using the `@jit(capture_mode=“ast”)` decorator. The syntax and data structures used inside the functions which decorated by ast mode need to strictly follow the [Static Graph Syntax Specification](https://www.mindspore.cn/tutorials/en/r2.6.0/compile/static_graph.html). The ast approach compiles Python code via a source-to-source method, which first parses the Python source code of model definitions into an Abstract Syntax Tree (AST), then converts the AST into MindIR. For example, the following Python code:
+In dynamic graph mode, the user can modify a function to execute in ast mode by using the `@jit(capture_mode=“ast”)` decorator. The syntax and data structures used inside the functions which decorated by ast mode need to strictly follow the [Static Graph Syntax Specification](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/compile/static_graph.html). The ast approach compiles Python code via a source-to-source method, which first parses the Python source code of model definitions into an Abstract Syntax Tree (AST), then converts the AST into MindIR. For example, the following Python code:
 
 ```python
 @jit
@@ -21,7 +21,7 @@ def foo(x, y):
 
 The corresponding AST is as follows:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
 
 By parsing the above AST, we obtain the following MindIR:
 
@@ -83,7 +83,7 @@ In the above use case, the tensor_cal function is modified by the @jit decorator
 
 - The vast majority of calculations and optimizations for MindSpore static graphs are based on optimizations for Tensor calculations, so we recommend that the functions that are modified should be the kind of functions that are used to perform real data calculations, rather than simple scalar calculations or transformations of data structures.
 
-- Functions modified by `@jit` that have constants in their inputs will result in a recompile each time that the function input value changes. See [Constants and Variables Within JIT](https://www.mindspore.cn/tutorials/en/r2.6.0/compile/static_graph.html#constants-and-variables-within-jit) for the concept of variable constants. Therefore, it is recommended that the modified function takes as input Tensor or data modified by Mutable. Avoid additional performance loss due to multiple compilations.
+- Functions modified by `@jit` that have constants in their inputs will result in a recompile each time that the function input value changes. See [Constants and Variables Within JIT](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/compile/static_graph.html#constants-and-variables-within-jit) for the concept of variable constants. Therefore, it is recommended that the modified function takes as input Tensor or data modified by Mutable. Avoid additional performance loss due to multiple compilations.
 
 ## Bytecode
 
@@ -100,7 +100,7 @@ In addition to ast, MindSpore provides another static acceleration mechanism, by
 
 The compilation process of bytecode is illustrated in the following diagram:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/features/compile/images/bytecode.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/features/compile/images/bytecode.png)
 
 **bytecode Usage**
 

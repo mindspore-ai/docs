@@ -1,10 +1,10 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/beginner/model.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/beginner/model.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/dataset.html) || **Model** || [Autograd](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/mixed_precision.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/dataset.html) || **Model** || [Autograd](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/mixed_precision.html)
 
 # Building a Network
 
-The neural network model consists of neural network layers and Tensor operations. [mindspore.nn](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.nn.html) provides common neural network layer implementations, and the [Cell](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html) class in MindSpore is the base class for building all networks and is the basic unit of the network. `Cell`, a neural network model, is composed of different sub-`Cells`. Using such a nested structure, the neural network structure can be constructed and managed simply by using object-oriented programming thinking.
+The neural network model consists of neural network layers and Tensor operations. [mindspore.nn](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.nn.html) provides common neural network layer implementations, and the [Cell](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html) class in MindSpore is the base class for building all networks and is the basic unit of the network. `Cell`, a neural network model, is composed of different sub-`Cells`. Using such a nested structure, the neural network structure can be constructed and managed simply by using object-oriented programming thinking.
 
 In the following we will construct a neural network model for the Mnist dataset classification.
 
@@ -17,7 +17,7 @@ from mindspore import nn, ops
 
 When define a neural network, we can inherit the `nn.Cell` class, instantiate and manage the state of the sub-Cell in the `__init__` method, and implement the Tensor operation in the `construct` method.
 
-> `construct` means neural network (computational graph) construction. For more details, see [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/accelerate_with_static_graph.html).
+> `construct` means neural network (computational graph) construction. For more details, see [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/accelerate_with_static_graph.html).
 
 ```python
 class Network(nn.Cell):
@@ -101,7 +101,7 @@ print(input_image.shape)
 
 ### nn.Flatten
 
-Initialize the [nn.Flatten](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Flatten.html) layer and convert a 28x28 2D tensor into a contiguous array of size 784.
+Initialize the [nn.Flatten](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Flatten.html) layer and convert a 28x28 2D tensor into a contiguous array of size 784.
 
 ```python
 flatten = nn.Flatten()
@@ -115,7 +115,7 @@ print(flat_image.shape)
 
 ### nn.Dense
 
-[nn.Dense](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Dense.html) is the fully connected layer, which linearly transforms the input by using weights and deviations.
+[nn.Dense](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Dense.html) is the fully connected layer, which linearly transforms the input by using weights and deviations.
 
 ```python
 layer1 = nn.Dense(in_channels=28*28, out_channels=20)
@@ -129,7 +129,7 @@ print(hidden1.shape)
 
 ### nn.ReLU
 
-[nn.ReLU](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.ReLU.html) layer adds a nonlinear activation function to the network, to help the neural network learn various complex features.
+[nn.ReLU](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.ReLU.html) layer adds a nonlinear activation function to the network, to help the neural network learn various complex features.
 
 ```python
 print(f"Before ReLU: {hidden1}\n\n")
@@ -168,7 +168,7 @@ After ReLU: [[0.         0.2939465  0.         0.         0.         0.
 
 ### nn.SequentialCell
 
-[nn.SequentialCell](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.SequentialCell.html) is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `nn.SequentialCell` to construct a neural network model quickly.
+[nn.SequentialCell](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.SequentialCell.html) is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `nn.SequentialCell` to construct a neural network model quickly.
 
 ```python
 seq_modules = nn.SequentialCell(
@@ -188,7 +188,7 @@ print(logits.shape)
 
 ### nn.Softmax
 
-Finally, the value of logits returned by the last fully-connected layer of the neural network is scaled to \[0, 1\] by using [nn.Softmax](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Softmax.html), indicating the predicted probability of each category. The dimensional values specified by `axis` sum to 1.
+Finally, the value of logits returned by the last fully-connected layer of the neural network is scaled to \[0, 1\] by using [nn.Softmax](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Softmax.html), indicating the predicted probability of each category. The dimensional values specified by `axis` sum to 1.
 
 ```python
 softmax = nn.Softmax(axis=1)
@@ -251,4 +251,4 @@ Size: (10,)
 Values : [0. 0.]
 ```
 
-For more built-in neural network layers, see [mindspore.nn API](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.nn.html).
+For more built-in neural network layers, see [mindspore.nn API](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.nn.html).

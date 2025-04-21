@@ -1,6 +1,6 @@
 # Differences with torchtext.datasets.DBpedia
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/DBpedia.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/DBpedia.md)
 
 ## torchtext.datasets.DBpedia
 
@@ -26,7 +26,7 @@ class mindspore.dataset.DBpediaDataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.DBpediaDataset](https://mindspore.cn/docs/en/r2.6.0/api_python/dataset/mindspore.dataset.DBpediaDataset.html#mindspore.dataset.DBpediaDataset).
+For more information, see [mindspore.dataset.DBpediaDataset](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset/mindspore.dataset.DBpediaDataset.html#mindspore.dataset.DBpediaDataset).
 
 ## Differences
 

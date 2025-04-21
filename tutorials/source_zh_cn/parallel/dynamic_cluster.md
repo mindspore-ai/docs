@@ -1,6 +1,6 @@
 # 动态组网启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/parallel/dynamic_cluster.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/parallel/dynamic_cluster.md)
 
 ## 概述
 
@@ -157,7 +157,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 
 动态组网启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
-> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/startup_method)。
 
 目录结构如下：
 
@@ -260,7 +260,7 @@ for epoch in range(10):
 
 #### 单机多卡
 
-单机多卡启动脚本内容[run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/startup_method/run_dynamic_cluster.sh)如下，以单机8卡为例：
+单机多卡启动脚本内容[run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/startup_method/run_dynamic_cluster.sh)如下，以单机8卡为例：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -317,7 +317,7 @@ epoch: 0, step: 30, loss is 1.0437132
 
 多机训练场景下，需拆分启动脚本。下面以执行双机8卡训练为例，每台机器执行启动4个Worker：
 
-脚本[run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1个`Scheduler`进程以及4个`Worker`进程：
+脚本[run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1个`Scheduler`进程以及4个`Worker`进程：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -352,7 +352,7 @@ export MS_ROLE=MS_SCHED                    # 设置启动的进程为MS_SCHED角
 python ./net.py > device/scheduler.log 2>&1 &     # 启动训练脚本
 ```
 
-脚本[run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/startup_method/run_dynamic_cluster_2.sh)在节点2上启动`Worker5`到`Worker8`（无需执行Scheduler）：
+脚本[run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/startup_method/run_dynamic_cluster_2.sh)在节点2上启动`Worker5`到`Worker8`（无需执行Scheduler）：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -380,7 +380,7 @@ do
 done
 ```
 
-> 在多机器任务中，需要为每个主机节点设置不同的主机名，否则会出现报错`deivce id`越界。可参考[FAQ](https://www.mindspore.cn/docs/zh-CN/r2.6.0/faq/distributed_parallel.html#q-多机场景使用动态组网或msrun启动分布式任务时报错device-id越界如何解决)。
+> 在多机器任务中，需要为每个主机节点设置不同的主机名，否则会出现报错`deivce id`越界。可参考[FAQ](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/faq/distributed_parallel.html#q-多机场景使用动态组网或msrun启动分布式任务时报错device-id越界如何解决)。
 >
 > 在多机任务中，`MS_WORKER_NUM`应当为集群中Worker节点总数。
 >
@@ -402,7 +402,7 @@ bash run_dynamic_cluster_2.sh
 
 ## 容灾恢复
 
-动态组网支持数据并行下容灾恢复。在多卡数据并行训练场景下，发生进程异常退出，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。容灾恢复配置和样例可参考[动态组网场景下故障恢复](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/train_availability/disaster_recover.html)教程。
+动态组网支持数据并行下容灾恢复。在多卡数据并行训练场景下，发生进程异常退出，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。容灾恢复配置和样例可参考[动态组网场景下故障恢复](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/train_availability/disaster_recover.html)教程。
 
 ## 安全认证
 
@@ -430,4 +430,4 @@ bash run_dynamic_cluster_2.sh
 - `cipher_list`：密码套件（支持的SSL加密类型列表）。
 - `cert_expire_warning_time_in_day`：证书过期的告警时间。
 
-p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。

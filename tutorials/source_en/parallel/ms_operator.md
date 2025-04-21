@@ -1,6 +1,6 @@
 # Performing Distributed Training on K8S Clusters
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/parallel/ms_operator.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/parallel/ms_operator.md)
 
 MindSpore Operator is a plugin that follows Kubernetes' Operator pattern (based on the CRD-Custom Resource Definition feature) and implements distributed training on Kubernetes. MindSpore Operator defines Scheduler, PS, worker three roles in CRD, and users can easily use MindSpore on K8S for distributed training through simple YAML file configuration. The code repository of mindSpore Operator is described in: [ms-operator](https://gitee.com/mindspore/ms-operator/).
 

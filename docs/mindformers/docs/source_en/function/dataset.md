@@ -1,6 +1,6 @@
 # Dataset
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/function/dataset.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_en/function/dataset.md)
 
 At present, MindSpore Transformers' pre-training and fine-tuning support the ability to load datasets in multiple formats, including loading methods for Megatron Dataset, MindRecord Dataset, and HuggingFace datasets. The specific usage instructions for each format of dataset are as follows.
 
@@ -174,7 +174,7 @@ Use the Megatron multi-source dataset in the training task as follows:
 
     The configuration instructions that need to be noted are as follows:
 
-    - parallel.dataset_strategy: Only support List of List type, parallel.dataset_strategy: Only support List of List type. The number of sub lists in a List needs to be equal to the length of train_dataset.input_columns, and each sub List in the List needs to be consistent with the shape of the data returned by the dataset. Generally, parallel data partitioning is performed in the first dimension of the data, so the first bit of the sub List is configured as `*dp` , and the other bits are configured as `1` . The specific principle can be referred to [Dataset Segmentation](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/dataset_slice.html).
+    - parallel.dataset_strategy: Only support List of List type, parallel.dataset_strategy: Only support List of List type. The number of sub lists in a List needs to be equal to the length of train_dataset.input_columns, and each sub List in the List needs to be consistent with the shape of the data returned by the dataset. Generally, parallel data partitioning is performed in the first dimension of the data, so the first bit of the sub List is configured as `*dp` , and the other bits are configured as `1` . The specific principle can be referred to [Dataset Segmentation](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/dataset_slice.html).
 
 4. Compile Megatron Dataset module
 
@@ -193,7 +193,7 @@ MindRecord is an efficient data format developed by MindSpore for storing machin
 The MindRecord format is designed to improve data processing efficiency, especially in large-scale data training scenarios where data can be loaded and processed faster.
 MindRecord files typically contain the input samples needed for model training, which are preprocessed (e.g., encoded, normalized) to optimize read speed and memory usage.
 
-For more information about the implementation of MindRecord related interfaces and examples, please refer to the [documentation about MindRecord in MindSpore](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.mindrecord.html).
+For more information about the implementation of MindRecord related interfaces and examples, please refer to the [documentation about MindRecord in MindSpore](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.mindrecord.html).
 
 ### How to Make a MindRecord Dataset
 

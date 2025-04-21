@@ -1,12 +1,12 @@
 # 端侧训练模型转换
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/train/converter_train.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/train/converter_train.md)
 
 ## 概述
 
 创建MindSpore端侧模型的步骤：
 
-- 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/save_load.html#保存和加载mindir)。
+- 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/beginner/save_load.html#保存和加载mindir)。
 - 然后将`.mindir`模型文件转换成`.ms`文件，`.ms`文件可以导入端侧设备并基于MindSpore端侧框架训练。
 
 ## Linux环境
@@ -15,7 +15,7 @@
 
 MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Linux系统，环境准备步骤：
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)模型转换工具。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
     ```bash
@@ -39,7 +39,7 @@ MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Li
 
 > 参数名称和数值之间使用等号连接且不能有空格。
 >
-> `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[量化](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/advanced/quantization.html)。
+> `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[量化](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/quantization.html)。
 
 ### 模型转换示例
 

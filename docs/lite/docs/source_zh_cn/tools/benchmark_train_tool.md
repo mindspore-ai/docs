@@ -1,6 +1,6 @@
 # benchmark_train
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/tools/benchmark_train_tool.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/tools/benchmark_train_tool.md)
 
 ## 概述
 
@@ -12,9 +12,9 @@
 
 使用`benchmark_train`工具，需要进行如下环境准备工作。
 
-- 编译：`benchmark_train`工具代码在MindSpore源码的`mindspore/lite/tools/benchmark_train`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#模块构建编译选项)编译端侧训练框架。
+- 编译：`benchmark_train`工具代码在MindSpore源码的`mindspore/lite/tools/benchmark_train`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#模块构建编译选项)编译端侧训练框架。
 
-- 配置环境变量：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#目录结构)，获得`benchmark_train`工具，并配置环境变量。假设您编译出的端侧训练框架压缩包所在完整路径为`/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`，解压并配置环境变量的命令如下：
+- 配置环境变量：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#目录结构)，获得`benchmark_train`工具，并配置环境变量。假设您编译出的端侧训练框架压缩包所在完整路径为`/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`，解压并配置环境变量的命令如下：
 
     ```bash
     cd /path
@@ -133,4 +133,4 @@ Mean bias of all nodes: 0%
 
 ### Dump功能
 
-具体用法可参考`benchmark`工具的[Dump功能](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_tool.html#dump%E5%8A%9F%E8%83%BD)。
+具体用法可参考`benchmark`工具的[Dump功能](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_tool.html#dump%E5%8A%9F%E8%83%BD)。

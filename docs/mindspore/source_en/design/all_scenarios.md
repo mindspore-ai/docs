@@ -1,22 +1,22 @@
 # Full-scenarios Unified Architecture
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/design/all_scenarios.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/design/all_scenarios.md)
 
 MindSpore is designed to provide an device-edge-cloud full-scenarios AI framework that can be deployed in different hardware environments on the device-edge-cloud to meet the differentiated needs of different environments, such as supporting lightweight deployment on the device-side and rich training features such as automatic differentiation, hybrid precision and easy programming of models on the cloud side.
 
 > The cloud side includes NVIDIA GPU, Huawei Ascend, Intel x86, etc., and the device side includes Arm, Qualcomm, Kirin, etc.
 
-![intro](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/design/images/all_scenarios_intro.png)
+![intro](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/design/images/all_scenarios_intro.png)
 
 ## Important Features of Full-scenarios
 
 Several important features of MindSpore full scenarios:
 
-1. The unified C++ inference interface of the device-edge-cloud supports algorithm code that can be quickly migrated to different hardware environments for execution, such as [device-side training based on C++ interface](https://mindspore.cn/lite/docs/en/r2.6.0/quick_start/train_lenet.html).
+1. The unified C++ inference interface of the device-edge-cloud supports algorithm code that can be quickly migrated to different hardware environments for execution, such as [device-side training based on C++ interface](https://mindspore.cn/lite/docs/en/r2.6.0rc1/quick_start/train_lenet.html).
 2. Model unification. The device and cloud use the same model format and definition, and the software architecture is consistent. MindSpore supports the execution of Ascend, GPU, CPU (x86, Arm) and other hardware, and is used in multiple deployments for one training.
 3. Diversified arithmetic support. Provide a unified southbound interface to support the quick addition of new hardware for use.
 4. Model miniaturization techniques, adapted to the requirements of different hardware environments and business scenarios, such as quantization compression.
-5. Rapid application of device-edge-cloud collaboration technologies such as [Federated Learning](https://mindspore.cn/federated/docs/en/master/index.html), [End-side Training](https://mindspore.cn/lite/docs/en/r2.6.0/use/runtime_train.html) and other new technologies.
+5. Rapid application of device-edge-cloud collaboration technologies such as [Federated Learning](https://mindspore.cn/federated/docs/en/master/index.html), [End-side Training](https://mindspore.cn/lite/docs/en/r2.6.0rc1/use/runtime_train.html) and other new technologies.
 
 ## Full-scenarios Support Mode
 
@@ -34,7 +34,7 @@ At the same time, by providing custom offline optimized registration for third-p
 
 An intermediate representation (IR) is a representation of a program between the source and target languages, which facilitates program analysis and optimization for the compiler. Therefore, the IR design needs to consider the difficulty in converting the source language to the target language, as well as the ease-of-use and performance of program analysis and optimization.
 
-MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. Automatic differentiation uses the transformation method based on the function-style programming framework. Therefore, IR uses the semantics close to that of the ANF function. In addition, a manner of representation based on an explicit dependency graph is used by referring to excellent designs of Sea of Nodes[1] and Thorin[2]. For the specific introduction of ANF-IR, please refer to [MindSpore IR Syntax](https://www.mindspore.cn/docs/en/r2.6.0/design/all_scenarios.html#syntax).
+MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. Automatic differentiation uses the transformation method based on the function-style programming framework. Therefore, IR uses the semantics close to that of the ANF function. In addition, a manner of representation based on an explicit dependency graph is used by referring to excellent designs of Sea of Nodes[1] and Thorin[2]. For the specific introduction of ANF-IR, please refer to [MindSpore IR Syntax](https://www.mindspore.cn/docs/en/r2.6.0rc1/design/all_scenarios.html#syntax).
 
 When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and setting the environment variable `MS_DEV_SAVE_GRAPHS` to 1, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. When more information about backend procedure should be analyzed, we can set the environment variable `MS_DEV_SAVE_GRAPHS` to 2. When more advanced information such as visualizing computing graphs or ir graphs of frontend with more details is required, we can set the environment variable `MS_DEV_SAVE_GRAPHS` to 3 to get more details. Currently, there are two IR files:
 
@@ -104,7 +104,7 @@ lambda (x, y)
     c end
 ```
 
-The corresponding MindIR is [ir.dot](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/design/images/ir/ir.dot).
+The corresponding MindIR is [ir.dot](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/design/images/ir/ir.dot).
 
 ![image](./images/ir/ir.png)
 
@@ -132,7 +132,7 @@ def hof(x):
     return res
 ```
 
-The corresponding MindIR is [hof.dot](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/design/images/ir/hof.dot).
+The corresponding MindIR is [hof.dot](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/design/images/ir/hof.dot).
 
 ![image](./images/ir/hof.png)
 
@@ -154,7 +154,7 @@ def fibonacci(n):
     return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-The corresponding MindIR is [cf.dot](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/design/images/ir/cf.dot).
+The corresponding MindIR is [cf.dot](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/design/images/ir/cf.dot).
 
 ![image](./images/ir/cf.png)
 
@@ -181,7 +181,7 @@ def ms_closure():
     return out1, out2
 ```
 
-The corresponding MindIR is [closure.dot](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/design/images/ir/closure.dot).
+The corresponding MindIR is [closure.dot](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/design/images/ir/closure.dot).
 
 ![image](./images/ir/closure.png)
 

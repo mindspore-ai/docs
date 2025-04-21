@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/install/mindspore_gpu_install_pip.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/install/mindspore_gpu_install_pip.md)
 
 MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可能未经完整的测试与验证，希望体验最新功能或者问题修复的用户可以使用该版本。
 
@@ -190,7 +190,7 @@ pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 其中：
 
 - MindSpore Nightly支持CUDA10.1、11.1、11.6的任意版本，启动时会根据当前环境中安装的CUDA版本自动适配。
-- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.6.0/setup.py)中的required_package），其余情况需自行安装依赖。
+- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/setup.py)中的required_package），其余情况需自行安装依赖。
 - pip会自动安装当前最新版本的MindSpore Nightly，如果需要安装指定版本，请参照下方升级MindSpore版本相关指导，在下载时手动指定版本。
 
 ## 验证是否成功安装

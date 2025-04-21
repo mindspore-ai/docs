@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/beginner/mixed_precision.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/beginner/mixed_precision.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/accelerate_with_static_graph.html)|| **Mixed Precision**
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/accelerate_with_static_graph.html)|| **Mixed Precision**
 
 # Automatic Mix Precision
 
@@ -16,7 +16,7 @@ Floating-point data types include double-precision (FP64), single-precision (FP3
 
 According to [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), floating-point data types are classified into double-precision (FP64), single-precision (FP32), and half-precision (FP16). Each type is represented by three different bits. FP64 indicates a data type that uses 8 bytes (64 bits in total) for encoding and storage. FP32 indicates a data type that uses 4 bytes (32 bits in total) and FP16 indicates a data type that uses 2 bytes (16 bits in total). As shown in the following figure:
 
-![fp16_vs_FP32](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_en/beginner/images/fp16_vs_fp32.png)
+![fp16_vs_FP32](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_en/beginner/images/fp16_vs_fp32.png)
 
 As shown in the figure, the storage space of FP16 is half that of FP32. Similarly, the storage space of FP32 is half that of FP64. Therefore, using FP16 for computing has the following advantages:
 
@@ -33,7 +33,7 @@ Therefore, the solution of the FP16 introduction problem needs to be considered 
 
 Based on the principles described above, a typical mixed precision computation process is shown in the following figure:
 
-![mix precision](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/beginner/images/mix_precision_fp16.png)
+![mix precision](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/beginner/images/mix_precision_fp16.png)
 
 1. Parameters stored in FP32.
 2. During forward computation, when it comes to FP16 operators, the operator inputs and parameters need to be cast from FP32 to FP16 for computation.
@@ -43,7 +43,7 @@ Based on the principles described above, a typical mixed precision computation p
 6. Dividing by the Loss scale value to restore the amplified gradient.
 7. Determine if there is an overflow in the gradient, and skip the update if there is an overflow, otherwise the optimizer updates the original parameters with FP32.
 
-In the following, we demonstrate the automatic mixed precision implementation of MindSpore by importing the handwritten digit recognition model and dataset from [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/quick_start.html).
+In the following, we demonstrate the automatic mixed precision implementation of MindSpore by importing the handwritten digit recognition model and dataset from [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/quick_start.html).
 
 ```python
 import mindspore as ms
@@ -263,7 +263,7 @@ It can be seen that the loss convergence is normal and there is no overflow prob
 
 MindSpore supports a programming paradigm that uses Cell to encapsulate the full computational graph. When the `mindspore.amp.build_train_network` interface can be used to automatically perform the type conversion and pass in the Loss Scale as part of the full graph computation. At this point, you only need to configure the mixed precision level and `LossScaleManager` to get the computational graph with the configured automatic mixed precision.
 
-`FixedLossScaleManager` and `DynamicLossScaleManager` are the Loss scale management interfaces for configuring the automatic mixed precision with `Cell`, corresponding to `StaticLossScalar` and `DynamicLossScalar`, respectively. For detailed information, refer to [mindspore.amp](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.amp.html).
+`FixedLossScaleManager` and `DynamicLossScaleManager` are the Loss scale management interfaces for configuring the automatic mixed precision with `Cell`, corresponding to `StaticLossScalar` and `DynamicLossScalar`, respectively. For detailed information, refer to [mindspore.amp](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.amp.html).
 
 > Automated mixed precision training with `Cell` configuration supports only `GPU` and `Ascend`.
 

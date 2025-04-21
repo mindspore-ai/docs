@@ -1,6 +1,6 @@
 # 快速启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/quick_start/source_code_start.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/quick_start/source_code_start.md)
 
 本节展示如何使用MindSpore Transformers快速拉起一个基于 Llama2-7B 模型的LoRA低参微调任务。如果想要通过MindSpore Transformers使用其他模型和任务，请阅读对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/start/models.html)。
 

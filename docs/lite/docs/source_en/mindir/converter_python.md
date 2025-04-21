@@ -1,10 +1,10 @@
 # Using Python Interface to Perform Model Conversions
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/mindir/converter_python.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/mindir/converter_python.md)
 
 ## Overview
 
-MindSpore Lite cloud-side inference supports model conversion via Python interface, supporting multiple types of model conversion, and the converted mindir models can be used for inference. The interface contains a variety of personalized parameters to provide a convenient conversion path for users. This tutorial describes how to use the [Python interface](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Converter.html) for model conversion.
+MindSpore Lite cloud-side inference supports model conversion via Python interface, supporting multiple types of model conversion, and the converted mindir models can be used for inference. The interface contains a variety of personalized parameters to provide a convenient conversion path for users. This tutorial describes how to use the [Python interface](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Converter.html) for model conversion.
 
 The currently supported input model formats are MindSpore, TensorFlow Lite, Caffe, TensorFlow, and ONNX.
 
@@ -20,7 +20,7 @@ When the input model type is MindSpore, since it is already a `mindir` model, tw
 
 The following environment preparation is required for model conversion by using MindSpore Lite Python interface for cloud-side inference.
 
-- [Compile](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) whl installation package for MindSpore Lite cloud-side inference with Converter component.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) whl installation package for MindSpore Lite cloud-side inference with Converter component.
 
     > Currently, the installation package corresponding to Python 3.7 is available for download. If you need other Python versions, please use the compile function to generate the installation package.
 
@@ -73,7 +73,7 @@ mindspore_lite
 
 MindSpore Lite cloud-side inference model converter provides various attribute settings that users can choose to use according to their needs.
 
-Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool.html) are provided below.
+Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html) are provided below.
 
 | Converter attributes | Types of attributes  | Parameters corresponding to the offline conversion of the model  | Description  | Value range | Remarks |
 | -------- | ----- | -------- | ------- | ---- | ---- |
@@ -91,7 +91,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | save_type | ModelType | `--saveType=<SAVETYPE>` | Required | Set the model type needs to be export. | ModelType.MINDIR | The MINDIR model uses the MindSpore Lite cloud-side inference installation package |
 | weight_fp16 | bool | `--fp16=<FP16>` | Set whether the weights in float32 data format need to be stored in float16 data format during model serialization. | True, False | - |
 
-> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. For example, if encrypt_key is set as "30313233343637383939414243444546", the corresponding hexadecimal expression is '(b)0123456789ABCDEF' . Linux platform users can use the' xxd 'tool to convert the key expressed in bytes into hexadecimal expressions.
+> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. For example, if encrypt_key is set as "30313233343637383939414243444546", the corresponding hexadecimal expression is '(b)0123456789ABCDEF' . Linux platform users can use the' xxd 'tool to convert the key expressed in bytes into hexadecimal expressions.
 >
 > - `input_shape` is a attribute that the user may need to set in the following scenarios:
 >
@@ -110,7 +110,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 
 Usage scenario: Convert a third-party model into a MindSpore model. You can call the convert method multiple times to convert multiple models.
 
-Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool.html) are provided below.
+Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html) are provided below.
 
 | Method of convert parameters | Tpyes of parameters  | Parameters corresponding to the offline conversion of the model  |  Required or not   |  Description of parameters  | Value range | Default values |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- |
@@ -120,7 +120,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | weight_file | str | `--weightFile=<WEIGHTFILE>` | Required when converting Caffe models | The path to the input model weights file. | - | "" |
 | config_file | str | `--configFile=<CONFIGFILE>` | Not | Converter profile path to configure training post-quantization or offline splitting operators parallel or to disable the operator fusion function and set the plug-in to the so path, etc. | - | "" |
 
-> For more information about the `fmk_type` parameter, see [FmkType](https://mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.FmkType.html)
+> For more information about the `fmk_type` parameter, see [FmkType](https://mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.FmkType.html)
 >
 > Example of `model_file`: "/home/user/model.prototxt". Examples of different types of model suffixes: TF: "model.pb" | CAFFE: "model.prototxt" | ONNX: "model.onnx" | TFLITE: "model.tflite".
 >
@@ -205,4 +205,4 @@ The following selects common examples to illustrate the use of the conversion co
 
 #### Online conversion
 
-get_config_info method and set_config_info method is used for online conversion. Please refer to the [set_config_info](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Converter.html#mindspore_lite.Converter.set_config_info) for details.
+get_config_info method and set_config_info method is used for online conversion. Please refer to the [set_config_info](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Converter.html#mindspore_lite.Converter.set_config_info) for details.

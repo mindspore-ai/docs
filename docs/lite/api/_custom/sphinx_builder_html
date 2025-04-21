@@ -1116,7 +1116,7 @@ class StandaloneHTMLBuilder(Builder):
 
             # Add links to the Python operator interface.
             if "mindspore.ops." in output:
-                output = re.sub(r'(mindspore\.ops\.\w+) ', r'<a class="reference internal" href="https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/\1.html">\1 </a>', output, count=0)
+                output = re.sub(r'(mindspore\.ops\.\w+) ', r'<a class="reference internal" href="https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/ops/\1.html">\1 </a>', output, count=0)
 
         except UnicodeError:
             logger.warning(__("a Unicode error occurred when rendering the page %s. "

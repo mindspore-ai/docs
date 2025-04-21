@@ -1,6 +1,6 @@
 # mindspore::converter
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/api/source_zh_cn/api_cpp/mindspore_converter.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/api/source_zh_cn/api_cpp/mindspore_converter.md)
 
 以下描述了MindSpore Lite转换支持的模型类型及用户扩展所需的必要信息。
 
@@ -16,7 +16,7 @@
 
 ## FmkType
 
-\#include <[converter_context.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/converter_context.h)>
+\#include <[converter_context.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/converter_context.h)>
 
  **enum**类型变量，定义MindSpore Lite转换支持的框架类型。
 
@@ -31,7 +31,7 @@
 
 ## ConverterParameters
 
-\#include <[converter_context.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/converter_context.h)>
+\#include <[converter_context.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/converter_context.h)>
 
 **struct**类型结构体，定义模型解析时的转换参数，用于模型解析时的只读参数。
 
@@ -46,7 +46,7 @@ struct ConverterParameters {
 
 ## ConverterContext
 
-\#include <[converter_context.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/converter_context.h)>
+\#include <[converter_context.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/converter_context.h)>
 
 模型转换过程中，基本信息的设置与获取。
 
@@ -94,7 +94,7 @@ static std::vector<std::string> GetGraphOutputTensorNames();
 
 ## NodeParser
 
-\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/node_parser.h)>
+\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/node_parser.h)>
 
 op节点的解析基类。
 
@@ -197,7 +197,7 @@ tflite节点解析接口函数。
 
 ## NodeParserPtr
 
-\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/node_parser.h)>
+\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/node_parser.h)>
 
 NodeParser类的共享智能指针类型。
 
@@ -207,7 +207,7 @@ using NodeParserPtr = std::shared_ptr<NodeParser>;
 
 ## ModelParser
 
-\#include <[model_parser.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/model_parser.h)>
+\#include <[model_parser.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/model_parser.h)>
 
 解析原始模型的基类。
 
@@ -239,7 +239,7 @@ api::FuncGraphPtr Parse(const converter::ConverterParameters &flags);
 
 - 参数
 
-    - `flags`: 解析模型时基本信息，具体见[ConverterParameters](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#converterparameters)。
+    - `flags`: 解析模型时基本信息，具体见[ConverterParameters](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#converterparameters)。
 
 - 返回值
 

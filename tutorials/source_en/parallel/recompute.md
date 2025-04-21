@@ -1,6 +1,6 @@
 # Recomputation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/parallel/recompute.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/parallel/recompute.md)
 
 ## Overview
 
@@ -14,7 +14,7 @@ In order to reduce memory peaks, the recompute technique can not save the comput
 
 The recompute function is implemented as a forward operator that is recomputed according to the user's specified needs, copies the same operator, outputs it to the reverse operator, and deletes the continuous edge relationship between the original forward operator and the reverse operator. In addition, we need to ensure that the copied operator only begins to be evaluated when the corresponding inverse part is computed, so we need to insert control dependencies to ensure the order in which the operators are executed. As shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/parallel/images/recompute_image_0_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/parallel/images/recompute_image_0_zh.png)
 
 *Figure: Forward and reverse diagram before and after the recompute function is enabled*
 
@@ -22,17 +22,17 @@ For user convenience, MindSpore currently provides not only a recompute interfac
 
 Taking the GPT-3 model as an example, the policy is set to recalculate the cell corresponding to the layerer for each layer, and then the output operator of the layerer is set to non-recompute. The effect of recompute on the 72-layer GPT-3 network is shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/parallel/images/recompute_image_1_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/parallel/images/recompute_image_1_zh.png)
 
 *Figure: Comparison of GPT-3 memory usage before and after recalculation function is enabled*
 
 ### Related Interfaces
 
-1. `mindspore.nn.Cell.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute). After calling this interface, when computing the reverse part, all the operators inside the Cell and all the operators inside the sub-Cells are recomputed, except for the output operator of that Cell. Both PyNative mode and Graph mode are supported.
+1. `mindspore.nn.Cell.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute). After calling this interface, when computing the reverse part, all the operators inside the Cell and all the operators inside the sub-Cells are recomputed, except for the output operator of that Cell. Both PyNative mode and Graph mode are supported.
 
-2. `mindspore.ops.Primitive.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute) of `Primitive`. After calling this interface, the operator is recomputed when computing the reverse part. Only Graph mode is supported.
+2. `mindspore.ops.Primitive.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute) of `Primitive`. After calling this interface, the operator is recomputed when computing the reverse part. Only Graph mode is supported.
 
-3. `mindspore.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.recompute.html#mindspore.recompute). After calling this function interface, the block will be recomputed. Only PyNative mode is supported.
+3. `mindspore.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.recompute.html#mindspore.recompute). After calling this function interface, the block will be recomputed. Only PyNative mode is supported.
 
 ## Operation Practice
 
@@ -40,7 +40,7 @@ The following is an illustration of the recomputation operation using an Ascend 
 
 ### Sample Code Description
 
-> Download the complete sample code: [recompute](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/recompute).
+> Download the complete sample code: [recompute](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/recompute).
 
 The directory structure is as follows:
 

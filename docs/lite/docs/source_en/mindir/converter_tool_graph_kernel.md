@@ -1,12 +1,12 @@
 # Graph Kernel Fusion Configuration Instructions (Beta Feature)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/mindir/converter_tool_graph_kernel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/mindir/converter_tool_graph_kernel.md)
 
 ## Introduction
 
 Graph kernel fusion is a unique network performance optimization technique in MindSpore. It can automatically analyze and optimize the existing network computational graph logic and combine with the target hardware capabilities to perform optimizations, such as computational simplification and substitution, operator splitting and fusion, operator special case compilation, to improve the utilization of device computational resources and achieve the overall optimization of network performance. Compared with traditional optimization techniques, graph kernel fusion has unique advantages such as joint optimization of multiple operators across boundaries, cross-layer collaboration with MindSpore AKG (Polyhedral-based operator compiler), and on-the-fly compilation.
 
-MindSpore Lite whl and tar packages have built-in AKG by default. For the installed MindSpore Lite via source code, make sure you have [installed llvm 12.0.1](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/build.html#installing-llvm-optional). Installing the ascend backend via source code requires an additional installation of [git-lfs](https://git-lfs.com/).
+MindSpore Lite whl and tar packages have built-in AKG by default. For the installed MindSpore Lite via source code, make sure you have [installed llvm 12.0.1](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/build.html#installing-llvm-optional). Installing the ascend backend via source code requires an additional installation of [git-lfs](https://git-lfs.com/).
 
 ## AKG Installation
 
@@ -14,7 +14,7 @@ Install AKG in advance to enable graph kernel in the MindSpore Lite. Currently, 
 
 1. Install the AKG distribution built in the tar package
 
-    First, go to [download page](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) to download the tar distribution for MindSpore Lite device-side inference and cloud-side inference, and then install the akg package in tools/akg/. Next, use the following command in the command line to check whether AKG is installed successfully: if no error is reported, the installation is successful.
+    First, go to [download page](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) to download the tar distribution for MindSpore Lite device-side inference and cloud-side inference, and then install the akg package in tools/akg/. Next, use the following command in the command line to check whether AKG is installed successfully: if no error is reported, the installation is successful.
 
     ```shell
     python -c "import akg"
@@ -22,7 +22,7 @@ Install AKG in advance to enable graph kernel in the MindSpore Lite. Currently, 
 
 2. Install the whl package of MindSpore Lite
 
-    First, go to [download page](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) to download the Whl package of MindSpore Lite and install it using pip.
+    First, go to [download page](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) to download the Whl package of MindSpore Lite and install it using pip.
 
     After installation, you can use the following command to check if built-in AKG of MindSpore Lite is successfully installed: If no error is reported, the installation is successful.
 
@@ -46,7 +46,7 @@ After that, run converter_lite to perform the model conversion.
 
 Compiling the ONNX model on the Ascend backend:
 
-The Ascend backend requires the installation of the AKG fusion operator, as described in [Deploying Ascend Custom Operators](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool_ascend.html#deploying-ascend-custom-operators).
+The Ascend backend requires the installation of the AKG fusion operator, as described in [Deploying Ascend Custom Operators](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool_ascend.html#deploying-ascend-custom-operators).
 
 After deployment, execute the following command to convert the ONNX model.
 

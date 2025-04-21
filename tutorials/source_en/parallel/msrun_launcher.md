@@ -1,10 +1,10 @@
 # msrun Launching
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/parallel/msrun_launcher.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/parallel/msrun_launcher.md)
 
 ## Overview
 
-`msrun` is an encapsulation of the [Dynamic Cluster](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/dynamic_cluster.html) startup method. Users can use `msrun` to pull multi-process distributed tasks across nodes with a single command line instruction. Users can use `msrun` to pull up multi-process distributed tasks on each node with a single command line command, and there is no need to manually set [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/dynamic_cluster.html). `msrun` supports both `Ascend`, `GPU` and `CPU` backends. As with the `Dynamic Cluster` startup, `msrun` has no dependencies on third-party libraries and configuration files.
+`msrun` is an encapsulation of the [Dynamic Cluster](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/dynamic_cluster.html) startup method. Users can use `msrun` to pull multi-process distributed tasks across nodes with a single command line instruction. Users can use `msrun` to pull up multi-process distributed tasks on each node with a single command line command, and there is no need to manually set [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/dynamic_cluster.html). `msrun` supports both `Ascend`, `GPU` and `CPU` backends. As with the `Dynamic Cluster` startup, `msrun` has no dependencies on third-party libraries and configuration files.
 
 > - `msrun` is available after the user installs MindSpore, and the command `msrun --help` can be used to view the supported parameters.
 > - `msrun` supports `graph mode` as well as `PyNative mode`.
@@ -87,7 +87,7 @@ A parameters list of command line:
         <td align="left">Set simulated compilation level.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">Default: -1. Disable simulated compilation.</td>
-        <td align="left">If this parameter is set, msrun starts only the processes for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> The settings for the simulated compilation level can be found in the document: <a href="https://www.mindspore.cn/tutorials/en/r2.6.0/debug/dryrun.html">DryRun</a>.</td>
+        <td align="left">If this parameter is set, msrun starts only the processes for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> The settings for the simulated compilation level can be found in the document: <a href="https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/dryrun.html">DryRun</a>.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_rank_id</td>
@@ -186,13 +186,13 @@ The following table shows the environment variables can be used in user scripts,
     </tr>
 </table>
 
-msrun is used as an encapsulation of the Dynamic Cluster startup method, and all user-configurable environment variables can be found in [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/dynamic_cluster.html).
+msrun is used as an encapsulation of the Dynamic Cluster startup method, and all user-configurable environment variables can be found in [dynamic networking environment variables](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/dynamic_cluster.html).
 
 ## Launching Distributed Tasks
 
 The startup script is consistent across hardware platforms. The following is an example of how to write a startup script for Ascend:
 
-> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 
@@ -299,7 +299,7 @@ for epoch in range(10):
 
 The following is an example of performing a single-machine 8-card training session:
 
-The script [msrun_single.sh](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/startup_method/msrun_single.sh) uses the msrun command to pull up 1 `Scheduler` process as well as 8 `Worker` processes on the current node (no need to set `master_addr`, defaults to `127.0.0.1`; no need to set `node_rank` for single-machine):
+The script [msrun_single.sh](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/startup_method/msrun_single.sh) uses the msrun command to pull up 1 `Scheduler` process as well as 8 `Worker` processes on the current node (no need to set `master_addr`, defaults to `127.0.0.1`; no need to set `node_rank` for single-machine):
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -338,7 +338,7 @@ epoch: 0, step: 30, loss is 1.0437132
 
 The following is an example of executing 2-machine, 8-card training, with each machine executing the startup of 4 Workers:
 
-The script [msrun_1.sh](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/startup_method/msrun_1.sh) is executed on node 1 and uses the msrun command to pull up 1 `Scheduler` process and 4 `Worker` processes, configures `master_addr` as the IP address of node 1 (msrun automatically detects that the current node ip matches the `master_addr` and pulls up the `Scheduler` process). Set the current node to node 0 with `node_rank`:
+The script [msrun_1.sh](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/startup_method/msrun_1.sh) is executed on node 1 and uses the msrun command to pull up 1 `Scheduler` process and 4 `Worker` processes, configures `master_addr` as the IP address of node 1 (msrun automatically detects that the current node ip matches the `master_addr` and pulls up the `Scheduler` process). Set the current node to node 0 with `node_rank`:
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -357,7 +357,7 @@ echo "start training"
 msrun --worker_num=8 --local_worker_num=4 --master_addr=<node_1 ip address> --master_port=8118 --node_rank=0 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
 ```
 
-The script [msrun_2.sh](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/startup_method/msrun_2.sh) is executed on node 2 and uses the msrun command to pull up 4 `Worker` processes, configures `master_addr` as the IP address of node 1. Set the current node to node 0 with `node_rank`:
+The script [msrun_2.sh](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/startup_method/msrun_2.sh) is executed on node 2 and uses the msrun command to pull up 4 `Worker` processes, configures `master_addr` as the IP address of node 1. Set the current node to node 0 with `node_rank`:
 
 ```bash
 EXEC_PATH=$(pwd)

@@ -1,6 +1,6 @@
 # Multi-stream Concurrency
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/features/runtime/multistream_concurrency.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/features/runtime/multistream_concurrency.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ During the training of large-scale deep learning models, the importance of commu
 
 Traditional multi-stream concurrency methods usually rely on manual configuration, which is not only cumbersome and error-prone, but also often difficult to achieve optimal concurrency when faced with complex computational graphs. MindSpore's automatic stream assignment feature automatically identifies and assigns concurrency opportunities in the computational graph by means of an intelligent algorithm, and assigns different operators to different streams for execution. This automated allocation process not only simplifies user operations, but also enables dynamic adjustment of stream allocation policies at runtime to accommodate different computing environments and resource conditions.
 
-![multi_stream](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_multi_stream.png)
+![multi_stream](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_multi_stream.png)
 
 The principles are as follows:
 
@@ -22,7 +22,7 @@ The principles are as follows:
 
 In order to achieve the above effect of concurrent execution of multiple streams, multi-stream management is an important technique aimed at efficiently managing and scheduling the streams (Streams) on the computing devices to optimize the execution efficiency and resource utilization of the computational graph. Device multi-stream management ensures efficient concurrent execution of computing and communication tasks in a multi-computing resource environment through intelligent stream allocation and scheduling policies, thus improving overall performance.
 
-![stream_manager](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/features/runtime/images/stream_manager.png)
+![stream_manager](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/features/runtime/images/stream_manager.png)
 
 **Stream Manager** plays a central role. It is responsible for the creation, distribution and destruction of streams, ensuring that each computational task is executed on the appropriate stream. The stream manager schedules tasks to different streams based on the type and priority of the task and the load on the device to achieve optimal resource utilization and task concurrency.
 

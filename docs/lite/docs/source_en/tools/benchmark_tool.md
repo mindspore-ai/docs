@@ -1,6 +1,6 @@
 # benchmark
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/tools/benchmark_tool.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/tools/benchmark_tool.md)
 
 ## Overview
 
@@ -12,9 +12,9 @@ After model conversion and before inference, you can use the Benchmark tool to p
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#compilation-example) in the build document.
+- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#environment-requirements) in the build document.
+- Run: Obtain the `benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#environment-requirements) in the build document.
 
 - Add the path of dynamic library required by the inference code to the environment variables LD_LIBRARY_PATH.
 
@@ -134,7 +134,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 
 #### Accuracy Test
 
-The accuracy test performed by the Benchmark tool focuses on setting [benchmark data (input.bin and output.out)](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark_golden_data.html) to compare and verify the accuracy of the MindSpore Lite model output. In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
+The accuracy test performed by the Benchmark tool focuses on setting [benchmark data (input.bin and output.out)](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/benchmark_golden_data.html) to compare and verify the accuracy of the MindSpore Lite model output. In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
 
 ```bash
 ./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
@@ -276,7 +276,7 @@ np.fromfile("/path/to/dump.bin", np.float32)
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#compilation-example) in the build document.
+- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#compilation-example) in the build document.
 - Add the path of dynamic library required by the benchmark to the environment variables PATH.
 
     ````bash
@@ -342,6 +342,6 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 
 ### Dump
 
-The usage of Dump function in the Windows environment is basically the same as that of in the [Linux environment](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark_tool.html#dump), and will not be repeated here.
+The usage of Dump function in the Windows environment is basically the same as that of in the [Linux environment](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/benchmark_tool.html#dump), and will not be repeated here.
 
 Note that in the Windows environment, when setting the absolute path `Path` in the `data_dump.json` configuration file, it must be specified in the form of `\\`.

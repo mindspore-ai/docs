@@ -1,6 +1,6 @@
 # Data Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/features/parallel/data_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/features/parallel/data_parallel.md)
 
 ## Overview
 
@@ -15,7 +15,7 @@ Related interfaces are as follows:
 
 ## Overall Process
 
-![Overall Process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/design/images/data_parallel.png)
+![Overall Process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/design/images/data_parallel.png)
 
 1. Environmental dependencies
 

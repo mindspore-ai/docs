@@ -1,6 +1,6 @@
 # 比较与torchaudio.transforms.SpectralCentroid的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/SpectralCentroid.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/SpectralCentroid.md)
 
 ## torchaudio.transforms.SpectralCentroid
 
@@ -20,7 +20,7 @@ class mindspore.dataset.audio.SpectralCentroid(sample_rate, n_fft=400, win_lengt
                                                pad=0, window=WindowType.HANN)
 ```
 
-更多内容详见[mindspore.dataset.audio.SpectralCentroid](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset_audio/mindspore.dataset.audio.SpectralCentroid.html#mindspore.dataset.audio.SpectralCentroid)。
+更多内容详见[mindspore.dataset.audio.SpectralCentroid](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset_audio/mindspore.dataset.audio.SpectralCentroid.html#mindspore.dataset.audio.SpectralCentroid)。
 
 ## 差异对比
 

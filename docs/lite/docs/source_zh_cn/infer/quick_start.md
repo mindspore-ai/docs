@@ -1,6 +1,6 @@
 # 基于JNI接口的Android应用开发
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/infer/quick_start.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/infer/quick_start.md)
 
 ## 概述
 
@@ -28,7 +28,7 @@ MindSpore团队提供了一系列预置终端模型，你可以在应用程序�
 
 ## 转换模型
 
-如果预置模型已经满足你要求，请跳过本章节。如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/save_load.html#保存和加载mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html)将.mindir格式转换成.ms格式。
+如果预置模型已经满足你要求，请跳过本章节。如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/beginner/save_load.html#保存和加载mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html)将.mindir格式转换成.ms格式。
 
 以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 
@@ -82,7 +82,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
 ## 示例程序详细说明  
 
-本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/infer/runtime_cpp.html)中完成模型推理的过程。
+本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/infer/runtime_cpp.html)中完成模型推理的过程。
 
 > 此处详细说明示例程序的JNI层实现，JAVA层运用Android Camera 2 API实现开启设备摄像头以及图像帧处理等功能，读者需要具备一定的Android开发基础知识。
 
@@ -122,7 +122,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)生成`mindspore-lite-{version}-android-{arch}.tar.gz`库文件包并解压缩（包含`libmindspore-lite.so`库文件和相关头文件），在本例中需使用生成带图像预处理模块的编译命令。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)生成`mindspore-lite-{version}-android-{arch}.tar.gz`库文件包并解压缩（包含`libmindspore-lite.so`库文件和相关头文件），在本例中需使用生成带图像预处理模块的编译命令。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 >
@@ -130,7 +130,7 @@ Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通�
 
 本示例中，build过程由`app/download.gradle`文件自动下载MindSpore Lite版本文件，并放置在`app/src/main/cpp/`目录下。
 
-注：若自动下载失败，请手动下载操作系统为Android-aarch64/Android-aarch32的MindSpore Lite 模型推理框架相关库文件[mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)，解压后将`mindspore-lite-{version}-android-{arch}`的文件夹拷贝到`src/main/cpp`目录下。
+注：若自动下载失败，请手动下载操作系统为Android-aarch64/Android-aarch32的MindSpore Lite 模型推理框架相关库文件[mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/use/downloads.html)，解压后将`mindspore-lite-{version}-android-{arch}`的文件夹拷贝到`src/main/cpp`目录下。
 
 ```text
 android{

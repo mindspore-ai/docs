@@ -1,6 +1,6 @@
 # 开发迁移
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/usage/dev_migration.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/usage/dev_migration.md)
 
 本文档将指导用户如何基于MindSpore Transformers开发构建一个大模型，并完成最基本的适配，以拉起训练和推理流程。
 

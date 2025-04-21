@@ -1,6 +1,6 @@
 # Multi-backend Access
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/features/runtime/pluggable_backend.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/features/runtime/pluggable_backend.md)
 
 ## Overview
 
@@ -8,11 +8,11 @@ In order to meet the rapid docking requirements of new backend and new hardware,
 
 ## Interface
 
-Multi-backend implementation: for the specified backend to use via mindspore.jit(backend="xx"), see [jit interface](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.jit.html#mindspore.jit).
+Multi-backend implementation: for the specified backend to use via mindspore.jit(backend="xx"), see [jit interface](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.jit.html#mindspore.jit).
 
 ## Basic Principle
 
-![multi_backend](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/features/runtime/images/multi_backend.png)
+![multi_backend](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/features/runtime/images/multi_backend.png)
 
 The MindSpore multi-backend docking schematic is shown above, with the core idea being:
 

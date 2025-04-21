@@ -1,6 +1,6 @@
 # Auto Augmentation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/dataset/augment.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/dataset/augment.md)
 
 MindSpore not only allows you to customize data augmentation, but also provides an auto augmentation method to automatically perform data augmentation on images based on specific policies.
 
@@ -350,7 +350,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
 
 > For a better demonstration of the effect, only 5 images are loaded here, and no `shuffle` operation is performed when reading, nor `Normalize` and `HWC2CHW` operations are performed when automatic data augmentation is performed.
 
-![augment](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_en/dataset/images/auto_augmentation.png)
+![augment](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_en/dataset/images/auto_augmentation.png)
 
 The running result can be seen that the augmentation effect of each image in the batch, the vertical direction represents 5 images of 1 batch, and the horizontal direction represents 5 batches.
 

@@ -1,24 +1,24 @@
 # Experiencing Java Simplified Inference Demo
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/infer/quick_start_java.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/infer/quick_start_java.md)
 
 ## Overview
 
-This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using [MindSpore Lite Java API](https://www.mindspore.cn/lite/api/en/r2.6.0/index.html) by random inputting data, executing inference, and printing the inference result. You can quickly understand how to use the Java APIs related to inference on MindSpore Lite. In this tutorial, the randomly generated data is used as the input data to perform the inference on the MobileNetV2 model and print the output data. The code is stored in the [mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/quick_start_java) directory.
+This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using [MindSpore Lite Java API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/index.html) by random inputting data, executing inference, and printing the inference result. You can quickly understand how to use the Java APIs related to inference on MindSpore Lite. In this tutorial, the randomly generated data is used as the input data to perform the inference on the MobileNetV2 model and print the output data. The code is stored in the [mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/quick_start_java) directory.
 
 The MindSpore Lite inference steps are as follows:
 
-1. Load the model(optional): Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html) from the file system.
-2. Create and configure context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a session to guide graph build and execution. including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
-3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#build) interface of [model](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#model) needs to be called to build the graph, including subgraph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with one [model](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#model) created, one graph be built. In this case, the inference will be performed for multiple times.
+1. Load the model(optional): Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html) from the file system.
+2. Create and configure context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a session to guide graph build and execution. including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
+3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#build) interface of [model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#model) needs to be called to build the graph, including subgraph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with one [model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#model) created, one graph be built. In this case, the inference will be performed for multiple times.
 4. Input data: Before the graph is executed, data needs to be filled in the `Input Tensor`.
-5. Perform inference: Use the [predict](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#predict) of the [model](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#model) to perform model inference.
+5. Perform inference: Use the [predict](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#predict) of the [model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#model) to perform model inference.
 6. Obtain the output: After the graph execution is complete, you can obtain the inference result by `outputting the tensor`.
-7. Release the memory: If the MindSpore Lite inference framework is not required, release the created [model](https://www.mindspore.cn/lite/api/en/r2.6.0/api_java/model.html#model).
+7. Release the memory: If the MindSpore Lite inference framework is not required, release the created [model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_java/model.html#model).
 
 ![img](../images/lite_runtime.png)
 
-> To view the advanced usage of MindSpore Lite, see [Using Runtime to Perform Inference (Java)](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_java.html).
+> To view the advanced usage of MindSpore Lite, see [Using Runtime to Perform Inference (Java)](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_java.html).
 
 ## Building and Running
 
@@ -31,13 +31,13 @@ The MindSpore Lite inference steps are as follows:
 
 - Build
 
-  Run the [build script](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/quick_start_java/build.sh) in the `mindspore/lite/examples/quick_start_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
+  Run the [build script](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/quick_start_java/build.sh) in the `mindspore/lite/examples/quick_start_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
 
   ```bash
   bash build.sh
   ```
 
-  > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64. Decompress the package and copy `runtime/lib/mindspore-lite-java.jar` file to the `mindspore/lite/examples/quick_start_java/lib` directory.
+  > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64. Decompress the package and copy `runtime/lib/mindspore-lite-java.jar` file to the `mindspore/lite/examples/quick_start_java/lib` directory.
   >
   > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_java/model/` directory.
   >

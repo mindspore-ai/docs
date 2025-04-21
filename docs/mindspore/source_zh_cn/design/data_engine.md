@@ -1,6 +1,6 @@
 # 高性能数据处理引擎
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/design/data_engine.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/design/data_engine.md)
 
 ## 背景介绍
 
@@ -14,7 +14,7 @@ MindSpore训练数据处理引擎核心是将训练样本（数据集）高效�
 - 提供了自动数据增强模式，能够基于特定策略自动对图像进行数据增强处理；
 - 提供单节点数据缓存能力，解决重复加载、处理数据的问题，降低数据处理开销，提升端到端训练效率。
 
-具体用法参考：[数据处理与加载](https://www.mindspore.cn/docs/zh-CN/r2.6.0/features/dataset/overview.html)
+具体用法参考：[数据处理与加载](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/features/dataset/overview.html)
 
 ![image](./images/data/data_engine.png)
 

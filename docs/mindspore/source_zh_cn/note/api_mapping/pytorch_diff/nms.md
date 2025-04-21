@@ -1,6 +1,6 @@
 # 比较与torchvision.ops.nms的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/nms.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/nms.md)
 
 ## torchvision.ops.nms
 
@@ -16,7 +16,7 @@ torchvision.ops.nms(boxes: torch.Tensor, scores: torch.Tensor, iou_threshold: fl
 class mindspore.ops.NMSWithMask(iou_threshold=0.5)(bboxes)
 ```
 
-更多内容详见[mindspore.ops.NMSWithMask](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.NMSWithMask.html)。
+更多内容详见[mindspore.ops.NMSWithMask](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/ops/mindspore.ops.NMSWithMask.html)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # 标杆数据生成工具
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/tools/benchmark_golden_data.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/tools/benchmark_golden_data.md)
 
 ## 概述
 
@@ -10,7 +10,7 @@ mslite_gold标杆数据生成工具，可基于原始模型输入数据`input.np
 
 ## mslite_gold工具使用说明
 
-开发者首先需要将原始模型输入数据和推理得到的输出数据，通过`numpy`中的`savez()`命令保存为`.npz`格式的文件，再通过运行[mslite_gold.py](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/golden/mslite_gold.py) 分别将输入数据`input.npz`和输出数据`output.npz`转化为`.bin`和`.out`的二进制格式文件。
+开发者首先需要将原始模型输入数据和推理得到的输出数据，通过`numpy`中的`savez()`命令保存为`.npz`格式的文件，再通过运行[mslite_gold.py](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/golden/mslite_gold.py) 分别将输入数据`input.npz`和输出数据`output.npz`转化为`.bin`和`.out`的二进制格式文件。
 
 ### 环境要求
 
@@ -56,7 +56,7 @@ out_0 2 2 3
 
 1. 随机生成输入，进行模型推理，再将输入输出保存为`.npz`格式。
 
-   [onnx_demo.py示例代码](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/golden/onnx_demo.py) 支持基于ONNX模型随机生成数据，或手动输入数据，并执行推理获得输出数据。手动输入数据时，可以通过参数`--inDataFile`来确定输入数据路径。如果模型是动态shape类型，需通过参数`--inputShape`来确定输入尺寸。参数`--inDataFile`和`--inputShape`非必须，用户可以根据自身的使用场景来自由选用。下面是示例代码的基础使用示例：
+   [onnx_demo.py示例代码](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/golden/onnx_demo.py) 支持基于ONNX模型随机生成数据，或手动输入数据，并执行推理获得输出数据。手动输入数据时，可以通过参数`--inDataFile`来确定输入数据路径。如果模型是动态shape类型，需通过参数`--inputShape`来确定输入尺寸。参数`--inDataFile`和`--inputShape`非必须，用户可以根据自身的使用场景来自由选用。下面是示例代码的基础使用示例：
 
    ```bash
     python onnx_demo.py --modelFile "/path/to/model_example.onnx" --savePath "/path/to/data_example"

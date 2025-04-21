@@ -1,6 +1,6 @@
 # Training Metrics Monitoring
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/function/monitor.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_en/function/monitor.md)
 
 MindSpore Transformers supports TensorBoard as a visualization tool for monitoring and analyzing various metrics and information during training. TensorBoard is a standalone visualization library that requires the user to manually install it, and it provides an interactive way to view loss, precision, learning rate, gradient distribution, and a variety of other things in training. After the user configures TensorBoard in the training `yaml` file, the event file is generated and updated in real time during the training of the large model, and the training data can be viewed via commands.
 

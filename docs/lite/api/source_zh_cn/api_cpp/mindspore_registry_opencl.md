@@ -1,6 +1,6 @@
 # mindspore::registry::opencl
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/api/source_zh_cn/api_cpp/mindspore_registry_opencl.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/api/source_zh_cn/api_cpp/mindspore_registry_opencl.md)
 
 ## 接口汇总
 
@@ -10,7 +10,7 @@
 
 ## OpenCLRuntimeWrapper
 
-\#include <[include/registry/opencl_runtime_wrapper.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/opencl_runtime_wrapper.h)>
+\#include <[include/registry/opencl_runtime_wrapper.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/opencl_runtime_wrapper.h)>
 
 OpenCLRuntimeWrapper类包装了内部OpenCL的相关接口，用于支持南向GPU算子的开发。
 
@@ -132,7 +132,7 @@ Status SyncCommandQueue();
 std::shared_ptr<Allocator> GetAllocator();
 ```
 
-获取GPU内存分配器的智能指针。通过[Allocator接口](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html)，可申请GPU内存，用于OpenCL内核的运算。
+获取GPU内存分配器的智能指针。通过[Allocator接口](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html)，可申请GPU内存，用于OpenCL内核的运算。
 
 ### MapBuffer
 

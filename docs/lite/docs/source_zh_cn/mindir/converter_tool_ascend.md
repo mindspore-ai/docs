@@ -1,6 +1,6 @@
 # Ascend转换工具功能说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/mindir/converter_tool_ascend.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/mindir/converter_tool_ascend.md)
 
 ## 概述
 
@@ -89,7 +89,7 @@
 
 ## 动态shape配置
 
-在某些推理场景，如检测出目标后再执行目标识别网络，由于目标个数不固定导致目标识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过configFile配置[ascend_context]中dynamic_dims动态参数，推理时使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能，改变输入shape。
+在某些推理场景，如检测出目标后再执行目标识别网络，由于目标个数不固定导致目标识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过configFile配置[ascend_context]中dynamic_dims动态参数，推理时使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能，改变输入shape。
 
 ### 动态Batch size
 
@@ -131,7 +131,7 @@
 
 - 推理
 
-    使能动态BatchSize，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model [Resize](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能。
+    使能动态BatchSize，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model [Resize](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能。
 
 - 注意事项
 
@@ -172,7 +172,7 @@
 
 - 推理
 
-    使能动态分辨率，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能。
+    使能动态分辨率，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能。
 
 - 注意事项
 
@@ -213,7 +213,7 @@
 
 - 推理
 
-    使能动态维度，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能。
+    使能动态维度，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能。
 
 - 注意事项
 
@@ -311,7 +311,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型
 
 4. 动态分档
 
-    可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置动态分档信息，优先级从低到高。以下设置方式等价。 `[ascend_context]` 分档设置可参考 [动态shape配置](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool_ascend.html#%E5%8A%A8%E6%80%81shape%E9%85%8D%E7%BD%AE)。 `[acl_option_cfg_param]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 分档设置可参考 [dynamic_dims](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_013.html)、[dynamic_batch_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_011.html)、[dynamic_image_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_012.html)。注意， `[ge_graph_options]` 仅支持 `ge.dynamicDims` ，不支持类似 `dynamic_batch_size` 和 `dynamic_image_size` 的形式。 `input_format` 用于指定动态分档的输入维度排布，使用 `dynamic_image_size` 时需要指定 `input_format` 为 `NCHW` 或 `NHWC` 指示 `H` 和 `W` 维度所在位置。
+    可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置动态分档信息，优先级从低到高。以下设置方式等价。 `[ascend_context]` 分档设置可参考 [动态shape配置](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool_ascend.html#%E5%8A%A8%E6%80%81shape%E9%85%8D%E7%BD%AE)。 `[acl_option_cfg_param]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 分档设置可参考 [dynamic_dims](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_013.html)、[dynamic_batch_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_011.html)、[dynamic_image_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_012.html)。注意， `[ge_graph_options]` 仅支持 `ge.dynamicDims` ，不支持类似 `dynamic_batch_size` 和 `dynamic_image_size` 的形式。 `input_format` 用于指定动态分档的输入维度排布，使用 `dynamic_image_size` 时需要指定 `input_format` 为 `NCHW` 或 `NHWC` 指示 `H` 和 `W` 维度所在位置。
 
     ```bash
     [ascend_context]
@@ -341,7 +341,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型
 
     可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置模式信息，优先级从低到高。以下设置方式等价。
 
-    `[ascend_context]` 和 `[acl_option_cfg_param]` 精度模式设置可参考 [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool_ascend.html#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)。 `[ge_graph_options]` 和 `[aoe_tuning_options]` 精度模式设置可参考 [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/aoe/aoepar_16_042.html)。
+    `[ascend_context]` 和 `[acl_option_cfg_param]` 精度模式设置可参考 [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool_ascend.html#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)。 `[ge_graph_options]` 和 `[aoe_tuning_options]` 精度模式设置可参考 [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/aoe/aoepar_16_042.html)。
 
     ```bash
     [ascend_context]

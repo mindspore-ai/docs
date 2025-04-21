@@ -1,6 +1,6 @@
 # Lite算子支持
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/reference/operator_list_lite.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/reference/operator_list_lite.md)
 
 MindSpore Lite支持不同硬件后端的算子列表：
 
@@ -361,7 +361,7 @@ MindSpore Lite转换工具支持第三方框架的算子列表：
 
 [3] Sum与Max：仅支持输入个数为2。
 
-[4] [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
+[4] [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
 
 [5] 当前支持使用环境变量export KEEP_ORIGIN_DTYPE=1来保持数据类型为int64，当使用int32数据类型存在溢出时可以考虑使用该选项，但是目前仅为实验性选项，后续将移除。
 

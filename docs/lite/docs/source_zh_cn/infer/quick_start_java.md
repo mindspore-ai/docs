@@ -1,24 +1,24 @@
 # 体验Java极简推理Demo
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/infer/quick_start_java.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/infer/quick_start_java.md)
 
 ## 概述
 
-本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了利用[MindSpore Lite Java API](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/index.html)进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关Java API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/quick_start_java)目录。
+本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了利用[MindSpore Lite Java API](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/index.html)进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关Java API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/quick_start_java)目录。
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
-1. 模型加载(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html)转换得到的`.ms`模型。
-2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/mscontext.html#mscontext)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。主要包括`deviceType`：设备类型、`threadNum`：线程数、`cpuBindMode`：CPU绑定模式、`enable_float16`：是否优先使用float16算子。
-3. 图编译：在图执行前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#build)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#model)创建一次，编译一次，多次执行。
+1. 模型加载(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html)转换得到的`.ms`模型。
+2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/mscontext.html#mscontext)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。主要包括`deviceType`：设备类型、`threadNum`：线程数、`cpuBindMode`：CPU绑定模式、`enable_float16`：是否优先使用float16算子。
+3. 图编译：在图执行前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#build)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#model)创建一次，编译一次，多次执行。
 4. 输入数据：图执行之前需要向输入Tensor中填充数据。
-5. 执行推理：使用[model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#predict)进行模型推理。
+5. 执行推理：使用[model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#predict)进行模型推理。
 6. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
-7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#model)。
+7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#model)。
 
 ![img](../images/lite_runtime.png)
 
-> 如需查看MindSpore Lite高级用法，请参考[使用Runtime执行推理（Java）](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/infer/runtime_java.html)。
+> 如需查看MindSpore Lite高级用法，请参考[使用Runtime执行推理（Java）](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/infer/runtime_java.html)。
 
 ## 构建与运行
 
@@ -31,13 +31,13 @@
 
 - 编译构建
 
-  在`mindspore/lite/examples/quick_start_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/quick_start_java/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
+  在`mindspore/lite/examples/quick_start_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/quick_start_java/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
 
   ```bash
   bash build.sh
   ```
 
-  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)，解压后将`runtime/lib/mindspore-lite-java.jar`文件拷贝到`mindspore/lite/examples/quick_start_java/lib`目录。
+  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/use/downloads.html)，解压后将`runtime/lib/mindspore-lite-java.jar`文件拷贝到`mindspore/lite/examples/quick_start_java/lib`目录。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_java/model/`目录。
   >

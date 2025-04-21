@@ -1,6 +1,6 @@
 # Distributed Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/function/distributed_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_en/function/distributed_parallel.md)
 
 ## Parallel Modes and Application Scenarios
 
@@ -25,13 +25,13 @@ MindSpore Transformers supports multiple parallelism features. You can use these
 
 | **Parallelism Feature**                     | **Description**                                                                         |
 |-----------------------------------|---------------------------------------------------------------------------------|
-| **[Data parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/data_parallel.html)**                    | Splits data to multiple devices and trains the data on each device at the same time. This mode applies to training a simple model with a lot of data.                                   |
-| **[Model parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/operator_parallel.html)**                    | Distributes model parameters to multiple devices. This mode applies to the scenario where a single device cannot accommodate the entire model.                                               |
-| **[Pipeline parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/pipeline_parallel.html)**                  | Divides an ultra-large model into multiple phases with each running on different devices for efficient training.                                       |
-| **[Optimizer parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/optimizer_parallel.html)**                  | Distributes the optimizer computation to multiple devices to reduce memory usage and improve training efficiency.                                                  |
+| **[Data parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/data_parallel.html)**                    | Splits data to multiple devices and trains the data on each device at the same time. This mode applies to training a simple model with a lot of data.                                   |
+| **[Model parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/operator_parallel.html)**                    | Distributes model parameters to multiple devices. This mode applies to the scenario where a single device cannot accommodate the entire model.                                               |
+| **[Pipeline parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/pipeline_parallel.html)**                  | Divides an ultra-large model into multiple phases with each running on different devices for efficient training.                                       |
+| **[Optimizer parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/optimizer_parallel.html)**                  | Distributes the optimizer computation to multiple devices to reduce memory usage and improve training efficiency.                                                  |
 | **Sequence parallelism**                     | Designed to share the memory and computation that cannot be sliced by model parallel, the inputs of LayerNorm and Dropout in the Transformer layer are sliced according to the sequence dimension to reduce the memory pressure on a single device.        |
 | **[Long sequence parallelism](#long-sequence-parallelism)** | Slices all inputs and output activations by sequence to further reduce the GPU memory usage of the model for processing long sequence inputs.|
-| **[Multi-copy parallelism](https://www.mindspore.cn/docs/en/r2.6.0/features/parallel/pipeline_parallel.html#mindspore-interleaved-pipeline-scheduler)**                  | Implements fine-grained parallel control among multiple copies to optimize performance and resource utilization. This mode is suitable for efficient training of models with large specifications.                                    |
+| **[Multi-copy parallelism](https://www.mindspore.cn/docs/en/r2.6.0rc1/features/parallel/pipeline_parallel.html#mindspore-interleaved-pipeline-scheduler)**                  | Implements fine-grained parallel control among multiple copies to optimize performance and resource utilization. This mode is suitable for efficient training of models with large specifications.                                    |
 
 For details about how to configure distributed parallel parameters, see [MindSpore Transformers Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/appendix/conf_files.html).
 
@@ -92,7 +92,7 @@ parallel_config:
 Parameter Descriptions:
 
 - use_attn_mask_compression: Whether to mask the Score matrix in Self-Attention, default is False, it is recommended to turn it on to reduce the video memory usage in Ulysses sequence parallel scheme.
-- enable_alltoall: Generate alltoall communication operator, default is False, when the parameter is not enabled, it will be replaced by a combination of other operators such as allgather. See MindSpore `set_auto_parallel_context` [interface documentation](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.set_auto_parallel_context.html). We expect to be able to directly input allto_all communication operators when we enable the Ulysses scenario, so we turn this configuration item on.
+- enable_alltoall: Generate alltoall communication operator, default is False, when the parameter is not enabled, it will be replaced by a combination of other operators such as allgather. See MindSpore `set_auto_parallel_context` [interface documentation](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.set_auto_parallel_context.html). We expect to be able to directly input allto_all communication operators when we enable the Ulysses scenario, so we turn this configuration item on.
 - context_parallel_algo: Set to `ulysses_cp` to enable Ulysses sequence parallelism.
 
 For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/appendix/conf_files.html).

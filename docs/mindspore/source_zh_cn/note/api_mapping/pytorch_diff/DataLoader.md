@@ -1,6 +1,6 @@
 # 比较与torch.utils.data.DataLoader的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/DataLoader.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/DataLoader.md)
 
 ## torch.utils.data.DataLoader
 
@@ -23,7 +23,7 @@ class mindspore.dataset.GeneratorDataset(
     num_shards=None, shard_id=None, python_multiprocessing=True, max_rowsize=None)
 ```
 
-更多内容详见[mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
+更多内容详见[mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
 
 ## 差异对比
 

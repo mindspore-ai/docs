@@ -1,6 +1,6 @@
 # 多级编译架构
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/design/multi_level_compilation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/design/multi_level_compilation.md)
 
 ## 背景
 
@@ -16,13 +16,13 @@
 
 ![jit_level_framework](./images/multi_level_compilation/jit_level_framework.png)
 
-1. 多级编译对外接口：通过[mindspore.jit(jit_level="O0/O1")](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.jit.html#mindspore.jit)来配置多级编译级别，jit_level默认为O0，通常我们建议用户使用O0模式进行网络调试调优，调试就绪后，为了更好的性能可以一键开启O1运行网络。
+1. 多级编译对外接口：通过[mindspore.jit(jit_level="O0/O1")](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore/mindspore.jit.html#mindspore.jit)来配置多级编译级别，jit_level默认为O0，通常我们建议用户使用O0模式进行网络调试调优，调试就绪后，为了更好的性能可以一键开启O1运行网络。
 2. 后端图编译：根据配置的多级编译级别，选择不同的编译模式，O0为最基础的原生构图与编译，O1在O0基础增加了自动算子融合功能，主要功能有图优化、图算融合、算子选择、执行序编排，其中图算融合为O1模式下独有功能。
 3. 后端图执行：O0跟O1模式执行层面是一样的，均使用单算子方式调度执行，主要功能有多流并发、多级流水、HAL管理、内存管理。
 
 ## O0模式介绍
 
-O0为基础的图编译执行模式，除必要影响功能的优化外，其他优化均关闭，使用原生的图结构进行编译和执行，方便调试调优，具备较好的编译性能。下面主要介绍后端图编译相关功能，后端图执行相关功能详见[运行时](https://www.mindspore.cn/docs/zh-CN/r2.6.0/features/runtime/memory_manager.html)。
+O0为基础的图编译执行模式，除必要影响功能的优化外，其他优化均关闭，使用原生的图结构进行编译和执行，方便调试调优，具备较好的编译性能。下面主要介绍后端图编译相关功能，后端图执行相关功能详见[运行时](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/features/runtime/memory_manager.html)。
 
 ### 图优化
 
@@ -70,7 +70,7 @@ MindSpore Ascend后端的算子类型有Aclnn kernel/Aclop kernel/Hccl kernel /C
 
 - 首先，优化模块需要解决求解最优算子并发的复杂性问题。由于计算图中的算子数量庞大且相互依赖，找到一个既能最大化并发又能保持计算图逻辑正确性的执行顺序是一个极具挑战性的任务。
 - 其次，内存限制是执行序优化中不可忽视的关键因素。增大并发虽然可以提升计算效率，但往往会显著增加峰值内存需求，从而可能导致内存溢出（OOM）错误，尤其是在资源受限的环境中。因此，优化模块必须权衡并发与内存使用之间的关系，确保在提升并发的同时，不会超出系统的内存容量。
-- MindSpore的执行序调整模块结合了基于规则和基于启发式策略的方式，提供bfs/dfs两种执行序编排算法[mindspore.jit(option={"exec_order":"bfs/dfs"})](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.jit.html#mindspore.jit)，以实现对计算图执行顺序的精细调整，从而在保证计算效率的同时，有效应对内存限制和系统稳定性等多重挑战。
+- MindSpore的执行序调整模块结合了基于规则和基于启发式策略的方式，提供bfs/dfs两种执行序编排算法[mindspore.jit(option={"exec_order":"bfs/dfs"})](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore/mindspore.jit.html#mindspore.jit)，以实现对计算图执行顺序的精细调整，从而在保证计算效率的同时，有效应对内存限制和系统稳定性等多重挑战。
 
 ## O1模式介绍
 

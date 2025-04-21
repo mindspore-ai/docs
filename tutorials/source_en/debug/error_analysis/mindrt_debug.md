@@ -1,6 +1,6 @@
 # Network Construction and Training Error Analysis
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/debug/error_analysis/mindrt_debug.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/debug/error_analysis/mindrt_debug.md)&nbsp;&nbsp;
 
 The following lists the common network construction and training errors in static graph mode.
 
@@ -18,7 +18,7 @@ For details, visit the following website:
 
 [MindSpore Configuration Error - 'set_context' Configuration Error](https://www.hiascend.com/forum/thread-0229106885219029083-1-1.html)
 
-For details about the context configuration, see ['set_context'](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.set_context.html).
+For details about the context configuration, see ['set_context'](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.set_context.html).
 
 ## Syntax Errors
 
@@ -62,7 +62,7 @@ According to the error message, the dimension shapes of the return values of dif
 
 For details, visit the following website:
 
-[MindSpore Syntax Error - Type (Shape) Join Failed](https://www.mindspore.cn/docs/en/r2.6.0/faq/network_compilation.html)
+[MindSpore Syntax Error - Type (Shape) Join Failed](https://www.mindspore.cn/docs/en/r2.6.0rc1/faq/network_compilation.html)
 
 The number of loops of the for and while statements may exceed the permitted range. As a result, the function call stack exceeds the threshold. The error message is displayed as follows:
 

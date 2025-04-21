@@ -1,14 +1,14 @@
 # Custom Operators for Dynamic Graph Scenarios
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/custom_program/operation/op_custom_pyboost.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/custom_program/operation/op_custom_pyboost.md)
 
 ## Overview
 
 In dynamic graph mode, network workflows are easier to debug, supporting operations like single-operator execution, normal functions/networks, and standalone gradient computations.
 
-While [Custom operator expressions](https://www.mindspore.cn/tutorials/en/r2.6.0/custom_program/op_custom.html) support both static and dynamic graphs, they require extensive definitions. MindSpore optimizes the custom operator definition for dynamic graphs to enhance usability and execution performance.
+While [Custom operator expressions](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/custom_program/op_custom.html) support both static and dynamic graphs, they require extensive definitions. MindSpore optimizes the custom operator definition for dynamic graphs to enhance usability and execution performance.
 
-This guide demonstrates a multiplication operator implementation on Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/v2.6.0/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
+This guide demonstrates a multiplication operator implementation on Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
 
 ## Operator Definition
 
@@ -113,7 +113,7 @@ The user implements the forward computation of a customized operator through the
 static BaseTensorPtr Forward(AutogradContext *ctx, const BaseTensorPtr &x, const BaseTensorPtr &y)
 ```
 
-Here is the forward function calculation part. The user first creates a Tensor with a data type of `x->data_type()` and a size of `BroadcastInferShape(x, y)`, then uses `CustomLaunchAclnn` to invoke the `aclnnMul` operator for computation. For knowledge related to the compilation of aclnn operators, you can refer to the relevant sections in [AOT type custom operators (Ascend platform)](https://www.mindspore.cn/tutorials/en/r2.6.0/custom_program/operation/op_custom_ascendc.html#offline-compilation-and-deployment).
+Here is the forward function calculation part. The user first creates a Tensor with a data type of `x->data_type()` and a size of `BroadcastInferShape(x, y)`, then uses `CustomLaunchAclnn` to invoke the `aclnnMul` operator for computation. For knowledge related to the compilation of aclnn operators, you can refer to the relevant sections in [AOT type custom operators (Ascend platform)](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/custom_program/operation/op_custom_ascendc.html#offline-compilation-and-deployment).
 
 ```c++
 auto output = std::make_shared<BaseTensor>(x->data_type(), BroadcastInferShape(x, y));

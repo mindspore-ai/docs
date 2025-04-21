@@ -1,6 +1,6 @@
 # Pretraining
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/usage/pre_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_en/usage/pre_training.md)
 
 ## Overview
 
@@ -61,7 +61,7 @@ After the task is executed, the **checkpoint** folder is generated in the **mind
 
 ### Multi-Node Training
 
-Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/llama3/llama3_70b/pretrain_llama3_70b.yaml) configuration file to run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py) in msrun mode to perform 8-node 64-device pretraining. To perform distributed training on a multi-node multi-device script, you need to run the script on different nodes and set the **MASTER_ADDR** parameter to the IP address of the primary node. The IP addresses of all nodes are the same, and only the values of **NODE_RANK** are different for different nodes. For details about the parameter positions, see [msrun Launching Guide](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/msrun_launcher.html).
+Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/llama3/llama3_70b/pretrain_llama3_70b.yaml) configuration file to run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py) in msrun mode to perform 8-node 64-device pretraining. To perform distributed training on a multi-node multi-device script, you need to run the script on different nodes and set the **MASTER_ADDR** parameter to the IP address of the primary node. The IP addresses of all nodes are the same, and only the values of **NODE_RANK** are different for different nodes. For details about the parameter positions, see [msrun Launching Guide](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/msrun_launcher.html).
 
 ```shell
 # Node 0: Set the IP address of node 0 to the value of MASTER_ADDR, which is used as the IP address of the primary node. There are 64 devices in total with 8 devices for each node.

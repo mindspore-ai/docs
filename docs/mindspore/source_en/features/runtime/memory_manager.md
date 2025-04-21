@@ -1,6 +1,6 @@
 # Memory Management
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/features/runtime/memory_manager.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/features/runtime/memory_manager.md)
 
 ## Overview
 
@@ -9,20 +9,20 @@ Device memory (hereinafter referred to as memory) is the most important resource
 1. Memory pool serves as a base for memory management and can effectively avoid the overhead of frequent dynamic allocation of memory.
 2. Memory reuse algorithm, as a core competency in memory management, needs to have efficient memory reuse results as well as minimal memory fragmentation.
 
-![memory_manager](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_memory_manage.png)
+![memory_manager](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_memory_manage.png)
 
 ## Interfaces
 
-The memory management-related interfaces are detailed in [runtime interfaces](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.runtime.html#memory), of which the two most important ones The two most important interfaces are the memory settings interface and the memory fragmentation management interface:
+The memory management-related interfaces are detailed in [runtime interfaces](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.runtime.html#memory), of which the two most important ones The two most important interfaces are the memory settings interface and the memory fragmentation management interface:
 
-1. memory settings interface: [mindspore.runtime.set_memory](https://www.mindspore.cn/docs/en/r2.6.0/api_python/runtime/mindspore.runtime.set_memory.html#mindspore.runtime.set_memory), setting the memory parameters to be managed using the memory pool and the memory reuse algorithm.
-2. memory fragmentation management interface: [environment variable MS_ALLOC_CONF](https://www.mindspore.cn/docs/en/r2.6.0/api_python/env_var_list.html#graph-compilation-and-execution). The behavior is determined by whether the hardware driver has the ability to map virtual memory to physical memory, if it does, it is turned on by default, otherwise it is turned off by default. This can be forced to be turned off by export MS_ALLOC_CONF=“enable_vmm:false”.
+1. memory settings interface: [mindspore.runtime.set_memory](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/runtime/mindspore.runtime.set_memory.html#mindspore.runtime.set_memory), setting the memory parameters to be managed using the memory pool and the memory reuse algorithm.
+2. memory fragmentation management interface: [environment variable MS_ALLOC_CONF](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/env_var_list.html#graph-compilation-and-execution). The behavior is determined by whether the hardware driver has the ability to map virtual memory to physical memory, if it does, it is turned on by default, otherwise it is turned off by default. This can be forced to be turned off by export MS_ALLOC_CONF=“enable_vmm:false”.
 
 ## Memory Pool
 
 The core idea of memory pool as a base for memory management is to pre-allocate a large block of contiguous memory, allocate it directly from the pool when applying for memory, and return it to the pool for reuse when releasing it, instead of frequently calling the memory application and release interfaces in the system, which reduces the overhead of frequent dynamic allocations, and improves system performance. MindSpore mainly uses the BestFit memory allocation algorithm, supports dynamic expansion of memory blocks and defragmentation, and sets the initialization parameters of the memory pool through the interface mindspore.runtime.set_memory(init_size,increase_size,max_size) to control the dynamic expansion size and maximum memory usage.
 
-![memory_pool](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_memory_pool.png)
+![memory_pool](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_memory_pool.png)
 
 1. Slicing operation: When memory is allocated, free areas are sorted according to their sizes, the first free area that meets the requirements is found, allocated on demand, the excess is cut, and a new block of free memory is inserted.
 2. Merge operation: When memory is reclaimed, neighboring free memory blocks are reclaimed and merged into one large free memory block.

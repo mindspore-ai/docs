@@ -1,6 +1,6 @@
 # Performing Inference or Training on MCU or Small Systems
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/advanced/micro.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/advanced/micro.md)
 
 ## Overview
 
@@ -18,7 +18,7 @@ Deploying a model for inference or training via the Micro involves the following
 ### Overview
 
 The Micro configuration item in the parameter configuration file is configured via the MindSpore Lite conversion tool `convert_lite`.
-This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html).
+This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html).
 
 ### Preparing Environment
 
@@ -32,11 +32,11 @@ The following describes how to prepare the environment for using the conversion 
 
     You can obtain the conversion tool in either of the following ways:
 
-    - Download [Release Version](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) from the MindSpore official website.
+    - Download [Release Version](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) from the MindSpore official website.
 
         Download the release package whose OS is Linux-x86_64 and hardware platform is CPU.
 
-    - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html).
+    - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html).
 
 3. Decompress the downloaded package.
 
@@ -103,7 +103,7 @@ The following describes how to prepare the environment for using the conversion 
     CONVERT RESULT SUCCESS:0
     ```
 
-    For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html#parameter-description).
+    For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html#parameter-description).
 
     After the conversion tool is successfully executed, the generated code is saved in the specified `outputFile` directory. In this example, the mnist folder is in the current conversion directory. The content is as follows:
 
@@ -228,7 +228,7 @@ Table 1: micro_param Parameter Definition
     CONVERT RESULT SUCCESS:0
     ```
 
-   For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html#parameter-description).
+   For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html#parameter-description).
 
    After the conversion tool is successfully executed, the generated code is saved in the specified `save_path` + `project_name` directory. In this example, the mnist folder is in the current conversion directory. The content is as follows:
 
@@ -277,7 +277,7 @@ Table 1: micro_param Parameter Definition
 
 Usually, when generating code, you can reduce the probability of errors in the deployment process by configuring the model input shape as the input shape for actual inference.
 When the model contains a `Shape` operator or the original model has a non-fixed input shape value, the input shape value of the model must be configured to support the relevant shape optimization and code generation.
-The `--inputShape=` command of the conversion tool can be used to configure the input shape of the generated code. For specific parameter meanings, please refer to [Conversion Tool Instructions](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html).
+The `--inputShape=` command of the conversion tool can be used to configure the input shape of the generated code. For specific parameter meanings, please refer to [Conversion Tool Instructions](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html).
 
 ### (Optional) Dynamic Shape Configuration
 
@@ -325,7 +325,7 @@ support_parallel=true
 #### Involved Calling Interfaces
 
 By integrating the code and calling the following interfaces, the user can configure the multi-threaded inference of the model.
-For specific interface parameters, refer to [API Document](https://www.mindspore.cn/lite/api/en/r2.6.0/index.html).
+For specific interface parameters, refer to [API Document](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/index.html).
 
 Table 2: API Interface for Multi-threaded Configuration
 
@@ -349,12 +349,12 @@ At present, this function is only enabled when the `target` is configured as x86
 
 In MCU scenarios such as Cortex-M, limited by the memory size and computing power of the device, Int8 quantization operators are usually used for deployment inference to reduce the runtime memory size and speed up operations.
 
-If the user already has an Int8 full quantitative model, you can refer to the section on [Generating Inference Code by Running converter_lite](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/micro.html#generating-inference-code-by-running-converter-lite) to try to generate Int8 quantitative inference code directly without reading this chapter.
+If the user already has an Int8 full quantitative model, you can refer to the section on [Generating Inference Code by Running converter_lite](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/micro.html#generating-inference-code-by-running-converter-lite) to try to generate Int8 quantitative inference code directly without reading this chapter.
 In general, the user has only one trained float32 model. To generate Int8 quantitative inference code at this time, it is necessary to cooperate with the post quantization function of the conversion tool to generate code. See the following for specific steps.
 
 #### Configuration
 
-Int8 quantization inference code can be generated by configuring quantization control parameters in the configuration file. For the description of quantization control parameters (`universal quantization parameters` and `full quantization parameters`), please refer to the [Quantization](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/quantization.html).
+Int8 quantization inference code can be generated by configuring quantization control parameters in the configuration file. For the description of quantization control parameters (`universal quantization parameters` and `full quantization parameters`), please refer to the [Quantization](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/quantization.html).
 
 An example of Int8 quantitative inference code generation configuration file for a `Cortex-M` platform is as follows:
 
@@ -411,7 +411,7 @@ target_device=DSP
 ### Overview
 
 The training code can be generated for the input model by using the MindSpore Lite conversion tool `converter_lite` and configuring the Micro configuration item in the parameter configuration file of the conversion tool.
-This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Training](https://www.mindspore.cn/lite/docs/en/r2.6.0/train/converter_train.html).
+This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Training](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/train/converter_train.html).
 
 ### Preparing Environment
 
@@ -491,7 +491,7 @@ For preparing environment section, refer to the [above](#preparing-environment),
 After generating model inference code, you need to obtain the `Micro` lib on which the generated inference code depends before performing integrated development on the code.
 
 The inference code of different platforms depends on the `Micro` lib of the corresponding platform. You need to specify the platform via the micro configuration item `target` based on the platform in use when generating code, and obtain the `Micro` lib of the platform when obtaining the inference package.
-You can download the [Release Version](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) of the corresponding platform from the MindSpore official website.
+You can download the [Release Version](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) of the corresponding platform from the MindSpore official website.
 
 In chapter [Generating Model Inference Code](#generating-model-inference-code), we obtain the model inference code of the Linux platform with the x86_64 architecture. The `Micro` lib on which the code depends is the release package used by the conversion tool.
 In the release package, the following content depended by the inference code:
@@ -523,7 +523,7 @@ Users can refer to the benchmark routine to integrate and develop the `src` infe
 
 ### Calling Interface of Inference Code
 
-The following is the general calling interface of the inference code. For a detailed description of the interface, please refer to the [API documentation](https://www.mindspore.cn/lite/api/en/r2.6.0/index.html).
+The following is the general calling interface of the inference code. For a detailed description of the interface, please refer to the [API documentation](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/index.html).
 
 Table 3: Inference Common API Interface
 
@@ -559,9 +559,9 @@ Different platforms have differences in code integration and compilation deploym
 
 - For the MCU of the cortex-M architecture, see [Performing Inference on the MCU](#performing-inference-on-the-mcu)
 
-- For the Linux platform with the x86_64 architecture, see [Compilation and Deployment on Linux_x86_64 Platform](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/quick_start_micro/mnist_x86)
+- For the Linux platform with the x86_64 architecture, see [Compilation and Deployment on Linux_x86_64 Platform](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-- For details about how to compile and deploy arm32 or arm64 on the Android platform, see [Compilation and Deployment on Android Platform](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
+- For details about how to compile and deploy arm32 or arm64 on the Android platform, see [Compilation and Deployment on Android Platform](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
 
 - For compilation and deployment on the OpenHarmony platform, see [Executing Inference on Light Harmony Devices](#executing-inference-on-light-harmony-devices)
 
@@ -619,11 +619,11 @@ mnist                          # Specified name of generated code root directory
 
 The STM32F767 uses the Cortex-M7 architecture. You can obtain the `Micro` lib of the architecture in either of the following ways:
 
-- Download [Release Version](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) from the MindSpore official website.
+- Download [Release Version](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) from the MindSpore official website.
 
     You need to download the release package whose OS is None and hardware platform is Cortex-M7.
 
-- Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html).
+- Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html).
 
     You can run the `MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64` command to compile the Cortex-M7 release package.
 
@@ -1004,7 +1004,7 @@ For details about how to develop light Harmony applications, see [Running Hello 
 └── src  
 ```
 
-Download the [precompiled inference runtime package](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) for OpenHarmony and decompress it to any Harmony source code path. Compile Build.gn file:
+Download the [precompiled inference runtime package](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) for OpenHarmony and decompress it to any Harmony source code path. Compile Build.gn file:
 
 ```text
 import("//build/lite/config/component/lite_component.gni")
@@ -1123,7 +1123,7 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 
 ## Custom Kernel
 
-Please refer to [Custom Kernel](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/third_party/register.html) to understand the basic concepts before using.
+Please refer to [Custom Kernel](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/third_party/register.html) to understand the basic concepts before using.
 Micro currently only supports the registration and implementation of custom operators of custom type, and does not support the registration and custom implementation of built-in operators (such as conv2d and fc).
 We use Hi3516D board as an example to show you how to use kernel register in Micro.
 
@@ -1143,7 +1143,7 @@ The previous step generates the source code directory under the specified path w
 int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
 ```
 
-Users need to implement this function and add their source files to the cmake project. For example, we provide the custom kernel example dynamic library libmicro_nnie.so that supports NNIE from Hysis, which is included in the [official download page](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) "NNIE inference runtime lib, benchmark tool" component. Users need to modify the CMakeLists.txt of the generated code, add the name and path of the linked library.
+Users need to implement this function and add their source files to the cmake project. For example, we provide the custom kernel example dynamic library libmicro_nnie.so that supports NNIE from Hysis, which is included in the [official download page](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) "NNIE inference runtime lib, benchmark tool" component. Users need to modify the CMakeLists.txt of the generated code, add the name and path of the linked library.
 
 ``` shell
 
@@ -1155,7 +1155,7 @@ target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe 
 
 ```
 
-In the generated `benchmark/benchmark.c` file, add the [NNIE device related initialization code](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/config_level0/micro/svp_sys_init.c) before and after calling the main function.
+In the generated `benchmark/benchmark.c` file, add the [NNIE device related initialization code](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/config_level0/micro/svp_sys_init.c) before and after calling the main function.
 Finally, we compile the source code:
 
 ``` shell
@@ -1188,7 +1188,7 @@ Except for MCU, micro inference is a inference model that separates model struct
 
 ### Exporting Inference Model
 
-Users can directly refer to [Device-side training](https://www.mindspore.cn/lite/docs/en/r2.6.0/train/runtime_train_cpp.html).
+Users can directly refer to [Device-side training](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/train/runtime_train_cpp.html).
 
 ### Generating Inference Code
 

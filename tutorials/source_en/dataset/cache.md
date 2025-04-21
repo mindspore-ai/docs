@@ -1,6 +1,6 @@
 # Single-Node Data Cache
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/dataset/cache.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/dataset/cache.md)
 
 Data cache refers to caching a dataset in local memory to speed up the reading of the dataset, and is suitable for situations that require multiple accesses to a remote dataset or multiple reads of a dataset from disk.
 
@@ -367,7 +367,7 @@ During the single-node multi-device distributed training, the cache operation al
     done
     ```
 
-    > Complete sample code: [cache.sh](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/cache/cache.sh).
+    > Complete sample code: [cache.sh](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/cache/cache.sh).
 
 4. Create and apply a cache instance.
 
@@ -410,7 +410,7 @@ During the single-node multi-device distributed training, the cache operation al
     print("Got {} samples on device {}".format(num_iter, args_opt.device))
     ```
 
-    > Complete sample code: [my_training_script.py](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/cache/my_training_script.py)
+    > Complete sample code: [my_training_script.py](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/cache/my_training_script.py)
 
 5. Execute the training script.
 
@@ -481,7 +481,7 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
     }
     ```
 
-    > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/cache/cache_util.sh).
+    > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/cache/cache_util.sh).
 
 2. In the Shell script `run_train_nfs_cache.sh` that starts NFS dataset training, turn on the cache server and generate a cache session saved in the Shell variable `CACHE_SESSION_ID`:
 

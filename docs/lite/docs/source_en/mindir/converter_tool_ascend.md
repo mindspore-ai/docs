@@ -1,6 +1,6 @@
 # Ascend Conversion Tool Description
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/mindir/converter_tool_ascend.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/mindir/converter_tool_ascend.md)
 
 ## Introduction
 
@@ -89,7 +89,7 @@ Table 3: Configure [acl_build_options] parameter
 
 ## Dynamic Shape Configuration
 
-In some inference scenarios, such as detecting a target and then executing the target recognition network, the number of targets is not fixed resulting in a variable input BatchSize for the target recognition network. If each inference is computed at the maximum BatchSize or maximum resolution, it will result in wasted computational resources. Therefore, it needs to support dynamic BatchSize and dynamic resolution scenarios during inference. Lite inference on Ascend supports dynamic BatchSize and dynamic resolution scenarios. The dynamic_dims dynamic parameter in [ascend_context] is configured via configFile in the convert phase, and the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_cpp.html#dynamic-shape-input) is used during inference, to change the input shape.
+In some inference scenarios, such as detecting a target and then executing the target recognition network, the number of targets is not fixed resulting in a variable input BatchSize for the target recognition network. If each inference is computed at the maximum BatchSize or maximum resolution, it will result in wasted computational resources. Therefore, it needs to support dynamic BatchSize and dynamic resolution scenarios during inference. Lite inference on Ascend supports dynamic BatchSize and dynamic resolution scenarios. The dynamic_dims dynamic parameter in [ascend_context] is configured via configFile in the convert phase, and the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_cpp.html#dynamic-shape-input) is used during inference, to change the input shape.
 
 ### Dynamic Batch Size
 
@@ -131,7 +131,7 @@ In some inference scenarios, such as detecting a target and then executing the t
 
 - Inference
 
-    Enable dynamic BatchSize. When the model inference is performed, the input shape can only choose the set value of the profile at the time of the converter. If you want to switch to the input shape corresponding to another profile, use the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_cpp.html#dynamic-shape-input) function.
+    Enable dynamic BatchSize. When the model inference is performed, the input shape can only choose the set value of the profile at the time of the converter. If you want to switch to the input shape corresponding to another profile, use the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_cpp.html#dynamic-shape-input) function.
 
 - Precautions
 
@@ -172,7 +172,7 @@ In some inference scenarios, such as detecting a target and then executing the t
 
 - Inference
 
-    By enabling dynamic resolution, when model inference is performed, the input shape can only select the set profile value at the time of the converter. If you want to switch to the input shape corresponding to another profile, use the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_cpp.html#dynamic-shape-input) function.
+    By enabling dynamic resolution, when model inference is performed, the input shape can only select the set profile value at the time of the converter. If you want to switch to the input shape corresponding to another profile, use the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_cpp.html#dynamic-shape-input) function.
 
 - Precautions
 
@@ -213,7 +213,7 @@ In some inference scenarios, such as detecting a target and then executing the t
 
 - Inference
 
-    By enabling dynamic dimension, when model inference is performed, the input shape can only select the set profile value at the time of the converter. If you want to switch to the input shape corresponding to another profile, use the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_cpp.html#dynamic-shape-input) function.
+    By enabling dynamic dimension, when model inference is performed, the input shape can only select the set profile value at the time of the converter. If you want to switch to the input shape corresponding to another profile, use the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_cpp.html#dynamic-shape-input) function.
 
 - Precautions
 
@@ -311,7 +311,7 @@ AOE API tuning needs to be done through converter tool. When `optimize=ascend_or
 
 4. Dynamic dimension profiles
 
-    Dynamic dimension profiles can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the dynamic dimension profiles in `[ascend_context]` can refer to [Dynamic Shape Configuration](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool_ascend.html#dynamic-shape-configuration). Setting the dynamic dimension profiles in `[acl_option_cfg_param]`, `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [dynamic_dims](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_013.html), [dynamic_batch_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_011.html), [dynamic_image_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_012.html). Note that the `[ge_graph_options]` only supports the `ge.dynamicDims` and does not support the forms of `dynamic_batch_size` and `dynamic_image_size`. `input_format` is used to specify the input dimension layout for dynamic profiles. When using `dynamic_image_size`, it is necessary to specify `input_format` as `NCHW` or `NHWC` to indicate the location of the `H` and `W` dimensions.
+    Dynamic dimension profiles can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the dynamic dimension profiles in `[ascend_context]` can refer to [Dynamic Shape Configuration](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool_ascend.html#dynamic-shape-configuration). Setting the dynamic dimension profiles in `[acl_option_cfg_param]`, `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [dynamic_dims](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_013.html), [dynamic_batch_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_011.html), [dynamic_image_size](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/aoe/aoepar_16_012.html). Note that the `[ge_graph_options]` only supports the `ge.dynamicDims` and does not support the forms of `dynamic_batch_size` and `dynamic_image_size`. `input_format` is used to specify the input dimension layout for dynamic profiles. When using `dynamic_image_size`, it is necessary to specify `input_format` as `NCHW` or `NHWC` to indicate the location of the `H` and `W` dimensions.
 
     ```bash
     [ascend_context]
@@ -339,7 +339,7 @@ AOE API tuning needs to be done through converter tool. When `optimize=ascend_or
 
 5. Precision mode
 
-    Precision mode can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the precision mode in `[ascend_context]` and `[acl_option_cfg_param]` can refer to [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool_ascend.html#configuration-file). Setting the precision mode in `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/aoe/aoepar_16_042.html).
+    Precision mode can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the precision mode in `[ascend_context]` and `[acl_option_cfg_param]` can refer to [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool_ascend.html#configuration-file). Setting the precision mode in `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/aoe/aoepar_16_042.html).
 
     ```bash
     [ascend_context]

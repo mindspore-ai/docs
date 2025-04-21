@@ -1,6 +1,6 @@
 # Implement Problem
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/faq/implement_problem.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/faq/implement_problem.md)
 
 ## Q: How do I use MindSpore to implement multi-scale training?
 
@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 ## Q: How do I use `param_group` in SGD to reduce the learning rate?
 
-A: To change the value according to `epoch`, use [Dynamic LR Function](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.nn.html#dynamic-lr-function) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.nn.html#learningrateschedule-class).
+A: To change the value according to `epoch`, use [Dynamic LR Function](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.nn.html#dynamic-lr-function) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.nn.html#learningrateschedule-class).
 
 <br/>
 
@@ -123,7 +123,7 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 ## Q: How do I obtain  `feature map` with the expected size when `nn.Conv2d` is used?
 
-A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d). Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d). Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
 <br/>
 
@@ -143,7 +143,7 @@ model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 
 ## Q: How does MindSpore implement the early stopping function?
 
-A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/r2.6.0/api_python/train/mindspore.train.EarlyStopping.html).
+A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/train/mindspore.train.EarlyStopping.html).
 
 <br/>
 
@@ -243,7 +243,7 @@ print(network.layers)
 
 ## Q: When MindSpore is used for model training, there are four input parameters for `CTCLoss`: `inputs`, `labels_indices`, `labels_values`, and `sequence_length`. How do I use `CTCLoss` for model training?
 
-A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/docs/en/r2.6.0/features/index.html).
+A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/docs/en/r2.6.0rc1/features/index.html).
 
 <br/>
 
@@ -491,7 +491,7 @@ In addition, CANN may throw some Inner Errors, for example, the error code is "E
 
 ## Q: How to control the Tensor value printed by the `print` method?
 
-A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` to control the output value. In the Graph static graph mode, because the `print` method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.Print.html).
+A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` to control the output value. In the Graph static graph mode, because the `print` method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/ops/mindspore.ops.Print.html).
 <br/>
 
 ## Q: How does `Tensor.asnumpy()` share the underlying storage with Tensor?

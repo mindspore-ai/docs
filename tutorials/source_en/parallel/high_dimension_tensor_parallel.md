@@ -1,6 +1,6 @@
 # High Dimension Tensor Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/parallel/high_dimension_tensor_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/parallel/high_dimension_tensor_parallel.md)
 
 ## Overview
 
@@ -18,7 +18,7 @@ Usage Scenario: In semi-automatic mode, when there is tensor parallelism in the 
 
 In 1D tensor parallelism, the full data of activation bsh is stored on each card, and slices are made on only one dimension of weights he and eh. After the first matrix product of the weights of the activation and column slicing, a second matrix product is performed with the weights of the second row slicing, and the resulting `partial sums` are computed after one AllReduce communication between all cards to compute the final correct result.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/parallel/images/high_dimension_tensor_parallel_image_0.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/parallel/images/high_dimension_tensor_parallel_image_0.png)
 
 *Figure: 1D tensor computing communication behavior (4 cards in parallel)*
 
@@ -26,7 +26,7 @@ In 1D tensor parallelism, the full data of activation bsh is stored on each card
 
 The 2D tensor parallelism slices both the activation bsh and the weight he by two communication groups, x and y. The weights are sliced in both dimensions. As an example in the following figure, Rank0-Rank2 are `communication group x` and Rank0-Rank1 are `communication group y`. After activating the AllGather that passes through the first communication group y and matrix product with the weights, the obtained part and the ReduceScatter that passes between the first communication group x, the correct result of the first MatMul is computed. The second MatMul communication computes the communication behavior similar to the first one, which is not shown in the following figure.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/parallel/images/high_dimension_tensor_parallel_image_1.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/parallel/images/high_dimension_tensor_parallel_image_1.png)
 
 *Figure : 2D tensor parallel computing communication behavior (as an example of a MatMul computation under 4-card parallelism)*
 
@@ -34,7 +34,7 @@ The 2D tensor parallelism slices both the activation bsh and the weight he by tw
 
 3D tensor parallelism further splits the total cardinality into x, y, and z communication groups for finer-grained slicing. Relative to 2D tensor parallelism, 3D tensor parallelism shifts a portion of the AllGather communication to weight he. This operation reduces the total communication introduced when the relative weight of the shape of the activated bsh is large. As shown in the 8-card parallel case in the following figure, the overall process is: activation in communication group y for AllGather, weights in communication group z for AllGather -> matrix product, the resulting partial sum -> ReduceScatter in communication group x to get the final result. The last 4 cards communication calculation is similar to the first 4 cards, the second MatMul communication calculation communication is similar to the first MatMul, none of the following figures are shown.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/parallel/images/high_dimension_tensor_parallel_image_2.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/parallel/images/high_dimension_tensor_parallel_image_2.png)
 
 *Figure : 3D tensor parallel computing communication behavior (as an example of a MatMul computation in the first 5 cards under 8-card parallelism)*
 
@@ -71,7 +71,7 @@ The following is an illustration of 2D tensor parallel operation in an Ascend st
 
 ### Sample Code Description
 
-> Download the full sample code: [high_dimension_tensor_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/high_dimension_tensor_parallel).
+> Download the full sample code: [high_dimension_tensor_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/high_dimension_tensor_parallel).
 
 The directory structure is as follows:
 

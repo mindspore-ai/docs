@@ -1,6 +1,6 @@
 # Using Dump in the Graph Mode
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/debug/dump.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/debug/dump.md)
 
 To analyze the training process, MindSpore provides the dump function to store the input and output data of operators during the training process.
 
@@ -22,7 +22,7 @@ In different modes, the Dump features supported by MindSpore are not entirely th
 - [Dump in Ascend O2 Mode](#dump-in-ascend-o2-mode)
 - [Dump in CPU/GPU mode](#dump-in-cpugpu-mode)
 
-> - The differences between Ascend O0, O1, and O2 modes can be found in [the parameter jit_level of the set_context method](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.set_context.html).
+> - The differences between Ascend O0, O1, and O2 modes can be found in [the parameter jit_level of the set_context method](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.set_context.html).
 >
 > - Dumping constant data is only supported in CPU/GPU mode, while not supported in Ascend O0/O1/O2 mode.
 >
@@ -131,14 +131,14 @@ MindSpore supports different Dump functionalities under various modes, as shown 
     - `common_dump_settings`:
 
         - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0: save all operators or specified operators; 3: only save overflow operators; 4: only save input of the exception operator. Set it to 0 when the data is dumped. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped. Default: 0.
-        - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
+        - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
         - `path`: The absolute path to Dump saved data.
         - `net_name`: The customized net name: "ResNet50".
         - `iteration`: Specify the iterations of data required to be dumped, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. Specified iteration dump is supported only when "op_debug_mode" is set to `0` or `3`, not supported when when "op_debug_mode" is set to `4`.
         - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to indicate complete tensor data Dumped, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Statistic dump is only supported when "op_debug_mode" is set to `0`.
         - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. When `op_debug_mode` is set to 3, `input_output` can only be set to save both the operator's inputs and outputs. Only input of kernel can be saved when "op_debug_mode" is set to `4`.
         - `kernels`: This item can be configured in three formats:
-           1. List of operator names. Turn on the IR save switch by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindir.html#saving-ir).
+           1. List of operator names. Turn on the IR save switch by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/error_analysis/mindir.html#saving-ir).
            Note that whether setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Ascend O0/O1 Dump Data Object Directory](#introduction-to-data-object-directory-and-data-file).
            2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
            3. Regular expressions are supported. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
@@ -293,11 +293,11 @@ ms_execution_order_graph_{graph_id}.csv
 
 ### Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for Ascend O0/O1 dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for Ascend O0/O1 dump.
 
 After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
-Take [AlexNet script](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/dump/train_alexnet.py) as an example:
+Take [AlexNet script](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/dump/train_alexnet.py) as an example:
 
 ```python
 ...
@@ -481,14 +481,14 @@ For detailed configuration descriptions, please refer to the [Introduction to co
     - `common_dump_settings`:
 
         - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0 is the only supported mode in CPU/GPU Dump mode, which means saving all operators or specified operators;
-        - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
+        - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
         - `path`: The absolute path to Dump saved data.
         - `net_name`: The customized net name: "ResNet50".
         - `iteration`: Specify the iterations of data required to be dumped, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration is set to "all", data of every iteration will be dumped. Specified iteration dump is supported only when "op_debug_mode" is set to `0` or `3`, not supported when when "op_debug_mode" is set to `4`.
         - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to indicate complete tensor data Dumped, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Using "statistic" or "full" on CPU will result in exception. Default setting is "tensor". Statistic dump is only supported when "op_debug_mode" is set to `0`.
         - `input_output`: 0: dump input and output of kernel, 1: dump input of kernel, 2: dump output of kernel. Only input of kernel can be saved when "op_debug_mode" is set to `4`.
         - `kernels`: This item can be configured in three formats:
-             1. List of operator names. Turn on the IR save switch by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindir.html#saving-ir).
+             1. List of operator names. Turn on the IR save switch by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/error_analysis/mindir.html#saving-ir).
              Note that whether setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Ascend O0/O1 Dump Data Object Directory](#introduction-to-data-object-directory-and-data-file).
              2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
              3. Regular expressions are supported. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
@@ -642,11 +642,11 @@ This file stores the list of iterations in which the graph was executed. After t
 
 ### Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for CPU/GPU dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for CPU/GPU dump.
 
 After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
-Take [AlexNet script](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/dump/train_alexnet.py) as an example:
+Take [AlexNet script](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/dump/train_alexnet.py) as an example:
 
 ```python
 ...

@@ -1,6 +1,6 @@
 # Differences with torch.utils.checkpoint.checkpoint
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/checkpoint.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/checkpoint.md)
 
 ## torch.utils.checkpoint.checkpoint
 
@@ -16,7 +16,7 @@ For more information, see [torch.utils.checkpoint.checkpoint](https://pytorch.or
 mindspore.nn.Cell.recompute(mp_comm_recompute=True, parallel_optimizer_comm_recompute=False)
 ```
 
-For more information, see [mindspore.nn.Cell.recompute](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute).
+For more information, see [mindspore.nn.Cell.recompute](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute).
 
 ## Differences
 

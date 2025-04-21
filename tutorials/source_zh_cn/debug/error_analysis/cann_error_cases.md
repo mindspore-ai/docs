@@ -1,6 +1,6 @@
 # CANN常见错误分析
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/debug/error_analysis/cann_error_cases.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/debug/error_analysis/cann_error_cases.md)&nbsp;&nbsp;
 
 本文主要介绍用户常见的CANN错误处理方法。在遇到CANN错误时，MindSpore的日志可能不足以分析相关错误，可以通过设置以下两个环境变量来打印CANN的日志以更好地分析错误：
 

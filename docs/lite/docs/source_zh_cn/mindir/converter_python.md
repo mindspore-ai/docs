@@ -1,10 +1,10 @@
 # 使用Python接口模型转换
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/mindir/converter_python.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/mindir/converter_python.md)
 
 ## 概述
 
-MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多种类型的模型转换，转换后的mindir模型可用于推理。接口包含多种个性化参数，为用户提供方便的转换途径。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Converter.html)进行模型转换。
+MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多种类型的模型转换，转换后的mindir模型可用于推理。接口包含多种个性化参数，为用户提供方便的转换途径。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Converter.html)进行模型转换。
 
 目前支持的输入模型类型有：MindSpore、TensorFlow Lite、Caffe、TensorFlow、ONNX。
 
@@ -20,7 +20,7 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
 
 使用MindSpore Lite云侧推理的Python接口进行模型转换，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
 
     > 当前，提供下载Python3.7版本对应的安装包，若需要其他Python版本，请使用编译功能生成安装包。
 
@@ -73,7 +73,7 @@ mindspore_lite
 
 MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置，用户可根据需要来选择使用。
 
-下面提供详细的属性说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool.html)中参数的对应关系。
+下面提供详细的属性说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool.html)中参数的对应关系。
 
 | Converter属性 | 返回值类型  | 对应模型离线转换的参数  |  说明  | 取值范围 | 备注 |
 | -------- | ----- | -------- | ----- | --- | ---- |
@@ -91,7 +91,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | save_type | ModelType | `--saveType=<SAVETYPE>` | 设置导出模型文件的类型。| ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包 |
 | weight_fp16 | bool | `--fp16=<FP16>` | 设置在模型序列化时是否需要将float32数据格式的权重存储为float16数据格式。 | True、False | - |
 
-> - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/build.html) 时设置为 `MSLITE_ENABLE_MODEL_ENCRYPTION=on` 时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如encrypt_key设置为"30313233343536373839414243444546"，对应的十六进制表示为 `(b)0123456789ABCDEF` ，Linux平台用户可以使用 `xxd` 工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
+> - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/build.html) 时设置为 `MSLITE_ENABLE_MODEL_ENCRYPTION=on` 时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如encrypt_key设置为"30313233343536373839414243444546"，对应的十六进制表示为 `(b)0123456789ABCDEF` ，Linux平台用户可以使用 `xxd` 工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
 >
 > - `input_shape` 在以下场景下，用户可能需要设置该属性：
 >
@@ -110,7 +110,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 
 方法使用场景：将第三方模型转换生成MindSpore模型，可多次调用convert方法，转换多个模型。
 
-下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool.html)中参数的对应关系。
+下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool.html)中参数的对应关系。
 
 | convert方法参数 | 参数类型  | 对应模型离线转换的参数  |  是否必选   |  参数说明  | 取值范围 | 参数默认值 |
 | -------- | ----- | -------- | ----- | --- | ---- | ---- |
@@ -120,7 +120,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | weight_file | str | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型权重文件路径。 | - | "" |
 | config_file | str | `--configFile=<CONFIGFILE>` | 否 | Converter的配置文件路径，可配置训练后量化或离线拆分算子并行或禁用算子融合功能并将插件设置为so路径等功能。 | - | "" |
 
-> `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.FmkType.html)。
+> `fmk_type`参数有关详细信息，请参见[FmkType](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.FmkType.html)。
 >
 > `model_file`举例："/home/user/model.prototxt"。不同类型应模型后缀举例：TF: "model.pb" | CAFFE: "model.prototxt" | ONNX: "model.onnx" | TFLITE: "model.tflite"。
 >
@@ -205,4 +205,4 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 
 #### 在线转换
 
-get_config_info方法和set_config_info方法用于在线转换，具体请参考[set_config_info](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Converter.html#mindspore_lite.Converter.set_config_info)。
+get_config_info方法和set_config_info方法用于在线转换，具体请参考[set_config_info](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Converter.html#mindspore_lite.Converter.set_config_info)。

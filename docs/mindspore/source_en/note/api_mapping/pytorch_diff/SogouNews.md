@@ -1,6 +1,6 @@
 # Differences with torchtext.datasets.SogouNews
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SogouNews.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SogouNews.md)
 
 ## torchtext.datasets.SogouNews
 
@@ -26,7 +26,7 @@ class mindspore.dataset.SogouNewsDataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.SogouNewsDataset](https://mindspore.cn/docs/en/r2.6.0/api_python/dataset/mindspore.dataset.SogouNewsDataset.html#mindspore.dataset.SogouNewsDataset).
+For more information, see [mindspore.dataset.SogouNewsDataset](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset/mindspore.dataset.SogouNewsDataset.html#mindspore.dataset.SogouNewsDataset).
 
 ## Differences
 

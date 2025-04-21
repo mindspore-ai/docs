@@ -1,6 +1,6 @@
 # Building Device-side
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/build/build.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/build/build.md)
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 
@@ -98,7 +98,7 @@ The construction of modules is controlled by environment variables. Users can co
 | MSLITE_ENABLE_MODEL_PRE_INFERENCE | Whether to enable pre-inference during model compilation | on, off | off |
 | MSLITE_ENABLE_GITEE_MIRROR | Whether to enable download third_party from gitee mirror | on, off | off |
 
-> - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/third_party/asic.html).
+> - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/third_party/asic.html).
 > - When the AVX instruction set is enabled, the CPU of the running environment needs to support both AVX and FMA features.
 > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
 > - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>. In addition, the path of libcrypto.so.1.1 should be added to LD_LIBRARY_PATH.
@@ -107,7 +107,7 @@ The construction of modules is controlled by environment variables. Users can co
 
 - Runtime feature compilation options
 
-If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [cropper tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/cropper_tool.html).
+If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [cropper tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/cropper_tool.html).
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -126,7 +126,7 @@ If the user is sensitive to the package size of the framework, the following opt
 First, download source code from the MindSpore code repository.
 
 ```bash
-git clone -b v2.6.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:
@@ -323,7 +323,7 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 First, use the git tool to download the source code from the MindSpore code repository.
 
 ```bat
-git clone -b v2.6.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
@@ -416,7 +416,7 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 First, use the git tool to download the source code from the MindSpore code repository.
 
 ```bash
-git clone -b v2.6.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.

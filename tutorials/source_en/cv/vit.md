@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/cv/vit.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/cv/vit.md)
 
 # Vision Transformer Image Classification
 
@@ -14,7 +14,7 @@ ViT is the convergence result of two fields: natural language processing and com
 
 The main structure of the ViT model is based on the Encoder part of the Transformer model (part of the structure order has been adjusted, e.g., the location of Normalization is different from that of the standard Transformer). Its structure diagram [1] is as follows:
 
-![vit-architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/vit_architecture.png)
+![vit-architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/vit_architecture.png)
 
 ### Model Features
 
@@ -96,11 +96,11 @@ The following is a detailed dissection of the internal structure of the ViT mode
 
 The Transformer model originated from a 2017 article [2]. The encoder-decoder type structure based on the Attention mechanism proposed in this article has been a great success in the field of natural language processing. The model structure is shown in the following figure:
 
-![transformer-architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/transformer_architecture.png)
+![transformer-architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/transformer_architecture.png)
 
 Its main structure is composed of several Encoder and Decoder modules, where the detailed structure of Encoder and Decoder is shown in the following figure [2]:
 
-![encoder-decoder](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/encoder_decoder.png)
+![encoder-decoder](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/encoder_decoder.png)
 
 Encoder and Decoder consist of many structures, such as Multi-Head Attention layer, Feed Forward layer, Normaliztion layer, and even Residual Connection ("Add" in the figure). However, one of the most important structures is the Multi-Head Attention structure, which is based on the Self-Attention mechanism and is a parallel composition of multiple Self-Attentions.
 
@@ -123,7 +123,7 @@ In the Self-Attention:
     \tag{1}
     $$
 
-    ![self-attention1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/self_attention_1.png)
+    ![self-attention1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/self_attention_1.png)
 
 2. The self-attentiveness of the self-attentive mechanism is mainly reflected by the fact that its Q, K, and V all originate from itself, that is, the process is extracting the connections and features of the input vectors of different orders, which are finally expressed by the connection closeness between the vectors of different orders (the result of the product of Q and K after Softmax). **After obtaining Q, K, V, we need to obtain the inter-vector weights, that is, to point multiple Q and K and divide by the square root of the dimension, and Softmax the results of all vectors. By the operation in equation (2), we obtain the relation weights between vectors.**
 
@@ -136,11 +136,11 @@ In the Self-Attention:
     \tag{2}
     $$
 
-    ![self-attention3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/self_attention_3.png)
+    ![self-attention3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/self_attention_3.png)
 
     $$ Softmax: \hat a_{1,i} = exp(a_{1,i}) / \sum_j exp(a_{1,j}),\hspace{1em} j = 1,2,3 \ldots \tag{3}$$
 
-    ![self-attention2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/self_attention_2.png)
+    ![self-attention2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/self_attention_2.png)
 
 3. The final output is obtained by weight sum of the mapped vector V with Q, K after Softmax, and the process can be understood as a global self-attentive representation. **Each set of Q, K, and V ends up with a V output, which is the final result obtained by Self-Attention, and is the result of the current vector after combining its associated weights with other vectors.**
 
@@ -151,7 +151,7 @@ In the Self-Attention:
 
 The following diagram provides an overall grasp of the entire Self-Attention process.
 
-![self-attention](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/self_attention_process.png)
+![self-attention](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/self_attention_process.png)
 
 The multi-head attention mechanism is to split the vector originally processed by self-Attention into multiple Heads for processing, which can also be reflected in the code, which is one aspect of the attention structure that allows parallel acceleration.
 
@@ -159,7 +159,7 @@ To summarize, the multi-head attention mechanism maps the same query, key and va
 
 Therefore, for the same input vector, multiple attention mechanisms can process it simultaneously, i.e., using parallel computing to speed up the processing process and analyzing and utilizing the vector features during the processing. The following figure shows the multi-headed attention mechanism, whose parallelism capability is mainly reflected by the fact that $a_1$ and $a_2$ are obtained by partitioning the same vector in the following figure.
 
-![multi-head-attention](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/multi_head_attention.png)
+![multi-head-attention](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/multi_head_attention.png)
 
 The following Multi-Head Attention code, combined with the explanation above, clearly shows the process.
 
@@ -253,7 +253,7 @@ class ResidualCell(nn.Cell):
 
 Next, Self-Attention is used to construct the TransformerEncoder part in the ViT model, similar to constructing the encoder part of a Transformer, as shown in the following figure [1]:
 
-![vit-encoder](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/vit_encoder.png)
+![vit-encoder](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/vit_encoder.png)
 
 1. The basic structure in the ViT model is different from that of the standard Transformer, mainly in that the position of Normalization is placed before Self-Attention and Feed Forward, while other structures such as Residual Connection, Feed Forward, and Normalization are designed as the structure in the Transformer.
 
@@ -442,7 +442,7 @@ class ViT(nn.Cell):
 
 The overall flow diagram is shown below:
 
-![data-process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_en/cv/images/data_process.png)
+![data-process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_en/cv/images/data_process.png)
 
 ## Model Training and Inference
 
@@ -805,7 +805,7 @@ for i, image in enumerate(dataset_infer.create_dict_iterator(output_numpy=True))
 
 After the inference process is completed, the inference result of the picture can be found under the inference folder, and it can be seen that the prediction result is Doberman, which is the same as the expected result and verifies the accuracy of the model.
 
-![infer-result](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/infer_result.jpg)
+![infer-result](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/infer_result.jpg)
 
 ## Summary
 

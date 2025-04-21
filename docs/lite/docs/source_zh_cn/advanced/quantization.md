@@ -1,6 +1,6 @@
 # 训练后量化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/advanced/quantization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/advanced/quantization.md)
 
 ## 概述
 
@@ -114,7 +114,7 @@ provider=ge
 
 全量化计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100 - 500个左右，**且校准数据集需处理成`NHWC`的格式**。
 
-针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/advanced/quantization.html#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86%E5%8F%82%E6%95%B0)。
+针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/quantization.html#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86%E5%8F%82%E6%95%B0)。
 
 用户配置全量化至少需要配置`[common_quant_param]`、`[data_preprocess_param]`、`[full_quant_param]`。
 
@@ -223,7 +223,7 @@ target_device=DSP
 
 #### Ascend
 
-Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，然后在转换时，配置Ascend相关环境变量。
+Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，然后在转换时，配置Ascend相关环境变量。
 
 **Ascend全量化静态Shape参数配置**
 
@@ -245,7 +245,7 @@ Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/
     target_device=ASCEND
     ```
 
-**Ascend全量化支持动态Shape参数**，同时转换命令需要设置校准数据集相同的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
+**Ascend全量化支持动态Shape参数**，同时转换命令需要设置校准数据集相同的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
 
 - Ascend全量化动态Shape场景转换命令的一般形式为：
 
@@ -301,7 +301,7 @@ quant_strategy=ACWL
 
 ## 量化配置
 
-训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用[`INI`](https://en.wikipedia.org/wiki/INI_file)的格式，针对量化场景，目前可配置的参数包括：
+训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用[`INI`](https://en.wikipedia.org/wiki/INI_file)的格式，针对量化场景，目前可配置的参数包括：
 
 - `[common_quant_param]：公共量化参数`
 - `[weight_quant_param]：固定比特量化参数`

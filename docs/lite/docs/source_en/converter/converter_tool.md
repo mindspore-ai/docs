@@ -1,6 +1,6 @@
 # Device-side Models Conversion
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/converter/converter_tool.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/converter/converter_tool.md)
 
 ## Overview
 
@@ -16,7 +16,7 @@ The `ms` model converted by the conversion tool supports the conversion tool and
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-- [Compile](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) model transfer tool.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) model transfer tool.
 
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
 
@@ -85,9 +85,9 @@ The following describes the parameters in detail.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of float32 when serializing model.
 > - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification, designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
-> - The `configFile` configuration files uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [quantization](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/third_party/converter_register.html#extension-configuration).
+> - The `configFile` configuration files uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [quantization](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/third_party/converter_register.html#extension-configuration).
 > - `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to gpu_oriented, the general optimization and extra optimization for GPU hardware will be performed (the converted model only supports GPU hardware backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
-> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html) time and only supports Linux x86 platforms, and the key is a string represented by hexadecimal. For example, if the key is defined as `b'0123456789ABCDEF'`, the corresponding hexadecimal representation is `30313233343536373839414243444546`. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
+> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html) time and only supports Linux x86 platforms, and the key is a string represented by hexadecimal. For example, if the key is defined as `b'0123456789ABCDEF'`, the corresponding hexadecimal representation is `30313233343536373839414243444546`. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
 It should be noted that the encryption and decryption algorithm has been updated in version 1.7. As a result, the new version of the converter tool does not support the conversion of the encrypted model exported by MindSpore in version 1.6 and earlier.
 > - Parameters `--input_shape` and dynamicDims are stored in the model during conversion. Call model.get_model_info("input_shape") and model.get_model_info("dynamic_dims") to get it when using the model.
 
@@ -178,7 +178,7 @@ The following describes how to use the conversion command by using several commo
 
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
 
-- [Compile](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) model transfer tool.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) model transfer tool.
 
 - Add the path of dynamic library required by the conversion tool to the environment variables PATH.
 
@@ -208,7 +208,7 @@ mindspore-lite-{version}-win-x64
 
 ### Parameter Description
 
-Refer to the Linux environment model conversion tool [parameter description](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html#parameter-description).
+Refer to the Linux environment model conversion tool [parameter description](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html#parameter-description).
 
 ### Example
 

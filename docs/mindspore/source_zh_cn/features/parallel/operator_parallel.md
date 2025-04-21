@@ -1,6 +1,6 @@
 # 算子级并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/features/parallel/operator_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/features/parallel/operator_parallel.md)
 
 ## 概述
 
@@ -8,9 +8,9 @@
 
 算子级并行是将网络模型中每个算子涉及到的张量进行切分，当仅切分数据维度时，为逻辑上的数据并行；当仅切分模型维度时，为逻辑上的模型并行。通过将张量切分到多个设备上，降低单个设备的内存消耗，从而使大模型的训练成为可能。
 
-MindSpore提供两种粒度的算子级并行能力：[算子级并行](#基本原理)和[高阶算子级并行](#高阶算子级并行)。算子级并行通过简单切分策略描述张量维度分布，满足大多数场景需求。高阶算子级并行通过开放设备排布描述，支持复杂切分场景（如非连续设备分配、多维混合切分）。两种粒度的算子级并行能力均同时支持ops和mint算子，本章仅介绍基于ops算子的算子级并行和高阶算子级并行，基于mint算子的算子级并行配置方法请参照[算子级并行教程](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/operator_parallel.html)中的mint算子并行和高阶mint算子并行章节。
+MindSpore提供两种粒度的算子级并行能力：[算子级并行](#基本原理)和[高阶算子级并行](#高阶算子级并行)。算子级并行通过简单切分策略描述张量维度分布，满足大多数场景需求。高阶算子级并行通过开放设备排布描述，支持复杂切分场景（如非连续设备分配、多维混合切分）。两种粒度的算子级并行能力均同时支持ops和mint算子，本章仅介绍基于ops算子的算子级并行和高阶算子级并行，基于mint算子的算子级并行配置方法请参照[算子级并行教程](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/operator_parallel.html)中的mint算子并行和高阶mint算子并行章节。
 
-目前，MindSpore支持并行的算子列表，可以参考[算子级并行使用约束](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/operator_list_parallel.html)。
+目前，MindSpore支持并行的算子列表，可以参考[算子级并行使用约束](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/operator_list_parallel.html)。
 
 > 算子级并行模型支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
 
@@ -87,7 +87,7 @@ paralell_net = AutoParallel(net, parallel_mode='semi_auto')
 
 为了应对这些复杂场景，本章节将介绍一种开放设备排布描述的高阶算子级并行配置方法。
 
-[算子级并行](https://www.mindspore.cn/docs/zh-CN/r2.6.0/features/parallel/operator_parallel.html) 中介绍了MindSpore对张量的基本切分逻辑，但不能表达出所有的切分场景。例如，对于一个二维张量 "[[a0, a1, a2, a3], [a4, a5, a6, a7]]"，其张量排布如下图所示：
+[算子级并行](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/features/parallel/operator_parallel.html) 中介绍了MindSpore对张量的基本切分逻辑，但不能表达出所有的切分场景。例如，对于一个二维张量 "[[a0, a1, a2, a3], [a4, a5, a6, a7]]"，其张量排布如下图所示：
 
 ![image](images/advanced_operator_parallel_view1.PNG)
 
@@ -103,9 +103,9 @@ paralell_net = AutoParallel(net, parallel_mode='semi_auto')
 
 ### 接口配置
 
-为了表达出如上述场景下的切分，[shard](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/parallel/mindspore.parallel.shard.html) 接口进行了功能扩展。
+为了表达出如上述场景下的切分，[shard](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/parallel/mindspore.parallel.shard.html) 接口进行了功能扩展。
 
-入参in_strategy和out_strategy都额外接收新的数量类型——tuple(Layout)。其中[Layout](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/parallel/mindspore.parallel.Layout.html) 通过设备矩阵进行初始化，并同时要求给设备矩阵的每个轴取一个别名。例如："layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))"表示该设备共有128张卡，按照(8, 4, 4)的形状进行排列，并为每个轴分别取了别名"dp"、"sp"、"mp"。
+入参in_strategy和out_strategy都额外接收新的数量类型——tuple(Layout)。其中[Layout](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/parallel/mindspore.parallel.Layout.html) 通过设备矩阵进行初始化，并同时要求给设备矩阵的每个轴取一个别名。例如："layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))"表示该设备共有128张卡，按照(8, 4, 4)的形状进行排列，并为每个轴分别取了别名"dp"、"sp"、"mp"。
 
 在调用Layout时，通过传入这些轴的别名，每个张量根据其形状（shape）决定每个维度映射到设备矩阵的哪个轴，以及对应的切分份数。例如：
 

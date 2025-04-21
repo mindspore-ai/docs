@@ -1,6 +1,6 @@
 # mpirun Startup
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/parallel/mpirun.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/parallel/mpirun.md)
 
 ## Overview
 
@@ -32,7 +32,7 @@ Related commands:
 
 The `mpirun` startup script is consistent across Ascend and GPU hardware platforms. Below is a demonstration of how to write a startup script using Ascend as an example:
 
-> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 
