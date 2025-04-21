@@ -1,0 +1,36 @@
+[
+    {
+        "id" : 1 ,
+        "name" : "lite",
+        "branch" : "br_base",
+        "html_version" : "br_base",
+        "whl_path" : "/mindspore/website/br_base/lite/centos_x86/cloud_fusion/python39",
+        "whl_name" : "mindspore_lite-.*-cp39-cp39-linux_x86_64.whl$",
+        "environ" : "MS_PATH",
+        "uninstall_name" : "mindspore_lite",
+        "tar_path" : "/mindspore/website/br_base/lite/centos_x86/cloud_fusion/python39",
+        "tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$",
+        "extra_whl_path" : "/mindspore/website/br_base/cpu/x86_64",
+        "extra_whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$"
+    },
+    {
+        "id" : 2 ,
+        "name" : "mindspore",
+        "branch" : "br_base",
+        "html_version" : "br_base",
+        "whl_path" : "/mindspore/website/br_base/cpu/x86_64",
+        "whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$",
+        "environ" : "MS_PATH",
+        "uninstall_name" : "mindspore"
+    },
+    {
+        "id" : 3 ,
+        "name" : "tutorials",
+        "branch" : "br_base",
+        "html_version" : "br_base",
+        "whl_path" : "",
+        "whl_name" : "",
+        "environ" : "",
+        "uninstall_name" : ""
+    }
+]

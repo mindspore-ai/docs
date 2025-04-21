@@ -213,6 +213,8 @@ with open(autodoc_source_path, "r", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+
 # Repair error decorators defined in mindspore.
 try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
@@ -238,7 +240,6 @@ try:
                        ("mindspore/profiler/dynamic_profiler.py","generate api",
                        "    @no_exception_func()","    # generate api by del decorator.")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
@@ -257,7 +258,6 @@ try:
                       ("mindspore/common/dtype.py","del class",
                        "class QuantDtype(enum.Enum):","class QuantDtype():")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
@@ -273,7 +273,6 @@ except:
 try:
     decorator_list = [("mindspore/common/_tensor_overload.py", ".*?_mint")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
@@ -401,6 +400,10 @@ for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
             if re.findall('function:\n\s+?name: (.*)', op_content):
                 func_name_dict[re.findall('function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
 
+re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
 for cur, _, files in os.walk(des_sir):
     for i in files:
         if os.path.join(cur, i) in no_viewsource_list:
@@ -408,10 +411,21 @@ for cur, _, files in os.walk(des_sir):
         if i.endswith('.md'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = content
+                new_content = re.sub(re_url, r'\1/br_base', content)
                 md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                 if 'resource/_static/logo_source' not in new_content:
                     new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
+
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/br_base', content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()

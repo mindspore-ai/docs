@@ -111,9 +111,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                /115.0.0.0 Safari/537.36"}
 
     # 读取json文件数据
-    if version == "daily":
+    if version == "daily" or os.path.exists(os.path.join(os.path.dirname(__file__), "daily_dev.json")):
         flag_dev = 1
-        with open(os.path.join(os.path.dirname(__file__), "daily.json"), 'r+', encoding='utf-8') as f:
+        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as f:
             data = json.load(f)
     else:
         flag_dev = 0
@@ -621,7 +621,7 @@ if __name__ == "__main__":
              release_url=args.release_url, generate_list=generate_list_p)
 
         # 替换页面左侧目录部分
-        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/master"
+        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/br_base"
         if os.path.exists(ms_path):
             replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
             print('docs中文目录大纲调整完成！')
@@ -634,7 +634,7 @@ if __name__ == "__main__":
             pool.close()
             pool.join()
             print('docs所有页面search链接已修改！')
-        ts_path = f"{MAINDIR}/{args.version}/output/tutorials/zh-CN/master"
+        ts_path = f"{MAINDIR}/{args.version}/output/tutorials/zh-CN/br_base"
         if os.path.exists(ts_path):
             modify_menu_num(ts_path)
             print('tutorials中文目录大纲调整完成！')
