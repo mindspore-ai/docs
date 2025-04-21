@@ -169,7 +169,7 @@ local_loss与local_norm
 | auto_trans_ckpt            | 是否开启自动在线权重切分或转换。只在 `load_checkpoint` 值不为空时记录                 |
 | transform_process_num      | 转换checkpoint的进程数。只在 `auto_trans_ckpt` 被记录且值为`True`时记录        |
 | src_strategy_path_or_dir   | 源权重分布式策略文件路径。只在 `auto_trans_ckpt` 被记录且值为`True`时记录            |
-| load_ckpt_async            | 是否异步记载权重。只在 `load_checkpoint` 值不为空时记录                        |
+| load_ckpt_async            | 是否异步加载权重。只在 `load_checkpoint` 值不为空时记录                        |
 | only_save_strategy         | 任务是否仅保存分布式策略文件                                               |
 | profile                    | 是否开启性能分析工具                                                   |
 | profile_communication      | 是否在多设备训练中收集通信性能数据。只在 `profile` 值为`True`时记录                   |
@@ -179,7 +179,7 @@ local_loss与local_norm
 | profile_stop_step          | 性能分析结束的step。只在 `profile` 值为`True`时记录                         |
 | profile_rank_ids           | 指定rank ids开启profiling。只在 `profile` 值为`True`时记录               |
 | profile_pipeline           | 是否按流水线并行每个stage的其中一张卡开启profiling。只在 `profile` 值为`True`时记录    |
-| init_start_profile         | 是否在Profiler初始化的时候开启数据采集。只在 `profile` 值为`True`时记录                                      |
+| init_start_profile         | 是否在Profiler初始化的时候开启数据采集。只在 `profile` 值为`True`时记录             |
 | layer_decay                | 层衰减系数                                                        |
 | layer_scale                | 是否启用层缩放                                                      |
 | lr_scale                   | 是否开启学习率缩放                                                    |
@@ -207,12 +207,12 @@ local_loss与local_norm
 | remove_redundancy          | checkpoint保存时是否去除冗余                                          |
 | runner_config              | 运行配置                                                         |
 | runner_wrapper             | wrapper配置                                                    |
-| monitor_config             | 训练指标监控配置                 |
+| monitor_config             | 训练指标监控配置                                                     |
 | tensorboard                | TensorBoard配置                                                |
 | train_dataset_task         | 训练任务配置                                                       |
 | train_dataset              | 训练数据集配置                                                      |
 | trainer                    | 训练流程配置                                                       |
-| swap_config                | 细粒度激活值SWAP配置                                                      |
+| swap_config                | 细粒度激活值SWAP配置                                                 |
 
 > 上述训练配置来源于：
 >
