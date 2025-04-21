@@ -127,6 +127,7 @@ MindSpore Tutorial
    :caption: Model Cases
    :hidden:
 
+   model_migration/model_migration
    cv
    nlp
    generative
