@@ -1,10 +1,10 @@
 # Using Python Interface to Perform Cloud-side Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/mindir/runtime_python.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/mindir/runtime_python.md)
 
 ## Overview
 
-This tutorial provides a sample program for MindSpore Lite to perform cloud-side inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/r2.6.0/mindspore_lite.html) to perform the basic process of cloud-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite APIs related to cloud-side inference execution. The related files are put in the directory [mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/quick_start_python).
+This tutorial provides a sample program for MindSpore Lite to perform cloud-side inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite.html) to perform the basic process of cloud-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite APIs related to cloud-side inference execution. The related files are put in the directory [mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/quick_start_python).
 
 MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series, Nvidia GPU and CPU hardware backends are supported.
 
@@ -20,9 +20,9 @@ The following is an example of how to use the Python Cloud-side Inference Demo o
 
 This session introduces the installation of MindSpore Lite for Python version 3.7 via pip on a Linux-x86_64 system with a CPU environment, taking the new Ubuntu 18.04 as an example.
 
-Go to the [mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/quick_start_python) directory, and execute the `lite-cpu-pip.sh` script for a one-click installation, taking installation of MindSpore Lite version 2.0.0 as an example. Script installation needs to download the model required for inference and input data files, the dependencies required for MindSpore_Lite installation, and download and install MindSpore Lite.
+Go to the [mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/quick_start_python) directory, and execute the `lite-cpu-pip.sh` script for a one-click installation, taking installation of MindSpore Lite version 2.0.0 as an example. Script installation needs to download the model required for inference and input data files, the dependencies required for MindSpore_Lite installation, and download and install MindSpore Lite.
 
-Note: This command sets the installed version of MindSpore Lite. Since the cloud-side inference Python interface is supported from MindSpore Lite version 2.0.0, the version cannot be set lower than 2.0.0. See the version provided in [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) for details on the versions that can be set.
+Note: This command sets the installed version of MindSpore Lite. Since the cloud-side inference Python interface is supported from MindSpore Lite version 2.0.0, the version cannot be set lower than 2.0.0. See the version provided in [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) for details on the versions that can be set.
 
 ```bash
 MINDSPORE_LITE_VERSION=2.0.0 bash ./lite-cpu-pip.sh
@@ -32,9 +32,9 @@ MINDSPORE_LITE_VERSION=2.0.0 bash ./lite-cpu-pip.sh
 >
 > If the input.bin input data file download fails, please manually download the relevant input data file [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin) and copy it to the ` mindspore/lite/examples/cloud_infer/quick_start_python/model` directory.
 >
-> If MindSpore Lite inference framework by using the script download fails, please manually download [MindSpore Lite model cloud-side inference framework](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) corresponding to the hardware platform of CPU and operating system of Linux-x86_64 or Linux-aarch64. Users can use the `uname -m` command to query the operating system in the terminal, and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_python` directory.
+> If MindSpore Lite inference framework by using the script download fails, please manually download [MindSpore Lite model cloud-side inference framework](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) corresponding to the hardware platform of CPU and operating system of Linux-x86_64 or Linux-aarch64. Users can use the `uname -m` command to query the operating system in the terminal, and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_python` directory.
 >
-> If you need to use MindSpore Lite corresponding to Python 3.7 or above, please [compile](https://mindspore.cn/lite/docs/en/r2.6.0/mindir/build.html) locally. Note that the Python API module compilation depends on Python >= 3.7.0, NumPy >= 1.17.0, wheel >= 0.32.0. After successful compilation, copy the Whl installation package generated in the `output/` directory to the `mindspore/lite/examples/cloud_infer/quick_start_python` directory.
+> If you need to use MindSpore Lite corresponding to Python 3.7 or above, please [compile](https://mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/build.html) locally. Note that the Python API module compilation depends on Python >= 3.7.0, NumPy >= 1.17.0, wheel >= 0.32.0. After successful compilation, copy the Whl installation package generated in the `output/` directory to the `mindspore/lite/examples/cloud_infer/quick_start_python` directory.
 >
 > If the MindSpore Lite installation package does not exist in the `mindspore/lite/examples/cloud_infer/quick_start_python` directory, the one-click installation script will uninstall the currently installed MindSpore Lite and then download and install MindSpore Lite from the Huawei image. Otherwise, if the MindSpore Lite installation package exists in the directory, it will be installed first.
 >
@@ -48,7 +48,7 @@ Successfully installed mindspore-lite-2.0.0
 
 ## Executing Demo
 
-After one-click installation, go to the [mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/quick_start_python) directory and execute the following command to experience MindSpore Lite inference MobileNetV2 models.
+After one-click installation, go to the [mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/quick_start_python) directory and execute the following command to experience MindSpore Lite inference MobileNetV2 models.
 
 ```bash
 python quick_start_cloud_infer_python.py
@@ -65,13 +65,13 @@ output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.000224
 
 Running MindSpore Lite inference framework mainly consists of the following steps:
 
-1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool.html).
-2. Create configuration context: Create a configuration context [Context](https://mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context) and save some basic configuration parameters used to guide model compilation and model execution.
-3. Model creation and compilation: Before executing inference, you need to call [build_from_file](https://mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface of [Model](https://mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase can take more time, so it is recommended that the model be created once, compiled once and performed inference about multiple times.
+1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html).
+2. Create configuration context: Create a configuration context [Context](https://mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context) and save some basic configuration parameters used to guide model compilation and model execution.
+3. Model creation and compilation: Before executing inference, you need to call [build_from_file](https://mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface of [Model](https://mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase can take more time, so it is recommended that the model be created once, compiled once and performed inference about multiple times.
 4. Input data: The input data needs to be padded before the model execution.
-5. Execute inference: Use [Predict](https://mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) of [Model](https://mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) method for model inference.
+5. Execute inference: Use [Predict](https://mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) of [Model](https://mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) method for model inference.
 
-For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite.html).
+For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite.html).
 
 ![img](../images/lite_runtime.png)
 
@@ -122,7 +122,7 @@ context.gpu.device_id = 0
 
 ### Model Loading and Compilation
 
-Model loading and compilation can be done by calling [build_from_file](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface of `Model` to load and compile the runtime model directly from the file cache.
+Model loading and compilation can be done by calling [build_from_file](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface of `Model` to load and compile the runtime model directly from the file cache.
 
 ```python
 # build model from file
@@ -134,7 +134,7 @@ model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR, context)
 
 ### Inputting the Data
 
-The way that this tutorial sets the input data is importing from a file. For other ways to set the input data, please refer to [predict](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface of `Model`.
+The way that this tutorial sets the input data is importing from a file. For other ways to set the input data, please refer to [predict](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface of `Model`.
 
 ```python
 # set model input
@@ -145,7 +145,7 @@ inputs[0].set_data_from_numpy(in_data)
 
 ### Executing Inference
 
-Call [predict](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface of `Model` to perform inference, and the inference result is output to `output`.
+Call [predict](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface of `Model` to perform inference, and the inference result is output to `output`.
 
 ```python
 # execute inference

@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/beginner/autograd.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/beginner/autograd.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/model.html) || **Autograd** || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/mixed_precision.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/model.html) || **Autograd** || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/mixed_precision.html)
 
 # Automatic Differentiation
 
@@ -20,7 +20,7 @@ from mindspore import Tensor, Parameter
 
 Computing graphs are a way to represent mathematical functions in a graph-theoretic language and a unified way to represent neural network models in a deep learning framework. We will construct computing functions and neural networks based on the following computing graphs.
 
-![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/beginner/images/comp-graph.png)
+![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/beginner/images/comp-graph.png)
 
 In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are the parameters we need to optimize.
 
@@ -33,7 +33,7 @@ b = Parameter(Tensor(np.random.randn(3,), mindspore.float32), name='b') # bias
 
 We construct the computing function based on the computing process described by the computing graphs.
 
-[binary_cross_entropy_with_logits](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html) is a loss function,
+[binary_cross_entropy_with_logits](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html) is a loss function,
 which computes binary cross entropy between the logits and the label.
 
 ```python

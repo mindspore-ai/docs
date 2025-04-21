@@ -1,6 +1,6 @@
 # 比较与torch.utils.data.SequentialSampler的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/SequentialSampler.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/SequentialSampler.md)
 
 ## torch.utils.data.SequentialSampler
 
@@ -16,7 +16,7 @@ class torch.utils.data.SequentialSampler(data_source)
 class mindspore.dataset.SequentialSampler(start_index=None, num_samples=None)
 ```
 
-更多内容详见[mindspore.dataset.SequentialSampler](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.SequentialSampler.html)。
+更多内容详见[mindspore.dataset.SequentialSampler](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.SequentialSampler.html)。
 
 ## 差异对比
 

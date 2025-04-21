@@ -1,6 +1,6 @@
 # MindSpore设计概览
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/design/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/design/overview.md)
 
 ## 概述
 
@@ -33,17 +33,17 @@ MindSpore整体架构如下：
 
 ### 函数式和对象式融合编程范式
 
-MindSpore提供面向对象和面向函数的[编程范式](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/programming_paradigm.html)，二者都可用来构建网络算法和训练流程。
+MindSpore提供面向对象和面向函数的[编程范式](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/design/programming_paradigm.html)，二者都可用来构建网络算法和训练流程。
 
 开发者可以基于nn.Cell类派生定义所需功能的AI网络或层（layer），并可通过对象的嵌套调用的方式将已定义的各种layer进行组装，完成整个AI网络的定义。
 
 同时，开发者也可以定义一个可被MindSpore源到源编译转换的Python纯函数，通过MindSpore提供的函数或装饰器，将其加速执行。在满足MindSpore静态语法的要求下，Python纯函数可以支持子函数嵌套、控制逻辑甚至是递归函数表达。因此基于此编程范式，开发者可灵活使能一些功能特性，更易于表达业务逻辑。
 
-MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/programming_paradigm.html#函数式微分编程)，对可被微分求导的函数对象，按照调用关系，基于调用链进行求导。采取这样自动微分策略更符合数学语义，与基本代数中的复合函数有直观的对应关系，只要已知基础函数的求导公式，就能推导出由任意基础函数组成的复合函数的求导公式。
+MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/design/programming_paradigm.html#函数式微分编程)，对可被微分求导的函数对象，按照调用关系，基于调用链进行求导。采取这样自动微分策略更符合数学语义，与基本代数中的复合函数有直观的对应关系，只要已知基础函数的求导公式，就能推导出由任意基础函数组成的复合函数的求导公式。
 
 同时，基于函数式编程范式，MindSpore提供了丰富高阶函数如vmap、shard等内置高阶函数功能。与微分求导函数grad一样，可以让开发者方便的构造一个函数或对象，作为高阶函数的参数。高阶函数经过内部编译优化，生成针对开发者函数的优化版本，实现如向量化变换、分布式并行切分等特点功能。
 
-### [动静统一的编程体验](https://www.mindspore.cn/docs/zh-CN/r2.6.0/features/program_form/overview.html)
+### [动静统一的编程体验](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/features/program_form/overview.html)
 
 传统AI框架主要有两种编程执行形态，静态图模式和动态图模式。
 
@@ -57,7 +57,7 @@ MindSpore基于Python构建神经网络的图结构，相比于传统的静态�
 
 原生Python表达可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时开发者基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行（mindspore.jit）而同时其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，开发者可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
 
-### [分布式并行](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/distributed_training_design.html)
+### [分布式并行](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/design/distributed_training_design.html)
 
 大模型参数越来越大，需要复杂和多样的分布式并行策略应对，MindSpore内置了多维分布式训练策略，可供开发者灵活组装使用。并通过并行抽象，隐藏通讯操作，简化开发者并行编程的复杂度。
 
@@ -71,7 +71,7 @@ MindSpore在并行化策略搜索中引入了张量重排布技术（Tensor Redi
 
 MindSpore基于编译技术，提供了丰富的硬件无关优化，如IR融合、代数化简、常数折叠、公共子表达式消除等。同时针对NPU、GPU等不同硬件，也提供各种硬件优化能力，从而更好的发挥硬件的大规模计算加速能力。
 
-#### [图算融合](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/multi_level_compilation.html#图算融合)
+#### [图算融合](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/design/multi_level_compilation.html#图算融合)
 
 MindSpore等主流AI计算框架对开发者提供的算子通常是从开发中可理解、易使用角度进行定义。每个算子承载的计算量不等，计算复杂度也各不相同。但从硬件执行角度看，这种天然的、基于用开发者角度的算子计算量划分，并不高效，也无法充分发挥硬件资源计算能力。主要体现在：
 
@@ -95,12 +95,12 @@ Host侧CPU负责将图或算子下发到昇腾芯片。昇腾芯片由于具备�
 
 数据下沉即数据通过通道直接传送到Device上。
 
-### [全场景统一部署](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/all_scenarios.html)
+### [全场景统一部署](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/design/all_scenarios.html)
 
 MindSpore是训推一体的AI框架，同时支持训练和推理等功能。同时MindSpore支持CPU、GPU、NPU等多种芯片，并且在不同芯片上提供统一的编程使用接口以及可生成在多种硬件上加载执行的离线模型。
 
 MindSpore按照实际执行环境和业务需求，提供多种规格的版本形态，支持部署在云端、服务器端、手机等嵌入式设备端以及耳机等超轻量级设备端上的部署执行。
 
-### [三方硬件接入](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/pluggable_device.html)
+### [三方硬件接入](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/design/pluggable_device.html)
 
 MindSpore基于统一MindIR构建了开放式AI架构，支持第三方芯片插件化、标准化、低成本快速对接，可接入GPU系列芯片亦可接入各类DSA芯片。MindSpore提供Kernel模式对接和Graph模式对接两种芯片接入方式，芯片产商可根据自身特点进行接入方式选择。

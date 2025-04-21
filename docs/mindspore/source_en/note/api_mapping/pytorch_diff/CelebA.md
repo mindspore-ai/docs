@@ -1,6 +1,6 @@
 # Differences with torchvision.datasets.CelebA
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CelebA.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CelebA.md)
 
 ## torchvision.datasets.CelebA
 
@@ -34,7 +34,7 @@ class mindspore.dataset.CelebADataset(
     decrypt=None)
 ```
 
-For more information, see [mindspore.dataset.CelebADataset](https://mindspore.cn/docs/en/r2.6.0/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset).
+For more information, see [mindspore.dataset.CelebADataset](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset).
 
 ## Differences
 

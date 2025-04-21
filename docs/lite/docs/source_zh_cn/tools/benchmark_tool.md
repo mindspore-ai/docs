@@ -1,6 +1,6 @@
 # benchmark
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/tools/benchmark_tool.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/tools/benchmark_tool.md)
 
 ## 概述
 
@@ -12,9 +12,9 @@
 
 使用Benchmark工具，需要进行如下环境准备工作。
 
-- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#编译示例)执行编译。
+- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#编译示例)执行编译。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#编译选项)，获得`benchmark`工具。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#编译选项)，获得`benchmark`工具。
 
 - 将推理需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
@@ -134,7 +134,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 
 #### 精度测试
 
-Benchmark工具进行的精度测试主要是通过设置[标杆数据（input.bin和output.out）](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_golden_data.html) 来对比验证MindSpore Lite模型输出的精确性。在精确度测试任务中，除了需要设置`modelFile`参数以外，还必须设置`benchmarkDataFile`参数。例如：
+Benchmark工具进行的精度测试主要是通过设置[标杆数据（input.bin和output.out）](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_golden_data.html) 来对比验证MindSpore Lite模型输出的精确性。在精确度测试任务中，除了需要设置`modelFile`参数以外，还必须设置`benchmarkDataFile`参数。例如：
 
 ```bash
 ./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
@@ -276,7 +276,7 @@ np.fromfile("/path/to/dump.bin", np.float32)
 
 使用Benchmark工具，需要进行如下环境准备工作。
 
-- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#环境要求-1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#编译示例-1)执行编译。
+- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#环境要求-1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#编译示例-1)执行编译。
 - 将推理需要的动态链接库加入环境变量PATH。
 
     ```bash
@@ -342,6 +342,6 @@ call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRES
 
 ### Dump功能
 
-Windows环境下Dump功能使用方法与[Linux环境](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_tool.html#dump功能)基本一致，此处不再赘述。
+Windows环境下Dump功能使用方法与[Linux环境](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_tool.html#dump功能)基本一致，此处不再赘述。
 
 需注意的一点是，在Windows环境下，`data_dump.json`配置文件中设置绝对路径`Path`时，需指定为`\\`的形式。

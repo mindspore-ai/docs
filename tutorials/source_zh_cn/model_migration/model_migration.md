@@ -1,6 +1,6 @@
 # 模型迁移
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/model_migration/model_migration.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/model_migration/model_migration.md)
 
 本章节主要对模型迁移场景所必须的数据集、模型和训练、推理流程等在MindSpore上构建方法做简单的介绍。同时展示了MindSpore和PyTorch在数据集包装、模型构建、训练流程代码上的差别。
 
@@ -18,11 +18,11 @@
 
 ## 数据集包装
 
-MindSpore提供了多种典型开源数据集的解析读取，如MNIST、CIFAR-10、CLUE、LJSpeech等，详情可参考[mindspore.dataset](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.dataset.html)。
+MindSpore提供了多种典型开源数据集的解析读取，如MNIST、CIFAR-10、CLUE、LJSpeech等，详情可参考[mindspore.dataset](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore.dataset.html)。
 
 ### 自定义数据加载 GeneratorDataset
 
-在迁移场景，最常用的数据加载方式是[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)，只需对Python迭代器做简单包装，就可以直接对接MindSpore模型进行训练、推理。
+在迁移场景，最常用的数据加载方式是[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)，只需对Python迭代器做简单包装，就可以直接对接MindSpore模型进行训练、推理。
 
 ```python
 import numpy as np
@@ -56,13 +56,13 @@ GeneratorDataset至少需要包含：
 - source：一个Python迭代器；
 - column_names：迭代器\_\_getitem\_\_方法每个输出的名字。
 
-更多使用方法参考[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
+更多使用方法参考[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
 
 dataset.batch将数据集中连续batch_size条数据，组合为一个批数据，至少需要包含：
 
 - batch_size：指定每个批处理数据包含的数据条目。
 
-更多使用方法参考[Dataset.batch](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html)。
+更多使用方法参考[Dataset.batch](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html)。
 
 ### 与PyTorch数据集构建差别
 
@@ -74,7 +74,7 @@ MindSpore的GeneratorDataset与PyTorch的DataLoader的主要差别有：
 - PyTorch的数据增强输入的对象是Tensor类型，MindSpore的数据增强输入的对象是numpy类型，且数据处理不能用MindSpore的mint、ops和nn算子；
 - PyTorch的batch操作是DataLoader的属性，MindSpore的batch操作是独立的方法。
 
-详细可参考[与torch.utils.data.DataLoader的差异](https://www.mindspore.cn/docs/zh-CN/r2.6.0/note/api_mapping/pytorch_diff/DataLoader.html)。
+详细可参考[与torch.utils.data.DataLoader的差异](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/note/api_mapping/pytorch_diff/DataLoader.html)。
 
 ## 模型构建
 
@@ -134,7 +134,7 @@ for i in net.get_parameters():
 </tr>
 </table>
 
-MindSpore和PyTorch构建模型的方法差不多，使用算子的差别可以参考[API差异文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/note/api_mapping/pytorch_api_mapping.html)。
+MindSpore和PyTorch构建模型的方法差不多，使用算子的差别可以参考[API差异文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/note/api_mapping/pytorch_api_mapping.html)。
 
 #### 模型保存和加载
 
@@ -180,7 +180,7 @@ ms_model.load_state_dict(param_dict)
 
 ### 优化器
 
-PyTorch和MindSpore同时支持的优化器异同比较，详见[API映射表](https://mindspore.cn/docs/zh-CN/r2.6.0/note/api_mapping/pytorch_api_mapping.html#torch-optim)。
+PyTorch和MindSpore同时支持的优化器异同比较，详见[API映射表](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/note/api_mapping/pytorch_api_mapping.html#torch-optim)。
 
 #### 优化器的执行和使用差异
 
@@ -190,7 +190,7 @@ PyTorch单步执行优化器时，一般需要手动执行 `zero_grad()` 方法�
 
 如果在训练过程中需要动态调整学习率，PyTorch提供了 `LRScheduler` 类用于对学习率管理。使用动态学习率时，将 `optimizer` 实例传入 `LRScheduler` 子类中，通过循环调用 `scheduler.step()` 执行学习率修改，并将修改同步至优化器中。
 
-MindSpore提供了`Cell`和`list`两种动态修改学习率的方法。使用时对应动态学习率对象直接传入优化器，学习率的更新在优化器中自动执行，具体请参考[动态学习率](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.nn.html#%E5%8A%A8%E6%80%81%E5%AD%A6%E4%B9%A0%E7%8E%87)。
+MindSpore提供了`Cell`和`list`两种动态修改学习率的方法。使用时对应动态学习率对象直接传入优化器，学习率的更新在优化器中自动执行，具体请参考[动态学习率](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore.nn.html#%E5%8A%A8%E6%80%81%E5%AD%A6%E4%B9%A0%E7%8E%87)。
 
 <table class="colwidths-auto docutils align-default">
 <tr>

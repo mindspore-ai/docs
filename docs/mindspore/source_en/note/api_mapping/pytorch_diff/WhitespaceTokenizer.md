@@ -1,6 +1,6 @@
 # Differences with torchtext.data.functional.simple_space_split
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/WhitespaceTokenizer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/WhitespaceTokenizer.md)
 
 ## torchtext.data.functional.simple_space_split
 
@@ -16,7 +16,7 @@ For more information, see [torchtext.data.functional.simple_space_split](https:/
 class mindspore.dataset.text.WhitespaceTokenizer(with_offsets=False)
 ```
 
-For more information, see [mindspore.dataset.text.WhitespaceTokenizer](https://www.mindspore.cn/docs/en/r2.6.0/api_python/dataset_text/mindspore.dataset.text.WhitespaceTokenizer.html#mindspore.dataset.text.WhitespaceTokenizer).
+For more information, see [mindspore.dataset.text.WhitespaceTokenizer](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset_text/mindspore.dataset.text.WhitespaceTokenizer.html#mindspore.dataset.text.WhitespaceTokenizer).
 
 ## Differences
 

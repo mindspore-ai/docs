@@ -1,6 +1,6 @@
 # 算子级并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/parallel/operator_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/parallel/operator_parallel.md)
 
 ## 简介
 
@@ -16,7 +16,7 @@ MindSpore提供两种粒度的算子级并行能力：算子级并行和高阶�
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -186,7 +186,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/startup_method.html)。
 
 ### mint算子并行实践
 
@@ -194,7 +194,7 @@ epoch: 0 step: 50, loss is 1.8051043
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -338,7 +338,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/startup_method.html)。
 
 ## 高阶算子级并行实践
 
@@ -348,7 +348,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -462,7 +462,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/startup_method.html)。
 
 ### 高阶mint算子并行实践
 
@@ -470,7 +470,7 @@ epoch: 0 step: 50, loss is 1.8051043
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -604,4 +604,4 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/startup_method.html)。

@@ -1,10 +1,10 @@
 # 静态库裁剪工具
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/tools/cropper_tool.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/tools/cropper_tool.md)
 
 ## 概述
 
-MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，能够筛选出`ms`模型中存在的算子，对静态库文件进行算子裁剪。若进行算子裁剪之后，仍然不能满足大小要求，可重新[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)推理框架包，在编译时使用`框架功能裁剪编译选项`进行框架功能裁剪，之后再使用本工具进行算子裁剪。
+MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，能够筛选出`ms`模型中存在的算子，对静态库文件进行算子裁剪。若进行算子裁剪之后，仍然不能满足大小要求，可重新[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)推理框架包，在编译时使用`框架功能裁剪编译选项`进行框架功能裁剪，之后再使用本工具进行算子裁剪。
 
 裁剪工具运行环境是x86_64，目前支持对CPU、GPU算子的裁剪，其中GPU库支持`lite/Cmakelist.txt`的MSLITE_GPU_BACKEND设置为opencl。在裁剪完算子后，可将裁剪后的静态库编译为动态库以适应不同需求。
 
@@ -12,9 +12,9 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 
 使用MindSpore Lite裁剪工具，需要进行如下环境准备工作。
 
-- 编译：裁剪工具代码在MindSpore源码的`mindspore/lite/tools/cropper`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#编译示例)编译x86_64版本。
+- 编译：裁剪工具代码在MindSpore源码的`mindspore/lite/tools/cropper`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#编译示例)编译x86_64版本。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html#目录结构)，获得`cropper`工具。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html#目录结构)，获得`cropper`工具。
 
 ## 参数说明
 
@@ -77,7 +77,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 
 ## 裁剪后静态库编译为动态库so（可选）
 
-在裁剪完静态库后，若有需要，可将裁剪后的静态库编译为动态库，编译环境要求参考MindSpore Lite[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)要求，不同架构下的包，所用的编译命令不同，具体命令可通过MindSpore Lite编译过程中打印的命令获取，参考示例步骤如下。
+在裁剪完静态库后，若有需要，可将裁剪后的静态库编译为动态库，编译环境要求参考MindSpore Lite[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)要求，不同架构下的包，所用的编译命令不同，具体命令可通过MindSpore Lite编译过程中打印的命令获取，参考示例步骤如下。
 
 1. 在`lite/Cmakelist.txt`中添加如下命令，以开启编译过程命令打印。
 
@@ -85,7 +85,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
     set(CMAKE_VERBOSE_MAKEFILE on)
     ```
 
-2. 参考MindSpore Lite[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/build/build.html)，编译所需特定架构上的推理包。
+2. 参考MindSpore Lite[编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/build/build.html)，编译所需特定架构上的推理包。
 
 3. 在编译完成后，在打印的编译信息中，找到编译libmindspore-lite.so时的命令，下文为编译arm64架构的推理包时的打印命令，其中`/home/android-ndk-r20b`为安装的Android SDK路径。
 

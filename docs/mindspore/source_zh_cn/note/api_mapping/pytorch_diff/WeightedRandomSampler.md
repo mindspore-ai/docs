@@ -1,6 +1,6 @@
 # 比较与torch.utils.data.WeightedRandomSampler的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/WeightedRandomSampler.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/WeightedRandomSampler.md)
 
 ## torch.utils.data.WeightedRandomSampler
 
@@ -16,7 +16,7 @@ class torch.utils.data.WeightedRandomSampler(weights, num_samples, replacement=T
 class mindspore.dataset.WeightedRandomSampler(weights, num_samples=None, replacement=True)
 ```
 
-更多内容详见[mindspore.dataset.WeightedRandomSampler](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.WeightedRandomSampler.html)。
+更多内容详见[mindspore.dataset.WeightedRandomSampler](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.WeightedRandomSampler.html)。
 
 ## 差异对比
 

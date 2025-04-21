@@ -1,6 +1,6 @@
 # model_c
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/api/source_zh_cn/api_c/model_c.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/api/source_zh_cn/api_c/model_c.md)
 
 ```C
 #include<model_c.h>
@@ -91,8 +91,8 @@ MSStatus MSModelBuild(MSModelHandle model, const void* model_data, size_t data_s
     - `model`: 指向模型对象的指针。
     - `model_data`: 内存中已经加载的模型数据地址。
     - `data_size`: 模型数据的长度。
-    - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_c/types_c.html#msmodeltype)。
-    - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_c/context_c.html)。
+    - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_c/types_c.html#msmodeltype)。
+    - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_c/context_c.html)。
 
 - 返回值
 
@@ -111,8 +111,8 @@ MSStatus MSModelBuildFromFile(MSModelHandle model, const char* model_path, MSMod
 
     - `model`: 指向模型对象的指针。
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_c/types_c.html#msmodeltype)。
-    - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_c/context_c.html)。
+    - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_c/types_c.html#msmodeltype)。
+    - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_c/context_c.html)。
 
 - 返回值
 

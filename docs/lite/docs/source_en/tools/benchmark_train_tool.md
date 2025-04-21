@@ -1,6 +1,6 @@
 # benchmark_train
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/tools/benchmark_train_tool.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/tools/benchmark_train_tool.md)
 
 ## Overview
 
@@ -12,9 +12,9 @@ The same as `benchmark`, you can use the `benchmark_train` tool to perform bench
 
 To use the `benchmark_train` tool, you need to prepare the environment as follows:
 
-- Compilation: The code of the `benchmark_train` tool is stored in the `mindspore/lite/tools/benchmark_train` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#compilation-example) in the build document.
+- Compilation: The code of the `benchmark_train` tool is stored in the `mindspore/lite/tools/benchmark_train` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#compilation-example) in the build document.
 
-- Configure environment variables: For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#directory-structure-1) in the build document. Suppose the absolute path of MindSpore Lite training package you build is `/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`, the commands to extract the package and configure the LD_LIBRARY_PATH variable are as follows:
+- Configure environment variables: For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#directory-structure-1) in the build document. Suppose the absolute path of MindSpore Lite training package you build is `/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`, the commands to extract the package and configure the LD_LIBRARY_PATH variable are as follows:
 
     ```bash
     cd /path
@@ -133,4 +133,4 @@ Mean bias of all nodes: 0%
 
 ### Dump
 
-For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark_tool.html#dump) of `benchmark` tool.
+For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/benchmark_tool.html#dump) of `benchmark` tool.

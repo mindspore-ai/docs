@@ -1,32 +1,32 @@
 # Using C++ Interface to Perform Cloud-side Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/mindir/runtime_cpp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/mindir/runtime_cpp.md)
 
 ## Overview
 
-This tutorial describes how to perform cloud-side inference with MindSpore Lite by using the [C++ interface](https://www.mindspore.cn/lite/api/en/r2.6.0/index.html).
+This tutorial describes how to perform cloud-side inference with MindSpore Lite by using the [C++ interface](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/index.html).
 
 MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series, Nvidia GPU and CPU hardware backends are supported.
 
-To experience the MindSpore Lite device-side inference process, please refer to the document [Using C++ Interface to Perform Cloud-side Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_cpp.html).
+To experience the MindSpore Lite device-side inference process, please refer to the document [Using C++ Interface to Perform Cloud-side Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html).
 
 Using the MindSpore Lite inference framework consists of the following main steps:
 
-1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool.html).
-2. Create a Configuration Context: Create a configuration context [Context](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html) and save some basic configuration parameters used to guide model compilation and model execution.
-3. Model loading and compilation: Before executing inference, you need to call Build interface of [Model](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html#class-model) for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase can take more time so it is recommended that the model be created once, compiled once and perform inference about multiple times.
+1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html).
+2. Create a Configuration Context: Create a configuration context [Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html) and save some basic configuration parameters used to guide model compilation and model execution.
+3. Model loading and compilation: Before executing inference, you need to call Build interface of [Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html#class-model) for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase can take more time so it is recommended that the model be created once, compiled once and perform inference about multiple times.
 4. Input data: The input data needs to be padded before the model can be executed.
-5. Execute inference: Use Predict of [Model](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html#class-model) for model inference.
+5. Execute inference: Use Predict of [Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html#class-model) for model inference.
 
 ![img](../images/lite_runtime.png)
 
 ## Preparation
 
-1. The following code samples are from [using C++ interface to perform cloud-side inference sample code](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/runtime_cpp).
+1. The following code samples are from [using C++ interface to perform cloud-side inference sample code](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/runtime_cpp).
 
-2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/runtime_cpp/model` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/runtime_cpp/model` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 
-3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore- lite-{version}-linux-{arch}.tar.gz` in the [official website](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) and save it to `mindspore/lite/examples/cloud_infer/runtime_cpp` directory.
+3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore- lite-{version}-linux-{arch}.tar.gz` in the [official website](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) and save it to `mindspore/lite/examples/cloud_infer/runtime_cpp` directory.
 
 ## Creating Configuration Context
 
@@ -43,11 +43,11 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-Return a reference to the list of backend information for specifying the running device via [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html). User-set device information is supported in `MutableDeviceInfo`, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_GPUDeviceInfo.html), [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_AscendDeviceInfo.html). The number of devices set can only be one of them currently.
+Return a reference to the list of backend information for specifying the running device via [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html). User-set device information is supported in `MutableDeviceInfo`, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_GPUDeviceInfo.html), [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_AscendDeviceInfo.html). The number of devices set can only be one of them currently.
 
 ### Configuring to Use the CPU Backend
 
-When the backend to be executed is CPU, you need to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_CPUDeviceInfo.html) as the inference backend. Enable float16 inference by `SetEnableFP16`.
+When the backend to be executed is CPU, you need to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_CPUDeviceInfo.html) as the inference backend. Enable float16 inference by `SetEnableFP16`.
 
 ```c++
 auto context = std::make_shared<mindspore::Context>();
@@ -68,7 +68,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 1. Configure the number of threads
 
-    [Context](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html) configure the number of threads via [SetThreadNum](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html):
+    [Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html) configure the number of threads via [SetThreadNum](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html):
 
     ```c++
     // Configure the number of worker threads in the thread pool to 2, including the main thread.
@@ -77,7 +77,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 2. Configure thread affinity
 
-    [Context](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html) configure threads and CPU binding via [SetThreadAffinity](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html).
+    [Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html) configure threads and CPU binding via [SetThreadAffinity](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html).
     Set the CPU binding list with the parameter `const std::vector<int> &core_list`.
 
     ```c++
@@ -87,7 +87,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 3. Configure parallelism strategy
 
-    [Context](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html) configure the number of operator parallel inference at runtime via [SetInterOpParallelNum](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html).
+    [Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html) configure the number of operator parallel inference at runtime via [SetInterOpParallelNum](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html).
 
     ```c++
     // Configure the inference supports parallel.
@@ -96,7 +96,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 ### Configuring Using GPU Backend
 
-When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables float16 inference by `SetEnableFP16` or `SetPrecisionMode`.
+When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables float16 inference by `SetEnableFP16` or `SetPrecisionMode`.
 
 The following sample code demonstrates how to create a GPU inference backend while the device ID is set to 0:
 
@@ -130,7 +130,7 @@ Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing p
 
 ### Configuring Using Ascend Backend
 
-When the backend to be executed is Ascend (Atlas 200/300/500 inference product, Atlas inference series, or Atlas training series are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
+When the backend to be executed is Ascend (Atlas 200/300/500 inference product, Atlas inference series, or Atlas training series are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
 
 The following sample code demonstrates how to create Ascend inference backend while the device ID is set to 0:
 
@@ -173,7 +173,7 @@ The user can configure the precision mode by calling the `SetPrecisionMode()` in
 
 ## Model Creation Loading and Compilation
 
-When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html#class-model) is the main entry point for inference. Model loading, model compilation and model execution is implemented through model. Using the [Context](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html#class-context) created in the previous step, call the compound Build interface of Model to implement model loading and model compilation.
+When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html#class-model) is the main entry point for inference. Model loading, model compilation and model execution is implemented through model. Using the [Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html#class-context) created in the previous step, call the compound Build interface of Model to implement model loading and model compilation.
 
 The following sample code demonstrates the process of model creation, loading and compilation:
 
@@ -217,15 +217,15 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
 }
 ```
 
-> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface, where `section` is `model_ File` , `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
+> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface, where `section` is `model_ File` , `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
 
 ## Inputting the Data
 
-Before the model execution, the input data needs to be set, using the [GetInputs](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) method, which directly gets all vectors of the model input Tensor. You can get the size of the data that the Tensor should fill in by the DataSize method of the [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html). The data type of the Tensor can be obtained by the DataType. The input host data is set by SetData method.
+Before the model execution, the input data needs to be set, using the [GetInputs](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) method, which directly gets all vectors of the model input Tensor. You can get the size of the data that the Tensor should fill in by the DataSize method of the [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html). The data type of the Tensor can be obtained by the DataType. The input host data is set by SetData method.
 
 There are currently two ways to specify input data:
 
-1. By setting the input data via [SetData](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html), copying between hosts can be avoided and the input data will eventually be copied directly to the inference device.
+1. By setting the input data via [SetData](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html), copying between hosts can be avoided and the input data will eventually be copied directly to the inference device.
 
     ```c++
     int SetTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -257,7 +257,7 @@ There are currently two ways to specify input data:
       SetTensorHostData(&inputs, &input_buffer);
     ```
 
-2. Copy the input data to the Tensor cache returned by [MutableData](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html). It should be noted that if the data address has been set by `SetData`, `MutableData` will return the data address of `SetData`, and you need to call `SetData(nullptr)` first.
+2. Copy the input data to the Tensor cache returned by [MutableData](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html). It should be noted that if the data address has been set by `SetData`, `MutableData` will return the data address of `SetData`, and you need to call `SetData(nullptr)` first.
 
     ```c++
     int CopyTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
@@ -320,7 +320,7 @@ int SpecifyInputDataExample(const std::string &model_path, const std::string &de
 
 ## Compilation and Execution
 
-Set the environment variables as described in the Environment Variables section in [quick start](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91), and then compile the prograom as follows:
+Set the environment variables as described in the Environment Variables section in [quick start](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91), and then compile the prograom as follows:
 
 ```bash
 mkdir build && cd build
@@ -349,7 +349,7 @@ Lite cloud-side inference framework supports dynamic shape input for models. GPU
 
 The configuration of dynamic input information is related to offline and online scenarios. For offline scenarios, the model conversion tool parameter `--optimize=general`, `--optimize=gpu_oriented` or `--optimize=ascend_oriented`, i.e. experiencing the hardware-related fusion and optimization. The generated MindIR model can only run on the corresponding hardware backend. For example, in Atlas 200/300/500 inference product environment, if the model conversion tool specifies `--optimize=ascend_oriented`, the generated model will only support running on Atlas 200/300/500 inference product. If `--optimize=general` is specified, running on GPU and CPU is supported. For online scenarios, the loaded MindIR has not experienced hardware-related fusion and optimization, supports running on Ascend, GPU, and CPU. The model conversion tool parameter `--optimize=none`, or the MindSpore-exported MindIR model has not been processed by the conversion tool.
 
-Ascend hardware backend offline scenarios require dynamic input information to be configured during the model conversion phase. Ascend hardware backend online scenarios, as well as GPU hardware backend offline and online scenarios, require dynamic input information to be configured during the model loading phase via the [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore.html# loadconfig) interface.
+Ascend hardware backend offline scenarios require dynamic input information to be configured during the model conversion phase. Ascend hardware backend online scenarios, as well as GPU hardware backend offline and online scenarios, require dynamic input information to be configured during the model loading phase via the [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore.html# loadconfig) interface.
 
 An example configuration file loaded via `LoadConfig` is shown below:
 
@@ -399,7 +399,7 @@ Load the configuration file information via `LoadConfig` before the model `Build
   }
 ```
 
-In model inference, if the input to the model is dynamic and the input and output shape returned via `GetInputs` and `GetOutputs` may include -1, i.e., it is a dynamic shape,  the input shape needs to be specified via the [Resize](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface. If the input Shape needs to change, for example, the `batch` dimension changes, the `Resize` interface needs to be called again to adjust the input Shape.
+In model inference, if the input to the model is dynamic and the input and output shape returned via `GetInputs` and `GetOutputs` may include -1, i.e., it is a dynamic shape,  the input shape needs to be specified via the [Resize](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface. If the input Shape needs to change, for example, the `batch` dimension changes, the `Resize` interface needs to be called again to adjust the input Shape.
 
 After calling the `Resize` interface, the shape of the Tensor in the called and subsequently called `GetInputs` and `GetOutputs` will be changed.
 
@@ -426,7 +426,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 Specify that the device memory supports the CPU, Ascend, and GPU hardware backend. The specified input host memory, the data in the cache will be directly copied to the device memory, and the specified output host memory, the data in the device memory will be directly copied to this cache. Unnecessary data copying between hosts is avoided and inference performance is improved.
 
-Input and output host memory can be specified separately or simultaneously by [SetData](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html). It is recommended that the parameter `own_data` be false. When `own_data` is false, the user needs to maintain the life cycle of host memory and is responsible for the request and release of host memory. When the parameter `own_data` is true, the specified memory is freed at the MSTensor destruct.
+Input and output host memory can be specified separately or simultaneously by [SetData](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html). It is recommended that the parameter `own_data` be false. When `own_data` is false, the user needs to maintain the life cycle of host memory and is responsible for the request and release of host memory. When the parameter `own_data` is true, the specified memory is freed at the MSTensor destruct.
 
 1. Specify input host memory
 
@@ -475,9 +475,9 @@ Input and output host memory can be specified separately or simultaneously by [S
 
 Specifying device memory supports Ascend and GPU hardware backends. Specifying input and output device memory can avoid mutual copying from device to host memory, for example, the device memory input generated by chip dvpp preprocessing is directly used as input for model inference, avoiding preprocessing results copied from device memory to host memory and host results used as model inference input and re-copied to device before inference.
 
-Sample memory for specified input and output devices can be found in [sample device memory](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/device_example_cpp).
+Sample memory for specified input and output devices can be found in [sample device memory](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/device_example_cpp).
 
-Input and output device memory can be specified separately or simultaneously by [SetDeviceData](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html). The user needs to maintain the device memory lifecycle and is responsible for device memory requests and releases.
+Input and output device memory can be specified separately or simultaneously by [SetDeviceData](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html). The user needs to maintain the device memory lifecycle and is responsible for device memory requests and releases.
 
 1. Specify the input device memory
 
@@ -637,7 +637,7 @@ ge.dynamicNodeType=1
 
 ### Loading Models through Multiple Threads
 
-When the backend is Ascend and the provider is the default, it supports loading multiple Ascend optimized models through multiple threads to improve model loading performance. Using the [Model converting tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html), we can specify `--optimize=ascend_oriented` to convert `MindIR` models exported from MindSpore, third-party framework models such as TensorFlow and ONNX into Ascend optimized models. The `MindIR` models exported by MindSpore have not undergone Ascend optimization. For third-party framework models, the `MindIR` model generated by specifying `--optimize=none` in the converting tool has not undergone Ascend optimization.
+When the backend is Ascend and the provider is the default, it supports loading multiple Ascend optimized models through multiple threads to improve model loading performance. Using the [Model converting tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html), we can specify `--optimize=ascend_oriented` to convert `MindIR` models exported from MindSpore, third-party framework models such as TensorFlow and ONNX into Ascend optimized models. The `MindIR` models exported by MindSpore have not undergone Ascend optimization. For third-party framework models, the `MindIR` model generated by specifying `--optimize=none` in the converting tool has not undergone Ascend optimization.
 
 ### Multiple Models Sharing Weights
 
@@ -645,7 +645,7 @@ In the Ascend device GE scenario, a single device can deploy multiple models, an
 
 The same model script can export different models with the same weights for different conditional branches or input shapes. During the inference process, some weights can no longer be updated and are parsed as constants, where multiple models will have the same constant weights, while some weights may be updated and are parsed as variables. If one model updates one weight, the modified weight can be use and updated in the next inference or by other models.
 
-The relationship between multiple models sharing weights can be indicated through interface [ModelGroup](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.ModelGroup.html#mindspore_lite.ModelGroup).
+The relationship between multiple models sharing weights can be indicated through interface [ModelGroup](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.ModelGroup.html#mindspore_lite.ModelGroup).
 
 Python implementation:
 

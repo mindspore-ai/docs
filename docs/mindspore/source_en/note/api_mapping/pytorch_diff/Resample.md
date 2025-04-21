@@ -1,6 +1,6 @@
 # Differences with torchaudio.transforms.Resample
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Resample.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Resample.md)
 
 ## torchaudio.transforms.Resample
 
@@ -17,7 +17,7 @@ class mindspore.dataset.audio.Resample(orig_freq=16000, new_freq=16000, resample
                                        lowpass_filter_width=6, rolloff=0.99, beta=None)
 ```
 
-For more information, see [mindspore.dataset.audio.Resample](https://mindspore.cn/docs/en/r2.6.0/api_python/dataset_audio/mindspore.dataset.audio.Resample.html#mindspore.dataset.audio.Resample).
+For more information, see [mindspore.dataset.audio.Resample](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset_audio/mindspore.dataset.audio.Resample.html#mindspore.dataset.audio.Resample).
 
 ## Differences
 

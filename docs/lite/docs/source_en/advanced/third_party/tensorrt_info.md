@@ -1,12 +1,12 @@
 # TensorRT Integration Information
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/advanced/third_party/tensorrt_info.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/advanced/third_party/tensorrt_info.md)
 
 ## Steps
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html), CUDA and TensorRT is required as well. Current version supports [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) and [TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download), and [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html), CUDA and TensorRT is required as well. Current version supports [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) and [TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download), and [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
 
 Install the appropriate version of CUDA and set the installed directory as environment variable `${CUDA_HOME}`. Our build script uses this environment variable to seek CUDA.
 
@@ -20,17 +20,17 @@ In the Linux environment, use the build.sh script in the root directory of MindS
 bash build.sh -I x86_64
 ```
 
-For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#linux-environment-compilation).
+For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#linux-environment-compilation).
 
 ### Integration
 
 - Integration instructions
 
     When developers need to integrate the use of TensorRT features, it is important to note:
-    - [Configure the TensorRT backend](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_cpp.html#configuring-the-gpu-backend),
-    For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_cpp.html).
+    - [Configure the TensorRT backend](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html#configuring-the-gpu-backend),
+    For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html).
 
-    - Compile and execute the binary. If you use dynamic linking, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#directory-structure) with compilation option `-I x86_64`.
+    - Compile and execute the binary. If you use dynamic linking, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#directory-structure) with compilation option `-I x86_64`.
     Please set environment variables to dynamically link related libs.
 
     ```bash
@@ -55,14 +55,14 @@ For more information about compilation, see [Linux Environment Compilation](http
     ./benchmark --device=GPU --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
     ```
 
-    For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark.html).
+    For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/benchmark.html).
 
     For environment variable settings, you need to set the directory where the `libmindspore-lite.so`
     (under the directory `mindspore-lite-{version}-{os}-{arch}/runtime/lib`), TensorRT and CUDA `so` libraries are located, to `${LD_LIBRARY_PATH}`.
 
 - Using TensorRT engine serialization
 
-    TensorRT backend inference supports serializing the built TensorRT model (Engine) into a binary file and saves it locally. When it is used the next time, the model can be deserialized and loaded from the local, avoiding rebuilding and reducing overhead. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface to load the configuration file in the code, you need to specify the saving path of serialization file in the configuration file:
+    TensorRT backend inference supports serializing the built TensorRT model (Engine) into a binary file and saves it locally. When it is used the next time, the model can be deserialized and loaded from the local, avoiding rebuilding and reducing overhead. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface to load the configuration file in the code, you need to specify the saving path of serialization file in the configuration file:
 
     ```
     [ms_cache]
@@ -73,7 +73,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
     By default, TensorRT optimizes the model based on the input shapes (batch size, image size, and so on) at which it was defined. However, the input dimension can be adjusted at runtime by configuring the profile. In the profile, the minimum, dynamic and optimal shape of each input can be set.
 
-    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum ~ maximum] range. And in the profile, multiple input dimensions can be configured for a single input. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface to load the configuration file in the code.
+    TensorRT creates an optimized engine for each profile, choosing CUDA kernels that work for all shapes within the [minimum ~ maximum] range. And in the profile, multiple input dimensions can be configured for a single input. To support this function, users need to use the [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface to load the configuration file in the code.
 
     If min, opt, and Max are the minimum, optimal, and maximum dimensions, and real_shape is the shape of the input tensor, the following conditions must hold:
 
@@ -102,4 +102,4 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 ## Supported Operators
 
-For supported TensorRT operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/r2.6.0/reference/operator_list_lite.html).
+For supported TensorRT operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/reference/operator_list_lite.html).

@@ -1,6 +1,6 @@
 # MSContext
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/api/source_zh_cn/api_java/mscontext.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/api/source_zh_cn/api_java/mscontext.md)
 
 ```java
 import com.mindspore.config.MSContext;
@@ -53,7 +53,7 @@ public boolean init(int threadNum, int cpuBindMode)
 - 参数
 
     - `threadNum`: 线程数。
-    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)中定义。
+    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)中定义。
 
 - 返回值
 
@@ -68,7 +68,7 @@ public boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)
 - 参数
 
     - `threadNum`: 线程数。
-    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)中定义。
+    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)中定义。
     - `isEnableParallel`: 是否开启异构并行。
 
 - 返回值
@@ -85,7 +85,7 @@ boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)
 
 - 参数
 
-    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)中定义。
+    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)中定义。
     - `isEnableFloat16`: 是否开启fp16。
 
 - 返回值
@@ -100,7 +100,7 @@ boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)
 
 - 参数
 
-    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)中定义。
+    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)中定义。
     - `isEnableFloat16`: 是否开启fp16。
     - `npuFreq`: NPU运行频率，仅当deviceType为npu才需要。
 

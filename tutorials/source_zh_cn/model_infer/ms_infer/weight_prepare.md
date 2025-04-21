@@ -1,10 +1,10 @@
 # 大语言模型权重获取和准备
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/model_infer/ms_infer/weight_prepare.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/model_infer/ms_infer/weight_prepare.md)
 
 模型权重作为大语言模型最为重要的参数，通常直接和模型最终效果强相关，因此获取有效可靠的模型权重文件，成为准备大语言模型推理非常重要的一步。总的来说，获取模型权重文件有两大类方案：
 
-- **自己通过数据集训练权重**：利用MindSpore框架训练能力，以及业务强相关的数据集，从头训练或者对模型进行微调，然后输出模型的权重文件，该方案需要使用MindSpore训练能力，同时需要较大的计算资源来训练模型，比较适合用户自己数据集比较特殊的场景。[保存模型权重CKPT文件](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.save_checkpoint.html#mindspore.save_checkpoint)。
+- **自己通过数据集训练权重**：利用MindSpore框架训练能力，以及业务强相关的数据集，从头训练或者对模型进行微调，然后输出模型的权重文件，该方案需要使用MindSpore训练能力，同时需要较大的计算资源来训练模型，比较适合用户自己数据集比较特殊的场景。[保存模型权重CKPT文件](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore/mindspore.save_checkpoint.html#mindspore.save_checkpoint)。
 
 - **从官网获取预训练模型权重**：从主流模型官方网站上获取预训练好的模型配置、tokenizer和权重文件等，并通过MindSpore框架能力将模型权重转换成MindSpore的CKPT权重文件，作为大语言模型推理的输入。
 

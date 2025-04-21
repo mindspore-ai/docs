@@ -1,32 +1,32 @@
 # mindspore::registry
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/api/source_zh_cn/api_cpp/mindspore_registry.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/api/source_zh_cn/api_cpp/mindspore_registry.md)
 
 ## 接口汇总
 
 | 类名 | 描述 |
 | --- | --- |
 | [NodeParserRegistry](#nodeparserregistry) | 扩展Node解析的注册类。|
-| [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#reg-node-parser) | 注册扩展Node解析。|
+| [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#reg-node-parser) | 注册扩展Node解析。|
 | [ModelParserRegistry](#modelparserregistry) | 扩展Model解析的注册类。|
-| [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#reg-model-parser) | 注册扩展Model解析。|
+| [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#reg-model-parser) | 注册扩展Model解析。|
 | [PassBase](#passbase) | Pass的基类。|
 | [PassPosition](#passposition) | 扩展Pass的运行位置。|
 | [PassRegistry](#passregistry) | 扩展Pass注册构造类。|
-| [REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#reg-pass) | 注册扩展Pass。|
-| [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#reg-scheduled-pass) | 注册扩展Pass的调度顺序。|
+| [REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#reg-pass) | 注册扩展Pass。|
+| [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#reg-scheduled-pass) | 注册扩展Pass的调度顺序。|
 | [RegisterKernel](#registerkernel) | 算子注册实现类。|
 | [KernelReg](#kernelreg) | 算子注册构造类。|
-| [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-kernel) | 注册算子。|
-| [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-custom-kernel) | 注册Custom算子注册。|
+| [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-kernel) | 注册算子。|
+| [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-custom-kernel) | 注册Custom算子注册。|
 | [RegisterKernelInterface](#registerkernelinterface) | 算子扩展能力注册实现类。|
 | [KernelInterfaceReg](#kernelinterfacereg) | 算子扩展能力注册构造类。|
-| [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-kernel-interface) | 注册算子扩展能力。|
-| [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-custom-kernel-interface) | 注册Custom算子扩展能力。|
+| [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-kernel-interface) | 注册算子扩展能力。|
+| [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-custom-kernel-interface) | 注册Custom算子扩展能力。|
 
 ## NodeParserRegistry
 
-\#include <[node_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/node_parser_registry.h)>
+\#include <[node_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/node_parser_registry.h)>
 
 NodeParserRegistry类用于注册及获取NodeParser类型的共享智能指针。
 
@@ -41,11 +41,11 @@ NodeParserRegistry(converter::FmkType fmk_type, const std::string &node_type,
 
 - 参数
 
-    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `node_type`: 节点的类型。
 
-    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#nodeparserptr)说明。
+    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#nodeparserptr)说明。
 
 ### ~NodeParserRegistry
 
@@ -67,13 +67,13 @@ static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const
 
 - 参数
 
-    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `node_type`: 节点的类型。
 
 ## REG_NODE_PARSER
 
-\#include <[node_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/node_parser_registry.h)>
+\#include <[node_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/node_parser_registry.h)>
 
 ```c++
 #define REG_NODE_PARSER(fmk_type, node_type, node_parser)
@@ -83,25 +83,25 @@ static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const
 
 - 参数
 
-    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `node_type`: 节点的类型。
 
-    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#nodeparserptr)说明。
+    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#nodeparserptr)说明。
 
 ## ModelParserCreator
 
-\#include <[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/model_parser_registry.h)>
+\#include <[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/model_parser_registry.h)>
 
 ```c++
 typedef converter::ModelParser *(*ModelParserCreator)()
 ```
 
-创建[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#modelparser)的函数原型声明。
+创建[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#modelparser)的函数原型声明。
 
 ## ModelParserRegistry
 
-\#include <[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/model_parser_registry.h)>
+\#include <[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/model_parser_registry.h)>
 
 ModelParserRegistry类用于注册及获取ModelParserCreator类型的函数指针。
 
@@ -115,7 +115,7 @@ ModelParserRegistry(FmkType fmk, ModelParserCreator creator)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#modelparsercreator)说明。
 
@@ -139,11 +139,11 @@ static ModelParser *GetModelParser(FmkType fmk)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#fmktype)说明。
 
 ## REG_MODEL_PARSER
 
-\#include <[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/model_parser_registry.h)>
+\#include <[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/model_parser_registry.h)>
 
 ```c++
 #define REG_MODEL_PARSER(fmk, parserCreator)
@@ -153,15 +153,15 @@ static ModelParser *GetModelParser(FmkType fmk)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#fmktype)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#modelparsercreator)说明。
 
-> 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#fmktype)。
+> 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#fmktype)。
 
 ## PassBase
 
-\#include <[pass_base.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/pass_base.h)>
+\#include <[pass_base.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/pass_base.h)>
 
 PassBase定义了图优化的基类，以供用户继承并自定义图优化算法。
 
@@ -201,7 +201,7 @@ virtual bool Execute(const api::FuncGraphPtr &func_graph) = 0;
 
 ## PassBasePtr
 
-\#include <[pass_base.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/pass_base.h)>
+\#include <[pass_base.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/pass_base.h)>
 
 PassBase类的共享智能指针类型。
 
@@ -211,7 +211,7 @@ using PassBasePtr = std::shared_ptr<PassBase>
 
 ## PassPosition
 
-\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/pass_registry.h)>
+\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/pass_registry.h)>
 
 **enum**类型变量，定义扩展Pass的运行位置。
 
@@ -224,7 +224,7 @@ enum PassPosition {
 
 ## PassRegistry
 
-\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/pass_registry.h)>
+\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/pass_registry.h)>
 
 PassRegistry类用于注册及获取Pass类实例。
 
@@ -290,7 +290,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 
 ## REG_PASS
 
-\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/pass_registry.h)>
+\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/pass_registry.h)>
 
 ```c++
 #define REG_PASS(name, pass)
@@ -306,7 +306,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 
 ## REG_SCHEDULED_PASS
 
-\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/pass_registry.h)>
+\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/pass_registry.h)>
 
 ```c++
 #define REG_SCHEDULED_PASS(position, names)
@@ -322,7 +322,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 
 > MindSpore Lite开放了部分内置Pass，请见以下说明。用户可以在`names`参数中添加内置Pass的命名标识，以在指定运行处调用内置Pass。
 >
-> - `ConstFoldPass`: 将输入均是常量的节点进行离线计算，导出的模型将不含该节点。特别地，针对shape算子，在[inputShape](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html#参数说明)给定的情形下，也会触发预计算。
+> - `ConstFoldPass`: 将输入均是常量的节点进行离线计算，导出的模型将不含该节点。特别地，针对shape算子，在[inputShape](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html#参数说明)给定的情形下，也会触发预计算。
 > - `DumpGraph`: 导出当前状态下的模型。请确保当前模型为NHWC或者NCHW格式的模型，例如卷积算子等。
 > - `ToNCHWFormat`: 将当前状态下的模型转换为NCHW的格式，例如，四维的图输入、卷积算子等。
 > - `ToNHWCFormat`: 将当前状态下的模型转换为NHWC的格式，例如，四维的图输入、卷积算子等。
@@ -334,7 +334,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 
 ## KernelDesc
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/register_kernel.h)>
+\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/register_kernel.h)>
 
 **struct**类型结构体，定义扩展kernel的基本属性。
 
@@ -349,7 +349,7 @@ struct KernelDesc {
 
 ## RegisterKernel
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/register_kernel.h)>
+\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/register_kernel.h)>
 
 ### CreateKernel
 
@@ -363,13 +363,13 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
     - `primitive`: 算子经由flatbuffers反序化为Primitive后的结果。
 
-    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#context)。
+    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#context)。
 
 ### 公有成员函数
 
@@ -387,9 +387,9 @@ static Status RegKernel(const std::string &arch, const std::string &provider, Da
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_datatype.html)。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
@@ -407,7 +407,7 @@ Custom算子注册。
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_datatype.html)。
 
     - `type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -429,7 +429,7 @@ static CreateKernel GetCreator(const schema::Primitive *primitive, KernelDesc *d
 
 ## KernelReg
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/register_kernel.h)>
+\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/register_kernel.h)>
 
 ### ~KernelReg
 
@@ -453,9 +453,9 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_datatype.html)。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
@@ -471,7 +471,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_datatype.html)。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -491,9 +491,9 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_datatype.html)。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
@@ -511,7 +511,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_datatype.html)。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -519,7 +519,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
 ## KernelInterfaceCreator
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/register_kernel_interface.h)>
+\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/register_kernel_interface.h)>
 
 定义创建算子的函数指针类型。
 
@@ -529,7 +529,7 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<kernel::KernelInter
 
 ## RegisterKernelInterface
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/register_kernel_interface.h)>
+\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/register_kernel_interface.h)>
 
 算子扩展能力注册实现类。
 
@@ -563,7 +563,7 @@ static Status Reg(const std::string &provider, int op_type, const KernelInterfac
 
     - `provider`: 生产商，由用户自定义。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
@@ -585,7 +585,7 @@ static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::st
 
 ## KernelInterfaceReg
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/register_kernel_interface.h)>
+\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/register_kernel_interface.h)>
 
 算子扩展能力注册构造类。
 
@@ -601,7 +601,7 @@ KernelInterfaceReg(const std::string &provider, int op_type, const KernelInterfa
 
     - `provider`: 生产商，由用户自定义。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
@@ -621,7 +621,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 ## REGISTER_KERNEL_INTERFACE
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/register_kernel_interface.h)>
+\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/register_kernel_interface.h)>
 
 注册KernelInterface的实现。
 
@@ -633,13 +633,13 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
     - `provider`: 生产商，由用户自定义。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建KernelInterface的函数指针，具体见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
 ## REGISTER_CUSTOM_KERNEL_INTERFACE
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/registry/register_kernel_interface.h)>
+\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/registry/register_kernel_interface.h)>
 
 注册Custom算子对应的KernelInterface实现。
 

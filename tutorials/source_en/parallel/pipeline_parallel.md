@@ -1,6 +1,6 @@
 # Pipeline Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/parallel/pipeline_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/parallel/pipeline_parallel.md)
 
 ## Overview
 
@@ -12,7 +12,7 @@ The following is an illustration of pipeline parallel operation using Ascend or 
 
 ### Sample Code Description
 
-> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_pipeline_parallel).
+> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/distributed_pipeline_parallel).
 
 The directory structure is as follows:
 
@@ -248,7 +248,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 [  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
-Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/startup_method.html).
+Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/startup_method.html).
 
 ## Inference Operation Practices
 
@@ -256,7 +256,7 @@ The following is an illustration of pipeline parallel inference operation using 
 
 ### Sample Code Description
 
-> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_pipeline_parallel).
+> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/distributed_pipeline_parallel).
 
 The directory structure is as follows:
 

@@ -1,28 +1,28 @@
 # 使用Python接口执行Ascend后端多卡/多芯推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/mindir/runtime_distributed_multicard_python.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/mindir/runtime_distributed_multicard_python.md)
 
 ## 概述
 
-在单机多卡、单卡多芯场景下，为了充分发挥设备性能，需要让芯片或者不同卡直接进行并行推理。在Ascend环境下，这种场景更加常见，例如Atlas 300I Duo推理卡具有单卡双芯的规格，天然更适合并行处理。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite.html)在Ascend后端环境下执行MindSpore Lite多卡/多芯推理。推理核心流程与[云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/runtime_python.html)流程大致相同，可以相互参考。
+在单机多卡、单卡多芯场景下，为了充分发挥设备性能，需要让芯片或者不同卡直接进行并行推理。在Ascend环境下，这种场景更加常见，例如Atlas 300I Duo推理卡具有单卡双芯的规格，天然更适合并行处理。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite.html)在Ascend后端环境下执行MindSpore Lite多卡/多芯推理。推理核心流程与[云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/runtime_python.html)流程大致相同，可以相互参考。
 
 MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，本教程支持的设备类型为Atlas训练系列产品，并且以 **Atlas 300I Duo推理卡 + 开源Stable Diffusion（SD） ONNX模型** 作为案例。本案例调用Python的multiprocess库创建子进程，用户与主进程进行交互，主进程通过管道与子进程进行交互。
 
 ## 准备工作
 
-1. 下载云侧Ascend后端多卡/多芯推理Python[示例代码](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/ascend_parallel_python)，后文将该目录称为示例代码目录。
+1. 下载云侧Ascend后端多卡/多芯推理Python[示例代码](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/ascend_parallel_python)，后文将该目录称为示例代码目录。
 
-2. 下载MindSpore Lite云侧推理安装包[mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)，存放至示例代码目录，并通过`pip`工具安装。
+2. 下载MindSpore Lite云侧推理安装包[mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/use/downloads.html)，存放至示例代码目录，并通过`pip`工具安装。
 
-3. 通过[converter_lite工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool.html)将ONNX模型转换为MindSpore的MINDIR格式模型，其中batch_size的大小设置为原模型的一半，用于分配到双芯或双卡上并行推理，达到与原模型一致的输出结果（若采用更多张卡并行，则需要batch size可以整除所用卡数，转换时设置为整除后的结果）。例如对于batch size = 2的模型，转换时设置其为1，表示双芯并行推理时每个子进程推理单个batch。对于SD2.1模型，可以采用如下的转换命令：
+3. 通过[converter_lite工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool.html)将ONNX模型转换为MindSpore的MINDIR格式模型，其中batch_size的大小设置为原模型的一半，用于分配到双芯或双卡上并行推理，达到与原模型一致的输出结果（若采用更多张卡并行，则需要batch size可以整除所用卡数，转换时设置为整除后的结果）。例如对于batch size = 2的模型，转换时设置其为1，表示双芯并行推理时每个子进程推理单个batch。对于SD2.1模型，可以采用如下的转换命令：
 
     ```shell
     ./converter_lite --modelFile=model.onnx --fmk=ONNX --outputFile=SD2.1_size512_bs1 --inputShape="sample:1,4,64,64;timestep:1;encoder_hidden_states:1,77,1024" --optimize=ascend_oriented
     ```
 
-更多converter工具的使用方法以及模型转换时可配置的优化点，可参考[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter.html)页面。
+更多converter工具的使用方法以及模型转换时可配置的优化点，可参考[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter.html)页面。
 
-后续章节将结合代码讲述MindSpore Lite云侧分布式推理主要步骤，参考[示例代码](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/ascend_parallel_python)。
+后续章节将结合代码讲述MindSpore Lite云侧分布式推理主要步骤，参考[示例代码](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/ascend_parallel_python)。
 
 ## 推理流程
 
@@ -30,7 +30,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，本教�
 
 ### 创建上下文配置
 
-上下文配置保存了所需基本配置参数，主要包括设置设备类型为`Ascend`，以及指定设备ID从而为模型分配执行的芯片或卡。如下示例代码演示如何通过[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)创建上下文：
+上下文配置保存了所需基本配置参数，主要包括设置设备类型为`Ascend`，以及指定设备ID从而为模型分配执行的芯片或卡。如下示例代码演示如何通过[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)创建上下文：
 
 ```python
 # init and set context
@@ -41,7 +41,7 @@ context.ascend.device_id = device_id
 
 ### 模型创建、加载与编译
 
-与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/runtime_python.html)一致，Ascend后端多卡/多芯推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)接口，可进行模型加载、编译和执行。创建[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)并调用[Model.build_from_file](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口来实现模型加载与模型编译，示例代码如下：
+与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/runtime_python.html)一致，Ascend后端多卡/多芯推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)接口，可进行模型加载、编译和执行。创建[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)并调用[Model.build_from_file](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口来实现模型加载与模型编译，示例代码如下：
 
 ```python
 # create Model and build Model
@@ -51,7 +51,7 @@ model.build_from_file(mindir_file, mslite.ModelType.MINDIR, context)
 
 ### 模型输入数据填充
 
-首先，使用[Model.get_inputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.get_inputs)方法获取所有输入[Tensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Tensor.html#mindspore_lite.Tensor)，利用相关接口将Host数据填入。示例代码如下：
+首先，使用[Model.get_inputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.get_inputs)方法获取所有输入[Tensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Tensor.html#mindspore_lite.Tensor)，利用相关接口将Host数据填入。示例代码如下：
 
 ```python
 # set model input
@@ -62,7 +62,7 @@ for i, _input in enumerate(inputs):
 
 ### 推理执行
 
-调用[Model.predict](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口执行推理，示例代码如下：
+调用[Model.predict](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口执行推理，示例代码如下：
 
 ```python
 # execute inference

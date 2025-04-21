@@ -1,6 +1,6 @@
 # Quantization
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/advanced/quantization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/advanced/quantization.md)
 
 ## Overview
 
@@ -114,7 +114,7 @@ For the scenarios where the CV model needs to improve the model running speed an
 
 To fully quantize the quantization parameters for calculating the activation values, the user needs to provide a calibration dataset. The calibration dataset should preferably come from real inference scenarios that characterize the actual inputs to the model, in the order of 100 - 500, **and the calibration dataset needs to be processed into `NHWC` format**.
 
-For image data, it currently supports the functions of channel adjustment, normalization, scaling, cropping and other preprocessing. The user can set the appropriate [Data Preprocessing Parameters](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/quantization.html#data-preprocessing-parameters) according to the preprocessing operation required for inference.
+For image data, it currently supports the functions of channel adjustment, normalization, scaling, cropping and other preprocessing. The user can set the appropriate [Data Preprocessing Parameters](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/quantization.html#data-preprocessing-parameters) according to the preprocessing operation required for inference.
 
 User configuration of full quantization requires at least `[common_quant_param]`, `[data_preprocess_param]`, and `[full_quant_param]`.
 
@@ -223,7 +223,7 @@ target_device=DSP
 
 #### Ascend
 
-Ascend quantization needs to configure Ascend-related configuration at [offline conversion](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool.html#description-of-parameters) first, i.e. `optimize` needs to be set to `ascend_oriented`, and then configure Ascend related environment variables during conversion.
+Ascend quantization needs to configure Ascend-related configuration at [offline conversion](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html#description-of-parameters) first, i.e. `optimize` needs to be set to `ascend_oriented`, and then configure Ascend related environment variables during conversion.
 
 **Ascend Fully Quantized Static Shape Parameter Configuration**
 
@@ -245,7 +245,7 @@ Ascend quantization needs to configure Ascend-related configuration at [offline 
     target_device=ASCEND
     ```
 
-**Ascend full quantization supports dynamic Shape parameters**. The conversion command needs to set the same inputShape of the calibration dataset, which can be found in [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool.html#description-of-parameters).
+**Ascend full quantization supports dynamic Shape parameters**. The conversion command needs to set the same inputShape of the calibration dataset, which can be found in [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html#description-of-parameters).
 
 - The general form of the conversion command in the Ascend fully quantized static shape scenario is:
 
@@ -301,7 +301,7 @@ quant_strategy=ACWL
 
 ## Configuration Parameter
 
-Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html). The configuration file adopts the style of [`INI`](https://en.wikipedia.org/wiki/INI_file), For quantization, configurable parameters include:
+Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html). The configuration file adopts the style of [`INI`](https://en.wikipedia.org/wiki/INI_file), For quantization, configurable parameters include:
 
 - `[common_quant_param]: Public quantization parameters`
 - `[weight_quant_param]: Fixed bit quantization parameters`

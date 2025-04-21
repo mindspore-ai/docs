@@ -1,12 +1,12 @@
 自定义算子
 ============
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_notebook.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.6.0/tutorials/zh_cn/custom_program/operation/mindspore_op_custom.ipynb
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_download_code.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.6.0/tutorials/zh_cn/custom_program/operation/mindspore_op_custom.py
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/custom_program/operation/op_custom.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_notebook.svg
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.6.0rc1/tutorials/zh_cn/custom_program/operation/mindspore_op_custom.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_download_code.svg
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.6.0rc1/tutorials/zh_cn/custom_program/operation/mindspore_op_custom.py
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/custom_program/operation/op_custom.ipynb
     :alt: 查看源文件
 
 .. toctree::
@@ -19,7 +19,7 @@
    operation/op_custom_adv
    operation/op_custom_pyboost
 
-当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API中的 `Custom <https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ 原语方便快捷地进行不同类型自定义算子的定义和使用。
+当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API中的 `Custom <https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ 原语方便快捷地进行不同类型自定义算子的定义和使用。
 
 传统的添加一个自定义算子的方式，需要完成算子原语注册、算子实现、算子信息注册三部分工作。
 
@@ -37,7 +37,7 @@
 自定义算子分类及适应场景
 ------------------------
 
-基于 `Custom <https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ 原语的自定义算子支持的算子开发方式包括：pyfunc、aot和julia。不同的算子开发方式适应的场景如下：
+基于 `Custom <https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ 原语的自定义算子支持的算子开发方式包括：pyfunc、aot和julia。不同的算子开发方式适应的场景如下：
 
 .. list-table::
    :widths: 25 25 25 25
@@ -51,11 +51,11 @@
      - Python
      - `CPU`
      - 快速算法验证的场景
-   * - `aot <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/operation/op_custom_aot.html>`_
+   * - `aot <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/custom_program/operation/op_custom_aot.html>`_
      - Ascend C/CUDA/C++
      - `Ascend` `GPU` `CPU`
      - 需要高性能算子的场景
-   * - `julia <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/operation/op_custom_julia.html>`_
+   * - `julia <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/custom_program/operation/op_custom_julia.html>`_
      - Julia
      - `CPU`
      - 科学计算场景
@@ -72,12 +72,12 @@
 
 为了帮助大家更好地使用自定义算子，我们以 `pyfunc类型自定义算子 <#自定义算子用例>`_ 中作为自定义算子的范例展示。此外，我们提供了其他自定义算子的教程包括：
 
-- aot类型自定义算子： `Ascend平台 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/operation/op_custom_ascendc.html>`_ 和 `GPU/CPU平台 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/operation/op_custom_aot.html>`_ ；
-- `julia类型自定义算子 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/operation/op_custom_julia.html>`_ ；
-- `自定义算子进阶用法 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/operation/op_custom_adv.html>`_ ：算子注册和反向算子。
+- aot类型自定义算子： `Ascend平台 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/custom_program/operation/op_custom_ascendc.html>`_ 和 `GPU/CPU平台 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/custom_program/operation/op_custom_aot.html>`_ ；
+- `julia类型自定义算子 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/custom_program/operation/op_custom_julia.html>`_ ；
+- `自定义算子进阶用法 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/custom_program/operation/op_custom_adv.html>`_ ：算子注册和反向算子。
 
 .. note::
-   更多示例可参考MindSpore源码中 `tests/st/graph_kernel/custom <https://gitee.com/mindspore/mindspore/tree/v2.6.0/tests/st/graph_kernel/custom>`_ 下的用例。
+   更多示例可参考MindSpore源码中 `tests/st/graph_kernel/custom <https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/tests/st/graph_kernel/custom>`_ 下的用例。
 
 自定义算子用例
 --------------
@@ -162,4 +162,4 @@
     [0.         0.841471   0.19866933 0.29552022 0.38941833]
     </pre></div>
 
-如此我们完成一个pyfunc类型自定义算子的定义。对于更多完整的pyfunc类型自定义算子的例子，参见MindSpore源码中的 `用例 <https://gitee.com/mindspore/mindspore/blob/v2.6.0/tests/st/graph_kernel/custom/test_custom_pyfunc.py>`_ 。
+如此我们完成一个pyfunc类型自定义算子的定义。对于更多完整的pyfunc类型自定义算子的例子，参见MindSpore源码中的 `用例 <https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/tests/st/graph_kernel/custom/test_custom_pyfunc.py>`_ 。

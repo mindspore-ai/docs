@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/beginner/quick_start.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/beginner/quick_start.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/introduction.html) || **Quick Start** || [Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/train.html) || [Save and load](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/mixed_precision.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/introduction.html) || **Quick Start** || [Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/train.html) || [Save and load](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/mixed_precision.html)
 
 # Quick Start
 
@@ -15,7 +15,7 @@ from mindspore.dataset import MnistDataset
 
 ## Processing a Dataset
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/data_engine.html) and achieves efficient data preprocessing through [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/dataset.html). In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/design/data_engine.html) and achieves efficient data preprocessing through [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/dataset.html). In this tutorial, we use the Mnist dataset and pre-process dataset by using the data transformations provided by `mindspore.dataset`, after automatically downloaded.
 
 > The sample code in this chapter relies on `download`, which can be installed by using the command `pip install download`. If this document is run as Notebook, you need to restart the kernel after installation to execute subsequent code.
 
@@ -88,7 +88,7 @@ train_dataset = datapipe(train_dataset, 64)
 test_dataset = datapipe(test_dataset, 64)
 ```
 
-[create_tuple_iterator](https://www.mindspore.cn/docs/en/r2.6.0/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/r2.6.0/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) could be used to iterate over the dataset, printing the shape and dtype for `image` and `label`.
+[create_tuple_iterator](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) could be used to iterate over the dataset, printing the shape and dtype for `image` and `label`.
 
 ```python
 for image, label in test_dataset.create_tuple_iterator():
@@ -114,11 +114,11 @@ Shape of image [N, C, H, W]: (64, 1, 28, 28) Float32
 Shape of label: (64,) Int32
 ```
 
-For more detailed information, see [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/dataset.html).
+For more detailed information, see [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/dataset.html).
 
 ## Building Network
 
-`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/tensor.html)).
+`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/tensor.html)).
 
 ```python
 # Define model
@@ -156,7 +156,7 @@ Network<
   >
 ```
 
-For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/model.html).
+For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/model.html).
 
 ## Training Model
 
@@ -169,8 +169,8 @@ In model training, a complete training process (step) requires the following thr
 MindSpore uses a functional automatic differentiation mechanism, implemented through the steps above:
 
 1. Define forward calculation function.
-2. Obtain the gradient calculation function by function transformation, calling [value_and_grad](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.value_and_grad.html) for details.
-3. Define training functions, set to training mode by calling [set_train](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_train) for setting of training mode, and perform forward computation, back propagation and parameter optimization.
+2. Obtain the gradient calculation function by function transformation, calling [value_and_grad](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.value_and_grad.html) for details.
+3. Define training functions, set to training mode by calling [set_train](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_train) for setting of training mode, and perform forward computation, back propagation and parameter optimization.
 
 ```python
 # Instantiate loss function and optimizer
@@ -280,7 +280,7 @@ Test:
 Done!
 ```
 
-For the detailed information, see [Train](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/train.html).
+For the detailed information, see [Train](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/train.html).
 
 ## Saving a Model
 
@@ -333,4 +333,4 @@ for data, label in test_dataset:
 Predicted: "[3 9 6 1 6 7 4 5 2 2]", Actual: "[3 9 6 1 6 7 4 5 2 2]"
 ```
 
-For more detailed information, see [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/save_load.html).
+For more detailed information, see [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/save_load.html).

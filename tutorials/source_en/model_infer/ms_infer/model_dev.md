@@ -1,12 +1,12 @@
 # Building a Large Language Model Inference Network from Scratch
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/model_infer/ms_infer/model_dev.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/model_infer/ms_infer/model_dev.md)
 
 ## Large Language Model Backbone Network
 
 Currently, the backbone networks of mainstream large language models are mainly based on the transformer structure. The most important part is the computation of the self-attention mechanism. The following figure uses the Llama2 large language model as an example to describe the backbone network structure.
 
-![LLAMA network structure](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_llama_network_arch.png)
+![LLAMA network structure](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_llama_network_arch.png)
 
 The core layer of Llama2 consists of the following parts:
 
@@ -26,7 +26,7 @@ In a typical transformer model, each layer consists of the normalization, attent
 
     Currently, the mainstream attention uses the Muli-Head Attention (MHA) structure. The following figure shows the MHA structure. You can construct the attention network based on this structure.
 
-    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
+    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
 
     The following is an example of the attention code:
 
@@ -183,7 +183,7 @@ In a typical transformer model, each layer consists of the normalization, attent
     print(transformer_output.shape)
     ```
 
-For details about the end-to-end large language model code project, see [model_dev.py](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/infer_code/model_dev.py) script. Set the size of **CommunicationHelper** to **1**, and run the following command for verification:
+For details about the end-to-end large language model code project, see [model_dev.py](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/infer_code/model_dev.py) script. Set the size of **CommunicationHelper** to **1**, and run the following command for verification:
 
 ```shell
 msrun --worker_num 1 --local_worker_num 1 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py

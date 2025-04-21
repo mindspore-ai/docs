@@ -1,6 +1,6 @@
 # Environment Setup Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/orange_pi/environment_setup.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/orange_pi/environment_setup.md)
 
 This section describes how to burn an image on OrangePi AIpro, customize the installation of CANN and MindSpore, and configure the runtime environment.
 
@@ -12,7 +12,7 @@ Image burning can be performed in any operating system. Here we will take Window
 
 Step 1 Insert the Micro SD card into the card reader and the card reader into the PC.
 
-![environment-setup-1-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-1.jpg)
+![environment-setup-1-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-1.jpg)
 
 ### 1.2 Downloading the Ubuntu image
 
@@ -22,11 +22,11 @@ Step 1 Click [here](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrol
 
 Step 2 Click the arrow icon in the picture to jump to the Baidu Wangpan download page.
 
-![environment-setup-1-2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-2.png)
+![environment-setup-1-2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-2.png)
 
 Step 3 Select the desktop version to download, it is recommended to download the 0318 version of the environment.
 
-![environment-setup-1-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-3.png)
+![environment-setup-1-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-3.png)
 
 Step 4 Alternative download method.
 
@@ -42,13 +42,13 @@ There are two card-making tools balenaEtcher, Rufus, and you can choose any one 
 
   Click [here](https://etcher.balena.io/) to jump to the official website, and click the green download button to jump to where the software is downloaded.
 
-  ![environment-setup-1-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-4.png)
+  ![environment-setup-1-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-4.png)
 
   Step 2 Select to download the Portable version.
 
   The Portable version does not require installation, so double-click it to open it and use it.
 
-  ![environment-setup-1-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-5.png)
+  ![environment-setup-1-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-5.png)
 
   Step 3 Alternative download method.
 
@@ -56,9 +56,9 @@ There are two card-making tools balenaEtcher, Rufus, and you can choose any one 
 
   Step 4  Open balenaEtcher.
 
-  ![environment-setup-1-6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-6.png)
+  ![environment-setup-1-6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-6.png)
 
-  ![environment-setup-1-7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-7.png)
+  ![environment-setup-1-7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-7.png)
 
 - Rufus:
 
@@ -80,19 +80,19 @@ Here we introduce balenaEtcher, Rufus to burn the image, you can burn according 
 
   3. Click Start Burning, as shown below:
 
-  ![environment-setup-1-8](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-8.png)
+  ![environment-setup-1-8](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-8.png)
 
   It takes about 20 minutes to burn and verify, so please be patient:
 
-  ![environment-setup-1-9](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-9.png)
+  ![environment-setup-1-9](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-9.png)
 
-  ![environment-setup-1-10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-10.png)
+  ![environment-setup-1-10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-10.png)
 
   Step 2 Burning is complete.
 
   After the completion of burning, balenaEtcher is shown in the following figure, if the green indicator icon shows that the image is burned successfully, at this time you can exit balenaEtcher, pull out the TF card and insert it into the TF card slot on the development board to use:
 
-  ![environment-setup-1-11](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-11.png)
+  ![environment-setup-1-11](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-11.png)
 
 - Rufus burns images:
 
@@ -100,13 +100,13 @@ Here we introduce balenaEtcher, Rufus to burn the image, you can burn according 
 
   Insert the sd card into the card reader, insert the card reader into the computer, select the image and sd card, click “Start”.
 
-  ![environment-setup-1-12](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-12.png)
+  ![environment-setup-1-12](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-12.png)
 
   Step 2 Burning is complete.
 
   Pull out the card reader directly after the wait is over.
 
-  ![environment-setup-1-13](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-13.png)
+  ![environment-setup-1-13](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-13.png)
 
 ## 2. Development Board Startup and Network Connection
 
@@ -162,7 +162,7 @@ If the current CANN version does not meet the development requirements, the CANN
 
 Step 1 Use the `CTRL+ALT+T` or click on the icon with `$_` at the bottom of the page to open the terminal and switch to the root user.
 
-![environment-setup-1-14](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-14.png)
+![environment-setup-1-14](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-14.png)
 
 Switch the root user, root user password: Mind@123.
 
@@ -217,7 +217,7 @@ Step 6 Execute the following command to upgrade the software.
 
 Type Y when this prompt pops up during installation, then press Enter to continue the installation. This process takes about 10-15 minutes, please be patient.
 
-![environment-setup-1-16](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-16.png)
+![environment-setup-1-16](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-16.png)
 
 After the upgrade is completed, if the following message is displayed, the software upgrade is successful:
 
@@ -353,4 +353,4 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ## Next Suggestion
 
-At this point, the OrangePi AIpro development board environment has been set up, and you can experience [online model inference based on MindSpore development on the development board](https://www.mindspore.cn/tutorials/en/r2.6.0/orange_pi/model_infer.html).
+At this point, the OrangePi AIpro development board environment has been set up, and you can experience [online model inference based on MindSpore development on the development board](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/orange_pi/model_infer.html).

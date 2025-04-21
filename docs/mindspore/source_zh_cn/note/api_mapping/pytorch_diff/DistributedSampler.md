@@ -1,6 +1,6 @@
 # 比较与torch.utils.data.distributed.DistributedSampler的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/DistributedSampler.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/DistributedSampler.md)
 
 ## torch.utils.data.distributed.DistributedSampler
 
@@ -16,7 +16,7 @@ class torch.utils.data.distributed.DistributedSampler(dataset, num_replicas=None
 class mindspore.dataset.DistributedSampler(num_shards, shard_id, shuffle=True, num_samples=None, offset=-1)
 ```
 
-更多内容详见[mindspore.dataset.DistributedSampler](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.DistributedSampler.html)。
+更多内容详见[mindspore.dataset.DistributedSampler](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.DistributedSampler.html)。
 
 ## 差异对比
 

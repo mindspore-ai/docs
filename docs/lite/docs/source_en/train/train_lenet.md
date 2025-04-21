@@ -1,12 +1,12 @@
 # C++ Interface Sample
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/train/train_lenet.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/train/train_lenet.md)
 
 > MindSpore has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for training, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
 
 ## Overview
 
-This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device .
+This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device .
 
 The completed training procedure is as follows:
 
@@ -57,7 +57,7 @@ The directory structure is as follows:
 
 ### Installing MindSpore
 
-MindSpore can be installed by source code or using `pip`. Refer to [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/r2.6.0/install/mindspore_cpu_install_pip_en.md#) for more details.
+MindSpore can be installed by source code or using `pip`. Refer to [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/install/mindspore_cpu_install_pip_en.md#) for more details.
 
 ### Downloading and Installing MindSpore Lite
 
@@ -68,9 +68,9 @@ git clone https://gitee.com/mindspore/mindspore.git -b {version}
 cd ./mindspore
 ```
 
-The `mindspore/lite/examples/train_lenet_cpp` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html).
+The `mindspore/lite/examples/train_lenet_cpp` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html).
 
-Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code (if there is no `output` directory, you should create it).
+Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code (if there is no `output` directory, you should create it).
 
 Suppose these packags are downloaded in `/Downloads` directory, `Linux` commands for operations above is as follows:
 
@@ -80,7 +80,7 @@ cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{v
 cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-lite-{version}-android-aarch64.tar.gz
 ```
 
-You can also [compile from source](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
+You can also [compile from source](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
 
 ### Connecting Android Device
 
@@ -214,7 +214,7 @@ train_lenet_cpp/
 
 Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/models/tree/master/research/cv/lenet).
 
-> This summary is exported using the MindSpore cloud side feature. For more information, please refer to [MindSpore Tutorial](https://www.mindspore.cn/tutorials/en/r2.6.0/index.html).
+> This summary is exported using the MindSpore cloud side feature. For more information, please refer to [MindSpore Tutorial](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/index.html).
 
 ```python
 import numpy as np
@@ -278,11 +278,11 @@ Convert `lenet_tod.mindir` to `ms` model file using MindSpore Lite `converter_li
 
 After successful conversion, the `lenet_tod.ms` model file is generated in the current directory.
 
-> See [training model conversion](https://www.mindspore.cn/lite/docs/en/r2.6.0/train/converter_train.html) for more usage.
+> See [training model conversion](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/train/converter_train.html) for more usage.
 
 ### Model Training
 
-The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc).
+The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc).
 
 The main code continues as follows:
 
@@ -352,7 +352,7 @@ int NetRunner::Main() {
 
 2. Dataset Processing
 
-    `InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_dataset.html) for more details.
+    `InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_dataset.html) for more details.
 
     ```cpp
     int NetRunner::InitDB() {

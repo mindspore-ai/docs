@@ -1,6 +1,6 @@
 # Downloading MindSpore Lite
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/use/downloads.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/use/downloads.md)
 
 Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
 
@@ -797,5 +797,5 @@ MindSpore Lite Python API Development Library
 
 > - Ubuntu-x64 Package is compiled in an environment where the GCC version is greater than or equal to 7.3.0, so the deployment environment requires the GLIBC version to be greater than or equal to 2.27.
 > - Android-aarch32 does not support GPU and NPU.
-> - MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/cropper_tool.html#static-library-cropper-tool) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
+> - MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/cropper_tool.html#static-library-cropper-tool) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
 > - After the download of MindSpore Lite is completed, SHA-256 integrity verification is required.

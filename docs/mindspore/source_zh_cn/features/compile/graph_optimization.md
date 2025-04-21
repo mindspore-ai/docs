@@ -1,8 +1,8 @@
 # 图优化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/features/compile/graph_optimization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/features/compile/graph_optimization.md)
 
-与传统编译器类似，MindSpore 在进行完构图之后，也会进行编译优化。编译优化的主要目的是通过静态分析技术对 MindSpore 的中间表示 [MindIR](https://www.mindspore.cn/docs/zh-CN/r2.6.0/design/all_scenarios.html#%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BAmindir) 进行分析和转换，以达成减小目标代码大小、提升代码执行效率、降低运行时资源开销或者提升其它性能指标的目的。编译优化是图编译系统中的重要一环，对提升整个神经网络模型的性能和资源利用率有着极其重要的意义，相较于未经过编译优化的原始代码，编译优化可能带来数倍甚至数十倍的性能提升。
+与传统编译器类似，MindSpore 在进行完构图之后，也会进行编译优化。编译优化的主要目的是通过静态分析技术对 MindSpore 的中间表示 [MindIR](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/design/all_scenarios.html#%E4%B8%AD%E9%97%B4%E8%A1%A8%E7%A4%BAmindir) 进行分析和转换，以达成减小目标代码大小、提升代码执行效率、降低运行时资源开销或者提升其它性能指标的目的。编译优化是图编译系统中的重要一环，对提升整个神经网络模型的性能和资源利用率有着极其重要的意义，相较于未经过编译优化的原始代码，编译优化可能带来数倍甚至数十倍的性能提升。
 
 本节主要介绍独立于特定硬件的前端编译优化技术，特定于硬件的后端编译优化技术不在本节的讨论范围之内。
 

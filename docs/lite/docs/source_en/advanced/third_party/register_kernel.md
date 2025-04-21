@@ -1,6 +1,6 @@
 # Building Custom Operators Online
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/advanced/third_party/register_kernel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/advanced/third_party/register_kernel.md)
 
 ## Implementing Custom Operators
 
@@ -18,11 +18,11 @@ View the operator prototype definition in mindspore/lite/schema/ops.fbs. Check w
 
 ### Common Operators
 
-For details about code related to implementation, registration, and InferShape of an operator, see [the code repository](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/ut/src/registry/registry_test.cc).
+For details about code related to implementation, registration, and InferShape of an operator, see [the code repository](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/ut/src/registry/registry_test.cc).
 
 #### Implementing Common Operators
 
-Inherit [mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_kernel.html) and overload necessary APIs. The following describes how to customize an Add operator:
+Inherit [mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_kernel.html) and overload necessary APIs. The following describes how to customize an Add operator:
 
 1. An operator inherits a kernel.
 2. PreProcess() pre-allocates memory.
@@ -74,7 +74,7 @@ int TestCustomAdd::Execute() {
 
 #### Registering Common Operators
 
-Currently, the generated macro [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_registry_RegisterKernel.html) is provided for operator registration. The implementation procedure is as follows:
+Currently, the generated macro [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_registry_RegisterKernel.html) is provided for operator registration. The implementation procedure is as follows:
 
 1. The TestCustomAddCreator function is used to create a kernel.
 2. Use the macro REGISTER_KERNEL to register the kernel. Assume that the vendor is BuiltInTest.
@@ -96,7 +96,7 @@ REGISTER_KERNEL(CPU, BuiltInTest, kFloat32, PrimitiveType_AddFusion, TestCustomA
 
 Reload the Infer function after inheriting KernelInterface to implement the InferShape capability. The implementation procedure is as follows:
 
-1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_kernel_KernelInterface.html).
+1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_kernel_KernelInterface.html).
 2. Overload the Infer function to derive the shape, format, and data_type of the output tensor.
 
 The following uses the custom Add operator as an example:
@@ -120,7 +120,7 @@ class TestCustomAddInfer : public KernelInterface {
 
 #### Registering the Common Operator InferShape
 
-Currently, the generated macro [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_registry_RegisterKernelInterface.html) is provided for registering the operator InferShape. The procedure is as follows:
+Currently, the generated macro [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_registry_RegisterKernelInterface.html) is provided for registering the operator InferShape. The procedure is as follows:
 
 1. Use the CustomAddInferCreator function to create a KernelInterface instance.
 2. Call the REGISTER_KERNEL_INTERFACE macro to register the common operator InferShape. Assume that the vendor is BuiltInTest.
@@ -133,7 +133,7 @@ REGISTER_KERNEL_INTERFACE(BuiltInTest, PrimitiveType_AddFusion, CustomAddInferCr
 
 ### Custom Operators
 
-For details about code related to parsing, creating, and operating custom operators, see [the code repository](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc).
+For details about code related to parsing, creating, and operating custom operators, see [the code repository](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc).
 
 #### Defining Custom Operators
 
@@ -220,11 +220,11 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, schedule)       // Set the external Pass sche
 }  // namespace mindspore::opt
 ```
 
-For details about code related to implementation, registration, and InferShape of a custom operator, see [the code repository](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc).
+For details about code related to implementation, registration, and InferShape of a custom operator, see [the code repository](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc).
 
 #### Implementing Custom Operators
 
-The implementation procedure of a custom operator is the same as that of a common operator, because they are specific subclasses of [Kernel](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_kernel.html).
+The implementation procedure of a custom operator is the same as that of a common operator, because they are specific subclasses of [Kernel](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_kernel.html).
 If the custom operator does not run on the CPU platform, the result needs to be copied back to the output tensor after the running is complete. The following describes how to create a custom operator with the Add capability:
 
 1. An operator inherits a kernel.
@@ -295,7 +295,7 @@ In the example, the byte stream in the attribute is copied to the buffer.
 
 #### Registering Custom Operators
 
-Currently, the generated macro [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/define_register_kernel.h_REGISTER_CUSTOM_KERNEL-1.html) is provided for operator registration. The procedure is as follows:
+Currently, the generated macro [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/define_register_kernel.h_REGISTER_CUSTOM_KERNEL-1.html) is provided for operator registration. The procedure is as follows:
 
 1. The TestCustomAddCreator function is used to create a kernel.
 2. Use the macro REGISTER_CUSTOM_KERNEL to register an operator. Assume that the vendor is BuiltInTest and the operator type is Add.
@@ -316,7 +316,7 @@ REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kFloat32, Add, TestCustomAddCreator)
 
 The overall implementation is the same as that of the common operator InferShape. The procedure is as follows:
 
-1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_kernel_KernelInterface.html).
+1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_kernel_KernelInterface.html).
 2. Overload the Infer function to derive the shape, format, and data_type of the output tensor.
 
 ```cpp
@@ -336,10 +336,10 @@ class TestCustomOpInfer : public KernelInterface {
 
 #### Registering the Custom Operator InferShape
 
-Currently, the generated macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL_INTERFACE-1.html) is provided for registering the custom operator InferShape. The procedure is as follows:
+Currently, the generated macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL_INTERFACE-1.html) is provided for registering the custom operator InferShape. The procedure is as follows:
 
 1. Use the CustomAddInferCreator function to create a custom KernelInterface.
-2. The macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL_INTERFACE-1.html) is provided for registering the InferShape capability. The operator type Add must be the same as that in REGISTER_CUSTOM_KERNEL_INTERFACE.
+2. The macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL_INTERFACE-1.html) is provided for registering the InferShape capability. The operator type Add must be the same as that in REGISTER_CUSTOM_KERNEL_INTERFACE.
 
 ```cpp
 std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomOpInfer>(); }
@@ -349,9 +349,9 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(BuiltInTest, Add, CustomAddInferCreator)
 
 ## Custom GPU Operators
 
-A set of GPU-related functional APIs are provided to facilitate the development of the GPU-based custom operator and enable the GPU-based custom operator to share the same resources with the internal GPU-based operators to improve the scheduling efficiency. For details about the APIs, see [mindspore::registry::opencl](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_registry_opencl.html).
+A set of GPU-related functional APIs are provided to facilitate the development of the GPU-based custom operator and enable the GPU-based custom operator to share the same resources with the internal GPU-based operators to improve the scheduling efficiency. For details about the APIs, see [mindspore::registry::opencl](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_registry_opencl.html).
 This document describes how to develop a custom GPU operator by parsing sample code. Before reading this document, you need to understand [Implement Custom Operators](#implementing-custom-operators).
-The [code repository](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc) contains implementation and registration of custom GPU operators.
+The [code repository](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc) contains implementation and registration of custom GPU operators.
 
 ### Registering Operators
 
@@ -394,7 +394,7 @@ std::shared_ptr<kernel::Kernel> CustomAddCreator(const std::vector<MSTensor> &in
 #### Registering Operators
 
 When registering GPU operators, you must declare the device type as GPU and transfer the operator instance creation function `CustomAddCreator` implemented in the previous step.
-In this example, the Float32 implementation of the Custom_Add operator is registered. The registration code is as follows. For details about other parameters in the registration macro, see the [API](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_registry.html).
+In this example, the Float32 implementation of the Custom_Add operator is registered. The registration code is as follows. For details about other parameters in the registration macro, see the [API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_registry.html).
 
 ```cpp
 const auto kFloat32 = DataType::kNumberTypeFloat32;
@@ -404,7 +404,7 @@ REGISTER_CUSTOM_KERNEL(GPU, BuiltInTest, kFloat32, Custom_Add, CustomAddCreator)
 
 ### Implementing Operators
 
-In this example, the operator is implemented as the `CustomAddKernel` class. This class inherits [mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_kernel.html) and reloads necessary APIs to implement the custom operator computation.
+In this example, the operator is implemented as the `CustomAddKernel` class. This class inherits [mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_kernel.html) and reloads necessary APIs to implement the custom operator computation.
 
 #### Constructor and Destructor Functions
 
@@ -428,7 +428,7 @@ class CustomAddKernel : public kernel::Kernel {
 
 - opencl_runtime_
 
-  An instance of the OpenCLRuntimeWrapper class. In an operator, this object can be used to call the OpenCL-related API [mindspore::registry::opencl](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_registry_opencl.html) provided by MindSpore Lite.
+  An instance of the OpenCLRuntimeWrapper class. In an operator, this object can be used to call the OpenCL-related API [mindspore::registry::opencl](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_registry_opencl.html) provided by MindSpore Lite.
 
 - fp16_enable_
 
@@ -440,7 +440,7 @@ class CustomAddKernel : public kernel::Kernel {
 
 - Other variables
 
-  Other variables are required for OpenCL operations. For details, see [mindspore::registry::opencl](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_registry_opencl.html).
+  Other variables are required for OpenCL operations. For details, see [mindspore::registry::opencl](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_registry_opencl.html).
 
 ```c++
 class CustomAddKernel : public kernel::Kernel {

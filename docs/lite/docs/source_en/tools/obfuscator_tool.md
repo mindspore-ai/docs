@@ -1,6 +1,6 @@
 # Model Obfuscation Tool
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/tools/obfuscator_tool.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/tools/obfuscator_tool.md)
 
 ## Overview
 
@@ -12,7 +12,7 @@ MindSpore Lite provides a lightweight offline model obfuscator to protect the co
 
 To use the MindSpore Lite model obfuscator, you need to prepare the environment as follows:
 
-- Build the x86_64 version by referring to [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html#compilation-example).
+- Build the x86_64 version by referring to [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#compilation-example).
 
 ### Directory Structure
 

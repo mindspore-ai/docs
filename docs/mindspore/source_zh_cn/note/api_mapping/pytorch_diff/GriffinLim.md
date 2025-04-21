@@ -1,6 +1,6 @@
 # 比较与torchaudio.transforms.GriffinLim的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/GriffinLim.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/GriffinLim.md)
 
 ## torchaudio.transforms.GriffinLim
 
@@ -21,7 +21,7 @@ class mindspore.dataset.audio.GriffinLim(n_fft=400, n_iter=32, win_length=None, 
                                          momentum=0.99, length=None, rand_init=True)
 ```
 
-更多内容详见[mindspore.dataset.audio.GriffinLim](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset_audio/mindspore.dataset.audio.GriffinLim.html#mindspore.dataset.audio.GriffinLim)。
+更多内容详见[mindspore.dataset.audio.GriffinLim](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset_audio/mindspore.dataset.audio.GriffinLim.html#mindspore.dataset.audio.GriffinLim)。
 
 ## 差异对比
 

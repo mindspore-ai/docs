@@ -1,6 +1,6 @@
 # mindspore::kernel
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/api/source_zh_cn/api_cpp/mindspore_kernel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/api/source_zh_cn/api_cpp/mindspore_kernel.md)
 
 ## 接口汇总
 
@@ -11,7 +11,7 @@
 
 ## Kernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/include/api/kernel.h)>
+\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/include/api/kernel.h)>
 
 Kernel是算子实现的基类，定义了几个必须实现的接口。
 
@@ -30,13 +30,13 @@ Kernel的默认与带参构造函数，构造Kernel实例。
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
     - `primitive`: 算子经由flatbuffers反序化为Primitive后的结果。
 
-    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#context)。
+    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#context)。
 
 ## 析构函数
 
@@ -82,7 +82,7 @@ virtual int InferShape()
 ```
 
 在用户调用`Model::Build`接口时，或是模型推理中需要推理算子形状时，会调用到该接口。
-在自定义算子场景中，用户可以覆写该接口，实现自定义算子的形状推理逻辑。详见[自定义算子章节](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/advanced/third_party/register_kernel.html)。
+在自定义算子场景中，用户可以覆写该接口，实现自定义算子的形状推理逻辑。详见[自定义算子章节](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/third_party/register_kernel.html)。
 在`InferShape`函数中，一般需要实现算子的形状、数据类型和数据排布的推理逻辑。
 
 ### type
@@ -111,7 +111,7 @@ virtual void set_inputs(const std::vector<mindspore::MSTensor> &in_tensors)
 
 - 参数
 
-    - `in_tensors`: 算子的所有输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)列表。
+    - `in_tensors`: 算子的所有输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)列表。
 
 ### set_input
 
@@ -123,7 +123,7 @@ virtual set_input(mindspore::MSTensor in_tensor, int index)
 
 - 参数
 
-    - `in_tensor`: 算子的输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `in_tensor`: 算子的输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
     - `index`: 算子输入在所有输入中的下标，从0开始计数。
 
@@ -137,7 +137,7 @@ virtual void set_outputs(const std::vector<mindspore::MSTensor> &out_tensors)
 
 - 参数
 
-    - `out_tensor`: 算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)列表。
+    - `out_tensor`: 算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)列表。
 
 ### set_output
 
@@ -149,7 +149,7 @@ virtual void set_output(mindspore::MSTensor out_tensor, int index)
 
 - 参数
 
-    - `out_tensor`: 算子的输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `out_tensor`: 算子的输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
     - `index`: 算子输出在所有输出中的下标，从0开始计数。
 
@@ -159,7 +159,7 @@ virtual void set_output(mindspore::MSTensor out_tensor, int index)
 virtual const std::vector<mindspore::MSTensor *> &inputs()
 ```
 
-返回算子的所有输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)列表。
+返回算子的所有输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)列表。
 
 ### outputs
 
@@ -167,7 +167,7 @@ virtual const std::vector<mindspore::MSTensor *> &inputs()
 virtual const std::vector<mindspore::MSTensor *> &outputs()
 ```
 
-返回算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)列表。
+返回算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)列表。
 
 ### name
 
@@ -195,7 +195,7 @@ void set_name(const std::string &name)
 const lite::Context *context() const
 ```
 
-返回算子对应的[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#context)。
+返回算子对应的[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#context)。
 
 ### primitive
 
@@ -243,7 +243,7 @@ std::map<std::string, std::string> GetConfig(const std::string &section) const
 
 ## KernelInterface
 
-\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/include/kernel_interface.h)>
+\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/include/kernel_interface.h)>
 
 算子扩展能力基类。
 
@@ -275,9 +275,9 @@ virtual int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspor
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
     - `primitive`: 算子经过flatbuffers反序化后的结果，存储算子属性。
 
@@ -300,8 +300,8 @@ virtual int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspor
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor)。
 
     - `primitive`: 算子经过flatbuffers反序化后的结果，存储算子属性。

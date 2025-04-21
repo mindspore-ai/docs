@@ -1,6 +1,6 @@
 # 比较与torchvision.datasets.CelebA的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CelebA.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CelebA.md)
 
 ## torchvision.datasets.CelebA
 
@@ -34,7 +34,7 @@ class mindspore.dataset.CelebADataset(
     decrypt=None)
 ```
 
-更多内容详见[mindspore.dataset.CelebADataset](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset)。
+更多内容详见[mindspore.dataset.CelebADataset](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset)。
 
 ## 差异对比
 

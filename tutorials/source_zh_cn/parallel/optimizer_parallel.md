@@ -1,6 +1,6 @@
 # 优化器并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/parallel/optimizer_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/parallel/optimizer_parallel.md)
 
 ## 简介
 
@@ -10,7 +10,7 @@
 
 ## 样例代码说明
 
-> 下载完整的样例代码：[distributed_optimizer_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_optimizer_parallel)。
+> 下载完整的样例代码：[distributed_optimizer_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/distributed_optimizer_parallel)。
 
 目录结构如下：
 
@@ -97,7 +97,7 @@ net.layer2.set_comm_fusion(1)
 net.layer3.set_comm_fusion(2)
 ```
 
-> 这里为了减少通信成本，为不同层配置了通信融合，详细可以参考[通信算子融合](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/comm_fusion.html)。
+> 这里为了减少通信成本，为不同层配置了通信融合，详细可以参考[通信算子融合](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/comm_fusion.html)。
 
 ## 训练网络定义
 
@@ -186,5 +186,5 @@ epoch: 0, step: 100, loss is 0.6854114
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/startup_method.html)。
 

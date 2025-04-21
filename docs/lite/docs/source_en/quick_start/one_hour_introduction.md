@@ -1,6 +1,6 @@
 # Quick Start to Device-side Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/quick_start/one_hour_introduction.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/quick_start/one_hour_introduction.md)
 
 ## Overview
 
@@ -36,7 +36,7 @@ Convert a model to a MindSpore Lite model file. This operation includes the foll
 
 #### Downloading the Release Package
 
-You can download MindSpore Lite from the [official website](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html).
+You can download MindSpore Lite from the [official website](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html).
 In this example, we use MindSpore Lite 1.6.0 (download [here](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.6.0-linux-x64.tar.gz)) and a CPU release package with Linux OS and the x86_64 underlying architecture.
 The structure of each release package varies. In this example, the structure of the Linux release package is as follows (files in the release package will be introduced later):
 
@@ -152,11 +152,11 @@ The model conversion procedure is as follows:
 
 5. Perform advanced functions.
 
-    For details about the converter, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html).
+    For details about the converter, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html).
 
-    For details about how to use the converter to implement post training quantization, see [Post Training Quantization](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/quantization.html).
+    For details about how to use the converter to implement post training quantization, see [Post Training Quantization](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/quantization.html).
 
-    If you want to train a converted model, you need to convert a training model. For details, see [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/r2.6.0/train/converter_train.html).
+    If you want to train a converted model, you need to convert a training model. For details, see [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/train/converter_train.html).
 
 Table 1: converter_lite parameters
 
@@ -420,7 +420,7 @@ In this example, we use MindSpore Lite 1.6.0 (download [here](https://ms-release
 
 6. Perform advanced functions.
 
-    For details about `benchmark`, see [benchmark](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark_tool.html).
+    For details about `benchmark`, see [benchmark](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/benchmark_tool.html).
 
 Table 2 Definition of benchmark parameters
 
@@ -446,7 +446,7 @@ In the previous section, the official inference test tool is used to perform the
 
 2. Obtain the release package.
 
-    Click [here](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) to obtain a MindSpore Lite release package.
+    Click [here](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) to obtain a MindSpore Lite release package.
     The release package for integration and development in this example is the same as that in the previous sections. You can click [here](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.6.0-linux-x64.tar.gz) to download the package.
     The following content in the release package is required:
 
@@ -661,7 +661,7 @@ In the previous section, the official inference test tool is used to perform the
     (2) Initialize the context configuration.
 
     The context stores configurations required for model inference, including the operator preference, number of threads, automatic concurrency, and other configurations related to the inference processor.
-    For details about the context, see "Context" in [API](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html).
+    For details about the context, see "Context" in [API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html).
     When MindSpore Lite loads a model, an object of the `Context` class must be provided. In this example, the `context` object of the `Context` class is applied for.
 
     ```cpp
@@ -689,7 +689,7 @@ In the previous section, the official inference test tool is used to perform the
     (3) Load the model.
 
     Create a `Model` class object `model`. The `Model` class defines the model in MindSpore for computational graph management.
-    For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html).
+    For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html).
 
     ```cpp
     auto model = new (std::nothrow) mindspore::Model();
@@ -708,7 +708,7 @@ In the previous section, the official inference test tool is used to perform the
 
     Before performing model inference, you need to set the input data for inference.
     In this example, the `Model.GetInputs` API is used to obtain all input tensors of a model. The format of a single tensor is `MSTensor`.
-    For details about `MSTensor`, see `MSTensor` in [API](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html).
+    For details about `MSTensor`, see `MSTensor` in [API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html).
 
     ```cpp
     auto inputs = model->GetInputs();
@@ -792,11 +792,11 @@ In the previous section, the official inference test tool is used to perform the
 
 8. See more detailed integration description.
 
-    For details about how to use the C++ API for integration and advanced usage, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_cpp.html).
+    For details about how to use the C++ API for integration and advanced usage, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html).
 
-    For details about how to use the Java API for integration and development, see [Using Java Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_java.html).
+    For details about how to use the Java API for integration and development, see [Using Java Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_java.html).
 
-    For details about Android integration and development, see [Android Application Development Based on JNI Interface](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/quick_start.html), [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/r2.6.0/reference/model_lite.html).
+    For details about Android integration and development, see [Android Application Development Based on JNI Interface](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/quick_start.html), [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/reference/model_lite.html).
 
 ## For Windows
 
@@ -818,7 +818,7 @@ Convert a model to a MindSpore Lite model file. This operation includes the foll
 
 #### Downloading the Release Package
 
-You can download MindSpore Lite from the [official website](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html).
+You can download MindSpore Lite from the [official website](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html).
 In this example, we use MindSpore Lite 1.6.0 (download [here](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/windows/mindspore-lite-1.6.0-win-x64.zip)) and a CPU release package with Windows OS and the x86_64 underlying architecture.
 The structure of each release package varies. In this example, the structure of the Windows release package is as follows:
 
@@ -926,11 +926,11 @@ The model conversion procedure is as follows:
 
 5. Perform advanced functions.
 
-    For details about the converter, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html).
+    For details about the converter, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html).
 
-    For details about how to use the converter to implement post training quantization, see [Post Training Quantization](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/quantization.html).
+    For details about how to use the converter to implement post training quantization, see [Post Training Quantization](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/advanced/quantization.html).
 
-    If you want to train a converted model, you need to convert a training model. For details, see [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/r2.6.0/train/converter_train.html).
+    If you want to train a converted model, you need to convert a training model. For details, see [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/train/converter_train.html).
 
 Table 3: converter_lite.exe parameters
 
@@ -1121,7 +1121,7 @@ In this example, we use MindSpore Lite 1.6.0 (download [here](https://ms-release
 
 6. Perform advanced functions.
 
-    For details about `benchmark`, see [benchmark](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark_tool.html).
+    For details about `benchmark`, see [benchmark](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/benchmark_tool.html).
 
 Table 4 Definition of benchmark parameters
 
@@ -1149,7 +1149,7 @@ In the previous section, the official inference test tool is used to perform the
 
 2. Obtain the release package.
 
-    Click [here](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) to obtain a MindSpore Lite release package.
+    Click [here](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) to obtain a MindSpore Lite release package.
     The release package for integration and development in this example is the same as that in the previous sections. You can click [here](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/windows/mindspore-lite-1.6.0-win-x64.zip) to download the package.
     The following content in the release package is required:
 
@@ -1370,7 +1370,7 @@ In the previous section, the official inference test tool is used to perform the
     (2) Initialize the context configuration.
 
     The context stores configurations required for model inference, including the operator preference, number of threads, automatic concurrency, and other configurations related to the inference processor.
-    For details about the context, see "Context" in [API](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html).
+    For details about the context, see "Context" in [API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html).
     When MindSpore Lite loads a model, an object of the `Context` class must be provided. In this example, the `context` object of the `Context` class is applied for.
 
     ```cpp
@@ -1398,7 +1398,7 @@ In the previous section, the official inference test tool is used to perform the
     (3) Load the model.
 
     Create a `Model` class object `model`. The `Model` class defines the model in MindSpore for computational graph management.
-    For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html).
+    For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html).
 
     ```cpp
     auto model = new (std::nothrow) mindspore::Model();
@@ -1417,7 +1417,7 @@ In the previous section, the official inference test tool is used to perform the
 
     Before performing model inference, you need to set the input data for inference.
     In this example, the `Model.GetInputs` API is used to obtain all input tensors of a model. The format of a single tensor is `MSTensor`.
-    For details about `MSTensor`, see `MSTensor` in [API](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html).
+    For details about `MSTensor`, see `MSTensor` in [API](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html).
 
     ```cpp
     auto inputs = model->GetInputs();
@@ -1507,8 +1507,8 @@ In the previous section, the official inference test tool is used to perform the
 
 8. See more detailed integration description.
 
-    For details about how to use the C++ API for integration and advanced usage, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_cpp.html).
+    For details about how to use the C++ API for integration and advanced usage, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html).
 
-    For details about how to use the Java API for integration and development, see [Using Java Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_java.html).
+    For details about how to use the Java API for integration and development, see [Using Java Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_java.html).
 
-    For details about Android integration and development, see [Android Application Development Based on JNI Interface](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/quick_start.html), [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/r2.6.0/reference/model_lite.html).
+    For details about Android integration and development, see [Android Application Development Based on JNI Interface](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/quick_start.html), [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/reference/model_lite.html).

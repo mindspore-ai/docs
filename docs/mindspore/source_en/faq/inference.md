@@ -1,6 +1,6 @@
 # Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/faq/inference.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/faq/inference.md)
 
 ## Q: In the previous version, Atlas 200/300/500 inference product inference is performed based on the MindSpore installation package. However, the MindSpore release package of the new version does not support Atlas 200/300/500 inference product inference. How do I use Atlas 200/300/500 inference product for inference? (Changes in the MindSpore Atlas 200/300/500 Inference Product Inference Release Package)
 

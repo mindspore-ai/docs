@@ -1,6 +1,6 @@
 # 比较与torchvision.datasets.ImageFolder的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ImageFolder.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ImageFolder.md)
 
 ## torchvision.datasets.ImageFolder
 
@@ -33,7 +33,7 @@ class mindspore.dataset.ImageFolderDataset(
     decrypt=None)
 ```
 
-更多内容详见[mindspore.dataset.ImageFolderDataset](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.ImageFolderDataset.html#mindspore.dataset.ImageFolderDataset)。
+更多内容详见[mindspore.dataset.ImageFolderDataset](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.ImageFolderDataset.html#mindspore.dataset.ImageFolderDataset)。
 
 ## 差异对比
 

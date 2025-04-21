@@ -1,6 +1,6 @@
 # Lite Operator List
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/reference/operator_list_lite.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/reference/operator_list_lite.md)
 
 MindSpore Lite supports operator lists for different hardware backends:
 
@@ -361,7 +361,7 @@ MindSpore Lite conversion tool supports operator lists for third-party framework
 
 [3] Sum and Max: Only support 2 inputs.
 
-[4] Operators supported by [converter](https://www.mindspore.cn/lite/docs/en/r2.6.0/converter/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.
+[4] Operators supported by [converter](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/converter/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.
 
 [5] Currently, we support using the environment variable export KEEP_ORIGIN_DTYPE=1 to keep the data type int64, and this option can be considered when there is an overflow using int32 data type, but it is only an experimental option and will be removed later.
 

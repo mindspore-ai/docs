@@ -1,6 +1,6 @@
 # Device-side Training (C++)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/train/runtime_train_cpp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/train/runtime_train_cpp.md)
 
 ## Overview
 
@@ -16,19 +16,19 @@ The following figure shows the detailed training process:
 
 ![img](../images/side_train_sequence_unify_api.png)
 
-> For the detailed C++ API description, refer to [API document](https://www.mindspore.cn/lite/api/en/r2.6.0/index.html).
+> For the detailed C++ API description, refer to [API document](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/index.html).
 
 ## Model Creating Loading and Building
 
-[Model](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html#class-documentation) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
+[Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html#class-documentation) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the MindSpore Model Converter Tool. These files have a `.ms` extension. Before model training or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Serialization](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the MindSpore Model Converter Tool. These files have a `.ms` extension. Before model training or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Serialization](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
 
 ### Creating Contexts
 
-[Context](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
+[Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
 Currently, only single threaded CPU device is supported by `TrainSession`.
 
 Once the `Model` is created with the `Context` object, it is no longer needed and can be deleted.
@@ -70,17 +70,17 @@ int CreateSession() {
 }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
 
 ## Data Processing
 
 ### Data Reading Pipeline
 
-The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer to [Dataset](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_dataset.html) for more detials.
+The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer to [Dataset](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_dataset.html) for more detials.
 
 ### Data Preprocessing Pipeline
 
-The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer to [Vision](https://www.mindspore.cn/lite/api/en/r2.6.0/api_cpp/mindspore_dataset_vision.html) for more detials.
+The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer to [Vision](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore_dataset_vision.html) for more detials.
 
 ### Example
 
@@ -203,7 +203,7 @@ if (ret != RET_OK) {
 
 ### Resizing the Input Dimension
 
-When MindSpore Lite is used for inference, if the input shape needs to be resized, you can call the Resize API of [Model](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html#class-model) to resize the shape of the input tensor after a model is created and built.
+When MindSpore Lite is used for inference, if the input shape needs to be resized, you can call the Resize API of [Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html#class-model) to resize the shape of the input tensor after a model is created and built.
 
 > Some networks do not support variable dimensions. As a result, an error message is displayed and the model exits unexpectedly. For example, the model contains the MatMul operator, one input tensor of the MatMul operator is the weight, and the other input tensor is the input. If a variable dimension API is called, the input tensor does not match the shape of the weight tensor. As a result, the training fails.
 
@@ -249,7 +249,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
 3. Copying Data
 
-    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor) API documentation.
+    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor) API documentation.
 
     ```cpp
     /// \brief Obtains the length of the data of the MSTensor, in bytes.
@@ -487,4 +487,4 @@ The function `Serialization` calls the function `ExportModel` actually. The `Exp
 
 You can load the saved model to perform training or inference.
 
-> Please use [benchmark_train](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark_train_tool.html) to measure the performance and accuarcy of the trained models.
+> Please use [benchmark_train](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/benchmark_train_tool.html) to measure the performance and accuarcy of the trained models.

@@ -1,6 +1,6 @@
 # Operator-level Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/features/parallel/operator_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/features/parallel/operator_parallel.md)
 
 ## Overview
 
@@ -8,9 +8,9 @@ With the development of deep learning, network models are becoming larger and la
 
 Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is silced. The training of large models is enabled by reducing the memory consumption of a single device.
 
-MindSpore provides two operator-level parallelism capabilities: [Operator-level Parallelism](#basic-principle) and [Higher-order Operator-level Parallelism](#higher-order-operator-level-parallelism). Operator-level Parallelism uses simple tensor dimension splitting strategies to describe tensor distribution, meeting the requirements of most common scenarios. Higher-order Operator-level Parallelism enables complex partitioning scenarios by opening device arrangement descriptions, supporting: Non-contiguous device allocation, Multi-dimensional hybrid partitioning and so on. Both ops and mint operators are supported for the operator-level parallel capability of the two granularities. This chapter only introduces the operator-level parallelism and high-order operator-level parallelism based on ops operators. For the configuration method of operator-level parallelism based on mint operators, please refer to the mint Operator Parallel Practice and Higher-Order mint Operator Parallel Practice in the [Operator-level Parallelism Tutorial](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/operator_parallel.html).
+MindSpore provides two operator-level parallelism capabilities: [Operator-level Parallelism](#basic-principle) and [Higher-order Operator-level Parallelism](#higher-order-operator-level-parallelism). Operator-level Parallelism uses simple tensor dimension splitting strategies to describe tensor distribution, meeting the requirements of most common scenarios. Higher-order Operator-level Parallelism enables complex partitioning scenarios by opening device arrangement descriptions, supporting: Non-contiguous device allocation, Multi-dimensional hybrid partitioning and so on. Both ops and mint operators are supported for the operator-level parallel capability of the two granularities. This chapter only introduces the operator-level parallelism and high-order operator-level parallelism based on ops operators. For the configuration method of operator-level parallelism based on mint operators, please refer to the mint Operator Parallel Practice and Higher-Order mint Operator Parallel Practice in the [Operator-level Parallelism Tutorial](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/operator_parallel.html).
 
-For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/r2.6.0/api_python/operator_list_parallel.html).
+For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/operator_list_parallel.html).
 
 > Hardware platforms supported by the operator-level parallel model include Ascend, GPU, and need to be run in Graph mode.
 
@@ -77,15 +77,15 @@ The configuration of operator-level parallelism in MindSpore is implemented thro
 
 To cope with these complex scenarios, this tutorial introduces a higher-order operator-level parallel configuration method with an open device arrangement description.
 
-[Operator-level Parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For example, for a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
+[Operator-level Parallelism](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For example, for a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
 
 *Figure: Schematic of 2D tensor arrangement*
 
 It can be seen that the 0-axis of the tensor, e.g. "[a0, a1, a2, a3]" slices to the discontinuous card "[Rank0, Rank4, Rank2, Rank6]" and the tensor is sliced according to strategy=(2, 4), the arrangement should be as follows:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view2.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view2.PNG)
 
 *Figure: Schematic of a 2D tensor arranged according to a sharding strategy*
 
@@ -93,9 +93,9 @@ Therefore, directly slicing the input and output tensor of the operator accordin
 
 ### Interface Configuration
 
-In order to express sharding as in the above scenario, functional extensions are made to the [shard](https://www.mindspore.cn/docs/en/r2.6.0/api_python/parallel/mindspore.parallel.shard.html) interface.
+In order to express sharding as in the above scenario, functional extensions are made to the [shard](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/parallel/mindspore.parallel.shard.html) interface.
 
-The parameters in_strategy and out_strategy both additionally receive the new quantity type tuple(Layout) type. [Layout](https://www.mindspore.cn/docs/en/r2.6.0/api_python/parallel/mindspore.parallel.Layout.html) is initialized using the device matrix, while requiring an alias for each axis of the device matrix. For example: "layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))" means that the device has 128 cards in total, which are arranged in the shape of (8, 4, 4), and aliases "dp", "sp", "mp" are given to each axis.
+The parameters in_strategy and out_strategy both additionally receive the new quantity type tuple(Layout) type. [Layout](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/parallel/mindspore.parallel.Layout.html) is initialized using the device matrix, while requiring an alias for each axis of the device matrix. For example: "layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))" means that the device has 128 cards in total, which are arranged in the shape of (8, 4, 4), and aliases "dp", "sp", "mp" are given to each axis.
 
 By passing in the aliases for these axes when calling Layout, each tensor determines which axis of the device matrix each dimension is mapped to based on its shape (shape), and the corresponding number of slice shares. For example:
 
@@ -116,7 +116,7 @@ a_strategy = layout("mp", ("sp", "dp"))
 
 It can be seen that the "[a0, a1, a2, a3]" of the tensor a is sliced twice to the "sp" and "mp" axes of the device, so that the result comes out as:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
 
 The following is exemplified by a concrete example in which the user computes a two-dimensional matrix multiplication over 8 cards: `Y = (X * W)` , where the devices are organized according to `2 * 2 * 2`, and the cut of X coincides with the cut of the tensor a. The code is as follows:
 

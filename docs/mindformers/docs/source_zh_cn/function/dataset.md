@@ -1,6 +1,6 @@
 # 数据集
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/function/dataset.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/function/dataset.md)
 
 目前MindSpore Transformers的预训练和微调支持多种格式的数据集加载能力，包括Megatron多源数据集、MindRecord数据集以及HuggingFace数据集的加载方式。每种格式的数据集的具体使用方法的参考如下。
 
@@ -174,7 +174,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
 
     需要注意的配置说明如下：
 
-    - parallel.dataset_strategy：仅支持 List of List 类型，List中子List的个数需要等于 train_dataset.input_columns 的长度，并且 List 中的每个子 List 需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子List的第1位数配置成 `*dp` ，其他位配置为 `1` 。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/dataset_slice.html)。
+    - parallel.dataset_strategy：仅支持 List of List 类型，List中子List的个数需要等于 train_dataset.input_columns 的长度，并且 List 中的每个子 List 需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子List的第1位数配置成 `*dp` ，其他位配置为 `1` 。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/dataset_slice.html)。
 
 4. 编译 Megatron 数据集模块
 
@@ -193,7 +193,7 @@ MindRecord 是由 MindSpore 开发的一种高效数据格式，用于存储机�
 MindRecord 格式旨在提高数据处理效率，尤其是在大规模数据训练场景下，可以更快地加载和处理数据。
 MindRecord 文件通常包含了模型训练所需的输入样本，这些样本经过预处理（如编码、归一化等），以优化读取速度和内存使用。
 
-更多关于 MindRecord 相关接口的实现及案例，请参考 [MindSpore 中关于 《MindRecord》 的相关文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.mindrecord.html)
+更多关于 MindRecord 相关接口的实现及案例，请参考 [MindSpore 中关于 《MindRecord》 的相关文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore.mindrecord.html)
 
 ### 如何制作 MindRecord 数据集
 

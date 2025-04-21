@@ -1,6 +1,6 @@
 # 预训练
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/usage/pre_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/usage/pre_training.md)
 
 ## 概述
 
@@ -61,7 +61,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ### 多机训练
 
-以Llama3-70B为例，使用[pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/llama3/llama3_70b/pretrain_llama3_70b.yaml)配置文件，以msrun方式运行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py)执行8机64卡预训练。多机多卡执行脚本进行分布式训练需要分别在不同节点运行脚本，并将参数**MASTER_ADDR**设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数**NODE_RANK**不同，各个参数位置含义参见[msrun启动使用指南](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/msrun_launcher.html)。
+以Llama3-70B为例，使用[pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/llama3/llama3_70b/pretrain_llama3_70b.yaml)配置文件，以msrun方式运行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py)执行8机64卡预训练。多机多卡执行脚本进行分布式训练需要分别在不同节点运行脚本，并将参数**MASTER_ADDR**设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数**NODE_RANK**不同，各个参数位置含义参见[msrun启动使用指南](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/msrun_launcher.html)。
 
 ```shell
 # 节点0，设0节点ip为MASTER_ADDR，作为主节点ip，总共64卡且每个节点8卡

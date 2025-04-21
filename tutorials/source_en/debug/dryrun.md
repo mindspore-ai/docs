@@ -1,6 +1,6 @@
 # DryRun
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/debug/dryrun.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/debug/dryrun.md)
 
 ## Overview
 
@@ -17,7 +17,7 @@ The MindSpore framework provides a DryRun mechanism that mocks all device-side i
 Users can set the simulation level by enabling the environment variable `export MS_SIMULATION_LEVEL=0/1/2/3` according to their needs.
 
 > - This feature is for simulation execution and cannot obtain the correct output information of operators. In scenarios involving dynamic shapes in static graphs, there may be cases where the input shape of an operator depends on the output shape of the previous operator, making this feature unsuitable for such situations.
-> - In dynamic graph scenarios, the [mock interface](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock) needs to be used to manually adapt the script.
+> - In dynamic graph scenarios, the [mock interface](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock) needs to be used to manually adapt the script.
 
 #### MS_SIMULATION_LEVEL=0
 
@@ -57,7 +57,7 @@ As shown in the figure, this graph displays the workspace size of the IndexSelec
 
 #### MS_SIMULATION_LEVEL=3
 
-Adds runtime statistics of computing operators on top of `2`, occupying CPU resources and computing resources corresponding to the number of cards to be simulated. In addition to memory analysis, it includes the execution of computing operators on the current card. Users can analyze the time consumption of computing operators in conjunction with [MindSpore Profiler](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/profiler.html).
+Adds runtime statistics of computing operators on top of `2`, occupying CPU resources and computing resources corresponding to the number of cards to be simulated. In addition to memory analysis, it includes the execution of computing operators on the current card. Users can analyze the time consumption of computing operators in conjunction with [MindSpore Profiler](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/profiler.html).
 
 After enabling profiling, the `trace_view.json` file can be found, as shown below:
 

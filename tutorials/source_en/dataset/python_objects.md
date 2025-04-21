@@ -1,6 +1,6 @@
 # Supporting Python Objects in Dataset Pipeline
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/dataset/python_objects.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/dataset/python_objects.md)
 
 Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`, user-defined `map` augmentation operation, `batch(per_batch_map=...)`).
 

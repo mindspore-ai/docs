@@ -1,6 +1,6 @@
 # 端侧编译
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/build/build.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/build/build.md)
 
 本章节介绍如何快速编译出MindSpore Lite。
 
@@ -98,7 +98,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | MSLITE_ENABLE_MODEL_PRE_INFERENCE | 是否启用模型编译时预推理 | on、off | off |
 | MSLITE_ENABLE_GITEE_MIRROR | 是否使能三方库从码云镜像下载 | on、off | off |
 
-> - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/advanced/third_party/asic.html)。
+> - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/third_party/asic.html)。
 > - 启用AVX指令集时，需要运行环境的CPU同时支持avx特性和fma特性。
 > - 模型转换工具的编译时间较长，若非必要，建议通过`MSLITE_ENABLE_CONVERTER`关闭转换工具编译，以加快编译速度。
 > - 解密所需的OpenSSL加密库crypto支持的版本为1.1.1k，需要用户自行下载编译，相关方法可参考：<https://github.com/openssl/openssl#build-and-install>。此外，还需要将libcrypto.so.1.1文件的路径加入到LD_LIBRARY_PATH中。
@@ -107,7 +107,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 - runtime功能裁剪编译选项
 
-若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁剪，以减少包大小，之后，用户可再通过[裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/cropper_tool.html)进行算子裁剪以进一步减少包大小。
+若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁剪，以减少包大小，之后，用户可再通过[裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/cropper_tool.html)进行算子裁剪以进一步减少包大小。
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
@@ -126,7 +126,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 首先，在进行编译之前，需从MindSpore代码仓下载源码。
 
 ```bash
-git clone -b v2.6.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 然后，在源码根目录下执行如下命令，可编译不同版本的MindSpore Lite。
@@ -323,7 +323,7 @@ MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
 首先，使用git工具，从MindSpore代码仓下载源码。
 
 ```bash
-git clone -b v2.6.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
@@ -416,7 +416,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 首先，在进行编译之前，需从MindSpore代码仓下载源码。
 
 ```bash
-git clone -b v2.6.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 然后，在源码根目录下执行如下命令即可编译MindSpore Lite。

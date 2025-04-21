@@ -1,8 +1,8 @@
 Environment Variables
 =====================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/api_python/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/api_python/env_var_list.rst
     :alt: View Source On Gitee
 
 MindSpore environment variables are as follows:
@@ -73,7 +73,7 @@ Data Processing
        false: disables pipeline tree optimization.
      -
 
-For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/en/r2.6.0/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/en/r2.6.0/dataset/optimize.html>`_.
+For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/en/r2.6.0rc1/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/en/r2.6.0rc1/dataset/optimize.html>`_.
 
 Graph Compilation and Execution
 ---------------------------------
@@ -238,7 +238,7 @@ Graph Compilation and Execution
      - 1: Enable graceful exit.
 
        No setting or other value: Disable graceful exit.
-     - Rely on the callback function to enable graceful exit. Refer to the `Example of Graceful Exit <https://www.mindspore.cn/tutorials/en/r2.6.0/train_availability/graceful_exit.html>`_ .
+     - Rely on the callback function to enable graceful exit. Refer to the `Example of Graceful Exit <https://www.mindspore.cn/tutorials/en/r2.6.0rc1/train_availability/graceful_exit.html>`_ .
    * - MS_DEV_BOOST_INFER
      - Compile optimization switch for graph compilation. This switch accelerates the type inference module to speed up network compilation.
      - Integer
@@ -324,7 +324,7 @@ Graph Compilation and Execution
        enable_debug_mode: Insert synchronization points before and after the graph kernel mod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
 
        path: use specified json file. When this option is set, the above options are ignored.
-     - Refer to the `Custom Fusion <https://www.mindspore.cn/tutorials/en/r2.6.0/custom_program/fusion_pass.html>`_
+     - Refer to the `Custom Fusion <https://www.mindspore.cn/tutorials/en/r2.6.0rc1/custom_program/fusion_pass.html>`_
 
 Dump Debugging
 ---------------
@@ -339,13 +339,13 @@ Dump Debugging
      - Value Range
      - Description
    * - MINDSPORE_DUMP_CONFIG
-     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/en/r2.6.0/debug/dump.html>`_
-       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark_tool.html#dump>`_ depends on.
+     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/dump.html>`_
+       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/tools/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
      -
    * - MS_DIAGNOSTIC_DATA_PATH
-     - When the `cloud-side Dump <https://www.mindspore.cn/tutorials/en/r2.6.0/debug/dump.html>`_ is enabled,
+     - When the `cloud-side Dump <https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/dump.html>`_ is enabled,
        if the `path` field is not set or set to an empty string in the Dump configuration file, then `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` is regarded as path.
        If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
      - String
@@ -387,7 +387,7 @@ Dump Debugging
      - 0~600, unit: Seconds, default value is 0. The value 0 means using default wait time, i.e. the value of `mindspore.get_context("op_timeout")`.
      - This environment variable only takes effect when value of `MS_DUMP_SLICE_SIZE` is greater than 0. Now the wait time can not exceed value of `mindspore.get_context("op_timeout")`.
 
-For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/en/r2.6.0/debug/dump.html>`_.
+For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/dump.html>`_.
 
 Distributed Parallel
 ---------------------
@@ -548,7 +548,7 @@ Distributed Parallel
        delete_depend_list(List[string]): A list of operator names that need to be deleted. If the operator name does not exist or does not match the graph_id, the action of deleting the node will be invalid.
 
 
-See `Dynamic Cluster <https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
+See `Dynamic Cluster <https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
 
 Operators Compile
 -----------------
@@ -619,7 +619,7 @@ Operators Compile
        Default value: empty string.
      -
 
-For more information, see `FAQ <https://mindspore.cn/docs/en/r2.6.0/faq/operators_compile.html>`_.
+For more information, see `FAQ <https://mindspore.cn/docs/en/r2.6.0rc1/faq/operators_compile.html>`_.
 
 Log
 ---
@@ -727,7 +727,7 @@ Log
 
      - The assignment way is:`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 
-       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/core/utils/log_adapter.cc>`_.
+       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/core/utils/log_adapter.cc>`_.
 
        For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
    * - GLOG_logfile_mode
@@ -814,7 +814,7 @@ Feature Value Detection
        By default, if this environment variable is not configured, `NPU_ASD_SIGMA_THRESH=100000,5000`
      -
 
-For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/tutorials/en/r2.6.0/debug/sdc.html>`_.
+For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/sdc.html>`_.
 
 
 Third-party Library
@@ -938,7 +938,7 @@ Profiler
 
        profiler_level (str, optional) - Set the level of performance data collection. Default value: Level0. Possible values: Level0, Level1, Level2.
 
-       Refer to other parameters, see `Description of MindSpore profile parameters <https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.profiler.profile.html>`_.
+       Refer to other parameters, see `Description of MindSpore profile parameters <https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.profiler.profile.html>`_.
 
      - This environment variable enables one of two ways to enable performance data collection with the input parameter instantiation Profiler method.
    * - PROFILING_MODE

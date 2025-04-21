@@ -1,6 +1,6 @@
 # Graph Mode Syntax - Python Statements
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/compile/statements.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/compile/statements.md)
 
 ## Simple Statements
 
@@ -644,7 +644,7 @@ Usage restrictions are the same as list comprehension, i.e., the use of multiple
 
 In graph mode, the `with` statement is supported with limitations. The `with` statement requires that the object must have two magic methods: `__enter__()` and `__exit__()`.
 
-It is worth noting that the class used in the with statement needs to be decorated with a decorator@ms.jit_class or inherited from nn. Cell, and more on this can be found in [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/r2.6.0/compile/static_graph_expert_programming.html#using-jit-class).
+It is worth noting that the class used in the with statement needs to be decorated with a decorator@ms.jit_class or inherited from nn. Cell, and more on this can be found in [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/compile/static_graph_expert_programming.html#using-jit-class).
 
 For example:
 

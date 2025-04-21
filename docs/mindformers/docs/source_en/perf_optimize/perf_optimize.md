@@ -1,6 +1,6 @@
 # Large Model Performance Optimization Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_en/perf_optimize/perf_optimize.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_en/perf_optimize/perf_optimize.md)
 
 ## Overview
 
@@ -147,7 +147,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
 
    By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the `profile_output` or `output_dir` field of the model's yaml configuration file, and the former has higher priority.
 
-   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
+   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
 
    In addition, it can also analyze the performance between different ranks in the cluster by counting the computation time, communication time, and unmasked communication time of each rank in the cluster, so as to determine whether there exists an unbalanced computation load, which affects the overall efficiency of the cluster, and carry out targeted optimization.
 
@@ -175,7 +175,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
 
 #### DryRun Memory Evaluation Tools
 
-Current memory evaluation tools mainly use MindSpore dryrun. The simulated compilation is described in MindSpore [Environment Variables Documentation](https://www.mindspore.cn/docs/en/r2.6.0/api_python/env_var_list.html) and [msrun Documentation](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/msrun_launcher.html). The training process for simulation compilation can be pulled up by enabling the environment variable `export MS_SIMULATION_LEVEL=1` before the training process starts or by configuring the `-sim_level` function in the msrun startup item.
+Current memory evaluation tools mainly use MindSpore dryrun. The simulated compilation is described in MindSpore [Environment Variables Documentation](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/env_var_list.html) and [msrun Documentation](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/msrun_launcher.html). The training process for simulation compilation can be pulled up by enabling the environment variable `export MS_SIMULATION_LEVEL=1` before the training process starts or by configuring the `-sim_level` function in the msrun startup item.
 
 DryRun can be used to analyze whether the required memory exceeds the maximum available memory. If it exceeds, the configuration needs to be readjusted. The maximum available memory can be configured using the following fields, the recommended value is `58GB`. If it is set too large, it may cause other components to run out of memory. Typically the larger the cluster training size used, the larger the memory usage of the other components, and the lower the maximum memory available to the MindSpore process. For example on a thousand card cluster, this maximum available memory value is typically set to `54GB`.
 
@@ -320,7 +320,7 @@ An excerpt of some of the IR graph:
 
   Transpose with the 15% output above to get <Tensor[Float16], (1, 4, 4096, 128)>.
 
-It is recommended to change the number of layers of the model to a smaller size when saving IR graph, to reduce the time of compiling and saving graph, and to facilitate fast debugging. For details, please refer to [Introduction to IR file](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindir.html#ir-introduction) and [Analysis samples](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
+It is recommended to change the number of layers of the model to a smaller size when saving IR graph, to reduce the time of compiling and saving graph, and to facilitate fast debugging. For details, please refer to [Introduction to IR file](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/error_analysis/mindir.html#ir-introduction) and [Analysis samples](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/error_analysis/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
 
 #### SAPP Automatic Load Balancing Tool
 
@@ -417,7 +417,7 @@ The idea of solving IO bottlenecks is to optimize the amount of IO and IO behavi
 
 **full_batch=false**:
 
-full_batch is a control item for the data aggregation behavior of MindSpore. When configured to true, each card takes the global batch size amount of data, and then completes the slicing of the data within the graph, taking only the required data in the corresponding DP domain for training. This approach leads to steep pressure on IO in large-scale clusters, where there is DP-fold redundancy in the amount of IO read by each card, which occurs on each card and aggregates to overstress the shared storage, affecting IO performance. It is recommended to change the behavior mode to full_batch=false when encountering IO bottlenecks, which has been verified to be able to optimize the IO efficiency in a more obvious way, and the configuration mode can be referred to MindSpore[set_auto_parallel_context interface](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context). yaml example is listed below:
+full_batch is a control item for the data aggregation behavior of MindSpore. When configured to true, each card takes the global batch size amount of data, and then completes the slicing of the data within the graph, taking only the required data in the corresponding DP domain for training. This approach leads to steep pressure on IO in large-scale clusters, where there is DP-fold redundancy in the amount of IO read by each card, which occurs on each card and aggregates to overstress the shared storage, affecting IO performance. It is recommended to change the behavior mode to full_batch=false when encountering IO bottlenecks, which has been verified to be able to optimize the IO efficiency in a more obvious way, and the configuration mode can be referred to MindSpore[set_auto_parallel_context interface](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context). yaml example is listed below:
 
 ```yaml
 #yaml file configuration
@@ -442,7 +442,7 @@ However, in some training scenarios, global batch size is a more critical traini
 
 **Pipeline Interleaving**:
 
-pipeline_interleave(virtual pipeline) official website configuration description:[set_auto_parallel_context](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.set_auto_parallel_context.html?highlight=pipeline_interleave).
+pipeline_interleave(virtual pipeline) official website configuration description:[set_auto_parallel_context](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.set_auto_parallel_context.html?highlight=pipeline_interleave).
 
 In MindSpore Transformers, turning on multi-stream interleaving needs to be configured in parallel, e.g. using 1f1b scheduling:
 
@@ -598,7 +598,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 2. Embedding parameter configuration optimizer parallelism: large vocabulary occupies too much memory, and the optimizer parallelism of vocabulary weights needs additional configuration, which effectively alleviates the problem of insufficient memory in the first stage;
 
-   An introduction to the use of optimizer parallelism can be found in [MindSpore Optimizer Parallelism Documentation](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/optimizer_parallel.html). In addition, the Llama model has additional configurations for optimizers in the embedding layer, the `parallel_optimizer` in the [LlamaConfig API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig) controls the parallelism of the embedding optimizer;
+   An introduction to the use of optimizer parallelism can be found in [MindSpore Optimizer Parallelism Documentation](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/optimizer_parallel.html). In addition, the Llama model has additional configurations for optimizers in the embedding layer, the `parallel_optimizer` in the [LlamaConfig API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig) controls the parallelism of the embedding optimizer;
    A sample configuration is shown below:
 
    ```yaml
@@ -616,7 +616,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 3. Enable Llama's `fine-grained multi-copy` policy masks most of the communication behavior under the model-parallel policy;
 
-   An introduction to multi-copy parallel can be found in the [MindSpore Multicopy Parallelism Documentation](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/multiple_copy.html), and the behavior of fine-grained multicopy parallelism can be configured in MindSpore Transformers through the ` fine_grain_interleave` item. The reference configuration is as follows:
+   An introduction to multi-copy parallel can be found in the [MindSpore Multicopy Parallelism Documentation](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/multiple_copy.html), and the behavior of fine-grained multicopy parallelism can be configured in MindSpore Transformers through the ` fine_grain_interleave` item. The reference configuration is as follows:
 
    ```yaml
    model:
@@ -628,7 +628,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 4. Enable the `pp_interleave` parallel policy and configure `pp_interleave_num` to 3 to effectively reduce the percentage of bubbles;
 
-   An introduction to the multi-streaming interleaving feature can be found in the [MindSpore pipeline parallelism documentation](https://www.mindspore.cn/tutorials/en/r2.6.0/parallel/pipeline_parallel.html). In MindSpore Transformers the reference configuration is as follows:
+   An introduction to the multi-streaming interleaving feature can be found in the [MindSpore pipeline parallelism documentation](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/parallel/pipeline_parallel.html). In MindSpore Transformers the reference configuration is as follows:
 
    ```yaml
    parallel:

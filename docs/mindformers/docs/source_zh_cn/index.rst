@@ -14,19 +14,19 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
    <table style="width: 100%">
       <tr>
          <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindformers/docs/source_zh_cn/full-process_1.png">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/full-process_1.png">
          </td>
          <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindformers/docs/source_zh_cn/full-process_2.png">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/full-process_2.png">
          </td>
          <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindformers/docs/source_zh_cn/full-process_3.png">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/full-process_3.png">
          </td>
          <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindformers/docs/source_zh_cn/full-process_4.png">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/full-process_4.png">
          </td>
          <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindformers/docs/source_zh_cn/full-process_5.png">
+            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/full-process_5.png">
          </td>
       </tr>
       <tr>

@@ -1,6 +1,6 @@
 # 比较与torchaudio.datasets.TEDLIUM的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TEDLIUM.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TEDLIUM.md)
 
 ## torchaudio.datasets.TEDLIUM
 
@@ -32,7 +32,7 @@ class mindspore.dataset.TedliumDataset(
     cache=None)
 ```
 
-更多内容详见[mindspore.dataset.TedliumDataset](https://mindspore.cn/docs/zh-CN/r2.6.0/api_python/dataset/mindspore.dataset.TedliumDataset.html#mindspore.dataset.TedliumDataset)。
+更多内容详见[mindspore.dataset.TedliumDataset](https://mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/dataset/mindspore.dataset.TedliumDataset.html#mindspore.dataset.TedliumDataset)。
 
 ## 差异对比
 

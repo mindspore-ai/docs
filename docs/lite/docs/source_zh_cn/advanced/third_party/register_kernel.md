@@ -1,6 +1,6 @@
 # 在线构建自定义算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/advanced/third_party/register_kernel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/advanced/third_party/register_kernel.md)
 
 ## 如何实现自定义算子
 
@@ -18,11 +18,11 @@ MindSpore Lite当前提供了一套南向的算子注册机制，如果用户想
 
 ### 通用算子
 
-整个算子的实现、注册、infershape等相关的代码可以参考代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/ut/src/registry/registry_test.cc)。
+整个算子的实现、注册、infershape等相关的代码可以参考代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/ut/src/registry/registry_test.cc)。
 
 #### 通用算子实现
 
-继承[mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_kernel.html)，重载实现必要的接口。以自定义一个Add算子为例：
+继承[mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_kernel.html)，重载实现必要的接口。以自定义一个Add算子为例：
 
 1. 算子继承Kernel。
 2. PreProcess()对内存进行了预分配。
@@ -74,7 +74,7 @@ int TestCustomAdd::Execute() {
 
 #### 通用算子注册
 
-当前提供的现成的宏[REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-kernel)可以进行算子注册，实现步骤如下：
+当前提供的现成的宏[REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-kernel)可以进行算子注册，实现步骤如下：
 
 1. 函数TestCustomAddCreator用来创建Kernel。
 2. 通过宏REGISTER_KERNEL进行Kernel注册，这里生产商假定为BuiltInTest。
@@ -96,7 +96,7 @@ REGISTER_KERNEL(CPU, BuiltInTest, kFloat32, PrimitiveType_AddFusion, TestCustomA
 
 继承KernelInterface后重载Infer函数，实现InferShape能力。实现步骤如下：
 
-1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_kernel.html#kernelinterface)。
+1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_kernel.html#kernelinterface)。
 2. 重载实现Infer函数，推导出output tensor的shape、format、data_type。
 
 这里以自定义Add算子为例：
@@ -120,7 +120,7 @@ class TestCustomAddInfer : public KernelInterface {
 
 #### 通用算子InferShape注册
 
-当前提供现成的宏[REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-kernel-interface)可以进行算子InferShape注册，步骤如下：
+当前提供现成的宏[REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-kernel-interface)可以进行算子InferShape注册，步骤如下：
 
 1. 函数CustomAddInferCreator用来创建KernelInterface实例。
 2. 调用REGISTER_KERNEL_INTERFACE宏对通用算子InferShape进行注册，这里生产商假定为BuiltInTest。
@@ -133,7 +133,7 @@ REGISTER_KERNEL_INTERFACE(BuiltInTest, PrimitiveType_AddFusion, CustomAddInferCr
 
 ### Custom算子
 
-Custom算子的解析、创建、操作等相关的代码可以参考代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc)。
+Custom算子的解析、创建、操作等相关的代码可以参考代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc)。
 
 #### Custom算子定义
 
@@ -220,11 +220,11 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, schedule)       // 设置外部Pass调度逻�
 }  // namespace mindspore::opt
 ```
 
-整个Custom算子的实现、注册、infershape等相关的代码可以参考代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc)。
+整个Custom算子的实现、注册、infershape等相关的代码可以参考代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc)。
 
 #### Custom算子实现
 
-Custom算子的实现整体流程与通用算子的实现是一致的，因为都是[Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_kernel.html)的具体子类。
+Custom算子的实现整体流程与通用算子的实现是一致的，因为都是[Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_kernel.html)的具体子类。
 如果自定义算子不是运行在CPU平台上，需要在运行结束时把结果重新拷回output tensor。这里以创建一个Add能力的Custom算子为例：
 
 1. 算子继承Kernel。
@@ -295,7 +295,7 @@ int TestCustomOp::Execute() {
 
 #### Custom算子注册
 
-当前提供的现成的宏[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-custom-kernel)可以进行算子注册，步骤如下：
+当前提供的现成的宏[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-custom-kernel)可以进行算子注册，步骤如下：
 
 1. TestCustomAddCreator函数用来创建Kernel。
 2. 通过宏REGISTER_CUSTOM_KERNEL进行算子注册，这里假定生产商为BuiltInTest，算子类型为Add。
@@ -316,7 +316,7 @@ REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kFloat32, Add, TestCustomAddCreator)
 
 整体实现与通用算子InferShape是一样的。步骤如下：
 
-1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_kernel.html#kernelinterface)。
+1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_kernel.html#kernelinterface)。
 2. 重载实现Infer函数，推导出output tensor的shape、format、data_type。
 
 ```cpp
@@ -336,10 +336,10 @@ class TestCustomOpInfer : public KernelInterface {
 
 #### Custom算子InferShape注册
 
-当前提供的现成的宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-custom-kernel-interface)可以进行Custom算子InferShape的注册，步骤如下：
+当前提供的现成的宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-custom-kernel-interface)可以进行Custom算子InferShape的注册，步骤如下：
 
 1. CustomAddInferCreator函数用于创建自定义的KernelInterface。
-2. 通过宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#register-custom-kernel-interface)注册InferShape能力，这里的算子类型Add必须与REGISTER_CUSTOM_KERNEL_INTERFACE时的算子类型一致。
+2. 通过宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#register-custom-kernel-interface)注册InferShape能力，这里的算子类型Add必须与REGISTER_CUSTOM_KERNEL_INTERFACE时的算子类型一致。
 
 ```cpp
 std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomOpInfer>(); }
@@ -349,9 +349,9 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(BuiltInTest, Add, CustomAddInferCreator)
 
 ## 自定义GPU算子
 
-为支持GPU自定义算子的便捷开发，并使GPU自定义算子与内部的GPU算子共享一套资源，以加快调度效率，我们还提供了一套GPU相关的功能接口，相关API说明请参考[mindspore::registry::opencl](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry_opencl.html)。
+为支持GPU自定义算子的便捷开发，并使GPU自定义算子与内部的GPU算子共享一套资源，以加快调度效率，我们还提供了一套GPU相关的功能接口，相关API说明请参考[mindspore::registry::opencl](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry_opencl.html)。
 本文以样例代码解析的方式，向用户阐明自定义GPU算子开发的相关实现。用户需对[如何实现自定义算子](#如何实现自定义算子)有所了解的情况下，再来阅读此文。
-在代码仓[样例代码](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc)中包含了对自定义GPU算子的实现、注册。
+在代码仓[样例代码](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc)中包含了对自定义GPU算子的实现、注册。
 
 ### 算子注册
 
@@ -394,7 +394,7 @@ std::shared_ptr<kernel::Kernel> CustomAddCreator(const std::vector<MSTensor> &in
 #### 注册算子
 
 在注册GPU算子时，必须将设备类型声明为GPU，并将上一步实现的创建算子实例函数`CustomAddCreator`传入。
-本样例注册了`Custom_Add`算子GPU内的float32实现，注册代码如下所示，注册宏中的其他参数参考[API说明](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html)。
+本样例注册了`Custom_Add`算子GPU内的float32实现，注册代码如下所示，注册宏中的其他参数参考[API说明](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html)。
 
 ```cpp
 const auto kFloat32 = DataType::kNumberTypeFloat32;
@@ -404,7 +404,7 @@ REGISTER_CUSTOM_KERNEL(GPU, BuiltInTest, kFloat32, Custom_Add, CustomAddCreator)
 
 ### 算子实现
 
-在本样例中算子实现为`CustomAddKernel`类，该类继承[mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_kernel.html)，重载实现必要的接口，从而实现自定义算子的运算。
+在本样例中算子实现为`CustomAddKernel`类，该类继承[mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_kernel.html)，重载实现必要的接口，从而实现自定义算子的运算。
 
 #### 构造及析构函数说明
 
@@ -428,7 +428,7 @@ class CustomAddKernel : public kernel::Kernel {
 
 - opencl_runtime_
 
-  为OpenCLRuntimeWrapper类的实例，在算子内部可通过该对象调取MindSpore Lite提供的OpenCL操作相关接口[mindspore::registry::opencl](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry_opencl.html)。
+  为OpenCLRuntimeWrapper类的实例，在算子内部可通过该对象调取MindSpore Lite提供的OpenCL操作相关接口[mindspore::registry::opencl](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry_opencl.html)。
 
 - fp16_enable_
 
@@ -440,7 +440,7 @@ class CustomAddKernel : public kernel::Kernel {
 
 - 其他变量
 
-  其他变量为进行OpenCL操作时所需的变量，详细意义可查看OpenCL操作时对应的接口说明[mindspore::registry::opencl](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry_opencl.html)。
+  其他变量为进行OpenCL操作时所需的变量，详细意义可查看OpenCL操作时对应的接口说明[mindspore::registry::opencl](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry_opencl.html)。
 
 ```c++
 class CustomAddKernel : public kernel::Kernel {

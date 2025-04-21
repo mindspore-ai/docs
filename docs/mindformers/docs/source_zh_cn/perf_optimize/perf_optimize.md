@@ -1,6 +1,6 @@
 # 大模型性能调优指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindformers/docs/source_zh_cn/perf_optimize/perf_optimize.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindformers/docs/source_zh_cn/perf_optimize/perf_optimize.md)
 
 ## 概述
 
@@ -147,7 +147,7 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
 
    采集工具默认会在`./output`路径下创建一个`profile`文件夹，该路径可通过模型yaml配置文件的`profile_output`或`output_dir`字段进行设置，前者更优先。
 
-   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/profiler.html)，主要收集算子、任务等运行耗时、CPU利用率及内存消耗等信息，用于性能调优分析。
+   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/debug/profiler.html)，主要收集算子、任务等运行耗时、CPU利用率及内存消耗等信息，用于性能调优分析。
 
    此外还可以通过统计集群中每个rank的计算时间、通信时间、未掩盖通信时间，分析集群中不同rank间的性能情况，以此判断是否存在计算负载不均衡的情况，影响了集群的整体效率，并对此进行针对性优化。
 
@@ -175,7 +175,7 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
 
 #### DryRun内存评估工具
 
-当前内存评估工具主要使用MindSpore的模拟编译(dryrun)。模拟编译使用方式在MindSpore的[环境变量文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html)和[msrun文档](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/msrun_launcher.html)中呈现。可以通过在训练进程开始前使能环境变量`export MS_SIMULATION_LEVEL=1`或者在msrun启动项配置`--sim_level`功能，即可拉起模拟编译的训练进程。
+当前内存评估工具主要使用MindSpore的模拟编译(dryrun)。模拟编译使用方式在MindSpore的[环境变量文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/env_var_list.html)和[msrun文档](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/msrun_launcher.html)中呈现。可以通过在训练进程开始前使能环境变量`export MS_SIMULATION_LEVEL=1`或者在msrun启动项配置`--sim_level`功能，即可拉起模拟编译的训练进程。
 
 可以使用DryRun分析所需内存是否超过最大可用内存。如果超过，需要重新调整配置。最大可用内存可通过如下字段配置，推荐值为`58GB`，如果设置过大，可能导致其他组件内存不足。通常使用的集群训练规模越大，其他组件内存占用越大，MindSpore进程可用的最大内存也会随之降低，例如在千卡集群上，该最大可用内存值一般设置为`54GB`。
 
@@ -320,7 +320,7 @@ context:
 
   将上述15%的输出进行Transpose操作得到<Tensor[Float16], (1, 4, 4096, 128)>。
 
-在保存IR图时建议将模型的层数减小，以缩短编译存图的时间，方便快速调试。详细内容参考[IR文件介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/error_analysis/mindir.html#ir文件介绍)和[分析示例](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
+在保存IR图时建议将模型的层数减小，以缩短编译存图的时间，方便快速调试。详细内容参考[IR文件介绍](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/debug/error_analysis/mindir.html#ir文件介绍)和[分析示例](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/debug/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
 
 #### SAPP自动负载均衡工具
 
@@ -417,7 +417,7 @@ IO瓶颈的解决思路就是优化IO量与IO行为。
 
 **full_batch=false**：
 
-full_batch是MindSpore的数据聚合行为的控制项，在配置为true时，每张卡都取global batch size的数据量，然后在图内完成数据的切分，只取对应DP域内所需数据进行训练；这种做法会导致大规模集群下对IO的压力陡增，每张卡读取IO量都存在DP倍的冗余，这种冗余发生在每张卡上，汇总起来对共享存储的压力过大，影响IO性能；建议在遇到IO瓶颈时，改用full_batch=false的行为模式，已验证能够较为明显地优化IO效率，配置方式可参考MindSpore[set_auto_parallel_context接口](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context)，yaml样例如下：
+full_batch是MindSpore的数据聚合行为的控制项，在配置为true时，每张卡都取global batch size的数据量，然后在图内完成数据的切分，只取对应DP域内所需数据进行训练；这种做法会导致大规模集群下对IO的压力陡增，每张卡读取IO量都存在DP倍的冗余，这种冗余发生在每张卡上，汇总起来对共享存储的压力过大，影响IO性能；建议在遇到IO瓶颈时，改用full_batch=false的行为模式，已验证能够较为明显地优化IO效率，配置方式可参考MindSpore[set_auto_parallel_context接口](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context)，yaml样例如下：
 
 ```yaml
 #yaml文件配置
@@ -442,7 +442,7 @@ pipeline场景下主要开销是引入了计算闲置（bubble），其大概估
 
 **多流水交织 pipeline interleave**：
 
-pipeline_interleave(virtual pipeline)官网配置介绍：[set_auto_parallel_context](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.set_auto_parallel_context.html?highlight=pipeline_interleave)。
+pipeline_interleave(virtual pipeline)官网配置介绍：[set_auto_parallel_context](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore/mindspore.set_auto_parallel_context.html?highlight=pipeline_interleave)。
 
 MindSpore Transformers中，开启多流水交织需要在parallel中配置，例如使用1f1b排布方式：
 
@@ -598,7 +598,7 @@ recompute_config:
 
 2. embedding参数配置优化器并行：大词表占用内存过多，且词表权重的优化器并行需额外配置，配置后有效缓解首个stage显存不足问题；
 
-   优化器并行使用介绍可参考[MindSpore优化器并行文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/features/parallel/optimizer_parallel.html)；此外，Llama模型还对embedding层的优化器有额外配置，[LlamaConfig API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig)中的`parallel_optimizer`项即为控制embedding优化器并行的控制项；
+   优化器并行使用介绍可参考[MindSpore优化器并行文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/features/parallel/optimizer_parallel.html)；此外，Llama模型还对embedding层的优化器有额外配置，[LlamaConfig API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig)中的`parallel_optimizer`项即为控制embedding优化器并行的控制项；
    配置样例如下：
 
    ```yaml
@@ -616,7 +616,7 @@ recompute_config:
 
 3. 使能Llama的`细粒度多副本`策略，掩盖模型并行策略下的大部分通信行为；
 
-   多副本并行的介绍可以参考[MindSpore多副本并行文档](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/parallel/multiple_copy.html)，在MindSpore Transformers中通过`fine_grain_interleave`项来配置细粒度多副本的行为，参考配置如下：
+   多副本并行的介绍可以参考[MindSpore多副本并行文档](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/parallel/multiple_copy.html)，在MindSpore Transformers中通过`fine_grain_interleave`项来配置细粒度多副本的行为，参考配置如下：
 
    ```yaml
    model:
@@ -628,7 +628,7 @@ recompute_config:
 
 4. 使能`pp_interleave`并行策略，将`pp_interleave_num`配置为3，有效减小bubble占比；
 
-   多流水交织特性介绍可以参考[MindSpore流水线并行文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/features/parallel/pipeline_parallel.html)，在MindSpore Transformers中的参考配置如下：
+   多流水交织特性介绍可以参考[MindSpore流水线并行文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/features/parallel/pipeline_parallel.html)，在MindSpore Transformers中的参考配置如下：
 
    ```yaml
    parallel:

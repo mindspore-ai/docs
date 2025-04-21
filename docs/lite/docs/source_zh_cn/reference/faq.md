@@ -1,10 +1,10 @@
 # 问题定位指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/reference/faq.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/reference/faq.md)
 
 ## 概述
 
-在MindSpore Lite使用中遇到问题时，可首先查看日志，多数场景下的问题可以通过日志报错信息直接定位（通过设置环境变量[GLOG_v](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html) 调整日志等级可以打印更多调试日志），这里简单介绍几种常见报错场景的问题定位与解决方法。
+在MindSpore Lite使用中遇到问题时，可首先查看日志，多数场景下的问题可以通过日志报错信息直接定位（通过设置环境变量[GLOG_v](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/env_var_list.html) 调整日志等级可以打印更多调试日志），这里简单介绍几种常见报错场景的问题定位与解决方法。
 
 > 1. 因不同版本中日志行号可能存在差异，下述示例日志报错信息中的行号信息均用”**”表示；
 > 2. 示例日志中只列出了通用信息，其他涉及具体场景的信息均用“****”表示。
@@ -41,7 +41,7 @@
     ```
 
     - 问题分析：模型中存在MindSpore Lite转换工具不支持的算子导致转换失败。
-    - 解决方法：对于不支持的算子可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#nodeparser) 自行添加parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://gitee.com/mindspore/mindspore/issues) 给MindSpore Lite开发人员处理。
+    - 解决方法：对于不支持的算子可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#nodeparser) 自行添加parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://gitee.com/mindspore/mindspore/issues) 给MindSpore Lite开发人员处理。
 
 3. 存在不支持的算子，日志报错信息：
 
@@ -50,13 +50,13 @@
     ```
 
     - 问题分析：转换工具支持该算子转换，但是不支持该算子的某种特殊属性或参数导致模型转换失败（示例日志以caffe为例，其他框架日志信息相同）。
-    - 解决方法：可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_converter.html#nodeparser) 添加自定义算子parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://gitee.com/mindspore/mindspore/issues) 给MindSpore Lite开发人员处理。
+    - 解决方法：可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_converter.html#nodeparser) 添加自定义算子parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://gitee.com/mindspore/mindspore/issues) 给MindSpore Lite开发人员处理。
 
 ## 训练后量化转换失败
 
 ### 全量化转换失败
 
-1. 针对动态Shape的模型，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，例如
+1. 针对动态Shape的模型，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，例如
 
     ```
     ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
@@ -116,7 +116,7 @@
     ```
 
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，直接推理时由于shape无效导致推理失败。
-    - 解决方法：MindSpore Lite在对包含动态shape输入的模型推理时要求指定合理的shape，使用benchmark工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_tool.html#参数说明) 参数指定，使用MindSpore Lite集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#resize) 方法设置。
+    - 解决方法：MindSpore Lite在对包含动态shape输入的模型推理时要求指定合理的shape，使用benchmark工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_tool.html#参数说明) 参数指定，使用MindSpore Lite集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#resize) 方法设置。
 
 ### OpenCL GPU 推理问题
 
@@ -185,7 +185,7 @@
     ```
 
     - 问题分析：TensorRT GPU 构图暂不支持有动态 shape 的模型，具体情况为模型的输入 shape 包含-1，或者模型中包含 shape 算子。
-    - 解决方法：在使用 converter 将模型转换成ms时，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，指定输入 tensor 的 shape 信息。如需在推理时改变输入 shape，使用 benchmark 工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_tool.html#参数说明) 参数指定，使用 MindSpore Lite 集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#resize) 方法设置。注意：[Resize](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#resize)输入的 shape 维度必须要小于等于 [Build](https://mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#build)模型的维度。
+    - 解决方法：在使用 converter 将模型转换成ms时，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，指定输入 tensor 的 shape 信息。如需在推理时改变输入 shape，使用 benchmark 工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_tool.html#参数说明) 参数指定，使用 MindSpore Lite 集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#resize) 方法设置。注意：[Resize](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#resize)输入的 shape 维度必须要小于等于 [Build](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#build)模型的维度。
 
 #### 图执行失败
 
@@ -266,8 +266,8 @@
 ## 模型推理精度问题
 
 1. 使用MindSpore Lite集成时对推理结果后处理后发现效果不理想，怀疑推理精度存在问题要如何定位？
-    - 首先确认输入数据是否正确：在MindSpore Lite 1.3.0及之前版本ms模型的输入数据格式为NHWC，MindSpore Lite 1.5.0之后的版本支持[inputDataFormat](https://mindspore.cn/lite/docs/zh-CN/r2.6.0/converter/converter_tool.html) 参数设置输入数据格式为NHWC或NCHW，需要检查输入数据的格式确保和ms模型要求的输入格式一致；
-    - 通过MindSpore Lite提供的基准测试工具[benchmark](https://mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_tool.html) 进行精度测试验证，日志如下则可能存在精度问题；否则MindSpore Lite推理精度正常，需要检查数据前/后处理过程是否有误。
+    - 首先确认输入数据是否正确：在MindSpore Lite 1.3.0及之前版本ms模型的输入数据格式为NHWC，MindSpore Lite 1.5.0之后的版本支持[inputDataFormat](https://mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/converter/converter_tool.html) 参数设置输入数据格式为NHWC或NCHW，需要检查输入数据的格式确保和ms模型要求的输入格式一致；
+    - 通过MindSpore Lite提供的基准测试工具[benchmark](https://mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_tool.html) 进行精度测试验证，日志如下则可能存在精度问题；否则MindSpore Lite推理精度正常，需要检查数据前/后处理过程是否有误。
 
       ```cpp
       Mean bias of all nodes/tensors is too big: **
@@ -275,19 +275,19 @@
       Run MarkAccuracy error: -1
       ```
 
-    - 若MindSpore Lite进行整网推理存在精度问题，可以通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_tool.html#dump功能) 保存算子层输出，和原框架推理结果进行对比进一步定位出现精度异常的算子。
+    - 若MindSpore Lite进行整网推理存在精度问题，可以通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_tool.html#dump功能) 保存算子层输出，和原框架推理结果进行对比进一步定位出现精度异常的算子。
     - 针对存在精度问题的算子，可以下载[MindSpore源码](https://gitee.com/mindspore/mindspore) 检查算子实现并构造相应单算子网络进行调试与问题定位；也可以在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 给MindSpore Lite的开发人员处理。
 
 2. MindSpore Lite使用fp32推理结果正确，但是fp16推理结果出现NaN或者Inf值怎么办？
-    - 结果出现NaN或者Inf值一般为推理过程中出现数值溢出，可以查看模型结构，筛选可能出数值溢出的算子层，然后通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_tool.html#dump功能) 保存算子层输出确认出现数值溢出的算子。
-    - MindSpore Lite 1.5.0之后版本提供混合精度推理能力，在整网推理优先使用fp16时支持设置某一层算子进行fp32推理，具体使用方法可参考官网文档[混合精度运行](https://mindspore.cn/lite/docs/zh-CN/r2.6.0/infer/runtime_cpp.html#混合精度运行) ，通过将溢出层设置为fp32避免在fp16推理时出现的整网推理精度问题。
+    - 结果出现NaN或者Inf值一般为推理过程中出现数值溢出，可以查看模型结构，筛选可能出数值溢出的算子层，然后通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_tool.html#dump功能) 保存算子层输出确认出现数值溢出的算子。
+    - MindSpore Lite 1.5.0之后版本提供混合精度推理能力，在整网推理优先使用fp16时支持设置某一层算子进行fp32推理，具体使用方法可参考官网文档[混合精度运行](https://mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/infer/runtime_cpp.html#混合精度运行) ，通过将溢出层设置为fp32避免在fp16推理时出现的整网推理精度问题。
 
 3. MindSpore Lite使用fp32和fp16推理结果同时出现NaN或者Inf值怎么办？
     - 问题分析：检查整个网络存在做除法操作的算子。在做推理时如果执行了除法操作，且除数是0时容易出现NaN值。比如下面的网络结构，如果该网络用于输入数据不做归一化的场景，输入数据在0-255范围，则会出现NaN值，原因在于不做归一化时，输入数据比较大，导致matmul的输出值会很大，导致Tanh激活函数输出等于1，最终导致Div算子除0。但如果网络输入数据做了归一化，Tanh激活函数不等于1，网络推理数据不存在NaN值。
 
       ![image-20211214191139062](./images/troubleshooting_Fp32_NAN.png)
 
-    - 解决方法：如果是输入数据太大导致的，建议训练时把网络输入数据做归一化。如果输入数据归一化了还存在NaN值，这种需要通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_tool.html#dump功能) 保存算子层输出确认出现数值溢出的算子，具体分析。
+    - 解决方法：如果是输入数据太大导致的，建议训练时把网络输入数据做归一化。如果输入数据归一化了还存在NaN值，这种需要通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_tool.html#dump功能) 保存算子层输出确认出现数值溢出的算子，具体分析。
 
 ## 模型推理性能问题
 
@@ -325,7 +325,7 @@
     - 绝大多数情况下，NPU的推理性能要大幅优于CPU，但在少数情况下会比CPU更劣：
 
     （1）检查模型中是否存在大量Pad或StridedSlice等算子，由于NPU中的数组格式与CPU有所不同，这类算子在NPU中运算时涉及数组的重排，因此相较CPU不存在任何优势，甚至劣于CPU。若确实需要在NPU上运行，建议尝试去除或替换此类算子。
-    （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/reference/operator_list_lite.html)，在模型搭建时规避不支持的算子，或在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 询问MindSpore Lite的开发人员。
+    （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/reference/operator_list_lite.html)，在模型搭建时规避不支持的算子，或在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 询问MindSpore Lite的开发人员。
 
 ## 使用Visual Studio相关问题
 
@@ -404,7 +404,7 @@ A：目前NPU仅支持在系统ROM版本EMUI>=11、芯片支持包括Kirin 9000�
 
 <font size=3>**Q：为什么使用裁剪工具裁剪后的静态库在集成时存在编译失败情况？**</font>
 
-A：目前裁剪工具仅支持CPU和GPU的库，具体使用请查看[使用裁剪工具降低库文件大小](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/cropper_tool.html)文档。
+A：目前裁剪工具仅支持CPU和GPU的库，具体使用请查看[使用裁剪工具降低库文件大小](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/cropper_tool.html)文档。
 
 <br/>
 

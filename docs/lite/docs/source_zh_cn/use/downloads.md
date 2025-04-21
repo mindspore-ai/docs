@@ -1,6 +1,6 @@
 # 下载MindSpore Lite
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/use/downloads.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/use/downloads.md)
 
 欢迎使用MindSpore Lite，我们提供了支持多种操作系统和硬件平台的模型转换、模型推理、图像处理等功能，你可以下载适用于本地环境的版本包直接使用。
 
@@ -797,5 +797,5 @@ MindSpore Lite Python接口开发库
 
 > - Ubuntu-x64版本包是在GCC版本大于等于7.3.0的环境编译得到的，所以该版本包的部署环境要求GLIBC版本大于等于2.27。
 > - Android-aarch32的版本包不支持GPU和NPU。
-> - MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/cropper_tool.html#静态库裁剪工具)，用于裁剪静态库文件，有效降低库文件大小。
+> - MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/cropper_tool.html#静态库裁剪工具)，用于裁剪静态库文件，有效降低库文件大小。
 > - MindSpore Lite下载完成后，需要进行SHA-256完整性校验。

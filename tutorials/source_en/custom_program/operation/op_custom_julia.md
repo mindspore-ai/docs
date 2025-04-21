@@ -1,6 +1,6 @@
 # Custom Operator with Third Party Frontend
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/custom_program/operation/op_custom_julia.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/custom_program/operation/op_custom_julia.md)
 
 As one of the future development goals of MindSpore,  the fusion of AI and scientific computing draws more and more attention from the industry. Based on the flexibility of the representation, MindSpore custom operator also makes exploration on the scientific computing, and introduces the programming frontend for HPC to MindSpore via custom operator.
 
@@ -11,7 +11,7 @@ The custom operator of julia type uses Julia to describe the internal calculatio
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic of the operator output shape and the data type.
 
-If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/en/r2.6.0/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
+If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
 
 ## Custom Operator Use Cases of julia Type
 
@@ -148,4 +148,4 @@ Matters need attention:
     end
     ```
 
-For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.6.0/tests/st/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.
+For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/tests/st/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.

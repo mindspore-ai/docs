@@ -1,6 +1,6 @@
 # 端侧训练（C++接口）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/train/runtime_train_cpp.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/train/runtime_train_cpp.md)
 
 ## 概述
 
@@ -16,19 +16,19 @@
 
 ![训练流程图](../images/train_sequence_unify_api.png)
 
-> 更多C++ API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/index.html)。
+> 更多C++ API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/index.html)。
 
 ## 模型创建加载与编译
 
-MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#model)是训练的主入口。通过`Model`，我们可以实现模型加载、模型编译和模型执行。
+MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#model)是训练的主入口。通过`Model`，我们可以实现模型加载、模型编译和模型执行。
 
 ### 读取模型
 
-模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Serialization](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#serialization)类中实现，该类实现了模型文件读写的方法。
+模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Serialization](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#serialization)类中实现，该类实现了模型文件读写的方法。
 
 ### 创建上下文
 
-[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#context)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`Model`只支持单线程的CPU设备。
+[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#context)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`Model`只支持单线程的CPU设备。
 
 如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在`Model`对象创建完成后，`Context`对象即可释放。
 
@@ -69,17 +69,17 @@ int CreateSession() {
 }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)获取完整代码。
+> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)获取完整代码。
 
 ## 数据处理
 
 ### 数据输入流
 
-`Dataset`类及其扩展类（例如`MnistDataset`和`AlbumDataset`）为用户提供了丰富的数据处理API，用户只需要指定数据集的路径，通过接口函数返回对应类型的共享指针来设定训练中执行的数据处理操作，输入流会在训练过程中加载并解析数据。API说明详见[Dataset](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/generate/classmindspore_dataset_Dataset.html)。
+`Dataset`类及其扩展类（例如`MnistDataset`和`AlbumDataset`）为用户提供了丰富的数据处理API，用户只需要指定数据集的路径，通过接口函数返回对应类型的共享指针来设定训练中执行的数据处理操作，输入流会在训练过程中加载并解析数据。API说明详见[Dataset](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/generate/classmindspore_dataset_Dataset.html)。
 
 ### 数据预处理流
 
-`TensorTransform`类其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数，Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/generate/namespace_mindspore__dataset__vision.html)。
+`TensorTransform`类其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数，Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/generate/namespace_mindspore__dataset__vision.html)。
 
 ### 使用示例
 
@@ -202,7 +202,7 @@ if (ret != RET_OK) {
 
 ### 输入维度Resize
 
-使用MindSpore Lite进行推理时，如果需要对输入的shape进行Resize，则可以在已完成创建[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#model)与模型编译[Build](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#build)之后调用Model的[Resize](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#resize)接口，对输入的Tensor重新设置shape。
+使用MindSpore Lite进行推理时，如果需要对输入的shape进行Resize，则可以在已完成创建[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#model)与模型编译[Build](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#build)之后调用Model的[Resize](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#resize)接口，对输入的Tensor重新设置shape。
 
 > 某些网络不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是变量时，调用可变维度接口可能会导致输入Tensor和权重Tensor的Shape不匹配，最终导致训练失败。
 
@@ -222,7 +222,7 @@ return model->Resize(inputs, new_shapes);
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model by tensor    name.
@@ -233,7 +233,7 @@ return model->Resize(inputs, new_shapes);
     inline MSTensor GetInputByTensorName(const std::string &tensor_name);
     ```
 
-2. 使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#getinputs)方法，直接获取所有模型输入张量的向量。
+2. 使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#getinputs)方法，直接获取所有模型输入张量的向量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model.
@@ -246,7 +246,7 @@ return model->Resize(inputs, new_shapes);
 
 3. 拷贝数据
 
-    一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#mstensor) API 文档。
+    一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#mstensor) API 文档。
 
     ```cpp
     /// \brief Obtains the length of the data of the MSTensor, in bytes.
@@ -316,7 +316,7 @@ return model->Resize(inputs, new_shapes);
 
 MindSpore Lite提供下列方法来获取模型的输出张量：
 
-1. 使用[GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
+1. 使用[GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
 
     ```cpp
     /// \brief Get output MSTensors of model by node name.
@@ -343,7 +343,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-2. 使用[GetOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
+2. 使用[GetOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
 
     ```cpp
     /// \brief Obtains the output tensor of the model by name.
@@ -368,7 +368,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-3. 使用[GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_cpp/mindspore.html#getoutputs)方法，根据张量名称排序的所有输出张量。
+3. 使用[GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_cpp/mindspore.html#getoutputs)方法，根据张量名称排序的所有输出张量。
 
     ```cpp
     /// \brief Obtains all output tensors of the model.
@@ -483,4 +483,4 @@ MindSpore的`Serialization`类实际调用的是`ExportModel`函数，`ExportMod
 
 保存的模型可继续用于训练或推理。
 
-> 请使用[benchmark_train](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/tools/benchmark_train_tool.html)进行训练模型性能和精度评估。
+> 请使用[benchmark_train](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/benchmark_train_tool.html)进行训练模型性能和精度评估。

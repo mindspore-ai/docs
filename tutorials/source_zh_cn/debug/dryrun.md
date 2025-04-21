@@ -1,6 +1,6 @@
 # DryRun
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/debug/dryrun.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/debug/dryrun.md)
 
 ## 概述
 
@@ -17,7 +17,7 @@ MindSpore框架提供了DryRun机制，模拟（mock）所有的device侧接口�
 用户可以根据自己的需求，通过使能环境变量 `export MS_SIMULATION_LEVEL=0/1/2/3`，设置模拟运行的级别。
 
 > - 该特性为模拟执行，无法获取算子正确的输出信息，静态图涉及动态shape的场景下，存在算子的输入shape依赖上一个算子的输出shape的情况，因此不适用该特性。
-> - 动态图场景需要采用[mock接口](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock)自行适配脚本。
+> - 动态图场景需要采用[mock接口](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore.utils.html#mindspore.utils.dryrun.mock)自行适配脚本。
 
 #### MS_SIMULATION_LEVEL=0
 
@@ -57,7 +57,7 @@ Actual peak memory usage (with fragments): 26244M
 
 #### MS_SIMULATION_LEVEL=3
 
-在`2`的基础上增加了计算算子的运行统计，占用CPU资源以及与需要模拟的卡数相对应的计算资源。在显存分析的基础上，增加了当前卡的计算算子执行，用户可以结合[MindSpore Profiler](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/profiler.html)分析计算算子耗时。
+在`2`的基础上增加了计算算子的运行统计，占用CPU资源以及与需要模拟的卡数相对应的计算资源。在显存分析的基础上，增加了当前卡的计算算子执行，用户可以结合[MindSpore Profiler](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/debug/profiler.html)分析计算算子耗时。
 
 开启profiling后，可以找到`trace_view.json`文件，如下图所示：
 

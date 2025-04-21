@@ -1,8 +1,8 @@
 报错分析
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/debug/error_analysis.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/debug/error_analysis.rst
     :alt: 查看源文件
 
 .. toctree::
@@ -89,7 +89,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 3) 根据Python调用栈以及报错信息，分析发生报错的位置。在动态图模式下，代码报错位置较容易判断。在静态图模式下，需要结合报错信息中“The Traceback of Net Construct Code”部分内容，分析报错位置。
 4) 基于可能的报错问题场景以及类型，假设导致报错问题的可能原因。
 
-具体如何根据不同场景进行错误分析，请参考\ `错误分析 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/debug/error_analysis/error_scenario_analysis.html>`__\ 。
+具体如何根据不同场景进行错误分析，请参考\ `错误分析 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/debug/error_analysis/error_scenario_analysis.html>`__\ 。
 
 错误搜索
 ^^^^^^^^
@@ -100,7 +100,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
    MindSpore提供常见报错问题FAQ，包括数据处理、编译执行、分布式并行等场景。可根据错误分析中得出的问题场景，使用报错描述信息进行问题搜索。
 
-   搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/r2.6.0/faq/installation.html>`__\ 。
+   搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/faq/installation.html>`__\ 。
 
 -  报错案例
 
@@ -143,7 +143,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有告警信息，对报错分析造成干扰。
 
    MindSpore提供切换同步执行的方法，通过设置\ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)``
-   切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考\ `PyNative同步执行 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/accelerate_with_static_graph.html>`__\ 。
+   切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考\ `PyNative同步执行 <https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/beginner/accelerate_with_static_graph.html>`__\ 。
 
 -  二分法策略
 
@@ -174,7 +174,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
    1. ops.print\_接口
 
-      静态图模式下，MindSpore提供 `ops.print_ <https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.print_.html>`_ 接口，用于打印计算图中Tensor信息或字符串信息。默认打印在屏幕上，也可以保存在文件中。
+      静态图模式下，MindSpore提供 `ops.print_ <https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/ops/mindspore.ops.print_.html>`_ 接口，用于打印计算图中Tensor信息或字符串信息。默认打印在屏幕上，也可以保存在文件中。
 
    2. 调试器
 
@@ -235,7 +235,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 数据Dump       | 训练网络时，若训练结果和预期有偏差，通过Du\  | `Dump功能调试 <https://www.       |
 |          |                | mp功能保存算子输入输出数据进行调试。         | mindspore.cn/tutorials/           |
-|          |                |                                              | /zh-CN/r2.6.0/                    |
+|          |                |                                              | /zh-CN/r2.6.0rc1/                 |
 |          |                |                                              | debug/dump.html>`_                |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 | 执行控制 | Callback       | 用户可以使用回调函数在特定时期执行特定动作或\|                                   |
@@ -247,7 +247,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Hook           | 在pynative模式使用Hook功能可以捕\            | `Hook功能 <https://www.mi         |
 |          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/tutorials              |
-|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/r2.6.0/                    |
+|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/r2.6.0rc1/                 |
 |          |                | kBackward算子和在Cell对象上进行\             | /custom_program/hook_program      |
 |          |                | 注册的register_forward_pr\                   | .html>`_                          |
 |          |                | e_hook、register_forwar\                     |                                   |
@@ -256,7 +256,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 同步执行       | 在动态图模式下，为了提升性能，算子在devi\    | `动态图同步执行 <https://www.m    |
 |          |                | ce上使用了异步执行方式，因此算子执行错误可\  | indspore.cn/tutorials/z           |
-|          |                | 能会在程序执行最后才显示。针对这种情况，Mi\  | h-CN/r2.6.0/beginner/             |
+|          |                | 能会在程序执行最后才显示。针对这种情况，Mi\  | h-CN/r2.6.0rc1/beginner/          |
 |          |                | ndSpore提供了同步执行的设置来控制算子\       | accelerate_with_static_graph.html |
 |          |                | 在device上是否使用异步执行。                 | #动态图模式>`_                    |
 +----------+----------------+----------------------------------------------+-----------------------------------+

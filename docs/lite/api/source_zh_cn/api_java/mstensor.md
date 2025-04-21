@@ -1,6 +1,6 @@
 # MSTensor
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/api/source_zh_cn/api_java/mstensor.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/api/source_zh_cn/api_java/mstensor.md)
 
 ```java
 import com.mindspore.MSTensor;
@@ -83,7 +83,7 @@ public int[] getShape()
 public int getDataType()
 ```
 
-DataType在[com.mindspore.DataType](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java)中定义。
+DataType在[com.mindspore.DataType](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java)中定义。
 
 - 返回值
 

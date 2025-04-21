@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/cv/ssd.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/cv/ssd.md)
 
 # SSD for Object Detection
 
@@ -17,13 +17,13 @@ Mainstream SSD object detection algorithms are classified into the following typ
 
 SSD is the one-stage object detection algorithm. Feature extraction is performed by using a convolutional neural network, and different feature layers are used for detection output. Therefore, the SSD is a multi-scale detection method. At the feature layer to be detected, a 3 $\times$ 3 convolution is directly used to transform the channel. SSD uses the anchor policy, and anchors with different length-width ratios are preset. Each output feature layer predicts a plurality of detection boxes (4 or 6) based on the anchor. A multi-scale detection method is used. The shallow layer is used to detect small objects, and the deep layer is used to detect large objects. The following figure shows the SSD framework.
 
-![SSD-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_1.png)
+![SSD-1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_1.png)
 
 ### Model Structure
 
 The SSD uses VGG-16 as a basic model, and then adds a convolutional layer based on VGG-16 to obtain more feature maps for detection. The following figure shows the SSD network structure. The upper part is the SSD model, and the lower part is the YOLO model. It can be seen that the SSD uses a multi-scale feature map for detection.
 
-![SSD-2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_2.jpg)
+![SSD-2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_2.jpg)
 <br />
 
 Comparison of two one-stage object detection algorithms:<br>
@@ -328,7 +328,7 @@ def create_ssd_dataset(mindrecord_file, batch_size=32, device_num=1, rank=0,
 
 The SSD network structure consists of the following parts:
 
-![SSD-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_3.jpg)
+![SSD-3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_3.jpg)
 
 - VGG16 Base Layer
 
@@ -342,7 +342,7 @@ The SSD network structure consists of the following parts:
 
 ### Backbone Layer
 
-![SSD-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_en/cv/images/SSD_4.png)
+![SSD-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_en/cv/images/SSD_4.png)
 
 After being preprocessed, the size of the input image is fixed at 300 x 300. The image passes through the backbone first. In this case, the first 13 convolutional layers of the VGG-16 network are used. Then, the fully-connected layers fc6 and fc7 of VGG-16 are respectively converted into 3 $\times$ 3 convolutional layer block 6 and 1 $\times$ 1 convolutional layer block 7, and features are further extracted. In block 6, a dilated convolution with 6 dilations is used, and padding of the dilated convolution is also 6. This is to increase a receptive field and keep the parameter quantity and the feature map size unchanged.
 
@@ -350,7 +350,7 @@ After being preprocessed, the size of the input image is fixed at 300 x 300. The
 
 On the basis of VGG-16, the SSD further adds four deep convolutional layers to extract higher-layer semantic information:
 
-![SSD-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_5.png)
+![SSD-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_5.png)
 
 Blocks 8 to 11 are used to extract higher semantic information. The number of channels in block 8 is 512, and the number of channels in block 9, block 10, and block 11 is 256. From block 7 to block 11, sizes of the five convolutional output feature maps are 19 x 19, 10 x 10, 5 x 5, 3 x 3, and 1 x 1 in sequence. To reduce the number of parameters, 1 x 1 convolution is used to reduce the number of channels to half of the number of output channels at this layer, and then 3 x 3 convolution is used for feature extraction.
 
@@ -360,25 +360,25 @@ The SSD uses the PriorBox to generate regions. The PriorBox with a fixed width a
 PriorBox generation rule:
 The SSD uses six feature layers to detect objects. At different feature layers, the scale of the PriorBox is different. The scale of the lowest layer is 0.1, and the scale of the highest layer is 0.95. The calculation formulas for other layers are as follows:
 
-![SSD-6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_6.jpg)
+![SSD-6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_6.jpg)
 
 If the scale of a feature layer is fixed, PriorBox with different aspect ratios is set. The length and width of PriorBox are calculated as follows:
 
-![SSD-7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_7.jpg)
+![SSD-7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_7.jpg)
 
 When ratio is 1, a PriorBox (length-width ratio=1) of a specific scale is calculated based on the feature layer and the next feature layer. The calculation formula is as follows:
 
-![SSD-8](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_8.jpg)
+![SSD-8](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_8.jpg)
 
 PriorBox is generated for each point at each feature layer based on the preceding rules. (cx,cy) is determined by the current center point. Therefore, a large number of dense PriorBoxes are generated at each feature layer, as shown in the following figure.
 
-![SSD-9](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_9.png)
+![SSD-9](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_9.png)
 
 The SSD uses feature maps obtained by using six convolutional layers: the fourth, the seventh, the eighth, the ninth, the tenth, and the eleventh layers. Sizes of the six feature maps become smaller, and receptive fields corresponding to the six feature maps become larger. Each point on the six feature maps corresponds to 4, 6, 6, 6, 4, and 4 PriorBoxes respectively. Coordinates of a point in a feature map may be obtained based on a downsampling rate in the original image. Four or six PriorBoxes of different sizes are generated by using the coordinates as a center. Then, a prediction amount of a class and a location corresponding to each PriorBox is predicted by using a feature of the feature map. For example, the size of the feature map obtained by the eighth convolutional layer is 10 x 10 x 512, each point corresponds to six PriorBoxes, and there are 600 PriorBoxes in total. The MultiBox class is defined to generate multiple prediction boxes.
 
 ### Detection Layer
 
-![SSD-10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_en/cv/images/SSD_10.jpg)
+![SSD-10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_en/cv/images/SSD_10.jpg)
 
 The SSD model has six prediction feature maps in total. For a prediction feature map whose size is m\*n and channel is p, it is assumed that each pixel of the prediction feature map generates k anchors, and each anchor corresponds to c classes and four regression offsets. A convolution operation is performed on the prediction feature map by using (4+c)k convolution kernels whose sizes are 3x3 and channel is p, to obtain an output feature map whose sizes are m\*n and channel is (4+c)m\*k. It contains the regression offset and probability scores of each anchor generated on the prediction feature map. Therefore, for a prediction feature map whose size is m\*n, a total of (4+c)k\*m\*n results are generated. The number of output channels of the cls branch is k\*class_num, and the number of output channels of the loc branch is k\*4.
 
@@ -574,7 +574,7 @@ class SSD300Vgg16(nn.Cell):
 
 The object function of the SSD algorithm is divided into two parts: calculating a confidence loss (conf) between a corresponding preselection box and a target category and a corresponding location loss (loc):
 
-![SSD-11](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_11.jpg)
+![SSD-11](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_11.jpg)
 
 In the preceding information:<br>
 N indicates the number of positive samples in the prior box.<br>
@@ -587,13 +587,13 @@ g indicates the location parameter of the ground truth.<br>
 
 Smooth L1 Loss is used for all positive samples. The location information is encoded.
 
-![SSD-12](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_12.jpg)
+![SSD-12](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_12.jpg)
 
 ### Confidence Loss Function
 
 The confidence loss is the softmax loss on multi-class confidence (c).
 
-![SSD-13](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_en/cv/images/SSD_13.jpg)
+![SSD-13](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_en/cv/images/SSD_13.jpg)
 
 ```python
 def class_loss(logits, label):
@@ -813,7 +813,7 @@ Notes:
 
 3. If the IoUs of multiple ground truths and a prior box are all greater than the threshold, the prior box is matched only with the largest IoU.
 
-![SSD-14](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_en/cv/images/SSD_14.jpg)
+![SSD-14](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_en/cv/images/SSD_14.jpg)
 
 As shown in the preceding figure, the basic idea of matching prior boxes and ground truth boxes during training is as follows: Each prior box is regressed to the ground truth box. The control of this process requires the help of the loss layer. The loss layer calculates the error between the actual value and the prediction value to guide the learning direction.
 
@@ -1072,13 +1072,13 @@ Customize the eval_net() class to evaluate the trained model and invoke the SsdI
 
 - Average precision (AP):
 
-    ![SSD-15](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_15.jpg)
+    ![SSD-15](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_15.jpg)
 
     The AP is the ratio of the correct prediction result of positive samples to the sum of the prediction result of the positive samples and the incorrect prediction result, and mainly reflects an error rate of a prediction result.
 
 - Average recall (AR):
 
-    ![SSD-16](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/cv/images/SSD_16.jpg)
+    ![SSD-16](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/tutorials/source_zh_cn/cv/images/SSD_16.jpg)
 
     The AR is the ratio of the correct prediction result of positive samples to the sum of the correct prediction result of positive samples and the incorrect prediction result of positive samples. The AR mainly reflects the missing detection rate in the prediction result.
 

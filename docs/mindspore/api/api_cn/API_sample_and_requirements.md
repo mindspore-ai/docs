@@ -270,7 +270,7 @@
 
     教程样例：
         - `自动混合精度 - 损失缩放
-          <https://mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/mixed_precision.html#损失缩放>`_
+          <https://mindspore.cn/tutorials/zh-CN/r2.6.0rc1/beginner/mixed_precision.html#损失缩放>`_
 
 ```
 
@@ -284,7 +284,7 @@
 
     教程样例：
         - `自动混合精度 - 损失缩放
-          <https://mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/mixed_precision.html#损失缩放>`_
+          <https://mindspore.cn/tutorials/zh-CN/r2.6.0rc1/beginner/mixed_precision.html#损失缩放>`_
 
 ```
 
@@ -390,7 +390,7 @@
 
     例：
 
-    请参考 `tensor <https://www.gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/python/mindspore/common/tensor.py>`_ 。
+    请参考 `tensor <https://www.gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/python/mindspore/common/tensor.py>`_ 。
     ```
 
     请注意，链接文本和 URL 的开头 < 之间必须有一个空格，且整体的前后需要有空格。

@@ -1,6 +1,6 @@
 # Installation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/faq/installation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/mindspore/source_en/faq/installation.md)
 
 ## Installing by Using Pip
 
@@ -194,7 +194,7 @@ If you want to run on a GPU+Windows environment, you can try to use WSL+docker, 
 
     > Since CUDA on WSL is still a preview feature, pay attention to the description of the Windows version requirements in the reference link, and the version is not enough to be upgraded.
 
-3. Referring to [Docker Image](https://gitee.com/mindspore/mindspore/blob/v2.6.0/README.md#docker-image), take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
+3. Referring to [Docker Image](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/README.md#docker-image), take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
 
     ```docker
     docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash

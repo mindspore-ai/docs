@@ -1,10 +1,10 @@
 # Obtaining and Preparing Large Language Model Weights
 
-[![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/model_infer/ms_infer/weight_prepare.md)
+[![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/model_infer/ms_infer/weight_prepare.md)
 
 Model weights are the most crucial parameters for large language models and are usually directly related to the model's final performance. Therefore, obtaining effective and reliable model weight files is a very important step in preparing for large language model inference. In general, there are two solutions for obtaining model weight files:
 
-- **Training weights using datasets**: Utilize the training capabilities of the MindSpore framework and a dataset closely related to services to train from scratch or fine-tune a model, then output the model weight file. This approach requires using MindSpore's training capabilities and significant computing resources, making it suitable for scenarios where users have unique datasets. For details, see [mindspore.save_checkpoint](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.save_checkpoint.html#mindspore.save_checkpoint).
+- **Training weights using datasets**: Utilize the training capabilities of the MindSpore framework and a dataset closely related to services to train from scratch or fine-tune a model, then output the model weight file. This approach requires using MindSpore's training capabilities and significant computing resources, making it suitable for scenarios where users have unique datasets. For details, see [mindspore.save_checkpoint](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.save_checkpoint.html#mindspore.save_checkpoint).
 
 - **Obtaining pre-trained model weights from the official websites**: Download pre-trained model configurations, tokenizers, and weight files from the official websites of mainstream models, and use the capabilities of the MindSpore framework to convert these weights into MindSpore's CKPT weight files as the input of large language model inference.
 

@@ -1,18 +1,18 @@
 # 使用Python接口执行并发推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/mindir/runtime_parallel_python.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/mindir/runtime_parallel_python.md)
 
 ## 概述
 
-MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.ModelParallelRunner.html)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU、CPU后端。
+MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.ModelParallelRunner.html)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU、CPU后端。
 
-通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[Python接口](https://mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite.html)执行多model并发推理。
+通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[Python接口](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite.html)执行多model并发推理。
 
 使用MindSpore Lite并发推理主要包括以下步骤：
 
 1. 准备工作：安装MindSpore Lite云侧推理Python包。
-2. 创建配置上下文：设置上下文[Context.parallel](https://mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)属性，用于配置多model并发。
-3. 并发模型加载与编译：执行并发推理之前，需要调用[ModelParallelRunner](https://mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.ModelParallelRunner.html)的[build_from_file](https://mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file)接口进行并发模型加载和并发模型编译。
+2. 创建配置上下文：设置上下文[Context.parallel](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)属性，用于配置多model并发。
+3. 并发模型加载与编译：执行并发推理之前，需要调用[ModelParallelRunner](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.ModelParallelRunner.html)的[build_from_file](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file)接口进行并发模型加载和并发模型编译。
 4. 设置并发推理任务：创建多线程，绑定并发推理任务。
 5. 执行并发推理：使用ModelParallelRunner的Predict接口进行多Model并发推理。
 6. 释放内存：无需使用MindSpore Lite并发推理框架时，需要释放自己创建的ModelParallelRunner以及相关的Tensor。
@@ -21,9 +21,9 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mind
 
 ## 准备工作
 
-1. 以下代码样例来自于[使用Python接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)。
+1. 以下代码样例来自于[使用Python接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_parallel_python`目录。可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)和输入数据[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_parallel_python`目录。可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)和输入数据[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)。
 
 3. 通过pip安装Python3.7版本的MindSpore Lite云侧推理Python包。
 
@@ -33,7 +33,7 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mind
 
 ### 创建配置上下文
 
-多model并发推理相关的上下文[Context.parallel](https://mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)属性会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行；
+多model并发推理相关的上下文[Context.parallel](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)属性会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行；
 
 下面示例代码演示了如何设置Context.parallel属性，并配置并发推理的worker数量。
 
@@ -74,13 +74,13 @@ context.cpu.inter_op_parallel_num = THREAD_NUM
 context.parallel.workers_num = WORKERS_NUM
 ```
 
-> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/mindir/runtime_python.html#创建配置上下文)。
+> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/mindir/runtime_python.html#创建配置上下文)。
 >
 > 多model并发推理不支持FP32类型数据推理，绑核只支持不绑核或者绑大核，不支持绑中核的参数设置，且不支持配置绑核列表。
 
 ### 并发模型加载与编译
 
-使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，调用`ModelParallelRunner`的[build_from_file](https://mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file)接口进行并发模型加载和并发模型编译。
+使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，调用`ModelParallelRunner`的[build_from_file](https://mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file)接口进行并发模型加载和并发模型编译。
 
 ```python
 # Build ModelParallelRunner from file
@@ -92,7 +92,7 @@ model_parallel_runner.build_from_file(model_path="./model/mobilenetv2.mindir", c
 
 ### 设置并发推理任务
 
-创建多线程，绑定并发推理任务。推理任务包括向`输入Tensor`中填充数据、使用`ModelParallelRunner`的[predict](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict)接口进行并发推理和通过`输出Tensor`得到推理结果。
+创建多线程，绑定并发推理任务。推理任务包括向`输入Tensor`中填充数据、使用`ModelParallelRunner`的[predict](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.predict)接口进行并发推理和通过`输出Tensor`得到推理结果。
 
 ```python
 def parallel_runner_predict(parallel_runner, parallel_id):
@@ -158,7 +158,7 @@ print("total run time: ", total_end_time - total_start_time, " s")
 
 ## 一键配置Python环境
 
-在[mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)目录下执行lite-server-cpu-pip.sh脚本。该脚本会安装python、pip、numpy以及wheel，下载模型文件和模型输入数据，重新安装MindSpore Lite whl包，检查MindSpore Lite whl包安装情况。
+在[mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)目录下执行lite-server-cpu-pip.sh脚本。该脚本会安装python、pip、numpy以及wheel，下载模型文件和模型输入数据，重新安装MindSpore Lite whl包，检查MindSpore Lite whl包安装情况。
 
 ```bash
 bash lite-server-cpu-pip.sh
@@ -166,7 +166,7 @@ bash lite-server-cpu-pip.sh
 
 ## 执行Demo
 
-一键安装后，在[mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)目录，执行以下命令，体验MindSpore Lite并发推理MobileNetV2模型。
+一键安装后，在[mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)目录，执行以下命令，体验MindSpore Lite并发推理MobileNetV2模型。
 
 ```bash
 python quick_start_parallel_python.py

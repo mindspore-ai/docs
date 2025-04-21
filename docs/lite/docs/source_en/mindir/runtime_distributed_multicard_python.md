@@ -1,28 +1,28 @@
 # Performing Ascend Backend Multi-card/Multi-core Inference Using Python Interfaces
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/mindir/runtime_distributed_multicard_python.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/mindir/runtime_distributed_multicard_python.md)
 
 ## Overview
 
-In single-machine multi-card and single-card multi-core scenarios, in order to fully utilize the performance of the device, it is necessary to allow the chip or different cards to perform parallel inference directly. This scenario is more common in Ascend environments, such as the Atlas 300I Duo inference card which has a single card, dual-core specification is naturally better suited for parallel processing. This tutorial describes how to perform MindSpore Lite multi-card/multi-core inference in the Ascend backend environment using the [Python interface](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite.html). The inference core process is roughly the same as the [cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_python.html) process, and the users can refer to it.
+In single-machine multi-card and single-card multi-core scenarios, in order to fully utilize the performance of the device, it is necessary to allow the chip or different cards to perform parallel inference directly. This scenario is more common in Ascend environments, such as the Atlas 300I Duo inference card which has a single card, dual-core specification is naturally better suited for parallel processing. This tutorial describes how to perform MindSpore Lite multi-card/multi-core inference in the Ascend backend environment using the [Python interface](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite.html). The inference core process is roughly the same as the [cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_python.html) process, and the users can refer to it.
 
 MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployment. The device type supported in this tutorial is Atlas training series products, and takes **Atlas 300I Duo inference card + open source Stable Diffusion (SD) ONNX model** as the case. This case calls Python multiprocess library to create sub-processes, where the user interacts with the master process that interacts with the sub-processes through a pipeline.
 
 ## Preparations
 
-1. Download the cloud-side Ascend backend multi-card/multi-core inference Python [sample code](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/ascend_parallel_python), which will later be referred to as the sample code directory.
+1. Download the cloud-side Ascend backend multi-card/multi-core inference Python [sample code](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/ascend_parallel_python), which will later be referred to as the sample code directory.
 
-2. Download the MindSpore Lite cloud-side inference installer [mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html), store it to the sample code directory, and install it via the `pip` tool.
+2. Download the MindSpore Lite cloud-side inference installer [mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html), store it to the sample code directory, and install it via the `pip` tool.
 
-3. Convert the ONNX model to MindSpore MINDIR format model via [converter_lite tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter_tool.html), where the batch_size is set to half the size of the original model, and is used to allocate to dual-core or dual-card parallel inference, to achieve the same output results as the original model (if more cards are used in parallel, the batch size needs to divide by the number of cards used, and is set to be the result of the division when converting). For example, for the model with batch size = 2, set it to 1 when converting, which means that each sub-process will reason about a single batch when inference in parallel on the dual-core. For the SD2.1 model, the following conversion command can be used:
+3. Convert the ONNX model to MindSpore MINDIR format model via [converter_lite tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html), where the batch_size is set to half the size of the original model, and is used to allocate to dual-core or dual-card parallel inference, to achieve the same output results as the original model (if more cards are used in parallel, the batch size needs to divide by the number of cards used, and is set to be the result of the division when converting). For example, for the model with batch size = 2, set it to 1 when converting, which means that each sub-process will reason about a single batch when inference in parallel on the dual-core. For the SD2.1 model, the following conversion command can be used:
 
     ```shell
     ./converter_lite --modelFile=model.onnx --fmk=ONNX --outputFile=SD2.1_size512_bs1 --inputShape="sample:1,4,64,64;timestep:1;encoder_hidden_states:1,77,1024" --optimize=ascend_oriented
     ```
 
-For more usage of the converter tool and configurable optimization points for model conversion, refer to the [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/converter.html).
+For more usage of the converter tool and configurable optimization points for model conversion, refer to the [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter.html).
 
-Subsequent chapters will describe the main steps of MindSpore Lite cloud-side distributed inference with code. Refer to [sample code](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/ascend_parallel_python).
+Subsequent chapters will describe the main steps of MindSpore Lite cloud-side distributed inference with code. Refer to [sample code](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/ascend_parallel_python).
 
 ## Inference Process
 
@@ -30,7 +30,7 @@ The inference process here corresponds to the class `MSLitePredict` of the sampl
 
 ### Creating a Contextual Configuration
 
-The context configuration saves the basic configuration parameters needed, mainly including setting the device type to `Ascend` and specifying a device ID to assign an executing chip or card for the model. The following sample code demonstrates how to create a context through [Context](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context):
+The context configuration saves the basic configuration parameters needed, mainly including setting the device type to `Ascend` and specifying a device ID to assign an executing chip or card for the model. The following sample code demonstrates how to create a context through [Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context):
 
 ```python
 # init and set context
@@ -41,7 +41,7 @@ context.ascend.device_id = device_id
 
 ### Model Creation, Loading and Compilation
 
-Consistent with [MindSpore Lite cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_python.html), the main entry for Ascend backend multi-card/multi-core inference is the [Model](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) interface, which allows for model loading compilation and execution. Create [Model](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) and call [Model. build_from_file](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to achieve model loading and model compilation. Sample code is as follows:
+Consistent with [MindSpore Lite cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_python.html), the main entry for Ascend backend multi-card/multi-core inference is the [Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) interface, which allows for model loading compilation and execution. Create [Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) and call [Model. build_from_file](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to achieve model loading and model compilation. Sample code is as follows:
 
 ```python
 # create Model and build Model
@@ -51,7 +51,7 @@ model.build_from_file(mindir_file, mslite.ModelType.MINDIR, context)
 
 ### Model Input Data Padding
 
-First, use the [Model.get_inputs](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.get_inputs) method to get all inputs [Tensor](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Tensor.html#mindspore_lite.Tensor), and fill in the Host data using the relevant interface. Sample code is as follows:
+First, use the [Model.get_inputs](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.get_inputs) method to get all inputs [Tensor](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Tensor.html#mindspore_lite.Tensor), and fill in the Host data using the relevant interface. Sample code is as follows:
 
 ```python
 # set model input
@@ -62,7 +62,7 @@ for i, _input in enumerate(inputs):
 
 ### Inference Execution
 
-Call [Model.predict](https://www.mindspore.cn/lite/api/en/r2.6.0/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface to perform inference, and sample code is shown below:
+Call [Model.predict](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface to perform inference, and sample code is shown below:
 
 ```python
 # execute inference

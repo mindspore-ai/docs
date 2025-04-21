@@ -1,12 +1,12 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/beginner/tensor.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/beginner/tensor.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/quick_start.html) || **Tensor** || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.6.0/beginner/mixed_precision.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/quick_start.html) || **Tensor** || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/beginner/mixed_precision.html)
 
 # Tensor
 
 Tensor is a multilinear function that can be used to represent linear relationships between vectors, scalars, and other tensors. The basic examples of these linear relations are the inner product, the outer product, the linear map, and the Cartesian product. In the $n$ dimensional space, its coordinates have $n^{r}$ components. Each component is a function of coordinates, and these components are also linearly transformed according to certain rules when the coordinates are transformed. $r$ is called the rank or order of this tensor (not related to the rank or order of the matrix).
 
-A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors.
+A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors.
 
 ```python
 import numpy as np
@@ -51,9 +51,9 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be transferred.
 
-    - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/r2.6.0/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
+    - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
     - `shape`: supports `list`, `tuple`, and `int`.
-    - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/mindspore.dtype.html#mindspore.dtype).
+    - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.dtype.html#mindspore.dtype).
 
     ```python
     from mindspore.common.initializer import One, Normal
@@ -192,7 +192,7 @@ mod: [0. 1. 0.]
 floordiv: [4. 2. 2.]
 ```
 
-[concat](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.concat.html) connects a series of tensors in a given dimension.
+[concat](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/ops/mindspore.ops.concat.html) connects a series of tensors in a given dimension.
 
 ```python
 data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
@@ -212,7 +212,7 @@ shape:
  (4, 2)
 ```
 
-[stack](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.stack.html) combines two tensors from another dimension.
+[stack](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/ops/mindspore.ops.stack.html) combines two tensors from another dimension.
 
 ```python
 data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
@@ -239,7 +239,7 @@ Tensor and NumPy can be converted to each other.
 
 ### Tensor to NumPy
 
-Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/r2.6.0/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy, which is same as tensor building.
+Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy, which is same as tensor building.
 
 ```python
 t = Tensor([1., 1., 1., 1., 1.])

@@ -1,40 +1,40 @@
 # Performing Cloud-side Distributed Inference Using C++ Interface
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_en/mindir/runtime_distributed_cpp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_en/mindir/runtime_distributed_cpp.md)
 
 ## Overview
 
-For scenarios where large-scale neural network models have many parameters and cannot be fully loaded into a single device for inference, distributed inference can be performed using multiple devices. This tutorial describes how to perform MindSpore Lite cloud-side distributed inference using the [C++ interface](https://www.mindspore.cn/lite/api/en/r2.6.0/index.html). Cloud-side distributed inference is roughly the same process as [Cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_cpp.html) and can be cross-referenced. MindSpore Lite cloud-side distributed inference has more optimization for performance aspects.
+For scenarios where large-scale neural network models have many parameters and cannot be fully loaded into a single device for inference, distributed inference can be performed using multiple devices. This tutorial describes how to perform MindSpore Lite cloud-side distributed inference using the [C++ interface](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/index.html). Cloud-side distributed inference is roughly the same process as [Cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_cpp.html) and can be cross-referenced. MindSpore Lite cloud-side distributed inference has more optimization for performance aspects.
 
 MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployments with Atlas training series and Nvidia GPU as the supported device types. As shown in the figure below, the distributed inference is currently initiated by a multi-process approach, where each process corresponds to a `Rank` in the communication set, loading, compiling and executing the respective sliced model, with the same input data for each process.
 
-![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/lite/docs/source_zh_cn/mindir/images/lite_runtime_distributed.png)
+![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/lite/docs/source_zh_cn/mindir/images/lite_runtime_distributed.png)
 
 Each process consists of the following main steps:
 
 1. Model reading: Slice and export the distributed MindIR model via MindSpore. The number of MindIR models is the same as the number of devices for loading to each device for inference.
-2. Context creation and configuration: Create and configure the [Context](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html), and hold the distributed inference parameters to guide distributed model compilation and model execution.
-3. Model loading and compilation: Use the [Model::Build](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase optimizes the front-end computational graph into a high-performance back-end computational graph. The process is time-consuming and it is recommended to compile once and inference multiple times.
+2. Context creation and configuration: Create and configure the [Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html), and hold the distributed inference parameters to guide distributed model compilation and model execution.
+3. Model loading and compilation: Use the [Model::Build](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase optimizes the front-end computational graph into a high-performance back-end computational graph. The process is time-consuming and it is recommended to compile once and inference multiple times.
 4. Model input data padding.
-5. Distributed inference execution: use the [Model::Predict](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface for model distributed inference.
+5. Distributed inference execution: use the [Model::Predict](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface for model distributed inference.
 6. Model output data obtaining.
 7. Compilation and multi-process execution of distributed inference programs.
 
 ## Preparation
 
-1. To download the cloud-side distributed inference C++ sample code, please select the device type: [Ascend](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp) or [GPU](https://gitee.com/mindspore/mindspore/tree/v2.6.0/mindspore/lite/examples/cloud_infer/gpu_trt_distributed_cpp). The directory will be referred to later as the example code directory.
+1. To download the cloud-side distributed inference C++ sample code, please select the device type: [Ascend](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp) or [GPU](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/gpu_trt_distributed_cpp). The directory will be referred to later as the example code directory.
 
 2. Slice and export the distributed MindIR model via MindSpore and store it to the sample code directory. For a quick experience, you can download the two sliced Matmul model files [Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir), [Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir).
 
 3. For Ascend device type, generate the networking information file through hccl_tools.py as needed, store it in the sample code directory, and fill the path of the file into the configuration file `config_file.ini` in the sample code directory.
 
-4. Download the MindSpore Lite cloud-side inference installation package [mindspore-lite-{version}-linux-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.6.0/use/downloads.html) and store it to the sample code directory. Unzip this installation package and refer to the Environment Variables in the Quick Start to set environment variables.
+4. Download the MindSpore Lite cloud-side inference installation package [mindspore-lite-{version}-linux-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) and store it to the sample code directory. Unzip this installation package and refer to the Environment Variables in the Quick Start to set environment variables.
 
 The main steps of MindSpore Lite cloud-side distributed inference will be described in the subsequent sections in conjunction with the code, and please refer to `main.cc` in the sample code directory for the complete code.
 
 ## Creating Contextual Configuration
 
-The contextual configuration holds the required basic configuration parameters and distributed inference parameters to guide model compilation and model distributed execution. The following sample code demonstrates how to create a context through [Context](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html) and specify a running device through [Context:. MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Context.html) to specify the running device.
+The contextual configuration holds the required basic configuration parameters and distributed inference parameters to guide model compilation and model distributed execution. The following sample code demonstrates how to create a context through [Context](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html) and specify a running device through [Context:. MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Context.html) to specify the running device.
 
 ```c++
 // Create and init context, add Ascend device info
@@ -46,11 +46,11 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-Distributed inference scenarios support [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_AscendDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_GPUDeviceInfo.html), which are used to set Ascend and Nvidia GPU context information respectively.
+Distributed inference scenarios support [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_AscendDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_GPUDeviceInfo.html), which are used to set Ascend and Nvidia GPU context information respectively.
 
 ### Configuring Ascend Device Context
 
-When the device type is Ascend (Atlas training series is currently supported by distributed inference), a new [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_AscendDeviceInfo.html) is created, and set `DeviceID`, `RankID` respectively by [AscendDeviceInfo::SetDeviceID](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_AscendDeviceInfo.html), [AscendDeviceInfo::SetRankID](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_AscendDeviceInfo.html). Since Ascend provides multiple inference engine backends, currently only the `ge` backend supports distributed inference, and the Ascend inference engine backend is specified as `ge` by [DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_DeviceInfoContext.html). The sample code is as follows.
+When the device type is Ascend (Atlas training series is currently supported by distributed inference), a new [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_AscendDeviceInfo.html) is created, and set `DeviceID`, `RankID` respectively by [AscendDeviceInfo::SetDeviceID](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_AscendDeviceInfo.html), [AscendDeviceInfo::SetRankID](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_AscendDeviceInfo.html). Since Ascend provides multiple inference engine backends, currently only the `ge` backend supports distributed inference, and the Ascend inference engine backend is specified as `ge` by [DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_DeviceInfoContext.html). The sample code is as follows.
 
 ```c++
 // for Atlas training series
@@ -69,7 +69,7 @@ device_list.push_back(device_info);
 
 ### Configuring GPU Device Context
 
-When the device type is GPU, new [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_GPUDeviceInfo.html) is created. The distributed inference multi-process application for GPU devices is pulled up by mpi, which automatically sets the `RankID` of each process, and the user only needs to specify `CUDA_VISIBLE_DEVICES` in the environment variable, without specifying the group information file. Therefore, the `RankID` of each process can be used as `DeviceID`. In addition, GPU also provides multiple inference engine backends. Currently only `tensorrt` backend supports distributed inference, and the GPU inference engine backend is specified as `tensorrt` by [DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_DeviceInfoContext.html). The sample code is as follows.
+When the device type is GPU, new [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_GPUDeviceInfo.html) is created. The distributed inference multi-process application for GPU devices is pulled up by mpi, which automatically sets the `RankID` of each process, and the user only needs to specify `CUDA_VISIBLE_DEVICES` in the environment variable, without specifying the group information file. Therefore, the `RankID` of each process can be used as `DeviceID`. In addition, GPU also provides multiple inference engine backends. Currently only `tensorrt` backend supports distributed inference, and the GPU inference engine backend is specified as `tensorrt` by [DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_DeviceInfoContext.html). The sample code is as follows.
 
 ```c++
 // for GPU
@@ -88,7 +88,7 @@ device_list.push_back(device_info);
 
 ## Model Creation, Loading and Compilation
 
-Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface for model loading, compilation and execution. For Ascend devices, use the [Model::LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface to load the configuration file [config_file.ini](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini), which is not required for GPU devices. Finally, call the [Model::Build](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface to implement model loading and model compilation, and the sample code is as follows.
+Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface for model loading, compilation and execution. For Ascend devices, use the [Model::LoadConfig](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface to load the configuration file [config_file.ini](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini), which is not required for GPU devices. Finally, call the [Model::Build](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface to implement model loading and model compilation, and the sample code is as follows.
 
 ```c++
 mindspore::Model model;
@@ -110,7 +110,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ## Model Input Data Padding
 
-First, use the [Model::GetInputs](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) method to get all the input `Tensor`, and fill in the Host data through the [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html)-related interface. The sample code is as follows.
+First, use the [Model::GetInputs](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) method to get all the input `Tensor`, and fill in the Host data through the [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html)-related interface. The sample code is as follows.
 
 ```c++
 // helper function
@@ -146,7 +146,7 @@ if (GenerateInputDataWithRandom(inputs) != 0) {
 
 ## Distributed Inference Execution
 
-Create a model output `Tensor` of type [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html). Call the [Model::Predict](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_Model.html) interface to perform distributed inference, with the following sample code.
+Create a model output `Tensor` of type [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html). Call the [Model::Predict](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_Model.html) interface to perform distributed inference, with the following sample code.
 
 ```c++
 // Model Predict
@@ -160,7 +160,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Model Output Data Obtaining
 
-The model output data is stored in the output `Tensor` defined in the previous step, and the output data is accessible through the [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0/generate/classmindspore_MSTensor.html)-related interface. The following example code shows how to access the output data and print it.
+The model output data is stored in the output `Tensor` defined in the previous step, and the output data is accessible through the [MSTensor](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_MSTensor.html)-related interface. The following example code shows how to access the output data and print it.
 
 ```c++
 // Print Output Tensor Data.
@@ -202,4 +202,4 @@ mpirun -n $RANK_SIZE ./build/gpu_trt_distributed /your/path/to/Matmul.mindir
 
 ## Multiple Models Sharing Weights
 
-In the Ascend device and graph compilation grade O2 scenario, a single card can deploy multiple models, and models deployed to the same card can share weights. For details, please refer to [Advanced Usage - Multiple Model Sharing Weights](https://www.mindspore.cn/lite/docs/en/r2.6.0/mindir/runtime_cpp.html#multiple-models-sharing-weights).
+In the Ascend device and graph compilation grade O2 scenario, a single card can deploy multiple models, and models deployed to the same card can share weights. For details, please refer to [Advanced Usage - Multiple Model Sharing Weights](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/runtime_cpp.html#multiple-models-sharing-weights).

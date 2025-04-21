@@ -1,6 +1,6 @@
 # Hook Programming
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/custom_program/hook_program.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_en/custom_program/hook_program.md)
 
 Debugging deep learning networks is a big task for every practitioner in the field of deep learning. Since the deep learning network hides the input and output data as well as the inverse gradient of the intermediate layer operators, only the gradient of the network input data (feature quantity and weight) is provided, resulting in the inability to accurately sense the data changes of the intermediate layer operators, which reduces the debugging efficiency. In order to facilitate users to debug the deep learning network accurately and quickly, MindSpore designes Hook function in dynamic graph mode. **Using Hook function can capture the input and output data of intermediate layer operators as well as the reverse gradient**.
 
@@ -41,7 +41,7 @@ hook_fn print grad_out: (Tensor(shape=[], dtype=Float32, value= 2),)
 output: (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```
 
-For more descriptions of the HookBackward operator, refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.HookBackward.html).
+For more descriptions of the HookBackward operator, refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/ops/mindspore.ops.HookBackward.html).
 
 ## register_forward_pre_hook Function in Cell Object
 
@@ -145,7 +145,7 @@ forward inputs:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
 
 To avoid running failure when scripts switch to graph mode, it is not recommended to call the `register_forward_pre_hook` function and the `remove()` function of the `handle` object in the `construct` function of the Cell object. In dynamic graph mode, if the `register_forward_pre_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
 
-For more information about the `register_forward_pre_hook` function of the Cell object, refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_pre_hook).
+For more information about the `register_forward_pre_hook` function of the Cell object, refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_pre_hook).
 
 ## register_forward_hook Function of Cell Object
 
@@ -210,7 +210,7 @@ forward outputs:  [2.]
 If the user returns the newly created data directly in the Hook function, instead of returning new output data that is obtained after the original output data is calculated, then the back propagation of the gradient will cut off on that Cell object, which can be seen in the use case illustration of the `register_forward_pre_hook` function.
 To avoid running failure when the script switches to graph mode, it is not recommended to call the `register_forward_hook` function in the `construct` function of the Cell object and the `remove()` function of the `handle` object. In dynamic graph mode, if the `register_forward_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
 
-For more information about the `register_forward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_hook).
+For more information about the `register_forward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_hook).
 
 ## register_backward_pre_hook Function of Cell Object
 
@@ -275,7 +275,7 @@ print("-------------\n", output)
 
 To avoid running failure when the scripts switch to graph mode, it is not recommended to call the `register_backward_pre_hook` function and the `remove()` function of the `handle` object in the `construct` function of the Cell object. In PyNative mode, if the `register_backward_pre_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
 
-For more information about the `register_backward_pre_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_pre_hook).
+For more information about the `register_backward_pre_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_pre_hook).
 
 ## register_backward_hook Function of Cell Object
 
@@ -345,7 +345,7 @@ print("-------------\n", output)
 
 To avoid running failure when the scripts switch to graph mode, it is not recommended to call the `register_backward_hook` function and the `remove()` function of the `handle` object in the `construct` function of the Cell object. In PyNative mode, if the `register_backward_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
 
-For more information about the `register_backward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
+For more information about the `register_backward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
 
 ## Using the multiple hook function of Cell Object
 

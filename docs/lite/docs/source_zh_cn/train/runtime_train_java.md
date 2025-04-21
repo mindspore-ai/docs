@@ -1,6 +1,6 @@
 # 端侧训练（Java接口）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/lite/docs/source_zh_cn/train/runtime_train_java.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/lite/docs/source_zh_cn/train/runtime_train_java.md)
 
 ## 概述
 
@@ -16,19 +16,19 @@
 
 ![训练流程图](../images/train_sequence_unify_api.png)
 
-> 更多java API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/index.html)。
+> 更多java API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/index.html)。
 
 ## 模型创建加载与编译
 
-MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#model)是训练的主入口，通过`Model`我们可以实现模型加载、模型编译和模型执行。
+MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#model)是训练的主入口，通过`Model`我们可以实现模型加载、模型编译和模型执行。
 
 ### 读取模型
 
-模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Graph](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/graph.html#graph)类中实现，该类实现了模型文件读写的方法。
+模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Graph](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/graph.html#graph)类中实现，该类实现了模型文件读写的方法。
 
 ### 创建上下文
 
-[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/mscontext.html)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前模型训练只支持CPU设备。
+[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/mscontext.html)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前模型训练只支持CPU设备。
 
 ### 创建迭代训练
 
@@ -49,7 +49,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ## 数据处理
 
@@ -97,7 +97,7 @@ liteModel.build(g, context, cfg);
     }
 ```
 
-> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ## 执行训练
 
@@ -132,7 +132,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
+> 参照[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.6.0-rc1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java)获取完整代码。
 
 ### 推理
 
@@ -161,7 +161,7 @@ public boolean setTrainMode(boolean isTrain)
 
 ### 输入维度Resize
 
-使用MindSpore Lite进行推理时，如果需要对输入的shape进行Resize，则可以在已完成创建[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#model)与模型编译[build](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#build)之后调用Model的[resize](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#resize)接口，对输入的Tensor重新设置shape。
+使用MindSpore Lite进行推理时，如果需要对输入的shape进行Resize，则可以在已完成创建[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#model)与模型编译[build](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#build)之后调用Model的[resize](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#resize)接口，对输入的Tensor重新设置shape。
 
 > 某些网络不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是变量时，调用可变维度接口可能会导致输入Tensor和权重Tensor的Shape不匹配，最终导致训练失败。
 
@@ -177,7 +177,7 @@ bool ret = model.resize(inputs, dims);
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[getInputsByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#getinputsbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[getInputsByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#getinputsbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```java
      /**
@@ -189,7 +189,7 @@ bool ret = model.resize(inputs, dims);
     public MSTensor getInputByTensorName(String tensorName);
     ```
 
-2. 使用[getInputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#getinputs)方法，直接获取所有模型输入张量的向量。
+2. 使用[getInputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#getinputs)方法，直接获取所有模型输入张量的向量。
 
     ```java
     /**
@@ -204,7 +204,7 @@ bool ret = model.resize(inputs, dims);
 
 3. 拷贝数据
 
-    一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/mstensor.html#mstensor) API 文档。
+    一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/mstensor.html#mstensor) API 文档。
 
     以下示例代码展示了如何从`Model`中获取完整的图输入张量和如何将模型输入数据转换为`MSTensor`类型。
 
@@ -220,7 +220,7 @@ bool ret = model.resize(inputs, dims);
 
 MindSpore Lite提供下列方法来获取模型的输出张量：
 
-1. 使用[getOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
+1. 使用[getOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
 
     ```java
         /**
@@ -232,7 +232,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
         public List<MSTensor> getOutputsByNodeName(String nodeName);
     ```
 
-2. 使用[getOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
+2. 使用[getOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
 
     ```java
           /**
@@ -243,7 +243,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
         public MSTensor getOutputByTensorName(String tensorName);
     ```
 
-3. 使用[getOutputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/api_java/model.html#getoutputs)方法，根据张量名称排序的所有输出张量。
+3. 使用[getOutputs](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/api_java/model.html#getoutputs)方法，根据张量名称排序的所有输出张量。
 
     ```java
         /**
