@@ -1,6 +1,7 @@
 [
     {
-        "version": "r2.6.0",
+        "version": "r2.6.0rc1",
+        "versionAlias": "2.6.0-rc1",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -10,53 +11,53 @@
             "zh": [
                 {
                     "label": "设计理念",
-                    "url": "/docs/zh-CN/r2.6.0/design/overview.html",
-                    "id": "r2.6.0-design"
+                    "url": "/docs/zh-CN/r2.6.0rc1/design/overview.html",
+                    "id": "r2.6.0rc1-design"
                 },
                 {
                     "label": "特性介绍",
-                    "url": "/docs/zh-CN/r2.6.0/features/index.html",
-                    "id": "r2.6.0-model_train"
+                    "url": "/docs/zh-CN/r2.6.0rc1/features/index.html",
+                    "id": "r2.6.0rc1-model_train"
                 },
                 {
                     "label": "API文档",
-                    "url": "/docs/zh-CN/r2.6.0/api_python/index.html",
-                    "id": "r2.6.0-api_python"
+                    "url": "/docs/zh-CN/r2.6.0rc1/api_python/index.html",
+                    "id": "r2.6.0rc1-api_python"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/zh-CN/r2.6.0/faq/installation.html",
-                    "id": "r2.6.0-faq"
+                    "url": "/docs/zh-CN/r2.6.0rc1/faq/installation.html",
+                    "id": "r2.6.0rc1-faq"
                 },
                 {
                     "label": "RELEASE NOTES",
-                    "url": "/docs/zh-CN/r2.6.0/RELEASE.html"
+                    "url": "/docs/zh-CN/r2.6.0rc1/RELEASE.html"
                 }
             ],
             "en": [
                 {
                     "label": "Design Concept",
-                    "url": "/docs/en/r2.6.0/design/overview.html",
-                    "id": "r2.6.0-design"
+                    "url": "/docs/en/r2.6.0rc1/design/overview.html",
+                    "id": "r2.6.0rc1-design"
                 },
                 {
                     "label": "Feature Description",
-                    "url": "/docs/en/r2.6.0/features/index.html",
-                    "id": "r2.6.0-model_train"
+                    "url": "/docs/en/r2.6.0rc1/features/index.html",
+                    "id": "r2.6.0rc1-model_train"
                 },
                 {
                     "label": "API",
-                    "url": "/docs/en/r2.6.0/api_python/index.html",
-                    "id": "r2.6.0-api_python"
+                    "url": "/docs/en/r2.6.0rc1/api_python/index.html",
+                    "id": "r2.6.0rc1-api_python"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/en/r2.6.0/faq/installation.html",
-                    "id": "r2.6.0-faq"
+                    "url": "/docs/en/r2.6.0rc1/faq/installation.html",
+                    "id": "r2.6.0rc1-faq"
                 },
                 {
                     "label": "RELEASE NOTES",
-                    "url": "/docs/en/r2.6.0/RELEASE.html"
+                    "url": "/docs/en/r2.6.0rc1/RELEASE.html"
                 }
             ]
         },
@@ -64,6 +65,7 @@
     },
     {
         "version": "r2.6.0",
+        "versionAlias": "2.6.0-rc1",
         "label": {
             "zh": "教程",
             "en": "Tutorials"
@@ -72,7 +74,8 @@
         "theme": "theme-docs"
     },
     {
-        "version": "r2.6.0",
+        "version": "r2.6.0rc1",
+        "versionAlias": "2.6.0-rc1",
         "label": {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
@@ -82,58 +85,40 @@
             "zh": [
                 {
                     "label": "概述",
-                    "url": "/lite?version=r2.6.0"
+                    "url": "/lite?version=r2.6.0rc1"
                 },
                 {
                     "label": "下载",
-                    "url": "/lite/docs/zh-CN/r2.6.0/use/downloads.html"
+                    "url": "/lite/docs/zh-CN/r2.6.0rc1/use/downloads.html"
                 },
                 {
                     "label": "文档",
-                    "url": "/lite/docs/zh-CN/r2.6.0/index.html"
+                    "url": "/lite/docs/zh-CN/r2.6.0rc1/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/zh-CN/r2.6.0/index.html"
+                    "url": "/lite/api/zh-CN/r2.6.0rc1/index.html"
                 }
             ],
             "en": [
                 {
                     "label": "Overview",
-                    "url": "/lite/en?version=r2.6.0"
+                    "url": "/lite/en?version=r2.6.0rc1"
                 },
                 {
                     "label": "Downloads",
-                    "url": "/lite/docs/en/r2.6.0/use/downloads.html"
+                    "url": "/lite/docs/en/r2.6.0rc1/use/downloads.html"
                 },
                 {
                     "label": "Docs",
-                    "url": "/lite/docs/en/r2.6.0/index.html"
+                    "url": "/lite/docs/en/r2.6.0rc1/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/en/r2.6.0/index.html"
+                    "url": "/lite/api/en/r2.6.0rc1/index.html"
                 }
             ]
         },
         "theme": "theme-lite"
-    },
-    {
-        "version": "r1.1.0",
-        "label": {
-            "zh": "MindSpore Golden Stick",
-            "en": "MindSpore Golden Stick"
-        },
-        "repo_name": "golden_stick",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "r1.5.0",
-        "label": {
-            "zh": "MindSpore Transformers",
-            "en": "MindSpore Transformers"
-        },
-        "repo_name": "mindformers",
-        "theme": "theme-docs"
     }
 ]

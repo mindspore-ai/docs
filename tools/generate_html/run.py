@@ -621,7 +621,7 @@ if __name__ == "__main__":
              release_url=args.release_url, generate_list=generate_list_p)
 
         # 替换页面左侧目录部分
-        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/r2.6.0"
+        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/r2.6.0rc1"
         if os.path.exists(ms_path):
             replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
             print('docs中文目录大纲调整完成！')
@@ -634,7 +634,7 @@ if __name__ == "__main__":
             pool.close()
             pool.join()
             print('docs所有页面search链接已修改！')
-        ts_path = f"{MAINDIR}/{args.version}/output/tutorials/zh-CN/r2.6.0"
+        ts_path = f"{MAINDIR}/{args.version}/output/tutorials/zh-CN/r2.6.0rc1"
         if os.path.exists(ts_path):
             modify_menu_num(ts_path)
             print('tutorials中文目录大纲调整完成！')
