@@ -56,7 +56,7 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)
+For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py).
 
 #### Example Collection in a Custom for Loop Mode
 
@@ -99,7 +99,7 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 
 After the function is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 2 steps, wait 1 step, warmup 1 step, and collection starts from the 4th step. Then the fourth and fifth steps are collected, so the Step ID is 4 and 5, indicating that the fourth and fifth steps are collected.
 
-For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)
+For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py).
 
 ### Method 2: Dynamic Profiler Enabling
 
