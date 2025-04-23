@@ -181,15 +181,27 @@ def get_param_func(func):
             source_code = source_code.replace(func.__doc__, '')
         all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
         if "@classmethod" in source_code:
-            all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+            all_params = re.sub("(self|cls)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params_str[0][0]:
+                all_params = re.sub("(self|cls)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+        elif "def __new__" in source_code:
+            all_params = re.sub("(self|cls|value|iterable)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params:
+                all_params = re.sub("(self|cls|value|iterable)(, |,)", '', all_params_str[0][0].replace("\n", ""))
         else:
-            all_params = re.sub("(self)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+            all_params = re.sub("(self)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params_str[0][0]:
+                all_params = re.sub("(self)(, |,)", '', all_params_str[0][0].replace("\n", ""))
         return all_params
     except:
         return ''
 
 def get_obj(obj):
     if isinstance(obj, type):
+        try:
+            test_source = inspect_.getsource(obj.__init__)
+        except:
+            return obj.__new__
         return obj.__init__
 
     return obj
@@ -285,9 +297,14 @@ src_dir_en = os.path.join(repo_path, copy_path)
 
 des_sir = "./api_python"
 
-need_file = ['mindspore.rst', 'mindspore.ops.rst', 'mindspore.ops.primitive.rst', 'mindspore.nn.rst', 'mindspore.mint.rst',
-             'Tensor_list.rst', 'dataset_list.rst', 'mindspore.amp.rst', 'mindspore.dataset.rst', 'mindspore.scipy.rst', 'mindspore.train.rst',
-             'dataset_pipeline_en.png']
+need_file = [
+    'mindspore.rst', 'mindspore.ops.rst', 'mindspore.nn.rst', 'mindspore.mint.rst',
+    'Tensor_list.rst', 'dataset_list.rst', 'mindspore.common.initializer.rst',
+    'mindspore.amp.rst', 'mindspore.dataset.rst', 'mindspore.scipy.rst', 'mindspore.train.rst',
+    'mindspore.parallel.rst', 'mindspore.runtime.rst', 'mindspore.device_context.rst', 'mindspore.communication.rst',
+    'mindspore.numpy.rst', 'mindspore.dataset.loading.rst', 'mindspore.dataset.transforms.rst',
+    'dataset_pipeline_en.png'
+    ]
 
 def copy_source(sourcedir, des_sir):
     for i in os.listdir(sourcedir):
@@ -295,6 +312,8 @@ def copy_source(sourcedir, des_sir):
             if os.path.exists(os.path.join(des_sir, i)):
                 os.remove(os.path.join(des_sir, i))
             shutil.copy(os.path.join(sourcedir, i), os.path.join(des_sir, i))
+
+no_viewsource_list = [os.path.join(des_sir,i) for i in os.listdir(des_sir)]
 
 copy_source(src_dir_en, des_sir)
 
@@ -372,7 +391,7 @@ repo_whl = 'mindspore/python/'
 giturl = 'https://gitee.com/mindspore/'
 ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
 tensor_yaml = 'mindspore/ops/api_def/method_doc/'
-mint_yaml = 'mindspore/ops/api_def/function_doc/'
+func_yaml = 'mindspore/ops/api_def/function_doc/'
 
 try:
     ops_yaml_list = [i for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
@@ -392,14 +411,15 @@ re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mi
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 for cur, _, files in os.walk(des_sir):
     for i in files:
-        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
+        if os.path.join(cur, i) in no_viewsource_list:
+            continue
+        if i.endswith('.md'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
                 new_content = re.sub(re_url, r'\1/br_ops_iter', content)
-                if i.endswith('.md'):
-                    md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                    if 'resource/_static/logo_source' not in new_content:
-                        new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                if 'resource/_static/logo_source' not in new_content:
+                    new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
@@ -437,7 +457,7 @@ def setup(app):
     app.add_config_value('repo_whl', '', True)
     app.add_config_value('ops_yaml', '', True)
     app.add_config_value('tensor_yaml', '', True)
-    app.add_config_value('mint_yaml', '', True)
+    app.add_config_value('func_yaml', '', True)
     app.add_config_value('ops_yaml_list', [], True)
     app.add_config_value('primi_auto', [], True)
     app.add_config_value('func_name_dict', {}, True)
@@ -485,8 +505,13 @@ copy_image(src_dir, des_dir)
 
 # with open(src_release, "r", encoding="utf-8") as f:
 #     data = f.read()
+
+# hide_release = []
 # if len(re.findall("\n## (.*?)\n",data)) > 1:
-#     data = re.sub("\n## MindSpore 2.3.0 [\s\S\n]*?\n## ", "\n## ", data)
+#     for i in hide_release:
+#         del_doc = re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data)
+#         if del_doc:
+#             data = data.replace(del_doc[0], '')
 #     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
 #     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
 #     content_new = ''

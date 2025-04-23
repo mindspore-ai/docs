@@ -367,6 +367,27 @@ class MsPlatformAutoSummary(MsAutosummary):
         self.fourth_title = ""
         self.default_doc_fourth = ""
 
+    def get_refer_platform(self, name=None):
+        """Get the `Supported Platforms`."""
+        if not name:
+            return []
+        try:
+            api_doc = inspect.getdoc(get_api(name))
+            if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
+                new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
+                api_doc = inspect.getdoc(get_api(new_name))
+                platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+                if not platform_str:
+                    platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+                    if platform_str_leak:
+                        return platform_str_leak[0]
+                    logger.warning(f"not find Supported Platforms: {name}")
+                    return ""
+                return platform_str[0]
+            return ""
+        except: #pylint: disable=bare-except
+            return ""
+
 class MsCnAutoSummary(Autosummary):
     """Overwrite MsPlatformAutosummary for chinese python api."""
     def __init__(self, *args, **kwargs):
@@ -517,6 +538,19 @@ class MsCnAutoSummary(Autosummary):
                         if not fourth_str:
                             fourth_str = '无'
                         items.append((display_name, summary_str, third_str, fourth_str))
+                    elif len(self.table_head) == 5:
+                        third_str = self.get_third_column(display_name, content)
+                        if third_str:
+                            third_str = third_str[0]
+                        else:
+                            third_str = ''
+                        fourth_str = self.get_fourth_column(display_name, content)
+                        if not fourth_str:
+                            fourth_str = '无'
+                        fifth_str = self.get_fifth_column(display_name)
+                        if fifth_str.endswith(', '):
+                            fifth_str = fifth_str[:-2]
+                        items.append((display_name, summary_str, third_str, fourth_str, fifth_str))
             else:
                 try:
                     with mock(self.config.autosummary_mock_imports):
@@ -631,6 +665,15 @@ class MsCnAutoSummary(Autosummary):
             group.append(nodes.colspec('', colwidth=45))
             group.append(nodes.colspec('', colwidth=25))
             group.append(nodes.colspec('', colwidth=20))
+        elif len(self.table_head) == 5:
+            table_spec['spec'] = r'\X{1}{4}\X{1}{3}\X{1}{12}\X{2}{12}\X{2}{12}'
+            group = nodes.tgroup('', cols=5)
+            real_table.append(group)
+            group.append(nodes.colspec('', colwidth=10))
+            group.append(nodes.colspec('', colwidth=35))
+            group.append(nodes.colspec('', colwidth=10))
+            group.append(nodes.colspec('', colwidth=14))
+            group.append(nodes.colspec('', colwidth=31))
 
         body = nodes.tbody('')
         group.append(body)
@@ -673,6 +716,15 @@ class MsCnAutoSummary(Autosummary):
                 col3 = other
                 col4 = other1
                 append_row(col1, col2, col3, col4)
+        elif len(self.table_head) == 5:
+            for name, summary, other, other1, other2 in items:
+                qualifier = 'obj'
+                col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
+                col2 = summary
+                col3 = other
+                col4 = other1
+                col5 = other2
+                append_row(col1, col2, col3, col4, col5)
         return [table_spec, table]
 
 def get_api(fullname):
@@ -707,12 +759,11 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))
             platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+            if not platform_str:
+                platform_str = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
             if platform_str in (['deprecated'], ['Deprecated']):
                 return ["弃用"]
             if not platform_str:
-                platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
-                if platform_str_leak:
-                    return platform_str_leak
                 logger.warning(f"not find Supported Platforms: {name}")
                 return []
             return platform_str
@@ -740,12 +791,11 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))
             platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+            if not platform_str:
+                platform_str = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
             if platform_str in (['deprecated'], ['Deprecated']):
                 return ["弃用"]
             if not platform_str:
-                platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
-                if platform_str_leak:
-                    return platform_str_leak
                 logger.warning(f"not find Supported Platforms: {name}")
                 return []
             return platform_str
@@ -757,6 +807,8 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
         env_warn = ''
         fourth_str = ''
         try:
+            if name.split('.')[-1][0].isupper() and '.. py:method::' in content:
+                content = content.split('.. py:method::')[0]
             if re.findall(r'\.\. warning::\n', content):
                 indent = re.findall(r'([ ]+)\.\. warning::\n', content)[0]
                 if re.findall(rf'\.\. warning::\n((?:.|\n|)+?)\n\n{indent}\S', content):
@@ -779,6 +831,76 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
         except IndexError:
             logger.warning(name + 'get Warning error')
         return fourth_str
+
+class MsCnPlataclnnAutoSummary(MsCnAutoSummary):
+    """definition of mscnplatwarnautosummary."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.table_head = ('**接口名**', '**概述**', '**支持平台**', '**警告**', '**aclnn算子**')
+        self.third_name_en = "Supported Platforms:"
+        self.fourth_name_en = ".. warning::"
+        self.default_doc_fourth = "None"
+        self.fifth_name_en = ""
+
+    def get_third_column(self, name=None, content=None):
+        """Get the `Supported Platforms`."""
+        if not name:
+            return []
+        try:
+            if '.mint.' in name:
+                return ["``Ascend``"]
+            api_doc = inspect.getdoc(get_api(name))
+            if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
+                new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
+                api_doc = inspect.getdoc(get_api(new_name))
+            platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+            if not platform_str:
+                platform_str = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+            if platform_str in (['deprecated'], ['Deprecated']):
+                return ["弃用"]
+            if not platform_str:
+                logger.warning(f"not find Supported Platforms: {name}")
+                return []
+            return platform_str
+        except: #pylint: disable=bare-except
+            return []
+
+    def get_fourth_column(self, name=None, content=''):
+        """Get the `Warning`."""
+        env_warn = ''
+        fourth_str = ''
+        try:
+            if name.split('.')[-1][0].isupper() and '.. py:method::' in content:
+                content = content.split('.. py:method::')[0]
+            if re.findall(r'\.\. warning::\n', content):
+                indent = re.findall(r'([ ]+)\.\. warning::\n', content)[0]
+                if re.findall(rf'\.\. warning::\n((?:.|\n|)+?)\n\n{indent}\S', content):
+                    env_warn = re.findall(rf'\.\. warning::\n((?:.|\n|)+?)\n\n{indent}\S', content)[0]
+                elif re.findall(rf'\.\. warning::\n((?:.|\n|)+)\n', content):
+                    env_warn = re.findall(rf'\.\. warning::\n((?:.|\n|)+)\n', content)[0]
+                for line in env_warn.split('\n'):
+                    if line == '':
+                        continue
+                    elif '.. include::' in line:
+                        break
+                    elif len(line) - len(line.lstrip()) <= len(indent):
+                        logger.warning(name + ' Note has error format')
+                        break
+                    else:
+                        if line.lstrip().startswith('- '):
+                            fourth_str += line.lstrip().lstrip('- ')+' '
+                        else:
+                            fourth_str += line.lstrip()+' '
+        except IndexError:
+            logger.warning(name + 'get Warning error')
+        return fourth_str
+
+    def get_fifth_column(self, name=None):
+        """Get the mint mapping aclnn."""
+        if name in self.env.config.mint_aclnn:
+            return self.env.config.mint_aclnn[name]
+        print(f'no_aclnn_url: {name}')
+        return '无'
 
 class MsCnNoteAutoSummary(MsCnAutoSummary):
     """definition of cnmsnoteautosummary."""

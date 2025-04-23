@@ -128,6 +128,9 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
                 continue
             modname = signode.get('module')
             fullname = signode.get('fullname')
+            if fullname and not fullname.startswith('mindspore.'):
+                fullname = 'mindspore.' + fullname
+            cpt_fullname = fullname
             try:
                 if fullname and modname==None:
                     if fullname.split('.')[-1].lower() == fullname.split('.')[-1] and fullname.split('.')[-2].lower() != fullname.split('.')[-2]:
@@ -154,6 +157,12 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
             # fullname = signode.get('fullname')
             # if fullname and modname==None:
             fullname = fullname_new
+            if 'mindspore.mint' in cpt_fullname:
+                spec_as_list = [['mint.linalg.norm','linalg_norm'], ['mint.linalg.inv','inverse_ext']]
+                for m_name, new_spec_name in spec_as_list:
+                    if m_name in cpt_fullname:
+                        fullname = new_spec_name
+                        break
             if not has_tag(modname, fullname, env.docname, refname):
                 if 'mindspore.mint' in refname and has_tag(modname, fullname + '_ext', env.docname, refname):
                     fullname += '_ext'
@@ -332,7 +341,16 @@ def collect_pages(app: Sphinx) -> Generator[Tuple[str, Dict[str, Any], str], Non
                 if refname != docname.split('/')[-1].replace('.' + spec_name, '', 1) and '.' not in name:
                     refname = docname.split('/')[-1].replace('.' + spec_name, '', 1)
             type, start, end = tags[name]
-            backlink = urito(pagename, docname) + '#' + refname + '.' + spec_name
+            if 'mindspore.mint' in refname:
+                spec_as_list = ['linalg_norm']
+                for m_name in spec_as_list:
+                    if m_name in name:
+                        spec_name = ''
+                        break
+            if not spec_name:
+                backlink = urito(pagename, docname) + '#' + refname
+            else:
+                backlink = urito(pagename, docname) + '#' + refname + '.' + spec_name
             lines[start] = (
                 '<div class="viewcode-block" id="%s"><a class="viewcode-back" '
                 'href="%s">%s</a>' % (name, backlink, _('[文档]')) +
