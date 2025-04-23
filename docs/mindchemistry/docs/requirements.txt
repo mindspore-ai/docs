@@ -1,0 +1,10 @@
+sphinx == 4.4.0
+docutils == 0.17.1
+myst-parser == 0.18.1
+sphinx_rtd_theme == 1.0.0
+numpy
+IPython
+jieba
+descriptastorus == 2.6.0
+sympy
+tqdm
