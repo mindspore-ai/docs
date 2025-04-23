@@ -1,4 +1,4 @@
-# AOT类型自定义算子（Ascend平台）
+# Custom原语AOT类型自定义算子（Ascend平台）
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_ascendc.md)
 
@@ -92,10 +92,10 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 ### 使用自定义算子
 
 MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html) ，
-使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并指定`func`参数为算子名字。根据infer函数的实现方式，存在以下两种使用方式：
+使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并指定`func`参数为算子名字。`func`用来指示该算子在动态库中的入口函数名，根据infer函数的实现方式，存在以下两种使用方式：
 
 - **Python infer**：若算子的infer函数是Python实现，即通过`out_shape`参数传入infer shape函数，`out_dtype`参数传入infer type函数，则指定`func`为算子名，例如`func="CustomName"`
-- **C++ infer**：若算子的infer函数通过C++实现，则在func中传入infer实现文件的路径并用`:`隔开算子名字，例如：`func="add_custom_infer.cc:AddCustom`
+- **C++ infer**：若算子的infer函数通过C++实现，则在func中传入infer实现文件的路径并用`:`隔开算子名字，例如：`func="add_custom_infer.cc:AddCustom`。MindSpore会在后面分别拼接`InferShape`和`InferType`去查找对应的infer函数。
 
 **使用样例**：
 
@@ -147,7 +147,7 @@ extern "C" std::vector<int64_t> AddCustomInferShape(int *ndims, int64_t **shapes
   return output_shape;
 }
 
-extern "C" TypeId MulInferType(std::vector<TypeId> type_ids, AotExtra *extra) { return type_ids[0]; }
+extern "C" TypeId AddCustomInferType(std::vector<TypeId> type_ids, AotExtra *extra) { return type_ids[0]; }
 
 ```
 
