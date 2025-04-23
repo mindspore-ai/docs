@@ -99,7 +99,7 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 
 使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息，根据schedule的配置，skip_first跳过2步，wait等待1步，warmup预热1步，从第4步开始采集，根据active为2，则采集第4、5步，因此Step ID为4、5，表示采集的是第4、5个step。
 
-完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)
+完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)。
 
 ### 方式二：动态profiler使能
 
