@@ -571,8 +571,6 @@ class Documenter:
             mint_doc = re.sub(r'(\n[ ]+(-|\*) GPU(/CPU)?:.*\n|\n[ ]+(-|\*) CPU(/GPU)?:.*\n)', '\n', docstring)
             mint_doc = re.sub(r'(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
             mint_doc = re.sub(r'(Supported Platforms:\n\s+?)`.*', r'\1``Ascend``', mint_doc)
-            mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
-            mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
             for j in spec_tp:
                 if isinstance(j[1], list) and j[0] in mint_doc and usename in j[1]:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{usename}', mint_doc)
@@ -581,9 +579,14 @@ class Documenter:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                     break
             if not re.findall(f'>>> .*?{usename}', mint_doc):
-                docstring = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?(?!\w)', rf'\1{usename}', mint_doc)
+                mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?(?!\w)', rf'\1{usename}', mint_doc)
+            if re.findall(rf'>>> .*?ops\.\w+\(', mint_doc):
+                mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint, ops', mint_doc)
+                mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint, ops')
             else:
-                docstring = mint_doc
+                mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
+                mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
+            docstring = mint_doc
         elif docstring and 'mindspore.is_tensor' in self.fullname:
             docstring = docstring.replace('>>> from mindspore import Tensor, ops', '>>> from mindspore import Tensor, is_tensor')
             docstring = docstring.replace('>>> ops.is_tensor', '>>> is_tensor')
@@ -1779,9 +1782,8 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                     docstrings = [initdocstring]
                 else:
                     docstrings.append(initdocstring)
-        spec_tp = [('ops.dense', 'ops.linear'), ('nn.HShrink', 'mint.nn.Hardshrink'),
-                   ('nn.HSigmoid', 'mint.nn.Hardsigmoid'), ('nn.HSwish', 'mint.nn.Hardswish'),
-                   ('nn.SoftShrink', 'mint.nn.Softshrink')]
+        spec_tp = [('nn.HShrink', 'mint.nn.Hardshrink'), ('nn.SoftShrink', 'mint.nn.Softshrink'),
+                   ('nn.HSigmoid', 'mint.nn.Hardsigmoid'), ('nn.HSwish', 'mint.nn.Hardswish')]
         if docstrings and '.mint.' in self.fullname:
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
@@ -1809,7 +1811,12 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                     elif 'mindspore.mint.'+new_rp in self.config.mint_sum:
                         mint_doc = mint_doc.replace(f'ops.{old_rp}', 'mint.'+new_rp)
                 for j in spec_tp:
-                    mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
+                    if j[1] == usename:
+                        mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
+                        ori_name = j[0].split('.')[-1]
+                        trans_name = j[1].split('.')[-1]
+                        mint_doc = mint_doc.replace(ori_name, trans_name)
+                        break
                 docstrings[i] = mint_doc
 
         tab_width = self.directive.state.document.settings.tab_width

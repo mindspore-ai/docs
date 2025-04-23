@@ -3,6 +3,7 @@
 """
 import argparse
 import copy
+import datetime
 import glob
 import json
 import os
@@ -97,6 +98,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     # python安装包文件夹位置
     pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
 
+    # 删除sphinx中多余的语言文件
+    mo_path = os.path.join(pythonlib_dir, 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
+    if os.path.exists(mo_path):
+        os.remove(mo_path)
+
     # 开始计时
     time_start = time.perf_counter()
 
@@ -175,22 +181,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')
 
-        # 特殊与一般性的往ArraySource中加入键值对
-        if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
-            ArraySource[data[i]['name'] + '/api'] = data[i]["html_version"]
-            ArraySource[data[i]['name'] + '/faq'] = data[i]["html_version"]
-        elif data[i]['name'] == "tutorials":
-            # ArraySource[data[i]['name']] = data[i]["html_version"]
-            # ArraySource[data[i]['name'] + '/application'] = data[i]["html_version"]
-            # ArraySource[data[i]['name'] + '/experts'] = data[i]["html_version"]
-            pass
-        elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = data[i]["html_version"]
-        elif data[i]['name'] == "mindscience" or data[i]['name'] == "mindformers":
-            pass
-        else:
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
+        # 组件仓内有.sh需提前运行
+        if 'golden_stick' in repo_path:
+            os.chdir(repo_path)
+            cmd_reppath = ["sh", "./docs/adapte_to_docs.sh", f"{branch_}"]
+            subprocess.run(cmd_reppath)
 
         if data[i]['name'] != "mindscience" and data[i]['name'] != "mindformers" and data[i]['name'] != "tutorials":
             generate_version_json(data[i]['name'], data[i]["html_version"], data_b, flag_dev, target_version)
@@ -213,7 +208,44 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             res = s.get(wgetdir, auth=(user, pd), verify=False)
             requests.packages.urllib3.disable_warnings()
             # 下载组件whl包
-            if data[i]['whl_path'] != "":
+            if data[i]['whl_path'] != ""  and 'whl_search' in data[i]:
+                today_str = datetime.date.today().strftime('%Y%m%d')
+                month_str = datetime.date.today().strftime('%Y%m')
+                search_url = f"{wgetdir}/{data[i]['whl_path']}/{month_str}/{today_str}/"
+                res = s.get(search_url, auth=(user, pd), verify=False)
+                html = etree.HTML(res.text, parser=etree.HTMLParser())
+                links = html.xpath("//a[@title]")
+                url = ''
+                if links:
+                    for link_ in links[::-1]:
+                        href = link_.get("href", "")
+                        if href.startswith('dev_'):
+                            url = search_url+href+data[i]['whl_search']
+                            break
+                if not url:
+                    continue
+
+                re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
+                name = rf"{re_name}"
+                res = s.get(url, auth=(user, pd), verify=False)
+                html = etree.HTML(res.text, parser=etree.HTMLParser())
+                links = html.xpath("//a[@title]")
+                if links:
+                    for link_ in links:
+                        title = link_.get("title", "")
+                        href = link_.get("href", "")
+                        if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
+                            download_url = url+href
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            with open(title, 'wb') as fd:
+                                #shutil.copyfileobj(dowmloaded.raw, fd)
+                                for chunk in downloaded.iter_content(chunk_size=512):
+                                    if chunk:
+                                        fd.write(chunk)
+                            print(f"Download {title} success!")
+                            time.sleep(1)
+
+            elif data[i]['whl_path'] != "":
                 url = f"{wgetdir}/{data[i]['whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
                     url += "/"
@@ -318,6 +350,24 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             if chunk:
                                 fd.write(chunk)
                     print(f"Download {data[i]['tar_name']} success!")
+
+        # 特殊与一般性的往ArraySource中加入键值对
+        if not branch_:
+            continue
+        html_branch = branch_
+        if "html_version" in data[i]:
+            html_branch = data[i]["html_version"]
+        if data[i]['name'] == "lite":
+            ArraySource[data[i]['name'] + '/docs'] = html_branch
+            ArraySource[data[i]['name'] + '/api'] = html_branch
+        elif data[i]['name'] == "tutorials":
+            pass
+        elif data[i]['name'] == "mindspore":
+            ArraySource[data[i]['name']] = html_branch
+        elif data[i]['name'] == "mindscience":
+            pass
+        else:
+            ArraySource[data[i]['name'] + '/docs'] = html_branch
 
     # 安装opencv-python额外依赖
     cmd = ["pip", "install", "opencv-python"]
@@ -534,6 +584,7 @@ if __name__ == "__main__":
 
     # 开始执行
     try:
+        # 主函数组件html构建
         main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir,
              release_url=args.release_url, generate_list=generate_list_p)
 

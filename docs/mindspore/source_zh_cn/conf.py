@@ -215,7 +215,9 @@ shutil.copy(layout_src, layout_target)
 
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../../../resource/jieba.txt'}
+import jieba
+
+jieba.load_userdict('../../../resource/jieba.txt')
 
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
 # import anchor_mod
@@ -254,9 +256,20 @@ repo_path = os.getenv("MS_PATH")
 src_dir = os.path.join(repo_path, copy_path)
 des_sir = "./api_python"
 
-need_file = ['mindspore.rst', 'mindspore.ops.rst', 'mindspore.ops.primitive.rst', 'mindspore.nn.rst', 'mindspore.mint.rst',
-             'mindspore.amp.rst', 'mindspore.dataset.rst', 'mindspore.scipy.rst', 'mindspore.train.rst', 'dataset_pipeline.png']
-need_dir = ['ops', 'nn', 'mint', 'mindspore', 'images', 'amp', 'dataset', 'scipy', 'train']
+need_file = [
+    'mindspore.rst', 'mindspore.ops.rst', 'mindspore.nn.rst', 'mindspore.mint.rst',
+    'mindspore.common.initializer.rst', 'mindspore.amp.rst', 'mindspore.dataset.rst',
+    'mindspore.scipy.rst', 'mindspore.train.rst', 'mindspore.communication.rst',
+    'mindspore.parallel.rst', 'mindspore.runtime.rst', 'mindspore.device_context.rst',
+    'mindspore.numpy.rst', 'mindspore.dataset.loading.rst', 'mindspore.dataset.transforms.rst',
+    'dataset_pipeline_en.png'
+    ]
+
+need_dir = [
+    'ops', 'nn', 'mint', 'mindspore', 'images',
+    'amp', 'dataset', 'dataset_transforms', 'dataset_vision', 'dataset_text', 'dataset_audio',
+    'train', 'parallel', 'device_context', 'numpy', 'communication', 'scipy', 'runtime'
+    ]
 
 def copy_source(sourcedir, des_sir):
     for i in os.listdir(sourcedir):
@@ -271,6 +284,8 @@ def copy_source(sourcedir, des_sir):
                 shutil.copytree(os.path.join(sourcedir,i), os.path.join(des_sir, i))
 
 copy_source(src_dir, des_sir)
+
+no_viewsource_list = [os.path.join(des_sir,i) for i in os.listdir(des_sir)]
 
 probability_dir = './api_python/probability'
 if os.path.exists(probability_dir):
@@ -386,6 +401,8 @@ re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
+        if os.path.join(cur, i) in no_viewsource_list:
+            continue
         if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
@@ -472,9 +489,24 @@ try:
 except Exception as e:
     print(e)
 
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary, MsCnPlataclnnAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
+
+# 获取mint和aclnn算子的映射关系
+mint_aclnn_path = '../../../resource/api_updates/mint_aclnn_cn.md'
+with open(mint_aclnn_path, 'r', encoding='utf-8') as f:
+    mint_aclnn_content = f.read()
+
+mint_aclnn = dict()
+for mint_n, aclnn_str in re.findall(r'\n\| \[(.*?)\].*?\|(.*?)\|', mint_aclnn_content):
+    new_mint_n = 'mindspore.' + mint_n
+    all_aclnn = ''
+    for aclnn_n, url in re.findall(r'\[(aclnn.*?)\]\((.*?)\)', aclnn_str):
+        all_aclnn += f'`{aclnn_n} <{url}>`_ , '
+    if not all_aclnn:
+        all_aclnn = '无'
+    mint_aclnn[new_mint_n] = all_aclnn
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
@@ -482,8 +514,10 @@ def setup(app):
     app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
     app.add_directive('mscnplatwarnautosummary', MsCnPlatWarnAutoSummary)
+    app.add_directive('mscnplataclnnautosummary', MsCnPlataclnnAutoSummary)
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
+    app.add_config_value('mint_aclnn', {}, True)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_js_file('js/mermaid-9.3.0.js')
 
@@ -493,8 +527,13 @@ def setup(app):
 
 # with open(src_release, "r", encoding="utf-8") as f:
 #     data = f.read()
+
+# hide_release = []
 # if len(re.findall("\n## (.*?)\n",data)) > 1:
-#     data = re.sub("\n## MindSpore 2.3.0 [\s\S\n]*?\n## ", "\n## ", data)
+#     for i in hide_release:
+#         del_doc = re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data)
+#         if del_doc:
+#             data = data.replace(del_doc[0], '')
 #     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
 #     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
 #     content_new = ''

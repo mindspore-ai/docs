@@ -78,8 +78,6 @@ def get_example(name: str):
                        ('nn.HSigmoid', 'mint.nn.Hardsigmoid'), ('nn.HSwish', 'mint.nn.Hardswish')]
             b_name = name.split('.')[-1]
             usename = name.replace('mindspore.', '')
-            api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', api_doc)
-            api_doc = api_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
             for j in spec_tp:
                 if isinstance(j[1], list) and j[0] in api_doc and usename in j[1]:
                     api_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{usename}', api_doc)
@@ -89,6 +87,12 @@ def get_example(name: str):
                     break
             if not re.findall(f'>>> .*?{usename}', api_doc):
                 api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?(?!\w)', rf'\1{usename}', api_doc)
+            if re.findall(rf'>>> .*?ops\.\w+\(', api_doc):
+                api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint, ops', api_doc)
+                api_doc = api_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint, ops')
+            else:
+                api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', api_doc)
+                api_doc = api_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
         elif 'mindspore.is_tensor' in name:
             api_doc = api_doc.replace('>>> from mindspore import Tensor, ops', '>>> from mindspore import Tensor, is_tensor')
             api_doc = api_doc.replace('>>> ops.is_tensor', '>>> is_tensor')
@@ -157,7 +161,7 @@ def get_platforms(name: str):
                     all_platform.append([''])
                     continue
                 else:
-                    new_platform_str = platform_str[0].strip()
+                    new_platform_str = platform_str[0].strip().replace('Atlas A2 training series products', 'Atlas A2训练系列产品')
                     platform_list = new_platform_str.split('\n')
                     platform_list = ['    ' + platform_list[0]]
                     all_platform.append(["", "支持平台："] + platform_list + [""])
@@ -167,13 +171,13 @@ def get_platforms(name: str):
         if not platform_str:
             platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
             if platform_str_leak:
-                platform_str = platform_str_leak[0].strip()
+                platform_str = platform_str_leak[0].strip().replace('Atlas A2 training series products', 'Atlas A2训练系列产品')
                 platform_list = platform_str.split('\n')
                 platform_list = ['    ' + platform_list[0]]
                 return ["", "支持平台："] + platform_list + [""]
             return []
         for i in range(len(platform_str)):
-            new_platform_str = platform_str[i].strip()
+            new_platform_str = platform_str[i].strip().replace('Atlas A2 training series products', 'Atlas A2训练系列产品')
             platform_list = new_platform_str.split('\n')
             platform_list = ['    ' + platform_list[0]]
             all_platform.append(["", "支持平台："] + platform_list + [""])
