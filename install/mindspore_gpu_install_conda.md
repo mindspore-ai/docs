@@ -29,7 +29,7 @@
 |软件名称|版本|作用|
 |-|-|-|
 |Ubuntu|18.04|运行MindSpore的操作系统|
-|[CUDA](#安装cuda)|10.1或11.1或11.6|MindSpore GPU使用的并行计算架构|
+|[CUDA](#安装cuda)|11.1或11.6|MindSpore GPU使用的并行计算架构|
 |[cuDNN](#安装cudnn)|7.6.x或8.0.x或8.5.x|MindSpore GPU使用的深度神经网络加速库|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
 |[GCC](#安装gcc)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
@@ -39,7 +39,7 @@
 
 ### 安装CUDA
 
-MindSpore GPU支持CUDA 10.1、CUDA 11.1和CUDA11.6。NVIDIA官方给出了多种安装方式和安装指导，详情可查看[CUDA下载页面](https://developer.nvidia.com/cuda-toolkit-archive)和[CUDA安装指南](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)。
+MindSpore GPU支持CUDA 11.1和CUDA11.6。NVIDIA官方给出了多种安装方式和安装指导，详情可查看[CUDA下载页面](https://developer.nvidia.com/cuda-toolkit-archive)和[CUDA安装指南](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)。
 下面仅给出Linux系统使用runfile方式安装的指导。
 
 在安装CUDA前需要先安装相关依赖，执行以下命令。
@@ -48,7 +48,7 @@ MindSpore GPU支持CUDA 10.1、CUDA 11.1和CUDA11.6。NVIDIA官方给出了多�
 sudo apt-get install linux-headers-$(uname -r) gcc-7
 ```
 
-CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02；CUDA 11.6要求最低显卡驱动为510.39.01。可以执行`nvidia-smi`命令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
+CUDA 11.1要求最低显卡驱动版本为450.80.02；CUDA 11.6要求最低显卡驱动为510.39.01。可以执行`nvidia-smi`命令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
 
 使用以下命令安装CUDA 11.6（推荐）。
 
@@ -70,21 +70,11 @@ echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >>
 source ~/.bashrc
 ```
 
-或者使用以下命令安装CUDA 10.1。
-
-```bash
-wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
-sudo sh cuda_10.1.243_418.87.00_linux.run
-echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-```
-
 当默认路径`/usr/local/cuda`存在安装包的时候，LD_LIBRARY_PATH环境变量不起作用；原因是MindSpore采用DT_RPATH方式支持无环境变量启动，减少用户设置；DT_RPATH优先级比LD_LIBRARY_PATH环境变量高。
 
 ### 安装cuDNN
 
-完成CUDA的安装后，在[cuDNN页面](https://developer.nvidia.com/cudnn)登录并下载对应的cuDNN安装包。如果之前安装了CUDA 10.1，下载配套CUDA 10.1的cuDNN v7.6.x；如果之前安装了CUDA 11.1，下载配套CUDA 11.1的cuDNN v8.0.x；如果之前安装了CUDA 11.6，下载配套CUDA 11.6的cuDNN v8.5.x。注意下载后缀名为tgz的压缩包。假设下载的cuDNN包名为`cudnn.tgz`，安装的CUDA版本为11.6，执行以下命令安装cuDNN。
+完成CUDA的安装后，在[cuDNN页面](https://developer.nvidia.com/cudnn)登录并下载对应的cuDNN安装包。如果之前安装了CUDA 11.1，下载配套CUDA 11.1的cuDNN v8.0.x；如果之前安装了CUDA 11.6，下载配套CUDA 11.6的cuDNN v8.5.x。注意下载后缀名为tgz的压缩包。假设下载的cuDNN包名为`cudnn.tgz`，安装的CUDA版本为11.6，执行以下命令安装cuDNN。
 
 ```bash
 tar -zxvf cudnn.tgz
@@ -124,7 +114,7 @@ sudo apt-get install gcc-7 -y
 sudo apt-get install gcc-8 -y
 ```
 
-或者安装GCC 9（注意，GCC 9不兼容CUDA 10.1）。
+或者安装GCC 9。
 
 ```bash
 sudo apt-get install software-properties-common -y
@@ -162,12 +152,6 @@ conda activate mindspore_py39
 ### 安装MindSpore
 
 确认您处于Conda虚拟环境中，并执行以下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`conda install mindspore=`后指定版本号。
-
-CUDA 10.1版本：
-
-```bash
-conda install mindspore -c mindspore -c conda-forge
-```
 
 CUDA 11.1版本：
 
