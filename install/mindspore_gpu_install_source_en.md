@@ -31,7 +31,7 @@ The following table lists the system environment and third-party dependencies re
 |Software|Version|Description|
 |-|-|-|
 |Ubuntu|18.04|OS for compiling and running MindSpore|
-|[CUDA](#installing-cuda)|10.1 or 11.1 or 11.6|parallel computing architecture for MindSpore GPU|
+|[CUDA](#installing-cuda)|11.1 or 11.6|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x or 8.5.x|deep neural network acceleration library used by MindSpore GPU|
 |[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
 |[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
@@ -55,7 +55,7 @@ The following describes how to install the third-party dependencies.
 
 ### Installing CUDA
 
-MindSpore GPU supports CUDA 10.1, CUDA 11.1 and CUDA 11.6. NVIDIA officially shows a variety of installation methods. For details, please refer to [CUDA download page](https://developer.nvidia.com/cuda-toolkit-archive) and [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
+MindSpore GPU supports CUDA 11.1 and CUDA 11.6. NVIDIA officially shows a variety of installation methods. For details, please refer to [CUDA download page](https://developer.nvidia.com/cuda-toolkit-archive) and [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
 The following only shows instructions for installing by runfile on Linux systems.
 
 Before installing CUDA, you need to run the following commands to install related dependencies.
@@ -64,7 +64,7 @@ Before installing CUDA, you need to run the following commands to install relate
 sudo apt-get install linux-headers-$(uname -r) gcc-7
 ```
 
-The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. The minimum required GPU driver version of CUDA 11.6 is 510.39.01. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
+The minimum required GPU driver version of CUDA 11.1 is 450.80.02. The minimum required GPU driver version of CUDA 11.6 is 510.39.01. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
 
 Run the following command to install CUDA 11.6 (recommended).
 
@@ -86,21 +86,11 @@ echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >>
 source ~/.bashrc
 ```
 
-Or install CUDA 10.1 with the following command.
-
-```bash
-wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
-sudo sh cuda_10.1.243_418.87.00_linux.run
-echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-```
-
 When the default path `/usr/local/cuda` has an installation package, the LD_LIBRARY_PATH environment variable does not work. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
 
 ### Installing cuDNN
 
-After completing the installation of CUDA, Log in and download the corresponding cuDNN installation package from [cuDNN page](https://developer.nvidia.com/cudnn). If CUDA 10.1 was previously installed, download cuDNN v7.6.x for CUDA 10.1. If CUDA 11.1 was previously installed, download cuDNN v8.0.x for CUDA 11.1. If CUDA 11.6 was previously installed, download cuDNN v8.5.x for CUDA 11.6. Note that download the tgz compressed file. Assuming that the downloaded cuDNN package file is named `cudnn.tgz` and the installed CUDA version is 11.6, execute the following command to install cuDNN.
+After completing the installation of CUDA, Log in and download the corresponding cuDNN installation package from [cuDNN page](https://developer.nvidia.com/cudnn). If CUDA 11.1 was previously installed, download cuDNN v8.0.x for CUDA 11.1. If CUDA 11.6 was previously installed, download cuDNN v8.5.x for CUDA 11.6. Note that download the tgz compressed file. Assuming that the downloaded cuDNN package file is named `cudnn.tgz` and the installed CUDA version is 11.6, execute the following command to install cuDNN.
 
 ```bash
 tar -zxvf cudnn.tgz
@@ -187,7 +177,7 @@ To install a later version of GCC, run the following command to install GCC 8.
 sudo apt-get install gcc-8 -y
 ```
 
-Or install GCC 9 (Note that GCC 9 is not compatible with CUDA 10.1).
+Or install GCC 9.
 
 ```bash
 sudo apt-get install software-properties-common -y
