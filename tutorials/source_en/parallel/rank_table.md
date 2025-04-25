@@ -8,7 +8,7 @@
 
 Related Configurations:
 
-`rank table` mainly need to configure the rank_table file, taking the 2-card environment configuration file `rank_table_2pcs.json` as an example:
+`rank table` mainly needs to configure the rank_table file, taking the 2-card environment configuration file `rank_table_2pcs.json` as an example:
 
 ```json
 {

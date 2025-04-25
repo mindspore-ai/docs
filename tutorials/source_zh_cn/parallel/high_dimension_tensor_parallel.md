@@ -16,7 +16,7 @@
 
 #### 1D张量并行计算通信行为
 
-1D张量并行中，每张卡上存着激活bsh的全部数据，仅在权重he和eh的一个维度上进行切分。激活和列切的权重进行第一次矩阵乘积后，与第二个行切的权重进行第二次矩阵乘积，得到的 `部分和`经过一次全部卡间的AllReduce通信，计算出最终正确的结果。
+1D张量并行中，每张卡上存着激活bsh的全部数据，仅在权重he和eh的一个维度上进行切分。激活和列切的权重进行第一次矩阵乘积后，与第二个行切的权重进行第二次矩阵乘积，得到的 `部分和` 经过一次全部卡间的AllReduce通信，计算出最终正确的结果。
 
 ![image](./images/high_dimension_tensor_parallel_image_0.png)
 
@@ -46,7 +46,7 @@
 | 2D张量并行 | O(1/xy) | O(1/xy) | O(1/xy) | 2bs[e(x-1)+h (y-1)]/xy |
 | 3D张量并行 | O(1/xyz) | O(1/xyz) | O(1/xyz) | 2[bse(x-1)+bsh (y-1)+he(z-1)]/xyz |
 
-- 处理器数量依次为P、 P = xy、 P = xyz
+- 处理器数量依次为P、P = xy、P = xyz
 - 进行两次matmul运算的张量shape为: activation: (bs, h), weight1: (h, e), weight2: (e, h)
 
 ### 相关接口
@@ -62,8 +62,6 @@
 
 > 1. 上述切分规则中的x、y、z即高维TP在不同维度上的切分设备数，需用户根据参与计算的张量的shape自行确定，原则将权重张量均匀切分的配置有更好的性能收益
 > 2. 如果MatMul / BatchMatMul开启了transpose_a或trainspose_b，则高维TP所涉及的切分layout也要调换到对应位置
-
-以大模型Attention层与FeedForward层典型的 `MatMul -> 其他计算算子 -> MatMul` 模型结构为例，1D、2D、3D模型并行的计算通信行为如下所示。
 
 ## 操作实践
 
