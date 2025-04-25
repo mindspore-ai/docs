@@ -899,8 +899,8 @@ print('ret2:{}'.format(ret2))
 The result is as follows:
 
 ```text
-ret1: (5, 7, 9)
-ret2: [6, 8, 10]
+ret1:(5, 7, 9)
+ret2:[6, 8, 10]
 ```
 
 ## zip
@@ -1158,7 +1158,7 @@ ret = test(x, y)
 The result is as follows:
 
 ```text
-Tensor(shape=[3], dtype=Int32, value= [1 2 3])
+Tensor(shape=[3], dtype=Int32, value=[1 2 3])
 Tensor(shape=[], dtype=Int32, value=3)
 ```
 
