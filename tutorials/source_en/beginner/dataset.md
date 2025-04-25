@@ -81,9 +81,9 @@ for data in dataset:
 ```
 
 ```text
-[Tensor(shape=[], dtype=Int64, value= 2)]
-[Tensor(shape=[], dtype=Int64, value= 0)]
-[Tensor(shape=[], dtype=Int64, value= 1)]
+[Tensor(shape=[], dtype=Int32, value= 2)]
+[Tensor(shape=[], dtype=Int32, value= 0)]
+[Tensor(shape=[], dtype=Int32, value= 1)]
 ```
 
 #### Iterable Dataset
@@ -117,10 +117,10 @@ for d in dataset:
 ```
 
 ```text
-[Tensor(shape=[], dtype=Int64, value= 1)]
-[Tensor(shape=[], dtype=Int64, value= 2)]
-[Tensor(shape=[], dtype=Int64, value= 3)]
-[Tensor(shape=[], dtype=Int64, value= 4)]
+[Tensor(shape=[], dtype=Int32, value= 1)]
+[Tensor(shape=[], dtype=Int32, value= 2)]
+[Tensor(shape=[], dtype=Int32, value= 3)]
+[Tensor(shape=[], dtype=Int32, value= 4)]
 ```
 
 #### Generator
@@ -143,9 +143,9 @@ for d in dataset:
 ```
 
 ```text
-[Tensor(shape=[], dtype=Int64, value= 3)]
-[Tensor(shape=[], dtype=Int64, value= 4)]
-[Tensor(shape=[], dtype=Int64, value= 5)]
+[Tensor(shape=[], dtype=Int32, value= 3)]
+[Tensor(shape=[], dtype=Int32, value= 4)]
+[Tensor(shape=[], dtype=Int32, value= 5)]
 ```
 
 ### Standard-format Dataset

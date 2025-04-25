@@ -290,7 +290,7 @@ We need to further set up the parallelism-related configuration by specifying th
 ```python
 from mindspore.parallel.auto_parallel import AutoParallel
 
-parallel_net = AutoParallel(train_step, parallel_mode="semi_auto")
+parallel_net = AutoParallel(net, parallel_mode="semi_auto")
 ```
 
 #### Executing the Network
