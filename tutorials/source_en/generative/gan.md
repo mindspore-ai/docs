@@ -142,8 +142,7 @@ To track the learning progress of the generator, after each training epoch in th
 ```python
 import random
 import numpy as np
-from mindspore import Tensor
-from mindspore import dtype
+from mindspore import Tensor, dtype
 
 # Create a batch of implicit vectors using random seeds.
 np.random.seed(2323)
