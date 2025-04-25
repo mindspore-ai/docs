@@ -30,7 +30,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
     ```
 
     ```text
-    [1 0 1 0] (4,) Int4
+    [1 0 1 0] (4,) Int64
     ```
 
 - **Generating a tensor from the NumPy array**
@@ -44,7 +44,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
     ```
 
     ```text
-    [1 0 1 0] (4,) Int4
+    [1 0 1 0] (4,) Int64
     ```
 
 - **Generating a tensor by using init**
