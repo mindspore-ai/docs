@@ -221,7 +221,7 @@ Unlike the custom Hook function used by the HookBackward operator, the inputs of
 The sample code is as follows:
 
 ```python
-def backward_hook_pre_function(cell, grad_output):
+def backward_pre_hook_function(cell, grad_output):
     print(grad_output)
 ```
 
@@ -236,7 +236,7 @@ import mindspore.nn as nn
 
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
-def backward_hook_pre_function(cell, grad_output):
+def backward_pre_hook_function(cell, grad_output):
     print(grad_output)
 
 class Net(nn.Cell):
@@ -244,7 +244,7 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.conv = nn.Conv2d(1, 2, kernel_size=2, stride=1, padding=0, weight_init="ones", pad_mode="valid")
         self.bn = nn.BatchNorm2d(2, momentum=0.99, eps=0.00001, gamma_init="ones")
-        self.handle = self.bn.register_backward_pre_hook(backward_hook_pre_function)
+        self.handle = self.bn.register_backward_pre_hook(backward_pre_hook_function)
         self.relu = nn.ReLU()
 
     def construct(self, x):

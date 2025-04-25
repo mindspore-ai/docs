@@ -275,12 +275,12 @@ For a complete example of an Ascend C custom operator, you can refer to the [sam
     And the registration information when using the operator is:
 
     ```python
-    reg_info = CustomRegOp("AddCustom")
-                .input(0, "x", "required")
-                .input(1, "y", "required")
-                .output(0, "output", "required")
-                .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default)
-                .target("Ascend")
+    reg_info = CustomRegOp("AddCustom") \
+                .input(0, "x", "required") \
+                .input(1, "y", "required") \
+                .output(0, "output", "required") \
+                .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default) \
+                .target("Ascend") \
                 .get_op_info()
     ```
 
