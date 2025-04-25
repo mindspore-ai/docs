@@ -409,11 +409,11 @@ class Network(nn.Cell):
 
 ```
 
-In the network defined above, `self.matmul1 = ops.MatMul().shard((layout("mp", ("sp", "dp")), layout(("sp", "dp")), "None"))` The layout for slicing the input tensor x is `layout("mp", ("sp ", "dp"))`, i.e., the first dimension is sliced into 2 parts by mp, and the second dimension combines sp and dp for a total of 2*2=4 parts.
+In the network defined above, `self.matmul1 = ops.MatMul().shard((layout("mp", ("sp", "dp")), layout(("sp", "dp")), "None"))`. The layout for slicing the input tensor x is `layout("mp", ("sp ", "dp"))`, i.e., the first dimension is sliced into 2 parts by mp, and the second dimension combines sp and dp for a total of 2*2=4 parts.
 
 The layout for slicing the weight self.fc1_weight is `layout(("sp", "dp"), "None")`, i.e., the first dimension merges sp and dp and slices it into 4 parts, and the second dimension is not sliced.
 
-Similarly, `self.matmul2 = ops.MatMul().shard((layout2("None", "tp"), layout2("tp", "None")))` When slicing the input tensor x first dimension by rows not sliced and columns sliced into 8 parts by tp, and when slicing the weight self.fc2_weight, the rows are sliced into 8 parts by tp and the columns are not sliced.
+Similarly, `self.matmul2 = ops.MatMul().shard((layout2("None", "tp"), layout2("tp", "None")))`. The first dimension of the input tensor x is not sliced by rows and columns is sliced into 8 parts by tp, and when slicing the weight self.fc2_weight, the rows are sliced into 8 parts by tp and the columns are not sliced.
 
 Taking `self.matmul1 = ops.MatMul().shard((layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None"))` as an example, the slicing will produce the following table of device and data slice mappings:
 
@@ -530,11 +530,11 @@ class Network(nn.Cell):
 net = Network()
 ```
 
-In the network defined above, `self.matmul1 = ms.parallel.shard(mint.matmul, in_strategy=(layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None")))` The layout for slicing the input tensor x is `layout("mp", ("sp ", "dp"))`, i.e., the first dimension is sliced into 2 parts by mp, and the second dimension combines sp and dp for a total of 2*2=4 parts.
+In the network defined above, `self.matmul1 = ms.parallel.shard(mint.matmul, in_strategy=(layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None")))`. The layout for slicing the input tensor x is `layout("mp", ("sp ", "dp"))`, i.e., the first dimension is sliced into 2 parts by mp, and the second dimension combines sp and dp for a total of 2*2=4 parts.
 
 The layout for slicing the weight self.fc1_weight is `layout(("sp", "dp"), "None")`, i.e., the first dimension merges sp and dp and slices it into 4 parts, and the second dimension is not sliced.
 
-Similarly, `self.matmul2 = ms.parallel.shard(mint.matmul, in_strategy=(layout2("None", "tp"), layout2("tp", "None")))` When slicing the input tensor x first dimension by rows not sliced and columns sliced into 8 parts by tp, and when slicing the weight self.fc2_weight, the rows are sliced into 8 parts by tp and the columns are not sliced.
+Similarly, `self.matmul2 = ms.parallel.shard(mint.matmul, in_strategy=(layout2("None", "tp"), layout2("tp", "None")))`. The first dimension of the input tensor x is not sliced by rows and columns is sliced into 8 parts by tp, and when slicing the weight self.fc2_weight, the rows are sliced into 8 parts by tp and the columns are not sliced.
 
 Taking `self.matmul1 = ms.parallel.shard(mint.matmul, in_strategy=(layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None")))` as an example, the slicing will produce the following table of device and data slice mappings:
 

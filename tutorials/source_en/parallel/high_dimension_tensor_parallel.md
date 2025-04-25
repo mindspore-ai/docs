@@ -63,8 +63,6 @@ With the above switch turned on, shard slicing determines whether 2D or 3D paral
 > 1. The x, y, z in the above slicing rule, i.e., the number of slicing devices for high-dimensional TP in different dimensions, should be determined by the user according to the shape of the tensor involved in the computation, and the principle of evenly slicing the weight tensor configuration has a better performance gain.
 > 2. If MatMul / BatchMatMul has transpose_a or trainspose_b turned on, the slice layout involved in the high-dimensional TP is also switched to the corresponding position.
 
-Taking the typical `MatMul -> Other Computational Operators -> MatMul` model structure of the Attention and FeedForward layers of a large model as an example, the computational communication behaviors of 1D, 2D, and 3D models in parallel are shown below.
-
 ## Operation Practice
 
 The following is an illustration of 2D tensor parallel operation in an Ascend stand-alone 8-card environment, using the `MatMul -> Other Computational Operators -> MatMul` operator structure, which is common in large models, as an example:
