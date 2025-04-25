@@ -118,7 +118,7 @@ print("ToNumber result: {}, type: {}".format(txt, txt[0].dtype))
 ```text
 Tokenize result: ['W' 'e' 'l' 'c' 'o' 'm' 'e' ' ' 't' 'o' ' ' 'B' 'e' 'i' 'j' 'i' 'n' 'g'
  ' ' '!']
-ToNumber result: [123456], int32
+ToNumber result: [123456], type: int32
 ```
 
 ### audio
