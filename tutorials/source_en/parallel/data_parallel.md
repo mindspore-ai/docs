@@ -10,7 +10,7 @@ The following is an illustration of data parallel operation using the Ascend sin
 
 ## Sample Code Description
 
-> You can download the full sample code here: <https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_data_parallel>.
+> You can download the full sample code here: [distributed_data_parallel](https://gitee.com/mindspore/docs/tree/r2.6.0/docs/sample_code/distributed_data_parallel).
 
 The directory structure is as follows:
 
