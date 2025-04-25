@@ -347,7 +347,7 @@ To avoid running failure when the scripts switch to graph mode, it is not recomm
 
 For more information about the `register_backward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.6.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
 
-## Using the multiple hook function of Cell Object
+## Using the Multiple hook Function of Cell Object
 
 When the `register_backward_pre_hook` function, the `register_backward_hook` function, the `register_forward_pre_hook` function, and the `register_forward_hook` function act on the same Cell object at the same time, if the `register_forward_pre_hook` and the `register_forward_hook` functions add other operators for data processing, these new operators will participate in the forward calculation of the data before or after the execution of the Cell object, but the backward gradient of these new operators is not captured by the `register_backward_pre_hook` function or the `register_backward_hook` function. The Hook function registered in `register_backward_pre_hook` only captures the input gradients of the original Cell object. The Hook function registered in `register_backward_hook` only captures the input and output gradients of the original Cell object.
 

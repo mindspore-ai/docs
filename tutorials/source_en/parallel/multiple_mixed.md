@@ -107,7 +107,7 @@ data_set = create_dataset(32)
 
 ### Training the Network
 
-This part is consistent with the pipeline parallel training code. Two additional interfaces need to be called based on the stand-alone training code: `nn.WithLossCell` for wrapping the network and loss function, and `nn.Pipeline` for wrapping the LossCell and configuring the MicroBatch size. Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as  double recursive strategy search mode `recursive_programming` for auto-slicing of the data parallel and model parallel. `stages` is the number of stages in pipeline parallel, and optimizer parallel is enabled by `hsdp`. The code is as follows:
+This part is consistent with the pipeline parallel training code. Two additional interfaces need to be called based on the stand-alone training code: `nn.WithLossCell` for wrapping the network and loss function, and `ms.parallel.nn.Pipeline` for wrapping the LossCell and configuring the MicroBatch size. Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as  double recursive strategy search mode `recursive_programming` for auto-slicing of the data parallel and model parallel. `stages` is the number of stages in pipeline parallel, and optimizer parallel is enabled by `hsdp`. The code is as follows:
 
 ```python
 import mindspore as ms
@@ -115,7 +115,7 @@ from mindspore import nn, train
 
 loss_fn = nn.MAELoss()
 loss_cb = train.LossMonitor()
-# 配置每一层在流水线并行中的pipeline_stage编号
+# Configure the pipeline_stage number for each layer in pipeline parallelism
 net_with_grads = ms.parallel.nn.Pipeline(nn.WithLossCell(net, loss_fn), 4,
                                             stage_config={"_backbone.layer1": 0,
                                                         "_backbone.relu1": 0,
