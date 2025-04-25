@@ -1,12 +1,14 @@
-# Custom Operators for Dynamic Graph Scenarios
+# CustomOpBuilder: Develop Forward and Backward Operators with the Function Interface
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_custom_pyboost.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_customopbuilder_function.md)
 
 ## Overview
 
-In dynamic graph mode, network workflows are easier to debug, supporting operations like single-operator execution, normal functions/networks, and standalone gradient computations.
+In [Defining the bprop Function for Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_adv.html#defining-the-bprop-function-for-operators), MindSpore provides a method for customizing backward functions. This method requires defining two Custom operators and binding the backward operator to the forward Custom operator in Python. The development process is relatively lengthy.
 
-While [Custom operator expressions](https://www.mindspore.cn/tutorials/en/master/custom_program/op_custom.html) support both static and dynamic graphs, they require extensive definitions. MindSpore optimizes the custom operator definition for dynamic graphs to enhance usability and execution performance.
+For dynamic graphs, MindSpore offers another method for customizing backward functions. Using a `Function` interface, the backward and forward propagation functions of the operator can be defined together, with `AutogradContext` used to pass information from the forward function to the backward function. This approach is more in line with common programming practices. Backward operators defined in this way are automatically registered during the execution of the forward operator, requiring no additional operations.
+
+The following is an example illustrating how to use the `Function` interface:
 
 This guide demonstrates a multiplication operator implementation on Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/master/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
 

@@ -10,6 +10,8 @@
 
 下面以一个例子来说明 `Function` 接口的使用方法：
 
+本指南演示了在Ascend平台上实现一个乘法算子。有关相关代码和更多示例，请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/master/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
+
 ## 算子定义
 
 为了定义一个动态图的自定义算子，用户需要定义一个C++的计算函数，然后通过pybind11将C++计算映射到Python作为MindSpore算子使用。下面是一个自定义算子的计算函数样例。
