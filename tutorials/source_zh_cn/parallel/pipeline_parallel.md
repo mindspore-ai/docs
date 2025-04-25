@@ -66,7 +66,7 @@ data_set = create_dataset(32)
 
 ### 定义网络
 
-流水线并行网络结构与单卡网络结构基本一致。需要注意的是，
+流水线并行网络结构与单卡网络结构基本一致。需要注意的是：
 
 > - 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
 > - 在pipeline并行下，网络的输出不支持动态shape。

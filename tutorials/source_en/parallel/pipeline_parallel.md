@@ -169,7 +169,7 @@ net_with_loss = Pipeline(nn.WithLossCell(net, loss_fn), 4, stage_config={"_backb
 
 ## Parallel Configuration
 
-We need to further set up the parallelism-related configuration by specifying the parallelism mode `semi-auto` as semi-automatic parallelism. It is also necessary to turn on pipeline parallelism, configure `pipeline`, and specify the total number of stages by configuring the `stages` count.
+We need to further set up the parallelism-related configuration by specifying the parallelism mode `semi_auto` as semi-automatic parallelism. It is also necessary to turn on pipeline parallelism, configure `pipeline`, and specify the total number of stages by configuring the `stages` count.
 
 ```python
 import mindspore as ms
