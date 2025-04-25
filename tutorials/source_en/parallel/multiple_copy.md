@@ -16,7 +16,7 @@ The data of input model is sliced according to the batchsize dimension, thus mod
 
 ### Related Interfaces
 
-- `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`: This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
+- `mindspore.parallel.MicroBatchInterleaved(cell_network, interleave_num=2)`: This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
 
 ## Operator Practice
 
@@ -24,7 +24,7 @@ The following is an illustration of multi-copy parallel operation using an Ascen
 
 ### Example Code Description
 
-> Download the complete example code:[multiple_copy](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/multiple_copy).
+> Download the complete example code: [multiple_copy](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/multiple_copy).
 
 The directory structure is as follows:
 

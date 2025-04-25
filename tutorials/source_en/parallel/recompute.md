@@ -28,7 +28,7 @@ Taking the GPT-3 model as an example, the policy is set to recalculate the cell 
 
 ### Related Interfaces
 
-1. `mindspore.nn.Cell.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute). After calling this interface, when computing the reverse part, all the operators inside the Cell and all the operators inside the sub-Cells are recomputed, except for the output operator of that Cell. Both PyNative mode and Graph mode are supported.
+1. `mindspore.nn.Cell.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute) of `Cell`. After calling this interface, when computing the reverse part, all the operators inside the Cell and all the operators inside the sub-Cells are recomputed, except for the output operator of that Cell. Both PyNative mode and Graph mode are supported.
 
 2. `mindspore.ops.Primitive.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute) of `Primitive`. After calling this interface, the operator is recomputed when computing the reverse part. Only Graph mode is supported.
 
@@ -132,8 +132,7 @@ class Grad(Cell):
 
 ### Executing the Network
 
-In this step, we need to define the network inputs, defer initialization of the network parameters and optimizer parameters through the `no_init_parameters` interface, and then call `Grad` in order to obtain the derivatives.
-Set the parallel mode to semi-automatic parallel mode through the top-level `AutoParallel` interface, with the following code:
+In this step, we need to define the network inputs, defer initialization of the network parameters and optimizer parameters through the `no_init_parameters` interface, and then call `Grad` in order to obtain the derivatives. Set the parallel mode to semi-automatic parallel mode through the top-level `AutoParallel` interface, with the following code:
 
 ```python
 import numpy as np

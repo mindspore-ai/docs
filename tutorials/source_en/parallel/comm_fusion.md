@@ -60,7 +60,7 @@ MindSpore provides two interfaces to enable communication fusion, each of which 
 
 ### Sample Code Description
 
-> You can download the full sample code here: <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion>.
+> You can download the full sample code here: [distributed_comm_fusion](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion).
 
 The directory structure is as follows:
 

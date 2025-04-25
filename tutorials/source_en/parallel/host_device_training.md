@@ -133,7 +133,7 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
-# Configurethe matmul and add operators to run on the CPU side
+# Configure the matmul and add operators to run on the CPU side
 net.layer1.matmul.set_device("CPU")
 net.layer1.add.set_device("CPU")
 net.layer2.matmul.set_device("CPU")

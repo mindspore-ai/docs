@@ -428,6 +428,6 @@ The `config.json` configuration file specified by `config_file_path` needs to ad
 - `client_cert_path`: The client contains the path to the p12 file (SSL-specific certificate file) with the cipher text of the certificate and secret key.
 - `ca_cert_path`: The path to root certificate
 - `cipher_list`: Cipher suite (list of supported SSL encrypted types)
-- `cert_expire_warning_time_in_da`: The warning time of certificate expiration.
+- `cert_expire_warning_time_in_day`: The warning time of certificate expiration.
 
 The secret key in the p12 file is stored in cipher text, and the password needs to be passed in when starting. Please refer to the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) for the `client_password` and `server_password` fields.
