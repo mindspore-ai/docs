@@ -54,7 +54,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
   When the execution is completed, the following results will be obtained. Print the name, the size and the number of the output Tensor and the first 50 data:  
 
   ```text
-  Tensor name: Softmax-65, tensor size is 4004 ,elements num: 1001.
+  Tensor name: Softmax-65, tensor size is 4004, elements num: 1001.
   output data is:
   0.000011 0.000015 0.000015 0.000079 0.000070 0.000702 0.000120 0.000590 0.000009 0.000004 0.000004 0.000002 0.000002 0.000002 0.000010 0.000055 0.000006 0.000010 0.000003 0.000010 0.000002 0.000005 0.000001 0.000002 0.000004 0.000006 0.000008 0.000003 0.000015 0.000005 0.000011 0.000020 0.000006 0.000002 0.000011 0.000170 0.000005 0.000009 0.000006 0.000002 0.000003 0.000009 0.000005 0.000006 0.000003 0.000011 0.000005 0.000027 0.000003 0.000050 0.000016
   ```
