@@ -91,7 +91,7 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 
 ### 使用自定义算子
 
-MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html) ，
+MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html)，
 使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并指定`func`参数为算子名字。`func`用来指示该算子在动态库中的入口函数名，根据infer函数的实现方式，存在以下两种使用方式：
 
 - **Python infer**：若算子的infer函数是Python实现，即通过`out_shape`参数传入infer shape函数，`out_dtype`参数传入infer type函数，则指定`func`为算子名，例如`func="CustomName"`
@@ -130,7 +130,7 @@ net = AddCustomNet("AddCustom", lambda x, _: x, lambda x, _: x)
 net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None, None)
 ```
 
-**C++ infer shape和infer type实现示例:**
+**C++ infer shape和infer type实现示例：**
 
 ```cpp
 #include <vector>
@@ -181,8 +181,8 @@ extern "C" TypeId AddCustomInferType(std::vector<TypeId> type_ids, AotExtra *ext
 
 ### 进一步阅读
 
-- **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_adv.html) 。
-- **AOT自定义算子**：对于C++的shape和type推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [AOT类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_aot.html) 。
+- **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_adv.html)。
+- **AOT自定义算子**：对于C++的shape和type推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [AOT类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_aot.html)。
 
 ## 常见问题
 

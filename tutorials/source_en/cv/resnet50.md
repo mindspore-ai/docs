@@ -86,7 +86,7 @@ def create_dataset_cifar10(dataset_dir, usage, resize, batch_size, workers):
 
     target_trans = transforms.TypeCast(mstype.int32)
 
-    # Data transformation
+    # Data mapping
     data_set = data_set.map(operations=trans,
                             input_columns='image',
                             num_parallel_workers=workers)
@@ -177,7 +177,7 @@ There are two residual network structures. One is the building block, which is a
 
 #### Building Block
 
-The following figure shows the structure of the building block. The main body has two convolutional layers.
+The following figure shows the structure of the building block. The main body has a two-layer convolutional network structure:
 
 + On the first-layer network of the main body, 64 input channels are used. Then, 64 output channels are obtained through the $3\times3$ convolutional layer, the Batch Normalization layer, and the ReLU activation function layer.
 + On the second-layer network of the main body, 64 input channels are also used. Then, 64 output channels are obtained through the $3\times3$ convolutional layer, the Batch Normalization layer, and the ReLU activation function layer.
@@ -221,7 +221,7 @@ class ResidualBlockBase(nn.Cell):
 
     def construct(self, x):
         """ResidualBlockBase construct."""
-        identity = x  # shortcut
+        identity = x  # shortcuts
 
         out = self.conv1(x)  # First layer of the main body: 3 x 3 convolutional layer
         out = self.norm(out)
@@ -291,7 +291,7 @@ class ResidualBlock(nn.Cell):
         if self.down_sample is not None:
             identity = self.down_sample(x)
 
-        out += identity  # The output is the sum of the main body and the shortcut.
+        out += identity  # The output is the sum of the main body and the shortcuts.
         out = self.relu(out)
 
         return out
@@ -331,7 +331,7 @@ def make_layer(last_out_channel, block: Type[Union[ResidualBlockBase, ResidualBl
     layers.append(block(last_out_channel, channel, stride=stride, down_sample=down_sample))
 
     in_channel = channel * block.expansion
-    # Stack residual networks.
+    # Stack residual networks
     for _ in range(1, block_nums):
 
         layers.append(block(in_channel, channel))
