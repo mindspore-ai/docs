@@ -126,7 +126,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 首先，在进行编译之前，需从MindSpore代码仓下载源码。
 
 ```bash
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 然后，在源码根目录下执行如下命令，可编译不同版本的MindSpore Lite。
@@ -323,7 +323,7 @@ MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
 首先，使用git工具，从MindSpore代码仓下载源码。
 
 ```bash
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
@@ -416,7 +416,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 首先，在进行编译之前，需从MindSpore代码仓下载源码。
 
 ```bash
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 然后，在源码根目录下执行如下命令即可编译MindSpore Lite。
