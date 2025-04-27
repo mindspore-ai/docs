@@ -1,7 +1,7 @@
 MindSpore Transformers 文档
 =========================================
 
-MindSpore Transformers（也称MindFormers）是一个MindSpore原生的大模型套件，旨在提供大模型训练、微调、评估、推理、部署等全流程开发能力，提供业内主流的Transformer类预训练模型和SOTA下游任务应用，涵盖丰富的并行特性，期望帮助用户轻松地实现大模型训练和创新研发。
+MindSpore Transformers套件的目标是构建一个大模型预训练、微调、评测、推理、部署的全流程开发套件，提供业内主流的Transformer类大语言模型（Large Language Models, LLMs）和多模态理解模型（Multimodal Models, MMs）。期望帮助用户轻松地实现大模型全流程开发。
 
 用户可以参阅 `整体架构 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/start/overview.html>`_ 和 `模型库 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/start/models.html>`_ ，快速了解MindSpore Transformers的系统架构，及所支持的功能特性和大模型清单。进一步地，可参考 `安装 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/quick_start/install.html>`_ 和 `快速启动 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/quick_start/source_code_start.html>`_ 章节，上手探索MindSpore Transformers。
 
@@ -55,7 +55,7 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
             <ul style="text-align: left; display: inline-block;">
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/inference.html"><span>推理</span></a></li>
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/quantization.html"><span>量化</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/mindie_deployment.html"><span>MindIE服务化部署</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/usage/deployment.html"><span>服务化部署</span></a></li>
             </ul>
          </td>
       </tr>

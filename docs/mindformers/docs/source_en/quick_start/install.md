@@ -8,31 +8,32 @@ The currently supported hardware is the [Atlas 800T A2](https://www.hiascend.com
 
 The current recommended Python version for the suite is 3.11.4.
 
-|      MindSpore Transformers       |       MindSpore        |          CANN          |   Firmware & Drivers   |  Mirror Links  |
-|:----------------------:|:----------------------:|:----------------------:|:----------------------:|:--------------:|
-| In-Development Version | In-Development Version | In-Development Version | In-Development Version | Not applicable |
+| MindSpore Transformers |                   MindSpore                   |  CANN   | Firmware & Drivers | Mirror Links |
+|:----------------------:|:---------------------------------------------:|:-------:|:------------------:|:------------:|
+|         1.5.0          | [2.6.0-rc1](https://www.mindspore.cn/install) | 8.1.RC1 |      25.0.RC1      | Coming Soon  |
 
 **Currently MindSpore Transformers recommends using a software package relationship as above.**
 
 Historical version matching relationship:
 
-|                     MindSpore Transformers                      |                  MindSpore                  |                                                                         CANN                                                                         |                                                                  Firmware & Drivers                                                                   |                             Mirror Links                             |
-|:----------------------------------------------------:|:-------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
-| [1.3.2](https://pypi.org/project/mindformers/1.3.2/) | [2.4.10](https://www.mindspore.cn/install/) | [8.0.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [24.1.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/168.html) |
-| [1.2.0](https://pypi.org/project/mindformers/1.2.0/) | [2.3.0](https://www.mindspore.cn/install/)  |                     [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1)                     |                                       [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community)                                        | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
+| MindSpore Transformers |                   MindSpore                   |                                                     CANN                                                     |                                             Firmware & Drivers                                              |                             Mirror Links                             |
+|:----------------------:|:---------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
+|         1.3.2          | [2.4.10](https://www.mindspore.cn/install/en) |  [8.0.0](https://www.hiascend.com/document/detail/en/canncommercial/800/softwareinst/instg/instg_0000.html)  | [24.1.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/168.html) |
+|         1.3.0          | [2.4.0](https://www.mindspore.cn/versions/en) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) |                  [24.1.RC3](https://www.hiascend.com/hardware/firmware-drivers/community)                   | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/154.html) |
+|         1.2.0          | [2.3.0](https://www.mindspore.cn/versions/en) | [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1) |                  [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community)                   | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
 
 ## Installing Dependent Software
 
-1. Install Firmware and Driver: Download the firmware and driver package through the [Confirming Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/quick_start/install.html#confirming-version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html) for installation.
+1. Install Firmware and Driver: Download the firmware and driver package through the [Confirming Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/quick_start/install.html#confirming-version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/en/document) - CANN Software Installation Guide for installation.
 
 2. Install CANN and MindSpore: Use the officially provided Docker image (CANN, MindSpore are already included in the image, no need to install them manually) or follow the [Manual Installation](https://www.mindspore.cn/install/en) section on the MindSpore website for installation.
 
 ## Installing MindSpore Transformers
 
-Currently only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
+Currently only source code compilation installation is supported, users can execute the following command to install MindSpore Transformers:
 
 ```bash
-git clone -b r1.5.0 https://gitee.com/mindspore/mindformers.git
+git clone -v 1.5.0 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
