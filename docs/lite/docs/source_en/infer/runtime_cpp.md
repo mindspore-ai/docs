@@ -205,7 +205,7 @@ if (ascend_device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
 }
 // Atlas 200/300/500 inference product sets device id to be 0.
-ascend_device_info->SetDeviceId(0);
+ascend_device_info->SetDeviceID(0);
 // The Atlas 200/300/500 inference product device context needs to be push_back into device_list to work.
 device_list.push_back(ascend_device_info);
 
@@ -288,7 +288,7 @@ MindSpore Lite provides two methods to obtain the input tensor of a model.
    ...
    // Assume that the model has only one input tensor named graph_input-173.
    auto in_tensor = model->GetInputByTensorName("graph_input-173");
-   if (in_tensor.impl() == nullptr) {
+   if (in_tensor == nullptr) {
        std::cerr << "Input tensor is nullptr" << std::endl;
    }
    auto input_data = in_tensor.MutableData();
