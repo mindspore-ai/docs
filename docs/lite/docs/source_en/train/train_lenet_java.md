@@ -25,7 +25,7 @@ This tutorial demonstrates how to use the Java API on MindSpore Lite by building
 Clone the source code and build the Java package for MindSpore Lite training. The `Linux` command is as follows:
 
 ```bash
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 cd mindspore
 bash build.sh -I x86_64 -j8
 ```

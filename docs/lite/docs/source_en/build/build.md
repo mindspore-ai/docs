@@ -126,7 +126,7 @@ If the user is sensitive to the package size of the framework, the following opt
 First, download source code from the MindSpore code repository.
 
 ```bash
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:
@@ -323,7 +323,7 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 First, use the git tool to download the source code from the MindSpore code repository.
 
 ```bat
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
@@ -416,7 +416,7 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 First, use the git tool to download the source code from the MindSpore code repository.
 
 ```bash
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.

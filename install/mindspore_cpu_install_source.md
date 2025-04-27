@@ -133,7 +133,7 @@ sudo apt-get install llvm-12-dev -y
 ## 从代码仓下载源码
 
 ```bash
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore
