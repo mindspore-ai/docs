@@ -225,7 +225,7 @@ Note: The Numpy version used in the runtime environment must be no less than the
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone -b v2.6.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.6.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Configuring Environment Variables
