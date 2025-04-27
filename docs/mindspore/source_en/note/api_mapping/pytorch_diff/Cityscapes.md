@@ -29,7 +29,7 @@ class mindspore.dataset.CityscapesDataset(
     num_samples=None,
     num_parallel_workers=None,
     shuffle=None,
-    decode=False,
+    decode=None,
     sampler=None,
     num_shards=None,
     shard_id=None,

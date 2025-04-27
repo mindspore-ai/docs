@@ -1202,7 +1202,7 @@ keep_original_weight=false
 
 # the names of those weight-tensors whose shape is changeable, only embedding-table supports change now.
 # the parameter is used to collaborate with lite-train. If set, `keep_original_weight` must be true.
-changeable_weights_name=name0,
+changeable_weights_name=name0,name1
 ```
 
 `keep_original_weight` is a key attribute that ensures consistency in weight, and when combined with training, the attribute must be set `true`. `changeable_weights_name` is used for special scenarios, such as changes in the shape of certain weights. Of course, currently only the number of embedding-table can be changeable. Generally, users do not need to set the attribute.
