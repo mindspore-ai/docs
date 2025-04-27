@@ -2,7 +2,7 @@
 
 # FCN for Image Semantic Segmentation
 
-Fully convolutional network (FCN) is a framework for image semantic segmentation proposed by Jonathan Long et al. of UC Berkeley in 2015 in *Fully Convolutional Networks for Semantic Segmentation*<sup>[1]</sup>.
+Fully convolutional network (FCN) is a framework for image semantic segmentation proposed by Jonathan Long et al. of UC Berkeley in 2015 in Fully Convolutional Networks for Semantic Segmentation<sup>[1]</sup>.
 
 FCN is the first end-to-end network for pixel-level prediction.
 
