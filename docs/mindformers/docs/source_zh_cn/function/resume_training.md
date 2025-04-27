@@ -10,7 +10,7 @@
 
 ### 目录结构
 
-在训练过程中，MindSpore Transformers会在输出目录中生成两个权重保存文件夹：`checkpoint` 和 `checkpoint_network`。
+在训练过程中，MindSpore Transformers默认会在输出目录中生成权重保存文件夹：`checkpoint`。 当设置配置项`save_network_params:True`后，会额外生成权重保存文件夹`checkpoint_network`。
 
 | 文件夹                | 描述                                                  |
 |--------------------|-----------------------------------------------------|

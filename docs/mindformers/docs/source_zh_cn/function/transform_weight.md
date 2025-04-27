@@ -375,7 +375,7 @@ python toolkit/safetensors/unified_safetensors.py \
 - **mindspore_ckpt_dir**：分布式权重路径，请填写源权重所在文件夹的路径，源权重应按 `model_dir/rank_x/xxx.safetensors` 格式存放，并将文件夹路径填写为 `model_dir`。
 - **output_dir**：目标权重的保存路径，默认值为 "/new_llm_data/******/ckpt/nbg3_31b/tmp"，即目标权重将放置在 `/new_llm_data/******/ckpt/nbg3_31b/tmp` 目录下。
 - **file_suffix**：目标权重文件的命名后缀，默认值为 "1_1"，即目标权重将按照 `*1_1.safetensors` 格式查找。
-- **has_redundancy**：合并的权重是否是去除冗余的权重，默认为 `True`。
+- **has_redundancy**：合并的源权重是否是冗余的权重，默认为 `True`。
 - **filter_out_param_prefix**：合并权重时可自定义过滤掉部分参数，过滤规则以前缀名匹配。如优化器参数"adam_"。
 - **max_process_num**：合并最大进程数。默认值：64。
 
