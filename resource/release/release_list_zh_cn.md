@@ -78,6 +78,7 @@
 |                           |               | MacOS-x64     | Python3.9  | [mindspore-2.6.0rc1-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0rc1/MindSpore/cpu/x86_64/mindspore-2.6.0rc1-cp39-cp39-macosx_10_15_x86_64.whl)     | 341f3b2a21f7c1220a7baab5c4f0e3fa3eccc3dfb1e3bf56c91ce86cced856d7 |
 |                           |               |               | Python3.10 | [mindspore-2.6.0rc1-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0rc1/MindSpore/cpu/x86_64/mindspore-2.6.0rc1-cp310-cp310-macosx_10_15_x86_64.whl) | e8b5774df5ea337e35c3c3e98445311f08d71f61231a2234eddc1344dbed9c7b |
 |                           |               |               | Python3.11 | [mindspore-2.6.0rc1-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0rc1/MindSpore/cpu/x86_64/mindspore-2.6.0rc1-cp311-cp311-macosx_10_15_x86_64.whl) | 91d66953028f7da0275c9e410528755796a3b9ff982c125369bfbefbdde150b2 |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html#2-6-0-rc1)   |      |
 | MindSpore<br>Transformers |               | any           | Python3    | [mindformers-1.5.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0rc1/MindFormers/any/mindformers-1.5.0-py3-none-any.whl)                                              | ea76e820a852e05572728290aafb857cf290e20851e2e299f27ea93b68b65669 |
 
 **Ascend配套软件包**
@@ -85,6 +86,12 @@
 |  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
 |--------|------------------|
 | TBD    | [CANN 8.1.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|        安装   |      教程      |  文档    |  API|
+|        ---   |       ---      |     ---     |     ---      |
+| [安装指南](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0rc1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0rc1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0rc1/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/mindformers.html) |
 
 ## 2.5.0
 
