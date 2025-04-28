@@ -290,7 +290,7 @@ target_link_libraries( # Specifies the target library.
             MS_PRINT("MindSpore error, Model is a nullptr.");
             return NULL;
         }
-        MS_PRINT("MindSpore get Model.");
+        MS_PRINT("MindSpore get model.");
 
         auto msInputs = mModel->GetInputs();
         if (msInputs.empty()) {
