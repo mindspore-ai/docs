@@ -1,4 +1,4 @@
-# AOT-Type Custom Operators(Ascend)
+# Custom Primitive AOT-Type Custom Operators(Ascend)
 
 [![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_en/custom_program/operation/op_custom_ascendc.md)
 
@@ -10,7 +10,7 @@ Custom operators of the AOT (Ahead-Of-Time) type adopt a pre-compilation approac
 2. **Offline Compilation and Deployment**: After completing the operator development, perform offline compilation to ensure that the operator can run efficiently on the Ascend AI processor and deploy it.
 3. **Using Custom Operators in MindSpore**: Integrate the compiled Ascend C custom operators into the MindSpore framework to enable their use in actual AI applications.
 
-This chapter aims to help developers fully understand and master the entire lifecycle of Ascend C custom operators, from development to deployment, and to effectively utilize them in MindSpore.
+This chapter aims to help developers fully understand and master the entire lifecycle of Ascend C custom operators, from development to deployment, and to effectively utilize them in MindSpore. For AOT custom operator development for other platforms, refer to [AOT type custom operator (CPU/GPU platforms)](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_aot.html).
 
 ## Custom Operator Development
 
@@ -91,10 +91,11 @@ Before you begin, please make sure that the development, compilation, and deploy
 
 ### Using Custom Operators
 
-The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.Custom.html). When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the infer function, there are two ways to use it:
+The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.Custom.html).
+When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the infer function, there are two ways to use it:
 
 - **Python infer**: If the infer function of an operator is implemented in Python, that is, the infer shape function is passed through the `out_shape` parameter, and the infer type function is passed through the `out_dtype` parameter, then the `func` should be specified as the operator name, for example, `func="CustomName"`.
-- **C++ infer**: If the operator's infer function is implemented through C++, then pass the path of the infer function implementation file in `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:AddCustom"`
+- **C++ infer**: If the operator's infer function is implemented through C++, then pass the path of the infer function implementation file in `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:AddCustom"`. MindSpore will later splice `InferShape` and `InferType` separately to find the corresponding infer function.
 
 **Usage Example**:
 
@@ -122,14 +123,14 @@ mindspore.set_device("Ascend")
 x = np.ones([8, 2048]).astype(np.float16)
 y = np.ones([8, 2048]).astype(np.float16)
 
-# # Implement the infer function through lambda
+# Implement the infer function through lambda
 net = AddCustomNet("AddCustom", lambda x, _: x, lambda x, _: x)
 
 # Use C++ to implement infer shape and infer type, pass the path of the infer function in the func
 net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None, None)
 ```
 
-**C++ implementation Examples of Infer Shape and Infer Type**
+**C++ implementation Examples of Infer Shape and Infer Type:**
 
 ```cpp
 #include <vector>

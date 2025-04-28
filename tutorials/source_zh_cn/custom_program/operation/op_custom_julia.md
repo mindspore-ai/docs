@@ -60,7 +60,7 @@ python test_custom_julia.py
 
 执行结果：
 
-```shell
+```text
 [[2. 2.]
  [4. 4.]]
 ```

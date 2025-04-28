@@ -159,7 +159,7 @@ config_json = r"./graceful_exit.json"
 cb = OnRequestExit(file_name="LeNet", config_file=config_json)
 ```
 
-另外，在配置 `OnRequestExit` callback函数时，保存mindir、保存checkpoint以及其他配置参数可以根据需要自行配置，详情参见[OnRequestExit](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/train/mindspore.train.OnRequestExit.html) 。
+另外，在配置 `OnRequestExit` callback函数时，保存mindir、保存checkpoint以及其他配置参数可以根据需要自行配置，详情参见[OnRequestExit](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/train/mindspore.train.OnRequestExit.html)。
 
 ```python
 def graceful_exit_case():
