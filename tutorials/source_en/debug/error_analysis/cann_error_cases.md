@@ -9,7 +9,7 @@ export ASCEND_GLOBAL_LOG_LEVEL=1        # CANN log level, 0 for debug, 1 for inf
 export ASCEND_SLOG_PRINT_TO_STDOUT=1    # Configure to enable log displaying
 ```
 
-For more CANN errors and log settings, please refer to the 'Troubleshooting' document section of [Ascend Community](https://www.hiascend.com/en/document).
+For more CANN errors and log settings, please refer to the `Troubleshooting` document section of [Ascend Community](https://www.hiascend.com/en/document).
 
 ## AICORE Operator Compilation Problem
 
