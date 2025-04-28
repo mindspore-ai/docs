@@ -1,4 +1,4 @@
-# 自定义算子接入第三方前端
+# Custom原语自定义算子接入第三方前端
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/custom_program/operation/op_custom_julia.md)
 
