@@ -36,18 +36,6 @@
        "uninstall_name" : ""
     },
     {
-       "id" : 4 ,
-       "name" : "golden_stick",
-       "branch" : "r1.1.0",
-       "html_version" : "r1.1.0",
-       "whl_path" : "2.6.0rc1/GoldenStick/any/",
-       "whl_name" : "mindspore_gs-1.1.0-py3-none-any.whl",
-       "environ" : "GS_PATH",
-       "uninstall_name" : "mindspore_gs",
-       "extra_whl_path" : "2.6.0rc1/MindFormers/any/",
-       "extra_whl_name" : "mindformers-1.5.0-py3-none-any.whl"
-    },
-    {
         "id" : 4 ,
         "name" : "mindformers",
         "branch" : "r1.5.0",
