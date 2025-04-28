@@ -92,7 +92,7 @@ Before you begin, please make sure that the development, compilation, and deploy
 ### Using Custom Operators
 
 The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html).
-When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the infer function, there are two ways to use it:
+When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. The `func` is used to specify the entry function name of the operator in the dynamic library. Depending on the implementation of the infer function, there are two ways to use it:
 
 - **Python infer**: If the infer function of an operator is implemented in Python, that is, the infer shape function is passed through the `out_shape` parameter, and the infer type function is passed through the `out_dtype` parameter, then the `func` should be specified as the operator name, for example, `func="CustomName"`.
 - **C++ infer**: If the operator's infer function is implemented through C++, then pass the path of the infer function implementation file in `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:AddCustom"`. MindSpore will later splice `InferShape` and `InferType` separately to find the corresponding infer function.
@@ -147,7 +147,7 @@ extern "C" std::vector<int64_t> AddCustomInferShape(int *ndims, int64_t **shapes
   return output_shape;
 }
 
-extern "C" TypeId MulInferType(std::vector<TypeId> type_ids, AotExtra *extra) { return type_ids[0]; }
+extern "C" TypeId AddCustomInferType(std::vector<TypeId> type_ids, AotExtra *extra) { return type_ids[0]; }
 ```
 
 For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
