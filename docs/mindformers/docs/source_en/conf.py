@@ -286,15 +286,15 @@ import nbsphinx_mod
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
-# src_release = os.path.join(os.getenv("MFM_PATH"), 'RELEASE.md')
-# des_release = "./RELEASE.md"
-# with open(src_release, "r", encoding="utf-8") as f:
-#     data = f.read()
-# if len(re.findall("\n## (.*?)\n",data)) > 1:
-#     content = re.findall("(## [\s\S\n]*?)\n## ", data)
-# else:
-#     content = re.findall("(## [\s\S\n]*)", data)
-# #result = content[0].replace('# MindSpore', '#', 1)
-# with open(des_release, "w", encoding="utf-8") as p:
-#     p.write("# Release Notes"+"\n\n")
-#     p.write(content[0])
+src_release = os.path.join(os.getenv("MFM_PATH"), 'RELEASE.md')
+des_release = "./RELEASE.md"
+with open(src_release, "r", encoding="utf-8") as f:
+    data = f.read()
+if len(re.findall("\n## (.*?)\n",data)) > 1:
+    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+else:
+    content = re.findall("(## [\s\S\n]*)", data)
+#result = content[0].replace('# MindSpore', '#', 1)
+with open(des_release, "w", encoding="utf-8") as p:
+    p.write("# Release Notes"+"\n\n")
+    p.write(content[0])

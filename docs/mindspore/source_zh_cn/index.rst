@@ -10,7 +10,6 @@ MindSpore 文档
    features/index
    api_python/index
    faq/index
-   RELEASE
 
 .. raw:: html
 
