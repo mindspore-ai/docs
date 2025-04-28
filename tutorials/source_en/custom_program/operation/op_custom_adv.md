@@ -86,4 +86,4 @@ The execution result is as follows:
 [ 2.  8. 18.]
 ```
 
-> More examples can be found in the MindSpore source code [tests/st/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/tests/st/graph_kernel/custom).
+> More examples can be found in the MindSpore [source code](https://gitee.com/mindspore/mindspore/tree/v2.6.0-rc1/tests/st/graph_kernel/custom).

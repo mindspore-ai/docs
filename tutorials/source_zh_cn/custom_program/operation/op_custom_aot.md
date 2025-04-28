@@ -1,4 +1,4 @@
-# AOT类型自定义算子（CPU/GPU平台）
+# Custom原语AOT类型自定义算子（CPU/GPU平台）
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/tutorials/source_zh_cn/custom_program/operation/op_custom_aot.md)
 
