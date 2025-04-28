@@ -16,7 +16,7 @@ The custom operator of AOT-type adopts the AOT compilation method, which require
 extern "C" int CustomFunc(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream, void *extra);
 ```
 
-where the function name `func_name` can be replaced with any valid function name. The return value is of type int. 0 means normal exit, and non-zero means an exception occurs. The meaning of the parameter list is as follows:
+where the function name `CustomFunc` can be replaced with any valid function name. The return value is of type int. 0 means normal exit, and non-zero means an exception occurs. The meaning of the parameter list is as follows:
 
 - nparam (int): The number of inputs and outputs. For example, if an operator has 2 inputs and 1 output, then the value of nparam is 3.
 - params (void \*\*): An array of pointers, with each pointer pointing to the input or output data. For example, if an operator has 2 inputs and 1 output, then params[0] points to the first input data, params[1] points to the second input data, params[2] points to the output data.
@@ -214,7 +214,7 @@ Currently, this function supports C++ file compilation based on GCC and CUDA fil
     - C++: `g++ -std=c++17 --shared -fPIC -D_GLIBCXX_USE_CXX11_ABI=0 -I./ -o $object_path, $source_path`
     - CUDA 10: `nvcc --shared -Xcompiler -fPIC -O3 -gencode arch=compute_70, code=sm_70 --use_fast_math --expt-relaxed-constexpr -D_GLIBCXX_USE_CXX11_ABI=0 -I./ -o $object_path, $source_path`
     - CUDA 11(or higher version): `nvcc --shared -Xcompiler -fPIC -O3 -gencode arch=compute_80, code=sm_80 --use_fast_math --expt-relaxed-constexpr -D_GLIBCXX_USE_CXX11_ABI=0 -I./ -o $object_path, $source_path`
-- MindSpore requires the compilation option of `-D_ GLIBCXX_ USE_ CXX11_ ABI = 0`, so please avoid using a CUDA software stack with a version lower than 10.1.168 on GPU platforms.
+- MindSpore requires the compilation option of `-D_GLIBCXX_USE_CXX11_ABI= 0`, so please avoid using a CUDA software stack with a version lower than 10.1.168 on GPU platforms.
 
 ### Attributes and Intermediate Variables of AOT-type Custom Operators
 
@@ -342,7 +342,7 @@ Here, we need to add the following intermediate variables and attributes in the 
 - `tmp` is an intermediate variable that records the intermediate result of the addition;
 - `axis` is a property of type `int`, and `keep_dims` is a property of type `bool`.
 
-### Operator Implementation File (C++/CUDA): kernel.cc
+### Operator Implementation File (C++/CUDA) kernel.cc
 
 To implement the operator, we create a source file named `kernel.cc`, which includes an operator attribute class `add_reduce_kernel_attr` and three functions: `CustomKernelInit`, `CustomKernelInferShape`, and `CustomKernel`.
 
@@ -390,7 +390,7 @@ extern "C" int CustomKernelInit(int *ndims, int64_t **shapes, const char **dtype
 }
 ```
 
-Here, we need a intermediate variable `workspace` to record the intermediate result of addition. The method is as follows:
+Here, we need an intermediate variable `workspace` to record the intermediate result of addition. The method is as follows:
 
 1. Calculate the memory size required for `workspace`: Since the size of `workspace` is the same as that of the first input, we multiply the size of each dimension of `shapes[0]` to calculate the number of elements in `workspace`, and then multiply it by `sizeof(float)` to get the memory size (assuming the element type is float by default).
 2. Store all the memory sizes of intermediate variables in a `std::vector<size_t>` object: `std::vector<size_t> workspace = {workspace_size * sizeof(float)};`. Here, since there is only one intermediate variable, the vector has only one element.
@@ -434,8 +434,8 @@ extern "C" std::vector<int64_t> CustomKernelInferShape(int *ndims, int64_t **sha
 In the above example, we need to note the following:
 
 - According to the MindSpore specifications, dynamic shape inputs includes two cases: the dynamic shape case and the dynamic rank case, with corresponding shape inputs as follows:
-    - the dynamic shape case: If the size of a certain dimension of the input is unknown, it is represented by -1. For example, the shape of the input is [1024, -1, 1024], which indicates that the input is a three-dimensional tensor with dimensions of 1024 and -1 for the second dimension;
-    - the dynamic rank case: The number of dimensions of the input is unknown, and the shape of the input is fixed as [-2, ].
+    - dynamic shape: If the size of a certain dimension of the input is unknown, it is represented by -1. For example, the shape of the input is [1024, -1, 1024], which indicates that the input is a three-dimensional tensor with dimensions of 1024 and -1 for the second dimension;
+    - dynamic rank: The number of dimensions of the input is unknown, and the shape of the input is fixed as [-2, ].
 - To support C++ shape inference functions, we need to handle cases when inputs are either dynamic shape or dynamic rank. For example, in the above example, if the input is of dynamic rank, the output will also be of dynamic rank. Therefore, when we find that the input is [-2, ], we directly return [-2, ].
 - For scenarios where the output shape depends on attributes, you can use the `extra->Attr<T>(std::string name)` template interface to obtain attributes.
 
@@ -725,7 +725,7 @@ if __name__ == "__main__":
   print(output)
 ```
 
-Here `aot` as the output of the multi-output custom operator can be used as a tuple. Execution result is as follows:
+Here `aot` is used as the output of a custom operator, which can be used directly as a tuple to perform calculations. Running the above script gives the following result:
 
 ```text
 [3. 3. 3.]
