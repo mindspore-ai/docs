@@ -8,9 +8,9 @@ When there are suboptimal devices in the training cluster, saving checkpoint and
 
 > This document describes how to use the process graceful exit. In order to illustrate the specific usage, the example of detecting the exit configuration message at the first training step and terminating the training process early is used. You can get the full sample code here: [process_graceful_exit](https://gitee.com/mindspore/docs/tree/r2.6.0rc1/docs/sample_code/graceful_exit/) .
 
-`graceful_exit.py` is the source code, `train.sh` is the start training script, and `graceful_exit.json` is the graceful exit config json file.
+`graceful_exit.py` is the training code, `train.sh` is the `msrun` startup script, and `graceful_exit.json` is the graceful exit config json file.
 
-## Dataset And Training Model
+## Data and Model Preparation
 
 ### Data Preparation
 
@@ -159,7 +159,7 @@ config_json = r"./graceful_exit.json"
 cb = OnRequestExit(file_name="LeNet", config_file=config_json)
 ```
 
-When configuring the `OnRequestExit` callback function, you can configure saving mindir, saving checkpoint, and other configuration parameters as required. For more details, please refer to the documentation [OnRequestExit](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/train/mindspore.train.OnRequestExit.html) .
+When configuring the `OnRequestExit` callback function, you can configure saving mindir, saving checkpoint, and other configuration parameters as required. For more details, please refer to the documentation [OnRequestExit](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/train/mindspore.train.OnRequestExit.html).
 
 ```python
 def graceful_exit_case():
@@ -179,7 +179,7 @@ def graceful_exit_case():
     parallel_net = AutoParallel(network, parallel_mode='semi_auto')
     model = Model(parallel_net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
-    # graceful exit json file：{"GracefulExit": 1}
+    # graceful exit json file: {"GracefulExit": 1}
     reset_json = r"./graceful_exit.json"
 
     # callback
@@ -196,9 +196,9 @@ Using `msrun` to start training.
 msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=10970 --join=True --log_dir=./comm_subgraph_logs graceful_exit_case.py
 ```
 
-## Analyzing The Results
+## Analyzing the Results
 
-After training ends, the following WARNING log will be printed: `Graceful exit is triggered, stop training`. Eight directories named `rank_0` to `rank_7` will be generated in the current execution directory, each containing a `LeNet_train.ckpt` file (if saving checkpoints is set in `OnRequestExit` ).
+After training ends, the following WARNING log will be printed: `Graceful exit is triggered, stop training`. Eight directories named `rank_0` to `rank_7` will be generated in the current execution directory, each containing a `LeNet_train.ckpt` file (If the callback is configured to save a checkpoint).
 
 ```text
 ./rank_0
@@ -229,11 +229,11 @@ After training ends, the following WARNING log will be printed: `Graceful exit i
 
 ## Notes
 
-If `TrainOneStepCell` is not overridden, you only need to configure the `MS_ENABLE_GRACEFUL_EXIT` environment variable, the `OnRequestExit` callback function, and modify the graceful exit json file as needed at a certain point during training.
+If TrainOneStepCell is not overridden, the process graceful exit feature can be implemented by simply configuring the `MS_ENABLE_GRACEFUL_EXIT` environment variable and the `OnRequestExit` callback function, and modifying the graceful exit configuration file as needed at a certain point in the training.
 
-If the network model requires overriding `TrainOneStepCell`:
+If the network model requires overriding TrainOneStepCell:
 
-1. The new method inherits from `TrainOneStepCell` , and the following `if` conditional branch code is added in the `construct` method to ensure the graceful exit feature works properly.
+1. Inherit the parent class TrainOneStepCell and add the following `if` conditional branching code inside the construct method to ensure that the graceful exit function works (inheriting from TrainOneStepCell, you can use these member variables directly):
 
     ```python
     class TrainOneStepCellWithABC(TrainOneStepCell):
@@ -250,7 +250,7 @@ If the network model requires overriding `TrainOneStepCell`:
             ...
     ```
 
-2. The new method is not inherits from `TrainOneStepCell` , you need add the following code in `__init__` method(don't change parameter's name), and using in the `construct` method.
+2. The new method is not inherits from TrainOneStepCell , you need add the following code in `__init__` method(don't change parameter's name), and using in the `construct` method.
 
     ```python
     from mindspore.utils import ExitByRequest
