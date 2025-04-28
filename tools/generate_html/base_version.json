@@ -28,10 +28,6 @@
                     "label": "FAQ",
                     "url": "/docs/zh-CN/r2.6.0rc1/faq/installation.html",
                     "id": "r2.6.0rc1-faq"
-                },
-                {
-                    "label": "RELEASE NOTES",
-                    "url": "/docs/zh-CN/r2.6.0rc1/RELEASE.html"
                 }
             ],
             "en": [
@@ -54,10 +50,6 @@
                     "label": "FAQ",
                     "url": "/docs/en/r2.6.0rc1/faq/installation.html",
                     "id": "r2.6.0rc1-faq"
-                },
-                {
-                    "label": "RELEASE NOTES",
-                    "url": "/docs/en/r2.6.0rc1/RELEASE.html"
                 }
             ]
         },
