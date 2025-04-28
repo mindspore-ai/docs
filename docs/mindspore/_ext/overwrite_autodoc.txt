@@ -564,7 +564,8 @@ class Documenter:
                           RemovedInSphinx50Warning, stacklevel=2)
         docstring = getdoc(self.object, self.get_attr, self.config.autodoc_inherit_docstrings,
                            self.parent, self.object_name)
-        spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse'])]
+        spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse']),
+                   ('ops.auto_generate.linalg_qr', 'mindspore.mint.linalg.qr')]
         if docstring and '.mint.' in self.fullname:
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
@@ -579,7 +580,7 @@ class Documenter:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                     break
             if not re.findall(f'>>> .*?{usename}', mint_doc):
-                mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?(?!\w)', rf'\1{usename}', mint_doc)
+                mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext|_ext_view)?(?!\w)', rf'\1{usename}', mint_doc)
             if re.findall(rf'>>> .*?ops\.\w+\(', mint_doc):
                 mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint, ops', mint_doc)
                 mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint, ops')
