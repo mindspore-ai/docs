@@ -4,9 +4,9 @@
 
 ## Overview
 
-MindSpore provides a tool named Dataset AutoTune to help optimize the dataset pipeline. Dataset AutoTune can automatically tune dataset pipelines to improve performance.
+MindSpore provides an automatic data tuning tool, Dataset AutoTune, for automatically adjusting the parallelism of the data processing pipeline according to the environmental resources during the training process, maximizing the use of system resources to accelerate the processing speed of the data processing pipeline.
 
-This feature can automatically detect a bottleneck operation in the dataset pipeline and respond by automatically adjusting tunable parameters for dataset operations, like increasing the number of parallel workers or updating the prefetch size of dataset operations.
+Throughout the training process, the Dataset AutoTune module continuously detects whether the current training performance bottleneck is on the data side or the network side. If the bottleneck is detected on the data side, further parameter tuning will be performed for each operation in the data processing pipeline (e.g., GeneratorDataset, map, batch, and such data processing operations), and the parameters that can be tuned at present include the number of worker threads for the operation (num_parallel_workers), and the depth of the internal queue (prefetch_size).
 
 ![autotune](images/autotune.png)
 
@@ -34,15 +34,14 @@ ds.config.set_enable_autotune(True, "/path/to/autotune_out")
 
 ## Tuning Interval for Dataset AutoTune
 
-The frequency at which Dataset AutoTune will adjust the dataset pipeline can be customized.
-To set the tuning interval in steps:
+Set the tuning interval for automatic data acceleration (in step, consistent with the meaning of step during network training):
 
 ```python
 import mindspore.dataset as ds
 ds.config.set_autotune_interval(100)
 ```
 
-> To set the tuning interval to be after every epoch, set the tuning interval to 0.
+> In particular, when the tuning interval is set to 0, it means that tuning is performed at the end of each epoch (consistent with the meaning of epoch during network training).
 
 To query the tuning interval for dataset pipeline autotuning:
 
@@ -91,7 +90,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 
 Take ResNet training as example.
 
-### Dataset AutoTune Config
+### Dataset AutoTune Configuration
 
 To enable Dataset AutoTune, only one statement is needed.
 
