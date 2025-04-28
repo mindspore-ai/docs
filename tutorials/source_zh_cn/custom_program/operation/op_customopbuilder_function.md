@@ -1,14 +1,16 @@
-# 动态图场景的自定义算子
+# CustomOpBuilder通过Function接口开发正反向算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/custom_program/operation/op_custom_pyboost.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_function.md)
 
 ## 概述
 
-动态图模式下，网络流程更容易调试，可以支持执行单算子、普通函数和网络，以及单独求梯度等操作。
+在 [定义Custom算子的反向传播函数](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/operation/op_custom_adv.html#定义算子反向传播函数) 中，MindSpore提供了一种自定义反向函数的方法。这种方法需要定义两个Custom算子，并在python的将反向算子绑定给正向Custom算子，开发流程比较冗长。
 
-基于[Custom的自定义算子表达](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/custom_program/op_custom.html)虽然可以同时支持静态图和动态图，但是需要定义的内容较多。因此MindSpore针对动态图的自定义算子定义方式做了优化，方便用户使用的同时，还能提升自定义算子的执行性能。
+在动态图上，MindSpore提供另一种自定义反向函数的方法。通过一个 `Function` 接口把算子的反向传播和正向传播函数定义在一起，中间用 `AutogradContext` 把正向函数的信息传递给反向函数，更加符合编程习惯。通过此方式定义的反向算子，会在正向算子执行时自动注册，无需额外操作。
 
-下面以一个昇腾平台的乘法算子为例讲解，相关算子文件和更多用例参见[仓库代码](https://gitee.com/mindspore/mindspore/blob/v2.6.0/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
+下面以一个例子来说明 `Function` 接口的使用方法：
+
+本指南演示了在Ascend平台上实现一个乘法算子。有关相关代码和更多示例，请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/v2.6.0/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
 
 ## 算子定义
 
