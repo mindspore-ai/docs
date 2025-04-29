@@ -55,7 +55,7 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
             <ul style="text-align: left; display: inline-block;">
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/inference.html"><span>推理</span></a></li>
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/quantization.html"><span>量化</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/mindie_deployment.html"><span>MindIE服务化部署</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/mindie_deployment.html"><span>服务化部署</span></a></li>
             </ul>
          </td>
       </tr>

@@ -1258,7 +1258,7 @@ if __name__ == "__main__":
     pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
     registry_target = os.path.join(pythonlib_dir, 'sphinx', 'registry.py')
     with open(registry_target, 'r+', encoding='utf-8') as g:
-        registry_content = h.read()
+        registry_content = g.read()
         registry_content = re.sub(r'([ ]+?)except VersionRequirementError as err:\n(?:.|\n|)+?from err',
                                   r'\1except VersionRequirementError as err:\n\1    metadata = {}',
                                   registry_content)
