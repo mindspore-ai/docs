@@ -69,7 +69,7 @@ Traceback processing, including Python stack information, error types and error 
 
 -  Error messages related to framework developers
 
-   As shown in figure ④, it contains C++ stack information and other error reporting information related to framework developers, marked by \\ ``For framework developers``\. You can set the environment variable \ ``export MS_EXCEPTION_DISPLAY_LEVEL=1``\ to hide the error message related to the framework developer. The default value of this environment variable is 0, indicating that error messages related to the framework developer are displayed by default.
+   As shown in figure ④, it contains C++ stack information and other error reporting information related to framework developers, marked by \ ``For framework developers``\. You can set the environment variable \ ``export MS_EXCEPTION_DISPLAY_LEVEL=1``\ to hide the error message related to the framework developer. The default value of this environment variable is 0, indicating that error messages related to the framework developer are displayed by default.
 
 Error Analysis
 ^^^^^^^^^^^^^^^^
