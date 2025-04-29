@@ -8,31 +8,32 @@
 
 当前套件建议使用的Python版本为3.11.4。
 
-| MindSpore Transformers | MindSpore | CANN | 固件与驱动 | 镜像链接 |
-|:-----------:|:---------:|:----:|:-----:|:----:|
-|    在研版本     |   在研版本    | 在研版本 | 在研版本  | 不涉及  |
+| MindSpore Transformers |                   MindSpore                   |  CANN   |  固件与驱动   | 镜像链接 |
+|:----------------------:|:---------------------------------------------:|:-------:|:--------:|:----:|
+|         1.5.0          | [2.6.0-rc1](https://www.mindspore.cn/install) | 8.1.RC1 | 25.0.RC1 | 即将发布 |
 
 **当前MindSpore Transformers建议使用如上的软件配套关系。**
 
 历史版本配套关系：
 
-|                     MindSpore Transformers                      |                  MindSpore                  |                                                                         CANN                                                                         |                                                                         固件与驱动                                                                         |                                 镜像链接                                 |
-|:----------------------------------------------------:|:-------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
-| [1.3.2](https://pypi.org/project/mindformers/1.3.2/) | [2.4.10](https://www.mindspore.cn/install/) | [8.0.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [24.1.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/168.html) |
-| [1.2.0](https://pypi.org/project/mindformers/1.2.0/) | [2.3.0](https://www.mindspore.cn/install/)  |                     [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1)                     |                                       [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community)                                        | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
+| MindSpore Transformers |                 MindSpore                  |                                                     CANN                                                     |                                                    固件与驱动                                                    |                                 镜像链接                                 |
+|:----------------------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
+|         1.3.2          | [2.4.10](https://www.mindspore.cn/install) |  [8.0.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html)  | [24.1.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/168.html) |
+|         1.3.0          | [2.4.0](https://www.mindspore.cn/versions) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) |                  [24.1.RC3](https://www.hiascend.com/hardware/firmware-drivers/community)                   | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/154.html) |
+|         1.2.0          | [2.3.0](https://www.mindspore.cn/versions) | [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1) |                  [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community)                   | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
 
 ## 安装依赖软件
 
-1. 安装固件与驱动：通过[版本匹配关系](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/quick_start/install.html#%E7%A1%AE%E8%AE%A4%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)中的固件与驱动链接下载安装包，参考[昇腾官方教程](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html)进行安装。
+1. 安装固件与驱动：通过[版本匹配关系](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/quick_start/install.html#%E7%A1%AE%E8%AE%A4%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)中的固件与驱动链接下载安装包，参考[昇腾官方教程](https://www.hiascend.com/document) - 《CANN软件安装》进行安装。
 
 2. 安装CANN和MindSpore：使用官方提供的Docker镜像（镜像中已包含CANN、MindSpore，无需手动安装）或者按照MindSpore官网的[手动安装](https://www.mindspore.cn/install/)章节进行安装。
 
 ## 安装MindSpore Transformers
 
-目前在研版本仅支持源码编译安装，用户可以执行如下命令安装MindSpore Transformers：
+目前仅支持源码编译安装，用户可以执行如下命令安装MindSpore Transformers：
 
 ```bash
-git clone -b r1.5.0 https://gitee.com/mindspore/mindformers.git
+git clone -b v1.5.0 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```

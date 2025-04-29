@@ -1,7 +1,7 @@
 MindSpore Transformers Documentation
 =====================================
 
-MindSpore Transformers (also known as MindFormers) is a MindSpore-native foundation model suite designed to provide full-flow development capabilities for foundation model training, fine-tuning, evaluating, inference and deploying, providing the industry mainstream Transformer class of pre-trained models and SOTA downstream task applications, and covering a rich range of parallel features, with the expectation of helping users to easily realize large model training and innovative research and development.
+The goal of the MindSpore Transformers suite is to build a full-process development suite for large model pre-training, fine-tuning, evaluation, inference, and deployment. It provides mainstream Transformer-based Large Language Models (LLMs) and Multimodal Models (MMs). It is expected to help users easily realize the full process of large model development.
 
 Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported functional features and foundation models. Further, refer to the `Installation <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/quick_start/install.html>`_ and `Quick Start <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/quick_start/source_code_start.html>`_ to get started with MindSpore Transformers.
 
@@ -15,7 +15,7 @@ MindSpore Transformers supports one-click start of single/multi-card training, f
 - `Evaluation <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/usage/evaluation.html>`_
 - `Inference <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/usage/inference.html>`_
 - `Quantization <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/usage/quantization.html>`_
-- `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/usage/mindie_deployment.html>`_
+- `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/usage/deployment.html>`_
 - `Multimodal Model Development <https://www.mindspore.cn/mindformers/docs/en/r1.5.0/usage/multi_modal.html>`_
 
 Code repository address: <https://gitee.com/mindspore/mindformers>

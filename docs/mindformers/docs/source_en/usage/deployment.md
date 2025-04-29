@@ -24,9 +24,9 @@ The model support for MindIE inference can be found in [model repository](https:
 
    MindIE and CANN versions must be matched, version matching relationship is as follows.
 
-   |                                           MindIE                                            |                                        CANN-toolkit                                         |                                        CANN-kernels                                         |
-   |:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
-   | [1.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) |
+   |                                            MindIE                                             |                                                      CANN                                                      |
+   |:---------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|
+   | [2.0.RC1](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.1.RC1](https://www.hiascend.com/document/detail/en/canncommercial/81RC1/softwareinst/instg/instg_0000.html) |
 
 ### Environment Variables
 

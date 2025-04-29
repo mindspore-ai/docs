@@ -24,9 +24,9 @@ MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mind
 
    MindIE与CANN版本必须配套使用，其版本配套关系如下所示。
 
-   |                                           MindIE                                            |                                        CANN-toolkit                                         |                                        CANN-kernels                                         |
-   |:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
-   | [1.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) |
+   |                                            MindIE                                             |                                                      CANN                                                      |
+   |:---------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|
+   | [2.0.RC1](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.1.RC1](https://www.hiascend.com/document/detail/en/canncommercial/81RC1/softwareinst/instg/instg_0000.html) |
 
 ### 环境变量
 
