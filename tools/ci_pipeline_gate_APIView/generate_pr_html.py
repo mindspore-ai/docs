@@ -12,6 +12,7 @@ import re
 import shutil
 import subprocess
 import importlib
+import sphinx
 import requests
 from git import Repo
 
@@ -1252,6 +1253,18 @@ if __name__ == "__main__":
         g_lan.append('zh-CN')
     if en_f:
         g_lan.append('en')
+
+    # 屏蔽sphinx 在python>=3.9时额外依赖引入的版本过高问题
+    pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
+    registry_target = os.path.join(pythonlib_dir, 'sphinx', 'registry.py')
+    with open(registry_target, 'r+', encoding='utf-8') as g:
+        registry_content = h.read()
+        registry_content = re.sub(r'([ ]+?)except VersionRequirementError as err:\n(?:.|\n|)+?from err',
+                                  r'\1except VersionRequirementError as err:\n\1    metadata = {}',
+                                  registry_content)
+        g.seek(0)
+        g.truncate()
+        g.write(registry_content)
 
     js_content, generate_dir_name = make_html(mk_ht_path, present_dir_path, cn_f, en_f, docs_branch, result_data)
 
