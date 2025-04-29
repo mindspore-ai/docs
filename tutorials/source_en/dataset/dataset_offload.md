@@ -8,11 +8,7 @@ MindSpore provides a computing load balancing technology which can distribute th
 different heterogeneous hardware. On one hand, it balances the computing overhead between different hardware. On the
 other hand, it uses the advantages of heterogeneous hardware to accelerate the computing.
 
-Currently this heterogeneous hardware acceleration technology (introduced as the offload feature in the following
-sections) only supports moving dataset operations from the dataset pipeline to the computation graph, which balances the
-computation overhead between the data processing and the model training. To be specific, the dataset operations are
-currently executed on CPU. Thus, by using the offload feature, some dataset operations can be moved to the network in order to
-fully use GPU or Ascend for a better computation performance.
+Currently this heterogeneous hardware acceleration technology only supports moving dataset operations from the dataset pipeline to the computation graph, which balances the computation overhead between the data processing and the model training. To be specific, the dataset operations are currently executed on CPU. Thus, by using the offload feature, some dataset operations can be moved to the network in order to fully use GPU or Ascend for a better computation performance.
 
 The offload feature will move only the supported dataset operations applied on the specific input column at the end of
 the pipeline to the accelerator. This includes consecutive data augmentation operations which are used in the map
@@ -56,7 +52,7 @@ There are two options provided by MindSpore to enable heterogeneous acceleration
 ### Option 1
 
 Use the global configuration to set automatic heterogeneous acceleration. In this case, the offload argument for all map
-operations will be set to True (see Option 2). It should be noted that if the offload argument is set for a specific map
+operations will be set to True (default: None). It should be noted that if the offload argument is set for a specific map
 operation, it will have priority over the global configuration option.
 
 ```python
@@ -103,8 +99,7 @@ constraints:
 
 1. The feature does not support concatenated or zipped datasets currently.
 
-2. The heterogeneous acceleration operation must be the last or more consecutive data augmentation operations acting on
-   a particular data input column, but the data input column is processed in an unlimited order, for example
+2. The heterogeneous acceleration operation must be the last or more consecutive data augmentation operations acting on a particular data input column, but the data input column is processed in an unlimited order, for example
 
     ```python
     dataset = dataset.map(operations=type_cast_op, input_columns="label", offload=True)
