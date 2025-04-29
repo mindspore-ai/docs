@@ -105,7 +105,7 @@ pip install mindformers
 
 You can also install the Python package that adapts to your environment by referring to the official installation document. For details, see [MindSpore Installation](https://www.mindspore.cn/install/en) and [MindFormers Installation](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html).
 
-If you wish to use model quantization to enhance inference performance, you need to install the **mindspore_gs** package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/install.html).
+If you wish to use model quantization to enhance inference performance, you need to install the mindspore_gs package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/install.html).
 
 ### Weight Preparation
 
@@ -145,7 +145,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-In this code, **tokenizer.model** is a file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while **config** is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model. You can obtain the sample from [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml). (Note: Change the CKPT weight path to the actual weight path.) For details, see [Llama 2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#-18).
+In this code, tokenizer.model is a file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while config is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model. You can obtain the sample from [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) (Note: Change the CKPT weight path to the actual weight path). For details, see [Llama 2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#-18).
 
 In addition, if you have special requirements for the model or have a deep understanding of deep learning, you can build your own model. For details, see [Model Development](./model_dev.md).
 
@@ -167,7 +167,7 @@ Once the model is constructed, you can utilize the model object for text generat
     [1, 306, 5360, 1522, 823, 292, 29892, 1363]
     ```
 
-    "I love Beijing, because" is broken down into eight tokens: **1** indicates the start token of the text or paragraph. **306** indicates the token for "I". **1522** indicates the token for "love". **292** indicates the token for "Beijing". **29892** indicates the token for comma. **1363** indicates the token for "because". **5360** and **823** indicate the space between two words (depending on the tokenizer of the model). This format can be directly passed to the model for inference.
+    "I love Beijing, because" is broken down into eight tokens: 1 indicates the start token of the text or paragraph. 306 indicates the token for "I". 1522 indicates the token for "love". 292 indicates the token for "Beijing". 29892 indicates the token for comma. 1363 indicates the token for "because". 5360 and 823 indicate the space between two words (depending on the tokenizer of the model). This format can be directly passed to the model for inference.
 
 - **Entire network computing**: The data and configuration of the current input token are specified so that the model object can obtain the token result of each step through multiple inference steps.
 
@@ -182,7 +182,7 @@ Once the model is constructed, you can utilize the model object for text generat
 
     - **max_new_token**: maximum number of generated tokens, which is used to control the inference end condition. If the maximum number of generated tokens is reached or the inference end token is generated, the entire inference process ends.
 
-    - **do_sample** and **top_k**: post-processing configuration. **do_sample** indicates that sampling is used to improve the randomness of text inference. One of the first *K* tokens with the highest probability in each inference step is randomly selected as the inference result. **top_k** indicates that one token is randomly selected from the first three probabilities in each sampling step.
+    - **do_sample & top_k**: post-processing configuration. do_sample indicates that sampling is used to improve the randomness of text inference. One of the first *K* tokens with the highest probability in each inference step is randomly selected as the inference result. top_k indicates that one token is randomly selected from the first three probabilities in each sampling step.
 
     After the Python code is executed, a list of token IDs is printed. Each token in the list indicates a text unit in the statement. The first eight tokens are the same as the input tokens.
 
@@ -199,7 +199,7 @@ Once the model is constructed, you can utilize the model object for text generat
     <s>I love Beijing, because it is a city that is constantly changing. I have been living here for 10 years and I have seen the city changes so much. ...
     ```
 
-    It can be seen that the model-inferred token IDs are translated to a human-readable statement. In actual verification, due to the randomness of **do_sample**, each inference is different, but the result logic is basically understandable.
+    It can be seen that the model-inferred token IDs are translated to the understandable statement. In actual verification, due to the randomness of do_sample, each inference is different, but the result logic is basically understandable.
 
     Note: Each inference step involves postprocessing, specifically selecting generated tokens from the token probability distribution. The simplest way to obtain the highest probability token is by using argmax. The MindFormers model incorporates this processing into the generate API. If you build a large language model yourself, you will need to implement this part separately.
 
@@ -215,11 +215,11 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
 
     - **Generating a target parallel strategy file** When MindSpore performs sharding, you need to specify the sharding mode. The information is stored in the parallel strategy file and can be generated using the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py) script. Open the YAML file corresponding to the Llama2-7B model and modify the following configuration:
 
-        - Set **only_save_strategy** to **True**, indicating that generating parallel sharding strategy files is enabled.
+        - Set only_save_strategy to True, indicating that generating parallel sharding strategy files is enabled.
 
-        - Set **use_parallel** to **True**, indicating that parallel inference is enabled.
+        - Set use_parallel to True, indicating that parallel inference is enabled.
 
-        - Change the value of **parallel_config.model_parallel** to the number of parallel devices. In this example, the value is set to **2**, indicating two-device parallel inference.
+        - Change the value of parallel_config.model_parallel to the number of parallel devices. In this example, the value is set to 2, indicating two-device parallel inference.
 
         Run the following command to generate a parallel strategy file:
 
@@ -227,7 +227,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
         msrun --worker_num=2 --local_worker_num=2 run_mindformer.py --config "/path/to/llama2_7b.yaml" --input_data "hello"
         ```
 
-        msrun is a parallel execution tool provided by MindSpore. The **input_data** parameter can accept any content to ensure that the model process can be executed properly. After the program is executed, the **strategy** directory is generated in the **output** directory, that is, the parallel sharding strategy file for two-device parallel inference.
+        msrun is a parallel execution tool provided by MindSpore. The input_data parameter can accept any content to ensure that the model process can be executed properly. After the program is executed, the strategy directory is generated in the output directory, that is, the parallel sharding strategy file for two-device parallel inference.
 
     - **Sharding model weight CKPT file**: Call the conversion script to shard and generate the weight CKPT files. For details, see [transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py).
 
@@ -238,7 +238,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
             --dst_checkpoint="/path/to/llama2_7b_2p_dir/" --dst_strategy="/path/to/llama2_7b_2p_strategy_dir/"
         ```
 
-        Here, **src_checkpoint** is the path to the source CKPT file. In the example, full sharding is used. Therefore, the source strategy file does not need to be passed. However, the path must point to the CKPT file, not to a directory. **dst_checkpoint** is the target directory of the sharding result. After the sharding is complete, two subdirectories **rank_0** and **rank_1** are generated to store the weight CKPT files of different devices. **dst_strategy** is the path of the strategy file generated in the previous step.
+        Here, src_checkpoint is the path to the source CKPT file. In the example, full sharding is used. Therefore, the source strategy file does not need to be passed. However, the path must point to the CKPT file, not to a directory. dst_checkpoint is the target directory of the sharding result. After the sharding is complete, two subdirectories rank_0 and rank_1 are generated to store the weight CKPT files of different devices. dst_strategy is the path of the strategy file generated in the previous step.
 
 - **Model adaptation**: When the MindSpore large language model is running on multiple devices, model parallelism is usually used. Therefore, the original model needs to be sharded based on the number of devices. For example, the matrix multiplication of [1024, 4096] and [4096, 2048] can be sharded into two matrix multiplications of [1024, 4096] and [4096, 1024] respectively. Different sharding may bring different parallel computing performance. The MindFormers model provides proven excellent sharding solution for MindSpore model and uses the MindSpore parallel framework for sharding. The following is part of the sharding code in the model:
 
@@ -263,17 +263,17 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
 
     The model calls the shard API of the MindSpore operator based on the parallel configuration to perform model sharding, where:
 
-    - **dp** indicates the data parallelism configuration. The data to be computed is sharded into multiple copies for parallel computing. In the inference scenario, this is typically achieved through batching for multi-statement parallel computation. Generally, **dp** is set to **1**.
+    - dp indicates the data parallelism configuration. The data to be computed is sharded into multiple copies for parallel computing. In the inference scenario, this is typically achieved through batching for multi-statement parallel computation. Generally, dp is set to 1.
 
-    - **mp** indicates the model parallelism configuration. The operators to be computed by the model are sharded based on the mode defined by the network script. In the inference scenario, the value is usually the same as the number of devices.
+    - mp indicates the model parallelism configuration. The operators to be computed by the model are sharded based on the mode defined by the network script. In the inference scenario, the value is usually the same as the number of devices.
 
-    - **cp** indicates context parallel configuration. The input text is sharded into multiple sentences in parallel. Due to full or incremental optimization, this type of parallel configuration is typically not used in inference and is usually set to **1**.
+    - cp indicates context parallel configuration. The input text is sharded into multiple sentences in parallel. Due to full or incremental optimization, this type of parallel configuration is typically not used in inference and is usually set to 1.
 
     You can modify the model configuration file to enable the parallelism capability in the model suite.
 
-    - Change the value of **use_parallel** from **False** to **True**.
+    - Change the value of use_parallel from False to True.
 
-    - Change **parallel_config.model_parallel** to the required number of parallel devices. **data_parallel** is usually set to **1** in the inference scenario. No additional configuration is required.
+    - Change parallel_config.model_parallel to the required number of parallel devices. data_parallel is usually set to 1 in the inference scenario. No additional configuration is required.
 
     For details about the network script code, see [llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py).
 
@@ -283,7 +283,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
     msrun --worker_num=2 --local_worker_num=2 run_mindformer.py --config "/path/to/llama2_7b.yaml" --input_data "hello"
     ```
 
-    The command starts two processes at the same time to perform two-device parallel inference. In addition, **only_save_strategy** in the YAML file of **config** needs to be changed to **False**, indicating normal inference.
+    The command starts two processes at the same time to perform two-device parallel inference. In addition, only_save_strategy in the YAML file of config needs to be changed to False, indicating normal inference.
 
 You can also use the MindSpore framework capabilities to customize more complex parallelism policies. For details, see [Building a Parallel Large Language Model Network](./parallel.md) and [Multi-Device Model Weight Sharding](./weight_split.md).
 
@@ -297,7 +297,7 @@ The MindSpore large language model supports the following quantization technolog
 
 - **KVCache quantization**: reduces GPU memory consumption, effectively enhancing overall throughput. (KVCache consumes considerable GPU memory and model weights in large language model inference.) MindSpore supports quantizing KVCache from float16 to int8. Through flash attention and page attention, quantization and dequantization are fused into operators to reduce the overhead caused by quantization and improve the overall throughput.
 
-The following uses the A16W8 quantization of the Llama2-7b model as an example to describe the core quantization process of the MindSpore model. **model** and **config** are the objects and configurations of the created Llama2 model.
+The following uses the A16W8 quantization of the Llama2-7b model as an example to describe the core quantization process of the MindSpore model. model and config are the objects and configurations of the created Llama2 model.
 
 - **Weight quantization**: Use a quantization algorithm to convert the model weight data from float16 to int8.
 

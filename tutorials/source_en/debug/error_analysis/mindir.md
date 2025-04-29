@@ -250,13 +250,13 @@ The `CNode` ([check the design of ANF-IR](https://www.mindspore.cn/docs/en/maste
 
 About the corresponding source code:
 
-- The source code information includes the file path, start position, and end position. For example, `# In file /workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py:437~441, 8~45` indicates the file path `/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py`, the code starts from row 437 and column 8, and ends at row 441 and column 45. If the code does not span lines, the end row information is not displayed. For example, `# In file /workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py:418, 19~37`.
+- The source code information includes the file path, start position, and end position. For example, `# In file /workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py:437~441, 8~45` indicates the file path `/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py`, the code starts from row 437 and column 8, and ends at row 441 and column 45. If the code does not span lines, the end row information is not displayed. For example, `# In file /workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py:418, 19~37`, only line 418 is shown.
 - There are two mode for the corresponding source code displaying. The first mode is to display the complete call stack, and the second mode only displays one code line for reducing the size of the IR file, which eliminates the call stack. The first mode is used by default. The code lines of the complete call stacks are displayed in all ir files.
 - If the operator is a back propagation operator, the associated code line will not only display its own code, but also the corresponding forward code, identified by "Corresponding forward node candidate:".
 - If the operator is a fusion operator, the associated code line will display the fusion related code, identified by "Corresponding code candidate:", where the separator "-" is used to distinguish different codes.
 
 > - After several optimizations by the compiler, the node may undergo several changes (such as operator splitting and operator merging). The source code parsing call stack information of the node may not be in a one-to-one correspondence with the script. This is only an auxiliary method.
-> - After the `kernel select` phase at the backend, two lines of input and output specification information (that is, the content after `:`) will appear. The first line represents the specifications on the `HOST` side, and the second line represents the specifications on the `DEVICE` side.
+> - After the kernel select phase at the backend, two lines of input and output specification information (that is, the content after `:`) will appear. The first line represents the specifications on the `HOST` side, and the second line represents the specifications on the `DEVICE` side.
 
 ### dot Introduction
 

@@ -20,11 +20,11 @@
 
 ## TransformerModel
 
-在典型的Transformer大语言模型中，每一层layer都由Normalization、Attention、残差连接、MLP(MuliLayer Perception)组成。其中Attention和MLP都符合两个连续矩阵乘的要求。
+在典型的Transformer大语言模型中，每一层layer都由Normalization、Attention、残差连接、MLP(Multi-Layer Perception)组成。其中Attention和MLP都符合两个连续矩阵乘的要求。
 
 1. Attention
 
-    当前主流Attention都采用了MHA(Muli-Head Attention)多头注意力结构，下图是MHA的具体形式，我们可以根据这个结构来构建Attention的网络。
+    当前主流Attention都采用了MHA(Multi-Head Attention)多头注意力结构，下图是MHA的具体形式，我们可以根据这个结构来构建Attention的网络。
 
     ![MHA](images/MHA.png)
 
@@ -150,7 +150,7 @@
 
 4. TransformerModel
 
-    通过堆叠TransformLayer，构建TransformerModel.
+    通过堆叠TransformLayer，构建TransformerModel。
 
     ```python
     class TransformerModel(nn.Cell):
@@ -183,7 +183,7 @@
     print(transformer_output.shape)
     ```
 
-具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/model_dev.py)脚本（设置CommunicationHelper的size为1），运行下面命令进行验证：
+具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/model_dev.py)脚本。设置CommunicationHelper的size为1，运行下面命令进行验证：
 
 ```shell
 msrun --worker_num 1 --local_worker_num 1 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py
