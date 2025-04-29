@@ -86,7 +86,7 @@ def get_example(name: str):
                     api_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', api_doc)
                     break
             if not re.findall(f'>>> .*?{usename}', api_doc):
-                api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?(?!\w)', rf'\1{usename}', api_doc)
+                api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext|_ext_view)?(?!\w)', rf'\1{usename}', api_doc)
             if re.findall(rf'>>> .*?ops\.\w+\(', api_doc):
                 api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint, ops', api_doc)
                 api_doc = api_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint, ops')
