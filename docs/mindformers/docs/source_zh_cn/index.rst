@@ -155,7 +155,7 @@ FAQ
    usage/evaluation
    usage/inference
    usage/quantization
-   usage/mindie_deployment
+   usage/deployment
    usage/pretrain_gpt
 
 .. toctree::
