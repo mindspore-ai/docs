@@ -8,7 +8,7 @@
 
 When using `GeneratorDataset` or `map` to load/process data, there may be syntax errors, calculation overflow and other issues that cause data errors, you can generally follow the steps below to troubleshoot and debug:
 
-1. Observe the error stack information and locate the error code block from the error stack information.
+1. Observe the error stack information and locate the error code block according to the error stack information.
 
 2. Add a print or debugging point near the block of code where the error occurred, to further debugging.
 
