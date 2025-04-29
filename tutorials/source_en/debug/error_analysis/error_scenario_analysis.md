@@ -20,9 +20,9 @@ Data loading and processing has three phases: data preparation, data loading, an
 
 | Error Type| Error Description| Case Analysis|
 |-------------|---------|---|
-| Data preparation error| The dataset is faulty, involving a path or MindRecord file problem.| [Error Case](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/minddata_debug.html)|
-| Data loading error| Incorrect resource configuration, customized loading method, or iterator usage in the data loading phase.| [Error Case](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/minddata_debug.html)|
-| Data augmentation error| Unmatched data format/size, high resource usage, or multi-thread suspension.| [Error Case](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/minddata_debug.html)|
+| Data preparation error| The dataset is faulty, involving a path or MindRecord file problem.| [Data Preparation Error Case](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/minddata_debug.html#data-preparation)|
+| Data loading error| Incorrect resource configuration, customized loading method, or iterator usage in the data loading phase.| [Data Loading Error Case](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/minddata_debug.html#data-loading)|
+| Data augmentation error| Unmatched data format/size, high resource usage, or multi-thread suspension.| [Data Augmentation Error Case](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/minddata_debug.html#data-augmentation)|
 
 ## Network Construction and Training Error Analysis
 
@@ -32,11 +32,11 @@ The following table lists common network construction and training errors.
 
 | Error Type  | Error Description| Case Analysis|
 | - | - | - |
-| Incorrect context configuration| An error occurs when the system configures the context.| [Error Analysis](https://mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html)|
-| Syntax error      | Python syntax errors and MindSpore static graph syntax errors, such as unsupported control flow syntax and tensor slicing errors| [Error Analysis](https://mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html)|
-| Operator build error  | The operator parameter value, type, or shape does not meet the requirements, or the operator function is restricted.| [Error Analysis](https://mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html)|
-| Operator execution error  | Input data exceptions, operator implementation errors, function restrictions, resource restrictions, etc.| [Error Analysis](https://mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html)|
-| Insufficient resources      | The device memory is insufficient, the number of function call stacks exceeds the threshold, and the number of flow resources exceeds the threshold.| [Error Analysis](https://mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html)|
+| Incorrect context configuration| An error occurs when the system configures the context.| [Incorrect Context Configuration Analysis](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html#incorrect-context-configuration)|
+| Syntax error      | Python syntax errors and MindSpore static graph syntax errors, such as unsupported control flow syntax and tensor slicing errors| [Syntax Errors Analysis](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html#syntax-errors)|
+| Operator build error  | The operator parameter value, type, or shape does not meet the requirements, or the operator function is restricted.| [Operator Build Errors Analysis](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html#operator-build-errors)|
+| Operator execution error  | Input data exceptions, operator implementation errors, function restrictions, resource restrictions, etc.| [Operator Execution Errors Analysis](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html#operator-execution-errors)|
+| Insufficient resources      | The device memory is insufficient, the number of function call stacks exceeds the threshold, and the number of flow resources exceeds the threshold.| [Insufficient Resources Analysis](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/error_analysis/mindrt_debug.html#insufficient-resources)|
 
 ### Error Analysis of the Dynamic Graph Mode
 
