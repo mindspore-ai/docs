@@ -262,7 +262,7 @@ need_file = [
     'mindspore.scipy.rst', 'mindspore.train.rst', 'mindspore.communication.rst',
     'mindspore.parallel.rst', 'mindspore.runtime.rst', 'mindspore.device_context.rst',
     'mindspore.numpy.rst', 'mindspore.dataset.loading.rst', 'mindspore.dataset.transforms.rst',
-    'dataset_pipeline_en.png'
+    'dataset_pipeline.png', 'mindspore.ops.primitive.rst'
     ]
 
 need_dir = [
