@@ -225,3 +225,11 @@ FAQ
    faq/func_related
    faq/mindformers_contribution
    faq/modelers_contribution
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+   :hidden:
+
+   RELEASE
