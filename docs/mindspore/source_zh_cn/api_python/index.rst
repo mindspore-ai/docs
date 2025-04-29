@@ -21,3 +21,4 @@ API 文档
    mindspore.dataset
    mindspore.numpy
    mindspore.scipy
+   mindspore.ops.primitive

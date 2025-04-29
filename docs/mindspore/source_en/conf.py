@@ -306,12 +306,21 @@ need_file = [
     'dataset_pipeline_en.png'
     ]
 
+need_dir = [
+    'dataset', 'mindspore'
+    ]
+
 def copy_source(sourcedir, des_sir):
     for i in os.listdir(sourcedir):
         if os.path.isfile(os.path.join(sourcedir, i)) and i in need_file:
             if os.path.exists(os.path.join(des_sir, i)):
                 os.remove(os.path.join(des_sir, i))
             shutil.copy(os.path.join(sourcedir, i), os.path.join(des_sir, i))
+        else:
+            if os.path.exists(os.path.join(des_sir, i)):
+                shutil.rmtree(os.path.join(des_sir, i))
+            if i in need_dir:
+                shutil.copytree(os.path.join(sourcedir,i), os.path.join(des_sir, i))
 
 no_viewsource_list = [os.path.join(des_sir,i) for i in os.listdir(des_sir)]
 
