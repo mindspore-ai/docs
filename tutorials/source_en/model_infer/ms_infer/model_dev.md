@@ -24,7 +24,7 @@ In a typical transformer model, each layer consists of the normalization, attent
 
 1. Attention
 
-    Currently, the mainstream attention uses the Muli-Head Attention (MHA) structure. The following figure shows the MHA structure. You can construct the attention network based on this structure.
+    Currently, the mainstream attention uses the Multi-Head Attention (MHA) structure. The following figure shows the MHA structure. You can construct the attention network based on this structure.
 
     ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
 
@@ -183,7 +183,7 @@ In a typical transformer model, each layer consists of the normalization, attent
     print(transformer_output.shape)
     ```
 
-For details about the end-to-end large language model code project, see [model_dev.py](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/infer_code/model_dev.py) script. Set the size of **CommunicationHelper** to **1**, and run the following command for verification:
+For details about the end-to-end large language model code project, see [model_dev.py](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/sample_code/infer_code/model_dev.py) script. Set the size of CommunicationHelper to 1, and run the following command for verification:
 
 ```shell
 msrun --worker_num 1 --local_worker_num 1 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py
