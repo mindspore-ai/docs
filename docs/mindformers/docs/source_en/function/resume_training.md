@@ -10,7 +10,7 @@ To train a deep learning model, saving the weights of the model is a critical st
 
 ### Directory Structure
 
-During training, MindSpore Transformers generates two weight saving folders in the output directory: `checkpoint` and `checkpoint_network`.
+During training, MindSpore Transformers generates saving folders in the output directory: `checkpoint`. if set `save_network_params:True`, extra folder will be saved: `checkpoint_network`.
 
 | Folder               | Description                                                 |
 |--------------------|-----------------------------------------------------|

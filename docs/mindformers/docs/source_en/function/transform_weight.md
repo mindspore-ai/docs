@@ -375,7 +375,7 @@ python toolkit/safetensors/unified_safetensors.py \
 - **mindspore_ckpt_dir**: The path of distributed weight, please fill in the path of the folder where the source weight is located, the source weights should be stored as `model_dir/rank_x/xxx.safetensors`, and fill in the folder path as `model_dir`.
 - **output_dir**: Path for saving target weights, default value is "/new_llm_data/******/ckpt/nbg3_31b/tmp", target weights will be saved in `/new_llm_data/******/ckpt/nbg3_31b/tmp`.
 - **file_suffix**: Naming suffix of target weight file, default value is "1_1", The target weight will be searched in the format of `*1_1.safetensors`.
-- **has_redundancy**: Is the merged weights which remove redundancy, default value is `True`.
+- **has_redundancy**: Is the merged weights which has redundancy, default value is `True`.
 - **filter_out_param_prefix**: Customize the parameters to be filtered out when merging weights, and the filtering rules are based on prefix name matching. For example, optimizer parameter "adam_".
 - **max_process_num**: Maximum number of processes to merge. Default value: 64.
 
