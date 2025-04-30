@@ -54,7 +54,7 @@ There are two card-making tools balenaEtcher, Rufus, and you can choose any one 
 
   If it is too slow to download from the official website, you can use to [this link](https://obs-9be7.obs.cn-east-2.myhuaweicloud.com/OrangePi/balenaEtcher/balenaEtcher-Setup-1.18.4.exe) to download directly the balenaEtcher-Setup-1.18.4 software.
 
-  Step 4  Open balenaEtcher.
+  Step 4 Open balenaEtcher.
 
   ![environment-setup-1-6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-6.png)
 

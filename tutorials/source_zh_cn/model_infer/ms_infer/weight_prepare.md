@@ -44,13 +44,13 @@ llama-2-7b-hf
 
 ### 利用MindSpore框架转换权重文件
 
-将Huggingface的权重文件转换成MindSpore的权重文件，可以简单的分解为以下几个步骤：
+将Hugging Face的权重文件转换成MindSpore的权重文件，可以简单的分解为以下几个步骤：
 
-1. 加载Huggingface权重文件成为torch的Tensor列表。
+1. 加载Hugging Face权重文件成为torch的Tensor列表。
 2. 将torch的Tensor列表转换为MindSpore的Tensor列表。
 3. 将MindSpore的Tensor列表保存为MindSpore的CKPT权重文件。
 
-- **安装python依赖包**：由于需要从Huggingface转换成MindSpore的权重，因此需要安装两者的python包，主要包含transformers、torch、mindspore。
+- **安装python依赖包**：由于需要从Hugging Face转换成MindSpore的权重，因此需要安装两者的python包，主要包含transformers、torch、mindspore。
 
     ```shell
     pip install torch
@@ -58,7 +58,7 @@ llama-2-7b-hf
     pip install transformers
     ```
 
-- **加载Huggingface模型**：利用transfomers库加载Llama2的权重文件和模型，并从模型中获取权重列表，实际是一个torch的Tensor对象列表。
+- **加载Hugging Face模型**：利用transfomers库加载Llama2的权重文件和模型，并从模型中获取权重列表，实际是一个torch的Tensor对象列表。
 
     ```python
     import os
@@ -76,9 +76,9 @@ llama-2-7b-hf
 
 执行该python代码，会加载Llama2的权重，并将每个权重的名称打印出来，则表示模型加载成功。
 
-- **torch.Tensor转换为mindspore.Tensor**：利用numpy作为中转，将torch的Tensor对象转换为mindspore的Tensor对象，除了数据外，mindspore权重名称也和Huggingface的不一样，需要记录一个映射关系。
+- **torch.Tensor转换为mindspore.Tensor**：利用numpy作为中转，将torch的Tensor对象转换为mindspore的Tensor对象，除了数据外，mindspore权重名称也和Hugging Face的不一样，需要记录一个映射关系。
 
-    - 权重名称映射关系：将Huggingface的权重名称替换为mindspore的权重名称。
+    - 权重名称映射关系：将Hugging Face的权重名称替换为mindspore的权重名称。
 
         ```python
         def name_replace(name: str):

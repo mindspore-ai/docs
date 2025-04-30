@@ -19,11 +19,11 @@ To run this case, it is necessary to burn the Ubuntu image on the OrangePi AIpro
 
 ### CANN Upgrading
 
- Please refer to [CANN Upgrading](https://www.mindspore.cn/tutorials/en/r2.6.0/orange_pi/environment_setup.html#3-cann-upgrading).
+Please refer to [CANN Upgrading](https://www.mindspore.cn/tutorials/en/r2.6.0/orange_pi/environment_setup.html#3-cann-upgrading).
 
 ### MindSpore Upgrading
 
- Please refer to [MindSpore Upgrading](https://www.mindspore.cn/tutorials/en/r2.6.0/orange_pi/environment_setup.html#4-mindspore-upgrading).
+Please refer to [MindSpore Upgrading](https://www.mindspore.cn/tutorials/en/r2.6.0/orange_pi/environment_setup.html#4-mindspore-upgrading).
 
 ```python
 from mindspore import nn
@@ -33,15 +33,17 @@ from mindspore.dataset import MnistDataset
 
 ## Setting Running Environment
 
-  max_device_memory="2GB" : Set the maximum memory available to the device to 2GB.
+Due to resource constraints, performance optimization mode needs to be enabled with the following parameters:
 
-  mode=mindspore.GRAPH_MODE : Indicates running in GRAPH_MODE mode.
+max_device_memory="2GB": Set the maximum memory available to the device to 2GB.
 
-  device_target="Ascend" : Indicates that the target device to be run is Ascend.
+mode=mindspore.GRAPH_MODE: Indicates running in GRAPH_MODE mode.
 
-  jit_config={"jit_level":"O2"} : The compilation optimization level turns on extreme performance optimization and uses sinking execution.
+device_target="Ascend": Indicates that the target device to be run is Ascend.
 
-  ascend_config={"precision_mode":"allow_mix_precision"} : Auto mixed-precision, which automatically reduces the precision of some operators to float16 or bfloat16.
+jit_config={"jit_level":"O2"}: The compilation optimization level turns on extreme performance optimization and uses sinking execution.
+
+ascend_config={"precision_mode":"allow_mix_precision"}: Auto mixed-precision, which automatically reduces the precision of some operators to float16 or bfloat16.
 
 ```python
 import mindspore
