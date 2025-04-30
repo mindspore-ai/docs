@@ -15,4 +15,4 @@
 
 以下操作基于OrangePi AIpro 8-12TOPS 16G开发板，20TOPS开发板操作方式相同。
 
-更多基于昇思MindSpore的香橙派开发板案例详见：`GitHub链接 <https://github.com/mindspore-courses/orange-pi-mindspore>`_ 
+更多基于昇思MindSpore的香橙派开发板案例详见： `GitHub链接 <https://github.com/mindspore-courses/orange-pi-mindspore>`_ 

@@ -61,7 +61,7 @@ ms.save_checkpoint(net.parameters_dict(), './simplenet_rtn.ckpt')
 ```
 
 1. Use [nn.Cell](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Cell.html) to define the network. After training the model, obtain the floating-point weight of the model, and then load the floating-point weight during inference. The above example simplifies the process by directly creating a network and using the initial floating-point weight for quantization.
-2. Use PTQConfig to set **mode** to quantization mode, set the backend to Ascend, and perform 8-bit quantization on the weight. For details, see [PTQConfig Configuration Description](#ptqconfig-configuration-description).
+2. Use PTQConfig to set mode to quantization mode, set the backend to Ascend, and perform 8-bit quantization on the weight. For details, see [PTQConfig Configuration Description](#ptqconfig-configuration-description).
 3. Use the apply API to convert the network into a pseudo-quantized network and collect statistics on the quantized object based on the configuration in `PTQConfig`.
 4. Use the convert API to quantize the pseudo-quantized network in the previous step to obtain the quantized network.
 
@@ -97,7 +97,7 @@ output = net(input)
 print(output)
 ```
 
-1. Use PTQConfig to set **mode** to deployment mode, set the backend to Ascend, and perform 8-bit quantization on the weight. For details, see [PTQConfig Configuration Description](#ptqconfig-configuration-description).
+1. Use PTQConfig to set mode to deployment mode, set the backend to Ascend, and perform 8-bit quantization on the weight. For details, see [PTQConfig Configuration Description](#ptqconfig-configuration-description).
 2. Use the apply and convert APIs to convert a network into a quantized network. In the deployment phase, information statistics and quantitative calculation are not performed, and only the network structure is converted into a quantized network.
 3. Load the quantized weights to the quantized network for inference.
 
@@ -105,7 +105,7 @@ print(output)
 
 You can customize PTQConfig to enable different quantization capabilities. For details about PTQConfig, see [the API document](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig). The following shows the configuration examples of some algorithms.
 
-> **A** indicates activation, **W** indicates weight, **C** indicates KVCache, and the number indicates bits. For example, **A16W8** indicates a quantization where activations are represented as float16 and weights as int8.
+> A indicates activation, W indicates weight, C indicates KVCache, and the number indicates bits. For example, A16W8 indicates a quantization where activations are represented as float16 and weights as int8.
 
 - A16W8 quantization
 
@@ -119,7 +119,7 @@ You can customize PTQConfig to enable different quantization capabilities. For d
 
 - A8W8 quantization
 
-    > A8W8 quantization is based on the [SmoothQuant](https://gitcode.com/gh_mirrors/smo/smoothquant/overview) algorithm. PTQConfig provides the **outliers_suppression** field to specify whether to perform the smooth operation.
+    > A8W8 quantization is based on the [SmoothQuant](https://gitcode.com/gh_mirrors/smo/smoothquant/overview) algorithm. PTQConfig provides the outliers_suppression field to specify whether to perform the smooth operation.
 
     ```python
     from mindspore import dtype as msdtype
