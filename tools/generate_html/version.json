@@ -43,6 +43,8 @@
         "whl_path" : "2.6.0rc1/MindFormers/any/",
         "whl_name" : "mindformers-1.5.0-py3-none-any.whl",
         "environ" : "MFM_PATH",
-        "uninstall_name" : "mindformers"
+        "uninstall_name" : "mindformers",
+        "extra_whl_path" : "2.6.0rc1/MindSpore/unified/x86_64/",
+        "extra_whl_name" : "mindspore-2.6.0rc1-cp39-cp39-linux_x86_64.whl"
     }
  ]
