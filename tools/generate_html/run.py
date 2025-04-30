@@ -382,6 +382,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     whls = os.listdir()
     if whls:
         for i in whls:
+            if re.findall('mindspore-[0-9]', i) and "tar.gz" not in i:
+                cmd_install = ["pip", "install", i]
+                subprocess.run(cmd_install)
+                break
+        for i in whls:
             if "mindpandas" in i and "cp38-cp38" in i:
                 os.rename(os.path.join(WHLDIR, i), os.path.join(WHLDIR, i.replace('cp38-cp38', 'cp37-cp37m')))
                 cmd_install = ["pip", "install", i.replace('cp38-cp38', 'cp37-cp37m')]
@@ -410,6 +415,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     replace_flag = 1
     # 遍历ArraySource开始生成html
     # pylint: disable=R1702
+    print(f'当前生成目录为：{ArraySource}')
     for i in ArraySource:
         if "tutorials" in i:
             os.chdir(os.path.join(DOCDIR, "../../", i))
