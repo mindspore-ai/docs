@@ -21,9 +21,9 @@ git lfs install
 git clone https://huggingface.co/daryl149/llama-2-7b-hf
 ```
 
-Note: Install the Git LFS plug-in beforehand; otherwise, the download may fail.
+Note: Install the git lfs plug-in beforehand; otherwise, the download may fail.
 
-Once the download is complete, you will see a new directory named **llama-2-7b-hf** in the current directory. The directory structure is as follows:
+Once the download is complete, you will see a new directory named llama-2-7b-hf in the current directory. The directory structure is as follows:
 
 ```shell
 llama-2-7b-hf
@@ -40,7 +40,7 @@ llama-2-7b-hf
 └── tokenizer.model
 ```
 
-In the preceding information, **pytorch_model-00001-of-00002.bin** and **pytorch_model-00001-of-00002.bin** are weight files, **config.json** contains the model configuration, and **tokenizer.model** is the token mapping table, which are the primary files used in subsequent steps.
+In the preceding information, pytorch_model-00001-of-00002.bin and pytorch_model-00001-of-00002.bin are weight files, config.json contains the model configuration, and tokenizer.model is the token mapping table, which are the primary files used in subsequent steps.
 
 ### Using the MindSpore Framework to Convert the Weight Files
 
@@ -50,7 +50,7 @@ To convert Hugging Face weight files into MindSpore weight files, perform the fo
 2. Convert the PyTorch tensor list into a list of MindSpore tensors.
 3. Save the MindSpore tensor list as a MindSpore CKPT weight file.
 
-- **Install the Python dependency package**: Since the conversion involves both Hugging Face and MindSpore, you need to install the respective Python packages, primarily including **transformers**, **torch**, and **mindspore**.
+- **Install the Python dependency package**: Since the conversion involves both Hugging Face and MindSpore, you need to install the respective Python packages, primarily including transformers, torch, and mindspore.
 
     ```shell
     pip install torch
@@ -58,7 +58,7 @@ To convert Hugging Face weight files into MindSpore weight files, perform the fo
     pip install transformers
     ```
 
-- **Load the Hugging Face model**: Use the **transformers** library to load the Llama2 weight files and model, and retrieve the list of weights which is actually a list of PyTorch tensor objects.
+- **Load the Hugging Face model**: Use the transformers library to load the Llama2 weight files and model, and retrieve the list of weights which is actually a list of PyTorch tensor objects.
 
     ```python
     import os
@@ -74,7 +74,7 @@ To convert Hugging Face weight files into MindSpore weight files, perform the fo
         print(f"name: {name}")
     ```
 
-Executing this Python code will load the weights of Llama2 and print out the names of each weight, indicating that the model has been successfully loaded.
+Executing this python code will load the weights of Llama2 and print out the names of each weight, indicating that the model has been successfully loaded.
 
 - **Converting torch.Tensor to mindspore.Tensor**: Use NumPy as an intermediary to convert the PyTorch tensor objects into MindSpore tensor objects. In addition to the data, the names of the MindSpore weights differ from those in Hugging Face, so a mapping relationship needs to be recorded.
 

@@ -151,6 +151,6 @@ def save_strategy_file(state_dict, strategy_file_name):
         raise e
 ```
 
-After the parallel strategy file of the inference network is obtained, the training weight can be converted into the weight required for inference according to the method of Executing Distributed Checkpoint Transformation.
+After the parallel strategy file of the inference network is obtained, the training weight can be converted into the weight required for inference according to the method of executing distributed checkpoint transformation.
 
 For details about the end-to-end weight sharding code project, see [Weight Sharding](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/infer_code/param_split.py).
