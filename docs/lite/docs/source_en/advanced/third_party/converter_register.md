@@ -4,7 +4,9 @@
 
 ## Overview
 
-Our [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) is a highly flexible tool. In addition to the basic ability of model converter, we have designed a set of registration mechanism, which allows users to expand, including node-parse extension, model-parse extension and graph-optimization extension. The users can combined them as needed to achieve their own intention.
+MindSpore Lite [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html), in addition to the basic model conversion function, also supports user-defined model optimization and construction to generate models with user-defined operators.
+
+We have designed a set of registration mechanism, which allows users to expand, including node-parse extension, model-parse extension and graph-optimization extension. The users can combined them as needed to achieve their own intention.
 
 node-parse extension: The users can define the process to parse a certain node of a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [NodeParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html), [NodeParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_NodeParserRegistry.html).
 model-parse extension: The users can define the process to parse a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [ModelParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_ModelParser.html), [ModelParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_ModelParserRegistry.html).
@@ -14,7 +16,7 @@ graph-optimization extension: After parsing a model, a graph structure defined b
 >
 > MindSpore Lite alse providers a series of registration macros to facilitate user access. These macros include node-parse registration [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_node_parser_registry.h_REG_NODE_PARSER-1.html), model-parse registration [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_model_parser_registry.h_REG_MODEL_PARSER-1.html), graph-optimization registration [REG_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_PASS-1.html) and graph-optimization scheduled registration [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_SCHEDULED_PASS-1.html)
 
-The expansion capability of MindSpore Lite conversion tool only support on Linux system currently.
+The expansion capability of MindSpore Lite conversion tool only supports on Linux system currently.
 
 In this chapter, we will show the users a sample of extending MindSpore Lite converter tool, covering the example of expanding node, example of optimizing graph, compiling and linking. The example will help the users understand the extension ability as soon as possible.
 
@@ -40,7 +42,7 @@ class AddParserTutorial : public NodeParser {  // inherit the base class
                          const std::unique_ptr<tflite::ModelT> &tflite_model) override;
 };
 
-REG_NODE_PARSER(kFmkTypeTflite, ADD, std::make_shared<AddParserTutorial>());     // call the registration macro
+REG_NODE_PARSER(kFmkTypeTflite, ADD, std::make_shared<AddParserTutorial>());     // call the registration interface
 ```
 
 For the sample code, please refer to [node_parser](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/node_parser).
@@ -75,11 +77,11 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // register scheduling log
 
 For the sample code, please refer to [pass](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/pass).
 
-> In the offline phase of conversion, we will infer the basic information of output tensors of each node of the model, including the format, data type and shape. So, in this phase, users need to provide the inferring process of self-defined operator. Here, users can refer to [Operator Infershape Extension](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#operator-infershape-extension).
+> In the offline phase of conversion, we will infer the basic information of output tensors of each node of the model, including the format, data type and shape. So, in this phase, users need to provide the inferring process of self-defined operator. Here, users can refer to [Operator Infershape Extension](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#operator-infershape-extension), and the sample code can be found in [infer](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/infer).
 
 ## Example
 
-### Compile
+### Compilation
 
 - Environment Requirements
 
@@ -166,7 +168,7 @@ If the user needs to turn off the specified operator fusions, the fusion configu
 
 ```ini
 [registry]
-# When parameter `disable_fusion` is configured as `off`, the user can turn off the specified operator fusions by configuring parameter `fusion_blacklists`. While parameter `disable_fusion` is configured as `on`, the parameter `fusion_blacklists` does not work.
+# When parameter `disable_fusion` is configured as `off`, the user can turn off the specified operator fusions by configuring parameter `fusion_blacklists`. While parameter `disable_fusion` is configured as `on`, all operator fusions are turned off and the parameter `fusion_blacklists` does not work.
 disable_fusion=off
 fusion_blacklists=ConvActivationFusion,MatMulActivationFusion
 ```

@@ -8,8 +8,7 @@
 
 在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)之外，使用NPU需要集成HUAWEI HiAI DDK。
 DDK包含了使用NPU的对外接口（包括模型构建、加载，计算等），以及封装成动态库的接口实现（名为libhiai*.so）。
-下载[DDK 100.510.010.010版本](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180)，
-并将压缩包解压后的目录设置为环境变量`${HWHIAI_DDK}`。构建脚本将使用这个环境变量寻找DDK。
+下载[DDK 100.510.010.010版本](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180)，并将压缩包解压后的目录设置为环境变量`${HWHIAI_DDK}`。构建脚本将使用这个环境变量寻找DDK。
 
 ### 编译构建
 
@@ -52,8 +51,7 @@ bash build.sh -I arm64 -j8
 
 有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html)。
 
-有关环境变量设置，将libmindspore-lite.so（目录为`mindspore-lite-{version}-android-{arch}/runtime/lib`）和
-NPU库（目录为`mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`）所在的目录加入`${LD_LIBRARY_PATH}`。
+有关环境变量设置，将libmindspore-lite.so（目录为`mindspore-lite-{version}-android-{arch}/runtime/lib`）和NPU库（目录为`mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`）所在的目录加入`${LD_LIBRARY_PATH}`。
 
 ## 芯片支持
 
