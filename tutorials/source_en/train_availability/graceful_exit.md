@@ -155,7 +155,7 @@ The `GracefulExit` in the configuration file is dynamically configured during tr
 # key in json file: ‘{“GracefulExit”: 1}’
 config_json = r"./graceful_exit.json"
 
-# callback function
+# set callback function
 cb = OnRequestExit(file_name="LeNet", config_file=config_json)
 ```
 
@@ -250,7 +250,7 @@ If the network model requires overriding TrainOneStepCell:
             ...
     ```
 
-2. The new method is not inherits from TrainOneStepCell , you need add the following code in `__init__` method(don't change parameter's name), and using in the `construct` method.
+2. The new method is not inherits from TrainOneStepCell, you need add the following code in `__init__` method(don't change parameter's name), and using in the `construct` method. The sample code is as follows:
 
     ```python
     from mindspore.utils import ExitByRequest

@@ -277,7 +277,7 @@ int TestCustomOp::Execute() {
 
 #### Custom Operator Attribute Decoding Example
 
-In the example, the byte stream in the attribute is copied to the buffer.
+In the example, the byte stream in the attribute is copied to the buf.
 
 ```cpp
     auto prim = primitive_->value_as_Custom();
@@ -376,7 +376,7 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 ```
 
 In this example, the operator instance creation function is implemented as follows. The function returns a `CustomAddKernel` class instance. This class is the user-defined operator class that inherits the `kernel::Kernel` class. For details about the implementation of this class, see [Implementing Operators](#implementing-operators).
-In the function, in addition to transferring the function parameters to the constructor function of the `CustomAddKernel` class, a Boolean variable is also transferred. The variable is used to control whether the data type processed by the created `CustomAddKernel` instance is FLOAT32 or FLOAT16.
+In the function, in addition to transferring the function parameters to the constructor function of the `CustomAddKernel` class, a Boolean variable is also transferred. The variable is used to control whether the data type processed by the created `CustomAddKernel` instance is float32 or float16.
 
 ```cpp
 namespace custom_gpu_demo {
@@ -558,7 +558,7 @@ In this example, the Prepare API is overloaded to load and build the custom Open
 
 3. Build the OpenCL code.
 
-    Use `fp16_enable_` to specify different build options to generate the code for processing FLOAT16 or FLOAT32 data.
+    Use `fp16_enable_` to specify different build options to generate the code for processing float16 or float32 data.
     Use `opencl_runtime_` to call the `OpenCLRuntimeWrapper::BuildKernel` API, obtain the built `cl::Kernel` variable, and save it in `kernel_`.
 
     ```cpp
@@ -712,7 +712,7 @@ In this example, the Prepare API is overloaded to load and build the custom Open
         ...
     ```
 
-    The `PackNHWCToNHWC4` function is implemented as follows, including the conversion between the FLOAT16 and FLOAT32 types.
+    The `PackNHWCToNHWC4` function is implemented as follows, including the conversion between the float16 and float32 types.
 
     ```cpp
     void PackNHWCToNHWC4(void *src, void *dst, bool src_is_fp16, bool dst_is_fp16, const GpuTensorInfo &tensor,

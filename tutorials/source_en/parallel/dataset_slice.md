@@ -6,13 +6,13 @@
 
 When performing distributed training, taking image data as an example, when the size of a single image is too large, such as large-format images of remote sensing satellites, when an image is too large, it is necessary to slice the image and read a portion of each card to perform distributed training. Scenarios that deal with dataset slicing need to be combined with model parallelism to achieve the desired effect of reducing video memory, so this feature is provided based on automatic parallelism. The sample used in this tutorial is not a large-format network, and is intended as an example only. Real-life applications to large-format networks often require detailed design of parallel strategies.
 
-> Dataset sharding is only supported in fully-automatic mode and semi-automatic mode, and is not involved in data parallel mode.
+> Dataset sharding is not involved in data parallel mode.
 
 ### Related Interfaces
 
 1. `mindspore.dataset.vision.SlicePatches(num_height=1, num_width=1)`: Slices the Tensor into multiple blocks horizontally and vertically. Suitable for scenarios where the Tensor has a large height and width. `num_height` is the number of slices in vertical direction and `num_width` is the number of slices in horizontal direction. More parameters can be found in [SlicePatches](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html).
 
-2. `dataset_strategy(config=((1, 1, 1, 8), (8,)))`: indicates dataset slicing strategy. For more details, [AutoParallel Parallel Configuration](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html). The `dataset_strategy` interface has the following limitations:
+2. `dataset_strategy(config=((1, 1, 1, 8), (8,)))`: indicates dataset slicing strategy. For more details, refer to [AutoParallel Parallel Configuration](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html). The `dataset_strategy` interface has the following limitations:
 
     - Each input is allowed to be sliced in at most one dimension. If `dataset_strategy(config=((1, 1, 1, 8), (8,)))` or `config=((1, 1, 1, 8), (1,))` is supported, each input is sliced in just one dimension at most, but not `config=((1, 1, 4, 2), (1,))`, whose first input is sliced into two dimensions.
 
