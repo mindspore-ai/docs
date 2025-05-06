@@ -123,7 +123,7 @@ The parameter `append_info` of `CheckpointConfig` can save user-defined informat
 append_info = ["epoch_num", "step_num", {"lr": 0.01, "momentum": 0.9}]
 # In the data sinking mode, the Checkpoint file of the last step is saved by default
 config_ck = CheckpointConfig(append_info=append_info)
-# The Checkpoint file is saved with the prefix "lenet" and is saved in ". /lenet" path
+# The Checkpoint file is saved with the prefix "lenet" and is saved in "./lenet" path
 ckpoint_cb = ModelCheckpoint(prefix='lenet', directory='./lenet', config=config_ck)
 
 # Simulation program fault. The default is to fail at the end of the 6th epoch
@@ -135,7 +135,7 @@ model.train(10, train_dataset, callbacks=[ckpoint_cb, my_callback], dataset_sink
 
 ## User-defined Script to Find the Latest Checkpoint File
 
-The program fails at the end of the 6th epoch. After the failure, the `. /lenet` directory holds the Checkpoint files for the latest generated 5 epochs.
+The program fails at the end of the 6th epoch. After the failure, the `./lenet` directory holds the Checkpoint files for the latest generated 5 epochs.
 
 ```text
 └── lenet
@@ -200,7 +200,7 @@ model.train(10, train_dataset, callbacks=ckpoint_cb, initial_epoch=epoch_num, da
 
 ### Training Ends
 
-At the end of the training, `. /lenet` directory generates 4 new Checkpoint files. Based on the Checkpoint file names, it can be seen that the model is retrained at the 7th epoch and ends at the 10th epoch after the failure occurs. The fault recovery is successful.
+At the end of the training, `./lenet` directory generates 4 new Checkpoint files. Based on the Checkpoint file names, it can be seen that the model is retrained at the 7th epoch and ends at the 10th epoch after the failure occurs. The fault recovery is successful.
 
 ```text
 └── lenet
