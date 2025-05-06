@@ -20,7 +20,7 @@ MindSpore Lite转换工具的扩展能力，目前仅支持Linux系统。
 
 本章节将通过MindSpore Lite转换工具扩展功能的示例程序，涵盖节点扩展案例、优化扩展案例以及编译链接全流程，来使用户能够快速了解转换工具的扩展功能的使用。
 
-> 模型解析扩展，鉴于是模块化的扩展能力，本章不做详细介绍，但会提供一个简化的单元案例，以供用户参考。
+> 鉴于模型解析扩展是模块化的扩展能力，本章对其不做详细介绍，但会提供一个简化的单元案例，以供用户参考。
 
 本章节以[add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)模型为例。该模型仅包含一个简单的Add算子，通过自定义的节点解析、图优化，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/advanced/third_party/register_kernel.html#custom算子)，最终输出Custom单算子模型。
 
@@ -108,7 +108,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
   > 若使用该build脚本下载MindSpore Lite发布件失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite发布件[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)，将解压后`tools/converter/lib`目录、`tools/converter/include`目录拷贝到`mindspore/lite/examples/converter_extend`目录下。
   >
-  > 通过手动下载并且将文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
+  > 通过手动下载并且将文件放到指定位置后，需要再次执行`build.sh`脚本才能完成编译构建。
 
 - 编译输出
 

@@ -198,7 +198,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=
 
 ## 结果分析
 
-训练结束后，日志中会有如下WARNING打印：`Graceful exit is triggered, stop training` 。 同时，在当前执行目录下，会生成有 `rank_0` 至 `rank_7` 8个目录，每个目录下都有一个 `LeNet_train.ckpt` 文件（如果callback里面配置了保存checkpoint）。
+训练结束后，日志中会有如下WARNING打印：`Graceful exit is triggered, stop training` 。同时，在当前执行目录下，会生成有 `rank_0` 至 `rank_7` 8个目录，每个目录下都有一个 `LeNet_train.ckpt` 文件（如果callback里面配置了保存checkpoint）。
 
 ```text
 ./rank_0

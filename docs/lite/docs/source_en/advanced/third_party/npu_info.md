@@ -6,17 +6,14 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html), HUAWEI HiAI DDK, which contains
-APIs (including building, loading models and calculation processes) and interfaces implemented to encapsulate dynamic libraries (namely libhiai*.so),
-is required for the use of NPU. Download [DDK 100.510.010.010](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180),
-and set the directory of extracted files as `${HWHIAI_DDK}`. Our build script uses this environment viriable to seek DDK.
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html), using the NPU requires the integration of the HUAWEI HiAI DDK.
+HUAWEI HiAI DDK, which contains APIs (including building, loading models and calculation processes) and interfaces implemented to encapsulate dynamic libraries (namely libhiai*.so), is required for the use of NPU.
+Download [DDK 100.510.010.010](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180), and set the directory of extracted files as `${HWHIAI_DDK}`. Our build script uses this environment viriable to seek DDK.
 
 ### Build
 
-Under the Linux operating system, one can easily build MindSpore Lite Package integrating NPU interfaces and libraries using build.sh under
-the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore). The command is as follows.
-It will build MindSpore Lite's package under the output directory under the MindSpore source code root directory,
-which contains the NPU's dynamic library, the libmindspore-lite dynamic library, and the test tool Benchmark.
+Under the Linux operating system, one can easily build MindSpore Lite Package integrating NPU interfaces and libraries using build.sh under the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore). The command is as follows.
+It will build MindSpore Lite's package under the output directory under the MindSpore source code root directory, which contains the NPU's dynamic library, the libmindspore-lite dynamic library, and the test tool Benchmark.
 
 ```bash
 export MSLITE_ENABLE_NPU=ON
@@ -32,10 +29,10 @@ For more information about compilation, see [Linux Environment Compilation](http
     When developers need to integrate the use of NPU features, it is important to note:
 
     - [Configure the NPU backend](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_cpp.html#configuring-the-npu-backend).
-     For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_cpp.html).
+        For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r2.6.0/infer/runtime_cpp.html).
 
     - Compile and execute the binary. If you use dynamic linking, refer to [compile output](https://www.mindspore.cn/lite/docs/en/r2.6.0/build/build.html) when the compile option is `-I arm64` or `-I arm32`.
-    Configured environment variables will dynamically load libhiai.so, libhiai_ir.so, libhiai_ir_build.so, libhiai_hcl_model_runtime.so. For example,
+        Configured environment variables will dynamically load libhiai.so, libhiai_ir.so, libhiai_ir_build.so, libhiai_hcl_model_runtime.so. For example,
 
         ```bash
         export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
@@ -59,9 +56,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/benchmark_tool.html).
 
-For environment variable settings, you need to set the directory where the libmindspore-lite.so
-(under the directory `mindspore-lite-{version}-android-{arch}/runtime/lib`) and NPU libraries
-(under the directory `mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
+For environment variable settings, you need to set the directory where the libmindspore-lite.so (under the directory `mindspore-lite-{version}-android-{arch}/runtime/lib`) and NPU libraries (under the directory `mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
 
 ## Supported Chips
 
