@@ -150,7 +150,7 @@ The following provides a complete process of quantization and deployment of the 
 
 ### Perceptual Quantization Training
 
-- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/quantization/simulated_quantization.html): a basic quantization aware algorithm based on the pseudo-quantization technology.
+- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/quantization/simqat.html): a basic quantization aware algorithm based on the pseudo-quantization technology.
 - [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/quantization/slb.html): a non-linear low-bit quantization aware algorithm.
 
 ### Pruning

@@ -22,7 +22,7 @@ The memory management-related interfaces are detailed in [runtime interfaces](ht
 
 The core idea of memory pool as a base for memory management is to pre-allocate a large block of contiguous memory, allocate it directly from the pool when applying for memory, and return it to the pool for reuse when releasing it, instead of frequently calling the memory application and release interfaces in the system, which reduces the overhead of frequent dynamic allocations, and improves system performance. MindSpore mainly uses the BestFit memory allocation algorithm, supports dynamic expansion of memory blocks and defragmentation, and sets the initialization parameters of the memory pool through the interface mindspore.runtime.set_memory(init_size,increase_size,max_size) to control the dynamic expansion size and maximum memory usage.
 
-![memory_pool](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_memory_pool.png)
+![memory_pool](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_memory_manage.png)
 
 1. Slicing operation: When memory is allocated, free areas are sorted according to their sizes, the first free area that meets the requirements is found, allocated on demand, the excess is cut, and a new block of free memory is inserted.
 2. Merge operation: When memory is reclaimed, neighboring free memory blocks are reclaimed and merged into one large free memory block.
