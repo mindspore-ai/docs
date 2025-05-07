@@ -83,43 +83,43 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 - 通用模块编译选项
 
-| 选项  |  参数说明  | 取值范围 | 默认值 |
-| -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND | 设置GPU后端，在非OpenHarmony系统且`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl， 在`-I x86_64`时为off |
-| MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在非OpenHarmony系统且`-I arm64`或`-I arm32`时有效 | on、off | off |
-| MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
-| MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
-| MSLITE_ENABLE_AVX | 是否启用AVX指令集，仅在`-I x86_64`时有效 | on、off | off |
-| MSLITE_ENABLE_AVX512 | 是否启用AVX512指令集，仅在`-I x86_64`时有效 | on、off | off |
-| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具，仅在`-I x86_64`时有效 | on、off | on |
-| MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
-| MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
-| MSLITE_ENABLE_MODEL_ENCRYPTION | 是否支持模型加解密 | on、off | off |
-| MSLITE_ENABLE_MODEL_PRE_INFERENCE | 是否启用模型编译时预推理 | on、off | off |
-| MSLITE_ENABLE_GITEE_MIRROR | 是否使能三方库从码云镜像下载 | on、off | off |
+    | 选项  |  参数说明  | 取值范围 | 默认值 |
+    | -------- | ----- | ---- | ---- |
+    | MSLITE_GPU_BACKEND | 设置GPU后端，在非OpenHarmony系统且`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl， 在`-I x86_64`时为off |
+    | MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在非OpenHarmony系统且`-I arm64`或`-I arm32`时有效 | on、off | off |
+    | MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
+    | MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
+    | MSLITE_ENABLE_AVX | 是否启用AVX指令集，仅在`-I x86_64`时有效 | on、off | off |
+    | MSLITE_ENABLE_AVX512 | 是否启用AVX512指令集，仅在`-I x86_64`时有效 | on、off | off |
+    | MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具，仅在`-I x86_64`时有效 | on、off | on |
+    | MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
+    | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
+    | MSLITE_ENABLE_MODEL_ENCRYPTION | 是否支持模型加解密 | on、off | off |
+    | MSLITE_ENABLE_MODEL_PRE_INFERENCE | 是否启用模型编译时预推理 | on、off | off |
+    | MSLITE_ENABLE_GITEE_MIRROR | 是否使能三方库从码云镜像下载 | on、off | off |
 
-> - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/third_party/asic.html)。
-> - 启用AVX指令集时，需要运行环境的CPU同时支持avx特性和fma特性。
-> - 模型转换工具的编译时间较长，若非必要，建议通过`MSLITE_ENABLE_CONVERTER`关闭转换工具编译，以加快编译速度。
-> - 解密所需的OpenSSL加密库crypto支持的版本为1.1.1k，需要用户自行下载编译，相关方法可参考：<https://github.com/openssl/openssl#build-and-install>。此外，还需要将libcrypto.so.1.1文件的路径加入到LD_LIBRARY_PATH中。
-> - 当启用模型编译时预推理时，对于非加密模型，用户调用Build接口时，推理框架会创建一个子进程进行预推理，子进程成功返回之后，主进程会正式执行图编译的流程。
-> - 目前OpenHarmony系统仅支持CPU推理，不支持GPU推理。
+    > - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/advanced/third_party/asic.html)。
+    > - 启用AVX指令集时，需要运行环境的CPU同时支持avx特性和fma特性。
+    > - 模型转换工具的编译时间较长，若非必要，建议通过`MSLITE_ENABLE_CONVERTER`关闭转换工具编译，以加快编译速度。
+    > - 解密所需的OpenSSL加密库crypto支持的版本为1.1.1k，需要用户自行下载编译，相关方法可参考：<https://github.com/openssl/openssl#build-and-install>。此外，还需要将libcrypto.so.1.1文件的路径加入到LD_LIBRARY_PATH中。
+    > - 当启用模型编译时预推理时，对于非加密模型，用户调用Build接口时，推理框架会创建一个子进程进行预推理，子进程成功返回之后，主进程会正式执行图编译的流程。
+    > - 目前OpenHarmony系统仅支持CPU推理，不支持GPU推理。
 
 - runtime功能裁剪编译选项
 
-若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁剪，以减少包大小，之后，用户可再通过[裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/cropper_tool.html)进行算子裁剪以进一步减少包大小。
+    若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁剪，以减少包大小，之后，用户可再通过[裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0rc1/tools/cropper_tool.html)进行算子裁剪以进一步减少包大小。
 
-| 选项  |  参数说明  | 取值范围 | 默认值 |
-| -------- | ----- | ---- | ---- |
-| MSLITE_ENABLE_STRING_KERNEL | 是否支持string数据推理模型，如smart_reply.tflite模型 | on、off | on |
-| MSLITE_ENABLE_CONTROLFLOW | 是否支持控制流模型 | on、off | on |
-| MSLITE_ENABLE_WEIGHT_DECODE | 是否支持权重量化模型推理 | on、off | on |
-| MSLITE_ENABLE_CUSTOM_KERNEL | 是否支持南向算子注册 | on、off | on |
-| MSLITE_ENABLE_DELEGATE | 是否支持Delegate机制 | on、off | on |
-| MSLITE_ENABLE_FP16 | 是否支持FP16算子 | on、off | 在`-I x86_64`时off，在`-I arm64`时on，在`-I arm32`时，若Android_NDK版本大于r21e，则on，否则off |
-| MSLITE_ENABLE_INT8 | 是否支持INT8算子 | on、off | on |
+    | 选项  |  参数说明  | 取值范围 | 默认值 |
+    | -------- | ----- | ---- | ---- |
+    | MSLITE_ENABLE_STRING_KERNEL | 是否支持string数据推理模型，如smart_reply.tflite模型 | on、off | on |
+    | MSLITE_ENABLE_CONTROLFLOW | 是否支持控制流模型 | on、off | on |
+    | MSLITE_ENABLE_WEIGHT_DECODE | 是否支持权重量化模型推理 | on、off | on |
+    | MSLITE_ENABLE_CUSTOM_KERNEL | 是否支持南向算子注册 | on、off | on |
+    | MSLITE_ENABLE_DELEGATE | 是否支持Delegate机制 | on、off | on |
+    | MSLITE_ENABLE_FP16 | 是否支持FP16算子 | on、off | 在`-I x86_64`时off，在`-I arm64`时on，在`-I arm32`时，若Android_NDK版本大于r21e，则on，否则off |
+    | MSLITE_ENABLE_INT8 | 是否支持INT8算子 | on、off | on |
 
-> - 由于NPU和TensorRT的实现依赖于Delegate机制，所以在使用NPU或TensorRT时无法关闭Delegate机制，如果关闭了Delegate机制，则相关功能也必须关闭。
+    > - 由于NPU和TensorRT的实现依赖于Delegate机制，所以在使用NPU或TensorRT时无法关闭Delegate机制，如果关闭了Delegate机制，则相关功能也必须关闭。
 
 ### 编译示例
 

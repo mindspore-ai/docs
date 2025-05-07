@@ -14,7 +14,7 @@ Install TensorRT of the corresponding CUDA version, and set the installed direct
 
 ### Build
 
-In the Linux environment, use the build.sh script in the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore) to build the MindSpore Lite package integrated with TensorRT. First configure the environment variable `MSLITE_GPU_BACKEND=tensorrt`, and then execute the compilation command as follows.
+In the Linux environment, use the build.sh script in the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore) to build the MindSpore Lite package integrated with TensorRT. First configure the environment variable `MSLITE_GPU_BACKEND=tensorrt`, and then execute the compilation command as follows. It will build a package for MindSpore Lite in the output directory under the root of the MindSpore source code, containing `libmindspore-lite.so` and the test tool Benchmark.
 
 ```bash
 bash build.sh -I x86_64
@@ -27,11 +27,11 @@ For more information about compilation, see [Linux Environment Compilation](http
 - Integration instructions
 
     When developers need to integrate the use of TensorRT features, it is important to note:
-    - [Configure the TensorRT backend](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html#configuring-the-gpu-backend),
-    For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html).
+    - [Configure the TensorRT backend](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html#configuring-the-gpu-backend) in the code.
+        For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/infer/runtime_cpp.html).
 
     - Compile and execute the binary. If you use dynamic linking, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html#directory-structure) with compilation option `-I x86_64`.
-    Please set environment variables to dynamically link related libs.
+        Please set environment variables to dynamically link related libs.
 
     ```bash
     export LD_LIBRARY_PATH=mindspore-lite-{version}-{os}-{arch}/runtime/lib/:$LD_LIBRARY_PATH
@@ -41,7 +41,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 - Using Benchmark testing TensorRT inference
 
-    Pass the build package to a device with a TensorRT environment(TensorRT 6.0.1.5) and use the Benchmark tool to test TensorRT inference. Examples are as follows:
+    Users can also test TensorRT inference using MindSpore Lite Benchmark tool. The location of the compiled Benchmark is shown in [Compiled Output](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/build/build.html). Pass the build package to a device with a TensorRT environment(TensorRT 6.0.1.5) and use the Benchmark tool to test TensorRT inference. Examples are as follows:
 
     - Test performance
 

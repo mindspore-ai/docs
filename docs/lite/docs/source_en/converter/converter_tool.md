@@ -186,7 +186,7 @@ To use the MindSpore Lite model conversion tool, the following environment prepa
     set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
     ````
 
-    %PACKAGE_ROOT_PATH% is the decompressed package path obtained by compiling or downloading.
+    ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
 
 ### Directory Structure
 
@@ -246,7 +246,7 @@ Several common examples are selected below to illustrate the use of conversion c
       call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
 
-     > The `MindIR` model exported by MindSpore v1.1.1 or earlier is recommended to be converted to the `ms` model using the converter tool of the corresponding version. MindSpore v1.1.1 and later versions, the converter tool will be forward compatible.
+     > The `MindIR` model exported by version earlier than MindSpore v1.1.1 is recommended to be converted to the `ms` model using the converter tool of the corresponding version. In MindSpore v1.1.1 and later versions, the converter tool will be forward compatible.
 
     - TensorFlow Lite model`model.tflite`
 
