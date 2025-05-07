@@ -951,25 +951,6 @@ Profiler
        dynamic: Dynamic collection of performance data model.
      - This environment variable is enabled by CANN Profiling. Profiler reads this environment variable for checking to avoid repeatedly enabling CANN Profiling. Users don't need to set this environment variable manually.
 
-Dynamic Graph
---------------
-
-.. list-table::
-   :widths: 20 20 10 30 20
-   :header-rows: 1
-
-   * - Environment Variable
-     - Function
-     - Type
-     - Value Range
-     - Description
-   * - MS_PYNATIVE_CONFIG_STATIC_SHAPE
-     - We use this switch to turn on graph distribution for calculating gradient in PyNative mode.
-     - String
-     - '1': Turn on graph distribution for calculating gradient.
-       Not setting or other values: Turn off graph distribution.
-     - If turn on, we use graph distribution
-
 Build from source
 ------------------
 
