@@ -6,8 +6,6 @@
 
 The main purpose of image preprocessing is to eliminate irrelevant information in the image, restore useful real information, enhance the detectability of related information and simplify data to the greatest extent, thereby improving the reliability of feature extraction, image segmentation, matching and recognition. Here, by creating a LiteMat object, the image data is processed before inference to meet the data format requirements for model inference.
 
-The process is as follows:
-
 ## Importing Image Preprocessing Function Library
 
 ```cpp
