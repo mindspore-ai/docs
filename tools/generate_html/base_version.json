@@ -173,5 +173,33 @@
         },
         "repo_name": "mindquantum",
         "theme": "theme-docs"
+    },
+    {
+        "version": "r0.3",
+        "versionAlias" : "",
+        "label": {
+            "zh": "MindSpore Flow",
+            "en": "MindSpore Flow"
+        },
+        "repo_name": "mindflow",
+        "theme": "theme-docs"
+    },
+    {
+        "version": "r0.3",
+        "label": {
+            "zh": "MindSpore Earth",
+            "en": "MindSpore Earth"
+        },
+        "repo_name": "mindearth",
+        "theme": "theme-docs"
+    },
+    {
+        "version": "r0.2",
+        "label": {
+            "zh": "MindSpore Chemistry",
+            "en": "MindSpore Chemistry"
+        },
+        "repo_name": "mindchemistry",
+        "theme": "theme-docs"
     }
 ]

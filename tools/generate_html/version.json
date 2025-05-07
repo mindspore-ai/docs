@@ -56,5 +56,46 @@
       "whl_name" : "mindquantum-0.10.0-cp39-cp39-linux_x86_64.whl",
       "environ" : "MQ_PATH",
       "uninstall_name" : "mindquantum"
+   },
+   {
+      "id" : 6 ,
+      "name" : "mindscience",
+      "branch" : "r0.7",
+      "whl_path" : "",
+      "whl_name" : "",
+      "environ" : "MSC_PATH",
+      "uninstall_name" : ""
+   },
+   {
+      "id" : 7 ,
+      "name" : "mindflow",
+      "branch" : "r0.3",
+      "html_version" : "r0.3",
+      "whl_path" : "2.5.0/MindScience/mindflow/gpu/x86_64/cuda-11.1/",
+      "whl_name" : "mindflow_gpu-0.3.0-py3-none-any.whl",
+      "environ" : "MSC_PATH",
+      "uninstall_name" : "mindflow_gpu",
+      "extra_whl_path" : "2.5.0/MindSpore/unified/x86_64/",
+      "extra_whl_name" : "mindspore-2.5.0-cp39-cp39-linux_x86_64.whl"
+   },
+   {
+      "id" : 7 ,
+      "name" : "mindearth",
+      "branch" : "r0.3",
+      "html_version" : "r0.3",
+      "whl_path" : "2.5.0/MindScience/mindearth/gpu/x86_64/cuda-11.1/",
+      "whl_name" : "mindearth_gpu-0.3.0-py3-none-any.whl",
+      "environ" : "MSC_PATH",
+      "uninstall_name" : "mindearth_gpu"
+   },
+   {
+      "id" : 7 ,
+      "name" : "mindchemistry",
+      "branch" : "r0.2",
+      "html_version" : "r0.2",
+      "whl_path" : "2.5.0/MindScience/mindchemistry/gpu/x86_64/cuda-11.1/",
+      "whl_name" : "mindchemistry_gpu-0.2.0-cp39-cp39-linux_x86_64.whl",
+      "environ" : "MSC_PATH",
+      "uninstall_name" : "mindchemistry_gpu"
    }
 ]
