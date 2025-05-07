@@ -22,7 +22,7 @@ Modules in MindSpore Lite:
 ### Environment Requirements
 
 - The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
-- Compilation dependencies of cpp:
+- Compilation dependencies of c++:
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [CMake](https://cmake.org/download/) >= 3.18.3
     - [Git](https://git-scm.com/downloads) >= 2.28.0
@@ -83,43 +83,43 @@ The construction of modules is controlled by environment variables. Users can co
 
 - General module compilation options
 
-| Option  |  Parameter Description  | Value Range | Defaults |
-| -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND | Set the GPU backend, only opencl is valid when the target OS is not OpenHarmony and `-I arm64`, and only tensorrt is valid when `-I x86_64` | opencl, tensorrt, off | opencl when `-I arm64`, off when `-I x86_64` |
-| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when the target OS is not OpenHarmony  `-I arm64` or `-I arm32` | on, off | off |
-| MSLITE_ENABLE_TRAIN | Whether to compile the training version | on, off | on |
-| MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on, off | off |
-| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on, off | off |
-| MSLITE_ENABLE_AVX512 | Whether to enable AVX512 instruction set, only valid when `-I x86_64` | on, off | off |
-| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on, off | on |
-| MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
-| MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
-| MSLITE_ENABLE_MODEL_ENCRYPTION | Whether to support model encryption and decryption | on, off | off |
-| MSLITE_ENABLE_MODEL_PRE_INFERENCE | Whether to enable pre-inference during model compilation | on, off | off |
-| MSLITE_ENABLE_GITEE_MIRROR | Whether to enable download third_party from gitee mirror | on, off | off |
+    | Option  |  Parameter Description  | Value Range | Defaults |
+    | -------- | ----- | ---- | ---- |
+    | MSLITE_GPU_BACKEND | Set the GPU backend, only opencl is valid when the target OS is not OpenHarmony and `-I arm64`, and only tensorrt is valid when `-I x86_64` | opencl, tensorrt, off | opencl when `-I arm64`, off when `-I x86_64` |
+    | MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when the target OS is not OpenHarmony  `-I arm64` or `-I arm32` | on, off | off |
+    | MSLITE_ENABLE_TRAIN | Whether to compile the training version | on, off | on |
+    | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on, off | off |
+    | MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on, off | off |
+    | MSLITE_ENABLE_AVX512 | Whether to enable AVX512 instruction set, only valid when `-I x86_64` | on, off | off |
+    | MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on, off | on |
+    | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
+    | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
+    | MSLITE_ENABLE_MODEL_ENCRYPTION | Whether to support model encryption and decryption | on, off | off |
+    | MSLITE_ENABLE_MODEL_PRE_INFERENCE | Whether to enable pre-inference during model compilation | on, off | off |
+    | MSLITE_ENABLE_GITEE_MIRROR | Whether to enable download third_party from gitee mirror | on, off | off |
 
-> - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/third_party/asic.html).
-> - When the AVX instruction set is enabled, the CPU of the running environment needs to support both AVX and FMA features.
-> - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
-> - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>. In addition, the path of libcrypto.so.1.1 should be added to LD_LIBRARY_PATH.
-> - When pre-inference during model compilation is enabled, for the non-encrypted model, the inference framework will create a child process for pre-inference when Build interface is called. After the child process returns successfully, the main precess will formally execute the process of graph compilation.
-> - At present, OpenHarmony only supports CPU reasoning, not GPU reasoning.
+    > - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/r2.6.0/advanced/third_party/asic.html).
+    > - When the AVX instruction set is enabled, the CPU of the running environment needs to support both AVX and FMA features.
+    > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
+    > - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>. In addition, the path of libcrypto.so.1.1 should be added to LD_LIBRARY_PATH.
+    > - When pre-inference during model compilation is enabled, for the non-encrypted model, the inference framework will create a child process for pre-inference when Build interface is called. After the child process returns successfully, the main precess will formally execute the process of graph compilation.
+    > - At present, OpenHarmony only supports CPU reasoning, not GPU reasoning.
 
 - Runtime feature compilation options
 
-If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [cropper tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/cropper_tool.html).
+    If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [cropper tool](https://www.mindspore.cn/lite/docs/en/r2.6.0/tools/cropper_tool.html).
 
-| Option  |  Parameter Description  | Value Range | Defaults |
-| -------- | ----- | ---- | ---- |
-| MSLITE_STRING_KERNEL | Whether to support string data reasoning model, such as smart_reply.tflite | on,off | on |
-| MSLITE_ENABLE_CONTROLFLOW | Whether to support control flow model | on,off | on |
-| MSLITE_ENABLE_WEIGHT_DECODE | Whether to support weight quantitative model | on,off | on |
-| MSLITE_ENABLE_CUSTOM_KERNEL | Whether to support southbound operator registration | on,off | on |
-| MSLITE_ENABLE_DELEGATE | Whether to  support Delegate mechanism | on,off | on |
-| MSLITE_ENABLE_FP16 | Whether to support FP16 operator | on,off | off when `-I x86_64`, on when `-I arm64`, when `-I arm32`, if the Android_NDK version is greater than r21e, it is on, otherwise it is off |
-| MSLITE_ENABLE_INT8 | Whether to support INT8 operator | on,off | on |
+    | Option  |  Parameter Description  | Value Range | Defaults |
+    | -------- | ----- | ---- | ---- |
+    | MSLITE_STRING_KERNEL | Whether to support string data reasoning model, such as smart_reply.tflite | on,off | on |
+    | MSLITE_ENABLE_CONTROLFLOW | Whether to support control flow model | on,off | on |
+    | MSLITE_ENABLE_WEIGHT_DECODE | Whether to support weight quantitative model | on,off | on |
+    | MSLITE_ENABLE_CUSTOM_KERNEL | Whether to support southbound operator registration | on,off | on |
+    | MSLITE_ENABLE_DELEGATE | Whether to  support Delegate mechanism | on,off | on |
+    | MSLITE_ENABLE_FP16 | Whether to support FP16 operator | on,off | off when `-I x86_64`, on when `-I arm64`, when `-I arm32`, if the Android_NDK version is greater than r21e, it is on, otherwise it is off |
+    | MSLITE_ENABLE_INT8 | Whether to support INT8 operator | on,off | on |
 
-> - Since the implementation of NPU and TensorRT depends on the Delegate mechanism, the Delegate mechanism cannot be turned off when using NPU or TensorRT. If the Delegate mechanism is turned off, the related functions must also be turned off.
+    > - Since the implementation of NPU and TensorRT depends on the Delegate mechanism, the Delegate mechanism cannot be turned off when using NPU or TensorRT. If the Delegate mechanism is turned off, the related functions must also be turned off.
 
 ### Compilation Example
 
