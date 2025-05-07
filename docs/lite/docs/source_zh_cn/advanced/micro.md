@@ -953,7 +953,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
     bash ${STMSTM32CubePrg_PATH}/bin/STM32_Programmer.sh -c port=SWD -w build/test_stm767.bin 0x08000000 -s 0x08000000
     ```
 
-    ${STMSTM32CubePrg_PATH为}为`STMSTM32CubePrg`安装路径。关于命令中的各参数含义，请参考`STMSTM32CubePrg`的使用手册。
+    ${STMSTM32CubePrg_PATH}为`STMSTM32CubePrg`安装路径。关于命令中的各参数含义，请参考`STMSTM32CubePrg`的使用手册。
 
 #### 推理结果验证
 
@@ -964,7 +964,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 bash ${STMSTM32CubePrg_PATH为}/bin/STM32_Programmer.sh -c port=SWD model=HOTPLUG --upload 0x20000000 0x1 ret.bin
 ```
 
-${STMSTM32CubePrg_PATH为}为`STMSTM32CubePrg`安装路径。关于命令中的各参数含义，请参考`STMSTM32CubePrg`的使用手册。
+${STMSTM32CubePrg_PATH}为`STMSTM32CubePrg`安装路径。关于命令中的各参数含义，请参考`STMSTM32CubePrg`的使用手册。
 
 读取的数据被保存在`ret.bin`文件内，运行`cat ret.bin`，如果开发板端推理成功，`ret.bin`内保存着字符`1`，会显示如下：
 

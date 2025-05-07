@@ -301,7 +301,7 @@ quant_strategy=ACWL
 
 ## Configuration Parameter
 
-Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). The configuration file adopts the style of [`INI`](https://en.wikipedia.org/wiki/INI_file), For quantization, configurable parameters include:
+Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). The configuration file adopts the style of [`INI`](https://en.wikipedia.org/wiki/INI_file). For quantization, configurable parameters include:
 
 - `[common_quant_param]: Public quantization parameters`
 - `[weight_quant_param]: Fixed bit quantization parameters`
