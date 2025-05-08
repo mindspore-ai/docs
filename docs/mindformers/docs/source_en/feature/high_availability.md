@@ -4,49 +4,57 @@
 
 ## Overview
 
-MindSpore Transformers high availability provides the following three functions:
+MindSpore Transformers high availability provides the following four functions:
 
 - **End-of-life CKPT**: It is mainly aimed at accelerating the fault recovery in the training process of large models. This feature verifies the integrity and consistency of the intermediate state data after a fault occurs during the training process and generates an end-of-life CheckPoint data, which can be used to recover the training and reduce the loss of training iterations caused by the fault.
 - **UCE Fault-tolerant Recovery**: It mainly focuses on the detection of UCE faults in on-chip memory during the training process of large models, and accomplishes online repair to reach Step-level recomputation.
-- **Process-Level Rescheduling Recovery**: Instead of pulling up the entire cluster again after an anomaly in training occurs, simply restart or replace it on a node-by-node basis to complete the repair and continue training.
+- **TRE Training Result Excepition Recovery**：It mainly focuses on the detection of value excepton of loss, global-norm, etc. during the training process of large models, and accomplishes online repair to reach Step-level recomputation.
+- **ARF Process-Level Rescheduling Recovery**: Instead of pulling up the entire cluster again after an anomaly in training occurs, simply restart or replace it on a node-by-node basis to complete the repair and continue training.
 
-The high availability feature is currently only supported in the MindSpore Ascend back-end graph schema; this feature also needs to support Step-level recovery, so only a sink_size of 1 is supported when configuring data sinking.
+Constraints and dependencies of the high availability functions:
 
-The high availability feature is based on the existence of a replica relationship between the two cards so that when one of the cards fails, it can be recovered from the other card, and therefore there will be two copies of redundancy in both the weights and the optimizer, which will take up more video memory. To ensure this redundancy relationship, data parallelism must be turned on to ensure that there are two cards with the same weights, and also if optimizer parallelism is turned on, it must be ensured that there are two cards with the same optimizer state.
+| | End-of-life CKPT | UCE | ARF | TRE |
+| - | - | - | - | - |
+| Depending on MindIO | Yes | Yes | Yes | No |
+| Replica relationship between between cards | Yes | Yes | Yes | No |
+| Sink Size is 1 | Yes | Yes | Yes | No |
 
-All three functions can be turned on at the same time or individually. When these three functions are turned on in combination, the order in which they take effect is: UCE Fault Tolerance Recovery -> Process-Level Rescheduling Recovery -> End-of-Life CKPT, and if one of the functions can be recovered, the next function will not be executed. The end-of-life CKPT function serves as a final safeguard, and the entire training process exits upon completion of this function, so it will be turned on by default when the other two functions are turned on.
+These four high availability functions are currently only supported in the MindSpore Ascend back-end graph schema to support Step-level recovery.
 
-The end-of-life CKPT saving of the Checkpoint file and the renewal of training from that file use the existing MindSpore Transformers capabilities in the same way, except that the end-of-life CKPT relies on the strategy file, so that folder needs to be configured for both the training and the renewal of the training.
+The replica relationship between cards is used to make sure when one of the cards fails, it can be recovered from the other card. It requires that there must be at least two copies of redundancy in both the weights and the optimizer. To ensure this redundancy relationship, data parallelism must be turned on to ensure that there are two cards with the same weights, and also if optimizer parallelism is turned on, it must be ensured that there are two cards with the same optimizer state.
 
-When an exception triggers an end-of-life CheckPoint save, if de-redundant saving is not turned on, only one card in each data parallel field saves the CheckPoint, and the rest of the cards do not save the CheckPoint. Therefore, when resuming training, it is also necessary to enable the high availability feature in order to resume, otherwise the other cards will not be able to find the available CheckPoint and will report an error exit. Users can determine whether a CheckPoint is triggered by the end-of-life CKPT feature by calculating whether the number of CheckPoints saved by the distribution is less than the number of clusters.
+When End-of-life CKPT, UCE and ARF functions are turned on in combination, the order in which they take effect is: UCE -> ARF -> End-of-Life CKPT, and if one of the functions can be recovered, the next function will not be executed. The end-of-life CKPT function serves as a final safeguard, and the entire training process exits upon completion of this function, so it will be turned on by default when the UCE or ARF functions are turned on.
 
 ## Instructions for Use
 
-The high availability feature switch is enabled by an environment variable, and the switch is not set separately in the YAML configuration file, but the YAML file needs to be able to configure the weights and optimizer states to be the same for both cards, as detailed in the [Replica Relationships Configuration](#replica-relationships-configuration) section of this document.
+The high availability feature switch is enabled by an environment variable, and the switch is not set separately in the YAML configuration file. For high availability functions which depend on replica relationship between between cards, the YAML file needs to be able to configure the weights and optimizer states to be the same for both cards, as detailed in the [Replica Relationships Configuration](#replica-relationships-configuration) section of this document.
 
-The high availability feature relies on the user to install the MindIO TFT SDK package. Please refer to [Install MindIO TFT SDK on compute nodes](https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft011.html).
+For high availability functions which depend on MindIO, the user needs to install the MindIO TFT SDK package. Please refer to [Install MindIO TFT SDK on compute nodes](https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft011.html).
 
 ### Environment Variable Configuration
 
 ```shell
 export MINDIO_FOR_MINDSPORE=1
-export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1}"
+export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1,TRE:1}"
 export MS_TFT_IP=127.0.0.1
 export MS_TFT_PORT=30051
 ```
 
 - `MINDIO_FOR_MINDSPORE`: Enabling MindIO TFT SDK to support MindSpore
-- `MS_ENABLE_TFT`: Indicates that the TTP, UCE and ARF functions are enabled. If you want to enable only one of these functions, set the corresponding value to 1.
+- `MS_ENABLE_TFT`: Indicates that the TTP, UCE, ARF and TRE functions are enabled. If you want to enable only one of these functions, set the corresponding value to 1.
     - **TTP (Try To Persist)**: End-of-life CKPT function
     - **UCE (Uncorrectable Memory Error)**: UCE fault tolerance recovery
     - **ARF (Air Refuelling)**: Process-level rescheduling recovery function
+    - **TRE (Training Result Error)**: Training result exception recovery
     - When UCE or ARF is enabled, TTP is enabled by default.
+    - TRE function can not be used with UCE or ARF feature
+    - TRE does not depend on MindIO. It is not necessary to configure the MindIO-related environment variables MINDIO_FOR_MINDSPORE, MS_TFT_IP, and MS_TFT_PORT to enable only the TRE feature
 
 - `MS_TFT_IP` and `MS_TFT_PORT` represent the IP and port number of TFT Controller respectively, no default value, need to be specified by user. If the Controller is started by MindSpore Transformers, the IP and port number of the rank0 node in the user's cluster are configured. If the Controller is started by the user, configure the IP and port number of the Controller.
 
 ### YAML Configuration
 
-The YAML configuration consists of two parts: the end-of-life CKPT saving and recovery configuration and the highly available replica relationship configuration.
+The YAML configuration consists of two parts: the end-of-life CKPT saving and recovery configuration and the replica relationship between cards configuration.
 
 #### Saving and Restoring Configurations
 
@@ -90,7 +98,7 @@ The end-of-life CheckPoint preservation and recovery capabilities are used for i
 
 #### Replica Relationships Configuration
 
-The key to the three functions of high availability is to configure the weight and optimizer copy redundancy relationship. The core of the configuration is that the dimension of the data parallel domain is greater than 2, and if you overlay the optimizer parallelism, you need to ensure that the number of copies of the optimizer is greater than 2 at the same time. So the configuration is divided into two categories, with the optimizer parallelism and without the optimizer parallelism. The following is an example of how to configure 8 cards.
+The key to the end-of-life CheckPoint, UCE and ARF functions of high availability is to configure the weight and optimizer copy redundancy relationship. The core of the configuration is that the dimension of the data parallel domain is greater than 2, and if you overlay the optimizer parallelism, you need to ensure that the number of copies of the optimizer is greater than 2 at the same time. So the configuration is divided into two categories, with the optimizer parallelism and without the optimizer parallelism. The following is an example of how to configure 8 cards.
 
 - **Without the Optimizer Parallelism**
 
@@ -120,7 +128,7 @@ The key to the three functions of high availability is to configure the weight a
       pipeline_stage: 1
     ```
 
-#### Examples
+#### End-of-life CheckPoint Examples
 
 This section demonstrates the use of the end-of-life CKPT using Llama2-13B training as an example.
 
