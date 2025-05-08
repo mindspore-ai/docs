@@ -56,7 +56,7 @@ When using the `benchmark_train` tool to perform benchmark testing, you can set 
 
 #### Performance Test
 
-The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
+The main test indicator of the performance test performed by the `benchmark_train` tool is the duration of a single forward inference. In a performance test, please set `epochs` to a value greater than 1, no need to set benchmark data parameters such as `expectedDataFile` etc. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
 
 ```bash
 ./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10

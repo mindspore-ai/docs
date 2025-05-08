@@ -163,7 +163,7 @@ model.free();
 
 ### Input Dimension Resize
 
-When using MindSpore Lite for inference, if you need to Resize the input shape, you can call the[Resize](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#resize) of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) to reset the shape of the input Tensor after the model compiles `build`.
+When using MindSpore Lite for inference, if you need to Resize the input shape, you can call the [Resize](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#resize) of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) to reset the shape of the input Tensor after the model compiles `build`.
 
 > Some networks do not support variable dimensions and will exit abnormally after prompting an error message. For example, when there is a MatMul operator in the model and one input Tensor of MatMul is the weight and the other input Tensor is the input, calling the variable dimension interface will cause the Shape of the input Tensor and the weight Tensor to mismatch, which eventually fails the inference.
 
