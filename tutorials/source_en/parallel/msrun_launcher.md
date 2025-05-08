@@ -78,9 +78,9 @@ A parameters list of command line:
     <tr>
         <td align="left" style="white-space:nowrap">--bind_core</td>
         <td align="left">Enable processes binding CPU cores.</td>
-        <td align="left" style="white-space:nowrap">Bool</td>
-        <td align="left">True or False. Default: False.</td>
-        <td align="left">If set to True, msrun will evenly allocate CPU cores and bind them to the spawned distributed processes.</td>
+        <td align="left" style="white-space:nowrap">Bool/Dict</td>
+        <td align="left">True/False or a device-to-CPU-range dict. Default: False.</td>
+        <td align="left">If set to True, msrun will automatically allocates CPU ranges based on device affinity; when manually passing a dict, e.g., <code>{"device0":["0-10"],"device1":["11-20"]}</code>, it assigns CPU range 0-10 to process 0 (device0) and 11-20 to process 1 (device1).</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_level</td>

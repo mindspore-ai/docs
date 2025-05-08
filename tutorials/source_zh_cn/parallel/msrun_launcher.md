@@ -78,9 +78,9 @@
     <tr>
         <td align="left" style="white-space:nowrap">--bind_core</td>
         <td align="left">开启进程绑核。</td>
-        <td align="left" style="white-space:nowrap">Bool</td>
-        <td align="left">True或者False。默认为False。</td>
-        <td align="left">若用户配置此参数，msrun会平均分配CPU核，将其绑定到拉起的分布式进程上。</td>
+        <td align="left" style="white-space:nowrap">Bool/Dict</td>
+        <td align="left">True、False或者给指定设备分配CPU范围段的字典。默认为False。</td>
+        <td align="left">若设置为True，则会基于环境信息按照设备亲和去自动分配CPU范围段；若手动传入一个字典，如<code>{"device0":["0-10"],"device1":["11-20"]}</code>，则会给0号进程（对应device0）分配CPU范围段0-10，给1号进程（对应device1）分配CPU范围段11-20。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_level</td>
