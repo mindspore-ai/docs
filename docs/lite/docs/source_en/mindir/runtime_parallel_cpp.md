@@ -23,13 +23,13 @@ To use the MindSpore Lite concurrent inference framework, perform the following 
 
 2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/mindir/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 
-3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore- lite-{version}-linux-{arch}.tar.gz` and save it to `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory.
+3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` from [official website](https://www.mindspore.cn/lite/docs/en/r2.6.0rc1/use/downloads.html) and save it to `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory.
 
-## Create configuration
+## Creating configuration
 
-The [configuration item](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/generate/classmindspore_RunnerConfig.html) will save some basic configuration parameters required for concurrent inference, which are used to guide the number of concurrent models, model compilation and model execution.
+The configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/r2.6.0rc1/api_cpp/mindspore.html#runnerconfig) will save some basic configuration parameters required for concurrent inference, which are used to guide the number of concurrent models, model compilation and model execution.
 
-The following sample code from main.cc demonstrates how to create a RunnerConfig and configure the number of workers for concurrent inference:
+The following sample code demonstrates how to create a RunnerConfig and configure the number of workers for concurrent inference:
 
 ```cpp
 // Create and init context, add CPU device info
