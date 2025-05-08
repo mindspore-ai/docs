@@ -109,7 +109,7 @@ bash msrun_launcher.sh [EXECUTE_ORDER] [WORKER_NUM] [LOCAL_WORKER] [MASTER_ADDR]
 ```shell
 python run_mindformer.py \
 --register_path research/qwen2_5 \
---config finetune_qwen2_5_0_5b_8k.yaml \
+--config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
 --use_parallel False \
 --run_mode finetune \
 --train_dataset_dir ./path/alpaca-data.mindrecord
