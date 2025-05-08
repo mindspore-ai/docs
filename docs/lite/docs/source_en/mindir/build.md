@@ -119,7 +119,7 @@ git clone -b v2.6.0 https://gitee.com/mindspore/mindspore.git
 
 - Configure environment variables
 
-    - After installing Ascend package, you need to export Runtime-related environment variables. The `/LOCAL_ASCEND=/usr/local/Ascend` in the following command indicates the installation path of the package, so you need to change it to the actual installation path of the package.
+    - After installing Ascend package, you need to export Runtime-related environment variables. `/usr/local/Ascend` of the `/LOCAL_ASCEND=/usr/local/Ascend` in the following command indicates the installation path of the package, so you need to change it to the actual installation path of the package.
 
         ```bash
         # control log level. 0-EBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
