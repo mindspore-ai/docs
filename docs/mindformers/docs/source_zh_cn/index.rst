@@ -68,39 +68,43 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
 
 MindSpore Transformers以其强大的功能集，为用户提供了灵活易用的个性化配置选项。其关键特性包括：
 
-1. `权重格式转换 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html>`_
+1. `启动任务 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/start_tasks.html>`_
+
+    单卡、单机和多机任务一键启动。
+
+2. `权重格式转换 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html>`_
 
    提供统一的权重转换工具，能够将模型权重在HuggingFace所使用的格式与MindSpore Transformers所使用的格式之间相互转换。
 
-2. `分布式权重切分与合并 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html>`_
+3. `分布式权重切分与合并 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html>`_
 
    不同分布式场景下的权重灵活地进行切分与合并。
 
-3. `分布式并行 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/distributed_parallel.html>`_
+4. `分布式并行 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/distributed_parallel.html>`_
 
    一键配置多维混合分布式并行，让模型在上至万卡的集群中高效运行。
 
-4. `数据集 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html>`_
+5. `数据集 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html>`_
 
    支持多种类型和格式的数据集。
 
-5. `权重保存与断点续训 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html>`_
+6. `权重保存与断点续训 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html>`_
 
    支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
 
-6. `训练指标监控 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/monitor.html>`_
+7. `训练指标监控 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/monitor.html>`_
 
    提供大模型训练阶段的可视化服务，用于监控和分析训练过程中的各种指标和信息。
 
-7. `训练高可用 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/high_availability.html>`_
+8. `训练高可用 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/high_availability.html>`_
 
    提供大模型训练阶段的高可用能力，包括临终 CKPT 保存、UCE 故障容错恢复和进程级重调度恢复功能。
 
-8. `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html>`_
+9. `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html>`_
 
    支持safetensors格式的权重文件保存及加载功能。
 
-9. `细粒度激活值SWAP <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/fine_grained_activations_swap.html>`_
+10. `细粒度激活值SWAP <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/fine_grained_activations_swap.html>`_
 
    支持细粒度地选择特定激活值使能SWAP，用于降低模型训练的峰值内存开销。
 
@@ -164,6 +168,7 @@ FAQ
    :caption: 功能说明
    :hidden:
 
+   function/start_tasks
    function/weight_conversion
    function/transform_weight
    function/distributed_parallel

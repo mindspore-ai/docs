@@ -25,39 +25,43 @@ Flexible and Easy-to-Use Personalized Configuration with MindSpore Transformers
 
 With its powerful feature set, MindSpore Transformers provides users with flexible and easy-to-use personalized configuration options. Specifically, it comes with the following key features:
 
-1. `Weight Format Conversion <https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html>`_
+1. `Start Tasks <https://www.mindspore.cn/mindformers/docs/en/dev/function/start_tasks.html>`_
+
+    One-click start for single-device, single-node and multi-node tasks.
+
+2. `Weight Format Conversion <https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html>`_
 
    Provides a unified weight conversion tool that converts model weights between the formats used by HuggingFace and MindSpore Transformers.
 
-2. `Distributed Weight Slicing and Merging <https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html>`_
+3. `Distributed Weight Slicing and Merging <https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html>`_
 
    Weights in different distributed scenarios are flexibly sliced and merged.
 
-3. `Distributed Parallel <https://www.mindspore.cn/mindformers/docs/en/dev/function/distributed_parallel.html>`_
+4. `Distributed Parallel <https://www.mindspore.cn/mindformers/docs/en/dev/function/distributed_parallel.html>`_
 
    One-click configuration of multi-dimensional hybrid distributed parallel allows models to run efficiently in clusters up to 10,000 cards.
 
-4. `Dataset <https://www.mindspore.cn/mindformers/docs/en/dev/function/dataset.html>`_
+5. `Dataset <https://www.mindspore.cn/mindformers/docs/en/dev/function/dataset.html>`_
 
    Support multiple types and formats of datasets.
 
-5. `Weight Saving and Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/dev/function/resume_training.html>`_
+6. `Weight Saving and Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/dev/function/resume_training.html>`_
 
    Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
 
-6. `Training Metrics Monitoring <https://www.mindspore.cn/mindformers/docs/en/dev/function/monitor.html>`_
+7. `Training Metrics Monitoring <https://www.mindspore.cn/mindformers/docs/en/dev/function/monitor.html>`_
 
    Provides visualization services for the training phase of large models for monitoring and analyzing various indicators and information during the training process.
 
-7. `Training High Availability <https://www.mindspore.cn/mindformers/docs/en/dev/function/high_availability.html>`_
+8. `Training High Availability <https://www.mindspore.cn/mindformers/docs/en/dev/function/high_availability.html>`_
 
    Provide high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery.
 
-8. `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/dev/function/safetensors.html>`_
+9. `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/dev/function/safetensors.html>`_
 
    Support the function of saving and loading weight files in safetensors format.
 
-9. `Fine-Grained Activations SWAP <https://www.mindspore.cn/mindformers/docs/en/dev/function/fine_grained_activations_swap.html>`_
+10. `Fine-Grained Activations SWAP <https://www.mindspore.cn/mindformers/docs/en/dev/function/fine_grained_activations_swap.html>`_
 
    Support fine-grained selection of specific activations to enable SWAP and reduce peak memory overhead during model training.
 
@@ -121,6 +125,7 @@ FAQ
    :caption: Function Description
    :hidden:
 
+   function/start_tasks
    function/weight_conversion
    function/transform_weight
    function/distributed_parallel
