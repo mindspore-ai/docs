@@ -953,25 +953,6 @@ Profiler
 
      - 此环境变量为CANN Profiling使能环境变量，Profiler读取此环境变量用于检查避免重复开启CANN Profiling。用户不需要手动设置此环境变量。
 
-动态图
------------
-
-.. list-table::
-   :widths: 20 20 10 30 20
-   :header-rows: 1
-
-   * - 环境变量
-     - 功能
-     - 类型
-     - 取值
-     - 说明
-   * - MS_PYNATIVE_CONFIG_STATIC_SHAPE
-     - 动态图模式反向整图下发开关。
-     - String
-     - '1'：开启反向整图执行开关。
-       不设置或其他值：关闭该功能。
-     - 开启该功能后，动态图反向会通过整图下发。
-
 源码构建
 -----------
 
