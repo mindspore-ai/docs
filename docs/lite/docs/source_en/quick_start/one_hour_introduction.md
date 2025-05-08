@@ -226,7 +226,7 @@ In this example, we use `Netron` on a browser to visualize the `mobilenetv2.ms` 
 
         - Operator attribute
 
-            The `ATTRIBUTES` field lists the operator attributes, which store the parameter values required for operator computation.
+            The `Attributes` field lists the operator attributes, which store the parameter values required for operator computation.
 
         - Node inputs
 
