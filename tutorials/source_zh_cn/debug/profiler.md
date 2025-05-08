@@ -199,6 +199,10 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler接口解析性能数据
     │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level0或Level1或Level2生成
     │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
+    │   ├── pcie.csv                   // 在_ExperimentalConfig接口配置sys_interconnection=True生成，记录PCIe数据
+    │   ├── hccs.csv                   // 在_ExperimentalConfig接口配置sys_interconnection=True生成，记录集合通信带宽数据(HCCS)
+    │   ├── nic.csv                    // 在_ExperimentalConfig接口配置sys_io=True生成，记录NIC数据
+    │   ├── roce.csv                   // 在_ExperimentalConfig接口配置sys_io=True生成，记录RoCE数据
     │   ├── communication_analyzer.db    // 记录通信耗时和通信带宽信息，在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
     │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── communication_matrix.json  // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，包含通信小算子的基本信息，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
