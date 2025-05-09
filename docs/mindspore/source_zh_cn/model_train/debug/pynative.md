@@ -189,4 +189,4 @@ def some_function():
 
 ## 更多实际案例
 
-参考[调试案例](https://www.hiascend.com/forum/forum-0106101385921175002-1.html?filterCondition=1&topicClassId=0631105934233557004)
+参考[调试案例](https://www.hiascend.com/developer/blog/details/0229108045633055169)。

@@ -633,7 +633,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
 参考实例链接：
 
-[MindRecord 数据准备 - Unexpected error. Failed to open file_MindSpore](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
+[MindRecord 数据准备 - Unexpected error. Failed to open file_MindSpore](https://www.hiascend.com/developer/blog/details/0231107679243990127)
 
 #### MindRecord文件问题
 
@@ -653,7 +653,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据准备 - MindRecord File could not open successfully](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
+    [MindSpore 数据准备 - MindRecord File could not open successfully](https://www.hiascend.com/developer/blog/details/0231107679243990127)
 
 * 文件被移动
 
@@ -674,7 +674,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据准备 - Invalid file,DB file can not match_MindSpore](https://www.hiascend.com/forum/thread-0229106992212728097-1-1.html)
+    [MindSpore 数据准备 - Invalid file,DB file can not match_MindSpore](https://www.hiascend.com/developer/blog/details/0229106992212728097)
 
 * 自定义数据时类型设置错误
 
@@ -690,7 +690,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据准备 - Unexpected error. Invalid data](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
+    [MindSpore 数据准备 - Unexpected error. Invalid data](https://www.hiascend.com/developer/blog/details/0231107678315400125)
 
 ### 数据加载
 
@@ -736,7 +736,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据加载 - Invalid data,Page size is too small"](https://www.hiascend.com/forum/thread-0231107680001698128-1-1.html)
+    [MindSpore 数据加载 - Invalid data,Page size is too small"](https://www.hiascend.com/developer/blog/details/0231107680001698128)
 
 #### `GeneratorDataset` 相关问题
 
@@ -754,7 +754,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据加载 - GeneratorDataset 线程卡死](https://www.hiascend.com/forum/thread-0232106992052900089-1-1.html)
+    [MindSpore 数据加载 - GeneratorDataset 线程卡死](https://www.hiascend.com/developer/blog/details/0232106992052900089)
 
 * 自定义数据返回类型不正确
 
@@ -776,7 +776,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载 - Unexpected error. Invalid data type_MindSpore](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
+    [MindSpore 数据集加载 - Unexpected error. Invalid data type_MindSpore](https://www.hiascend.com/developer/blog/details/0231107678315400125)
 
 * 自定义采样器初始化错误
 
@@ -792,7 +792,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载 - 'IdentitySampler' has no attribute child_sampler](https://www.hiascend.com/forum/thread-0229107679386960150-1-1.html)
+    [MindSpore 数据集加载 - 'IdentitySampler' has no attribute child_sampler](https://www.hiascend.com/developer/blog/details/0229107679386960150)
 
 * 重复定义访问方式
 
@@ -808,7 +808,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载 - the type of `input_data` should be one of](https://www.hiascend.com/forum/thread-0229107683010760153-1-1.html)
+    [MindSpore 数据集加载 - the type of `input_data` should be one of](https://www.hiascend.com/developer/blog/details/0229107683010760153)
 
 * 自定义数据返回字段与定义数目不一致
 
@@ -824,7 +824,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载 - Exception thrown from PyFunc](https://www.hiascend.com/forum/thread-0232107680321371137-1-1.html)
+    [MindSpore 数据集加载 - Exception thrown from PyFunc](https://www.hiascend.com/developer/blog/details/0232107680321371137)
 
 * 用户脚本问题
 
@@ -840,7 +840,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载 - parse() missing 1 required positional](https://www.hiascend.com/forum/thread-0235121940704650030-1-1.html)
+    [MindSpore 数据集加载 - parse() missing 1 required positional](https://www.hiascend.com/developer/blog/details/0235121940704650030)
 
 * 自定义数据集使用了算子或Tensor操作
 
@@ -860,7 +860,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载 - The pointer[cnode] is null](https://www.hiascend.com/forum/thread-0230106992306834091-1-1.html)
+    [MindSpore 数据集加载 - The pointer[cnode] is null](https://www.hiascend.com/developer/blog/details/0230106992306834091)
 
 * 迭代初始化错误导致下标越界
 
@@ -876,7 +876,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载 - list index out of range](https://www.hiascend.com/forum/thread-0232107679694236136-1-1.html)
+    [MindSpore 数据集加载 - list index out of range](https://www.hiascend.com/developer/blog/details/0232107679694236136)
 
 * 未进行迭代初始化
 
@@ -894,7 +894,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载 - Unable to fetch data from GeneratorDataset](https://www.hiascend.com/forum/thread-0215121940606533032-1-1.html)
+    [MindSpore 数据集加载 - Unable to fetch data from GeneratorDataset](https://www.hiascend.com/developer/blog/details/0232107679694236136)
 
 #### 迭代器相关问题
 
@@ -916,7 +916,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据加载 - too many open files](https://www.hiascend.com/forum/thread-0231107678973789126-1-1.html)
+    [MindSpore 数据加载 - too many open files](https://www.hiascend.com/developer/blog/details/0231107678973789126)
 
 * 错误使用从迭代器中获取数据的方法
 
@@ -938,7 +938,7 @@ RuntimeError: Unexpected error. Failed to open file, file path E:\深度学习\m
 
     参考实例链接：
 
-    [MindSpore 数据集加载- 'DictIterator' has no attribute 'get_next'](https://www.hiascend.com/forum/thread-0230107679565465123-1-1.html)
+    [MindSpore 数据集加载- 'DictIterator' has no attribute 'get_next'](https://www.hiascend.com/developer/blog/details/0230107679565465123)
 
 ### 数据增强
 
@@ -958,7 +958,7 @@ TypeError: Invalid object with type'<class 'PIL.Image.Image'>' and value'<PIL.Im
 
 参考实例链接：
 
-[MindSpore 数据增强 - TypeError: Invalid with type](https://www.hiascend.com/forum/thread-0229107679078336149-1-1.html)
+[MindSpore 数据增强 - TypeError: Invalid with type](https://www.hiascend.com/developer/blog/details/0229107679078336149)
 
 #### 自定义数据增强操作参数类型错误
 
@@ -974,7 +974,7 @@ Exception thrown from PyFunc. TypeError: args should be Numpy narray. Got <class
 
 参考实例链接：
 
-[MindSpore 数据增强 - args should be Numpy narray](https://www.hiascend.com/forum/thread-0230107678833189122-1-1.html)
+[MindSpore 数据增强 - args should be Numpy narray](https://www.hiascend.com/developer/blog/details/0230107678833189122)
 
 #### 数据集有两个消费节点发生冲突
 
@@ -994,7 +994,7 @@ dataset 定义上发生了分支，导致 dataset 无法确定分叉的走向。
 
 参考实例链接：
 
-[MindSpore 数据增强 - The data pipeline is not a tree](https://www.hiascend.com/forum/thread-0230107678474985121-1-1.html)
+[MindSpore 数据增强 - The data pipeline is not a tree](https://www.hiascend.com/developer/blog/details/0230107678474985121)
 
 #### 数据 shape 不一致导致的 batch 操作问题
 
@@ -1012,7 +1012,7 @@ RuntimeError: Unexpected error. Inconsistent batch shapes, batch operation expec
 
 参考实例链接：
 
-[MindSpore 数据增强 - Unexpected error. Inconsistent batch](https://www.hiascend.com/forum/thread-0254121940499220038-1-1.html)
+[MindSpore 数据增强 - Unexpected error. Inconsistent batch](https://www.hiascend.com/developer/blog/details/0254121940499220038)
 
 #### 数据增强操作占用内存高
 
@@ -1022,4 +1022,4 @@ MindSpore 进行数据增强过程中，如果内存不足，可能会自动退�
 
 参考实例链接：
 
-[MindSpore 数据增强 - 内存不足，自动退出](https://www.hiascend.com/forum/thread-0230107679768460124-1-1.html)
+[MindSpore 数据增强 - 内存不足，自动退出](https://www.hiascend.com/developer/blog/details/0230107679768460124)

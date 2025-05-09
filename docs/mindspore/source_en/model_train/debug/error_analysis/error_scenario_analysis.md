@@ -235,7 +235,7 @@ In parallel scenarios, you may encounter the `Distribute Task Failed` error. In 
 
 For details, visit the following website:
 
-For more information about distributed parallel errors in MindSpore, see [Distributed Task Failed](https://www.hiascend.com/forum/thread-0231108039303484155-1-1.html).
+For more information about distributed parallel errors in MindSpore, see [Distributed Task Failed](https://www.hiascend.com/developer/blog/details/0232107350747190117).
 
 ## CANN Error Analysis
 
