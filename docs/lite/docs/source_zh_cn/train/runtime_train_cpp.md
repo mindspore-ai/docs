@@ -10,7 +10,7 @@
 2. 将`MindIR`模型文件转换为`ms`模型文件。
 3. 在设备端训练、验证和保存`ms`模型文件。
 
-> 转换得到的 *.ms 模型文件包含模型结构，.ms模型文件将被载入设备端进行训练。
+> 转换得到的`ms`模型文件包含模型结构，该文件将被载入设备端进行训练。
 
 下图展示了训练详细流程：
 
@@ -333,7 +333,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
 
     ```cpp
     // Assume that model is a valid model instance
-    // Assume that model has a output node named output_node_name_0.
+    // Assume that model has an output node named output_node_name_0.
     auto output_vec = model->GetOutputsByNodeName("output_node_name_0");
     // Assume that output node named output_node_name_0 has only one output tensor.
     auto out_tensor = output_vec.front();
