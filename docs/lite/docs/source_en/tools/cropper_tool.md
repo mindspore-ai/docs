@@ -78,7 +78,7 @@ The Cropper tool obtains the operator list by parsing the `ms` model, and crop t
 ## Compiling Static Library Into Dynamic Library (Optional)
 
 After cropping the static library, if necessary, the cropped static library can be compiled into a dynamic library.
-The compilation environment requirements refer to the compilation requirements of MindSpore Lite .
+The compilation environment requirements refer to the compilation requirements of MindSpore Lite [compilation](https://www.mindspore.cn/lite/docs/en/master/build/build.html).
 The compilation commands used for packages under different architectures are different.
 The specific commands can be obtained through the commands printed during the compilation of MindSpore Lite .
 Refer to the example steps below.
@@ -105,6 +105,6 @@ Refer to the example steps below.
     /home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=aarch64-none-linux-android21 --gcc-toolchain=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -fPIC -D_FORTIFY_SOURCE=2 -O2 -Wall -Werror -Wno-attributes -Wno-deprecated-declarations         -Wno-missing-braces -Wno-overloaded-virtual -std=c++17 -fPIC -fPIE -fstack-protector-strong  -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security    -fomit-frame-pointer -fstrict-aliasing -ffunction-sections         -fdata-sections -ffast-math -fno-rtti -fno-exceptions -Wno-unused-private-field -O2 -DNDEBUG  -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -s  -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,-z,noexecstack  -shared -Wl,-soname,libmindspore-lite.so -o libmindspore-lite.so -Wl,--whole-archive ./libmindspore-lite.a -Wl,--no-whole-archive  -llog -ldl -latomic -lm
     ```
 
-    Use this command to compile the clipped static library into a dynamic library and generate 'libminspore-lite.so' in the current directory.
+    Use this command to compile the clipped static library into a dynamic library and generate `libminspore-lite.so` in the current directory.
 
 > - In the command example, `-static-libstdc++` indicates the integration of static STD library. You can delete the command and link the dynamic STD library instead to reduce the package size.
