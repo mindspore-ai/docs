@@ -98,7 +98,7 @@ Based on the error message and the location of the error code, combined with the
 
 -  Error reporting case
 
-   To cover more error reporting scenarios and improve users' problem solving ability, MindSpore in Huawei Cloud Forum provides common typical error reporting cases and introduces error analysis and solution methods. The prerequisite for error search is to select the appropriate search keywords. Usually, the search keywords are selected in the Error Report Type and Error Report Description sections of the error message. Usually, when searching in Cloud Forum, you can use the structure of subject + predicate + object, verb + object, subject + tense + epithet to search. For example, there is the following error message reported:
+   To cover more error reporting scenarios and improve users' problem solving ability, MindSpore in Forum provides common typical error reporting cases and introduces error analysis and solution methods. The prerequisite for error search is to select the appropriate search keywords. Usually, the search keywords are selected in the Error Report Type and Error Report Description sections of the error message. Usually, when searching in Cloud Forum, you can use the structure of subject + predicate + object, verb + object, subject + tense + epithet to search. For example, there is the following error message reported:
 
    .. code:: cpp
 
