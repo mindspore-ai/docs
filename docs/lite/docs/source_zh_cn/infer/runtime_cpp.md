@@ -345,7 +345,7 @@ MindSpore Lite在执行完推理后，就可以获取模型的推理结果。Min
 
    ```cpp
    // Assume we have created a Model instance named model before.
-   // Assume that model has a output node named Softmax-65.
+   // Assume that model has an output node named Softmax-65.
    auto output_vec = model->GetOutputsByNodeName("Softmax-65");
    // Assume that output node named Default/Sigmoid-op204 has only one output tensor.
    auto out_tensor = output_vec.front();

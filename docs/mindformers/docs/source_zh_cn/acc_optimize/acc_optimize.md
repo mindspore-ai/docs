@@ -418,11 +418,11 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 | 类别               | 默认值 | 说明                      |
 |--------------------|------|-------------------------------|
-| 数据集         | 【pretrain】 wikitext-103 </br>【sft】 alpaca   | |
+| 数据集         | [pretrain] wikitext-103 </br>[sft] alpaca   | |
 | 精度模式       | BF16   | 混合精度配置保持一致，并注意区分网络中各API实际的 FP32/FP16/BF16 配置情况。             |
 | 并行方式       | 数据并行    | 可根据计算资源调整并行方式。 |
 | 集群规模       | 单机8卡 | 可根据计算资源调整。             |
-| checkpoint     | 【pretrain】 脚本默认初始化 </br> 【sft】加载预训练权重    | ckpt对精度指标影响较大，优先选择loss波动小，整体loss下降趋势明显的权重。|
+| checkpoint     | [pretrain] 脚本默认初始化 </br> [sft]加载预训练权重    | ckpt对精度指标影响较大，优先选择loss波动小，整体loss下降趋势明显的权重。|
 |确定性|打开|确定精度指标阶段可以关闭确定性。比对阶段需打开确定性，以便减少随机误差干扰。|
 
 #### 精度标准指标
