@@ -257,7 +257,9 @@ try:
                       ("mindspore/common/dtype.py","del class",
                        "class QuantDtype(enum.Enum):","class QuantDtype():"),
                       ("mindspore/ops/function/math_func.py","modify err content",
-                       "print(>>> output)","print(output)")]
+                       "print(>>> output)","print(output)"),
+                      ("mindspore/ops/function/math_func.py","modify err content",
+                       "def addmv_ext(input, mat, vec, *, beta=1, alpha=1):\n    \"","def addmv_ext(input, mat, vec, *, beta=1, alpha=1):\n    r\"")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
