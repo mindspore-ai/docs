@@ -7,7 +7,7 @@
 The principal procedures of lite training is as follows:
 
 1. Design the network and export the `MindIR` model file by using the cloud side APIs.
-2. Transfer the `MindIR` file to .ms model file.
+2. Transfer the `MindIR` file to `ms` model file.
 3. Train, evaluate and save `ms` model files.
 
 > The model structure is saved in the transferred `ms` model file which will be load to the device platform for training.
@@ -28,10 +28,9 @@ A Model file is flatbuffer-serialized file which was converted using the MindSpo
 
 ### Creating Contexts
 
-[Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
-Currently, only single threaded CPU device is supported by `TrainSession`.
+[Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme. Currently, only single threaded CPU device is supported in `Model`.
 
-Once the `Model` is created with the `Context` object, it is no longer needed and can be deleted.
+If the user creates a `Context` via `new` and no longer needs it, the user needs to release it via `delete`. Generally the `Context` object is released after the `Model` object is created.
 
 ### Creating TrainLoop
 
@@ -244,7 +243,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     std::vector<MSTensor> GetInputs();
     ```
 
-    If the model requires more than one input tensor (this is certainly the case during training, where both data and labels serve as inputs of the network) it is the user's responsibility to know the inputs order or their tensorName. This can be obtained from the Python model.
+    If the model requires more than one input tensor (this is certainly the case during training, where both data and labels serve as inputs of the network), it is the user's responsibility to know the inputs order or their tensorName. This can be obtained from the Python model.
     Alternatively, one can deduce this information from the sizes of the input tensors.
 
 3. Copying Data
@@ -274,7 +273,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     void *MutableData();
     ```
 
-    The following sample code shows how to obtain the entire graph input `MSTensor` from `Model` and enter the model input data to `MSTensor`.
+    The following sample code shows how to obtain the complete graph input tensor from `Model` and how to convert the model input data to `MSTensor` type.
 
     ```cpp
     // Assuming model is a valid instance of Model
@@ -312,7 +311,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     // The input tensors themselves are managed by MindSpore Lite and users are not allowed to access them or delete them
     ```
 
-    > - The data layout in the model input tensors of MindSpore Lite must be NHWC (bathc size, height, weight and channel).
+    > - The data layout in the model input tensors of MindSpore Lite must be NHWC (batch size, height, weight and channel).
     > - The Tensors returned by `GetInputs` and `GetInputByTensorName` methods shuold not be released by users.
 
 ### Obtaining Output Tensors
@@ -332,11 +331,11 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
     inline std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);
     ```
 
-    The following sample code shows how to obtain the output `MSTensor` from `Model` using the `GetOutputsByNodeName` method.
+    The following code is for getting the output tensor from the current session using the `GetOutputsByNodeName` method:
 
     ```cpp
     // Assume that model is a valid model instance
-    // Assume that model has a output node named output_node_name_0.
+    // Assume that model has an output node named output_node_name_0.
     auto output_vec = model->GetOutputsByNodeName("output_node_name_0");
     // Assume that output node named output_node_name_0 has only one output tensor.
     auto out_tensor = output_vec.front();
