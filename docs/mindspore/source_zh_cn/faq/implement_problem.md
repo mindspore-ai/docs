@@ -397,7 +397,7 @@ A: 需要确认有做以下准备工作。
 
 完成上述步骤后，就可以运行文档了。
 
-具体的操作过程可以参考[基于ModelArts在线体验MindSpore](https://www.hiascend.com/forum/thread-0254122007639293043-1-1.html)。
+具体的操作过程可以参考[基于ModelArts在线体验MindSpore](https://www.hiascend.com/developer/blog/details/0254122007639293043)。
 
 <br/>
 
