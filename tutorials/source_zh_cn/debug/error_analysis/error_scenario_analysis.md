@@ -235,7 +235,7 @@ echo "The program launch succeed, the log is under device0/train.log0."
 
 参考实例：
 
-[MindSpore 分布式并行问题 - Distribute Task Failed](https://www.hiascend.com/forum/thread-0231108039303484155-1-1.html)。
+[MindSpore 分布式并行问题 - Distribute Task Failed](https://www.hiascend.com/developer/blog/details/0232107350747190117)。
 
 ## CANN错误分析
 

@@ -200,7 +200,7 @@ If you want to run on a GPU+Windows environment, you can try to use WSL+docker, 
     docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
     ```
 
-The detailed steps can refer to the practice provided by the community [Zhang Xiaobai teaches you to install the GPU driver (CUDA and cuDNN)](https://www.hiascend.com/forum/thread-0235122004927955034-1-1.html). Thanks to the community member [Zhang Hui](https://www.hiascend.com/forum/otheruser?uid=110545f972cf4903b3deba9cfaac7fc8) for sharing.
+The detailed steps can refer to the practice provided by the community [Zhang Xiaobai teaches you to install the GPU driver (CUDA and cuDNN)](https://www.hiascend.com/developer/blog/details/0235122004927955034). Thanks to the community member [Zhang Hui](https://www.hiascend.com/forum/otheruser?uid=110545f972cf4903b3deba9cfaac7fc8) for sharing.
 
 <br/>
 
