@@ -397,7 +397,7 @@ A: Need to confirm that the following preparations have been done.
 
 After completing the above steps, you can run the tutorial.
 
-For the specific operation process, please refer to [Based on ModelArts Online Experience MindSpore](https://www.hiascend.com/forum/thread-0254122007639293043-1-1.html).
+For the specific operation process, please refer to [Based on ModelArts Online Experience MindSpore](https://www.hiascend.com/developer/blog/details/0254122007639293043).
 
 <br/>
 
