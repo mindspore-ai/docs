@@ -70,7 +70,7 @@ Since the configuration will vary from model to model, only the generic configur
 | model.model_config.return_dict_in_generate | Set to return the inference results of the `generate` interface as a dictionary, defaults to `False`.                                                            | bool |
 | model.model_config.output_scores           | Set to include score before the input softmax for each forward generation when returning the result as a dictionary, defaults to `False`.                                                  | bool |
 | model.model_config.output_logits           | Set to include the logits output by the model at each forward generation when returning results as a dictionary, defaults to `False`.                                                     | bool |
-| model.model_config.layers_per_stage        | Set the number of transformer layers assigned to each stage when enabling the pipeline stage, default is None, which means the transformer layers are evenly distributed across each stage. The set value is a list of integers with a length equal to the number of pipeline stages, where the i-th element indicates the number of transformer layers assigned to the i-th stage.                                             | list |
+| model.model_config.layers_per_stage        | Set the number of transformer layers assigned to each stage when enabling the pipeline stage, default is `None`, which means the transformer layers are evenly distributed across each stage. The set value is a list of integers with a length equal to the number of pipeline stages, where the i-th element indicates the number of transformer layers assigned to the i-th stage.                                             | list |
 
 ### MoE Configuration
 

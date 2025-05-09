@@ -254,7 +254,7 @@ By comparing the loss and local norm of the first step (step1) and the second st
 
 #### Comparison of Step1 Losses
 
-After fixing the weights, dataset, and randomness, the difference in the loss value of the first step of training is compared. The loss value of the first step is obtained from the forward computation of the network. If the difference with the benchmark loss is large, it can be determined that there is an accuracy difference in the forward computation, which may be due to the model structure is not aligned, and the accuracy of the operator is abnormal. The tensor values of each layer of MindSpore and PyTorch can be obtained by printing or Dump tool. Currently, the tool does not have automatic comparison function, users need to manually identify the correspondence for comparison. For the introduction of MindSpore Dump tool, please refer to [Introduction of Accuracy Debugging Tools](#introduction-to-accuracy-debugging-tools), and for the use of PyTorch Dump tool, please refer to [Function Explanation of Accuracy Tools](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
+After fixing the weights, dataset, and randomness, the difference in the loss value of the first step of training is compared. The loss value of the first step is obtained from the forward computation of the network. If the difference with the benchmark loss is large, it can be determined that there is an accuracy difference in the forward computation, which may be due to the model structure is not aligned, and the accuracy of the operator is abnormal. The tensor values of each layer of MindSpore and PyTorch can be obtained by printing or Dump tool. Currently, the tool does not have automatic comparison function, users need to manually identify the correspondence for comparison. For the introduction of MindSpore Dump tool, please refer to [Introduction of Accuracy Debugging Tools](#introduction-to-accuracy-debugging-tools), and for the use of PyTorch Dump tool, please refer to [Function Explanation of Accuracy Tools](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md).
 
 Find the correspondence of layers through PyTorch api_stack_dump.pkl file, and MindSpore statistic.csv file, and initially determine the degree of difference between input and output through max, min, and L2Norm. If you need further comparison, you can load the corresponding npy data for detailed comparison.
 
@@ -311,7 +311,7 @@ In the case where the loss of step1 is aligned with the local norm, if the diffe
 
 1. Firstly, check whether the parameters that affect the gradient update, such as checking learning rate, optimizer parameters, weight decay, are consistent with the benchmark.
 
-2. Secondly troubleshoot the optimizer computation with the following steps:
+2. Secondly, troubleshoot the optimizer computation with the following steps:
     1. Save the gradient from PyTorch step1.
 
     2. Load the gradient of PyTorch at MindSpore step1 for optimizer update.
@@ -320,7 +320,7 @@ In the case where the loss of step1 is aligned with the local norm, if the diffe
 
 If there is a significant difference, there is a problem with the optimizer update and further targeting of the optimizer is required.
 
-PyTorch saves the weight gradients, and to use apex as an example, modify [apex.optimizers](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py) file.
+PyTorch saves the weight gradients, and to use apex as an example, modify [megatron/core/optimizer/optimizer.py](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py) file.
 
 ```python
 import numpy as np

@@ -40,7 +40,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
 
    ![](image/wikitext_sample.png)
 
-   将 Wiki 数据集处理后的 JSON 文件 `wiki.json` 的格式如下 （省略长文本）：
+   将 Wiki 数据集处理后的 JSON 文件 `wiki.json` 的格式如下（省略长文本）：
 
    ```json
    {"id": 0, "text": "The gold dollar or gold one ..."}
@@ -144,7 +144,7 @@ MindSpore Transformers 提供了一个预处理脚本 [mindformers/tools/dataset
     - data_loader.sizes：`- 1000` ， `- 0` ， `- 0` 分别为训练集、测试集以及验证集采样的大小，当前只支持配置训练集。
     - input_columns：设置训练数据集输入的数据列，一般配置为 `["input_ids", "labels", "loss_mask", "position_ids"]` 。
     - data_loader.config.seed: 创建数据集时的随机数种子，默认值： `1234` 。
-    - data_loader.config.seq_length: 每条数据的长度，必须和 YAML 配置中的 model.model_config.seq_length 保持一致。
+    - data_loader.config.seq_length：每条数据的长度，必须和 YAML 配置中的 model.model_config.seq_length 保持一致。
     - data_loader.config.split：分割字符串，用逗号分隔训练集、测试集以及验证集的比重，用于从单个分布中绘制样本时分割数据集，当前只支持配置为 `"1, 0, 0"` 。
     - data_loader.config.data_path：数字是每个数据集的比重，字符串是数据集 BIN 文件的路径，路径需要去掉文件格式后缀 `.bin` 。
     - data_loader.config.num_dataset_builder_threads：创建数据集时使用的进程数，默认值： `1` 。
@@ -243,7 +243,7 @@ MindRecord 模块提供了一些方法帮助用户将不同数据集转换为 Mi
 
 4. 遍历处理 json 文件中的每一条数据，将其转换为 MindRecord 格式，并写入 MindRecord 文件中。
 
-   词表下载链接： [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
+   词表下载链接：[tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
 
     ```python
     import numpy as np
@@ -412,7 +412,7 @@ train_dataset: &train_dataset
 
 > 除了以上配置外，[datasets.load_dataset](https://huggingface.co/docs/datasets/loading)接口中的所有配置均已支持，且参数含义与功能相同。
 
-数据集在配置packing之后返回`actual_seq_len`数据列，其含义可参考[文档](https://www.hiascend.com/document/detail/zh/Pytorch/600/ptmoddevg/trainingmigrguide/performance_tuning_0027.html)中`actual_seq_qlen`以及`ctual_seq_kvlen`参数介绍。
+数据集在配置packing之后返回`actual_seq_len`数据列，其含义可参考[文档](https://www.hiascend.com/document/detail/zh/Pytorch/600/ptmoddevg/trainingmigrguide/performance_tuning_0027.html)中`actual_seq_qlen`以及`actual_seq_kvlen`参数介绍。
 
 ### 功能介绍
 
@@ -493,202 +493,202 @@ export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
 
 - handler参数说明
 
-| 参数名            | 概述                                                                      |    类型    |
-|----------------|-------------------------------------------------------------------------|:--------:|
-| type           | 自定义数据 handler 名称，自定义handler必须继承`BaseInstructDataHandler`                |   str    |
-| tokenizer_name | 使用的 tokenizer 分词器名称                                                     |   str    |
-| tokenizer      | tokenizer 相关配置参数, 可以是字典或者字符串，也可以直接配置`tokenizer`对象，优先级低于`tokenizer_name` | dict/str |
-| seq_length     | 处理序列的最大长度，通常与模型的序列长度相同                                                  |   int    |
-| output_columns | 数据预处理后返回的数据列名                                                           |   list   |
-| prompt_key     | 增加 prompt 处理后数据的列名                                                      |   str    |
+  | 参数名            | 概述                                                                      |    类型    |
+  |----------------|-------------------------------------------------------------------------|:--------:|
+  | type           | 自定义数据 handler 名称，自定义handler必须继承`BaseInstructDataHandler`                |   str    |
+  | tokenizer_name | 使用的 tokenizer 分词器名称                                                     |   str    |
+  | tokenizer      | tokenizer 相关配置参数, 可以是字典或者字符串，也可以直接配置`tokenizer`对象，优先级低于`tokenizer_name` | dict/str |
+  | seq_length     | 处理序列的最大长度，通常与模型的序列长度相同                                                  |   int    |
+  | output_columns | 数据预处理后返回的数据列名                                                           |   list   |
+  | prompt_key     | 增加 prompt 处理后数据的列名                                                      |   str    |
 
 - 开发样例一
 
-自定义数据 handler 一般放在 `mindformers/dataset/handler` 目录下，自定义的需要继承抽象基类 ``BaseInstructDataHandler`` ，
-需要实现 ``format_func`` 、 ``tokenize_func`` 两个方法，该方法是对加载到的每条数据进行预处理，可以参考 `alpaca_handler.py` 。
+  自定义数据 handler 一般放在 `mindformers/dataset/handler` 目录下，自定义的需要继承抽象基类 ``BaseInstructDataHandler`` ，
+  需要实现 ``format_func`` 、 ``tokenize_func`` 两个方法，该方法是对加载到的每条数据进行预处理，可以参考 `alpaca_handler.py` 。
 
-```python
-@MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
-class XXXInstructDataHandler(BaseInstructDataHandler):
+  ```python
+  @MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
+  class XXXInstructDataHandler(BaseInstructDataHandler):
 
-    def format_func(self, example):
-        # 自定义数据格式转换
+      def format_func(self, example):
+          # 自定义数据格式转换
 
-    def tokenize_func(self, example):
-        # 自定义tokenizer分词处理
-```
+      def tokenize_func(self, example):
+          # 自定义tokenizer分词处理
+  ```
 
-``BaseInstructDataHandler`` 默认提供的实现了入口 ``handler`` 方法，用于遍历每条数据进行数据的预处理，
-``format_func`` 用于实现如何从原始数据中转换成所需要的数据格式，而 ``tokenize_func`` 方法用于把处理后的数据进行按自定义分词，
-实例里的入参 ``example`` 为获取到的每一条样本数据。
+  ``BaseInstructDataHandler`` 默认提供的实现了入口 ``handler`` 方法，用于遍历每条数据进行数据的预处理，
+  ``format_func`` 用于实现如何从原始数据中转换成所需要的数据格式，而 ``tokenize_func`` 方法用于把处理后的数据进行按自定义分词，
+  实例里的入参 ``example`` 为获取到的每一条样本数据。
 
 - 开发样例二
 
-若用户想直接对于整个 dataset 进行数据处理，而不是每条数据分批处理的话，可以在自定义 handler 实现入口 ``handle`` 方法，得到的就是完整的 dataset，参考如下：
+  若用户想直接对于整个 dataset 进行数据处理，而不是每条数据分批处理的话，可以在自定义 handler 实现入口 ``handle`` 方法，得到的就是完整的 dataset，参考如下：
 
-```python
-    def handle(self, dataset):
-        """data handler"""
-        return dataset.rename_columns({"content":"prompt","summary":"answer"})
-```
+  ```python
+      def handle(self, dataset):
+          """data handler"""
+          return dataset.rename_columns({"content":"prompt","summary":"answer"})
+  ```
 
 - alpaca 数据集示例
 
-修改任务配置文件 [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/finetune_llama2_7b.yaml)。
+  修改任务配置文件 [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/finetune_llama2_7b.yaml)。
 
-修改如下参数：
+  修改如下参数：
 
-```yaml
-train_dataset: &train_dataset
-  input_columns: &input_columns ["input_ids", "labels"]
-  data_loader:
-    type: CommonDataLoader
-    shuffle: True
-    split: "train"
-    path: "llm-wizard/alpaca-gpt4-data"
-    handler:
-      - type: AlpacaInstructDataHandler
-        tokenizer_name: llama2_7b
-        seq_length: 4096
-        prompt_key: "conversations"
-        output_columns: *input_columns
-  seed: 0
-  num_parallel_workers: 8
-  python_multiprocessing: False
-  drop_remainder: True
-  repeat: 1
-  numa_enable: False
-  prefetch_size: 1
-```
+  ```yaml
+  train_dataset: &train_dataset
+    input_columns: &input_columns ["input_ids", "labels"]
+    data_loader:
+      type: CommonDataLoader
+      shuffle: True
+      split: "train"
+      path: "llm-wizard/alpaca-gpt4-data"
+      handler:
+        - type: AlpacaInstructDataHandler
+          tokenizer_name: llama2_7b
+          seq_length: 4096
+          prompt_key: "conversations"
+          output_columns: *input_columns
+    seed: 0
+    num_parallel_workers: 8
+    python_multiprocessing: False
+    drop_remainder: True
+    repeat: 1
+    numa_enable: False
+    prefetch_size: 1
+  ```
 
-其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
+  其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
-自定义数据 handler：
+  自定义数据 handler：
 
-```python
-@MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
-class AlpacaInstructDataHandler(BaseInstructDataHandler):
+  ```python
+  @MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
+  class AlpacaInstructDataHandler(BaseInstructDataHandler):
 
-    def format_func(self, example):
-        """format func"""
-        source = PROMPT_INPUT.format_map(example) \
-            if example.get(self.input_key, "") != "" \
-            else PROMPT_NO_INPUT.format_map(example)
-        target = example.get(self.output_key)
-        formatted_example = [
-            {
-                "from": self.user_role,
-                "value": source,
-            },
-            {
-                "from": self.assistant_role,
-                "value": target,
-            },
-        ]
+      def format_func(self, example):
+          """format func"""
+          source = PROMPT_INPUT.format_map(example) \
+              if example.get(self.input_key, "") != "" \
+              else PROMPT_NO_INPUT.format_map(example)
+          target = example.get(self.output_key)
+          formatted_example = [
+              {
+                  "from": self.user_role,
+                  "value": source,
+              },
+              {
+                  "from": self.assistant_role,
+                  "value": target,
+              },
+          ]
 
-        return formatted_example
+          return formatted_example
 
-    def tokenize_func(self, messages):
-        """tokenize func"""
-        conversation = self.gen_prompt(messages)
-        sep = self.template.sep + self.assistant_role + ": "
-        # Tokenize conversations
-        rounds = conversation.split(self.template.sep2)
-        ids = [self.tokenizer.bos_token_id]
-        mask = [1]
-        for _, rou in enumerate(rounds):
-            if rou == "":
-                break
-            conv_out = self.tokenizer(rou)
-            ids.extend(conv_out['input_ids'][1:])
-            mask.extend(conv_out['attention_mask'][1:])
-        d = {'input_ids': ids, 'attention_mask': mask}
-        # pylint: disable=W0212
-        if not self.dynamic:
-            d = self.tokenizer._pad(d, max_length=self.seq_length + 1, padding_strategy='max_length')
-        input_id = d['input_ids'][:self.seq_length + 1]
-        target = np.array(d['input_ids'])
-        total_len = int(np.not_equal(target, self.tokenizer.pad_token_id).sum())
-        cur_len = 1
-        target[:cur_len] = self.ignore_token_id
-        for _, rou in enumerate(rounds):
-            if rou == "":
-                break
-            parts = rou.split(sep)
-            if len(parts) != 2:
-                break
-            parts[0] += sep
-            round_len = len(self.tokenizer(rou)['input_ids']) - 1
-            instruction_len = len(self.tokenizer(parts[0])['input_ids']) - 3
+      def tokenize_func(self, messages):
+          """tokenize func"""
+          conversation = self.gen_prompt(messages)
+          sep = self.template.sep + self.assistant_role + ": "
+          # Tokenize conversations
+          rounds = conversation.split(self.template.sep2)
+          ids = [self.tokenizer.bos_token_id]
+          mask = [1]
+          for _, rou in enumerate(rounds):
+              if rou == "":
+                  break
+              conv_out = self.tokenizer(rou)
+              ids.extend(conv_out['input_ids'][1:])
+              mask.extend(conv_out['attention_mask'][1:])
+          d = {'input_ids': ids, 'attention_mask': mask}
+          # pylint: disable=W0212
+          if not self.dynamic:
+              d = self.tokenizer._pad(d, max_length=self.seq_length + 1, padding_strategy='max_length')
+          input_id = d['input_ids'][:self.seq_length + 1]
+          target = np.array(d['input_ids'])
+          total_len = int(np.not_equal(target, self.tokenizer.pad_token_id).sum())
+          cur_len = 1
+          target[:cur_len] = self.ignore_token_id
+          for _, rou in enumerate(rounds):
+              if rou == "":
+                  break
+              parts = rou.split(sep)
+              if len(parts) != 2:
+                  break
+              parts[0] += sep
+              round_len = len(self.tokenizer(rou)['input_ids']) - 1
+              instruction_len = len(self.tokenizer(parts[0])['input_ids']) - 3
 
-            target[cur_len: cur_len + instruction_len] = self.ignore_token_id
+              target[cur_len: cur_len + instruction_len] = self.ignore_token_id
 
-            cur_len += round_len
-        if self.dynamic:
-            return {
-                "input_ids": input_id,
-                "labels": target[:len(input_id)].tolist()
-            }
-        target[cur_len:] = self.ignore_token_id
-        if cur_len < self.seq_length + 1:
-            if cur_len != total_len:
-                target[:] = self.ignore_token_id
-        else:
-            target = target[:self.seq_length + 1]
-        label = target.tolist()
-        return {
-            "input_ids": input_id,
-            "labels": label,
-        }
-```
+              cur_len += round_len
+          if self.dynamic:
+              return {
+                  "input_ids": input_id,
+                  "labels": target[:len(input_id)].tolist()
+              }
+          target[cur_len:] = self.ignore_token_id
+          if cur_len < self.seq_length + 1:
+              if cur_len != total_len:
+                  target[:] = self.ignore_token_id
+          else:
+              target = target[:self.seq_length + 1]
+          label = target.tolist()
+          return {
+              "input_ids": input_id,
+              "labels": label,
+          }
+  ```
 
 - ADGEN 数据集示例
 
-修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml)。
+  修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml)。
 
-修改如下参数：
+  修改如下参数：
 
-```yaml
-train_dataset: &train_dataset
-  data_loader:
-    type: CommonDataLoader
-    path: "HasturOfficial/adgen"
-    split: "train"
-    shuffle: True
-    handler:
-      - type: AdgenInstructDataHandler
-    phase: "train"
-    version: 3
-    column_names: ["prompt", "answer"]
-  tokenizer:
-    type: ChatGLM3Tokenizer
-    vocab_file: "/path/to/tokenizer.model"
-  input_columns: ["input_ids", "labels"]
-  max_source_length: 1024
-  max_target_length: 1023
-  ignore_pad_token_for_loss: True
-  num_parallel_workers: 8
-  python_multiprocessing: False
-  drop_remainder: True
-  batch_size: 8
-  repeat: 1
-  numa_enable: False
-  prefetch_size: 1
-  seed: 0
-```
+  ```yaml
+  train_dataset: &train_dataset
+    data_loader:
+      type: CommonDataLoader
+      path: "HasturOfficial/adgen"
+      split: "train"
+      shuffle: True
+      handler:
+        - type: AdgenInstructDataHandler
+      phase: "train"
+      version: 3
+      column_names: ["prompt", "answer"]
+    tokenizer:
+      type: ChatGLM3Tokenizer
+      vocab_file: "/path/to/tokenizer.model"
+    input_columns: ["input_ids", "labels"]
+    max_source_length: 1024
+    max_target_length: 1023
+    ignore_pad_token_for_loss: True
+    num_parallel_workers: 8
+    python_multiprocessing: False
+    drop_remainder: True
+    batch_size: 8
+    repeat: 1
+    numa_enable: False
+    prefetch_size: 1
+    seed: 0
+  ```
 
-其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
+  其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.5.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
-自定义 adgen_handler：
+  自定义 adgen_handler：
 
-```python
-@MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
-class AdgenInstructDataHandler(BaseInstructDataHandler):
-    """agden data handler"""
-    def handle(self, dataset):
-        """data handler"""
-        return dataset.rename_columns({"content": "prompt", "summary": "answer"})
-```
+  ```python
+  @MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
+  class AdgenInstructDataHandler(BaseInstructDataHandler):
+      """agden data handler"""
+      def handle(self, dataset):
+          """data handler"""
+          return dataset.rename_columns({"content": "prompt", "summary": "answer"})
+  ```
 
 #### 数据集packing
 
@@ -696,46 +696,46 @@ class AdgenInstructDataHandler(BaseInstructDataHandler):
 
 - 参数说明
 
-| 参数名            | 概述                                                                                                                         |  类型  |
-|----------------|----------------------------------------------------------------------------------------------------------------------------|:----:|
-| type           | 固定为`PackingHandler`，该模块支持对数据进行packing，在[dataloader](#dataloader参数说明)中配置`packing=pack`和`packing=truncate`时，分别对数据进行非截断和截断的拼接 | str  |
-| seq_length     | packing处理后数据的最大序列长度                                                                                                        | int  |
-| pad_token      | 当packing后样本未达到最大长度时，对`input_ids`填充使用的token id，默认值为0                                                                        | int  |
-| ignore_token   | 当packing后样本未达到最大长度时，对`labels`填充使用的token id，默认值为-100                                                                        | int  |
+  | 参数名            | 概述                                                                                                                         |  类型  |
+  |----------------|----------------------------------------------------------------------------------------------------------------------------|:----:|
+  | type           | 固定为`PackingHandler`，该模块支持对数据进行packing，在[dataloader](#dataloader参数说明)中配置`packing=pack`和`packing=truncate`时，分别对数据进行非截断和截断的拼接 | str  |
+  | seq_length     | packing处理后数据的最大序列长度                                                                                                        | int  |
+  | pad_token      | 当packing后样本未达到最大长度时，对`input_ids`填充使用的token id，默认值为0                                                                        | int  |
+  | ignore_token   | 当packing后样本未达到最大长度时，对`labels`填充使用的token id，默认值为-100                                                                        | int  |
 
 - packing示例
 
-按照如下配置，对`alpaca`数据集进行预处理，即可实现在线packing。
+  按照如下配置，对`alpaca`数据集进行预处理，即可实现在线packing。
 
-```yaml
-train_dataset: &train_dataset
-  input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
-  construct_args_key: *input_columns
-  data_loader:
-    type: CommonDataLoader
-    shuffle: False
-    split: "train"
-    path: "llm-wizard/alpaca-gpt4-data"
-    packing: pack
-    handler:
-      - type: AlpacaInstructDataHandler
-        tokenizer_name: llama2_7b
-        seq_length: 4096
-        prompt_key: "conversations"
-        output_columns: ["input_ids", "labels"]
-      - type: PackingHandler
-        seq_length: 4096
-        output_columns: ["input_ids", "labels", "actual_seq_len"]
-    adaptor_config:
-       compress_mask: False
-  seed: 0
-  num_parallel_workers: 8
-  python_multiprocessing: False
-  drop_remainder: True
-  repeat: 1
-  numa_enable: False
-  prefetch_size: 1
-```
+  ```yaml
+  train_dataset: &train_dataset
+    input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+    construct_args_key: *input_columns
+    data_loader:
+      type: CommonDataLoader
+      shuffle: False
+      split: "train"
+      path: "llm-wizard/alpaca-gpt4-data"
+      packing: pack
+      handler:
+        - type: AlpacaInstructDataHandler
+          tokenizer_name: llama2_7b
+          seq_length: 4096
+          prompt_key: "conversations"
+          output_columns: ["input_ids", "labels"]
+        - type: PackingHandler
+          seq_length: 4096
+          output_columns: ["input_ids", "labels", "actual_seq_len"]
+      adaptor_config:
+        compress_mask: False
+    seed: 0
+    num_parallel_workers: 8
+    python_multiprocessing: False
+    drop_remainder: True
+    repeat: 1
+    numa_enable: False
+    prefetch_size: 1
+  ```
 
 使用上述配置文件处理`alpaca`数据集，会执行如下流程：
 
@@ -751,33 +751,33 @@ train_dataset: &train_dataset
 
 - 参数说明
 
-| 参数名           | 概述                                                        | 类型  |
-|---------------|-----------------------------------------------------------|:---:|
-| config        | 离线处理数据的配置文件，与在线处理使用方法相同，具体参考[dataloader](#dataloader参数说明) | str |
-| save_path     | 数据集经过预处理后的保存路径                                            | str |
-| register_path | 模型API的注册路径，其中包含模型相关Python文件，通常是research目录下模型文件夹的路径        | int |
+  | 参数名           | 概述                                                        | 类型  |
+  |---------------|-----------------------------------------------------------|:---:|
+  | config        | 离线处理数据的配置文件，与在线处理使用方法相同，具体参考[dataloader](#dataloader参数说明) | str |
+  | save_path     | 数据集经过预处理后的保存路径                                            | str |
+  | register_path | 模型API的注册路径，其中包含模型相关Python文件，通常是research目录下模型文件夹的路径        | int |
 
 - 使用示例
 
-使用[数据集packing](#数据集packing)中提供的packing示例的配置文件即可，执行如下命令。
+  使用[数据集packing](#数据集packing)中提供的packing示例的配置文件即可，执行如下命令。
 
-```shell
-python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
-  --config data_process.yaml \
-  --save_path /path/processed_data
-```
+  ```shell
+  python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
+    --config data_process.yaml \
+    --save_path /path/processed_data
+  ```
 
-如果需要加载保存后的数据集，需要对yaml进行如下修改：
+  如果需要加载保存后的数据集，需要对yaml进行如下修改：
 
-```yaml
-train_dataset: &train_dataset
-  input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
-  construct_args_key: *input_columns
-  data_loader:
-    type: CommonDataLoader
-    shuffle: False
-    load_func: "load_from_disk"
-    path: "/path/processed_data"
-    adaptor_config:
-       compress_mask: False
-```
+  ```yaml
+  train_dataset: &train_dataset
+    input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+    construct_args_key: *input_columns
+    data_loader:
+      type: CommonDataLoader
+      shuffle: False
+      load_func: "load_from_disk"
+      path: "/path/processed_data"
+      adaptor_config:
+        compress_mask: False
+  ```
