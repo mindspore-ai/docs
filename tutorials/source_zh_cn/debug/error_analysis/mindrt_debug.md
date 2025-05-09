@@ -16,7 +16,7 @@ ValueError: For 'set_context', package type mindspore-gpu support 'device_target
 
 参考实例链接：
 
-[MindSpore 配置问题 - 'set_context'配置报错](https://www.hiascend.com/forum/thread-0229106885219029083-1-1.html)。
+[MindSpore 配置问题 - 'set_context'配置报错](https://www.hiascend.com/developer/blog/details/0229106885219029083)。
 
 关于context配置的详细使用说明请参考['set_context'](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
 
@@ -40,7 +40,7 @@ TypeError: The function construct needs 0 positional argument and 0 default argu
 
 参考实例链接：
 
-[MindSpore 语法问题 - 'construct' 函数定义报错](https://www.hiascend.com/forum/thread-0230106556970619074-1-1.html)。
+[MindSpore 语法问题 - 'construct' 函数定义报错](https://www.hiascend.com/developer/blog/details/0230106556970619074)。
 
 ### 控制流语法错误
 
@@ -74,7 +74,7 @@ RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001,
 
 参考实例链接：
 
-[MindSpore 语法问题 - Exceed function call depth limit](https://www.hiascend.com/forum/thread-0223111589074862027-1-1.html)。
+[MindSpore 语法问题 - Exceed function call depth limit](https://www.hiascend.com/developer/blog/details/0223111589074862027)。
 
 ## 算子编译错误
 
@@ -88,7 +88,7 @@ RuntimeError: ({'errCode': 'E80012', 'op_name': 'reduce_sum_d', 'param_name': 'x
 
 参考实例链接：
 
-[MindSpore 算子编译问题 - ReduceSum算子不支持八维以上输入](https://www.hiascend.com/forum/thread-0229108037306667164-1-1.html)
+[MindSpore 算子编译问题 - ReduceSum算子不支持八维以上输入](https://www.hiascend.com/developer/blog/details/0229108037306667164)
 
 例如，Parameter参数不支持类型自动转换，使用Parameter算子时，进行数据类型转换时报错，报错信息如下：
 
@@ -98,7 +98,7 @@ RuntimeError: Data type conversion of 'Parameter' is not supported, so data type
 
 参考实例链接：
 
-[MindSpore 算子编译问题 - ScatterNdUpdate算子参数类型不一致报错](https://www.hiascend.com/forum/thread-0232107351416081120-1-1.html)
+[MindSpore 算子编译问题 - ScatterNdUpdate算子参数类型不一致报错](https://www.hiascend.com/developer/blog/details/0232107351416081120)
 
 另外，有时候在算子编译过程中会出现`Response is empty`、`Try to send request before Open()`、`Try to get response before Open()`这一类的报错，如下所示：
 
@@ -130,10 +130,10 @@ E       mindspore/ccsrc/backend/common/session/kernel_build_client.h:100 Respons
 
 具体分析可参考实例：
 
-[MindSpore 算子执行错误 - nn.GroupNorm算子输出异常](https://www.hiascend.com/forum/thread-0229107351277363132-1-1.html)。
+[MindSpore 算子执行错误 - nn.GroupNorm算子输出异常](https://www.hiascend.com/developer/blog/details/0229107351277363132)。
 
 ## 资源不足
 
 在调试网络的时候，经常会遇到`Out Of Memory`报错，MindSpore在Ascend设备上对内存分成4层进行管理。包括Runtime、Context、双游标和内存复用。
 
-关于MindSpore在昇腾后端（Ascend）上的内存管理及常见问题的具体内容，请参考[MindSpore Ascend 内存管理](https://www.hiascend.com/forum/thread-0229107352026042135-1-1.html)。
+关于MindSpore在昇腾后端（Ascend）上的内存管理及常见问题的具体内容，请参考[MindSpore Ascend 内存管理](https://www.hiascend.com/developer/blog/details/0229107352026042135)。
