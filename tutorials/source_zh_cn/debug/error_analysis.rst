@@ -117,7 +117,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    可以选择“DB file can not match file”，“Exceed function call depth
    limit”，“should be initialized as a Parameter” 作为关键词。
 
-   搜索地址：\ `报错案例 <https://www.hiascend.com/forum/forum-0106101385921175002-1.html?filterCondition=1&topicClassId=0631105934233557004>`__\ 。
+   搜索地址：\ `报错案例 <https://www.hiascend.com/developer/blog/details/0229108045633055169>`__\ 。
 
 -  社区Issue
 
