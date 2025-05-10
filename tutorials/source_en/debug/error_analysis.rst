@@ -110,14 +110,14 @@ Based on the error message and the location of the error code, combined with the
 
    You can choose "DB file can not match file", "Exceed function call depth limit", and "should be initialized as a Parameter" as key words.
 
-   The search address is as follows: \ `Error reporting case <https://www.hiascend.com/forum/forum-0106101385921175002-1.html?filterCondition=1&topicClassId=0631105934233557004>`__\ .
+   The search address is as follows: \ `Error reporting case <https://www.hiascend.com/developer/blog/details/0229108045633055169>`__\ .
 
 -  Community Issue
 
    In addition, MindSpore open source community has a lot of issues feedbacked by developers, involving network development error reporting, framework failure and many other issues. Users can search for similar problems using, for example, network name, error reporting content keywords. The keyword selection can refer to the error reporting case.
 
    The search address is as follows: \ `MindSpore
-   Issues <https://www.hiascend.com/forum/forum-0106101385921175002-1.html?filterCondition=1&topicClassId=0631105934233557004>`__\ .
+   Issues <https://www.hiascend.com/developer/blog/details/0229108045633055169>`__\ .
 
 Debug Positioning
 ~~~~~~~~~~~~~~~~~~

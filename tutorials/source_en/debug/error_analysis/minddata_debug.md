@@ -634,7 +634,7 @@ Two solutions are available:
 
 For details, visit the following website:
 
-[MindRecord Data Preparation - Unexpected error. Failed to open file_MindSpore](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
+[MindRecord Data Preparation - Unexpected error. Failed to open file_MindSpore](https://www.hiascend.com/developer/blog/details/0231107679243990127)
 
 #### MindRecord File Error
 
@@ -654,7 +654,7 @@ For details, visit the following website:
 
     For details, visit the following website:
 
-    [MindSpore Data Preparation - MindRecord File could not open successfully](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
+    [MindSpore Data Preparation - MindRecord File could not open successfully](https://www.hiascend.com/developer/blog/details/0231107679243990127)
 
 * The File Is Moved
 
@@ -675,7 +675,7 @@ For details, visit the following website:
 
     For details, visit the following website:
 
-    [MindSpore Data Preparation - Invalid file,DB file can not match_MindSpore](https://www.hiascend.com/forum/thread-0229106992212728097-1-1.html)
+    [MindSpore Data Preparation - Invalid file,DB file can not match_MindSpore](https://www.hiascend.com/developer/blog/details/0229106992212728097)
 
 * The User-defined Data Type Is Incorrect
 
@@ -691,7 +691,7 @@ For details, visit the following website:
 
     For details, visit the following website:
 
-    [MindSpore Data Preparation - Unexpected error. Invalid data](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
+    [MindSpore Data Preparation - Unexpected error. Invalid data](https://www.hiascend.com/developer/blog/details/0231107678315400125)
 
 ### Data Loading
 
@@ -737,7 +737,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Data Loading - Invalid data,Page size is too small"](https://www.hiascend.com/forum/thread-0231107680001698128-1-1.html)
+    [MindSpore Data Loading - Invalid data,Page size is too small"](https://www.hiascend.com/developer/blog/details/0231107680001698128)
 
 #### `GeneratorDataset`
 
@@ -755,7 +755,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Data Loading - Suspended GeneratorDataset Thread](https://www.hiascend.com/forum/thread-0232106992052900089-1-1.html)
+    [MindSpore Data Loading - Suspended GeneratorDataset Thread](https://www.hiascend.com/developer/blog/details/0232106992052900089)
 
 * Incorrect User-defined Return Type
 
@@ -777,7 +777,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading - Unexpected error. Invalid data type_MindSpore](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
+    [MindSpore Dataset Loading - Unexpected error. Invalid data type_MindSpore](https://www.hiascend.com/developer/blog/details/0231107678315400125)
 
 * User-defined Sampler Initialization Error
 
@@ -793,7 +793,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading - 'IdentitySampler' has no attribute child_sampler](https://www.hiascend.com/forum/thread-0229107679386960150-1-1.html)
+    [MindSpore Dataset Loading - 'IdentitySampler' has no attribute child_sampler](https://www.hiascend.com/developer/blog/details/0229107679386960150)
 
 * Repeated Access Definition
 
@@ -809,7 +809,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading - the type of `input_data` should be one of](https://www.hiascend.com/forum/thread-0229107683010760153-1-1.html)
+    [MindSpore Dataset Loading - the type of `input_data` should be one of](https://www.hiascend.com/developer/blog/details/0229107683010760153)
 
 * Inconsistency Between the Fields Returned by the User-defined Data and the Defined Fields
 
@@ -825,7 +825,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading -Exception thrown from PyFunc](https://www.hiascend.com/forum/thread-0232107680321371137-1-1.html)
+    [MindSpore Dataset Loading -Exception thrown from PyFunc](https://www.hiascend.com/developer/blog/details/0232107680321371137)
 
 * Incorrect User Script
 
@@ -841,7 +841,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading - parse() missing 1 required positional](https://www.hiascend.com/forum/thread-0235121940704650030-1-1.html)
+    [MindSpore Dataset Loading - parse() missing 1 required positional](https://www.hiascend.com/developer/blog/details/0235121940704650030)
 
 * Incorrect Use of Tensor Operations or Operators in Custom Datasets
 
@@ -861,7 +861,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading - The pointer[cnode] is null](https://www.hiascend.com/forum/thread-0230106992306834091-1-1.html)
+    [MindSpore Dataset Loading - The pointer[cnode] is null](https://www.hiascend.com/developer/blog/details/0230106992306834091)
 
 * Index Out of Range Due to Incorrect Iteration Initialization
 
@@ -877,7 +877,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading - list index out of range](https://www.hiascend.com/forum/thread-0232107679694236136-1-1.html)
+    [MindSpore Dataset Loading - list index out of range](https://www.hiascend.com/developer/blog/details/0232107679694236136)
 
 * No Iteration Initialization
 
@@ -895,7 +895,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading - Unable to fetch data from GeneratorDataset](https://www.hiascend.com/forum/thread-0215121940606533032-1-1.html)
+    [MindSpore Dataset Loading - Unable to fetch data from GeneratorDataset](https://www.hiascend.com/developer/blog/details/0232107679694236136)
 
 #### Iterator
 
@@ -917,7 +917,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Data Loading - too many open files](https://www.hiascend.com/forum/thread-0231107678973789126-1-1.html)
+    [MindSpore Data Loading - too many open files](https://www.hiascend.com/developer/blog/details/0231107678973789126)
 
 * Improper Data Acquisition from the Iterator
 
@@ -939,7 +939,7 @@ In the data loading phase, errors may be reported in resource configuration, `Ge
 
     For details, visit the following website:
 
-    [MindSpore Dataset Loading - 'DictIterator' has no attribute 'get_next'](https://www.hiascend.com/forum/thread-0230107679565465123-1-1.html)
+    [MindSpore Dataset Loading - 'DictIterator' has no attribute 'get_next'](https://www.hiascend.com/developer/blog/details/0230107679565465123)
 
 ### Data Augmentation
 
@@ -959,7 +959,7 @@ Check the data type requirements of the third-party library API used in the user
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - TypeError: Invalid with type](https://www.hiascend.com/forum/thread-0229107679078336149-1-1.html)
+[MindSpore Data Augmentation - TypeError: Invalid with type](https://www.hiascend.com/developer/blog/details/0229107679078336149)
 
 #### Incorrect Parameter Type in A User-defined Data Augmentation Operation
 
@@ -975,7 +975,7 @@ Change the number of input parameters of `call` (except `self`) to the number of
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - args should be Numpy narray](https://www.hiascend.com/forum/thread-0230107678833189122-1-1.html)
+[MindSpore Data Augmentation - args should be Numpy narray](https://www.hiascend.com/developer/blog/details/0230107678833189122)
 
 #### Consumption Node Conflict in the Dataset
 
@@ -995,7 +995,7 @@ Check the dataset name. Generally, retain the same dataset name.
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - The data pipeline is not a tree](https://www.hiascend.com/forum/thread-0230107678474985121-1-1.html)
+[MindSpore Data Augmentation - The data pipeline is not a tree](https://www.hiascend.com/developer/blog/details/0230107678474985121)
 
 #### Improper Batch Operation Due to Inconsistent Data Shapes
 
@@ -1013,7 +1013,7 @@ Solution:
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - Unexpected error. Inconsistent batch](https://www.hiascend.com/forum/thread-0254121940499220038-1-1.html)
+[MindSpore Data Augmentation - Unexpected error. Inconsistent batch](https://www.hiascend.com/developer/blog/details/0254121940499220038)
 
 #### High Memory Usage Due to Data Augmentation
 
@@ -1023,4 +1023,4 @@ If the memory is insufficient when MindSpore performs data augmentation, MindSpo
 
 For details, visit the following website:
 
-[MindSpore Data Augmentation - Automatic Exit Due to Insufficient Memory](https://www.hiascend.com/forum/thread-0230107679768460124-1-1.html)
+[MindSpore Data Augmentation - Automatic Exit Due to Insufficient Memory](https://www.hiascend.com/developer/blog/details/0230107679768460124)

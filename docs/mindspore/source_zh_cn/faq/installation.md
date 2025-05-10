@@ -197,7 +197,7 @@ A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Win
     docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
     ```
 
-详细步骤可以参考社区提供的实践[张小白教你安装Windows10的GPU驱动（CUDA和cuDNN）](https://www.hiascend.com/forum/thread-0235122004927955034-1-1.html)。
+详细步骤可以参考社区提供的实践[张小白教你安装Windows10的GPU驱动（CUDA和cuDNN）](https://www.hiascend.com/developer/blog/details/0235122004927955034)。
 在此感谢社区成员[张辉](https://www.hiascend.com/forum/otheruser?uid=110545f972cf4903b3deba9cfaac7fc8)的分享。
 
 <br/>
