@@ -351,11 +351,13 @@ Dump调试
      - String
      - 文件路径，只支持绝对路径
      - 与MINDSPORE_DUMP_CONFIG配合使用
-   * - MS_ACL_DUMP_CFG_PATH
-     - 当与MINDSPORE_DUMP_CONFIG配置的路径一致时，可开启ACL流程的异步dump
+   * - MINDSPORE_DUMP_IGNORE_USELESS_OUTPUT
+     - 是否忽略无用的dump输出，例如Send算子的输出。
      - String
-     - 文件路径，支持相对路径与绝对路径
-     -
+     - "1"：忽略无用的dump输出
+
+       "0"：保留无用的dump输出
+     - 默认值："1"。该环境变量仅在MINDSPORE_DUMP_CONFIG配置时生效。
    * - MS_DEV_DUMP_BPROP
      - 在当前路径dump算子反向图的ir文件
      - String

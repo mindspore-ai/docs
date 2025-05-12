@@ -789,3 +789,4 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 - 使能Ascend O2模式下Dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2"})配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1"})配置全量异常dump。
 - 使能Ascend O2模式下Dump时，sink size只能设置为1。用户通常可以使用model.train()或ms.data_sink()接口配置sink size。
 - 使能Ascend O2模式下Dump时，**统计值dump**如果是大数据量dump场景（如网络本身规模庞大，连续dump多个step等），可能会导致host侧内存被占满，导致数据流同步失败，建议使用新版[**统计值dump**](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)替代。
+- 默认情况下，Dump会忽略算子的无效输出，比如Send/Print算子的输出、FlashAttentionScore算子的第三个预留输出等。如果需要保留这些无效输出，可以将环境变量`MINDSPORE_DUMP_IGNORE_USELESS_OUTPUT`设置为`0`。详情请参阅[环境变量-Dump调试](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html#dump%E8%B0%83%E8%AF%95)。

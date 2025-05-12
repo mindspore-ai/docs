@@ -351,6 +351,13 @@ Dump Debugging
      - String
      - File path, only absolute path is supported.
      - This variable is used together with MINDSPORE_DUMP_CONFIG.
+   * - MINDSPORE_DUMP_IGNORE_USELESS_OUTPUT
+     - Whether to ignore useless dump output, such as the output of Send operator.
+     - String
+     - "1": ignore useless dump output.
+
+       "0": keep useless dump output.
+     - Default value: "1". This environment variable takes effect only when MINDSPORE_DUMP_CONFIG is configured.
    * - MS_DEV_DUMP_BPROP
      - Dump bprop ir file in current path
      - String
