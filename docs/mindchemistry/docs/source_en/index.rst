@@ -85,10 +85,11 @@ Applications
 
     - **Scenario**: Materials Chemistry
     - **Dataset**:
-        - Perov-5: A perovskite dataset in which each unit cell contains five fixed atoms, and the structures are relatively similar.
-        - Carbon-24: A carbon crystal dataset, where each crystal contains between 6 and 24 carbon atoms, with various different material structures.
-        - MP-20: A dataset collected from the MP database, featuring experimental structures with up to 20 atoms per unit cell. The materials and structures are highly diverse.
-        - MPTS-52: An advanced version of MP-20, expanding the number of atoms per unit cell to 52. The materials and structures are highly diverse.
+
+      - Perov-5: A perovskite dataset in which each unit cell contains five fixed atoms, and the structures are relatively similar.
+      - Carbon-24: A carbon crystal dataset, where each crystal contains between 6 and 24 carbon atoms, with various different material structures.
+      - MP-20: A dataset collected from the MP database, featuring experimental structures with up to 20 atoms per unit cell. The materials and structures are highly diverse.
+      - MPTS-52: An advanced version of MP-20, expanding the number of atoms per unit cell to 52. The materials and structures are highly diverse.
     - **Task**: Crystal material structure prediction. We integrated the DiffCSP model [5], which is based on a graph neural network and diffusion model architecture, to predict the crystal material structures given their composition.
 
 Installation
