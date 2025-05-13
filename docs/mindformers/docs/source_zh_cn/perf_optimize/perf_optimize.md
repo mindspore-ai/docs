@@ -465,7 +465,7 @@ model:
     ...
 ```
 
-收益：pp interleave场景下的bubble占比公式为$bubble\ ratio=\frac{p-1}{vm+p-1}$，其中$v$为配置的pp_interleave_num，从公式中可以发现，提高v也可以达到减小bubble占比的作用。
+收益：pp interleave场景下的bubble占比公式为$bubble\ ratio=\frac{p-1}{vm+p-1}$，其中$v$为配置的pp_interleave_num，从公式中可以发现，提高$v$也可以达到减小bubble占比的作用。
 
 开销：pp interleave算法理论上会使用更多的内存，是一种空间换时间的策略，使用时需要根据内存变化情况重新调整内存使用策略。
 

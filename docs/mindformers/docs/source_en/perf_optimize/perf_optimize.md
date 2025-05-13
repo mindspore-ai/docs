@@ -465,7 +465,7 @@ model:
     ...
 ```
 
-Benefits: The formula for the bubble share in the pp interleave scenario is $bubble\ ratio=\frac{p-1}{vm+p-1}$, where $v$ is the configured pp_interleave_num, and it can be found from the formula that increasing v also achieves the effect of reducing the bubble share.
+Benefits: The formula for the bubble share in the pp interleave scenario is $bubble\ ratio=\frac{p-1}{vm+p-1}$, where $v$ is the configured pp_interleave_num, and it can be found from the formula that increasing $v$ also achieves the effect of reducing the bubble share.
 
 Overhead: The pp interleave algorithm theoretically uses more memory, a space-for-time strategy, and its use requires readjustment of the memory usage strategy according to memory changes.
 

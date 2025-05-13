@@ -51,7 +51,7 @@ MindSpore Transformers提供已经转换完成的预训练权重、词表文件�
         - dataset_type: 预处理数据类型。选项包括 "wiki" 和 "qa" 两种。
             - "wiki" 用于处理 Wikitext2 数据集，该数据集适用于预训练和评测阶段。
             - "qa" 用于处理 alpaca 数据集，将该数据集转换为问答格式，该数据集适用于微调阶段。
-            其他的数据集转换脚本请参考对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
+                其他的数据集转换脚本请参考对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
         - input_glob: 转换后的alpaca的文件路径。
         - model_file: 模型tokenizer.model文件路径。
         - seq_length: 输出数据的序列长度。
