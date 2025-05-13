@@ -7,7 +7,7 @@
 - 硬件平台为Ascend、GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
 - 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.7/MindFlow/requirements.txt)。
-- MindSpore Flow需MindSpore版本>=2.0.0(建议2.2.10)，Python版本需>=3.7。
+- MindSpore Flow需MindSpore版本>=2.5.0，Python版本需>=3.9。
 
 ## 安装方式
 

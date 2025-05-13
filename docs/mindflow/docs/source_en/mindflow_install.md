@@ -7,7 +7,7 @@
 - The hardware platform should be Ascend, GPU.
 - See our [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
 - All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.7/MindFlow/requirements.txt).
-- MindSpore Flow requires MindSpore version >=2.0.0(Recommended 2.2.10), and Python version requires >=3.7.
+- MindSpore Flow requires MindSpore version >=2.5.0, and Python version requires >=3.9.
 
 ## Installation
 
