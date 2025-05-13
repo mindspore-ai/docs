@@ -32,7 +32,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
         **Parameter descriptions**
 
-        - data_path:   Input the path to the downloaded file.
+        - data_path: Input the path to the downloaded file.
         - output_path: Save path of the output file.
 
     2. Execute [mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py), and generate MindRecord data and convert data with prompt templates to MindRecord format.
@@ -51,7 +51,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
         - dataset_type: Preprocessed data types. The options include "wiki" and "qa."
             - "wiki" is used to process the Wikitext2 dataset, which is suitable for the pre-training and evaluation stages.
             - "qa" is used to process the Alpaca dataset, converting it into a question-answer format, which is suitable for the fine-tuning stage.
-            For other dataset conversion scripts, please refer to the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).
+                For other dataset conversion scripts, please refer to the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/start/models.html).
         - input_glob: Path to the converted alpaca file.
         - model_file: Path to the model tokenizer.model file.
         - seq_length: Sequence length of the output data.
