@@ -133,37 +133,37 @@ Take Qwen2.5-0.5B as an example to perform 2-node 16-device fine-tuning.
 
 1. Modify the corresponding config file `research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml` based on information such as the number of used nodes:
 
-```yaml
-parallel_config:
-  data_parallel: 2
-  model_parallel: 4
-  pipeline_stage: 2
-  micro_batch_num: 16
-  vocab_emb_dp: True
-  gradient_aggregation_group: 4
-```
+    ```yaml
+    parallel_config:
+      data_parallel: 2
+      model_parallel: 4
+      pipeline_stage: 2
+      micro_batch_num: 16
+      vocab_emb_dp: True
+      gradient_aggregation_group: 4
+    ```
 
-> If the number of nodes and the number of devices are used to change, `data_parallel`, `model_parallel`, and `pipeline_stage` need to be modified to meet the actual number of running devices . `device_num=data_parallel×model_parallel×pipeline_stage`. Meanwhile, `micro_batch_num >= pipeline_stage`.
+    > If the number of nodes and the number of devices are used to change, `data_parallel`, `model_parallel`, and `pipeline_stage` need to be modified to meet the actual number of running devices . `device_num=data_parallel×model_parallel×pipeline_stage`. Meanwhile, `micro_batch_num >= pipeline_stage`.
 
 2. Execute the msrun startup script:
 
-For distributed tasks by executing scripts on multiple nodes and multiple devices, it is necessary to run the scripts on different nodes respectively and set the parameter `MASTER_ADDR` to the ip address of the main node. The ip addresses set for all nodes are the same, and only the parameter `NODE_RANK` is different among different nodes. The meanings of each parameter position can be found in [msrun Launching](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html).
+    For distributed tasks by executing scripts on multiple nodes and multiple devices, it is necessary to run the scripts on different nodes respectively and set the parameter `MASTER_ADDR` to the ip address of the main node. The ip addresses set for all nodes are the same, and only the parameter `NODE_RANK` is different among different nodes. The meanings of each parameter position can be found in [msrun Launching](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html).
 
-```shell
-# Node 0. Set the IP address of node 0 to the value of {ip_addr}, which is used as the IP address of the primary node. There are 16 devices in total with 2 devices for each node.
-bash scripts/msrun_launcher.sh "run_mindformer.py \
-  --register_path research/qwen2_5 \
-  --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
-  --train_dataset_dir /{path}/wiki4096.mindrecord \
-  --run_mode finetune" \
-  16 8 {ip_addr} 8118 0 output/msrun_log False 300
+    ```shell
+    # Node 0. Set the IP address of node 0 to the value of {ip_addr}, which is used as the IP address of the primary node. There are 16 devices in total with 2 devices for each node.
+    bash scripts/msrun_launcher.sh "run_mindformer.py \
+      --register_path research/qwen2_5 \
+      --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
+      --train_dataset_dir /{path}/wiki4096.mindrecord \
+      --run_mode finetune" \
+      16 8 {ip_addr} 8118 0 output/msrun_log False 300
 
 
-# Node 1. Set the IP address of node 0 to the value of {ip_addr}, which is used as the IP address of the primary node. The startup commands of node 0 and node 1 differ only in the parameter NODE_RANK.
-bash scripts/msrun_launcher.sh "run_mindformer.py \
-  --register_path research/qwen2_5 \
-  --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
-  --train_dataset_dir /{path}/wiki4096.mindrecord \
-  --run_mode finetune" \
-  16 8 {ip_addr} 8118 1 output/msrun_log False 300
-```
+    # Node 1. Set the IP address of node 0 to the value of {ip_addr}, which is used as the IP address of the primary node. The startup commands of node 0 and node 1 differ only in the parameter NODE_RANK.
+    bash scripts/msrun_launcher.sh "run_mindformer.py \
+      --register_path research/qwen2_5 \
+      --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
+      --train_dataset_dir /{path}/wiki4096.mindrecord \
+      --run_mode finetune" \
+      16 8 {ip_addr} 8118 1 output/msrun_log False 300
+    ```
