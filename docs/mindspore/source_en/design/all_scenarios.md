@@ -68,7 +68,10 @@ The syntax of MindIR is inherited from the ANF and is defined as follows:
 <AnfNode> ::= <CNode> | <ANode>
 ```
 
-ANode in a MindIR corresponds to the atomic expression of ANF. ANode has two subclasses: ValueNode and ParameterNode. ValueNode refers to a constant node, which can carry a constant value (such as a scalar, symbol, tensor, type, and dimension), a primitive function (Primitive), a metafunction (MetaFuncGraph), or a common function (FuncGraph). In functional programming, the function definition itself is a value. ParameterNode refers to a parameter node, which indicates the formal parameter of a function.
+ANode in a MindIR corresponds to the atomic expression of ANF. ANode has two subclasses: ValueNode and ParameterNode.
+
+- ValueNode refers to a constant node, which can carry a constant value (such as a scalar, symbol, tensor, type, and dimension), a primitive function (Primitive), a metafunction (MetaFuncGraph), or a common function (FuncGraph). In functional programming, the function definition itself is a value.
+- ParameterNode refers to a parameter node, which indicates the formal parameter of a function.
 
 CNode in a MindIR corresponds to the compound expression of ANF, indicating a function call.
 
