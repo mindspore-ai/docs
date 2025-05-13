@@ -87,3 +87,5 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 环境变量相关说明。
    * - `PyTorch与MindSpore API映射表 <../note/api_mapping/pytorch_api_mapping.html>`_
      - PyTorch与MindSpore的API映射关系和差异分析。
+
+`点击下载API文档 <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r2.6.0rc1/zh/MindSpore_API_r2.6.0rc1_zh.pdf>`_
