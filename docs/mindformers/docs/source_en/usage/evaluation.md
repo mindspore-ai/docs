@@ -184,8 +184,8 @@ The currently adapted models and supported evaluation datasets are shown in the 
 
 | Adapted models | Supported evaluation datasets                     |
 |--|---------------------------------------------------|
-| cogvlm2-image-llama3-chat | MME,MMBench,COCO Caption,MMMU_DEV_VAL,TextVQA_VAL |
-| cogvlm2-video-llama3-chat | MMBench-Video,MVBench                             |
+| cogvlm2-image-llama3-chat | MME, MMBench, COCO Caption, MMMU_DEV_VAL, TextVQA_VAL |
+| cogvlm2-video-llama3-chat | MMBench-Video, MVBench                             |
 
 ### Supported Feature Descriptions
 
@@ -194,7 +194,7 @@ The currently adapted models and supported evaluation datasets are shown in the 
 
 ### Installation
 
-#### Downloading the Cde and Compiling, Installing Dependency Packages
+#### Downloading the Code and Compiling, Installing Dependency Packages
 
 1. Download and modify the code: Due to known issues with open source frameworks running MVBench datasets, it is necessary to modify the code by importing patch. Get [eval.patch](https://github.com/user-attachments/files/17956417/eval.patch) and download and place it in the local directory. When importing the patch, use the absolute path of the patch.
 
@@ -304,7 +304,7 @@ Install Ubuntu system according to the following steps:
       cd decord
       ```
 
-2. Create and enter the build directory, configure the compilation options for Decord, disable CUDA support, enable Release mode (optimize performance), specify the installation path for FFmpeg, and compile the `decord` library. Copy the compiled libdecord.so library file to the system library directory and to the `python` directory of `decord`.
+2. Create and enter the `build` directory, configure the compilation options for Decord, disable CUDA support, enable Release mode (optimize performance), specify the installation path for FFmpeg, and compile the Decord library. Copy the compiled libdecord.so library file to the system library directory and to the `python` directory of `decord`.
 
       ```bash
       mkdir build
@@ -314,7 +314,7 @@ Install Ubuntu system according to the following steps:
       cp libdecord.so ../python/decord/libdecord.so
       ```
 
-3. Go to the python folder in the `decord` directory, install the numpy dependency, and install the python package for Decord. Add the library path (absolute path) of FFmpeg to the environment variable 'LD_LIBRARY_PATH' to ensure that the runtime can find the shared library of FFmpeg.
+3. Go to the python folder in the `decord` directory, install the numpy dependency, and install the python package for Decord. Add the library path (absolute path) of FFmpeg to the environment variable `LD_LIBRARY_PATH` to ensure that the runtime can find the shared library of FFmpeg.
 
       ```bash
       cd /path/to/decord/python
@@ -361,7 +361,7 @@ For OpenEuler systems follow the steps below to install:
 
 #### Preparations Before Evaluation
 
-1. Create a new directory, for example named model_ir, to store the model yaml file;
+1. Create a new directory, for example named `model_dir`, to store the model yaml file;
 2. Place the model inference yaml configuration file (predict_xxx_. yaml) in the directory created in the previous step. For details, Please refer to the inference content of description documents for each model in the [model library](../start/models.md);
 3. Configure the yaml file.
 
@@ -389,7 +389,7 @@ For OpenEuler systems follow the steps below to install:
 
 #### Pulling Up the Evaluation Task
 
-Execute the script in the root directory of the MindSpore Transformers local code repository: [run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_vlmevalkit.sh)
+Execute the script in the root directory of the MindSpore Transformers local code repository: [run_vlmevalkit.sh](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/run_vlmevalkit.sh).
 
 Execute the following command to initiate the evaluation task:
 

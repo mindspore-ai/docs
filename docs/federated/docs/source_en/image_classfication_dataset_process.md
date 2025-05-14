@@ -40,7 +40,7 @@ Refer to [leaf dataset instruction](https://github.com/TalwalkarLab/leaf) to dow
     cd  leaf/data/femnist
     ```
 
-4. Using the command `. /preprocess.sh -s niid --sf 1.0 -k 0 -t sample` generates a dataset containing 3500 users, and the training sets and the test sets are divided in a ratio of 9:1 for each user's data.
+4. Using the command `./preprocess.sh -s niid --sf 1.0 -k 0 -t sample` generates a dataset containing 3500 users, and the training sets and the test sets are divided in a ratio of 9:1 for each user's data.
 
     The meaning of the parameters in the command can be found in the `leaf/data/femnist/README.md` file.
 

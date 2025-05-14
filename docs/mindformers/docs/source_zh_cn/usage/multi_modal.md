@@ -239,8 +239,7 @@ model:
 ### 非文本模态处理模块
 
 MindSpore Transformers提供`ViT`、`EVA02`等模型作为视觉信息处理模块，下面以`EVA02`模型为例介绍如何构建非文本模态处理模块，
-具体可参考[EVAModel](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva.py)
-和[EVA02Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva_config.py)。
+具体可参考[EVAModel](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva.py)和[EVA02Config](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/eva02/eva_config.py)。
 
 ```python
 from mindformers.tools.register import MindFormerRegister, MindFormerModuleType
