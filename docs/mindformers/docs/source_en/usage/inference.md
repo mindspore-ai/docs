@@ -27,7 +27,7 @@ Complete weights can be obtained in two ways:
 
 #### 2.2 Distributed Weights
 
-Distributed weights are typically obtained by pre-training or after fine-tuning and are stored by default in the `. /output/checkpoint_network` directory, which needs to be converted to single-card or multi-card weights before performing single-card or multi-card inference.
+Distributed weights are typically obtained by pre-training or after fine-tuning and are stored by default in the `./output/checkpoint_network` directory, which needs to be converted to single-card or multi-card weights before performing single-card or multi-card inference.
 
 If the inference uses a weight slicing that is different from the model slicing provided in the inference task, such as in these cases below, the weights need to be additionally converted to a slice that matches the slicing of the model in the actual inference task.
 
@@ -37,7 +37,7 @@ If the inference uses a weight slicing that is different from the model slicing 
 
 The command samples in the following contents are all used in the way of online autoslicing. It is recommended to use online autoslicing by setting the command parameters `--auto_trans_ckpt` to `-True` and `-src_strategy_path_or_dir` to the weighted slicing strategy file or directory path (which is saved by default after training under `./output/strategy`) are automatically sliced in the inference task. Details can be found in [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/function/transform_weight.html).
 
-> Since both the training and inference tasks use `. /output` as the default output path, when using the strategy file output by the training task as the source weight strategy file for the inference task, you need to move the strategy file directory under the default output path to another location to avoid it being emptied by the process of the inference task, for example:
+> Since both the training and inference tasks use `./output` as the default output path, when using the strategy file output by the training task as the source weight strategy file for the inference task, you need to move the strategy file directory under the default output path to another location to avoid it being emptied by the process of the inference task, for example:
 >
 > ```mv ./output/strategy/ ./strategy```
 
@@ -95,7 +95,7 @@ python run_mindformer.py \
 --predict_data 'I love Beijing, because'
 ```
 
-The following result appears, proving that the inference was successful. The inference result is also saved to the `text_generation_result.txt` file in the current directory. The detailed log can be viewed in the `. /output/msrun_log` directory.
+The following result appears, proving that the inference was successful. The inference result is also saved to the `text_generation_result.txt` file in the current directory. The detailed log can be viewed in the `./output/msrun_log` directory.
 
 ```text
 'text_generation_text': [I love Beijing, because it is a city that is constantly constantly changing. I have been living here for ......]
@@ -200,7 +200,7 @@ Inference results are viewed in the same way as single-card inference.
 
 Use `cogvlm2-llama3-chat-19B` model as example and see the following process with details:
 
-Modify configuration yaml file[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml).
+Modify configuration yaml file [predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml).
 
 ```shell
 model:

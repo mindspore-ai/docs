@@ -178,7 +178,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 ### 基本介绍
 
 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit)
-是一款专为大型视觉语言模型评测而设计的开源工具包，支持在各种基准测试上对大型视觉语言模型进行一键评估，无需进行繁重的数据准备工作，让评估过程更加简便。 它支持多种图文多模态评测集和视频多模态评测集，支持多种API模型以及基于PyTorch和HF的开源模型，支持自定义prompt和评测指标。基于VLMEvalKit评测框架对MindSpore Transformers进行适配后，支持加载MindSpore Transformers中多模态大模型进行评测。
+是一款专为大型视觉语言模型评测而设计的开源工具包，支持在各种基准测试上对大型视觉语言模型进行一键评估，无需进行繁重的数据准备工作，让评估过程更加简便。它支持多种图文多模态评测集和视频多模态评测集，支持多种API模型以及基于PyTorch和HF的开源模型，支持自定义prompt和评测指标。基于VLMEvalKit评测框架对MindSpore Transformers进行适配后，支持加载MindSpore Transformers中多模态大模型进行评测。
 
 目前已适配的模型和支持的评测数据集如下表所示（其余模型和评测数据集正在积极适配中，请关注版本更新）：
 
