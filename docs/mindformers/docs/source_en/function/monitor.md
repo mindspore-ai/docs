@@ -71,7 +71,7 @@ It should be noted that without the `tensorboard` configuration, the "tensorboar
 
 ## Viewing Training Data
 
-After the above configuration, the event file for each card will be saved under the path `. /worker/tensorboard/rank_{id}`, where `{id}` is the rank number of each card. The event files are named `events.*`. The file contains `scalars` and `text` data, where `scalars` are the scalars of key metrics in the training process, such as learning rate, loss, etc.; `text` is the text data of all configurations for the training task, such as parallel configuration, dataset configuration, etc. In addition, according to the specific configuration, some metrics will be displayed in the log.
+After the above configuration, the event file for each card will be saved under the path `./worker/tensorboard/rank_{id}`, where `{id}` is the rank number of each card. The event files are named `events.*`. The file contains `scalars` and `text` data, where `scalars` are the scalars of key metrics in the training process, such as learning rate, loss, etc.; `text` is the text data of all configurations for the training task, such as parallel configuration, dataset configuration, etc. In addition, according to the specific configuration, some metrics will be displayed in the log.
 
 Use the following command to start the Tensorboard Web Visualization Service:
 
