@@ -50,7 +50,7 @@ If a PyTorch-based model weight already exists, you can convert the weight to th
 
 For details about how to prepare a dataset, see [Dataset](https://www.mindspore.cn/mindformers/docs/en/dev/function/dataset.html) or the model document, for example, [Llama2 Description Document > Dataset Preparation](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
 
-### Preparing a `YAML` File
+### Preparing a `YAML` Configuration File
 
 MindSpore Transformers uses a `YAML` file to configure all parameters required by a task, including model parameters, training parameters (such as optimizer, learning rate, and dataset), inference parameters (such as tokenizer), distributed parallel parameters, and context environment parameters.
 

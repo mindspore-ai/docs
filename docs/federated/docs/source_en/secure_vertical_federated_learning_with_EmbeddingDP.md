@@ -101,7 +101,7 @@ git clone https://gitee.com/mindspore/federated.git
     sh run_pangu_train_leader_embedding_dp.sh {ip1:port1} {ip2:port2} ./wiki/train ./wiki/train
     ```
 
-    `ip1` and `port1` denote the IP address and port number of the participating local server (server 1). `ip2` and `port2` denote the IP address and port number of the peer server (server 2). `. /wiki/train` is the training dataset file path, and `. /wiki/test` is the evaluation dataset file path.
+    `ip1` and `port1` denote the IP address and port number of the participating local server (server 1). `ip2` and `port2` denote the IP address and port number of the peer server (server 2). `./wiki/train` is the training dataset file path, and `./wiki/test` is the evaluation dataset file path.
 
 3. Start training script of another participant on Server 2:
 
