@@ -51,7 +51,7 @@ mindspore-lite-{version}-linux-x64
 
 ### Description of Parameters
 
-MindSpore Lite cloud-side inference model converter provides various parameter settings that users can choose to use according to their needs. In addition, users can enter `. /converter_lite --help` for live help.
+MindSpore Lite cloud-side inference model converter provides various parameter settings that users can choose to use according to their needs. In addition, users can enter `./converter_lite --help` for live help.
 
 Detailed parameter descriptions are provided below.
 
