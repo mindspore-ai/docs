@@ -324,7 +324,7 @@ Execute the command:
 bash msrun_single.sh
 ```
 
-The single-machine 8-card distributed training task can be executed. The log file is saved to the `. /msrun_log` directory and the results are saved in `. /msrun_log/worker_*.log`. The Loss results are as follows:
+The single-machine 8-card distributed training task can be executed. The log file is saved to the `./msrun_log` directory and the results are saved in `./msrun_log/worker_*.log`. The Loss results are as follows:
 
 ```text
 epoch: 0, step: 0, loss is 2.3499548
@@ -390,7 +390,7 @@ Executed at node 2:
 bash msrun_2.sh
 ```
 
-The 2-machine, 8-card distributed training task can be executed, and the log files are saved to the `. /msrun_log` directory and the results are saved in `. /msrun_log/worker_*.log`. The Loss results are as follows:
+The 2-machine, 8-card distributed training task can be executed, and the log files are saved to the `./msrun_log` directory and the results are saved in `./msrun_log/worker_*.log`. The Loss results are as follows:
 
 ```text
 epoch: 0, step: 0, loss is 2.3499548

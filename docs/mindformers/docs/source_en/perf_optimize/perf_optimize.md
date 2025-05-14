@@ -145,7 +145,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
 
 2. View Data
 
-   By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the `profile_output` or `output_dir` field of the model's yaml configuration file, and the former has higher priority.
+   By default, the collection tool creates a `profile` folder under the `./output` path, which can be set via the `profile_output` or `output_dir` field of the model's yaml configuration file, and the former has higher priority.
 
    The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/tutorials/en/r2.6.0/debug/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
 
