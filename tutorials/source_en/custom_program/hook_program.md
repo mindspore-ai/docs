@@ -45,7 +45,7 @@ For more descriptions of the HookBackward operator, refer to the [API documentat
 
 ## register_forward_pre_hook Function in Cell Object
 
-The user can use the `register_forward_pre_hook` function on the Cell object to register a custom Hook function to capture data that is passed to that Cell object. This function does not work in static graph mode and inside functions modified with `@jit`. The `register_forward_pre_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_forward_pre_hook` function returns a different `handle` object. Hook functions should be defined in the following way.
+The user can use the `register_forward_pre_hook` function on the Cell object to register a custom Hook function to capture data that is passed to that Cell object. The `register_forward_pre_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_forward_pre_hook` function returns a different `handle` object. Hook functions should be defined in the following way.
 
 ```python
 def forward_pre_hook_fn(cell, inputs):
@@ -149,7 +149,7 @@ For more information about the `register_forward_pre_hook` function of the Cell 
 
 ## register_forward_hook Function of Cell Object
 
-The user can use the `register_forward_hook` function on the Cell object to register a custom Hook function that captures the data passed forward to the Cell object and the output data of the Cell object. This function does not work in static graph mode and inside functions modified with `@jit`. The `register_forward_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_forward_hook` function returns a different `handle` object. Hook functions should be defined in the following way.
+The user can use the `register_forward_hook` function on the Cell object to register a custom Hook function that captures the data passed forward to the Cell object and the output data of the Cell object. The `register_forward_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_forward_hook` function returns a different `handle` object. Hook functions should be defined in the following way.
 
 The sample code is as follows:
 
@@ -214,7 +214,7 @@ For more information about the `register_forward_hook` function of the Cell obje
 
 ## register_backward_pre_hook Function of Cell Object
 
-The user can use the `register_backward_pre_hook` function on the Cell object to register a custom Hook function that captures the gradient associated with the Cell object when the network is back propagated. This function does not work in graph mode or inside functions modified with `@jit`. The `register_backward_pre_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_backward_pre_hook` function will return a different `handle` object.
+The user can use the `register_backward_pre_hook` function on the Cell object to register a custom Hook function that captures the gradient associated with the Cell object when the network is back propagated. The `register_backward_pre_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_backward_pre_hook` function will return a different `handle` object.
 
 Unlike the custom Hook function used by the HookBackward operator, the inputs of the Hook function used by `register_backward_pre_hook` contains `cell`, which represents the information of the Cell object, the gradient passed to the Cell object in reverse of the Cell object.
 
@@ -279,7 +279,7 @@ For more information about the `register_backward_pre_hook` function of the Cell
 
 ## register_backward_hook Function of Cell Object
 
-The user can use the `register_backward_hook` function on the Cell object to register a custom Hook function that captures the gradient associated with the Cell object when the network is back propagated. This function does not work in graph mode or inside functions modified with `@jit`. The `register_backward_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_backward_hook` function will return a different `handle` object.
+The user can use the `register_backward_hook` function on the Cell object to register a custom Hook function that captures the gradient associated with the Cell object when the network is back propagated. The `register_backward_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_backward_hook` function will return a different `handle` object.
 
 Unlike the custom Hook function used by the HookBackward operator, the inputs of the Hook function used by `register_backward_hook` contains `cell`, which represents the information of the Cell object, the gradient passed to the Cell object in reverse, and the gradient of the reverse output of the Cell object.
 
