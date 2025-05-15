@@ -287,6 +287,10 @@
 
        memory_tracker: 是否开启memory tracker，默认值为false。
 
+       memory_tracker_path: 开启memory tracker并保存到指定路径，默认值关闭memory tracker且保存路径为空。
+
+       simple_tracker: 是否开启tracker简化模式，不保存tracker_graph.ir，只保留最后一个user task。开启memory_tracker时生效，默认值为false。
+
        acl_allocator: 是否使用ACL内存分配器，默认值为true。
 
        somas_whole_block: 是否使用SOMAS整块内存分配，默认值为false。
