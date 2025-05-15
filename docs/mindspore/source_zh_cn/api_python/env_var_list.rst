@@ -119,6 +119,19 @@
 
        不设置或其他值：根据网络脚本判断执行静态图（Graph）模式还是动态图（PyNative）模式。
      -
+   * - MS_JIT_BYTECODE_LOGS
+     - 使用JIT bytecode模式时打印对应模块的日志
+     - String
+     - 配置项，多个配置项以逗号分隔，例如 export MS_JIT_BYTECODE_LOGS="bytecode,guard"
+
+       all：打印所有模块日志
+
+       bytecode：打印代码原始字节码和修改后字节码
+
+       guard：打印guard相关日志
+
+       graph_break：打印裂图相关日志
+     -
    * - MS_DEV_FORCE_USE_COMPILE_CACHE
      - 是否直接使用编译缓存，不检查网络脚本有无被修改
      - Integer

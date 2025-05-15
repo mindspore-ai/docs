@@ -118,6 +118,19 @@ Graph Compilation and Execution
 
        No setting or other value: Determine whether to execute static graph (Graph) mode or dynamic graph (PyNative) mode according to the network script.
      -
+   * - MS_JIT_BYTECODE_LOGS
+     - Print logs of corresponding modules when using bytecode mode of JIT
+     - String
+     - Configuration item. Multiple items should be comma-separated. Example: export MS_JIT_BYTECODE_LOGS="bytecode,guard"
+
+       all: Print logs of all modules
+
+       bytecode: Print original bytecode and modified bytecode
+
+       guard: Print logs of guard
+
+       graph_break: Print logs of graph break
+     -
    * - MS_DEV_FORCE_USE_COMPILE_CACHE
      - Specify whether to use the compilation cache directly without checking whether the network script has been modified.
      - Integer
