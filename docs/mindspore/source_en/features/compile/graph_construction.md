@@ -129,8 +129,6 @@ print(ret)
  [4. 4. 4. 4.]]
 ```
 
-**Advantages and Limitations of bytecode**
-
 **Advantages**
 
 - Good user experience, no human intervention, user-written web code always runs properly, and code that can't be executed by static graphs will automatically run using dynamic graphs.

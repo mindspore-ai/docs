@@ -48,7 +48,7 @@ O0模式的图优化较少，基础的优化主要为后端LazyInline和No-task 
 
 算子是深度学习框架中的基本执行单元，它们负责执行特定的计算任务，如矩阵乘法、卷积、池化等。算子选择需要综合考虑算子类型、数据类型、硬件平台和算子优化等因素，以选择最优的算子来实现深度学习任务。
 
-MindSpore Ascend后端的算子类型有Aclnn kernel/Aclop kernel/Hccl kernel /Cpu kernel，算子选择流程如下图所示：
+MindSpore Ascend后端的算子类型有Aclnn kernel/Aclop kernel/Hccl kernel/Cpu kernel，算子选择流程如下图所示：
 
 ![jit_level_kernelselect](./images/multi_level_compilation/jit_level_kernelselect.png)
 
@@ -135,5 +135,5 @@ MindSpore AKG的整体框架如上图所示：
 
 除了图算融合之外，在后续版本中，O1可能会逐步扩展增加一些其它图优化技术。比如：
 
-1. KernelPacket: 用于在动态shape场景对shape计算进行自动融合和优化；
+1. KernelPacket：用于在动态shape场景对shape计算进行自动融合和优化；
 2. 通算融合：将通信算子与计算算子进行融合。
