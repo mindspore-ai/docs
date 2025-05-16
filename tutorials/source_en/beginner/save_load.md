@@ -80,47 +80,50 @@ print(outputs.shape)
 
 ### Syntax Support Scope
 
-Not all Python syntax and data types are supported for MindIR export. MindIR export has a specific support scope, and if the syntax falls outside this scope, an error will be reported during the export process.
+Not all Python syntax and data types are supported for MindIR export. Unsupported cases will raise errors during export.
 
-First, MindIR export only supports **strict-level graph mode**. For detailed support scope, please refer to the [Static Graph Syntax Support Documentation](https://www.mindspore.cn/tutorials/en/br_base/compile/static_graph.html).
+1. MindIR export only supports **basic syntax at the STRICT level**. For detailed coverage, refer to [Static Graph Syntax Support Documentation](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html).
 
-Second, in addition to the syntax restrictions of strict-level graph mode, MindIR has additional constraints on the types of return values. For example, returning `mindspore.dtype` is not supported. The following program will raise an error during MindIR export.
+2. Return value data types are limited to:
 
-```python
-import mindspore as ms
-from mindspore import nn, ops, Tensor
+    - Python built-in types: `int`, `float`, `bool`, `str`, `tuple`, `list`.
+    - MindSpore framework types: [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html), [Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html), [COOTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.COOTensor.html), [CSRTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.CSRTensor.html).
 
-class Model(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.dtype = ops.DType()
+    For example, in the following program, the return value type is [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.dtype.html), which is not supported. As a result, an error is reported when MindIR is exported.
 
-    def construct(self, x: Tensor) -> ms.dtype:
-        return self.dtype(x)
-```
+    ```python
+    import mindspore
+    from mindspore import nn, Tensor
 
-Furthermore, if a `Parameter` object is created outside `nn.Cell`, MindIR does not support exporting that Parameter. This typically occurs in the following scenarios:
+    class Model(nn.Cell):
 
-- A `Parameter` is created directly in the global scope of the script.
-- A `Parameter` is created in a non `nn.Cell` class.
-- Random number generation api from the [mindspore.mint](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore.mint.html) package are used, such as `mint.randn`, `mint.randperm`, etc., because these random number interfaces create `Parameter` in the global scope.
+        def construct(self, x: Tensor) -> mindspore.dtype:
+            return x.dtype
+    ```
 
-For example, the following two programs will raise errors during the export process.
+3. In `nn.Cell`'s `construct()` method, random number generators from [mindspore.mint](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mint.html) (e.g., `mint.rand`, `mint.randn`, `mint.randint`, `mint.randperm`) are prohibited. Use equivalent [mindspore.ops](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html) interfaces instead.
 
-```python
-from mindspore import Tensor, Parameter, nn
+4. `Parameter` objects must be defined either in `nn.Cell`'s `__init__()` method or as function input arguments. Otherwise, MindIR export will fail. For instance, a globally defined `Parameter` (as shown below) triggers an unsupported error.
 
-param = Parameter(Tensor([1, 2, 3, 4]))  # Created outside nn.Cell
+    ```python
+    import mindspore
+    from mindspore import Parameter, nn
 
-class Model(nn.Cell):
-    def construct(self, x: Tensor) -> Tensor:
-        return x + param
-```
+    # The Parameter is created outside nn.Cell and used by the Model as a global variable.
+    global_param = Parameter([1, 2, 3], name='global_param')
 
-```python
-from mindspore import Tensor, nn, mint
+    class Model(nn.Cell):
 
-class Model(nn.Cell):
-    def construct(self, n: int) -> Tensor:
-        return mint.randn(n)
-```
+        def __init__(self):
+            super().__init__()
+            # Parameters defined within nn.Cell.__init__() are exportable.
+            self.bias = Parameter([0, 1, -1])
+
+        def construct(self, x: Parameter):  # Parameters passed as function arguments are exportable.
+            # The global_param is a global variable and will cause an error during export.
+            return x + global_param + self.bias
+
+    model = Model()
+    param = Parameter([1, 2, 3], name='input_param')
+    mindspore.export(model, param, file_name="model", file_format="MINDIR")
+    ```
