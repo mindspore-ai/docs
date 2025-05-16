@@ -48,7 +48,7 @@ There are fewer graph optimizations for the O0 mode, and the basic optimizations
 
 Operators are the basic execution units in deep learning frameworks, and they are responsible for performing specific computational tasks, such as matrix multiplication, convolution, pooling. Operator selection requires comprehensive consideration of factors such as operator type, data type, hardware platform, and operator optimization in order to select the optimal operator for deep learning tasks.
 
-The operator types in the backend of MindSpore Ascend are Aclnn kernel/Aclop kernel/Hccl kernel /Cpu kernel, and the process of operator selection is shown as follows:
+The operator types in the backend of MindSpore Ascend are Aclnn kernel/Aclop kernel/Hccl kernel/Cpu kernel, and the process of operator selection is shown as follows:
 
 ![jit_level_kernelselect](./images/multi_level_compilation/jit_level_kernelselect.png)
 
@@ -110,11 +110,13 @@ By following these steps, we can obtain two aspects of performance gains:
 
 #### Fusion Operator Acceleration Optimization (MindSpore AKG)
 
-As mentioned earlier, in scenarios such as HPC and deep neural network training, graph-kernel fusion optimization can bring exponential performance improvements. However, with the increasing capability of graph-kernel fusion, the development of fusion operator becomes a bottleneck point to continue to improve the graph-kernel fusion capability. The automatic generation technology of fusion operators can solve the problem of high programming threshold for developing fusion operators based on DSA, allowing programmers to focus on the implementation logic of operators during operator development without focusing on back-end optimization, which greatly improves their development efficiency. Especially for scenarios with complex back-end hardware architectures and the presence of complex operators and fusion operators, automatic operator generation techniques are more critical.
+As mentioned earlier, in scenarios such as HPC and deep neural network training, graph-kernel fusion optimization can bring exponential performance improvements. However, with the increasing capability of graph-kernel fusion, the development of fusion operator becomes a bottleneck point to continue to improve the graph-kernel fusion capability.
+
+The automatic generation technology of fusion operators can solve the problem of high programming threshold for developing fusion operators based on DSA, allowing programmers to focus on the implementation logic of operators during operator development without focusing on back-end optimization, which greatly improves their development efficiency. Especially for scenarios with complex back-end hardware architectures and the presence of complex operators and fusion operators, automatic operator generation techniques are more critical.
 
 Therefore, **MindSpore AKG accelerates optimization and automatic generation of fusion operator based on Polyhedral Compilation Technology (Polyhedral Model)**, can help fused operators optimized by MindSpore graph-kernel fusion module to automatically generate high-performance kernel on **heterogeneous hardware platforms** (GPU/Ascend) and improve MindSpore training performance.
 
-Architecture and Overall Process:
+Architecture and Overall Process are as follows:
 
 The overall framework of MindSpore AKG is shown in the figure above:
 
@@ -127,7 +129,7 @@ The overall framework of MindSpore AKG is shown in the figure above:
 - Backends optimization
     - In order to further improve the performance of the operator, we developed corresponding optimization passes for different hardware backends, such as data alignment and instruction mapping in Ascend backend, vectorized access and insertion of synchronization instructions in GPU backend, and finally generated the corresponding platform code.
 
-### other graph optimization techniques
+### Other Graph Optimization Techniques
 
 In addition to graph-kernel fusion, O1 may be gradually extended to add some other graph optimization techniques in subsequent releases. For example:
 
