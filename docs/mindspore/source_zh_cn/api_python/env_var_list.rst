@@ -326,6 +326,14 @@
        path：指定读取json配置。当设置该选项时，忽略以上选项。
      - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/fusion_pass.html>`_
 
+   * - MS_DEV_TENSOR_INDEX_BOOST
+     - 控制图编译阶段是否启用Tensor索引优化。开启后，将使用view算子和inplace算子实现Tensor索引功能，提升索引操作的执行效率。
+     - Integer
+     - 1：启用Tensor索引优化
+
+       不设置或其他值：不启用Tensor索引优化
+     - 仅限Ascend AI处理器环境，图编译等级为O0或O1流程使用。实验性质的环境变量。
+
 Dump调试
 --------
 
