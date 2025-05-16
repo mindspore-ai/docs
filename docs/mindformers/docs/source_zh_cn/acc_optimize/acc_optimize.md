@@ -146,7 +146,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 ### 其他介绍
 
-除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
+除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)进行配置使用。此外，还提供了msprobe精度调试工具。msprobe是 MindStudio Training Tools 工具链下精度调试部分的工具包，主要包括精度预检、溢出检测和精度比对等功能，详细请参考[msprobe使用手册](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe)。
 
 ## 模型迁移精度定位通用流程
 
