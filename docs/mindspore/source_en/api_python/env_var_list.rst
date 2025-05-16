@@ -343,6 +343,30 @@ Graph Compilation and Execution
        path: use specified json file. When this option is set, the above options are ignored.
      - Refer to the `Custom Fusion <https://www.mindspore.cn/tutorials/en/master/custom_program/fusion_pass.html>`_
 
+   * - MS_DEV_DISABLE_AUTO_H2D
+     - Control whether the input of the operator performs implicit copying in PyNative mode. When enabled, implicit copying of operator input will be disabled.
+     - Integer
+     - 1: Disable implicit copy of input for operators in PyNative mode.
+
+       No setting or other value: Enable implicit copy of the operator input in PyNative mode.
+     -
+
+   * - MS_DEV_LAUNCH_BLOCKING
+     - Control whether the operator is synchronously launched. When enabled, the operator will be launced in a single thread and will synchronize the stream.
+     - Integer
+     - 1: Enable operator synchronization launch.
+
+       No setting or use other value: Asynchronous launch operators.
+     -
+
+   * - MS_DEV_HOST_BLOCKING_RUN
+     - Control whether the operator is launched in a single thread in PyNative mode. When enabled, the operator will be launched in a single thread in PyNative mode.
+     - Integer
+     - 1: The operator will be launched in a single thread in PyNative mode.
+     
+       No setting or use other value: Multi-thread launching is enabled for operator in PyNative mode.
+     -
+
 Dump Debugging
 ---------------
 

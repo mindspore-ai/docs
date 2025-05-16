@@ -343,6 +343,30 @@
        path：指定读取json配置。当设置该选项时，忽略以上选项。
      - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/fusion_pass.html>`_
 
+   * - MS_DEV_DISABLE_AUTO_H2D
+     - 控制动态图流程算子输入是否隐式拷贝。开启后，将关闭动态图算子输入隐式拷贝。
+     - Integer
+     - 1：关闭动态图算子输入隐式拷贝
+
+       不设置或其他值：不关闭动态图算子输入隐式拷贝
+     -
+
+   * - MS_DEV_LAUNCH_BLOCKING
+     - 控制算子是否同步下发。开启后，算子下发将采用单线程，并且会同步流。
+     - Integer
+     - 1：开启算子同步下发
+
+       不设置或其他值：不开启算子同步下发
+     -
+
+   * - MS_DEV_HOST_BLOCKING_RUN
+     - 控制动态图算子是否单线程下发。开启后，动态图算子将采用单线程下发。
+     - Integer
+     - 1：动态图算子采用单线程下发。
+     
+       不设置或其他值：动态图算子不开启单线程下发。
+     -
+
 Dump调试
 --------
 
