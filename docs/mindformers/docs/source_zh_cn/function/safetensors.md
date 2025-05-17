@@ -241,3 +241,92 @@ callbacks:
 
 更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html)。
 
+## 权重保存
+
+### 概述
+
+在深度学习模型的训练过程中，保存模型的权重是至关重要的一步。权重保存功能使得我们能够在训练的任意阶段存储模型的参数，以便用户在训练中断或完成后进行恢复、继续训练、评估或部署。同时还可以通过保存权重的方式，在不同环境下复现实验结果。
+
+目前，MindSpore TransFormer 支持 [safetensors](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html) 格式的权重文件读取和保存。
+
+### 目录结构
+
+在训练过程中，MindSpore Transformers 默认会在输出目录（同训练日志，默认为 `./output` ）中生成权重保存文件夹： `checkpoint` 。
+
+如果在 yaml 中设置了配置项 `save_network_params: True` 后，会额外生成权重保存文件夹 `checkpoint_network` 。
+
+| 文件夹                | 描述                                                        |
+|--------------------|-----------------------------------------------------------|
+| checkpoint         | 保存模型权重、优化器状态、step 和 epoch 于 safetensors 文件中，可用于**断点恢复训练**。 |
+| checkpoint_network | 仅保存模型权重参数于 safetensors 文件中，适用于后续进行微调、推理、评测，不支持断点续训。       |
+
+#### `checkpoint`目录结构
+
+以一个 8 卡任务为例，`output` 文件夹中的权重文件按如下格式保存：
+
+```text
+output
+    ├── checkpoint
+        ├── rank_0
+            ├── meta.json
+            └── {prefix}-{epoch}_{step}.ckpt
+        ...
+        └── rank_7
+            ├── meta.json
+            └── {prefix}-{epoch}_{step}.ckpt
+    └──checkpoint_network
+        ├── rank_0
+            └── {prefix}-{epoch}_{step}.safetensors
+        ...
+        └── rank_7
+            └── {prefix}-{epoch}_{step}.safetensors
+```
+
+##### 权重相关文件说明
+
+| 文件                                  | 描述                                                                                                                                                                                                                                                                        |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| meta.json                           | 记录最后保存的权重的 `epoch` 、 `step` 和权重名，每个 rank 进程独立维护一个 `meta.json` 文件。                                                                                                                                                                                                         |
+| {prefix}-{epoch}_{step}.safetensors | 保存的权重文件， `prefix` 包含 rank_id 信息，格式为 `{prefix}-{epoch}_{step}.safetensors` 。如果前缀相同的文件已经存在，系统会自动递增后缀。<br>开启数据下沉时， `epoch` 位置计算方式为 $\frac{CurrentTotalStepNumber}{SinkSize} = \frac{((CurrentEpoch-1)*StepsPerEpoch+CurrentStepInEpoch)}{SinkSize}$，`step` 固定为 `sink_size` 。 |
+
+### 配置与使用
+
+#### YAML参数配置
+
+用户可通过修改配置文件来控制权重保存的行为。以下是主要参数：
+
+用户可修改 `yaml` 配置文件中 `CheckpointMonitor` 下的字段来控制权重保存行为。
+
+以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L206) 为例，可做如下配置：
+
+```yaml
+# callbacks
+callbacks:
+  ...
+  - type: CheckpointMonitor
+    prefix: "deepseekv3"
+    save_checkpoint_steps: 1000
+    integrated_save: False
+    async_save: False
+    checkpoint_format: "safetensors"
+  ...
+```
+
+该配置的含义为：每隔 1000 步保存一次 safetensors 权重、最多同时存储 5 个权重、并行场景下不合并保存拆分的 Tensor、且不使用异步方式保存权重文件。
+
+##### 主要配置参数介绍
+
+有关保存权重配置的主要参数如下表所列：
+
+| 参数                    | 描述                                                      | 取值说明                                                                                                          |
+|-----------------------|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| prefix                | 模型权重文件的前缀名，可用于指代模型名字。                                   | (str, 可选) - 默认值： `"CKP"` 。                                                                                    |
+| save_checkpoint_steps | 每训练多少步保存一次权重。                                           | (int, 可选) - 默认值： `1` ，不设置时不保存模型权重。                                                                            |
+| keep_checkpoint_max   | 最多同时保存多少个权重文件，达到上限后会在保存权重时删除最旧的权重文件。                    | (int, 可选) - 默认值： `5` ，不设置时不对文件夹下权重数量进行监控和删除。                                                                  |
+| integrated_save       | 在并行场景下是否合并保存拆分的 Tensor。合并保存功能仅支持在自动并行场景中使用，在手动并行场景中不支持。 | (bool, 可选) - 默认值： `False`                                                                                     |
+| async_save            | 是否使用异步方式保存 safetensors 文件。                              | (bool, 可选) - `True` 时默认使用异步线程，默认值： `False` 。                                                                  |
+| checkpoint_format     | 输出文件的格式，需要配置为 `safetensors` 。                           | (str, 可选) - 模型权重保存的格式。支持 `"ckpt"` 、 `"safetensors"` 。默认值： `ckpt` 。（注意： ckpt 格式将在后续版本中日落，推荐使用 safetensors 格式。） |
+| remove_redundancy     | 保存模型权重时是否去除冗余。                                          | (bool, 可选) - 默认值： `False` 。                                                                                   |
+| save_network_params   | 是否仅额外保存网络参数。                                            | (bool, 可选) - 是否仅额外保存网络参数。默认值： `False` 。                                                                       |
+
+如果您想了解更多有关 CheckpointMonitor 的知识，可以关注 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/core/mindformers.core.CheckpointMonitor.html)。

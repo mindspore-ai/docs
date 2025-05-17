@@ -240,3 +240,95 @@ callbacks:
 In large cluster scale scenarios, to avoid the online merging process taking too long to occupy the training resources, it is recommended to [merge the complete weights](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html#safetensors-weight-merging) with the original distributed weights file offline, and then pass it in. There is no need to pass in the path of the source slicing strategy file.
 
 For more details, please refer to: [Resumable Training](https://www.mindspore.cn/mindformers/docs/en/dev/function/resume_training.html).
+
+## Weight Saving
+
+### Overview
+
+In the training process of deep learning models, saving the model weights is a crucial step. The weight saving function allows us to store the model parameters at any stage of training, so that users can restore, continue training, evaluate or deploy after training is interrupted or completed.  At the same time, by saving weights, experimental results can be reproduced in different environments.
+
+Currently, MindSpore TransFormer supports reading and saving weight files in the [safetensors](https://www.mindspore.cn/mindformers/docs/en/dev/function/safetensors.html) format.
+
+### Directory Structure
+
+During the training process, MindSpore Transformers will generate a weight saving folder: `checkpoint` in the output directory (same as training log, default is `./output`).
+
+If the configuration item `save_network_params:True` is set in yaml file, an additional weight saving folder `checkpoint_network` will be generated.
+
+| Folder             | Description                                                                                                                                                                              |
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| checkpoint         | Save model weights, optimizer state, step and epoch in safetensors files, which can be used to **restore training from breakpoints**.                                                    |
+| checkpoint_network | Only the model weight parameters are saved in the safetensors file, which is suitable for subsequent fine-tuning, reasoning, and evaluation. It does not support breakpoint continuation. |
+
+#### `checkpoint` directory structure
+
+Take an 8-rank task as an example, the weight files in the `output` folder are saved in the following format:
+
+```text
+output
+    ├── checkpoint
+        ├── rank_0
+            ├── meta.json
+            └── {prefix}-{epoch}_{step}.ckpt
+        ...
+        └── rank_7
+            ├── meta.json
+            └── {prefix}-{epoch}_{step}.ckpt
+    └──checkpoint_network
+        ├── rank_0
+            └── {prefix}-{epoch}_{step}.safetensors
+        ...
+        └── rank_7
+            └── {prefix}-{epoch}_{step}.safetensors
+```
+
+##### Weight-related file description
+
+| File                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| meta.json                           | Records the `epoch`, `step` and weight name of the last saved weight. Each rank process maintains a `meta.json` file independently.                                                                                                                                                                                                                                                                                                                     |
+| {prefix}-{epoch}_{step}.safetensors | The saved weight file, `prefix` contains rank_id information, and the format is `{prefix}-{epoch}_{step}.safetensors`. If a file with the same prefix already exists, the system will automatically increment the suffix. <br>When data sinking is enabled, the `epoch` position is calculated as $\frac{CurrentTotalStepNumber}{SinkSize} = \frac{((CurrentEpoch-1)*StepsPerEpoch+CurrentStepInEpoch)}{SinkSize}$, and `step` is fixed to `sink_size`. |
+
+### Configuration and Usage
+
+#### YAML Parameter Configuration
+
+Users can control the weight saving behavior by modifying the configuration file. The following are the main parameters:
+
+Users can modify the fields under `CheckpointMonitor` in the `yaml` configuration file to control the weight saving behavior.
+
+Taking [`DeepSeek-V3` pre-training yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L206) as an example, the following configuration can be made:
+
+```yaml
+# callbacks
+callbacks:
+  ...
+  - type: CheckpointMonitor
+    prefix: "deepseekv3"
+    save_checkpoint_steps: 1000
+    keep_checkpoint_max: 5
+    integrated_save: False
+    async_save: False
+    checkpoint_format: "safetensors"
+  ...
+```
+
+The meaning of this configuration is: save the safetensors weights every 1000 steps, store up to 5 weights at the same time,
+do not merge and save the split Tensor in parallel scenarios, and do not use asynchronous method to save weight files.
+
+##### Introduction to main configuration parameters
+
+The main parameters for saving weight configuration are listed in the following table:
+
+| Parameter             | Description                                                                                                                                                                       | Value Description                                                                                                                                                                                                                          |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| prefix                | The prefix of the model weight file, which can be used to refer to the model name.                                                                                                | (str, optional) - Default value: `"CKP"`.                                                                                                                                                                                                  |
+| save_checkpoint_steps | The number of training steps to save the weights.                                                                                                                                 | (int, optional) - Default value: `1`. If not set, the model weights will not be saved.                                                                                                                                                     |
+| keep_checkpoint_max   | The maximum number of weight files to save at the same time. When the upper limit is reached, the oldest weight file will be deleted when saving the weights.                     | (int, optional) - Default value: `5`. If not set, the number of weights in the folder will not be monitored and deleted.                                                                                                                   |
+| integrated_save       | Whether to merge and save the split Tensor in parallel scenarios. The merge save function is only supported in automatic parallel scenarios and not in manual parallel scenarios. | (bool, optional) - Default value: `False`                                                                                                                                                                                                  |
+| async_save            | Whether to save safetensors files asynchronously.                                                                                                                                 | (bool, optional) - `True` uses asynchronous threads by default, default value: `False`.                                                                                                                                                    |
+| checkpoint_format     | The format of the output file, which needs to be configured as `safetensors`.                                                                                                     | (str, optional) - The format in which the model weights are saved. Supports `"ckpt"` and `"safetensors"`. Default value: `ckpt`. (Note: The ckpt format will be sunset in subsequent versions, and the safetensors format is recommended.) |
+| remove_redundancy     | Whether to remove redundancy when saving model weights.                                                                                                                           | (bool, optional) - Default value: `False`.                                                                                                                                                                                                 |
+| save_network_params   | Whether to save only network parameters additionally.                                                                                                                             | (bool, optional) - Whether to save only network parameters additionally. Default value: `False`.                                                                                                                                           |
+
+If you want to learn more about CheckpointMonitor, you can follow the [CheckpointMonitor API Documentation](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.CheckpointMonitor.html).
