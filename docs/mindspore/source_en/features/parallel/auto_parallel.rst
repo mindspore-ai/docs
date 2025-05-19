@@ -99,7 +99,9 @@ The following figure illustrates an example process of applying Sharding Propaga
 Double Recursive Strategy Search Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The double recursive strategy search algorithm is based on Symbolic Automatic Parallel Planner (SAPP). The SAPP algorithm is able to instantly generate optimal strategy for huge networks and large-scale slicing. SAPP is modeled based on the principle of parallel, and describes the topology of hardware clusters by building an abstraction machine, and optimizes the cost model through symbolic simplicity. The cost model compares the relative costs of different parallel strategy rather than the predicted absolute delay, thus greatly compressing the search space and guaranteeing minute-level search times for 100-card clusters.
+The double recursive strategy search algorithm is based on Symbolic Automatic Parallel Planner (SAPP).
+The SAPP algorithm is able to quickly generate a communication-efficient strategy for huge neural networks.
+The cost model compares the relative costs of different parallel strategy rather than the predicted absolute delay, thus greatly compressing the search space and guaranteeing minute-level search times for 100-card clusters.
 
 .. note::
    Hardware platforms supported by the double recursive strategy search algorithm include Ascend, and need to run in Graph mode.
@@ -108,12 +110,13 @@ Related interfaces:
 
 ``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="recursive_programming")``: Set the parallel mode to auto-parallel and the search mode to a double recursive strategy search algorithm.
 
-No additional configuration is required for the double recursive strategy search algorithm, except for the ``AutoParallel`` above.
+For typical models, which have at least one operator for which recursive has a cost model (see list below), no additional configuration is required for the double recursive strategy search algorithm, except for the ``AutoParallel`` above.
+
 
 Basic Principles
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The double recursive strategy search algorithm is a fully automatic operator-level strategy search scheme, where the user does not need to configure the model in any way, and the algorithm automatically searches for parallel policies that minimize the communication cost.
+The double recursive strategy search algorithm is a fully automatic operator-level strategy search scheme, where the user does not need to configure a typical model in any way, and the algorithm automatically searches for parallel policies that minimize the communication cost.
 
 There are two core shortcomings of traditional automatic operator-level strategy search.
 
@@ -125,3 +128,23 @@ For the first problem, the double recursive strategy search algorithm summarizes
 For the second problem, the double recursive strategy search algorithm builds a symbolic cost model, whereas the cost model of the traditional approach focuses on how to accurately predict the absolute delay of different strategies. The cost model of the double recursive strategy search algorithm compares the relative cost of different strategies, and thus saves significantly the cost of profiling.
 
 Therefore, the double recursive strategy search algorithm is able to quickly generate optimal strategies for huge networks and large-scale cluster slicing. In summary, the double recursive strategy search algorithm is modeled based on the parallel principle, describes the hardware cluster topology by building an abstract machine, and simplifies the cost model by symbolization. Its cost model compares not the predicted absolute latency, but the relative cost of different parallel strategies, which can greatly compress the search space and guarantee minute-level search times for 100-card clusters.
+
+The double recursive algorithm works in two main phases:
+
+1. For operators which double recursive has a cost model, their parallel strategies is automatically generated
+2. Strategy propagation is then used to generate the strategies of other operators using previously generated strategies
+
+For double recursive to generate strategies, there must be at least one operator with a cost model in the network, or an initial strategy set by SAPP interfered.
+Otherwise the propagation can not generate strategies and all operators will have a replicated parallel strategy by default.
+
+The list of operators which have a cost model includes:
+
+- MatMul
+- BatchMatMul
+- Convolution (Conv2D, Conv2DTranspose)
+- Pooling ops (Pooling, MaxPool, MaxPoolV2)
+- BatchNorm
+- PReLU
+- UnsortedSegment ops (UnsortedSegmentSum, UnsortedSegmentMin, UnsortedSegmentMax)
+- SoftmaxCrossEntropyWithLogits
+- SparseSoftmaxCrossEntropyWithLogits
