@@ -230,14 +230,14 @@ The parameter layer3.input_mapping.bias's fusion id is 3
 The parameter layer3.output_mapping.weight's fusion id is 3
 The parameter layer3.output_mapping.bias's fusion id is 3
 ...
-epoch: 0, step: 0, loss is 2.3004832
-epoch: 0, step: 10, loss is 2.294562
-epoch: 0, step: 20, loss is 2.2642817
-epoch: 0, step: 30, loss is 2.1556587
-epoch: 0, step: 40, loss is 1.804863
-epoch: 0, step: 50, loss is 1.4092219
-epoch: 0, step: 60, loss is 1.231769
-epoch: 0, step: 70, loss is 1.1870081
+epoch: 0, step: 0, loss is 2.3243194
+epoch: 0, step: 10, loss is 2.2858932
+epoch: 0, step: 20, loss is 2.2636235
+epoch: 0, step: 30, loss is 2.146439
+epoch: 0, step: 40, loss is 1.8270943
+epoch: 0, step: 50, loss is 1.4588046
+epoch: 0, step: 60, loss is 1.2506982
+epoch: 0, step: 70, loss is 1.1127701
 ...
 ```
 
