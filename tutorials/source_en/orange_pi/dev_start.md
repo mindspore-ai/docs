@@ -10,7 +10,7 @@ After obtaining the OrangePi AIpro development board, developers first need to c
 
 | OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
 | :----:| :----: | :----:| :----: |
-| 8T 16G | Ubuntu | 8.0.0beta1| 2.5.0 |
+| 8T 16G/20T 24G | Ubuntu | 8.0.0beta1| 2.5.0 |
 
 ### Image Burning
 
@@ -28,7 +28,6 @@ Please refer to [MindSpore Upgrading](https://www.mindspore.cn/tutorials/en/r2.6
 import mindspore
 from mindspore import mint
 from mindspore.nn import Cell, SGD
-from mindspore.mint import nn
 from mindspore.dataset import vision, transforms
 from mindspore.dataset import MnistDataset
 ```
@@ -147,10 +146,10 @@ class Network(Cell):
     def __init__(self):
         super().__init__()
         self.flatten = mint.flatten
-        self.dense1 = nn.Linear(28*28, 512, dtype=mindspore.float16)
-        self.dense2 = nn.Linear(512, 512, dtype=mindspore.float16)
-        self.dense3 = nn.Linear(512, 10, dtype=mindspore.float16)
-        self.relu = nn.ReLU()
+        self.dense1 = mint.nn.Linear(28*28, 512, dtype=mindspore.float16)
+        self.dense2 = mint.nn.Linear(512, 512, dtype=mindspore.float16)
+        self.dense3 = mint.nn.Linear(512, 10, dtype=mindspore.float16)
+        self.relu = mint.nn.ReLU()
 
     def construct(self, x):
         x = self.flatten(x, start_dim=1)
@@ -190,7 +189,7 @@ MindSpore uses a functional automatic differentiation mechanism, so for the abov
 
 ```python
 # Instantiate loss function and optimizer
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = mint.nn.CrossEntropyLoss()
 optimizer = SGD(model.trainable_params(), 1e-2)
 
 # 1. Define forward function
@@ -368,4 +367,4 @@ The required environment for the operation of this case:
 
 | OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
 | :----:| :----: | :----:| :----: |
-| 8T 16G | Ubuntu | 8.0.0beta1| 2.5.0 |
+| 8T 16G/20T 24G | Ubuntu | 8.0.0beta1| 2.5.0 |
