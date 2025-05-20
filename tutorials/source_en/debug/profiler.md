@@ -199,6 +199,10 @@ After collecting performance data, the original data will be stored according to
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler interface parses performance data
     │   ├── api_statistic.csv          // Generated when profiler_level= profilerlevel.Level 0 or Level1 or Level2
     │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, the performance file of the text type is not generated
+    │   ├── pcie.csv                   // Generated when sys_interconnection=True is set in the _ExperimentalConfig interface; records PCIe data
+    │   ├── hccs.csv                   // Generated when sys_interconnection=True is set in the _ExperimentalConfig interface; records collective communication bandwidth data (HCCS)
+    │   ├── nic.csv                    // Generated when sys_io=True is set in the _ExperimentalConfig interface; records NIC data
+    │   ├── roce.csv                   // Generated when sys_io=True is set in the _ExperimentalConfig interface; records RoCE data
     │   ├── communication_analyzer.db    // Record communication time and bandwidth information, and configure ExportType.Db generation in export_type of the _ExperimentalConfig interface. If ExportType.Text is not configured at the same time, the performance file of the text type is not generated
     │   ├── communication.json         // Provides visualization data for performance analysis in multi-card or cluster scenarios, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
     │   ├── communication_matrix.json  // It provides a visual data basis for performance analysis of communication scenarios such as multi-card or cluster, and contains basic information about communication small operators. Communication small operator basic information file, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
