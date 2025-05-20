@@ -1,0 +1,16 @@
+# dataset
+train_dataset:
+  data_loader:
+    type: CommonDataLoader
+    shuffle: False
+    split: "train"
+    load_func: "load_from_disk"
+    path: /path/to/handled_data
+    packing: pack
+    handler:
+      - type: PackingHandler
+        seq_length: 8192
+        pad_token: 151643
+        output_columns: ["input_ids", "labels", "actual_seq_len"]
+    adaptor_config:
+      compress_mask: False

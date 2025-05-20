@@ -1,0 +1,174 @@
+seed: 42
+output_dir: './output'
+load_checkpoint: "/path/to/Qwen2.5-Math-7B-Instruct"
+load_ckpt_format: 'safetensors'
+auto_trans_ckpt: True
+only_save_strategy: False
+resume_training: False
+run_mode: 'finetune'
+
+
+trainer:
+  type: CausalLanguageModelingTrainer
+  model_name: 'qwen2_5_7b'
+
+
+runner_config:
+  epochs: 3
+  batch_size: 1
+  sink_mode: True
+  sink_size: 1
+  
+
+
+runner_wrapper:
+  type: MFTrainOneStepCell
+  scale_sense:
+    type: DynamicLossScaleUpdateCell
+    loss_scale_value: 4096
+    scale_factor: 1
+    scale_window: 100000
+  use_clip_grad: True
+  max_grad_norm: 1.0
+
+
+optimizer:
+  type: AdamW
+  betas: [0.9, 0.95]
+  eps: 1.e-8
+  learning_rate: 1.e-6
+  weight_decay: 0.01
+
+
+lr_schedule:
+  type: LinearWithWarmUpLR
+  learning_rate: 5.0e-05
+  warmup_ratio: 0.1
+  total_steps: -1
+
+
+train_dataset: &train_dataset
+  input_columns: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+  construct_args_key: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+  divisor: 32
+  remainder: 1
+  dynamic_batch: False
+  pad_token_id: 151643
+  drop_remainder: True
+  numa_enable: False
+  prefetch_size: 1
+  data_loader:
+    type: CommonDataLoader
+    shuffle: False
+    split: "train"
+    load_func: "load_from_disk"
+    path: /path/to/packed_data
+    packing: pack
+    adaptor_config:
+      compress_mask: &compress False
+train_dataset_task:
+  type: CausalLanguageModelDataset
+  dataset_config: *train_dataset
+
+use_parallel: True
+
+parallel_config:
+  data_parallel: &dp 1
+  model_parallel: 4
+  pipeline_stage: 1
+  context_parallel: 2
+  context_parallel_algo: hybrid_cp
+  use_seq_parallel: True
+  micro_batch_num: 4
+  vocab_emb_dp: False
+  gradient_aggregation_group: 4
+micro_batch_interleave_num: 1
+
+parallel:
+  parallel_mode: 1
+  gradients_mean: False
+  enable_alltoall: False
+  full_batch: True
+  search_mode: "sharding_propagation"
+  strategy_ckpt_save_file: "./ckpt_strategy.ckpt"
+  enable_parallel_optimizer: True
+  parallel_optimizer_config:
+    gradient_accumulation_shard: False
+    parallel_optimizer_threshold: 64
+
+recompute_config:
+  recompute: False
+  select_recompute: False
+  parallel_optimizer_comm_recompute: False
+  mp_comm_recompute: False
+  recompute_slice_activation: False
+
+callbacks:
+  - type: MFLossMonitor
+  - type: CheckpointMonitor
+    prefix: "qwen2"
+    save_checkpoint_steps: 5000
+    keep_checkpoint_max: 1
+    integrated_save: False
+    async_save: False
+    checkpoint_format: safetensors
+
+context:
+  mode: 0 
+  device_target: "Ascend"
+  max_call_depth: 10000
+  max_device_memory: "59GB"
+  mempool_block_size: "59GB"
+  save_graphs: False
+  save_graphs_path: "./graph"
+  device_id: 0
+  memory_optimize_level: "O1"
+  jit_config:
+    jit_level: "O1"
+  ascend_config:
+    precision_mode: "must_keep_origin_dtype"
+
+model:
+  model_config:
+    use_eod_attn_mask_compression: *compress
+    input_sliced_sig: True
+    type: LlamaConfig
+    batch_size: 1
+    seq_length: 32768
+    hidden_size: 3584
+    num_layers: 28
+    num_heads: 28
+    n_kv_heads: 4
+    vocab_size: 152064
+    intermediate_size: 18944
+    qkv_has_bias: True
+    rms_norm_eps: 1.0e-6
+    theta: 300000.0
+    max_position_embedding: 131072
+    emb_dropout_prob: 0.0
+    eos_token_id: 151643
+    pad_token_id: 151643
+    bos_token_id: 151643
+    compute_dtype: "bfloat16"
+    layernorm_compute_type: "float32"
+    softmax_compute_type: "float32"
+    rotary_dtype: "float32"
+    param_init_type: "float32"
+    use_past: False
+    use_flash_attention: True
+    use_attn_mask_compression: False 
+    use_ring_attention: False
+    use_past_shard: False
+    offset: 0
+    repetition_penalty: 1.05
+    max_decode_length: 1024
+    top_k: 0
+    top_p: 0.8
+    do_sample: False
+    extend_method: "None" 
+    qkv_concat: False
+    rotary_pct: 1.0
+    rotary_emb_base: 1000000
+    is_dynamic: False
+  arch:
+    type: LlamaForCausalLM
