@@ -22,6 +22,7 @@ monitor_config:
     invert: False
     step_interval: 1
     local_loss_format: ['log', 'tensorboard']
+    device_local_loss_format: ['log', 'tensorboard']
     local_norm_format: ['log', 'tensorboard']
     device_local_norm_format: ['log', 'tensorboard']
     optimizer_state_format: null
@@ -43,11 +44,12 @@ callbacks:
 | monitor_config field parameter name                    | Descriptions                                                                                       | Types            |
 |-----------------------------------------|------------------------------------------------------------------------------------------|---------------|
 | monitor_config.monitor_on               | Sets whether monitoring is enabled. The default is `False`, when all the following parameters do not take effect                                                          | bool          |
-| monitor_config.dump_path                | Sets the path where the `local_norm`, `device_local_norm`, and `local_loss` metrics files are saved during training. When not set or set to `null` take the default value '. /dump' | str           |
+| monitor_config.dump_path                | Sets the path where the `local_norm`, `device_local_norm`, `local_loss`, and `device_local_loss` metrics files are saved during training. When not set or set to `null` take the default value '. /dump' | str           |
 | monitor_config.target                   | Sets the name (fragment) of the target parameter monitored by the indicator `optimizer_state` and `local_norm`, which can be a regular expression. When not set or set to `null` take the default value ['. *'], i.e. specify all parameters        | list[str]     |
 | monitor_config.invert                   | Sets the parameter specified by counterselecting `monitor_config.target`. Defaults to `False`.                                             | bool          |
 | monitor_config.step_interval            | Sets the frequency of logging the indicator. Default is 1, i.e., record once per step                                                               | int           |
 | monitor_config.local_loss_format        | Sets the logging form of the indicator `local_loss`                                                                    | str or list[str] |
+| monitor_config.device_local_loss_format | Sets the logging form of the indicator `device_local_loss`                            | str or list[str] |
 | monitor_config.local_norm_format        | Sets the logging form of the indicator `local_norm`                                         | str or list[str] |
 | monitor_config.device_local_norm_format | Sets the logging form of the indicator `device_local_norm`                            | str or list[str] |
 | monitor_config.optimizer_state_format   | Sets the logging form of the indicator `optimizer_state`                                           | str or list[str] |
@@ -126,6 +128,7 @@ The names and descriptions of the metrics monitored by `TrainingStateMonitor` ar
 | local_norm           | Gradient paradigm for each parameter on a single card, records need to set `local_norm_format` to non-null    |
 | device_local_norm    | the total number of gradient paradigms on a single card, records need to set `device_local_norm_format` to non-null    |
 | local_loss           | localized losses on a single card, records need to set `local_loss_format` to non-null           |
+| device_accum_local_loss    | the sum of localized losses on a single card, records need to set `device_local_loss_format` to non-null    |
 | adam_m_norm          | The optimizer's first-order moments estimate the number of paradigms for each parameter, records need to set `optimizer_state_format` to non-null |
 | adam_v_norm          | The optimizer's second-order moments estimate the number of paradigms for each parameter, records need to set `optimizer_state_format` to non-null |
 | weight_norm          | weight L2 paradigm, records need to set `weight_state_format` to non-null            |

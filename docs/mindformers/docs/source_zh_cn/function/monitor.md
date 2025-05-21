@@ -22,6 +22,7 @@ monitor_config:
     invert: False
     step_interval: 1
     local_loss_format: ['log', 'tensorboard']
+    device_local_loss_format: ['log', 'tensorboard']
     local_norm_format: ['log', 'tensorboard']
     device_local_norm_format: ['log', 'tensorboard']
     optimizer_state_format: null
@@ -43,11 +44,12 @@ callbacks:
 | monitor_config字段参数名称                    | 说明                                                                                       | 类型            |
 |-----------------------------------------|------------------------------------------------------------------------------------------|---------------|
 | monitor_config.monitor_on               | 设置是否开启监控。默认为`False`，此时以下所有参数不生效                                                          | bool          |
-| monitor_config.dump_path                | 设置训练过程中`local_norm`、`device_local_norm`、`local_loss`指标文件的保存路径。未设置或设置为`null`时取默认值'./dump' | str           |
+| monitor_config.dump_path                | 设置训练过程中`local_norm`、`device_local_norm`、`local_loss`、`device_local_loss`指标文件的保存路径。未设置或设置为`null`时取默认值'./dump' | str           |
 | monitor_config.target                   | 设置指标`优化器状态`和`local_norm`所监控的的目标参数的名称（片段），可为正则表达式。未设置或设置为`null`时取默认值['.*']，即指定所有参数        | list[str]     |
 | monitor_config.invert                   | 设置反选`monitor_config.target`所指定的参数。默认为`False`                                             | bool          |
 | monitor_config.step_interval            | 设置记录指标的频率。默认为1，即每个step记录一次                                                               | int           |
 | monitor_config.local_loss_format        | 设置指标`local_loss`的记录形式                                                                    | str或list[str] |
+| monitor_config.device_local_loss_format | 设置指标`device_local_loss`的记录形式                                                             | str或list[str] |
 | monitor_config.local_norm_format        | 设置指标`local_norm`的记录形式                                                                    | str或list[str] |
 | monitor_config.device_local_norm_format | 设置指标`device_local_norm`的记录形式                                                             | str或list[str] |
 | monitor_config.optimizer_state_format   | 设置指标`优化器状态`的记录形式                                                                         | str或list[str] |
@@ -126,6 +128,7 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 | local_norm           | 单卡上各参数的梯度范数，记录需要设置`local_norm_format`非null    |
 | device_local_norm    | 单卡上的总梯度范数，记录需要设置`device_local_norm_format`非null    |
 | local_loss           | 单卡上的局部损失，记录需要设置`local_loss_format`非null            |
+| device_accum_local_loss| 单卡上的总局部损失，记录需要设置`device_local_loss_format`非null    |
 | adam_m_norm          | 优化器一阶矩估计各参数的范数，记录需要设置`optimizer_state_format`非null |
 | adam_v_norm          | 优化器二阶矩估计各参数的范数，记录需要设置`optimizer_state_format`非null |
 | weight_norm          | 权重L2范数，记录需要设置`weight_state_format`非null            |
