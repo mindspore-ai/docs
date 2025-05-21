@@ -169,10 +169,10 @@ cd -
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.6.0rc1版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.6.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.6.0rc1
+export MS_VERSION=2.6.0
 ```
 
 然后根据CUDA版本及Python版本执行如下命令安装最新版本的MindSpore。
