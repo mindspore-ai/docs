@@ -367,6 +367,14 @@ Graph Compilation and Execution
        No setting or use other value: Multi-thread launching is enabled for operator in PyNative mode.
      -
 
+   * - MS_DEV_TENSOR_INDEX_BOOST
+     - Specify whether to enable Tensor index optimization for graph compilation. When Tensor index optimization is enabled, the Tensor index will be implemented using view operators and inplace operators to improve the execution efficiency.
+     - Integer
+     - 1: Enable Tensor index optimization.
+
+       No setting or other value: Disable Tensor index optimization.
+     - Used only in the Ascend AI processor environment when the graph compilation level is O0 or O1. Experimental environment variables.
+
 Dump Debugging
 ---------------
 
