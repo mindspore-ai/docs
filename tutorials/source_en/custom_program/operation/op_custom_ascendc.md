@@ -16,7 +16,7 @@ This chapter aims to help developers fully understand and master the entire life
 
 The Ascend platform provides comprehensive tutorials for Ascend C operator development, helping developers to deeply understand and implement custom operators. The following are key development steps and resource links:
 
-**Basic Tutorial**: Visit [Ascend C Operator Development](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) to obtain introductory knowledge.
+**Basic Tutorial**: Visit [Ascend C Operator Development](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html) and [Ascend C API List](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/apiref/ascendcopapi/atlasascendc_api_07_0003.html) to get started.
 
 **Operator Implementation**: Learn about [Custom Operator Development Based on Custom Operator Projects](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0006.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) to quickly understand the end-to-end process of custom operator development, with a focus on the implementation on the kernel side and the host side.
 
@@ -85,102 +85,347 @@ If you have already completed the compilation and deployment of the custom opera
 
 ## Using Custom Operators in MindSpore
 
+MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.Custom.html). Detailed interface instructions can be found at [ops.Custom](https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.Custom.html). This article focuses on how to use [ops.Custom](https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.Custom.html) to access Ascend C custom operators.
+
 ### Environment Preparation
 
-Before you begin, please make sure that the development, compilation, and deployment of Ascend C custom operators have been completed. You can prepare the usage environment by installing the custom operator package or setting environment variables.
+Before you start, please ensure that you have completed the development, compilation, and deployment of Ascend C custom operators. You can prepare the environment by installing the custom operator package or setting the environment variable `ASCEND_CUSTOM_OPP_PATH`.
 
-### Using Custom Operators
-
-The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.Custom.html). When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the infer function, there are two ways to use it:
-
-- **Python infer**: If the infer function of an operator is implemented in Python, that is, the infer shape function is passed through the `out_shape` parameter, and the infer type function is passed through the `out_dtype` parameter, then the `func` should be specified as the operator name, for example, `func="CustomName"`.
-- **C++ infer**: If the operator's infer function is implemented through C++, then pass the path of the infer function implementation file in `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:AddCustom"`
-
-**Usage Example**:
+### Parameter Description
 
 ```python
-class AddCustomNet(Cell):
-    def __init__(self, func, out_shape, out_dtype):
-        super(AddCustomNet, self).__init__()
-        reg_info = CustomRegOp("AddCustom") \
-            .input(0, "x", "required") \
-            .input(1, "y", "required") \
-            .output(0, "z", "required") \
-            .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default) \
-            .target("Ascend") \
-            .get_op_info()
+ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, reg_info=None)
+```
 
-        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=out_dtype, func_type="aot", bprop=None,
-                                     reg_info=reg_info)
+- `func`(str): Name of the custom operator.
+- `out_shape`(Union[function, list, tuple])：Output shape or shape inference function. Default value: `None`.
+- `out_dtype` (Union[function, [mindspore.dtype](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.dtype.html#mindspore.dtype), list, tuple])：Output type or type inference function. Default value: `None`.
+- `func_type`(str)：Function type of the custom operator. For Ascend C custom operators, specify `func_type="aot"`.
+- `bprop`(function)：Backpropagation function for the custom operator. Default value: `None`.
+- `reg_info`(Union[str, dict, list, tuple])：Registration information for the custom operator. Default value: `None`. Ascend C custom operators do not need to pass this parameter and can use the default value.
 
-    def construct(self, x, y):
-        res = self.custom_add(x, y)
+**Scenario Limitations**： Currently, dynamic graphs and static graphs in O2 mode only support input and output of Tensor types. Static graphs in O0/O1 modes have no type restrictions. For dynamic graph scenarios with Ascend C custom operators, it is recommended to use [Custom Operators for Dynamic Graph Scenarios](https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/op_custom_pyboost.html).
+
+### Simple Example
+
+Through the above parameter description, when using Ascend C custom operators, it is necessary to focus on three core parameters: `func`, `out_shape`, and `out_dtype`. Below is a simple example to help users intuitively understand the usage of Ascend C custom operators in the MindSpore framework.
+
+First, define the custom operator using the `ops.Custom` primitive and pass the required parameters. The operator name `func` is specified as `aclnnCast`, `out_shape` is passed a shape inference function implemented via a lambda function, and the output shape of this operator is the same as the shape of the first input. `out_dtype` is directly specified as MindSpore's built-in data type `mstype.float32`. The implementation of `out_shape` and `out_dtype` will be detailed in subsequent sections. After defining the custom operator, use it by passing all valid inputs to the operator. For example, in the use case's construct, call `self.custom_cast` and pass two parameters: the original data x (Tensor) and the target data type dst_type (mindspore.dtype).
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore.nn import Cell
+import mindspore.ops as ops
+from mindspore import context, Tensor, jit
+import mindspore.common.dtype as mstype
+
+
+class CustomNet(Cell):
+    def __init__(self):
+        super(CustomNet, self).__init__()
+
+        self.custom_cast = ops.Custom(func="aclnnCast", out_shape=lambda x, dst_type: x,
+                                      out_dtype=mstype.float32,
+                                      func_type="aot",
+                                      bprop=None, reg_info=None)
+
+    jit(backend="ms_backend")
+    def construct(self, x, dst_type):
+        res = self.custom_cast(x, dst_type)
         return res
 
-mindspore.set_context(jit_config={"jit_level": "O0"})
-mindspore.set_device("Ascend")
-x = np.ones([8, 2048]).astype(np.float16)
-y = np.ones([8, 2048]).astype(np.float16)
 
-# # Implement the infer function through lambda
-net = AddCustomNet("AddCustom", lambda x, _: x, lambda x, _: x)
+context.set_context(mode=ms.GRAPH_MODE)
 
-# Use C++ to implement infer shape and infer type, pass the path of the infer function in the func
-net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None, None)
+x = np.random.randn(1280, 1280).astype(np.float16)
+net = CustomNet()
+output = net(ms.Tensor(x), mstype.float32)
+assert output.asnumpy().dtype == 'float32'
+assert output.asnumpy().shape == (1280, 1280)
 ```
 
-**C++ implementation Examples of Infer Shape and Infer Type**
-
-```cpp
-#include <vector>
-#include <stdint.h>
-#include "custom_aot_extra.h"
-enum TypeId : int {};
-
-extern "C" std::vector<int64_t> AddCustomInferShape(int *ndims, int64_t **shapes, AotExtra *extra) {
-  std::vector<int64_t> output_shape;
-  auto input0_size = ndims[0];
-  for (size_t i = 0; i < input0_size; i++) {
-    output_shape.push_back(shapes[0][i]);
-  }
-  return output_shape;
-}
-
-extern "C" TypeId MulInferType(std::vector<TypeId> type_ids, AotExtra *extra) { return type_ids[0]; }
-```
-
-For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/br_base/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
+You can view the [custom operator test cases](https://gitee.com/mindspore/mindspore/tree/br_base/tests/st/graph_kernel/custom/custom_ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
 
 ```text
 .
-├── compile_utils.py                // Custom operator compilation common file
+├── compile_utils.py                // Custom operator compilation utility file
 ├── infer_file
-│   ├── custom_cpp_infer.cc         // Custom operator C++ side infer shape and infer type
-│   └── custom_aot_extra.h          // Custom operator infer shape compilation dependency header file
+│   ├── custom_cpp_infer.cc         // C++-side infer shape and infer type file for custom operators
+│   └── custom_aot_extra.h          // Header file dependency for custom operator infer shape compilation
 ├── op_host                         // Custom operator source code op_host
 │   ├── add_custom.cpp
 │   └── add_custom_tiling.h
 ├── op_kernel                       // Custom operator source code op_kernel
 │   └── add_custom.cpp
 ├── test_compile_custom.py          // Custom operator compilation test case
-├── test_custom_aclnn.py            // Custom operator usage example
-├── test_custom_aclop.py            // Custom operator aclop usage example
-├── test_custom_ascendc.py         // Custom operator startup script, including compilation and execution, end-to-end process
-└── test_custom_level0.py           // A simple example of using the Custom interface, which can serve as an entry point for reading
+├── test_custom_aclnn.py            // Custom operator usage sample
+├── test_custom_ascendc.py          // Custom operator startup script, including compilation and execution end-to-end process
+├── test_custom_level0.py           // Custom operator combination scenario simple example
+├── test_custom_multi_output.py     // Custom operator multi-output scenario usage example
+├── test_custom_multi_type.py       // Custom operator different input types usage example, can be used as a reading entry point
+├── test_custom_tensor_list.py      // Custom operator dynamic input/output usage example
+└── test_custom_utils.py            // Internal test file
 ```
+
+### Infer Shape/Type
+
+To determine the type and size of the custom operator's output, pass the operator's shape and type through the `out_shape` and `out_dtype` parameters. These two parameters usually need to be inferred. Users can pass in determined shapes and types or use functions to infer the output shape and type. This section mainly explains how to infer the output shape and type through functions.
+
+**Note**
+
+- There are two ways to implement shape and type inference functions: Python-side and C++-side.
+- Python-side inference is more user-friendly, but in dynamic graph scenarios, C++-side inference offers higher performance.
+- For dynamic shape and value-dependent scenarios, shape inference can only be performed on the C++ side.
+
+#### Python-side Infer Shape/Type
+
+The input to the inference function is the shape or type of the custom operator's input, and the output is the inference result, i.e., the output shape or type. Below are some examples of inference functions.
+
+- Infer function for scenarios where the output type and shape are the same as the input.
+
+   ```python
+   from mindspore import ops
+
+
+   # The Add operator has two inputs, and the output shape is the same as the input shape
+   def add_infer_shape(x, _):
+       return x
+
+
+   # The Add operator has two inputs, and the output type is the same as the input type
+   def add_infer_type(x, _):
+       return x
+
+
+   # Define the custom operator
+   custom_add = ops.Custom(func="aclnnAdd", out_shape=add_infer_shape, out_dtype=add_infer_type, func_type="aot")
+
+   # For simple infer shape or infer type, you can also use a lambda function directly
+   custom_add = ops.Custom(func="aclnnAdd", out_shape=lambda x, y: x, out_dtype=lambda x, y: x, func_type="aot")
+   ```
+
+- Infer function for scenarios where the output shape is calculated based on the input shape.
+
+   ```python
+   from mindspore import ops
+   import mindspore.common.dtype as mstype
+
+
+   # The output shape of the operator is calculated based on the input shape, and the output is of tuple type
+   def msda_infer_shape_1(v_s, vss_v, vlsi_s, sl_s, aw_s):
+       return [v_s[0], sl_s[1], v_s[2] * v_s[3]]
+
+
+   # The output shape of the operator is calculated based on the input shape, and the output is of list type
+   def msda_infer_shape_2(v_s, vss_v, vlsi_s, sl_s, aw_s):
+       return (v_s[0], sl_s[1], v_s[2] * v_s[3])
+
+
+   # Output shape is inferred through a regular function, and the output type is directly specified
+   custom_msda = ops.Custom(func="aclnnMultiScaleDeformableAttn", out_shape=msda_infer_shape_1,
+                            out_dtype=mstype.float32, func_type="aot")
+
+   # Output shape and type are inferred through a lambda function
+   custom_msda = ops.Custom(func="aclnnMultiScaleDeformableAttn",
+                            out_shape=lambda v_s, vss_s, vlsi_s, sl_s, aw_s: (v_s[0], sl_s[1], v_s[2] * v_s[3]),
+                            out_dtype=lambda v_s, vss_s, vlsi_s, sl_s, aw_s: v_s, func_type="aot")
+   ```
+
+- Infer function for multi-output and dynamic output scenarios.
+
+   ```python
+   from mindspore import ops
+   import mindspore.dtype as mstype
+
+
+   def msda_grad_infer_shape_1(v_s, vss_s, vlsi_s, sl_s, aw_s, go_s):
+       out1 = v_s
+       out2 = sl_s
+       out3 = [sl_s[0],
+               sl_s[1],
+               sl_s[2],
+               sl_s[3],
+               sl_s[4]]
+       return [out1, out2, out3]
+
+
+   def msda_grad_infer_shape_2(v_s, vss_s, vlsi_s, sl_s, aw_s, go_s):
+       out1 = v_s
+       out2 = sl_s
+       out3 = [sl_s[0],
+               sl_s[1],
+               sl_s[2],
+               sl_s[3],
+               sl_s[4]]
+       return (out1, out2, out3)
+
+
+   custom_msda_grad = ops.Custom(
+       func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_1,
+       out_dtype=[mstype.float32, mstype.float32, mstype.float32],
+       func_type="aot")
+
+   custom_msda_grad = ops.Custom(
+       func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_2,
+       out_dtype=(mstype.float32, mstype.float32, mstype.float32),
+       func_type="aot")
+
+   ```
 
 **Precautions**
 
-1. **Name Consistency**: The operator name used in the registration information must be exactly the same as the name passed in the `func` parameter of `ops.Custom`.
+- In the infer shape function, avoid changing the type of the shape value during the calculation process to ensure it remains of type int. For example, division operations may result in float values, which can cause shape conversion failures.
+- In multi-output and dynamic output scenarios, if both shape and type are inferred on the Python side, ensure that the return types of both are consistent, either both being lists or both being tuples.
 
-2. **Input/Output Name Matching**: The names of the input and output parameters defined in the registration information must be exactly the same as those defined in the source code.
+#### C++-side Infer Shape/Type
 
-3. **Specification Consistency**: The specifications supported in the registration information must also match those defined in the source code.
+If using a C++ inference function, set the parameter `func` to the combination of the inference function file path and the operator name, separated by a colon. When defining the operator, set `out_shape` or `out_dtype` to `None`.
 
-### Further Reading
+```python
+# The shape and type inference functions are implemented in the ./infer_file/add_custom_infer.cc file
+ops.Custom(func="./infer_file/add_custom_infer.cc:AddCustom", out_shape=None, out_dtype=None, func_type="aot")
 
-- **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/op_custom_adv.html).
-- **AOT Custom Operators**: For the implementation of shape and type inference functions in C++, as well as the advanced usage of AOT custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/op_custom_aot.html).
+# The shape inference function is implemented in the ./infer_file/add_custom_infer.cc file, and the type inference function is implemented via a lambda function on the Python side
+ops.Custom(func="./infer_file/add_custom_infer.cc:AddCustom", out_shape=None, out_dtype=lambda x, y: x, func_type="aot")
+```
+
+**Infer Shape Function Prototype**
+
+```cpp
+extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes, AotExtra *extra)
+
+extern "C" std::vector<std::vector<int64_t>> FuncNameInferShape(int *ndims, int64_t **shapes, AotExtra *extra)
+```
+
+Here, the function name `FuncName` is the operator name. For single-output, the return type is `std::vector<int64_t>`. For multi-output or dynamic output, the return type is `std::vector<std::vector<int64_t>>`, which represents the output shape. The parameter list is as follows:
+
+- ndims (int \*): Array of input shape dimensions.
+- shapes (int64_t \*\*): Array of input shapes.
+- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/br_base/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h).
+
+**Infer Type Function Prototype**
+
+```cpp
+extern "C" TypeId FuncNameInferType(std::vector<TypeId> type_ids, AotExtra *extra)
+
+extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, AotExtra *extra)
+```
+
+Here, the function name `FuncName` is the operator name. For single-output, the return type is `TypeId`. For multi-output and dynamic output, the return type is `std::vector<TypeId>`, which represents the output type. The parameter list is as follows:
+
+- type_ids (std::vector<TypeId>): Array of input TypeId.
+- extra (AotExtra \*): Used for extending custom operators with attributes, consistent with the parameters of the shape inference function.
+
+**C++ Inference Function Sample**
+
+- Inference of output shape and type through input shape and type.
+
+   C++ inference function file add_infer.cc
+
+   ```cpp
+   #include <vector>
+   #include <stdint.h>
+   #include "custom_aot_extra.h"
+   enum TypeId : int {
+   };
+
+   extern "C" std::vector<int64_t> aclnnAddInferShape(int *ndims, int64_t **shapes, AotExtra *extra) {
+      std::vector<int64_t> output_shape;
+      // Get the size of the shape of the 0th input
+      auto input0_size = ndims[0];
+      // The output shape is the same as the size of the shape of the 0th input
+      for (size_t i = 0; i < input0_size; i++) {
+      output_shape.push_back(shapes[0][i]);
+      }
+      return output_shape;
+   }
+
+   extern "C" TypeId aclnnAddInferType(std::vector<TypeId> type_ids, AotExtra *extra) {
+      // The output type is the same as the type of the 0th input
+      return type_ids[0];
+   }
+   ```
+
+   Custom operator script file custom.py
+
+   ```python
+   # Define the custom operator, pass the path of the C++ inference function to func, and set out_shape and out_dtype parameters to None
+   custom_add = ops.Custom(func="./add_infer.cc:aclnnAdd", out_shape=None, out_dtype=None, func_type="aot")
+   ```
+
+- Scenario where output shape depends on specific values.
+
+   In cases where the output shape depends on specific values rather than just the input shape, the current parameters of both Python-side and C++-side inference interfaces are the input shapes. To obtain specific values, you can use the `add_prim_attr` interface to set the values as attributes of the custom operator's primitive. During C++ inference shape, the value can be obtained through the `extra` parameter. Below is an example of output shape depending on specific values.
+
+   C++ inference function file moe_infer.cc
+
+   ```cpp
+   #include <vector>
+   #include <stdint.h>
+   #include "custom_aot_extra.h"
+   extern "C" std::vector<std::vector<int64_t>> MoeSoftMaxTopkInferShape(int *ndims, int64_t **shapes, AotExtra *extra) {
+      std::vector<std::vector<int64_t>> res_output_shape;
+      std::vector<int64_t> out1_shape;
+      // The 0th dimension of the output shape is the same as the 0th dimension of the 0th input
+      out1_shape.emplace_back(shapes[0][0]);
+      // The 1st dimension of the output shape is obtained from the attribute value
+      out1_shape.emplace_back(extra->Attr<int64_t>("attr_k"));
+      // The operator has two outputs with the same shape
+      res_output_shape.emplace_back(out1_shape);
+      res_output_shape.emplace_back(out1_shape);
+      return res_output_shape;
+   }
+   ```
+
+   Custom operator script file custom.py
+
+   ```python
+   moe_softmax_topk_custom = ops.Custom(func="./infer_file/moe_infer.cc:MoeSoftMaxTopk", out_shape=None,
+                                        out_dtype=[mstype.float32, mstype.int32], func_type="aot")
+   # Add the dependent value to the attributes, which can be obtained through the attributes during the infer stage
+   moe_softmax_topk_custom.add_prim_attr("attr_k", 2)
+   ```
+
+- Scenario with dynamic input (TensorList)
+
+   If the input is a TensorList, since the infer interface parameters are Tensor shapes, the framework will expand the TensorList. In the infer shape function, ensure correct indexing. For example, the infer shape function of the Concat operator is as follows.
+
+   C++ inference function file concat_infer.cc
+
+   ```cpp
+   #include <vector>
+   #include <stdint.h>
+   #include "custom_aot_extra.h"
+   extern "C" std::vector<int64_t> aclnnCatInferShape(int *ndims, int64_t **shapes, AotExtra *extra) {
+     std::vector<int64_t> output_shape;
+     auto input0_size = ndims[0];
+     auto axis = extra->Attr<int64_t>("attr_axis");
+     for (size_t i = 0; i < input0_size; i++) {
+         if(i==axis){
+             output_shape[i] = shapes[0][i] + shapes[1][i];
+         }else{
+            output_shape.emplace_back(shapes[0][i]);  
+         }
+     }
+     return output_shape;
+   }
+   ```
+
+  Custom operator script file custom.py
+
+   ```python
+   class CustomNetConcat(Cell):
+       def __init__(self):
+           self.axis = 1
+           self.custom_concat = ops.Custom(func="./infer_file/concat_infer.cc:aclnnCat", out_shape=None,
+                                           out_dtype=lambda x, _: x[0], func_type="aot")
+           self.custom_concat.add_prim_attr("attr_axis", self.axis)
+
+       def construct(self, x1, x2):
+           res = self.concat((x1, x2), self.axis)
+           return res
+   ```
 
 ## Common Issues
 
