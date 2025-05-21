@@ -3,6 +3,7 @@
 <!-- TOC -->
 
 - [发布版本列表](#发布版本列表)
+    - [2.6.0](#260)
     - [2.6.0-rc1](#260-rc1)
     - [2.5.0](#250)
     - [2.4.10](#2410)
@@ -59,6 +60,32 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_zh_cn.md)
 
+## 2.6.0
+
+| 组件        | 硬件平台          | 操作系统          | Python版本   | 链接                                                                                                                                                                                        | SHA-256                                                          |
+|-----------|---------------|---------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| MindSpore | Ascend<br>CPU | Linux-aarch64 | Python3.9  | [mindspore-2.6.0-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/unified/aarch64/mindspore-2.6.0-cp39-cp39-linux_aarch64.whl)            | f496de26a28ea6cd6e63dc86aeb2cf455fba3304658779d03cb7689e5f6a1aac |
+|           |               |               | Python3.10 | [mindspore-2.6.0-cp310-cp310-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/unified/aarch64/mindspore-2.6.0-cp310-cp310-linux_aarch64.whl)        | 1e1f844f65a3699146ba6a210d9df2a36906f43c3668d089d600f5041cb05d78 |
+|           |               |               | Python3.11 | [mindspore-2.6.0-cp311-cp311-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/unified/aarch64/mindspore-2.6.0-cp311-cp311-linux_aarch64.whl)        | 14cb6b2b94598d38fa1be50dfed05597d23e479dbff9e52f906b9583259a61a9 |
+|           | Ascend<br>CPU | Linux-x86_64  | Python3.9  | [mindspore-2.6.0-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/unified/x86_64/mindspore-2.6.0-cp39-cp39-linux_x86_64.whl)               | fc99ac495ae308f27e44900e48abda91bf53695eedca160836ac452442b8f295 |
+|           |               |               | Python3.10 | [mindspore-2.6.0-cp310-cp310-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/unified/x86_64/mindspore-2.6.0-cp310-cp310-linux_x86_64.whl)           | 9d6fb7f538d2c464a9037640c45c6cd3939948db759bfbb534f4b7dbc3f6d200 |
+|           |               |               | Python3.11 | [mindspore-2.6.0-cp311-cp311-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/unified/x86_64/mindspore-2.6.0-cp311-cp311-linux_x86_64.whl)           | 55910e88e99bb842853bb026f0629f9176a8f911f0abc3200aea1e78ebd62c51 |
+|           | CPU           | Windows-x64   | Python3.9  | [mindspore-2.6.0-cp39-cp39-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp39-cp39-win_amd64.whl)                         | be64e97517c7544c299823632ac2d4c4a4e54a57313db9eae1e6a1683078ed01 |
+|           |               |               | Python3.10 | [mindspore-2.6.0-cp310-cp310-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp310-cp310-win_amd64.whl)                     | 89d2cab829c9214b257e7df15eda8fed7e1281aa522535f3c6ff427e295c2d43 |
+|           |               |               | Python3.11 | [mindspore-2.6.0-cp311-cp311-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp311-cp311-win_amd64.whl)                     | 0098505481ef46e2f517596b05a232c0104902cfc06f5e9997460bf477ea746f |
+|           |               | MacOS-aarch64 | Python3.9  | [mindspore-2.6.0-cp39-cp39-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/aarch64/mindspore-2.6.0-cp39-cp39-macosx_11_0_arm64.whl)        | 98a5f15558eecce21c1a657cf1d212dae7eaf511bff721c7ad1d048244c75474 |
+|           |               |               | Python3.10 | [mindspore-2.6.0-cp310-cp310-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/aarch64/mindspore-2.6.0-cp310-cp310-macosx_11_0_arm64.whl)    | cf7aa990e98e3b5c6ae1ed06744aa902f6809b6c04e81749902f5c7d21f36bf6 |
+|           |               |               | Python3.11 | [mindspore-2.6.0-cp311-cp311-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/aarch64/mindspore-2.6.0-cp311-cp311-macosx_11_0_arm64.whl)    | 64e15aa67bc7eb1156cc193c193b33ed2948b3ca6afed03cae5231484aa338f3 |
+|           |               | MacOS-x64     | Python3.9  | [mindspore-2.6.0-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp39-cp39-macosx_10_15_x86_64.whl)     | 7121933bb8b29ea01c834366d2baee067f74cf5325cae1db3b1c43379e826020 |
+|           |               |               | Python3.10 | [mindspore-2.6.0-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp310-cp310-macosx_10_15_x86_64.whl) | c63c06a14aaea2b7ade9b3cfafe3afd6f3d92fd4ccd0c1006928fe3c7e5efc87 |
+|           |               |               | Python3.11 | [mindspore-2.6.0-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp311-cp311-macosx_10_15_x86_64.whl) | 9ff0a7286d7b648947aae7de982cba4b6971f5706610bf8bb1d345f17a611f83 |
+
+**Ascend配套软件包**
+
+|  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|--------|------------------|
+| [Ascend Training Solution 25.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100472026)    | [CANN 8.1.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
 ## 2.6.0-rc1
 
 | 组件                        | 硬件平台          | 操作系统          | Python版本   | 链接                                                                                                                                                                                                 | SHA-256                                                          |
@@ -85,7 +112,7 @@
 
 |  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
 |--------|------------------|
-| TBD    | [CANN 8.1.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| [Ascend Training Solution 25.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100472026)    | [CANN 8.1.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 **配套资料**
 
