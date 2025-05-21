@@ -17,6 +17,7 @@ import sys
 import glob
 import IPython
 import shutil
+import inspect
 import regex
 import sphinx
 
@@ -50,10 +51,14 @@ with open(domain_py.__file__, 'r', encoding="utf8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, domain_py.__dict__)
 
-# 添加源代码链接
-from sphinx.ext import viewcode
-with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
-    exec(f.read(), viewcode.__dict__)
+# # 添加源代码链接
+# from sphinx.ext import viewcode
+# with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+#     exec(f.read(), viewcode.__dict__)
+
+from sphinx.ext import linkcode
+with open('../_ext/overwritelinkcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), linkcode.__dict__)
 
 from docutils import statemachine
 
@@ -142,7 +147,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
-    'sphinx.ext.viewcode',
+    'sphinx.ext.linkcode',
     'sphinxcontrib.mermaid',
     'myst_parser',
     'nbsphinx',
@@ -487,6 +492,108 @@ for mint_n, aclnn_str in re.findall(r'\n\| \[(.*?)\].*?\|(.*?)\|', mint_aclnn_co
     if not all_aclnn:
         all_aclnn = '无'
     mint_aclnn[new_mint_n] = all_aclnn
+
+repo_whl = 'mindspore/python/'
+giturl = 'https://gitee.com/mindspore/'
+ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
+tensor_yaml = 'mindspore/ops/api_def/method_doc/'
+func_yaml = 'mindspore/ops/api_def/function_doc/'
+
+try:
+    ops_yaml_list = [i for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
+except:
+    ops_yaml_list = []
+
+try:
+    tensor_yaml_list = [i for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/api_def/method_doc/')) if i.endswith('_doc.yaml') and '_grad' not in i]
+except:
+    tensor_yaml_list = []
+
+func_name_dict = {}
+for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
+    if i.endswith('_op.yaml') and '_grad' not in i:
+        with open(os.path.join(repo_path, 'mindspore/ops/op_def/yaml', i), 'r+', encoding='utf-8') as f:
+            op_content = f.read()
+            if re.findall('function:\n\s+?name: (.*)', op_content):
+                func_name_dict[re.findall('function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
+
+import mindspore
+
+# Use the linkcode extension to override [SOURCE] links to point to the gitee repo.
+def linkcode_resolve(domain, info):
+    if domain != "py":
+        return None
+    name = info["fullname"]
+    modname = info['module']
+    if name and not info['module']:
+        if name.split('.')[-1].lower() == name.split('.')[-1] and name.split('.')[-2].lower() != name.split('.')[-2]:
+            modname = '.'.join(name.split('.')[:-2])
+            name = '.'.join(name.split('.')[-2:])
+        else:
+            modname = '.'.join(name.split('.')[:-1])
+            name = name.split('.')[-1]
+    try:
+        module = __import__(modname, fromlist=[''])
+        obj = module
+        for part in name.split("."):
+            obj = getattr(obj, part)
+        # Get the source file and line number
+        obj = inspect.unwrap(obj)
+        pkg_fn = inspect.getsourcefile(obj)
+        # 自动生成的ops模块单独处理
+        py_source_rel = ''
+        if 'mindspore/ops/auto_generate/' in pkg_fn:
+            name1 = name
+            spec_tp = [('mint.nn.functional.dense', 'mint.nn.functional.linear', 'dense', 'linear'),
+                       ('mint.select_ext_view', 'mint.select', 'select_ext_view', 'select'),
+                       ('mint.transpose_ext_view', 'mint.transpose', 'transpose_ext_view', 'transpose'),
+                       ]
+            fullname = modname + '.' + name
+            for i in spec_tp:
+                if fullname.endswith(i[1]):
+                    name1 = name.replace(i[3], i[2])
+            # 根据接口名内大写字母个数分类处理primitive，得到yaml文件名
+            if name1 not in primi_auto:
+                if len(re.findall('[A-Z]', name1)) == 1:
+                    name1 = name1.lower()
+                elif len(re.findall('[A-Z]', name1)) > 1:
+                    name1 = 'mindspore.ops.' + '_'.join(re.split('(?=[A-Z])', name1)[1:]).lower()
+                    if name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
+                        if name.split('.')[-1].lower() + '_doc.yaml' in ops_yaml_list:
+                            name1 = name.lower()
+            # 根据yaml文件名查询文件是否存在，分别再处理
+            if name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
+                # 新增查找_ext后缀文件
+                if name1.split('.')[-1] + '_ext_doc.yaml' in ops_yaml_list:
+                    py_source_rel = ops_yaml + name1.split('.')[-1] + '_ext_doc.yaml'
+                else:
+                    for f_yaml in ops_yaml_list:
+                        # 对文件名中存在v[0-9]的特殊处理
+                        if re.findall(f"{name1.split('.')[-1]}_v[0-9]+_doc.yaml", f_yaml):
+                            py_source_rel = ops_yaml + re.findall(f"{name1.split('.')[-1]}_v[0-9]+_doc.yaml", f_yaml)[0]
+                            break
+                    else:
+                        py_source_rel = ''
+            else:
+                py_source_rel = ops_yaml + name1.split('.')[-1] + '_doc.yaml'
+
+            if name1.split('.')[-1] in func_name_dict and not py_source_rel:
+                py_source_rel = ops_yaml + func_name_dict[name1.split('.')[-1]] + '_doc.yaml'
+        elif 'ops/functional_overload' in pkg_fn:
+            py_source_rel = func_yaml + name.split('.')[-1] + '_doc.yaml'
+
+        if py_source_rel:
+            return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
+        source, linenum = inspect.getsourcelines(obj)
+    except Exception:
+        name = info["fullname"]
+        if name.startswith('mindspore.Tensor.') and name.split('.')[-1] + '_doc.yaml' in tensor_yaml_list:
+            py_source_rel = tensor_yaml + name.split('.')[-1] + '_doc.yaml'
+            return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
+        return None
+
+    pkg_fn = os.path.relpath(pkg_fn, start=os.path.dirname(mindspore.__file__))
+    return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{repo_whl}{copy_repo}/{pkg_fn}#L{linenum}"
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
