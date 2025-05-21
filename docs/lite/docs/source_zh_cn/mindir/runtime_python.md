@@ -214,3 +214,148 @@ new_weight = mslite.Tensor(data)
 new_weights = [new_weight]
 model.update_weights([new_weights])
 ```
+
+## 进程间权重共享
+
+不同进程加载相同模型文件的场景下，使用跨进程共享模型权重参数，可以避免各进程独立存储冗余副本，从而显著减少多任务场景下的显存占用。MindSpore Lite提供获取当前进程PID、获取共享权重内存以及设置权重内存的能力，多进程间传递pid以及共享内存需要用户自行实现，使用该特性时应按照如下步骤执行：
+
+### 步骤1：获取从进程PID​​
+
+​使用如下方式获取从进程的PID：
+
+```python
+current_pid = mindspore_lite.Model().get_model_info("current_pid")  # 禁止使用os.getpid()等系统接口
+```
+
+注意：必须使用该方式来获取PID，否则可能出现不可预料的问题！
+
+### 步骤2：主进程收集PID并初始化模型​​
+
+用户需要通过进程间通信将从进程中的PID传递给主进程，主进程在收到PID后按照如下代码所示方式来创建模型：
+
+```python
+master_model = mindspore_lite.Model()
+master_model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR, context, config_dict={"pids": collected_pids})
+```
+
+注意：collected_pids为字符串，其格式为'pid1, pid2, pid3'。collected_pids为进程白名单，只有列表中声明的PID才可以使用共享显存。
+
+### 步骤3：获取与传递共享显存
+
+按照如下方式获取当前模型的共享显存：
+
+```python
+shared_mem_handle = master_model.get_model_info("shareable_weight_mem_handle")  # uint64类型
+```
+
+注意：共享显存为uint64类型的数值，在获取后用户需用通过进程间通信的方式将其传递给从进程。
+
+### 步骤4：从进程绑定共享显存​​
+
+从进程在获取到主进程传递的共享显存后需要通过如下方式使用该共享显存：
+
+```python
+slave_model = mindspore_lite.Model()
+slave_model.build_from_file(model_path, mslite.ModelType.MINDIR, context, config_dict={"shared_mem_handle": shared_mem_handle})
+```
+
+注意：从进程中使用共享显存的模型与主进程中应保持一致，并且所在的设备也需要保持一致，即模型都是由同一个模型文件初始化得到。
+
+以下为在两个进程中共享权重的python示例，其中包括了简单的多进程通信以及mindspore_lite接口使用方式：
+
+```python
+import mindspore_lite as mslite
+import numpy as np
+import time
+from multiprocessing import Process,Value,Array
+import ctypes
+PROCESS_NUM = 3
+shared_arr = Array('i', [0]*PROCESS_NUM)
+share_pid = Array('i', [0]*PROCESS_NUM)
+share_handle = Value(ctypes.c_int64,0)
+
+class MsliteModel:
+    def __init__(self,model_name='unet'):
+        self.model_name = model_name
+        self.model = mslite.Model()
+        self.pid = self.model.get_model_info("current_pid")
+
+    def __call__(self, inputs):
+        self.ms_inputs = self.model.get_inputs()
+        shapes = [list(input.shape) for input in inputs]
+        self.model.resize(self.ms_inputs, shapes)
+        for i in range(len(inputs)):
+            self.ms_inputs[i].set_data_from_numpy(inputs[i])
+        outputs = self.model.predict(self.ms_inputs)
+        outputs = [output.get_data_to_numpy() for output in outputs]
+        return outputs
+
+def init_context(device_id, device_type='ascend'):
+        context = mslite.Context()
+        context.target = [device_type]
+        context.ascend.device_id = device_id
+        return context
+
+def ChaekPidsComplete():
+    filled_count = 0
+    for pid in share_pid:
+        if pid != 0:
+            filled_count += 1
+    return filled_count==PROCESS_NUM-1
+
+def thread_infer(index):
+    print("index:", index)
+    model_path1 = "path_to_your_mindir"
+    inputs1 = [np.random.randn(1,8,168,128).astype(np.float32), np.random.randn(1).astype(np.int32)]
+
+    context_1 = init_context(2)
+    print("begin model group")
+    print("*" * 10, "begin build model", "*" * 10)
+    m1 = MsliteModel()
+    if index == 0:
+        while True:
+            if ChaekPidsComplete():
+                break
+        pids = []
+        for pid in share_pid:
+            pids.append(int(pid))
+        print("str of pids:", str(pids)[1:-1])
+        config_info = {"ascend_context":{"shareable_weight_pid_list":str(pids)[1:-1]}}
+        m1.model.build_from_file(model_path1,mslite.ModelType.MINDIR, context_1,config_dict=config_info)
+        shareable_handle = m1.model.get_model_info("shareable_weight_mem_handle")
+        print("shareable handle:", shareable_handle)
+        share_handle.value = int(shareable_handle)
+        print("int shareable_handle:", int(shareable_handle))
+        print("share handle value:", share_handle.value)
+    else:
+        pid = m1.model.get_model_info("current_pid")
+        pid = int(pid)
+        print("pid:", pid)
+        share_pid[index] = pid
+        while True:
+            if share_handle.value != 0:
+                break
+        print("sub process sharehandle:", share_handle.value)
+        config_info = {"ascend_context":{"shareable_weight_mem_handle":str(share_handle.value)}}
+        m1.model.build_from_file(model_path1, mslite.ModelType.MINDIR, context_1, config_dict=config_info)
+    shared_arr[index] = 1
+    while True:
+        sum = 0
+        for num in shared_arr:
+            sum += num
+        if (sum == PROCESS_NUM):
+            break
+    tic = time.time()
+    res = m1(inputs1)
+    toc = time.time()
+    print("share ", index, " ", res)
+    print("share ", index, "spend time:", toc-tic, "s")
+
+if __name__=="__main__":
+    processes = [Process(target=thread_infer, args=(i,)) for i in range(PROCESS_NUM)]
+    for process in processes:
+        process.start()
+
+    for process in processes:
+        process.join()
+```
