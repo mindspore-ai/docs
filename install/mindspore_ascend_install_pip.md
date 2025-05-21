@@ -71,7 +71,7 @@ python -m pip install -U pip
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接即将发布。
+- 商用版下载需要申请权限，优选版本的下载链接与安装方式请参考[Ascend Training Solution 25.0.RC1 安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100472026)。
 
 - 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.1.RC1.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
 
