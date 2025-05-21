@@ -85,7 +85,7 @@
 
 |  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
 |--------|------------------|
-| TBD    | [CANN 8.1.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| [Ascend Training Solution 25.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100472026)    | [CANN 8.1.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 **配套资料**
 
