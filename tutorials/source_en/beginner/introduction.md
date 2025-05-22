@@ -16,7 +16,7 @@ The overall architecture of MindSpore is as follows:
 2. Deep Learning + Scientific Computing: Provides developers with various Python interfaces required for AI model development, maximizing compatibility with developers' habits in the Python ecosystem;
 3. Core: As the core of the AI framework, it builds the Tensor data structure, basic operation operators, autograd module for automatic differentiation, Parallel module for parallel computing, compile capabilities, and runtime management module.
 
-![arch](../../../docs/mindspore/source_en/design/images/arch_en.png)
+![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/docs/mindspore/source_en/design/images/arch_en.png)
 
 ### Design Philosophy
 
