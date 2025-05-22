@@ -369,6 +369,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/scipy', 'mindspore.scipy'],
         ['mindspore/python/mindspore/train', 'mindspore.train'],
         ['mindspore/python/mindspore/boost', 'mindspore.boost'],
+        ['mindspore/python/mindspore/mint/distributed', 'mindspore.mint.distributed'],
         ['mindspore/python/mindspore/mint/optim', 'mindspore.mint.optim'],
         ['mindspore/python/mindspore/mint/nn/functional.py', 'mindspore.mint.nn.functional'],
         ['mindspore/python/mindspore/mint/nn', 'mindspore.mint.nn'],
