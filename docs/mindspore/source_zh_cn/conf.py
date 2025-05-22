@@ -547,17 +547,20 @@ def linkcode_resolve(domain, info):
             spec_tp = [('mint.nn.functional.dense', 'mint.nn.functional.linear', 'dense', 'linear'),
                        ('mint.select_ext_view', 'mint.select', 'select_ext_view', 'select'),
                        ('mint.transpose_ext_view', 'mint.transpose', 'transpose_ext_view', 'transpose'),
+                       ('mint.nn.functional.im2col_ext', 'mint.nn.functional.unfold', 'im2col_ext', 'unfold'),
                        ]
             fullname = modname + '.' + name
             for i in spec_tp:
                 if fullname.endswith(i[1]):
                     name1 = name.replace(i[3], i[2])
             # 根据接口名内大写字母个数分类处理primitive，得到yaml文件名
-            if name1 not in primi_auto:
+            if fullname not in primi_auto:
                 if len(re.findall('[A-Z]', name1)) == 1:
                     name1 = name1.lower()
                 elif len(re.findall('[A-Z]', name1)) > 1:
                     name1 = 'mindspore.ops.' + '_'.join(re.split('(?=[A-Z])', name1)[1:]).lower()
+                    if name1.endswith('_d'):
+                        name1 = name1[:-2] + 'd'
                     if name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
                         if name.split('.')[-1].lower() + '_doc.yaml' in ops_yaml_list:
                             name1 = name.lower()
@@ -584,6 +587,8 @@ def linkcode_resolve(domain, info):
 
         if py_source_rel:
             return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
+        elif 'mindspore/ops/auto_generate/' in py_source_rel:
+            return None
         source, linenum = inspect.getsourcelines(obj)
     except Exception:
         name = info["fullname"]
