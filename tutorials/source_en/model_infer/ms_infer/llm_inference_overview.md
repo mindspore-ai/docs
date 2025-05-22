@@ -105,7 +105,7 @@ pip install mindformers
 
 You can also install the Python package that adapts to your environment by referring to the official installation document. For details, see [MindSpore Installation](https://www.mindspore.cn/install/en) and [MindFormers Installation](https://www.mindspore.cn/mindformers/docs/en/r1.5.0/quick_start/install.html).
 
-If you wish to use model quantization to enhance inference performance, you need to install the mindspore_gs package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/install.html).
+If you wish to use model quantization to enhance inference performance, you need to install the mindspore_gs package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/install.html).
 
 ### Weight Preparation
 

@@ -6,7 +6,7 @@
 
 MindSpore is an all-scenario AI framework. When a model is deployed on the device or other lightweight devices, the memory, power consumption, and latency are limited. Therefore, the model needs to be compressed before deployment.
 
-[MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/index.html) provides the model compression capability. MindSpore Golden Stick is a model compression algorithm set jointly designed and developed by Huawei Noah team and Huawei MindSpore team. It provides a series of model compression algorithms for MindSpore and supports quantization modes such as A16W8, A16W4, A8W8, and KVCache. For details, see [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/index.html).
+[MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/index.html) provides the model compression capability. MindSpore Golden Stick is a model compression algorithm set jointly designed and developed by Huawei Noah team and Huawei MindSpore team. It provides a series of model compression algorithms for MindSpore and supports quantization modes such as A16W8, A16W4, A8W8, and KVCache. For details, see [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/index.html).
 
 ## Basic Model Quantization Process
 
@@ -103,7 +103,7 @@ print(output)
 
 ### PTQConfig Configuration Description
 
-You can customize PTQConfig to enable different quantization capabilities. For details about PTQConfig, see [the API document](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig). The following shows the configuration examples of some algorithms.
+You can customize PTQConfig to enable different quantization capabilities. For details about PTQConfig, see [the API document](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig). The following shows the configuration examples of some algorithms.
 
 > A indicates activation, W indicates weight, C indicates KVCache, and the number indicates bits. For example, A16W8 indicates a quantization where activations are represented as float16 and weights as int8.
 
@@ -145,14 +145,14 @@ You can customize PTQConfig to enable different quantization capabilities. For d
 
 The following provides a complete process of quantization and deployment of the PTQ algorithm and the RoundToNearest algorithm on the Llama2 network.
 
-- [PTQ algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/ptq/ptq.html): supports 8-bit weight quantization, 8-bit full quantization, and KVCacheInt8 quantization. SmoothQuant can be used to improve the quantization accuracy. Combining different quantization algorithms can improve the quantization inference performance.
-- [RoundToNearest algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/ptq/round_to_nearest.html): the simplest 8-bit PTQ algorithm, which supports linear weight quantization and KVCacheInt8 quantization. This algorithm will be discarded in the future. You are advised to use the PTQ algorithm.
+- [PTQ algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/ptq/ptq.html): supports 8-bit weight quantization, 8-bit full quantization, and KVCacheInt8 quantization. SmoothQuant can be used to improve the quantization accuracy. Combining different quantization algorithms can improve the quantization inference performance.
+- [RoundToNearest algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/ptq/round_to_nearest.html): the simplest 8-bit PTQ algorithm, which supports linear weight quantization and KVCacheInt8 quantization. This algorithm will be discarded in the future. You are advised to use the PTQ algorithm.
 
 ### Perceptual Quantization Training
 
-- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/quantization/simulated_quantization.html): a basic quantization aware algorithm based on the pseudo-quantization technology.
-- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/quantization/slb.html): a non-linear low-bit quantization aware algorithm.
+- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/quantization/simulated_quantization.html): a basic quantization aware algorithm based on the pseudo-quantization technology.
+- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/quantization/slb.html): a non-linear low-bit quantization aware algorithm.
 
 ### Pruning
 
-- [SCOP pruning algorithm example](https://www.mindspore.cn/golden_stick/docs/en/r1.1.0/pruner/scop.html): a structured weight pruning algorithm.
+- [SCOP pruning algorithm example](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/pruner/scop.html): a structured weight pruning algorithm.
