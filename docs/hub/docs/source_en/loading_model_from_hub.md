@@ -12,9 +12,9 @@ This document demonstrates the use of the models provided by MindSpore Hub for b
 
 `mindspore_hub.load` API is used to load the pre-trained model in a single line of code. The main process of model loading is as follows:
 
-1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub).
+1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/hub).
 
-   For example, if you aim to perform image classification on CIFAR-10 dataset using GoogleNet, please search on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) with the keyword `GoogleNet`. Then all related models will be returned. Once you enter into the related model page, you can find the `Usage`. **Notices**: if the model page doesn't have `Usage`, it means that the current model does not support loading with MindSpore Hub temporarily.
+   For example, if you aim to perform image classification on CIFAR-10 dataset using GoogleNet, please search on [MindSpore Hub Website](https://www.mindspore.cn/hub) with the keyword `GoogleNet`. Then all related models will be returned. Once you enter into the related model page, you can find the `Usage`. **Notices**: if the model page doesn't have `Usage`, it means that the current model does not support loading with MindSpore Hub temporarily.
 
 2. Complete the task of loading model according to the `Usage` , as shown in the example below:
 
@@ -47,7 +47,7 @@ When loading a model with `mindspore_hub.load` API, we can add an extra argument
 
 We use [MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/centerface) as an example to illustrate how to load a model trained on the ImageNet dataset and then perform transfer learning (re-training) on a specific sub-task dataset. The main steps are listed below:
 
-1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and find the corresponding `Usage`.
+1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/hub) and find the corresponding `Usage`.
 
 2. Load the model from MindSpore Hub using the `Usage`. Note that the parameter `include_top` is provided by the model developer.
 

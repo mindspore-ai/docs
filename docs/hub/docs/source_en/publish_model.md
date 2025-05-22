@@ -4,7 +4,7 @@
 
 ## Overview
 
-[MindSpore Hub](https://www.mindspore.cn/resources/hub/) is a platform for storing pre-trained models provided by MindSpore or third-party developers. It provides application developers with simple model loading and fine-tuning APIs, which enables the users to perform inference or fine-tuning based on the pre-trained models and thus deploy to their own applications. Users can also submit their pre-trained models into MindSpore Hub following the specific steps. Thus other users can download and use the published models.
+[MindSpore Hub](https://www.mindspore.cn/hub) is a platform for storing pre-trained models provided by MindSpore or third-party developers. It provides application developers with simple model loading and fine-tuning APIs, which enables the users to perform inference or fine-tuning based on the pre-trained models and thus deploy to their own applications. Users can also submit their pre-trained models into MindSpore Hub following the specific steps. Thus other users can download and use the published models.
 
 This tutorial uses GoogleNet as an example to describe how to submit models for model developers who are interested in publishing models into MindSpore Hub.
 
@@ -71,4 +71,4 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
 5. Create a PR in `mindspore/hub` repo. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md#) for more information about creating a PR.
 
-Once your PR is merged into master branch here, your model will show up in [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) within 24 hours. Please refer to [README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md#) for more information about model submission.
+Once your PR is merged into master branch here, your model will show up in [MindSpore Hub Website](https://www.mindspore.cn/hub) within 24 hours. Please refer to [README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md#) for more information about model submission.

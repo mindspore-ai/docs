@@ -66,4 +66,4 @@ Typical Application Scenarios
    :maxdepth: 1
    :caption: Models
 
-   MindSpore Hub↗ <https://www.mindspore.cn/resources/hub/>
+   MindSpore Hub↗ <https://www.mindspore.cn/hub>

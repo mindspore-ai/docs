@@ -4,7 +4,7 @@
 
 ## 概述
 
-[MindSpore Hub](https://www.mindspore.cn/resources/hub/)是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调APIs，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤发布到MindSpore Hub中，以供其他用户进行下载和使用。
+[MindSpore Hub](https://www.mindspore.cn/hub)是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调APIs，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤发布到MindSpore Hub中，以供其他用户进行下载和使用。
 
 本教程以GoogleNet为例，对想要将模型发布到MindSpore Hub的模型开发者介绍了模型上传步骤。
 
@@ -71,4 +71,4 @@
 
 5. 在`mindspore/hub`仓创建PR，详细创建方式可以参考[贡献者Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md#)。
 
-一旦你的PR合入到`mindspore/hub`的master分支，你的模型将于24小时内在[MindSpore Hub 网站](https://www.mindspore.cn/resources/hub)上显示。有关模型上传的更多详细信息，请参考[README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md#)。
+一旦你的PR合入到`mindspore/hub`的master分支，你的模型将于24小时内在[MindSpore Hub 网站](https://www.mindspore.cn/hub)上显示。有关模型上传的更多详细信息，请参考[README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md#)。
