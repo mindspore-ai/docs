@@ -44,7 +44,7 @@ MNIST手写数据集包含60,000个样本的训练集和10,000个样本的测试
 ### 下载模型参数文件
 
 下载对应模型的参数文件，或者自己训练。
-> 参数文件下载页面：<https://www.mindspore.cn/resources/hub/>。
+> 参数文件下载页面：<https://www.mindspore.cn/hub>。
 
 ### 导入Python库&模块
 

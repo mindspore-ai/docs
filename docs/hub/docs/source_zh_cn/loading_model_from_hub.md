@@ -12,9 +12,9 @@
 
 `mindspore_hub.load` API用于加载预训练模型，可以实现一行代码完成模型的加载。主要的模型加载流程如下：
 
-1. 在[MindSpore Hub官网](https://www.mindspore.cn/resources/hub)上搜索感兴趣的模型。
+1. 在[MindSpore Hub官网](https://www.mindspore.cn/hub)上搜索感兴趣的模型。
 
-    例如，想使用GoogleNet对CIFAR-10数据集进行分类，可以在[MindSpore Hub官网](https://www.mindspore.cn/resources/hub)上使用关键词`GoogleNet`进行搜索。页面将会返回与GoogleNet相关的所有模型。进入相关模型页面之后，查看`Usage`。**注意**：如果页面没有`Usage`表示当前模型暂不支持使用MindSpore Hub加载。
+    例如，想使用GoogleNet对CIFAR-10数据集进行分类，可以在[MindSpore Hub官网](https://www.mindspore.cn/hub)上使用关键词`GoogleNet`进行搜索。页面将会返回与GoogleNet相关的所有模型。进入相关模型页面之后，查看`Usage`。**注意**：如果页面没有`Usage`表示当前模型暂不支持使用MindSpore Hub加载。
 
 2. 根据`Usage`完成模型的加载，示例代码如下：
 
@@ -47,7 +47,7 @@
 
 下面我们以[MobileNetV2](https://gitee.com/mindspore/models/tree/master/research/cv/centerface)为例，说明如何加载一个基于OpenImage的预训练模型，并在特定的子任务数据集上进行迁移学习（重训练）。主要的步骤如下：
 
-1. 在[MindSpore Hub官网](https://www.mindspore.cn/resources/hub/)上搜索感兴趣的模型，查看对应的`Usage`。
+1. 在[MindSpore Hub官网](https://www.mindspore.cn/hub)上搜索感兴趣的模型，查看对应的`Usage`。
 
 2. 根据`Usage`进行MindSpore Hub模型的加载，注意：`include_top`参数需要模型开发者提供。
 
