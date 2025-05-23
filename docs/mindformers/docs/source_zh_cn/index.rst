@@ -238,6 +238,14 @@ FAQ
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 案例
+   :hidden:
+
+   examples/distilled
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: FAQ
    :hidden:
 
