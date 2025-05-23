@@ -176,7 +176,7 @@ To determine the type and size of the custom operator's output, pass the operato
 
 - There are two ways to implement shape and type inference functions: Python-side and C++-side.
 - Python-side inference is more user-friendly, but in dynamic graph scenarios, C++-side inference offers higher performance.
-- For dynamic shape and value-dependent scenarios, shape inference can only be performed on the C++ side.
+- For dynamic shape scenarios, shape inference can only be performed on the C++ side.
 
 #### Python-side Infer Shape/Type
 
@@ -261,17 +261,60 @@ The input to the inference function is the shape or type of the custom operator'
        return (out1, out2, out3)
 
 
+   # In multi-output scenarios, ensure that the types of out_shape and out_dtype are the same and
+   # both are of the tuple type.
    custom_msda_grad = ops.Custom(
        func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_1,
        out_dtype=[mstype.float32, mstype.float32, mstype.float32],
        func_type="aot")
 
+   # In multi-output scenarios, ensure that the types of out_shape and out_dtype are the same and
+   # both are of the list type.
    custom_msda_grad = ops.Custom(
        func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_2,
        out_dtype=(mstype.float32, mstype.float32, mstype.float32),
        func_type="aot")
 
    ```
+
+- Output shape value-dependent infer scenario
+
+    ```python
+    class CustomNet(Cell):
+        def __init__(self, func):
+            super(CustomNet, self).__init__()
+            self.kernel_size = (2, 2)
+            self.stride = (2, 2)
+            self.padding = (1, 1)
+            self.ceil_mode = False
+            self.count_include_pad = True
+            self.divisor_override = 0
+            self.cube_math_type = False
+
+            # All parameters of the infer_shape function are the shapes of the custom operator's inputs,
+            # and their specific values are obtained through 'self'
+            def infer_shape(x, kernel_size, stride, padding, ceil_mode, count_include_pad, divisor_override,
+                            cube_math_type):
+                out = []
+                out.append(x[0])
+                h_out = (x[1] + 2 * self.padding[0] - self.kernel_size[0]) // self.stride[0] + 1
+                w_out = (x[2] + 2 * self.padding[1] - self.kernel_size[1]) // self.stride[1] + 1
+                out.append(h_out)
+                out.append(w_out)
+                return out
+
+            self.custom_avg_pool = ops.Custom(func, infer_shape,
+                                              lambda x, kernel_size, stride, padding, ceil_mode, count_include_pad,
+                                                     divisor_override, cube_math_type: x,
+                                              func_type="aot",
+                                              bprop=None, reg_info=None)
+
+
+        def construct(self, x):
+            res = self.custom_avg_pool(x, self.kernel_size, self.stride, self.padding, self.ceil_mode,
+                                       self.count_include_pad, self.divisor_override, self.cube_math_type)
+            return res
+    ```
 
 **Precautions**
 
