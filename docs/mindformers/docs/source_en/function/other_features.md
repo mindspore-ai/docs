@@ -2,11 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/other_features.md)
 
-## Overview
-
-During the large-scale training of deep learning models, challenges such as memory limitations, effective utilization of computational resources, and synchronization issues in distributed training are encountered.
-
-To address these challenges, training optimization algorithms are employed to enhance training efficiency, accelerate convergence, and improve the final model performance.
+During the large-scale training of deep learning models, challenges such as memory limitations, effective utilization of computational resources, and synchronization issues in distributed training are encountered. To address these challenges, training optimization algorithms are employed to enhance training efficiency, accelerate convergence, and improve the final model performance.
 
 MindSpore Transformer provides optimization algorithms like Recomputation, Gradient Accumulation, and Gradient Clipping for use during training.
 
@@ -14,7 +10,7 @@ MindSpore Transformer provides optimization algorithms like Recomputation, Gradi
 
 ### Overview
 
-Recomputation can significantly reduce activation memory usage during training but at the cost of additional computations. For more information about the principles of recalculation and framework measurement capabilities, please refer to [MindSpore Tutorial Document: Recompute](https://www.mindspore.cn/tutorials/en/master/parallel/recompute.html) .
+Recomputation can significantly reduce activation memory usage during training but at the cost of additional computations. For more information about the principles of recalculation and framework measurement capabilities, please refer to [MindSpore Tutorial Document: Recompute](https://www.mindspore.cn/tutorials/en/master/parallel/recompute.html).
 
 ### Configuration and Usage
 
@@ -34,7 +30,9 @@ recompute_config:
   recompute_slice_activation: True
 ```
 
-For specific configurations targeting individual layers, a tuple-based approach can be used. For instance, with a network having 48 layers, pp_interleave_num set to 2, pipeline_stage set to 5, and offset configured as [[0,1,1,1,1],[1,1,1,1,0]], the recomputation configuration would look like this:
+For specific configurations targeting individual layers, a tuple-based approach can be used.
+
+For instance, with a network having 48 layers, pp_interleave_num set to 2, pipeline_stage set to 5, and offset configured as [[0,1,1,1,1],[1,1,1,1,0]], the recomputation configuration would look like this:
 
 ```yaml
 # recompute config
@@ -58,9 +56,12 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
 Then the configuration of each layer recompute will be printed.
 
+> 1. If both full recomputation and selective recomputation are configured for a layer, full recomputation takes effect.
+> 2. Integers in a one-dimensional integer list or tuple can be replaced with True or False to enable or disable recomputation for all layers.
+
 #### Key Parameters Introduction
 
-The main parameters for recalculation configuration are listed in the following table:
+The main parameters for recomputation configuration are listed in the following table:
 
 | Parameter                         | Description                                                                                                            | ValueDescription                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 |-----------------------------------|------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -77,9 +78,9 @@ The main parameters for recalculation configuration are listed in the following 
 
 MindSpore supported the gradient accumulation implementation interface `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` in versions after 2.1.1, which provides the gradient accumulation capability by splitting MiniBatch. MindSpore Transformer encapsulates it into a unified training process and enables it through yaml configuration. For the principle of gradient accumulation and the ability of framework measurement, please refer to [MindSpore Document: Gradient Accumulation](https://www.mindspore.cn/tutorials/en/master/parallel/distributed_gradient_accumulation.html).
 
-### Configuration and usage
+### Configuration and Usage
 
-#### YAML parameter configuration
+#### YAML Parameter Configuration
 
 To enable gradient accumulation, users only need to configure the `gradient_accumulation_steps` item under the `runner_config` item in the configuration file and set it to the required number of gradient accumulation steps:
 
@@ -97,11 +98,11 @@ gradient_accumulation_steps: 4
 |-----------------------------|----------------------------------------------------------------------------------------------|---------------------------------------|
 | gradient_accumulation_steps | The number of steps to accumulate gradients before performing backpropagation. Default: `1`. | (int, required) - Default value: `1`. |
 
-#### Other ways to use gradient accumulation
+#### Other Ways to Use Gradient Accumulation
 
 In addition to the configuration file, when launching the `run_mindformer.py` script, you can specify the `--gradient_accumulation_steps` argument to use the gradient accumulation feature.
 
-#### Usage restrictions of Gradient Accumulation
+#### Usage Restrictions of Gradient Accumulation
 
 > Enabling gradient accumulation will increase memory overhead. Please pay attention to memory management to prevent Out Of Memory.
 
@@ -114,9 +115,9 @@ In addition to the configuration file, when launching the `run_mindformer.py` sc
 
 The gradient clipping algorithm can avoid the situation where the reverse gradient is too large and the optimal solution is skipped.
 
-### Configuration and usage
+### Configuration and Usage
 
-#### YAML parameter configuration
+#### YAML Parameter Configuration
 
 In MindSpore TransFormers, the default training process `MFTrainOneStepCell` integrates gradient clipping logic.
 
@@ -137,4 +138,4 @@ max_grad_norm: 1.0
 | Parameter     | Description                                                                            | Value Description                         |
 |---------------|----------------------------------------------------------------------------------------|-------------------------------------------|
 | use_clip_grad | Controls whether gradient clipping is enabled during training, default value: `False`. | (bool, optional) - Default: `False`.      |
-| max_grad_norm | Controls the maximum norm value of gradient clipping, default value: `1.0`.            | (float, optional) - Default value: `1.0`. |
+| max_grad_norm | Controls the maximum norm value of gradient clipping, default value: `1.0`.            | (float, optional) - Default: `1.0`. |

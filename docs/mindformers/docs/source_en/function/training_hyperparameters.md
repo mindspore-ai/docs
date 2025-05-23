@@ -75,7 +75,7 @@ lr_schedule:
   total_steps: 20 # -1 means it will load the total steps of the dataset
 ```
 
-For more details about the learning rate API (such as type configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore TransFormer API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers.core.html#learning-rate).
+For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore TransFormer API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers.core.html#learning-rate).
 
 ## Optimizer
 
@@ -91,7 +91,7 @@ Currently, MindSpore Transformer only supports the [AdamW optimizer](https://www
 
 #### YAML Parameter Configuration
 
-Users can use the optimizer by adding an optimizer module to the YAML configuration file for model training.
+Users can use the optimizer by adding an `optimizer` module to the YAML configuration file for model training.
 
 Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L24) as an example, it could be configured like this:
 

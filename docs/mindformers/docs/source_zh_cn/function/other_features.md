@@ -10,7 +10,7 @@ MindSpore TransFormer 提供了重计算、梯度累积、梯度裁剪等训练�
 
 ### 概述
 
-重计算可以显著降低训练时的激活内存，但会额外增加一些计算。关于重计算的原理和框架测能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html) 。
+重计算可以显著降低训练时的激活内存，但会额外增加一些计算。关于重计算的原理和框架测能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html)。
 
 ### 配置与使用
 
@@ -56,7 +56,6 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
 随后会打印每一层重计算的配置方式。
 
-> 注：
 > 1. 如果某一层同时配置了完全重计算与选择重计算，则按完全重计算生效。
 > 2. 在一维整数型 list 或 tuple 中的整数可以替换为 True 或 False，代表对所有层启用或关闭重计算。
 

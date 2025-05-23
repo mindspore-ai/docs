@@ -53,40 +53,40 @@ mindformers
 
 - 安装依赖
 
-执行以下命令安装所需依赖：
+    执行以下命令安装所需依赖：
 
-```shell
-pip install datasets tqdm aiofiles aiohttp uvloop math_verify
-```
+    ```shell
+    pip install datasets tqdm aiofiles aiohttp uvloop math_verify
+    ```
 
 - 本地部署Deepseek-R1
 
-参考[MindSpore-Lab/DeepSeek-R1 | 魔乐社区](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1)在本地部署DeepSeek-R1推理服务，或是使用公开的API服务。
+    参考[MindSpore-Lab/DeepSeek-R1 | 魔乐社区](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1)在本地部署DeepSeek-R1推理服务，或是使用公开的API服务。
 
 - 生成数据
 
-**目标**：利用DeepSeek-R1模型为数学问题生成Chain-of-Thought（CoT）推理数据，用于后续的数据蒸馏。
+    **目标**：利用DeepSeek-R1模型为数学问题生成Chain-of-Thought（CoT）推理数据，用于后续的数据蒸馏。
 
-首先需要在脚本`generate_reasoning.py`中修改API_KEY。
+    首先需要在脚本`generate_reasoning.py`中修改API_KEY。
 
-```python
-API_KEY = "your_api_key_here"
-```
+    ```python
+    API_KEY = "your_api_key_here"
+    ```
 
-执行以下命令调用推理服务的接口，使用种子数据集中的问题，生成CoT数据：
+    执行以下命令调用推理服务的接口，使用种子数据集中的问题，生成CoT数据：
 
-```shell
-python distilled/generate_reasoning.py \
-    --model DeepSeek-R1 \
-    --dataset-name AI-MO/NuminaMath-1.5 \
-    --output-file /path/to/numinamath_r1_generations.jsonl \
-    --prompt-column problem \
-    --uuid-column problem \
-    --api-addr api.host.name \
-    --num-generations 2 \
-    --max-tokens 16384 \
-    --max-concurrent 100
-```
+    ```shell
+    python distilled/generate_reasoning.py \
+        --model DeepSeek-R1 \
+        --dataset-name AI-MO/NuminaMath-1.5 \
+        --output-file /path/to/numinamath_r1_generations.jsonl \
+        --prompt-column problem \
+        --uuid-column problem \
+        --api-addr api.host.name \
+        --num-generations 2 \
+        --max-tokens 16384 \
+        --max-concurrent 100
+    ```
 
 **参数说明：**
 
@@ -105,13 +105,13 @@ python distilled/generate_reasoning.py \
 
 - 拒绝采样
 
-**目标**：过滤掉推理数据中的错误或不准确的CoT数据，确保数据质量。
+    **目标**：过滤掉推理数据中的错误或不准确的CoT数据，确保数据质量。
 
-``` shell
-python distilled/reject_sampling.py \
-    --src /path/to/numinamath_r1_generations.jsonl \
-    --dst /path/to/numinamath_r1_generations_filtered.jsonl
-```
+    ``` shell
+    python distilled/reject_sampling.py \
+        --src /path/to/numinamath_r1_generations.jsonl \
+        --dst /path/to/numinamath_r1_generations_filtered.jsonl
+    ```
 
 **参数说明：**
 
@@ -123,20 +123,20 @@ python distilled/reject_sampling.py \
 
 - 数据集预处理
 
-跳转到[数据集预处理](#数据集预处理)的步骤，将生成的CoT数据转换为MindSpore Transformers支持的格式。
+    跳转到[数据集预处理](#数据集预处理)的步骤，将生成的CoT数据转换为MindSpore Transformers支持的格式。
 
-**此时的数据集格式为jsonl格式，和原始数据集的parquet格式不一致。需要按照以下格式进行修改配置文件`data_process_handling.yaml`**：
+    **此时的数据集格式为jsonl格式，和原始数据集的parquet格式不一致。需要按照以下格式进行修改配置文件`data_process_handling.yaml`**：
 
-```yaml
-train_dataset:
-  ...
-  data_loader:
+    ```yaml
+    train_dataset:
     ...
-    path: "json"
-    data_files:
-        ["/path/to/numinamath_r1_generations_filtered.jsonl"]
-    ...
-```
+    data_loader:
+        ...
+        path: "json"
+        data_files:
+            ["/path/to/numinamath_r1_generations_filtered.jsonl"]
+        ...
+    ```
 
 #### 1.3.2 使用OpenR1-Math-220K数据集
 
@@ -158,32 +158,32 @@ train_dataset:
     - 例如：`["/path/to/data1.parquet", "/path/to/data2.parquet", ...]`。
 2. 修改tokenizer的路径：将`vocab_file`和`merges_file`替换为Qwen2.5-7B-Instruct模型的词表文件和merges文件的路径。
 
-```yaml
-train_dataset:
-  input_columns: &input_columns ["input_ids", "labels"]
-  data_loader:
-    ...
-    data_files:
-        ["/path/to/data1.parquet", "/path/to/data2.parquet", ...]   # 数据集文件路径
-    handler:
-      - type: OpenR1Math220kDataHandler
+    ```yaml
+    train_dataset:
+    input_columns: &input_columns ["input_ids", "labels"]
+    data_loader:
         ...
-        tokenizer:
-          ...
-          vocab_file: "/path/to/vocab.json"       # 词表文件路径
-          merges_file: "/path/to/merges.txt"      # merges文件路径
-          chat_template: ...
-    ...
-```
+        data_files:
+            ["/path/to/data1.parquet", "/path/to/data2.parquet", ...]   # 数据集文件路径
+        handler:
+        - type: OpenR1Math220kDataHandler
+            ...
+            tokenizer:
+            ...
+            vocab_file: "/path/to/vocab.json"       # 词表文件路径
+            merges_file: "/path/to/merges.txt"      # merges文件路径
+            chat_template: ...
+        ...
+    ```
 
-在MindSpore Transformers源码根目录下执行以下数据预处理脚本：
+    在MindSpore Transformers源码根目录下执行以下数据预处理脚本：
 
-```shell
-python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
-    --config distilled/data_process_handling.yaml \
-    --save_path /path/to/handled_data \
-    --register_path /path/to/modules
-```
+    ```shell
+    python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
+        --config distilled/data_process_handling.yaml \
+        --save_path /path/to/handled_data \
+        --register_path /path/to/modules
+    ```
 
 **参数说明：**
 
