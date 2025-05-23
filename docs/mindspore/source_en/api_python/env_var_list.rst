@@ -287,6 +287,10 @@ Graph Compilation and Execution
 
        memory_tracker: Whether to enable memory tracker, with a default value of false.
 
+       memory_tracker_path: Enable the memory tracker and save it to a specified path, with a default value of empty string and memory tracker disabled.
+
+       simple_tracker: Whether to enable simplified tracker mode, which does not save tracker_graph.ir and only keeps the last user task. Takes effect when memory_tracker is enabled, with a default value of false.
+
        acl_allocator: Whether to enable ACL memory allocator, with a default value of true.
 
        somas_whole_block: Whether to use the entire Somas for memory allocation, with a default value of false.
