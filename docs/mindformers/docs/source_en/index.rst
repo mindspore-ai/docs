@@ -45,23 +45,35 @@ With its powerful feature set, MindSpore Transformers provides users with flexib
 
    Support multiple types and formats of datasets.
 
-6. `Weight Saving and Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/dev/function/resume_training.html>`_
+6. `Model Training Hyperparameters Configuration <https://www.mindspore.cn/mindformers/docs/en/dev/function/training_hyperparameters.html>`_
+
+   Provides an introduction and examples of hyperparameter configuration for large model training.
+
+7. `Other features <https://www.mindspore.cn/mindformers/docs/en/dev/function/other_features.html>`_
+
+   Introduce features such as gradient accumulation and gradient clipping.
+
+8. `Logs <https://www.mindspore.cn/mindformers/docs/en/dev/function/logs.html>`_
+
+   Introduction of logs, including log structure, log saving, and so on.
+
+9. `Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/dev/function/resume_training.html>`_
 
    Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
 
-7. `Training Metrics Monitoring <https://www.mindspore.cn/mindformers/docs/en/dev/function/monitor.html>`_
+10. `Training Metrics Monitoring <https://www.mindspore.cn/mindformers/docs/en/dev/function/monitor.html>`_
 
    Provides visualization services for the training phase of large models for monitoring and analyzing various indicators and information during the training process.
 
-8. `Training High Availability <https://www.mindspore.cn/mindformers/docs/en/dev/function/high_availability.html>`_
+11. `Training High Availability <https://www.mindspore.cn/mindformers/docs/en/dev/function/high_availability.html>`_
 
    Provide high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery.
 
-9. `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/dev/function/safetensors.html>`_
+12. `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/dev/function/safetensors.html>`_
 
    Support the function of saving and loading weight files in safetensors format.
 
-10. `Fine-Grained Activations SWAP <https://www.mindspore.cn/mindformers/docs/en/dev/function/fine_grained_activations_swap.html>`_
+13. `Fine-Grained Activations SWAP <https://www.mindspore.cn/mindformers/docs/en/dev/function/fine_grained_activations_swap.html>`_
 
    Support fine-grained selection of specific activations to enable SWAP and reduce peak memory overhead during model training.
 
@@ -130,6 +142,9 @@ FAQ
    function/transform_weight
    function/distributed_parallel
    function/dataset
+   function/training_hyperparameters
+   function/other_features
+   function/logs
    function/resume_training
    function/monitor
    function/high_availability

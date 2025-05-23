@@ -88,23 +88,35 @@ MindSpore Transformers以其强大的功能集，为用户提供了灵活易用�
 
    支持多种类型和格式的数据集。
 
-6. `权重保存与断点续训 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html>`_
+6. `模型训练超参数配置 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/training_hyperparameters.html>`_
+
+   提供大模型训练的超参数配置介绍和示例。
+
+7. `其它特性 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/other_features.html>`_
+
+   介绍梯度累积、梯度裁剪等特性。
+
+8. `日志 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/logs.html>`_
+
+   日志相关介绍，包括日志结构、日志保存等。
+
+9. `模型断点续训 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html>`_
 
    支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
 
-7. `训练指标监控 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/monitor.html>`_
+10. `训练指标监控 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/monitor.html>`_
 
    提供大模型训练阶段的可视化服务，用于监控和分析训练过程中的各种指标和信息。
 
-8. `训练高可用 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/high_availability.html>`_
+11. `训练高可用 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/high_availability.html>`_
 
    提供大模型训练阶段的高可用能力，包括临终 CKPT 保存、UCE 故障容错恢复和进程级重调度恢复功能。
 
-9. `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html>`_
+12. `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html>`_
 
    支持safetensors格式的权重文件保存及加载功能。
 
-10. `细粒度激活值SWAP <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/fine_grained_activations_swap.html>`_
+13. `细粒度激活值SWAP <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/fine_grained_activations_swap.html>`_
 
    支持细粒度地选择特定激活值使能SWAP，用于降低模型训练的峰值内存开销。
 
@@ -173,6 +185,9 @@ FAQ
    function/transform_weight
    function/distributed_parallel
    function/dataset
+   function/training_hyperparameters
+   function/other_features
+   function/logs
    function/resume_training
    function/monitor
    function/high_availability
