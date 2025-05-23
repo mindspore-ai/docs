@@ -260,7 +260,7 @@ If the configuration item `save_network_params:True` is set in yaml file, an add
 | checkpoint         | Save model weights, optimizer state, step and epoch in safetensors files, which can be used to **restore training from breakpoints**.                                                    |
 | checkpoint_network | Only the model weight parameters are saved in the safetensors file, which is suitable for subsequent fine-tuning, reasoning, and evaluation. It does not support breakpoint continuation. |
 
-#### `checkpoint` directory structure
+#### `checkpoint` Directory Structure
 
 Take an 8-rank task as an example, the weight files in the `output` folder are saved in the following format:
 
@@ -282,7 +282,7 @@ output
             └── {prefix}-{epoch}_{step}.safetensors
 ```
 
-##### Weight-related file description
+##### Weight-related File Description
 
 | File                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 |-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -316,7 +316,7 @@ callbacks:
 The meaning of this configuration is: save the safetensors weights every 1000 steps, store up to 5 weights at the same time,
 do not merge and save the split Tensor in parallel scenarios, and do not use asynchronous method to save weight files.
 
-##### Introduction to main configuration parameters
+##### Introduction to Main Configuration Parameters
 
 The main parameters for saving weight configuration are listed in the following table:
 
