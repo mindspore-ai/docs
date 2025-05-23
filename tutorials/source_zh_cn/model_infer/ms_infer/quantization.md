@@ -6,7 +6,7 @@
 
 MindSpore是一个全场景的AI框架。当模型部署到端侧或者其他轻量化设备上时，对于部署的内存、功耗、时延等有各种限制，因此在部署前需要对模型进行压缩。
 
-MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/index.html) 提供，MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计开发的一个模型压缩算法集，为MindSpore提供了一系列模型压缩算法，支持A16W8、A16W4、A8W8和KVCache等量化方式。详细资料可前往 [MindSpore Golden Stick官方资料](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/index.html) 查看。
+MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/index.html) 提供，MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计开发的一个模型压缩算法集，为MindSpore提供了一系列模型压缩算法，支持A16W8、A16W4、A8W8和KVCache等量化方式。详细资料可前往 [MindSpore Golden Stick官方资料](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/index.html) 查看。
 
 ## 模型量化基本流程
 
@@ -103,7 +103,7 @@ print(output)
 
 ### PTQConfig的配置说明
 
-可通过自定义PTQConfig的配置来启用不同的量化能力，PTQConfig的含义可以参考其[API文档](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig)，这里我们展示这几种算法的配置样例：
+可通过自定义PTQConfig的配置来启用不同的量化能力，PTQConfig的含义可以参考其[API文档](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig)，这里我们展示这几种算法的配置样例：
 
 > A表示激活，W表示权重，C表示KVCache，数字代表bit位。例如：A16W8表示激活为float16，权重为int8的量化。
 
@@ -145,14 +145,14 @@ print(output)
 
 下面给出了PTQ算法和RoundToNearest算法在Llama2网络上量化与部署的完整流程：
 
-- [PTQ算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/ptq/ptq.html)：训练后量化算法，支持8bit权重量化、8bit全量化、KVCacheInt8量化；支持使用SmoothQuant提升量化精度；支持不同算法间的组合量化算法提升量化推理性能。
-- [RoundToNearest算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/ptq/round_to_nearest.html)：最简单的8bit训练后量化算法，支持Linear的权重量化和KVCacheInt8量化。该算法后续会被废弃，推荐直接使用PTQ算法。
+- [PTQ算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/ptq/ptq.html)：训练后量化算法，支持8bit权重量化、8bit全量化、KVCacheInt8量化；支持使用SmoothQuant提升量化精度；支持不同算法间的组合量化算法提升量化推理性能。
+- [RoundToNearest算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/ptq/round_to_nearest.html)：最简单的8bit训练后量化算法，支持Linear的权重量化和KVCacheInt8量化。该算法后续会被废弃，推荐直接使用PTQ算法。
 
 ### 感知量化训练实例讲解
 
-- [SimQAT算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/quantization/simulated_quantization.html)：一种基础的基于伪量化技术的感知量化算法。
-- [SLB量化算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/quantization/slb.html)：一种非线性的低比特感知量化算法。
+- [SimQAT算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/quantization/simulated_quantization.html)：一种基础的基于伪量化技术的感知量化算法。
+- [SLB量化算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/quantization/slb.html)：一种非线性的低比特感知量化算法。
 
 ### 剪枝方法实例讲解
 
-- [SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.1.0/pruner/scop.html)：一个结构化权重剪枝算法。
+- [SCOP剪枝算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/pruner/scop.html)：一个结构化权重剪枝算法。
