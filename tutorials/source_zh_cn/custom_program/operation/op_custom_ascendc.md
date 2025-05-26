@@ -191,7 +191,7 @@ assert output.asnumpy().shape == (1280, 1280)
 
 - shape和type的推导函数实现有Python侧和C++侧两种方式。
 - Python侧infer易用性更高，但是在动态图场景，C++侧infer性能更高。
-- 动态shape和值依赖的场景只能在C++侧infer shape。
+- 动态shape场景只能在C++侧infer shape。
 
 #### Python侧Infer Shape/Type
 
@@ -276,17 +276,57 @@ assert output.asnumpy().shape == (1280, 1280)
        return (out1, out2, out3)
 
 
+   # 多输出场景保证out_shape和out_dtype的类型相同，都为tuple类型
    custom_msda_grad = ops.Custom(
        func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_1,
        out_dtype=[mstype.float32, mstype.float32, mstype.float32],
        func_type="aot")
 
+   # 多输出场景保证out_shape和out_dtype的类型相同，都为list类型
    custom_msda_grad = ops.Custom(
        func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_2,
        out_dtype=(mstype.float32, mstype.float32, mstype.float32),
        func_type="aot")
 
    ```
+
+- 输出shape值依赖的infer场景
+
+    ```python
+    class CustomNet(Cell):
+        def __init__(self, func):
+            super(CustomNet, self).__init__()
+            self.kernel_size = (2, 2)
+            self.stride = (2, 2)
+            self.padding = (1, 1)
+            self.ceil_mode = False
+            self.count_include_pad = True
+            self.divisor_override = 0
+            self.cube_math_type = False
+
+            # infer shape函数所有入参是自定义算子输入的shape，通过self获得具体值
+            def infer_shape(x, kernel_size, stride, padding, ceil_mode, count_include_pad, divisor_override,
+                            cube_math_type):
+                out = []
+                out.append(x[0])
+                h_out = (x[1] + 2 * self.padding[0] - self.kernel_size[0]) // self.stride[0] + 1
+                w_out = (x[2] + 2 * self.padding[1] - self.kernel_size[1]) // self.stride[1] + 1
+                out.append(h_out)
+                out.append(w_out)
+                return out
+
+            self.custom_avg_pool = ops.Custom(func, infer_shape,
+                                              lambda x, kernel_size, stride, padding, ceil_mode, count_include_pad,
+                                                     divisor_override, cube_math_type: x,
+                                              func_type="aot",
+                                              bprop=None, reg_info=None)
+
+
+        def construct(self, x):
+            res = self.custom_avg_pool(x, self.kernel_size, self.stride, self.padding, self.ceil_mode,
+                                       self.count_include_pad, self.divisor_override, self.cube_math_type)
+            return res
+    ```
 
 **注意事项**
 
