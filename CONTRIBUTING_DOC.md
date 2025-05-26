@@ -91,7 +91,7 @@ If you want to update an existing API, find the source file of the A
 
 If you do not know the file link, click **source** and find the file link by referring to the content following `_modules` in the link.
 
-Take Tensor as an example. After clicking **source**, you can obtain the link <https://www.mindspore.cn/docs/en/master/_modules/mindspore/common/tensor.html>. Then, the source file link is <https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>.
+Take Tensor as an example. After clicking **source**, you can obtain the source file link <https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>.
 
 ![API Source](./resource/_static/api_source.png)
 

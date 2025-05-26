@@ -233,7 +233,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 
 最后在`packed_data`中可以找到处理后的数据集，格式为arrow。
 
-更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE-handler)。
+更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AEhandler)。
 
 ##### 选项 2：使用完成转换的数据
 
