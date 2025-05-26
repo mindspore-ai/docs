@@ -79,12 +79,19 @@
 |           |               | MacOS-x64     | Python3.9  | [mindspore-2.6.0-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp39-cp39-macosx_10_15_x86_64.whl)     | 7121933bb8b29ea01c834366d2baee067f74cf5325cae1db3b1c43379e826020 |
 |           |               |               | Python3.10 | [mindspore-2.6.0-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp310-cp310-macosx_10_15_x86_64.whl) | c63c06a14aaea2b7ade9b3cfafe3afd6f3d92fd4ccd0c1006928fe3c7e5efc87 |
 |           |               |               | Python3.11 | [mindspore-2.6.0-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/cpu/x86_64/mindspore-2.6.0-cp311-cp311-macosx_10_15_x86_64.whl) | 9ff0a7286d7b648947aae7de982cba4b6971f5706610bf8bb1d345f17a611f83 |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/use/downloads.html)   |      |
 
 **Ascend配套软件包**
 
 |  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
 |--------|------------------|
 | [Ascend Training Solution 25.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100472026)    | [CANN 8.1.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|        安装   |      教程      |  文档    |  API|
+|        ---   |       ---      |     ---     |     ---      |
+| [安装指南](https://gitee.com/mindspore/docs/tree/r2.6.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.6.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.6.0/index.html) |
 
 ## 2.6.0-rc1
 
