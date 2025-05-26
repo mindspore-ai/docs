@@ -91,7 +91,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
 如果不清楚所在文件，可点击“source”，并参考跳转的链接地址中`_modules`后的内容，找到该文件。
 
-以Tensor为例，点击“source”后得到地址<https://www.mindspore.cn/docs/en/master/_modules/mindspore/common/tensor.html>，源文件地址即为<https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>。
+以Tensor为例，点击“source”后得到源文件地址为<https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>。
 
 ![API Source](./resource/_static/api_source.png)
 
