@@ -248,6 +248,9 @@ For individual passes, users can also confirm whether they are enabled through l
 |StridedSlice|N|N|Y|
 |CumSum|N|N|Y|
 |OneHot|N|N|Y|
+|MatMul|N|N|N|
+|BatchMatMul|N|N|N|
+|GroupedMatmul|N|N|N|
 
 ## Appendix 3: List of Enabled Passes for Relevant Backends
 

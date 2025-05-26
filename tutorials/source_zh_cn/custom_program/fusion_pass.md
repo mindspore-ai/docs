@@ -247,6 +247,9 @@
 |StridedSlice|N|N|Y|
 |CumSum|N|N|Y|
 |OneHot|N|N|Y|
+|MatMul|N|N|N|
+|BatchMatMul|N|N|N|
+|GroupedMatmul|N|N|N|
 
 ## 附录3：相关后端使能Pass列表
 
