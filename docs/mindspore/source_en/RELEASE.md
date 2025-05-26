@@ -1,6 +1,6 @@
 # MindSpore Release Notes
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/RELEASE.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/RELEASE.md)
 
 ## MindSpore 2.6.0 Release Notes
 
@@ -417,12 +417,16 @@
   <tr>
   <td><pre>
   >>> import mindspore as ms
-  >>> ms.set_context(ascend_config = {"exception_dump": "2"})
+  >>> ms.set_context(
+  ...     ascend_config = {"exception_dump": "2"}
+  ...     )
   </pre>
   </td>
   <td><pre>
   >>> import mindspore as ms
-  >>> ms.device_context.ascend.op_debug.aclinit_config({"dump": {"dump_scene": "lite_exception"}})
+  >>> ms.device_context.ascend.op_debug.aclinit_config(
+  ...     {"dump": {"dump_scene": "lite_exception"}}
+  ...     )
   </pre>
   </td>
   </tr>
@@ -448,7 +452,9 @@
   >>> import mindspore as ms
   >>> tensor = ms.Tensor([1,1,1], dtype=ms.float32)
   >>> print(tensor)
-  Tensor(shape=[3], dtype=Float32, value= [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00])
+  Tensor(shape=[3],
+         dtype=Float32,
+         value= [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00])
   </pre>
   </td>
   </tr>
