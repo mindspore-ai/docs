@@ -17,7 +17,7 @@
                 {
                     "label": "特性介绍",
                     "url": "/docs/zh-CN/r2.6.0rc1/features/index.html",
-                    "id": "r2.6.0rc1-model_train"
+                    "id": "r2.6.0rc1-features"
                 },
                 {
                     "label": "API文档",
@@ -39,7 +39,7 @@
                 {
                     "label": "Feature Description",
                     "url": "/docs/en/r2.6.0rc1/features/index.html",
-                    "id": "r2.6.0rc1-model_train"
+                    "id": "r2.6.0rc1-features"
                 },
                 {
                     "label": "API",
