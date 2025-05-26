@@ -188,7 +188,6 @@ async def main():
     )
 
     pbar.active_tasks = active_tasks
-    count = 0
     async with aiohttp.ClientSession(
             timeout=aiohttp.ClientTimeout(total=60 * 60),
             connector=aiohttp.TCPConnector(limit=args.max_concurrent, ttl_dns_cache=300, keepalive_timeout=60 * 60),
@@ -210,9 +209,6 @@ async def main():
                 task.add_done_callback(active_tasks.discard)
 
                 pbar.set_postfix(active=len(active_tasks), refresh=True)
-            count += 1
-            if count > 2:
-                break
 
         if active_tasks:
             await asyncio.gather(*active_tasks, return_exceptions=True)

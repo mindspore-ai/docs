@@ -211,6 +211,14 @@ FAQ
    perf_optimize/perf_optimize
 
 .. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 案例
+   :hidden:
+
+   example/distilled
+
+.. toctree::
    :maxdepth: 1
    :caption: API参考
    :hidden:
@@ -234,14 +242,6 @@ FAQ
 
    appendix/env_variables
    appendix/conf_files
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 案例
-   :hidden:
-
-   examples/distilled
 
 .. toctree::
    :glob:

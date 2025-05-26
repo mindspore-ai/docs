@@ -14,7 +14,7 @@
 
 安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html)。
 
-并将本案例的[distilled](https://gitee.com/mindspore/docs/tree/master/docs\mindformers\docs\source_zh_cn\example\distilled\distilled)文件夹，复制到MindSpore Transformers源码根目录下。
+并将本案例的[distilled](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled)文件夹，复制到MindSpore Transformers源码根目录下。
 
 最后得到的目录结构如下：
 
@@ -123,9 +123,9 @@ mindformers
 
 - 数据集预处理
 
-    跳转到[数据集预处理](#数据集预处理)的步骤，将生成的CoT数据转换为MindSpore Transformers支持的格式。
+    跳转到[选项-1-使用原始数据离线处理](#选项-1-使用原始数据离线处理)的中的**步骤一**，并将生成的CoT数据转换为MindSpore Transformers支持的格式。
 
-    **此时的数据集格式为jsonl格式，和原始数据集的parquet格式不一致。需要按照以下格式进行修改配置文件`data_process_handling.yaml`**：
+    **此时的数据集格式为jsonl格式，和原始数据集的parquet格式不一致，并且`data_files`中只包含一个`numinamath_r1_generations_filtered.jsonl`文件。按照以下格式修改配置文件`data_process_handling.yaml`**：
 
     ```yaml
     train_dataset:
@@ -154,9 +154,15 @@ mindformers
 
 首先需要修改数据集处理的配置文件`data_process_handling.yaml`：
 
-1. 修改数据集文件路径：将`data_files`中的路径替换为原始数据集的路径。每一个parquet文件都需要在这里列出。
+1. 将MindSpore Transformers源码根目录下的`research/qwen2_5/qwen2_5_tokenizer.py`文件复制到`distilled`目录下。
+
+    ```bash
+    cp research/qwen2_5/qwen2_5_tokenizer.py distilled/
+    ```
+
+2. 修改数据集文件路径：将`data_files`中的路径替换为原始数据集的路径。每一个parquet文件都需要在这里列出。
     - 例如：`["/path/to/data1.parquet", "/path/to/data2.parquet", ...]`。
-2. 修改tokenizer的路径：将`vocab_file`和`merges_file`替换为Qwen2.5-7B-Instruct模型的词表文件和merges文件的路径。
+3. 修改tokenizer的路径：将`vocab_file`和`merges_file`替换为Qwen2.5-7B-Instruct模型的**词表文件**和**merges文件**的路径。
 
     ```yaml
     train_dataset:
@@ -168,7 +174,7 @@ mindformers
         handler:
         - type: OpenR1Math220kDataHandler
             ...
-            tokenizer:
+          tokenizer:
             ...
             vocab_file: "/path/to/vocab.json"       # 词表文件路径
             merges_file: "/path/to/merges.txt"      # merges文件路径
@@ -182,7 +188,7 @@ mindformers
     python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
         --config distilled/data_process_handling.yaml \
         --save_path /path/to/handled_data \
-        --register_path /path/to/modules
+        --register_path distilled/
     ```
 
 **参数说明：**
@@ -191,19 +197,29 @@ mindformers
 - **关键参数**：
 
     - **--config**：数据预处理的配置文件路径。
-    - **--save_path**：转换后数据集的保存路径。
-    - **--register_path**：注册数据集的路径。
+    - **--save_path**：转换后数据集的保存文件夹路径。
+    - **--register_path**：注册路径，为当前目录下的`distilled/`文件夹。
 
 步骤二、**数据集Packing**
 
 MindSpore Transformers已经支持数据集packing机制，减少微调所需要的时间。
-数据集packing的配置文件放在/dataset/packing目录下。其中，需要将`path`修改成`handled_data`的路径，并在MindSpore Transformers源码根目录下执行如下脚本：
+数据集packing的配置文件放在/dataset/packing目录下。其中，需要将`path`修改成`handled_data`的路径，
+
+```yaml
+# dataset
+train_dataset:
+  data_loader:
+    ...
+    path: /path/to/handled_data # 转换后数据集的保存文件夹
+```
+
+并在MindSpore Transformers源码根目录下执行如下脚本：
 
 ```shell
 python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
-    --config /path/to/data_process_packing.yaml \
+    --config distilled/data_process_packing.yaml \
     --save_path /path/to/packed_data \
-    --register_path /path/to/modules
+    --register_path distilled
 ```
 
 **参数说明：**
@@ -215,11 +231,21 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
     - **--save_path**：packing后数据集的保存路径
     - **--register_path**：注册数据集的路径。
 
+最后在`packed_data`中可以找到处理后的数据集，格式为arrow。
+
 更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE-handler)。
 
 ##### 选项 2：使用完成转换的数据
 
-我们在[魔乐社区](https://modelers.cn/models/MindSpore-Lab/OpenR1-Qwen-7B/tree/main/dataset/packing)提供packing处理后可以直接用于模型训练的数据，格式为arrow。
+我们在[魔乐社区](https://modelers.cn/models/MindSpore-Lab/OpenR1-Qwen-7B/tree/main/dataset/packing)提供packing处理后可以直接用于模型训练的数据，格式为arrow。此时[#1.4 YAML配置](#14-yaml配置)中的`path`需要修改为下载后的数据集路径。
+
+```yaml
+train_dataset:
+  ...
+  data_loader:
+    ...
+    path: "/path/to/OpenR1-Qwen-7B/dataset/packing/"
+```
 
 ### 1.4 YAML配置
 
@@ -268,14 +294,16 @@ export ACLNN_CACHE_LIMIT=10 # CANN 缓存限制
 export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:128" # MS缓存队列长度建议设置成128，设置过大内存容易OOM，设置越小性能越差
 ```
 
-在mindformers目录下执行如下命令行启动微调：
+在MindSpore Transformers目录下执行如下命令行启动微调：
 
 ```bash
-bash scripts/msrun_launcher.sh "run_mindformer.py --config /path/to/finetune_qwen_2_5_7b.yaml --run_mode finetune" 8
+bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qwen_2_5_7b.yaml --run_mode finetune" 8
 ```
 
 日志记录在`output/msrun_log`目录下，例如可以通过`tail -f output/msrun_log/worker_7.log`指令查看worker 7的日志信息。
-微调完成后，输出的权重文件在`output/checkpoint`目录下。
+微调完成后，输出的`safetensors`权重文件在`output/checkpoint`目录下。
+
+更多safetensors权重的内容请参考[MindSpore Transformers官方文档-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html)。
 
 ## 3. 执行推理
 
