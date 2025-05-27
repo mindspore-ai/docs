@@ -145,7 +145,7 @@ Step 1 Use `CTRL+ALT+T` or click on the icon with `$_` at the bottom of the page
 Step 2 Enter the software package installation information file directory.
 
 ```bash
-(base) HwHiAiUser@orangepiaipro:~$ cd /usr/local/Ascend/ascend-toolkit/latest/aarch-linux
+(base) HwHiAiUser@orangepiaipro:~$ cd /usr/local/Ascend/ascend-toolkit/latest/aarch64-linux
 ```
 
 Step 3 Execute the following command to obtain version information.
