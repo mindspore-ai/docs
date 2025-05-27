@@ -145,7 +145,7 @@
 步骤2 进入软件包安装信息文件目录。
 
 ```bash
-(base) HwHiAiUser@orangepiaipro:~$ cd /usr/local/Ascend/ascend-toolkit/latest/aarch-linux
+(base) HwHiAiUser@orangepiaipro:~$ cd /usr/local/Ascend/ascend-toolkit/latest/aarch64-linux
 ```
 
 步骤3 执行以下命令获取版本信息。
