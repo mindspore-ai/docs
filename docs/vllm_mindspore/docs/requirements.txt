@@ -1,0 +1,17 @@
+sphinx == 4.4.0
+docutils == 0.17.1
+myst-parser == 0.18.1
+sphinx_rtd_theme == 1.0.0
+numpy
+IPython
+jieba
+descriptastorus == 2.6.0
+sympy
+tqdm
+sphinx-rtd-theme == 1.0.0
+sphinxcontrib-applehelp == 1.0.0
+sphinxcontrib-devhelp == 1.0.0
+sphinxcontrib-htmlhelp == 2.0.0
+sphinxcontrib-jsmath == 1.0.1
+sphinxcontrib-qthelp == 1.0.0
+sphinxcontrib-serializinghtml == 1.1.5
