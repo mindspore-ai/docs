@@ -215,6 +215,7 @@ After collecting performance data, the original data will be stored according to
     │   ├── minddata_pipeline_summary_{Rank_ID}.csv   // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
     │   ├── minddata_pipeline_summary_{Rank_ID}.json  // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
     │   ├── npu_module_mem.csv         // Generated when profile_memory=True
+    │   ├── operator_details.csv       // Generated when activities contains ProfilerActivity.CPU and record_shapes=True
     │   ├── operator_memory.csv        // Generated when profile_memory=True
     │   ├── op_statistic.csv           // AI Core and AI CPU operator call count and time data
     │   ├── step_trace_time.csv        // Iteration calculation and communication time statistics

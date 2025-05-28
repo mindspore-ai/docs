@@ -215,6 +215,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
     │   ├── minddata_pipeline_summary_{Rank_ID}.csv   // 配置 data_process=True 且训练/推理代码中调用mindspore.dataset模块时生成
     │   ├── minddata_pipeline_summary_{Rank_ID}.json  // 配置 data_process=True 且训练/推理代码中调用mindspore.dataset模块时生成
     │   ├── npu_module_mem.csv         // 配置 profile_memory=True 生成
+    │   ├── operator_details.csv       // activities中配置ProfilerActivity.CPU且配置 record_shapes=True 生成
     │   ├── operator_memory.csv        // 配置 profile_memory=True 生成
     │   ├── op_statistic.csv           // AI Core和AI CPU算子调用次数及耗时数据
     │   ├── step_trace_time.csv        // 迭代中计算和通信的时间统计
