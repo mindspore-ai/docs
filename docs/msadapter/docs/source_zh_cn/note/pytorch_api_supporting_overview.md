@@ -23,28 +23,37 @@ MSAdapter是一款MindSpore生态适配工具，在不改变用户原有使用�
 
 ### 暂不支持Complex64/Complex128
 
-示例代码：
+以下展示Complex64的示例代码，Complex128数据类型的报错也类似：
 
 ```python
-  from torch.utils.data import DataLoader
-  from torchvision import datasets
-  from torchvision.transforms import ToTensor
+import torch
 
-  training_data = datasets.FashionMNIST(root="data", train=True, download=True, transform=ToTensor())
-  train_dataloader = DataLoader(training_data, batch_size=64, pin_memory=True)
-  for batch, (X, y) in enumerate(train_dataloader):
-      X, y = X.cuda(), y.cuda()
+dtype = torch.complex64
+size = (3, 3)
+tensor_ones = torch.ones(size, dtype=dtype)
+print("tensor_ones=", tensor_ones)
 ```
 
 报错信息如下：
 
 ```python
- Traceback (most recent call last):
-     File "/path/to/your/torch/utils/data/_utils/pin_memory.py", line 98, in pin_memory
-         clone[i] = pin_memory(item, device)
-     File "/path/to/your/torch/utils/data/_utils/pin_memory.py", line 64, in pin_memory
-         return data.pin_memory(device)
- TypeError: pin_memory() takes 1 positional argument but 2 were given
+tensor_ones= Traceback (most recent call last):
+  File "/path/to/your/torch/test_complex64.py", line 6, in <module>
+    print("tensor_ones=", tensor_ones)
+RuntimeError: aclnnInplaceOneGetWorkspaceSize call failed, please check!
+
+----------------------------------------------------
+
+- Ascend Error Message:
+
+----------------------------------------------------
+EZ1001: [PID: 1219868] 2025-05-28-10:15:15.550.981 self not implemented for DT_COMPLEX64, should be in dtype support list [DT_FLOAT,DT_FLOAT16,DT_INT8,DT_INT16,DT_INT32,DT_INT64,DT_UINT8,DT_BOOL,DT_DOUBLE,DT_BFLOAT16,].[THREAD:1220127]
+
+----------------------------------------------------
+
+- C++ Call Stack: (For framework developers)
+
+----------------------------------------------------
 ```
 
 ### 暂不支持动态Profiling
@@ -52,26 +61,26 @@ MSAdapter是一款MindSpore生态适配工具，在不改变用户原有使用�
 示例代码：
 
 ```python
- import torch
- from torch.profiler import profile, record_function, ProfilerActivity
+import torch
+from torch.profiler import profile, record_function, ProfilerActivity
 
- with profile(activities=[ProfilerActivity.CPU], record_shapes=True) as prof:
-     # 训练代码
-     for i in range(10):
-     # 模拟训练步骤
-         pass
+with profile(activities=[ProfilerActivity.CPU], record_shapes=True) as prof:
+    # 训练代码
+    for i in range(10):
+    # 模拟训练步骤
+        pass
 
 ```
 
 报错信息如下：
 
 ```python
- Traceback (most recent call last):
-     File "/path/to/your/demo.py", line 102, in <module>
-         with profile(activities=[ProfilerActivity.CPU], record_shapes=True) as prof:
-     File "/path/to/your/torch/profiler/profiler.py", line 54, in __init__
-         profiler_level = experimental_config._profiler_level,
- AttributeError: 'NoneType' object has no attribute '_profiler_level'
+Traceback (most recent call last):
+    File "/path/to/your/demo.py", line 102, in <module>
+        with profile(activities=[ProfilerActivity.CPU], record_shapes=True) as prof:
+    File "/path/to/your/torch/profiler/profiler.py", line 54, in __init__
+        profiler_level = experimental_config._profiler_level,
+AttributeError: 'NoneType' object has no attribute '_profiler_level'
 
 ```
 
@@ -80,25 +89,25 @@ MSAdapter是一款MindSpore生态适配工具，在不改变用户原有使用�
 示例代码：
 
 ```python
-  from torch.utils.data import DataLoader
-  from torchvision import datasets
-  from torchvision.transforms import ToTensor
+from torch.utils.data import DataLoader
+from torchvision import datasets
+from torchvision.transforms import ToTensor
 
-  training_data = datasets.FashionMNIST(root="data", train=True, download=True, transform=ToTensor())
-  train_dataloader = DataLoader(training_data, batch_size=64, pin_memory=True)
-  for batch, (X, y) in enumerate(train_dataloader):
-      X, y = X.cuda(), y.cuda()
+training_data = datasets.FashionMNIST(root="data", train=True, download=True, transform=ToTensor())
+train_dataloader = DataLoader(training_data, batch_size=64, pin_memory=True)
+for batch, (X, y) in enumerate(train_dataloader):
+    X, y = X.cuda(), y.cuda()
 ```
 
 报错信息如下：
 
 ```python
- Traceback (most recent call last):
-     File "/path/to/your/torch/utils/data/_utils/pin_memory.py", line 98, in pin_memory
-         clone[i] = pin_memory(item, device)
-     File "/path/to/your/torch/utils/data/_utils/pin_memory.py", line 64, in pin_memory
-         return data.pin_memory(device)
- TypeError: pin_memory() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+    File "/path/to/your/torch/utils/data/_utils/pin_memory.py", line 98, in pin_memory
+        clone[i] = pin_memory(item, device)
+    File "/path/to/your/torch/utils/data/_utils/pin_memory.py", line 64, in pin_memory
+        return data.pin_memory(device)
+TypeError: pin_memory() takes 1 positional argument but 2 were given
 ```
 
 ### 不支持tensor.backward()操作
@@ -106,20 +115,20 @@ MSAdapter是一款MindSpore生态适配工具，在不改变用户原有使用�
 示例代码：
 
 ```python
-  import torch
-  x = torch.randn(2,)
-  x.backward()
+import torch
+x = torch.randn(2,)
+x.backward()
 ```
 
 报错信息如下：
 
 ```python
- Traceback (most recent call last):
-     File "/path/to/your/demo.py", line XX, in <module>
-         x.backward()
-     File "/path/to/your/torch/_tensor.py", line 325, in backward
-         raise ValueError('not support Tensor.backward yet.')
- ValueError: not support Tensor.backward yet.
+Traceback (most recent call last):
+    File "/path/to/your/demo.py", line XX, in <module>
+        x.backward()
+    File "/path/to/your/torch/_tensor.py", line 325, in backward
+        raise ValueError('not support Tensor.backward yet.')
+ValueError: not support Tensor.backward yet.
 ```
 
 ### 不支持to(device)操作
@@ -127,26 +136,26 @@ MSAdapter是一款MindSpore生态适配工具，在不改变用户原有使用�
 示例代码：
 
 ```python
-  import torch
-  x = torch.randn(2,)
-  device = "cuda"
-  x.to(device)
+import torch
+x = torch.randn(2,)
+device = "cuda"
+x.to(device)
 ```
 
 报错信息如下：
 
 ```python
- Traceback (most recent call last):
-     File "/path/to/your/demo.py", line XX, in <module>
-         x.to(device)
-     File "/path/to/your/mindspore/common/tensor.py", line 3018, in to
-         return self if self.dtype == dtype else self._to(dtype)
- TypeError: _to(): argument 'dtype' (position 1) must be mstype, not str.
+Traceback (most recent call last):
+    File "/path/to/your/demo.py", line XX, in <module>
+        x.to(device)
+    File "/path/to/your/mindspore/common/tensor.py", line 3018, in to
+        return self if self.dtype == dtype else self._to(dtype)
+TypeError: _to(): argument 'dtype' (position 1) must be mstype, not str.
 
- ----------------------------------------------------
- - C++ Call Stack: (For framework developers)
- ----------------------------------------------------
- mindspore/ccsrc/pynative/op_function/converter.cc:657 Parse
+----------------------------------------------------
+- C++ Call Stack: (For framework developers)
+----------------------------------------------------
+mindspore/ccsrc/pynative/op_function/converter.cc:657 Parse
 ```
 
 ### MindSpore导出的ckpt文件无法被直接加载到PyTorch模型中
@@ -154,45 +163,45 @@ MSAdapter是一款MindSpore生态适配工具，在不改变用户原有使用�
 示例代码：
 
 ```python
- import torch
- from torch import nn
- import mindspore as ms
+import torch
+from torch import nn
+import mindspore as ms
 
- class NeuralNetwork(nn.Module):
-     def __init__(self):
-         super().__init__()
-         self.linear = nn.Linear(28*28, 512)
+class NeuralNetwork(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.linear = nn.Linear(28*28, 512)
 
-     def forward(self, x):
-         logits = self.linear(x)
-         return logits
+    def forward(self, x):
+        logits = self.linear(x)
+        return logits
 
- class myNN(ms.nn.Cell):
-     def __init__(self):
-         super().__init__()
-         self.linear = nn.Linear(28*28, 512)
+class myNN(ms.nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.linear = nn.Linear(28*28, 512)
 
-     def construct(self, x):
-         logits = self.linear(x)
-         return logits
+    def construct(self, x):
+        logits = self.linear(x)
+        return logits
 
- model = myNN()
- ms.save_checkpoint(model, "./net.ckpt")
- model2 = NeuralNetwork()
- model.load_state_dict(torch.load("./net.ckpt"))
+model = myNN()
+ms.save_checkpoint(model, "./net.ckpt")
+model2 = NeuralNetwork()
+model.load_state_dict(torch.load("./net.ckpt"))
 ```
 
 报错信息如下：
 
 ```python
- Traceback (most recent call last):
-     File "/path/to/your/demo.py", line 99, in <module>
-         model.load_state_dict(torch.load("./mynn.ckpt"))
-     File "/path/to/your/torch/serialization.py", line 1020, in load
-         return _legacy_load(opened_file, pickle_module, **pickle_load_args)
-     File "/path/to/your/torch/serialization.py", line 1118, in _legacy_load
-         magic_number = pickle_module.load(f, **pickle_load_args)
- EOFError: Ran out of input
+Traceback (most recent call last):
+    File "/path/to/your/demo.py", line 99, in <module>
+        model.load_state_dict(torch.load("./mynn.ckpt"))
+    File "/path/to/your/torch/serialization.py", line 1020, in load
+        return _legacy_load(opened_file, pickle_module, **pickle_load_args)
+    File "/path/to/your/torch/serialization.py", line 1118, in _legacy_load
+        magic_number = pickle_module.load(f, **pickle_load_args)
+EOFError: Ran out of input
 ```
 
 ### 不支持MindSpore与MS-Adapter混合运行
@@ -201,21 +210,21 @@ import torch后，mindspore的部分行为会变更为torch的行为，从而产
 示例代码：
 
 ```python
- from mindspore import Tensor
+from mindspore import Tensor
 
- a = Tensor([2, 2])
- print(f'before import torch: a.shape={a.shape}')
+a = Tensor([2, 2])
+print(f'before import torch: a.shape={a.shape}')
 
- import torch
- print(f'after import torch: a.shape={a.shape}')
+import torch
+print(f'after import torch: a.shape={a.shape}')
 
 ```
 
 执行结果如下，可以看到，import torch后，原本的mindspore.Tensor.shape行为发生了改变。
 
 ```python
- before import torch: a.shape=(2,)
- after import torch: a.shape=torch.Size([2])
+before import torch: a.shape=(2,)
+after import torch: a.shape=torch.Size([2])
 ```
 
 不支持混合运行的MindSpore接口详见下表：
@@ -237,24 +246,17 @@ import torch后，mindspore的部分行为会变更为torch的行为，从而产
 |torch.amp|不支持|
 |torch.autograd|不支持|
 |torch.library|不支持|
-|torch.accelerator|不支持|
 |torch.cpu|不支持|
 |torch.cuda|不支持|
 |torch.mps|不支持|
-|torch.xpu|不支持|
-|torch.mtia|不支持|
-|torch.mtia.memory|不支持|
 |torch.backends|不支持|
 |torch.export|不支持|
 |torch.distributed|不支持|
-|torch.distributed.tensor|不支持|
 |torch.distributed.algorithms.join|不支持|
 |torch.distributed.elastic|不支持|
 |torch.distributed.fsdp|不支持|
-|torch.distributed.fsdp.fully_shard|不支持|
-|torch.distributed.tensor.parallel|不支持|
 |torch.distributed.optim|不支持|
-|torch.distributed.pipelining|不支持|
+|torch.distributed.tensor.parallel|不支持|
 |torch.distributed.checkpoint|不支持|
 |torch.distributions|不支持|
 |torch.compiler|不支持|
@@ -262,7 +264,6 @@ import torch后，mindspore的部分行为会变更为torch的行为，从而产
 |torch.func|不支持|
 |torch.futures|不支持|
 |torch.fx|不支持|
-|torch.fx.experimental|不支持|
 |torch.hub|不支持|
 |torch.jit|不支持|
 |torch.linalg|不支持|
@@ -273,13 +274,11 @@ import torch后，mindspore的部分行为会变更为torch的行为，从而产
 |torch.package|不支持|
 |torch.profiler|不支持|
 |torch.nn.init|不支持|
-|torch.nn.attention|不支持|
 |torch.onnx|不支持|
-|torch.optim|不支持|
+|torch.optim|部分支持|
 |torch.random|不支持|
 |torch.masked|不支持|
 |torch.nested|不支持|
-|torch.Size|不支持|
 |torch.sparse|不支持|
 |torch.Storage|不支持|
 |torch.testing|不支持|
@@ -289,13 +288,10 @@ import torch后，mindspore的部分行为会变更为torch的行为，从而产
 |torch.utils.checkpoint|不支持|
 |torch.utils.cpp_extension|不支持|
 |torch.utils.data|不支持|
-|torch.utils.deterministic|不支持|
 |torch.utils.jit|不支持|
 |torch.utils.dlpack|不支持|
 |torch.utils.mobile_optimizer|不支持|
 |torch.utils.model_zoo|不支持|
 |torch.utils.tensorboard|不支持|
-|torch.utils.module_tracker|不支持|
-|torch.**config**|不支持|
-|torch.**future**|不支持|
+|torch.\_\_config\_\_|不支持|
 |torch._logging|不支持|
