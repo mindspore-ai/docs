@@ -43,6 +43,7 @@ vLLM MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部�
 
 vLLM MindSpore采用vLLM社区推荐的插件机制，实现能力注册。未来期望遵循 `RPC Multi-framework support for vllm <https://gitee.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ 所述原则，推动上游vLLM社区通过抽象和解耦AI框架，支持接入包括PaddlePaddle、JAX等多类型AI框架推理能力。
 
+代码仓地址：<https://gitee.com/mindspore/vllm-mindspore>
 
 环境准备
 -----------------------------------------------------
