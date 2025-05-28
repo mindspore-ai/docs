@@ -10,7 +10,7 @@
 
 | MindSpore Transformers |                   MindSpore                   |  CANN   |  固件与驱动   | 镜像链接 |
 |:----------------------:|:---------------------------------------------:|:-------:|:--------:|:----:|
-|         1.5.0          | [2.6.0-rc1](https://www.mindspore.cn/install) | [8.1.RC1.beta1](https://www.hiascend.com/zh/developer/download/community/result?module=cann&cann=8.1.RC1.beta1&product=4&model=26) | [25.0.RC1](https://www.hiascend.com/document/detail/en/canncommercial/81RC1/softwareinst/instg/instg_0000.html) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/187.html) |
+|         1.5.0          | [2.6.0-rc1](https://www.mindspore.cn/install) | [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html) | [25.0.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/187.html) |
 
 **当前MindSpore Transformers建议使用如上的软件配套关系。**
 
