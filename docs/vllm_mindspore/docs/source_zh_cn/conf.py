@@ -189,50 +189,50 @@ import json
 with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
     version_inf = json.load(f)
 
-if os.getenv("VLLM_PATH").split('/')[-1]:
-    copy_repo = os.getenv("VLLM_PATH").split('/')[-1]
-else:
-    copy_repo = os.getenv("VLLM_PATH").split('/')[-2]
+# if os.getenv("VLLM_PATH").split('/')[-1]:
+#     copy_repo = os.getenv("VLLM_PATH").split('/')[-1]
+# else:
+#     copy_repo = os.getenv("VLLM_PATH").split('/')[-2]
 
 # import pdb
 # pdb.set_trace()
 
-branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
-docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+# branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+# docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 
-re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
-          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+# re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
+#           f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
 
-for cur, _, files in os.walk(present_path):
-    for i in files:
-        flag_copy = 0
-        if i.endswith('.rst'):
-            for j in copy_list:
-                if j in cur:
-                    flag_copy = 1
-                    break
-            if os.path.join(cur, i) in copy_list or flag_copy:
-                try:
-                    with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                        content = f.read()
-                        new_content = content
-                        if '.. include::' in content and '.. automodule::' in content:
-                            continue
-                        if 'autosummary::' not in content and "\n=====" in content:
-                            re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + i + \
-                                       '\n    :alt: 查看源文件\n\n'
-                            new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
-                            print("re_view_")
-                            print(re_view_)
-                        if new_content != content:
-                            f.seek(0)
-                            f.truncate()
-                            f.write(new_content)
-                except Exception:
-                    print(f'打开{i}文件失败')
+# for cur, _, files in os.walk(present_path):
+#     for i in files:
+#         flag_copy = 0
+#         if i.endswith('.rst'):
+#             for j in copy_list:
+#                 if j in cur:
+#                     flag_copy = 1
+#                     break
+#             if os.path.join(cur, i) in copy_list or flag_copy:
+#                 try:
+#                     with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+#                         content = f.read()
+#                         new_content = content
+#                         if '.. include::' in content and '.. automodule::' in content:
+#                             continue
+#                         if 'autosummary::' not in content and "\n=====" in content:
+#                             re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + i + \
+#                                        '\n    :alt: 查看源文件\n\n'
+#                             new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+#                             print("re_view_")
+#                             print(re_view_)
+#                         if new_content != content:
+#                             f.seek(0)
+#                             f.truncate()
+#                             f.write(new_content)
+#                 except Exception:
+#                     print(f'打开{i}文件失败')
 
 
-import vllm_mindspore
+# import vllm_mindspore
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
@@ -257,7 +257,7 @@ if len(re.findall("\n## (.*?)\n",data)) > 1:
     content = re.findall("(## [\s\S\n]*?)\n## ", data)
 else:
     content = re.findall("(## [\s\S\n]*)", data)
-#result = content[0].replace('# MindSPONGE', '#', 1)
+
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes"+"\n\n")
     p.write(content[0])

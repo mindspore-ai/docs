@@ -9,9 +9,3 @@ descriptastorus == 2.6.0
 sympy
 tqdm
 sphinx-rtd-theme == 1.0.0
-sphinxcontrib-applehelp == 1.0.0
-sphinxcontrib-devhelp == 1.0.0
-sphinxcontrib-htmlhelp == 2.0.0
-sphinxcontrib-jsmath == 1.0.1
-sphinxcontrib-qthelp == 1.0.0
-sphinxcontrib-serializinghtml == 1.1.5
