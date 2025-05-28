@@ -1,5 +1,7 @@
 # 安装指南
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
+
 本文档将介绍安装vLLM MindSpore环境的操作步骤。分为三种安装方式：
 
 - [docker安装](#docker安装)：适合用户快速使用的场景；

@@ -1,5 +1,7 @@
 # 性能测试
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/benchmark/benchmark.md)
+
 vLLM MindSpore的性能测试能力，继承自vLLM所提供的性能测试能力，详情可参考[vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md)文档。该文档将介绍[在线性能测试](#在线性能测试)与[离线性能测试](#离线性能测试)，用户可以根据所介绍步骤进行性能测试。
 
 ## 在线性能测试

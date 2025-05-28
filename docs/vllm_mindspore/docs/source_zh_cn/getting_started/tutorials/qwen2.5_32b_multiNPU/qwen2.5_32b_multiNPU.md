@@ -1,5 +1,7 @@
 # NPU单节点多卡推理（Qwen2.5-32B）
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md)
+
 本文档将为用户介绍使用vLLM MindSpore进行单节点多卡的推理流程。以[Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct)模型为例，用户通过以下[docker安装](#docker安装)章节，或[安装指南](../../installation/installation.md#安装指南)进行环境配置，并[下载模型权重](#下载模型权重)。在[设置环境变量](#设置环境变量)之后，可部署[在线推理](#在线推理)，以体验单节点多卡的推理功能。
 
 ## docker安装

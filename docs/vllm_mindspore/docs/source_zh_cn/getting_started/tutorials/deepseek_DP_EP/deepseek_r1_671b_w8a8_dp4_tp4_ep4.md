@@ -1,5 +1,7 @@
 # Deepseek r1 DP EP推理示例
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/deepseek_DP_EP/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
+
 以下将以Deepseek r1 671B w8a8为例，介绍双机DP推理流程。
 
 ## 新建docker容器

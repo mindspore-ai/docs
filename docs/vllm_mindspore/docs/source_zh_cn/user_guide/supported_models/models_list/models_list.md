@@ -1,5 +1,7 @@
 # 模型支持列表
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_models/models_list/models_list.md)
+
 | 模型 | 是否支持 | 模型下载链接 | 模型后端 |
 |-------| --------- | ---- | ---- |
 | Qwen2.5 |  √ | [Qwen2.5-7B](https://modelers.cn/models/AI-Research/Qwen2.5-7B)、[Qwen2.5-32B](https://modelers.cn/models/AI-Research/Qwen2.5-32B) 等 | MINDFORMER_MODELS |
