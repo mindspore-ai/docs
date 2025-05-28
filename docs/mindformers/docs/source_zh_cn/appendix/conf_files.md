@@ -310,6 +310,7 @@ MindSpore Transformers提供Profile作为模型性能调优的主要工具，详
 | monitor_config.invert                   | 设置反选`monitor_config.target`所指定的参数，默认为`False`。                                                                               | bool          |
 | monitor_config.step_interval            | 设置记录指标的频率。默认为1，即每个step记录一次。                                                                                                 | int           |
 | monitor_config.local_loss_format        | 设置指标`local_loss`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。        | str或list[str] |
+| monitor_config.device_local_loss_format | 设置指标`device_local_loss`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。 | str或list[str] |
 | monitor_config.local_norm_format        | 设置指标`local_norm`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。        | str或list[str] |
 | monitor_config.device_local_norm_format | 设置指标`device_local_norm`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。 | str或list[str] |
 | monitor_config.optimizer_state_format   | 设置指标`优化器状态`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。             | str或list[str] |
