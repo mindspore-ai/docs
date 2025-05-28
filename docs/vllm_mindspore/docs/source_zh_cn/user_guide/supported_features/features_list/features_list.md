@@ -1,0 +1,34 @@
+# 特性支持列表
+
+vLLM MindSpore支持的特性功能与vLLM社区版本保持一致，特性描述和使用请参考[vLLM官方资料](https://docs.vllm.ai/en/latest/)。
+
+以下是vLLM-MindSpore的功能支持状态：
+
+| **功能**                          | **vLLM V0** | **vLLM V1** |  
+|-----------------------------------|--------------------|--------------------|  
+| Chunked Prefill                   | √                  | √                  |  
+| Automatic Prefix Caching          | √                  | √                  |  
+| Multi step scheduler              | √                  | ×                  |  
+| DeepSeek MTP                      | √                  | WIP                |  
+| Async output                      | √                  | √                  |  
+| Quantization                      | √                  | √                  |  
+| LoRA                              | WIP                | WIP                |  
+| Tensor Parallel                   | √                  | √                  |  
+| Pipeline Parallel                 | WIP                | WIP                |  
+| Expert Parallel                   | ×                  | √                  |  
+| Data Parallel                     | ×                  | √                  |  
+| Prefill Decode Disaggregation     | ×                  | √                  |  
+| Multi Modality                    | WIP                | WIP                |  
+| Prompt adapter                    | ×                  | WIP                |  
+| Speculative decoding              | ×                  | WIP                |  
+| LogProbs                          | ×                  | WIP                |  
+| Prompt logProbs                   | ×                  | WIP                |  
+| Best of                           | ×                  | ×                  |  
+| Beam search                       | ×                  | WIP                |  
+| Guided Decoding                   | ×                  | WIP                |  
+| Pooling                           | ×                  | ×                  |
+| Enc-dec                           | ×                  | ×                  |  
+
+- √：功能已与vLLM社区版本能力对齐。
+- ×：暂无支持计划，建议使用其他方案代替。
+- WIP：功能正在开发中或已列入开发计划中。
