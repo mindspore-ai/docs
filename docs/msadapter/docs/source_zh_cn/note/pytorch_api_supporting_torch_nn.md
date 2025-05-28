@@ -54,12 +54,12 @@
 |[nn.ReplicationPad1d](https://pytorch.org/docs/2.1/generated/torch.nn.ReplicationPad1d.html)|Not Support|N/A|
 |[nn.ReplicationPad2d](https://pytorch.org/docs/2.1/generated/torch.nn.ReplicationPad2d.html)|Not Support|N/A|
 |[nn.ReplicationPad3d](https://pytorch.org/docs/2.1/generated/torch.nn.ReplicationPad3d.html)|Not Support|N/A|
-|[nn.ZeroPad1d](https://pytorch.org/docs/2.1/generated/torch.nn.ZeroPad1d.html)|Beta|支持数据类型：bf16、fp16、fp32、fp64、complex64、complex128|
-|[nn.ZeroPad2d](https://pytorch.org/docs/2.1/generated/torch.nn.ZeroPad2d.html)|Beta|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool、complex64、complex128|
-|[nn.ZeroPad3d](https://pytorch.org/docs/2.1/generated/torch.nn.ZeroPad3d.html)|Beta|支持数据类型：bf16、fp16、fp32、fp64、complex64、complex128|
+|[nn.ZeroPad1d](https://pytorch.org/docs/2.1/generated/torch.nn.ZeroPad1d.html)|Beta|支持数据类型：bf16、fp16、fp32、fp64|
+|[nn.ZeroPad2d](https://pytorch.org/docs/2.1/generated/torch.nn.ZeroPad2d.html)|Beta|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool|
+|[nn.ZeroPad3d](https://pytorch.org/docs/2.1/generated/torch.nn.ZeroPad3d.html)|Beta|支持数据类型：bf16、fp16、fp32、fp64|
 |[nn.ConstantPad1d](https://pytorch.org/docs/2.1/generated/torch.nn.ConstantPad1d.html)|Beta|支持数据类型：int8、bool|
-|[nn.ConstantPad2d](https://pytorch.org/docs/2.1/generated/torch.nn.ConstantPad2d.html)|Beta|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、complex64、complex128|
-|[nn.ConstantPad3d](https://pytorch.org/docs/2.1/generated/torch.nn.ConstantPad3d.html)|Beta|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、bool、complex64、complex128|
+|[nn.ConstantPad2d](https://pytorch.org/docs/2.1/generated/torch.nn.ConstantPad2d.html)|Beta|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64|
+|[nn.ConstantPad3d](https://pytorch.org/docs/2.1/generated/torch.nn.ConstantPad3d.html)|Beta|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[nn.CircularPad1d](https://pytorch.org/docs/2.1/generated/torch.nn.CircularPad1d.html)|Not Support|N/A|
 |[nn.CircularPad2d](https://pytorch.org/docs/2.1/generated/torch.nn.CircularPad2d.html)|Not Support|N/A|
 |[nn.CircularPad3d](https://pytorch.org/docs/2.1/generated/torch.nn.CircularPad3d.html)|Not Support|N/A|
@@ -83,7 +83,7 @@
 |[nn.SELU](https://pytorch.org/docs/2.1/generated/torch.nn.SELU.html)|Beta|支持数据类型：fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
 |[nn.CELU](https://pytorch.org/docs/2.1/generated/torch.nn.CELU.html)|Beta|支持数据类型：fp16、fp32|
 |[nn.GELU](https://pytorch.org/docs/2.1/generated/torch.nn.GELU.html)|Stable|支持数据类型：bf16、fp16、fp32|
-|[nn.Sigmoid](https://pytorch.org/docs/2.1/generated/torch.nn.Sigmoid.html)|Beta|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool、complex64、complex128|
+|[nn.Sigmoid](https://pytorch.org/docs/2.1/generated/torch.nn.Sigmoid.html)|Beta|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[nn.SiLU](https://pytorch.org/docs/2.1/generated/torch.nn.SiLU.html)|Stable|支持数据类型：bf16、fp16、fp32|
 |[nn.Mish](https://pytorch.org/docs/2.1/generated/torch.nn.Mish.html)|Beta|支持数据类型：fp16、fp32|
 |[nn.Softplus](https://pytorch.org/docs/2.1/generated/torch.nn.Softplus.html)|Beta|支持数据类型：fp16、fp32|
@@ -108,9 +108,9 @@
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
-|[nn.BatchNorm1d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm1d.html)|Beta|入参不支持device、dtype；支持数据类型：fp16、fp32|
-|[nn.BatchNorm2d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm2d.html)|Beta|入参不支持device、dtype；支持数据类型：fp16、fp32|
-|[nn.BatchNorm3d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm3d.html)|Beta|入参不支持device、dtype；支持数据类型：fp16、fp32|
+|[nn.BatchNorm1d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm1d.html)|Beta|入参不支持device；支持数据类型：fp16、fp32|
+|[nn.BatchNorm2d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm2d.html)|Beta|入参不支持device；支持数据类型：fp16、fp32|
+|[nn.BatchNorm3d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm3d.html)|Beta|入参不支持device；支持数据类型：fp16、fp32|
 |[nn.LazyBatchNorm1d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyBatchNorm1d.html)|Not Support|N/A|
 |[nn.LazyBatchNorm2d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyBatchNorm2d.html)|Not Support|N/A|
 |[nn.LazyBatchNorm3d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyBatchNorm3d.html)|Not Support|N/A|
@@ -276,5 +276,5 @@
 |[nn.utils.rnn.pack_sequence](https://pytorch.org/docs/2.1/generated/torch.nn.utils.rnn.pack_sequence.html)|Not Support|N/A|
 |[nn.utils.rnn.unpack_sequence](https://pytorch.org/docs/2.1/generated/torch.nn.utils.rnn.unpack_sequence.html)|Not Support|N/A|
 |[nn.utils.rnn.unpad_sequence](https://pytorch.org/docs/2.1/generated/torch.nn.utils.rnn.unpad_sequence.html)|Not Support|N/A|
-|[nn.Flatten](https://pytorch.org/docs/2.1/generated/torch.nn.Flatten.html)|Beta|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool、complex64、complex128|
+|[nn.Flatten](https://pytorch.org/docs/2.1/generated/torch.nn.Flatten.html)|Beta|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[nn.Unflatten](https://pytorch.org/docs/2.1/generated/torch.nn.Unflatten.html)|Beta|支持数据类型：fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|

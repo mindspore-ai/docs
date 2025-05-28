@@ -78,7 +78,7 @@
 |[gumbel_softmax](https://pytorch.org/docs/2.1/generated/torch.nn.functional.gumbel_softmax.html)|Beta|N/A|
 |[log_softmax](https://pytorch.org/docs/2.1/generated/torch.nn.functional.log_softmax.html)|Beta|入参不支持_stacklevel、dim默认值torch为None、msadapter为-1；支持数据类型：bf16、fp16、fp32|
 |[tanh](https://pytorch.org/docs/2.1/generated/torch.nn.functional.tanh.html)|Stable|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、bool|
-|[sigmoid](https://pytorch.org/docs/2.1/generated/torch.nn.functional.sigmoid.html)|Stable|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、bool、complex64、complex128|
+|[sigmoid](https://pytorch.org/docs/2.1/generated/torch.nn.functional.sigmoid.html)|Stable|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[hardsigmoid](https://pytorch.org/docs/2.1/generated/torch.nn.functional.hardsigmoid.html)|Beta|入参不支持inplace；支持数据类型：fp16、fp32|
 |[silu](https://pytorch.org/docs/2.1/generated/torch.nn.functional.silu.html)|Beta|入参不支持inplace；支持数据类型：fp16、fp32|
 |[mish](https://pytorch.org/docs/2.1/generated/torch.nn.functional.mish.html)|Stable|支持数据类型：fp16、fp32|
@@ -128,7 +128,7 @@
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
-|[binary_cross_entropy](https://pytorch.org/docs/2.1/generated/torch.nn.functional.binary_cross_entropy.html)|Beta|支持数据类型：fp16、fp32|
+|[binary_cross_entropy](https://pytorch.org/docs/2.1/generated/torch.nn.functional.binary_cross_entropy.html)|Not Support|N/A|
 |[binary_cross_entropy_with_logits](https://pytorch.org/docs/2.1/generated/torch.nn.functional.binary_cross_entropy_with_logits.html)|Stable|支持数据类型：fp16、fp32|
 |[poisson_nll_loss](https://pytorch.org/docs/2.1/generated/torch.nn.functional.poisson_nll_loss.html)|Not Support|N/A|
 |[cosine_embedding_loss](https://pytorch.org/docs/2.1/generated/torch.nn.functional.cosine_embedding_loss.html)|Not Support|N/A|
