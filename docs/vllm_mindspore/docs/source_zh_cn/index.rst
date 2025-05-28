@@ -140,15 +140,15 @@ Apache 许可证 2.0，如  `LICENSE <https://gitee.com/mindspore/vllm-mindspore
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 发布信息
-   :hidden:
-
-   release_notes/release_notes
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: FAQ
    :hidden:
 
    faqs/faqs
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+   :hidden:
+
+   RELEASE
