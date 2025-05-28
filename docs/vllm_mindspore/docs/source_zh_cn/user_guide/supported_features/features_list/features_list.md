@@ -1,5 +1,7 @@
 # 特性支持列表
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/features_list/features_list.md)
+
 vLLM MindSpore支持的特性功能与vLLM社区版本保持一致，特性描述和使用请参考[vLLM官方资料](https://docs.vllm.ai/en/latest/)。
 
 以下是vLLM-MindSpore的功能支持状态：

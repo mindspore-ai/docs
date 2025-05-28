@@ -1,5 +1,7 @@
 # 贡献指南
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/developer_guide/contributing.md)
+
 ## 贡献者许可协议
 
 向MindSpore社区提交代码之前，您需要签署《贡献者许可协议（CLA）》。

@@ -1,5 +1,7 @@
 # 自定义算子接入
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/operations/npu_ops.md)
+
 本文档将以 **`adv_step_flash`** 算子的接入为例，讲解如何在 vLLM MindSpore 项目中接入一个新的自定义算子。本文重点在于接入流程，算子的实现参考 MindSpore 官方教程：[动态图自定义算子接入方式](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。以下章节将介绍文件的组织结构及接入步骤。
 
 实际开发中，可根据项目需求扩展更多功能，算子实现细节可参考 [MindSpore 自定义算子实现方式](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。

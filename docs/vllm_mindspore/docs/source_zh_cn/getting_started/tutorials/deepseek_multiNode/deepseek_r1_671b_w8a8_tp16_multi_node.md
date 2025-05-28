@@ -1,5 +1,7 @@
 # Deepseek r1 多节点 TP16 推理示例
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/deepseek_multiNode/deepseek_r1_671b_w8a8_tp16_multi_node.md)
+
 如果一个节点环境无法支撑一个推理模型服务的运行，则考虑会使用多个节点资源运行推理模型。
 VLLM 通过 Ray 对多个节点资源进行管理和运行。
 
