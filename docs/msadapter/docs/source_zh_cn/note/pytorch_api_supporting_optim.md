@@ -18,7 +18,7 @@
 |[torch.optim.Adadelta](https://docs.pytorch.org/docs/2.1/generated/torch.optim.Adadelta.html)|Not Support|N/A|
 |[torch.optim.Adagrad](https://docs.pytorch.org/docs/2.1/generated/torch.optim.Adagrad.html)|Not Support|N/A|
 |[torch.optim.Adam](https://docs.pytorch.org/docs/2.1/generated/torch.optim.Adam.html)|Beta|入参不支持foreach、capturable、differentiable、fused；支持数据类型：bf16、fp16、fp32|
-|[torch.optim.AdamW](https://docs.pytorch.org/docs/2.1/generated/torch.optim.AdamW.html)|Beta|入参不支持foreach、capturable、differentiable、fused；参数weight_decay的默认值为1e-2，torch的默认值为0，支持数据类型：bf16、fp16、fp32|
+|[torch.optim.AdamW](https://docs.pytorch.org/docs/2.1/generated/torch.optim.AdamW.html)|Beta|入参不支持foreach、capturable、differentiable、fused；支持数据类型：bf16、fp16、fp32|
 |[torch.optim.SparseAdam](https://docs.pytorch.org/docs/2.1/generated/torch.optim.SparseAdam.html)|Not Support|N/A|
 |[torch.optim.Adamax](https://docs.pytorch.org/docs/2.1/generated/torch.optim.Adamax.html)|Not Support|N/A|
 |[torch.optim.ASGD](https://docs.pytorch.org/docs/2.1/generated/torch.optim.ASGD.html)|Not Support|N/A|
