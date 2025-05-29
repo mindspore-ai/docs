@@ -1,13 +1,24 @@
 MindSpore Transformers 文档
 =========================================
 
-MindSpore Transformers（也称MindFormers）是一个MindSpore原生的大模型套件，旨在提供大模型训练、微调、评估、推理、部署等全流程开发能力，提供业内主流的Transformer类预训练模型和SOTA下游任务应用，涵盖丰富的并行特性，期望帮助用户轻松地实现大模型训练和创新研发。
+MindSpore Transformers套件的目标是构建一个大模型预训练、微调、推理、部署的全流程开发套件，提供业内主流的Transformer类大语言模型（Large Language Models, LLMs）和多模态理解模型（Multimodal Models, MMs）。期望帮助用户轻松地实现大模型全流程开发。
 
-用户可以参阅 `整体架构 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/overview.html>`_ 和 `模型库 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html>`_ ，快速了解MindSpore Transformers的系统架构，及所支持的功能特性和大模型清单。进一步地，可参考 `安装 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html>`_ 和 `快速启动 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/source_code_start.html>`_ 章节，上手探索MindSpore Transformers。
+MindSpore Transformers套件基于MindSpore内置的多维混合并行技术和组件化设计，具备如下特点：
+
+- 一键启动模型单卡或多卡预训练、微调、推理、部署流程；
+- 提供丰富的多维混合并行能力可供灵活易用地进行个性化配置；
+- 大模型训推系统级深度优化，原生支持超大规模集群高效训推，故障快速恢复；
+- 支持任务组件配置化开发。任意模块可通过统一配置进行使能，包括模型网络、优化器、学习率策略等；
+- 提供训练精度/性能监控指标实时可视化能力等。
+
+用户可以参阅 `整体架构 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/overview.html>`_ 和 `模型库 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html>`_ ，快速了解MindSpore Transformers的系统架构，以及所支持的大模型清单。
 
 如果您对MindSpore Transformers有任何建议，请通过 `issue <https://gitee.com/mindspore/mindformers/issues>`_ 与我们联系，我们将及时处理。
 
-MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微调、评估、推理流程，它通过简化操作、提供灵活性和自动化流程，使得深度学习任务的执行变得更加高效和用户友好，用户可以通过以下说明文档进行学习：
+使用MindSpore Transformers进行大模型全流程开发
+-----------------------------------------------------
+
+MindSpore Transformers提供了统一的一键启动脚本，支持一键启动任意任务的单卡/多卡训练、微调、推理流程，它通过简化操作、提供灵活性和自动化流程，使得深度学习任务的执行变得更加高效和用户友好，用户可以通过以下说明文档进行学习：
 
 .. raw:: html
 
@@ -22,40 +33,22 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
          <td style="text-align: center; width: 20%; border: none">
             <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/full-process_3.png">
          </td>
-         <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/full-process_4.png">
-         </td>
-         <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/full-process_5.png">
-         </td>
       </tr>
       <tr>
          <td style="text-align: center; width: 20%; border: none">
             <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/dev_migration.html"><span>开发迁移</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/multi_modal.html"><span>多模态理解模型开发</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/pre_training.html"><span>预训练</span></a></li>
             </ul>
          </td>
          <td style="text-align: center; width: 20%; border: none">
             <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/pre_training.html"><span>预训练</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/supervised_fine_tuning.html"><span>微调</span></a></li>
             </ul>
          </td>
          <td style="text-align: center; width: 20%; border: none">
             <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/sft_tuning.html"><span>SFT微调</span></a></li>
-            </ul>
-         </td>
-         <td style="text-align: center; width: 20%; border: none">
-            <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/evaluation.html"><span>评测</span></a></li>
-            </ul>
-         </td>
-         <td style="text-align: center; width: 20%; border: none">
-            <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/inference.html"><span>推理</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/quantization.html"><span>量化</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/mindie_deployment.html"><span>服务化部署</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/inference.html"><span>推理</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/deployment.html"><span>部署</span></a></li>
             </ul>
          </td>
       </tr>
@@ -63,164 +56,185 @@ MindSpore Transformers支持一键启动任意任务的单卡/多卡训练、微
 
 代码仓地址： <https://gitee.com/mindspore/mindformers>
 
-使用MindSpore Transformers进行灵活易用的个性化配置
+MindSpore Transformers功能特性说明
 -----------------------------------------------------
 
-MindSpore Transformers以其强大的功能集，为用户提供了灵活易用的个性化配置选项。其关键特性包括：
 
-1. `启动任务 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/start_tasks.html>`_
+
+
+- 通用功能：
+
+  - `启动任务 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/start_tasks.html>`_
 
     单卡、单机和多机任务一键启动。
 
-2. `权重格式转换 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html>`_
+  - `权重格式转换 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/weight_conversion.html>`_
 
-   提供统一的权重转换工具，能够将模型权重在HuggingFace所使用的格式与MindSpore Transformers所使用的格式之间相互转换。
+    提供统一的权重转换工具，能够将模型权重在HuggingFace所使用的格式与MindSpore Transformers所使用的格式之间相互转换。
 
-3. `分布式权重切分与合并 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/transform_weight.html>`_
+  - `分布式权重切分与合并 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/transform_weight.html>`_
 
-   不同分布式场景下的权重灵活地进行切分与合并。
+    不同分布式场景下的权重灵活地进行切分与合并。
 
-4. `分布式并行 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/distributed_parallel.html>`_
+  - `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html>`_
 
-   一键配置多维混合分布式并行，让模型在上至万卡的集群中高效运行。
+    支持safetensors格式的权重文件保存及加载功能。
 
-5. `数据集 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html>`_
+  - `配置文件 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html>`_
 
-   支持多种类型和格式的数据集。
+    支持使用`YAML`文件集中管理和调整任务中的可配置项。
 
-6. `模型训练超参数配置 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/training_hyperparameters.html>`_
+  - `日志 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/logging.html>`_
 
-   提供大模型训练的超参数配置介绍和示例。
+    日志相关介绍，包括日志结构、日志保存等。
 
-7. `其它特性 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/other_features.html>`_
+- 训练功能：
 
-   介绍梯度累积、梯度裁剪等特性。
+  - `数据集 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html>`_
 
-8. `日志 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/logs.html>`_
+    支持多种类型和格式的数据集。
 
-   日志相关介绍，包括日志结构、日志保存等。
+  - `训练超参数 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/training_hyperparameters.html>`_
 
-9. `模型断点续训 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html>`_
+    灵活配置大模型训练的超参数配置。
 
-   支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
+  - `训练指标监控 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/monitor.html>`_
 
-10. `训练指标监控 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/monitor.html>`_
+    提供大模型训练阶段的可视化服务，用于监控和分析训练过程中的各种指标和信息。
 
-   提供大模型训练阶段的可视化服务，用于监控和分析训练过程中的各种指标和信息。
+  - `断点续训 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/resume_training.html>`_
 
-11. `训练高可用 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/high_availability.html>`_
+    支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
 
-   提供大模型训练阶段的高可用能力，包括临终 CKPT 保存、UCE 故障容错恢复和进程级重调度恢复功能。
+  - `训练高可用（Beta） <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/high_availability.html>`_
 
-12. `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html>`_
+    提供大模型训练阶段的高可用能力，包括临终 CKPT 保存、UCE 故障容错恢复和进程级重调度恢复功能（Beta特性）。
 
-   支持safetensors格式的权重文件保存及加载功能。
+  - `分布式训练 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/parallel_training.html>`_
 
-13. `细粒度激活值SWAP <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/fine_grained_activations_swap.html>`_
+    一键配置多维混合分布式并行，让模型在上至万卡的集群中高效训练。
 
-   支持细粒度地选择特定激活值使能SWAP，用于降低模型训练的峰值内存开销。
+  - `训练内存优化 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/memory_optimization.html>`_
 
-使用MindSpore Transformers进行深度调优
+    支持细粒度选择重计算和细粒度激活值SWAP，用于降低模型训练的峰值内存开销。
+
+  - `其它训练特性 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/other_training_features.html>`_
+
+    支持梯度累积、梯度裁剪等特性。
+
+- 推理功能
+
+  - `评测 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/evaluation.html>`_
+
+    支持使用第三方开源评测框架和数据集进行大模型榜单评测。
+
+  - `量化 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/quantization.html>`_
+
+    集成 MindSpore Golden Stick 工具组件，提供统一量化推理流程开箱即用。
+
+使用MindSpore Transformers进行高阶开发
 --------------------------------------
 
-- `精度调优 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/acc_optimize/acc_optimize.html>`_
-- `性能调优 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/perf_optimize/perf_optimize.html>`_
+- 调试调优
 
-附录
+  - `精度调优 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/precision_optimization.html>`_
+  - `性能调优 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/performance_optimization.html>`_
+
+- 模型开发
+
+  - `开发迁移 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/dev_migration.html>`_
+  - `多模态理解模型开发 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/multi_modal_dev.html>`_
+
+环境变量
 ------------------------------------
 
-- `环境变量说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/env_variables.html>`_
-- `配置文件说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html>`_
+- `环境变量说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/env_variables.html>`_
+
+贡献指南
+------------------------------------
+
+- `MindSpore Transformers贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/contribution/mindformers_contribution.html>`_
+- `魔乐社区贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/contribution/modelers_contribution.html>`_
 
 FAQ
 ------------------------------------
 
 - `模型相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/faq/model_related.html>`_
-- `功能相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/faq/func_related.html>`_
-- `MindSpore Transformers贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/faq/mindformers_contribution.html>`_
-- `魔乐社区贡献指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/faq/modelers_contribution.html>`_
+- `功能相关 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/faq/feature_related.html>`_
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 开始
+   :caption: 介绍
    :hidden:
 
-   start/overview
-   start/models
+   introduction/overview
+   introduction/models
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 快速入门
+   :caption: 安装
    :hidden:
 
-   quick_start/install
-   quick_start/source_code_start
+   installation
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 使用教程
+   :caption: 大模型全流程指南
    :hidden:
 
-   usage/dev_migration
-   usage/multi_modal
-   usage/pre_training
-   usage/sft_tuning
-   usage/evaluation
-   usage/inference
-   usage/quantization
-   usage/mindie_deployment
-   usage/pretrain_gpt
+   guide/pre_training
+   guide/supervised_fine_tuning
+   guide/inference
+   guide/deployment
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 功能说明
+   :caption: 功能特性
    :hidden:
 
-   function/start_tasks
-   function/weight_conversion
-   function/transform_weight
-   function/distributed_parallel
-   function/dataset
-   function/training_hyperparameters
-   function/other_features
-   function/logs
-   function/resume_training
-   function/monitor
-   function/high_availability
-   function/safetensors
-   function/fine_grained_activations_swap
+   feature/start_tasks
+   feature/weight_conversion
+   feature/transform_weight
+   feature/safetensors
+   feature/configuration
+   feature/logging
+   feature/dataset
+   feature/training_hyperparameters
+   feature/monitor
+   feature/resume_training
+   feature/parallel_training
+   feature/high_availability
+   feature/memory_optimization
+   feature/other_training_features
+   feature/evaluation
+   feature/quantization
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 精度调优
+   :caption: 高阶开发
    :hidden:
 
-   acc_optimize/acc_optimize
+   advanced_development/precision_optimization
+   advanced_development/performance_optimization
+   advanced_development/dev_migration
+   advanced_development/multi_modal_dev
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 性能调优
-   :hidden:
-
-   perf_optimize/perf_optimize
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 案例
+   :caption: 优秀实践
    :hidden:
 
    example/distilled
 
 .. toctree::
    :maxdepth: 1
-   :caption: API参考
+   :caption: API
    :hidden:
 
    mindformers
@@ -237,11 +251,19 @@ FAQ
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 附录
+   :caption: 环境变量
    :hidden:
 
-   appendix/env_variables
-   appendix/conf_files
+   env_variables
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 贡献指南
+   :hidden:
+
+   contribution/mindformers_contribution
+   contribution/modelers_contribution
 
 .. toctree::
    :glob:
@@ -250,6 +272,4 @@ FAQ
    :hidden:
 
    faq/model_related
-   faq/func_related
-   faq/mindformers_contribution
-   faq/modelers_contribution
+   faq/feature_related
