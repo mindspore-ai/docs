@@ -4,9 +4,9 @@
 
 |   环境变量   |   必配基础场景   |   功能   |
 |   ------   |   ----------  |   -------  |
-|   export vLLM_MODEL_BACKEND=MINDFORMER_MODELS   |   运行mindformers模型   |   用于区分mindformers和vllm-mindspore原生模型，默认原生模型   |
-|   export PYTHONPATH=/xxx/mindformers-dev/:$PYTHONPATH   |   运行mindformers的research下模型   |   mindformers要用源码安装，因为research目录下代码不打包到whl中   |
-|   export MINDFORMERS_MODEL_CONFIG=/xxx.yaml   |   运行mindformers模型   |   mindformers模型的必须配置文件   |
+|   export vLLM_MODEL_BACKEND=MINDFORMER_MODELS   |   运行MindSpore Transformers模型   |   用于区分MindSpore Transformers和vLLM MindSpore原生模型，默认原生模型   |
+|   export PYTHONPATH=/xxx/mindformers-dev/:$PYTHONPATH   |   运行MindSpore Transformers的research下模型   |   MindSpore Transformers要用源码安装，因为research目录下代码不打包到whl中   |
+|   export MINDFORMERS_MODEL_CONFIG=/xxx.yaml   |   运行MindSpore Transformers模型   |   MindSpore Transformers模型的必须配置文件   |
 |   export MS_JIT_MODULES="vllm_mindspore,research"   |   升级0.7.3后版本   |   指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图; 对应import导入的顶层模块的名称   |
 |   export GLOO_SOCKET_IFNAME=enp189s0f0   |   Ray多机   |   Ray多机场景使用，用于服务器间通信   |
 |   export TP_SOCKET_IFNAME=enp189s0f0   |   Ray多机   |   Ray多机场景使用，RPC时需要设置   |
