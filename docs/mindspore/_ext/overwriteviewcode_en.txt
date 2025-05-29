@@ -139,7 +139,8 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
             if not modname:
                 continue
             fullname = signode.get('fullname')
-            spec_as_list = [['mindspore.mint.linalg', 'norm', 'linalg_norm'], ['mindspore.mint.linalg', 'inv', 'inverse_ext']]
+            spec_as_list = [['mindspore.mint.linalg', 'norm', 'linalg_norm'], ['mindspore.mint.linalg', 'inv', 'inverse_ext'],
+                            ['mindspore.mint', 'select', 'select_ext_view'], ['mindspore.mint', 'transpose', 'transpose_ext_view']]
             if 'mindspore.mint' in refname:
                 for m_name, b_name, new_spec_name in spec_as_list:
                     if m_name in refname and b_name == fullname:

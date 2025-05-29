@@ -158,7 +158,8 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
             # if fullname and modname==None:
             fullname = fullname_new
             if 'mindspore.mint' in cpt_fullname:
-                spec_as_list = [['mint.linalg.norm','linalg_norm'], ['mint.linalg.inv','inverse_ext']]
+                spec_as_list = [['mint.linalg.norm','linalg_norm'], ['mint.linalg.inv','inverse_ext'],
+                                ['mint.transpose','transpose_ext_view'], ['mint.select','select_ext_view']]
                 for m_name, new_spec_name in spec_as_list:
                     if m_name in cpt_fullname:
                         fullname = new_spec_name

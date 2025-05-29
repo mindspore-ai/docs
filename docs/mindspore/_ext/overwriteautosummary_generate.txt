@@ -481,7 +481,10 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
             # 自动生成的ops模块单独处理
             if 'mindspore/ops/auto_generate/' in py_source_rel:
                 name1 = name
-                spec_tp = [('mint.nn.functional.dense', 'mint.nn.functional.linear')]
+                spec_tp = [('mint.nn.functional.dense', 'mint.nn.functional.linear'),
+                        ('mint.select_ext_view', 'mint.select'),
+                        ('mint.transpose_ext_view', 'mint.transpose'),
+                        ]
                 for i in spec_tp:
                     if name.endswith(i[1]):
                         name1 = name.replace(i[1], i[0])
