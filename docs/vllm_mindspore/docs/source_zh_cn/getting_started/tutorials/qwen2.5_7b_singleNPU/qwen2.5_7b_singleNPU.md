@@ -206,25 +206,23 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 
 
 #### 发送请求
 
-使用如下命令发送请求。其中`$PROMPT`为模型输入：
+使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-PROMPT="I am"
-MAX_TOKEN=120
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "$PROMPT", "max_tokens": $MAX_TOKEN, "temperature": 0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
 若请求处理成功，将获得以下的推理结果：
 
 ```text
 {
-    "id":"cmpl-5e6e314861c24ba79fea151d86c1b9a6","object":"text_completion",
-    "create":1747398389,
+    "id":"cmpl-bac2b14c726b48b9967bcfc724e7c2a8","object":"text_completion",
+    "create":1748485893,
     "model":"Qwen2.5-7B-Instruct",
     "choices":[
         {
             "index":0,
-            "trying to create a virtual environment for my Python project, but I am encountering some",
+            "trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
             "logprobs":null,
             "finish_reason":"length",
             "stop_reason":null,
@@ -233,8 +231,8 @@ curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d
     ],
     "usage":{
         "prompt_tokens":2,
-        "total_tokens":17,
-        "completion_tokens":15,
+        "total_tokens":22,
+        "completion_tokens":20,
         "prompt_tokens_details":null
     }
 }

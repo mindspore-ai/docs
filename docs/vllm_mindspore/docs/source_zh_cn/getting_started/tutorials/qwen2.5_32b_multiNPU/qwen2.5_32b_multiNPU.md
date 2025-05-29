@@ -171,25 +171,23 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 
 
 ### 发送请求
 
-使用如下命令发送请求。其中`$PROMPT`为模型输入：
+使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-PROMPT="请介绍Qwen2.5-32B模型"
-MAX_TOKEN=64
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen2.5-32B-Instruct", "prompt": "$PROMPT", "max_tokens": $MAX_TOKEN, "temperature": 0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen2.5-32B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
 若请求处理成功，将获得以下的推理结果：
 
 ```text
 {
-    "id":"cmpl-5e6e314861c24ba79fea151d86c1b9a6","object":"text_completion",
-    "create":1747398389,
+    "id":"cmpl-11fe2898c77d4ff18c879f57ae7aa9ca","object":"text_completion",
+    "create":1748568696,
     "model":"Qwen2.5-32B-Instruct",
     "choices":[
         {
             "index":0,
-            "text":"的使用方法\nQwen2.5-32B 是一个大型的自然语言处理模型，通常用于生成文本、回答问题、进行对话等任务。以下是使用 Qwen2.5-32B 模型的一般步骤：\n\n### 1. 环境准备\n-",
+            "text":"trying to create a virtual environment in Python using venv, but I am encountering some issues with setting",
             "logprobs":null,
             "finish_reason":"length",
             "stop_reason":null,
@@ -197,9 +195,9 @@ curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d
         }
     ],
     "usage":{
-        "prompt_tokens":12,
-        "total_tokens":76,
-        "completion_tokens":64,
+        "prompt_tokens":2,
+        "total_tokens":22,
+        "completion_tokens":20,
         "prompt_tokens_details":null
     }
 }

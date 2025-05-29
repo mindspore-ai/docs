@@ -22,7 +22,7 @@
    |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)|1.6      | br_infer_deepseek_os |
    |[Golden Stick](https://gitee.com/mindspore/golden-stick)|1.1.0    | r1.1.0 |
    |[vLLM](https://github.com/vllm-project/vllm)      | 0.8.3 | v0.8.3   |
-   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | develop  |
+   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | master  |
 
 ## 配置环境
 
@@ -106,8 +106,8 @@ pip install vllm_mindspore
 
 ### 源码安装
 
-- 安装CANN与MindSpore
-    CANN与mindspore的环境配套与安装方法，请参考[MindSpore安装教程](https://www.mindspore.cn/install)与[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)。
+- 安装CANN
+    CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)，若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
 
     CANN默认安装路径为`/usr/local/Ascend`。用户在安装CANN完毕后，使用如下命令，为CANN配置环境变量：
 
@@ -117,40 +117,11 @@ pip install vllm_mindspore
     export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
     ```
 
-    用户安装之后，可以通过以下命令，校验CANN与MindSpore是否安装成功：
+- 安装vLLM的前置依赖
+    vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.8.3/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
 
     ```bash
-    python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check();exit()"
-    ```
-
-    若执行后返回以下结果，则MindSpore已安装成功：
-
-    ```text
-    The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
-    ```
-
-    若用户在安装CANN与MindSpore过程中遇到问题，可参考[MindSpore常见问题](https://www.mindspore.cn/docs/zh-CN/r2.6.0/faq/)与[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
-
-- 安装vLLM
-    vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.8.3/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`的版本，在准备好该依赖后，执行以下命令拉取vLLM源码：
-
-    ```bash
-    git clone https://github.com/vllm-project/vllm.git vllm_source
-    cd vllm_source
-    ```
-
-    安装vLLM CPU后端所需Python依赖包：
-
-    ```bash
-    pip install --upgrade pip
-    pip install "cmake>=3.26" wheel packaging ninja "setuptools-scm>=8" numpy
-    pip install -v -r requirements/cpu.txt --extra-index-url https://download.pytorch.org/whl/cpu
-    ```
-
-    最后，编译安装vLLM CPU：
-
-    ```bash
-    VLLM_TARGET_DEVICE=cpu python setup.py install
+    yum install -y gcc gcc-c++
     ```
 
 - 安装vLLM MindSpore
@@ -168,6 +139,15 @@ pip install vllm_mindspore
     ```bash
     pip install .
     ```
+
+    上述命令执行完毕之后，将在`vllm-mindspore/install_depend_pkgs`目录下生成`mindformers-dev`文件夹，将其加入到环境变量中：
+
+    ```bash
+    export MF_PATH=`pwd install_depend_pkgs/mindformers-dev`
+    export PYTHONPATH=$MF_PATH:$PYTHONPATH
+    ```
+
+    若MindSpore Transformers是由`br_infer_deepseek_os`分支编译安装，则会在`vllm-mindspore/install_depend_pkgs`目录下生成`mindformers-os`文件夹，则环境变量`MF_PATH`需调整为`pwd install_depend_pkgs/mindformers-os`。
 
 ### 快速验证
 
