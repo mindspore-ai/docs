@@ -15,12 +15,12 @@
    | 软件 | 版本 | 对应分支 |
    | -----    | -----   |  ----- |
    |[CANN](https://www.hiascend.com/developer/download/community/result?module=cann)     |   8.1      |  -    |
-   |[mindspore](https://www.mindspore.cn/install/) |  2.7    | master     |
-   |[msadapter](https://git.openi.org.cn/OpenI/MSAdapter)| 0.2 | master  |
-   |[mindformers](https://gitee.com/mindspore/mindformers)|1.6      | br_infer_deepseek_os |
-   |[golden-stick](https://gitee.com/mindspore/golden-stick)|1.1.0    | r1.1.0 |
-   |[vllm](https://github.com/vllm-project/vllm)      | 0.8.3 | v0.8.3   |
-   |[vllm-mindspore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | develop  |
+   |[MindSpore](https://www.mindspore.cn/install/) |  2.7    | master     |
+   |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| 0.2 | master  |
+   |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)|1.6      | br_infer_deepseek_os |
+   |[Golden Stick](https://gitee.com/mindspore/golden-stick)|1.1.0    | r1.1.0 |
+   |[vLLM](https://github.com/vllm-project/vllm)      | 0.8.3 | v0.8.3   |
+   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | develop  |
 
 ## 配置环境
 

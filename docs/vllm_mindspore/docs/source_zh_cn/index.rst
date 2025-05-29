@@ -1,19 +1,6 @@
 vLLM MindSpore 文档
 =========================================
 
-.. raw:: html
-    <h3 align="center">
-    vLLM MindSpore
-    </h3>
-
-    <p align="center">
-    | <a href="https://www.mindspore.cn/en/"><b>关于MindSpore</b></a> | <a href="https://www.mindspore.cn/community/SIG"><b>#LLM Infercence Serving</b></a> | <a href="https://gitee.com/mindspore/vllm-mindspore/issues"><b>问题反馈</b></a> |
-    </p>
-
-    <p align="center">
-    <a href="README.md"><b>English</b></a> | <a><b>中文</b></a>
-    </p>
-
 vLLM MindSpore 简介
 -----------------------------------------------------
 vLLM MindSpore插件（`vllm-mindspore`）是一个由 `MindSpore社区 <https://www.mindspore.cn/>`_ 孵化的vLLM后端插件。其将基于MindSpore构建的大模型推理能力接入 `vLLM <https://github.com/vllm-project/vllm>`_ ，从而有机整合MindSpore和vLLM的技术优势，提供全栈开源、高性能、易用的大模型推理解决方案。
@@ -51,10 +38,11 @@ vLLM MindSpore采用vLLM社区推荐的插件机制，实现能力注册。未�
 - 硬件：Atlas 800I A2推理服务器，或Atlas 800T A2推理服务器，已安装必要的驱动程序，并可连接至互联网
 - 操作系统：openEuler或Ubuntu Linux
 - 软件：
-   * Python >= 3.9, < 3.12
-   * CANN >= 8.0.0.beta1
-   * MindSpore (与vllm-mindspore版本配套)
-   * vLLM (与vllm-mindspore版本配套)
+
+  * Python >= 3.9, < 3.12
+  * CANN >= 8.0.0.beta1
+  * MindSpore (与vLLM MindSpore版本配套)
+  * vLLM (与vLLM MindSpore版本配套)
 
 快速体验
 -----------------------------------------------------

@@ -24,7 +24,7 @@ huggingface-cli download --resume-download Qwen/Qwen3-8B --local-dir Qwen3-8B-bf
 
 #### 使用MindSpore Transformers加载网络
 
-用户可以使用如下的脚本，依赖[MindFormers](https://gitee.com/mindspore/mindformers)，进行网络加载：
+用户可以使用如下的脚本，依赖[MindSpore Transformers](https://gitee.com/mindspore/mindformers)，进行网络加载：
 
 ```python
 from mindformers import AutoModel
@@ -80,7 +80,7 @@ ms.save_checkpoint(network.parameters_dict(), "Qwen3-8B-A8W8", format="safetenso
                    choice_func=lambda x: "key_cache" not in x and "value_cache" not in x and "float_weight" not in x)
 ```
 
-执行校准前，需要将MindFormers工程根目录加到`PYTHONPATH`环境变量，从而用户可以成功import Qwen3网络相关类。
+执行校准前，需要将MindSpore Transformers工程根目录加到`PYTHONPATH`环境变量，从而用户可以成功import Qwen3网络相关类。
 
 ### 下载量化权重
 

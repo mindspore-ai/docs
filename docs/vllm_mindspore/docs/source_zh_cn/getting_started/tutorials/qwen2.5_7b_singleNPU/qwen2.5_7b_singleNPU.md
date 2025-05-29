@@ -121,7 +121,7 @@ git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindFormers as model backend.
 export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindFormers model's YAML file.
+export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
 以下是对上述环境变量的解释：
@@ -129,7 +129,7 @@ export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindFormers m
 - `ASCEND_TOTAL_MEMORY_GB`: 每一张计算卡的显存大小。用户可使用`npu-smi info`命令进行查询，该值对应查询结果中的`HBM-Usage(MB)`；
 - `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM MindSpore所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询；
 - `vLLM_MODEL_MEMORY_USE_GB`：模型加载时所用空间，根据用户所使用的模型进行设置。若用户在模型加载过程中遇到显存不足时，可适当增大该值并重试；
-- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[mindformers工程](https://gitee.com/mindspore/mindformers/tree/r1.5.0/research/qwen2_5)中，找到对应模型的yaml文件。以Qwen2.5-7B为例，则其yaml文件为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml) 。
+- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.5.0/research/qwen2_5)中，找到对应模型的yaml文件。以Qwen2.5-7B为例，则其yaml文件为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml) 。
 
 用户可通过`npu-smi info`查看显存占用情况，并可以使用如下环境变量，设置用于推理的计算卡：
 
