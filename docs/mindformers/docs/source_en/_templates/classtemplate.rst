@@ -98,7 +98,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: from_dict, from_model_config, to_dict, update
+    :exclude-members: from_dict, from_model_config, to_dict, update, from_pretrained
     :members:
 
 {% elif fullname=="mindformers.generation.GenerationMixin" %}
@@ -112,7 +112,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_flags_custom, prepare_inputs_for_generation, prepare_inputs_for_predict_layout, construct
+    :exclude-members: add_flags_custom, prepare_inputs_for_generation, prepare_inputs_for_predict_layout, construct, convert_map_dict, convert_name, convert_weight_dict
     :members:
 
 {% elif fullname=="mindformers.models.ChatGLM3Tokenizer" %}
@@ -203,7 +203,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: auto_register
+    :exclude-members: auto_register, get_instance_type_from_cfg
     :members:
 
 {% elif fullname=="mindformers.Trainer" %}
@@ -224,7 +224,14 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: epoch_begin, epoch_end, step_begin, step_end, on_train_epoch_begin, on_train_step_begin, on_train_step_end
+    :exclude-members: epoch_begin, epoch_end, step_begin, step_end, on_train_epoch_begin, on_train_step_begin, on_train_step_end, abnormal_global_norm_check
+    :members:
+
+{% elif fullname=="mindformers.dataset.CausalLanguageModelDataset" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: perform_token_counting, construct
     :members:
 
 {% elif fullname in ["mindformers.AutoModelForCausalLM", "mindformers.AutoModelForZeroShotImageClassification", "mindformers.AutoModel"] %}
