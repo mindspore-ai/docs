@@ -216,7 +216,7 @@ FAQ
    :caption: 案例
    :hidden:
 
-   example/distilled
+   example/distilled/distilled
 
 .. toctree::
    :maxdepth: 1
