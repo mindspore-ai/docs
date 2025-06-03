@@ -166,6 +166,6 @@ In the [Llama3-70B fine-tuning configuration](https://gitee.com/kong_de_shu/mind
 - **Multi-copy parallelism**: Sequential scheduling algorithm is used to control the parallelism of fine-grained multi-branch operations (`fine_grain_interleave: 2`), improving the overlap of computing and communications.
 - **Optimizer parallelism**: The calculation of optimizers is distributed to multiple devices to reduce memory usage (`enable_parallel_optimizer: True`).
 
-> Note: Sequential parallelism must be turned on at the same time that fine-grained multicopy parallelism is turned on.
+> Sequential parallelism must be turned on at the same time that fine-grained multicopy parallelism is turned on.
 
 With the preceding configurations, the distributed training on Llama3-70B can effectively utilize hardware resources in a multi-node multi-device environment to implement efficient and stable model training.

@@ -70,7 +70,7 @@ df_mean = df.mean()
 
 安装MindSpore Pandas时，内置的分布式计算引擎也已经同步安装完成，可以在控制台使用指令`yrctl`访问。
 
-> 注意：多进程模式下请确保您启动的集群仅由您个人使用，与他人共同使用一个集群可能导致潜在的安全风险。
+> 多进程模式下请确保您启动的集群仅由您个人使用，与他人共同使用一个集群可能导致潜在的安全风险。
 
 ```shell
 $ yrctl
@@ -117,7 +117,7 @@ Succeeded to start!
 
 集群部署完成后，在Python脚本中需要设置使用多进程后端运行。方法是调用`set_concurrency_mode`接口，设置`mode`为`"multiprocess"`。
 
-> 注意：我们建议在`import mindpandas`之后马上调用`set_concurrency_mode`进行并行模式的设置。在脚本运行过程中切换并行模式将可能导致程序出错。
+> 我们建议在`import mindpandas`之后马上调用`set_concurrency_mode`进行并行模式的设置。在脚本运行过程中切换并行模式将可能导致程序出错。
 
 ```python
 import mindpandas as pd

@@ -86,7 +86,7 @@ git clone https://modelers.cn/MindSpore-Lab/DeepSeek-R1-W8A8.git
 
 分别在主从节点配置如下环境变量：
 
-> 注：环境变量必须设置在 Ray 创建集群前，且当环境有变更时，需要通过 `ray stop` 将主从节点集群停止，并重新创建集群，否则环境变量将不生效。
+> 环境变量必须设置在 Ray 创建集群前，且当环境有变更时，需要通过 `ray stop` 将主从节点集群停止，并重新创建集群，否则环境变量将不生效。
 
 ```bash
 source /usr/local/Ascend/ascend-toolkit/set_env.sh
