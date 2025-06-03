@@ -11,9 +11,7 @@ MindSpore uses the design philosophy of functional auto-differentiation to provi
 ```python
 import numpy as np
 import mindspore
-from mindspore import nn
-from mindspore import ops
-from mindspore import Tensor, Parameter
+from mindspore import ops, nn, Tensor, Parameter
 ```
 
 ## Functions and Computing Graphs
@@ -25,6 +23,7 @@ Computing graphs are a way to represent mathematical functions in a graph-theore
 In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are the parameters we need to optimize.
 
 ```python
+np.random.seed(42)
 x = ops.ones(5, mindspore.float32)  # input tensor
 y = ops.zeros(3, mindspore.float32)  # expected output
 w = Parameter(Tensor(np.random.randn(5, 3), mindspore.float32), name='w') # weight
@@ -51,7 +50,7 @@ print(loss)
 ```
 
 ```text
-0.914285
+1.342315
 ```
 
 ## Differential Functions and Gradient Computing
@@ -80,12 +79,12 @@ print(grads)
 
 ```text
 (Tensor(shape=[5, 3], dtype=Float32, value=
- [[ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]]),
- Tensor(shape=[3], dtype=Float32, value= [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]))
+ [[ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]),
+ Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
 ```
 
 ## Stop Gradient
@@ -134,12 +133,12 @@ print(grads)
 
 ```text
 (Tensor(shape=[5, 3], dtype=Float32, value=
- [[ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]]),
- Tensor(shape=[3], dtype=Float32, value= [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]))
+ [[ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00],
+  [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00],
+  [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00],
+  [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00],
+  [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00]]),
+ Tensor(shape=[3], dtype=Float32, value= [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00]))
 ```
 
 It can be seen that the gradient values corresponding to $w$ and $b$ are the same as the gradient values found by the initial `function`.
@@ -162,14 +161,14 @@ print(grads, z)
 ```
 
 ```text
-((Tensor(shape=[5, 3], dtype=Float32, value=
-  [[ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-   [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-   [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-   [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-   [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]]),
-  Tensor(shape=[3], dtype=Float32, value= [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01])),
- Tensor(shape=[3], dtype=Float32, value= [-1.40476596e+00, -1.64932394e+00,  2.24711204e+00]))
+(Tensor(shape=[5, 3], dtype=Float32, value=
+ [[ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]),
+ Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
+[ 3.8211915 -2.994512  -1.932323 ]
 ```
 
 ## Calculating Neural Network Gradient
@@ -225,12 +224,12 @@ print(grads)
 
 ```text
 (Tensor(shape=[5, 3], dtype=Float32, value=
- [[ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01],
-  [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]]),
- Tensor(shape=[3], dtype=Float32, value= [ 6.56869709e-02,  5.37334494e-02,  3.01467031e-01]))
+ [[ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]),
+ Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
 ```
 
 Executing the differentiation function, and we can see that the gradient value is the same as the gradient value obtained from the previous `function`.
