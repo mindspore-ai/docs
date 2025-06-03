@@ -450,6 +450,7 @@ def linkcode_resolve(domain, info):
                        ('mint.select_ext_view', 'mint.select', 'select_ext_view', 'select'),
                        ('mint.transpose_ext_view', 'mint.transpose', 'transpose_ext_view', 'transpose'),
                        ('mint.nn.functional.im2col_ext', 'mint.nn.functional.unfold', 'im2col_ext', 'unfold'),
+                       ('mint.nn.functional.inplace_threshold', 'mint.nn.functional.threshold_', 'inplace_threshold', 'threshold_'),
                        ]
             fullname = info["module"] + '.' + name
             for i in spec_tp:
@@ -466,8 +467,12 @@ def linkcode_resolve(domain, info):
                     if name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
                         if name.split('.')[-1].lower() + '_doc.yaml' in ops_yaml_list:
                             name1 = name.lower()
+            else:
+                return None
             # 根据yaml文件名查询文件是否存在，分别再处理
-            if name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
+            if name1.split('.')[-1] + '_ext_doc.yaml' in ops_yaml_list and '.mint.' in fullname:
+                py_source_rel = ops_yaml + name1.split('.')[-1] + '_ext_doc.yaml'
+            elif name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
                 # 新增查找_ext后缀文件
                 if name1.split('.')[-1] + '_ext_doc.yaml' in ops_yaml_list:
                     py_source_rel = ops_yaml + name1.split('.')[-1] + '_ext_doc.yaml'
