@@ -70,7 +70,7 @@ df_mean = df.mean()
 
 When MindSpore Pandas is installed, the built-in distributed compute engine has also been installed synchronously, which can be accessed using the command `yrctl` in the console.
 
-> Note: In multi-process mode, please make sure that the cluster you start is only for your personal use. Using a cluster together with others may lead to potential security risks.
+> In multi-process mode, please make sure that the cluster you start is only for your personal use. Using a cluster together with others may lead to potential security risks.
 
 ```shell
 $ yrctl
@@ -117,7 +117,7 @@ Succeeded to start!
 
 After the cluster is deployed, you need to set a multi-process backend to run in the Python script. The method is to call the `set_concurrency_mode` interface, set the `mode` to `"multiprocess"`.
 
-> Note: We recommend calling `set_concurrency_mode` immediately after `import mindpandas` to set the concurrency mode. Switching the parallel mode while the script is running may cause the program failure.
+> We recommend calling `set_concurrency_mode` immediately after `import mindpandas` to set the concurrency mode. Switching the parallel mode while the script is running may cause the program failure.
 
 ```python
 import mindpandas as pd

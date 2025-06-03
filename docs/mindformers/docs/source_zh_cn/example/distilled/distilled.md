@@ -317,4 +317,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qw
 | OpenR1-Qwen-7B (MindSpore Transformers) | 90.0     |
 | OpenThinker-7B                          | 89.6     |
 
-> 注：上表第三行为本案例实验结果，该结果由本地实测得到。
+> 上表第三行为本案例实验结果，该结果由本地实测得到。

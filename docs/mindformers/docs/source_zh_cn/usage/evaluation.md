@@ -475,7 +475,7 @@ source toolkit/benchmarks/run_vlmevalkit.sh \
 
     下载[Video-Bench中的答案数据](https://huggingface.co/spaces/LanguageBind/Video-Bench/resolve/main/file/ANSWER.json)。
 
-> 注：Video-Bench中的文本数据按照“egs/VideoBench/Eval_QA”（目录至少两层，且最后一层是`Eval_QA`）的路径格式进行存储；Video-Bench中的视频数据按照“egs/VideoBench/Eval_video”（目录至少两层，且最后一层是`Eval_video`）的路径格式进行存储。
+> Video-Bench中的文本数据按照“egs/VideoBench/Eval_QA”（目录至少两层，且最后一层是`Eval_QA`）的路径格式进行存储；Video-Bench中的视频数据按照“egs/VideoBench/Eval_video”（目录至少两层，且最后一层是`Eval_video`）的路径格式进行存储。
 
 ### 评测
 
