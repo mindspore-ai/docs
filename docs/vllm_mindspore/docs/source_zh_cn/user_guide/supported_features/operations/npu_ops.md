@@ -6,6 +6,8 @@
 
 实际开发中，可根据项目需求扩展更多功能，算子实现细节可参考 [MindSpore 自定义算子实现方式](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。
 
+**目前该特性只支持动态图场景。**
+
 ## 文件组织结构
 
 接入自定义算子需要在 vLLM MindSpore 项目的 `vllm_mindspore/ops` 目录下添加代码，目录结构如下：
