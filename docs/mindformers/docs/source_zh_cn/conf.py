@@ -227,8 +227,8 @@ if os.path.exists('./mindformers.experimental.rst'):
 if os.path.exists('./experimental'):
     shutil.rmtree('./experimental')
 
-if os.path.exists('./usage/pretrain_gpt.md'):
-    os.remove('./usage/pretrain_gpt.md')
+if os.path.exists('advanced_development/pretrain_gpt.md'):
+    os.remove('advanced_development/pretrain_gpt.md')
 
 with open('./index.rst', 'r+', encoding='utf-8') as f:
     ind_content = f.read()

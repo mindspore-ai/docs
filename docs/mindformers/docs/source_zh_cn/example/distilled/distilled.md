@@ -1,5 +1,7 @@
 # 使用DeepSeek-R1进行模型蒸馏的实践案例
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled.md)
+
 本案例参考OpenR1-Qwen-7B，旨在指导用户基于MindSpore框架和MindSpore Transformers大模型套件，使用DeepSeek-R1对Qwen2.5-Math-7B模型进行知识蒸馏和微调，以提升其在数学推理任务上的性能。案例涵盖了从环境配置、数据生成、预处理到模型微调和推理测试的完整流程。通过以下步骤，您可以了解如何利用DeepSeek-R1生成推理数据、过滤错误数据、处理数据集，并最终对模型进行微调以解决复杂的数学问题。
 
 蒸馏流程：
@@ -12,7 +14,7 @@
 
 ### 1.1 环境
 
-安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html)。
+安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/installation.html)。
 
 并将本案例的[distilled](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled)文件夹，复制到MindSpore Transformers源码根目录下。
 
@@ -225,7 +227,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 
 最后在`packed_data`中可以找到处理后的数据集，格式为arrow。
 
-更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AEhandler)。
+更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AEhandler)。
 
 ##### 选项 2: 使用完成转换的数据
 
@@ -275,7 +277,7 @@ train_dataset: &train_dataset
 ......
 ```
 
-其余参数配置的解释可以参考[MindSpore Transformers官方文档-SFT微调](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/sft_tuning.html)。
+其余参数配置的解释可以参考[MindSpore Transformers官方文档-SFT微调](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/supervised_fine_tuning.html)。
 
 ## 2. 启动微调
 
@@ -295,7 +297,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qw
 日志记录在`output/msrun_log`目录下，例如可以通过`tail -f output/msrun_log/worker_7.log`指令查看worker 7的日志信息。
 微调完成后，输出的`safetensors`权重文件在`output/checkpoint`目录下。
 
-更多safetensors权重的内容请参考[MindSpore Transformers官方文档-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html)。
+更多safetensors权重的内容请参考[MindSpore Transformers官方文档-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html)。
 
 ## 3. 执行推理
 
