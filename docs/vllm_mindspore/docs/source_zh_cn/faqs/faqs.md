@@ -58,6 +58,7 @@
    RuntimeError: Call aclnnNonzeroV2 failed, detail:E39999: Inner Error
    ```
 
+- 解决思路：
    请检查CANN与MindSpore的配套关系是否正确。
 
 ### 执行Qwen3时，报vLLM相关的`resolve_transformers_fallback`导入错误
@@ -68,6 +69,7 @@
    ImportError: cannot import name 'resolve_transformers_fallback' from 'vllm.model_executor.model_loader.utils'
    ```
 
+- 解决思路：
    请尝试将`vllm`切换为`v0.7.3`版本。
 
 ### `import vllm_mindspore`时找不到`torch`
@@ -78,6 +80,7 @@
    importlib.metadata.PackageNotFoundError: No package metadata was found for torch
    ```
 
+- 解决思路：
    请执行以下命令，下载torch相关组件：
 
    ```bash
