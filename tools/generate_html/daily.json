@@ -74,7 +74,9 @@
     "whl_path" : "/mindformers/version/",
     "whl_name" : "mindformers-.*-py3-none-any.whl$",
     "environ" : "MFM_PATH",
-    "uninstall_name" : "mindformers"
+    "uninstall_name" : "mindformers",
+    "extra_whl_path" : "/mindspore/website/master/cpu/x86_64",
+    "extra_whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$"
 },
 {
     "id" : 9 ,
