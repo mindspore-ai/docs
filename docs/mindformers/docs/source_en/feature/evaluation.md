@@ -211,7 +211,7 @@ The currently adapted models and supported evaluation datasets are shown in the 
 
     Find the requirements.txt (VLMEvalKit/requirements.txt) file in the downloaded code and modify it to the following content:
 
-    ```txt
+    ```text
     gradio==4.40.0
     huggingface_hub==0.24.2
     imageio==2.35.1

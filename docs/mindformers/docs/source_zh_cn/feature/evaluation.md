@@ -211,7 +211,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
     在下载好的代码中，找到requirements.txt（VLMEvalKit/requirements.txt）文件，修改成如下内容：
 
-    ```txt
+    ```text
     gradio==4.40.0
     huggingface_hub==0.24.2
     imageio==2.35.1

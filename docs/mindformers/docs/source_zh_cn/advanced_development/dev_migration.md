@@ -111,7 +111,7 @@ Llama3-8B与Llama2-7B拥有相同的模型结构，只有部分模型参数、�
 
 以下对比了Llama2-7B和Llama3-8B的模型配置：
 
-![model_config_comparison](image/model_config_comparison.png)
+![model_config_comparison](images/model_config_comparison.png)
 
 其中的区别有：
 

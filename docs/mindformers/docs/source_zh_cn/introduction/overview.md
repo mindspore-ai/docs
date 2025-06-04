@@ -12,4 +12,4 @@ MindSpore Transformers与昇思MindSpore、昇腾Ascend的端到端AI软硬件�
    3. 支持25+大模型[预训练](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/pre_training.html)、[微调](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/supervised_fine_tuning.html)、[推理](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/inference.html)和[评测](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/evaluation.html)等功能，同时支持对模型参数进行[量化](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/quantization.html)，具体支持模型列表可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html)；
 4. MindSpore Transformers支持用户通过[MindIE](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/deployment.html)进行模型服务化部署功能，同时支持使用[MindX](https://www.hiascend.com/software/mindx-dl)实现大规模集群调度；后续将支持更多第三方平台，敬请期待。
 
-![/overall_architecture](./image/overall_architecture.png)
+![/overall_architecture](./images/overall_architecture.png)

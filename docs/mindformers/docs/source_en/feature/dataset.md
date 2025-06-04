@@ -279,7 +279,7 @@ HuggingFace datasets support online and offline loading of datasets from both th
 
 #### Dataset Loading Process
 
-![commondataloader.png](../../source_zh_cn/feature/image/commondataloader.png)
+![commondataloader.png](./images/commondataloader.png)
 
 The online dataset loading and processing functionality is primarily implemented through `CommonDataLoader`. The data loading part can be customized via configuration files, with detailed configuration instructions available in the [dataloader parameter description](#dataloader-parameter-description). The online loading module requires users to implement customizations for different datasets. For example, the `AlpacaInstructDataHandler` class can be used to preprocess the `alpaca` dataset. For more information, please refer to [Custom Data Handler](#custom-data-handler).
 

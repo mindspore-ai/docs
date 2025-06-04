@@ -66,7 +66,7 @@ During the training and inference of multimodal models, the data processing modu
 
 Below is a flowchart of the multimodal data processing. The custom modules in the diagram need to be implemented by the user according to their specific requirements, while other modules can be directly invoked.
 
-![multi_modal.png](../../source_zh_cn/guide/image/multi_modal.png)
+![multi_modal.png](./images/multi_modal.png)
 
 Then, using the [CogVLM2-Video model data preprocessing module](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/cogvlm2/cogvlm2_processor.py) as an example, we will introduce the functionality of the components of the multimodal data processing module.
 

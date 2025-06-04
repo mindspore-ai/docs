@@ -117,7 +117,7 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 
 在 Tensorboard 的 SCALARS 页面中，上述指标（假设名为 `scalar_name`）除了最后两个，其他都存在 `scalar_name` 和 `scalar_name-vs-samples` 两个下拉标签页。其中 `scalar_name` 下展示了该标量随训练迭代步数进行变化的折线图； `scalar_name-vs-samples` 下展示了该标量随样本数进行变化的折线图。如下图所示为学习率`learning-rate`的曲线图示例：
 
-![/tensorboard_scalar](./image/tensorboard_scalar.png)
+![/tensorboard_scalar](./images/tensorboard_scalar.png)
 
 #### TrainingStateMonitor监控指标
 
@@ -138,23 +138,23 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 
 **日志效果示例**
 
-![/TrainingStateMonitor_log](./image/TrainingStateMonitor_log.png)
+![/TrainingStateMonitor_log](./images/TrainingStateMonitor_log.png)
 
 **tensorboard可视化效果示例**
 
 adam_m_norm
 
-![/adam_m_norm](./image/adam_m_norm.png)
+![/adam_m_norm](./images/adam_m_norm.png)
 
 local_loss与local_norm
 
-![/local_loss&local_norm](./image/local_loss&local_norm.png)
+![/local_loss&local_norm](./images/local_loss&local_norm.png)
 
 ### 文本数据可视化说明
 
 在 TEXT 页面中，每个训练配置存在一个标签页，其中记录了该配置的值。如下图所示：
 
-![/tensorboard_text](./image/tensorboard_text.png)
+![/tensorboard_text](./images/tensorboard_text.png)
 
 所有配置名和说明如下：
 

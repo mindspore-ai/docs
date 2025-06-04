@@ -173,7 +173,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 
 `input_predict_data.txt`文件的内容和格式是每一行都是一个输入，问题的个数与`predict_batch_size`一致，可以参考以下格式：
 
-```txt
+```text
 I love Beijing, because
 I love Beijing, because
 I love Beijing, because

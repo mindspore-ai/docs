@@ -173,7 +173,7 @@ Multi-card multi-batch inference is initiated in the same way as [multi-card inf
 
 The content and format of the `input_predict_data.txt` file is an input each line, and the number of questions is the same as the `predict_batch_size`, which can be found in the following format:
 
-```txt
+```text
 I love Beijing, because
 I love Beijing, because
 I love Beijing, because

@@ -159,7 +159,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 模型的训练过程可以分解为如下过程：数据输入、前向计算、loss、反向计算、梯度、优化器权重更新、下一个step。下面将结合如下图的流程，介绍如何对训练各阶段进行排查。
 
-![general_process](./image/general_process.png)
+![general_process](./images/general_process.png)
 
 ### 阶段1：训练前准备
 
@@ -299,7 +299,7 @@ def get_parameters(self):
 
 下图是local norm对比的示例，对比权重对应的local norm值。
 
-![local norm](./image/local_norm.png)
+![local norm](./images/local_norm.png)
 
 可发现在该图示的场景下，model.tok_embeddings.embedding_weight的local norm值差异较大，可重点排查Embedding的实现及计算精度等。
 
@@ -377,7 +377,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 设置learning rate > 0，权重更新，进行长稳测试。训练至某个step出现loss差异较大的现象，之后训练loss开始发散，如图所示：
 
-![loss1](./image/loss1.png)
+![loss1](./images/loss1.png)
 
 在该场景下，可针对突变前后的训练进行排查，可尝试如下排查方式：
 
@@ -391,7 +391,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 长稳测试中，还可能出现训练前期拟合较好，后期收敛loss出现较大差异，如图所示：
 
-![loss2](./image/loss2.png)
+![loss2](./images/loss2.png)
 
 在该场景下，可从如下角度进行排查：
 
@@ -451,7 +451,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 在128卡集群下训练模型，使用 Ascend+MindSpore 训练与 GPU+PyTorch 训练进行对比，发现训练后期收敛的loss比 GPU+PyTorch 高0.1左右。如图所示，收敛不符合预期：
 
-![loss3](./image/loss3.png)
+![loss3](./images/loss3.png)
 
 红色线为 Ascend+MindSpore 训练曲线，蓝色线为 GPU+PyTorch 训练曲线。
 
@@ -461,7 +461,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 首先step1的loss对齐确认没问题。对比step1的local norm，计算每个权重的local norm值与标杆的差异，发现Embedding权重的local norm值与标杆的差异大。
 
-![local norm](./image/local_norm.png)
+![local norm](./images/local_norm.png)
 
 排查原因为MindSpore Transformers使用FP32进行权重初始化，前向计算及反向计算Embedding时均使用FP32精度计算；而PyTorch的前向及反向计算均为BF16，由此导致了计算出来的local norm值存在差异。
 
@@ -469,11 +469,11 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 长稳训练排查将由单卡实验扩展到多卡实验，先设置learning rate=0，即权重不更新。前向计算每个step的loss差异在0.001左右，前向计算误差符合预期。反向计算每个step的global norm差异在0.05左右，反向计算差异不大；初步判断模型迁移代码正确，模型结构一致，前反向计算差异不大。
 
-![loss4](./image/loss4.png)
+![loss4](./images/loss4.png)
 
 再权重更新，单卡训练，设置learning rate=1e-5，训练1千step。收敛后期loss有稳定的0.1的差异，复现问题。
 
-![loss5](./image/loss5.png)
+![loss5](./images/loss5.png)
 
 进行问题排查。识别如下问题：
 
@@ -485,8 +485,8 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 完成单卡训练后，启动多卡训练测试：设置learning rate=1e-5，训练1千step。训练后期收敛一致，但训练中期存在稳定的0.05误差。
 
-![loss6](./image/loss6.png)
+![loss6](./images/loss6.png)
 
 为验证该误差在合理范围内，关闭确定性计算，重复跑两次GPU实验。图中红线为MindSpore训练的曲线，蓝色、绿色线分别是第一次、第二次GPU训练的曲线。在7千step左右训练不稳定处，MindSpore训练的曲线正处于两次GPU训练的曲线之间，说明误差处于合理范围内，问题最终解决。
 
-![loss7](./image/loss7.png)  
+![loss7](./images/loss7.png)  

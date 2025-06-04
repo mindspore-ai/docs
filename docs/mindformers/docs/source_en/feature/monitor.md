@@ -117,7 +117,7 @@ The names and descriptions of the metrics monitored by `MFLossMonitor` are liste
 
 In Tensorboard SCALARS page, the above metrics (assumed to be named `scalar_name`) have drop-down tabs for `scalar_name` and `scalar_name-vs-samples`, except for the last two. A line plot of this scalar versus the number of training iterations is shown under `scalar_name`, and a line plot of this scalar versus the number of samples is shown under `scalar_name-vs-samples`. An example of a plot of learning rate `learning-rate` is shown below:
 
-![/tensorboard_scalar](../../source_zh_cn/feature/image/tensorboard_scalar.png)
+![/tensorboard_scalar](./images/tensorboard_scalar.png)
 
 #### TrainingStateMonitor Monitoring Metrics
 
@@ -138,23 +138,23 @@ Depending on the specific settings, the above metrics will be displayed in the T
 
 **Example of logging effect**
 
-![/TrainingStateMonitor_log](../../source_zh_cn/feature/image/TrainingStateMonitor_log.png)
+![/TrainingStateMonitor_log](./images/TrainingStateMonitor_log.png)
 
 **Example of tensorboard visualization**
 
 adam_m_norm
 
-![/adam_m_norm](../../source_zh_cn/feature/image/adam_m_norm.png)
+![/adam_m_norm](./images/adam_m_norm.png)
 
 local_loss and local_norm
 
-![/local_loss&local_norm](../../source_zh_cn/feature/image/local_loss&local_norm.png)
+![/local_loss&local_norm](./images/local_loss&local_norm.png)
 
 ### Description of Text Data Visualization
 
 On the TEXT page, a tab exists for each training configuration where the values for that configuration are recorded. This is shown in the following figure:
 
-![/tensorboard_text](../../source_zh_cn/feature/image/tensorboard_text.png)
+![/tensorboard_text](./images/tensorboard_text.png)
 
 All configuration names and descriptions are listed below:
 
