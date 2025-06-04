@@ -54,7 +54,7 @@ docs
 |    |
 |    ├───mindspore // MindSpore Documents
 |    |
-|    ├───mindformers // MindSpore Transformer Documents
+|    ├───mindformers // MindSpore Transformers Documents
 |    |
 |    ├───probability // MindSpore Probability Documents
 |    |

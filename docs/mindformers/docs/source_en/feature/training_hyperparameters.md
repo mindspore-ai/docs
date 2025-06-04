@@ -8,7 +8,7 @@ Hyperparameters significantly affect model performance, with different settings 
 
 Choices regarding these parameters influence aspects such as training speed, convergence, capacity, and generalization ability. They are not learned directly from the training data but are determined by developers based on experience, experiments, or tuning processes.
 
-MindSpore Transformer offers several categories of hyperparameter configuration methods.
+MindSpore Transformers offers several categories of hyperparameter configuration methods.
 
 ## Learning Rate
 
@@ -39,7 +39,7 @@ lr_schedule:
 
 #### Key Parameters Introduction
 
-Different learning rates require different configuration parameters. MindSpore Transformer currently supports the following learning rates:
+Different learning rates require different configuration parameters. MindSpore Transformers currently supports the following learning rates:
 
 1. [Constant Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.ConstantWarmUpLR.html)
 2. [Linear with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.LinearWithWarmUpLR.html)
@@ -75,7 +75,7 @@ lr_schedule:
   total_steps: 20 # -1 means it will load the total steps of the dataset
 ```
 
-For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore TransFormer API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers.core.html#learning-rate).
+For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore Transformers API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers.core.html#learning-rate).
 
 ## Optimizer
 
@@ -85,7 +85,7 @@ An optimizer is an algorithmic choice used for optimizing neural network weights
 
 Selecting the right optimizer is crucial for the convergence speed and final performance of the model. Different optimizers employ various strategies to adjust the learning rate and other hyperparameters to accelerate the training process, improve convergence, and avoid local optima.
 
-Currently, MindSpore Transformer only supports the [AdamW optimizer](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers.core.html#optimizer).
+Currently, MindSpore Transformers only supports the [AdamW optimizer](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers.core.html#optimizer).
 
 ### Configuration and Usage
 
@@ -105,4 +105,4 @@ optimizer:
 
 #### Key Parameters Introduction
 
-For the main parameters of optimizer configuration, see the relevant link in [MindSpore TransFormer API Documentation: Optimizer](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.AdamW.html#mindformers.core.AdamW).
+For the main parameters of optimizer configuration, see the relevant link in [MindSpore Transformers API Documentation: Optimizer](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.AdamW.html#mindformers.core.AdamW).
