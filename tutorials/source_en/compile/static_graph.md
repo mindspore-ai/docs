@@ -1146,6 +1146,334 @@ The results are as follows:
 ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, value= [1]))
 ```
 
+### View and In-place Operations
+
+Graph Mode supports view operations and in-place operations on tensors, along with gradient calculations.
+
+#### Supported View Operations
+
+View operations create new tensors that share the same underlying data storage as the original tensors but have different shapes or layouts. In other words, the view operation does not copy data, but rather interprets the existing data from a different perspective, avoiding unnecessary memory allocation and data copying.
+
+`Ascend` devices are supported. When compiling with `mindspore.jit`, both `jit_level=00` and `jit_level=01` are available.
+
+View operations and gradient computations in Graph Mode produce results consistent with PyNative Mode.
+
+Example:
+
+```python
+import numpy as np
+import mindspore
+from mindspore import nn, mint
+from mindspore import grad
+
+
+class Net(nn.Cell):
+    def construct(self, x):
+        out = mint.narrow(x, 1, 1, 2)
+        return out
+
+
+net = Net()
+np_x = np.arange(9).reshape(3, 3).astype(np.float32)
+x = mindspore.tensor(np_x)
+
+pynative_out = net(x)
+pynative_grad_out = grad(net)(x)
+
+net.construct = mindspore.jit(net.construct, backend='ms_backend')
+graph_out = net(x)
+graph_grad_out = grad(net)(x)
+
+assert (graph_out == pynative_out).all()
+assert (graph_grad_out == pynative_grad_out).all()
+```
+
+#### Supported In-place Operations
+
+In-place operations modify the input tensor directly without creating new tensors, reducing memory overhead—especially for high-dimensional data.
+
+The following uses examples related to Tensor and Parameter to illustrate the support of in-place operations and differentiation in Graph Mode.
+
+- Tensor usage
+
+    ```python
+    import mindspore
+    from mindspore import nn
+    from mindspore import grad
+
+
+    class Net(nn.Cell):
+        def construct(self, x, y):
+            x.add_(y)
+            return x
+
+
+    x = mindspore.tensor(2, dtype=mindspore.int32)
+    y = mindspore.tensor(3, dtype=mindspore.int32)
+    net = Net()
+    net.construct = mindspore.jit(net.construct, backend='ms_backend')
+    graph_out = net(x, y)
+    graph_grad_out = grad(net)(x, y)
+    print("graph_out: ", graph_out)
+    print("graph_grad_out: ", graph_grad_out)
+    ```
+
+    Graph Mode output:
+
+    ```text
+    graph_out:  5
+    graph_grad_out:  1
+    ```
+
+    Graph Mode ensure correct gradient computation for in-place operations due to global optimization.
+
+    In PyNative Mode, modifications to the forward tensor will affect backpropagation, which may cause errors in automatic differentiation, so use it with caution.
+
+    ```python
+    import mindspore
+    from mindspore import nn
+    from mindspore import grad
+
+
+    class Net(nn.Cell):
+        def construct(self, x, y):
+            x.add_(y)
+            return x
+
+
+    x = mindspore.tensor(2, dtype=mindspore.int32)
+    y = mindspore.tensor(3, dtype=mindspore.int32)
+    net = Net()
+    pynative_out = net(x, y)
+    pynative_grad_out = grad(net)(x, y)
+    print("pynative_out: ", pynative_out)
+    print("pynative_grad_out: ", pynative_grad_out)
+    ```
+
+    PyNative Mode error:
+
+    ```text
+    pynative_out:  5
+    RuntimeError: A leaf tensor that requires grad is being used in an inplace operator, InplaceAddExt, which is forbidden!
+    ```
+
+- Parameter usage
+
+    ```python
+    import mindspore
+    from mindspore import nn, context, Parameter, ParameterTuple
+    from mindspore import dtype as mstype
+    from mindspore import ops
+
+
+    class GradOfAllInputsAndParams(nn.Cell):
+        def __init__(self, net):
+            super(GradOfAllInputsAndParams, self).__init__()
+            self.net = net
+            self.params = ParameterTuple(net.trainable_params())
+            self.grad_op = ops.GradOperation(get_all=True, get_by_list=True)
+
+        def construct(self, x, y):
+            gradient_function = self.grad_op(self.net, self.params)
+            return gradient_function(x, y)
+
+
+    class Net(nn.Cell):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.param1 = Parameter(mindspore.tensor([1], dtype=mstype.float32), name="param1")
+            self.param2 = Parameter(mindspore.tensor([1], dtype=mstype.float32), name="param2")
+
+        def construct(self, x, y):
+            out = self.param1 + self.param2 + x + y
+            out = out * x
+            return out.add_(y)
+
+
+    x = mindspore.tensor([1], dtype=mstype.float32)
+    y = mindspore.tensor([2], dtype=mstype.float32)
+    net = Net()
+    net.construct = mindspore.jit(net.construct, backend='ms_backend')
+    graph_out = net(x, y)
+    graph_grad_out = GradOfAllInputsAndParams(net)(x, y)
+    print("graph_out: ", graph_out)
+    print("graph_grad_out: ", graph_grad_out)
+    ```
+
+    Output:
+
+    ```text
+    graph_out:  [7.]
+    graph_grad_out:  ((Tensor(shape=[1], dtype=Float32, value= [ 6.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00])), (Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00])))
+    ```
+
+#### Supported View + In-place Scenarios
+
+Combining view and in-place operations improves memory efficiency and computational speed, especially for large tensors or resource-constrained environments.
+
+- Explicit view + in-place
+
+    Example:
+
+    ```python
+    import numpy as np
+    import mindspore
+    import mindspore.nn as nn
+    from mindspore import ops
+
+
+    class ViewOut(nn.Cell):
+        def __init__(self):
+            super(ViewOut, self).__init__()
+            self.transpose = ops.operations.TransposeView()
+            self.assign = ops.operations.Assign()
+
+        @mindspore.jit
+        def construct(self, x):
+            x = self.transpose(x, (0, 1, 2))
+            self.assign(x, x * 2)
+            return x * 3
+
+
+    x1 = mindspore.tensor(np.array([[[1, 0, 0, 0], [0, 0, 0, 0], [-1, -1, 0, -1]],
+                             [[0, -1, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]]]), mindspore.int32)
+    net = ViewOut()
+    net.construct = mindspore.jit(net.construct, backend='ms_backend')
+    out_graph = net(x1)
+
+    x2 = mindspore.tensor(np.array([[[1, 0, 0, 0], [0, 0, 0, 0], [-1, -1, 0, -1]],
+                             [[0, -1, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]]]), mindspore.int32)
+    x2.transpose((0, 1, 2))
+    x2 += x2
+    z = x2 * 3
+    assert np.allclose(out_graph.asnumpy(), z.asnumpy(), rtol=10e-4, atol=10e-4)
+    ```
+
+- Tensor indexing scenario
+
+    Enabled via `MS_DEV_TENSOR_INDEX_BOOST` (see [Environment Variables](https://chat.deepseek.com/a/chat/s/ba8b920c-4345-435e-bf87-c26bd6a9537b)).
+
+    `Ascend` devices are supported. When compiling with `mindspore.jit`, both `jit_level=00` and `jit_level=01` are available.
+
+    Example:
+
+    ```python
+    import numpy as np
+    import mindspore
+
+
+    @mindspore.jit(capture_mode='ast', jit_level="O0", backend="ms_backend")
+    def func(ms_x):
+        ms_x[slice(0, 1)] = -1
+        return ms_x
+
+
+    np_x = np.arange(2 * 3 * 4).reshape(2, 3, 4)
+    ms_x = mindspore.tensor(np_x)
+
+    ms_output = func(ms_x)
+    np_x[slice(0, 1)] = -1
+    assert np.allclose(np_x, ms_output.asnumpy())
+    ```
+
+#### Gradient Support for View + In-place
+
+- Supported cases
+
+    Gradient propagation relies on node connections, which are affected by view/in-place operations.
+
+    When there are view and in-place operators in the computation graph, if gradients can be correctly propagated on the expression of the graph nodes, the view in-place scenario can be supported in reverse. Otherwise, it is currently not supported, and corresponding error messages will be displayed.
+
+    Example:
+
+    ```python
+    import mindspore
+    import mindspore.nn as nn
+    from mindspore import ops, mint
+    from mindspore import grad
+
+
+    class Net(nn.Cell):
+        def construct(self, x):
+            y = ops.abs(x)
+            y_viewed = mint.select(y, 0, 0)
+            y_viewed.add_(mindspore.tensor(-1, dtype=mindspore.float32))
+            return y
+
+
+    x = mindspore.tensor([[0, 1], [2, 3]], dtype=mindspore.float32)
+    net = Net()
+    out_expect = grad(net)(x)
+    net.construct = mindspore.jit(net.construct, backend="ms_backend")
+    out_jit = grad(net)(x)
+    assert (out_expect.asnumpy() == out_jit.asnumpy()).all()
+    ```
+
+- Unsupported cases (throw errors)
+
+  1. Gradient required for non-modified inputs of in-place ops.
+
+     ```python
+     import mindspore
+     import mindspore.nn as nn
+     from mindspore import ops, mint
+     from mindspore import grad
+
+
+     class Net(nn.Cell):
+         def construct(self, input_tensor):
+             input_abs = ops.abs(input_tensor)
+             m = mint.select(input_abs, 0, 0)
+             n = mint.select(input_abs, 0, 1)
+             m.mul_(n)
+             return input_abs
+
+
+     net = Net()
+     net.construct = mindspore.jit(net.construct, backend="ms_backend")
+     out_jit = grad(net)(mindspore.tensor([3, 4]))
+     ```
+
+     Error:
+
+     ```text
+     RuntimeError: When performing an in-place operation on an object generated by a view operation, it is currently not supported to compute gradients for the other inputs of this in-place operator.
+     ```
+
+     Both `m` and `n` are view outputs derived from `input_abs`. In this in-place operation, gradient propagation is required for both inputs `m` and `n`. However, since `n` is not being modified, the current implementation does not support this scenario, and therefore the operation is intercepted with an error.
+
+  2. Returning view results or depending on view results.
+
+     ```python
+     import mindspore
+     import mindspore.nn as nn
+     from mindspore import ops, mint
+     from mindspore import grad
+
+
+     class Net(nn.Cell):
+         def construct(self, input_tensor):
+             input_abs = ops.abs(input_tensor)
+             x = mint.select(input_abs, 0, 0)
+             y = mint.select(input_abs, 0, 1)
+             x.add_(2)
+             y.add_(3)
+             return x
+
+
+     net = Net()
+     net.construct = mindspore.jit(net.construct, backend="ms_backend")
+     out_jit = grad(net)(mindspore.tensor([3, 4]))
+     ```
+
+     Error:
+
+     ```text
+     RuntimeError: The current view inplace differentiation scenario is not supported.
+     ```
+
+     The network's return value `x` is a view output derived from `input_abs`. The current implementation does not support this scenario, and therefore the operation is intercepted with an error.
+
 ## Syntax Constraints of Basic Syntaxes
 
 The execution graph in graph mode is converted from source code, and not all Python syntax can support it. The following describes some of the
