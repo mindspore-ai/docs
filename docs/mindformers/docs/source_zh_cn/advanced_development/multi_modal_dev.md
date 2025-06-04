@@ -67,7 +67,7 @@ print(dataset_loader[0])
 
 下图是多模态数据的处理流程图，图中的自定义模块需要用户根据实际需求实现，其他模块直接调用即可。
 
-![multi_modal.png](image/multi_modal.png)
+![multi_modal.png](images/multi_modal.png)
 
 下面以[CogVLm2-Video模型数据预处理模块](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/cogvlm2/cogvlm2_processor.py)为例，介绍多模态数据处理模块中各组成部分的功能。
 

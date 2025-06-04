@@ -138,8 +138,8 @@ FAQ
    :caption: Introduction
    :hidden:
 
-   Introduction/overview
-   Introduction/models
+   introduction/overview
+   introduction/models
 
 .. toctree::
    :glob:
@@ -172,16 +172,8 @@ FAQ
    feature/safetensors
    feature/configuration
    feature/logging
-   feature/dataset
-   feature/training_hyperparameters
-   feature/monitor
-   feature/resume_training
-   feature/parallel_training
-   feature/high_availability
-   feature/memory_optimization
-   feature/other_training_features
-   feature/evaluation
-   feature/quantization
+   feature/training_function
+   feature/infer_function
 
 .. toctree::
    :glob:
@@ -193,22 +185,7 @@ FAQ
    advanced_development/performance_optimization
    advanced_development/dev_migration
    advanced_development/multi_modal_dev
-
-.. toctree::
-   :maxdepth: 1
-   :caption: API
-   :hidden:
-
-   mindformers
-   mindformers.core
-   mindformers.dataset
-   mindformers.generation
-   mindformers.models
-   mindformers.modules
-   mindformers.pet
-   mindformers.pipeline
-   mindformers.tools
-   mindformers.wrapper
+   advanced_development/api
 
 .. toctree::
    :glob:

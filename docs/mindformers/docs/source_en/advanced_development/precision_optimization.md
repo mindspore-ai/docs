@@ -159,7 +159,7 @@ There are two main ideas for problem positioning:
 
 The training process of the model can be decomposed into the following processes: data input, forward computation, loss, backward computation, gradient, optimizer weight update, and next step. The following will describe how to rank each stage of the training in conjunction with the flow of the following figure.
 
-![general_process](./image/general_process.png)
+![general_process](./images/general_process.png)
 
 ### Stage 1: Pre-training Preparation
 
@@ -299,7 +299,7 @@ def get_parameters(self):
 
 Below is an example of a local norm comparison, comparing the local norm values corresponding to the weights.
 
-![local norm](./image/local_norm.png)
+![local norm](./images/local_norm.png)
 
 It can be found that in the scenario shown in this figure, the local norm value of model.tok_embeddings.embedding_weight has a large difference, which can be focused on troubleshooting the implementation of the Embedding and the calculation precision, etc.
 
@@ -377,7 +377,7 @@ Before the training of weight update, it is necessary to confirm the benchmark e
 
 The learning rate is set > 0, the weights are updated, and the long stability test is performed. The training to a certain step appeared the phenomenon of large differences in the loss, after which the training loss began to diverge, as shown in Fig:
 
-![loss1](./image/loss1.png)
+![loss1](./images/loss1.png)
 
 In this scenario, the training before and after the mutation can be targeted for troubleshooting, and the following troubleshooting can be tried:
 
@@ -391,7 +391,7 @@ In this scenario, the training before and after the mutation can be targeted for
 
 It is also possible to have a better fit in the early part of the training period and a large difference in the convergence loss in the later part of the training period in the long stability test, as shown in Fig:
 
-![loss2](./image/loss2.png)
+![loss2](./images/loss2.png)
 
 In this scenario, troubleshooting can be done from the following perspectives:
 
@@ -451,7 +451,7 @@ This section will introduce the completion of precision ranking based on the abo
 
 Training the model with a 128-card cluster and comparing training with Ascend+MindSpore training with GPU+PyTorch training reveals that the late training convergence loss is about 0.1 higher than GPU+PyTorch. As shown in the figure, the convergence is not as expected:
 
-![loss3](./image/loss3.png)
+![loss3](./images/loss3.png)
 
 The red line is the Ascend+MindSpore training curve and the blue line is the GPU+PyTorch training curve.
 
@@ -461,7 +461,7 @@ Before locating the problem, check against the CheckList to confirm that there i
 
 First the loss alignment of step1 is confirmed to be OK. Comparing the local norm of step1 and calculating the difference between the local norm value of each weight and the benchmark, it is found that the local norm value of Embedding weight has a large difference with the benchmark.
 
-![local norm](./image/local_norm.png)
+![local norm](./images/local_norm.png)
 
 The reason for this is that MindSpore Transformers uses FP32 for weight initialization, and FP32 precision is used for both forward and backward Embedding calculations, while PyTorch forward and backward calculations are BF16, which leads to differences in the calculated local norm values.
 
@@ -469,11 +469,11 @@ Once the computational precision is aligned, the exhaustive optimizer computatio
 
 The long stable training exhaustion will be extended from single card experiments to multi-card experiments by first setting the LEARNING RATE=0, i.e., the weights are not updated. Forward computation of the loss difference of each step is around 0.001, and the forward computation error is as expected. The difference of global norm of each step is about 0.05, and the difference of reverse calculation is not significant. It is initially judged that the model migration code is correct, the model structure is consistent, and the difference of forward and reverse calculation is not significant.
 
-![loss4](./image/loss4.png)
+![loss4](./images/loss4.png)
 
 Re-weight update, single card training, set learning rate=1e-5, train 1k steps. Convergence late loss has a steady 0.1 difference, reproducing the problem.
 
-![loss5](./image/loss5.png)
+![loss5](./images/loss5.png)
 
 Perform problem troubleshooting. Identify the following problems:
 
@@ -485,8 +485,8 @@ After fixing the problem, experiment again, train 10,000 steps, the loss differe
 
 After completing the single card training, start the multi-card training test: set the learning rate=1e-5, train 1,000 steps. convergence is consistent in the late stage of training, but there is a stable 0.05 error in the middle stage of training.
 
-![loss6](./image/loss6.png)
+![loss6](./images/loss6.png)
 
 To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly. The red line in the figure is the curve of MindSpore training, and the blue and green lines are the curves of the first and second GPU training, respectively. At the training instability around 7,000 steps, the curve of MindSpore training is right between the curves of the two GPU trainings, indicating that the error is within a reasonable range and the problem is finally solved.
 
-![loss7](./image/loss7.png)
+![loss7](./images/loss7.png)

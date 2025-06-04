@@ -111,7 +111,7 @@ Llama3-8B and Llama2-7B have the same model structure but different model parame
 
 The following compares the model configurations between Llama2-7B and Llama3-8B.
 
-![model_config_comparison](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/advanced_development/image/model_config_comparison.png)
+![model_config_comparison](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/advanced_development/images/model_config_comparison.png)
 
 The differences are as follows:
 

@@ -227,7 +227,7 @@ Here the custom operator is called in the script via `self.my_ops.mul(x, y)`, wh
 
 Run the above script to get the results:
 
-```txt
+```text
 out: 12.0
 grads[0]: (Tensor(shape=[], dtype=Float32, value= 6), Tensor(shape=[], dtype=Float32, value= 4))
 grads[1]: (Tensor(shape=[], dtype=Float32, value= 6),)
