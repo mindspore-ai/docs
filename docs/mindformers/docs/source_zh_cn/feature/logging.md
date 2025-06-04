@@ -6,7 +6,7 @@
 
 ### 概述
 
-MindSpore TransFormers 会将模型的训练配置、训练步数、Loss、吞吐率等信息写入日志中，开发者可以自行指定日志存储的路径。
+MindSpore Transformers 会将模型的训练配置、训练步数、Loss、吞吐率等信息写入日志中，开发者可以自行指定日志存储的路径。
 
 ### 训练日志的目录结构
 
@@ -40,7 +40,7 @@ output
 
 ### 配置与使用
 
-MindSpore TransFormer 默认会在训练的 yaml 文件中指定文件输出路径为 `./output` 。如果在 `mindformers` 路径下启动训练任务，则训练产生的日志输出将默认保存在 `mindformers/output` 下。
+MindSpore Transformers 默认会在训练的 yaml 文件中指定文件输出路径为 `./output` 。如果在 `mindformers` 路径下启动训练任务，则训练产生的日志输出将默认保存在 `mindformers/output` 下。
 
 #### YAML 参数配置
 
@@ -54,7 +54,7 @@ output_dir: './output' # path to save logs/checkpoint/strategy
 
 #### 单卡任务指定输出目录
 
-除了 yaml 文件配置来指定，MindSpore TransFormer 还支持在 [run_mindformer 一键启动脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/start_tasks.html?highlight=%E6%97%A5%E5%BF%97#run-mindformer%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC) 中，使用 `--output_dir` 启动命令对日志输出路径做指定。
+除了 yaml 文件配置来指定，MindSpore Transformers 还支持在 [run_mindformer 一键启动脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/start_tasks.html?highlight=%E6%97%A5%E5%BF%97#run-mindformer%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC) 中，使用 `--output_dir` 启动命令对日志输出路径做指定。
 
 > 如果在这里配置了输出路径，将会覆盖 yaml 文件中的配置！
 

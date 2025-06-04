@@ -4,13 +4,13 @@
 
 During the large-scale training of deep learning models, challenges such as memory limitations, effective utilization of computational resources, and synchronization issues in distributed training are encountered. To address these challenges, training optimization algorithms are employed to enhance training efficiency, accelerate convergence, and improve the final model performance.
 
-MindSpore Transformer provides optimization algorithms like Recomputation, Gradient Accumulation, and Gradient Clipping for use during training.
+MindSpore Transformers provides optimization algorithms like Recomputation, Gradient Accumulation, and Gradient Clipping for use during training.
 
 ## Gradient Accumulation
 
 ### Overview
 
-MindSpore supported the gradient accumulation implementation interface `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` in versions after 2.1.1, which provides the gradient accumulation capability by splitting MiniBatch. MindSpore Transformer encapsulates it into a unified training process and enables it through yaml configuration. For the principle of gradient accumulation and the ability of framework measurement, please refer to [MindSpore Document: Gradient Accumulation](https://www.mindspore.cn/tutorials/en/master/parallel/distributed_gradient_accumulation.html).
+MindSpore supported the gradient accumulation implementation interface `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` in versions after 2.1.1, which provides the gradient accumulation capability by splitting MiniBatch. MindSpore Transformers encapsulates it into a unified training process and enables it through yaml configuration. For the principle of gradient accumulation and the ability of framework measurement, please refer to [MindSpore Document: Gradient Accumulation](https://www.mindspore.cn/tutorials/en/master/parallel/distributed_gradient_accumulation.html).
 
 ### Configuration and Usage
 
@@ -53,7 +53,7 @@ The gradient clipping algorithm can avoid the situation where the reverse gradie
 
 #### YAML Parameter Configuration
 
-In MindSpore TransFormers, the default training process `MFTrainOneStepCell` integrates gradient clipping logic.
+In MindSpore Transformers, the default training process `MFTrainOneStepCell` integrates gradient clipping logic.
 
 You can use the following example to enable gradient clipping:
 

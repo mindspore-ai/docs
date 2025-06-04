@@ -4,13 +4,13 @@
 
 在大规模的深度学习模型训练中，会遇到诸如：内存限制、计算资源的有效利用、分布式训练中的同步问题等挑战，需要使用训练优化算法来提高训练效率、加速收敛速度以及改善最终模型性能。
 
-MindSpore TransFormer 提供了梯度累积、梯度裁剪等训练优化算法，可供开发者进行训练时使用。
+MindSpore Transformers 提供了梯度累积、梯度裁剪等训练优化算法，可供开发者进行训练时使用。
 
 ## 梯度累积
 
 ### 概述
 
-MindSpore 在 2.1.1 之后的版本中增加了 `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` 这一梯度累积实现接口，通过拆分 MiniBatch 的形式提供了梯度累加的能力，MindSpore Transformer 将其封装进了统一的训练流程，通过 yaml 配置进行使能。关于梯度累积的原理和框架测的能力可以参考 [MindSpore 文档：梯度累加](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/distributed_gradient_accumulation.html)。
+MindSpore 在 2.1.1 之后的版本中增加了 `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` 这一梯度累积实现接口，通过拆分 MiniBatch 的形式提供了梯度累加的能力，MindSpore Transformers 将其封装进了统一的训练流程，通过 yaml 配置进行使能。关于梯度累积的原理和框架测的能力可以参考 [MindSpore 文档：梯度累加](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/distributed_gradient_accumulation.html)。
 
 ### 配置与使用
 
@@ -53,7 +53,7 @@ runner_config:
 
 #### YAML 参数配置
 
-在 MindSpore TransFormers 中，默认的训练流程 `MFTrainOneStepCell` 中集成了梯度裁剪逻辑。
+在 MindSpore Transformers 中，默认的训练流程 `MFTrainOneStepCell` 中集成了梯度裁剪逻辑。
 
 可使用如下示例，以开启梯度裁剪：
 

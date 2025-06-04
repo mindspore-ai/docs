@@ -4,7 +4,7 @@
 
 超参数对模型的性能有着重要影响，不同的超参数设置可能导致模型表现的巨大差异。参数的选择会影响到模型的训练速度、收敛性、容量和泛化能力等方面。且它们并非通过训练数据直接学习得到的，而是由开发者根据经验、实验或调优过程来确定的。
 
-MindSpore Transformer 提供了如下几类超参数的配置方式。
+MindSpore Transformers 提供了如下几类超参数的配置方式。
 
 ## 学习率
 
@@ -32,7 +32,7 @@ lr_schedule:
 
 #### 主要配置参数介绍
 
-各学习率需配置的参数不同，MindSpore Transformer 目前支持了以下学习率：
+各学习率需配置的参数不同，MindSpore Transformers 目前支持了以下学习率：
 
 1. [恒定预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/core/mindformers.core.ConstantWarmUpLR.html)
 2. [线性预热学习率](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/core/mindformers.core.LinearWithWarmUpLR.html)
@@ -68,7 +68,7 @@ lr_schedule:
   total_steps: 20 # -1 means it will load the total steps of the dataset
 ```
 
-更多关于学习率 API 的介绍（如 `type` 的配置名称、学习率算法的介绍），可参见 [MindSpore TransFormer API 文档：学习率部分](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers.core.html#%E5%AD%A6%E4%B9%A0%E7%8E%87) 的相关链接。
+更多关于学习率 API 的介绍（如 `type` 的配置名称、学习率算法的介绍），可参见 [MindSpore Transformers API 文档：学习率部分](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers.core.html#%E5%AD%A6%E4%B9%A0%E7%8E%87) 的相关链接。
 
 ## 优化器
 
@@ -78,7 +78,7 @@ lr_schedule:
 
 选择合适的优化器对模型的收敛速度和最终性能有着至关重要的影响。不同的优化器通过不同的方法调整学习率和其他超参数来加速训练过程、改善收敛性并避免局部最优解。
 
-当前，MindSpore Transformer 只支持 [AdamW 优化器](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)。
+当前，MindSpore Transformers 只支持 [AdamW 优化器](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)。
 
 ### 配置与使用
 
@@ -98,4 +98,4 @@ optimizer:
 
 #### 主要配置参数介绍
 
-有关优化器配置的主要参数，可参见 [MindSpore TransFormer API 文档：优化器部分](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/core/mindformers.core.AdamW.html#mindformers.core.AdamW) 的相关链接。
+有关优化器配置的主要参数，可参见 [MindSpore Transformers API 文档：优化器部分](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/core/mindformers.core.AdamW.html#mindformers.core.AdamW) 的相关链接。
