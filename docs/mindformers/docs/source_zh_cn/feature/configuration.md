@@ -186,7 +186,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
    | recompute_config.select_recompute_exclude          | 关闭指定算子的重计算，只对Primitive算子有效。    | bool/list       |
    | recompute_config.select_comm_recompute_exclude     | 关闭指定算子的通讯重计算，只对Primitive算子有效。  | bool/list       |
 
-2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/fine_grained_activations_swap.html)。
+2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/memory_optimization.html#%E7%BB%86%E7%B2%92%E5%BA%A6%E6%BF%80%E6%B4%BB%E5%80%BCswap)。
 
    | 参数 | 说明 | 类型 |
    |------|-----|-----|
