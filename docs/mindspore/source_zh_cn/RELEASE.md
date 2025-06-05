@@ -56,6 +56,7 @@
 #### Compiler
 
 - [BETA] 图模式支持inplace和view算子正向表达能力。
+- [BETA] 图模式新增 [mindspore.ops.Morph](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.Morph.html) 算子，允许将自定义函数封装成 [mindspore.ops.Morph](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.Morph.html) 算子，易于分布式自动并行训练场景封装非规整集合通信（例如：[mindspore.ops.AlltoAllV](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/ops/mindspore.ops.AlltoAllV.html)）。
 
 ### API 变更
 

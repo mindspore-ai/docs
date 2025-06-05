@@ -56,6 +56,7 @@
 #### Compiler
 
 - [BETA] The graph mode supports the inplace and view operator forward expression capabilities.
+- [BETA] Add new operator primitive [mindspore.ops.Morph](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.Morph.html) in GRAPH mode, enabling encapsulation of user-defined function as operator primitive [mindspore.ops.Morph](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.Morph.html), facilitating encapsulation of irregular collective communication operations (such as [mindspore.ops.AlltoAllV](https://www.mindspore.cn/docs/en/r2.6.0/api_python/ops/mindspore.ops.AlltoAllV.html)) for distributed auto-parallel training scenarios.
 
 ### API Change
 
