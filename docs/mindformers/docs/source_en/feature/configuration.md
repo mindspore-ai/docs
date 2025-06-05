@@ -186,7 +186,7 @@ In order to improve the performance of the model, it is usually necessary to con
    | recompute_config.select_recompute_exclude          | Disable recomputation for the specified operator, valid only for the Primitive operators.               | bool/list       |
    | recompute_config.select_comm_recompute_exclude     | Disable communication recomputation for the specified operator, valid only for the Primitive operators. | bool/list       |
 
-2. MindSpore Transformers provides fine-grained activations SWAP-related configurations to reduce the memory footprint of the model during training, see [Fine-Grained Activations SWAP](https://www.mindspore.cn/mindformers/docs/en/dev/feature/fine_grained_activations_swap.html) for details.
+2. MindSpore Transformers provides fine-grained activations SWAP-related configurations to reduce the memory footprint of the model during training, see [Fine-Grained Activations SWAP](https://www.mindspore.cn/mindformers/docs/en/dev/feature/memory_optimization.html#fine-grained-activations-swap) for details.
 
    | Parameters                                         | Descriptions                                                                                            | Types           |
    |----------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------|
