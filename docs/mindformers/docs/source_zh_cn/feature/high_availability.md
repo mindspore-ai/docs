@@ -4,49 +4,56 @@
 
 ## 概述
 
-MindSpore Transformers 高可用特性提供了如下三个功能：
+MindSpore Transformers 高可用特性提供了如下四个功能：
 
 - **临终 CKPT 功能**：主要针对大模型训练过程中的故障恢复加速，该特性在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临终 CheckPoint 数据，恢复训练时能够通过该 CheckPoint 数据恢复，减少故障造成的训练迭代损失。
 - **UCE 故障容错恢复功能**：主要是针对大模型训练过程中片上内存的 UCE 故障检测，并完成在线修复，达到 Step 级重计算。
-- **进程级重调度恢复功能**：训练发生异常后，不需要重新拉起整个集群，只需以节点为单位进行重启或替换，完成修复并继续训练。
+- **TRE 训练结果异常恢复功能**：主要是针对大模型训练过程中出现loss或global norm等值异常检测，并完成在线修复，达到 Step 级重计算。
+- **ARF 进程级重调度恢复功能**：训练发生异常后，不需要重新拉起整个集群，只需以节点为单位进行重启或替换，完成修复并继续训练。
 
-高可用特性目前只支持 MindSpore Ascend 后端的图模式；该特性同时需要支持Step级别恢复，因此配置数据下沉时只支持sink_size 为 1。
+这几个高可用特性的**约束**和**依赖**如下：
 
-高可用特性的基础是两张卡存在副本关系，这样当其中一张卡发生故障时，可从另外一张卡恢复，因此权重和优化器都会存在两份冗余，会占用更多的显存。为保证这种冗余关系，必须开启数据并行，保证有两张卡权重一致，同时如果开启了优化器并行，也必须确保存在两张卡的优化器状态一致。
+| | 临终 CKPT | UCE | ARF | TRE |
+| - | - | - | - | - |
+| 依赖MindIO组件 | Yes | Yes | Yes | No |
+| 卡间存在副本关系 | Yes | Yes | Yes | No |
+| Sink Size 为 1 | Yes | Yes | Yes | No |
 
-三个功能可同时开启，也可以单独开启。组合开启这三个功能时，依次生效的顺序是：UCE故障容错恢复 -> 进程级重调度恢复 -> 临终 CKPT ，如果其中一个功能可以恢复，就不会执行下一个功能。临终 CKPT 功能作为最后的保障，完成该功能后整个训练进程会退出，所以在另外两个功能开启时会默认开启。
+目前这四个高可用特性只支持Ascend后端上图模式的Step级别恢复。
 
-临终 CKPT 保存 Checkpoint 文件以及通过该文件进行续训均使用现有 MindSpore Transformers 的能力，在使用方式上一致，只是临终 CKPT 依赖于strategy文件，因此在训练和续训时均需要配置该文件夹。
+卡间存在副本关系的目的是当其中一张卡发生故障时，可从另外一张卡恢复，要求权重和优化器状态都会存在至少两份冗余。为保证这种冗余关系，必须开启数据并行，保证有两张卡权重一致，同时如果开启了优化器并行，也必须确保存在两张卡的优化器状态一致。
 
-当异常触发临终的 CheckPoint 保存时，如果未开启去冗余保存，每个数据并行域只有一张卡保存了 CheckPoint，其余卡不会保存 CheckPoint；所以在恢复训练时，同样需要使能高可用特性才能恢复，否则其他卡无法找到可用的 CheckPoint，会报错退出。用户可通过计算分布式保存的 CheckPoint 数量是否为小于集群数量，来判断该 CheckPoint 是否由临终 CKPT 功能触发。
+临终 CKPT、UCE 和 ARF 组合开启这三个功能时，依次生效的顺序是：UCE -> ARF -> 临终 CKPT ，如果其中一个功能可以恢复，就不会执行下一个功能。临终 CKPT 功能作为最后的保障，完成该功能后整个训练进程会退出，所以在 UCE 或 ARF 功能开启时，会默认开启临终 CKPT。
 
 ## 使用说明
 
-高可用特性开关由环境变量使能，YAML 配置文件中不单独设置开关，但 YAML 文件需要能配置出两张卡的权重和优化器状态一致，详见本文档中的[副本关系配置](#副本关系配置)章节。
+高可用特性开关由环境变量使能，YAML 配置文件中不单独设置开关。但对于要求卡间存在副本关系的高可用特性，YAML 文件需要能配置出两张卡的权重和优化器状态一致，详见本文档中的[副本关系配置](#副本关系配置)章节。
 
-高可用特性依赖用户安装 MindIO TFT SDK 包，详细请参考[在计算节点安装 MindIO TFT SDK](https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft011.html)。
+依赖MindIO组件的高可用特性需用户安装 MindIO TFT SDK 包，详细请参考[在计算节点安装 MindIO TFT SDK](https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft011.html)。
 
 ### 环境变量配置
 
 ```shell
 export MINDIO_FOR_MINDSPORE=1
-export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1}"
+export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1,TRE:1}"
 export MS_TFT_IP=127.0.0.1
 export MS_TFT_PORT=30051
 ```
 
 - `MINDIO_FOR_MINDSPORE`：使能 MindIO TFT SDK 支持 MindSpore
-- `MS_ENABLE_TFT`：表示启用 TTP、UCE 和 ARF 功能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。
+- `MS_ENABLE_TFT`：表示启用 TTP、UCE、ARF 和 TRE 功能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。
     - **TTP (Try To Persist)**：临终 CKPT 功能
     - **UCE (Uncorrectable Memory Error)**：UCE 故障容错恢复功能
     - **ARF (Air Refuelling)**：进程级重调度恢复功能
+    - **TRE (Training Result Error)**：TRE 训练结果异常恢复功能
     - 开启 UCE 或者 ARF 功能时，默认开启 TTP 功能
-
+    - 目前 TRE 功能不可以与 UCE 或 ARF 功能同时使用
+    - TRE 功能不依赖 MindIO 组件，若只使能TRE特性，无需配置 MindIO 相关的环境变量 MINDIO_FOR_MINDSPORE、MS_TFT_IP 和 MS_TFT_PORT
 - `MS_TFT_IP` 和 `MS_TFT_PORT` 分别表示 TFT Controller 的 IP 和端口号，无默认值，需要用户指定。如果由 MindSpore Transformers 启动 Controller，则配置用户集群中 rank0 节点的 IP 和端口号。如果用户自行启动 Controller，则配置 Controller 的 IP 和端口号。
 
 ### YAML 配置
 
-YAML配置包含两部分：临终 CKPT 的保存及恢复配置和高可用的副本关系配置。
+YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本关系配置。
 
 #### 保存及恢复配置
 
@@ -90,7 +97,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和高可用的�
 
 #### 副本关系配置
 
-高可用的三个功能的关键是配置出权重和优化器的副本冗余关系，配置的核心是数据并行域的维度大于 2，如果叠加优化器并行，需要同时保证优化器的副本数大于 2。所以配置分两类，开启优化器并行和不开启优化器并行。下面以 8 卡为例，介绍如何配置。
+高可用的临终 CKPT、UCE 和 ARF 这三个功能的关键是配置出权重和优化器的副本冗余关系，配置的核心是数据并行域的维度大于 2，如果叠加优化器并行，需要同时保证优化器的副本数大于 2。所以配置分两类，开启优化器并行和不开启优化器并行。下面以 8 卡为例，介绍如何配置。
 
 - **不开启优化器并行**
 
@@ -120,7 +127,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和高可用的�
       pipeline_stage: 1
     ```
 
-#### 示例
+#### 临终 CKPT 使用示例
 
 本章节以 Llama2-13B 训练为例演示临终 CKPT 的使用。
 
