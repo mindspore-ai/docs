@@ -22,8 +22,8 @@ Model weights can be categorized into two types: complete weights and distribute
 
 Complete weights can be obtained in two ways:
 
-1. After downloading the open source weights of the corresponding model from the HuggingFace model library, refer to [Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/feature/weight_conversion.html) to convert them to the ckpt format.
-2. Pre-trained or fine-tuned distributed weights are used to generate a complete weight by [merging](https://www.mindspore.cn/mindformers/docs/en/dev/feature/transform_weight.html).
+1. After downloading the open source weights of the corresponding model from the HuggingFace model library, refer to [Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html) to convert them to the ckpt format.
+2. Pre-trained or fine-tuned distributed weights are used to generate a complete weight by [merging](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html).
 
 #### 2.2 Distributed Weights
 
@@ -35,7 +35,7 @@ If the inference uses a weight slicing that is different from the model slicing 
 2. The weights of the eight-card training are reasoned over two cards;
 3. Already sliced distributed weights are reasoned on a single card, and so on.
 
-The command samples in the following contents are all used in the way of online autoslicing. It is recommended to use online autoslicing by setting the command parameters `--auto_trans_ckpt` to `-True` and `-src_strategy_path_or_dir` to the weighted slicing strategy file or directory path (which is saved by default after training under `./output/strategy`) are automatically sliced in the inference task. Details can be found in [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/feature/transform_weight.html).
+The command samples in the following contents are all used in the way of online autoslicing. It is recommended to use online autoslicing by setting the command parameters `--auto_trans_ckpt` to `-True` and `-src_strategy_path_or_dir` to the weighted slicing strategy file or directory path (which is saved by default after training under `./output/strategy`) are automatically sliced in the inference task. Details can be found in [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html).
 
 > Since both the training and inference tasks use `./output` as the default output path, when using the strategy file output by the training task as the source weight strategy file for the inference task, you need to move the strategy file directory under the default output path to another location to avoid it being emptied by the process of the inference task, for example:
 >

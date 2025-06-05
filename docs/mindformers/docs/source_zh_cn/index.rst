@@ -68,13 +68,9 @@ MindSpore Transformers功能特性说明
 
     单卡、单机和多机任务一键启动。
 
-  - `权重格式转换 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/weight_conversion.html>`_
+  - `Ckpt权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html>`_
 
-    提供统一的权重转换工具，能够将模型权重在HuggingFace所使用的格式与MindSpore Transformers所使用的格式之间相互转换。
-
-  - `分布式权重切分与合并 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/transform_weight.html>`_
-
-    不同分布式场景下的权重灵活地进行切分与合并。
+    支持ckpt格式的权重文件转换及切分功能。
 
   - `Safetensors权重 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html>`_
 
@@ -197,8 +193,7 @@ FAQ
    :hidden:
 
    feature/start_tasks
-   feature/weight_conversion
-   feature/transform_weight
+   feature/ckpt
    feature/safetensors
    feature/configuration
    feature/logging

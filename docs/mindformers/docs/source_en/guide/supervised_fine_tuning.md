@@ -243,7 +243,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --run_mode finetune" 8
 ```
 
-When the distributed strategy of the weights does not match the distributed strategy of the model, the weights need to be transformed. The load weight path should be set to the upper path of the directory named with `rank_0`, and the weight auto transformation function should be enabled by setting `--auto_trans_ckpt True` . For a more detailed description of the scenarios and usage of distributed weight transformation, please refer to [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/feature/transform_weight.html).
+When the distributed strategy of the weights does not match the distributed strategy of the model, the weights need to be transformed. The load weight path should be set to the upper path of the directory named with `rank_0`, and the weight auto transformation function should be enabled by setting `--auto_trans_ckpt True` . For a more detailed description of the scenarios and usage of distributed weight transformation, please refer to [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html).
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

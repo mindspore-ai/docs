@@ -86,7 +86,7 @@ processor:
     merges_file: "/path/to/mf_model/qwen1_5_72b/merges.txt"  # merges文件绝对路径
 ```
 
-模型权重下载和转换可参考 [权重格式转换指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/weight_conversion.html)。
+模型权重下载和转换可参考 [权重格式转换指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。
 
 不同模型的所需文件和配置可能会有差异，详情参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html)中具体模型的推理章节。
 
