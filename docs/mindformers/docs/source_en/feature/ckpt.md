@@ -6,7 +6,7 @@
 
 Ckpt is a common file format used to save model training status in the deep learning framework. It contains model parameters, optimizer status, and training progress. It is used to restore training or fine-tune models. This document describes how MindSpore Transformers supports conversion , slice and merge.
 
-> The ckpt format is planned to offline.The safetensors format is recommended for weights.Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). For details, see [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html).
+> The ckpt format is planned to offline. The safetensors format is recommended for weights. Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). For details, see [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html).
 
 ## Weight Format Conversion
 
@@ -40,7 +40,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ### Conversion Example
 
-Assume that you have downloaded the [Llama2 model weight](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path. To convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
+Assume that you have downloaded the [Llama2 model weight](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path, to convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
 
 ```bash
 python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
