@@ -2,11 +2,11 @@
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/release_notes/release_notes.md)
 
-## vLLM MindSpore 0.3.0 Release Notes  
+## vLLM MindSpore 0.3.0 Release Notes
 
 The following are the key new features and models supported in the vLLM MindSpore plugin version 0.3.0.  
 
-### New Features  
+### New Features
 
 - 0.8.3 V1 Architecture Basic Features, including chunked prefill and automatic prefix caching;  
 - V0 Multi-step Scheduling;  

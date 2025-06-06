@@ -1,4 +1,4 @@
-# NPU Single-Node Multi-Card Inference (Qwen2.5-32B)
+# Single-Node Multi-Card NPU Inference (Qwen2.5-32B)
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md)
 
@@ -91,7 +91,7 @@ snapshot_download(
 
 `local_dir` is the user-specified path to save the model. Ensure sufficient disk space is available.
 
-### Downloading with git-lfs Tool  
+### Downloading with git-lfs Tool
 
 Run the following command to verify if [git-lfs](https://git-lfs.com) is available:
 
@@ -105,7 +105,7 @@ If available, the following output will be displayed:
 Git LFS initialized.
 ```
 
-If unavailable, install [git-lfs](https://git-lfs.com) first. Refer to the [FAQ](../../../faqs/faqs.md) section for [git-lfs installation](../../../faqs/faqs.md#git-lfs-installation) guidance.  
+If the tool is unavailable, install [git-lfs](https://git-lfs.com) first. Refer to [git-lfs installation](../../../faqs/faqs.md#git-lfs-installation) guidance in the [FAQ](../../../faqs/faqs.md) section.  
 
 Once confirmed, execute the following command to download the weights:
 

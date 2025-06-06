@@ -1,14 +1,14 @@
-# Single NPU Inference (Qwen2.5-7B)  
+# Single-Card NPU Inference (Qwen2.5-7B)
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md)  
 
 This document introduces single NPU inference process by vLLM MindSpore. Taking the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example, user can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [download model weights](#download-model-weights). After [setting environment variables](#setting-environment-variables), user can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.  
 
-## Docker Installation  
+## Docker Installation
 
 In this section, we recommend using Docker for quick deployment of the vLLM MindSpore environment. Below are the steps for Docker deployment:  
 
-### Pulling the Image  
+### Pulling the Image
 
 Pull the vLLM MindSpore Docker image by executing the following command:  
 
@@ -22,7 +22,7 @@ During the pull process, user will see the progress of each layer. After success
 docker images  
 ```  
 
-### Creating a Container  
+### Creating a Container
 
 After [pulling the image](#pulling-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then create the container:  
 
@@ -64,7 +64,7 @@ After successful creation, the container ID will be returned. Verify the contain
 docker ps  
 ```  
 
-### Entering the Container  
+### Entering the Container
 
 After [creating the container](#creating-a-container), start and enter the container using the predefined `DOCKER_NAME`:  
 
@@ -72,7 +72,7 @@ After [creating the container](#creating-a-container), start and enter the conta
 docker exec -it $DOCKER_NAME bash  
 ```  
 
-## Downloading Model Weights  
+## Downloading Model Weights
 
 User can download the model using either [Python Tool](#downloading-with-python-tool) or [git-lfs Tool](#downloading-with-git-lfs-tool).  
 
@@ -91,7 +91,7 @@ snapshot_download(
 
 `local_dir` is the user-specified model save path. Ensure sufficient disk space is available.  
 
-### Downloading with git-lfs Tool  
+### Downloading with git-lfs Tool
 
 Run the following command to check if [git-lfs](https://git-lfs.com) is available:  
 
@@ -105,7 +105,7 @@ If available, the following output will be displayed:
 Git LFS initialized.  
 ```  
 
-If unavailable, install [git-lfs](https://git-lfs.com) first. Refer to the [FAQ](../../../faqs/faqs.md) section for [git-lfs installation](../../../faqs/faqs.md#git-lfs-installation) guidance.  
+If the tool is unavailable, install [git-lfs](https://git-lfs.com) first. Refer to [git-lfs installation](../../../faqs/faqs.md#git-lfs-installation) guidance in the [FAQ](../../../faqs/faqs.md) section.  
 
 Once confirmed, download the weights by executing the following command:  
 
@@ -113,7 +113,7 @@ Once confirmed, download the weights by executing the following command:
 git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct  
 ```  
 
-## Setting Environment Variables  
+## Setting Environment Variables
 
 For [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct), the following environment variables configure memory allocation, backend, and model-related YAML files:  
 
@@ -139,7 +139,7 @@ export NPU_VISIBE_DEVICES=0
 export ASCEND_RT_VISIBLE_DEVICES=$NPU_VISIBE_DEVICES  
 ```  
 
-## Offline Inference  
+## Offline Inference
 
 Taking [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example, user can perform offline inference with the following Python code:  
 
@@ -176,11 +176,11 @@ Prompt: 'Today is'. Generated text: ' the 100th day of school. To celebrate, the
 Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compostable alternative'  
 ```  
 
-## Online Inference  
+## Online Inference
 
 vLLM MindSpore supports online serving deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
 
-### Starting the Service  
+### Starting the Service
 
 Use the model `Qwen/Qwen2.5-7B-Instruct` and start the vLLM service with the following command:
 
@@ -202,7 +202,7 @@ Additionally, performance metrics will be logged, such as:
 Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%  
 ```  
 
-#### Sending Requests  
+#### Sending Requests
 
 Use the following command to send a request, where `prompt` is the model input:  
 

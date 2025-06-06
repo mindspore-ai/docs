@@ -1,14 +1,14 @@
-# Quick Start  
+# Quick Start
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/quick_start/quick_start.md)  
 
 This document provides a quick guide to deploy vLLM MindSpore by [docker](https://www.docker.com/), with the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example. User can quickly experience the serving and inference abilities of vLLM MindSpore by [offline inference](#offline-inference) and [online serving](#online-serving). For more information about installation, please refer to the [Installation Guide](../installation/installation.md).  
 
-## Docker Installation  
+## Docker Installation
 
 In this section, we recommend to use docker to deploy the vLLM MindSpore environment. The following sections are the steps for deployment:
 
-### Pulling the Image  
+### Pulling the Image
 
 Pull the vLLM MindSpore docker image by executing the following command:  
 
@@ -22,7 +22,7 @@ During the pull process, user will see the progress of each layer of the docker 
 docker images  
 ```  
 
-### Creating a Container  
+### Creating a Container
 
 After [pulling the image](#pulling-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, and create the container by running:  
 
@@ -64,7 +64,7 @@ After successfully creating the container, the container ID will be returned. Us
 docker ps  
 ```  
 
-### Entering the Container  
+### Entering the Container
 
 After [creating the container](#creating-a-container), use the environment variable `DOCKER_NAME` to start and enter the container by executing the following command:  
 
@@ -80,7 +80,7 @@ After deploying the environment, user need to prepare the model files before run
 
 User can download the model using either the [Python Tool](#downloading-with-python-tool) or [git-lfs Tool](#downloading-with-git-lfs-tool).  
 
-#### Downloading with Python Tool  
+#### Downloading with Python Tool
 
 Execute the following Python script to download the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) weights and files from [Hugging Face](https://huggingface.co/):  
 
@@ -118,7 +118,7 @@ Once confirmed, download the weights by executing the following command:
 git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct  
 ```  
 
-### Setting Environment Variables  
+### Setting Environment Variables
 
 Before launching the model, user need to set the following environment variables:  
 
@@ -136,7 +136,7 @@ Here is an explanation of these environment variables:
 - `vLLM_MODEL_MEMORY_USE_GB`: The memory reserved for model loading. Adjust this value if insufficient memory error occurs during model loading.  
 - `MINDFORMERS_MODEL_CONFIG`: The model configuration file.  
 
-### Offline Inference  
+### Offline Inference
 
 Taking [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example, user can perform offline inference with the following Python script:  
 
@@ -174,11 +174,11 @@ Prompt: 'Today is'. Generated text: ' the 100th day of school. To celebrate, the
 Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compostable alternative'
 ```  
 
-### Online Serving  
+### Online Serving
 
 vLLM MindSpore supports online serving deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
 
-#### Starting the Service  
+#### Starting the Service
 
 Use the model `Qwen/Qwen2.5-7B-Instruct` and start the vLLM service with the following command:  
 
@@ -200,7 +200,7 @@ Additionally, performance metrics will be logged, such as:
 Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
 ```  
 
-#### Sending Requests  
+#### Sending Requests
 
 Use the following command to send a request, where `prompt` is the model input:  
 
