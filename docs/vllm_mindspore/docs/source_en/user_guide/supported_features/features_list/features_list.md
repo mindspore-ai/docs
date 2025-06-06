@@ -1,12 +1,12 @@
-# 特性支持列表
+# Supported Features List
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/features_list/features_list.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/features_list/features_list.md)
 
-vLLM MindSpore支持的特性功能与vLLM社区版本保持一致，特性描述和使用请参考[vLLM官方资料](https://docs.vllm.ai/en/latest/)。
+The features supported by vLLM MindSpore are consistent with the community version of vLLM. For feature descriptions and usage, please refer to the [vLLM Official Documentation](https://docs.vllm.ai/en/latest/).
 
-以下是vLLM MindSpore的功能支持状态：
+The following is the features supported in vLLM MindSpore.
 
-| **功能**                          | **vLLM V0** | **vLLM V1** |  
+| **Features**                          | **vLLM V0** | **vLLM V1** |  
 |-----------------------------------|--------------------|--------------------|  
 | Chunked Prefill                   | √                  | √                  |  
 | Automatic Prefix Caching          | √                  | √                  |  
@@ -31,6 +31,6 @@ vLLM MindSpore支持的特性功能与vLLM社区版本保持一致，特性描�
 | Pooling                           | ×                  | ×                  |
 | Enc-dec                           | ×                  | ×                  |  
 
-- √：功能已与vLLM社区版本能力对齐。
-- ×：暂无支持计划，建议使用其他方案代替。
-- WIP：功能正在开发中或已列入开发计划中。
+- √：Feature aligned with the community version of vLLM.
+- ×：Currently unsupported; alternative solutions are recommended.
+- WIP：Under development or planned for future implementation.

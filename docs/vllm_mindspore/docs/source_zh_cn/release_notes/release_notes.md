@@ -2,9 +2,9 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/release_notes/release_notes.md)
 
-## vLLM-MindSpore 0.3.0 Release Notes
+## vLLM MindSpore 0.3.0 Release Notes
 
-以下为vLLM-MindSpore插件0.3.0版本支持的关键新功能和模型。
+以下为vLLM MindSpore插件0.3.0版本支持的关键新功能和模型。
 
 ### 新特性
 

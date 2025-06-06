@@ -124,7 +124,7 @@ Apache 许可证 2.0，如  `LICENSE <https://gitee.com/mindspore/vllm-mindspore
    :caption: 开发者指南
    :hidden:
 
-   developer_guide/contributing.md
+   developer_guide/contributing
 
 .. toctree::
    :glob:

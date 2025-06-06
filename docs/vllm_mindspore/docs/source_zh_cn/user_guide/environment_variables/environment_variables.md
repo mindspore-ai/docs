@@ -14,8 +14,7 @@
 |   export HCCL_EXEC_TIMEOUT=7200   |   多机   |   多机场景优化，控制设备间执行时同步等待的时间，单位为s，默认值为1836   |
 |   export RUN_MODE="predict"   |   推理基础流程---系统默认配置   |   配置网络执行模式，predict模式下会使能一些优化   |
 |   export DEVICE_NUM_PER_NODE=16   |   多机使用ckpt切分   |   自动权重切分要识别卡数功能依赖，单机实际NPU数量，不设置默认为8卡服务器   |
-|   export vLLM_USE_NPU_ADV_STEP_FLASH_OP="on"   |   mss（Multi step scheduler）自定义算子   |   mss（Multi step scheduler）功能中自定义算子开关   |
-|   export ASCEND_RT_VISIBLE_DEVICES=0,1   |   vllm-ascend Ray多机场景   |   vllm-ascend中使能Ray依赖   |
-|   export RAY_EXPERIMENTAL_NOSET_ASCEND_RT_VISIBLE_DEVICES=1   |   vllm-ascend Ray多机场景   |   vllm-ascend中使能Ray依赖   |
+|   export vLLM_USE_NPU_ADV_STEP_FLASH_OP="on"   |   mss（Multi-step scheduler）自定义算子   |   mss（Multi-step scheduler）功能中自定义算子开关   |
+|   export RAY_EXPERIMENTAL_NOSET_ASCEND_RT_VISIBLE_DEVICES=1   |    Ray多机场景   |   使能Ray依赖   |
 |   export MS_JIT=0   |   量化场景，升级0.7.3后版本   |   0：不使用JIT即时编译，网络脚本直接按照动态图（PyNative）模式执行。   |
 |   export FORCE_EAGER="true"   |   量化场景，升级0.7.3后版本   |       |
