@@ -28,7 +28,7 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
 
-拉取vLLM代码仓，导入vllm-mindspore插件，复用其中benchmark功能：
+拉取vLLM代码仓，导入vLLM MindSpore插件，复用其中benchmark功能：
 
 ```bash
 git clone https://github.com/vllm-project/vllm.git

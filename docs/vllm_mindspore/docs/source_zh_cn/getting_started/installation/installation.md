@@ -106,7 +106,7 @@ pip install vllm_mindspore
 
 ### 源码安装
 
-- 安装CANN
+- **CANN安装**
     CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)，若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
 
     CANN默认安装路径为`/usr/local/Ascend`。用户在安装CANN完毕后，使用如下命令，为CANN配置环境变量：
@@ -117,14 +117,14 @@ pip install vllm_mindspore
     export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
     ```
 
-- 安装vLLM的前置依赖
+- **vLLM前置依赖安装**
     vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.8.3/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
 
     ```bash
     yum install -y gcc gcc-c++
     ```
 
-- 安装vLLM MindSpore
+- **vLLM MindSpore安装**
 
     安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
 

@@ -12,7 +12,7 @@
 其中，“模型后端”指模型的来源是来自于MindSpore Transformers和vLLM MindSpore原生模型，使用环境变量`vLLM_MODEL_BACKEND`进行指定：
 
 - 模型来源为MindSpore Transformers时，则取值为`MINDFORMER_MODELS`；
-- 模型来源为vllm-mindspore时，则取值为`NATIVE_MODELS`；
+- 模型来源为vLLM MindSpore时，则取值为`NATIVE_MODELS`；
 
 该值默认`NATIVE_MODELS`，当需要更改模型后端时，使用如下命令：
 
