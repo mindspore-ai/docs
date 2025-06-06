@@ -2,7 +2,7 @@
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md)  
 
-This document introduces single NPU inference process by vLLM MindSpore. Taking the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example, user can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [download model weights](#download-model-weights). After [setting environment variables](#setting-environment-variables), user can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.  
+This document introduces single NPU inference process by vLLM MindSpore. Taking the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example, user can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [downloading model weights](#downloading-model-weights). After [setting environment variables](#setting-environment-variables), user can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.  
 
 ## Docker Installation  
 
