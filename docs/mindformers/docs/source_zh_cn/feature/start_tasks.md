@@ -22,7 +22,7 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |    `--device_id`    | 设置执行设备ID，其值必须在可用设备范围内。                                                                                                     | int，可选                                                  | 预训练/微调/推理 |
 |  `--device_target`  | 设置后端执行设备，MindSpore Transformers仅支持在`Ascend`设备上运行。                                                                          | str，可选                                                  | 预训练/微调/推理 |
 |    `--run_mode`     | 设置模型的运行模式，可选`train`、`finetune`或`predict`。                                                                                  | str，可选                                                  | 预训练/微调/推理 |
-| `--load_checkpoint` | 加载的权重文件或文件夹路径，详细使用方式参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/weight_conversion.html)。       | str，可选                                                  | 预训练/微调/推理 |
+| `--load_checkpoint` | 加载的权重文件或文件夹路径，详细使用方式参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。       | str，可选                                                  | 预训练/微调/推理 |
 |  `--use_parallel`   | 是否开启并行模式。                                                                                                                  | bool，可选                                                 | 预训练/微调/推理 |
 |   `--output_dir`    | 设置保存日志、权重、切分策略等文件的路径。                                                                                                      | str，可选                                                  | 预训练/微调/推理 |
 |  `--register_path`  | 外挂代码所在目录的绝对路径。比如research目录下的模型目录。                                                                                          | str，可选                                                  | 预训练/微调/推理 |
@@ -33,7 +33,7 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |              参数              | 参数说明                                                                                                               | 取值说明                           | 适用场景      |
 |:----------------------------:|:-------------------------------------------------------------------------------------------------------------------|--------------------------------|-----------|
 | `--src_strategy_path_or_dir` | 权重的策略文件路径。                                                                                                         | str，可选                         | 预训练/微调/推理 |
-|     `--auto_trans_ckpt`      | 是否开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/weight_conversion.html)。 | bool，可选                        | 预训练/微调/推理 |
+|     `--auto_trans_ckpt`      | 是否开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。 | bool，可选                        | 预训练/微调/推理 |
 |  `--transform_process_num`   | 负责权重转换的进程数。                                                                                                        | int，可选                         | 预训练/微调/推理 |
 |    `--only_save_strategy`    | 是否仅保存切分策略文件。                                                                                                       | bool，可选，为`true`时任务在保存策略文件后直接退出 | 预训练/微调/推理 |
 

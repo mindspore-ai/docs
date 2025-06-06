@@ -38,13 +38,9 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
     One-click start for single-device, single-node and multi-node tasks.
 
-  - `Weight Format Conversion <https://www.mindspore.cn/mindformers/docs/en/dev/feature/weight_conversion.html>`_
+  - `Ckpt Weights <https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html>`_
 
-    Provides a unified weight conversion tool that converts model weights between the formats used by HuggingFace and MindSpore Transformers.
-
-  - `Distributed Weight Slicing and Merging <https://www.mindspore.cn/mindformers/docs/en/dev/feature/transform_weight.html>`_
-
-    Weights in different distributed scenarios are flexibly sliced and merged.
+    Supports conversion, slice and merge weight files in ckpt format.
 
   - `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html>`_
 
@@ -167,8 +163,7 @@ FAQ
    :hidden:
 
    feature/start_tasks
-   feature/weight_conversion
-   feature/transform_weight
+   feature/ckpt
    feature/safetensors
    feature/configuration
    feature/logging
