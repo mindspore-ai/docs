@@ -214,3 +214,148 @@ new_weight = mslite.Tensor(data)
 new_weights = [new_weight]
 model.update_weights([new_weights])
 ```
+
+## Weight Sharing between Processes
+
+In scenarios where different processes load the same model file, the use of cross-process sharing of model weight parameters avoids the need for each process to store redundant copies independently, thus significantly reducing the memory usage in multitasking scenarios. MindSpore Lite provides the ability to obtain the PID of the current process, obtain the shared weight memory and set the weight memory, and the transfer of PID and shared memory between multiple processes needs to be implemented by the user, and the following steps should be performed when using this feature:
+
+### Step 1: Get the Process ID
+
+Use the following method to obtain the PID of the slave process:
+
+```python
+current_pid = mindspore_lite. Model().get_model_info("current_pid") # Do not use system interfaces such as os.getpid().
+```
+
+Note: This method must be used to obtain the PID, otherwise there may be unforeseen problems!
+
+### Step 2: The Main Process is Collected and the Model is Initialized
+
+The user needs to pass the PID from the process to the master process through inter-process communication, and the master process will create the model as shown in the following code after receiving the PID:
+
+```python
+master_model = mindspore_lite. Model()
+master_model.build_from_file(MODEL_PATH, mslite. ModelType.MINDIR, context, config_dict={"pids": collected_pids})
+```
+
+Note: The collected_pids is a string and its format is 'pid1, pid2, pid3'. collected_pids is a process whitelist, and only the PIDs declared in the list can use the shared memory.
+
+### Step 3: Get and Pass the Memory Handle
+
+Get the shared memory of the current model as follows:
+
+```python
+shared_mem_handle = master_model.get_model_info("shareable_weight_mem_handle") # uint64 type
+```
+
+Note: Shared video memory is a uint64 value, which is passed to the slave process by means of inter-process communication.
+
+### Step 4: Bound Shared Video Memory from the Process
+
+After the slave process obtains the shared memory delivered to the main process, it needs to use the shared memory in the following ways:
+
+```python
+slave_model = mindspore_lite. Model()
+slave_model.build_from_file(model_path, mslite. ModelType.MINDIR, context, config_dict={"shared_mem_handle": shared_mem_handle})
+```
+
+Note: The model that uses the shared memory in the slave process should be consistent with the main process, and the device in it also needs to be consistent, that is, the model is initialized by the same model file.
+
+Here's a Python example of sharing weights between two processes, including simple multi-process communication and how to use mindspore_lite interfaces:
+
+```python
+import mindspore_lite as mslite
+import numpy as np
+import time
+from multiprocessing import Process,Value,Array
+import ctypes
+PROCESS_NUM = 3
+shared_arr = Array('i', [0]*PROCESS_NUM)
+share_pid = Array('i', [0]*PROCESS_NUM)
+share_handle = Value(ctypes.c_int64,0)
+
+class MsliteModel:
+    def __init__(self,model_name='unet'):
+        self.model_name = model_name
+        self.model = mslite.Model()
+        self.pid = self.model.get_model_info("current_pid")
+
+    def __call__(self, inputs):
+        self.ms_inputs = self.model.get_inputs()
+        shapes = [list(input.shape) for input in inputs]
+        self.model.resize(self.ms_inputs, shapes)
+        for i in range(len(inputs)):
+            self.ms_inputs[i].set_data_from_numpy(inputs[i])
+        outputs = self.model.predict(self.ms_inputs)
+        outputs = [output.get_data_to_numpy() for output in outputs]
+        return outputs
+
+def init_context(device_id, device_type='ascend'):
+        context = mslite.Context()
+        context.target = [device_type]
+        context.ascend.device_id = device_id
+        return context
+
+def ChaekPidsComplete():
+    filled_count = 0
+    for pid in share_pid:
+        if pid != 0:
+            filled_count += 1
+    return filled_count==PROCESS_NUM-1
+
+def thread_infer(index):
+    print("index:", index)
+    model_path1 = "path_to_your_mindir"
+    inputs1 = [np.random.randn(1,8,168,128).astype(np.float32), np.random.randn(1).astype(np.int32)]
+
+    context_1 = init_context(2)
+    print("begin model group")
+    print("*" * 10, "begin build model", "*" * 10)
+    m1 = MsliteModel()
+    if index == 0:
+        while True:
+            if ChaekPidsComplete():
+                break
+        pids = []
+        for pid in share_pid:
+            pids.append(int(pid))
+        print("str of pids:", str(pids)[1:-1])
+        config_info = {"ascend_context":{"shareable_weight_pid_list":str(pids)[1:-1]}}
+        m1.model.build_from_file(model_path1,mslite.ModelType.MINDIR, context_1,config_dict=config_info)
+        shareable_handle = m1.model.get_model_info("shareable_weight_mem_handle")
+        print("shareable handle:", shareable_handle)
+        share_handle.value = int(shareable_handle)
+        print("int shareable_handle:", int(shareable_handle))
+        print("share handle value:", share_handle.value)
+    else:
+        pid = m1.model.get_model_info("current_pid")
+        pid = int(pid)
+        print("pid:", pid)
+        share_pid[index] = pid
+        while True:
+            if share_handle.value != 0:
+                break
+        print("sub process sharehandle:", share_handle.value)
+        config_info = {"ascend_context":{"shareable_weight_mem_handle":str(share_handle.value)}}
+        m1.model.build_from_file(model_path1, mslite.ModelType.MINDIR, context_1, config_dict=config_info)
+    shared_arr[index] = 1
+    while True:
+        sum = 0
+        for num in shared_arr:
+            sum += num
+        if (sum == PROCESS_NUM):
+            break
+    tic = time.time()
+    res = m1(inputs1)
+    toc = time.time()
+    print("share ", index, " ", res)
+    print("share ", index, "spend time:", toc-tic, "s")
+
+if __name__=="__main__":
+    processes = [Process(target=thread_infer, args=(i,)) for i in range(PROCESS_NUM)]
+    for process in processes:
+        process.start()
+
+    for process in processes:
+        process.join()
+```
