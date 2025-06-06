@@ -66,4 +66,10 @@ MindSpore has made memory optimization based on Megatron LM interleaved pipeline
 
 *Figure 5: MindSpore Scheduler of Interleaved Pipeline*
 
+### zero_bubble_v Pipeline Scheduler
 
+As shown in Figure 6, zero_bubble_v pipeline parallelism further improves pipeline parallel efficiency and reduces bubble rate by dividing the backward computation into gradient computation and parameter update. For consecutive model layers, the stage value first increases and then decreases. For example, for 8 layers, when the stage size is 4, stage 0 has layer 0 and 7, stage 1 has layer 1 and 6, stage 2 has 2 and 5, stage 3 has layer 3 and 4.
+
+![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/zero_bubble_v.png)
+
+*Figure 6: zero_bubble_v Pipeline Scheduler*
