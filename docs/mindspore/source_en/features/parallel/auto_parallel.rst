@@ -69,7 +69,7 @@ The sharding strategy propagation algorithm means that the user only needs to ma
 
 Related interfaces:
 
-1. ``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="recursive_programming")``: Set the parallel mode and select the Strategy Propagation Algorithm or Recursive Algorithm via ``parallel_mode``.
+1. ``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="sharding_propagation")``: Set the parallel mode and select the Strategy Propagation Algorithm via ``parallel_mode``.
 
 2. ``mindspore.nn.Cell.shard()`` and ``mindspore.ops.Primitive.shard()``: Specifies the operator sharding strategy, and the strategy for the rest of the operators is derived by the propagation algorithm. Currently the ``mindspore.nn.Cell.shard()`` interface can be used in PyNative mode and Graph mode; The ``mindspore.ops.Primitive.shard()`` interface can only be used in Graph mode.
 
