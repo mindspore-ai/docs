@@ -117,7 +117,7 @@ with no_init_parameters():
 ```python
 import mindspore as ms
 from mindspore import nn, train
-from mindspore.parallel import GradAccumulation
+from mindspore.parallel.nn import GradAccumulation
 
 loss_fn = nn.CrossEntropyLoss()
 loss_cb = train.LossMonitor(100)
