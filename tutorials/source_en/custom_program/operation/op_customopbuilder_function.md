@@ -12,6 +12,8 @@ The following is an example illustrating how to use the `Function` interface:
 
 This guide demonstrates a multiplication operator implementation on Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/master/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
 
+**Note:** The `BaseTensorPtr` referenced in this guide is an internal data structure of MindSpore. In future versions, these interfaces will be refactored into interfaces based on `ms::Tensor`.
+
 ## Operator Definition
 
 To define a dynamic graph custom operator, users need to implement a C++ computation function and map it to Python via pybind11. Below is an example of a custom operator's computation function.

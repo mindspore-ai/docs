@@ -15,6 +15,8 @@
    operation/op_custom_julia
    operation/op_custom_adv
    operation/op_customopbuilder
+   operation/cpp_api_for_custom_ops
+   operation/op_customopbuilder_atb
    operation/op_customopbuilder_function
 
 当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的自定义算子功能接入你的算子。当前MindSpore提供了两种方式接入自定义算子，分别是 `基于Custom原语接入 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_prim.html>`_ 和 `基于CustomOpBuilder接入 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html>`_ 。
