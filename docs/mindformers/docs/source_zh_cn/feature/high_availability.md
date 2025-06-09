@@ -4,22 +4,23 @@
 
 ## 概述
 
-MindSpore Transformers 高可用特性提供了如下四个功能：
+MindSpore Transformers 高可用特性提供了如下五个功能：
 
 - **临终 CKPT 功能**：主要针对大模型训练过程中的故障恢复加速，该特性在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临终 CheckPoint 数据，恢复训练时能够通过该 CheckPoint 数据恢复，减少故障造成的训练迭代损失。
 - **UCE 故障容错恢复功能**：主要是针对大模型训练过程中片上内存的 UCE 故障检测，并完成在线修复，达到 Step 级重计算。
 - **TRE 训练结果异常恢复功能**：主要是针对大模型训练过程中出现loss或global norm等值异常检测，并完成在线修复，达到 Step 级重计算。
 - **ARF 进程级重调度恢复功能**：训练发生异常后，不需要重新拉起整个集群，只需以节点为单位进行重启或替换，完成修复并继续训练。
+- **TSP 训练迭代暂停功能**：在每个训练step结束后，进入训练暂停接口，根据上层运维需要进行训练暂停和继续，例如，暂停训练执行通信网络轨道切换，切换成功后继续训练。
 
 这几个高可用特性的**约束**和**依赖**如下：
 
-| | 临终 CKPT | UCE | ARF | TRE |
-| - | - | - | - | - |
-| 依赖MindIO组件 | Yes | Yes | Yes | No |
-| 卡间存在副本关系 | Yes | Yes | Yes | No |
-| Sink Size 为 1 | Yes | Yes | Yes | No |
+| | 临终 CKPT | UCE | ARF | TRE | TSP |
+| - | - | - | - | - |----|
+| 依赖MindIO组件 | Yes | Yes | Yes | No | Yes |
+| 卡间存在副本关系 | Yes | Yes | Yes | No | No |
+| Sink Size 为 1 | Yes | Yes | Yes | No | No |
 
-目前这四个高可用特性只支持Ascend后端上图模式的Step级别恢复。
+目前这五个高可用特性只支持Ascend后端上图模式的Step级别恢复。
 
 卡间存在副本关系的目的是当其中一张卡发生故障时，可从另外一张卡恢复，要求权重和优化器状态都会存在至少两份冗余。为保证这种冗余关系，必须开启数据并行，保证有两张卡权重一致，同时如果开启了优化器并行，也必须确保存在两张卡的优化器状态一致。
 
@@ -35,17 +36,18 @@ MindSpore Transformers 高可用特性提供了如下四个功能：
 
 ```shell
 export MINDIO_FOR_MINDSPORE=1
-export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1,TRE:1}"
+export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1,TRE:1,TSP:1}"
 export MS_TFT_IP=127.0.0.1
 export MS_TFT_PORT=30051
 ```
 
 - `MINDIO_FOR_MINDSPORE`：使能 MindIO TFT SDK 支持 MindSpore
-- `MS_ENABLE_TFT`：表示启用 TTP、UCE、ARF 和 TRE 功能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。
+- `MS_ENABLE_TFT`：表示启用 TTP、UCE、ARF、TRE、TSP功能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。
     - **TTP (Try To Persist)**：临终 CKPT 功能
     - **UCE (Uncorrectable Memory Error)**：UCE 故障容错恢复功能
     - **ARF (Air Refuelling)**：进程级重调度恢复功能
     - **TRE (Training Result Error)**：TRE 训练结果异常恢复功能
+    - **TSP (Training Step Pause)**：TSP 训练迭代暂停功能
     - 开启 UCE 或者 ARF 功能时，默认开启 TTP 功能
     - 目前 TRE 功能不可以与 UCE 或 ARF 功能同时使用
     - TRE 功能不依赖 MindIO 组件，若只使能TRE特性，无需配置 MindIO 相关的环境变量 MINDIO_FOR_MINDSPORE、MS_TFT_IP 和 MS_TFT_PORT

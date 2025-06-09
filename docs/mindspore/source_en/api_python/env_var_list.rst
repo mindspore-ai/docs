@@ -375,6 +375,14 @@ Graph Compilation and Execution
        No setting or other value: Disable Tensor index optimization.
      - Used only in the Ascend AI processor environment when the graph compilation level is O0 or O1. Experimental environment variables.
 
+   * - MS_SUPPORT_BINARY
+     - Control whether support run pyc or so in graph mode.
+     - Integer
+     - 1：Support run pyc or so in graph mode.
+
+       No setting or other value: Not support.
+     -
+
 Dump Debugging
 ---------------
 
