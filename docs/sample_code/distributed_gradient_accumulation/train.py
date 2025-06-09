@@ -20,7 +20,7 @@ import mindspore as ms
 import mindspore.dataset as ds
 from mindspore import nn, train
 from mindspore.communication import init
-from mindspore.parallel import GradAccumulation
+from mindspore.parallel.nn import GradAccumulation
 from mindspore.parallel.auto_parallel import AutoParallel
 from mindspore.nn.utils import no_init_parameters
 
