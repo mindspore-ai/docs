@@ -117,7 +117,7 @@ In this step, we need to define the loss function and the training process. Para
 ```python
 import mindspore as ms
 from mindspore import nn, train
-from mindspore.parallel import GradAccumulation
+from mindspore.parallel.nn import GradAccumulation
 
 loss_fn = nn.CrossEntropyLoss()
 loss_cb = train.LossMonitor(100)
