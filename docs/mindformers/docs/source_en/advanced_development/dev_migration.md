@@ -46,7 +46,7 @@ All tokenizer classes must be inherited from the PretrainedTokenizer or Pretrain
 
 ### Preparing a Weight and a Dataset
 
-If a PyTorch-based model weight already exists, you can convert the weight to that in the MindSpore format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/feature/weight_conversion.html).
+If a PyTorch-based model weight already exists, you can convert the weight to that in the MindSpore format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html#weight-format-conversion).
 
 For details about how to prepare a dataset, see [Dataset](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html) or the model document, for example, [Llama2 Description Document > Dataset Preparation](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
 

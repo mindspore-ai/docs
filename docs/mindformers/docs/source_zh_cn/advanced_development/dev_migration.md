@@ -46,7 +46,7 @@ MindSpore Transformers提供了[PretrainedTokenizer](https://www.mindspore.cn/mi
 
 ### 准备权重和数据集
 
-如已有基于PyTorch的模型权重，可以参考[权重转换文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)将权重转换为MindSpore格式的权重。
+如已有基于PyTorch的模型权重，可以参考[权重转换文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html#%E6%9D%83%E9%87%8D%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2)将权重转换为MindSpore格式的权重。
 
 数据集的准备可以参考[数据集文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html)，或参考模型文档，如[Llama2说明文档——数据集准备](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
 

@@ -243,7 +243,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --run_mode finetune" 8
 ```
 
-当权重的分布式策略和模型的分布式策略不一致时，需要对权重进行切分转换。加载权重路径应设置为以 `rank_0` 命名的目录的上一层路径，同时开启权重自动切分转换功能 `--auto_trans_ckpt True` 。关于分布式权重切分转换的场景和使用方式的更多说明请参考[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/transform_weight.html)。
+当权重的分布式策略和模型的分布式策略不一致时，需要对权重进行切分转换。加载权重路径应设置为以 `rank_0` 命名的目录的上一层路径，同时开启权重自动切分转换功能 `--auto_trans_ckpt True` 。关于分布式权重切分转换的场景和使用方式的更多说明请参考[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html#%E6%9D%83%E9%87%8D%E5%88%87%E5%88%86%E4%B8%8E%E5%90%88%E5%B9%B6)。
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
