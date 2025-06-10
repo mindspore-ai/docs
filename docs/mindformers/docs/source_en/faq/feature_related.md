@@ -19,3 +19,9 @@ A: The model sharding strategy file documents the sharding strategy for model we
 A: Starting from `MindSpore Transformers r1.2.0` version, cluster startup is unified using `msrun` method, and `ranktable` startup method is deprecated.
 
 <br/>
+
+## Q: When installing MindSpore Transformers from source code, the download speed of dependency packages is slow. How can this be resolved?
+
+A: The `build.sh` script uses the [Tsinghua Mirror](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/) to download the Python packages required by MindSpore Transformers. To change the mirror source, you can modify the download command in `build.sh`: `pip install mindformers*whl -i https://pypi.tuna.tsinghua.edu.cn/simple` , replace the URL after `-i` with the address of your desired mirror source.
+
+<br/>
