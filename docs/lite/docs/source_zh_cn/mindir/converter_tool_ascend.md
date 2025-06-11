@@ -62,7 +62,6 @@
 | ----------------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
 | `input_format`                      | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`、`"NHWC"`、`"ND"` |
 | `input_shape`                       | 可选 | 模型输入shape。模型转换后可以用Model.get_model_info("input_shpae")获取到。该参数与命令行中input_shape已统一。 | String | 例如：`input1:1,3,512,512;input2:1,3,224,224` |
-| `input_shape_rang`                  | 可选 | 指定输入的shape rang。 | String | 例如：`input1:[1-10,3,512,512];input2:[1-10,3,224,224]` |
 | `op_name_map`                       | 可选 | 扩展算子映射配置文件路径。 | String | 配置文件路径 |
 | `ge.dynamicBatchSize`               | 可选 | 设置动态batch档位参数。 | String | 该参数需要与`input_shape`参数配合使用 |
 | `ge.dynamicImageSize`               | 可选 | 设置输入图片的动态分辨率参数。 | String | 该参数需要与`input_shape`参数配合使用 |
