@@ -5,7 +5,7 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
 
 .. raw:: html
 
-   <img src="images/roadmap.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindarmour/docs/source_zh_cn/images/roadmap.png" width="700px" alt="" >
 
 MindSpore Armour当前版本（v2.0）通过对抗鲁棒性、模型安全测试、差分隐私训练、隐私泄露风险评估、数据漂移检测等技术，实现对MindSpore的安全与隐私保护。
 

@@ -49,7 +49,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: record_last_ckpt_to_json, save_checkpoint, save_checkpoint_network, print_savetime, remove_redundancy
+    :exclude-members: record_last_ckpt_to_json, save_checkpoint, save_checkpoint_network, print_savetime, remove_redundancy, get_checkpoint_health_info
     :members:
 
 {% elif fullname=="mindformers.core.EmF1Metric" %}
@@ -105,7 +105,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_flags_custom, get_logits_processor, get_logits_warper, prepare_inputs_for_generation, process_logits, slice_incremental_inputs, update_model_kwargs_before_generate, chunk_prefill_infer, prepare_inputs_for_generation_mcore, forward_mcore, infer_mcore, add_flags_custom_mcore
+    :exclude-members: add_flags_custom, get_logits_processor, get_logits_warper, prepare_inputs_for_generation, process_logits, slice_incremental_inputs, update_model_kwargs_before_generate, chunk_prefill_infer, prepare_inputs_for_generation_mcore, forward_mcore, infer_mcore, add_flags_custom_mcore, split_input_ids
     :members:
 
 {% elif fullname=="mindformers.models.ChatGLM2ForConditionalGeneration" %}
