@@ -19,3 +19,9 @@ A: 模型切分策略文件记录了模型权重在分布式场景下的切分�
 A: 从`MindSpore Transformers r1.2.0`版本开始，集群启动统一使用`msrun`方式，`ranktable`启动方式已废弃。
 
 <br/>
+
+## Q: 通过源码安装MindSpore Transformers时依赖包下载速度慢，怎么解决？
+
+A: `build.sh`使用[清华源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)下载MindSpore Transformers所依赖的Python包。如需修改镜像源，可以修改`build.sh`中下载命令`pip install mindformers*whl -i https://pypi.tuna.tsinghua.edu.cn/simple` ，将`-i`后地址替换为目标镜像源地址。
+
+<br/>
