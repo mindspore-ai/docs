@@ -1,9 +1,13 @@
 MindSpore Armour Documents
 ============================
 
-MindSpore Armour is an AI security and privacy protection tool, which provides AI model security assessment, model obfuscation, and privacy data protection capabilities.
+AI is the catalyst for change but also faces challengs in security and privacy protection. MindSpore Armour is a security and privacy protection tool that is committed to enhancing the trustworthiness of models and protecting the privacy of training and inference data.
 
-AI is the catalyst for change but also faces challengs in security and privacy protection. MindSpore Armour provides adversarial robustness, model security tests, differential privacy training, privacy risk assessment, and data drift detection.
+.. raw:: html
+
+   <img src="images/roadmap.png" width="700px" alt="" >
+
+The current version of MindSpore Armour (v2.0) achieves security and privacy protection for MindSpore through technologies such as adversarial robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection.
 
 .. raw:: html
 
