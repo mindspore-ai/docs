@@ -95,5 +95,14 @@
     "whl_name" : "mindearth_gpu-.*-py3-none-any.whl$",
     "environ" : "MSC_PATH",
     "uninstall_name" : "mindearth_gpu"
+},
+{
+    "id" : 11 ,
+    "name" : "mindarmour",
+    "branch" : "master",
+    "whl_path" : "/mindarmour/website/any",
+    "whl_name" : "mindarmour-.*-py3-none-any.whl$",
+    "environ" : "MA_PATH",
+    "uninstall_name" : "mindarmour"
 }
 ]
