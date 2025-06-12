@@ -148,7 +148,7 @@ callback:
 | num_layers | 模型层数。 | (int, 必选) - 默认值： `None`。 |
 | mtp_depth | mtp层层数。 | (int, 必选) - 默认值： `None`。 |
 
-## rotary_position_embedding融合算子
+## RoPE融合算子
 
 ### 概述
 
