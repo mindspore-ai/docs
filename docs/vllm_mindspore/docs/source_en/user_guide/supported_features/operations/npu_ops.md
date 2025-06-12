@@ -1,4 +1,4 @@
-# Custom Operator Integration  
+# Custom Operator Integration
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/operations/npu_ops.md)  
 
@@ -6,7 +6,7 @@ This document would introduce how to integrate a new custom operator into the vL
 
 For development, additional features can be extended based on project requirements. Implementation details can be referenced from [MindSpore Custom Operator Implementation](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html).  
 
-## File Structure  
+## File Structure
 
 The directory `vllm_mindspore/ops` contains and declaration and implementation of operations:  
 
@@ -26,11 +26,11 @@ vllm_mindspore/ops/
 - **`ops/ascendc/`**: Contains AscendC custom operator implementation code.
 - **`ops/module/`**: Contains operator integration layer code, including common module registration (`module.h`, `module.cpp`) and operator-specific integration (e.g., `adv_step_flash.cpp`).
 
-## Integration Process  
+## Integration Process
 
 To integrate a custom operator, user need to create [Operator Interface Declaration](#operator-interface-declaration), [Operator Implementation](#operator-implementation) and [Operator Integration](#operator-integration) in the directory `ops/ascendc/`. And do [Operator Compilation and Testing](#operator-compilation-and-testing) after declaration and implementation.  
 
-### Operator Interface Declaration  
+### Operator Interface Declaration
 
 Create a header file (e.g., `my_custom_op.h`) in `ops/ascendc/` to declare the operator function and related interfaces:
 
@@ -44,7 +44,7 @@ extern void MyCustomOpKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclStr
 #endif  // VLLM_MINDSPORE_OPS_ASCENDC_MY_CUSTOM_OP_H
 ```  
 
-### Operator Implementation  
+### Operator Implementation
 
 Create an implementation file (e.g., `my_custom_op.c`) in `ops/ascendc/` for the core logic:  
 
@@ -65,7 +65,7 @@ void MyCustomOpKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclStream,
 #endif
 ```  
 
-### Operator Integration  
+### Operator Integration
 
 Create an integration file (e.g., `my_custom_op.cpp`) in `module/`. User can refer to `adv_step_flash.cpp` for more details about the integration:  
 
@@ -86,7 +86,7 @@ MS_EXTENSION_MODULE(my_custom_op) {
 }
 ```  
 
-### Operator Compilation and Testing  
+### Operator Compilation and Testing
 
 1. **Code Integration**: Merge the code into the vLLM MindSpore project.  
 2. **Project Compilation**: Build and install the whl package containing the custom operator.  

@@ -4,7 +4,7 @@
 
 vLLM MindSpore supports the `mindspore.Profiler` module to track the performance of workers in vLLM MindSpore. User can follow the [Collecting Profiling Data](#collecting-profiling-data) section to gather data and then analyze it according to [Analyzing Profiling Data](#analyzing-profiling-data). Additionally, user can inspect the model's IR graph through [Graph Data Dump](#graph-data-dump) to analyze and debug the model structure.  
 
-## Collecting Profiling Data  
+## Collecting Profiling Data
 
 To enable profiling data collection, user need to set the `VLLM_TORCH_PROFILER_DIR` environment variable to the directory where the profiling results will be saved. For multi-machine inference, this variable must be set on each machine before inference:  
 
@@ -56,7 +56,7 @@ When the log displays content similar to the following, it indicates that profil
 Parsing: [####################] 3/3 Done  
 ```  
 
-## Analyzing Profiling Data  
+## Analyzing Profiling Data
 
 The directory specified by `VLLM_TORCH_PROFILER_DIR` contains the profiling results, with subdirectories named with the `ascend_ms` suffix. Each subdirectory stores the profiling results for one worker. The files in these subdirectories can be referenced for performance analysis, as described in [Ascend Performance Tuning](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html).  
 
@@ -82,7 +82,7 @@ User can select a subdirectory to analyze the performance of a single worker:
 
   ![](trace_2.png)  
 
-## Graph Data Dump  
+## Graph Data Dump
 
 Refer to the [MindSpore Dump Documentation](https://www.mindspore.cn/tutorials/en/master/debug/dump.html). First, configure the JSON file, then set the `MINDSPORE_DUMP_CONFIG` environment variable to point to the absolute path of this configuration file. After inference completes, the graph data can be obtained.  
 
