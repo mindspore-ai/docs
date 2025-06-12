@@ -103,7 +103,7 @@ pip install mindspore
 pip install mindformers
 ```
 
-同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://www.mindspore.cn/install)和[MindFormers安装](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html)。
+同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://www.mindspore.cn/install)和[MindFormers安装](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/installation.html)。
 
 如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/install.html)。
 
@@ -209,7 +209,7 @@ model = AutoModel.from_config(config)
 
 对于模型参数比较多的大语言模型，如Llama2-70B、Qwen2-72B，由于其参数规模通常会超过一张GPU或者NPU的内存容量，因此需要采用多卡并行推理，MindSpore大语言模型推理支持将原始大语言模型切分成N份可并行的子模型，使其能够分别在多卡上并行执行，在实现超大模型推理同时，也利用多卡中更多的资源提升性能。MindFormers模型套件提供的模型脚本天然支持将模型切分成多卡模型执行，用户可以通过以下步骤在多卡上部署模型。
 
-- **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/ckpt.html)。
+- **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。
 
     下面以Llama2-7B大语言模型为例，简单描述一下将模型切分为2卡并行的操作：
 
