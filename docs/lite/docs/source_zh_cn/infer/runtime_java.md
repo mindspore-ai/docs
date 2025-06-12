@@ -42,7 +42,7 @@ Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.m
 
 采用`Gradle`作为构建工具时，首先将`mindspore-lite-{version}.aar`文件移动到目标module的`libs`目录，然后在目标module的`build.gradle`的`repositories`中添加本地引用目录，最后在`dependencies`中添加AAR的依赖，具体如下所示。
 
-> 注意mindspore-lite-{version}是AAR的文件名，需要将{version}替换成对应版本信息。
+> mindspore-lite-{version}是AAR的文件名，需要将{version}替换成对应版本信息。
 
 ```groovy
 repositories {

@@ -54,7 +54,7 @@ out = func(m)
 
 MindSpore图编译器会把 Python 程序转换为计算图，计算图由多个子图构成。源程序中的代数运算，转换为子图内部的算子调用，可以看到 PrimFunc_Add 算子调用了一次。
 
-```txt
+```text
 %para1_x: <Tensor[Int32], (2, 3)>
 
 subgraph @1_func_14() {
@@ -68,7 +68,7 @@ subgraph @1_func_14() {
 
 通过代数化简，可以直接删除 PrimFunc_Add 算子，简化计算图结构，将 `x + 0` 简化成 `x`。
 
-```txt
+```text
 %para1_x: <Tensor[Int32], (2, 3)>
 
 subgraph @1_func_14() {
@@ -128,7 +128,7 @@ out = f1(a, b, c)
 
 首先，MindSpore 的计算图编译器会把 Python 程序转换为计算图。而 Python 程序中的函数调用，会转换为计算图之间的调用，得到类似于下面的原始计算图。其中，主图 f1 调用了 2 次子图 f2。
 
-```txt
+```text
 # Params:
 %para1_a: <Tensor[Float32], (2, 4)>
 %para2_b: <Tensor[Float32], (2, 4)>
@@ -155,7 +155,7 @@ subgraph @f1() {
 
 通过 inline，可以将子图 f2 展开，合并到主图 f1。
 
-```txt
+```text
 subgraph @f1() {
   # 第一次子图inline
   %0 = PrimFunc_Mul(%para1_a, Float32(0.5))  # 重复计算步骤
@@ -173,7 +173,7 @@ subgraph @f1() {
 
 在 inline 将子图展开之前，编译器可能无法识别到两次调用子图 f2 中的重复操作（此时子图通常被当作黑盒处理）。而通过 inline 将子图展开后，此时编译器可以清晰看到`x * 0.5`被计算了两次，就可以触发编译器进一步的优化：**公共子表达式消除** (CSE, Common Subexpression Elimination)，这样就降低了计算量。
 
-```txt
+```text
 subgraph @f1() {
   %0 = PrimFunc_Mul(%para1_a, Float32(0.5))  # CSE合并重复计算
 
@@ -256,7 +256,7 @@ MindSpore 图模式下冗余消除的目的及使用的技术也类似。与传�
 
     MindSpore 图编译器会通过静态分析将 `@jit` 修饰的 Python 代码转换为 MindIR 的表示形式并消除其中冗余的 `c = x * y` 的计算，最终生成的 MindIR 如下：
 
-    ```txt
+    ```text
     # Params:
     %para1_x: <Tensor[Float32], ()>
     %para2_y: <Tensor[Float32], ()>
@@ -298,7 +298,7 @@ MindSpore 图模式下冗余消除的目的及使用的技术也类似。与传�
 
     MindSpore 图编译器会通过静态分析将 `@jit` 修饰的 Python 代码转换为 MindIR 的表示形式并消除其中冗余的控制流分支 `1 < 0` 的代码，最终生成的 MindIR 如下：
 
-    ```txt
+    ```text
     # Params:
     %para1_x: <Tensor[Float32], ()>
     %para2_y: <Tensor[Float32], ()>

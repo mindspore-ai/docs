@@ -1,196 +1,203 @@
 MindSpore Transformers Documentation
 =====================================
 
-MindSpore Transformers (also known as MindFormers) is a MindSpore-native foundation model suite designed to provide full-flow development capabilities for foundation model training, fine-tuning, evaluating, inference and deploying, providing the industry mainstream Transformer class of pre-trained models and SOTA downstream task applications, and covering a rich range of parallel features, with the expectation of helping users to easily realize large model training and innovative research and development.
+The goal of the MindSpore Transformers suite is to build a full-process development suite for Large model pre-training, fine-tuning, inference, and deployment. It provides mainstream Transformer-based Large Language Models (LLMs) and Multimodal Models (MMs). It is expected to help users easily realize the full process of large model development.
 
-Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/dev/start/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported functional features and foundation models. Further, refer to the `Installation <https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html>`_ and `Quick Start <https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/source_code_start.html>`_ to get started with MindSpore Transformers.
+Based on MindSpore's built-in parallel technology and component-based design, the MindSpore Transformers suite has the following features:
+
+- One-click initiation of single or multi card pre-training, fine-tuning, inference, and deployment processes for large models;
+- Provides rich multi-dimensional hybrid parallel capabilities for flexible and easy-to-use personalized configuration;
+- System-level deep optimization on large model training and inference, native support for ultra-large-scale cluster efficient training and inference, rapid fault recovery;
+- Support for configurable development of task components. Any module can be enabled by unified configuration, including model network, optimizer, learning rate policy, etc.;
+- Provide real-time visualization of training accuracy/performance monitoring indicators.
+
+Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/dev/introduction/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/dev/introduction/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported foundation models.
 
 If you have any suggestions for MindSpore Transformers, please contact us via `issue <https://gitee.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
 
-MindSpore Transformers supports one-click start of single/multi-card training, fine-tuning, evaluation, and inference processes for any task, which makes the execution of deep learning tasks more efficient and user-friendly by simplifying the operation, providing flexibility, and automating the process. Users can learn from the following explanatory documents:
+Full-process Developing with MindSpore Transformers
+-------------------------------------------------------------------------------------------
 
-- `Development Migration <https://www.mindspore.cn/mindformers/docs/en/dev/usage/dev_migration.html>`_
-- `Pretraining <https://www.mindspore.cn/mindformers/docs/en/dev/usage/pre_training.html>`_
-- `SFT Tuning <https://www.mindspore.cn/mindformers/docs/en/dev/usage/sft_tuning.html>`_
-- `Evaluation <https://www.mindspore.cn/mindformers/docs/en/dev/usage/evaluation.html>`_
-- `Inference <https://www.mindspore.cn/mindformers/docs/en/dev/usage/inference.html>`_
-- `Quantization <https://www.mindspore.cn/mindformers/docs/en/dev/usage/quantization.html>`_
-- `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/dev/usage/mindie_deployment.html>`_
-- `Multimodal Model Development <https://www.mindspore.cn/mindformers/docs/en/dev/usage/multi_modal.html>`_
+MindSpore Transformers supports one-click start of single/multi-card training, fine-tuning, and inference processes for any task, which makes the execution of deep learning tasks more efficient and user-friendly by simplifying the operation, providing flexibility, and automating the process. Users can learn from the following explanatory documents:
+
+- `Pretraining <https://www.mindspore.cn/mindformers/docs/en/dev/guide/pre_training.html>`_
+- `Supervised Fine-Tuning <https://www.mindspore.cn/mindformers/docs/en/dev/guide/supervised_fine_tuning.html>`_
+- `Inference <https://www.mindspore.cn/mindformers/docs/en/dev/guide/inference.html>`_
+- `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/dev/guide/deployment.html>`_
 
 Code repository address: <https://gitee.com/mindspore/mindformers>
 
-Flexible and Easy-to-Use Personalized Configuration with MindSpore Transformers
+Features description of MindSpore Transformers
 -------------------------------------------------------------------------------------------
 
-With its powerful feature set, MindSpore Transformers provides users with flexible and easy-to-use personalized configuration options. Specifically, it comes with the following key features:
+MindSpore Transformers provides a wealth of features throughout the full-process of large model development. Users can learn about these features via the following links:
 
-1. `Start Tasks <https://www.mindspore.cn/mindformers/docs/en/dev/function/start_tasks.html>`_
+- General Features:
+
+  - `Start Tasks <https://www.mindspore.cn/mindformers/docs/en/dev/feature/start_tasks.html>`_
 
     One-click start for single-device, single-node and multi-node tasks.
 
-2. `Weight Format Conversion <https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html>`_
+  - `Ckpt Weights <https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html>`_
 
-   Provides a unified weight conversion tool that converts model weights between the formats used by HuggingFace and MindSpore Transformers.
+    Supports conversion, slice and merge weight files in ckpt format.
 
-3. `Distributed Weight Slicing and Merging <https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html>`_
+  - `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html>`_
 
-   Weights in different distributed scenarios are flexibly sliced and merged.
+    Supports saving and loading weight files in safetensors format.
 
-4. `Distributed Parallel <https://www.mindspore.cn/mindformers/docs/en/dev/function/distributed_parallel.html>`_
+  - `Configuration File <https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html>`_
 
-   One-click configuration of multi-dimensional hybrid distributed parallel allows models to run efficiently in clusters up to 10,000 cards.
+    Supports the use of `YAML` files to centrally manage and adjust configurable items in tasks.
 
-5. `Dataset <https://www.mindspore.cn/mindformers/docs/en/dev/function/dataset.html>`_
+  - `Logging <https://www.mindspore.cn/mindformers/docs/en/dev/feature/logging.html>`_
 
-   Support multiple types and formats of datasets.
+    Introduction of logs, including log structure, log saving, and so on.
 
-6. `Model Training Hyperparameters Configuration <https://www.mindspore.cn/mindformers/docs/en/dev/function/training_hyperparameters.html>`_
+- Training Features:
 
-   Provides an introduction and examples of hyperparameter configuration for large model training.
+  - `Dataset <https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html>`_
 
-7. `Other features <https://www.mindspore.cn/mindformers/docs/en/dev/function/other_features.html>`_
+    Supports multiple types and formats of datasets.
 
-   Introduce features such as gradient accumulation and gradient clipping.
+  - `Model Training Hyperparameters <https://www.mindspore.cn/mindformers/docs/en/dev/feature/training_hyperparameters.html>`_
 
-8. `Logs <https://www.mindspore.cn/mindformers/docs/en/dev/function/logs.html>`_
+    Flexibly configure hyperparameter settings for large model training.
 
-   Introduction of logs, including log structure, log saving, and so on.
+  - `Training Metrics Monitoring <https://www.mindspore.cn/mindformers/docs/en/dev/feature/monitor.html>`_
 
-9. `Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/dev/function/resume_training.html>`_
+    Provides visualization services for the training phase of large models for monitoring and analyzing various indicators and information during the training process.
 
-   Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
+  - `Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/dev/feature/resume_training.html>`_
 
-10. `Training Metrics Monitoring <https://www.mindspore.cn/mindformers/docs/en/dev/function/monitor.html>`_
+    Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
 
-   Provides visualization services for the training phase of large models for monitoring and analyzing various indicators and information during the training process.
+  - `Training High Availability (Beta) <https://www.mindspore.cn/mindformers/docs/en/dev/feature/high_availability.html>`_
 
-11. `Training High Availability <https://www.mindspore.cn/mindformers/docs/en/dev/function/high_availability.html>`_
+    Provides high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery (Beta feature).
 
-   Provide high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery.
+  - `Parallel Training <https://www.mindspore.cn/mindformers/docs/en/dev/feature/parallel_training.html>`_
 
-12. `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/dev/function/safetensors.html>`_
+    One-click configuration of multi-dimensional hybrid distributed parallel allows models to run efficiently in clusters up to 10,000 cards.
 
-   Support the function of saving and loading weight files in safetensors format.
+  - `Training Memory Optimization <https://www.mindspore.cn/mindformers/docs/en/dev/feature/memory_optimization.html>`_
 
-13. `Fine-Grained Activations SWAP <https://www.mindspore.cn/mindformers/docs/en/dev/function/fine_grained_activations_swap.html>`_
+    Supports fine-grained recomputation and activations swap, to reduce peak memory overhead during model training.
 
-   Support fine-grained selection of specific activations to enable SWAP and reduce peak memory overhead during model training.
+  - `Other Training Features <https://www.mindspore.cn/mindformers/docs/en/dev/feature/other_training_features.html>`_
 
-Deep Optimizing with MindSpore Transformers
----------------------------------------------
+    Supports gradient accumulation and gradient clipping, etc.
 
-- `Precision Optimizing <https://www.mindspore.cn/mindformers/docs/en/dev/acc_optimize/acc_optimize.html>`_
-- `Performance Optimizing <https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html>`_
+- Inference Features:
 
-Appendix
+  - `Evaluation <https://www.mindspore.cn/mindformers/docs/en/dev/feature/evaluation.html>`_
+
+    Supports the use of third-party open-source evaluation frameworks and datasets for large-scale model ranking evaluations.
+
+  - `Quantization <https://www.mindspore.cn/mindformers/docs/en/dev/feature/quantization.html>`_
+
+    Integrated MindSpore Golden Stick toolkit to provides a unified quantization inference process.
+
+Advanced developing with MindSpore Transformers
+-------------------------------------------------
+
+- Diagnostics and Optimization
+
+  - `Precision Optimization <https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/precision_optimization.html>`_
+  - `Performance Optimization <https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/performance_optimization.html>`_
+
+- Model Development
+
+  - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/dev_migration.html>`_
+  - `Multimodal Model Development <https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/multi_modal_dev.html>`_
+
+Environment Variables
 ------------------------------------
 
-- `Environment Variables Descriptions <https://www.mindspore.cn/mindformers/docs/en/dev/appendix/env_variables.html>`_
-- `Configuration File Descriptions <https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html>`_
+- `Environment Variables Description <https://www.mindspore.cn/mindformers/docs/en/dev/env_variables.html>`_
+
+Contribution Guide
+------------------------------------
+
+- `MindSpore Transformers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/dev/contribution/mindformers_contribution.html>`_
+- `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/dev/contribution/modelers_contribution.html>`_
 
 FAQ
 ------------------------------------
 
 - `Model-Related <https://www.mindspore.cn/mindformers/docs/en/dev/faq/model_related.html>`_
-- `Function-Related <https://www.mindspore.cn/mindformers/docs/en/dev/faq/func_related.html>`_
-- `MindSpore Transformers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/dev/faq/mindformers_contribution.html>`_
-- `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/dev/faq/modelers_contribution.html>`_
+- `Function-Related <https://www.mindspore.cn/mindformers/docs/en/dev/faq/feature_related.html>`_
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Start
+   :caption: Introduction
    :hidden:
 
-   start/overview
-   start/models
+   introduction/overview
+   introduction/models
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Quick Start
+   :caption: Installation
    :hidden:
 
-   quick_start/install
-   quick_start/source_code_start
+   installation
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Usage Tutorials
+   :caption: Full-process Guide to Large Models
    :hidden:
 
-   usage/dev_migration
-   usage/multi_modal
-   usage/pre_training
-   usage/sft_tuning
-   usage/evaluation
-   usage/inference
-   usage/quantization
-   usage/mindie_deployment
-   usage/pretrain_gpt
+   guide/pre_training
+   guide/supervised_fine_tuning
+   guide/inference
+   guide/deployment
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Function Description
+   :caption: Features
    :hidden:
 
-   function/start_tasks
-   function/weight_conversion
-   function/transform_weight
-   function/distributed_parallel
-   function/dataset
-   function/training_hyperparameters
-   function/other_features
-   function/logs
-   function/resume_training
-   function/monitor
-   function/high_availability
-   function/safetensors
-   function/fine_grained_activations_swap
+   feature/start_tasks
+   feature/ckpt
+   feature/safetensors
+   feature/configuration
+   feature/logging
+   feature/training_function
+   feature/infer_function
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Precision Optimization
+   :caption: Advanced Development
    :hidden:
 
-   acc_optimize/acc_optimize
+   advanced_development/precision_optimization
+   advanced_development/performance_optimization
+   advanced_development/dev_migration
+   advanced_development/multi_modal_dev
+   advanced_development/api
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Performance Optimization
+   :caption: Environment Variables
    :hidden:
 
-   perf_optimize/perf_optimize
-
-.. toctree::
-   :maxdepth: 1
-   :caption: API
-   :hidden:
-
-   mindformers
-   mindformers.core
-   mindformers.dataset
-   mindformers.generation
-   mindformers.models
-   mindformers.modules
-   mindformers.pet
-   mindformers.pipeline
-   mindformers.tools
-   mindformers.wrapper
+   env_variables
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Appendix
+   :caption: Contribution Guide
    :hidden:
 
-   appendix/env_variables
-   appendix/conf_files
+   contribution/mindformers_contribution
+   contribution/modelers_contribution
 
 .. toctree::
    :glob:
@@ -199,6 +206,4 @@ FAQ
    :hidden:
 
    faq/model_related
-   faq/func_related
-   faq/mindformers_contribution
-   faq/modelers_contribution
+   faq/feature_related

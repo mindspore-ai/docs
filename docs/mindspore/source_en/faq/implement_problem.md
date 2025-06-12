@@ -299,7 +299,7 @@ A: This issue is a memory shortage problem caused by too much memory usage, whic
 
 - Set the value of `batch_size` too large. Solution: Reduce the value of `batch_size`.
 - Introduce the abnormally large `parameter`, for example, a single data shape is [640,1024,80,81]. The data type is  float32, and the single data size is over 15G. In this way, the two data with the similar size are added together, and the memory occupied is over 3*15G, which easily causes `Out of Memory`. Solution: Check the `shape` of the parameter. If it is abnormally large, the shape can be reduced.
-- If the following operations cannot solve the problem, you can raise the problem on the [official forum](https://www.hiascend.com/forum/forum-0106101385921175002-1.html), and there are dedicated technical personnels for help.
+- If the following operations cannot solve the problem, you can raise the problem on the [official forum](https://discuss.mindspore.cn/), and there are dedicated technical personnels for help.
 
 <br/>
 

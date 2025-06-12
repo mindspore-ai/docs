@@ -227,7 +227,7 @@ print('grads[1]:', grads[1])
 
 运行以上脚本，获得结果：
 
-```txt
+```text
 out: 12.0
 grads[0]: (Tensor(shape=[], dtype=Float32, value= 6), Tensor(shape=[], dtype=Float32, value= 4))
 grads[1]: (Tensor(shape=[], dtype=Float32, value= 6),)

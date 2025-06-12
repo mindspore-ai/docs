@@ -1,0 +1,15 @@
+训练功能
+===========
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   dataset
+   training_hyperparameters
+   monitor
+   resume_training
+   parallel_training
+   high_availability
+   memory_optimization
+   other_training_features

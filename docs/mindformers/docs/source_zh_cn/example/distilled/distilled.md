@@ -1,5 +1,7 @@
 # 使用DeepSeek-R1进行模型蒸馏的实践案例
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled.md)
+
 本案例参考OpenR1-Qwen-7B，旨在指导用户基于MindSpore框架和MindSpore Transformers大模型套件，使用DeepSeek-R1对Qwen2.5-Math-7B模型进行知识蒸馏和微调，以提升其在数学推理任务上的性能。案例涵盖了从环境配置、数据生成、预处理到模型微调和推理测试的完整流程。通过以下步骤，您可以了解如何利用DeepSeek-R1生成推理数据、过滤错误数据、处理数据集，并最终对模型进行微调以解决复杂的数学问题。
 
 蒸馏流程：
@@ -12,7 +14,7 @@
 
 ### 1.1 环境
 
-安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html)。
+安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/installation.html)。
 
 并将本案例的[distilled](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled)文件夹，复制到MindSpore Transformers源码根目录下。
 
@@ -43,7 +45,7 @@ mindformers
 - **使用OpenR1-Math-220K数据集**：
 
     - **选项1: 使用原始数据离线处理**：适合需要自定义数据处理或学习处理流程的用户。包括预处理和Packing。请从[选项1: 使用原始数据离线处理](#选项-1-使用原始数据离线处理)开始。
-    - **选项2: 使用已处理好的数据**：适合希望快速开始训练的用户。案例提供预处理好的OpenR1-Math-220K数据集。请从[选项2: 使用已处理好的数据](#选项-2-使用已经处理好的数据)开始。
+    - **选项2: 使用已处理好的数据**：适合希望快速开始训练的用户。案例提供预处理好的OpenR1-Math-220K数据集。请从[选项2: 使用已处理好的数据](#选项-2-使用完成转换的数据)开始。
 
 #### 1.3.1 从零开始生成数据集
 
@@ -51,7 +53,7 @@ mindformers
 
 > 生成数据集流程仅作为示例，如需生成高质量数据集，建议参考[OpenR1-Math-220k](https://huggingface.co/datasets/open-r1/OpenR1-Math-220k)的数据集生成流程。
 
-- 安装依赖
+1. 安装依赖
 
     执行以下命令安装所需依赖：
 
@@ -59,11 +61,11 @@ mindformers
     pip install datasets tqdm aiofiles aiohttp uvloop math_verify
     ```
 
-- 本地部署Deepseek-R1
+2. 本地部署Deepseek-R1
 
     参考[MindSpore-Lab/DeepSeek-R1 | 魔乐社区](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1)在本地部署DeepSeek-R1推理服务，或是使用公开的API服务。
 
-- 生成数据
+3. 生成数据
 
     **目标**：利用DeepSeek-R1模型为数学问题生成Chain-of-Thought（CoT）推理数据，用于后续的数据蒸馏。
 
@@ -88,22 +90,20 @@ mindformers
         --max-concurrent 100
     ```
 
-**参数说明：**
+    - **作用**：调用DeepSeek-R1推理服务，基于[AI-MO/NuminaMath-1.5](https://huggingface.co/datasets/AI-MO/NuminaMath-1.5)数据集中的数学问题（`problem`列）生成推理路径。
+    - **参数说明**：
 
-- **作用**：调用DeepSeek-R1推理服务，基于“AI-MO/NuminaMath-1.5”数据集中的数学问题（`problem`列）生成推理路径。
-- **关键参数**：
+        - **`--model`**: 推理服务的模型名，需要和服务化配置文件 `config.json` 中的 `modelName` 一致。
+        - **`--dataset-name`**：种子数据集名称，配置为HuggingFace Datasets名称或本地的数据集路径。
+        - **`--output-file`**：输出CoT数据文件的文件名。
+        - **`--prompt-column`**：种子数据集中提示词的列名，使用此列的数据进行CoT数据生成。
+        - **`--uuid-column`**：种子数据集中uuid的列名，使用此列计算哈希值去重数据。
+        - **`--api-addr`**：推理服务api的地址，配置为 `ip:port` 。
+        - **`--num-generations`**：对于种子数据集中每个问题生成CoT数据的数量。
+        - **`--max-tokens`**：生成的CoT数据的最大Token数。
+        - **`--max-concurrent`**：请求的最大并发数量。
 
-    - **--model**: 推理服务的模型名，需要和服务化配置文件 `config.json` 中的 `modelName` 一致。
-    - **--dataset-name**：种子数据集名称，配置为HuggingFace Datasets名称或本地的数据集路径。
-    - **--output-file**：输出CoT数据文件的文件名。
-    - **--prompt-column**：种子数据集中提示词的列名，使用此列的数据进行CoT数据生成。
-    - **--uuid-column**：种子数据集中uuid的列名，使用此列计算哈希值去重数据。
-    - **--api-addr**：推理服务api的地址，配置为 `ip:port` 。
-    - **--num-generations**：对于种子数据集中每个问题生成CoT数据的数量。
-    - **--max-tokens**：生成的CoT数据的最大Token数。
-    - **--max-concurrent**：请求的最大并发数量。
-
-- 拒绝采样
+1. 拒绝采样
 
     **目标**：过滤掉推理数据中的错误或不准确的CoT数据，确保数据质量。
 
@@ -113,15 +113,13 @@ mindformers
         --dst /path/to/numinamath_r1_generations_filtered.jsonl
     ```
 
-**参数说明：**
+    - **作用**：使用`math_verify`库验证`numinamath_r1_generations.jsonl`中的推理路径，剔除错误的CoT数据。
+    - **参数说明**：
 
-- **作用**：使用`math_verify`库验证`numinamath_r1_generations.jsonl`中的推理路径，剔除错误的CoT数据。
-- **关键参数**：
+        - **`--src`**：输入的CoT数据文件路径。
+        - **`--dst`**：输出的过滤后的CoT数据文件路径。
 
-    - **--src**：输入的CoT数据文件路径。
-    - **--dst**：输出的过滤后的CoT数据文件路径。
-
-- 数据集预处理
+2. 数据集预处理
 
     跳转到[选项-1-使用原始数据离线处理](#选项-1-使用原始数据离线处理)的中的**步骤一**，并将生成的CoT数据转换为MindSpore Transformers支持的格式。
 
@@ -142,7 +140,7 @@ mindformers
 
 **适用场景**：适合希望使用高质量预蒸馏数据集进行微调的用户。
 
-如果使用OpenR1-Math-220K数据集（已经过DeepSeek-R1蒸馏）进行微调，我们提供[详细制作流程](#选项-1-使用原始数据离线处理)以及[转换后的数据集](#选项-2使用完成转换的数据)。
+如果使用OpenR1-Math-220K数据集（已经过DeepSeek-R1蒸馏）进行微调，我们提供[详细制作流程](#选项-1-使用原始数据离线处理)以及[转换后的数据集](#选项-2-使用完成转换的数据)。
 
 ##### 选项 1: 使用原始数据离线处理
 
@@ -191,14 +189,12 @@ mindformers
         --register_path distilled/
     ```
 
-**参数说明：**
+    - **作用**：将原始数据集转换为MindSpore Transformers支持的格式。
+    - **参数说明**：
 
-- **作用**：将原始数据集转换为MindSpore Transformers支持的格式。
-- **关键参数**：
-
-    - **--config**：数据预处理的配置文件路径。
-    - **--save_path**：转换后数据集的保存文件夹路径。
-    - **--register_path**：注册路径，为当前目录下的`distilled/`文件夹。
+        - **`--config`**：数据预处理的配置文件路径。
+        - **`--save_path`**：转换后数据集的保存文件夹路径。
+        - **`--register_path`**：注册路径，为当前目录下的`distilled/`文件夹。
 
 步骤二、**数据集Packing**
 
@@ -222,20 +218,18 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
     --register_path distilled
 ```
 
-**参数说明：**
-
 - **作用**：将处理好的数据集进行packing，减少微调时的数据加载时间。
-- **关键参数**：
+- **参数说明**：
 
-    - **--config**：数据集packing的配置文件路径。
-    - **--save_path**：packing后数据集的保存路径
-    - **--register_path**：注册数据集的路径。
+    - **`--config`**：数据集packing的配置文件路径。
+    - **`--save_path`**：packing后数据集的保存路径
+    - **`--register_path`**：注册数据集的路径。
 
 最后在`packed_data`中可以找到处理后的数据集，格式为arrow。
 
-更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AEhandler)。
+更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AEhandler)。
 
-##### 选项 2：使用完成转换的数据
+##### 选项 2: 使用完成转换的数据
 
 我们在[魔乐社区](https://modelers.cn/models/MindSpore-Lab/OpenR1-Qwen-7B/tree/main/dataset/packing)提供packing处理后可以直接用于模型训练的数据，格式为arrow。此时[#1.4 YAML配置](#14-yaml配置)中的`path`需要修改为下载后的数据集路径。
 
@@ -283,7 +277,7 @@ train_dataset: &train_dataset
 ......
 ```
 
-其余参数配置的解释可以参考[MindSpore Transformers官方文档-SFT微调](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/usage/sft_tuning.html)。
+其余参数配置的解释可以参考[MindSpore Transformers官方文档-SFT微调](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/supervised_fine_tuning.html)。
 
 ## 2. 启动微调
 
@@ -303,7 +297,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qw
 日志记录在`output/msrun_log`目录下，例如可以通过`tail -f output/msrun_log/worker_7.log`指令查看worker 7的日志信息。
 微调完成后，输出的`safetensors`权重文件在`output/checkpoint`目录下。
 
-更多safetensors权重的内容请参考[MindSpore Transformers官方文档-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/safetensors.html)。
+更多safetensors权重的内容请参考[MindSpore Transformers官方文档-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html)。
 
 ## 3. 执行推理
 
@@ -325,4 +319,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qw
 | OpenR1-Qwen-7B (MindSpore Transformers) | 90.0     |
 | OpenThinker-7B                          | 89.6     |
 
-> 注：上表第三行为本案例实验结果，该结果由本地实测得到。
+> 上表第三行为本案例实验结果，该结果由本地实测得到。

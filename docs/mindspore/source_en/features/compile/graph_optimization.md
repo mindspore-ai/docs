@@ -54,7 +54,7 @@ out = func(m)
 
 The MindSpore graph compiler converts Python programs into computational graphs, which consist of multiple subgraphs. The algebraic operations in the source code are converted into operator calls within the subgraph, and it can be seen that the PrimFunc_Add operator is called once.
 
-```txt
+```text
 %para1_x: <Tensor[Int32], (2, 3)>
 
 subgraph @1_func_14() {
@@ -68,7 +68,7 @@ subgraph @1_func_14() {
 
 By arithmetic simplify, the PrimFunc_Add operator can be directly removed to simplify the computational graph structure, reducing `x + 0` to `x`.
 
-```txt
+```text
 %para1_x: <Tensor[Int32], (2, 3)>
 
 subgraph @1_func_14() {
@@ -128,7 +128,7 @@ out = f1(a, b, c)
 
 First, MindSpore's graph compiler converts the Python program into a computational graph. The function calls in the Python program are converted into calls between calculation graphs, and the original calculation graph is similar to the following. The main graph `f1` calls the subgraph `f2` twice.
 
-```txt
+```text
 # Params:
 %para1_a: <Tensor[Float32], (2, 4)>
 %para2_b: <Tensor[Float32], (2, 4)>
@@ -155,7 +155,7 @@ subgraph @f1() {
 
 With inlining, the subgraph `f2` can be expanded and merged into the main graph `f1`.
 
-```txt
+```text
 subgraph @f1() {
   # First-time subgraph inlining
   %0 = PrimFunc_Mul(%para1_a, Float32(0.5))  # Repeated computation
@@ -173,7 +173,7 @@ subgraph @f1() {
 
 Before inlining, the compiler might not detect repeated operations in the two calls to subgraph `f2` (as subgraphs are often treated as black boxes). After inlining, the compiler clearly sees `x * 0.5` calculated twice, enabling optimizations like **CSE** (Common Subexpression Elimination) to reduce redundant computations.
 
-```txt
+```text
 subgraph @f1() {
   %0 = PrimFunc_Mul(%para1_a, Float32(0.5))  # CSE merges redundant computations
 
@@ -256,7 +256,7 @@ In MindSpore's graph mode, the purpose and techniques of redundancy elimination 
 
     The MindSpore graph compiler will convert the Python code decorated with `@jit` into the MindIR representation through static analysis and eliminate the redundant computation `c = x * y`. The resulting MindIR is as follows:
 
-    ```txt
+    ```text
     # Params:
     %para1_x: <Tensor[Float32], ()>
     %para2_y: <Tensor[Float32], ()>
@@ -298,7 +298,7 @@ In MindSpore's graph mode, the purpose and techniques of redundancy elimination 
 
     The MindSpore graph compiler will convert the Python code decorated with `@jit` into the MindIR representation through static analysis and eliminate the redundant control flow branch `1 < 0`. The resulting MindIR is as follows:
 
-    ```txt
+    ```text
     # Params:
     %para1_x: <Tensor[Float32], ()>
     %para2_y: <Tensor[Float32], ()>

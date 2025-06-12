@@ -71,7 +71,7 @@ MindSpore将单机版本的程序转换成并行版本的程序。该转换是�
 
 相关接口：
 
-1. ``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="recursive_programming")``：设置并行模式，可以通过parallel_mode选择策略传播算法或双递归算法。
+1. ``mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="sharding_propagation")``：设置并行模式，可以通过parallel_mode选择策略传播算法。
 
 2. ``mindspore.nn.Cell.shard()`` 以及 ``mindspore.ops.Primitive.shard()``：指定算子切分策略，其余算子的策略通过传播算法推导得到。目前 ``mindspore.nn.Cell.shard()`` 接口同时支持 PyNative 模式与 Graph 模式；``mindspore.ops.Primitive.shard()`` 接口仅可在 Graph 模式下使用。
 

@@ -2,7 +2,7 @@
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/benchmark/benchmark.md)  
 
-The benchmark tool of vLLM MindSpore is inherited from vLLM. You can refer to the [vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md) documentation for more details. This document introduces [Online Benchmark](#online-performance-testing) and [Offline Benchmark](#offline-performance-testing). Users can follow the steps to conduct performance tests.  
+The benchmark tool of vLLM MindSpore is inherited from vLLM. You can refer to the [vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md) documentation for more details. This document introduces [Online Benchmark](#online-benchmark) and [Offline Benchmark](#offline-benchmark). Users can follow the steps to conduct performance tests.  
 
 ## Online Benchmark  
 
