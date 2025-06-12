@@ -227,7 +227,7 @@ parallel_config:                                    # Configure the target distr
   pipeline_stage: 1
 ```
 
-In large cluster scale scenarios, to avoid the online merging process taking too long and occupying training resources, it is recommended to pass in the original distributed weights file after [merge complete weights](#weights_merging) offline, when there is no need to pass in the path of the source cut-partitioning strategy file.
+In large cluster scale scenarios, to avoid the online merging process taking too long and occupying training resources, it is recommended to pass in the original distributed weights file after [merge complete weights](#weight-merging) offline, when there is no need to pass in the path of the source cut-partitioning strategy file.
 
 ### Special Scenarios
 

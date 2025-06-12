@@ -91,7 +91,7 @@ snapshot_download(
 
 `local_dir` is the user-specified path to save the model. Ensure sufficient disk space is available.
 
-### Downloading with git-lfs Tool  
+### Downloading with git-lfs Tool
 
 Run the following command to verify if [git-lfs](https://git-lfs.com) is available:
 

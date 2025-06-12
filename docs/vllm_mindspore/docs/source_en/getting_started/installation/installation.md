@@ -8,7 +8,7 @@ This document describes the steps to install the vLLM MindSpore environment. Thr
 - [Pip Installation](#pip-installation): Suitable for scenarios requiring specific versions.  
 - [Source Code Installation](#source-code-installation): Suitable for incremental development of vLLM MindSpore.  
 
-## Version Compatibility  
+## Version Compatibility
 
 - OS: Linux-aarch64  
 - Python: 3.9 / 3.10 / 3.11  
@@ -24,15 +24,15 @@ This document describes the steps to install the vLLM MindSpore environment. Thr
   | [vLLM](https://github.com/vllm-project/vllm) | 0.8.3 | v0.8.3 |  
   | [vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | master |  
 
-## Environment Setup  
+## Environment Setup
 
 This section introduces three installation methods: [Docker Installation](#docker-installation), [Pip Installation](#pip-installation), [Source Code Installation](#source-code-installation), and [Quick Verification](#quick-verification) example to check the installation.  
 
-### Docker Installation  
+### Docker Installation
 
 We recommend using Docker for quick deployment of the vLLM MindSpore environment. Below are the steps:  
 
-#### Pulling the Image  
+#### Pulling the Image
 
 Execute the following command to pull the vLLM MindSpore Docker image:  
 
@@ -46,7 +46,7 @@ During the pull process, user will see the progress of each layer. After success
 docker images  
 ```  
 
-#### Creating a Container  
+#### Creating a Container
 
 After [pulling the image](#pulling-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then execute the following command to create the container:  
 
@@ -88,7 +88,7 @@ The container ID will be returned if docker is created successfully. User can al
 docker ps  
 ```  
 
-#### Entering the Container  
+#### Entering the Container
 
 After [creating the container](#creating-a-container), user can start and enter the container, using the environment variable `DOCKER_NAME`:  
 
@@ -96,7 +96,7 @@ After [creating the container](#creating-a-container), user can start and enter 
 docker exec -it $DOCKER_NAME bash  
 ```  
 
-### Pip Installation  
+### Pip Installation
 
 Use pip to install vLLM MindSpore, by executing the following command:  
 
@@ -104,7 +104,7 @@ Use pip to install vLLM MindSpore, by executing the following command:
 pip install vllm_mindspore  
 ```  
 
-### Source Code Installation  
+### Source Code Installation
 
 - **CANN Installation**
   For CANN installation methods and environment configuration, please refer to [CANN Community Edition Installation Guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit). If you encounter any issues during CANN installation, please consult the [Ascend FAQ](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html) for troubleshooting.
@@ -153,7 +153,7 @@ pip install vllm_mindspore
   export PYTHONPATH=$MF_PATH:$PYTHONPATH
   ```
 
-### Quick Verification  
+### Quick Verification
 
 To verify the installation, run a simple offline inference test with [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct):  
 
