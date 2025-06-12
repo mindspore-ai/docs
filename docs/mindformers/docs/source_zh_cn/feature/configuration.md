@@ -91,6 +91,12 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | moe_config.comp_comm_parallel                   | 设置是否开启ffn的计算通信并行。默认值：False。                                                             | bool  |
 | moe_config.comp_comm_parallel_degree                   | 设置ffn计算通信的分割数。数字越大，重叠越多，但会消耗更多内存。此参数仅在comp_com_parallel启用时有效。                                                              | int  |
 | moe_config.moe_shared_expert_overlap                   | 设置是否开启共享专家和路由专家的计算通信并行。默认值：False。                                                              | bool  |
+| moe_config.use_gating_sigmoid                   | 设置MoE中gating的结果使用sigmoid函数进行激活。默认值：False。                                                     | bool |
+| moe_config.use_gmm                   | 设置MoE专家计算是否使用GroupedMatmul。默认值：False。                                                     | bool |
+| moe_config.use_fused_ops_permute                   | 设置是否MoE使用permute、unpermute融合算子进行性能加速，仅在use_gmm=True时生效。                                                     | bool |
+| moe_config.enable_deredundency                   | 设置是否开启去冗余通信，要求专家并行数是每个节点中NPU卡数量的整数倍，默认值：False，当use_gmm为True时生效。                                                     | bool |
+| moe_config.npu_nums_per_device                   | 设置每个节点中NPU卡的数量，默认值8，当enable_deredundency=True时生效。                                                     | int |
+| moe_config.enable_gmm_safe_tokens                | 保证每个专家至少分配1个tokens，避免极度负载不均衡情况下，GroupedMatmul计算失败，默认值为False。当use_gmm=True时，建议开启。                                                     | bool |
 
 ### 模型训练配置
 
