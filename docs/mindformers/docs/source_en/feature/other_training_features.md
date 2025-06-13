@@ -159,7 +159,7 @@ When RoPE (Rotary Position Embedding) is used as the position encoding in the ne
 
 #### YAML Parameter Configuration
 
-To use the rotary_position_embedding fusion operator, users need to configure the `use_fused_rope` parameter under the model_config section in the configuration file and set it to `True`. Example:
+To use the rotary_position_embedding fusion operator, users need to configure the `use_fused_rope` parameter under the `model_config` section in the configuration file and set it to `True`. Example:
 
 ```yaml
 model_config:
