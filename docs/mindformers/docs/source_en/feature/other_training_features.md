@@ -179,7 +179,7 @@ When SwiGLU is used as the activation function in the network, this fusion opera
 
 #### YAML Parameter Configuration
 
-To use the SwiGLU fusion operator, users need to configure the `use_fused_swiglu` parameter under the model_config section in the configuration file and set it to `True`. Example:
+To use the SwiGLU fusion operator, users need to configure the `use_fused_swiglu` parameter under the `model_config` section in the configuration file and set it to `True`. For example:
 
 ```yaml
 model_config:
