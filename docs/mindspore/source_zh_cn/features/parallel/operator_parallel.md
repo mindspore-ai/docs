@@ -124,7 +124,7 @@ layout = Layout((2, 2, 2), alias_name = ("dp", "sp", "mp"))
 a_strategy = layout("mp", ("sp", "dp"))
 ```
 
-可以看到，在张量a的"[a0, a1, a2, a3]"上进行了两次切分，从而切分到了设备的"sp"与"mp"两个轴上，这样出来的结果才是：
+可以看到，在张量a的"[a0, a1, a2, a3]"上进行了两次切分，从而切分到了设备的"sp"与"dp"两个轴上，这样出来的结果才是：
 
 ![image](images/advanced_operator_parallel_view1.PNG)
 
