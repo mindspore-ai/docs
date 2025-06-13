@@ -73,3 +73,117 @@ max_grad_norm: 1.0
 |---------------|----------------------------------------------------------------------------------------|-------------------------------------------|
 | use_clip_grad | Controls whether gradient clipping is enabled during training, default value: `False`. | (bool, optional) - Default: `False`.      |
 | max_grad_norm | Controls the maximum norm value of gradient clipping, default value: `1.0`.            | (float, optional) - Default: `1.0`. |
+
+## GroupedMatmul
+
+### Overview
+
+For MoE (Mixture of Experts), there are fragmented expert computation operations and communications. The GroupedMatmul operator merges multi-expert computations to improve the training performance of MoE. By invoking the GroupedMatmul operator, multiple expert computations are fused to achieve acceleration.
+
+### Configuration and Usage
+
+#### YAML Parameter Configuration
+
+To enable GroupedMatmul in MoE scenarios, users only need to configure the `use_gmm` parameter under the moe_config section in the configuration file and set it to `True`:
+
+```yaml
+moe_config:
+  ...
+  use_gmm: True
+  ...
+```
+
+### FAQ
+
+When using the gmm fusion operator, an error may occur if the workload is unbalanced, resulting in no tokens being assigned to an expert on a specific NPU. The error is as follows:
+
+```log
+VallueError: For primitive[Reshape]， the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
+```
+
+In this case, you can configure `enable_gmm_safe_tokens: True` to ensure each expert is assigned at least 1 token, avoiding program errors.
+
+```yaml
+moe_config:
+  ...
+  enable_gmm_safe_tokens: True
+  ...
+```
+
+## MoE Droprate Logging
+
+### Overview
+
+When training models using the MoE (Mixture of Experts) capacity scheme, certain tokens may be dropped to improve efficiency and performance. By enabling the droprate logging feature, users can monitor the occurrence rate of these drop operations in real-time during training, helping them better understand model behavior and adjust training strategies accordingly. This feature allows users to view the droprate for each layer during training. The droprate refers to the proportion of tokens dropped in a specific layer. Observing the trend of droprate changes can help users evaluate whether the current training parameters are reasonable and whether the model is effectively utilizing expert resources.
+
+### Configuration and Usage
+
+#### YAML Parameter Configuration
+
+To enable the droprate logging feature, users need to configure the `callback_moe_droprate` parameter under the moe_config section in the configuration file and set it to `True`. Additionally, add the `MoEDropRateCallback` configuration item in the callback section and set model-related parameters such as `expert_num`, `capacity_factor`, `num_layers`, and `mtp_depth`. For example:
+
+```yaml
+moe_config:
+  ...
+  callback_moe_droprate: True
+  ...
+
+callback:
+  ...
+  - type: MoEDropRateCallback
+    expert_num: 4
+    capacity_factor: 1.5
+    num_layers: 8
+    mtp_depth: 1
+  ...
+```
+
+#### Key Configuration Parameters
+
+| Parameter            | Description                | Value Specification                       |
+|---------------|-------------------|----------------------------|
+| callback_moe_droprate | Whether to print MoE Droprate in callback. | (bool, optional) - Default: `False` .|
+| expert_num | Number of experts. | (int, required) 。-  Default: `None`。 |
+| capacity_factor | Capacity factor. | (float, required) 。- Default: `None`。 |
+| num_layers | Number of model layers. | (int, required) 。- Default: `None`。 |
+| mtp_depth | Number of MTP layers. | (int, required) 。- Default: `None`。 |
+
+## Rotary Position Embedding Fusion Operator
+
+### Overview
+
+When RoPE (Rotary Position Embedding) is used as the position encoding in the network, this fusion operator can be enabled to improve overall performance. This feature provides a fused implementation of RoPE, enhancing network performance. For the operator interface, refer to:
+[mindspore.ops.rotary_position_embedding](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.rotary_position_embedding.html)
+
+### Configuration and Usage
+
+#### YAML Parameter Configuration
+
+To use the rotary_position_embedding fusion operator, users need to configure the `use_fused_rope` parameter under the `model_config` section in the configuration file and set it to `True`. Example:
+
+```yaml
+model_config:
+  ...
+  use_fused_rope: True
+  ...
+```
+
+## SwiGLU Fusion Operator
+
+### Overview
+
+When SwiGLU is used as the activation function in the network, this fusion operator can be enabled to improve overall performance. This feature provides a fused implementation of SwiGLU, enhancing network performance. For the operator functionality, refer to:
+[mindspore.ops.swiglu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.swiglu.html).
+
+### Configuration and Usage
+
+#### YAML Parameter Configuration
+
+To use the SwiGLU fusion operator, users need to configure the `use_fused_swiglu` parameter under the `model_config` section in the configuration file and set it to `True`. For example:
+
+```yaml
+model_config:
+  ...
+  use_fused_swiglu: True
+  ...
+```

@@ -91,6 +91,12 @@ In addition to the basic configuration of the model above, the MoE model needs t
 | moe_config.comp_comm_parallel                   | Set whether to enable computational communication parallelism for ffn. Default value: False.                                                              | bool  |
 | moe_config.comp_comm_parallel_degree                   | Set ffn to compute the number of communication splits. The higher the number, the more overlap there is, but it will consume more memory. This parameter is only valid when comp_com_parallel is enabled.                               | int  |
 | moe_config.moe_shared_expert_overlap                   | Set whether to enable computational communication parallelism for shared experts and routing experts. Default value: False.                                                              | bool  |
+| moe_config.use_gating_sigmoid                   | Enables sigmoid activation for gating results in MoE. Default: `False`.                                                    | bool |
+| moe_config.use_gmm                   | Enables GroupedMatmul for MoE expert computation. Default: `False`.                                                     | bool |
+| moe_config.use_fused_ops_permute                   | Enables fused permute/unpermute operators in MoE for performance acceleration. Only takes effect when `use_gmm=True`.                                                     | bool |
+| moe_config.enable_deredundency                   | Enables redundant communication in MoE. Requires that the expert parallelism is an integer multiple of the number of NPUs per node. Default: `False`. Only takes effect when `use_gmm=True`. | bool |
+| moe_config.npu_nums_per_device                   | Sets the number of NPUs per node. Default: 8. Only takes effect when `enable_deredundency=True`.                                                     | int |
+| moe_config.enable_gmm_safe_tokens                | Ensures at least 1 token is allocated to each expert to prevent GroupedMatmul computation failures under extreme load imbalance. Default: `False`. Recommended to enable when `use_gmm=True`.                                                     | bool |
 
 ### Model Training Configuration
 
