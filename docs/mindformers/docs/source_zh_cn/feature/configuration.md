@@ -95,7 +95,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | moe_config.use_gmm                   | 设置MoE专家计算是否使用GroupedMatmul。默认值：False。                                                     | bool |
 | moe_config.use_fused_ops_permute                   | 设置是否MoE使用permute、unpermute融合算子进行性能加速，仅在use_gmm=True时生效。                                                     | bool |
 | moe_config.enable_deredundency                   | 设置是否开启去冗余通信，要求专家并行数是每个节点中NPU卡数量的整数倍，默认值：False，当use_gmm为True时生效。                                                     | bool |
-| moe_config.npu_nums_per_device                   | 设置每个节点中NPU卡的数量，默认值8，当enable_deredundency=True时生效。                                                     | int |
+| moe_config.npu_nums_per_device                   | 设置每个节点中NPU卡的数量，默认值：8，当enable_deredundency=True时生效。                                                     | int |
 | moe_config.enable_gmm_safe_tokens                | 保证每个专家至少分配1个tokens，避免极度负载不均衡情况下，GroupedMatmul计算失败，默认值为False。当use_gmm=True时，建议开启。                                                     | bool |
 
 ### 模型训练配置
