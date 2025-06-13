@@ -120,7 +120,7 @@ When training models using the MoE (Mixture of Experts) capacity scheme, certain
 
 #### YAML Parameter Configuration
 
-To enable the droprate logging feature, users need to configure the `callback_moe_droprate` parameter under the moe_config section in the configuration file and set it to `True`. Additionally, add the `MoEDropRateCallback` configuration item in the callback section and set model-related parameters such as `expert_num`, `capacity_factor`, `num_layers`, and `mtp_depth`. Example:
+To enable the droprate logging feature, users need to configure the `callback_moe_droprate` parameter under the moe_config section in the configuration file and set it to `True`. Additionally, add the `MoEDropRateCallback` configuration item in the callback section and set model-related parameters such as `expert_num`, `capacity_factor`, `num_layers`, and `mtp_depth`. For example:
 
 ```yaml
 moe_config:
