@@ -114,7 +114,7 @@ layout = Layout((2, 2, 2), alias_name = ("dp", "sp", "mp"))
 a_strategy = layout("mp", ("sp", "dp"))
 ```
 
-It can be seen that the "[a0, a1, a2, a3]" of the tensor a is sliced twice to the "sp" and "mp" axes of the device, so that the result comes out as:
+It can be seen that the "[a0, a1, a2, a3]" of the tensor a is sliced twice to the "sp" and "dp" axes of the device, so that the result comes out as:
 
 ![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0rc1/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
 
