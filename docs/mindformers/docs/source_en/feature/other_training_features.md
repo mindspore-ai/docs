@@ -142,7 +142,7 @@ callback:
 
 | Parameter            | Description                | Value Specification                       |
 |---------------|-------------------|----------------------------|
-| callback_moe_droprate | Value Specification | (bool, optional) - Default: `False` 。 |
+| callback_moe_droprate | Whether to print MoE Droprate in callback. | (bool, optional) - Default: `False` .|
 | expert_num | Number of experts. | (int, required) 。-  Default: `None`。 |
 | capacity_factor | Capacity factor. | (float, required) 。- Default: `None`。 |
 | num_layers | Number of model layers. | (int, required) 。- Default: `None`。 |
