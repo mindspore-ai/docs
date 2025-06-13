@@ -15,6 +15,8 @@ Custom Operators
    operation/op_custom_julia
    operation/op_custom_adv
    operation/op_customopbuilder
+   operation/cpp_api_for_custom_ops
+   operation/op_customopbuilder_atb
    operation/op_customopbuilder_function
 
 When built-in operators cannot meet requirements during network development, you can use MindSpore's custom operator functionality to integrate your operators. Currently, MindSpore provides two approaches for integrating custom operators:
