@@ -187,7 +187,7 @@ This section demonstrates the use of the end-of-life CKPT using Llama2-13B train
     ```bash
     export MINDIO_FOR_MINDSPORE=1
 
-    export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1}"
+    export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1,TSP:1}"
     export MS_TFT_IP=127.0.0.1
     export MS_TFT_PORT=30051
 
