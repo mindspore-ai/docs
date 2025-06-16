@@ -31,7 +31,7 @@ bash build.sh -I x86_64 -j8
 ```
 
 Environment requirements and settings about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/build/build.html).
-The sample source code used in this tutorial is in the `mindspore/lite/examples/train_lenet_java` directory.
+The sample source code used in this tutorial is in the `mindspore-lite/examples/train_lenet_java` directory.
 
 ### Downloading the Dataset
 
@@ -60,7 +60,7 @@ MNIST_Data/
 1. Go to the directory where the sample project is located and execute the sample project. The commands are as follows:
 
     ```bash
-    cd /codes/mindspore/mindspore/lite/examples/train_lenet_java
+    cd /codes/mindspore/mindspore-lite/examples/train_lenet_java
     ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x64.tar.gz
     ```
 

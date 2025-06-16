@@ -19,11 +19,11 @@ To use the MindSpore Lite concurrent inference framework, perform the following 
 
 ## Preparation
 
-1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp).
+1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp).
 
-2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 
-3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` from [official website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory.
+3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` from [official website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp` directory.
 
 ## Creating configuration
 
@@ -103,7 +103,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Compiling And Executing
 
-Follow the [quick start](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#executing-compilation) environment variables, set the environment variables. Run the build.sh script in the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
+Follow the [quick start](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#executing-compilation) environment variables, set the environment variables. Run the build.sh script in the `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
 
 ```bash
 bash build.sh

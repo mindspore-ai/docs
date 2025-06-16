@@ -15,12 +15,12 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
     ```cpp
     WARNING: Logging before InitGoogleLogging() is written to STDERR
-    [WARNING] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.071 [mindspore/lite/tools/common/protobuf_utils.cc:94] ReadProtoFromBinaryFile] Parse ***.onnx failed.
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.122 [mindspore/lite/build/tools/converter/parser/onnx/onnx_op_parser.cc:3079] InitOriginModel] Read onnx model file failed, model path: ./ml_audio_kit_vocals_resunet.onnx
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.131 [mindspore/lite/build/tools/converter/parser/onnx/onnx_op_parser.cc:3026] Parse] init origin model failed.
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.137 [mindspore/lite/tools/converter/converter.cc:64] BuildFuncGraph] Get funcGraph failed for fmk: ONNX
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.143 [mindspore/lite/tools/converter/converter.cc:133] Convert] Parser/Import model return nullptr
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.162 [mindspore/lite/tools/converter/converter.cc:209] RunConverter] CONVERT RESULT FAILED:-1 Common error code.
+    [WARNING] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.071 [mindspore-lite/tools/common/protobuf_utils.cc:94] ReadProtoFromBinaryFile] Parse ***.onnx failed.
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.122 [mindspore-lite/build/tools/converter/parser/onnx/onnx_op_parser.cc:3079] InitOriginModel] Read onnx model file failed, model path: ./ml_audio_kit_vocals_resunet.onnx
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.131 [mindspore-lite/build/tools/converter/parser/onnx/onnx_op_parser.cc:3026] Parse] init origin model failed.
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.137 [mindspore-lite/tools/converter/converter.cc:64] BuildFuncGraph] Get funcGraph failed for fmk: ONNX
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.143 [mindspore-lite/tools/converter/converter.cc:133] Convert] Parser/Import model return nullptr
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.162 [mindspore-lite/tools/converter/converter.cc:209] RunConverter] CONVERT RESULT FAILED:-1 Common error code.
     CONVERT RESULT FAILED:-1 Common error code.
     ```
 
@@ -31,13 +31,13 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 2. Unsupported operators exist. The error log information is as follows:
 
     ```cpp
-    [mindspore/lite/tools/converter/converter.cc:**] BuildFuncGraph] Get funcGraph failed for fmk: ****
-    [mindspore/lite/tools/converter/converter.cc:**] Converter] Parser/Import model return nullptr
-    [mindspore/lite/tools/converter/converter_context.h:**] PrintOps] ===========================================
-    [mindspore/lite/tools/converter/converter_context.h:**] PrintOps] UNSUPPORTED OP LIST:
-    [mindspore/lite/tools/converter/converter_context.h:**] PrintOps] FMKTYPE: ****, OP TYPE: ****
-    [mindspore/lite/tools/converter/converter_context.h:**] PrintOps] ===========================================
-    [mindspore/lite/tools/converter/converter.cc:**] RunConverter] CONVERT RESULT FAILED:-300 Failed to find operator.
+    [mindspore-lite/tools/converter/converter.cc:**] BuildFuncGraph] Get funcGraph failed for fmk: ****
+    [mindspore-lite/tools/converter/converter.cc:**] Converter] Parser/Import model return nullptr
+    [mindspore-lite/tools/converter/converter_context.h:**] PrintOps] ===========================================
+    [mindspore-lite/tools/converter/converter_context.h:**] PrintOps] UNSUPPORTED OP LIST:
+    [mindspore-lite/tools/converter/converter_context.h:**] PrintOps] FMKTYPE: ****, OP TYPE: ****
+    [mindspore-lite/tools/converter/converter_context.h:**] PrintOps] ===========================================
+    [mindspore-lite/tools/converter/converter.cc:**] RunConverter] CONVERT RESULT FAILED:-300 Failed to find operator.
     ```
 
     - Analysis: The model contains operators not supported by the MindSpore Lite converter. As a result, the conversion fails.
@@ -46,7 +46,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 3. Unsupported operators exist. The error log information is as follows:
 
     ```cpp
-    [mindspore/lite/tools/converter/parser/caffe/caffe_model_parser.cc:**] ConvertLayers] parse node **** failed.
+    [mindspore-lite/tools/converter/parser/caffe/caffe_model_parser.cc:**] ConvertLayers] parse node **** failed.
     ```
 
     - Analysis: The converter supports the operator conversion, but does not support a special attribute or parameter of the operator. As a result, the model conversion fails. (The following uses caffe as an example. The log information of other frameworks is the same.)
@@ -59,7 +59,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. For dynamic shape models, you need to set `--inputShape=<INPUTSHAPE>` listed in the [Parameter Description](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description). For example:
 
     ```
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
     ```
 
 2. For a multi-batch model, the data preprocessing function cannot be directly used. You need to preprocess the calibration dataset in advance and then set the calibration dataset in the `BIN` format.
@@ -71,8 +71,8 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. The model file is incorrect. The error log information is as follows:
 
     ```cpp
-    [mindspore/lite/src/lite_model.cc:**] ConstructModel] The model buffer is invalid and fail to create graph.
-    [mindspore/lite/src/lite_model.cc:**] ImportFromBuffer] construct model failed.
+    [mindspore-lite/src/lite_model.cc:**] ConstructModel] The model buffer is invalid and fail to create graph.
+    [mindspore-lite/src/lite_model.cc:**] ImportFromBuffer] construct model failed.
     ```
 
     - Analysis: The cached content read from the MS model file is invalid. As a result, the graph fails to be loaded.
@@ -81,8 +81,8 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 2. The model file is incompatible with the inference package version. The following error information is displayed in logs:
 
     ```cpp
-    [mindspore/lite/src/lite_model.cc:**] ConstructModel] Maybe this is a model transferred out using the conversion tool before 1.1.0.
-    [mindspore/lite/src/lite_model.cc:**] ImportFromBuffer] construct model failed.
+    [mindspore-lite/src/lite_model.cc:**] ConstructModel] Maybe this is a model transferred out using the conversion tool before 1.1.0.
+    [mindspore-lite/src/lite_model.cc:**] ImportFromBuffer] construct model failed.
     ```
 
     - Analysis: The version of the converter used by the MS model file is too early. As a result, the graph fails to be loaded.
@@ -95,14 +95,14 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. The model file is incompatible with the inference package version. The following error information is displayed in logs:
 
     ```cpp
-    WARNING [mindspore/lite/src/lite_model.cc:**] ConstructModel] model version is MindSpore Lite 1.2.0, inference version is MindSpore Lite 1.5.0 not equal
-    [mindspore/lite/src/litert/infer_manager.cc:**] KernelInferShape] Get infershape func failed! type: ****
-    [mindspore/lite/src/scheduler.cc:**] ScheduleNodeToKernel] FindBackendKernel return nullptr, name: ****, type: ****
-    [mindspore/lite/src/scheduler.cc:**] ScheduleSubGraphToKernels] schedule node return nullptr, name: ****, type: ****
-    [mindspore/lite/src/scheduler.cc:**] ScheduleMainSubGraphToKernels] Schedule subgraph failed, index: 0
-    [mindspore/lite/src/scheduler.cc:**] ScheduleGraphToKernels] ScheduleSubGraphToSubGraphKernel failed
-    [mindspore/lite/src/scheduler.cc:**] Schedule] Schedule graph to kernels failed.
-    [mindspore/lite/src/lite_session.cc:**] CompileGraph] Schedule kernels failed: -1.
+    WARNING [mindspore-lite/src/lite_model.cc:**] ConstructModel] model version is MindSpore Lite 1.2.0, inference version is MindSpore Lite 1.5.0 not equal
+    [mindspore-lite/src/litert/infer_manager.cc:**] KernelInferShape] Get infershape func failed! type: ****
+    [mindspore-lite/src/scheduler.cc:**] ScheduleNodeToKernel] FindBackendKernel return nullptr, name: ****, type: ****
+    [mindspore-lite/src/scheduler.cc:**] ScheduleSubGraphToKernels] schedule node return nullptr, name: ****, type: ****
+    [mindspore-lite/src/scheduler.cc:**] ScheduleMainSubGraphToKernels] Schedule subgraph failed, index: 0
+    [mindspore-lite/src/scheduler.cc:**] ScheduleGraphToKernels] ScheduleSubGraphToSubGraphKernel failed
+    [mindspore-lite/src/scheduler.cc:**] Schedule] Schedule graph to kernels failed.
+    [mindspore-lite/src/lite_session.cc:**] CompileGraph] Schedule kernels failed: -1.
     ```
 
     - Analysis: The version of MindSpore Lite used for inference is later than that of the converter used for model conversion. As a result, compatibility issues occur. Some operators may be added or removed during the version upgrade, and the operator implementation is missing during inference.
@@ -111,8 +111,8 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 2. The model input is a dynamic shape. The following error information is displayed in logs:
 
     ```cpp
-    [mindspore/lite/src/common/tensor_util.cc:**] CheckTensorsInvalid] The shape of tensor contains negative dimension, check the model and assign the input shape with method Resize().
-    [mindspore/lite/src/lite_session.cc:**] RunGraph] CheckInputs failed.
+    [mindspore-lite/src/common/tensor_util.cc:**] CheckTensorsInvalid] The shape of tensor contains negative dimension, check the model and assign the input shape with method Resize().
+    [mindspore-lite/src/lite_session.cc:**] RunGraph] CheckInputs failed.
     ```
 
     - Analysis: The input shape of the MS model contains -1, that is, the model input is a dynamic shape. During direct inference, the shape is invalid. As a result, the inference fails.
@@ -125,11 +125,11 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. The model file is incompatible with the inference package version. The following error information is displayed in logs:
 
     ```cpp
-    ERROR [mindspore/lite/src/lite_session.cc:1539] LoadModelByBuff] Please enable runtime convert.
-    ERROR [mindspore/lite/src/lite_session.cc:1598] LoadModelAndCompileByPath] Read model file failed
-    ERROR [mindspore/lite/src/cxx_api/model/model_impl.cc:93] Build] Init session failed
-    ERROR [mindspore/lite/tools/benchmark/benchmark_unified_api.cc:845] RunBenchmark] ms_model_.Build failed while running
-    ERROR [mindspore/lite/tools/benchmark/run_benchmark.cc:80] RunBenchmark] Run Benchmark Q888_CV_new_detect.pb.ms Failed : -1
+    ERROR [mindspore-lite/src/lite_session.cc:1539] LoadModelByBuff] Please enable runtime convert.
+    ERROR [mindspore-lite/src/lite_session.cc:1598] LoadModelAndCompileByPath] Read model file failed
+    ERROR [mindspore-lite/src/cxx_api/model/model_impl.cc:93] Build] Init session failed
+    ERROR [mindspore-lite/tools/benchmark/benchmark_unified_api.cc:845] RunBenchmark] ms_model_.Build failed while running
+    ERROR [mindspore-lite/tools/benchmark/run_benchmark.cc:80] RunBenchmark] Run Benchmark Q888_CV_new_detect.pb.ms Failed : -1
     ms_model_.Build failed while running Run Benchmark Q888_CV_new_detect.pb.ms Failed : -1
     ```
 
@@ -141,14 +141,14 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. The model input is a dynamic shape. The following error information is displayed in logs:
 
     ```cpp
-    WARNING [mindspore/lite/src/litert/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
-    ERROR [mindspore/lite/src/litert/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
-    ERROR [mindspore/lite/src/inner_kernel.cc:81] Execute] run kernel PreProcess failed, name: Exp_1234
-    ERROR [mindspore/lite/src/litert/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
-    ERROR [mindspore/lite/src/litert/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
-    ERROR [mindspore/lite/src/lite_mindrt.h:58] RunKernel] run kernel failed, name: GpuSubGraph4_8
-    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
-    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
+    WARNING [mindspore-lite/src/litert/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
+    ERROR [mindspore-lite/src/litert/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
+    ERROR [mindspore-lite/src/inner_kernel.cc:81] Execute] run kernel PreProcess failed, name: Exp_1234
+    ERROR [mindspore-lite/src/litert/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
+    ERROR [mindspore-lite/src/litert/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
+    ERROR [mindspore-lite/src/lite_mindrt.h:58] RunKernel] run kernel failed, name: GpuSubGraph4_8
+    WARNING [mindspore-lite/src/litert/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
+    WARNING [mindspore-lite/src/litert/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
     ```
 
     - Analysis: The input shape of the MS model contains -1, that is, the model input is a dynamic shape. During GPU inference, the operator specifications check related to the shape is skipped in the graph build phase. By default, the GPU supports this operator, and the operator specifications are checked again in the prediction phase. If the operator specifications are not supported, an error is reported and the execution exits.
@@ -157,15 +157,15 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 2. Map buffer errors
 
     ```cpp
-    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
-    ERROR [mindspore/lite/src/litert/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
-    ERROR [mindspore/lite/src/inner_kernel.cc:88] Execute] run kernel failed, name: Slice_1147
-    ERROR [mindspore/lite/src/sub_graph_kernel.cc:223] Execute] run kernel failed, name: Slice_1147
-    ERROR [mindspore/lite/src/lite_mindrt.h:56] RunKernel] run kernel failed, name: CpuFP32SubGraph0_1
-    ERROR [mindspore/lite/src/mindrt_executor.cc:193] Run] MindrtRun failed
-    ERROR [mindspore/lite/src/lite_session.cc:709] RunGraph] RunGraph failed : -1
-    ERROR [mindspore/lite/src/cxx_api/model/model_impl.cc:294] Predict] Run graph failed.
-    ERROR [mindspore/lite/tools/benchmark/benchmark_unified_api.cc:721] MarkAccuracy] Inference error
+    WARNING [mindspore-lite/src/litert/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
+    ERROR [mindspore-lite/src/litert/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
+    ERROR [mindspore-lite/src/inner_kernel.cc:88] Execute] run kernel failed, name: Slice_1147
+    ERROR [mindspore-lite/src/sub_graph_kernel.cc:223] Execute] run kernel failed, name: Slice_1147
+    ERROR [mindspore-lite/src/lite_mindrt.h:56] RunKernel] run kernel failed, name: CpuFP32SubGraph0_1
+    ERROR [mindspore-lite/src/mindrt_executor.cc:193] Run] MindrtRun failed
+    ERROR [mindspore-lite/src/lite_session.cc:709] RunGraph] RunGraph failed : -1
+    ERROR [mindspore-lite/src/cxx_api/model/model_impl.cc:294] Predict] Run graph failed.
+    ERROR [mindspore-lite/tools/benchmark/benchmark_unified_api.cc:721] MarkAccuracy] Inference error
     Inference error Run MarkAccuracy error: -1
     ```
 
@@ -179,9 +179,9 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. If the model input is a dynamic shape or the model has a shape operator, the following error information about dimensions is displayed in the log:
 
     ```cpp
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Parameter check failed at: optimizationProfile.cpp::setDimensions::119, condition: std::all_of(dims.d, dims.d + dims.nbDims, [](int x) { return x >= 0; })
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_subgraph.cc:219] ParseInputDimsProfile] setDimensions of kMIN failed for input
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: xxx size cannot have negative dimension, size = [-1]
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Parameter check failed at: optimizationProfile.cpp::setDimensions::119, condition: std::all_of(dims.d, dims.d + dims.nbDims, [](int x) { return x >= 0; })
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_subgraph.cc:219] ParseInputDimsProfile] setDimensions of kMIN failed for input
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: xxx size cannot have negative dimension, size = [-1]
     ```
 
     - Analysis: TensorRT GPU graph construction does not support models with dynamic shapes. Specifically, the input shape of the model contains -1 or the model contains the shape operator.
@@ -192,10 +192,10 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. Offline broadcast operators do not support resizing. An error message is displayed, indicating that the input dimension of an operator does not match. For example:
 
     ```cpp
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: dimensions not compatible for xxx
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] shapeMachine.cpp (252) - Shape Error in operator(): broadcast with incompatible Dimensions
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Instruction: CHECK_BROADCAST xx xx
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_subgraph.cc:500] Execute] TensorRT execute failed.
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: dimensions not compatible for xxx
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] shapeMachine.cpp (252) - Shape Error in operator(): broadcast with incompatible Dimensions
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Instruction: CHECK_BROADCAST xx xx
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_subgraph.cc:500] Execute] TensorRT execute failed.
     ```
 
     - Analysis: When an operator is in the offline converter, the operator is automatically broadcast offline by specifying `--inputShape=<INPUTSHAPE>`. Take the ones like operator as an example. 1 is broadcast to the corresponding constant tensor based on the input shape information. In this case, when the input is resized to different dimensions, an error is reported for operators (such as concat and matmul) that are sensitive to the input tensor dimensions on the network.
@@ -208,10 +208,10 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. Failed to build an NPU graph. A tool is used to capture background logs and search for **MS_LITE** in the logs. The following error information is displayed:
 
     ```cpp
-    MS_LITE : [mindspore/lite/src/delegate/npu/npu_subgraph.cc:**] BuildIRModel] Build IR model failed.
-    MS_LITE : [mindspore/lite/src/delegate/npu/npu_subgraph.cc:**] Init] Build IR model failed.
-    MS_LITE : [mindspore/lite/src/delegate/npu/npu_graph.cc:**] CreateNPUSubgraphKernel] NPU Subgraph Init failed.
-    MS_LITE : [mindspore/lite/src/delegate/npu/npu_delegate.cc:**] Build] Create NPU Graph failed.
+    MS_LITE : [mindspore-lite/src/delegate/npu/npu_subgraph.cc:**] BuildIRModel] Build IR model failed.
+    MS_LITE : [mindspore-lite/src/delegate/npu/npu_subgraph.cc:**] Init] Build IR model failed.
+    MS_LITE : [mindspore-lite/src/delegate/npu/npu_graph.cc:**] CreateNPUSubgraphKernel] NPU Subgraph Init failed.
+    MS_LITE : [mindspore-lite/src/delegate/npu/npu_delegate.cc:**] Build] Create NPU Graph failed.
     ```
 
     - Analysis: This error is caused by the NPU online graph construction failure.
@@ -241,9 +241,9 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. NPU inference fails. A tool is used to capture background logs and search for **MS_LITE** in the logs. The following error information is displayed:
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_executor.cc:**] Run] NPU Process failed. code is 1
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_graph.cc:**] Execute] NPU Subgraph **** execute failed.
-      MS_LITE : [mindspore/lite/src/lite_mindrt.h:**] RunKernel] run kernel failed, name: ****
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_executor.cc:**] Run] NPU Process failed. code is 1
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_graph.cc:**] Execute] NPU Subgraph **** execute failed.
+      MS_LITE : [mindspore-lite/src/lite_mindrt.h:**] RunKernel] run kernel failed, name: ****
       ```
 
     - Analysis: This error is reported because the NPU fails to perform inference.
@@ -295,28 +295,28 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     - If the device does not support the NPU but the NPU is specified in the context, the model automatically runs on a CPU instead of the NPU. In this case, the inference performance is the same as that of the CPU. You can use a tool (such as adb logcat) to capture background logs and search for the keyword **MS_LITE** in the logs to check whether the device supports NPUs. The common prompts and descriptions are as follows:
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
     - If the log contains only the preceding information, check whether your device is a Huawei device with a HiSilicon Kirin processor. If not, NPUs are not supported.
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] IsKirinChip] Unsupported KirinChip ***.
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsKirinChip] Unsupported KirinChip ***.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
     - If the log contains the preceding information, your device uses the Kirin chip, but the chip model does not support NPUs. Currently, the following Kirin chips support NPUs: Kirin 810, Kirin 820, Kirin 985, and later versions.
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] CheckDDKVerGreatEqual] DDK Version 100.***.***.*** less than 100.320.011.019.
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] CheckDDKVerGreatEqual] DDK Version 100.***.***.*** less than 100.320.011.019.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
     - If the log contains the preceding information, your device meets the hardware requirements, but the HiAI ROM version does not meet the requirements. As a result, the NPU operator cannot run. MindSpore Lite requires that the HiAI ROM version be later than 100.320.011.018.
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/op/convolution_npu.cc:**] GetNPUConvOp] NPU does not support runtime inference shape.
-      MS_LITE : [mindspore/lite/src/delegate/npu/op/npu_op.h:** GetNPUOp] NPU does not support runtime inference shape.
+      MS_LITE : [mindspore-lite/src/delegate/npu/op/convolution_npu.cc:**] GetNPUConvOp] NPU does not support runtime inference shape.
+      MS_LITE : [mindspore-lite/src/delegate/npu/op/npu_op.h:** GetNPUOp] NPU does not support runtime inference shape.
       ```
 
     - If either of the preceding two messages appears in the log for multiple times, check whether the model input is a dynamic shape and whether the input shape is specified before inference. If yes, the model cannot run on the NPU, and the program automatically switches to the CPU for execution.
@@ -360,11 +360,11 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. When Xcode uses a framework package to build an app, an error is reported indicating that a parameter is not supported when the GetParameterCreator function is executed. The log is as follows:
 
     ```text
-    ERROR [mindspore/lite/src/ops/populate/populate_register.h:46] GetParameterCreator] Unsupported parameter type in Create : **
-    ERROR [mindspore/lite/src/scheduler.cc:208] InferNodeShape] parameter generator is nullptr.
-    ERROR [mindspore/lite/src/scheduler.cc:266] InferSubGraphShape] InferShape failed, name: **, type: **
-    ERROR [mindspore/lite/src/scheduler.cc:78] SchedulePreProcess] op infer shape failed.
-    ERROR [mindspore/lite/src/lite_session.cc:508] CompileGraph] Schedule kernels failed: -500
+    ERROR [mindspore-lite/src/ops/populate/populate_register.h:46] GetParameterCreator] Unsupported parameter type in Create : **
+    ERROR [mindspore-lite/src/scheduler.cc:208] InferNodeShape] parameter generator is nullptr.
+    ERROR [mindspore-lite/src/scheduler.cc:266] InferSubGraphShape] InferShape failed, name: **, type: **
+    ERROR [mindspore-lite/src/scheduler.cc:78] SchedulePreProcess] op infer shape failed.
+    ERROR [mindspore-lite/src/lite_session.cc:508] CompileGraph] Schedule kernels failed: -500
     ```
 
     - Analysis: When the static library in the framework is linked, not all symbols in the static library are imported. The Creator function of parameter is registered with the singleton object through the global static object.

@@ -19,11 +19,11 @@ To use the MindSpore Lite concurrent inference framework, perform the following 
 
 ## Preparation
 
-1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java).
+1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_java).
 
-2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_java/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore-lite/examples/cloud_infer/quick_start_parallel_java/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 
-3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` from [Official Website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore/lite/examples/cloud_infer/quick_start_parallel_java` directory.
+3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` from [Official Website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore-lite/examples/cloud_infer/quick_start_parallel_java` directory.
 
 ## Creating Configuration
 
@@ -87,7 +87,7 @@ if (!ret) {
 
 ### Build
 
-Set environment variables, and Run the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh) in the `mindspore/lite/examples/quick_start_parallel_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
+Set environment variables, and Run the [build script](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_java/build.sh) in the `mindspore-lite/examples/quick_start_parallel_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
 
 ```bash
 export JAVA_HOME=/{path}/default-java
@@ -100,7 +100,7 @@ bash build.sh
 
 ### Inference
 
-After the build, go to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_java/target` directory and run the following command to experience MindSpore Lite inference on the MobileNetV2 model:
+After the build, go to the `mindspore-lite/examples/cloud_infer/quick_start_parallel_java/target` directory and run the following command to experience MindSpore Lite inference on the MobileNetV2 model:
 
 ```java
 java -classpath .:./quick_start_parallel_java.jar:../lib/runtime/lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.mindir

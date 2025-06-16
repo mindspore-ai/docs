@@ -144,7 +144,7 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -j32
     ```
 
-    Or modify `mindspore/lite/CMakeLists.txt` to set MSLITE_ENABLE_TRAIN to off and execute the command:
+    Or modify `mindspore-lite/CMakeLists.txt` to set MSLITE_ENABLE_TRAIN to off and execute the command:
 
     ```bash
     bash build.sh -I arm64 -j32
@@ -303,7 +303,7 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 | lite | Set this parameter to compile the MindSpore Lite project. | Yes |
 | [n] | Set the number of threads used during compilation, otherwise the default is set to 6 threads.  | No |
 
-#### The Options of `mindspore/lite/CMakeLists.txt`
+#### The Options of `mindspore-lite/CMakeLists.txt`
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -315,7 +315,7 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 | MSLITE_ENABLE_GITEE_MIRROR | Whether to enable download third_party from gitee mirror | on, off | off |
 
-> - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
+> - The above options can be modified by setting the environment variable with the same name or the file `mindspore-lite/CMakeLists.txt`.
 > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
 
 ### Compilation Example
@@ -405,7 +405,7 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 | -I | Selects an applicable architecture. | arm64, arm32 | None |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | 8 |
 
-#### The Options of `mindspore/lite/CMakeLists.txt`
+#### The Options of `mindspore-lite/CMakeLists.txt`
 
 | Option               | Parameter Description            | Value Range | Defaults |
 |----------------------|----------------------------------| ---- | ---- |

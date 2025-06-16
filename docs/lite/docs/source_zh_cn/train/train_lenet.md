@@ -6,7 +6,7 @@
 
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet_cpp)，演示在Android设备上训练一个LeNet。
+本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/train_lenet_cpp)，演示在Android设备上训练一个LeNet。
 
 端侧训练流程如下：
 
@@ -68,7 +68,7 @@ git clone https://gitee.com/mindspore/mindspore.git -b {version}
 cd ./mindspore
 ```
 
-源码路径下的`mindspore/lite/examples/train_lenet_cpp`目录包含了本示例程序的源码。其中version和下文中[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)的version保持一致。如果-b 指定master，需要通过[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)的方式获取对应的安装包。
+源码路径下的`mindspore-lite/examples/train_lenet_cpp`目录包含了本示例程序的源码。其中version和下文中[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)的version保持一致。如果-b 指定master，需要通过[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)的方式获取对应的安装包。
 
 请到[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。最后将文件放到MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
 
@@ -93,7 +93,7 @@ cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-l
 进入示例代码目录并执行训练脚本，`Linux`指令如下：
 
 ```bash
-cd mindspore/lite/examples/train_lenet_cpp
+cd mindspore-lite/examples/train_lenet_cpp
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
@@ -282,7 +282,7 @@ print("finished exporting")
 
 ### 训练模型
 
-模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)。
+模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc)。
 
 模型训练的主函数为：
 

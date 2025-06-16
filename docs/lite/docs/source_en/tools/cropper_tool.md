@@ -12,7 +12,7 @@ The operating environment of the library cropping tool is x86_64, and currently 
 
 To use the Cropper tool, you need to prepare the environment as follows:
 
-- Compilation: The code of the Cropper tool is stored in the `mindspore/lite/tools/cropper` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/build/build.html#compilation-example) in the build document to compile version x86_64.
+- Compilation: The code of the Cropper tool is stored in the `mindspore-lite/tools/cropper` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/build/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/build/build.html#compilation-example) in the build document to compile version x86_64.
 
 - Run: Obtain the `cropper` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/build/build.html#environment-requirements) in the build document.
 

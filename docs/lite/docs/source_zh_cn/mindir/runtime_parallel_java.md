@@ -19,11 +19,11 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.
 
 ## 准备工作
 
-1. 以下代码样例来自于[使用Java接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java)。
+1. 以下代码样例来自于[使用Java接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_java)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_parallel_java/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore-lite/examples/cloud_infer/quick_start_parallel_java/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
 
-3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、Nvidia GPU、CPU三合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore/lite/examples/cloud_infer/quick_start_parallel_java`目录。
+3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、Nvidia GPU、CPU三合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore-lite/examples/cloud_infer/quick_start_parallel_java`目录。
 
 ## 创建配置项
 
@@ -88,7 +88,7 @@ if (!ret) {
 
 ### 编译构建
 
-设置环境变量，在`mindspore/lite/examples/cloud_infer/quick_start_parallel_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
+设置环境变量，在`mindspore-lite/examples/cloud_infer/quick_start_parallel_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_java/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
 
 ```bash
 export JAVA_HOME=/{path}/default-java
@@ -101,7 +101,7 @@ bash build.sh
 
 ### 执行推理
 
-编译构建后，进入`mindspore/lite/examples/cloud_infer/quick_start_parallel_java/target`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+编译构建后，进入`mindspore-lite/examples/cloud_infer/quick_start_parallel_java/target`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
 ```java
 java -classpath .:./quick_start_parallel_java.jar:../lib/runtime/lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.mindir

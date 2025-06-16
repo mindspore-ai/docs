@@ -31,7 +31,7 @@ bash build.sh -I x86_64 -j8
 ```
 
 编译环境要求以及环境变量设置，请参考[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)章节。
-本教程使用的示例源码在`mindspore/lite/examples/train_lenet_java`目录。
+本教程使用的示例源码在`mindspore-lite/examples/train_lenet_java`目录。
 
 ### 下载数据集
 
@@ -60,7 +60,7 @@ MNIST_Data/
 1. 首先进入示例工程所在目录，运行示例程序，命令如下：
 
     ```bash
-    cd /codes/mindspore/mindspore/lite/examples/train_lenet_java
+    cd /codes/mindspore/mindspore-lite/examples/train_lenet_java
     ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x64.tar.gz
     ```
 

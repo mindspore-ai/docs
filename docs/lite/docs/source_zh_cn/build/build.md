@@ -144,7 +144,7 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm64 -j32
     ```
 
-    或者修改`mindspore/lite/CMakeLists.txt`将 MSLITE_ENABLE_TRAIN 设置为 off 后，执行命令:
+    或者修改`mindspore-lite/CMakeLists.txt`将 MSLITE_ENABLE_TRAIN 设置为 off 后，执行命令:
 
     ```bash
     bash build.sh -I arm64 -j32
@@ -303,7 +303,7 @@ MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
 | lite | 设置该参数，则对MindSpore Lite工程进行编译 | 是 |
 | [n] | 设定编译时所用的线程数，否则默认设定为6线程  | 否 |
 
-#### `mindspore/lite/CMakeLists.txt`的选项
+#### `mindspore-lite/CMakeLists.txt`的选项
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
@@ -315,7 +315,7 @@ MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
 | MSLITE_ENABLE_GITEE_MIRROR | 是否使能三方库从码云镜像下载 | on、off | off |
 
-> - 以上选项可通过设置同名环境变量或者`mindspore/lite/CMakeLists.txt`文件修改。
+> - 以上选项可通过设置同名环境变量或者`mindspore-lite/CMakeLists.txt`文件修改。
 > - 模型转换工具的编译时间较长，若非必要，建议通过`MSLITE_ENABLE_CONVERTER`关闭转换工具编译，以加快编译速度。
 
 ### 编译示例
@@ -405,7 +405,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | -I | 选择目标架构 | arm64、arm32 | 无 |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 8 |
 
-#### `mindspore/lite/CMakeLists.txt`的选项
+#### `mindspore-lite/CMakeLists.txt`的选项
 
 | 选项                   | 参数说明           | 取值范围 | 默认值 |
 |----------------------|----------------| ---- | ---- |

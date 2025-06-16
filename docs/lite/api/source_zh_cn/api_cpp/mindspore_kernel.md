@@ -243,7 +243,7 @@ std::map<std::string, std::string> GetConfig(const std::string &section) const
 
 ## KernelInterface
 
-\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/kernel_interface.h)>
+\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/kernel_interface.h)>
 
 算子扩展能力基类。
 
