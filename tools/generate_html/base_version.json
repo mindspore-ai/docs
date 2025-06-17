@@ -306,5 +306,14 @@
         },
         "repo_name": "mindformers",
         "theme": "theme-docs"
+    },
+    {
+        "version": "master",
+        "label": {
+            "zh": "vLLM MindSpore",
+            "en": "vLLM MindSpore"
+        },
+        "repo_name": "vllm_mindspore",
+        "theme": "theme-docs"
     }
 ]

@@ -103,6 +103,7 @@ Apache License 2.0, as found in the `LICENSE <https://gitee.com/mindspore/vllm-m
    getting_started/installation/installation
    getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU
    getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU
+   getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4
 
 .. toctree::
    :glob:

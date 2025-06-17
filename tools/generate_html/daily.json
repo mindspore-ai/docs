@@ -104,5 +104,14 @@
     "whl_name" : "mindarmour-.*-py3-none-any.whl$",
     "environ" : "MA_PATH",
     "uninstall_name" : "mindarmour"
+},
+{
+    "id" : 12 ,
+    "name" : "vllm_mindspore",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "",
+    "uninstall_name" : ""
 }
 ]
