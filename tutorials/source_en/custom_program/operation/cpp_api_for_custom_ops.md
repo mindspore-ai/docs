@@ -247,17 +247,17 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
 - **repeat_interleave**
 
   ```cpp
-  Tensor repeat_interleave(const Tensor &repeats, std::optional<int64_t> dim = std::nullopt,
-                           std::optional<int64_t> output_size = std::nullopt) const;
-  Tensor repeat_interleave(int64_t repeats, std::optional<int64_t> dim = std::nullopt,
-                           std::optional<int64_t> output_size = std::nullopt) const;
+  Tensor repeat_interleave(const Tensor &repeats, const std::optional<int64_t> &dim = std::nullopt,
+                           const std::optional<int64_t> &output_size = std::nullopt) const;
+  Tensor repeat_interleave(int64_t repeats, const std::optional<int64_t> &dim = std::nullopt,
+                           const std::optional<int64_t> &output_size = std::nullopt) const;
   ```
 
     - **Description**: 【API】 Repeats the elements of the tensor along a specified dimension.
     - **Parameters**:
         - `repeats`: A scalar or tensor specifying the number of times each element is repeated. If a tensor is provided, its size must match the size of the specified dimension.
-        - `dim`: The dimension along which to repeat elements, default is `std::nullopt`.
-        - `output_size`: (Optional) The size of the output tensor along the specified dimension.
+        - `dim`: (Optional) The dimension along which to repeat elements, default is `std::nullopt`.
+        - `output_size`: (Optional) The size of the output tensor along the specified dimension, default is `std::nullopt`.
     - **Return Value**: A new tensor with repeated elements.
 
 #### Public Methods (Internal Processes)

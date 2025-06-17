@@ -247,17 +247,17 @@ kNumberTypeEnd,         // Number 类型结束值
 - **repeat_interleave**
 
   ```cpp
-  Tensor repeat_interleave(const Tensor &repeats, std::optional<int64_t> dim = std::nullopt,
-                           std::optional<int64_t> output_size = std::nullopt) const;
-  Tensor repeat_interleave(int64_t repeats, std::optional<int64_t> dim = std::nullopt,
-                           std::optional<int64_t> output_size = std::nullopt) const;
+  Tensor repeat_interleave(const Tensor &repeats, const std::optional<int64_t> &dim = std::nullopt,
+                           const std::optional<int64_t> &output_size = std::nullopt) const;
+  Tensor repeat_interleave(int64_t repeats, const std::optional<int64_t> &dim = std::nullopt,
+                           const std::optional<int64_t> &output_size = std::nullopt) const;
   ```
 
     - **描述**：【API】沿指定维度重复张量的元素。
     - **参数**：
         - `repeats`：一个标量或张量，指定每个元素的重复次数。如果是张量，其大小必须与该维度的张量大小一致。
-        - `dim`：指定的维度，默认为 `std::nullopt`。
-        - `output_size`：（可选）输出张量在该维度的大小。
+        - `dim`：（可选）指定的维度，默认为 `std::nullopt`。
+        - `output_size`：（可选）输出张量在该维度的大小，默认为 `std::nullopt`。
     - **返回值**：一个重复元素的新张量。
 
 #### 公共方法（内部流程）
