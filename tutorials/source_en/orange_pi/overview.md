@@ -1,5 +1,7 @@
 # OrangePi AIpro Development
 
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/overview.md)
+
 [OrangePi AIpro](http://www.orangepi.org/) adopts the route of Ascend AI technology, specifically 4-core 64-bit processor and AI processor, integrated graph processor.
 
 At present, the system image of OrangePi AIpro development board has been realized with the Ascend MindSpore AI framework pre-installed, and continues to evolve in subsequent version iterations, and currently supports all network models covered by the tutorials on the MindSpore official website. The OrangePi AIpro development board provides developers with the openEuler version and the ubuntu version, both of which are preconfigured with Ascend MindSpore, allowing users to experience the efficient development experience brought by the synergistic optimization of hardware and software. Meanwhile, developers are welcome to customize MindSpore and CANN running environment.
