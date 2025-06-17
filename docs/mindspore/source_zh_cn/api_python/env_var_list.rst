@@ -363,7 +363,7 @@
      - 控制动态图算子是否单线程下发。开启后，动态图算子将采用单线程下发。
      - Integer
      - 1：动态图算子采用单线程下发。
-     
+
        不设置或其他值：动态图算子不开启单线程下发。
      -
 
@@ -831,7 +831,7 @@ Dump调试
 
 注意：glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。请在 `import mindspore` 之前设置日志相关环境变量。
 
-特征值检测
+静默故障检测
 ------------
 
 .. list-table::
@@ -853,7 +853,7 @@ Dump调试
        2：检测到异常，打印日志，检测算子抛出异常
 
        3：特征值正常和异常场景下都会打印（备注：正常场景下只有CANN开启了INFO及DEBUG级别才会打印），检测到异常时检测算子抛出异常
-     - 目前本特性仅支持Atlas A2 训练系列产品，仅支持检测Transformer类模型，bfloat16数据类型，训练过程中出现的特征值检测异常
+     - 目前本特性仅支持Atlas A2训练系列产品，仅支持检测Transformer类模型，bfloat16数据类型，训练过程中出现的特征值检测异常
 
        考虑到无法事先知道数据特征值的分布范围，建议设置NPU_ASD_ENABLE的值为1来使能静默检测，以防止误检导致训练中断
    * - NPU_ASD_UPPER_THRESH
@@ -874,6 +874,13 @@ Dump调试
 
        在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
      -
+   * - MS_SDC_DETECT_ENABLE
+     - 是否使能CheckSum检测静默故障
+     - Integer
+     - 0：关闭CheckSum检测静默故障
+
+       1：使能CheckSum检测静默故障
+     - 目前本特性仅支持Atlas A2训练系列产品，仅支持在O0或O1模式下，对bfloat16数据类型的MatMul算子进行CheckSum校验
 
 特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/sdc.html>`_ 。
 
