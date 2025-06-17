@@ -363,7 +363,7 @@ Graph Compilation and Execution
      - Control whether the operator is launched in a single thread in PyNative mode. When enabled, the operator will be launched in a single thread in PyNative mode.
      - Integer
      - 1: The operator will be launched in a single thread in PyNative mode.
-     
+
        No setting or use other value: Multi-thread launching is enabled for operator in PyNative mode.
      -
 
@@ -834,8 +834,8 @@ Log
 
 Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux. Please set the log environment variables before `import mindspore` .
 
-Feature Value Detection
-------------------------------
+Silent Data Corruption Detection
+--------------------------------
 
 .. list-table::
    :widths: 20 20 10 30 20
@@ -877,6 +877,13 @@ Feature Value Detection
 
        By default, if this environment variable is not configured, `NPU_ASD_SIGMA_THRESH=100000,5000`
      -
+   * - MS_SDC_DETECT_ENABLE
+     - Whether to enable CheckSum for silent data corruption detection
+     - Integer
+     - 0: Disable CheckSum for silent data corruption detection
+
+       1: Enable CheckSum for silent data corruption Detection
+     - Currently, this feature only supports Atlas A2 training series products, and only supports CheckSum for MatMul with bfloat16 data type in O0 or O1 mode
 
 For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/tutorials/en/master/debug/sdc.html>`_.
 
