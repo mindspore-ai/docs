@@ -92,11 +92,11 @@ output
     ├── checkpoint
         ├── rank_0
             ├── meta.json
-            └── {prefix}-{epoch}_{step}.ckpt
+            └── {prefix}-{epoch}_{step}.safetensors
         ...
         └── rank_7
             ├── meta.json
-            └── {prefix}-{epoch}_{step}.ckpt
+            └── {prefix}-{epoch}_{step}.safetensors
     └──checkpoint_network
         ├── rank_0
             └── {prefix}-{epoch}_{step}.safetensors
@@ -129,6 +129,8 @@ callbacks:
   - type: CheckpointMonitor
     prefix: "deepseekv3"
     save_checkpoint_steps: 1000
+    keep_checkpoint_max: 5
+    save_network_params: False
     integrated_save: False
     async_save: False
     checkpoint_format: "safetensors"
@@ -392,14 +394,14 @@ callbacks:
 output
     ├── checkpoint
         ├── rank_0
-            └── example-1_1.ckpt  #文件大小：5.2G
+            └── example-1_1.safetensors  #文件大小：5.2G
         ├── rank_1
-            └── example-1_1.ckpt  #文件大小：5.2G
+            └── example-1_1.safetensors  #文件大小：5.2G
         ...
         ├── rank_6
-            └── example-1_1.ckpt  #文件大小：4.1G
+            └── example-1_1.safetensors  #文件大小：4.1G
         └── rank_7
-            └── example-1_1.ckpt  #文件大小：4.1G
+            └── example-1_1.safetensors  #文件大小：4.1G
 ```
 
 加载时打开以下配置：
@@ -484,11 +486,11 @@ python toolkit/safetensors/unified_safetensors.py \
 ```python
 import mindspore as ms
 # step1:合并目标切分策略文件
-ms.parallel.merge_pipeline_strategys("/output/strategy", "/output/merged_strategy/dst_strategy.ckpt")
+ms.parallel.merge_pipeline_strategys("output/strategy", "output/merged_strategy/dst_strategy.ckpt")
 # step2:根据合并后的目标切分策略以及完整权重，将权重切分并保存成分布式权重
 ms.load_distributed_checkpoint(
             network=None,
-            predict_strategy='/output/merged_strategy/dst_strategy.ckpt',
+            predict_strategy='output/merged_strategy/dst_strategy.ckpt',
             unified_safetensors_dir='/path/unified_safetensors',
             dst_safetensors_dir='/path/distributed_safetensors',
             format='safetensors',
@@ -516,7 +518,7 @@ MindSpore Transformers存量权重文件为ckpt格式，可以通过以下两种
 
 ```python
 import mindspore as ms
-ms.ckpt_to_safetensors("./ckpt_save_path/rank0/checkpoint_0.ckpt", ".output/safetensors_path/")
+ms.ckpt_to_safetensors("./ckpt_save_path/rank0/checkpoint_0.ckpt", "./output/safetensors_path/")
 #参数说明
 #file_path (str) - 包含 checkpoint 文件的目录路径或单个 checkpoint 文件 (.ckpt) 的路径
 #save_path (str, 可选) - 保存 safetensors 文件的目录路径。默认值：None
