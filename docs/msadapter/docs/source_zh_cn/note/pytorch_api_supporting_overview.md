@@ -232,6 +232,21 @@ after import torch: a.shape=torch.Size([2])
 |------|-----------|
 | mindspore.Tensor/mindspore.StubTensor | is_shared, softmax, type_, retain_grad, shape, to_dense, \_base, data, numel, nelement, repeat, cuda, npu, cpu, size, dim, clone, log_softmax, narrow, view, \_\_or\_\_, device, \_\_and\_\_, \_\_xor\_\_, \_\_iter\_\_, \_\_reduce_ex\_\_, expand, detach, T, transpose, mean, clamp, is_cuda, is_cpu, repeat_interleave, is_sparse, requires_grad, requires_grad_, unsqueeze, \_\_pow\_\_, float, backward, split, norm, record_stream, data_ptr, pin_memory, grad, \_\_imul\_\_, reshape, squeeze, element_size, exponential\_ |
 
+### 不支持非PyTorch API官方使用方式
+
+PyTorch通过pybind重载的场景下，当*号前存在key=value的默认值时，参数可以显式通过size=[1,2]的形式传参。
+
+MSAdapter目前不支持此类传参方式，并且这类传参方式与PyTorch官方使用不符。
+
+以torch.randint为例
+
+```python
+label = torch.randint(0, 10, size=[1, 2], dtype=torch.float) # PyTorch可运行，但是MSAdapter报错；非PyTorch官网使用方式
+label = torch.randint(0, 10, [1, 2], dtype=torch.float) # PyTorch，MSAdapter均可运行；遵照PyTorch官网使用方式
+```
+
+用户需要按照PyTorch官方的方法使用参数，MSAdapter已和PyTorch官网的用法对齐。
+
 ## PyTorch模块支持情况
 
 用户可以参考下列表格查看各模块API支持情况。
