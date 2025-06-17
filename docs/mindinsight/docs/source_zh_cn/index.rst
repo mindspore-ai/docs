@@ -17,6 +17,33 @@ MindSpore Insight包括以下内容：
 
 代码仓地址： <https://gitee.com/mindspore/mindinsight>
 
+关于MindSpore Insight工具停止发布更新的公告
+---------------------------------------------
+
+尊敬的用户朋友们：
+
+我们抱着遗憾的心情向大家宣布，因技术规划调整，MindSpore Insight将逐步停止发布更新。具体安排如下：
+
+- **MindSpore Insight：自MindSpore Insight 2.3版本起停止更新发布。**
+
+在过去的时间里，此应用得到了你们的支持与厚爱，我们对此深表感谢。
+
+接下来，为了确保您的使用体验不受影响，我们提供一下替代方案：
+
+- **MindSpore Insight：系统调优数据可视化已整合至MindStudio Insight**，标量可视化、参数分布图可视化和计算图可视化已整合至MindStudio Insight插件，请参阅 `《MindStudio Insight用户指南》 <https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0002.html>`_。
+
+我们的用户支撑团队将持续为您提供服务，如有任何问题或需要帮助，请随时通过论坛联系联系我们。
+
+再次感谢您长久以来对MindSpore Insight的支持与信任，我们将继续致力于为您提供更优质的产品和服务。
+
+.. raw:: html
+
+   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此致</div>
+
+敬礼！
+
+2025年6月9日
+
 使用MindSpore Insight可视化训练过程
 ------------------------------------
 
