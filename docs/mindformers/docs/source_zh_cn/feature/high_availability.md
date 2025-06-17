@@ -186,7 +186,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
     ```bash
     export MINDIO_FOR_MINDSPORE=1
 
-    export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1}"
+    export MS_ENABLE_TFT="{TTP:1,UCE:1,ARF:1,TSP:1}"
     export MS_TFT_IP=127.0.0.1
     export MS_TFT_PORT=30051
 

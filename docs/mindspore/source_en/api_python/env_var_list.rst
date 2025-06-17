@@ -935,7 +935,7 @@ Third-party Library
    * - MS_ENABLE_TFT
      - Enable `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ feature. Turn on TTP, UCE, TRE or ARF feature.
      - String
-     - "{TTP:1,UCE:1,TRE:1,ARF:1}". TTP (Try To Persist): End of life CKPT, UCE (Uncorrectable Memory Error): Fault tolerance and recovery, TRE(Training Result Error): Restoring training result exceptions, ARF (Air Refuelling): Process level rescheduling and recovery feature. The four features can be enabled separately. If you only want to enable one of them, set the corresponding value to 1. Other values: MindIO TFT not turned on. (When using UCE or ARF, TTP is enabled by default. TRE can not be used with UCE or ARF feature.)
+     - "{TTP:1,UCE:1,TRE:1,ARF:1,TSP:1}". TTP (Try To Persist): End of life CKPT, UCE (Uncorrectable Memory Error): Fault tolerance and recovery, TRE(Training Result Error): Restoring training result exceptions, ARF (Air Refuelling), TSP(Training step pause): Process level rescheduling and recovery feature. The four features can be enabled separately. If you only want to enable one of them, set the corresponding value to 1. Other values: MindIO TFT not turned on. (When using UCE or ARF, TTP is enabled by default. TRE can not be used with UCE or ARF feature.)
      - Graph mode can only be enabled on the Ascend backend and jit_level is set to "O0" or "O1".
    * - MS_TFT_IP
      - The IP address where the MindIO controller thread is located for processor connections.
