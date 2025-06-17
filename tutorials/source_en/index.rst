@@ -30,11 +30,8 @@ MindSpore Tutorial
    :hidden:
 
    dataset/sampler
-   dataset/record
    dataset/eager
-   dataset/python_objects
-   dataset/augment
-   dataset/cache
+   dataset/record
    dataset/optimize
 
 .. toctree::
