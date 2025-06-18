@@ -269,7 +269,7 @@ In MindSpore's graph mode, the purpose and techniques of redundancy elimination 
     %2(d) = PrimFunc_Div(%0, %1)
         : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
     Return(%2)
-        : (<Tensor[Float32], ())
+        : (<Tensor[Float32], ()>)
     }
     ```
 
@@ -311,7 +311,7 @@ In MindSpore's graph mode, the purpose and techniques of redundancy elimination 
     %2(d) = PrimFunc_Div(%0, %1)
         : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
     Return(%2) cnode_attrs: {checkpoint: Bool(1)}
-        : (<Tensor[Float32], ())
+        : (<Tensor[Float32], ()>)
     }
     ```
 

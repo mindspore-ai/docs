@@ -78,7 +78,7 @@ MindSpore Transformers功能特性说明
 
   - `配置文件 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html>`_
 
-    支持使用`YAML`文件集中管理和调整任务中的可配置项。
+    支持使用 `YAML` 文件集中管理和调整任务中的可配置项。
 
   - `日志 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/logging.html>`_
 

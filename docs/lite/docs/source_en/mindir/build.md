@@ -248,7 +248,7 @@ mindspore-lite-{version}-linux-{arch}
 │       └── securec
 └── tools
     ├── akg
-    |    └── akg-{version}-{python}-{linux}-{arch}.whl # AKG Python whl package
+    |    └── akg-{version}-{python}-linux-{arch}.whl # AKG Python whl package
     ├── benchmark              # Benchmarking Tools
     │   └── benchmark          # Benchmarking tool executable file
     └── converter              # Model converter
