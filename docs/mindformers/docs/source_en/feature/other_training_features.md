@@ -80,16 +80,19 @@ max_grad_norm: 1.0
 
 For MoE (Mixture of Experts), there are fragmented expert computation operations and communications. The GroupedMatmul operator merges multi-expert computations to improve the training performance of MoE. By invoking the GroupedMatmul operator, multiple expert computations are fused to achieve acceleration.
 
+The `token_dispatcher` routes different tokens (input subwords or subunits) to different experts, compute units, or branches for independent processing based on the computed routing strategy. It primarily relies on `all_to_all` communication.
+
 ### Configuration and Usage
 
 #### YAML Parameter Configuration
 
-To enable GroupedMatmul in MoE scenarios, users only need to configure the `use_gmm` parameter under the moe_config section in the configuration file and set it to `True`:
+In scenarios where GroupedMatmul needs to be enabled for MoE, users only need to set the `use_gmm` option to `True` under the `moe_config` section in the configuration file. If the fused operator for `token_permute` is required, configure `use_fused_ops_permute` to `True`:
 
 ```yaml
 moe_config:
   ...
   use_gmm: True
+  use_fused_ops_permute: True
   ...
 ```
 

@@ -80,16 +80,19 @@ runner_wrapper:
 
 针对MoE单卡多专家计算，存在细碎的专家计算操作与通信，通过GroupedMatmul算子对多专家计算进行合并，提升MoE单卡多专家训练性能。通过调用GroupedMatmul算子，对多个专家计算进行融合达到加速效果。
 
+`token_dispatcher`可以根据根据计算后的路由策略，将不同的 token（输入的子词/子单元）路由分派给不同的专家（Expert）、计算单元或分支进行独立处理，该模块主要有`all_to_all`通信构成。
+
 ### 配置与使用
 
 #### YAML 参数配置
 
-用户在需要MoE开启GroupedMatmul的场景下，只需在配置文件中的 `moe_config` 项下配置 `use_gmm` 项，设置为`True`即可：
+用户在需要MoE开启GroupedMatmul的场景下，只需在配置文件中的 `moe_config` 项下配置 `use_gmm` 项，设置为`True`。如果需要使用`token_permute`融合算子，配置`use_fused_ops_permute`为`True`：
 
 ```yaml
 moe_config:
   ...
   use_gmm: True
+  use_fused_ops_permute: True
   ...
 ```
 
