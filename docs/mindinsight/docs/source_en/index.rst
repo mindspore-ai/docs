@@ -18,6 +18,29 @@ MindSpore Insight provides the following functions:
 
 Code repository address: <https://gitee.com/mindspore/mindinsight>
 
+Announcement on the Discontinuation of MindSpore Insight Tool Updates
+-----------------------------------------------------------------------
+
+Dear users
+
+We regret to inform you that MindSpore Insight will gradually cease releasing updates due to technical planning adjustments. The specific arrangement is as follows:
+
+- **MindSpore Insight: MindSpore Insight will no longer update or release new versions after version 2.3.**
+
+Thank you for your past use of this application.
+
+To maintain a smooth user experience, we provide these options:
+
+- **MindSpore Insightt: System optimization data visualization has been integrated into MindStudio Insight** and scalar visualization, parameter distribution visualization, and computational graphs visualization have been integrated into the MindStudio Insight plugins. For details, see the  `MindStudio Insight User Guide <https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0002.html>`_.
+
+Our user support team will keep helping you. If you have questions or need heep, cantact us on the forum.
+
+We sincerely thank you for supporting MindSpore Insight over the years. We will keep working to offer you better products and services.
+
+Sincerely!
+
+June 9, 2025
+
 Using MindSpore Insight to Visualize the Training Process
 -----------------------------------------------------------
 
