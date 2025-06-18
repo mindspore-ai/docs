@@ -1258,7 +1258,7 @@ if __name__ == "__main__":
     # 修改权限
     pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
     chmod_path = os.path.join(pythonlib_dir, 'sphinx')
-    cmd_chmod = ['sudo', 'chmod', '-R', '+w', chmod_path]
+    cmd_chmod = ['sudo', 'chmod', '-R', '777', chmod_path]
     subprocess.run(cmd_chmod)
 
     # 屏蔽sphinx 在python>=3.9时额外依赖引入的版本过高问题

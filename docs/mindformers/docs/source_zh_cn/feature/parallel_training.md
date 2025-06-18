@@ -157,7 +157,7 @@ parallel_config:
 
 ## MindSpore Transformers 分布式并行应用实践
 
-在官网提供的[Llama3-70B微调配置](https://gitee.com/kong_de_shu/mindformers/blob/dev/research/llama3/llama3_70b/finetune_llama3_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
+在官网提供的[Llama3-70B微调配置](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_70b/finetune_llama3_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
 
 - **数据并行**：未启用额外的数据并行（`data_parallel: 1`）。
 - **模型并行**：模型被切分成8个部分，在不同设备上计算（`model_parallel: 8`）。
