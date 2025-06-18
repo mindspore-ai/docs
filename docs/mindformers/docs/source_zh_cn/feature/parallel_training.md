@@ -21,21 +21,64 @@ MindSpore 的并行模式包括数据并行、模型并行、流水线并行、�
 
 ## MindSpore Transformers 支持的并行特性
 
-MindSpore Transformers 支持多种并行特性，开发者可以利用这些特性来优化不同模型架构和硬件配置的训练。以下表格概述了这些并行特性，并提供了指向 MindSpore 文档中详细说明的链接。
+MindSpore Transformers 支持多种并行特性，开发者可以利用这些特性来优化不同模型架构和硬件配置的训练。以下内容概述了这些并行特性，并提供了指向 MindSpore 文档中详细说明的链接。
 
-| **并行特性**                      | **描述**                                                                          |
-|-----------------------------------|---------------------------------------------------------------------------------|
-| **[数据并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/data_parallel.html)**                     | 将数据拆分到多个设备上，并在每个设备上同时进行训练。适用于数据量大且模型相对简单的任务。                                    |
-| **[模型并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/operator_parallel.html)**                     | 将模型参数分布到多个设备上，适合单个设备无法容纳整个模型的情况。                                                |
-| **[流水线并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/pipeline_parallel.html)**                   | 将模型分割成多个阶段，每个阶段在不同的设备上运行，以实现超大规模模型的高效训练。                                        |
-| **[优化器并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/optimizer_parallel.html)**                   | 将优化器计算分布到多个设备上，减少内存占用，提高训练效率。                                                   |
-| **序列并行**                     | 设计用于分摊模型并行无法切分的显存和计算，将Transformer层中的LayerNorm及Dropout的输入按照序列维度进行切分，减少单设备的显存压力。        |
-| **[长序列并行](#长序列并行)**  | 设计用于处理长序列输入的模型，对所有的input输入和所有的输出activation在sequence维度上进行切分，对于超长序列输入场景进一步减少显存占用。 |
-| **[多副本并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/pipeline_parallel.html#mindspore%E4%B8%AD%E7%9A%84interleaved-pipeline%E8%B0%83%E5%BA%A6)**                   | 用于在多个副本之间实现精细的并行控制，优化性能和资源利用率，适合大规格模型的高效训练。                                     |
+### 数据并行
+
+数据并行是每个设备（worker）都持有一份完整的模型权重，將输入的数据分片并分配到不同的计算设备上并行处理，并基于分配到的局部数据进行前向传播和反向传播计算，在反向传播完成后，所有设备上计算的梯度会通过全局规约（AllReduce）操作进行聚合，确保各设备上的模型参数保持一致性。多路数据同时训练时，仅在梯度更新进行一次通信，性能最优，但内存不会减少。数据并行适用于数据量大且模型规模较小的场景。关于数据并行的框架侧实现，参见 [MindSpore 数据并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/data_parallel.html) 的具体内容。
+
+MindSpore Transformers已支持数据并行方案，可通过以下配置项使能：
+
+```yaml
+parallel_config:
+  ...
+  data_parallel: 2
+  ...
+```
+
+参数说明：
+
+- data_parallel：数据并行切分数量，默认为1，根据用户需求配置。
 
 关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
 
-## 并行特性介绍
+### 模型并行
+
+数据并行训练中，每个设备均存储全部模型参数，显存占用较高，在模型规模较大时可能存在瓶颈。模型并行将整个模型切分并分布在一个设备阵列上，每个设备仅维护模型的一部分权重，网络并行计算各自部分并在LayerNorm等位置进行通信，最省内存，但通信量较大。模型并行适用于模型规模较大，单个设备无法容纳整个模型的场景。关于模型并行的框架侧实现，参见 [MindSpore 模型并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/operator_parallel.html) 的具体内容。
+
+MindSpore Transformers已支持模型并行方案，可通过以下配置项使能：
+
+```yaml
+parallel_config:
+  ...
+  model_parallel: 2
+  ...
+```
+
+参数说明：
+
+- model_parallel：模型并行切分数量，默认为1，根据用户需求配置。
+
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+
+### 序列并行
+
+序列并行设计用于分摊模型并行无法切分的显存和计算，将Transformer层中的LayerNorm及Dropout的输入按照序列维度进行切分，减少单设备的显存压力。
+
+MindSpore Transformers已支持序列并行方案，可通过以下配置项使能：
+
+```yaml
+parallel_config:
+  ...
+  use_seq_parallel: True
+  ...
+```
+
+参数说明：
+
+- use_seq_parallel：是否开启序列并行，默认为Fasle。
+
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ### 长序列并行
 
@@ -125,11 +168,11 @@ parallel_config:
 
 ### 流水线并行
 
-#### 序列流水线并行（Seq-Pipe）
+#### 多流水线并行交织
 
-模型输入按sequence维度进行切分，展开为多个序列块（Sequence Chunk）。在原有的1F1B和1F1B-Interleave上，将调度单位缩小为Sequence Chunk。`seq_split_num`为切分个数，当`seq_split_num`=1时，退化为1F1B或1F1B-Interleave。
+多流水线并行（virtual pipeline）通过数据交织、层间交织、正反向交织，降低流水线气泡（bubble）。通过配置流水线调度策略，模型输入按sequence维度进行切分，展开为多个序列块（Sequence Chunk）。在原有的1F1B和1F1B-Interleave上，将调度单位缩小为Sequence Chunk。`seq_split_num`为切分个数，当`seq_split_num`=1时，退化为1F1B或1F1B-Interleave。多流水交织并行在限制全局批量大小（global_batch_size）的情况下，如果bubble较大，可以显著降低集群空闲时间，同时会导致内存占用变大，产生额外通信。关于流水线并行的框架侧实现，参见 [MindSpore 流水线并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/pipeline_parallel.html) 的具体内容。
 
-MindSpore Transformers已支持配置Seq-Pipe流水线并行方案，可通过以下配置项使能：
+MindSpore Transformers已支持配置多流水线交织并行方案，可通过以下配置项使能：
 
 ```yaml
 # parallel context
@@ -145,6 +188,7 @@ parallel_config:
 
 参数说明：
 
+- pipeline_interleave：是否开启多流水交织并行。
 - pipeline_scheduler：流水线的调度策略，目前mindformers只支持设置为`"seqpipe"`。
 - seq_split_num：输入按序列维度的切分个数。
 
@@ -154,6 +198,48 @@ parallel_config:
 - 目前暂不支持使用Megatron的多源数据集进行训练的场景。
 
 关于分布式并行参数的配置方法，参见 [MindSpore Transformers配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+
+### 优化器并行
+
+在进行数据并行训练时，模型的参数更新部分在各卡间存在冗余计算。通过优化器并行，可以将优化器的计算量分散到数据并行维度的卡上，在大规模网络上有效减少内存消耗并提升网络性能。关于优化器并行的框架侧实现，参见 [MindSpore 优化器并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/optimizer_parallel.html) 的具体内容。
+
+ MindSpore Transformers已支持优化器并行方案，可通过以下配置项使能：
+
+```yaml
+parallel:
+  ...
+  enable_parallel_optimizer: True
+  ...
+```
+
+参数说明：
+
+- enable_parallel_optimizer：是否开启优化器并行，默认为Fasle。
+
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+
+### 多副本并行
+
+多副本并行用于在多个副本之间实现精细的并行控制，优化性能和资源利用率，适合大规格模型的高效训练。关于多副本并行的框架侧实现，参见 [MindSpore 多副本并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/pipeline_parallel.html#mindspore%E4%B8%AD%E7%9A%84interleaved-pipeline%E8%B0%83%E5%BA%A6) 的具体内容。
+
+ MindSpore Transformers已支持多副本并行方案，可通过以下配置项使能：
+
+```yaml
+model_config:
+  ...
+  fine_grain_interleave: 2
+  ...
+```
+
+参数说明：
+
+- fine_grain_interleave：细粒度多副本的数量。
+
+注意：
+
+- 目前仅支持Llama和Qwen系列模型。
+
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ## MindSpore Transformers 分布式并行应用实践
 
