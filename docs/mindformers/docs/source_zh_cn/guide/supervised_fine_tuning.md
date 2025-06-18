@@ -6,6 +6,8 @@
 
 SFT（Supervised Fine-Tuning，监督微调）采用有监督学习思想，是指在预训练模型的基础上，通过调整部分或全部参数，使模型更适应特定任务或数据集的过程。
 
+MindSpore Transformers支持全参微调和LoRA高效微调两种SFT微调方式。全参微调是指在训练过程中对所有参数进行更新，适用于大规模数据精调，能获得最优的任务适应能力，但需要的计算资源较大。LoRA高效微调在训练过程中仅更新部分参数，相比全参微调显存占用更少、训练速度更快，但在某些任务中的效果不如全参微调。
+
 ## SFT微调的基本流程
 
 结合实际操作，可以将SFT微调分解为以下步骤：
@@ -33,14 +35,6 @@ MindSpore Transformers提供[一键启动脚本](https://www.mindspore.cn/mindfo
 ### 6. 故障恢复
 
 为应对训练中断等异常情况，MindSpore Transformers具备临终保存、自动恢复等[高可用特性](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/high_availability.html)，并支持[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/resume_training.html)，提升训练稳定性。
-
-## SFT微调方式
-
-MindSpore Transformers支持全参微调和LoRA低参微调两种SFT微调方式。全参微调是指在训练过程中对所有参数进行更新，适用于大规模数据精调，能获得最优的任务适应能力，但需要的计算资源较大。LoRA低参微调在训练过程中仅更新部分参数，相比全参微调显存占用更少、训练速度更快，但在某些任务中的效果不如全参微调。
-
-> **LoRA 原理简介**
-> LoRA通过将原始模型的权重矩阵分解为两个低秩矩阵来实现参数量的显著减少。例如，假设一个权重矩阵W的大小为$m \times n$，通过LoRA，该矩阵被分解为两个低秩矩阵A和B，其中A的大小为$m \times r$，B的大小为$r \times n$（$r$远小于$m$和$n$）。在微调过程中，仅对这两个低秩矩阵进行更新，而不改变原始模型的其他部分。
-> 这种方法不仅大幅度降低了微调的计算开销，还保留了模型的原始性能，特别适用于数据量有限、计算资源受限的环境中进行模型优化，详细原理可以查看论文 [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) 。
 
 ## 使用MindSpore Transformers进行全参微调
 
@@ -171,9 +165,15 @@ parallel_config:
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
 
-## 使用MindSpore Transformers进行LoRA低参微调
+## 使用MindSpore Transformers进行LoRA高效微调
 
-MindSpore Transformers支持配置化使能LoRA微调，无需对每个模型进行代码适配，而仅需修改全参微调的YAML配置文件中的模型配置，添加 `pet_config` 低参微调配置，即可使用其进行LoRA低参微调任务。以下展示了Llama2模型LoRA微调的YAML配置文件中的模型配置部分，并对 `pet_config` 参数进行了详细说明。
+MindSpore Transformers支持配置化使能LoRA微调，无需对每个模型进行代码适配，而仅需修改全参微调的YAML配置文件中的模型配置，添加 `pet_config` 高效微调配置，即可使用其进行LoRA高效微调任务。以下展示了Llama2模型LoRA微调的YAML配置文件中的模型配置部分，并对 `pet_config` 参数进行了详细说明。
+
+### LoRA 原理简介
+
+LoRA通过将原始模型的权重矩阵分解为两个低秩矩阵来实现参数量的显著减少。例如，假设一个权重矩阵W的大小为$m \times n$，通过LoRA，该矩阵被分解为两个低秩矩阵A和B，其中A的大小为$m \times r$，B的大小为$r \times n$（$r$远小于$m$和$n$）。在微调过程中，仅对这两个低秩矩阵进行更新，而不改变原始模型的其他部分。
+
+这种方法不仅大幅度降低了微调的计算开销，还保留了模型的原始性能，特别适用于数据量有限、计算资源受限的环境中进行模型优化，详细原理可以查看论文 [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) 。
 
 ### 修改配置文件
 
