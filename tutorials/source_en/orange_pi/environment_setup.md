@@ -279,8 +279,7 @@ Step 4 Go to the Kernels package download directory.
 Step 5 Add execution permissions to the kernels package.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./
-Ascend-cann-kernels-310b_8.0.0_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.0.0_linux-aarch64.run
 ```
 
 Step 6 Execute the following command to upgrade the software.

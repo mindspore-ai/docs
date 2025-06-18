@@ -83,8 +83,7 @@ print(grads)
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
-  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]),
- Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]), Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
 ```
 
 ## Stop Gradient
@@ -112,8 +111,7 @@ print(grads)
   [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00],
   [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00],
   [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00],
-  [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]]),
- Tensor(shape=[3], dtype=Float32, value= [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]))
+  [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]]), Tensor(shape=[3], dtype=Float32, value= [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]))
 ```
 
 You can see that the gradient values corresponding to $w$ and $b$ have changed. At this point, if you want to block out the effect of z on the gradient, i.e., still only find the derivative of the parameter with respect to loss, you can use the `ops.stop_gradient` interface to truncate the gradient here. We add the `function` implementation to `stop_gradient` and execute it.
@@ -137,8 +135,7 @@ print(grads)
   [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00],
   [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00],
   [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00],
-  [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00]]),
- Tensor(shape=[3], dtype=Float32, value= [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00]))
+  [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00]]), Tensor(shape=[3], dtype=Float32, value= [ 1.32618928e+00,  1.01589143e+00,  1.04216456e+00]))
 ```
 
 It can be seen that the gradient values corresponding to $w$ and $b$ are the same as the gradient values found by the initial `function`.
@@ -166,9 +163,7 @@ print(grads, z)
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
-  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]),
- Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
-[ 3.8211915 -2.994512  -1.932323 ]
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]), Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02])) [ 3.8211915 -2.994512  -1.932323 ]
 ```
 
 ## Calculating Neural Network Gradient
@@ -228,8 +223,7 @@ print(grads)
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
   [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02],
-  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]),
- Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
+  [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]]), Tensor(shape=[3], dtype=Float32, value= [ 3.26189250e-01,  1.58914644e-02,  4.21645455e-02]))
 ```
 
 Executing the differentiation function, and we can see that the gradient value is the same as the gradient value obtained from the previous `function`.

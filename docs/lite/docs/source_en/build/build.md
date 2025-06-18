@@ -161,7 +161,7 @@ Then, run the following commands in the root directory of the source code to com
     Compile aarch32 package
 
     ```bash
-    export OHOS_NDK=OHOS NDK path
+    export OHOS_NDK=NDK path
     export TOOLCHAIN_NAME=ohos
     bash build.sh -I arm32 -j32
     ```
@@ -169,7 +169,7 @@ Then, run the following commands in the root directory of the source code to com
     Compile aarch64 package
 
     ```bash
-    export OHOS_NDK=OHOS NDK path
+    export OHOS_NDK=NDK path
     export TOOLCHAIN_NAME=ohos
     bash build.sh -I arm64 -j32
     ```

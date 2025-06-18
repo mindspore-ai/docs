@@ -300,7 +300,7 @@ Install Ubuntu system according to the following steps:
 1. Pull the Decord code, enter the Decord directory, initialize and update Decord dependencies, and execute the following command:
 
       ```bash
-      git clone https://github.com/dmlc/decord.git
+      git clone --recursive -b v0.6.0 https://github.com/dmlc/decord.git
       cd decord
       ```
 
@@ -334,7 +334,7 @@ For OpenEuler systems follow the steps below to install:
 1. Pull the Decord code and enter the `decord` directory.
 
       ```bash
-      git clone --recursive https://github.com/dmlc/decord
+      git clone --recursive -b v0.6.0 https://github.com/dmlc/decord
       cd decord
       ```
 

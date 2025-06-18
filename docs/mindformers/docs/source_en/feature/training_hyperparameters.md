@@ -2,8 +2,6 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/training_hyperparameters.md)
 
-## Overview
-
 Hyperparameters significantly affect model performance, with different settings potentially leading to vastly different outcomes.
 
 Choices regarding these parameters influence aspects such as training speed, convergence, capacity, and generalization ability. They are not learned directly from the training data but are determined by developers based on experience, experiments, or tuning processes.
