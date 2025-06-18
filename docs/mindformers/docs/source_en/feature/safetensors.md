@@ -91,11 +91,11 @@ output
     ├── checkpoint
         ├── rank_0
             ├── meta.json
-            └── {prefix}-{epoch}_{step}.ckpt
+            └── {prefix}-{epoch}_{step}.safetensors
         ...
         └── rank_7
             ├── meta.json
-            └── {prefix}-{epoch}_{step}.ckpt
+            └── {prefix}-{epoch}_{step}.safetensors
     └──checkpoint_network
         ├── rank_0
             └── {prefix}-{epoch}_{step}.safetensors
@@ -129,6 +129,7 @@ callbacks:
     prefix: "deepseekv3"
     save_checkpoint_steps: 1000
     keep_checkpoint_max: 5
+    save_network_params: False
     integrated_save: False
     async_save: False
     checkpoint_format: "safetensors"
@@ -393,14 +394,14 @@ The saved distributed weights are of different sizes, and the total weight file 
 output
     ├── checkpoint
         ├── rank_0
-            └── example-1_1.ckpt  #文件大小：5.2G
+            └── example-1_1.safetensors  #file size：5.2G
         ├── rank_1
-            └── example-1_1.ckpt  #文件大小：5.2G
+            └── example-1_1.safetensors  #file size：5.2G
         ...
         ├── rank_6
-            └── example-1_1.ckpt  #文件大小：4.1G
+            └── example-1_1.safetensors  #file size：4.1G
         └── rank_7
-            └── example-1_1.ckpt  #文件大小：4.1G
+            └── example-1_1.safetensors  #file size：4.1G
 ```
 
 Turn on the following configuration when loading:
@@ -485,11 +486,11 @@ Use [strategy merging interface](https://www.mindspore.cn/docs/en/master/api_pyt
 ```python
 import mindspore as ms
 # step1: Merge target slicing strategy document
-ms.parallel.merge_pipeline_strategys("/output/strategy", "/output/merged_strategy/dst_strategy.ckpt")
+ms.parallel.merge_pipeline_strategys("output/strategy", "output/merged_strategy/dst_strategy.ckpt")
 # step2: Based on the merged target slicing strategy and the complete weights, the weights are sliced and saved as distributed weights
 ms.load_distributed_checkpoint(
             network=None,
-            predict_strategy='/output/merged_strategy/dst_strategy.ckpt',
+            predict_strategy='output/merged_strategy/dst_strategy.ckpt',
             unified_safetensors_dir='/path/unified_safetensors',
             dst_safetensors_dir='/path/distributed_safetensors',
             format='safetensors',
@@ -517,7 +518,7 @@ Call [Mindspore format conversion interface](https://www.mindspore.cn/docs/en/ma
 
 ```python
 import mindspore as ms
-ms.ckpt_to_safetensors("./ckpt_save_path/rank0/checkpoint_0.ckpt", ".output/safetensors_path/")
+ms.ckpt_to_safetensors("./ckpt_save_path/rank0/checkpoint_0.ckpt", "./output/safetensors_path/")
 #Parameter descriptions
 #file_path (str) - Path to directory containing checkpoint files or path to individual checkpoint files (.ckpt)
 #save_path (str, optional) - Path to the directory where safetensors files are stored. Default: None
