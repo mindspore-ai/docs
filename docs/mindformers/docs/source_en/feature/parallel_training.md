@@ -157,7 +157,7 @@ For more information on configuring distributed parallel parameters, see the [Mi
 
 ## MindSpore Transformers Distributed Parallel Application Practices
 
-In the [Llama3-70B fine-tuning configuration](https://gitee.com/kong_de_shu/mindformers/blob/dev/research/llama3/llama3_70b/finetune_llama3_70b.yaml#) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
+In the [Llama3-70B fine-tuning configuration](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_70b/finetune_llama3_70b.yaml#) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
 
 - **Data parallelism**: No additional data parallelism is enabled (`data_parallel: 1`).
 - **Model parallelism**: A model is sliced into eight parts, which are computed on different devices (`model_parallel: 8`).
