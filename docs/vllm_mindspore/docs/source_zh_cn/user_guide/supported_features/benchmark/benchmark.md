@@ -31,10 +31,13 @@ INFO:     Application startup complete.
 拉取vLLM代码仓，导入vLLM MindSpore插件，复用其中benchmark功能：
 
 ```bash
-git clone https://github.com/vllm-project/vllm.git
+export VLLM_BRANCH=v0.8.3
+git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
 ```
+
+其中，$VLLM_BRANCH$为vLLM的分支名，其需要与vLLM MindSpore相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
 
 执行测试脚本：
 
@@ -94,18 +97,21 @@ P99 ITL (ms):                            ....
 并拉取vLLM代码仓，导入vLLM MindSpore插件，复用其中benchmark功能：
 
 ```bash
-git clone https://github.com/vllm-project/vllm.git
+export VLLM_BRANCH=v0.8.3
+git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
 ```
 
-用户可通过以下命令，运行测试脚本：
+其中，$VLLM_BRANCH$为vLLM的分支名，其需要与vLLM MindSpore相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
+
+用户可通过以下命令，运行测试脚本。该脚本将启动模型，并执行测试，用户不需要再拉起模型：
 
 ```bash
-python3 benchmarks/benchmark_throughput.py  \
-    --model Qwen/Qwen2.5-7B-Instruct  \
-    --dataset-name sonnet  \
-    --dataset-path benchmarks/sonnet.txt  \
+python3 benchmarks/benchmark_throughput.py \  
+    --model Qwen/Qwen2.5-7B-Instruct \  
+    --dataset-name sonnet \  
+    --dataset-path benchmarks/sonnet.txt \  
     --num-prompts 10
 ```
 

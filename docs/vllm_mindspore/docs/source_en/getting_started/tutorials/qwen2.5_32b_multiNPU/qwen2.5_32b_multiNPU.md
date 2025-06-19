@@ -81,7 +81,7 @@ Users can download the model using either [Python Tools](#downloading-with-pytho
 Execute the following Python script to download the [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) weights and files from [Hugging Face](https://huggingface.co/):
 
 ```python
-from openmind_hub import snapshot_downloadfrom huggingface_hub import snapshot_download
+from openmind_hub import snapshot_download
 snapshot_download(
     repo_id="Qwen/Qwen2.5-32B-Instruct",
     local_dir="/path/to/save/Qwen2.5-32B-Instruct",

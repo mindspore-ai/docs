@@ -136,6 +136,14 @@ Here is an explanation of these environment variables:
 - `vLLM_MODEL_MEMORY_USE_GB`: The memory reserved for model loading. Adjust this value if insufficient memory error occurs during model loading.  
 - `MINDFORMERS_MODEL_CONFIG`: The model configuration file.  
 
+Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
+
+```bash  
+export PYTHONPATH=/path/to/mindformers:$PYTHONPATH  
+```  
+
+This will include MindSpore Transformers in the Python path.
+
 ### Offline Inference
 
 Taking [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example, user can perform offline inference with the following Python script:  

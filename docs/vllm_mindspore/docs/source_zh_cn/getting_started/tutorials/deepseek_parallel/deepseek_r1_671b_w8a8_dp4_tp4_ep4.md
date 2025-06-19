@@ -142,6 +142,14 @@ parallel_config:
   expert_parallel: 1
 ```
 
+另外，用户需要确保MindSpore Transformers已安装。用户可通过
+
+```bash
+export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
+```
+
+以引入MindSpore Tranformers。
+
 ### 启动 Ray 进行多节点集群管理
 
 在 Ascend 上，需要额外安装 pyACL 包来适配 Ray。且所有节点的 CANN 依赖版本需要保持一致。
@@ -157,6 +165,12 @@ pyACL (Python Ascend Computing Language) 通过 CPython 封装了 AscendCL 对�
 cd ./run_package
 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
 export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPATH
+```
+
+若安装过程有权限问题，可以使用以下命令加权限：
+
+```bash
+chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 ```
 
 在 Ascend 的首页中可以下载 Ascend 运行包。如, 可以下载 [8.0.RC1.beta1](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1) 对应版本的运行包。

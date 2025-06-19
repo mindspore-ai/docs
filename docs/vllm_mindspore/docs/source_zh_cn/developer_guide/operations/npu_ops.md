@@ -1,6 +1,6 @@
 # 自定义算子接入
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/operations/npu_ops.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/developer_guide/operations/npu_ops.md)
 
 本文档将以 **`adv_step_flash`** 算子的接入为例，讲解如何在 vLLM MindSpore 项目中接入一个新的自定义算子。本文重点在于接入流程，算子的实现参考 MindSpore 官方教程：[动态图自定义算子接入方式](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。以下章节将介绍文件的组织结构及接入步骤。
 
@@ -90,9 +90,9 @@ MS_EXTENSION_MODULE(my_custom_op) {
 
 ### 算子编译并测试
 
-- **代码集成**：将代码集成至 vllm-mindspore 项目。
-- **编译项目**：生成并安装包含自定义算子的whl包。
-- **测试算子接口**：使用 Python 调用注册的算子接口：
+1. **代码集成**：将代码集成至 vllm-mindspore 项目。
+2. **编译项目**：于vllm-mindspore工程中，执行`pip install .`，编译安装vLLM MindSpore。
+3. **测试算子接口**：使用 Python 调用注册的算子接口：
 
     ```python
     from vllm_mindspore import npu_ops

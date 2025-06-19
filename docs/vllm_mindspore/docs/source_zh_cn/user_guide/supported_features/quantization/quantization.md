@@ -12,7 +12,7 @@
 
 ### 使用MindSpore金箍棒量化网络
 
-我们将使用[MindSpore 金箍棒的PTQ算法](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/ptq/README_CN.md)对DeepSeek-R1网络进行OutlierSuppressionLite量化，详细方法参考[DeepSeekR1-OutlierSuppressionLite量化样例](https://gitee.com/mindspore/golden-stick/blob/master/example/deepseekv3/a8w8-osl/readme.md)
+我们将使用[MindSpore 金箍棒的PTQ算法](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/ptq/README_CN.md)对DeepSeek-R1网络进行量化，详细方法参考[DeepSeekR1-OutlierSuppressionLite量化样例](https://gitee.com/mindspore/golden-stick/blob/master/example/deepseekv3/a8w8-osl/readme.md)
 
 ### 直接下载量化权重
 

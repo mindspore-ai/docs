@@ -81,7 +81,7 @@ docker exec -it $DOCKER_NAME bash
 执行以下 Python 脚本，从[Huggingface Face社区](https://huggingface.co/)下载 [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) 权重及文件：
 
 ```python
-from openmind_hub import snapshot_downloadfrom huggingface_hub import snapshot_download
+from openmind_hub import snapshot_download
 snapshot_download(
     repo_id="Qwen/Qwen2.5-32B-Instruct",
     local_dir="/path/to/save/Qwen2.5-32B-Instruct",
