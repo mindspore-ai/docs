@@ -141,6 +141,10 @@ MindSpore Transformers功能特性说明
   - `开发迁移 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/dev_migration.html>`_
   - `多模态理解模型开发 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/multi_modal_dev.html>`_
 
+- 精度对比
+
+  - `Parallel Core精度对比 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/accuracy_comparison.html>`_
+
 环境变量
 ------------------------------------
 
@@ -210,6 +214,7 @@ FAQ
    advanced_development/performance_optimization
    advanced_development/dev_migration
    advanced_development/multi_modal_dev
+   advanced_development/accuracy_comparison
    advanced_development/api
 
 .. toctree::
