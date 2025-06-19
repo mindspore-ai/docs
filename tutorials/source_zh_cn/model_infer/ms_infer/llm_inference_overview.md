@@ -167,7 +167,7 @@ model = AutoModel.from_config(config)
     [1, 306, 5360, 1522, 823, 292, 29892, 1363]
     ```
 
-    将"I love Beijing, because"分解为了8个token，其中：1表示文本或者段落的起始token，306表示I对应的token，1522表示love对应的token，292表示Beijing对应的toekn, 29892表示逗号对应的token，1363表示because对应的token，5360、823、分别表示了两个词间的空格（具体根据模型的tokenizer而定），这个格式可以直接传给模型进行推理。
+    将"I love Beijing, because"分解为了8个token，其中：1表示文本或者段落的起始token，306表示I对应的token，1522表示love对应的token，292表示Beijing对应的token，29892表示逗号对应的token，1363表示because对应的token，5360、823、分别表示了两个词间的空格（具体根据模型的tokenizer而定），这个格式可以直接传给模型进行推理。
 
 - **整网计算**：传入当前的输入token的数据和配置，让模型对象通过多轮的推理出每轮的token结果。
 
