@@ -1,14 +1,155 @@
-# Data Sampling
+# Data Loading and Sampling
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/dataset/sampler.md)
+
+## Data Loading
+
+Data is the foundation of training. The `mindspore.dataset` module provides APIs for customised loading of datasets, as well as loading classes for public datasets.
+
+### Customizing Dataset
+
+MindSpore supports loading data by constructing customized classes or customized generators. `GeneratorDataset` can help to load dataset based on the logic inside these classes/functions.
+
+`GeneratorDataset` supports constructing customized datasets from random-accessible objects, iterable objects and Python generator, which are explained in detail below.
+
+#### Random-accessible Dataset
+
+A random-accessible dataset implements the `__getitem__` and `__len__` methods, which represents a map from indices/keys to data samples.
+
+For example, when access a dataset with `dataset[idx]` , it should read the idx-th data inside the dataset content.
+
+```python
+import numpy as np
+from mindspore.dataset import GeneratorDataset
+
+# Random-accessible object as input source
+class RandomAccessDataset:
+    def __init__(self):
+        self._data = np.ones((5, 2))
+        self._label = np.zeros((5, 1))
+    def __getitem__(self, index):
+        return self._data[index], self._label[index]
+    def __len__(self):
+        return len(self._data)
+
+loader = RandomAccessDataset()
+dataset = GeneratorDataset(source=loader, column_names=["data", "label"])
+
+for data in dataset:
+    print(data)
+```
+
+```text
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+[Tensor(shape=[2], dtype=Float64, value= [ 1.00000000e+00,  1.00000000e+00]), Tensor(shape=[1], dtype=Float64, value= [ 0.00000000e+00])]
+```
+
+docs/mindspore/source_en/features/dataset/overview.mdses where random access are expensive or forbidden.
+
+For example, when access a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
+
+The following constructs a simple iterator and loads it into `GeneratorDataset`.
+
+```python
+# Iterator as input source
+class IterableDataset():
+    def __init__(self, start, end):
+        '''init the class object to hold the data'''
+        self.start = start
+        self.end = end
+    def __next__(self):
+        '''iter one data and return'''
+        return next(self.data)
+    def __iter__(self):
+        '''reset the iter'''
+        self.data = iter(range(self.start, self.end))
+        return self
+
+loader = IterableDataset(1, 5)
+dataset = GeneratorDataset(source=loader, column_names=["data"])
+
+for d in dataset:
+    print(d)
+```
+
+```text
+[Tensor(shape=[], dtype=Int32, value= 1)]
+[Tensor(shape=[], dtype=Int32, value= 2)]
+[Tensor(shape=[], dtype=Int32, value= 3)]
+[Tensor(shape=[], dtype=Int32, value= 4)]
+```
+
+#### Generator
+
+Generator also belongs to iterable dataset types, and it can be a Python's generator to return data until the generator throws a `StopIteration` exception.
+
+Example constructs a generator and loads it into the `GeneratorDataset`.
+
+```python
+# Generator
+def my_generator(start, end):
+    for i in range(start, end):
+        yield i
+
+# since a generator instance can be only iterated once, we need to wrap it by lambda to generate multiple instances
+dataset = GeneratorDataset(source=lambda: my_generator(3, 6), column_names=["data"])
+
+for d in dataset:
+    print(d)
+```
+
+```text
+[Tensor(shape=[], dtype=Int32, value= 3)]
+[Tensor(shape=[], dtype=Int32, value= 4)]
+[Tensor(shape=[], dtype=Int32, value= 5)]
+```
+
+### Loading Open Source Dataset
+
+MindSpore also supports parsing and reading open source classic datasets such as MNIST, CIFAR-10, CLUE, LJSpeech, etc.
+
+Take the MNIST dataset as an example. For more other datasets, please refer to [Open Source](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html#open-source).
+
+```python
+# Download data from open datasets
+from download import download
+from mindspore.dataset import MnistDataset
+import matplotlib.pyplot as plt
+
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip", replace=True)
+
+# create MNIST loader
+train_dataset = MnistDataset("MNIST_Data/train", shuffle=False)
+print(type(train_dataset))
+
+# visialize dataset content
+figure = plt.figure(figsize=(4, 4))
+cols, rows = 3, 3
+
+plt.subplots_adjust(wspace=0.5, hspace=0.5)
+
+for idx, (image, label) in enumerate(train_dataset.create_tuple_iterator()):
+      figure.add_subplot(rows, cols, idx + 1)
+      plt.title(int(label))
+      plt.axis("off")
+      plt.imshow(image.asnumpy().squeeze(), cmap="gray")
+      if idx == cols * rows - 1:
+            break
+plt.show()
+```
+
+## Samplers
 
 To meet training requirements and solve problems such as too large datasets or uneven distribution of sample categories, MindSpore provides multiple samplers for different purposes to help users sample datasets. Users only need to import the sampler object when loading the dataset to implement data sampling.
 
 MindSpore provides multiple samplers, such as `RandomSampler`, `WeightedRandomSampler`, and `SubsetRandomSampler`. In addition, users can customize sampler classes as required.
 
 > For details about how to use the sampler, see [Sampler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html#sampler-1).
-
-## Samplers
 
 The following uses the CIFAR-10 dataset as an example to describe how to use several common MindSpore samplers.
 

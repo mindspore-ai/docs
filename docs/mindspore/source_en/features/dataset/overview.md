@@ -8,8 +8,6 @@ MindSpore Dataset provides two types of data processing capabilities: pipeline m
 
 2. Lightweight mode: Users can perform data transform operations (e.g. Resize, Crop, HWC2CHW, etc.). Data processing of a single sample is performed.
 
-This section focuses on two data processing modes.
-
 ## Pipeline Mode
 
 Dataset pipeline defined by an API is used. After a training process is run, the dataset cyclically loads data from the dataset, processes data, and batch data, and then iterators for training.
@@ -58,114 +56,15 @@ You can configure different parameters for loading [datasets](https://www.mindsp
 
 #### Dataset Combination
 
-Dataset combination can combine multiple datasets in series/parallel mode to form a new dataset object.
-
-- Concatenate multiple datasets
-
-    ```python
-    import mindspore.dataset as ds
-
-    ds.config.set_seed(1234)
-
-    data = [1, 2, 3]
-    dataset1 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
-
-    data = [4, 5, 6]
-    dataset2 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
-
-    dataset = dataset1.concat(dataset2)
-    for item in dataset.create_dict_iterator():
-        print(item)
-    ```
-
-    ```text
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 3)}
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 2)}
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 1)}
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 6)}
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 5)}
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 4)}
-    ```
-
-- Paralleling multiple datasets
-
-    ```python
-    import mindspore.dataset as ds
-
-    ds.config.set_seed(1234)
-
-    data = [1, 2, 3]
-    dataset1 = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
-
-    data = [4, 5, 6]
-    dataset2 = ds.NumpySlicesDataset(data=data, column_names=["column_2"])
-
-    dataset = dataset1.zip(dataset2)
-    for item in dataset.create_dict_iterator():
-        print(item)
-    ```
-
-    ```text
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 3), 'column_2': Tensor(shape=[], dtype=Int32, value= 6)}
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 2), 'column_2': Tensor(shape=[], dtype=Int32, value= 5)}
-    {'column_1': Tensor(shape=[], dtype=Int32, value= 1), 'column_2': Tensor(shape=[], dtype=Int32, value= 4)}
-    ```
+Dataset combination can combine multiple datasets in series/parallel mode to form a new dataset object, see [Data Operation](https://www.mindspore.cn/tutorials/en/master/dataset/eager.html#data-operation).
 
 #### Dataset Segmentation
 
-The dataset is divided into a training dataset and a validation dataset, which are used in a training process and a validation process, respectively.
-
-```python
-import mindspore.dataset as ds
-
-data = [1, 2, 3, 4, 5, 6]
-dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"], shuffle=False)
-
-train_dataset, eval_dataset = dataset.split([4, 2])
-
-print(">>>> train dataset >>>>")
-for item in train_dataset.create_dict_iterator():
-    print(item)
-```
-
-```text
->>>> train dataset >>>>
-{'column_1': Tensor(shape=[], dtype=Int32, value= 5)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 2)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 6)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 1)}
-```
-
-```python
-print(">>>> eval dataset >>>>")
-for item in eval_dataset.create_dict_iterator():
-    print(item)
-```
-
-```text
->>>> eval dataset >>>>
-{'column_1': Tensor(shape=[], dtype=Int32, value= 3)}
-{'column_1': Tensor(shape=[], dtype=Int32, value= 4)}
-```
+The dataset is divided into a training dataset and a validation dataset, which are used in a training process and a validation process, respectively, see [Data Operation](https://www.mindspore.cn/tutorials/en/master/dataset/eager.html#data-operation).
 
 #### Dataset Saving
 
-Re-save the dataset to the MindRecord data format.
-
-```python
-import os
-import mindspore.dataset as ds
-
-ds.config.set_seed(1234)
-
-data = [1, 2, 3, 4, 5, 6]
-dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
-if os.path.exists("./train_dataset.mindrecord"):
-    os.remove("./train_dataset.mindrecord")
-if os.path.exists("./train_dataset.mindrecord.db"):
-    os.remove("./train_dataset.mindrecord.db")
-dataset.save("./train_dataset.mindrecord")
-```
+Re-save the dataset to the MindRecord data format, see [Data Operation](https://www.mindspore.cn/tutorials/en/master/dataset/eager.html#data-operation).
 
 ### Data Transforms
 
@@ -225,43 +124,10 @@ In addition, in the inference scenario, to achieve ultimate performance, you can
 
 You can directly use the data transform operation to process a piece of data. The return value is the data transform result.
 
-Data transform operations ([vision transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio)) can be used directly like calling a common function. Common usage is: first initialize the data transformation object, then call the data transformation operation method, pass in the data to be processed, and finally get the result of the process.
+Data transform operations ([vision transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transform](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio)) can be used directly like calling a common function. Common usage is: first initialize the data transformation object, then call the data transformation operation method, pass in the data to be processed, and finally get the result of the process. For more examples, see [Lightweight Data Transformation](https://www.mindspore.cn/tutorials/en/master/dataset/eager.html#lightweight-data-transformation).
 
-```python
-from download import download
-from PIL import Image
-import mindspore.dataset.vision as vision
+## Other Feature
 
-url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/banana.jpg"
-download(url, './banana.jpg', replace=True)
-```
+### Supporting Python Objects in Dataset Pipeline
 
-```text
-Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/banana.jpg (17 kB)
-
-file_sizes: 100%|██████████████████████████| 17.1k/17.1k [00:00<00:00, 2.14MB/s]
-Successfully downloaded file to ./banana.jpg
-'./banana.jpg'
-```
-
-```python
-img_ori = Image.open("banana.jpg").convert("RGB")
-print("Image.type: {}, Image.shape: {}".format(type(img_ori), img_ori.size))
-```
-
-```text
-Image.type: <class 'PIL.Image.Image'>, Image.shape: (356, 200)
-```
-
-```python
-# Apply Resize to input immediately
-resize_op = vision.Resize(size=(320))
-img = resize_op(img_ori)
-print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
-```
-
-```text
-Image.type: <class 'PIL.Image.Image'>, Image.shape: (569, 320)
-```
-
-For more examples, see [Lightweight Data Processing](https://www.mindspore.cn/tutorials/en/master/dataset/eager.html).
+Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`, user-defined `map` augmentation operation, `batch(per_batch_map=...)`. See [Supporting Python Objects in Dataset Pipeline](https://www.mindspore.cn/tutorials/en/master/dataset/python_objects.html).
