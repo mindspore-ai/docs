@@ -143,7 +143,7 @@ MindSpore Transformers功能特性说明
 
 - 精度对比
 
-  - `Parallel Core精度对比 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/accuracy_comparison.html>`_
+  - `与 Megatron-LM 比对训练精度 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/accuracy_comparison.html>`_
 
 环境变量
 ------------------------------------
