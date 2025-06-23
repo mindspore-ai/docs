@@ -64,7 +64,7 @@ This guide uses [llm-wizard/alpaca-gpt4-data](https://huggingface.co/datasets/ll
 
 #### Single-NPU Training
 
-First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen2.5-7B model, `finetune_qwen2_5_7b_8k_1p.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/guide/supervised_fine_tuning/finetune_qwen2_5_7b_8k_1p.yaml).
+First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen2.5-7B model, `finetune_qwen2_5_7b_8k_1p.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k_1p.yaml).
 
 > Due to limited single-NPU memory, the `num_layers` in the configuration file is set to 4, used as an example only.
 
@@ -104,7 +104,7 @@ run_mode:          Running mode, train: training, finetune: fine-tuning, predict
 
 #### Single-Node Training
 
-First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen2.5-7B model, `finetune_qwen2_5_7b_8k.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/guide/supervised_fine_tuning/finetune_qwen2_5_7b_8k.yaml).
+First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen2.5-7B model, `finetune_qwen2_5_7b_8k.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k.yaml).
 
 Then, modify the parameters in the configuration file based on actual conditions, mainly including:
 
