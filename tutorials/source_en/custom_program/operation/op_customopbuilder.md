@@ -27,7 +27,7 @@ As shown in the figure, the operator execution process in MindSpore's dynamic gr
 
 ## Custom Operators Support Multi-Stage Pipeline through PyboostRunner
 
-The dynamic graph multi-stage pipeline involves a complex invocation process with many interfaces and data structures. To simplify the integration of custom operators into dynamic graphs, MindSpore encapsulates the [PyboostRunner class](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/cpp_api_for_custom_ops.html#class-PyboostRunner).
+The dynamic graph multi-stage pipeline involves a complex invocation process with many interfaces and data structures. To simplify the integration of custom operators into dynamic graphs, MindSpore encapsulates the [PyboostRunner class](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/cpp_api_for_custom_ops.html#class-pyboostrunner).
 
 Below is an example demonstrating the integration process of custom operators into a dynamic graph:
 

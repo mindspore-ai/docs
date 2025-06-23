@@ -1,6 +1,6 @@
 # Parallel Inference (DeepSeek R1)
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)  
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)  
 
 vLLM MindSpore supports hybrid parallel inference with configurations of tensor parallelism (TP), data parallelism (DP), expert parallelism (EP), and their combinations. For the applicable scenarios of different parallel strategies, refer to the [vLLM official documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies).  
 
@@ -284,7 +284,7 @@ Environment variable descriptions:
 - `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).  
 - `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.  
 - `vLLM_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM MindSpore can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
-- `MINDFORMERS_MODEL_CONFIG`: Model configuration file. Users can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek3/deepseek_r1_671b), such as [predict_deepseek_r1_671b_w8a8_ep4t4.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4t4.yaml).  
+- `MINDFORMERS_MODEL_CONFIG`: Model configuration file. Users can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek3/deepseek_r1_671b), such as [predict_deepseek_r1_671b_w8a8_ep4t4.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml).  
 
 The model parallel strategy is specified in the `parallel_config` of the configuration file. For example, the DP4TP4EP4 hybrid parallel configuration is as follows:  
 

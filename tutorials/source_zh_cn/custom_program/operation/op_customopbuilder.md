@@ -27,7 +27,7 @@ MindSpore以Python作为前端，用C++实现后端，每个算子执行时需�
 
 ## 自定义算子通过PyboostRunner支持多级流水
 
-动态图多级流水的调用流程较复杂，涉及的接口和数据结构较多，为了方便用户在动态图接入自定义算子，MindSpore封装了[PyboostRunner类](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#class-PyboostRunner)。
+动态图多级流水的调用流程较复杂，涉及的接口和数据结构较多，为了方便用户在动态图接入自定义算子，MindSpore封装了[PyboostRunner类](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#class-pyboostrunner)。
 
 下面以一个例子演示动态图自定义算子的接入流程：
 

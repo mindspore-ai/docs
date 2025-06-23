@@ -18,7 +18,7 @@ To support a new model for vLLM MindSpore code repository, please note the follo
 - **Follow file format and location specifications.** Model code files should be placed under the `vllm_mindspore/model_executor` directory, organized in corresponding subfolders by model type.
 - **Implement models using MindSpore interfaces with jit static graph support.** Model definitions in vLLM MindSpore must be implemented using MindSpore interfaces. Since MindSpore's static graph mode offers performance advantages, models should support execution via @jit static graphs. For reference, see the [Qwen2.5](https://gitee.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/qwen2.py) implementation.
 - **Register new models in vLLM MindSpore.** After implementing the model structure, register it in vLLM MindSpore by adding it to `_NATIVE_MODELS` in `vllm_mindspore/model_executor/models/registry.py`.
-- **Write unit tests.** New models must include corresponding unit tests. Refer to the [Qwen2.5 testcases](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_vllm_qwen_7b.py) for examples.
+- **Write unit tests.** New models must include corresponding unit tests. Refer to the [Qwen2.5 testcases](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/cases_parallel/vllm_qwen_7b.py) for examples.
 
 ## Contribution Process
 
