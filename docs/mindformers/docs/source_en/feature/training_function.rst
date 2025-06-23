@@ -13,3 +13,4 @@ Training Function
    high_availability
    memory_optimization
    other_training_features
+   skip_data_and_ckpt_health_monitor
