@@ -4,253 +4,212 @@
 
 ## Overview
 
-SFT (Supervised Fine-Tuning) employs supervised learning ideas and refers to the process of adjusting some or all of the parameters based on a pre-trained model to make it more adaptable to a specific task or dataset.
+SFT (Supervised Fine-Tuning) adopts the concept of supervised learning, referring to the process of adjusting some or all parameters of a pre-trained model to better adapt it to specific tasks or datasets.
 
-## Process
+MindSpore Transformers supports two SFT fine-tuning methods: full-parameter fine-tuning and LoRA fine-tuning. Full-parameter fine-tuning involves updating all parameters during training, suitable for large-scale data refinement, offering optimal task adaptability but requiring significant computational resources. LoRA fine-tuning updates only a subset of parameters, consuming less memory and training faster than full-parameter fine-tuning, though its performance may be inferior in certain tasks.
 
-SFT consists of the following steps:
+## Basic Process of SFT Fine-Tuning
 
-- **Pretraining:**
-  A neural network model is trained on a large-scale dataset. For example, an LLM is trained on a large amount of unlabeled text data. The objective of the pre-training phase is to enable the model to obtain common knowledge and understanding capabilities.
-- **Fine-tuning:**
-  Based on the target task, the obtained pretrained model is fine-tuned by using the new training dataset. During fine-tuning, all or some parameters of the original model can be optimized through backpropagation to achieve a better effect of the model on the target task.
-- **Evaluation:**
-  After fine-tuning, a new model is obtained. The fine-tuning model may be evaluated by using the evaluation dataset of the target task to obtain performance metrics of the fine-tuning model on the target task.
+Combining practical operations, SFT fine-tuning can be broken down into the following steps:
 
-Based on actual operations, SFT may be decomposed into the following steps:
+### 1. Weight Preparation
 
-1. **Selecting a pretrained model:**
-   Select a pretrained language model, for example, GPT-2 or Llama2. The pretrained model is trained on a large text corpus to learn a general representation of a language.
-2. **Downloading the model weights:**
-   For the selected pretrained model, download the pretrained weights from the HuggingFace model library.
-3. **Converting model weights:**
-   Convert the downloaded HuggingFace weight based on the required framework, for example, convert it to the CKPT weights supported by the MindSpore framework.
-4. **Preparing a dataset:**
-   Select a dataset for fine-tuning tasks based on the fine-tuning objective. For LLMs, the fine-tuning dataset is data that contains text and labels, for example, the alpaca dataset. When using a dataset, you need to preprocess the corresponding data. For example, when using the MindSpore framework, you need to convert the dataset to the MindRecord format.
-5. **Performing a fine-tuning task:**
-   Use the dataset of the fine-tuning task to train the pre-trained model and update the model parameters. If all parameters are fine-tuned, all parameters are updated. After the fine-tuning task is complete, a new model can be obtained.
+Before fine-tuning, the weight files of the pre-trained model need to be prepared. MindSpore Transformers supports loading [safetensors weights](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html), enabling direct loading of model weights downloaded from the Hugging Face model hub.
 
-## SFT Fine-Tuning Methods
+### 2. Dataset Preparation
 
-MindSpore Transformers currently supports two SFT fine-tuning methods: full-parameter fine-tuning and LoRA low-parameter fine-tuning. Full-parameter fine-tuning refers to updating all parameters during training, which is suitable for large-scale data fine-tuning, and can get the optimal adaptability to the task, but requires larger computational resources.LoRA low-parameter fine-tuning only updates some parameters during training, which uses less memory and is faster than full-parameter fine-tuning, but is not as effective as full-parameter fine-tuning in some tasks.
+MindSpore Transformers currently supports datasets in [Hugging Face format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#huggingface-datasets) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#mindrecord-dataset) for the fine-tuning phase. Users can prepare data according to task requirements.
 
-### Introduction to the LoRA Principle
+### 3. Configuration File Preparation
 
-LoRA achieves a significant reduction in the number of parameters by decomposing the weight matrix of the original model into two low-rank matrices. For example, suppose a weight matrix W has size m x n. With LoRA, this matrix is decomposed into two low-rank matrices A and B, where A has size m x r and B has size r x n (r is much smaller than m and n). During the fine-tuning process, only these two low-rank matrices are updated without changing the rest of the original model.
+Fine-tuning tasks are uniformly controlled through [configuration files](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html), allowing users to flexibly adjust [model training hyperparameters](https://www.mindspore.cn/mindformers/docs/en/dev/feature/training_hyperparameters.html). Additionally, fine-tuning performance can be optimized using [distributed parallel training](https://www.mindspore.cn/mindformers/docs/en/dev/feature/parallel_training.html), [memory optimization features](https://www.mindspore.cn/mindformers/docs/en/dev/feature/memory_optimization.html), and [other training features](https://www.mindspore.cn/mindformers/docs/en/dev/feature/other_training_features.html).
 
-This approach not only drastically reduces the computational overhead of fine-tuning, but also preserves the original performance of the model, which is especially suitable for model optimization in environments with limited data volume and restricted computational resources. For detailed principles, you can check the paper [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685).
+### 4. Launching the Training Task
 
-## Using MindSpore Transformers for Full-Parameter Fine-Tuning
+MindSpore Transformers provides a [one-click startup script](https://www.mindspore.cn/mindformers/docs/en/dev/feature/start_tasks.html) to initiate fine-tuning tasks. During training, [logs](https://www.mindspore.cn/mindformers/docs/en/dev/feature/logging.html) and [visualization tools](https://www.mindspore.cn/mindformers/docs/en/dev/feature/monitor.html) can be used to monitor the training process.
 
-### Selecting a Pretrained Model
+### 5. Model Saving
 
-MindSpore Transformers supports mainstream foundation models in the industry. This practice uses the Llama2-7B model for SFT as an example.
+Checkpoints are saved during training, or model weights are saved to a specified path upon completion. Currently, weights can be saved in [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html) or [Ckpt format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html), which can be used for resumed training or further fine-tuning.
 
-### Downloading the Model Weights
+### 6. Fault Recovery
 
-MindSpore Transformers provides pretrained weights and vocabulary files that have been converted for pretraining, fine-tuning, and inference. You can also download the official HuggingFace weights and convert model weights before using these weights.
+To handle exceptions such as training interruptions, MindSpore Transformers offers [high-availability features](https://www.mindspore.cn/mindformers/docs/en/dev/feature/high_availability.html) like last-state saving and automatic recovery, as well as [checkpoint-based resumed training](https://www.mindspore.cn/mindformers/docs/en/dev/feature/resume_training.html), enhancing training stability.
 
-You can download the vocabulary at [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model).
+## Full-Parameter Fine-Tuning with MindSpore Transformers
 
-| Model     |    MindSpore Weight   |     HuggingFace Weight        |
-|:----------|:------------------------:| :----------------------: |
-| Llama2-7B |  [Link](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/llama2_7b.ckpt)      | [Link](https://huggingface.co/meta-llama/Llama-2-7b-hf) |
+### Selecting a Pre-Trained Model
 
-> All weights of Llama2 need to be obtained by [submitting an application](https://ai.meta.com/resources/models-and-libraries/llama-downloads) to Meta. If necessary, apply for the weights by yourself.
+MindSpore Transformers currently supports mainstream large-scale models in the industry. This guide uses the Qwen2.5-7B model as an example.
 
-### Converting Model Weights
+### Downloading Model Weights
 
-Take the [Llama2-7B model](https://huggingface.co/meta-llama/Llama-2-7b-hf/tree/main) as an example. The original HuggingFace weight file contains the following information:<br>
+MindSpore Transformers supports loading Hugging Face model weights, enabling direct loading of weights downloaded from the Hugging Face model hub. For details, refer to [MindSpore Transformers-Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html).
 
-- `config.json`: main configuration information of the model architecture.<br>
-- `generation_config.json`: configuration information related to text generation.<br>
-- `safetensors file`: model weight file.<br>
-- `model.safetensors.index.json`: JSON file that describes safetensors model parameter file index and model slices.<br>
-- `bin file`: PyTorch model weight file.<br>
-- `pytorch_model.bin.index.json`: JSON file that describes PyTorch index and model slices.<br>
-- `tokenizer.json`: tokenizer vocabulary configuration file.<br>
-- `tokenizer.model`: tokenizer of the model.<br>
+| Model Name  | Hugging Face Weight Download Link                     |
+| :---------- | :---------------------------------------------------: |
+| Qwen2.5-7B  | [Link](https://huggingface.co/Qwen/Qwen2.5-7B)        |
 
-MindSpore Transformers provides a weight conversion script. You can run the conversion script [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/convert_weight.py) to convert the HuggingFace weights to the complete CKPT weights.
+### Dataset Preparation
 
-```bash
-python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path {path}/MS_CKPT_NAME
+MindSpore Transformers supports online loading of Hugging Face datasets. For details, refer to [MindSpore Transformers-Dataset-Hugging Face Dataset](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#huggingface-datasets).
+
+This guide uses [llm-wizard/alpaca-gpt4-data](https://huggingface.co/datasets/llm-wizard/alpaca-gpt4-data) as the fine-tuning dataset.
+
+| Dataset Name                | Applicable Phase | Download Link                                                      |
+| :-------------------------- | :--------------: | :----------------------------------------------------------------: |
+| llm-wizard/alpaca-gpt4-data | Fine-Tuning      | [Link](https://huggingface.co/datasets/llm-wizard/alpaca-gpt4-data) |
+
+### Executing the Fine-Tuning Task
+
+#### Single-NPU Training
+
+First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen2.5-7B model, `finetune_qwen2_5_7b_8k_1p.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/guide/supervised_fine_tuning/finetune_qwen2_5_7b_8k_1p.yaml).
+
+> Due to limited single-NPU memory, the `num_layers` in the configuration file is set to 4, used as an example only.
+
+Then, modify the parameters in the configuration file based on actual conditions, mainly including:
+
+```yaml
+load_checkpoint: '/path/to/Qwen2.5-7B/'                   # Path to the pre-trained model weight folder
+...
+train_dataset: &train_dataset
+  ...
+  data_loader:
+    ...
+    handler:
+      - type: AlpacaInstructDataHandler
+        tokenizer:
+          vocab_file: "/path/to/Qwen2.5-7B/vocab.json"    # Path to the vocabulary file
+          merges_file: "/path/to/Qwen2.5-7B/merges.txt"   # Path to the merges file
 ```
 
-Parameters:
-
-```commandline
-model:       model name. For details about other models, see the model description document.
-input_path:  path of the folder where the HuggingFace weight is downloaded.
-output_path: path for storing the converted MindSpore weight file.
-```
-
-### Preparing a Dataset
-
-MindSpore Transformers provides **WikiText2** as the pretraining dataset and **alpaca** as the fine-tuning dataset.
-
-| Dataset    |                 Applicable Model                 |   Applicable Phase   |              Download Link     |
-|:----------|:-------------------------------------:|:---------:| :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| alpaca    | Llama2-7B<br>Llama2-13B<br>Llama2-70B |    Fine-tuning    |                   [Link](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)                   |
-
-The following uses the alpaca dataset as an example. After downloading the dataset, you need to preprocess it. For details about how to download the `tokenizer.model` used in preprocessing, see the model weight download.
-
-**alpaca Data Preprocessing**
-
-1. Run the [alpaca_converter.py script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py) in MindSpore Transformers to convert the dataset into the multi-round dialog format.
-
-    ```bash
-    python alpaca_converter.py \
-      --data_path /{path}/alpaca_data.json \
-      --output_path /{path}/alpaca-data-conversation.json
-    ```
-
-    Parameters:
-
-    ```commandline
-    data_path:   path of the file to be downloaded.
-    output_path: path for storing output files.
-    ```
-
-2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindSpore Transformers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later in advance.
-
-    ```bash
-    python llama_preprocess.py \
-      --dataset_type qa \
-      --input_glob /{path}/alpaca-data-conversation.json \
-      --model_file /{path}/tokenizer.model \
-      --seq_length 4096 \
-      --output_file /{path}/alpaca-fastchat4096.mindrecord
-    ```
-
-    Parameters:
-
-    ```commandline
-    dataset_type: type of the data to be preprocessed.
-    input_glob:   path of the converted alpaca file.
-    model_file:   path of the tokenizer.model file.
-    seq_length:   sequence length of the output data.
-    output_file:  path for storing output files.
-    ```
-
-### Performing a Fine-tuning Task
-
-#### Single-Card Training
-
-Execute `run_mindformer.py` to start the fine-tuning task on a single card. Below is an example usage:
-
-Taking the fine-tuning of the Llama2 model on a single card as an example, due to the limited NPU memory, it is not possible to run the full Llama2-7B model, so we reduce the layers for the example. Modify `finetune_llama2_7b.yaml` and set `num_layers` to 2.
-
-The startup command is as follows:
+Run `run_mindformer.py` to start the single-NPU fine-tuning task. The command is as follows:
 
 ```shell
 python run_mindformer.py \
- --config configs/llama2/finetune_llama2_7b.yaml \
- --train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord \
- --load_checkpoint /{path}/llama2_7b.ckpt \
+ --config /path/to/finetune_qwen2_5_7b_8k_1p.yaml \
+ --register_path research/qwen2_5 \
  --use_parallel False \
  --run_mode finetune
 ```
 
+Parameter descriptions:
+
+```commandline
+config:            Model configuration file
+use_parallel:      Whether to enable parallel training
+run_mode:          Running mode, train: training, finetune: fine-tuning, predict: inference
+```
+
 #### Single-Node Training
 
-Take Llama2-7B as an example. Run the startup script **msrun** to perform 8-device distributed training. The startup command is as follows:
+First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen2.5-7B model, `finetune_qwen2_5_7b_8k.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/guide/supervised_fine_tuning/finetune_qwen2_5_7b_8k.yaml).
+
+Then, modify the parameters in the configuration file based on actual conditions, mainly including:
+
+```yaml
+load_checkpoint: '/path/to/Qwen2.5-7B/'                   # Path to the pre-trained model weight folder
+...
+train_dataset: &train_dataset
+  ...
+  data_loader:
+    ...
+    handler:
+      - type: AlpacaInstructDataHandler
+        tokenizer:
+          vocab_file: "/path/to/Qwen2.5-7B/vocab.json"    # Path to the vocabulary file
+          merges_file: "/path/to/Qwen2.5-7B/merges.txt"   # Path to the merges file
+```
+
+Run the following msrun startup script for 8-NPU distributed training:
 
 ```bash
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config configs/llama2/finetune_llama2_7b.yaml \
- --load_checkpoint /{path}/llama2_7b.ckpt \
- --train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord \
+ --register_path research/qwen2_5 \
+ --config /path/to/finetune_qwen2_5_7b_8k.yaml \
  --use_parallel True \
  --run_mode finetune" 8
 ```
 
-Parameters:
+Parameter descriptions:
 
 ```commandline
-config:            model configuration file, which is stored in the config directory of the MindSpore Transformers code repository.
-load_checkpoint:   path of the checkpoint file.
-train_dataset_dir: path of the training dataset.
-use_parallel:      specifies whether to enable parallelism.
-run_mode:          running mode. The value can be train, finetune, or predict (inference).
+config:            Model configuration file
+use_parallel:      Whether to enable parallel training
+run_mode:          Running mode, train: training, finetune: fine-tuning, predict: inference
 ```
 
-After the task is executed, the **checkpoint** folder is generated in the **mindformers/output** directory, and the model file is saved in this folder.
+After task completion, a checkpoint folder will be generated in the mindformers/output directory, and the model files will be saved in this folder.
 
 #### Multi-Node Training
 
-The multi-node multi-device fine-tuning task is similar to the pretrained task. You can refer to the [multi-node multi-device pretraining command](https://www.mindspore.cn/mindformers/docs/en/dev/guide/pre_training.html#multi-node-training) and modify the command as follows:
+Multi-Node, multi-NPU fine-tuning tasks are similar to launching pre-training. Refer to [multi-node, multi-NPU pre-training commands](https://www.mindspore.cn/mindformers/docs/en/dev/guide/pre_training.html#multi-node-training).
 
-1. Add the input parameter `--load_checkpoint /{path}/llama2_7b.ckpt` to the startup script to load the pretrained weights.
-2. Set `--train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord` in the startup script to load the fine-tuning dataset.
-3. Set `--run_mode finetune` in the startup script. **run_mode** indicates the running mode, whose value can be **train**, **finetune**, or **predict** (inference).
+First, modify the configuration file, adjusting settings based on the number of nodes:
 
-After the task is executed, the **checkpoint** folder is generated in the **mindformers/output** directory, and the model file is saved in this folder.
+```yaml
+parallel_config:
+  data_parallel: ...
+  model_parallel: ...
+  pipeline_stage: ...
+  context_parallel: ...
+```
 
-## Using MindSpore Transformers for LoRA Low-Parameter Fine-Tuning
+Modify the command as follows:
 
-MindSpore Transformers supports configurable enablement of LoRA fine-tuning, which eliminates the need for code adaptation for each model and can be used to perform LoRA low-parameter fine-tuning tasks by simply modifying the model configuration in the YAML configuration file for full-parameter fine-tuning and adding the `pet_config` low-parameter fine-tuning configuration. The following shows the model configuration section of the YAML configuration file for LoRA fine-tuning of the Llama2 model, with a detailed description of the `pet_config` parameter.
+1. Add the startup script parameter `--config /path/to/finetune_qwen2_5_7b_8k.yaml` to load pre-trained weights.
+2. Set `--run_mode finetune` in the startup script, where run_mode indicates the running mode: train (training), finetune (fine-tuning), or predict (inference).
 
-### YAML File Example
+After task completion, a checkpoint folder will be generated in the mindformers/output directory, and the model files will be saved in this folder.
 
-For details about the complete YAML file, see [the Llama2 LoRA fine-tuning YAML file](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/lora_llama2_7b.yaml).
+## LoRA Fine-Tuning with MindSpore Transformers
+
+MindSpore Transformers supports configuration-driven LoRA fine-tuning, eliminating the need for code adaptations for each model. By modifying the model configuration in the full-parameter fine-tuning YAML file and adding the `pet_config` parameter-efficient fine-tuning configuration, LoRA fine-tuning tasks can be performed. Below is an example of the model configuration section in a YAML file for LoRA fine-tuning of the Llama2 model, with detailed explanations of the `pet_config` parameters.
+
+### Introduction to LoRA Principles
+
+LoRA significantly reduces the number of parameters by decomposing the original model’s weight matrix into two low-rank matrices. For example, suppose a weight matrix W has dimensions $m \times n$. With LoRA, it is decomposed into two low-rank matrices A and B, where A has dimensions $m \times r$ and B has dimensions $r \times n$ ($r$ is much smaller than $m$ and $n$). During fine-tuning, only these two low-rank matrices are updated, leaving the rest of the original model unchanged.
+
+This approach not only drastically reduces the computational cost of fine-tuning but also preserves the model’s original performance, making it particularly suitable for model optimization in environments with limited data or computational resources. For detailed principles, refer to the paper [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685).
+
+### Modifying the Configuration File
+
+Based on the full-parameter fine-tuning configuration file, add LoRA-related parameters to the model configuration and rename it to `fine_tune_qwen2_5_7b_8k_lora.yaml`. Below is an example configuration snippet showing how to add LoRA fine-tuning parameters for the Qwen2.5-7B model:
 
 ```yaml
 # model config
 model:
   model_config:
-    type: LlamaConfig
-    batch_size: 1
-    seq_length: 4096
-    hidden_size: 4096
-    num_layers: 32
-    num_heads: 32
-    vocab_size: 32000
-    compute_dtype: "float16"
+    ...
     pet_config:
       pet_type: lora
       lora_rank: 16
       lora_alpha: 16
       lora_dropout: 0.05
       target_modules: '.*wq|.*wk|.*wv|.*wo'
-  arch:
-    type: LlamaForCausalLM
 ```
 
-### pet_config Parameters
+### Detailed Explanation of pet_config Parameters
 
-In **model_config**, **pet_config** is the core setting part of LoRA fine-tuning and is used to specify LoRA parameters. The parameters are described as follows:
+In the `model_config`, `pet_config` is the core configuration section for LoRA fine-tuning, used to specify LoRA-related parameters. The parameters are explained as follows:
 
-- **pet_type**: specifies that the type of the parameter-efficient tuning (PET) is LoRA. The LoRA module is inserted in the key layer of the model to reduce the number of parameters required for fine-tuning.
-- **lora_rank**: specifies the rank value of a low-rank matrix. A smaller rank value indicates fewer parameters that need to be updated during fine-tuning, reducing occupation of computing resources. The value **16** is a common equilibrium point, which significantly reduces the number of parameters while maintaining the model performance.
-- **lora_alpha**: specifies the scaling ratio for weight update in the LoRA module. This value determines the amplitude and impact of weight update during fine-tuning. The value **16** indicates that the scaling amplitude is moderate, stabilizing the training process.
-- **lora_dropout**: specifies the dropout probability in the LoRA module. Dropout is a regularization technique used to reduce overfitting risks. The value **0.05** indicates that there is a 5% probability that some neuron connections are randomly disabled during training. This is especially important when the data volume is limited.
-- **target_modules**: specifies the weight matrices to which LoRA applies in the model by using a regular expression. In Llama, the configuration here applies LoRA to the Query (WQ), Key (WK), Value (WV), and Output (WO) matrices in the self-attention mechanism of the model. These matrices play a key role in the Transformer structure. After LoRA is inserted, the model performance can be maintained while the number of parameters is reduced.
+- **pet_type:** Specifies the type of Parameter-Efficient Tuning (PET) as LoRA. This means LoRA modules will be inserted into key layers of the model to reduce the number of parameters required for fine-tuning.
+- **lora_rank:** Defines the rank of the low-rank matrices. A smaller rank results in fewer parameters to update, reducing computational resource usage. Setting it to 16 is a common balance point, significantly reducing the parameter count while maintaining model performance.
+- **lora_alpha:** Controls the scaling factor for weight updates in the LoRA module. This value determines the magnitude and impact of weight updates during fine-tuning. Setting it to 16 indicates a moderate scaling factor, helping to stabilize the training process.
+- **lora_dropout:** Sets the dropout probability in the LoRA module. Dropout is a regularization technique used to reduce the risk of overfitting. A value of 0.05 means there is a 5% chance of randomly “disabling” certain neural connections during training, which is particularly important when data is limited.
+- **target_modules:** Specifies which weight matrices in the model LoRA will be applied to, using regular expressions. In Llama, this configuration applies LoRA to the Query (wq), Key (wk), Value (wv), and Output (wo) matrices in the self-attention mechanism. These matrices play critical roles in the Transformer architecture, and applying LoRA to them maintains model performance while reducing the parameter count.
 
-### Examples of LoRA Fine-Tuning for Llama2-7B
+### LoRA Fine-Tuning Example for Qwen2.5-7B
 
-MindSpore Transformers provides [the LoRA fine-tuning examples](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83) of Llama2-7B. For details about the dataset used during fine-tuning, see [dataset downloading](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json).
+The dataset used for LoRA fine-tuning can be prepared as described in the [Dataset Preparation](#dataset-preparation) section of the full-parameter fine-tuning process.
 
-Take Llama2-7B as an example. You can run the following **msrun** startup script to perform 8-device distributed fine-tuning.
+For the Qwen2.5-7B model, the following msrun startup command can be executed for 8-NPU distributed fine-tuning:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config configs/llama2/lora_llama2_7b.yaml \
- --train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord \
- --load_checkpoint /{path}/llama2_7b.ckpt \
- --auto_trans_ckpt False \
- --use_parallel True \
- --run_mode finetune" 8
-```
-
-When the distributed strategy of the weights does not match the distributed strategy of the model, the weights need to be transformed. The load weight path should be set to the upper path of the directory named with `rank_0`, and the weight auto transformation function should be enabled by setting `--auto_trans_ckpt True` . For a more detailed description of the scenarios and usage of distributed weight transformation, please refer to [Distributed Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html#distributed-weight-slicing-and-merging).
-
-```shell
-bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config configs/llama2/lora_llama2_7b.yaml \
- --train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord \
- --load_checkpoint /{path}/checkpoint/ \
- --auto_trans_ckpt True \
+ --register_path research/qwen2_5 \
+ --config /path/to/finetune_qwen2_5_7b_8k_lora.yaml \
  --use_parallel True \
  --run_mode finetune" 8
 ```
