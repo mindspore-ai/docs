@@ -107,6 +107,11 @@ paralell_net = AutoParallel(net, parallel_mode='semi_auto')
 
 入参in_strategy和out_strategy都额外接收新的数量类型——tuple(Layout)。其中[Layout](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.Layout.html) 通过设备矩阵进行初始化，并同时要求给设备矩阵的每个轴取一个别名。例如："layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))"表示该设备共有128张卡，按照(8, 4, 4)的形状进行排列，并为每个轴分别取了别名"dp"、"sp"、"mp"。
 
+关于Layout的具体含义与配置推导方法，可参考如下两篇技术文档：
+
+- [基于MindSpore Layout推导各卡上的Tensor分片（列表法）](https://discuss.mindspore.cn/t/topic/124)
+- [基于MindSpore Layout推导各卡上的Tensor分片（图解法）](https://discuss.mindspore.cn/t/topic/125)
+
 在调用Layout时，通过传入这些轴的别名，每个张量根据其形状（shape）决定每个维度映射到设备矩阵的哪个轴，以及对应的切分份数。例如：
 
 - "dp"表示在设备排布的最高维度的8个设备内切分为8份；

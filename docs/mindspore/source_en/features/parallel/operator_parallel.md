@@ -97,6 +97,11 @@ In order to express sharding as in the above scenario, functional extensions are
 
 The parameters in_strategy and out_strategy both additionally receive the new quantity type tuple(Layout) type. [Layout](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.Layout.html) is initialized using the device matrix, while requiring an alias for each axis of the device matrix. For example: "layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))" means that the device has 128 cards in total, which are arranged in the shape of (8, 4, 4), and aliases "dp", "sp", "mp" are given to each axis.
 
+For the specific meaning of Layout and the configuration derivation method, please refer to the following two technical documents:
+
+- [Deriving Tensor Sharding on Each Card Based on MindSpore Layout (List Method)](https://discuss.mindspore.cn/t/topic/124)
+- [Deriving Tensor Sharding on Each Card Based on MindSpore Layout (Graphical Method)](https://discuss.mindspore.cn/t/topic/125)
+
 By passing in the aliases for these axes when calling Layout, each tensor determines which axis of the device matrix each dimension is mapped to based on its shape (shape), and the corresponding number of slice shares. For example:
 
 - "dp" denotes 8 cuts within 8 devices in the highest dimension of the device layout.
