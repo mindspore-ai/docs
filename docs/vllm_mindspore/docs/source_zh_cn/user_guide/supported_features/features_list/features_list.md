@@ -19,7 +19,7 @@ vLLM MindSpore支持的特性功能与vLLM社区版本保持一致，特性描�
 | Pipeline Parallel                 | WIP                | WIP                |  
 | Expert Parallel                   | ×                  | √                  |  
 | Data Parallel                     | ×                  | √                  |  
-| Prefill Decode Disaggregation     | ×                  | √                  |  
+| Prefill Decode Disaggregation     | ×                  | WIP                |  
 | Multi Modality                    | WIP                | WIP                |  
 | Prompt adapter                    | ×                  | WIP                |  
 | Speculative decoding              | ×                  | WIP                |  

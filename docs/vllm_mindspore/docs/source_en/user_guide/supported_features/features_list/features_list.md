@@ -19,7 +19,7 @@ The following is the features supported in vLLM MindSpore.
 | Pipeline Parallel                 | WIP                | WIP                |  
 | Expert Parallel                   | ×                  | √                  |  
 | Data Parallel                     | ×                  | √                  |  
-| Prefill Decode Disaggregation     | ×                  | √                  |  
+| Prefill Decode Disaggregation     | ×                  | WIP                |  
 | Multi Modality                    | WIP                | WIP                |  
 | Prompt adapter                    | ×                  | WIP                |  
 | Speculative decoding              | ×                  | WIP                |  
