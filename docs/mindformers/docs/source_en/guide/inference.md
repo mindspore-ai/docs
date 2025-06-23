@@ -150,33 +150,6 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 Inference results are viewed in the same way as multi-card inference.
 
-### Multimodal Inference
-
-Use `cogvlm2-llama3-chat-19B` model as example and see the following process with details:
-
-Modify configuration yaml file [predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml).
-
-```shell
-model:
-  model_config:
-    use_past: True                         # Turn on incremental inference
-    is_dynamic: False                      # Turn off dynamic shape
-
-  tokenizer:
-    vocab_file: "/{path}/tokenizer.model"  # Specify the tokenizer file path
-```
-
-Run inference scripts.
-
-```shell
-python run_mindformer.py \
- --config configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml \
- --run_mode predict \
- --predict_data "/path/image.jpg" "Please describe this image." \  # input data,first input is image path,second input is text path.
- --modal_type image text \                                         # modal type for input data, 'image' type for image path, 'text' type for text path.
- --load_checkpoint /{path}/cogvlm2-image-llama3-chat.ckpt
-```
-
 ## More Information
 
 For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/dev/introduction/models.html).

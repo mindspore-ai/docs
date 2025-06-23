@@ -150,33 +150,6 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 推理结果查看方式，与多卡推理相同。
 
-### 多模态推理
-
-以`cogvlm2-llama3-chat-19B`模型为例，可以参考以下流程启动推理任务：
-
-修改模型配置文件[predict_cogvlm2_image_llama3_chat_19b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml)。
-
-```shell
-model:
-  model_config:
-    use_past: True                         # 开启增量推理
-    is_dynamic: False                      # 关闭动态shape
-
-  tokenizer:
-    vocab_file: "/{path}/tokenizer.model"  # 指定tokenizer文件路径
-```
-
-启动推理脚本
-
-```shell
-python run_mindformer.py \
- --config configs/cogvlm2/predict_cogvlm2_image_llama3_chat_19b.yaml \
- --run_mode predict \
- --predict_data "/path/image.jpg" "Please describe this image." \  # 模型推理输入，第一个输入是图片路径，第二个输入是文本
- --modal_type image text \                                         # 模型推理输入对应模态，图片路径对应'image'，文本对应'text'
- --load_checkpoint /{path}/cogvlm2-image-llama3-chat.ckpt
-```
-
 ## 更多信息
 
 更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html)。

@@ -109,7 +109,6 @@ Advanced developing with MindSpore Transformers
 - Model Development
 
   - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/dev_migration.html>`_
-  - `Multimodal Model Development <https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/multi_modal_dev.html>`_
 
 Environment Variables
 ------------------------------------
@@ -179,7 +178,6 @@ FAQ
    advanced_development/precision_optimization
    advanced_development/performance_optimization
    advanced_development/dev_migration
-   advanced_development/multi_modal_dev
    advanced_development/api
 
 .. toctree::
