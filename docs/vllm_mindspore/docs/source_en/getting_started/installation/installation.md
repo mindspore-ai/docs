@@ -142,20 +142,31 @@ pip install vllm_mindspore
   After executing the above commands, `mindformers-dev` folder will be generated in the `vllm-mindspore/install_depend_pkgs` directory. Add this folder to the environment variables:  
 
   ```bash  
-  export MF_PATH=`pwd install_depend_pkgs/mindformers-dev`  
+  export MF_PATH=`realpath install_depend_pkgs/mindformers-dev`  
   export PYTHONPATH=$MF_PATH:$PYTHONPATH  
   ```  
 
   If MindSpore Transformers was compiled and installed from the `br_infer_deepseek_os` branch, `mindformers-os` folder will be generated in the `vllm-mindspore/install_depend_pkgs` directory. In this case, adjust the `MF_PATH` environment variable to:
 
   ```bash
-  export MF_PATH=`pwd install_depend_pkgs/mindformers-os`
+  export MF_PATH=`realpath install_depend_pkgs/mindformers-os`
   export PYTHONPATH=$MF_PATH:$PYTHONPATH
   ```
 
 ### Quick Verification
 
-To verify the installation, run a simple offline inference test with [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct):  
+User can verify the installation with a simple offline inference test. First, user need to configure the environment variables with the following command:
+
+```bash
+export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
+export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
+export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
+```
+
+About environment variables above, user can also refer to [here](../quick_start/quick_start.md#setting-environment-variables) for more details.
+
+User can use the following Python scripts to verify with [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct):  
 
 ```python  
 import vllm_mindspore # Add this line on the top of script.

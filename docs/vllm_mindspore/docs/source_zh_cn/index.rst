@@ -113,7 +113,6 @@ Apache 许可证 2.0，如  `LICENSE <https://gitee.com/mindspore/vllm-mindspore
 
    user_guide/supported_models/models_list/models_list
    user_guide/supported_features/features_list/features_list
-   user_guide/supported_features/operations/npu_ops
    user_guide/supported_features/quantization/quantization
    user_guide/supported_features/profiling/profiling
    user_guide/supported_features/benchmark/benchmark
@@ -125,6 +124,7 @@ Apache 许可证 2.0，如  `LICENSE <https://gitee.com/mindspore/vllm-mindspore
    :caption: 开发者指南
    :hidden:
 
+   developer_guide/operations/npu_ops
    developer_guide/contributing
 
 .. toctree::

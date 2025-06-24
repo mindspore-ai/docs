@@ -61,17 +61,6 @@
 - 解决思路：
    请检查CANN与MindSpore的配套关系是否正确。
 
-### 执行Qwen3时，报vLLM相关的`resolve_transformers_fallback`导入错误
-
-- 错误关键信息：
-
-   ```text
-   ImportError: cannot import name 'resolve_transformers_fallback' from 'vllm.model_executor.model_loader.utils'
-   ```
-
-- 解决思路：
-   请尝试将`vllm`切换为`v0.7.3`版本。
-
 ### `import vllm_mindspore`时找不到`torch`
 
 - 错误关键信息：
@@ -81,7 +70,7 @@
    ```
 
 - 解决思路：
-   请执行以下命令，下载torch相关组件：
+   请执行以下命令，卸载torch相关组件：
 
    ```bash
    pip uninstall torch

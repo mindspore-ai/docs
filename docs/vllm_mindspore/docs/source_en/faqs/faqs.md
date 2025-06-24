@@ -60,16 +60,6 @@
 
    Check whether the CANN and MindSpore versions are correctly matched.
 
-### `resolve_transformers_fallback` Import Error When Running Qwen3
-
-- Key error message:
-
-   ```text
-   ImportError: cannot import name 'resolve_transformers_fallback' from 'vllm.model_executor.model_loader.utils'
-   ```
-
-   Try switching `vllm` to version `0.7.3`.
-
 ### `torch` Not Found When Importing `vllm_mindspore`
 
 - Key error message:
@@ -78,7 +68,7 @@
    importlib.metadata.PackageNotFoundError: No package metadata was found for torch
    ```
 
-   Execute the following commands to reinstall torch-related components:
+   Execute the following commands to uninstall torch-related components:
 
    ```bash
    pip uninstall torch

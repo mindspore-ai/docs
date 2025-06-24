@@ -2,19 +2,12 @@
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/environment_variables/environment_variables.md)
 
-| Environment Variable | Required for Basic Scenarios | Function |
-|----------------------|-----------------------------|----------|
-| `export vLLM_MODEL_BACKEND=MINDFORMER_MODELS` | Running MindSpore Transformers models | Distinguishes between MindSpore Transformers and vLLM MindSpore native models (default: native models) |
-| `export PYTHONPATH=/xxx/mindformers-dev/:$PYTHONPATH` | Running models in MindSpore Transformers  Research directory | MindSpore Transformers must be installed from source, as research directory code is not packaged into whl files |
-| `export MINDFORMERS_MODEL_CONFIG=/xxx.yaml` | Running MindSpore Transformers models | Configuration file for MindSpore Transformers models |
-| `export MS_JIT_MODULES="vllm_mindspore,research"` | Greater than v0.7.3 version | Specifies modules require JIT static compilation in static graph mode; corresponds to top-level module names in imports |
-| `export GLOO_SOCKET_IFNAME=enp189s0f0` | Ray multi-machine | Used for inter-server communication in Ray multi-machine scenarios |
-| `export TP_SOCKET_IFNAME=enp189s0f0` | Ray multi-machine | Required for RPC in Ray multi-machine scenarios |
-| `export HCCL_OP_EXPANSION_MODE=AIV` | Multi-machine | Multi-machine optimization configuring communication algorithm orchestration for acceleration |
-| `export HCCL_EXEC_TIMEOUT=7200` | Multi-machine | Multi-machine optimization controlling device synchronization timeout (seconds, default: 1836) |
-| `export RUN_MODE="predict"` | Basic inference workflow (system default) | Configures network execution mode (predict mode enables optimizations) |
-| `export DEVICE_NUM_PER_NODE=16` | Multi-machine checkpoint splitting | Required for automatic weight splitting functionality (default: 8 NPUs/server) |
-| `export vLLM_USE_NPU_ADV_STEP_FLASH_OP="on"` | MSS (Multi-step scheduler) custom operators | Toggle for custom operators in MSS functionality |
-| `export RAY_EXPERIMENTAL_NOSET_ASCEND_RT_VISIBLE_DEVICES=1` | Ray multi-machine | Enables Ray dependency in vLLM MindSpore |
-| `export MS_JIT=0` | Quantization scenarios (post v0.7.3) | 0: Disables JIT compilation, executing network scripts in dynamic graph (PyNative) mode |
-| `export FORCE_EAGER="true"` | Quantization scenarios (post v0.7.3) |  |
+| Environment Variable | Function | Type | Values | Description |
+|----------------------|----------|------|--------|-------------|
+| `vLLM_MODEL_BACKEND` | Specifies the model source. Required when using an external vLLM MindSpore model. | String | `MindFormers`: Model source is MindSpore Transformers | When the model source is MindSpore Transformers (e.g., Qwen2.5 series or DeepSeek series models), configure the environment variable: `export PYTHONPATH=/path/to/mindformers/:$PYTHONPATH`. |
+| `MINDFORMERS_MODEL_CONFIG` | Configuration file for MindSpore Transformers models. Required for Qwen2.5 series or DeepSeek series models. | String | Path to the model configuration file | **This environment variable will be removed in future versions.** Example: `export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml`. |
+| `GLOO_SOCKET_IFNAME` | Specifies the network interface name for inter-machine communication using gloo. | String | Interface name (e.g., `enp189s0f0`) | Used in multi-machine scenarios. The interface name can be found via `ifconfig` by matching the IP address. |
+| `TP_SOCKET_IFNAME` | Specifies the network interface name for inter-machine communication using TP. | String | Interface name (e.g., `enp189s0f0`) | Used in multi-machine scenarios. The interface name can be found via `ifconfig` by matching the IP address. |
+| `HCCL_SOCKET_IFNAME` | Specifies the network interface name for inter-machine communication using HCCL. | String | Interface name (e.g., `enp189s0f0`) | Used in multi-machine scenarios. The interface name can be found via `ifconfig` by matching the IP address. |
+| `ASCEND_RT_VISIBLE_DEVICES` | Specifies which devices are visible to the current process, supporting one or multiple Device IDs. | String | Device IDs as a comma-separated string (e.g., `"0,1,2,3,4,5,6,7"`) | Recommended for Ray usage scenarios. |
+| `HCCL_BUFFSIZE` | Controls the buffer size for data sharing between two NPUs. | int | Buffer size in MB (e.g., `2048`). | Usage reference: [HCCL_BUFFSIZE](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/81RC1beta1/maintenref/envvar/envref_07_0080.html). Example: For DeepSeek hybrid parallelism (Data Parallel: 32, Expert Parallel: 32) with `max-num-batched-tokens=256`, set `export HCCL_BUFFSIZE=2048`. |

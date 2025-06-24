@@ -2,19 +2,12 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/environment_variables/environment_variables.md)
 
-|   环境变量   |   必配基础场景   |   功能   |
-|   ------   |   ----------  |   -------  |
-|   export vLLM_MODEL_BACKEND=MINDFORMER_MODELS   |   运行MindSpore Transformers模型   |   用于区分MindSpore Transformers和vLLM MindSpore原生模型，默认原生模型   |
-|   export PYTHONPATH=/xxx/mindformers-dev/:$PYTHONPATH   |   运行MindSpore Transformers的research下模型   |   MindSpore Transformers要用源码安装，因为research目录下代码不打包到whl中   |
-|   export MINDFORMERS_MODEL_CONFIG=/xxx.yaml   |   运行MindSpore Transformers模型   |   MindSpore Transformers模型的必须配置文件   |
-|   export MS_JIT_MODULES="vllm_mindspore,research"   |   升级0.7.3后版本   |   指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图; 对应import导入的顶层模块的名称   |
-|   export GLOO_SOCKET_IFNAME=enp189s0f0   |   Ray多机   |   Ray多机场景使用，用于服务器间通信   |
-|   export TP_SOCKET_IFNAME=enp189s0f0   |   Ray多机   |   Ray多机场景使用，RPC时需要设置   |
-|   export HCCL_OP_EXPANSION_MODE=AIV   |   多机   |   多机场景优化，配置通信算法的编排展开位置，用于通信加速   |
-|   export HCCL_EXEC_TIMEOUT=7200   |   多机   |   多机场景优化，控制设备间执行时同步等待的时间，单位为s，默认值为1836   |
-|   export RUN_MODE="predict"   |   推理基础流程---系统默认配置   |   配置网络执行模式，predict模式下会使能一些优化   |
-|   export DEVICE_NUM_PER_NODE=16   |   多机使用ckpt切分   |   自动权重切分要识别卡数功能依赖，单机实际NPU数量，不设置默认为8卡服务器   |
-|   export vLLM_USE_NPU_ADV_STEP_FLASH_OP="on"   |   mss（Multi-step scheduler）自定义算子   |   mss（Multi-step scheduler）功能中自定义算子开关   |
-|   export RAY_EXPERIMENTAL_NOSET_ASCEND_RT_VISIBLE_DEVICES=1   |    Ray多机场景   |   使能Ray依赖   |
-|   export MS_JIT=0   |   量化场景，升级0.7.3后版本   |   0：不使用JIT即时编译，网络脚本直接按照动态图（PyNative）模式执行。   |
-|   export FORCE_EAGER="true"   |   量化场景，升级0.7.3后版本   |       |
+|   环境变量   |   功能   |   类型   |   取值   |   说明   |
+|   ------   |   -------  |   ------   |   ------   |   ------   |
+|   vLLM_MODEL_BACKEND   |   用于指定模型来源。当使用的模型为vLLM MindSpore外部模型时则需要指定。   |   String   |   MindFormers:  模型来源为MindSpore Transformers   |   当模型来源为MindSpore Transformers，使用Qwen2.5系列、DeepSeek系列模型时，需要配置环境变量：`export PYTHONPATH=/path/to/mindformers/:$PYTHONPATH`   |
+|   MINDFORMERS_MODEL_CONFIG   |   MindSpore Transformers模型的配置文件。使用Qwen2.5系列、DeepSeek系列模型时，需要配置文件路径。   |   String   |   模型配置文件路径   |   **该环境变量在后续版本会被移除。**样例：`export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml`   |
+|   GLOO_SOCKET_IFNAME   |   用于多机之间使用gloo通信时的网口名称。   |   String   |  网口名称，例如enp189s0f0    |   多机场景使用，可通过`ifconfig`查找ip对应网卡的网卡名。   |
+|   TP_SOCKET_IFNAME   |   用于多机之间使用TP通信时的网口名称。   |   String   | 网口名称，例如enp189s0f0      |   多机场景使用，可通过`ifconfig`查找ip对应网卡的网卡名。   |
+| HCCL_SOCKET_IFNAME | 用于多机之间使用HCCL通信时的网口名称。 | String | 网口名称，例如enp189s0f0  | 多机场景使用，可通过`ifconfig`查找ip对应网卡的网卡名。 |
+| ASCEND_RT_VISIBLE_DEVICES | 指定哪些Device对当前进程可见，支持一次指定一个或多个Device ID。 | String | 为Device ID，逗号分割的字符串，例如"0,1,2,3,4,5,6,7" | ray使用场景建议使用 |
+| HCCL_BUFFSIZE | 此环境变量用于控制两个NPU之间共享数据的缓存区大小。 | int | 缓存区大小，大小为MB。例如：`2048` | 使用方法参考：[HCCL_BUFFSIZE](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/81RC1beta1/maintenref/envvar/envref_07_0080.html)。例如DeepSeek 混合并行（数据并行数为32，专家并行数为32），且`max-num-batched-tokens`为256时，则`export HCCL_BUFFSIZE=2048` |

@@ -140,7 +140,15 @@ parallel_config:
   model_parallel: 16
   pipeline_stage: 1
   expert_parallel: 1
+```
+
+Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
+
+```bash  
+export PYTHONPATH=/path/to/mindformers:$PYTHONPATH  
 ```  
+
+This will include MindSpore Transformers in the Python path.
 
 ### Starting Ray for Multi-Node Cluster Management
 
@@ -156,8 +164,14 @@ In the corresponding environment, obtain the Ascend-cann-nnrt installation packa
 ./Ascend-cann-nnrt_8.0.RC1_linux-aarch64.run --noexec --extract=./
 cd ./run_package
 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
-export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPATH  
-```  
+export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPATH
+```
+
+If you encounter permission issues during installation, you can grant permissions using:  
+
+```bash  
+chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run  
+```
 
 Download the Ascend runtime package from the [Ascend homepage](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1).  
 

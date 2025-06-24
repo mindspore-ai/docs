@@ -4,18 +4,18 @@
 
 | Model | Supported | Download Link | Backend |
 |-------| --------- | ------------- | ------- |
-| Qwen2.5 |  √ | [Qwen2.5-7B](https://modelers.cn/models/AI-Research/Qwen2.5-7B), [Qwen2.5-32B](https://modelers.cn/models/AI-Research/Qwen2.5-32B), etc. | MINDFORMER_MODELS |
-| Qwen3 |   √ | [Qwen3-8B](https://modelers.cn/models/MindSpore-Lab/Qwen3-8B), [Qwen3-32B](https://modelers.cn/models/MindSpore-Lab/Qwen3-32B), etc. | MINDFORMER_MODELS |
-| DeepSeek V3 |   √ | [DeepSeek-V3](https://modelers.cn/models/MindSpore-Lab/DeepSeek-V3), etc. | MINDFORMER_MODELS |
-| DeepSeek R1 |   √ | [DeepSeek-R1](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1), [Deepseek-R1-W8A8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-r1-w8a8), etc. | MINDFORMER_MODELS |
+| Qwen2.5 |  √ | [Qwen2.5-7B](https://modelers.cn/models/AI-Research/Qwen2.5-7B), [Qwen2.5-32B](https://modelers.cn/models/AI-Research/Qwen2.5-32B), etc. | MindSpore Transformers  |
+| Qwen3 |   √ |[Qwen3-32B](https://modelers.cn/models/MindSpore-Lab/Qwen3-32B), etc. | MindSpore Transformers   |
+| DeepSeek V3 |   √ | [DeepSeek-V3](https://modelers.cn/models/MindSpore-Lab/DeepSeek-V3), etc. | MindSpore Transformers   |
+| DeepSeek R1 |   √ | [DeepSeek-R1](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1), [Deepseek-R1-W8A8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-r1-w8a8), etc. | MindSpore Transformers   |
 
 The "Backend" refers to the source of the model, which can be either from MindSpore Transformers or vLLM MindSpore native models. It is specified using the environment variable `vLLM_MODEL_BACKEND`:
 
-- If the model source is MindSpore Transformers, the value is `MINDFORMER_MODELS`;
-- If the model source is vLLM MindSpore, the value is `NATIVE_MODELS`.
+- If the model source is MindSpore Transformers, the value is `MindFormers`;
+- If the model source is vLLM MindSpore, user does not need to set the environment variable.
 
-By default, the backend is set to `NATIVE_MODELS`. To change the model backend, use the following command:
+User can change the model backend by the following command:
 
 ```bash
-export vLLM_MODEL_BACKEND=MINDFORMER_MODELS
+export vLLM_MODEL_BACKEND=MindFormers
 ```

@@ -1,10 +1,10 @@
-# Benchmark  
+# Benchmark
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/benchmark/benchmark.md)  
 
 The benchmark tool of vLLM MindSpore is inherited from vLLM. You can refer to the [vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md) documentation for more details. This document introduces [Online Benchmark](#online-benchmark) and [Offline Benchmark](#offline-benchmark). Users can follow the steps to conduct performance tests.  
 
-## Online Benchmark  
+## Online Benchmark
 
 For single-GPU inference, we take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. You can prepare the environment by following the guide [NPU Single-GPU Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#online-inference), then start the online service with the following command:  
 
@@ -31,10 +31,13 @@ INFO:     Application startup complete.
 Clone the vLLM repository and import the vLLM MindSpore plugin to reuse the benchmark tools:  
 
 ```bash  
-git clone https://github.com/vllm-project/vllm.git
+export VLLM_BRANCH=v0.8.3
+git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
 ```  
+
+Here, $VLLM_BRANCH$ refers to the branch name of vLLM, which needs to be compatible with vLLM MindSpore. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
 
 Execute the test script:  
 
@@ -93,20 +96,23 @@ For offline performance benchmark, take [Qwen2.5-7B](https://huggingface.co/Qwen
 
 Clone the vLLM repository and import the vLLM-MindSpore plugin to reuse the benchmark tools:
 
-```bash  
-git clone https://github.com/vllm-project/vllm.git
+```bash
+export VLLM_BRANCH=v0.8.3
+git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
 ```  
 
-Run the test script with the following command:  
+Here, $VLLM_BRANCH$ refers to the branch name of vLLM, which needs to be compatible with vLLM MindSpore. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
+
+Run the test script with the following command. The script below will start the model automatically, and user does not need to start the model manually:  
 
 ```bash  
 python3 benchmarks/benchmark_throughput.py \  
     --model Qwen/Qwen2.5-7B-Instruct \  
     --dataset-name sonnet \  
     --dataset-path benchmarks/sonnet.txt \  
-    --num-prompts 10  
+    --num-prompts 10
 ```  
 
 If the test runs successfully, the following results will be returned:  

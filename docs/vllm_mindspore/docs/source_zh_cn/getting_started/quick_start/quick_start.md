@@ -136,6 +136,14 @@ export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Tra
 - `vLLM_MODEL_MEMORY_USE_GB`：模型加载时所用空间，根据用户所使用的模型进行设置。若用户在模型加载过程中遇到显存不足时，可适当增大该值并重试；
 - `MINDFORMERS_MODEL_CONFIG`：模型配置文件。
 
+另外，用户需要确保MindSpore Transformers已安装。用户可通过
+
+```bash
+export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
+```
+
+以引入MindSpore Tranformers。
+
 ### 离线推理
 
 以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，用户可以使用如下Python脚本，进行模型的离线推理：

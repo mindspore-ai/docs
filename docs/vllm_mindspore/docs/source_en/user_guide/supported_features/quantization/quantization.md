@@ -12,7 +12,7 @@ We use the [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) network
 
 ### Quantizing Networks with MindSpore Golden Stick
 
-We employ [MindSpore Golden Stick's PTQ algorithm](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/ptq/README.md) for SmoothQuant quantization of Qwen3-8B. For detailed methods, refer to [DeepSeekR1-OutlierSuppressionLite Quantization Example](https://gitee.com/mindspore/golden-stick/blob/master/example/deepseekv3/a8w8-osl/readme.md).
+We employ [MindSpore Golden Stick's PTQ algorithm](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/ptq/README.md) for quantization of DeepSeek-R1. For detailed methods, refer to [DeepSeekR1-OutlierSuppressionLite Quantization Example](https://gitee.com/mindspore/golden-stick/blob/master/example/deepseekv3/a8w8-osl/readme.md).
 
 ### Downloading Quantized Weights
 
@@ -20,7 +20,7 @@ We have uploaded the quantized DeepSeek-R1 to [ModelArts Community](https://mode
 
 ## Quantized Model Inference
 
-After obtaining the Qwen3-8B OutlierSuppressionLite weights, ensure they are stored in the relative path `DeepSeek-R1-W8A8`.
+After obtaining the DeepSeek-R1 W8A8 weights, ensure they are stored in the relative path `DeepSeek-R1-W8A8`.
 
 ### Offline Inference
 
