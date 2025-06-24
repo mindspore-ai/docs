@@ -61,15 +61,34 @@ The optional values for the parameters of the form xxx_format above are the stri
 
 **Note**: when monitoring `optimizer_state` and `weight L2 norm` metrics is enabled, it will greatly increase the time consumption of the training process, so please choose carefully according to your needs. "rank_x" directory under the `monitor_config.dump_path` path will be cleared, so make sure that there is no file under the set path that needs to be kept.
 
-| tensoraboardfield parameter name                    | Descriptions       | Types            |
-|-----------------------------------------|---------------------|---------------|
-| tensorboard.tensorboard_dir               | Sets the path where TensorBoard event files are saved                              | str  |
-| tensorboard.tensorboard_queue_size        | Sets the maximum cache value of the capture queue. If it exceeds this value, it will be written to the event file, the default value is 10.                      | int  |
-| tensorboard.log_loss_scale_to_tensorboard | Sets whether loss scale information is logged to the event file, default is `False`.                 | bool |
-| tensorboard.log_timers_to_tensorboard     | Sets whether to log timer information to the event file. The timer information contains the duration of the current training step (or iteration) as well as the throughput, defaults to `False` | bool |
+| tensoraboardfield parameter name           | Descriptions                                                                                                                                                                                    | Types |
+|--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+| tensorboard.tensorboard_dir                | Sets the path where TensorBoard event files are saved                                                                                                                                           | str   |
+| tensorboard.tensorboard_queue_size         | Sets the maximum cache value of the capture queue. If it exceeds this value, it will be written to the event file, the default value is 10.                                                     | int   |
+| tensorboard.log_loss_scale_to_tensorboard  | Sets whether loss scale information is logged to the event file, default is `False`.                                                                                                            | bool  |
+| tensorboard.log_timers_to_tensorboard      | Sets whether to log timer information to the event file. The timer information contains the duration of the current training step (or iteration) as well as the throughput, defaults to `False` | bool  |
+| tensorboard.log_expert_load_to_tensorboard | Sets whether to log experts load to the event file (see [expert load monitoring](#expert-load-monitoring)), defaults to `False`                                                                 | bool  |
 
-`tensorboard.tensorboard_dir` can be specified via the environment variable 'MA_SUMMARY_LOG_DIR', at which point a default `tensorboard` configuration will be automatically generated if `tensorboard` is not configured.
 It should be noted that without the `tensorboard` configuration, the "tensorboard" set in xxx_format by `monitor_config` will be replaced with "log", i.e., instead of writing to the tensorboard event file, the corresponding information will be printed in the log.
+
+### Expert Load Monitoring
+
+The feature of experts load balancing and monitoring is implemented by callback function `TopkBiasBalanceCallback`, which only supports Deepseek-V3 of mcore. User need to manually supplement configuration of the "model.model_config", "tensorboard" and "callbacks" keywords in the training `yaml` file:
+
+```yaml
+model:
+    model_config:
+        moe_router_enable_expert_bias: True
+        moe_router_bias_update_rate: 0.001              # 0.001 is the official opensource setting of Deepseek-V3
+
+tensorboard:
+    log_expert_load_to_tensorboard: True
+
+callbacks:
+    - type: TopkBiasBalanceCallback
+```
+
+**Note**: If `tensorboard.tensorboard_dir` is not specified before, it's still required to be set.
 
 ## Viewing Training Data
 
@@ -97,7 +116,7 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 
 ### Explanation of the Visualization of Indicators
 
-The callback functions `MFLossMonitor` and `TrainingStateMonitor` will monitor different scalar metrics respectively. The `TrainingStateMonitor` does not need to be set by the user in the configuration file, it will be added automatically according to monitor_config.
+The callback functions `MFLossMonitor`, `TrainingStateMonitor` and `TopkBiasBalanceCallback` will monitor different scalar metrics respectively. The `TrainingStateMonitor` does not need to be set by the user in the configuration file, it will be added automatically according to monitor_config.
 
 #### MFLossMonitor Monitoring Metrics
 
@@ -123,16 +142,26 @@ In Tensorboard SCALARS page, the above metrics (assumed to be named `scalar_name
 
 The names and descriptions of the metrics monitored by `TrainingStateMonitor` are listed below:
 
-| Scalar name          | Descriptions                                            |
-|----------------------|-----------------------------------------------|
-| local_norm           | Gradient paradigm for each parameter on a single card, records need to set `local_norm_format` to non-null    |
-| device_local_norm    | the total number of gradient paradigms on a single card, records need to set `device_local_norm_format` to non-null    |
-| local_loss           | localized losses on a single card, records need to set `local_loss_format` to non-null           |
-| device_accum_local_loss    | the sum of localized losses on a single card, records need to set `device_local_loss_format` to non-null    |
-| adam_m_norm          | The optimizer's first-order moments estimate the number of paradigms for each parameter, records need to set `optimizer_state_format` to non-null |
+| Scalar name          | Descriptions                                                                                                                                       |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| local_norm           | Gradient paradigm for each parameter on a single card, records need to set `local_norm_format` to non-null                                         |
+| device_local_norm    | The total number of gradient paradigms on a single card, records need to set `device_local_norm_format` to non-null                                |
+| local_loss           | localized losses on a single card, records need to set `local_loss_format` to non-null                                                             |
+| device_accum_local_loss    | The sum of localized losses on a single card, records need to set `device_local_loss_format` to non-null                                           |
+| adam_m_norm          | The optimizer's first-order moments estimate the number of paradigms for each parameter, records need to set `optimizer_state_format` to non-null  |
 | adam_v_norm          | The optimizer's second-order moments estimate the number of paradigms for each parameter, records need to set `optimizer_state_format` to non-null |
-| weight_norm          | weight L2 paradigm, records need to set `weight_state_format` to non-null            |
-| throughput_linearity | data throughput linearity, records need to set `throughput_baseline` to non-null           |
+| weight_norm          | Weight L2 paradigm, records need to set `weight_state_format` to non-null                                                                          |
+| throughput_linearity | Data throughput linearity, records need to set `throughput_baseline` to non-null                                                                   |
+
+#### TopkBiasBalanceCallback Monitoring Metrics
+
+`TopkBiasBalanceCallback` will monitor the experts load of MoE model and perform dynamic balance (for corresponding configurations, refer to [expert load monitoring](#expert-load-monitoring)). Dynamic balance feature is not involved in this documentation, and the names and descriptions of the metrics monitored by `TopkBiasBalanceCallback` are listed below:
+
+| Scalar name         | Descriptions                                                                                                              |
+|-------------|---------------------------------------------------------------------------------------------------------------------------|
+| expert_load | The training load ratio of every expert of every MoE layer, records need to set `log_expert_load_to_tensorboard` to `True` |
+
+#### Examples of the Visualization of Indicators
 
 Depending on the specific settings, the above metrics will be displayed in the Tensorboard or logs as follows:
 
@@ -142,13 +171,17 @@ Depending on the specific settings, the above metrics will be displayed in the T
 
 **Example of tensorboard visualization**
 
-adam_m_norm
+adam_m_norm:
 
 ![/adam_m_norm](./images/adam_m_norm.png)
 
-local_loss and local_norm
+local_loss and local_norm:
 
 ![/local_loss&local_norm](./images/local_loss&local_norm.png)
+
+expert_load (figure shows the 16 experts load curves of 3 MoE layers respectively):
+
+![/expert_load](./images/expert_load.png)
 
 ### Description of Text Data Visualization
 

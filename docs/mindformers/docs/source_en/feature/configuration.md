@@ -335,10 +335,11 @@ The metric monitoring configuration is primarily used to configure methods to re
 
 The TensorBoard configuration is primarily used to configure parameters related to TensorBoard during training, allowing for real-time monitoring and visualization of training metrics, please refer to [Training Metrics Monitoring](https://www.mindspore.cn/mindformers/docs/en/dev/feature/monitor.html) for more details. Below is a description of the common TensorBoard configuration options in MindSpore Transformers:
 
-| Parameters                                  | Descriptions                                                                                                                                                | Types  |
-|---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| tensorboard.tensorboard_dir                 | Set the save path for TensorBoard event. files.                                                                                                              | str    |
-| tensorboard.tensorboard_queue_size          | Set the largest number of summaries to keep in a queue; will flush once the queue gets bigger than this. Defaults to 10.                                    | int    |
-| tensorboard.log_loss_scale_to_tensorboard   | Set whether to record the loss scale information to the event file. The default is `False`.                                                                 | bool   |
-| tensorboard.log_timers_to_tensorboard       | Whether to log timer information to TensorBoard, including the duration and throughput of the current training step (or iteration). The default is `False`. | bool   |
+| Parameters                                 | Descriptions                                                                                                                                                                                    | Types |
+|--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+| tensorboard.tensorboard_dir                | Sets the path where TensorBoard event files are saved.                                                                                                                                          | str   |
+| tensorboard.tensorboard_queue_size         | Sets the maximum cache value of the capture queue. If it exceeds this value, it will be written to the event file, the default value is 10.                                                     | int   |
+| tensorboard.log_loss_scale_to_tensorboard  | Sets whether loss scale information is logged to the event file, default is `False`.                                                                                                            | bool  |
+| tensorboard.log_timers_to_tensorboard      | Sets whether to log timer information to the event file. The timer information contains the duration of the current training step (or iteration) as well as the throughput, defaults to `False` | bool  |
+| tensorboard.log_expert_load_to_tensorboard | Sets whether to log experts load to the event file, defaults to `False`.                                                                                                                        | bool  |
 
