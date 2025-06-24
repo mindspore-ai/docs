@@ -51,7 +51,7 @@ export MS_TFT_PORT=30051
     - **TRE (Training Result Error)**: Training result exception recovery
     - **TSP (Training Step Pause)**：Training step pause function
     - When UCE or ARF is enabled, TTP is enabled by default.
-    - TRE function can not be used with UCE or ARF feature
+    - Enabling both TRE and asynchronous CKPT features at the same time cannot guarantee that the loss before and after resuming training is exactly the same.
     - TRE does not depend on MindIO. It is not necessary to configure the MindIO-related environment variables MINDIO_FOR_MINDSPORE, MS_TFT_IP, and MS_TFT_PORT to enable only the TRE feature
 
 - `MS_TFT_IP` and `MS_TFT_PORT` represent the IP and port number of TFT Controller respectively, no default value, need to be specified by user. If the Controller is started by MindSpore Transformers, the IP and port number of the rank0 node in the user's cluster are configured. If the Controller is started by the user, configure the IP and port number of the Controller.

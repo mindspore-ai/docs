@@ -51,7 +51,7 @@ export MS_TFT_PORT=30051
     - **TRE (Training Result Error)**：TRE 训练结果异常恢复功能
     - **TSP (Training Step Pause)**：TSP 训练迭代暂停功能
     - 开启 UCE 或者 ARF 功能时，默认开启 TTP 功能
-    - 目前 TRE 功能不可以与 UCE 或 ARF 功能同时使用
+    - 同时开启 TRE 和异步 CKPT 特性，无法保证续训前后的 loss 完全一致
     - TRE 功能不依赖 MindIO 组件，若只使能TRE特性，无需配置 MindIO 相关的环境变量 MINDIO_FOR_MINDSPORE、MS_TFT_IP 和 MS_TFT_PORT
 - `MS_TFT_IP` 和 `MS_TFT_PORT` 分别表示 TFT Controller 的 IP 和端口号，无默认值，需要用户指定。如果由 MindSpore Transformers 启动 Controller，则配置用户集群中 rank0 节点的 IP 和端口号。如果用户自行启动 Controller，则配置 Controller 的 IP 和端口号。
 
