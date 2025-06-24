@@ -610,6 +610,13 @@ Distributed Parallel
        depend_dest_list(List[string]): A list of terminal operator names that need to be inserted into control edges. They need to correspond one-to-one with the operators in depend_src_list in order, otherwise the action of inserting control edges will fail.
 
        delete_depend_list(List[string]): A list of operator names that need to be deleted. If the operator name does not exist or does not match the graph_id, the action of deleting the node will be invalid.
+   * - MS_DEV_ENABLE_PASS_CIRCEL_RECOVERY
+     - Control whether to enable the automatic detection of computational graph circle caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
+     - Integer
+     - 1: Enable the automatic detection of computational graph circle caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
+
+       No setting or other value: Disable the automatic detection of computational graph circle caused by parallel passes, and revert the modifications made by parallel passes to the computational graph.
+     -
 
 
 See `Dynamic Cluster <https://www.mindspore.cn/tutorials/en/master/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
