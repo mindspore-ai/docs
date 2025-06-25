@@ -19,7 +19,7 @@ This document describes the steps to install the vLLM MindSpore environment. Thr
   | [CANN](https://www.hiascend.com/developer/download/community/result?module=cann) | 8.1 | - |  
   | [MindSpore](https://www.mindspore.cn/install/) | 2.7 | master |  
   | [MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter) | 0.2 | master |  
-  | [MindSpore Transformers](https://gitee.com/mindspore/mindformers) | 1.6 | br_infer_deepseek_os |  
+  | [MindSpore Transformers](https://gitee.com/mindspore/mindformers) | 1.6 | dev |  
   | [Golden Stick](https://gitee.com/mindspore/golden-stick) | 1.1.0 | r1.1.0 |  
   | [vLLM](https://github.com/vllm-project/vllm) | 0.8.3 | v0.8.3 |  
   | [vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | master |  
@@ -107,6 +107,7 @@ pip install vllm_mindspore
 ### Source Code Installation
 
 - **CANN Installation**
+
   For CANN installation methods and environment configuration, please refer to [CANN Community Edition Installation Guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit). If you encounter any issues during CANN installation, please consult the [Ascend FAQ](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html) for troubleshooting.
 
   The default installation path for CANN is `/usr/local/Ascend`. After completing CANN installation, configure the environment variables with the following commands:
@@ -118,6 +119,7 @@ pip install vllm_mindspore
   ```
 
 - **vLLM Prerequisites Installation**
+
   For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.8.3/getting_started/installation/cpu.html). In vllM installation, `gcc/g++ >= 12.3.0` is required, and it could be  installed by the following command:
 
   ```bash
@@ -125,6 +127,7 @@ pip install vllm_mindspore
   ```
 
 - **vLLM MindSpore Installation**
+
   To install vLLM MindSpore, user needs to pull the vLLM MindSpore source code and then runs the following command to install the dependencies:
 
   ```bash  

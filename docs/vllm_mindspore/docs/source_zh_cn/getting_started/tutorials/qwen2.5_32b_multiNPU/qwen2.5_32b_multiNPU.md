@@ -1,4 +1,4 @@
-# NPU单节点多卡推理（Qwen2.5-32B）
+# 多卡推理（Qwen2.5-32B）
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md)
 

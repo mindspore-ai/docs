@@ -1,10 +1,10 @@
-# Parallel Inference (DeepSeek R1)
+# Multi-machine Parallel Inference (DeepSeek R1)
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)  
 
 vLLM MindSpore supports hybrid parallel inference with configurations of tensor parallelism (TP), data parallelism (DP), expert parallelism (EP), and their combinations. For the applicable scenarios of different parallel strategies, refer to the [vLLM official documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies).  
 
-This document uses the DeepSeek R1 671B W8A8 model as an example to introduce the inference workflows for [tensor parallelism (TP16)](#tp16-tensor-parallel-inference) and [hybrid parallelism (DP4TP4EP4)](#dp4tp4ep4-hybrid-parallel-inference). The DeepSeek R1 671B W8A8 model requires multiple nodes to run inference. To ensure consistent execution configurations (including model configuration file paths, Python environments, etc.) across all nodes, it is recommended to use Docker containers to eliminate execution differences.  
+This document uses the DeepSeek R1 671B W8A8 model as an example to introduce the inference workflows for [tensor parallelism (TP16)](#tp16-tensor-parallel-inference) and [hybrid parallelism](#hybrid-parallel-inference). The DeepSeek R1 671B W8A8 model requires multiple nodes to run inference. To ensure consistent execution configurations (including model configuration file paths, Python environments, etc.) across all nodes, it is recommended to use Docker containers to eliminate execution differences.  
 
 Users can configure the environment by following the [Creating a Container](#creating-a-container) section below or referring to the [Installation Guide](../../installation/installation.md#installation-guide).  
 
@@ -268,7 +268,7 @@ Use the following command to send requests, where `prompt` is the model input:
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'  
 ```  
 
-## DP4TP4EP4 Hybrid Parallel Inference
+## Hybrid Parallel Inference
 
 vLLM manages and operates resources across multiple nodes through Ray. This example corresponds to the following parallel strategy:  
 
@@ -276,7 +276,7 @@ vLLM manages and operates resources across multiple nodes through Ray. This exam
 - Tensor Parallelism (TP): 4;  
 - Expert Parallelism (EP): 4.
 
-### DP4TP4EP4 Setting Environment Variables
+### Setting Environment Variables
 
 Configure the following environment variables on the master and worker nodes:  
 
@@ -300,7 +300,7 @@ Environment variable descriptions:
 - `vLLM_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM MindSpore can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. Users can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek3/deepseek_r1_671b), such as [predict_deepseek_r1_671b_w8a8_ep4t4.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4t4.yaml).  
 
-The model parallel strategy is specified in the `parallel_config` of the configuration file. For example, the DP4TP4EP4 hybrid parallel configuration is as follows:  
+The model parallel strategy is specified in the `parallel_config` of the configuration file. For example, the hybrid parallel configuration is as follows:  
 
 ```text  
 # default parallel of device num = 16 for Atlas 800T A2  
@@ -313,7 +313,7 @@ parallel_config:
 
 `data_parallel` and `model_parallel` specify the parallelism strategy for the attention and feed-forward dense layers, while `expert_parallel` specifies the expert routing parallelism strategy for MoE layers. Ensure that `data_parallel` * `model_parallel` is divisible by `expert_parallel`.  
 
-### DP4TP4EP4 Starting Online Service
+### Starting Online Service
 
 `vllm-mindspore` can deploy online services using the OpenAI API protocol. Below is the workflow for launching the service:  
 
@@ -349,7 +349,7 @@ vllm-mindspore serve --headless --model="/path/to/save/deepseek_r1_w8a8" --trust
 
 ## Sending Requests
 
-Use the following command to send requests, where `$PROMPT` is the model input:  
+Use the following command to send requests, where `prompt` is the model input:  
 
 ```bash  
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0}'  

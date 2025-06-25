@@ -1,4 +1,4 @@
-# Single-Node Multi-Card NPU Inference (Qwen2.5-32B)
+# Multi-Card Inference (Qwen2.5-32B)
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md)
 

@@ -6,13 +6,22 @@ vLLM MindSpore的性能测试能力，继承自vLLM所提供的性能测试能�
 
 ## 在线性能测试
 
-若用户使用单卡推理，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，可按照文档[NPU单卡推理（Qwen2.5-7B）](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#在线推理)进行环境准备，并以下命令启动在线服务：
+若用户使用单卡推理，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，可按照文档[单卡推理（Qwen2.5-7B）](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#在线推理)进行环境准备，设置以下环境变量：
+
+```bash
+export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
+export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
+export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
+```
+
+并以下命令启动在线服务：
 
 ```bash
 vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests
 ```
 
-若使用多卡推理，以[Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) 为例，可按照文档[NPU单节点多卡推理（Qwen2.5-32B）](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#在线推理)进行环境准备，则可用以下命令启动在线服务：
+若使用多卡推理，以[Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) 为例，可按照文档[多卡推理（Qwen2.5-32B）](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#在线推理)进行环境准备，则可用以下命令启动在线服务：
 
 ```bash
 export TENSOR_PARALLEL_SIZE=4
@@ -92,7 +101,14 @@ P99 ITL (ms):                            ....
 
 ## 离线性能测试
 
-用户使用离线性能测试时，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，可按照文档[NPU单卡推理（Qwen2.5-7B）](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#离线推理)进行环境准备。
+用户使用离线性能测试时，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，可按照文档[单卡推理（Qwen2.5-7B）](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#离线推理)进行环境准备，设置以下环境变量：
+
+```bash
+export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
+export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
+export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
+```
 
 并拉取vLLM代码仓，导入vLLM MindSpore插件，复用其中benchmark功能：
 
@@ -103,7 +119,7 @@ cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
 ```
 
-其中，$VLLM_BRANCH$为vLLM的分支名，其需要与vLLM MindSpore相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
+其中，`VLLM_BRANCH`为vLLM的分支名，其需要与vLLM MindSpore相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
 
 用户可通过以下命令，运行测试脚本。该脚本将启动模型，并执行测试，用户不需要再拉起模型：
 

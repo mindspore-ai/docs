@@ -6,13 +6,22 @@ The benchmark tool of vLLM MindSpore is inherited from vLLM. You can refer to th
 
 ## Online Benchmark
 
-For single-GPU inference, we take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. You can prepare the environment by following the guide [NPU Single-GPU Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#online-inference), then start the online service with the following command:  
+For single-card inference, we take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. You can prepare the environment by following the guide [Single-Card Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#online-inference), set the environment variables:
+
+```bash
+export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
+export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
+export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
+```
+
+then start the online service with the following command:  
 
 ```bash
 vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests  
 ```  
 
-For multi-GPU inference, we take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example. You can prepare the environment by following the guide [NPU Single-Node Multi-GPU Inference (Qwen2.5-32B)](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#online-inference), then start the online service with the following command:  
+For multi-card inference, we take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example. You can prepare the environment by following the guide [Multi-Card Inference (Qwen2.5-32B)](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#online-inference), then start the online service with the following command:  
 
 ```bash  
 export TENSOR_PARALLEL_SIZE=4
@@ -92,7 +101,14 @@ P99 ITL (ms):                            ....
 
 ## Offline Benchmark
 
-For offline performance benchmark, take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. Prepare the environment by following the guide [NPU Single-GPU Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#offline-inference).  
+For offline performance benchmark, take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. Prepare the environment by following the guide [Single-Card Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#offline-inference). User need to set the environment variables:
+
+```bash
+export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
+export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
+export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
+```
 
 Clone the vLLM repository and import the vLLM-MindSpore plugin to reuse the benchmark tools:
 
@@ -103,7 +119,7 @@ cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
 ```  
 
-Here, $VLLM_BRANCH$ refers to the branch name of vLLM, which needs to be compatible with vLLM MindSpore. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
+Here, `VLLM_BRANCH` refers to the branch name of vLLM, which needs to be compatible with vLLM MindSpore. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
 
 Run the test script with the following command. The script below will start the model automatically, and user does not need to start the model manually:  
 

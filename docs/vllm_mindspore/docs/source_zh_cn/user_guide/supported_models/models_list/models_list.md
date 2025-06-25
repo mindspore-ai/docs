@@ -4,7 +4,7 @@
 
 | 模型 | 是否支持 | 模型下载链接 | 模型后端 |
 |-------| --------- | ---- | ---- |
-| Qwen2.5 |  √ | [Qwen2.5-7B](https://modelers.cn/models/AI-Research/Qwen2.5-7B)、[Qwen2.5-32B](https://modelers.cn/models/AI-Research/Qwen2.5-32B) 等 | MindSpore Transformers  |
+| Qwen2.5 |  √ | [Qwen2.5-7B](https://modelers.cn/models/AI-Research/Qwen2.5-7B)、[Qwen2.5-32B](https://modelers.cn/models/AI-Research/Qwen2.5-32B) 等 | vLLM MindSpore、MindSpore Transformers  |
 | Qwen3 |   √ | [Qwen3-32B](https://modelers.cn/models/MindSpore-Lab/Qwen3-32B) 等 | MindSpore Transformers |
 | DeepSeek V3 |   √ | [DeepSeek-V3](https://modelers.cn/models/MindSpore-Lab/DeepSeek-V3) 等 | MindSpore Transformers |
 | DeepSeek R1 |   √ | [DeepSeek-R1](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1)、[Deepseek-R1-W8A8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-r1-w8a8) 等 | MindSpore Transformers |

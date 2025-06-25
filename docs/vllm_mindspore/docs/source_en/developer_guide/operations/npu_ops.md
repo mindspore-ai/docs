@@ -74,6 +74,8 @@ Create an integration file (e.g., `my_custom_op.cpp`) in `module/`. User can ref
 #include "ascendc/my_custom_op.h"
 #include "module/module.h"
 
+using BaseTensorPtr = mindspore::tensor::BaseTensorPtr;
+
 void MyCustomOpPythonInterface(int32_t param1, int32_t param2,
                                BaseTensorPtr input, BaseTensorPtr output) {
   ...
