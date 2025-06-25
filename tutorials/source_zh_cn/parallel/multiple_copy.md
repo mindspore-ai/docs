@@ -16,7 +16,7 @@
 
 ### 相关接口
 
-- `mindspore.parallel.MicroBatchInterleaved(cell_network, interleave_num=2)`：这个函数的作用是将输入在第零维度拆成 `interleave_num`份，然后执行包裹的cell的计算。
+- `mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`：这个函数的作用是将输入在第零维度拆成 `interleave_num`份，然后执行包裹的cell的计算。
 
 ## 操作实践
 
@@ -104,7 +104,7 @@ with no_init_parameters():
 在这一步，我们需要定义损失函数、训练过程，调用两个接口来配置多副本并行：
 
 - 首先需要定义LossCell，本例中调用了`nn.WithLossCell`接口封装网络和损失函数。
-- 然后需要在LossCell外包一层`mindspore.parallel.MicroBatchInterleaved`，并指定interleave_num的size为2。详细请参考本章概述中的相关接口。
+- 然后需要在LossCell外包一层`mindspore.parallel.nn.MicroBatchInterleaved`，并指定interleave_num的size为2。详细请参考本章概述中的相关接口。
 
 最后，`AutoParallel` 包裹 `net` 设置并行模式为半自动并行模式。
 
@@ -114,7 +114,7 @@ from mindspore import nn, train
 
 loss_fn = nn.CrossEntropyLoss()
 loss_cb = train.LossMonitor(100)
-net = ms.parallel.MicroBatchInterleaved(nn.WithLossCell(net, loss_fn), 2)
+net = ms.parallel.nn.MicroBatchInterleaved(nn.WithLossCell(net, loss_fn), 2)
 net = AutoParallel(net, parallel_mode="semi_auto")
 model = ms.Model(net, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb])

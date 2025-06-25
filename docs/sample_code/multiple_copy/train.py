@@ -66,7 +66,7 @@ def create_dataset(batch_size):
 data_set = create_dataset(32)
 loss_fn = nn.CrossEntropyLoss()
 loss_cb = train.LossMonitor(100)
-net = ms.parallel.MicroBatchInterleaved(nn.WithLossCell(net, loss_fn), 2)
+net = ms.parallel.nn.MicroBatchInterleaved(nn.WithLossCell(net, loss_fn), 2)
 net = AutoParallel(net)
 model = ms.Model(net, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb])
