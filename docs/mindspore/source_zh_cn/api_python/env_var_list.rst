@@ -606,6 +606,13 @@ Dump调试
        depend_dest_list(List[string])：需要插入控制边的终端算子名称列表，需要和depend_src_list中的算子按顺序一一对应，否则插入控制边的动作将失效。
 
        delete_depend_list(List[string])：需要被删除的算子名称列表，算子名称不存在或者和graph_id不匹配，删除节点的动作将失效。
+   * - MS_DEV_ENABLE_PASS_CIRCEL_RECOVERY
+     - 控制是否使能自动检测并行pass导致的计算图成环，并回退并行pass对计算图的修改功能。
+     - Integer
+     - 1：开启自动检测并行pass导致的计算图成环，并回退并行pass对计算图的修改功能。
+
+       不设置或其他值：关闭自动检测并行pass导致的计算图成环，并回退并行pass对计算图的修改功能。
+     -
 
 
 动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dynamic_cluster.html>`_ 。
