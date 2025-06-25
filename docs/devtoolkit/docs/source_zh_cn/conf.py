@@ -15,7 +15,7 @@ import re
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Dev Toolkit'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

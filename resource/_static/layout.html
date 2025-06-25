@@ -2,7 +2,7 @@
 {%- set url_root = pathto('', 1) %}
 {%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
 {%- if not embedded and docstitle %}
-  {%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
+  {%- set titlesuffix = " &#124; "|safe + docstitle|e %}
 {%- else %}
   {%- set titlesuffix = "" %}
 {%- endif %}
@@ -20,7 +20,7 @@
   {{- metatags }}
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {%- block htmltitle %}
-  <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+  <title>{{ title|striptags|e }}{{ titlesuffix }} &#124; {{ _('MindSpore') }}</title>
   {%- endblock -%}
 
   {#- CSS #}

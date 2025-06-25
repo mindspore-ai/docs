@@ -25,7 +25,7 @@ with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as 
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Flow'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

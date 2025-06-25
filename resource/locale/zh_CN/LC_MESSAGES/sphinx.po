@@ -903,6 +903,10 @@ msgstr "注册了多个 math_renderers。但没有选择任何 math_renderer。"
 msgid "Unknown math_renderer %r is given."
 msgstr "给定了未知的 math_renderer %r。"
 
+#: sphinx_rtd_theme/layout.html:23
+msgid "MindSpore"
+msgstr "昇思MindSpore社区"
+
 #: sphinx/builders/html.py:1264
 #, python-format
 msgid "%s %s documentation"

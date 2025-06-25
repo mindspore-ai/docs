@@ -20,7 +20,7 @@ import sphinx.ext.autosummary.generate as g
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Golden Stick'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

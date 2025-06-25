@@ -26,7 +26,7 @@ from exhale import graph as exh_graph
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Lite'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

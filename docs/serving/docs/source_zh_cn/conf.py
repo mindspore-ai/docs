@@ -21,7 +21,7 @@ import mindspore_serving
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Serving'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

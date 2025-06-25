@@ -23,7 +23,7 @@ import mindspore_gl
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Graph Learning'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

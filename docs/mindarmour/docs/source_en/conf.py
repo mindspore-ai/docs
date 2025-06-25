@@ -22,7 +22,7 @@ import mindarmour
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Armour'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

@@ -22,7 +22,7 @@ sys.path.append(os.path.abspath('../_ext'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Golden Stick'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
