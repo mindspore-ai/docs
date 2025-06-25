@@ -33,7 +33,7 @@ from sphinx.ext import autodoc as sphinx_autodoc
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Insight'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

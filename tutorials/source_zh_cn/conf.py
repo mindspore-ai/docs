@@ -34,10 +34,9 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = '教程'
 copyright = 'MindSpore'
 author = 'MindSpore'
-language = 'zh_CN'
 # The full version, including alpha/beta/rc tags
 release = 'master'
 
@@ -91,6 +90,15 @@ highlight_language = 'python'
 pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
+
+# Reconstruction of sphinx auto generated document translation.
+import sphinx
+import shutil
+mo_target = os.path.join(os.path.dirname(sphinx.__file__), 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
+if os.path.exists(mo_target):
+    os.remove(mo_target)
+language = 'zh_CN'
+locale_dirs = ['../../resource/locale/']
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.

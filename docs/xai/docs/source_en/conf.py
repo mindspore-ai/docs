@@ -22,7 +22,7 @@ import mindspore_xai
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore XAI'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

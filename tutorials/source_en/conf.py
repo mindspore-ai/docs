@@ -35,7 +35,7 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'Tutorials'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

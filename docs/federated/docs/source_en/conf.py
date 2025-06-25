@@ -22,7 +22,7 @@ import mindspore
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Federated'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

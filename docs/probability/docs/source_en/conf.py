@@ -23,7 +23,7 @@ import mindspore
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Probability'
 copyright = 'MindSpore'
 author = 'MindSpore'
 

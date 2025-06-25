@@ -22,7 +22,7 @@ import mindspore_rec
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Recommender'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
