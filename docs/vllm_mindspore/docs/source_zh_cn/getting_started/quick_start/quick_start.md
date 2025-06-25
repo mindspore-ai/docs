@@ -213,7 +213,6 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 
 使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-PROMPT="I am"
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 

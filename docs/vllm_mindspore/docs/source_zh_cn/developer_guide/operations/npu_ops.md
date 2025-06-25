@@ -76,6 +76,8 @@ void MyCustomOpKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclStream,
 #include "ascendc/my_custom_op.h"
 #include "module/module.h"
 
+using BaseTensorPtr = mindspore::tensor::BaseTensorPtr;
+
 void MyCustomOpPythonInterface(int32_t param1, int32_t param2,
                                BaseTensorPtr input, BaseTensorPtr output) {
   ...

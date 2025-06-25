@@ -19,7 +19,7 @@
    |[CANN](https://www.hiascend.com/developer/download/community/result?module=cann)     |   8.1      |  -    |
    |[MindSpore](https://www.mindspore.cn/install/) |  2.7    | master     |
    |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| 0.2 | master  |
-   |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)|1.6      | br_infer_deepseek_os |
+   |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)|1.6      | dev |
    |[Golden Stick](https://gitee.com/mindspore/golden-stick)|1.1.0    | r1.1.0 |
    |[vLLM](https://github.com/vllm-project/vllm)      | 0.8.3 | v0.8.3   |
    |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | master  |
@@ -107,6 +107,7 @@ pip install vllm_mindspore
 ### 源码安装
 
 - **CANN安装**
+
     CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)，若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
 
     CANN默认安装路径为`/usr/local/Ascend`。用户在安装CANN完毕后，使用如下命令，为CANN配置环境变量：
@@ -118,6 +119,7 @@ pip install vllm_mindspore
     ```
 
 - **vLLM前置依赖安装**
+
     vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.8.3/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
 
     ```bash
@@ -151,7 +153,18 @@ pip install vllm_mindspore
 
 ### 快速验证
 
-用户可以创建一个简单的离线推理场景，验证安装是否成功。下面以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，用户可以使用如下Python脚本，进行模型的离线推理：
+用户可以创建一个简单的离线推理场景，验证安装是否成功。下面以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例。首先用户需要执行以下命令，设置环境变量：
+
+```bash
+export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
+export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
+export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
+```
+
+关于环境变量的具体含义，可参考[这里](../quick_start/quick_start.md#设置环境变量)。
+
+用户可以使用如下Python脚本，进行模型的离线推理：
 
 ```python
 import vllm_mindspore # Add this line on the top of script.
@@ -178,17 +191,6 @@ for output in outputs:
     generated_text = output.outputs[0].text
     print(f"Prompt: {prompt!r}. Generated text: {generated_text!r}")
 ```
-
-执行以下命令，设置环境变量：
-
-```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
-export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
-```
-
-关于环境变量的具体含义，可参考[这里](../quick_start/quick_start.md#设置环境变量)。
 
 若成功执行，则可以获得类似的执行结果：
 

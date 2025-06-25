@@ -24,7 +24,18 @@ After obtaining the DeepSeek-R1 W8A8 weights, ensure they are stored in the rela
 
 ### Offline Inference
 
-Refer to the [Installation Guide](../../../getting_started/installation/installation.md) to set up the vLLM MindSpore environment. Once ready, use the following Python code for offline inference:
+Refer to the [Installation Guide](../../../getting_started/installation/installation.md) to set up the vLLM MindSpore environment. User need to set the following environment variables:
+
+```bash
+export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
+export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
+export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
+```
+
+About the yaml for the DeepSeek-R1 W8A8 quantization inference, user can use [predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
+
+Once ready, use the following Python code for offline inference:
 
 ```python
 import vllm_mindspore  # Add this line at the top of the script

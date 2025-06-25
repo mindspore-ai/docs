@@ -1,10 +1,10 @@
-# 并行推理（DeepSeek R1）
+# 多机并行推理（DeepSeek R1）
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
 
 vLLM MindSpore支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理，不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。
 
-本文档将以DeepSeek R1 671B W8A8为例介绍[张量并行](#tp16-张量并行推理)及[混合并行](#dp4tp4ep4-混合并行推理)推理流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理模型。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。
+本文档将以DeepSeek R1 671B W8A8为例介绍[张量并行](#tp16-张量并行推理)及[混合并行](#混合并行推理)推理流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理模型。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。
 
 用户可通过以下[新建容器](#新建容器)章节或参考[安装指南](../../installation/installation.md#安装指南)进行环境配置。
 
@@ -269,7 +269,7 @@ vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-cod
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
 ```
 
-## DP4TP4EP4 混合并行推理
+## 混合并行推理
 
 vLLM 通过 Ray 对多个节点资源进行管理和运行。该样例对应以下并行策略场景：
 
@@ -277,7 +277,7 @@ vLLM 通过 Ray 对多个节点资源进行管理和运行。该样例对应以�
 - 张量并行（TP）为4；
 - 专家并行（EP）为4。
 
-### DP4TP4EP4 设置环境变量
+### 设置环境变量
 
 分别在主从节点配置如下环境变量：
 
@@ -301,7 +301,7 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/pre
 - `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM MindSpore所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
 - `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml)。
 
-模型并行策略通过配置文件中的`parallel_config`指定，例如DP4TP4EP4 混合并行配置如下所示：
+模型并行策略通过配置文件中的`parallel_config`指定，例如混合并行配置如下所示：
 
 ```text
 # default parallel of device num = 16 for Atlas 800T A2
@@ -314,7 +314,7 @@ parallel_config:
 
 `data_parallel`及`model_parallel`指定attn及ffn-dense部分的并行策略，`expert_parallel`指定moe部分路由专家并行策略，且需满足`data_parallel` * `model_parallel`可被`expert_parallel`整除。
 
-### DP4TP4EP4 启动在线服务
+### 启动在线服务
 
 `vllm-mindspore`可使用OpenAI的API协议部署在线服务。以下是在线服务的拉起流程：
 
@@ -350,10 +350,8 @@ vllm-mindspore serve --headless --model="/path/to/save/deepseek_r1_w8a8" --trust
 
 ## 发送请求
 
-使用如下命令发送请求。其中`$PROMPT`为模型输入：
+使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-PROMPT="I am"
-MAX_TOKEN=120
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "$PROMPT", "max_tokens": $MAX_TOKEN, "temperature": 0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am, "max_tokens": 120, "temperature": 0}'
 ```
