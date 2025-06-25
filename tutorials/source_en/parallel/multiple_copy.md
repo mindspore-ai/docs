@@ -16,7 +16,7 @@ The data of input model is sliced according to the batchsize dimension, thus mod
 
 ### Related Interfaces
 
-- `mindspore.parallel.MicroBatchInterleaved(cell_network, interleave_num=2)`: This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
+- `mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`: This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
 
 ## Operator Practice
 
@@ -104,7 +104,7 @@ with no_init_parameters():
 In this step, we need to define the loss function and the training process, and in this section two interfaces need to be called to configure the gradient accumulation:
 
 - First the LossCell needs to be defined. In this case the `nn.WithLossCell` interface is called to wrap the network and loss functions.
-- It is then necessary to wrap a layer of `mindspore.parallel.MicroBatchInterleaved` around the LossCell and specify interleave_num size of 2. Refer to the relevant interfaces in the overview of this chapter for more details.
+- It is then necessary to wrap a layer of `mindspore.parallel.nn.MicroBatchInterleaved` around the LossCell and specify interleave_num size of 2. Refer to the relevant interfaces in the overview of this chapter for more details.
 
 Finally, the `AutoParallel` wraps `net` and sets the parallel mode to semi-automatic parallel mode.
 
@@ -114,7 +114,7 @@ from mindspore import nn, train
 
 loss_fn = nn.CrossEntropyLoss()
 loss_cb = train.LossMonitor(100)
-net = ms.parallel.MicroBatchInterleaved(nn.WithLossCell(net, loss_fn), 2)
+net = ms.parallel.nn.MicroBatchInterleaved(nn.WithLossCell(net, loss_fn), 2)
 net = AutoParallel(net, parallel_mode="semi_auto")
 model = ms.Model(net, optimizer=optimizer)
 model.train(10, data_set, callbacks=[loss_cb])
