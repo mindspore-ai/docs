@@ -59,17 +59,36 @@ callbacks:
 
 上述 xxx_format 形式的参数的可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时均默认为`null`，表示不监控对应指标。
 
-**注意**，当前开启对`优化器状态`和`权重L2 norm`指标的监控时会极大增加训练进程的耗时，请根据需要谨慎选择；`monitor_config.dump_path`路径下对应的"rank_x"目录将被清空，请确保所设置路径下没有需要保留的文件。
+**注意**：当前开启对`优化器状态`和`权重L2 norm`指标的监控时会极大增加训练进程的耗时，请根据需要谨慎选择；`monitor_config.dump_path`路径下对应的"rank_x"目录将被清空，请确保所设置路径下没有需要保留的文件。
 
-| tensoraboard字段参数名称                        | 说明                                                    | 类型   |
-|-------------------------------------------|-------------------------------------------------------|------|
-| tensorboard.tensorboard_dir               | 设置 TensorBoard 事件文件的保存路径                              | str  |
-| tensorboard.tensorboard_queue_size        | 设置采集队列的最大缓存值，超过该值便会写入事件文件，默认值为10                      | int  |
-| tensorboard.log_loss_scale_to_tensorboard | 设置是否将 loss scale 信息记录到事件文件，默认为`False`                 | bool |
-| tensorboard.log_timers_to_tensorboard     | 设置是否将计时器信息记录到事件文件，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量，默认为`False` | bool |
+| tensoraboard字段参数名称                         | 说明                                                      | 类型   |
+|--------------------------------------------|---------------------------------------------------------|------|
+| tensorboard.tensorboard_dir                | 设置 TensorBoard 事件文件的保存路径                                | str  |
+| tensorboard.tensorboard_queue_size         | 设置采集队列的最大缓存值，超过该值便会写入事件文件，默认值为10                        | int  |
+| tensorboard.log_loss_scale_to_tensorboard  | 设置是否将 loss scale 信息记录到事件文件，默认为`False`                   | bool |
+| tensorboard.log_timers_to_tensorboard      | 设置是否将计时器信息记录到事件文件，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量，默认为`False` | bool |
+| tensorboard.log_expert_load_to_tensorboard | 设置是否将专家负载记录到事件文件（见[专家负载监控](#专家负载监控)小节），默认为`False`       | bool |
 
-`tensorboard.tensorboard_dir`可通过环境变量'MA_SUMMARY_LOG_DIR'来指定，此时若`tensorboard`未配置，则会自动生成一个默认的`tensorboard`配置。
 需要注意的是，在没有`tensorboard`配置时，`monitor_config`在xxx_format中设置的"tensorboard"将被替换为"log"，即从写入tensorboard事件文件改为在日志中进行相应信息的打印。
+
+### 专家负载监控
+
+专家负载均衡和监控功能通过回调函数TopkBiasBalanceCallback实现，目前仅支持mcore接口Deepseek-V3模型。用户需要手动在训练`yaml`文件中对"model.model_config"、"tensorboard"和"callbacks"关键字进行补充配置：
+
+```yaml
+model:
+    model_config:
+        moe_router_enable_expert_bias: True
+        moe_router_bias_update_rate: 0.001              # 0.001为Deepseek-V3官方开源配置
+
+tensorboard:
+    log_expert_load_to_tensorboard: True
+
+callbacks:
+    - type: TopkBiasBalanceCallback
+```
+
+**注意**：若此前没有指定`tensorboard.tensorboard_dir`，则仍然需要对其进行设置。
 
 ## 查看训练数据
 
@@ -97,7 +116,7 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 
 ### 指标可视化说明
 
-回调函数`MFLossMonitor`和`TrainingStateMonitor`将分别对不同的标量指标进行监控。其中`TrainingStateMonitor`不需要用户在配置文件中设置，会根据monitor_config自动进行添加。
+回调函数`MFLossMonitor`、`TrainingStateMonitor`和`TopkBiasBalanceCallback`将分别对不同的标量指标进行监控。其中`TrainingStateMonitor`不需要用户在配置文件中设置，会根据monitor_config自动进行添加。
 
 #### MFLossMonitor监控指标
 
@@ -134,6 +153,16 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 | weight_norm          | 权重L2范数，记录需要设置`weight_state_format`非null            |
 | throughput_linearity | 数据吞吐线性度，记录需要设置`throughput_baseline`非null           |
 
+#### TopkBiasBalanceCallback监控指标
+
+`TopkBiasBalanceCallback`将对MoE模型的专家负载情况进行监控和动态均衡（相关配置见[专家负载监控](#专家负载监控)小节）。动态均衡功能本文不涉及，监控的指标名称和说明如下：
+
+| 标量名         | 说明                                                           |
+|-------------|--------------------------------------------------------------|
+| expert_load | 所有MoE层各专家的训练负载占比，记录需要设置`log_expert_load_to_tensorboard`为True |
+
+#### 指标可视化样例
+
 根据具体的设置，上述指标将在 Tensorboard 或日志中进行展示，如下：
 
 **日志效果示例**
@@ -142,13 +171,17 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 
 **tensorboard可视化效果示例**
 
-adam_m_norm
+adam_m_norm：
 
 ![/adam_m_norm](./images/adam_m_norm.png)
 
-local_loss与local_norm
+local_loss与local_norm：
 
 ![/local_loss&local_norm](./images/local_loss&local_norm.png)
+
+expert_load（图中为3个MoE层的各自16个专家的负载变化曲线）：
+
+![/expert_load](./images/expert_load.png)
 
 ### 文本数据可视化说明
 

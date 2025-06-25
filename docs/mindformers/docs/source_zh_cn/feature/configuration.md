@@ -335,9 +335,10 @@ MindSpore Transformers提供Profile作为模型性能调优的主要工具，详
 
 TensorBoard配置主要用于配置训练过程中与TensorBoard相关的参数，便于在训练过程中实时查看和监控训练信息，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/monitor.html)。以下是MindSpore Transformers中通用的TensorBoard配置项说明：
 
-| 参数名称                                      | 说明                                                      | 类型   |
-|-------------------------------------------|---------------------------------------------------------|------|
+| 参数名称                                      | 说明                                                       | 类型   |
+|-------------------------------------------|----------------------------------------------------------|------|
 | tensorboard.tensorboard_dir               | 设置 TensorBoard 事件文件的保存路径。                                | str  |
 | tensorboard.tensorboard_queue_size        | 设置采集队列的最大缓存值，超过该值便会写入事件文件，默认值为10。                        | int  |
 | tensorboard.log_loss_scale_to_tensorboard | 设置是否将 loss scale 信息记录到事件文件，默认为`False`。                   | bool |
 | tensorboard.log_timers_to_tensorboard     | 设置是否将计时器信息记录到事件文件，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量，默认为`False`。 | bool |
+| tensorboard.log_expert_load_to_tensorboard | 设置是否将专家负载记录到事件文件，默认为`False`。                             | bool |
