@@ -64,7 +64,7 @@ MindSpore Transformers 目前已经支持加载 Megatron 数据集，该数据�
 
 - 构建Megatron BIN数据集模块
 
-   执行如下命令构建Megatron BIN数据集模块。如使用提供的镜像请跳过此操作。
+   执行如下命令构建Megatron BIN数据集模块。
 
    ```shell
    pip install pybind11

@@ -64,7 +64,7 @@ For dataset processing, refer to [Megatron Dataset - Data Preprocessing](https:/
 
 - Build the Megatron BIN Dataset Module
 
-   Run the following command to build the Megatron BIN dataset module. If you are using the provided image, you can skip this step.
+   Run the following command to build the Megatron BIN dataset module.
 
    ```shell
    pip install pybind11
