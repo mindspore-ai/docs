@@ -195,6 +195,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 ```bash
 export PATH=/usr/local/cuda-11.6/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-11.6/lib64:$LD_LIBRARY_PATH
+export CUDA_HOME=/usr/local/cuda-11.6
 ```
 
 如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换以上命令中的`/usr/local/cuda-11.6`为当前安装的CUDA路径。
