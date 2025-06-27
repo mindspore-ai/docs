@@ -195,6 +195,7 @@ Before running MindSpore GPU version, please make sure that installation path of
 ```bash
 export PATH=/usr/local/cuda-11.6/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-11.6/lib64:$LD_LIBRARY_PATH
+export CUDA_HOME=/usr/local/cuda-11.6
 ```
 
 If a different version of CUDA have been installed or the CUDA installation path is different, replace `/usr/local/cuda-11.6` in the above command with the currently installed CUDA path.
