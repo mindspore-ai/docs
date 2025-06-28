@@ -1,5 +1,7 @@
 # 与 Megatron-LM 比对训练精度
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/accuracy_comparison.md)
+
 ## 1. 概述
 
 在大模型训练系统中，模型层级的数值精度验证是保障训练稳定性和结果可信度的关键环节。随着训练任务日益复杂，模型结构日趋庞大，确保不同实现之间在模型整体行为上的对齐，显得尤为重要。

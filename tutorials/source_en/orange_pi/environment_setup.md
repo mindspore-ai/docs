@@ -285,8 +285,7 @@ Step 5 Add execution permissions to the kernels package.
 Step 6 Execute the following command to upgrade the software.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./
-Ascend-cann-kernels-310b_8.0.0_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.0.0_linux-aarch64.run --install
 ```
 
 After the upgrade is completed, if the following message is displayed, the software upgrade is successful:

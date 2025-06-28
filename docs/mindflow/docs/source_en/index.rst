@@ -36,7 +36,7 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    physics_driven/poisson_geometry
    physics_driven/taylor_green2D
    physics_driven/navier_stokes_inverse
-   physics_driven/boltzmannD1V3
+   physics_driven/boltzmann
    physics_driven/kovasznay
    physics_driven/periodic_hill
    physics_driven/poisson_point_source
