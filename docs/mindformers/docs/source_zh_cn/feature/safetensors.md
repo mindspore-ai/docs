@@ -538,58 +538,33 @@ callbacks:
 
 ## 任务示例
 
-### 预训练任务示例
+### 训练任务示例
 
-以Llama2-7B为例，修改配置项[pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)确认权重保存格式：
-
-```yaml
-callbacks:
-  - type: CheckpointMonitor
-    checkpoint_format: safetensors                  # 保存权重文件格式
-    remove_redundancy: True                         # 保存权重时开启去冗余
-```
-
-完成后执行命令：
-
-```shell
-bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config configs/llama2/pretrain_llama2_7b.yaml \
- --train_dataset_dir /{path}/wiki4096.mindrecord \
- --use_parallel True \
- --run_mode train" 8
-```
-
-任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
-
-更多详情请参考：[预训练介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/pre_training.html)
-
-### 微调任务示例
-
-若使用完整权重多卡在线微调，以Qwen2-7B模型为例，修改配置项[finetune_qwen2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml)：
+若使用完整权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2_7b/hf_unified_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2.5_7b/hf_unified_safetenosrs' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重时需打开此配置项，开启在线切分功能
 parallel_config:                                    # 配置目标分布式策略
-  data_parallel: 1
-  model_parallel: 2
+  data_parallel: 2
+  model_parallel: 4
   pipeline_stage: 1
 callbacks:
   - type: CheckpointMonitor
     checkpoint_format: safetensors                  # 保存权重文件格式
 ```
 
-若使用分布式权重多卡在线微调，以Qwen2-7B模型为例，修改配置项[finetune_qwen2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml)：
+若使用分布式权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2_7b/distributed_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2.5_7b/distributed_safetenosrs' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                      # 加载权重文件格式
 parallel_config:                                     # 配置目标分布式策略
-  data_parallel: 1
-  model_parallel: 2
+  data_parallel: 2
+  model_parallel: 4
   pipeline_stage: 1
 callbacks:
   - type: CheckpointMonitor
@@ -600,24 +575,24 @@ callbacks:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml \
+ --config research/qwen2_5/finetune_qwen2_5_7b_8k.yaml \
  --train_dataset_dir /{path}/alpaca-data.mindrecord \
- --register_path research/qwen2 \
+ --register_path research/qwen2_5 \
  --use_parallel True \
- --run_mode finetune" 2
+ --run_mode finetune" 8
 ```
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
 
-更多详情请参考：[SFT微调介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/supervised_fine_tuning.html)
+更多详情请参考：[SFT微调介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/supervised_fine_tuning.html)、[预训练介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/pre_training.html)
 
 ### 推理任务示例
 
-若使用完整权重多卡在线推理，以Qwen2-7B模型为例，修改配置项[predict_qwen2_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml)：
+若使用完整权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2_7b/hf_unified_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2.5_7b/hf_unified_safetenosrs' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重时需打开此配置项，开启在线切分功能
 parallel_config:
@@ -626,11 +601,11 @@ parallel_config:
   pipeline_stage: 1
 ```
 
-若使用分布式权重多卡在线推理，以Qwen2-7B模型为例，修改配置项[predict_qwen2_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml)：
+若使用分布式权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2_7b/distributed_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2.5_7b/distributed_safetenosrs' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                      # 加载权重文件格式
 parallel_config:
   data_parallel: 1
@@ -642,10 +617,10 @@ parallel_config:
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
---config research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml \
+--config research/qwen2_5/predict_qwen2_5_7b_instruct.yaml \
 --run_mode predict \
 --use_parallel True \
---register_path research/qwen2 \
+--register_path research/qwen2_5 \
 --predict_data 'I love Beijing, because'" \
 2
 ```

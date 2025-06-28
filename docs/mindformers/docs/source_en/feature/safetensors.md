@@ -538,58 +538,33 @@ callbacks:
 
 ## Usage Example
 
-### Examples of Pre-training Tasks
+### Examples of Training Tasks
 
-Taking Llama2-7B as an example, modify the configuration item [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml) to confirm the weight saving format:
-
-```yaml
-callbacks:
-  - type: CheckpointMonitor
-    checkpoint_format: safetensors                  # Save weights file format
-    remove_redundancy: True                         # Turn on de-redundancy when saving weights
-```
-
-Execute the command when completed:
-
-```shell
-bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config configs/llama2/pretrain_llama2_7b.yaml \
- --train_dataset_dir /{path}/wiki4096.mindrecord \
- --use_parallel True \
- --run_mode train" 8
-```
-
-After the task is executed, a checkpoint folder is generated in the mindformers/output directory, while the model files are saved in that folder.
-
-For more details, please refer to: [Introduction to Pre-training](https://www.mindspore.cn/mindformers/docs/en/dev/guide/pre_training.html).
-
-### Examples of Fine-tuning Tasks
-
-If you use the full weighted multicard online fine-tuning, take the Qwen2-7B model as an example and modify the configuration item [finetune_qwen2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml):
+If you use the full weighted multicard online fine-tuning, take the Qwen2.5-7B model as an example and modify the configuration item [finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2_7b/hf_unified_safetenosrs' # Load weights file path
+load_checkpoint: '/qwen2.5_7b/hf_unified_safetenosrs' # Load weights file path
 load_ckpt_format: 'safetensors'                     # Load weights file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for complete weights to enable the online slicing feature
 parallel_config:                                    # Configure the target distributed strategy
-  data_parallel: 1
-  model_parallel: 2
+  data_parallel: 2
+  model_parallel: 4
   pipeline_stage: 1
 callbacks:
   - type: CheckpointMonitor
     checkpoint_format: safetensors                  # Save weights file format
 ```
 
-If you use distributed weights multicard online fine-tuning, take the Qwen2-7B model as an example, modify the configuration item [finetune_qwen2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml):
+If you use distributed weights multicard online fine-tuning, take the Qwen2.5-7B model as an example, modify the configuration item [finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml):
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2_7b/distributed_safetenosrs' # Load weights file path
+load_checkpoint: '/qwen2.5_7b/distributed_safetenosrs' # Load weights file path
 load_ckpt_format: 'safetensors'                      # Load weights file format
 parallel_config:                                     # Configure the target distributed strategy
-  data_parallel: 1
-  model_parallel: 2
+  data_parallel: 2
+  model_parallel: 4
   pipeline_stage: 1
 callbacks:
   - type: CheckpointMonitor
@@ -600,24 +575,24 @@ Execute the command when completed:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config research/qwen2/qwen2_7b/finetune_qwen2_7b.yaml \
+ --config research/qwen2_5/finetune_qwen2_5_7b_8k.yaml \
  --train_dataset_dir /{path}/alpaca-data.mindrecord \
- --register_path research/qwen2 \
+ --register_path research/qwen2_5 \
  --use_parallel True \
- --run_mode finetune" 2
+ --run_mode finetune" 8
 ```
 
 After the task is executed, a checkpoint folder is generated in the mindformers/output directory, while the model files are saved in that folder.
 
-For more details, please refer to [Introduction to SFT fine-tuning](https://www.mindspore.cn/mindformers/docs/en/dev/guide/supervised_fine_tuning.html)
+For more details, please refer to [Introduction to SFT fine-tuning](https://www.mindspore.cn/mindformers/docs/en/dev/guide/supervised_fine_tuning.html) and [Introduction to Pre-training](https://www.mindspore.cn/mindformers/docs/en/dev/guide/pre_training.html).
 
 ### Example of an Inference Task
 
-If you use complete weighted multicard online inference, take the Qwen2-7B model as an example, and modify the configuration item [predict_qwen2_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml):
+If you use complete weighted multicard online inference, take the Qwen2.5-7B model as an example, and modify the configuration item [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml):
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2_7b/hf_unified_safetenosrs' # Load weights file path
+load_checkpoint: '/qwen2.5_7b/hf_unified_safetenosrs' # Load weights file path
 load_ckpt_format: 'safetensors'                     # Load weights file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for complete weights to enable the online slicing function
 parallel_config:
@@ -626,11 +601,11 @@ parallel_config:
   pipeline_stage: 1
 ```
 
-If you use distributed weighted multicard online inference, take the Qwen2-7B model as an example, modify the configuration item [predict_qwen2_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml):
+If you use distributed weighted multicard online inference, take the Qwen2.5-7B model as an example, modify the configuration item [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml):
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2_7b/distributed_safetenosrs' # Load weights file path
+load_checkpoint: '/qwen2.5_7b/distributed_safetenosrs' # Load weights file path
 load_ckpt_format: 'safetensors'                      # Load weights file format
 parallel_config:
   data_parallel: 1
@@ -642,10 +617,10 @@ Execute the command when completed:
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
---config research/qwen2/qwen2_7b/predict_qwen2_7b_instruct.yaml \
+--config research/qwen2_5/predict_qwen2_5_7b_instruct.yaml \
 --run_mode predict \
 --use_parallel True \
---register_path research/qwen2 \
+--register_path research/qwen2_5 \
 --predict_data 'I love Beijing, because'" \
 2
 ```
