@@ -216,7 +216,7 @@ MindSpore Transformers推荐用户使用Megatron数据集进行模型预训练�
 
 3. 启动模型预训练
 
-   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型预训练任务，这里以[Llama3模型文档](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md)为例。
+   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型预训练任务，这里以[Llama3_1模型文档](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md)为例。
 
 ## HuggingFace数据集
 
@@ -579,8 +579,6 @@ export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
 
 - ADGEN 数据集示例
 
-  修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml)。
-
   修改如下参数：
 
   ```yaml
@@ -729,7 +727,7 @@ export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
 
 MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁盘IO、网络IO开销，从而获得更好的数据加载体验，更多具体功能介绍可参考[文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mindrecord.html)，这里仅对如何在MindSpore Transformers模型训练任务中使用MindRecord进行介绍。
 
-下面以`qwen2-0.5b`进行微调为示例进行相关功能说明。
+下面以`qwen2_5-0.5b`进行微调为示例进行相关功能说明。
 
 ### 数据预处理
 
@@ -770,11 +768,11 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
 ### 模型微调
 
-参考上述数据预处理流程可生成用于`qwen2-0.5b`模型微调的MindRecord数据集，下面介绍如何使用生成的数据文件启动模型微调任务。
+参考上述数据预处理流程可生成用于`qwen2_5-0.5b`模型微调的MindRecord数据集，下面介绍如何使用生成的数据文件启动模型微调任务。
 
 1. 修改模型配置文件
 
-   `qwen2-0.5b`模型微调使用[finetune_qwen2_0.5b_32k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_0_5b/finetune_qwen2_0.5b_32k.yaml)配置文件，修改其中数据集部分配置：
+   `qwen2_5-0.5b`模型微调使用[finetune_qwen2_5_0.5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml)配置文件，修改其中数据集部分配置：
 
    ```yaml
    train_dataset: &train_dataset
@@ -792,7 +790,7 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
 2. 启动模型微调
 
-   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen2模型文档](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/README.md)为例。
+   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen2_5模型文档](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/README.md)为例。
 
 ### 多源数据集
 

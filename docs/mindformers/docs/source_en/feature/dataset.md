@@ -226,7 +226,7 @@ The following explains how to configure and use Megatron datasets in the configu
 3. Start Model Pre-training
 
    After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the model pre-training task.
-   Here, we take the [Llama3 model documentation](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md) as an example.
+   Here, we take the [Llama3_1 model documentation](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md) as an example.
 
 ## HuggingFace Datasets
 
@@ -593,8 +593,6 @@ Users can define custom data handlers to apply various preprocessing logic to th
 
 - ADGEN Dataset Sample
 
-  Modify the task configuration file [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml).
-
   Modify the following parameters:
 
   ```yaml
@@ -745,7 +743,7 @@ The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/to
 
 MindRecord is an efficient data storage and reading module provided by MindSpore. It reduces disk IO and network IO overhead, resulting in a better data loading experience. For more detailed feature introductions, refer to the [documentation](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mindrecord.html). Here, we only cover how to use MindRecord in MindSpore Transformers model training tasks.
 
-The following example uses `qwen2-0.5b` fine-tuning to explain related functionalities.
+The following example uses `qwen2_5-0.5b` fine-tuning to explain related functionalities.
 
 ### Data Preprocessing
 
@@ -786,11 +784,11 @@ The following example uses `qwen2-0.5b` fine-tuning to explain related functiona
 
 ### Model Fine-tuning
 
-Following the above data preprocessing steps, you can generate a MindRecord dataset for fine-tuning the `qwen2-0.5b` model. Below is an introduction on how to use the generated data file to start the model fine-tuning task.
+Following the above data preprocessing steps, you can generate a MindRecord dataset for fine-tuning the `qwen2_5-0.5b` model. Below is an introduction on how to use the generated data file to start the model fine-tuning task.
 
 1. Modify the model configuration file
 
-   The `qwen2-0.5b` model fine-tuning uses the [finetune_qwen2_0.5b_32k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_0_5b/finetune_qwen2_0.5b_32k.yaml) configuration file. Modify the dataset section as follows:
+   The `qwen2_5-0.5b` model fine-tuning uses the [finetune_qwen2_5_0.5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml) configuration file. Modify the dataset section as follows:
 
    ```yaml
    train_dataset: &train_dataset
@@ -808,7 +806,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 2. Start Model Fine-tuning
 
-   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen2 model documentation](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/README.md) as an example.
+   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen2_5 model documentation](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/README.md) as an example.
 
 ### Multi-source Datasets
 

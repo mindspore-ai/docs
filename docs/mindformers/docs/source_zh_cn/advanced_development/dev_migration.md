@@ -93,7 +93,7 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 
 其中设置了`register_path`为外挂代码所在目录的路径`research/llama3_1`，模型权重的准备参考[Llama3.1说明文档——模型权重下载](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)。
 
-配置文件的详细内容及可配置项可以参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)。在实际编写配置文件时，也可以参考库内已有的配置文件，例如[Llama2-7B微调的配置文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml)。
+配置文件的详细内容及可配置项可以参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)。在实际编写配置文件时，也可以参考库内已有的配置文件，例如[Llama3_1-8B微调的配置文件](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
 
 在准备完上述所有基本要素之后，可以参考MindSpore Transformers使用教程中的其余文档进行模型训练、微调、推理等流程的实践。后续模型调试调优可以参考[大模型精度调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/precision_optimization.html)和[大模型性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/performance_optimization.html)。
 
@@ -122,18 +122,16 @@ Llama3-8B与Llama2-7B拥有相同的模型结构，只有部分模型参数、�
 - Llama3-8B修改了特殊词元索引，修改`bos_token_id`为`128000`、`eos_token_id`为`128001`、`pad_token_id`为`128002`。
 - Llama3-8B修改了旋转位置编码中的theta值为500000，修改`theta`为`500000`。
 
-修改Llama2-7B的`YAML`配置文件中的对应内容即可得到[Llama3-8B的配置文件](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_8b/finetune_llama3_8b.yaml)。
+修改Llama2-7B的`YAML`配置文件中的对应内容即可得到Llama3-8B的配置文件。
 
 #### 分词器
 
-Llama3-8B重新实现了分词器。对照官方的实现，继承MindSpore Transformers中的PretrainedTokenizer实现Llama3Tokenizer，编写在[llama3_tokenizer.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_tokenizer.py)中。
+Llama3-8B重新实现了分词器。对照官方的实现，继承MindSpore Transformers中的PretrainedTokenizer实现Llama3Tokenizer。
 
 #### 权重转换
 
-Llama3-8B的参数命名和Llama2-7B一致，因此可以复用Llama2-7B的权重转换流程，参考[Llama3文档的权重转换章节](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E8%BD%AC%E6%8D%A2)。
+Llama3-8B的参数命名和Llama2-7B一致，因此可以复用Llama2-7B的权重转换流程。
 
 #### 数据集处理
 
-由于Llama3-8B的分词器与Llama2-7B不同，因此Llama3-8B需要在Llama2-7B的数据集处理脚本的基础上，替换Llama3-8B的分词器对数据进行预处理，参考[conversation.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_conversation.py)和[llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_preprocess.py)。
-
-关于MindSpore Transformers中Llama3的具体实现，可以参考MindSpore Transformers仓库中[Llama3的文件夹](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3)。关于MindSpore Transformers中Llama3的使用，可以参考[LLama3的说明文档](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md)。
+由于Llama3-8B的分词器与Llama2-7B不同，因此Llama3-8B需要在Llama2-7B的数据集处理脚本的基础上，替换Llama3-8B的分词器对数据进行预处理。
