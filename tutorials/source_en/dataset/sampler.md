@@ -82,6 +82,43 @@ for d in dataset:
 [Tensor(shape=[], dtype=Int32, value= 4)]
 ```
 
+#### Iterable Datasets
+
+An iterable dataset is a dataset that implements the `__iter__` and `__next__` methods, indicating that the data samples can be accessed step-by-step in an iterative manner. This type of dataset is particularly suitable for situations where random access is too costly or infeasible.
+
+For example, when accessing a dataset in the form of iter(dataset), you can read a data stream returned from a database or a remote server.
+
+The following constructs a simple iterator and loads it into `GeneratorDataset`.
+
+```python
+# Iterator as input source
+class IterableDataset():
+    def __init__(self, start, end):
+        '''init the class object to hold the data'''
+        self.start = start
+        self.end = end
+    def __next__(self):
+        '''iter one data and return'''
+        return next(self.data)
+    def __iter__(self):
+        '''reset the iter'''
+        self.data = iter(range(self.start, self.end))
+        return self
+
+loader = IterableDataset(1, 5)
+dataset = GeneratorDataset(source=loader, column_names=["data"])
+
+for d in dataset:
+    print(d)
+```
+
+```text
+[Tensor(shape=[], dtype=Int64, value= 1)]
+[Tensor(shape=[], dtype=Int64, value= 2)]
+[Tensor(shape=[], dtype=Int64, value= 3)]
+[Tensor(shape=[], dtype=Int64, value= 4)]
+```
+
 #### Generator
 
 Generator also belongs to iterable dataset types, and it can be a Python's generator to return data until the generator throws a `StopIteration` exception.
