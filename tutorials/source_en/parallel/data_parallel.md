@@ -53,7 +53,7 @@ rank_size = get_group_size()
 dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
 ```
 
-Unlike single-card, the `num_shards` and `shard_id` parameters need to be passed in the dataset interface, corresponding to the number of cards and the logical serial number, respectively, and it is recommended to obtain them through the `mindspore.communication` interface:
+Unlike single-card, the `num_shards` and `shard_id` parameters need to be passed in the dataset interface, corresponding to the number of cards and the logical serial number, respectively, and it is recommended to obtain them through the following interfaces of the [mindspore.communication](https://www.mindspore.cn/docs/en/master/api_python/mindspore.communication.html) module:
 
 - `get_rank`: Obtain the ID of the current device in the cluster.
 - `get_group_size`: Obtain the number of clusters.
@@ -115,7 +115,7 @@ net = Network()
 
 ## Training Network
 
-In this step, we need to define the loss function, the optimizer, and the training process. The difference with single-card model is that the data parallel mode also requires the addition of the `mindspore.nn.DistributedGradReducer()` interface to aggregate the gradients of all cards. The first parameter of the network is the network parameter to be updated:
+In this step, we need to define the loss function, the optimizer, and the training process. The difference with single-card model is that the data parallel mode also requires the addition of the [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.DistributedGradReducer.html) interface to aggregate the gradients of all cards. The first parameter of the network is the network parameter to be updated:
 
 ```python
 from mindspore import nn

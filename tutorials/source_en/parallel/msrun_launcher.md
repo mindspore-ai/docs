@@ -453,9 +453,9 @@ if get_rank() == 7:
 ms.set_seed(1)
 ```
 
-> The `mindspore.communication.get_rank()` interface needs to be called after the `mindspore.communication.init()` interface has completed its distributed initialization to get the rank information properly, otherwise `get_rank()` returns 0 by default.
+> The [mindspore.communication.get_rank()](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.get_rank.html) interface needs to be called after the [mindspore.communication.init()](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.init.html) interface has completed its distributed initialization to get the rank information properly, otherwise `get_rank()` returns 0 by default.
 
-After a breakpoint operation on a rank, it will cause the execution of that rank process to stop at the breakpoint and wait for subsequent interactions, while other unbroken rank processes will continue to run, which may lead to inconsistent running speed, so you can use the `mindspore.communication.comm_func.barrier()` operator and the `mindspore.communication.api._pynative_executor.sync()` to synchronize the running of all ranks, ensuring that other ranks block and wait, and that the stops of other ranks are released once the debugging rank continues to run. For example, in a standalone 8-card task, only rank 7 is broken and all other ranks are blocked:
+After a breakpoint operation on a rank, it will cause the execution of that rank process to stop at the breakpoint and wait for subsequent interactions, while other unbroken rank processes will continue to run, which may lead to inconsistent running speed, so you can use the [mindspore.communication.comm_func.barrier()](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.comm_func.barrier.html) operator and the `mindspore.communication.api._pynative_executor.sync()` to synchronize the running of all ranks, ensuring that other ranks block and wait, and that the stops of other ranks are released once the debugging rank continues to run. For example, in a standalone 8-card task, only rank 7 is broken and all other ranks are blocked:
 
 ```python
 import pdb

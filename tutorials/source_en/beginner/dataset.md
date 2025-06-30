@@ -31,11 +31,11 @@ import matplotlib.pyplot as plt
 
 ## Loading a Dataset
 
-The `mindspore.dataset` module provides loading APIs for custom datasets, standard format datasets, and commonly used publicly datasets.
+The [mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) module provides loading APIs for custom datasets, standard format datasets, and commonly used publicly datasets.
 
 ### Customizing Dataset
 
-For those datasets that MindSpore does not support yet, it is suggested to load data by constructing customized classes or customized generators. `GeneratorDataset` can help to load dataset based on the logic inside these classes/functions.
+For those datasets that MindSpore does not support yet, it is suggested to load data by constructing customized classes or customized generators. [GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html) can help to load dataset based on the logic inside these classes/functions.
 
 `GeneratorDataset` supports constructing customized datasets from random-accessible objects, iterable objects and Python generator, which are explained in detail below.
 
@@ -150,7 +150,7 @@ for d in dataset:
 
 ### Standard-format Dataset
 
-For those datasets that MindSpore does not support yet, it is suggested to convert the dataset into `MindRecord` format and load it through the **MindDataset** interface.
+For those datasets that MindSpore does not support yet, it is suggested to convert the dataset into `MindRecord` format and load it through the [mindspore.dataset.MindDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html) interface.
 
 Firstly, create a new `MindRecord` format dataset using the `MindRecord` format interface **FileWriter**, where each sample contains three fields: `filename`, `label`, and `data`.
 

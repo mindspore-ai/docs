@@ -184,7 +184,7 @@ class NetworkFP16Manual(nn.Cell):
 
 ## Loss Scaling
 
-Two implementations of Loss Scale are provided in MindSpore, `StaticLossScaler` and `DynamicLossScaler`, whose difference is whether the loss scale value is dynamically adjusted. The following is an example of `DynamicLossScalar`, which implements the neural network training logic according to the mixed precision calculation process.
+Two implementations of Loss Scale are provided in MindSpore, [mindspore.amp.StaticLossScaler](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.StaticLossScaler.html) and [mindspore.amp.DynamicLossScalar](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.DynamicLossScalar.html), whose difference is whether the loss scale value is dynamically adjusted. The following is an example of `DynamicLossScalar`, which implements the neural network training logic according to the mixed precision calculation process.
 
 First, instantiate the LossScaler and manually scale up the loss value when defining the forward network.
 
@@ -261,9 +261,9 @@ It can be seen that the loss convergence is normal and there is no overflow prob
 
 ## Automatic Mixed Precision for `Cell` Configuration
 
-MindSpore supports a programming paradigm that uses Cell to encapsulate the full computational graph. When the `mindspore.amp.build_train_network` interface can be used to automatically perform the type conversion and pass in the Loss Scale as part of the full graph computation. At this point, you only need to configure the mixed precision level and `LossScaleManager` to get the computational graph with the configured automatic mixed precision.
+MindSpore supports a programming paradigm that uses Cell to encapsulate the full computational graph. When the [mindspore.amp.build_train_network](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.build_train_network.html) interface can be used to automatically perform the type conversion and pass in the Loss Scale as part of the full graph computation. At this point, you only need to configure the mixed precision level and `LossScaleManager` to get the computational graph with the configured automatic mixed precision.
 
-`FixedLossScaleManager` and `DynamicLossScaleManager` are the Loss scale management interfaces for configuring the automatic mixed precision with `Cell`, corresponding to `StaticLossScalar` and `DynamicLossScalar`, respectively. For detailed information, refer to [mindspore.amp](https://www.mindspore.cn/docs/en/master/api_python/mindspore.amp.html).
+[mindspore.amp.FixedLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.FixedLossScaleManager.html) and [mindspore.amp.DynamicLossScaleManager](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.DynamicLossScaleManager.html) are the Loss scale management interfaces for configuring the automatic mixed precision with `Cell`, corresponding to `StaticLossScalar` and `DynamicLossScalar`, respectively. For detailed information, refer to [mindspore.amp](https://www.mindspore.cn/docs/en/master/api_python/mindspore.amp.html).
 
 > Automated mixed precision training with `Cell` configuration supports only `GPU` and `Ascend`.
 
@@ -278,7 +278,7 @@ model = build_train_network(model, optimizer, loss_fn, level="O2", loss_scale_ma
 
 ## `Model` Configures Automatic Mixed Precision
 
-`mindspore.train.Model` is a high level encapsulation for fast training of neural networks, which encapsulates `mindspore.amp.build_train_network`, so again, only the mixed precision level and `LossScaleManager` need to be configured for automatic mixed precision training.
+[mindspore.train.Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html) is a high level encapsulation for fast training of neural networks, which encapsulates `mindspore.amp.build_train_network`, so again, only the mixed precision level and `LossScaleManager` need to be configured for automatic mixed precision training.
 
 > Automated mixed precision training with `Model` configuration supports only `GPU` and `Ascend`.
 

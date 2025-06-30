@@ -107,7 +107,7 @@ class Network(nn.Cell):
 
 #### 训练网络定义
 
-在这一步，我们需要定义损失函数、优化器以及训练过程。需要注意的是，由于大模型的参数量巨大，在单卡上定义网络时如果进行参数初始化，显存将远远不够。因此在定义网络时需要配合`no_init_parameters`接口进行延迟初始化，将参数初始化延迟到并行多卡阶段。这里包括网络和优化器的定义都需要延后初始化。
+在这一步，我们需要定义损失函数、优化器以及训练过程。需要注意的是，由于大模型的参数量巨大，在单卡上定义网络时如果进行参数初始化，显存将远远不够。因此在定义网络时需要配合[mindspore.nn.utils.no_init_parameters](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html)接口进行延迟初始化，将参数初始化延迟到并行多卡阶段。这里包括网络和优化器的定义都需要延后初始化。
 
 ```python
 from mindspore.nn.utils import no_init_parameters
@@ -250,7 +250,7 @@ data_set = create_dataset(32)
 
 #### 定义网络
 
-在当前mint算子并行模式下，需要用mint算子定义网络。由于mint算子作为函数式接口，并不直接对外暴露其算子类型原语(Primitive)，因此无法直接为算子配置并行策略，而需要用户在单卡网络的基础上使用`mindspore.parallel.shard`接口手动配置mint算子的切分策略，例如配置策略后的网络结构为：
+在当前mint算子并行模式下，需要用mint算子定义网络。由于mint算子作为函数式接口，并不直接对外暴露其算子类型原语(Primitive)，因此无法直接为算子配置并行策略，而需要用户在单卡网络的基础上使用[mindspore.parallel.shard](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.shard.html)接口手动配置mint算子的切分策略，例如配置策略后的网络结构为：
 
 ```python
 import mindspore as ms
