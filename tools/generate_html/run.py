@@ -113,12 +113,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     # 读取json文件数据
     if version == "daily":
         flag_dev = 1
-        with open(os.path.join(os.path.dirname(__file__), "daily.json"), 'r+', encoding='utf-8') as f:
-            data = json.load(f)
+        with open(os.path.join(os.path.dirname(__file__), "daily.json"), 'r+', encoding='utf-8') as g:
+            data = json.load(g)
     else:
         flag_dev = 0
-        with open(os.path.join(os.path.dirname(__file__), "version.json"), 'r+', encoding='utf-8') as f:
-            data = json.load(f)
+        with open(os.path.join(os.path.dirname(__file__), "version.json"), 'r+', encoding='utf-8') as g:
+            data = json.load(g)
 
     with open(os.path.join(os.path.dirname(__file__), "base_version.json"), 'r+', encoding='utf-8') as g:
         data_b = json.load(g)
@@ -665,11 +665,15 @@ if __name__ == "__main__":
                 if os.path.exists(os.path.join(output_path, f_name)):
                     os.remove(os.path.join(output_path, f_name))
                 shutil.copy(os.path.join(theme_path, f_name), os.path.join(output_path, f_name))
+        old_searchtools_content = """docContent = htmlElement.find('[role=main]')[0];"""
+        new_searchtools_content = """htmlElement.find('[role=main]').find('[itemprop=articleBody]').find('style').remove();
+      docContent = htmlElement.find('[role=main]')[0];"""
         # pylint: disable=W0621
         for lg in ['en', 'zh-CN']:
             # pylint: disable=W0621
             for out_name in theme_list:
                 try:
+                    static_path_searchtools = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/searchtools.js")[0]
                     static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
                     static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
                     static_path_jquery = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery.js")[0]
@@ -734,6 +738,17 @@ if __name__ == "__main__":
                         os.remove(static_path_js_html5p)
                     if os.path.exists(static_path_js_html5):
                         os.remove(static_path_js_html5)
+                    # 去除搜索页面冗余样式展示
+                    if os.path.exists(static_path_searchtools):
+                        with open(static_path_searchtools, 'r+', encoding='utf-8') as k:
+                            searchtools_content = k.read()
+                            if new_searchtools_content not in searchtools_content:
+                                new_content_s = searchtools_content.replace(old_searchtools_content,
+                                                                            new_searchtools_content)
+                            if new_content_s != searchtools_content:
+                                k.seek(0)
+                                k.truncate()
+                                k.write(new_content_s)
 
                 # pylint: disable=W0702
                 # pylint: disable=W0703

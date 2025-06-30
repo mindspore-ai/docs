@@ -432,8 +432,8 @@ class MsCnAutoSummary(Autosummary):
             env_warn = self.default_doc_fourth
         return env_warn.rstrip()
 
-    def get_summary_re(self, display_name: str):
-        return re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\n\s+(.*?)[。\n]')
+    # def get_summary_re(self, display_name: str):
+    #     return re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\n\s+((?:.|\n|)+?)\n\n')
 
     def run(self) -> List[Node]:
         self.bridge = DocumenterBridge(self.env, self.state.document.reporter,
@@ -491,32 +491,37 @@ class MsCnAutoSummary(Autosummary):
             file_path = os.path.join(doc_path, dir_name, display_name+'.rst')
             spec_path = os.path.join('api_python', dir_name, display_name)
             if os.path.exists(file_path) and spec_path not in generated_files:
-                summary_re_tag = re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+(.*?)[。\n]')
-                summary_re_line = re.compile(rf'\.\. \w+:\w+::\s+{display_name}(?:.|\n|)+?\n\n\s+(.*?)[。\n]')
-                summary_re = self.get_summary_re(display_name)
+                summary_re_tag = re.compile(
+                    rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+((?:.|\n|)+?)(\n\n|。)')
+                summary_re_wrap = re.compile(rf'\.\. \w+:\w+::\s+{display_name}(?:.|\n|)+?\n\n\s+((?:.|\n|)+?)(\n\n|。)')
+                summary_re = re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\n\s+((?:.|\n|)+?)(\n\n|。)')
                 content = ''
                 with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
                 if content:
+                    content = re.sub('\n[ ]+\n', '\n\n', content)
                     summary_str = summary_re.findall(content)
                     summary_str_tag = summary_re_tag.findall(content)
-                    summary_str_line = summary_re_line.findall(content)
+                    summary_str_wrap = summary_re_wrap.findall(content)
                     if '.ops.' in display_name and '更多详情请查看：' in content.split('\n')[-2]:
                         summary_str = content.split('\n')[-2].strip()
                     elif '.mint.' in display_name and '更多详情请查看：' in content.split('\n')[-2]:
                         summary_str = content.split('\n')[-2].strip()
-                    elif summary_str:
-                        if re.findall("[:：,，。.;；]", summary_str[0][-1]):
-                            logger.warning(f"{display_name}接口的概述格式需调整")
-                        summary_str = summary_str[0] + '。'
                     elif summary_str_tag:
-                        if re.findall("[:：,，。.;；]", summary_str_tag[0][-1]):
+                        if re.findall("[:：,，。.;；]", summary_str_tag[0][0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
-                        summary_str = summary_str_tag[0] + '。'
-                    elif summary_str_line:
-                        if re.findall("[:：,，。.;；]", summary_str_line[0][-1]):
+                        summary_str = re.sub('\n[ ]+', '', summary_str_tag[0][0]) + '。'
+                        logger.warning(f'tag {display_name}概述为 {summary_str}')
+                    elif summary_str:
+                        if re.findall("[:：,，。.;；]", summary_str[0][0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
-                        summary_str = summary_str_line[0] + '。'
+                        summary_str = re.sub('\n[ ]+', '', summary_str[0][0]) + '。'
+                        logger.warning(f'{display_name}概述为 {summary_str}')
+                    elif summary_str_wrap:
+                        if re.findall("[:：,，。.;；]", summary_str_wrap[0][0][-1]):
+                            logger.warning(f"{display_name}接口的概述格式需调整")
+                        summary_str = re.sub('\n[ ]+', '', summary_str_wrap[0][0]) + '。'
+                        logger.warning(f'wrap {display_name}概述为 {summary_str}')
                     else:
                         summary_str = ''
                     if not self.table_head:
