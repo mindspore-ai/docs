@@ -14,7 +14,7 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 3. Run the training script;
 
-4. View the performance data through [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/AscendInsight_0002.html).
+4. View the performance data through [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html).
 
 ## Usage
 
@@ -111,16 +111,25 @@ JSON configuration example as follows:
 {
    "start_step": 2,
    "stop_step": 5,
-   "aic_metrics": -1,
-   "profiler_level": 0,
-   "activities": 0,
-   "export_type": 0,
+   "aic_metrics": "AiCoreNone",
+   "profiler_level": "Level0",
+   "analyse_mode": 0,
+   "activities": ["CPU", "NPU"],
+   "export_type": ["text"],
    "profile_memory": false,
    "mstx": false,
-   "analyse_mode": 0,
    "parallel_strategy": false,
    "with_stack": false,
-   "data_simplification": true
+   "data_simplification": true,
+   "l2_cache": false,
+   "analyse": true,
+   "record_shape": false,
+   "prof_path": "./data",
+   "mstx_domain_include": [],
+   "mstx_domain_exclude": [],
+   "host_sys": [],
+   "sys_io": false,
+   "sys_interconnection": false
 }
 ```
 
@@ -189,7 +198,7 @@ When using MindSpore to train a model, in order to analyze performance bottlenec
 
 After collecting performance data, the original data will be stored according to the following directory structure:
 
-> - The following data files are not required to be opened and viewed by users. Users can refer to the [MindStudio Insight user guide](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/AscendInsight_0002.html) for viewing and analyzing performance data.
+> - The following data files are not required to be opened and viewed by users. Users can refer to the [MindStudio Insight user guide](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html) for viewing and analyzing performance data.
 > - The following is the full set of result files, the actual file number and content depend on the user's parameter configuration and the actual training scenario, if the user does not configure the related parameters or does not involve the related scenarios in the training, the corresponding data files will not be generated.  
 
 ```sh
@@ -239,25 +248,25 @@ MindSpore Profiler interface will associate and integrate the framework side dat
 
 The `ascend_mindspore_profiler_{Rank_ID}.db` file is controlled by the `ExportType.Db` switch and mainly collects all performance data in .db format.
 
-For detailed introduction, refer to [ascend_mindspore_profiler_{Rank_ID}.db](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0026.html).
+For detailed introduction, refer to [ascend_mindspore_profiler_{Rank_ID}.db](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0026.html).
 
 ### communication_analyzer.db
 
 `communication_analyzer.db` file is controlled by the `ExportType.Db` switch, the file is mainly unified communication class segment time, copy information, bandwidth and other information, in order to carry out communication data analysis. Communication data exists only in multi-card, multi-node, or cluster scenarios.
 
-For detailed introduction, refer to [communication_analyzer.db](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html).
+For detailed introduction, refer to [communication_analyzer.db](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0027.html).
 
 ### communication.json
 
 `communication.json` file records detailed information such as communication time consumption and bandwidth of communication class operators.
 
-For detailed introduction, refer to [communication.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html).
+For detailed introduction, refer to [communication.json](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0027.html).
 
 ### communication_matrix.json
 
 `communication_matrix.json` file records the basic information of the communication small operator, including communication size, communication bandwidth, communication rank and other information.
 
-For detailed introduction, refer to [communication_matrix.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html).
+For detailed introduction, refer to [communication_matrix.json](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0027.html).
 
 ### dataset.csv
 
@@ -277,7 +286,7 @@ For detailed introduction, refer to [communication_matrix.json](https://www.hias
 
 The difference from the data collected by the Ascend PyTorch Profiler interface is that when the `with_stack` switch is turned on, MindSpore Profiler will concatenate the stack information to the `Name` field.
 
-For other fields, see [kernel_details.csv](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html).
+For other fields, see [kernel_details.csv](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0035.html).
 
 ### minddata_pipeline_raw_{Rank_ID}.csv
 
@@ -325,11 +334,11 @@ For other fields, see [kernel_details.csv](https://www.hiascend.com/document/det
 
 `trace_view.json` is recommended to be opened using MindStudio Insight tool or chrome://tracing/. MindSpore Profiler does not support the record_shapes and GC functions.
 
-For detailed introduction, refer to [trace_view.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html).
+For detailed introduction, refer to [trace_view.json](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0035.html).
 
 ### Other Performance Data
 
-The specific field and meaning of other performance data files can be referred to [Ascend official documentation](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html).
+The specific field and meaning of other performance data files can be referred to [Ascend official documentation](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0035.html).
 
 ## Performance Tuning Case
 
@@ -339,7 +348,7 @@ In the process of large model training, due to some unpredictable introduction, 
 
 The most important thing in performance tuning is to apply the right medicine to the problem, delimit the problem first, and then perform targeted tuning to the problem.
 
-The first to use [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/useguide/firstpage_0003.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication.
+The first to use [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/useguide/firstpage_0003.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication.
 
 Finally, users can tune performance based on expert advice from MindStudio Insight. Re-run the training after each tuning, collect performance data, and use the MindStudio Insight tool to see if the tuning method produced results. Repeat this process until the performance issue is resolved.
 

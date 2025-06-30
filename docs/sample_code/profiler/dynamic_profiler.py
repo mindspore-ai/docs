@@ -52,16 +52,25 @@ if __name__ == '__main__':
     data_cfg = {
         "start_step": 2,
         "stop_step": 5,
-        "aic_metrics": -1,
-        "profiler_level": 0,
-        "activities": 0,
-        "export_type": 0,
+        "aic_metrics": "AiCoreNone",
+        "profiler_level": "Level0",
+        "analyse_mode": 0,
+        "activities": ["CPU", "NPU"],
+        "export_type": ["text"],
         "profile_memory": False,
         "mstx": False,
-        "analyse_mode": 0,
         "parallel_strategy": False,
         "with_stack": False,
-        "data_simplification": True
+        "data_simplification": True,
+        "l2_cache": False,
+        "analyse": True,
+        "record_shape": False,
+        "prof_path": "./data",
+        "mstx_domain_include": [],
+        "mstx_domain_exclude": [],
+        "host_sys": [],
+        "sys_io": False,
+        "sys_interconnection": False
     }
     output_path = "./cfg_path"
     cfg_path = os.path.join(output_path, "profiler_config.json")
@@ -73,7 +82,7 @@ if __name__ == '__main__':
     # Define a network of training models
     net = Net()
     STEP_NUM = 15
-    dp = DynamicProfilerMonitor(cfg_path=output_path, output_path=output_path)
+    dp = DynamicProfilerMonitor(cfg_path=output_path)
     for i in range(STEP_NUM):
         train(net)
         # Call step collection
