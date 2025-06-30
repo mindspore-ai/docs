@@ -18,7 +18,7 @@
 
 ## 使用方法
 
-收集训练性能数据有四种方式，以下将介绍根据不同场景下，使用Profiler使能的方式。
+收集训练性能数据有五种方式，以下将介绍根据不同场景下，使用Profiler使能的方式。
 
 ### 方式一：mindspore.profiler.profile接口使能
 
@@ -189,6 +189,27 @@ from mindspore.profiler.profiler import analyse
 
 analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路径
 ```
+
+### 方式五：轻量化打点
+
+针对大集群场景传统Profiler流程重、数据量大的问题，提供轻量化Profiler能力，帮助大集群场景轻量化获取模型关键指标性能数据。如下图所示，用户可通过mstx.mark、mstx.range_start、mstx.range_end接口自定义打点，同时支持通信算子的内置打点，用户开启轻量化打点功能，通讯算子前后将自动实现打点。所有的打点任务由runtime下发至device侧，可呈现打点任务在host侧和device侧的时间点或时间片。
+
+![mstx_profiler.png](./images/mstx_profiler.png)
+
+mstx接口详细介绍请参考[mstx API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.mstx.html)。
+
+轻量化打点样例如下：
+
+```python
+from mindspore.profiler import mstx
+
+range_id = mstx.range_start("train")
+mstx.mark("start")
+# train_step
+mstx.range_end(range_id)
+```
+
+完整案例请参考[mstx轻量化打点方式案例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/mstx_profiler.py)。
 
 ## 性能数据
 

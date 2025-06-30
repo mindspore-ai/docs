@@ -18,7 +18,7 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 ## Usage
 
-There are four ways to collect training performance data, and the following describes how to use Profiler enablement depending on the scenario.
+There are five ways to collect training performance data, and the following describes how to use Profiler enablement depending on the scenario.
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
@@ -189,6 +189,27 @@ from mindspore.profiler.profiler import analyse
 
 analyse("./profiler_data_path") # './profiler_data_path' is the data path
 ```
+
+### Method 5: Lightweight Marking
+
+To address the traditional profiler process being time-consuming and dealing with large amounts of data in large cluster scenarios, MindSpore 2.5 offers a lightweight profiler capability to assist in obtaining performance data for critical model metrics in a lightweight manner for large-scale clusters. As illustrated in the following figure, users can customize marking through the mstx.mark, mstx.range_start, and mstx.range_end interfaces, and also support built-in marking of communication operators. When users enable the lightweight marking function, marking is automatically performed before and after the communication operators. All marking tasks are issued by the runtime to the device side, which can present the time points or time slices of the marking tasks on the host side and the device side.
+
+![mstx_profiler.png](../../source_zh_cn/debug/images/mstx_profiler.png)
+
+For details about the mstx interface, please refer to [mstx API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.mstx.html).
+
+The lightweight marking sample is shown below:
+
+```python
+from mindspore.profiler import mstx
+
+range_id = mstx.range_start("train")
+mstx.mark("start")
+# train_step
+mstx.range_end(range_id)
+```
+
+For the complete case, refer to [mstx lightweight marking method case](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/mstx_profiler.py).
 
 ## Performance Data
 
