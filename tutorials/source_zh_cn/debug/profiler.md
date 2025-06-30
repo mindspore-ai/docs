@@ -14,7 +14,7 @@
 
 3. 运行训练脚本；
 
-4. 通过[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/AscendInsight_0002.html)软件查看性能数据。
+4. 通过[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html)软件查看性能数据。
 
 ## 使用方法
 
@@ -111,16 +111,25 @@ JSON配置样例如下：
 {
    "start_step": 2,
    "stop_step": 5,
-   "aic_metrics": -1,
-   "profiler_level": 0,
-   "activities": 0,
-   "export_type": 0,
+   "aic_metrics": "AiCoreNone",
+   "profiler_level": "Level0",
+   "analyse_mode": 0,
+   "activities": ["CPU", "NPU"],
+   "export_type": ["text"],
    "profile_memory": false,
    "mstx": false,
-   "analyse_mode": 0,
    "parallel_strategy": false,
    "with_stack": false,
-   "data_simplification": true
+   "data_simplification": true,
+   "l2_cache": false,
+   "analyse": true,
+   "record_shape": false,
+   "prof_path": "./data",
+   "mstx_domain_include": [],
+   "mstx_domain_exclude": [],
+   "host_sys": [],
+   "sys_io": false,
+   "sys_interconnection": false
 }
 ```
 
@@ -189,7 +198,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
 
 性能数据采集完成后，原始数据会按照以下目录结构进行存储：
 
-> - 以下数据文件用户无需打开查看，可根据[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/AscendInsight_0002.html)指导进行性能数据的查看和分析。
+> - 以下数据文件用户无需打开查看，可根据[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html)指导进行性能数据的查看和分析。
 > - 以下是结果文件全集，实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
 
 ```sh
@@ -238,22 +247,22 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 ### ascend_mindspore_profiler_{Rank_ID}.db
 
 `ascend_mindspore_profiler_{Rank_ID}.db` 文件由 `ExportType.Db` 开关控制，文件主要汇总所有性能数据的.db格式文件。
-详细介绍请参考[ascend_mindspore_profiler_{Rank_ID}.db](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0026.html)。
+详细介绍请参考[ascend_mindspore_profiler_{Rank_ID}.db](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0026.html)。
 
 ### communication_analyzer.db
 
 `communication_analyzer.db` 文件由 `ExportType.Db` 开关控制，文件主要统一通信类的分段耗时、拷贝信息、带宽等信息，以便进行通信类数据分析。通信类数据只有在多卡、多节点或集群场景下存在。
-详细介绍请参考[communication_analyzer.db](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html)。
+详细介绍请参考[communication_analyzer.db](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0027.html)。
 
 ### communication.json
 
 `communication.json` 文件记录通信类算子的通信耗时、带宽等详细信息。
-详细介绍请参考[communication.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html)。
+详细介绍请参考[communication.json](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0027.html)。
 
 ### communication_matrix.json
 
 `communication_matrix.json` 文件记录通信小算子基本的信息，包含通信size、通信带宽、通信rank等信息。
-详细介绍请参考[communication_matrix.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0027.html)。
+详细介绍请参考[communication_matrix.json](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0027.html)。
 
 ### dataset.csv
 
@@ -273,7 +282,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 与Ascend PyTorch Profiler接口采集数据结果的不同之处在于：当 `with_stack` 开关开启之后，MindSpore Profiler会将堆栈信息拼接到 `Name` 字段中。
 
-其他字段请参考[kernel_details.csv](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html)。
+其他字段请参考[kernel_details.csv](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0035.html)。
 
 ### minddata_pipeline_raw_{Rank_ID}.csv
 
@@ -320,11 +329,11 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 ### trace_view.json
 
 `trace_view.json` 建议使用MindStudio Insight工具或 chrome://tracing/ 打开。MindSpore Profiler暂时不支持record_shapes与GC功能。
-详细介绍请参考[trace_view.json](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html)。
+详细介绍请参考[trace_view.json](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0035.html)。
 
 ### 其他性能数据
 
-其他性能数据文件的具体字段与含义可以参考[昇腾官网文档](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html)。
+其他性能数据文件的具体字段与含义可以参考[昇腾官网文档](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/Profiling/atlasprofiling_16_0035.html)。
 
 ## 性能调优案例
 
@@ -334,7 +343,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 性能调优最重要的就是对症下药，先定界问题，再对问题进行针对性调优。
 
-首先使用[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/useguide/firstpage_0003.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。
+首先使用[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/useguide/firstpage_0003.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。
 
 然后，用户可以根据MindStudio Insight进行性能调优，每次调优后重跑训练，采集性能数据，并使用MindStudio Insight工具查看调优手段是否产生效果。重复这个过程，直到解决性能问题。
 
