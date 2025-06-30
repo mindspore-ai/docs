@@ -64,7 +64,7 @@ if __name__ == "__main__":
     with mindspore.profiler.profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
             schedule=mindspore.profiler.schedule(
-                wait=1, warmup=1, active=2, repeat=1, skip_first=2
+                wait=0, warmup=0, active=1, repeat=1, skip_first=0
             ),
             on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
             profile_memory=False,
