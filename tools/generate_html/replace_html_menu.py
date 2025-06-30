@@ -316,14 +316,10 @@ def replace_html_menu(html_path, hm_ds_path):
 
     // let the scorer override scores with a custom scoring function"""
 
-    old_searchtools_content1 = """docContent = htmlElement.find('[role=main]')[0];"""
-    new_searchtools_content1 = """htmlElement.find('[role=main]').find('[itemprop=articleBody]').find('style').remove();
-      docContent = htmlElement.find('[role=main]')[0];"""
     with open(searchtools_path, 'r+', encoding='utf-8') as f:
         searchtools_content = f.read()
         new_content = searchtools_content.replace(old_searchtools_content, new_searchtools_content)
         new_content = new_content.replace('linkUrl +', 'requestUrl +')
-        new_content = new_content.replace(old_searchtools_content1, new_searchtools_content1)
         if new_content != searchtools_content:
             f.seek(0)
             f.truncate()
