@@ -22,7 +22,7 @@
 
 ### 相关接口
 
-`mindspore.parallel.GradAccumulation(network, micro_size)`：用更细粒度的MicroBatch包装网络。`micro_size`是MicroBatch的大小。
+[mindspore.parallel.GradAccumulation(network, micro_size)](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.GradAccumulation.html)：用更细粒度的MicroBatch包装网络。`micro_size`是MicroBatch的大小。
 
 > - 在梯度累加场景下，推荐使用lazy_inline装饰器来缩短编译时间，并且仅支持将lazy_inline装饰器配置在最外层的Cell上。
 
@@ -60,7 +60,7 @@ init()
 
 ### 数据集加载与网络定义
 
-此处数据集加载和网络定义与单卡模型一致，通过 `no_init_parameters` 接口延后初始化网络参数和优化器参数。代码如下：
+此处数据集加载和网络定义与单卡模型一致，通过[no_init_parameters](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html)接口延后初始化网络参数和优化器参数。代码如下：
 
 ```python
 import os
@@ -109,9 +109,9 @@ with no_init_parameters():
 
 ### 训练网络
 
-在这一步，我们需要定义损失函数以及训练过程，通过顶层 `AutoParallel` 接口设置并行模式为半自动并行模式和优化器并行，调用两个接口来配置梯度累加：
+在这一步，我们需要定义损失函数以及训练过程，通过顶层 [AutoParallel](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html) 接口设置并行模式为半自动并行模式和优化器并行，调用两个接口来配置梯度累加：
 
-- 首先需要定义LossCell，本例中调用了`nn.WithLossCell`接口封装网络和损失函数。
+- 首先需要定义LossCell，本例中调用了[nn.WithLossCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.WithLossCell.html)接口封装网络和损失函数。
 - 然后需要在LossCell外包一层`GradAccumulation`，并指定MicroBatch的size为4。详细请参考本章概述中的相关接口。
 
 ```python

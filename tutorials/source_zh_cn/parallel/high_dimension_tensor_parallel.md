@@ -51,8 +51,8 @@
 
 ### 相关接口
 
-1. `mindspore.ops.MatMul().add_prim_attr("enable_nd_tp", True)`：开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置MatMul的shard切分。
-2. `mindspore.ops.BatchMatMul().add_prim_attr("enable_nd_tp", True)`: 开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置MatMul的shard切分。
+1. [mindspore.ops.MatMul().add_prim_attr("enable_nd_tp", True)](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html)：开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置MatMul的shard切分。
+2. [mindspore.ops.BatchMatMul().add_prim_attr("enable_nd_tp", True)](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchMatMul.html): 开启采用AllGather、MatMul和ReduceScatter的2D/3D通信/计算模式，必须使用Layout配置MatMul的shard切分。
 
 开启上述开关后，shard切分根据不同的in_strategy决定采用2D或3D并行模式：
 
@@ -97,7 +97,7 @@ init()
 
 ### 构造网络并计算
 
-算子定义中需调用add_prim_attr方法指定MatMul算子打开高维TP，并通过Layout指定Matmul算子切分方式。由 `no_init_parameters` 接口延后初始化网络参数，并通过`AutoParallel` 包裹 `net` 设置并行模式为半自动并行模式。代码如下：
+算子定义中需调用add_prim_attr方法指定MatMul算子打开高维TP，并通过Layout指定Matmul算子切分方式。由 [no_init_parameters](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) 接口延后初始化网络参数，并通过`AutoParallel` 包裹 `net` 设置并行模式为半自动并行模式。代码如下：
 
 ```python
 # 示例代码

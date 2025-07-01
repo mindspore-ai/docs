@@ -85,7 +85,7 @@ data_set = create_dataset(32)
 
 ### 网络定义
 
-此处网络定义与单卡模型一致，并通过 `no_init_parameters` 接口延后初始化网络参数和优化器参数：
+此处网络定义与单卡模型一致，并通过[no_init_parameters](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html)接口延后初始化网络参数和优化器参数：
 
 ```python
 from mindspore import nn

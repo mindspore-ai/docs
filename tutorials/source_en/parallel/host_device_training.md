@@ -24,9 +24,9 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 ### Related Interfaces
 
-1. `mindspore.ops.Primitive.set_device()`: Set Primitive to execute the backend.
+1. [mindspore.ops.Primitive.set_device()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.set_device): Set Primitive to execute the backend.
 
-2. `mindspore.nn.Optimizer.target`: This attribute specifies whether the parameter should be updated on the host or on the device. The input type is str and can only be "CPU" or "Ascend".
+2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target): This attribute specifies whether the parameter should be updated on the host or on the device. The input type is str and can only be "CPU" or "Ascend".
 
 ## Operator Practices
 
@@ -93,7 +93,7 @@ data_set = create_dataset(32)
 
 ### Defining the Network
 
-The network definition differs from a single-card network in that the `ops.Add()` operator is configured to run on the host side with the following code:
+The network definition differs from a single-card network in that the [ops.Add()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html) operator is configured to run on the host side with the following code:
 
 ```python
 import mindspore as ms
@@ -144,7 +144,7 @@ net.layer3.add.set_device("CPU")
 
 ### Training the Network
 
-The loss function, optimizer, and training process are consistent with data parallelism, and `mindspore.nn.DistributedGradReducer()` interface is used to aggregate the gradients across all cards with the following code:
+The loss function, optimizer, and training process are consistent with data parallelism, and [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.DistributedGradReducer.html) interface is used to aggregate the gradients across all cards with the following code:
 
 ```python
 from mindspore import nn

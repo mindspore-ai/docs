@@ -132,7 +132,7 @@ class Grad(Cell):
 
 ### 执行网络
 
-在这一步，我们需要定义网络输入，通过 `no_init_parameters` 接口延后初始化网络参数和优化器参数，然后调用`Grad`以获取导数，通过顶层 `AutoParallel` 接口设置并行模式为半自动并行模式，代码如下：
+在这一步，我们需要定义网络输入，通过[no_init_parameters](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html)接口延后初始化网络参数和优化器参数，然后调用`Grad`以获取导数，通过顶层 `AutoParallel` 接口设置并行模式为半自动并行模式，代码如下：
 
 ```python
 import numpy as np

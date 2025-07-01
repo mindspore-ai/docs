@@ -22,7 +22,7 @@ The core idea of gradient accumulation is to add the gradients of multiple Micro
 
 ### Related Interfaces
 
-`mindspore.parallel.GradAccumulation(network, micro_size)`: Wrap the network with a finer-grained MicroBatch. `micro_size` is the size of the MicroBatch.
+[mindspore.parallel.GradAccumulation(network, micro_size)](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.GradAccumulation.html): Wrap the network with a finer-grained MicroBatch. `micro_size` is the size of the MicroBatch.
 
 > - Under grad accumulation situation, suggests to use lazy_inline decorator to reduce compile time, and only support to set the lazy_inline decorator to the outermost cell.
 
@@ -60,7 +60,7 @@ init()
 
 ### Dataset Loading and Network Definition
 
-Here the dataset loading and network definition is consistent with the single card model, with the initialization of network parameters and optimizer parameters deferred through the `no_init_parameters` interface. The code is as follows:
+Here the dataset loading and network definition is consistent with the single card model, with the initialization of network parameters and optimizer parameters deferred through the [no_init_parameters](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface. The code is as follows:
 
 ```python
 import os
@@ -109,10 +109,10 @@ with no_init_parameters():
 
 ### Training the Network
 
-In this step, we need to define the loss function and the training process. Parallel mode is set to semi-automatic parallel mode and optimizer parallel via the top-level `AutoParallel` interface, and both interfaces are called to configure gradient accumulation:
+In this step, we need to define the loss function and the training process. Parallel mode is set to semi-automatic parallel mode and optimizer parallel via the top-level [AutoParallel](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html) interface, and both interfaces are called to configure gradient accumulation:
 
-- First the LossCell needs to be defined. In this case the `nn.WithLossCell` interface is called to wrap the network and loss functions.
-- It is then necessary to wrap a layer of `GradAccumulationCell` around the LossCell and specify a MicroBatch size of 4. Refer to the relevant interfaces in the overview of this chapter for more details.
+- First the LossCell needs to be defined. In this case the [nn.WithLossCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to wrap the network and loss functions.
+- It is then necessary to wrap a layer of `GradAccumulation` around the LossCell and specify a MicroBatch size of 4. Refer to the relevant interfaces in the overview of this chapter for more details.
 
 ```python
 import mindspore as ms

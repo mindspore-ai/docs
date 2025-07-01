@@ -10,7 +10,7 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 1. Prepare the training script;
 
-2. Call the performance debugging interface in the training script, such as mindspore.profiler.profile and mindspore.profiler.DynamicProfilerMonitor interfaces;
+2. Call the performance debugging interface in the training script, such as [mindspore.profiler.profile](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profile.html) and [mindspore.profiler.DynamicProfilerMonitor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) interfaces;
 
 3. Run the training script;
 
@@ -180,7 +180,7 @@ After loading the environment variable, start the training script directly to co
 
 ### Method 4: Off-line Parsing
 
-If users want to analyze the collected performance data, you can use mindspore.profiler.profiler.analyse interface for offline analysis. For details about the analyse interface, please refer to [offline parse analyse interface parameters](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html).
+If users want to analyze the collected performance data, you can use [mindspore.profiler.profiler.analyse](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html) interface for offline analysis. For details about the analyse interface, please refer to [offline parse analyse interface parameters](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html).
 
 The offline analysis sample is shown below:
 

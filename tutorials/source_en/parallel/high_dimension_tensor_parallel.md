@@ -51,8 +51,8 @@ A comprehensive comparison of the theoretical computation, storage, and communic
 
 ### Related Interfaces
 
-1. `mindspore.ops.MatMul().add_prim_attr("enable_nd_tp", True)`: To turn on the 2D/3D communication/computation mode using AllGather, MatMul and ReduceScatter, you must configure MatMul's shard slice using Layout.
-2. `mindspore.ops.BatchMatMul().add_prim_attr("enable_nd_tp", True)`: To turn on the 2D/3D communication/computation mode using AllGather, MatMul and ReduceScatter, you must configure MatMul's shard slice using Layout.
+1. [mindspore.ops.MatMul().add_prim_attr("enable_nd_tp", True)](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MatMul.html): To turn on the 2D/3D communication/computation mode using AllGather, MatMul and ReduceScatter, you must configure MatMul's shard slice using Layout.
+2. [mindspore.ops.BatchMatMul().add_prim_attr("enable_nd_tp", True)](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.BatchMatMul.html): To turn on the 2D/3D communication/computation mode using AllGather, MatMul and ReduceScatter, you must configure MatMul's shard slice using Layout.
 
 With the above switch turned on, shard slicing determines whether 2D or 3D parallel mode is used depending on the in_strategy:
 
@@ -97,7 +97,7 @@ init()
 
 ### Constructing the Network and Computing
 
-The operator definition needs to call the add_prim_attr method to specify the MatMul operator to open the high-dimensional TP, and specify the Matmul operator slice method via Layout. Initialization of network parameters is deferred by the `no_init_parameters` interface and parallel mode is set to semi-automatic parallel mode by wrapping `net` via `AutoParallel`. The code is as follows:
+The operator definition needs to call the add_prim_attr method to specify the MatMul operator to open the high-dimensional TP, and specify the Matmul operator slice method via Layout. Initialization of network parameters is deferred by the [no_init_parameters](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface and parallel mode is set to semi-automatic parallel mode by wrapping `net` via `AutoParallel`. The code is as follows:
 
 ```python
 # sample code
