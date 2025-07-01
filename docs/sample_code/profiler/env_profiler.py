@@ -12,11 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-
 """Env Profiler Example"""
 import os
 import numpy as np
 
+# Set the environment variable for the Profiler before import mindspore
+os.environ['MS_PROFILER_OPTIONS'] = (
+    '{"start": true, "output_path": "./data", "activities": ["CPU", "NPU"], "with_stack": true, '
+    '"aicore_metrics": "AicoreNone", "l2_cache": false, "profiler_level": "Level0"}')
+
+# pylint: disable=wrong-import-position
 import mindspore
 import mindspore.dataset as ds
 from mindspore import nn
@@ -36,18 +41,24 @@ def generator_net():
         yield np.ones([2, 2]).astype(np.float32), np.ones([2]).astype(np.int32)
 
 
-def train(test_net):
-    optimizer = nn.Momentum(test_net.trainable_params(), 1, 0.9)
-    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
-    data = ds.GeneratorDataset(generator_net(), ["data", "label"])
-    model = mindspore.train.Model(test_net, loss, optimizer)
-    model.train(1, data)
+def forward_fn(data, label):
+    logits = model(data)
+    loss = loss_fn(logits, label)
+    return loss, logits
+
+
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
 
 
 if __name__ == '__main__':
-    # Set the environment variable for the Profiler
-    os.environ['MS_PROFILER_OPTIONS'] = (
-        '{"start": true, "output_path": "/XXX", "activities": ["CPU", "NPU"], "with_stack": true, '
-        '"aicore_metrics": "AicoreNone", "l2_cache": false, "profiler_level": "Level0"}')
-    net = Net()
-    train(net)
+    model = Net()
+    optimizer = nn.Momentum(model.trainable_params(), 1, 0.9)
+    grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+    loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
+    all_data = ds.GeneratorDataset(generator_net(), ["data", "label"])
+
+    for step_data, step_label in all_data:
+        train_step(step_data, step_label)

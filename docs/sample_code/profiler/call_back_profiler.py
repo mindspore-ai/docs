@@ -75,7 +75,6 @@ def generator():
 
 
 if __name__ == '__main__':
-    mindspore.set_context(mode=mindspore.GRAPH_MODE, jit_config={"jit_level": "O2"})
     mindspore.set_device("Ascend")
 
     profile_call_back = StopAtStep(5, 8)

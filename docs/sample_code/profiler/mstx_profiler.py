@@ -37,16 +37,16 @@ def generator_net():
 
 def forward_fn(data, label):
     logits = model(data)
-    mstx.mark("backward_begin")
+    mstx.mark("backward_begin", stream)
     loss = loss_fn(logits, label)
     return loss, logits
 
 
 def train_step(data, label):
-    range_id1 = mstx.range_start("forward_and_backward")
+    range_id1 = mstx.range_start("forward_and_backward", stream)
     (loss, _), grads = grad_fn(data, label)
     mstx.range_end(range_id1)
-    range_id2 = mstx.range_start("optimizer_step")
+    range_id2 = mstx.range_start("optimizer_step", stream)
     optimizer(grads)
     mstx.range_end(range_id2)
     return loss
@@ -58,7 +58,9 @@ if __name__ == "__main__":
     optimizer = nn.Momentum(model.trainable_params(), 1, 0.9)
     grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
     loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
+    all_data = ds.GeneratorDataset(generator_net(), ["data", "label"])
     stream = mindspore.runtime.current_stream()
+
     # pylint: disable=protected-access
     experimental_config = mindspore.profiler._ExperimentalConfig(
         profiler_level=ProfilerLevel.LevelNone,
@@ -68,7 +70,7 @@ if __name__ == "__main__":
             schedule=schedule(wait=0, warmup=1, active=1, repeat=1, skip_first=0),
             on_trace_ready=tensorboard_trace_handler("./data"),
             experimental_config=experimental_config
-    ) as profiler:
-        for step_data, step_label in ds.GeneratorDataset(generator_net(), ["data", "label"]):
-            train_step(step_data, step_data)
-            profiler.step()
+    ) as prof:
+        for step_data, step_label in all_data:
+            train_step(step_data, step_label)
+            prof.step()
