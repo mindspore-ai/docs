@@ -264,7 +264,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
     | `checkpoint-activations`       | 是否启用激活值检查点机制以减少显存     | 不支持配置                  |                          |
     | `moe-layer-recompute`          | MoE 层启用重计算            | 不支持配置                  |                          |
 
-**注意**：两个框架还有其他训练相关性较小的配置，MindSpore Transformer 详情参考[配置说明]，Megatron-LM 可通过执行命令`torchrun --nproc_per_node=1 pretrain_gpt.py --help`查看。
+**注意**：两个框架还有其他训练相关性较小的配置，MindSpore Transformer 详情参考[配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)，Megatron-LM 可通过执行命令`torchrun --nproc_per_node=1 pretrain_gpt.py --help`查看。
 
 ### 3.2 数据集对齐
 
@@ -385,7 +385,13 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 2. MindSpore Transformers to Megatron-LM
 
-   为了将 MindSpore Transformers 的权重精确映射为 Megatron-LM 可加载的等价权重，我们将会提供转换权重脚本，执行权重转换脚本即可获得等价权重。
+   为了将 MindSpore Transformers 的权重精确映射为 Megatron-LM 可加载的等价权重，我们提供了转换权重脚本，执行权重转换脚本即可获得等价权重。详情可查看[转换模型权重为Megatron模型权重的实践案例](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.html)
+
+   注意：
+
+   1. 由于 Megatron-LM 加载权重时，使用bf16类型进行加载。因此，为保证一致性，使用 MindSpore Transformers 时需要将权重转换为bf16类型，再进行加载。
+
+   2. 当前仅支持由SelfAttention和MLP组成的类GPT模型权重转换，暂不支持MLA和MoE。如果是分布式权重，请先合并为完整权重再进行转换。
 
 ### 3.4 查看结果
 
@@ -419,4 +425,4 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
   | `iteration`     | `epoch` 与 `step` 的组合   | 表示训练过程中的全局迭代次数。MindSpore Transformers 通常以 `(epoch, step)` 表示当前训练位置，而 Megatron-LM 使用单一的 `iteration` 表示。两者关系为：`iteration = (epoch - 1) * steps_per_epoch + step` |
   | `lm loss`       | `loss`                 | 训练损失，精度对比核心指标。MindSpore Transformers 的`loss`是指`lm loss`和`aux loss`的和，未来将会分别打印输出                                                                                |
   | `learning rate` | `lr`                   | 学习率，精度对比参考指标                                                                                                                                                   |
-  | `grand norm`    | `global norm`          | 全局梯度范数，精度对比参考指标                                                                                                                                                |
+  | `grad norm`    | `global norm`          | 全局梯度范数，精度对比参考指标                                                                                                                                                |

@@ -222,6 +222,7 @@ FAQ
    :hidden:
 
    example/distilled/distilled
+   example/convert_ckpt_to_megatron/convert_ckpt_to_megatron
 
 .. toctree::
    :glob:
