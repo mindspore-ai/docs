@@ -214,7 +214,7 @@ parallel:
 
 参数说明：
 
-- enable_parallel_optimizer：是否开启优化器并行，默认为Fasle。
+- enable_parallel_optimizer：是否开启优化器并行，默认为`False`。
 
 关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
 
@@ -243,7 +243,7 @@ model_config:
 
 ## MindSpore Transformers 分布式并行应用实践
 
-在官网提供的[Llama3-70B微调配置](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_70b/finetune_llama3_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
+在官网提供的[Llama3_1-70B微调配置](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
 
 - **数据并行**：未启用额外的数据并行（`data_parallel: 1`）。
 - **模型并行**：模型被切分成8个部分，在不同设备上计算（`model_parallel: 8`）。
@@ -254,4 +254,4 @@ model_config:
 
 > 开启细粒度多副本并行的同时必须开启序列并行。
 
-通过以上配置，Llama3-70B的分布式训练在多机多卡环境中可以有效利用硬件资源，实现高效、稳定的模型训练。
+通过以上配置，Llama3_1-70B的分布式训练在多机多卡环境中可以有效利用硬件资源，实现高效、稳定的模型训练。

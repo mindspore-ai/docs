@@ -93,7 +93,7 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 
 `register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
 
-For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama2-7B fine-tuning configuration file](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml).
+For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama3_1-8B fine-tuning configuration file](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
 
 After all the preceding basic elements are prepared, you can refer to other documents in the MindSpore Transformers tutorial to perform model training, fine-tuning, and inference. For details about subsequent model debugging and optimization, see [Large Model Accuracy Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/precision_optimization.html) and [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/performance_optimization.html).
 
@@ -122,18 +122,16 @@ The differences are as follows:
 - In Llama3-8B, the special word metaindex is modified. Therefore, `bos_token_id` is set to `128000`, `eos_token_id` is set to `128001`, and `pad_token_id` is set to `128002`.
 - In Llama3-8B, the value of **theta** in the rotation position code is changed to **500000**. Therefore, `theta` is set to `500000`.
 
-After modifying the corresponding content in the `YAML` file of Llama2-7B, you can obtain the [Llama3-8B configuration file](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_8b/finetune_llama3_8b.yaml).
+After modifying the corresponding content in the `YAML` file of Llama2-7B, you can obtain the Llama3-8B configuration file.
 
 #### Tokenizer
 
-Llama3-8B re-implements the tokenizer. According to the official implementation, PretrainedTokenizer is inherited from MindSpore Transformers to implement Llama3Tokenizer, which is written in [llama3_tokenizer.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_tokenizer.py).
+Llama3-8B re-implements the tokenizer. According to the official implementation, PretrainedTokenizer is inherited from MindSpore Transformers to implement Llama3Tokenizer.
 
 #### Weight Conversion
 
-The parameters of Llama3-8B are the same as those of Llama2-7B. Therefore, the weight conversion process of Llama2-7B can be reused. For details, see [Llama3 Document > Weight Conversion](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E8%BD%AC%E6%8D%A2).
+The parameters of Llama3-8B are the same as those of Llama2-7B. Therefore, the weight conversion process of Llama2-7B can be reused.
 
 #### Dataset Processing
 
-The tokenizer of Llama3-8B is different from that of Llama2-7B. Therefore, you need to replace the tokenizer of Llama3-8B to preprocess data based on the dataset processing script of Llama2-7B. For details, see [conversation.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_conversation.py) and [llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_preprocess.py).
-
-For details about the implementation of Llama3 in MindSpore Transformers, see [Llama3 folder](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3) in the MindSpore Transformers repository. For details about how to use Llama3 in MindSpore Transformers, see [LLama3 documents](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md).
+The tokenizer of Llama3-8B is different from that of Llama2-7B. Therefore, you need to replace the tokenizer of Llama3-8B to preprocess data based on the dataset processing script of Llama2-7B.
