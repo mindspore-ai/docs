@@ -208,3 +208,42 @@ A: This is because in a multi-machine scenario, the distributed framework automa
 1. view the current hostname by the command `hostname` or `hostnamectl`.
 2. You can modify the hostname by editing the file `/etc/hosts` or by using the command `hostnamectl set-hostname <hostname>`.
 3. The hostname can be changed temporarily by using the command `hostname <hostname>`.
+
+<br/>
+
+## Q: How to resolve Unique ID retrieval timeout failures when using dynamic cluster or msrun to launch distributed tasks with HCCL backend in multi-cards scenarios?
+
+```text
+[WARNING] DEVICE(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:251] QueryUniqueID] Retry to lookup the unique id for group xxx from the meta server node...Retry time: 3/66, sleep 2
+[WARNING] DEVICE(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:251] QueryUniqueID] Retry to lookup the unique id for group xxx from the meta server node...Retry time: 2/66, sleep 2
+[WARNING] DEVICE(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:251] QueryUniqueID] Retry to lookup the unique id for group xxx from the meta server node...Retry time: 1/66, sleep 1
+···
+RuntimeError: Communicator of group xxx inited: failed. Result: Init communicator for group xxx exception info: Failed to fetch the unique id of the collective lib from the meta server node. Maybe the root rank process of this group has exited or has not executed to QueryUniqueID step. Please check root rank: 0's log.
+
+--------------------------------------------
+- C++ Call Stack: (For framework developers)
+--------------------------------------------
+mindspore/ccsrc/distributed/collective/collective_manager.cc:1123 WaitCommInitDone
+mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:260 QueryUniqueID
+```
+
+A: The error occurs during communication group creation when non-rootrank processes fail to obtain rootinfo from the scheduler process within the timeout period. This typically happens in multi-card HCCL backend scenarios where neither the `RANK_TABLE_FILE` environment variable is set, nor the `--rank_table_file` parameter is specified in msrun. In such cases, the framework automatically uses HCCL's self-negotiation interface for communication group initialization. During the communication group creation phase, the rootrank process within the same communication group calls the HCCL interface to obtain rootinfo and then passes it to the scheduler process via a host-side TCP connection. Other rank processes within the communication group request this rootinfo from the scheduler process via TCP. To ensure all ranks within the same communication group obtain the rootinfo before proceeding with HCCL initialization, the framework provides the capability to retry QueryUniqueID with a timeout period, which defaults to 200s. Here are the solutions to this error:
+
+1. Check `scheduler.log` to verify whether the scheduler process status is abnormal. Normally, the scheduler process waits for worker processes to complete their tasks, as shown below:
+
+```text
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/cluster_context.cc:154] Finalize] This log means the cluster is successfully created. Retry to finalize the node and exit cluster...
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/topology/meta_server_node.cc:98] Finalize] The meta server node can not be finalized because there are still 256 alive nodes.
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/cluster_context.cc:154] Finalize] This log means the cluster is successfully created. Retry to finalize the node and exit cluster...
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/topology/meta_server_node.cc:98] Finalize] The meta server node can not be finalized because there are still 256 alive nodes.
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/cluster_context.cc:154] Finalize] This log means the cluster is successfully created. Retry to finalize the node and exit cluster...
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/topology/meta_server_node.cc:98] Finalize] The meta server node can not be finalized because there are still 256 alive nodes.
+```
+
+2. In large cluster scale, the number of communication groups may increase, and the number of ranks within a single communication group may also grow. In such cases, the default 200s timeout may be insufficient for all rank processes to request rootinfo information from the scheduler process. You can manually configure the environment variable MS_NODE_TIMEOUT to adjust the timeout period. For example:
+
+```text
+export MS_NODE_TIMEOUT=900
+```
+
+Since QueryUniqueID is a host-side operation, it can be affected by host-side network fluctuations, throughput, and CPU performance. It is recommended to appropriately increase the timeout period based on the cluster networking scale. For clusters with more than 128 devices, it is recommended to configure 900s~1800s.

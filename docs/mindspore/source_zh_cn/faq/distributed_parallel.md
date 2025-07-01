@@ -208,3 +208,42 @@ A: 这是因为在多机场景，分布式框架会依据hostname自动分配dev
 1. 通过命令`hostname`或者`hostnamectl`来查看当前的主机名。
 2. 通过编辑文件`/etc/hosts`或者使用命令`hostnamectl set-hostname <hostname>`来修改主机名。
 3. 通过命令`hostname <hostname>`来临时修改主机名。
+
+<br/>
+
+## Q: 多卡场景，使用动态组网或msrun启动分布式任务，且后端使用HCCL时，重复尝试获取Unique ID，最终失败超时，如何解决？
+
+```text
+[WARNING] DEVICE(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:251] QueryUniqueID] Retry to lookup the unique id for group xxx from the meta server node...Retry time: 3/66, sleep 2
+[WARNING] DEVICE(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:251] QueryUniqueID] Retry to lookup the unique id for group xxx from the meta server node...Retry time: 2/66, sleep 2
+[WARNING] DEVICE(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:251] QueryUniqueID] Retry to lookup the unique id for group xxx from the meta server node...Retry time: 1/66, sleep 1
+···
+RuntimeError: Communicator of group xxx inited: failed. Result: Init communicator for group xxx exception info: Failed to fetch the unique id of the collective lib from the meta server node. Maybe the root rank process of this group has exited or has not executed to QueryUniqueID step. Please check root rank: 0's log.
+
+--------------------------------------------
+- C++ Call Stack: (For framework developers)
+--------------------------------------------
+mindspore/ccsrc/distributed/collective/collective_manager.cc:1123 WaitCommInitDone
+mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:260 QueryUniqueID
+```
+
+A: 以上报错为创建通信域阶段，通信域内的非rootrank进程向scheduler进程索取该rootinfo信息超时。在多卡HCCL后端，不传入环境变量 `RANK_TABLE_FILE` 也不传msrun参数 `--rank_table_file` 的场景下，框架默认使用HCCL自协商初始化通信域接口。创建通信域阶段，同一个通信域内，rootrank的进程会调用HCCL接口获取rootinfo信息，然后通过host侧tcp链接传递给scheduler进程；而通信域内的其他rank进程，会通过tcp链接向scheduler进程索取该rootinfo信息。为了保证同一通信域内，所有rank都拿到rootinfo之后，再继续调用HCCL的初始化接口，框架提供了重复QueryUniqueID且在一定时间后超时退出的能力，默认的超时时间为200s。以下是针对报错的解决方法：
+
+1. 查看 `scheduler.log` ，检查scheduler进程的状态是否异常。一般情况下，scheduler进程都在正常等待worker进程结束工作，如下：
+
+```text
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/cluster_context.cc:154] Finalize] This log means the cluster is successfully created. Retry to finalize the node and exit cluster...
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/topology/meta_server_node.cc:98] Finalize] The meta server node can not be finalized because there are still 256 alive nodes.
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/cluster_context.cc:154] Finalize] This log means the cluster is successfully created. Retry to finalize the node and exit cluster...
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/topology/meta_server_node.cc:98] Finalize] The meta server node can not be finalized because there are still 256 alive nodes.
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/cluster_context.cc:154] Finalize] This log means the cluster is successfully created. Retry to finalize the node and exit cluster...
+[WARNING] DISTRIBUTED(xxx,xxxxxx,python):xxxx-xx-xx-xx:xx:xx.xxx.xxx [mindspore/ccsrc/distributed/cluster/topology/meta_server_node.cc:98] Finalize] The meta server node can not be finalized because there are still 256 alive nodes.
+```
+
+2. 在集群规模比较大时，创建通信域的个数可能比较多，一个通信域内包含的rank数量也可能会增加。这种情况下，默认的200s超时时间可能不足以完成所有rank进程向scheduler进程索取rootinfo信息的动作，此时可以通过手动配置环境变量 `MS_NODE_TIMEOUT` 更改超时时间。例如：
+
+```text
+export MS_NODE_TIMEOUT=900
+```
+
+由于QueryUniqueID属于host侧行为，会受到host侧网络波动、吞吐以及CPU性能的影响，建议根据集群组网的规模适当调大超时时间，在128卡规模以上建议配置900s~1800s。
