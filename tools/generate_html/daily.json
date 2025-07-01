@@ -113,5 +113,14 @@
     "whl_name" : "",
     "environ" : "",
     "uninstall_name" : ""
+},
+{
+    "id" : 13 ,
+    "name" : "mindstudio",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "",
+    "uninstall_name" : ""
 }
 ]
