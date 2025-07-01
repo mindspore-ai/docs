@@ -107,7 +107,7 @@ data_set = create_dataset(32)
 
 ### 训练网络
 
-这部分与流水线并行的训练代码一致。在单机训练代码基础上需要调用两个额外的接口：`nn.WithLossCell`用于封装网络和损失函数、`ms.parallel.nn.Pipeline`用于封装LossCell和配置MicroBatch大小。通过`Autoparallel`接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，`stages`为流水线并行中stage的数量，`hsdp`用于开启优化器并行。代码如下：
+这部分与流水线并行的训练代码一致。在单机训练代码基础上需要调用两个额外的接口：[nn.WithLossCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.WithLossCell.html)用于封装网络和损失函数、[parallel.nn.Pipeline](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.Pipeline.html)用于封装LossCell和配置MicroBatch大小。通过[Autoparallel](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，`stages`为流水线并行中stage的数量，`hsdp`用于开启优化器并行。代码如下：
 
 ```python
 import mindspore as ms

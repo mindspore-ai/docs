@@ -24,9 +24,9 @@
 
 ### 相关接口
 
-1. `mindspore.ops.Primitive.set_device()`：设置Primitive执行后端。
+1. [mindspore.ops.Primitive.set_device()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.set_device)：设置Primitive执行后端。
 
-2. `mindspore.nn.Optimizer.target`：该属性用于指定在主机（host）上还是设备（device）上更新参数。输入类型为str，只能是"CPU"，"Ascend"。
+2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target)：该属性用于指定在主机（host）上还是设备（device）上更新参数。输入类型为str，只能是"CPU"，"Ascend"。
 
 ## 操作实践
 
@@ -93,7 +93,7 @@ data_set = create_dataset(32)
 
 ### 网络定义
 
-网络定义与单卡网络区别在于，配置`ops.Add()`算子在主机端运行，代码如下：
+网络定义与单卡网络区别在于，配置[ops.Add()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html)算子在主机端运行，代码如下：
 
 ```python
 import mindspore as ms
@@ -144,7 +144,7 @@ net.layer3.add.set_device("CPU")
 
 ### 训练网络
 
-损失函数、优化器以及训练过程与数据并行一致，用`mindspore.nn.DistributedGradReducer()`接口来对所有卡的梯度进行聚合，代码如下：
+损失函数、优化器以及训练过程与数据并行一致，用[mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.DistributedGradReducer.html)接口来对所有卡的梯度进行聚合，代码如下：
 
 ```python
 from mindspore import nn

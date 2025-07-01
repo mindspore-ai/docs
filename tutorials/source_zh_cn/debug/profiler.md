@@ -10,7 +10,7 @@
 
 1. 准备训练脚本；
 
-2. 在训练脚本中调用性能调试接口，如mindspore.profiler.profile以及mindspore.profiler.DynamicProfilerMonitor接口；
+2. 在训练脚本中调用性能调试接口，如[mindspore.profiler.profile](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html)以及[mindspore.profiler.DynamicProfilerMonitor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)接口；
 
 3. 运行训练脚本；
 
@@ -190,7 +190,7 @@ export MS_PROFILER_OPTIONS='
 
 ### 方式四：离线解析
 
-用户如果想重新解析已经采集的性能数据，可以使用mindspore.profiler.profiler.analyse接口进行离线解析。analyse接口详细介绍请参考[离线解析analyse接口参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html)。
+用户如果想重新解析已经采集的性能数据，可以使用[mindspore.profiler.profiler.analyse](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html)接口进行离线解析。analyse接口详细介绍请参考[离线解析analyse接口参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html)。
 
 离线解析样例如下：
 

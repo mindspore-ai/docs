@@ -132,7 +132,7 @@ class Grad(Cell):
 
 ### Executing the Network
 
-In this step, we need to define the network inputs, defer initialization of the network parameters and optimizer parameters through the `no_init_parameters` interface, and then call `Grad` in order to obtain the derivatives. Set the parallel mode to semi-automatic parallel mode through the top-level `AutoParallel` interface, with the following code:
+In this step, we need to define the network inputs, defer initialization of the network parameters and optimizer parameters through the [no_init_parameters](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface, and then call `Grad` in order to obtain the derivatives. Set the parallel mode to semi-automatic parallel mode through the top-level `AutoParallel` interface, with the following code:
 
 ```python
 import numpy as np

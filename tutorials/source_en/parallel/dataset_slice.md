@@ -85,7 +85,7 @@ data_set = create_dataset(32)
 
 ### Network Definition
 
-The network definition here is consistent with the single-card model and the initialization of network parameters and optimizer parameters is deferred through the `no_init_parameters` interface:
+The network definition here is consistent with the single-card model and the initialization of network parameters and optimizer parameters is deferred through the [no_init_parameters](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface:
 
 ```python
 from mindspore import nn
