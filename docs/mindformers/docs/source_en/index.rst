@@ -54,6 +54,10 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
     Introduction of logs, including log structure, log saving, and so on.
 
+  - `Using Tokenizer <https://www.mindspore.cn/mindformers/docs/en/dev/feature/tokenizer.html>`_
+
+    Introduction of tokenizer, supports the Hugging Face Tokenizer for use in reasoning and datasets.
+
 - Training Features:
 
   - `Dataset <https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html>`_
@@ -168,6 +172,7 @@ FAQ
    feature/logging
    feature/training_function
    feature/infer_function
+   feature/tokenizer
 
 .. toctree::
    :glob:
