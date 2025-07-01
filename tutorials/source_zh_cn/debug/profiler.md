@@ -62,7 +62,15 @@ class StopAtStep(mindspore.Callback):
 
 自定义for循环方式下，用户可以通过设置schedule以及on_trace_ready参数来使能Profiler。
 
-例如用户想要采集前两个step的性能数据，可以使用如下配置的schedule进行采集。
+如下图，schedule中有5个参数可以配置，分别为：skip_first、wait、warmup、active、repeat。其中skip_first表示跳过前skip_first个step；wait表示等待阶段，
+跳过wait个step；warmup表示预热阶段，跳过warmup个step；active表示采集active个step；repeat表示重复执行次数。其中1个repeat包括wait+warmup+active个step。
+一个repeat内所有step执行完之后会执行通过on_strace_ready配置的回调函数解析性能数据。
+
+![schedule.png](./images/schedule.png)
+
+例如：模型训练共100个step，schedule配置为schedule = schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)，表示跳过前10个step，
+从第11个step开始，在第1个repeat中将等待10个step，执行5个step的预热，最终采集第26~第30个step（一共5个step）的性能数据，
+在第2个repeat中将继续等待10个step，执行5个step的预热，最终采集第46个~第50个step（一共5个step）的性能数据。
 
 样例如下：
 
@@ -86,8 +94,8 @@ experimental_config = mindspore.profiler._ExperimentalConfig(
 
 # 初始化profile
 with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
-                                    schedule=mindspore.profiler.schedule(wait=1, warmup=1, active=2,
-                                            repeat=1, skip_first=2),
+                                    schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=1,
+                                            repeat=1, skip_first=0),
                                     on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
                                     profile_memory=False,
                                     experimental_config=experimental_config) as prof:
@@ -97,7 +105,9 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
             prof.step()
 ```
 
-使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息，根据schedule的配置，skip_first跳过2步，wait等待1步，warmup预热1步，从第4步开始采集，根据active为2，则采集第4、5步，因此Step ID为4、5，表示采集的是第4、5个step。
+使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息。根据schedule的配置，skip_first跳过0个step，wait等待0个step，warmup预热0个step。根据active为1，则从第0个step开始采集，采集1个step。因此Step ID为0，表示采集的是第0个step。
+
+> profiler的落盘路径是通过on_trace_ready的tensorboard_trace_handler参数指定的，tensorboard_trace_handler会默认解析性能数据，用户如果没有配置tensorboard_trace_handler，数据会默认落盘到当前脚本同级目录的'/data'文件夹下，可以通过离线解析功能解析性能数据，离线解析功能可参考[方式四：离线解析](https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html#%E6%96%B9%E5%BC%8F%E5%9B%9B-%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90)。
 
 完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)。
 
