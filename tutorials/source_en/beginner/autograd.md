@@ -6,7 +6,7 @@
 
 The training of the neural network mainly uses the back propagation algorithm. Model predictions (logits) and the correct labels are fed into the loss function to obtain the loss, and then the back propagation calculation is performed to obtain the gradients, which are finally updated to the model parameters. Automatic differentiation is able to calculate the value of the derivative of a derivable function at a point and is a generalization of the backpropagation algorithm. The main problem solved by automatic differentiation is to decompose a complex mathematical operation into a series of simple basic operations. The function shields the user from a large number of derivative details and processes, which greatly reduces the threshold of using the framework.
 
-MindSpore uses the design philosophy of functional auto-differentiation to provide auto-differentiation interfaces `grad` and `value_and_grad` that are closer to the mathematical semantics. We introduce it below by using a simple single-level linear transform model.
+MindSpore uses the design philosophy of functional auto-differentiation to provide auto-differentiation interfaces [mindspore.grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html) and [mindspore.value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html) that are closer to the mathematical semantics. We introduce it below by using a simple single-level linear transform model.
 
 ```python
 import numpy as np
@@ -114,7 +114,7 @@ print(grads)
   [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]]), Tensor(shape=[3], dtype=Float32, value= [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]))
 ```
 
-You can see that the gradient values corresponding to $w$ and $b$ have changed. At this point, if you want to block out the effect of z on the gradient, i.e., still only find the derivative of the parameter with respect to loss, you can use the `ops.stop_gradient` interface to truncate the gradient here. We add the `function` implementation to `stop_gradient` and execute it.
+You can see that the gradient values corresponding to $w$ and $b$ have changed. At this point, if you want to block out the effect of z on the gradient, i.e., still only find the derivative of the parameter with respect to loss, you can use the [mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.stop_gradient.html) interface to truncate the gradient here. We add the `function` implementation to `stop_gradient` and execute it.
 
 ```python
 def function_stop_gradient(x, y, w, b):

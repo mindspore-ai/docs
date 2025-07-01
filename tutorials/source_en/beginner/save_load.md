@@ -27,7 +27,7 @@ def network():
 
 ## Saving and Loading the Model Weight
 
-Saving model by using the `save_checkpoint` interface, and the specified saving path of passing in the network:
+Saving model by using the [mindspore.save_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.save_checkpoint.html) interface, and the specified saving path of passing in the network:
 
 ```python
 model = network()
@@ -63,7 +63,7 @@ mindspore.export(model, inputs, file_name="model", file_format="MINDIR")
 
 > MindIR saves both Checkpoint and model structure, so it needs to define the input Tensor to get the input shape.
 
-The existing MindIR model can be easily loaded through the `load` interface and passed into `nn.GraphCell` for inference.
+The existing MindIR model can be easily loaded through the `load` interface and passed into [mindspore.nn.GraphCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.GraphCell.html) for inference.
 
 > `nn.GraphCell` only supports graph mode.
 

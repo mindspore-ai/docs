@@ -122,11 +122,11 @@ class Network(nn.Cell):
 
 ### Training Network Definition
 
-In this step, we need to define the loss function, the optimizer, and the training process. It should be noted that the definitions of both the network and the optimizer here require deferred initialization. Besides, the interface `PipelineGradReducer` is needed to handle gradient of pipeline parallelism, the first parameter of this interface is the network parameter to be updated, and the second one is whether to use optimizer parallelism.
+In this step, we need to define the loss function, the optimizer, and the training process. It should be noted that the definitions of both the network and the optimizer here require deferred initialization. Besides, the interface [mindspore.parallel.nn.PipelineGradReducer](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.PipelineGradReducer.html) is needed to handle gradient of pipeline parallelism, the first parameter of this interface is the network parameter to be updated, and the second one is whether to use optimizer parallelism.
 
 Unlike the single-card model, two interfaces need to be called in this section to configure the pipeline parallel:
 
-- First define the LossCell. In this case the `nn.WithLossCell` interface is called to encapsulate the network and loss functions.
+- First define the LossCell. In this case the [mindspore.nn.WithLossCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to encapsulate the network and loss functions.
 - Finally, wrap the LossCell with `Pipeline`, and specify the size of MicroBatch. Configure the `pipeline_stage` for each `Cell` containing training parameters via `stage_config`.
 
 ```python
@@ -353,7 +353,7 @@ In the previous step, the parameter `embed` is shared by `self.word_embedding` a
 
 We need to further set up the parallelism-related configuration by wrapping the network again with `AutoParallel`, specifying the parallelism mode `semi-auto` as semi-automatic parallelism, in addition to turning on pipeline parallelism, configuring `pipeline`, and specifying the total number of stages by configuring the number of `stages`. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package (default is Ascend). `output_broadcast=True` indicates that the result of the last stage will be broadcast to the remaining stages when pipelined parallel inference is performed, which can be used in autoregressive inference scenarios.
 
-Before inference, executing `parallel_net.compile()` and `sync_pipeline_shared_parameters(parallel_net)`, the framework will synchronize the shared parameter between stages automatically.
+Before inference, executing `parallel_net.compile()` and [mindspore.parallel.sync_pipeline_shared_parameters(parallel_net)](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.sync_pipeline_shared_parameters.html), the framework will synchronize the shared parameter between stages automatically.
 
 ```python
 

@@ -53,7 +53,7 @@ rank_size = get_group_size()
 dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
 ```
 
-其中，与单卡不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过`mindspore.communication`接口获取：
+其中，与单卡不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过[mindspore.communication](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.communication.html)模块的以下接口获取：
 
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
@@ -115,7 +115,7 @@ net = Network()
 
 ## 训练网络
 
-在这一步，我们需要定义损失函数、优化器以及训练过程。与单卡模型不同的地方在于，数据并行模式还需要增加`mindspore.nn.DistributedGradReducer()`接口，来对所有卡的梯度进行聚合，该接口第一个参数为需要更新的网络参数：
+在这一步，我们需要定义损失函数、优化器以及训练过程。与单卡模型不同的地方在于，数据并行模式还需要增加[mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.DistributedGradReducer.html)接口，来对所有卡的梯度进行聚合，该接口第一个参数为需要更新的网络参数：
 
 ```python
 from mindspore import nn

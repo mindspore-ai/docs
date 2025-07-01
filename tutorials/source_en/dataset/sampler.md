@@ -8,7 +8,7 @@ Data is the foundation of training. The `mindspore.dataset` module provides APIs
 
 ### Customizing Dataset
 
-MindSpore supports loading data by constructing customized classes or customized generators. `GeneratorDataset` can help to load dataset based on the logic inside these classes/functions.
+MindSpore supports loading data by constructing customized classes or customized generators. [mindspore.dataset.GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html) can help to load dataset based on the logic inside these classes/functions.
 
 `GeneratorDataset` supports constructing customized datasets from random-accessible objects, iterable objects and Python generator, which are explained in detail below.
 
@@ -184,7 +184,7 @@ plt.show()
 
 To meet training requirements and solve problems such as too large datasets or uneven distribution of sample categories, MindSpore provides multiple samplers for different purposes to help users sample datasets. Users only need to import the sampler object when loading the dataset to implement data sampling.
 
-MindSpore provides multiple samplers, such as `RandomSampler`, `WeightedRandomSampler`, and `SubsetRandomSampler`. In addition, users can customize sampler classes as required.
+MindSpore provides multiple samplers, such as [mindspore.dataset.RandomSampler](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.RandomSampler.html), [mindspore.dataset.WeightedRandomSampler](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.WeightedRandomSampler.html), and [mindspore.dataset.SubsetRandomSampler](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.SubsetRandomSampler.html). In addition, users can customize sampler classes as required.
 
 > For details about how to use the sampler, see [Sampler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html#sampler-1).
 

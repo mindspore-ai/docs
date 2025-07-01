@@ -107,7 +107,7 @@ The `ops.MatMul()` and `ops.ReLU()` operators for the above networks are configu
 
 #### Training Network Definition
 
-In this step, we need to define the loss function, the optimizer, and the training process. Note that due to the huge number of parameters of the large model, the graphics memory will be far from sufficient if parameter initialization is performed when defining the network on a single card. Therefore, delayed initialization is required when defining the network in conjunction with the `no_init_parameters` interface to delay parameter initialization until the parallel multicard phase. Here both network and optimizer definitions need to be delayed initialized.
+In this step, we need to define the loss function, the optimizer, and the training process. Note that due to the huge number of parameters of the large model, the graphics memory will be far from sufficient if parameter initialization is performed when defining the network on a single card. Therefore, delayed initialization is required when defining the network in conjunction with the [mindspore.nn.utils.no_init_parameters](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface to delay parameter initialization until the parallel multicard phase. Here both network and optimizer definitions need to be delayed initialized.
 
 ```python
 from mindspore.nn.utils import no_init_parameters
@@ -250,7 +250,7 @@ data_set = create_dataset(32)
 
 #### Defining the Network
 
-In the current mint operator parallel mode, the network needs to be defined with mint operators. Since the mint operators, as a functional interface, does not directly expose its operator type (Primitive), it is impossible to directly configure the slicing strategy for the operator. Instead, users need to manually configure the slicing strategy for mint operators by using `mindspore.parallel.shard` interface based on a single-card network, e.g., the network structure after configuring the strategy is:
+In the current mint operator parallel mode, the network needs to be defined with mint operators. Since the mint operators, as a functional interface, does not directly expose its operator type (Primitive), it is impossible to directly configure the slicing strategy for the operator. Instead, users need to manually configure the slicing strategy for mint operators by using [mindspore.parallel.shard](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.shard.html) interface based on a single-card network, e.g., the network structure after configuring the strategy is:
 
 ```python
 import mindspore as ms

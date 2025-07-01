@@ -108,7 +108,7 @@ learning_rate = 1e-2
 
 The loss function is used to evaluate the error between the model's predictions (logits) and targets (targets). When training a model, a randomly initialized neural network model starts to predict the wrong results. The loss function evaluates how different the predicted results are from the targets, and the goal of model training is to reduce the error obtained by the loss function.
 
-Common loss functions include `nn.MSELoss` (mean squared error) for regression tasks and `nn.NLLLoss` (negative log-likelihood) for classification. `nn.CrossEntropyLoss` combines `nn.LogSoftmax` and `nn.NLLLoss` to normalize logits and calculate prediction errors.
+Common loss functions include [mindspore.nn.MSELoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MSELoss.html) (mean squared error) for regression tasks and [mindspore.nn.NLLLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.NLLLoss.html) (negative log-likelihood) for classification. [mindspore.nn.CrossEntropyLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CrossEntropyLoss.html) combines [mindspore.nn.LogSoftmax](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LogSoftmax.html) and [mindspore.nn.NLLLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.NLLLoss.html) to normalize logits and calculate prediction errors.
 
 ```python
 loss_fn = nn.CrossEntropyLoss()
