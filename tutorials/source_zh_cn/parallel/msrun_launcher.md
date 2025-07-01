@@ -455,14 +455,14 @@ ms.set_seed(1)
 
 > [mindspore.communication.get_rank()](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.get_rank.html)接口需要在调用[mindspore.communication.init()](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.init.html)接口完成分布式初始化后才能正常获取rank信息，否则`get_rank()`默认返回0。
 
-在对某一rank进行断点操作之后，会导致该rank进程执行停止在断点处等待后续交互操作，而其他未断点rank进程会继续运行，这样可能会导致快慢卡的情况，所以可以使用[mindspore.communication.comm_func.barrier()](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.comm_func.barrier.html)算子和`mindspore.common.api._pynative_executor.sync()`来同步所有rank的运行，确保其他rank阻塞等待，且一旦调试的rank继续运行则其他rank的停止会被释放。比如在单机八卡任务中，仅针对rank 7进行断点调试且阻塞所有其他rank：
+在对某一rank进行断点操作之后，会导致该rank进程执行停止在断点处等待后续交互操作，而其他未断点rank进程会继续运行，这样可能会导致快慢卡的情况，所以可以使用[mindspore.communication.comm_func.barrier()](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.comm_func.barrier.html)算子和[mindspore.runtime.synchronize()](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.synchronize.html)来同步所有rank的运行，确保其他rank阻塞等待，且一旦调试的rank继续运行则其他rank的停止会被释放。比如在单机八卡任务中，仅针对rank 7进行断点调试且阻塞所有其他rank：
 
 ```python
 import pdb
 import mindspore as ms
 from mindspore.communication import init, get_rank
 from mindspore.communication.comm_func import barrier
-from mindspore.common.api import _pynative_executor
+from mindspore.runtime import synchronize
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
@@ -470,7 +470,7 @@ init()
 if get_rank() == 7:
     pdb.set_trace()
 barrier()
-_pynative_executor.sync()
+synchronize()
 ms.set_seed(1)
 ```
 
