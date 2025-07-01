@@ -315,5 +315,14 @@
         },
         "repo_name": "vllm_mindspore",
         "theme": "theme-docs"
+    },
+    {
+        "version": "master",
+        "label": {
+            "zh": "MindStudio",
+            "en": "MindStudio"
+        },
+        "repo_name": "mindstudio",
+        "theme": "theme-docs"
     }
 ]

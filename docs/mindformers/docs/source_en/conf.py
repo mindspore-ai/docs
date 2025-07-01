@@ -32,7 +32,7 @@ with open(_html_base.__file__, "r", encoding="utf-8") as f:
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore Transformers"'
+project = 'MindSpore Transformers'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
