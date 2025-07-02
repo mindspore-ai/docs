@@ -77,30 +77,50 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
 
    The script accepts the following parameters:
 
-   | Parameter Name | Description                                                                  |
-   |----------------|------------------------------------------------------------------------------|
-   | input          | Path to the `json` format file                                               |
-   | output-prefix  | Prefix for the `.bin` and `.idx` data files                                  |
-   | tokenizer-type | Type of tokenizer used by the model                                          |
-   | vocab-file     | Path to the model’s tokenizer file (`tokenizer.model` / `vocab.json`)        |
-   | merges-file    | Path to the model’s tokenizer merges file (`merge.txt`)                      |
-   | add_bos_token  | Whether to add a `bos_token` (beginning of sequence token) to the vocabulary |
-   | add_eos_token  | Whether to add an `eos_token` (end of sequence token) to the vocabulary      |
-   | seq-length     | Set the sequence length for dataset samples                                  |
-   | pad_or_stitch  | Choose to either `pad` or `stitch` samples                                   |
+   | Parameter Name | Description                                                                                       |
+   |----------------|---------------------------------------------------------------------------------------------------|
+   | input          | Path to the `json` format file                                                                    |
+   | output-prefix  | Prefix for the `.bin` and `.idx` data files                                                       |
+   | tokenizer-type | Type of tokenizer used by the model                                                               |
+   | vocab-file     | Path to the model’s tokenizer file (`tokenizer.model` / `vocab.json`)                             |
+   | merges-file    | Path to the model’s tokenizer merges file (`merge.txt`)                                           |
+   | add_bos_token  | Whether to add a `bos_token` (beginning of sequence token) to the vocabulary                      |
+   | add_eos_token  | Whether to add an `eos_token` (end of sequence token) to the vocabulary                           |
+   | seq-length     | Set the sequence length for dataset samples                                                       |
+   | pad_or_stitch  | Choose to either `pad` or `stitch` samples                                                        |
+   | register_path  | Set the code directory of outer tokenizer. Take effects only when `tokenizer-type`='AutoRegister' |
+   | auto_register  | Set the import path of outer tokenizer. Take effects only when `tokenizer-type`='AutoRegister'    |
 
-   Execute the following command to preprocess the dataset:
+   The optional value of `tokenizer-type` is 'LlamaTokenizer', 'LlamaTokenizerFast' and 'AutoRegister'. When it's set to 'LlamaTokenizer' or 'LlamaTokenizerFast', the corresponding public tokenizer class in MindSpore Transformers will be called. When it's set to 'AutoRegister', outer tokenizer class specified by `register_path` and `auto_register` will be applied.
+
+   Take public tokenizer class `LlamaTokenizerFast` for example, execute the following command to preprocess the dataset:
 
    ```shell
    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
      --input /path/data.json \
      --output-prefix /path/megatron_data \
-     --tokenizer-type Llama3Tokenizer \
+     --tokenizer-type LlamaTokenizerFast \
      --vocab-file /path/tokenizer.model \
      --add_bos_token True \
      --add_eos_token True \
      --pad_or_stitch stitch \
      --seq-length 8192
+   ```
+
+   Take outer tokenizer class [Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py) for example, make sure **local** MindSpore Transformers repository has 'research/llama3_1/llama3_1_tokenizer.py', and execute the following command to preprocess the dataset:
+
+   ```shell
+   python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+     --input /path/data.json \
+     --output-prefix /path/megatron_data \
+     --tokenizer-type AutoRegister \
+     --vocab-file /path/tokenizer.model \
+     --add_bos_token True \
+     --add_eos_token True \
+     --pad_or_stitch stitch \
+     --seq-length 8192 \
+     --register_path research/llama3_1 \
+     --auto_register llama3_1_tokenizer.Llama3Tokenizer
    ```
 
 ### Model Pre-training
@@ -152,14 +172,14 @@ The following explains how to configure and use Megatron datasets in the configu
           reset_attention_mask: True        # Whether to reset attention_mask at EOD tokens, returning a staircase-shaped mask
           create_compressed_eod_mask: False # Whether to return a compressed attention_mask
           eod_pad_length: 128               # Length of the compressed attention_mask
-          eod: 0                           # Token ID of the EOD token in the dataset
-          pad: 1                           # Token ID of the pad token in the dataset
+          eod: 0                            # Token ID of the EOD token in the dataset
+          pad: 1                            # Token ID of the pad token in the dataset
 
-          data_path:  # Sampling ratio and paths for Megatron datasets
-            - '0.3'
-            - "/path/megatron_data"
-            - '0.7'
-            - "/path/megatron_data"
+          data_path:                        # Sampling ratio and paths for Megatron datasets
+            - '0.3'                         # Ratio of dataset1
+            - "/path/megatron_data1"        # Path to bin file of dataset1 excluding the .bin suffix
+            - '0.7'                         # Ratio of dataset2
+            - "/path/megatron_data2"        # Path to bin file of dataset2 excluding the .bin suffix
 
       input_columns: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
       construct_args_key: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
@@ -174,17 +194,18 @@ The following explains how to configure and use Megatron datasets in the configu
 
    Below are the descriptions for each configuration option of the `GPTDataset` in the dataset:
 
-   | Parameter Name             | Description                                                                                                                                                      |
-   |----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-   | seed                       | Random seed for dataset sampling. Megatron datasets use this value to randomly sample and concatenate samples. Default: `1234`                                   |
-   | seq_length                 | Sequence length of data returned by the dataset. Should be consistent with the sequence length of the training model.                                            |
-   | eod_mask_loss              | Whether to compute loss at the end-of-document (EOD) token. Default: `False`                                                                                     |
-   | create_attention_mask      | Whether to return an attention_mask. Default: `True`                                                                                                             |
-   | reset_attention_mask       | Whether to reset the attention_mask at EOD tokens, returning a staircase-shaped attention_mask. Effective only if `create_attention_mask=True`. Default: `False` |
-   | create_compressed_eod_mask | Whether to return a compressed attention_mask. Has higher priority than `create_attention_mask`. Default: `False`                                                |
-   | eod_pad_length             | Length of the compressed attention_mask. Effective only if `create_compressed_eod_mask=True`. Default: `128`                                                     |
-   | eod                        | Token ID of the EOD token in the dataset                                                                                                                         |
-   | pad                        | Token ID of the pad token in the dataset                                                                                                                         |
+   | Parameter Name             | Description                                                                                                                                                                                                                            |
+   |----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | seed                       | Random seed for dataset sampling. Megatron datasets use this value to randomly sample and concatenate samples. Default: `1234`                                                                                                         |
+   | seq_length                 | Sequence length of data returned by the dataset. Should be consistent with the sequence length of the training model.                                                                                                                  |
+   | eod_mask_loss              | Whether to compute loss at the end-of-document (EOD) token. Default: `False`                                                                                                                                                           |
+   | create_attention_mask      | Whether to return an attention_mask. Default: `True`                                                                                                                                                                                   |
+   | reset_attention_mask       | Whether to reset the attention_mask at EOD tokens, returning a staircase-shaped attention_mask. Effective only if `create_attention_mask=True`. Default: `False`                                                                       |
+   | create_compressed_eod_mask | Whether to return a compressed attention_mask. Has higher priority than `create_attention_mask`. Default: `False`                                                                                                                      |
+   | eod_pad_length             | Length of the compressed attention_mask. Effective only if `create_compressed_eod_mask=True`. Default: `128`                                                                                                                           |
+   | eod                        | Token ID of the EOD token in the dataset                                                                                                                                                                                               |
+   | pad                        | Token ID of the pad token in the dataset                                                                                                                                                                                               |
+   | data_path                  | List, every two consecutive elements (number, string) are considered as a dataset, represent ratio of the dataset and the path to its bin file excluding `.bin` suffix respectively. The sum of datasets' ratios should be equal to 1. |
 
    In addition, the Megatron dataset also depends on configurations such as `input_columns`, `construct_args_key`, and `full_batch`. For more details, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html).
 
