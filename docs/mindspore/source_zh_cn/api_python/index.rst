@@ -57,7 +57,7 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 自动并行接口。
    * - `mindspore.runtime <./mindspore.runtime.html>`_
      - 运行时接口。
-   * - `mindspore.device_context <./mindspore.evice_context.html>`_
+   * - `mindspore.device_context <./mindspore.device_context.html>`_
      - 设备及后端管理接口。
    * - `mindspore.communication <./mindspore.communication.html>`_
      - 集合通信接口。
@@ -87,3 +87,5 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 环境变量相关说明。
    * - `PyTorch与MindSpore API映射表 <../note/api_mapping/pytorch_api_mapping.html>`_
      - PyTorch与MindSpore的API映射关系和差异分析。
+
+`点击下载API文档 <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r2.6.0/zh/MindSpore_API_r2.6.0_zh.pdf>`_
