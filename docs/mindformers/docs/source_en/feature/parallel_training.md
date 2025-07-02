@@ -43,6 +43,8 @@ From generative AI to scientific models, long sequence training is becoming very
 
 #### Ring Attention Sequence Parallelism
 
+> This feature has been deprecated and will be removed in subsequent versions. Currently, you can using other sequence parallel methods. If you have any questions or suggestions, please submit feedback through **[Community Issue](https://gitee.com/mindspore/mindformers/issues/new)**. Thank you for your understanding and support!
+
 Long Sequence Parallel Algorithm, Ring Attention, is a representative technique for long sequence parallelism in the current industry, which is used to solve the memory overhead problem during long sequence training, while realizing computation and communication masking. The Ring Attention algorithm utilizes the chunking property of Attention, when the sequence parallelism is N, Q, K, V are sliced into N sub-chunks, and each card calls the Flash Attention algorithm to compute the Attention result of the local QKV sub-chunks respectively. Since each card only needs to compute the Attention of the sliced QKV sub-chunks, its memory occupation is reduced significantly. Ring Attention uses ring communication to collect and send sub-chunks to neighboring cards while doing FA computation to maximize the masking of computation and communication, which guarantees the overall performance of long sequence parallelism.
 
 MindSpore Transformers has support for configuring Ring Attention sequence parallel schemes, which can be enabled with the following configuration item:
