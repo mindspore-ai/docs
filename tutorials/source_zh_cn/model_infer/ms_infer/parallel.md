@@ -21,7 +21,7 @@
 ![Column-wise Parallelism](images/column.png)
 ![Row-wise Parallelism](images/row.png)
 
-以MindSpore原始实现的`nn.Dense`为起点，分别构建列切和行切的矩阵乘实现。
+以MindSpore原始实现的[nn.Dense](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dense.html)为起点，分别构建列切和行切的矩阵乘实现。
 
 1. 通信域的创建和管理，大模型配置的管理
 

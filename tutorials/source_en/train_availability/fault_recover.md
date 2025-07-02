@@ -104,7 +104,7 @@ model = Model(net, loss_fn=loss, optimizer=optim)  # Model encapsulation
 
 ### Configuring CheckpointConfig
 
-`mindspore.train.CheckpointConfig` supports configuration based on the number of iterations, with the following main parameters:
+[mindspore.train.CheckpointConfig](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.CheckpointConfig.html) supports configuration based on the number of iterations, with the following main parameters:
 
 - `save_checkpoint_steps`: indicates how many steps to save a Checkpoint file. The default value is 1.
 - `keep_checkpoint_max`: indicates the maximum number of Checkpoint files to be saved. The default value is 5.
@@ -166,7 +166,7 @@ ckpt_file = ckpt_path + "/" + ckptnames[-1]
 
 ### Loading Checkpoint File
 
-Use the `load_checkpoint` and `load_param_into_net` methods to load the latest saved Checkpoint file.
+Use the [load_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_checkpoint.html) and [load_param_into_net](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_param_into_net.html) methods to load the latest saved Checkpoint file.
 
 - The `load_checkpoint` method will load the network parameters from the Checkpoint file into the dictionary param_dict.
 - The `load_param_into_net` method will load the parameters from the dictionary param_dict into the network or optimizer, and the parameters in the network after loading are the ones saved in the Checkpoint file.

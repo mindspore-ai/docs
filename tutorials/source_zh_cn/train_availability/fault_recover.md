@@ -104,7 +104,7 @@ model = Model(net, loss_fn=loss, optimizer=optim)  # Model封装
 
 ### 配置CheckpointConfig
 
-`mindspore.train.CheckpointConfig` 支持根据迭代次数进行配置，主要参数如下：
+[mindspore.train.CheckpointConfig](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.CheckpointConfig.html) 支持根据迭代次数进行配置，主要参数如下：
 
 - `save_checkpoint_steps`：表示每隔多少个step保存一个Checkpoint文件，默认值为1。
 - `keep_checkpoint_max`：表示最多保存多少个Checkpoint文件，默认值为5。
@@ -166,7 +166,7 @@ ckpt_file = ckpt_path + "/" + ckptnames[-1]
 
 ### 加载Checkpoint文件
 
-使用 `load_checkpoint` 和 `load_param_into_net` 方法加载最新保存的Checkpoint文件。
+使用 [load_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_checkpoint.html) 和 [load_param_into_net](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_param_into_net.html) 方法加载最新保存的Checkpoint文件。
 
 - `load_checkpoint` 方法会把Checkpoint文件中的网络参数加载到字典param_dict中。
 - `load_param_into_net` 方法会把字典param_dict中的参数加载到网络或者优化器中，加载后网络中的参数就是Checkpoint文件中保存的。

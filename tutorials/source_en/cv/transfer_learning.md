@@ -124,7 +124,7 @@ step_size_val = dataset_val.get_dataset_size()
 
 ### Dataset Visualization
 
-The training dataset loaded from the `mindspore.dataset.ImageFolderDataset` interface returns a dictionary, and the user can create a data iterator by using the `create_dict_iterator` interface to iteratively access the dataset by using `next`. In this chapter, `batch_size` is set to 18, so use `next` to get 18 images and label data at a time.
+The training dataset loaded from the [mindspore.dataset.ImageFolderDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.ImageFolderDataset.html) interface returns a dictionary, and the user can create a data iterator by using the [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) interface to iteratively access the dataset by using `next`. In this chapter, `batch_size` is set to 18, so use `next` to get 18 images and label data at a time.
 
 ```python
 data = next(dataset_train.create_dict_iterator())

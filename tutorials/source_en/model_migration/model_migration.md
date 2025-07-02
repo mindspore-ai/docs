@@ -140,7 +140,7 @@ MindSpore and PyTorch build models in pretty much the same way, and the differen
 
 PyTorch provides `state_dict()` for parameter state viewing and saving, and `load_state_dict` for model parameter loading.
 
-MindSpore can use use `save_checkpoint` and `load_checkpoint`.
+MindSpore can use [save_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.save_checkpoint.html) and [load_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_checkpoint.html).
 
 <table class="colwidths-auto docutils align-default">
 <tr>

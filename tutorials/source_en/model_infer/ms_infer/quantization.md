@@ -16,7 +16,7 @@ To help you understand the basic quantization process of the MindSpore Golden St
 
 MindSpore Golden Stick quantization algorithms can be divided into two phases: quantization and deployment. The quantization phase is completed before deployment. The main tasks are as follows: collecting weight distribution, calculating quantization parameters, quantizing weight data, and inserting dequantization nodes. The deployment phase refers to the process of using the MindSpore framework to perform inference on the quantized model in the production environment.
 
-MindSpore Golden Stick uses `PTQConfig` to define quantization and deployment, and uses the `apply` and `convert` APIs to implement quantization and deployment. In `PTQConfig`, you can configure the data calibration policy, whether to quantize the weight, activation, and KVCache, and the quantization bits. For details, see [PTQConfig Configuration Description](#ptqconfig-configuration-description).
+MindSpore Golden Stick uses [PTQConfig](https://www.mindspore.cn/golden_stick/docs/en/master/ptq/mindspore_gs.ptq.PTQConfig.html) to define quantization and deployment, and uses the [apply](https://www.mindspore.cn/golden_stick/docs/en/master/ptq/mindspore_gs.ptq.PTQ.html#mindspore_gs.ptq.PTQ.apply) and [convert](https://www.mindspore.cn/golden_stick/docs/en/master/ptq/mindspore_gs.ptq.PTQ.html#mindspore_gs.ptq.PTQ.convert) APIs to implement quantization and deployment. In `PTQConfig`, you can configure the data calibration policy, whether to quantize the weight, activation, and KVCache, and the quantization bits. For details, see [PTQConfig Configuration Description](#ptqconfig-configuration-description).
 
 The quantization procedure of MindSpore Golden Stick is as follows:
 

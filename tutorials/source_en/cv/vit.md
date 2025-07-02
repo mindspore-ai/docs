@@ -558,7 +558,7 @@ Train epoch time: 95270.282 ms, per step time: 762.162 ms
 
 ### Model Validation
 
-The model validation process mainly applies interfaces such as ImageFolderDataset, CrossEntropySmooth and Model.
+The model validation process mainly applies interfaces such as [ImageFolderDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.ImageFolderDataset.html), CrossEntropySmooth and Model.
 
 ImageFolderDataset is mainly used to read datasets.
 
