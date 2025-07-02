@@ -74,30 +74,50 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
 
     该脚本参数如下：
 
-   | 参数名            | 说明                                             |
-   |----------------|------------------------------------------------|
-   | input          | `json`格式文件路径                                   |
-   | output-prefix  | `.bin`或`.idx`数据文件格式的前缀                         |
-   | tokenizer-type | 模型使用的tokenizer类型                               |
-   | vocab-file     | 模型使用的tokenizer文件（tokenizer.model/vocab.json）路径 |
-   | merges-file    | 模型使用的tokenizer文件（merge.txt）路径                  |
-   | add_bos_token  | 是否在词表中加入`bos_token`                            |
-   | add_eos_token  | 是否在词表中加入`eos_token`                            |
-   | seq-length     | 设置数据集样本的序列长度                                   |
-   | pad_or_stitch  | 选择填充或拼接样本，可选参数为`pad`和`stitch`                  |
+   | 参数名            | 说明                                                       |
+   |----------------|----------------------------------------------------------|
+   | input          | `json`格式文件路径                                             |
+   | output-prefix  | `.bin`或`.idx`数据文件格式的前缀                                   |
+   | tokenizer-type | 模型使用的tokenizer类型                                         |
+   | vocab-file     | 模型使用的tokenizer文件（tokenizer.model/vocab.json）路径           |
+   | merges-file    | 模型使用的tokenizer文件（merge.txt）路径                            |
+   | add_bos_token  | 是否在词表中加入`bos_token`                                      |
+   | add_eos_token  | 是否在词表中加入`eos_token`                                      |
+   | seq-length     | 设置数据集样本的序列长度                                             |
+   | pad_or_stitch  | 选择填充或拼接样本，可选参数为`pad`和`stitch`                            |
+   | register_path  | 选择外部tokenizer代码所在目录，仅在`tokenizer-type`='AutoRegister'时生效 |
+   | auto_register  | 选择外部tokenizer的导入路径，仅在`tokenizer-type`='AutoRegister'时生效  |
 
-   执行如下命令处理数据集：
+   `tokenizer-type`的可选值为'LlamaTokenizer'、'LlamaTokenizerFast'和'AutoRegister'，其中设置为'LlamaTokenizer'或'LlamaTokenizerFast'时表示调用MindSpore Transformers仓库中的对应公有tokenizer类，而设置为'AutoRegister'时，表示调用由register_path和auto_register参数指定的外部tokenizer类。
+
+   以公有tokenizer类LlamaTokenizerFast为例，执行如下命令处理数据集：
 
    ```shell
    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
      --input /path/data.json \
      --output-prefix /path/megatron_data \
-     --tokenizer-type Llama3Tokenizer \
+     --tokenizer-type LlamaTokenizerFast \
      --vocab-file /path/tokenizer.model \
      --add_bos_token True \
      --add_eos_token True \
      --pad_or_stitch stitch \
      --seq-length 8192
+   ```
+
+   以外部tokenizer类[Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py)为例，确保**本地**mindformers仓库下存在'research/llama3_1/llama3_1_tokenizer.py'，执行如下命令处理数据集：
+
+   ```shell
+   python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+     --input /path/data.json \
+     --output-prefix /path/megatron_data \
+     --tokenizer-type AutoRegister \
+     --vocab-file /path/tokenizer.model \
+     --add_bos_token True \
+     --add_eos_token True \
+     --pad_or_stitch stitch \
+     --seq-length 8192 \
+     --register_path research/llama3_1 \
+     --auto_register llama3_1_tokenizer.Llama3Tokenizer
    ```
 
 ### 模型预训练
@@ -148,11 +168,11 @@ MindSpore Transformers推荐用户使用Megatron数据集进行模型预训练�
          eod: 0                             # 数据集中eod的token id
          pad: 1                             # 数据集中pad的token id
 
-         data_path:  # Megatron数据集采样比例以及路径
-           - '0.3'
-           - "/path/megatron_data"
-           - '0.7'
-           - "/path/megatron_data"
+         data_path:                         # Megatron数据集采样比例以及路径
+           - '0.3'                          # 数据集1的占比
+           - "/path/megatron_data1"         # 数据集1的bin文件路径（去除.bin后缀）
+           - '0.7'                          # 数据集2的占比
+           - "/path/megatron_data2"         # 数据集2的bin文件路径（去除.bin后缀）
 
      input_columns: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
      construct_args_key: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
@@ -178,6 +198,7 @@ MindSpore Transformers推荐用户使用Megatron数据集进行模型预训练�
    | eod_pad_length             | 设置压缩后attention_mask的长度，仅在`create_compressed_eod_mask=True`时生效，默认值为`128`                   |
    | eod                        | 数据集中eod的token id                                                                          |
    | pad                        | 数据集中pad的token id                                                                          |
+   | data_path                  | 列表，每连续两个列表元素（数字，字符串）被视作一个数据集，分别表示该数据集的采样占比和数据集bin文件去掉后缀`.bin`的路径，所有数据集的占比之和应当为1           |
 
    此外，Megatron数据集还依赖`input_columns`、`construct_args_key`、`full_batch`等配置，具体可参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)，这里仅说明在不同场景如何配置：
 
