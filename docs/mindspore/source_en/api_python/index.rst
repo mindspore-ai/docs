@@ -87,3 +87,5 @@ MindSpore provides rich interfaces for model building, training, and inference. 
      - Notes related to environment variables.
    * - `PyTorch and MindSpore API Mapping Table <../note/api_mapping/pytorch_api_mapping.html>`_
      - API mapping relationship and difference analysis between PyTorch and MindSpore.
+
+`Click to download the API documentation <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r2.6.0/en/MindSpore_API_r2.6.0_en.pdf>`_
