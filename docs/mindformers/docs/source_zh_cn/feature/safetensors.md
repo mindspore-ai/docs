@@ -413,6 +413,39 @@ remove_redundancy: True            # 加载权重时开启去冗余
 
 > MindSpore Transformers 1.5.0及以下版本当去冗余保存和加载的配置项不一致时，可能导致精度异常，请确保配置正确。1.5.0以上版本将根据传入的权重是否去冗余自动识别并加载，无需关注加载配置。
 
+### 加载Hugging Face Safetensors
+
+在配置文件中增加pretrained_model_dir字段指定一个文件夹目录，该目录存放Hugging Face上下载的所有模型文件（包括config.json、tokenizer、权重文件等），进而直接实例化模型配置及tokenizer，加载Hugging Face权重。
+
+以Qwen3为例，yaml配置文件中配置的字段含义如下：pretrained_model_dir中指定的文件夹目录存放Hugging Face上Qwen3的模型配置文件、tokenizer文件和权重文件。
+
+```yaml
+use_legacy: False
+load_checkpoint : ''
+pretrained_model_dir: "/path/qwen3"
+model:
+  model_config:
+    compute_dtype: "bfloat16"
+    layernorm_compute_dtype: "float32"
+    softmax_compute_dtype: "float32"
+    rotary_dtype: "bfloat16"
+    params_dtype: "bfloat16"
+generation:
+  max_length: 30
+```
+
+**参数说明**：
+
+- **use_legacy** - 该参数设置为False使能Hugging Face权重加载
+- **load_checkpoint** - 用户自定义权重加载路径，优先级高
+- **pretrained_model_dir** - Hugging Face权重路径，优先级低
+
+`load_checkpoint`权重路径选取优先级高，当此参数配置时，`pretrained_model_dir`路径下的权重文件不加载。
+
+`load_checkpoint`不配置时，若`pretrained_model_dir`路径下存在safetensors权重文件即加载，不存在时则随机初始化权重。
+
+> 该功能当前在微调/推理场景下仅支持Qwen3系列及DeepSeek V3系列模型，持续更新中。
+
 ## 权重切分与合并
 
 ### 概述

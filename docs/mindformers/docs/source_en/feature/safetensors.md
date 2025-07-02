@@ -413,6 +413,39 @@ remove_redundancy: True            # Turn on de-redundancy when loading weights
 
 > MindSpore Transformers version 1.5.0 and below may cause accuracy anomalies when the saved and loaded configuration items for de-redundancy are not the same, please make sure the configuration is correct. Version 1.5.0 and above will automatically identify and load the weights based on whether they are de-redundant or not, so you don't need to pay attention to the loaded configuration.
 
+### Loading Hugging Face safetensors
+
+By adding the pretrained_model_dir field in the configuration file, specify a folder directory that stores all model files downloaded from Hugging Face (including config. json, tokenizer, weight files, etc.), and then directly instantiated the model configuration and tokenizer, loading Hugging Face weights.
+
+Taking Qwen3 as an example, the meaning of the fields configured in the YAML configuration file is as follows: the folder directory specified in pretrained_model_dir stores the Qwen3 model configuration file, tokenizer file, and weight file on Hugging Face.
+
+```yaml
+use_legacy: False
+load_checkpoint : ''
+pretrained_model_dir: "/path/qwen3"
+model:
+  model_config:
+    compute_dtype: "bfloat16"
+    layernorm_compute_dtype: "float32"
+    softmax_compute_dtype: "float32"
+    rotary_dtype: "bfloat16"
+    params_dtype: "bfloat16"
+generation:
+  max_length: 30
+```
+
+**Parameter Descriptions**:
+
+- **use_legacy** - This parameter is set to False to enable Hugging Face loading
+- **load_checkpoint** - User defined weight loading path, high priority
+- **pretrained_model_dir** - Hugging Face weight, low priority
+
+The priority for selecting the weight path of `load_checkpoint` is high. When configuring this parameter, the weight files in the path of `pretrained_model_dir` will not be loaded.
+
+When `load_checkpoint` is not configured, if there are safetensor weight files in the path 'pretrained_model_dir', it will be loaded. If it does not exist, the weights will be randomly initialized.
+
+> This feature currently only supports Qwen3 series and DeepSeek V3 series models in fine-tuning/inference scenarios, and is being continuously updated.
+
 ## Weight Slicing and Merging
 
 ### Overview
