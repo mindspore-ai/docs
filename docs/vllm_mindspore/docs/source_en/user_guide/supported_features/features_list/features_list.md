@@ -34,3 +34,7 @@ The following is the features supported in vLLM MindSpore.
 - √：Feature aligned with the community version of vLLM.
 - ×：Currently unsupported; alternative solutions are recommended.
 - WIP：Under development or planned for future implementation.
+
+## Feature Description
+
+LoRA currently only supports the Qwen2.5 vLLM MindSpore native model, other models are in the process of adaptation.
