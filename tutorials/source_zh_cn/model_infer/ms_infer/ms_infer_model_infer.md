@@ -151,11 +151,15 @@ ls
 from .qwen2 import Qwen2ForCausalLM, from_json
 from mindspore import Tensor, mint
 
+batch_size = 2
 qwen2_config = from_json("/path/to/model/config.json")
 
 qwen2_model = Qwen2ForCausalLM(qwen2_config)
 # load weight
 qwen2_model.load_weight("/path/to/model")
+
+# init kvcache
+qwen2_model.init_kv_cache(batch_size, qwen2_model.max_position_embeddings)
 ```
 
 其中， qwen2为模型的网络脚本，可以参考[从零构建大语言模型推理网络](./ms_infer_network_develop.md)。
@@ -172,7 +176,7 @@ qwen2_model.load_weight("/path/to/model")
 
     tokenizer = AuotTokenizer.from_pretrained("/path/to/model")
 
-    input_str = "I love Beijing, because"
+    input_str = ["I love Beijing, because", "Hello, Qwen2"]
 
     input_ids = tokenizer(input_str)["input_ids"]
 
@@ -191,32 +195,61 @@ qwen2_model.load_weight("/path/to/model")
 
     ```python
     # build mindspore input
-    from mindspore import mint, Tensor
+    from mindspore import ops, mint, Tensor, dtype
 
-    # reshape to [batch_size, seq_length]
-    input_ids = Tensor(input_ids).view(1, -1)
-    positions = mint.arange(len(input_ids)).view(1, -1)
+    # reshape to [batch_size, seq_length] and pad input
+    cur = max(map(len, input_ids))
 
-    # predict the next token logits
-    logits = qwen2_model(input_ids, positions)
+    for i in range(batch_size):
+        input_ids[i] += (cur - len(input_ids[i])) * [tokenizer.pad_token_id]
 
-    print(logits)
+    is_prefill = True
+    max_generate_seq_len = 128
+    while cur <= max_generate_seq_len:
+        if is_prefill:
+            inp = Tensor(input_ids)
+            pos = mint.arange(inp.shape[1]).view(-1)
+            attn_mask = ops.logical_not(ops.sequence_mask(pos + 1, cur)).astype(dtype.bfloat16)
+        else:
+            inp = Tensor([[a[-1]] for a in input_ids])
+            pos = Tensor([cur - 1])
+            attn_mask = ops.logical_not(ops.sequence_mask(pos + 1, cur)).astype(dtype.bfloat16)
+        pos = pos.astype(dtype.int32)
+        batch_valid_length = pos[-1].astype(dtype.int32).view(-1) + 1
+
+        logits = qwen2_model(Qwen2ModelInput(
+            input_ids=inp,
+            positions=pos,
+            batch_valid_length=batch_valid_length,
+            is_prefill=is_prefill,
+            attn_mask=attn_mask
+        ))
+
+        next_tokens = logits.argmax(axis=1)
+        print(f"next tokens:={next_tokens}", flush=True)
+
+        for i in range(batch_size):
+            input_ids[i].append(next_tokens[i])
+
+        cur += 1
+        if is_prefill:
+            is_prefill = False
     ```
 
-    用户调用模型对象的generate接口可以完成模型核心计算的推理流程，相关传入的参数描述如下：
+    由于大语言模型需要多轮迭代推理才能最终给出结果，因此在模型推理时，需要通过多轮调用模型来实现，其中核心步骤包括以下几个：
 
-    - **model_input**：前处理的结果，将文本语句转换为token的id列表。
+    - **模型输入准备**：准备模型推理需要的输入数据，包括输入的index列表，以及语句的位置和长度信息（PagedAttention和KVCache使用），attention的mask，以及对输入进行组batch等。
 
-    - **max_new_token**：最大生成的token数量，用于控制结束推理条件，如达到最大生成数量或者推理出结束token，则结束整个推理过程。
+    - **模型计算**：调用主干模型网络启动模型计算逻辑，计算出下一个单词的概率分布。
 
-    - **do_sample&top_k**：后处理配置，do_sample表示通过采样提升文本推理的随机性，会随机选择每轮推理结果概率最高的前K个token之一作为推理结果；top_k表示每轮采样选择从前3的概率中随机选择一个。
+    - **采样结果**：通过计算出的概率，采样获取下一个单词的index（此处使用argmax，即选择概率最大的单词）。
 
-    执行此Python代码，会打印由一个token id构成的list，里面每一个token即表示了语句中的一个文本单元，可以看出，前8个token和输入的token是一致的。
+    - **更新下一个迭代输入**：将本迭代推理的结果按照模型需求组合成下一个迭代的输入。
 
 - **后处理**：根据网络推理的输出，利用tokenizer的反向能力，将token id的list转换成一句可理解的语句。
 
     ```python
-    response = tokenizer.decode(model_output[0])
+    response = [tokenzier.decode(a) for a in input_ids]
     print(response)
     ```
 
@@ -228,7 +261,6 @@ qwen2_model.load_weight("/path/to/model")
 
     可以看到，将模型推理的token id翻译后，即是一句可以被正常人理解的语句，实际验证过程中，由于do_sample的随机性，每次推理会有一定的差异，但是结果的逻辑基本都是可以被理解的。
 
-    注意：每轮推理实际都会有一部分后处理，即从token概率分布中选择生成的token，最简单的可以通过argmax计算获取概率最大的token，MindFormers的模型将此处理包含在了generate接口中，如果用户自己构建大语言模型，此部分需要单独实现。
 
 ### 模型并行
 
@@ -248,30 +280,7 @@ qwen2_model.load_weight("/path/to/model")
 
 - **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能。对于Qwen、LLAMA这类大语言模型而言，其主要的切分主要包含在Attention中的query、key、value这些数据的linear操作上，详细的并行适配可以参考[构建可并行推理大语言模型](./ms_infer_parallel_infer.md)：
 
-    下面以Qwen2-7B大语言模型为例，简单描述一下将模型切分为2卡并行的操作：
-    
-    ……
-
-- **权重适配**：除了模型结构的并行化改造外，由于模型计算中的权重也被切分了，因此在模型加载的时候，相关的权重也要进行切分，以尽量减少不必要权重加载占用显存。对于大语言模型而言，主要的权重都集中在embbeding和linear两个网络层中，因此权重加载的适配主要涉及这两个模块改造，下面是一部分示例代码：
-
-    ```python
-    if not (_get_parallel_mode() in (ParallelMode.AUTO_PARALLEL,) and _is_sharding_propagation()):
-        self.feed_forward.shard(parallel_config)
-        self.feed_forward.mul.shard(((dp * cp, mp), (dp * cp, mp)))
-        self.add.shard(((dp * cp, 1), (dp * cp, 1)))
-        if cp > 1:
-            self.attention_norm.shard((dp * cp * mp, 1))
-            self.ffn_norm.shard((dp * cp * mp, 1))
-        else:
-            self.attention_norm.shard((dp, 1))
-            self.ffn_norm.shard((dp, 1))
-
-    if parallel_config.use_seq_parallel and self.is_first_iteration:
-        self.add.shard(((dp * mp, 1), (dp * mp, 1)))
-        self.attention_norm.shard((dp * mp, 1))
-        self.ffn_norm.shard((dp * mp, 1))
-        self.feed_forward.w2.shard(((dp, mp), (1, mp)), out_strategy_matmul=((dp * mp, 1),))
-    ```
+- **权重适配**：除了模型结构的并行化改造外，由于模型计算中的权重也被切分了，因此在模型加载的时候，相关的权重也要进行切分，以尽量减少不必要权重加载占用显存。对于大语言模型而言，主要的权重都集中在embbeding和linear两个网络层中，因此权重加载的适配主要涉及这两个模块改造，
 
 - **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理是，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法如下：
 
@@ -279,9 +288,7 @@ qwen2_model.load_weight("/path/to/model")
     msrun --worker_num=2 --local_worker_num=2 run_mindformer.py --config "/path/to/llama2_7b.yaml" --input_data "hello"
     ```
 
-    上面命令会同时启动2个进程，进行2卡并行推理，同时，config的yaml中的only_save_strategy需要改为False，表示正常推理。
-
-用户也可以使用MindSpore框架能力，自定义更复杂的并行策略，具体模型并行操作可以参考[构建可并行的大语言模型网络](./parallel.md)和[多卡模型权重切分](./weight_split.md)。
+    上面命令会同时启动2个进程，进行2卡并行推理，详细可以可以参考[构建可并行的大语言模型网络](./parallel.md)和[多卡模型权重切分](./weight_split.md)。
 
 ### 模型量化
 
