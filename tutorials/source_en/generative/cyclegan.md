@@ -46,7 +46,7 @@ download(url, ".", kind="zip", replace=True)
 
 ### Loading a Dataset
 
-Use the `MindDataset` API of MindSpore to read and parse the dataset.
+Use the [MindDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html) API of MindSpore to read and parse the dataset.
 
 ```python
 from mindspore.dataset import MindDataset

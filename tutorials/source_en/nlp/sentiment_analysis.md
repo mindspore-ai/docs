@@ -157,7 +157,7 @@ len(imdb_train)
 25000
 ```
 
-After the IMDB dataset is loaded to the memory and built as an iteration object, you can use the `GeneratorDataset` API provided by `mindspore.dataset` to load the dataset iteration object and then perform data processing. The following encapsulates a function to load train and test using `GeneratorDataset`, and set `column_name` of the text and label in the dataset to `text` and `label`, respectively.
+After the IMDB dataset is loaded to the memory and built as an iteration object, you can use the [Generatordataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html) API provided by `mindspore.dataset` to load the dataset iteration object and then perform data processing. The following encapsulates a function to load train and test using `GeneratorDataset`, and set `column_name` of the text and label in the dataset to `text` and `label`, respectively.
 
 ```python
 import mindspore.dataset as ds
@@ -268,9 +268,9 @@ Word segmentation is performed on the IMDB dataset loaded by the loader, but the
 - Use the Vocab to convert all tokens to index IDs.
 - The length of the text sequence is unified. If the length is insufficient, `<pad>` is used to supplement the length. If the length exceeds the limit, the excess part is truncated.
 
-Here, the API provided in `mindspore.dataset` is used for preprocessing. The APIs used here are designed for MindSpore high-performance data engines. The operations corresponding to each API are considered as a part of the data pipeline. For details, see [MindSpore Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html).
+Here, the API provided in `mindspore.dataset` is used for preprocessing. The APIs used here are designed for MindSpore high-performance data engines. The operations corresponding to each API are considered as a part of the data pipeline. For details, see [MindSpore Data Engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html).
 
-For the table query operation from a token to an index ID, use the `text.Lookup` API to load the built vocabulary and specify `unknown_token`. The `PadEnd` API is used to unify the length of the text sequence. This API defines the maximum length and padding value (`pad_value`). In this example, the maximum length is 500, and the padding value corresponds to the index ID of `<pad>` in the vocabulary.
+For the table query operation from a token to an index ID, use the `text.Lookup` API to load the built vocabulary and specify `unknown_token`. The [PadEnd](https://www.mindspore.cn/docs/en/master/api_python/dataset_transforms/mindspore.dataset.transforms.PadEnd.html) API is used to unify the length of the text sequence. This API defines the maximum length and padding value (`pad_value`). In this example, the maximum length is 500, and the padding value corresponds to the index ID of `<pad>` in the vocabulary.
 
 > In addition to pre-processing the `text` data in the dataset, the `label` data needs to be converted to the float32 format to meet the subsequent model training requirements.
 
@@ -282,7 +282,7 @@ pad_op = ds.transforms.PadEnd([500], pad_value=vocab.tokens_to_ids('<pad>'))
 type_cast_op = ds.transforms.TypeCast(ms.float32)
 ```
 
-After the preprocessing is complete, you need to add data to the dataset processing pipeline and use the `map` API to add operations to the specified column.
+After the preprocessing is complete, you need to add data to the dataset processing pipeline and use the [map](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map) API to add operations to the specified column.
 
 ```python
 imdb_train = imdb_train.map(operations=[lookup_op, pad_op], input_columns=['text'])
@@ -298,7 +298,7 @@ The IMDB dataset does not contain the validation set. Therefore, you need to man
 imdb_train, imdb_valid = imdb_train.split([0.7, 0.3])
 ```
 
-Finally, specify the batch size of the dataset by using the `batch` API and determine whether to discard the remaining data that cannot be exactly divided by the batch size.
+Finally, specify the batch size of the dataset by using the [batch](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch) API and determine whether to discard the remaining data that cannot be exactly divided by the batch size.
 
 > Call the `map`, `split`, and `batch` APIs of the dataset to add corresponding operations to the dataset processing pipeline. The return value is of the new dataset type. Currently, only the pipeline operation is defined. During execution, the data processing pipeline is executed to obtain the processed data and send the data to the model for training.
 
@@ -389,7 +389,7 @@ class RNN(nn.Cell):
 
 ### Loss Function and Optimizer
 
-After the model body is built, instantiate the network based on the specified parameters, select the loss function and optimizer. For a feature of the sentimental classification problem in this section, that is, a binary classification problem for predicting positive or negative, `nn.BCEWithLogitsLoss` (binary cross entropy loss function) is selected.
+After the model body is built, instantiate the network based on the specified parameters, select the loss function and optimizer. For a feature of the sentimental classification problem in this section, that is, a binary classification problem for predicting positive or negative, [nn.BCEWithLogitsLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html) (binary cross entropy loss function) is selected.
 
 ```python
 hidden_size = 256
@@ -532,7 +532,7 @@ You can see that the loss decreases gradually in each epoch and the accuracy of 
 
 After model training is complete, you need to test or deploy the model. In this case, you need to load the saved optimal model (that is, checkpoint) for subsequent tests. The checkpoint loading and network weight loading APIs provided by MindSpore are used to load the saved model checkpoint to the memory and load the checkpoint to the model.
 
-> The `load_param_into_net` API returns the weight name that does not match the checkpoint in the model. If the weight name matches the checkpoint, an empty list is returned.
+> The [load_param_into_net](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_param_into_net.html) API returns the weight name that does not match the checkpoint in the model. If the weight name matches the checkpoint, an empty list is returned.
 
 ```python
 param_dict = ms.load_checkpoint(ckpt_file_name)

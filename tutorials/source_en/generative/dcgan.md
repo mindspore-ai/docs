@@ -99,7 +99,7 @@ def create_dataset_imagenet(dataset_path):
 dataset = create_dataset_imagenet('./faces')
 ```
 
-Use the `create_dict_iterator` function to convert data into a dictionary iterator, and then use the `matplotlib` module to visualize some training data.
+Use the [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) function to convert data into a dictionary iterator, and then use the `matplotlib` module to visualize some training data.
 
 ```python
 import matplotlib.pyplot as plt
@@ -215,7 +215,7 @@ discriminator = Discriminator()
 
 ### Loss Function
 
-When `D` and `G` are defined, the binary cross-entropy loss function [BCELoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BCELoss.html) defined in MindSpore will be used.
+When `D` and `G` are defined, the binary cross-entropy loss function [BCELoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BCELoss.html) defined in MindSpore will be used.
 
 ```python
 # Define loss function

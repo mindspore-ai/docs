@@ -16,11 +16,11 @@ MindSpore提供两种粒度的算子级并行能力：[算子级并行](#基本�
 
 相关接口：
 
-1. `mindspore.parallel.auto_parallel.AutoParallel(network, parallel_mode="semi_auto")`：通过静态图并行封装指定并行模式，其中`network`是待封装的顶层`Cell`或函数，`parallel_mode`取值`semi_auto`，表示半自动并行模式。该接口返回封装后包含并行配置的`Cell`。
+1. [mindspore.parallel.auto_parallel.AutoParallel(network, parallel_mode="semi_auto")](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)：通过静态图并行封装指定并行模式，其中`network`是待封装的顶层`Cell`或函数，`parallel_mode`取值`semi_auto`，表示半自动并行模式。该接口返回封装后包含并行配置的`Cell`。
 
-2. `mindspore.ops.Primitive.shard()`：指定算子切分策略，详细案例请参考本章的[基本原理](#基本原理)。
+2. [mindspore.ops.Primitive.shard()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard)：指定算子切分策略，详细案例请参考本章的[基本原理](#基本原理)。
 
-3. `mindspore.ops.Primitive.add_prim_attr()`：为满足不同场景诉求，部分算子能通过`add_prim_attr`接口对其分布式实现进行配置，这些配置仅对`SEMI_AUTO_PARALLEL`与`AUTO_PARALLEL`模式适用，例如：
+3. [`mindspore.ops.Primitive.add_prim_attr()`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.add_prim_attr)：为满足不同场景诉求，部分算子能通过`add_prim_attr`接口对其分布式实现进行配置，这些配置仅对`SEMI_AUTO_PARALLEL`与`AUTO_PARALLEL`模式适用，例如：
 
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`：该接口配置Gather算子的第一个输入非均匀切分，它仅对axis=0时有效。其中`split_tuple`是一个元素为int类型的元组，元素之和须等于Gather算子第一个输入的第零维的长度，元组个数须等于Gather算子第一个输入的第零维切分份数。
     - `ops.Gather().add_prim_attr("primitive_target", "CPU")`：该接口配置Gather算子在CPU上执行，用于异构场景。
