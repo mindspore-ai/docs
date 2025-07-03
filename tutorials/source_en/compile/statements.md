@@ -8,7 +8,7 @@
 
 Support the use of `raise` to trigger an exception. `raise` syntax format: `raise[Exception [, args]]`. The `Exception` in the statement is the type of the exception, and the `args` is the user-supplied argument to the exception, usually a string or other object. The following types of errors are supported: NoExceptionType, UnknownError, ArgumentError, NotSupportError, NotExistsError, DeviceProcessError, AbortedError, IndexError, ValueError, TypeError, KeyError, AttributeError, NameError, AssertionError, BaseException, KeyboardInterrupt, Exception, StopIteration, OverflowError, ZeroDivisionError, EnvironmentError, IOError, OSError, ImportError, MemoryError, UnboundLocalError, RuntimeError, NotImplementedError, IndentationError, RuntimeWarning.
 
-It is worth noting that the ability of the raise statement in the variable scenario in static graph mode is supported through extended syntax, that is, it needs to be supported only when the JIT syntax support level option 'jit_syntax_level' is 'LAX'.
+The raise syntax in graph mode does not support variables of type `Dict`.
 
 For example:
 
