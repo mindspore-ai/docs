@@ -247,7 +247,7 @@ if __name__ == "__main__":
                             os.path.join(base_path, os.path.normpath(i[0])))
     # pylint: disable=W0703
     except Exception:
-        pass
+        print('替换restructuredtext_lint安装包内容失败')
     # pylint: disable=C0412
     from restructuredtext_lint.cli import main
 

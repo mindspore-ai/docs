@@ -167,7 +167,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         if data[i]['environ'] and branch_:
             os.environ[data[i]['environ']] = repo_path
             try:
-                status_code = requests.get(repo_url, headers=headers).status_code
+                status_code = requests.get(repo_url, headers=headers, timeout=30).status_code
                 if status_code == 200:
                     if not os.path.exists(repo_path):
                         git_clone(repo_url, repo_path)
@@ -237,7 +237,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                      verify=False, timeout=30)
                             with open(title, 'wb') as fd:
                                 #shutil.copyfileobj(dowmloaded.raw, fd)
                                 for chunk in downloaded.iter_content(chunk_size=512):
@@ -261,7 +262,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                      verify=False, timeout=30)
                             with open(title, 'wb') as fd:
                                 #shutil.copyfileobj(dowmloaded.raw, fd)
                                 for chunk in downloaded.iter_content(chunk_size=512):
@@ -286,7 +288,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                      verify=False, timeout=30)
                             with open(title, 'wb') as fd:
                                 #shutil.copyfileobj(dowmloaded.raw, fd)
                                 for chunk in downloaded.iter_content(chunk_size=512):
@@ -311,7 +314,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             href = link_.get("href", "")
                             if re.findall(name, title):
                                 download_url = url+href
-                                downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                                downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                          verify=False, timeout=30)
                                 with open(title, 'wb') as fd:
                                     #shutil.copyfileobj(dowmloaded.raw, fd)
                                     for chunk in downloaded.iter_content(chunk_size=512):
@@ -323,7 +327,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             if data[i]['whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                 download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
-                downloaded = requests.get(download_url, stream=True, verify=False)
+                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
                 with open(data[i]['whl_name'], 'wb') as fd:
                     #shutil.copyfileobj(dowmloaded.raw, fd)
                     for chunk in downloaded.iter_content(chunk_size=512):
@@ -333,7 +337,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                 download_url = release_url + data[i]['extra_whl_path'] + data[i]['extra_whl_name']
-                downloaded = requests.get(download_url, stream=True, verify=False)
+                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
                 with open(data[i]['extra_whl_name'], 'wb') as fd:
                     #shutil.copyfileobj(dowmloaded.raw, fd)
                     for chunk in downloaded.iter_content(chunk_size=512):
@@ -344,7 +348,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if data[i]['tar_path'] != '':
                     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                     download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
-                    downloaded = requests.get(download_url, stream=True, verify=False)
+                    downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
                     with open(data[i]['tar_name'], 'wb') as fd:
                         #shutil.copyfileobj(dowmloaded.raw, fd)
                         for chunk in downloaded.iter_content(chunk_size=512):
@@ -415,7 +419,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             os.chdir(os.path.join(DOCDIR, "../../", i))
         else:
             os.chdir(os.path.join(DOCDIR, "../../docs", i))
-        subprocess.run(["pip", "install", "-r", "requirements.txt"])
+        install_req_cmd = ["pip", "install", "-r", "requirements.txt"]
+        subprocess.run(install_req_cmd)
 
         try:
             if replace_flag:
@@ -449,6 +454,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             pass
 
         # 输出英文
+        mk_clean_cmd = ["make", "clean"]
         if os.path.exists("source_en"):
             try:
                 print(f"当前输出-{i}- 的-英文-版本---->")
@@ -460,7 +466,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     f.truncate()
                     f.write(content_mod)
 
-                subprocess.run(["make", "clean"])
+                subprocess.run(mk_clean_cmd)
                 cmd_make = ["make", "html"]
                 process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
                 _, stderr = process.communicate()
@@ -500,7 +506,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     f.seek(0)
                     f.truncate()
                     f.write(content_mod)
-                subprocess.run(["make", "clean"])
+                subprocess.run(mk_clean_cmd)
                 cmd_make = ["make", "html"]
                 process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
                 _, stderr = process.communicate()

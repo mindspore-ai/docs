@@ -249,7 +249,7 @@ try:
                 f.truncate()
                 f.write(content)
 except:
-    pass
+    print('mindspore替换安装包内容失败')
 
 # Repair error content defined in mindspore.
 try:
@@ -268,7 +268,7 @@ try:
                 f.truncate()
                 f.write(content)
 except:
-    pass
+    print('mindspore删除安装包装饰器内容失败')
 
 # add @functools.wraps
 try:
@@ -286,7 +286,7 @@ try:
                 f.truncate()
                 f.write(new_content)
 except:
-    pass
+    print('mindspore替换安装包装饰器内容失败')
 
 sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
@@ -349,7 +349,7 @@ def mint_interface_name():
 try:
     primitive_list = ops_interface_name()
 except:
-    pass
+    primitive_list = []
 
 mint_sum = mint_interface_name()
 

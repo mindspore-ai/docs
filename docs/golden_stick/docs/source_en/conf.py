@@ -175,7 +175,7 @@ try:
                 f.truncate()
                 f.write(content)
 except:
-    pass
+    print('golden_stick替换安装包内容失败')
 
 import mindspore_gs
 

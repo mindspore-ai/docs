@@ -202,7 +202,7 @@ try:
                 f.truncate()
                 f.write(new_content)
 except:
-    pass
+    print('mindformers替换安装包内容失败')
 
 import mindformers
 

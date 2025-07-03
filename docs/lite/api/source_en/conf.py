@@ -304,13 +304,13 @@ if os.path.exists(lite_dir):
     shutil.rmtree(lite_dir)
 
 # Repair error content defined in mindspore_lite.
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
 try:
     decorator_list = [("mindspore_lite/model.py","del decorator",
                        "@set_env","# generate api by del decorator set_env."),
                       ("mindspore_lite/converter.py","del decorator",
                        "@set_env","# generate api by del decorator set_env.")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
@@ -320,7 +320,7 @@ try:
                 f.truncate()
                 f.write(content)
 except:
-    pass
+    print('lite替换安装包内容失败')
 
 # modify urls
 import json
@@ -398,11 +398,7 @@ shutil.rmtree("../include/converter/include/schema")
 shutil.rmtree("../include/converter/include/third_party")
 shutil.rmtree("../include/converter/include/api")
 
-process = os.popen('pip show mindspore|grep Location')
-output = process.read()
-process.close()
-mindspout = output.split(": ")[-1].strip()
-source_dataset_dir = mindspout + "/mindspore/include/dataset/"
+source_dataset_dir = os.path.join(base_path, "mindspore/include/dataset/")
 for file_ in os.listdir(source_dataset_dir):
     target_dataset_dir = "../include/runtime/include/dataset/"
     shutil.copy(source_dataset_dir+file_, target_dataset_dir)

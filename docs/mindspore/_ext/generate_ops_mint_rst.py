@@ -2,6 +2,7 @@
 import os
 import re
 import shutil
+import importlib
 # pylint: disable=W0611
 import mindspore
 from mindspore.mint import optim
@@ -30,9 +31,11 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                 mint_ops_dict[modulename] = []
                 # pylint: disable=eval-used
                 try:
-                    reg_all = eval(f"{modulename}.__all__")
-                except AttributeError as e:
-                    print(f'模块名有误：{e}')
+                    module = importlib.import_module(modulename)
+                    reg_all = getattr(module, '__all__')
+                # pylint: disable=W0702
+                except:
+                    print(f'{modulename}没有__all__属性或没有{modulename}模块')
                     continue
                 one_p = re.findall(r'from mindspore\.(ops|nn).*?(?<!extend) import (.*?)(\n|# )', content)
                 two_p = [i[1] for i in one_p]

@@ -15,7 +15,7 @@ def get_api(fullname):
         module_import = importlib.import_module(module_name)
     # pylint: disable=eval-used
     try:
-        api = eval(f"module_import.{api_name}")
+        api = getattr(module_import, api_name, '')
     except AttributeError:
         print(f'failed to {module_import}.{api_name}')
         return ''

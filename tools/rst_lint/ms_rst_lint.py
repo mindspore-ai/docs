@@ -5,7 +5,8 @@ import logging
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(message)s')
-    process = subprocess.Popen(['python', 'run.py', *sys.argv[1:]],
+    run_cmd = ['python', 'run.py', *sys.argv[1:]]
+    process = subprocess.Popen(run_cmd,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE,
                                encoding="utf-8")
