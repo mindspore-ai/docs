@@ -80,6 +80,10 @@ MindSpore Transformers功能特性说明
 
     支持使用 `YAML` 文件集中管理和调整任务中的可配置项。
 
+  - `加载Hugging Face模型配置 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/load_huggingface_config.html>`_
+
+    支持加载Hugging Face社区模型配置即插即用，无缝对接。
+
   - `日志 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/logging.html>`_
 
     日志相关介绍，包括日志结构、日志保存等。
@@ -203,6 +207,7 @@ FAQ
    feature/ckpt
    feature/safetensors
    feature/configuration
+   feature/load_huggingface_config
    feature/logging
    feature/training_function
    feature/infer_function

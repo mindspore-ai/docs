@@ -50,6 +50,10 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
     Supports the use of `YAML` files to centrally manage and adjust configurable items in tasks.
 
+  - `Loading Hugging Face Model Configurations <https://www.mindspore.cn/mindformers/docs/en/dev/feature/load_huggingface_config.html>`_
+
+    Supports plug-and-play loading of Hugging Face community model configurations for seamless integration.
+
   - `Logging <https://www.mindspore.cn/mindformers/docs/en/dev/feature/logging.html>`_
 
     Introduction of logs, including log structure, log saving, and so on.
@@ -169,6 +173,7 @@ FAQ
    feature/ckpt
    feature/safetensors
    feature/configuration
+   feature/load_huggingface_config
    feature/logging
    feature/training_function
    feature/infer_function
