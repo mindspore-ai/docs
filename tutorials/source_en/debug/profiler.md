@@ -233,47 +233,57 @@ When using MindSpore to train a model, in order to analyze performance bottlenec
 After collecting performance data, the original data will be stored according to the following directory structure:
 
 > - The following data files are not required to be opened and viewed by users. Users can refer to the [MindStudio Insight user guide](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html) for viewing and analyzing performance data.
-> - The following is the full set of result files, the actual file number and content depend on the user's parameter configuration and the actual training scenario, if the user does not configure the related parameters or does not involve the related scenarios in the training, the corresponding data files will not be generated.  
+> - The following is the full set of result files. MindSpore Profiler interface will associate and integrate the framework side data and CANN Profling data to form trace, kernel, and memory performance data files in the `ASCEND_PROFILER_OUTPUT` directory. The actual file number and content depend on the user's parameter configuration and the actual training scenario, if the user does not configure the related parameters or does not involve the related scenarios in the training, the corresponding data files will not be generated.  
 
 ```sh
 └── localhost.localdomain_*_ascend_ms  // Collection and analysis result directory, named format: {worker_name}_{timestamp}_ascend_ms, by default {worker_name} is {hostname}_{pid}
-    ├── profiler_info_{Rank_ID}.json             // Used to record Profiler related metadata, Rank_ID is the card number
+    ├── profiler_info_{Rank_ID}.json   // Used to record Profiler related metadata, Rank_ID is the card number
     ├── profiler_metadata.json         // It is used to store information and other Profiler related metadata that users add through the add_metadata interface
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler interface parses performance data
-    │   ├── api_statistic.csv          // Generated when profiler_level= profilerlevel.Level 0 or Level1 or Level2
-    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, the performance file of the text type is not generated
-    │   ├── pcie.csv                   // Generated when sys_interconnection=True is set in the _ExperimentalConfig interface; records PCIe data
-    │   ├── hccs.csv                   // Generated when sys_interconnection=True is set in the _ExperimentalConfig interface; records collective communication bandwidth data (HCCS)
-    │   ├── nic.csv                    // Generated when sys_io=True is set in the _ExperimentalConfig interface; records NIC data
-    │   ├── roce.csv                   // Generated when sys_io=True is set in the _ExperimentalConfig interface; records RoCE data
-    │   ├── communication_analyzer.db    // Record communication time and bandwidth information, and configure ExportType.Db generation in export_type of the _ExperimentalConfig interface. If ExportType.Text is not configured at the same time, the performance file of the text type is not generated
-    │   ├── communication.json         // Provides visualization data for performance analysis in multi-card or cluster scenarios, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
-    │   ├── communication_matrix.json  // It provides a visual data basis for performance analysis of communication scenarios such as multi-card or cluster, and contains basic information about communication small operators. Communication small operator basic information file, generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2
-    │   ├── dataset.csv                // Generated when activities contains ProfilerActivity.CPU
-    │   ├── data_preprocess.csv        // Generated when profiler_level=ProfilerLevel.Level2, if the model does not have an AICPU operator, the file will not be generated even if the collection level is set to Level2
-    │   ├── kernel_details.csv         // Generated when activities contains ProfilerActivity.NPU
-    │   ├── l2_cache.csv               // Generated when l2_cache=True
-    │   ├── memory_record.csv          // Generated when profile_memory=True
-    │   ├── minddata_pipeline_raw_*.csv       // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
+    │   │
+    │   │   // The following files depend on CPU performance data, generated when activities contains ProfilerActivity.CPU
+    │   ├── dataset.csv
+    │   ├── operator_details.csv       // Generated when record_shapes=True
+    │   ├── minddata_pipeline_raw_{Rank_ID}.csv       // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
     │   ├── minddata_pipeline_summary_{Rank_ID}.csv   // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
     │   ├── minddata_pipeline_summary_{Rank_ID}.json  // Generated when data_process=True and the training/inference code is generated when the mindspore.dataset module is called
+    │   │
+    │   │   // The following files depend on NPU performance data, generated when activities contains ProfilerActivity.NPU
+    │   ├── api_statistic.csv
+    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db, if ExportType.Text is not contained at the same time, the performance file of the text type is not generated
+    │   ├── communication_analyzer.db  // Generated when export_type of _ExperimentalConfig interface contains ExportType.Db in scenarios where there is communication such as multiple cards or clusters. If ExportType.Text is not contained at the same time, the performance file of the text type is not generated
+    │   ├── communication.json         // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2 and in scenarios where there is communication such as multiple cards or clusters
+    │   ├── communication_matrix.json  // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2 and in scenarios where there is communication such as multiple cards or clusters
+    │   ├── data_preprocess.csv        // Generated when profiler_level=ProfilerLevel.Level2, if the model does not have an AICPU operator, the file will not be generated even if the collection level is set to Level2
+    │   ├── hbm.csv
+    │   ├── hccs.csv                   // Generated when sys_interconnection=True is set in the _ExperimentalConfig interface
+    │   ├── kernel_details.csv
+    │   ├── l2_cache.csv               // Generated when l2_cache=True
+    │   ├── memory_record.csv          // Generated when profile_memory=True
+    │   ├── nic.csv                    // Generated when sys_io=True is set in the _ExperimentalConfig interface
     │   ├── npu_module_mem.csv         // Generated when profile_memory=True
-    │   ├── operator_details.csv       // Generated when activities contains ProfilerActivity.CPU and record_shapes=True
+    │   ├── op_statistic.csv
+    │   ├── pcie.csv                   // Generated when sys_interconnection=True is set in the _ExperimentalConfig interface
+    │   ├── roce.csv                   // Generated when sys_io=True is set in the _ExperimentalConfig interface
+    │   ├── step_trace_time.csv
+    │   │
+    │   │   // The following files associate and integrate CPU and NPU performance data, generated when activities contains ProfilerActivity.CPU and ProfilerActivity.NPU
     │   ├── operator_memory.csv        // Generated when profile_memory=True
-    │   ├── op_statistic.csv           // AI Core and AI CPU operator call count and time data
-    │   ├── step_trace_time.csv        // Iteration calculation and communication time statistics
-    │   └── trace_view.json            // Record time information for the entire training/reasoning task
-    ├── FRAMEWORK                      // The raw performance data on the framework side is not required
+    │   │
+    │   │   // The following files contain CPU and NPU performance data, generated when activities contains ProfilerActivity.CPU or ProfilerActivity.NPU
+    │   └── trace_view.json
+    │
+    ├── FRAMEWORK                      // The raw performance data on the framework side
+    ├── logs                           // MindSpore Log files parsed by the Profiler interface
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN layer performance data, named format: PROF_{number}_{timestamp}_{string}, delete other data when data_simplification=True, only retain the original performance data in this directory
           ├── analyze                  // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2 in scenarios where there is communication such as multiple cards or clusters
           ├── device_{Rank_ID}         // CANN Profling Performance data collected on the device
           ├── host                     // CANN Profling Performance data collected on the host
-          ├── mindstudio_profiler_log     // CANN Profling parsed log files. Delete this directory when data_simplification is set to True
+          ├── mindstudio_profiler_log  // CANN Profling parsed log files. Delete this directory when data_simplification is set to True
           └── mindstudio_profiler_output     // CANN Profling parsed performance data. Delete this directory when data_simplification is set to True
-    └── logs                           // MindSpore Log files parsed by the Profiler interface
 ```
 
-MindSpore Profiler interface will associate and integrate the framework side data and CANN Profling data to form trace, kernel, and memory performance data files. The detailed description of each file is as follows.
+The detailed description of each file in the `ASCEND_PROFILER_OUTPUT` directory is as follows.
 
 > - `FRAMEWORK` is the performance raw data of the framework side, no need to pay attention to it.
 > - `PROF` directory is the performance data collected by CANN Profling, mainly saved in the `mindstudio_profiler_output` directory.

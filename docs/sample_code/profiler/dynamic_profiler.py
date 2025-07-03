@@ -33,21 +33,30 @@ class Net(nn.Cell):
 
 
 def generator_net():
-    for _ in range(2):
+    for _ in range(15):
         yield np.ones([2, 2]).astype(np.float32), np.ones([2]).astype(np.int32)
 
 
-def train(test_net):
-    optimizer = nn.Momentum(test_net.trainable_params(), 1, 0.9)
-    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
-    data = ds.GeneratorDataset(generator_net(), ["data", "label"])
-    model = mindspore.train.Model(test_net, loss, optimizer)
-    model.train(1, data)
+def forward_fn(data, label):
+    logits = model(data)
+    loss = loss_fn(logits, label)
+    return loss, logits
+
+
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
 
 
 if __name__ == '__main__':
-    mindspore.set_context(mode=mindspore.PYNATIVE_MODE)
     mindspore.set_device("Ascend")
+    model = Net()
+    optimizer = nn.Momentum(model.trainable_params(), 1, 0.9)
+    grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+    loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
+    all_data = ds.GeneratorDataset(generator_net(), ["data", "label"])
+
     # set json configuration file
     data_cfg = {
         "start_step": 2,
@@ -80,10 +89,8 @@ if __name__ == '__main__':
         json.dump(data_cfg, f, indent=4)
 
     # Define a network of training models
-    net = Net()
-    STEP_NUM = 15
     dp = DynamicProfilerMonitor(cfg_path=output_path)
-    for i in range(STEP_NUM):
-        train(net)
+    for step_data, step_label in all_data:
+        train_step(step_data, step_label)
         # Call step collection
         dp.step()

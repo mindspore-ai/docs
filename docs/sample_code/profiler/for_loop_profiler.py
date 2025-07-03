@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-
 """For loop Profiler Example"""
-
 import numpy as np
 
 import mindspore
@@ -33,21 +31,29 @@ class Net(nn.Cell):
 
 
 def generator_net():
-    for _ in range(2):
+    for _ in range(5):
         yield np.ones([2, 2]).astype(np.float32), np.ones([2]).astype(np.int32)
 
 
-def train(test_net):
-    optimizer = nn.Momentum(test_net.trainable_params(), 1, 0.9)
-    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
-    data = ds.GeneratorDataset(generator_net(), ["data", "label"])
-    model = mindspore.train.Model(test_net, loss, optimizer)
-    model.train(1, data)
+def forward_fn(data, label):
+    logits = model(data)
+    loss = loss_fn(logits, label)
+    return loss, logits
+
+
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
 
 
 if __name__ == "__main__":
-    mindspore.set_context(mode=mindspore.PYNATIVE_MODE)
     mindspore.set_device("Ascend")
+    model = Net()
+    optimizer = nn.Momentum(model.trainable_params(), 1, 0.9)
+    grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+    loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
+    all_data = ds.GeneratorDataset(generator_net(), ["data", "label"])
 
     # Init Profiler
     # pylint: disable=protected-access
@@ -58,8 +64,6 @@ if __name__ == "__main__":
         mstx=False,
         data_simplification=False,
     )
-    steps = 10
-    net = Net()
     # Note that the Profiler should be initialized before model.train
     with mindspore.profiler.profile(
             activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
@@ -71,6 +75,6 @@ if __name__ == "__main__":
             experimental_config=experimental_config,
     ) as prof:
         # Train Model
-        for step in range(steps):
-            train(net)
+        for step_data, step_label in all_data:
+            train_step(step_data, step_label)
             prof.step()

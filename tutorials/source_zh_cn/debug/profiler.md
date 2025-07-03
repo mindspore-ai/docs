@@ -230,47 +230,57 @@ mstx.range_end(range_id)
 性能数据采集完成后，原始数据会按照以下目录结构进行存储：
 
 > - 以下数据文件用户无需打开查看，可根据[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html)指导进行性能数据的查看和分析。
-> - 以下是结果文件全集，实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
+> - 以下是结果文件全集。MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整合，形成trace、kernel以及memory等性能数据文件于`ASCEND_PROFILER_OUTPUT`目录下。实际文件数量和内容根据用户的参数配置以及实际的训练场景生成。如果用户没有使能相关参数或是训练中没有涉及到相关场景，则不会生成对应的数据文件。  
 
 ```sh
 └── localhost.localdomain_*_ascend_ms  // 采集、解析结果目录，命名格式：{worker_name}_{时间戳}_ascend_ms，默认情况下{worker_name}为{hostname}_{pid}
-    ├── profiler_info_{Rank_ID}.json    // 用于记录Profiler相关的元数据，Rank_ID为卡号
-    ├── profiler_metadata.json          // 用来保存用户通过add_metadata接口添加的信息和其他Profiler相关的元数据
+    ├── profiler_info_{Rank_ID}.json   // 用于记录Profiler相关的元数据，Rank_ID为卡号
+    ├── profiler_metadata.json         // 用来保存用户通过add_metadata接口添加的信息和其他Profiler相关的元数据
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler接口解析性能数据
-    │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level0或Level1或Level2生成
-    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
-    │   ├── pcie.csv                   // 在_ExperimentalConfig接口配置sys_interconnection=True生成，记录PCIe数据
-    │   ├── hccs.csv                   // 在_ExperimentalConfig接口配置sys_interconnection=True生成，记录集合通信带宽数据(HCCS)
-    │   ├── nic.csv                    // 在_ExperimentalConfig接口配置sys_io=True生成，记录NIC数据
-    │   ├── roce.csv                   // 在_ExperimentalConfig接口配置sys_io=True生成，记录RoCE数据
-    │   ├── communication_analyzer.db    // 记录通信耗时和通信带宽信息，在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
-    │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
-    │   ├── communication_matrix.json  // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，包含通信小算子的基本信息，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
-    │   ├── dataset.csv                // activities中配置ProfilerActivity.CPU生成
-    │   ├── data_preprocess.csv        // 配置 profiler_level=ProfilerLevel.Level2 生成，如果模型无AICPU算子，那么即使采集等级设置为Level2，也不会生成该文件
-    │   ├── kernel_details.csv         // activities中配置ProfilerActivity.NPU生成
-    │   ├── l2_cache.csv               // 配置 l2_cache=True 生成
-    │   ├── memory_record.csv          // 配置 profile_memory=True 生成
+    │   │
+    │   │   // 以下文件依赖CPU侧性能数据，activities中配置ProfilerActivity.CPU生成
+    │   ├── dataset.csv
+    │   ├── operator_details.csv       // 配置 record_shapes=True 生成
     │   ├── minddata_pipeline_raw_{Rank_ID}.csv       // 配置 data_process=True 且训练/推理代码中调用mindspore.dataset模块时生成
     │   ├── minddata_pipeline_summary_{Rank_ID}.csv   // 配置 data_process=True 且训练/推理代码中调用mindspore.dataset模块时生成
     │   ├── minddata_pipeline_summary_{Rank_ID}.json  // 配置 data_process=True 且训练/推理代码中调用mindspore.dataset模块时生成
+    │   │
+    │   │   // 以下文件依赖NPU侧性能数据，activities中配置ProfilerActivity.NPU生成
+    │   ├── api_statistic.csv
+    │   ├── ascend_mindspore_profiler_{Rank_ID}.db    // 在_ExperimentalConfig接口的export_type中配置ExportType.Db生成，此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
+    │   ├── communication_analyzer.db  // 多卡或集群等存在通信的场景在_ExperimentalConfig接口的export_type中配置ExportType.Db生成。此时若未同时配置ExportType.Text，则text类型的性能文件都不会生成
+    │   ├── communication.json         // 多卡或集群等存在通信的场景配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
+    │   ├── communication_matrix.json  // 多卡或集群等存在通信的场景配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
+    │   ├── data_preprocess.csv        // 配置 profiler_level=ProfilerLevel.Level2 生成，如果模型无AICPU算子，那么即使采集等级设置为Level2，也不会生成该文件
+    │   ├── hbm.csv
+    │   ├── hccs.csv                   // 在_ExperimentalConfig接口配置 sys_interconnection=True 生成
+    │   ├── kernel_details.csv
+    │   ├── l2_cache.csv               // 配置 l2_cache=True 生成
+    │   ├── memory_record.csv          // 配置 profile_memory=True 生成
+    │   ├── nic.csv                    // 在_ExperimentalConfig接口配置 sys_io=True 生成
     │   ├── npu_module_mem.csv         // 配置 profile_memory=True 生成
-    │   ├── operator_details.csv       // activities中配置ProfilerActivity.CPU且配置 record_shapes=True 生成
+    │   ├── op_statistic.csv           // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
+    │   ├── pcie.csv                   // 在_ExperimentalConfig接口配置 sys_interconnection=True 生成
+    │   ├── roce.csv                   // 在_ExperimentalConfig接口配置 sys_io=True 生成
+    │   ├── step_trace_time.csv
+    │   │
+    │   │   // 以下文件关联整合CPU侧与NPU侧性能数据，activities中同时配置ProfilerActivity.CPU与ProfilerActivity.NPU生成
     │   ├── operator_memory.csv        // 配置 profile_memory=True 生成
-    │   ├── op_statistic.csv           // AI Core和AI CPU算子调用次数及耗时数据
-    │   ├── step_trace_time.csv        // 迭代中计算和通信的时间统计
-    │   └── trace_view.json            // 记录整个训练/推理任务的时间信息
-    ├── FRAMEWORK                      // 框架侧的原始性能数据，无需关注
+    │   │
+    │   │   // 以下文件同时包含CPU侧与NPU侧性能数据，activities中配置ProfilerActivity.CPU或ProfilerActivity.NPU生成
+    │   └── trace_view.json
+    │
+    ├── FRAMEWORK                      // 框架侧的原始性能数据
+    ├── logs                           // MindSpore Profiler接口解析的日志文件
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN层的性能数据，命名格式：PROF_{数字}_{时间戳}_{字符串}，data_simplification=True 时，仅保留此目录下的原始性能数据，删除其他数据
           ├── analyze                  // 多卡或集群等存在通信的场景配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
-          ├── device_{Rank_ID}                 // CANN Profling采集的device侧的性能数据
+          ├── device_{Rank_ID}         // CANN Profling采集的device侧的性能数据
           ├── host                     // CANN Profling采集的host侧的性能数据
           ├── mindstudio_profiler_log  // CANN Profling解析的日志文件，data_simplification=True 时删除此目录
           └── mindstudio_profiler_output  // CANN Profling解析的性能数据，data_simplification=True 时删除此目录
-    └── logs                           // MindSpore Profiler接口解析的日志文件
 ```
 
-MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整合，形成trace、kernel以及memory等性能数据文件。各文件详细说明如下文所示。
+`ASCEND_PROFILER_OUTPUT`目录下各文件详细说明如下文所示。
 
 > - `FRAMEWORK` 为框架侧的性能原始数据，无需关注。
 > - `PROF` 目录下为CANN Profling采集的性能数据，主要保存在 `mindstudio_profiler_output` 目录下。
