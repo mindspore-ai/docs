@@ -55,7 +55,7 @@ MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/ma
 
 MindSpore基于Python构建神经网络的图结构，相比于传统的静态图模式，能有更易用、更灵活的表达能力。MindSpore创新性的构建源码转换能力，基于Python语句提取AST进行计算图构建，因此可以支持开发者使用的Python原生语法（条件/循环等）和其他操作，如元组（Tuple）、列表（List）以及Lambda表达来构建计算图，并对计算图进行自动微分。所以MindSpore能更好地兼容动态图和静态图的编程接口，在代码层面保持一致，如控制流写法等。
 
-原生Python表达可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时开发者基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行（mindspore.jit）而同时其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，开发者可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
+原生Python表达可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时开发者基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行（[mindspore.jit](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)）而同时其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，开发者可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
 
 ### [分布式并行](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html)
 

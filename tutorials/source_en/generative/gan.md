@@ -82,7 +82,7 @@ Successfully downloaded / unzipped to .
 
 ### Data Loading
 
-Use MindSpore's own `MnistDatase` API to read and parse the source files of the MNIST dataset to build the dataset. Then, pre-process the data.
+Use MindSpore's own [MnistDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MnistDataset.html) API to read and parse the source files of the MNIST dataset to build the dataset. Then, pre-process the data.
 
 ```python
 import numpy as np
@@ -200,7 +200,7 @@ net_g.update_parameters_name('generator')
 
 ### Discriminator
 
-As described above, `Discriminator` is a binary network model, and outputs the probability that the image is determined as a real image. It is processed through a series of `Dense` and `LeakyReLU` layers. Finally, the `Sigmoid` activation function is used to return the data within the range of [0, 1] to obtain the final probability. After instantiating the discriminator, you need to change the parameter name. Otherwise, an error is reported in static graph mode.
+As described above, `Discriminator` is a binary network model, and outputs the probability that the image is determined as a real image. It is processed through a series of [Dense](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dense.html) and [LeakyReLU](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LeakyReLU.html) layers. Finally, the [Sigmoid](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Sigmoid.html) activation function is used to return the data within the range of [0, 1] to obtain the final probability. After instantiating the discriminator, you need to change the parameter name. Otherwise, an error is reported in static graph mode.
 
 ```python
  # Discriminator
@@ -228,7 +228,7 @@ net_d.update_parameters_name('discriminator')
 
 ### Loss Function and Optimizer
 
-After `Generator` and `Discriminator` are defined, the binary cross-entropy loss function `BCELoss` in MindSpore is used as the loss function. Both the generator and discriminator use the `Adam` optimizer. However, you need to build two optimizers with different names to update the parameters of the two models. For details, see the following code. Note that the parameter names of the optimizer also need to be changed.
+After `Generator` and `Discriminator` are defined, the binary cross-entropy loss function [BCELoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BCELoss.html) in MindSpore is used as the loss function. Both the generator and discriminator use the [Adam](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adam.html) optimizer. However, you need to build two optimizers with different names to update the parameters of the two models. For details, see the following code. Note that the parameter names of the optimizer also need to be changed.
 
 ```python
 lr = 0.0002 # Learning rate

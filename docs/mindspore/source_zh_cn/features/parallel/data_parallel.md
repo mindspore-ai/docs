@@ -10,8 +10,8 @@
 
 相关接口：
 
-1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)`：设置数据并行模式。
-2. `mindspore.nn.DistributedGradReducer()`：进行多卡梯度聚合。
+1. [mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html)：设置数据并行模式。
+2. [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.DistributedGradReducer.html)：进行多卡梯度聚合。
 
 ## 整体流程
 
@@ -19,15 +19,15 @@
 
 1. 环境依赖
 
-    每次开始进行并行训练前，通过调用`mindspore.communication.init`接口初始化通信资源，并自动创建全局通信组`WORLD_COMM_GROUP`。通信组能让通信算子在卡间和机器间进行信息收发，全局通信组是最大的一个通信组，包括了当前训练的所有设备。通过调用`mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)`设置当前模式为数据并行模式。
+    每次开始进行并行训练前，通过调用[mindspore.communication.init](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.init.html)接口初始化通信资源，并自动创建全局通信组`WORLD_COMM_GROUP`。通信组能让通信算子在卡间和机器间进行信息收发，全局通信组是最大的一个通信组，包括了当前训练的所有设备。通过调用`mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)`设置当前模式为数据并行模式。
 
 2. 数据分发（Data distribution）
 
-    数据并行的核心在于将数据集在样本维度拆分并下发到不同的卡上。在`mindspore.dataset`模块提供的所有数据集加载接口中都有`num_shards`和`shard_id`两个参数，它们用于将数据集拆分为多份并循环采样的方式，采集`batch`大小的数据到各自的卡上，当出现数据量不足的情况时将会从头开始采样。
+    数据并行的核心在于将数据集在样本维度拆分并下发到不同的卡上。在[mindspore.dataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html)模块提供的所有数据集加载接口中都有`num_shards`和`shard_id`两个参数，它们用于将数据集拆分为多份并循环采样的方式，采集`batch`大小的数据到各自的卡上，当出现数据量不足的情况时将会从头开始采样。
 
 3. 网络构图
 
-    数据并行网络的书写方式与单卡网络没有差别，这是因为在正反向传播（Forward propagation & Backward propagation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，在`DATA_PARALLEL`模式下可以通过`mindspore.set_seed`接口来设置seed或通过使能`mindspore.set_auto_parallel_context`中的`parameter_broadcast`达到多卡间权重初始化一致的目的。
+    数据并行网络的书写方式与单卡网络没有差别，这是因为在正反向传播（Forward propagation & Backward propagation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，在`DATA_PARALLEL`模式下可以通过[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)接口来设置seed或通过使能`mindspore.set_auto_parallel_context`中的`parameter_broadcast`达到多卡间权重初始化一致的目的。
 
 4. 梯度聚合（Gradient aggregation）
 

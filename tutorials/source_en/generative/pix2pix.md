@@ -416,7 +416,7 @@ ms per step:289.41   epoch:100/100  step:24/25  Dloss:0.4199  Gloss:9.2418
 
 ## Inference
 
-Obtain the CKPT file after the preceding training process is complete, import the weight parameters in the CKPT file to the model by using load_checkpoint and load_param_into_net, obtain data for inference, and demonstrate the inference effect. (Only 100 epochs are performed during the training process.)
+Obtain the CKPT file after the preceding training process is complete, import the weight parameters in the CKPT file to the model by using [load_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_checkpoint.html) and [load_param_into_net](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_param_into_net.html), obtain data for inference, and demonstrate the inference effect. (Only 100 epochs are performed during the training process.)
 
 ```python
 from mindspore import load_checkpoint, load_param_into_net

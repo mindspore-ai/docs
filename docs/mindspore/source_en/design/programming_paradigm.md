@@ -95,7 +95,7 @@ The functional programming has two core features that make it well suited to the
 
 Due to this feature of determinism, by limiting side effects, programs can have fewer errors, are easier to debug and test, and are more suitable for formal verification.
 
-MindSpore provides pure functional programming support. With the numerical computation interfaces provided by `mindspore.numpy` and `mindspore.scipy`, you can easily program scientific computations. The following is an example of using functional programming:
+MindSpore provides pure functional programming support. With the numerical computation interfaces provided by [mindspore.numpy](https://www.mindspore.cn/docs/en/master/api_python/mindspore.numpy.html) and [mindspore.scipy](https://www.mindspore.cn/docs/en/master/api_python/mindspore.scipy.html), you can easily program scientific computations. The following is an example of using functional programming:
 
 ```python
 import mindspore.numpy as mnp
@@ -113,11 +113,11 @@ print(grad(grad(grad(mnp.tanh)))(2.0))
 
 In line with the needs of the functional programming paradigm, MindSpore provides a variety of functional transformation interfaces, including automatic differentiation, automatic vectorization, automatic parallelism, just-in-time compilation, data sinking and other functional modules, which are briefly described below:
 
-- Automatic differentiation: `grad`, `value_and_grad`, providing differential function transformation.
-- Automatic vectorization: A higher-order function for mapping a function fn along the parameter axis.
-- Automatic parallelism: `shard`, a functional operator slice, specifying the distribution strategy of the function input/output Tensor.
-- Just-in-time compilation: `jit`, which compiles a Python function into a callable MindSpore graph.
-- Data sinking: `data_sink`, transform the input function to obtain a function that can use the data sink pattern.
+- Automatic differentiation: [grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html), [value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html), providing differential function transformation.
+- Automatic vectorization: [vmap](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.vmap.html), a higher-order function for mapping a function fn along the parameter axis.
+- Automatic parallelism: [shard](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard), a functional operator slice, specifying the distribution strategy of the function input/output Tensor.
+- Just-in-time compilation: [jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html), which compiles a Python function into a callable MindSpore graph.
+- Data sinking: [data_sink](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.data_sink.html), transform the input function to obtain a function that can use the data sink pattern.
 
 Based on the above function transformation interfaces, function transformations can be used quickly and efficiently to implement complex functions when using the functional programming paradigm.
 

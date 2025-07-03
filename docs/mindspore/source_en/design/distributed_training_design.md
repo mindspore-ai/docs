@@ -26,11 +26,11 @@ This section describes how the data parallel mode `ParallelMode.DATA_PARALLEL` w
 
 1. Environment dependencies
 
-    Each time before parallel training starts, the `mindspore.communication.init` API is called to initialize communication resources and the global communication group `WORLD_COMM_GROUP` is automatically created.
+    Each time before parallel training starts, the [mindspore.communication.init](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.init.html) API is called to initialize communication resources and the global communication group `WORLD_COMM_GROUP` is automatically created.
 
 2. Data distribution
 
-    The key of data parallelism is to split datasets based on the sample dimension and deliver the split datasets to different devices. Each dataset loading API provided by the `mindspore.dataset` module has the `num_shards` and `shard_id` parameters. The parameters are used to split a dataset into multiple datasets, perform cyclic sampling, and collect data of the `batch` size to each device. When the data volume is insufficient, the sampling restarts from the beginning.
+    The key of data parallelism is to split datasets based on the sample dimension and deliver the split datasets to different devices. Each dataset loading API provided by the [mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) module has the `num_shards` and `shard_id` parameters. The parameters are used to split a dataset into multiple datasets, perform cyclic sampling, and collect data of the `batch` size to each device. When the data volume is insufficient, the sampling restarts from the beginning.
 
 3. Network structure
 
@@ -38,7 +38,7 @@ This section describes how the data parallel mode `ParallelMode.DATA_PARALLEL` w
 
 4. Gradient aggregation
 
-    Theoretically, the training effect of data parallel network should be the same as that of the standalone network. To ensure the consistency of the calculation logic, the `AllReduce` operator is inserted after gradient calculation to implement the gradient aggregation operation between devices. You can enable `mean` to average the sum of gradient values, or regard `mean` as a hyperparameter. Enabling `mean` is equivalent to reducing the learning rate by multiple times.
+    Theoretically, the training effect of data parallel network should be the same as that of the standalone network. To ensure the consistency of the calculation logic, the [AllReduce](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllReduce.html) operator is inserted after gradient calculation to implement the gradient aggregation operation between devices. You can enable `mean` to average the sum of gradient values, or regard `mean` as a hyperparameter. Enabling `mean` is equivalent to reducing the learning rate by multiple times.
 
 5. Parameter update
 
@@ -49,7 +49,7 @@ This section describes how the data parallel mode `ParallelMode.DATA_PARALLEL` w
 1. Collective communication
 
     - [management.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/communication/management.py): This file covers the `helper` function APIs commonly used during the collective communication process, for example, the APIs for obtaining the number of clusters and device ID. When collective communication is executed on the Ascend chip, the framework loads the `libhccl.so` library file in the environment and uses it to call the communication APIs from the Python layer to the underlying layer.
-    - [comm_ops.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/operations/comm_ops.py): MindSpore encapsulates supported collective communication operations as operators and stores the operators in this file. The operators include `AllReduce`, `AllGather`, `ReduceScatter`, and `Broadcast`. `PrimitiveWithInfer` defines the attributes required by the operators, as well as the `shape` and `dtype` inference methods from the input to the output during graph composition.
+    - [comm_ops.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/operations/comm_ops.py): MindSpore encapsulates supported collective communication operations as operators and stores the operators in this file. The operators include [AllReduce](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllReduce.html), [AllGather](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllGather.html), [ReduceScatter](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceScatter.html) and [Broadcast](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Broadcast.html). `PrimitiveWithInfer` defines the attributes required by the operators, as well as the `shape` and `dtype` inference methods from the input to the output during graph composition.
 
 2. Gradient aggregation
 

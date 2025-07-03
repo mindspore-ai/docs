@@ -83,9 +83,9 @@ Users often have diverse needs for data processing, and processing logic that is
 
     To address the challenge of having a wide variety of datasets with different formats and organization, MindSpore provides three different methods of loading datasets:
 
-    - For common datasets in each domain, they can be loaded directly by using MindSpore built-in API interface. MindSpore provides `CelebADataset`, `Cifar10Dataset`, `CocoDataset`, `ImageFolderDataset`, `MnistDataset`, `VOCDataset` and other common dataset loading interfaces to ensure performance while enabling users to use them out of the box.
-    - For datasets that do not support direct loading at the moment, they can be converted to MindSpore data format, i.e. MindRecord, and then loaded through the `MindDataset` interface. MindRecord can normalize different dataset formats, with various advantages such as aggregated storage, efficient reading, fast coding and decoding, and flexible control of partition size.
-    - Users can also write custom dataset reading classes in Python and then use the `GeneratorDataset` interface for dataset loading. This method allows for quick integration of existing code, but requires additional attention to data loading performance as it is a Python IO Reader.
+    - For common datasets in each domain, they can be loaded directly by using MindSpore built-in API interface. MindSpore provides [CelebADataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CelebADataset.html), [Cifar10Dataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html), [CocoDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CocoDataset.html), [ImageFolderDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.ImageFolderDataset.html), [MnistDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MnistDataset.html), [VOCDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.VOCDataset.html) and other common dataset loading interfaces to ensure performance while enabling users to use them out of the box.
+    - For datasets that do not support direct loading at the moment, they can be converted to MindSpore data format, i.e. MindRecord, and then loaded through the [MindDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html) interface. MindRecord can normalize different dataset formats, with various advantages such as aggregated storage, efficient reading, fast coding and decoding, and flexible control of partition size.
+    - Users can also write custom dataset reading classes in Python and then use the [GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html) interface for dataset loading. This method allows for quick integration of existing code, but requires additional attention to data loading performance as it is a Python IO Reader.
 
 - Support more operations by Python layer customization and C++ layer plug-in
 
@@ -99,7 +99,7 @@ Users often have diverse needs for data processing, and processing logic that is
 
     To support AutoAugment, an automatic data augmentation strategy, MindSpore provides the following interfaces.
 
-    - RandomChoice, or random selection, allows the user to define a list of data augmentation operations, and the data processing process will select one data augmentation operation from the list with equal probability for each image.
+    - [RandomChoice](https://www.mindspore.cn/docs/en/master/api_python/dataset_transforms/mindspore.dataset.transforms.RandomChoice.html), or random selection, allows the user to define a list of data augmentation operations, and the data processing process will select one data augmentation operation from the list with equal probability for each image.
 
         ```python
         from mindspore.dataset.transforms import RandomChoice
@@ -110,7 +110,7 @@ Users often have diverse needs for data processing, and processing logic that is
                                        RandomRotation((90, 90))])
         ```
 
-    - RandomApply, a random probability execution, allows the user to define a list of data augmentation operations and the corresponding probabilities, and the data augmentation operations in the list will be executed for each image with the specified probability, either all or none.
+    - [RandomApply](https://www.mindspore.cn/docs/en/master/api_python/dataset_transforms/mindspore.dataset.transforms.RandomApply.html), a random probability execution, allows the user to define a list of data augmentation operations and the corresponding probabilities, and the data augmentation operations in the list will be executed for each image with the specified probability, either all or none.
 
         ```python
         from mindspore.dataset.transforms import RandomApply
@@ -121,7 +121,7 @@ Users often have diverse needs for data processing, and processing logic that is
                                       RandomRotation((90, 90))], 0.8)
         ```
 
-    - RandomSelectSubpolicy, a random subpolicy selection, allows users to define multiple lists of data augmentation operation subpolices and specify the probability of execution for each data augmentation operation in the subpolicy. During data processing, a subpolicy is first selected with equal probability for each image, and then whether each data augmentation operation is performed is decided in order according to the probability.
+    - [RandomSelectSubpolicy](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomSelectSubpolicy.html), a random subpolicy selection, allows users to define multiple lists of data augmentation operation subpolices and specify the probability of execution for each data augmentation operation in the subpolicy. During data processing, a subpolicy is first selected with equal probability for each image, and then whether each data augmentation operation is performed is decided in order according to the probability.
 
         ```python
         from mindspore.dataset.vision import RandomSelectSubpolicy, RandomRotation, RandomVerticalFlip, \
