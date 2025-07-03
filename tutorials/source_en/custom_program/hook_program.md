@@ -4,7 +4,7 @@
 
 Debugging deep learning networks is a big task for every practitioner in the field of deep learning. Since the deep learning network hides the input and output data as well as the inverse gradient of the intermediate layer operators, only the gradient of the network input data (feature quantity and weight) is provided, resulting in the inability to accurately sense the data changes of the intermediate layer operators, which reduces the debugging efficiency. In order to facilitate users to debug the deep learning network accurately and quickly, MindSpore designes Hook function in dynamic graph mode. **Using Hook function can capture the input and output data of intermediate layer operators as well as the reverse gradient**.
 
-Currently, five forms of Hook functions are provided in dynamic graph mode: HookBackward operator and register_forward_pre_hook, register_forward_hook, register_backward_pre_hook, register_backward_hook functions registered on Cell objects.
+Currently, five forms of Hook functions are provided in dynamic graph mode: [HookBackward](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HookBackward.html) operator and register_forward_pre_hook, register_forward_hook, register_backward_pre_hook, register_backward_hook functions registered on Cell objects.
 
 ## HookBackward Operator
 

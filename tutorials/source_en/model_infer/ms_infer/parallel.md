@@ -21,7 +21,7 @@ In large model computations, matrix multiplication (MatMul) accounts for a signi
 ![Column-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/column.png)
 ![Row-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_infer/ms_infer/images/row.png)
 
-Starting with the original implementation of `nn.Dense` in MindSpore, we can build implementations for both column-wise and row-wise MatMul.
+Starting with the original implementation of [nn.Dense](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dense.html) in MindSpore, we can build implementations for both column-wise and row-wise MatMul.
 
 1. Creation and management of communication domains and management of large model configurations
 

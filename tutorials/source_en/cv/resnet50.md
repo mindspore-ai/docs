@@ -47,7 +47,7 @@ datasets-cifar10-bin/cifar-10-batches-bin
 
 ```
 
-Then, the `mindspore.dataset.Cifar10Dataset` interface is used to load the dataset and perform the associated image transforms.
+Then, the [mindspore.dataset.Cifar10Dataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html) interface is used to load the dataset and perform the associated image transforms.
 
 ```python
 import mindspore as ms

@@ -16,7 +16,7 @@ MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore
 
 MindSpore Golden Stick量化算法主要可以分为两个阶段：量化阶段和部署阶段。量化阶段是部署前提前完成的，主要的工作是：收集权重的分布、计算量化参数、量化权重数据、插入反量化节点。部署阶段通常是指在生产环境，使用MindSpore框架对量化后的模型进行推理的过程。
 
-MindSpore Golden Stick主要通过`PTQConfig`来自定义如何量化和部署，通过`apply`和`convert`接口实现量化和部署过程。`PTQConfig`中可配置是否对权重、激活和KVCache进行量化及量化到的bit位，同时也可配置数据校准策略。详细说明可参考[PTQConfig的配置说明](#ptqconfig的配置说明)。
+MindSpore Golden Stick主要通过[PTQConfig](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/ptq/mindspore_gs.ptq.PTQConfig.html)来自定义如何量化和部署，通过[apply](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/ptq/mindspore_gs.ptq.PTQ.html#mindspore_gs.ptq.PTQ.apply)和[convert](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/ptq/mindspore_gs.ptq.PTQ.html#mindspore_gs.ptq.PTQ.convert)接口实现量化和部署过程。`PTQConfig`中可配置是否对权重、激活和KVCache进行量化及量化到的bit位，同时也可配置数据校准策略。详细说明可参考[PTQConfig的配置说明](#ptqconfig的配置说明)。
 
 MindSpore Golden Stick的量化步骤如下:
 
