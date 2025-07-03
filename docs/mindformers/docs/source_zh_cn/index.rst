@@ -84,6 +84,10 @@ MindSpore Transformers功能特性说明
 
     日志相关介绍，包括日志结构、日志保存等。
 
+  - `使用Tokenizer <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/tokenizer.html>`_
+
+    Tokenizer相关介绍，支持在Hugging Face Tokenizer在推理、数据集中使用。
+
 - 训练功能：
 
   - `数据集 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html>`_
@@ -202,6 +206,7 @@ FAQ
    feature/logging
    feature/training_function
    feature/infer_function
+   feature/tokenizer
 
 .. toctree::
    :glob:
