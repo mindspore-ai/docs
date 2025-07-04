@@ -16,7 +16,7 @@ A: 在PyNative模式下，如果中间使用`numpy`计算，会导致梯度传�
 
 ## Q: 请问怎样实现类似`torch.nn.functional.linear()`那样能够对全连接层`weight`、`bias`进行修改，应该如何操作？
 
-A: MindSpore与`torch.nn.functional.linear()`功能最接近的接口就是`nn.Dense`了。`nn.Dense`能指定`weight`和`bias`的初始值，后续的变化是由优化器自动更新的。训练过程中，用户不需要主动修改这两个参数的值。
+A: MindSpore与`torch.nn.functional.linear()`功能最接近的接口就是[nn.Dense](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dense.html)了。`nn.Dense`能指定`weight`和`bias`的初始值，后续的变化是由优化器自动更新的。训练过程中，用户不需要主动修改这两个参数的值。
 
 <br/>
 
@@ -52,7 +52,7 @@ A: 在`eval`阶段主要看需要什么，比如图像分类任务`eval`网络�
 net.set_train(False)
 ```
 
-在eval阶段不需要优化器，但是需要使用MindSpore的`model.eval`接口的话需要配置一下`loss function`，如：
+在eval阶段不需要优化器，但是需要使用MindSpore的[model.eval](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval)接口的话需要配置一下`loss function`，如：
 
 ```python
 # 定义模型

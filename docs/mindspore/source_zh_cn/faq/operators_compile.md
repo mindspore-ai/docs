@@ -4,7 +4,7 @@
 
 ## Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？
 
-A: 这种报错，主要为`ops.concat`算子提示`shape`过大。建议对`dataset`对象创建迭代器时可设置输出为`numpy`, 如下设置：
+A: 这种报错，主要为[ops.concat](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.concat.html)算子提示`shape`过大。建议对`dataset`对象创建迭代器时可设置输出为`numpy`, 如下设置：
 
 ```python
 gallaryloader.create_dict_iterator(output_numpy=True)
@@ -16,7 +16,7 @@ gallaryloader.create_dict_iterator(output_numpy=True)
 
 ## Q: 请问在静态图模式的`construct`函数里，如何把一个`tensor`中所含有的负数值全部去除掉？
 
-A: 建议使用`ops.clip_by_value`接口，把负数全变成0来进行计算。
+A: 建议使用[ops.clip_by_value](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip_by_value.html)接口，把负数全变成0来进行计算。
 
 <br/>
 
@@ -34,7 +34,7 @@ A: 这个昇腾算子底层规格限制一次拼接的Tensor个数不能超过19
 
 ## Q: 在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？
 
-A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用`ops.Conv2D`，这个算子目前不支持`group`>1。目前MindSpore只有`nn.Conv2D`接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
+A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用[ops.Conv2D](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Conv2D.html)，这个算子目前不支持`group`>1。目前MindSpore只有[nn.Conv2D](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html)接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
 
 <br/>
 

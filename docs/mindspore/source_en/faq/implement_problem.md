@@ -16,7 +16,7 @@ A: In PyNative mode, if `numpy` is used for computation, gradient transfer will 
 
 ## Q: How do I modify the `weight` and `bias` of the fully-connected layer like `torch.nn.functional.linear()`?
 
-A: The `nn.Dense` interface is similar to `torch.nn.functional.linear()`. `nn.Dense` can specify the initial values of `weight` and `bias`. Subsequent changes are automatically updated by the optimizer. During the training, you do not need to change the values of the two parameters.
+A: The [nn.Dense](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dense.html) interface is similar to `torch.nn.functional.linear()`. `nn.Dense` can specify the initial values of `weight` and `bias`. Subsequent changes are automatically updated by the optimizer. During the training, you do not need to change the values of the two parameters.
 
 <br/>
 
@@ -52,7 +52,7 @@ In most cases, the training network and parameters can be directly reused. Note 
 net.set_train(False)
 ```
 
-The optimizer is not required in the `eval` phase. However, if the `model.eval` API of MindSpore needs to be used, the `loss function` needs to be configured. For example:
+The optimizer is not required in the `eval` phase. However, if the [model.eval](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval) API of MindSpore needs to be used, the `loss function` needs to be configured. For example:
 
 ```python
 # Define a model.
