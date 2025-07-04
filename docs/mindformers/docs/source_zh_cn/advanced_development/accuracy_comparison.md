@@ -75,8 +75,8 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
     | `rotary-interleaved`                       | 是否使用交错的旋转编码                                 | `rotary_interleaved`                       | 是否使用交错的旋转编码                                                         |
     | `rotary-seq-len-interpolation-factor`      | 旋转序列长度插值因子                                  | `rotary_seq_len_interpolation_factor`      | 旋转序列长度插值因子                                                          |
     | `use-rope-scaling`                         | 是否启用 RoPE 缩放                                | `use_rope_scaling`                         | 是否启用 RoPE 缩放                                                        |
-    | `rope-scaling-factor`                      | RoPE 缩放因子                                   | `no_position_embedding`                    | 是否禁用位置编码                                                            |
-    | `no-position-embedding`                    | 是否禁用位置编码                                    | 不支持配置                                      | 默认不禁用                                                               |
+    | `rope-scaling-factor`                      | RoPE 缩放因子                                   | `scaling_factor`                           | RoPE 缩放因子                                                           |
+    | `no-position-embedding`                    | 是否禁用位置编码                                    | `no_position_embedding`                    | 是否禁用位置编码                                                            |
     | `disable-bias-linear`                      | 不在线性层使用bias                                 | `add_bias_linear`                          | 在线性层使用 bias                                                         |
     | `mrope-section`                            | 多段 RoPE 段信息（多个段）                            | 不支持配置                                      |                                                                     |
     | `make-vocab-size-divisible-by`             | 使词表大小可被指定数整除                                | 不支持配置                                      | 默认不修改词表大小                                                           |
@@ -148,15 +148,15 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 - 并行与分布式配置
 
-    | Megatron-LM                            | 含义                                         | MindSpore Transformers              | 含义                        |
-    |----------------------------------------|--------------------------------------------|-------------------------------------|---------------------------|
-    | `tensor-model-parallel-size`           | 张量模型并行大小                                   | `model_parallel`                    | 张量模型并行大小                  |
-    | `pipeline-model-parallel-size`         | 流水线模型并行大小                                  | `pipeline_stage`                    | 流水线模型并行大小                 |
-    | `sequence-parallel`                    | 是否启用序列并行                                   | `use_seq_parallel`                  | 是否启用序列并行                  |
-    | `context-parallel-size`                | 上下文并行大小                                    | `context_parallel`                  | 上下文并行大小                   |
-    | `use-distributed-optimizer`            | 是否使用分布式优化器                                 | `parallel_optimizer_config`         | 是否使用分布式优化器                |
-    | `expert-model-parallel-size`           | Expert 层模型并行度                              | `expert_parallel`                   | Expert 层模型并行度             |
-    | `expert-tensor-parallel-size`          | Expert 层 tensor 并行度                        | `expert_model_parallel`             | Expert 层 tensor 并行度       |
+    | Megatron-LM                            | 含义                     | MindSpore Transformers        | 含义                    |
+    |----------------------------------------|------------------------|-------------------------------|-----------------------|
+    | `tensor-model-parallel-size`           | 模型张量（权重/激活）切分的并行度      | `model_parallel`              | 模型张量（权重/激活）切分的并行度     |
+    | `pipeline-model-parallel-size`         | 流水线模型并行大小              | `pipeline_stage`              | 流水线模型并行大小             |
+    | `sequence-parallel`                    | 是否启用序列并行               | `use_seq_parallel`            | 是否启用序列并行              |
+    | `context-parallel-size`                | 上下文并行大小                | `context_parallel`            | 上下文并行大小               |
+    | `use-distributed-optimizer`            | 是否使用分布式优化器             | `parallel_optimizer_config`   | 是否使用分布式优化器            |
+    | `expert-model-parallel-size`           | Expert 层模型并行度          | `expert_parallel`             | Expert 层模型并行度         |
+    | `expert-tensor-parallel-size`          | Expert 层 tensor 并行度    | `expert_model_parallel`       | Expert 层 tensor 并行度   |
 
 - FlashAttention / Fused Attention 相关
 
