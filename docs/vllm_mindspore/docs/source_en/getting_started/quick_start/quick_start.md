@@ -182,7 +182,7 @@ Prompt: 'Today is'. Generated text: ' the 100th day of school. To celebrate, the
 Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compostable alternative'
 ```  
 
-### Online Serving
+### Online Inference
 
 vLLM MindSpore supports online serving deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
 
@@ -226,7 +226,7 @@ If the request is processed successfully, the following inference result will be
     "choices":[  
         {  
             "index":0,  
-            "trying to create a virtual environment for my Python project, but I am encountering some",  
+            "text":"trying to create a virtual environment for my Python project, but I am encountering some",  
             "logprobs":null,  
             "finish_reason":"length",  
             "stop_reason":null,  

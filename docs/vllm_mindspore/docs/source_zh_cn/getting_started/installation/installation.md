@@ -96,14 +96,6 @@ docker ps
 docker exec -it $DOCKER_NAME bash
 ```
 
-### pip安装
-
-用户可依照以下命令，进行pip安装：
-
-```bash
-pip install vllm_mindspore
-```
-
 ### 源码安装
 
 - **CANN安装**
@@ -142,14 +134,11 @@ pip install vllm_mindspore
     pip install .
     ```
 
-    上述命令执行完毕之后，将在`vllm-mindspore/install_depend_pkgs`目录下生成`mindformers-dev`文件夹，将其加入到环境变量中：
+    上述命令执行完毕之后，将在`vllm-mindspore/install_depend_pkgs`目录下生成`mindformers`文件夹，将其加入到环境变量中：
 
     ```bash
-    export MF_PATH=`realpath install_depend_pkgs/mindformers-dev`
     export PYTHONPATH=$MF_PATH:$PYTHONPATH
     ```
-
-    若MindSpore Transformers是由`br_infer_deepseek_os`分支编译安装，则会在`vllm-mindspore/install_depend_pkgs`目录下生成`mindformers-os`文件夹，则环境变量`MF_PATH`需调整为`realpath install_depend_pkgs/mindformers-os`。
 
 ### 快速验证
 

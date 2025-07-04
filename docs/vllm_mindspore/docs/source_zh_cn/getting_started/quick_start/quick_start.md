@@ -182,7 +182,7 @@ Prompt: 'Today is'. Generated text: ' the 100th day of school. To celebrate, the
 Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compostable alternative'
 ```
 
-### 在线服务
+### 在线推理
 
 vLLM MindSpore可使用OpenAI的API协议，进行在线服务部署。以下是以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，介绍模型的[启动服务](#启动服务)，并[发送请求](#发送请求)，得到在线服务的推理结果。
 
@@ -226,7 +226,7 @@ curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d
     "choices":[
         {
             "index":0,
-            "trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
+            "text":"trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
             "logprobs":null,
             "finish_reason":"length",
             "stop_reason":null,

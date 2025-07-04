@@ -96,14 +96,6 @@ After [creating the container](#creating-a-container), user can start and enter 
 docker exec -it $DOCKER_NAME bash  
 ```  
 
-### Pip Installation
-
-Use pip to install vLLM MindSpore, by executing the following command:  
-
-```bash  
-pip install vllm_mindspore  
-```  
-
 ### Source Code Installation
 
 - **CANN Installation**
@@ -142,18 +134,10 @@ pip install vllm_mindspore
   pip install .  
   ```
 
-  After executing the above commands, `mindformers-dev` folder will be generated in the `vllm-mindspore/install_depend_pkgs` directory. Add this folder to the environment variables:  
-
-  ```bash  
-  export MF_PATH=`realpath install_depend_pkgs/mindformers-dev`  
-  export PYTHONPATH=$MF_PATH:$PYTHONPATH  
-  ```  
-
-  If MindSpore Transformers was compiled and installed from the `br_infer_deepseek_os` branch, `mindformers-os` folder will be generated in the `vllm-mindspore/install_depend_pkgs` directory. In this case, adjust the `MF_PATH` environment variable to:
+  After executing the above commands, `mindformers` folder will be generated in the `vllm-mindspore/install_depend_pkgs` directory. Add this folder to the environment variables:  
 
   ```bash
-  export MF_PATH=`realpath install_depend_pkgs/mindformers-os`
-  export PYTHONPATH=$MF_PATH:$PYTHONPATH
+  export PYTHONPATH=$MF_PATH:$PYTHONPATH  
   ```
 
 ### Quick Verification

@@ -29,7 +29,9 @@ The following is the features supported in vLLM MindSpore.
 | Beam search                       | ×                  | WIP                |  
 | Guided Decoding                   | ×                  | WIP                |  
 | Pooling                           | ×                  | ×                  |
-| Enc-dec                           | ×                  | ×                  |  
+| Enc-dec                           | ×                  | ×                  |
+| Reasoning Outputs                 | √                  | √                  |
+| Tool Calling                      | WIP                | WIP                |
 
 - √：Feature aligned with the community version of vLLM.
 - ×：Currently unsupported; alternative solutions are recommended.
