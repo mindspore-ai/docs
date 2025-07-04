@@ -339,3 +339,5 @@ class Qwen2MLP(nn.Cell):
         output = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
         return output
 ```
+
+

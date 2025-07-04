@@ -288,7 +288,7 @@ qwen2_model.init_kv_cache(batch_size, qwen2_model.max_position_embeddings)
     msrun --worker_num=2 --local_worker_num=2 run_mindformer.py --config "/path/to/llama2_7b.yaml" --input_data "hello"
     ```
 
-    上面命令会同时启动2个进程，进行2卡并行推理，详细可以可以参考[构建可并行的大语言模型网络](./parallel.md)和[多卡模型权重切分](./weight_split.md)。
+    上面命令会同时启动2个进程，进行2卡并行推理，详细可以可以参考[构建可并行的大语言模型网络](./ms_infer_parallel_infer.md)。
 
 ### 模型量化
 
