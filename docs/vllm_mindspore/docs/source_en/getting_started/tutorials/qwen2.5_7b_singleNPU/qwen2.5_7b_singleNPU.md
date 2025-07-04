@@ -202,7 +202,7 @@ Additionally, performance metrics will be logged, such as:
 Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%  
 ```  
 
-#### Sending Requests
+### Sending Requests
 
 Use the following command to send a request, where `prompt` is the model input:  
 
@@ -220,7 +220,7 @@ If the request is processed successfully, the following inference result will be
     "choices":[  
         {  
             "index":0,  
-            "trying to create a virtual environment for my Python project, but I am encountering some",  
+            "text":"trying to create a virtual environment for my Python project, but I am encountering some",  
             "logprobs":null,  
             "finish_reason":"length",  
             "stop_reason":null,  

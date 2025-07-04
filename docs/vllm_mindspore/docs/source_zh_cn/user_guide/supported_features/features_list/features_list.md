@@ -29,7 +29,9 @@ vLLM MindSpore支持的特性功能与vLLM社区版本保持一致，特性描�
 | Beam search                       | ×                  | WIP                |  
 | Guided Decoding                   | ×                  | WIP                |  
 | Pooling                           | ×                  | ×                  |
-| Enc-dec                           | ×                  | ×                  |  
+| Enc-dec                           | ×                  | ×                  |
+| Reasoning Outputs                 | √                  | √                  |
+| Tool Calling                      | WIP                | WIP                |
 
 - √：功能已与vLLM社区版本能力对齐。
 - ×：暂无支持计划，建议使用其他方案代替。

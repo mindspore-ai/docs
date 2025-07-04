@@ -232,7 +232,7 @@ Before managing a multi-node cluster, ensure that the hostnames of all nodes are
     (no resource demands)
    ```
 
-### Starting Online Service
+### Online Inference
 
 #### Starting the Service
 
@@ -313,7 +313,7 @@ parallel_config:
 
 `data_parallel` and `model_parallel` specify the parallelism strategy for the attention and feed-forward dense layers, while `expert_parallel` specifies the expert routing parallelism strategy for MoE layers. Ensure that `data_parallel` * `model_parallel` is divisible by `expert_parallel`.  
 
-### Starting Online Service
+### Online Inference
 
 `vllm-mindspore` can deploy online services using the OpenAI API protocol. Below is the workflow for launching the service:  
 

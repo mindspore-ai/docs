@@ -204,7 +204,7 @@ INFO:   Application startup complete.
 Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
 ```
 
-#### 发送请求
+### 发送请求
 
 使用如下命令发送请求。其中`prompt`字段为模型输入：
 
@@ -222,7 +222,7 @@ curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d
     "choices":[
         {
             "index":0,
-            "trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
+            "text":"trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
             "logprobs":null,
             "finish_reason":"length",
             "stop_reason":null,

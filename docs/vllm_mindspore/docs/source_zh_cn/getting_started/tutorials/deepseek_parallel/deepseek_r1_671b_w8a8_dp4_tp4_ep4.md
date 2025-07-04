@@ -232,7 +232,7 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
     (no resource demands)
    ```
 
-### 启动在线服务
+### 在线推理
 
 #### 启动服务
 
@@ -314,7 +314,7 @@ parallel_config:
 
 `data_parallel`及`model_parallel`指定attn及ffn-dense部分的并行策略，`expert_parallel`指定moe部分路由专家并行策略，且需满足`data_parallel` * `model_parallel`可被`expert_parallel`整除。
 
-### 启动在线服务
+### 在线推理
 
 `vllm-mindspore`可使用OpenAI的API协议部署在线服务。以下是在线服务的拉起流程：
 
