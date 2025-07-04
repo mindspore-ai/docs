@@ -213,7 +213,7 @@ A: Firstly, above error refers to failed sending data to the device through the 
 
 2. **When error raised in the graph compiling stage, as training has not started** (for example, the loss has not been printed in the log), please check the error log if there are errors reported by the network related operators or the environment configuration resulted Errors (such as hccl.json is incorrect, resulted abnormal initialization of multi-card communication)
 
-3. **When error raised during the training process**, usually this is caused by the mismatch between the amount of data (batch number) has been sent and the amount of data (step number) required for network training. You can print and check the number of batches of an epoch with `get_dataset_size` interface, several possible reason are as follows:
+3. **When error raised during the training process**, usually this is caused by the mismatch between the amount of data (batch number) has been sent and the amount of data (step number) required for network training. You can print and check the number of batches of an epoch with [get_dataset_size](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/attribute/mindspore.dataset.Dataset.get_dataset_size.html) interface, several possible reason are as follows:
 
     - With checking the print times of loss to figure out that when data amount(trained steps) is just an integer multiple of the batches number in an epoch, there may be a processing existence problem in the data processing part involving Epoch processing, such as the following case:
 
@@ -331,7 +331,7 @@ for item in Dataset:
 ## Q: Can the data processing operation and network computing operator be used together?
 
 A: Generally, if the data processing operation and network computing operator are used together, the performance deteriorates. If the corresponding data processing operation is unavailable and the user-defined py_transforms operation is inappropriate, you can try to use the data processing operation and network computing operator together. Note that because the inputs required are different, the input of the data processing operation is Numpy array or PIL Image, but the input of the network computing operator must be MindSpore.Tensor.
-To use these two together, ensure that the output format of the previous one is the same as the input format of the next. Data processing operations refer to APIs in mindspore.dataset module on the official website, for example, mindspore.dataset.vision.CenterCrop. Network computing operators include operators in the mindspore.nn and mindspore.ops modules.
+To use these two together, ensure that the output format of the previous one is the same as the input format of the next. Data processing operations refer to APIs in [mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) module on the official website, for example, [mindspore.dataset.vision.CenterCrop](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html). Network computing operators include operators in the mindspore.nn and mindspore.ops modules.
 
 <br/>
 

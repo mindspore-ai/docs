@@ -4,7 +4,7 @@
 
 ## Q: When the `ops.concat` operator is used, the error message `Error:Input and (output + workspace) num should <=192!` is displayed, which indicating that the data volume is large. What can I do?
 
-A: The `shape` of the `ops.concat` operator is too large. You are advised to set the output to `numpy` when creating an iterator for the `dataset` object. The setting is as follows:
+A: The `shape` of the [ops.concat](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.concat.html) operator is too large. You are advised to set the output to `numpy` when creating an iterator for the `dataset` object. The setting is as follows:
 
 ```python
 gallaryloader.create_dict_iterator(output_numpy=True)
@@ -16,7 +16,7 @@ In the post-processing phase (in a non-network calculation process, that is, in 
 
 ## Q: In the `construct` function of the static graph mode, how do I remove all negative values contained in a `tensor`?
 
-A: You are advised to use the `ops.clip_by_value` interface to change all negative numbers to 0 for computation.
+A: You are advised to use the [ops.clip_by_value](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_value.html) interface to change all negative numbers to 0 for computation.
 
 <br/>
 
@@ -34,7 +34,7 @@ A: The number of tensors to be concatenated at a time cannot exceed 192 accordin
 
 ## Q: When `Conv2D` is used to define convolution, the `group` parameter is used. Is it necessary to ensure that the value of `group` can be exactly divided by the input and output dimensions? How is the `group` parameter transferred?
 
-A: The `Conv2d` operator has the following constraint: When the value of `group` is greater than 1, the value must be the same as the number of input and output channels. Do not use `ops.Conv2D`. Currently, this operator does not support a value of `group` that is greater than 1. Currently, only the `nn.Conv2d` API of MindSpore supports group convolution. However, the number of `group` must be the same as the number of input and output channels.
+A: The `Conv2d` operator has the following constraint: When the value of `group` is greater than 1, the value must be the same as the number of input and output channels. Do not use [ops.Conv2D](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Conv2D.html). Currently, this operator does not support a value of `group` that is greater than 1. Currently, only the [nn.Conv2D](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html) API of MindSpore supports group convolution. However, the number of `group` must be the same as the number of input and output channels.
 
 <br/>
 

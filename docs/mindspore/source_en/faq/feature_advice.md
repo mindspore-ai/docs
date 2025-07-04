@@ -10,7 +10,7 @@ A: The format is not fixed. This step is to create an input for constructing the
 
 ## Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model obtained through training in PyTorch be loaded to the MindSpore framework for use?
 
-A: MindSpore uses Protobuf to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by other framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
+A: MindSpore uses Protobuf to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by other framework, read the parameters and then call the [save_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.save_checkpoint.html) API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
 
 <br/>
 

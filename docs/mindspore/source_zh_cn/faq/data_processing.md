@@ -213,7 +213,7 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
 2. **在图编译阶段，训练还没开始报错时**（例如日志中还没打印loss），请先检查下报错（ERROR）日志中是否有网络中涉及的相关算子报错或涉及环境没配置好导致的报错（如hccl.json不对导致多卡通信初始化异常）。
 
-3. **在中间训练过程中报错时**，通常为下发的数据量（batch数）与网络训练需要的数据量（step数）不匹配导致的，可以通过`get_dataset_size`接口打印一个epoch中包含的batch数，导致异常的部分可能原因如下：
+3. **在中间训练过程中报错时**，通常为下发的数据量（batch数）与网络训练需要的数据量（step数）不匹配导致的，可以通过[get_dataset_size](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/attribute/mindspore.dataset.Dataset.get_dataset_size.html)接口打印一个epoch中包含的batch数，导致异常的部分可能原因如下：
 
     - 通过查看打印loss次数的等方式判断如果数据量（step数）刚好为一个epoch中batch数的整数倍，则可能是数据处理部分涉及epoch的处理存在问题，如下面这场景:
 
@@ -332,7 +332,7 @@ for item in Dataset:
 ## Q: 数据处理操作与网络计算算子能否混合使用？
 
 A：通常数据处理操作与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理操作且自定义Python操作不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理操作通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
-将二者混合使用需要使上一个的输出格式和下一个所需的输入格式一致。数据处理操作指的是官网API文档中mindspore.dataset模块下的接口，如 mindspore.dataset.vision.CenterCrop，网络计算算子包含 mindspore.nn、 mindspore.ops等模块下的算子。
+将二者混合使用需要使上一个的输出格式和下一个所需的输入格式一致。数据处理操作指的是官网API文档中[mindspore.dataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html)模块下的接口，如 [mindspore.dataset.vision.CenterCrop](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html)，网络计算算子包含 mindspore.nn、 mindspore.ops等模块下的算子。
 
 <br/>
 

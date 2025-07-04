@@ -408,7 +408,7 @@ Dynamic cluster supports disaster recovery under data parallel. In a parallel tr
 
 Dynamic cluster also supports the **Secure Encrypted Channel** feature, which supports the `TLS/SSL` protocol to satisfy users security needs. By default, the secure encrypted channel is turned off. If you need to turn it on, call init() only after configuring the secure encrypted channel correctly via `set_ps_context`, otherwise the initialization of the networking will fail. If you want to use the secure Encrypted channel, please configure it:
 
-`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
+`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="xxxxxx", server_password="xxxxxx")`
 
 The `config.json` configuration file specified by `config_file_path` needs to add the following fields:
 

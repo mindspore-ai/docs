@@ -408,7 +408,7 @@ bash run_dynamic_cluster_2.sh
 
 动态组网还支持**安全加密通道**特性，支持`TLS/SSL`协议，满足用户的安全性需求。默认情况下，安全加密通道是关闭的，若需要开启，则通过`set_ps_context`正确配置安全加密通道后，才能调用init()，否则初始化组网会失败。若想使用安全加密通道，请配置：
 
-`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
+`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="xxxxxx", server_password="xxxxxx")`
 
 `config_file_path`指定的`config.json`配置文件需要添加如下字段：
 

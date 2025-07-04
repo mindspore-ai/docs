@@ -18,11 +18,11 @@
 
 相关接口：
 
-1. `mindspore.parallel.auto_parallel.AutoParallel(network, parallel_mode="semi_auto")`：通过静态图并行封装指定并行模式，其中`network`是待封装的顶层`Cell`或函数，`parallel_mode`取值`semi_auto`，表示半自动并行模式。该接口返回封装后包含并行配置的`Cell`。
+1. [mindspore.parallel.auto_parallel.AutoParallel(network, parallel_mode="semi_auto")](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)：通过静态图并行封装指定并行模式，其中`network`是待封装的顶层`Cell`或函数，`parallel_mode`取值`semi_auto`，表示半自动并行模式。该接口返回封装后包含并行配置的`Cell`。
 
-2. `mindspore.parallel.auto_parallel.AutoParallel.hsdp(shard_size=-1, threshold=64, optimizer_level="level1")`：通过该接口设置优化器并行的配置，并开启优化器并行。其中`shard_size`指定优化器权重切分通信域的大小。`threshold`表示切分参数时，要求目标参数所占内存的最小值。当目标参数小于该值时，将不会被切分。 `optimizer_level`是优化器切分级别，当级别为`level1`时，对权重和优化器状态进行切分；当级别为`level2`时，对权重、优化器状态和梯度进行切分；当级别为`level3`时，除了对权重、优化器状态和梯度进行切分外，在反向传播前，还会对权重进行all gather通信，以释放前向传播allgather占用的内存。
+2. [mindspore.parallel.auto_parallel.AutoParallel.hsdp(shard_size=-1, threshold=64, optimizer_level="level1")](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html#mindspore.parallel.auto_parallel.AutoParallel.hsdp)：通过该接口设置优化器并行的配置，并开启优化器并行。其中`shard_size`指定优化器权重切分通信域的大小。`threshold`表示切分参数时，要求目标参数所占内存的最小值。当目标参数小于该值时，将不会被切分。 `optimizer_level`是优化器切分级别，当级别为`level1`时，对权重和优化器状态进行切分；当级别为`level2`时，对权重、优化器状态和梯度进行切分；当级别为`level3`时，除了对权重、优化器状态和梯度进行切分外，在反向传播前，还会对权重进行all gather通信，以释放前向传播allgather占用的内存。
 
-3. `mindspore.nn.Cell.set_comm_fusion(fusion_type=NUM)`：在自动/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。这些通信算子是自动并行框架自动插入的。然而，随着参数量增多，对应的通信算子也会增多，通信操作中的算子调度和启动都会产生更多的开销。因此，可以通过`Cell`提供的`set_comm_fusion`方法，手动对每个`Cell`内参数对应的AllGather和ReduceScatter操作配置融合标记NUM，以提高通信效率。MindSpore将融合相同NUM参数对应的通信算子，以减少通信开销。
+3. [mindspore.nn.Cell.set_comm_fusion(fusion_type=NUM)](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion)：在自动/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。这些通信算子是自动并行框架自动插入的。然而，随着参数量增多，对应的通信算子也会增多，通信操作中的算子调度和启动都会产生更多的开销。因此，可以通过`Cell`提供的`set_comm_fusion`方法，手动对每个`Cell`内参数对应的AllGather和ReduceScatter操作配置融合标记NUM，以提高通信效率。MindSpore将融合相同NUM参数对应的通信算子，以减少通信开销。
 
 ## 基本原理
 
