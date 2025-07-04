@@ -11,6 +11,7 @@
 import re
 import inspect
 import importlib
+from functools import reduce
 from typing import TYPE_CHECKING, Any, Dict, Generic, List, Tuple, TypeVar, cast
 
 from docutils import nodes
@@ -51,27 +52,29 @@ def optional_int(argument: str) -> int:
         return value
 
 def get_api(fullname):
+    """
+    获取接口对象。
+
+    :param fullname: 接口名全称
+    :return: 属性对象或None(如果不存在)
+    """
+    main_module = fullname.split('.')[0]
+    main_import = importlib.import_module(main_module)
+
     try:
-        module_name, api_name= ".".join(fullname.split('.')[:-1]), fullname.split('.')[-1]
-        module_import = importlib.import_module(module_name)
-    except ModuleNotFoundError:
-        module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
-        module_import = importlib.import_module(module_name)
-    except:
-        return False
-    try:
-        api = eval(f"module_import.{api_name}")
+        return reduce(getattr, fullname.split('.')[1:], main_import)
     except AttributeError:
-        module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
-        module_import = importlib.import_module(module_name)
-        api = eval(f"module_import.{api_name}")
-    return api
+        return None
 
 def get_example(name: str):
     try:
         if not name.startswith('mindspore.'):
             name = 'mindspore.' + name
-        api_doc = inspect.getdoc(get_api(name))
+        api_obj = get_api(name)
+        if not api_obj:
+            logger.warning(f"not api obj: {name}")
+            return []
+        api_doc = inspect.getdoc(api_obj)
         if '.mint.' in name:
             spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse']),
                        ('nn.HShrink', 'mint.nn.Hardshrink'), ('nn.SoftShrink', 'mint.nn.Softshrink'),
@@ -141,7 +144,11 @@ def get_platforms(name: str):
     try:
         if not name.startswith('mindspore.'):
             name = 'mindspore.' + name
-        api_doc = inspect.getdoc(get_api(name))
+        api_obj = get_api(name)
+        if not api_obj:
+            logger.warning(f"not api obj: {name}")
+            return []
+        api_doc = inspect.getdoc(api_obj)
         is_overload = re.findall('\.\. (method|function)::', api_doc)
         all_platform = []
         # mint 相关接口限定支持平台为Ascend

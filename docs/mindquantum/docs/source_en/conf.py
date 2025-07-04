@@ -166,7 +166,7 @@ try:
                 f.truncate()
                 f.write(content)
 except:
-    pass
+    print('mindquantum替换安装包内容失败')
 
 import mindquantum
 

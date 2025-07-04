@@ -12,6 +12,7 @@ import re
 import shutil
 import subprocess
 import importlib
+from functools import reduce
 import sphinx
 import requests
 from git import Repo
@@ -118,7 +119,7 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
         if i == 'need_auto':
             continue
         if i.endswith('.rst'):
-            raw_content = requests.get(raw_rst_list[i]).text
+            raw_content = requests.get(raw_rst_list[i], timeout=30).text
             other_file_path = re.findall('.. include:: (.*?)\n', raw_content)
             for j in other_file_path:
                 file_list.append(os.path.join(
@@ -130,31 +131,17 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
 def get_api(fullname):
     """
     获取接口对象。
+
+    :param fullname: 接口名全称
+    :return: 属性对象或None(如果不存在)
     """
+    main_module = fullname.split('.')[0]
+    main_import = importlib.import_module(main_module)
+
     try:
-        module_name, api_name = ".".join(fullname.split('.')[:-1]), fullname.split('.')[-1]
-        # pylint: disable=W0612
-        module_import = importlib.import_module(module_name)
-        # pylint: disable=W0123
-        api = eval(f"module_import.{api_name}")
-    except ModuleNotFoundError:
-        print(f"not find module, api name: {api_name}")
-        return False
+        return reduce(getattr, fullname.split('.')[1:], main_import)
     except AttributeError:
-        try:
-            module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
-            # pylint: disable=W0612
-            module_import = importlib.import_module(module_name)
-            # pylint: disable=W0123
-            api = eval(f"module_import.{api_name}")
-        # pylint: disable=W0702
-        except:
-            print(f'error get_api: {fullname}')
-            return False
-    except: # pylint: disable=W0702
-        print(f'error get_api: {fullname}')
-        return False
-    return api
+        return None
 
 def get_all_samedefinition(api_obj, fullname):
     """
@@ -700,11 +687,11 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                   'mindspore_Tensor_yaml': "mindspore/ops/api_def/method_doc/",
                   'mindspore_function_yaml': "mindspore/ops/api_def/function_doc/"}
 
-    wb_data = requests.get(pf_url)  # 引入requests库来请求数据
+    wb_data = requests.get(pf_url, timeout=30)  # 引入requests库来请求数据
     result = wb_data.json()  # 将请求的数据转换为json格式
 
     # 获取pr文件的diff
-    diff = requests.get(pf_diff).text
+    diff = requests.get(pf_diff, timeout=30).text
 
     cn_flag = 0
     en_flag = 0
@@ -746,7 +733,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         # 记录中文API相关文件
         elif split_dict['mindspore_cn'] in filename:
             if filename.endswith('.md') or filename.endswith('.ipynb') or filename.endswith('.rst'):
-                file_data = str(requests.get(raw_url).content, 'utf-8')
+                file_data = str(requests.get(raw_url, timeout=30).content, 'utf-8')
                 # 通过汇总列表新增的接口（未完待续）
                 part_atsm = re.findall(r'\.\..*?autosummary::\n\s+?:toctree: (.*)\n(?:.|\n|)+?\n\n((?:.|\n|)+?)\n\n',
                                        file_data+'\n\n')
@@ -787,7 +774,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             if not filename.split(split_dict['mindspore_en'])[-1].startswith('mindspore.'):
                 continue
             if filename.endswith('.md') or filename.endswith('.ipynb') or filename.endswith('.rst'):
-                file_data = str(requests.get(raw_url).content, 'utf-8')
+                file_data = str(requests.get(raw_url, timeout=30).content, 'utf-8')
                 part_atsm = re.findall(r'\.\..*?autosummary::\n\s+?:toctree: (.*)\n(?:.|\n|)+?\n\n((?:.|\n|)+?)\n\n',
                                        file_data+'\n\n')
                 if '--- /dev/null' not in diff_file and filename.endswith('.rst'):
@@ -1222,7 +1209,7 @@ if __name__ == "__main__":
     repo_dir = os.path.join(present_dir_path, f'../../../{repo_name}')
 
     # 获取pr合入的分支
-    res = requests.get(apiv5_url).text
+    res = requests.get(apiv5_url, timeout=30).text
     repo_branch = re.findall('"base":{"label":"(.+?)"', res)[0]
 
     # 切换本地仓库分支

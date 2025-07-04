@@ -193,7 +193,12 @@ class MsAutosummary(Autosummary):
             documenter.add_content(None)
             if '.ops.' in display_name:
                 try:
-                    display_name_path = inspect.getsourcefile(get_api(display_name))
+                    api_obj = get_api(display_name)
+                    if not api_obj:
+                        logger.warning(f"not api obj: {name}")
+                        display_name_path = ""
+                    else:
+                        display_name_path = inspect.getsourcefile(api_obj)
                 # pylint: disable=W0702
                 except:
                     display_name_path = ""
@@ -312,7 +317,11 @@ class MsPlatWarnAutoSummary(MsAutosummary):
         if not name:
             return []
         try:
-            api_doc = inspect.getdoc(get_api(name))
+            api_obj = get_api(name)
+            if not api_obj:
+                logger.warning(f"not api obj: {name}")
+                return ""
+            api_doc = inspect.getdoc(api_obj)
             if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))
@@ -372,7 +381,11 @@ class MsPlatformAutoSummary(MsAutosummary):
         if not name:
             return []
         try:
-            api_doc = inspect.getdoc(get_api(name))
+            api_obj = get_api(name)
+            if not api_obj:
+                logger.warning(f"not api obj: {name}")
+                return ""
+            api_doc = inspect.getdoc(api_obj)
             if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))
@@ -511,17 +524,14 @@ class MsCnAutoSummary(Autosummary):
                         if re.findall("[:：,，。.;；]", summary_str_tag[0][0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
                         summary_str = re.sub('\n[ ]+', '', summary_str_tag[0][0]) + '。'
-                        logger.warning(f'tag {display_name}概述为 {summary_str}')
                     elif summary_str:
                         if re.findall("[:：,，。.;；]", summary_str[0][0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
                         summary_str = re.sub('\n[ ]+', '', summary_str[0][0]) + '。'
-                        logger.warning(f'{display_name}概述为 {summary_str}')
                     elif summary_str_wrap:
                         if re.findall("[:：,，。.;；]", summary_str_wrap[0][0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
                         summary_str = re.sub('\n[ ]+', '', summary_str_wrap[0][0]) + '。'
-                        logger.warning(f'wrap {display_name}概述为 {summary_str}')
                     else:
                         summary_str = ''
                     if not self.table_head:
@@ -742,7 +752,7 @@ def get_api(fullname):
         module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
         module_import = importlib.import_module(module_name)
     # pylint: disable=eval-used
-    api = eval(f"module_import.{api_name}")
+    api = getattr(module_import, api_name, '')
     return api
 
 class MsCnPlatformAutoSummary(MsCnAutoSummary):
@@ -759,7 +769,11 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
         try:
             if '.mint.' in name:
                 return ["``Ascend``"]
-            api_doc = inspect.getdoc(get_api(name))
+            api_obj = get_api(name)
+            if not api_obj:
+                logger.warning(f"not api obj: {name}")
+                return []
+            api_doc = inspect.getdoc(api_obj)
             if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))
@@ -791,7 +805,11 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
         try:
             if '.mint.' in name:
                 return ["``Ascend``"]
-            api_doc = inspect.getdoc(get_api(name))
+            api_obj = get_api(name)
+            if not api_obj:
+                logger.warning(f"not api obj: {name}")
+                return []
+            api_doc = inspect.getdoc(api_obj)
             if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))
@@ -854,7 +872,11 @@ class MsCnPlataclnnAutoSummary(MsCnAutoSummary):
         try:
             if '.mint.' in name:
                 return ["``Ascend``"]
-            api_doc = inspect.getdoc(get_api(name))
+            api_obj = get_api(name)
+            if not api_obj:
+                logger.warning(f"not api obj: {name}")
+                return []
+            api_doc = inspect.getdoc(api_obj)
             if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))

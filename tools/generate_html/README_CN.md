@@ -59,14 +59,14 @@
     比如构建1.9.0的发布版本：
 
     ```bash
-    python run.py --version="1.9.0" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0" --theme="xxx/xxx"
+    python run.py --version="1.9.0" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0" --theme="xxx/xxx"
     ```
 
     支持单独构建某几个组件。（该功能从r2.2分支开始支持）
     如构建2.2.0的发布版本的 ``mindspore`` , ``sciai`` 组件：
 
     ```bash
-    python run.py --version="2.2.0" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0" --theme="xxx/xxx" --single_generate="mindspore,sciai"
+    python run.py --version="2.2.0" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0" --theme="xxx/xxx" --single_generate="mindspore,sciai"
     ```
 
     | 参数 | 值 | 必填 | 适配分支 |
@@ -74,8 +74,6 @@
     | version | 构建的版本号 | 是 | 全部 |
     | theme | theme样式的文件夹路径 | 是 | >= r2.0.0-alpha |
     | release_url | 构建发布版本的基础网址 | 否 | 全部 |
-    | user | 每日构建网站的用户名 | 否 | 全部 |
-    | pd | 每日构建网站的密码 | 否 | 全部 |
     | wgetdir | 每日构建网站网址 | 否 | 全部 |
     | single_generate | 单独构建某个组件 | 否 | >= r2.2 |
 

@@ -157,7 +157,7 @@ try:
                 f.truncate()
                 f.write(content)
 except:
-    pass
+    print('mindsponge替换安装包内容失败')
 
 # Copy source files of chinese python api from mindscience repository.
 from sphinx.util import logging

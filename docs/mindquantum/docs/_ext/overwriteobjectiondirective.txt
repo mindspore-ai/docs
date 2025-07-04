@@ -11,6 +11,7 @@
 import re
 import inspect
 import importlib
+from functools import reduce
 from typing import TYPE_CHECKING, Any, Dict, Generic, List, Tuple, TypeVar, cast
 
 from docutils import nodes
@@ -49,14 +50,19 @@ def optional_int(argument):
         return value
 
 def get_api(fullname):
+    """
+    获取接口对象。
+
+    :param fullname: 接口名全称
+    :return: 属性对象或None(如果不存在)
+    """
+    main_module = fullname.split('.')[0]
+    main_import = importlib.import_module(main_module)
+
     try:
-        module_name, api_name= ".".join(fullname.split('.')[:-1]), fullname.split('.')[-1]
-        module_import = importlib.import_module(module_name)
-    except ModuleNotFoundError:
-        module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
-        module_import = importlib.import_module(module_name)
-    api = eval(f"module_import.{api_name}")
-    return api
+        return reduce(getattr, fullname.split('.')[1:], main_import)
+    except AttributeError:
+        return None
 
 def get_example(name: str):
     try:

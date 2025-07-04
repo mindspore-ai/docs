@@ -492,7 +492,7 @@ def get_api(fullname):
         module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
         module_import = importlib.import_module(module_name)
     # pylint: disable=eval-used
-    api = eval(f"module_import.{api_name}")
+    api = getattr(module_import, api_name)
     return api
 
 class MsCnPlatformAutoSummary(MsCnAutoSummary):

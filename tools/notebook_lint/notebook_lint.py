@@ -236,8 +236,8 @@ class Notebook_Pylint(ReadFile):
         """执行Pylint检测"""
         temp_file = self.path[:-6] + "_lint.py"
         self.write_content(temp_file, self.code)
-        cmd = f"pylint -j 4 {temp_file}"
-        res = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8",)
+        cmd = ["pylint", "-j", "4", temp_file]
+        res = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8",)
         info = res.stdout.read()
         msgs = [i for i in info.split("\n") if i][1:-2]
         resutls = self.process_msg(msgs)
@@ -305,8 +305,8 @@ class Notebook_Markdownlint(ReadFile):
         """执行Markdownlint检测"""
         temp_file = self.path[:-6] + "_lint.md"
         self.write_content(temp_file, self.markdown)
-        cmd = f"mdl -s mdrules.rb {temp_file}"
-        res = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8",)
+        cmd = ["mdl", "-s", "mdrules.rb", temp_file]
+        res = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8",)
         info = res.stdout.read()
         msgs = [i for i in info.split("\n") if i][:-1]
         results = self.process_msg(msgs)
