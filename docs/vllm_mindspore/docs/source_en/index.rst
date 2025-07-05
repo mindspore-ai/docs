@@ -130,6 +130,14 @@ Apache License 2.0, as found in the `LICENSE <https://gitee.com/mindspore/vllm-m
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: security
+   :hidden:
+
+   general/security
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: FAQ
    :hidden:
 
