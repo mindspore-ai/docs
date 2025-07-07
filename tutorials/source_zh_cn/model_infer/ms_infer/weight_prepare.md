@@ -2,9 +2,9 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/tutorials/source_zh_cn/model_infer/ms_infer/weight_prepare.md)
 
-模型权重作为大语言模型最为重要的参数，通常直接和模型最终效果强相关，因此获取有效可靠的模型权重文件，成为准备大语言模型推理非常重要的一步。总的来说，获取模型权重文件有两大类方案：
+模型权重作为大语言模型最为重要的参数，通常直接和模型最终效果强相关，因此获取有效可靠的模型权重文件，成为准备大语言模型推理非常重要的一步。总的来说，获取模型权重文件有两类方案：
 
-- **自己通过数据集训练权重**：利用MindSpore框架训练能力，以及业务强相关的数据集，从头训练或者对模型进行微调，然后输出模型的权重文件，该方案需要使用MindSpore训练能力，同时需要较大的计算资源来训练模型，比较适合用户自己数据集比较特殊的场景。[保存模型权重CKPT文件](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.save_checkpoint.html#mindspore.save_checkpoint)。
+- **用户通过数据集训练权重**：利用MindSpore框架训练能力，以及业务强相关的数据集，从头训练或者对模型进行微调，然后输出模型的权重文件，该方案需要使用MindSpore训练能力，同时需要较大的计算资源来训练模型，比较适合用户数据集比较特殊的场景。具体可以参考[保存模型权重CKPT文件](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/mindspore/mindspore.save_checkpoint.html#mindspore.save_checkpoint)。
 
 - **从官网获取预训练模型权重**：从主流模型官方网站上获取预训练好的模型配置、tokenizer和权重文件等，并通过MindSpore框架能力将模型权重转换成MindSpore的CKPT权重文件，作为大语言模型推理的输入。
 
@@ -46,11 +46,7 @@ llama-2-7b-hf
 
 将Hugging Face的权重文件转换成MindSpore的权重文件，可以简单的分解为以下几个步骤：
 
-1. 加载Hugging Face权重文件成为torch的Tensor列表。
-2. 将torch的Tensor列表转换为MindSpore的Tensor列表。
-3. 将MindSpore的Tensor列表保存为MindSpore的CKPT权重文件。
-
-- **安装python依赖包**：由于需要从Hugging Face转换成MindSpore的权重，因此需要安装两者的python包，主要包含transformers、torch、mindspore。
+1. **安装python依赖包**：由于需要从Hugging Face转换成MindSpore的权重，因此需要安装两者的python包，主要包含transformers、torch、mindspore。
 
     ```shell
     pip install torch
@@ -58,7 +54,7 @@ llama-2-7b-hf
     pip install transformers
     ```
 
-- **加载Hugging Face模型**：利用transfomers库加载Llama2的权重文件和模型，并从模型中获取权重列表，实际是一个torch的Tensor对象列表。
+2. **加载Hugging Face模型**：利用transfomers库加载Llama2的权重文件和模型，并从模型中获取权重列表，实际是一个torch的Tensor对象列表。
 
     ```python
     import os
@@ -74,9 +70,9 @@ llama-2-7b-hf
         print(f"name: {name}")
     ```
 
-执行该python代码，会加载Llama2的权重，并将每个权重的名称打印出来，则表示模型加载成功。
+    执行该python代码，会加载Llama2的权重，并将每个权重的名称打印出来，则表示模型加载成功。
 
-- **torch.Tensor转换为mindspore.Tensor**：利用numpy作为中转，将torch的Tensor对象转换为mindspore的Tensor对象，除了数据外，mindspore权重名称也和Hugging Face的不一样，需要记录一个映射关系。
+3. **torch.Tensor转换为mindspore.Tensor**：利用numpy作为中转，将torch的Tensor对象转换为mindspore的Tensor对象，除了数据外，mindspore权重名称也和Hugging Face的不一样，需要记录一个映射关系。
 
     - 权重名称映射关系：将Hugging Face的权重名称替换为mindspore的权重名称。
 
@@ -133,7 +129,7 @@ llama-2-7b-hf
         print(ckpt_list)
         ```
 
-- **保存MindSpore的CKPT权重文件**：调用MindSpore的接口将Tensor保存为CKPT权重文件。
+4. **保存MindSpore的CKPT权重文件**：调用MindSpore的接口将Tensor保存为CKPT权重文件。
 
     ```python
     ms_ckpt_path="/path/to/mindspore/ckpt"

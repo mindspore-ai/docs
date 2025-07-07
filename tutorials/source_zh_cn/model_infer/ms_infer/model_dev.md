@@ -4,13 +4,13 @@
 
 ## 大语言模型主干网络
 
-当前主流的大语言模型主干网络都以基于transformer结构为主的，其中最为重要的就是Self-Attention机制的计算，以Llama2大语言模型为例，下图简单描述了其主干网络结构：
+当前主流的大语言模型主干网络都以基于Transformer结构为主的，其中最为重要的就是Self-Attention机制的计算，以Llama2大语言模型为例，下图简单描述了其主干网络结构：
 
 ![LLAMA网络结构](images/llm_llama_network_arch.png)
 
 由此可见，Llama2的核心层主要分为以下几部分：
 
-- **Embedding**：将每个token对应的索引转换成一个向量，实现特征分散效果，类似onehot向量化，embedding的权重会参与训练过程，可以更好的适配语言模型中上下文语义，其实现就是一个Embedding算子既可完成。
+- **Embedding**：将每个token对应的索引转换成一个向量，实现特征分散效果。类似onehot向量化，embedding的权重会参与训练过程，可以更好地适配语言模型中上下文语义。这个过程是通过Embedding算子来实现的。
 
 - **DecodeLayer**：即Transformer结构，是大语言模型关键计算，通常根据配置不同，会重复多层计算，每一层实际就是一个Transformer结构，是大语言模型核心之一。
 
@@ -20,11 +20,11 @@
 
 ## TransformerModel
 
-在典型的Transformer大语言模型中，每一层layer都由Normalization、Attention、残差连接、MLP(Multi-Layer Perception)组成。其中Attention和MLP都符合两个连续矩阵乘的要求。
+在典型的Transformer大语言模型中，每一层layer都由Normalization、Attention、残差连接、MLP（Multi-Layer Perception）组成。其中Attention和MLP都符合两个连续矩阵乘的要求。
 
 1. Attention
 
-    当前主流Attention都采用了MHA(Multi-Head Attention)多头注意力结构，下图是MHA的具体形式，我们可以根据这个结构来构建Attention的网络。
+    当前主流Attention都采用了MHA（Multi-Head Attention）多头注意力结构，下图是MHA的具体形式，我们可以根据这个结构来构建Attention的网络。
 
     ![MHA](images/MHA.png)
 
@@ -118,7 +118,7 @@
 
 3. TransformerLayer
 
-    通过的Attention模块和MLP模块，可以构建TransformerLayer，即DecodeLayer，具体如下：
+    通过Attention模块和MLP模块，可以构建TransformerLayer，即DecodeLayer，具体如下：
 
     ```python
     class TransformerLayer(nn.Cell):
