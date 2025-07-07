@@ -1,6 +1,6 @@
 # Operator-level Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/operator_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_en/parallel/operator_parallel.md)
 
 ## Overview
 
@@ -16,7 +16,7 @@ The illustration of the ops operator parallel operation is based on the Ascend s
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -107,7 +107,7 @@ The `ops.MatMul()` and `ops.ReLU()` operators for the above networks are configu
 
 #### Training Network Definition
 
-In this step, we need to define the loss function, the optimizer, and the training process. Note that due to the huge number of parameters of the large model, the graphics memory will be far from sufficient if parameter initialization is performed when defining the network on a single card. Therefore, delayed initialization is required when defining the network in conjunction with the [mindspore.nn.utils.no_init_parameters](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface to delay parameter initialization until the parallel multicard phase. Here both network and optimizer definitions need to be delayed initialized.
+In this step, we need to define the loss function, the optimizer, and the training process. Note that due to the huge number of parameters of the large model, the graphics memory will be far from sufficient if parameter initialization is performed when defining the network on a single card. Therefore, delayed initialization is required when defining the network in conjunction with the [mindspore.nn.utils.no_init_parameters](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface to delay parameter initialization until the parallel multicard phase. Here both network and optimizer definitions need to be delayed initialized.
 
 ```python
 from mindspore.nn.utils import no_init_parameters
@@ -186,7 +186,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/startup_method.html).
 
 ### mint Operator Parallel Practice
 
@@ -194,7 +194,7 @@ The illustration of the mint operator parallel operation is based on the Ascend 
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -250,7 +250,7 @@ data_set = create_dataset(32)
 
 #### Defining the Network
 
-In the current mint operator parallel mode, the network needs to be defined with mint operators. Since the mint operators, as a functional interface, does not directly expose its operator type (Primitive), it is impossible to directly configure the slicing strategy for the operator. Instead, users need to manually configure the slicing strategy for mint operators by using [mindspore.parallel.shard](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.shard.html) interface based on a single-card network, e.g., the network structure after configuring the strategy is:
+In the current mint operator parallel mode, the network needs to be defined with mint operators. Since the mint operators, as a functional interface, does not directly expose its operator type (Primitive), it is impossible to directly configure the slicing strategy for the operator. Instead, users need to manually configure the slicing strategy for mint operators by using [mindspore.parallel.shard](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/parallel/mindspore.parallel.shard.html) interface based on a single-card network, e.g., the network structure after configuring the strategy is:
 
 ```python
 import mindspore as ms
@@ -338,7 +338,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/startup_method.html).
 
 ## Higher-Order Operator-Level Parallel Practice
 
@@ -348,7 +348,7 @@ An illustration of higher-order ops operator parallel operations follows, using 
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -462,7 +462,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/startup_method.html).
 
 ### Higher-Order mint Operator Parallel Practice
 
@@ -470,7 +470,7 @@ An illustration of higher-order mint operator parallel operations follows, using
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -604,4 +604,4 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/startup_method.html).

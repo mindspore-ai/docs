@@ -1,16 +1,16 @@
 # CustomOpBuilder通过Function接口开发正反向算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_function.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_function.md)
 
 ## 概述
 
-在 [定义Custom算子的反向传播函数](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_adv.html#定义算子反向传播函数) 中，MindSpore提供了一种自定义反向函数的方法。这种方法需要定义两个Custom算子，并在python的将反向算子绑定给正向Custom算子，开发流程比较冗长。
+在 [定义Custom算子的反向传播函数](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/custom_program/operation/op_custom_adv.html#定义算子反向传播函数) 中，MindSpore提供了一种自定义反向函数的方法。这种方法需要定义两个Custom算子，并在python的将反向算子绑定给正向Custom算子，开发流程比较冗长。
 
 在动态图上，MindSpore提供另一种自定义反向函数的方法。通过一个 `Function` 接口把算子的反向传播和正向传播函数定义在一起，中间用 `AutogradContext` 把正向函数的信息传递给反向函数，更加符合编程习惯。通过此方式定义的反向算子，会在正向算子执行时自动注册，无需额外操作。
 
 下面以一个例子来说明 `Function` 接口的使用方法：
 
-本指南演示了在Ascend平台上实现一个乘法算子。有关相关代码和更多示例，请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/master/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
+本指南演示了在Ascend平台上实现一个乘法算子。有关相关代码和更多示例，请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
 
 ** 注意： 本指南中调用的`BaseTensorPtr`是MindSpore的内部数据结构，在后续版本中，这些接口都将会被改造成基于`ms::Tensor`的接口。 **
 
@@ -117,7 +117,7 @@ class CustomMul : public Function<CustomMul>
 static BaseTensorPtr Forward(AutogradContext *ctx, const BaseTensorPtr &x, const BaseTensorPtr &y)
 ```
 
-下面是正向函数计算部分。用户先创建一个数据类型为`x->data_type()`，大小为`BroadcastInferShape(x, y)`的`Tensor`，然后使用`CustomLaunchAclnn`调用`aclnnMul`算子进行计算。对于aclnn算子的编译相关知识，可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_ascendc.html#编译与部署方法)中的相关章节。
+下面是正向函数计算部分。用户先创建一个数据类型为`x->data_type()`，大小为`BroadcastInferShape(x, y)`的`Tensor`，然后使用`CustomLaunchAclnn`调用`aclnnMul`算子进行计算。对于aclnn算子的编译相关知识，可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/custom_program/operation/op_custom_ascendc.html#编译与部署方法)中的相关章节。
 
 ```c++
 auto output = std::make_shared<BaseTensor>(x->data_type(), BroadcastInferShape(x, y));

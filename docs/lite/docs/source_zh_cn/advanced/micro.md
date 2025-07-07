@@ -1,6 +1,6 @@
 # 在MCU或小型系统上执行推理或训练
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/advanced/micro.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/lite/docs/source_zh_cn/advanced/micro.md)
 
 ## 概述
 
@@ -18,7 +18,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 ### 概述
 
 通过MindSpore Lite转换工具`converter_lite`，并在转换工具的参数配置文件中，配置Micro配置项，就能为输入模型生成推理代码。
-此章只介绍转换工具中生成代码的相关功能，关于转换工具的基本使用方法，请参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)。
+此章只介绍转换工具中生成代码的相关功能，关于转换工具的基本使用方法，请参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/converter/converter_tool.html)。
 
 ### 环境准备
 
@@ -32,11 +32,11 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
     可以通过两种方式获取转换工具：
 
-    - MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+    - MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/use/downloads.html)。
 
         用户需下载操作系统为Linux-x86_64，硬件平台为CPU的发布包。
 
-    - 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)。
+    - 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/build/build.html)。
 
 3. 解压下载的包
 
@@ -103,7 +103,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
     CONVERT RESULT SUCCESS:0
     ```
 
-    用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html#参数说明)。
+    用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/converter/converter_tool.html#参数说明)。
 
     在转换工具执行成功后，生成的代码被保存在用户指定的`outputFile`路径下，在本例中，为当前转换目录下的mnist文件夹，内容如下：
 
@@ -228,7 +228,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
     CONVERT RESULT SUCCESS:0
     ```
 
-   用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html#参数说明)。
+   用户若想了解converter_lite转换工具的相关参数，可参考[converter参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/converter/converter_tool.html#参数说明)。
 
    在转换工具执行成功后，生成的代码被保存在用户指定的`save_path`+`project_name`路径下，在本例中，为当前转换目录下的mnist文件夹，内容如下：
 
@@ -277,7 +277,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 通常在生成代码时，通过配置模型输入shape为实际推理时的输入shape，可以减少部署过程中出错的概率。
 当模型含有`Shape`算子或者原模型输入shape非固定值时，必须配置模型的输入shape值，以支持相关shape优化和代码生成。
-通过转换工具的`--inputShape=`命令可以配置生成代码的输入shape，具体参数含义，请参考[转换工具使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)。
+通过转换工具的`--inputShape=`命令可以配置生成代码的输入shape，具体参数含义，请参考[转换工具使用说明](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/converter/converter_tool.html)。
 
 ### 动态shape配置(可选)
 
@@ -324,7 +324,7 @@ support_parallel=true
 
 #### 涉及的调用接口
 
-通过集成代码，并调用下述接口，用户可以配置模型的多线程推理，具体接口参数请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+通过集成代码，并调用下述接口，用户可以配置模型的多线程推理，具体接口参数请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/index.html)。
 
 表2：多线程配置API接口
 
@@ -347,12 +347,12 @@ support_parallel=true
 
 在Cortex-M等MCU场景下，受限于设备的内存大小及算力，通常需要使用int8量化算子来进行部署推理以减少运行时内存大小并加速运算。
 
-如果用户已经有一个int8全量化模型，可参考[执行converter_lite生成推理代码](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/micro.html#执行converter-lite生成推理代码)章节尝试直接生成int8量化推理代码而不需要阅读本章内容。
+如果用户已经有一个int8全量化模型，可参考[执行converter_lite生成推理代码](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/advanced/micro.html#执行converter-lite生成推理代码)章节尝试直接生成int8量化推理代码而不需要阅读本章内容。
 在通常的情况下，用户只有一个训练好的float32模型，此时若要生成int8量化推理代码，则需配合转换工具的后量化功能进行代码生成，具体步骤可参考下文。
 
 #### 配置文件
 
-通过在配置文件中配置量化控制参数可以实现int8量化推理代码生成，关于量化控制参数（通用量化参数`common_quant_param`和全量化参数`full_quant_param`）的说明，请参考转换工具的[量化文档](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html)。
+通过在配置文件中配置量化控制参数可以实现int8量化推理代码生成，关于量化控制参数（通用量化参数`common_quant_param`和全量化参数`full_quant_param`）的说明，请参考转换工具的[量化文档](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/advanced/quantization.html)。
 
 一个 `Cortex-M` 平台的int8量化推理代码生成配置文件的示例如下：
 
@@ -409,7 +409,7 @@ target_device=DSP
 ### 概述
 
 通过MindSpore Lite转换工具`converter_lite`，并在转换工具的参数配置文件中，配置Micro配置项，就能为输入模型生成训练代码。
-此章只介绍转换工具中生成代码的相关功能，关于转换工具的基本使用方法，请参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/train/converter_train.html)。
+此章只介绍转换工具中生成代码的相关功能，关于转换工具的基本使用方法，请参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/train/converter_train.html)。
 
 ### 环境准备
 
@@ -489,7 +489,7 @@ target_device=DSP
 在生成模型推理代码之后，用户在对代码进行集成开发之前，需要获得生成的推理代码所依赖的`Micro`库。
 
 不同平台的推理代码依赖对应平台的`Micro`库，用户需根据使用的平台，在生成代码时，通过Micro配置项`target`指定该平台，并在获取`Micro`库时，获得该平台的`Micro`库。
-用户可通过MindSpore官网下载对应平台的[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+用户可通过MindSpore官网下载对应平台的[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/use/downloads.html)。
 
 在[模型推理代码生成](#模型推理代码生成)章节，我们得到了x86_64架构Linux平台的模型推理代码，而该代码所依赖的`Micro`库，就在转换工具所使用的发布包内。
 发布包内，推理代码所依赖的库和头文件如下：
@@ -520,7 +520,7 @@ mindspore-lite-{version}-linux-x64
 
 ### 推理代码的调用接口
 
-以下是推理代码的一般调用接口，关于接口的详细说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+以下是推理代码的一般调用接口，关于接口的详细说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/index.html)。
 
 表3：推理通用API接口
 
@@ -556,9 +556,9 @@ mindspore-lite-{version}-linux-x64
 
 - 对于cortex-M架构的MCU请参考[在MCU上执行推理](#在mcu上执行推理)
 
-- 对于x86_64架构Linux平台，请参考[Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
+- 对于x86_64架构Linux平台，请参考[Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/v2.7.0rc1/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-- 对于arm32或arm64的Android平台编译部署，请参考[Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
+- 对于arm32或arm64的Android平台编译部署，请参考[Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/v2.7.0rc1/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
 
 - 对于在OpenHarmony平台上编译部署，请参考[在轻鸿蒙设备上执行推理](#在轻鸿蒙设备上执行推理)
 
@@ -616,11 +616,11 @@ mnist                          # 指定的生成代码根目录名称
 
 STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架构的`Micro`库：
 
-- MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
+- MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/use/downloads.html)。
 
     用户需下载操作系统为None，硬件平台为Cortex-M7的发布包。
 
-- 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)。
+- 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/build/build.html)。
 
     用户可通过`MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64`命令，来编译得到`Cortex-M7`的发布包。
 
@@ -1001,7 +1001,7 @@ ${STMSTM32CubePrg_PATH}为`STMSTM32CubePrg`安装路径。关于命令中的各�
 └── src  
 ```
 
-下载适用于OpenHarmony的[预编译推理runtime包](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，然后将其解压至任意鸿蒙源码路径下。编写BUILD.gn文件：
+下载适用于OpenHarmony的[预编译推理runtime包](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/use/downloads.html)，然后将其解压至任意鸿蒙源码路径下。编写BUILD.gn文件：
 
 ```text
 import("//build/lite/config/component/lite_component.gni")
@@ -1120,7 +1120,7 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 
 ## 自定义算子
 
-使用前请先参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/register.html)了解基本概念。Micro目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在Micro中使用自定义算子。
+使用前请先参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/advanced/third_party/register.html)了解基本概念。Micro目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在Micro中使用自定义算子。
 
 模型生成代码方式与非自定义算子模型保持一致：
 
@@ -1140,7 +1140,7 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
 ```
 
-用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)“NNIE 推理runtime库、benchmark工具”组件中。用户需要修改生成代码的CMakeLists.txt，添加链接的库名称和路径。例如：
+用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/use/downloads.html)“NNIE 推理runtime库、benchmark工具”组件中。用户需要修改生成代码的CMakeLists.txt，添加链接的库名称和路径。例如：
 
 ``` shell
 
@@ -1152,7 +1152,7 @@ target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe 
 
 ```
 
-在生成的`benchmark/benchmark.c`文件中，在main函数的调用前后添加[NNIE设备相关初始化代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/config_level0/micro/svp_sys_init.c)，最后进行源码编译：
+在生成的`benchmark/benchmark.c`文件中，在main函数的调用前后添加[NNIE设备相关初始化代码](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/mindspore/lite/test/config_level0/micro/svp_sys_init.c)，最后进行源码编译：
 
 ``` shell
 
@@ -1184,7 +1184,7 @@ make
 
 ### 训练导出推理模型
 
-用户可以直接参考[端侧训练](https://www.mindspore.cn/lite/docs/zh-CN/master/train/runtime_train_cpp.html)一节。
+用户可以直接参考[端侧训练](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/train/runtime_train_cpp.html)一节。
 
 ### 生成推理代码
 

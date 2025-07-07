@@ -1,6 +1,6 @@
 # Model Migration
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_migration/model_migration.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_en/model_migration/model_migration.md)
 
 This chapter mainly gives a brief introduction to the dataset, model, and training and inference processes necessary for model migration scenarios to be built on MindSpore. It also shows the differences between MindSpore and PyTorch in terms of dataset packing, model building, and training process code.
 
@@ -18,11 +18,11 @@ Third parties that compute on the CPU like Numpy, OpenCV, as well as Python oper
 
 ## Dataset Packing
 
-MindSpore provides a variety of typical open source datasets for parsing and reading, such as MNIST, CIFAR-10, CLUE, LJSpeech, etc. For details, please refer to [mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html).
+MindSpore provides a variety of typical open source datasets for parsing and reading, such as MNIST, CIFAR-10, CLUE, LJSpeech, etc. For details, please refer to [mindspore.dataset](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.html).
 
 ### Customized Data Loading GeneratorDataset
 
-In migration scenarios, the most common way to load data is [GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset), which can be directly docked to the MindSpore model for training and inference by simply packing the Python iterator.
+In migration scenarios, the most common way to load data is [GeneratorDataset](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset), which can be directly docked to the MindSpore model for training and inference by simply packing the Python iterator.
 
 ```python
 import numpy as np
@@ -56,17 +56,17 @@ GeneratorDataset needs to contain at least:
 - source: a Python iterator;
 - column_names: the name of each output of the iterator\_\_getitem\_\_ method.
 
-For more use methods, refer to [GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
+For more use methods, refer to [GeneratorDataset](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
 
 dataset.batch takes consecutive batch_size entries in the dataset and combines them into a single batch, which needs to contain at least:
 
 - batch_size: Specifies the data entries contained in each batch of data.
 
-For more use methods, refer to [Dataset.batch](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html).
+For more use methods, refer to [Dataset.batch](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html).
 
 ### Differences with PyTorch Dataset Construction
 
-![generatordataset_dataloader.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_migration/images/generatordataset_dataloader.png)
+![generatordataset_dataloader.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/model_migration/images/generatordataset_dataloader.png)
 
 The main differences between MindSpore's GeneratorDataset and PyTorch's DataLoader are:
 
@@ -74,7 +74,7 @@ The main differences between MindSpore's GeneratorDataset and PyTorch's DataLoad
 - PyTorch's data augmentation inputs are of type Tensor, MindSpore's data augmentation inputs are of type numpy, and data processing cannot be done with MindSpore's mint, oops, and nn operators;
 - PyTorch's batch operation is a property of the DataLoader, MindSpore's batch operation is a separate method.
 
-For more details, refer to [Differences with torch.utils.data.DataLoader](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/DataLoader.html).
+For more details, refer to [Differences with torch.utils.data.DataLoader](https://www.mindspore.cn/docs/en/r2.7.0rc1/note/api_mapping/pytorch_diff/DataLoader.html).
 
 ## Model Construction
 
@@ -134,13 +134,13 @@ for i in net.get_parameters():
 </tr>
 </table>
 
-MindSpore and PyTorch build models in pretty much the same way, and the differences in the use of operators can be found in the [API Differences document](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
+MindSpore and PyTorch build models in pretty much the same way, and the differences in the use of operators can be found in the [API Differences document](https://www.mindspore.cn/docs/en/r2.7.0rc1/note/api_mapping/pytorch_api_mapping.html).
 
 #### Model Saving and Loading
 
 PyTorch provides `state_dict()` for parameter state viewing and saving, and `load_state_dict` for model parameter loading.
 
-MindSpore can use [save_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.save_checkpoint.html) and [load_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_checkpoint.html).
+MindSpore can use [save_checkpoint](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.save_checkpoint.html) and [load_checkpoint](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.load_checkpoint.html).
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -180,7 +180,7 @@ ms_model.load_state_dict(param_dict)
 
 ### Optimizer
 
-Comparison of similarities and differences between optimizers supported by both PyTorch and MindSpore, see [API mapping table](https://mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torch-optim).
+Comparison of similarities and differences between optimizers supported by both PyTorch and MindSpore, see [API mapping table](https://mindspore.cn/docs/en/r2.7.0rc1/note/api_mapping/pytorch_api_mapping.html#torch-optim).
 
 #### Implementation and Usage Differences of Optimizers
 
@@ -190,7 +190,7 @@ When using the optimizer in MindSpore, simply compute the gradients directly and
 
 If the learning rate needs to be dynamically adjusted during training, PyTorch provides the `LRScheduler` class for learning rate management. When using dynamic learning rates, pass the `optimizer` instance into the `LRScheduler` subclass and perform the learning rate modification by calling `scheduler.step()` in a loop and synchronizing the modification to the optimizer.
 
-MindSpore provides both `Cell` and `list` methods for dynamically modifying the learning rate. When used, the corresponding dynamic learning rate object is passed directly into the optimizer, and the update of the learning rate is executed automatically in the optimizer, please refer to [Dynamic Learning Rate](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-learning-rate).
+MindSpore provides both `Cell` and `list` methods for dynamically modifying the learning rate. When used, the corresponding dynamic learning rate object is passed directly into the optimizer, and the update of the learning rate is executed automatically in the optimizer, please refer to [Dynamic Learning Rate](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.nn.html#dynamic-learning-rate).
 
 <table class="colwidths-auto docutils align-default">
 <tr>

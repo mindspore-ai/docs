@@ -1,6 +1,6 @@
 # Distributed Parallelism Training
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/parallel_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_en/feature/parallel_training.md)
 
 ## Parallel Modes and Application Scenarios
 
@@ -25,7 +25,7 @@ MindSpore Transformers supports multiple parallelism features. You can use these
 
 ### Data Parallelism
 
-Data parallelism involves each device (worker) holding a complete set of model weights, dividing the input data into slices, and distributing them to different computing devices for parallel processing. Forward and backward propagation calculations are performed based on the allocated local data. After backward propagation is completed, the gradients computed on all devices are aggregated through a global reduction (AllReduce) operation to ensure consistency of model parameters across devices. When training with multiple data streams simultaneously, communication occurs only once during gradient updates, achieving optimal performance, but memory usage does not decrease. Data parallelism is suitable for scenarios with large data volumes and small model sizes. For the framework-side implementation of data parallelism, refer to the specific content of [MindSpore Data Parallelism](https://www.mindspore.cn/docs/en/master/features/parallel/data_parallel.html).
+Data parallelism involves each device (worker) holding a complete set of model weights, dividing the input data into slices, and distributing them to different computing devices for parallel processing. Forward and backward propagation calculations are performed based on the allocated local data. After backward propagation is completed, the gradients computed on all devices are aggregated through a global reduction (AllReduce) operation to ensure consistency of model parameters across devices. When training with multiple data streams simultaneously, communication occurs only once during gradient updates, achieving optimal performance, but memory usage does not decrease. Data parallelism is suitable for scenarios with large data volumes and small model sizes. For the framework-side implementation of data parallelism, refer to the specific content of [MindSpore Data Parallelism](https://www.mindspore.cn/docs/en/r2.7.0rc1/features/parallel/data_parallel.html).
 
 MindSpore Transformers supports data parallelism and can be enabled by the following configuration items:
 
@@ -44,7 +44,7 @@ For the configuration method of distributed parallel parameters, see the paralle
 
 ### Model Parallelism
 
-In data parallel training, each device stores all model parameters, leading to high memory usage, which may become a bottleneck when the model size is large. Model parallelism splits the entire model and distributes it across an array of devices, with each device maintaining only a portion of the model's weights. The network performs parallel computations on their respective parts and communicates at positions like LayerNorm, which is the most memory-efficient but involves significant communication. Model parallelism is suitable for scenarios where the model size is large and a single device cannot accommodate the entire model. For framework-side implementations of model parallelism, refer to the specific content of [MindSpore Model Parallelism](https://www.mindspore.cn/docs/en/master/features/parallel/operator_parallel.html).
+In data parallel training, each device stores all model parameters, leading to high memory usage, which may become a bottleneck when the model size is large. Model parallelism splits the entire model and distributes it across an array of devices, with each device maintaining only a portion of the model's weights. The network performs parallel computations on their respective parts and communicates at positions like LayerNorm, which is the most memory-efficient but involves significant communication. Model parallelism is suitable for scenarios where the model size is large and a single device cannot accommodate the entire model. For framework-side implementations of model parallelism, refer to the specific content of [MindSpore Model Parallelism](https://www.mindspore.cn/docs/en/r2.7.0rc1/features/parallel/operator_parallel.html).
 
 MindSpore Transformers supports model parallelism and can be enabled by the following configuration items:
 
@@ -137,7 +137,7 @@ parallel_config:
 Parameter Descriptions:
 
 - use_attn_mask_compression: Whether to mask the Score matrix in Self-Attention, default is False, it is recommended to turn it on to reduce the video memory usage in Ulysses sequence parallel scheme.
-- enable_alltoall: Generate alltoall communication operator, default is False, when the parameter is not enabled, it will be replaced by a combination of other operators such as allgather. See MindSpore `set_auto_parallel_context` [interface documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html). We expect to be able to directly input allto_all communication operators when we enable the Ulysses scenario, so we turn this configuration item on.
+- enable_alltoall: Generate alltoall communication operator, default is False, when the parameter is not enabled, it will be replaced by a combination of other operators such as allgather. See MindSpore `set_auto_parallel_context` [interface documentation](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.set_auto_parallel_context.html). We expect to be able to directly input allto_all communication operators when we enable the Ulysses scenario, so we turn this configuration item on.
 - context_parallel_algo: Set to `ulysses_cp` to enable Ulysses sequence parallelism.
 
 For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
@@ -172,7 +172,7 @@ For configuration method of distributed parallel parameters, refer to the conten
 
 #### Multi-pipeline Interleaved Parallelism
 
-Multi-pipeline parallel reduces pipeline bubbles through data interweaving, interlayer interlayering, and forward and reverse interweaving. By configuring a pipeline scheduling policy, the model input is segmented according to the sequence dimension and expanded into multiple sequence chunks. On the original 1F1B (One Forward One Backward) and 1F1B-Interleave methods, the dispatch unit was reduced to Sequence Chunk. `seq_split_num` For the number of slices, when `seq_split_num` =1, it degenerates to 1F1B or 1F1B-Interleave. If the global_batch_size bubble is large, the idle time of the cluster can be significantly reduced, and the memory usage will be larger, resulting in additional communication. For more information about the framework-side implementation of pipeline parallelism, see [MindSpore Pipeline Parallelism](https://www.mindspore.cn/docs/en/master/features/parallel/pipeline_parallel.html).
+Multi-pipeline parallel reduces pipeline bubbles through data interweaving, interlayer interlayering, and forward and reverse interweaving. By configuring a pipeline scheduling policy, the model input is segmented according to the sequence dimension and expanded into multiple sequence chunks. On the original 1F1B (One Forward One Backward) and 1F1B-Interleave methods, the dispatch unit was reduced to Sequence Chunk. `seq_split_num` For the number of slices, when `seq_split_num` =1, it degenerates to 1F1B or 1F1B-Interleave. If the global_batch_size bubble is large, the idle time of the cluster can be significantly reduced, and the memory usage will be larger, resulting in additional communication. For more information about the framework-side implementation of pipeline parallelism, see [MindSpore Pipeline Parallelism](https://www.mindspore.cn/docs/en/r2.7.0rc1/features/parallel/pipeline_parallel.html).
 
 MindSpore Transformers supports the configuration of multi-pipeline interleaved parallelism, which can be enabled by the following configuration items:
 
@@ -203,7 +203,7 @@ For more information on configuring distributed parallel parameters, see the [Mi
 
 ### Optimizer parallelism
 
-During data parallel training, there is redundant computation in the model parameter update part across cards. By optimizing optimizer parallelism, the computation of the optimizer can be distributed to the cards in the data parallel dimension, effectively reducing memory consumption and improving network performance on large-scale networks. For the framework-side implementation of optimizer parallelism, refer to the specific content of [MindSpore optimizer parallelism](https://www.mindspore.cn/docs/en/master/features/parallel/optimizer_parallel.html) .
+During data parallel training, there is redundant computation in the model parameter update part across cards. By optimizing optimizer parallelism, the computation of the optimizer can be distributed to the cards in the data parallel dimension, effectively reducing memory consumption and improving network performance on large-scale networks. For the framework-side implementation of optimizer parallelism, refer to the specific content of [MindSpore optimizer parallelism](https://www.mindspore.cn/docs/en/r2.7.0rc1/features/parallel/optimizer_parallel.html) .
 
 MindSpore Transformers supports the optimizer parallelism, which can be enabled by the following configuration items:
 
@@ -222,7 +222,7 @@ For more information on configuring distributed parallel parameters, see the [Mi
 
 ### Multi-replica Parallelism
 
-Multi-replica parallelism is used to achieve fine-grained parallel control between multiple replicas, optimize performance and resource utilization, and is suitable for efficient training of large-scale models. For more information about the framework-side implementation of multi-copy parallelism, see the [MindSpore multi-replica parallelism](https://www.mindspore.cn/docs/en/master/features/parallel/pipeline_parallel.html#interleaved-pipeline-scheduler).
+Multi-replica parallelism is used to achieve fine-grained parallel control between multiple replicas, optimize performance and resource utilization, and is suitable for efficient training of large-scale models. For more information about the framework-side implementation of multi-copy parallelism, see the [MindSpore multi-replica parallelism](https://www.mindspore.cn/docs/en/r2.7.0rc1/features/parallel/pipeline_parallel.html#interleaved-pipeline-scheduler).
 
 MindSpore Transformers supports multi-replica parallelism and can be enabled by the following configuration items:
 

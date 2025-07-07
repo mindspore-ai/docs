@@ -1,6 +1,6 @@
 # Custom原语AOT类型自定义算子（Ascend平台）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_ascendc.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_zh_cn/custom_program/operation/op_custom_ascendc.md)
 
 ## 概述
 
@@ -10,7 +10,7 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 2. **离线编译与部署**：完成算子开发后，进行离线编译，确保算子可以在Ascend AI处理器上高效运行，并进行部署。
 3. **MindSpore使用自定义算子**：将编译后的Ascend C自定义算子集成到MindSpore框架中，实现在实际AI应用中的使用。
 
-本章内容旨在帮助开发者全面了解并掌握Ascend C自定义算子的整个生命周期，从开发到部署，再到在MindSpore中的有效利用。对于其他平台的AOT自定义算子开发，参考[AOT类型自定义算子（CPU/GPU平台）](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_aot.html)。
+本章内容旨在帮助开发者全面了解并掌握Ascend C自定义算子的整个生命周期，从开发到部署，再到在MindSpore中的有效利用。对于其他平台的AOT自定义算子开发，参考[AOT类型自定义算子（CPU/GPU平台）](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/custom_program/operation/op_custom_aot.html)。
 
 ## 自定义算子开发
 
@@ -85,9 +85,9 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 
 ## MindSpore使用自定义算子
 
-MindSpore自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html)，
-详细的接口说明可以参看[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html)
-，本文侧重说明如何使用[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html)
+MindSpore自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/ops/mindspore.ops.Custom.html)，
+详细的接口说明可以参看[ops.Custom](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/ops/mindspore.ops.Custom.html)
+，本文侧重说明如何使用[ops.Custom](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/ops/mindspore.ops.Custom.html)
 原语接入Ascend C自定义算子。
 
 ### 环境准备
@@ -103,7 +103,7 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 - `func`(str)： 自定义算子名字。
 - `out_shape`(Union[function, list, tuple]): 输出shape或输出shape的推导函数。默认值： `None`。
 - `out_dtype` (Union[
-  function, [mindspore.dtype](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype)
+  function, [mindspore.dtype](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore/mindspore.dtype.html#mindspore.dtype)
   ,list, tuple]) :
   输出type或输出type的推导函数。默认值： `None`。
 - `func_type`(str): 自定义算子的函数类型， Ascend C自定义算子指定`func_type="aot"`。
@@ -111,7 +111,7 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 - `reg_info`(Union[str, dict, list, tuple]): 自定义算子的算子注册信息。默认值： `None`。Ascend C自定义算子无需传入该参数，使用默认值。
 
 **场景限制**： 当前动态图和静态图O2模式只支持输入输出为Tensor类型，静态图O0/O1模式无限制类型。Ascend
-C自定义算子动态图场景推荐使用[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。
+C自定义算子动态图场景推荐使用[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/custom_program/operation/op_customopbuilder.html)。
 
 ### 简单示例
 
@@ -157,7 +157,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-您可以查看MindSpore仓中的 [自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc)
+您可以查看MindSpore仓中的 [自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/v2.7.0rc1/tests/st/graph_kernel/custom/custom_ascendc)
 获取更多数据类型和使用场景的Ascend C自定义算子用例。
 样例工程的目录结构如下：
 
@@ -361,7 +361,7 @@ extern "C" std::vector<std::vector<int64_t>> FuncNameInferShape(int *ndims, int6
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
 - extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`
-  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
 **Infer Type函数原型**
 

@@ -1,6 +1,6 @@
 # 使用DeepSeek-R1进行模型蒸馏的实践案例
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/distilled/distilled.md)
 
 本案例参考OpenR1-Qwen-7B，旨在指导用户基于MindSpore框架和MindSpore Transformers大模型套件，使用DeepSeek-R1对Qwen2.5-Math-7B模型进行知识蒸馏和微调，以提升其在数学推理任务上的性能。案例涵盖了从环境配置、数据生成、预处理到模型微调和推理测试的完整流程。通过以下步骤，您可以了解如何利用DeepSeek-R1生成推理数据、过滤错误数据、处理数据集，并最终对模型进行微调以解决复杂的数学问题。
 
@@ -16,7 +16,7 @@
 
 安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/installation.html)。
 
-并将本案例的[distilled](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled)文件夹，复制到MindSpore Transformers源码根目录下。
+并将本案例的[distilled](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/distilled/distilled)文件夹，复制到MindSpore Transformers源码根目录下。
 
 最后得到的目录结构如下：
 

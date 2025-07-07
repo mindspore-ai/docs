@@ -1,6 +1,6 @@
 # Data Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/data_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_en/parallel/data_parallel.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ The following is an illustration of data parallel operation using the Ascend sin
 
 ## Sample Code Description
 
-> You can download the full sample code here: [distributed_data_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_data_parallel).
+> You can download the full sample code here: [distributed_data_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_data_parallel).
 
 The directory structure is as follows:
 
@@ -53,7 +53,7 @@ rank_size = get_group_size()
 dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
 ```
 
-Unlike single-card, the `num_shards` and `shard_id` parameters need to be passed in the dataset interface, corresponding to the number of cards and the logical serial number, respectively, and it is recommended to obtain them through the following interfaces of the [mindspore.communication](https://www.mindspore.cn/docs/en/master/api_python/mindspore.communication.html) module:
+Unlike single-card, the `num_shards` and `shard_id` parameters need to be passed in the dataset interface, corresponding to the number of cards and the logical serial number, respectively, and it is recommended to obtain them through the following interfaces of the [mindspore.communication](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.communication.html) module:
 
 - `get_rank`: Obtain the ID of the current device in the cluster.
 - `get_group_size`: Obtain the number of clusters.
@@ -115,7 +115,7 @@ net = Network()
 
 ## Training Network
 
-In this step, we need to define the loss function, the optimizer, and the training process. The difference with single-card model is that the data parallel mode also requires the addition of the [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.DistributedGradReducer.html) interface to aggregate the gradients of all cards. The first parameter of the network is the network parameter to be updated:
+In this step, we need to define the loss function, the optimizer, and the training process. The difference with single-card model is that the data parallel mode also requires the addition of the [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/nn/mindspore.nn.DistributedGradReducer.html) interface to aggregate the gradients of all cards. The first parameter of the network is the network parameter to be updated:
 
 ```python
 from mindspore import nn
@@ -143,7 +143,7 @@ for epoch in range(10):
         i += 1
 ```
 
-> This can also be trained using [Model.train](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train).
+> This can also be trained using [Model.train](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train).
 
 ## Running Single-machine Eight-card Script
 
@@ -175,4 +175,4 @@ epoch: 0 step: 150, loss is 2.2822685
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/master/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/startup_method.html).
