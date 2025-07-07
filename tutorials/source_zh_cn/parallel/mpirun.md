@@ -1,6 +1,6 @@
 # mpirun启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/mpirun.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_zh_cn/parallel/mpirun.md)
 
 ## 概述
 
@@ -32,7 +32,7 @@ OpenMPI（Open Message Passing Interface）是一个开源的、高性能的消�
 
 `mpirun`启动脚本在Ascend和GPU硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
-> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/startup_method)。
 
 目录结构如下：
 

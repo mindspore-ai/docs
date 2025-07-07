@@ -1,6 +1,6 @@
 # Feature Advice
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/feature_advice.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindspore/source_en/faq/feature_advice.md)
 
 ## Q: Is the `input=np.random.uniform(...)` format fixed when the MindIR format is exported?
 
@@ -10,7 +10,7 @@ A: The format is not fixed. This step is to create an input for constructing the
 
 ## Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model obtained through training in PyTorch be loaded to the MindSpore framework for use?
 
-A: MindSpore uses Protobuf to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by other framework, read the parameters and then call the [save_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.save_checkpoint.html) API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
+A: MindSpore uses Protobuf to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by other framework, read the parameters and then call the [save_checkpoint](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.save_checkpoint.html) API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
 
 <br/>
 
@@ -50,7 +50,7 @@ A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. 
 
 ## Q: How do I use models trained by MindSpore on Atlas 200/300/500 inference product? Can they be converted to models used by HiLens Kit?
 
-A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/en/master/model_infer/ms_infer/llm_inference_overview.html).
+A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/model_infer/ms_infer/llm_inference_overview.html).
 
 <br/>
 

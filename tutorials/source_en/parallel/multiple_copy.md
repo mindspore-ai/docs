@@ -1,6 +1,6 @@
 # Multi-copy Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/multiple_copy.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_en/parallel/multiple_copy.md)
 
 ## Overview
 
@@ -12,11 +12,11 @@ Usage Scenario: When there is model parallel in semi-automatic mode as well as i
 
 The data of input model is sliced according to the batchsize dimension, thus modifying the existing single-copy form into a multi-copy form, so that when the underlying layer is communicating, the other copy carries out the computational operation without waiting, which ensures that the computation and communication times of multi-copy complement each other and improve the model performance. At the same time, splitting the data into a multi-copy form also reduces the number of parameter of the operator inputs and reduces the computation time of a single operator, which is helpful in improving the model performance.
 
-![Multi-copy parallel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/multi_copy.png)
+![Multi-copy parallel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/docs/mindspore/source_zh_cn/design/images/multi_copy.png)
 
 ### Related Interfaces
 
-- [mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html): This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
+- [mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html): This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
 
 ## Operator Practice
 
@@ -24,7 +24,7 @@ The following is an illustration of multi-copy parallel operation using an Ascen
 
 ### Example Code Description
 
-> Download the complete example code: [multiple_copy](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/multiple_copy).
+> Download the complete example code: [multiple_copy](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/multiple_copy).
 
 The directory structure is as follows:
 
@@ -53,7 +53,7 @@ init()
 ### Dataset Loading and Network Definition
 
 Here the dataset loading and network definition is consistent with the single-card model.
-Defer initialization of network parameters and optimizer parameters via the [no_init_parameters](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface.
+Defer initialization of network parameters and optimizer parameters via the [no_init_parameters](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/nn/mindspore.nn.utils.no_init_parameters.html) interface.
 
 ```python
 import os
@@ -103,8 +103,8 @@ with no_init_parameters():
 
 In this step, we need to define the loss function and the training process, and in this section two interfaces need to be called to configure the gradient accumulation:
 
-- First the LossCell needs to be defined. In this case the [nn.WithLossCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to wrap the network and loss functions.
-- It is then necessary to wrap a layer of [mindspore.parallel.nn.MicroBatchInterleaved](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html) around the LossCell and specify interleave_num size of 2. Refer to the relevant interfaces in the overview of this chapter for more details.
+- First the LossCell needs to be defined. In this case the [nn.WithLossCell](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to wrap the network and loss functions.
+- It is then necessary to wrap a layer of [mindspore.parallel.nn.MicroBatchInterleaved](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html) around the LossCell and specify interleave_num size of 2. Refer to the relevant interfaces in the overview of this chapter for more details.
 
 Finally, the `AutoParallel` wraps `net` and sets the parallel mode to semi-automatic parallel mode.
 

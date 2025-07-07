@@ -1,13 +1,13 @@
 # 启动任务
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/start_tasks.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/feature/start_tasks.md)
 
 ## 概述
 
 MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式任务拉起脚本`msrun_launcher.sh`。
 
 - `run_mindformer.py`脚本用于在**单卡**上拉起任务，其提供了预训练、微调和推理任务的一键启动能力；
-- `msrun_launcher.sh`脚本用于在**单机多卡**或**多机多卡**上拉起分布式任务，其通过[msrun](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)工具在每张卡上拉起任务。
+- `msrun_launcher.sh`脚本用于在**单机多卡**或**多机多卡**上拉起分布式任务，其通过[msrun](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/msrun_launcher.html)工具在每张卡上拉起任务。
 
 ## run_mindformer一键启动脚本
 
@@ -26,7 +26,7 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |  `--use_parallel`   | 是否开启并行模式。                                                                                                                  | bool，可选                                                 | 预训练/微调/推理 |
 |   `--output_dir`    | 设置保存日志、权重、切分策略等文件的路径。                                                                                                      | str，可选                                                  | 预训练/微调/推理 |
 |  `--register_path`  | 外挂代码所在目录的绝对路径。比如research目录下的模型目录。                                                                                          | str，可选                                                  | 预训练/微调/推理 |
-|      `--seed`       | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。 | int，可选                                                  | 预训练/微调/推理 |
+|      `--seed`       | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore/mindspore.set_seed.html)。 | int，可选                                                  | 预训练/微调/推理 |
 
 ### 权重切分
 
@@ -58,7 +58,7 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 
 ## 分布式任务拉起脚本
 
-分布式任务拉起脚本`msrun_launcher.sh`位于`scripts/`目录下，可根据输入的参数自动使用[msrun](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)命令启动分布式多进程任务。该脚本有如下几种使用方式：
+分布式任务拉起脚本`msrun_launcher.sh`位于`scripts/`目录下，可根据输入的参数自动使用[msrun](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/msrun_launcher.html)命令启动分布式多进程任务。该脚本有如下几种使用方式：
 
 1. 默认使用单机8卡运行：
 
@@ -147,7 +147,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 2. 执行msrun启动脚本：
 
-    多机多卡执行脚本进行分布式任务需要分别在不同节点运行脚本，并将参数`MASTER_ADDR`设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数`NODE_RANK`不同，各个参数位置含义参见[msrun快速启动](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)。
+    多机多卡执行脚本进行分布式任务需要分别在不同节点运行脚本，并将参数`MASTER_ADDR`设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数`NODE_RANK`不同，各个参数位置含义参见[msrun快速启动](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/msrun_launcher.html)。
 
     ```shell
     # 节点0作为主节点, {ip_addr}处填写节点0实际ip, 总共16卡且每个节点8卡

@@ -1,12 +1,12 @@
 # 训练内存优化特性
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
 
 ## 重计算
 
 ### 概述
 
-重计算可以显著降低训练时的激活内存，但会额外增加一些计算。关于重计算的原理和框架测能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html)。
+重计算可以显著降低训练时的激活内存，但会额外增加一些计算。关于重计算的原理和框架测能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/recompute.html)。
 
 ### 配置与使用
 

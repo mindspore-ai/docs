@@ -1,6 +1,6 @@
 # 算子级并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/operator_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_zh_cn/parallel/operator_parallel.md)
 
 ## 简介
 
@@ -16,7 +16,7 @@ MindSpore提供两种粒度的算子级并行能力：算子级并行和高阶�
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -107,7 +107,7 @@ class Network(nn.Cell):
 
 #### 训练网络定义
 
-在这一步，我们需要定义损失函数、优化器以及训练过程。需要注意的是，由于大模型的参数量巨大，在单卡上定义网络时如果进行参数初始化，显存将远远不够。因此在定义网络时需要配合[mindspore.nn.utils.no_init_parameters](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html)接口进行延迟初始化，将参数初始化延迟到并行多卡阶段。这里包括网络和优化器的定义都需要延后初始化。
+在这一步，我们需要定义损失函数、优化器以及训练过程。需要注意的是，由于大模型的参数量巨大，在单卡上定义网络时如果进行参数初始化，显存将远远不够。因此在定义网络时需要配合[mindspore.nn.utils.no_init_parameters](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore.nn.utils.no_init_parameters.html)接口进行延迟初始化，将参数初始化延迟到并行多卡阶段。这里包括网络和优化器的定义都需要延后初始化。
 
 ```python
 from mindspore.nn.utils import no_init_parameters
@@ -186,7 +186,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/startup_method.html)。
 
 ### mint算子并行实践
 
@@ -194,7 +194,7 @@ epoch: 0 step: 50, loss is 1.8051043
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -250,7 +250,7 @@ data_set = create_dataset(32)
 
 #### 定义网络
 
-在当前mint算子并行模式下，需要用mint算子定义网络。由于mint算子作为函数式接口，并不直接对外暴露其算子类型原语(Primitive)，因此无法直接为算子配置并行策略，而需要用户在单卡网络的基础上使用[mindspore.parallel.shard](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.shard.html)接口手动配置mint算子的切分策略，例如配置策略后的网络结构为：
+在当前mint算子并行模式下，需要用mint算子定义网络。由于mint算子作为函数式接口，并不直接对外暴露其算子类型原语(Primitive)，因此无法直接为算子配置并行策略，而需要用户在单卡网络的基础上使用[mindspore.parallel.shard](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/parallel/mindspore.parallel.shard.html)接口手动配置mint算子的切分策略，例如配置策略后的网络结构为：
 
 ```python
 import mindspore as ms
@@ -338,7 +338,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/startup_method.html)。
 
 ## 高阶算子级并行实践
 
@@ -348,7 +348,7 @@ epoch: 0 step: 50, forward_sum is 0.96655
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -462,7 +462,7 @@ epoch: 0 step: 50, loss is 1.8051043
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/startup_method.html)。
 
 ### 高阶mint算子并行实践
 
@@ -470,7 +470,7 @@ epoch: 0 step: 50, loss is 1.8051043
 
 #### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -604,4 +604,4 @@ epoch: 0 step: 50, forward_sum is 0.96655
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/startup_method.html)。

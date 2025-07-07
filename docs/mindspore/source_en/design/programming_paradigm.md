@@ -1,6 +1,6 @@
 # Functional and Object-Oriented Fusion Programming Paradigm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/programming_paradigm.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindspore/source_en/design/programming_paradigm.md)
 
 Programming paradigm refers to the programming style or programming approach of a programming language. Typically, AI frameworks rely on the programming paradigm of the programming language used by the front-end programming interface for the construction and training of neural networks. MindSpore, as an AI+scientific computing convergence computing framework, provides object-oriented programming and functional programming support for AI and scientific computing scenarios, respectively. At the same time, in order to enhance the flexibility and ease of use of the framework, a functional + object-oriented fusion programming paradigm is proposed, which effectively reflects the advantages of functional automatic differentiation mechanism.
 
@@ -95,7 +95,7 @@ The functional programming has two core features that make it well suited to the
 
 Due to this feature of determinism, by limiting side effects, programs can have fewer errors, are easier to debug and test, and are more suitable for formal verification.
 
-MindSpore provides pure functional programming support. With the numerical computation interfaces provided by [mindspore.numpy](https://www.mindspore.cn/docs/en/master/api_python/mindspore.numpy.html) and [mindspore.scipy](https://www.mindspore.cn/docs/en/master/api_python/mindspore.scipy.html), you can easily program scientific computations. The following is an example of using functional programming:
+MindSpore provides pure functional programming support. With the numerical computation interfaces provided by [mindspore.numpy](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.numpy.html) and [mindspore.scipy](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.scipy.html), you can easily program scientific computations. The following is an example of using functional programming:
 
 ```python
 import mindspore.numpy as mnp
@@ -113,11 +113,11 @@ print(grad(grad(grad(mnp.tanh)))(2.0))
 
 In line with the needs of the functional programming paradigm, MindSpore provides a variety of functional transformation interfaces, including automatic differentiation, automatic vectorization, automatic parallelism, just-in-time compilation, data sinking and other functional modules, which are briefly described below:
 
-- Automatic differentiation: [grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html), [value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html), providing differential function transformation.
-- Automatic vectorization: [vmap](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.vmap.html), a higher-order function for mapping a function fn along the parameter axis.
-- Automatic parallelism: [shard](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard), a functional operator slice, specifying the distribution strategy of the function input/output Tensor.
-- Just-in-time compilation: [jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html), which compiles a Python function into a callable MindSpore graph.
-- Data sinking: [data_sink](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.data_sink.html), transform the input function to obtain a function that can use the data sink pattern.
+- Automatic differentiation: [grad](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.grad.html), [value_and_grad](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.value_and_grad.html), providing differential function transformation.
+- Automatic vectorization: [vmap](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.vmap.html), a higher-order function for mapping a function fn along the parameter axis.
+- Automatic parallelism: [shard](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard), a functional operator slice, specifying the distribution strategy of the function input/output Tensor.
+- Just-in-time compilation: [jit](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.jit.html), which compiles a Python function into a callable MindSpore graph.
+- Data sinking: [data_sink](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.data_sink.html), transform the input function to obtain a function that can use the data sink pattern.
 
 Based on the above function transformation interfaces, function transformations can be used quickly and efficiently to implement complex functions when using the functional programming paradigm.
 
@@ -384,11 +384,11 @@ class Net(nn.Cell):
 
 The structure of a forward network is:
 
-![auto-gradient-foward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/auto_gradient_foward.png)
+![auto-gradient-foward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/docs/mindspore/source_zh_cn/design/images/auto_gradient_foward.png)
 
 After the network is reversely differential, the resulting differential network structure is:
 
-![auto-gradient-forward2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/auto_gradient_forward2.png)
+![auto-gradient-forward2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/docs/mindspore/source_zh_cn/design/images/auto_gradient_forward2.png)
 
 ### Forward Automatic Differentiation Implementation
 
@@ -396,7 +396,7 @@ Besides `grad`, MindSpore has developed forward mode automatic differentiation m
 
 Compared to reverse mode AD, forward mode AD is more suitable for networks whose input dimension is smaller than output dimension. MindSpore forward mode AD is developed based on reversed mode Grad function.
 
-![auto-gradient-jvp](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/auto_gradient_jvp.png)
+![auto-gradient-jvp](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/docs/mindspore/source_zh_cn/design/images/auto_gradient_jvp.png)
 
 The network in black is the origin function. After the first derivative based on one input $x$, we get the network in blue. The second is the blue plot for the $v$ derivative, resulting in a yellow plot.
 

@@ -1,13 +1,13 @@
 # Start Tasks
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/start_tasks.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_en/feature/start_tasks.md)
 
 ## Overview
 
 MindSpore Transformers provides a one-click startup script `run_mindformer.py` and a distributed task launch script `msrun_launcher.sh`.
 
 - The `run_mindformer.py` script is used to start tasks on a **single device**, providing one-click capabilities for pre-training, fine-tuning, and inference tasks.
-- The `msrun_launcher.sh` script is used to start distributed tasks on **multi-device within a single node** or **multi-device with multi-node**, launching tasks on each device through the [msrun](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html) tool.
+- The `msrun_launcher.sh` script is used to start distributed tasks on **multi-device within a single node** or **multi-device with multi-node**, launching tasks on each device through the [msrun](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/msrun_launcher.html) tool.
 
 ## Run_mindformer One-click Start Script
 
@@ -26,7 +26,7 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |  `--use_parallel`   | Whether use parallel mode.                                                                                                                                                                    | bool, optional                                                                                      | pre-train/finetune/predict  |
 |   `--output_dir`    | Set the path where log, checkpoint, strategy, etc. files are saved.                                                                                                                           | str, optional                                                                                       | pre-train/finetune/predict  |
 |  `--register_path`  | The absolute path of the directory where the external code is located. For example, the model directory under the research directory.                                                         | str, optional                                                                                       | pre-train/finetune/predict  |
-|      `--seed`       | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_seed.html).                                        | int, optional                                                                                       | pre-train/finetune/predict  |
+|      `--seed`       | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.set_seed.html).                                        | int, optional                                                                                       | pre-train/finetune/predict  |
 
 ### Weight Slicing
 
@@ -58,7 +58,7 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 
 ## Distributed Task Pull-up Script
 
-The distributed task pull up script `msrun_launcher.sh` is located in the `scripts/` directory and can automatically start distributed multiprocess tasks using the [msrun](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html) command based on the input parameters. This script has the following several usage methods:
+The distributed task pull up script `msrun_launcher.sh` is located in the `scripts/` directory and can automatically start distributed multiprocess tasks using the [msrun](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/msrun_launcher.html) command based on the input parameters. This script has the following several usage methods:
 
 1. For Default 8 Devices In Single Machine：
 
@@ -147,7 +147,7 @@ Take Qwen2.5-0.5B as an example to perform 2-node 16-device fine-tuning.
 
 2. Execute the msrun startup script:
 
-    For distributed tasks by executing scripts on multiple nodes and multiple devices, it is necessary to run the scripts on different nodes respectively and set the parameter `MASTER_ADDR` to the ip address of the main node. The ip addresses set for all nodes are the same, and only the parameter `NODE_RANK` is different among different nodes. The meanings of each parameter position can be found in [msrun Launching](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html).
+    For distributed tasks by executing scripts on multiple nodes and multiple devices, it is necessary to run the scripts on different nodes respectively and set the parameter `MASTER_ADDR` to the ip address of the main node. The ip addresses set for all nodes are the same, and only the parameter `NODE_RANK` is different among different nodes. The meanings of each parameter position can be found in [msrun Launching](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/msrun_launcher.html).
 
     ```shell
     # Node 0. Set the IP address of node 0 to the value of {ip_addr}, which is used as the IP address of the primary node. There are 16 devices in total with 2 devices for each node.

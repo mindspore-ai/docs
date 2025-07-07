@@ -1,6 +1,6 @@
 # 重计算
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/recompute.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_zh_cn/parallel/recompute.md)
 
 ## 简介
 
@@ -28,11 +28,11 @@ MindSpore采用反向模式的自动微分，根据正向图计算流程来自�
 
 ### 相关接口
 
-1. `mindspore.nn.Cell.recompute()`：调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。PyNative模式和Graph模式都支持。
+1. `mindspore.nn.Cell.recompute()`：调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。PyNative模式和Graph模式都支持。
 
-2. `mindspore.ops.Primitive.recompute()`：调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。只支持Graph模式。
+2. `mindspore.ops.Primitive.recompute()`：调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。只支持Graph模式。
 
-3. `mindspore.recompute()`：调用`mindspore`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.recompute.html#mindspore.recompute)，调用该接口之后，网络模块会被重新计算。只支持PyNative模式。
+3. `mindspore.recompute()`：调用`mindspore`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore/mindspore.recompute.html#mindspore.recompute)，调用该接口之后，网络模块会被重新计算。只支持PyNative模式。
 
 ## 操作实践
 
@@ -40,7 +40,7 @@ MindSpore采用反向模式的自动微分，根据正向图计算流程来自�
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[recompute](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/recompute)。
+> 下载完整的样例代码：[recompute](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/recompute)。
 
 目录结构如下：
 
@@ -132,7 +132,7 @@ class Grad(Cell):
 
 ### 执行网络
 
-在这一步，我们需要定义网络输入，通过[no_init_parameters](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html)接口延后初始化网络参数和优化器参数，然后调用`Grad`以获取导数，通过顶层 `AutoParallel` 接口设置并行模式为半自动并行模式，代码如下：
+在这一步，我们需要定义网络输入，通过[no_init_parameters](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore.nn.utils.no_init_parameters.html)接口延后初始化网络参数和优化器参数，然后调用`Grad`以获取导数，通过顶层 `AutoParallel` 接口设置并行模式为半自动并行模式，代码如下：
 
 ```python
 import numpy as np

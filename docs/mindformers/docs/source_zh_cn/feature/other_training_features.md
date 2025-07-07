@@ -1,6 +1,6 @@
 # 其它训练特性
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/other_training_features.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/feature/other_training_features.md)
 
 在大规模的深度学习模型训练中，会遇到诸如：内存限制、计算资源的有效利用、分布式训练中的同步问题等挑战，需要使用训练优化算法来提高训练效率、加速收敛速度以及改善最终模型性能。
 
@@ -10,7 +10,7 @@ MindSpore Transformers 提供了梯度累积、梯度裁剪等训练优化算法
 
 ### 概述
 
-MindSpore 在 2.1.1 之后的版本中增加了 `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` 这一梯度累积实现接口，通过拆分 MiniBatch 的形式提供了梯度累加的能力，MindSpore Transformers 将其封装进了统一的训练流程，通过 yaml 配置进行使能。关于梯度累积的原理和框架测的能力可以参考 [MindSpore 文档：梯度累加](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/distributed_gradient_accumulation.html)。
+MindSpore 在 2.1.1 之后的版本中增加了 `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` 这一梯度累积实现接口，通过拆分 MiniBatch 的形式提供了梯度累加的能力，MindSpore Transformers 将其封装进了统一的训练流程，通过 yaml 配置进行使能。关于梯度累积的原理和框架测的能力可以参考 [MindSpore 文档：梯度累加](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/parallel/distributed_gradient_accumulation.html)。
 
 ### 配置与使用
 
@@ -156,7 +156,7 @@ callback:
 ### 概述
 
 网络中使用RoPE（Rotary Position Embedding）作为位置编码时，可以启用该融合算子提升整网性能。该功能提供RoPE的融合算子实现，提升整网性能。算子的接口可参考：
-[mindspore.ops.rotary_position_embedding](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.rotary_position_embedding.html)。
+[mindspore.ops.rotary_position_embedding](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/ops/mindspore.ops.rotary_position_embedding.html)。
 
 ### 配置与使用
 
@@ -176,7 +176,7 @@ model_config:
 ### 概述
 
 网络中使用SwiGLU作为激活函数时可以启用该融合算子提升整网性能。该功能提供SwiGLU的融合算子实现，提升整网性能。算子的功能可参考：
-[mindspore.ops.swiglu](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.swiglu.html)。
+[mindspore.ops.swiglu](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/ops/mindspore.ops.swiglu.html)。
 
 ### 配置与使用
 
