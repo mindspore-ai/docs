@@ -145,7 +145,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-You can view the [custom operator test cases](https://gitee.com/mindspore/mindspore/tree/v2.7.0rc1/tests/st/graph_kernel/custom/custom_ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
+You can view the [custom operator test cases](https://gitee.com/mindspore/mindspore/tree/v2.7.0-rc1/tests/st/graph_kernel/custom/custom_ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
 
 ```text
 .
@@ -345,7 +345,7 @@ Here, the function name `FuncName` is the operator name. For single-output, the 
 
 - ndims (int \*): Array of input shape dimensions.
 - shapes (int64_t \*\*): Array of input shapes.
-- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h).
+- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h).
 
 **Infer Type Function Prototype**
 

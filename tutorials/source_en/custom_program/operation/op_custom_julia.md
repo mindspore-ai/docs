@@ -148,4 +148,4 @@ Matters need attention:
     end
     ```
 
-For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.
+For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/tests/st/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.

@@ -133,7 +133,7 @@ sudo apt-get install llvm-12-dev -y
 ## 从代码仓下载源码
 
 ```bash
-git clone -b v2.7.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore
@@ -157,7 +157,7 @@ bash build.sh -e cpu -j4 -S on
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/setup.py)中的required_package），其余情况需自行安装依赖。
+在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证安装是否成功
 

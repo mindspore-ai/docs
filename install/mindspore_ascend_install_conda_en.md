@@ -122,7 +122,7 @@ Ensure that you are in the Conda virtual environment and run the following comma
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/setup.py)). In other cases, you need to install dependencies by yourself.
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/setup.py)). In other cases, you need to install dependencies by yourself.
 
 ## Configuring Environment Variables
 

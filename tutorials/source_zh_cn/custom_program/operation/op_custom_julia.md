@@ -148,4 +148,4 @@ python test_custom_julia.py
    end
    ```
 
-更多完整的jullia类型自定义算子的例子可以参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/graph_kernel/custom/test_custom_julia.py)。
+更多完整的jullia类型自定义算子的例子可以参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/tests/st/graph_kernel/custom/test_custom_julia.py)。

@@ -89,7 +89,7 @@ MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译�
 首先，在进行编译之前，需从MindSpore代码仓下载源码。
 
 ```bash
-git clone -b v2.7.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ### 环境准备

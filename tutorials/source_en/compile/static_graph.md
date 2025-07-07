@@ -1624,7 +1624,7 @@ current extension base on AST compilation.
         which need to be installed first and then imported, such `NumPy` and `Scipy`. It should be noted that MindSpore suites such as
         `mindyolo` and `mindflow` are not treated as third-party libraries. For a detailed list, please refer to the
         `_modules_from_mindspore` list of the
-        [parser](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/mindspore/python/mindspore/_extends/parse/parser.py) file.
+        [parser](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/mindspore/python/mindspore/_extends/parse/parser.py) file.
     3. Modules specified by the environment variable `MS_JIT_IGNORE_MODULES`. In contrast, there is the environment
         variable `MS_JIT_MODULES`. For more details, please refer to
         [Environment Variables](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/env_var_list.html).
