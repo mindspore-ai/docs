@@ -19,5 +19,5 @@ ARROWS,I_LOWERCASE[1],MORFOLOGIK_RULE_EN_US,UNLIKELY_OPENING_PUNCTUATION[1],PLUS
 ID_CASING,DASH_RULE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,UNIT_SPACE'
     arg3 = file_path
     arg4 = out_path
-    command = 'java -jar %s %s %s %s > %s' %(arg0, arg1, arg2, arg3, arg4)
-    stdout = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).communicate()[0]
+    command = ["java", "-jar", arg0, arg1, arg2, arg3, ">", arg4]
+    stdout = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]

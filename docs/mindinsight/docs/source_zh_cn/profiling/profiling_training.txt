@@ -110,7 +110,7 @@
 
 **非条件开启样例：**
 
-- 样例一：MindSpore函数式编程用例中使用Profiler收集性能数据，部分样例代码如下所示。`完整代码样例 <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ 。
+- 样例一：MindSpore函数式编程用例中使用Profiler收集性能数据，部分样例代码如下所示。
 
   .. code:: python
 
