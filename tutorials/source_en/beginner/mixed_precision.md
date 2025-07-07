@@ -184,7 +184,7 @@ class NetworkFP16Manual(nn.Cell):
 
 ## Loss Scaling
 
-Two implementations of Loss Scale are provided in MindSpore, [mindspore.amp.StaticLossScaler](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.StaticLossScaler.html) and [mindspore.amp.DynamicLossScalar](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.DynamicLossScalar.html), whose difference is whether the loss scale value is dynamically adjusted. The following is an example of `DynamicLossScalar`, which implements the neural network training logic according to the mixed precision calculation process.
+Two implementations of Loss Scale are provided in MindSpore, [mindspore.amp.StaticLossScaler](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.StaticLossScaler.html) and [mindspore.amp.DynamicLossScaler](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.DynamicLossScaler.html), whose difference is whether the loss scale value is dynamically adjusted. The following is an example of `DynamicLossScaler`, which implements the neural network training logic according to the mixed precision calculation process.
 
 First, instantiate the LossScaler and manually scale up the loss value when defining the forward network.
 
