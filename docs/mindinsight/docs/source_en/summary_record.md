@@ -26,8 +26,6 @@ The `Callback` mechanism in MindSpore provides a quick and easy way to collect c
 
 When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. The detailed usage of `SummaryCollector` can refer to the `API` document [mindspore.SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector).
 
-The sample code snippet is shown as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_1.py) is put on gitee.
-
 ```python
 
 def train(ds_train):
@@ -59,8 +57,6 @@ The following summary APIs are currently supported:
 - [TensorSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.TensorSummary.html): Record a tensor data.
 - [ImageSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ImageSummary.html): Record a image data.
 - [HistogramSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HistogramSummary.html): Convert tensor data into histogram data records.
-
-The recording method is shown in the following steps. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_2.py) is put on gitee.
 
 Step 1: Call the summary API in the `construct` function of the derived class that inherits `nn.Cell` to collect image or scalar data.
 
@@ -125,8 +121,6 @@ The following pseudocode is shown in the CNN network, where developers can use t
 It is then recorded into the summary log file through the `SummaryRecord` module.
 The detailed usage of `SummaryRecord` can refer to the `API` document [mindspore.SummaryRecord](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord).
 
-The sample code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_3.py) is put on gitee.
-
 ```python
 class MyCallback(Callback):
     def __init__(self, summary_dir):
@@ -173,7 +167,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
 If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary API data in the following manner.
 
-The following code snippet demonstrates how to record data in a custom training cycle using the summary API and the `add_value` interface of `SummaryRecord`. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) is put on gitee.
+The following code snippet demonstrates how to record data in a custom training cycle using the summary API and the `add_value` interface of `SummaryRecord`.
 
 For more tutorials about `SummaryRecord`, refer to the [Python API documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
 
@@ -233,7 +227,7 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 There is a tip for recording gradients with summary in addition to the above methods. Please note that the tip should be used with one of the above methods.
 
-Recording gradients is possible by inheriting your original optimizer and inserting calls to summary API. An example of code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_gradients.py) is put on gitee.
+Recording gradients is possible by inheriting your original optimizer and inserting calls to summary API. An example of code snippet is as follows.
 
 ```python
 import mindspore.nn as nn

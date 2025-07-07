@@ -72,8 +72,6 @@ This document applies to Graph mode on Ascend.
 
     If the above two conditions cannot be met at the same time, it should be checked whether the above fixed randomness steps are in place. If the operation of fixing randomness has been done, but the script is run twice, and the loss values of the first two iterations are still inconsistent, please [Set New issue to ask MindSpore for help](https://gitee.com/mindspore/mindspore/issues/new).
 
-    We provide a [sample code](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py) that successfully fixed randomness, which performs 2 iterations of training. As can be seen by running this code twice, the loss value of the first iteration of the two trainings satisfies the numpy.allclose() function, and the loss value of the second iteration of the two trainings satisfies the numpy.allclose() function, indicating that the randomness of the network is fixed.
-
 ## Notes
 
 1. This document is primarily for the `GRAPH_MODE` training script on the Ascend backend.

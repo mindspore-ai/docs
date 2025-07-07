@@ -111,7 +111,6 @@ the other is through Callback based on step or epoch to open and close Profiler.
 ** Unconditional Open example: **
 
 - Example 1: In the MindSpore functional Programming use case, Profiler is used to collect performance data. Part of the sample code is shown below.
-  `Complete code sample <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ .
 
   .. code:: python
 

@@ -27,8 +27,6 @@ MindSpore目前支持多种方式将数据记录到summary日志文件中。
 在编写训练脚本时，仅需要实例化 `SummaryCollector`，并将其应用到 `model.train` 或者 `model.eval` 中，
 即可自动收集一些常见信息。`SummaryCollector` 详细的用法可以参考 `API` 文档中 [mindspore.SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) 。
 
-下面仅展示使用SummaryCollector自动收集数据的关键代码，[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_1.py) 可以到gitee下载。
-
 ```python
 
 def train(ds_train):
@@ -60,8 +58,6 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 - [TensorSummary](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TensorSummary.html)：记录张量数据
 - [ImageSummary](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ImageSummary.html)：记录图片数据
 - [HistogramSummary](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.HistogramSummary.html)：将张量数据转为直方图数据记录
-
-记录方式如下面的步骤所示，[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_2.py) 可以到gitee下载。
 
 步骤一：在继承 `nn.Cell` 的衍生类的 `construct` 函数中调用Summary API来采集图像或标量数据或者其他数据。
 
@@ -126,8 +122,6 @@ MindSpore支持自定义Callback, 并允许在自定义Callback中将数据记�
 下面的样例代码则展示在自定义Callback函数中通过 `SummaryRecord` 模块记录网络输入到summary日志文件中。
 `SummaryRecord` 详细的用法可以参考 `API` 文档中 [mindspore.SummaryRecord](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord)。
 
-下面展示了自定义Callback记录数据的关键样例代码，[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_3.py) 可以到gitee下载。
-
 ```python
 class MyCallback(Callback):
     def __init__(self, summary_dir):
@@ -174,7 +168,7 @@ def train(ds_train):
 
 如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary API数据。
 
-下面的例子，将演示如何使用summary API以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) 可以到gitee下载。
+下面的例子，将演示如何使用summary API以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。
 更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
 
 ```python
@@ -233,7 +227,7 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 除了上述使用方式外，使用summary API时还有一个记录梯度信息的技巧。请注意此技巧需要和上述的某一种使用方式同时使用。
 
-通过继承原有优化器类的方法可以插入summary API读取梯度信息。[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_gradients.py) 可以到gitee下载。样例代码片段如下：
+通过继承原有优化器类的方法可以插入summary API读取梯度信息。样例代码片段如下：
 
 ```python
 import mindspore.nn as nn
