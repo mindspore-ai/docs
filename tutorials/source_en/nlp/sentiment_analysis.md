@@ -298,7 +298,7 @@ The IMDB dataset does not contain the validation set. Therefore, you need to man
 imdb_train, imdb_valid = imdb_train.split([0.7, 0.3])
 ```
 
-Finally, specify the batch size of the dataset by using the [batch](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch) API and determine whether to discard the remaining data that cannot be exactly divided by the batch size.
+Finally, specify the batch size of the dataset by using the [batch](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html) API and determine whether to discard the remaining data that cannot be exactly divided by the batch size.
 
 > Call the `map`, `split`, and `batch` APIs of the dataset to add corresponding operations to the dataset processing pipeline. The return value is of the new dataset type. Currently, only the pipeline operation is defined. During execution, the data processing pipeline is executed to obtain the processed data and send the data to the model for training.
 
