@@ -1,3 +1,0 @@
-MindSpore LLM Serving Documents
-==================================
-

@@ -1,4 +1,0 @@
-Host Side Time Consumption Analysis
--------------------------------------
-
-If the Host side time collection function is enabled, you can view the time consumption in ascend_timeline_display_[rank_id].json after the traing finished and use `` chrome://tracing `` to display. You can use W/S/A/D to zoom in, out, move left, and right to view time consuming information.

@@ -1,5 +1,0 @@
-启动MindSpore Insight
------------------------
-
-启动命令请参考：
-`MindSpore Insight相关命令 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html>`_ 。
