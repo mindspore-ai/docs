@@ -300,43 +300,11 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
 
 - **KVCache量化**：在大语言模型推理场景下，除了模型权重以外，KVCache也占用了大量显存，因此对KVCache进行量化，降低其显存消耗，也能够有效提升整体的吞吐量。MindSpore大语言模型支持对KVCache做float16到int8的量化，通过FA和PA适配，将量化和反量化融合到算子内部，降低量化带来的开销，实现整体吞吐量提升。
 
-此处以Qwen2-7b大语言模型的A16W8量化为例，简单描述一下MindSpore模型量化的核心流程，其中，model和config为之前创建的Qwen2模型对象和配置。
+使用golen-stick进行模型量化主要分为以下两步：
 
 - **权重量化**：利用量化算法，将模型的权重数据从float16转化成int8数据
 
-    ```python
-    from mindspore_gs.common import BackendTarget
-    from mindspore_gs.ptq import PTQMode, PTQConfig
-    from mindspore_gs.ptq import RoundToNearest as RTN
-    from mindspore_gs.ptq.network_helpers import NetworkHelper
-    from mindspore_gs.ptq.network_helpers.mf_net_helpers import MFLlama2Helper
-
-    cfg = PTQConfig(mode=PTQMode.QUANTIZE, backend=BackendTarget.ASCEND, weight_quant_dtype=ms.dtype.int8)
-    llamaa_helper = MFLlama2Helper(config)
-    rtn = RTN(cfg)
-    rtn.apply(model, llamaa_helper)
-    rtn.convert(model)
-
-    ms.save_checkpoint(model.parameters_dict(), '/path/to/quantinized_weight_path')
-    ```
-
 - **模型推理**：加载标准模型，将模型网络进行量化改造（插入相应量化算子），加载量化后的权重，调用模型推理。
-
-    ```python
-    from mindspore_gs.common import BackendTarget
-    from mindspore_gs.ptq import PTQMode, PTQConfig
-    from mindspore_gs.ptq import RoundToNearest as RTN
-    from mindspore_gs.ptq.network_helpers import NetworkHelper
-
-    cfg = PTQConfig(mode=PTQMode.DEPLOY, backend=BackendTarget.ASCEND, weight_quant_dtype=ms.dtype.int8)
-    rtn = RTN(cfg)
-    rtn.apply(model)
-    rtn.convert(model)
-    ms.load_checkpoint('/path/to/quantinized_weight_path', model)
-
-    model_output = model.generate(model_input, max_new_tokens=128, do_sample=True, top_k=3)
-    print(model_output[0])
-    ```
 
 具体模型量化的详细资料可以参考[模型量化](./quantization.md)。
 
