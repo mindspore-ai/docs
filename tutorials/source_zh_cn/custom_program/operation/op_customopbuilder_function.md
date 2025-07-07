@@ -10,7 +10,7 @@
 
 下面以一个例子来说明 `Function` 接口的使用方法：
 
-本指南演示了在Ascend平台上实现一个乘法算子。有关相关代码和更多示例，请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
+本指南演示了在Ascend平台上实现一个乘法算子。有关相关代码和更多示例，请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py)。
 
 ** 注意： 本指南中调用的`BaseTensorPtr`是MindSpore的内部数据结构，在后续版本中，这些接口都将会被改造成基于`ms::Tensor`的接口。 **
 

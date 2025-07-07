@@ -157,7 +157,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-您可以查看MindSpore仓中的 [自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/v2.7.0rc1/tests/st/graph_kernel/custom/custom_ascendc)
+您可以查看MindSpore仓中的 [自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/v2.7.0-rc1/tests/st/graph_kernel/custom/custom_ascendc)
 获取更多数据类型和使用场景的Ascend C自定义算子用例。
 样例工程的目录结构如下：
 
@@ -361,7 +361,7 @@ extern "C" std::vector<std::vector<int64_t>> FuncNameInferShape(int *ndims, int6
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
 - extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`
-  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
 **Infer Type函数原型**
 

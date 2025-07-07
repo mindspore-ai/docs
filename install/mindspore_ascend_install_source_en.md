@@ -225,7 +225,7 @@ Note: The Numpy version used in the runtime environment must be no less than the
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone -b v2.7.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Configuring Environment Variables
@@ -265,7 +265,7 @@ Where:
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/setup.py)). In other cases, you need to install dependencies by yourself.
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/setup.py)). In other cases, you need to install dependencies by yourself.
 
 ## Installation Verification
 

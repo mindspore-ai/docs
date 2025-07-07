@@ -63,7 +63,7 @@
 ## 从代码仓下载源码
 
 ```bash
-git clone -b v2.7.0rc1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0-rc1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore

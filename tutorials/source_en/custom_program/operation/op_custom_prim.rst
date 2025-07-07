@@ -64,7 +64,7 @@ To help you better use custom operators, we have used [the pyfunc-type custom op
 - `Advanced usage of custom operators <https://www.mindspore.cn/tutorials/en/r2.7.0rc1/custom_program/operation/op_custom_adv.html>`_ : registering the operator information and defining the backward functions for operators.
 
 .. note::
-    More examples can be found in the MindSpore source code `tests/st/graph_kernel/custom <https://gitee.com/mindspore/mindspore/tree/v2.7.0rc1/tests/st/graph_kernel/custom>`_ .
+    More examples can be found in the MindSpore source code `tests/st/graph_kernel/custom <https://gitee.com/mindspore/mindspore/tree/v2.7.0-rc1/tests/st/graph_kernel/custom>`_ .
 
 An Example of Custom Operators
 --------------------------------
@@ -153,4 +153,4 @@ Then we have the following results as sin values of above inputs.
     [0.         0.841471   0.19866933 0.29552022 0.38941833]
     </pre></div>
 
-Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the `use cases <https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/graph_kernel/custom/test_custom_pyfunc.py>`_ in the MindSpore source code.
+Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the `use cases <https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/tests/st/graph_kernel/custom/test_custom_pyfunc.py>`_ in the MindSpore source code.
