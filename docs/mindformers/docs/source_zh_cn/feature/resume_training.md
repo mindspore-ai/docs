@@ -44,12 +44,11 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
 
 ### 分布式训练示例
 
-以下示例演示了如何在单卡和多卡环境中启动断点续训。示例基于`llama2_7b`
-模型，相关配置文件[configs/llama2/pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)。
+以下示例演示了如何在单卡和多卡环境中启动断点续训。示例基于 `llama3.1 8b` 模型，相关配置文件[research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
 
 #### 完整训练
 
-1. 修改`configs/llama2/pretrain_llama2_7b.yaml`：
+1. 修改`research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml`：
 
    根据需要设置并行配置：
 
@@ -67,7 +66,7 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
    callbacks:
      ...
      - type: CheckpointMonitor
-       prefix: "llama2_7b"
+       prefix: "llama3_1_8b"
        save_checkpoint_steps: 10
        keep_checkpoint_max: 3
        integrated_save: False
@@ -75,23 +74,23 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
      ...
    ```
 
-2. 准备数据集，此处以[wikitext2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)为例，启动4卡分布式训练：
+2. 准备数据集，此处以 [alpaca 数据集](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)为例，启动4卡分布式训练：
 
    ```shell
    bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config configs/llama2/pretrain_llama2_7b.yaml \
-       --train_dataset /path/to/wikitext2-llama2.mindrecord \
+       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
+       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
        --run_mode train \
        --use_parallel True" 4
    ```
 
-   在第四次保存完毕后，结束进程，此时`checkpoint`下的`rank_0`文件夹结构为：
+   在第四次保存完毕后，结束进程，此时 `checkpoint` 下的 `rank_0` 文件夹结构为：
 
    ```text
    checkpoint/rank_0
-     ├── llama2_7b_rank_0-10_2.ckpt
-     ├── llama2_7b_rank_0-15_2.ckpt
-     ├── llama2_7b_rank_0-20_2.ckpt
+     ├── llama3_1_8b_rank_0-10_2.ckpt
+     ├── llama3_1_8b_rank_0-15_2.ckpt
+     ├── llama3_1_8b_rank_0-20_2.ckpt
      └── meta.json
    ```
 
@@ -108,8 +107,8 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
 
    ```shell
    bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config configs/llama2/pretrain_llama2_7b.yaml \
-       --train_dataset /path/to/wikitext2-llama2.mindrecord \
+       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
+       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
        --run_mode train \
        --use_parallel True" 4
    ```
@@ -168,12 +167,12 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
 
 当部分权重文件缺失时，系统会自动基于上一个可用的权重进行恢复。
 
-1. 删除`rank_3`下的`llama2_7b_rank_0-20_2.ckpt`文件。删除后文件夹结构应为：
+1. 删除`rank_3`下的`llama3_1_8b_rank_0-20_2.ckpt`文件。删除后文件夹结构应为：
 
    ```text
    checkpoint/rank_3
-     ├── llama2_7b_rank_0-10_2.ckpt
-     ├── llama2_7b_rank_0-15_2.ckpt
+     ├── llama3_1_8b_rank_0-10_2.ckpt
+     ├── llama3_1_8b_rank_0-15_2.ckpt
      └── meta.json
    ```
 
@@ -188,8 +187,8 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
 
    ```shell
    bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config configs/llama2/pretrain_llama2_7b.yaml \
-       --train_dataset /path/to/wikitext2-llama2.mindrecord \
+       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
+       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
        --run_mode train \
        --use_parallel True" 4
    ```
