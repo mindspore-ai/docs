@@ -4,7 +4,8 @@
 
 ## 特性背景
 
-2022年末，OpenAI发布了ChatGPT大语言模型，为人工智能带来了一个新的研究方向，即基于transformers结构的大语言模型，其展现了超过人们预期的AI能力，在多项测试中取得较好成绩，快速成为人工智能的研究焦点。
+2022年末，OpenAI发布了ChatGPT大语言模型，为人工智能带来了一个新的研究方向，即基于Transformers结构的大语言模型，其展现了超过人们预期的AI能力，在多项测试中取得较好成绩，快速成为人工智能的研究焦点。
+
 在大语言模型的研究中，其中一个重要的研究方向就是如何提高大语言模型在实际应用中的性价比：
 
 - 大语言模型通常是百亿、千亿级别的参数量，因此一次模型推理的计算量巨大，需要消耗大量计算资源，导致人工智能服务提供商发现，当前大语言模型单次推理成本非常高，难以被有效应用到实际生活和生产环境中；
@@ -74,9 +75,9 @@ MindSpore大语言模型推理为用户提供了“开箱即用”的大语言�
 
 ## 主要特性
 
-MindSpore大语言模型为了能够实现最优的性价比，针对大语言模型网络的特性，进行了多项的深度优化，其中主要包含以下特性：
+MindSpore大语言模型为了能够实现最优的性价比，针对大语言模型网络的特性，进行了多项深度优化，其中主要包含以下特性：
 
-- **全量/增量推理**：大语言模型的核心网络结构是以transfomer为主的自注意力机制，每一轮迭代都要计算所有token的注意力分数，而实际上相同的token序列计算的注意力分数时key和value结果是相同的，即["中国"，"的"，"面积"，"是"]的key和value可以理解为是由["中国"，"的"，"面积"]和["是"]拼接而成的，因此可以通过将前面已经计算的序列的key和value值缓存起来，从而减少下一轮迭代推理过程的计算量，这种技术通常被称为KVCache优化。结合大语言模型推理的全过程可以发现，在N和N+1轮的两次连续迭代中，其中N+1轮可以完全复用N轮的key和value值，因为前N个序列是一致的，真正需要计算key和value的只有N+1轮的第一个token，这样我们可以将模型推理分为以下两个阶段：
+- **全量/增量推理**：大语言模型的核心网络结构是以transfomer为主的自注意力机制，每一轮迭代都要计算所有token的注意力分数，而实际上相同的token序列计算注意力分数时key和value结果是相同的，即["中国"，"的"，"面积"，"是"]的key和value可以理解为是由["中国"，"的"，"面积"]和["是"]拼接而成的，因此可以通过将前面已经计算的序列的key和value值缓存起来，从而减少下一轮迭代推理过程的计算量，这种技术通常被称为KVCache优化。结合大语言模型推理的全过程可以发现，在N和N+1轮的两次连续迭代中，其中N+1轮可以完全复用N轮的key和value值，因为前N个序列是一致的，真正需要计算key和value的只有N+1轮的第一个token，这样我们可以将模型推理分为以下两个阶段：
 
     - **全量推理**：用户输入的第一轮迭代，此时用户给出的长度为N的语句，N的长度和内容都无法预测，需要计算全部key和value的值，成为全量推理。
 
@@ -109,9 +110,9 @@ pip install mindformers
 
 ### 权重准备
 
-权重准备主要是要获取到大语言模型的权重文件，并将其保存为MindSpore官方的标准CKPT权重格式，同时，通常每一个大语言模型都有自己对应的token列表，表示该模型支持的单词全集，除了模型的权重外，还需要获取其对应的tokenizer映射。此处推荐用户直接用网上官方的预训练好的权重文件，然后通过MindSpore的工具转换成CKPT格式，并同时获取相对应的tokenizer文件会一起提供。
+权重准备主要是获取大语言模型的权重文件，并将其保存为MindSpore官方的标准CKPT权重格式。同时，通常每一个大语言模型都有自己对应的token列表，表示该模型支持的单词全集，除了模型的权重外，还需要获取其对应的tokenizer映射。此处推荐用户直接使用网上官方的预训练好的权重文件，然后通过MindSpore的工具转换成CKPT格式，并同时获取相对应的tokenizer文件。
 
-对于Llama2大语言模型，我们建议用户直接使用Hugging Face官方网站提供的预训练权重文件与tokenizer映射，用户可以简单的使用下面的命令进行权重下载：
+对于Llama2大语言模型，我们建议用户直接使用Hugging Face官方网站提供的预训练权重文件与tokenizer映射，用户可以简单地使用下面的命令进行权重下载：
 
 ```shell
 git lfs install
@@ -130,7 +131,7 @@ python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindsp
 
 ### 模型构建
 
-用户可以通过使用MindFormers模型套件来构建大语言模型，其中包含了加载模型权重、构建模型主干网络、利用tokenizer进行前处理、完成模型推理、通过后处理选出最终输出token，以及多轮迭代实现文本生成等功能，端到端打通了模型文本生成流程，实现一键式部署和推理，同时，也集成了全量/增量推理、Flash Attention、Page Attention、融合算子等MindSpore内置加速技术，拥有较好的性能，建议用户优先使用该方式进行推理。用户可以通过下面的代码来使用MindFormers提供的模型：
+用户可以通过使用MindFormers模型套件来构建大语言模型。该套件涵盖了加载模型权重、构建模型主干网络、利用tokenizer进行前处理、完成模型推理、通过后处理选出最终输出token，以及多轮迭代实现文本生成等功能，端到端打通了模型文本生成流程，实现一键式部署和推理。同时，MindFormers模型套件还集成了多种MindSpore内置加速技术，包括全量/增量推理、Flash Attention、Page Attention、融合算子等，拥有较好的性能。因此，建议用户优先使用该套件进行推理。用户可以通过下面的代码来使用MindFormers提供的模型：
 
 ```python
 import mindspore as ms
@@ -145,7 +146,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-其中，tokenizer.model是从Hugging Face官网下载权重一起的tokenizer.model文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数，样例可以在[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)获取（注意：需要将ckpt权重路径改为实际的权重路径）。更详细的教程可以在[Llama 2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#-18)获取。
+其中，tokenizer.model是从Hugging Face官网下载的权重文件中附带的tokenizer文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数，样例可以在[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)获取（注意：需要将ckpt权重路径改为实际的权重路径）。更详细的教程可以在[Llama 2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#-18)获取。
 
 此外，如果用户对于模型有自己的特殊需求，或者对深度学习有较深认识，也可以选择自己构建模型，详细教程见[从零构建大语言模型推理网络](./model_dev.md)。
 
@@ -169,7 +170,7 @@ model = AutoModel.from_config(config)
 
     将"I love Beijing, because"分解为了8个token，其中：1表示文本或者段落的起始token，306表示I对应的token，1522表示love对应的token，292表示Beijing对应的token，29892表示逗号对应的token，1363表示because对应的token，5360、823、分别表示了两个词间的空格（具体根据模型的tokenizer而定），这个格式可以直接传给模型进行推理。
 
-- **整网计算**：传入当前的输入token的数据和配置，让模型对象通过多轮的推理出每轮的token结果。
+- **整网计算**：传入当前的输入token的数据和配置，让模型对象通过多轮计算推理出每轮的token结果。
 
     ```python
     model_output = model.generate(model_input, max_new_tokens=128, do_sample=True, top_k=3)
@@ -182,7 +183,7 @@ model = AutoModel.from_config(config)
 
     - **max_new_token**：最大生成的token数量，用于控制结束推理条件，如达到最大生成数量或者推理出结束token，则结束整个推理过程。
 
-    - **do_sample&top_k**：后处理配置，do_sample表示通过采样提升文本推理的随机性，会随机选择每轮推理结果概率最高的前K个token之一作为推理结果；top_k表示每轮采样选择从前3的概率中随机选择一个。
+    - **do_sample&top_k**：后处理配置，do_sample表示通过采样提升文本推理的随机性，会在每轮推理结果概率最高的前K个token中随机选择一个作为推理结果；top_k表示每轮采样从前3的概率中随机选择一个。
 
     执行此Python代码，会打印由一个token id构成的list，里面每一个token即表示了语句中的一个文本单元，可以看出，前8个token和输入的token是一致的。
 
@@ -209,11 +210,11 @@ model = AutoModel.from_config(config)
 
 对于模型参数比较多的大语言模型，如Llama2-70B、Qwen2-72B，由于其参数规模通常会超过一张GPU或者NPU的内存容量，因此需要采用多卡并行推理，MindSpore大语言模型推理支持将原始大语言模型切分成N份可并行的子模型，使其能够分别在多卡上并行执行，在实现超大模型推理同时，也利用多卡中更多的资源提升性能。MindFormers模型套件提供的模型脚本天然支持将模型切分成多卡模型执行，用户可以通过以下步骤在多卡上部署模型。
 
-- **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。
+1. **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。
 
     下面以Llama2-7B大语言模型为例，简单描述一下将模型切分为2卡并行的操作：
 
-    - **生成目标并行策略文件**：MindSpore进行切分，需要用户告诉框架切分的方式，这个信息存储在了并行切分策略文件中，实际中，可以通过[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)脚本进行生成。打开Llama2-7B模型对应的yaml文件，修改以下配置：
+    1. **生成目标并行策略文件**：MindSpore进行切分，需要用户告诉框架切分的方式，这个信息存储在并行切分策略文件中，可以通过[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)脚本进行生成。打开Llama2-7B模型对应的yaml文件，修改以下配置：
 
         - 将only_save_strategy配置改为True，表示生成并行切分策略文件。
 
@@ -229,7 +230,7 @@ model = AutoModel.from_config(config)
 
         msrun为MindSpore提供的并行执行工具，input_data参数可以任意传入内容，传入是为了保证模型流程能够正常执行，这段程序执行完，会在output目录下生成strategy目录，即是切分成2卡执行的并行切分策略文件。
 
-    - **切分模型权重ckpt文件**：调用转换脚本，切分并生成权重ckpt文件，具体参考[transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py)。
+    2. **切分模型权重ckpt文件**：调用转换脚本，切分并生成权重ckpt文件，具体参考[transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py)。
 
         执行如下命令，利用脚本将权重切分成2卡并行权重：
 
@@ -240,7 +241,7 @@ model = AutoModel.from_config(config)
 
         其中，src_checkpoint是源ckpt文件路径，由于例子中是全量切分，所以不需要传源策略文件，但是路径一定要指定到ckpt文件路径，不能指定到目录；dst_checkpoint是切分结果的目标目录路径，切分完成后，会生成rank_0和rank_1两个子目录，分别存放不同卡的权重ckpt文件；dst_strategy是前一步生成的策略文件路径。
 
-- **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能，MindFormers模型提供了MindSpore大语言模型验证较为优秀的切分方案，并使用MindSpore的并行框架进行了切分，下面为模型中部分切分代码：
+2. **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能，MindFormers模型提供了MindSpore大语言模型验证较为优秀的切分方案，并使用MindSpore的并行框架进行了切分，下面为模型中部分切分代码：
 
     ```python
     if not (_get_parallel_mode() in (ParallelMode.AUTO_PARALLEL,) and _is_sharding_propagation()):
@@ -263,11 +264,11 @@ model = AutoModel.from_config(config)
 
     模型会根据其并行配置来调用MindSpore算子的shard切分接口，进行模型的切分，其中：
 
-    - dp表示数据并行配置，将要计算的数据切分成可并行的多份，并行计算，在推理场景下通常可以通过batch实现多语句并行计算，通常配置成1。
+    - dp表示数据并行配置，将要计算的数据切分成多个副本进行并行计算。在推理场景下通常可以通过batch实现多语句并行计算，通常配置成1。
 
-    - mp表示模型并行配置，将模型要计算的算子按照网络脚本定义的方式切分，推理场景通常和卡数相等。
+    - mp表示模型并行配置，将模型要计算的算子按照网络脚本定义的方式切分。在推理场景下，该值通常和卡数相等。
 
-    - cp表示上下文并行配，将用户的文本切分成多句子句并行，由于全量/增量等优化，推理通常不使用这类并行，通常配置成1。
+    - cp表示上下文并行配，将用户的文本切分成多个子句并行。由于全量/增量等优化，推理场景通常不使用这类并行，通常配置成1。
 
     用户可以简单地通过修改模型配置文件，使能模型套件中的并行能力：
 
@@ -277,7 +278,7 @@ model = AutoModel.from_config(config)
 
     具体的网络脚本代码可以参考[llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)。
 
-- **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理是，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法如下：
+3. **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理是，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法如下：
 
     ```shell
     msrun --worker_num=2 --local_worker_num=2 run_mindformer.py --config "/path/to/llama2_7b.yaml" --input_data "hello"
@@ -299,7 +300,7 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
 
 此处以Llama2-7b大语言模型的A16W8量化为例，简单描述一下MindSpore模型量化的核心流程，其中，model和config为之前创建的Llama2模型对象和配置。
 
-- **权重量化**：利用量化算法，将模型的权重数据从float16转化成int8数据
+- **权重量化**：利用量化算法，将模型的权重数据从float16转化成int8数据。
 
     ```python
     from mindspore_gs.common import BackendTarget
