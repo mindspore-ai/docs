@@ -40,7 +40,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ### 转换示例
 
-假设用户已经下载了[Llama2模型的权重](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindSpore Transformers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
+假设用户已经下载了[Llama3.1模型的权重](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindSpore Transformers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
 
 ```bash
 python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
@@ -50,21 +50,13 @@ python convert_weight.py --model llama --input_path /home/user/torch_weights --o
 
 ### 已支持模型
 
-| 参数取值      | 支持模型                                      |
-|-----------|-------------------------------------------|
-| llama     | Llama2、Llama3、Llama3.1、CodeLlama          |
-| baichuan2 | Baichuan2                                 |
-| glm-n     | GLM2、GLM3、GLM3-32K、GLM4                   |
-| cogvlm2   | CogVLM2-Video、CogVLM2-Image               |
-| qwen      | Qwen、Qwen1.5、Qwen2                        |
-| qwenvl    | QwenVL                                    |
-| internlm  | InternLM                                  |
-| internlm2 | InternLM2                                 |
-| yi        | Yi                                        |
-| mixtral   | Mixtral                                   |
-| deepseek  | DeepSeekCoder、DeepSeekCoder1.5、DeepSeekV2 |
-| gpt       | GPT2                                      |
-| whisper   | Whisper                                   |
+| 参数取值     | 支持模型                         |
+|----------|------------------------------|
+| llama    | Llama3.1                     |
+| glm-n    | GLM4                         |
+| qwen     | Qwen2.5                      |
+| mixtral  | Mixtral                      |
+| deepseek | DeepSeekV3                   |
 
 ### 未支持模型权重转换开发
 

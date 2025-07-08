@@ -16,4 +16,3 @@ MindSpore Transformers 集成 MindSpore Golden Stick 工具组件，提供统一
 |-----------------------------------------------------------------------------------------------------------------------------------|
 | [DeepSeek-V3](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek3_671b/predict_deepseek3_671b.yaml)     |
 | [DeepSeek-R1](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b.yaml) |
-| [Llama2](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_ptq.yaml)                             |
