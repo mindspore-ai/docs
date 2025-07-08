@@ -32,7 +32,7 @@ Users working with strategy propagation need to have some understanding not only
 
 ## Configuring Code Samples
 
-Taking the encapsulated class [RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/experimental/graph/tensor_parallel/layers.py) in MindFormers as an example:
+Taking the encapsulated class [RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/experimental/graph/tensor_parallel/layers.py) in MindFormers as an example:
 
 <table>
 <tr>
@@ -78,7 +78,7 @@ class RowParallelLinear(nn.Cell):
 </tr>
 </table>
 
-The other example is [CoreAttention](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/experimental/graph/transformer/transformer.py). Configure it as above:
+The other example is [CoreAttention](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/experimental/graph/transformer/transformer.py). Configure it as above:
 <table>
 <tr>
 <td valign='top'>
@@ -117,7 +117,7 @@ class CoreAttention(nn.Cell):
 </tr>
 </table>
 
-Check the example of [FlashAttention](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/modules/flash_attention.py):
+Check the example of [FlashAttention](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/modules/flash_attention.py):
 <table>
 <tr>
 <td valign='top'>
@@ -159,7 +159,7 @@ class FlashAttention(Cell):
 </tr>
 </table>
 
-If classes that are open source and already paired with a strategy in MindFormers are used directly, the external network does not need to configure the shard strategy for the operator again, e.g., [LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py).
+If classes that are open source and already paired with a strategy in MindFormers are used directly, the external network does not need to configure the shard strategy for the operator again, e.g., [LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama.py).
 <table>
 <tr>
 <td valign='top'>

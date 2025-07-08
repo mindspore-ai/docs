@@ -19,7 +19,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 目前推理权重可以在线加载完整权重进行推理，权重可以通过以下两种方式获得：
 
 1. 从Hugging Face模型库中下载相应模型的开源的完整权重。
-2. 预训练或者微调后的分布式权重，通过[合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html#%E6%9D%83%E9%87%8D%E5%90%88%E5%B9%B6)生成一个完整权重。
+2. 预训练或者微调后的分布式权重，通过[合并](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/safetensors.html#%E6%9D%83%E9%87%8D%E5%90%88%E5%B9%B6)生成一个完整权重。
 
 ### 3. 执行推理任务
 
@@ -27,7 +27,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ## 使用 run_mindformer 一键启动脚本推理
 
-单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh)来启动。
+单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.6.0/scripts/msrun_launcher.sh)来启动。
 
 run_mindformer.py的参数说明如下：
 
@@ -45,7 +45,7 @@ run_mindformer.py的参数说明如下：
 
 msrun_launcher.sh包括run_mindformer.py命令和推理卡数两个参数。
 
-下面将以 `Qwen2.5-7B` 为例介绍单卡和多卡推理的用法，推荐配置为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)文件。
+下面将以 `Qwen2.5-7B` 为例介绍单卡和多卡推理的用法，推荐配置为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)文件。
 
 ### 配置修改
 
@@ -76,7 +76,7 @@ processor:
     merges_file: "path/to/merges.txt"
 ```
 
-具体配置说明均可参考[yaml配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)。
+具体配置说明均可参考[yaml配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/configuration.html)。
 
 ### 单卡推理
 
@@ -152,4 +152,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ## 更多信息
 
-更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html)。
+更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/introduction/models.html)。

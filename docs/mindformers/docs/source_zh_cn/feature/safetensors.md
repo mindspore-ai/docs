@@ -70,7 +70,7 @@ qwen2_7b
 
 在深度学习模型的训练过程中，保存模型的权重是至关重要的一步。权重保存功能使得我们能够在训练的任意阶段存储模型的参数，以便用户在训练中断或完成后进行恢复、继续训练、评估或部署。同时还可以通过保存权重的方式，在不同环境下复现实验结果。
 
-目前，MindSpore Transformers 支持 [safetensors](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html) 格式的权重文件读取和保存。
+目前，MindSpore Transformers 支持 [safetensors](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/safetensors.html) 格式的权重文件读取和保存。
 
 ### 目录结构
 
@@ -120,7 +120,7 @@ output
 
 用户可修改 `yaml` 配置文件中 `CheckpointMonitor` 下的字段来控制权重保存行为。
 
-以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L206) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L206) 为例，可做如下配置：
 
 ```yaml
 # callbacks
@@ -152,7 +152,7 @@ callbacks:
 | remove_redundancy     | 保存模型权重时是否去除冗余。                                 | (bool, 可选) - 默认值： `False` 。                           |
 | save_network_params   | 是否仅额外保存网络参数。                                     | (bool, 可选) - 是否仅额外保存网络参数。默认值： `False` 。   |
 
-如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/core/mindformers.core.CheckpointMonitor.html)。
+如果您想了解更多有关 CheckpointMonitor 的知识，可以参考 [CheckpointMonitor API 文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/core/mindformers.core.CheckpointMonitor.html)。
 
 ## 权重加载
 
@@ -264,7 +264,7 @@ parallel_config:                                    # 配置16卡分布式策略
 
 **启动任务**：
 
-使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh)进行任务启动。
+使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.6.0/scripts/msrun_launcher.sh)进行任务启动。
 
   ```shell
   # 第一台服务器（主节点）
@@ -358,7 +358,7 @@ auto_trans_ckpt: False                              # 分布式权重加载，�
 
 **4.启动任务**：
 
-使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh)进行任务启动。
+使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.6.0/scripts/msrun_launcher.sh)进行任务启动。
 
   ```shell
   # 第一台服务器（主节点）
@@ -456,7 +456,7 @@ generation:
 
 #### 使用说明
 
-使用MindSpore Transformers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/safetensors/unified_safetensors.py)，按照如下方式进行safetensors权重合并。合并后的权重格式为[完整权重](#完整权重)。
+使用MindSpore Transformers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/r1.6.0/toolkit/safetensors/unified_safetensors.py)，按照如下方式进行safetensors权重合并。合并后的权重格式为[完整权重](#完整权重)。
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
@@ -573,7 +573,7 @@ callbacks:
 
 ### 训练任务示例
 
-若使用完整权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
+若使用完整权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -589,7 +589,7 @@ callbacks:
     checkpoint_format: safetensors                  # 保存权重文件格式
 ```
 
-若使用分布式权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
+若使用分布式权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -617,11 +617,11 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
 
-更多详情请参考：[SFT微调介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/supervised_fine_tuning.html)、[预训练介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/pre_training.html)
+更多详情请参考：[SFT微调介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/supervised_fine_tuning.html)、[预训练介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/pre_training.html)
 
 ### 推理任务示例
 
-若使用完整权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
+若使用完整权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -634,7 +634,7 @@ parallel_config:
   pipeline_stage: 1
 ```
 
-若使用分布式权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
+若使用分布式权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -664,7 +664,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 'text_generation_text': [I love Beijing, because it is a city with a long history and culture.......]
 ```
 
-更多详情请参考：[推理介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/inference.html)
+更多详情请参考：[推理介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/inference.html)
 
 ### 断点续训任务示例
 
@@ -700,5 +700,5 @@ callbacks:
     checkpoint_format: safetensors                  # 保存权重文件格式
 ```
 
-更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/resume_training.html)。
+更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/resume_training.html)。
 

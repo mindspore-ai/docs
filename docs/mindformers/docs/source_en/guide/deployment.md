@@ -8,7 +8,7 @@ MindIE, full name Mind Inference Engine, is a high-performance inference framewo
 
 MindSpore Transformers are hosted in the model application layer MindIE LLM, and large models in MindSpore Transformers can be deployed through MindIE Service.
 
-The model support for MindIE inference can be found in [model repository](https://www.mindspore.cn/mindformers/docs/en/dev/introduction/models.html).
+The model support for MindIE inference can be found in [model repository](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/introduction/models.html).
 
 ## Environment Setup
 
@@ -16,7 +16,7 @@ The model support for MindIE inference can be found in [model repository](https:
 
 1. Install MindSpore Transformers
 
-   Refer to [MindSpore Transformers Official Installation Guide](https://www.mindspore.cn/mindformers/docs/en/dev/installation.html) for installation.
+   Refer to [MindSpore Transformers Official Installation Guide](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/installation.html) for installation.
 
 2. Install MindIE
 
@@ -86,9 +86,9 @@ processor:
     merges_file: "/path/to/mf_model/qwen1_5_72b/merges.txt"  # merges file absolute path
 ```
 
-For model weight downloading and conversions, refer to the [Weight Format Conversion Guide](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html).
+For model weight downloading and conversions, refer to the [Weight Format Conversion Guide](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/ckpt.html).
 
-Required files and configurations may vary from model to model. Refer to the model-specific inference sections in [Model Repository](https://www.mindspore.cn/mindformers/docs/en/dev/introduction/models.html) for details.
+Required files and configurations may vary from model to model. Refer to the model-specific inference sections in [Model Repository](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/introduction/models.html) for details.
 
 ### Starting MindIE
 
@@ -346,4 +346,4 @@ The validation is successful with the following returned inference result:
 
 ## Model List
 
-Examples of MindIE inference for other models can be found in the introduction documentation for each model in [Model Library](https://www.mindspore.cn/mindformers/docs/en/dev/introduction/models.html).
+Examples of MindIE inference for other models can be found in the introduction documentation for each model in [Model Library](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/introduction/models.html).

@@ -14,7 +14,7 @@
 
 ### 1.1 环境
 
-安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/installation.html)。
+安装方式请参考[MindSpore Transformers安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/installation.html)。
 
 并将本案例的[distilled](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/distilled/distilled)文件夹，复制到MindSpore Transformers源码根目录下。
 
@@ -227,7 +227,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 
 最后在`packed_data`中可以找到处理后的数据集，格式为arrow。
 
-更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AEhandler)。
+更多数据集处理的教程请参考[MindSpore Transformers官方文档-数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AEhandler)。
 
 ##### 选项 2: 使用完成转换的数据
 
@@ -277,7 +277,7 @@ train_dataset: &train_dataset
 ......
 ```
 
-其余参数配置的解释可以参考[MindSpore Transformers官方文档-SFT微调](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/supervised_fine_tuning.html)。
+其余参数配置的解释可以参考[MindSpore Transformers官方文档-SFT微调](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/supervised_fine_tuning.html)。
 
 ## 2. 启动微调
 
@@ -297,7 +297,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qw
 日志记录在`output/msrun_log`目录下，例如可以通过`tail -f output/msrun_log/worker_7.log`指令查看worker 7的日志信息。
 微调完成后，输出的`safetensors`权重文件在`output/checkpoint`目录下。
 
-更多safetensors权重的内容请参考[MindSpore Transformers官方文档-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html)。
+更多safetensors权重的内容请参考[MindSpore Transformers官方文档-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/safetensors.html)。
 
 ## 3. 执行推理
 

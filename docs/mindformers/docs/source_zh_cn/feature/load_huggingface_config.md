@@ -26,7 +26,7 @@
 
 - pretrained_model_dir：Hugging Face 模型配置所在的目录路径；
 - model_config：MindSpore Transformers 自有的模型配置字段；
-- generation_config：文本生成相关的参数。可选配置，如需自定义则增加。其下的配置项可以参考[GenerationConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/generation/mindformers.generation.GenerationConfig.html)。
+- generation_config：文本生成相关的参数。可选配置，如需自定义则增加。其下的配置项可以参考[GenerationConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/generation/mindformers.generation.GenerationConfig.html)。
 
 ```yaml
 pretrained_model_dir: "./local/qwen3"
@@ -59,7 +59,7 @@ generation_config:
 
 ### 拉起任务
 
-参考[使用run_mindformer.py启动推理任务](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/inference.html#%E4%BD%BF%E7%94%A8-run-mindformer-%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E6%8E%A8%E7%90%86)。
+参考[使用run_mindformer.py启动推理任务](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/inference.html#%E4%BD%BF%E7%94%A8-run-mindformer-%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E6%8E%A8%E7%90%86)。
 
 ## 常见问题FAQ
 

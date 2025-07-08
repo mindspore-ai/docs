@@ -8,7 +8,7 @@ MindIE，全称Mind Inference Engine，是基于昇腾硬件的高性能推理�
 
 MindSpore Transformers承载在模型应用层MindIE LLM中，通过MindIE Service可以部署MindSpore Transformers中的大模型。
 
-MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html)。
+MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/introduction/models.html)。
 
 ## 环境搭建
 
@@ -16,7 +16,7 @@ MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mind
 
 1. 安装MindSpore Transformers
 
-   参考[MindSpore Transformers官方安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/installation.html)进行安装。
+   参考[MindSpore Transformers官方安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/installation.html)进行安装。
 
 2. 安装MindIE
 
@@ -86,9 +86,9 @@ processor:
     merges_file: "/path/to/mf_model/qwen1_5_72b/merges.txt"  # merges文件绝对路径
 ```
 
-模型权重下载和转换可参考 [权重格式转换指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。
+模型权重下载和转换可参考 [权重格式转换指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/ckpt.html)。
 
-不同模型的所需文件和配置可能会有差异，详情参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html)中具体模型的推理章节。
+不同模型的所需文件和配置可能会有差异，详情参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/introduction/models.html)中具体模型的推理章节。
 
 ### 启动MindIE
 
@@ -346,4 +346,4 @@ curl -w "\ntime_total=%{time_total}\n" -H "Accept: application/json" -H "Content
 
 ## 模型列表
 
-其他模型的MindIE推理示例可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html)中的各模型的介绍文档。
+其他模型的MindIE推理示例可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/introduction/models.html)中的各模型的介绍文档。

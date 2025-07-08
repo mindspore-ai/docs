@@ -2,8 +2,9 @@
 
 [![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_en/model_infer/ms_infer/parallel.md)
 
-In recent years, with the rapid development of deep learning technologies, especially the emergence of large-scale pre-trained models (such as ChatGPT, LLaMA, and Pangu), the AI field has made significant progress. However, as model sizes continue to expand, the computing resources required by these large models, particularly GPU memory, are growing exponentially. For example, the Pangu model with 71 billion parameters requires approximately 142 GB of GPU memory at half-precision (FP16). In addition, the increasing sequence length of large models places immense pressure on GPU memory.
-The constraints of GPU memory not only affect model loading but also limit batch sizes. Smaller batch sizes may lead to decreased inference efficiency, consequently impacting the overall throughput of the system.
+In recent years, with the rapid development of deep learning technologies, especially the emergence of large-scale pre-trained models (such as ChatGPT, LLaMA, and Pangu), the AI field has made significant progress. However, as model sizes continue to expand, the computing resources required by these large models, particularly GPU memory, are growing exponentially. For example, the Pangu model with 71 billion parameters requires approximately 142 GB of GPU memory at half-precision (FP16).
+
+In addition, the increasing sequence length of large models places immense pressure on GPU memory. The constraints of GPU memory not only affect model loading but also limit batch sizes. Smaller batch sizes may lead to decreased inference efficiency, consequently impacting the overall throughput of the system.
 
 The pressure on GPU memory makes it challenging for a single device to complete inference tasks within a reasonable time frame, and parallel computing has become a key strategy to address this challenge.
 
@@ -80,120 +81,121 @@ Starting with the original implementation of [nn.Dense](https://www.mindspore.cn
     `ColumnParallelLinear` class calculates and initializes the sharded weights' shape based on the number of devices used for model parallelism. Column-wise means to shard `out_channels`. During the model's forward pass, MatMul is called to compute the parallel results. Finally, an `AllGather` operation can be optionally performed on the parallel results to obtain the complete output.
 
     The MindSpore training and inference integrated framework supports enabling `infer_boost`. This parameter activates the high-performance self-developed operator library within the MindSpore framework. To enable this mode, you need to:
-    - Set variables.
 
-    ```python
-    from mindspore import set_context
-    set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
-    ```
+    1. Set variables.
 
-    - Set system environment variables.
+        ```python
+        from mindspore import set_context
+        set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
+        ```
 
-    ```bash
-    export ASCEND_HOME_PATH={$ascend_custom_path}
-    ```
+    2. Set system environment variables.
 
-    For example, if there are 2 devices for model parallelism, set environment variables, initialize the communication group, and configure the model parameter `config` as follows:
+        ```bash
+        export ASCEND_HOME_PATH={$ascend_custom_path}
+        ```
 
-    ```python
-    from mindspore import nn, Parameter, ops, Tensor
-    from mindspore.common import dtype as mstype
-    from mindspore.communication import init
-    from mindspore.common.initializer import initializer
-    import numpy as np
+        For example, if there are 2 devices for model parallelism, set environment variables, initialize the communication group, and configure the model parameter `config` as follows:
 
-    from mindspore import set_context
-    set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
+        ```python
+        from mindspore import nn, Parameter, ops, Tensor
+        from mindspore.common import dtype as mstype
+        from mindspore.communication import init
+        from mindspore.common.initializer import initializer
+        import numpy as np
 
-    TP_GROUP_NAME='tp'
-    TP_SIZE = 2
-    COMMUN_HELPER = CommunicationHelper(group_name=TP_GROUP_NAME, size=TP_SIZE)
+        from mindspore import set_context
+        set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
 
-    init()
-    COMMUN_HELPER.create_tensor_model_parallel_group()
+        TP_GROUP_NAME='tp'
+        TP_SIZE = 2
+        COMMUN_HELPER = CommunicationHelper(group_name=TP_GROUP_NAME, size=TP_SIZE)
 
-    config = ConfigHelper(batch_size=64,
-                          vocab_size=32000,
-                          num_layers=4,
-                          seq_length=2048,
-                          hidden_size=1024,
-                          ffn_hidden_size=4096,
-                          dtype=mstype.float16,
-                          num_heads=8,
-                          has_bias=False)
-    ```
+        init()
+        COMMUN_HELPER.create_tensor_model_parallel_group()
 
-    Column-wise MatMul module
+        config = ConfigHelper(batch_size=64,
+                            vocab_size=32000,
+                            num_layers=4,
+                            seq_length=2048,
+                            hidden_size=1024,
+                            ffn_hidden_size=4096,
+                            dtype=mstype.float16,
+                            num_heads=8,
+                            has_bias=False)
+        ```
 
-    ```python
-    class ColumnParallelLinear(nn.Cell):
-        def __init__(self,
-                     in_channels,
-                     out_channels,
-                     weight_init=None,
-                     bias_init=None,
-                     has_bias=True,
-                     dtype=mstype.float32):
-            super().__init__()
-            self.in_channels = in_channels
-            self.out_channels = out_channels
-            self.has_bias = has_bias
-            self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
-            self.out_channels_per_partition = out_channels // self.tensor_parallel_group_size
-            self.dtype = dtype
-            weight_shape = (self.out_channels_per_partition, self.in_channels)
-            self.weight = Parameter(initializer(weight_init, weight_shape, self.dtype), name="weight")
-            if self.has_bias:
-                self.bias = Parameter(initializer(bias_init, (self.out_channels_per_partition), self.dtype), name="bias")
-                self.bias_add = ops.Add()
-            self.matmul = ops.BatchMatMul(transpose_b=True)
-            self.cast = ops.Cast()
+        Column-wise MatMul module
 
-        def construct(self, x):
-            origin_dtype = x.dtype
-            x = self.cast(x, self.dtype)
-            out = self.matmul(x, self.weight)
-            if self.has_bias:
-                out = self.bias_add(
-                    out, self.cast(self.bias, self.dtype)
-                )
-            out = self.cast(out, origin_dtype)
-            return out
-    ```
+        ```python
+        class ColumnParallelLinear(nn.Cell):
+            def __init__(self,
+                        in_channels,
+                        out_channels,
+                        weight_init=None,
+                        bias_init=None,
+                        has_bias=True,
+                        dtype=mstype.float32):
+                super().__init__()
+                self.in_channels = in_channels
+                self.out_channels = out_channels
+                self.has_bias = has_bias
+                self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
+                self.out_channels_per_partition = out_channels // self.tensor_parallel_group_size
+                self.dtype = dtype
+                weight_shape = (self.out_channels_per_partition, self.in_channels)
+                self.weight = Parameter(initializer(weight_init, weight_shape, self.dtype), name="weight")
+                if self.has_bias:
+                    self.bias = Parameter(initializer(bias_init, (self.out_channels_per_partition), self.dtype), name="bias")
+                    self.bias_add = ops.Add()
+                self.matmul = ops.BatchMatMul(transpose_b=True)
+                self.cast = ops.Cast()
 
-    The output of column-wise MatMul is parallel. To obtain a complete output, use `GatherLastDim`.
+            def construct(self, x):
+                origin_dtype = x.dtype
+                x = self.cast(x, self.dtype)
+                out = self.matmul(x, self.weight)
+                if self.has_bias:
+                    out = self.bias_add(
+                        out, self.cast(self.bias, self.dtype)
+                    )
+                out = self.cast(out, origin_dtype)
+                return out
+        ```
 
-    ```python
-    class GatherLastDim(nn.Cell):
-        def __init__(self):
-            super().__init__()
-            self.all_gather = ops.AllGather(group=COMMUN_HELPER.get_tensor_model_parallel_group())
-            self.world_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
-            self.split = ops.Split(axis=0, output_num=self.world_size)
+        The output of column-wise MatMul is parallel. To obtain a complete output, use `GatherLastDim`.
 
-        def construct(self, input_):
-            output = self.all_gather(input_)
-            tensor_list = self.split(output)
-            output = ops.cat(tensor_list, axis=-1)
-            return output
-    ```
+        ```python
+        class GatherLastDim(nn.Cell):
+            def __init__(self):
+                super().__init__()
+                self.all_gather = ops.AllGather(group=COMMUN_HELPER.get_tensor_model_parallel_group())
+                self.world_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
+                self.split = ops.Split(axis=0, output_num=self.world_size)
 
-    Inference of column-wise MatMul:
+            def construct(self, input_):
+                output = self.all_gather(input_)
+                tensor_list = self.split(output)
+                output = ops.cat(tensor_list, axis=-1)
+                return output
+        ```
 
-    ```python
-    column_parallel_linear = ColumnParallelLinear(in_channels=config.hidden_size,
-                                                  out_channels=config.hidden_size,
-                                                  weight_init='normal',
-                                                  dtype=config.dtype,
-                                                  has_bias=False)
-    input_x = Tensor(np.random.randn(config.batch_size, config.seq_length, config.hidden_size).astype(np.float32))
-    out_parallel = column_parallel_linear(input_x)
-    print(out_parallel.shape)
+        Inference of column-wise MatMul:
 
-    gather_last_dim = GatherLastDim()
-    out = gather_last_dim(out_parallel)
-    print(out.shape)
-    ```
+        ```python
+        column_parallel_linear = ColumnParallelLinear(in_channels=config.hidden_size,
+                                                    out_channels=config.hidden_size,
+                                                    weight_init='normal',
+                                                    dtype=config.dtype,
+                                                    has_bias=False)
+        input_x = Tensor(np.random.randn(config.batch_size, config.seq_length, config.hidden_size).astype(np.float32))
+        out_parallel = column_parallel_linear(input_x)
+        print(out_parallel.shape)
+
+        gather_last_dim = GatherLastDim()
+        out = gather_last_dim(out_parallel)
+        print(out.shape)
+        ```
 
 3. Row-wise MatMul
 

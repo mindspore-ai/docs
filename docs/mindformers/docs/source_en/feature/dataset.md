@@ -16,7 +16,7 @@ The following sections will explain how to generate `.bin` and `.idx` files, as 
 
 ### Data Preprocessing
 
-MindSpore Transformers provides a data preprocessing script, [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py), which is used to convert raw text data in `json` format into `.bin` and `.idx` files.
+MindSpore Transformers provides a data preprocessing script, [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py), which is used to convert raw text data in `json` format into `.bin` and `.idx` files.
 
 If the raw text data is not in `json` format, users need to preprocess and convert it into the appropriate format themselves.
 
@@ -73,7 +73,7 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
 
 4. Generate `.bin` and `.idx` data files
 
-   Run the data preprocessing script [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) to convert the original text data into corresponding token IDs using the model's tokenizer.
+   Run the data preprocessing script [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) to convert the original text data into corresponding token IDs using the model's tokenizer.
 
    The script accepts the following parameters:
 
@@ -107,7 +107,7 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
      --seq-length 8192
    ```
 
-   Take outer tokenizer class [Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py) for example, make sure **local** MindSpore Transformers repository has 'research/llama3_1/llama3_1_tokenizer.py', and execute the following command to preprocess the dataset:
+   Take outer tokenizer class [Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/llama3_1/llama3_1_tokenizer.py) for example, make sure **local** MindSpore Transformers repository has 'research/llama3_1/llama3_1_tokenizer.py', and execute the following command to preprocess the dataset:
 
    ```shell
    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
@@ -207,7 +207,7 @@ The following explains how to configure and use Megatron datasets in the configu
    | pad                        | Token ID of the pad token in the dataset                                                                                                                                                                                               |
    | data_path                  | List, every two consecutive elements (number, string) are considered as a dataset, represent ratio of the dataset and the path to its bin file excluding `.bin` suffix respectively. The sum of datasets' ratios should be equal to 1. |
 
-   In addition, the Megatron dataset also depends on configurations such as `input_columns`, `construct_args_key`, and `full_batch`. For more details, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html).
+   In addition, the Megatron dataset also depends on configurations such as `input_columns`, `construct_args_key`, and `full_batch`. For more details, refer to the [configuration file documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/configuration.html).
 
    Here, we only explain how to configure them in different scenarios:
 
@@ -247,7 +247,7 @@ The following explains how to configure and use Megatron datasets in the configu
 3. Start Model Pre-training
 
    After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the model pre-training task.
-   Here, we take the [Llama3_1 model documentation](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md) as an example.
+   Here, we take the [Llama3_1 model documentation](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/llama3_1/README.md) as an example.
 
 ## HuggingFace Datasets
 
@@ -414,7 +414,7 @@ When packing is configured, the dataset returns an `actual_seq_len` column. For 
     prefetch_size: 1
   ```
 
-  1. For parameter descriptions in `train_dataset`, please refer to the [documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html).
+  1. For parameter descriptions in `train_dataset`, please refer to the [documentation](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/configuration.html).
 
   2. `AlpacaInstructDataHandler` is an online processing script developed for the `alpaca` dataset. If using a different dataset, you need to implement a custom data handler by referring to the [Custom Data Handler](#custom-data-handler) guide.
 
@@ -495,7 +495,7 @@ Users can define custom data handlers to apply various preprocessing logic to th
 
 - alpaca Dataset Sample
 
-  Modify the task configuration file [finetune_qwen2_5_0_5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml).
+  Modify the task configuration file [finetune_qwen2_5_0_5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml).
 
   Modify the following parameters:
 
@@ -531,7 +531,7 @@ Users can define custom data handlers to apply various preprocessing logic to th
     prefetch_size: 1
   ```
 
-  The rest of the parameters can be described in "model training configuration" and "model evaluation configuration" in [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+  The rest of the parameters can be described in "model training configuration" and "model evaluation configuration" in [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/configuration.html).
 
   Custom data handler:
 
@@ -645,7 +645,7 @@ Users can define custom data handlers to apply various preprocessing logic to th
     seed: 0
   ```
 
-  The rest of the parameters can be described in "model training configuration" and "model evaluation configuration" in [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+  The rest of the parameters can be described in "model training configuration" and "model evaluation configuration" in [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/configuration.html).
 
   Custom adgen_handler:
 
@@ -724,7 +724,7 @@ Using the above configuration file to process the `alpaca` dataset will execute 
 
 In addition to supporting online dataset loading and processing, `CommonDataLoader` also supports offline dataset processing and saving.
 
-The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py) script can be used to process Huggingface datasets offline and save them.
+The [datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/toolkit/data_preprocess/huggingface/datasets_preprocess.py) script can be used to process Huggingface datasets offline and save them.
 
 - Parameter Description
 
@@ -809,7 +809,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 1. Modify the model configuration file
 
-   The `qwen2_5-0.5b` model fine-tuning uses the [finetune_qwen2_5_0.5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml) configuration file. Modify the dataset section as follows:
+   The `qwen2_5-0.5b` model fine-tuning uses the [finetune_qwen2_5_0.5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml) configuration file. Modify the dataset section as follows:
 
    ```yaml
    train_dataset: &train_dataset
@@ -827,7 +827,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 2. Start Model Fine-tuning
 
-   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen2_5 model documentation](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/README.md) as an example.
+   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen2_5 model documentation](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/README.md) as an example.
 
 ### Multi-source Datasets
 
