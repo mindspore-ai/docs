@@ -46,7 +46,7 @@ MindSpore Transformers 默认会在训练的 yaml 文件中指定文件输出路
 
 如果需要重新指定输出的日志文件夹，可以在 yaml 中修改配置。
 
-以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L2) 为例，可做如下配置：
+以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 output_dir: './output' # path to save logs/checkpoint/strategy

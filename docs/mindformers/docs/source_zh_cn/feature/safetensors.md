@@ -120,7 +120,7 @@ output
 
 用户可修改 `yaml` 配置文件中 `CheckpointMonitor` 下的字段来控制权重保存行为。
 
-以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L206) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # callbacks
