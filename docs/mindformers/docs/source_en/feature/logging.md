@@ -46,7 +46,7 @@ By default, MindSpore Transformers specifies the file output path as `./output` 
 
 If you need to re-specify the output log folder, you can modify the configuration in yaml.
 
-Taking [`DeepSeek-V3` pre-training yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L2) as an example, the following configuration can be made:
+Taking [`DeepSeek-V3` pre-training yaml](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, the following configuration can be made:
 
 ```yaml
 output_dir: './output' # path to save logs/checkpoint/strategy

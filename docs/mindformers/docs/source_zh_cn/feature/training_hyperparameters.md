@@ -19,7 +19,7 @@ MindSpore Transformers 提供了如下几类超参数的配置方式。
 #### YAML 参数配置
 
 用户可通过在模型训练的 yaml 配置文件中新增 `lr_schedule` 模块来使用学习率。
-以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L31) 为例，可做如下配置：
+以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # lr schedule
@@ -86,7 +86,7 @@ lr_schedule:
 
 用户可通过在模型训练的 yaml 配置文件中新增 `optimizer` 模块来使用学习率。
 
-以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L24) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # optimizer

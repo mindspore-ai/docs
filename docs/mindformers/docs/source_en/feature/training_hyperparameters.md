@@ -24,7 +24,7 @@ Setting the learning rate too high can prevent the model from converging, while 
 
 Users can utilize the learning rate by adding an `lr_schedule` module to the YAML configuration file used for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L31) as an example, it could be configured as follows:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
 
 ```yaml
 # lr schedule
@@ -91,7 +91,7 @@ Currently, MindSpore Transformers only supports the [AdamW optimizer](https://ww
 
 Users can use the optimizer by adding an `optimizer` module to the YAML configuration file for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L24) as an example, it could be configured like this:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured like this:
 
 ```yaml
 # optimizer
