@@ -64,7 +64,7 @@ $$
 
 在实际应用中，通常会采用多种并行策略和优化手段，例如使用优化器并行和重计算等方式，以减少模型对内存的使用并提高训练效率。并行策略设计与模型的效率密切相关，因此在模型调优之前先确定一组或多组较优的并行策略，是至关重要的。
 
-详细介绍参考文档[并行策略指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/parallel_training.html)。
+详细介绍参考文档[并行策略指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/parallel_training.html)。
 
 对于不同的参数量规格的模型，可参考以下并行策略选择方向：
 
@@ -277,7 +277,7 @@ MindStudio Insight工具以时间线（Timeline）的形式呈现全流程在线
 
 #### IR 图
 
-在[MindSpore Transformers配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的.ir后缀的中间文件，这些被称为IR文件。默认情况下，这些文件会保存在当前执行目录下的graph目录中。IR文件是一种比较直观易懂的文本格式文件，用于描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)，配置方法如下：
+在[MindSpore Transformers配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/configuration.html)中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的.ir后缀的中间文件，这些被称为IR文件。默认情况下，这些文件会保存在当前执行目录下的graph目录中。IR文件是一种比较直观易懂的文本格式文件，用于描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/configuration.html)，配置方法如下：
 
 ```yaml
 context:
@@ -598,7 +598,7 @@ recompute_config:
 
 2. embedding参数配置优化器并行：大词表占用内存过多，且词表权重的优化器并行需额外配置，配置后有效缓解首个stage显存不足问题；
 
-   优化器并行使用介绍可参考[MindSpore优化器并行文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/features/parallel/optimizer_parallel.html)；此外，Llama模型还对embedding层的优化器有额外配置，[LlamaConfig API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig)中的`parallel_optimizer`项即为控制embedding优化器并行的控制项；
+   优化器并行使用介绍可参考[MindSpore优化器并行文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/features/parallel/optimizer_parallel.html)；此外，Llama模型还对embedding层的优化器有额外配置，[LlamaConfig API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig)中的`parallel_optimizer`项即为控制embedding优化器并行的控制项；
    配置样例如下：
 
    ```yaml

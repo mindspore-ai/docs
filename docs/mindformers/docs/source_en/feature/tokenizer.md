@@ -38,7 +38,7 @@ The inference process takes the Qwen3 model as an example.
 
 1. Modify the yaml configuration
 
-    Qwen3 model configuration file [predict_qwen3 yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/qwen3/predict_qwen3.yaml) needs to be modified The places are as follows:
+    Qwen3 model configuration file [predict_qwen3 yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/configs/qwen3/predict_qwen3.yaml) needs to be modified The places are as follows:
 
     ```yaml
     use_legacy: False

@@ -46,11 +46,7 @@ In the preceding information, pytorch_model-00001-of-00002.bin and pytorch_model
 
 To convert Hugging Face weight files into MindSpore weight files, perform the following steps:
 
-1. Load the Hugging Face weight files into a list of PyTorch tensors.
-2. Convert the PyTorch tensor list into a list of MindSpore tensors.
-3. Save the MindSpore tensor list as a MindSpore CKPT weight file.
-
-- **Install the Python dependency package**: Since the conversion involves both Hugging Face and MindSpore, you need to install the respective Python packages, primarily including transformers, torch, and mindspore.
+1. **Install the Python dependency package**: Since the conversion involves both Hugging Face and MindSpore, you need to install the respective Python packages, primarily including transformers, torch, and mindspore.
 
     ```shell
     pip install torch
@@ -58,7 +54,7 @@ To convert Hugging Face weight files into MindSpore weight files, perform the fo
     pip install transformers
     ```
 
-- **Load the Hugging Face model**: Use the transformers library to load the Llama2 weight files and model, and retrieve the list of weights which is actually a list of PyTorch tensor objects.
+2. **Load the Hugging Face model**: Use the transformers library to load the Llama2 weight files and model, and retrieve the list of weights which is actually a list of PyTorch tensor objects.
 
     ```python
     import os
@@ -74,9 +70,9 @@ To convert Hugging Face weight files into MindSpore weight files, perform the fo
         print(f"name: {name}")
     ```
 
-Executing this python code will load the weights of Llama2 and print out the names of each weight, indicating that the model has been successfully loaded.
+    Executing this python code will load the weights of Llama2 and print out the names of each weight, indicating that the model has been successfully loaded.
 
-- **Converting torch.Tensor to mindspore.Tensor**: Use NumPy as an intermediary to convert the PyTorch tensor objects into MindSpore tensor objects. In addition to the data, the names of the MindSpore weights differ from those in Hugging Face, so a mapping relationship needs to be recorded.
+3. **Converting torch.Tensor to mindspore.Tensor**: Use NumPy as an intermediary to convert the PyTorch tensor objects into MindSpore tensor objects. In addition to the data, the names of the MindSpore weights differ from those in Hugging Face, so a mapping relationship needs to be recorded.
 
     - Weight name mapping: Replace the Hugging Face weight names with the MindSpore weight names.
 
@@ -133,7 +129,7 @@ Executing this python code will load the weights of Llama2 and print out the nam
         print(ckpt_list)
         ```
 
-- **Saving a MindSpore CKPT weight file**: Call the MindSpore API to save tensors as a CKPT weight file.
+4. **Saving a MindSpore CKPT weight file**: Call the MindSpore API to save tensors as a CKPT weight file.
 
     ```python
     ms_ckpt_path="/path/to/mindspore/ckpt"

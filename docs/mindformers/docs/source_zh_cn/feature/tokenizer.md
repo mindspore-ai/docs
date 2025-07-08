@@ -38,7 +38,7 @@ MindSpore Transformers原有的Tokenizer组件与Hugging Face Tokenizer的功能
 
 1. 修改yaml配置
 
-    Qwen3模型的配置文件[predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/qwen3/predict_qwen3.yaml)需要修改的地方如下：
+    Qwen3模型的配置文件[predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/configs/qwen3/predict_qwen3.yaml)需要修改的地方如下：
 
     ```yaml
     use_legacy: False

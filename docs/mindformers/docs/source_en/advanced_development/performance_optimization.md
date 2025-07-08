@@ -64,7 +64,7 @@ Parallelism strategies are usually classified into various parallel modes:
 
 In practice, multiple parallel strategies and multiple optimizations, such as using optimizer parallelism and recomputation, are usually employed to reduce the model's use of memory and improve training efficiency. Parallel strategy design is closely related to the efficiency of the model, and it is crucial to identify one or more sets of better parallel strategies before model tuning.
 
-For details, refer to [Parallel Strategy Guide](https://www.mindspore.cn/mindformers/docs/en/dev/feature/parallel_training.html).
+For details, refer to [Parallel Strategy Guide](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/parallel_training.html).
 
 For models with different parameter count specifications, the following parallel strategy can be selected:
 
@@ -277,7 +277,7 @@ Click anywhere on the timeline page tree or graphical pane can be performed usin
 
 #### IR Graph
 
-In the [MindSpore Transformers configuration file](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html), just turn on save_graphs, and the runtime will output some intermediate files ending with the .ir suffix generated during the graph compilation process, which we call IR files. By default, a directory of graphs will be generated in the current task execution directory, and all IR graphs will be saved in this. It is a relatively intuitive and easy to understand document describing the structure of the model in text format, which can be viewed directly with text editing software. Refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html) for the meaning of the configuration items, and the configuration method is as follows:
+In the [MindSpore Transformers configuration file](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/configuration.html), just turn on save_graphs, and the runtime will output some intermediate files ending with the .ir suffix generated during the graph compilation process, which we call IR files. By default, a directory of graphs will be generated in the current task execution directory, and all IR graphs will be saved in this. It is a relatively intuitive and easy to understand document describing the structure of the model in text format, which can be viewed directly with text editing software. Refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/configuration.html) for the meaning of the configuration items, and the configuration method is as follows:
 
 ```yaml
 context:
@@ -598,7 +598,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 2. Embedding parameter configuration optimizer parallelism: large vocabulary occupies too much memory, and the optimizer parallelism of vocabulary weights needs additional configuration, which effectively alleviates the problem of insufficient memory in the first stage;
 
-   An introduction to the use of optimizer parallelism can be found in [MindSpore Optimizer Parallelism Documentation](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/optimizer_parallel.html). In addition, the Llama model has additional configurations for optimizers in the embedding layer, the `parallel_optimizer` in the [LlamaConfig API documentation](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig) controls the parallelism of the embedding optimizer;
+   An introduction to the use of optimizer parallelism can be found in [MindSpore Optimizer Parallelism Documentation](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/parallel/optimizer_parallel.html). In addition, the Llama model has additional configurations for optimizers in the embedding layer, the `parallel_optimizer` in the [LlamaConfig API documentation](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig) controls the parallelism of the embedding optimizer;
    A sample configuration is shown below:
 
    ```yaml

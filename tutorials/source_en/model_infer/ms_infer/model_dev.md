@@ -4,7 +4,7 @@
 
 ## Large Language Model Backbone Network
 
-Currently, the backbone networks of mainstream large language models are mainly based on the transformer structure. The most important part is the computation of the self-attention mechanism. The following figure uses the Llama2 large language model as an example to describe the backbone network structure.
+Currently, the backbone networks of mainstream large language models are mainly based on the Transformer structure. The most important part is the computation of the self-attention mechanism. The following figure uses the Llama2 large language model as an example to describe the backbone network structure.
 
 ![LLAMA network structure](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_llama_network_arch.png)
 
@@ -12,15 +12,15 @@ The core layer of Llama2 consists of the following parts:
 
 - **Embedding**: converts the index corresponding to each token into a vector to implement feature dispersion. Similar to onehot vectorization, the embedding weight is involved in the training process to better adapt to the context semantics in the language model. The process is implemented by an Embedding operator.
 
-- **DecodeLayer**: transformer structure, which is the key for the computation of the large language model. Generally, multi-layer computation is performed based on different configurations. Each layer is actually a transformer structure, which is one of the cores of the foundation language model.
+- **DecodeLayer**: Transformer structure, which is the key for the computation of the large language model. Generally, multi-layer computation is performed based on different configurations. Each layer is actually a Transformer structure, which is one of the cores of the foundation language model.
 
-- **RmsNorm&Linear**: outputs linear normalization layer. After computation of the transformer structure, the result is normalized to the same dimension as the model vocabulary, and the probability distribution of each token is returned.
+- **RmsNorm&Linear**: outputs linear normalization layer. After computation of the Transformer structure, the result is normalized to the same dimension as the model vocabulary, and the probability distribution of each token is returned.
 
-To build a network with MindSpore large language model inference, you can assemble the operators provided by MindSpore. The following is an example to describe how to build a typical transformer model.
+To build a network with MindSpore large language model inference, you can assemble the operators provided by MindSpore. The following is an example to describe how to build a typical Transformer model.
 
 ## TransformerModel
 
-In a typical transformer model, each layer consists of the normalization, attention, residual connection, and multi-layer perception (MLP). Both attention and MLP meet the requirements of two continuous matrix multiplications.
+In a typical Transformer model, each layer consists of the normalization, attention, residual connection, and multi-layer perception (MLP). Both attention and MLP meet the requirements of two continuous matrix multiplications.
 
 1. Attention
 

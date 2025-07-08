@@ -14,27 +14,27 @@ Combining practical operations, SFT fine-tuning can be broken down into the foll
 
 ### 1. Weight Preparation
 
-Before fine-tuning, the weight files of the pre-trained model need to be prepared. MindSpore Transformers supports loading [safetensors weights](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html), enabling direct loading of model weights downloaded from the Hugging Face model hub.
+Before fine-tuning, the weight files of the pre-trained model need to be prepared. MindSpore Transformers supports loading [safetensors weights](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/safetensors.html), enabling direct loading of model weights downloaded from the Hugging Face model hub.
 
 ### 2. Dataset Preparation
 
-MindSpore Transformers currently supports datasets in [Hugging Face format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#huggingface-datasets) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#mindrecord-dataset) for the fine-tuning phase. Users can prepare data according to task requirements.
+MindSpore Transformers currently supports datasets in [Hugging Face format](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/dataset.html#huggingface-datasets) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/dataset.html#mindrecord-dataset) for the fine-tuning phase. Users can prepare data according to task requirements.
 
 ### 3. Configuration File Preparation
 
-Fine-tuning tasks are uniformly controlled through [configuration files](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html), allowing users to flexibly adjust [model training hyperparameters](https://www.mindspore.cn/mindformers/docs/en/dev/feature/training_hyperparameters.html). Additionally, fine-tuning performance can be optimized using [distributed parallel training](https://www.mindspore.cn/mindformers/docs/en/dev/feature/parallel_training.html), [memory optimization features](https://www.mindspore.cn/mindformers/docs/en/dev/feature/memory_optimization.html), and [other training features](https://www.mindspore.cn/mindformers/docs/en/dev/feature/other_training_features.html).
+Fine-tuning tasks are uniformly controlled through [configuration files](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/configuration.html), allowing users to flexibly adjust [model training hyperparameters](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/training_hyperparameters.html). Additionally, fine-tuning performance can be optimized using [distributed parallel training](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/parallel_training.html), [memory optimization features](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/memory_optimization.html), and [other training features](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/other_training_features.html).
 
 ### 4. Launching the Training Task
 
-MindSpore Transformers provides a [one-click startup script](https://www.mindspore.cn/mindformers/docs/en/dev/feature/start_tasks.html) to initiate fine-tuning tasks. During training, [logs](https://www.mindspore.cn/mindformers/docs/en/dev/feature/logging.html) and [visualization tools](https://www.mindspore.cn/mindformers/docs/en/dev/feature/monitor.html) can be used to monitor the training process.
+MindSpore Transformers provides a [one-click startup script](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/start_tasks.html) to initiate fine-tuning tasks. During training, [logs](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/logging.html) and [visualization tools](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/monitor.html) can be used to monitor the training process.
 
 ### 5. Model Saving
 
-Checkpoints are saved during training, or model weights are saved to a specified path upon completion. Currently, weights can be saved in [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html) or [Ckpt format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html), which can be used for resumed training or further fine-tuning.
+Checkpoints are saved during training, or model weights are saved to a specified path upon completion. Currently, weights can be saved in [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/safetensors.html) or [Ckpt format](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/ckpt.html), which can be used for resumed training or further fine-tuning.
 
 ### 6. Fault Recovery
 
-To handle exceptions such as training interruptions, MindSpore Transformers offers [high-availability features](https://www.mindspore.cn/mindformers/docs/en/dev/feature/high_availability.html) like last-state saving and automatic recovery, as well as [checkpoint-based resumed training](https://www.mindspore.cn/mindformers/docs/en/dev/feature/resume_training.html), enhancing training stability.
+To handle exceptions such as training interruptions, MindSpore Transformers offers [high-availability features](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/high_availability.html) like last-state saving and automatic recovery, as well as [checkpoint-based resumed training](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/resume_training.html), enhancing training stability.
 
 ## Full-Parameter Fine-Tuning with MindSpore Transformers
 
@@ -44,7 +44,7 @@ MindSpore Transformers currently supports mainstream large-scale models in the i
 
 ### Downloading Model Weights
 
-MindSpore Transformers supports loading Hugging Face model weights, enabling direct loading of weights downloaded from the Hugging Face model hub. For details, refer to [MindSpore Transformers-Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html).
+MindSpore Transformers supports loading Hugging Face model weights, enabling direct loading of weights downloaded from the Hugging Face model hub. For details, refer to [MindSpore Transformers-Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/safetensors.html).
 
 | Model Name  | Hugging Face Weight Download Link                     |
 | :---------- | :---------------------------------------------------: |
@@ -52,7 +52,7 @@ MindSpore Transformers supports loading Hugging Face model weights, enabling dir
 
 ### Dataset Preparation
 
-MindSpore Transformers supports online loading of Hugging Face datasets. For details, refer to [MindSpore Transformers-Dataset-Hugging Face Dataset](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#huggingface-datasets).
+MindSpore Transformers supports online loading of Hugging Face datasets. For details, refer to [MindSpore Transformers-Dataset-Hugging Face Dataset](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/dataset.html#huggingface-datasets).
 
 This guide uses [llm-wizard/alpaca-gpt4-data](https://huggingface.co/datasets/llm-wizard/alpaca-gpt4-data) as the fine-tuning dataset.
 
@@ -144,7 +144,7 @@ After task completion, a checkpoint folder will be generated in the mindformers/
 
 #### Multi-Node Training
 
-Multi-Node, multi-NPU fine-tuning tasks are similar to launching pre-training. Refer to [multi-node, multi-NPU pre-training commands](https://www.mindspore.cn/mindformers/docs/en/dev/guide/pre_training.html#multi-node-training).
+Multi-Node, multi-NPU fine-tuning tasks are similar to launching pre-training. Refer to [multi-node, multi-NPU pre-training commands](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/guide/pre_training.html#multi-node-training).
 
 First, modify the configuration file, adjusting settings based on the number of nodes:
 

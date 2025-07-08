@@ -12,9 +12,9 @@ MindSpore Transformers中大模型的基本组成包含配置、模型、分词�
 
 模型配置是一个实例，包含模型的所有信息。MindSpore Transformers中所有模型的`__init__`方法都接收一个模型配置的实例作为入参，模型的所有子模块都通过这个配置实例中所包含的信息来初始化。
 
-MindSpore Transformers提供了[PretrainedConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PretrainedConfig.html)类，负责提供一些配置的通用方法。所有模型的配置类都应该继承于PretrainedConfig类，开发者只需关心定义所有帮助构建大模型的配置参数：Transformer类大模型通常都拥有`seq_length`、`hidden_size`、`num_layers`、`num_heads`等配置参数，文本类的大模型通常还有`vocab_size`等。
+MindSpore Transformers提供了[PretrainedConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.PretrainedConfig.html)类，负责提供一些配置的通用方法。所有模型的配置类都应该继承于PretrainedConfig类，开发者只需关心定义所有帮助构建大模型的配置参数：Transformer类大模型通常都拥有`seq_length`、`hidden_size`、`num_layers`、`num_heads`等配置参数，文本类的大模型通常还有`vocab_size`等。
 
-可以参考MindSpore Transformers中Llama模型的配置类[LlamaConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaConfig.html)。
+可以参考MindSpore Transformers中Llama模型的配置类[LlamaConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.LlamaConfig.html)。
 
 > 如果您的模型与库内的模型非常相似，可以复用与该模型相同的配置。
 
@@ -22,12 +22,12 @@ MindSpore Transformers提供了[PretrainedConfig](https://www.mindspore.cn/mindf
 
 MindSpore Transformers的大模型基于MindSpore框架进行开发，其中开发者只需要关心模型网络本身的实现。
 
-MindSpore Transformers提供了[PretrainedModel](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PreTrainedModel.html)类，负责存储模型配置并处理加载、保存模型的方法。所有模型的类都应该继承于PretrainedModel类，并且模型的输入应该是统一的，即模型的`construct`方法的入参应该一致，具体入参和含义可以参考MindSpore Transformers中的Llama模型类[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaForCausalLM.html)。同时，模型类必须实现基类的一些抽象方法，包括：
+MindSpore Transformers提供了[PretrainedModel](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.PreTrainedModel.html)类，负责存储模型配置并处理加载、保存模型的方法。所有模型的类都应该继承于PretrainedModel类，并且模型的输入应该是统一的，即模型的`construct`方法的入参应该一致，具体入参和含义可以参考MindSpore Transformers中的Llama模型类[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.LlamaForCausalLM.html)。同时，模型类必须实现基类的一些抽象方法，包括：
 
 - `prepare_inputs_for_generation`：为模型推理构建输入的方法。
 - `prepare_inputs_for_predict_layout`：为分布式加载模型权重构建虚拟输入的方法。
 
-关于它们的具体含义，可以参考[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaForCausalLM.html)中的描述。
+关于它们的具体含义，可以参考[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.LlamaForCausalLM.html)中的描述。
 
 > 如果您的模型结构与库内的模型非常相似，可以复用该模型的实现。
 
@@ -35,20 +35,20 @@ MindSpore Transformers提供了[PretrainedModel](https://www.mindspore.cn/mindfo
 
 分词器（Tokenizer）的作用是处理大语言模型的输入与输出。它在大语言模型的工作流程中是必需的。
 
-MindSpore Transformers提供了[PretrainedTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PreTrainedTokenizer.html)类和[PretrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PreTrainedTokenizerFast.html)类，分别是纯Python的实现和使用Rust库的实现。后者实现的区别是：
+MindSpore Transformers提供了[PretrainedTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.PreTrainedTokenizer.html)类和[PretrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.PreTrainedTokenizerFast.html)类，分别是纯Python的实现和使用Rust库的实现。后者实现的区别是：
 
 - 在进行批量处理时速度显著提高；
 - 额外包含一些在文本字符串和词元空间映射的方法（例如，获取包含给定字符的词元的索引或与给定词元相对应的字符跨度）
 
-所有分词器的类应该继承于PretrainedTokenizer类或PretrainedTokenizerFast类，具体实现可以参考[LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaTokenizer.html)和[LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaTokenizerFast.html)。
+所有分词器的类应该继承于PretrainedTokenizer类或PretrainedTokenizerFast类，具体实现可以参考[LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.LlamaTokenizer.html)和[LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/models/mindformers.models.LlamaTokenizerFast.html)。
 
 > 如果您的分词器与库内的分词器非常相似，可以复用该分词器的实现。
 
 ### 准备权重和数据集
 
-如已有基于PyTorch的模型权重，可以参考[权重转换文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html#%E6%9D%83%E9%87%8D%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2)将权重转换为MindSpore格式的权重。
+如已有基于PyTorch的模型权重，可以参考[权重转换文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/ckpt.html#%E6%9D%83%E9%87%8D%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2)将权重转换为MindSpore格式的权重。
 
-数据集的准备可以参考[数据集文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html)，或参考模型文档，如[Llama2说明文档——数据集准备](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
+数据集的准备可以参考[数据集文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/dataset.html)，或参考模型文档，如[Llama2说明文档——数据集准备](https://gitee.com/mindspore/mindformers/blob/r1.6.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
 
 ### 准备`YAML`配置文件
 
@@ -56,7 +56,7 @@ MindSpore Transformers使用`YAML`配置文件配置一个任务所需的所有�
 
 由于自定义模型的代码不在MindSpore Transformers库内，代码中的自定义模块没有注册在MindSpore Transformers中，因而不能被自动实例化。这些代码也称为外挂代码（如`research`目录下代码）。因此需要在编写的`YAML`配置文件中的对应模块配置下添加自动注册任意模块的配置项`auto_register`，设置为要注册的API接口的相对导入路径。后续在执行run_mindformer.py脚本拉起任务时添加注册路径的入参`--register_path`，设置为外挂代码所在目录的相对路径。
 
-例如，`research`目录下的Llama3.1-8B模型的推理`YAML`配置文件[`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)中，添加了自动注册的配置项`auto_register`，以注册[`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py)中自定义的`Llama3Tokenizer`：
+例如，`research`目录下的Llama3.1-8B模型的推理`YAML`配置文件[`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)中，添加了自动注册的配置项`auto_register`，以注册[`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/llama3_1/llama3_1_tokenizer.py)中自定义的`Llama3Tokenizer`：
 
 ```yaml
 ...
@@ -91,15 +91,15 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 |  register_path  | 外挂代码所在目录的路径   |
 |  predict_data   | 推理的输入数据       |
 
-其中设置了`register_path`为外挂代码所在目录的路径`research/llama3_1`，模型权重的准备参考[Llama3.1说明文档——模型权重下载](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)。
+其中设置了`register_path`为外挂代码所在目录的路径`research/llama3_1`，模型权重的准备参考[Llama3.1说明文档——模型权重下载](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)。
 
-配置文件的详细内容及可配置项可以参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)。在实际编写配置文件时，也可以参考库内已有的配置文件，例如[Llama3_1-8B微调的配置文件](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
+配置文件的详细内容及可配置项可以参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/configuration.html)。在实际编写配置文件时，也可以参考库内已有的配置文件，例如[Llama3_1-8B微调的配置文件](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
 
-在准备完上述所有基本要素之后，可以参考MindSpore Transformers使用教程中的其余文档进行模型训练、微调、推理等流程的实践。后续模型调试调优可以参考[大模型精度调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/precision_optimization.html)和[大模型性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/performance_optimization.html)。
+在准备完上述所有基本要素之后，可以参考MindSpore Transformers使用教程中的其余文档进行模型训练、微调、推理等流程的实践。后续模型调试调优可以参考[大模型精度调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/advanced_development/precision_optimization.html)和[大模型性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/advanced_development/performance_optimization.html)。
 
 ### 将模型贡献给MindSpore Transformers开源仓库
 
-可以参考[MindSpore Transformers贡献指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/contribution/mindformers_contribution.html)，将模型贡献到MindSpore Transformers的开源仓库，供广大开发者研究和使用。
+可以参考[MindSpore Transformers贡献指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/contribution/mindformers_contribution.html)，将模型贡献到MindSpore Transformers的开源仓库，供广大开发者研究和使用。
 
 ## MindSpore Transformers大模型迁移实践
 

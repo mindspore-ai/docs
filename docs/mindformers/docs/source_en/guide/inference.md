@@ -19,7 +19,7 @@ Depending on the required inference task, different models are chosen, e.g. for 
 Currently, the inference weights can be loaded online to perform inference with the complete weights. The weights can be obtained through the following two methods:
 
 1. Download the complete open-source weights of the corresponding model from the Hugging Face model library.
-2. Pre-trained or fine-tuned distributed weights through [merger](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html#weight-merging) Generate a complete weight.
+2. Pre-trained or fine-tuned distributed weights through [merger](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/safetensors.html#weight-merging) Generate a complete weight.
 
 ### 3. Executing Inference Tasks
 
@@ -27,7 +27,7 @@ Use the unified script `run_mindformer` to execute inference tasks.
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh).
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.6.0/scripts/msrun_launcher.sh).
 
 The arguments to run_mindformer.py are described below:
 
@@ -45,7 +45,7 @@ The arguments to run_mindformer.py are described below:
 
 msrun_launcher.sh includes the run_mindformer.py command and the number of inference cards as two parameters.
 
-The following will describe the usage of single and multi-card inference using `Qwen2.5-7B` as an example, with the recommended configuration of the [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml) file.
+The following will describe the usage of single and multi-card inference using `Qwen2.5-7B` as an example, with the recommended configuration of the [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml) file.
 
 ### Configuration Modification
 
@@ -76,7 +76,7 @@ processor:
     merges_file: "path/to/merges.txt"
 ```
 
-For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/configuration.html).
 
 ### Single-Device Inference
 
@@ -152,4 +152,4 @@ Inference results are viewed in the same way as multi-card inference.
 
 ## More Information
 
-For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/dev/introduction/models.html).
+For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/introduction/models.html).
