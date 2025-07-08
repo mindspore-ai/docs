@@ -2,7 +2,17 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_network_develop.md)
 
-## 大语言模型主干网络
+## 模型开发模式
+
+MindSpore提供两种模式运行模型：
+
+- **静态图模式**：将模型网络编译成一整张网络图，对图进行融合优化，提升模型执行性能，但由于一些语法支持问题，对于模型的开发有一定限制，易用性相对较低。
+
+- **动态图模式**：根据网络脚本的python语句一条一条执行，可以随时使用打印，pdb等进行调试，易用性较高，但是相对性能不如静态图模式。
+
+MindSpore推荐用户先用动态图模式进行模型开发，然后根据需要进行动转静的改造，以获取最大的模型性能。
+
+## 动态图开发主干网络
 
 当前主流的大语言模型主干网络都以基于transformer结构为主的，其中最为重要的就是Self-Attention机制的计算，以Qwen2大语言模型为例，下图简单描述了其主干网络结构：
 
