@@ -66,10 +66,4 @@ MindSpore在Megatron-LM的interleaved pipeline调度的基础上做了内存优�
 
 *图5: MindSpore的interleaved pipeline调度*
 
-### zero_bubble_v pipeline调度
 
-zero_bubble_v pipeline调度通过将反向计算过程拆分为梯度计算与参数更新，进一步提升流水线并行的效率，减少Bubble率，如图6所示。在zero_bubble_v pipeline调度中，对于连续的模型层，stage的数值会先增大后减小。例如：对于有8个连续层，stage为4时，stage0有第0和第7层，stage1有第1和第6层，stage2有第2和第5层，stage3有第3和第4层。
-
-![zero_bubble_v.png](images/zero_bubble_v.png)
-
-*图6: zero_bubble_v pipeline调度*
