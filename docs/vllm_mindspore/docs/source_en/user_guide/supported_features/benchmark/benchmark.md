@@ -46,7 +46,7 @@ cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
 ```  
 
-Here, $VLLM_BRANCH$ refers to the branch name of vLLM, which needs to be compatible with vLLM MindSpore. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
+Here, `VLLM_BRANCH` refers to the branch name of vLLM, which needs to be compatible with vLLM MindSpore. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
 
 Execute the test script:  
 

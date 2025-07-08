@@ -39,4 +39,5 @@ vLLM MindSpore支持的特性功能与vLLM社区版本保持一致，特性描�
 
 ## 特性说明
 
-LoRA目前仅支持Qwen2.5 vLLM MindSpore原生模型，其他模型正在适配中。
+- LoRA目前仅支持Qwen2.5 vLLM MindSpore原生模型，其他模型正在适配中；
+- Tool Calling目前已支持DeepSeek V3 0324 W8A8模型。

@@ -46,7 +46,7 @@ cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
 ```
 
-其中，$VLLM_BRANCH$为vLLM的分支名，其需要与vLLM MindSpore相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
+其中，`VLLM_BRANCH`为vLLM的分支名，其需要与vLLM MindSpore相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
 
 执行测试脚本：
 
