@@ -8,7 +8,7 @@
 
 ![蒸馏流程](./images/distilled_process.png)
 
-更多信息请参考[DeepSeek-R1-Distill-Qwen-7B](https://hf-mirror.com/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B)
+更多信息请参考[DeepSeek-R1-Distill-Qwen-7B](https://hf-mirror.com/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B)。
 
 ## 1. 前提准备
 
@@ -103,7 +103,7 @@ mindformers
         - **`--max-tokens`**：生成的CoT数据的最大Token数。
         - **`--max-concurrent`**：请求的最大并发数量。
 
-1. 拒绝采样
+4. 拒绝采样
 
     **目标**：过滤掉推理数据中的错误或不准确的CoT数据，确保数据质量。
 
@@ -119,7 +119,7 @@ mindformers
         - **`--src`**：输入的CoT数据文件路径。
         - **`--dst`**：输出的过滤后的CoT数据文件路径。
 
-2. 数据集预处理
+5. 数据集预处理
 
     跳转到[选项-1-使用原始数据离线处理](#选项-1-使用原始数据离线处理)的中的**步骤一**，并将生成的CoT数据转换为MindSpore Transformers支持的格式。
 

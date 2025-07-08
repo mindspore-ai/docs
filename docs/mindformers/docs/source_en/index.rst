@@ -118,6 +118,10 @@ Advanced developing with MindSpore Transformers
 
   - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/dev_migration.html>`_
 
+- Accuracy Comparison
+
+  - `Compare Training Accuracy with Megatron-LM <https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/accuracy_comparison.html>`_
+
 Environment Variables
 ------------------------------------
 
@@ -188,7 +192,16 @@ FAQ
    advanced_development/precision_optimization
    advanced_development/performance_optimization
    advanced_development/dev_migration
+   advanced_development/accuracy_comparison
    advanced_development/api
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Excellent Practice
+   :hidden:
+
+   example/distilled/distilled
 
 .. toctree::
    :glob:
