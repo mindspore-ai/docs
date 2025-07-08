@@ -151,6 +151,6 @@ def save_strategy_file(state_dict, strategy_file_name):
         raise e
 ```
 
-得到推理网络的并行策略文件后，可以根据执行分布式checkpoint转换方法，将训练权重转换为推理所需权重。
+得到推理网络的并行策略文件后，可以根据分布式checkpoint转换方法，将训练权重转换为推理所需权重。
 
 具体端到端的权重切分代码工程可以参考[权重切分](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/sample_code/infer_code/param_split.py)。

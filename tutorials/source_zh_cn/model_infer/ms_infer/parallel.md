@@ -2,8 +2,9 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_zh_cn/model_infer/ms_infer/parallel.md)
 
-在过去几年中，随着深度学习技术的迅速发展，尤其是大规模预训练模型（如GPT、LLaMA以及盘古等）的出现，人工智能领域取得了巨大的进步。然而，随着模型规模的不断扩展，这些大模型所需的计算资源，特别是显存需求，呈指数级增长。以盘古71B为例，在半精度（FP16）下，这些参数本身就需要约142GB的显存。同时大模型日益膨胀的序列长度也给显存带了极大的压力。
-显存不仅影响了模型的加载，还限制了批处理（batch size）较小的批处理可能会降低推理效率的下降，进而影响整个系统的吞吐量。
+在过去几年中，随着深度学习技术的迅速发展，尤其是大规模预训练模型（如GPT、LLaMA以及盘古等）的出现，人工智能领域取得了巨大的进步。然而，随着模型规模的不断扩展，这些大模型所需的计算资源，特别是显存需求，呈指数级增长。以盘古71B为例，在半精度（FP16）下，这些参数本身就需要约142GB的显存。
+
+同时大模型日益膨胀的序列长度也给显存带了极大的压力。显存不仅影响了模型的加载，还限制了批处理（batch size）较小的批处理可能会降低推理效率的下降，进而影响整个系统的吞吐量。
 
 显存的压力使得单一设备很难在合理时间内完成推理任务，并行计算成为应对这一挑战的关键。
 
@@ -80,18 +81,19 @@
     `ColumnParallelLinear`类，根据模型并行的设备数，计算切分后的权重shape并初始化。列切是切分`out_channels`，在模型前向，调用矩阵乘计算出并行的结果。最后可以选择对并行的结果进行`AllGather`，以得到完整的输出。
 
     MindSpore训推一体框架支持开启infer_boost，该参数会使MS框架开启高性能自研算子库。启动该模式需要：
-    - 设置变量：
 
-    ```python
-    from mindspore import set_context
-    set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
-    ```
+    1. 设置变量：
 
-    - 设置系统环境变量：
+        ```python
+        from mindspore import set_context
+        set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
+        ```
 
-    ```bash
-    export ASCEND_HOME_PATH={$ascend_custom_path}
-    ```
+    2. 设置系统环境变量：
+
+        ```bash
+        export ASCEND_HOME_PATH={$ascend_custom_path}
+        ```
 
     以模型并行device数是2为例，设置环境变量以及初始化通信组，并配置大模型参数config。
 
@@ -328,7 +330,7 @@
 
 1. Attention
 
-    以MHA(Multi Head Attention)为例，Transformer中典型的Attention模块是多头的，每个注意力头相互独立。因此在保证单个注意力头完整的情况下，激活值在`hidden_size`的维度是可切的。例如，假设一个MHA的头数（`num_heads`）是16，每个头的维度（`head_dim`）是256，那么`hidden_size`就是4096，计算Q/K/V的Linear的in/out都是4096。当模型并行设置为`tensor_model_parallel=4`时，这些Linear被切分到4个device，每个device的shape为(4096,1024)，意味着每个device计算4个头。
+    以MHA（Multi Head Attention）为例，Transformer中典型的Attention模块是多头的，每个注意力头相互独立。因此在保证单个注意力头完整的情况下，激活值在`hidden_size`的维度是可切的。例如，假设一个MHA的头数（`num_heads`）是16，每个头的维度（`head_dim`）是256，那么`hidden_size`就是4096，计算Q/K/V的Linear的in/out都是4096。当模型并行设置为`tensor_model_parallel=4`时，这些Linear被切分到4个device，每个device的shape为(4096,1024)，意味着每个device计算4个头。
 
     ![MHA](images/MHA.png)
 
