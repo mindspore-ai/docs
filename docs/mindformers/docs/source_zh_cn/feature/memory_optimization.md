@@ -14,7 +14,7 @@
 
 用户可通过在模型训练的 yaml 配置文件中新增 `recompute_config` 模块来使用重计算。
 
-以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml#L113) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # recompute config
