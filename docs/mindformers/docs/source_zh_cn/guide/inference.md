@@ -12,14 +12,11 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ### 1. 选择推理的模型
 
-根据需要的推理任务，选择不同的模型，如文本生成可以选择 `Qwen2.5-7B` 等。
+根据需要的推理任务，选择不同的模型，如文本生成可以选择Qwen3-8B等。
 
-### 2. 准备模型权重
+### 2. 准备模型文件
 
-目前推理权重可以在线加载完整权重进行推理，权重可以通过以下两种方式获得：
-
-1. 从Hugging Face模型库中下载相应模型的开源的完整权重。
-2. 预训练或者微调后的分布式权重，通过[合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html#%E6%9D%83%E9%87%8D%E5%90%88%E5%B9%B6)生成一个完整权重。
+获取Hugging Face模型文件：权重、配置与分词器，将下载的文件存放在同一个文件夹目录，方便后续使用。
 
 ### 3. 执行推理任务
 
@@ -36,44 +33,34 @@ run_mindformer.py的参数说明如下：
 | config                   | yaml配置文件的路径                                  |
 | run_mode                 | 运行的模式，推理设置为predict                           |
 | use_parallel             | 是否使用多卡推理                                     |
-| load_checkpoint          | 加载的权重路径                                      |
 | predict_data             | 推理的输入数据，多batch推理时需要传入输入数据的txt文件路径，包含多行输入     |
-| auto_trans_ckpt          | 自动权重切分，默认值为False                             |
-| src_strategy_path_or_dir | 权重的策略文件路径                                    |
 | predict_batch_size       | 多batch推理的batch_size大小                        |
-| modal_type               | 多模态推理场景下，模型推理输入对应模态，图片路径对应'image'，文本对应'text' |
 
 msrun_launcher.sh包括run_mindformer.py命令和推理卡数两个参数。
 
-下面将以 `Qwen2.5-7B` 为例介绍单卡和多卡推理的用法，推荐配置为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)文件。
+下面将以Qwen3-8B为例介绍单卡和多卡推理的用法，推荐配置为[predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/qwen3/predict_qwen3.yaml)文件。
 
 ### 配置修改
 
-权重相关配置修改如下：
+当前推理可以直接复用Hugging Face的配置文件和tokenizer，并且在线加载Hugging Face的safetensors格式的权重，使用时的配置修改如下：
 
 ```yaml
-load_checkpoint: "path/to/Qwen2_5_7b_instruct/"
-load_ckpt_format: 'safetensors'
-auto_trans_ckpt: True
+use_legacy: False
+pretrained_model_dir: '/path/hf_dir'
 ```
 
-默认配置是单卡推理配置，并行相关配置修改如下：
+参数说明：
+
+- use_legacy：决定是否使用老架构，默认值：`True`；
+- pretrained_model_dir：Hugging Face模型目录路径，放置模型配置、Tokenizer等文件。
+
+默认配置是单卡推理配置。如需使用多卡推理，相关配置修改如下：
 
 ```yaml
 use_parallel: False
 parallel_config:
   data_parallel: 1
   model_parallel: 1
-  pipeline_stage: 1
-```
-
-`tokenizer`相关配置修改如下：
-
-```yaml
-processor:
-  tokenizer:
-    vocab_file: "path/to/vocab.json"
-    merges_file: "path/to/merges.txt"
 ```
 
 具体配置说明均可参考[yaml配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)。
@@ -84,8 +71,7 @@ processor:
 
 ```shell
 python run_mindformer.py \
---register_path /path/to/research/qwen2_5/ \
---config /path/to/research/qwen2_5/predict_qwen2_5_7b_instruct \
+--config configs/qwen3/predict_qwen3.yaml \
 --run_mode predict \
 --use_parallel False \
 --predict_data '帮助我制定一份去上海的旅游攻略'
@@ -108,11 +94,9 @@ python run_mindformer.py \
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path /path/to/research/qwen2_5 \
- --config /path/to/research/qwen2_5/qwen2_5_72b/predict_qwen2_5_72b_instruct.yaml \
+ --config configs/qwen3/predict_qwen3.yaml \
  --run_mode predict \
  --use_parallel True \
- --auto_trans_ckpt True \
  --predict_data '帮助我制定一份去上海的旅游攻略'" 4
 ```
 
@@ -139,13 +123,11 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path /path/to/research/qwen2_5 \
- --config /path/to/research/qwen2_5/qwen2_5_72b/predict_qwen2_5_72b_instruct.yaml \
+ --config configs/qwen3/predict_qwen3.yaml \
  --run_mode predict \
  --predict_batch_size 4 \
  --use_parallel True \
- --auto_trans_ckpt True \
- --predict_data '帮助我制定一份去上海的旅游攻略'" 4
+ --predict_data path/to/input_predict_data.txt" 4
 ```
 
 推理结果查看方式，与多卡推理相同。
