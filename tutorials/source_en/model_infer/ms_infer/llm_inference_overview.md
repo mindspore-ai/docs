@@ -5,6 +5,7 @@
 ## Background
 
 At the end of 2022, with the release of OpenAI's ChatGPT, a new research direction emerged in the AI domain, that is, large language models based on the transformer structure. These models exhibited capabilities beyond expectations and achieved impressive results in various tests, quickly becoming the research focus of AI.
+
 One significant research direction in large language models is improving their cost-effectiveness in practical applications.
 
 - A large language model usually has tens of billions of parameters, and the computation workload for a single model inference process is extremely high and requires massive compute resources. As a result, AI service providers find that the cost of a large language model inference is very high and cannot be effectively applied to real-world scenarios.
@@ -145,7 +146,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-In this code, tokenizer.model is a file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while config is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model. You can obtain the sample from [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_7b.yaml) (Note: Change the CKPT weight path to the actual weight path). For details, see [Llama 2](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#-18).
+In this code, tokenizer.model is a tokenizer file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while config is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model. You can obtain the sample from [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_7b.yaml) (Note: Change the CKPT weight path to the actual weight path). For details, see [Llama 2](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#-18).
 
 In addition, if you have special requirements for the model or have a deep understanding of deep learning, you can build your own model. For details, see [Model Development](./model_dev.md).
 
@@ -209,11 +210,11 @@ In addition to utilizing the capabilities provided by the MindFormers model suit
 
 For large language models with many model parameters, such as Llama2-70B and Qwen2-72B, the parameter scale usually exceeds the memory capacity of a GPU or NPU. Therefore, multi-device parallel inference is required. MindSpore large language model inference can shard the original large language model into N parallel models so that they can be executed on multiple devices in parallel. This not only enables inference for super-large models but also enhances performance by leveraging more resources from the multiple devices. The model scripts provided by the MindFormers model suite can be used to shard a model into multi-device models for execution. You can perform the following steps to deploy the model on multiple devices.
 
-- **Weight sharding**: Because the original weight files are too large, when executing on multiple devices, the overall weight needs to be sharded into multiple weights for each device and passed to the model process corresponding to each device. You can use the script in the MindFormers model suite to perform weight sharding. For details, see [Weight Conversion](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/feature_cards/Transform_Ckpt.md).
+1. **Weight sharding**: Because the original weight files are too large, when executing on multiple devices, the overall weight needs to be sharded into multiple weights for each device and passed to the model process corresponding to each device. You can use the script in the MindFormers model suite to perform weight sharding. For details, see [Weight Conversion](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/feature_cards/Transform_Ckpt.md).
 
     Here is an example of how to shard the Llama2-7B model for parallel execution on two devices.
 
-    - **Generating a target parallel strategy file** When MindSpore performs sharding, you need to specify the sharding mode. The information is stored in the parallel strategy file and can be generated using the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py) script. Open the YAML file corresponding to the Llama2-7B model and modify the following configuration:
+    1. **Generating a target parallel strategy file** When MindSpore performs sharding, you need to specify the sharding mode. The information is stored in the parallel strategy file and can be generated using the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/run_mindformer.py) script. Open the YAML file corresponding to the Llama2-7B model and modify the following configuration:
 
         - Set only_save_strategy to True, indicating that generating parallel sharding strategy files is enabled.
 
@@ -229,7 +230,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
 
         msrun is a parallel execution tool provided by MindSpore. The input_data parameter can accept any content to ensure that the model process can be executed properly. After the program is executed, the strategy directory is generated in the output directory, that is, the parallel sharding strategy file for two-device parallel inference.
 
-    - **Sharding model weight CKPT file**: Call the conversion script to shard and generate the weight CKPT files. For details, see [transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/ckpt_transform/transform_checkpoint.py).
+    2. **Sharding model weight CKPT file**: Call the conversion script to shard and generate the weight CKPT files. For details, see [transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/tools/ckpt_transform/transform_checkpoint.py).
 
         Run the following command to shard the weight into two-device parallel weights:
 
@@ -240,7 +241,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
 
         Here, src_checkpoint is the path to the source CKPT file. In the example, full sharding is used. Therefore, the source strategy file does not need to be passed. However, the path must point to the CKPT file, not to a directory. dst_checkpoint is the target directory of the sharding result. After the sharding is complete, two subdirectories rank_0 and rank_1 are generated to store the weight CKPT files of different devices. dst_strategy is the path of the strategy file generated in the previous step.
 
-- **Model adaptation**: When the MindSpore large language model is running on multiple devices, model parallelism is usually used. Therefore, the original model needs to be sharded based on the number of devices. For example, the matrix multiplication of [1024, 4096] and [4096, 2048] can be sharded into two matrix multiplications of [1024, 4096] and [4096, 1024] respectively. Different sharding may bring different parallel computing performance. The MindFormers model provides proven excellent sharding solution for MindSpore model and uses the MindSpore parallel framework for sharding. The following is part of the sharding code in the model:
+2. **Model adaptation**: When the MindSpore large language model is running on multiple devices, model parallelism is usually used. Therefore, the original model needs to be sharded based on the number of devices. For example, the matrix multiplication of [1024, 4096] and [4096, 2048] can be sharded into two matrix multiplications of [1024, 4096] and [4096, 1024] respectively. Different sharding may bring different parallel computing performance. The MindFormers model provides proven excellent sharding solution for MindSpore model and uses the MindSpore parallel framework for sharding. The following is part of the sharding code in the model:
 
     ```python
     if not (_get_parallel_mode() in (ParallelMode.AUTO_PARALLEL,) and _is_sharding_propagation()):
@@ -277,7 +278,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
 
     For details about the network script code, see [llama.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/mindformers/models/llama/llama.py).
 
-- **Model inference**: Different from single-device inference, multi-device inference requires multiple processes to be started at the same time for parallel inference. Therefore, compared with directly running a script, multi-device inference requires multiple groups of related processes to be run at a time. The MindSpore framework provides the msrun parallel running tool. The usage method is as follows.
+3. **Model inference**: Different from single-device inference, multi-device inference requires multiple processes to be started at the same time for parallel inference. Therefore, compared with directly running a script, multi-device inference requires multiple groups of related processes to be run at a time. The MindSpore framework provides the msrun parallel running tool. The usage method is as follows.
 
     ```shell
     msrun --worker_num=2 --local_worker_num=2 run_mindformer.py --config "/path/to/llama2_7b.yaml" --input_data "hello"
