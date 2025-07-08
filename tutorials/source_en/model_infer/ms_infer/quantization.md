@@ -60,7 +60,7 @@ rtn.convert(net)
 ms.save_checkpoint(net.parameters_dict(), './simplenet_rtn.ckpt')
 ```
 
-1. Use [nn.Cell](https://www.mindspore.cn/docs/en/r2.0/api_python/nn/mindspore.nn.Cell.html) to define the network. After training the model, obtain the floating-point weight of the model, and then load the floating-point weight during inference. The above example simplifies the process by directly creating a network and using the initial floating-point weight for quantization.
+1. Use [nn.Cell](https://www.mindspore.cn/docs/en/r2.6.0/api_python/nn/mindspore.nn.Cell.html) to define the network. After training the model, obtain the floating-point weight of the model, and then load the floating-point weight during inference. The above example simplifies the process by directly creating a network and using the initial floating-point weight for quantization.
 2. Use PTQConfig to set mode to quantization mode, set the backend to Ascend, and perform 8-bit quantization on the weight. For details, see [PTQConfig Configuration Description](#ptqconfig-configuration-description).
 3. Use the apply API to convert the network into a pseudo-quantized network and collect statistics on the quantized object based on the configuration in `PTQConfig`.
 4. Use the convert API to quantize the pseudo-quantized network in the previous step to obtain the quantized network.
