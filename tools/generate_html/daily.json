@@ -122,5 +122,14 @@
     "whl_name" : "",
     "environ" : "",
     "uninstall_name" : ""
+},
+{
+    "id" : 13 ,
+    "name" : "msadapter",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "",
+    "uninstall_name" : ""
 }
 ]
