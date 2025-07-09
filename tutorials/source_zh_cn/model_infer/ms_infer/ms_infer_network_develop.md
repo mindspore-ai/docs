@@ -678,3 +678,4 @@ class Qwen2Model(nn.Cell):
 
 - **图输入名称**：如果使用了MindSpore的PagedAttention算子，由于PagedAttention算子计算需要，其batch_valid_length和q_seq_lens两个图输入的命名必须用此命名，否则会导致PagedAttention算子初始化失败。
 
+用户在使用MindSpore开发模型脚本时，如果最终有使用静态图推理的需求，建议预先考虑以上的限制，在动态图开发调试时就遵循此限制开发，防止后续的迁移和调试成本。

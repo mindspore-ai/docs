@@ -148,22 +148,57 @@ ls
 首先用户需要构建模型并加载权重，执行以下代码
 
 ```python
-from .qwen2 import Qwen2ForCausalLM, from_json
+import os
+import mindspore as ms
+from qwen2 import Qwen2Config, Qwen2ForCausalLM, CacheManager
 from mindspore import Tensor, mint
 
-batch_size = 2
-qwen2_config = from_json("/path/to/model/config.json")
+# set mindspore context and envs
+os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
-qwen2_model = Qwen2ForCausalLM(qwen2_config)
+ms.set_context(infer_boost="on")
+ms.set_context(mode=ms.context.PYNATIVE_MODE)
+
+model_path = "/path/to/model"
+input_str = ["I love Beijing, because", "Hello, Qwen2"]
+batch_size = len(input_str)
+max_new_token = 64
+block_size = 128
+max_seq_lens = block_size * 10
+block_num = (max_seq_lens * batch_size) // block_size
+
+config = Qwen2Config.from_json(model_path + "/config.json")
+
+model = Qwen2ForCausalLM(config)
 # load weight
-qwen2_model.load_weight("/path/to/model")
+model.load_weight(model_path)
 
-# init kvcache
-qwen2_model.init_kv_cache(batch_size, qwen2_model.max_position_embeddings)
+cache_manager = CacheManager(config, block_num, block_size, batch_size)
 ```
 
-其中， qwen2为模型的网络脚本，可以参考[从零构建大语言模型推理网络](./ms_infer_network_develop.md)。
-用户也可以使用其他的网络脚本，不过需要修改相应的模型接口。
+其中， qwen2为模型的网络脚本（qwen2.py），需要和当前脚本在同一个目录下，可以参考[从零构建大语言模型推理网络](./ms_infer_network_develop.md)。用户也可以使用其他的网络脚本，但是需要修改相应的模型接口。
+
+脚本中第一步是设置mindspore相关环境变量，包括：
+
+- **MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST**：设置PagedAttention使用MindSpore支持TH拉平的算子，由于mindspore在动态图模式下算子只支持TH格式，因此如果要在动态图下开发，需要设置此环境变量，用户也可以自行使用BSH格式输入。
+
+- **infer_boost**：开启推理优化，此优化主要是使能MindSpore的FlashAttention、PagedAttention等融合算子。
+
+- **mode**：设置执行模式为动态图模式，此模式更方便调试和开发，推荐用户在模型开发时使用此模式。
+
+脚本中的第二步是使用模型脚本qwen2.py提供的类进行模型的初始化和KVCache的初始化，其中包含几个参数：
+
+- **input_str**：需要推理的原始文本，此处一次传入batch_size=2的字符串list，表示同时推理两个语句。
+
+- **model_path**：模型目录路径，即前面Hugging Face官网下载的模型路径。
+
+- **max_new_token**：最大推理单词数量，当迭代到最大单词数量后，即停止推理，后面迭代推理中会使用。
+
+- **block_size**：PagedAttention中管理KVCache对象的block大小，block_size越小，划分越细，不同请求可能复用概率更高，block_size越大，则网络计算时，一次读取的有效数据更多，计算性能更好。
+
+- **max_seq_len**：模型推理支持的最大长度，此参数通常可以从config配置中获取，影响KVCache的显存占用，由于Qwen2配置默认比较大（32K），此处修改为block_size的10倍简化。
+
+根据以上参数对模型进行初始化，获得model和cache_manager对象。
 
 ### 模型推理
 
@@ -174,7 +209,7 @@ qwen2_model.init_kv_cache(batch_size, qwen2_model.max_position_embeddings)
     ```python
     from transformers import AuotTokenizer
 
-    tokenizer = AuotTokenizer.from_pretrained("/path/to/model")
+    tokenizer = AuotTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
     input_str = ["I love Beijing, because", "Hello, Qwen2"]
 
@@ -186,71 +221,124 @@ qwen2_model.init_kv_cache(batch_size, qwen2_model.max_position_embeddings)
     执行此Python代码，会打印如下输出：
 
     ```shell
-    [1, 306, 5360, 1522, 823, 292, 29892, 1363]
+    [【40， 2948， 26549， 11， 1576】， 【9707， 11， 1207， 16948， 17】]
     ```
 
-    将"I love Beijing, because"分解为了8个token，其中：1表示文本或者段落的起始token，306表示I对应的token，1522表示love对应的token，292表示Beijing对应的token，29892表示逗号对应的token，1363表示because对应的token，5360、823、分别表示了两个词间的空格（具体根据模型的tokenizer而定），这个格式可以直接传给模型进行推理
+    其中，【40， 2948， 26549， 11， 1576】对应"I love Beijing, because"的单词序列，40表示I对应的token，2948表示love对应的token，26549表示Beijing对应的token，11表示逗号加空格对应的token，1576表示because对应的token，这个格式可以直接传给模型进行推理。同理【9707， 11， 1207， 16948， 17】对应‘Hello， Qwen2’的输入序列。此处采用一次传入2个请求的batch计算进行演示。
 
-- **整网计算**：传入当前的输入token的数据和配置，让模型对象通过多轮的推理出每轮的token结果。
+- **整网计算**：传入当前的输入token的数据和配置，让模型对象通过多轮的迭代推理出每轮的token结果。为了代码更加简洁，可以将迭代推理封装到如下generate函数中
 
     ```python
     # build mindspore input
     from mindspore import ops, mint, Tensor, dtype
+    from qwen2 import Qwen2Config, Qwen2ModelInput, Qwen2ForCausalLM, CacheManager, sample
 
-    # reshape to [batch_size, seq_length] and pad input
-    cur = max(map(len, input_ids))
+    def generate(model: Qwen2Model, cache_manager: CacheManager, input_ids: List, max_new_token: int, max_seq_lens: int, eos_token_id: int):
+        batch_size = len(input_ids)
+        assert max_seq_lens >= max(map(len, input_ids))
 
-    for i in range(batch_size):
-        input_ids[i] += (cur - len(input_ids[i])) * [tokenizer.pad_token_id]
+        cur = min(map(len, input_ids))
+        is_prefill = True
+        it = 0
 
-    is_prefill = True
-    max_generate_seq_len = 128
-    while cur <= max_generate_seq_len:
-        if is_prefill:
-            inp = Tensor(input_ids)
-            pos = mint.arange(inp.shape[1]).view(-1)
-            attn_mask = ops.logical_not(ops.sequence_mask(pos + 1, cur)).astype(dtype.bfloat16)
-        else:
-            inp = Tensor([[a[-1]] for a in input_ids])
-            pos = Tensor([cur - 1])
-            attn_mask = ops.logical_not(ops.sequence_mask(pos + 1, cur)).astype(dtype.bfloat16)
-        pos = pos.astype(dtype.int32)
-        batch_valid_length = pos[-1].astype(dtype.int32).view(-1) + 1
+        decode_q_seq_lens = Tensor([1 for _ in range(batch_size)], dtype=dtype.int32)
+        decode_mask = ops.zeros((1, 1), dtype=config.param_dtype)
+        attn_mask = None
+        q_seq_lens = None
 
-        logits = qwen2_model(Qwen2ModelInput(
-            input_ids=inp,
-            positions=pos,
-            batch_valid_length=batch_valid_length,
-            is_prefill=is_prefill,
-            attn_mask=attn_mask
-        ))
+        while cur <= max_seq_lens and it < max_new_tokens:
+            batch_valid_length = Tensor([cur for _ in range(batch_size)], dtype=dtype.int32)
+            if is_prefill:
+                inp = Tensor([input_ids[i][:cur] for i in range(batch_size)], dtype=dtype.int32)
+                pos = mint.arange(cur).astype(dtype.int32)
+                block_tables, slot_mapping = cache_manager.step(0, cur)
+                attn_mask = ops.logical_not(ops.sequence_mask(pos + 1, cur)).astype(config.param_dtype)
+                q_seq_lens = None
+            else:
+                inp = Tensor([[input_ids[i][cur - 1]] for i in range(batch_size)], dtype=dtype.int32)
+                pos = Tensor([[cur - 1] for _ in range(batch_size)], dtype=dtype.int32).view(-1)
+                block_tables, slot_mapping = cache_manager.step(cur - 1, 1)
+                attn_mask = decode_mask
+                q_seq_lens = decode_q_seq_lens
 
-        next_tokens = logits.argmax(axis=1)
-        print(f"next tokens:={next_tokens}", flush=True)
+            model_input = Qwen2ModelInput(
+                input_ids=inp,
+                positions=pos,
+                batch_valid_length=batch_valid_length,
+                is_prefill=is_prefill,
+                attn_mask=attn_mask,
+                k_caches=cache_manager.k_caches,
+                v_caches=cache_manager.v_caches,
+                block_tables=block_tables,
+                slot_mapping=slot_mapping,
+                q_seq_lens=q_seq_lens
+            )
+            
+            logits = model(model_input)
+
+            next_tokens = sample(logits, input_ids)
+
+            for i in range(batch_size):
+                if cur >= len(input_ids[i]):
+                    input_ids[i].append(int(next_tokens[i]))
+
+            cur += 1
+            it += 1
+            if is_prefill:
+                is_prefill = False
 
         for i in range(batch_size):
-            input_ids[i].append(next_tokens[i])
+            if eos_token_id in input_ids[i]:
+                eos_idx = input_ids[i].index(eos_token_id)
+                input_ids[i] = input_ids[i][: eos_idx + 1]
 
-        cur += 1
-        if is_prefill:
-            is_prefill = False
+        return input_ids
     ```
 
-    由于大语言模型需要多轮迭代推理才能最终给出结果，因此在模型推理时，需要通过多轮调用模型来实现，其中核心步骤包括以下几个：
+    上面的generate函数模拟了大语言模型推理的迭代过程，其中核心步骤包括以下几个：
 
-    - **模型输入准备**：准备模型推理需要的输入数据，包括输入的index列表，以及语句的位置和长度信息（PagedAttention和KVCache使用），attention的mask，以及对输入进行组batch等。
+    - **模型输入准备**：准备模型推理需要的输入数据， 构造Qwen2ModelInput对象，其主要的参数包括：
+
+        - **input_ids**：输入的词表id的list，每个batch一个list表示。
+
+        - **positions**：表示输入的词表在推理语句中的位置信息，主要用于rope旋转位置编码。
+
+        - **batch_valid_length**：表示当前推理的语句长度，通常是positions的值加1，投机推理等优化场景除外，主要是用于KVCache的获取KV值使用。
+
+        - **is_prefill**：是否是全量推理，全量推理需要计算多个KV值，增量推理通常计算一个KV值，复用之前计算的KV结果。
+
+        - **attn_mask**：用于注意力分数计算时mask掉不必要的信息，通常是一个上三角或者下三角。
+
+        - **kv_caches**：kv_caches对象，保存了所有计算的kv结果。
+
+        - **block_tables&slot_mapping**：表示当前推理词表使用的KVCache具体信息，block_tables表示每个batch当前使用的block，slot_mapping表示对应的单词在block中的具体位置。如block_tables=【2， 10】，slot_mapping=【1200】，block_size=128，表示当前推理使用了第2个和第10个block，当前单词用了第1200个block单元，即第10个block的第48个单元的KV值。
+
+        - **q_seq_lens**：表示注意力中query的长度，主要PagedAttention算子使用，标准模型下增量一般是1，投机推理场景下可能大于1.
 
     - **模型计算**：调用主干模型网络启动模型计算逻辑，计算出下一个单词的概率分布。
 
-    - **采样结果**：通过计算出的概率，采样获取下一个单词的index（此处使用argmax，即选择概率最大的单词）。
+    - **采样结果**：通过sample采样计算获取下一个单词的id（此处使用argmax，即选择概率最大的单词）。
 
-    - **更新下一个迭代输入**：将本迭代推理的结果按照模型需求组合成下一个迭代的输入。
+    - **更新下一个迭代输入**：更新下个迭代的词表list，进入下一个迭代。
+
+    完成以上的迭代后，可以做一些优化，由于此处模型推理实现按照推理单词个数来结束，推理结果可能会被突然打断，因此可以通过tokenizer的断句词表id，将结果圈定在最后断句（如句号）的位置，提升文本结果的可读性。封装完成后，可以通过以下代码简单的调用单词生成过程：
+
+    ```python
+    output = generate(
+        model=model,
+        cache_manager=cache_manager,
+        input_ids=input_ids,
+        max_new_token=max_new_token,
+        eos_token_id=tokenizer.eos_token_id,
+        max_seq_lens=max_seq_lens
+    )
+    ```
 
 - **后处理**：根据网络推理的输出，利用tokenizer的反向能力，将token id的list转换成一句可理解的语句。
 
     ```python
-    response = [tokenzier.decode(a) for a in input_ids]
-    print(response)
+    result = [tokenzier.decode(a) for a in output]
+    print(result)
     ```
 
     执行此Python代码，会打印如下输出：
