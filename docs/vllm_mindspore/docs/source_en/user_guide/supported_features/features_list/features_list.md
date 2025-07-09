@@ -39,4 +39,5 @@ The following is the features supported in vLLM MindSpore.
 
 ## Feature Description
 
-LoRA currently only supports the Qwen2.5 vLLM MindSpore native model, other models are in the process of adaptation.
+- LoRA currently only supports the Qwen2.5 vLLM MindSpore native model, other models are in the process of adaptation;
+- Tool Calling only supports DeepSeek V3 0324 W8A8 model.
