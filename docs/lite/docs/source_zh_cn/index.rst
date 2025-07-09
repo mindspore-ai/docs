@@ -99,13 +99,6 @@ MindSpore Lite文档
    reference/faq
    reference/log
 
-.. toctree::
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-   :hidden:
-
-   RELEASE
-
 .. raw:: html
 
     <div class="container">
