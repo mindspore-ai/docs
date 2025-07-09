@@ -28,7 +28,7 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装，下面以Qwen2模型为例，简单描述如何构建模型过程。
 
-## Qwen2ForCausalLM
+### Qwen2ForCausalLM
 
 Qwen2模型通常会对模型结构进行一定的封装成相关业务的模型，Qwen2ForCausalLM就是Qwen2面向语言处理和对话类业务的封装。
 
@@ -136,11 +136,11 @@ class Qwen2ForCausalLM(nn.Cell):
 
 由construct可以看出，模型核心分为主干网络计算和最后一个lm_head的linear计算，将hidden_size的特征转换成vocab_size的词表概率分布。
 
-## Qwen2Model
+### Qwen2Model
 
 Qwen2Model是qwen2模型的主要网络，其组成主要分为两部分：一是将输入转换成特征的embedding层，另一个是n层Transformer的decoder结构。
 
-### Embedding
+#### Embedding
 
 embedding层逻辑比较简单，就是根据输入单词id，获取对应的hidden_size的特征数据（此数据也是训练权重的一部分），通过一个gather算子就可以实现，代码如下：
 
@@ -170,11 +170,11 @@ class VocabEmbedding(nn.Cell):
         return self.gather(input_ids)
 ```
 
-### DecoderLayer
+#### DecoderLayer
 
 DecoderLayer是transformer网络的核心计算单元，其主要计算都包含在这一层中，从qwen2的网络结构图可以看出，主药包含Attention、MLP、Linear、RmsNorm、Rope等网络层，为了方便开发，我们先完成这些网络层的构建。
 
-#### RmsNorm
+##### RmsNorm
 
 RmsNorm是当前大语言模型中常用的归一算法，在MindSpore中有直接可以使用的算子，我们只需要对应的实现权重创建即可。同时，由于RmsNorm经常会有残差计算，因此我们实现了残差融合计算在网络层中，代码如下：
 
@@ -207,7 +207,7 @@ class RmsNorm(nn.Cell):
         return output, residual
 ```
 
-#### Linear
+##### Linear
 
 Linear层实际就是一个线性变换，其主要的计算逻辑就是一个矩阵乘法MatMul，不过会根据具体使用场景来判断是否要进行bias加法的偏差纠正（query、key、value转换时需要bias），我们将这些计算融入到一个网络结构中，代码如下：
 
@@ -250,7 +250,7 @@ class Qwen2Linear(nn.Cell):
 
 其中，由于我们需要支持多batch计算，因此传入的input的shape可能是input_size的n倍，为了保证计算正确，我们保存了原始输入shape，并在计算完成后，重新通过view还原shape。
 
-#### Rope
+##### Rope
 
 Rope算子是旋转位置编码，是为了能够让Attention能够更好的识别单词间距离的影响，会在query和key的特征上加上一个位置编码信息，rope算子由于其特性，可以采用一开始就计算好的结果，在使用时直接查表实现，因此可以通过gather和rope算子实现，具体计算可以参考旋转位置编码相关材料。
 
@@ -311,9 +311,224 @@ class Qwen2RotaryEmbedding(nn.Cell):
         return self.rotary_embedding_op(query, key, freqs_cos, freqs_sin, batch_valid_length)
 ```
 
-#### Attention
+##### FlashAttention和PagedAttention
 
-Attention层是由多个Linear，Rope等组成的，其中Attention分数计算MindSpore提供了FlashAttention和PagedAttention两个融合大算子来提升推理性能，根据网络结构，可以构造如下网络代码：
+作为自注意力最重要的部分，注意力分数计算包含了主要的计算逻辑，MindSpore提供了高性能的FlashAttentionScore和PagedAttention融合算子，帮助用户获取更高的推理性能，由于原生的算子面向场景比较多样，因此输入比较复杂，此处通过封装简化场景，具体代码可以参考：
+
+```python
+import numpy as np
+from typing import Optional, Type
+
+from mindspore import nn, ops, mint, Parameter, Tensor
+
+class FlashAttention(nn.Cell):
+    def __init__(self, scale: float, num_heads: int) -> None:
+        super().__init__()
+        
+        input_layout = "TH"
+        scale = scale
+        pre_tokens = 2147483647
+        next_tokens = 2147483647
+        self.flash_attention = ops.operations.nn_ops.FlashAttentionScore(head_num=num_heads,
+                                                                         scale_value=scale,
+                                                                         pre_tokens=pre_tokens,
+                                                                         next_tokens=next_tokens,
+                                                                         input_layout=input_layout)
+        
+    def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
+        _, _, _, output = self.flash_attention(
+            q,
+            k,
+            v,
+            None,
+            None,
+            None,
+            attn_mask,
+            None,
+            batch_valid_length,
+            batch_valid_length
+        )
+        return output
+    
+    
+class PagedAttention(nn.Cell):
+    def __init__(self, head_num: int, scale: float, num_kv_heads: int) -> None:
+        super().__init__()
+        
+        self.head_num = head_num
+        self.num_kv_heads = num_kv_heads
+        
+        self.paged_attention = ops.auto_generate.PagedAttention(
+            head_num=head_num,
+            scale_value=scale,
+            kv_head_num=num_kv_heads
+        )
+        
+    def construct(self, q: Tensor, k_cache: Tensor, v_cache: Tensor,
+                        block_tables: Tensor, batch_valid_length: Tensor, 
+                        attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
+        output = self.paged_attention(q, k_cache, v_cache, block_tables, batch_valid_length, None, None, attn_mask, q_seq_lens)
+        return output
+```
+
+##### KVCacheManager
+
+由于FlashAttention和PagedAttention通常会和KVCache共同使用，如FlashAttention一般用于全量计算，PagedAttentioni一般用于增量计算，因此需要额外传入一些参数，其中主要包括：
+
+- **k_cache&v_cache**：kv_cache的对象，可以理解为是一个表，里面将迭代计算中上一个迭代的key和value的值保存下来，下次迭代时直接读取，可以消除前n个词的key和value计算，以提升性能。
+
+- **block_tables&slot_mapping**：PagedAttention计算需要的数据，通过类似分页的机制，让KVCache按block储存，提高相同词使用同一块block，实现显存利用率提升。
+
+根据上面描述，这些参数都是涉及KVCache的管理，因此可以用一个管理类进行封装，代码可以参考：
+
+```python
+import math
+from mindspore import nn, ops, mint, Parameter, Tensor, mutable
+
+class CacheManager:
+    def __init__(self, config: Qwen2Config, block_num: int, block_size: int, batch_size: int) -> None:
+        self.block_num = block_num
+        self.block_size = block_size
+        self.batch_size = batch_size
+        
+        head_dim = config.hidden_size // config.num_attention_heads
+        
+        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+        self.block_tables = [[] for _ in range(batch_size)]
+        self.acc_slot_mapping = [[] for _ in range(batch_size)]
+        self.free_block_ids = deque(range(block_num))
+        
+    def step(self, start_pos_idx: int, token_num_per_batch: int) -> Tuple[Tensor, Tensor]:
+        for i in range(self.batch_size):
+            block_table = self.block_tables[i]
+            total_block_num = math.ceil((start_pos_idx + token_num_per_batch) / self.block_size)
+            now_block_num = len(block_table)
+            for _ in range(total_block_num - now_block_num):
+                block_id = self.free_block_ids.popleft()
+                block_table.append(block_id)
+                start_slot_id = block_id * self.block_size
+                self.acc_slot_mapping[i].extend(list(range(start_slot_id, start_slot_id + self.block_size)))
+                
+        
+        now_block_tables = Tensor(self.block_tables, dtype=dtype.int32)
+        now_slot_mapping = Tensor([self.acc_slot_mapping[i][start_pos_idx: start_pos_idx + token_num_per_batch] 
+                                   for i in range(self.batch_size)], dtype=dtype.int32).view(-1)
+        
+        return now_block_tables, now_slot_mapping
+```
+
+##### Attention
+
+Attention层是由多个Linear，Rope等组成的，其中Attention分数计算MindSpore提供了FlashAttention和PagedAttention两个融合大算子来提升推理性能，根据网络结构，代码可以参考：
+
+```python
+import numpy as np
+from typing import Optional, Type
+
+from mindspore import nn, ops, mint, Parameter, Tensor
+    
+    
+class Qwen2Attention(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+        
+        self.hidden_size = config.hidden_size
+        self.num_heads = config.num_attention_heads
+        self.num_kv_heads = config.num_key_value_heads
+        self.head_dim =config.hidden_size // self.num_heads
+        self.q_size = self.head_dim * self.num_heads
+        self.kv_size = self.head_dim * self.num_kv_heads
+        self.scaling = float(self.head_dim ** -0.5)
+        self.rope_theta = int(config.rope_theta)
+        self.param_dtype = config.param_dtype
+        self.max_position = config.max_position_embeddings
+        
+        self.flash_attn = FlashAttention(self.scaling, self.num_heads)
+        self.paged_attn = PagedAttention(self.num_heads, self.scaling, self.num_kv_heads)
+        self.reshape_and_cache = ops.auto_generate.ReshapeAndCache()
+        
+        self.q_proj = Qwen2Linear(
+            input_size=self.hidden_size,
+            output_size=self.q_size,
+            param_dtype=self.param_dtype
+            bias=True
+        )
+        self.k_proj = Qwen2Linear(
+            input_size=self.hidden_size,
+            output_size=self.kv_size,
+            param_dtype=self.param_dtype,
+            bias=True
+        )
+        self.v_proj = Qwen2Linear(
+            input_size=self.hidden_size,
+            output_size=self.kv_size,
+            param_dtype=self.param_dtype,
+            bias=True
+        )
+        self.o_proj = Qwen2Linear(
+            input_size=self.q_size,
+            output_size=self.hidden_size,
+            param_dtype=self.param_dtype,
+            bias=False
+        )
+        
+        self.rotary_emb = Qwen2RotaryEmbedding(
+            head_size=self.head_dim,
+            rotary_dim=self.head_dim,
+            max_position_embeddings=self.max_position,
+            base=self.rope_theta,
+            dtype=self.param_dtype
+        )
+        
+    def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor, 
+                        is_prefill, bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor, 
+                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor, 
+                        q_seq_lens: Tensor) -> Tensor:
+        bs, seq_len, hidden_dim = hidden_state.shape
+        
+        q = self.q_proj(hidden_state).view(-1, self.q_size)
+        k = self.k_proj(hidden_state).view(-1, self.kv_size)
+        v = self.v_proj(hidden_state).view(-1, self.kv_size)
+        
+        k = k.contiguous()
+        v = v.contiguous()
+        
+        cache_out = self.reshape_and_cache(
+            k,
+            v,
+            k_cache,
+            v_cache,
+            slot_mapping
+        )
+        q = ops.depend(q, cache_out)
+        
+        if is_prefill:
+            attn_output = self.flash_attn(
+                q,
+                k,
+                v,
+                attn_mask,
+                batch_valid_length
+            )
+        else:
+            attn_output = self.paged_attn(
+                q,
+                k_cache,
+                v_cache,
+                block_tables,
+                batch_valid_length,
+                attn_mask,
+                q_seq_lens
+            )
+            
+        output = self.o_proj(attn_output).view(bs, seq_len, -1)
+        return output
+```
+
+#### MLP
+
+MLP层是由多个Linear和一个激活函数（通常是silu）组成，负责网络的非线性计算部分，使得网络可以处理的问题可以投影到多个非线性空间，增强网络能力，具体实现代码可以参考下面代码：
 
 ```python
 import numpy as np
@@ -350,4 +565,68 @@ class Qwen2MLP(nn.Cell):
         return output
 ```
 
+### Sampler
+
+当主干网络计算完毕后，此时网络的输出是一个shape为[batch_size， vocab_size]的词表，表示每个batch请求，下一个词的概率分布，我们需要从中选择一个词作为最终的结果返回，此处为了简单和消除随机性，每次都选择概率最大的单词作为输出，即通过一次argmax计算，代码可以参考如下：
+
+```python
+from mindspore import Tensor
+
+def sample(logits: Tensor) -> Tensor:
+    next_token = logits.argmax(axis=-1, keepdims=True)
+    return next_token
+```
+
+## 动态图转静态图
+
+MindSpore提供通过jit将动态图转换成静态图，以此提升推理性能，从代码实现上，用户可以通过如下简单的装饰器进行转换：
+
+```python
+class Qwen2Model(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+        
+        self.vocab_size = config.vocab_size
+        self.hidden_size = config.hidden_size
+        self.num_hidden_layers = config.num_hidden_layers
+        
+        self.embed_tokens = VocabEmbedding(config=config)
+        self.layers = nn.CellList()
+        for i in range(config.num_hidden_layers):
+            layer = Qwen2DecoderLayer(config=config)
+            self.layers.append(layer)
+        self.norm = RmsNorm(config=config)
+    
+    @ms.jit(jit_level="O0", infer_boost="on")
+    def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor, 
+                        is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor], 
+                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor, 
+                        q_seq_lens: Tensor) -> Tensor:
+        hidden_state = self.embed_tokens(input_ids)
+        residual = None
+        
+        for i in range(self.num_hidden_layers):
+            layer = self.layers[i]
+            hidden_state, residual = layer(hidden_state, residual, positions, batch_valid_length, 
+                                           is_prefill, i, k_caches[i], v_caches[i], slot_mapping, 
+                                           block_tables, attn_mask, q_seq_lens)
+
+        hidden_state, _ = self.norm(hidden_state, residual)
+        
+        return hidden_state
+```
+
+通过在nn.Cell的construct方法加上ms.jit装饰器，这个Cell的计算就会转化为静态图执行，其中参数意义如下：
+
+- **jit_level**：编译级别，当前MindSpore推理主要支持O0级别，O1级别会有一些算子融合优化，O2为整图下沉，目前推理暂不支持。
+
+- **infer_boost**：开启推理加速优化，开启后，运行时会做一些调度优化和流优化，提升推理性能。
+
+除此之外，由于MindSpore的静态图模式实现的限制，部分场景可能会导致动转静失败，此处列出一些常见的原因：
+
+- **使用setattrs**：由于MindSpore图捕获时不支持python的setattrs语法，因此不能使用封装类封装参数，如上例中的Qwen2ModelInput不能直接传给要转静态的Qwen2Model，否则会导致静态图执行失败。
+
+- **List取值**：转静态的时候，如果有List参数，需要通过mutable进行wrap，保证MindSpore能够正确处理， 如上例中的k_caches和v_caches，否则会出发fallback到python的操作，会影响推理性能，部分场景会导致计算失败。
+
+- **图输入名称**：如果使用了MindSpore的PagedAttention算子，由于PagedAttention算子计算需要，其batch_valid_length和q_seq_lens两个图输入的命名必须用此命名，否则会导致PagedAttention算子初始化失败。
 
