@@ -28,11 +28,11 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装，下面以Qwen2模型为例，简单描述如何构建模型过程。
 
-### Qwen2ForCausalLM
+### 基础公共网络层
 
-Qwen2模型通常会对模型结构进行一定的封装成相关业务的模型，Qwen2ForCausalLM就是Qwen2面向语言处理和对话类业务的封装。
+由于Qwen2大语言模型的配置和参数都比较多，为了能够更方便地管理这些参数，需要先定义模型使用的Config和Input类，可以参考如下代码：
 
-由于Qwen2大语言模型中的配置参数比较多，为了方便后续处理，我们先定义主要会用到的公共数据结构，主要包括模型配置（Qwen2Config）和模型输入（Qwen2ModelInput），下面是其对应的代码实现：
+#### Config&Input
 
 ```python
 import json
@@ -90,6 +90,90 @@ class Qwen2ModelInput:
 
 其中，Qwen2Config配置和HuggingFace的配置基本一致，具体请参考Qwen2的官方文档，唯一的区别是此处用param_dtype替换了torch_dtype，由于mindspore的datatype类型与torch的不一致，因此我们这里直接使用单独的字段进行配置，此例子中，我们都会使用bfloat16类型；Qwen2ModelInput定义了模型的输入，包括主要的单词index，和KVCache等MindSpore推理优化特性所需要的数据。
 
+同时，注意到Linear和RmsNorm算子在网络中的各个功能层中会频繁出现，可以预先将这些公共层构建好，具体可以参考如下代码：
+
+#### RmsNorm
+
+RmsNorm是当前大语言模型中常用的归一算法，在MindSpore中有直接可以使用的算子，我们只需要对应的实现权重创建即可。同时，由于RmsNorm经常会有残差计算，因此我们实现了残差融合计算在网络层中，代码如下：
+
+```python
+from typing import Optional, Type
+
+from mindspore import nn, ops, mint, Parameter, Tensor
+
+class RmsNorm(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+
+        self.rms_norm = ops.RmsNorm(config.rms_norm_eps)
+
+        self.weight = Parameter(
+            mint.ones(
+                config.hidden_size,
+                dtype=config.param_dtype
+            ),
+            requires_grad=False
+        )
+
+    def construct(self, x: Tensor, residual: Tensor):
+        if residual is not None:
+            x = x + residual
+            residual = x
+        output = self.rms_norm(x, self.weight)[0]
+        if residual is None:
+            return output, None
+        return output, residual
+```
+
+#### Linear
+
+Linear层实际就是一个线性变换，其主要的计算逻辑就是一个矩阵乘法MatMul，不过会根据具体使用场景来判断是否要进行bias加法的偏差纠正（query、key、value转换时需要bias），我们将这些计算融入到一个网络结构中，代码如下：
+
+```python
+from typing import Optional, Type
+
+from mindspore import nn, ops, mint, Parameter, Tensor
+
+class Qwen2Linear(nn.Cell):
+    def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], enable_bias: bool) -> None:
+        super().__init__()
+
+        self.param_dtype = param_dtype
+        self.input_size = input_size
+        self.output_size = output_size
+        self.enable_bias = enable_bias
+
+        self.matmul = ops.MatMul(transpose_b=True)
+        self.weight = Parameter(
+            mint.zeros(
+                (self.output_size, self.input_size)
+                dtype=config.param_dtype
+            ),
+            requires_grad=False
+        )
+
+        if self.enable_bias:
+            self.bias_add = ops.Add()
+            self.bias = Parameter(
+                mint.zeros(self.output_size, dtype=self.param_dtype)
+            )
+
+    def construct(self, input: Tensor):
+        origin_shape = input.shape
+        x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
+        if self.enable_bias:
+            x = self.bias_add(x, self.bias)
+        return x.view(*origin_shape[:-1], -1)
+```
+
+其中，由于我们需要支持多batch计算，因此传入的input的shape可能是input_size的n倍，为了保证计算正确，我们保存了原始输入shape，并在计算完成后，重新通过view还原shape。
+
+### Qwen2ForCausalLM
+
+Qwen2模型通常会对模型结构进行一定的封装成相关业务的模型，Qwen2ForCausalLM就是Qwen2面向语言处理和对话类业务的封装。
+
+由于Qwen2大语言模型中的配置参数比较多，为了方便后续处理，我们先定义主要会用到的公共数据结构，主要包括模型配置（Qwen2Config）和模型输入（Qwen2ModelInput），下面是其对应的代码实现：
+
 接下来，我们通过Qwen2ForCausalLM类，将模型的主要接口定义清楚，下面是具体实现：
 
 ```python
@@ -100,37 +184,34 @@ from mindspore import nn, load_checkpoint, load_param_into_net
 class Qwen2ForCausalLM(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        self.config = config
-        self.model = Qwen2Model(config)
+        
+        self.model = Qwen2Model(config=config)
         self.lm_head = Qwen2Linear(
             input_size=config.hidden_size,
             output_size=config.vocab_size,
             param_dtype=config.param_dtype,
-            bias+False
+            bias=False
         )
-
-    def load_weight(self, weight_path: str):
-        weight_dict = {}
-        for path in glob(weight_path + "/*.safetensors")
-            weight_dict.update(load_checkpoint(path, format="safetensors"))
         
-        param_not_load, ckpt_not_load = load_param_into_net(self, weight_dict, strict_load=False)
-        print(f"qwen2 load weight successful")
-
-    def init_kv_cache(self, batch_size: int, max_seq_length: int):
-        self.model.init_kv_cache(batch_size, max_seq_length)
-
-    def construct(self, model_input: Qwen2ModelInput):
-        hidden_states = self.model(model_input)
-        logits = self.lm_head(hidden_states)[:, -1]
+    def load_weight(self, weight_path: str) -> None:
+        weight_dict = {}
+        for path in glob(weight_path + "/*.safetensors"):
+            weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
+            
+        ms.load_param_into_net(self, weight_dict, strict_load=False)
+        
+    def construct(self, model_input: Qwen2ModelInput) -> Tensor:
+        hidden_state = self.model(model_input.input_ids, model_input.positions, 
+                                  model_input.batch_valid_length, model_input.is_prefill, 
+                                  model_input.k_caches, model_input.v_caches, model_input.slot_mapping, 
+                                  model_input.block_tables, model_input.attn_mask, model_input.q_seq_len)
+        logits = self.lm_head(hidden_state)[:, -1]
         return logits
 ```
 
 由代码可见，Qwen2ForCausalLM主要有3个核心接口：
 
 - **load_weight**：从HuggingFace官网模型加载权重，并且按照网络脚本注入到模型中。
-
-- **init_kv_cache**：初始化KVCache结构，以使能全量和增量推理能力。
 
 - **construct**：主要推理计算，会调用子模块一层层完成计算。
 
@@ -173,82 +254,6 @@ class VocabEmbedding(nn.Cell):
 #### DecoderLayer
 
 DecoderLayer是transformer网络的核心计算单元，其主要计算都包含在这一层中，从qwen2的网络结构图可以看出，主药包含Attention、MLP、Linear、RmsNorm、Rope等网络层，为了方便开发，我们先完成这些网络层的构建。
-
-##### RmsNorm
-
-RmsNorm是当前大语言模型中常用的归一算法，在MindSpore中有直接可以使用的算子，我们只需要对应的实现权重创建即可。同时，由于RmsNorm经常会有残差计算，因此我们实现了残差融合计算在网络层中，代码如下：
-
-```python
-from typing import Optional, Type
-
-from mindspore import nn, ops, mint, Parameter, Tensor
-
-class RmsNorm(nn.Cell):
-    def __init__(self, config: Qwen2Config) -> None:
-        super().__init__()
-
-        self.rms_norm = ops.RmsNorm(config.rms_norm_eps)
-
-        self.weight = Parameter(
-            mint.ones(
-                config.hidden_size,
-                dtype=config.param_dtype
-            ),
-            requires_grad=False
-        )
-
-    def construct(self, x: Tensor, residual: Tensor):
-        if residual is not None:
-            x = x + residual
-            residual = x
-        output = self.rms_norm(x, self.weight)[0]
-        if residual is None:
-            return output, None
-        return output, residual
-```
-
-##### Linear
-
-Linear层实际就是一个线性变换，其主要的计算逻辑就是一个矩阵乘法MatMul，不过会根据具体使用场景来判断是否要进行bias加法的偏差纠正（query、key、value转换时需要bias），我们将这些计算融入到一个网络结构中，代码如下：
-
-```python
-from typing import Optional, Type
-
-from mindspore import nn, ops, mint, Parameter, Tensor
-
-class Qwen2Linear(nn.Cell):
-    def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], enable_bias: bool) -> None:
-        super().__init__()
-
-        self.param_dtype = param_dtype
-        self.input_size = input_size
-        self.output_size = output_size
-        self.enable_bias = enable_bias
-
-        self.matmul = ops.MatMul(transpose_b=True)
-        self.weight = Parameter(
-            mint.zeros(
-                (self.output_size, self.input_size)
-                dtype=config.param_dtype
-            ),
-            requires_grad=False
-        )
-
-        if self.enable_bias:
-            self.bias_add = ops.Add()
-            self.bias = Parameter(
-                mint.zeros(self.output_size, dtype=self.param_dtype)
-            )
-
-    def construct(self, input: Tensor):
-        origin_shape = input.shape
-        x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
-        if self.enable_bias:
-            x = self.bias_add(x, self.bias)
-        return x.view(*origin_shape[:-1], -1)
-```
-
-其中，由于我们需要支持多batch计算，因此传入的input的shape可能是input_size的n倍，为了保证计算正确，我们保存了原始输入shape，并在计算完成后，重新通过view还原shape。
 
 ##### Rope
 
@@ -526,7 +531,7 @@ class Qwen2Attention(nn.Cell):
         return output
 ```
 
-#### MLP
+##### MLP
 
 MLP层是由多个Linear和一个激活函数（通常是silu）组成，负责网络的非线性计算部分，使得网络可以处理的问题可以投影到多个非线性空间，增强网络能力，具体实现代码可以参考下面代码：
 
@@ -565,6 +570,45 @@ class Qwen2MLP(nn.Cell):
         return output
 ```
 
+主要的功能层构建完成后，可以参考如下构建Model类：
+
+```python
+from mindspore import nn, ops, mint, Parameter, Tensor
+
+class Qwen2Model(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+        
+        self.vocab_size = config.vocab_size
+        self.hidden_size = config.hidden_size
+        self.num_hidden_layers = config.num_hidden_layers
+        
+        self.embed_tokens = VocabEmbedding(config=config)
+        self.layers = nn.CellList()
+        for i in range(config.num_hidden_layers):
+            layer = Qwen2DecoderLayer(config=config)
+            self.layers.append(layer)
+        self.norm = RmsNorm(config=config)
+    
+    def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor, 
+                        is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor], 
+                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor, 
+                        q_seq_lens: Tensor) -> Tensor:
+        hidden_state = self.embed_tokens(input_ids)
+        residual = None
+        
+        for i in range(self.num_hidden_layers):
+            layer = self.layers[i]
+            hidden_state, residual = layer(hidden_state, residual, positions, batch_valid_length, 
+                                           is_prefill, i, k_caches[i], v_caches[i], slot_mapping, 
+                                           block_tables, attn_mask, q_seq_lens)
+
+        hidden_state, _ = self.norm(hidden_state, residual)
+        
+        return hidden_state
+```
+
+
 ### Sampler
 
 当主干网络计算完毕后，此时网络的输出是一个shape为[batch_size， vocab_size]的词表，表示每个batch请求，下一个词的概率分布，我们需要从中选择一个词作为最终的结果返回，此处为了简单和消除随机性，每次都选择概率最大的单词作为输出，即通过一次argmax计算，代码可以参考如下：
@@ -582,6 +626,10 @@ def sample(logits: Tensor) -> Tensor:
 MindSpore提供通过jit将动态图转换成静态图，以此提升推理性能，从代码实现上，用户可以通过如下简单的装饰器进行转换：
 
 ```python
+import mindspore as ms
+from mindspore import nn, ops, mint, Parameter, Tensor
+
+
 class Qwen2Model(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
