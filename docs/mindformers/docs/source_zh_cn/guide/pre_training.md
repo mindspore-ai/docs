@@ -78,7 +78,7 @@ MindSpore Transformers 目前已经支持加载 Megatron 数据集，该数据�
 
 ### 单机训练
 
-通过指定模型路径和配置文件[pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml)以msrun的方式启动[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/run_mindformer.py)脚本，进行8卡分布式训练。
+通过指定模型路径和配置文件[pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml)以msrun的方式启动[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/run_mindformer.py)脚本，进行8卡分布式训练。
 
 默认配置中的模型层数、隐藏维度等参数较大，适用于多机大规模分布式训练，无法直接在单机环境启动预训练，需要参考[DeepSeek-V3-修改配置](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/README.md#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE)修改配置文件。
 

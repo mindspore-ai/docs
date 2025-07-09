@@ -78,7 +78,7 @@ For dataset processing, refer to [Megatron Dataset - Data Preprocessing](https:/
 
 ### Single-Node Training
 
-Specify the configuration file [pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
+Specify the configuration file [pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
 
 The default configuration includes large values for parameters such as the number of layers and hidden dimensions, which are intended for large-scale multi-node distributed training. It cannot be directly used for pretraining on a single machine. You will need to modify the configuration as described in [DeepSeek-V3 - Configuration Modification](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/README.md#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE).
 
