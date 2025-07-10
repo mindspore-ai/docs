@@ -2,22 +2,23 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_parallel_infer.md)
 
-随着模型规模的不断扩展，大语言模型所需的计算资源，特别是显存需求，呈指数级增长。以Qwen2-72B为例，在半精度（FP16）下，这些参数本身就需要约144GB的显存。同时大模型日益膨胀的序列长度也给显存带了极大的压力。
-显存不仅影响了模型的加载，还限制了批处理（batch size）较小的批处理可能会降低推理效率的下降，进而影响整个系统的吞吐量。
+随着模型规模的不断扩展，大语言模型所需的计算资源，特别是显存需求，呈指数级增长。以Qwen2-72B为例，在半精度（FP16）下，这些参数本身就需要约144GB的显存。
+
+同时大模型日益膨胀的序列长度也给显存带了极大的压力。显存不仅影响了模型的加载，还限制了批处理（batch size）大小。较小的批处理可能会降低推理效率，进而影响整个系统的吞吐量。
 
 显存的压力使得单一设备很难在合理时间内完成推理任务，并行计算成为应对这一挑战的关键。本章将以常见大语言模型网络结构为例，分析模型并行的方案。
 
 ## 模型并行需求分析
 
-在对模型进行并行切分前，需要先根据模型的结构特征来进行并行分析，确认网络中哪些层可以并行，以及如何切分能够获得比较好的性能加速，为了要能够获得好的加速效果，并行切分的部分就需要尽可能的独立计算互不影响。以Qwen2模型结构为例，我们对其主要的网络结构进行并行分析：
+在对模型进行并行切分前，需要先根据模型的结构特征来进行并行分析，确认网络中哪些层可以并行，以及如何切分能够获得比较好的性能加速。为了要能够获得好的加速效果，并行切分的部分就需要尽可能的独立计算互不影响。以Qwen2模型结构为例，我们对其主要的网络结构进行并行分析：
 
-- **Embedding**：embedding层实际上是一个gather操作，计算上是可以比较好的进行并行计算，不管是切hidden_dim还是num_embeddings维度切分，都可以比较好的并行计算，但是由于按照num_embedding可以更好的进行all_reduce（减少数据排布的开销），此处我们按照num_embeddings维度进行切分。
+- **Embedding**：Embedding层实际上是一个gather操作，不管是按hidden_dim还是num_embeddings维度切分，都可以比较好地进行并行计算。由于按照num_embedding可以更好地进行all_reduce（减少数据排布的开销），此处我们按照num_embeddings维度进行切分。
 
 - **Attention**：Qwen2模型使用了GQA的Attention计算方法，即有多个独立的Attention计算，因此我们可以按照列维度将query、key、value切分开来单独计算，但是需要保证切分能够被Attention的head数整除。
 
-- **MLP**：MLP层实际上是两个Linear的矩阵乘法，也是可以比较好的进行按块切分。
+- **MLP**：MLP层实际上是两个Linear的矩阵乘法，可以按块切分。
 
-- **RmdNorm&Add**：由于RmsNorm需要对一行数据进行归一操作，需要有全局信息，因此无法有效并行计算，此处需要先通过all_reduce将数据汇总，然后计算，同时Add和RmsNorm通常在一起出现，因此都不进行切分。
+- **RmsNorm&Add**：由于RmsNorm需要对一行数据进行归一操作，需要有全局信息，因此无法有效并行计算，此处需要先通过all_reduce将数据汇总，然后计算，同时Add和RmsNorm通常在一起出现，因此都不进行切分。
 
 - **LMHead**：LMHead层实际就是一层Linear层，输入shape通常是（batch_size， hidden_size）*（hidden_size， vocab_size），我们可以对vocab_size维度进行切分，并在最后通过all_gather合并以此提速。
 
@@ -25,7 +26,7 @@
 
 ![matmul1](images/llm_qwen2_parallel_split.png)
 
-从图中可以看出，由于RmsNorm无法切分，因此网络中在每次RmsNorm计算前，需要加入一个AllReduce的算子同步各个子进程的计算结果。而RmsNorm之后的结果，一般都是hidden_states，因此可以通过一个列切的Linear进行切分计算分配到各个子进程上，在需要归一的时候，可以通过行切的RowLinear进行归一。
+从图中可以看出，由于RmsNorm无法切分，因此每次RmsNorm计算前，需要在网络中加入一个AllReduce的算子同步各个子进程的计算结果。而RmsNorm之后的结果，一般都是hidden_states，因此可以通过一个列切的Linear进行切分计算分配到各个子进程上，在需要归一的时候，可以通过行切的RowLinear进行归一。
 
 ## 模型模块并行方案
 
@@ -100,18 +101,19 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
     `ColumnParallelLinear`类，根据模型并行的设备数，计算切分后的权重shape并初始化。列切是切分`out_channels`，在模型前向，调用矩阵乘计算出并行的结果。最后可以选择对并行的结果进行`AllGather`，以得到完整的输出。
 
     MindSpore训推一体框架支持开启infer_boost，该参数会使MS框架开启高性能自研算子库。启动该模式需要：
-    - 设置变量：
+    
+    1. 设置变量：
 
-    ```python
-    from mindspore import set_context
-    set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
-    ```
+        ```python
+        from mindspore import set_context
+        set_context(jit_config={"jit_level": 'O0', "infer_boost": 'on'})
+        ```
 
-    - 设置系统环境变量：
+    2. 设置系统环境变量：
 
-    ```bash
-    export ASCEND_HOME_PATH={$ascend_custom_path}
-    ```
+        ```bash
+        export ASCEND_HOME_PATH={$ascend_custom_path}
+        ```
 
     以模型并行device数是2为例，设置环境变量以及初始化通信组，并配置大模型参数config。
 
@@ -143,7 +145,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
                           has_bias=False)
     ```
 
-    列切矩阵乘模块
+    列切矩阵乘模块实现如下：
 
     ```python
     class ColumnParallelLinear(nn.Cell):
@@ -348,7 +350,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 
 1. Attention
 
-    以MHA(Multi Head Attention)为例，Transformer中典型的Attention模块是多头的，每个注意力头相互独立。因此在保证单个注意力头完整的情况下，激活值在`hidden_size`的维度是可切的。例如，假设一个MHA的头数（`num_heads`）是16，每个头的维度（`head_dim`）是256，那么`hidden_size`就是4096，计算Q/K/V的Linear的in/out都是4096。当模型并行设置为`tensor_model_parallel=4`时，这些Linear被切分到4个device，每个device的shape为(4096,1024)，意味着每个device计算4个头。
+    以MHA（Multi Head Attention）为例，Transformer中典型的Attention模块是多头的，每个注意力头相互独立。因此在保证单个注意力头完整的情况下，激活值在`hidden_size`的维度是可切的。例如，假设一个MHA的头数（`num_heads`）是16，每个头的维度（`head_dim`）是256，那么`hidden_size`就是4096，计算Q/K/V的Linear的in/out都是4096。当模型并行设置为`tensor_model_parallel=4`时，这些Linear被切分到4个device，每个device的shape为(4096,1024)，意味着每个device计算4个头。
 
     ![MHA](images/MHA.png)
 
@@ -481,11 +483,11 @@ msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log
 
 本章将对[从零构建大语言模型推理网络](./ms_infer_network_develop.md)中开发的Qwen2大语言模型进行并行适配，根据上述分析，可以将并行适配分为以下两个主要步骤：
 
-- **模型网络适配**：根据上述的并行方案，对模型中的网络层进行并行切分，将计算分割到多个卡上计算。
+1. **模型网络适配**：根据上述的并行方案，对模型中的网络层进行并行切分，将计算分割到多个卡上执行。
 
-- **模型权重适配**：由于Linear中权重在并行切分后，shape也变化了，因此在加载模型权重时，需要对应修改。
+2. **模型权重适配**：由于Linear中权重在并行切分后，shape也变化了，因此在加载模型权重时，需要对应修改。
 
-为了能够简化场景，本章只对Qwen2模型中的Linear进行并行度为2的切分，embedding层的切分暂时不涉及。
+为了能够简化场景，本章只对Qwen2模型中的Linear进行并行度为2的切分，Embedding层的切分暂时不涉及。
 
 ### 通信组建立
 

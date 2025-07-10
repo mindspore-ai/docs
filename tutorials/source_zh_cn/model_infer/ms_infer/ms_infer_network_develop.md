@@ -8,29 +8,29 @@ MindSpore提供两种模式运行模型：
 
 - **静态图模式**：将模型网络编译成一整张网络图，对图进行融合优化，提升模型执行性能，但由于一些语法支持问题，对于模型的开发有一定限制，易用性相对较低。
 
-- **动态图模式**：根据网络脚本的python语句一条一条执行，可以随时使用打印，pdb等进行调试，易用性较高，但是相对性能不如静态图模式。
+- **动态图模式**：根据网络脚本的python语句一条一条执行，可以随时使用打印、pdb等进行调试，易用性较高，但是相对性能不如静态图模式。
 
 MindSpore推荐用户先用动态图模式进行模型开发，然后根据需要进行动转静的改造，以获取最大的模型性能。
 
 ## 动态图开发主干网络
 
-当前主流的大语言模型主干网络都以基于transformer结构为主的，其中最为重要的就是Self-Attention机制的计算，以Qwen2大语言模型为例，下图简单描述了其主干网络结构：
+当前主流的大语言模型大多采用基于Transformer架构的主干网络，其中Self-Attention机制是核心计算部分。以Qwen2大语言模型为例，下图简要展示了其主干网络结构：
 
 ![Qwen2网络结构](images/llm_qwen2_network_arch.png)
 
 由此可见，Qwen2的核心层主要分为以下几部分：
 
-- **Embedding**：将每个token对应的索引转换成一个向量，实现特征分散效果，类似onehot向量化，embedding的权重会参与训练过程，可以更好的适配语言模型中上下文语义，其实现就是一个Embedding算子既可完成。
+- **Embedding**：将每个token对应的索引转换成一个向量，实现特征分散效果。类似onehot向量化，Embedding的权重会参与训练过程，可以更好地适配语言模型中上下文语义。这个过程是通过Embedding算子来实现的。
 
 - **DecodeLayer**：即Transformer结构，是大语言模型关键计算模块，通常根据配置不同，会重复多层计算，每一层实际就是一个Transformer结构。
 
 - **RmsNorm&Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出成每个token的概率分布返回。
 
-使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装，下面以Qwen2模型为例，简单描述如何构建模型过程。
+使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程。
 
 ### 基础公共网络层
 
-由于Qwen2大语言模型的配置和参数都比较多，为了能够更方便地管理这些参数，需要先定义模型使用的Config和Input类，可以参考如下代码：
+由于Qwen2大语言模型的配置和参数都比较多，为了能够更方便地管理这些参数，需要先定义模型使用的Config和Input类。同时，注意到Linear和RmsNorm算子在网络中的各个功能层中会频繁出现，可以预先将这些公共层构建好。
 
 #### Config&Input
 
@@ -170,7 +170,7 @@ class Qwen2Linear(nn.Cell):
 
 ### Qwen2ForCausalLM
 
-Qwen2模型通常会对模型结构进行一定的封装成相关业务的模型，Qwen2ForCausalLM就是Qwen2面向语言处理和对话类业务的封装。
+Qwen2模型通常会针对特定业务对模型结构进行封装。例如，Qwen2ForCausalLM就是Qwen2面向语言处理和对话类业务的封装。
 
 由于Qwen2大语言模型中的配置参数比较多，为了方便后续处理，我们先定义主要会用到的公共数据结构，主要包括模型配置（Qwen2Config）和模型输入（Qwen2ModelInput），下面是其对应的代码实现：
 
@@ -209,21 +209,20 @@ class Qwen2ForCausalLM(nn.Cell):
         return logits
 ```
 
-由代码可见，Qwen2ForCausalLM主要有3个核心接口：
+由代码可见，Qwen2ForCausalLM主要有2个核心接口：
 
-- **load_weight**：从HuggingFace官网模型加载权重，并且按照网络脚本注入到模型中。
+- **load_weight**：从Hugging Face官网模型加载权重，并且按照网络脚本注入到模型中。
 
 - **construct**：主要推理计算，会调用子模块一层层完成计算。
-
-由construct可以看出，模型核心分为主干网络计算和最后一个lm_head的linear计算，将hidden_size的特征转换成vocab_size的词表概率分布。
+    由construct可以看出，模型核心分为主干网络计算和最后一个lm_head的linear计算，将hidden_size的特征转换成vocab_size的词表概率分布。
 
 ### Qwen2Model
 
-Qwen2Model是qwen2模型的主要网络，其组成主要分为两部分：一是将输入转换成特征的embedding层，另一个是n层Transformer的decoder结构。
+Qwen2Model是Qwen2模型的主要网络，其组成主要分为两部分：一是将输入转换成特征的Embedding层，另一个是n层Transformer的Decoder结构。
 
 #### Embedding
 
-embedding层逻辑比较简单，就是根据输入单词id，获取对应的hidden_size的特征数据（此数据也是训练权重的一部分），通过一个gather算子就可以实现，代码如下：
+Embedding层逻辑比较简单，就是根据输入单词id，获取对应的hidden_size的特征数据（此数据也是训练权重的一部分），通过一个gather算子就可以实现，代码如下：
 
 ```python
 from typing import Optional, Type
@@ -253,11 +252,11 @@ class VocabEmbedding(nn.Cell):
 
 #### DecoderLayer
 
-DecoderLayer是transformer网络的核心计算单元，其主要计算都包含在这一层中，从qwen2的网络结构图可以看出，主药包含Attention、MLP、Linear、RmsNorm、Rope等网络层，为了方便开发，我们先完成这些网络层的构建。
+DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含在这一层中，从Qwen2的网络结构图可以看出，主要包含Attention、MLP、Linear、RmsNorm、Rope等网络层，为了方便开发，我们先完成这些网络层的构建。
 
 ##### Rope
 
-Rope算子是旋转位置编码，是为了能够让Attention能够更好的识别单词间距离的影响，会在query和key的特征上加上一个位置编码信息，rope算子由于其特性，可以采用一开始就计算好的结果，在使用时直接查表实现，因此可以通过gather和rope算子实现，具体计算可以参考旋转位置编码相关材料。
+Rope（旋转位置编码）算子用于增强Attention机制对单词间距离的感知能力，通过在query和key的特征上添加位置编码信息来实现。由于Rope的特性，可以预先计算好结果，并在使用时通过查表的方式直接获取，从而实现高效的计算。这可以通过gather操作和Rope算子来完成。具体计算方法可参考旋转位置编码的相关资料。
 
 ```python
 import numpy as np
@@ -318,7 +317,7 @@ class Qwen2RotaryEmbedding(nn.Cell):
 
 ##### FlashAttention和PagedAttention
 
-作为自注意力最重要的部分，注意力分数计算包含了主要的计算逻辑，MindSpore提供了高性能的FlashAttentionScore和PagedAttention融合算子，帮助用户获取更高的推理性能，由于原生的算子面向场景比较多样，因此输入比较复杂，此处通过封装简化场景，具体代码可以参考：
+作为自注意力机制的核心，注意力分数计算是主要的计算逻辑。MindSpore提供了高性能的FlashAttentionScore和PagedAttention融合算子，能够帮助用户获取更高的推理性能。然而，由于原生算子面向多种场景，输入比较复杂，此处通过封装简化使用场景。具体代码可以参考：
 
 ```python
 import numpy as np
@@ -378,11 +377,11 @@ class PagedAttention(nn.Cell):
 
 ##### KVCacheManager
 
-由于FlashAttention和PagedAttention通常会和KVCache共同使用，如FlashAttention一般用于全量计算，PagedAttentioni一般用于增量计算，因此需要额外传入一些参数，其中主要包括：
+由于FlashAttention和PagedAttention通常会和KVCache共同使用，如FlashAttention一般用于全量计算、PagedAttentioni一般用于增量计算，因此需要额外传入一些参数，其中主要包括：
 
-- **k_cache&v_cache**：kv_cache的对象，可以理解为是一个表，里面将迭代计算中上一个迭代的key和value的值保存下来，下次迭代时直接读取，可以消除前n个词的key和value计算，以提升性能。
+- **k_cache&v_cache**：kv_cache对象可以理解为是一个缓存表，用于保存上一次迭代中的key和value值。在下一次迭代时，可以直接读取这些值，从而避免重复计算前n个词的key和value，以提升性能。
 
-- **block_tables&slot_mapping**：PagedAttention计算需要的数据，通过类似分页的机制，让KVCache按block储存，提高相同词使用同一块block，实现显存利用率提升。
+- **block_tables&slot_mapping**：PagedAttention通过类似分页的机制，将KVCache按block储存，以便相同词能够集中在同一块block，从而提升显存利用率。
 
 根据上面描述，这些参数都是涉及KVCache的管理，因此可以用一个管理类进行封装，代码可以参考：
 
@@ -425,7 +424,7 @@ class CacheManager:
 
 ##### Attention
 
-Attention层是由多个Linear，Rope等组成的，其中Attention分数计算MindSpore提供了FlashAttention和PagedAttention两个融合大算子来提升推理性能，根据网络结构，代码可以参考：
+Attention层是由多个Linear、Rope等组成的。其中，MindSpore提供了FlashAttention和PagedAttention两个融合算子，用于提升Attention分数计算的推理性能。根据网络结构，代码可以参考：
 
 ```python
 import numpy as np
@@ -533,7 +532,7 @@ class Qwen2Attention(nn.Cell):
 
 ##### MLP
 
-MLP层是由多个Linear和一个激活函数（通常是silu）组成，负责网络的非线性计算部分，使得网络可以处理的问题可以投影到多个非线性空间，增强网络能力，具体实现代码可以参考下面代码：
+MLP层由多个Linear和一个激活函数（通常是silu）组成，负责实现网络的非线性计算。MLP层可以将问题投影到多个非线性空间，从而增强网络能力。具体实现可以参考下面代码：
 
 ```python
 import numpy as np
@@ -570,7 +569,7 @@ class Qwen2MLP(nn.Cell):
         return output
 ```
 
-主要的功能层构建完成后，可以参考如下构建Model类：
+主要的功能层构建完成后，可以参考如下代码构建Model类：
 
 ```python
 from mindspore import nn, ops, mint, Parameter, Tensor
@@ -623,7 +622,8 @@ def sample(logits: Tensor) -> Tensor:
 
 ## 动态图转静态图
 
-MindSpore提供通过jit将动态图转换成静态图，以此提升推理性能，从代码实现上，用户可以通过如下简单的装饰器进行转换：
+MindSpore可以通过jit将动态图转换成静态图，以此提升推理性能。从代码实现上，用户可以通过如下简单的装饰器进行转换：
+</div><div class="ikun-code-suggestion">MindSpore提供通过jit将动态图转换成静态图，以此提升推理性能，从代码实现上，用户可以通过如下简单的装饰器进行转换：
 
 ```python
 import mindspore as ms
@@ -674,8 +674,8 @@ class Qwen2Model(nn.Cell):
 
 - **使用setattrs**：由于MindSpore图捕获时不支持python的setattrs语法，因此不能使用封装类封装参数，如上例中的Qwen2ModelInput不能直接传给要转静态的Qwen2Model，否则会导致静态图执行失败。
 
-- **List取值**：转静态的时候，如果有List参数，需要通过mutable进行wrap，保证MindSpore能够正确处理， 如上例中的k_caches和v_caches，否则会出发fallback到python的操作，会影响推理性能，部分场景会导致计算失败。
+- **List取值**：转静态的时候，如果有List参数，需要通过mutable进行wrap，保证MindSpore能够正确处理，如上例中的k_caches和v_caches。否则会触发fallback到python的操作，会影响推理性能，部分场景会导致计算失败。
 
-- **图输入名称**：如果使用了MindSpore的PagedAttention算子，由于PagedAttention算子计算需要，其batch_valid_length和q_seq_lens两个图输入的命名必须用此命名，否则会导致PagedAttention算子初始化失败。
+- **图输入名称**：如果使用了MindSpore的PagedAttention算子，两个图输入必须命名为batch_valid_length和q_seq_lens，否则会导致PagedAttention算子初始化失败。
 
-用户在使用MindSpore开发模型脚本时，如果最终有使用静态图推理的需求，建议预先考虑以上的限制，在动态图开发调试时就遵循此限制开发，防止后续的迁移和调试成本。
+用户在使用MindSpore开发模型脚本时，如果计划后续使用静态图推理，建议在动态图开发调试时就遵循以上限制，避免后续迁移和调试的额外成本。
