@@ -25,12 +25,12 @@ with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as 
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Flow'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.2'
 
 
 # -- General configuration ---------------------------------------------------

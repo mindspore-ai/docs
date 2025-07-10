@@ -32,12 +32,12 @@ from sphinx.ext import autodoc as sphinx_autodoc
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore SciAI'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.1'
 
 
 # -- General configuration ---------------------------------------------------

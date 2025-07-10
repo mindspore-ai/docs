@@ -109,7 +109,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 # language = 'cn'
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.2'
 
 # -- General configuration ---------------------------------------------------
 
