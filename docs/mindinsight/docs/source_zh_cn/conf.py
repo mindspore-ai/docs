@@ -35,12 +35,12 @@ import mindinsight
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = '可视化调试调优（MindInsight）'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.0.0-alpha'
 
 
 # -- General configuration ---------------------------------------------------
