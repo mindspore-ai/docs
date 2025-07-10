@@ -35,13 +35,13 @@ import mindinsight
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = '可视化调试调优（MindInsight）'
 copyright = 'MindSpore'
 author = 'MindSpore'
 language = 'cn'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '1.9'
 
 
 # -- General configuration ---------------------------------------------------

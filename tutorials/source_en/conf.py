@@ -34,12 +34,13 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'Tutorials'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '1.9'
+html_title = author + ' ' + release + ' ' + project
 
 
 # -- General configuration ---------------------------------------------------

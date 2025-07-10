@@ -19,12 +19,12 @@ import sphinx
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindArmour'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '1.9'
 
 
 # -- General configuration ---------------------------------------------------

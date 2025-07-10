@@ -20,12 +20,12 @@ from sphinx.ext import autodoc as sphinx_autodoc
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'AI安全和隐私（MindArmour）'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '1.9'
 
 
 # -- General configuration ---------------------------------------------------
