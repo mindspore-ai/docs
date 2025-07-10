@@ -30,12 +30,12 @@ with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = '图学习框架（MindSpore Graph Learning）'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.2.0-alpha'
 
 
 # -- General configuration ---------------------------------------------------

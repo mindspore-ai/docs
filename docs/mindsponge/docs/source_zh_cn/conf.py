@@ -23,12 +23,12 @@ from sphinx.ext import autodoc as sphinx_autodoc
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSPONGE'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '1.0.0-alpha'
 
 # -- General configuration ---------------------------------------------------
 

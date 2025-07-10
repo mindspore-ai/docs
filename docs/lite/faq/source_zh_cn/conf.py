@@ -18,12 +18,12 @@ from sphinx import errors as searchtools_path
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore Lite'
+project = '全场景推理框架（MindSpore Lite）'
 copyright = 'MindSpore'
 author = 'MindSpore Lite'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.0.0-alpha'
 
 
 # -- General configuration ---------------------------------------------------
