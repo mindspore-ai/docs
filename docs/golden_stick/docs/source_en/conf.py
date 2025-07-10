@@ -20,12 +20,12 @@ import sphinx.ext.autosummary.generate as g
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Golden Stick'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.5.0'
 
 
 # -- General configuration ---------------------------------------------------
