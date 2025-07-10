@@ -61,7 +61,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.3.0-rc1'
 
 
 # -- General configuration ---------------------------------------------------
