@@ -26,12 +26,12 @@ from exhale import graph as exh_graph
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Lite'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.4.1'
 
 
 # -- General configuration ---------------------------------------------------
