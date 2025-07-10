@@ -12,14 +12,11 @@ The inference process can be categorized into the following steps:
 
 ### 1. Models of Selective Inference
 
-Depending on the required inference task, different models are chosen, e.g. for text generation one can choose `Qwen2.5-7B`, etc.
+Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3-8B, etc.
 
-### 2. Preparing Model Weights
+### 2. Preparing Model Files
 
-Currently, the inference weights can be loaded online to perform inference with the complete weights. The weights can be obtained through the following two methods:
-
-1. Download the complete open-source weights of the corresponding model from the Hugging Face model library.
-2. Pre-trained or fine-tuned distributed weights through [merger](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html#weight-merging) Generate a complete weight.
+Obtain the Hugging Face model file: weights, configurations, and tokenizers. Store the downloaded files in the same folder directory for convenient subsequent use.
 
 ### 3. Executing Inference Tasks
 
@@ -36,44 +33,34 @@ The arguments to run_mindformer.py are described below:
 | config                   | Path to the yaml configuration file                                                                                                                |
 | run_mode                 | The running mode, with inference set to predict                                                                                                    |
 | use_parallel             | Whether to use multicard inference                                                                                                                 |
-| load_checkpoint          | the loaded weight path                                                                                                                             |
 | predict_data             | Input data for inference. Multi-batch inference needs to pass the path to the txt file of the input data, which contains multiple lines of inputs. |
-| auto_trans_ckpt          | Automatic weight slicing. Default value is False                                                                                                   |
-| src_strategy_path_or_dir | Path to the strategy file for weights                                                                                                              |
 | predict_batch_size       | batch_size for multi-batch inference                                                                                                               |
-| modal_type               | Given modal type corresponds to predict data in multimodal inference scenario.                                                                     |
 
 msrun_launcher.sh includes the run_mindformer.py command and the number of inference cards as two parameters.
 
-The following will describe the usage of single and multi-card inference using `Qwen2.5-7B` as an example, with the recommended configuration of the [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml) file.
+The following will describe the usage of single and multi-card inference using Qwen3-8B as an example, with the recommended configuration of the [predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/qwen3/predict_qwen3.yaml) file.
 
 ### Configuration Modification
 
-The configuration related to weights is modified as follows:
+The current inference can directly reuse Hugging Face's configuration file and tokenizer, and load the weights of Hugging Face's safetensors format online. The configuration modification when in use is as follows:
 
 ```yaml
-load_checkpoint: "path/to/Qwen2_5_7b_instruct/"
-load_ckpt_format: 'safetensors'
-auto_trans_ckpt: True
+use_legacy: False
+pretrained_model_dir: '/path/hf_dir'
 ```
 
-The default configuration is the single-card inference configuration. The parallel related configuration is modified as follows:
+Parameter Description:
+
+- use_legacy: Determine whether to use the old architecture. Default value: 'True';
+- pretrained_model_dir: Hugging Face model directory path, where files such as model configuration and Tokenizer are placed.
+
+The default configuration is a single-card inference configuration. If multi-card inference is required, the relevant configuration modifications are as follows:
 
 ```yaml
 use_parallel: False
 parallel_config:
   data_parallel: 1
   model_parallel: 1
-  pipeline_stage: 1
-```
-
-The configuration related to `tokenizer` is modified as follows:
-
-```yaml
-processor:
-  tokenizer:
-    vocab_file: "path/to/vocab.json"
-    merges_file: "path/to/merges.txt"
 ```
 
 For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
@@ -84,8 +71,7 @@ When using full weight reasoning, it is recommended to use the default configura
 
 ```shell
 python run_mindformer.py \
---register_path /path/to/research/qwen2_5/ \
---config /path/to/research/qwen2_5/predict_qwen2_5_7b_instruct \
+--config configs/qwen3/predict_qwen3.yaml \
 --run_mode predict \
 --use_parallel False \
 --predict_data '帮助我制定一份去上海的旅游攻略'
@@ -108,11 +94,9 @@ When using full weight reasoning, it is necessary to enable the online splitting
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path /path/to/research/qwen2_5 \
- --config /path/to/research/qwen2_5/qwen2_5_72b/predict_qwen2_5_72b_instruct.yaml \
+ --config configs/qwen3/predict_qwen3.yaml \
  --run_mode predict \
  --use_parallel True \
- --auto_trans_ckpt True \
  --predict_data '帮助我制定一份去上海的旅游攻略'" 4
 ```
 
@@ -139,13 +123,11 @@ Take full weight reasoning as an example. The reasoning task can be started by r
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path /path/to/research/qwen2_5 \
- --config /path/to/research/qwen2_5/qwen2_5_72b/predict_qwen2_5_72b_instruct.yaml \
+ --config configs/qwen3/predict_qwen3.yaml \
  --run_mode predict \
  --predict_batch_size 4 \
  --use_parallel True \
- --auto_trans_ckpt True \
- --predict_data '帮助我制定一份去上海的旅游攻略'" 4
+ --predict_data path/to/input_predict_data.txt" 4
 ```
 
 Inference results are viewed in the same way as multi-card inference.
