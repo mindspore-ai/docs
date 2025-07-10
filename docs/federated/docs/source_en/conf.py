@@ -21,12 +21,12 @@ import mindspore
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Federated'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.1'
 
 
 # -- General configuration ---------------------------------------------------

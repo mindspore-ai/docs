@@ -21,12 +21,12 @@ import mindarmour
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Armour'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.0'
 
 
 # -- General configuration ---------------------------------------------------
