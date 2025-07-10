@@ -5,7 +5,7 @@
 随着模型规模的不断扩展，大语言模型所需的计算资源，特别是显存需求，呈指数级增长。以Qwen2-72B为例，在半精度（FP16）下，这些参数本身就需要约144GB的显存。同时大模型日益膨胀的序列长度也给显存带了极大的压力。
 显存不仅影响了模型的加载，还限制了批处理（batch size）较小的批处理可能会降低推理效率的下降，进而影响整个系统的吞吐量。
 
-显存的压力使得单一设备很难在合理时间内完成推理任务，并行计算成为应对这一挑战的关键。本章将以Qwen2模型为例，对其进行常见的模型并行切分，实现多卡并行推理。
+显存的压力使得单一设备很难在合理时间内完成推理任务，并行计算成为应对这一挑战的关键。本章将以常见大语言模型网络结构为例，分析模型并行的方案。
 
 ## 模型并行需求分析
 
@@ -27,7 +27,7 @@
 
 从图中可以看出，由于RmsNorm无法切分，因此网络中在每次RmsNorm计算前，需要加入一个AllReduce的算子同步各个子进程的计算结果。而RmsNorm之后的结果，一般都是hidden_states，因此可以通过一个列切的Linear进行切分计算分配到各个子进程上，在需要归一的时候，可以通过行切的RowLinear进行归一。
 
-## 模型并行模块
+## 模型模块并行方案
 
 Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因此矩阵切分计算也是模型并行最重要的一部分。
 
@@ -344,7 +344,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 
 ![Column+Row](images/column+row.png)
 
-根据以上分析，可以将[模型构建](./model_dev.md)中构建的TransformerModel模型修改为支持并行切分的模型结构。
+根据以上分析，可以对TransformerModel模型修改为支持并行切分的模型结构。
 
 1. Attention
 
@@ -476,3 +476,456 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 ```shell
 msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py
 ```
+
+## 实践：Qwen2模型并行改造
+
+本章将对[从零构建大语言模型推理网络](./ms_infer_network_develop.md)中开发的Qwen2大语言模型进行并行适配，根据上述分析，可以将并行适配分为以下两个主要步骤：
+
+- **模型网络适配**：根据上述的并行方案，对模型中的网络层进行并行切分，将计算分割到多个卡上计算。
+
+- **模型权重适配**：由于Linear中权重在并行切分后，shape也变化了，因此在加载模型权重时，需要对应修改。
+
+为了能够简化场景，本章只对Qwen2模型中的Linear进行并行度为2的切分，embedding层的切分暂时不涉及。
+
+### 通信组建立
+
+在对模型进行改造前，需要先通过mindspore的通信模块建立通信组，以实现后续通信操作，这部分功能可以直接复用上述描述的CommunicationHelper类完成，通过以下代码可以完成此功能：
+
+```python
+from mindspore.communication import create_group, get_group_size, get_rank, init
+
+class CommunicationHelper:
+    def __init__(self, group_name: str, size: int) -> None:
+        self.group_name = group_name
+        self.size = size
+        self.rank_list = [i for i in range(size)]
+
+    def create_tensor_model_parallel_group(self):
+        create_group(group=self.group_name, rank_ids=self.rank_list)
+
+    def get_tensor_model_parallel_group_size(self):
+        return get_group_size(group=self.group_name)
+
+    def get_tensor_model_parallel_group_rank(self):
+        return get_rank(group=self.group_name)
+
+    def get_tensor_model_parallel_group(self):
+        return self.group_name
+
+COMMON_HELPER = None
+
+def init_communication():
+    TP+GROUP_NAME = "tp"
+    TP_SIZE = 2
+
+    global COMMON_HELPER
+    COMMON_HELPER = CommunicationHelper(group_name=TP_GROUP_NAME, size=TP_SIZE)
+    init()
+    COMMON_HELPER.create_tensor_model_parallel_group()
+```
+
+### 模型并行切分
+
+本方案主要对Linear层进行并行切分，因此主要的修改是对其进行修改，实现上，需要将Qwen2Linear修改为Qwen2ColParallelLinear和Qwen2RowParallelLinear两个类，分别对应列切和行切的Linear，具体代码可以参考如下：
+
+```python
+from typing import Optional, Type, Tuple
+
+from mindspore import nn, ops, mint, Parameter, Tensor
+
+class Qwen2ColParallelLinear(nn.Cell):
+    def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], bias: bool) -> None:
+        super().__init__()
+
+        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
+        self.param_dtype = param_dtype
+        self.input_size = input_size
+        self.output_size = output_size // self.tp_size
+        self.enable_bias = bias
+
+        self.matmul = ops.MatMul(transpose_b=True)
+        self.weight = Parameter(
+            mint.zeros(
+                (self.output_size, self.input_size),
+                dtype=self.param_dtype
+            ), requires_grad=False
+        )
+
+        if self.enable_bias:
+            self.bias_add = ops.Add()
+            self.bias = Parameter(
+                mint.zeros(self.output_size, dtype=self.param_dtype)
+            )
+
+    def construct(self, input: Tensor) -> Tuple[Tensor, bool]:
+        origin_shape = input.shape
+        x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
+        if self.enable_bias:
+            x = self.bias_add(x, self.bias)
+        return x.view(*origin_shape[:-1], -1)
+
+
+class Qwen2RowParallelLinear(nn.Cell):
+    def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], bias: bool) -> None:
+        super().__init__()
+
+        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
+        self.param_dtype = param_dtype
+        self.input_size = input_size // self.tp_size
+        self.output_size = output_size
+        self.enable_bias = bias
+
+        self.matmul = ops.MatMul(transpose_b=True)
+        self.weight = Parameter(
+            mint.zeros(
+                (self.output_size, self.input_size),
+                dtype=self.param_dtype
+            ), requires_grad=False
+        )
+
+        if self.enable_bias:
+            self.bias_add = ops.Add()
+            self.bias = Parameter(
+                mint.zeros(self.output_size, dtype=self.param_dtype)
+            )
+        self.all_reduce = ops.AllReduce(group=COMMON_HELPER.get_tensor_model_parallel_group())
+
+    def construct(self, input: Tensor) -> Tuple[Tensor, bool]:
+        origin_shape = input.shape
+        x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
+        if self.enable_bias:
+            x = self.bias_add(x, self.bias)
+        x = self.all_reduce(x)
+        return x.view(*origin_shape[:-1], -1)
+```
+
+由上面代码可以看出，Linear改造其实很简单，Qwen2ColParallelLinear只需要在output维度按并行度切分即可，Qwen2RowParallelLinear则只需要在input维度按并行度切分即可，由于行切后通常会要all_reduce计算，因此在Qwen2RowParallelLinear中加入了一个all_reduce操作。
+
+除此之外，我们需要将原来使用Qwen2Linear的地方根据算法修改成新的Linear层，我们主要关注以下三部分：
+
+- **Attention**：主要包括query、key、value、output共4个Linear，其中query、key、value需要替换成Qwen2ColParallelLinear，output需要替换成Qwen2RowParallelLinear。
+
+- **MLP**：主要包括gate、up、down共3个Linear，其中，gate、up需要替换成Qwen2ColParallelLinear，down需要替换成Qwen2RowParallelLinear。
+
+- **LMHead**：包含一个Linear，由于没有行切Linear与其对应，需要通过all_gather操作获取多卡结果。
+
+用户可以简单的进行类对象替换完成下面的修改和适配，此处列出修改后的网络层实现：
+
+```python
+import numpy as np
+from typing import Optional, Type
+
+from mindspore import nn, ops, mint, Parameter, Tensor
+    
+    
+class Qwen2Attention(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+        
+        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
+        self.hidden_size = config.hidden_size
+        self.num_heads = config.num_attention_heads
+        self.num_kv_heads = config.num_key_value_heads
+        self.head_dim =config.hidden_size // self.num_heads
+        self.q_size = self.head_dim * self.num_heads
+        self.kv_size = self.head_dim * self.num_kv_heads
+        self.scaling = float(self.head_dim ** -0.5)
+        self.rope_theta = int(config.rope_theta)
+        self.param_dtype = config.param_dtype
+        self.max_position = config.max_position_embeddings
+        
+        self.flash_attn = FlashAttention(self.scaling, self.num_heads // self.tp_size)
+        self.paged_attn = PagedAttention(self.num_heads // self.tp_size, self.scaling, self.num_kv_heads // self.tp_size)
+        self.reshape_and_cache = ops.auto_generate.ReshapeAndCache()
+        
+        self.q_proj = Qwen2ColParallelLinear(
+            input_size=self.hidden_size,
+            output_size=self.q_size,
+            param_dtype=self.param_dtype
+            bias=True
+        )
+        self.k_proj = Qwen2ColParallelLinear(
+            input_size=self.hidden_size,
+            output_size=self.kv_size,
+            param_dtype=self.param_dtype,
+            bias=True
+        )
+        self.v_proj = Qwen2ColParallelLinear(
+            input_size=self.hidden_size,
+            output_size=self.kv_size,
+            param_dtype=self.param_dtype,
+            bias=True
+        )
+        self.o_proj = Qwen2RowParallelLinear(
+            input_size=self.q_size,
+            output_size=self.hidden_size,
+            param_dtype=self.param_dtype,
+            bias=False
+        )
+        
+        self.rotary_emb = Qwen2RotaryEmbedding(
+            head_size=self.head_dim,
+            rotary_dim=self.head_dim,
+            max_position_embeddings=self.max_position,
+            base=self.rope_theta,
+            dtype=self.param_dtype
+        )
+        
+    def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor, 
+                        is_prefill, bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor, 
+                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor, 
+                        q_seq_lens: Tensor) -> Tensor:
+        bs, seq_len, hidden_dim = hidden_state.shape
+        
+        q = self.q_proj(hidden_state).view(-1, self.q_size // self.tp_size)
+        k = self.k_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
+        v = self.v_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
+        
+        k = k.contiguous()
+        v = v.contiguous()
+        
+        cache_out = self.reshape_and_cache(
+            k,
+            v,
+            k_cache,
+            v_cache,
+            slot_mapping
+        )
+        q = ops.depend(q, cache_out)
+        
+        if is_prefill:
+            attn_output = self.flash_attn(
+                q,
+                k,
+                v,
+                attn_mask,
+                batch_valid_length
+            )
+        else:
+            attn_output = self.paged_attn(
+                q,
+                k_cache,
+                v_cache,
+                block_tables,
+                batch_valid_length,
+                attn_mask,
+                q_seq_lens
+            )
+            
+        output = self.o_proj(attn_output).view(bs, seq_len, -1)
+        return output
+
+class Qwen2MLP(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+
+        self.up_proj = Qwen2ColParallelLinear(
+            input_size=config.hidden_size,
+            output_size=config.intermediate_size,
+            param_dtype=config.param_dtype,
+            bias=False
+        )
+        self.gate_proj = Qwen2ColParallelLinear(
+            input_size=config.hidden_size,
+            output_size=config.intermediate_size,
+            param_dypte=config.param_dtype,
+            bias=False
+        )
+        self.down_proj = Qwen2RowParallelLinear(
+            input_size=config.intermediate_size,
+            output_size=config.hidden_size,
+            param_dtype=config.param_dtype,
+            bias=False
+        )
+        self.act_fn = ops.silu
+
+    def construct(self, x: Tensor) -> Tensor:
+        output = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+        return output
+
+class GatherLastDim(nn.Cell):
+    def __init__(self):
+        self.all_gather = ops.AllGather(group=COMMON_HELPER.get_tensor_model_parallel_group())
+        self.world_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
+        self.split = ops.Splite(axis=0, output_num=self.world_size)
+    
+    def construct(self, input: Tensor) -> Tensor:
+        output = self.all_gather(input)
+        tensor_list = self.split(output)
+        output = ops.cat(tensor_list, axis=-1)
+        return output
+
+class Qwen2ForCausalLM(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+        
+        self.model = Qwen2Model(config=config)
+        self.lm_head = Qwen2ColParallelLinear(
+            input_size=config.hidden_size,
+            output_size=config.vocab_size,
+            param_dtype=config.param_dtype,
+            bias=False
+        )
+        self.all_gather = GatherLastDim()
+        
+    def load_weight(self, weight_path: str) -> None:
+        weight_dict = {}
+        for path in glob(weight_path + "/*.safetensors"):
+            weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
+            
+        ms.load_param_into_net(self, weight_dict, strict_load=False)
+        
+    def construct(self, model_input: Qwen2ModelInput) -> Tensor:
+        hidden_state = self.model(model_input.input_ids, model_input.positions, 
+                                  model_input.batch_valid_length, model_input.is_prefill, 
+                                  model_input.k_caches, model_input.v_caches, model_input.slot_mapping, 
+                                  model_input.block_tables, model_input.attn_mask, model_input.q_seq_len)
+        logits = self.lm_head(hidden_state)[:, -1]
+        logits = self.all_gather(logits)
+        return logits
+```
+
+可以看到，代码实现变化很小，主要需要注意的是Attention中query、key、value实际是按照Attention的Head进行切分，因此对于FlashAttention和PagedAttention的输入输出维度需要同样适配的除以并行度，以缩小计算范围，同时需要保证并行度可以被query和key、value的head数整除。
+
+### 模型权重切分
+
+原始的Qwen2ForCausalLM使用了MindSpore提供的load_param_into_net函数将权重注入到模型中，其逻辑是按照原始权重进行加载的，当模型被切分后，需要加载的模型也要进行适配，大小要变化，非0卡的进程需要按偏移读取数据，因此需要修改load_weight函数，实现并行下的权重加载。
+
+此处建议使用通过在权重参数注册加载函数方式实现，可以参考以下代码：
+
+```python
+from typing import Optional, Type, Tuple
+
+from mindspore import nn, ops, mint, Parameter, Tensor
+
+class Qwen2ColParallelLinear(nn.Cell):
+    def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], bias: bool) -> None:
+        super().__init__()
+
+        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
+        self.param_dtype = param_dtype
+        self.input_size = input_size
+        self.output_size = output_size // self.tp_size
+        self.enable_bias = bias
+
+        self.matmul = ops.MatMul(transpose_b=True)
+        self.weight = Parameter(
+            mint.zeros(
+                (self.output_size, self.input_size),
+                dtype=self.param_dtype
+            ), requires_grad=False
+        )
+        setattr(self.weight, "weight_load", self.weight_load)
+
+        if self.enable_bias:
+            self.bias_add = ops.Add()
+            self.bias = Parameter(
+                mint.zeros(self.output_size, dtype=self.param_dtype)
+            )
+            setattr(self.bias, "weight_load", self.weight_load)
+
+    def construct(self, input: Tensor) -> Tuple[Tensor, bool]:
+        origin_shape = input.shape
+        x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
+        if self.enable_bias:
+            x = self.bias_add(x, self.bias)
+        return x.view(*origin_shape[:-1], -1)
+
+    def weight_load(self, param: Tensor, weight: Tensor) -> None:
+        tp_rank = COMMON_HELPER.get_tensor_model_parallel_group_rank()
+        copy_dim = 0
+        shard_size = param.shape[copy_dim]
+        start_idx = tp_rank * shard_size
+        weight = weight.narrow(copy_dim, start_idx, shard_size).contiguous()
+
+        param.set_data(weight)
+        return None
+
+
+
+class Qwen2RowParallelLinear(nn.Cell):
+    def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], bias: bool) -> None:
+        super().__init__()
+
+        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
+        self.param_dtype = param_dtype
+        self.input_size = input_size // self.tp_size
+        self.output_size = output_size
+        self.enable_bias = bias
+
+        self.matmul = ops.MatMul(transpose_b=True)
+        self.weight = Parameter(
+            mint.zeros(
+                (self.output_size, self.input_size),
+                dtype=self.param_dtype
+            ), requires_grad=False
+        )
+        setattr(self.weight, "weight_load", self.weight_load)
+
+        if self.enable_bias:
+            self.bias_add = ops.Add()
+            self.bias = Parameter(
+                mint.zeros(self.output_size, dtype=self.param_dtype)
+            )
+            setattr(self.bias, "weight_load", self.weight_load)
+        self.all_reduce = ops.AllReduce(group=COMMON_HELPER.get_tensor_model_parallel_group())
+
+    def construct(self, input: Tensor) -> Tuple[Tensor, bool]:
+        origin_shape = input.shape
+        x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
+        if self.enable_bias:
+            x = self.bias_add(x, self.bias)
+        x = self.all_reduce(x)
+        return x.view(*origin_shape[:-1], -1)
+    
+    def weight_load(self, param: Tensor, weight: Tensor) -> None:
+        tp_rank = COMMON_HELPER.get_tensor_model_parallel_group_rank()
+        copy_dim = 1
+        shard_size = param.shape[copy_dim]
+        start_idx = tp_rank * shard_size
+        weight = weight.narrow(copy_dim, start_idx, shard_size).contiguous()
+
+        param.set_data(weight)
+        return None
+
+class Qwen2ForCausalLM(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+        
+        self.model = Qwen2Model(config=config)
+        self.lm_head = Qwen2ColParallelLinear(
+            input_size=config.hidden_size,
+            output_size=config.vocab_size,
+            param_dtype=config.param_dtype,
+            bias=False
+        )
+        self.all_gather = GatherLastDim()
+        
+    def load_weight(self, weight_path: str) -> None:
+        weight_dict = {}
+        for path in glob(weight_path + "/*.safetensors"):
+            weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
+            
+        param_dict = self.parameters_dict()
+
+        for (name, weight) in weight_dict.items():
+            if name in param_dict:
+                param = param_dict[name]
+                if hasattr(param, "weight_load"):
+                    weight_load = getattr(param, "weight_load")
+                    weight_load(param, weight)
+                else:
+                    param.set_data(weight)
+```
+
+上面代码对需要自定义加载权重的网络层增加了weight_load方法，并且对其权重对象通过setattr方法设置了自定义权重加载方法，在模型权重加载时，通过🏪权重的映射表，找到对应的参数对象，更新其权重。对于列切和行切的Linear，使用了Tensor的narrow获取对应偏移的数据，唯一不同是两者切分维度不同。
+
+### 并行执行
+
+完成模型适配和权重适配后，可以通过以下命令启动多卡执行：
+
+```shell
+msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 infer_parallel.py
+```
+
+其中，infer_parallel.py是推理的脚本。
