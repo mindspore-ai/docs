@@ -35,11 +35,13 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 ### 基础矩阵乘模块
 
 ![matmul1](images/gmm.png)
+
 ![matmul2](images/matmul.png)
 
 在大模型计算中，矩阵乘（MatMul）不管是在权重还是计算量上都占了相当大的比例。观察矩阵乘，其拥有列可切分性（Column-wise Parallelism）和行可切分性（Row-wise Parallelism）。
 
 ![Column-wise Parallelism](images/column.png)
+
 ![Row-wise Parallelism](images/row.png)
 
 以MindSpore原始实现的`nn.Dense`为起点，分别构建列切和行切的矩阵乘实现。
@@ -276,7 +278,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
    除了矩阵乘之外，Embedding层也可以进行并行计算。将Embedding权重切分至若干个device上，每个device负责映射不同范围token_ids。
 
    ![embedding1](images/embedding1.png)
-   具体而言
+
    ![embedding2](images/embedding2.png)
 
    以nn.Embedding为基础，构建模型并行的Embedding层：
@@ -920,7 +922,7 @@ class Qwen2ForCausalLM(nn.Cell):
                     param.set_data(weight)
 ```
 
-上面代码对需要自定义加载权重的网络层增加了weight_load方法，并且对其权重对象通过setattr方法设置了自定义权重加载方法，在模型权重加载时，通过🏪权重的映射表，找到对应的参数对象，更新其权重。对于列切和行切的Linear，使用了Tensor的narrow获取对应偏移的数据，唯一不同是两者切分维度不同。
+上面代码对需要自定义加载权重的网络层增加了weight_load方法，并且对其权重对象通过setattr方法设置了自定义权重加载方法，在模型权重加载时，通过读取权重的映射表，找到对应的参数对象，更新其权重。对于列切和行切的Linear，使用了Tensor的narrow获取对应偏移的数据，唯一不同是两者切分维度不同。
 
 ### 并行执行
 

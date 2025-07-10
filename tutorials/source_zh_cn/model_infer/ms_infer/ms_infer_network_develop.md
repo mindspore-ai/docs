@@ -88,13 +88,11 @@ class Qwen2ModelInput:
     q_seq_lens: Tensor
 ```
 
-其中，Qwen2Config配置和HuggingFace的配置基本一致，具体请参考Qwen2的官方文档，唯一的区别是此处用param_dtype替换了torch_dtype，由于mindspore的datatype类型与torch的不一致，因此我们这里直接使用单独的字段进行配置，此例子中，我们都会使用bfloat16类型；Qwen2ModelInput定义了模型的输入，包括主要的单词index，和KVCache等MindSpore推理优化特性所需要的数据。
-
-同时，注意到Linear和RmsNorm算子在网络中的各个功能层中会频繁出现，可以预先将这些公共层构建好，具体可以参考如下代码：
+其中，Qwen2Config配置和Hugging Face的配置基本一致，具体请参考Qwen2的官方文档。需要注意的是Qwen2Config用param_dtype替换了torch_dtype，原因是mindspore的datatype类型与torch的不一致。Qwen2ModelInput定义了模型的输入，包括主要的单词id、KVCache和Attention融合算子等MindSpore推理优化特性所需要的数据。
 
 #### RmsNorm
 
-RmsNorm是当前大语言模型中常用的归一算法，在MindSpore中有直接可以使用的算子，我们只需要对应的实现权重创建即可。同时，由于RmsNorm经常会有残差计算，因此我们实现了残差融合计算在网络层中，代码如下：
+RmsNorm是当前大语言模型中常用的归一算法，在MindSpore中有直接可以使用的算子，只需要对应实现权重创建即可。同时，由于RmsNorm经常会有残差计算，RmsNorm类实现了残差融合计算在网络层中，代码可以参考：
 
 ```python
 from typing import Optional, Type
@@ -254,7 +252,7 @@ class VocabEmbedding(nn.Cell):
 
 DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含在这一层中，从Qwen2的网络结构图可以看出，主要包含Attention、MLP、Linear、RmsNorm、Rope等网络层，为了方便开发，我们先完成这些网络层的构建。
 
-##### Rope
+- **Rope**
 
 Rope（旋转位置编码）算子用于增强Attention机制对单词间距离的感知能力，通过在query和key的特征上添加位置编码信息来实现。由于Rope的特性，可以预先计算好结果，并在使用时通过查表的方式直接获取，从而实现高效的计算。这可以通过gather操作和Rope算子来完成。具体计算方法可参考旋转位置编码的相关资料。
 
@@ -315,7 +313,7 @@ class Qwen2RotaryEmbedding(nn.Cell):
         return self.rotary_embedding_op(query, key, freqs_cos, freqs_sin, batch_valid_length)
 ```
 
-##### FlashAttention和PagedAttention
+- **FlashAttention和PagedAttention**
 
 作为自注意力机制的核心，注意力分数计算是主要的计算逻辑。MindSpore提供了高性能的FlashAttentionScore和PagedAttention融合算子，能够帮助用户获取更高的推理性能。然而，由于原生算子面向多种场景，输入比较复杂，此处通过封装简化使用场景。具体代码可以参考：
 
@@ -375,7 +373,7 @@ class PagedAttention(nn.Cell):
         return output
 ```
 
-##### KVCacheManager
+- **KVCacheManager**
 
 由于FlashAttention和PagedAttention通常会和KVCache共同使用，如FlashAttention一般用于全量计算、PagedAttentioni一般用于增量计算，因此需要额外传入一些参数，其中主要包括：
 
@@ -422,7 +420,7 @@ class CacheManager:
         return now_block_tables, now_slot_mapping
 ```
 
-##### Attention
+- **Attention**
 
 Attention层是由多个Linear、Rope等组成的。其中，MindSpore提供了FlashAttention和PagedAttention两个融合算子，用于提升Attention分数计算的推理性能。根据网络结构，代码可以参考：
 
@@ -530,7 +528,7 @@ class Qwen2Attention(nn.Cell):
         return output
 ```
 
-##### MLP
+- **MLP**
 
 MLP层由多个Linear和一个激活函数（通常是silu）组成，负责实现网络的非线性计算。MLP层可以将问题投影到多个非线性空间，从而增强网络能力。具体实现可以参考下面代码：
 
@@ -666,7 +664,7 @@ class Qwen2Model(nn.Cell):
 
 通过在nn.Cell的construct方法加上ms.jit装饰器，这个Cell的计算就会转化为静态图执行，其中参数意义如下：
 
-- **jit_level**：编译级别，当前MindSpore推理主要支持O0级别，O1级别会有一些算子融合优化，O2为整图下沉，目前推理暂不支持。
+- **jit_level**：编译级别，当前MindSpore推理主要支持O0级别，O1级别会有一些算子融合优化，O2为整图下沉，目前推理暂不支持O2级别。
 
 - **infer_boost**：开启推理加速优化，开启后，运行时会做一些调度优化和流优化，提升推理性能。
 
