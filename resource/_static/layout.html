@@ -2,7 +2,7 @@
 {%- set url_root = pathto('', 1) %}
 {%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
 {%- if not embedded and docstitle %}
-  {%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
+  {%- set titlesuffix = " &#124; "|safe + docstitle|e %}
 {%- else %}
   {%- set titlesuffix = "" %}
 {%- endif %}
@@ -20,10 +20,9 @@
   {{- metatags }}
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {%- block htmltitle %}
-  <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+  <title>{{ title|striptags|e }}{{ titlesuffix }} &#124; {{ _('MindSpore') }}</title>
   {%- endblock -%}
 
-  <script>;(()=>{const e=localStorage.getItem("ms-theme"),t=window.matchMedia("(prefers-color-scheme: dark)").matches;(e?"dark"===e:t)&&document.documentElement.setAttribute("data-o-theme","dark")})();</script>
   {#- CSS #}
   {%- if sphinx_version_info < (4, 0) -%}
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
@@ -75,7 +74,7 @@
       {%- for scriptfile in script_files %}
         {%- if 'jquery.js' in scriptfile -%}
         {{ js_tag(scriptfile) }}
-        {{ js_tag('_static/js/theme.js') }}
+        <script src="/check-dark-mode.js"></script>{{ js_tag('_static/js/theme.js') }}
         {%- else -%}
         {{ js_tag(scriptfile) }}
         {%- endif -%}

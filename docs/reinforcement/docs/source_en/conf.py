@@ -22,12 +22,12 @@ import mindspore_rl
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Reinforcement'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.6'
 
 
 # -- General configuration ---------------------------------------------------

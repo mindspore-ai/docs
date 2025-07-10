@@ -20,12 +20,12 @@ sys.path.append(os.path.abspath('../_ext'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'MindSpore'
+project = 'MindSpore Pandas'
 copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.2'
 
 
 # -- General configuration ---------------------------------------------------
