@@ -12,4 +12,3 @@ Design Concept
    multi_level_compilation
    all_scenarios
    pluggable_device
-   glossary
