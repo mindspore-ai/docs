@@ -90,8 +90,7 @@ html_search_language = 'en'
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3', None),
-    'numpy': ('https://numpy.org/doc/stable', None),
+    'python': ('https://docs.python.org/3', '../../../../resource/python_objects.inv'),
 }
 
 # Modify default signatures for autodoc.

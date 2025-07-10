@@ -110,8 +110,7 @@ html_search_options = {'dict': '../../../resource/jieba.txt'}
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3', None),
-    'numpy': ('https://numpy.org/doc/stable', None),
+    'python': ('https://docs.python.org/3', '../../../../resource/python_objects.inv'),
 }
 
 # Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
