@@ -5,7 +5,7 @@ import asyncio
 import hashlib
 import json
 import os
-import random
+import secrets
 from typing import Set
 
 from tqdm.asyncio import tqdm
@@ -24,7 +24,7 @@ async def generate_completion(session, prompt, args):
     retry_budget = 10
     while retry_budget > 0:
         try:
-            await asyncio.sleep(random.uniform(0.0, 0.1))
+            await asyncio.sleep(secrets.randbelow(100) / 1000.0)
             async with session.post(
                     f"https://{args.api_addr}/v1/chat/completions",
                     json={
@@ -141,7 +141,8 @@ async def load_processed_uuids(output_file, uuid_column):
             async for line in f:
                 try:
                     data = json.loads(line)
-                    processed_uuids.add(hashlib.md5(str(data[uuid_column]).encode()).hexdigest())
+                    processed_uuids.add(
+                        hashlib.md5(str(data[uuid_column]).encode(), usedforsecurity=False).hexdigest())
                 except json.JSONDecodeError:
                     continue
     return processed_uuids
@@ -193,7 +194,7 @@ async def main():
             connector=aiohttp.TCPConnector(limit=args.max_concurrent, ttl_dns_cache=300, keepalive_timeout=60 * 60),
         ) as session:
         for example in dataset:
-            uuid = hashlib.md5(str(example[args.uuid_column]).encode()).hexdigest()
+            uuid = hashlib.md5(str(example[args.uuid_column]).encode(), usedforsecurity=False).hexdigest()
             if uuid not in processed_uuids:
 
                 while len(active_tasks) >= args.max_concurrent:

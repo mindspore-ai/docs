@@ -40,7 +40,6 @@ class OpenR1Math220kDataHandler(BaseInstructDataHandler):
         labels = input_ids[target_index:]
         ignore_length = target_index
         labels = np.concatenate([np.full(ignore_length, self.ignore_token_id), labels])
-        assert len(labels) == len(input_ids), f"input_ids length {len(input_ids)} different from labels {len(labels)}"
         return {
             "input_ids": input_ids,
             "labels": labels.tolist(),
