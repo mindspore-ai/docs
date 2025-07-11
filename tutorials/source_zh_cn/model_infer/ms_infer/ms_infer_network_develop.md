@@ -76,16 +76,20 @@ class Qwen2Config:
         config = cls(**data)
         return config
 
+
+@dataclass
 class Qwen2ModelInput:
     input_ids: Tensor
     positions: Tensor
     batch_valid_length: Tensor
     is_prefill: bool
     attn_mask: Tensor
-    kv_cache: Optional[Tuple[Tensor, Tensor]] = None
+    k_caches: List[Tensor]
+    v_caches: List[Tensor]
+    slot_mapping: Tensor = None
+    block_tables: Tensor = None
     hidden_state: Optional[Tensor] = None
     residual: Optional[Tensor] = None
-    block_tables: Tensor
     q_seq_lens: Tensor
 ```
 
@@ -96,7 +100,7 @@ class Qwen2ModelInput:
 RmsNorm是当前大语言模型中常用的归一算法，在MindSpore中有直接可以使用的算子，只需要对应实现权重创建即可。同时，由于RmsNorm经常会有残差计算，RmsNorm类实现了残差融合计算在网络层中，代码可以参考：
 
 ```python
-from typing import Optional, Type
+from typing import Optional, Type, Union, Tuple
 
 from mindspore import nn, ops, mint, Parameter, Tensor
 
@@ -114,13 +118,13 @@ class RmsNorm(nn.Cell):
             requires_grad=False
         )
 
-    def construct(self, x: Tensor, residual: Tensor):
+    def construct(self, x: Tensor, residual: Optional[Tensor] = None) -> Union[Tensor, Tuple[Tensor, Tensor]]:
         if residual is not None:
             x = x + residual
             residual = x
         output = self.rms_norm(x, self.weight)[0]
         if residual is None:
-            return output, None
+            return output
         return output, residual
 ```
 
@@ -146,7 +150,7 @@ class Qwen2Linear(nn.Cell):
         self.weight = Parameter(
             mint.zeros(
                 (self.output_size, self.input_size),
-                dtype=config.param_dtype
+                dtype=self.param_dtype
             ),
             requires_grad=False
         )
@@ -204,7 +208,7 @@ class Qwen2ForCausalLM(nn.Cell):
         hidden_state = self.model(model_input.input_ids, model_input.positions,
                                   model_input.batch_valid_length, model_input.is_prefill,
                                   model_input.k_caches, model_input.v_caches, model_input.slot_mapping,
-                                  model_input.block_tables, model_input.attn_mask, model_input.q_seq_len)
+                                  model_input.block_tables, model_input.attn_mask, model_input.q_seq_lens)
         logits = self.lm_head(hidden_state)[:, -1]
         return logits
 ```
@@ -236,7 +240,7 @@ class VocabEmbedding(nn.Cell):
         self.num_embeddings = config.vocab_size
         self.embedding_dim = config.hidden_size
 
-        self.gather = ops.Gather
+        self.gather = ops.Gather()
 
         self.weight = Parameter(
             mint.zeros(
@@ -247,7 +251,7 @@ class VocabEmbedding(nn.Cell):
         )
 
     def construct(self, input_ids: Tensor):
-        return self.gather(input_ids)
+        return self.gather(self.weight, input_ids, 0)
 ```
 
 #### DecoderLayer
@@ -297,11 +301,7 @@ class Qwen2RotaryEmbedding(nn.Cell):
         freqs_sin = Tensor(freqs_sin, dtype=self.dtype)
         return freqs_cos, freqs_sin
 
-    def construct(self, positions: Tensor, query: Tensor, key: Tensor, batch_valid_length: Tensor):
-        bs, seq_len, _. _ = query.shape
-        query = query.view(bs * seq_len, -1)
-        key = key.view(bs * seq_len, -1)
-
+    def construct(self, positions: Tensor, query: Tensor, key: Tensor, batch_valid_length: Tensor, is_prefill: bool):
         query = query.contiguous()
         key = key.contiguous()
 
@@ -487,7 +487,7 @@ class Qwen2Attention(nn.Cell):
         )
 
     def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
-                        is_prefill, bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
+                        is_prefill: bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
                         slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
         bs, seq_len, hidden_dim = hidden_state.shape
@@ -495,6 +495,14 @@ class Qwen2Attention(nn.Cell):
         q = self.q_proj(hidden_state).view(-1, self.q_size)
         k = self.k_proj(hidden_state).view(-1, self.kv_size)
         v = self.v_proj(hidden_state).view(-1, self.kv_size)
+
+        q, k = self.rotary_emb(
+            positions,
+            q,
+            k,
+            batch_valid_length,
+            is_prefill
+        )
 
         k = k.contiguous()
         v = v.contiguous()
@@ -545,16 +553,16 @@ class Qwen2MLP(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
-        self.up_proj = Qwen2Linaer(
+        self.up_proj = Qwen2Linear(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
             param_dtype=config.param_dtype,
             enable_bias=False
         )
-        self.gate_proj = Qwen2Liner(
+        self.gate_proj = Qwen2Linear(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
-            param_dypte=config.param_dtype,
+            param_dtype=config.param_dtype,
             enable_bias=False
         )
         self.down_proj = Qwen2Linear(

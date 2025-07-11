@@ -163,7 +163,7 @@ ms.set_context(mode=ms.context.PYNATIVE_MODE)
 model_path = "/path/to/model"
 input_str = ["I love Beijing, because", "Hello, Qwen2"]
 batch_size = len(input_str)
-max_new_token = 64
+max_new_tokens = 64
 block_size = 128
 max_seq_lens = block_size * 10
 block_num = (max_seq_lens * batch_size) // block_size
@@ -193,7 +193,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 
 - **model_path**：模型目录路径，即前面Hugging Face官网下载的模型路径。
 
-- **max_new_token**：最大推理单词数量，当迭代到最大单词数量后，即停止推理，后面迭代推理中会使用。
+- **max_new_tokens**：最大推理单词数量，当迭代到最大单词数量后，即停止推理，后面迭代推理中会使用。
 
 - **block_size**：PagedAttention中管理KVCache对象的block大小，block_size越小，划分越细，不同请求可能复用概率更高，block_size越大，则网络计算时，一次读取的有效数据更多，计算性能更好。
 
@@ -208,9 +208,9 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 - **前处理**：利用tokenizer的数据，将一句话分解为多个token id表示的list。此处，我们使用Transformers开源社区的的tokenizer。
 
     ```python
-    from transformers import AuotTokenizer
+    from transformers import AutoTokenizer
 
-    tokenizer = AuotTokenizer.from_pretrained(model_path, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
     input_str = ["I love Beijing, because", "Hello, Qwen2"]
 
@@ -234,7 +234,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
     from mindspore import ops, mint, Tensor, dtype
     from qwen2 import Qwen2Config, Qwen2ModelInput, Qwen2ForCausalLM, CacheManager, sample
 
-    def generate(model: Qwen2Model, cache_manager: CacheManager, input_ids: List, max_new_token: int, max_seq_lens: int, eos_token_id: int):
+    def generate(model: Qwen2ForCausalLM, cache_manager: CacheManager, input_ids: List, max_new_tokens: int, max_seq_lens: int, eos_token_id: int):
         batch_size = len(input_ids)
         assert max_seq_lens >= max(map(len, input_ids))
 
@@ -277,7 +277,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 
             logits = model(model_input)
 
-            next_tokens = sample(logits, input_ids)
+            next_tokens = sample(logits)
 
             for i in range(batch_size):
                 if cur >= len(input_ids[i]):
@@ -329,7 +329,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
         model=model,
         cache_manager=cache_manager,
         input_ids=input_ids,
-        max_new_token=max_new_token,
+        max_new_tokens=max_new_tokens,
         eos_token_id=tokenizer.eos_token_id,
         max_seq_lens=max_seq_lens
     )
