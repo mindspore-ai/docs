@@ -39,7 +39,7 @@ import json
 from dataclasses import dataclass
 from typing import Optional, Type, List, Tuple, Union
 
-from mindspore import Tensor
+from mindspore import Tensor, dtype
 
 @dataclass
 class Qwen2Config:
@@ -90,7 +90,7 @@ class Qwen2ModelInput:
     block_tables: Tensor = None
     hidden_state: Optional[Tensor] = None
     residual: Optional[Tensor] = None
-    q_seq_lens: Tensor
+    q_seq_lens: Optional[Tensor] = None
 ```
 
 其中，Qwen2Config配置和Hugging Face的配置基本一致，具体请参考Qwen2的官方文档。需要注意的是Qwen2Config用param_dtype替换了torch_dtype，原因是mindspore的datatype类型与torch的不一致。Qwen2ModelInput定义了模型的输入，包括主要的单词id、KVCache和Attention融合算子等MindSpore推理优化特性所需要的数据。
