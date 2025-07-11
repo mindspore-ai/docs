@@ -21,7 +21,7 @@
 |[nn.Unfold](https://pytorch.org/docs/2.1/generated/torch.nn.Unfold.html)|Beta|支持fp16|
 |[nn.Fold](https://pytorch.org/docs/2.1/generated/torch.nn.Fold.html)|Beta|支持fp16|
 
-## Convolution Layers
+## Pooling Layers
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
