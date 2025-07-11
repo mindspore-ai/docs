@@ -1,13 +1,27 @@
 API说明
 ========================
 
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/msadapter/docs/source_zh_cn/api.rst
+    :alt: 查看源文件
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   note/pytorch_api_supporting_torch
+   note/pytorch_api_supporting_torch_nn
+   note/pytorch_api_supporting_nn_functional
+   note/pytorch_api_supporting_tensor
+   note/pytorch_api_supporting_optim
+
 MSAdapter是一款MindSpore生态适配工具，在不改变用户原有使用习惯下，将PyTorch/JAX等三方框架代码快速迁移到MindSpore生态上，帮助用户高效使用昇腾算力。当前MSAdapter适配PyTorch版本2.1.0。
 
 文档中对API的支持程度分为三类，Stable、Beta、Not Support：
 
-**Stable**：经过测试验证的API，与PyTorch原生API行为一致。
-**Beta**：核心功能已经完成，还未进行测试的API，且可能存在入参与PyTorch原生API不完全一致的情况。
-**Not Support**：当前还未实现的API
+- **Stable**：经过测试验证的API，与PyTorch原生API行为一致。
+- **Beta**：核心功能已经完成，还未进行测试的API，且可能存在入参与PyTorch原生API不完全一致的情况。
+- **Not Support**：当前还未实现的API。
 
 使用限制
 --------------
@@ -387,14 +401,3 @@ PyTorch模块支持情况
      - 不支持
    * - torch._logging
      - 不支持
-
-.. toctree::
-   :maxdepth: 1
-   :caption: API
-   :hidden:
-
-   note/pytorch_api_supporting_torch
-   note/pytorch_api_supporting_torch_nn
-   note/pytorch_api_supporting_nn_functional
-   note/pytorch_api_supporting_tensor
-   note/pytorch_api_supporting_optim

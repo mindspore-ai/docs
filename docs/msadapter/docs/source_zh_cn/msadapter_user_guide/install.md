@@ -4,36 +4,37 @@
 
 在昇腾NPU设备上，完成[昇腾固件](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/softwareinst/instg/instg_0003.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit)的安装后，执行以下步骤完成PyTorch、MindSpore和MSAdapter的安装：
 
-1. 安装PyTorch和MindSpore：
+## 1. 安装PyTorch和MindSpore
 
-    ``` bash
-    pip install torch==2.1.0
-    pip install mindspore
+```bash
+pip install torch==2.1.0
+pip install mindspore
+```
+
+## 2. 下载MSAdapter源码
+
+```bash
+git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
+```
+
+## 3. 安装MSAdapter
+
+请注意目前MSAdatper不支持`pip install msadapter`，仅支持源码直接使用和源码编译安装。
+
+- 如果用户希望直接使用源码，设置如下环境环境变量：
+
+    ```bash
+    export $PYTHONPATH=your_workspace/MSAdapter/mindtorch
     ```
 
-2. 下载MSAdapter源码：
+    其中，your_workspace是git clone下载的目录。此方法不会影响用户的PyTorch使用。
 
-    ``` bash
-    git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
+- 如果用户希望以Python安装包编译的形式使用，进入MSAdapter目录，进行源码编译操作：
+
+    ```bash
+    pip install .
     ```
 
-3. 安装MSAdapter：
-    请注意目前MSAdatper不支持`pip install msadapter`，仅支持源码直接使用和源码编译安装。
-
-    - 如果用户希望直接使用源码，设置如下环境环境变量：
-
-        ``` bash
-        export $PYTHONPATH=your_workspace/MSAdapter/mindtorch
-        ```
-
-        其中，your_workspace是git clone下载的目录。此方法不会影响用户的PyTorch使用。
-
-    - 如果用户希望以Python安装包编译的形式使用，进入MSAdapter目录，进行源码编译操作：
-
-        ```bash
-        pip install .
-        ```
-
-        直接安装会覆盖原始PyTorch的使用，如果希望同时使用PyTorch和MSAdapter，可以考虑直接使用源码。
+    直接安装会覆盖原始PyTorch的使用，如果希望同时使用PyTorch和MSAdapter，可以考虑直接使用源码。
 
 安装完成后，PyTorch的实际执行将替换为MSAdapter，后端则为MindSpore动态图模式。

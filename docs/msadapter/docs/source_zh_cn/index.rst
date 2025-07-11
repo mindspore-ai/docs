@@ -34,8 +34,10 @@ MSAdapter使用核心与目标
 1. `安装 <https://www.mindspore.cn/msadapter/docs/zh-CN/master/msadapter_user_guide/install.html>`_
 2. `MSAdapter机制性约束 <https://www.mindspore.cn/msadapter/docs/zh-CN/master/msadapter_user_guide/constraints.html>`_
 3. 运行
+
    - 配置环境变量 `export $PYTHONPATH=workspace/msadapter/mindtorch` 后，运行与原始方式一致。
 4. 报错与修改
+
    1. 通过报错信息，判断是否为 `MSAdapter机制性约束 <https://www.mindspore.cn/msadapter/docs/zh-CN/master/msadapter_user_guide/constraints.html>`_。
    2. 如果不是机制性约束，查看 `API文档 <https://www.mindspore.cn/msadapter/docs/zh-CN/master/api.html>`_ 进行修改。
    3. 重复步骤3（运行）和步骤4（报错与修改）。

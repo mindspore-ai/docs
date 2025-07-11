@@ -59,7 +59,7 @@
 |[torch.polar](https://pytorch.org/docs/2.1/generated/torch.polar.html)|Beta|不支持out出参；支持数据类型：fp32|
 |[torch.heaviside](https://pytorch.org/docs/2.1/generated/torch.heaviside.html)|Beta|不支持out出参|
 
-## Indexing, Slicing, Joining, Mutation Ops
+### Indexing, Slicing, Joining, Mutation Ops
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
