@@ -99,13 +99,24 @@ MindSpore大语言模型为了能够实现最优的性价比，针对大语言�
 
 ### 环境准备
 
-MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用户在使用前，需要先安装MindSpore的Python包。可以执行如下命令简单安装：
+MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用户在使用前，需要先安装MindSpore的Python包，建议使用conda虚拟环境运行。可以执行如下命令简单安装：
 
 ```shell
+export PYTHON_ENV_NAME=mindspore-infer-py311
+conda create -n ${PYTHON_ENV_NAME} python=3.11
+conda activate ${PYTHON_ENV_NAME}
 pip install mindspore
 ```
 
 同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://www.mindspore.cn/install)。
+
+由于MindSpore推理主要支持Ascend芯片环境上运行，还需要安装相应的Ascend开发环境，具体可以参考：
+
+```shell
+pip install ${ASCEND_HOME}/lib64/te-*.whl
+pip install ${ASCEND_HOME}/lib64/hccl-*.whl
+pip install sympy
+```
 
 如果用户要复用当前主流的LLM模型的tokenizer能力，可以安装Transformers软件包：
 
