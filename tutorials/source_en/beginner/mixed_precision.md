@@ -2,7 +2,7 @@
 
 [Introduction](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/accelerate_with_static_graph.html)|| **Mixed Precision**
 
-# Automatic Mix Precision
+# Automatic Mixed Precision
 
 Mixed precision training is a computing strategy that uses different numerical precision for different operations of the neural network during training. In neural network operations, some operations are not sensitive to numerical precision, and using lower precision can achieve significant acceleration (such as conv, matmul), while some of the operations usually need to retain high precision to ensure the correctness of the results due to the large difference between the input and output values (such as log, softmax).
 

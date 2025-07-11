@@ -10,7 +10,7 @@ MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en
 
 1. Dataset is the start of Pipeline and is used to load raw data to memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.loading.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.loading.html#user-defined) for loading customized datasets.
 
-2. Data transforms perform further transform operations on data in memory. [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms) provides general data transform operations, [mindspore.dataset.transforms.vision](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision) provides image data transform operations, [mindspore.dataset.transforms.text](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text) provides text data transform operations, and [mindspore.dataset.transforms.audio](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio) provides audio data transform operations.
+2. Data transforms perform further transformation operations on data in memory. [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms) provides general data transformation operations, [mindspore.dataset.transforms.vision](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision) provides image data transformation operations, [mindspore.dataset.transforms.text](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text) provides text data transformation operations, and [mindspore.dataset.transforms.audio](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio) provides audio data transformation operations.
 
 3. The dataset batch operation is used to batch the transformed data group for the final neural network training. The batch operation is performed on the dataset object. The interface can be referred to [batch operator](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/dataset/mindspore.dataset.MindDataset.html#batch);
 
@@ -72,7 +72,7 @@ for data in dataset:
 ```
 
 ```python
-# list, tuple are also supported.
+# list and tuple are also supported.
 loader = [np.array(0), np.array(1), np.array(2)]
 dataset = GeneratorDataset(source=loader, column_names=["data"])
 
@@ -152,7 +152,7 @@ for d in dataset:
 
 For those datasets that MindSpore does not support yet, it is suggested to convert the dataset into `MindRecord` format and load it through the [mindspore.dataset.MindDataset](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/dataset/mindspore.dataset.MindDataset.html) interface.
 
-Firstly, create a new `MindRecord` format dataset using the `MindRecord` format interface **FileWriter**, where each sample contains three fields: `filename`, `label`, and `data`.
+Firstly, create a new `MindRecord` format dataset using the `MindRecord` format interface **FileWriter**, where each sample contains three fields: `file_name`, `label`, and `data`.
 
 ```python
 if os.path.exists("./test.mindrecord"):
@@ -252,13 +252,13 @@ Usually, the directly-loaded raw data cannot be directly fed into the neural net
 
 1. The `map` operation can add data transforms to a specified column of a dataset, apply the data transforms to each element of the column's data, and return a new dataset containing the transformed elements.
 
-2. The `map` operation can perform built-in data transform operations provided by the Dataset module, as well as user-defined transform operations.
+2. The `map` operation can perform built-in data transformation operations provided by the Dataset module, as well as user-defined transformation operations.
 
 `mindspore.dataset` provides transforms for different data types such as image, text and audio, and also supports using Lambda functions. The descriptions are as follows.
 
 ### Built-in Transforms
 
-`mindspore.dataset` provides built-in data transformas: [vision transformas](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transforms](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
+`mindspore.dataset` provides built-in data transforms: [vision transforms](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transforms](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
 
 For example, `Rescale`, `Normalize`, and `HWC2CHW` operations are used for **data** in the Mnist dataset, and `TypeCast` operations are used for **label**.
 
@@ -320,7 +320,7 @@ for data in train_dataset:
 
 Packing the dataset into a fixed size `batch` is a compromise method for model optimization using gradient descent with limited hardware resources, which can ensure the randomness of gradient descent and optimize the computational effort.
 
-Generally we set a fixed batch size to divide the continuous data into several batches (batches). The batched data is increased by one dimension, and the size is `batch_size`.
+Generally we set a fixed batch size to divide the continuous data into several batches. The batched data is increased by one dimension, and the size is `batch_size`.
 
 ![op-batch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/dataset/images/op_batch.png)
 

@@ -20,7 +20,7 @@ Computing graphs are a way to represent mathematical functions in a graph-theore
 
 ![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/beginner/images/comp-graph.png)
 
-In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are the parameters we need to optimize.
+In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are the parameters to be optimized.
 
 ```python
 np.random.seed(42)
@@ -55,7 +55,7 @@ print(loss)
 
 ## Differential Functions and Gradient Computing
 
-In order to optimize the model parameters, find the derivatives of the parameters with respect to loss: $\frac{\partial \operatorname{loss}}{\partial w}$ and $\frac{\partial \operatorname{loss}}{\partial b}$. At this point we call the `ops. grad` function to get the differential function of `function`.
+In order to optimize the model parameters, find the derivatives of the parameters with respect to loss: $\frac{\partial \operatorname{loss}}{\partial w}$ and $\frac{\partial \operatorname{loss}}{\partial b}$. At this point we call the `ops.grad` function to get the differential function of `function`.
 
 Two input parameters of `grad` function are used here:
 
@@ -142,7 +142,7 @@ It can be seen that the gradient values corresponding to $w$ and $b$ are the sam
 
 ## Auxiliary data
 
-Auxiliary data is other outputs of the function in addition to the first output items. Usually we will set loss of the function as the first output, the other output is the auxiliary data.
+Auxiliary data is other outputs of the function in addition to the first output items. Usually we set the loss as the first output of the function, and the other outputs as auxiliary data.
 
 `grad` and `value_and_grad` provide `has_aux` parameter. When it is set to `True`, it can automatically implement the function of manually adding `stop_gradient` in the previous section, satisfying the effect of returning auxiliary data without affecting the gradient calculation.
 
@@ -168,9 +168,9 @@ print(grads, z)
 
 ## Calculating Neural Network Gradient
 
-The previous section introduces MindSpore functional auto-differentiation based mainly on the functions corresponding to the computing graph, but neural network construction is inherited from the object-oriented programming paradigm of `nn.Cell`. Next, we construct the same neural network by `Cell` and use functional automatic differentiation to implement backpropagation.
+The previous section introduces MindSpore functional auto-differentiation based mainly on the functions corresponding to the computing graph, but neural network construction is inherited from the object-oriented programming paradigm of `nn.Cell`. Next, we construct the same neural network using `Cell` and use functional automatic differentiation to implement backpropagation.
 
-First we inherit `nn.Cell` to construct a single-layer linear transform neural network. Here we directly use $w$, $b$ from the previous section as model parameters, wrapped with `mindspore.Parameter` as internal properties, and implement the same Tensor operations within `construct`.
+First we inherit from `nn.Cell` to construct a single-layer linear transform neural network. Here we directly use $w$, $b$ from the previous section as model parameters, wrapped with `mindspore.Parameter` as internal properties, and implement the same Tensor operations within `construct`.
 
 ```python
 # Define model
