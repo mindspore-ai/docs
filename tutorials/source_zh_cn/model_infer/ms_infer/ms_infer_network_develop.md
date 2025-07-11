@@ -190,7 +190,7 @@ class Qwen2ForCausalLM(nn.Cell):
             input_size=config.hidden_size,
             output_size=config.vocab_size,
             param_dtype=config.param_dtype,
-            bias=False
+            enable_bias=False
         )
 
     def load_weight(self, weight_path: str) -> None:
@@ -457,25 +457,25 @@ class Qwen2Attention(nn.Cell):
             input_size=self.hidden_size,
             output_size=self.q_size,
             param_dtype=self.param_dtype,
-            bias=True
+            enable_bias=True
         )
         self.k_proj = Qwen2Linear(
             input_size=self.hidden_size,
             output_size=self.kv_size,
             param_dtype=self.param_dtype,
-            bias=True
+            enable_bias=True
         )
         self.v_proj = Qwen2Linear(
             input_size=self.hidden_size,
             output_size=self.kv_size,
             param_dtype=self.param_dtype,
-            bias=True
+            enable_bias=True
         )
         self.o_proj = Qwen2Linear(
             input_size=self.q_size,
             output_size=self.hidden_size,
             param_dtype=self.param_dtype,
-            bias=False
+            enable_bias=False
         )
 
         self.rotary_emb = Qwen2RotaryEmbedding(
@@ -549,19 +549,19 @@ class Qwen2MLP(nn.Cell):
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
             param_dtype=config.param_dtype,
-            bias=False
+            enable_bias=False
         )
         self.gate_proj = Qwen2Liner(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
             param_dypte=config.param_dtype,
-            bias=False
+            enable_bias=False
         )
         self.down_proj = Qwen2Linear(
             input_size=config.intermediate_size,
             output_size=config.hidden_size,
             param_dtype=config.param_dtype,
-            bias=False
+            enable_bias=False
         )
         self.act_fn = ops.silu
 
