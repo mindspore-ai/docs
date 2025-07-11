@@ -28,7 +28,7 @@ Ascend computing is a full-stack AI computing infrastructure and application bas
 
 Huawei Atlas AI computing solution is based on Ascend series AI processors and uses various product forms such as modules, cards, edge stations, servers, and clusters to build an all-scenario AI infrastructure solution oriented to device, edge, and cloud. It covers data center and intelligent edge solutions, as well as the entire inference and training processes in the deep learning field.
 
-Th Ascend AI full stack is shown below:
+The Ascend AI full stack is shown below:
 
 ![Ascend full stack](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_en/beginner/images/introduction1.png)
 

@@ -10,7 +10,7 @@ The AI compilation framework is divided into two modes of operation: dynamic gra
 
 ### Dynamic Graph Mode
 
-Dynamic graphs are characterized by the construction of the computational graph and computation occurring at the same time (Define by run), which is in line with Python interpreted execution. When defining a Tensor in the computational graph, its value is computed and determined, so it is more convenient to debug the model, and can be able to get the value of the intermediate results in real time, but it is difficult to optimize the whole computational graph due to the fact that all the nodes need to be saved.
+Dynamic graphs are characterized by the construction of the computational graph and computation occurring at the same time (Define by run), which is in line with Python interpreted execution. When defining a Tensor in the computational graph, its value is computed and determined, so it is more convenient to debug the model, and can get the value of the intermediate results in real time, but it is difficult to optimize the whole computational graph because the fact that all the nodes need to be saved.
 
 In MindSpore, dynamic graph mode is also known as PyNative mode. Due to the interpreted execution of dynamic graphs, it is recommended to use dynamic graph mode for debugging during script development and network process debugging.
 If you need to manually control the framework to use PyNative mode, you can configure it with the following code:
