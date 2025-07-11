@@ -532,7 +532,7 @@ def init_communication():
 
 本方案主要对Linear层进行并行切分，因此主要的修改是对其进行修改，实现上，需要将Qwen2Linear修改为Qwen2ColParallelLinear和Qwen2RowParallelLinear两个类，分别对应列切和行切的Linear，具体代码可以参考如下：
 
-```python
+```diff 
 from typing import Optional, Type, Tuple
 
 from mindspore import nn, ops, mint, Parameter, Tensor
@@ -541,10 +541,11 @@ class Qwen2ColParallelLinear(nn.Cell):
     def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], bias: bool) -> None:
         super().__init__()
 
-        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
++        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
         self.param_dtype = param_dtype
         self.input_size = input_size
-        self.output_size = output_size // self.tp_size
+-        self.output_size = output_size
++        self.output_size = output_size // self.tp_size
         self.enable_bias = bias
 
         self.matmul = ops.MatMul(transpose_b=True)
@@ -573,9 +574,10 @@ class Qwen2RowParallelLinear(nn.Cell):
     def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], bias: bool) -> None:
         super().__init__()
 
-        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
++        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
         self.param_dtype = param_dtype
-        self.input_size = input_size // self.tp_size
+-        self.input_size = input_size
++        self.input_size = input_size // self.tp_size
         self.output_size = output_size
         self.enable_bias = bias
 
@@ -592,14 +594,14 @@ class Qwen2RowParallelLinear(nn.Cell):
             self.bias = Parameter(
                 mint.zeros(self.output_size, dtype=self.param_dtype)
             )
-        self.all_reduce = ops.AllReduce(group=COMMON_HELPER.get_tensor_model_parallel_group())
++        self.all_reduce = ops.AllReduce(group=COMMON_HELPER.get_tensor_model_parallel_group())
 
     def construct(self, input: Tensor) -> Tuple[Tensor, bool]:
         origin_shape = input.shape
         x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
         if self.enable_bias:
             x = self.bias_add(x, self.bias)
-        x = self.all_reduce(x)
++        x = self.all_reduce(x)
         return x.view(*origin_shape[:-1], -1)
 ```
 
@@ -615,7 +617,7 @@ class Qwen2RowParallelLinear(nn.Cell):
 
 用户可以简单的进行类对象替换完成下面的修改和适配，此处列出修改后的网络层实现：
 
-```python
+```diff
 import numpy as np
 from typing import Optional, Type
 
@@ -626,7 +628,7 @@ class Qwen2Attention(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
-        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
++        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
         self.hidden_size = config.hidden_size
         self.num_heads = config.num_attention_heads
         self.num_kv_heads = config.num_key_value_heads
@@ -638,8 +640,10 @@ class Qwen2Attention(nn.Cell):
         self.param_dtype = config.param_dtype
         self.max_position = config.max_position_embeddings
 
-        self.flash_attn = FlashAttention(self.scaling, self.num_heads // self.tp_size)
-        self.paged_attn = PagedAttention(self.num_heads // self.tp_size, self.scaling, self.num_kv_heads // self.tp_size)
+-        self.flash_attn = FlashAttention(self.scaling, self.num_heads)
+-        self.paged_attn = PagedAttention(self.num_heads, self.scaling, self.num_kv_heads)
++        self.flash_attn = FlashAttention(self.scaling, self.num_heads // self.tp_size)
++        self.paged_attn = PagedAttention(self.num_heads // self.tp_size, self.scaling, self.num_kv_heads // self.tp_size)
         self.reshape_and_cache = ops.auto_generate.ReshapeAndCache()
 
         self.q_proj = Qwen2ColParallelLinear(
@@ -681,9 +685,12 @@ class Qwen2Attention(nn.Cell):
                         q_seq_lens: Tensor) -> Tensor:
         bs, seq_len, hidden_dim = hidden_state.shape
 
-        q = self.q_proj(hidden_state).view(-1, self.q_size // self.tp_size)
-        k = self.k_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
-        v = self.v_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
+-        q = self.q_proj(hidden_state).view(-1, self.q_size // self.tp_size)
+-        k = self.k_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
+-        v = self.v_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
++        q = self.q_proj(hidden_state).view(-1, self.q_size // self.tp_size)
++        k = self.k_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
++        v = self.v_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
 
         k = k.contiguous()
         v = v.contiguous()
@@ -747,17 +754,17 @@ class Qwen2MLP(nn.Cell):
         output = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
         return output
 
-class GatherLastDim(nn.Cell):
-    def __init__(self):
-        self.all_gather = ops.AllGather(group=COMMON_HELPER.get_tensor_model_parallel_group())
-        self.world_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
-        self.split = ops.Split(axis=0, output_num=self.world_size)
-
-    def construct(self, input: Tensor) -> Tensor:
-        output = self.all_gather(input)
-        tensor_list = self.split(output)
-        output = ops.cat(tensor_list, axis=-1)
-        return output
++class GatherLastDim(nn.Cell):
++    def __init__(self):
++        self.all_gather = ops.AllGather(group=COMMON_HELPER.get_tensor_model_parallel_group())
++        self.world_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
++        self.split = ops.Split(axis=0, output_num=self.world_size)
++
++    def construct(self, input: Tensor) -> Tensor:
++        output = self.all_gather(input)
++        tensor_list = self.split(output)
++        output = ops.cat(tensor_list, axis=-1)
++        return output
 
 class Qwen2ForCausalLM(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
@@ -770,7 +777,7 @@ class Qwen2ForCausalLM(nn.Cell):
             param_dtype=config.param_dtype,
             bias=False
         )
-        self.all_gather = GatherLastDim()
++        self.all_gather = GatherLastDim()
 
     def load_weight(self, weight_path: str) -> None:
         weight_dict = {}
@@ -785,7 +792,7 @@ class Qwen2ForCausalLM(nn.Cell):
                                   model_input.k_caches, model_input.v_caches, model_input.slot_mapping,
                                   model_input.block_tables, model_input.attn_mask, model_input.q_seq_len)
         logits = self.lm_head(hidden_state)[:, -1]
-        logits = self.all_gather(logits)
++        logits = self.all_gather(logits)
         return logits
 ```
 
@@ -797,7 +804,7 @@ class Qwen2ForCausalLM(nn.Cell):
 
 此处建议使用通过在权重参数注册加载函数方式实现，可以参考以下代码：
 
-```python
+```diff
 from typing import Optional, Type, Tuple
 
 from mindspore import nn, ops, mint, Parameter, Tensor
@@ -819,14 +826,14 @@ class Qwen2ColParallelLinear(nn.Cell):
                 dtype=self.param_dtype
             ), requires_grad=False
         )
-        setattr(self.weight, "weight_load", self.weight_load)
++        setattr(self.weight, "weight_load", self.weight_load)
 
         if self.enable_bias:
             self.bias_add = ops.Add()
             self.bias = Parameter(
                 mint.zeros(self.output_size, dtype=self.param_dtype)
             )
-            setattr(self.bias, "weight_load", self.weight_load)
++            setattr(self.bias, "weight_load", self.weight_load)
 
     def construct(self, input: Tensor) -> Tuple[Tensor, bool]:
         origin_shape = input.shape
@@ -835,15 +842,15 @@ class Qwen2ColParallelLinear(nn.Cell):
             x = self.bias_add(x, self.bias)
         return x.view(*origin_shape[:-1], -1)
 
-    def weight_load(self, param: Tensor, weight: Tensor) -> None:
-        tp_rank = COMMON_HELPER.get_tensor_model_parallel_group_rank()
-        copy_dim = 0
-        shard_size = param.shape[copy_dim]
-        start_idx = tp_rank * shard_size
-        weight = weight.narrow(copy_dim, start_idx, shard_size).contiguous()
-
-        param.set_data(weight)
-        return None
++    def weight_load(self, param: Tensor, weight: Tensor) -> None:
++        tp_rank = COMMON_HELPER.get_tensor_model_parallel_group_rank()
++        copy_dim = 0
++        shard_size = param.shape[copy_dim]
++        start_idx = tp_rank * shard_size
++        weight = weight.narrow(copy_dim, start_idx, shard_size).contiguous()
++
++        param.set_data(weight)
++        return None
 
 
 
@@ -864,14 +871,14 @@ class Qwen2RowParallelLinear(nn.Cell):
                 dtype=self.param_dtype
             ), requires_grad=False
         )
-        setattr(self.weight, "weight_load", self.weight_load)
++        setattr(self.weight, "weight_load", self.weight_load)
 
         if self.enable_bias:
             self.bias_add = ops.Add()
             self.bias = Parameter(
                 mint.zeros(self.output_size, dtype=self.param_dtype)
             )
-            setattr(self.bias, "weight_load", self.weight_load)
++            setattr(self.bias, "weight_load", self.weight_load)
         self.all_reduce = ops.AllReduce(group=COMMON_HELPER.get_tensor_model_parallel_group())
 
     def construct(self, input: Tensor) -> Tuple[Tensor, bool]:
@@ -882,15 +889,15 @@ class Qwen2RowParallelLinear(nn.Cell):
         x = self.all_reduce(x)
         return x.view(*origin_shape[:-1], -1)
 
-    def weight_load(self, param: Tensor, weight: Tensor) -> None:
-        tp_rank = COMMON_HELPER.get_tensor_model_parallel_group_rank()
-        copy_dim = 1
-        shard_size = param.shape[copy_dim]
-        start_idx = tp_rank * shard_size
-        weight = weight.narrow(copy_dim, start_idx, shard_size).contiguous()
-
-        param.set_data(weight)
-        return None
++    def weight_load(self, param: Tensor, weight: Tensor) -> None:
++        tp_rank = COMMON_HELPER.get_tensor_model_parallel_group_rank()
++        copy_dim = 1
++        shard_size = param.shape[copy_dim]
++        start_idx = tp_rank * shard_size
++        weight = weight.narrow(copy_dim, start_idx, shard_size).contiguous()
++
++        param.set_data(weight)
++        return None
 
 class Qwen2ForCausalLM(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
@@ -910,16 +917,17 @@ class Qwen2ForCausalLM(nn.Cell):
         for path in glob(weight_path + "/*.safetensors"):
             weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
 
-        param_dict = self.parameters_dict()
-
-        for (name, weight) in weight_dict.items():
-            if name in param_dict:
-                param = param_dict[name]
-                if hasattr(param, "weight_load"):
-                    weight_load = getattr(param, "weight_load")
-                    weight_load(param, weight)
-                else:
-                    param.set_data(weight)
+-        ms.load_param_into_net(self, weight_dict, strict_load=False)
++        param_dict = self.parameters_dict()
++
++        for (name, weight) in weight_dict.items():
++            if name in param_dict:
++                param = param_dict[name]
++                if hasattr(param, "weight_load"):
++                    weight_load = getattr(param, "weight_load")
++                    weight_load(param, weight)
++                else:
++                    param.set_data(weight)
 ```
 
 上面代码对需要自定义加载权重的网络层增加了weight_load方法，并且对其权重对象通过setattr方法设置了自定义权重加载方法，在模型权重加载时，通过读取权重的映射表，找到对应的参数对象，更新其权重。对于列切和行切的Linear，使用了Tensor的narrow获取对应偏移的数据，唯一不同是两者切分维度不同。
