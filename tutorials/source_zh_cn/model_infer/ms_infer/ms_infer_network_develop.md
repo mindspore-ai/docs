@@ -36,14 +36,15 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 ```python
 import json
-from typing import Optional, Type
+from dataclasses import dataclass
+from typing import Optional, Type, List, Tuple, Union
 
 from mindspore import Tensor
 
 @dataclass
 class Qwen2Config:
     """Qwen2 Config, the key-value is almost the same with config.json in HuggingFace"""
-    architectures: Optional(List[str]) = None
+    architectures: Optional[List[str]] = None
     attention_dropout: float = 0.0
     bos_token_id: int = 151643
     eos_token_id: int = 151645
@@ -51,7 +52,7 @@ class Qwen2Config:
     hidden_size: int = 3584
     initializer_range: float = 0.02
     intermediate_size: int = 18944
-    max_position_embedding: int = 32768
+    max_position_embeddings: int = 32768
     max_window_layers: int = 28
     model_type: str = "qwen2"
     num_attention_heads: int = 28
@@ -62,7 +63,7 @@ class Qwen2Config:
     sliding_window: Optional[int] = 131072
     tie_word_embeddings: bool = False
     torch_dtype: str = "bfloat16"
-    transformer_version: str = "4.41.2"
+    transformers_version: str = "4.41.2"
     use_cache: bool = True
     use_sliding_window: bool = False
     vocab_size: int = 152064
@@ -144,7 +145,7 @@ class Qwen2Linear(nn.Cell):
         self.matmul = ops.MatMul(transpose_b=True)
         self.weight = Parameter(
             mint.zeros(
-                (self.output_size, self.input_size)
+                (self.output_size, self.input_size),
                 dtype=config.param_dtype
             ),
             requires_grad=False
@@ -175,9 +176,10 @@ Qwen2模型通常会针对特定业务对模型结构进行封装。例如，Qwe
 接下来，我们通过Qwen2ForCausalLM类，将模型的主要接口定义清楚，下面是具体实现：
 
 ```python
+from glob import glob
 from typing import Optional, Type
 
-from mindspore import nn, load_checkpoint, load_param_into_net
+from mindspore import nn, Tensor, load_checkpoint, load_param_into_net
 
 class Qwen2ForCausalLM(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
@@ -194,9 +196,9 @@ class Qwen2ForCausalLM(nn.Cell):
     def load_weight(self, weight_path: str) -> None:
         weight_dict = {}
         for path in glob(weight_path + "/*.safetensors"):
-            weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
+            weight_dict.update(load_checkpoint(path, format="safetensors"))
 
-        ms.load_param_into_net(self, weight_dict, strict_load=False)
+        load_param_into_net(self, weight_dict, strict_load=False)
 
     def construct(self, model_input: Qwen2ModelInput) -> Tensor:
         hidden_state = self.model(model_input.input_ids, model_input.positions,
@@ -231,7 +233,7 @@ class VocabEmbedding(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
-        self。num_embeddings = config.vocab_size
+        self.num_embeddings = config.vocab_size
         self.embedding_dim = config.hidden_size
 
         self.gather = ops.Gather
@@ -385,6 +387,7 @@ class PagedAttention(nn.Cell):
 
 ```python
 import math
+from collections import deque
 from mindspore import nn, ops, mint, Parameter, Tensor, mutable
 
 class CacheManager:
@@ -453,7 +456,7 @@ class Qwen2Attention(nn.Cell):
         self.q_proj = Qwen2Linear(
             input_size=self.hidden_size,
             output_size=self.q_size,
-            param_dtype=self.param_dtype
+            param_dtype=self.param_dtype,
             bias=True
         )
         self.k_proj = Qwen2Linear(
@@ -567,7 +570,43 @@ class Qwen2MLP(nn.Cell):
         return output
 ```
 
-主要的功能层构建完成后，可以参考如下代码构建Model类：
+DecoderLayer层可以用上述的网络层参考如下构建：
+
+```python
+from typing import Tuple
+from mindspore import nn, Tensor
+
+class Qwen2DecoderLayer(nn.Cell):
+    def __init__(self, config: Qwen2Config) -> None:
+        super().__init__()
+
+        self.hidden_size = config.hidden_size
+
+        self.self_attn = Qwen2Attention(config=config)
+        self.mlp = Qwen2MLP(config=config)
+        self.input_layernorm = RmsNorm(config=config)
+        self.post_attention_layernorm = RmsNorm(config=config)
+
+    def construct(self, hidden_state: Tensor, residual: Tensor, positions: Tensor,
+                        batch_valid_length: Tensor, is_prefill: bool, layer_idx: int,
+                        k_cache: Tensor, v_cache: Tensor, slot_mapping: Tensor,
+                        block_tables: Tensor, attn_mask: Tensor, q_seq_lens: Tensor) -> Tuple[Tensor, Tensor]:
+        if residual is None:
+            residual = hidden_state
+            hidden_state = self.input_layernorm(hidden_state)
+        else:
+            hidden_state, residual = self.input_layernorm(hidden_state, residual)
+
+        hidden_state = self.self_attn(hidden_state, positions, batch_valid_length, is_prefill,
+                                        layer_idx, k_cache, v_cache, slot_mapping, block_tables, 
+                                        attn_mask, q_seq_lens)
+        hidden_state, residual = self.post_attention_layernorm(hidden_state, residual)
+        hidden_state = self.mlp(hidden_state)
+
+        return hidden_state, residual
+```
+
+完成Embedding和Decoder层构建后，可以参考如下代码构建Model类：
 
 ```python
 from mindspore import nn, ops, mint, Parameter, Tensor
@@ -619,8 +658,7 @@ def sample(logits: Tensor) -> Tensor:
 
 ## 动态图转静态图
 
-MindSpore可以通过jit将动态图转换成静态图，以此提升推理性能。从代码实现上，用户可以通过如下简单的装饰器进行转换：
-</div><div class="ikun-code-suggestion">MindSpore提供通过jit将动态图转换成静态图，以此提升推理性能，从代码实现上，用户可以通过如下简单的装饰器进行转换：
+MindSpore提供通过jit将动态图转换成静态图，以此提升推理性能，从代码实现上，用户可以通过如下简单的装饰器进行转换：
 
 ```python
 import mindspore as ms
