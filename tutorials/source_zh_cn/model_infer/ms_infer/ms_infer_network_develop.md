@@ -182,7 +182,7 @@ from mindspore import nn, load_checkpoint, load_param_into_net
 class Qwen2ForCausalLM(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        
+
         self.model = Qwen2Model(config=config)
         self.lm_head = Qwen2Linear(
             input_size=config.hidden_size,
@@ -190,18 +190,18 @@ class Qwen2ForCausalLM(nn.Cell):
             param_dtype=config.param_dtype,
             bias=False
         )
-        
+
     def load_weight(self, weight_path: str) -> None:
         weight_dict = {}
         for path in glob(weight_path + "/*.safetensors"):
             weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
-            
+
         ms.load_param_into_net(self, weight_dict, strict_load=False)
-        
+
     def construct(self, model_input: Qwen2ModelInput) -> Tensor:
-        hidden_state = self.model(model_input.input_ids, model_input.positions, 
-                                  model_input.batch_valid_length, model_input.is_prefill, 
-                                  model_input.k_caches, model_input.v_caches, model_input.slot_mapping, 
+        hidden_state = self.model(model_input.input_ids, model_input.positions,
+                                  model_input.batch_valid_length, model_input.is_prefill,
+                                  model_input.k_caches, model_input.v_caches, model_input.slot_mapping,
                                   model_input.block_tables, model_input.attn_mask, model_input.q_seq_len)
         logits = self.lm_head(hidden_state)[:, -1]
         return logits
@@ -230,7 +230,7 @@ from mindspore import nn, ops, mint, Parameter, Tensor
 class VocabEmbedding(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        
+
         self。num_embeddings = config.vocab_size
         self.embedding_dim = config.hidden_size
 
@@ -276,7 +276,7 @@ class Qwen2RotaryEmbedding(nn.Cell):
         self.rotary_embedding_op = ops.ApplyRotaryPosEmb(2)
         self.gather = ops.Gather()
 
-        self.freqs_cos, self.freqs_sin = 
+        self.freqs_cos, self.freqs_sin = self._compute_cos_sin_cache()
 
     def _compute_inv_freq(self) -> Tensor:
         freqs_base = mint.arange(0, self.rotary_dim, 2).astype(np.float32)
@@ -309,7 +309,7 @@ class Qwen2RotaryEmbedding(nn.Cell):
         else:
             freqs_cos = self.gather(self.freqs_cos, positions.view(-1), 0)
             freqs_sin = self.gather(self.freqs_sin, positions.view(-1), 0)
-        
+
         return self.rotary_embedding_op(query, key, freqs_cos, freqs_sin, batch_valid_length)
 ```
 
@@ -326,7 +326,7 @@ from mindspore import nn, ops, mint, Parameter, Tensor
 class FlashAttention(nn.Cell):
     def __init__(self, scale: float, num_heads: int) -> None:
         super().__init__()
-        
+
         input_layout = "TH"
         scale = scale
         pre_tokens = 2147483647
@@ -336,7 +336,7 @@ class FlashAttention(nn.Cell):
                                                                          pre_tokens=pre_tokens,
                                                                          next_tokens=next_tokens,
                                                                          input_layout=input_layout)
-        
+
     def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
         _, _, _, output = self.flash_attention(
             q,
@@ -351,23 +351,23 @@ class FlashAttention(nn.Cell):
             batch_valid_length
         )
         return output
-    
-    
+
+
 class PagedAttention(nn.Cell):
     def __init__(self, head_num: int, scale: float, num_kv_heads: int) -> None:
         super().__init__()
-        
+
         self.head_num = head_num
         self.num_kv_heads = num_kv_heads
-        
+
         self.paged_attention = ops.auto_generate.PagedAttention(
             head_num=head_num,
             scale_value=scale,
             kv_head_num=num_kv_heads
         )
-        
+
     def construct(self, q: Tensor, k_cache: Tensor, v_cache: Tensor,
-                        block_tables: Tensor, batch_valid_length: Tensor, 
+                        block_tables: Tensor, batch_valid_length: Tensor,
                         attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
         output = self.paged_attention(q, k_cache, v_cache, block_tables, batch_valid_length, None, None, attn_mask, q_seq_lens)
         return output
@@ -392,15 +392,15 @@ class CacheManager:
         self.block_num = block_num
         self.block_size = block_size
         self.batch_size = batch_size
-        
+
         head_dim = config.hidden_size // config.num_attention_heads
-        
+
         self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
         self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
         self.block_tables = [[] for _ in range(batch_size)]
         self.acc_slot_mapping = [[] for _ in range(batch_size)]
         self.free_block_ids = deque(range(block_num))
-        
+
     def step(self, start_pos_idx: int, token_num_per_batch: int) -> Tuple[Tensor, Tensor]:
         for i in range(self.batch_size):
             block_table = self.block_tables[i]
@@ -411,12 +411,12 @@ class CacheManager:
                 block_table.append(block_id)
                 start_slot_id = block_id * self.block_size
                 self.acc_slot_mapping[i].extend(list(range(start_slot_id, start_slot_id + self.block_size)))
-                
-        
+
+
         now_block_tables = Tensor(self.block_tables, dtype=dtype.int32)
-        now_slot_mapping = Tensor([self.acc_slot_mapping[i][start_pos_idx: start_pos_idx + token_num_per_batch] 
+        now_slot_mapping = Tensor([self.acc_slot_mapping[i][start_pos_idx: start_pos_idx + token_num_per_batch]
                                    for i in range(self.batch_size)], dtype=dtype.int32).view(-1)
-        
+
         return now_block_tables, now_slot_mapping
 ```
 
@@ -429,12 +429,12 @@ import numpy as np
 from typing import Optional, Type
 
 from mindspore import nn, ops, mint, Parameter, Tensor
-    
-    
+
+
 class Qwen2Attention(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        
+
         self.hidden_size = config.hidden_size
         self.num_heads = config.num_attention_heads
         self.num_kv_heads = config.num_key_value_heads
@@ -445,11 +445,11 @@ class Qwen2Attention(nn.Cell):
         self.rope_theta = int(config.rope_theta)
         self.param_dtype = config.param_dtype
         self.max_position = config.max_position_embeddings
-        
+
         self.flash_attn = FlashAttention(self.scaling, self.num_heads)
         self.paged_attn = PagedAttention(self.num_heads, self.scaling, self.num_kv_heads)
         self.reshape_and_cache = ops.auto_generate.ReshapeAndCache()
-        
+
         self.q_proj = Qwen2Linear(
             input_size=self.hidden_size,
             output_size=self.q_size,
@@ -474,7 +474,7 @@ class Qwen2Attention(nn.Cell):
             param_dtype=self.param_dtype,
             bias=False
         )
-        
+
         self.rotary_emb = Qwen2RotaryEmbedding(
             head_size=self.head_dim,
             rotary_dim=self.head_dim,
@@ -482,20 +482,20 @@ class Qwen2Attention(nn.Cell):
             base=self.rope_theta,
             dtype=self.param_dtype
         )
-        
-    def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor, 
-                        is_prefill, bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor, 
-                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor, 
+
+    def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
+                        is_prefill, bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
+                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
         bs, seq_len, hidden_dim = hidden_state.shape
-        
+
         q = self.q_proj(hidden_state).view(-1, self.q_size)
         k = self.k_proj(hidden_state).view(-1, self.kv_size)
         v = self.v_proj(hidden_state).view(-1, self.kv_size)
-        
+
         k = k.contiguous()
         v = v.contiguous()
-        
+
         cache_out = self.reshape_and_cache(
             k,
             v,
@@ -504,7 +504,7 @@ class Qwen2Attention(nn.Cell):
             slot_mapping
         )
         q = ops.depend(q, cache_out)
-        
+
         if is_prefill:
             attn_output = self.flash_attn(
                 q,
@@ -523,7 +523,7 @@ class Qwen2Attention(nn.Cell):
                 attn_mask,
                 q_seq_lens
             )
-            
+
         output = self.o_proj(attn_output).view(bs, seq_len, -1)
         return output
 ```
@@ -575,36 +575,35 @@ from mindspore import nn, ops, mint, Parameter, Tensor
 class Qwen2Model(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        
+
         self.vocab_size = config.vocab_size
         self.hidden_size = config.hidden_size
         self.num_hidden_layers = config.num_hidden_layers
-        
+
         self.embed_tokens = VocabEmbedding(config=config)
         self.layers = nn.CellList()
         for i in range(config.num_hidden_layers):
             layer = Qwen2DecoderLayer(config=config)
             self.layers.append(layer)
         self.norm = RmsNorm(config=config)
-    
-    def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor, 
-                        is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor], 
-                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor, 
+
+    def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor,
+                        is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor],
+                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
         hidden_state = self.embed_tokens(input_ids)
         residual = None
-        
+
         for i in range(self.num_hidden_layers):
             layer = self.layers[i]
-            hidden_state, residual = layer(hidden_state, residual, positions, batch_valid_length, 
-                                           is_prefill, i, k_caches[i], v_caches[i], slot_mapping, 
+            hidden_state, residual = layer(hidden_state, residual, positions, batch_valid_length,
+                                           is_prefill, i, k_caches[i], v_caches[i], slot_mapping,
                                            block_tables, attn_mask, q_seq_lens)
 
         hidden_state, _ = self.norm(hidden_state, residual)
-        
+
         return hidden_state
 ```
-
 
 ### Sampler
 
@@ -631,34 +630,34 @@ from mindspore import nn, ops, mint, Parameter, Tensor
 class Qwen2Model(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        
+
         self.vocab_size = config.vocab_size
         self.hidden_size = config.hidden_size
         self.num_hidden_layers = config.num_hidden_layers
-        
+
         self.embed_tokens = VocabEmbedding(config=config)
         self.layers = nn.CellList()
         for i in range(config.num_hidden_layers):
             layer = Qwen2DecoderLayer(config=config)
             self.layers.append(layer)
         self.norm = RmsNorm(config=config)
-    
+
     @ms.jit(jit_level="O0", infer_boost="on")
-    def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor, 
-                        is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor], 
-                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor, 
+    def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor,
+                        is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor],
+                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
         hidden_state = self.embed_tokens(input_ids)
         residual = None
-        
+
         for i in range(self.num_hidden_layers):
             layer = self.layers[i]
-            hidden_state, residual = layer(hidden_state, residual, positions, batch_valid_length, 
-                                           is_prefill, i, k_caches[i], v_caches[i], slot_mapping, 
+            hidden_state, residual = layer(hidden_state, residual, positions, batch_valid_length,
+                                           is_prefill, i, k_caches[i], v_caches[i], slot_mapping,
                                            block_tables, attn_mask, q_seq_lens)
 
         hidden_state, _ = self.norm(hidden_state, residual)
-        
+
         return hidden_state
 ```
 

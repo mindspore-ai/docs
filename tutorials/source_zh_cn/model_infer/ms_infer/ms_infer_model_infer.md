@@ -274,7 +274,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
                 slot_mapping=slot_mapping,
                 q_seq_lens=q_seq_lens
             )
-            
+
             logits = model(model_input)
 
             next_tokens = sample(logits, input_ids)
@@ -298,23 +298,23 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 
     上面的generate函数模拟了大语言模型推理的迭代过程，其中核心步骤包括以下几个：
 
-    1.  **模型输入准备**：准备模型推理需要的输入数据， 构造Qwen2ModelInput对象，其主要的参数包括：
+    1. **模型输入准备**：准备模型推理需要的输入数据， 构造Qwen2ModelInput对象，其主要的参数包括：
 
-        - **input_ids**：输入的词表id的list，每个batch一个list表示。
+        **input_ids**：输入的词表id的list，每个batch一个list表示。
 
-        - **positions**：表示输入的词表在推理语句中的位置信息，主要用于rope旋转位置编码。
+        **positions**：表示输入的词表在推理语句中的位置信息，主要用于rope旋转位置编码。
 
-        - **batch_valid_length**：表示当前推理的语句长度，通常是positions的值加1，投机推理等优化场景除外，主要是用于KVCache的获取KV值使用。
+        **batch_valid_length**：表示当前推理的语句长度，通常是positions的值加1，投机推理等优化场景除外，主要是用于KVCache的获取KV值使用。
 
-        - **is_prefill**：是否是全量推理，全量推理需要计算多个KV值，增量推理通常计算一个KV值，复用之前计算的KV结果。
+        **is_prefill**：是否是全量推理，全量推理需要计算多个KV值，增量推理通常计算一个KV值，复用之前计算的KV结果。
 
-        - **attn_mask**：用于注意力分数计算时mask掉不必要的信息，通常是一个上三角或者下三角。
+        **attn_mask**：用于注意力分数计算时mask掉不必要的信息，通常是一个上三角或者下三角。
 
-        - **kv_caches**：kv_caches对象，保存了所有计算的kv结果。
+        **kv_caches**：kv_caches对象，保存了所有计算的kv结果。
 
-        - **block_tables&slot_mapping**：表示当前推理词表使用的KVCache具体信息，block_tables表示每个batch当前使用的block，slot_mapping表示对应的单词在block中的具体位置。如block_tables=【2， 10】，slot_mapping=【1200】，block_size=128，表示当前推理使用了第2个和第10个block，当前单词用了第1200个block单元，即第10个block的第48个单元的KV值。
+        **block_tables&slot_mapping**：表示当前推理词表使用的KVCache具体信息，block_tables表示每个batch当前使用的block，slot_mapping表示对应的单词在block中的具体位置。如block_tables=【2， 10】，slot_mapping=【1200】，block_size=128，表示当前推理使用了第2个和第10个block，当前单词用了第1200个block单元，即第10个block的第48个单元的KV值。
 
-        - **q_seq_lens**：表示注意力中query的长度，主要PagedAttention算子使用，标准模型下增量一般是1，投机推理场景下可能大于1.
+        **q_seq_lens**：表示注意力中query的长度，主要PagedAttention算子使用，标准模型下增量一般是1，投机推理场景下可能大于1.
 
     2. **模型计算**：调用主干模型网络启动模型计算逻辑，计算出下一个单词的概率分布。
 
@@ -349,7 +349,6 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
     ```
 
     可以看到，将模型推理的token id翻译后，即是一句可以被正常人理解的语句，实际验证过程中，由于do_sample的随机性，每次推理会有一定的差异，但是结果的逻辑基本都是可以被理解的。
-
 
 ### 模型并行
 

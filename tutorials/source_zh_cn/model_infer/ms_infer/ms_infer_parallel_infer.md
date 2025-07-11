@@ -103,7 +103,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
     `ColumnParallelLinear`类，根据模型并行的设备数，计算切分后的权重shape并初始化。列切是切分`out_channels`，在模型前向，调用矩阵乘计算出并行的结果。最后可以选择对并行的结果进行`AllGather`，以得到完整的输出。
 
     MindSpore训推一体框架支持开启infer_boost，该参数会使MS框架开启高性能自研算子库。启动该模式需要：
-    
+
     1. 设置变量：
 
         ```python
@@ -620,12 +620,12 @@ import numpy as np
 from typing import Optional, Type
 
 from mindspore import nn, ops, mint, Parameter, Tensor
-    
-    
+
+
 class Qwen2Attention(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        
+
         self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
         self.hidden_size = config.hidden_size
         self.num_heads = config.num_attention_heads
@@ -637,11 +637,11 @@ class Qwen2Attention(nn.Cell):
         self.rope_theta = int(config.rope_theta)
         self.param_dtype = config.param_dtype
         self.max_position = config.max_position_embeddings
-        
+
         self.flash_attn = FlashAttention(self.scaling, self.num_heads // self.tp_size)
         self.paged_attn = PagedAttention(self.num_heads // self.tp_size, self.scaling, self.num_kv_heads // self.tp_size)
         self.reshape_and_cache = ops.auto_generate.ReshapeAndCache()
-        
+
         self.q_proj = Qwen2ColParallelLinear(
             input_size=self.hidden_size,
             output_size=self.q_size,
@@ -666,7 +666,7 @@ class Qwen2Attention(nn.Cell):
             param_dtype=self.param_dtype,
             bias=False
         )
-        
+
         self.rotary_emb = Qwen2RotaryEmbedding(
             head_size=self.head_dim,
             rotary_dim=self.head_dim,
@@ -674,20 +674,20 @@ class Qwen2Attention(nn.Cell):
             base=self.rope_theta,
             dtype=self.param_dtype
         )
-        
-    def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor, 
-                        is_prefill, bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor, 
-                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor, 
+
+    def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
+                        is_prefill, bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
+                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
         bs, seq_len, hidden_dim = hidden_state.shape
-        
+
         q = self.q_proj(hidden_state).view(-1, self.q_size // self.tp_size)
         k = self.k_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
         v = self.v_proj(hidden_state).view(-1, self.kv_size // self.tp_size)
-        
+
         k = k.contiguous()
         v = v.contiguous()
-        
+
         cache_out = self.reshape_and_cache(
             k,
             v,
@@ -696,7 +696,7 @@ class Qwen2Attention(nn.Cell):
             slot_mapping
         )
         q = ops.depend(q, cache_out)
-        
+
         if is_prefill:
             attn_output = self.flash_attn(
                 q,
@@ -715,7 +715,7 @@ class Qwen2Attention(nn.Cell):
                 attn_mask,
                 q_seq_lens
             )
-            
+
         output = self.o_proj(attn_output).view(bs, seq_len, -1)
         return output
 
@@ -751,8 +751,8 @@ class GatherLastDim(nn.Cell):
     def __init__(self):
         self.all_gather = ops.AllGather(group=COMMON_HELPER.get_tensor_model_parallel_group())
         self.world_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
-        self.split = ops.Splite(axis=0, output_num=self.world_size)
-    
+        self.split = ops.Split(axis=0, output_num=self.world_size)
+
     def construct(self, input: Tensor) -> Tensor:
         output = self.all_gather(input)
         tensor_list = self.split(output)
@@ -762,7 +762,7 @@ class GatherLastDim(nn.Cell):
 class Qwen2ForCausalLM(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        
+
         self.model = Qwen2Model(config=config)
         self.lm_head = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
@@ -771,18 +771,18 @@ class Qwen2ForCausalLM(nn.Cell):
             bias=False
         )
         self.all_gather = GatherLastDim()
-        
+
     def load_weight(self, weight_path: str) -> None:
         weight_dict = {}
         for path in glob(weight_path + "/*.safetensors"):
             weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
-            
+
         ms.load_param_into_net(self, weight_dict, strict_load=False)
-        
+
     def construct(self, model_input: Qwen2ModelInput) -> Tensor:
-        hidden_state = self.model(model_input.input_ids, model_input.positions, 
-                                  model_input.batch_valid_length, model_input.is_prefill, 
-                                  model_input.k_caches, model_input.v_caches, model_input.slot_mapping, 
+        hidden_state = self.model(model_input.input_ids, model_input.positions,
+                                  model_input.batch_valid_length, model_input.is_prefill,
+                                  model_input.k_caches, model_input.v_caches, model_input.slot_mapping,
                                   model_input.block_tables, model_input.attn_mask, model_input.q_seq_len)
         logits = self.lm_head(hidden_state)[:, -1]
         logits = self.all_gather(logits)
@@ -881,7 +881,7 @@ class Qwen2RowParallelLinear(nn.Cell):
             x = self.bias_add(x, self.bias)
         x = self.all_reduce(x)
         return x.view(*origin_shape[:-1], -1)
-    
+
     def weight_load(self, param: Tensor, weight: Tensor) -> None:
         tp_rank = COMMON_HELPER.get_tensor_model_parallel_group_rank()
         copy_dim = 1
@@ -895,7 +895,7 @@ class Qwen2RowParallelLinear(nn.Cell):
 class Qwen2ForCausalLM(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
-        
+
         self.model = Qwen2Model(config=config)
         self.lm_head = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
@@ -904,12 +904,12 @@ class Qwen2ForCausalLM(nn.Cell):
             bias=False
         )
         self.all_gather = GatherLastDim()
-        
+
     def load_weight(self, weight_path: str) -> None:
         weight_dict = {}
         for path in glob(weight_path + "/*.safetensors"):
             weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
-            
+
         param_dict = self.parameters_dict()
 
         for (name, weight) in weight_dict.items():
