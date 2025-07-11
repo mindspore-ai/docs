@@ -669,8 +669,7 @@ def sample(logits: Tensor) -> Tensor:
 MindSpore提供通过jit将动态图转换成静态图，以此提升推理性能，从代码实现上，用户可以通过如下简单的装饰器进行转换：
 
 ```python
-import mindspore as ms
-from mindspore import nn, ops, mint, Parameter, Tensor
+from mindspore import nn, ops, mint, Parameter, Tensor, jit
 
 
 class Qwen2Model(nn.Cell):
@@ -688,7 +687,7 @@ class Qwen2Model(nn.Cell):
             self.layers.append(layer)
         self.norm = RmsNorm(config=config)
 
-    @ms.jit(jit_level="O0", infer_boost="on")
+    @jit(jit_level="O0", infer_boost="on")
     def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor,
                         is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor],
                         slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
