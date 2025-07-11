@@ -75,7 +75,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = 'br_ops_iter'
 
 
 # -- General configuration ---------------------------------------------------
