@@ -70,7 +70,7 @@ class Qwen2Config:
     param_dtype: Optional[Type] = dtype.bfloat16   # this is mindspore datatype as huggingface use str as dtype
 
     @classmethod
-    def from_json(cls, json_path: str) -> Qwen2Config:
+    def from_json(cls, json_path: str) -> 'Qwen2Config:'
         with open(json_path) as f:
             data = json.load(f)
         config = cls(**data)
