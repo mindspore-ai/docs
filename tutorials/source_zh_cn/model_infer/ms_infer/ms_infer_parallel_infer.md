@@ -532,7 +532,7 @@ def init_communication():
 
 本方案主要对Linear层进行并行切分，因此主要的修改是对其进行修改，实现上，需要将Qwen2Linear修改为Qwen2ColParallelLinear和Qwen2RowParallelLinear两个类，分别对应列切和行切的Linear，具体代码可以参考如下：
 
-```diff 
+```diff
 from typing import Optional, Type, Tuple
 
 from mindspore import nn, ops, mint, Parameter, Tensor

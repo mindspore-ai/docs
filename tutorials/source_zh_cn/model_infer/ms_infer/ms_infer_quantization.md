@@ -76,7 +76,7 @@ def create_for_ds(repeat=1):
 
         def __len__(self):
             return len(self.data)
-    
+
     return GeneratorDataset(source=SimpleIterable(repeat), column_name=["input_ids"])
 
 

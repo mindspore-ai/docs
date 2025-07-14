@@ -606,7 +606,7 @@ class Qwen2DecoderLayer(nn.Cell):
             hidden_state, residual = self.input_layernorm(hidden_state, residual)
 
         hidden_state = self.self_attn(hidden_state, positions, batch_valid_length, is_prefill,
-                                        layer_idx, k_cache, v_cache, slot_mapping, block_tables, 
+                                        layer_idx, k_cache, v_cache, slot_mapping, block_tables,
                                         attn_mask, q_seq_lens)
         hidden_state, residual = self.post_attention_layernorm(hidden_state, residual)
         hidden_state = self.mlp(hidden_state)
