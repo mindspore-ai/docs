@@ -27,7 +27,7 @@ def network():
 
 ## Saving and Loading the Model Weight
 
-Saving model by using the [mindspore.save_checkpoint](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.save_checkpoint.html) interface, and the specified saving path of passing in the network:
+Save model by using the [mindspore.save_checkpoint](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.save_checkpoint.html) interface, and specify the saving path by passing in the network:
 
 ```python
 model = network()
