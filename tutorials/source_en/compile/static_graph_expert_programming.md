@@ -8,7 +8,7 @@ This chapter introduces some commonly used advanced programming techniques for s
 
 ### Using lazy_inline Decorator
 
-The compilation process for neural network models often uses the default inline approach, which eventually unfolds the hierarchical code representation into a flat computational graph, seeking maximize compilation optimization, and simplifying the automatic differentiation as well as the logic of execution. The computational graph formed after inline contains all the computational nodes, which can be optimized in a larger scope, such as constant folding, node fusion, parallel analysis. It can also be better implemented for memory allocation, reducing memory requests and performance overhead. Although inline optimization helps much in runtime performance improvement, excessive inline also brings burden in compilation period. For example, as the number of computational graph nodes swells, the time consumption for executing pass grows dramatically.
+The compilation process for neural network models often uses the default inline approach, which eventually unfolds the hierarchical code representation into a flat computational graph, seeking to maximize compilation optimization, as well as simplifying the automatic differentiation and the logic of execution. The computational graph formed after inline contains all the computational nodes, which can be optimized in a larger scope, such as constant folding, node fusion, and parallel analysis. It can also be better implemented for memory allocation, reducing memory requests and performance overhead. Although inline optimization greatly helps runtime performance, excessive inlining also brings a burden during the compilation period. For example, as the number of computational graph nodes swells, the time consumption for executing pass grows dramatically.
 
 In order to mitigate the loss of compilation performance caused by inline, we provide a Lazy Inline mechanism to reduce compilation time for scenarios where the same computation unit is called repeatedly (typically, different instances of the same Cell class are called in a for loop).
 
@@ -37,7 +37,7 @@ class PipelineCell(nn.Cell):
 
 If we think of the loop body as a subgraph that is called frequently, and tell the compiler to defer inline processing by marking it as Lazy Inline, then we can achieve performance gains by drastically reducing the number of computational graph nodes during most phases of compilation. For example, the code above can preserve the subgraph structure of the `network` instance without inlining or without early inline, for which we provide the `@lazy_inline` decorator to implement delayed inlining.
 
-Taking the Pangu_alpha network as an example, the `network` handled in the `PipelineCell` function body is an instance of the `PanGUAlphaWithLoss` class. In order to implement a delayed inline, a `@ lazy_inline` decorator is added to the `__init__` function of the `PanGUAlphaWithLoss` class to mark that the subgraph structure of the `PanGUAlphaWithLoss` class needs to be preserved without inlining or with delayed inlining. as shown below:
+Taking the Pangu_alpha network as an example, the `network` handled in the `PipelineCell` function body is an instance of the `PanGUAlphaWithLoss` class. In order to implement a delayed inline, a `@lazy_inline` decorator is added to the `__init__` function of the `PanGUAlphaWithLoss` class to mark that the subgraph structure of the `PanGUAlphaWithLoss` class needs to be preserved without inlining or with delayed inlining. As shown below:
 
 ```python
 from mindspore import nn
@@ -57,7 +57,7 @@ Still taking the Pangu 13B network as an example, after applying the Lazy Inline
 
 #### More General Scenarios
 
-`@lazy_inline` is a decorator for `Cell::__init__`, which generates the attribute value of the Cell `cell_init_args` with all the parameters of `__init__`, and the same value of `cell_init_args` indicates that the Cell class name and the values of the initialization parameters are the same. And for instances of the same Cell class, their weights may also be different, so for a network structure defined with `construct(self, x)`, at actual compile time we can convert to `construct(x, self.cell_init_args, self.trainable_ parameters())`. For different instances of the same Cell class, if `cell_init_args` is the same, both instances can reuse the same network structure as follows:
+`@lazy_inline` is a decorator for `Cell::__init__`, which generates the attribute value of the Cell `cell_init_args` with all the parameters of `__init__`, and the same value of `cell_init_args` indicates that the Cell class name and the values of the initialization parameters are the same. And for instances of the same Cell class, their weights may also be different, so for a network structure defined with `construct(self, x)`, at actual compile time we can convert to `construct(x, self.cell_init_args, self.trainable_parameters())`. For different instances of the same Cell class, if `cell_init_args` is the same, both instances can reuse the same network structure as follows:
 
 ```python
 def construct(self, x)
@@ -223,14 +223,14 @@ y = ms.Tensor([2], dtype.float32)
 start_time = time.time()
 out = func(x, y)
 end_time = time.time()
-print("Disable comile_cache cost time:", end_time - start_time)
+print("Disable compile_cache cost time:", end_time - start_time)
 ```
 
 The above test sample is to close the compilation cache state, execute the above test sample two times. The first time consumption and the second time consumption is as follows (the actual time consumption is related to the hardware environment, the following data is for reference only):
 
 ```text
-Disable comile_cache cost time: 0.5485098361968994
-Disable comile_cache cost time: 0.4614279270172119
+Disable compile_cache cost time: 0.5485098361968994
+Disable compile_cache cost time: 0.4614279270172119
 ```
 
 It can be seen that when the compilation cache is turned off, the 2nd execution of the sample takes a little less time than the 1st. This is because the operator compilation cache is turned on by default and the 2nd execution of the sample is able to utilize the previous operator compilation cache.
@@ -256,14 +256,14 @@ start_time = time.time()
 out = func(x, y)
 end_time = time.time()
 os.environ['MS_COMPILER_CACHE_ENABLE'] = '0'
-print("Enable comile_cache cost time:", end_time - start_time)
+print("Enable compile_cache cost time:", end_time - start_time)
 ```
 
 The above test sample is to enable the compilation cache, execute the above test sample two times. The first time and the second time consumption is as follows (the actual time consumption is related to the hardware environment, and the following data is for reference only):
 
 ```text
-Enable comile_cache cost time: 0.6357541084289551
-Enable comile_cache cost time: 0.09379792213439941
+Enable compile_cache cost time: 0.6357541084289551
+Enable compile_cache cost time: 0.09379792213439941
 ```
 
 As you can see, when compilation cache is enabled, the 2nd execution of the sample takes only about 1/7th of the time for the first execution.
@@ -294,7 +294,7 @@ When a user defines a class in a network script, it can be written as a class in
 
 - a class decorated by `@jit_class`
 
-  The `@jit_class` decorator is provided in order to balance the user Python usage habits with the performance benefits of static graph compilation. After modifying the `@jit_class` decorator for a custom class, the function code of the class will be compiled into a static computational graph. Based on graph optimization, and static graph sinking, the compiler can globally optimize for the computational graph to obtain better execution performance.
+  The `@jit_class` decorator is provided in order to balance the user Python usage habits with the performance benefits of static graph compilation. After modifying the `@jit_class` decorator for a custom class, the function code of the class will be compiled into a static computational graph. Based on graph optimization and static graph sinking, the compiler can globally optimize for the computational graph to obtain better execution performance.
 
 In static graph mode, by modifying a custom class with `@jit_class`, the user can create, call instances of the class, and get its attributes and methods.
 
@@ -348,7 +348,7 @@ The error message is as follows:
 TypeError: Decorator jit_class is used for user-defined classes and cannot be used for nn.Cell: Net<>.
 ```
 
-jit_class supports scenarios where custom classes are used nested, and custom classes are used nested with `Cell`. It should be noted that when class inherition occurs, if the parent class uses jit_class, the child class will also have the capabilities of jit_class.
+jit_class supports scenarios where custom classes are used nested, and custom classes are used nested with `Cell`. It should be noted that when class inheritance occurs, if the parent class uses jit_class, the child class will also have the capabilities of jit_class.
 
 ```python
 import numpy as np
@@ -522,7 +522,7 @@ Usage scenario: `Select` operator is used to replace if control flow statements,
 
 When writing networks, you will often use if statements, if the condition of the if statement is a variable condition, each if statement will generate additional subgraphs. In static graph mode, the higher the number of subgraphs, the longer the compilation takes, so some scenarios can be optimized for compilation performance by replacing the if statement equivalently with the `Select` operator.
 
-Note that using the `Select` operator to replace the if statement affects the performance of the network. On the one hand, the `Select` operator executes both the true branch and the false branch, whereas the if statement executes only one of its branches, so the time comsuption with if decreases compared to that with the `Select` operator; on the other hand, the `Select` operator outperforms the control-flow operator generated by the if statement, and the time comsuption with if increases compared to that with the `Select` operator. operator. Combining the above two factors, the final runtime performance changes need to be judged according to the actual situation. Generally speaking, when the number of operators in a branch is small, it is recommended to use `Select` operator, while when the number of operators in a branch is large, it is recommended to use if statement.
+Note that using the `Select` operator to replace the if statement affects the performance of the network. On the one hand, the `Select` operator executes both the true branch and the false branch, whereas the if statement executes only one of its branches, so the time consumption with if decreases compared to that with the `Select` operator; on the other hand, the `Select` operator outperforms the control-flow operator generated by the if statement, and the time consumption with if increases compared to that with the `Select` operator. Combining the above two factors, the final runtime performance changes need to be judged according to the actual situation. Generally speaking, when the number of operators in a branch is small, it is recommended to use `Select` operator, while when the number of operators in a branch is large, it is recommended to use if statement.
 
 A code sample that uses the `Select` operator instead of an if statement to optimize compilation performance is shown below:
 
