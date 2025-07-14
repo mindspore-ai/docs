@@ -144,7 +144,7 @@ MSAdapter在torch.nn.Module.to()调用上与PyTorch有差别。
 model = ToyModel().to('cuda')
 ```
 
-由于MSAdapter暂时不支持torch.nn.Module.to接口，需要转换为如下方式，MSAdapter默认将模型放置于NPU上。若用户希望将模型或者张量搬运至CPU则需要调用.cpu()接口。
+由于MSAdapter暂时不支持torch.nn.Module.to接口，需要转换为如下方式，MSAdapter默认将模型放置于NPU上。若用户希望将模型或者张量搬运至CPU，则需要调用.cpu()接口。
 
 修改如下：
 
@@ -308,7 +308,7 @@ epoch=1时，一共937个step，loss如下：
 
 **PyTorch loss**
 
-```
+```txt
 step = 930, loss : 0.37795058
 step = 931, loss : 0.48661083
 step = 932, loss : 0.46579897
@@ -321,7 +321,7 @@ step = 937, loss : 0.31820250
 
 **MSAdapter loss**
 
-```
+```txt
 step = 930, loss : 0.42702404
 step = 931, loss : 0.55013794
 step = 932, loss : 0.37097090
