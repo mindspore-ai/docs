@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/msadapter/docs/source_zh_cn/msadapter_user_guide/quick_start.md)
 
-本文将为用户提供快速指引，以一个MNIST手写数字识别任务的完整流程为例，说明如何使用MSAdatper。并将一个完整的PyTorch代码用例适配至MSAdapter。若用户想直接运行MSAdapter的例子，可参考[MSAdapter适配后代码](#msadapter适配后代码)。
+本文将为用户提供快速指引，以一个MNIST手写数字识别任务的完整流程为例，说明如何使用MSAdapter。并将一个完整的PyTorch代码用例适配至MSAdapter。若用户想直接运行MSAdapter的例子，可参考[MSAdapter适配后代码](#msadapter适配后代码)。
 
 模型适配详细步骤如下：
 
@@ -75,8 +75,7 @@ def main():
             loss.backward()
             optimizer.step()
             # 添加每个step的打印，用户可自行修改
-            print(type(loss))
-            print(f"step == {step}")
+            print(f"step = {step}, loss : {loss}")
             step += 1
 
 if __name__ == "__main__":
@@ -137,11 +136,7 @@ train_dataset = datasets.MNIST(root='./data', train=True, download=True, transfo
 train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
 ```
 
-MSAdapter使用MNIST需要先自行下载数据集，尚未支持全部数据集。下载方案查看[MSAdapter适配后代码](#msadapter适配后代码)。
-
 ### 5. 模型构建
-
-#### torch.nn.Module.to()
 
 MSAdapter在torch.nn.Module.to()调用上与PyTorch有差别。
 
@@ -149,7 +144,7 @@ MSAdapter在torch.nn.Module.to()调用上与PyTorch有差别。
 model = ToyModel().to('cuda')
 ```
 
-由于MSAdapter暂时不支持torch.nn.Module.to接口，需要转换为如下方式，MSAdapter默认将模型放置于NPU上。
+由于MSAdapter暂时不支持torch.nn.Module.to接口，需要转换为如下方式，MSAdapter默认将模型放置于NPU上。若用户希望将模型或者张量搬运至CPU，则需要调用.cpu()接口。
 
 修改如下：
 
@@ -180,7 +175,7 @@ for epoch in range(args.epochs):
         outputs = model(inputs) # 前向调用不同
         loss = criterion(outputs, labels).to('cuda') # Tensor.to()问题
         loss.backward() # 反向调用不同
-        optimizer.step() # 优化器调用不同
+        optimizer.step()
         step += 1
 ```
 
@@ -202,7 +197,7 @@ loss = criterion(outputs, labels)
 
 #### 前向与反向计算
 
-由于MSAdapter使用了函数式微分，需要将模型封装为函数。用户除了修改代码，还需要导入MindSpore。
+由于MSAdapter使用了函数式微分，正向反向计算均要调用函数，所以需要将PyTorch模型封装为函数。用户除了修改代码，还需要导入MindSpore。
 
 ```python
 outputs = model(inputs) # 前向调用不同
@@ -229,20 +224,7 @@ loss.backward() # 反向调用不同
     loss, grads = grad_fn(inputs, labels)
     ```
 
-### MSAdapter适配后代码
-
-请先下载好数据集：
-
-```shell
-mkdir -p data/MNIST/raw
-cd data/MNIST/raw
-wget http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
-wget http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
-wget http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
-wget http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
-gunzip -k *.gz
-cd ../../../
-```
+## MSAdapter适配后代码
 
 此处提供MSAdapter可运行的代码：
 
@@ -284,7 +266,7 @@ def main():
         transforms.ToTensor(),
         transforms.Normalize((0.5,), (0.5,))
     ])
-    train_dataset = datasets.MNIST(root='./data', train=True, download=False, transform=transform)
+    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
     # 加载数据集
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
     # 将模型转移到NPU上
@@ -311,11 +293,41 @@ def main():
             optimizer.step()
 
             # 添加每个step的打印，用户可自行修改
-            print(f"step == {step}")
+            print(f"step = {step}, loss : {loss}")
             step += 1
 
 if __name__ == "__main__":
     main()
 ```
 
+## loss对比
+
 由于硬件不同的原因，两者实际的运行结果（如模型参数、loss等）会有出入。
+
+epoch=1时，一共937个step，loss如下：
+
+**PyTorch loss**
+
+```txt
+step = 930, loss : 0.37795058
+step = 931, loss : 0.48661083
+step = 932, loss : 0.46579897
+step = 933, loss : 0.54568535
+step = 934, loss : 0.46733740
+step = 935, loss : 0.32921690
+step = 936, loss : 0.37337211
+step = 937, loss : 0.31820250
+```
+
+**MSAdapter loss**
+
+```txt
+step = 930, loss : 0.42702404
+step = 931, loss : 0.55013794
+step = 932, loss : 0.37097090
+step = 933, loss : 0.36169168
+step = 934, loss : 0.57616550
+step = 935, loss : 0.37290677
+step = 936, loss : 0.52857995
+step = 937, loss : 0.51202524
+```

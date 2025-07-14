@@ -11,19 +11,14 @@ pip install torch==2.1.0
 pip install mindspore
 ```
 
-## 2. 下载MSAdapter源码
+## 2. 下载安装MSAdapter源码
 
-```bash
-git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
-```
-
-## 3. 安装MSAdapter
-
-请注意目前MSAdatper不支持`pip install msadapter`，仅支持源码直接使用和源码编译安装。
+目前MSAdapter不支持`pip install msadapter`方式安装，仅支持源码直接使用和源码编译安装。
 
 - 如果用户希望直接使用源码，设置如下环境环境变量：
 
-    ```bash
+    ``` bash
+    git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
     export $PYTHONPATH=your_workspace/MSAdapter/mindtorch
     ```
 
@@ -32,6 +27,8 @@ git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
 - 如果用户希望以Python安装包编译的形式使用，进入MSAdapter目录，进行源码编译操作：
 
     ```bash
+    git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
+    cd MSAdapter
     pip install .
     ```
 
