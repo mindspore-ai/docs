@@ -1,6 +1,6 @@
 # 模型量化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/quantization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_quantization.md)
 
 ## 概述
 
@@ -24,40 +24,70 @@ MindSpore Golden Stick的量化步骤如下:
 import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor
+from mindspore import Tensor, dtype
 from mindformers.modules import Linear
 from mindspore_gs.common import BackendTarget
 from mindspore_gs.ptq import PTQMode, PTQConfig
-from mindspore_gs.ptq import RoundToNearest as RTN
-from mindspore_gs.ptq.network_helpers import NetworkHelper
+from mindspore_gs.ptq.ptq import PTQ
+from mindspore.dataset import GeneratorDataset
 
 class SimpleNet(nn.Cell):
-    def __init__(self):
+    class DecoderCell(nn.Cell):
+        def __init__(self, linear):
+            super().__init__()
+            self.linear = linear
+
+        def construct(self, *args, **kwargs):
+            return self.linear(*args, **kwargs)
+
+    def __init__(self, foo_seq_length=1024):
         super().__init__()
-        self.linear = Linear(in_channels=5, out_channels=6, transpose_b=True, bias_init="normal", weight_init="normal")
+
+        self.foo_seq_length = foo_seq_length
+        linear =  Linear(in_channels=foo_seq_length, out_channels=foo_seq_length, weight_init="ones")
+        self.decoder = SimpleNet.DecoderCell(linear)
 
     def construct(self, x):
-        return self.linear(x)
+        return self.decoder(x)
 
-class SimpleNetworkHelper(NetworkHelper):
-    def __init__(self, **kwargs):
-        self.attrs = kwargs
+    def generate(self, input_ids, do_sample=False, max_new_tokens=1):
+        input_ids = np.pad(input_ids, ((0, 0), (0, self.foo_seq_length - input_ids.shape[1])), 'constant',
+                            constant_values=0)
+        return self.construct(Tensor(input_ids, dtype=dtype.float16))
 
-    def get_spec(self, name: str):
-        return self.attrs.get(name, None)
+def create_for_ds(repeat=1):
+    class SimpleIterable:
+        def __init__(self, repeat=1):
+            self._index = 0
+            self.data = []
+            for _ in range(repeat):
+                self.data.append(np.array([[1, 1, 1]], dtype=np.int32))
 
-    def generate(self, network: nn.Cell, input_ids: np.ndarray, max_new_tokens=1, **kwargs):
-        input_ids = np.pad(input_ids, ((0, 0), (0, self.get_spec("seq_length") - input_ids.shape[1])), 'constant', constant_values=0)
-        network(Tensor(input_ids, dtype=ms.dtype.float16))
+        def __next__(self):
+            if self._index >= len(self.data):
+                raise StopIteration
+            item = (self.data[self._index],)
+            self._index += 1
+            return item
+
+        def __iter__(self):
+            self._index = 0
+            return self
+
+        def __len__(self):
+            return len(self.data)
+    
+    return GeneratorDataset(source=SimpleIterable(repeat), column_name=["input_ids"])
+
 
 net = SimpleNet() # The float model that needs to be quantized
-cfg = PTQConfig(mode=PTQMode.QUANTIZE, backend=BackendTarget.ASCEND, weight_quant_dtype=ms.dtype.int8)
-net_helper = SimpleNetworkHelper(batch_size=1, seq_length=5)
-rtn = RTN(cfg)
-rtn.apply(net, net_helper)
-rtn.convert(net)
+ds = create_foo_ds(1)
+cfg = PTQConfig(mode=PTQMode.QUANTIZE, backend=BackendTarget.ASCEND, weight_quant_dtype=dtype.int8)
+ptq = PTQ(cfg)
+ptq.apply(net, dataset=ds)
+ptq.convert(net)
 
-ms.save_checkpoint(net.parameters_dict(), './simplenet_rtn.ckpt')
+ms.save_checkpoint(net.parameters_dict(), './simplenet_ptq.ckpt')
 ```
 
 1. 使用[nn.Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)定义网络，训练模型后得到模型的浮点权重，在推理过程中，加载该模型的浮点权重。上述例子对该过程进行了简化，直接创建网络，使用初始浮点权重进行量化。
@@ -71,28 +101,45 @@ ms.save_checkpoint(net.parameters_dict(), './simplenet_rtn.ckpt')
 import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor
+from mindspore import Tensor, dtype
 from mindformers.modules import Linear
 from mindspore_gs.common import BackendTarget
 from mindspore_gs.ptq import PTQMode, PTQConfig
-from mindspore_gs.ptq import RoundToNearest as RTN
+from mindspore_gs.ptq.ptq import PTQ
+from mindspore.dataset import GeneratorDataset
 
 class SimpleNet(nn.Cell):
-    def __init__(self):
+    class DecoderCell(nn.Cell):
+        def __init__(self, linear):
+            super().__init__()
+            self.linear = linear
+
+        def construct(self, *args, **kwargs):
+            return self.linear(*args, **kwargs)
+
+    def __init__(self, foo_seq_length=1024):
         super().__init__()
-        self.linear = Linear(in_channels=5, out_channels=6, transpose_b=True, bias_init="normal", weight_init="normal")
+
+        self.foo_seq_length = foo_seq_length
+        linear =  Linear(in_channels=foo_seq_length, out_channels=foo_seq_length, weight_init="ones")
+        self.decoder = SimpleNet.DecoderCell(linear)
 
     def construct(self, x):
-        return self.linear(x)
+        return self.decoder(x)
+
+    def generate(self, input_ids, do_sample=False, max_new_tokens=1):
+        input_ids = np.pad(input_ids, ((0, 0), (0, self.foo_seq_length - input_ids.shape[1])), 'constant',
+                            constant_values=0)
+        return self.construct(Tensor(input_ids, dtype=dtype.float16))
 
 net = SimpleNet()
-cfg = PTQConfig(mode=PTQMode.DEPLOY, backend=BackendTarget.ASCEND, weight_quant_dtype=ms.dtype.int8)
-rtn = RTN(cfg)
-rtn.apply(net)
-rtn.convert(net)
-ms.load_checkpoint('./simplenet_rtn.ckpt', net)
+cfg = PTQConfig(mode=PTQMode.DEPLOY, backend=BackendTarget.ASCEND, weight_quant_dtype=dtype.int8)
+ptq = PTQ(cfg)
+ptq.apply(net)
+ptq.convert(net)
+ms.load_checkpoint('./simplenet_ptq.ckpt', net)
 
-input = Tensor(np.ones((5, 5), dtype=np.float32), dtype=ms.dtype.float32)
+input = Tensor(np.ones((5, 1024), dtype=np.float32), dtype=dtype.float32)
 output = net(input)
 print(output)
 ```
@@ -143,10 +190,9 @@ print(output)
 
 ### 训练后量化实例讲解
 
-下面给出了PTQ算法和RoundToNearest算法在Llama2网络上量化与部署的完整流程：
+下面给出了PTQ算法在Llama2网络上量化与部署的完整流程：
 
 - [PTQ算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/ptq/ptq.html)：训练后量化算法，支持8bit权重量化、8bit全量化、KVCacheInt8量化；支持使用SmoothQuant提升量化精度；支持不同算法间的组合量化算法提升量化推理性能。
-- [RoundToNearest算法示例](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/ptq/round_to_nearest.html)：最简单的8bit训练后量化算法，支持Linear的权重量化和KVCacheInt8量化。该算法后续会被废弃，推荐直接使用PTQ算法。
 
 ### 感知量化训练实例讲解
 
