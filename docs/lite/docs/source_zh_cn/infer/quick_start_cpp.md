@@ -6,7 +6,7 @@
 
 ## 概述
 
-本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_cpp)目录。
+本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore-lite/examples/quick_start_cpp](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/quick_start_cpp)目录。
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
@@ -35,21 +35,21 @@
 
 - 编译构建
 
-  在`mindspore/lite/examples/quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_cpp/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
+  在`mindspore-lite/examples/quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/quick_start_cpp/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
 
   ```bash
   bash build.sh
   ```
 
-  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`runtime/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录下、`runtime/third_party/glog/`目录下的`libmindspore_glog.so.0`文件拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录下的`libmindspore_glog.so`文件。
+  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore-lite/examples/quick_start_cpp/lib`目录、`runtime/include`目录里的文件拷贝到`mindspore-lite/examples/quick_start_cpp/include`目录下、`runtime/third_party/glog/`目录下的`libmindspore_glog.so.0`文件拷贝到`mindspore-lite/examples/quick_start_cpp/lib`目录下的`libmindspore_glog.so`文件。
   >
-  > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
+  > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore-lite/examples/quick_start_cpp/model`目录。
   >
   > 通过手动下载并且将文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
 
 - 执行推理
 
-  编译构建后，进入`mindspore/lite/examples/quick_start_cpp/build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+  编译构建后，进入`mindspore-lite/examples/quick_start_cpp/build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
   ```bash
   ./mindspore_quick_start_cpp ../model/mobilenetv2.ms
@@ -77,7 +77,7 @@
 
     - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore\lite\examples\quick_start_cpp\model`目录。
 
-    - 编译：在`mindspore\lite\examples\quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_cpp/build.bat)，将能够自动下载相关文件并编译Demo。
+    - 编译：在`mindspore\lite\examples\quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/quick_start_cpp/build.bat)，将能够自动下载相关文件并编译Demo。
 
   ```bash
   call build.bat

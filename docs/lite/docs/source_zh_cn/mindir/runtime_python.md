@@ -4,7 +4,7 @@
 
 ## 概述
 
-本教程提供了MindSpore Lite执行云侧推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)进行云侧推理的基本流程，用户能够快速了解MindSpore Lite执行云侧推理相关API的使用。相关代码放置在[mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_python)目录。
+本教程提供了MindSpore Lite执行云侧推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)进行云侧推理的基本流程，用户能够快速了解MindSpore Lite执行云侧推理相关API的使用。相关代码放置在[mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python)目录。
 
 MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU和CPU硬件后端。
 
@@ -20,7 +20,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 本环节以全新的Ubuntu 18.04为例，介绍在CPU环境的Linux-x86_64系统上，通过pip安装Python3.7版本的MindSpore Lite。
 
-进入到[mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_python)目录下，以安装2.0.0版本的MindSpore Lite为例，执行`lite-cpu-pip.sh`脚本进行一键式安装。安装脚本会下载推理所需的模型和输入数据文件、安装MindSpore_Lite所需的依赖，以及下载并安装MindSpore Lite。
+进入到[mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python)目录下，以安装2.0.0版本的MindSpore Lite为例，执行`lite-cpu-pip.sh`脚本进行一键式安装。安装脚本会下载推理所需的模型和输入数据文件、安装MindSpore_Lite所需的依赖，以及下载并安装MindSpore Lite。
 
 注：此命令可设置安装的MindSpore Lite版本，由于从MindSpore Lite 2.0.0版本开始支持云侧推理的Python接口，因此版本不能设置低于2.0.0，可设置的版本详情参见[下载MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)提供的版本。
 
@@ -28,19 +28,19 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 MINDSPORE_LITE_VERSION=2.0.0 bash ./lite-cpu-pip.sh
 ```
 
-> 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python/model`目录。
+> 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)，并将其拷贝到`mindspore-lite/examples/cloud_infer/quick_start_python/model`目录。
 >
-> 若input.bin输入数据文件下载失败，请手动下载相关输入数据文件[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python/model`目录。
+> 若input.bin输入数据文件下载失败，请手动下载相关输入数据文件[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)，并将其拷贝到`mindspore-lite/examples/cloud_infer/quick_start_python/model`目录。
 >
-> 若使用脚本下载MindSpore Lite推理框架失败，请手动下载对应硬件平台为CPU、操作系统为Linux-x86_64或Linux-aarch64的[MindSpore Lite 模型云侧推理框架](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，用户可以使用`uname -m`命令在终端上查询操作系统，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python`目录下。
+> 若使用脚本下载MindSpore Lite推理框架失败，请手动下载对应硬件平台为CPU、操作系统为Linux-x86_64或Linux-aarch64的[MindSpore Lite 模型云侧推理框架](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，用户可以使用`uname -m`命令在终端上查询操作系统，并将其拷贝到`mindspore-lite/examples/cloud_infer/quick_start_python`目录下。
 >
-> 若需要使用Python3.7以上版本对应的MindSpore Lite，请在本地[编译](https://mindspore.cn/lite/docs/zh-CN/master/mindir/build.html)，注意Python API模块编译依赖：Python >= 3.7.0、NumPy >= 1.17.0、wheel >= 0.32.0。编译成功后，将`output/`目录下生成的Whl安装包拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python`目录下。
+> 若需要使用Python3.7以上版本对应的MindSpore Lite，请在本地[编译](https://mindspore.cn/lite/docs/zh-CN/master/mindir/build.html)，注意Python API模块编译依赖：Python >= 3.7.0、NumPy >= 1.17.0、wheel >= 0.32.0。编译成功后，将`output/`目录下生成的Whl安装包拷贝到`mindspore-lite/examples/cloud_infer/quick_start_python`目录下。
 >
-> 若`mindspore/lite/examples/cloud_infer/quick_start_python`目录下不存在MindSpore Lite安装包，则一键安装脚本将会卸载当前已安装的MindSpore Lite后，从华为镜像下载并安装MindSpore Lite。否则，若目录下存在MindSpore Lite安装包，则会优先安装该安装包。
+> 若`mindspore-lite/examples/cloud_infer/quick_start_python`目录下不存在MindSpore Lite安装包，则一键安装脚本将会卸载当前已安装的MindSpore Lite后，从华为镜像下载并安装MindSpore Lite。否则，若目录下存在MindSpore Lite安装包，则会优先安装该安装包。
 >
 > 通过手动下载并且将文件放到指定位置后，需要再次执行lite-cpu-pip.sh脚本才能完成一键安装。
 
-执行成功将会显示如下结果，模型文件和输入数据文件可在`mindspore/lite/examples/cloud_infer/quick_start_python/model`目录下找到。
+执行成功将会显示如下结果，模型文件和输入数据文件可在`mindspore-lite/examples/cloud_infer/quick_start_python/model`目录下找到。
 
 ```text
 Successfully installed mindspore-lite-2.0.0
@@ -48,7 +48,7 @@ Successfully installed mindspore-lite-2.0.0
 
 ## 执行Demo
 
-一键安装后，进入[mindspore/lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_python)目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+一键安装后，进入[mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python)目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
 ```bash
 python quick_start_cloud_infer_python.py

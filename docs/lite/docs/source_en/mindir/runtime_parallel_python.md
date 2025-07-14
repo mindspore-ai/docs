@@ -21,9 +21,9 @@ Concurrent inference with MindSpore Lite consists of the following main steps:
 
 ## Preparation
 
-1. The following code samples are from [Using Python interface to perform cloud-side inference sample code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python).
+1. The following code samples are from [Using Python interface to perform cloud-side inference sample code](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python).
 
-2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_python` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) and input data [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin).
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore-lite/examples/cloud_infer/quick_start_parallel_python` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) and input data [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin).
 
 3. Install the MindSpore Lite cloud-side inference Python package for Python version 3.7 via pip.
 
@@ -158,7 +158,7 @@ print("total run time: ", total_end_time - total_start_time, " s")
 
 ## One-click Configuration of the Python Environment
 
-Run the lite-server-cpu-pip.sh script in the [mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python) directory. The script installs python, pip, numpy, and wheel, downloads the model file and model input data, reinstalls the MindSpore Lite whl package, and checks the installation status of the MindSpore Lite whl package.
+Run the lite-server-cpu-pip.sh script in the [mindspore-lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python) directory. The script installs python, pip, numpy, and wheel, downloads the model file and model input data, reinstalls the MindSpore Lite whl package, and checks the installation status of the MindSpore Lite whl package.
 
 ```bash
 bash lite-server-cpu-pip.sh
@@ -166,7 +166,7 @@ bash lite-server-cpu-pip.sh
 
 ## Executing the Demo
 
-After the one-click installation, run the following command in the [mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python) directory to experience the MobileNetV2 model for concurrent inference by MindSpore Lite.
+After the one-click installation, run the following command in the [mindspore-lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python) directory to experience the MobileNetV2 model for concurrent inference by MindSpore Lite.
 
 ```bash
 python quick_start_parallel_python.py

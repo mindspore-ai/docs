@@ -19,11 +19,11 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.
 
 ## 准备工作
 
-1. 以下代码样例来自于[使用C++接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp)。
+1. 以下代码样例来自于[使用C++接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
 
-3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、Nvidia GPU、CPU三合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp`目录。
+3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、Nvidia GPU、CPU三合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp`目录。
 
 ## 创建配置项
 
@@ -103,7 +103,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## 编译和执行
 
-按照[快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)环境变量，设置环境变量。在`mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp`目录下执行build.sh脚本，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
+按照[快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)环境变量，设置环境变量。在`mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp`目录下执行build.sh脚本，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
 
 ```bash
 bash build.sh

@@ -15,12 +15,12 @@
 
     ```cpp
     WARNING: Logging before InitGoogleLogging() is written to STDERR
-    [WARNING] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.071 [mindspore/lite/tools/common/protobuf_utils.cc:94] ReadProtoFromBinaryFile] Parse ***.onnx failed.
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.122 [mindspore/lite/build/tools/converter/parser/onnx/onnx_op_parser.cc:3079] InitOriginModel] Read onnx model file failed, model path: ./ml_audio_kit_vocals_resunet.onnx
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.131 [mindspore/lite/build/tools/converter/parser/onnx/onnx_op_parser.cc:3026] Parse] init origin model failed.
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.137 [mindspore/lite/tools/converter/converter.cc:64] BuildFuncGraph] Get funcGraph failed for fmk: ONNX
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.143 [mindspore/lite/tools/converter/converter.cc:133] Convert] Parser/Import model return nullptr
-    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.162 [mindspore/lite/tools/converter/converter.cc:209] RunConverter] CONVERT RESULT FAILED:-1 Common error code.
+    [WARNING] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.071 [mindspore-lite/tools/common/protobuf_utils.cc:94] ReadProtoFromBinaryFile] Parse ***.onnx failed.
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.122 [mindspore-lite/build/tools/converter/parser/onnx/onnx_op_parser.cc:3079] InitOriginModel] Read onnx model file failed, model path: ./ml_audio_kit_vocals_resunet.onnx
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.131 [mindspore-lite/build/tools/converter/parser/onnx/onnx_op_parser.cc:3026] Parse] init origin model failed.
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.137 [mindspore-lite/tools/converter/converter.cc:64] BuildFuncGraph] Get funcGraph failed for fmk: ONNX
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.143 [mindspore-lite/tools/converter/converter.cc:133] Convert] Parser/Import model return nullptr
+    [ERROR] LITE(11979,7fbdc90a8ec0,converter_lite):2021-12-13-16:20:49.506.162 [mindspore-lite/tools/converter/converter.cc:209] RunConverter] CONVERT RESULT FAILED:-1 Common error code.
     CONVERT RESULT FAILED:-1 Common error code.
     ```
 
@@ -31,13 +31,13 @@
 2. 存在不支持的算子，日志报错信息：
 
     ```cpp
-    [mindspore/lite/tools/converter/converter.cc:**] BuildFuncGraph] Get funcGraph failed for fmk: ****
-    [mindspore/lite/tools/converter/converter.cc:**] Converter] Parser/Import model return nullptr
-    [mindspore/lite/tools/converter/converter_context.h:**] PrintOps] ===========================================
-    [mindspore/lite/tools/converter/converter_context.h:**] PrintOps] UNSUPPORTED OP LIST:
-    [mindspore/lite/tools/converter/converter_context.h:**] PrintOps] FMKTYPE: ****, OP TYPE: ****
-    [mindspore/lite/tools/converter/converter_context.h:**] PrintOps] ===========================================
-    [mindspore/lite/tools/converter/converter.cc:**] RunConverter] CONVERT RESULT FAILED:-300 Failed to find operator.
+    [mindspore-lite/tools/converter/converter.cc:**] BuildFuncGraph] Get funcGraph failed for fmk: ****
+    [mindspore-lite/tools/converter/converter.cc:**] Converter] Parser/Import model return nullptr
+    [mindspore-lite/tools/converter/converter_context.h:**] PrintOps] ===========================================
+    [mindspore-lite/tools/converter/converter_context.h:**] PrintOps] UNSUPPORTED OP LIST:
+    [mindspore-lite/tools/converter/converter_context.h:**] PrintOps] FMKTYPE: ****, OP TYPE: ****
+    [mindspore-lite/tools/converter/converter_context.h:**] PrintOps] ===========================================
+    [mindspore-lite/tools/converter/converter.cc:**] RunConverter] CONVERT RESULT FAILED:-300 Failed to find operator.
     ```
 
     - 问题分析：模型中存在MindSpore Lite转换工具不支持的算子导致转换失败。
@@ -46,7 +46,7 @@
 3. 存在不支持的算子，日志报错信息：
 
     ```cpp
-    [mindspore/lite/tools/converter/parser/caffe/caffe_model_parser.cc:**] ConvertLayers] parse node **** failed.
+    [mindspore-lite/tools/converter/parser/caffe/caffe_model_parser.cc:**] ConvertLayers] parse node **** failed.
     ```
 
     - 问题分析：转换工具支持该算子转换，但是不支持该算子的某种特殊属性或参数导致模型转换失败（示例日志以caffe为例，其他框架日志信息相同）。
@@ -59,7 +59,7 @@
 1. 针对动态Shape的模型，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，例如
 
     ```
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
     ```
 
 2. 针对多Batch的模型，需要无法直接使用数据预处理的功能，用户需要提前预处理矫正数据集，然后以`BIN`的形式设置校准数据集。
@@ -71,8 +71,8 @@
 1. 模型文件错误，日志报错信息：
 
     ```cpp
-    [mindspore/lite/src/lite_model.cc:**] ConstructModel] The model buffer is invalid and fail to create graph.
-    [mindspore/lite/src/lite_model.cc:**] ImportFromBuffer] construct model failed.
+    [mindspore-lite/src/lite_model.cc:**] ConstructModel] The model buffer is invalid and fail to create graph.
+    [mindspore-lite/src/lite_model.cc:**] ImportFromBuffer] construct model failed.
     ```
 
     - 问题分析：从ms模型文件读取的缓存内容无效，导致图加载失败。
@@ -81,8 +81,8 @@
 2. 模型文件和推理包版本不兼容，日志报错信息：
 
     ```cpp
-    [mindspore/lite/src/lite_model.cc:**] ConstructModel] Maybe this is a model transferred out using the conversion tool before 1.1.0.
-    [mindspore/lite/src/lite_model.cc:**] ImportFromBuffer] construct model failed.
+    [mindspore-lite/src/lite_model.cc:**] ConstructModel] Maybe this is a model transferred out using the conversion tool before 1.1.0.
+    [mindspore-lite/src/lite_model.cc:**] ImportFromBuffer] construct model failed.
     ```
 
     - 问题分析：该ms模型文件所使用的转换工具版本较低，导致图加载失败。
@@ -95,14 +95,14 @@
 1. 模型文件和推理包版本不兼容，日志报错信息：
 
     ```cpp
-    WARNING [mindspore/lite/src/lite_model.cc:**] ConstructModel] model version is MindSpore Lite 1.2.0, inference version is MindSpore Lite 1.5.0 not equal
-    [mindspore/lite/src/litert/infer_manager.cc:**] KernelInferShape] Get infershape func failed! type: ****
-    [mindspore/lite/src/scheduler.cc:**] ScheduleNodeToKernel] FindBackendKernel return nullptr, name: ****, type: ****
-    [mindspore/lite/src/scheduler.cc:**] ScheduleSubGraphToKernels] schedule node return nullptr, name: ****, type: ****
-    [mindspore/lite/src/scheduler.cc:**] ScheduleMainSubGraphToKernels] Schedule subgraph failed, index: 0
-    [mindspore/lite/src/scheduler.cc:**] ScheduleGraphToKernels] ScheduleSubGraphToSubGraphKernel failed
-    [mindspore/lite/src/scheduler.cc:**] Schedule] Schedule graph to kernels failed.
-    [mindspore/lite/src/lite_session.cc:**] CompileGraph] Schedule kernels failed: -1.
+    WARNING [mindspore-lite/src/lite_model.cc:**] ConstructModel] model version is MindSpore Lite 1.2.0, inference version is MindSpore Lite 1.5.0 not equal
+    [mindspore-lite/src/litert/infer_manager.cc:**] KernelInferShape] Get infershape func failed! type: ****
+    [mindspore-lite/src/scheduler.cc:**] ScheduleNodeToKernel] FindBackendKernel return nullptr, name: ****, type: ****
+    [mindspore-lite/src/scheduler.cc:**] ScheduleSubGraphToKernels] schedule node return nullptr, name: ****, type: ****
+    [mindspore-lite/src/scheduler.cc:**] ScheduleMainSubGraphToKernels] Schedule subgraph failed, index: 0
+    [mindspore-lite/src/scheduler.cc:**] ScheduleGraphToKernels] ScheduleSubGraphToSubGraphKernel failed
+    [mindspore-lite/src/scheduler.cc:**] Schedule] Schedule graph to kernels failed.
+    [mindspore-lite/src/lite_session.cc:**] CompileGraph] Schedule kernels failed: -1.
     ```
 
     - 问题分析：推理使用的MindSpore Lite版本高于模型转换使用的转换工具版本，导致存在兼容性问题：版本升级可能会新增或移除某些算子，推理时缺少算子的实现。
@@ -111,8 +111,8 @@
 2. 模型输入为动态shape，日志报错信息：
 
     ```cpp
-    [mindspore/lite/src/common/tensor_util.cc:**] CheckTensorsInvalid] The shape of tensor contains negative dimension, check the model and assign the input shape with method Resize().
-    [mindspore/lite/src/lite_session.cc:**] RunGraph] CheckInputs failed.
+    [mindspore-lite/src/common/tensor_util.cc:**] CheckTensorsInvalid] The shape of tensor contains negative dimension, check the model and assign the input shape with method Resize().
+    [mindspore-lite/src/lite_session.cc:**] RunGraph] CheckInputs failed.
     ```
 
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，直接推理时由于shape无效导致推理失败。
@@ -125,11 +125,11 @@
 1. 模型文件和推理包版本不兼容，日志报错信息：
 
     ```cpp
-    ERROR [mindspore/lite/src/lite_session.cc:1539] LoadModelByBuff] Please enable runtime convert.
-    ERROR [mindspore/lite/src/lite_session.cc:1598] LoadModelAndCompileByPath] Read model file failed
-    ERROR [mindspore/lite/src/cxx_api/model/model_impl.cc:93] Build] Init session failed
-    ERROR [mindspore/lite/tools/benchmark/benchmark_unified_api.cc:845] RunBenchmark] ms_model_.Build failed while running
-    ERROR [mindspore/lite/tools/benchmark/run_benchmark.cc:80] RunBenchmark] Run Benchmark Q888_CV_new_detect.pb.ms Failed : -1
+    ERROR [mindspore-lite/src/lite_session.cc:1539] LoadModelByBuff] Please enable runtime convert.
+    ERROR [mindspore-lite/src/lite_session.cc:1598] LoadModelAndCompileByPath] Read model file failed
+    ERROR [mindspore-lite/src/cxx_api/model/model_impl.cc:93] Build] Init session failed
+    ERROR [mindspore-lite/tools/benchmark/benchmark_unified_api.cc:845] RunBenchmark] ms_model_.Build failed while running
+    ERROR [mindspore-lite/tools/benchmark/run_benchmark.cc:80] RunBenchmark] Run Benchmark Q888_CV_new_detect.pb.ms Failed : -1
     ms_model_.Build failed while running Run Benchmark Q888_CV_new_detect.pb.ms Failed : -1
     ```
 
@@ -141,14 +141,14 @@
 1. 模型输入为动态shape，日志报错信息：
 
     ```cpp
-    WARNING [mindspore/lite/src/litert/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
-    ERROR [mindspore/lite/src/litert/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
-    ERROR [mindspore/lite/src/inner_kernel.cc:81] Execute] run kernel PreProcess failed, name: Exp_1234
-    ERROR [mindspore/lite/src/litert/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
-    ERROR [mindspore/lite/src/litert/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
-    ERROR [mindspore/lite/src/lite_mindrt.h:58] RunKernel] run kernel failed, name: GpuSubGraph4_8
-    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
-    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
+    WARNING [mindspore-lite/src/litert/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
+    ERROR [mindspore-lite/src/litert/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
+    ERROR [mindspore-lite/src/inner_kernel.cc:81] Execute] run kernel PreProcess failed, name: Exp_1234
+    ERROR [mindspore-lite/src/litert/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
+    ERROR [mindspore-lite/src/litert/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
+    ERROR [mindspore-lite/src/lite_mindrt.h:58] RunKernel] run kernel failed, name: GpuSubGraph4_8
+    WARNING [mindspore-lite/src/litert/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
+    WARNING [mindspore-lite/src/litert/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
     ```
 
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，GPU推理时在图编译阶段会跳过和Shape相关的算子规格检查，默认GPU支持该算子，并在Predict阶段会再次进行算子规格检查，如果算子规格检查为不支持，则报错退出。
@@ -157,15 +157,15 @@
 2. Map buffer类错误
 
     ```cpp
-    WARNING [mindspore/lite/src/litert/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
-    ERROR [mindspore/lite/src/litert/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
-    ERROR [mindspore/lite/src/inner_kernel.cc:88] Execute] run kernel failed, name: Slice_1147
-    ERROR [mindspore/lite/src/sub_graph_kernel.cc:223] Execute] run kernel failed, name: Slice_1147
-    ERROR [mindspore/lite/src/lite_mindrt.h:56] RunKernel] run kernel failed, name: CpuFP32SubGraph0_1
-    ERROR [mindspore/lite/src/mindrt_executor.cc:193] Run] MindrtRun failed
-    ERROR [mindspore/lite/src/lite_session.cc:709] RunGraph] RunGraph failed : -1
-    ERROR [mindspore/lite/src/cxx_api/model/model_impl.cc:294] Predict] Run graph failed.
-    ERROR [mindspore/lite/tools/benchmark/benchmark_unified_api.cc:721] MarkAccuracy] Inference error
+    WARNING [mindspore-lite/src/litert/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
+    ERROR [mindspore-lite/src/litert/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
+    ERROR [mindspore-lite/src/inner_kernel.cc:88] Execute] run kernel failed, name: Slice_1147
+    ERROR [mindspore-lite/src/sub_graph_kernel.cc:223] Execute] run kernel failed, name: Slice_1147
+    ERROR [mindspore-lite/src/lite_mindrt.h:56] RunKernel] run kernel failed, name: CpuFP32SubGraph0_1
+    ERROR [mindspore-lite/src/mindrt_executor.cc:193] Run] MindrtRun failed
+    ERROR [mindspore-lite/src/lite_session.cc:709] RunGraph] RunGraph failed : -1
+    ERROR [mindspore-lite/src/cxx_api/model/model_impl.cc:294] Predict] Run graph failed.
+    ERROR [mindspore-lite/tools/benchmark/benchmark_unified_api.cc:721] MarkAccuracy] Inference error
     Inference error Run MarkAccuracy error: -1
     ```
 
@@ -179,9 +179,9 @@
 1. 模型输入为动态 shape，或者模型有 shape 算子，会有 Dimensions 相关日志报错信息：
 
     ```cpp
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Parameter check failed at: optimizationProfile.cpp::setDimensions::119, condition: std::all_of(dims.d, dims.d + dims.nbDims, [](int x) { return x >= 0; })
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_subgraph.cc:219] ParseInputDimsProfile] setDimensions of kMIN failed for input
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: xxx size cannot have negative dimension, size = [-1]
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Parameter check failed at: optimizationProfile.cpp::setDimensions::119, condition: std::all_of(dims.d, dims.d + dims.nbDims, [](int x) { return x >= 0; })
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_subgraph.cc:219] ParseInputDimsProfile] setDimensions of kMIN failed for input
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: xxx size cannot have negative dimension, size = [-1]
     ```
 
     - 问题分析：TensorRT GPU 构图暂不支持有动态 shape 的模型，具体情况为模型的输入 shape 包含-1，或者模型中包含 shape 算子。
@@ -192,10 +192,10 @@
 1. 离线 broadcast 类型算子，不支持 resize，日志现象会报错在某个算子的输入维度不匹配，例如：
 
     ```cpp
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: dimensions not compatible for xxx
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] shapeMachine.cpp (252) - Shape Error in operator(): broadcast with incompatible Dimensions
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Instruction: CHECK_BROADCAST xx xx
-    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_subgraph.cc:500] Execute] TensorRT execute failed.
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: dimensions not compatible for xxx
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] shapeMachine.cpp (252) - Shape Error in operator(): broadcast with incompatible Dimensions
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Instruction: CHECK_BROADCAST xx xx
+    ERROR [mindspore-lite/src/delegate/tensorrt/tensorrt_subgraph.cc:500] Execute] TensorRT execute failed.
     ```
 
     - 问题分析：有算子在离线 converter 时，通过指定`--inputShape=<INPUTSHAPE>`自动做了离线 broadcast。例如 ones like，会依据输入的 shape 信息，将1 broadcast 成对应的常量tensor，此时再将输入 resize 成不同维度时，网络中对输入 tensor 维度敏感的算子（例如concat、matmul等）就会出现报错。
@@ -208,10 +208,10 @@
 1. NPU图编译失败，通过工具抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，得到报错提示如下：
 
     ```cpp
-    MS_LITE : [mindspore/lite/src/delegate/npu/npu_subgraph.cc:**] BuildIRModel] Build IR model failed.
-    MS_LITE : [mindspore/lite/src/delegate/npu/npu_subgraph.cc:**] Init] Build IR model failed.
-    MS_LITE : [mindspore/lite/src/delegate/npu/npu_graph.cc:**] CreateNPUSubgraphKernel] NPU Subgraph Init failed.
-    MS_LITE : [mindspore/lite/src/delegate/npu/npu_delegate.cc:**] Build] Create NPU Graph failed.
+    MS_LITE : [mindspore-lite/src/delegate/npu/npu_subgraph.cc:**] BuildIRModel] Build IR model failed.
+    MS_LITE : [mindspore-lite/src/delegate/npu/npu_subgraph.cc:**] Init] Build IR model failed.
+    MS_LITE : [mindspore-lite/src/delegate/npu/npu_graph.cc:**] CreateNPUSubgraphKernel] NPU Subgraph Init failed.
+    MS_LITE : [mindspore-lite/src/delegate/npu/npu_delegate.cc:**] Build] Create NPU Graph failed.
     ```
 
     - 问题分析：此报错为NPU在线构图失败。
@@ -241,9 +241,9 @@
 1. NPU推理失败，通过工具抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，得到报错提示如下：
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_executor.cc:**] Run] NPU Process failed. code is 1
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_graph.cc:**] Execute] NPU Subgraph **** execute failed.
-      MS_LITE : [mindspore/lite/src/lite_mindrt.h:**] RunKernel] run kernel failed, name: ****
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_executor.cc:**] Run] NPU Process failed. code is 1
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_graph.cc:**] Execute] NPU Subgraph **** execute failed.
+      MS_LITE : [mindspore-lite/src/lite_mindrt.h:**] RunKernel] run kernel failed, name: ****
       ```
 
     - 问题分析：此报错为NPU执行推理失败。
@@ -295,28 +295,28 @@
     - 若设备不支持NPU但在上下文中进行了指定，则模型并不会运行在NPU上，而是会自动切换到CPU来执行，此时的推理性能自然与CPU一致。可以通过工具（如adb logcat）抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，以确认设备是否支持NPU。常见的提示信息及说明如下：
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
     - 若日志中仅包含以上这一行提示，请检查您的设备是否为包含海思麒麟处理器的华为设备，否则不支持NPU。
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] IsKirinChip] Unsupported KirinChip ***.
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsKirinChip] Unsupported KirinChip ***.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
     - 若日志中包含以上这两行提示，说明您的设备虽然使用的是麒麟芯片，但芯片型号不支持NPU。当前支持NPU的麒麟处理器芯片为：Kirin 810、Kirin 820、Kirin 985及其他高于此版本的型号。
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] CheckDDKVerGreatEqual] DDK Version 100.***.***.*** less than 100.320.011.019.
-      MS_LITE : [mindspore/lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] CheckDDKVerGreatEqual] DDK Version 100.***.***.*** less than 100.320.011.019.
+      MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
     - 若日志中包含以上这两行提示，说明您的设备虽然满足硬件要求，但系统的HiAI ROM版本不满足要求，同样无法运行NPU算子。当前MindSpore Lite要求HiAI ROM版本必须大于100.320.011.018。
 
       ```cpp
-      MS_LITE : [mindspore/lite/src/delegate/npu/op/convolution_npu.cc:**] GetNPUConvOp] NPU does not support runtime inference shape.
-      MS_LITE : [mindspore/lite/src/delegate/npu/op/npu_op.h:** GetNPUOp] NPU does not support runtime inference shape.
+      MS_LITE : [mindspore-lite/src/delegate/npu/op/convolution_npu.cc:**] GetNPUConvOp] NPU does not support runtime inference shape.
+      MS_LITE : [mindspore-lite/src/delegate/npu/op/npu_op.h:** GetNPUOp] NPU does not support runtime inference shape.
       ```
 
     - 若以上两条提示（或其中一条）在日志中出现多次，请确认您的模型输入是否为动态shape且在推理前对输入shape进行了指定，若是则不支持在NPU上运行，程序会自动切换到CPU执行。
@@ -360,11 +360,11 @@
 1. 利用Xcode使用framework包构建APP，运行GetParameterCreator函数报错不支持某种parameter，日志如下：
 
     ```text
-    ERROR [mindspore/lite/src/ops/populate/populate_register.h:46] GetParameterCreator] Unsupported parameter type in Create : **
-    ERROR [mindspore/lite/src/scheduler.cc:208] InferNodeShape] parameter generator is nullptr.
-    ERROR [mindspore/lite/src/scheduler.cc:266] InferSubGraphShape] InferShape failed, name: **, type: **
-    ERROR [mindspore/lite/src/scheduler.cc:78] SchedulePreProcess] op infer shape failed.
-    ERROR [mindspore/lite/src/lite_session.cc:508] CompileGraph] Schedule kernels failed: -500
+    ERROR [mindspore-lite/src/ops/populate/populate_register.h:46] GetParameterCreator] Unsupported parameter type in Create : **
+    ERROR [mindspore-lite/src/scheduler.cc:208] InferNodeShape] parameter generator is nullptr.
+    ERROR [mindspore-lite/src/scheduler.cc:266] InferSubGraphShape] InferShape failed, name: **, type: **
+    ERROR [mindspore-lite/src/scheduler.cc:78] SchedulePreProcess] op infer shape failed.
+    ERROR [mindspore-lite/src/lite_session.cc:508] CompileGraph] Schedule kernels failed: -500
     ```
 
     - 问题分析：链接framework中的静态库，不会导入静态库中的所有符号，Parameter的Creator函数是通过全局静态对象注册到单例对象去的。

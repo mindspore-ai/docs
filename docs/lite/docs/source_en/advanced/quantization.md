@@ -29,7 +29,7 @@ Mixed bit quantization automatically searches for the most appropriate number of
 The general form of the mixed bit quantization conversion command is:
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
 ```
 
 The mixed bit quantization configuration profile is shown below:
@@ -64,7 +64,7 @@ Fixed bit weight quantization supports fixed bit quantization between 1 and 16, 
 The general form of the mixed bit quantization conversion command is:
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
 ```
 
 The fixed bit quantization configuration profile is shown below:
@@ -123,7 +123,7 @@ User configuration of full quantization requires at least `[common_quant_param]`
 The general form of the full quantization conversion command is:
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg
 ```
 
 #### CPU
@@ -230,7 +230,7 @@ Ascend quantization needs to configure Ascend-related configuration at [offline 
 - The general form of the conversion command for Ascend-related environment variables in the Ascend fully quantized static shape scenario is:
 
     ```bash
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
     ```
 
 - In static shape scenario, Ascend fully quantized parameter just adds a new configuration `target_device=ASCEND` to `[full_quant_param]`.
@@ -250,7 +250,7 @@ Ascend quantization needs to configure Ascend-related configuration at [offline 
 - The general form of the conversion command in the Ascend fully quantized static shape scenario is:
 
     ```bash
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
     ```
 
 - Ascend fully quantized parameter dynamic shape scenarios also needs to add new `[ascend_context]` related configurations.
@@ -280,7 +280,7 @@ The weights for dynamic quantization are quantified in the offline conversion ph
 The general form of the dynamic quantization conversion command is:
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/dynamic_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/dynamic_quant.cfg
 ```
 
 The dynamic quantization profile is shown below:

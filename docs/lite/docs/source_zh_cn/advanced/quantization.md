@@ -29,7 +29,7 @@ MindSpore Lite训练后量化当前支持三种具体算法，规格如下：
 混合比特量化转换命令的一般形式为：
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
 ```
 
 混合比特量化配置文件如下所示：
@@ -64,7 +64,7 @@ init_scale=0.02
 固定比特量化转换命令的一般形式为：
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
 ```
 
 固定比特量化配置文件如下所示：
@@ -123,7 +123,7 @@ provider=ge
 全量化转换命令的一般形式为：
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg
 ```
 
 #### CPU
@@ -230,7 +230,7 @@ Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/
 - Ascend相关环境变量在Ascend全量化静态Shape场景下转换命令的一般形式为：
 
     ```bash
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented
     ```
 
 - 静态shape场景下，Ascend全量化参数只需在`[full_quant_param]`新增配置`target_device=ASCEND`。
@@ -250,7 +250,7 @@ Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/
 - Ascend全量化动态Shape场景转换命令的一般形式为：
 
     ```bash
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
     ```
 
 - Ascend全量化参数动态shape场景，还需新增`[ascend_context]`相关配置。
@@ -280,7 +280,7 @@ Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/
 动态量化转换命令的一般形式为：
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/dynamic_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/dynamic_quant.cfg
 ```
 
 动态量化配置文件如下所示：

@@ -4,7 +4,7 @@
 
 ## Overview
 
-This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using [MindSpore Lite Java API](https://www.mindspore.cn/lite/api/en/master/index.html) by random inputting data, executing inference, and printing the inference result. You can quickly understand how to use the Java APIs related to inference on MindSpore Lite. In this tutorial, the randomly generated data is used as the input data to perform the inference on the MobileNetV2 model and print the output data. The code is stored in the [mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_java) directory.
+This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using [MindSpore Lite Java API](https://www.mindspore.cn/lite/api/en/master/index.html) by random inputting data, executing inference, and printing the inference result. You can quickly understand how to use the Java APIs related to inference on MindSpore Lite. In this tutorial, the randomly generated data is used as the input data to perform the inference on the MobileNetV2 model and print the output data. The code is stored in the [mindspore-lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/quick_start_java) directory.
 
 The MindSpore Lite inference steps are as follows:
 
@@ -31,21 +31,21 @@ The MindSpore Lite inference steps are as follows:
 
 - Build
 
-  Run the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_java/build.sh) in the `mindspore/lite/examples/quick_start_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
+  Run the [build script](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/quick_start_java/build.sh) in the `mindspore-lite/examples/quick_start_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
 
   ```bash
   bash build.sh
   ```
 
-  > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64. Decompress the package and copy `runtime/lib/mindspore-lite-java.jar` file to the `mindspore/lite/examples/quick_start_java/lib` directory.
+  > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64. Decompress the package and copy `runtime/lib/mindspore-lite-java.jar` file to the `mindspore-lite/examples/quick_start_java/lib` directory.
   >
-  > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_java/model/` directory.
+  > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore-lite/examples/quick_start_java/model/` directory.
   >
   > After manually downloading and placing the file in the specified location, you need to execute the build.sh script again to complete the compilation.
 
 - Inference
 
-  After the build, go to the `mindspore/lite/examples/quick_start_java/target` directory and run the following command to experience MindSpore Lite inference on the MobileNetV2 model:
+  After the build, go to the `mindspore-lite/examples/quick_start_java/target` directory and run the following command to experience MindSpore Lite inference on the MobileNetV2 model:
 
   ```bash
   java -classpath .:./quick_start_java.jar:../lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.ms
