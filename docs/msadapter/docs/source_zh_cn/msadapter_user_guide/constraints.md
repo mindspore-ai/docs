@@ -68,12 +68,12 @@ MSAdapter只需要调用grad_fn就能够一次性调用正向计算加反向计�
 - Dispatch机制：当用户执行任何张量操作（例如加法、乘法等）时，实际上都是通过PyTorch的dispatch机制进行的。该机制决定了哪个具体实现（CPU、CUDA等）应该被执行。
 - torch.Tensor的子类化：通过创建一个继承自torch.Tensor的新类，并使用@torch_dispatch装饰器，用户可以自定义这些操作的行为。
 
-当前MindSpore Storage机制在规划设计中，未来会支持。当前MSAdatper暂时不支持以下相关接口：
+当前MindSpore Storage机制在规划设计中，未来会支持。当前MSAdapter暂时不支持以下相关接口：
 
 1. torch.Tensor.to()
 2. torch自定义算子涉及dispatch部分
 
-**以上接口需要用户手动修改，即无需进行.to()操作， MSAdatper默认将模型与Tensor放置于Ascend NPU。可参考[快速入门](quick_start.md#torchtensorto)。**
+**以上接口需要用户手动修改，即无需进行.to()操作， MSAdapter默认将模型与Tensor放置于Ascend NPU。可参考[快速入门](quick_start.md#torchtensorto)。**
 
 ## Storage机制
 

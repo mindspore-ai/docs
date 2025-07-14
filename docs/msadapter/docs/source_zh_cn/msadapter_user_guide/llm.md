@@ -8,6 +8,6 @@
 
 此外，在MindSpeed加速库的基础上也提供了大语言模型、多模态模型套件加速库，用户可以安装MSAdapter及配套昇腾软件直接使用：
 
-1. 大语言模型库：[MindSpeed-LLM](https://gitee.com/ascend/MindSpeed-LLM/blob/master/docs/mindspore/quick_start.md)
+1. 大语言模型库：[MindSpeed-LLM](https://gitee.com/ascend/MindSpeed-LLM/blob/master/docs/mindspore)
 
 2. 多模态模型库：[MindSpeed-MM](https://gitee.com/ascend/MindSpeed-MM/blob/master/docs/mindspore/getting_start.md)
