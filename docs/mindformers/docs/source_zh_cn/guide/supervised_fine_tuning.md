@@ -64,7 +64,7 @@ MindSpore Transformers提供在线加载Hugging Face数据集的能力，详细�
 
 #### 单卡训练
 
-首先准备配置文件，本实践流程以Qwen2.5-7B模型为例，提供了一个微调配置文件`finetune_qwen2_5_7b_8k_1p.yaml`，可以在[gitee仓库](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k_1p.yaml)下载。
+首先准备配置文件，本实践流程以Qwen2.5-7B模型为例，提供了一个微调配置文件`finetune_qwen2_5_7b_8k_1p.yaml`，可以在[gitee仓库](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k_1p.yaml)下载。
 
 > 由于单卡显存有限，配置文件中的`num_layers`被设置为了4，仅作为示例使用。
 
@@ -106,7 +106,7 @@ run_mode：          运行模式，train：训练，finetune：微调，predict
 
 #### 单机训练
 
-首先准备配置文件，本实践流程以Qwen2.5-7B模型为例，提供了一个微调配置文件`finetune_qwen2_5_7b_8k.yaml`，可以在[gitee仓库](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k.yaml)下载。
+首先准备配置文件，本实践流程以Qwen2.5-7B模型为例，提供了一个微调配置文件`finetune_qwen2_5_7b_8k.yaml`，可以在[gitee仓库](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k.yaml)下载。
 
 然后根据实际情况修改配置文件中的参数，主要包括：
 
