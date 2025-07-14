@@ -148,6 +148,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         if data[i]['environ'] == "MS_PATH":
             repo_url = "https://gitee.com/mindspore/mindspore.git"
             repo_path = f"{REPODIR}/mindspore"
+        elif data[i]['environ'] == "MSL_PATH":
+            repo_url = "https://gitee.com/mindspore/mindspore-lite.git"
+            repo_path = f"{REPODIR}/mindspore-lite"
         elif data[i]['environ'] == "MSC_PATH":
             repo_url = "https://gitee.com/mindspore/mindscience.git"
             repo_path = f"{REPODIR}/mindscience"
@@ -485,12 +488,10 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 else:
                     if i == "mindspore":
                         TARGET = f"{OUTPUTDIR}/docs/en/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_en/html", TARGET)
                     else:
                         TARGET = f"{OUTPUTDIR}/{i}/en/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_en/html", TARGET)
+                    os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                    shutil.copytree("build_en/html", TARGET)
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 英文版本运行失败")
@@ -523,12 +524,10 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 else:
                     if i == "mindspore":
                         TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_zh_cn/html", TARGET)
                     else:
                         TARGET = f"{OUTPUTDIR}/{i}/zh-CN/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_zh_cn/html", TARGET)
+                    os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                    shutil.copytree("build_zh_cn/html", TARGET)
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 中文版本运行失败")

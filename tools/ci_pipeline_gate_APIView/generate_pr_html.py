@@ -340,6 +340,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
 
     # 接口模块分类
     module_path_name = [
+        ['mindspore/python/mindspore/profiler', 'mindspore.profiler'],
         ['mindspore/python/mindspore/parallel/nn', 'mindspore.parallel.nn'],
         ['mindspore/python/mindspore/parallel/auto_parallel', 'mindspore.parallel.auto_parallel'],
         ['mindspore/python/mindspore/parallel', 'mindspore.parallel'],
