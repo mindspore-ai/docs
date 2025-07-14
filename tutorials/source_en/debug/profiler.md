@@ -79,7 +79,7 @@ Sample as follows:
 
 ```python
 import mindspore
-from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
+from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics, HostSystem
 
 # Define model training times
 steps = 15
@@ -93,7 +93,8 @@ experimental_config = mindspore.profiler._ExperimentalConfig(
                         aic_metrics=AicoreMetrics.AiCoreNone,
                         l2_cache=False,
                         mstx=False,
-                        data_simplification=False)
+                        data_simplification=False,
+                        host_sys=[HostSystem.CPU, HostSystem.MEM])
 
 # Initialize profile
 with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],

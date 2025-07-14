@@ -20,7 +20,7 @@ import numpy as np
 import mindspore
 import mindspore.dataset as ds
 from mindspore import nn
-from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
+from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics, HostSystem
 
 
 class Net(nn.Cell):
@@ -57,6 +57,7 @@ if __name__ == "__main__":
         l2_cache=False,
         mstx=False,
         data_simplification=False,
+        host_sys=[HostSystem.CPU, HostSystem.MEM],
     )
     steps = 10
     net = Net()
