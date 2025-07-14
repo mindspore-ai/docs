@@ -92,6 +92,13 @@ gettext_compact = False
 #
 html_theme = 'sphinx_rtd_theme'
 
+import sphinx_rtd_theme
+layout_target = os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'layout.html')
+layout_src = '../../../../resource/_static/layout.html'
+if os.path.exists(layout_target):
+    os.remove(layout_target)
+shutil.copy(layout_src, layout_target)
+
 html_search_language = 'zh'
 
 html_search_options = {'dict': '../../../../resource/jieba.txt'}
