@@ -84,7 +84,7 @@ nodes at compile time. Constants and variables are distinguished by their true v
     print(ret)
     ```
 
-    In the above code, enter `a`, `b`, `c` are constants.
+    In the above code, the inputs `a`, `b`, `c` are constants.
 
 - The result of the constant operation is constant. For example:
 
@@ -105,7 +105,7 @@ nodes at compile time. Constants and variables are distinguished by their true v
     print(ret)
     ```
 
-    In the above code, enter `a`, `b`, `c` are constants.
+    In the above code, the inputs `a`, `b`, `c` are constants.
 
 - Constant operations obtain a constant result. For example:
 

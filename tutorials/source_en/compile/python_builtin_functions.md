@@ -60,7 +60,7 @@ Function: Return the floating-point number based on the input number or string.
 
 Calling: `float(x=0)`.
 
-Input parameter: `x` - the object need to be converted to floating number, the valid type of x includes `int`, `float`, `bool`, `str`, `Tensor` and third-party object (such as `numpy.ndarray`).
+Input parameter: `x` - the object need to be converted to floating number, the valid types of x include `int`, `float`, `bool`, `str`, `Tensor` and third-party object (such as `numpy.ndarray`).
 
 Return value: the converted floating-point number.
 
