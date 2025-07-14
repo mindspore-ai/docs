@@ -14,7 +14,7 @@
     git clone https://github.com/NVIDIA/Megatron-LM.git -b core_r0.12.0
     ```
 
-2. 拷贝[转换脚本](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py)到 Megatron-LM/tools/checkpoint/ 目录下。
+2. 拷贝[转换脚本](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py)到 Megatron-LM/tools/checkpoint/ 目录下。
 
 ## 模型权重准备
 
