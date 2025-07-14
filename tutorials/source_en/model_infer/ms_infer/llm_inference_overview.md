@@ -146,7 +146,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-In this code, tokenizer.model is a tokenizer file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while config is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model. You can obtain the sample from [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/configs/llama2/predict_llama2_7b.yaml) (Note: Change the CKPT weight path to the actual weight path). For details, see [Llama 2](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/llama2.md#-18).
+In this code, tokenizer.model is a tokenizer file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while config is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model.
 
 In addition, if you have special requirements for the model or have a deep understanding of deep learning, you can build your own model. For details, see [Model Development](./model_dev.md).
 

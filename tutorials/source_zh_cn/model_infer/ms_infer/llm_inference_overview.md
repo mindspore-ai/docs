@@ -146,7 +146,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-其中，tokenizer.model是从Hugging Face官网下载的权重文件中附带的tokenizer文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数，样例可以在[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/configs/llama2/predict_llama2_7b.yaml)获取（注意：需要将ckpt权重路径改为实际的权重路径）。更详细的教程可以在[Llama 2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#-18)获取。
+其中，tokenizer.model是从Hugging Face官网下载的权重文件中附带的tokenizer文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数。
 
 此外，如果用户对于模型有自己的特殊需求，或者对深度学习有较深认识，也可以选择自己构建模型，详细教程见[从零构建大语言模型推理网络](./model_dev.md)。
 
