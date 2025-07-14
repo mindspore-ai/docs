@@ -53,7 +53,7 @@ monitor_config:
 
 ### 使用示例
 
-假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Llama3.1-8B文档](https://gitee.com/lanshaozuishuai/mindformers/blob/dev/research/llama3_1/README.md)。开启训练：
+假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Llama3.1-8B文档](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -155,7 +155,7 @@ parallel_config:
 
 ### 使用示例
 
-假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Llama3.1-8B文档](https://gitee.com/lanshaozuishuai/mindformers/blob/dev/research/llama3_1/README.md)。开启训练：
+假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Llama3.1-8B文档](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

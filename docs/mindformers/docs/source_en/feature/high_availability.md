@@ -27,6 +27,15 @@ The replica relationship between cards is used to make sure when one of the card
 
 When End-of-life CKPT, UCE and ARF functions are turned on in combination, the order in which they take effect is: UCE -> ARF -> End-of-Life CKPT, and if one of the functions can be recovered, the next function will not be executed. The end-of-life CKPT function serves as a final safeguard, and the entire training process exits upon completion of this function, so it will be turned on by default when the UCE or ARF functions are turned on.
 
+The rapid recovery of faults is a combination of ARF and TRE functions, with the order of effectiveness being TRE -> ARF. TRE is responsible for monitoring outliers in the global norm and throwing them, while ARF is responsible for capturing TRE anomalies and restarting the corrective cluster for training without interrupting the entire process.
+
+Quick recovery and use instructions for malfunctions:
+
+> - The process-level rapid recovery feature can effectively reduce the time required to restart training after encountering abnormal global norms during the training process.
+> - Please train normally for a period of time before use to determine the threshold of the global norm that needs to be set.
+> - Once a global norm exceeding the set threshold is encountered, an exception will be thrown immediately, entering the fast recovery phase.
+> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the data skipping function in [Data Skip](https://www.mindspore.cn/mindformers/docs/en/dev/feature/skip_data_and_ckpt_health_monitor.html#skipping-data) function.
+
 ## Instructions for Use
 
 The high availability feature switch is enabled by an environment variable, and the switch is not set separately in the YAML configuration file. For high availability functions which depend on replica relationship between between cards, the YAML file needs to be able to configure the weights and optimizer states to be the same for both cards, as detailed in the [Replica Relationships Configuration](#replica-relationships-configuration) section of this document.
@@ -132,7 +141,9 @@ The key to the end-of-life CheckPoint, UCE and ARF functions of high availabilit
       pipeline_stage: 1
     ```
 
-#### End-of-life CheckPoint Examples
+## Example Usage
+
+### End-of-life CheckPoint
 
 This section demonstrates the use of the end-of-life CKPT using Llama2-13B training as an example.
 
@@ -246,3 +257,82 @@ This section demonstrates the use of the end-of-life CKPT using Llama2-13B train
     - The rank 3 and rank 7 weights have a replica relationship, and the end-of-life checkpoint is stored in rank 3.
     - The rank 2 and rank 6 weights have a replica relationship, and the end-of-life checkpoint is stored in rank 2.
     - There is a replica relationship between rank 1 and rank 5 weights, and since worker 1 terminates, the final checkpoint is stored in rank 5.
+
+### Abnormal Training Results Recovery
+
+This chapter uses Llama3.1-8B training as an example to demonstrate the use of rapid fault recovery.
+
+> The parameter values shown in the following examples are only experimental data, please refer to real training data.
+
+1. Install [MindSpore](https://www.mindspore.cn/install/en) first.
+2. Download MindSpore Transformers, using [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add and modify parameters according to the configuration below:
+
+   ```yaml
+    output_dir: './output'
+
+    monitor_config:
+      monitor_on: True
+      check_for_global_norm: True
+      global_norm_spike_threshold: 44.0
+
+    callbacks:
+      - type: CheckpointMonitor
+        save_checkpoint_steps: 1
+    ```
+
+    **Parameter：**
+
+    | Parameters                  | Description                                                                                                                                           | Type  | Optional        |
+    |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------|-----------------|
+    | output_dir                  | Path to save checkpoint/strategy. Default to `./output`.                                                                                              | str   | Optional        |
+    | monitor_config              | Whether to enable training indicator monitoring configuration. Default to `None`.                                                                     | dict  | Optional        |
+    | monitor_on                  | Whether to enable training metric monitoring configuration. Only when enabled can abnormal global norm be monitored and TRE functionality be enabled. | bool  | Required `True` |
+    | check_for_global_norm       | Whether to enable the process-level fault rapid recovery function is mutually exclusive with the data skip function. Default to `False`.              | bool  | Optional        |
+    | global_norm_spike_threshold | The threshold for global norm, which triggers data skipping when global norm is exceeded. Default to `3.0`.                                           | float | Optional        |
+    | callbacks                   | The configs of callbacks.                                                                                                                             | list  | Required        |
+    | save_checkpoint_steps       | The step interval for saving weights.                                                                                                                 | int   | Required        |
+
+3. Configure environment variables:
+
+   ```shell
+   export MS_ENABLE_TFT="TRE:1"
+   ```
+
+4. Run the following command to start training:
+
+    ```shell
+    cd mindformers
+
+    bash scripts/msrun_launcher.sh "run_mindformer.py \
+        --register_path research/llama3_1 \
+        --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
+        --train_data /{path}/wiki4096.mindrecord \
+        --run_mode train \
+        --use_parallel True" 8
+    ```
+
+5. When the model officially starts training and encounters a global norm greater than the set threshold, the following log will be printed to prompt the user that an abnormal global norm has been encountered, and the corresponding global step and global norm will be recorded in abnormal_global_norm.json, triggering an error and entering the fast recovery phase.
+
+    ```log
+    - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 2775ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.702465], train_throughput_per_npu: 171.176T
+    - INFO -    0.0% |                                                  | 0.36029 samples/s/p  10:01:16 }
+    - INFO - Current global norm [45.702465] is greater equal than threshold 44.0, stop training...
+    ```
+
+6. After retraining, the training will continue from the previous breakpoint step count. If the global norm is still greater than the set threshold, since the corresponding global step has already been recorded in the abnormal_global_norm.json under the output dir set by YAML, only the corresponding global norm will be recorded here and it will not raise error.
+
+    ```log
+    - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 3504ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.706497], train_throughput_per_npu: 135.552T
+    - INFO -    0.0% |                                                  | 0.28531 samples/s/p  12:39:17 }
+    - INFO - The global norm [45.706497] of step 2 is still greater or equal than threshold 44.0, continue training.
+    ```
+
+    The data recorded in abnormal_global_norm.json is as follows:
+
+    ```json
+    {
+      "2": [45.70246505737305, 45.70649719238281]
+    }
+    ```
+
+    '2' represents the global step corresponding to the number of training steps, and the following list records the global norm of training before and after recovery.
