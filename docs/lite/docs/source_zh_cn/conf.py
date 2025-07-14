@@ -100,7 +100,7 @@ sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
 try:
-    src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE_CN.md')
+    src_release = os.path.join(os.getenv("MSL_PATH"), 'RELEASE_CN.md')
     des_release = "./RELEASE.md"
     with open(src_release, "r", encoding="utf-8") as f:
         data = f.read()

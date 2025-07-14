@@ -46,6 +46,7 @@ MSAdapter使用核心与目标
    :glob:
    :maxdepth: 1
    :caption: 使用指南
+   :titlesonly:
    :hidden:
 
    msadapter_user_guide/install

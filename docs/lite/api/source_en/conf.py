@@ -286,7 +286,7 @@ import tarfile
 from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
-src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/lite_api_python_en')
+src_dir = os.path.join(os.getenv("MSL_PATH"), 'docs/api/lite_api_python_en')
 
 for i in os.listdir(src_dir):
     if os.path.isfile(os.path.join(src_dir,i)):
@@ -334,15 +334,15 @@ elif os.path.exists('../../../../tools/generate_html/daily.json'):
     with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
 
-if os.getenv("MS_PATH").split('/')[-1]:
-    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+if os.getenv("MSL_PATH").split('/')[-1]:
+    copy_repo = os.getenv("MSL_PATH").split('/')[-1]
 else:
-    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+    copy_repo = os.getenv("MSL_PATH").split('/')[-2]
 
-branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'lite'][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 cst_module_name = 'mindspore_lite'
-repo_whl = 'mindspore/lite/python/api'
+repo_whl = 'mindspore-lite/python/api'
 giturl = 'https://gitee.com/mindspore/'
 
 import mindspore_lite
