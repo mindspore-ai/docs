@@ -25,7 +25,7 @@ def git_clone(repo_url, repo_dir):
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch="master")
+        Repo.clone_from(repo_url, repo_dir, branch="master", depth=1)
         print("Cloning Repo Done.")
 
 # 更新仓库
