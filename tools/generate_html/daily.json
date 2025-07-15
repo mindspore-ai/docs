@@ -23,24 +23,6 @@
 },
 {
     "id" : 3 ,
-    "name" : "mindscience",
-    "branch" : "master",
-    "whl_path" : "",
-    "whl_name" : "",
-    "environ" : "MSC_PATH",
-    "uninstall_name" : ""
-},
-{
-    "id" : 4 ,
-    "name" : "mindquantum",
-    "branch" : "master",
-    "whl_path" : "/mindquantum/newest/gpu/x86_64/cuda-11.1/",
-    "whl_name" : "mindquantum-.*-cp39-cp39-linux_x86_64.whl$",
-    "environ" : "MQ_PATH",
-    "uninstall_name" : "mindquantum"
-},
-{
-    "id" : 5 ,
     "name" : "tutorials",
     "branch" : "master",
     "whl_path" : "",
@@ -49,7 +31,16 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 6 ,
+    "id" : 4 ,
+    "name" : "mindscience",
+    "branch" : "master",
+    "whl_path" : "",
+    "whl_name" : "",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : ""
+},
+{
+    "id" : 5 ,
     "name" : "golden_stick",
     "branch" : "master",
     "whl_path" : "/golden-stick/newest/any/",
@@ -58,7 +49,7 @@
     "uninstall_name" : "mindspore_gs"
 },
 {
-    "id" : 7 ,
+    "id" : 6 ,
     "name" : "mindchemistry",
     "branch" : "master",
     "whl_path" : "/mindscience/website/mindchemistry/gpu/x86_64/cuda-11.1/",
@@ -67,7 +58,7 @@
     "uninstall_name" : "mindchemistry_gpu"
 },
 {
-    "id" : 8 ,
+    "id" : 7 ,
     "name" : "mindformers",
     "branch" : "dev",
     "whl_search" : "any/",
@@ -79,34 +70,7 @@
     "extra_whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$"
 },
 {
-    "id" : 9 ,
-    "name" : "mindflow",
-    "branch" : "master",
-    "whl_path" : "mindscience/website/mindflow/gpu/x86_64/cuda-11.1/",
-    "whl_name" : "mindflow_gpu-.*-py3-none-any.whl$",
-    "environ" : "MSC_PATH",
-    "uninstall_name" : "mindflow_gpu"
-},
-{
-    "id" : 10 ,
-    "name" : "mindearth",
-    "branch" : "master",
-    "whl_path" : "mindscience/website/mindearth/gpu/x86_64/cuda-11.1/",
-    "whl_name" : "mindearth_gpu-.*-py3-none-any.whl$",
-    "environ" : "MSC_PATH",
-    "uninstall_name" : "mindearth_gpu"
-},
-{
-    "id" : 11 ,
-    "name" : "mindarmour",
-    "branch" : "master",
-    "whl_path" : "/mindarmour/website/any",
-    "whl_name" : "mindarmour-.*-py3-none-any.whl$",
-    "environ" : "MA_PATH",
-    "uninstall_name" : "mindarmour"
-},
-{
-    "id" : 12 ,
+    "id" : 8 ,
     "name" : "vllm_mindspore",
     "branch" : "master",
     "whl_path" : "",
@@ -115,7 +79,7 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 13 ,
+    "id" : 9 ,
     "name" : "mindstudio",
     "branch" : "master",
     "whl_path" : "",
@@ -124,7 +88,7 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 13 ,
+    "id" : 10 ,
     "name" : "msadapter",
     "branch" : "master",
     "whl_path" : "",
