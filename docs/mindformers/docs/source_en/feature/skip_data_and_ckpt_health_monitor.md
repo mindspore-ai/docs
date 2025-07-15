@@ -53,7 +53,7 @@ monitor_config:
 
 ### Conversion Example
 
-Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters according to the above [Configuration](#usage), please refer to the [Llama3.1-8B Document](https://gitee.com/lanshaozuishuai/mindformers/blob/dev/research/llama3_1/README.md) for the remaining steps. Start training:
+Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters according to the above [Configuration](#usage), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -155,7 +155,7 @@ parallel_config:
 
 ### Conversion Example
 
-Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1), please refer to the [Llama3.1-8B Document](https://gitee.com/lanshaozuishuai/mindformers/blob/dev/research/llama3_1/README.md) for the remaining steps. Start training:
+Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

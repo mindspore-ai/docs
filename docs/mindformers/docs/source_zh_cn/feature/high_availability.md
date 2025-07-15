@@ -27,6 +27,15 @@ MindSpore Transformers 高可用特性提供了如下六个功能：
 
 临终 CKPT、UCE 和 ARF 组合开启这三个功能时，依次生效的顺序是：UCE -> ARF -> 临终 CKPT ，如果其中一个功能可以恢复，就不会执行下一个功能。临终 CKPT 功能作为最后的保障，完成该功能后整个训练进程会退出，所以在 UCE 或 ARF 功能开启时，会默认开启临终 CKPT。
 
+故障快速恢复由ARF和TRE两个功能组合，生效顺序为：TRE -> ARF 。TRE负责监测global norm的异常值并抛出异常，ARF负责捕获TRE异常后重新拉起整个集群修复训练，整个过程不中断训练。
+
+故障快速恢复使用须知：
+
+> - 进程级快速恢复功能，能有效减少训练过程中遇到异常 global norm 而导致中断训练直至重新拉起的时间。
+> - 使用前请先正常训练一段时间，从而确定需要设定的 global norm 的阈值。
+> - 一旦遇到超过设定阈值的global norm，便会立即抛出异常，进入快速恢复阶段。
+> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[数据跳过](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/skip_data_and_ckpt_health_monitor.html#数据跳过)功能。
+
 ## 使用说明
 
 高可用特性开关由环境变量使能，YAML 配置文件中不单独设置开关。但对于要求卡间存在副本关系的高可用特性，YAML 文件需要能配置出两张卡的权重和优化器状态一致，详见本文档中的[副本关系配置](#副本关系配置)章节。
@@ -53,6 +62,7 @@ export MS_TFT_PORT=30051
     - 开启 UCE 或者 ARF 功能时，默认开启 TTP 功能
     - 同时开启 TRE 和异步 CKPT 特性，无法保证续训前后的 loss 完全一致
     - TRE 功能不依赖 MindIO 组件，若只使能TRE特性，无需配置 MindIO 相关的环境变量 MINDIO_FOR_MINDSPORE、MS_TFT_IP 和 MS_TFT_PORT
+
 - `MS_TFT_IP` 和 `MS_TFT_PORT` 分别表示 TFT Controller 的 IP 和端口号，无默认值，需要用户指定。如果由 MindSpore Transformers 启动 Controller，则配置用户集群中 rank0 节点的 IP 和端口号。如果用户自行启动 Controller，则配置 Controller 的 IP 和端口号。
 
 ### YAML 配置
@@ -131,7 +141,9 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
       pipeline_stage: 1
     ```
 
-#### 临终 CKPT 使用示例
+## 使用示例
+
+### 临终 CKPT
 
 本章节以 Llama2-13B 训练为例演示临终 CKPT 的使用。
 
@@ -201,8 +213,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
     注意：需要将 `/YourDataSetPath` 换成实际数据集的路径。
 4. 待训练执行若干个 step 之后，终止 worker 进程，触发临终 CKPT 保存
 
-    注意：通过上述启动方式， MindIO Controller 附着在 worker 0 进程上，此种情况下不能终止 worker 0，否则导致 MindIO Controller 退出，
-    无法触发临终 CKPT。但是通过 taskd 方式启动训练时，MindIO Controller 是个单独的进程，可以终止 worker 0 进程。
+    注意：通过上述启动方式， MindIO Controller 附着在 worker 0 进程上，此种情况下不能终止 worker 0，否则导致 MindIO Controller 退出，无法触发临终 CKPT。但是通过 taskd 方式启动训练时，MindIO Controller 是个单独的进程，可以终止 worker 0 进程。
 5. 确认临终的 CheckPoint 生成
 
     在整个训练进程结束后，通过日志确认最终生成的 CheckPoint 文件的合理性，具体操作如下：
@@ -246,3 +257,82 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
     - rank 3 和 rank 7 权重存在副本关系，临终的 Checkpoint 保存在 rank 3
     - rank 2 和 rank 6 权重存在副本关系，临终的 Checkpoint 保存在 rank 2
     - rank 1 和 rank 5 权重存在副本关系，由于 worker 1 终止，临终的 Checkpoint 保存在 rank 5
+
+### 故障快速恢复
+
+本章节以 Llama3.1-8B 训练为例演示故障快速恢复的使用。
+
+> 以下示例所展示的参数数值仅作为实验数据，请以真实训练数据为准。
+
+1. 先安装 [MindSpore](https://www.mindspore.cn/install)。
+2. 下载 MindSpore Transformers，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照如下配置添加和修改参数：
+
+   ```yaml
+    output_dir: './output'
+
+    monitor_config:
+      monitor_on: True
+      check_for_global_norm: True
+      global_norm_spike_threshold: 44.0
+
+    callbacks:
+      - type: CheckpointMonitor
+        save_checkpoint_steps: 1
+    ```
+
+    **参数说明：**
+
+    | 参数名称                      | 描述                                              | 类型    | 是否可选     |
+    |-----------------------------|-------------------------------------------------|-------|----------|
+    | output_dir                  | 保存权重和切分策略的文件路径。默认值为`./output`。                  | str   | 可选       |
+    | monitor_config              | 训练指标监控配置。默认值为`None`。                            | dict  | 可选       |
+    | monitor_on                  | 是否开启训练指标监控配置。只有开启时才能监测异常的global norm和使能TRE功能。   | bool  | 必选`True` |
+    | check_for_global_norm       | 是否开启进程级故障快速恢复功能，和数据跳过功能互斥。默认值为`False`。          | bool  | 可选       |
+    | global_norm_spike_threshold | global norm的阈值，当global norm超过时触发数据跳过。默认值为`3.0`。 | float | 可选       |
+    | callbacks                   | callbacks配置。                                    | list  | 必选       |
+    | save_checkpoint_steps       | 保存权重的步数间隔。                                      | int   | 必选       |
+
+3. 配置环境变量：
+
+   ```shell
+   export MS_ENABLE_TFT="TRE:1"
+   ```
+
+4. 运行以下命令，开启训练：
+
+    ```shell
+    cd mindformers
+
+    bash scripts/msrun_launcher.sh "run_mindformer.py \
+        --register_path research/llama3_1 \
+        --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
+        --train_data /{path}/wiki4096.mindrecord \
+        --run_mode train \
+        --use_parallel True" 8
+    ```
+
+5. 模型正式开始训练时，遇到global norm大于设定阈值，则会打印如下日志，提示用户当前遇到异常global norm，并记录对应的global step和global norm到abnormal_global_norm.json中，触发报错，进入快速恢复阶段。
+
+    ```log
+    - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 2775ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.702465], train_throughput_per_npu: 171.176T
+    - INFO -    0.0% |                                                  | 0.36029 samples/s/p  10:01:16 }
+    - INFO - Current global norm [45.702465] is greater equal than threshold 44.0, stop training...
+    ```
+
+6. 重新拉起训练后，从之前断点的步数开始续训。如果在训练至相同的global step时，global norm仍然大于设定的阈值，由于此前已经将对应的global step记录到YAML设置的output_dir下的abnormal_global_norm.json中，故此处只会记录相应的global norm，并不会抛出异常。
+
+    ```log
+    - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 3504ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.706497], train_throughput_per_npu: 135.552T
+    - INFO -    0.0% |                                                  | 0.28531 samples/s/p  12:39:17 }
+    - INFO - The global norm [45.706497] of step 2 is still greater or equal than threshold 44.0, continue training.
+    ```
+
+    abnormal_global_norm.json记录数据如下：
+
+    ```json
+    {
+      "2": [45.70246505737305, 45.70649719238281]
+    }
+    ```
+
+    "2"表示对应训练步数的global step，后面列表记录的则是恢复前后训练的global norm。

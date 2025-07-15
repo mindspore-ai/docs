@@ -29,6 +29,9 @@ monitor_config:
     weight_state_format: null
     throughput_baseline: null
     print_struct: False
+    check_for_global_norm: False
+    global_norm_spike_threshold: 1.0
+    global_norm_spike_count_threshold: 10
 
 tensorboard:
     tensorboard_dir: 'worker/tensorboard'
@@ -41,21 +44,24 @@ callbacks:
       per_print_times: 1
 ```
 
-| monitor_config field parameter name                    | Descriptions                                                                                       | Types            |
-|-----------------------------------------|------------------------------------------------------------------------------------------|---------------|
-| monitor_config.monitor_on               | Sets whether monitoring is enabled. The default is `False`, when all the following parameters do not take effect                                                          | bool          |
-| monitor_config.dump_path                | Sets the path where the `local_norm`, `device_local_norm`, `local_loss`, and `device_local_loss` metrics files are saved during training. When not set or set to `null` take the default value '. /dump' | str           |
-| monitor_config.target                   | Sets the name (fragment) of the target parameter monitored by the indicator `optimizer_state` and `local_norm`, which can be a regular expression. When not set or set to `null` take the default value ['. *'], i.e. specify all parameters        | list[str]     |
-| monitor_config.invert                   | Sets the parameter specified by counterselecting `monitor_config.target`. Defaults to `False`.                                             | bool          |
-| monitor_config.step_interval            | Sets the frequency of logging the indicator. Default is 1, i.e., record once per step                                                               | int           |
-| monitor_config.local_loss_format        | Sets the logging form of the indicator `local_loss`                                                                    | str or list[str] |
-| monitor_config.device_local_loss_format | Sets the logging form of the indicator `device_local_loss`                            | str or list[str] |
-| monitor_config.local_norm_format        | Sets the logging form of the indicator `local_norm`                                         | str or list[str] |
-| monitor_config.device_local_norm_format | Sets the logging form of the indicator `device_local_norm`                            | str or list[str] |
-| monitor_config.optimizer_state_format   | Sets the logging form of the indicator `optimizer_state`                                           | str or list[str] |
-| monitor_config.weight_state_format      | Sets the logging form of the indicator `weight L2-norm`                                        | str or list[str] |
-| monitor_config.throughput_baseline      | Sets the baseline value for the metric `throughput linearity`, which needs to be positive. It will be written to both Tensorboard and logs. Defaults to `null` when not set, indicating that the metric is not monitored                     | int or float     |
-| monitor_config.print_struct             | Sets whether to print all trainable parameter names for the model. If `True`, it will print the names of all trainable parameters at the start of the first step and exit training at the end of the step. Default is `False`.            | bool          |
+| monitor_config field parameter name              | Descriptions                                                                                                                                                                                                                                 | Types            |
+|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| monitor_config.monitor_on                        | Sets whether monitoring is enabled. The default is `False`, when all the following parameters do not take effect                                                                                                                             | bool          |
+| monitor_config.dump_path                         | Sets the path where the `local_norm`, `device_local_norm`, `local_loss`, and `device_local_loss` metrics files are saved during training. When not set or set to `null` take the default value '. /dump'                                     | str           |
+| monitor_config.target                            | Sets the name (fragment) of the target parameter monitored by the indicator `optimizer_state` and `local_norm`, which can be a regular expression. When not set or set to `null` take the default value ['. *'], i.e. specify all parameters | list[str]     |
+| monitor_config.invert                            | Sets the parameter specified by counterselecting `monitor_config.target`. Defaults to `False`.                                                                                                                                               | bool          |
+| monitor_config.step_interval                     | Sets the frequency of logging the indicator. Default is 1, i.e., record once per step                                                                                                                                                        | int           |
+| monitor_config.local_loss_format                 | Sets the logging form of the indicator `local_loss`                                                                                                                                                                                          | str or list[str] |
+| monitor_config.device_local_loss_format          | Sets the logging form of the indicator `device_local_loss`                                                                                                                                                                                   | str or list[str] |
+| monitor_config.local_norm_format                 | Sets the logging form of the indicator `local_norm`                                                                                                                                                                                          | str or list[str] |
+| monitor_config.device_local_norm_format          | Sets the logging form of the indicator `device_local_norm`                                                                                                                                                                                   | str or list[str] |
+| monitor_config.optimizer_state_format            | Sets the logging form of the indicator `optimizer_state`                                                                                                                                                                                     | str or list[str] |
+| monitor_config.weight_state_format               | Sets the logging form of the indicator `weight L2-norm`                                                                                                                                                                                      | str or list[str] |
+| monitor_config.throughput_baseline               | Sets the baseline value for the metric `throughput linearity`, which needs to be positive. It will be written to both Tensorboard and logs. Defaults to `null` when not set, indicating that the metric is not monitored                     | int or float     |
+| monitor_config.print_struct                      | Sets whether to print all trainable parameter names for the model. If `True`, it will print the names of all trainable parameters at the start of the first step and exit training at the end of the step. Default is `False`.               | bool          |
+| monitor_config.check_for_global_norm             | Sets whether to enable anomaly monitoring for indicator `global norm`. Default is `False`                                                                                                                                                    | bool          |
+| monitor_config.global_norm_spike_threshold       | Sets a relative threshold for the indicator `global norm`, which is considered abnormal if it exceeds this value. Default is `3.0`                                                                                                           | float         |
+| monitor_config.global_norm_spike_count_threshold | Sets the cumulative number of consecutive abnormal indicators `global norm`, and when the number of occurrences reaches the threshold, trigger an abnormal interrupt and terminate the training. Default is `10`                             | int           |
 
 The optional values for the parameters of the form xxx_format above are the strings 'tensorboard' and 'log' (for writing to the Tensorboard and writing to the log, respectively), or a list of both, or `null`. All default to `null` when not set, indicating that the corresponding metrics are not monitored.
 

@@ -29,6 +29,9 @@ monitor_config:
     weight_state_format: null
     throughput_baseline: null
     print_struct: False
+    check_for_global_norm: False
+    global_norm_spike_threshold: 1.0
+    global_norm_spike_count_threshold: 10
 
 tensorboard:
     tensorboard_dir: 'worker/tensorboard'
@@ -41,21 +44,24 @@ callbacks:
       per_print_times: 1
 ```
 
-| monitor_config字段参数名称                    | 说明                                                                                       | 类型            |
-|-----------------------------------------|------------------------------------------------------------------------------------------|---------------|
-| monitor_config.monitor_on               | 设置是否开启监控。默认为`False`，此时以下所有参数不生效                                                          | bool          |
-| monitor_config.dump_path                | 设置训练过程中`local_norm`、`device_local_norm`、`local_loss`、`device_local_loss`指标文件的保存路径。未设置或设置为`null`时取默认值'./dump' | str           |
-| monitor_config.target                   | 设置指标`优化器状态`和`local_norm`所监控的的目标参数的名称（片段），可为正则表达式。未设置或设置为`null`时取默认值['.*']，即指定所有参数        | list[str]     |
-| monitor_config.invert                   | 设置反选`monitor_config.target`所指定的参数。默认为`False`                                             | bool          |
-| monitor_config.step_interval            | 设置记录指标的频率。默认为1，即每个step记录一次                                                               | int           |
-| monitor_config.local_loss_format        | 设置指标`local_loss`的记录形式                                                                    | str或list[str] |
-| monitor_config.device_local_loss_format | 设置指标`device_local_loss`的记录形式                                                             | str或list[str] |
-| monitor_config.local_norm_format        | 设置指标`local_norm`的记录形式                                                                    | str或list[str] |
-| monitor_config.device_local_norm_format | 设置指标`device_local_norm`的记录形式                                                             | str或list[str] |
-| monitor_config.optimizer_state_format   | 设置指标`优化器状态`的记录形式                                                                         | str或list[str] |
-| monitor_config.weight_state_format      | 设置指标`权重L2-norm`的记录形式                                                                     | str或list[str] |
-| monitor_config.throughput_baseline      | 设置指标`吞吐量线性度`的基线值，需要为正数。会同时写入到 Tensorboard 和日志。未设置时默认为`null`，表示不监控该指标                     | int或float     |
-| monitor_config.print_struct             | 设置是否打印模型的全部可训练参数名。若为`True`，则会在第一个step开始时打印所有可训练参数的名称，并在step结束后退出训练。默认为`False`            | bool          |
+| monitor_config字段参数名称                             | 说明                                                                                                        | 类型            |
+|--------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------|
+| monitor_config.monitor_on                        | 设置是否开启监控。默认为`False`，此时以下所有参数不生效                                                                           | bool          |
+| monitor_config.dump_path                         | 设置训练过程中`local_norm`、`device_local_norm`、`local_loss`、`device_local_loss`指标文件的保存路径。未设置或设置为`null`时取默认值'./dump' | str           |
+| monitor_config.target                            | 设置指标`优化器状态`和`local_norm`所监控的的目标参数的名称（片段），可为正则表达式。未设置或设置为`null`时取默认值['.*']，即指定所有参数                         | list[str]     |
+| monitor_config.invert                            | 设置反选`monitor_config.target`所指定的参数。默认为`False`                                                              | bool          |
+| monitor_config.step_interval                     | 设置记录指标的频率。默认为1，即每个step记录一次                                                                                | int           |
+| monitor_config.local_loss_format                 | 设置指标`local_loss`的记录形式                                                                                     | str或list[str] |
+| monitor_config.device_local_loss_format          | 设置指标`device_local_loss`的记录形式                                                                              | str或list[str] |
+| monitor_config.local_norm_format                 | 设置指标`local_norm`的记录形式                                                                                     | str或list[str] |
+| monitor_config.device_local_norm_format          | 设置指标`device_local_norm`的记录形式                                                                              | str或list[str] |
+| monitor_config.optimizer_state_format            | 设置指标`optimizer_state`的记录形式                                                                                           | str或list[str] |
+| monitor_config.weight_state_format               | 设置指标`权重L2-norm`的记录形式                                                                                      | str或list[str] |
+| monitor_config.throughput_baseline               | 设置指标`吞吐量线性度`的基线值，需要为正数。会同时写入到 Tensorboard 和日志。未设置时默认为`null`，表示不监控该指标                                      | int或float     |
+| monitor_config.print_struct                      | 设置是否打印模型的全部可训练参数名。若为`True`，则会在第一个step开始时打印所有可训练参数的名称，并在step结束后退出训练。默认为`False`                             | bool          |
+| monitor_config.check_for_global_norm             | 设置是否开启指标`global norm`的异常监测。默认为`False`                                                                     | bool          |
+| monitor_config.global_norm_spike_threshold       | 设置指标`global norm`的相对阈值，大于该值即判定为异常。默认值为`3.0`                                                               | float         |
+| monitor_config.global_norm_spike_count_threshold | 设置连续异常指标`global norm`累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`                                                  | int           |
 
 上述 xxx_format 形式的参数的可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时均默认为`null`，表示不监控对应指标。
 
