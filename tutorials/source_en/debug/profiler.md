@@ -209,7 +209,7 @@ To address the traditional profiler process being time-consuming and dealing wit
 
 ![mstx_profiler.png](../../source_zh_cn/debug/images/mstx_profiler.png)
 
-For details about the mstx interface, please refer to [mstx API](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.profiler.mstx.html).
+When using the lightweight marking feature, ensure that the mstx in the [_ExperimentalConfig](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) interface is set to True. Also note that lightweight marking data is only valid during the profiler's data collection interval. For details about the mstx interface, please refer to [mstx API](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.profiler.mstx.html).
 
 The lightweight marking sample is shown below:
 
