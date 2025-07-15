@@ -359,6 +359,20 @@
        不设置或其他值：不开启算子同步下发
      -
 
+   * - MS_DEV_HCCL_CONF
+     - 设置HCCL_BUFFSIZE显存策略
+     - String
+     - 配置项，格式为key:value，多个配置项以逗号分隔，例如 `export MS_DEV_HCCL_CONF=enable_hccl_config:True,hccl_customized_default:100MB,hccl_list_config:0-1-2-3=200MB,hccl_stride_config:0-6:2=50MB`。
+
+       enable_hccl_config: 是否使能HCCL_BUFFSIZE显存，默认值为false。
+
+       hccl_customized_default: 设置HCCL_BUFFSIZE全局默认大小，单位为MB。
+
+       hccl_list_config: 设置指定rank_list的HCCL_BUFFSIZE，单位为MB。
+
+       hccl_stride_config: 设置指定rank范围、按照指定stride切分通讯组，并配置此rank_list的HCCL_BUFFSIZE，单位为MB。
+     -
+
    * - MS_DEV_HOST_BLOCKING_RUN
      - 控制动态图算子是否单线程下发。开启后，动态图算子将采用单线程下发。
      - Integer

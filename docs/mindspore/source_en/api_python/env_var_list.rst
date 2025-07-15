@@ -359,6 +359,20 @@ Graph Compilation and Execution
        No setting or use other value: Asynchronous launch operators.
      -
 
+   * - MS_DEV_HCCL_CONF
+     - Configure the memory allocation.
+     - String
+     - Configuration items, with the format of "key: value", multiple configuration items separated by commas, for example, "export MS_DEV_HCCL_CONF=enable_hccl_config:True,hccl_customized_default:100MB,hccl_list_config:0-1-2-3=200MB,hccl_stride_config:0-6:2=50MB".
+
+       enable_hccl_config: Whether to enable virtual memory, with a default value of false.
+
+       hccl_customized_default: Set the virtual memory alignment size in MB.
+
+       hccl_list_config: Sets the HCCL_BUFFSIZE for the specified rank_list in MB.
+
+       hccl_stride_config: Sets the specified rank range, splits the communication group according to the specified stride, and configures the HCCL_BUFFSIZE for this rank_list in MB.
+     -
+
    * - MS_DEV_HOST_BLOCKING_RUN
      - Control whether the operator is launched in a single thread in PyNative mode. When enabled, the operator will be launched in a single thread in PyNative mode.
      - Integer
