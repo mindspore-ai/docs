@@ -9,4 +9,3 @@ Distributed High-Level Configuration Case
   :maxdepth: 1
 
   multiple_mixed
-  ms_operator
