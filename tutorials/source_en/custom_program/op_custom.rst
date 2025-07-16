@@ -12,7 +12,6 @@ Custom Operators
    operation/op_custom_prim
    operation/op_custom_ascendc
    operation/op_custom_aot
-   operation/op_custom_julia
    operation/op_custom_adv
    operation/op_customopbuilder
    operation/cpp_api_for_custom_ops
