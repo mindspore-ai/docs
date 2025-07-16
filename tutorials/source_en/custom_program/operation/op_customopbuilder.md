@@ -12,7 +12,7 @@ When developing operators using [C++ Interface](https://www.mindspore.cn/tutoria
 
 ## Introduction to Dynamic Graph Operator Execution Process
 
-MindSpore uses Python as the frontend and implements the backend with C++. Each operator execution needs to go through a series of operations such as Python interpretation and execution, operator inference, and operator memory allocation before being dispatched to the GPU/NPU. This results in relatively slower execution speeds. To address this performance issue, MindSpore’s dynamic graph adopts a multi-stage pipeline runtime, where various stages of operator dispatch are executed in parallel, thereby improving operator dispatch speed.
+MindSpore uses Python as the frontend and implements the backend with C++. Each operator execution needs to go through a series of operations such as Python interpretation and execution, operator inference, and operator memory allocation before being dispatched to the GPU/NPU. This results in relatively slower execution speeds. To address this performance issue, MindSpore's dynamic graph adopts a multi-stage pipeline runtime, where various stages of operator dispatch are executed in parallel, thereby improving operator dispatch speed.
 
 ![pyboost pipeline](../images/customopbuilder_pyboost.png)
 

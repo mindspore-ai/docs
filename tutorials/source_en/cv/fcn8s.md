@@ -337,7 +337,7 @@ class FCN8s(nn.Cell):
 
 ### Importing VGG-16 Partial Pre-trained Weights
 
-FCN uses VGG-16 as the backbone network for image encoding. Use the following code to import some pre-traind weights of the VGG-16 pre-trained model.
+FCN uses VGG-16 as the backbone network for image encoding. Use the following code to import some pre-trained weights of the VGG-16 pre-trained model.
 
 ```python
 from download import download

@@ -70,7 +70,7 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
-Then We define some inputs for data processing.
+Then we define some inputs for data processing.
 
 ```python
 coco_root = "./datasets/"
@@ -601,13 +601,13 @@ def class_loss(logits, label):
     label = ops.one_hot(label, ops.shape(logits)[-1], Tensor(1.0, ms.float32), Tensor(0.0, ms.float32))
     weight = ops.ones_like(logits)
     pos_weight = ops.ones_like(logits)
-    sigmiod_cross_entropy = ops.binary_cross_entropy_with_logits(logits, label, weight.astype(ms.float32), pos_weight.astype(ms.float32))
+    sigmoid_cross_entropy = ops.binary_cross_entropy_with_logits(logits, label, weight.astype(ms.float32), pos_weight.astype(ms.float32))
     sigmoid = ops.sigmoid(logits)
     label = label.astype(ms.float32)
     p_t = label * sigmoid + (1 - label) * (1 - sigmoid)
     modulating_factor = ops.pow(1 - p_t, 2.0)
     alpha_weight_factor = label * 0.75 + (1 - label) * (1 - 0.75)
-    focal_loss = modulating_factor * alpha_weight_factor * sigmiod_cross_entropy
+    focal_loss = modulating_factor * alpha_weight_factor * sigmoid_cross_entropy
     return focal_loss
 ```
 
@@ -835,8 +835,8 @@ from mindspore import set_seed
 
 class GeneratDefaultBoxes():
     """
-    Generate Default boxes for SSD, follows the order of (W, H, archor_sizes).
-    `self.default_boxes` has a shape of [archor_sizes, H, W, 4], the last dimension is [y, x, h, w].
+    Generate Default boxes for SSD, follows the order of (W, H, anchor_sizes).
+    `self.default_boxes` has a shape of [anchor_sizes, H, W, 4], the last dimension is [y, x, h, w].
     `self.default_boxes_tlbr` has a shape as `self.default_boxes`, the last dimension is [y1, x1, y2, x2].
     """
 
