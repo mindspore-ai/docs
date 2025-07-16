@@ -20,11 +20,11 @@ from lxml import etree
 from replace_html_menu import replace_html_menu
 
 # 下载仓库
-def git_clone(repo_url, repo_dir):
+def git_clone(repo_url, repo_dir, repo_branch):
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch="master")
+        Repo.clone_from(repo_url, repo_dir, branch=repo_branch, depth=1)
         print("Cloning Repo Done.")
 
 # 更新仓库
@@ -112,12 +112,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     # 读取json文件数据
     if version == "daily" or not os.path.exists(os.path.join(os.path.dirname(__file__), "version.json")):
         flag_dev = 1
-        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as f:
-            data = json.load(f)
+        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as g:
+            data = json.load(g)
     else:
         flag_dev = 0
-        with open(os.path.join(os.path.dirname(__file__), "version.json"), 'r+', encoding='utf-8') as f:
-            data = json.load(f)
+        with open(os.path.join(os.path.dirname(__file__), "version.json"), 'r+', encoding='utf-8') as g:
+            data = json.load(g)
 
     with open(os.path.join(os.path.dirname(__file__), "base_version.json"), 'r+', encoding='utf-8') as g:
         data_b = json.load(g)
@@ -147,6 +147,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         if data[i]['environ'] == "MS_PATH":
             repo_url = "https://gitee.com/mindspore/mindspore.git"
             repo_path = f"{REPODIR}/mindspore"
+        elif data[i]['environ'] == "MSL_PATH":
+            repo_url = "https://gitee.com/mindspore/mindspore-lite.git"
+            repo_path = f"{REPODIR}/mindspore-lite"
         elif data[i]['environ'] == "MSC_PATH":
             repo_url = "https://gitee.com/mindspore/mindscience.git"
             repo_path = f"{REPODIR}/mindscience"
@@ -166,10 +169,10 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         if data[i]['environ'] and branch_:
             os.environ[data[i]['environ']] = repo_path
             try:
-                status_code = requests.get(repo_url, headers=headers).status_code
+                status_code = requests.get(repo_url, headers=headers, timeout=30).status_code
                 if status_code == 200:
                     if not os.path.exists(repo_path):
-                        git_clone(repo_url, repo_path)
+                        git_clone(repo_url, repo_path, branch_)
                     if data[i]['environ'] == "MSC_PATH":
                         if data[i]['name'] == "mindscience":
                             git_update(repo_path, branch_)
@@ -236,7 +239,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                      verify=False, timeout=30)
                             with open(title, 'wb') as fd:
                                 #shutil.copyfileobj(dowmloaded.raw, fd)
                                 for chunk in downloaded.iter_content(chunk_size=512):
@@ -260,7 +264,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                      verify=False, timeout=30)
                             with open(title, 'wb') as fd:
                                 #shutil.copyfileobj(dowmloaded.raw, fd)
                                 for chunk in downloaded.iter_content(chunk_size=512):
@@ -285,7 +290,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                      verify=False, timeout=30)
                             with open(title, 'wb') as fd:
                                 #shutil.copyfileobj(dowmloaded.raw, fd)
                                 for chunk in downloaded.iter_content(chunk_size=512):
@@ -310,7 +316,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             href = link_.get("href", "")
                             if re.findall(name, title):
                                 download_url = url+href
-                                downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                                downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                                          verify=False, timeout=30)
                                 with open(title, 'wb') as fd:
                                     #shutil.copyfileobj(dowmloaded.raw, fd)
                                     for chunk in downloaded.iter_content(chunk_size=512):
@@ -322,7 +329,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             if data[i]['whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                 download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
-                downloaded = requests.get(download_url, stream=True, verify=False)
+                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
                 with open(data[i]['whl_name'], 'wb') as fd:
                     #shutil.copyfileobj(dowmloaded.raw, fd)
                     for chunk in downloaded.iter_content(chunk_size=512):
@@ -332,7 +339,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                 download_url = release_url + data[i]['extra_whl_path'] + data[i]['extra_whl_name']
-                downloaded = requests.get(download_url, stream=True, verify=False)
+                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
                 with open(data[i]['extra_whl_name'], 'wb') as fd:
                     #shutil.copyfileobj(dowmloaded.raw, fd)
                     for chunk in downloaded.iter_content(chunk_size=512):
@@ -343,7 +350,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if data[i]['tar_path'] != '':
                     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                     download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
-                    downloaded = requests.get(download_url, stream=True, verify=False)
+                    downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
                     with open(data[i]['tar_name'], 'wb') as fd:
                         #shutil.copyfileobj(dowmloaded.raw, fd)
                         for chunk in downloaded.iter_content(chunk_size=512):
@@ -414,7 +421,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             os.chdir(os.path.join(DOCDIR, "../../", i))
         else:
             os.chdir(os.path.join(DOCDIR, "../../docs", i))
-        subprocess.run(["pip", "install", "-r", "requirements.txt"])
+        install_req_cmd = ["pip", "install", "-r", "requirements.txt"]
+        subprocess.run(install_req_cmd)
 
         try:
             if replace_flag:
@@ -448,6 +456,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             pass
 
         # 输出英文
+        mk_clean_cmd = ["make", "clean"]
         if os.path.exists("source_en"):
             try:
                 print(f"当前输出-{i}- 的-英文-版本---->")
@@ -459,7 +468,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     f.truncate()
                     f.write(content_mod)
 
-                subprocess.run(["make", "clean"])
+                subprocess.run(mk_clean_cmd)
                 cmd_make = ["make", "html"]
                 process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
                 _, stderr = process.communicate()
@@ -478,12 +487,10 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 else:
                     if i == "mindspore":
                         TARGET = f"{OUTPUTDIR}/docs/en/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_en/html", TARGET)
                     else:
                         TARGET = f"{OUTPUTDIR}/{i}/en/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_en/html", TARGET)
+                    os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                    shutil.copytree("build_en/html", TARGET)
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 英文版本运行失败")
@@ -499,7 +506,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     f.seek(0)
                     f.truncate()
                     f.write(content_mod)
-                subprocess.run(["make", "clean"])
+                subprocess.run(mk_clean_cmd)
                 cmd_make = ["make", "html"]
                 process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
                 _, stderr = process.communicate()
@@ -516,12 +523,10 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 else:
                     if i == "mindspore":
                         TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_zh_cn/html", TARGET)
                     else:
                         TARGET = f"{OUTPUTDIR}/{i}/zh-CN/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_zh_cn/html", TARGET)
+                    os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                    shutil.copytree("build_zh_cn/html", TARGET)
             # pylint: disable=W0702
             except:
                 print(f"{i} 的 中文版本运行失败")
@@ -596,6 +601,7 @@ if __name__ == "__main__":
             replace_html_menu(ms_path.replace('zh-CN', 'en'), os.path.join(DOCDIR, "../../docs/mindspore/source_en"))
             print('docs英文目录大纲调整完成！')
 
+        # 替换样式相关内容
         theme_list = []
         output_path = f"{MAINDIR}/{args.version}/output"
         version_path = f"{MAINDIR}/{args.version}_version/"
@@ -611,7 +617,6 @@ if __name__ == "__main__":
                 pass
             elif dir_name == 'lite':
                 theme_list.append(dir_name + '/docs')
-                theme_list.append(dir_name + '/faq')
                 theme_list.append(dir_name + '/api')
             else:
                 theme_list.append(dir_name + '/docs')
@@ -621,11 +626,15 @@ if __name__ == "__main__":
                 if os.path.exists(os.path.join(output_path, f_name)):
                     os.remove(os.path.join(output_path, f_name))
                 shutil.copy(os.path.join(theme_path, f_name), os.path.join(output_path, f_name))
+        old_searchtools_content = """docContent = htmlElement.find('[role=main]')[0];"""
+        new_searchtools_content = """htmlElement.find('[role=main]').find('[itemprop=articleBody]').find('style').remove();
+      docContent = htmlElement.find('[role=main]')[0];"""
         # pylint: disable=W0621
         for lg in ['en', 'zh-CN']:
             # pylint: disable=W0621
             for out_name in theme_list:
                 try:
+                    static_path_searchtools = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/searchtools.js")[0]
                     static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
                     static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
                     static_path_jquery = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery.js")[0]
@@ -690,6 +699,17 @@ if __name__ == "__main__":
                         os.remove(static_path_js_html5p)
                     if os.path.exists(static_path_js_html5):
                         os.remove(static_path_js_html5)
+                    # 去除搜索页面冗余样式展示
+                    if os.path.exists(static_path_searchtools):
+                        with open(static_path_searchtools, 'r+', encoding='utf-8') as k:
+                            searchtools_content = k.read()
+                            if new_searchtools_content not in searchtools_content:
+                                new_content_s = searchtools_content.replace(old_searchtools_content,
+                                                                            new_searchtools_content)
+                            if new_content_s != searchtools_content:
+                                k.seek(0)
+                                k.truncate()
+                                k.write(new_content_s)
 
                 # pylint: disable=W0702
                 # pylint: disable=W0703
