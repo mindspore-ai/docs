@@ -10,7 +10,7 @@ For dynamic graphs, MindSpore offers another method for customizing backward fun
 
 The following is an example illustrating how to use the `Function` interface:
 
-This guide demonstrates a multiplication operator implementation on Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
+This guide demonstrates a multiplication operator implementation on the Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
 
 **Note:** The `BaseTensorPtr` referenced in this guide is an internal data structure of MindSpore. In future versions, these interfaces will be refactored into interfaces based on `ms::Tensor`.
 
@@ -217,7 +217,7 @@ print('grads[0]:', grads[0])
 print('grads[1]:', grads[1])
 ```
 
-Here, the user defines a custom operator module `self.my_ops = CustomOpBuilder(“my_ops”, ['. /custom_src/function_ops.cpp'], backend=“Ascend”).load()`. Here the meaning of `CustomOpBuilder` parameters are:
+Here, the user defines a custom operator module `self.my_ops = CustomOpBuilder("my_ops", ['. /custom_src/function_ops.cpp'], backend="Ascend").load()`. Here the meaning of `CustomOpBuilder` parameters are:
 
 - `"my_ops"`: Customize the operator module name.
 - `['./custom_src/function_ops.cpp']`: Customize the path to the operator C++ file. If there is more than one C++ file, you need to list them all in the list.

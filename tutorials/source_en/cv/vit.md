@@ -22,7 +22,7 @@ ViT model is mainly applied in the field of image classification. Therefore, its
 
 1. After the original image of the dataset is divided into multiple patches, the two-dimensional patches (without considering the channel) are converted into one-dimensional vectors. The one-dimensional vectors, the category vectors and the position vectors are added as model inputs.
 2. The Block structure of the main body in the model is based on the Encoder structure of Transformer, but adjusts the position of Normalization, where the main structure is still the Multi-head Attention structure.
-3. The model connects a fully connected layer after the Blocks stack, accepts the output of the category vector as input and uses it for classification. Typically, we refer to the final fully-onnected layer as Head and the Transformer Encoder part as backbone.
+3. The model connects a fully connected layer after the Blocks stack, accepts the output of the category vector as input and uses it for classification. Typically, we refer to the final fully-connected layer as Head and the Transformer Encoder part as backbone.
 
 The following code example will explain in detail the implementation of ImageNet classification task based on ViT.
 
@@ -102,17 +102,17 @@ Its main structure is composed of several Encoder and Decoder modules, where the
 
 ![encoder-decoder](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/cv/images/encoder_decoder.png)
 
-Encoder and Decoder consist of many structures, such as Multi-Head Attention layer, Feed Forward layer, Normaliztion layer, and even Residual Connection ("Add" in the figure). However, one of the most important structures is the Multi-Head Attention structure, which is based on the Self-Attention mechanism and is a parallel composition of multiple Self-Attentions.
+Encoder and Decoder consist of many structures, such as Multi-Head Attention layer, Feed Forward layer, Normalization layer, and even Residual Connection ("Add" in the figure). However, one of the most important structures is the Multi-Head Attention structure, which is based on the Self-Attention mechanism and is a parallel composition of multiple Self-Attentions.
 
 Therefore, understanding Self-Attention means understanding the core of Transformer.
 
 #### Attention Module
 
-The following is an explanation of Self-Attention, the core of which is to learn a weight for each word of the input vector. Given a task-related query vector Query vector, the similarity or relevance of Query and each Key is calculated to obtain the Attention distribution, i.e., the weight coefficient of each Key corresponding to Value is obtained, and then the Value is weighted and summed to obtain the final Attention value.
+The following is an explanation of Self-Attention, the core of which is to learn a weight for each word of the input vector. Given a task-related Query vector, the similarity or relevance of Query and each Key is calculated to obtain the Attention distribution, i.e., the weight coefficient of each Key corresponding to Value is obtained, and then the Value is weighted and summed to obtain the final Attention value.
 
 In the Self-Attention:
 
-1. The initial input vector is first mapped into three vectors Q(Query), K(Key), and V(Value) by the Embedding layer, and since it is a parallel operation, the code is mapped into a dim x 3 vector and partitioned. In other words, if your input vector is a sequence of vectors ($x_1$, $x_2$, $x_3$), where $ x_1$, $x_2$, $x_3$ are one-dimensional vectors, each one-dimensional vector is mapped to Q, K, and V by the Embedding layer, only the Embedding matrix is different and the matrix parameters are obtained through learning. **Here we can consider that the three matrices Q, K, V are a means to discover the correlation information between vectors, which needs to be obtained through learning. The reason for the number of vector is three is that two vectors can get the weights after point multiplication, and another vector is needed to carry the results of summing the weights, so at least three matrices are needed.**
+1. The initial input vector is first mapped into three vectors Q(Query), K(Key), and V(Value) by the Embedding layer, and since it is a parallel operation, the code is mapped into a dim x 3 vector and partitioned. In other words, if your input vector is a sequence of vectors ($x_1$, $x_2$, $x_3$), where $ x_1$, $x_2$, $x_3$ are one-dimensional vectors, each one-dimensional vector is mapped to Q, K, and V by the Embedding layer, only the Embedding matrix is different and the matrix parameters are obtained through learning. **Here we can consider that the three matrices Q, K, V are a means to discover the correlation information between vectors, which needs to be obtained through learning. The reason for the number of vectors is three is that two vectors can get the weights after point multiplication, and another vector is needed to carry the results of summing the weights, so at least three matrices are needed.**
 
     $$
     \begin{cases}

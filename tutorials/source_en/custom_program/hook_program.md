@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/tutorials/source_en/custom_program/hook_program.md)
 
-Debugging deep learning networks is a big task for every practitioner in the field of deep learning. Since the deep learning network hides the input and output data as well as the inverse gradient of the intermediate layer operators, only the gradient of the network input data (feature quantity and weight) is provided, resulting in the inability to accurately sense the data changes of the intermediate layer operators, which reduces the debugging efficiency. In order to facilitate users to debug the deep learning network accurately and quickly, MindSpore designes Hook function in dynamic graph mode. **Using Hook function can capture the input and output data of intermediate layer operators as well as the reverse gradient**.
+Debugging deep learning networks is a big task for every practitioner in the field of deep learning. Since the deep learning network hides the input and output data as well as the inverse gradient of the intermediate layer operators, only the gradient of the network input data (feature quantity and weight) is provided, resulting in the inability to accurately sense the data changes of the intermediate layer operators, which reduces the debugging efficiency. In order to facilitate users to debug the deep learning network accurately and quickly, MindSpore designs Hook function in dynamic graph mode. **Using Hook function can capture the input and output data of intermediate layer operators as well as the reverse gradient**.
 
 Currently, five forms of Hook functions are provided in dynamic graph mode: [HookBackward](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/ops/mindspore.ops.HookBackward.html) operator and register_forward_pre_hook, register_forward_hook, register_backward_pre_hook, register_backward_hook functions registered on Cell objects.
 
@@ -216,7 +216,7 @@ For more information about the `register_forward_hook` function of the Cell obje
 
 The user can use the `register_backward_pre_hook` function on the Cell object to register a custom Hook function that captures the gradient associated with the Cell object when the network is back propagated. This function does not work in graph mode or inside functions modified with `@jit`. The `register_backward_pre_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_backward_pre_hook` function will return a different `handle` object.
 
-Unlike the custom Hook function used by the HookBackward operator, the inputs of the Hook function used by `register_backward_pre_hook` contains `cell`, which represents the information of the Cell object, the gradient passed to the Cell object in reverse of the Cell object.
+Unlike the custom Hook function used by the HookBackward operator, the inputs of the Hook function used by `register_backward_pre_hook` contain `cell`, which represents the information of the Cell object, the gradient passed to the Cell object in reverse of the Cell object.
 
 The sample code is as follows:
 
