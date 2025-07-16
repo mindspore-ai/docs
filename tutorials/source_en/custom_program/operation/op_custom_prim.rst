@@ -23,7 +23,7 @@ Compared with traditional custom operator creating methods, creating custom oper
 Custom operator classification and adaptation scenarios
 -----------------------------------------------------------
 
-The operator development methods supported by custom operator based on the `Custom <https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ primitive include: aot, pyfunc, and julia.
+The operator development methods supported by custom operator based on the `Custom <https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ primitive include: aot, pyfunc.
 
 The difference between these operator development methods are as follows:
 
@@ -43,10 +43,6 @@ The difference between these operator development methods are as follows:
      - Ascend C/CUDA/C++
      - `Ascend` `GPU` `CPU`
      - high-performance scenarios
-   * - `julia <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_julia.html>`_
-     - Julia
-     - `CPU`
-     - Science compute scenarios / use Julia scenarios
 
 Different custom operator defining methods use different development languages to implement the operator, but the development process is the same, including operator implementation, shape inference, data type inference, and operator information registration (optional). Developers can choose which one to use based on needs. The defining methods of these custom operators will be introduced here, and examples are provided for each method. When developers are developing custom operators, they can refer to the following methods to select the corresponding type:
 
@@ -55,12 +51,10 @@ Different custom operator defining methods use different development languages t
 
    - Quick verification scenario: If users want to do quick verification and development based on MindSpore, with low performance requirements, or want to interact based on Python, then choose custom operators with Pyfunc type;
    - High-performance scenario: If users want to do high-performance computing based on MindSpore or need to interface with third-party operator libraries, then choose custom operators of AOT type;
-   - Scientific computing scenario: If users need to use Julia for scientific computing tasks, then choose custom operators of Julia type.
 
 To help you better use custom operators, we have used [the pyfunc-type custom operator](#an-example-of-custom-operators) as an example of a custom operator. In addition, we provide tutorials for other custom operators including:
 
 - AOT-type custom op on `Ascend backend <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_ascendc.html>`_ and `GPU/CPU backend <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_aot.html>`_ ;
-- `Julia-type custom op <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_julia.html>`_ ;
 - `Advanced usage of custom operators <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_adv.html>`_ : registering the operator information and defining the backward functions for operators.
 
 .. note::
