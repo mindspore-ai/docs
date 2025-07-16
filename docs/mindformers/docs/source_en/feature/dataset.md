@@ -99,7 +99,7 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
    Take [LlamaTokenizerFast](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer_config.json) and [vocab file](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer.json) in [DeepSeek-V3 repository](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base) as an example. If there is no corresponding repository, configuration file (tokenizer_config.json) and vocab file (tokenizer.json) needed to be download to local path. Let it be /path/to/huggingface/tokenizer. Execute the following command to preprocess the dataset:
 
    ```shell
-   python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+   python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
      --input /path/data.json \
      --output-prefix /path/megatron_data \
      --tokenizer-type HuggingFaceTokenizer \
@@ -109,7 +109,7 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
    Take outer tokenizer class [Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py) as an example, make sure **local** MindSpore Transformers repository has 'research/llama3_1/llama3_1_tokenizer.py', and execute the following command to preprocess the dataset:
 
    ```shell
-   python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+   python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
      --input /path/data.json \
      --output-prefix /path/megatron_data \
      --tokenizer-type AutoRegister \
