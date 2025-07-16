@@ -31,12 +31,12 @@ The environment variable `MS_DEV_GRAPH_KERNEL_FLAGS` provides controlling the sw
 
 ### Specifying Optimization Level  
 
-- **opt_level**: Set the optimization level.  Default: `2` . Graph kernel fusion can be enabled equivalently by setting opt_level greater than 0. Optional values include:
+- **opt_level**: Set the optimization level. Default: `2` . Graph kernel fusion can be enabled equivalently by setting opt_level greater than 0. Optional values include:
 
     - 0: disables graph kernel fusion;
     - 1: enables the basic fusion of operators;
     - 2: includes all optimizations of level 1, and turns on more optimizations such as CSE, arithmetic simplification and so on;
-    - 3: includes all optimizations of level 2, and turns on more optimizations such as SitchingFusion, ParallelFusion and so on. Optimizations of this level are radical and unstable in some scenarios. Be caution when using this level.
+    - 3: includes all optimizations of level 2, and turns on more optimizations such as StitchingFusion, ParallelFusion and so on. Optimizations of this level are radical and unstable in some scenarios. Be cautious when using this level.
 
 ### Specifying Automatic Fusion Strategy  
 

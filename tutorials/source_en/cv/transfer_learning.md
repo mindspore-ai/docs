@@ -250,7 +250,7 @@ class ResidualBlock(nn.Cell):
 
     def construct(self, x):
 
-        identity = x  # shortscuts
+        identity = x  # shortcuts
 
         out = self.conv1(x)  # The first layer of main body: 1*1 convolutional layer
         out = self.norm1(out)
@@ -318,7 +318,7 @@ class ResNet(nn.Cell):
         self.layer4 = make_layer(256 * block.expansion, block, 512, layer_nums[3], stride=2)
         # Average pooling layer
         self.avg_pool = nn.AvgPool2d()
-        # flattern layer
+        # flatten layer
         self.flatten = nn.Flatten()
         # Fully-connected layer
         self.fc = nn.Dense(in_channels=input_channel, out_channels=num_classes)
@@ -343,14 +343,14 @@ class ResNet(nn.Cell):
 
 
 def _resnet(model_url: str, block: Type[Union[ResidualBlockBase, ResidualBlock]],
-            layers: List[int], num_classes: int, pretrained: bool, pretrianed_ckpt: str,
+            layers: List[int], num_classes: int, pretrained: bool, pretrained_ckpt: str,
             input_channel: int):
     model = ResNet(block, layers, num_classes, input_channel)
 
     if pretrained:
         # Load pre-trained models
-        download(url=model_url, path=pretrianed_ckpt, replace=True)
-        param_dict = load_checkpoint(pretrianed_ckpt)
+        download(url=model_url, path=pretrained_ckpt, replace=True)
+        param_dict = load_checkpoint(pretrained_ckpt)
         load_param_into_net(model, param_dict)
 
     return model

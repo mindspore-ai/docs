@@ -375,7 +375,7 @@ class ResNet(nn.Cell):
         self.layer4 = make_layer(256 * block.expansion, block, 512, layer_nums[3], stride=2)
         # average pooling layer
         self.avg_pool = nn.AvgPool2d()
-        # flattern layer
+        # flatten layer
         self.flatten = nn.Flatten()
         # fully-connected layer
         self.fc = nn.Dense(in_channels=input_channel, out_channels=num_classes)
@@ -487,7 +487,7 @@ import mindspore.ops as ops
 
 
 def train(data_loader, epoch):
-    """Model taining"""
+    """Model training"""
     losses = []
     network.set_train(True)
 
