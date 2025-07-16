@@ -6,11 +6,11 @@
 
 The C++ API for MindSpore custom operators is divided into two categories:
 
-1. **API Interfaces**:  
-   Interfaces marked as 【API】 are stable public interfaces intended for direct use by users. These interfaces have been thoroughly tested, have clear functionality, and are highly backward compatible.
+1. **API Interfaces**:
+   Interfaces marked as [API] are stable public interfaces intended for direct use by users. These interfaces have been thoroughly tested, have clear functionality, and are highly backward compatible.
 
-2. **Experimental Interfaces**:  
-   Interfaces not marked as 【API】 are experimental. These interfaces may change or be removed in future versions and should be used with caution.
+2. **Experimental Interfaces**:
+   Interfaces not marked as [API] are experimental. These interfaces may change or be removed in future versions and should be used with caution.
 
 When developing custom operators, you can include the header files referenced by the following interfaces via `#include "ms_extension/api.h"`, without worrying about the specific location of each interface.
 
@@ -56,7 +56,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
 #### Constructors
 
 - **Tensor()**
-    - **Description**: 【API】 Constructs an undefined placeholder tensor.
+    - **Description**: [API] Constructs an undefined placeholder tensor.
 
 - **Tensor(TypeId, const ShapeVector &)**
 
@@ -64,7 +64,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   Tensor(TypeId type_id, const ShapeVector &shape)
   ```
 
-    - **Description**: 【API】 Constructs a tensor with the specified data type and shape.
+    - **Description**: [API] Constructs a tensor with the specified data type and shape.
     - **Parameters**:
         - `type_id`: The data type of the tensor.
         - `shape`: The shape of the tensor, represented as a vector of integers.
@@ -87,7 +87,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   bool is_defined() const
   ```
 
-    - **Description**: 【API】 Checks whether the tensor is defined.
+    - **Description**: [API] Checks whether the tensor is defined.
     - **Return Value**: Returns `true` if the tensor is defined, otherwise returns `false`.
 
 - **data_type()**
@@ -96,7 +96,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   TypeId data_type() const
   ```
 
-    - **Description**: 【API】 Retrieves the data type of the tensor.
+    - **Description**: [API] Retrieves the data type of the tensor.
     - **Return Value**: The data type of the tensor.
 
 - **shape()**
@@ -105,7 +105,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   const ShapeVector &shape() const
   ```
 
-    - **Description**: 【API】 Retrieves the shape of the tensor.
+    - **Description**: [API] Retrieves the shape of the tensor.
     - **Return Value**: A reference to the shape of the tensor (`ShapeVector`, i.e., `std::vector<int64_t>`).
 
 - **numel()**
@@ -114,7 +114,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   size_t numel() const
   ```
 
-    - **Description**: 【API】 Returns the total number of elements in the tensor.
+    - **Description**: [API] Returns the total number of elements in the tensor.
     - **Return Value**: The total number of elements.
 
 - **stride()**
@@ -123,7 +123,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   std::vector<int64_t> stride() const
   ```
 
-    - **Description**: 【API】 Computes the strides of the tensor.
+    - **Description**: [API] Computes the strides of the tensor.
     - **Return Value**: A vector representing the strides of the tensor for each dimension.
 
 - **storage_offset()**
@@ -132,7 +132,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   int64_t storage_offset() const
   ```
 
-    - **Description**: 【API】 Retrieves the storage offset of the tensor.
+    - **Description**: [API] Retrieves the storage offset of the tensor.
     - **Return Value**: The offset from the start of storage (in terms of elements).
 
 - **is_contiguous()**
@@ -141,7 +141,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   bool is_contiguous() const
   ```
 
-    - **Description**: 【API】 Checks whether the tensor is stored contiguously in memory.
+    - **Description**: [API] Checks whether the tensor is stored contiguously in memory.
     - **Return Value**: Returns `true` if the tensor is stored contiguously, otherwise returns `false`.
 
 - **SetNeedContiguous(bool)**
@@ -150,7 +150,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   void SetNeedContiguous(bool flag) const
   ```
 
-    - **Description**: 【API】 Sets whether the tensor requires contiguous storage space.
+    - **Description**: [API] Sets whether the tensor requires contiguous storage space.
     - **Parameters**:
         - `flag`: A boolean value indicating whether the tensor needs contiguous storage.
 
@@ -160,7 +160,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   void *GetDataPtr() const
   ```
 
-    - **Description**: 【API】 Retrieves a pointer to the tensor data.
+    - **Description**: [API] Retrieves a pointer to the tensor data.
     - **Return Value**: A `void` pointer pointing to the tensor data.
     - **Note**: The returned pointer already includes the offset indicated by the `storage_offset()` interface.
 
@@ -172,7 +172,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   Tensor cast(TypeId dtype) const
   ```
 
-    - **Description**: 【API】 Converts the tensor to the specified data type.
+    - **Description**: [API] Converts the tensor to the specified data type.
     - **Parameters**:
         - `dtype`: The target data type, such as `float`, `int`, etc.
     - **Return Value**: A new tensor with the specified data type.
@@ -183,7 +183,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   std::vector<Tensor> chunk(int64_t chunks, int64_t dim = 0) const
   ```
 
-    - **Description**: 【API】 Splits the tensor into multiple smaller tensors along the specified dimension.
+    - **Description**: [API] Splits the tensor into multiple smaller tensors along the specified dimension.
     - **Parameters**:
         - `chunks`: The number of chunks to split into, must be a positive number.
         - `dim`: The dimension along which to split, default is 0.
@@ -195,7 +195,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   Tensor contiguous() const
   ```
 
-    - **Description**: 【API】 Returns a tensor that is stored contiguously in memory.
+    - **Description**: [API] Returns a tensor that is stored contiguously in memory.
     - **Return Value**: A new tensor with contiguous storage.
 
 - **flatten(int64_t, int64_t)**
@@ -204,7 +204,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   Tensor flatten(int64_t start_dim = 0, int64_t end_dim = -1) const
   ```
 
-    - **Description**: 【API】 Flattens multiple dimensions of the tensor into one dimension.
+    - **Description**: [API] Flattens multiple dimensions of the tensor into one dimension.
     - **Parameters**:
         - `start_dim`: The starting dimension to flatten, default is 0.
         - `end_dim`: The ending dimension to flatten, default is -1 (the last dimension).
@@ -216,7 +216,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   Tensor index_select(int64_t dim, const Tensor &index) const
   ```
 
-    - **Description**: 【API】 Selects elements along a specified dimension based on an index tensor.
+    - **Description**: [API] Selects elements along a specified dimension based on an index tensor.
     - **Parameters**:
         - `dim`: The dimension along which to select elements.
         - `index`: A tensor containing the indices. The values in the tensor must be within the range `[0, shape(dim)-1]`.
@@ -228,7 +228,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   Tensor reshape(const std::vector<int64_t> &shape) const
   ```
 
-    - **Description**: 【API】 Reshapes the tensor to the specified shape.
+    - **Description**: [API] Reshapes the tensor to the specified shape.
     - **Parameters**:
         - `shape`: A vector specifying the new shape. The total number of elements in the new shape must match the original tensor. A `-1` can be used in one dimension to infer its size automatically.
     - **Return Value**: A tensor with the new shape.
@@ -239,7 +239,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   Tensor repeat(const std::vector<int64_t> &repeats) const
   ```
 
-    - **Description**: 【API】 Repeats the tensor along each dimension.
+    - **Description**: [API] Repeats the tensor along each dimension.
     - **Parameters**:
         - `repeats`: A vector specifying the number of times to repeat along each dimension. Its size must match the number of dimensions of the tensor.
     - **Return Value**: A new tensor with repeated elements.
@@ -253,7 +253,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
                            const std::optional<int64_t> &output_size = std::nullopt) const;
   ```
 
-    - **Description**: 【API】 Repeats the elements of the tensor along a specified dimension.
+    - **Description**: [API] Repeats the elements of the tensor along a specified dimension.
     - **Parameters**:
         - `repeats`: A scalar or tensor specifying the number of times each element is repeated. If a tensor is provided, its size must match the size of the specified dimension.
         - `dim`: (Optional) The dimension along which to repeat elements, default is `std::nullopt`.
@@ -311,7 +311,7 @@ Tensor tensor(double value, TypeId dtype = TypeId::kNumberTypeFloat64)
 Tensor tensor(const std::vector<double> &value, TypeId dtype = TypeId::kNumberTypeFloat64)
 ```
 
-- **Description**: 【API】 Creates a tensor with the given initial value.
+- **Description**: [API] Creates a tensor with the given initial value.
 - **Parameters**:
     - `value`: The value used to initialize the tensor. Supports integers, floating-point numbers, integer vectors, and floating-point vectors.
     - `dtype`: The data type of the tensor. For integers, the default is `ms::TypeId::kNumberTypeInt64`. For floating-point numbers, the default is `ms::TypeId::kNumberTypeFloat64`.
@@ -325,7 +325,7 @@ Factory method for constructing a tensor filled with ones, defined in the [tenso
 Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
 ```
 
-- **Description**: 【API】 Creates a tensor with the specified shape and initializes all elements to `1`.
+- **Description**: [API] Creates a tensor with the specified shape and initializes all elements to `1`.
 - **Parameters**:
     - `shape`: The shape of the tensor, represented as a vector of integers.
     - `dtype`: The data type of the tensor, default is `TypeId::kNumberTypeFloat32`.
@@ -339,7 +339,7 @@ Factory method for constructing a tensor filled with zeros, defined in the [tens
 Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
 ```
 
-- **Description**: 【API】 Creates a tensor with the specified shape and initializes all elements to `0`.
+- **Description**: [API] Creates a tensor with the specified shape and initializes all elements to `0`.
 - **Parameters**:
     - `shape`: The shape of the tensor, represented as a vector of integers.
     - `dtype`: The data type of the tensor, default is `TypeId::kNumberTypeFloat32`.
@@ -361,7 +361,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   PyboostRunner(const std::string &op_name)
   ```
 
-    - **Description**: 【API】 Constructs a `PyboostRunner`.
+    - **Description**: [API] Constructs a `PyboostRunner`.
     - **Parameters**:
         - `op_name`: The name of the operator.
 
@@ -374,7 +374,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   static py::object Call(FuncType func, Args &&... args)
   ```
 
-    - **Description**: 【API】 Executes the given function and converts its output to a Python object.
+    - **Description**: [API] Executes the given function and converts its output to a Python object.
     - **Template Parameters**:
         - `OUT_NUM`: The number of outputs from the operator, which must match the length of the tensor list returned by `func`. Currently, scenarios with variable output numbers are not supported.
         - `FuncType`: The prototype of the operator entry function, which can be automatically recognized from the function arguments.
@@ -392,7 +392,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   void Run(const std::vector<Tensor> &inputs, const std::vector<Tensor> &outputs)
   ```
 
-    - **Description**: 【API】 Runs the operator with the specified inputs and outputs.
+    - **Description**: [API] Runs the operator with the specified inputs and outputs.
     - **Parameters**:
         - `inputs`: A list of input tensors.
         - `outputs`: A list of output tensors.
@@ -403,7 +403,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   virtual size_t CalcWorkspace()
   ```
 
-    - **Description**: 【API】 Calculates the workspace size required by the operator.
+    - **Description**: [API] Calculates the workspace size required by the operator.
     - **Return Value**: The workspace size (in bytes). The default value is 0.
 
 - **LaunchKernel()**
@@ -412,7 +412,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   virtual void LaunchKernel() = 0;
   ```
 
-    - **Description**: 【API】 Launches the kernel function of the operator.
+    - **Description**: [API] Launches the kernel function of the operator.
 
 - **op_name()**
 
@@ -420,7 +420,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   const std::string &op_name() const
   ```
 
-    - **Description**: 【API】 Retrieves the name of the operator associated with the runner.
+    - **Description**: [API] Retrieves the name of the operator associated with the runner.
     - **Return Value**: A string containing the operator's name.
 
 - **inputs()**
@@ -429,7 +429,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   const std::vector<ms::Tensor> &inputs() const
   ```
 
-    - **Description**: 【API】 Retrieves the list of input tensors.
+    - **Description**: [API] Retrieves the list of input tensors.
     - **Return Value**: A reference to the list of input tensors.
 
 - **outputs()**
@@ -438,7 +438,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   const std::vector<ms::Tensor> &outputs() const
   ```
 
-    - **Description**: 【API】 Retrieves the list of output tensors.
+    - **Description**: [API] Retrieves the list of output tensors.
     - **Return Value**: A reference to the list of output tensors.
 
 - **stream_id()**
@@ -447,7 +447,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   uint32_t stream_id() const
   ```
 
-    - **Description**: 【API】 Retrieves the stream ID associated with the runner.
+    - **Description**: [API] Retrieves the stream ID associated with the runner.
     - **Return Value**: The stream ID.
 
 - **stream()**
@@ -456,7 +456,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   void *stream()
   ```
 
-    - **Description**: 【API】 Retrieves the stream pointer associated with the runner.
+    - **Description**: [API] Retrieves the stream pointer associated with the runner.
     - **Return Value**: A pointer to the stream.
 
 - **workspace_ptr()**
@@ -465,7 +465,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   void *workspace_ptr()
   ```
 
-    - **Description**: 【API】 Retrieves the workspace pointer of the operator.
+    - **Description**: [API] Retrieves the workspace pointer of the operator.
     - **Return Value**: A pointer to the workspace memory.
 
 ### class AtbOpRunner
@@ -495,7 +495,7 @@ Refer to the tutorial [CustomOpBuilder Using AtbOpRunner to Integrate ATB Operat
   void Init(const ParamType &param)
   ```
 
-    - **Description**: 【API】 Initializes the ATB operator with the given parameters. This method creates a corresponding `atb::Operation` instance for the operator via `atb::CreateOperation` and places it in the cache. Only one `atb::Operation` instance is created for operators with the same `param` hash value.
+    - **Description**: [API] Initializes the ATB operator with the given parameters. This method creates a corresponding `atb::Operation` instance for the operator via `atb::CreateOperation` and places it in the cache. Only one `atb::Operation` instance is created for operators with the same `param` hash value.
     - **Parameters**:
         - `param`: Parameters used to configure the ATB operator.
     - **Note**: For the `ParamType` type passed in, you need to specialize the `template <> struct HashOpParam<ParamType>::operator()` function in advance.
@@ -510,7 +510,7 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
               const std::vector<Tensor> &outputs)
 ```
 
-【API】 Executes an ATB operator using the provided parameters, inputs, and outputs. This function is a wrapper around `AtbOpRunner`.
+[API] Executes an ATB operator using the provided parameters, inputs, and outputs. This function is a wrapper around `AtbOpRunner`.
 
 - **Parameters**:
     - `op_name`: The name of the ATB operator to execute.
