@@ -6,11 +6,11 @@
 
 The C++ API for MindSpore custom operators is divided into two categories:
 
-1. **API Interfaces**:  
-   Interfaces marked as 【API】 are stable public interfaces intended for direct use by users. These interfaces have been thoroughly tested, have clear functionality, and are highly backward compatible.
+1. **API Interfaces**:
+   Interfaces marked as [API] are stable public interfaces intended for direct use by users. These interfaces have been thoroughly tested, have clear functionality, and are highly backward compatible.
 
-2. **Experimental Interfaces**:  
-   Interfaces not marked as 【API】 are experimental. These interfaces may change or be removed in future versions and should be used with caution.
+2. **Experimental Interfaces**:
+   Interfaces not marked as [API] are experimental. These interfaces may change or be removed in future versions and should be used with caution.
 
 When developing custom operators, you can include the header files referenced by the following interfaces via `#include "ms_extension/api.h"`, without worrying about the specific location of each interface.
 
@@ -56,7 +56,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
 #### Constructors
 
 - **Tensor()**
-    - **Description**: 【API】 Constructs an undefined placeholder tensor.
+    - **Description**: [API] Constructs an undefined placeholder tensor.
 
 - **Tensor(TypeId, const ShapeVector &)**
 
@@ -64,7 +64,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   Tensor(TypeId type_id, const ShapeVector &shape)
   ```
 
-    - **Description**: 【API】 Constructs a tensor with the specified data type and shape.
+    - **Description**: [API] Constructs a tensor with the specified data type and shape.
     - **Parameters**:
         - `type_id`: The data type of the tensor.
         - `shape`: The shape of the tensor, represented as a vector of integers.
@@ -87,7 +87,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   bool is_defined() const
   ```
 
-    - **Description**: 【API】 Checks whether the tensor is defined.
+    - **Description**: [API] Checks whether the tensor is defined.
     - **Return Value**: Returns `true` if the tensor is defined, otherwise returns `false`.
 
 - **data_type()**
@@ -96,7 +96,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   TypeId data_type() const
   ```
 
-    - **Description**: 【API】 Retrieves the data type of the tensor.
+    - **Description**: [API] Retrieves the data type of the tensor.
     - **Return Value**: The data type of the tensor.
 
 - **shape()**
@@ -105,7 +105,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   const ShapeVector &shape() const
   ```
 
-    - **Description**: 【API】 Retrieves the shape of the tensor.
+    - **Description**: [API] Retrieves the shape of the tensor.
     - **Return Value**: A reference to the shape of the tensor (`ShapeVector`, i.e., `std::vector<int64_t>`).
 
 - **numel()**
@@ -114,7 +114,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   size_t numel() const
   ```
 
-    - **Description**: 【API】 Returns the total number of elements in the tensor.
+    - **Description**: [API] Returns the total number of elements in the tensor.
     - **Return Value**: The total number of elements.
 
 - **stride()**
@@ -123,7 +123,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   std::vector<int64_t> stride() const
   ```
 
-    - **Description**: 【API】 Computes the strides of the tensor.
+    - **Description**: [API] Computes the strides of the tensor.
     - **Return Value**: A vector representing the strides of the tensor for each dimension.
 
 - **storage_offset()**
@@ -132,7 +132,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   int64_t storage_offset() const
   ```
 
-    - **Description**: 【API】 Retrieves the storage offset of the tensor.
+    - **Description**: [API] Retrieves the storage offset of the tensor.
     - **Return Value**: The offset from the start of storage (in terms of elements).
 
 - **is_contiguous()**
@@ -141,7 +141,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   bool is_contiguous() const
   ```
 
-    - **Description**: 【API】 Checks whether the tensor is stored contiguously in memory.
+    - **Description**: [API] Checks whether the tensor is stored contiguously in memory.
     - **Return Value**: Returns `true` if the tensor is stored contiguously, otherwise returns `false`.
 
 - **SetNeedContiguous(bool)**
@@ -150,7 +150,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   void SetNeedContiguous(bool flag) const
   ```
 
-    - **Description**: 【API】 Sets whether the tensor requires contiguous storage space.
+    - **Description**: [API] Sets whether the tensor requires contiguous storage space.
     - **Parameters**:
         - `flag`: A boolean value indicating whether the tensor needs contiguous storage.
 
@@ -160,7 +160,7 @@ The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mind
   void *GetDataPtr() const
   ```
 
-    - **Description**: 【API】 Retrieves a pointer to the tensor data.
+    - **Description**: [API] Retrieves a pointer to the tensor data.
     - **Return Value**: A `void` pointer pointing to the tensor data.
     - **Note**: The returned pointer already includes the offset indicated by the `storage_offset()` interface.
 
@@ -220,7 +220,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   PyboostRunner(const std::string &op_name)
   ```
 
-    - **Description**: 【API】 Constructs a `PyboostRunner`.
+    - **Description**: [API] Constructs a `PyboostRunner`.
     - **Parameters**:
         - `op_name`: The name of the operator.
 
@@ -233,7 +233,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   static py::object Call(FuncType func, Args &&... args)
   ```
 
-    - **Description**: 【API】 Executes the given function and converts its output to a Python object.
+    - **Description**: [API] Executes the given function and converts its output to a Python object.
     - **Template Parameters**:
         - `OUT_NUM`: The number of outputs from the operator, which must match the length of the tensor list returned by `func`. Currently, scenarios with variable output numbers are not supported.
         - `FuncType`: The prototype of the operator entry function, which can be automatically recognized from the function arguments.
@@ -251,7 +251,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   void Run(const std::vector<Tensor> &inputs, const std::vector<Tensor> &outputs)
   ```
 
-    - **Description**: 【API】 Runs the operator with the specified inputs and outputs.
+    - **Description**: [API] Runs the operator with the specified inputs and outputs.
     - **Parameters**:
         - `inputs`: A list of input tensors.
         - `outputs`: A list of output tensors.
@@ -262,7 +262,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   virtual size_t CalcWorkspace()
   ```
 
-    - **Description**: 【API】 Calculates the workspace size required by the operator.
+    - **Description**: [API] Calculates the workspace size required by the operator.
     - **Return Value**: The workspace size (in bytes). The default value is 0.
 
 - **LaunchKernel()**
@@ -271,7 +271,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   virtual void LaunchKernel() = 0;
   ```
 
-    - **Description**: 【API】 Launches the kernel function of the operator.
+    - **Description**: [API] Launches the kernel function of the operator.
 
 - **op_name()**
 
@@ -279,7 +279,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   const std::string &op_name() const
   ```
 
-    - **Description**: 【API】 Retrieves the name of the operator associated with the runner.
+    - **Description**: [API] Retrieves the name of the operator associated with the runner.
     - **Return Value**: A string containing the operator's name.
 
 - **inputs()**
@@ -288,7 +288,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   const std::vector<ms::Tensor> &inputs() const
   ```
 
-    - **Description**: 【API】 Retrieves the list of input tensors.
+    - **Description**: [API] Retrieves the list of input tensors.
     - **Return Value**: A reference to the list of input tensors.
 
 - **outputs()**
@@ -297,7 +297,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   const std::vector<ms::Tensor> &outputs() const
   ```
 
-    - **Description**: 【API】 Retrieves the list of output tensors.
+    - **Description**: [API] Retrieves the list of output tensors.
     - **Return Value**: A reference to the list of output tensors.
 
 - **stream_id()**
@@ -306,7 +306,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   uint32_t stream_id() const
   ```
 
-    - **Description**: 【API】 Retrieves the stream ID associated with the runner.
+    - **Description**: [API] Retrieves the stream ID associated with the runner.
     - **Return Value**: The stream ID.
 
 - **stream()**
@@ -315,7 +315,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   void *stream()
   ```
 
-    - **Description**: 【API】 Retrieves the stream pointer associated with the runner.
+    - **Description**: [API] Retrieves the stream pointer associated with the runner.
     - **Return Value**: A pointer to the stream.
 
 - **workspace_ptr()**
@@ -324,7 +324,7 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
   void *workspace_ptr()
   ```
 
-    - **Description**: 【API】 Retrieves the workspace pointer of the operator.
+    - **Description**: [API] Retrieves the workspace pointer of the operator.
     - **Return Value**: A pointer to the workspace memory.
 
 ### class AtbOpRunner
@@ -354,7 +354,7 @@ Refer to the tutorial [CustomOpBuilder Using AtbOpRunner to Integrate ATB Operat
   void Init(const ParamType &param)
   ```
 
-    - **Description**: 【API】 Initializes the ATB operator with the given parameters. This method creates a corresponding `atb::Operation` instance for the operator via `atb::CreateOperation` and places it in the cache. Only one `atb::Operation` instance is created for operators with the same `param` hash value.
+    - **Description**: [API] Initializes the ATB operator with the given parameters. This method creates a corresponding `atb::Operation` instance for the operator via `atb::CreateOperation` and places it in the cache. Only one `atb::Operation` instance is created for operators with the same `param` hash value.
     - **Parameters**:
         - `param`: Parameters used to configure the ATB operator.
     - **Note**: For the `ParamType` type passed in, you need to specialize the `template <> struct HashOpParam<ParamType>::operator()` function in advance.
@@ -369,7 +369,7 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
               const std::vector<Tensor> &outputs)
 ```
 
-【API】 Executes an ATB operator using the provided parameters, inputs, and outputs. This function is a wrapper around `AtbOpRunner`.
+[API] Executes an ATB operator using the provided parameters, inputs, and outputs. This function is a wrapper around `AtbOpRunner`.
 
 - **Parameters**:
     - `op_name`: The name of the ATB operator to execute.
