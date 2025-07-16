@@ -10,7 +10,7 @@ For dynamic graphs, MindSpore offers another method for customizing backward fun
 
 The following is an example illustrating how to use the `Function` interface:
 
-This guide demonstrates a multiplication operator implementation on the Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/v2.7.0rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
+This guide demonstrates a multiplication operator implementation on the Ascend platform. For related code and more examples, see [Repository Code](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/tests/st/pynative/grad/test_custom_cpp_function_grad.py).
 
 **Note:** The `BaseTensorPtr` referenced in this guide is an internal data structure of MindSpore. In future versions, these interfaces will be refactored into interfaces based on `ms::Tensor`.
 
