@@ -128,9 +128,9 @@ pip install transformers
 
 ### 权重准备
 
-权重准备主要是获取大语言模型的权重文件。同时，通常每一个大语言模型都有自己对应的token列表，表示该模型支持的单词全集，因此，除了模型的权重外，还需要获取其对应的tokenizer映射。MindSpore当前已经支持直接加载safetensor的权重文件，用户可以直接下载HuggingFace官网上的模型权重文件。
+权重准备主要是获取大语言模型的权重文件。同时，通常每一个大语言模型都有自己对应的token列表，表示该模型支持的单词全集，因此，除了模型的权重外，还需要获取其对应的tokenizer映射。MindSpore当前已经支持直接加载safetensor的权重文件，用户可以直接下载Hugging Face官网上的模型权重文件。
 
-对于Qwen2大语言模型，建议用户直接使用HuggingFace官方网站提供的预训练权重文件与tokenizer映射，用户可以简单地使用下面的命令进行权重下载：
+对于Qwen2大语言模型，建议用户直接使用Hugging Face官方网站提供的预训练权重文件与tokenizer映射，用户可以简单地使用下面的命令进行权重下载：
 
 ```shell
 git lfs install
@@ -188,7 +188,7 @@ model.load_weight(model_path)
 cache_manager = CacheManager(config, block_num, block_size, batch_size)
 ```
 
-其中， qwen2为模型的网络脚本（qwen2.py），需要和当前脚本在同一个目录下，可以参考[从零构建大语言模型推理网络](./ms_infer_network_develop.md)。用户也可以使用其他的网络脚本，但是需要修改相应的模型接口。
+其中，qwen2为模型的网络脚本（qwen2.py），需要和当前脚本在同一个目录下，可以参考[从零构建大语言模型推理网络](./ms_infer_network_develop.md)。用户也可以使用其他的网络脚本，但是需要修改相应的模型接口。
 
 脚本中第一步是设置mindspore相关环境变量，包括：
 
@@ -238,7 +238,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 
     其中，【40， 2948， 26549， 11， 1576】对应"I love Beijing, because"的单词序列，40表示I对应的token，2948表示love对应的token，26549表示Beijing对应的token，11表示逗号加空格对应的token，1576表示because对应的token，这个格式可以直接传给模型进行推理。同理【9707， 11， 1207， 16948， 17】对应‘Hello， Qwen2’的输入序列。此处采用一次传入2个请求的batch计算进行演示。
 
-- **整网计算**：传入当前输入token的数据和配置，让模型对象通过多轮计算迭代推理出每轮的token结果。为了代码更加简洁，可以将迭代推理封装到如下generate函数中
+- **整网计算**：传入当前输入token的数据和配置，让模型对象通过多轮计算迭代推理出每轮的token结果。为了代码更加简洁，可以将迭代推理封装到如下generate函数中:
 
     ```python
     # build mindspore input
@@ -309,23 +309,23 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 
     上面的generate函数模拟了大语言模型推理的迭代过程，其中核心步骤包括以下几个：
 
-    1. **模型输入准备**：准备模型推理需要的输入数据， 构造Qwen2ModelInput对象，其主要的参数包括：
+    1. **模型输入准备**：准备模型推理需要的输入数据，构造Qwen2ModelInput对象，其主要的参数包括：
 
         **input_ids**：输入的词表id的list，每个batch一个list表示。
 
         **positions**：表示输入的词表在推理语句中的位置信息，主要用于rope旋转位置编码。
 
-        **batch_valid_length**：表示当前推理的语句长度，通常是positions的值加1，投机推理等优化场景除外，主要是用于KVCache的获取KV值使用。
+        **batch_valid_length**：表示当前推理的语句长度，主要是用于获取KVCache的KV值。通常是positions的值加1，投机推理场景下可能大于positions的值加1。
 
         **is_prefill**：是否是全量推理，全量推理需要计算多个KV值，增量推理通常计算一个KV值，复用之前计算的KV结果。
 
-        **attn_mask**：用于注意力分数计算时mask掉不必要的信息，通常是一个上三角或者下三角。
+        **attn_mask**：用于注意力分数计算时隐藏掉不必要的信息，通常是一个上三角或者下三角的标准矩阵（有效值是1，其余是0）。
 
-        **kv_caches**：kv_caches对象，保存了所有计算的kv结果。
+        **kv_caches**：KVCache对象，保存了所有计算的KV结果。
 
         **block_tables&slot_mapping**：表示当前推理词表使用的KVCache具体信息，block_tables表示每个batch当前使用的block，slot_mapping表示对应的单词在block中的具体位置。如block_tables=【2， 10】，slot_mapping=【1200】，block_size=128，表示当前推理使用了第2个和第10个block，当前单词用了第1200个block单元，即第10个block的第48个单元的KV值。
 
-        **q_seq_lens**：表示注意力中query的长度，主要PagedAttention算子使用，标准模型下增量一般是1，投机推理场景下可能大于1.
+        **q_seq_lens**：表示注意力中query的长度，主要是PagedAttention算子使用。标准模型下值一般是1，投机推理场景下可能大于1。
 
     2. **模型计算**：调用主干模型网络启动模型计算逻辑，计算出下一个单词的概率分布。
 
@@ -377,13 +377,11 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 
 为了更加清晰的描述模型并行计算的流程，本章基于最基础和最普遍的模型并行策略进行说明，用户可以通过以下几步来实现模型的并行适配：
 
-1. **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能。对于Qwen、LLAMA这类大语言模型而言，其切分主要包含在Attention中query、key、value这些数据的linear操作上.
+1. **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能。对于Qwen、LLAMA这类大语言模型而言，其切分主要包含在Attention中query、key、value这些数据的linear操作上。
 
-2. **权重适配**：除了模型结构的并行化改造外，由于模型计算中的权重也被切分了，因此在模型加载的时候，相关的权重也要进行切分，以尽量减少不必要权重加载占用显存。对于大语言模型而言，主要的权重都集中在embbeding和linear两个网络层中，因此权重加载的适配主要涉及这两个模块改造.
+2. **权重适配**：除了模型结构的并行化改造外，由于模型计算中的权重也被切分了，因此在模型加载的时候，相关的权重也要进行切分，以尽量减少不必要权重加载占用显存。对于大语言模型而言，主要的权重都集中在embbeding和linear两个网络层中，因此权重加载的适配主要涉及这两个模块改造。
 
-3. **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理时，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法如下：
-
-详细模型改造可以可以参考[构建可并行的大语言模型网络](./ms_infer_parallel_infer.md)。
+3. **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理时，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法可以参考[构建可并行的大语言模型网络](./ms_infer_parallel_infer.md)。
 
 ### 模型量化
 

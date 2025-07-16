@@ -43,7 +43,7 @@ from mindspore import Tensor, dtype
 
 @dataclass
 class Qwen2Config:
-    """Qwen2 Config, the key-value is almost the same with config.json in HuggingFace"""
+    """Qwen2 Config, the key-value is almost the same with config.json in Hugging Face"""
     architectures: Optional[List[str]] = None
     attention_dropout: float = 0.0
     bos_token_id: int = 151643
@@ -67,7 +67,7 @@ class Qwen2Config:
     use_cache: bool = True
     use_sliding_window: bool = False
     vocab_size: int = 152064
-    param_dtype: Optional[Type] = dtype.bfloat16   # this is mindspore datatype as huggingface use str as dtype
+    param_dtype: Optional[Type] = dtype.bfloat16   # this is mindspore datatype as hugging face use str as dtype
 
     @classmethod
     def from_json(cls, json_path: str) -> 'Qwen2Config:'
@@ -93,11 +93,11 @@ class Qwen2ModelInput:
     q_seq_lens: Optional[Tensor] = None
 ```
 
-其中，Qwen2Config配置和Hugging Face的配置基本一致，具体请参考Qwen2的官方文档。需要注意的是Qwen2Config用param_dtype替换了torch_dtype，原因是mindspore的datatype类型与torch的不一致。Qwen2ModelInput定义了模型的输入，包括主要的单词id、KVCache和Attention融合算子等MindSpore推理优化特性所需要的数据。
+其中，Qwen2Config配置和Hugging Face的配置基本一致，具体请参考Qwen2的官方文档。需要注意的是Qwen2Config用param_dtype替换了torch_dtype，原因是MindSpore的datatype类型与PyTorch的不一致。Qwen2ModelInput定义了模型的输入，主要包括单词id、KVCache和Attention融合算子等MindSpore推理优化特性所需要的数据。
 
 #### RmsNorm
 
-RmsNorm是当前大语言模型中常用的归一算法，在MindSpore中有直接可以使用的算子，只需要对应实现权重创建即可。同时，由于RmsNorm经常会有残差计算，RmsNorm类实现了残差融合计算在网络层中，代码可以参考：
+RmsNorm是当前大语言模型中常用的归一算法，在MindSpore中有直接可以使用的算子，只需要对应实现权重创建即可。同时，由于RmsNorm经常会有残差计算，RmsNorm类在网络层中实现了残差融合计算，代码可以参考：
 
 ```python
 from typing import Optional, Type, Union, Tuple
@@ -256,327 +256,281 @@ class VocabEmbedding(nn.Cell):
 
 #### DecoderLayer
 
-DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含在这一层中，从Qwen2的网络结构图可以看出，主要包含Attention、MLP、Linear、RmsNorm、Rope等网络层，为了方便开发，我们先完成这些网络层的构建。
+DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含在这一层中，从Qwen2的网络结构图可以看出，主要包含Rope、Attention、MLP等网络层，为了方便开发，我们先完成这些网络层的构建。
 
 - **Rope**
 
-Rope（旋转位置编码）算子用于增强Attention机制对单词间距离的感知能力，通过在query和key的特征上添加位置编码信息来实现。由于Rope的特性，可以预先计算好结果，并在使用时通过查表的方式直接获取，从而实现高效的计算。这可以通过gather操作和Rope算子来完成。具体计算方法可参考旋转位置编码的相关资料。
+    Rope（旋转位置编码）算子用于增强Attention机制对单词间距离的感知能力，通过在query和key的特征上添加位置编码信息来实现。由于Rope的特性，可以预先计算好结果，并在使用时通过查表的方式直接获取，从而实现高效的计算。这可以通过gather操作和Rope算子来完成。具体计算方法可参考旋转位置编码的相关资料。
 
-```python
-import numpy as np
-from typing import Optional, Type
+    ```python
+    import numpy as np
+    from typing import Optional, Type
 
-from mindspore import nn, ops, mint, Parameter, Tensor
+    from mindspore import nn, ops, mint, Parameter, Tensor
 
-class Qwen2RotaryEmbedding(nn.Cell):
-    def __init__(self, head_size: int, rotary_dim: int, max_position_embeddings: int, base: int, dtype: Optional[Type]) -> None:
-        super().__init__()
+    class Qwen2RotaryEmbedding(nn.Cell):
+        def __init__(self, head_size: int, rotary_dim: int, max_position_embeddings: int, base: int, dtype: Optional[Type]) -> None:
+            super().__init__()
 
-        self.head_size = head_size
-        self.rotary_dim = rotary_dim
-        self.max_position_embeddings = max_position_embeddings
-        self.base = base
-        self.dtype = dtype
+            self.head_size = head_size
+            self.rotary_dim = rotary_dim
+            self.max_position_embeddings = max_position_embeddings
+            self.base = base
+            self.dtype = dtype
 
-        # format 2 is neox style
-        self.rotary_embedding_op = ops.ApplyRotaryPosEmb(2)
-        self.gather = ops.Gather()
+            # format 2 is neox style
+            self.rotary_embedding_op = ops.ApplyRotaryPosEmb(2)
+            self.gather = ops.Gather()
 
-        self.freqs_cos, self.freqs_sin = self._compute_cos_sin_cache()
+            self.freqs_cos, self.freqs_sin = self._compute_cos_sin_cache()
 
-    def _compute_inv_freq(self) -> Tensor:
-        freqs_base = mint.arange(0, self.rotary_dim, 2).astype(np.float32)
-        freqs = 1.0 / (self.base ** (freqs_base / self.rotary_dim))
-        return freqs
+        def _compute_inv_freq(self) -> Tensor:
+            freqs_base = mint.arange(0, self.rotary_dim, 2).astype(np.float32)
+            freqs = 1.0 / (self.base ** (freqs_base / self.rotary_dim))
+            return freqs
 
-    def _compute_cos_sin_cache(self) -> Tuple[Tensor, Tensor]:
-        freqs = self._compute_inv_freq()
-        t = np.arange(0, self.max_position_embeddings, 1).astype(np.float32)
-        freqs = np.outer(t, freqs)
-        emb = np.concatenate((freqs, freqs), axis=1)
-        freqs_cos = np.cos(emb)
-        freqs_sin = np.sin(emb)
+        def _compute_cos_sin_cache(self) -> Tuple[Tensor, Tensor]:
+            freqs = self._compute_inv_freq()
+            t = np.arange(0, self.max_position_embeddings, 1).astype(np.float32)
+            freqs = np.outer(t, freqs)
+            emb = np.concatenate((freqs, freqs), axis=1)
+            freqs_cos = np.cos(emb)
+            freqs_sin = np.sin(emb)
 
-        freqs_cos = Tensor(freqs_cos, dtype=self.dtype)
-        freqs_sin = Tensor(freqs_sin, dtype=self.dtype)
-        return freqs_cos, freqs_sin
+            freqs_cos = Tensor(freqs_cos, dtype=self.dtype)
+            freqs_sin = Tensor(freqs_sin, dtype=self.dtype)
+            return freqs_cos, freqs_sin
 
-    def construct(self, positions: Tensor, query: Tensor, key: Tensor, batch_valid_length: Tensor, is_prefill: bool):
-        query = query.contiguous()
-        key = key.contiguous()
+        def construct(self, positions: Tensor, query: Tensor, key: Tensor, batch_valid_length: Tensor, is_prefill: bool):
+            query = query.contiguous()
+            key = key.contiguous()
 
-        if is_prefill:
-            freqs_cos = self.freqs_cos
-            freqs_sin = self.freqs_sin
-        else:
-            freqs_cos = self.gather(self.freqs_cos, positions.view(-1), 0)
-            freqs_sin = self.gather(self.freqs_sin, positions.view(-1), 0)
+            if is_prefill:
+                freqs_cos = self.freqs_cos
+                freqs_sin = self.freqs_sin
+            else:
+                freqs_cos = self.gather(self.freqs_cos, positions.view(-1), 0)
+                freqs_sin = self.gather(self.freqs_sin, positions.view(-1), 0)
 
-        return self.rotary_embedding_op(query, key, freqs_cos, freqs_sin, batch_valid_length)
-```
-
-- **FlashAttention和PagedAttention**
-
-作为自注意力机制的核心，注意力分数计算是主要的计算逻辑。MindSpore提供了高性能的FlashAttentionScore和PagedAttention融合算子，能够帮助用户获取更高的推理性能。然而，由于原生算子面向多种场景，输入比较复杂，此处通过封装简化使用场景。具体代码可以参考：
-
-```python
-import numpy as np
-from typing import Optional, Type
-
-from mindspore import nn, ops, mint, Parameter, Tensor
-
-class FlashAttention(nn.Cell):
-    def __init__(self, scale: float, num_heads: int) -> None:
-        super().__init__()
-
-        input_layout = "TH"
-        scale = scale
-        pre_tokens = 2147483647
-        next_tokens = 2147483647
-        self.flash_attention = ops.operations.nn_ops.FlashAttentionScore(head_num=num_heads,
-                                                                         scale_value=scale,
-                                                                         pre_tokens=pre_tokens,
-                                                                         next_tokens=next_tokens,
-                                                                         input_layout=input_layout)
-
-    def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
-        _, _, _, output = self.flash_attention(
-            q,
-            k,
-            v,
-            None,
-            None,
-            None,
-            attn_mask,
-            None,
-            batch_valid_length,
-            batch_valid_length
-        )
-        return output
-
-
-class PagedAttention(nn.Cell):
-    def __init__(self, head_num: int, scale: float, num_kv_heads: int) -> None:
-        super().__init__()
-
-        self.head_num = head_num
-        self.num_kv_heads = num_kv_heads
-
-        self.paged_attention = ops.auto_generate.PagedAttention(
-            head_num=head_num,
-            scale_value=scale,
-            kv_head_num=num_kv_heads
-        )
-
-    def construct(self, q: Tensor, k_cache: Tensor, v_cache: Tensor,
-                        block_tables: Tensor, batch_valid_length: Tensor,
-                        attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
-        output = self.paged_attention(q, k_cache, v_cache, block_tables, batch_valid_length, None, None, attn_mask, q_seq_lens)
-        return output
-```
-
-- **KVCacheManager**
-
-由于FlashAttention和PagedAttention通常会和KVCache共同使用，如FlashAttention一般用于全量计算、PagedAttentioni一般用于增量计算，因此需要额外传入一些参数，其中主要包括：
-
-- **k_cache&v_cache**：kv_cache对象可以理解为是一个缓存表，用于保存上一次迭代中的key和value值。在下一次迭代时，可以直接读取这些值，从而避免重复计算前n个词的key和value，以提升性能。
-
-- **block_tables&slot_mapping**：PagedAttention通过类似分页的机制，将KVCache按block储存，以便相同词能够集中在同一块block，从而提升显存利用率。
-
-根据上面描述，这些参数都是涉及KVCache的管理，因此可以用一个管理类进行封装，代码可以参考：
-
-```python
-import math
-from collections import deque
-from mindspore import nn, ops, mint, Parameter, Tensor, mutable
-
-class CacheManager:
-    def __init__(self, config: Qwen2Config, block_num: int, block_size: int, batch_size: int) -> None:
-        self.block_num = block_num
-        self.block_size = block_size
-        self.batch_size = batch_size
-
-        head_dim = config.hidden_size // config.num_attention_heads
-
-        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
-        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
-        self.block_tables = [[] for _ in range(batch_size)]
-        self.acc_slot_mapping = [[] for _ in range(batch_size)]
-        self.free_block_ids = deque(range(block_num))
-
-    def step(self, start_pos_idx: int, token_num_per_batch: int) -> Tuple[Tensor, Tensor]:
-        for i in range(self.batch_size):
-            block_table = self.block_tables[i]
-            total_block_num = math.ceil((start_pos_idx + token_num_per_batch) / self.block_size)
-            now_block_num = len(block_table)
-            for _ in range(total_block_num - now_block_num):
-                block_id = self.free_block_ids.popleft()
-                block_table.append(block_id)
-                start_slot_id = block_id * self.block_size
-                self.acc_slot_mapping[i].extend(list(range(start_slot_id, start_slot_id + self.block_size)))
-
-
-        now_block_tables = Tensor(self.block_tables, dtype=dtype.int32)
-        now_slot_mapping = Tensor([self.acc_slot_mapping[i][start_pos_idx: start_pos_idx + token_num_per_batch]
-                                   for i in range(self.batch_size)], dtype=dtype.int32).view(-1)
-
-        return now_block_tables, now_slot_mapping
-```
+            return self.rotary_embedding_op(query, key, freqs_cos, freqs_sin, batch_valid_length)
+    ```
 
 - **Attention**
 
-Attention层是由多个Linear、Rope等组成的。其中，MindSpore提供了FlashAttention和PagedAttention两个融合算子，用于提升Attention分数计算的推理性能。根据网络结构，代码可以参考：
+    Attention层是由多个Linear、Rope和Attention分数计算等组成的。其中，MindSpore提供了FlashAttention和PagedAttention两个融合算子，用于提升Attention分数计算的推理性能。
 
-```python
-import numpy as np
-from typing import Optional, Type
+    - **FlashAttention和PagedAttention**
 
-from mindspore import nn, ops, mint, Parameter, Tensor
+        作为自注意力机制的核心，注意力分数计算是主要的计算逻辑。MindSpore提供了高性能的FlashAttentionScore和PagedAttention融合算子，能够帮助用户获取更高的推理性能。然而，由于原生算子面向多种场景，输入比较复杂，此处通过封装简化使用场景。具体代码可以参考：
+
+        ```python
+        import numpy as np
+        from typing import Optional, Type
+
+        from mindspore import nn, ops, mint, Parameter, Tensor
+
+        class FlashAttention(nn.Cell):
+            def __init__(self, scale: float, num_heads: int) -> None:
+                super().__init__()
+
+                input_layout = "TH"
+                scale = scale
+                pre_tokens = 2147483647
+                next_tokens = 2147483647
+                self.flash_attention = ops.operations.nn_ops.FlashAttentionScore(head_num=num_heads,
+                                                                                scale_value=scale,
+                                                                                pre_tokens=pre_tokens,
+                                                                                next_tokens=next_tokens,
+                                                                                input_layout=input_layout)
+
+            def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
+                _, _, _, output = self.flash_attention(
+                    q,
+                    k,
+                    v,
+                    None,
+                    None,
+                    None,
+                    attn_mask,
+                    None,
+                    batch_valid_length,
+                    batch_valid_length
+                )
+                return output
 
 
-class Qwen2Attention(nn.Cell):
-    def __init__(self, config: Qwen2Config) -> None:
-        super().__init__()
+        class PagedAttention(nn.Cell):
+            def __init__(self, head_num: int, scale: float, num_kv_heads: int) -> None:
+                super().__init__()
 
-        self.hidden_size = config.hidden_size
-        self.num_heads = config.num_attention_heads
-        self.num_kv_heads = config.num_key_value_heads
-        self.head_dim =config.hidden_size // self.num_heads
-        self.q_size = self.head_dim * self.num_heads
-        self.kv_size = self.head_dim * self.num_kv_heads
-        self.scaling = float(self.head_dim ** -0.5)
-        self.rope_theta = int(config.rope_theta)
-        self.param_dtype = config.param_dtype
-        self.max_position = config.max_position_embeddings
+                self.head_num = head_num
+                self.num_kv_heads = num_kv_heads
 
-        self.flash_attn = FlashAttention(self.scaling, self.num_heads)
-        self.paged_attn = PagedAttention(self.num_heads, self.scaling, self.num_kv_heads)
-        self.reshape_and_cache = ops.auto_generate.ReshapeAndCache()
+                self.paged_attention = ops.auto_generate.PagedAttention(
+                    head_num=head_num,
+                    scale_value=scale,
+                    kv_head_num=num_kv_heads
+                )
 
-        self.q_proj = Qwen2Linear(
-            input_size=self.hidden_size,
-            output_size=self.q_size,
-            param_dtype=self.param_dtype,
-            enable_bias=True
-        )
-        self.k_proj = Qwen2Linear(
-            input_size=self.hidden_size,
-            output_size=self.kv_size,
-            param_dtype=self.param_dtype,
-            enable_bias=True
-        )
-        self.v_proj = Qwen2Linear(
-            input_size=self.hidden_size,
-            output_size=self.kv_size,
-            param_dtype=self.param_dtype,
-            enable_bias=True
-        )
-        self.o_proj = Qwen2Linear(
-            input_size=self.q_size,
-            output_size=self.hidden_size,
-            param_dtype=self.param_dtype,
-            enable_bias=False
-        )
+            def construct(self, q: Tensor, k_cache: Tensor, v_cache: Tensor,
+                                block_tables: Tensor, batch_valid_length: Tensor,
+                                attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
+                output = self.paged_attention(q, k_cache, v_cache, block_tables, batch_valid_length, None, None, attn_mask, q_seq_lens)
+                return output
+        ```
 
-        self.rotary_emb = Qwen2RotaryEmbedding(
-            head_size=self.head_dim,
-            rotary_dim=self.head_dim,
-            max_position_embeddings=self.max_position,
-            base=self.rope_theta,
-            dtype=self.param_dtype
-        )
+    Attentiion层的代码可以通过上述构建的网络层实现，代码可以参考：
 
-    def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
-                        is_prefill: bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
-                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
-                        q_seq_lens: Tensor) -> Tensor:
-        bs, seq_len, hidden_dim = hidden_state.shape
+    ```python
+    import numpy as np
+    from typing import Optional, Type
 
-        q = self.q_proj(hidden_state).view(-1, self.q_size)
-        k = self.k_proj(hidden_state).view(-1, self.kv_size)
-        v = self.v_proj(hidden_state).view(-1, self.kv_size)
+    from mindspore import nn, ops, mint, Parameter, Tensor
 
-        q, k = self.rotary_emb(
-            positions,
-            q,
-            k,
-            batch_valid_length,
-            is_prefill
-        )
 
-        k = k.contiguous()
-        v = v.contiguous()
+    class Qwen2Attention(nn.Cell):
+        def __init__(self, config: Qwen2Config) -> None:
+            super().__init__()
 
-        cache_out = self.reshape_and_cache(
-            k,
-            v,
-            k_cache,
-            v_cache,
-            slot_mapping
-        )
-        q = ops.depend(q, cache_out)
+            self.hidden_size = config.hidden_size
+            self.num_heads = config.num_attention_heads
+            self.num_kv_heads = config.num_key_value_heads
+            self.head_dim =config.hidden_size // self.num_heads
+            self.q_size = self.head_dim * self.num_heads
+            self.kv_size = self.head_dim * self.num_kv_heads
+            self.scaling = float(self.head_dim ** -0.5)
+            self.rope_theta = int(config.rope_theta)
+            self.param_dtype = config.param_dtype
+            self.max_position = config.max_position_embeddings
 
-        if is_prefill:
-            attn_output = self.flash_attn(
+            self.flash_attn = FlashAttention(self.scaling, self.num_heads)
+            self.paged_attn = PagedAttention(self.num_heads, self.scaling, self.num_kv_heads)
+            self.reshape_and_cache = ops.auto_generate.ReshapeAndCache()
+
+            self.q_proj = Qwen2Linear(
+                input_size=self.hidden_size,
+                output_size=self.q_size,
+                param_dtype=self.param_dtype,
+                enable_bias=True
+            )
+            self.k_proj = Qwen2Linear(
+                input_size=self.hidden_size,
+                output_size=self.kv_size,
+                param_dtype=self.param_dtype,
+                enable_bias=True
+            )
+            self.v_proj = Qwen2Linear(
+                input_size=self.hidden_size,
+                output_size=self.kv_size,
+                param_dtype=self.param_dtype,
+                enable_bias=True
+            )
+            self.o_proj = Qwen2Linear(
+                input_size=self.q_size,
+                output_size=self.hidden_size,
+                param_dtype=self.param_dtype,
+                enable_bias=False
+            )
+
+            self.rotary_emb = Qwen2RotaryEmbedding(
+                head_size=self.head_dim,
+                rotary_dim=self.head_dim,
+                max_position_embeddings=self.max_position,
+                base=self.rope_theta,
+                dtype=self.param_dtype
+            )
+
+        def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
+                            is_prefill: bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
+                            slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
+                            q_seq_lens: Tensor) -> Tensor:
+            bs, seq_len, hidden_dim = hidden_state.shape
+
+            q = self.q_proj(hidden_state).view(-1, self.q_size)
+            k = self.k_proj(hidden_state).view(-1, self.kv_size)
+            v = self.v_proj(hidden_state).view(-1, self.kv_size)
+
+            q, k = self.rotary_emb(
+                positions,
                 q,
                 k,
-                v,
-                attn_mask,
-                batch_valid_length
-            )
-        else:
-            attn_output = self.paged_attn(
-                q,
-                k_cache,
-                v_cache,
-                block_tables,
                 batch_valid_length,
-                attn_mask,
-                q_seq_lens
+                is_prefill
             )
 
-        output = self.o_proj(attn_output).view(bs, seq_len, -1)
-        return output
-```
+            k = k.contiguous()
+            v = v.contiguous()
+
+            cache_out = self.reshape_and_cache(
+                k,
+                v,
+                k_cache,
+                v_cache,
+                slot_mapping
+            )
+            q = ops.depend(q, cache_out)
+
+            if is_prefill:
+                attn_output = self.flash_attn(
+                    q,
+                    k,
+                    v,
+                    attn_mask,
+                    batch_valid_length
+                )
+            else:
+                attn_output = self.paged_attn(
+                    q,
+                    k_cache,
+                    v_cache,
+                    block_tables,
+                    batch_valid_length,
+                    attn_mask,
+                    q_seq_lens
+                )
+
+            output = self.o_proj(attn_output).view(bs, seq_len, -1)
+            return output
+    ```
 
 - **MLP**
 
-MLP层由多个Linear和一个激活函数（通常是silu）组成，负责实现网络的非线性计算。MLP层可以将问题投影到多个非线性空间，从而增强网络能力。具体实现可以参考下面代码：
+    MLP层由多个Linear和一个激活函数（通常是silu）组成，负责实现网络的非线性计算。MLP层可以将问题投影到多个非线性空间，从而增强网络能力。具体实现可以参考下面代码：
 
-```python
-import numpy as np
-from typing import Optional, Type
+    ```python
+    import numpy as np
+    from typing import Optional, Type
 
-from mindspore import nn, ops, mint, Parameter, Tensor
+    from mindspore import nn, ops, mint, Parameter, Tensor
 
-class Qwen2MLP(nn.Cell):
-    def __init__(self, config: Qwen2Config) -> None:
-        super().__init__()
+    class Qwen2MLP(nn.Cell):
+        def __init__(self, config: Qwen2Config) -> None:
+            super().__init__()
 
-        self.up_proj = Qwen2Linear(
-            input_size=config.hidden_size,
-            output_size=config.intermediate_size,
-            param_dtype=config.param_dtype,
-            enable_bias=False
-        )
-        self.gate_proj = Qwen2Linear(
-            input_size=config.hidden_size,
-            output_size=config.intermediate_size,
-            param_dtype=config.param_dtype,
-            enable_bias=False
-        )
-        self.down_proj = Qwen2Linear(
-            input_size=config.intermediate_size,
-            output_size=config.hidden_size,
-            param_dtype=config.param_dtype,
-            enable_bias=False
-        )
-        self.act_fn = ops.silu
+            self.up_proj = Qwen2Linear(
+                input_size=config.hidden_size,
+                output_size=config.intermediate_size,
+                param_dtype=config.param_dtype,
+                enable_bias=False
+            )
+            self.gate_proj = Qwen2Linear(
+                input_size=config.hidden_size,
+                output_size=config.intermediate_size,
+                param_dtype=config.param_dtype,
+                enable_bias=False
+            )
+            self.down_proj = Qwen2Linear(
+                input_size=config.intermediate_size,
+                output_size=config.hidden_size,
+                param_dtype=config.param_dtype,
+                enable_bias=False
+            )
+            self.act_fn = ops.silu
 
-    def construct(self, x: Tensor) -> Tensor:
-        output = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
-        return output
-```
+        def construct(self, x: Tensor) -> Tensor:
+            output = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+            return output
+    ```
 
 DecoderLayer层可以用上述的网络层参考如下构建：
 
@@ -652,6 +606,54 @@ class Qwen2Model(nn.Cell):
         return hidden_state
 ```
 
+### KVCacheManager
+
+由于大语言模型通常会使用KVCache优化，MindSpore提供的FlashAttention和lashPagedAttention需要和KVCache配合使用，需要额外传入一些参数，其中主要包括：
+
+- **k_cache&v_cache**：kv_cache对象可以理解为是一个缓存表，用于保存上一次迭代中的key和value值。在下一次迭代时，可以直接读取这些值，从而避免重复计算前n个词的key和value，以提升性能。
+
+- **block_tables&slot_mapping**：PagedAttention通过类似分页的机制，将KVCache按block储存，以便相同词能够集中在同一块block，从而提升显存利用率。
+
+根据上面描述，这些参数可以用一个管理类进行封装，代码可以参考：
+
+```python
+import math
+from collections import deque
+from mindspore import nn, ops, mint, Parameter, Tensor, mutable
+
+class CacheManager:
+    def __init__(self, config: Qwen2Config, block_num: int, block_size: int, batch_size: int) -> None:
+        self.block_num = block_num
+        self.block_size = block_size
+        self.batch_size = batch_size
+
+        head_dim = config.hidden_size // config.num_attention_heads
+
+        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+        self.block_tables = [[] for _ in range(batch_size)]
+        self.acc_slot_mapping = [[] for _ in range(batch_size)]
+        self.free_block_ids = deque(range(block_num))
+
+    def step(self, start_pos_idx: int, token_num_per_batch: int) -> Tuple[Tensor, Tensor]:
+        for i in range(self.batch_size):
+            block_table = self.block_tables[i]
+            total_block_num = math.ceil((start_pos_idx + token_num_per_batch) / self.block_size)
+            now_block_num = len(block_table)
+            for _ in range(total_block_num - now_block_num):
+                block_id = self.free_block_ids.popleft()
+                block_table.append(block_id)
+                start_slot_id = block_id * self.block_size
+                self.acc_slot_mapping[i].extend(list(range(start_slot_id, start_slot_id + self.block_size)))
+
+
+        now_block_tables = Tensor(self.block_tables, dtype=dtype.int32)
+        now_slot_mapping = Tensor([self.acc_slot_mapping[i][start_pos_idx: start_pos_idx + token_num_per_batch]
+                                for i in range(self.batch_size)], dtype=dtype.int32).view(-1)
+
+        return now_block_tables, now_slot_mapping
+```
+
 ### Sampler
 
 当主干网络计算完毕后，此时网络的输出是一个shape为[batch_size， vocab_size]的词表，表示每个batch请求，下一个词的概率分布，我们需要从中选择一个词作为最终的结果返回，此处为了简单和消除随机性，每次都选择概率最大的单词作为输出，即通过一次argmax计算，代码可以参考如下：
@@ -708,7 +710,7 @@ class Qwen2Model(nn.Cell):
 
 通过在nn.Cell的construct方法加上ms.jit装饰器，这个Cell的计算就会转化为静态图执行，其中参数意义如下：
 
-- **jit_level**：编译级别，当前MindSpore推理主要支持O0级别，O1级别会有一些算子融合优化，O2为整图下沉，目前推理暂不支持O2级别。
+- **jit_level**：编译级别，当前MindSpore推理主要支持O0级别，O1级别（会有一些算子融合优化），暂不支持O2级别（整图下沉）。
 
 - **infer_boost**：开启推理加速优化，开启后，运行时会做一些调度优化和流优化，提升推理性能。
 

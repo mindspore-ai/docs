@@ -90,12 +90,11 @@ MindSpore教程
    :caption: 推理
    :hidden:
 
-   model_infer/ms_infer/llm_inference_overview
-   model_infer/ms_infer/weight_prepare
-   model_infer/ms_infer/model_dev
-   model_infer/ms_infer/parallel
-   model_infer/ms_infer/weight_split
-   model_infer/ms_infer/quantization
+   model_infer/introduction
+   model_infer/ms_infer/ms_infer_model_infer
+   model_infer/ms_infer/ms_infer_network_develop
+   model_infer/ms_infer/ms_infer_parallel_infer
+   model_infer/ms_infer/ms_infer_quantization
    model_infer/lite_infer/overview
 
 .. toctree::
