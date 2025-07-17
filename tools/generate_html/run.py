@@ -21,11 +21,11 @@ from lxml import etree
 from replace_html_menu import replace_html_menu, modify_menu_num
 
 # 下载仓库
-def git_clone(repo_url, repo_dir):
+def git_clone(repo_url, repo_dir, repo_branch):
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch="master")
+        Repo.clone_from(repo_url, repo_dir, branch=repo_branch, depth=1)
         print("Cloning Repo Done.")
 
 # 更新仓库
@@ -170,7 +170,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 status_code = requests.get(repo_url, headers=headers, timeout=30).status_code
                 if status_code == 200:
                     if not os.path.exists(repo_path):
-                        git_clone(repo_url, repo_path)
+                        git_clone(repo_url, repo_path, branch_)
                     if data[i]['environ'] == "MSC_PATH":
                         if data[i]['name'] == "mindscience":
                             git_update(repo_path, branch_)

@@ -468,6 +468,18 @@ try:
 except Exception as e:
     print(e)
 
+# 删除mint接口文件中CPU/GPU相关的无序列表内容
+for f_name in os.listdir("./api_python/mint"):
+    with open(os.path.join("./api_python/mint", f_name), 'r+', encoding='utf-8') as f:
+        mint_content = f.read()
+        if re.findall('\n[ ]+- (CPU:|GPU:|CPU/GPU:|GPU/CPU:)', mint_content):
+            print(f'{f_name}内有CPU/GPU相关内容，已删除')
+            blank_num = re.findall('\n([ ]+)- (CPU:|GPU:|CPU/GPU:|GPU/CPU:)', mint_content)[0][0]
+            mint_content = re.sub(f'\n[ ]+- (CPU:|GPU:|CPU/GPU:|GPU/CPU:)(?:.|\n|)+?(\n\n|\n{blank_num}-)', r'\2', mint_content)
+            f.seek(0)
+            f.truncate()
+            f.write(mint_content)
+
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary, MsCnPlataclnnAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
