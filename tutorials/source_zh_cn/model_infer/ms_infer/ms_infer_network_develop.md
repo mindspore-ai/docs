@@ -317,65 +317,63 @@ DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含
 
     Attention层是由多个Linear、Rope和Attention分数计算等组成的。其中，MindSpore提供了FlashAttention和PagedAttention两个融合算子，用于提升Attention分数计算的推理性能。
 
-    - **FlashAttention和PagedAttention**
+    然而，由于原生算子面向多种场景，输入比较复杂，此处通过封装简化使用场景。具体代码可以参考：
 
-        作为自注意力机制的核心，注意力分数计算是主要的计算逻辑。MindSpore提供了高性能的FlashAttentionScore和PagedAttention融合算子，能够帮助用户获取更高的推理性能。然而，由于原生算子面向多种场景，输入比较复杂，此处通过封装简化使用场景。具体代码可以参考：
+    ```python
+    import numpy as np
+    from typing import Optional, Type
 
-        ```python
-        import numpy as np
-        from typing import Optional, Type
+    from mindspore import nn, ops, mint, Parameter, Tensor
 
-        from mindspore import nn, ops, mint, Parameter, Tensor
+    class FlashAttention(nn.Cell):
+        def __init__(self, scale: float, num_heads: int) -> None:
+            super().__init__()
 
-        class FlashAttention(nn.Cell):
-            def __init__(self, scale: float, num_heads: int) -> None:
-                super().__init__()
+            input_layout = "TH"
+            scale = scale
+            pre_tokens = 2147483647
+            next_tokens = 2147483647
+            self.flash_attention = ops.operations.nn_ops.FlashAttentionScore(head_num=num_heads,
+                                                                            scale_value=scale,
+                                                                            pre_tokens=pre_tokens,
+                                                                            next_tokens=next_tokens,
+                                                                            input_layout=input_layout)
 
-                input_layout = "TH"
-                scale = scale
-                pre_tokens = 2147483647
-                next_tokens = 2147483647
-                self.flash_attention = ops.operations.nn_ops.FlashAttentionScore(head_num=num_heads,
-                                                                                scale_value=scale,
-                                                                                pre_tokens=pre_tokens,
-                                                                                next_tokens=next_tokens,
-                                                                                input_layout=input_layout)
-
-            def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
-                _, _, _, output = self.flash_attention(
-                    q,
-                    k,
-                    v,
-                    None,
-                    None,
-                    None,
-                    attn_mask,
-                    None,
-                    batch_valid_length,
-                    batch_valid_length
-                )
-                return output
+        def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
+            _, _, _, output = self.flash_attention(
+                q,
+                k,
+                v,
+                None,
+                None,
+                None,
+                attn_mask,
+                None,
+                batch_valid_length,
+                batch_valid_length
+            )
+            return output
 
 
-        class PagedAttention(nn.Cell):
-            def __init__(self, head_num: int, scale: float, num_kv_heads: int) -> None:
-                super().__init__()
+    class PagedAttention(nn.Cell):
+        def __init__(self, head_num: int, scale: float, num_kv_heads: int) -> None:
+            super().__init__()
 
-                self.head_num = head_num
-                self.num_kv_heads = num_kv_heads
+            self.head_num = head_num
+            self.num_kv_heads = num_kv_heads
 
-                self.paged_attention = ops.auto_generate.PagedAttention(
-                    head_num=head_num,
-                    scale_value=scale,
-                    kv_head_num=num_kv_heads
-                )
+            self.paged_attention = ops.auto_generate.PagedAttention(
+                head_num=head_num,
+                scale_value=scale,
+                kv_head_num=num_kv_heads
+            )
 
-            def construct(self, q: Tensor, k_cache: Tensor, v_cache: Tensor,
-                                block_tables: Tensor, batch_valid_length: Tensor,
-                                attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
-                output = self.paged_attention(q, k_cache, v_cache, block_tables, batch_valid_length, None, None, attn_mask, q_seq_lens)
-                return output
-        ```
+        def construct(self, q: Tensor, k_cache: Tensor, v_cache: Tensor,
+                            block_tables: Tensor, batch_valid_length: Tensor,
+                            attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
+            output = self.paged_attention(q, k_cache, v_cache, block_tables, batch_valid_length, None, None, attn_mask, q_seq_lens)
+            return output
+    ```
 
     Attention层的代码可以通过上述构建的网络层实现，代码可以参考：
 
@@ -565,6 +563,8 @@ class Qwen2DecoderLayer(nn.Cell):
 
         return hidden_state, residual
 ```
+
+#### Model
 
 完成Embedding和Decoder层构建后，可以参考如下代码构建Model类：
 
