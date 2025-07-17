@@ -241,7 +241,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 - **整网计算**：传入当前输入token的数据和配置，让模型对象通过多轮计算迭代推理出每轮的token结果。为了代码更加简洁，可以将迭代推理封装到如下generate函数中:
 
     ```python
-    # build mindspore input
+    from typing import List
     from mindspore import ops, mint, Tensor, dtype
     from qwen2 import Qwen2Config, Qwen2ModelInput, Qwen2ForCausalLM, CacheManager, sample
 
@@ -349,7 +349,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 - **后处理**：根据网络推理的输出，利用tokenizer的反向能力，将token id的list转换成一句可理解的语句。
 
     ```python
-    result = [tokenzier.decode(a) for a in output]
+    result = [tokenizer.decode(a) for a in output]
     print(result)
     ```
 
