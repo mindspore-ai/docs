@@ -122,7 +122,7 @@ The following demonstrates the use of automatic data augmentation based on callb
     step_num = 0
     for ep_num in range(epochs):
         for data in itr:
-            print("epcoh: {}, step:{}, data :{}".format(ep_num, step_num, data))
+            print("epoch: {}, step:{}, data :{}".format(ep_num, step_num, data))
             step_num += 1
             dataset.sync_update(condition_name="policy",
                                 data={'ep_num': ep_num, 'step_num': step_num})
@@ -131,21 +131,21 @@ The following demonstrates the use of automatic data augmentation based on callb
     The output is as follows:
 
     ```text
-    epcoh: 0, step:0, data :[Tensor(shape=[], dtype=Int64, value= 1)]
-    epcoh: 0, step:1, data :[Tensor(shape=[], dtype=Int64, value= 2)]
-    epcoh: 0, step:2, data :[Tensor(shape=[], dtype=Int64, value= 3)]
-    epcoh: 1, step:3, data :[Tensor(shape=[], dtype=Int64, value= 1)]
-    epcoh: 1, step:4, data :[Tensor(shape=[], dtype=Int64, value= 5)]
-    epcoh: 1, step:5, data :[Tensor(shape=[], dtype=Int64, value= 7)]
-    epcoh: 2, step:6, data :[Tensor(shape=[], dtype=Int64, value= 6)]
-    epcoh: 2, step:7, data :[Tensor(shape=[], dtype=Int64, value= 50)]
-    epcoh: 2, step:8, data :[Tensor(shape=[], dtype=Int64, value= 66)]
-    epcoh: 3, step:9, data :[Tensor(shape=[], dtype=Int64, value= 81)]
-    epcoh: 3, step:10, data :[Tensor(shape=[], dtype=Int64, value= 1001)]
-    epcoh: 3, step:11, data :[Tensor(shape=[], dtype=Int64, value= 1333)]
-    epcoh: 4, step:12, data :[Tensor(shape=[], dtype=Int64, value= 1728)]
-    epcoh: 4, step:13, data :[Tensor(shape=[], dtype=Int64, value= 28562)]
-    epcoh: 4, step:14, data :[Tensor(shape=[], dtype=Int64, value= 38418)]
+    epoch: 0, step:0, data :[Tensor(shape=[], dtype=Int64, value= 1)]
+    epoch: 0, step:1, data :[Tensor(shape=[], dtype=Int64, value= 2)]
+    epoch: 0, step:2, data :[Tensor(shape=[], dtype=Int64, value= 3)]
+    epoch: 1, step:3, data :[Tensor(shape=[], dtype=Int64, value= 1)]
+    epoch: 1, step:4, data :[Tensor(shape=[], dtype=Int64, value= 5)]
+    epoch: 1, step:5, data :[Tensor(shape=[], dtype=Int64, value= 7)]
+    epoch: 2, step:6, data :[Tensor(shape=[], dtype=Int64, value= 6)]
+    epoch: 2, step:7, data :[Tensor(shape=[], dtype=Int64, value= 50)]
+    epoch: 2, step:8, data :[Tensor(shape=[], dtype=Int64, value= 66)]
+    epoch: 3, step:9, data :[Tensor(shape=[], dtype=Int64, value= 81)]
+    epoch: 3, step:10, data :[Tensor(shape=[], dtype=Int64, value= 1001)]
+    epoch: 3, step:11, data :[Tensor(shape=[], dtype=Int64, value= 1333)]
+    epoch: 4, step:12, data :[Tensor(shape=[], dtype=Int64, value= 1728)]
+    epoch: 4, step:13, data :[Tensor(shape=[], dtype=Int64, value= 28562)]
+    epoch: 4, step:14, data :[Tensor(shape=[], dtype=Int64, value= 38418)]
     ```
 
 ## ImageNet Automatic Data Augmentation
