@@ -175,9 +175,7 @@ class Qwen2Linear(nn.Cell):
 
 Qwen2模型通常会针对特定业务对模型结构进行封装。例如，Qwen2ForCausalLM就是Qwen2面向语言处理和对话类业务的封装。
 
-由于Qwen2大语言模型中的配置参数比较多，为了方便后续处理，我们先定义主要会用到的公共数据结构，主要包括模型配置（Qwen2Config）和模型输入（Qwen2ModelInput），下面是其对应的代码实现：
-
-接下来，我们通过Qwen2ForCausalLM类，将模型的主要接口定义清楚，下面是具体实现：
+通过Qwen2ForCausalLM类，将模型的主要接口定义清楚，下面是具体实现：
 
 ```python
 from glob import glob
@@ -656,7 +654,7 @@ class CacheManager:
 
 ### Sampler
 
-当主干网络计算完毕后，此时网络的输出是一个shape为[batch_size， vocab_size]的词表，表示每个batch请求，下一个词的概率分布，我们需要从中选择一个词作为最终的结果返回，此处为了简单和消除随机性，每次都选择概率最大的单词作为输出，即通过一次argmax计算，代码可以参考如下：
+当主干网络计算完毕后，此时网络的输出是一个shape为[batch_size， vocab_size]的词表，表示batch中多个推理请求的下一个单词的概率分布，需要从中选择一个词作为最终的结果返回，此处为了简单和消除随机性，每次都选择概率最大的单词作为输出，即通过一次argmax计算，代码可以参考如下：
 
 ```python
 from mindspore import Tensor
@@ -668,7 +666,7 @@ def sample(logits: Tensor) -> Tensor:
 
 ## 动态图转静态图
 
-MindSpore提供通过jit将动态图转换成静态图，以此提升推理性能，从代码实现上，用户可以通过如下简单的装饰器进行转换：
+MindSpore可以通过jit将动态图转换成静态图，以此提升推理性能。从代码实现上，用户可以通过如下简单的装饰器进行转换：
 
 ```python
 from mindspore import nn, ops, mint, Parameter, Tensor, jit
