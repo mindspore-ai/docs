@@ -317,7 +317,7 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 
         **batch_valid_length**：表示当前推理的语句长度，主要是用于获取KVCache的KV值。通常是positions的值加1，投机推理场景下可能大于positions的值加1。
 
-        **is_prefill**：是否是全量推理，全量推理需要计算多个KV值，增量推理通常计算一个KV值，复用之前计算的KV结果。
+        **is_prefill**：是否是全量推理。全量推理需要计算多个KV值；增量推理通常可以复用上一轮计算的KV结果，只需要计算最后一个KV值。
 
         **attn_mask**：用于注意力分数计算时隐藏掉不必要的信息，通常是一个上三角或者下三角的标准矩阵（有效值是1，其余是0）。
 
