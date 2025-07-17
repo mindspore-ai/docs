@@ -16,9 +16,9 @@ Currently, the cache service supports only <b>single-node cache<b>. That is, the
 
     ![cache on leaf pipeline](./images/cache_dataset.png)
 
-- Cache the data processed by argumentation.
+- Cache the data processed by augmentation.
 
-    You can also use the cache in the `map` operation. The data processed by argumentation (such as image cropping or resizing) is directly cached, avoiding repeated data argumentation operations and reducing unnecessary computations.
+    You can also use the cache in the `map` operation. The data processed by augmentation (such as image cropping or resizing) is directly cached, avoiding repeated data augmentation operations and reducing unnecessary computations.
 
     ![cache on map pipeline](./images/cache_processed_data.png)
 
@@ -144,13 +144,13 @@ Note:
 
 - The use of `size`:
 
-    - `size=0` indicates that the memory space used by the cache is not limited manually, but automically controlled by the cache server according to system's total memory resources, and cache server's memory usage would be limited to within 80% of the total system memory.
+    - `size=0` indicates that the memory space used by the cache is not limited manually, but automatically controlled by the cache server according to system's total memory resources, and cache server's memory usage would be limited to within 80% of the total system memory.
 
     - Users can also manually set `size` to a proper value based on the idle memory of the machine. Note that before setting the `size` parameter, make sure to check the available memory of the system and the size of the dataset to be loaded. If the memory space occupied by the dataset-cache-server or the space of the dataset to be loaded exceeds the available memory of the system, it may cause problems such as machine downtime/restart, automatic shutdown of dataset-cache-server, and failure of training process execution.
 
 - The use of `spilling=True`:
 
-    - `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the writing permission and the sufficient disk space on the configured disk path is  to store the cache data that spills to the disk. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
+    - `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the writing permission and the sufficient disk space on the configured disk path is to store the cache data that spills to the disk. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
 
     - `spilling=False` indicates that no data is written once the configured memory space is used up on the cache server.
 
@@ -158,7 +158,7 @@ Note:
 
 ### 4. Insert a Cache Instance
 
-Currently, the cache service can be used to cache both original datasets and datasets processed by argumentation. The following examples show the processing of the two types of data separately.
+Currently, the cache service can be used to cache both original datasets and datasets processed by augmentation. The following examples show the processing of the two types of data separately.
 
 Note that both examples need to create a cache instance according to the method in step 3, and pass in the created `test_cache` as `cache` parameters in the dataset load or map operation.
 
@@ -234,7 +234,7 @@ Listing sessions for server on port 50052
    780643335  2044459912           4         n/a            3226         4
 ```
 
-#### Caching the Data Processed by Argumentation
+#### Caching the Data Processed by augmentation
 
 Cache data after data enhancement processing `transforms`.
 
@@ -610,5 +610,5 @@ However, we may **not benefit from cache** in the following scenarios:
 
 - Currently, dataset classes such as `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` do not support cache. `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` belong to `GeneratorOp`, so their error message is displayed as "There is currently no support for GeneratorOp under cache."
 - Data processed by `batch`, `concat`, `filter`, `repeat`, `skip`, `split`, `take`, and `zip` does not support cache.
-- Data processed by random data argumentation operations (such as `RandomCrop`) does not support cache.
+- Data processed by random data augmentation operations (such as `RandomCrop`) does not support cache.
 - The same cache instance cannot be nested in different locations of the same pipeline.
