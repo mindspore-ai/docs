@@ -14,9 +14,9 @@
         <td>模型性能未达到预期，需要对模型性能数据进行采集、分析和调优。</td>
     </tr>
     <tr>
-        <td><a href="xxx">轻量化打点数据采集 -- 待补充文档</a></td>
-        <td>待补充</td>
-        <td>待补充</td>
+        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html#方式五-轻量化打点">轻量化打点数据采集</a></td>
+        <td>mstx轻量化打点模块，支持用户自定义打点以及框架内置打点。</td>
+        <td>大集群场景轻量化获取模型关键指标性能数据，实现问题快速定界。</td>
     </tr>
     <tr>
         <td><a href="https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html#方式二-动态profiler使能">动态Profiler</a></td>
