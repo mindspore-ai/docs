@@ -377,7 +377,7 @@ DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含
                 return output
         ```
 
-    Attentiion层的代码可以通过上述构建的网络层实现，代码可以参考：
+    Attention层的代码可以通过上述构建的网络层实现，代码可以参考：
 
     ```python
     import numpy as np
