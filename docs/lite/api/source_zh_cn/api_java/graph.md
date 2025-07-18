@@ -19,7 +19,7 @@ Graph定义了MindSpore的计算图。
 ## load
 
 ```java
- boolean load(String file)
+public boolean load(String file)
 ```
 
 从指定文件加载MindSpore模型。

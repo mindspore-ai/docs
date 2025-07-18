@@ -12,17 +12,17 @@ Model defines model in MindSpore for compiling and running.
 
 | function                                                     | Supported At Cloud-side Inference | Supported At Device-side Inference |
 | ------------------------------------------------------------ |--------|--------|
-| [boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)](#build)           | ✕      | √      |
+| [boolean build(final MappedByteBuffer buffer, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕      | √      |
 | [boolean build(Graph graph, MSContext context, TrainCfg cfg)](#build) | ✕      | √      |
 | [boolean build(MappedByteBuffer buffer, MSContext context)](#build)                            | √      | √      |
-| [boolean build(String modelPath, MSContext context, char[] dec_key, String dec_mode)](#build)  | ✕      | √      |
-| [boolean build(String modelPath, MSContext context)](#build)                                         | √      | √      |
+| [boolean build(String modelPath, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕      | √      |
+| [boolean build(String modelPath, int modelType, MSContext context)](#build) | √      | √      |
 | [boolean predict()](#predict)                                         | √      | √      |
 | [boolean runStep()](#runstep)                                         | ✕      | √      |
 | [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize)                                         | √      | √      |
 | [List<MSTensor\> getInputs()](#getinputs)                                         | √      | √      |
 | [List<MSTensor\> getOutputs()](#getoutputs)                                         | √      | √      |
-| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname)                                         | √      | √      |
+| [MSTensor getInputByTensorName(String tensorName)](#getinputbytensorname)                                         | √      | √      |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         | √      | √      |
 | [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | ✕      | √      |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
@@ -56,7 +56,7 @@ Compile MindSpore model by computational graph.
   Whether the build is successful.
 
 ```java
-public boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)
+public boolean build(final MappedByteBuffer buffer, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)
 ```
 
 Compile MindSpore model by computational graph buffer.
@@ -66,8 +66,9 @@ Compile MindSpore model by computational graph buffer.
     - `buffer`: computational graph buffer.
     - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_LITE`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_LITE is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
     - `context`: compile context.
-    - `dec_key`: define the key used to decrypt the ciphertext model. The key length is 16, 24, or 32.
-    - `dec_mode`: define the decryption mode. Options: AES-GCM, AES-CBC.
+    - `decKey`: define the key used to decrypt the ciphertext model. The key length is 16, 24, or 32.
+    - `decMode`: define the decryption mode. Options: AES-GCM, AES-CBC.
+    - `croptoLibPath`: define the openssl library path.
 
 - Returns
 
@@ -90,7 +91,7 @@ Compile MindSpore model by computational graph buffer, the default is MindIR mod
   Whether the build is successful.
 
 ```java
-public boolean build(String modelPath, int modelType, MSContext context, char[] dec_key, String dec_mode)
+public boolean build(String modelPath, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)
 ```
 
 Compile MindSpore model by computational graph file.
@@ -100,8 +101,9 @@ Compile MindSpore model by computational graph file.
     - `modelPath`: computational graph file.
     - `modelType`: computational graph type. Optionally, there are `MT_MINDIR_LITE`, `MT_MINDIR`, corresponding to the `ms` model (exported by the `converter_lite` tool) and the `mindir` model (exported by MindSpore or exported by the `converter_lite` tool), respectively. Only MT_MINDIR_LITE is valid for Device-side Inference and the parameter value is ignored. Cloud-side inference supports `ms` and `mindir` model inference, which requires setting the parameter to the option value corresponding to the model. Cloud-side inference support for `ms` model will be removed in future iterations, and cloud-side inference via `mindir` model is recommended.
     - `context`: compile context.
-    - `dec_key`: define the key used to decrypt the ciphertext model. The key length is 16, 24, or 32.
-    - `dec_mode`: define the decryption mode. Options: AES-GCM, AES-CBC.
+    - `decKey`: define the key used to decrypt the ciphertext model. The key length is 16, 24, or 32.
+    - `decMode`: define the decryption mode. Options: AES-GCM, AES-CBC.
+    - `croptoLibPath`: define the openssl library path.
 
 - Returns
 
@@ -188,10 +190,10 @@ Get the output MSTensors of MindSpore model.
 
   The MindSpore MSTensor list.
 
-## getInputsByTensorName
+## getInputByTensorName
 
 ```java
-public MSTensor getInputsByTensorName(String tensorName)
+public MSTensor getInputByTensorName(String tensorName)
 ```
 
 Get the input MSTensors of MindSpore model by the node name.
@@ -394,4 +396,5 @@ public static final int MT_AIR = 1;
 public static final int MT_OM = 2;
 public static final int MT_ONNX = 3;
 public static final int MT_MINDIR_LITE = 4;
+public static final int MT_MINDIR_OPT = MT_MINDIR_LITE;
 ```

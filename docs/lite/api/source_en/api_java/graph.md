@@ -19,7 +19,7 @@ Model defines computational graph in MindSpore.
 ## load
 
 ```java
- boolean load(String file)
+public boolean load(String file)
 ```
 
 Load the MindSpore model from file.
