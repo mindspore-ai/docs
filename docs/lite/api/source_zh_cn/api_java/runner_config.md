@@ -10,9 +10,9 @@ RunnerConfig定义了MindSpore Lite并发推理的配置参数。
 | ------------------------------------------------------------   |--------|--------|
 | [boolean init()](#init)                            | √      | ✕      |
 | [public boolean init(MSContext msContext)](#init)  | √      | ✕      |
-| [public void setWorkerNum(int workerNum)](#setworkernum)                           | √      | ✕      |
+| [public void setWorkersNum(int workersNum)](#setworkersnum)                        | √      | ✕      |
 | [public void setConfigInfo(String section, HashMap<String, String> config)](#setconfiginfo)               | √      | ✕      |
-| [public void setConfigPath(String configPath)](#setconfigpath)                         | √      | ✕      |
+| [public void setConfigPath(String config_path)](#setconfigpath)                       | √      | ✕      |
 | [void getConfigPath()](#getconfigpath)                         | √      | ✕      |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
 | [public void setDeviceIds(ArrayList<Integer\> deviceIds)](#setdeviceids)               | √      | ✕      |
@@ -45,17 +45,17 @@ public boolean init(MSContext msContext)
 
   是否初始化成功。
 
-## setWorkerNum
+## setWorkersNum
 
 ```java
-public void setWorkerNum(int workerNum)
+public void setWorkersNum(int workersNum)
 ```
 
 并发推理中模型个数参数设置。
 
 - 参数
 
-    - `workerNum`: 模型个数。
+    - `workersNum`: 模型个数。
 
 ## setConfigInfo
 
@@ -73,14 +73,14 @@ public void setConfigInfo(String section, HashMap<String, String> config)
 ## setConfigPath
 
 ```java
-public void setConfigPath(String configPath)
+public void setConfigPath(String config_path)
 ```
 
 并发推理中模型配置文件路径参数设置。
 
 - 参数
 
-    - `configPath`: 配置文件路径。
+    - `config_path`: 配置文件路径。
 
 ## getConfigPath
 

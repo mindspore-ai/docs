@@ -12,17 +12,17 @@ Model定义了MindSpore中编译和运行的模型。
 
 | function                                                     | 云侧推理是否支持 | 端侧推理是否支持 |
 | ------------------------------------------------------------ |--------|--------|
-| [boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)](#build)           | ✕      | √      |
+| [boolean build(final MappedByteBuffer buffer, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕      | √      |
 | [boolean build(Graph graph, MSContext context, TrainCfg cfg)](#build) | ✕      | √      |
 | [boolean build(MappedByteBuffer buffer, MSContext context)](#build)                            | √      | √      |
-| [boolean build(String modelPath, MSContext context, char[] dec_key, String dec_mode)](#build)  | ✕      | √      |
-| [boolean build(String modelPath, MSContext context)](#build)                                         | √      | √      |
+| [boolean build(String modelPath, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕      | √      |
+| [boolean build(String modelPath, int modelType, MSContext context)](#build) | √      | √      |
 | [boolean predict()](#predict)                                         | √      | √      |
 | [boolean runStep()](#runstep)                                         | ✕      | √      |
 | [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize)                                         | √      | √      |
 | [List<MSTensor\> getInputs()](#getinputs)                                         | √      | √      |
 | [List<MSTensor\> getOutputs()](#getoutputs)                                         | √      | √      |
-| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname)                                         | √      | √      |
+| [MSTensor getInputByTensorName(String tensorName)](#getinputsbytensorname)                                         | √      | √      |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         | √      | √      |
 | [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | ✕      | √      |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
@@ -56,7 +56,7 @@ public boolean build(Graph graph, MSContext context, TrainCfg cfg)
   是否编译成功。
 
 ```java
-public boolean build(MappedByteBuffer buffer, int modelType, MSContext context, char[] dec_key, String dec_mode)
+public boolean build(final MappedByteBuffer buffer, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)
 ```
 
 通过模型计算图内存块编译MindSpore模型。
@@ -66,8 +66,9 @@ public boolean build(MappedByteBuffer buffer, int modelType, MSContext context, 
     - `buffer`: 模型计算图内存块。
     - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `context`: 运行时Context上下文。
-    - `dec_key`: 模型解密秘钥。
-    - `dec_mode`: 模型解密算法，可选AES-GCM、AES-CBC。
+    - `decKey`: 模型解密秘钥。
+    - `decMode`: 模型解密算法，可选AES-GCM、AES-CBC。
+    - `croptoLibPath`: openssl库路径。
 
 - 返回值
 
@@ -90,7 +91,7 @@ public boolean build(final MappedByteBuffer buffer, int modelType, MSContext con
   是否编译成功。
 
 ```java
-public boolean build(String modelPath, int modelType, MSContext context, char[] dec_key, String dec_mode)
+public boolean build(String modelPath, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)
 ```
 
 通过模型计算图文件编译MindSpore MindIR模型。
@@ -100,8 +101,9 @@ public boolean build(String modelPath, int modelType, MSContext context, char[] 
     - `modelPath`: 模型计算图文件。
     - `modelType`: 模型计算图类型，可选有`MT_MINDIR_LITE`、`MT_MINDIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `context`: 运行时Context上下文。
-    - `dec_key`: 模型解密秘钥。
-    - `dec_mode`: 模型解密算法，可选AES-GCM、AES-CBC。
+    - `decKey`: 模型解密秘钥。
+    - `decMode`: 模型解密算法，可选AES-GCM、AES-CBC。
+    - `croptoLibPath`: openssl库路径。
 
 - 返回值
 
@@ -188,10 +190,10 @@ public List<MSTensor> getOutputs()
 
   所有输出MSTensor组成的List。
 
-## getInputsByTensorName
+## getInputByTensorName
 
 ```java
-public MSTensor getInputsByTensorName(String tensorName)
+public MSTensor getInputByTensorName(String tensorName)
 ```
 
 通过张量名获取MindSpore模型的输入张量。
@@ -398,4 +400,5 @@ public static final int MT_AIR = 1;
 public static final int MT_OM = 2;
 public static final int MT_ONNX = 3;
 public static final int MT_MINDIR_LITE = 4;
+public static final int MT_MINDIR_OPT = MT_MINDIR_LITE;
 ```

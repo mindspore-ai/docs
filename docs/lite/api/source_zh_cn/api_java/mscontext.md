@@ -78,7 +78,7 @@ public boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)
 ## addDeviceInfo
 
 ```java
-boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)
+public boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)
 ```
 
 添加运行设备信息。
@@ -93,7 +93,7 @@ boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)
   设备添加是否成功。
 
 ```java
-boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)
+public boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)
 ```
 
 添加运行设备信息。
@@ -131,7 +131,7 @@ public void free()
 ## setThreadNum
 
 ```java
-void setThreadNum(int threadNum)
+public void setThreadNum(int threadNum)
 ```
 
 设置运行时的线程数量。
@@ -144,7 +144,7 @@ void setThreadNum(int threadNum)
 ## getThreadNum
 
 ```java
-int getThreadNum()
+public int getThreadNum()
 ```
 
 获取当MSContext的线程数量设置，该选项仅MindSpore Lite有效。
@@ -157,7 +157,7 @@ int getThreadNum()
 ## setInterOpParallelNum
 
 ```java
-void setInterOpParallelNum(int parallelNum)
+public void setInterOpParallelNum(int parallelNum)
 ```
 
 设置运行时的算子并行推理数目。
@@ -170,7 +170,7 @@ void setInterOpParallelNum(int parallelNum)
 ## getInterOpParallelNum
 
 ```java
-int getInterOpParallelNum()
+public int getInterOpParallelNum()
 ```
 
 获取当前算子并行数设置。
@@ -183,7 +183,7 @@ int getInterOpParallelNum()
 ## setThreadAffinity
 
 ```java
-void setThreadAffinity(int mode)
+public void setThreadAffinity(int mode)
 ```
 
 设置运行时的CPU绑核策略。
@@ -196,7 +196,7 @@ void setThreadAffinity(int mode)
 ## getThreadAffinityMode
 
 ```java
- int getThreadAffinityMode()
+public int getThreadAffinityMode()
 ```
 
 获取当前CPU绑核策略。
@@ -209,7 +209,7 @@ void setThreadAffinity(int mode)
 ## setThreadAffinity
 
 ```java
-void setThreadAffinity(ArrayList<Integer> coreList)
+public void setThreadAffinity(ArrayList<Integer> coreList)
 ```
 
 设置运行时的CPU绑核列表，如果同时调用了两个不同的`SetThreadAffinity`函数来设置同一个的MSContext，仅`coreList`生效，而`mode`不生效。该选项仅MindSpore Lite有效。
@@ -222,7 +222,7 @@ void setThreadAffinity(ArrayList<Integer> coreList)
 ## getThreadAffinityCoreList
 
 ```java
-ArrayList<Integer> getThreadAffinityCoreList()
+public ArrayList<Integer> getThreadAffinityCoreList()
 ```
 
 获取当前CPU绑核列表。
@@ -235,7 +235,7 @@ ArrayList<Integer> getThreadAffinityCoreList()
 ## setEnableParallel
 
 ```java
-void setEnableParallel(boolean isParallel)
+public void setEnableParallel(boolean isParallel)
 ```
 
 设置运行时是否使能异构并行。
@@ -248,7 +248,7 @@ void setEnableParallel(boolean isParallel)
 ## getEnableParallel
 
 ```java
-boolean getEnableParallel()
+public boolean getEnableParallel()
 ```
 
 获取当前是否使能异构并行。
@@ -272,6 +272,7 @@ import com.mindspore.config.DeviceType;
 public static final int DT_CPU = 0;
 public static final int DT_GPU = 1;
 public static final int DT_NPU = 2;
+public static final int DT_ASCEND = 3;
 ```
 
 DeviceType的值为0，指定设备类型为CPU。
@@ -279,6 +280,8 @@ DeviceType的值为0，指定设备类型为CPU。
 DeviceType的值为1，指定设备类型为GPU。
 
 DeviceType的值为2，指定设备类型为NPU。
+
+DeviceType的值为3，指定设备类型为Ascend。
 
 ## CpuBindMode
 

@@ -20,11 +20,11 @@ MSTensor defined tensor in MindSpore.
 | [float[] getFloatData()](#getfloatdata)  | √      | √      |
 | [int[] getIntData()](#getintdata)        | √      | √      |
 | [long[] getLongData()](#getlongdata)     | √      | √      |
-| [void setData(byte[] data)](#setdata)     | √      | √      |
-| [void setData(float[] data)](#setdata)     | √      | √      |
-| [void setData(int[] data)](#setdata)     | √      | √      |
-| [void setData(long[] data)](#setdata)     | √      | √      |
-| [void setData(ByteBuffer data)](#setdata) | √      | √      |
+| [boolean setData(byte[] data)](#setdata) | √      | √      |
+| [boolean setData(float[] data)](#setdata) | √      | √      |
+| [boolean setData(int[] data)](#setdata) | √      | √      |
+| [boolean setData(long[] data)](#setdata) | √      | √      |
+| [boolean setData(ByteBuffer data)](#setdata) | √      | √      |
 | [long size()](#size)                       | √      | √      |
 | [int elementsNum()](#elementsnum)         | √      | √      |
 | [void free()](#free)                       | √      | √      |
@@ -140,7 +140,7 @@ Get output data of MSTensor, the data type is long.
 ## setData
 
 ```java
-public void setData(byte[] data)
+public boolean setData(byte[] data)
 ```
 
 Set the input data of MSTensor.
@@ -149,8 +149,12 @@ Set the input data of MSTensor.
 
     - `data`: Input data of byte[] type.
 
+- Returns
+
+  Whether the setting data is successful.
+
 ```java
-public void setData(float[] data)
+public boolean setData(float[] data)
 ```
 
 Set the input data of MSTensor.
@@ -159,8 +163,12 @@ Set the input data of MSTensor.
 
     - `data`: Input data of float[] type.
 
+- Returns
+
+  Whether the setting data is successful.
+
 ```java
-public void setData(int[] data)
+public boolean setData(int[] data)
 ```
 
 Set the input data of MSTensor.
@@ -169,8 +177,12 @@ Set the input data of MSTensor.
 
     - `data`: Input data of int[] type.
 
+- Returns
+
+  Whether the setting data is successful.
+
 ```java
-public void setData(long[] data)
+public boolean setData(long[] data)
 ```
 
 Set the input data of MSTensor.
@@ -179,8 +191,12 @@ Set the input data of MSTensor.
 
     - `data`: Input data of long[] type.
 
+- Returns
+
+  Whether the setting data is successful.
+
 ```java
-public void setData(ByteBuffer data)
+public boolean setData(ByteBuffer data)
 ```
 
 Set the input data of MSTensor.
@@ -188,6 +204,10 @@ Set the input data of MSTensor.
 - Parameters
 
     - `data`: Input data of ByteBuffer type.
+
+- Returns
+
+  Whether the setting data is successful.
 
 ## size
 

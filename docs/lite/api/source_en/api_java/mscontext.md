@@ -93,7 +93,7 @@ Add device info for mscontext.
   Whether the device info add is successful.
 
 ```java
-boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)
+public boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)
 ```
 
 Add device info for mscontext.
@@ -131,7 +131,7 @@ Free the memory allocated for MSContext.
 ## setThreadNum
 
 ```java
-void setThreadNum(int threadNum)
+public void setThreadNum(int threadNum)
 ```
 
 Sets the number of threads at runtime.
@@ -144,7 +144,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 ## getThreadNum
 
 ```java
-void int getThreadNum()
+public void int getThreadNum()
 ```
 
 Get the current thread number setting.
@@ -157,7 +157,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 ## setInterOpParallelNum
 
 ```java
-void setInterOpParallelNum(int parallelNum)
+public void setInterOpParallelNum(int parallelNum)
 ```
 
 Set the parallel number of operators at runtime.
@@ -170,7 +170,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 ## getInterOpParallelNum
 
 ```java
-int getInterOpParallelNum()
+public int getInterOpParallelNum()
 ```
 
 et the current operators parallel number setting.
@@ -183,7 +183,7 @@ If MSContext is not initialized, this function will return -1 and output null po
 ## setThreadAffinity
 
 ```java
-void setThreadAffinity(int mode)
+public void setThreadAffinity(int mode)
 ```
 
 Set the thread affinity to CPU cores.
@@ -196,7 +196,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 ## getThreadAffinityMode
 
 ```java
- int getThreadAffinityMode()
+public int getThreadAffinityMode()
 ```
 
 Get the thread affinity of CPU cores.
@@ -209,7 +209,7 @@ If MSContext is not initialized, this function will return -1 and output null po
 ## setThreadAffinity
 
 ```java
-void setThreadAffinity(ArrayList<Integer> coreList)
+public void setThreadAffinity(ArrayList<Integer> coreList)
 ```
 
 Set the thread lists to CPU cores, if two different `setThreadAffinity` are set for a single MSContext at the same time, only `coreList` will take effect and `mode` will not.
@@ -222,7 +222,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 ## getThreadAffinityCoreList
 
 ```java
-ArrayList<Integer> getThreadAffinityCoreList()
+public ArrayList<Integer> getThreadAffinityCoreList()
 ```
 
  Get the thread lists of CPU cores.
@@ -235,7 +235,7 @@ If MSContext is not initialized, this function will retutn an empty Arraylist an
 ## setEnableParallel
 
 ```java
-void setEnableParallel(boolean isParallel)
+public void setEnableParallel(boolean isParallel)
 ```
 
 Set the status whether to perform model inference or training in parallel.
@@ -248,7 +248,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 ## getEnableParallel
 
 ```java
-boolean getEnableParallel()
+public boolean getEnableParallel()
 ```
 
 Get the status whether to perform model inference or training in parallel.
@@ -272,6 +272,7 @@ Define device type.
 public static final int DT_CPU = 0;
 public static final int DT_GPU = 1;
 public static final int DT_NPU = 2;
+public static final int DT_ASCEND = 3;
 ```
 
 The value of DeviceType is 0, and the specified device type is CPU.
@@ -279,6 +280,8 @@ The value of DeviceType is 0, and the specified device type is CPU.
 The value of DeviceType is 1, and the specified device type is GPU.
 
 The value of DeviceType is 2, and the specified device type is NPU.
+
+The value of DeviceType is 3, and the specified device type is Ascend.
 
 ## CpuBindMode
 
