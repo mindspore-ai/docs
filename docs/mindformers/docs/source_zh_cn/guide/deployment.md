@@ -116,6 +116,32 @@ tail -f output.log
 
 当log日志中出现`Daemon start success!`，表示服务启动成功。
 
+**脚本参数**
+
+| 参数                       | 参数说明                                                                                                                              | 取值说明                        |
+| :------------------------- |:----------------------------------------------------------------------------------------------------------------------------------| ------------------------------- |
+| `--model-name`             | 设置MindIE 服务后端模型命名。                                                                                                                | str，必选。                     |
+| `--model-path`             | 设置MindIE 服务后端模型路径，包含必要文件如yaml/config.json/tokenizer/vocab等。                                                                       | str，必选。                     |
+| `--ip`                     | EndPoint提供的业务面RESTful接口绑定的IP地址。                                                                                                   | str，可选。默认值："127.0.0.1"  |
+| `--port`                   | EndPoint提供的业务面RESTful接口绑定的端口号。                                                                                                    | int，可选。默认值：1025         |
+| `--management-ip`          | EndPoint提供的管理面RESTful接口绑定的IP地址。                                                                                                   | str，可选。默认值："127.0.0.2"  |
+| `--management-port`        | EndPoint提供的管理面RESTful接口绑定的端口号。                                                                                                    | int，可选。默认值：1026         |
+| `--metrics-port`           | 服务监控指标接口（普罗格式）端口号。                                                                                                                | int，可选。默认值：1027         |
+| `--max-seq-len`            | 最大序列长度。                                                                                                                           | int，可选。默认值：2560         |
+| `--max-iter-times`         | 模型全局最大输出长度。与请求级最大输出token个数max_tokens（或max_new_tokens）取较小值作为最大可生成长度。                                                               | int，可选。默认值：512          |
+| `--max-input-token-len`    | 输入token id最大长度。                                                                                                                   | int，可选。默认值：2048         |
+| `--max-prefill-tokens`     | 每次Prefill时，当前batch中所有input token总数，不能超过maxPrefillTokens。                                                                          | int，可选。默认值：8192         |
+| `--truncation`             | 是否进行参数合理化校验拦截。                                                                                                                    | bool，可选。默认值：false       |
+| `--template-type`          | 推理类型。<br />Standard：PD混合部署场景，Prefill请求和Decode请求各自组成batch处理。<br />Mix：Splitfuse特性相关参数，Prefill请求和Decode请求可以合并组成batch处理。             | str，可选。默认值："Standard"。 |
+| `--max-preempt-count`      | 每一批次最大可抢占请求的上限。                                                                                                                   | int，可选。默认值：0            |
+| `--support-select-batch`   | batch选择策略。<br />false：表示每一轮调度时，优先调度和执行Prefill阶段的请求。<br />true：表示每一轮调度时，根据当前Prefill与Decode请求的数量，自适应调整Prefill和Decode阶段请求调度和执行的先后顺序。 | bool，可选。默认值：false       |
+| `--npu-mem-size`           | 单个NPU中可以用来申请KV Cache的size上限。                                                                                                      | int，可选。默认值：50           |
+| `--max-prefill-batch-size` | 最大prefill batch size。                                                                                                             | int，可选。默认值：50           |
+| `--world-size`             | 启用的推理卡数。默认不设置，以yaml中配置的parallel_config为准；设置后将覆盖yaml中并行配置中的model_parallel参数。                                                       | str，可选。                     |
+| `--ms-sched-host`          | MindSpore scheduler节点ip地址。                                                                                                        | str，可选。默认值："127.0.0.1"  |
+| `--ms-sched-port`          | MindSpore scheduler节点服务端口。                                                                                                        | int，可选。默认值：8119         |
+| `--help`                   | 展示脚本入参介绍。                                                                                                                         | str，可选。                     |
+
 #### 2. 自定义启动
 
 MindIE安装路径均为默认路径`/usr/local/Ascend/.` 如自定义安装路径，同步修改以下例子中的路径。
