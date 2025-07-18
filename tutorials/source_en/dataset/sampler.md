@@ -49,7 +49,7 @@ for data in dataset:
 
 docs/mindspore/source_en/features/dataset/overview.mdses where random access are expensive or forbidden.
 
-For example, when access a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
+For example, when accessing a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
 
 The following constructs a simple iterator and loads it into `GeneratorDataset`.
 
@@ -164,7 +164,7 @@ path = download(url, "./", kind="zip", replace=True)
 train_dataset = MnistDataset("MNIST_Data/train", shuffle=False)
 print(type(train_dataset))
 
-# visialize dataset content
+# visualize dataset content
 figure = plt.figure(figsize=(4, 4))
 cols, rows = 3, 3
 
