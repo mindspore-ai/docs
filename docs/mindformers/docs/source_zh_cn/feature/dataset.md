@@ -16,7 +16,7 @@ Megatron数据集是为大规模分布式语言模型预训练场景设计的一
 
 ### 数据预处理
 
-MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py)用于将`json`格式的原始文本预料转换成`.bin`或`.idx`文件。如果用户的原始文本不是`json`格式，需要自行将数据处理成对应格式的文件。
+MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)用于将`json`格式的原始文本预料转换成`.bin`或`.idx`文件。如果用户的原始文本不是`json`格式，需要自行将数据处理成对应格式的文件。
 
 下面是`json`格式文件的示例：
 
@@ -70,38 +70,37 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
 
 4. 生成`.bin`或`.idx`数据文件
 
-   执行数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py)可以将原始文本数据通过模型的tokenizer转换为对应的token id。
+   执行数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)可以将原始文本数据通过模型的tokenizer转换为对应的token id。
 
     该脚本参数如下：
 
-   | 参数名            | 说明                                                       |
-   |----------------|----------------------------------------------------------|
-   | input          | `json`格式文件路径                                             |
-   | output-prefix  | `.bin`或`.idx`数据文件格式的前缀                                   |
-   | tokenizer-type | 模型使用的tokenizer类型                                         |
-   | vocab-file     | 模型使用的tokenizer文件（tokenizer.model/vocab.json）路径           |
-   | merges-file    | 模型使用的tokenizer文件（merge.txt）路径                            |
-   | add_bos_token  | 是否在词表中加入`bos_token`                                      |
-   | add_eos_token  | 是否在词表中加入`eos_token`                                      |
-   | seq-length     | 设置数据集样本的序列长度                                             |
-   | pad_or_stitch  | 选择填充或拼接样本，可选参数为`pad`和`stitch`                            |
-   | register_path  | 选择外部tokenizer代码所在目录，仅在`tokenizer-type`='AutoRegister'时生效 |
-   | auto_register  | 选择外部tokenizer的导入路径，仅在`tokenizer-type`='AutoRegister'时生效  |
+   | 参数名               | 说明                                                                        |
+   |-------------------|---------------------------------------------------------------------------|
+   | input             | `json`格式文件路径                                                              |
+   | output-prefix     | `.bin`或`.idx`数据文件格式的前缀                                                    |
+   | tokenizer-type    | 模型使用的tokenizer类型                                                          |
+   | vocab-file        | 模型使用的tokenizer文件（tokenizer.model/vocab.json）路径                            |
+   | merges-file       | 模型使用的tokenizer文件（merge.txt）路径                                             |
+   | tokenizer-file    | 模型使用的tokenizer文件（tokenizer.json）路径                                        |
+   | add_bos_token     | 是否在句首中加入`bos_token`                                                       |
+   | add_eos_token     | 是否在句尾中加入`eos_token`                                                       |
+   | eos_token         | 代表`eos_token`的词元，默认为'</s>'                                                |
+   | append-eod        | 是否在文本的末尾添加一个`eos_token`                                                   |
+   | tokenizer-dir     | 模型使用的HuggingFaceTokenizer的目录，仅在`tokenizer-type`='HuggingFaceTokenizer'时生效 |
+   | trust-remote-code | 是否允许使用Hub上定义的tokenizer类，仅在`tokenizer-type`='HuggingFaceTokenizer'时生效      |
+   | register_path     | 选择外部tokenizer代码所在目录，仅在`tokenizer-type`='AutoRegister'时生效                  |
+   | auto_register     | 选择外部tokenizer的导入路径，仅在`tokenizer-type`='AutoRegister'时生效                   |
 
-   `tokenizer-type`的可选值为'LlamaTokenizer'、'LlamaTokenizerFast'和'AutoRegister'，其中设置为'LlamaTokenizer'或'LlamaTokenizerFast'时表示调用MindSpore Transformers仓库中的对应公有tokenizer类，而设置为'AutoRegister'时，表示调用由register_path和auto_register参数指定的外部tokenizer类。
+   `tokenizer-type`的可选值为'HuggingFaceTokenizer'和'AutoRegister'，其中设置为'HuggingFaceTokenizer'时，transformers库的AutoTokenizer类会使用本地HuggingFace仓库对其中的tokenizer实例化；而设置为'AutoRegister'时，表示调用由register_path和auto_register参数指定的外部tokenizer类。
 
-   以公有tokenizer类LlamaTokenizerFast为例，执行如下命令处理数据集：
+   以[Deepseek-V3仓库](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base)中的[LlamaTokenizerFast](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer_config.json)和[词表](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer.json)为例。如果本地不存在对应仓库，需要将配置文件(tokenizer_config.json)和词表文件(tokenizer.json)手动下载到本地目录，假设为/path/to/huggingface/tokenizer。执行如下命令处理数据集：
 
    ```shell
    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
      --input /path/data.json \
      --output-prefix /path/megatron_data \
-     --tokenizer-type LlamaTokenizerFast \
-     --vocab-file /path/tokenizer.model \
-     --add_bos_token True \
-     --add_eos_token True \
-     --pad_or_stitch stitch \
-     --seq-length 8192
+     --tokenizer-type HuggingFaceTokenizer \
+     --tokenizer-dir /path/to/huggingface/tokenizer
    ```
 
    以外部tokenizer类[Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py)为例，确保**本地**mindformers仓库下存在'research/llama3_1/llama3_1_tokenizer.py'，执行如下命令处理数据集：
@@ -112,10 +111,6 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
      --output-prefix /path/megatron_data \
      --tokenizer-type AutoRegister \
      --vocab-file /path/tokenizer.model \
-     --add_bos_token True \
-     --add_eos_token True \
-     --pad_or_stitch stitch \
-     --seq-length 8192 \
      --register_path research/llama3_1 \
      --auto_register llama3_1_tokenizer.Llama3Tokenizer
    ```

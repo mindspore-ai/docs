@@ -16,7 +16,7 @@ The following sections will explain how to generate `.bin` and `.idx` files, as 
 
 ### Data Preprocessing
 
-MindSpore Transformers provides a data preprocessing script, [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py), which is used to convert raw text data in `json` format into `.bin` and `.idx` files.
+MindSpore Transformers provides a data preprocessing script, [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py), which is used to convert raw text data in `json` format into `.bin` and `.idx` files.
 
 If the raw text data is not in `json` format, users need to preprocess and convert it into the appropriate format themselves.
 
@@ -73,41 +73,40 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
 
 4. Generate `.bin` and `.idx` data files
 
-   Run the data preprocessing script [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) to convert the original text data into corresponding token IDs using the model's tokenizer.
+   Run the data preprocessing script [preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py) to convert the original text data into corresponding token IDs using the model's tokenizer.
 
    The script accepts the following parameters:
 
-   | Parameter Name | Description                                                                                       |
-   |----------------|---------------------------------------------------------------------------------------------------|
-   | input          | Path to the `json` format file                                                                    |
-   | output-prefix  | Prefix for the `.bin` and `.idx` data files                                                       |
-   | tokenizer-type | Type of tokenizer used by the model                                                               |
-   | vocab-file     | Path to the model’s tokenizer file (`tokenizer.model` / `vocab.json`)                             |
-   | merges-file    | Path to the model’s tokenizer merges file (`merge.txt`)                                           |
-   | add_bos_token  | Whether to add a `bos_token` (beginning of sequence token) to the vocabulary                      |
-   | add_eos_token  | Whether to add an `eos_token` (end of sequence token) to the vocabulary                           |
-   | seq-length     | Set the sequence length for dataset samples                                                       |
-   | pad_or_stitch  | Choose to either `pad` or `stitch` samples                                                        |
-   | register_path  | Set the code directory of outer tokenizer. Take effects only when `tokenizer-type`='AutoRegister' |
-   | auto_register  | Set the import path of outer tokenizer. Take effects only when `tokenizer-type`='AutoRegister'    |
+   | Parameter Name    | Description                                                                                                       |
+   |-------------------|-------------------------------------------------------------------------------------------------------------------|
+   | input             | Path to the `json` format file                                                                                    |
+   | output-prefix     | Prefix for the `.bin` and `.idx` data files                                                                       |
+   | tokenizer-type    | Type of tokenizer used by the model                                                                               |
+   | vocab-file        | Path to the model’s tokenizer file (`tokenizer.model` / `vocab.json`)                                             |
+   | merges-file       | Path to the model’s tokenizer merges file (`merge.txt`)                                                           |
+   | tokenizer-file    | Path to the model’s tokenizer file (`tokenizer.json`)                                                             |
+   | add_bos_token     | Whether to add a `bos_token` (beginning of sequence token) to the vocabulary                                      |
+   | add_eos_token     | Whether to add an `eos_token` (end of sequence token) to the vocabulary                                           |
+   | eos_token         | The string represent token `eos_token`, defaults to '</s>'                                                        |
+   | append-eod        | Whether to add an `eos_token` to the end of documentation                                                         |
+   | tokenizer-dir     | The directory of HuggingFaceTokenizer, Take effects only when `tokenizer-type`='HuggingFaceTokenizer'             |
+   | trust-remote-code | Whether to allow for custom models defined in Hub. Take effects only when `tokenizer-type`='HuggingFaceTokenizer' |
+   | register_path     | Set the code directory of outer tokenizer. Take effects only when `tokenizer-type`='AutoRegister'                 |
+   | auto_register     | Set the import path of outer tokenizer. Take effects only when `tokenizer-type`='AutoRegister'                    |
 
-   The optional value of `tokenizer-type` is 'LlamaTokenizer', 'LlamaTokenizerFast' and 'AutoRegister'. When it's set to 'LlamaTokenizer' or 'LlamaTokenizerFast', the corresponding public tokenizer class in MindSpore Transformers will be called. When it's set to 'AutoRegister', outer tokenizer class specified by `register_path` and `auto_register` will be applied.
+   The optional value of `tokenizer-type` is 'HuggingFaceTokenizer' and 'AutoRegister'. When it's set to 'HuggingFaceTokenizer', `AutoTokenizer` class in `transformers` library will instantiate tokenizer in local HuggingFace repository. When it's set to 'AutoRegister', outer tokenizer class specified by `register_path` and `auto_register` will be applied.
 
-   Take public tokenizer class `LlamaTokenizerFast` for example, execute the following command to preprocess the dataset:
+   Take [LlamaTokenizerFast](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer_config.json) and [vocab file](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer.json) in [DeepSeek-V3 repository](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base) as an example. If there is no corresponding repository, configuration file (tokenizer_config.json) and vocab file (tokenizer.json) needed to be download to local path. Let it be /path/to/huggingface/tokenizer. Execute the following command to preprocess the dataset:
 
    ```shell
    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
      --input /path/data.json \
      --output-prefix /path/megatron_data \
-     --tokenizer-type LlamaTokenizerFast \
-     --vocab-file /path/tokenizer.model \
-     --add_bos_token True \
-     --add_eos_token True \
-     --pad_or_stitch stitch \
-     --seq-length 8192
+     --tokenizer-type HuggingFaceTokenizer \
+     --tokenizer-dir /path/to/huggingface/tokenizer
    ```
 
-   Take outer tokenizer class [Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py) for example, make sure **local** MindSpore Transformers repository has 'research/llama3_1/llama3_1_tokenizer.py', and execute the following command to preprocess the dataset:
+   Take outer tokenizer class [Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py) as an example, make sure **local** MindSpore Transformers repository has 'research/llama3_1/llama3_1_tokenizer.py', and execute the following command to preprocess the dataset:
 
    ```shell
    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
@@ -115,10 +114,6 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
      --output-prefix /path/megatron_data \
      --tokenizer-type AutoRegister \
      --vocab-file /path/tokenizer.model \
-     --add_bos_token True \
-     --add_eos_token True \
-     --pad_or_stitch stitch \
-     --seq-length 8192 \
      --register_path research/llama3_1 \
      --auto_register llama3_1_tokenizer.Llama3Tokenizer
    ```
