@@ -244,7 +244,7 @@ Graph Compilation and Execution
        0: not enabled.
 
        Default value: 0
-     - Ascend AI processor environment and graph compilation grade O2 process use only.
+     - Ascend AI processor environment and GE backend use only.
    * - MS_ENABLE_GRACEFUL_EXIT
      - Enable training process exit gracefully
      - Integer
@@ -982,7 +982,7 @@ For more information about CANN's environment variables, see `Ascend community <
      - Value Range
      - Description
    * - MS_FORMAT_MODE
-     - Set the default preferred format for Ascend and graph compilation grade O2 processes, with the entire network set to ND format
+     - Set the default preferred format for Ascend and GE backend, with the entire network set to ND format
      - Integer
      - 1: The operator prioritizes the ND format.
 
@@ -991,7 +991,7 @@ For more information about CANN's environment variables, see `Ascend community <
        Default value: 1
      - This environment variable affects the choice of format for the operator, which has an impact on network execution performance and memory usage, and can be tested by setting this option to get a better choice of operator format in terms of performance and memory.
 
-       Ascend AI processor environment and graph compilation grade O2 processes only.
+       Ascend AI processor environment and GE backend only.
 
 Profiler
 -----------
