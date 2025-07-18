@@ -199,7 +199,7 @@ The directory structure of the extracted dataset file is as follows:
 
 #### Caching the Original Dataset Data
 
-Cache the original dataset, and the datat is loaded by the MindSpore system.
+Cache the original dataset, and the data is loaded by the MindSpore system.
 
 ```python
 dataset_dir = "./datasets/cifar-10-batches-bin/train"
@@ -356,7 +356,7 @@ During the single-node multi-device distributed training, the cache operation al
 
 3. Pass the cache session id to the training script.
 
-    Continue to write the Shell script and add the following command to pass `session_id` and other parameters when the Python training is started:
+    Continue writing the Shell script and add the following command to pass `session_id` and other parameters when the Python training is started:
 
     ```bash
     # make the session_id available to the python scripts
@@ -458,7 +458,7 @@ However, access to NFS datasets is often expensive, resulting in longer training
 
 In order to improve the training performance of the NFS dataset, we can choose to use a cache service to cache the dataset in memory as Tensor. Once cached, post-sequence epochs can read data directly from memory, avoiding the overhead of accessing remote NAS.
 
-It should be noted that in the data processing process of the training process, and the dataset usually needs to be **augmentated** with randomness after being **read**, such as `RandomCropDecodeResize`. If the cache is added to the operation with randomness, it will cause the results of the first enhancement operation to be cached, and the results read from the cache server in the later sequence are the first cached data, resulting in the loss of data randomness and affecting the accuracy of the training network.
+It should be noted that in the data processing process of the training process, and the dataset usually needs to be **augmented** with randomness after being **read**, such as `RandomCropDecodeResize`. If the cache is added to the operation with randomness, it will cause the results of the first enhancement operation to be cached, and the results read from the cache server in the later sequence are the first cached data, resulting in the loss of data randomness and affecting the accuracy of the training network.
 
 Therefore, we can choose to add a cache directly after the data set **reads** the operation. This section takes this approach, using the MobileNetV2 network as a sample for an example.
 
@@ -594,7 +594,7 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
 
 ## Cache Performance Tuning
 
-The cache service performance can be **significantly improved** in following scenarios:
+The cache service performance can be **significantly improved** in the following scenarios:
 
 - Cache the data processed by augmentation, especially when the data processing pipeline contains high complexity operations such as decode. In this scenario, you do not need to perform the data augmentation operation repeatedly on each epoch, which saves a lot of time.
 - Use cache services during simple network training and inference. Compared with complex networks, simple networks require less training time. Therefore, the time performance is significantly improved when cache services are used in this scenario.
