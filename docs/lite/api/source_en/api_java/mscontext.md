@@ -14,20 +14,21 @@ MSContext is defined for holding environment variables during runtime.
 | --------------------------------------------------------------------------------------------- |--------|--------|
 | [boolean init()](#init)                                                                       | √      | √      |
 | [boolean init(int threadNum, int cpuBindMode)](#init)                                         | √      | √      |
-| [boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)](#init)               | ✕      | √      |
+| [boolean init(int threadNum, int cpuBindMode, boolean isEnableParallel)](#init)               | √     | √      |
 | [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16)](#adddeviceinfo)              | √      | √      |
 | [boolean addDeviceInfo(int deviceType, boolean isEnableFloat16, int npuFreq)](#adddeviceinfo) | ✕      | √      |
+| [boolean addDeviceInfo(AscendDeviceInfo ascendDeviceInfo)](#adddeviceinfo) | √ | ✕ |
 | [void free()](#free)                                                                          | √      | √      |
 | [long getMSContextPtr()](#getmscontextptr)                                                    | √      | √      |
 | [void setThreadNum(int threadNum)](#setenableparallel)                                        | √      | √      |
 | [int getThreadNum()](#getenableparallel)                                                      | √      | √      |
-| [void setInterOpParallelNum(int parallelNum)](#setinteropparallelnum)                         | √      | √      |
-| [int getInterOpParallelNum()](#getinteropparallelnum)                                         | √      | √      |
+| [void setInterOpParallelNum(int parallelNum)](#setinteropparallelnum)                         | √      | ✕     |
+| [int getInterOpParallelNum()](#getinteropparallelnum)                                         | √      | ✕     |
 | [void setThreadAffinity(int mode)](#setthreadaffinity)                                        | √      | √      |
 | [int getThreadAffinityMode()](#getthreadaffinitycorelist)                                     | √      | √      |
 | [void setThreadAffinity(ArrayList<Integer\> coreList)](#setthreadaffinity-1)                 | √      | √      |
 | [ArrayList<Integer\> getThreadAffinityCoreList()](#getthreadaffinitycorelist)                | √      | √      |
-| [void setEnableParallel(boolean isParallel)](#setenableparallel)                              | ✕      | √      |
+| [void setEnableParallel(boolean isParallel)](#setenableparallel)                              | √     | √      |
 | [boolean getEnableParallel()](#getenableparallel)                                             | ✕      | √      |
 | [DeviceType](#devicetype)                                                                     | √      | √      |
 | [CpuBindMode](#cpubindmode)                                                                   | √      | √      |
@@ -103,6 +104,18 @@ Add device info for mscontext.
     - `deviceType`: A **[DeviceType](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)** **enum** type.
     - `isEnableFloat16`: is enable fp16.
     - `npuFreq`: Npu frequency.
+
+- Returns
+
+  Whether the device info add is successful.
+
+```java
+public boolean addDeviceInfo(AscendDeviceInfo ascendDeviceInfo)
+```
+
+- Parameters
+
+    - `ascendDeviceInfo`: ascendDeviceInfo Device info for Ascend backend.
 
 - Returns
 

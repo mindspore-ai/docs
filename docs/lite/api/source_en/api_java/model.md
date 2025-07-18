@@ -26,6 +26,8 @@ Model defines model in MindSpore for compiling and running.
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         | √      | √      |
 | [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | ✕      | √      |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
+| [boolean loadConfig(String configPath)](#loadConfig) | √ | √ |
+| [boolean updateConfig(String section, HashMap<String, String> config)](#updateConfig) | √ | √ |
 | [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)             | ✕      | √      |
 | [boolean exportWeightsCollaborateWithMicro(String weightFile, boolean isInference,boolean enableFp16, List<String> changeableWeightNames)](#exportweightscollaboratewithmicro)             | ✕      | √      |
 | [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         | ✕      | √      |
@@ -249,6 +251,39 @@ Get the MSTensors output of MindSpore model by the tensor name.
 - Returns
 
   MindSpore MSTensor.
+
+## loadConfig
+
+```java
+public boolean loadConfig(String configPath)
+```
+
+Load config file.
+
+- Parameters
+
+    - `configPath`: config file path.
+
+- Returns
+
+  Whether the LoadConfig is successful.
+
+## updateConfig
+
+```java
+public boolean updateConfig(String section, HashMap<String, String> config)
+```
+
+Update config.
+
+- Parameters
+
+    - `section`: the config section.
+    - `config`: the config will be updated.
+
+- Returns
+
+  Whether the updateConfig is successful.
 
 ## export
 

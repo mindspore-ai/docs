@@ -12,10 +12,10 @@ Model定义了MindSpore中编译和运行的模型。
 
 | function                                                     | 云侧推理是否支持 | 端侧推理是否支持 |
 | ------------------------------------------------------------ |--------|--------|
-| [boolean build(final MappedByteBuffer buffer, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕      | √      |
+| [boolean build(final MappedByteBuffer buffer, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕    | √      |
 | [boolean build(Graph graph, MSContext context, TrainCfg cfg)](#build) | ✕      | √      |
 | [boolean build(MappedByteBuffer buffer, MSContext context)](#build)                            | √      | √      |
-| [boolean build(String modelPath, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕      | √      |
+| [boolean build(String modelPath, int modelType, MSContext context, char[] decKey, String decMode, String croptoLibPath)](#build) | ✕    | √      |
 | [boolean build(String modelPath, int modelType, MSContext context)](#build) | √      | √      |
 | [boolean predict()](#predict)                                         | √      | √      |
 | [boolean runStep()](#runstep)                                         | ✕      | √      |
@@ -26,6 +26,8 @@ Model定义了MindSpore中编译和运行的模型。
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         | √      | √      |
 | [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | ✕      | √      |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
+| [boolean loadConfig(String configPath)](#loadConfig) | √ | √ |
+| [boolean updateConfig(String section, HashMap<String, String> config)](#updateConfig) | √ | √ |
 | [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)             | ✕      | √      |
 | [boolean exportWeightsCollaborateWithMicro(String weightFile, boolean isInference,boolean enableFp16, List<String> changeableWeightNames)](#exportweightscollaboratewithmicro)             | ✕      | √      |
 | [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         | ✕      | √      |
@@ -249,6 +251,39 @@ public List<String> getOutputTensorNames()
 - 返回值
 
   按顺序排列的输出张量名组成的List。
+
+## loadConfig
+
+```java
+public boolean loadConfig(String configPath)
+```
+
+加载配置文件。
+
+- 参数
+
+    - `configPath`: 配置文件路径。
+
+- 返回值
+
+  加载配置是否成功。
+
+## updateConfig
+
+```java
+public boolean updateConfig(String section, HashMap<String, String> config)
+```
+
+更新配置文件。
+
+- 参数
+
+    - `section`: 配置的分类。
+    - `config`: 需要更新的具体配置项。
+
+- 返回值
+
+  更新配置是否成功。
 
 ## export
 
