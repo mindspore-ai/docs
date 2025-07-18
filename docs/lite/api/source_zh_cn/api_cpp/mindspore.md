@@ -98,6 +98,8 @@
 | [DelegateModel](#delegatemodel)                  | MindSpore Lite Delegate机制封装的模型。 | ✕      | √      |
 | [KernelIter](#kerneliter)                        | MindSpore Lite 算子列表的迭代器。        | ✕      | √      |
 | [CoreMLDelegate](#coremldelegate)               | MindSpore Lite接入CoreML框架的代理。    | ✕      | √      |
+| [AbstractDelegate](#abstractdelegate)               | MindSpore Lite接入代理（抽象类）。    | √       | ✕      |
+| [IDelegate](#idelegate)               | MindSpore Lite接入代理（模板类）。   | √       | ✕      |
 
 ### 图容器
 
@@ -915,6 +917,7 @@ Model()
 | [bool GetTrainMode() const](#gettrainmode)     |    ✕    |    √    |
 | [Status Train(int epochs, std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs)](#train)     |    ✕    |    √    |
 | [Status Evaluate(std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs)](#evaluate)     |    ✕    |    √    |
+| [Status Finalize()](#finalize)     |  √ |  √ |
 
 #### Build
 
@@ -1589,6 +1592,18 @@ Status UpdateWeights(const std::vector<MSTensor> &new_weights)
 
     状态码。
 
+#### Finalize
+
+```cpp
+Status Finalize();
+```
+
+模型终止。
+
+- 返回值
+
+     状态码。
+
 ## MSTensor
 
 \#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
@@ -2233,6 +2248,38 @@ Delegate在线构图。
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
+#### CreateKernel
+
+```cpp
+std::shared_ptr<kernel::Kernel> CreateKernel(const std::shared_ptr<kernel::Kernel> &node) override;
+```
+
+创建Kernel。
+
+- 参数
+
+    - `node`: 指向Kernel[Kernel]实例的共享指针。
+
+- 返回值
+
+  Kernel类共享指针。
+
+#### IsDelegateNode
+
+```cpp
+bool IsDelegateNode(const std::shared_ptr<kernel::Kernel> &node) override { return false; }
+```
+
+是否是Delegate节点。
+
+- 参数
+
+    - `node`: 指向Kernel[Kernel]实例的共享指针。
+
+- 返回值
+
+  bool值。
+
 ## CoreMLDelegate
 
 \#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
@@ -2456,6 +2503,104 @@ const SchemaVersion GetVersion() { return version_; }
 - 返回值
 
   **enum**值，0: r1.2及r1.2之后的版本，1: r1.1及r1.1之前的版本，-1: 无效版本。
+
+## AbstractDelegate
+
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+
+`AbstractDelegate`定义了MindSpore Lite 创建Delegate（抽象类）。
+
+### 构造函数
+
+```cpp
+AbstractDelegate();
+AbstractDelegate(const std::vector<mindspore::MSTensor> &inputs, const std::vector<mindspore::MSTensor> &outputs)
+      : inputs_(inputs), outputs_(outputs) {}
+```
+
+### 析构函数
+
+```cpp
+virtual ~AbstractDelegate() = default;
+```
+
+### 公有成员函数
+
+#### inputs
+
+```cpp
+std::vector<mindspore::MSTensor> &inputs() { return this->inputs_; }
+```
+
+返回AbstractDelegate的inputTensor。
+
+#### outputs
+
+```cpp
+const std::vector<mindspore::MSTensor> &outputs() { return this->outputs_; }
+```
+
+返回AbstractDelegate的outputTensor。
+
+### 保护成员变量
+
+#### inputs_
+
+```cpp
+std::vector<mindspore::MSTensor> inputs_;
+```
+
+#### outputs_
+
+## IDelegate
+
+```cpp
+std::vector<mindspore::MSTensor> outputs_;
+```
+
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+
+`IDelegate`定义了MindSpore Lite 创建Delegate（模板类）。
+
+### 构造函数
+
+```cpp
+IDelegate();
+IDelegate(const std::vector<mindspore::MSTensor> &inputs, const std::vector<mindspore::MSTensor> &outputs)
+      : AbstractDelegate(inputs, outputs) {}
+```
+
+### 析构函数
+
+```cpp
+virtual ~IDelegate() = default;
+```
+
+### 公有成员函数
+
+#### ReplaceNodes
+
+```cpp
+virtual void ReplaceNodes(const std::shared_ptr<Graph> &graph) = 0;
+```
+
+替换Delegate节点。
+
+#### IsDelegateNode
+
+```cpp
+virtual bool IsDelegateNode(const std::shared_ptr<Node> &node) = 0;
+```
+
+判断节点是否属于Delegate。
+
+#### CreateKernel
+
+```cpp
+virtual std::shared_ptr<Kernel> CreateKernel(const std::shared_ptr<Node> &node) = 0;
+```
+
+创建Kernel。
 
 ## TrainCfg
 
