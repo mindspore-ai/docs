@@ -16,10 +16,12 @@ MSTensor defined tensor in MindSpore.
 | [MSTensor createTensor(String tensorName, Object obj)](#createtensor)             | √      | √      |
 | [int[] getShape()](#getshape)             | √      | √      |
 | [int getDataType()](#getdatatype)        | √      | √      |
+| [Object getData()](#getData) | √ | √ |
 | [byte[] getByteData()](#getbytedata)     | √      | √      |
 | [float[] getFloatData()](#getfloatdata)  | √      | √      |
 | [int[] getIntData()](#getintdata)        | √      | √      |
 | [long[] getLongData()](#getlongdata)     | √      | √      |
+| [boolean setShape(int[] tensorShape)](#setShape) | √ | √ |
 | [boolean setData(byte[] data)](#setdata) | √      | √      |
 | [boolean setData(float[] data)](#setdata) | √      | √      |
 | [boolean setData(int[] data)](#setdata) | √      | √      |
@@ -29,6 +31,7 @@ MSTensor defined tensor in MindSpore.
 | [int elementsNum()](#elementsnum)         | √      | √      |
 | [void free()](#free)                       | √      | √      |
 | [String tensorName()](#tensorname)         | √      | √      |
+| [long getMSTensorPtr()](#getMSTensorPtr) | √ | √ |
 | [DataType](#datatype)                      | √      | √      |
 
 ## createTensor
@@ -89,6 +92,18 @@ DataType is defined in [com.mindspore.DataType](https://gitee.com/mindspore/mind
 
   The MindSpore data type of the MindSpore MSTensor class.
 
+## getData
+
+```java
+public Object getData()
+```
+
+Get output data of MSTensor, data type is the same as the type data is set.
+
+- Returns
+
+  The byte array containing all MSTensor output data.
+
 ## getByteData
 
 ```java
@@ -137,6 +152,22 @@ Get output data of MSTensor, the data type is long.
 
   The long array containing all MSTensor output data.
 
+## setShape
+
+```java
+public boolean setShape(int[] tensorShape)
+```
+
+Set the shape of MSTensor.
+
+- Parameters
+
+- `tensorShape`:tensorShape of int[] type.
+
+- Returns
+
+  whether set shape success.
+
 ## setData
 
 ```java
@@ -148,6 +179,10 @@ Set the input data of MSTensor.
 - Parameters
 
     - `data`: Input data of byte[] type.
+
+- Returns
+
+  whether set data success.
 
 - Returns
 
@@ -165,6 +200,10 @@ Set the input data of MSTensor.
 
 - Returns
 
+  whether set data success.
+
+- Returns
+
   Whether the setting data is successful.
 
 ```java
@@ -176,6 +215,10 @@ Set the input data of MSTensor.
 - Parameters
 
     - `data`: Input data of int[] type.
+
+- Returns
+
+  whether set data success.
 
 - Returns
 
@@ -193,6 +236,10 @@ Set the input data of MSTensor.
 
 - Returns
 
+  whether set data success.
+
+- Returns
+
   Whether the setting data is successful.
 
 ```java
@@ -204,6 +251,10 @@ Set the input data of MSTensor.
 - Parameters
 
     - `data`: Input data of ByteBuffer type.
+
+- Returns
+
+  whether set data success.
 
 - Returns
 
@@ -252,6 +303,18 @@ Get tensor name.
 - Returns
 
   Tensor name.
+
+## getMSTensorPtr
+
+```java
+public long getMSTensorPtr()
+```
+
+MSTensor pointer.
+
+- Returns
+
+  MSTensor pointer.
 
 ## DataType
 
