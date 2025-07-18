@@ -104,7 +104,7 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 - `bprop`(function)：Backpropagation function for the custom operator. Default value: `None`.
 - `reg_info`(Union[str, dict, list, tuple])：Registration information for the custom operator. Default value: `None`. Ascend C custom operators do not need to pass this parameter and can use the default value.
 
-**Scenario Limitations**： Currently, dynamic graphs and static graphs in O2 mode only support input and output of Tensor types. Static graphs in O0/O1 modes have no type restrictions. For dynamic graph scenarios with Ascend C custom operators, it is recommended to use [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/custom_program/operation/op_customopbuilder.html).
+**Scenario Limitations**： Currently, dynamic graphs and static graphs in GE backend only support input and output of Tensor types. Static graphs in O0/O1 modes have no type restrictions. For dynamic graph scenarios with Ascend C custom operators, it is recommended to use [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/custom_program/operation/op_customopbuilder.html).
 
 ### Simple Example
 
