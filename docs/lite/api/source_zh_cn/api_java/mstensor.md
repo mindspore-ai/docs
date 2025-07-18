@@ -20,11 +20,11 @@ MSTensor定义了MindSpore中的张量。
 | [float[] getFloatData()](#getfloatdata)  | √      | √      |
 | [int[] getIntData()](#getintdata)        | √      | √      |
 | [long[] getLongData()](#getlongdata)     | √      | √      |
-| [void setData(byte[] data)](#setdata)     | √      | √      |
-| [void setData(float[] data)](#setdata)     | √      | √      |
-| [void setData(int[] data)](#setdata)     | √      | √      |
-| [void setData(long[] data)](#setdata)     | √      | √      |
-| [void setData(ByteBuffer data)](#setdata) | √      | √      |
+| [boolean setData(byte[] data)](#setdata) | √      | √      |
+| [boolean setData(float[] data)](#setdata) | √      | √      |
+| [boolean setData(int[] data)](#setdata) | √      | √      |
+| [boolean setData(long[] data)](#setdata) | √      | √      |
+| [boolean setData(ByteBuffer data)](#setdata) | √      | √      |
 | [long size()](#size)                       | √      | √      |
 | [int elementsNum()](#elementsnum)         | √      | √      |
 | [void free()](#free)                       | √      | √      |
@@ -140,7 +140,7 @@ public long[] getLongData()
 ## setData
 
 ```java
-public void setData(byte[] data)
+public boolean setData(byte[] data)
 ```
 
 设定MSTensor的输入数据。
@@ -149,8 +149,12 @@ public void setData(byte[] data)
 
     - `data`: byte[]类型的输入数据。
 
+- 返回值
+
+    设置数据是否成功。
+
 ```java
-public void setData(float[] data)
+public boolean setData(float[] data)
 ```
 
 设定MSTensor的输入数据。
@@ -159,8 +163,12 @@ public void setData(float[] data)
 
     - `data`: float[]类型的输入数据。
 
+- 返回值
+
+    设置数据是否成功。
+
 ```java
-public void setData(int[] data)
+public boolean setData(int[] data)
 ```
 
 设定MSTensor的输入数据。
@@ -169,8 +177,12 @@ public void setData(int[] data)
 
     - `data`: int[]类型的输入数据。
 
+- 返回值
+
+    设置数据是否成功。
+
 ```java
-public void setData(long[] data)
+public boolean setData(long[] data)
 ```
 
 设定MSTensor的输入数据。
@@ -179,8 +191,12 @@ public void setData(long[] data)
 
     - `data`: long[]类型的输入数据。
 
+- 返回值
+
+    设置数据是否成功。
+
 ```java
-public void setData(ByteBuffer data)
+public boolean setData(ByteBuffer data)
 ```
 
 设定MSTensor的输入数据。
@@ -188,6 +204,10 @@ public void setData(ByteBuffer data)
 - 参数
 
     - `data`: ByteBuffer类型的输入数据。
+
+- 返回值
+
+    设置数据是否成功。
 
 ## size
 

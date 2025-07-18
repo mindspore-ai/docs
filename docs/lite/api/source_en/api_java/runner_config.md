@@ -10,9 +10,9 @@ RunnerConfig defines the configuration parameters of MindSpore Lite concurrent i
 | ------------------------------------------------------------   |--------|--------|
 | [boolean init()](#init)                            | √      | ✕      |
 | [public boolean init(MSContext msContext)](#init)  | √      | ✕      |
-| [public void setWorkerNum(int workerNum)](#setworkernum)                           | √      | ✕      |
+| [public void setWorkersNum(int workersNum)](#setworkersnum)                        | √      | ✕      |
 | [public void setConfigInfo(String section, HashMap<String, String> config)](#setconfiginfo)               | √      | ✕      |
-| [public void setConfigPath(String configPath)](#setconfigpath)                         | √      | ✕      |
+| [public void setConfigPath(String config_path)](#setconfigpath)                       | √      | ✕      |
 | [void getConfigPath()](#getconfigpath)                         | √      | ✕      |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
 | [public void setDeviceIds(ArrayList<Integer\> deviceIds)](#setdeviceids)                         | √      | ✕      |
@@ -44,17 +44,17 @@ Configuration parameter initialization for parallel inference.
 
   Whether the initialization is successful.
 
-## setWorkerNum
+## setWorkersNum
 
 ```java
-public void setWorkerNum(int workerNum)
+public void setWorkersNum(int workersNum)
 ```
 
 The parameter setting of the number of models in parallel inference.
 
 - Parameters
 
-    - `workerNum`: Set the number of models in the configuration.
+    - `workersNum`: Set the number of models in the configuration.
 
 ## setConfigInfo
 
@@ -72,14 +72,14 @@ Model configuration parameter settings in parallel inference.
 ## setConfigPath
 
 ```java
-public void setConfigPath(String configPath)
+public void setConfigPath(String config_path)
 ```
 
 Set the configuration file path in concurrent inference.
 
 - Parameters
 
-    - `configPath`: config path.
+    - `config_path`: config path.
 
 ## getConfigPath
 
