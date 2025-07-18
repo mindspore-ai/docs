@@ -353,7 +353,7 @@ import mindspore.dataset.audio as audio
 
 ds.config.set_seed(5)
 
-# cication: LibriSpeech http://www.openslr.org/12
+# citation: LibriSpeech http://www.openslr.org/12
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/84-121123-0000.wav"
 download(url, './84-121123-0000.wav', replace=True)
 wav_file = "84-121123-0000.wav"

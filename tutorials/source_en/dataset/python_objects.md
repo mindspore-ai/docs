@@ -89,7 +89,7 @@ When `batch` operation is invoked on a dataset with a column containing dictiona
 
 The result of the `batch` operation (for that column) will be one dictionary where all values are NumPy arrays. If such conversion results in an array of type `np.object_`, due to limitations on the model training side, an error message will be shown to the user and the Dataset pipeline terminates.
 
-The following is a example demonstrating when dictionary object exists in dataset pipeline, how it batches the data of "power" key.
+The following is an example demonstrating when dictionary object exists in dataset pipeline, how it batches the data of "power" key.
 
 ```python
 import numpy as np
@@ -172,7 +172,7 @@ Output:
 
 Directly iterating through the dataset object can obtain dictionary type data. When using an iterator to retrieve data, the data processing pipeline will attempt to convert all values inside `dict` objects to Tensor type (if `output_numpy` is set to `True`, it will be converted to NumPy arrays).
 
-Note that this step will be applied recursively to all values inside nested dictionaries as well as all elements inside lists and tuples. For those types that cannot be converted to Tensor/NumPy arrays (such as class objects), they will be passed directly to model. If model can not recognize these types, error will be raised.
+Note that this step will be applied recursively to all values inside nested dictionaries as well as all elements inside lists and tuples. For those types that cannot be converted to Tensor/NumPy arrays (such as class objects), they will be passed directly to model. If model can not recognize these types, an error will be raised.
 
 Here is an example shows how to acquire `dict` data from pipeline.
 
@@ -236,7 +236,7 @@ In the model training/inference scenario, there are the following constraints wh
   def dict_to_tuple(d):
       return tuple([i for i in d.values()])
 
-  # flatten the dict object bedfore it passed into network
+  # flatten the dict object before it passed into network
   data = data.map(dict_to_tuple, input_columns=['col1'], output_columns=['my_data', 'my_data2'])
 
   print('>>> get data in sequence type')
