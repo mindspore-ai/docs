@@ -3654,6 +3654,54 @@ static inline std::string CodeAsString(enum StatusCode c)
 
   指向副本的指针。
 
+#### Construct
+
+```cpp
+virtual std::vector<Output> Construct(const std::vector<Input> &inputs) { return {}; }
+```
+
+构造一份CellBase。
+
+- 参数
+
+    Input组成的vector。
+
+- 返回值
+
+    Output组成的vector。
+
+#### Run
+
+```cpp
+virtual Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) { return kSuccess; }
+```
+
+运行CellBase。
+
+- 参数
+
+    Input组成的vector，Output组成的vector。
+
+- 返回值
+
+    状态码。
+
+#### operator()
+
+```cpp
+std::vector<Output> operator()(const std::vector<Input> &inputs) const;
+```
+
+括号运行符。
+
+- 参数
+
+    Input组成的vector。
+
+- 返回值
+
+    Output组成的vector。
+
 ## GraphCell
 
 \#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
@@ -3681,6 +3729,74 @@ static inline std::string CodeAsString(enum StatusCode c)
 - 返回值
 
   指向Graph的指针。
+
+#### SetContext
+
+```cpp
+void SetContext(const std::shared_ptr<Context> &context);
+```
+
+设置Context。
+
+- 参数
+
+    指向Context[Context]实例的共享指针。
+
+#### Run
+
+```cpp
+Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) override;
+```
+
+运行。
+
+- 参数
+
+    [MSTensor]构成的inputs, outputs vector。
+
+- 返回值
+
+    状态码。
+
+#### GetInputs
+
+```cpp
+std::vector<MSTensor> GetInputs();
+```
+
+获取输入。
+
+- 返回值
+
+    [MSTensor]构成的vector。
+
+#### GetOutputs
+
+```cpp
+std::vector<MSTensor> GetOutputs();
+```
+
+获取输出。
+
+- 返回值
+
+    [MSTensor]构成的vector。
+
+#### Load
+
+```cpp
+Status Load(uint32_t device_id);
+```
+
+加载。
+
+- 参数
+
+    device_id（芯片编号）
+
+- 输出
+
+    状态码。
 
 ## RunnerConfig
 
