@@ -16,10 +16,12 @@ MSTensor定义了MindSpore中的张量。
 | [MSTensor createTensor(String tensorName, Object obj)](#createtensor)             | √      | √      |
 | [int[] getShape()](#getshape)             | √      | √      |
 | [int getDataType()](#getdatatype)        | √      | √      |
+| [Object getData()](#getData) | √ | √ |
 | [byte[] getByteData()](#getbytedata)     | √      | √      |
 | [float[] getFloatData()](#getfloatdata)  | √      | √      |
 | [int[] getIntData()](#getintdata)        | √      | √      |
 | [long[] getLongData()](#getlongdata)     | √      | √      |
+| [boolean setShape(int[] tensorShape)](#setShape) | √ | √ |
 | [boolean setData(byte[] data)](#setdata) | √      | √      |
 | [boolean setData(float[] data)](#setdata) | √      | √      |
 | [boolean setData(int[] data)](#setdata) | √      | √      |
@@ -29,6 +31,7 @@ MSTensor定义了MindSpore中的张量。
 | [int elementsNum()](#elementsnum)         | √      | √      |
 | [void free()](#free)                       | √      | √      |
 | [String tensorName()](#tensorname)         | √      | √      |
+| [long getMSTensorPtr()](#getMSTensorPtr) | √ | √ |
 | [DataType](#datatype)                      | √      | √      |
 
 ## createTensor
@@ -89,6 +92,18 @@ DataType在[com.mindspore.DataType](https://gitee.com/mindspore/mindspore-lite/b
 
   MindSpore MSTensor类的MindSpore DataType。
 
+## getData
+
+```java
+public Object getData()
+```
+
+获取MSTensor的输出数据，数据类型与设置的类型数据相同。
+
+- 返回值
+
+  包含所有MSTensor输出数据的字节数组。
+
 ## getByteData
 
 ```java
@@ -137,6 +152,22 @@ public long[] getLongData()
 
   包含所有MSTensor输出数据的long类型数组。
 
+## setShape
+
+```java
+public boolean setShape(int[] tensorShape)
+```
+
+设定MSTensor的形状。
+
+- 参数
+
+- `tensorShape`: int[]类型的输入数据。
+
+- 返回值
+
+  设置形状是否成功。
+
 ## setData
 
 ```java
@@ -148,6 +179,10 @@ public boolean setData(byte[] data)
 - 参数
 
     - `data`: byte[]类型的输入数据。
+
+- 返回值
+
+    设置数据是否成功。
 
 - 返回值
 
@@ -167,6 +202,10 @@ public boolean setData(float[] data)
 
     设置数据是否成功。
 
+- 返回值
+
+    设置数据是否成功。
+
 ```java
 public boolean setData(int[] data)
 ```
@@ -176,6 +215,10 @@ public boolean setData(int[] data)
 - 参数
 
     - `data`: int[]类型的输入数据。
+
+- 返回值
+
+    设置数据是否成功。
 
 - 返回值
 
@@ -195,6 +238,10 @@ public boolean setData(long[] data)
 
     设置数据是否成功。
 
+- 返回值
+
+    设置数据是否成功。
+
 ```java
 public boolean setData(ByteBuffer data)
 ```
@@ -204,6 +251,10 @@ public boolean setData(ByteBuffer data)
 - 参数
 
     - `data`: ByteBuffer类型的输入数据。
+
+- 返回值
+
+    设置数据是否成功。
 
 - 返回值
 
@@ -252,6 +303,18 @@ public String tensorName()
 - 返回值
 
   tensor的名称。
+
+## getMSTensorPtr
+
+```java
+public long getMSTensorPtr()
+```
+
+返回MStensor对象的指针。
+
+- 返回值
+
+  MStensord对象的指针。
 
 ## DataType
 
