@@ -1135,6 +1135,18 @@ The manner that the model generates code is consistent with that of the non-cust
 
 where target sets to be ARM32.
 
+- For recurrent or LSTM networks, users need to configure the TIME_STEP environment variable based on the step value. The configuration method is as follows:
+
+```bash
+export TIME_STEP=3
+```
+
+- If the user model contains the proposal operator, the MAX_ROI_NUM environment variable needs to be configured based on the implementation of the proposal operator. If it is not configured, the default value of 300 will be used. The configuration method is as follows:
+
+```bash
+export MAX_ROI_NUM=300
+```
+
 ### Implementing Custom Kernel by Users
 
 The previous step generates the source code directory under the specified path with a header file called `src/registered_kernel.h` that specifies the function declarations for the custom operator.
