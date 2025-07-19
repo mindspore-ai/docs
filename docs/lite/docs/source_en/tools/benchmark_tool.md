@@ -30,6 +30,30 @@ To use the Benchmark tool, you need to prepare the environment as follows:
     export ASCEND_DEVICE_ID=$RANK_ID
     ```
 
+- If you need to configure the Ascend GE backend for benchmark testing, use the following command to switch:
+
+    ```bash
+    export ASCEND_BACK_POLICY="ge"
+    ```
+
+- If it is necessary to set the Cache through configuration items, it can be configured by the following command:
+
+    ```bash
+    export BENCHMARK_UPDATE_CONFIG_ENV="0"
+    ```
+
+- If you're running this benchmark based on GPU, use the following command to switch:
+
+    ```bash
+    export GPU_DEVICE_ID=$RANK_ID
+    ```
+
+- If you need to switch between different API versions, you can choose the optional parameter "NEW" (representing the unified C++ interface API after the integration of MindSpore and MindSpore Lite) or "C" (representing the C interface API of MindSpore Lite). The default value is "NEW". To switch, use the following command:
+
+    ```bash
+    export MSLITE_API_TYPE="NEW"
+    ```
+
 ### Parameter Description
 
 The command used for benchmark testing based on the compiled Benchmark tool is as follows:
