@@ -30,6 +30,30 @@
     export ASCEND_DEVICE_ID=$RANK_ID
     ```
 
+- 如果需要配置Ascend GE后端进行基准测试，使用如下命令切换：
+
+    ```bash
+    export ASCEND_BACK_POLICY="ge"
+    ```
+
+- 如果需要通过配置项设置Cache，则可以通过如下命令进行配置：
+
+    ```bash
+    export BENCHMARK_UPDATE_CONFIG_ENV="0"
+    ```
+
+- 如果基于GPU进行基准测试，使用如下命令切换：
+
+    ```bash
+    export GPU_DEVICE_ID=$RANK_ID
+    ```
+
+- 如果需要切换不同版本的API，可选参数"NEW"（表示的是mindspore和mindspore lite统一之后的C++接口API）或者"C"（表示的是mindspore lite的C接口API），默认值："NEW"，则使用如下命令切换：
+
+    ```bash
+    export MSLITE_API_TYPE="NEW"
+    ```
+
 ### 参数说明
 
 使用编译好的Benchmark工具进行模型的基准测试时，其命令格式如下所示。
