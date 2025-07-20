@@ -44,3 +44,44 @@ typedef enum MSDeviceType {
 | kMSDeviceTypeKirinNPU | 2   | 设备类型是NPU |
 | kMSDeviceTypeInvalid  | 100 | 设备类型非法  |
 
+## MSOptimizationLevel
+
+模型优化级别。
+
+```C
+typedef enum MSOptimizationLevel {
+  kMSKO0 = 0,
+  kMSKO2 = 2,
+  kMSKO3 = 3,
+  kMSKAUTO = 4,
+  kMSKOPTIMIZATIONTYPE = 0xFFFFFFFF
+} MSOptimizationLevel;
+```
+
+| 定义                   | 值         | 描述                                                     |
+| --------------------- | ---------- | ------------------------------------------------------- |
+| kMSKO0                | 0          | 不进行优化                                                |
+| kMSKO2                | 2          | 将网络转换为float16精度，保留BatchNorm和损失函数为float32精度  |
+| kMSKO3                | 3          | 将整个网络（包括BatchNorm）转换为float16精度                  |
+| kMSKAUTO              | 4          | 根据设备类型自动化选择优化策略                                |
+| kMSKOPTIMIZATIONTYPE  | 0xFFFFFFFF | 非法类型                                                  |
+
+## MSQuantizationType
+
+模型优化级别。
+
+```C
+typedef enum MSQuantizationType {
+  kMSNO_QUANT = 0,
+  kMSWEIGHT_QUANT = 1,
+  kMSFULL_QUANT = 2,
+  kMSUNKNOWN_QUANT_TYPE = 0xFFFFFFFF
+} MSQuantizationType;
+```
+
+| 定义                   | 值         | 描述                 |
+| --------------------- | ---------- | ------------------- |
+| kMSNO_QUANT           | 0          | 不进行量化            |
+| kMSWEIGHT_QUANT       | 1          | 权重量化             |
+| kMSFULL_QUANT         | 2          | 权量化               |
+| kMSKOPTIMIZATIONTYPE  | 0xFFFFFFFF | 非法类型             |
