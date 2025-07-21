@@ -1137,15 +1137,15 @@ where target sets to be ARM32.
 
 - For recurrent or LSTM networks, users need to configure the TIME_STEP environment variable based on the step value. The configuration method is as follows:
 
-```bash
-export TIME_STEP=3
-```
+    ```bash
+    export TIME_STEP=3
+    ```
 
 - If the user model contains the proposal operator, the MAX_ROI_NUM environment variable needs to be configured based on the implementation of the proposal operator. If it is not configured, the default value of 300 will be used. The configuration method is as follows:
 
-```bash
-export MAX_ROI_NUM=300
-```
+    ```bash
+    export MAX_ROI_NUM=300
+    ```
 
 ### Implementing Custom Kernel by Users
 
