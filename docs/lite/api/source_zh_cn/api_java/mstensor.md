@@ -314,7 +314,7 @@ public long getMSTensorPtr()
 
 - 返回值
 
-  MStensord对象的指针。
+  MStensor对象的指针。
 
 ## DataType
 
