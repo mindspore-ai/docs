@@ -229,7 +229,7 @@ The directory structure of the unpacked dataset file is as follows:
 
 Randomly samples a specified amount of data from the index sequence.
 
-The following sample uses a random sampler to randomly sample 5 data from the dataset with and without replacement, and prints them for display. To observe the effect of samplers with and without replacement, a dataset with a small amount of data is customized.
+The following sample uses a random sampler to randomly sample 5 data samples from the dataset with and without replacement, and prints them for display. To observe the effect of samplers with and without replacement, a dataset with a small amount of data is customized.
 
 ```python
 from mindspore.dataset import RandomSampler, NumpySlicesDataset

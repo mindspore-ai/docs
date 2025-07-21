@@ -33,7 +33,7 @@ The following table lists common network construction and training errors.
 | Error Type  | Error Description| Case Analysis|
 | - | - | - |
 | Incorrect context configuration| An error occurs when the system configures the context.| [Incorrect Context Configuration Analysis](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindrt_debug.html#incorrect-context-configuration)|
-| Syntax error      | Python syntax errors and MindSpore static graph syntax errors, such as unsupported control flow syntax and tensor slicing errors| [Syntax Errors Analysis](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindrt_debug.html#syntax-errors)|
+| Syntax error      | Python syntax errors and MindSpore static graph syntax errors, such as unsupported control flow syntax and tensor slicing errors.| [Syntax Errors Analysis](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindrt_debug.html#syntax-errors)|
 | Operator build error  | The operator parameter value, type, or shape does not meet the requirements, or the operator function is restricted.| [Operator Build Errors Analysis](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindrt_debug.html#operator-build-errors)|
 | Operator execution error  | Input data exceptions, operator implementation errors, function restrictions, resource restrictions, etc.| [Operator Execution Errors Analysis](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindrt_debug.html#operator-execution-errors)|
 | Insufficient resources      | The device memory is insufficient, the number of function call stacks exceeds the threshold, and the number of flow resources exceeds the threshold.| [Insufficient Resources Analysis](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindrt_debug.html#insufficient-resources)|
@@ -86,7 +86,7 @@ MindSpore provides the distributed parallel training function and supports multi
 
 ### Incorrect Policy Configuration
 
-Policy check errors may be reported after you enable automatic parallelism using `mindspore.parallel.auto_parallel.AutoParallel` .These policy check errors are reported due to specific operator slicing restrictions. The following uses three examples to describe how to analyze the three types of errors.
+Policy check errors may be reported after you enable automatic parallelism using `mindspore.parallel.auto_parallel.AutoParallel` . These policy check errors are reported due to specific operator slicing restrictions. The following uses three examples to describe how to analyze the three types of errors.
 
 #### Incorrect Operator Logic
 
@@ -96,7 +96,7 @@ The error message is as follows:
 [ERROR]Check StridedSliceInfo1414: When there is a mask, the input is not supported to be split
 ```
 
-The following shows a piece of possible error code where the network input is a [2, 4] tensor. The network is sliced to obtain the first half of dimension 0 in the input tensor. It is equivalent to the x[:1, :]operation in NumPy, where x is the input tensor. On the network, the (2,1) policy is configured for the stridedslice operator to slice dimension 0, and the dimension 1 isn't sliced.
+The following shows a piece of possible error code where the network input is a [2, 4] tensor. The network is sliced to obtain the first half of dimension 0 in the input tensor. It is equivalent to the x[:1, :] operation in NumPy, where x is the input tensor. On the network, the (2,1) policy is configured for the stridedslice operator to slice dimension 0, and the dimension 1 isn't sliced.
 
 ```python
 tensor = Tensor(ones((2, 4)))
@@ -116,7 +116,7 @@ Error cause:
 
 The piece of code performs the slice operation on dimension 0. However, the configured policy (2,1) indicates that the slice operation is performed on both dimension 0 and dimension 1 of the input tensor. According to the description of operator slicing in the [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/operator_list_parallel.html),
 
-> only the mask whose value is all 0s is supported. All dimensions that are sliced must be extracted together. The input dimensions whose strides is not set to 1 cannot be sliced.
+> only the mask whose value is all 0s is supported. All dimensions that are sliced must be extracted together. The input dimensions whose stride is not set to 1 cannot be sliced.
 
 Dimensions that are sliced cannot be separately extracted. Therefore, the policy must be modified as follows:
 
@@ -231,7 +231,7 @@ Errors may occur in the following scenarios:
 
 2) The command for executing the training script is not executed in asynchronous mode (`python ./train.py > train.log$i 2>&1`). As a result, training tasks are started at different time, and an error is reported. In this case, add the `&` operator to the end of the command, indicating that the command is executed asynchronously in the subshell. In this way, multiple tasks can be started synchronously.
 
-In parallel scenarios, you may encounter the `Distribute Task Failed` error. In this case, analyze whether the error occurs in the computational graph build phase or the execution phase of printing training loss to further locate the error.
+In parallel scenarios, you may encounter the `Distributed Task Failed` error. In this case, analyze whether the error occurs in the computational graph build phase or the execution phase of printing training loss to further locate the error.
 
 For details, visit the following website:
 
