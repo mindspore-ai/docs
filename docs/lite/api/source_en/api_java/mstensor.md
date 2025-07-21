@@ -162,7 +162,7 @@ Set the shape of MSTensor.
 
 - Parameters
 
-- `tensorShape`:tensorShape of int[] type.
+    - `tensorShape`: tensorShape of int[] type.
 
 - Returns
 
@@ -184,10 +184,6 @@ Set the input data of MSTensor.
 
   whether set data success.
 
-- Returns
-
-  Whether the setting data is successful.
-
 ```java
 public boolean setData(float[] data)
 ```
@@ -201,10 +197,6 @@ Set the input data of MSTensor.
 - Returns
 
   whether set data success.
-
-- Returns
-
-  Whether the setting data is successful.
 
 ```java
 public boolean setData(int[] data)
@@ -220,10 +212,6 @@ Set the input data of MSTensor.
 
   whether set data success.
 
-- Returns
-
-  Whether the setting data is successful.
-
 ```java
 public boolean setData(long[] data)
 ```
@@ -238,10 +226,6 @@ Set the input data of MSTensor.
 
   whether set data success.
 
-- Returns
-
-  Whether the setting data is successful.
-
 ```java
 public boolean setData(ByteBuffer data)
 ```
@@ -255,10 +239,6 @@ Set the input data of MSTensor.
 - Returns
 
   whether set data success.
-
-- Returns
-
-  Whether the setting data is successful.
 
 ## size
 

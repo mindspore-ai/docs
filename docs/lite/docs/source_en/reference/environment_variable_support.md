@@ -1,6 +1,6 @@
 # Description of Environment Variable Support
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs\lite\docs\source_zh_cn\reference\environment_variable_support.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/environment_variable_support.md)
 
 This document lists the environment variables supported by MindSpore Lite along with their meanings, and provides the available values and default settings for each environment variable.
 
@@ -25,13 +25,13 @@ This document lists the environment variables supported by MindSpore Lite along 
 |               ENABLE_AKG               |               Enable AKG optimization               |          "on", ""           |        ""         |
 |         MS_INDEPENDENT_DATASET         |                Use external dataset                 |         "true", ""          |        ""         |
 |                OPTIMIZE                |     Enable optimization for MindData scenarios      |         "true", ""          |        ""         |
-|             MS_CACHE_HOST              |          Host address for MindData caching          |        Host address         |     127.0.0.1     |
-|             MS_CACHE_PORT              |          Port number for MindData caching           |         Port number         |       50052       |
+|             MS_CACHE_HOST              |          Host address for MindData scenarios          |        Host address         |     127.0.0.1     |
+|             MS_CACHE_PORT              |          Port number for MindData scenarios           |         Port number         |       50052       |
 |               DEVICE_ID                |      Hardware device ID for on-device MindData      |           0-7, ""           |        ""         |
 |             MS_CPU_FEATURE             |          CPU instruction set architecture           |           avx512            |        ""         |
 | MS_DEV_GRAPH_KERNEL_SPLIT_DEBUG_TUNING |         Graph kernel splitting debug switch         |           on, ""            |        ""         |
 |      MS_DEV_DUMP_GRAPH_KERNEL_IR       |                Dump graph kernel IR                 |           on, ""            |        ""         |
 |               TIME_STEP                |                Number of iterations                 |           Integer           |        ""         |
-|              MAX_ROI_NUM               |    Maximum number of ROIs for proposal operators    |           Integer           |        300        |
+|              MAX_ROI_NUM               |    Configure MAX_ROI_NUM according to the implementation of the proposal operator.    |           Integer           |        300        |
 |            PARA_GROUP_FILE             |       Communication domain configuration file       |   Configuration file path   |        ""         |
 |             MS_ENABLE_HCCL             |          Enable HCCL communication library          |     0 (empty), non-zero     |     0 (empty)     |
