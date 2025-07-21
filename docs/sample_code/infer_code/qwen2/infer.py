@@ -33,10 +33,10 @@ from qwen2 import CacheManager
 from qwen2 import sample
 
 
-# generate tokens
-def generate(model: Qwen2ForCausalLM, cache_manager: CacheManager,
+def generate(model: Qwen2ForCausalLM, config: Qwen2Config, cache_manager: CacheManager,
                 input_ids: List, max_new_tokens: int,
                 max_seq_lens: int, eos_token_id: int):
+    """ generate tokens """
     batch_size = len(input_ids)
     assert max_seq_lens >= max(map(len, input_ids))
 
@@ -97,8 +97,9 @@ def generate(model: Qwen2ForCausalLM, cache_manager: CacheManager,
 
     return input_ids
 
-# run the infer flow
+
 def run():
+    """ run the infer flow """
     # set mindspore context and envs
     os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
@@ -131,6 +132,7 @@ def run():
 
     output = generate(
         model=model,
+        config=config,
         cache_manager=cache_manager,
         input_ids=input_ids,
         max_new_tokens=max_new_tokens,

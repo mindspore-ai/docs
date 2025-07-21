@@ -23,9 +23,9 @@ from typing import List
 from typing import Tuple
 from typing import Union
 
-import numpy as np
 import math
 from collections import deque
+import numpy as np
 
 from mindspore import Tensor
 from mindspore import dtype
@@ -69,6 +69,7 @@ class Qwen2Config:
 
     @classmethod
     def from_json(cls, json_path: str) -> 'Qwen2Config':
+        """Get Qwen2Config from json file"""
         with open(json_path) as f:
             data = json.load(f)
         config = cls(**data)
@@ -77,6 +78,7 @@ class Qwen2Config:
 
 @dataclass
 class Qwen2ModelInput:
+    """Qwen2 Model Input, the packed input struct for qwen2"""
     input_ids: Tensor
     positions: Tensor
     batch_valid_length: Tensor
@@ -92,6 +94,7 @@ class Qwen2ModelInput:
 
 
 class RmsNorm(nn.Cell):
+    """Common rmsnorm layer"""
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
@@ -106,6 +109,7 @@ class RmsNorm(nn.Cell):
         )
 
     def construct(self, x: Tensor, residual: Optional[Tensor] = None) -> Union[Tensor, Tuple[Tensor, Tensor]]:
+        """layer compute"""
         if residual is not None:
             x = x + residual
             residual = x
@@ -116,6 +120,7 @@ class RmsNorm(nn.Cell):
 
 
 class Qwen2Linear(nn.Cell):
+    """Qwen2 linear layer"""
     def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], enable_bias: bool) -> None:
         super().__init__()
 
@@ -140,6 +145,7 @@ class Qwen2Linear(nn.Cell):
             )
 
     def construct(self, input: Tensor):
+        """layer compute"""
         origin_shape = input.shape
         x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
         if self.enable_bias:
@@ -148,6 +154,7 @@ class Qwen2Linear(nn.Cell):
 
 
 class VocabEmbedding(nn.Cell):
+    """Common vocab embedding layer"""
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
@@ -165,10 +172,12 @@ class VocabEmbedding(nn.Cell):
         )
 
     def construct(self, input_ids: Tensor):
+        """layer compute"""
         return self.gather(self.weight, input_ids, 0)
 
 
 class Qwen2RotaryEmbedding(nn.Cell):
+    """Qwen2 rotary embedding layer"""
     def __init__(self, head_size: int, rotary_dim: int,
                  max_position_embeddings: int, base: int,
                  dtype: Optional[Type]) -> None:
@@ -187,11 +196,13 @@ class Qwen2RotaryEmbedding(nn.Cell):
         self.freqs_cos, self.freqs_sin = self._compute_cos_sin_cache()
 
     def _compute_inv_freq(self) -> Tensor:
+        """compute inv freq for rope"""
         freqs_base = mint.arange(0, self.rotary_dim, 2).astype(np.float32)
         freqs = 1.0 / (self.base ** (freqs_base / self.rotary_dim))
         return freqs
 
     def _compute_cos_sin_cache(self) -> Tuple[Tensor, Tensor]:
+        """compute cos sin for rope"""
         freqs = self._compute_inv_freq()
         t = np.arange(0, self.max_position_embeddings, 1).astype(np.float32)
         freqs = np.outer(t, freqs)
@@ -204,6 +215,7 @@ class Qwen2RotaryEmbedding(nn.Cell):
         return freqs_cos, freqs_sin
 
     def construct(self, positions: Tensor, query: Tensor, key: Tensor, batch_valid_length: Tensor, is_prefill: bool):
+        """layer compute"""
         query = query.contiguous()
         key = key.contiguous()
 
@@ -218,6 +230,7 @@ class Qwen2RotaryEmbedding(nn.Cell):
 
 
 class FlashAttention(nn.Cell):
+    """Common flash attention layer"""
     def __init__(self, scale: float, num_heads: int) -> None:
         super().__init__()
 
@@ -233,6 +246,7 @@ class FlashAttention(nn.Cell):
                                                             input_layout=input_layout)
 
     def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
+        """layer compute"""
         _, _, _, output = self.flash_attention(
             q,
             k,
@@ -249,6 +263,7 @@ class FlashAttention(nn.Cell):
 
 
 class PagedAttention(nn.Cell):
+    """Common paged attention layer"""
     def __init__(self, head_num: int, scale: float, num_kv_heads: int) -> None:
         super().__init__()
 
@@ -264,11 +279,15 @@ class PagedAttention(nn.Cell):
     def construct(self, q: Tensor, k_cache: Tensor, v_cache: Tensor,
                         block_tables: Tensor, batch_valid_length: Tensor,
                         attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
-        output = self.paged_attention(q, k_cache, v_cache, block_tables, batch_valid_length, None, None, attn_mask, q_seq_lens)
+        """layer compute"""
+        output = self.paged_attention(q, k_cache, v_cache, block_tables,
+                                        batch_valid_length, None, None,
+                                        attn_mask, q_seq_lens)
         return output
-    
+
 
 class Qwen2Attention(nn.Cell):
+    """Qwen2 attention layer"""
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
@@ -324,6 +343,7 @@ class Qwen2Attention(nn.Cell):
                         is_prefill: bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
                         slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
+        """layer compute"""
         bs, seq_len, hidden_dim = hidden_state.shape
 
         q = self.q_proj(hidden_state).view(-1, self.q_size)
@@ -374,6 +394,7 @@ class Qwen2Attention(nn.Cell):
 
 
 class Qwen2MLP(nn.Cell):
+    """Qwen2 mlp layer"""
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
@@ -398,11 +419,13 @@ class Qwen2MLP(nn.Cell):
         self.act_fn = ops.silu
 
     def construct(self, x: Tensor) -> Tensor:
+        """layer compute"""
         output = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
         return output
-    
+
 
 class Qwen2DecoderLayer(nn.Cell):
+    """Qwen2 decoder layer"""
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
@@ -417,6 +440,7 @@ class Qwen2DecoderLayer(nn.Cell):
                         batch_valid_length: Tensor, is_prefill: bool, layer_idx: int,
                         k_cache: Tensor, v_cache: Tensor, slot_mapping: Tensor,
                         block_tables: Tensor, attn_mask: Tensor, q_seq_lens: Tensor) -> Tuple[Tensor, Tensor]:
+        """layer compute"""
         if residual is None:
             residual = hidden_state
             hidden_state = self.input_layernorm(hidden_state)
@@ -430,9 +454,10 @@ class Qwen2DecoderLayer(nn.Cell):
         hidden_state = self.mlp(hidden_state)
 
         return hidden_state, residual
-    
+
 
 class Qwen2Model(nn.Cell):
+    """Qwen2 model"""
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
@@ -452,6 +477,7 @@ class Qwen2Model(nn.Cell):
                         is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor],
                         slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
+        """layer compute"""
         hidden_state = self.embed_tokens(input_ids)
         residual = None
 
@@ -465,8 +491,9 @@ class Qwen2Model(nn.Cell):
 
         return hidden_state
 
-    
+
 class Qwen2ForCausalLM(nn.Cell):
+    """Qwen2 causal model"""
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
@@ -479,6 +506,7 @@ class Qwen2ForCausalLM(nn.Cell):
         )
 
     def load_weight(self, weight_path: str) -> None:
+        """load model weight from hugging face"""
         weight_dict = {}
         for path in glob(weight_path + "/*.safetensors"):
             weight_dict.update(load_checkpoint(path, format="safetensors"))
@@ -486,15 +514,17 @@ class Qwen2ForCausalLM(nn.Cell):
         load_param_into_net(self, weight_dict, strict_load=False)
 
     def construct(self, model_input: Qwen2ModelInput) -> Tensor:
+        """layer compute"""
         hidden_state = self.model(model_input.input_ids, model_input.positions,
                                   model_input.batch_valid_length, model_input.is_prefill,
                                   model_input.k_caches, model_input.v_caches, model_input.slot_mapping,
                                   model_input.block_tables, model_input.attn_mask, model_input.q_seq_lens)
         logits = self.lm_head(hidden_state)[:, -1]
         return logits
-    
+
 
 class CacheManager:
+    """KVCache Manager"""
     def __init__(self, config: Qwen2Config, block_num: int, block_size: int, batch_size: int) -> None:
         self.block_num = block_num
         self.block_size = block_size
@@ -502,13 +532,20 @@ class CacheManager:
 
         head_dim = config.hidden_size // config.num_attention_heads
 
-        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
-        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+        self.k_caches = mutable([ops.zeros((block_num, block_size,
+                                            config.num_key_value_heads, head_dim),
+                                            dtype=config.param_dtype)
+                                    for _ in range(config.num_hidden_layers)])
+        self.v_caches = mutable([ops.zeros((block_num, block_size,
+                                            config.num_key_value_heads, head_dim),
+                                            dtype=config.param_dtype)
+                                    for _ in range(config.num_hidden_layers)])
         self.block_tables = [[] for _ in range(batch_size)]
         self.acc_slot_mapping = [[] for _ in range(batch_size)]
         self.free_block_ids = deque(range(block_num))
 
     def step(self, start_pos_idx: int, token_num_per_batch: int) -> Tuple[Tensor, Tensor]:
+        """step compute model inputs"""
         for i in range(self.batch_size):
             block_table = self.block_tables[i]
             total_block_num = math.ceil((start_pos_idx + token_num_per_batch) / self.block_size)
@@ -528,5 +565,6 @@ class CacheManager:
 
 
 def sample(logits: Tensor) -> Tensor:
+    """argmax sample function"""
     next_token = logits.argmax(axis=-1, keepdims=True)
     return next_token
