@@ -126,7 +126,7 @@ The direct cause of this problem is usually a timeout caused by the subprocess o
 
 ## Operator Execution Errors
 
-Operator execution errors are mainly caused by improper input data , operator implementation, or operator initialization. Generally, the analogy method can be used to analyze operator execution errors.
+Operator execution errors are mainly caused by improper input data, operator implementation, or operator initialization. Generally, the analogy method can be used to analyze operator execution errors.
 
 For details, see the following example:
 
