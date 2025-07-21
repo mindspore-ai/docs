@@ -1134,15 +1134,15 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 
 - 对于循环或lstm网络，用户需根据step值，配置TIME_STEP环境变量，配置方式如下：
 
-```bash
-export TIME_STEP=3
-```
+    ```bash
+    export TIME_STEP=3
+    ```
 
 - 若用户模型含有proposal算子，需根据proposal算子实现情况，配置MAX_ROI_NUM环境变量，若未配置，则采用默认值300，配置方式如下：
 
-```bash
-export MAX_ROI_NUM=300
-```
+    ```bash
+    export MAX_ROI_NUM=300
+    ```
 
 ### 用户实现自定义算子
 
