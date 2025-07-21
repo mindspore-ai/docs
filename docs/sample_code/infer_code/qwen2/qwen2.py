@@ -240,10 +240,10 @@ class FlashAttention(nn.Cell):
         next_tokens = 2147483647
         self.flash_attention = \
                 ops.operations.nn_ops.FlashAttentionScore(head_num=num_heads,
-                                                            scale_value=scale,
-                                                            pre_tokens=pre_tokens,
-                                                            next_tokens=next_tokens,
-                                                            input_layout=input_layout)
+                                                          scale_value=scale,
+                                                          pre_tokens=pre_tokens,
+                                                          next_tokens=next_tokens,
+                                                          input_layout=input_layout)
 
     def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
         """layer compute"""
@@ -277,12 +277,12 @@ class PagedAttention(nn.Cell):
         )
 
     def construct(self, q: Tensor, k_cache: Tensor, v_cache: Tensor,
-                        block_tables: Tensor, batch_valid_length: Tensor,
-                        attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
+                  block_tables: Tensor, batch_valid_length: Tensor,
+                  attn_mask: Tensor, q_seq_lens: Tensor) -> Tensor:
         """layer compute"""
         output = self.paged_attention(q, k_cache, v_cache, block_tables,
-                                        batch_valid_length, None, None,
-                                        attn_mask, q_seq_lens)
+                                      batch_valid_length, None, None,
+                                      attn_mask, q_seq_lens)
         return output
 
 
@@ -294,7 +294,7 @@ class Qwen2Attention(nn.Cell):
         self.hidden_size = config.hidden_size
         self.num_heads = config.num_attention_heads
         self.num_kv_heads = config.num_key_value_heads
-        self.head_dim =config.hidden_size // self.num_heads
+        self.head_dim = config.hidden_size // self.num_heads
         self.q_size = self.head_dim * self.num_heads
         self.kv_size = self.head_dim * self.num_kv_heads
         self.scaling = float(self.head_dim ** -0.5)
@@ -340,9 +340,9 @@ class Qwen2Attention(nn.Cell):
         )
 
     def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
-                        is_prefill: bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
-                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
-                        q_seq_lens: Tensor) -> Tensor:
+                  is_prefill: bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
+                  slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
+                  q_seq_lens: Tensor) -> Tensor:
         """layer compute"""
         bs, seq_len, _ = hidden_state.shape
 
@@ -437,9 +437,9 @@ class Qwen2DecoderLayer(nn.Cell):
         self.post_attention_layernorm = RmsNorm(config=config)
 
     def construct(self, hidden_state: Tensor, residual: Tensor, positions: Tensor,
-                        batch_valid_length: Tensor, is_prefill: bool, layer_idx: int,
-                        k_cache: Tensor, v_cache: Tensor, slot_mapping: Tensor,
-                        block_tables: Tensor, attn_mask: Tensor, q_seq_lens: Tensor) -> Tuple[Tensor, Tensor]:
+                  batch_valid_length: Tensor, is_prefill: bool, layer_idx: int,
+                  k_cache: Tensor, v_cache: Tensor, slot_mapping: Tensor,
+                  block_tables: Tensor, attn_mask: Tensor, q_seq_lens: Tensor) -> Tuple[Tensor, Tensor]:
         """layer compute"""
         if residual is None:
             residual = hidden_state
@@ -448,8 +448,8 @@ class Qwen2DecoderLayer(nn.Cell):
             hidden_state, residual = self.input_layernorm(hidden_state, residual)
 
         hidden_state = self.self_attn(hidden_state, positions, batch_valid_length, is_prefill,
-                                        layer_idx, k_cache, v_cache, slot_mapping, block_tables,
-                                        attn_mask, q_seq_lens)
+                                      layer_idx, k_cache, v_cache, slot_mapping, block_tables,
+                                      attn_mask, q_seq_lens)
         hidden_state, residual = self.post_attention_layernorm(hidden_state, residual)
         hidden_state = self.mlp(hidden_state)
 
@@ -474,9 +474,9 @@ class Qwen2Model(nn.Cell):
 
     @jit(jit_level="O0", infer_boost="on")
     def construct(self, input_ids: Tensor, positions: Tensor, batch_valid_length: Tensor,
-                        is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor],
-                        slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
-                        q_seq_lens: Tensor) -> Tensor:
+                  is_prefill: bool, k_caches: List[Tensor], v_caches: List[Tensor],
+                  slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
+                  q_seq_lens: Tensor) -> Tensor:
         """layer compute"""
         hidden_state = self.embed_tokens(input_ids)
         residual = None
@@ -533,12 +533,12 @@ class CacheManager:
         head_dim = config.hidden_size // config.num_attention_heads
 
         self.k_caches = mutable([ops.zeros((block_num, block_size,
-                                            config.num_key_value_heads, head_dim),
-                                            dtype=config.param_dtype)
+                                           config.num_key_value_heads, head_dim),
+                                         dtype=config.param_dtype)
                                     for _ in range(config.num_hidden_layers)])
         self.v_caches = mutable([ops.zeros((block_num, block_size,
-                                            config.num_key_value_heads, head_dim),
-                                            dtype=config.param_dtype)
+                                           config.num_key_value_heads, head_dim),
+                                         dtype=config.param_dtype)
                                     for _ in range(config.num_hidden_layers)])
         self.block_tables = [[] for _ in range(batch_size)]
         self.acc_slot_mapping = [[] for _ in range(batch_size)]
@@ -559,7 +559,7 @@ class CacheManager:
 
         now_block_tables = Tensor(self.block_tables, dtype=dtype.int32)
         now_slot_mapping = Tensor([self.acc_slot_mapping[i][start_pos_idx: start_pos_idx + token_num_per_batch]
-                                for i in range(self.batch_size)], dtype=dtype.int32).view(-1)
+                                   for i in range(self.batch_size)], dtype=dtype.int32).view(-1)
 
         return now_block_tables, now_slot_mapping
 
