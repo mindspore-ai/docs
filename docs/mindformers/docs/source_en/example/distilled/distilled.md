@@ -14,7 +14,7 @@ For more information, see [DeepSeek-R1-Distill-Qwen-7B](https://hf-mirror.com/de
 
 ### 1.1 Environment
 
-For details, see [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/dev/installation.html).
+For details, see [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/master/installation.html).
 
 Copy the [distilled](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/distilled/distilled) folder of this case to the root directory of the MindSpore Transformers source code.
 
@@ -227,7 +227,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 
 The processed dataset is stored in `packed_data` and is in the arrow format.
 
-For more information, see [MindSpore Transformers official documentation > Dataset](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#custom-data-handler).
+For more information, see [MindSpore Transformers official documentation > Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#custom-data-handler).
 
 ##### Option 2: Using converted data
 
@@ -277,7 +277,7 @@ train_dataset: &train_dataset
 ......
 ```
 
-For details about other parameters, see [MindSpore Transformers official documentation > Supervised Fine-Tuning (SFT)](https://www.mindspore.cn/mindformers/docs/en/dev/guide/supervised_fine_tuning.html).
+For details about other parameters, see [MindSpore Transformers official documentation > Supervised Fine-Tuning (SFT)](https://www.mindspore.cn/mindformers/docs/en/master/guide/supervised_fine_tuning.html).
 
 ## 2. Starting Fine-Tuning
 
@@ -297,7 +297,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qw
 Logs are recorded in the `output/msrun_log` directory. For example, you can run the `tail -f output/msrun_log/worker_7.log` command to view the logs of worker 7.
 After the fine-tuning is complete, the output `safetensors` weight file is stored in the `output/checkpoint` directory.
 
-For more information about Safetensors weights, see [MindSpore Transformers official document > Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html).
+For more information about Safetensors weights, see [MindSpore Transformers official document > Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).
 
 ## 3. Inference
 

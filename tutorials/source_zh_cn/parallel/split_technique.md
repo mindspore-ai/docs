@@ -32,7 +32,7 @@
 
 ## 配置代码样例
 
-以MindFormers中封装的类[RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/experimental/graph/tensor_parallel/layers.py)为例：
+以MindFormers中封装的类[RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/master/mindformers/experimental/graph/tensor_parallel/layers.py)为例：
 
 <table>
 <tr>
@@ -78,7 +78,7 @@ class RowParallelLinear(nn.Cell):
 </tr>
 </table>
 
-另一个例子是[CoreAttention](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/experimental/graph/transformer/transformer.py)，根据上述原则配置：
+另一个例子是[CoreAttention](https://gitee.com/mindspore/mindformers/blob/master/mindformers/experimental/graph/transformer/transformer.py)，根据上述原则配置：
 <table>
 <tr>
 <td valign='top'>
@@ -117,7 +117,7 @@ class CoreAttention(nn.Cell):
 </tr>
 </table>
 
-再看[FlashAttention](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/modules/flash_attention.py)的例子:
+再看[FlashAttention](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/flash_attention.py)的例子:
 <table>
 <tr>
 <td valign='top'>
@@ -159,7 +159,7 @@ class FlashAttention(Cell):
 </tr>
 </table>
 
-若直接使用MindFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)。
+若直接使用MindFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/llama.py)。
 <table>
 <tr>
 <td valign='top'>

@@ -262,4 +262,4 @@ All configuration names and descriptions are listed below:
 > 2. Configuration parameters set by the user in the training configuration file `yaml`;
 > 3. Default configuration parameters during training.
 >
-> Refer to [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html) for all configurable parameters.
+> Refer to [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html) for all configurable parameters.

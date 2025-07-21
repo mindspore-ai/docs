@@ -6,11 +6,11 @@
 
 | 模型名                                                                                                     | 支持规格                          |   模型类型   |   最新支持版本   |
 |:--------------------------------------------------------------------------------------------------------|:------------------------------|:--------:|:----------:|
-| [DeepSeek-V3](https://gitee.com/mindspore/mindformers/tree/dev/research/deepseek3)                      | 671B                          |  稀疏LLM   | 在研版本、1.5.0 |
-| [GLM4](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/glm4.md)                       | 9B                            |  稠密LLM   | 在研版本、1.5.0 |
-| [Llama3.1](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3_1)                          | 8B/70B                        |  稠密LLM   | 在研版本、1.5.0 |
-| [Qwen2.5](https://gitee.com/mindspore/mindformers/tree/dev/research/qwen2_5)                            | 0.5B/1.5B/7B/14B/32B/72B      |  稠密LLM   | 在研版本、1.5.0 |
-| [TeleChat2](https://gitee.com/mindspore/mindformers/tree/dev/research/telechat2)                        | 7B/35B/115B                   |  稠密LLM   | 在研版本、1.5.0 |
+| [DeepSeek-V3](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3)                      | 671B                          |  稀疏LLM   | 在研版本、1.5.0 |
+| [GLM4](https://gitee.com/mindspore/mindformers/blob/master/docs/model_cards/glm4.md)                       | 9B                            |  稠密LLM   | 在研版本、1.5.0 |
+| [Llama3.1](https://gitee.com/mindspore/mindformers/tree/master/research/llama3_1)                          | 8B/70B                        |  稠密LLM   | 在研版本、1.5.0 |
+| [Qwen2.5](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5)                            | 0.5B/1.5B/7B/14B/32B/72B      |  稠密LLM   | 在研版本、1.5.0 |
+| [TeleChat2](https://gitee.com/mindspore/mindformers/tree/master/research/telechat2)                        | 7B/35B/115B                   |  稠密LLM   | 在研版本、1.5.0 |
 | [CodeLlama](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/codellama.md)          | 34B                           |  稠密LLM   |   1.5.0    |
 | [CogVLM2-Image](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_image.md)  | 19B                           |    MM    |   1.5.0    |
 | [CogVLM2-Video](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/model_cards/cogvlm2_video.md)  | 13B                           |    MM    |   1.5.0    |

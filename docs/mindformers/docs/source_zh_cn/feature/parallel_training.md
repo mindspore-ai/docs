@@ -40,7 +40,7 @@ parallel_config:
 
 - data_parallel：数据并行切分数量，默认为1，根据用户需求配置。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ### 模型并行
 
@@ -59,7 +59,7 @@ parallel_config:
 
 - model_parallel：模型并行切分数量，默认为1，根据用户需求配置。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ### 序列并行
 
@@ -78,7 +78,7 @@ parallel_config:
 
 - use_seq_parallel：是否开启序列并行，默认为Fasle。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ### 长序列并行
 
@@ -109,7 +109,7 @@ parallel_config:
 - use_ring_attention：是否开启Ring Attention，默认为False。
 - context_parallel：序列并行切分数量，默认为1，根据用户需求配置。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 #### Ulysses序列并行
 
@@ -140,7 +140,7 @@ parallel_config:
 - enable_alltoall：生成alltoall通信算子，默认为False，不启用时将会由allgather等其他算子组合完成等价替代，可参考MindSpore `set_auto_parallel_context`[接口文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html)；启用Ulysses方案时我们期望能够直接插入alltoall通信算子，因此将该配置项打开。
 - context_parallel_algo：设置为`ulysses_cp`开启Ulysses序列并行。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 #### 混合序列并行
 
@@ -166,7 +166,7 @@ parallel_config:
 - context_parallel_algo：设置为`hybrid_cp`时开启混合序列并行。
 - ulysses_degree_in_cp：Ulysses序列并行切分数量。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ### 流水线并行
 
@@ -199,7 +199,7 @@ parallel_config:
 - 目前仅支持Llama和DeepSeek系列模型。
 - 目前暂不支持使用Megatron的多源数据集进行训练的场景。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ### 优化器并行
 
@@ -218,7 +218,7 @@ parallel:
 
 - enable_parallel_optimizer：是否开启优化器并行，默认为`False`。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ### 多副本并行
 
@@ -241,11 +241,11 @@ model_config:
 
 - 目前仅支持Llama和Qwen系列模型。
 
-关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
 ## MindSpore Transformers 分布式并行应用实践
 
-在官网提供的[Llama3_1-70B微调配置](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
+在官网提供的[Llama3_1-70B微调配置](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
 
 - **数据并行**：未启用额外的数据并行（`data_parallel: 1`）。
 - **模型并行**：模型被切分成8个部分，在不同设备上计算（`model_parallel: 8`）。

@@ -187,7 +187,7 @@ Since features such as model parallelism, flow parallelism, sequence parallelism
 
 #### Weight Conversion
 
-During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html#weight-format-conversion) for weight conversion.
+During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html#weight-format-conversion) for weight conversion.
 
 Both MindSpore and PyTorch support `bin` format data, loading the same dataset for training ensures consistency from step to step.
 
@@ -226,7 +226,7 @@ The training process fixes randomness and turns on deterministic computation in 
       # Original code
   ```
 
-* MindSpore code, in [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
+* MindSpore code, in [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
 
   ```python
   import numpy as np
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
+For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):

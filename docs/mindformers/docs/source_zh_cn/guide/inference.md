@@ -24,7 +24,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ## 使用 run_mindformer 一键启动脚本推理
 
-单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh)来启动。
+单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py)脚本，多卡推理需要借助[scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)来启动。
 
 run_mindformer.py的参数说明如下：
 
@@ -38,7 +38,7 @@ run_mindformer.py的参数说明如下：
 
 msrun_launcher.sh包括run_mindformer.py命令和推理卡数两个参数。
 
-下面将以Qwen3-8B为例介绍单卡和多卡推理的用法，推荐配置为[predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/qwen3/predict_qwen3.yaml)文件。
+下面将以Qwen3-8B为例介绍单卡和多卡推理的用法，推荐配置为[predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)文件。
 
 ### 配置修改
 
@@ -63,7 +63,7 @@ parallel_config:
   model_parallel: 1
 ```
 
-具体配置说明均可参考[yaml配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)。
+具体配置说明均可参考[yaml配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)。
 
 ### 单卡推理
 
@@ -134,4 +134,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ## 更多信息
 
-更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/introduction/models.html)。
+更多关于不同模型的推理示例，请访问[MindSpore Transformers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)。

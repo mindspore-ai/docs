@@ -6,7 +6,7 @@
 
 Ckpt is a common file format used to save model training status in the deep learning framework. It contains model parameters, optimizer status, and training progress. It is used to restore training or fine-tune models. This document describes how MindSpore Transformers supports conversion , slice and merge.
 
-> The ckpt format is planned to offline. The safetensors format is recommended for weights. Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). For details, see [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html).
+> The ckpt format is planned to offline. The safetensors format is recommended for weights. Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). For details, see [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).
 
 ## Weight Format Conversion
 
@@ -40,7 +40,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ### Conversion Example
 
-Assume that you have downloaded the [Llama3.1 model weight](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path, to convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
+Assume that you have downloaded the [Llama3.1 model weight](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path, to convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
 
 ```bash
 python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
@@ -67,7 +67,7 @@ After the preceding steps are performed, the HuggingFace weight is successfully 
 
 ### Example of Developing Model Weight Conversion
 
-Llama is used as an example. To convert a HuggingFace weight to a MindSpore Transformers one, define the `convert_pt_to_ms` function in [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py).
+Llama is used as an example. To convert a HuggingFace weight to a MindSpore Transformers one, define the `convert_pt_to_ms` function in [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_weight.py).
 
 ```python
 def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
@@ -100,7 +100,7 @@ def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
     return True
 ```
 
-To convert a MindSpore Transformers weight to a HuggingFace one, define the `convert_ms_to_pt` function in [convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_reversed.py).
+To convert a MindSpore Transformers weight to a HuggingFace one, define the `convert_ms_to_pt` function in [convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_reversed.py).
 
 ```python
 def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):
@@ -233,7 +233,7 @@ If there is currently no distributed strategy file, it can be quickly generated 
 
 **Single-Process Conversion**
 
-Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform single-process conversion on the loaded weight.
+Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform single-process conversion on the loaded weight.
 
 **Run the command.**
 
@@ -246,7 +246,7 @@ python transform_checkpoint.py \
 
 **Multi-Process Conversion**
 
-Use [mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.sh) to perform multi-process conversion on the loaded weight.
+Use [mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.sh) to perform multi-process conversion on the loaded weight.
 
 **Run the command.**
 
@@ -261,7 +261,7 @@ bash transform_checkpoint.sh \
 
 **Precautions**:
 
-- When the [transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.sh) script is used, `8` indicates the number of target devices, and `2` indicates that two processes are used for conversion.
+- When the [transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.sh) script is used, `8` indicates the number of target devices, and `2` indicates that two processes are used for conversion.
 
 ### Special Scenarios
 
@@ -317,7 +317,7 @@ If there is a shared disk between servers, you can use MindSpore Transformers to
 
   **Start a task.**
 
-  Use [mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh) to start the task.
+  Use [mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh) to start the task.
 
   ```shell
   # First server (main node)
@@ -368,7 +368,7 @@ If there is no shared disk between servers, you need to use the offline weight c
 
 - **Offline weight conversion**
 
-  On the server where all strategy files are stored, use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform offline weight conversion.
+  On the server where all strategy files are stored, use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform offline weight conversion.
 
   **Single-process conversion**
 
@@ -423,7 +423,7 @@ For details about the principles and implementation of LoRA, see the following r
 
 #### Instructions
 
-Use the [LoRA weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/transform_ckpt_lora.py) provided by MindSpore Transformers to merge LoRA weights as follows:
+Use the [LoRA weight merging script](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/transform_ckpt_lora.py) provided by MindSpore Transformers to merge LoRA weights as follows:
 
 ```shell
 python mindformers/tools/transform_ckpt_lora.py \

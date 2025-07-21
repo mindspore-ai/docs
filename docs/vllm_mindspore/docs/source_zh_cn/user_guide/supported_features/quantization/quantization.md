@@ -33,7 +33,7 @@ export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set ac
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-关于DeepSeek-R1 W8A8量化推理的yaml文件，可以使用[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
+关于DeepSeek-R1 W8A8量化推理的yaml文件，可以使用[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
 
 环境准备完成后，用户可以使用如下Python代码，进行离线推理服务：
 

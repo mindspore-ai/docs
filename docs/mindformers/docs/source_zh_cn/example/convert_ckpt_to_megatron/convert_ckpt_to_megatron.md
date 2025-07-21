@@ -21,7 +21,7 @@
 使用 MindSpore Transformers 保存的safetensors权重进行转换。
 
 > - 当前仅支持由SelfAttention和MLP组成的类GPT模型权重转换（如GPT、Qwen等），暂不支持MLA和MoE。
-> - 仅支持未分布式切分的完整权重。如为分布式权重，请先参考[权重合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html#%E6%9D%83%E9%87%8D%E5%90%88%E5%B9%B6)进行合并。
+> - 仅支持未分布式切分的完整权重。如为分布式权重，请先参考[权重合并](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html#%E6%9D%83%E9%87%8D%E5%90%88%E5%B9%B6)进行合并。
 
 ## 权重转换步骤
 

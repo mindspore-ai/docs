@@ -10,7 +10,7 @@ Please refer to [Checkpoint Health Monitor](#checkpoint-health-monitor) for the 
 
 > - The combination of data skipping function and health monitoring function can effectively solve the problem of data anomalies caused by abnormal global norm during the training process. Before use, please train normally for a period of time to determine the threshold of the global norm that needs to be set, the threshold of the number of consecutive anomalies, and the threshold of the embedding norm.
 > - Please note that training will only be interrupted when there are consecutive exceptions. If there is only one instance where it returns to normal, the cumulative count will be cleared. Therefore, please control the threshold setting.
-> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the process level rescheduling recovery function in the [high availability feature](https://www.mindspore.cn/mindformers/docs/en/dev/feature/high_availability.html).
+> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the process level rescheduling recovery function in the [high availability feature](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html).
 
 ## Skipping Data
 
@@ -53,7 +53,7 @@ monitor_config:
 
 ### Conversion Example
 
-Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters according to the above [Configuration](#usage), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md) for the remaining steps. Start training:
+Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters according to the above [Configuration](#usage), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -155,7 +155,7 @@ parallel_config:
 
 ### Conversion Example
 
-Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md) for the remaining steps. Start training:
+Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

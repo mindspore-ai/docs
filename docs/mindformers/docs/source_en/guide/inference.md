@@ -24,7 +24,7 @@ Use the unified script `run_mindformer` to execute inference tasks.
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh).
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh).
 
 The arguments to run_mindformer.py are described below:
 
@@ -38,7 +38,7 @@ The arguments to run_mindformer.py are described below:
 
 msrun_launcher.sh includes the run_mindformer.py command and the number of inference cards as two parameters.
 
-The following will describe the usage of single and multi-card inference using Qwen3-8B as an example, with the recommended configuration of the [predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/qwen3/predict_qwen3.yaml) file.
+The following will describe the usage of single and multi-card inference using Qwen3-8B as an example, with the recommended configuration of the [predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml) file.
 
 ### Configuration Modification
 
@@ -63,7 +63,7 @@ parallel_config:
   model_parallel: 1
 ```
 
-For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 ### Single-Device Inference
 
@@ -134,4 +134,4 @@ Inference results are viewed in the same way as multi-card inference.
 
 ## More Information
 
-For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/dev/introduction/models.html).
+For more inference examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).

@@ -16,7 +16,7 @@ Megatron数据集是为大规模分布式语言模型预训练场景设计的一
 
 ### 数据预处理
 
-MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)用于将`json`格式的原始文本预料转换成`.bin`或`.idx`文件。如果用户的原始文本不是`json`格式，需要自行将数据处理成对应格式的文件。
+MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)用于将`json`格式的原始文本预料转换成`.bin`或`.idx`文件。如果用户的原始文本不是`json`格式，需要自行将数据处理成对应格式的文件。
 
 下面是`json`格式文件的示例：
 
@@ -70,7 +70,7 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
 
 4. 生成`.bin`或`.idx`数据文件
 
-   执行数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)可以将原始文本数据通过模型的tokenizer转换为对应的token id。
+   执行数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)可以将原始文本数据通过模型的tokenizer转换为对应的token id。
 
     该脚本参数如下：
 
@@ -103,7 +103,7 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
      --tokenizer-dir /path/to/huggingface/tokenizer
    ```
 
-   以外部tokenizer类[Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py)为例，确保**本地**mindformers仓库下存在'research/llama3_1/llama3_1_tokenizer.py'，执行如下命令处理数据集：
+   以外部tokenizer类[Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py)为例，确保**本地**mindformers仓库下存在'research/llama3_1/llama3_1_tokenizer.py'，执行如下命令处理数据集：
 
    ```shell
    python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
@@ -195,7 +195,7 @@ MindSpore Transformers推荐用户使用Megatron数据集进行模型预训练�
    | pad                        | 数据集中pad的token id                                                                          |
    | data_path                  | 列表，每连续两个列表元素（数字，字符串）被视作一个数据集，分别表示该数据集的采样占比和数据集bin文件去掉后缀`.bin`的路径，所有数据集的占比之和应当为1           |
 
-   此外，Megatron数据集还依赖`input_columns`、`construct_args_key`、`full_batch`等配置，具体可参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)，这里仅说明在不同场景如何配置：
+   此外，Megatron数据集还依赖`input_columns`、`construct_args_key`、`full_batch`等配置，具体可参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)，这里仅说明在不同场景如何配置：
 
     - 当`create_compressed_eod_mask=True`时：
 
@@ -232,7 +232,7 @@ MindSpore Transformers推荐用户使用Megatron数据集进行模型预训练�
 
 3. 启动模型预训练
 
-   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型预训练任务，这里以[Llama3_1模型文档](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md)为例。
+   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型预训练任务，这里以[Llama3_1模型文档](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md)为例。
 
 ## HuggingFace数据集
 
@@ -396,7 +396,7 @@ train_dataset: &train_dataset
     prefetch_size: 1
   ```
 
-   1. `train_dataset`中参数说明可参考[文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)；
+   1. `train_dataset`中参数说明可参考[文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)；
 
    2. `AlpacaInstructDataHandler`是针对`alpaca`数据集开发的在线处理脚本，如果使用其他数据集，用户需要参考[自定义数据handler](#自定义数据handler)完成自定义数据处理的功能实现。
 
@@ -477,7 +477,7 @@ export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
 
 - alpaca 数据集示例
 
-  修改任务配置文件 [finetune_qwen2_5_0_5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml)。
+  修改任务配置文件 [finetune_qwen2_5_0_5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml)。
 
   修改如下参数：
 
@@ -512,7 +512,7 @@ export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
     prefetch_size: 1
   ```
 
-  其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 的 “模型训练配置” 和 “模型评估配置”。
+  其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 的 “模型训练配置” 和 “模型评估配置”。
 
   自定义数据 handler：
 
@@ -625,7 +625,7 @@ export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
     seed: 0
   ```
 
-  其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html) 的 “模型训练配置” 和 “模型评估配置”。
+  其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 的 “模型训练配置” 和 “模型评估配置”。
 
   自定义 adgen_handler：
 
@@ -703,7 +703,7 @@ export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
 
 `CommonDataLoader`除了支持数据集在线加载与处理，还支持离线处理数据集并进行保存。
 
-使用[datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/data_preprocess/huggingface/datasets_preprocess.py)脚本可以离线处理 HuggingFace 数据集并进行保存。
+使用[datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/huggingface/datasets_preprocess.py)脚本可以离线处理 HuggingFace 数据集并进行保存。
 
 - 参数说明
 
@@ -788,7 +788,7 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
 1. 修改模型配置文件
 
-   `qwen2_5-0.5b`模型微调使用[finetune_qwen2_5_0.5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml)配置文件，修改其中数据集部分配置：
+   `qwen2_5-0.5b`模型微调使用[finetune_qwen2_5_0.5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml)配置文件，修改其中数据集部分配置：
 
    ```yaml
    train_dataset: &train_dataset
@@ -806,7 +806,7 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
 2. 启动模型微调
 
-   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen2_5模型文档](https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2_5/README.md)为例。
+   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen2_5模型文档](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/README.md)为例。
 
 ### 多源数据集
 

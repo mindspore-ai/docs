@@ -39,14 +39,14 @@ lr_schedule:
 
 Different learning rates require different configuration parameters. MindSpore Transformers currently supports the following learning rates:
 
-1. [Constant Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.ConstantWarmUpLR.html)
-2. [Linear with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.LinearWithWarmUpLR.html)
-3. [Cosine with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.CosineWithWarmUpLR.html)
-4. [Cosine with Restarts and Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
-5. [Polynomial with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.PolynomialWithWarmUpLR.html)
-6. [The cosine annealing part of SGDR](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.CosineAnnealingLR.html)
-7. [Set the learning rate of each parameter group using a cosine annealing schedule](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.CosineAnnealingWarmRestarts.html)
-8. [Learning Rate Wise Layer](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.LearningRateWiseLayer.html)
+1. [Constant Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.ConstantWarmUpLR.html)
+2. [Linear with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.LinearWithWarmUpLR.html)
+3. [Cosine with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CosineWithWarmUpLR.html)
+4. [Cosine with Restarts and Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CosineWithRestartsAndWarmUpLR.html)
+5. [Polynomial with Warm Up Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.PolynomialWithWarmUpLR.html)
+6. [The cosine annealing part of SGDR](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CosineAnnealingLR.html)
+7. [Set the learning rate of each parameter group using a cosine annealing schedule](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.CosineAnnealingWarmRestarts.html)
+8. [Learning Rate Wise Layer](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.LearningRateWiseLayer.html)
 
 Taking the cosine warm-up learning rate (CosineWithWarmUpLR) as an example, the main parameters that need to be paid attention to are listed in the following table:
 
@@ -73,7 +73,7 @@ lr_schedule:
   total_steps: 20 # -1 means it will load the total steps of the dataset
 ```
 
-For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore Transformers API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers.core.html#learning-rate).
+For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore Transformers API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/mindformers.core.html#learning-rate).
 
 ## Optimizer
 
@@ -83,7 +83,7 @@ An optimizer is an algorithmic choice used for optimizing neural network weights
 
 Selecting the right optimizer is crucial for the convergence speed and final performance of the model. Different optimizers employ various strategies to adjust the learning rate and other hyperparameters to accelerate the training process, improve convergence, and avoid local optima.
 
-Currently, MindSpore Transformers only supports the [AdamW optimizer](https://www.mindspore.cn/mindformers/docs/en/dev/mindformers.core.html#optimizer).
+Currently, MindSpore Transformers only supports the [AdamW optimizer](https://www.mindspore.cn/mindformers/docs/en/master/mindformers.core.html#optimizer).
 
 ### Configuration and Usage
 
@@ -103,4 +103,4 @@ optimizer:
 
 #### Key Parameters Introduction
 
-For the main parameters of optimizer configuration, see the relevant link in [MindSpore Transformers API Documentation: Optimizer](https://www.mindspore.cn/mindformers/docs/en/dev/core/mindformers.core.AdamW.html#mindformers.core.AdamW).
+For the main parameters of optimizer configuration, see the relevant link in [MindSpore Transformers API Documentation: Optimizer](https://www.mindspore.cn/mindformers/docs/en/master/core/mindformers.core.AdamW.html#mindformers.core.AdamW).

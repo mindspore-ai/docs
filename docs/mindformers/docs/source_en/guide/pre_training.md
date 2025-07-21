@@ -12,23 +12,23 @@ Based on actual operations, the basic pretraining process can be divided into th
 
 ### 1. Preparing a dataset
 
-   The pretraining phase of MindSpore Transformers currently supports datasets in both [Megatron format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#megatron-dataset) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#mindrecord-dataset). Users can prepare the data according to the specific requirements of their tasks.
+   The pretraining phase of MindSpore Transformers currently supports datasets in both [Megatron format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#megatron-dataset) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#mindrecord-dataset). Users can prepare the data according to the specific requirements of their tasks.
 
 ### 2. Configuring File Preparation
 
-   The pretraining task in MindSpore Transformers is managed through a unified [configuration file](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html), allowing users to flexibly adjust various [training hyperparameters](https://www.mindspore.cn/mindformers/docs/en/dev/feature/training_hyperparameters.html). In addition, pretraining performance can be further optimized using features such as [distributed parallel training](https://www.mindspore.cn/mindformers/docs/en/dev/feature/parallel_training.html), [memory optimization](https://www.mindspore.cn/mindformers/docs/en/dev/feature/memory_optimization.html), and [other training features](https://www.mindspore.cn/mindformers/docs/en/dev/feature/other_training_features.html).
+   The pretraining task in MindSpore Transformers is managed through a unified [configuration file](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html), allowing users to flexibly adjust various [training hyperparameters](https://www.mindspore.cn/mindformers/docs/en/master/feature/training_hyperparameters.html). In addition, pretraining performance can be further optimized using features such as [distributed parallel training](https://www.mindspore.cn/mindformers/docs/en/master/feature/parallel_training.html), [memory optimization](https://www.mindspore.cn/mindformers/docs/en/master/feature/memory_optimization.html), and [other training features](https://www.mindspore.cn/mindformers/docs/en/master/feature/other_training_features.html).
 
 ### 3. Launching the Training Task
 
-   MindSpore Transformers provides a convenient [one-click script](https://www.mindspore.cn/mindformers/docs/en/dev/feature/start_tasks.html) to launch the pretraining task. During training, users can monitor the progress using [logging](https://www.mindspore.cn/mindformers/docs/en/dev/feature/logging.html) and [visualization tools](https://www.mindspore.cn/mindformers/docs/en/dev/feature/monitor.html).
+   MindSpore Transformers provides a convenient [one-click script](https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html) to launch the pretraining task. During training, users can monitor the progress using [logging](https://www.mindspore.cn/mindformers/docs/en/master/feature/logging.html) and [visualization tools](https://www.mindspore.cn/mindformers/docs/en/master/feature/monitor.html).
 
 ### 4. Saving a model
 
-   Checkpoint files can be saved during training or after completion. Currently, MindSpore Transformers supports saving models in [Ckpt format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html) or [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/dev/feature/safetensors.html), which can be used for later tasks such as resuming training or fine-tuning.
+   Checkpoint files can be saved during training or after completion. Currently, MindSpore Transformers supports saving models in [Ckpt format](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html) or [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html), which can be used for later tasks such as resuming training or fine-tuning.
 
 ### 5. Fault Recovery
 
-   To handle unexpected interruptions during training, MindSpore Transformers includes [high availability features](https://www.mindspore.cn/mindformers/docs/en/dev/feature/high_availability.html) such as final-state saving and automatic recovery. It also supports [resuming training from checkpoints](https://www.mindspore.cn/mindformers/docs/en/dev/feature/resume_training.html), improving training stability.
+   To handle unexpected interruptions during training, MindSpore Transformers includes [high availability features](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html) such as final-state saving and automatic recovery. It also supports [resuming training from checkpoints](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html), improving training stability.
 
 ## MindSpore Transformers-based Pretraining Practice
 
@@ -44,7 +44,7 @@ Currently, MindSpore Transformers supports Megatron dataset, which is typically 
 
 ### Data Preprocessing
 
-For dataset processing, refer to [Megatron Dataset - Data Preprocessing](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#data-preprocessing).
+For dataset processing, refer to [Megatron Dataset - Data Preprocessing](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#data-preprocessing).
 
 - Generate Megatron BIN Format Files
 
@@ -78,11 +78,11 @@ For dataset processing, refer to [Megatron Dataset - Data Preprocessing](https:/
 
 ### Single-Node Training
 
-Specify the configuration file [pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
+Specify the configuration file [pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
 
-The default configuration includes large values for parameters such as the number of layers and hidden dimensions, which are intended for large-scale multi-node distributed training. It cannot be directly used for pretraining on a single machine. You will need to modify the configuration as described in [DeepSeek-V3 - Configuration Modification](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/README.md#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE).
+The default configuration includes large values for parameters such as the number of layers and hidden dimensions, which are intended for large-scale multi-node distributed training. It cannot be directly used for pretraining on a single machine. You will need to modify the configuration as described in [DeepSeek-V3 - Configuration Modification](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/README.md#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE).
 
-For detailed instructions on launching the training task, refer to [Launch Task](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/README.md#%E6%8B%89%E8%B5%B7%E4%BB%BB%E5%8A%A1). The launch command is as follows:
+For detailed instructions on launching the training task, refer to [Launch Task](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/README.md#%E6%8B%89%E8%B5%B7%E4%BB%BB%E5%8A%A1). The launch command is as follows:
 
 ```shell
 cd $MINDFORMERS_HOME
@@ -116,8 +116,8 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 > The example code below assumes the **master node IP** is `192.168.1.1` and the current node's **Rank** is `0`. In actual execution, please set `master_ip` to the real **IP address** of the master node, and set `node_rank` to the **Rank** index of the current node.
 
-**Note**: During multi-node distributed training, some performance problems may occur. To ensure the efficiency and stability of the training process, you are advised to optimize and adjust the performance by referring to [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/performance_optimization.html).
+**Note**: During multi-node distributed training, some performance problems may occur. To ensure the efficiency and stability of the training process, you are advised to optimize and adjust the performance by referring to [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/performance_optimization.html).
 
 ## More Information
 
-For more training examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/dev/introduction/models.html).
+For more training examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).

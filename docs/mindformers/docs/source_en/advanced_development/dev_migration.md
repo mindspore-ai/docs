@@ -12,9 +12,9 @@ The basic components of a foundation model in MindSpore Transformers include the
 
 A model configuration is an instance that contains all information about a model. The `__init__` methods of all models in MindSpore Transformers receive a model configuration instance as the input parameter. All submodules of the model are initialized based on the information contained in the configuration instance.
 
-MindSpore Transformers provides the [PretrainedConfig](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.PretrainedConfig.html) class, which provides some common configuration methods. The configuration classes of all models should be inherited from the PretrainedConfig class. Developers only need to define all configuration parameters that help build foundation models. Foundation models of the Transformer type have configuration parameters such as `seq_length`, `hidden_size`, `num_layers`, and `num_heads`, and foundation models of the text type have `vocab_size` in addition.
+MindSpore Transformers provides the [PretrainedConfig](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PretrainedConfig.html) class, which provides some common configuration methods. The configuration classes of all models should be inherited from the PretrainedConfig class. Developers only need to define all configuration parameters that help build foundation models. Foundation models of the Transformer type have configuration parameters such as `seq_length`, `hidden_size`, `num_layers`, and `num_heads`, and foundation models of the text type have `vocab_size` in addition.
 
-For details, see the configuration class [LlamaConfig](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaConfig.html) of the Llama model in MindSpore Transformers.
+For details, see the configuration class [LlamaConfig](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaConfig.html) of the Llama model in MindSpore Transformers.
 
 > If your model is similar to a model in the library, you can reuse the same configurations as the model.
 
@@ -22,12 +22,12 @@ For details, see the configuration class [LlamaConfig](https://www.mindspore.cn/
 
 The MindSpore Transformers foundation model is developed based on the MindSpore framework. Developers only need to pay attention to the implementation of the model network.
 
-MindSpore Transformers provides the [PretrainedModel](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.PreTrainedModel.html) class, which is responsible for storage model configurations and processing the methods of loading and saving models. All model classes must be inherited from the PretrainedModel class, and the model input must be the same. That is, the input parameters of the `construct` method of the model must be the same. For details about the input parameters and meanings, see the Llama model class [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaForCausalLM.html) in MindSpore Transformers. In addition, the model class must implement some abstract methods of the base class, including:
+MindSpore Transformers provides the [PretrainedModel](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedModel.html) class, which is responsible for storage model configurations and processing the methods of loading and saving models. All model classes must be inherited from the PretrainedModel class, and the model input must be the same. That is, the input parameters of the `construct` method of the model must be the same. For details about the input parameters and meanings, see the Llama model class [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaForCausalLM.html) in MindSpore Transformers. In addition, the model class must implement some abstract methods of the base class, including:
 
 - `prepare_inputs_for_generation`: method for building input for model inference.
 - `prepare_inputs_for_predict_layout`: method for building virtual input for the distributed loading model weight.
 
-For specific meanings, refer to the descriptions in [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaForCausalLM.html).
+For specific meanings, refer to the descriptions in [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaForCausalLM.html).
 
 > If your model structure is similar to that of a model in the library, you can reuse the model.
 
@@ -35,20 +35,20 @@ For specific meanings, refer to the descriptions in [LlamaForCausalLM](https://w
 
 A tokenizer is used to process input and output of LLMs. It is required in the workflow of LLMs.
 
-MindSpore Transformers provides the [PretrainedTokenizer](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.PreTrainedTokenizer.html) and [PretrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.PreTrainedTokenizerFast.html) classes, which use Python only and use the Rust library, respectively. The features of the latter one are as follows:
+MindSpore Transformers provides the [PretrainedTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedTokenizer.html) and [PretrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedTokenizerFast.html) classes, which use Python only and use the Rust library, respectively. The features of the latter one are as follows:
 
 - Faster batch processing.
 - Additional methods for mapping between text strings and lexical spaces. For example, the indexes of the lexical element containing a given character or the character spans corresponding to the given lexical element are obtained.
 
-All tokenizer classes must be inherited from the PretrainedTokenizer or PretrainedTokenizerFast class. For details, see [LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaTokenizer.html) and [LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/dev/models/mindformers.models.LlamaTokenizerFast.html).
+All tokenizer classes must be inherited from the PretrainedTokenizer or PretrainedTokenizerFast class. For details, see [LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaTokenizer.html) and [LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaTokenizerFast.html).
 
 > If your tokenizer is similar to that in the library, you can reuse that in the library.
 
 ### Preparing a Weight and a Dataset
 
-If a PyTorch-based model weight already exists, you can convert the weight to that in the MindSpore format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/feature/ckpt.html#weight-format-conversion).
+If a PyTorch-based model weight already exists, you can convert the weight to that in the MindSpore format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html#weight-format-conversion).
 
-For details about how to prepare a dataset, see [Dataset](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html).
+For details about how to prepare a dataset, see [Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html).
 
 ### Preparing a `YAML` Configuration File
 
@@ -56,7 +56,7 @@ MindSpore Transformers uses a `YAML` file to configure all parameters required b
 
 The code of the customized model is not in the MindSpore Transformers library, and the customized module in the code is not registered with MindSpore Transformers. Therefore, the customized model cannot be automatically instantiated. The code is also called external code (for example, the code in the `research` directory). Therefore, you need to add the `auto_register` configuration item for automatically registering any module to the corresponding module configuration in the `YAML` file and set the configuration items to the relative import paths of the API to be registered. When the run_mindformer.py script is executed to start the task, you need to add the input parameter `--register_path` of the registration path and set it to the relative path of the directory where the external code is located.
 
-For example, in the `YAML` file [`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) of the Llama3.1-8B model inference in the `research` directory, the configuration item `auto_register` is added for automatic registration to register the customized `Llama3Tokenizer` in [`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py).
+For example, in the `YAML` file [`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) of the Llama3.1-8B model inference in the `research` directory, the configuration item `auto_register` is added for automatic registration to register the customized `Llama3Tokenizer` in [`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py).
 
 ```yaml
 ...
@@ -91,15 +91,15 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 |  register_path  | Path of the directory where the external code is located. |
 |  predict_data   | Input data for inference.                                 |
 
-`register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
+`register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
 
-For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama3_1-8B fine-tuning configuration file](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
+For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama3_1-8B fine-tuning configuration file](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
 
-After all the preceding basic elements are prepared, you can refer to other documents in the MindSpore Transformers tutorial to perform model training, fine-tuning, and inference. For details about subsequent model debugging and optimization, see [Large Model Accuracy Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/precision_optimization.html) and [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/dev/advanced_development/performance_optimization.html).
+After all the preceding basic elements are prepared, you can refer to other documents in the MindSpore Transformers tutorial to perform model training, fine-tuning, and inference. For details about subsequent model debugging and optimization, see [Large Model Accuracy Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/precision_optimization.html) and [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/performance_optimization.html).
 
 ### Contributing Models to the MindSpore Transformers Open Source Repository
 
-You can contribute models to the MindSpore Transformers open source repository for developers to research and use. For details, see [MindSpore Transformers Contribution Guidelines](https://www.mindspore.cn/mindformers/docs/en/dev/contribution/mindformers_contribution.html).
+You can contribute models to the MindSpore Transformers open source repository for developers to research and use. For details, see [MindSpore Transformers Contribution Guidelines](https://www.mindspore.cn/mindformers/docs/en/master/contribution/mindformers_contribution.html).
 
 ## MindSpore Transformers Model Migration Practice
 

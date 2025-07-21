@@ -23,7 +23,7 @@ Historical version matching relationship:
 
 ## Installing Dependent Software
 
-1. Install Firmware and Driver: Download the firmware and driver package through the [Confirming Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/dev/installation.html#confirming-version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/en/document) for installation.
+1. Install Firmware and Driver: Download the firmware and driver package through the [Confirming Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/master/installation.html#confirming-version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/en/document) for installation.
 
 2. Install CANN and MindSpore: Follow the [Manual Installation](https://www.mindspore.cn/install/en) section on the MindSpore website for installation.
 
