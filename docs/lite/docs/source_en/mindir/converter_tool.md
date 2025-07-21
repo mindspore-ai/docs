@@ -76,6 +76,7 @@ Detailed parameter descriptions are provided below.
 | `--inputDataType=<INPUTDATATYPE>` | Not | Set the data type of the quantized model input tensor. Only if the quantization parameters (scale and zero point) of the model input tensor are available. The default is to keep the same data type as the original model input tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
 | `--outputDataType=<OUTPUTDATATYPE>` | Not | Set the data type of the quantized model output tensor. Only if the quantization parameters (scale and zero point) of the model output tensor are available. The default is to keep the same data type as the original model output tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
 | `--device=<DEVICE>` | Not | Set target device when converter model. The use case is when on the Ascend device, if you need to the converted model to have the ability to use Ascend backend to perform inference, you can set the parameter. If it is not set, the converted model will use CPU backend to perform inference by default. | This option will be deprecated. It is replaced by setting `optimize` option to `ascend_oriented` |
+| `--optimizeTransformer=<OPTIMIZETRANSFORMER>` | Not | Set whether to do transformer-fursion or not. | true, false | false | only support tensorrt |
 
 Notes:
 

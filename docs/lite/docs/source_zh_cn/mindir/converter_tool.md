@@ -76,6 +76,7 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 | `--inputDataType=<INPUTDATATYPE>` | 否 | 设定量化模型输入tensor的data type。仅当模型输入tensor的量化参数（scale和zero point）齐备时有效。默认与原始模型输入tensor的data type保持一致。 | FLOAT32、INT8、UINT8、DEFAULT | DEFAULT | 暂不支持 |
 | `--outputDataType=<OUTPUTDATATYPE>` | 否 | 设定量化模型输出tensor的data type。仅当模型输出tensor的量化参数（scale和zero point）齐备时有效。默认与原始模型输出tensor的data type保持一致。 | FLOAT32、INT8、UINT8、DEFAULT | DEFAULT | 暂不支持 |
 | `--device=<DEVICE>` | 否 | 设置转换模型时的目标设备。使用场景是在Ascend设备上，如果你需要转换生成的模型调用Ascend后端执行推理，则设置该参数，若未设置，默认模型调用CPU后端推理。 | Ascend、Ascend310、Ascend310P | - | 该选项即将废弃，使用optimize配置ascend_oriented替代 |
+| `--optimizeTransformer=<OPTIMIZETRANSFORMER>` | 否 | 是否使能transformer融合。 | true、false | false | 仅支持tensorrt |
 
 注意事项：
 
