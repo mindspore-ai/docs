@@ -5,7 +5,7 @@
 | Package                   | Class Name | Description                                              | Supported At Cloud-side Inference | Supported At Device-side Inference |
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |--------|--------|
 | com.mindspore        | [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) | Model defines model in MindSpore for compiling and running compute graph.  | √      | √      |
-| com.mindspore.config | [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html) | MSContext defines for holding environment variables during runtime.                         | √      | √      |
+| com.mindspore.config | [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html) | MSContext is used to save the context during execution.                         | √      | √      |
 | com.mindspore        | [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html) | MSTensor defines the tensor in MindSpore.          | √      | √      |
 | com.mindspore        | [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html) | Defines MindSpore Lite concurrent inference.            | √      | ✕      |
 | com.mindspore.config   | [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/api_java/runner_config.html) | RunnerConfig defines configuration parameters for concurrent inference.             | √      | ✕      |
