@@ -533,13 +533,13 @@ class CacheManager:
         head_dim = config.hidden_size // config.num_attention_heads
 
         self.k_caches = mutable([ops.zeros((block_num, block_size,
-                                           config.num_key_value_heads, head_dim),
-                                         dtype=config.param_dtype)
-                                    for _ in range(config.num_hidden_layers)])
+                                            config.num_key_value_heads, head_dim),
+                                           dtype=config.param_dtype)
+                                 for _ in range(config.num_hidden_layers)])
         self.v_caches = mutable([ops.zeros((block_num, block_size,
-                                           config.num_key_value_heads, head_dim),
-                                         dtype=config.param_dtype)
-                                    for _ in range(config.num_hidden_layers)])
+                                            config.num_key_value_heads, head_dim),
+                                            dtype=config.param_dtype)
+                                 for _ in range(config.num_hidden_layers)])
         self.block_tables = [[] for _ in range(batch_size)]
         self.acc_slot_mapping = [[] for _ in range(batch_size)]
         self.free_block_ids = deque(range(block_num))
