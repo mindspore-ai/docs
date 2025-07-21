@@ -42,7 +42,7 @@ Error analysis is the process of obtaining the content of error reports, underst
 Information Summarization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The first step in network error debugging is to summarize information, where information summarization refers to categorizing the information obtained and understanding its meaning to provide a basis for error analysis. Generally, several types of information needs to be obtained when an error is reproted:
+The first step in network error debugging is to summarize information, where information summarization refers to categorizing the information obtained and understanding its meaning to provide a basis for error analysis. Generally, several types of information needs to be obtained when an error is reported:
 
 1. Information about the environment in which the error is reported, including: OS type and version, MindSpore version, execution mode (dynamic graph mode OR static graph mode), device information (x86 or ARM, Ascend or GPU)
 2. Error description information, including: error type, error description, error stacks, etc.
@@ -51,7 +51,7 @@ The first step in network error debugging is to summarize information, where inf
 Understanding the meaning of error description information plays an important role in problem analysis, and the following will introduce how to read and understand MindSpore error messages.
 
 MindSpore error messages are processed by using Python
-Traceback processing, including Python stack information, error types and error descriptions, error messages related to networkdevelopers, and error messages related to framework developers. As shown in the following figure:
+Traceback processing, including Python stack information, error types and error descriptions, error messages related to network developers, and error messages related to framework developers. As shown in the following figure:
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/debug/images/graph_errmsg.png
 
@@ -219,7 +219,7 @@ Network execution debugging is the corresponding debugging capability provided b
 |                           |                                          | the diagnosis of problems related to diagram structure and diagram information.                             | /mindir.html>`_                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Data Dump                                | When training the network, if the training result deviates from the expectation,                            | `Dump function debugging <https://www.mindspore.cn/   |
-|                           |                                          | the operator input and output data are saved for debugging by the Du mp function.                           | tutorials/en/r2.7.0rc1/debug/dump.html>`_             |
+|                           |                                          | the operator input and output data are saved for debugging by the Dump function.                            | tutorials/en/r2.7.0rc1/debug/dump.html>`_             |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 | Execution control         | Callback                                 | Users can use callback functions to perform specific actions                                                |                                                       |
 |                           |                                          | at specific times or to observe network information                                                         |                                                       |
