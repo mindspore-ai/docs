@@ -519,7 +519,7 @@ MSStatus MSModelUpdateWeights(MSModelHandle model, const MSTensorHandleArray new
 - 参数
 
     - `mode`: 模型对象句柄。
-    - `new_weights`: 需要更新的模型权重组成的tensor数组句柄
+    - `new_weights`: 需要更新的模型权重组成的tensor数组句柄。
 
 - 返回值
 

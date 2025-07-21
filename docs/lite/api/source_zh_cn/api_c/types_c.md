@@ -83,5 +83,5 @@ typedef enum MSQuantizationType {
 | --------------------- | ---------- | ------------------- |
 | kMSNO_QUANT           | 0          | 不进行量化            |
 | kMSWEIGHT_QUANT       | 1          | 权重量化             |
-| kMSFULL_QUANT         | 2          | 权量化               |
+| kMSFULL_QUANT         | 2          | 全量化               |
 | kMSKOPTIMIZATIONTYPE  | 0xFFFFFFFF | 非法类型             |
