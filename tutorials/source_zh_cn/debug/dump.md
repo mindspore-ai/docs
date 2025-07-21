@@ -10,30 +10,30 @@ MindSpore Dump功能已陆续迁移到[msprobe工具](https://gitee.com/ascend/m
 
 > [msprobe](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe) 是 MindStudio Training Tools 工具链下精度调试部分的工具包。主要包括精度预检、溢出检测和精度比对等功能，目前适配 PyTorch 和 MindSpore 框架。
 
-其中动态图、静态图Ascend O2模式Dump已完全迁移到msprobe工具，通过msprobe工具入口使能，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
+其中动态图、静态图Ascend GE后端Dump已完全迁移到msprobe工具，通过msprobe工具入口使能，详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
 
-静态图Ascend OO/O1和CPU/GPU模式仍然通过框架入口使能，后续会陆续迁移到msprobe工具。
+静态图Ascend ms_backend和CPU/GPU后端仍然通过框架入口使能，后续会陆续迁移到msprobe工具。
 
 ## 配置指南
 
-MindSpore在不同模式下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同，因此需要根据运行的模式选择对应的Dump配置：
+MindSpore在不同后端下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同，因此需要根据运行的后端选择对应的Dump配置：
 
-- [Ascend下O0/O1模式Dump](#ascend下o0o1模式dump)
-- [Ascend下O2模式Dump](#ascend下o2模式dump)
-- [CPU/GPU模式Dump](#cpugpu模式dump)
+- [Ascend下ms_backend后端Dump](#ascend下ms_backend后端dump)
+- [Ascend下GE后端Dump](#ascend下GE后端dump)
+- [CPU/GPU后端Dump](#cpugpu后端dump)
 
-> - Ascend下O0/O1/O2模式的区别请见[set_context的参数jit_level](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
+> - Ascend下ms_backend/GE后端的区别请见[jit接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
 >
-> - CPU/GPU模式支持dump常量数据，Ascend O0/O1/O2模式不支持Dump常量数据。
+> - CPU/GPU后端支持dump常量数据，Ascend ms_backend/GE后端不支持Dump常量数据。
 >
 > - Dump暂不支持异构训练，即不支持CPU/Ascend混合训练或GPU/Ascend混合训练。
 
-MindSpore在不同模式下支持的Dump功能如下表所示：
+MindSpore在不同后端下支持的Dump功能如下表所示：
 
 <table align="center">
   <tr>
    <td colspan="2" align="center">功能</td>
-   <td align="center">Ascend O0/O1</td>
+   <td align="center">Ascend ms_backend</td>
    <td align="center">CPU/GPU</td>
   </tr>
   <tr>
@@ -100,7 +100,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
 
 > 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
 
-## Ascend下O0/O1模式Dump
+## Ascend下ms_backend后端Dump
 
 ### 操作步骤
 
@@ -139,7 +139,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为3时，只能设置`input_output`为同时保存算子输入和算子输出。在op_debug_mode设置为4时，只能保存算子输入。
         - `kernels`：该项可以配置三种格式：
            1. 算子的名称列表。通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2开启IR保存开关并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/tutorials/zh-CN/master/debug/error_analysis/mindir.html#如何保存ir)。
-           需要注意的是，是否设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[Ascend O0/O1模式下Dump数据对象目录](#数据对象目录和数据文件介绍)。
+           需要注意的是，是否设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[Ascend ms_backend后端下Dump数据对象目录](#数据对象目录和数据文件介绍)。
            2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。
            3. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
         - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念，但是在json格式的配置文件中仍需保留该字段。
@@ -170,7 +170,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
         - `trans_flag`：开启格式转换，将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
         - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。在op_debug_mode设置为3时，仅支持将`stat_calc_mode`设置为"host"。
         - `device_stat_precision_mode`（可选）：device统计信息精度模式，可选"high"和"low"。选择"high"时，`avg/l2norm`统计量使用float32进行计算，会增加device内存占用，精度更高；为"low"时使用与原始数据相同的类型进行计算，device内存占用较少，但在处理较大数值时可能会导致统计量溢出。默认值为"high"。
-        - `sample_mode`（可选）：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0或O1的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其他场景不会开启切片dump功能。
+        - `sample_mode`（可选）：设置成0，表示不开启切片dump功能；设置成1时，在图编译后端为ms_backend的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其他场景不会开启切片dump功能。
         - `sample_num`（可选）：用于控制切片dump中切片的大小。默认值为100。
         - `save_kernel_args`（可选）: 设置成true时，会保存算子的初始化信息。仅当`enable`设置为`true`时生效。
 
@@ -206,13 +206,11 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
    训练启动后，若正确配置了`MINDSPORE_DUMP_CONFIG`环境变量，则会读取配置文件的内容，并按照Dump配置中指定的数据保存路径保存算子数据。
    若脚本中都不调用`model.train`或`DatasetHelper`，则默认为非数据下沉模式。使用Dump功能将自动生成最终执行图的IR文件。
 
-   可以在训练脚本中设置`set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
-
-4. 通过`numpy.load`读取和解析Dump数据，参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)。
+4. 通过`numpy.load`读取和解析Dump数据，参考[Ascend ms_backend后端下Dump数据文件介绍](#数据对象目录和数据文件介绍)。
 
 ### 数据对象目录和数据文件介绍
 
-启动训练后，Ascend O0/O1模式下Dump保存的数据对象包括最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据，数据目录结构如下所示：
+启动训练后，Ascend ms_backend后端下Dump保存的数据对象包括最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据，数据目录结构如下所示：
 
 ```text
 {path}/
@@ -266,7 +264,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
 
 代表`Matmul`算子的两个初始化参数`transpose_a`和`transpose_b`的值均为`False`。
 
-Ascend O0/O1模式下Dump生成的数据文件是后缀名为`.npy`的文件，文件命名格式为：
+Ascend ms_backend后端下Dump生成的数据文件是后缀名为`.npy`的文件，文件命名格式为：
 
 ```text
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy
@@ -274,9 +272,9 @@ Ascend O0/O1模式下Dump生成的数据文件是后缀名为`.npy`的文件，�
 
 可以用Numpy的`numpy.load`接口读取数据。
 
-Ascend O0/O1模式下生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type、Op Name、Task ID、Stream ID、Timestamp、IO、Slot、Data Size、Data Type、Shape以及用户配置的统计信息项。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
+Ascend ms_backend后端下生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type、Op Name、Task ID、Stream ID、Timestamp、IO、Slot、Data Size、Data Type、Shape以及用户配置的统计信息项。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
 
-Ascend O0/O1模式下生成的最终执行图文件后缀名分别为`.pb`和`.ir`，文件命名格式为：
+Ascend ms_backend后端下生成的最终执行图文件后缀名分别为`.pb`和`.ir`，文件命名格式为：
 
 ```text
 ms_output_trace_code_graph_{graph_id}.pb
@@ -285,7 +283,7 @@ ms_output_trace_code_graph_{graph_id}.ir
 
 其中以`.ir`为后缀的文件可以通过`vi`命令打开查看。
 
-Ascend O0/O1模式下Dump生成的节点执行序文件后缀名为`.csv`，文件命名格式为：
+Ascend ms_backend后端下Dump生成的节点执行序文件后缀名为`.csv`，文件命名格式为：
 
 ```text
 ms_execution_order_graph_{graph_id}.csv
@@ -431,9 +429,9 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
 
 生成numpy.array数据。
 
-## Ascend下O2模式Dump
+## Ascend GE后端Dump
 
-Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
+Ascend下GE后端Dump已迁移到msprobe工具，更多详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
 
 采集方式请参考示例代码[《msprobe静态图场景采集》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#71-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)；
 
@@ -451,7 +449,7 @@ Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprob
 >
 > 4. MD5和其他统计量无法同时开启，对应原配置中statistic_category字段。
 
-## CPU/GPU模式Dump
+## CPU/GPU后端Dump
 
 ### 操作步骤
 
@@ -489,7 +487,7 @@ Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprob
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为4时，只能保存算子输入。
         - `kernels`：该项可以配置三种格式：
           1. 算子的名称列表。通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2开启IR保存开关并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/tutorials/zh-CN/master/debug/error_analysis/mindir.html#如何保存ir)。
-          需要注意的是，是否设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[CPU/GPU模式下Dump数据对象目录](#数据对象目录和数据文件介绍-1)。
+          需要注意的是，是否设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[CPU/GPU后端下Dump数据对象目录](#数据对象目录和数据文件介绍-1)。
           2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。
           3. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
         - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念，但是在json格式的配置文件中仍需保留该字段。
@@ -508,12 +506,12 @@ Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprob
             - "md5": 表示Tensor的MD5值；
             - "l2norm": 表示Tensor的L2Norm值。
 
-        CPU/GPU Dump模式只支持host测统计信息及结算。
+        CPU/GPU Dump后端只支持host测统计信息及结算。
         该字段为可选，默认值为["max", "min", "l2norm"]。
 
     - `e2e_dump_settings`:
 
-        - `enable`：在CPU/GPU Dump模式下，该字段必须设置为`true`。
+        - `enable`：在CPU/GPU Dump后端下，该字段必须设置为`true`。
         - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
 
 2. 设置Dump环境变量。
@@ -549,13 +547,11 @@ Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprob
    GPU环境如果要Dump数据，必须采用非数据下沉模式（设置`model.train`或`DatasetHelper`中的`dataset_sink_mode`参数为`False`），以保证可以获取每个step的Dump数据。
    若脚本中都不调用`model.train`或`DatasetHelper`，则默认为非数据下沉模式。使用Dump功能将自动生成最终执行图的IR文件。
 
-   可以在训练脚本中设置`set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
-
-4. 通过`numpy.load`读取和解析CPU/GPU模式下Dump数据，参考[CPU/GPU模式下Dump数据文件介绍](#数据对象目录和数据文件介绍-1)。
+4. 通过`numpy.load`读取和解析CPU/GPU后端下Dump数据，参考[CPU/GPU后端下Dump数据文件介绍](#数据对象目录和数据文件介绍-1)。
 
 ### 数据对象目录和数据文件介绍
 
-启动训练后，CPU/GPU模式下Dump保存的数据对象包括最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据，数据目录结构如下所示：
+启动训练后，CPU/GPU后端下Dump保存的数据对象包括最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据，数据目录结构如下所示：
 
 ```text
 {path}/
@@ -597,13 +593,13 @@ Ascend下O2模式Dump已迁移到msprobe工具，更多详情请查看[《msprob
 
 只当`saved_data`为"statistic"或者"full"时，才会生成`statistic.csv`，当`saved_data`为"tensor"或者"full"时，才会生成`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`命名的完整张量信息。
 
-CPU/GPU模式下Dump生成的数据文件是后缀名为`.npy`的文件，文件命名格式为：
+CPU/GPU后端下Dump生成的数据文件是后缀名为`.npy`的文件，文件命名格式为：
 
 ```text
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
 ```
 
-CPU/GPU模式下Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}、{task_id}、{stream_id}、{input_output_index}、{slot}、{format}不变。
+CPU/GPU后端下Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}、{task_id}、{stream_id}、{input_output_index}、{slot}、{format}不变。
 
 ```text
 Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
@@ -613,9 +609,9 @@ Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
 
 可以用Numpy的`numpy.load`接口读取数据。
 
-CPU/GPU模式下Dump生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type、Op Name、Task ID、Stream ID、Timestamp、IO，Slot、Data Size、Data Type、Shape以及用户配置的统计信息项。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
+CPU/GPU后端下Dump生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type、Op Name、Task ID、Stream ID、Timestamp、IO，Slot、Data Size、Data Type、Shape以及用户配置的统计信息项。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
 
-CPU/GPU模式下Dump生成的最终执行图文件后缀名分别为`.pb`和`.ir`，文件命名格式为：
+CPU/GPU后端下Dump生成的最终执行图文件后缀名分别为`.pb`和`.ir`，文件命名格式为：
 
 ```text
 ms_output_trace_code_graph_{graph_id}.pb
@@ -624,7 +620,7 @@ ms_output_trace_code_graph_{graph_id}.ir
 
 其中以`.ir`为后缀的文件可以通过`vi`命令打开查看。
 
-CPU/GPU模式下Dump生成的节点执行序文件后缀名为`.csv`，文件命名格式为：
+CPU/GPU后端下Dump生成的节点执行序文件后缀名为`.csv`，文件命名格式为：
 
 ```text
 ms_execution_order_graph_{graph_id}.csv
@@ -642,7 +638,7 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 ### 数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，CPU/GPU模式下Dump只需要执行 `bash run_sync_dump.sh`。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，CPU/GPU后端下Dump只需要执行 `bash run_sync_dump.sh`。
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
@@ -786,7 +782,6 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 - Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double、complex64、complex128类型数据的保存。
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其他类型数据的保存。
-- 使能Ascend O2模式下Dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2"})配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1"})配置全量异常dump。
-- 使能Ascend O2模式下Dump时，sink size只能设置为1。用户通常可以使用[Model.train()](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train)或[data_sink()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.data_sink.html)接口配置sink size。
-- 使能Ascend O2模式下Dump时，**统计值dump**如果是大数据量dump场景（如网络本身规模庞大，连续dump多个step等），可能会导致host侧内存被占满，导致数据流同步失败，建议使用新版[**统计值dump**](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)替代。
+- 使能Ascend GE后端下Dump时，sink size只能设置为1。用户通常可以使用[Model.train()](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train)或[data_sink()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.data_sink.html)接口配置sink size。
+- 使能Ascend GE后端下Dump时，**统计值dump**如果是大数据量dump场景（如网络本身规模庞大，连续dump多个step等），可能会导致host侧内存被占满，导致数据流同步失败，建议使用新版[**统计值dump**](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)替代。
 - 默认情况下，Dump会忽略算子的无效输出，比如Send/Print算子的输出、FlashAttentionScore算子的第三个预留输出等。如果需要保留这些无效输出，可以将环境变量`MINDSPORE_DUMP_IGNORE_USELESS_OUTPUT`设置为`0`。详情请参阅[环境变量-Dump调试](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html#dump%E8%B0%83%E8%AF%95)。
