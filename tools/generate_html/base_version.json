@@ -299,7 +299,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "dev",
+        "version": "master",
         "label": {
             "zh": "MindSpore Transformers",
             "en": "MindSpore Transformers"

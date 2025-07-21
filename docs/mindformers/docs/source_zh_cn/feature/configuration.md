@@ -19,9 +19,9 @@ MindSpore Transformers提供的`YAML`文件中包含对于不同功能的配置�
 | seed                          | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。                                                                                 | int            |
 | run_mode                      | 设置模型的运行模式，可选`train`、`finetune`、`eval`或`predict`。                                                                                                                                                           | str            |
 | output_dir                    | 设置保存log、checkpoint、strategy等文件的路径。                                                                                                                                                                         | str            |
-| load_checkpoint               | 加载权重的文件或文件夹路径，目前有3个应用场景：<br/>1. 支持传入完整权重文件路径。<br/>2. 支持传入离线切分后的权重文件夹路径。<br/>3. 支持传入包含lora权重和base权重的文件夹路径。<br/>各种权重的获取途径可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。 | str            |
-| auto_trans_ckpt               | 是否开启分布式权重自动切分与合并功能，详情可参考[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)。                                                                                               | bool           |
-| resume_training               | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。                                                           | bool           |
+| load_checkpoint               | 加载权重的文件或文件夹路径，目前有3个应用场景：<br/>1. 支持传入完整权重文件路径。<br/>2. 支持传入离线切分后的权重文件夹路径。<br/>3. 支持传入包含lora权重和base权重的文件夹路径。<br/>各种权重的获取途径可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。 | str            |
+| auto_trans_ckpt               | 是否开启分布式权重自动切分与合并功能，详情可参考[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。                                                                                               | bool           |
+| resume_training               | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。                                                           | bool           |
 | load_ckpt_format              | 加载的模型权重的格式，可选`ckpt`、`safetensors`。                                                                                                                                                                         | str            |
 | remove_redundancy             | 加载的模型权重是否去除了冗余。默认值为`False`。                                                                                                                                                                                | bool           |
 | train_precision_sync          | 训练确定性计算开关。默认值为`None` 。                                                                                                                                                                                     | Optional[bool] |
@@ -149,7 +149,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### 并行配置
 
-为了提升模型的性能，在大规模集群的使用场景中通常需要为模型配置并行策略，详情可参考[分布式并行](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/parallel_training.html)，MindSpore Transformers中的并行配置如下。
+为了提升模型的性能，在大规模集群的使用场景中通常需要为模型配置并行策略，详情可参考[分布式并行](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/parallel_training.html)，MindSpore Transformers中的并行配置如下。
 
 | 参数                                                              | 说明                                                                                                                                                                                               | 类型   |
 |-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -183,7 +183,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### 模型优化配置
 
-1. MindSpore Transformers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/performance_optimization.html#重计算)。
+1. MindSpore Transformers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html#重计算)。
 
    | 参数                                                 | 说明                            | 类型              |
    |----------------------------------------------------|-------------------------------|-----------------|
@@ -195,7 +195,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
    | recompute_config.select_recompute_exclude          | 关闭指定算子的重计算，只对Primitive算子有效。    | bool/list       |
    | recompute_config.select_comm_recompute_exclude     | 关闭指定算子的通讯重计算，只对Primitive算子有效。  | bool/list       |
 
-2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/memory_optimization.html#%E7%BB%86%E7%B2%92%E5%BA%A6%E6%BF%80%E6%B4%BB%E5%80%BCswap)。
+2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html#%E7%BB%86%E7%B2%92%E5%BA%A6%E6%BF%80%E6%B4%BB%E5%80%BCswap)。
 
    | 参数 | 说明 | 类型 |
    |------|-----|-----|
@@ -290,7 +290,7 @@ MindSpore Transformers提供模型评估功能，同时支持模型边训练边�
 
 ### Profile配置
 
-MindSpore Transformers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/advanced_development/performance_optimization.html)。以下是Profile相关配置。
+MindSpore Transformers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html)。以下是Profile相关配置。
 
 | 参数                    | 说明                                                                                                                                        | 类型   |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -310,7 +310,7 @@ MindSpore Transformers提供Profile作为模型性能调优的主要工具，详
 
 ### 指标监控配置
 
-指标监控配置主要用于配置训练过程中各指标的记录方式，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/monitor.html)。以下是MindSpore Transformers中通用的指标监控配置项说明：
+指标监控配置主要用于配置训练过程中各指标的记录方式，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html)。以下是MindSpore Transformers中通用的指标监控配置项说明：
 
 | 参数名称                                             | 说明                                                                                                                          | 类型            |
 |--------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|---------------|
@@ -333,7 +333,7 @@ MindSpore Transformers提供Profile作为模型性能调优的主要工具，详
 
 ### TensorBoard配置
 
-TensorBoard配置主要用于配置训练过程中与TensorBoard相关的参数，便于在训练过程中实时查看和监控训练信息，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/monitor.html)。以下是MindSpore Transformers中通用的TensorBoard配置项说明：
+TensorBoard配置主要用于配置训练过程中与TensorBoard相关的参数，便于在训练过程中实时查看和监控训练信息，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html)。以下是MindSpore Transformers中通用的TensorBoard配置项说明：
 
 | 参数名称                                      | 说明                                                       | 类型   |
 |-------------------------------------------|----------------------------------------------------------|------|

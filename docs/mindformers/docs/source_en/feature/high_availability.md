@@ -34,7 +34,7 @@ Quick recovery and use instructions for malfunctions:
 > - The process-level rapid recovery feature can effectively reduce the time required to restart training after encountering abnormal global norms during the training process.
 > - Please train normally for a period of time before use to determine the threshold of the global norm that needs to be set.
 > - Once a global norm exceeding the set threshold is encountered, an exception will be thrown immediately, entering the fast recovery phase.
-> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the data skipping function in [Data Skip](https://www.mindspore.cn/mindformers/docs/en/dev/feature/skip_data_and_ckpt_health_monitor.html#skipping-data) function.
+> - The data skipping function cannot be used in conjunction with the quick fault recovery function. Refer to the data skipping function in [Data Skip](https://www.mindspore.cn/mindformers/docs/en/master/feature/skip_data_and_ckpt_health_monitor.html#skipping-data) function.
 
 ## Instructions for Use
 
@@ -265,7 +265,7 @@ This chapter uses Llama3.1-8B training as an example to demonstrate the use of r
 > The parameter values shown in the following examples are only experimental data, please refer to real training data.
 
 1. Install [MindSpore](https://www.mindspore.cn/install/en) first.
-2. Download MindSpore Transformers, using [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add and modify parameters according to the configuration below:
+2. Download MindSpore Transformers, using [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add and modify parameters according to the configuration below:
 
    ```yaml
     output_dir: './output'

@@ -40,7 +40,7 @@ Parameter description:
 
 - data_parallel: The number of parallel data sharding, which is set to 1 by default, is configured based on user requirements.
 
-For the configuration method of distributed parallel parameters, see the parallel configuration section in the [MindSpore Transformers Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+For the configuration method of distributed parallel parameters, see the parallel configuration section in the [MindSpore Transformers Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 ### Model Parallelism
 
@@ -59,7 +59,7 @@ Parameter description:
 
 - model_parallel: The number of parallel shards of the model, which is set to 1 by default, is configured according to user requirements.
 
-For the configuration method of distributed parallel parameters, see the parallel configuration section in the [MindSpore Transformers Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+For the configuration method of distributed parallel parameters, see the parallel configuration section in the [MindSpore Transformers Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 ### Sequence parallelism
 
@@ -78,7 +78,7 @@ Parameter description:
 
 - use_seq_parallel：Whether to enable sequence parallelism, which is Fasle by default.
 
-For the configuration method of distributed parallel parameters, see the parallel configuration section in the [MindSpore Transformers Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+For the configuration method of distributed parallel parameters, see the parallel configuration section in the [MindSpore Transformers Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 ### Long Sequence Parallelism
 
@@ -109,7 +109,7 @@ Parameter Descriptions:
 - use_ring_attention: Whether to enable Ring Attention, default is False.
 - context_parallel:  The number of sequence parallel slices, default is 1, configure according to user requirements.
 
-For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 #### Ulysses Sequence Parallelism
 
@@ -140,7 +140,7 @@ Parameter Descriptions:
 - enable_alltoall: Generate alltoall communication operator, default is False, when the parameter is not enabled, it will be replaced by a combination of other operators such as allgather. See MindSpore `set_auto_parallel_context` [interface documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html). We expect to be able to directly input allto_all communication operators when we enable the Ulysses scenario, so we turn this configuration item on.
 - context_parallel_algo: Set to `ulysses_cp` to enable Ulysses sequence parallelism.
 
-For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 #### Hybrid Sequence Parallelism
 
@@ -166,7 +166,7 @@ Parameter Descriptions:
 - context_parallel_algo: hybrid sequence parallelism is turned on when set to `hybrid_cp`.
 - ulysses_degree_in_cp: the number of parallel slices of the Ulysses sequence.
 
-For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html).
+For configuration method of distributed parallel parameters, refer to the contents of the Parallel Configuration section in [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 ### Pipeline Parallelism
 
@@ -199,7 +199,7 @@ Notes:
 - Currently, only Llama and DeepSeek series models are supported.
 - Using Megatron's multi-source datasets for training is not yet supported.
 
-For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html), specifically the section on parallel configuration.
+For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html), specifically the section on parallel configuration.
 
 ### Optimizer parallelism
 
@@ -218,7 +218,7 @@ Parameter Descriptions:
 
 - enable_parallel_optimizer：Whether to enable optimizer parallelism, which is Fasle by default.
 
-For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html), specifically the section on parallel configuration.
+For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html), specifically the section on parallel configuration.
 
 ### Multi-replica Parallelism
 
@@ -241,11 +241,11 @@ Notes:
 
 - Currently, only Llama and DeepSeek series models are supported.
 
-For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html), specifically the section on parallel configuration.
+For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html), specifically the section on parallel configuration.
 
 ## MindSpore Transformers Distributed Parallel Application Practices
 
-In the [Llama3_1-70B fine-tuning configuration](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
+In the [Llama3_1-70B fine-tuning configuration](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
 
 - **Data parallelism**: No additional data parallelism is enabled (`data_parallel: 1`).
 - **Model parallelism**: A model is sliced into eight parts, which are computed on different devices (`model_parallel: 8`).

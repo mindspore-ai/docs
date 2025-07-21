@@ -34,7 +34,7 @@ MindSpore Transformers 高可用特性提供了如下六个功能：
 > - 进程级快速恢复功能，能有效减少训练过程中遇到异常 global norm 而导致中断训练直至重新拉起的时间。
 > - 使用前请先正常训练一段时间，从而确定需要设定的 global norm 的阈值。
 > - 一旦遇到超过设定阈值的global norm，便会立即抛出异常，进入快速恢复阶段。
-> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[数据跳过](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/skip_data_and_ckpt_health_monitor.html#数据跳过)功能。
+> - 数据跳过功能不能与故障快速恢复功能同时使用。参考[数据跳过](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/skip_data_and_ckpt_health_monitor.html#数据跳过)功能。
 
 ## 使用说明
 
@@ -265,7 +265,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 > 以下示例所展示的参数数值仅作为实验数据，请以真实训练数据为准。
 
 1. 先安装 [MindSpore](https://www.mindspore.cn/install)。
-2. 下载 MindSpore Transformers，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照如下配置添加和修改参数：
+2. 下载 MindSpore Transformers，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照如下配置添加和修改参数：
 
    ```yaml
     output_dir: './output'

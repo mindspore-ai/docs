@@ -33,7 +33,7 @@ export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set ac
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-About the yaml for the DeepSeek-R1 W8A8 quantization inference, user can use [predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
+About the yaml for the DeepSeek-R1 W8A8 quantization inference, user can use [predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
 
 Once ready, use the following Python code for offline inference:
 

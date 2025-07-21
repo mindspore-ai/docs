@@ -60,7 +60,7 @@
 {
     "id" : 7 ,
     "name" : "mindformers",
-    "branch" : "dev",
+    "branch" : "master",
     "whl_search" : "any/",
     "whl_path" : "/mindformers/version/",
     "whl_name" : "mindformers-.*-py3-none-any.whl$",

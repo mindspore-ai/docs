@@ -262,4 +262,4 @@ expert_load（图中为3个MoE层的各自16个专家的负载变化曲线）：
 > 2. 用户在训练配置文件 `yaml` 中设置的配置参数；
 > 3. 训练默认的配置参数。
 >
-> 可配置的所有参数请参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)。
+> 可配置的所有参数请参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)。

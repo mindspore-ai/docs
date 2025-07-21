@@ -14,27 +14,27 @@ MindSpore Transformers支持全参微调和LoRA高效微调两种SFT微调方式
 
 ### 1. 权重准备
 
-在微调之前，需要准备好预训练模型的权重文件。MindSpore Transformers提供加载 [safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html)的能力，支持直接加载从 Hugging Face模型库中下载的模型权重。
+在微调之前，需要准备好预训练模型的权重文件。MindSpore Transformers提供加载 [safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)的能力，支持直接加载从 Hugging Face模型库中下载的模型权重。
 
 ### 2. 数据集准备
 
-MindSpore Transformers微调阶段当前已支持[Hugging Face格式](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html#huggingface%E6%95%B0%E6%8D%AE%E9%9B%86)以及[MindRecord格式](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html#mindrecord%E6%95%B0%E6%8D%AE%E9%9B%86)的数据集。用户可根据任务需求完成数据准备。
+MindSpore Transformers微调阶段当前已支持[Hugging Face格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#huggingface%E6%95%B0%E6%8D%AE%E9%9B%86)以及[MindRecord格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#mindrecord%E6%95%B0%E6%8D%AE%E9%9B%86)的数据集。用户可根据任务需求完成数据准备。
 
 ### 3. 配置文件准备
 
-微调任务通过[配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/configuration.html)统一控制，用户可灵活调整[模型训练超参数](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/training_hyperparameters.html)。另外可以通过[分布式并行训练](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/parallel_training.html)、[内存优化特性](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/memory_optimization.html)以及[其它训练特性](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/other_training_features.html)对微调性能进行调优。
+微调任务通过[配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)统一控制，用户可灵活调整[模型训练超参数](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/training_hyperparameters.html)。另外可以通过[分布式并行训练](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/parallel_training.html)、[内存优化特性](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html)以及[其它训练特性](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/other_training_features.html)对微调性能进行调优。
 
 ### 4. 启动训练任务
 
-MindSpore Transformers提供[一键启动脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/start_tasks.html)启动微调任务。训练过程中可结合[日志](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/logging.html)与[可视化工具](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/monitor.html)监控训练情况。
+MindSpore Transformers提供[一键启动脚本](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/start_tasks.html)启动微调任务。训练过程中可结合[日志](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/logging.html)与[可视化工具](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html)监控训练情况。
 
 ### 5. 模型保存
 
-训练过程中保存检查点或训练完成后，模型权重将保存至指定路径。当前支持保存为[Safetensors 格式](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html)或[Ckpt 格式](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/ckpt.html)，后续可以使用保存的权重进行续训或微调等。
+训练过程中保存检查点或训练完成后，模型权重将保存至指定路径。当前支持保存为[Safetensors 格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)或[Ckpt 格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)，后续可以使用保存的权重进行续训或微调等。
 
 ### 6. 故障恢复
 
-为应对训练中断等异常情况，MindSpore Transformers具备临终保存、自动恢复等[高可用特性](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/high_availability.html)，并支持[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/resume_training.html)，提升训练稳定性。
+为应对训练中断等异常情况，MindSpore Transformers具备临终保存、自动恢复等[高可用特性](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/high_availability.html)，并支持[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html)，提升训练稳定性。
 
 ## 使用MindSpore Transformers进行全参微调
 
@@ -44,7 +44,7 @@ MindSpore Transformers目前已经支持业界主流大模型，该实践流程�
 
 ### 下载模型权重
 
-MindSpore Transformers提供加载Hugging Face模型权重的能力，支持直接加载从Hugging Face模型库中下载的模型权重。详细信息可以参考[MindSpore Transformers-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/safetensors.html)。
+MindSpore Transformers提供加载Hugging Face模型权重的能力，支持直接加载从Hugging Face模型库中下载的模型权重。详细信息可以参考[MindSpore Transformers-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)。
 
 | 模型名称   |                Hugging Face权重下载链接           |
 | :--------- | :--------------------------------------------: |
@@ -52,7 +52,7 @@ MindSpore Transformers提供加载Hugging Face模型权重的能力，支持直�
 
 ### 数据集准备
 
-MindSpore Transformers提供在线加载Hugging Face数据集的能力，详细信息可以参考[MindSpore Transformers-数据集-Hugging Face数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/feature/dataset.html#huggingface%E6%95%B0%E6%8D%AE%E9%9B%86)。
+MindSpore Transformers提供在线加载Hugging Face数据集的能力，详细信息可以参考[MindSpore Transformers-数据集-Hugging Face数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#huggingface%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 本实践流程以[llm-wizard/alpaca-gpt4-data](https://huggingface.co/datasets/llm-wizard/alpaca-gpt4-data)作为微调数据集为例。
 
@@ -146,7 +146,7 @@ run_mode：          运行模式，train：训练，finetune：微调，predict
 
 #### 多机训练
 
-多机多卡微调任务与启动预训练类似，可参考[多机多卡的预训练命令](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/guide/pre_training.html#%E5%A4%9A%E6%9C%BA%E8%AE%AD%E7%BB%83)。
+多机多卡微调任务与启动预训练类似，可参考[多机多卡的预训练命令](https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/pre_training.html#%E5%A4%9A%E6%9C%BA%E8%AE%AD%E7%BB%83)。
 
 首先对配置文件进行修改，这里需要针对不同的机器数量进行设置：
 

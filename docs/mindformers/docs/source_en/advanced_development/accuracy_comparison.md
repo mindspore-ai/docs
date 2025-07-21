@@ -37,7 +37,7 @@ The **GPU/NPU** dependency versions in the preceding tables are for reference on
 
 - **Megatron-LM**: For details, see [Megatron-LM documentation](https://github.com/NVIDIA/Megatron-LM/tree/core_r0.12.0?tab=readme-ov-file#setup).
 
-- **MindSpore Transformers**: For details, see [MindSpore Transformers documentation](https://gitee.com/mindspore/mindformers/blob/dev/README.md).
+- **MindSpore Transformers**: For details, see [MindSpore Transformers documentation](https://gitee.com/mindspore/mindformers/blob/master/README.md).
 
 ## 3. Precision Comparison Process
 
@@ -252,7 +252,7 @@ The following tables describe the configuration comparison with Megatron-LM.
 
 - Recomputation configurations
 
-    The recomputation configuration logic of MindSpore Transformers is greatly different from that of Megatron-LM. For details, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/dev/feature/memory_optimization.html#recomputation).
+    The recomputation configuration logic of MindSpore Transformers is greatly different from that of Megatron-LM. For details, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/master/feature/memory_optimization.html#recomputation).
 
     | Megatron-LM                    | Description                   | MindSpore Transformers | Description                      |
     |--------------------------------|-----------------------|------------------------|--------------------------|
@@ -282,7 +282,7 @@ Both frameworks support loading the Megatron dataset. The dataset is preprocesse
 
 - Generating Megatron BIN files
 
-   Place the dataset file `wiki.train.tokens` and the tokenization model file `tokenizer.json` in the `../dataset` directory, and create the `data.json` file by referring to [Megatron Dataset > Data Preprocessing](https://www.mindspore.cn/mindformers/docs/en/dev/feature/dataset.html#data-preprocessing).
+   Place the dataset file `wiki.train.tokens` and the tokenization model file `tokenizer.json` in the `../dataset` directory, and create the `data.json` file by referring to [Megatron Dataset > Data Preprocessing](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#data-preprocessing).
 
    Run the following commands to convert the dataset file into a BIN file:
 
@@ -358,7 +358,7 @@ The weight formats, parameter naming modes, and tensor arrangements of MindSpore
 
 1. Generating initial weights of MindSpore Transformers
 
-   Modify the `example.yaml` file by referring to [Callbacks Configuration](https://www.mindspore.cn/mindformers/docs/en/dev/feature/configuration.html#callbacks-configuration) and run the command provided in [Viewing Results](#34-viewing-results) to obtain an initial weight in `checkpoints` of `output_dir` in `example.yaml` through pre-training. The modification is as follows:
+   Modify the `example.yaml` file by referring to [Callbacks Configuration](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#callbacks-configuration) and run the command provided in [Viewing Results](#34-viewing-results) to obtain an initial weight in `checkpoints` of `output_dir` in `example.yaml` through pre-training. The modification is as follows:
 
    ```yaml
    # Before (example.yaml)
