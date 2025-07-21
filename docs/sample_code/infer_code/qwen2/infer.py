@@ -32,37 +32,11 @@ from qwen2 import Qwen2ModelInput
 from qwen2 import CacheManager
 from qwen2 import sample
 
-# set mindspore context and envs
-os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
-ms.set_context(infer_boost="on")
-ms.set_context(mode=ms.context.PYNATIVE_MODE)
-
-model_path = "/path/to/model"
-input_str = ["I love Beijing, because", "Hello, Qwen2"]
-batch_size = len(input_str)
-max_new_tokens = 64
-block_size = 128
-max_seq_lens = block_size * 10
-block_num = (max_seq_lens * batch_size) // block_size
-
-config = Qwen2Config.from_json(model_path + "/config.json")
-
-model = Qwen2ForCausalLM(config)
-# load weight
-model.load_weight(model_path)
-
-cache_manager = CacheManager(config, block_num, block_size, batch_size)
-
-tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
-
-input_str = ["I love Beijing, because", "Hello, Qwen2"]
-
-input_ids = tokenizer(input_str)["input_ids"]
-
-print(input_ids)
-
-def generate(model: Qwen2ForCausalLM, cache_manager: CacheManager, input_ids: List, max_new_tokens: int, max_seq_lens: int, eos_token_id: int):
+# generate tokens
+def generate(model: Qwen2ForCausalLM, cache_manager: CacheManager,
+                input_ids: List, max_new_tokens: int,
+                max_seq_lens: int, eos_token_id: int):
     batch_size = len(input_ids)
     assert max_seq_lens >= max(map(len, input_ids))
 
@@ -123,14 +97,48 @@ def generate(model: Qwen2ForCausalLM, cache_manager: CacheManager, input_ids: Li
 
     return input_ids
 
-output = generate(
-    model=model,
-    cache_manager=cache_manager,
-    input_ids=input_ids,
-    max_new_tokens=max_new_tokens,
-    eos_token_id=tokenizer.eos_token_id,
-    max_seq_lens=max_seq_lens
-)
+# run the infer flow
+def run():
+    # set mindspore context and envs
+    os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
 
-result = [tokenizer.decode(a) for a in output]
-print(result)
+    ms.set_context(infer_boost="on")
+    ms.set_context(mode=ms.context.PYNATIVE_MODE)
+
+    model_path = "/path/to/model"
+    input_str = ["I love Beijing, because", "Hello, Qwen2"]
+    batch_size = len(input_str)
+    max_new_tokens = 64
+    block_size = 128
+    max_seq_lens = block_size * 10
+    block_num = (max_seq_lens * batch_size) // block_size
+
+    config = Qwen2Config.from_json(model_path + "/config.json")
+
+    model = Qwen2ForCausalLM(config)
+    # load weight
+    model.load_weight(model_path)
+
+    cache_manager = CacheManager(config, block_num, block_size, batch_size)
+
+    tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+
+    input_str = ["I love Beijing, because", "Hello, Qwen2"]
+
+    input_ids = tokenizer(input_str)["input_ids"]
+
+    print(input_ids)
+
+    output = generate(
+        model=model,
+        cache_manager=cache_manager,
+        input_ids=input_ids,
+        max_new_tokens=max_new_tokens,
+        eos_token_id=tokenizer.eos_token_id,
+        max_seq_lens=max_seq_lens
+    )
+
+    result = [tokenizer.decode(a) for a in output]
+    print(result)
+
+run()

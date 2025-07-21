@@ -89,8 +89,8 @@ class Qwen2ModelInput:
     hidden_state: Optional[Tensor] = None
     residual: Optional[Tensor] = None
     q_seq_lens: Optional[Tensor] = None
-    
-    
+
+
 class RmsNorm(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
@@ -113,7 +113,7 @@ class RmsNorm(nn.Cell):
         if residual is None:
             return output
         return output, residual
-    
+
 
 class Qwen2Linear(nn.Cell):
     def __init__(self, input_size: int, output_size: int, param_dtype: Optional[Type], enable_bias: bool) -> None:
@@ -145,7 +145,7 @@ class Qwen2Linear(nn.Cell):
         if self.enable_bias:
             x = self.bias_add(x, self.bias)
         return x.view(*origin_shape[:-1], -1)
-    
+
 
 class VocabEmbedding(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
@@ -166,10 +166,12 @@ class VocabEmbedding(nn.Cell):
 
     def construct(self, input_ids: Tensor):
         return self.gather(self.weight, input_ids, 0)
-    
+
 
 class Qwen2RotaryEmbedding(nn.Cell):
-    def __init__(self, head_size: int, rotary_dim: int, max_position_embeddings: int, base: int, dtype: Optional[Type]) -> None:
+    def __init__(self, head_size: int, rotary_dim: int,
+                 max_position_embeddings: int, base: int,
+                 dtype: Optional[Type]) -> None:
         super().__init__()
 
         self.head_size = head_size
@@ -213,7 +215,7 @@ class Qwen2RotaryEmbedding(nn.Cell):
             freqs_sin = self.gather(self.freqs_sin, positions.view(-1), 0)
 
         return self.rotary_embedding_op(query, key, freqs_cos, freqs_sin, batch_valid_length)
-    
+
 
 class FlashAttention(nn.Cell):
     def __init__(self, scale: float, num_heads: int) -> None:
@@ -223,11 +225,12 @@ class FlashAttention(nn.Cell):
         scale = scale
         pre_tokens = 2147483647
         next_tokens = 2147483647
-        self.flash_attention = ops.operations.nn_ops.FlashAttentionScore(head_num=num_heads,
-                                                                        scale_value=scale,
-                                                                        pre_tokens=pre_tokens,
-                                                                        next_tokens=next_tokens,
-                                                                        input_layout=input_layout)
+        self.flash_attention = \
+                ops.operations.nn_ops.FlashAttentionScore(head_num=num_heads,
+                                                            scale_value=scale,
+                                                            pre_tokens=pre_tokens,
+                                                            next_tokens=next_tokens,
+                                                            input_layout=input_layout)
 
     def construct(self, q: Tensor, k: Tensor, v: Tensor, attn_mask: Tensor, batch_valid_length: Tensor) -> Tensor:
         _, _, _, output = self.flash_attention(
