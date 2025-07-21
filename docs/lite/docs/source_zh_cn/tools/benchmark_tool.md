@@ -48,7 +48,7 @@
     export GPU_DEVICE_ID=$RANK_ID
     ```
 
-- 如果需要切换不同版本的API，可选参数"NEW"（表示的是mindspore和mindspore lite统一之后的C++接口API）或者"C"（表示的是mindspore lite的C接口API），默认值："NEW"，则使用如下命令切换：
+- 如果需要切换不同版本的API，可选参数"NEW"（表示的是MindSpore和MindSpore Lite统一之后的C++接口API）或者"C"（表示的是MindSpore Lite的C接口API），默认值："NEW"，则使用如下命令切换：
 
     ```bash
     export MSLITE_API_TYPE="NEW"
