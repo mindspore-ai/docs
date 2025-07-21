@@ -34,8 +34,8 @@ from qwen2 import sample
 
 
 def generate(model: Qwen2ForCausalLM, config: Qwen2Config, cache_manager: CacheManager,
-                input_ids: List, max_new_tokens: int,
-                max_seq_lens: int, eos_token_id: int):
+             input_ids: List, max_new_tokens: int,
+             max_seq_lens: int, eos_token_id: int):
     """ generate tokens """
     batch_size = len(input_ids)
     assert max_seq_lens >= max(map(len, input_ids))

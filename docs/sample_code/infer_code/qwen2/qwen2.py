@@ -144,10 +144,10 @@ class Qwen2Linear(nn.Cell):
                 mint.zeros(self.output_size, dtype=self.param_dtype)
             )
 
-    def construct(self, input: Tensor):
+    def construct(self, x: Tensor):
         """layer compute"""
-        origin_shape = input.shape
-        x = self.matmul(input.view(-1, origin_shape[-1]), self.weight)
+        origin_shape = x.shape
+        x = self.matmul(x.view(-1, origin_shape[-1]), self.weight)
         if self.enable_bias:
             x = self.bias_add(x, self.bias)
         return x.view(*origin_shape[:-1], -1)
@@ -180,14 +180,14 @@ class Qwen2RotaryEmbedding(nn.Cell):
     """Qwen2 rotary embedding layer"""
     def __init__(self, head_size: int, rotary_dim: int,
                  max_position_embeddings: int, base: int,
-                 dtype: Optional[Type]) -> None:
+                 param_dtype: Optional[Type]) -> None:
         super().__init__()
 
         self.head_size = head_size
         self.rotary_dim = rotary_dim
         self.max_position_embeddings = max_position_embeddings
         self.base = base
-        self.dtype = dtype
+        self.dtype = param_dtype
 
         # format 2 is neox style
         self.rotary_embedding_op = ops.ApplyRotaryPosEmb(2)
@@ -336,7 +336,7 @@ class Qwen2Attention(nn.Cell):
             rotary_dim=self.head_dim,
             max_position_embeddings=self.max_position,
             base=self.rope_theta,
-            dtype=self.param_dtype
+            param_dtype=self.param_dtype
         )
 
     def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
@@ -344,7 +344,7 @@ class Qwen2Attention(nn.Cell):
                         slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                         q_seq_lens: Tensor) -> Tensor:
         """layer compute"""
-        bs, seq_len, hidden_dim = hidden_state.shape
+        bs, seq_len, _ = hidden_state.shape
 
         q = self.q_proj(hidden_state).view(-1, self.q_size)
         k = self.k_proj(hidden_state).view(-1, self.kv_size)
@@ -467,7 +467,7 @@ class Qwen2Model(nn.Cell):
 
         self.embed_tokens = VocabEmbedding(config=config)
         self.layers = nn.CellList()
-        for i in range(config.num_hidden_layers):
+        for _ in range(config.num_hidden_layers):
             layer = Qwen2DecoderLayer(config=config)
             self.layers.append(layer)
         self.norm = RmsNorm(config=config)
