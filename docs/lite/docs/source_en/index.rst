@@ -94,6 +94,7 @@ MindSpore Lite Documentation
 
    reference/architecture_lite
    reference/operator_list_lite
+   reference/environment_variable_support
    reference/operator_list_codegen
    reference/model_lite
    reference/faq
