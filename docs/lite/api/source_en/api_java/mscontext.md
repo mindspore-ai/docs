@@ -113,6 +113,8 @@ Add device info for mscontext.
 public boolean addDeviceInfo(AscendDeviceInfo ascendDeviceInfo)
 ```
 
+Add information about the operating device.
+
 - Parameters
 
     - `ascendDeviceInfo`: ascendDeviceInfo Device info for Ascend backend.

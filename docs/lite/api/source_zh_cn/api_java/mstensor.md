@@ -162,7 +162,7 @@ public boolean setShape(int[] tensorShape)
 
 - 参数
 
-- `tensorShape`: int[]类型的输入数据。
+    - `tensorShape`： int[]类型的输入数据。
 
 - 返回值
 
@@ -184,10 +184,6 @@ public boolean setData(byte[] data)
 
     设置数据是否成功。
 
-- 返回值
-
-    设置数据是否成功。
-
 ```java
 public boolean setData(float[] data)
 ```
@@ -197,10 +193,6 @@ public boolean setData(float[] data)
 - 参数
 
     - `data`: float[]类型的输入数据。
-
-- 返回值
-
-    设置数据是否成功。
 
 - 返回值
 
@@ -220,10 +212,6 @@ public boolean setData(int[] data)
 
     设置数据是否成功。
 
-- 返回值
-
-    设置数据是否成功。
-
 ```java
 public boolean setData(long[] data)
 ```
@@ -238,10 +226,6 @@ public boolean setData(long[] data)
 
     设置数据是否成功。
 
-- 返回值
-
-    设置数据是否成功。
-
 ```java
 public boolean setData(ByteBuffer data)
 ```
@@ -251,10 +235,6 @@ public boolean setData(ByteBuffer data)
 - 参数
 
     - `data`: ByteBuffer类型的输入数据。
-
-- 返回值
-
-    设置数据是否成功。
 
 - 返回值
 

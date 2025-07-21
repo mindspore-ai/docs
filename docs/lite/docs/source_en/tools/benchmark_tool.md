@@ -42,7 +42,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
     export BENCHMARK_UPDATE_CONFIG_ENV="0"
     ```
 
-- If you're running this benchmark based on GPU, use the following command to switch:
+- If benchmark test is based on GPUs, use the following command to switch:
 
     ```bash
     export GPU_DEVICE_ID=$RANK_ID
