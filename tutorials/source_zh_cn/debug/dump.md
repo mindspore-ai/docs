@@ -638,7 +638,7 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 ### 数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，CPU/GPU后端下Dump只需要执行 `bash run_sync_dump.sh`。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/docs/sample_code/dump)，CPU/GPU后端下Dump只需要执行 `bash run_sync_dump.sh`。
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
