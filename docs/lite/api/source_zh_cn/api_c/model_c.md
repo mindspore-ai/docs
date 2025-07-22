@@ -47,6 +47,16 @@ Model定义了MindSpore中编译和运行的模型。
 | [MSStatus MSExportModelBuffer(MSModelHandle model, MSModelType model_type, char **model_data, size_t *data_size,MSQuantizationType quantization_type, bool export_inference_only,char **output_tensor_name, size_t num)](#msexportmodelbuffer)                                                                                                                                                                         |
 | [MSStatus MSExportWeightsCollaborateWithMicro(MSModelHandle model, MSModelType model_type,const char *weight_file, bool is_inference, bool enable_fp16,char **changeable_weights_name, size_t num)](#msexportweightscollaboratewithmicro)                                                                                                                                                         |
 
+### 定义
+
+#### MS_MAX_SHAPE_NUM
+
+```C
+#define MS_MAX_SHAPE_NUM 32
+```
+
+MSTensor最大支持的维度为`MS_MAX_SHAPE_NUM`。
+
 ### 公有函数
 
 #### MSModelCreate
