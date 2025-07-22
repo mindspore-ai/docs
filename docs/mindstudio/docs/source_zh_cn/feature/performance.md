@@ -1,5 +1,7 @@
 # 性能调优
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/feature/performance.md)
+
 <table>
     <tr>
         <th>工具</th>
