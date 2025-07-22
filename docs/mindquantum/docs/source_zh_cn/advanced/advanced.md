@@ -10,4 +10,5 @@
   <li><a href="initial_experience_of_quantum_neural_network.html">量子神经网络初体验</a></li>
   <li><a href="get_gradient_of_PQC_with_mindquantum.html">变分量子线路梯度计算进阶</a></li>
   <li><a href="equivalence_checking_of_PQC.html">含参量子线路的等价性检查</a></li>
+  <li><a href="mqchem_tutorial.html">使用量子化学工具箱高效模拟VQE算法</a></li>
 </ul>
