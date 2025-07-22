@@ -26,7 +26,7 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 - **RmsNorm&Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出成每个token的概率分布返回。
 
-使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程。
+使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程,完整端到端样例可以参考[qwen2.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/qwen2/qwen2.py)
 
 ### 基础公共网络层
 

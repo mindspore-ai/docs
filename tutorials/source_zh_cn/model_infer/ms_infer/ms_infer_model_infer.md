@@ -361,6 +361,8 @@ cache_manager = CacheManager(config, block_num, block_size, batch_size)
 
     可以看到，将模型推理的token id翻译后，即是一句可以被正常人理解的语句，实际验证过程中，由于do_sample的随机性，每次推理会有一定的差异，但是结果的逻辑基本都是可以被理解的。
 
+    完整端到端样例可以参考[infer.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/qwen2/infer.py)
+
 ### 模型并行
 
 对于模型参数比较多的大语言模型，如Llama2-70B、Qwen2-72B，由于其参数规模通常会超过一张GPU或者NPU的内存容量，因此需要采用多卡并行推理。MindSpore大语言模型推理支持将原始大语言模型切分成N份可并行的子模型，使其能够分别在多卡上并行执行，在实现超大模型推理同时，也利用多卡中更多的资源提升性能。MindFormers模型套件提供的模型脚本天然支持将模型切分成多卡模型执行。
