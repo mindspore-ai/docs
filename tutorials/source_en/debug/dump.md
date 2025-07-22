@@ -10,21 +10,21 @@ The MindSpore Dump functionality has been gradually migrated to the [msprobe too
 
 > [msprobe](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe) is a toolkit under the MindStudio Training Tools suite, specifically for accuracy debugging. It primarily includes functionalities such as accuracy pre-inspection, overflow detection, and accuracy comparison. Currently, it is compatible with the PyTorch and MindSpore frameworks.
 
-The Dump features for dynamic graphs and static graphs in Ascend O2 mode have been fully migrated to the msprobe tool and are enabled through the msprobe tool entry point. For more details, please refer to the [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
+The Dump features for dynamic graphs and static graphs in Ascend GE backend have been fully migrated to the msprobe tool and are enabled through the msprobe tool entry point. For more details, please refer to the [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
 
-For graphs in Ascend OO/O1 modes and CPU/GPU modes, these functionalities are still enabled through the framework entry points but will be gradually migrated to the msprobe tool in subsequent updates.
+For graphs in Ascend ms_backend and CPU/GPU backends, these functionalities are still enabled through the framework entry points but will be gradually migrated to the msprobe tool in subsequent updates.
 
 ## Configuration Guide
 
-In different modes, the Dump features supported by MindSpore are not entirely the same, and the required configuration files and the generated data formats vary accordingly. Therefore, you need to select the corresponding Dump configuration based on the running mode:
+In different backends, the Dump features supported by MindSpore are not entirely the same, and the required configuration files and the generated data formats vary accordingly. Therefore, you need to select the corresponding Dump configuration based on the running backend:
 
-- [Dump in Ascend O0/O1 Mode](#dump-in-ascend-o0o1-mode)
-- [Dump in Ascend O2 Mode](#dump-in-ascend-o2-mode)
-- [Dump in CPU/GPU mode](#dump-in-cpugpu-mode)
+- [Dump in Ascend ms_backend](#dump-in-ascend-ms_backend)
+- [Dump in Ascend GE backend](#dump-in-ascend-GE-backend)
+- [Dump in CPU/GPU Backend](#dump-in-cpugpu-backend)
 
-> - The differences between Ascend O0, O1, and O2 modes can be found in [the parameter jit_level of the set_context method](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html).
+> - The differences between Ascend ms_backend and GE backend can be found in [the parameter jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit).
 >
-> - Dumping constant data is only supported in CPU/GPU mode, while not supported in Ascend O0/O1/O2 mode.
+> - Dumping constant data is only supported in CPU/GPU backend, while not supported in Ascend ms_backend/GE backend.
 >
 > - Currently, Dump does not support heterogeneous training, meaning it does not support CPU/Ascend mixed training or GPU/Ascend mixed training.
 
@@ -33,7 +33,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
 <table align="center">
   <tr>
    <td colspan="2" align="center">Feature</td>
-   <td align="center">Ascend O0/O1</td>
+   <td align="center">Ascend ms_backend</td>
    <td align="center">CPU/GPU</td>
   </tr>
   <tr>
@@ -100,7 +100,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
 
 > In terms of statistics, the computing speed of the device is faster than that of the host(currently only supported on Ascend backend), but the host has more statistical indicators than the device. Refer to the `statistic_category` option for details.
 
-## Dump in Ascend O0/O1 Mode
+## Dump in Ascend ms_backend
 
 ### Dump Step
 
@@ -139,7 +139,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
         - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. When `op_debug_mode` is set to 3, `input_output` can only be set to save both the operator's inputs and outputs. Only input of kernel can be saved when "op_debug_mode" is set to `4`.
         - `kernels`: This item can be configured in three formats:
            1. List of operator names. Turn on the IR save switch by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindir.html#saving-ir).
-           Note that whether setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Ascend O0/O1 Dump Data Object Directory](#introduction-to-data-object-directory-and-data-file).
+           Note that whether setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Ascend ms_backend Dump Data Object Directory](#introduction-to-data-object-directory-and-data-file).
            2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
            3. Regular expressions are supported. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
         - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. In distributed training scenarios where data on individual devices needs to be dumped, you can specify only the device Id that needs to be dumped in `support_device`. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
@@ -170,7 +170,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
         - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `true`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `false`, the data format on the Device side will be retained. Default: `true`.
         - `stat_calc_mode`: Select the backend for statistical calculations. Options are "host" and "device". Choosing "device" enables device computation of statistics, currently only effective on Ascend, and supports only min/max/avg/l2norm statistics. When `op_debug_mode` is set to 3, only `stat_calc_mode` set to "host" is supported.
         - `device_stat_precision_mode`(Optional): Precision mode of device statistics, and the value can be "high" or "low". When "high" is selected, avg/l2norm statistics will be calculated using float32, which will increase device memory usage and have higher precision; when "low" is selected, the same type as the original data will be used for calculation, which will occupy less device memory, but statistics overflow may be caused when processing large values. The default value is "high".
-        - `sample_mode`(Optional): Setting it to 0 means the sample dump function is not enabled. Enable the sample dump function in graph compilation with optimization level O0 or O1. This field is effective only when "op_debug_mode" is set to `0`, sample dump cannot be enabled in other scene.
+        - `sample_mode`(Optional): Setting it to 0 means the sample dump function is not enabled. Enable the sampling dump feature during graph compilation using the ms_backend backend. This field is effective only when "op_debug_mode" is set to `0`, sample dump cannot be enabled in other scene.
         - `sample_num`(Optional): Used to control the size of sample in sample dump. The default value is 100.
         - `save_kernel_args`(Optional): When set to true, the initialization information of kernels will be saved. This field is effective only when `enable` is set to `true`.
 
@@ -206,13 +206,11 @@ MindSpore supports different Dump functionalities under various modes, as shown 
    After the training is started, if the `MINDSPORE_DUMP_CONFIG` environment variable is correctly configured, the content of the configuration file will be read and the operator data will be saved according to the data storage path specified in the Dump configuration.
    If `model.train` or `DatasetHelper` is not called in the script, the default is non-data sinking mode. Using the Dump function will automatically generate the IR file of the final execution graph.
 
-   You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
-
-4. Read and parse dump data through `numpy.load`, refer to [Introduction to Ascend O0/O1 Dump Data File](#introduction-to-data-object-directory-and-data-file).
+4. Read and parse dump data through `numpy.load`, refer to [Introduction to Ascend ms_backend Dump Data File](#introduction-to-data-object-directory-and-data-file).
 
 ### Introduction to Data Object Directory and Data File
 
-After starting the training, the data objects saved under the Ascend O0/O1 Dump mode include the final execution graph (`ms_output_trace_code_graph_{graph_id}.ir` file) and the input and output data of the operators in the graph. The data directory structure is as follows:
+After starting the training, the data objects saved under the Ascend ms_backend Dump mode include the final execution graph (`ms_output_trace_code_graph_{graph_id}.ir` file) and the input and output data of the operators in the graph. The data directory structure is as follows:
 
 ```text
 {path}/
@@ -266,7 +264,7 @@ Only when `save_kernel_args` is `true`, `{op_type}.{op_name}.json` is generated 
 
 This JSON indicates that both initialization parameters `transpose_a` and `transpose_b` of the `Matmul` operator have the value `False`.
 
-The data file generated by the Ascend O0/O1 Dump is a binary file with the suffix `.npy`, and the file naming format is:
+The data file generated by the Ascend ms_backend Dump is a binary file with the suffix `.npy`, and the file naming format is:
 
 ```text
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy
@@ -274,9 +272,9 @@ The data file generated by the Ascend O0/O1 Dump is a binary file with the suffi
 
 User can use Numpy interface `numpy.load` to read the data.
 
-The statistics file generated by the Ascend O0/O1 dump is named `statistic.csv`. This file stores key statistics for all tensors dumped under the same directory as itself (with the file names `{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`). Each row in `statistic.csv` summarizes a single tensor, each row contains the statistics: Op Type, Op Name, Task ID, Stream ID, Timestamp, IO, Slot, Data Size, Data Type, Shape, and statistics items configured by the user. Note that opening this file with Excel may cause data to be displayed incorrectly. Please use commands like `vi` or `cat`, or use Excel to import csv from text for viewing.
+The statistics file generated by the Ascend ms_backend dump is named `statistic.csv`. This file stores key statistics for all tensors dumped under the same directory as itself (with the file names `{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`). Each row in `statistic.csv` summarizes a single tensor, each row contains the statistics: Op Type, Op Name, Task ID, Stream ID, Timestamp, IO, Slot, Data Size, Data Type, Shape, and statistics items configured by the user. Note that opening this file with Excel may cause data to be displayed incorrectly. Please use commands like `vi` or `cat`, or use Excel to import csv from text for viewing.
 
-The suffixes of the final execution graph files generated by Ascend O0/O1 Dump are `.pb` and `.ir` respectively, and the file naming format is:
+The suffixes of the final execution graph files generated by Ascend ms_backend Dump are `.pb` and `.ir` respectively, and the file naming format is:
 
 ```text
 ms_output_trace_code_graph_{graph_id}.pb
@@ -285,7 +283,7 @@ ms_output_trace_code_graph_{graph_id}.ir
 
 The files with the suffix `.ir` can be opened and viewed by the `vi` command.
 
-The suffix of the node execution sequence file generated by the Ascend O0/O1 Dump is `.csv`, and the file naming format is:
+The suffix of the node execution sequence file generated by the Ascend ms_backend Dump is `.csv`, and the file naming format is:
 
 ```text
 ms_execution_order_graph_{graph_id}.csv
@@ -293,7 +291,7 @@ ms_execution_order_graph_{graph_id}.csv
 
 ### Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for Ascend O0/O1 dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for Ascend ms_backend dump.
 
 After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
@@ -431,9 +429,9 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
 
 Generate the numpy.array data.
 
-## Dump in Ascend O2 Mode
+## Dump in Ascend GE Backend
 
-O2 mode Dump under Ascend has been migrated to the msprobe tool. For more details, please see [msprobe Tool MindSpore Scene Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
+GE backend Dump under Ascend has been migrated to the msprobe tool. For more details, please see [msprobe Tool MindSpore Scene Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md).
 
 For data collection methods, please refer to the example code in [Graph Scenario Data Collection with msprobe](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#71-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF);
 
@@ -451,7 +449,7 @@ For detailed configuration descriptions, please refer to the [Introduction to co
 >
 > 4. Simultaneous enabling of MD5 and other statistics, corresponding to the statistic_category field in the original configuration.
 
-## Dump in CPU/GPU Mode
+## Dump in CPU/GPU Backend
 
 ### Dump Step
 
@@ -480,7 +478,7 @@ For detailed configuration descriptions, please refer to the [Introduction to co
 
     - `common_dump_settings`:
 
-        - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0 is the only supported mode in CPU/GPU Dump mode, which means saving all operators or specified operators;
+        - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0 is the only supported mode in CPU/GPU Dump backend, which means saving all operators or specified operators;
         - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
         - `path`: The absolute path to Dump saved data.
         - `net_name`: The customized net name: "ResNet50".
@@ -489,7 +487,7 @@ For detailed configuration descriptions, please refer to the [Introduction to co
         - `input_output`: 0: dump input and output of kernel, 1: dump input of kernel, 2: dump output of kernel. Only input of kernel can be saved when "op_debug_mode" is set to `4`.
         - `kernels`: This item can be configured in three formats:
              1. List of operator names. Turn on the IR save switch by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/master/debug/error_analysis/mindir.html#saving-ir).
-             Note that whether setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Ascend O0/O1 Dump Data Object Directory](#introduction-to-data-object-directory-and-data-file).
+             Note that whether setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Ascend ms_backend Dump Data Object Directory](#introduction-to-data-object-directory-and-data-file).
              2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
              3. Regular expressions are supported. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
         - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
@@ -508,12 +506,12 @@ For detailed configuration descriptions, please refer to the [Introduction to co
             - "md5": represents the MD5 value of the tensor;
             - "l2norm": represents L2Norm value of the tensor.
 
-        In CPU/GPU Dump Mode, all statistics are calculated on the host.
+        In CPU/GPU Dump Backend, all statistics are calculated on the host.
         This field is optional, with default values of ["max", "min", "l2norm"].
 
     - `e2e_dump_settings`:
 
-        - `enable`: In CPU/GPU Dump Mode, this field must be set to `true`.
+        - `enable`: In CPU/GPU Dump Backend, this field must be set to `true`.
         - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `true`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `false`, the data format on the Device side will be retained. Default: `true`.
 
 2. Set Dump environment variable.
@@ -548,8 +546,6 @@ For detailed configuration descriptions, please refer to the [Introduction to co
    After the training is started, if the `MINDSPORE_DUMP_CONFIG` environment variable is correctly configured, the content of the configuration file will be read and the operator data will be saved according to the data storage path specified in the Dump configuration.
    If you want to dump data in GPU environment, you must use the non-data sink mode (set the `dataset_sink_mode` parameter in `model.train` or `DatasetHelper` to `False`) to ensure that you can get the dump data of each step.
    If `model.train` or `DatasetHelper` is not called in the script, the default is non-data sinking mode. Using the Dump function will automatically generate the IR file of the final execution graph.
-
-    You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
 4. Read and parse dump data through `numpy.load`, refer to [Introduction to CPU/GPU Dump Data File](#introduction-to-data-object-directory-and-data-file-1).
 
@@ -786,7 +782,6 @@ Generate the numpy.array data.
 - Dump only supports saving data with type of bool, int, int8, in16, int32, int64, uint, uint8, uint16, uint32, uint64, float, float16, float32, float64, bfloat16, double, complex64 and complex128.
 - Complex64 and complex128 only support saving as npy files, not as statistics information.
 - The Print operator has an input parameter with type of string, which is not a data type supported by Dump. Therefore, when the Print operator is included in the script, there will be an error log, which will not affect the saving data of other types.
-- When Ascend O2 dump is enabled, lite exception dump is not supported by using set_context(ascend_config={"exception_dump": "2"}), while full exception dump is supported by using set_context(ascend_config={"exception_dump": "1"}).
-- When Ascend O2 dump is enabled, sink size can only be set to 1. User can use [Model.train()](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) or [data_sink()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.data_sink.html) to set up sink size.
-- When Ascend O2 dump is enabled, if **statistical value dumping** is performed in scenarios with a large amount of data (such as when the network itself is of a large scale or multiple steps are dumped consecutively), it may cause the host-side memory to become full, leading to a failure in data flow synchronization. It is recommended to replace it with the new version of [**statistical value dumping**](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF).
+- When Ascend GE dump is enabled, sink size can only be set to 1. User can use [Model.train()](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) or [data_sink()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.data_sink.html) to set up sink size.
+- When Ascend GE dump is enabled, if **statistical value dumping** is performed in scenarios with a large amount of data (such as when the network itself is of a large scale or multiple steps are dumped consecutively), it may cause the host-side memory to become full, leading to a failure in data flow synchronization. It is recommended to replace it with the new version of [**statistical value dumping**](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF).
 - By default, Dump ignores invalid operator outputs, such as the outputs of the Send/Print operator or the third reserved output of the FlashAttentionScore operator. If you need to retain these invalid outputs, you can set the environment variable `MINDSPORE_DUMP_IGNORE_USELESS_OUTPUT` to `0`. For details, please refer to [Environment Variables - Dump Debugging](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html#dump-debugging).
