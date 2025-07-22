@@ -19,7 +19,7 @@ MindSpore Dump功能已陆续迁移到[msprobe工具](https://gitee.com/ascend/m
 MindSpore在不同后端下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同，因此需要根据运行的后端选择对应的Dump配置：
 
 - [Ascend下ms_backend后端Dump](#ascend下ms_backend后端dump)
-- [Ascend下GE后端Dump](#ascend下GE后端dump)
+- [Ascend下GE后端Dump](#ascend下ge后端dump)
 - [CPU/GPU后端Dump](#cpugpu后端dump)
 
 > - Ascend下ms_backend/GE后端的区别请见[jit接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
@@ -429,7 +429,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
 
 生成numpy.array数据。
 
-## Ascend GE后端Dump
+## Ascend下GE后端Dump
 
 Ascend下GE后端Dump已迁移到msprobe工具，更多详情请查看[《msprobe 工具 MindSpore场景精度数据采集指南》](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)。
 

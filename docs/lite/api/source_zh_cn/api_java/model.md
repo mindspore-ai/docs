@@ -22,12 +22,12 @@ Model定义了MindSpore中编译和运行的模型。
 | [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize)                                         | √      | √      |
 | [List<MSTensor\> getInputs()](#getinputs)                                         | √      | √      |
 | [List<MSTensor\> getOutputs()](#getoutputs)                                         | √      | √      |
-| [MSTensor getInputByTensorName(String tensorName)](#getinputsbytensorname)                                         | √      | √      |
+| [MSTensor getInputByTensorName(String tensorName)](#getinputbytensorname)                                         | √      | √      |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         | √      | √      |
 | [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | ✕      | √      |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
-| [boolean loadConfig(String configPath)](#loadConfig) | √ | √ |
-| [boolean updateConfig(String section, HashMap<String, String> config)](#updateConfig) | √ | √ |
+| [boolean loadConfig(String configPath)](#loadconfig) | √ | √ |
+| [boolean updateConfig(String section, HashMap<String, String> config)](#updateconfig) | √ | √ |
 | [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)             | ✕      | √      |
 | [boolean exportWeightsCollaborateWithMicro(String weightFile, boolean isInference,boolean enableFp16, List<String> changeableWeightNames)](#exportweightscollaboratewithmicro)             | ✕      | √      |
 | [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         | ✕      | √      |
