@@ -19,7 +19,7 @@ For graphs in Ascend ms_backend and CPU/GPU backends, these functionalities are 
 In different backends, the Dump features supported by MindSpore are not entirely the same, and the required configuration files and the generated data formats vary accordingly. Therefore, you need to select the corresponding Dump configuration based on the running backend:
 
 - [Dump in Ascend ms_backend](#dump-in-ascend-ms_backend)
-- [Dump in Ascend GE backend](#dump-in-ascend-GE-backend)
+- [Dump in Ascend GE backend](#dump-in-ascend-ge-backend)
 - [Dump in CPU/GPU Backend](#dump-in-cpugpu-backend)
 
 > - The differences between Ascend ms_backend and GE backend can be found in [the parameter jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit).

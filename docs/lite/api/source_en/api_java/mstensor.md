@@ -16,12 +16,12 @@ MSTensor defined tensor in MindSpore.
 | [MSTensor createTensor(String tensorName, Object obj)](#createtensor)             | √      | √      |
 | [int[] getShape()](#getshape)             | √      | √      |
 | [int getDataType()](#getdatatype)        | √      | √      |
-| [Object getData()](#getData) | √ | √ |
+| [Object getData()](#getdata) | √ | √ |
 | [byte[] getByteData()](#getbytedata)     | √      | √      |
 | [float[] getFloatData()](#getfloatdata)  | √      | √      |
 | [int[] getIntData()](#getintdata)        | √      | √      |
 | [long[] getLongData()](#getlongdata)     | √      | √      |
-| [boolean setShape(int[] tensorShape)](#setShape) | √ | √ |
+| [boolean setShape(int[] tensorShape)](#setshape) | √ | √ |
 | [boolean setData(byte[] data)](#setdata) | √      | √      |
 | [boolean setData(float[] data)](#setdata) | √      | √      |
 | [boolean setData(int[] data)](#setdata) | √      | √      |
@@ -31,7 +31,7 @@ MSTensor defined tensor in MindSpore.
 | [int elementsNum()](#elementsnum)         | √      | √      |
 | [void free()](#free)                       | √      | √      |
 | [String tensorName()](#tensorname)         | √      | √      |
-| [long getMSTensorPtr()](#getMSTensorPtr) | √ | √ |
+| [long getMSTensorPtr()](#getmstensorptr) | √ | √ |
 | [DataType](#datatype)                      | √      | √      |
 
 ## createTensor

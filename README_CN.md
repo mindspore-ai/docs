@@ -133,21 +133,11 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 
    | 对应API的生成 | 环境变量 | 仓库链接 | 仓库名 |
    | ---- | ---- | ---- | ---- |
-   | MindSpore/ MindSpore Lite | MS_PATH | <https://gitee.com/mindspore/mindspore.git> | mindspore |
-   | MindInsight | MI_PATH | <https://gitee.com/mindspore/mindinsight.git> | mindinsight |
-   | MindArmour | MA_PATH | <https://gitee.com/mindspore/mindarmour.git> | mindarmour |
+   | MindSpore | MS_PATH | <https://gitee.com/mindspore/mindspore.git> | mindspore |
+   | MindSpore Lite | MSL_PATH | <https://gitee.com/mindspore/mindspore-lite.git> | mindspore_lite |
    | MindQuantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
-   | Reinforcement | RM_PATH | <https://github.com/mindspore-lab/mindrl.git> | mindrl |
-   | Serving | SV_PATH | <https://gitee.com/mindspore/serving.git> | serving |
-   | Hub | HB_PATH | <https://gitee.com/mindspore/hub.git> | hub |
-   | XAI | XA_PATH | <https://gitee.com/mindspore/xai.git> | xai |
    | Golden Stick | GS_PATH | <https://gitee.com/mindspore/golden-stick.git> | golden_stick |
-   | DevToolkit | DT_PATH | <https://gitee.com/mindspore/ide-plugin.git> | devtoolkit |
-   | Federated | MF_PATH | <https://gitee.com/mindspore/federated.git> | federated |
-   | MindPandas | MP_PATH | <https://gitee.com/mindspore/mindpandas.git> | mindpandas |
    | MindScience | MSC_PATH | <https://gitee.com/mindspore/mindscience.git> | mindscience |
-   | Recommender | RD_PATH | <https://gitee.com/mindspore/recommender.git> | recommender |
-   | Graphlearning | GL_PATH | <https://gitee.com/mindspore/graphlearning.git> | graphlearning |
    | MindFormers | MFM_PATH | <https://gitee.com/mindspore/mindformers.git> | mindformers |
 
    克隆仓库以及设置环境变量的代码如下：
