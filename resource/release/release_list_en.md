@@ -58,7 +58,7 @@
 
 <!-- /TOC -->
 
-[![View source on Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_en.md)
+[![View source on Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/resource/release/release_list_en.md)
 
 ## 2.6.0
 
