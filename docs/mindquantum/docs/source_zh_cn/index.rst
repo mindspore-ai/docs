@@ -35,6 +35,7 @@ MindSpore Quantum文档
    advanced/get_gradient_of_PQC_with_mindquantum
    advanced/initial_experience_of_quantum_neural_network
    advanced/equivalence_checking_of_PQC
+   advanced/mqchem_tutorial
 
 .. toctree::
    :glob:
