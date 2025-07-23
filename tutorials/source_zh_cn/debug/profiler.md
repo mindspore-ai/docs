@@ -207,7 +207,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
 
 ![mstx_profiler.png](./images/mstx_profiler.png)
 
-mstx接口详细介绍请参考[mstx API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.mstx.html)。
+使用轻量化打点功能时需要保证[_ExperimentalConfig](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html)接口中的mstx配置为True，同时注意轻量化打点数据只在profiler的数据采集区间生效。mstx接口详细介绍请参考[mstx API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.mstx.html)。
 
 轻量化打点样例如下：
 
