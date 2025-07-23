@@ -388,6 +388,18 @@ std::map<std::string, std::string> attrs_;
 const std::map<std::string, std::map<std::string, std::string>> *config_ = nullptr;
 ```
 
+name_: 名字
+
+context_: 训练context。
+
+inputs_: 输入。
+
+outputs_: 输出。
+
+attrs_: 属性。
+
+config_: 配置。
+
 ### 保护成员函数
 
 ```cpp
@@ -450,3 +462,5 @@ const Primitive *primitive() const { return this->primitive_; }
 ```cpp
 const Primitive *primitive_ = nullptr;
 ```
+
+IKernel算子经过flatbuffers反序化后的结果。

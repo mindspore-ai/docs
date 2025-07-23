@@ -2738,7 +2738,22 @@ virtual std::shared_ptr<Kernel> CreateKernel(const std::shared_ptr<Node> &node) 
 ### 构造函数
 
 ```cpp
-TrainCfg() { this->loss_name_ = "_loss_fn"; }
+TrainCfg() { this->loss_name_ = "_loss_fn"; }\
+TrainCfg(const TrainCfg &rhs) {
+    this->loss_name_ = rhs.loss_name_;
+    this->mix_precision_cfg_ = rhs.mix_precision_cfg_;
+    this->accumulate_gradients_ = rhs.accumulate_gradients_;
+  }
+```
+
+- 参数
+
+    `rhs`: 训练配置。
+
+### 析构函数
+
+```cpp
+~TrainCfg() = default;
 ```
 
 ### 公有成员变量
@@ -2817,6 +2832,22 @@ inline void SetLossName(const std::vector<std::string> &loss_name);
     loss_scale_ = 128.0f;
     num_of_not_nan_iter_th_ = 1000;
   }
+  MixPrecisionCfg(const MixPrecisionCfg &rhs) {
+    this->dynamic_loss_scale_ = rhs.dynamic_loss_scale_;
+    this->loss_scale_ = rhs.loss_scale_;
+    this->keep_batchnorm_fp32_ = rhs.keep_batchnorm_fp32_;
+    this->num_of_not_nan_iter_th_ = rhs.num_of_not_nan_iter_th_;
+  }
+```
+
+- 参数
+
+    `rhs`: 混合精度配置。tr
+
+### 析构函数
+
+```cpp
+~MixPrecisionCfg() = default;
 ```
 
 ### 共有成员变量
