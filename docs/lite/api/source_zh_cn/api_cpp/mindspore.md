@@ -20,6 +20,8 @@
 | [GPUDeviceInfo](#gpudeviceinfo)                  | 模型运行在GPU上的配置。                                     | √      | √      |
 | [KirinNPUDeviceInfo](#kirinnpudeviceinfo)        | 模型运行在NPU上的配置。                   | ✕      | √      |
 | [AscendDeviceInfo](#ascenddeviceinfo)            | 模型运行在Atlas 200/300/500推理产品、Atlas推理系列产品上的配置。                               | √      | √      |
+| [DelegateMode](#delegatemode)                    |模型运行的代理模式。                                   | √      | √      |
+| [Key](#key)  | 键 | √      | √      |
 
 ### 并发推理
 
@@ -34,8 +36,8 @@
 |--------------------------------------------------|---------------------------------------------------|--------|--------|
 | [MSTensor](#mstensor)                            | MindSpore中的张量。                                    | √      | √      |
 | [QuantParam](#quantparam)                        | MSTensor中的一组量化参数。                                 | √      | √      |
-| [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
-| [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
+| [DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
+| [Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
 | [Allocator](#allocator-1)                          | 内存管理基类。                                           | √      | √      |
 
 ### 模型分组
@@ -43,12 +45,14 @@
 | 类名                                       | 描述                  | 云侧推理是否支持 | 端侧推理是否支持 |
 |-------------------------------------------|-----------------------|--------|--------|
 | [ModelGroup](#modelgroup)                 | 模型分组。              |    √   |  ✕     |
+| [ModelGroupFlag](#modelgroupflag)                 | 模型分组。              |    √   |  √     |
 
 ### 状态
 
 | 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------|---------------------------------------------------|--------|--------|
 | [Status](#status)                                | 返回状态类。                                            | √      | √      |
+| [CompCode](#compcode)                                | 返回计算类别。                                            | √      | √      |
 
 ### 序列化保存与加载
 
@@ -109,6 +113,7 @@
 | [Cell](#cell)                                    | 容器类。                                              | ✕      | √      |
 | [GraphCell](#graphcell)                          | 图容器类。                                             | ✕      | √      |
 | [Graph](#graph)                                  | 图类。                                               | ✕      | √      |
+| [InputAndOutput](#inputandoutput)                |输入输出类。                                          | √      | √      |
 
 ## Context
 
@@ -122,6 +127,16 @@ Context类用于保存执行中的环境变量。
 Context()
 ~Context() = default;
 ```
+
+### 公有成员变量
+
+#### Data
+
+```cpp
+struct Data;
+```
+
+Context的数据。
 
 ### 公有成员函数
 
@@ -146,6 +161,7 @@ Context()
 | [void SetMultiModalHW(bool float_mode)](#setmultimodalhw)     |    ✕    |    √    |
 | [bool GetMultiModalHW() const](#getmultimodalhw)     |    ✕    |    √    |
 | [std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo()](#mutabledeviceinfo)     |    √    |    √    |
+| [void SetGroupInfoFile(std::string group_info_file)](#setgroupinfofile)     |    √    |    √    |
 
 #### SetThreadNum
 
@@ -375,6 +391,31 @@ std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo()
 
   存储DeviceInfoContext的vector的引用。
 
+#### SetGroupInfoFile
+
+```cpp
+void SetGroupInfoFile(std::string group_info_file);
+```
+
+设置组信息文件。
+
+- 参数
+
+    - `group_info_file`: 组信息文件名字。
+
+## DelegateMode
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+
+```cpp
+enum DelegateMode {
+  kNoDelegate = 0,
+  kCoreML = 1,
+};
+```
+
+Delegate模式。
+
 ## DeviceInfoContext
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
@@ -387,6 +428,14 @@ DeviceInfoContext类定义不同硬件设备的环境信息。
 DeviceInfoContext()
 virtual ~DeviceInfoContext() = default;
 ```
+
+### 公有成员变量
+
+```cpp
+struct Data;
+```
+
+数据。
 
 ### 公有成员函数
 
@@ -588,6 +637,22 @@ std::shared_ptr<Allocator> GetAllocator() const;
 | `std::string GetFusionSwitchConfigPath()`                                | - 返回值: 已配置的融合开关文件路径                                                                                                                                                                                                                                                                  |        √ |    √     |
 | `void SetBufferOptimizeMode(const std::string &buffer_optimize_mode)` | 配置缓存优化模式<br><br> - `buffer_optimize_mode`: 可选有`l1_optimize`，`l2_optimize`或`off_optimize`，默认为`l2_optimize`                                                                                                                                                                      |        √ |    √     |
 | `std::string GetBufferOptimizeMode()`                                | - 返回值: 已配置的缓存优化模式                                                                                                                                                                                                                                                                  |        √ |    √     |
+| `void SetRankID(uint32_t rank_id)`                                   |指定模型rank_id。   |     √ |    √     |
+| `uint32_t GetRankID() const`                                         | - 返回值: 获取模型的rank_id | √     |    √     |
+
+## Key
+
+```cpp
+using Key = struct MS_API Key {
+  size_t max_key_len = 32;
+  size_t len = 0;
+  unsigned char key[32] = {0};
+  Key() : len(0) {}
+  explicit Key(const char *dec_key, size_t key_len);
+};
+```
+
+键结构体。
 
 ## Serialization
 
@@ -881,7 +946,6 @@ Model()
 | [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr)](#build-2)     |    √    |    √    |
 | [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
 | [Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr)](#build-4)     |    ✕    |    √    |
-| [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context, const CryptoInfo &cryptoInfo);](#build-5)     |    √    |    ✕    |
 | [Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context, const std::shared_ptr<TrainCfg> &train_cfg = nullptr)](#buildtransferlearning)     |    ✕    |    √    |
 | [Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims)](#resize)     |    √    |    √    |
 | [Status UpdateWeights(const std::vector<MSTensor> &new_weights)](#updateweights)     |    ✕    |    √    |
@@ -918,6 +982,9 @@ Model()
 | [Status Train(int epochs, std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs)](#train)     |    ✕    |    √    |
 | [Status Evaluate(std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs)](#evaluate)     |    ✕    |    √    |
 | [Status Finalize()](#finalize)     |  √ |  √ |
+| [Status UpdateWeights(const std::vector<std::vector<MSTensor>> &new_weights)](#updateweights) | √    |  √     |
+| [const std::shared_ptr<ModelImpl> impl()](#impl) | √    |  √     |
+| [inline std::string GetModelInfo(const std::string &key)](#getmodelinfo) | √    |  √     |
 
 #### Build
 
@@ -1021,26 +1088,6 @@ Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nu
     - `graph`: `GraphCell`是`Cell`的一个派生，`Cell`目前没有开放使用。`GraphCell`可以由`Graph`构造，如`model.Build(GraphCell(graph), context)`。
     - `model_context`: 模型[Context](#context)。
     - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-#### Build
-
-```cpp
-Status Build(const std::string &model_path, ModelType model_type,
-             const std::shared_ptr<Context> &model_context, const CryptoInfo &cryptoInfo);
-```
-
-根据路径读取加载密文模型，并将模型解密而后编译至可在Device上运行的状态。
-
-- 参数
-
-    - `model_path`: 密文模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。MindIR推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。MindIR推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行推理。
-    - `model_context`: 模型[Context](#context)。
-    - `cryptoInfo`: 解密相关配置信息。
 
 - 返回值
 
@@ -1592,6 +1639,49 @@ Status UpdateWeights(const std::vector<MSTensor> &new_weights)
 
     状态码。
 
+#### UpdateWeights
+
+```cpp
+Status UpdateWeights(const std::vector<std::vector<MSTensor>> &new_weights);
+```
+
+更新模型的权重的大小和内容。
+
+- 参数
+
+    - `new_weights`: 要更新的权重Tensor，可同时更新大小和内容。
+
+- 返回值
+
+    状态码。
+
+#### impl
+
+```cpp
+const std::shared_ptr<ModelImpl> impl() const
+```
+
+获得模型的实现。
+
+- 返回值
+
+    获得模型的实现。
+
+#### GetModelInfo
+
+```cpp
+inline std::string GetModelInfo(const std::string &key);
+```
+
+获取模型的信息。
+
+- 参数
+
+    `key`: 模型的key。
+
+- 返回值
+
+    模型的信息。
 #### Finalize
 
 ```cpp
@@ -1803,6 +1893,7 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
 | [MSTensor *Clone() const](#clone)     |    √    |    √    |
 | [bool operator==(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator==std-nullptr-t)     |    √    |    √    |
 | [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator!=std-nullptr-t)     |    √    |    √    |
+| [bool operator!=(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator!=const-mstensor-tensor)     |    √    |    √    |
 | [bool operator==(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator==const-mstensor-tensor)     |    √    |    √    |
 | [void SetShape(const std::vector<int64_t> &shape)](#setshape)     |    √    |    √    |
 | [void SetDataType(enum DataType data_type)](#setdatatype)     |    √    |    √    |
@@ -1997,6 +2088,18 @@ bool operator==(const MSTensor &tensor) const;
 - 返回值
 
   `MSTensor`是否与另一个MSTensor相等。
+
+#### operator!=(const MSTensor &tensor)
+
+```cpp
+bool operator!=(const MSTensor &tensor) const;
+```
+
+判断`MSTensor`是否与另一个MSTensor不相等。
+
+- 返回值
+
+  `MSTensor`是否与另一个MSTensor不相等。
 
 #### SetShape
 
@@ -2267,7 +2370,7 @@ std::shared_ptr<kernel::Kernel> CreateKernel(const std::shared_ptr<kernel::Kerne
 #### IsDelegateNode
 
 ```cpp
-bool IsDelegateNode(const std::shared_ptr<kernel::Kernel> &node) override { return false; }
+bool IsDelegateNode(const std::shared_ptr<kernel::Kernel> &node) override;
 ```
 
 是否是Delegate节点。
@@ -2279,6 +2382,18 @@ bool IsDelegateNode(const std::shared_ptr<kernel::Kernel> &node) override { retu
 - 返回值
 
   bool值。
+
+#### ReplaceNode
+
+```cpp
+void ReplaceNodes(const std::shared_ptr<LiteDelegateGraph> &graph) override {}
+```
+
+替换节点。
+
+- 参数
+
+    - `graph`: 要被替换的节点。
 
 ## CoreMLDelegate
 
@@ -2468,6 +2583,18 @@ KernelIter Replace(KernelIter from, KernelIter end, kernel::Kernel *graph_kernel
 
   **KernelIter**，用Delegate子图Kernel替换之后，子图Kernel下一个元素的迭代器，指向下一个未被访问的Kernel。
 
+#### nodes
+
+```cpp
+std::vector<kernel::Kernel *> *nodes()
+```
+
+获取nodes。
+
+- 返回值
+
+    Kernel组成的vector。
+
 #### inputs
 
 ```cpp
@@ -2495,7 +2622,7 @@ const std::vector<mindspore::MSTensor> &outputs()
 #### GetVersion
 
 ```cpp
-const SchemaVersion GetVersion() { return version_; }
+const SchemaVersion GetVersion()
 ```
 
 返回当前执行推理的模型文件的版本。
@@ -2529,7 +2656,7 @@ virtual ~AbstractDelegate() = default;
 #### inputs
 
 ```cpp
-std::vector<mindspore::MSTensor> &inputs() { return this->inputs_; }
+std::vector<mindspore::MSTensor> &inputs()
 ```
 
 返回AbstractDelegate的inputTensor。
@@ -2537,7 +2664,7 @@ std::vector<mindspore::MSTensor> &inputs() { return this->inputs_; }
 #### outputs
 
 ```cpp
-const std::vector<mindspore::MSTensor> &outputs() { return this->outputs_; }
+const std::vector<mindspore::MSTensor> &outputs()
 ```
 
 返回AbstractDelegate的outputTensor。
@@ -2650,6 +2777,32 @@ bool accumulate_gradients_;
 
 是否累加梯度。
 
+### 公有成员函数
+
+#### GetLossName
+
+```cpp
+inline std::vector<std::string> GetLossName() const;
+```
+
+获得损失名称。
+
+- 返回值
+
+    损失的名称。
+
+#### SetLossName
+
+```cpp
+inline void SetLossName(const std::vector<std::string> &loss_name);
+```
+
+设置损失名称。
+
+- 参数
+
+    `loss_name`: 损失的名称。
+
 ## MixPrecisionCfg
 
 \#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cfg.h)&gt;
@@ -2692,16 +2845,35 @@ bool is_raw_mix_precision_;
 
 原始模型是否是原生混合精度模型。
 
+```cpp
+bool keep_batchnorm_fp32_ = true;
+```
+
+原型模型是否保持BatchNorm算子为Fp32格式。
+
 ## AccuracyMetrics
 
 \#include &lt;[accuracy.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/metrics/accuracy.h)&gt;
 
 `AccuracyMetrics`MindSpore Lite训练精度类。
 
-### 构造函数和析构函数
+### 构造函数
 
 ```cpp
 explicit AccuracyMetrics(int accuracy_metrics = METRICS_CLASSIFICATION, const std::vector<int> &input_indexes = {1}, const std::vector<int> &output_indexes = {0})
+```
+
+- 参数
+
+    `accuracy_metrics`: 精度度量标准。
+
+    `input_indexes`: 输入的序列号。
+
+    `output_indexes`: 输出的序列号。
+
+### 析构函数
+
+```cpp
 virtual ~AccuracyMetrics()
 ```
 
@@ -2752,7 +2924,7 @@ virtual void Clear() {}
 #### Eval
 
 ```cpp
-virtual float Eval() { return 0.0; }
+virtual float Eval()
 ```
 
 模型验证。
@@ -2827,7 +2999,7 @@ virtual void Begin(const TrainCallBackData &cb_data) {}
 #### EpochEnd
 
 ```cpp
-  virtual CallbackRetValue EpochEnd(const TrainCallBackData &cb_data) { return kContinue; }
+  virtual CallbackRetValue EpochEnd(const TrainCallBackData &cb_data)
 ```
 
 每轮迭代后回调。
@@ -3605,6 +3777,71 @@ static inline std::string CodeAsString(enum StatusCode c)
 
   是否为非空指针。
 
+## CompCode
+
+```cpp
+enum CompCode : uint32_t {
+  kCore = 0x00000000u,
+  kMD = 0x10000000u,
+  kME = 0x20000000u,
+  kMC = 0x30000000u,
+  kLite = 0xF0000000u,
+};
+```
+
+计算的类型。
+
+## InputAndOutput
+
+\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
+
+### 构造函数
+
+```cpp
+  InputAndOutput();
+  InputAndOutput(const std::shared_ptr<CellBase> &cell, const std::vector<InputAndOutput> &prev, int32_t index);
+```
+
+- 参数
+
+    `cell`: 输入CellBase。
+
+    `prev`: 之前的InputAndOutput。
+
+    `index`: 序列号。
+
+### 析构函数
+
+```cpp
+~InputAndOutput() = default;
+```
+
+### 公有成员函数
+
+#### GetIndex
+
+```cpp
+int32_t GetIndex() const
+```
+
+返回index。
+
+- 返回值
+
+    返回输入/输出的index。
+
+#### SetIndex
+
+```cpp
+void SetIndex(int32_t index) { index_ = index; }
+```
+
+设置输入/输出的index。
+
+- 参数
+
+    `index`: 输入/输出的index。
+
 ## CellBase
 
 \#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
@@ -3630,6 +3867,22 @@ static inline std::string CodeAsString(enum StatusCode c)
 
   指向副本的指针。
 
+#### Construct
+
+```cpp
+virtual std::vector<Output> Construct(const std::vector<Input> &inputs) {return {}; }
+```
+
+构建CellBase。
+
+- 参数
+
+    `inputs`: 输入。
+
+- 返回值
+
+    输出。
+
 ## Cell
 
 \#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
@@ -3654,6 +3907,54 @@ static inline std::string CodeAsString(enum StatusCode c)
 
   指向副本的指针。
 
+#### Construct
+
+```cpp
+virtual std::vector<Output> Construct(const std::vector<Input> &inputs) { return {}; }
+```
+
+构造一份CellBase。
+
+- 参数
+
+    Input组成的vector。
+
+- 返回值
+
+    Output组成的vector。
+
+#### Run
+
+```cpp
+virtual Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) { return kSuccess; }
+```
+
+运行CellBase。
+
+- 参数
+
+    Input组成的vector，Output组成的vector。
+
+- 返回值
+
+    状态码。
+
+#### operator()
+
+```cpp
+std::vector<Output> operator()(const std::vector<Input> &inputs) const;
+```
+
+括号运行符。
+
+- 参数
+
+    Input组成的vector。
+
+- 返回值
+
+    Output组成的vector。
+
 ## GraphCell
 
 \#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
@@ -3673,7 +3974,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 #### GetGraph
 
 ```cpp
-  const std::shared_ptr<Graph> &GetGraph() const { return graph_; }
+  const std::shared_ptr<Graph> &GetGraph() const
 ```
 
 获取Graph指针。
@@ -3681,6 +3982,74 @@ static inline std::string CodeAsString(enum StatusCode c)
 - 返回值
 
   指向Graph的指针。
+
+#### SetContext
+
+```cpp
+void SetContext(const std::shared_ptr<Context> &context);
+```
+
+设置Context。
+
+- 参数
+
+    指向Context[Context]实例的共享指针。
+
+#### Run
+
+```cpp
+Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) override;
+```
+
+运行。
+
+- 参数
+
+    [MSTensor]构成的inputs, outputs vector。
+
+- 返回值
+
+    状态码。
+
+#### GetInputs
+
+```cpp
+std::vector<MSTensor> GetInputs();
+```
+
+获取输入。
+
+- 返回值
+
+    [MSTensor]构成的vector。
+
+#### GetOutputs
+
+```cpp
+std::vector<MSTensor> GetOutputs();
+```
+
+获取输出。
+
+- 返回值
+
+    [MSTensor]构成的vector。
+
+#### Load
+
+```cpp
+Status Load(uint32_t device_id);
+```
+
+加载。
+
+- 参数
+
+    device_id（芯片编号）
+
+- 输出
+
+    状态码。
 
 ## RunnerConfig
 
@@ -4023,3 +4392,16 @@ Status CalMaxSizeOfWorkspace(ModelType model_type, const std::shared_ptr<Context
 - 返回值
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+## ModelGroupFlag
+
+```cpp
+enum class ModelGroupFlag : int {
+  kUnknown = 0x0000,
+  kShareWeight = 0x0001,
+  kShareWorkspace = 0x0002,
+  kShareWeightAndWorkspace = 0x0003,
+};
+```
+
+ModelGroup类型。

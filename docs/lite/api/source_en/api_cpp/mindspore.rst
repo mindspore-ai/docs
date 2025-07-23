@@ -131,6 +131,10 @@ Classes
 
 - :doc:`../generate/classmindspore_DelegateModel`
 
+- :doc:`../generate/classmindspore_AbstractDelegate`
+
+- :doc:`../generate/classmindspore_IDelegate`
+
 - :doc:`../generate/classmindspore_DepComputer`
 
 - :doc:`../generate/classmindspore_DeviceEvent`
@@ -415,6 +419,7 @@ Classes
 
 - :doc:`../generate/classmindspore_VectorRef`
 
+- :doc:`../generate/classmindspore_InputAndOutput`
 
 Enums
 -----
