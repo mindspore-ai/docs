@@ -254,7 +254,7 @@ Where:
 ## Installing MindSpore
 
 ```bash
-pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
 When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependencies by yourself.

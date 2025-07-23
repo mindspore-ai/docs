@@ -109,7 +109,7 @@ sudo apt-get install gcc-9 -y
 Execute the following command to install MindSpore:
 
 ```bash
-pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-dev -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
 Of which,
