@@ -254,7 +254,7 @@ bash build.sh -e gpu -S on
 ## 安装MindSpore
 
 ```bash
-pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
 在联网状态下，安装MindSpore时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.0-rc1/setup.py)中的required_package），其余情况需自行安装依赖。
