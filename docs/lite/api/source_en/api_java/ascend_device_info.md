@@ -1,0 +1,380 @@
+# AscendDeviceInfo
+
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/ascend_device_info.md)
+
+```java
+import com.mindspore.config.AscendDeviceInfo;
+```
+
+The AscendDeviceInfo class is used to configure MindSpore Lite Ascend device options.
+
+## Public Member Functions
+
+| function                                   | Supported At Cloud-side Inference | Supported At Device-side Inference |
+| ------------------------------------------ |--------|--------|
+| [int getDeviceID)](#getDeviceID) | √      | ✕     |
+| [int getDeviceType](#getDeviceType) | √      | ✕     |
+| [String getProvider](#getProvider) | √      | ✕     |
+| [void setProvider(String provider)](#setProvider) | √      | ✕     |
+| [void setDeviceID(int deviceId)](#setDeviceID) | √ | ✕ |
+| [int getRankID()](#getRankID) | √      | ✕     |
+| [void setRankID(int rankId)](#setRankID) | √      | ✕     |
+| [String getInsertOpConfigPath()](#getInsertOpConfigPath) | √      | ✕     |
+| [void setInsertOpConfigPath(String insertOpConfigPath)](#setInsertOpConfigPath) | √      | ✕     |
+| [String getInputFormat()](#getInputFormat) | √ | ✕ |
+| [void setInputFormat(String inputFormat)](#setInputFormat) | √      | ✕     |
+| [String getInputShape()](#getInputShape) | √      | ✕     |
+| [void setInputShape(String inputShape)](#setInputShape) | √      | ✕     |
+| [HashMap<Integer, ArrayList<Integer>> getInputShapeMap()](#getInputShapeMap) | √      | ✕     |
+| [void setInputShapeMap(HashMap<Integer, ArrayList<Integer>> inputShapeMap)](#setInputShapeMap) | √      | ✕     |
+| [ArrayList<Integer> getDynamicBatchSize()](#getDynamicBatchSize) | √      | ✕     |
+| [void setDynamicBatchSize(ArrayList<Integer> dynamicBatchSize)](#setDynamicBatchSize) | √      | ✕     |
+| [String getDynamicImageSize()](#getDynamicImageSize) | √      | ✕     |
+| [void setDynamicImageSize(String dynamicImageSize)](#setDynamicImageSize) | √      | ✕     |
+| [int getOutputType()](#getOutputType) | √ | ✕ |
+| [void setOutputType(int outputType)](#setOutputType) | √      | ✕     |
+| [String getPrecisionMode()](#getPrecisionMode) | √ | ✕ |
+| [void setPrecisionMode(String precisionMode)](#setPrecisionMode) | √ | ✕ |
+| [String getOpSelectImplMode()](#getOpSelectImplMode) | √ | ✕ |
+| [void setOpSelectImplMode(String opSelectImplMode)](#setOpSelectImplMode) | √ | ✕ |
+| [String getFusionSwitchConfigPath()](#getFusionSwitchConfigPath) | √ | ✕ |
+| [void setFusionSwitchConfigPath(String fusionSwitchConfigPath)](#setFusionSwitchConfigPath) | √ | ✕ |
+| [String getBufferOptimizeMode()](#getBufferOptimizeMode) | √ | ✕ |
+| [void setBufferOptimizeMode(String bufferOptimizeMode)](#setBufferOptimizeMode) | √ | ✕ |
+
+## getDeviceID
+
+```java
+public int getDeviceID()
+```
+
+Get the Ascend device ID.
+
+- Returns
+
+  the deviceId.
+
+## getDeviceType
+
+```java
+public int getDeviceType()
+```
+
+Get the device type.
+
+- Returns
+
+  the deviceType.
+
+## getProvider
+
+```java
+public String getProvider()
+```
+
+Get Ascend device provider.
+
+- Returns
+
+  the provider.
+
+## setProvider
+
+```java
+public void setProvider(String provider)
+```
+
+Set Ascend device provider.
+
+- Parameters
+- `provider`: provider the provider to set.
+
+## setDeviceID
+
+```java
+public void setDeviceID(int deviceId)
+```
+
+Set the Ascend device ID.
+
+- Parameters
+- `deviceId`: deviceId the deviceId to set.
+
+## getRankID
+
+```java
+public int getRankID()
+```
+
+Get the logical ID of a distributed model in the cluster.
+
+- Returns
+
+  the rankId.
+
+## setRankID
+
+```java
+public void setRankID(int rankId)
+```
+
+Set the logical ID of a distributed model in the cluster.
+
+- Parameters
+
+- `rankId`: rankId the rankId to set.
+
+## getInsertOpConfigPath
+
+```java
+public String getInsertOpConfigPath()
+```
+
+Get the AIPP configuration file path.
+
+- Returns
+
+  the insertOpConfigPath.
+
+## setInsertOpConfigPath
+
+```java
+public void setInsertOpConfigPath(String insertOpConfigPath)
+```
+
+Set the AIPP configuration file path.
+
+- Parameters
+
+    - `insertOpConfigPath`: insertOpConfigPath AIPP configuration file path.
+
+## getInputFormat
+
+```java
+public String getInputFormat()
+```
+
+Get the input format of the model.
+
+- Returns
+
+    the inputFormat.
+
+## setInputFormat
+
+```java
+public void setInputFormat(String inputFormat)
+```
+
+Set the input format of the model.Optional "NCHW", "NHWC", and "ND"
+
+- Parameters
+
+- `inputFormat`: inputFormat .
+
+## getInputShape
+
+```java
+public String getInputShape()
+```
+
+Get the input shape of the model.
+
+- Returns
+
+  the inputShape.
+
+## setInputShape
+
+```java
+public void setInputShape(String inputShape)
+```
+
+Set the input shape of the model. e.g. "input_op_name1:1,2,3,4;input_op_name2:4,3,2,1;".
+
+- Parameters
+- `inputShape`: inputShape Model input shape.
+
+## getInputShapeMap
+
+```java
+public HashMap<Integer, ArrayList<Integer>> getInputShapeMap()
+```
+
+Get the input shape mapping of the model.
+
+- Returns
+
+  the inputShapeMap.
+
+## setInputShapeMap
+
+```java
+public void setInputShapeMap(HashMap<Integer, ArrayList<Integer>> inputShapeMap)
+```
+
+Model input shape. e.g. {{0, {1,2,3,4}}, {1, {4,3,2,1}}}。
+
+- Parameters
+- `inputShapeMap`: inputShapeMap the inputShapeMap to set.
+
+## getDynamicBatchSize
+
+```java
+public ArrayList<Integer> getDynamicBatchSize()
+```
+
+Get the dynamic batch sizes of the model.
+
+- Returns
+
+  the dynamicBatchSize.
+
+## setDynamicBatchSize
+
+```java
+public void setDynamicBatchSize(ArrayList<Integer> dynamicBatchSize)
+```
+
+Dynamic batch sizes of model inputs. Ranges from 2 to 100. e.g. {1, 2} means batch size 1 and 2 are configured.
+
+- Parameters
+- `dynamicBatchSize`: dynamicBatchSize the dynamicBatchSize to set.
+
+## getDynamicImageSize
+
+```java
+public String getDynamicImageSize()
+```
+
+Get the dynamic image sizes of the model.
+
+- Returns
+
+  the dynamicImageSize.
+
+## setDynamicImageSize
+
+```java
+public void setDynamicImageSize(String dynamicImageSize)
+```
+
+Set the dynamic image sizes of the model.
+
+- Parameters
+- `dynamicImageSize`: dynamicImageSize the dynamicImageSize to set.
+
+## getOutputType
+
+```java
+public int getOutputType()
+```
+
+Get the output type of the model.
+
+- Returns
+
+  the outputType.
+
+## setOutputType
+
+```java
+public void setOutputType(int outputType)
+```
+
+Set the type of model outputs. can be DataType.kNumberTypeFloat32, DataType.kNumberTypeUInt8, or DataType.kNumberTypeFloat16.
+
+- Parameters
+- `outputType`: outputType the outputType to set.
+
+## getPrecisionMode
+
+```java
+public String getPrecisionMode()
+```
+
+Get the precision mode of the model.
+
+- Returns
+
+  the precisionMode.
+
+## setPrecisionMode
+
+```java
+public void setPrecisionMode(String precisionMode)
+```
+
+Set the precision mode. Optional "enforce_fp16", "preferred_fp32", "enforce_origin", "enforce_fp32", and "preferred_optimal". "enforce_fp16" is set as default.
+
+- Parameters
+- `precisionMode`: precisionMode.
+
+## getOpSelectImplMode
+
+```java
+public String getOpSelectImplMode()
+```
+
+Get the operator selection implementation mode of the model.
+
+- Returns
+
+  the opSelectImplMode.
+
+## setOpSelectImplMode
+
+```java
+public void setOpSelectImplMode(String opSelectImplMode)
+```
+
+Set the operator selection implementation mode of the model. Optional "high_performance" and "high_precision". "high_performace" is set as default.
+
+- Parameters
+- `opSelectImplMode`: opSelectImplMode.
+
+## getFusionSwitchConfigPath
+
+```java
+public String getFusionSwitchConfigPath()
+```
+
+Get fusion switch config file path. It controls which fusion passes to be turned off.
+
+- Returns
+
+  the fusionSwitchConfigPath.
+
+## setFusionSwitchConfigPath
+
+```java
+public void setFusionSwitchConfigPath(String fusionSwitchConfigPath)
+```
+
+Set fusion switch config file path.
+
+- Parameters
+- `fusionSwitchConfigPath`: fusionSwitchConfigPath the fusionSwitchConfigPath to set.
+
+## getBufferOptimizeMode
+
+```java
+public String getBufferOptimizeMode()
+```
+
+Set the buffer optimize mode. Optional "l1_optimize", "l2_optimize", or "off_optimize". "l2_optimize" is set as default.
+
+- Returns
+
+  the bufferOptimizeMode.
+
+## setBufferOptimizeMode
+
+```java
+public void setBufferOptimizeMode(String bufferOptimizeMode)
+```
+
+Set the buffer optimization mode of the model.
+
+- Parameters
+- `bufferOptimizeMode`: bufferOptimizeMode the bufferOptimizeMode to set.

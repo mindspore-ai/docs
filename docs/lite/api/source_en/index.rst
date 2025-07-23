@@ -378,4 +378,7 @@ Summary of MindSpore Lite API support
    api_java/graph
    api_java/runner_config
    api_java/model_parallel_runner
+   api_java/ascend_device_info
+   api_java/train_cfg
+   api_java/version
    api_java/lite_java_example
