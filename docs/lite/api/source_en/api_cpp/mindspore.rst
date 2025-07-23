@@ -419,6 +419,7 @@ Classes
 
 - :doc:`../generate/classmindspore_VectorRef`
 
+- :doc:`../generate/classmindspore_InputAndOutput`
 
 Enums
 -----
