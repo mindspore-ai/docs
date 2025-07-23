@@ -26,7 +26,7 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 - **RmsNorm&Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出成每个token的概率分布返回。
 
-使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程,完整端到端样例可以参考[qwen2.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/qwen2/qwen2.py)
+使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程，完整端到端样例可以参考[qwen2.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/qwen2/qwen2.py)。
 
 ### 基础公共网络层
 
@@ -706,9 +706,9 @@ class Qwen2Model(nn.Cell):
         return hidden_state
 ```
 
-通过在nn.Cell的construct方法加上ms.jit装饰器，这个Cell的计算就会转化为静态图执行，其中参数意义如下：
+通过在nn.Cell的construct方法加上mindspore.jit装饰器，这个Cell的计算就会转化为静态图执行，其中参数意义如下：
 
-- **jit_level**：编译级别，当前MindSpore推理主要支持O0级别，O1级别（会有一些算子融合优化），暂不支持O2级别（整图下沉）。
+- **jit_level**：编译级别，当前MindSpore推理主要支持O0级别、O1级别（会有一些算子融合优化）。
 
 - **infer_boost**：开启推理加速优化，开启后，运行时会做一些调度优化和流优化，提升推理性能。
 
