@@ -82,7 +82,7 @@ bash build.sh -e cpu -S on -j4   # -j is a thread configuration when compiled, a
 # install prerequisites
 conda install scipy -c conda-forge
 
-pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
 ## Installation Verification
