@@ -1,4 +1,4 @@
-# mindspore::DataType
+# DataType
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/lite/api/source_zh_cn/api_cpp/mindspore_datatype.md)
 
@@ -21,7 +21,6 @@
 |kNumberTypeInt16| 33 | 表示int16数据类型。 |
 |kNumberTypeInt32| 34 | 表示int32数据类型。 |
 |kNumberTypeInt64| 35 | 表示int64数据类型。 |
-|kNumberTypeUInt| 36 | 表示uint数据类型。 |
 |kNumberTypeUInt8| 37 | 表示uint8数据类型。 |
 |kNumberTypeUInt16| 38 | 表示uint16数据类型。 |
 |kNumberTypeUInt32| 39 | 表示uint32数据类型。 |
@@ -29,5 +28,6 @@
 |kNumberTypeFloat16| 42 | 表示float16数据类型。 |
 |kNumberTypeFloat32| 43 | 表示float32数据类型。 |
 |kNumberTypeFloat64| 44 | 表示float64数据类型。|
-|kNumberTypeEnd| 46 | 表示number类型的结尾。 |
+|kNumberTypeBFloat16| 45 | 表示bfloat16数据类型。|
+|kNumberTypeEnd| 52 | 表示number类型的结尾。 |
 |kInvalidType | INT32_MAX | 表示无效的数据类型。 |
