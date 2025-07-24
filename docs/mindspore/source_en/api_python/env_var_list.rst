@@ -497,7 +497,7 @@ Distributed Parallel
    * - DEVICE_ID
      - The ID of the Ascend AI processor, which is the Device's serial number on the AI server.
      - Integer
-     - The ID of the Rise AI processor, value range: [0, number of actual Devices-1].
+     - The ID of the Ascend AI processor, value range: [0, number of actual Devices-1].
      -
    * - MS_ROLE
      - Specifies the role of this process.
