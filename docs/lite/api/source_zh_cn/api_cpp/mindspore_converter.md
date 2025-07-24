@@ -13,6 +13,7 @@
 | [ConverterContext](#convertercontext) | 模型转换时的基本信息设置与获取。|
 | [NodeParser](#nodeparser) | op节点的解析基类。|
 | [ModelParser](#modelparser) | 模型解析的基类。|
+| [NodeParserPtr](#nodeparserptr) | 模型解析的基类。|
 
 ## FmkType
 
@@ -91,6 +92,24 @@ static std::vector<std::string> GetGraphOutputTensorNames();
 - 返回值
 
     模型的输出名称，默认与原始模型的输出名称一致。
+
+#### GetConfigInfo
+
+```cpp
+static std::map<std::string, std::string> GetConfigInfo(const std::string &section) {
+    return MapVectorCharToString(GetConfigInfo(StringToChar(section)));
+  }
+```
+
+获取配置信息。
+
+- 参数
+
+    `section`: 定义了配置的section name。
+
+- 返回值
+
+    返回配置信息。
 
 ## NodeParser
 
