@@ -179,7 +179,7 @@ bool ret = model.resize(inputs, dims);
 Before graph execution, whether it is during training or inference, the input data must be filled-in into the model input tensors.
 MindSpore Lite provides the following methods to obtain model input tensors:
 
-1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputsbytensorname) method to obtain model input tensors that are connected to the model input node based on the tensor name.
+1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputbytensorname) method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
     ```java
      /**

@@ -13,8 +13,8 @@
 | com.mindspore.config | [CpuBindMode](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#cpubindmode) | CpuBindMode defines the CPU binding mode.                                | √      | √      |
 | com.mindspore.config | [DeviceType](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#devicetype) | DeviceType defines the back-end device type.                                | √      | √      |
 | com.mindspore.config  | [DataType](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#datatype) | DataType defines the supported data types.                             | √      | √      |
-| com.mindspore.config   | [Version](https://www.mindspore.cn/lite/api/en/master/api_java/Version.html) | Version is used to obtain the version information of MindSpore.                    | ✕      | √      |
+| com.mindspore.config   | [Version](https://www.mindspore.cn/lite/api/en/master/api_java/version.html) | Version is used to obtain the version information of MindSpore.                    | ✕      | √      |
 | com.mindspore.config   | [ModelType](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#modeltype) | ModelType defines the model file type.                  | √      | √      |
-| com.mindspore.config | [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/AscendDeviceInfo.html) | The AscendDeviceInfo class is used to configure MindSpore Lite Ascend device options. | √ | ✕ |
-| com.mindspore.config | [TrainCfg](https://www.mindspore.cn/lite/api/en/master/api_java/TrainCfg.html) | Configuration parameters used for model training on the device. | ✕ | √ |
+| com.mindspore.config | [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/ascend_device_info.html) | The AscendDeviceInfo class is used to configure MindSpore Lite Ascend device options. | √ | ✕ |
+| com.mindspore.config | [TrainCfg](https://www.mindspore.cn/lite/api/en/master/api_java/train_cfg.html) | Configuration parameters used for model training on the device. | ✕ | √ |
 
