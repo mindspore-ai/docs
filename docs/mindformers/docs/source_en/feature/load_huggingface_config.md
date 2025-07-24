@@ -59,7 +59,7 @@ generation_config:
 
 ### Initiating Tasks
 
-Refer to [Using run_mindformer.py to initiate inference tasks](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/guide/inference.html#using-run-mindformer-once-to-start-the-inference-script).
+Refer to [Using run_mindformer.py to initiate inference tasks](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/guide/inference.html#inference-based-on-the-run-mindformer-script).
 
 ## Frequently Asked Questions
 

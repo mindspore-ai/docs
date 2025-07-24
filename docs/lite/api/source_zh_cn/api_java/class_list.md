@@ -10,10 +10,10 @@
 | com.mindspore        | [ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/model_parallel_runner.html) | 定义了MindSpore Lite并发推理。                       | √      | ✕      |
 | com.mindspore.config   | [RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/runner_config.html) | RunnerConfig 定义并发推理的配置参数。                    | √      | ✕      |
 | com.mindspore        | [Graph](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/graph.html) | Model定义了MindSpore中的计算图。          | ✕      | √      |
-| com.mindspore.config | [CpuBindMode](https://gitee.com/mindspore/mindspore/blob/r2.7.rc1/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java) | CpuBindMode定义了CPU绑定模式。                               | √      | √      |
-| com.mindspore.config | [DeviceType](https://gitee.com/mindspore/mindspore/blob/r2.7.rc1/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java) | DeviceType定义了后端设备类型。                               | √      | √      |
-| com.mindspore.config  | [DataType](https://gitee.com/mindspore/mindspore/blob/r2.7.rc1/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java) | DataType定义了所支持的数据类型。                             | √      | √      |
-| com.mindspore.config   | [Version](https://gitee.com/mindspore/mindspore/blob/r2.7.rc1/mindspore/lite/java/src/main/java/com/mindspore/config/Version.java) | Version用于获取MindSpore的版本信息。                    | ✕      | √      |
-| com.mindspore.config   | [ModelType](https://gitee.com/mindspore/mindspore/blob/r2.7.rc1/mindspore/lite/java/src/main/java/com/mindspore/config/ModelType.java) | ModelType 定义了模型文件的类型。                    | √      | √      |
-| com.mindspore.config | [AscendDeviceInfo](https://gitee.com/mindspore/mindspore/blob/r2.7.rc1/mindspore/lite/java/src/main/java/com/mindspore/config/AscendDeviceInfo.java) | MindSpore Lite用于昇腾硬件推理的配置参数。 | √ | ✕ |
-| com.mindspore.config | [TrainCfg](https://gitee.com/mindspore/mindspore/blob/r2.7.rc1/mindspore/lite/java/src/main/java/com/mindspore/config/TrainCfg.java) | 用于端上模型训练的配置参数。 | ✕ | √ |
+| com.mindspore.config | [CpuBindMode](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/mscontext.html#cpubindmode) | CpuBindMode定义了CPU绑定模式。                               | √      | √      |
+| com.mindspore.config | [DeviceType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/mscontext.html#devicetype) | DeviceType定义了后端设备类型。                               | √      | √      |
+| com.mindspore.config  | [DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/mstensor.html#datatype) | DataType定义了所支持的数据类型。                             | √      | √      |
+| com.mindspore.config   | [Version](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/version.html) | Version用于获取MindSpore的版本信息。                    | √     | √      |
+| com.mindspore.config   | [ModelType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/model.html#modeltype) | ModelType 定义了模型文件的类型。                    | √      | √      |
+| com.mindspore.config | [AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/ascend_device_info.html) | MindSpore Lite用于昇腾硬件推理的配置参数。 | √ | ✕ |
+| com.mindspore.config | [TrainCfg](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_java/train_cfg.html) | 用于端上模型训练的配置参数。 | ✕ | √ |
