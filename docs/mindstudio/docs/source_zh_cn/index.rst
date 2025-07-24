@@ -39,12 +39,12 @@ MindStudio是面向AI开发者提供的全流程工具链，提供了精度、�
 
 .. raw:: html
 
-   <table>
+   <table style="width: 100%;">
       <tr>
-         <th>类型</th>
-         <th>名称</th>
-         <th>简介</th>
-         <th>安装指南</th>
+         <th style="width: 15%;">类型</th>
+         <th style="width: 20%;">名称</th>
+         <th style="width: 45%;">简介</th>
+         <th style="width: 20%;">安装指南</th>
       </tr>
       <tr>
          <td rowspan="2">精度调试</td>
