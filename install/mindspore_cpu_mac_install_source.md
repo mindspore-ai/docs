@@ -82,7 +82,7 @@ bash build.sh -e cpu -S on -j4  # -j 为编译时线程配置，如果CPU性能�
 # install prerequisites
 conda install scipy -c conda-forge
 
-pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
 ## 验证安装是否成功

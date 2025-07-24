@@ -174,7 +174,7 @@ cd -
 ## Installing MindSpore
 
 ```bash
-pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-dev -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
 Of which,

@@ -52,7 +52,7 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 # install prerequisites
 conda install scipy -c conda-forge
 
-pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-dev -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
 其中：

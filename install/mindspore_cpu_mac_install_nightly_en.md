@@ -52,7 +52,7 @@ Execute the following command to install MindSpore:
 # install prerequisites
 conda install scipy -c conda-forge
 
-pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindspore-dev -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
 Of which,
