@@ -559,6 +559,7 @@ def linkcode_resolve(domain, info):
                        ('mint.select_ext_view', 'mint.select', 'select_ext_view', 'select'),
                        ('mint.transpose_ext_view', 'mint.transpose', 'transpose_ext_view', 'transpose'),
                        ('mint.nn.functional.im2col_ext', 'mint.nn.functional.unfold', 'im2col_ext', 'unfold'),
+                       ('mint.nn.functional.col2im_ext', 'mint.nn.functional.fold', 'col2im_ext', 'fold'),
                        ('mint.nn.functional.inplace_threshold', 'mint.nn.functional.threshold_', 'inplace_threshold', 'threshold_'),
                        ]
             fullname = modname + '.' + name
@@ -573,6 +574,7 @@ def linkcode_resolve(domain, info):
                     name1 = 'mindspore.ops.' + '_'.join(re.split('(?=[A-Z])', name1)[1:]).lower()
                     if name1.endswith('_d'):
                         name1 = name1[:-2] + 'd'
+                    # 大写接口小写化去查找对应yaml
                     if name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
                         if name.split('.')[-1].lower() + '_doc.yaml' in ops_yaml_list:
                             name1 = name.lower()
@@ -598,13 +600,21 @@ def linkcode_resolve(domain, info):
 
             if name1.split('.')[-1] in func_name_dict and not py_source_rel:
                 py_source_rel = ops_yaml + func_name_dict[name1.split('.')[-1]] + '_doc.yaml'
+
+            # 通过yaml目录反向查找接口名是否符合，有些yaml没有按照大写字母后跟_的规则
+            if not py_source_rel and name.lower() != name:
+                for ops_yaml_n in ops_yaml_list:
+                    new_ops_yaml_n = ops_yaml_n[:-9].replace('_', '')
+                    if name1.split('.')[-1].lower().replace('_', '') == new_ops_yaml_n:
+                        py_source_rel = ops_yaml + ops_yaml_n
+                        break
+
         elif 'ops/functional_overload' in pkg_fn:
             py_source_rel = func_yaml + name.split('.')[-1] + '_doc.yaml'
 
         if py_source_rel:
             return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
-        elif 'mindspore/ops/auto_generate/' in py_source_rel:
-            return None
+
         source, linenum = inspect.getsourcelines(obj)
     except Exception:
         name = info["fullname"]

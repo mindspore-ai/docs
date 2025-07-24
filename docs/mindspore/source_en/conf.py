@@ -464,6 +464,7 @@ def linkcode_resolve(domain, info):
                     name1 = 'mindspore.ops.' + '_'.join(re.split('(?=[A-Z])', name1)[1:]).lower()
                     if name1.endswith('_d'):
                         name1 = name1[:-2] + 'd'
+                    # 大写接口小写化去查找对应yaml
                     if name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
                         if name.split('.')[-1].lower() + '_doc.yaml' in ops_yaml_list:
                             name1 = name.lower()
