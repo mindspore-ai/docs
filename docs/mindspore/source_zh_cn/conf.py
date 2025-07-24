@@ -554,6 +554,7 @@ def linkcode_resolve(domain, info):
                        ('mint.select_ext_view', 'mint.select', 'select_ext_view', 'select'),
                        ('mint.transpose_ext_view', 'mint.transpose', 'transpose_ext_view', 'transpose'),
                        ('mint.nn.functional.im2col_ext', 'mint.nn.functional.unfold', 'im2col_ext', 'unfold'),
+                       ('mint.nn.functional.col2im_ext', 'mint.nn.functional.fold', 'col2im_ext', 'fold'),
                        ('mint.nn.functional.inplace_threshold', 'mint.nn.functional.threshold_', 'inplace_threshold', 'threshold_'),
                        ]
             fullname = modname + '.' + name
@@ -568,6 +569,7 @@ def linkcode_resolve(domain, info):
                     name1 = 'mindspore.ops.' + '_'.join(re.split('(?=[A-Z])', name1)[1:]).lower()
                     if name1.endswith('_d'):
                         name1 = name1[:-2] + 'd'
+                    # 大写接口小写化去查找对应yaml
                     if name1.split('.')[-1] + '_doc.yaml' not in ops_yaml_list:
                         if name.split('.')[-1].lower() + '_doc.yaml' in ops_yaml_list:
                             name1 = name.lower()
@@ -593,13 +595,21 @@ def linkcode_resolve(domain, info):
 
             if name1.split('.')[-1] in func_name_dict and not py_source_rel:
                 py_source_rel = ops_yaml + func_name_dict[name1.split('.')[-1]] + '_doc.yaml'
+
+            # 通过yaml目录反向查找接口名是否符合，有些yaml没有按照大写字母后跟_的规则
+            if not py_source_rel and name.lower() != name:
+                for ops_yaml_n in ops_yaml_list:
+                    new_ops_yaml_n = ops_yaml_n[:-9].replace('_', '')
+                    if name1.split('.')[-1].lower().replace('_', '') == new_ops_yaml_n:
+                        py_source_rel = ops_yaml + ops_yaml_n
+                        break
+
         elif 'ops/functional_overload' in pkg_fn:
             py_source_rel = func_yaml + name.split('.')[-1] + '_doc.yaml'
 
         if py_source_rel:
             return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
-        elif 'mindspore/ops/auto_generate/' in py_source_rel:
-            return None
+
         source, linenum = inspect.getsourcelines(obj)
     except Exception:
         name = info["fullname"]
@@ -624,32 +634,32 @@ def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_js_file('js/mermaid-9.3.0.js')
 
-src_release = os.path.join(repo_path, 'RELEASE_CN.md')
-des_release = "./RELEASE.md"
-release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
+# src_release = os.path.join(repo_path, 'RELEASE_CN.md')
+# des_release = "./RELEASE.md"
+# release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
 
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
+# with open(src_release, "r", encoding="utf-8") as f:
+#     data = f.read()
 
-hide_release = []
-if len(re.findall("\n## (.*?)\n",data)) > 1:
-    for i in hide_release:
-        del_doc = re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data)
-        if del_doc:
-            data = data.replace(del_doc[0], '')
-    content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
-    repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
-    content_new = ''
-    for i in content:
-        if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
-            content_new += i
-    content = content_new
-else:
-    content = re.findall("(\n## [\s\S\n]*)", data)
-    content = content[0]
+# hide_release = []
+# if len(re.findall("\n## (.*?)\n",data)) > 1:
+#     for i in hide_release:
+#         del_doc = re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data)
+#         if del_doc:
+#             data = data.replace(del_doc[0], '')
+#     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
+#     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+#     content_new = ''
+#     for i in content:
+#         if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
+#             content_new += i
+#     content = content_new
+# else:
+#     content = re.findall("(\n## [\s\S\n]*)", data)
+#     content = content[0]
 
-with open(des_release, "w", encoding="utf-8") as p:
-    content = re.sub(re_url, r'\1/r2.7.0rc1', content)
-    content = re.sub(re_url2, r'\1/v2.7.0-rc1', content)
-    p.write("# Release Notes" + "\n\n" + release_source)
-    p.write(content)
+# with open(des_release, "w", encoding="utf-8") as p:
+#     content = re.sub(re_url, r'\1/r2.7.0rc1', content)
+#     content = re.sub(re_url2, r'\1/v2.7.0-rc1', content)
+#     p.write("# Release Notes" + "\n\n" + release_source)
+#     p.write(content)
