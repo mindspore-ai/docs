@@ -41,7 +41,7 @@ The model used for fine-tuning is Qwen2.5-Math-7B-Instruct, which can be downloa
 
 This case provides three dataset preparation modes:
 
-- **Generating datasets from scratch**: This mode is suitable for users who want to customize datasets or understand the data generation process, including generating CoT data from seed datasets and rejection sampling. For details, see [1.3.1 Generating Datasets from Scratch](#131-generating-datasets-from-scratch).
+- **Generating datasets from scratch**: This mode is suitable for users who want to customize datasets or understand the data generation process, including generating CoT data from seed datasets and rejection sampling. For details, see [1.3.1 Generating Datasets from Scratch](#1-3-1-generating-datasets-from-scratch).
 - **Using the OpenR1-Math-220K dataset**:
 
     - **Option 1: Using raw data for offline processing:** This option is suitable for users who need to customize data processing or learn the processing procedure, including preprocessing and packing. For details, see [Option 1: Using raw data for offline processing](#option-1-using-raw-data-for-offline-processing).
@@ -231,7 +231,7 @@ For more information, see [MindSpore Transformers official documentation > Datas
 
 ##### Option 2: Using converted data
 
-Data that can be directly used for model training after being packed in the arrow format. For details, see [Modelers](https://modelers.cn/models/MindSpore-Lab/OpenR1-Qwen-7B/tree/main/dataset/packing). In this case, you need to change the value of `path` in [1.4 YAML Configuration](#14-yaml-configuration) to the path of the downloaded dataset.
+Data that can be directly used for model training after being packed in the arrow format. For details, see [Modelers](https://modelers.cn/models/MindSpore-Lab/OpenR1-Qwen-7B/tree/main/dataset/packing). In this case, you need to change the value of `path` in [1.4 YAML Configuration](#1-4-yaml-configuration) to the path of the downloaded dataset.
 
 ```yaml
 train_dataset:

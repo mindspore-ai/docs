@@ -358,7 +358,7 @@ The weight formats, parameter naming modes, and tensor arrangements of MindSpore
 
 1. Generating initial weights of MindSpore Transformers
 
-   Modify the `example.yaml` file by referring to [Callbacks Configuration](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#callbacks-configuration) and run the command provided in [Viewing Results](#34-viewing-results) to obtain an initial weight in `checkpoints` of `output_dir` in `example.yaml` through pre-training. The modification is as follows:
+   Modify the `example.yaml` file by referring to [Callbacks Configuration](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#callbacks-configuration) and run the command provided in [Viewing Results](#3-4-viewing-results) to obtain an initial weight in `checkpoints` of `output_dir` in `example.yaml` through pre-training. The modification is as follows:
 
    ```yaml
    # Before (example.yaml)
