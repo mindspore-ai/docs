@@ -103,3 +103,5 @@ dataset = dataset.map(operations=image_ops, input_columns=["image2"], offload=Tr
     之前，也就是说即使作用于"image"列的map操作未设置offload，作用于"label"列的map操作也可以执行offload。
 
 3. 该功能目前不支持用户在map操作中指定输出列。
+
+4. 在map操作的operations参数中混用Python和C++的算子时，不会对该map进行offload。

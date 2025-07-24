@@ -115,3 +115,5 @@ constraints:
     the "label" column can also perform offload.
 
 3. This feature does not currently support the user to specify output columns in the map operation.
+
+4. When Python and C++ operators are mixed in the operations parameter of a map operation, the map will not be offloaded.
