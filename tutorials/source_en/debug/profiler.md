@@ -26,54 +26,9 @@ Add the MindSpore Profiler related interfaces in the training script, see [MindS
 
 The interface supports two collection modes: CallBack mode and custom for loop mode, and supports both Graph and PyNative modes.
 
-#### CallBack Mode Collection Example
-
-```python
-import mindspore
-
-class StopAtStep(mindspore.Callback):
-    def __init__(self, start_step, stop_step):
-        super(StopAtStep, self).__init__()
-        self.start_step = start_step
-        self.stop_step = stop_step
-        experimental_config = mindspore.profiler._ExperimentalConfig()
-        self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
-                                                   schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=self.stop_step - self.start_step + 1, repeat=1, skip_first=0),
-                                                   on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"))
-
-    def on_train_step_begin(self, run_context):
-        cb_params = run_context.original_args()
-        step_num = cb_params.cur_step_num
-        if step_num == self.start_step:
-            self.profiler.start()
-
-    def on_train_step_end(self, run_context):
-        cb_params = run_context.original_args()
-        step_num = cb_params.cur_step_num
-        if self.start_step <= step_num <= self.stop_step:
-            self.profiler.step()
-        if step_num == self.stop_step:
-            self.profiler.stop()
-```
-
-For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py).
-
 #### Example Collection in a Custom for Loop Mode
 
-In custom for loop mode, users can enable Profiler through setting schedule and on_trace_ready parameters.
-
-There are five parameters that can be configured in the schedule, namely: skip_first,
-wait, warmup, active, and repeat. Here, "skip_first" indicates skipping the previous "skip_first" steps; "wait" indicates the waiting stage.
-Skip the wait steps; "warmup" indicates the preheating stage. Skip the warmup steps. "active" indicates collecting active steps;
-"repeat" indicates the number of times the execution is repeated. Among them, one repeat includes wait+warmup+active steps.
-After all the steps within a repeat have been executed, the performance data will be parsed by the callback function configured through on_strace_ready.
-
-For example: The model training consists of 100 steps. The schedule is configured as schedule = schedule(skip_first=10,
-wait=10, warmup=5, active=5, repeat=2), indicating that the first 10 steps are skipped.
-Starting from the 11th step, in the first repeat, 10 steps will be waited for, 5 steps of preheating will be executed,
-and finally the performance data of a total of 5 steps from the 26th to the 30th will be collected.
-In the second repeat, it will continue to wait for 10 steps, perform 5 steps of preheating, and finally collect the
-performance data of a total of 5 steps from step 46 to step 50.
+In custom for loop mode, users can enable Profiler by configuring schedule parameter.
 
 Sample as follows:
 
@@ -109,11 +64,58 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
             prof.step()
 ```
 
-After the function is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 0 steps, wait 0 step, warmup 0 step, and collection starts from the step of 0. Then the step of 0 are collected, so the Step ID is 0, indicating that step of 0 are collected.
-
-> The disk loading path of profiler is specified through the tensorboard_trace_handler parameter of on_trace_ready. tensorboard_trace_handler will parse the performance data by default. If the user does not configure tensorboard_trace_handler, the data will be written to the '/data' folder in the same-level directory of the current script by default. The performance data can be parsed through the off-line parsing function. The off-line parsing function can be referred to in [Method 4: Off-line Parsing](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html#method-4-off-line-parsing).
+- schedule: After schedule is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 0 steps, wait 0 step, warmup 0 step. Based on the active value being 1, data collection starts from step 0 and continues for 1 step. Therefore, the Step ID is 0, indicating that the 0th step is being collected.
+- on_trace_ready: The disk loading path of profiler is specified through the tensorboard_trace_handler parameter of on_trace_ready. tensorboard_trace_handler will parse the performance data by default. If the user does not configure tensorboard_trace_handler, the data will be written to the '/data' folder in the same-level directory of the current script by default. The performance data can be parsed through the off-line parsing function. The off-line parsing function can be referred to [Method 4: Off-line Parsing](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html#method-4-off-line-parsing).
 
 For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py).
+
+**The principle of configuring schedule parameters is as follows:**
+
+As illustrated in the following figure, schedule has 5 configurable parameters: skip_first, wait, warmup, active, and repeat. Among them, skip_first indicates skipping the first skip_first steps; wait represents the waiting phase, skipping wait steps; warmup represents the warm-up phase, skipping warmup steps; active indicates collecting active steps; repeat indicates the number of repetitions. One repeat includes wait+warmup+active steps. After all steps in a repeat are executed, the callback function configured via on_trace_ready will be executed to parse performance data. For detailed descriptions of each parameter, please refer to the [schedule API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.schedule.html).
+
+![schedule.png](../../source_zh_cn/debug/images/schedule.png)
+
+For example: The model training consists of 100 steps. The schedule is configured as schedule = schedule(skip_first=10,
+wait=10, warmup=5, active=5, repeat=2), indicating that the first 10 steps are skipped.
+Starting from the 11th step, in the first repeat, 10 steps will be waited for, 5 steps of preheating will be executed,
+and finally the performance data of a total of 5 steps from the 26th to the 30th will be collected.
+In the second repeat, it will continue to wait for 10 steps, perform 5 steps of preheating, and finally collect the
+performance data of a total of 5 steps from step 46 to step 50.
+
+> - Profiler generates multiple performance data files in the same directory based on the repeat count. Each repeat corresponds to a folder containing performance data collected from all active steps in that repeat. When repeat is configured to 0, the specific number of repetitions is determined by the total number of steps, continuously repeating the wait-warmup-active cycle until all steps are completed.
+> - The schedule needs to be used with [mindspore.profiler.profile.step](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step) interface. If you only configure schedule without using mindspore.profiler.profile.step interface to collect data, all collected data will belong to step 0. Therefore, performance data files will only be generated when step 0 corresponds to active (wait, warmup, skip_first are all set to 0).
+
+#### CallBack Mode Collection Example
+
+```python
+import mindspore
+
+class StopAtStep(mindspore.Callback):
+    def __init__(self, start_step, stop_step):
+        super(StopAtStep, self).__init__()
+        self.start_step = start_step
+        self.stop_step = stop_step
+        experimental_config = mindspore.profiler._ExperimentalConfig()
+        self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
+                                                   schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=self.stop_step - self.start_step + 1, repeat=1, skip_first=0),
+                                                   on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"))
+
+    def on_train_step_begin(self, run_context):
+        cb_params = run_context.original_args()
+        step_num = cb_params.cur_step_num
+        if step_num == self.start_step:
+            self.profiler.start()
+
+    def on_train_step_end(self, run_context):
+        cb_params = run_context.original_args()
+        step_num = cb_params.cur_step_num
+        if self.start_step <= step_num <= self.stop_step:
+            self.profiler.step()
+        if step_num == self.stop_step:
+            self.profiler.stop()
+```
+
+For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py).
 
 ### Method 2: Dynamic Profiler Enabling
 

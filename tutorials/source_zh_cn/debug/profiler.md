@@ -24,53 +24,11 @@
 
 在训练脚本中添加MindSpore profile相关接口，profile接口详细介绍请参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html)。
 
-该接口支持两种采集方式：CallBack方式和自定义for循环方式，且在Graph和PyNative两种模式下都支持。
-
-#### CallBack方式采集样例
-
-```python
-import mindspore
-
-class StopAtStep(mindspore.Callback):
-    def __init__(self, start_step, stop_step):
-        super(StopAtStep, self).__init__()
-        self.start_step = start_step
-        self.stop_step = stop_step
-        experimental_config = mindspore.profiler._ExperimentalConfig()
-        self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
-                                                   schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=self.stop_step - self.start_step + 1, repeat=1, skip_first=0),
-                                                   on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"))
-
-    def on_train_step_begin(self, run_context):
-        cb_params = run_context.original_args()
-        step_num = cb_params.cur_step_num
-        if step_num == self.start_step:
-            self.profiler.start()
-
-    def on_train_step_end(self, run_context):
-        cb_params = run_context.original_args()
-        step_num = cb_params.cur_step_num
-        if self.start_step <= step_num <= self.stop_step:
-            self.profiler.step()
-        if step_num == self.stop_step:
-            self.profiler.stop()
-```
-
-完整案例请参考[CallBack方式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)。
+该接口支持两种采集方式：自定义for循环方式和CallBack方式，且在Graph和PyNative两种模式下都支持。
 
 #### 自定义for循环方式采集样例
 
-自定义for循环方式下，用户可以通过设置schedule以及on_trace_ready参数来使能Profiler。
-
-如下图，schedule中有5个参数可以配置，分别为：skip_first、wait、warmup、active、repeat。其中skip_first表示跳过前skip_first个step；wait表示等待阶段，
-跳过wait个step；warmup表示预热阶段，跳过warmup个step；active表示采集active个step；repeat表示重复执行次数。其中1个repeat包括wait+warmup+active个step。
-一个repeat内所有step执行完之后会执行通过on_strace_ready配置的回调函数解析性能数据。
-
-![schedule.png](./images/schedule.png)
-
-例如：模型训练共100个step，schedule配置为schedule = schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)，表示跳过前10个step，
-从第11个step开始，在第1个repeat中将等待10个step，执行5个step的预热，最终采集第26~第30个step（一共5个step）的性能数据，
-在第2个repeat中将继续等待10个step，执行5个step的预热，最终采集第46个~第50个step（一共5个step）的性能数据。
+自定义for循环方式下，用户可以通过配置schedule参数来使能Profiler。
 
 样例如下：
 
@@ -106,11 +64,57 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
             prof.step()
 ```
 
-使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息。根据schedule的配置，skip_first跳过0个step，wait等待0个step，warmup预热0个step。根据active为1，则从第0个step开始采集，采集1个step。因此Step ID为0，表示采集的是第0个step。
-
-> profiler的落盘路径是通过on_trace_ready的tensorboard_trace_handler参数指定的，tensorboard_trace_handler会默认解析性能数据，用户如果没有配置tensorboard_trace_handler，数据会默认落盘到当前脚本同级目录的'/data'文件夹下，可以通过离线解析功能解析性能数据，离线解析功能可参考[方式四：离线解析](https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html#%E6%96%B9%E5%BC%8F%E5%9B%9B-%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90)。
+- schedule：使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息。根据样例中schedule的配置，skip_first跳过0个step，wait等待0个step，warmup预热0个step。根据active为1，则从第0个step开始采集，采集1个step。因此Step ID为0，表示采集的是第0个step。
+- on_trace_ready：profiler的落盘路径是通过on_trace_ready的tensorboard_trace_handler参数指定的，tensorboard_trace_handler会默认解析性能数据，用户如果没有配置tensorboard_trace_handler，数据会默认落盘到当前脚本同级目录的'/data'文件夹下，可以通过离线解析功能解析性能数据，离线解析功能可参考[方式四：离线解析](https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html#%E6%96%B9%E5%BC%8F%E5%9B%9B-%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90)。
 
 完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)。
+
+**schedule参数配置原理如下：**
+
+如下图，schedule中有5个参数可以配置，分别为：skip_first、wait、warmup、active、repeat。其中skip_first表示跳过前skip_first个step；wait表示等待阶段，
+跳过wait个step；warmup表示预热阶段，跳过warmup个step；active表示采集active个step；repeat表示重复执行次数。其中1个repeat包括wait+warmup+active个step。
+一个repeat内所有step执行完之后，会执行on_trace_ready配置的回调函数解析性能数据。各个参数的详细介绍请参考[schedule API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.schedule.html)。
+
+![schedule.png](./images/schedule.png)
+
+例如：模型训练共100个step，schedule配置为schedule = schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)，表示跳过前10个step，
+从第11个step开始，在第1个repeat中将等待10个step，执行5个step的预热，最终采集第26~第30个step（一共5个step）的性能数据，
+在第2个repeat中将继续等待10个step，执行5个step的预热，最终采集第46个~第50个step（一共5个step）的性能数据。
+
+> - profiler根据repeat次数在同一目录下生成多份性能数据。每个repeat对应一个文件夹，包含该repeat中所有active step采集到的性能数据。当repeat配置为0时，表示重复执行的具体次数由总step数确定，不断重复wait-warmup-active直到所有step执行完毕。
+> - schedule需要配合[mindspore.profiler.profile.step](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step)接口使用，如果配置了schedule而没有调用mindspore.profiler.profile.step接口进行数据采集，则profiler数据采集区间的所有数据都属于第0个step，因此只有在第0个step对应active（wait、warmup、skip_first都配置为0）时，才会生成性能数据文件。
+
+#### CallBack方式采集样例
+
+```python
+import mindspore
+
+class StopAtStep(mindspore.Callback):
+    def __init__(self, start_step, stop_step):
+        super(StopAtStep, self).__init__()
+        self.start_step = start_step
+        self.stop_step = stop_step
+        experimental_config = mindspore.profiler._ExperimentalConfig()
+        self.profiler = mindspore.profiler.profile(start_profile=False, experimental_config=experimental_config,
+                                                   schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=self.stop_step - self.start_step + 1, repeat=1, skip_first=0),
+                                                   on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"))
+
+    def on_train_step_begin(self, run_context):
+        cb_params = run_context.original_args()
+        step_num = cb_params.cur_step_num
+        if step_num == self.start_step:
+            self.profiler.start()
+
+    def on_train_step_end(self, run_context):
+        cb_params = run_context.original_args()
+        step_num = cb_params.cur_step_num
+        if self.start_step <= step_num <= self.stop_step:
+            self.profiler.step()
+        if step_num == self.stop_step:
+            self.profiler.stop()
+```
+
+完整案例请参考[CallBack方式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)。
 
 ### 方式二：动态profiler使能
 
