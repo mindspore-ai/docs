@@ -56,7 +56,7 @@
         "theme": "theme-tutorials"
     },
     {
-        "version": "r2.6.0",
+        "version": "r2.7.0",
         "versionAlias": "2.7.0-rc1",
         "label": {
             "zh": "教程",
