@@ -436,6 +436,41 @@ del_redundant_api_file(des_sir, ['mindspore.numpy.rst'], 'numpy', 'mindspore.num
 del_redundant_api_file(des_sir, ['mindspore.scipy.rst'], 'scipy', 'mindspore.scipy.', scipy_del)
 del_redundant_api_file(des_sir, ['mindspore/mindspore.Tensor.rst'], 'mindspore/Tensor', 'mindspore.Tensor.', tensor_del)
 
+with open('./api_python/amp/mindspore.amp.all_finite.rst', 'r+', encoding='utf-8') as f:
+    content = f.read()
+    content = content.replace('\n    教程样例：\n        - `自动混合精度 - 损失缩放\n          <https://mindspore.cn/tutorials/zh-CN/r2.7.0rc1/beginner/mixed_precision.html#损失缩放>`_', '')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
+with open('./api_python/amp/mindspore.amp.auto_mixed_precision.rst', 'r+', encoding='utf-8') as f:
+    content = f.read()
+    content = content.replace('\n    关于自动混合精度的详细介绍，请参考 `自动混合精度 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/beginner/mixed_precision.html>`_ 。', '')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
+with open('./api_python/amp/mindspore.amp.DynamicLossScaler.rst', 'r+', encoding='utf-8') as f:
+    content = f.read()
+    content = content.replace('\n        教程样例：\n            - `自动混合精度 - 损失缩放\n              <https://mindspore.cn/tutorials/zh-CN/r2.7.0rc1/beginner/mixed_precision.html#损失缩放>`_', '')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
+with open('./api_python/amp/mindspore.amp.LossScaler.rst', 'r+', encoding='utf-8') as f:
+    content = f.read()
+    content = content.replace('\n    关于使用 `LossScaler` 进行损失缩放，请查看 `教程 <https://mindspore.cn/tutorials/zh-CN/r2.7.0rc1/beginner/mixed_precision.html#%E6%8D%9F%E5%A4%B1%E7%BC%A9%E6%94%BE>`_。', '')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
+with open('./api_python/nn/mindspore.nn.optim_note_loss_scale.txt', 'r+', encoding='utf-8') as f:
+    content = f.read()
+    content = content.replace('\n如何正确处理 `loss_scale` 详见 `LossScale <https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/beginner/mixed_precision.html>`_。', '')
+    f.seek(0)
+    f.truncate()
+    f.write(content)
+
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 

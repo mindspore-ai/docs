@@ -19,7 +19,7 @@ def short_title(titlename):
         titlename = titlename.replace(j, '')
     for k in spec_symbol:
         titlename = titlename.replace(k, ' ')
-    titlename = titlename.replace('  ', ' ').replace(' ', '-')
+    titlename = titlename.replace('  ', ' ').replace(' ', '-').replace('"', '').replace("'", "")
 
     return titlename
 '''
