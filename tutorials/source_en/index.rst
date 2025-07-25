@@ -21,7 +21,6 @@ MindSpore Tutorial
    beginner/train
    beginner/save_load
    beginner/accelerate_with_static_graph
-   beginner/mixed_precision
 
 .. toctree::
    :glob:
