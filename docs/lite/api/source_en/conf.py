@@ -228,7 +228,7 @@ exhale_args = {
     ############################################################################
     # Example of adding contents directives on custom kinds with custom title
     "contentsTitle": "Page Contents",
-    "kindsWithContentsDirectives": ["class", "file", "namespace", "struct"],
+    "kindsWithContentsDirectives": ["class", "file", "namespace", "struct", "enum", "typedef", "define"],
     # Exclude PIMPL files from class hierarchy tree and namespace pages.
     # "listingExclude": [r".*Impl$"],
     ############################################################################
@@ -438,6 +438,44 @@ for file_name in fileList:
         data = re.sub(r'/\*\*([\s\n\S]*?)\*/', '', data)
     with open(file_name, 'w', encoding='utf-8') as p:
         p.write(data)
+
+# 查找同名文件并优先删除converter的头文件
+def find_common_files2del(folder1, folder2):
+    files1 = {}
+    files2 = {}
+    
+    # 遍历第一个文件夹
+    for root, _, filenames in os.walk(folder1):
+        for filename in filenames:
+            if filename not in files1:
+                files1[filename] = []
+            files1[filename].append(os.path.join(root, filename))
+    
+    # 遍历第二个文件夹
+    for root, _, filenames in os.walk(folder2):
+        for filename in filenames:
+            if filename not in files2:
+                files2[filename] = []
+            files2[filename].append(os.path.join(root, filename))
+    
+    # 找出两个文件夹中都存在的文件名
+    common_files = set(files1.keys()) & set(files2.keys())
+    
+    # 删除runtime和converter的同名文件(删除converter的)
+    print('删除runtime和converter的同名文件如下：')
+    for f in common_files:
+        for path1 in files1[f]:
+            for path2 in files2[f]:
+                if path1.rsplit('/include/')[-1] == path2.rsplit('/include/')[-1]:
+                    print(path2)
+                    os.remove(path2)
+
+# 两个文件夹路径
+folder_runtime = '../include/runtime/include'
+folder_converter = '../include/converter/include'
+
+# 查找同名文件并删除converter下的
+find_common_files2del(folder_runtime, folder_converter)
 
 # for file_name in fileList:
 #     file_data = ''
