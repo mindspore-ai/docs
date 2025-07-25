@@ -310,7 +310,7 @@ try:
                       ("mindspore_lite/converter.py","del decorator",
                        "@set_env","# generate api by del decorator set_env."),
                       ("mindspore_lite/llm_engine.py","del decorator",
-                      "@set_env","# generate api by del decorator set_env.")]
+                       "@set_env","# generate api by del decorator set_env.")]
 
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:

@@ -269,8 +269,8 @@
         - **Error2** – 异常描述2。
 
     教程样例：
-        - `自动混合精度 - 损失缩放
-          <https://mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html#损失缩放>`_
+        - `Graph Mode加速
+          <https://mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html>`_
 
 ```
 
@@ -283,8 +283,8 @@
         xxxx
 
     教程样例：
-        - `自动混合精度 - 损失缩放
-          <https://mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html#损失缩放>`_
+        - `Graph Mode加速
+          <https://mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html>`_
 
 ```
 
