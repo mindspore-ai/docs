@@ -2148,7 +2148,7 @@ class ExhaleRoot(object):
                     os.remove(dirB+file)
 
             title = re.compile(r'[\s\n\S]*=====')
-            content = re.compile(r'(Classes|Functions|Enums|Typedefs)([\s\n\S]*)') 
+            content = re.compile(r'(Classes|Functions|Enums|Type Definition|Structs)([\s\n\S]*)') 
             for file in os.listdir(dirB):
                 with open(dirB+file, "r", encoding="utf-8") as f:
                     data = f.read()
@@ -3024,10 +3024,13 @@ MindSpore Lite API
             The string to be written to the namespace node's reStructuredText document.
         '''
         # sort the children
-        nsp_namespaces        = []
-        nsp_nested_class_like = []
-        nsp_enums             = []
-        nsp_functions         = []
+        nsp_namespaces         = []
+        nsp_nested_class_like  = []
+        nsp_nested_struct_like = []
+        nsp_enums              = []
+        nsp_functions          = []
+        nsp_typedefs           = []
+
         for child in nspace.children:
             # Skip children whose names were requested to be explicitly ignored.
             should_exclude = False
@@ -3041,18 +3044,24 @@ MindSpore Lite API
                 nsp_namespaces.append(child)
             elif child.kind == "class":
                 child.findNestedClassLike(nsp_nested_class_like)
-                child.findNestedEnums(nsp_enums)
+                # child.findNestedEnums(nsp_enums)
+            elif child.kind == "struct":
+                child.findNestedClassLike(nsp_nested_struct_like)
             elif child.kind == "enum":
                 nsp_enums.append(child)
             elif child.kind == "function":
                 nsp_functions.append(child)
+            elif child.kind == "typedef":
+                nsp_typedefs.append(child)
 
         # generate their headings if they exist (no Defines...that's not a C++ thing...)
         children_stream = StringIO()
         self.generateSortedChildListString(children_stream, "Namespaces", nsp_namespaces)
         self.generateSortedChildListString(children_stream, "Classes", nsp_nested_class_like)
+        self.generateSortedChildListString(children_stream, "Structs", nsp_nested_struct_like)
         self.generateSortedChildListString(children_stream, "Enums", nsp_enums)
         self.generateSortedChildListString(children_stream, "Functions", nsp_functions)
+        self.generateSortedChildListString(children_stream, "Type Definition", nsp_typedefs)
         # read out the buffer contents, close it and return the desired string
         children_string = children_stream.getvalue()
         children_stream.close()
@@ -3095,6 +3104,8 @@ MindSpore Lite API
             )))
             for l in lst:
                 if spec.spec_apis and l.kind == "class" and l.name not in spec.class_list:
+                    continue
+                if '910' in l.name or '310' in l.name:
                     continue
                 stream.write(textwrap.dedent('''
                     - :ref:`{link}`
