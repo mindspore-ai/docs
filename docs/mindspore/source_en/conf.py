@@ -214,32 +214,33 @@ with open(autodoc_source_path, "r", encoding="utf8") as f:
     exec(code_str, sphinx_autodoc.__dict__)
 
 # Repair error decorators defined in mindspore.
-try:
-    decorator_list = [("mindspore/common/_decorator.py", "deprecated",
-                       "    def decorate(func):",
-                       "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
-                       ("mindspore/nn/optim/optimizer.py", "deprecated",
-                       "def opt_init_args_register(fn):\n    \"\"\"Register optimizer init args.\"\"\"\n",
-                       "def opt_init_args_register(fn):\n    \"\"\"Register optimizer init args.\"\"\"\n\n    import functools\n\n    @functools.wraps(fn)"),
-                       ("mindspore/log.py", "deprecated",
-                       "    def __call__(self, func):\n",
-                       "    def __call__(self, func):\n        import functools\n\n        @functools.wraps(func)\n"),
-                       ("mindspore/ops/primitive.py", "fix for `shard`",
-                       "    @_LogActionOnce(logger=logger, key='Primitive')", "    # The decorator has been deleted."),
-                       ("mindspore/dataset/engine/datasets.py","generate api",
-                       "    @deprecated(\"1.5\")","    # The decorator has been deleted(id1)."),
-                       ("mindspore/dataset/engine/datasets.py","generate api",
-                       "    @check_bucket_batch_by_length","    # The decorator has been deleted(id2)."),
-                       ("mindspore/train/summary/summary_record.py", "summary_record",
-                       "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
-                       "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n"),
-                       ("mindspore/nn/cell.py","generate api",
-                       "    @jit_forbidden_register","    # generate api by del decorator."),
-                       ("mindspore/profiler/dynamic_profiler.py","generate api",
-                       "    @no_exception_func()","    # generate api by del decorator.")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
+decorator_list = [("mindspore/common/_decorator.py", "deprecated",
+                   "    def decorate(func):",
+                   "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
+                   ("mindspore/nn/optim/optimizer.py", "deprecated",
+                   "def opt_init_args_register(fn):\n    \"\"\"Register optimizer init args.\"\"\"\n",
+                   "def opt_init_args_register(fn):\n    \"\"\"Register optimizer init args.\"\"\"\n\n    import functools\n\n    @functools.wraps(fn)"),
+                   ("mindspore/log.py", "deprecated",
+                   "    def __call__(self, func):\n",
+                   "    def __call__(self, func):\n        import functools\n\n        @functools.wraps(func)\n"),
+                   ("mindspore/ops/primitive.py", "fix for `shard`",
+                   "    @_LogActionOnce(logger=logger, key='Primitive')", "    # The decorator has been deleted."),
+                   ("mindspore/dataset/engine/datasets.py","generate api",
+                   "    @deprecated(\"1.5\")","    # The decorator has been deleted(id1)."),
+                   ("mindspore/dataset/engine/datasets.py","generate api",
+                   "    @check_bucket_batch_by_length","    # The decorator has been deleted(id2)."),
+                   ("mindspore/train/summary/summary_record.py", "summary_record",
+                   "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
+                   "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n"),
+                   ("mindspore/nn/cell.py","generate api",
+                   "    @jit_forbidden_register","    # generate api by del decorator."),
+                   ("mindspore/profiler/dynamic_profiler.py","generate api",
+                   "    @no_exception_func()","    # generate api by del decorator.")]
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for i in decorator_list:
+    try:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
             if i[3] not in content:
@@ -247,18 +248,30 @@ try:
                 f.seek(0)
                 f.truncate()
                 f.write(content)
-except:
-    print('mindspore替换安装包内容失败')
+    except:
+        print(f'替换{i[0]}下内容失败')
 
 # Repair error content defined in mindspore.
-try:
-    decorator_list = [("mindspore/common/dtype.py","del decorator",
-                       "@enum.unique","# generate api by del decorator."),
-                      ("mindspore/common/dtype.py","del class",
-                       "class QuantDtype(enum.Enum):","class QuantDtype():")]
+decorator_list = [("mindspore/common/dtype.py","del decorator",
+                   "@enum.unique","# generate api by del decorator."),
+                   ("mindspore/common/dtype.py","del class",
+                   "class QuantDtype(enum.Enum):","class QuantDtype():"),
+                   ("mindspore/nn/optim/adam.py","del url",
+                   ", refer\n        document `LossScale <https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html>`_ to\n        process `loss_scale` correctly",""),
+                   ("mindspore/train/amp.py","del url",
+                   "\n    For details on automatic mixed precision, refer to\n    `Automatic Mix Precision <https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html>`_ .",""),
+                   ("mindspore/nn/optim/lamb.py","del url",
+                   " Refer\n        document `LossScale <https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html>`_ to\n        process `loss_scale` correctly.",""),
+                   ("mindspore/amp.py","del url",
+                   "\n    Tutorial Examples:\n        - `Automatic Mix Precision - Loss Scaling\n          <https://mindspore.cn/tutorials/en/master/beginner/mixed_precision.html#loss-scaling>`_",""),
+                   ("mindspore/amp.py","del url",
+                   "\n    For more information, refer to the `tutorials  <https://mindspore.cn/tutorials/en/master/beginner/\n    mixed_precision.html#loss-scaling>`_.",""),
+                   ("mindspore/amp.py","del url",
+                   "\n        Tutorial Examples:\n            - `Automatic Mix Precision - Loss Scaling\n              <https://mindspore.cn/tutorials/en/master/beginner/mixed_precision.html#loss-scaling>`_","")
+                   ]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
+for i in decorator_list:
+    try:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
             if i[2] in content:
@@ -266,14 +279,13 @@ try:
                 f.seek(0)
                 f.truncate()
                 f.write(content)
-except:
-    print('mindspore删除安装包装饰器内容失败')
+    except:
+        print(f'替换{i[0]}下内容失败')
 
 # add @functools.wraps
 try:
     decorator_list = [("mindspore/common/_tensor_overload.py", ".*?_mint")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
@@ -298,7 +310,6 @@ re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
 re_url4 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
 
-base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
 for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
     for i in files:
         if i.endswith('.py'):
