@@ -41,7 +41,7 @@ mindformers
 
 本案例提供三种数据集的准备方式：
 
-- **从零开始生成数据集**：适合希望自定义数据集或深入了解数据生成流程的用户。包括从种子数据集生成CoT数据和拒绝采样。请从[1.3.1 从零开始生成数据集](#1-3-1-从零开始生成数据集)开始。
+- **从零开始生成数据集**：适合希望自定义数据集或深入了解数据生成流程的用户。包括从种子数据集生成CoT数据和拒绝采样。请从[1.3.1 从零开始生成数据集](#131-从零开始生成数据集)开始。
 - **使用OpenR1-Math-220K数据集**：
 
     - **选项1: 使用原始数据离线处理**：适合需要自定义数据处理或学习处理流程的用户。包括预处理和Packing。请从[选项1: 使用原始数据离线处理](#选项-1-使用原始数据离线处理)开始。
@@ -231,7 +231,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 
 ##### 选项 2: 使用完成转换的数据
 
-我们在[魔乐社区](https://modelers.cn/models/MindSpore-Lab/OpenR1-Qwen-7B/tree/main/dataset/packing)提供packing处理后可以直接用于模型训练的数据，格式为arrow。此时[#1.4 YAML配置](#1-4-yaml配置)中的`path`需要修改为下载后的数据集路径。
+我们在[魔乐社区](https://modelers.cn/models/MindSpore-Lab/OpenR1-Qwen-7B/tree/main/dataset/packing)提供packing处理后可以直接用于模型训练的数据，格式为arrow。此时[#1.4 YAML配置](#14-yaml配置)中的`path`需要修改为下载后的数据集路径。
 
 ```yaml
 train_dataset:
