@@ -1891,10 +1891,10 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
 | [bool IsConst() const](#isconst)     |    √    |    √    |
 | [bool IsDevice() const](#isdevice)     |    √    |    ✕    |
 | [MSTensor *Clone() const](#clone)     |    √    |    √    |
-| [bool operator==(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator==std-nullptr-t)     |    √    |    √    |
-| [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator!=std-nullptr-t)     |    √    |    √    |
-| [bool operator!=(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator!=const-mstensor-tensor)     |    √    |    √    |
-| [bool operator==(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator==const-mstensor-tensor)     |    √    |    √    |
+| [bool operator==(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorstd-nullptr-t)     |    √    |    √    |
+| [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorstd-nullptr-t)     |    √    |    √    |
+| [bool operator!=(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorconst-mstensor-tensor)     |    √    |    √    |
+| [bool operator==(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorconst-mstensor-tensor)     |    √    |    √    |
 | [void SetShape(const std::vector<int64_t> &shape)](#setshape)     |    √    |    √    |
 | [void SetDataType(enum DataType data_type)](#setdatatype)     |    √    |    √    |
 | [void SetTensorName(const std::string &name)](#settensorname)     |    √    |    √    |
@@ -3497,10 +3497,10 @@ inline Status(const StatusCode code, int line_of_code, const char *file_name, co
 | [inline std::string SetErrDescription(const std::string &err_description)](#seterrdescription)     |    √    |    √    |
 | [inline void SetStatusMsg(const std::string &status_msg)](#setstatusmsg)     |    √    |    √    |
 | [friend std::ostream &operator<<(std::ostream &os, const Status &s)](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator<<std-ostream-os,-const-status-s)     |    √    |    √    |
-| [bool operator==(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator==const-status-other)     |    √    |    √    |
-| [bool operator==(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator==enum-statuscode-other-code)     |    √    |    √    |
-| [bool operator!=(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator!=const-status-other)     |    √    |    √    |
-| [bool operator!=(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator!=enum-statuscode-other-code)     |    √    |    √    |
+| [bool operator==(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorconst-status-other)     |    √    |    √    |
+| [bool operator==(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorenum-statuscode-other-code)     |    √    |    √    |
+| [bool operator!=(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorconst-status-other)     |    √    |    √    |
+| [bool operator!=(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorenum-statuscode-other-code)     |    √    |    √    |
 | [explicit operator bool() const](#operator-bool)     |    √    |    √    |
 | [explicit operator int() const](#explicit-operator-int-const)     |    √    |    √    |
 | [static Status OK()](#ok)     |    √    |    √    |
