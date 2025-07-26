@@ -6,7 +6,7 @@ This document is based on [Hugging Face: The Annotated Diffusion Model](https://
 
 > This tutorial is successfully executed on Jupyter Notebook. If you download this document as a Python file, ensure that the GUI is installed before executing the Python file.
 
-There are many explanations of diffusion models. This document will introduce it based on denoising diffusion probabilistic model (DDPM). Many remarkable results about DDPM have been achieved for (un)conditional image/audio/video generation. Popular examples include [GLIDE](https://arxiv.org/abs/2112.10741) and [DALL-E 2](https://openai.com/dall-e-2/) by OpenAI, [Latent Diffusion](https://github.com/CompVis/latent-diffusion) by the University of Heidelberg and [Image Generation](https://imagen.research.google/) by Google Brain.
+There are many explanations of diffusion models. This document will introduce it based on the denoising diffusion probabilistic model (DDPM). Many remarkable results about DDPM have been achieved for (un)conditional image/audio/video generation. Popular examples include [GLIDE](https://arxiv.org/abs/2112.10741) and [DALL-E 2](https://openai.com/dall-e-2/) by OpenAI, [Latent Diffusion](https://github.com/CompVis/latent-diffusion) by the University of Heidelberg, and [Image Generation](https://imagen.research.google/) by Google Brain.
 
 Actually, the idea of diffusion-based generative models was already introduced by [Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585). [Song et al., 2019](https://arxiv.org/abs/1907.05600) (at Stanford University) and [Ho et al., 2020](https://arxiv.org/abs/2006.11239) (at Google Brain) independently improve the method.
 
@@ -82,7 +82,7 @@ $$
 
 Note that $\beta_t$ is not constant at each time step $t$ (hence the subscript). In fact, we define a so-called "dynamic variance" method, so that $\beta_t$ of each time step can be linear, quadratic, cosine, etc. (a bit like dynamic learning rate method).
 
-Therefore, if we set the schedule properly, starting from $\mathbf{x}_0$, we will end up with $\mathbf{x}_1, ..., \mathbf{x} _t, ..., \mathbf{x}_T$. That is, as $t$ increases, $\mathbf{x}_t$ becomes more similar to pure noise. $\mathbf{x}_T$ is the pure Gaussian noise.
+Therefore, if we set the schedule properly, starting from $\mathbf{x}_0$, we will end up with $\mathbf{x}_1, ..., \mathbf{x}_t, ..., \mathbf{x}_T$. That is, as $t$ increases, $\mathbf{x}_t$ becomes more similar to pure noise. $\mathbf{x}_T$ is the pure Gaussian noise.
 
 If we know the conditional probability distribution $p(\mathbf{x} _{t-1} | \mathbf{x}_t)$, we can run the process reversely: sample some random Gaussian noise $\mathbf{x}_T$, and then gradually denoise it so that we end up with a sample in the real distribution $\mathbf{x}_0$. However, we do not know the conditional probability distribution $p(\mathbf{x}_{t-1} | \mathbf{x}_t)$. This is intractable since it requires the distribution of all possible images in order to calculate this conditional probability.
 

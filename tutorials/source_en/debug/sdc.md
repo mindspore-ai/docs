@@ -12,7 +12,7 @@ During model training, processors may encounter feature value detection anomalie
 
 The MindSpore framework version 2.4 provides a solution for feature value detection of Transformer structure models. Internally a feature value detection operator is inserted before the communication operator in the backward graph to monitor feature value and prevent anomaly from spreading to other cards.
 
-For default feature value detection checkpoints, users can enable detection capability using the environment variable `NPU_ASD_ENABLE=1`, `NPU_ASD_ENABLE=2`  or `NPU_ASD_ENABLE=3`, and adjust the detection intensity by configuring the environment variables `NPU_ASD_UPPER_THRESH` and `NPU_ASD_SIGMA_THRESH`.
+For default feature value detection checkpoints, users can enable detection capability using the environment variable `NPU_ASD_ENABLE=1`, `NPU_ASD_ENABLE=2` or `NPU_ASD_ENABLE=3`, and adjust the detection intensity by configuring the environment variables `NPU_ASD_UPPER_THRESH` and `NPU_ASD_SIGMA_THRESH`.
 
 For information on configuring related environment variables, see **Feature Switches and Configuration**.
 
@@ -211,7 +211,7 @@ Start command:
 NPU_ASD_ENABLE=1 bash run_silent_check.sh
 ```
 
-From the CANN log, by default the log path os `~/ascend/log/`, the main `ERROR` logs are as follows, there are many `ERROR` logs. After error was detected, the training process was not stopped.
+From the CANN log, by default the log path is `~/ascend/log/`, the main `ERROR` logs are as follows, there are many `ERROR` logs. After error was detected, the training process was not stopped.
 
 ```bash
 $ cd ~/ascend/log/debug/
@@ -244,8 +244,7 @@ device-2/device-305322_20250225184310213.log:1859:[ERROR] AICPU(25787,aicpu_sche
 
 #### Execution Result of Setting NPU_ASD_ENABLE to 3
 
-When `NPU_ASD_ENABLE` was set to `3`, the action is similar to detection level `2`, i.e. if error was detected, print `ERROR` log and stop training process. Besides an `INFO` log as also output for
-non anomaly feature values (In oreder to see logs of level INFO, need to set `export ASCEND_GLOBAL_LOG_LEVEL=0` to enable log level `DEBUG` or set `export ASCEND_GLOBAL_LOG_LEVEL=1` to enable log level `INFO`).
+When `NPU_ASD_ENABLE` was set to `3`, the action is similar to detection level `2`, i.e. if error was detected, print `ERROR` log and stop training process. Besides an `INFO` log as also output for non anomaly feature values (In oreder to see logs of level INFO, need to set `export ASCEND_GLOBAL_LOG_LEVEL=0` to enable log level `DEBUG` or set `export ASCEND_GLOBAL_LOG_LEVEL=1` to enable log level `INFO`).
 
 Start command:
 
@@ -253,7 +252,7 @@ Start command:
 NPU_ASD_ENABLE=3 bash run_silent_check.sh
 ```
 
-From the CANN log, by default the log path os `~/ascend/log/`, the main `ERROR` logs are as follows, there are `INFO` logs except for `ERORR` log about feature value info.
+From the CANN log, by default the log path os `~/ascend/log/`, the main `ERROR` logs are as follows, there are `INFO` logs except for `ERROR` log about feature value info.
 
 ```bash
 $ cd ~/ascend/log/debug/

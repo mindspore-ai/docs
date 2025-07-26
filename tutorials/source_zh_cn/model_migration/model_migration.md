@@ -396,5 +396,5 @@ class Trainer:
             # 保存最好的那个checkpoint
             self.best_acc = accuracy
             ms.save_checkpoint(self.net, "best.ckpt")
-            print(f"Updata best acc: {accuracy}")
+            print(f"Update best acc: {accuracy}")
 ```

@@ -98,7 +98,7 @@ Here we introduce balenaEtcher, Rufus to burn the image, you can burn according 
 
   Step 1 Select Mirror, TF card, and start burn.
 
-  Insert the sd card into the card reader, insert the card reader into the computer, select the image and sd card, click “Start”.
+  Insert the sd card into the card reader, insert the card reader into the computer, select the image and sd card, click "Start".
 
   ![environment-setup-1-12](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-12.png)
 
@@ -228,7 +228,7 @@ xxx install success
 
 - xxx indicates the actual package name of the upgrade.
 
-- Path after installing the upgrade (default installation path for root user as an example): “/usr/local/Ascend/ ascend-toolkit/
+- Path after installing the upgrade (default installation path for root user as an example): "/usr/local/Ascend/ascend-toolkit/"
 
 > If the output is incorrect, you need to follow the above steps to upgrade Toolkit again.
 
