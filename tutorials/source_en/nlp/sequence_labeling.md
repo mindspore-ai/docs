@@ -13,6 +13,7 @@ Sequence labeling refers to the process of labeling each token for a given input
 |Output Labeling| B | I | I | I | O | O | O | B | I | O | O |
 
 As shown in the preceding table, `the wall street journal` and `apple corporation` are place names and need to be identified. We predict the label of each input word and identify the entity based on the label.
+
 > A common labeling method for NER is used, that is, BIOE labeling. The beginning of an entity is labeled as B, other parts are labeled as I, and non-entity is labeled as O.
 
 ## Conditional Random Field (CRF)
