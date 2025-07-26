@@ -12,35 +12,35 @@ import com.mindspore.config.AscendDeviceInfo;
 
 | function                                   | 云侧推理是否支持 | 端侧推理是否支持 |
 | ------------------------------------------ |--------|--------|
-| [int getDeviceID)](#getDeviceID) | √      | ✕     |
-| [int getDeviceType](#getDeviceType) | √      | ✕     |
-| [String getProvider](#getProvider) | √      | ✕     |
-| [void setProvider(String provider)](#setProvider) | √      | ✕     |
-| [void setDeviceID(int deviceId)](#setDeviceID) | √ | ✕ |
-| [int getRankID()](#getRankID) | √      | ✕     |
-| [void setRankID(int rankId)](#setRankID) | √      | ✕     |
-| [String getInsertOpConfigPath()](#getInsertOpConfigPath) | √      | ✕     |
-| [void setInsertOpConfigPath(String insertOpConfigPath)](#setInsertOpConfigPath) | √      | ✕     |
-| [String getInputFormat()](#getInputFormat) | √ | ✕ |
-| [void setInputFormat(String inputFormat)](#setInputFormat) | √      | ✕     |
-| [String getInputShape()](#getInputShape) | √      | ✕     |
-| [void setInputShape(String inputShape)](#setInputShape) | √      | ✕     |
-| [HashMap<Integer, ArrayList<Integer>> getInputShapeMap()](#getInputShapeMap) | √      | ✕     |
-| [void setInputShapeMap(HashMap<Integer, ArrayList<Integer>> inputShapeMap)](#setInputShapeMap) | √      | ✕     |
-| [ArrayList<Integer> getDynamicBatchSize()](#getDynamicBatchSize) | √      | ✕     |
-| [void setDynamicBatchSize(ArrayList<Integer> dynamicBatchSize)](#setDynamicBatchSize) | √      | ✕     |
-| [String getDynamicImageSize()](#getDynamicImageSize) | √      | ✕     |
-| [void setDynamicImageSize(String dynamicImageSize)](#setDynamicImageSize) | √      | ✕     |
-| [int getOutputType()](#getOutputType) | √ | ✕ |
-| [void setOutputType(int outputType)](#setOutputType) | √      | ✕     |
-| [String getPrecisionMode()](#getPrecisionMode) | √ | ✕ |
-| [void setPrecisionMode(String precisionMode)](#setPrecisionMode) | √ | ✕ |
-| [String getOpSelectImplMode()](#getOpSelectImplMode) | √ | ✕ |
-| [void setOpSelectImplMode(String opSelectImplMode)](#setOpSelectImplMode) | √ | ✕ |
-| [String getFusionSwitchConfigPath()](#getFusionSwitchConfigPath) | √ | ✕ |
-| [void setFusionSwitchConfigPath(String fusionSwitchConfigPath)](#setFusionSwitchConfigPath) | √ | ✕ |
-| [String getBufferOptimizeMode()](#getBufferOptimizeMode) | √ | ✕ |
-| [void setBufferOptimizeMode(String bufferOptimizeMode)](#setBufferOptimizeMode) | √ | ✕ |
+| [int getDeviceID)](#getdeviceid) | √      | ✕     |
+| [int getDeviceType](#getdevicetype) | √      | ✕     |
+| [String getProvider](#getprovider) | √      | ✕     |
+| [void setProvider(String provider)](#setprovider) | √      | ✕     |
+| [void setDeviceID(int deviceId)](#setdeviceid) | √ | ✕ |
+| [int getRankID()](#getrankid) | √      | ✕     |
+| [void setRankID(int rankId)](#setrankid) | √      | ✕     |
+| [String getInsertOpConfigPath()](#getinsertopconfigpath) | √      | ✕     |
+| [void setInsertOpConfigPath(String insertOpConfigPath)](#setinsertopconfigpath) | √      | ✕     |
+| [String getInputFormat()](#getinputformat) | √ | ✕ |
+| [void setInputFormat(String inputFormat)](#setinputformat) | √      | ✕     |
+| [String getInputShape()](#getinputshape) | √      | ✕     |
+| [void setInputShape(String inputShape)](#setinputshape) | √      | ✕     |
+| [HashMap<Integer, ArrayList<Integer>> getInputShapeMap()](#getinputshapemap) | √      | ✕     |
+| [void setInputShapeMap(HashMap<Integer, ArrayList<Integer>> inputShapeMap)](#setinputshapemap) | √      | ✕     |
+| [ArrayList<Integer> getDynamicBatchSize()](#getdynamicbatchsize) | √      | ✕     |
+| [void setDynamicBatchSize(ArrayList<Integer> dynamicBatchSize)](#setdynamicbatchsize) | √      | ✕     |
+| [String getDynamicImageSize()](#getdynamicimagesize) | √      | ✕     |
+| [void setDynamicImageSize(String dynamicImageSize)](#setdynamicimagesize) | √      | ✕     |
+| [int getOutputType()](#getoutputtype) | √ | ✕ |
+| [void setOutputType(int outputType)](#setoutputtype) | √      | ✕     |
+| [String getPrecisionMode()](#getprecisionmode) | √ | ✕ |
+| [void setPrecisionMode(String precisionMode)](#setprecisionmode) | √ | ✕ |
+| [String getOpSelectImplMode()](#getopselectimplmode) | √ | ✕ |
+| [void setOpSelectImplMode(String opSelectImplMode)](#setopselectimplmode) | √ | ✕ |
+| [String getFusionSwitchConfigPath()](#getfusionswitchconfigpath) | √ | ✕ |
+| [void setFusionSwitchConfigPath(String fusionSwitchConfigPath)](#setfusionswitchconfigpath) | √ | ✕ |
+| [String getBufferOptimizeMode()](#getbufferoptimizemode) | √ | ✕ |
+| [void setBufferOptimizeMode(String bufferOptimizeMode)](#setbufferoptimizemode) | √ | ✕ |
 
 ## getDeviceID
 
