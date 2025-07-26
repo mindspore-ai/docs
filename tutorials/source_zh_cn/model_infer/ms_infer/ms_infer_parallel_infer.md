@@ -483,11 +483,13 @@ msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log
 
 ## 实践：Qwen2模型并行改造
 
-本章将对[从零构建大语言模型推理网络](./ms_infer_network_develop.md)中开发的Qwen2大语言模型进行并行适配，根据上述分析，可以将并行适配分为以下两个主要步骤：
+本章将对[从零构建大语言模型推理网络](./ms_infer_network_develop.md)中开发的Qwen2大语言模型进行并行适配，根据上述分析，可以将并行适配分为以下三个主要步骤：
 
 1. **模型网络适配**：根据上述的并行方案，对模型中的网络层进行并行切分，将计算分割到多个卡上执行。
 
 2. **模型权重适配**：由于Linear中权重在并行切分后，shape也变化了，因此在加载模型权重时，需要对应修改。
+
+3. **KVCache适配**：由于Attention分数计算时的数量计算也根据并行度切分了，因此在KVCache管理中也要对应更新shape。
 
 为了能够简化场景，本章只对Qwen2模型中的Linear进行并行度为2的切分，Embedding层的切分暂时不涉及。建议，将示例中原本单卡的infer.py和qwen2.py文件，重命名为infer_parallel.py和qwen2_parallel.py，防止代码的冲突。
 
@@ -949,6 +951,33 @@ class Qwen2ForCausalLM(nn.Cell):
 ```
 
 上面代码对需要自定义加载权重的网络层增加了weight_load方法，并且对其权重对象通过setattr方法设置了自定义权重加载方法，在模型权重加载时，通过读取权重的映射表，找到对应的参数对象，更新其权重。对于列切和行切的Linear，使用了Tensor的narrow获取对应偏移的数据，唯一不同是两者切分维度不同。
+
+### KVCache切分
+
+KVCache的切分在并行度可以被num_key_value_heads整除场景下比较简单，直接将对应的shape修改即可，具体可以参考以下代码：
+
+```diff
+class CacheManager:
+    def __init__(self, config: Qwen2Config, block_num: int, block_size: int, batch_size: int) -> None:
+        self.block_num = block_num
+        self.block_size = block_size
+        self.batch_size = batch_size
+
+        head_dim = config.hidden_size // config.num_attention_heads
+    
++        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
+-        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+-        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
++        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads // self.tp_size, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
++        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads // self.tp_size, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+        self.block_tables = [[] for _ in range(batch_size)]
+        self.acc_slot_mapping = [[] for _ in range(batch_size)]
+        self.free_block_ids = deque(range(block_num))
+
+    def step(self, start_pos_idx: int, token_num_per_batch: int) -> Tuple[Tensor, Tensor]:
+```
+
+由代码可以看出，只需要将KVCache初始化的shape稍作调整，即可以完成KVCache的并行适配。
 
 ### 并行执行
 
