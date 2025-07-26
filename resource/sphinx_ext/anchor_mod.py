@@ -55,7 +55,7 @@ after = """\
                 origin_id = origin_id.replace(s,'-')
             for s in empty_symbol:
                 origin_id = origin_id.replace(s,'')
-            node['ids'].append(origin_id.replace('\"','').replace(" ","-").replace("--","-"))
+            node['ids'].append(origin_id.replace('\"','').replace(" ","-").replace("--","-").replace("==","").replace("!=",""))
         else:
             node['ids'].append(id)"""
 

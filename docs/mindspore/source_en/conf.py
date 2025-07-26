@@ -451,6 +451,7 @@ def linkcode_resolve(domain, info):
                        ('mint.nn.functional.im2col_ext', 'mint.nn.functional.unfold', 'im2col_ext', 'unfold'),
                        ('mint.nn.functional.col2im_ext', 'mint.nn.functional.fold', 'col2im_ext', 'fold'),
                        ('mint.nn.functional.inplace_threshold', 'mint.nn.functional.threshold_', 'inplace_threshold', 'threshold_'),
+                       ('ops.binary_cross_entropy_with_logits', 'ops.BCEWithLogitsLoss', 'binary_cross_entropy_with_logits', 'BCEWithLogitsLoss'),
                        ]
             fullname = info["module"] + '.' + name
             for i in spec_tp:
