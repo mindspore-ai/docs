@@ -20,7 +20,7 @@ logits = model(input_ids)
 
 next_token = ops.argmax(logits)
 
-generate_text = tokenizer.decode(next_token))
+generate_text = tokenizer.decode(next_token)
 
 print(generate_text)
 ```
@@ -85,7 +85,7 @@ vllm-mindspore的运行环境创建后，还需要安装以下依赖包：
 
 ### 模型准备
 
-vllm-mindspore服务化支持原生Hugging Face的模型直接运行，因此直接从Hugging Face官网下载模型即可，此处我们仍然以Qwen2-7B-Insstrcut模型为例。
+vllm-mindspore服务化支持原生Hugging Face的模型直接运行，因此直接从Hugging Face官网下载模型即可，此处我们仍然以Qwen2-7B-Instruct模型为例。
 
 ```shell
 git lfs install
@@ -100,7 +100,7 @@ git clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
 # set Ascend CANN tools envs
 /usr/local/Ascend/ascend-toolkit/set_env.sh
 export ASCEND_CUSTOM_PATH=${ASCEND_HOME_PATH}/../
-export ASCEND_RT_VISIABLE_DEVICES=3
+export ASCEND_RT_VISIBLE_DEVICES=3
 export ASCEND_TOTAL_MEMORY_GB=32
 
 # mindspore envs

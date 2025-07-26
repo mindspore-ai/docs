@@ -24,7 +24,7 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 - **DecodeLayer**：即Transformer结构，是大语言模型关键计算模块，通常根据配置不同，会重复多层计算，每一层实际就是一个Transformer结构。
 
-- **RmsNorm&Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出成每个token的概率分布返回。
+- **RmsNorm & Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出成每个token的概率分布返回。
 
 使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程，完整端到端样例可以参考[qwen2.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/qwen2/qwen2.py)。
 
@@ -32,7 +32,7 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 由于Qwen2大语言模型的配置和参数都比较多，为了能够更方便地管理这些参数，需要先定义模型使用的Config和Input类。同时，注意到Linear和RmsNorm算子在网络中的各个功能层中会频繁出现，可以预先将这些公共层构建好。
 
-#### Config&Input
+#### Config & Input
 
 ```python
 import json
@@ -608,9 +608,9 @@ class Qwen2Model(nn.Cell):
 
 由于大语言模型通常会使用KVCache优化，MindSpore提供的FlashAttention和lashPagedAttention需要和KVCache配合使用，需要额外传入一些参数，其中主要包括：
 
-- **k_cache&v_cache**：kv_cache对象可以理解为是一个缓存表，用于保存上一次迭代中的key和value值。在下一次迭代时，可以直接读取这些值，从而避免重复计算前n个词的key和value，以提升性能。
+- **k_cache & v_cache**：kv_cache对象可以理解为是一个缓存表，用于保存上一次迭代中的key和value值。在下一次迭代时，可以直接读取这些值，从而避免重复计算前n个词的key和value，以提升性能。
 
-- **block_tables&slot_mapping**：PagedAttention通过类似分页的机制，将KVCache按block储存，以便相同词能够集中在同一块block，从而提升显存利用率。
+- **block_tables & slot_mapping**：PagedAttention通过类似分页的机制，将KVCache按block储存，以便相同词能够集中在同一块block，从而提升显存利用率。
 
 根据上面描述，这些参数可以用一个管理类进行封装，代码可以参考：
 
