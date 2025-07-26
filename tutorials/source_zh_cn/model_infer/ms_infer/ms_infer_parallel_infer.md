@@ -489,7 +489,7 @@ msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log
 
 2. **模型权重适配**：由于Linear中权重在并行切分后，shape也变化了，因此在加载模型权重时，需要对应修改。
 
-为了能够简化场景，本章只对Qwen2模型中的Linear进行并行度为2的切分，Embedding层的切分暂时不涉及。同时，示例中将原本单卡的infer.py和qwen2.py文件重命名为infer_parallel.py和qwen2_parallel.py，防止代码的冲突。
+为了能够简化场景，本章只对Qwen2模型中的Linear进行并行度为2的切分，Embedding层的切分暂时不涉及。建议，将示例中原本单卡的infer.py和qwen2.py文件，重命名为infer_parallel.py和qwen2_parallel.py，防止代码的冲突。
 
 ### 通信组建立
 
