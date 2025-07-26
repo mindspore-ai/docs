@@ -71,7 +71,7 @@ For more use methods, refer to [Dataset.batch](https://www.mindspore.cn/docs/en/
 The main differences between MindSpore's GeneratorDataset and PyTorch's DataLoader are:
 
 - column_names must be passed in MindSpore's GeneratorDataset;
-- PyTorch's data augmentation inputs are of type Tensor, MindSpore's data augmentation inputs are of type numpy, and data processing cannot be done with MindSpore's mint, oops, and nn operators;
+- PyTorch's data augmentation inputs are of type Tensor, MindSpore's data augmentation inputs are of type numpy, and data processing cannot be done with MindSpore's mint, ops, and nn operators;
 - PyTorch's batch operation is a property of the DataLoader, MindSpore's batch operation is a separate method.
 
 For more details, refer to [Differences with torch.utils.data.DataLoader](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/DataLoader.html).
@@ -396,5 +396,5 @@ class Trainer:
             # Saving the best checkpoint
             self.best_acc = accuracy
             ms.save_checkpoint(self.net, "best.ckpt")
-            print(f"Updata best acc: {accuracy}")
+            print(f"Update best acc: {accuracy}")
 ```
