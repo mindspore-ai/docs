@@ -50,7 +50,7 @@
         load_ckpt_format: "safetensors"
         ```
 
-### 拉起在线服务时，报`aclnnNonzeroV2`相关错误
+### 拉起在线推理时，报`aclnnNonzeroV2`相关错误
 
 - 错误关键信息：
 

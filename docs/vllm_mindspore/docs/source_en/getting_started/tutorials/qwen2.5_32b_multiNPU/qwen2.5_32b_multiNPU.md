@@ -8,23 +8,31 @@ This document introduces single-node multi-card inference process by vLLM MindSp
 
 In this section, we recommend using Docker for quick deployment of the vLLM MindSpore environment. Below are the steps for Docker deployment:
 
-### Pulling the Image
+### Building the Image  
 
-Pull the vLLM MindSpore Docker image by executing the following command:  
+User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
 
 ```bash  
-docker pull hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  
+git clone https://gitee.com/mindspore/vllm-mindspore.git
+bash build_image.sh
 ```  
 
-During the pull process, user will see the progress of each layer. After successful completion, use can also check the image by running:  
+After a successful build, user will get the following output:
+
+```text
+Successfully built e40bcbeae9fc
+Successfully tagged vllm_ms_20250726:latest
+```
+
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
 
 ```bash  
 docker images  
-```  
+```
 
 ### Creating a Container
 
-After [pulling the image](#pulling-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then create the container:
+After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then create the container:
 
 ```bash
 export DOCKER_NAME=vllm-mindspore-container  # your container name  
@@ -140,7 +148,7 @@ export ASCEND_RT_VISIBLE_DEVICES=4,5,6,7
 
 ## Online Inference
 
-vLLM MindSpore supports online serving deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example.
+vLLM MindSpore supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example.
 
 ### Starting the Service
 

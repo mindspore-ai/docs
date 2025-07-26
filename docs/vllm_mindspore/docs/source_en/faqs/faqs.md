@@ -50,7 +50,7 @@
         load_ckpt_format: "safetensors"
         ```
 
-### `aclnnNonzeroV2` Related Error When Starting Online Service
+### `aclnnNonzeroV2` Related Error When Starting Online Inference
 
 - Key error message:
 

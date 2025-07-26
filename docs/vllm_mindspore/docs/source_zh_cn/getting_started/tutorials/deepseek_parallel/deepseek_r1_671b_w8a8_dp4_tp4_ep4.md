@@ -6,15 +6,43 @@ vLLM MindSpore支持张量并行（TP）、数据并行（DP）、专家并行�
 
 本文档将以DeepSeek R1 671B W8A8为例介绍[张量并行](#tp16-张量并行推理)及[混合并行](#混合并行推理)推理流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理模型。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。
 
-用户可通过以下[新建容器](#新建容器)章节或参考[安装指南](../../installation/installation.md#安装指南)进行环境配置。
+用户可通过以下[docker安装](#docker安装)章节进行环境配置。
 
-## 新建容器
+## docker安装
+
+在本章节中，我们推荐用docker创建的方式，以快速部署vLLM MindSpore环境。以下是部署docker的步骤介绍：
+
+### 构建镜像
+
+用户可执行以下命令，拉取vLLM MindSpore代码仓库，并构建镜像：
 
 ```bash
-docker pull hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest
+git clone https://gitee.com/mindspore/vllm-mindspore.git
+bash build_image.sh
+```
 
-# 分别在主从节点新建docker容器
-docker run -itd --name=mindspore_vllm --ipc=host --network=host --privileged=true \
+构建成功后，用户可以得到以下信息：
+
+```text
+Successfully built e40bcbeae9fc
+Successfully tagged vllm_ms_20250726:latest
+```
+
+其中，`e40bcbeae9fc`为镜像id，`vllm_ms_20250726:latest`为镜像名与tag。用户可执行以下命令，确认docker镜像创建成功：
+
+```bash
+docker images
+```
+
+### 新建容器
+
+用户在完成[构建镜像](#构建镜像)后，设置`DOCKER_NAME`与`IMAGE_NAME`为容器名与镜像名，并执行以下命令新建容器：
+
+```bash
+export DOCKER_NAME=vllm-mindspore-container  # your container name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
+
+docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
         --device=/dev/davinci0 \
         --device=/dev/davinci1 \
         --device=/dev/davinci2 \
@@ -38,7 +66,7 @@ docker run -itd --name=mindspore_vllm --ipc=host --network=host --privileged=tru
         -v /etc/ascend_install.info:/etc/ascend_install.info \
         -v /etc/vnpu.cfg:/etc/vnpu.cfg \
         --shm-size="250g" \
-        hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest \
+        ${IMAGE_NAME} \
         bash
 ```
 
@@ -236,7 +264,7 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 
 #### 启动服务
 
-vLLM MindSpore可使用OpenAI的API协议，部署为在线服务。以下是在线服务的拉起流程。
+vLLM MindSpore可使用OpenAI的API协议，部署为在线推理。以下是在线推理的拉起流程。
 
 ```bash
 # 启动配置参数说明
@@ -316,7 +344,7 @@ parallel_config:
 
 ### 在线推理
 
-`vllm-mindspore`可使用OpenAI的API协议部署在线服务。以下是在线服务的拉起流程：
+`vllm-mindspore`可使用OpenAI的API协议部署在线推理。以下是在线推理的拉起流程：
 
 ```bash
 # 启动配置参数说明

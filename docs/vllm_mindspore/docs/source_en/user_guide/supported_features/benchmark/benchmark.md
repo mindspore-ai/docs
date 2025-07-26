@@ -15,13 +15,13 @@ export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set ac
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-then start the online service with the following command:  
+then start the online inference with the following command:  
 
 ```bash
 vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests  
 ```  
 
-For multi-card inference, we take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example. You can prepare the environment by following the guide [Multi-Card Inference (Qwen2.5-32B)](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#online-inference), then start the online service with the following command:  
+For multi-card inference, we take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example. You can prepare the environment by following the guide [Multi-Card Inference (Qwen2.5-32B)](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#online-inference), then start the online inference with the following command:  
 
 ```bash  
 export TENSOR_PARALLEL_SIZE=4
