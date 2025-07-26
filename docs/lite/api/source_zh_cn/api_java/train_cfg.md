@@ -15,8 +15,8 @@ import com.mindspore.config.TrainCfg;
 | [boolean init()](#init) | ✕     | √      |
 | [boolean init(String loss_name)](#init) | ✕     | √      |
 | [void free()](#free) | ✕     | √      |
-| [boolean addMixPrecisionCfg(boolean dynamicLossScale, float lossScale, int thresholdIterNum)](#addMixPrecisionCfg) | ✕     | √      |
-| [long getTrainCfgPtr()](#getTrainCfgPtr) | ✕ | √ |
+| [boolean addMixPrecisionCfg(boolean dynamicLossScale, float lossScale, int thresholdIterNum)](#addmixprecisioncfg) | ✕     | √      |
+| [long getTrainCfgPtr()](#gettraincfgptr) | ✕ | √ |
 
 ## init
 
