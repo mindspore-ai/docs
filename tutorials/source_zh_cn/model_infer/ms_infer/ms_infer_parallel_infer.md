@@ -964,7 +964,7 @@ class CacheManager:
         self.batch_size = batch_size
 
         head_dim = config.hidden_size // config.num_attention_heads
-    
+
 +        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
 -        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
 -        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
