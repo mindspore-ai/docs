@@ -4,7 +4,7 @@
 
 随着模型规模的不断扩展，大语言模型所需的计算资源，特别是显存需求，呈指数级增长。以Qwen2-72B为例，在半精度（FP16）下，这些参数本身就需要约144GB的显存。
 
-同时大模型日益膨胀的序列长度也给显存带了极大的压力。显存不仅影响了模型的加载，还限制了批处理（batch size）大小。较小的批处理可能会降低推理效率，进而影响整个系统的吞吐量。
+同时大模型日益膨胀的序列长度也给显存带来极大的压力。显存不仅影响了模型的加载，还限制了批处理（batch size）大小。较小的批处理可能会降低推理效率，进而影响整个系统的吞吐量。
 
 显存的压力使得单一设备很难在合理时间内完成推理任务，并行计算成为应对这一挑战的关键。本章将以常见大语言模型网络结构为例，分析模型并行的方案。
 
@@ -739,7 +739,7 @@ class Qwen2MLP(nn.Cell):
         self.gate_proj = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
-            param_dypte=config.param_dtype,
+            param_dtype=config.param_dtype,
             bias=False
         )
         self.down_proj = Qwen2RowParallelLinear(
