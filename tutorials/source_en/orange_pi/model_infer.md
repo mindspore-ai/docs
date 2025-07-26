@@ -64,11 +64,11 @@ Then enter the URL link you see above in your browser to log into the Jupyter La
 
 ![model-infer3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/orange_pi/images/model_infer3.png)
 
-Step 2 In the Jupyter Lab interface, double-click the case directory shown in the figure below, take “04-FCN” as an example here, you can enter the case directory. The operation process of other cases is similar, just select the corresponding case directory and. ipynb file.
+Step 2 In the Jupyter Lab interface, double-click the case directory shown in the figure below, take “04-FCN” as an example here, you can enter the case directory. The operation process of other cases is similar, just select the corresponding case directory and .ipynb file.
 
 ![model-infer4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/orange_pi/images/model_infer4.png)
 
-Step 3 In this directory there are all the resources to run the sample, where mindspore_fcn8s.ipynb is the file to run the sample in Jupyter Lab. Double-click to open the mindspore_fcn8s.ipynb, which will be displayed in the right window. The contents of the mindspore_fcn8s.ipynb file is shown in the following figure:
+Step 3 In this directory there are all the resources to run the sample, where mindspore_fcn8s.ipynb is the file to run the sample in Jupyter Lab. Double-click to open the mindspore_fcn8s.ipynb, which will be displayed in the right window. The contents of the mindspore_fcn8s.ipynb file are shown in the following figure:
 
 ![model-infer5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/orange_pi/images/model_infer5.png)
 

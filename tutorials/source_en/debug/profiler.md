@@ -175,7 +175,7 @@ For the complete case, refer to [dynamic profiler enabling method case](https://
 
 ### Method 3: Environment Variable Enabling
 
-Users can use the environment variable enabling method to enable Profiler most simply. Currently, only single-card scenarios are supported. this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/env_var_list.html) for details.
+Users can use the environment variable enabling method to enable Profiler most simply. Currently, only single-card scenarios are supported. This method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/env_var_list.html) for details.
 
 > If environment variables are enabled, set device_id using environment variables before executing the script. Do not use set_context to set device_id in the script.
 
@@ -236,7 +236,7 @@ When using MindSpore to train a model, in order to analyze performance bottlenec
 After collecting performance data, the original data will be stored according to the following directory structure:
 
 > - The following data files are not required to be opened and viewed by users. Users can refer to the [MindStudio Insight user guide](https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/msinsightug/msascendinsightug/AscendInsight_0002.html) for viewing and analyzing performance data.
-> - The following is the full set of result files. MindSpore Profiler interface will associate and integrate the framework side data and CANN Profling data to form trace, kernel, and memory performance data files in the `ASCEND_PROFILER_OUTPUT` directory. The actual file number and content depend on the user's parameter configuration and the actual training scenario, if the user does not configure the related parameters or does not involve the related scenarios in the training, the corresponding data files will not be generated.  
+> - The following is the full set of result files. MindSpore Profiler interface will associate and integrate the framework side data and CANN Profiling data to form trace, kernel, and memory performance data files in the `ASCEND_PROFILER_OUTPUT` directory. The actual file number and content depend on the user's parameter configuration and the actual training scenario, if the user does not configure the related parameters or does not involve the related scenarios in the training, the corresponding data files will not be generated.  
 
 ```sh
 └── localhost.localdomain_*_ascend_ms  // Collection and analysis result directory, named format: {worker_name}_{timestamp}_ascend_ms, by default {worker_name} is {hostname}_{pid}
@@ -280,16 +280,16 @@ After collecting performance data, the original data will be stored according to
     ├── logs                           // MindSpore Log files parsed by the Profiler interface
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN layer performance data, named format: PROF_{number}_{timestamp}_{string}, delete other data when data_simplification=True, only retain the original performance data in this directory
           ├── analyze                  // Generated when profiler_level=ProfilerLevel.Level1 or profiler_level=ProfilerLevel.Level2 in scenarios where there is communication such as multiple cards or clusters
-          ├── device_{Rank_ID}         // CANN Profling Performance data collected on the device
-          ├── host                     // CANN Profling Performance data collected on the host
-          ├── mindstudio_profiler_log  // CANN Profling parsed log files. Delete this directory when data_simplification is set to True
-          └── mindstudio_profiler_output     // CANN Profling parsed performance data. Delete this directory when data_simplification is set to True
+          ├── device_{Rank_ID}         // CANN Profiling Performance data collected on the device
+          ├── host                     // CANN Profiling Performance data collected on the host
+          ├── mindstudio_profiler_log  // CANN Profiling parsed log files. Delete this directory when data_simplification is set to True
+          └── mindstudio_profiler_output     // CANN Profiling parsed performance data. Delete this directory when data_simplification is set to True
 ```
 
 The detailed description of each file in the `ASCEND_PROFILER_OUTPUT` directory is as follows.
 
 > - `FRAMEWORK` is the performance raw data of the framework side, no need to pay attention to it.
-> - `PROF` directory is the performance data collected by CANN Profling, mainly saved in the `mindstudio_profiler_output` directory.
+> - `PROF` directory is the performance data collected by CANN Profiling, mainly saved in the `mindstudio_profiler_output` directory.
 
 ### ascend_mindspore_profiler_{Rank_ID}.db
 
