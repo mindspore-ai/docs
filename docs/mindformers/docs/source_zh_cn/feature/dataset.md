@@ -96,7 +96,7 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
    以[Deepseek-V3仓库](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base)中的[LlamaTokenizerFast](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer_config.json)和[词表](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer.json)为例。如果本地不存在对应仓库，需要将配置文件(tokenizer_config.json)和词表文件(tokenizer.json)手动下载到本地目录，假设为/path/to/huggingface/tokenizer。执行如下命令处理数据集：
 
    ```shell
-   python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+   python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
      --input /path/data.json \
      --output-prefix /path/megatron_data \
      --tokenizer-type HuggingFaceTokenizer \
@@ -106,7 +106,7 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
    以外部tokenizer类[Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py)为例，确保**本地**mindformers仓库下存在'research/llama3_1/llama3_1_tokenizer.py'，执行如下命令处理数据集：
 
    ```shell
-   python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+   python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
      --input /path/data.json \
      --output-prefix /path/megatron_data \
      --tokenizer-type AutoRegister \
