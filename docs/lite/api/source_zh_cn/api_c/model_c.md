@@ -416,7 +416,7 @@ MSStatus MSModelSetLearningRate(MSModelHandle model, float learning_rate)
 
   枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
-#### MSModelSetTrainMode <a id="MSModelSetTrainMode1"></a>
+#### MSModelSetTrainMode
 
 ```C
 MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
@@ -433,7 +433,7 @@ MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
 
   枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
-#### MSModelSetTrainMode <a id="MSModelSetTrainMode2"></a>
+#### MSModelSetTrainMode
 
 ```C
 MSStatus MSModelSetTrainMode(MSModelHandle model, bool train)
