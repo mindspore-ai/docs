@@ -148,19 +148,19 @@ Context的数据。
 | [int32_t GetInterOpParallelNum() const](#getinteropparallelnum)     |    √    |    √    |
 | [void SetThreadAffinity(int mode)](#setthreadaffinity)     |    √    |    √    |
 | [int GetThreadAffinityMode() const](#getthreadaffinitymode)     |    √    |    √    |
-| [void SetThreadAffinity(const std::vector<int> &core_list)](#setthreadaffinity)     |    √    |    √    |
-| [std::vector<int32_t> GetThreadAffinityCoreList() const](#getthreadaffinitycorelist)     |    √    |    √    |
+| [void SetThreadAffinity(const std::vector\<int\> &core_list)](#setthreadaffinity)     |    √    |    √    |
+| [std::vector\<int32_t\> GetThreadAffinityCoreList() const](#getthreadaffinitycorelist)     |    √    |    √    |
 | [void SetEnableParallel(bool is_parallel)](#setenableparallel)     |    ✕    |    √    |
 | [bool GetEnableParallel() const](#getenableparallel)     |    ✕    |    √    |
 | [void SetBuiltInDelegate(DelegateMode mode)](#setbuiltindelegate)     |    ✕    |    √    |
 | [DelegateMode GetBuiltInDelegate() const](#getbuiltindelegate)     |    ✕    |    √    |
-| [void SetDelegate(const std::shared_ptr<Delegate> &delegate)](#setdelegate)     |    ✕    |    √    |
-| [std::shared_ptr<Delegate> GetDelegate() const](#getdelegate)     |    ✕    |    √    |
-| [void set_delegate(const std::shared_ptr<AbstractDelegate> &delegate)](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#set-delegate)         | ✕      | √      |
-| [std::shared_ptr<AbstractDelegate> get_delegate() const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#get-delegate)     |    ✕    |    √    |
+| [void SetDelegate(const std::shared_ptr\<Delegate\> &delegate)](#setdelegate)     |    ✕    |    √    |
+| [std::shared_ptr\<Delegate\> GetDelegate() const](#getdelegate)     |    ✕    |    √    |
+| [void set_delegate(const std::shared_ptr\<AbstractDelegate\> &delegate)](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#set-delegate)         | ✕      | √      |
+| [std::shared_ptr\<AbstractDelegate\> get_delegate() const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#get-delegate)     |    ✕    |    √    |
 | [void SetMultiModalHW(bool float_mode)](#setmultimodalhw)     |    ✕    |    √    |
 | [bool GetMultiModalHW() const](#getmultimodalhw)     |    ✕    |    √    |
-| [std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo()](#mutabledeviceinfo)     |    √    |    √    |
+| [std::vector\<std::shared_ptr\<DeviceInfoContext\>\> &MutableDeviceInfo()](#mutabledeviceinfo)     |    √    |    √    |
 | [void SetGroupInfoFile(std::string group_info_file)](#setgroupinfofile)     |    √    |    √    |
 
 #### SetThreadNum
@@ -442,13 +442,13 @@ struct Data;
 | 函数                                                                | 云侧推理是否支持 | 端侧推理是否支持 |
 |-------------------------------------------------------------------|---------|---------|
 | [enum DeviceType GetDeviceType() const](#getdevicetype)     |    √    |    √    |
-| [std::shared_ptr<T> Cast()](#cast)     |    √    |    √    |
+| [std::shared_ptr\<T\> Cast()](#cast)     |    √    |    √    |
 | [void SetProvider(const std::string &provider)](#setprovider)     |    √    |    √    |
 | [std::string GetProvider() const](#getprovider)     |    √    |    √    |
 | [void SetProviderDevice(const std::string &device)](#setproviderdevice)     |    √    |    √    |
 | [std::string GetProviderDevice() const](#getproviderdevice)     |    √    |    √    |
-| [void SetAllocator(const std::shared_ptr<Allocator> &allocator)](#setallocator)     |    ✕    |    ✕    |
-| [std::shared_ptr<Allocator> GetAllocator() const](#getallocator)     |    ✕    |    ✕    |
+| [void SetAllocator(const std::shared_ptr\<Allocator\> &allocator)](#setallocator)     |    ✕    |    ✕    |
+| [std::shared_ptr\<Allocator\> GetAllocator() const](#getallocator)     |    ✕    |    ✕    |
 
 #### GetDeviceType
 
@@ -665,12 +665,12 @@ Serialization类汇总了模型文件读写的方法。
 | 函数                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------------------------|--------|--------|
 | [Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load)     |    ✕    |    √    |
-| [Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-1)     |    ✕    |    ✕    |
+| [Status Load(const std::vector\<std::string\> &files, ModelType model_type, std::vector\<Graph\> *graphs, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-1)     |    ✕    |    ✕    |
 | [Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-2)     |    ✕    |    √    |
-| [static Status SetParameters(const std::map<std::string, Buffer> &parameters, Model *model)](#setparameters)     |    ✕    |    ✕    |
+| [static Status SetParameters(const std::map\<std::string, Buffer\> &parameters, Model *model)](#setparameters)     |    ✕    |    ✕    |
 | [static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data)](#exportmodel)     |    ✕    |    √    |
-| [static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file, QuantizationType quantization_type = kNoQuant, bool export_inference_only = true, std::vector<std::string> output_tensor_name = {})](#exportmodel)     |    ✕    |    √    |
-| [static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type, const std::string &weight_file, bool is_inference = true, bool enable_fp16 = false, const std::vector<std::string> &changeable_weights_name = {})](#exportweightscollaboratewithmicro)     |    ✕    |    √    |
+| [static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file, QuantizationType quantization_type = kNoQuant, bool export_inference_only = true, std::vector\<std::string\> output_tensor_name = {})](#exportmodel)     |    ✕    |    √    |
+| [static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type, const std::string &weight_file, bool is_inference = true, bool enable_fp16 = false, const std::vector\<std::string\> &changeable_weights_name = {})](#exportweightscollaboratewithmicro)     |    ✕    |    √    |
 
 #### Load
 
@@ -767,7 +767,7 @@ static Status ExportModel(const Model &model, ModelType model_type, Buffer *mode
     - `model_type`：模型文件类型。
     - `model_data`：模型参数数据。
 
- - 返回值
+- 返回值
 
     状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
@@ -941,49 +941,49 @@ Model()
 
 | 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|
-| [Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr)](#build)     |    √    |    √    |
-| [Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-1)     |    √    |    √    |
-| [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr)](#build-2)     |    √    |    √    |
-| [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
-| [Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr)](#build-4)     |    ✕    |    √    |
-| [Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context, const std::shared_ptr<TrainCfg> &train_cfg = nullptr)](#buildtransferlearning)     |    ✕    |    √    |
+| [Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build)     |    √    |    √    |
+| [Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-1)     |    √    |    √    |
+| [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-2)     |    √    |    √    |
+| [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
+| [Status Build(GraphCell graph, const std::shared_ptr\<Context\> &model_context = nullptr, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#build-4)     |    ✕    |    √    |
+| [Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr\<Context\> &context, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#buildtransferlearning)     |    ✕    |    √    |
 | [Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims)](#resize)     |    √    |    √    |
 | [Status UpdateWeights(const std::vector<MSTensor> &new_weights)](#updateweights)     |    ✕    |    √    |
-| [Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict)     |    √    |    √    |
+| [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict)     |    √    |    √    |
 | [Status Predict(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict-1)     |    ✕    |    √    |
 | [Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#runstep)     |    ✕    |    √    |
-| [Status PredictWithPreprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predictwithpreprocess)     |    ✕    |    ✕    |
-| [Status Preprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs)](#preprocess)     |    ✕    |    ✕    |
+| [Status PredictWithPreprocess(const std::vector\<std::vector\<MSTensor\>\> &inputs, std::vector\<MSTensor\> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predictwithpreprocess)     |    ✕    |    ✕    |
+| [Status Preprocess(const std::vector\<std::vector\<MSTensor\>\> &inputs, std::vector\<MSTensor\> *outputs)](#preprocess)     |    ✕    |    ✕    |
 | [bool HasPreprocess()](#haspreprocess)     |    ✕    |    ✕    |
 | [Status LoadConfig(const std::string &config_path)](#loadconfig)     |    √    |    √    |
-| [Status UpdateConfig(const std::string &section, const std::pair<std::string, std::string> &config)](#updateconfig)     |    √    |    √    |
-| [std::vector<MSTensor> GetInputs()](#getinputs)     |    √    |    √    |
+| [Status UpdateConfig(const std::string &section, const std::pair\<std::string, std::string\> &config)](#updateconfig)     |    √    |    √    |
+| [std::vector\<MSTensor\> GetInputs()](#getinputs)     |    √    |    √    |
 | [MSTensor GetInputByTensorName(const std::string &tensor_name)](#getinputbytensorname)     |    √    |    √    |
-| [std::vector<MSTensor> GetOutputs()](#getoutputs)     |    √    |    √    |
-| [std::vector< std::string> GetOutputTensorNames()](#getoutputtensornames)     |    √    |    √    |
+| [std::vector\<MSTensor\> GetOutputs()](#getoutputs)     |    √    |    √    |
+| [std::vector\<std::string\> GetOutputTensorNames()](#getoutputtensornames)     |    √    |    √    |
 | [MSTensor GetOutputByTensorName(const std::string &tensor_name)](#getoutputbytensorname)     |    √    |    √    |
-| [std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name)](#getoutputsbynodename)     |    ✕    |    √    |
+| [std::vector\<MSTensor\> GetOutputsByNodeName(const std::string &node_name)](#getoutputsbynodename)     |    ✕    |    √    |
 | [static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)](#checkmodelsupport)     |    √    |    √    |
-| [std::vector<MSTensor> GetGradients() const](#getgradients)     |    ✕    |    √    |
-| [Status ApplyGradients(const std::vector<MSTensor> &gradients)](#applygradients)     |    ✕    |    √    |
-| [std::vector<MSTensor> GetFeatureMaps() const](#getfeaturemaps)     |    ✕    |    √    |
-| [std::vector<MSTensor> GetTrainableParams() const](#gettrainableparams)     |    ✕    |    √    |
-| [Status UpdateFeatureMaps(const std::vector<MSTensor> &new_weights)](#updatefeaturemaps)     |    ✕    |    √    |
-| [std::vector<MSTensor> GetOptimizerParams() const](#getoptimizerparams)     |    ✕    |    √    |
-| [Status SetOptimizerParams(const std::vector<MSTensor> &params)](#setoptimizerparams)     |    ✕    |    √    |
+| [std::vector\<MSTensor\> GetGradients() const](#getgradients)     |    ✕    |    √    |
+| [Status ApplyGradients(const std::vector\<MSTensor\> &gradients)](#applygradients)     |    ✕    |    √    |
+| [std::vector\<MSTensor\> GetFeatureMaps() const](#getfeaturemaps)     |    ✕    |    √    |
+| [std::vector\<MSTensor\> GetTrainableParams() const](#gettrainableparams)     |    ✕    |    √    |
+| [Status UpdateFeatureMaps(const std::vector\<MSTensor\> &new_weights)](#updatefeaturemaps)     |    ✕    |    √    |
+| [std::vector\<MSTensor\> GetOptimizerParams() const](#getoptimizerparams)     |    ✕    |    √    |
+| [Status SetOptimizerParams(const std::vector\<MSTensor\> &params)](#setoptimizerparams)     |    ✕    |    √    |
 | [Status SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f)](#setupvirtualbatch)     |    ✕    |    √    |
 | [Status SetLearningRate(float learning_rate)](#setlearningrate)     |    ✕    |    √    |
 | [float GetLearningRate()](#getlearningrate)     |    ✕    |    √    |
-| [Status InitMetrics(std::vector<Metrics *> metrics)](#initmetrics)     |    ✕    |    √    |
-| [std::vector<Metrics *> GetMetrics()](#getmetrics)     |    ✕    |    √    |
-| [Status BindGLTexture2DMemory(const std::map<std::string, unsigned int> &inputGLTexture, std::map<std::string, unsigned int> *outputGLTexture)](#bindgltexture2dmemory)     |    ✕    |    √    |
+| [Status InitMetrics(std::vector\<Metrics *\> metrics)](#initmetrics)     |    ✕    |    √    |
+| [std::vector\<Metrics *\> GetMetrics()](#getmetrics)     |    ✕    |    √    |
+| [Status BindGLTexture2DMemory(const std::map\<std::string, unsigned int\> &inputGLTexture, std::map\<std::string, unsigned int\> *outputGLTexture)](#bindgltexture2dmemory)     |    ✕    |    √    |
 | [Status SetTrainMode(bool train)](#settrainmode)     |    ✕    |    √    |
 | [bool GetTrainMode() const](#gettrainmode)     |    ✕    |    √    |
-| [Status Train(int epochs, std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs)](#train)     |    ✕    |    √    |
-| [Status Evaluate(std::shared_ptr< dataset::Dataset> ds, std::vector<TrainCallBack *> cbs)](#evaluate)     |    ✕    |    √    |
+| [Status Train(int epochs, std::shared_ptr\< dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#train)     |    ✕    |    √    |
+| [Status Evaluate(std::shared_ptr\< dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#evaluate)     |    ✕    |    √    |
 | [Status Finalize()](#finalize)     |  √ |  √ |
-| [Status UpdateWeights(const std::vector<std::vector<MSTensor>> &new_weights)](#updateweights) | √    |  √     |
-| [const std::shared_ptr<ModelImpl> impl()](#impl) | √    |  √     |
+| [Status UpdateWeights(const std::vector\<std::vector\<MSTensor\>\> &new_weights)](#updateweights) | √    |  √     |
+| [const std::shared_ptr\<ModelImpl\> impl()](#impl) | √    |  √     |
 | [inline std::string GetModelInfo(const std::string &key)](#getmodelinfo) | √    |  √     |
 
 #### Build
@@ -1682,6 +1682,7 @@ inline std::string GetModelInfo(const std::string &key);
 - 返回值
 
     模型的信息。
+
 #### Finalize
 
 ```cpp
@@ -1716,13 +1717,13 @@ explicit MSTensor(std::nullptr_t)
 
 | 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |------------------------------------------------------------------------------------------------------------------|---------|---------|
-| [MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, const void *data, size_t data_len, const std::string &device = "", int device_id = -1) noexcept](#createtensor)     |    √    |    √    |
+| [MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector\<int64_t\> &shape, const void *data, size_t data_len, const std::string &device = "", int device_id = -1) noexcept](#createtensor)     |    √    |    √    |
 | [MSTensor *CreateTensor(const std::string &name, const MSTensor &tensor, const std::string &device = "", int device_id = -1) noexcept](#createtensor)     |    √    |    √    |
-| [MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, void *data, size_t data_len) noexcept](#createreftensor)     |    √    |    √    |
-| [static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, void *data, size_t data_len) noexcept](#createdevicetensor)     |    √    |    ✕    |
-| [static inline MSTensor *CreateTensorFromFile(const std::string &file, DataType type = DataType::kNumberTypeUInt8, const std::vector<int64_t> &shape = {}) noexcept](#createtensorfromfile)     |    √    |    ✕    |
-| [MSTensor *StringsToTensor(const std::string &name, const std::vector<std::string> &str)](#stringstotensor)     |    √    |    √    |
-| [std::vector<std::string> TensorToStrings(const MSTensor &tensor)](#tensortostrings)     |    √    |    √    |
+| [MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vector\<int64_t\> &shape, void *data, size_t data_len) noexcept](#createreftensor)     |    √    |    √    |
+| [static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type, const std::vector\<int64_t\> &shape, void *data, size_t data_len) noexcept](#createdevicetensor)     |    √    |    ✕    |
+| [static inline MSTensor *CreateTensorFromFile(const std::string &file, DataType type = DataType::kNumberTypeUInt8, const std::vector\<int64_t\> &shape = {}) noexcept](#createtensorfromfile)     |    √    |    ✕    |
+| [MSTensor *StringsToTensor(const std::string &name, const std::vector\<std::string\> &str)](#stringstotensor)     |    √    |    √    |
+| [std::vector\<std::string\> TensorToStrings(const MSTensor &tensor)](#tensortostrings)     |    √    |    √    |
 | [void DestroyTensorPtr(MSTensor *tensor) noexcept](#destroytensorptr)     |    √    |    √    |
 
 #### CreateTensor
@@ -1881,9 +1882,9 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
 |---------------------------------------------------------------------------------------------|---------|---------|
 | [std::string Name() const](#name)     |    √    |    √    |
 | [enum DataType DataType() const](#datatype)     |    √    |    √    |
-| [const std::vector<int64_t> &Shape() const](#shape)     |    √    |    √    |
+| [const std::vector\<int64_t\> &Shape() const](#shape)     |    √    |    √    |
 | [int64_t ElementNum() const](#elementnum)     |    √    |    √    |
-| [std::shared_ptr<const void> Data() const](#data)     |    √    |    √    |
+| [std::shared_ptr\<const void\> Data() const](#data)     |    √    |    √    |
 | [void *MutableData()](#mutabledata)     |    √    |    √    |
 | [size_t DataSize() const](#datasize)     |    √    |    √    |
 | [int GetDevice() const](#getdevice)     |    √    |    ✕    |
@@ -1895,19 +1896,19 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
 | [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorstd-nullptr-t)     |    √    |    √    |
 | [bool operator!=(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorconst-mstensor-tensor)     |    √    |    √    |
 | [bool operator==(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorconst-mstensor-tensor)     |    √    |    √    |
-| [void SetShape(const std::vector<int64_t> &shape)](#setshape)     |    √    |    √    |
+| [void SetShape(const std::vector\<int64_t\> &shape)](#setshape)     |    √    |    √    |
 | [void SetDataType(enum DataType data_type)](#setdatatype)     |    √    |    √    |
 | [void SetTensorName(const std::string &name)](#settensorname)     |    √    |    √    |
-| [void SetAllocator(std::shared_ptr<Allocator> allocator)](#setallocator)     |    √    |    √    |
-| [std::shared_ptr<Allocator> allocator() const](#allocator)     |    √    |    √    |
+| [void SetAllocator(std::shared_ptr\<Allocator\> allocator)](#setallocator)     |    √    |    √    |
+| [std::shared_ptr\<Allocator\> allocator() const](#allocator)     |    √    |    √    |
 | [void SetFormat(mindspore::Format format)](#setformat)     |    √    |    √    |
 | [mindspore::Format format() const](#format)     |    √    |    √    |
 | [void SetData(void *data, bool own_data = true)](#setdata)     |    √    |    √    |
 | [void SetDeviceData(void *data)](#setdevicedata)     |    √    |    √    |
 | [void *GetDeviceData()](#getdevicedata)     |    √    |    √    |
-| [std::vector<QuantParam> QuantParams() const](#quantparams)     |    √    |    √    |
-| [void SetQuantParams(std::vector<QuantParam> quant_params)](#setquantparams)     |    √    |    √    |
-| [const std::shared_ptr<Impl> impl()](#impl)     |    √    |    √    |
+| [std::vector\<QuantParam\> QuantParams() const](#quantparams)     |    √    |    √    |
+| [void SetQuantParams(std::vector\<QuantParam\> quant_params)](#setquantparams)     |    √    |    √    |
+| [const std::shared_ptr\<Impl\> impl()](#impl)     |    √    |    √    |
 
 #### Name
 
@@ -3308,7 +3309,7 @@ constexpr int METRICS_MULTILABEL = 1;
 
 | 函数                | 云侧推理是否支持 | 端侧推理是否支持 |
 |-----------------------|--------|--------|
-| [std::vector<char> CharVersion()](#charversion)     |    ✕    |    √    |
+| [std::vector\<char\> CharVersion()](#charversion)     |    ✕    |    √    |
 
 \#include &lt;types.h&gt;
 
@@ -3496,7 +3497,7 @@ inline Status(const StatusCode code, int line_of_code, const char *file_name, co
 | [inline std::string GetErrDescription() const](#geterrdescription)     |    √    |    √    |
 | [inline std::string SetErrDescription(const std::string &err_description)](#seterrdescription)     |    √    |    √    |
 | [inline void SetStatusMsg(const std::string &status_msg)](#setstatusmsg)     |    √    |    √    |
-| [friend std::ostream &operator<<(std::ostream &os, const Status &s)](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator<<std-ostream-os,-const-status-s)     |    √    |    √    |
+| [friend std::ostream &operator\<\<(std::ostream &os, const Status &s)](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operator<<std-ostream-os,-const-status-s)     |    √    |    √    |
 | [bool operator==(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorconst-status-other)     |    √    |    √    |
 | [bool operator==(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorenum-statuscode-other-code)     |    √    |    √    |
 | [bool operator!=(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#operatorconst-status-other)     |    √    |    √    |
@@ -3736,6 +3737,7 @@ bool IsError() const;
 - 返回值
 
     是否不是kSuccess。
+
 #### CodeAsString
 
 ```cpp
@@ -4101,14 +4103,14 @@ RunnerConfig()
 |-------------------------------------------------------------|---------|---------|
 | [void SetWorkersNum(int32_t workers_num)](#setworkersnum)     |    √    |    ✕    |
 | [int32_t GetWorkersNum() const](#getworkersnum)     |    √    |    ✕    |
-| [void SetContext(const std::shared_ptr<Context> &context)](#setcontext)     |    √    |    ✕    |
-| [std::shared_ptr<Context> GetContext() const](#getcontext)     |    √    |    ✕    |
-| [inline void SetConfigInfo(const std::string &section, const std::map<std::string, std::string> &config)](#setconfiginfo)     |    √    |    ✕    |
-| [inline std::map<std::string, std::map<std::string, std::string>> GetConfigInfo() const](#getconfiginfo)     |    √    |    ✕    |
+| [void SetContext(const std::shared_ptr\<Context\> &context)](#setcontext)     |    √    |    ✕    |
+| [std::shared_ptr\<Context\> GetContext() const](#getcontext)     |    √    |    ✕    |
+| [inline void SetConfigInfo(const std::string &section, const std::map\<std::string, std::string\> &config)](#setconfiginfo)     |    √    |    ✕    |
+| [inline std::map\<std::string, std::map\<std::string, std::string\>\> GetConfigInfo() const](#getconfiginfo)     |    √    |    ✕    |
 | [inline void SetConfigPath(const std::string &config_path)](#setconfigpath)     |    √    |    ✕    |
 | [inline std::string GetConfigPath() const](#getconfigpath)     |    √    |    ✕    |
-| [void SetDeviceIds(const std::vector<uint32_t\> &device_ids)](#setdeviceids)     |    √    |    ✕    |
-| [std::vector<uint32_t\> GetDeviceIds() const](#getdeviceids)     |    √    |    ✕    |
+| [void SetDeviceIds(const std::vector\<uint32_t\> &device_ids)](#setdeviceids)     |    √    |    ✕    |
+| [std::vector\<uint32_t\> GetDeviceIds() const](#getdeviceids)     |    √    |    ✕    |
 
 #### SetWorkersNum
 
@@ -4248,11 +4250,11 @@ ModelParallelRunner()
 
 | 函数                   | 云侧推理是否支持 | 端侧推理是否支持 |
 |-------------------------------------------------------------|---------|---------|
-| [inline Status Init(const std::string &model_path, const std::shared_ptr<RunnerConfig> &runner_config = nullptr)](#init)     |    √    |    ✕    |
-| [Status Init(const void *model_data, const size_t data_size, const std::shared_ptr<RunnerConfig> &runner_config = nullptr)](#init-1)     |    √    |    ✕    |
-| [std::vector<MSTensor> GetInputs()](#getinputs)     |    √    |    ✕    |
-| [std::vector<MSTensor> GetOutputs()](#getoutputs)     |    √    |    ✕    |
-| [Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict)     |    √    |    ✕    |
+| [inline Status Init(const std::string &model_path, const std::shared_ptr\<RunnerConfig\> &runner_config = nullptr)](#init)     |    √    |    ✕    |
+| [Status Init(const void *model_data, const size_t data_size, const std::shared_ptr\<RunnerConfig\> &runner_config = nullptr)](#init-1)     |    √    |    ✕    |
+| [std::vector\<MSTensor\> GetInputs()](#getinputs)     |    √    |    ✕    |
+| [std::vector\<MSTensor\> GetOutputs()](#getoutputs)     |    √    |    ✕    |
+| [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict)     |    √    |    ✕    |
 
 #### Init
 
@@ -4354,10 +4356,10 @@ ModelGroup(ModelGroupFlag flags = ModelGroupFlag::kShareWorkspace)
 
 | 函数                   | 云侧推理是否支持 | 端侧推理是否支持 |
 |-------------------------------------------------------------|---------|---------|
-| [Status AddModel(const std::vector<std::string> &model_path_list)](#addmodel)     |    √    |    ✕    |
-| [Status AddModel(const std::vector<std::pair<const void *, size_t>> &model_buff_list)](#addmodel-1)     |    √    |    ✕    |
-| [Status AddModel(const std::vector<Model> &model_list)](#addmodel-2)     |    √    |    ✕    |
-| [Status CalMaxSizeOfWorkspace(ModelType model_type, const std::shared_ptr<Context> &ms_context)](#calmaxsizeofworkspace)     |    √    |    ✕    |
+| [Status AddModel(const std::vector\<std::string\> &model_path_list)](#addmodel)     |    √    |    ✕    |
+| [Status AddModel(const std::vector\<std::pair\<const void *, size_t\>\> &model_buff_list)](#addmodel-1)     |    √    |    ✕    |
+| [Status AddModel(const std::vector\<Model\> &model_list)](#addmodel-2)     |    √    |    ✕    |
+| [Status CalMaxSizeOfWorkspace(ModelType model_type, const std::shared_ptr\<Context\> &ms_context)](#calmaxsizeofworkspace)     |    √    |    ✕    |
 
 #### AddModel
 
