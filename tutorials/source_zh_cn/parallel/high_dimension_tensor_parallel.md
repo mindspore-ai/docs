@@ -61,7 +61,7 @@
 2. 3D张量并行in_strategy配置，主要限定激活张量和权重张量的最后两维的切分: `mindspore.ops.MatMul().shard(in_strategy = (layout(("z","y"),"x" ), layout(("x","z"), "y")))`
 
 > 1. 上述切分规则中的x、y、z即高维TP在不同维度上的切分设备数，需用户根据参与计算的张量的shape自行确定，原则将权重张量均匀切分的配置有更好的性能收益
-> 2. 如果MatMul / BatchMatMul开启了transpose_a或trainspose_b，则高维TP所涉及的切分layout也要调换到对应位置
+> 2. 如果MatMul / BatchMatMul开启了transpose_a或transpose_b，则高维TP所涉及的切分layout也要调换到对应位置
 
 ## 操作实践
 
