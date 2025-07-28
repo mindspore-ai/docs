@@ -947,8 +947,8 @@ Model()
 | [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
 | [Status Build(GraphCell graph, const std::shared_ptr\<Context\> &model_context = nullptr, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#build-4)     |    ✕    |    √    |
 | [Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr\<Context\> &context, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#buildtransferlearning)     |    ✕    |    √    |
-| [Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims)](#resize)     |    √    |    √    |
-| [Status UpdateWeights(const std::vector<MSTensor> &new_weights)](#updateweights)     |    ✕    |    √    |
+| [Status Resize(const std::vector\<MSTensor\> &inputs, const std::vector\<std::vector\<int64_t\>\> &dims)](#resize)     |    √    |    √    |
+| [Status UpdateWeights(const std::vector\<MSTensor\> &new_weights)](#updateweights)     |    ✕    |    √    |
 | [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict)     |    √    |    √    |
 | [Status Predict(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict-1)     |    ✕    |    √    |
 | [Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#runstep)     |    ✕    |    √    |
@@ -979,8 +979,8 @@ Model()
 | [Status BindGLTexture2DMemory(const std::map\<std::string, unsigned int\> &inputGLTexture, std::map\<std::string, unsigned int\> *outputGLTexture)](#bindgltexture2dmemory)     |    ✕    |    √    |
 | [Status SetTrainMode(bool train)](#settrainmode)     |    ✕    |    √    |
 | [bool GetTrainMode() const](#gettrainmode)     |    ✕    |    √    |
-| [Status Train(int epochs, std::shared_ptr\< dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#train)     |    ✕    |    √    |
-| [Status Evaluate(std::shared_ptr\< dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#evaluate)     |    ✕    |    √    |
+| [Status Train(int epochs, std::shared_ptr\<dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#train)     |    ✕    |    √    |
+| [Status Evaluate(std::shared_ptr\<dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#evaluate)     |    ✕    |    √    |
 | [Status Finalize()](#finalize)     |  √ |  √ |
 | [Status UpdateWeights(const std::vector\<std::vector\<MSTensor\>\> &new_weights)](#updateweights) | √    |  √     |
 | [const std::shared_ptr\<ModelImpl\> impl()](#impl) | √    |  √     |
