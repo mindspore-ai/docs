@@ -120,4 +120,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ## More Information
 
-For more training examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
+For more training examples of different models, see [the models supported by MindSpore TransFormers](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).

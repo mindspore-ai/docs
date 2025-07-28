@@ -40,7 +40,7 @@ The 2D tensor parallelism slices both the activation bsh and the weight he by tw
 
 A comprehensive comparison of the theoretical computation, storage, and communication overheads for 1D/2D/3D is as follows:
 
-| TP Type | Compution | Memory(parameters) | Memory(activation) | Communication Volume(Single Device) |
+| TP Type | Computation | Memory(parameters) | Memory(activation) | Communication Volume(Single Device) |
 | ----------- | ----------- | ----------- | ----------- | ----------- |
 | 1D tensor parallel computing | O(1/P) | O(1/P) | O(1) | 2(P-1)bsh/P |
 | 2D tensor parallel computing | O(1/xy) | O(1/xy) | O(1/xy) | 2bs[e(x-1)+h (y-1)]/xy |
@@ -61,7 +61,7 @@ With the above switch turned on, shard slicing determines whether 2D or 3D paral
 2. 3D tensor parallel in_strategy configurations, mainly limiting the activation tensor and the last two dimensions of the weight tensor: `mindspore.ops.MatMul().shard(in_strategy = (layout(("z","y"),"x" ), layout(("x","z"), "y")))`
 
 > 1. The x, y, z in the above slicing rule, i.e., the number of slicing devices for high-dimensional TP in different dimensions, should be determined by the user according to the shape of the tensor involved in the computation, and the principle of evenly slicing the weight tensor configuration has a better performance gain.
-> 2. If MatMul / BatchMatMul has transpose_a or trainspose_b turned on, the slice layout involved in the high-dimensional TP is also switched to the corresponding position.
+> 2. If MatMul / BatchMatMul has transpose_a or transpose_b turned on, the slice layout involved in the high-dimensional TP is also switched to the corresponding position.
 
 ## Operation Practice
 
