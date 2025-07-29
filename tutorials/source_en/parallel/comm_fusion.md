@@ -22,7 +22,7 @@ As shown in the figure below, each node backs up the complete neural network mod
 
 #### The Necessity of Communication Fusion
 
-The time overhead of network communication can be measured by the following equation, where $m$ is the size of the data transmission, $\alpha$ is the network transmission rate, and $\beta$ is the inherent overhead of network startup. As can be seen, when the number of transmitted messages becomes larger, the inherent overhead share of network shartup will decrease, transmitting small messages does not make efficient use of network bandwidth resources. Even communication primitives in the HPC domain, such as `AllReduce` and `AllGather`, follow this principle. Therefore, communication fusion technology can effectively improve network resource utilization and reduce network synchronization delay.
+The time overhead of network communication can be measured by the following equation, where $m$ is the size of the data transmission, $\alpha$ is the network transmission rate, and $\beta$ is the inherent overhead of network startup. As can be seen, when the number of transmitted messages becomes larger, the inherent overhead share of network startup will decrease, transmitting small messages does not make efficient use of network bandwidth resources. Even communication primitives in the HPC domain, such as `AllReduce` and `AllGather`, follow this principle. Therefore, communication fusion technology can effectively improve network resource utilization and reduce network synchronization delay.
 
 $$t = \alpha m+\beta$$
 

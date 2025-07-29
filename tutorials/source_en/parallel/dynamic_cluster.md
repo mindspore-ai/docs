@@ -380,7 +380,7 @@ do
 done
 ```
 
-> In a multi-machine task, you need to set a different hostname for each host node, otherwise you will get an error reporting `deivce id` out of bounds. Refer to [FAQ](https://www.mindspore.cn/docs/en/r2.7.0rc1/faq/distributed_parallel.html#q-when-starting-distributed-framework-using-dynamic-cluster-or-msrun-in-multi-machine-scenario,-an-error-is-reported-that-device-id-is-out-of-range-how-can-we-solve-it?).
+> In a multi-machine task, you need to set a different hostname for each host node, otherwise you will get an error reporting `device id` out of bounds. Refer to [FAQ](https://www.mindspore.cn/docs/en/r2.7.0rc1/faq/distributed_parallel.html#q-when-starting-distributed-framework-using-dynamic-cluster-or-msrun-in-multi-machine-scenario,-an-error-is-reported-that-device-id-is-out-of-range-how-can-we-solve-it?).
 >
 > In a multi-machine task, `MS_WORKER_NUM` should be the total number of Worker nodes in the cluster.
 >
