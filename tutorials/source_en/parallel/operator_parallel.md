@@ -4,7 +4,7 @@
 
 ## Overview
 
-With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel. Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model and distributing the operators to multiple devices, reducing memory consumption on a single device, thus enabling the training of large models.
+With the development of deep learning, network models are becoming larger and larger, such as trillions of parameterized models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel. Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model and distributing the operators to multiple devices, reducing memory consumption on a single device, thus enabling the training of large models.
 
 MindSpore provides two levels of granularity: operator-level parallelism and higher-order operator-level parallelism. Operator-level parallelism describes the tensor dimensionality distribution through a simple slicing strategy, which meets the requirements of most scenarios. Higher-order operator parallelism supports complex slicing scenarios through open device scheduling descriptions. The Operator-level Parallelism capabilities at two granularities both support ops and mint operators simultaneously. This chapter will introduce the practices of operator-level parallelism and high-order operator-level parallelism based on ops and mint operators respectively.
 
@@ -281,7 +281,7 @@ class Network(nn.Cell):
 net = Network()
 ```
 
-The `mint.matmul` and `mint.nn.functional.relu` operators for the above networks are configured with slicing strategy, in the case of `ms.parallel.shard(mint.matmul, in_strategy=((2, 4), (4, 1)))`, which has a slicing strategy of: rows of the first input are sliced in 2 parts and columns in 4 parts; rows of the second input are sliced in 4 parts. For `ms.parallel.shard(mint.mean, in_strategy=((8, 1),))`, its slicing strategy is: the row of the first input is sliced in 8 parts. Note that since the two `mint.nn.functional.relu` here have different slicing strategies, i.e., `ms.parallel.shard(mint.nn.functional.relu, in_strategy=((4, 1),))` and `ms.parallel.shard(mint.nn.functional.relu, in_strategy=((8, 1),))` have to be defined twice separately.
+The `mint.matmul` and `mint.nn.functional.relu` operators for the above networks are configured with slicing strategy, in the case of `ms.parallel.shard(mint.matmul, in_strategy=((2, 4), (4, 1)))`, which has a slicing strategy of: rows of the first input are sliced in 2 parts and columns in 4 parts; rows of the second input are sliced in 4 parts. For `ms.parallel.shard(mint.nn.functional.relu, in_strategy=((8, 1),))`, its slicing strategy is: the row of the first input is sliced in 8 parts. Note that since the two `mint.nn.functional.relu` here have different slicing strategies, i.e., `ms.parallel.shard(mint.nn.functional.relu, in_strategy=((4, 1),))` and `ms.parallel.shard(mint.nn.functional.relu, in_strategy=((8, 1),))` have to be defined twice separately.
 
 #### Parallel Configuration
 

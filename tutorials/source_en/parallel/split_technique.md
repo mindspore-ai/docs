@@ -20,13 +20,13 @@ The operators of deep learning frameworks can be broadly categorized into two ty
 
 ### Configuring Boundary Operators that Change in Parallel Strategy
 
-For ResNet-like models, different parts of the model have different preferred parallel: the first half uses data parallel, and the second half uses model parallel for optimal iterative performance. For Llama-like large models, when vocab_size is too large, model parallel slicing may be chosen for memory considerations; when sequence_length is too large, the strategy of sequence parallelism may also be chosen. The above strategies belong to those carefully configured by the user based on the model and hardware information.Sharding Propagation is a plain algorithm to find the least cost of rearrangement, and it does not find the carefully configured strategies automatically, so for the operator strategies carefully tuned by the user, it is necessary to configure them exclusively. In the example below, the first MatMul is configured with a strategy for data parallel, which will propagate the strategy for data parallel forward to the first half of the model, while the second MatMul is configured with a strategy for model parallel, which will propagate the strategy for model parallel backward to the second half of the model.
+For ResNet-like models, different parts of the model have different preferred parallel: the first half uses data parallel, and the second half uses model parallel for optimal iterative performance. For Llama-like large models, when vocab_size is too large, model parallel slicing may be chosen for memory considerations; when sequence_length is too large, the strategy of sequence parallelism may also be chosen. The above strategies belong to those carefully configured by the user based on the model and hardware information. Sharding Propagation is a plain algorithm to find the least cost of rearrangement, and it does not find the carefully configured strategies automatically, so for the operator strategies carefully tuned by the user, it is necessary to configure them exclusively. In the example below, the first MatMul is configured with a strategy for data parallel, which will propagate the strategy for data parallel forward to the first half of the model, while the second MatMul is configured with a strategy for model parallel, which will propagate the strategy for model parallel backward to the second half of the model.
 
 ![sp_case3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/parallel/images/sp_case3.png "Configuring Boundary Operators that Change in Parallel Method")
 
 ### Configuring Fusion Operators
 
-Fusion large operators, such as [FlashAttentionScore](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_ops_FlashAttentionScore.html#exhale-class-classmindspore-ops-flashattentionscore), [rms_norm](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.rms_norm.html), are also operators that require the user to manually configure the strategy. The input and output logic of the fusion operator is relatively complex, and the propagated strategy without reordering is not necessarily the strategy expected by the user. These operators also require explicit configuration of the operator-level strategy.
+Large fusion operators, such as [FlashAttentionScore](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_ops_FlashAttentionScore.html#exhale-class-classmindspore-ops-flashattentionscore), [rms_norm](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.rms_norm.html), are also operators that require the user to manually configure the strategy. The input and output logic of the fusion operator is relatively complex, and the propagated strategy without reordering is not necessarily the strategy expected by the user. These operators also require explicit configuration of the operator-level strategy.
 
 Users working with strategy propagation need to have some understanding not only of its propagation algorithm itself, but also of the parallelism of the model to be trained. If there exists a certain operator whose parallelization strategy determined by the strategy propagation algorithm does not meet the user's expectations, that can always be solved by configuring an additional operator parallelization strategy. In practice, for a new model, it does take several attempts to obtain an overall parallel configuration with better performance.
 
@@ -52,7 +52,7 @@ class RowParallelLinear(nn.Cell):
             matmul_in_strategy = ((dp * cp, 1), weight_strategy)
             self.matmul.shard(in_strategy=matmul_in_strategy)
 +      if not self.skip_bias_add:
-+          dd_in_strategy = ((dp * cp, tp), (tp,))
++          add_in_strategy = ((dp * cp, tp), (tp,))
 +          self.add.shard(in_strategy=add_in_strategy)
 ```
 

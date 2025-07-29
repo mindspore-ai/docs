@@ -281,7 +281,7 @@ class Network(nn.Cell):
 net = Network()
 ```
 
-以上网络的`mint.matmul`和`mint.nn.functional.relu`算子都配置了切分策略，以`ms.parallel.shard(mint.matmul, in_strategy=((2, 4), (4, 1)))`为例，它的切分策略为：第一个输入的行切分2份，列切分4份；第二个输入的行切分4份；对于`ms.parallel.shard(mint.mean, in_strategy=((8, 1),))`，它的切分策略为：第一个输入的行切分8份。需要注意的是，此处的两个`mint.nn.functional.relu`的切分策略不同，一个是`ms.parallel.shard(mint.nn.functional.relu, in_strategy=((4, 1),))`，一个是`ms.parallel.shard(mint.nn.functional.relu, in_strategy=((8, 1),))`，所以要定义两次。
+以上网络的`mint.matmul`和`mint.nn.functional.relu`算子都配置了切分策略，以`ms.parallel.shard(mint.matmul, in_strategy=((2, 4), (4, 1)))`为例，它的切分策略为：第一个输入的行切分2份，列切分4份；第二个输入的行切分4份；对于`ms.parallel.shard(mint.nn.functional.relu, in_strategy=((8, 1),))`，它的切分策略为：第一个输入的行切分8份。需要注意的是，此处的两个`mint.nn.functional.relu`的切分策略不同，一个是`ms.parallel.shard(mint.nn.functional.relu, in_strategy=((4, 1),))`，一个是`ms.parallel.shard(mint.nn.functional.relu, in_strategy=((8, 1),))`，所以要定义两次。
 
 #### 并行配置
 
