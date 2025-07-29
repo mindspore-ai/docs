@@ -71,7 +71,7 @@
 
 报告issue时，请参考以下格式：
 
-- 说明您使用的环境版本（vLLM MindSpore、MindFormers、MindSpore、OS、Python等）;
+- 说明您使用的环境版本（vLLM MindSpore、MindSpore TransFormers、MindSpore、OS、Python等）;
 - 说明是错误报告还是功能需求；
 - 说明issue类型，添加标签可以在issue板上突出显示该issue;
 - 问题是什么；

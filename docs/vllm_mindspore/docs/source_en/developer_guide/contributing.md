@@ -65,7 +65,7 @@ Follow these guidelines for community code review, maintenance, and development.
 
 To contribute by reporting issues, follow these guidelines:
 
-- Specify your environment versions (vLLM MindSpore, MindFormers, MindSpore, OS, Python, etc.).
+- Specify your environment versions (vLLM MindSpore, MindSpore TransFormers, MindSpore, OS, Python, etc.).
 - Indicate whether it's a bug report or feature request.
 - Label the issue type for visibility on the issue board.
 - Describe the problem and expected resolution.

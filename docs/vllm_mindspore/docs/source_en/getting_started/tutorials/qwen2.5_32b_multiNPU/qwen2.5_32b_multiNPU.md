@@ -120,7 +120,7 @@ For [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct), the followi
 ```bash
 #set environment variables
 export ASCEND_TOTAL_MEMORY_GB=64 # Use `npu-smi info` to check the memory.
-export vLLM_MODEL_BACKEND=MindFormers # Use MindFormers as the model backend.
+export vLLM_MODEL_BACKEND=MindFormers # Use MindSpore TransFormers as the model backend.
 export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Adjust based on the model's maximum usage, with the remaining allocated for KV cache.
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model YAML file.
 ```
