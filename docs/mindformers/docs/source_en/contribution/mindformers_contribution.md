@@ -53,7 +53,7 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
 
 - Submit PR to MindSpore Transformers code repository
 
-  In the last step, you need to pull a compare request between the new branch and the `MindSpore Transformers` master branch. After completing the pull request, `Jenkins CI` will be automatically set up for build testing. PR should be merged into the upstream dev branch as soon as possible to minimize the risk of merging.
+  In the last step, you need to pull a compare request between the new branch and the `MindSpore Transformers` master branch. After completing the pull request, `Jenkins CI` will be automatically set up for build testing. PR should be merged into the upstream master branch as soon as possible to minimize the risk of merging.
 
   ```shell
   # Add all changes to the staging area
