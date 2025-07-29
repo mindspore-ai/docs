@@ -19,9 +19,9 @@ Optimization Techniques
   host_device_training
   comm_fusion
 
-Considering that in actual parallel training, there may be requirements for training performance, throughput or size, optimization can be considered in three ways: parallel strategy optimization, memory optimization and communication optimization
+Considering that in actual parallel training, there may be requirements for training performance, throughput or size, optimization can be considered in three ways: parallel strategy optimization, memory optimization and communication optimization.
 
-- Parallel Strategy Optimization: parallel strategy optimization mainly includes the selection of parallel strategy, sharding technique under operator-level parallel, and multi-copy technique.
+- Parallel strategy optimization: parallel strategy optimization mainly includes the selection of parallel strategy, sharding technique under operator-level parallel, and multi-copy technique.
   
   - `Strategy Selection <https://www.mindspore.cn/tutorials/en/master/parallel/strategy_select.html>`_: Depending on the model size and data volume size, different parallel strategies can be selected to improve training efficiency and resource utilization.
   - `Sharding Techniques <https://www.mindspore.cn/tutorials/en/master/parallel/split_technique.html>`_: The sharding technique refers to the reduction of tensor rearranging to improve training efficiency by manually configuring the sharding strategy for certain key operators.

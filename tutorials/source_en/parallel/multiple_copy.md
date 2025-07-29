@@ -4,19 +4,19 @@
 
 ## Overview
 
-In large model training, communication introduced by tensor parallel is a significant performance bottleneck. This part of communication depends on the previous calculation result and cannot be overlapped with the calculation. To solve this problem, mindspore proposes multi-copy parallel.
+In large model training, communication introduced by tensor parallel is a significant performance bottleneck. This part of communication depends on the previous calculation result and cannot be overlapped with the calculation. To solve this problem, MindSpore proposes multi-copy parallel.
 
 Usage Scenario: When there is model parallel in semi-automatic mode as well as in the network, the forward computation of the 1st copy of the sliced data will be performed at the same time as the 2nd copy of the data will be communicated with the parallel model as a way to achieve performance acceleration of the communication and computation concurrency.
 
 ### Basic Principle
 
-The data of input model is sliced according to the batchsize dimension, thus modifying the existing single-copy form into a multi-copy form, so that when the underlying layer is communicating, the other copy carries out the computational operation without waiting, which ensures that the computation and communication times of multi-copy complement each other and improve the model performance. At the same time, splitting the data into a multi-copy form also reduces the number of parameter of the operator inputs and reduces the computation time of a single operator, which is helpful in improving the model performance.
+The data of input model is sliced according to the batch size dimension, thus modifying the existing single-copy form into a multi-copy form, so that when the underlying layer is communicating, the other copy carries out the computational operation without waiting, which ensures that the computation and communication times of multi-copy complement each other and improve the model performance. At the same time, splitting the data into a multi-copy form also reduces the number of parameter of the operator inputs and reduces the computation time of a single operator, which is helpful in improving the model performance.
 
 ![Multi-copy parallel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/multi_copy.png)
 
 ### Related Interfaces
 
-- [mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html): This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
+- [mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html): This function serves to split the input into `interleave_num` parts in the first dimension (dimension 0), and then performs the computation of the wrapped cell.
 
 ## Operator Practice
 
