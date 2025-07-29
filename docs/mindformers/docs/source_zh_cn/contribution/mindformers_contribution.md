@@ -53,7 +53,7 @@
 
 - 提交PR到MindSpore Transformers代码仓
 
-  在最后一步中，您需要在新分支和`MindSpore Transformers`主分支之间拉取比较请求。完成拉取请求后，`Jenkins CI`将自动设置，进行构建测试。PR应该尽快合并到上游dev分支中，以降低合并的风险。
+  在最后一步中，您需要在新分支和`MindSpore Transformers`主分支之间拉取比较请求。完成拉取请求后，`Jenkins CI`将自动设置，进行构建测试。PR应该尽快合并到上游master分支中，以降低合并的风险。
 
   ```shell
   # 添加所有更改到暂存区
