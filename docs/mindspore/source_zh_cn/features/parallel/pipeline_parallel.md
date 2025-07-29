@@ -12,7 +12,7 @@
 
 1. [mindspore.parallel.auto_parallel.AutoParallel(network, parallel_mode="semi_auto")](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)：通过静态图并行封装指定并行模式，其中`network`是待封装的顶层`Cell`或函数，`parallel_mode`取值`semi_auto`，表示半自动并行模式。该接口返回封装后包含并行配置的`Cell`。
 
-2. [mindspore.parallel.auto_parallel.AutoParallel.pipeline(stages=1, output_broadcast=False, interleave=False, scheduler='1f1b')](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html#mindspore.parallel.auto_parallel.AutoParallel.pipeline)：设置流水线并行配置。`stages`表示流水线并行需要设置的切分总数，`output_broadcast`表示流水线并行推理时，最后一个stage的结果是否广播给其他stage，`interleave`表示是否开启interleave优化策略，`scheduler`表示流水线并行的调度策略，当前支持`gpipe`和`1f1b`。
+2. [mindspore.parallel.auto_parallel.AutoParallel.pipeline(stages=1, output_broadcast=False, interleave=False, scheduler='1f1b')](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html#mindspore.parallel.auto_parallel.AutoParallel.pipeline)：设置流水线并行配置。`stages`表示流水线并行需要设置的切分总数，`output_broadcast`表示流水线并行推理时，最后一个stage的结果是否广播给其他stage，`interleave`表示是否开启interleave优化策略，`scheduler`表示流水线并行的调度策略，当前支持`gpipe`/`1f1b`/`seqpipe`/`seqvpp`/`seqsmartvpp`/`zero_bubble_v`。
 
 3. [mindspore.parallel.Pipeline(network, micro_size=1, stage_config={"cell1":0, "cell2":1})](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.Pipeline.html)：流水线并行需要需要在`network`外再添加一层`Pipeline`，并通过`micro_size`指定MicroBatch的个数，以及指出网络中各Cell在哪个`stage`中执行。如果对于`network`使用`nn.WithLossCell`封装，则会改变`Cell`的名称，并增加`_backbone`前缀。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，micro_size必须大于等于stages的数量。
 
@@ -68,7 +68,7 @@ MindSpore在Megatron-LM的interleaved pipeline调度的基础上做了内存优�
 
 ### zero_bubble_v pipeline调度
 
-zero_bubble_v pipeline调度通过将反向计算过程拆分为梯度计算与参数更新，进一步提升流水线并行的效率，减少Bubble率，如图6所示。在zero_bubble_v pipeline调度中，对于连续的模型层，stage的数值会先增大后减小。例如：对于有8个连续层，stage为4时，stage0有第0和第7层，stage1有第1和第6层，stage2有第2和第5层，stage3有第3和第4层。
+zero_bubble_v pipeline调度通过将反向计算过程拆分为梯度计算与参数更新，进一步提升流水线并行的效率，减少Bubble率，如图6所示。在zero_bubble_v pipeline调度中，对于连续的模型层，stage的数值会先增大后减小，前一半层的pipeline_segment为0，后一半层的pipeline_segment为1。例如：对于有8个连续层，stage为4时，stage0有第0和第7层，stage1有第1和第6层，stage2有第2和第5层，stage3有第3和第4层，第0层到和3层的pipeline_segment为0，第4层到第7层的pipeline_segment为1。
 
 ![zero_bubble_v.png](images/zero_bubble_v.png)
 
