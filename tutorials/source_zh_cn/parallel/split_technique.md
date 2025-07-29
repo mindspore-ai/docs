@@ -8,7 +8,7 @@
 
 ### 配置涉及权重的算子
 
-参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindFormers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
+参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindSpore TransFormers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
 
 ![sp_case1_zh](./images/sp_case1_zh.png "配置涉及权重的算子")
 
@@ -32,7 +32,7 @@
 
 ## 配置代码样例
 
-以MindFormers中封装的类[RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/experimental/graph/tensor_parallel/layers.py)为例：
+以MindSpore TransFormers中封装的类[RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/experimental/graph/tensor_parallel/layers.py)为例：
 
 <table>
 <tr>
@@ -159,7 +159,7 @@ class FlashAttention(Cell):
 </tr>
 </table>
 
-若直接使用MindFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama.py)。
+若直接使用MindSpore TransFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama.py)。
 <table>
 <tr>
 <td valign='top'>

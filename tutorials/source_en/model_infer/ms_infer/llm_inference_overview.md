@@ -97,14 +97,14 @@ Based on the mainstream Llama2 open-source large language model, this section de
 
 ### Environment Preparation
 
-MindSpore large language model primarily relies on the MindSpore framework and the MindFormers model suite. Before using it, install the MindSpore and MindFormers Python packages. Run the following installation commands:
+MindSpore large language model primarily relies on the MindSpore framework and the MindSpore TransFormers model suite. Before using it, install the MindSpore and MindSpore TransFormers Python packages. Run the following installation commands:
 
 ```shell
 pip install mindspore
 pip install mindformers
 ```
 
-You can also install the Python package that adapts to your environment by referring to the official installation document. For details, see [MindSpore Installation](https://www.mindspore.cn/install/en) and [MindFormers Installation](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/installation.html).
+You can also install the Python package that adapts to your environment by referring to the official installation document. For details, see [MindSpore Installation](https://www.mindspore.cn/install/en) and [MindSpore TransFormers Installation](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/installation.html).
 
 If you wish to use model quantization to enhance inference performance, you need to install the mindspore_gs package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/install.html).
 
@@ -119,7 +119,7 @@ git lfs install
 git clone https://huggingface.co/daryl149/llama-2-7b-hf
 ```
 
-After downloading, you will need to convert the Hugging Face weight format to MindSpore's format. This can be done by calling the conversion script provided by MindSpore's model suite MindFormers:
+After downloading, you will need to convert the Hugging Face weight format to MindSpore's format. This can be done by calling the conversion script provided by MindSpore's model suite MindSpore TransFormers:
 
 ```shell
 python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindspore_ckpt_path "/path/to/mindspore_ckpt"
@@ -131,7 +131,7 @@ For details, see [Large Language Model Weights Obtaining and Preparation](./weig
 
 ### Model Construction
 
-You can construct a large language model using the MindFormers model suite, which includes loading model weights, building the backbone network, preprocessing with the tokenizer, performing model inference, postprocessing to select the final output token, and implementing multi-turn training steps for text generation. This provides a seamless end-to-end text generation workflow, enabling one-click deployment and inference. It also integrates MindSpore built-in acceleration techniques such as full and incremental inference, flash attention, page attention, and operator fusion, resulting in good performance. You are advised to use this approach for inference. You can use the models provided by MindFormers by using the following code.
+You can construct a large language model using the MindSpore TransFormers model suite, which includes loading model weights, building the backbone network, preprocessing with the tokenizer, performing model inference, postprocessing to select the final output token, and implementing multi-turn training steps for text generation. This provides a seamless end-to-end text generation workflow, enabling one-click deployment and inference. It also integrates MindSpore built-in acceleration techniques such as full and incremental inference, flash attention, page attention, and operator fusion, resulting in good performance. You are advised to use this approach for inference. You can use the models provided by MindSpore TransFormers by using the following code.
 
 ```python
 import mindspore as ms
@@ -146,7 +146,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-In this code, tokenizer.model is a tokenizer file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while config is the model configuration file from MindFormers, which includes the relevant parameters for running the Llama2 model.
+In this code, tokenizer.model is a tokenizer file downloaded along with the weights from the Hugging Face official website, containing the token mapping table, while config is the model configuration file from MindSpore TransFormers, which includes the relevant parameters for running the Llama2 model.
 
 In addition, if you have special requirements for the model or have a deep understanding of deep learning, you can build your own model. For details, see [Model Development](./model_dev.md).
 
@@ -202,15 +202,15 @@ Once the model is constructed, you can utilize the model object for text generat
 
     It can be seen that the model-inferred token IDs are translated to the understandable statement. In actual verification, due to the randomness of do_sample, each inference is different, but the result logic is basically understandable.
 
-    Note: Each inference step involves postprocessing, specifically selecting generated tokens from the token probability distribution. The simplest way to obtain the highest probability token is by using argmax. The MindFormers model incorporates this processing into the generate API. If you build a large language model yourself, you will need to implement this part separately.
+    Note: Each inference step involves postprocessing, specifically selecting generated tokens from the token probability distribution. The simplest way to obtain the highest probability token is by using argmax. The MindSpore TransFormers model incorporates this processing into the generate API. If you build a large language model yourself, you will need to implement this part separately.
 
-In addition to utilizing the capabilities provided by the MindFormers model suite, you can also build your own preprocessing and postprocessing. Given the complexity of the logic, you may refer to the relevant implementations in MindFormers. For details, see [llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama_tokenizer.py) and [text_generator.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/generation/text_generator.py).
+In addition to utilizing the capabilities provided by the MindSpore TransFormers model suite, you can also build your own preprocessing and postprocessing. Given the complexity of the logic, you may refer to the relevant implementations in MindSpore TransFormers. For details, see [llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama_tokenizer.py) and [text_generator.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/generation/text_generator.py).
 
 ### Model Parallelism
 
-For large language models with many model parameters, such as Llama2-70B and Qwen2-72B, the parameter scale usually exceeds the memory capacity of a GPU or NPU. Therefore, multi-device parallel inference is required. MindSpore large language model inference can shard the original large language model into N parallel models so that they can be executed on multiple devices in parallel. This not only enables inference for super-large models but also enhances performance by leveraging more resources from the multiple devices. The model scripts provided by the MindFormers model suite can be used to shard a model into multi-device models for execution. You can perform the following steps to deploy the model on multiple devices.
+For large language models with many model parameters, such as Llama2-70B and Qwen2-72B, the parameter scale usually exceeds the memory capacity of a GPU or NPU. Therefore, multi-device parallel inference is required. MindSpore large language model inference can shard the original large language model into N parallel models so that they can be executed on multiple devices in parallel. This not only enables inference for super-large models but also enhances performance by leveraging more resources from the multiple devices. The model scripts provided by the MindSpore TransFormers model suite can be used to shard a model into multi-device models for execution. You can perform the following steps to deploy the model on multiple devices.
 
-1. **Weight sharding**: Because the original weight files are too large, when executing on multiple devices, the overall weight needs to be sharded into multiple weights for each device and passed to the model process corresponding to each device. You can use the script in the MindFormers model suite to perform weight sharding. For details, see [Weight Conversion](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/feature_cards/Transform_Ckpt.md).
+1. **Weight sharding**: Because the original weight files are too large, when executing on multiple devices, the overall weight needs to be sharded into multiple weights for each device and passed to the model process corresponding to each device. You can use the script in the MindSpore TransFormers model suite to perform weight sharding. For details, see [Weight Conversion](https://gitee.com/mindspore/mindformers/blob/r1.5.0/docs/feature_cards/Transform_Ckpt.md).
 
     Here is an example of how to shard the Llama2-7B model for parallel execution on two devices.
 
@@ -241,7 +241,7 @@ For large language models with many model parameters, such as Llama2-70B and Qwe
 
         Here, src_checkpoint is the path to the source CKPT file. In the example, full sharding is used. Therefore, the source strategy file does not need to be passed. However, the path must point to the CKPT file, not to a directory. dst_checkpoint is the target directory of the sharding result. After the sharding is complete, two subdirectories rank_0 and rank_1 are generated to store the weight CKPT files of different devices. dst_strategy is the path of the strategy file generated in the previous step.
 
-2. **Model adaptation**: When the MindSpore large language model is running on multiple devices, model parallelism is usually used. Therefore, the original model needs to be sharded based on the number of devices. For example, the matrix multiplication of [1024, 4096] and [4096, 2048] can be sharded into two matrix multiplications of [1024, 4096] and [4096, 1024] respectively. Different sharding may bring different parallel computing performance. The MindFormers model provides proven excellent sharding solution for MindSpore model and uses the MindSpore parallel framework for sharding. The following is part of the sharding code in the model:
+2. **Model adaptation**: When the MindSpore large language model is running on multiple devices, model parallelism is usually used. Therefore, the original model needs to be sharded based on the number of devices. For example, the matrix multiplication of [1024, 4096] and [4096, 2048] can be sharded into two matrix multiplications of [1024, 4096] and [4096, 1024] respectively. Different sharding may bring different parallel computing performance. The MindSpore TransFormers model provides proven excellent sharding solution for MindSpore model and uses the MindSpore parallel framework for sharding. The following is part of the sharding code in the model:
 
     ```python
     if not (_get_parallel_mode() in (ParallelMode.AUTO_PARALLEL,) and _is_sharding_propagation()):

@@ -97,14 +97,14 @@ MindSpore大语言模型为了能够实现最优的性价比，针对大语言�
 
 ### 环境准备
 
-MindSpore大语言模型主要依赖MindSpore框架以及MindFormers模型套件库，用户在使用前，需要先安装MindSpore和MindFormers的Python包。可以执行如下命令简单安装：
+MindSpore大语言模型主要依赖MindSpore框架以及MindSpore TransFormers模型套件库，用户在使用前，需要先安装MindSpore和MindSpore TransFormers的Python包。可以执行如下命令简单安装：
 
 ```shell
 pip install mindspore
 pip install mindformers
 ```
 
-同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://www.mindspore.cn/install)和[MindFormers安装](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/installation.html)。
+同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://www.mindspore.cn/install)和[MindSpore TransFormers安装](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/installation.html)。
 
 如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/install.html)。
 
@@ -119,7 +119,7 @@ git lfs install
 git clone https://huggingface.co/daryl149/llama-2-7b-hf
 ```
 
-下载完成后，还需要将HuggingFace的权重格式转换为MindSpore的权重格式，用户可以通过直接调用MindSpore的模型套件MindFormers的脚本进行转换：
+下载完成后，还需要将HuggingFace的权重格式转换为MindSpore的权重格式，用户可以通过直接调用MindSpore的模型套件MindSpore TransFormers的脚本进行转换：
 
 ```shell
 python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindspore_ckpt_path "/path/to/mindspore_ckpt"
@@ -131,7 +131,7 @@ python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindsp
 
 ### 模型构建
 
-用户可以通过使用MindFormers模型套件来构建大语言模型。该套件涵盖了加载模型权重、构建模型主干网络、利用tokenizer进行前处理、完成模型推理、通过后处理选出最终输出token，以及多轮迭代实现文本生成等功能，端到端打通了模型文本生成流程，实现一键式部署和推理。同时，MindFormers模型套件还集成了多种MindSpore内置加速技术，包括全量/增量推理、Flash Attention、Page Attention、融合算子等，拥有较好的性能。因此，建议用户优先使用该套件进行推理。用户可以通过下面的代码来使用MindFormers提供的模型：
+用户可以通过使用MindSpore TransFormers模型套件来构建大语言模型。该套件涵盖了加载模型权重、构建模型主干网络、利用tokenizer进行前处理、完成模型推理、通过后处理选出最终输出token，以及多轮迭代实现文本生成等功能，端到端打通了模型文本生成流程，实现一键式部署和推理。同时，MindSpore TransFormers模型套件还集成了多种MindSpore内置加速技术，包括全量/增量推理、Flash Attention、Page Attention、融合算子等，拥有较好的性能。因此，建议用户优先使用该套件进行推理。用户可以通过下面的代码来使用MindSpore TransFormers提供的模型：
 
 ```python
 import mindspore as ms
@@ -146,7 +146,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-其中，tokenizer.model是从Hugging Face官网下载的权重文件中附带的tokenizer文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数。
+其中，tokenizer.model是从Hugging Face官网下载的权重文件中附带的tokenizer文件，里面记录了tokens的映射表；config是MindSpore TransFormers的模型配置文件，其中包含了Llama2模型运行的相关参数。
 
 此外，如果用户对于模型有自己的特殊需求，或者对深度学习有较深认识，也可以选择自己构建模型，详细教程见[从零构建大语言模型推理网络](./model_dev.md)。
 
@@ -202,15 +202,15 @@ model = AutoModel.from_config(config)
 
     可以看到，将模型推理的token id翻译后，即是一句可以被正常人理解的语句，实际验证过程中，由于do_sample的随机性，每次推理会有一定的差异，但是结果的逻辑基本都是可以被理解的。
 
-    注意：每轮推理实际都会有一部分后处理，即从token概率分布中选择生成的token，最简单的可以通过argmax计算获取概率最大的token，MindFormers的模型将此处理包含在了generate接口中，如果用户自己构建大语言模型，此部分需要单独实现。
+    注意：每轮推理实际都会有一部分后处理，即从token概率分布中选择生成的token，最简单的可以通过argmax计算获取概率最大的token，MindSpore TransFormers的模型将此处理包含在了generate接口中，如果用户自己构建大语言模型，此部分需要单独实现。
 
-除了使用MindFormers模型套件提供的模型能力外，用户也可以自己构建前处理和后处理，由于其逻辑比较复杂，用户可以参考MindFormers的相关实现进行实现。具体见[llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama_tokenizer.py)和[text_generator.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/generation/text_generator.py)。
+除了使用MindSpore TransFormers模型套件提供的模型能力外，用户也可以自己构建前处理和后处理，由于其逻辑比较复杂，用户可以参考MindSpore TransFormers的相关实现进行实现。具体见[llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama_tokenizer.py)和[text_generator.py](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/generation/text_generator.py)。
 
 ### 模型并行
 
-对于模型参数比较多的大语言模型，如Llama2-70B、Qwen2-72B，由于其参数规模通常会超过一张GPU或者NPU的内存容量，因此需要采用多卡并行推理，MindSpore大语言模型推理支持将原始大语言模型切分成N份可并行的子模型，使其能够分别在多卡上并行执行，在实现超大模型推理同时，也利用多卡中更多的资源提升性能。MindFormers模型套件提供的模型脚本天然支持将模型切分成多卡模型执行，用户可以通过以下步骤在多卡上部署模型。
+对于模型参数比较多的大语言模型，如Llama2-70B、Qwen2-72B，由于其参数规模通常会超过一张GPU或者NPU的内存容量，因此需要采用多卡并行推理，MindSpore大语言模型推理支持将原始大语言模型切分成N份可并行的子模型，使其能够分别在多卡上并行执行，在实现超大模型推理同时，也利用多卡中更多的资源提升性能。MindSpore TransFormers模型套件提供的模型脚本天然支持将模型切分成多卡模型执行，用户可以通过以下步骤在多卡上部署模型。
 
-1. **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/ckpt.html)。
+1. **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindSpore TransFormers模型套件中的脚本来进行权重切分。具体可以参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/ckpt.html)。
 
     下面以Llama2-7B大语言模型为例，简单描述一下将模型切分为2卡并行的操作：
 
@@ -241,7 +241,7 @@ model = AutoModel.from_config(config)
 
         其中，src_checkpoint是源ckpt文件路径，由于例子中是全量切分，所以不需要传源策略文件，但是路径一定要指定到ckpt文件路径，不能指定到目录；dst_checkpoint是切分结果的目标目录路径，切分完成后，会生成rank_0和rank_1两个子目录，分别存放不同卡的权重ckpt文件；dst_strategy是前一步生成的策略文件路径。
 
-2. **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能，MindFormers模型提供了MindSpore大语言模型验证较为优秀的切分方案，并使用MindSpore的并行框架进行了切分，下面为模型中部分切分代码：
+2. **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能，MindSpore TransFormers模型提供了MindSpore大语言模型验证较为优秀的切分方案，并使用MindSpore的并行框架进行了切分，下面为模型中部分切分代码：
 
     ```python
     if not (_get_parallel_mode() in (ParallelMode.AUTO_PARALLEL,) and _is_sharding_propagation()):
