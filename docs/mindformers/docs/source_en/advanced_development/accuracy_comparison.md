@@ -24,7 +24,7 @@ This section describes the recommended basic operating environment for the preci
 
 | GPU                | Version          | NPU                    | Version     |
 |--------------------|--------------|------------------------|---------|
-| Megatron-LM        | core_r0.12.0 | MindSpore Transformers | dev     |
+| Megatron-LM        | core_r0.12.0 | MindSpore Transformers | master     |
 | Python             | 3.10 or later     | Python                 | 3.10 or later|
 | PyTorch            | 2.7.0        | MindSpore              | 2.6.0   |
 | NumPy              | 1.26.4       | NumPy                  | 1.26.4  |

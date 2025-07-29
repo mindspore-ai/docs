@@ -32,7 +32,7 @@
 目前在研版本仅支持源码编译安装，用户可以执行如下命令安装MindSpore Transformers：
 
 ```bash
-git clone -b dev https://gitee.com/mindspore/mindformers.git
+git clone -b master https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```

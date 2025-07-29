@@ -32,7 +32,7 @@ Historical version matching relationship:
 Currently only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
 
 ```bash
-git clone -b dev https://gitee.com/mindspore/mindformers.git
+git clone -b master https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
