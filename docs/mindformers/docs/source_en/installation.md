@@ -4,22 +4,24 @@
 
 ## Confirming Version Matching Relationship
 
-The currently supported hardware is the [Atlas 800T A2](https://www.hiascend.com/hardware/ai-server?tag=900A2) training server.
+The currently supported hardware is the Atlas 800T A2、Atlas 800I A2、Atlas 900 A3 SuperPoD.
 
 The current recommended Python version for the suite is 3.11.4.
 
-|      MindSpore Transformers       |       MindSpore        |          CANN          |   Firmware & Drivers   |  Mirror Links  |
-|:----------------------:|:----------------------:|:----------------------:|:----------------------:|:--------------:|
-| In-Development Version | In-Development Version | In-Development Version | In-Development Version | Not applicable |
+| MindSpore Transformers |                   MindSpore                   |                                                      CANN                                                      |                                              Firmware & Drivers                                               | Mirror Links |
+|:----------------------:|:---------------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|:------------:|
+|         1.6.0          | [2.7.0-rc1](https://www.mindspore.cn/install) | [8.2.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) | [25.2.0](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) |
 
 **Currently MindSpore Transformers recommends using a software package relationship as above.**
 
 Historical version matching relationship:
 
-|                     MindSpore Transformers                      |                  MindSpore                  |                                                                         CANN                                                                         |                                                                  Firmware & Drivers                                                                   |
-|:----------------------------------------------------:|:-------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|
-| [1.3.2](https://pypi.org/project/mindformers/1.3.2/) | [2.4.10](https://www.mindspore.cn/install/) | [8.0.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) | [24.1.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) |
-| [1.2.0](https://pypi.org/project/mindformers/1.2.0/) | [2.3.0](https://www.mindspore.cn/install/)  |                     [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1)                     |                                       [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community)                                        |
+| MindSpore Transformers |                   MindSpore                   |                                                      CANN                                                      |                                               Firmware & Drivers                                                |
+|:----------------------:|:---------------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
+|         1.5.0          | [2.6.0-rc1](https://www.mindspore.cn/install) | [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html) | [25.0.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html) |
+|         1.3.2          |  [2.4.10](https://www.mindspore.cn/versions)  |   [8.0.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html)   |   [24.1.0](https://www.hiascend.com/document/detail/zh/canncommercial/800/softwareinst/instg/instg_0000.html)   |
+|         1.3.0          |  [2.4.0](https://www.mindspore.cn/versions)   | [8.0.RC3](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/softwareinst/instg/instg_0000.html) | [24.1.RC3](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/softwareinst/instg/instg_0000.html) |
+|         1.2.0          |  [2.3.0](https://www.mindspore.cn/versions)   | [8.0.RC2](https://www.hiascend.com/document/detail/zh/canncommercial/80RC2/softwareinst/instg/instg_0000.html) | [24.1.RC2](https://www.hiascend.com/document/detail/zh/canncommercial/80RC2/softwareinst/instg/instg_0000.html) |
 
 ## Installing Dependent Software
 
@@ -29,13 +31,28 @@ Historical version matching relationship:
 
 ## Installing MindSpore Transformers
 
-Currently only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
+MindSpore Transformers supports both source code compiled installation and pip installation.
+
+### Installation by Source Code Compilation
+
+Users can compile and install MindSpore Transformers by executing the following command:
 
 ```bash
-git clone -b dev https://gitee.com/mindspore/mindformers.git
+git clone -b r1.6.0 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
+
+### Installation by pip
+
+Users can install MindSpore Transformers by executing the following command:
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindFormers/any/mindformers-1.6.0-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://repo.huaweicloud.com/repository/pypi/simple
+```
+
+> - This installation method requires access to the public network. If you are in an internal network environment, please ensure that the network connection is configured correctly.
+> - This method only installs the basic software package of MindSpore Transformers. Model files and scripts, etc., please obtain from the MindSpore Transformers Gitee repository.
 
 ## Installation Verification
 
