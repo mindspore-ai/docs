@@ -24,7 +24,7 @@ in the Cell `__call__` method, so the actual calling process is:
 
 `model(inputs) = model.compile(inputs) + model.construct(inputs)`, where `model` is the instantiated Cell object.
 
-Just-In-Time (JIT) compilation can be achieved using the [JIT interface]{.title-ref} . Another way is to use the Graph mode by setting
+Just-In-Time (JIT) compilation can be achieved using the [JIT interface](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.jit.html) . Another way is to use the Graph mode by setting
 `ms.set_context(mode=ms.GRAPH_MODE)`, then write the code in the
 `construct` function of the `Cell` so that the code in the `construct` function will be compiled into a static computation graph. For details
 about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/nn/mindspore.nn.Cell.html).

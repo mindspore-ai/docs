@@ -32,8 +32,8 @@ Model定义了MindSpore中编译和运行的模型。
 | [MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo* shape_infos,size_t shape_info_num)](#msmodelresize)                                                                                                   |
 | [MSStatus MSModelRunStep(MSModelHandle model, const MSKernelCallBackC before, const MSKernelCallBackC after)](#msmodelrunstep)                                                                                                                    |
 | [MSStatus MSModelSetLearningRate(MSModelHandle model, float learning_rate)](#msmodelsetlearningrate)                                                                                                                                              |
-| [MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)](#msmodelsettrainmode1)                                                                                                                                                      |
-| [MSStatus MSModelSetTrainMode(MSModelHandle model, bool train)](#msmodelsettrainmode2)                                                                                                                                                            |
+| [MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)](#msmodelsettrainmode)                                                                                                                                                      |
+| [MSStatus MSModelSetTrainMode(MSModelHandle model, bool train)](#msmodelsettrainmode-1)                                                                                                                                                            |
 | [void MSModelSetWorkspace(MSModelHandle model, void* workspace, size_t workspace_size)](#msmodelsetworkspace)                                                                                                                                     |
 | [MSStatus MSModelSetupVirtualBatch(MSModelHandle model, int virtual_batch_multiplier, float lr, float momentum)](#msmodelsetupvirtualbatch)                                                                                                       |
 | [MSStatus MSModelUpdateWeights(MSModelHandle model, const MSTensorHandleArray new_weights)](#msmodelupdateweights)                                                                                                                                |
@@ -416,7 +416,7 @@ MSStatus MSModelSetLearningRate(MSModelHandle model, float learning_rate)
 
   枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
-#### MSModelSetTrainMode <a id="MSModelSetTrainMode1"></a>
+#### MSModelSetTrainMode
 
 ```C
 MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
@@ -433,7 +433,7 @@ MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
 
   枚举类型的状态码`MSStatus`，若返回`MSStatus::kMSStatusSuccess`则证明成功。
 
-#### MSModelSetTrainMode <a id="MSModelSetTrainMode2"></a>
+#### MSModelSetTrainMode
 
 ```C
 MSStatus MSModelSetTrainMode(MSModelHandle model, bool train)

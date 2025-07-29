@@ -5,7 +5,7 @@
 ## 概述
 
 在即时编译（Just-In-Time
-Compilation，JIT）模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
+Compilation，JIT）模式下，Python代码并不是由Python解释器直接执行，而是先将代码编译成静态计算图，再执行该静态计算图。
 
 在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate
 Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/design/all_scenarios.html#中间表示mindir)。
@@ -15,21 +15,20 @@ Syntax Tree,
 AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法
 。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
 
-MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时用户并不会分别感知到这两阶段，MindSpore将两阶段均封装在Cell的`__call__`方法中，因此实际调用过程为：
+MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时用户并不会分别感知到这两阶段，MindSpore已将这两阶段均封装在Cell的`__call__`方法中，因此实际调用过程为：
 
-`model(inputs) = model.compile(inputs) + model.construct(inputs)`，其中`model`为实例化Cell对象。
+`model(inputs) = model.compile(inputs) + model.construct(inputs)`，其中`model`为实例化的Cell对象。
 
-即时编译可以使用 [JIT接口]{.title-ref}
-，或者使用Graph模式需要设置`ms.set_context(mode=ms.GRAPH_MODE)`，使用`Cell`类并且在`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell
+即时编译可以使用 [JIT接口](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore/mindspore.jit.html)
+，或者通过设置`ms.set_context(mode=ms.GRAPH_MODE)`进入Graph模式，并在`Cell`类的`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell
 API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore.nn.Cell.html)。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在\[STRICT，LAX\]范围内，选择`STRICT`则认为使用基础语法，不扩展静态图语法。默认值为`LAX`。全部级别都支持所有后端。
 
 - STRICT: 仅支持基础语法，且执行性能最佳。可用于MindIR导入导出。
-- LAX:
-    支持更多复杂语法，最大程度地兼容Python所有语法。由于存在可能无法导出的语法，不能用于MindIR导入导出。
+- LAX: 支持更多复杂语法，最大程度地兼容Python语法。由于存在可能无法导出的语法，不能用于MindIR导入导出。
 
-本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于即时编译模式，以下是关于基于抽象语法树（AST）的语法支持详情的介绍。
+本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于即时编译模式，以下是基于抽象语法树（AST）的语法支持详情的介绍。
 
 ## AST基础语法（STRICT级别）
 
@@ -38,7 +37,7 @@ API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore
 在即时编译模式下，常量与变量是理解静态图语法的一个重要概念，很多语法在常量输入和变量输入情况下支持的方法与程度是不同的。因此，在介绍静态图具体支持的语法之前，本小节先会对静态图中常量与变量的概念进行说明。
 
 在静态图模式下，一段程序的运行会被分为编译期以及执行期。
-在编译期，程序会被编译成一张中间表示图，并且程序不会真正的执行，而是通过抽象推导的方式对中间表示进行静态解析。这使得在编译期时，我们无法保证能获取到所有中间表示中节点的值。
+在编译期，程序会被编译成一张中间表示图，此时程序不会真正的执行，而是通过抽象推导的方式对中间表示进行静态解析。这使得在编译期时，我们无法保证能获取到所有中间表示中节点的值。
 常量和变量也就是通过能否能在编译器获取到其真实值来区分的。
 
 - 常量： 编译期内可以获取到值的量。
@@ -46,7 +45,7 @@ API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore
 
 #### 常量产生场景
 
-- 作为图模式输入的标量，列表以及元组均为常量（在不使用mutable接口的情况下）。例如：
+- 作为图模式输入的标量、列表以及元组均为常量（在不使用mutable接口的情况下）。例如：
 
     ``` python
     import mindspore
@@ -66,7 +65,7 @@ API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore
     print(ret)
     ```
 
-    上述代码中，输入`a`，`b`，`c`均为常量。
+    上述代码中，输入`a`、`b`、`c`均为常量。
 
 - 图模式内生成的标量或者Tensor为常量。例如：
 
@@ -108,11 +107,11 @@ API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore
     print(ret)
     ```
 
-    上述代码中，`a`、`b`均为图模式内产生的Tensor为常量，因此其计算得到的结果也是常量。但如果其中之一为变量时，其返回值也会为变量。
+    上述代码中，`a`、`b`均为图模式内产生的Tensor，因此其计算结果也是常量。但如果其中之一为变量，则返回值也为变量。
 
 #### 变量产生场景
 
-- 所有mutable接口的返回值均为变量(无论是在图外使用mutable还是在图内使用)。例如：
+- 所有mutable接口的返回值均为变量（无论是在图外还是在图内使用mutable）。例如：
 
     ``` python
     import mindspore
@@ -134,7 +133,7 @@ API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore
 
     上述代码中，`a`是在图外调用mutable接口的，`b`和`c`是在图内调用mutable接口生成的，`a`、`b`、`c`均为变量。
 
-- 作为静态图的输入的Tensor都是变量。例如：
+- 作为静态图的输入，Tensor类型的参数都是变量。例如：
 
     ``` python
     import mindspore
@@ -155,7 +154,7 @@ API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore
 
     上述代码中，`a`是作为图模式输入的Tensor，因此其为变量。但`b`是作为图模式输入的元组，非Tensor类型，即使其内部的元素均为Tensor，`b`也是常量。
 
-- 通过变量计算得到的是变量。
+- 通过变量计算得到的结果也是变量。
 
     如果一个量是算子的输出，那么其多数情况下为变量。例如：
 
@@ -191,8 +190,8 @@ API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/nn/mindspore
 
 支持在网络里定义`Number`，即支持语法：`y = 1`、`y = 1.2`、`y = True`。
 
-当数据为常量时，编译时期可以获取到数值，在网络中可以支持强转`Number`的语法：`y = int(x)`、`y = float(x)`、`y = bool(x)`。
-当数据为变量时，即需要在运行时期才可以获取到数值，也支持使用int()，float()，bool()等内置函数[Python内置函数](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/compile/python_builtin_functions.html)进行数据类型的转换。例如：
+当数据为常量时，编译期可以获取到数值，在网络中可以支持强制类型转换`Number`的语法：`y = int(x)`、`y = float(x)`、`y = bool(x)`。
+当数据为变量时，即需要在运行期才可以获取到数值，也支持使用int()、float()、bool()等内置函数[Python内置函数](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/compile/python_builtin_functions.html)进行数据类型转换。例如：
 
 ``` python
 import mindspore
@@ -242,7 +241,7 @@ print(res)
 
 ##### String
 
-支持在网络里构造`String`，即支持使用引号（`'`或`"`）来创建字符串，如`x = 'abcd'`或`y = "efgh"`。可以通过`str()`的方式进行将常量转换成字符串。支持对字符串连接，截取，以及使用成员运算符（`in`或`not in`）判断字符串是否包含指定的字符。支持格式化字符串的输出，将一个值插入到一个有字符串格式符`%s`的字符串中。支持在常量场景下使用格式化字符串函数`str.format()`。
+支持在网络里构造`String`，即支持使用引号（`'`或`"`）来创建字符串，如`x = 'abcd'`或`y = "efgh"`。可以通过`str()`的方式进行将常量转换成字符串。支持字符串的连接、截取，以及使用成员运算符（`in`或`not in`）判断字符串是否包含指定的字符。支持格式化字符串的输出，将值插入到带有格式符`%s`的字符串中。支持在常量场景下使用格式化字符串函数`str.format()`。
 
 例如：
 
@@ -278,7 +277,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 - 图模式支持图内创建`List`。
 
-    支持在图模式内创建`List`对象，且`List`内对象的元素可以包含任意图模式支持的类型，也支持多层嵌套。例如：
+    支持在图模式内创建`List`对象，且`List`中的元素可以包含任意图模式支持的类型，也支持多层嵌套。例如：
 
     ``` python
     import numpy as np
@@ -317,7 +316,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
     ```
 
     与图模式内创建`List`
-    相同，图模式返回`List`对象可以包括任意图模式支持的类型，也支持多层嵌套。
+    相同，图模式返回的`List`对象可以包括任意图模式支持的类型，也支持多层嵌套。
 
 - 图模式支持从全局变量中获取`List`对象。
 
@@ -337,7 +336,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
     output = net()  # output: [4, 3, 2, 1]
     ```
 
-    需要注意的是，在基础场景下图模式返回的列表与全局变量的列表不是同一个对象，当`JIT_SYNTAX_LEVEL`设置为`LAX`时，返回的对象与全局对象为统一对象。
+    需要注意的是，在基础场景下，图模式返回的列表与全局变量的列表不是同一个对象。当`JIT_SYNTAX_LEVEL`设置为`LAX`时，返回的对象与全局对象为同一个对象。
 
 - 图模式支持以`List`作为输入。
 
@@ -368,9 +367,9 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语法：`element = list_object[index]`。
 
-        基础语义：将`List`对象中位于第`index`位的元素提取出来（`index`从0开始）。支持多层索引取值。
+        基础语义：将`List`对象中第`index`位的元素提取出来（`index`从0开始）。支持多层索引取值。
 
-        索引值`index`支持类型包括`int`，`Tensor`和`slice`。其中，`int`以及`Tensor`类型的输入可以支持常量以及变量，`slice`内部数据必须为编译时能够确定的常量。
+        索引值`index`支持类型包括`int`、`Tensor`和`slice`。其中，`int`和`Tensor`类型的输入可以为常量或变量，`slice`内部数据必须为编译时能够确定的常量。
 
         示例如下：
 
@@ -406,16 +405,16 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语法：`list_object[index] = target_element`。
 
-        基础语义：将`List`对象中位于第`index`位的元素赋值为
+        基础语义：将`List`对象中第`index`位的元素赋值为
         `target_element`（`index`从0开始）。支持多层索引赋值。
 
-        索引值`index`支持类型包括`int`，`Tensor`和`slice`。其中，`int`
-        以及`Tensor`类型的输入可以支持常量以及变量，`slice`内部数据必须为编译时能够确定的常量。
+        索引值`index`支持类型包括`int`、`Tensor`和`slice`。其中，`int`
+        和`Tensor`类型的输入可以为常量或变量，`slice`内部数据必须为编译时能够确定的常量。
 
         索引赋值对象`target_element`支持所有图模式支持的数据类型。
 
         目前，`List`索引赋值不支持inplace操作，
-        索引赋值后将会生成一个新的对象。该操作后续将会支持inplace操作。
+        索引赋值后将会生成一个新的对象。该操作后续将支持inplace操作。
 
         示例如下：
 
@@ -448,9 +447,9 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语法：`list_object.append(target_element)`。
 
-        基础语义：向`List`对象`list_object`的最后追加元素`target_element`。
+        基础语义：向`List`对象`list_object`的末尾追加元素`target_element`。
 
-        目前，`List.append`不支持inplace操作,
+        目前，`List.append`不支持inplace操作，
         追加元素后将会生成一个新的对象。该操作后续将会支持inplace操作。
 
         示例如下：
@@ -483,8 +482,8 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语义：清空`List`对象 `list_object`中包含的元素。
 
-        目前，`List.clear`不支持inplace,
-        清空元素后将会生成一个新的对象。该操作后续将会支持inplace。
+        目前，`List.clear`不支持inplace，
+        清空元素后将会生成一个新的对象。该操作后续将支持inplace。
 
         示例如下：
 
@@ -514,9 +513,9 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语法：`list_object.extend(target)`。
 
-        基础语义：向`List`对象`list_object`的最后依次插入`target`内的所有元素。
+        基础语义：向`List`对象`list_object`的末尾依次插入`target`中的所有元素。
 
-        `target`支持的类型为`Tuple`，`List`以及`Tensor`。其中，如果`target`类型为`Tensor`的情况下，会先将该`Tensor`转换为`List`，再进行插入操作。
+        `target`支持的类型为`Tuple`、`List`以及`Tensor`。其中，如果`target`类型为`Tensor`，会先将该`Tensor`转换为`List`，再进行插入操作。
 
         示例如下：
 
@@ -553,8 +552,8 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
         基础语义：将`List`对象`list_object`
         的第`index`个元素从`list_object`中删除，并返回该元素。
 
-        `index` 要求必须为常量`int`,
-        当`list_object`的长度为`list_obj_size`时，`index`的取值范围为：`[-list_obj_size，list_obj_size-1]`。`index`为负数，代表从后往前的位数。当没有输入`index`时，默认值为-1，即删除最后一个元素。
+        `index` 要求必须为常量`int`。
+        当`list_object`的长度为`list_obj_size`时，`index`的取值范围为：`[-list_obj_size，list_obj_size-1]`。`index`为负数时，代表从后往前的位数。当没有输入`index`时，默认值为-1，即删除最后一个元素。
 
         ``` python
         import mindspore
@@ -616,7 +615,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语义：将`target_obj`插入到`list_object`的第`index`位。
 
-        `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`。当`index < -list_obj_size`时，插入到`List`的第一位。当`index >= list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
+        `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`，当`index < -list_obj_size`时，插入到`List`的第一位；当`index >= list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
 
         示例如下：
 
