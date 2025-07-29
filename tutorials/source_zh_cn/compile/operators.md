@@ -14,7 +14,7 @@
 
 说明：
 
-- 在Python中`~`操作符对输入的整数按位取反; MindSpore对`~`的功能重新定义为对`Tensor(Bool)`的逻辑取反。
+- 在Python中`~`操作符对输入的整数按位取反。MindSpore对`~`的功能重新定义为对`Tensor(Bool)`的逻辑取反。
 
 ## 二元算术运算符
 
@@ -36,9 +36,9 @@
 
 限制：
 
-- 当左右操作数都为`number`类型时，不支持`float64` 和 `int32`间的运算。`+`、`-`、`*`、`/`、`%`、`**`、`//` 支持左右操作数的值同时为`bool`。
+- 当左右操作数都为`number`类型时，不支持`float64`和`int32`间的运算。`+`、`-`、`*`、`/`、`%`、`**`、`//`支持左右操作数的值同时为`bool`。
 - 当任一操作数为`tensor`类型时，左右操作数的值不可同时为`bool`。
-- `list/tuple`和`number`进行`*`运算时表示将`list/tuple`复制`number`份后串联起来，`list`内的数据类型可以是图模式下支持的任意数据类型，也支持多层嵌套。`tuple`内的数据类型必须为`number`、`string`、`none`，也支持多层嵌套。
+- `list/tuple`和`number`进行`*`运算时表示将`list/tuple`复制`number`份后串联起来。`list`内的数据类型可以是图模式下支持的任意数据类型，也支持多层嵌套。`tuple`内的数据类型必须为`number`、`string`、`none`，也支持多层嵌套。
 
 ## 赋值运算符
 
@@ -61,20 +61,17 @@
 
 限制：
 
-- 当`AugAssign`的左右操作数都为`number`类型时，`number`的值不可为`bool` 类型。
-
-- 当`AugAssign`的左右操作数都为`number`类型时，不支持`float64` 和 `int32`间的运算。
-
+- 当`AugAssign`的左右操作数都为`number`类型时，`number`的值不可为`bool`类型。
+- 当`AugAssign`的左右操作数都为`number`类型时，不支持`float64`和`int32`间的运算。
 - 当`AugAssign`的任一操作数为`tensor`类型时，左右操作数的值不可同时为`bool`。
-
-- `list/tuple`和`number`进行`*=`运算时表示将`list/tuple`复制`number`份后串联起来，`list/tuple`内对象的元素可以包含任意图模式支持的类型，也支持多层嵌套。
+- `list/tuple`和`number`进行`*=`运算时表示将`list/tuple`复制`number`份后串联起来。`list/tuple`内对象的元素可以包含任意图模式支持的类型，也支持多层嵌套。
 
 ## 逻辑运算符
 
 | 逻辑运算符 | 支持类型                                                     |
 | :--------- | :----------------------------------------------------------- |
-| `and`      | `String`、 `Number`、 `Tuple`、`List` 、`Dict`、`None`、标量、Tensor。 |
-| `or`       | `String`、 `Number`、 `Tuple`、`List` 、`Dict`、`None`、标量、Tensor。 |
+| `and`      | `String`、`Number`、`Tuple`、`List`、`Dict`、`None`、标量、Tensor。 |
+| `or`       | `String`、`Number`、`Tuple`、`List`、`Dict`、`None`、标量、Tensor。 |
 | `not`      | `Number`、`Tuple`、`List`、只有一个成员的Tensor。            |
 
 限制：
@@ -85,21 +82,21 @@
 
 | 比较运算符 | 支持类型                                                     |
 | :--------- | :----------------------------------------------------------- |
-| `in`       | `Number` in `Tuple`、`String` in `Tuple`、`Tensor` in `Tuple`、`Number` in `List`、`String` in `List`、`Tensor` in `List`、`String` in `Dictionary`、`Number` in `Dictionary`、常量`Tensor` in `Dictionary`、 `Tuple` in `Dictionary`。|
+| `in`       | `Number` in `Tuple`、`String` in `Tuple`、`Tensor` in `Tuple`、`Number` in `List`、`String` in `List`、`Tensor` in `List`、`String` in `Dictionary`、`Number` in `Dictionary`、常量`Tensor` in `Dictionary`、`Tuple` in `Dictionary`。|
 | `not in`   | 与`in`相同。                                                 |
-| `is`       | 仅支持判断是`None`、 `True`或者`False`。                     |
-| `is not`   | 仅支持判断不是`None`、 `True`或者`False`。                   |
+| `is`       | 仅支持判断是`None`、`True`或者`False`。                     |
+| `is not`   | 仅支持判断不是`None`、`True`或者`False`。                   |
 | <          | `Number` < `Number`、`Number` < `Tensor`、`Tensor` < `Tensor`、`Tensor` < `Number`。 |
 | <=         | `Number` <= `Number`、`Number` <= `Tensor`、`Tensor` <= `Tensor`、`Tensor` <= `Number`。 |
 | >          | `Number` > `Number`、`Number` > `Tensor`、`Tensor` > `Tensor`、`Tensor` > `Number`。 |
 | >=         | `Number` >= `Number`、`Number` >= `Tensor`、`Tensor` >= `Tensor`、`Tensor` >= `Number`。 |
-| !=         | `Number` != `Number`、`Number` != `Tensor`、`Tensor` != `Tensor`、`Tensor` != `Number`、`mstype` != `mstype`、`String` != `String`、`Tuple !` = `Tuple`、`List` != `List`。 |
+| !=         | `Number` != `Number`、`Number` != `Tensor`、`Tensor` != `Tensor`、`Tensor` != `Number`、`mstype` != `mstype`、`String` != `String`、`Tuple` != `Tuple`、`List` != `List`。 |
 | ==         | `Number` == `Number`、`Number` == `Tensor`、`Tensor` == `Tensor`、`Tensor` == `Number`、`mstype` == `mstype`、`String` == `String`、`Tuple` == `Tuple`、`List` == `List`。 |
 
 限制：
 
-- 对于`<`、`<=`、`>`、`>=`、`!=`来说，当左右操作数都为`number`类型时，`number`的值不可为`bool` 类型。
-- 对于`<`、`<=`、`>`、`>=`、`!=`、`==`来说，当左右操作数都为`number`类型时，不支持`float64` 和 `int32`间的运算。
+- 对于`<`、`<=`、`>`、`>=`、`!=`来说，当左右操作数都为`number`类型时，`number`的值不可为`bool`类型。
+- 对于`<`、`<=`、`>`、`>=`、`!=`、`==`来说，当左右操作数都为`number`类型时，不支持`float64`和`int32`间的运算。
 - 对于`<`、`<=`、`>`、`>=`、`!=`、`==`来说，当左右任一操作数为`tensor`类型时，左右操作数的值不可同时为`bool`。
 - 对于`==`来说，当左右操作数都为`number`类型时，支持左右操作数同时为`bool`，不支持只有一个操作数为`bool`。
 - 对于`!=`、`==`来说除`mstype`外，其他取值均可和`None`进行比较来判空。
