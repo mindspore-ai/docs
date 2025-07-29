@@ -15,11 +15,9 @@
 
 ## 基于MindSpeed加速库的调试调优指南
 
-[MindSpeed-待补充链接，后续会上线mindspore官网](xxx)是MindSpore支持的昇腾训练加速库，提供了丰富的加速算法和模型。
+[MindSpeed](https://gitee.com/ascend/MindSpeed-Core-MS/blob/r0.3.0/README.md)是MindSpore支持的昇腾训练加速库，提供了丰富的加速算法和模型。
 
-针对MindSpeed加速库，及[MindSpeed-LLM大模型套件-待补充链接，后续会上线mindspore官网](xxx)，我们也提供了调试调优指南。
+针对MindSpeed加速库，及[MindSpeed-LLM大模型套件](https://gitee.com/ascend/MindSpeed-LLM/blob/2.1.0/README.md)，我们也提供了调试调优指南。
 
-- [MindSpeed精度调试指南](https://gitee.com/ascend/MindSpeed-Core-MS/blob/master/docs/precision_opt.md)
-- [MindSpeed性能调优指南](https://gitee.com/ascend/MindSpeed-Core-MS/blob/master/docs/performance_opt.md)
-- [MindSpeed-LLM精度调试指南  - 待补充](xxxx)
-- [MindSpeed-LLM性能调优指南  - 待补充](xxxx)
+- [MindSpeed精度调试指南](https://gitee.com/ascend/MindSpeed-Core-MS/blob/r0.3.0/docs/precision_opt.md)
+- [MindSpeed性能调优指南](https://gitee.com/ascend/MindSpeed-Core-MS/blob/r0.3.0/docs/performance_opt.md)

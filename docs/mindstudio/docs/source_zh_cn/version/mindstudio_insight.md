@@ -3,11 +3,11 @@
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/version/mindstudio_insight.md)
 
 MindStudio Insight可视化工具，需要与采集性能数据时使用的MindSpore版本配套。
-当前最新MindStudio Insight版本xxxx(待补充)：
+当前最新MindStudio Insight版本8.1RC1：
 
 |         MindStudio Insight      |               MindSpore                  |
 |:----------------------------------------------------:|:-------------------------------------------:|
-| [待补充，等MindStudio Insight发布后确认详细版本号并更新链接](xxx) | [待补充，等官网确定版本号以后刷新，有可能叫2.7.0rc1等](https://www.mindspore.cn/install/) |
+| [8.1.RC1](https://www.hiascend.com/developer/download/community/result?module=sto+cann&sto=8.1.RC1&cann=8.2.RC1) | [2.7.0-rc1](https://www.mindspore.cn/versions#2.7.0-rc1) |
 
 历史版本配套关系：
 
