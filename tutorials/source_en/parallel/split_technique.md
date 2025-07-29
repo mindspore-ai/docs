@@ -8,7 +8,7 @@ For a new model using `Sharding Propagation` to configure the parallelization st
 
 ### Configuring Operators Involving Weights
 
-The sharding strategy for parameter weights is very important, especially for large models, as the memory consumption caused by parameter weights accounts for a large portion of the total memory consumption for model training. Therefore, operators involving weights usually need to explicitly configure the sharding strategy. In the two examples below, the Gather and MatMul operators involving weights are configured with sharding strategy, while the other operators are not. These correspond the data-parallel VocabEmbedding layer and hybrid-parallel FeedForward Layer in [MindFormers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py), respectively.
+The sharding strategy for parameter weights is very important, especially for large models, as the memory consumption caused by parameter weights accounts for a large portion of the total memory consumption for model training. Therefore, operators involving weights usually need to explicitly configure the sharding strategy. In the two examples below, the Gather and MatMul operators involving weights are configured with sharding strategy, while the other operators are not. These correspond the data-parallel VocabEmbedding layer and hybrid-parallel FeedForward Layer in [MindSpore TransFormers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py), respectively.
 
 ![sp_case1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_en/parallel/images/sp_case1.png "Configuring Operators Involving Weights")
 
@@ -32,7 +32,7 @@ Users working with strategy propagation need to have some understanding not only
 
 ## Configuring Code Samples
 
-Taking the encapsulated class [RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/experimental/graph/tensor_parallel/layers.py) in MindFormers as an example:
+Taking the encapsulated class [RowParallelLinear](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/experimental/graph/tensor_parallel/layers.py) in MindSpore TransFormers as an example:
 
 <table>
 <tr>
@@ -159,7 +159,7 @@ class FlashAttention(Cell):
 </tr>
 </table>
 
-If classes that are open source and already paired with a strategy in MindFormers are used directly, the external network does not need to configure the shard strategy for the operator again, e.g., [LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama.py).
+If classes that are open source and already paired with a strategy in MindSpore TransFormers are used directly, the external network does not need to configure the shard strategy for the operator again, e.g., [LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/r1.6.0/mindformers/models/llama/llama.py).
 <table>
 <tr>
 <td valign='top'>
