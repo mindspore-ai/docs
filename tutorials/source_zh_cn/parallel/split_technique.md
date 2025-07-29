@@ -52,7 +52,7 @@ class RowParallelLinear(nn.Cell):
             matmul_in_strategy = ((dp * cp, 1), weight_strategy)
             self.matmul.shard(in_strategy=matmul_in_strategy)
 +      if not self.skip_bias_add:
-+          dd_in_strategy = ((dp * cp, tp), (tp,))
++          add_in_strategy = ((dp * cp, tp), (tp,))
 +          self.add.shard(in_strategy=add_in_strategy)
 ```
 

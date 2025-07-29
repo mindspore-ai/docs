@@ -127,7 +127,7 @@ def train_step(inputs, targets):
 
 ## Parallel Configuration
 
-We need to further set up the parallelism-related configuration by specifying the parallelism mode `semi-auto` as semi-automatic parallelism, in addition to turning on optimizer parallelism and configuring `hsdp`.
+We need to further set up the parallelism-related configuration by specifying the parallelism mode `semi_auto` as semi-automatic parallelism, in addition to turning on optimizer parallelism and configuring `hsdp`.
 
 ```python
 from mindspore.parallel.auto_parallel import AutoParallel

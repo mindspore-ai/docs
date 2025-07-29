@@ -18,9 +18,9 @@ The recompute function is implemented as a forward operator that is recomputed a
 
 *Figure: Forward and reverse diagram before and after the recompute function is enabled*
 
-For user convenience, MindSpore currently provides not only a recompute interface for individual operators, but also a recompute interface for Cell. When the user calls The Cell's recompute interface, all forward operators in the Cell are set to recompute.
+For user convenience, MindSpore currently provides not only a recompute interface for individual operators, but also a recompute interface for Cell. When the user calls The Cell's recompute interface, all forward operators in the Cell are set to recomputed.
 
-Taking the GPT-3 model as an example, the policy is set to recalculate the cell corresponding to the layerer for each layer, and then the output operator of the layerer is set to non-recompute. The effect of recompute on the 72-layer GPT-3 network is shown in the following figure:
+Taking the GPT-3 model as an example, the policy is set to recalculate the cell corresponding to the each layer, and then the output operator of the layer is set to non-recompute. The effect of recompute on the 72-layer GPT-3 network is shown in the following figure:
 
 ![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/tutorials/source_zh_cn/parallel/images/recompute_image_1_zh.png)
 

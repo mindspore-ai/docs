@@ -44,12 +44,12 @@ mindspore.set_context(mode=mindspore.GRAPH_MODE)
 # 创建训练数据集
 def create_dataset(data_path, batch_size=32):
     train_dataset = MnistDataset(data_path, shuffle=False)
-    image_transfroms = [
+    image_transforms = [
         vision.Rescale(1.0 / 255.0, 0),
         vision.Resize(size=(32, 32)),
         vision.HWC2CHW()
     ]
-    train_dataset = train_dataset.map(image_transfroms, input_columns='image')
+    train_dataset = train_dataset.map(image_transforms, input_columns='image')
     train_dataset = train_dataset.map(transforms.TypeCast(mindspore.int32), input_columns='label')
     train_dataset = train_dataset.batch(batch_size, drop_remainder=True)
     return train_dataset
