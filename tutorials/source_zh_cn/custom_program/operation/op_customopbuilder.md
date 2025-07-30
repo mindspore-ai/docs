@@ -215,3 +215,4 @@ print(out)
 ## 更多场景示例
 
 - [通过AtbOpRunner接入ATB算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder_atb.html)：介绍通过自定义算子快速对接ATB算子的方法。
+- [通过AsdSipFFTOpRunner接入ASDSIP FFT算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder_asdsip.html)：介绍通过自定义算子快速对接ASDSIP FFT算子的方法。
