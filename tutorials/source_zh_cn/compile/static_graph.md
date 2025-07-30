@@ -1415,6 +1415,7 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
 
     ``` python
     import mindspore
+    from mindspore import nn
 
     class Net(nn.Cell):
        @classmethod
@@ -1629,6 +1630,7 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
 
 ``` python
 import mindspore
+from mindspore import nn
 
 class GetattrClass():
    def __init__(self):
@@ -2127,7 +2129,7 @@ class Net(nn.Cell):
    @mindspore.jit
    def construct(self, a):
       x = {'a': a, 'b': 2}
-      return a, (x, (1, 2))
+      return a, x
 
 net = Net()
 out = mindspore.grad(net)(mindspore.tensor([1]))

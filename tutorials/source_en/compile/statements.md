@@ -222,7 +222,7 @@ y = mindspore.tensor([0, 3], mindspore.int32)
 m = 1
 n = 2
 
-@mindspore.jit()
+@mindspore.jit
 def test_cond(x, y):
     if (x > y).any():
         return m
@@ -251,7 +251,7 @@ y = mindspore.tensor([0, 3], mindspore.int32)
 m = 1
 n = 2
 
-@mindspore.jit()
+@mindspore.jit
 def test_cond(x, y):
     out = 3
     if (x > y).any():
@@ -281,7 +281,7 @@ x = mindspore.tensor([1, 4], mindspore.int32)
 y = mindspore.tensor([0, 3], mindspore.int32)
 m = 1
 
-@mindspore.jit()
+@mindspore.jit
 def test_cond(x, y):
     out = 2
     if (x > y).any():
@@ -328,7 +328,7 @@ import mindspore
 
 z = mindspore.tensor(np.ones((2, 3)))
 
-@mindspore.jit()
+@mindspore.jit
 def test_cond():
     x = (1, 2, 3)
     for i in x:
@@ -372,7 +372,7 @@ import mindspore
 m = 1
 n = 2
 
-@mindspore.jit()
+@mindspore.jit
 def test_cond(x, y):
     while x < y:
         x += 1
@@ -402,7 +402,7 @@ n = 2
 def ops1(a, b):
     return a + b
 
-@mindspore.jit()
+@mindspore.jit
 def test_cond(x, y):
     out = m
     while x < y:
@@ -437,7 +437,7 @@ import mindspore
 def number_add(x, y):
     return x + y
 
-@mindspore.jit()
+@mindspore.jit
 def test(x, y):
     return number_add(x, y)
 
@@ -466,7 +466,7 @@ For example:
 ```python
 import mindspore
 
-@mindspore.jit()
+@mindspore.jit
 def test(x, y):
     number_add = lambda x, y: x + y
     return number_add(x, y)
@@ -502,7 +502,7 @@ from mindspore import ops
 def add(x, y):
     return x + y
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     add_ = ops.partial(add, x=2)
     m = add_(y=3)
@@ -541,7 +541,7 @@ The example is as follows:
 ```python
 import mindspore
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     l = [x * x for x in range(1, 11) if x % 2 == 0]
     return l
@@ -581,7 +581,7 @@ The example is as follows:
 ```python
 import mindspore
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     x = [('a', 1), ('b', 2), ('c', 3)]
     res = {k: v for (k, v) in x if v > 1}
@@ -623,7 +623,7 @@ For example:
 ```python
 import mindspore
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     l = (x * x for x in range(1, 11) if x % 2 == 0)
     return l
