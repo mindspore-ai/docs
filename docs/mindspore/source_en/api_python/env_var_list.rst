@@ -1042,12 +1042,12 @@ Build from source
      - Value Range
      - Description
    * - MSLIBS_CACHE_PATH
-     - Path where third-pary software built alongside MindSpore will be installed to, when building MindSpore from source code.
+     - Path where third-party software built alongside MindSpore will be installed to, when building MindSpore from source code.
      - String
      - `~/.mslib`: Your expected path to install third-party software. Default value: None.
-     - When this environment variable is set, MindSpore will install third-party software built from source code to this path, enabling these software to be shared throughout multiple compilations and save time spent builing them.
+     - When this environment variable is set, MindSpore will install third-party software built from source code to this path, enabling these software to be shared throughout multiple compilations and save time spent building them.
    * - MSLIBS_SERVER
-     - Website where third-pary software' source code is downloaded from when building MindSpore from source code.
+     - Website where third-party software' source code is downloaded from when building MindSpore from source code.
      - String
      - `tools.mindspore.cn`: Official MindSpore image for downloading third-party source code. Default value: None.
      - When this environment variable is set, MindSpore will download third-party source code from given address, avoiding issues due to unstable access to github.com, improving speed of downloading source code. This variable is inactive when `-S on` is set in your compile options.
