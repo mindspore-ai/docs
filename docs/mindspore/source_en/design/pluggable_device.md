@@ -22,7 +22,7 @@ The overall MindSpore architecture consists of the following major components, w
 
 The process of third-party chip interconnection to MindSpore mainly involves the back-end of MindSpore, which is also divided into several components. The overall components are divided into two main categories:
 
-- A category of hardware-independent components, commonly used data structures such as MemoryManager, MemoryPool, DeviceAddres and related algorithms as well as components including GraphCompiler, GraphSchdeduler that can schedule the entire process and have initial processing and scheduling capabilities for graphs or single operators.
+- A category of hardware-independent components, commonly used data structures such as MemoryManager, MemoryPool, DeviceAddress and related algorithms as well as components including GraphCompiler, GraphScheduler that can schedule the entire process and have initial processing and scheduling capabilities for graphs or single operators.
 - The other category is hardware-related components. This part provides several interfaces through the abstraction of hardware, and the third-party chips can choose interconnection according to the situation to realize the logic of operator, graph optimization, memory allocation, stream allocation, etc. unique to the hardware platform, and encapsulate them into dynamic libraries, which are loaded as plug-ins when the program runs. Third-party chips can refer to default built-in CPU/GPU/Ascend plug-ins of MindSpore when interconnection.
 
 To facilitate third-party hardware interconnection, a hardware abstraction layer is provided in MindSpore, which defines a standardized hardware interconnection interface. The abstraction layer is called by two modules, GraphCompiler and GraphScheduler, in the upper unified runtime:
@@ -32,7 +32,7 @@ To facilitate third-party hardware interconnection, a hardware abstraction layer
 
 Also public data structures and algorithms are provided in the framework, such as debug tools, default memory pool implementation, hundreds of common operations on Anf IR, and efficient memory reuse algorithm SOMAS developed by MindSpore.
 
-The hardware abstraction layer provides Graph mode (GraphExecutor) and Kernel mode (KernelExecutor) for two interconnection methods, respectively, for DSA architecture (such as NPU, XPU) and general architecture chips (such as GPU, CPU) to provide a classified interconnection interface. Chip vendors can inherit one or two abstract classes and implement them. Depending on the interconnection method, if you interconnect to Kernel mode, you also need to implement DeviceResMananger, KernelMod, DeviceAddress and other interfaces.
+The hardware abstraction layer provides Graph mode (GraphExecutor) and Kernel mode (KernelExecutor) for two interconnection methods, respectively, for DSA architecture (such as NPU, XPU) and general architecture chips (such as GPU, CPU) to provide a classified interconnection interface. Chip vendors can inherit one or two abstract classes and implement them. Depending on the interconnection method, if you interconnect to Kernel mode, you also need to implement DeviceResManager, KernelMod, DeviceAddress and other interfaces.
 
 ## Kernel Mode Interconnection
 
@@ -43,7 +43,7 @@ The generic architecture Kernel mode requires the following aspects to be implem
 - Custom graph optimization, which allows splitting and fusion of certain operators according to the features of the hardware, and other custom modifications to the graph.
 
 - Operator selection and operator compilation.
-- Memory management. DeviceAddres is the abstraction of memory, and third-party chip vendors need to implement the function of copying between Host and Device. It also needs to provide memory request and destruction functions. To facilitate third-party chip vendors, MindSpore provides a set of memory pool implementations and an efficient memory reuse algorithm, SOMAS, in the Common component.
+- Memory management. DeviceAddress is the abstraction of memory, and third-party chip vendors need to implement the function of copying between Host and Device. It also needs to provide memory request and destruction functions. To facilitate third-party chip vendors, MindSpore provides a set of memory pool implementations and an efficient memory reuse algorithm, SOMAS, in the Common component.
 - Stream management. If the chip to be docked has the concept of stream, it needs to provide the function of creation and destruction. and If not, it will run in single stream mode.
 
 ![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/docs/mindspore/source_zh_cn/design/images/pluggable_device_kernel.png)
