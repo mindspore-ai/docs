@@ -4,7 +4,7 @@
 
 ## Overview
 
-When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
+When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2, some intermediate files will be generated during graph compilation. These intermediate files are called IR files. Currently, there are two IR files:
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
 - .dot file: When setting the environment variable `MS_DEV_SAVE_GRAPHS` to 3, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure.
