@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/all_scenarios.md)
 
-MindSpore is designed to provide an device-edge-cloud full-scenarios AI framework that can be deployed in different hardware environments on the device-edge-cloud to meet the differentiated needs of different environments, such as supporting lightweight deployment on the device-side and rich training features such as automatic differentiation, hybrid precision and easy programming of models on the cloud side.
+MindSpore is designed to provide a device-edge-cloud full-scenarios AI framework that can be deployed in different hardware environments on the device-edge-cloud to meet the differentiated needs of different environments, such as supporting lightweight deployment on the device-side and rich training features such as automatic differentiation, hybrid precision and easy programming of models on the cloud side.
 
 > The cloud side includes NVIDIA GPU, Huawei Ascend, Intel x86, etc., and the device side includes Arm, Qualcomm, Kirin, etc.
 
@@ -36,11 +36,11 @@ An intermediate representation (IR) is a representation of a program between the
 
 MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. Automatic differentiation uses the transformation method based on the function-style programming framework. Therefore, IR uses the semantics close to that of the ANF function. In addition, a manner of representation based on an explicit dependency graph is used by referring to excellent designs of Sea of Nodes[1] and Thorin[2]. For the specific introduction of ANF-IR, please refer to [MindSpore IR Syntax](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#syntax).
 
-When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and setting the environment variable `MS_DEV_SAVE_GRAPHS` to 1, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. When more information about backend procedure should be analyzed, we can set the environment variable `MS_DEV_SAVE_GRAPHS` to 2. When more advanced information such as visualizing computing graphs or ir graphs of frontend with more details is required, we can set the environment variable `MS_DEV_SAVE_GRAPHS` to 3 to get more details. Currently, there are two IR files:
+When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and setting the environment variable `MS_DEV_SAVE_GRAPHS` to 1, some intermediate files will be generated during graph compilation. These intermediate files are called IR files. When more information about backend procedure should be analyzed, we can set the environment variable `MS_DEV_SAVE_GRAPHS` to 2. When more advanced information such as visualizing computing graphs or ir graphs of frontend with more details is required, we can set the environment variable `MS_DEV_SAVE_GRAPHS` to 3 to get more details. Currently, there are two IR files:
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
 
-- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org) as thes input to generate images for users to view the model structure.
+- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org) as the input to generate images for users to view the model structure.
 
 ### Syntax
 

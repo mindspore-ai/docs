@@ -36,7 +36,7 @@ The following table lists the system environment and third-party dependencies re
 |[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
 |[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
-|[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compliation in MindSpore depends on|
+|[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compilation in MindSpore depends on|
 |[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3-1.26.4|Numpy module that Numpy-related functions in MindSpore depends on|
 |[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-and-other-dependencies)|-|source code management tools used by MindSpore|
