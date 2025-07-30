@@ -40,8 +40,7 @@ If we think of the loop body as a subgraph that is called frequently, and tell t
 Taking the Pangu_alpha network as an example, the `network` handled in the `PipelineCell` function body is an instance of the `PanGUAlphaWithLoss` class. In order to implement a delayed inline, a `@lazy_inline` decorator is added to the `__init__` function of the `PanGUAlphaWithLoss` class to mark that the subgraph structure of the `PanGUAlphaWithLoss` class needs to be preserved without inlining or with delayed inlining. As shown below:
 
 ```python
-from mindspore import nn
-from mindspore import lazy_inline
+from mindspore import nn, lazy_inline
 
 class PanGUAlphaWithLoss(nn.Cell):
     @lazy_inline
@@ -67,8 +66,7 @@ def construct(self, x)
 With the introduction of reusable computation graphs, Cell instances with the same `cell_init_args` only need to be compiled and resolved once. So for more generalized scenarios of calling different instances of the same Cell class, as long as the `cell_init_args` are the same, we can add the `@lazy_inline` decorator to speed up compilation. For example, GPT networks:
 
 ```python
-from mindspore import nn
-from mindspore import lazy_inline
+from mindspore import nn, lazy_inline
 
 class Block(nn.Cell):
     @lazy_inline
@@ -108,8 +106,7 @@ As in the example above, add the `@lazy_inline` decorator to the `__init__` func
 1. Cell generates Cell instance identifiers based on the class name of the Cell and the value of the `__init__` parameter. This is based on the assumption that the `__init__` parameter determines all the attributes of the Cell, and that the Cell attributes at the start of the `construct` composition are the same as the attributes at the end of the `__init__` execution, therefore the composition-dependent attributes of Cell cannot be changed after `__init__` is executed. For example:
 
    ```python
-   from mindspore import nn
-   from mindspore import lazy_inline
+   from mindspore import nn, lazy_inline
 
    class Block(nn.Cell):
        @lazy_inline
@@ -145,8 +142,7 @@ As in the example above, add the `@lazy_inline` decorator to the `__init__` func
 2. In a scenario where the network structure of a Cell class contains multiple instances of the Cell_X class, and the network structure of each Cell_X class contains multiple instances of the Cell_Y class, if you add `@lazy_inline` to the `__init__` functions of both the Cell_X and Cell_Y classes, only the outermost Cell_X instances will be compiled into a reusable computation graph and delayed inline. The computation graph of the inner Cell_Y instance will still be inline. e.g.:
 
    ```python
-   from mindspore import nn
-   from mindspore import lazy_inline
+   from mindspore import nn, lazy_inline
 
    class InnerBlock(nn.Cell):
        @lazy_inline             # InnerBlock does not get delayed inline
@@ -207,21 +203,24 @@ A code sample that optimizes compilation performance by enabling compilation cac
 ```python
 import os
 import time
-from mindspore import dtype
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit
-def func(input_x, input_y):
-    output = input_x
-    for _ in range(200):
-        output = input_x + input_x * input_y + output
-    return output
+mindspore.set_context(mode=mindspore.GRAPH_MODE)
+
+class Model(nn.Cell):
+    def construct(self, input_x, input_y):
+        output = input_x
+        for _ in range(200):
+            output = input_x + input_x * input_y + output
+        return output
 
 os.environ['MS_COMPILER_CACHE_ENABLE'] = '0'
-x = ms.Tensor([1], dtype.float32)
-y = ms.Tensor([2], dtype.float32)
+x = mindspore.tensor([1], mindspore.float32)
+y = mindspore.tensor([2], mindspore.float32)
+model = Model()
 start_time = time.time()
-out = func(x, y)
+out = model(x, y)
 end_time = time.time()
 print("Disable compile_cache cost time:", end_time - start_time)
 ```
@@ -238,22 +237,25 @@ It can be seen that when the compilation cache is turned off, the 2nd execution 
 ```python
 import os
 import time
-from mindspore import dtype
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit
-def func(input_x, input_y):
-    output = input_x
-    for _ in range(200):
-        output = input_x + input_x * input_y + output
-    return output
+mindspore.set_context(mode=mindspore.GRAPH_MODE)
+
+class Model(nn.Cell):
+    def construct(self, input_x, input_y):
+        output = input_x
+        for _ in range(200):
+            output = input_x + input_x * input_y + output
+        return output
 
 os.environ['MS_COMPILER_CACHE_ENABLE'] = '1'
 os.environ['MS_COMPILER_CACHE_PATH'] = 'my_compile_cache'
-x = ms.Tensor([1], dtype.float32)
-y = ms.Tensor([2], dtype.float32)
+x = mindspore.tensor([1], mindspore.float32)
+y = mindspore.tensor([2], mindspore.float32)
+model = Model()
 start_time = time.time()
-out = func(x, y)
+out = model(x, y)
 end_time = time.time()
 os.environ['MS_COMPILER_CACHE_ENABLE'] = '0'
 print("Enable compile_cache cost time:", end_time - start_time)
@@ -304,18 +306,18 @@ The jit_class decorator only supports modifying custom classes, not classes that
 
 ```python
 import numpy as np
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit_class
+@mindspore.jit_class
 class InnerNet:
-    value = ms.Tensor(np.array([1, 2, 3]))
+    value = mindspore.tensor(np.array([1, 2, 3]))
 
 class Net(nn.Cell):
+    @mindspore.jit
     def construct(self):
         return InnerNet().value
 
-ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 out = net()
 print(out)
@@ -328,16 +330,16 @@ print(out)
 If jit_class modifies a class that inherits from `Cell`, an error will be reported.
 
 ```python
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit_class
+@mindspore.jit_class
 class Net(nn.Cell):
+    @mindspore.jit
     def construct(self, x):
         return x
 
-ms.set_context(mode=ms.GRAPH_MODE)
-x = ms.Tensor(1)
+x = mindspore.tensor(1)
 net = Net()
 net(x)
 ```
@@ -352,15 +354,15 @@ jit_class supports scenarios where custom classes are used nested, and custom cl
 
 ```python
 import numpy as np
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit_class
+@mindspore.jit_class
 class Inner:
     def __init__(self):
-        self.value = ms.Tensor(np.array([1, 2, 3]))
+        self.value = mindspore.tensor(np.array([1, 2, 3]))
 
-@ms.jit_class
+@mindspore.jit_class
 class InnerNet:
     def __init__(self):
         self.inner = Inner()
@@ -370,11 +372,11 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.inner_net = InnerNet()
 
+    @mindspore.jit
     def construct(self):
         out = self.inner_net.inner.value
         return out
 
-ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 out = net()
 print(out)
@@ -389,10 +391,10 @@ print(out)
 Supports calling attributes and methods by class name or class instance.
 
 ```python
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit_class
+@mindspore.jit_class
 class InnerNet:
     def __init__(self, val):
         self.number = val
@@ -405,12 +407,12 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.inner_net = InnerNet(2)
 
+    @mindspore.jit
     def construct(self, x, y):
         return self.inner_net.number + self.inner_net.act(x, y)
 
-ms.set_context(mode=ms.GRAPH_MODE)
-x = ms.Tensor(2, dtype=ms.int32)
-y = ms.Tensor(3, dtype=ms.int32)
+x = mindspore.tensor(2, dtype=mindspore.int32)
+y = mindspore.tensor(3, dtype=mindspore.int32)
 net = Net()
 out = net(x, y)
 print(out)
@@ -426,20 +428,20 @@ For functions that will be compiled into static computational graphs, such as `C
 
 ```python
 import numpy as np
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit_class
+@mindspore.jit_class
 class InnerNet:
     def __init__(self, val):
         self.number = val + 3
 
 class Net(nn.Cell):
+    @mindspore.jit
     def construct(self):
         net = InnerNet(2)
         return net.number
 
-ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 out = net()
 print(out)
@@ -455,10 +457,10 @@ When calling an instance of a class modified by `@jit_class`, the `__call__` fun
 
 ```python
 import numpy as np
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit_class
+@mindspore.jit_class
 class InnerNet:
     def __init__(self, number):
         self.number = number
@@ -467,14 +469,14 @@ class InnerNet:
         return self.number * (x + y)
 
 class Net(nn.Cell):
+    @mindspore.jit
     def construct(self, x, y):
         net = InnerNet(2)
         out = net(x, y)
         return out
 
-ms.set_context(mode=ms.GRAPH_MODE)
-x = ms.Tensor(2, dtype=ms.int32)
-y = ms.Tensor(3, dtype=ms.int32)
+x = mindspore.tensor(2, dtype=mindspore.int32)
+y = mindspore.tensor(3, dtype=mindspore.int32)
 net = Net()
 out = net(x, y)
 print(out)
@@ -488,23 +490,23 @@ If the class does not define a `__call__` function, an error will be reported.
 
 ```python
 import numpy as np
-import mindspore.nn as nn
-import mindspore as ms
+import mindspore
+from mindspore import nn
 
-@ms.jit_class
+@mindspore.jit_class
 class InnerNet:
     def __init__(self, number):
         self.number = number
 
 class Net(nn.Cell):
+    @mindspore.jit
     def construct(self, x, y):
         net = InnerNet(2)
         out = net(x, y)
         return out
 
-ms.set_context(mode=ms.GRAPH_MODE)
-x = ms.Tensor(2, dtype=ms.int32)
-y = ms.Tensor(3, dtype=ms.int32)
+x = mindspore.tensor(2, dtype=mindspore.int32)
+y = mindspore.tensor(3, dtype=mindspore.int32)
 net = Net()
 out = net(x, y)
 print(out)
@@ -528,10 +530,10 @@ A code sample that uses the `Select` operator instead of an if statement to opti
 
 ```python
 import time
+import mindspore
 from mindspore import ops
-import mindspore as ms
 
-@ms.jit
+@mindspore.jit
 def if_net(x, y):
     out = 0
     for _ in range(100):
@@ -543,11 +545,11 @@ def if_net(x, y):
     return out
 
 start_time = time.time()
-out = if_net(ms.Tensor([0]), ms.Tensor([1]))
+out = if_net(mindspore.tensor([0]), mindspore.tensor([1]))
 end_time = time.time()
 print("if net cost time:", end_time - start_time)
 
-@ms.jit
+@mindspore.jit
 def select_net(x, y):
     out = x
     for _ in range(100):
@@ -557,7 +559,7 @@ def select_net(x, y):
     return out
 
 start_time = time.time()
-out = select_net(ms.Tensor([0]), ms.Tensor([1]))
+out = select_net(mindspore.tensor([0]), mindspore.tensor([1]))
 end_time = time.time()
 print("select net cost time:", end_time - start_time)
 ```
@@ -580,13 +582,13 @@ The running results of the above code are as follows (the actual time consumptio
 ```python
 import numpy as np
 import time
+import mindspore
 from mindspore import ops, vmap
-import mindspore as ms
 
 def hswish_func(x):
     return ops.HSwish()(x)
 
-@ms.jit
+@mindspore.jit
 def manually_batched(xs):
     output = []
     for i in range(xs.shape[0]):
@@ -596,7 +598,7 @@ def manually_batched(xs):
 shape = (100, 2)
 prop = 100
 x_np = (np.random.randn(*shape) * prop).astype(np.float32)
-x = ms.Tensor(x_np)
+x = mindspore.tensor(x_np)
 x = ops.sub(x, 0)
 
 start_time = time.time()
@@ -642,13 +644,10 @@ It is worth stating that the particular set of operators used for floating-point
 
 ```python
 import numpy as np
-import mindspore as ms
-import mindspore.nn as nn
-from mindspore import ops, set_context, Tensor
-from mindspore import dtype as mstype
+import mindspore
+from mindspore import nn, ops, Tensor
 
-set_context(mode=ms.GRAPH_MODE)
-ms.set_device("Ascend")
+mindspore.set_device("Ascend")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -657,6 +656,7 @@ class Net(nn.Cell):
         self.get_status = ops.NPUGetFloatStatus()
         self.clear_status = ops.NPUClearFloatStatus()
 
+    @mindspore.jit
     def construct(self, x):
         init = self.alloc_status()
         clear_status = self.clear_status(init)
@@ -669,7 +669,7 @@ class Net(nn.Cell):
 
 value = 5
 data = np.full((2, 3), value, dtype=np.float16)
-x = Tensor(data, dtype=mstype.float16)
+x = mindspore.tensor(data, dtype=mindspore.float16)
 net = Net()
 res = net(x)
 print(res)
@@ -697,16 +697,13 @@ We can further understand this through the use case and the generated intermedia
 
 ```python
 import numpy as np
-from mindspore.nn import Cell
-from mindspore import Tensor, Parameter, ops
-import mindspore as ms
+import mindspore
+from mindspore import nn, ops, Tensor, Parameter
 
-ms.set_context(mode=ms.GRAPH_MODE)
-
-class ForwardNet(Cell):
+class ForwardNet(nn.Cell):
     def __init__(self):
         super(ForwardNet, self).__init__()
-        self.weight = Parameter(Tensor(np.array(0), ms.int32), name="param")
+        self.weight = Parameter(mindspore.tensor(np.array(0), mindspore.int32), name="param")
 
     def construct(self, x):
         out = 0
@@ -717,22 +714,22 @@ class ForwardNet(Cell):
             i = i + 1
         return out
 
-
-class BackwardNet(Cell):
+class BackwardNet(nn.Cell):
     def __init__(self, net):
         super(BackwardNet, self).__init__(auto_prefix=False)
         self.forward_net = net
         self.grad = ops.GradOperation(get_all=True)
 
+    @mindspore.jit
     def construct(self, *inputs):
         grads = self.grad(self.forward_net)(*inputs)
         return grads
 
-x = Tensor(np.array(1), ms.int32)
+x = mindspore.tensor(np.array(1), mindspore.int32)
 graph_forword_net = ForwardNet()
 graph_backword_net = BackwardNet(graph_forword_net)
 graph_mode_grads = graph_backword_net(x)
-output_except = (Tensor(np.array(3), ms.int32),)
+output_except = (mindspore.tensor(np.array(3), mindspore.int32),)
 assert np.all(graph_mode_grads == output_except)
 ```
 
