@@ -52,7 +52,7 @@ MindSpore provides rich interfaces for model building, training, and inference. 
    * - `mindspore.amp <./mindspore.amp.html>`_
      - Mixed-precision interface.
    * - `mindspore.train <./mindspore.train.html>`_
-     - Traning interface.
+     - Training interface.
    * - `mindspore.parallel <./mindspore.parallel.html>`_
      - Auto Parallel interface.
    * - `mindspore.runtime <./mindspore.runtime.html>`_
