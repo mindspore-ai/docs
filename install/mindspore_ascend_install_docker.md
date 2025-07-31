@@ -9,6 +9,7 @@
     - [运行MindSpore镜像](#运行mindspore镜像)
     - [验证是否安装成功](#验证是否安装成功)
     - [升级MindSpore版本](#升级mindspore版本)
+    - [注意事项](#注意事项)
 
 <!-- /TOC -->
 
@@ -22,17 +23,22 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 目前容器化构建选项支持情况如下：
 
-| 硬件平台   | Docker镜像仓库                | 标签                       | 说明                                       |
-| :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| Ascend | `mindspore/mindspore-ascend` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
+| 硬件平台   | Docker命名空间   | Docker镜像名称             | 标签                       | 说明                                       |
+| :--------- | :------------------------ | :------------------------ | :----------------------- | :--------------------------------------- |
+| Atlas 训练系列  | `mindspore` | `mindspore-ascend-a1` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
+| Atlas A2 训练系列 | `mindspore` | `mindspore-ascend-a2` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
 
 > `x.y.z`对应MindSpore版本号，例如安装2.7.0rc1版本MindSpore时，`x.y.z`应写为2.7.0rc1。
 
 ## 确认系统环境信息
 
-- 确认安装基于ARM的Ubuntu 18.04 / CentOS 7.6 64位操作系统。
+下表列出了使用Docker方式快速安装MindSpore所需的系统环境。
 
-- 确认安装[Docker 18.03或更高版本](https://docs.docker.com/get-docker/)。
+|软件名称|版本|作用|
+|-|-|-|
+|Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|运行MindSpore容器的操作系统|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
+|Docker | Docker 18.03或更高版本 |提供轻量级容器化环境，实现MindSpore及其依赖的隔离部署与跨平台运行|
 
 ## 安装昇腾AI处理器配套软件包
 
@@ -46,22 +52,23 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 ## 获取MindSpore镜像
 
-对于`Ascend`后端，可以直接使用以下命令获取最新的稳定镜像：
+对于不同架构的Ascend硬件平台后端，可以直接使用以下命令获取最新的稳定镜像：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
 ```
 
 其中：
 
-- `{tag}`对应上述表格中的标签。
+- `{tag}`对应上述表格中的标签,如2.7.0rc1。
+- `{image_name}` 对应上述表格中的docker镜像名称，使用 Atlas 训练系列产品请下载 `mindspore-ascend-a1` 镜像；Atlas A2 训练系列产品请下载 `mindspore-ascend-a2` 镜像。
 
 ## 运行MindSpore镜像
 
 执行以下命令，启动Docker容器实例：
 
 ```bash
-docker run -it -u root --ipc=host \
+docker run -it --ipc=host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
@@ -73,15 +80,19 @@ docker run -it -u root --ipc=host \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
+               -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
                -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+               -v /etc/ascend_install.info:/etc/ascend_install.info \
                -v /var/log/npu/:/usr/slog \
-               swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag} \
+               -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+               -v /etc/hccn.conf:/etc/hccn.conf \
+               swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag} \
                /bin/bash
 ```
 
 其中：
 
-- `{tag}`对应上述表格中的标签。
+- `{tag}`对应上述表格中的标签，如2.7.0rc1。
 
 ## 验证是否安装成功
 
@@ -92,7 +103,7 @@ docker run -it -u root --ipc=host \
 执行以下命令：
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
 ```
 
 如果输出：
@@ -141,13 +152,23 @@ print(ops.add(x, y))
 
 当需要升级MindSpore版本时：
 
-- 根据需要升级的MindSpore版本，升级对应的Ascend AI处理器配套软件包。
+- 根据需要升级的MindSpore版本以及Ascend硬件平台，升级对应的Ascend AI处理器配套软件包。
 - 直接使用以下命令获取最新的稳定镜像：
 
     ```bash
-    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
     ```
 
     其中：
 
     - `{tag}`对应上述表格中的标签。
+    - `{image_name}` 对应上述表格中的docker镜像名称，使用 Atlas 训练系列产品请下载 `mindspore-ascend-a1` 镜像；Atlas A2 训练系列产品请下载 `mindspore-ascend-a2` 镜像。
+
+## 注意事项
+
+- 在非root用户模式下创建容器时，必须确保目标NPU设备未被其他非root容器占用。启动后可以执行 `npu-smi info` 命令验证设备状态，若目标NPU设备已被其他非root容器占用，则会出现以下报错，可以在创建容器时加上 `-u root`。
+
+```text
+    DrvMngGetConsoleLogLevel failed. (g_conLogLevel=3)
+    dcmi model initialized failed, because the device is used. ret is -802
+```
