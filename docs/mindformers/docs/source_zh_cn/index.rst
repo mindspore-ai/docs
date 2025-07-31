@@ -42,7 +42,7 @@ MindSpore Transformers提供了统一的一键启动脚本，支持一键启动�
          </td>
          <td style="text-align: center; width: 20%; border: none">
             <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/supervised_fine_tuning.html"><span>微调</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/supervised_fine_tuning.html"><span>SFT微调</span></a></li>
             </ul>
          </td>
          <td style="text-align: center; width: 20%; border: none">
@@ -59,9 +59,6 @@ MindSpore Transformers提供了统一的一键启动脚本，支持一键启动�
 MindSpore Transformers功能特性说明
 -----------------------------------------------------
 
-
-
-
 - 通用功能：
 
   - `启动任务 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/start_tasks.html>`_
@@ -76,7 +73,7 @@ MindSpore Transformers功能特性说明
 
     支持safetensors格式的权重文件保存及加载功能。
 
-  - `配置文件 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/configuration.html>`_
+  - `配置文件说明 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/configuration.html>`_
 
     支持使用 `YAML` 文件集中管理和调整任务中的可配置项。
 
@@ -209,9 +206,9 @@ FAQ
    feature/configuration
    feature/load_huggingface_config
    feature/logging
+   feature/tokenizer
    feature/training_function
    feature/infer_function
-   feature/tokenizer
 
 .. toctree::
    :glob:

@@ -46,15 +46,15 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
     Supports saving and loading weight files in safetensors format.
 
-  - `Configuration File <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/configuration.html>`_
+  - `Configuration File Descriptions <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/configuration.html>`_
 
     Supports the use of `YAML` files to centrally manage and adjust configurable items in tasks.
 
-  - `Loading Hugging Face Model Configurations <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/load_huggingface_config.html>`_
+  - `Loading Hugging Face Model Configuration <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/load_huggingface_config.html>`_
 
     Supports plug-and-play loading of Hugging Face community model configurations for seamless integration.
 
-  - `Logging <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/logging.html>`_
+  - `Logs <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/logging.html>`_
 
     Introduction of logs, including log structure, log saving, and so on.
 
@@ -68,7 +68,7 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
     Supports multiple types and formats of datasets.
 
-  - `Model Training Hyperparameters <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/training_hyperparameters.html>`_
+  - `Training Hyperparameters <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/training_hyperparameters.html>`_
 
     Flexibly configure hyperparameter settings for large model training.
 

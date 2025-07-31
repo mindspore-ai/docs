@@ -2,15 +2,13 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_en/feature/resume_training.md)
 
-## Resumable Training
-
-### Overview
+## Overview
 
 MindSpore Transformers supports **step-level resumable training**, which allows the checkpoints of a model to be saved during training. If the training is interrupted, you can load a saved checkpoint to resume the training. This feature is crucial for processing large-scale training tasks, and can effectively reduce time and resource waste caused by unexpected interruptions. In addition, to resume a training where the dataset remains unchanged but the `global batch size` is changed, for example, when the cluster is changed or the configuration is modified, this tool supports automatic scaling of the number of resumable training steps and skipped data steps in the same proportion.
 
-### Configuration and Usage
+## Configuration and Usage
 
-#### YAML Parameters
+### YAML Parameters
 
 You can modify the configuration file to control resumable training. The main parameters are as follows. For details about other parameters, see the description of CheckpointMonitor.
 
@@ -36,18 +34,18 @@ In addition, you can modify the following parameters in the configuration file t
 | ignore_data_skip | Specifies whether to ignore the mechanism of skipping data during resumable training and read the dataset from the beginning instead. This parameter is used when the dataset is changed during resumable training. If this parameter is set to `True`, no data is skipped. The default value is `False`.                                                                                                                                                          |
 | data_skip_steps  | Number of steps skipped for the dataset. This parameter is used when the training is interrupted again after being resumed because the dataset or `global batch size` is changed. You need to manually set this parameter to configure the number of steps skipped for the new dataset. If the `global batch size` is changed, you need to divide and round down its value by the scaling coefficient and then specify the result as the value of this parameter.  |
 
-#### Fault Recovery Mechanism
+### Fault Recovery Mechanism
 
 If `resume_training` is set to `True`, the system automatically resumes training based on the weights recorded in `meta.json`. If the weight file of a rank is missing or damaged, the system rolls back to the latest available weight for recovery.
 
 > In a distributed environment, resumable training requires that the weights of all nodes be in the same shared directory. You can use the `SHARED_PATHS` environment variable to set the shared path.
 
-### Example of Distributed Training
+## Example of Distributed Training
 
 The following example shows how to enable resumable training in single-device and multi-device environments. The example is based on the `llama3.1 8b` model.
 For related configuration files, see [research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
 
-#### Complete Training
+### Complete Training
 
 1. Modify `research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml`.
 
@@ -95,7 +93,7 @@ For related configuration files, see [research/llama3_1/llama3_1_8b/finetune_lla
      └── meta.json
    ```
 
-#### Resumable Training
+### Resumable Training
 
 1. Modify the configuration and specify the resumable training weight file.
 
@@ -116,7 +114,7 @@ For related configuration files, see [research/llama3_1/llama3_1_8b/finetune_lla
 
    If the initial number of steps is `42`, the training is resumed successfully. The saved weight file contains the information about step `40`. The default value of `sink_size` is `2`, indicating that the information is printed every two steps. Therefore, the initial number of steps is `42`.
 
-#### Resumable Training with the Dataset Changed
+### Resumable Training with the Dataset Changed
 
 There are three main scenarios where the dataset is changed in resumable training. You need to modify the configuration file in each scenario. The following describes each case one by one, and describes in detail which step of the basic resumable training process needs to be modified, and how to modify a specific configuration to achieve an expected effect.
 
@@ -164,7 +162,7 @@ If `global batch size` is changed (for example, doubled) when a training is resu
 
 - **Expected result**: The model adjusts the number of skipped steps based on the new setting of `global batch size` and continues the training from the specified position.
 
-#### Fault Recovery Example
+### Fault Recovery Example
 
 If some weight files are missing, the system automatically restores the files based on the latest available weight.
 
@@ -196,7 +194,7 @@ If some weight files are missing, the system automatically restores the files ba
 
    If the initial number of steps is `32`, the training is resumed successfully. Because the weight of the information in step `40` under `rank_3` is deleted, the weight saved last time, that is, the weight of the information in step `30`, is automatically used. The default value of `sink_size` is `2`, indicating that information is printed every two steps. Therefore, the initial number of steps is `32`.
 
-### Precautions
+## Precautions
 
 - **Data offloading**: You must enable data offloading and configure `sink_mode=True` for distributed resumable training.
 - **Weight file check**: Ensure that the weights loaded for resumable training are the ones saved when the training is interrupted instead of in the entire training process. Otherwise, an error is reported.
