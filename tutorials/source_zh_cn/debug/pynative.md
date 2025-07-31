@@ -175,7 +175,7 @@ def some_function():
           return x
 
   net = Net()
-  output = mindspore.value_and_grad(net, grad_position=(0,1))(Tensor(np.ones([1]).astype(np.float32)))
+  output = mindspore.value_and_grad(net, grad_position=(0,))(Tensor(np.ones([1]).astype(np.float32)))
 
   print(output)
   ```
