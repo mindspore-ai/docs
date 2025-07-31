@@ -152,7 +152,7 @@ Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
 ```
 
 A: Currently, when training via OpenMPI, hccl needs to allocate about 300M device memory for each card within a communicator. The more communicators one card involved in, the more extra device memory needed. This probably cause memory issue.
-You can set `max_size` in `set_memory`to reduce variable memory for Ascend processes, so that hccl will have enough memory to create communicators.
+You can set `max_size` in `set_memory` to reduce variable memory for Ascend processes, so that hccl will have enough memory to create communicators.
 
 <br/>
 
@@ -162,7 +162,7 @@ You can set `max_size` in `set_memory`to reduce variable memory for Ascend proce
 np_tensor can not be split by strategy!
 ```
 
-A: This error indicates that a strategy is configured for a parameter on the network, but a certain dimension of the parameter is not devisible by the strategy. There are two possible problems: 1. The parameter is used as the input of an operator, and the shard interface is called to set an illegel strategy for this operator. 2. When `dataset_strategy`="data_parallel" or `full_batch`=False is set in `auto_parallel_context`, the framework will automatically set a data-parallel strategy for network input. This error is also reported if the network input contains parameter whose shape cannot be divisible by the data-parallel strategy. However, auto-parallel only supports Tensor as network input, and you need to make adjustments to your script.
+A: This error indicates that a strategy is configured for a parameter on the network, but a certain dimension of the parameter is not divisible by the strategy. There are two possible problems: 1. The parameter is used as the input of an operator, and the shard interface is called to set an illegal strategy for this operator. 2. When `dataset_strategy`="data_parallel" or `full_batch`=False is set in `auto_parallel_context`, the framework will automatically set a data-parallel strategy for network input. This error is also reported if the network input contains parameter whose shape cannot be divisible by the data-parallel strategy. However, auto-parallel only supports Tensor as network input, and you need to make adjustments to your script.
 
 <br/>
 

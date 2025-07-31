@@ -26,7 +26,7 @@ A: Compare through the following four aspects:
 
 - In terms of code debugging: since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
 
-- In terms of syntax support: PyNative mode has dynamic syntax affinity, flexible expression, and convers almost all Python syntax. Graph mode supports a subset of common Python syntax to support the construction and training of neural networks.
+- In terms of syntax support: PyNative mode has dynamic syntax affinity, flexible expression, and covers almost all Python syntax. Graph mode supports a subset of common Python syntax to support the construction and training of neural networks.
 
 <br/>
 
@@ -44,7 +44,7 @@ A: You can use the two frameworks in a python file. Pay attention to the differe
 
 ## Q: Can MindSpore read a ckpt file of TensorFlow?
 
-A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. Although both use the `Protocol` Buffers, the definition of `proto` are different. Currently, MindSpore cannot read the TensorFlow or Pytorch `ckpt` files.
+A: The formats of  `ckpt` of MindSpore and `ckpt` of TensorFlow are not generic. Although both use the `Protocol` Buffers, the definition of `proto` are different. Currently, MindSpore cannot read the TensorFlow or Pytorch `ckpt` files.
 
 <br/>
 
@@ -92,7 +92,7 @@ A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gi
 
 ## Q: What is the MindSpore IR design concept?
 
-A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effect. `JIT` compilation capability: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. Graphically complete IR: More conversion `Python` flexible syntax, including recursion, etc.
+A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effect. `JIT` compilation capability: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. Graphically complete IR: More conversion of `Python` flexible syntax, including recursion, etc.
 
 <br/>
 
@@ -116,7 +116,7 @@ A: MindSpore is a unified cloud-edge-device training and inference framework, wh
 
 ## Q: How does MindSpore support automatic parallelism?
 
-A: Automatic parallelism on CPUs and GPUs are being improved. You are advised to use the automatic parallelism on the Atlas training series. Follow our open source community and apply for a MindSpore developer experience environment for trial use.
+A: Automatic parallelism on CPUs and GPUs is being improved. You are advised to use the automatic parallelism on the Atlas training series. Follow our open source community and apply for a MindSpore developer experience environment for trial use.
 
 <br/>
 
@@ -140,4 +140,4 @@ A: NPU refers to a dedicated processor for neural network algorithms. Different 
 
 ## Q: What if I get stuck in model encryption process?
 
-A: First, figure out if the problem is due to the model size it self. As encryption usually costs time, we can estimate the expected time for encryption stage using model size and encryption speed of our machine. If the cost is far more than the expected time, we should consider the problem with secure random number generation by checking the status of system entropy pool. Using Linux as an example, we first query the system entropy threshold by executing `cat /proc/sys/kernel/random/read_wakeup_threshold`. Then we query the number of the currently available entropy using `cat /proc/sys/kernel/random/entropy_avail`. If the number of the currently available entropy is always smaller than system entropy threshold, we can confirm that the problem is caused by the lack of system entropy. In this case, we suggest launch the system entropy gathering and expansion service like `haveged`, in order to accelerate the update speed of system entropy pool.
+A: First, figure out if the problem is due to the model size it self. As encryption usually costs time, we can estimate the expected time for encryption stage using model size and encryption speed of our machine. If the cost is far more than the expected time, we should consider the problem with secure random number generation by checking the status of system entropy pool. Using Linux as an example, we first query the system entropy threshold by executing `cat /proc/sys/kernel/random/read_wakeup_threshold`. Then we query the number of the currently available entropy using `cat /proc/sys/kernel/random/entropy_avail`. If the number of the currently available entropy is always smaller than system entropy threshold, we can confirm that the problem is caused by the lack of system entropy. In this case, we suggest launching the system entropy gathering and expansion service like `haveged`, in order to accelerate the update speed of system entropy pool.

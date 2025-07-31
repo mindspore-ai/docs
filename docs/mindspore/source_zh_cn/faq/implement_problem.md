@@ -71,7 +71,7 @@ A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspo
 
 ## Q: MindSpore如何进行参数（如dropout值）修改？
 
-A: 在构造网络的时候可以通过 `if self.training: x = dropput(x)`，推理时，执行前设置`network.set_train(False)`，就可以不使用dropout，训练时设置为True就可以使用dropout。
+A: 在构造网络的时候可以通过 `if self.training: x = dropout(x)`，推理时，执行前设置`network.set_train(False)`，就可以不使用dropout，训练时设置为True就可以使用dropout。
 
 <br/>
 
