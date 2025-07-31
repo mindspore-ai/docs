@@ -175,7 +175,7 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
           return x
 
   net = Net()
-  output = mindspore.value_and_grad(net, grad_position=(0,1))(Tensor(np.ones([1]).astype(np.float32)))
+  output = mindspore.value_and_grad(net, grad_position=(0,))(Tensor(np.ones([1]).astype(np.float32)))
 
   print(output)
   ```
