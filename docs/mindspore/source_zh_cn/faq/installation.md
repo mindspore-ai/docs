@@ -26,7 +26,7 @@ A: 首先检查output目录下编译得到的安装包名，类似mindspore-1.6.
 
 <br/>
 
-### Q: 使用pip安装时报错: `SSL:CERTIFICATE_VERIFY_FATLED`应该怎么办？
+### Q: 使用pip安装时报错: `SSL:CERTIFICATE_VERIFY_FAILED`应该怎么办？
 
 A: 在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com`重试即可。
 
