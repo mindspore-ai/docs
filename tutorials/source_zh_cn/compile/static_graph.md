@@ -191,7 +191,7 @@ API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 支持在网络里定义`Number`，即支持语法：`y = 1`、`y = 1.2`、`y = True`。
 
 当数据为常量时，编译期可以获取到数值，在网络中可以支持强制类型转换`Number`的语法：`y = int(x)`、`y = float(x)`、`y = bool(x)`。
-当数据为变量时，即需要在运行期才可以获取到数值，也支持使用int()、float()、bool()等内置函数[Python内置函数](https://www.mindspore.cn/tutorials/zh-CN/master/compile/python_builtin_functions.html)进行数据类型转换。例如：
+当数据为变量时，即需要在执行期才可以获取到数值，也支持使用int()、float()、bool()等内置函数[Python内置函数](https://www.mindspore.cn/tutorials/zh-CN/master/compile/python_builtin_functions.html)进行数据类型转换。例如：
 
 ``` python
 import mindspore
@@ -480,7 +480,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语法：`list_object.clear()`。
 
-        基础语义：清空`List`对象 `list_object`中包含的元素。
+        基础语义：清空`List`对象`list_object`中包含的所有元素。
 
         目前，`List.clear`不支持inplace，
         清空元素后将会生成一个新的对象。该操作后续将支持inplace。
@@ -922,7 +922,7 @@ API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/minds
 
 属性引用是后面带有一个句点加一个名称的原型。
 
-在MindSpore的Cell 实例中使用属性引用作为左值需满足如下要求：
+在MindSpore的Cell实例中使用属性引用作为左值需满足如下要求：
 
 - 被修改的属性属于本`cell`对象，即必须为`self.xxx`。
 - 该属性在Cell的`__init__`函数中完成初始化且其为Parameter类型。
@@ -1015,9 +1015,9 @@ ret:[[3. 3. 3. 3.]]
 
 #### 网络入参
 
-在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度。
+在对整网入参求梯度时，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度。
 
-示例如下。整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`。因此，`grad_net`在对整网入参`(x, y, z)`求梯度的时候，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
+示例如下。整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`。因此，`grad_net`在对整网入参`(x, y, z)`求梯度时，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
 
 ``` python
 import mindspore
@@ -1061,7 +1061,7 @@ Graph Mode支持对Tensor的view和in-place操作与求导。
 
 #### 支持view操作
 
-view操作是指创建一个新的张量，它与原始张量共享相同的数据存储，但具有不同的形状或排列方式，换句话说view操作不会复制数据，而是通过不同的视角来解释现有的数据，避免了不必要的内存分配和数据复制。
+view操作是指创建一个新的张量，它与原始张量共享相同的数据存储，但具有不同的形状或排列方式。换句话说，view操作不会复制数据，而是通过不同的视角来解释现有的数据，避免了不必要的内存分配和数据复制。
 
 支持`Ascend`设备，使用`mindspore.jit`进行编译时，`jit_level=00`和`01`均支持。
 
@@ -1099,7 +1099,7 @@ assert (graph_grad_out == pynative_grad_out).all()
 
 #### 支持in-place操作
 
-in-place操作是指直接修改输入张量的内容，而不创建新的张量，其优点在于节省内存，尤其是在处理高维数据时，能显著减少额外的内存开销。
+in-place操作是指直接修改输入张量的内容，而不创建新的张量。其优点在于节省内存，尤其是在处理高维数据时，能显著减少额外的内存开销。
 
 下面使用Tensor和Parameter相关用例对Graph Mode支持in-place操作和求导进行说明。
 
@@ -1291,7 +1291,7 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
 
     在Graph Mode的自动微分中，梯度的传递依赖于节点的连边关系，而view和in-place类算子作为原地操作类算子，会影响节点的连边关系，进而影响梯度的传递。
 
-    当计算图中存在view和in-place算子时，如果可以在图节点的表达上正确传播梯度，也就可以支持view inplace场景反向，否则当前支持不了，会存在相应的报错信息。
+    当计算图中存在view和in-place算子时，如果可以在图节点的表达上正确传播梯度，也就可以支持view inplace场景反向，否则当前不支持，会存在相应的报错信息。
 
     示例如下:
 
@@ -2054,7 +2054,7 @@ res:  2
     net.m is 3
     ```
 
-    注意，self对象支持属性修改和设置。若`__init__`内没有定义某个属性，对齐PYNATIVE模式，图模式也允许设置此属性。例如：
+    注意，self对象支持属性修改和设置。若`__init__`内没有定义某个属性，对齐PyNative模式，图模式也允许设置此属性。例如：
 
     ``` python
     import mindspore
@@ -2136,7 +2136,7 @@ assert out == 2
 
 ### Annotation Type
 
-对于运行时的扩展支持的语法，会产生一些无法被类型推导出的节点，比如动态创建Tensor等。这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`float64`进行运算，防止其精度丢失。为了能更好的优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过扩展支持的语句会产生具体类型的时候，我们推荐使用`Annotation @jit.typing:`的方式进行指定对应Python语句类型，从而确定解释节点的类型避免`Any`类型的生成。
+对于运行时的扩展支持的语法，会产生一些无法被类型推导出的节点，比如动态创建Tensor等。这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`float64`进行运算，防止其精度丢失。为了能更好地优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过扩展支持的语句会产生具体类型的时候，我们推荐使用`Annotation @jit.typing:`的方式进行指定对应Python语句类型，从而确定解释节点的类型避免`Any`类型的生成。
 
 例如，[Tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor)类和[tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)接口的区别就在于在`tensor`接口内部运用了Annotation
 Type机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation Type`的使用只需要在对应Python语句上面或者后面加上注释
