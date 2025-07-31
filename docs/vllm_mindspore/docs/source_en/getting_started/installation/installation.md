@@ -32,27 +32,35 @@ This section introduces three installation methods: [Docker Installation](#docke
 
 We recommend using Docker for quick deployment of the vLLM MindSpore environment. Below are the steps:  
 
-#### Pulling the Image
+#### Building the Image  
 
-Execute the following command to pull the vLLM MindSpore Docker image:  
+User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
 
 ```bash  
-docker pull hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  
+git clone https://gitee.com/mindspore/vllm-mindspore.git
+bash build_image.sh
 ```  
 
-During the pull process, user will see the progress of each layer. After successful completion, check the image by executing the following command:  
+After a successful build, user will get the following output:
+
+```text
+Successfully built e40bcbeae9fc
+Successfully tagged vllm_ms_20250726:latest
+```
+
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
 
 ```bash  
 docker images  
-```  
+```
 
 #### Creating a Container
 
-After [pulling the image](#pulling-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then execute the following command to create the container:  
+After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then execute the following command to create the container:  
 
 ```bash  
 export DOCKER_NAME=vllm-mindspore-container  # your container name
-export IMAGE_NAME=hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  # your image name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
 
 docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
         --device=/dev/davinci0 \
@@ -189,4 +197,4 @@ Prompt: 'Today is'. Generated text: ' the 100th day of school. To celebrate, the
 Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compostable alternative'  
 ```  
 
-Alternatively, refer to the [Quick Start](../quick_start/quick_start.md) guide for [online serving](../quick_start/quick_start.md#online-serving) verification.
+Alternatively, refer to the [Quick Start](../quick_start/quick_start.md) guide for [online inference](../quick_start/quick_start.md#online-serving) verification.

@@ -6,51 +6,37 @@ vLLM MindSpore supports hybrid parallel inference with configurations of tensor 
 
 This document uses the DeepSeek R1 671B W8A8 model as an example to introduce the inference workflows for [tensor parallelism (TP16)](#tp16-tensor-parallel-inference) and [hybrid parallelism](#hybrid-parallel-inference). The DeepSeek R1 671B W8A8 model requires multiple nodes to run inference. To ensure consistent execution configurations (including model configuration file paths, Python environments, etc.) across all nodes, it is recommended to use Docker containers to eliminate execution differences.  
 
-Users can configure the environment by following the [Creating a Container](#creating-a-container) section below or referring to the [Installation Guide](../../installation/installation.md#installation-guide).  
+Users can configure the environment by following the [Docker Installation](#docker-installation) section below.  
 
-## Creating a Container
+## Docker Installation
 
-```bash  
-docker pull hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest
+In this section, we recommend to use docker to deploy the vLLM MindSpore environment. The following sections are the steps for deployment:
 
-# Create Docker containers on the master and worker nodes respectively  
-docker run -itd --name=mindspore_vllm --ipc=host --network=host --privileged=true \
-        --device=/dev/davinci0 \
-        --device=/dev/davinci1 \
-        --device=/dev/davinci2 \
-        --device=/dev/davinci3 \
-        --device=/dev/davinci4 \
-        --device=/dev/davinci5 \
-        --device=/dev/davinci6 \
-        --device=/dev/davinci7 \
-        --device=/dev/davinci_manager \
-        --device=/dev/devmm_svm \
-        --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
-        -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
-        -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-        -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
-        --shm-size="250g" \
-        hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest \
-        bash
-```  
+### Building the Image  
 
-After successfully creating the container, the container ID will be returned. Users can execute the following command to verify whether the container was created successfully:  
+User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
 
 ```bash  
-docker ps  
+git clone https://gitee.com/mindspore/vllm-mindspore.git
+bash build_image.sh
 ```  
+
+After a successful build, user will get the following output:
+
+```text
+Successfully built e40bcbeae9fc
+Successfully tagged vllm_ms_20250726:latest
+```
+
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
+
+```bash  
+docker images  
+```
 
 ### Entering the Container
 
-After completing the [Creating a Container](#creating-a-container) step, use the predefined environment variable `DOCKER_NAME` to start and enter the container:  
+After [building the image](#building-the-image) step, use the predefined environment variable `DOCKER_NAME` to start and enter the container:  
 
 ```bash  
 docker exec -it $DOCKER_NAME bash
@@ -236,7 +222,7 @@ Before managing a multi-node cluster, ensure that the hostnames of all nodes are
 
 #### Starting the Service
 
-vLLM MindSpore can deploy online services using the OpenAI API protocol. Below is the workflow for launching the service.  
+vLLM MindSpore can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service.  
 
 ```bash  
 # Service launch parameter explanation  
@@ -315,7 +301,7 @@ parallel_config:
 
 ### Online Inference
 
-`vllm-mindspore` can deploy online services using the OpenAI API protocol. Below is the workflow for launching the service:  
+`vllm-mindspore` can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service:  
 
 ```bash  
 # Parameter explanations for service launch  

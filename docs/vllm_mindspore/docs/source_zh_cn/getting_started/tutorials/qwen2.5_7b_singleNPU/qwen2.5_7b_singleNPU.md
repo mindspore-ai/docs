@@ -8,15 +8,23 @@
 
 在本章节中，我们推荐用docker创建的方式，以快速部署vLLM MindSpore环境。以下是部署docker的步骤介绍：
 
-### 拉取镜像
+### 构建镜像
 
-拉取vLLM MindSpore的docker镜像。执行以下命令进行拉取：
+用户可执行以下命令，拉取vLLM MindSpore代码仓库，并构建镜像：
 
 ```bash
-docker pull hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest
+git clone https://gitee.com/mindspore/vllm-mindspore.git
+bash build_image.sh
 ```
 
-拉取过程中，用户将看到docker镜像各layer的拉取进度。拉取成功后，用户可执行以下命令，确认docker镜像拉取成功：
+构建成功后，用户可以得到以下信息：
+
+```text
+Successfully built e40bcbeae9fc
+Successfully tagged vllm_ms_20250726:latest
+```
+
+其中，`e40bcbeae9fc`为镜像id，`vllm_ms_20250726:latest`为镜像名与tag。用户可执行以下命令，确认docker镜像创建成功：
 
 ```bash
 docker images
@@ -24,11 +32,11 @@ docker images
 
 ### 新建容器
 
-用户在完成[拉取镜像](#拉取镜像)后，设置`DOCKER_NAME`与`IMAGE_NAME`为容器名与镜像名，并执行以下命令，以新建容器：
+用户在完成[构建镜像](#构建镜像)后，设置`DOCKER_NAME`与`IMAGE_NAME`为容器名与镜像名，并执行以下命令新建容器：
 
 ```bash
 export DOCKER_NAME=vllm-mindspore-container  # your container name
-export IMAGE_NAME=hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  # your image name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
 
 docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
         --device=/dev/davinci0 \
@@ -180,7 +188,7 @@ Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compost
 
 ## 在线推理
 
-vLLM MindSpore可使用OpenAI的API协议，部署为在线服务。以下是以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，介绍模型的[启动服务](#启动服务)，并[发送请求](#发送请求)，得到在线服务的推理结果。
+vLLM MindSpore可使用OpenAI的API协议，部署为在线推理。以下是以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，介绍模型的[启动服务](#启动服务)，并[发送请求](#发送请求)，得到在线推理的推理结果。
 
 ### 启动服务
 

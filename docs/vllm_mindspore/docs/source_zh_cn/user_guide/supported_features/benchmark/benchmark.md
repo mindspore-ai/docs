@@ -15,13 +15,13 @@ export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set ac
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-并以下命令启动在线服务：
+并以下命令启动在线推理：
 
 ```bash
 vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests
 ```
 
-若使用多卡推理，以[Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) 为例，可按照文档[多卡推理（Qwen2.5-32B）](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#在线推理)进行环境准备，则可用以下命令启动在线服务：
+若使用多卡推理，以[Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) 为例，可按照文档[多卡推理（Qwen2.5-32B）](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#在线推理)进行环境准备，则可用以下命令启动在线推理：
 
 ```bash
 export TENSOR_PARALLEL_SIZE=4

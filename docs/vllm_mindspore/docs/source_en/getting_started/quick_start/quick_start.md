@@ -8,27 +8,35 @@ This document provides a quick guide to deploy vLLM MindSpore by [docker](https:
 
 In this section, we recommend to use docker to deploy the vLLM MindSpore environment. The following sections are the steps for deployment:
 
-### Pulling the Image
+### Building the Image  
 
-Pull the vLLM MindSpore docker image by executing the following command:  
+User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
 
 ```bash  
-docker pull hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  
+git clone https://gitee.com/mindspore/vllm-mindspore.git
+bash build_image.sh
 ```  
 
-During the pull process, user will see the progress of each layer of the docker image. User can verify the image by executing the following command:  
+After a successful build, user will get the following output:
+
+```text
+Successfully built e40bcbeae9fc
+Successfully tagged vllm_ms_20250726:latest
+```
+
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
 
 ```bash  
 docker images  
-```  
+```
 
 ### Creating a Container
 
-After [pulling the image](#pulling-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, and create the container by running:  
+After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, and create the container by running:  
 
 ```bash  
 export DOCKER_NAME=vllm-mindspore-container  # your container name
-export IMAGE_NAME=hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  # your image name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
 
 docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
         --device=/dev/davinci0 \
@@ -74,7 +82,7 @@ docker exec -it $DOCKER_NAME bash
 
 ## Using the Service
 
-After deploying the environment, user need to prepare the model files before running the model. Refer to the [Download Model](#downloading-model) section for guidance. After [setting environment variables](#setting-environment-variables), user can experience the model bt [offline inference](#offline-inference) or [online serving](#online-serving).  
+After deploying the environment, user need to prepare the model files before running the model. Refer to the [Download Model](#downloading-model) section for guidance. After [setting environment variables](#setting-environment-variables), user can experience the model bt [offline inference](#offline-inference) or [online inference](#online-serving).  
 
 ### Downloading Model
 
@@ -184,7 +192,7 @@ Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compost
 
 ### Online Inference
 
-vLLM MindSpore supports online serving deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
+vLLM MindSpore supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
 
 #### Starting the Service
 
