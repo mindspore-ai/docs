@@ -433,7 +433,7 @@ loss_fn = nn.CrossEntropyLoss() # loss function
 optimizer = nn.Adam(net.trainable_params(), lr) # optimizer
 
 # define forward function
-def forword_fn(inputs, targets):
+def forward_fn(inputs, targets):
     logits = net(inputs)
     loss = loss_fn(logits, targets)
     return loss, logits

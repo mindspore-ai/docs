@@ -71,7 +71,7 @@ A: To change the value according to `epoch`, use [Dynamic LR Function](https://w
 
 ## Q: How do I modify parameters (such as the dropout value) on MindSpore?
 
-A: When building a network, use `if self.training: x = dropput(x)`. When inferring, set `network.set_train(False)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
+A: When building a network, use `if self.training: x = dropout(x)`. When inferring, set `network.set_train(False)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
 
 <br/>
 
@@ -121,7 +121,7 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 <br/>
 
-## Q: How do I obtain  `feature map` with the expected size when `nn.Conv2d` is used?
+## Q: How do I obtain `feature map` with the expected size when `nn.Conv2d` is used?
 
 A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d). Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
@@ -287,7 +287,7 @@ A: Use the msnpureport tool to set the on-device log level. The tool is stored i
 /usr/local/Ascend/latest/driver/tools/msnpureport -d 1 -g warning
 ```
 
-Assume that the value range of deviceID is [0, 7], and `devices 0-3` and `devices 4-7` are on the same OS. `devices 0` to `device3` share the same log configuration file and `device4` to `device7` share the same configuration file. In this way, changing any log level in `devices 0` to `device3` will change that of other `device`. This rule also applies to `device4` to `device7` .
+Assume that the value range of device ID is [0, 7], and `devices 0-3` and `devices 4-7` are on the same OS. `devices 0` to `device3` share the same log configuration file and `device4` to `device7` share the same configuration file. In this way, changing any log level in `devices 0` to `device3` will change that of other `device`. This rule also applies to `device4` to `device7` .
 
 After the `Driver` package is installed (assuming that the installation path is /usr/local/HiAI and the execution file `msnpureport.exe` is in the C:\ProgramFiles\Huawei\Ascend\Driver\tools\ directory on Windows), suppose the user executes the command line directly in the /home/shihangbo/directory, the Device side logs are exported to the current directory and stored in a timestamp-named folder.
 
@@ -298,7 +298,7 @@ After the `Driver` package is installed (assuming that the installation path is 
 A: This issue is a memory shortage problem caused by too much memory usage, which can be caused by two possible causes:
 
 - Set the value of `batch_size` too large. Solution: Reduce the value of `batch_size`.
-- Introduce the abnormally large `parameter`, for example, a single data shape is [640,1024,80,81]. The data type is  float32, and the single data size is over 15G. In this way, the two data with the similar size are added together, and the memory occupied is over 3*15G, which easily causes `Out of Memory`. Solution: Check the `shape` of the parameter. If it is abnormally large, the shape can be reduced.
+- Introduce the abnormally large `parameter`, for example, a single data shape is [640,1024,80,81]. The data type is float32, and the single data size is over 15G. In this way, the two data with the similar size are added together, and the memory occupied is over 3*15G, which easily causes `Out of Memory`. Solution: Check the `shape` of the parameter. If it is abnormally large, the shape can be reduced.
 - If the following operations cannot solve the problem, you can raise the problem on the [official forum](https://discuss.mindspore.cn/), and there are dedicated technical personnels for help.
 
 <br/>

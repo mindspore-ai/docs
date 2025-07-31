@@ -16,7 +16,7 @@ Hence, if you run into the problem `is not a supported wheel on this platform`, 
 
 <br/>
 
-### Q: What should I do if an error message `ERROR: mindspore-{VERSION}.whl is not a supported wheel on this platform` is displayed when I compile MindSpore form source and install it by using pip on the macOS system?
+### Q: What should I do if an error message `ERROR: mindspore-{VERSION}.whl is not a supported wheel on this platform` is displayed when I compile MindSpore from source and install it by using pip on the macOS system?
 
 A: First, check the name of the installation package under the output directory, which is similar to mindspore-1.6.0-cp37-cp37m-macosx_11_1_x84_64.whl. The "11_1" in the package name means that the SDK version used when compiling is 11.1. If the SDK version used is 11.x, it may be that the SDK version used during compilation is too high and cannot be installed.
 
@@ -26,7 +26,7 @@ Solution 2: Before compiling the source code, set the environment variable `MACO
 
 <br/>
 
-### Q: What should I do if an error message `SSL:CERTIFICATE_VERIFY_FATLED` is displayed when I use pip to install MindSpore?
+### Q: What should I do if an error message `SSL:CERTIFICATE_VERIFY_FAILED` is displayed when I use pip to install MindSpore?
 
 A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` parameter to the pip installation command and try again.
 
@@ -34,7 +34,7 @@ A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` paramete
 
 ### Q: Any specific requirements for Protobuf version when use MindSpore?
 
-A: MindSpore installs version 3.13.0 of Protobuf by default. If it is not the version, there will be many warnings in the log when using pytest to test the code.  It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
+A: MindSpore installs version 3.13.0 of Protobuf by default. If it is not the version, there will be many warnings in the log when using pytest to test the code. It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
 
 <br/>
 
@@ -64,7 +64,7 @@ A: MindSpore relies on the third-party library `pillow` for some data processing
 
 ### Q: What should I do if error message `ImportError: dlopen ... no suitable image found.  Did find:..._psutil_osx.cpython-38-darwin.so: mach-o, but wrong architecture` is generated when I execute MindSpore on macOS for ARM with Python3.8?
 
-A: The default version of psutil in Python3.8 for macOS(ARM architecture) has a bug that compiles its binaries for x86 architecture, causing conflitcts when running MindSpore. To fix this, run `pip uninstall psutil; conda install psutil` if you are using Conda, otherwise run `pip uninstall psutil; pip install --no-binary :all: psutil` to install psutil correctly.
+A: The default version of psutil in Python3.8 for macOS(ARM architecture) has a bug that compiles its binaries for x86 architecture, causing conflicts when running MindSpore. To fix this, run `pip uninstall psutil; conda install psutil` if you are using Conda, otherwise run `pip uninstall psutil; pip install --no-binary :all: psutil` to install psutil correctly.
 For detailed reasons, please refer to [this post on stackoverflow](https://stackoverflow.com/questions/72619143/unable-to-import-psutil-on-m1-mac-with-miniforge-mach-o-file-but-is-an-incomp).
 
 <br/>
@@ -85,7 +85,7 @@ A: The error message indicates that the cuBLAS library is not found. Generally, 
 
 ### Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?
 
-A: When you encounter the error, te or hccl packages in your personal Conda environment are most likely not updated when updating Ascend AI processor software packages, you may uninstall the abovementioned packages first, then execute environment variables configuration script provided in the Ascend packages to set PYTHONPATH that allocates the correct version of te and hccl packages automatically: `source /usr/local/Ascend/ascend-toolkit/set_env.sh`.
+A: When you encounter the error, te or hccl packages in your personal Conda environment are most likely not updated when updating Ascend AI processor software packages, you may uninstall the aforementioned packages first, then execute environment variables configuration script provided in the Ascend packages to set PYTHONPATH that allocates the correct version of te and hccl packages automatically: `source /usr/local/Ascend/ascend-toolkit/set_env.sh`.
 
 <br/>
 
@@ -157,7 +157,7 @@ A: The possible reasons are:
 
 ### Q: A warning `SetuptoolsDeprecationWarning: setup.py install is deprecated ...` occurs when finishing compilation, what should I do?
 
-A: Setuptools, a Python package which manages generation of Python whl packages, has deprecated direct calling of setup.py since 58.3.0, hence you may run into such warnings while using a Python environment with a newer version of setuptools installed. This does not affect the usage of MindSpore, and we will update our pacakaging methods in a future version.
+A: Setuptools, a Python package which manages generation of Python whl packages, has deprecated direct calling of setup.py since 58.3.0, hence you may run into such warnings while using a Python environment with a newer version of setuptools installed. This does not affect the usage of MindSpore, and we will update our packaging methods in a future version.
 For more details, please refer to [setuptools version history](https://setuptools.pypa.io/en/latest/history.html#v58-3-0)
 
 <br/>
@@ -184,7 +184,7 @@ A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` director
 
 ### Q: Whether MindSpore can support Nvidia GPU discrete graphics + Windows operating system pc?
 
-A: At present, the support of MindSpore is the combination configuration of GPU +Linux and CPU + Windows, and the support of Windows + GPU is still under development.
+A: At present, the support of MindSpore is the combination configuration of GPU + Linux and CPU + Windows, and the support of Windows + GPU is still under development.
 
 If you want to run on a GPU+Windows environment, you can try to use WSL+docker, the operation idea:
 
@@ -260,7 +260,7 @@ Then, if Python 3.7.6 or lower does not contain this dynamic library in the Cond
 
 ### Q: Ascend AI processor software package and other prerequisites have been installed, but executing MindSpore failed with error message `Cannot open shared objectfile: No such file or directory`, what should I do?
 
-A: There are 2 common reasons: an incorrect version of Ascend AI processor software package is installed, or the packages are installed in customized paths, yet the environment varialbes are not set accordingly.
+A: There are 2 common reasons: an incorrect version of Ascend AI processor software package is installed, or the packages are installed in customized paths, yet the environment variables are not set accordingly.
 
 1. Go to directory where Ascend AI processor software package is installed, being `/usr/local/Ascend` by default, open `version.info` files which are located under directories of subpackages, and check if the version number matches the requirement of MindSpore. Please refer to [Install](https://www.mindspore.cn/install/en) for the detailed version required by MindSpore versions. If the version number does not match, please update the packages accordingly.
 
@@ -312,7 +312,7 @@ It means MindSpore has been installed successfully.
 
 <br/>
 
-### Q: What should I do do when the errors prompts, such as `sh:1:python:not found`, `No module named mindspore._extends.remote` that the Python was linked to Python2.7 when the use case is executed on `linux` platform?
+### Q: What should I do when the errors prompt, such as `sh:1:python:not found`, `No module named mindspore._extends.remote` that the Python was linked to Python2.7 when the use case is executed on `linux` platform?
 
 A: When you encounter such problem, it is most likely caused by Python environment. Use the following command to check whether the current Python environment meets the requirements of MindSpore.
 
@@ -346,7 +346,7 @@ $sudo make install
 
 ### Q: What should I do if an warning message `UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.` is displayed when running MindSpore?
 
-A: The above issue occurs in environments with a newer version of numpy (>=1.22.0) version of ARM python 3.9 installed. We observed such warnings on ARM environment, with python 3.9 and numpy >=1.22.0 installed. The wharnings come from numpy and not from MindSpore. If the wharnings affect the normal debugging of the code, you can consider manually installing an earlier version of numpy (<=1.21.2) to circumvent it.
+A: The above issue occurs in environments with a newer version of numpy (>=1.22.0) version of ARM python 3.9 installed. We observed such warnings on ARM environment, with python 3.9 and numpy >=1.22.0 installed. The warnings come from numpy and not from MindSpore. If the warnings affect the normal debugging of the code, you can consider manually installing an earlier version of numpy (<=1.21.2) to circumvent it.
 
 <br/>
 
