@@ -415,7 +415,7 @@ import mindspore
 
 z = mindspore.tensor(np.ones((6, 4, 5)))
 
-@mindspore.jit()
+@mindspore.jit
 def test(w):
     x = (2, 3, 4)
     y = [2, 3, 4]
@@ -474,7 +474,7 @@ import numpy as np
 
 z = mindspore.tensor(np.ones((6, 4, 5)))
 
-@mindspore.jit()
+@mindspore.jit
 def test(w):
     x = (2, 3, 4)
     y = [2, 3, 4]
@@ -881,7 +881,7 @@ import mindspore
 def add(x, y):
     return x + y
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     elements_a = (1, 2, 3)
     elements_b = (4, 5, 6)
@@ -918,7 +918,7 @@ For example:
 ```python
 import mindspore
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     elements_a = (1, 2, 3)
     elements_b = (4, 5, 6)
@@ -962,7 +962,7 @@ For example:
 ```python
 import mindspore
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     x = range(0, 6, 2)
     y = range(0, 5)
@@ -1009,7 +1009,7 @@ import numpy as np
 
 y = mindspore.tensor(np.array([[1, 2], [3, 4], [5, 6]]))
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     x = (100, 200, 300, 400)
     m = enumerate(x, 3)
@@ -1112,7 +1112,7 @@ import numpy as np
 x = mindspore.tensor(np.array([1, 2, 3]))
 y = mindspore.tensor(np.array([1, 2, 3]))
 
-@mindspore.jit()
+@mindspore.jit
 def test(x, y):
     return pow(x, y)
 
@@ -1146,7 +1146,7 @@ import numpy as np
 x = mindspore.tensor(np.array([1, 2, 3]), mindspore.int32)
 y = mindspore.tensor(3, mindspore.int32)
 
-@mindspore.jit()
+@mindspore.jit
 def test(x, y):
     print(x)
     print(y)
@@ -1186,7 +1186,7 @@ def is_odd(x):
         return True
     return False
 
-@mindspore.jit()
+@mindspore.jit
 def test():
     elements1 = (1, 2, 3, 4, 5)
     ret1 = filter(is_odd, elements1)

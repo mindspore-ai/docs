@@ -1510,6 +1510,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
 
     ``` python
     import mindspore
+    from mindspore import nn
 
     class Net(nn.Cell):
        @classmethod
@@ -1746,6 +1747,7 @@ not use the \'@jit_class\' decoration and does not inherit \'nn. Cell\`.
 
 ``` python
 import mindspore
+from mindspore import nn
 
 class GetattrClass():
    def __init__(self):
@@ -2252,7 +2254,7 @@ class Net(nn.Cell):
    @mindspore.jit
    def construct(self, a):
       x = {'a': a, 'b': 2}
-      return a, (x, (1, 2))
+      return a, x
 
 net = Net()
 out = mindspore.grad(net)(mindspore.tensor([1]))
