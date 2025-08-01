@@ -8,7 +8,7 @@
 Compilation，JIT）模式下，Python代码并不是由Python解释器直接执行，而是先将代码编译成静态计算图，再执行该静态计算图。
 
 在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate
-Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。
+Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR。
 
 目前，将Python源码转换为中间表示（IR）的方法主要有三种：基于抽象语法树（Abstract
 Syntax Tree,
@@ -1437,7 +1437,7 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
     TypeError: The parameters number of the function is 3, but the number of provided arguments is 2.
     ```
 
-3. 在图模式下，有些Python语法难以转换成图模式下的[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、Await、Yield、YieldFrom。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。
+3. 在图模式下，有些Python语法难以转换成图模式下的中间表示MindIR。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、Await、Yield、YieldFrom。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。
 
     如果使用Try语句，示例如下：
 

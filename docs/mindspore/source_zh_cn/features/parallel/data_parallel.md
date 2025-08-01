@@ -15,7 +15,7 @@
 
 ## 整体流程
 
-![整体流程](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/data_parallel.png)
+![整体流程](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/images/data_parallel.png)
 
 1. 环境依赖
 

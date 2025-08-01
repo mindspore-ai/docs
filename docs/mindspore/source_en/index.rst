@@ -6,7 +6,6 @@ MindSpore Documentation
    :maxdepth: 1
    :hidden:
 
-   design/index
    features/index
    api_python/index
    faq/index
@@ -19,7 +18,7 @@ MindSpore Documentation
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./design/overview.html" class="article-link">
+                     <a href="./features/overview.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Design</span>

@@ -35,7 +35,7 @@ from mindspore.dataset import MnistDataset
 
 ## Preparing and Loading Dataset
 
-MindSpore provides a Pipeline-based [data engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html) to realize efficient data preprocessing through [data loading and processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) to realize efficient data preprocessing. In this case, we use the Mnist dataset, which is automatically downloaded and then preprocessed using the data transforms provided by `mindspore.dataset`.
+MindSpore provides a Pipeline-based [data engine](https://www.mindspore.cn/docs/en/master/features/data_engine.html) to realize efficient data preprocessing through [data loading and processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) to realize efficient data preprocessing. In this case, we use the Mnist dataset, which is automatically downloaded and then preprocessed using the data transforms provided by `mindspore.dataset`.
 
 ```python
 # install download

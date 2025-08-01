@@ -15,7 +15,7 @@ Related interfaces are as follows:
 
 ## Overall Process
 
-![Overall Process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/data_parallel.png)
+![Overall Process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/images/data_parallel.png)
 
 1. Environmental dependencies
 
