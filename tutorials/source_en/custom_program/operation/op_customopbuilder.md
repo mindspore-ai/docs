@@ -215,4 +215,3 @@ Running the above script produces the following result:
 ## More Usage Scenarios
 
 - [Integrating ATB Operators Using AtbOpRunner](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder_atb.html): Introduces methods for quickly integrating ATB operators as custom operators.
-- [Developing Forward and Backward Operators Using the Function Interface](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder_function.html): Introduces the method of defining custom operator forward and backward propagation functions.
