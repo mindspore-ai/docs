@@ -34,7 +34,7 @@ MindSpore Transformers提供[一键启动脚本](https://www.mindspore.cn/mindfo
 
 ### 6. 故障恢复
 
-为应对训练中断等异常情况，MindSpore Transformers具备临终保存、自动恢复等[高可用特性](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/high_availability.html)，并支持[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/resume_training.html)，提升训练稳定性。
+为应对训练中断等异常情况，MindSpore Transformers具备临终保存、自动恢复等[训练高可用](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/high_availability.html)，并支持[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/resume_training.html)，提升训练稳定性。
 
 ## 使用MindSpore Transformers进行全参微调
 

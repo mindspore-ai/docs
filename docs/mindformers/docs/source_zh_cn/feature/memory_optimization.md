@@ -1,4 +1,4 @@
-# 训练内存优化特性
+# 训练内存优化
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/feature/memory_optimization.md)
 

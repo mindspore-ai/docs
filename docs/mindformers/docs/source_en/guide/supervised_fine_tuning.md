@@ -34,7 +34,7 @@ Checkpoints are saved during training, or model weights are saved to a specified
 
 ### 6. Fault Recovery
 
-To handle exceptions such as training interruptions, MindSpore Transformers offers [high-availability features](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/high_availability.html) like last-state saving and automatic recovery, as well as [checkpoint-based resumed training](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/resume_training.html), enhancing training stability.
+To handle exceptions such as training interruptions, MindSpore Transformers offers [training high availability](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/high_availability.html) like last-state saving and automatic recovery, as well as [checkpoint-based resumed training](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/resume_training.html), enhancing training stability.
 
 ## Full-Parameter Fine-Tuning with MindSpore Transformers
 

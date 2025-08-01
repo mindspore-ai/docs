@@ -48,7 +48,7 @@ MindSpore Transformers提供了统一的一键启动脚本，支持一键启动�
          <td style="text-align: center; width: 20%; border: none">
             <ul style="text-align: left; display: inline-block;">
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/inference.html"><span>推理</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/deployment.html"><span>部署</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/guide/deployment.html"><span>服务化部署</span></a></li>
             </ul>
          </td>
       </tr>
@@ -111,7 +111,7 @@ MindSpore Transformers功能特性说明
 
     提供大模型训练阶段的高可用能力，包括临终 CKPT 保存、UCE 故障容错恢复和进程级重调度恢复功能（Beta特性）。
 
-  - `分布式训练 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/parallel_training.html>`_
+  - `分布式并行训练 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/feature/parallel_training.html>`_
 
     一键配置多维混合分布式并行，让模型在上至万卡的集群中高效训练。
 
