@@ -238,7 +238,6 @@ import json
 #     app.add_config_value('repo_whl', '', True)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))

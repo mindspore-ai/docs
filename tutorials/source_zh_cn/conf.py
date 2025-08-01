@@ -121,16 +121,7 @@ jieba.load_userdict('../../resource/jieba.txt')
 html_static_path = ['_static']
 
 sys.path.append(os.path.abspath('../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
-
-# handle some files.
-del_file_path_list = ['./advanced/model/model.ipynb','./advanced/modules/cell.ipynb',
-                      './custom_program/operation/op_custom.ipynb', './compile/static_graph_syntax_support.ipynb'
-                      ]
-for i in del_file_path_list:
-    if os.path.exists(i):
-        os.remove(i)
 
 sys.path.append(os.path.abspath('../../resource/search'))
 import search_code

@@ -110,7 +110,6 @@ html_search_language = 'en'
 html_static_path = ['_static']
 
 sys.path.append(os.path.abspath('../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 

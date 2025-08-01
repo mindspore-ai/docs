@@ -108,7 +108,6 @@ html_search_language = 'zh'
 html_search_options = {'dict': '../../../../resource/jieba.txt'}
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 # Example configuration for intersphinx: refer to the Python standard library.
@@ -247,10 +246,6 @@ from rename_include import rename_include
 rename_include(present_path)
 
 import mindflow
-
-sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
-import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code

@@ -62,10 +62,12 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, sphinx_mathjax.__dict__)
 
+# Add the source file link for the web version (deprecated)
 # from sphinx.ext import viewcode
 # with open('../_ext/overwriteviewcode_en.txt', 'r', encoding="utf8") as f:
 #     exec(f.read(), viewcode.__dict__)
 
+# Modify the extraction method of autosummary, and add a link to the Gitee source file on the English page.
 with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as f:
     exec(f.read(), g.__dict__)
 
@@ -112,15 +114,14 @@ source_suffix = {
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
+# config for mathjax
 mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
 }
 
+# config for require.min.js
 nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'
 
 nbsphinx_requirejs_options = {
@@ -128,20 +129,28 @@ nbsphinx_requirejs_options = {
     "integrity": "sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg="
 }
 
+# Intelligent punctuation replacement
 smartquotes_action = 'De'
 
+# Block certain files
 exclude_patterns = []
 
+# Default language for code blocks
 pygments_style = 'sphinx'
 
+# Whether to inherit class methods
 autodoc_inherit_docstrings = False
 
+# Whether to use autosummary generate
 autosummary_generate = True
 
+# Whether to allow autosummary generate to overwrite files
 autosummary_generate_overwrite = False
 
+# html static file path
 html_static_path = ['_static']
 
+# mermaid config
 mermaid_version = ""
 
 mermaid_init_js = ""
@@ -327,6 +336,7 @@ if os.path.exists(Tensor_list_path):
 if os.path.exists(dataset_list_path):
     os.remove(dataset_list_path)
 
+# Get interfaces in the summary list
 def ops_interface_name():
 
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
@@ -577,6 +587,7 @@ def copy_image(sourcedir, des_dir):
 
 copy_image(src_dir, des_dir)
 
+# copy RELEASENotes
 src_release = os.path.join(repo_path, 'RELEASE.md')
 des_release = "./RELEASE.md"
 release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
@@ -590,6 +601,7 @@ if len(re.findall("\n## (.*?)\n",data)) > 1:
         del_doc = re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data)
         if del_doc:
             data = data.replace(del_doc[0], '')
+
     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
     content_new = ''

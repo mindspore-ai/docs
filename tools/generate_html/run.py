@@ -144,11 +144,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
         repo_path = f"{REPODIR}/{data[i]['name']}"
         branch_ = data[i]["branch"]
+        if not branch_:
+            continue
 
-        if data[i]['environ'] == "MS_PATH":
-            repo_url = "https://gitee.com/mindspore/mindspore.git"
-            repo_path = f"{REPODIR}/mindspore"
-        elif data[i]['environ'] == "MSL_PATH":
+        # git仓库名称和json数据中name对不上时，需要手动配置克隆地址
+        if data[i]['environ'] == "MSL_PATH":
             repo_url = "https://gitee.com/mindspore/mindspore-lite.git"
             repo_path = f"{REPODIR}/mindspore-lite"
         elif data[i]['environ'] == "MSC_PATH":
@@ -167,6 +167,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 判断是否需要单独生成某些组件
         if generate_list and data[i]['name'] not in generate_list:
             continue
+        # 根据environ判断是否需要克隆git仓库，并更新分支
         if data[i]['environ'] and branch_:
             os.environ[data[i]['environ']] = repo_path
             try:
@@ -191,6 +192,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             cmd_reppath = ["sh", "./docs/adapte_to_docs.sh", f"{branch_}"]
             subprocess.run(cmd_reppath)
 
+        # 生成version.json后续放入_static/js/下
         if data[i]['name'] != "mindscience":
             generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
 
@@ -325,7 +327,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                                         if chunk:
                                             fd.write(chunk)
                                 print(f"Download {title} success!")
-
+        # 发布版本构建时下载包
         elif version != "daily":
             if data[i]['whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -359,12 +361,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                                 fd.write(chunk)
                     print(f"Download {data[i]['tar_name']} success!")
 
-        # 特殊与一般性的往ArraySource中加入键值对
-        if not branch_:
-            continue
+        # 默认html上显示的分支跟仓库分支相同，如果配置了html_version，以html_version为准
         html_branch = branch_
         if "html_version" in data[i]:
             html_branch = data[i]["html_version"]
+
+        # 特殊与一般性的往ArraySource中加入键值对
         if data[i]['name'] == "lite":
             ArraySource[data[i]['name'] + '/docs'] = html_branch
             ArraySource[data[i]['name'] + '/api'] = html_branch
@@ -418,15 +420,18 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     # 遍历ArraySource开始生成html
     # pylint: disable=R1702
     for i in ArraySource:
+        # 切换到各个组件的工程目录下
         if "tutorials" in i:
             os.chdir(os.path.join(DOCDIR, "../../", i))
         else:
             os.chdir(os.path.join(DOCDIR, "../../docs", i))
+        # 安装各个组件需要的依赖
         install_req_cmd = ["pip", "install", "-r", "requirements.txt"]
         subprocess.run(install_req_cmd)
 
         try:
             if replace_flag:
+                # 替换影响锚点生成的文件
                 from docutils import nodes
                 nodes_target = os.path.join(os.path.dirname(nodes.__file__), 'nodes.py')
                 nodes_src = os.path.join(DOCDIR, '../../resource/sphinx_ext/nodes.txt')
@@ -434,6 +439,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     os.remove(nodes_target)
                 shutil.copy(nodes_src, nodes_target)
 
+                # 去除页面元数据中关于docutils的版本信息
                 html_base_target = os.path.join(os.path.dirname(nodes.__file__), 'writers/_html_base.py')
                 with open(html_base_target, 'r+', encoding='utf-8') as h:
                     html_base_content = h.read()
@@ -443,6 +449,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     h.truncate()
                     h.write(html_base_content)
 
+                # 使sphinx的相关依赖不会因为版本原因报错（实际并没有用到这些依赖）
                 registry_target = os.path.join(pythonlib_dir, 'sphinx', 'registry.py')
                 with open(registry_target, 'r+', encoding='utf-8') as h:
                     registry_content = h.read()
@@ -486,6 +493,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     failed_list.append(stderr)
                     failed_name_list.append(f'{i}的英文版本')
                 else:
+                    # 拷贝目录至output下
                     if i == "mindspore":
                         TARGET = f"{OUTPUTDIR}/docs/en/{ArraySource[i]}"
                     else:
@@ -522,6 +530,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     failed_list.append(stderr)
                     failed_name_list.append(f'{i}的中文版本')
                 else:
+                    # 拷贝目录至output下
                     if i == "mindspore":
                         TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
                     else:
@@ -611,6 +620,7 @@ if __name__ == "__main__":
     # 替换linux下命令行不允许的类似!#前面的反斜杠
     password = password.replace('\\', '')
 
+    # 获取单独生成的组件列表
     if args.single_generate:
         generate_list_p = [x.strip() for x in args.single_generate.split(',')]
     else:
@@ -664,6 +674,7 @@ if __name__ == "__main__":
                 theme_list.append(dir_name + '/api')
             else:
                 theme_list.append(dir_name + '/docs')
+        # 拷贝最外层的样式文件
         theme_path = args.theme
         for f_name in os.listdir(theme_path):
             if os.path.isfile(os.path.join(theme_path, f_name)):

@@ -61,6 +61,8 @@ def generate_rst_by_en(sum_list, target_path, language='cn'):
             all_params = ''
 
         if 'Refer to' in py_docs.split('\n')[-1] and 'for more details.' in py_docs.split('\n')[-1]:
+            if py_docs:
+                primi_auto.append(i)
             if py_docs and language == 'cn':
                 sig_doc_str = all_params.strip()
                 cn_base_rst = i + '\n' + '=' * len(i) + '\n\n' + '.. py:class:: ' + i + '(' + sig_doc_str + ')\n\n'
@@ -89,6 +91,4 @@ def generate_rst_by_en(sum_list, target_path, language='cn'):
                     exist_rst.append(i)
                 with open(os.path.join(target_path, i + '.rst'), "w", encoding='utf-8') as f:
                     f.write(all_rst_content)
-            elif py_docs and language == 'en':
-                primi_auto.append(i)
     return exist_rst, primi_auto

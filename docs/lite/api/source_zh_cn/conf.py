@@ -273,7 +273,6 @@ def setup(app):
 import mindspore_lite
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code

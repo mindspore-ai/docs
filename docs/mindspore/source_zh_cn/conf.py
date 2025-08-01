@@ -225,7 +225,6 @@ import jieba
 jieba.load_userdict('../../../resource/jieba.txt')
 
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../resource/custom_directives'))

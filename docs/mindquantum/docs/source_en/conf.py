@@ -210,7 +210,6 @@ repo_whl = 'mindquantum'
 giturl = 'https://gitee.com/mindspore/'
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))

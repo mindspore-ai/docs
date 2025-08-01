@@ -144,7 +144,6 @@ def setup(app):
 #           f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
