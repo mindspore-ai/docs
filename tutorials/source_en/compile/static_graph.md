@@ -9,8 +9,7 @@ computation graph, and then the static computation graph is executed.
 
 In static graph mode, MindSpore converts Python source code into Intermediate Representation IR by means of source code conversion and
 optimizes IR graphs on this basis, and finally executes the optimized graphs on hardware devices. MindSpore uses a functional IR based on
-graph representations, called MindIR. See [middle representationMindIR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir)
-for details.
+graph representations, called MindIR.
 
 Currently, there are three main methods for converting Python source code into Intermediate Representation (IR): parsing based on the
 Abstract Syntax Tree (AST), parsing based on ByteCode, and the method based on operator call tracing (Trace). These three modes differ to some
@@ -1532,7 +1531,7 @@ compilation problems can be found in [Network compilation](https://www.mindspore
     TypeError: The parameters number of the function is 3, but the number of provided arguments is 2.
     ```
 
-3. In graph mode, some Python syntax is difficult to convert to [intermediate MindIR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir)
+3. In graph mode, some Python syntax is difficult to convert to intermediate MindIR
     in graph mode. For Python keywords, there are some keywords that are not supported in graph mode: AsyncFunctionDef, Delete, AnnAssign,
     AsyncFor, AsyncWith, Match, Try, Import, ImportFrom, Nonlocal, NamedExpr, Set, SetComp, Await, Yield, YieldFrom. If the relevant
     syntax is used in graph mode, an error message will alert the user.

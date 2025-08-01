@@ -12,7 +12,7 @@ Runtime scheduling for an operator mainly includes the operations InferShape (in
 
 Multi-stage flow is a key performance optimization point for runtime, which improves runtime scheduling efficiency by task decomposition and parallel flow issued to give full play to CPU multi-core performance. The main flow is as follows:
 
-![rt_pipeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/design/images/multi_level_compilation/jit_level_rt_pipeline.png)
+![rt_pipeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/features/images/multi_level_compilation/jit_level_rt_pipeline.png)
 
 1. Task decomposition: the operator scheduling is decomposed into three tasks InferShape, Resize and Launch.
 2. Queue creation: Create three queues, Infer Queue, Resize Queue and Launch Queue, for taking over the three tasks in step 1.

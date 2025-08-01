@@ -52,7 +52,7 @@ print(param_not_load)
 
 ## Saving and Loading MindIR
 
-In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface (only support strict graph mode).
+In addition to Checkpoint, MindSpore provides a unified Intermediate Representation (IR) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface (only support strict graph mode).
 
 ```python
 mindspore.set_context(mode=mindspore.GRAPH_MODE, jit_syntax_level=mindspore.STRICT)

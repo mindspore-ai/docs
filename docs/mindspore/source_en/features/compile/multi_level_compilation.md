@@ -101,7 +101,7 @@ The overall architecture of graph-kernel fusion is shown in the figure below. Th
 
 The optimized computational graph is passed to MindSpore AKG as a subgraph for further back-end optimization and target code generation.
 
-![graphkernel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/graphkernel.png)
+![graphkernel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/images/graphkernel.png)
 
 By following these steps, we can obtain two aspects of performance gains:
 
