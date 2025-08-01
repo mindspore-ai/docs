@@ -123,7 +123,6 @@ with open(gfile_abs_path, "r+", encoding="utf8") as f:
     exec(data, g.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 # import nbsphinx_mod
 
 # Modify default signatures for autodoc.

@@ -185,7 +185,6 @@ giturl = 'https://gitee.com/mindspore/'
 import mindchemistry
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 

@@ -9,11 +9,6 @@
         "submenu": {
             "zh": [
                 {
-                    "label": "设计理念",
-                    "url": "/docs/zh-CN/master/design/overview.html",
-                    "id": "master-design"
-                },
-                {
                     "label": "特性介绍",
                     "url": "/docs/zh-CN/master/features/index.html",
                     "id": "master-features"
@@ -34,11 +29,6 @@
                 }
             ],
             "en": [
-                {
-                    "label": "Design Concept",
-                    "url": "/docs/en/master/design/overview.html",
-                    "id": "master-design"
-                },
                 {
                     "label": "Feature Description",
                     "url": "/docs/en/master/features/index.html",

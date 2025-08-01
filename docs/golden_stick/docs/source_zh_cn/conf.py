@@ -381,7 +381,6 @@ if not os.path.exists(os.path.join(moment_dir, 'install.md')):
         f.write(content)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))

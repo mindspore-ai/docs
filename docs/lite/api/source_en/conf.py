@@ -148,7 +148,6 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(code_str, sphinx_autodoc.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 
 # Tell sphinx what the primary language being documented is.
 # primary_domain = 'cpp'
@@ -190,17 +189,17 @@ exhale_args = {
     ############################################################################
     # These arguments are required.                                            #
     ############################################################################
-    "containmentFolder": "./generate",
-    "rootFileName": "library_root.rst",
-    "rootFileTitle": "Library API",
-    "doxygenStripFromPath": "..",
+    "containmentFolder": "./generate", # 存放生成后rst的路径
+    "rootFileName": "library_root.rst", # 根文档的文件名
+    "rootFileTitle": "Library API", # 根文档的标题
+    "doxygenStripFromPath": "..", # doxygen生成路径中去除上一级目录
     ############################################################################
     # Suggested optional arguments.                                            #
     ############################################################################
-    "createTreeView": True,
-    "exhaleExecutesDoxygen": True,
-    "exhaleUseDoxyfile": False,
-    "verboseBuild": False,
+    "createTreeView": True, # 是否生成树状图
+    "exhaleExecutesDoxygen": True, # 是否让 Exhale 自动调用 Doxygen
+    "exhaleUseDoxyfile": False, # 是否使用 Doxyfile
+    "verboseBuild": False, # 是否构建日志
     "exhaleDoxygenStdin": textwrap.dedent("""
         INPUT = ../include
         INPUT_FILTER = "python3 ../lite_api_filter.py"
@@ -214,7 +213,18 @@ exhale_args = {
         ENABLE_SECTIONS = DISPLAY_COMPOUND
         WARN_IF_UNDOCUMENTED = NO
     """),
-    'contentsDirectives': False,
+    # 输入文件路径
+    # 过滤执行命令
+    # 是否对所有符号进行提取
+    # 对文件名过滤
+    # 排除特定的文件
+    # 是否隐藏未文档化的类
+    # 是否隐藏未文档化的成员
+    # 文件内排除的符号
+    # 是否报警告
+    # 对复合类型分组
+    # 是否对未文档化的代码生成警告
+    'contentsDirectives': False, # 是否在每个页面生成目录
 
     ############################################################################
     # HTML Theme specific configurations.                                      #
@@ -222,22 +232,23 @@ exhale_args = {
     # Fix broken Sphinx RTD Theme 'Edit on GitHub' links
     # Search for 'Edit on GitHub' on the FAQ:
     #     http://exhale.readthedocs.io/en/latest/faq.html
-    "pageLevelConfigMeta": ":gitee_url: https://gitee.com/mindspore/docs",
+    "pageLevelConfigMeta": ":gitee_url: https://gitee.com/mindspore/docs", #页面元数据
     ############################################################################
     # Individual page layout example configuration.                            #
     ############################################################################
     # Example of adding contents directives on custom kinds with custom title
-    "contentsTitle": "Page Contents",
-    "kindsWithContentsDirectives": ["class", "file", "namespace", "struct", "enum", "typedef", "define"],
+    "contentsTitle": "Page Contents", # 目录标题
+    "kindsWithContentsDirectives": ["class", "file", "namespace", "struct", "enum", "typedef", "define"], # 为那些类型的页面生成目录
     # Exclude PIMPL files from class hierarchy tree and namespace pages.
     # "listingExclude": [r".*Impl$"],
     ############################################################################
     # Main library page layout example configuration.                          #
     ############################################################################
+    # 标题下方添加描述文本
     "afterTitleDescription": textwrap.dedent(u'''
         Welcome to the developer reference for the MindSpore C++ API.
     '''),
-    # ... required arguments / other configs ...
+    # ... required arguments / other configs ... 自定义 Doxygen 到 Sphinx 的映射规则
     "customSpecificationsMapping": utils.makeCustomSpecificationsMapping(
         specificationsForKind
     )

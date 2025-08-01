@@ -100,7 +100,6 @@ html_search_language = 'zh'
 html_search_options = {'dict': '../../../../resource/jieba.txt'}
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 # Example configuration for intersphinx: refer to the Python standard library.

@@ -207,7 +207,6 @@ repo_whl = 'MindFlow/mindflow'
 giturl = 'https://gitee.com/mindspore/'
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
 import nbsphinx_mod
 
 import mindflow
