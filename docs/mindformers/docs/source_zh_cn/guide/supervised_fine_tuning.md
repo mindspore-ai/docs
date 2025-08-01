@@ -98,7 +98,7 @@ python run_mindformer.py \
 
 参数说明：
 
-```commandline
+```text
 config：            模型的配置文件
 use_parallel：      是否开启并行
 run_mode：          运行模式，train：训练，finetune：微调，predict：推理
@@ -136,7 +136,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 参数说明：
 
-```commandline
+```text
 config：            模型的配置文件
 use_parallel：      是否开启并行
 run_mode：          运行模式，train：训练，finetune：微调，predict：推理

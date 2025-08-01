@@ -84,7 +84,7 @@
 
 1. 模型代码文件统一放置于`research/{model_name}`文件夹下，格式如下:
 
-    ```plaintext
+    ```text
     research/{model_name}
     ├── {model_name}
     | ├── {pretrain/finetune/predict}_{model_name}_{n}b.yaml

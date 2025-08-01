@@ -96,7 +96,7 @@ python run_mindformer.py \
 
 Parameter descriptions:
 
-```commandline
+```text
 config:            Model configuration file
 use_parallel:      Whether to enable parallel training
 run_mode:          Running mode, train: training, finetune: fine-tuning, predict: inference
@@ -134,7 +134,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 Parameter descriptions:
 
-```commandline
+```text
 config:            Model configuration file
 use_parallel:      Whether to enable parallel training
 run_mode:          Running mode, train: training, finetune: fine-tuning, predict: inference

@@ -313,7 +313,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
 5. 模型正式开始训练时，遇到global norm大于设定阈值，则会打印如下日志，提示用户当前遇到异常global norm，并记录对应的global step和global norm到abnormal_global_norm.json中，触发报错，进入快速恢复阶段。
 
-    ```log
+    ```text
     - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 2775ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.702465], train_throughput_per_npu: 171.176T
     - INFO -    0.0% |                                                  | 0.36029 samples/s/p  10:01:16 }
     - INFO - Current global norm [45.702465] is greater equal than threshold 44.0, stop training...
@@ -321,7 +321,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
 6. 重新拉起训练后，从之前断点的步数开始续训。如果在训练至相同的global step时，global norm仍然大于设定的阈值，由于此前已经将对应的global step记录到YAML设置的output_dir下的abnormal_global_norm.json中，故此处只会记录相应的global norm，并不会抛出异常。
 
-    ```log
+    ```text
     - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 3504ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.706497], train_throughput_per_npu: 135.552T
     - INFO -    0.0% |                                                  | 0.28531 samples/s/p  12:39:17 }
     - INFO - The global norm [45.706497] of step 2 is still greater or equal than threshold 44.0, continue training.
