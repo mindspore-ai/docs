@@ -20,10 +20,12 @@
 
 下载的代码包在香橙派开发板的如下目录中：/home/HwHiAiUser/samples/notebooks。
 
-项目目录如下：
+代码包主要包含Online和Offline两个部分。Online部分基于MindSpore框架开发，Offline部分为离线推理，其中Online部分又细分为三类：inference（推理案例）、training（训练案例）以及community（第三方应用案例）。
+
+以推理案例为例，项目目录如下：
 
 ```bash
-/home/HwHiAiUser/samples/notebooks/orange-pi-mindspore/Online/
+/home/HwHiAiUser/samples/notebooks/orange-pi-mindspore/Online/inference
 01-quick_start
 02-ResNet50
 03-ViT
@@ -35,12 +37,14 @@
 09-GAN
 10-DCGAN
 11-Pix2Pix
-12-Diffusion  
+12-Diffusion
 13-ResNet50_transfer
 14-qwen1.5-0.5b
 15-tinyllama
 16-DctNet
 17-DeepSeek-R1-Distill-Qwen-1.5B
+18-DeepSeek-Janus-Pro-1B
+19-MiniCPM3
 ```
 
 ## 2. 推理执行
@@ -48,7 +52,7 @@
 步骤1 启动Jupyter Lab界面。
 
 ```bash
-(base) HwHiAiUser@orangepiaipro:~$ cd /home/HwHiAiUser/samples/notebooks/  
+(base) HwHiAiUser@orangepiaipro:~$ cd /home/HwHiAiUser/samples/notebooks/
 (base) HwHiAiUser@orangepiaipro:~$ ./start_notebook.sh
 ```
 
@@ -71,6 +75,8 @@
 步骤3 在该目录下有运行该示例的所有资源，其中mindspore_fcn8s.ipynb是在Jupyter Lab中运行该样例的文件，双击打开mindspore_fcn8s.ipynb，在右侧窗口中会显示。mindspore_fcn8s.ipynb文件中的内容，如下图所示：
 
 ![model-infer5](./images/model_infer5.png)
+
+文件开头说明了硬件资源（香橙派开发板）信息，以及运行样例所需的CANN和MindSpore等版本，请注意检查环境，环境的检查与搭建详见[环境搭建指南](https://www.mindspore.cn/tutorials/zh-CN/r2.6.0/orange_pi/environment_setup.html)。
 
 步骤4 单击⏩按钮运行样例，在弹出的对话框中单击“Restart”按钮，此时该样例开始运行。
 

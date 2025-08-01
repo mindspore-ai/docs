@@ -10,7 +10,7 @@ After obtaining the OrangePi AIpro development board, developers first need to c
 
 | OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
 | :----:| :----: | :----:| :----: |
-| 8T 16G/20T 24G | Ubuntu | 8.0.0beta1| 2.5.0 |
+| 8T 16G/20T 24G | Ubuntu | 8.1.RC1| 2.6.0 |
 
 ### Image Burning
 
@@ -367,4 +367,4 @@ The required environment for the operation of this case:
 
 | OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
 | :----:| :----: | :----:| :----: |
-| 8T 16G/20T 24G | Ubuntu | 8.0.0beta1| 2.5.0 |
+| 8T 16G/20T 24G | Ubuntu | 8.1.RC1| 2.6.0 |
