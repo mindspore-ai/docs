@@ -1,4 +1,4 @@
-Infer Function
+Inference Function
 ================
 
 .. toctree::

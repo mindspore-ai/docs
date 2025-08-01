@@ -1,16 +1,14 @@
-# 模型断点续训
+# 断点续训
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindformers/docs/source_zh_cn/feature/resume_training.md)
 
-## 断点续训
-
-### 概述
+## 概述
 
 MindSpore Transformers支持**step级断点续训**功能，允许在训练中保存模型的checkpoint，并在训练中断后，加载保存的checkpoint恢复之前的状态继续训练。这一特性在处理大规模训练任务时尤为重要，能够有效减少因意外中断导致的时间和资源浪费。此外，在数据集不变，但`global batch size`改变的断点续训场景下，例如更换集群或修改配置时，本工具还支持续训步数与数据跳过步数自动同比例缩放。
 
-### 配置与使用
+## 配置与使用
 
-#### YAML参数配置
+### YAML参数配置
 
 用户可通过修改配置文件来控制断点续训的行为。以下是主要参数，其他参数可参考CheckpointMonitor介绍：
 
@@ -36,17 +34,17 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
 | ignore_data_skip | 是否忽略断点续训时跳过数据的机制，而从头开始读取数据集。用于续训时数据集更换的场景。设置为`True`时不会跳过数据集，默认为`False`。                                     |
 | data_skip_steps  | 数据集跳过步数。用于更换数据集续训后再次断开续训或`global batch size`改变的场景，须手动设置此参数来配置新数据集跳过步数，如`global batch size`改变，需向下整除缩放系数后再传入。 |
 
-#### 故障恢复机制
+### 故障恢复机制
 
 当`resume_training`设置为`True`时，系统会自动基于`meta.json`记录的权重进行续训。如果某个rank的权重文件缺失或损坏，系统会回退到上一个可用的权重进行恢复。
 
 > 分布式环境中，断点续训要求所有节点的权重在同一共享目录下。用户可通过环境变量`SHARED_PATHS`来设置共享路径。
 
-### 分布式训练示例
+## 分布式训练示例
 
 以下示例演示了如何在单卡和多卡环境中启动断点续训。示例基于 `llama3.1 8b` 模型，相关配置文件[research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
 
-#### 完整训练
+### 完整训练
 
 1. 修改`research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml`：
 
@@ -94,7 +92,7 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
      └── meta.json
    ```
 
-#### 断点续训
+### 断点续训
 
 1. 修改配置，指定断点续训权重文件：
 
@@ -115,7 +113,7 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
 
    如若初始步数从第`42`步开始，则断点续训成功。由于最后保存的权重包含了第`40`步的信息，`sink_size`默认为`2`，即每两步打印一次信息，因此初始步数为`42`。
 
-#### 切换数据集断点续训
+### 切换数据集断点续训
 
 在切换数据集并进行断点续训时，有三种主要场景，每个场景需要针对配置文件进行不同的修改。下面逐一介绍每种情况，并详细说明在哪些场景下需要对基本断点续训流程的哪一步进行修改，以及如何修改具体配置来达成预期效果。
 
@@ -163,7 +161,7 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
 
 - **预期效果**：模型将根据新的`global batch size`调整跳过的步数，并从正确的地方继续训练。
 
-#### 故障恢复示例
+### 故障恢复示例
 
 当部分权重文件缺失时，系统会自动基于上一个可用的权重进行恢复。
 
@@ -196,7 +194,7 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
    如若初始步数从第`32`步开始，则断点续训成功。由于`rank_3`下的包含了第`40`步的信息的权重被删除，因此自动使用上一次保存的权重，即包含第
    `30`步信息的权重。由于`sink_size`默认为`2`，即每两步打印一次信息，因此初始步数为`32`。
 
-### 注意事项
+## 注意事项
 
 - **数据下沉模式**：分布式断点续训必须开启数据下沉模式，配置`sink_mode=True`。
 - **权重文件检查**：确保断点续训加载的权重为训练中断时的权重，而不是整个训练过程最后保存的权重，否则会报错。
