@@ -20,10 +20,12 @@ Step2 Enter the case catalog.
 
 The downloaded code package is in the following directory of the OrangePi AIpro development board: /home/HwHiAiUser/samples/notebooks.
 
-The project catalog is listed below:
+The code package mainly contains two parts: Online and Offline. The Online part is developed based on MindSpore, the Offline part is about offline inference. The Online part is further divided into three categories: inference (inference cases), training (training cases), and community (third-party application cases).
+
+Taking the inference cases as an example, the project catalog is listed below:
 
 ```bash
-/home/HwHiAiUser/samples/notebooks/orange-pi-mindspore/Online/
+/home/HwHiAiUser/samples/notebooks/orange-pi-mindspore/Online/inference
 01-quick_start
 02-ResNet50
 03-ViT
@@ -35,12 +37,14 @@ The project catalog is listed below:
 09-GAN
 10-DCGAN
 11-Pix2Pix
-12-Diffusion  
+12-Diffusion
 13-ResNet50_transfer
 14-qwen1.5-0.5b
 15-tinyllama
 16-DctNet
 17-DeepSeek-R1-Distill-Qwen-1.5B
+18-DeepSeek-Janus-Pro-1B
+19-MiniCPM3
 ```
 
 ## 2. Inference Execution
@@ -48,7 +52,7 @@ The project catalog is listed below:
 Step 1 Launch the Jupyter Lab interface.
 
 ```bash
-(base) HwHiAiUser@orangepiaipro:~$ cd /home/HwHiAiUser/samples/notebooks/  
+(base) HwHiAiUser@orangepiaipro:~$ cd /home/HwHiAiUser/samples/notebooks/
 (base) HwHiAiUser@orangepiaipro:~$ ./start_notebook.sh
 ```
 
@@ -66,15 +70,17 @@ Then enter the URL link you see above in your browser to log into the Jupyter La
 
 Step 2 In the Jupyter Lab interface, double-click the case directory shown in the figure below, take “04-FCN” as an example here, you can enter the case directory. The operation process of other cases is similar, just select the corresponding case directory and .ipynb file.
 
-![model-infer4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer4.png)
+![model-infer4](../../source_zh_cn/orange_pi/images/model_infer4.png)
 
 Step 3 In this directory there are all the resources to run the sample, where mindspore_fcn8s.ipynb is the file to run the sample in Jupyter Lab. Double-click to open the mindspore_fcn8s.ipynb, which will be displayed in the right window. The contents of the mindspore_fcn8s.ipynb file are shown in the following figure:
 
-![model-infer5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer5.png)
+![model-infer5](../../source_zh_cn/orange_pi/images/model_infer5.png)
+
+The beginning of the file describes the information of hardware resources (Orange Pi development board) and the versions of CANN and MindSpore required for running the sample. Please note to check the environment. For details on environment checking and setup, refer to [Environment Setup Guide](https://www.mindspore.cn/tutorials/en/master/orange_pi/environment_setup.html).
 
 Step 4 Click the ⏩ button to run the sample. In the pop-up dialog box, click the "Restart" button, then the sample begins to run.
 
-![model-infer6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer6.png)
+![model-infer6](../../source_zh_cn/orange_pi/images/model_infer6.png)
 
 ## 3. Environment Cleaning
 
