@@ -84,7 +84,7 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
     Provides high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery (Beta feature).
 
-  - `Parallel Training <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/parallel_training.html>`_
+  - `Distributed Parallel Training <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/feature/parallel_training.html>`_
 
     One-click configuration of multi-dimensional hybrid distributed parallel allows models to run efficiently in clusters up to 10,000 cards.
 
