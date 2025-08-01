@@ -215,4 +215,3 @@ print(out)
 ## 更多场景示例
 
 - [通过AtbOpRunner接入ATB算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder_atb.html)：介绍通过自定义算子快速对接ATB算子的方法。
-- [通过Function接口开发正反向算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder_function.html)：介绍定义自定义算子正向传播函数和反向传播函数的方法。

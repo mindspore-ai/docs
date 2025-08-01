@@ -153,7 +153,7 @@ auto pyboost_npu_swiglu(const ms::Tensor &x, int32_t dim) {
 }
 
 PYBIND11_MODULE(MS_EXTENSION_NAME, m) {
-  m.def("npu_swiglu", &pyboost_npu_swiglu, "swiglu realization", pybind11::arg("x"), pybind11::arg("dim") = -1);
+  m.def("swiglu", &pyboost_npu_swiglu, "swiglu realization", pybind11::arg("x"), pybind11::arg("dim") = -1);
 }
 ```
 
@@ -162,8 +162,10 @@ PYBIND11_MODULE(MS_EXTENSION_NAME, m) {
 将上述C++代码保存成文件`atb_activation.cpp`，然后使用Python接口`CustomOpBuilder`编译。
 
 ```python
+import mindspore
+import numpy as np
 x = mindspore.Tensor(np.random.rand(2, 32).astype(np.float16))
-my_ops = CustomOpBuilder("atb_activation", "atb_activation.cpp", enable_atb=True).load()
+my_ops = mindspore.ops.CustomOpBuilder("atb_activation", "atb_activation.cpp", enable_atb=True).load()
 y = my_ops.swiglu(x, -1)
 print(y)
 ```
