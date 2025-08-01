@@ -9,6 +9,7 @@
     - [Running MindSpore Image](#running-mindspore-image)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
+    - [Notes](#notes)
 
 <!-- /TOC -->
 
@@ -22,17 +23,22 @@ The Docker image of MindSpore is hosted on [Huawei SWR](https://support.huaweicl
 
 The current support for containerized build options is as follows:
 
-| Hardware   | Docker Image Hub                | Label                       | Note                                       |
-| :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| Ascend | `mindspore/mindspore-ascend` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
+| Hardware   | Docker Namespace   | Image Name             | Label                       | Note                                       |
+| :--------- | :------------------------ | :------------------------ | :----------------------- | :--------------------------------------- |
+| Atlas Training Series‌| `mindspore` | `mindspore-ascend-a1` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
+| Atlas A2 Training Series‌| `mindspore` | `mindspore-ascend-a2` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 
 > `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.7.0rc1 is installed, `x.y.z` should be written as 2.7.0rc1.
 
 ## System Environment Information Confirmation
 
-- Ensure that Ubuntu 18.04 / CentOS 7.6 is installed with the 64-bit ARM architecture operating system.
+The following table outlines the system requirements for deploying MindSpore using Docker.
 
-- Ensure that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
+|Software Name|Version|Function|
+|-|-|-|
+|Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|‌Recommended OS for MindSpore Container Deployment|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing libraries required by MindSpore|
+|Docker | Docker 18.03+ |Provides lightweight containerization environment for isolated deployment and cross-platform execution of MindSpore and its dependencies|
 
 ## Installing Ascend AI processor software package
 
@@ -49,19 +55,20 @@ The default installation path of the installation package is `/usr/local/Ascend`
 For the `Ascend` backend, you can directly use the following command to obtain the latest stable image:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
 ```
 
 of which,
 
 - `{tag}` corresponds to the label in the above table.
+- `{image_name}` corresponds to the image name in the above table. For Atlas Training Series A1 products, download the `mindspore-ascend-a1` image; for Atlas A2 Training Series products, download the `mindspore-ascend-a2` image.
 
 ## Running MindSpore Image
 
 Execute the following command to start the Docker container instance:
 
 ```bash
-docker run -it -u root --ipc=host \
+docker run -it --ipc=host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
@@ -73,9 +80,13 @@ docker run -it -u root --ipc=host \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
+               -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
                -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+               -v /etc/ascend_install.info:/etc/ascend_install.info \
                -v /var/log/npu/:/usr/slog \
-               swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag} \
+               -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+               -v /etc/hccn.conf:/etc/hccn.conf \
+               swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag} \
                /bin/bash
 ```
 
@@ -145,9 +156,18 @@ When you need to update the MindSpore version:
 - directly use the following command to obtain the latest stable image:
 
     ```bash
-    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
     ```
 
     of which,
 
     - `{tag}` corresponds to the label in the above table.
+
+## Notes
+
+- When deploying containers in non-root user mode, it is essential to verify that the target NPU device is not occupied by other unprivileged containers. After startup, execute the `npu-smi` info command to check device status. If the target NPU device is already allocated to another non-root container, the following error will occur, You can add `-u root` when creating the container.
+
+```text
+    DrvMngGetConsoleLogLevel failed. (g_conLogLevel=3)
+    dcmi model initialized failed, because the device is used. ret is -802
+```
