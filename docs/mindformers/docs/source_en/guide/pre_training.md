@@ -28,7 +28,7 @@ Based on actual operations, the basic pretraining process can be divided into th
 
 ### 5. Fault Recovery
 
-   To handle unexpected interruptions during training, MindSpore Transformers includes [high availability features](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html) such as final-state saving and automatic recovery. It also supports [resuming training from checkpoints](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html), improving training stability.
+   To handle unexpected interruptions during training, MindSpore Transformers includes [training high availability](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html) such as final-state saving and automatic recovery. It also supports [resuming training from checkpoints](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html), improving training stability.
 
 ## MindSpore Transformers-based Pretraining Practice
 
