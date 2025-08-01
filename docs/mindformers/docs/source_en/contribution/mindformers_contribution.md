@@ -84,7 +84,7 @@ If you wish to merge custom models into the `MindSpore Transformers` code reposi
 
 1. The model code files are placed uniformly in the `research/{model_name}` folder in the following format.
 
-    ```plaintext
+    ```text
     research/{model_name}
     ├── {model_name}
     | ├── {pretrain/finetune/predict}_{model_name}_{n}b.yaml

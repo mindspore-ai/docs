@@ -308,7 +308,7 @@ epoch=1时，一共937个step，loss如下：
 
 **PyTorch loss**
 
-```txt
+```text
 step = 930, loss : 0.37795058
 step = 931, loss : 0.48661083
 step = 932, loss : 0.46579897
@@ -321,7 +321,7 @@ step = 937, loss : 0.31820250
 
 **MSAdapter loss**
 
-```txt
+```text
 step = 930, loss : 0.42702404
 step = 931, loss : 0.55013794
 step = 932, loss : 0.37097090

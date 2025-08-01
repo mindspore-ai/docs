@@ -208,7 +208,7 @@ In the script, the custom operator is invoked via `my_ops.add3`, where `add3` is
 
 Running the above script produces the following result:
 
-```txt
+```text
 [ 9 12]
 ```
 

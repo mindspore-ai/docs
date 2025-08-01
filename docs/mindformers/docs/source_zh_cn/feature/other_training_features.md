@@ -100,7 +100,7 @@ moe_config:
 
 使用GroupedMatmul融合算子，在负载不均衡时可能会出现某张卡上的专家未被分配任何token的情况，导致程序报错。报错如下：
 
-```log
+```text
 VallueError: For primitive[Reshape]， the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
 ```
 

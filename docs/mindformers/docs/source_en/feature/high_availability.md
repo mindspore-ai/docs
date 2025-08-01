@@ -313,7 +313,7 @@ This chapter uses Llama3.1-8B training as an example to demonstrate the use of r
 
 5. When the model officially starts training and encounters a global norm greater than the set threshold, the following log will be printed to prompt the user that an abnormal global norm has been encountered, and the corresponding global step and global norm will be recorded in abnormal_global_norm.json, triggering an error and entering the fast recovery phase.
 
-    ```log
+    ```text
     - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 2775ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.702465], train_throughput_per_npu: 171.176T
     - INFO -    0.0% |                                                  | 0.36029 samples/s/p  10:01:16 }
     - INFO - Current global norm [45.702465] is greater equal than threshold 44.0, stop training...
@@ -321,7 +321,7 @@ This chapter uses Llama3.1-8B training as an example to demonstrate the use of r
 
 6. After retraining, the training will continue from the previous breakpoint step count. If the global norm is still greater than the set threshold, since the corresponding global step has already been recorded in the abnormal_global_norm.json under the output dir set by YAML, only the corresponding global norm will be recorded here and it will not raise error.
 
-    ```log
+    ```text
     - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 3504ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.706497], train_throughput_per_npu: 135.552T
     - INFO -    0.0% |                                                  | 0.28531 samples/s/p  12:39:17 }
     - INFO - The global norm [45.706497] of step 2 is still greater or equal than threshold 44.0, continue training.

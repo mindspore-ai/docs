@@ -66,7 +66,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 When the model officially starts training, if the global norm is greater than the set threshold, the following log will be printed, indicating that the user has experienced abnormal global norm n times in a row and skipped the training data for the current step count.
 
-```log
+```text
 - INFO - { Epoch:[  1/  2], step:[    1/ 6500], loss: 0.000, per_step_time: 166756ms, lr: 0.0, overflow cond: False, loss_scale: 1.0, global_norm: [44.313248], train_throughput_per_npu: 2.849T
 - INFO -    0.0% |                                                  | 0.00600 samples/s/p  25 days, 2:07:47 }
 - INFO - opt_global_step: 0, skip_data_grad_norm_threshold: 3.0, is_skip: [ True]
@@ -75,7 +75,7 @@ When the model officially starts training, if the global norm is greater than th
 
 When the number of consecutive exceptions reaches the set threshold, print an error log and terminate the training.
 
-```log
+```text
 - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 0.000, per_step_time: 7637ms, lr: 0.0, overflow cond: False, loss_scale: 1.0, global_norm: [47.329006], train_throughput_per_npu: 62.211T
 - INFO -    0.0% |                                                  | 0.00600 samples/s/p  25 days, 2:07:47 }
 - INFO - opt_global_step: 0, skip_data_grad_norm_threshold: 3.0, is_skip: [ True]
@@ -168,7 +168,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 When the model officially starts training, the log will print the embedding local norm for the current number of steps, making it easier for users to set thresholds after statistical observation.
 
-```log
+```text
 - INFO - { Epoch:[  1/  2], step:[    1/ 6500], loss: 0.000, per_step_time: 157149ms, lr: 0.0, overflow cond: False, loss_scale: 1.0, global_norm: [44.31202], train_throughput_per_npu: 3.023T
 - INFO -    0.0% |                                                  | 0.00636 samples/s/p  23 days, 15:26:22 }
 - INFO - embedding_local_norm: 251.79117
