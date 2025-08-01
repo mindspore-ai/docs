@@ -28,6 +28,7 @@ MindSpore教程
    :caption: 数据处理
    :hidden:
 
+   dataset/overview
    dataset/sampler
    dataset/eager
    dataset/record

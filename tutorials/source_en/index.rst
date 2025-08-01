@@ -28,10 +28,11 @@ MindSpore Tutorial
    :caption: Data Processing
    :hidden:
 
+   dataset/overview
    dataset/sampler
    dataset/eager
    dataset/record
-   dataset/optimize
+   dataset/optimize  
 
 .. toctree::
    :glob:
