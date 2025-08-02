@@ -41,13 +41,13 @@ print(generate_text)
 
 ## 推理教程
 
-MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vllm-mindspore适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM MindSpore 文档](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/index.rst)。
+MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM MindSpore适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM MindSpore文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/index.html)。
 
-本章主要简单介绍vLLM + MindSpore服务化推理的基础使用。
+本章主要简单介绍vLLM MindSpore服务化推理的基础使用。
 
 ### 环境准备
 
-vllm-mindspore适配层提供了环境安装脚本，用户可以执行如下命令创建一个vllm-mindspore的运行环境：
+vLLM MindSpore适配层提供了环境安装脚本，用户可以执行如下命令创建一个vLLM MindSpore的运行环境：
 
 ```shell
 # download vllm-mindspore code
@@ -69,7 +69,7 @@ bash install_depend_pkgs.sh
 python setup.py install
 ```
 
-vllm-mindspore的运行环境创建后，还需要安装以下依赖包：
+vLLM MindSpore的运行环境创建后，还需要安装以下依赖包：
 
 - **mindspore**：MindSpore开发框架，模型运行基础。
 
@@ -92,13 +92,15 @@ git lfs install
 git clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
 ```
 
+若在拉取过程中，执行`git lfs install失败`，可以参考vLLM MindSpore FAQ 进行解决。
+
 ### 启动服务
 
 在启动后端服务前，需要按照实际环境设置对应的环境变量。
 
 ```shell
 # set Ascend CANN tools envs
-/usr/local/Ascend/ascend-toolkit/set_env.sh
+source /usr/local/Ascend/ascend-toolkit/set_env.sh
 export ASCEND_CUSTOM_PATH=${ASCEND_HOME_PATH}/../
 export ASCEND_RT_VISIBLE_DEVICES=3
 export ASCEND_TOTAL_MEMORY_GB=32
@@ -114,12 +116,13 @@ export VLLM_MODEL_MEMORY_USE_GB=26
 export VLLM_MASTER_IP=127.0.0.1
 export VLLM_RPC_PORT=12390
 export VLLM_HTTP_PORT=8080
+unset vLLM_MODEL_BACKEND
 
 # model envs
-export MODEL_ID="/path/to/model"
+export MODEL_ID="/path/to/model/Qwen2-7B-Instruct"
 ```
 
-执行如下命令可以启动vllm-mindspore的服务后端。
+执行如下命令可以启动vLLM MindSpore的服务后端。
 
 ```shell
 vllm-mindspore serve --model=${MODEL_ID} --port=${VLLM_HTTP_PORT} --trust_remote_code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 1 --data-parallel-size 1 --data-parallel-size-local 1 --data-parallel-start-rank 0  --data-parallel-address ${VLLM_MASTER_IP} --data-parallel-rpc-port ${VLLM_RPC_PORT} &> vllm-mindspore.log &
@@ -132,11 +135,32 @@ vllm-mindspore serve --model=${MODEL_ID} --port=${VLLM_HTTP_PORT} --trust_remote
 用户可以通过发送http请求来实现模型推理，具体可以执行如下命令：
 
 ```shell
-curl http://${VLLM_MASTER_IP}:${VLLM_HTTP_PORT}/v1/completions -H "Content-Type: application.json" -d "{\"model\": \"${MODEL_ID}\", \"prompt\": \"I love Beijing, because\", \"max_tokens\": 128, \"temperature\": 1.0, \"top_p\": 1.0, \"top_k\": 1, \"repetition_penalty\": 1.0}"
+curl http://${VLLM_MASTER_IP}:${VLLM_HTTP_PORT}/v1/completions -H "Content-Type: application/json" -d "{\"model\": \"${MODEL_ID}\", \"prompt\": \"I love Beijing, because\", \"max_tokens\": 128, \"temperature\": 1.0, \"top_p\": 1.0, \"top_k\": 1, \"repetition_penalty\": 1.0}"
 ```
 
 服务后端收到推理请求后，计算后会返回如下结果：
 
-```shell
-待补充
+```json
+{
+    "id":"cmpl-1c30caf453154b5ab4a579b7b06cea19",
+    "object":"text_completion",
+    "created":1754103773,
+    "model":"/path/to/model/Qwen2-7B-Instruct",
+    "choices":[
+        {
+            "index":0,
+            "text":" it is a city with a long history and rich culture. I have been to many places of interest in Beijing, such as the Great Wall, the Forbidden City, the Summer Palace, and the Temple of Heaven. I also visited the National Museum of China, where I learned a lot about Chinese history and culture. The food in Beijing is also amazing, especially the Peking duck and the dumplings. I enjoyed trying different types of local cuisine and experiencing the unique flavors of Beijing. The people in Beijing are friendly and welcoming, and they are always willing to help tourists. I had a great time exploring the city and interacting with the locals",
+            "logprobs":null,
+            "finish_reason":"length",
+            "stop_reason":null,
+            "prompt_logprobs":null
+        }
+    ],
+    "usage":{
+        "prompt_tokens":5,
+        "total_tokens":133,
+        "completion_tokens":128,
+        "prompt_tokens_details":null
+    }
+}
 ```
