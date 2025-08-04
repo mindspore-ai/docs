@@ -55,7 +55,7 @@ class SimpleNet(nn.Cell):
                             constant_values=0)
         return self.construct(Tensor(input_ids, dtype=dtype.float16))
 
-def create_for_ds(repeat=1):
+def create_foo_ds(repeat=1):
     class SimpleIterable:
         def __init__(self, repeat=1):
             self._index = 0
@@ -77,14 +77,14 @@ def create_for_ds(repeat=1):
         def __len__(self):
             return len(self.data)
 
-    return GeneratorDataset(source=SimpleIterable(repeat), column_name=["input_ids"])
+    return GeneratorDataset(source=SimpleIterable(repeat), column_names=["input_ids"])
 
 
 net = SimpleNet() # The float model that needs to be quantized
 ds = create_foo_ds(1)
 cfg = PTQConfig(mode=PTQMode.QUANTIZE, backend=BackendTarget.ASCEND, weight_quant_dtype=dtype.int8)
 ptq = PTQ(cfg)
-ptq.apply(net, dataset=ds)
+ptq.apply(net, datasets=ds)
 ptq.convert(net)
 
 ms.save_checkpoint(net.parameters_dict(), './simplenet_ptq.ckpt')
