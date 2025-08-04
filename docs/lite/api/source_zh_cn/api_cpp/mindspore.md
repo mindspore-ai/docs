@@ -426,7 +426,7 @@ DeviceInfoContext类定义不同硬件设备的环境信息。
 
 ```cpp
 DeviceInfoContext()
-virtual ~DeviceInfoContext() = default;
+virtual ~DeviceInfoContext() = default
 ```
 
 ### 公有成员变量
@@ -443,17 +443,17 @@ struct Data
 |-------------------------------------------------------------------|---------|---------|
 | [enum DeviceType GetDeviceType() const](#getdevicetype)     |    √    |    √    |
 | [std::shared_ptr\<T\> Cast()](#cast)     |    √    |    √    |
-| [void SetProvider(const std::string &provider)](#setprovider)     |    √    |    √    |
 | [std::string GetProvider() const](#getprovider)     |    √    |    √    |
-| [void SetProviderDevice(const std::string &device)](#setproviderdevice)     |    √    |    √    |
+| [void SetProvider(const std::string &provider)](#setprovider)     |    √    |    √    |
 | [std::string GetProviderDevice() const](#getproviderdevice)     |    √    |    √    |
+| [void SetProviderDevice(const std::string &device)](#setproviderdevice)     |    √    |    √    |
 | [void SetAllocator(const std::shared_ptr\<Allocator\> &allocator)](#setallocator)     |    ✕    |    ✕    |
 | [std::shared_ptr\<Allocator\> GetAllocator() const](#getallocator)     |    ✕    |    ✕    |
 
 #### GetDeviceType
 
 ```cpp
-virtual enum DeviceType GetDeviceType() const = 0;
+virtual enum DeviceType GetDeviceType() const = 0
 ```
 
 获取该DeviceInfoContext的类型。
@@ -477,7 +477,8 @@ virtual enum DeviceType GetDeviceType() const = 0;
 #### Cast
 
 ```cpp
-template <class T> std::shared_ptr<T> Cast()
+template <class T>
+std::shared_ptr<T> Cast()
 ```
 
 在打开`-fno-rtti`编译选项的情况下提供类似RTTI的功能，将DeviceInfoContext转换为`T`类型的指针，若转换失败返回`nullptr`。
@@ -489,7 +490,7 @@ template <class T> std::shared_ptr<T> Cast()
 #### GetProvider
 
 ```cpp
-std::string GetProvider() const;
+inline std::string GetProvider() const
 ```
 
 获取设备的生产商名。
@@ -497,7 +498,7 @@ std::string GetProvider() const;
 #### SetProvider
 
 ```cpp
-void SetProvider(const std::string &provider)
+inline void SetProvider(const std::string &provider)
 ```
 
 设置设备生产商名。
@@ -509,7 +510,7 @@ void SetProvider(const std::string &provider)
 #### GetProviderDevice
 
 ```cpp
-std::string GetProviderDevice() const;
+inline std::string GetProviderDevice() const
 ```
 
 获取生产商设备名。
@@ -517,7 +518,7 @@ std::string GetProviderDevice() const;
 #### SetProviderDevice
 
 ```cpp
-void SetProviderDevice(const std::string &device)
+inline void SetProviderDevice(const std::string &device)
 ```
 
 设备生产商设备名。
@@ -541,7 +542,7 @@ void SetAllocator(const std::shared_ptr<Allocator> &allocator)
 #### GetAllocator
 
 ```cpp
-std::shared_ptr<Allocator> GetAllocator() const;
+std::shared_ptr<Allocator> GetAllocator() const
 ```
 
 获取内存管理器。
@@ -554,11 +555,42 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-|     函数     |     说明      | 云侧推理是否支持 | 端侧推理是否支持 |
-| ------------ | ------------ |---------|---------|
-| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kCPU |        √ |        √ |
-| `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |        √ |        √ |
-| `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |        √ |        √ |
+|     函数     | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------ | ---------|---------|
+| [enum DeviceType GetDeviceType() const override](#getdevicetype-1) |        √ |        √ |
+| [void SetEnableFP16(bool is_fp16)](#setenablefp16)      |        √ |        √ |
+| [bool GetEnableFP16() const](#getenablefp16)            |        √ |        √ |
+
+#### GetDeviceType
+
+```cpp
+enum DeviceType GetDeviceType() const override
+```
+
+- 返回值
+  DeviceType::kCPU
+
+#### SetEnableFP16
+
+```cpp
+void SetEnableFP16(bool is_fp16)
+```
+
+用于指定是否以FP16精度进行推理。
+
+- 参数：
+
+    - `is_fp16`: 是否以FP16精度进行推理。
+
+#### GetEnableFP16
+
+```cpp
+bool GetEnableFP16() const
+```
+
+- 返回值
+
+  已配置的精度模式。
 
 ## GPUDeviceInfo
 
@@ -568,23 +600,184 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-| 函数                                                         | 说明                                                                                                   | 云侧推理是否支持 | 端侧推理是否支持 |
-|------------------------------------------------------------|------------------------------------------------------------------------------------------------------|----------|----------|
-| `enum DeviceType GetDeviceType() const`                    | - 返回值: DeviceType::kGPU                                                                              | √        | √        |
-| `void SetDeviceID(uint32_t device_id)`                     | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                 | √        | √        |
-| `uint32_t GetDeviceID() const`                             | - 返回值: 已配置的设备ID                                                                                      | √        | √        |
-| `void SetPrecisionMode(const std::string &precision_mode)` | 用于指定推理时算子精度<br><br> - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin` | √        | √        |
-| `std::string GetPrecisionMode() const`                     | - 返回值: 已配置的精度模式                                                                                      | √        | √        |
-| `int GetRankID() const`                                    | - 返回值: 当前运行的RANK ID                                                                                  | √        | √        |
-| `int GetGroupSize() const`                                 | - 返回值: 当前运行的GROUP SIZE                                                                               | √        | √        |
-| `void SetEnableFP16(bool is_fp16)`                         | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理                                                 | √        | √        |
-| `bool GetEnableFP16() const`                               | - 返回值: 已配置的精度模式                                                                                      | √        | √        |
-| `void SetGLContext(void *gl_context)`                      | 用于指定OpenGL EGLContext<br><br> - `*gl_context`: OpenGL的当前运行时的EGLContext值                              | ✕        | √        |
-| `void *GetGLContext() const`                               | - 返回值: 已配置的指向OpenGL EGLContext的指针                                                                    | ✕        | √        |
-| `void SetGLDisplay(void *gl_display)`                      | 用于指定OpenGL EGLDisplay<br><br> - `*gl_display`: OpenGL的当前运行时的EGLDisplay值                              | ✕        | √        |
-| `void *GetGLDisplay() const`                               | - 返回值: 已配置的指向OpenGL EGLDisplay的指针                                                                    | ✕        | √        |
-| `void SetEnableGLTexture(bool is_enable_gl_texture)`       | 用于指定是否绑定OpenGL纹理数据<br><br> - `is_enable_gl_texture`: 是否在推理时绑定OpenGL纹理数据                              | ✕        | √        |
-| `bool GetEnableGLTexture() const`                          | - 返回值: 已配置的绑定OpenGL纹理数据模式                                                                            | ✕        | √        |
+| 函数                                                       | 云侧推理是否支持 | 端侧推理是否支持 |
+|------------------------------------------------------------|----------|----------|
+| [enum DeviceType GetDeviceType() const override](#getdevicetype-2)                    | √        | √        |
+| [void SetDeviceID(uint32_t device_id)](#setdeviceid)                     | √        | √        |
+| [uint32_t GetDeviceID() const](#getdeviceid)                             | √        | √        |
+| [int GetRankID() const](#getrankid)                                    | √        | √        |
+| [int GetGroupSize() const](#getgroupsize)                                 | √        | √        |
+| [inline void SetPrecisionMode(const std::string &precision_mode)](#setprecisionmode) | √        | √        |
+| [inline std::string GetPrecisionMode() const](#getprecisionmode)                     | √        | √        |
+| [void SetEnableFP16(bool is_fp16)](#setenablefp16-1)                         | √        | √        |
+| [bool GetEnableFP16() const](#getenablefp16-1)                               | √        | √        |
+| [void SetEnableGLTexture(bool is_enable_gl_texture)](#setenablegltexture)             | ✕        | √        |
+| [bool GetEnableGLTexture() const](#getenablegltexture)                          | ✕        | √        |
+| [void SetGLContext(void *gl_context)](#setglcontext)                      | ✕        | √        |
+| [void *GetGLContext() const](#getglcontext)                               | ✕        | √        |
+| [void SetGLDisplay(void *gl_display)()](#setgldisplay)                      | ✕        | √        |
+| [void *GetGLDisplay() const](#getgldisplay)                               | ✕        | √        |
+
+#### GetDeviceType
+
+```cpp
+enum DeviceType GetDeviceType() const override
+```
+
+- 返回值
+  DeviceType::kGPU
+
+#### SetDeviceID
+
+```cpp
+void SetDeviceID(uint32_t device_id)
+```
+
+用于指定设备ID。
+
+- 参数：
+
+    - `device_id`: 设备ID。
+
+#### GetDeviceID
+
+```cpp
+uint32_t GetDeviceID() const
+```
+
+- 返回值
+
+  已配置的设备ID。
+
+#### GetRankID
+
+```cpp
+int GetRankID() const
+```
+
+- 返回值
+
+  当前运行的RANK ID。
+
+#### GetGroupSize
+
+```cpp
+int GetGroupSize() const
+```
+
+- 返回值
+
+  当前运行的GROUP SIZE。
+
+#### SetPrecisionMode
+
+```cpp
+inline void SetPrecisionMode(const std::string &precision_mode)
+```
+
+用于指定推理时算子精度。
+
+- 参数：
+
+    - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin`。
+
+#### GetPrecisionMode
+
+```cpp
+inline std::string GetPrecisionMode() const
+```
+
+- 返回值
+
+  已配置的精度模式。
+
+#### SetEnableFP16
+
+```cpp
+void SetEnableFP16(bool is_fp16)
+```
+
+用于指定是否以FP16精度进行推理。
+
+- 参数：
+
+    - `is_fp16`: 是否以FP16精度进行推理。
+
+#### GetEnableFP16
+
+```cpp
+bool GetEnableFP16() const
+```
+
+- 返回值
+
+  已配置的精度模式。
+
+#### SetEnableGLTexture
+
+```cpp
+void SetEnableGLTexture(bool is_enable_gl_texture)
+```
+
+用于指定是否绑定OpenGL纹理数据。
+
+- 参数：
+
+    - `is_enable_gl_texture`: 是否在推理时绑定OpenGL纹理数据。
+
+#### GetEnableGLTexture
+
+```cpp
+bool GetEnableGLTexture() const
+```
+
+- 返回值
+
+  已配置的绑定OpenGL纹理数据模式。
+
+#### SetGLContext
+
+```cpp
+void SetGLContext(void *gl_context)
+```
+
+用于指定OpenGL EGLContext。
+
+- 参数：
+
+    - `gl_context`: OpenGL的当前运行时的EGLContext值。
+
+#### GetGLContext
+
+```cpp
+void *GetGLContext() const
+```
+
+- 返回值
+
+  已配置的指向OpenGL EGLContext的指针。
+
+#### SetGLDisplay
+
+```cpp
+void SetGLDisplay(void *gl_display)
+```
+
+用于指定OpenGL EGLDisplay。
+
+- 参数：
+
+    - `gl_display`: OpenGL的当前运行时的EGLDisplay值。
+
+#### GetGLDisplay
+
+```cpp
+void *GetGLDisplay() const
+```
+
+- 返回值
+
+  已配置的指向OpenGL EGLDisplay的指针。
 
 ## KirinNPUDeviceInfo
 
@@ -1888,7 +2081,7 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
 | [void *MutableData()](#mutabledata)     |    √    |    √    |
 | [size_t DataSize() const](#datasize)     |    √    |    √    |
 | [int GetDevice() const](#getdevice)     |    √    |    ✕    |
-| [int GetDeviceId() const](#getdeviceid)     |    √    |    ✕    |
+| [int GetDeviceId() const](#getdeviceid-1)     |    √    |    ✕    |
 | [bool IsConst() const](#isconst)     |    √    |    √    |
 | [bool IsDevice() const](#isdevice)     |    √    |    ✕    |
 | [MSTensor *Clone() const](#clone)     |    √    |    √    |
@@ -2634,7 +2827,7 @@ const SchemaVersion GetVersion()
 
 ## AbstractDelegate
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate_api.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate_api.h)&gt;
 
 `AbstractDelegate`定义了MindSpore Lite 创建Delegate（抽象类）。
 
@@ -2657,7 +2850,7 @@ virtual ~AbstractDelegate() = default;
 #### inputs
 
 ```cpp
-std::vector<mindspore::MSTensor> &inputs()
+const std::vector<mindspore::MSTensor> &inputs()
 ```
 
 返回AbstractDelegate的inputTensor。
@@ -2675,18 +2868,22 @@ const std::vector<mindspore::MSTensor> &outputs()
 #### inputs_
 
 ```cpp
-std::vector<mindspore::MSTensor> inputs_;
+std::vector<mindspore::MSTensor> inputs_
 ```
 
 #### outputs_
 
+```cpp
+std::vector<mindspore::MSTensor> outputs_
+```
+
 ## IDelegate
 
 ```cpp
-std::vector<mindspore::MSTensor> outputs_;
+std::vector<mindspore::MSTensor> outputs_
 ```
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate_api.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate_api.h)&gt;
 
 `IDelegate`定义了MindSpore Lite 创建Delegate（模板类）。
 
@@ -2701,7 +2898,7 @@ IDelegate(const std::vector<mindspore::MSTensor> &inputs, const std::vector<mind
 ### 析构函数
 
 ```cpp
-virtual ~IDelegate() = default;
+virtual ~IDelegate() = default
 ```
 
 ### 公有成员函数
@@ -2709,7 +2906,7 @@ virtual ~IDelegate() = default;
 #### ReplaceNodes
 
 ```cpp
-virtual void ReplaceNodes(const std::shared_ptr<Graph> &graph) = 0;
+virtual void ReplaceNodes(const std::shared_ptr<Graph> &graph) = 0
 ```
 
 替换Delegate节点。
@@ -2717,7 +2914,7 @@ virtual void ReplaceNodes(const std::shared_ptr<Graph> &graph) = 0;
 #### IsDelegateNode
 
 ```cpp
-virtual bool IsDelegateNode(const std::shared_ptr<Node> &node) = 0;
+virtual bool IsDelegateNode(const std::shared_ptr<Node> &node) = 0
 ```
 
 判断节点是否属于Delegate。
@@ -2725,7 +2922,7 @@ virtual bool IsDelegateNode(const std::shared_ptr<Node> &node) = 0;
 #### CreateKernel
 
 ```cpp
-virtual std::shared_ptr<Kernel> CreateKernel(const std::shared_ptr<Node> &node) = 0;
+virtual std::shared_ptr<Kernel> CreateKernel(const std::shared_ptr<Node> &node) = 0
 ```
 
 创建Kernel。
