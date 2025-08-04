@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0rc1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0rc1/docs/mindspore/source_en/faq/operators_compile.md)
 
-## Q: When the `ops.concat` operator is used, the error message `Error:Input and (output + workspace) num should <=192!` is displayed, which indicating that the data volume is large. What can I do?
+## Q: When the `ops.concat` operator is used, the error message `Error:Input and (output + workspace) num should <=192!` is displayed, which indicates that the data volume is large. What can I do?
 
 A: The `shape` of the [ops.concat](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/ops/mindspore.ops.concat.html) operator is too large. You are advised to set the output to `numpy` when creating an iterator for the `dataset` object. The setting is as follows:
 
@@ -34,7 +34,7 @@ A: The number of tensors to be concatenated at a time cannot exceed 192 accordin
 
 ## Q: When `Conv2D` is used to define convolution, the `group` parameter is used. Is it necessary to ensure that the value of `group` can be exactly divided by the input and output dimensions? How is the `group` parameter transferred?
 
-A: The `Conv2d` operator has the following constraint: When the value of `group` is greater than 1, the value must be the same as the number of input and output channels. Do not use [ops.Conv2D](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/ops/mindspore.ops.Conv2D.html). Currently, this operator does not support a value of `group` that is greater than 1. Currently, only the [nn.Conv2D](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/nn/mindspore.nn.Conv2d.html) API of MindSpore supports group convolution. However, the number of `group` must be the same as the number of input and output channels.
+A: The `Conv2d` operator has the following constraint: When the value of `group` is greater than 1, the value must be the same as the number of input and output channels. Do not use [ops.Conv2D](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/ops/mindspore.ops.Conv2D.html). Currently, this operator does not support a value of `group` that is greater than 1. Only the [nn.Conv2D](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/nn/mindspore.nn.Conv2d.html) API of MindSpore supports group convolution. However, the number of `group` must be the same as the number of input and output channels.
 
 <br/>
 
@@ -59,7 +59,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 ## Q: When the `Tile` operator in operations executes `__infer__`, the `value` is `None`. Why is the value lost?
 
-A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/compile/static_graph.html).
+A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed information, refer to [Static Graph Syntax Support](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/compile/static_graph.html).
 
 <br/>
 
@@ -87,8 +87,6 @@ A: In this case,
 
 ## Q: What can I do if the error message `Pynative run op ExpandDims failed` is displayed when the ExpandDims operator is used? The code is as follows:
 
-The code is as follows:
-
 ```python
 set_context(mode=GRAPH_MODE)
 mindspore.set_device("Ascend")
@@ -115,7 +113,7 @@ You can select a proper mode and writing method to complete the training by refe
 
 <br/>
 
-## Q: What are the type conversion rules for the inputs of MindSpore's operator? If there is a zero-dimensional Tensor in the inputs, do we follow the rulues?
+## Q: What are the type conversion rules for the inputs of MindSpore's operator? If there is a zero-dimensional Tensor in the inputs, do we follow the rules?
 
 A: For the type conversion rules for the inputs of MindSpore's operator, please refer to [Type Conversion Rules](https://www.mindspore.cn/docs/en/r2.7.0rc1/api_python/mindspore/mindspore.dtype.html#mindspore.dtype). Different from PyTorch, MindSpore also follows this rule when there is a zero-dimensional Tensor in the inputs. The sample code is as follows.
 
