@@ -17,7 +17,7 @@ OpenCLRuntimeWrapper类包装了内部OpenCL的相关接口，用于支持南向
 ### OpenCLRuntimeWrapper
 
 ```c++
-OpenCLRuntimeWrapper() = default;
+OpenCLRuntimeWrapper() = default
 ```
 
 构造函数。
@@ -25,17 +25,17 @@ OpenCLRuntimeWrapper() = default;
 ### ~OpenCLRuntimeWrapper
 
 ```c++
-~OpenCLRuntimeWrapper = default;
+~OpenCLRuntimeWrapper = default
 ```
 
 析构函数。
 
-## 公有成员函数
+### 公有成员函数
 
-### LoadSource
+#### LoadSource
 
 ```c++
-Status LoadSource(const std::string &program_name, const std::string &source);
+Status LoadSource(const std::string &program_name, const std::string &source)
 ```
 
 加载OpenCL源代码并指定程序名。
@@ -46,11 +46,11 @@ Status LoadSource(const std::string &program_name, const std::string &source);
 
     - `source`: OpenCL源程序。
 
-### BuildKernel
+#### BuildKernel
 
 ```c++
 Status BuildKernel(cl::Kernel *kernel, const std::string &program_name, const std::string &kernel_name,
-                     const std::vector<std::string> &build_options_ext = {});
+                     const std::vector<std::string> &build_options_ext = {})
 ```
 
 构建OpenCL代码。
@@ -65,10 +65,10 @@ Status BuildKernel(cl::Kernel *kernel, const std::string &program_name, const st
 
     - `build_options_ext`: OpenCL内核构建选项。
 
-### SetKernelArg
+#### SetKernelArg
 
 ```c++
-Status SetKernelArg(const cl::Kernel &kernel, uint32_t index, void *const value);
+Status SetKernelArg(const cl::Kernel &kernel, uint32_t index, void *const value)
 ```
 
 设置OpenCL内核运行时指针类参数的值。
@@ -81,10 +81,12 @@ Status SetKernelArg(const cl::Kernel &kernel, uint32_t index, void *const value)
 
     - `value`: OpenCL内核参数值指针。
 
+#### SetKernelArg
+
 ```c++
 template <typename T>
-  typename std::enable_if<!std::is_pointer<T>::value, Status>::type SetKernelArg(const cl::Kernel &kernel,
-                                                                                 uint32_t index, const T value);
+typename std::enable_if<!std::is_pointer<T>::value, Status>::type SetKernelArg(const cl::Kernel &kernel,
+                                                                                 uint32_t index, const T value)
 ```
 
 设置OpenCL内核运行时非指针类参数的值。
@@ -97,11 +99,11 @@ template <typename T>
 
     - `value`: OpenCL内核参数值。
 
-### RunKernel
+#### RunKernel
 
 ```c++
 Status RunKernel(const cl::Kernel &kernel, const cl::NDRange &global, const cl::NDRange &local,
-                   cl::CommandQueue *command_queue = nullptr, cl::Event *event = nullptr);
+                   cl::CommandQueue *command_queue = nullptr, cl::Event *event = nullptr)
 ```
 
 运行OpenCL内核。
@@ -118,26 +120,26 @@ Status RunKernel(const cl::Kernel &kernel, const cl::NDRange &global, const cl::
 
     - `event`: 事件对象的指针，用来标识本次执行命令，默认空，无事件标识。
 
-### SyncCommandQueue
+#### SyncCommandQueue
 
 ```c++
-Status SyncCommandQueue();
+Status SyncCommandQueue()
 ```
 
 同步指令队列。
 
-### GetAllocator
+#### GetAllocator
 
 ```c++
-std::shared_ptr<Allocator> GetAllocator();
+std::shared_ptr<Allocator> GetAllocator()
 ```
 
 获取GPU内存分配器的智能指针。通过[Allocator接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html)，可申请GPU内存，用于OpenCL内核的运算。
 
-### MapBuffer
+#### MapBuffer
 
 ```c++
-void *MapBuffer(void *host_ptr, int flags, bool sync = true);
+void *MapBuffer(void *host_ptr, int flags, bool sync = true)
 ```
 
 重新将GPU内存映射到主机内存地址，以便读写。
@@ -150,10 +152,10 @@ void *MapBuffer(void *host_ptr, int flags, bool sync = true);
 
     - `sync`: 是否同步标志。
 
-### UnmapBuffer
+#### UnmapBuffer
 
 ```c++
-Status UnmapBuffer(void *host_ptr);
+Status UnmapBuffer(void *host_ptr)
 ```
 
 将改变后的内存数据，写入GPU。
@@ -162,10 +164,10 @@ Status UnmapBuffer(void *host_ptr);
 
     - `host_ptr`: 主机内存地址（为GPU内存所映射的CPU地址）。
 
-### ReadImage
+#### ReadImage
 
 ```c++
-Status ReadImage(void *buffer, void *dst_data);
+Status ReadImage(void *buffer, void *dst_data)
 ```
 
 读取解析Image形式的GPU内存到目标地址，写入的数据格式为NHWC4（C轴4数据对齐的NHWC格式数据）。
@@ -176,10 +178,10 @@ Status ReadImage(void *buffer, void *dst_data);
 
     - `dst_data`: 目标地址。
 
-### WriteImage
+#### WriteImage
 
 ```c++
-Status WriteImage(void *buffer, void *src_data);
+Status WriteImage(void *buffer, void *src_data)
 ```
 
 从源地址`src_data`读取数据，写入到Image形式的GPU内存`buffer`。
@@ -190,34 +192,34 @@ Status WriteImage(void *buffer, void *src_data);
 
     - `src_data`: 源地址。
 
-### DeviceMaxWorkGroupSize
+#### DeviceMaxWorkGroupSize
 
 ```c++
-uint64_t DeviceMaxWorkGroupSize();
+uint64_t DeviceMaxWorkGroupSize()
 ```
 
 获取支持的最大工作组数量。
 
-### GetMaxImage2DWidth
+#### GetMaxImage2DWidth
 
 ```c++
-uint64_t GetMaxImage2DWidth();
+uint64_t GetMaxImage2DWidth()
 ```
 
 获取Image内存数据支持的最大宽度。
 
-### GetMaxImage2DHeight
+#### GetMaxImage2DHeight
 
 ```c++
-uint64_t GetMaxImage2DHeight();
+uint64_t GetMaxImage2DHeight()
 ```
 
 获取Image内存数据支持的最大高度。
 
-### GetImagePitchAlignment
+#### GetImagePitchAlignment
 
 ```c++
-uint64_t GetImagePitchAlignment();
+uint64_t GetImagePitchAlignment()
 ```
 
 获取Image内存数据的宽度对齐值。
