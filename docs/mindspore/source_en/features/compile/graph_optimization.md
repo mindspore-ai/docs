@@ -139,7 +139,7 @@ subgraph @f2(%para1_x, %para2_y) {
 
     %1 = PrimFunc_Add(%0, %para2_y)
 
-    Return(%2)
+    Return(%1)
 }
 
 subgraph @f1() {
@@ -147,7 +147,7 @@ subgraph @f1() {
 
   %1(y) = call @f2(%para1_a, %para3_c)  # Call subgraph f2
 
-  %2 = PrimFunc_Add(%1, %2)
+  %2 = PrimFunc_Add(%0, %1)
 
   Return(%2)
 }
