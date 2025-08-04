@@ -75,6 +75,7 @@ def get_example(name: str):
             logger.warning(f"not api obj: {name}")
             return []
         api_doc = inspect.getdoc(api_obj)
+        # mint接口特殊处理样例内容
         if '.mint.' in name:
             spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse']),
                        ('nn.HShrink', 'mint.nn.Hardshrink'), ('nn.SoftShrink', 'mint.nn.Softshrink'),
@@ -96,6 +97,7 @@ def get_example(name: str):
             else:
                 api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', api_doc)
                 api_doc = api_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
+        # tensor接口特殊处理样例内容
         elif 'mindspore.is_tensor' in name:
             api_doc = api_doc.replace('>>> from mindspore import Tensor, ops', '>>> from mindspore import Tensor, is_tensor')
             api_doc = api_doc.replace('>>> ops.is_tensor', '>>> is_tensor')

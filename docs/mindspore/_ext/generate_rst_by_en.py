@@ -3,23 +3,22 @@ import importlib
 import inspect
 import re
 import os
+from functools import reduce
 
 def get_api(fullname):
-    """Get the api module."""
+    """
+    获取接口对象。
+
+    :param fullname: 接口名全称
+    :return: 属性对象或None(如果不存在)
+    """
+    main_module = fullname.split('.')[0]
+    main_import = importlib.import_module(main_module)
+
     try:
-        module_name, api_name = ".".join(fullname.split('.')[:-1]), fullname.split('.')[-1]
-        # pylint: disable=unused-variable
-        module_import = importlib.import_module(module_name)
-    except ModuleNotFoundError:
-        module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
-        module_import = importlib.import_module(module_name)
-    # pylint: disable=eval-used
-    try:
-        api = getattr(module_import, api_name, '')
+        return reduce(getattr, fullname.split('.')[1:], main_import)
     except AttributeError:
-        print(f'failed to {module_import}.{api_name}')
-        return ''
-    return api
+        return None
 
 def generate_rst_by_en(sum_list, target_path, language='cn'):
     """Generate the rst file by the ops list."""
@@ -27,6 +26,7 @@ def generate_rst_by_en(sum_list, target_path, language='cn'):
     exist_rst = []
     primi_auto = []
     for i in sum_list:
+        # 处理大写接口
         if i.lower() == i:
             continue
         try:
@@ -50,6 +50,7 @@ def generate_rst_by_en(sum_list, target_path, language='cn'):
             except TypeError:
                 py_docs = ''
 
+        # 获取入参
         try:
             source_code = inspect.getsource(module_api.__init__)
             if module_api.__doc__:
@@ -61,8 +62,10 @@ def generate_rst_by_en(sum_list, target_path, language='cn'):
             all_params = ''
 
         if 'Refer to' in py_docs.split('\n')[-1] and 'for more details.' in py_docs.split('\n')[-1]:
+            # 记录哪些是自动生成的
             if py_docs:
                 primi_auto.append(i)
+            # 生成中文rst文件
             if py_docs and language == 'cn':
                 sig_doc_str = all_params.strip()
                 cn_base_rst = i + '\n' + '=' * len(i) + '\n\n' + '.. py:class:: ' + i + '(' + sig_doc_str + ')\n\n'

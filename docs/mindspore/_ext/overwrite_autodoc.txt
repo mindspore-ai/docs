@@ -564,6 +564,7 @@ class Documenter:
                           RemovedInSphinx50Warning, stacklevel=2)
         docstring = getdoc(self.object, self.get_attr, self.config.autodoc_inherit_docstrings,
                            self.parent, self.object_name)
+        # 修改mint方法的英文注释内容
         spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse']),
                    ('ops.auto_generate.linalg_qr', 'mindspore.mint.linalg.qr')]
         if docstring and '.mint.' in self.fullname:
@@ -1783,6 +1784,7 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                     docstrings = [initdocstring]
                 else:
                     docstrings.append(initdocstring)
+        # 修改mint类的英文注释内容
         spec_tp = [('nn.HShrink', 'mint.nn.Hardshrink'), ('nn.SoftShrink', 'mint.nn.Softshrink'),
                    ('nn.HSigmoid', 'mint.nn.Hardsigmoid'), ('nn.HSwish', 'mint.nn.Hardswish')]
         if docstrings and '.mint.' in self.fullname:

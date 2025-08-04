@@ -23,6 +23,7 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
     for root, dirs, files in os.walk(os.path.join(repo_path, 'mindspore/python/mindspore/mint')):
         for file in files:
             if file in ('__init__.py', 'functional.py'):
+                # 获取两个模块并按照模块名分类
                 with open(os.path.join(root, file), 'r+', encoding='utf-8') as f:
                     content = f.read()
                 modulename = '.'.join(root.split('mindspore/python/')[-1].split('/'))
@@ -39,6 +40,7 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                     continue
                 one_p = re.findall(r'from mindspore\.(ops|nn).*?(?<!extend) import (.*?)(\n|# )', content)
                 two_p = [i[1] for i in one_p]
+                # 从导入处获取接口名，分为直接导入接口名，as别名，import导入多个
                 for i in two_p:
                     if ' as ' in i:
                         name1 = re.findall('(.*?) as (.*)', i)[0][0]
@@ -59,6 +61,7 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
     if pr_need != 'all':
         os.makedirs(mint_path, exist_ok=True)
     for k, v in mint_ops_dict.items():
+        # 去除mint.nn.xxx接口
         if not re.findall(r'\.nn\.(?!function).*', k):
             for name in v:
                 if isinstance(name, list):
@@ -67,10 +70,12 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                 else:
                     name1 = name
                     name2 = name
+                # 非对外接口不操作
                 if f'{k}.{name2}' not in sum_list:
                     continue
                 elif pr_need != 'all' and f'{k}.{name2}' not in pr_need:
                     continue
+                # 已存在不覆盖
                 if os.path.exists(os.path.join(mint_path, f'{k}.{name2}.rst')):
                     exist_mint_file.append(f'{k}.{name2}')
                     continue
