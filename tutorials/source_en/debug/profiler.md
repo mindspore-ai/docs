@@ -22,7 +22,7 @@ There are five ways to collect training performance data, and the following desc
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
-Add the MindSpore Profiler related interfaces in the training script, see [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html) for details.
+Add the MindSpore Profiler related interfaces in the training script, users can refer to  [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html) and [_ExperimentalConfig Parameter Details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) to configure parameters such as profiler_level according to their data requirements.
 
 The interface supports two collection modes: CallBack mode and custom for loop mode, and supports both Graph and PyNative modes.
 
@@ -44,20 +44,22 @@ net = Net()
 
 # Configure the extensibility parameters
 experimental_config = mindspore.profiler._ExperimentalConfig(
-                        profiler_level=ProfilerLevel.Level0,
-                        aic_metrics=AicoreMetrics.AiCoreNone,
-                        l2_cache=False,
-                        mstx=False,
-                        data_simplification=False,
-                        host_sys=[HostSystem.CPU, HostSystem.MEM])
+    profiler_level=ProfilerLevel.Level0,
+    aic_metrics=AicoreMetrics.AiCoreNone,
+    l2_cache=False,
+    mstx=False,
+    data_simplification=False,
+    host_sys=[HostSystem.CPU, HostSystem.MEM]
+)
 
 # Initialize profile
 with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
-                                    schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=1,
-                                            repeat=1, skip_first=0),
-                                    on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
-                                    profile_memory=False,
-                                    experimental_config=experimental_config) as prof:
+                                schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=1,
+                                    repeat=1, skip_first=0),
+                                # Disable online parsing by setting analyse_flag=False in tensorboard_trace_handler
+                                on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
+                                profile_memory=False,
+                                experimental_config=experimental_config) as prof:
         for step in range(steps):
             train(net)
             # Call step collection
@@ -75,14 +77,9 @@ As illustrated in the following figure, schedule has 5 configurable parameters: 
 
 ![schedule.png](../../source_zh_cn/debug/images/schedule.png)
 
-For example: The model training consists of 100 steps. The schedule is configured as schedule = schedule(skip_first=10,
-wait=10, warmup=5, active=5, repeat=2), indicating that the first 10 steps are skipped.
-Starting from the 11th step, in the first repeat, 10 steps will be waited for, 5 steps of preheating will be executed,
-and finally the performance data of a total of 5 steps from the 26th to the 30th will be collected.
-In the second repeat, it will continue to wait for 10 steps, perform 5 steps of preheating, and finally collect the
-performance data of a total of 5 steps from step 46 to step 50.
+For example: If there are 100 steps (0-99) in model training and the schedule is configured as `schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)` . Profiler will first skip the first 10 steps (0-9). Starting from step 10, the first repeat will wait for 10 steps (10-19), warm up for 5 steps (20-24), and finally collect performance data for 5 steps (25-29). The second repeat will again wait for 10 steps (30-39), warm up for 5 steps (40-44), and finally collect performance data for 5 steps (45-49).
 
-> - Profiler generates multiple performance data files in the same directory based on the repeat count. Each repeat corresponds to a folder containing performance data collected from all active steps in that repeat. When repeat is configured to 0, the specific number of repetitions is determined by the total number of steps, continuously repeating the wait-warmup-active cycle until all steps are completed.
+> - In single-card scenarios, profiler generates multiple performance data files in the same directory based on the repeat count. Each repeat corresponds to a folder containing performance data collected from all active steps in that repeat. In multi-card scenarios, each card generates performance data independently, and the data from each card is divided into multiple parts based on the repeat count. When repeat is configured to 0, the specific number of repetitions is determined by the total number of steps, continuously repeating the wait-warmup-active cycle until all steps are completed.
 > - The schedule needs to be used with [mindspore.profiler.profile.step](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step) interface. If you only configure schedule without using mindspore.profiler.profile.step interface to collect data, all collected data will belong to step 0. Therefore, performance data files will only be generated when step 0 corresponds to active (wait, warmup, skip_first are all set to 0).
 
 #### CallBack Mode Collection Example
