@@ -64,7 +64,7 @@ MindStudio是面向AI开发者提供的全流程工具链，提供了精度、�
          <td><a href="https://gitee.com/ascend/mstt/tree/br_release_MindStudio_8.1.RC1_TR5_20260623/profiler/msprof_analyze#安装">安装msprof-anaylze</a></td>
       </tr>
       <tr>
-         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/80RC1/T&ITools/msleaks/atlas_msleaks_0001.html">msleaks</a></td>
+         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/T&ITools/msleaks/atlas_msleaks_0001.html">msleaks</a></td>
          <td>CANN包提供的命令行工具，用于模型训内存问题定位，提供Step内和Step间的内存异常检测能力，包括Step内内存泄漏分析和Step间内存对比分析。</td>
          <td><a href="https://www.mindspore.cn/install">安装MindSpore</a></td>
       </tr>
