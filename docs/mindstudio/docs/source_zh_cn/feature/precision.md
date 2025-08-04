@@ -2,10 +2,12 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/feature/precision.md)
 
-<table>
+msprobe 是 MindStudio Training Tools 工具链下精度调试部分的工具包。主要包括精度预检、溢出检测和精度比对等功能，目前适配 PyTorch 和 MindSpore 框架。msprobe提供多个于子工具侧重不同的训练场景，可以定位模型训练中的精度问题。
+
+<table width="100%">
     <tr>
-        <th>工具</th>
-        <th>功能</th>
+        <th width="6%">工具</th>
+        <th width="12%">功能</th>
         <th>简介</th>
         <th>适用场景/优势</th>
         <th>当前版本限制</th>
@@ -30,16 +32,16 @@
         <td>1. API级数据采集仅对<a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/mindspore/dump/hook_cell/support_wrap_ops.yaml">支持列表</a>中的API进行采集<br>2. 暂不支持采集inplace类API及其上一节点的反向数据 <br>3. 暂不支持参数及参数梯度的采集</td>
     </tr>
     <tr>
-        <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/22.visualization_MindSpore.md">可视化比对</a></td>
-        <td>解析Dump的精度数据，还原模型图结构，比对各层级精度数据，助力理解模型结构、分析精度问题。</td>
-        <td>1. 整网精度比对定位可疑算子，通过浏览器展示比对结果，支持快速搜索到可疑算子 <br>2. 支持查看模型层级结果，比对模型层级结构差异</td>
-        <td>1. 由于使用整网Dump数据，定位的可疑算子受累计误差影响 <br>2. 当模型规模较大时，比对所需时间较长</td>
-    </tr>
-    <tr>
         <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/13.overflow_check_MindSpore.md">溢出检查</a></td>
         <td>检测模型计算过程的输入输出，并在溢出时落盘数据，助力用户快速定位溢出位置。</td>
         <td>1. 当模型出现溢出时，可用于定位最先溢出的API或Cell或kernel <br>2. 相比数据采集，性能更优，磁盘压力更小</td>
         <td>1. 除具有与数据采集功能相同的约束外，动态图场景下，不支持 Primitive 和 Jit 类 API 的检测 <br>2. 动态图场景下，仅支持检测API或Cell级别溢出 <br>3. 静态图场景下，仅支持检测kernel级别溢出</td>
+    </tr>
+    <tr>
+        <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/22.visualization_MindSpore.md">可视化比对</a></td>
+        <td>解析Dump的精度数据，还原模型图结构，比对各层级精度数据，助力理解模型结构、分析精度问题。</td>
+        <td>1. 整网精度比对定位可疑算子，通过浏览器展示比对结果，支持快速搜索到可疑算子 <br>2. 支持查看模型层级结果，比对模型层级结构差异</td>
+        <td>1. 由于使用整网Dump数据，定位的可疑算子受累计误差影响 <br>2. 当模型规模较大时，比对所需时间较长</td>
     </tr>
     <tr>
         <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md">compare精度比对</a></td>
