@@ -11,7 +11,7 @@ def short_title(titlename):
         return titlename
     titlename = titlename.lower()
     cn_symbol = "。；，“”（）、？《》"
-    en_symbol = ".,=+*()<>[]{}|/&\"'"
+    en_symbol = ".,=+*()<>[]{}|/&'"
     spec_symbol = "_:："
     for i in cn_symbol:
         titlename = titlename.replace(i, '')
@@ -19,7 +19,7 @@ def short_title(titlename):
         titlename = titlename.replace(j, '')
     for k in spec_symbol:
         titlename = titlename.replace(k, ' ')
-    titlename = titlename.replace('  ', ' ').replace(' ', '-')
+    titlename = titlename.replace('  ', ' ').replace(' ', '-').replace('"', '')
 
     return titlename
 '''
