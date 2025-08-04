@@ -155,7 +155,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
             - "negative inf count": represents the number of `-Inf` elements in the tensor;
             - "positive inf count": represents the number of `+Inf` elements in the tensor;
             - "zero count": represents the number of zero elements in the tensor;
-            - "md5": represents the MD5 value of the tensor;
+            - "hash": represents the hash feature value of the tensor, currently using the SHA1 algorithm by default, so it can also be written as "hash:sha1", SHA1 algorithm is recommended for its faster；"hash:md5" represents the MD5 value of the tensor, which yields the same result as the "md5" configuration item in previous versions;
             - "l2norm": represents L2Norm value of the tensor, supporting both device and host statistics.
 
             Except for those marked as supporting device statistics, other statistics can be collected only on the host.
@@ -168,7 +168,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
 
         - `enable`: When set to `true`, enable Synchronous Dump. When set to false or not set, Asynchronous Dump will be used on Ascend. The main difference between the two is that Asynchronous Dump has less impact on the original code execution order.
         - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `true`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `false`, the data format on the Device side will be retained. Default: `true`.
-        - `stat_calc_mode`: Select the backend for statistical calculations. Options are "host" and "device". Choosing "device" enables device computation of statistics, currently only effective on Ascend, and supports only min/max/avg/l2norm statistics. When `op_debug_mode` is set to 3, only `stat_calc_mode` set to "host" is supported.
+        - `stat_calc_mode`: Select the backend for statistical calculations. Options are "host" and "device". Choosing "device" enables device computation of statistics, currently only effective on Ascend, and supports only min/max/avg/l2norm statistics. When `op_debug_mode` is set to 3, only `stat_calc_mode` set to "host" is supported. Default: "host".
         - `device_stat_precision_mode`(Optional): Precision mode of device statistics, and the value can be "high" or "low". When "high" is selected, avg/l2norm statistics will be calculated using float32, which will increase device memory usage and have higher precision; when "low" is selected, the same type as the original data will be used for calculation, which will occupy less device memory, but statistics overflow may be caused when processing large values. The default value is "high".
         - `sample_mode`(Optional): Setting it to 0 means the sample dump function is not enabled. Enable the sampling dump feature during graph compilation using the ms_backend backend. This field is effective only when "op_debug_mode" is set to `0`, sample dump cannot be enabled in other scene.
         - `sample_num`(Optional): Used to control the size of sample in sample dump. The default value is 100.
