@@ -9,12 +9,12 @@
         "submenu": {
             "zh": [
                 {
-                    "label": "特性介绍",
+                    "label": "Developer Notes",
                     "url": "/docs/zh-CN/master/features/index.html",
                     "id": "master-features"
                 },
                 {
-                    "label": "API文档",
+                    "label": "API",
                     "url": "/docs/zh-CN/master/api_python/index.html",
                     "id": "master-api_python"
                 },
@@ -24,13 +24,13 @@
                     "id": "master-faq"
                 },
                 {
-                    "label": "RELEASE NOTES",
+                    "label": "Release Notes",
                     "url": "/docs/zh-CN/master/RELEASE.html"
                 }
             ],
             "en": [
                 {
-                    "label": "Feature Description",
+                    "label": "Developer Notes",
                     "url": "/docs/en/master/features/index.html",
                     "id": "master-features"
                 },
@@ -45,7 +45,7 @@
                     "id": "master-faq"
                 },
                 {
-                    "label": "RELEASE NOTES",
+                    "label": "Release Notes",
                     "url": "/docs/en/master/RELEASE.html"
                 }
             ]

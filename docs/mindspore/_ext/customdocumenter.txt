@@ -22,6 +22,7 @@ class CustomDocumenter(Documenter):
         members_check_module, members = self.get_object_members(want_all)
 
         # **** 排除已写中文接口名 ****
+        # 获取需要排除的接口名，定义和include两种
         file_path = os.path.join(self.env.app.srcdir, self.env.docname+'.rst')
         exclude_re = re.compile(r'(.. py:class::|.. py:function::)\s+(.*?)(\(|\n)')
         includerst_re = re.compile(r'.. include::\s+(.*?)\n')
