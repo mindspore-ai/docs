@@ -42,6 +42,7 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                 two_p = [i[1] for i in one_p]
                 # 从导入处获取接口名，分为直接导入接口名，as别名，import导入多个
                 for i in two_p:
+                    # as别名
                     if ' as ' in i:
                         name1 = re.findall('(.*?) as (.*)', i)[0][0]
                         name2 = re.findall('(.*?) as (.*)', i)[0][1]
@@ -49,8 +50,10 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                             mint_ops_dict[modulename].append([name1, name2])
                         else:
                             continue
+                    # 直接导入接口名
                     elif i in reg_all:
                         mint_ops_dict[modulename].append(i)
+                    # import导入多个
                     else:
                         for j in i.split(','):
                             if j.strip() in reg_all:

@@ -1788,8 +1788,11 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
         spec_tp = [('nn.HShrink', 'mint.nn.Hardshrink'), ('nn.SoftShrink', 'mint.nn.Softshrink'),
                    ('nn.HSigmoid', 'mint.nn.Hardsigmoid'), ('nn.HSwish', 'mint.nn.Hardswish')]
         if docstrings and '.mint.' in self.fullname:
+            # mint.xxx 中的 xxx
             b_name = self.fullname.split('.')[-1]
+            # mint.xxx
             usename = self.fullname.replace('mindspore.', '')
+            # 获取接口源文件路径
             try:
                 py_source_rel = get_full_modname(self.modname, b_name).replace('.', '/') + '.py'
             except:
