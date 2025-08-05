@@ -101,6 +101,7 @@ with open(autodoc_source_path, "r", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+# 排除已写中文接口名
 with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
     code_str = f.read()
     exec(code_str, sphinx_autodoc.__dict__)
@@ -126,7 +127,7 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
 project = 'MindSpore'
 copyright = 'MindSpore'
 author = 'MindSpore'
-# language = 'cn'
+
 # The full version, including alpha/beta/rc tags
 release = 'master'
 
@@ -162,8 +163,6 @@ source_suffix = {
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-
-# locale_dirs = ['locale/']
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -352,7 +351,7 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
         if '.rst' in file_ or '.txt' in file_:
             convert2utf8(os.path.join(root, file_))
 
-# Rename .rst file to .txt file for include directive.
+# Rename .rst file to .txt file for include directive. master使用
 from rename_include import rename_include
 
 rename_include('api_python')
@@ -360,6 +359,15 @@ rename_include('migration_guide')
 
 # modify urls
 import json
+
+# 发版本时这里启用
+# re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+#          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+#          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+# re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+# re_url3 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
 
 if os.path.exists('../../../tools/generate_html/version.json'):
     with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
@@ -391,6 +399,13 @@ for cur, _, files in os.walk(des_sir):
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
                     new_content = content
+                    # 发版本时这里启用
+                    # new_content = re.sub(re_url, r'\1/r2.7.0rc1', new_content)
+                    # new_content = re.sub(re_url4, r'\1/r1.6.0', new_content)
+                    # if i.endswith('.rst'):
+                    #     new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
+
+                    # master使用
                     if i.endswith('.md'):
                         md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                         if 'resource/_static/logo_source' not in new_content:
@@ -399,8 +414,11 @@ for cur, _, files in os.walk(des_sir):
                         f.seek(0)
                         f.truncate()
                         f.write(new_content)
+
             except Exception:
                 print(f'打开{i}文件失败')
+
+        # master使用
         if i.endswith('.rst'):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
@@ -418,6 +436,12 @@ for cur, _, files in os.walk(des_sir):
             except Exception:
                 print(f'打开{i}文件失败')
 
+# # Rename .rst file to .txt file for include directive. (发版本时这里启用)
+# from rename_include import rename_include
+
+# rename_include('api_python')
+# rename_include('migration_guide')
+
 # rename file name to solve Case sensitive.
 
 rename_list = [("./api_python/ops/", "func_", ""),
@@ -433,7 +457,7 @@ try:
 except Exception as e:
     print(e)
 
-del_redundant_api_file(des_sir, ['mindspore.ops.rst', 'mindspore.ops.primitive.rst'], f'ops', 'mindspore.ops.', ops_del+primi_del, 'ops.silent_check.')
+del_redundant_api_file(des_sir, ['mindspore.ops.rst', 'mindspore.ops.primitive.rst'], 'ops', 'mindspore.ops.', ops_del+primi_del, 'ops.silent_check.')
 del_redundant_api_file(des_sir, ['mindspore.nn.rst'], 'nn', 'mindspore.nn.', nn_del, 'optim_')
 del_redundant_api_file(des_sir, ['mindspore.mint.rst'], 'mint', 'mindspore.mint.', mint_del)
 del_redundant_api_file(des_sir, ['mindspore.numpy.rst'], 'numpy', 'mindspore.numpy.', numpy_del)
@@ -665,5 +689,7 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
+    # content = re.sub(re_url, r'\1/r2.7.0rc1', content)
+    # content = re.sub(re_url2, r'\1/v2.7.0-rc1', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
