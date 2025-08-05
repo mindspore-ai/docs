@@ -129,7 +129,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = 'br_base'
 
 # -- General configuration ---------------------------------------------------
 
@@ -352,22 +352,20 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
             convert2utf8(os.path.join(root, file_))
 
 # Rename .rst file to .txt file for include directive. master使用
-from rename_include import rename_include
+# from rename_include import rename_include
 
-rename_include('api_python')
-rename_include('migration_guide')
+# rename_include('api_python')
+# rename_include('migration_guide')
 
 # modify urls
 import json
 
 # 发版本时这里启用
-# re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
-#          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-#          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
-
-# re_url3 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
 
 if os.path.exists('../../../tools/generate_html/version.json'):
     with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
@@ -400,10 +398,9 @@ for cur, _, files in os.walk(des_sir):
                     content = f.read()
                     new_content = content
                     # 发版本时这里启用
-                    # new_content = re.sub(re_url, r'\1/r2.7.0rc1', new_content)
-                    # new_content = re.sub(re_url4, r'\1/r1.6.0', new_content)
-                    # if i.endswith('.rst'):
-                    #     new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
+                    new_content = re.sub(re_url, r'\1/br_base', new_content)
+                    if i.endswith('.rst'):
+                        new_content = re.sub(re_url2, r'\1/br_base', new_content)
 
                     # master使用
                     if i.endswith('.md'):
@@ -437,10 +434,10 @@ for cur, _, files in os.walk(des_sir):
                 print(f'打开{i}文件失败')
 
 # # Rename .rst file to .txt file for include directive. (发版本时这里启用)
-# from rename_include import rename_include
+from rename_include import rename_include
 
-# rename_include('api_python')
-# rename_include('migration_guide')
+rename_include('api_python')
+rename_include('migration_guide')
 
 # rename file name to solve Case sensitive.
 
