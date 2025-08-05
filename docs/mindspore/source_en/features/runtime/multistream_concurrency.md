@@ -10,7 +10,7 @@ During the training of large-scale deep learning models, the importance of commu
 
 Traditional multi-stream concurrency methods usually rely on manual configuration, which is not only cumbersome and error-prone, but also often difficult to achieve optimal concurrency when faced with complex computational graphs. MindSpore's automatic stream assignment feature automatically identifies and assigns concurrency opportunities in the computational graph by means of an intelligent algorithm, and assigns different operators to different streams for execution. This automated allocation process not only simplifies user operations, but also enables dynamic adjustment of stream allocation policies at runtime to accommodate different computing environments and resource conditions.
 
-![multi_stream](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/features/images/multi_level_compilation/jit_level_multi_stream.png)
+![multi_stream](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/features/compile/images/multi_level_compilation/jit_level_multi_stream.png)
 
 The principles are as follows:
 
