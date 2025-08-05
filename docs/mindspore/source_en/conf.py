@@ -78,7 +78,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = 'br_base'
 
 
 # -- General configuration ---------------------------------------------------
@@ -300,26 +300,23 @@ sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
 # 发版本时这里启用
-# re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
-#          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-#          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url4 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
-
-# for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
-#     for i in files:
-#         if i.endswith('.py'):
-#             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-#                 content = f.read()
-#                 new_content = re.sub(re_url, r'\1/r2.7.0rc1', content)
-#                 new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
-#                 new_content = re.sub(re_url4, r'\1/r1.6.0', new_content)
-#                 if new_content != content:
-#                     f.seek(0)
-#                     f.truncate()
-#                     f.write(new_content)
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/br_base', content)
+                new_content = re.sub(re_url2, r'\1/br_base', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
 
 # Copy source files of en python api from mindspore repository.
 copy_path = 'docs/api/api_python_en'
@@ -448,10 +445,9 @@ for cur, _, files in os.walk(des_sir):
                 new_content = content
 
                 # 发版本时这里启用
-                # new_content = re.sub(re_url, r'\1/r2.7.0rc1', new_content)
-                # new_content = re.sub(re_url4, r'\1/r1.6.0', new_content)
-                # if i.endswith('.rst'):
-                #     new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
+                new_content = re.sub(re_url, r'\1/br_base', new_content)
+                if i.endswith('.rst'):
+                    new_content = re.sub(re_url2, r'\1/br_base', new_content)
 
                 # master使用
                 if i.endswith('.md'):

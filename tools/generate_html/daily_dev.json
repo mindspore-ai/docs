@@ -1,0 +1,22 @@
+[
+    {
+        "id" : 1 ,
+        "name" : "mindspore",
+        "branch" : "br_base",
+        "html_version" : "br_base",
+        "whl_path" : "/mindspore/website/br_base/cpu/x86_64",
+        "whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$",
+        "environ" : "MS_PATH",
+        "uninstall_name" : "mindspore"
+    },
+    {
+        "id" : 2 ,
+        "name" : "tutorials",
+        "branch" : "br_base",
+        "html_version" : "br_base",
+        "whl_path" : "",
+        "whl_name" : "",
+        "environ" : "",
+        "uninstall_name" : ""
+    }
+]
