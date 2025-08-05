@@ -1,6 +1,6 @@
 # 安装指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
 
 本文档将介绍安装vLLM MindSpore环境的操作步骤。分为三种安装方式：
 
@@ -36,7 +36,7 @@
 用户可执行以下命令，拉取vLLM MindSpore代码仓库，并构建镜像：
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 
@@ -130,7 +130,7 @@ docker exec -it $DOCKER_NAME bash
     安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
 
     ```bash
-    git clone https://gitee.com/mindspore/vllm-mindspore.git
+    git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     ```

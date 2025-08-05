@@ -1,6 +1,6 @@
 # Quick Start
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/quick_start/quick_start.md)  
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_en/getting_started/quick_start/quick_start.md)  
 
 This document provides a quick guide to deploy vLLM MindSpore by [docker](https://www.docker.com/), with the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example. User can quickly experience the serving and inference abilities of vLLM MindSpore by [offline inference](#offline-inference) and [online inference](#online-inference). For more information about installation, please refer to the [Installation Guide](../installation/installation.md).  
 
@@ -13,7 +13,7 @@ In this section, we recommend to use docker to deploy the vLLM MindSpore environ
 User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
 
 ```bash  
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```  
 

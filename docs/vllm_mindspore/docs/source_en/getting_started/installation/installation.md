@@ -1,6 +1,6 @@
 # Installation Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)  
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)  
 
 This document describes the steps to install the vLLM MindSpore environment. Three installation methods are provided:  
 
@@ -37,7 +37,7 @@ We recommend using Docker for quick deployment of the vLLM MindSpore environment
 User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
 
 ```bash  
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```  
 
@@ -131,7 +131,7 @@ docker exec -it $DOCKER_NAME bash
   To install vLLM MindSpore, user needs to pull the vLLM MindSpore source code and then runs the following command to install the dependencies:
 
   ```bash  
-  git clone https://gitee.com/mindspore/vllm-mindspore.git  
+  git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git  
   cd vllm-mindspore  
   bash install_depend_pkgs.sh  
   ```  

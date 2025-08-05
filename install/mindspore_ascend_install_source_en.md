@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/install/mindspore_ascend_install_source_en.md)
 
 This document describes how to install MindSpore by compiling source code on Linux in an Ascend environment.
 
@@ -225,7 +225,7 @@ Note: The Numpy version used in the runtime environment must be no less than the
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Configuring Environment Variables
@@ -265,7 +265,7 @@ Where:
 pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependencies by yourself.
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.0/setup.py)). In other cases, you need to install dependencies by yourself.
 
 ## Installation Verification
 

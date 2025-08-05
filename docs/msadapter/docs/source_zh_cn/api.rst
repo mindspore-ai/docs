@@ -1,8 +1,8 @@
 API说明
 ========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/msadapter/docs/source_zh_cn/api.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.7.0/docs/msadapter/docs/source_zh_cn/api.rst
     :alt: 查看源文件
 
 .. toctree::

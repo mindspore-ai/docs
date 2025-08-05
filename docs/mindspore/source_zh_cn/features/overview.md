@@ -1,6 +1,6 @@
 # MindSpore设计概览
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/mindspore/source_zh_cn/features/overview.md)
 
 ## 概述
 
@@ -55,7 +55,7 @@ MindSpore实现了函数式微分编程，对可被微分求导的函数对象�
 
 MindSpore基于Python构建神经网络的图结构，相比于传统的静态图模式，能有更易用、更灵活的表达能力。MindSpore创新性的构建源码转换能力，基于Python语句提取AST进行计算图构建，因此可以支持开发者使用的Python原生语法（条件/循环等）和其他操作，如元组（Tuple）、列表（List）以及Lambda表达来构建计算图，并对计算图进行自动微分。所以MindSpore能更好地兼容动态图和静态图的编程接口，在代码层面保持一致，如控制流写法等。
 
-原生Python表达可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时开发者基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行（[mindspore.jit](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)）而同时其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，开发者可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
+原生Python表达可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时开发者基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行（[mindspore.jit](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore/mindspore.jit.html)）而同时其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，开发者可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
 
 ### 分布式并行
 
@@ -71,7 +71,7 @@ MindSpore在并行化策略搜索中引入了张量重排布技术（Tensor Redi
 
 MindSpore基于编译技术，提供了丰富的硬件无关优化，如IR融合、代数化简、常数折叠、公共子表达式消除等。同时针对NPU、GPU等不同硬件，也提供各种硬件优化能力，从而更好的发挥硬件的大规模计算加速能力。
 
-#### [图算融合](https://www.mindspore.cn/docs/zh-CN/master/features/compile/multi_level_compilation.html#图算融合)
+#### [图算融合](https://www.mindspore.cn/docs/zh-CN/r2.7.0/features/compile/multi_level_compilation.html#图算融合)
 
 MindSpore等主流AI计算框架对开发者提供的算子通常是从开发中可理解、易使用角度进行定义。每个算子承载的计算量不等，计算复杂度也各不相同。但从硬件执行角度看，这种天然的、基于用开发者角度的算子计算量划分，并不高效，也无法充分发挥硬件资源计算能力。主要体现在：
 
@@ -101,6 +101,6 @@ MindSpore是训推一体的AI框架，同时支持训练和推理等功能。同
 
 MindSpore按照实际执行环境和业务需求，提供多种规格的版本形态，支持部署在云端、服务器端、手机等嵌入式设备端以及耳机等超轻量级设备端上的部署执行。
 
-### [三方硬件接入](https://www.mindspore.cn/docs/zh-CN/master/features/runtime/pluggable_device.html)
+### [三方硬件接入](https://www.mindspore.cn/docs/zh-CN/r2.7.0/features/runtime/pluggable_device.html)
 
 MindSpore基于统一MindIR构建了开放式AI架构，支持第三方芯片插件化、标准化、低成本快速对接，可接入GPU系列芯片亦可接入各类DSA芯片。MindSpore提供Kernel模式对接和Graph模式对接两种芯片接入方式，芯片产商可根据自身特点进行接入方式选择。

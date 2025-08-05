@@ -1,10 +1,10 @@
 # Custom Operator Integration
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/developer_guide/operations/npu_ops.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_en/developer_guide/operations/npu_ops.md)
 
-This document would introduce how to integrate a new custom operator into the vLLM MindSpore project, with the **`adv_step_flash`** operator as an example. The following sections would focus on the integration process, and user can refer to operator implementation introduction in official MindSpore tutorial: [Dynamic Graph Custom Operator Integration](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html).
+This document would introduce how to integrate a new custom operator into the vLLM MindSpore project, with the **`adv_step_flash`** operator as an example. The following sections would focus on the integration process, and user can refer to operator implementation introduction in official MindSpore tutorial: [Dynamic Graph Custom Operator Integration](https://www.mindspore.cn/tutorials/en/r2.7.0/custom_program/operation/op_customopbuilder.html).
 
-For development, additional features can be extended based on project requirements. Implementation details can be referenced from [MindSpore Custom Operator Implementation](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html).  
+For development, additional features can be extended based on project requirements. Implementation details can be referenced from [MindSpore Custom Operator Implementation](https://www.mindspore.cn/tutorials/en/r2.7.0/custom_program/operation/op_customopbuilder.html).  
 
 ## File Structure
 

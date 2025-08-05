@@ -1,7 +1,7 @@
 
 # 服务化模型推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md)
 
 ## 特性背景
 
@@ -41,7 +41,7 @@ print(generate_text)
 
 ## 推理教程
 
-MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM MindSpore适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM MindSpore文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/index.html)。
+MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM MindSpore适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM MindSpore文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.3.0/index.html)。
 
 本章主要简单介绍vLLM MindSpore服务化推理的基础使用。
 
@@ -51,7 +51,7 @@ vLLM MindSpore适配层提供了环境安装脚本，用户可以执行如下命
 
 ```shell
 # download vllm-mindspore code
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
 cd vllm-mindspore
 
 # create conda env

@@ -1,6 +1,6 @@
 # 编译云侧MindSpore Lite
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/build.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/lite/docs/source_zh_cn/mindir/build.md)
 
 本章节介绍如何快速编译出云侧MindSpore Lite。
 
@@ -89,7 +89,7 @@ MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译�
 首先，在进行编译之前，需从MindSpore代码仓下载源码。
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0 https://gitee.com/mindspore/mindspore.git
 ```
 
 ### 环境准备

@@ -1,6 +1,6 @@
 # Multi-machine Parallel Inference (DeepSeek R1)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)  
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)  
 
 vLLM MindSpore supports hybrid parallel inference with configurations of tensor parallelism (TP), data parallelism (DP), expert parallelism (EP), and their combinations. For the applicable scenarios of different parallel strategies, refer to the [vLLM official documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies).  
 
@@ -17,7 +17,7 @@ In this section, we recommend to use docker to deploy the vLLM MindSpore environ
 User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
 
 ```bash  
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```  
 
@@ -112,7 +112,7 @@ Environment variable descriptions:
 - `TP_SOCKET_IFNAME`: Configure the TP port. Use `ifconfig` to find the network interface name corresponding to the IP.  
 - `MS_ENABLE_LCCL`: Disable LCCL and enable HCCL communication.  
 - `HCCL_OP_EXPANSION_MODE`: Configure the communication algorithm expansion location to the AI Vector Core (AIV) computing unit on the device side.  
-- `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).  
+- `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/r2.7.0/api_python/env_var_list.html).  
 - `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.  
 - `vLLM_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM MindSpore can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. Users can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3/deepseek_r1_671b), such as [predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).  
@@ -281,7 +281,7 @@ Environment variable descriptions:
 
 - `MS_ENABLE_LCCL`: Disable LCCL and enable HCCL communication.  
 - `HCCL_OP_EXPANSION_MODE`: Configure the communication algorithm expansion location to the AI Vector Core (AIV) computing unit on the device side.  
-- `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).  
+- `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/r2.7.0/api_python/env_var_list.html).  
 - `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.  
 - `vLLM_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM MindSpore can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. Users can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3/deepseek_r1_671b), such as [predict_deepseek_r1_671b_w8a8_ep4t4.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml).  

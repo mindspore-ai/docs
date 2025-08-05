@@ -1,6 +1,6 @@
 # torch.optim
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/msadapter/docs/source_zh_cn/note/pytorch_api_supporting_optim.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/msadapter/docs/source_zh_cn/note/pytorch_api_supporting_optim.md)
 
 ## Base class
 
