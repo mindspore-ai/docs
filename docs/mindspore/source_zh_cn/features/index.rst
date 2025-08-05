@@ -17,6 +17,7 @@ Developer Notes
    runtime/memory_manager
    runtime/multilevel_pipeline
    runtime/multistream_concurrency
-   amp
-   data_engine
    mint
+   view
+   data_engine
+   amp
