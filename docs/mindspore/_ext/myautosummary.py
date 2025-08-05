@@ -3,6 +3,7 @@ import os
 import re
 import inspect
 import importlib
+from functools import reduce
 from typing import List, Tuple
 from docutils.nodes import Node
 from sphinx.locale import __
@@ -203,6 +204,7 @@ class MsAutosummary(Autosummary):
                 except:
                     display_name_path = ""
                 if 'mindspore/ops/auto_generate/' in display_name_path:
+                    # 处理注释是代码块对比的ops.primitive接口
                     env_sum = self.get_refer_platform(display_name)
                     summary = self.extract_ops_summary(self.bridge.result.data[:])
                     if not summary:
@@ -492,7 +494,7 @@ class MsCnAutoSummary(Autosummary):
         max_item_chars = 50
         origin_rst_files = self.env.config.rst_files
         all_rst_files = self.env.found_docs
-        generated_files = all_rst_files.difference(origin_rst_files)
+        generated_en_files = all_rst_files.difference(origin_rst_files)
 
         for name in names:
             display_name = name
@@ -503,7 +505,7 @@ class MsCnAutoSummary(Autosummary):
             dir_name = self.options['toctree']
             file_path = os.path.join(doc_path, dir_name, display_name+'.rst')
             spec_path = os.path.join('api_python', dir_name, display_name)
-            if os.path.exists(file_path) and spec_path not in generated_files:
+            if os.path.exists(file_path) and spec_path not in generated_en_files:
                 summary_re_tag = re.compile(
                     rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+((?:.|\n|)+?)(\n\n|。)')
                 summary_re_wrap = re.compile(rf'\.\. \w+:\w+::\s+{display_name}(?:.|\n|)+?\n\n\s+((?:.|\n|)+?)(\n\n|。)')
@@ -743,17 +745,19 @@ class MsCnAutoSummary(Autosummary):
         return [table_spec, table]
 
 def get_api(fullname):
-    """Get the api module."""
+    """
+    获取接口对象。
+
+    :param fullname: 接口名全称
+    :return: 属性对象或None(如果不存在)
+    """
+    main_module = fullname.split('.')[0]
+    main_import = importlib.import_module(main_module)
+
     try:
-        module_name, api_name = ".".join(fullname.split('.')[:-1]), fullname.split('.')[-1]
-        # pylint: disable=unused-variable
-        module_import = importlib.import_module(module_name)
-    except ModuleNotFoundError:
-        module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
-        module_import = importlib.import_module(module_name)
-    # pylint: disable=eval-used
-    api = getattr(module_import, api_name, '')
-    return api
+        return reduce(getattr, fullname.split('.')[1:], main_import)
+    except AttributeError:
+        return None
 
 class MsCnPlatformAutoSummary(MsCnAutoSummary):
     """definition of mscnplatformautosummary."""

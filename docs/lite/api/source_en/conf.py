@@ -31,7 +31,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.7.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -333,6 +333,47 @@ try:
                 f.write(content)
 except:
     print('lite替换安装包内容失败')
+
+# 发版本时这里启用
+# modify urls
+re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url5 = r"(mindspore.cn/mindstudio/[\w\d/_.-]*?)/(master)"
+
+with open(os.path.join('./mindspore_lite.rst'), 'r+', encoding='utf-8') as f:
+    content = f.read()
+    new_content = re.sub(re_url, r'\1/r2.7.0', content)
+    new_content = re.sub(re_url2, r'\1/v2.7.0', new_content)
+    new_content = re.sub(re_url3, r'\1/r1.2.0', new_content)
+    new_content = re.sub(re_url4, r'\1/r0.3.0', new_content)
+    new_content = re.sub(re_url5, r'\1/81RC1', new_content)
+    if new_content != content:
+        f.seek(0)
+        f.truncate()
+        f.write(new_content)
+
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_lite')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.7.0', content)
+                new_content = re.sub(re_url2, r'\1/v2.7.0', new_content)
+                new_content = re.sub(re_url3, r'\1/r1.2.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r0.3.0', new_content)
+                new_content = re.sub(re_url5, r'\1/81RC1', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
 
 # modify urls
 import json
