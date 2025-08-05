@@ -22,7 +22,7 @@ There are five ways to collect training performance data, and the following desc
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
-Add the MindSpore Profiler related interfaces in the training script, users can refer to  [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/r2.7.0/api_python/mindspore/mindspore.Profiler.html) and [_ExperimentalConfig Parameter Details](https://www.mindspore.cn/docs/en/r2.7.0/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) to configure parameters such as profiler_level according to their data requirements.
+Add the MindSpore Profiler related interfaces in the training script, users can refer to [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/r2.7.0/api_python/mindspore/mindspore.Profiler.html) and [_ExperimentalConfig Parameter Details](https://www.mindspore.cn/docs/en/r2.7.0/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) to configure parameters such as profiler_level according to their data requirements.
 
 The interface supports two collection modes: CallBack mode and custom for loop mode, and supports both Graph and PyNative modes.
 
