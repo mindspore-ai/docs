@@ -22,9 +22,65 @@ There are four ways to collect training performance data, and the following desc
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
-Add the MindSpore Profiler related interfaces in the training script, see [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.Profiler.html) for details.
+Add the MindSpore Profiler related interfaces in the training script, users can refer to [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.Profiler.html) and [_ExperimentalConfig Parameter Details](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) to configure parameters such as profiler_level according to their data requirements.
 
 The interface supports two collection modes: CallBack mode and custom for loop mode, and supports both Graph and PyNative modes.
+
+#### Example Collection in a Custom for Loop Mode
+
+In custom for loop mode, users can enable Profiler by configuring schedule parameter.
+
+Sample as follows:
+
+```python
+import mindspore
+from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics, HostSystem
+
+# Define model training times
+steps = 15
+
+# Define the training model network
+net = Net()
+
+# Configure the extensibility parameters
+experimental_config = mindspore.profiler._ExperimentalConfig(
+    profiler_level=ProfilerLevel.Level0,
+    aic_metrics=AicoreMetrics.AiCoreNone,
+    l2_cache=False,
+    mstx=False,
+    data_simplification=False,
+    host_sys=[HostSystem.CPU, HostSystem.MEM]
+)
+
+# Initialize profile
+with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
+                                schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=1,
+                                    repeat=1, skip_first=0),
+                                # Disable online parsing by setting analyse_flag=False in tensorboard_trace_handler
+                                on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
+                                profile_memory=False,
+                                experimental_config=experimental_config) as prof:
+        for step in range(steps):
+            train(net)
+            # Call step collection
+            prof.step()
+```
+
+- schedule: After schedule is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 0 steps, wait 0 step, warmup 0 step. Based on the active value being 1, data collection starts from step 0 and continues for 1 step. Therefore, the Step ID is 0, indicating that the 0th step is being collected.
+- on_trace_ready: The disk loading path of profiler is specified through the tensorboard_trace_handler parameter of on_trace_ready. tensorboard_trace_handler will parse the performance data by default. If the user does not configure tensorboard_trace_handler, the data will be written to the '/data' folder in the same-level directory of the current script by default. The performance data can be parsed through the off-line parsing function. The off-line parsing function can be referred to [Method 4: Off-line Parsing](https://www.mindspore.cn/tutorials/en/r2.6.0rc1/debug/profiler.html#method-4-off-line-parsing).
+
+For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/profiler/for_loop_profiler.py).
+
+**The principle of configuring schedule parameters is as follows:**
+
+As illustrated in the following figure, schedule has 5 configurable parameters: skip_first, wait, warmup, active, and repeat. Among them, skip_first indicates skipping the first skip_first steps; wait represents the waiting phase, skipping wait steps; warmup represents the warm-up phase, skipping warmup steps; active indicates collecting active steps; repeat indicates the number of repetitions. One repeat includes wait+warmup+active steps. After all steps in a repeat are executed, the callback function configured via on_trace_ready will be executed to parse performance data. For detailed descriptions of each parameter, please refer to the [schedule API](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.profiler.schedule.html).
+
+![schedule.png](../../source_zh_cn/debug/images/schedule.png)
+
+For example: If there are 100 steps (0-99) in model training and the schedule is configured as `schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)` . Profiler will first skip the first 10 steps (0-9). Starting from step 10, the first repeat will wait for 10 steps (10-19), warm up for 5 steps (20-24), and finally collect performance data for 5 steps (25-29). The second repeat will again wait for 10 steps (30-39), warm up for 5 steps (40-44), and finally collect performance data for 5 steps (45-49).
+
+> - In single-card scenarios, profiler generates multiple performance data files in the same directory based on the repeat count. Each repeat corresponds to a folder containing performance data collected from all active steps in that repeat. In multi-card scenarios, each card generates performance data independently, and the data from each card is divided into multiple parts based on the repeat count. When repeat is configured to 0, the specific number of repetitions is determined by the total number of steps, continuously repeating the wait-warmup-active cycle until all steps are completed.
+> - The schedule needs to be used with [mindspore.profiler.profile.step](https://www.mindspore.cn/docs/en/r2.6.0rc1/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step) interface. If you only configure schedule without using mindspore.profiler.profile.step interface to collect data, all collected data will belong to step 0. Therefore, performance data files will only be generated when step 0 corresponds to active (wait, warmup, skip_first are all set to 0).
 
 #### CallBack Mode Collection Example
 
@@ -57,49 +113,6 @@ class StopAtStep(mindspore.Callback):
 ```
 
 For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/profiler/call_back_profiler.py).
-
-#### Example Collection in a Custom for Loop Mode
-
-In custom for loop mode, users can enable Profiler through setting schedule and on_trace_ready parameters.
-
-For example, if you want to collect the performance data of the first two steps, you can use the following configuration to collect.
-
-Sample as follows:
-
-```python
-import mindspore
-from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
-
-# Define model training times
-steps = 15
-
-# Define the training model network
-net = Net()
-
-# Configure the extensibility parameters
-experimental_config = mindspore.profiler._ExperimentalConfig(
-                        profiler_level=ProfilerLevel.Level0,
-                        aic_metrics=AicoreMetrics.AiCoreNone,
-                        l2_cache=False,
-                        mstx=False,
-                        data_simplification=False)
-
-# Initialize profile
-with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
-                                    schedule=mindspore.profiler.schedule(wait=1, warmup=1, active=2,
-                                            repeat=1, skip_first=2),
-                                    on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
-                                    profile_memory=False,
-                                    experimental_config=experimental_config) as prof:
-        for step in range(steps):
-            train(net)
-            # Call step collection
-            prof.step()
-```
-
-After the function is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 2 steps, wait 1 step, warmup 1 step, and collection starts from the 4th step. Then the fourth and fifth steps are collected, so the Step ID is 4 and 5, indicating that the fourth and fifth steps are collected.
-
-For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/r2.6.0rc1/docs/sample_code/profiler/for_loop_profiler.py).
 
 ### Method 2: Dynamic Profiler Enabling
 
