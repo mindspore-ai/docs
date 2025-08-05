@@ -11,7 +11,6 @@ A tensor is a special data structure that is similar to arrays and matrices. [Te
 ```python
 import numpy as np
 import mindspore
-from mindspore import ops
 from mindspore import Tensor
 ```
 
@@ -25,7 +24,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     ```python
     data = [1, 0, 1, 0]
-    x_data = Tensor(data)
+    x_data = mindspore.tensor(data)
     print(x_data, x_data.shape, x_data.dtype)
     ```
 
@@ -39,12 +38,12 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     ```python
     np_array = np.array(data)
-    x_np = Tensor(np_array)
-    print(x_np, x_np.shape, x_np.dtype)
+    x_from_np = mindspore.tensor(np_array)
+    print(x_from_np, x_from_np.shape)
     ```
 
     ```text
-    [1 0 1 0] (4,) Int64
+    [1 0 1 0] (4,)
     ```
 
 - **Generating a tensor by using init**
@@ -59,9 +58,9 @@ There are multiple methods for creating tensors. When building a tensor, you can
     from mindspore.common.initializer import One, Normal
 
     # Initialize a tensor with ones
-    tensor1 = mindspore.Tensor(shape=(2, 2), dtype=mindspore.float32, init=One())
+    tensor1 = mindspore.tensor(shape=(2, 2), dtype=mindspore.float32, init=One())
     # Initialize a tensor from normal distribution
-    tensor2 = mindspore.Tensor(shape=(2, 2), dtype=mindspore.float32, init=Normal())
+    tensor2 = mindspore.tensor(shape=(2, 2), dtype=mindspore.float32, init=Normal())
 
     print("tensor1:\n", tensor1)
     print("tensor2:\n", tensor2)
@@ -72,8 +71,8 @@ There are multiple methods for creating tensors. When building a tensor, you can
      [[1. 1.]
      [1. 1.]]
     tensor2:
-     [[-0.00063482 -0.00916224]
-     [ 0.01324238 -0.0171206 ]]
+     [[-0.0107513   0.00407822]
+     [-0.00113699  0.00081491]]
     ```
 
     The `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters.
@@ -117,7 +116,7 @@ Tensor attributes include shape, data type, transposed tensor, item size, number
 - strides: the number of bytes to traverse in each dimension of `Tensor`, which is a tuple.
 
 ```python
-x = Tensor(np.array([[1, 2], [3, 4]]), mindspore.int32)
+x = mindspore.tensor(np.array([[1, 2], [3, 4]]), mindspore.int32)
 
 print("x_shape:", x.shape)
 print("x_dtype:", x.dtype)
@@ -143,7 +142,7 @@ x_strides: (8, 4)
 Tensor indexing is similar to NumPy indexing. Indexing starts from 0, negative indexing means indexing in reverse order, and colons `:` and `...` are used for slicing.
 
 ```python
-tensor = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
+tensor = mindspore.tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
 
 print("First row: {}".format(tensor[0]))
 print("value of bottom right corner: {}".format(tensor[1, 1]))
@@ -165,8 +164,8 @@ There are many operations between tensors, including arithmetic, linear algebra,
 > Common arithmetic operations include: addition (+), subtraction (-), multiplication (\*), division (/), modulo (%), and exact division (//).
 
 ```python
-x = Tensor(np.array([1, 2, 3]), mindspore.float32)
-y = Tensor(np.array([4, 5, 6]), mindspore.float32)
+x = mindspore.tensor(np.array([1, 2, 3]), mindspore.float32)
+y = mindspore.tensor(np.array([4, 5, 6]), mindspore.float32)
 
 output_add = x + y
 output_sub = x - y
@@ -195,8 +194,8 @@ floordiv: [4. 2. 2.]
 [concat](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.concat.html) connects a series of tensors in a given dimension.
 
 ```python
-data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
-data2 = Tensor(np.array([[4, 5], [6, 7]]).astype(np.float32))
+data1 = mindspore.tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
+data2 = mindspore.tensor(np.array([[4, 5], [6, 7]]).astype(np.float32))
 output = ops.concat((data1, data2), axis=0)
 
 print(output)
@@ -215,8 +214,8 @@ shape:
 [stack](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.stack.html) combines two tensors from another dimension.
 
 ```python
-data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
-data2 = Tensor(np.array([[4, 5], [6, 7]]).astype(np.float32))
+data1 = mindspore.tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
+data2 = mindspore.tensor(np.array([[4, 5], [6, 7]]).astype(np.float32))
 output = ops.stack([data1, data2])
 
 print(output)
@@ -242,7 +241,7 @@ Tensor and NumPy can be converted to each other.
 Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/r2.7.0/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy, which is same as tensor building.
 
 ```python
-t = Tensor([1., 1., 1., 1., 1.])
+t = mindspore.tensor([1., 1., 1., 1., 1.])
 print(f"t: {t}", type(t))
 n = t.asnumpy()
 print(f"n: {n}", type(n))
@@ -255,7 +254,7 @@ n: [1. 1. 1. 1. 1.] <class 'numpy.ndarray'>
 
 ### NumPy to Tensor
 
-Use `Tensor()` to convert NumPy to Tensor.
+Use [Tensor.from_numpy()](https://www.mindspore.cn/docs/en/r2.7.0/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert NumPy to Tensor, which operates via memory sharing (zero-copy) for better performance, with the constraint that input NumPy arrays must be memory-contiguous (verifiable with numpy.iscontiguous()).
 
 ```python
 n = np.ones(5)
@@ -271,4 +270,22 @@ print(f"t: {t}", type(t))
 ```text
 n: [2. 2. 2. 2. 2.] <class 'numpy.ndarray'>
 t: [2. 2. 2. 2. 2.] <class 'mindspore.common.tensor.Tensor'>
+```
+
+Use [mindspore.tensor()](https://www.mindspore.cn/docs/en/r2.7.0/api_python/mindspore/mindspore.tensor.html) for direct creation results in data copying.
+
+```python
+n = np.ones(5)
+t = mindspore.tensor(n)
+```
+
+```python
+np.add(n, 1, out=n)
+print(f"n: {n}", type(n))
+print(f"t: {t}", type(t))
+```
+
+```text
+n: [2. 2. 2. 2. 2.] <class 'numpy.ndarray'>
+t: [1. 1. 1. 1. 1.] <class 'mindspore.common.tensor.Tensor'>
 ```
