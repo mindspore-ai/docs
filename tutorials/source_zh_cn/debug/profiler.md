@@ -22,7 +22,7 @@
 
 ### 方式一：mindspore.profiler.profile接口使能
 
-在训练脚本中添加MindSpore profile相关接口，profile接口详细介绍请参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore/mindspore.profiler.profile.html)。
+在训练脚本中添加MindSpore profile相关接口，用户可以参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore/mindspore.profiler.profile.html)和[_ExperimentalConfig可扩展参数详解](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html)，针对自己的数据需求配置采集性能数据的级别等参数。
 
 该接口支持两种采集方式：自定义for循环方式和CallBack方式，且在Graph和PyNative两种模式下都支持。
 
@@ -44,20 +44,22 @@ net = Net()
 
 # 配置可扩展参数
 experimental_config = mindspore.profiler._ExperimentalConfig(
-                        profiler_level=ProfilerLevel.Level0,
-                        aic_metrics=AicoreMetrics.AiCoreNone,
-                        l2_cache=False,
-                        mstx=False,
-                        data_simplification=False,
-                        host_sys=[HostSystem.CPU, HostSystem.MEM])
+    profiler_level=ProfilerLevel.Level0,
+    aic_metrics=AicoreMetrics.AiCoreNone,
+    l2_cache=False,
+    mstx=False,
+    data_simplification=False,
+    host_sys=[HostSystem.CPU, HostSystem.MEM]
+)
 
 # 初始化profile
 with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivity.NPU],
-                                    schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=1,
-                                            repeat=1, skip_first=0),
-                                    on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
-                                    profile_memory=False,
-                                    experimental_config=experimental_config) as prof:
+                                schedule=mindspore.profiler.schedule(wait=0, warmup=0, active=1,
+                                    repeat=1, skip_first=0),
+                                # 可以通过配置tensorboard_trace_handler的参数analyse_flag为False关闭在线解析
+                                on_trace_ready=mindspore.profiler.tensorboard_trace_handler("./data"),
+                                profile_memory=False,
+                                experimental_config=experimental_config) as prof:
         for step in range(steps):
             train(net)
             # 调用step采集
@@ -77,11 +79,9 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 
 ![schedule.png](./images/schedule.png)
 
-例如：模型训练共100个step，schedule配置为schedule = schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)，表示跳过前10个step，
-从第11个step开始，在第1个repeat中将等待10个step，执行5个step的预热，最终采集第26~第30个step（一共5个step）的性能数据，
-在第2个repeat中将继续等待10个step，执行5个step的预热，最终采集第46个~第50个step（一共5个step）的性能数据。
+例如：模型训练共100个step（0-99），此时配置schedule为 `schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)` 。那么profiler将会先跳过前10个step（0-9）。从step 10开始，第1个repeat将等待10个step（10-19），预热5个step（20-24），最终采集5个step（25-29）的性能数据。第2个repeat重复等待10个step（30-39），预热5个step（40-44），最终采集5个step（45-49）的性能数据。
 
-> - profiler根据repeat次数在同一目录下生成多份性能数据。每个repeat对应一个文件夹，包含该repeat中所有active step采集到的性能数据。当repeat配置为0时，表示重复执行的具体次数由总step数确定，不断重复wait-warmup-active直到所有step执行完毕。
+> - 在单卡场景下，profiler根据repeat次数在同一目录下生成多份性能数据。每个repeat对应一个文件夹，包含该repeat中所有active step采集到的性能数据。在多卡场景下，每张卡会独立生成性能数据，每张卡的数据都会根据repeat次数分成多份。当repeat配置为0时，表示重复执行的具体次数由总step数确定，不断重复wait-warmup-active直到所有step执行完毕。
 > - schedule需要配合[mindspore.profiler.profile.step](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step)接口使用，如果配置了schedule而没有调用mindspore.profiler.profile.step接口进行数据采集，则profiler数据采集区间的所有数据都属于第0个step，因此只有在第0个step对应active（wait、warmup、skip_first都配置为0）时，才会生成性能数据文件。
 
 #### CallBack方式采集样例
