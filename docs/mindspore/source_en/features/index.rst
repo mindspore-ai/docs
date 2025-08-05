@@ -17,6 +17,4 @@ Developer Notes
    runtime/memory_manager
    runtime/multilevel_pipeline
    runtime/multistream_concurrency
-   runtime/pluggable_backend
-   runtime/pluggable_device
    data_engine
