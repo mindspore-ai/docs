@@ -14,7 +14,7 @@ MindSpore训练数据处理引擎核心是将训练样本（数据集）高效�
 - 提供了自动数据增强模式，能够基于特定策略自动对图像进行数据增强处理；
 - 提供单节点数据缓存能力，解决重复加载、处理数据的问题，降低数据处理开销，提升端到端训练效率。
 
-具体用法参考：[数据处理与加载](https://www.mindspore.cn/docs/zh-CN/master/features/dataset/overview.html)
+具体用法参考：[数据处理与加载](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/overview.html)
 
 ![image](./images/data/data_engine.png)
 
