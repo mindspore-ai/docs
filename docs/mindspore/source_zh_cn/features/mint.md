@@ -8,7 +8,7 @@
 
 ### 张量创建
 
-以empty这个API看下主要差异点
+以empty这个API看下主要差异点：
 
 | torch.empty | mindspore.mint.empty | 说明 |
 |:---: |   :---:  | :---:|
@@ -25,11 +25,11 @@
 
 - `layout`: 创建torch tensor时，一般默认layout是stride，即dense tensor。mindspore创建tensor时，默认是dense tensor，与torch 无差异。开发者无需设置。
 - `memory_format`: tensor的内存排布，默认都是NCHW格式。torch 提供channel_last格式即NHWC，在一些场景中，这样会有性能提升，但是泛化性和兼容性需要开发者实际测试和验证。使用mindspore开发，可不设置此参数。
-- `requires_grad`: 由于框架自动微分求导机制不同，mindspore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stop_gradient.html)
+- `requires_grad`: 由于框架自动微分求导机制不同，mindspore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stop_gradient.html)。
 - `pin_memory`: 返回的tensor被分配到pinned memory，我们已经规划支持此功能。计划在2.7.1版本推出。
 - `out`: 指定输出张量，用于原地操作和内存优化。当提供 `out` 参数时，操作结果会直接写入到指定的张量中，而不是创建新的张量。当前未规划支持此参数。
 
-**代码示例**:
+**代码示例**：
 
 ```diff
 - import torch
@@ -42,7 +42,8 @@
 总结：tensor相关可选参数涉及框架实现机制不同，我们也会根据开发者反馈不断完善，如tensor storage能力已规划。
 
 ### 随机采样
-以bernoulli举例
+
+以bernoulli举例：
 
 | torch.bernoulli | mindspore.mint.bernoulli | 说明 |
 |:---: |   :---:  | :---:|
@@ -52,7 +53,8 @@
 
 out参数差异参考张量创建
 
-**代码示例**:
+**代码示例**：
+
 ```diff
 - import torch
 + import mindspore.mint
@@ -66,16 +68,17 @@ out参数差异参考张量创建
 
 ### 数学计算
 
-基础计算类当前均已支持，以mul举例
+基础计算类当前均已支持，以mul举例：
+
 | torch.mul | mindspore.mint.mul | 说明 |
 |:---: |   :---:  | :---:|
 | `*size` (Tensor...) | `*size` (Tensor...) | 必选 |
 | `other` | `other`| 可选 |
 | `out` | 无 | 可选 |
 
-计算类ops当前不支持的参数与tensor creation是类似的，这与tensor实现机制相关。例如out
+计算类ops当前不支持的参数与tensor creation是类似的，这与tensor实现机制相关。例如out：
 
-**代码示例**:
+**代码示例**：
 
 ```diff
 - import torch
@@ -104,8 +107,7 @@ out参数差异参考张量创建
 | `groups` (int) | `groups` (int) | 可选 |
 | `bias`(bool) | `bias`(bool) | 可选 |
 
-
-**代码示例**:
+**代码示例**：
 
 ```diff
 - import torch
@@ -127,14 +129,14 @@ dilation = (3, 1)
 output = model(input)
 ```
 
-包含inplace参数的，当前未全部支持，例如
+包含inplace参数的，当前未全部支持，例如：
 
-| API  | Args  | 
-| :--- | :--- | 
+| API  | Args  |
+| :--- | :--- |
 | torch.nn.functional_dropout2d | input, p=0.5, training=True, inplace=False |
 | mindspore.mint.nn.functional_dropout2d | input, p=0.5, training=True
 
-#### torch废弃的参数，不支持，例如
+torch废弃的参数，不支持，例如：
 
 | torch.nn.MSELoss | 是否废弃 | mindspore.nn.MSELoss | 说明 |
 |:---: |  :--- |  :---:  | :---:|
@@ -144,7 +146,7 @@ output = model(input)
 
 ### 集群通信类
 
-常用all_gather/all_reduce/all_to_all等均已支持，参数也保持一致，例如
+常用all_gather/all_reduce/all_to_all等均已支持，参数也保持一致，例如：
 
 | torch.distributed.all_gather | mindspore.mint.distributed.all_gather | 说明 |
 |:---: |   :---:  | :---:|
@@ -153,7 +155,6 @@ output = model(input)
 | `group`(ProcessGroup) | `group` (ProcessGroup) | 可选 |
 | `async_op` (bool) | `async_op` (bool) | 可选 |
 
-
 | torch.distributed.all_reduce | mindspore.mint.distributed.all_reduce | 说明 |
 |:---: |   :---:  | :---:|
 | `tensor` (Tensor) | `Tensor` (Tensor) | 必选 |
@@ -161,4 +162,4 @@ output = model(input)
 | `group`(ProcessGroup) | `group` (ProcessGroup) | 可选 |
 | `async_op` (bool) | `async_op` (bool) | 可选 |
 
-更多API支持情况请查阅[mint支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mint.html)
+更多API支持情况请查阅[mint支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mint.html)。
