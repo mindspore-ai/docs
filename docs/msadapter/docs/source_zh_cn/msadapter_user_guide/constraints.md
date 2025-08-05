@@ -1,6 +1,6 @@
 # MSAadpter机制性约束
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/msadapter/docs/source_zh_cn/msadapter_user_guide/constraints.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/msadapter/docs/source_zh_cn/msadapter_user_guide/constraints.md)
 
 本文介绍MindSpore和PyTorch实现上的主要区别：
 
@@ -17,7 +17,7 @@ PyTorch 使用的是动态计算图，运算在代码执行时立即计算，正
 
 MindSpore使用函数式自动微分的设计理念，提供更接近于数学语义的自动微分接口。MindSpore的微分可以简单理解为函数包装了一个模型，接口是一个函数，而PyTorch的接口是模型。
 
-详情参考[MindSpore函数式微分](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html)。
+详情参考[MindSpore函数式微分](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/beginner/autograd.html)。
 
 由于两者底层设计的不同，MSAdapter不支持以下相关接口：
 
@@ -57,7 +57,7 @@ grad_fn = mindspore.value_and_grad(forward_fn, None, weights=model.trainable_par
 loss, grads = grad_fn(inputs, labels)
 ```
 
-mindspore.value_and_grad的第二个参数为grad_position，定义对于哪些输入进行求导。当用户设置为None的时候必须定义weights。详细定义可以参考[mindspore.value_and_grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.value_and_grad.html)。
+mindspore.value_and_grad的第二个参数为grad_position，定义对于哪些输入进行求导。当用户设置为None的时候必须定义weights。详细定义可以参考[mindspore.value_and_grad](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore/mindspore.value_and_grad.html)。
 
 MSAdapter只需要调用grad_fn就能够一次性调用正向计算加反向计算。
 

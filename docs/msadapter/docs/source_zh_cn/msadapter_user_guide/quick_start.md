@@ -1,6 +1,6 @@
 # 快速入门
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/msadapter/docs/source_zh_cn/msadapter_user_guide/quick_start.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/msadapter/docs/source_zh_cn/msadapter_user_guide/quick_start.md)
 
 本文将为用户提供快速指引，以一个MNIST手写数字识别任务的完整流程为例，说明如何使用MSAdapter。并将一个完整的PyTorch代码用例适配至MSAdapter。若用户想直接运行MSAdapter的例子，可参考[MSAdapter适配后代码](#msadapter适配后代码)。
 

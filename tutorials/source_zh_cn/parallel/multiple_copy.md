@@ -1,6 +1,6 @@
 # 多副本并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/multiple_copy.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/tutorials/source_zh_cn/parallel/multiple_copy.md)
 
 ## 简介
 
@@ -16,7 +16,7 @@
 
 ### 相关接口
 
-- [mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html)：这个函数的作用是将输入在第零维度拆成 `interleave_num`份，然后执行包裹的cell的计算。
+- [mindspore.parallel.nn.MicroBatchInterleaved(cell_network, interleave_num=2)](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html)：这个函数的作用是将输入在第零维度拆成 `interleave_num`份，然后执行包裹的cell的计算。
 
 ## 操作实践
 
@@ -24,7 +24,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[multiple_copy](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/multiple_copy)。
+> 下载完整的样例代码：[multiple_copy](https://gitee.com/mindspore/docs/tree/r2.7.0/docs/sample_code/multiple_copy)。
 
 目录结构如下：
 
@@ -53,7 +53,7 @@ init()
 ### 数据集加载与网络定义
 
 此处数据集加载和网络定义与单卡模型一致。
-通过 [no_init_parameters](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.utils.no_init_parameters.html) 接口延后初始化网络参数和优化器参数。
+通过 [no_init_parameters](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/nn/mindspore.nn.utils.no_init_parameters.html) 接口延后初始化网络参数和优化器参数。
 
 ```python
 import os
@@ -103,8 +103,8 @@ with no_init_parameters():
 
 在这一步，我们需要定义损失函数、训练过程，调用两个接口来配置多副本并行：
 
-- 首先需要定义LossCell，本例中调用了[nn.WithLossCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.WithLossCell.html)接口封装网络和损失函数。
-- 然后需要在LossCell外包一层[mindspore.parallel.nn.MicroBatchInterleaved](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html)，并指定interleave_num的size为2。详细请参考本章概述中的相关接口。
+- 首先需要定义LossCell，本例中调用了[nn.WithLossCell](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/nn/mindspore.nn.WithLossCell.html)接口封装网络和损失函数。
+- 然后需要在LossCell外包一层[mindspore.parallel.nn.MicroBatchInterleaved](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/parallel/mindspore.parallel.nn.MicroBatchInterleaved.html)，并指定interleave_num的size为2。详细请参考本章概述中的相关接口。
 
 最后，`AutoParallel` 包裹 `net` 设置并行模式为半自动并行模式。
 

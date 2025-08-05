@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/cv/transfer_learning.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/tutorials/source_en/cv/transfer_learning.md)
 
 # ResNet50 Transfer Learning
 
@@ -124,7 +124,7 @@ step_size_val = dataset_val.get_dataset_size()
 
 ### Dataset Visualization
 
-The training dataset loaded from the [mindspore.dataset.ImageFolderDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.ImageFolderDataset.html) interface returns a dictionary, and the user can create a data iterator by using the [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) interface to iteratively access the dataset by using `next`. In this chapter, `batch_size` is set to 18, so use `next` to get 18 images and label data at a time.
+The training dataset loaded from the [mindspore.dataset.ImageFolderDataset](https://www.mindspore.cn/docs/en/r2.7.0/api_python/dataset/mindspore.dataset.ImageFolderDataset.html) interface returns a dictionary, and the user can create a data iterator by using the [create_dict_iterator](https://www.mindspore.cn/docs/en/r2.7.0/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) interface to iteratively access the dataset by using `next`. In this chapter, `batch_size` is set to 18, so use `next` to get 18 images and label data at a time.
 
 ```python
 data = next(dataset_train.create_dict_iterator())

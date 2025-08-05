@@ -1,6 +1,6 @@
 # C++ API Description for Custom Operators
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/cpp_api_for_custom_ops.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/tutorials/source_en/custom_program/operation/cpp_api_for_custom_ops.md)
 
 ## Overview
 
@@ -18,7 +18,7 @@ When developing custom operators, you can include the header files referenced by
 
 ### enum TypeId
 
-The `TypeId` enumeration type is defined in the [type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/include/mindapi/base/type_id.h) header file and specifies the tensor data types supported in MindSpore, including boolean, integer, floating-point, and complex types.
+The `TypeId` enumeration type is defined in the [type_id.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0/mindspore/core/include/mindapi/base/type_id.h) header file and specifies the tensor data types supported in MindSpore, including boolean, integer, floating-point, and complex types.
 
 This interface is also included in the `namespace ms` namespace and can be accessed via `ms::TypeId`.
 
@@ -51,7 +51,7 @@ kNumberTypeEnd,         // End value for the Number type
 
 ### class Tensor
 
-The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/common/tensor.h) header file, representing the tensor object in MindSpore. It provides methods for operating on and querying tensor properties.
+The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0/mindspore/ccsrc/ms_extension/common/tensor.h) header file, representing the tensor object in MindSpore. It provides methods for operating on and querying tensor properties.
 
 #### Constructors
 
@@ -302,7 +302,7 @@ The following methods are not part of the API and are used only in internal modu
 
 ### function tensor
 
-Factory methods for constructing constant tensors, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/common/tensor_utils.h) header file.
+Factory methods for constructing constant tensors, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0/mindspore/ccsrc/ms_extension/common/tensor_utils.h) header file.
 
 ```cpp
 Tensor tensor(int64_t value, TypeId dtype = TypeId::kNumberTypeInt64)
@@ -319,7 +319,7 @@ Tensor tensor(const std::vector<double> &value, TypeId dtype = TypeId::kNumberTy
 
 ### function ones
 
-Factory method for constructing a tensor filled with ones, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/common/tensor_utils.h) header file.
+Factory method for constructing a tensor filled with ones, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0/mindspore/ccsrc/ms_extension/common/tensor_utils.h) header file.
 
 ```cpp
 Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
@@ -333,7 +333,7 @@ Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
 
 ### function zeros
 
-Factory method for constructing a tensor filled with zeros, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/common/tensor_utils.h) header file.
+Factory method for constructing a tensor filled with zeros, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0/mindspore/ccsrc/ms_extension/common/tensor_utils.h) header file.
 
 ```cpp
 Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
@@ -349,7 +349,7 @@ Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32
 
 ### class PyboostRunner
 
-The `PyboostRunner` class for PyNative processes is defined in the [pyboost_extension.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/pynative/pyboost_extension.h) header file. It provides methods for managing execution, memory allocation, and kernel launching.
+The `PyboostRunner` class for PyNative processes is defined in the [pyboost_extension.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0/mindspore/ccsrc/ms_extension/pynative/pyboost_extension.h) header file. It provides methods for managing execution, memory allocation, and kernel launching.
 
 `PyboostRunner` is a subclass of `std::enable_shared_from_this` and requires the use of the smart pointer `std::shared_ptr` to manage its objects.
 
@@ -470,11 +470,11 @@ The `PyboostRunner` class for PyNative processes is defined in the [pyboost_exte
 
 ### class AtbOpRunner
 
-The `AtbOpRunner` class is a runner for executing Ascend Transformer Boost (ATB) operators, defined in the [atb_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/atb/atb_common.h) header file.
+The `AtbOpRunner` class is a runner for executing Ascend Transformer Boost (ATB) operators, defined in the [atb_common.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0/mindspore/ccsrc/ms_extension/ascend/atb/atb_common.h) header file.
 
 This class inherits from `PyboostRunner` and encapsulates the process of invoking ATB operators, including initialization, running the ATB operator, managing input/output tensors, memory allocation, and kernel scheduling.
 
-Refer to the tutorial [CustomOpBuilder Using AtbOpRunner to Integrate ATB Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder_atb.html) for usage methods.
+Refer to the tutorial [CustomOpBuilder Using AtbOpRunner to Integrate ATB Operators](https://www.mindspore.cn/tutorials/en/r2.7.0/custom_program/operation/op_customopbuilder_atb.html) for usage methods.
 
 #### Constructor
 
@@ -502,7 +502,7 @@ Refer to the tutorial [CustomOpBuilder Using AtbOpRunner to Integrate ATB Operat
 
 ### function RunAtbOp
 
-The interface for executing ATB operators in dynamic graphs, defined in the [atb_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/atb/atb_common.h) header file.
+The interface for executing ATB operators in dynamic graphs, defined in the [atb_common.h](https://gitee.com/mindspore/mindspore/blob/v2.7.0/mindspore/ccsrc/ms_extension/ascend/atb/atb_common.h) header file.
 
 ```cpp
 template <typename ParamType>

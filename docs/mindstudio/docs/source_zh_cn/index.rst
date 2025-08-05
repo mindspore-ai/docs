@@ -54,7 +54,7 @@ MindStudio是面向AI开发者提供的全流程工具链，提供了精度、�
       </tr>
       <tr>
          <td rowspan="4">性能调优</td>
-         <td><a href="https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html">Profiler</a></td>
+         <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/debug/profiler.html">Profiler</a></td>
          <td>MindSpore框架内置的性能数据采集、分析工具。推荐优先选择MindSpore 2.7.0版本。</td>
          <td><a href="https://www.mindspore.cn/install">安装MindSpore</a></td>
       </tr>

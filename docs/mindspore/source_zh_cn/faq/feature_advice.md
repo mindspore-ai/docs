@@ -1,6 +1,6 @@
 # 特性咨询
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/feature_advice.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/mindspore/source_zh_cn/faq/feature_advice.md)
 
 ## Q: 导出MindIR格式的时候，`input=np.random.uniform(...)`是不是固定格式？
 
@@ -10,7 +10,7 @@ A: 不是固定格式的，这一步操作是为了创建一个输入，以便�
 
 ## Q: MindSpore现支持直接读取哪些其他框架的模型和哪些格式呢？比如PyTorch下训练得到的pth模型可以加载到MindSpore框架下使用吗？
 
-A:  MindSpore采用Protobuf存储训练参数，无法直接读取其他框架的模型。对于模型文件本质保存的就是参数和对应的值，可以用其他框架的API将参数读取出来之后，拿到参数的键值对，然后再加载到MindSpore中使用。比如想用其他框架训练好的ckpt文件，可以先把参数读取出来，再调用MindSpore的[save_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.save_checkpoint.html)接口，就可以保存成MindSpore可以读取的ckpt文件格式了。
+A:  MindSpore采用Protobuf存储训练参数，无法直接读取其他框架的模型。对于模型文件本质保存的就是参数和对应的值，可以用其他框架的API将参数读取出来之后，拿到参数的键值对，然后再加载到MindSpore中使用。比如想用其他框架训练好的ckpt文件，可以先把参数读取出来，再调用MindSpore的[save_checkpoint](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore/mindspore.save_checkpoint.html)接口，就可以保存成MindSpore可以读取的ckpt文件格式了。
 
 <br/>
 
