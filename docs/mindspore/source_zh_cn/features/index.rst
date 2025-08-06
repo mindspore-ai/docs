@@ -11,9 +11,7 @@ Developer Notes
    parallel/optimizer_parallel
    parallel/pipeline_parallel
    parallel/auto_parallel
-   compile/multi_level_compilation
-   compile/graph_construction
-   compile/graph_optimization
+   compile/compilation_guide
    runtime/memory_manager
    runtime/multilevel_pipeline
    runtime/multistream_concurrency
