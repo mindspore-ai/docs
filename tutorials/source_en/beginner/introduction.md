@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/introduction.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/beginner/introduction.md)
 
-**Introduction** || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html)
+**Introduction** || [Quick Start](https://www.mindspore.cn/tutorials/en/br_base/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/br_base/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/br_base/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/br_base/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/br_base/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/br_base/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/br_base/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/br_base/beginner/accelerate_with_static_graph.html)
 
 # Overview
 
@@ -16,7 +16,7 @@ The overall architecture of MindSpore is as follows:
 2. Deep Learning + Scientific Computing: Provides developers with various Python interfaces required for AI model development, maximizing compatibility with developers' habits in the Python ecosystem;
 3. Core: As the core of the AI framework, it builds the Tensor data structure, basic operation operators, autograd module for automatic differentiation, Parallel module for parallel computing, compile capabilities, and runtime management module.
 
-![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/features/images/arch_en.png)
+![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/docs/mindspore/source_en/features/images/arch_en.png)
 
 ### Design Philosophy
 
@@ -30,7 +30,7 @@ Huawei Atlas AI computing solution is based on Ascend series AI processors and u
 
 The Ascend AI full stack is shown below:
 
-![Ascend full stack](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/beginner/images/introduction1.png)
+![Ascend full stack](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/source_en/beginner/images/introduction1.png)
 
 The functions of each module are described as follows:
 

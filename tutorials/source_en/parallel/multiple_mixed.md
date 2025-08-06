@@ -1,6 +1,6 @@
 # Multi-dimensional Hybrid Parallel Case Based on Double Recursive Search
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/multiple_mixed.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/parallel/multiple_mixed.md)
 
 ## Overview
 
@@ -12,7 +12,7 @@ The following is a multi-dimensional hybrid parallel case based on double recurs
 
 ### Example Code Description
 
-> Download the complete example code: [multiple_mix](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/multiple_mix).
+> Download the complete example code: [multiple_mix](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/multiple_mix).
 
 The directory structure is as follows:
 
@@ -107,7 +107,7 @@ data_set = create_dataset(32)
 
 ### Training the Network
 
-This part is consistent with the pipeline parallel training code. Two additional interfaces need to be called based on the stand-alone training code: [nn.WithLossCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.WithLossCell.html) for wrapping the network and loss function, and [parallel.nn.Pipeline](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.nn.Pipeline.html) for wrapping the LossCell and configuring the MicroBatch size. Specify the run mode, run device, run card number, etc. through the [Autoparallel](https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html) interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as double recursive strategy search mode `recursive_programming` for auto-slicing of the data parallel and model parallel. `stages` is the number of stages in pipeline parallel, and optimizer parallel is enabled by `hsdp`. The code is as follows:
+This part is consistent with the pipeline parallel training code. Two additional interfaces need to be called based on the stand-alone training code: [nn.WithLossCell](https://www.mindspore.cn/docs/en/br_base/api_python/nn/mindspore.nn.WithLossCell.html) for wrapping the network and loss function, and [parallel.nn.Pipeline](https://www.mindspore.cn/docs/en/br_base/api_python/parallel/mindspore.parallel.nn.Pipeline.html) for wrapping the LossCell and configuring the MicroBatch size. Specify the run mode, run device, run card number, etc. through the [Autoparallel](https://www.mindspore.cn/docs/en/br_base/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html) interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as double recursive strategy search mode `recursive_programming` for auto-slicing of the data parallel and model parallel. `stages` is the number of stages in pipeline parallel, and optimizer parallel is enabled by `hsdp`. The code is as follows:
 
 ```python
 import mindspore as ms

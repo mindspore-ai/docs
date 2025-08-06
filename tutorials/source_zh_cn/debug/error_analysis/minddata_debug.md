@@ -1,6 +1,6 @@
 # 数据处理调试方法与常见问题分析
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/error_analysis/minddata_debug.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/debug/error_analysis/minddata_debug.md)&nbsp;&nbsp;
 
 ## 数据处理调试方法
 
@@ -217,7 +217,7 @@ mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 
 根据打印的信息可以看到 `Crop` 处理第一个样本时报错，第一个样本的shape(32, 32, 3)，被 `RandomResize` 变换为(3, 16, 3)，但是没有打印 `Crop` 变换后的shape就报错了。因此正是此时的shape不能被 `Crop` 处理导致错误发生。进一步根据Dataset Pipeline Error Message的提示，输入样本的高只有3，但是期望裁剪出高维8的区域，所以报错。
 
-查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop) ，`Crop` 要求输入样本的shape为 <H, W> 或 <H, W, C>，所以 `Crop` 会把(3, 16, 3)当成<H, W, C>，当H=3, W=16，C=3时自然裁剪不出H=8, W=8的区域。
+查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop) ，`Crop` 要求输入样本的shape为 <H, W> 或 <H, W, C>，所以 `Crop` 会把(3, 16, 3)当成<H, W, C>，当H=3, W=16，C=3时自然裁剪不出H=8, W=8的区域。
 
 为了快速修复此问题，我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16)，再次执行就会发现用例通过。
 
@@ -240,13 +240,13 @@ data (8, 8, 48)
 
 #### 方式二：通过数据管道调试模式调试map操作
 
-我们还可以调用 [set_debug_mode](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) 方法开启数据集管道调试模式来进行调试。
+我们还可以调用 [set_debug_mode](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) 方法开启数据集管道调试模式来进行调试。
 当启用调试模式时，如果随机种子没有被设置，则会将随机种子设置为1，以便在调试模式下执行数据集管道可以获得确定性的结果。
 
 流程如下:
 
 1. 在 `map` 算子中打印每个变换op的输入输出数据的形状和类型。
-2. 启用数据集管道调试模式，并使用MindData提供的预定义调试钩子或者用户定义的调试钩子，它必须定义继承自 [DebugHook](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.debug.DebugHook.html) 类。
+2. 启用数据集管道调试模式，并使用MindData提供的预定义调试钩子或者用户定义的调试钩子，它必须定义继承自 [DebugHook](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset/mindspore.dataset.debug.DebugHook.html) 类。
 
 以下是在 `方式一` 的用例上做修改，使用MindData提供的预定义调试钩子。
 
@@ -300,7 +300,7 @@ E           ------------------------------------------------------------------
 E           mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 ```
 
-根据打印的信息我们就能很清楚的知道 `Crop` 在处理输入shape为(3, 16, 3)的时候出现了报错，同样查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)。我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16)，再次执行就会发现用例通过。
+根据打印的信息我们就能很清楚的知道 `Crop` 在处理输入shape为(3, 16, 3)的时候出现了报错，同样查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)。我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16)，再次执行就会发现用例通过。
 
 ```text
 [Dataset debugger] Print the [INPUT] of the operation [RandomResize].

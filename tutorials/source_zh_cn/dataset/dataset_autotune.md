@@ -1,6 +1,6 @@
 # 自动数据加速
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/dataset/dataset_autotune.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/dataset/dataset_autotune.md)
 
 ## 概述
 
@@ -53,7 +53,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## 约束
 
 - Profiling性能分析和自动数据加速无法同时开启，因为Profilling的其他处理会干扰自动数据加速进程。如果同时开启这两个功能，则会有一条警告信息提示用户检查是否为误操作。因此在使用Dataset AutoTune时，用户需要确保关闭Profiling功能。
-- 如果同时启动了[数据异构加速](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
+- 如果同时启动了[数据异构加速](https://www.mindspore.cn/tutorials/zh-CN/br_base/dataset/dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
 - 如果数据处理管道包含不支持反序列化的节点（如用户自定义Python函数、GeneratorDataset），则使用保存的优化配置文件进行反序列化时将产生错误。此时推荐用户根据调优配置文件的内容手动修改数据管道的配置已达到加速的目的。
 - 在分布式多卡训练启动自动数据加速时，`set_enable_autotune()` 需要在集群初始化完成后才能执行（mindspore.communication.management.init()），否则自动数据加速只会识别到ID为0的设备，且只会生成单个调优文件（预期生成文件数量应与设备数量相等），见以下样例：
 
@@ -247,7 +247,7 @@ new_dataset = ds.deserialize("/path/to/autotune_out_0.json")
 
 在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集加载部分的代码进行调整，以便在下一次训练的开始时就可以在较优性能水平下运行数据处理管道。
 
-另外，MindSpore也提供了相关的API用于全局调整数据处理管道操作的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.loading.html#%E9%85%8D%E7%BD%AE)。
+另外，MindSpore也提供了相关的API用于全局调整数据处理管道操作的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore.dataset.loading.html#%E9%85%8D%E7%BD%AE)。
 
-- [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
-- [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)
+- [mindspore.dataset.config.set_num_parallel_workers](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset/mindspore.dataset.config.set_num_parallel_workers.html#mindspore.dataset.config.set_num_parallel_workers)
+- [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset/mindspore.dataset.config.set_prefetch_size.html#mindspore.dataset.config.set_prefetch_size)

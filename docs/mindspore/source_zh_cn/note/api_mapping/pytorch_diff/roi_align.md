@@ -1,6 +1,6 @@
 # 比较与torchvision.ops.roi_align的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/roi_align.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/roi_align.md)
 
 ## torchvision.ops.roi_align
 
@@ -16,7 +16,7 @@ torchvision.ops.roi_align(input: torch.Tensor, boxes: torch.Tensor, output_size:
 class mindspore.ops.ROIAlign(pooled_height, pooled_width, spatial_scale, sample_num=2, roi_end_mode=1)(features, rois)
 ```
 
-更多内容详见[mindspore.ops.ROIAlign](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html)。
+更多内容详见[mindspore.ops.ROIAlign](https://mindspore.cn/docs/zh-CN/br_base/api_python/ops/mindspore.ops.ROIAlign.html)。
 
 ## 差异对比
 

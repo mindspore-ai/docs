@@ -1,6 +1,6 @@
 # Differences with torchaudio.transforms.Spectrogram
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Spectrogram.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Spectrogram.md)
 
 ## torchaudio.transforms.Spectrogram
 
@@ -22,7 +22,7 @@ class mindspore.dataset.audio.Spectrogram(n_fft=400, win_length=None, hop_length
                                           center=True, pad_mode=BorderType.REFLECT, onesided=True)
 ```
 
-For more information, see [mindspore.dataset.audio.Spectrogram](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.Spectrogram.html#mindspore.dataset.audio.Spectrogram).
+For more information, see [mindspore.dataset.audio.Spectrogram](https://mindspore.cn/docs/en/br_base/api_python/dataset_audio/mindspore.dataset.audio.Spectrogram.html#mindspore.dataset.audio.Spectrogram).
 
 ## Differences
 

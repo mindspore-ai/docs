@@ -1,6 +1,6 @@
 # mint API 介绍
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/mint.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/features/mint.md)
 
 ## 介绍
 
@@ -25,7 +25,7 @@
 
 - `layout`: 创建torch tensor时，一般默认layout是stride，即dense tensor。mindspore创建tensor时，默认是dense tensor，与torch 无差异。开发者无需设置。
 - `memory_format`: tensor的内存排布，默认都是NCHW格式。torch 提供channel_last格式即NHWC，在一些场景中，这样会有性能提升，但是泛化性和兼容性需要开发者实际测试和验证。使用mindspore开发，可不设置此参数。
-- `requires_grad`: 由于框架自动微分求导机制不同，mindspore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stop_gradient.html)。
+- `requires_grad`: 由于框架自动微分求导机制不同，mindspore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/ops/mindspore.ops.stop_gradient.html)。
 - `pin_memory`: 返回的tensor被分配到pinned memory，我们已经规划支持此功能。计划在2.7.1版本推出。
 - `out`: 指定输出张量，用于原地操作和内存优化。当提供 `out` 参数时，操作结果会直接写入到指定的张量中，而不是创建新的张量。当前未规划支持此参数。
 
@@ -162,4 +162,4 @@ torch废弃的参数，不支持，例如：
 | `group`(ProcessGroup) | `group` (ProcessGroup) | 可选 |
 | `async_op` (bool) | `async_op` (bool) | 可选 |
 
-更多API支持情况请查阅[mint支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mint.html)。
+更多API支持情况请查阅[mint支持列表](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore.mint.html)。

@@ -1,14 +1,14 @@
 # CustomOpBuilder-Based Custom Operators
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_customopbuilder.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/custom_program/operation/op_customopbuilder.md)
 
 ## Overview
 
 In dynamic graph mode, network workflows are easier to debug, supporting operations like single-operator execution, normal functions/networks, and standalone gradient computations.
 
-While [Custom Primitive-Based Custom Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/op_custom.html) support both static and dynamic graphs, they require extensive definitions. To simplify the integration of custom operators in dynamic graphs, MindSpore has introduced a new Python API, [CustomOpBuilder](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CustomOpBuilder.html), which not only improves usability but also enhances the execution performance of custom operators in dynamic graphs.
+While [Custom Primitive-Based Custom Operators](https://www.mindspore.cn/tutorials/en/br_base/custom_program/op_custom.html) support both static and dynamic graphs, they require extensive definitions. To simplify the integration of custom operators in dynamic graphs, MindSpore has introduced a new Python API, [CustomOpBuilder](https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.CustomOpBuilder.html), which not only improves usability but also enhances the execution performance of custom operators in dynamic graphs.
 
-When developing operators using [C++ Interface](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/cpp_api_for_custom_ops.html), users need to define the operator function body, including deriving and constructing output tensors, calling and executing device operators, and more. Once the function body is defined, the [pybind11](https://github.com/pybind/pybind11) component can be used to register C++ functions as Python module interfaces.
+When developing operators using [C++ Interface](https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/cpp_api_for_custom_ops.html), users need to define the operator function body, including deriving and constructing output tensors, calling and executing device operators, and more. Once the function body is defined, the [pybind11](https://github.com/pybind/pybind11) component can be used to register C++ functions as Python module interfaces.
 
 ## Introduction to Dynamic Graph Operator Execution Process
 
@@ -27,7 +27,7 @@ As shown in the figure, the operator execution process in MindSpore's dynamic gr
 
 ## Custom Operators Support Multi-Stage Pipeline through PyboostRunner
 
-The dynamic graph multi-stage pipeline involves a complex invocation process with many interfaces and data structures. To simplify the integration of custom operators into dynamic graphs, MindSpore encapsulates the [PyboostRunner class](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/cpp_api_for_custom_ops.html#class-pyboostrunner).
+The dynamic graph multi-stage pipeline involves a complex invocation process with many interfaces and data structures. To simplify the integration of custom operators into dynamic graphs, MindSpore encapsulates the [PyboostRunner class](https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/cpp_api_for_custom_ops.html#class-pyboostrunner).
 
 Below is an example demonstrating the integration process of custom operators into a dynamic graph:
 
@@ -214,5 +214,5 @@ Running the above script produces the following result:
 
 ## More Usage Scenarios
 
-- [Integrating ATB Operators Using AtbOpRunner](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder_atb.html): Introduces methods for quickly integrating ATB operators as custom operators.
-- [Integrating ASDSIP FFT Operators Using AsdSipFFTOpRunner](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder_asdsip.html): Introduces methods for quickly integrating ASDSIP FFT operators as custom operators.
+- [Integrating ATB Operators Using AtbOpRunner](https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/op_customopbuilder_atb.html): Introduces methods for quickly integrating ATB operators as custom operators.
+- [Integrating ASDSIP FFT Operators Using AsdSipFFTOpRunner](https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/operation/op_customopbuilder_asdsip.html): Introduces methods for quickly integrating ASDSIP FFT operators as custom operators.
