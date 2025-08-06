@@ -212,6 +212,8 @@ Restrictions:
 
 - If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
 
+- In the graph mode, variables must be defined before use. Defining them inside control flow and using them externally will result in an error, as shown in Example 4.
+
 Example 1:
 
 ```python
@@ -300,6 +302,24 @@ The result is as follows:
 ret:1
 ```
 
+Example 4: If variable z is used outside the control flow, it must be defined externally. Otherwise, an error will be raised: UnboundLocalError: The local variable 'z' is not defined in false branch, but defined in true branch.
+
+```python
+import mindspore
+
+x = mindspore.tensor([1, 4], mindspore.int32)
+y = mindspore.tensor([0, 3], mindspore.int32)
+
+@mindspore.jit
+def test_if_cond(x, y):
+    if (x > y).any():
+        z = x + 1
+    return z
+
+ret = test_if_cond(x, y)
+print('ret:{}'.format(ret))
+```
+
 ### Loop Statements
 
 #### for Statements
@@ -320,7 +340,9 @@ Restrictions:
 
 - The `for...else...` statement is not supported.
 
-Example:
+- In graph mode, variables must be defined before use. If a variable is defined inside a control flow (e.g., a for loop) but used outside, an error will occur. See Example 2 for illustration.
+
+Example1:
 
 ```python
 import numpy as np
@@ -346,6 +368,22 @@ ret:[[7. 7. 7.]
  [7. 7. 7.]]
 ```
 
+Example 2: This will raise an error: NameError: The name 'z' is not defined, or not supported in graph mode.
+
+```python
+import mindspore
+
+@mindspore.jit
+def test_cond():
+    x = (1, 2, 3)
+    for i in x:
+        z += i
+    return z
+
+ret = test_cond()
+print('ret:{}'.format(ret))
+```
+
 #### while Statements
 
 Usage:
@@ -363,6 +401,8 @@ Restrictions:
 - If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
 
 - The `while...else...` statement is not supported.
+
+- In graph mode, variables must be defined before use. If a variable is defined inside a control flow (e.g., a while loop) but used outside, an error will occur.  See Example 3 for illustration.
 
 Example 1:
 
@@ -420,6 +460,22 @@ The result is as follows:
 
 ```text
 ret:15
+```
+
+Example 3: UnboundLocalError: The local variable 'z' defined in the 'while' loop body cannot be used outside of the loop body. Please define variable 'z' before 'while'.
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test_cond(x, y):
+    while x < y:
+        x += 1
+        z = x + y
+    return z
+
+ret = test_cond(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 ### Function Definition Statements
