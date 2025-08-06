@@ -379,6 +379,7 @@ MindSpore 在Ascend硬件的算子类型有aclnn kernel/aclop kernel/hccl kernel
 #### 执行序编排
 
 不同图遍历算法产生的执行序在执行性能跟内存上会有较大的差异，如图所示：
+
 ![jit_level_exec_order](./images/multi_level_compilation/jit_level_exec_order.png)
 
 - **BFS得到的执行序**：kernel1-> kernel2-> kernel4-> kernel5-> kernel3-> kernel6，内存峰值为5G（kernel3执行后可以把kernel1和kernel2的释放掉，则轮到kernel6执行的时候则能复用，因此kernel6 不用额外申请多的内存）。
