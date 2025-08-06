@@ -1,6 +1,6 @@
 # 比较与torchaudio.transforms.FrequencyMasking的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/FrequencyMasking.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/FrequencyMasking.md)
 
 ## torchaudio.transforms.FrequencyMasking
 
@@ -16,7 +16,7 @@ class torchaudio.transforms.FrequencyMasking(freq_mask_param: int, iid_masks: bo
 class mindspore.dataset.audio.FrequencyMasking(iid_masks=False, freq_mask_param=0, mask_start=0, mask_value=0.0)
 ```
 
-更多内容详见[mindspore.dataset.audio.FrequencyMasking](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_audio/mindspore.dataset.audio.FrequencyMasking.html#mindspore.dataset.audio.FrequencyMasking)。
+更多内容详见[mindspore.dataset.audio.FrequencyMasking](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset_audio/mindspore.dataset.audio.FrequencyMasking.html#mindspore.dataset.audio.FrequencyMasking)。
 
 ## 差异对比
 

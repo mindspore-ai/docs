@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_docker_en.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/install/mindspore_cpu_install_docker_en.md)
 
 [Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and supports packaging developers' applications and dependency packages into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
@@ -123,4 +123,4 @@ of which,
 
     Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), and choose the CPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore CPU version through source code compilation, and verify it.
 
-If you want to know more about the MindSpore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/master/scripts/docker/README.md#) for details.
+If you want to know more about the MindSpore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/br_base/scripts/docker/README.md#) for details.

@@ -1,6 +1,6 @@
 # Graph Optimization (Compilation)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/compile/graph_optimization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/features/compile/graph_optimization.md)
 
 Similar to traditional compilers, MindSpore also performs compilation optimization after graph construction. The main purpose of compilation optimization is to analyze and transform MindSpore's intermediate representation MindIR by static analysis techniques to achieve goals such as reducing the size of the target code, improving execution efficiency, lowering runtime resource consumption, or enhancing other performance metrics. Compilation optimization is a crucial part of the graph compilation system and plays an extremely important role in improving the performance and resource utilization of the entire neural network model. Compared with the original code that has not been optimized, compilation optimization can bring several times or even tens of times performance improvement.
 

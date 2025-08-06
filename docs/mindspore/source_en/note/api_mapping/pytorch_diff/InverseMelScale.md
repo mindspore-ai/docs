@@ -1,6 +1,6 @@
 # Differences with torchaudio.transforms.InverseMelScale
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/InverseMelScale.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/note/api_mapping/pytorch_diff/InverseMelScale.md)
 
 ## torchaudio.transforms.InverseMelScale
 
@@ -20,7 +20,7 @@ class mindspore.dataset.audio.InverseMelScale(n_stft, n_mels=128, sample_rate=16
                                               norm=NormType.NONE, mel_type=MelType.HTK)
 ```
 
-For more information, see [mindspore.dataset.audio.InverseMelScale](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.InverseMelScale.html#mindspore.dataset.audio.InverseMelScale).
+For more information, see [mindspore.dataset.audio.InverseMelScale](https://mindspore.cn/docs/en/br_base/api_python/dataset_audio/mindspore.dataset.audio.InverseMelScale.html#mindspore.dataset.audio.InverseMelScale).
 
 ## Differences
 

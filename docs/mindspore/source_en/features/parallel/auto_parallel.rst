@@ -1,8 +1,8 @@
 Automatic Parallel Strategy Search
 ====================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/parallel/auto_parallel.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/features/parallel/auto_parallel.rst
     :alt: View Source On Gitee
 
 The auto-parallel mode allows the user to automatically build the cost model and find a parallel strategy with shorter training time without paying attention to the strategy configuration. Currently MindSpore supports the following two different auto-parallel schemes:
@@ -69,9 +69,9 @@ The sharding strategy propagation algorithm means that the user only needs to ma
 
 Related interfaces:
 
-1. `mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="sharding_propagation") <https://www.mindspore.cn/docs/en/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html>`_: Set the parallel mode and select the Strategy Propagation Algorithm via ``parallel_mode``.
+1. `mindspore.parallel.auto_parallel.AutoParallel(net, parallel_mode="sharding_propagation") <https://www.mindspore.cn/docs/en/br_base/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html>`_: Set the parallel mode and select the Strategy Propagation Algorithm via ``parallel_mode``.
 
-2.  `mindspore.nn.Cell.shard() <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.shard>`_ and `mindspore.ops.Primitive.shard() <https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard>`_ : Specifies the operator sharding strategy, and the strategy for the rest of the operators is derived by the propagation algorithm. Currently the ``mindspore.nn.Cell.shard()`` interface can be used in PyNative mode and Graph mode; The ``mindspore.ops.Primitive.shard()`` interface can only be used in Graph mode.
+2.  `mindspore.nn.Cell.shard() <https://www.mindspore.cn/docs/en/br_base/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.shard>`_ and `mindspore.ops.Primitive.shard() <https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard>`_ : Specifies the operator sharding strategy, and the strategy for the rest of the operators is derived by the propagation algorithm. Currently the ``mindspore.nn.Cell.shard()`` interface can be used in PyNative mode and Graph mode; The ``mindspore.ops.Primitive.shard()`` interface can only be used in Graph mode.
 
 In summary, the sharding strategy propagation algorithm requires the user to manually configure the sharding strategy of the key operator.
 

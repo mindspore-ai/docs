@@ -1,8 +1,8 @@
 自定义算子
 ============
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/op_custom.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/custom_program/op_custom.rst
     :alt: 查看源文件
 
 .. toctree::
@@ -18,7 +18,7 @@
    operation/op_customopbuilder_atb
    operation/op_customopbuilder_asdsip
 
-当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的自定义算子功能接入你的算子。当前MindSpore提供了两种方式接入自定义算子，分别是 `基于Custom原语接入 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_prim.html>`_ 和 `基于CustomOpBuilder接入 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html>`_ 。
+当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的自定义算子功能接入你的算子。当前MindSpore提供了两种方式接入自定义算子，分别是 `基于Custom原语接入 <https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/operation/op_custom_prim.html>`_ 和 `基于CustomOpBuilder接入 <https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/operation/op_customopbuilder.html>`_ 。
 
 
 .. list-table::
@@ -26,8 +26,8 @@
    :header-rows: 1
 
    * - 接口比较
-     - `Custom原语 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_prim.html>`_
-     - `CustomOpBuilder <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html>`_
+     - `Custom原语 <https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/operation/op_custom_prim.html>`_
+     - `CustomOpBuilder <https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/operation/op_customopbuilder.html>`_
    * - 支持模式
      - 静态图（Graph Mode）和动态图（PyNative Mode）
      - 动态图（PyNative Mode）

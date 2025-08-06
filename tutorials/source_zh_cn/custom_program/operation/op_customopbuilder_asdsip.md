@@ -1,6 +1,6 @@
 # CustomOpBuilder通过AsdSipFFTOpRunner接入ASDSIP FFT算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_asdsip.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_asdsip.md)
 
 ## 概述
 
@@ -8,11 +8,11 @@
 
 当用户需要使用ASDSIP加速库的FFT类算子，而MindSpore未提供相应算子接口时，用户可以使用自定义算子的方法快速接入使用。
 
-在 [基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html) 中，MindSpore提供了 `PyboostRunner` 方便用户在动态图接入自定义算子。现在针对ASDSIP算子，MindSpore又额外提供了一套`AsdSipFFTOpRunner`用于把ASDSIP FFT算子的调用流程和动态图多级流水封装到一起。
+在 [基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/operation/op_customopbuilder.html) 中，MindSpore提供了 `PyboostRunner` 方便用户在动态图接入自定义算子。现在针对ASDSIP算子，MindSpore又额外提供了一套`AsdSipFFTOpRunner`用于把ASDSIP FFT算子的调用流程和动态图多级流水封装到一起。
 
-用户基于 [AsdSipFFTOpRunner类](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#class-asdsipfftoprunner) 对接ASDSIP FFT算子时，仅需要提供`Param`，并调用`Init`接口初始化（即构造`Operation`），再调用`Run`接口即可执行ASDSIP算子。还可以直接调用 [RunAsdSipFFTOp](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#function-launchasdsipfft)函数一键执行（函数内包含了`Init`和`Run`接口的调用）。
+用户基于 [AsdSipFFTOpRunner类](https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/operation/cpp_api_for_custom_ops.html#class-asdsipfftoprunner) 对接ASDSIP FFT算子时，仅需要提供`Param`，并调用`Init`接口初始化（即构造`Operation`），再调用`Run`接口即可执行ASDSIP算子。还可以直接调用 [RunAsdSipFFTOp](https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/operation/cpp_api_for_custom_ops.html#function-launchasdsipfft)函数一键执行（函数内包含了`Init`和`Run`接口的调用）。
 
-本指南以一个`FftC2C`为例，展示ASDSIP FFT算子的接入流程。完整代码请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/jit_test_files/asdsip_fftc2c.cpp)。
+本指南以一个`FftC2C`为例，展示ASDSIP FFT算子的接入流程。完整代码请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/br_base/tests/st/graph_kernel/custom/jit_test_files/asdsip_fftc2c.cpp)。
 
 ## 安装ASDSIP加速库
 

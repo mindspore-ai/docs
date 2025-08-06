@@ -1,8 +1,8 @@
 MindSpore大语言模型带框架推理
 =============================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/optimize_technique.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/parallel/optimize_technique.rst
     :alt: 查看源文件
 
 .. toctree::
@@ -378,7 +378,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 
   可以看到，将模型推理的token id翻译后，即是一句可以被正常人理解的语句，实际验证过程中，由于do_sample的随机性，每次推理会有一定的差异，但是结果的逻辑基本都是可以被理解的。
 
-  完整端到端样例可以参考 `infer.py <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/qwen2/infer.py>`_ 。
+  完整端到端样例可以参考 `infer.py <https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/infer_code/qwen2/infer.py>`_ 。
 
 模型并行
 ~~~~~~~~

@@ -113,7 +113,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     # 读取json文件数据
     if version == "daily" or os.path.exists(os.path.join(os.path.dirname(__file__), "daily_dev.json")):
         flag_dev = 1
-        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as f:
+        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as g:
             data = json.load(g)
     else:
         flag_dev = 0

@@ -1,6 +1,6 @@
 # 数据并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/data_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/parallel/data_parallel.md)
 
 ## 简介
 
@@ -10,7 +10,7 @@
 
 ## 样例代码说明
 
-> 下载完整的样例代码：[distributed_data_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_data_parallel)。
+> 下载完整的样例代码：[distributed_data_parallel](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/distributed_data_parallel)。
 
 目录结构如下：
 
@@ -53,7 +53,7 @@ rank_size = get_group_size()
 dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
 ```
 
-其中，与单卡不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过[mindspore.communication](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.communication.html)模块的以下接口获取：
+其中，与单卡不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过[mindspore.communication](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore.communication.html)模块的以下接口获取：
 
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
@@ -115,7 +115,7 @@ net = Network()
 
 ## 训练网络
 
-在这一步，我们需要定义损失函数、优化器以及训练过程。与单卡模型不同的地方在于，数据并行模式还需要增加[mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.DistributedGradReducer.html)接口，来对所有卡的梯度进行聚合，该接口第一个参数为需要更新的网络参数：
+在这一步，我们需要定义损失函数、优化器以及训练过程。与单卡模型不同的地方在于，数据并行模式还需要增加[mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/nn/mindspore.nn.DistributedGradReducer.html)接口，来对所有卡的梯度进行聚合，该接口第一个参数为需要更新的网络参数：
 
 ```python
 from mindspore import nn
@@ -143,7 +143,7 @@ for epoch in range(10):
         i += 1
 ```
 
-> 此处也可以用[Model.train](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train)的方式进行训练。
+> 此处也可以用[Model.train](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train)的方式进行训练。
 
 ## 运行单机8卡脚本
 
@@ -175,4 +175,4 @@ epoch: 0 step: 150, loss is 2.2822685
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/br_base/parallel/startup_method.html)。

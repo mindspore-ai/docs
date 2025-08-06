@@ -1,6 +1,6 @@
 # 模型量化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_quantization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_quantization.md)
 
 ## 概述
 
@@ -90,7 +90,7 @@ ptq.convert(net)
 ms.save_checkpoint(net.parameters_dict(), './simplenet_ptq.ckpt')
 ```
 
-1. 使用[nn.Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)定义网络，训练模型后得到模型的浮点权重，在推理过程中，加载该模型的浮点权重。上述例子对该过程进行了简化，直接创建网络，使用初始浮点权重进行量化。
+1. 使用[nn.Cell](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/nn/mindspore.nn.Cell.html)定义网络，训练模型后得到模型的浮点权重，在推理过程中，加载该模型的浮点权重。上述例子对该过程进行了简化，直接创建网络，使用初始浮点权重进行量化。
 2. 使用PTQConfig配置mode为量化模式，后端为Ascend，对权重进行8bit量化。详细说明可参考[PTQConfig的配置说明](#ptqconfig的配置说明)。
 3. 使用apply接口将网络转换为伪量化网络，根据`PTQConfig`中的配置统计量化对象的信息。
 4. 使用convert接口对上一步的伪量化网络进行真实量化，得到量化后的网络。

@@ -1,6 +1,6 @@
 # Dynamic Graph Debugging
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/pynative.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/debug/pynative.md)
 
 ## Overview
 
@@ -82,7 +82,7 @@ In the debugging process, it is often necessary to view the log to locate the pr
 - 3-ERROR, indicates that there is an error in the execution of the program, the error log is output, and the program may not be terminated.
 - 4-CRITICAL, indicates that the program execution is abnormal and will be terminated.
 
-See [environment variables](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html#log) for detailed logging controls.
+See [environment variables](https://www.mindspore.cn/docs/en/br_base/api_python/env_var_list.html#log) for detailed logging controls.
 
 ### Common PDB Debugging Commands
 
@@ -125,7 +125,7 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   print(output)
   ```
 
-  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.register_hook.html#mindspore.Tensor.register_hook).
+  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/Tensor/mindspore.Tensor.register_hook.html#mindspore.Tensor.register_hook).
 
 - Viewing the gradient during execution can be done with `mindspore.ops.HookBackward`, for example:
 
@@ -151,7 +151,7 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   print(output)
   ```
 
-  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HookBackward.html).
+  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.HookBackward.html).
 
 - Viewing the gradient of a particular Cell can be done with `mindspore.nn.Cell.register_backward_hook`, for example:
 
@@ -180,7 +180,7 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
   print(output)
   ```
 
-  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
+  Detailed API usage instructions can be [referenced](https://www.mindspore.cn/docs/en/br_base/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
 
 ## More Practical Examples
 

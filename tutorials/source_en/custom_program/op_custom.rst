@@ -1,8 +1,8 @@
 Custom Operators
 =================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/op_custom.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/br_base/tutorials/source_en/custom_program/op_custom.rst
     :alt: View Source On Gitee
 
 .. toctree::
@@ -20,16 +20,16 @@ Custom Operators
 
 When built-in operators cannot meet requirements during network development, you can use MindSpore's custom operator functionality to integrate your operators. Currently, MindSpore provides two approaches for integrating custom operators:
 
-- `Custom Primitive-Based Custom Operators <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_prim.html>`_
-- `CustomOpBuilder-Based Custom Operators <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html>`_
+- `Custom Primitive-Based Custom Operators <https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/op_custom_prim.html>`_
+- `CustomOpBuilder-Based Custom Operators <https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/op_customopbuilder.html>`_
 
 .. list-table::
    :widths: 20 40 40
    :header-rows: 1
 
    * - Interface Comparison
-     - `Custom Primitive <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_prim.html>`_
-     - `CustomOpBuilder <https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html>`_
+     - `Custom Primitive <https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/op_custom_prim.html>`_
+     - `CustomOpBuilder <https://www.mindspore.cn/tutorials/en/br_base/custom_program/operation/op_customopbuilder.html>`_
    * - Supported Modes
      - Graph Mode and PyNative Mode
      - PyNative Mode

@@ -1,6 +1,6 @@
 # 比较与torchtext.datasets.PennTreebank的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/PennTreebank.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/PennTreebank.md)
 
 ## torchtext.datasets.PennTreebank
 
@@ -26,7 +26,7 @@ class mindspore.dataset.PennTreebankDataset(
     cache=None)
 ```
 
-更多内容详见[mindspore.dataset.PennTreebankDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.PennTreebankDataset.html#mindspore.dataset.PennTreebankDataset)。
+更多内容详见[mindspore.dataset.PennTreebankDataset](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset/mindspore.dataset.PennTreebankDataset.html#mindspore.dataset.PennTreebankDataset)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # Differences with torchvision.transforms.RandomPerspective
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/RandomPerspective.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/note/api_mapping/pytorch_diff/RandomPerspective.md)
 
 ## torchvision.transforms.RandomPerspective
 
@@ -16,7 +16,7 @@ For more information, see [torchvision.transforms.RandomPerspective](https://pyt
 class mindspore.dataset.vision.RandomPerspective(distortion_scale=0.5, prob=0.5, interpolation=Inter.BICUBIC)
 ```
 
-For more information, see [mindspore.dataset.vision.RandomPerspective](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomPerspective.html).
+For more information, see [mindspore.dataset.vision.RandomPerspective](https://mindspore.cn/docs/en/br_base/api_python/dataset_vision/mindspore.dataset.vision.RandomPerspective.html).
 
 ## Differences
 
