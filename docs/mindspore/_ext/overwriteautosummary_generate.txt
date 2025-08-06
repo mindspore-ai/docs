@@ -555,6 +555,8 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
 
             if re_view not in content:
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+
+
         filename = os.path.join(path, filename_map.get(name, name) + suffix)
         if os.path.isfile(filename):
             with open(filename, encoding=encoding) as f:

@@ -67,6 +67,9 @@ def get_api(fullname):
         return None
 
 def get_example(name: str):
+    # 有note的返回格式 ['', '', '']
+    # 没有note的返回格式 [['', '', ''],['', '', '']]
+    # 没有样例或报错返回 []
     try:
         if not name.startswith('mindspore.'):
             name = 'mindspore.' + name
@@ -103,6 +106,7 @@ def get_example(name: str):
             api_doc = api_doc.replace('>>> ops.is_tensor', '>>> is_tensor')
 
         all_example = []
+        # 重载（要求支持平台和样例数量一致）
         if re.findall('\.\. (method|function)::', api_doc):
             for i in re.split('\.\. (method|function)::.*\n', api_doc):
                 if i in ('method', 'function'):
@@ -123,6 +127,7 @@ def get_example(name: str):
         example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
+        # 有note的情况
         if '.. note::' in example_str[0][0]:
             api_doc = re.sub(r'Examples:\n    \.\. note::(?:.|\n)*?    >>>', r'Examples:\n    >>>', api_doc)
             example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
@@ -130,6 +135,8 @@ def get_example(name: str):
             example_str = example_str.strip()
             example_list = example_str.split('\n')
             return [""] + example_list + [""]
+
+        # 没有note的情况
         for i in range(len(example_str)):
             if '\n     ' in example_str[i][0]:
                 new_example_str = re.sub(r'\n    ', r'\n', example_str[i][0])
@@ -161,6 +168,7 @@ def get_platforms(name: str):
                 all_platform.append(["", "支持平台：", "    ``Ascend``", ""])
             return all_platform
 
+        # 重载
         if is_overload:
             for i in re.split('\.\. (method|function)::.*\n', api_doc):
                 if i in ('method', 'function'):
@@ -177,6 +185,7 @@ def get_platforms(name: str):
             return all_platform
 
         platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+        # 没有样例时提取支持平台
         if not platform_str:
             platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
             if platform_str_leak:
@@ -185,6 +194,7 @@ def get_platforms(name: str):
                 platform_list = ['    ' + platform_list[0]]
                 return ["", "支持平台："] + platform_list + [""]
             return []
+        # 有样例时提取支持平台
         for i in range(len(platform_str)):
             new_platform_str = platform_str[i].strip().replace('Atlas A2 training series products', 'Atlas A2训练系列产品')
             platform_list = new_platform_str.split('\n')
@@ -375,9 +385,11 @@ class ObjectDescription(SphinxDirective, Generic[N]):
             logger.warning(f'Error API names in {self.arguments[0]}.')
         extra = []
 
+        # 重载（要求支持平台和样例数量一致）
         if example and '' not in example and len(example) == len(platforms):
             for i in range(len(example)):
                 extra.append(platforms[i]+example[i])
+        # 非重载
         else:
             if '' not in example and example:
                 example = example[0]
@@ -391,9 +403,11 @@ class ObjectDescription(SphinxDirective, Generic[N]):
             if 'Tensor.' in self.names[0][0] or '.mint.' in self.names[0][0]:
                 directive_content = False
 
+        # 处理有note并且不是重载的情况
         if example and "**样例：**" not in example and '' in example:
             extra_len = len(example+platforms)
             try:
+                # 给class 的 method加支持平台和样例
                 if self.objtype == "method":
                     index_platforms = 0
                     for num, i in enumerate(self.content.data):
@@ -420,6 +434,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                             self.content.data.insert(index_example-count, i)
                     else:
                         self.content.data.extend(example)
+                # 给class 和 function加支持平台和样例
                 else:
                     index_num = 0
                     index_platforms = 0
@@ -427,6 +442,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                         if i.startswith('.. py:method::') or self.check_class_end(self.content.data[num:]):
                             index_num = num
                             break
+                    # class 有 method的情况
                     if index_num:
                         for num, j in enumerate(self.content.data[:index_num]):
                             if j.startswith('样例：'):
@@ -452,6 +468,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                         count_plat = len(platforms)
                         for i in example:
                             self.content.data.insert(index_example-count+count_plat, i)
+                    # class 没有 method的情况和function
                     else:
                         index_platforms = 0
                         for num, i in enumerate(self.content.data):
@@ -480,6 +497,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                             self.content.data.extend(example)
             except Exception as e:
                 logger.warning(e)
+        # 重载（样例暂不支持有note的情况）和没有note的非重载接口（）
         elif extra and directive_content:
             method_ind = []
             func_ind = []
@@ -507,6 +525,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                             self.content.data.insert(index_num-count, i)
                     else:
                         self.content.data.extend(ext)
+                # 给class 和 function加支持平台和样例
                 else:
                     index_num = 0
                     index_example = 0
@@ -514,6 +533,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                         if i.startswith('.. py:method::') or self.check_class_end(self.content.data[num:]):
                             index_num = num
                             break
+                    # class 有 method的情况
                     if index_num:
                         for num, i in enumerate(self.content.data[:index_num]):
                             if i.startswith('教程样例：'):
@@ -524,6 +544,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                         count = len(self.content.data)
                         for i in ext:
                             self.content.data.insert(index_num-count, i)
+                    # class 没有 method的情况和function
                     else:
                         for num, i in enumerate(self.content.data):
                             if i.startswith('教程样例：'):
