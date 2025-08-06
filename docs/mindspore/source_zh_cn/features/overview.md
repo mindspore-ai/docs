@@ -45,13 +45,13 @@ MindSpore实现了函数式微分编程，对可被微分求导的函数对象�
 
 ### 编程范式（动静结合）
 
-传统AI框架主要有两种编程执行形态，静态图模式(graph mode)和动态图模式(pynative mode)。动态图模式又称eager mode。
+传统AI框架主要有两种编程执行形态，静态图模式（Graph Mode）和动态图模式（PyNative Mode）。动态图模式又称Eager Mode。
 
-graph mode会在编译时生成神经网络的模型计算的图结构，然后再执行计算图。
+Graph Mode会在编译时生成神经网络的模型计算的图结构，然后再执行计算图。
 
-pynative mode，由于程序是按照代码的编写顺序执行，符合python解释执行方式，易开发和调试。因为不做图编译优化，性能优化空间较少，特别是面向DSA等专有硬件的优化具有较大挑战。
+PyNative Mode，由于程序是按照代码的编写顺序执行，符合python解释执行方式，易开发和调试。因为不做图编译优化，性能优化空间较少，特别是面向DSA等专有硬件的优化具有较大挑战。
 
-MindSpore基于Python构建神经网络的图结构，相比于传统的graph mode，能有更易用、更灵活的表达能力。MindSpore创新性的构建源码转换能力，基于Python语句提取AST进行计算图构建，因此可以支持开发者使用的Python原生语法（条件/循环等）和其他操作，如元组（Tuple）、列表（List）以及Lambda表达来构建计算图，并对计算图进行自动微分。所以MindSpore能更好地兼容动态图和静态图的编程接口，在代码层面保持一致，如控制流写法等。
+MindSpore基于Python构建神经网络的图结构，相比于传统的Graph Mode，能有更易用、更灵活的表达能力。MindSpore创新性的构建源码转换能力，基于Python语句提取AST进行计算图构建，因此可以支持开发者使用的Python原生语法（条件/循环等）和其他操作，如元组（Tuple）、列表（List）以及Lambda表达来构建计算图，并对计算图进行自动微分。所以MindSpore能更好地兼容动态图和静态图的编程接口，在代码层面保持一致，如控制流写法等。
 
 原生Python表达可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时开发者基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行（[mindspore.jit](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)）而其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，开发者可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
 
@@ -69,7 +69,7 @@ MindSpore在并行化策略搜索中引入了张量重排布技术（Tensor Redi
 
 MindSpore基于编译技术，提供了丰富的硬件无关优化，如IR融合、代数化简、常数折叠、公共子表达式消除等。同时针对NPU、GPU等不同硬件，也提供各种硬件优化能力，从而更好的发挥硬件的大规模计算加速能力。
 
-#### [多级编译架构](https://www.mindspore.cn/docs/zh-CN/master/features/compile/compilation_guide_zh.html#图算融合)
+#### [多级编译架构](https://www.mindspore.cn/docs/zh-CN/master/features/compile/compilation_guide.html#图算融合)
 
 MindSpore等主流AI计算框架对开发者提供的算子通常是从开发中可理解、易使用角度进行定义。每个算子承载的计算量不等，计算复杂度也各不相同。但从硬件执行角度看，这种天然的、基于用开发者角度的算子计算量划分，并不高效，也无法充分发挥硬件资源计算能力。主要体现在：
 

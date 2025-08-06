@@ -1,31 +1,33 @@
 # mindspore.jit 多级编译优化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/compile/compilation_guide_zh.md)
-
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/compile/compilation_guide.md)
 
 ## MindSpore编译架构
- 
-MindSpore利用jit(just-in-time)来进行性能优化。jit模式会通过AST树解析、Python字节码解析或追踪代码执行的方式，将python代码转换为中间表示图（IR，Intermediate Representation）。我们给它命名MindIR。编译器通过对该IR图的优化，来达到对代码的优化，提高运行性能。与动态图模式相对应，这种JIT的编译模式被称为graph mode。
 
-开发者写的python代码默认以动态图模式运行，可以通过`@mindspore.jit`装饰器修饰函数，来指定其按照graph mode执行。有关`@mindspore.jit`装饰器的相关文档请见[jit 文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
+MindSpore利用jit（just-in-time）来进行性能优化。jit模式会通过AST树解析、Python字节码解析或追踪代码执行的方式，将Python代码转换为中间表示图（IR，Intermediate Representation）。我们给它命名MindIR。编译器通过对该IR图的优化，来达到对代码的优化，提高运行性能。与PyNative Mode相对应，这种JIT的编译模式被称为Graph Mode。
 
-graph mode大致分为3个阶段:
- - 图捕获（构图）: python代码 -> MindIR。
- - 图优化（前端）: 对MindIR进行硬件无关优化，代数化简、函数inline（内联）、冗余消除等。
- - 图优化（后端）: 对MindIR进行硬件相关优化，LazyInline，算子选择，图算融合等。
+开发者写的Python代码默认以PyNative Mode运行，可以通过`@mindspore.jit`装饰器修饰函数，来指定其按照Graph Mode执行。有关`@mindspore.jit`装饰器的相关文档请见[jit 文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
+
+Graph Mode大致分为3个阶段：
+
+- 图捕获（构图）：Python代码 -> MindIR。
+- 图优化（前端）：对MindIR进行硬件无关优化，代数化简、函数inline（内联）、冗余消除等。
+- 图优化（后端）：对MindIR进行硬件相关优化，LazyInline、算子选择、图算融合等。
 
 ## 图捕获（构图）
 
-MindSpore提供三种捕获方式，如下
- - AST: 通过AST树解析的方式将执行的函数转换成IR图
- - bytecode（实验性）: 对Python字节码的解析，尽可能的构建IR图，无法转换为IR图的部分则会按照动态图进行执行
- - trace（实验性）: 通过追踪Python代码执行的轨迹来构建IR图
+MindSpore提供三种捕获方式，如下：
 
-这三种模式在mindspore.jit中使用capture_mode来选择，以ast举例: 开发者可用`@mindspore.jit(capture_mode="ast")`装饰器修饰函，用ast方式修饰的函数，其语法有一定限制，我们提供两种模式供开发者选择。
-- strict模式:此模式目标是构成一张图，开发者的python代码如果无法构图，选择此模式运行程序时会报错，需要开发者进行代码修改，变为可构图的语法，适合追求性能的开发者。
-- lax模式:此模式目标是尽可能的让开发者程序可运行，思路是针对无法在strict模式构图的代码进行python fallback，即返回python层运行。
+- AST：通过AST树解析的方式将执行的函数转换成IR图
+- bytecode（实验性）：对Python字节码的解析，尽可能的构建IR图，无法转换为IR图的部分则会按照PyNative Mode进行执行
+- trace（实验性）：通过追踪Python代码执行的轨迹来构建IR图
 
-graph mode模式约束请参考[语法约束](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)。ast如何将python代码解析并构图,举例如下：
+这三种模式在mindspore.jit中使用capture_mode来选择，以ast举例：开发者可用`@mindspore.jit(capture_mode="ast")`装饰器修饰函数。用ast方式修饰的函数，其语法有一定限制，我们提供两种模式供开发者选择。
+
+- strict模式：此模式目标是构成一张图，开发者的Python代码如果无法构图，选择此模式运行程序时会报错，需要开发者进行代码修改，变为可构图的语法，适合追求性能的开发者。
+- lax模式：此模式目标是尽可能的让开发者程序可运行，思路是针对无法在strict模式构图的代码进行Python fallback，即返回Python层运行。
+
+Graph Mode模式约束请参考[语法约束](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)。ast如何将Python代码解析并构图，举例如下：
 
 ```python
 @mindspore.jit
@@ -63,9 +65,9 @@ subgraph @foo() {
 
 **ast模式的使用建议**：
 
-- 相比于动态图执行，被`@mindspore.jit`修饰的函数，在第一次调用时需要先消耗一定的时间进行编译。在该函数的后续调用时，若原有的编译结果可以复用，则会直接使用原有的编译结果进行执行。因此，使用@mindspore.jit装饰器修饰会多次执行的函数通常会获得更多的性能收益。
+- 相比于PyNative Mode执行，被`@mindspore.jit`修饰的函数，在第一次调用时需要先消耗一定的时间进行编译。在该函数的后续调用时，若原有的编译结果可以复用，则会直接使用原有的编译结果进行执行。因此，使用@mindspore.jit装饰器修饰会多次执行的函数通常会获得更多的性能收益。
 
-- graph mode的运行效率优势体现在其会将被@mindspore.jit修饰函数进行全局上的编译优化，函数内含有的操作越多，优化的空间越大。因此`@mindspore.jit`装饰器修饰的函数最好是内含操作很多的大代码块，而不应将很多细碎的、仅含有少量操作的函数分别打上jit标签。否则，则可能会导致性能没有收益甚至劣化。
+- Graph Mode的运行效率优势体现在其会将被@mindspore.jit修饰函数进行全局上的编译优化，函数内含有的操作越多，优化的空间越大。因此`@mindspore.jit`装饰器修饰的函数最好是内含操作很多的大代码块，而不应将很多细碎的、仅含有少量操作的函数分别打上jit标签。否则，则可能会导致性能没有收益甚至劣化。
 
 - 绝大部分计算以及优化都是基于对Tensor计算的优化，建议被修饰的函数应该是用来进行真正的数据计算的函数，而不是一些简单的标量计算或者数据结构的变换。
 
@@ -75,7 +77,7 @@ subgraph @foo() {
 
 与传统编译优化技术类似，MindSpore 中的编译优化也是通过一个个 Pass 来完成的。将每个 Pass 的上一个 Pass 所产生的 MindIR 作为输入，经过本 Pass 优化之后，产生新的 MindIR 表示作为输出。一个大的 Pass 可以包含多个小的 Pass，每个小的 Pass 只负责单点的编译优化，如：代数化简、函数内联（inline）、冗余消除等。一个 Pass 产生的优化结果，可能会为其它的 Pass 带来优化机会，故可以循环运行这些 Pass，直到产生的 MindIR 不再发生变化为止。
 
-前端编译优化技术有很多，如: 代数化简、函数inline（内联）、冗余消除等。这里仅介绍具有代表性的编译优化技术。
+前端编译优化技术有很多，如：代数化简、函数inline（内联）、冗余消除等。这里仅介绍具有代表性的编译优化技术。
 
 ### 1 代数化简
 
@@ -97,7 +99,7 @@ b = x;
 c = y;
 ```
 
-在 MindSpore编译器中，代数化简原理不同于传统编译器，进行处理的是计算图而非传统控制流图，通过调整计算图中算子的执行顺序，或者删除不必要的算子，以保持计算图的简洁性和提高计算效率。
+在MindSpore编译器中，代数化简原理不同于传统编译器，进行处理的是计算图而非传统控制流图，通过调整计算图中算子的执行顺序，或者删除不必要的算子，以保持计算图的简洁性和提高计算效率。
 
 例如，在如下Python代码片段中：
 
@@ -264,7 +266,7 @@ MindSpore冗余消除的目的及使用的技术与传统编译器类似。不�
 
     ```python
     import mindspore
-    
+
     @mindspore.jit
     def func(x, y):
         a = x + y
@@ -342,21 +344,22 @@ MindSpore冗余消除的目的及使用的技术与传统编译器类似。不�
 
 ## 图优化（后端）
 
-当MindIR图经过前端优化完成后，需要进行进一步优化（包含目标硬件）。优化模式我们分为O0，O1，用参数jit_level表示
- - **jit_level=O0**: 只做基本的图切分优化，以及算子选择（硬件相关），优点是可以保证IR图的原始结构，编译速度较快。
- - **jit_level=O1**: 增加图优化和自动算子融合，编译性能有所损失，但模型开始训练后，效率较高
+当MindIR图经过前端优化完成后，需要进行进一步优化（包含目标硬件）。优化模式我们分为O0，O1，用参数jit_level表示：
 
-MindIR经过本轮优化后，会由runtime模块进行执行，涉及多级流水并发等技术，可参考[多级流水]
+- **jit_level=O0**：只做基本的图切分优化，以及算子选择（硬件相关），优点是可以保证IR图的原始结构，编译速度较快。
+- **jit_level=O1**：增加图优化和自动算子融合，编译性能有所损失，但模型开始训练后，效率较高。
+
+MindIR经过本轮优化后，会由runtime模块进行执行，涉及多级流水并发等技术，可参考[多级流水](https://www.mindspore.cn/docs/zh-CN/master/features/runtime/multilevel_pipeline.html)。
 
 ### jit_level=O0 模式
 
 O0模式的优化较少，基础的优化主要为后端LazyInline和No-task node执行优化。
 
-- **LazyInline**: 主要思想是将函数调用的开销推迟到实际需要调用的时候，这样可以减少编译时的开销，提高编译效率。LazyInline在图编译阶段是将相同的子图结构复用，不展开放在图中，避免图规模较大导致影响编译性能。
+- **LazyInline**：主要思想是将函数调用的开销推迟到实际需要调用的时候，这样可以减少编译时的开销，提高编译效率。LazyInline在图编译阶段是将相同的子图结构复用，不展开放在图中，避免图规模较大导致影响编译性能。
 
   ![jit_level_lazyinline](./images/multi_level_compilation/jit_level_lazyinline.png)
 
-- **No-task node执行优化**:  No-task node指的是Reshape、ExpandDims、Squeeze、Flatten、FlattenGrad、Reformat等诸类算子没有计算逻辑，不修改内存排布，仅修改shape、format等信息。在图编译结束后，将No-task node转换成ref node，输出跟输入同地址，执行过程中跳过kernel launch，从而达到执行性能优化目的。
+- **No-task node执行优化**：No-task node指的是Reshape、ExpandDims、Squeeze、Flatten、FlattenGrad、Reformat等诸类算子没有计算逻辑，不修改内存排布，仅修改shape、format等信息。在图编译结束后，将No-task node转换成ref node，输出跟输入同地址，执行过程中跳过kernel launch，从而达到执行性能优化目的。
 
   ![jit_level_no_task](./images/multi_level_compilation/jit_level_no_task.png)
 
@@ -389,7 +392,7 @@ MindSpore 在Ascend硬件的算子类型有aclnn kernel/aclop kernel/hccl kernel
 
 ### jit_level=O1 模式
 
- 当前O1主要支持了图算融合优化。其主要思路是：在编译阶段，自动识别计算图中相邻的可融合节点，然后将其融合为更大粒度的可执行算子。通过图算融合，实现增加算子计算局部性、减少整体全局内存访存带宽开销等优化效果。通过对主流SOTA模型的实测验证，O1能够实现相比O0平均15%的性能加速。特别是对于访存密集型网络，O1优化效果更加显著。
+当前O1主要支持了图算融合优化。其主要思路是：在编译阶段，自动识别计算图中相邻的可融合节点，然后将其融合为更大粒度的可执行算子。通过图算融合，实现增加算子计算局部性、减少整体全局内存访存带宽开销等优化效果。通过对主流SOTA模型的实测验证，O1能够实现相比O0平均15%的性能加速。特别是对于访存密集型网络，O1优化效果更加显著。
 
 #### 图算融合
 
@@ -444,4 +447,4 @@ MindSpore AKG的整体框架如上图所示：
 - 后端优化
     - 为了进一步提升算子的性能，我们针对不同硬件后端开发了相应的优化pass，如Ascend后端中实现数据对齐、指令映射，GPU后端中实现向量化存取，插入同步指令等，最终生成相应平台代码。
 
-总结: MindSpore编译从图捕获模式，IR优化图算融合等各维度对AI模型代码进行优化，很多特性在易用性和性能方面的取舍也有一定挑战。我们也规划进一步分层解耦整个流程，避免黑盒运行，增加开发者理解的门槛。
+总结：MindSpore编译从图捕获模式，IR优化图算融合等各维度对AI模型代码进行优化，很多特性在易用性和性能方面的取舍也有一定挑战。我们也规划进一步分层解耦整个流程，避免黑盒运行，增加开发者理解的门槛。
