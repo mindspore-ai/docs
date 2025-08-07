@@ -23,7 +23,7 @@ The following is the features supported in vLLM MindSpore.
 | Multi Modality                    | WIP                | WIP                |  
 | Prompt adapter                    | ×                  | WIP                |  
 | Speculative decoding              | ×                  | WIP                |  
-| LogProbs                          | ×                  | WIP                |  
+| LogProbs                          | ×                  | √                  |  
 | Prompt logProbs                   | ×                  | WIP                |  
 | Best of                           | ×                  | ×                  |  
 | Beam search                       | ×                  | WIP                |  
@@ -31,7 +31,7 @@ The following is the features supported in vLLM MindSpore.
 | Pooling                           | ×                  | ×                  |
 | Enc-dec                           | ×                  | ×                  |
 | Reasoning Outputs                 | √                  | √                  |
-| Tool Calling                      | WIP                | WIP                |
+| Tool Calling                      | WIP                | √                  |
 
 - √：Feature aligned with the community version of vLLM.
 - ×：Currently unsupported; alternative solutions are recommended.

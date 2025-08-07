@@ -58,8 +58,8 @@ vLLM MindSpore采用vLLM社区推荐的插件机制，实现能力注册。未�
 -----------------------------------------------------
 vLLM MindSpore代码仓包含主干分支、开发分支、版本分支：
 
-- **main**: 主干分支，与MindSpore master分支和vLLM v0.7.3版本配套，并通过昇腾+昇思CI持续进行质量看护；
-- **develop**: 开发分支，在vLLM部分新版本发布时从主干分支拉出，用于开发适配vLLM的新功能特性。待特性适配稳定后合入主干分支。当前开发分支正在适配vLLM v0.8.3版本；
+- **main**: 主干分支，与MindSpore master分支和vLLM v0.8.3版本配套，并通过昇腾+昇思CI持续进行质量看护；
+- **develop**: 开发分支，在vLLM部分新版本发布时从主干分支拉出，用于开发适配vLLM的新功能特性。待特性适配稳定后合入主干分支。当前开发分支正在适配vLLM v0.9.1版本；
 - **rX.Y.Z**: 版本分支，在完成vLLM某版本适配后，从主干分支拉出，用于正式版本发布归档。
 
 下面是维护中的版本分支：
@@ -72,10 +72,10 @@ vLLM MindSpore代码仓包含主干分支、开发分支、版本分支：
       -  备注
    *  -  master
       -  Maintained
-      -  基于vLLM v0.7.3版本和MindSpore master分支CI看护
+      -  基于vLLM v0.8.3版本和MindSpore master分支CI看护
    *  -  develop
       -  Maintained
-      -  基于vLLM v0.8.3版本
+      -  基于vLLM v0.9.1版本
    *  -  r0.1
       -  Unmaintained
       -  仅允许文档修复

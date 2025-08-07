@@ -8,13 +8,14 @@ The following are the key new features and models supported in the vLLM MindSpor
 
 ### New Features
 
-- 0.8.3 V1 Architecture Basic Features, including chunked prefill and automatic prefix caching;  
+- 0.9.1 V1 Architecture Basic Features, including chunked prefill and automatic prefix caching;  
 - V0 Multi-step Scheduling;  
 - V0 Chunked Prefill;  
 - V0 Automatic Prefix Caching;  
 - V0 DeepSeek MTP (Multi-Task Processing);  
 - GPTQ Quantization;  
-- SmoothQuant Quantization.
+- SmoothQuant Quantization;
+- V1 Sampling Enhancements.
 
 ### New Models
 
