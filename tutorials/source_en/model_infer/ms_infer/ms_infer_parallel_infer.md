@@ -930,7 +930,55 @@ class Qwen2ForCausalLM(nn.Cell):
 
 The weight_load method is added to the network layer that requires user-defined weight loading. The user-defined weight loading method is set for the weight object by using the setattr method. During model weight loading, the corresponding parameter object is found by reading the weight mapping table, so as to update the weights. For the column-wise or row-wise Linear layer, the narrow method of Tensor is used to obtain the data with the corresponding offset. The only difference is that the sharding dimensions are different.
 
+### KVCache Sharing
+
+The sharding of KVCache is relatively simple in scenarios where the parallelism can be divided evenly by num_key_value_heads. Simply modify the corresponding shape. For details, refer to the following code:
+
+```diff
+class CacheManager:
+    def __init__(self, config: Qwen2Config, block_num: int, block_size: int, batch_size: int) -> None:
+        self.block_num = block_num
+        self.block_size = block_size
+        self.batch_size = batch_size
+
+        head_dim = config.hidden_size // config.num_attention_heads
+
++        self.tp_size = COMMON_HELPER.get_tensor_model_parallel_group_size()
+-        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+-        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
++        self.k_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads // self.tp_size, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
++        self.v_caches = mutable([ops.zeros((block_num, block_size, config.num_key_value_heads // self.tp_size, head_dim), dtype=config.param_dtype) for _ in range(config.num_hidden_layers)])
+        self.block_tables = [[] for _ in range(batch_size)]
+        self.acc_slot_mapping = [[] for _ in range(batch_size)]
+        self.free_block_ids = deque(range(block_num))
+
+    def step(self, start_pos_idx: int, token_num_per_batch: int) -> Tuple[Tensor, Tensor]:
+```
+
+As can be seen from the code, only a slight adjustment to the shape of the KVCache initialization is required to complete the parallel adaptation of the KVCache.
+
 ### Parallel Execution
+
+Since parallel execution requires initializing the communication domain, the init_communication function must also be called during the initialization phase of infer_paralle.py. It is recommended to execute this function after set_context. Please refer to the following code for reference:
+
+```diff
+
+   import os
+   import mindspore as ms
+-   from qwen2_parallel import Qwen2Config, Qwen2ForCausalLM, CacheManager
++   from qwen2_parallel import Qwen2Config, Qwen2ForCausalLM, CacheManager, init_communication
+   from mindspore import Tensor, mint
+
+   # set mindspore context and envs
+   os.environ["MS_INTERNAL_DISABLE_CUSTOM_KERNEL_LIST"] = "PagedAttention"
+
+   ms.set_context(infer_boost="on")
+   ms.set_context(mode=ms.context.PYNATIVE_MODE)
+
++   init_communication()
+
+   model_path = "/path/to/model"
+```
 
 After the model adaptation and weight adaptation are complete, you can run the following command to start multi-device execution:
 

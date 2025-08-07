@@ -262,7 +262,7 @@ Once the model is built, you can utilize the model object for text generation, e
      from mindspore import ops, mint, Tensor, dtype
      from qwen2 import Qwen2Config, Qwen2ModelInput, Qwen2ForCausalLM, CacheManager, sample
 
-     def generate(model: Qwen2ForCausalLM, cache_manager: CacheManager, input_ids: List, max_new_tokens: int, max_seq_lens: int, eos_token_id: int):
+     def generate(model: Qwen2ForCausalLM, config: Qwen2Config, cache_manager: CacheManager, input_ids: List, max_new_tokens: int, max_seq_lens: int, eos_token_id: int):
          batch_size = len(input_ids)
          assert max_seq_lens >= max(map(len, input_ids))
 
@@ -355,6 +355,7 @@ Once the model is built, you can utilize the model object for text generation, e
 
      output = generate(
          model=model,
+         config=config,
          cache_manager=cache_manager,
          input_ids=input_ids,
          max_new_tokens=max_new_tokens,
