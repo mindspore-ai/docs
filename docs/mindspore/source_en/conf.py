@@ -78,7 +78,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.7.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -223,32 +223,33 @@ with open(autodoc_source_path, "r", encoding="utf8") as f:
     exec(code_str, sphinx_autodoc.__dict__)
 
 # Repair error decorators defined in mindspore.
-try:
-    decorator_list = [("mindspore/common/_decorator.py", "deprecated",
-                       "    def decorate(func):",
-                       "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
-                       ("mindspore/nn/optim/optimizer.py", "deprecated",
-                       "def opt_init_args_register(fn):\n    \"\"\"Register optimizer init args.\"\"\"\n",
-                       "def opt_init_args_register(fn):\n    \"\"\"Register optimizer init args.\"\"\"\n\n    import functools\n\n    @functools.wraps(fn)"),
-                       ("mindspore/log.py", "deprecated",
-                       "    def __call__(self, func):\n",
-                       "    def __call__(self, func):\n        import functools\n\n        @functools.wraps(func)\n"),
-                       ("mindspore/ops/primitive.py", "fix for `shard`",
-                       "    @_LogActionOnce(logger=logger, key='Primitive')", "    # The decorator has been deleted."),
-                       ("mindspore/dataset/engine/datasets.py","generate api",
-                       "    @deprecated(\"1.5\")","    # The decorator has been deleted(id1)."),
-                       ("mindspore/dataset/engine/datasets.py","generate api",
-                       "    @check_bucket_batch_by_length","    # The decorator has been deleted(id2)."),
-                       ("mindspore/train/summary/summary_record.py", "summary_record",
-                       "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
-                       "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n"),
-                       ("mindspore/nn/cell.py","generate api",
-                       "    @jit_forbidden_register","    # generate api by del decorator."),
-                       ("mindspore/profiler/dynamic_profiler.py","generate api",
-                       "    @no_exception_func()","    # generate api by del decorator.")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
+decorator_list = [("mindspore/common/_decorator.py", "deprecated",
+                   "    def decorate(func):",
+                   "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
+                   ("mindspore/nn/optim/optimizer.py", "deprecated",
+                   "def opt_init_args_register(fn):\n    \"\"\"Register optimizer init args.\"\"\"\n",
+                   "def opt_init_args_register(fn):\n    \"\"\"Register optimizer init args.\"\"\"\n\n    import functools\n\n    @functools.wraps(fn)"),
+                   ("mindspore/log.py", "deprecated",
+                   "    def __call__(self, func):\n",
+                   "    def __call__(self, func):\n        import functools\n\n        @functools.wraps(func)\n"),
+                   ("mindspore/ops/primitive.py", "fix for `shard`",
+                   "    @_LogActionOnce(logger=logger, key='Primitive')", "    # The decorator has been deleted."),
+                   ("mindspore/dataset/engine/datasets.py","generate api",
+                   "    @deprecated(\"1.5\")","    # The decorator has been deleted(id1)."),
+                   ("mindspore/dataset/engine/datasets.py","generate api",
+                   "    @check_bucket_batch_by_length","    # The decorator has been deleted(id2)."),
+                   ("mindspore/train/summary/summary_record.py", "summary_record",
+                   "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
+                   "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n"),
+                   ("mindspore/nn/cell.py","generate api",
+                   "    @jit_forbidden_register","    # generate api by del decorator."),
+                   ("mindspore/profiler/dynamic_profiler.py","generate api",
+                   "    @no_exception_func()","    # generate api by del decorator.")]
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for i in decorator_list:
+    try:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
             if i[3] not in content:
@@ -256,18 +257,18 @@ try:
                 f.seek(0)
                 f.truncate()
                 f.write(content)
-except:
-    print('mindspore替换安装包内容失败')
+    except:
+        print(f'替换{i[0]}下内容失败')
 
 # Repair error content defined in mindspore.
-try:
-    decorator_list = [("mindspore/common/dtype.py","del decorator",
-                       "@enum.unique","# generate api by del decorator."),
-                      ("mindspore/common/dtype.py","del class",
-                       "class QuantDtype(enum.Enum):","class QuantDtype():")]
+decorator_list = [("mindspore/common/dtype.py","del decorator",
+                   "@enum.unique","# generate api by del decorator."),
+                   ("mindspore/common/dtype.py","del class",
+                   "class QuantDtype(enum.Enum):","class QuantDtype():")
+                   ]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
+for i in decorator_list:
+    try:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
             if i[2] in content:
@@ -275,14 +276,13 @@ try:
                 f.seek(0)
                 f.truncate()
                 f.write(content)
-except:
-    print('mindspore删除安装包装饰器内容失败')
+    except:
+        print(f'替换{i[0]}下内容失败')
 
 # add @functools.wraps
 try:
     decorator_list = [("mindspore/common/_tensor_overload.py", ".*?_mint")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
@@ -298,6 +298,34 @@ except:
 
 sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
+
+# 发版本时这里启用
+re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url5 = r"(mindspore.cn/mindstudio/[\w\d/_.-]*?)/(master)"
+
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.7.0', content)
+                new_content = re.sub(re_url2, r'\1/v2.7.0', new_content)
+                new_content = re.sub(re_url3, r'\1/r1.2.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r0.3.0', new_content)
+                new_content = re.sub(re_url5, r'\1/81RC1', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
 
 # Copy source files of en python api from mindspore repository.
 copy_path = 'docs/api/api_python_en'
@@ -340,7 +368,7 @@ if os.path.exists(dataset_list_path):
 def ops_interface_name():
 
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
     primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", content)
 
@@ -349,7 +377,7 @@ def ops_interface_name():
 def mint_interface_name():
     mint_p = 'mindspore.mint.rst'
     src_target_path = os.path.join(src_dir_en, mint_p)
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
     mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
 
@@ -420,17 +448,29 @@ for cur, _, files in os.walk(des_sir):
     for i in files:
         if os.path.join(cur, i) in no_viewsource_list:
             continue
-        if i.endswith('.md'):
+        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
                 new_content = content
-                md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                if 'resource/_static/logo_source' not in new_content:
-                    new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
-                if new_content != content:
-                    f.seek(0)
-                    f.truncate()
-                    f.write(new_content)
+
+                # 发版本时这里启用
+                new_content = re.sub(re_url, r'\1/r2.7.0', new_content)
+                new_content = re.sub(re_url3, r'\1/r1.2.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r0.3.0', new_content)
+                new_content = re.sub(re_url5, r'\1/81RC1', new_content)
+                if i.endswith('.rst'):
+                    new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
+
+                # master使用
+                # if i.endswith('.md'):
+                #     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                #     if 'resource/_static/logo_source' not in new_content:
+                #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+
+                # if new_content != content:
+                #     f.seek(0)
+                #     f.truncate()
+                #     f.write(new_content)
 
 import mindspore
 
@@ -614,5 +654,8 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
+    # 发版本时这里启用
+    content = re.sub(re_url, r'\1/r2.7.0', content)
+    content = re.sub(re_url2, r'\1/v2.7.0', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)

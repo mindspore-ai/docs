@@ -27,7 +27,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '1.2.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -210,6 +210,7 @@ for root,dirs,files in os.walk(src_dir_api):
                 if os.path.exists(os.path.join(f'./{outer_dir_name}', file)):
                     os.remove(os.path.join(f'./{outer_dir_name}', file))
                 shutil.copy(os.path.join(root, file), os.path.join(f'./{outer_dir_name}', file))
+                copy_list.append(os.path.join(f'./{outer_dir_name}', file))
                 break
         else:
             if not os.path.exists('.' + root.split(copy_path)[-1]):
@@ -217,6 +218,7 @@ for root,dirs,files in os.walk(src_dir_api):
             if os.path.exists('.' + root.split(copy_path)[-1] + '/'+file):
                 os.remove('.' + root.split(copy_path)[-1] + '/'+file)
             shutil.copy(os.path.join(root, file), '.' + root.split(copy_path)[-1]+'/'+file)
+            copy_list.append('.' + root.split(copy_path)[-1]+'/'+file)
 
 readme_path = os.path.join(os.getenv("GS_PATH"), 'README_CN.md')
 
@@ -344,6 +346,18 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
           f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
 
+re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url5 = r"(mindspore.cn/mindstudio/[\w\d/_.-]*?)/(master)"
+
 for cur, _, files in os.walk(moment_dir):
     for i in files:
         flag_copy = 0
@@ -363,6 +377,11 @@ for cur, _, files in os.walk(moment_dir):
                             re_view_ = re_view + copy_path + cur.split(moment_dir)[-1] + '/' + i + \
                                        '\n    :alt: 查看源文件\n\n'
                             new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                        new_content = re.sub(re_url, r'\1/r2.7.0', new_content)
+                        new_content = re.sub(re_url2, r'\1/v2.7.0', new_content)
+                        new_content = re.sub(re_url3, r'\1/r1.2.0', new_content)
+                        new_content = re.sub(re_url4, r'\1/r0.3.0', new_content)
+                        new_content = re.sub(re_url5, r'\1/81RC1', new_content)
                         if new_content != content:
                             f.seek(0)
                             f.truncate()
