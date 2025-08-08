@@ -343,6 +343,16 @@
        path：指定读取json配置。当设置该选项时，忽略以上选项。
      - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/br_base/custom_program/fusion_pass.html>`_
 
+   * - MS_DEV_PYNATIVE_FUSION_FLAGS
+     - 设置动态图异步执行模式下的算子融合选项
+     - String
+     - 配置项，格式为“--key=value”，多个配置项以空格分隔，多个value以逗号分隔。例如 `export MS_DEV_PYNATIVE_FUSION_FLAGS="--opt_level=1 --enable_ops=MatMul,MatMulExt"`
+
+       opt_level：是否开启算子融合，0表示不开启，1表示开启。默认值：0。
+
+       enable_ops：在开启算子融合的前提下，将部分默认不参与融合的算子加入融合。该配置项支持的算子：Dense、MatMul、MatMulExt、BatchMatMul、BatchMatMulExt。
+     -
+
    * - MS_DEV_DISABLE_AUTO_H2D
      - 控制动态图流程算子输入是否隐式拷贝。开启后，将关闭动态图算子输入隐式拷贝。
      - Integer
