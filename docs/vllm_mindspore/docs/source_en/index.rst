@@ -124,7 +124,7 @@ Apache License 2.0, as found in the `LICENSE <https://gitee.com/mindspore/vllm-m
    :caption: Developer Guide
    :hidden:
 
-   developer_guide/operations/npu_ops
+   developer_guide/operations/custom_ops
    developer_guide/contributing
 
 .. toctree::
