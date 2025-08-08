@@ -257,17 +257,17 @@ decorator_list = [("mindspore/common/dtype.py","del decorator",
                    ("mindspore/common/dtype.py","del class",
                    "class QuantDtype(enum.Enum):","class QuantDtype():"),
                    ("mindspore/nn/optim/adam.py","del url",
-                   ", refer\n        document `LossScale <https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html>`_ to\n        process `loss_scale` correctly",""),
+                   ", refer\n        document `LossScale <https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/mixed_precision.html>`_ to\n        process `loss_scale` correctly",""),
                    ("mindspore/train/amp.py","del url",
-                   "\n    For details on automatic mixed precision, refer to\n    `Automatic Mix Precision <https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html>`_ .",""),
+                   "\n    For details on automatic mixed precision, refer to\n    `Automatic Mix Precision <https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/mixed_precision.html>`_ .",""),
                    ("mindspore/nn/optim/lamb.py","del url",
-                   " Refer\n        document `LossScale <https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html>`_ to\n        process `loss_scale` correctly.",""),
+                   " Refer\n        document `LossScale <https://www.mindspore.cn/tutorials/en/r2.7.0rc1/beginner/mixed_precision.html>`_ to\n        process `loss_scale` correctly.",""),
                    ("mindspore/amp.py","del url",
-                   "\n    Tutorial Examples:\n        - `Automatic Mix Precision - Loss Scaling\n          <https://mindspore.cn/tutorials/en/master/beginner/mixed_precision.html#loss-scaling>`_",""),
+                   "\n    Tutorial Examples:\n        - `Automatic Mix Precision - Loss Scaling\n          <https://mindspore.cn/tutorials/en/r2.7.0rc1/beginner/mixed_precision.html#loss-scaling>`_",""),
                    ("mindspore/amp.py","del url",
-                   "\n    For more information, refer to the `tutorials  <https://mindspore.cn/tutorials/en/master/beginner/\n    mixed_precision.html#loss-scaling>`_.",""),
+                   "\n    For more information, refer to the `tutorials  <https://mindspore.cn/tutorials/en/r2.7.0rc1/beginner/\n    mixed_precision.html#loss-scaling>`_.",""),
                    ("mindspore/amp.py","del url",
-                   "\n        Tutorial Examples:\n            - `Automatic Mix Precision - Loss Scaling\n              <https://mindspore.cn/tutorials/en/master/beginner/mixed_precision.html#loss-scaling>`_","")
+                   "\n        Tutorial Examples:\n            - `Automatic Mix Precision - Loss Scaling\n              <https://mindspore.cn/tutorials/en/r2.7.0rc1/beginner/mixed_precision.html#loss-scaling>`_","")
                    ]
 
 for i in decorator_list:
