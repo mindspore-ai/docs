@@ -142,7 +142,7 @@ pip install mindquantum
 您可以直接使用 pip 通过 URL 进行安装，也可以先下载 whl 包和 sha256 校验文件到本地再进行安装。
 
 ```bash
-# 方式一：使用URL直接安装 (以Linux x86_64, Python 3.9为例)
+# 方式一：使用URL直接安装 (以Linux x86_64，Python 3.9为例)
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp39-cp39-manylinux_2_27_x86_64.whl
 
 # 方式二：本地下载后安装
