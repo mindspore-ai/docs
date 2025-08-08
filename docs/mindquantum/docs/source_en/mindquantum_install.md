@@ -53,34 +53,34 @@ Please select the appropriate `mindquantum-0.11.0` version from the table below 
       <td rowspan="6" style="text-align: center">Linux</td>
       <td rowspan="3" style="text-align: center">x86_64 (CPU/GPU)</td>
       <td style="text-align: center">3.9</td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp39-cp39-manylinux_2_27_x86_64.whl">mindquantum-0.11.0-cp39-cp39-manylinux_2_27_x86_64.whl</a></td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp39-cp39-manylinux_2_27_x86_64.whl.sha256">sha256</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp39-cp39-linux_x86_64.whl">mindquantum-0.11.0-cp39-cp39-linux_x86_64.whl</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp39-cp39-linux_x86_64.whl.sha256">sha256</a></td>
     </tr>
     <tr>
       <td style="text-align: center">3.10</td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp310-cp310-manylinux_2_27_x86_64.whl">mindquantum-0.11.0-cp310-cp310-manylinux_2_27_x86_64.whl</a></td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp310-cp310-manylinux_2_27_x86_64.whl.sha256">sha256</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp310-cp310-linux_x86_64.whl">mindquantum-0.11.0-cp310-cp310-linux_x86_64.whl</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp310-cp310-linux_x86_64.whl.sha256">sha256</a></td>
     </tr>
     <tr>
       <td style="text-align: center">3.11</td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp311-cp311-manylinux_2_27_x86_64.whl">mindquantum-0.11.0-cp311-cp311-manylinux_2_27_x86_64.whl</a></td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp311-cp311-manylinux_2_27_x86_64.whl.sha256">sha256</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp311-cp311-linux_x86_64.whl">mindquantum-0.11.0-cp311-cp311-linux_x86_64.whl</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp311-cp311-linux_x86_64.whl.sha256">sha256</a></td>
     </tr>
     <tr>
       <td rowspan="3" style="text-align: center">aarch64 (CPU)</td>
       <td style="text-align: center">3.9</td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp39-cp39-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl">mindquantum-0.11.0-cp39-cp39-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl</a></td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp39-cp39-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl.sha256">sha256</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp39-cp39-linux_aarch64.whl">mindquantum-0.11.0-cp39-cp39-linux_aarch64.whl</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp39-cp39-linux_aarch64.whl.sha256">sha256</a></td>
     </tr>
     <tr>
       <td style="text-align: center">3.10</td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp310-cp310-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl">mindquantum-0.11.0-cp310-cp310-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl</a></td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp310-cp310-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl.sha256">sha256</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp310-cp310-linux_aarch64.whl">mindquantum-0.11.0-cp310-cp310-linux_aarch64.whl</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp310-cp310-linux_aarch64.whl.sha256">sha256</a></td>
     </tr>
     <tr>
       <td style="text-align: center">3.11</td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp311-cp311-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl">mindquantum-0.11.0-cp311-cp311-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl</a></td>
-      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp311-cp311-manylinux_2_26_aarch64.manylinux_2_27_aarch64.whl.sha256">sha256</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp311-cp311-linux_aarch64.whl">mindquantum-0.11.0-cp311-cp311-linux_aarch64.whl</a></td>
+      <td style="text-align: center"><a href="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/aarch64/mindquantum-0.11.0-cp311-cp311-linux_aarch64.whl.sha256">sha256</a></td>
     </tr>
     <tr>
       <td rowspan="3" style="text-align: center">Windows</td>
@@ -143,15 +143,37 @@ You can install directly via URL using pip, or download the whl package and its 
 
 ```bash
 # Method 1: Install directly from URL (e.g., for Linux x86_64, Python 3.9)
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp39-cp39-manylinux_2_27_x86_64.whl
-
-# Method 2: Install after local download
-# 1. Download the whl package and its corresponding .sha256 file from the table above
-# 2. Verify integrity (optional, but recommended)
-sha256sum -c mindquantum-0.11.0-cp39-cp39-manylinux_2_27_x86_64.whl.sha256
-# 3. Install using pip
-pip install mindquantum-0.11.0-cp39-cp39-manylinux_2_27_x86_64.whl
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.11.0-cp39-cp39-linux_x86_64.whl
 ```
+
+**Installation and Verification from Local Download**
+
+1. **Download Files**: Download the `whl` package and its corresponding `.whl.sha256` checksum file from the table above.
+
+2. **Verify the Hash** (optional)
+
+   First, compute the SHA256 hash of your downloaded `whl` file (replace `your_downloaded_file.whl` with your actual filename):
+
+   ```bash
+   sha256sum your_downloaded_file.whl
+   ```
+
+   Next, display the official hash value recorded in the `.sha256` file:
+
+   ```bash
+   cat your_downloaded_file.whl.sha256
+   ```
+
+   **Manually compare** the hash strings from the two outputs. If they are identical, the file is correct.
+
+   > **Note:** Please be aware that the filename recorded in the `.whl.sha256` file may not exactly match the actual filename of the downloaded `whl` package. This can happen because the build system sometimes standardizes filenames for broader compatibility (e.g., renaming `manylinux_2_27_x86_64` to `linux_x86_64`). Please use the hash value as the authoritative reference.
+
+3. **Install the Package**: After successful verification, install the package using `pip`:
+
+   ```bash
+   # Replace your_downloaded_file.whl with your actual filename
+   pip install your_downloaded_file.whl
+   ```
 
 > - If you have a poor network connection, you can try using the Huawei Cloud mirror to speed up the download: `pip install -i https://repo.huaweicloud.com/repository/pypi/simple mindquantum`.
 
