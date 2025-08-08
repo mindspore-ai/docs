@@ -24,7 +24,7 @@ pip install mindquantum
 
     ```bash
     cd ~
-    git clone -b v2.5.0 https://gitee.com/mindspore/mindquantum.git
+    git clone -b r0.10 https://gitee.com/mindspore/mindquantum.git
     ```
 
 2. 编译安装MindSpore Quantum
