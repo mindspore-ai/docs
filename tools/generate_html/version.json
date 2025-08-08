@@ -46,5 +46,15 @@
       "uninstall_name" : "mindformers",
       "extra_whl_path" : "2.7.0rc1/MindSpore/unified/x86_64/",
       "extra_whl_name" : "mindspore-2.7.0rc1-cp39-cp39-linux_x86_64.whl"
-  }
+   },
+   {
+      "id" : 5 ,
+      "name" : "mindquantum",
+      "branch" : "r0.11",
+      "html_version" : "r0.11",
+      "whl_path" : "2.7.0rc1/MindQuantum/gpu/x86_64/cuda-11.1/",
+      "whl_name" : "mindquantum-0.11.0-cp39-cp39-linux_x86_64.whl",
+      "environ" : "MQ_PATH",
+      "uninstall_name" : "mindquantum"
+   }
 ]

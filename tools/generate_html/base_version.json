@@ -129,5 +129,14 @@
         },
         "repo_name": "mindformers",
         "theme": "theme-docs"
+    },
+    {
+        "version": "r0.11",
+        "label": {
+            "zh": "MindSpore Quantum",
+            "en": "MindSpore Quantum"
+        },
+        "repo_name": "mindquantum",
+        "theme": "theme-docs"
     }
 ]
