@@ -51,6 +51,7 @@
     | tar_name | 组件tar包的名称 | 否 |
     | extra_whl_path | 额外依赖组件whl安装包的文件夹路径 | 否 |
     | extra_whl_name | 额外依赖组件whl安装包的名称 | 否 |
+    | commit_id | 克隆后需要切换到的commit_id | 否 |
 
     必填键，若无对应值，其值填入空。
 

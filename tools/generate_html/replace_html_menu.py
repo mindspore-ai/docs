@@ -141,6 +141,7 @@ def replace_html_menu(html_path, hm_ds_path):
             for p in rp_dict:
                 if p in root:
                     p_key = p
+                    # note
                     if 'note/api_mapping' in root and p_key+'/api_mapping' in rp_dict:
                         p_key = p+'/api_mapping'
                     with open(os.path.join(root, file), 'r', encoding='utf-8') as f:
@@ -266,7 +267,7 @@ def replace_html_menu(html_path, hm_ds_path):
     with open(api_ind, 'r', encoding='utf-8') as f:
         api_doc = f.read()
 
-    # 替换搜索页的左侧目录为API
+    # 替换根搜索页的左侧目录为API
     search_p = f'{html_path}/search.html'
     menu_doc = re.findall(r'data-spy="affix" role="navigation"(?:.|\n|)+?</ul>\n\n', api_doc)
     if menu_doc:
@@ -325,7 +326,7 @@ def replace_html_menu(html_path, hm_ds_path):
             f.truncate()
             f.write(new_content)
 
-    # 用别的页面覆盖index并调整链接
+    # 用别的页面覆盖根目录的index并调整链接
     new_api_doc = replace_relurls(api_doc, first_ind, api_ind, ['href', 'src', 'action', 'data-url_root'])
 
     with open(first_ind, 'w', encoding='utf-8') as f:
