@@ -95,5 +95,14 @@
     "whl_name" : "",
     "environ" : "",
     "uninstall_name" : ""
+},
+{
+    "id" : 11 ,
+    "name" : "mindquantum",
+    "branch" : "master",
+    "whl_path" : "/mindquantum/newest/gpu/x86_64/cuda-11.1/",
+    "whl_name" : "mindquantum-.*-cp39-cp39-linux_x86_64.whl$",
+    "environ" : "MQ_PATH",
+    "uninstall_name" : "mindquantum"
 }
 ]

@@ -21,15 +21,21 @@ from lxml import etree
 from replace_html_menu import replace_html_menu, modify_menu_num
 
 # 下载仓库
-def git_clone(repo_url, repo_dir, repo_branch):
+def git_clone(repo_url, repo_dir, repo_branch, cmt_id):
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch=repo_branch, depth=1)
+        if cmt_id:
+            Repo.clone_from(repo_url, repo_dir, branch=repo_branch)
+        else:
+            Repo.clone_from(repo_url, repo_dir, branch=repo_branch, depth=1)
         print("Cloning Repo Done.")
 
 # 更新仓库
-def git_update(repo_dir, branch):
+def git_update(repo_dir, branch, cmt_id):
+    """
+    更新git仓库的信息。
+    """
     repo = Repo(repo_dir)
     str1 = repo.git.execute(["git", "clean", "-dfx"])
     print(str1)
@@ -39,6 +45,9 @@ def git_update(repo_dir, branch):
     print(str3)
     str4 = repo.git.execute(["git", "pull", "origin", branch])
     print(str4)
+    if cmt_id:
+        str5 = repo.git.execute(["git", "reset", "--hard", cmt_id])
+        print(str5)
 
 def deal_err(err, pylib_dir):
     extra_str_re = re.compile(r"\[3.*?m")
@@ -173,15 +182,18 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             try:
                 status_code = requests.get(repo_url, headers=headers, timeout=30).status_code
                 if status_code == 200:
+                    commit_id = ""
+                    if 'commit_id' in data[i].keys():
+                        commit_id = data[i]['commit_id']
                     if not os.path.exists(repo_path):
-                        git_clone(repo_url, repo_path, branch_)
+                        git_clone(repo_url, repo_path, branch_, commit_id)
                     if data[i]['environ'] == "MSC_PATH":
                         if data[i]['name'] == "mindscience":
-                            git_update(repo_path, branch_)
+                            git_update(repo_path, branch_, commit_id)
                         elif msc_branch:
-                            git_update(repo_path, msc_branch)
+                            git_update(repo_path, msc_branch, commit_id)
                     else:
-                        git_update(repo_path, branch_)
+                        git_update(repo_path, branch_, commit_id)
                     print(f'{repo_name}仓库克隆更新成功')
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')
@@ -225,7 +237,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if links:
                     for link_ in links[::-1]:
                         href = link_.get("href", "")
-                        if href.startswith('dev_'):
+                        if href.startswith('master_'):
                             url = search_url+href+data[i]['whl_search']
                             break
                 if not url:
@@ -303,6 +315,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             print(f"Download {title} success!")
                             time.sleep(1)
 
+            # 下载tar包
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
                     url = f"{wgetdir}/{data[i]['tar_path']}"
@@ -390,6 +403,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
     whls = os.listdir()
     if whls:
+        for i in whls:
+            if re.findall('mindspore-[0-9]', i) and "tar.gz" not in i:
+                cmd_install = ["pip", "install", i]
+                subprocess.run(cmd_install)
+                break
         for i in whls:
             if "mindpandas" in i and "cp38-cp38" in i:
                 os.rename(os.path.join(WHLDIR, i), os.path.join(WHLDIR, i.replace('cp38-cp38', 'cp37-cp37m')))
@@ -488,7 +506,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if process.returncode != 0:
                     print(f"{i} 的 英文 版本运行失败")
                     print(f"错误信息：\n{stderr}")
-                    with open("err_cn.log", "w") as f:
+                    with open("err_en.log", "w") as f:
                         f.write(stderr)
                     failed_list.append(stderr)
                     failed_name_list.append(f'{i}的英文版本')
@@ -527,6 +545,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if process.returncode != 0:
                     print(f"{i} 的 中文版本运行失败")
                     print(f"错误信息：\n{stderr}")
+                    with open("err_cn.log", "w") as f:
+                        f.write(stderr)
                     failed_list.append(stderr)
                     failed_name_list.append(f'{i}的中文版本')
                 else:
@@ -543,7 +563,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
     # 将每个组件的warning写入文件
     if error_lists:
-        with open(os.path.join(WORKDIR, 'err.txt'), 'wb') as f:
+        with open(os.path.join(WORKDIR, 'warning.txt'), 'wb') as f:
             pickle.dump(error_lists, f)
 
     # 将构建失败组件的报错信息写入文件
@@ -609,8 +629,8 @@ if __name__ == "__main__":
     parser.add_argument('--version', type=str, default="daily") # release as 1.9.0 or 1.8.1 or 1.8.0
     parser.add_argument('--user', type=str, default="") # repo url username
     parser.add_argument('--pd', type=str, default="") # repo url password
-    parser.add_argument('--wgetdir', type=str, default="") # repo url
-    parser.add_argument('--release_url', type=str, default="") # repo url
+    parser.add_argument('--wgetdir', type=str, default="") # 日常构建使用repo url
+    parser.add_argument('--release_url', type=str, default="") # 发布版本使用的repo url
     parser.add_argument('--theme', type=str, default="") # theme.css/js
     parser.add_argument('--single_generate', type=str, default="")
     args = parser.parse_args()
@@ -642,7 +662,7 @@ if __name__ == "__main__":
             print('docs中文目录大纲调整完成！')
             replace_html_menu(ms_path.replace('zh-CN', 'en'), os.path.join(DOCDIR, "../../docs/mindspore/source_en"))
             print('docs英文目录大纲调整完成！')
-            # 修改每个页面内搜索页面的链接
+            # 修改每个页面内搜索页面的链接路径
             pool = Pool(processes=4)
             files = yield_files(ms_path)
             pool.map(process_file, files)
@@ -706,6 +726,7 @@ if __name__ == "__main__":
 
                     static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
                     static_path_version = os.path.join(static_path_version, "version.json")
+
                     if 'lite' in out_name:
                         css_path = f"theme-{out_name.split('/')[0]}/theme.css"
                         js_path = f"theme-{out_name.split('/')[0]}/theme.js"
@@ -721,12 +742,14 @@ if __name__ == "__main__":
                     static_path_new_underscore = os.path.join(theme_path, "update_js", "underscore.js")
                     out_name_1 = out_name.split('/')[0]
                     static_path_new_version = os.path.join(version_path, f"{out_name_1}_version.json")
+                    # 删除字体
                     fonts_dir_1 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/fonts/")
                     fonts_dir_2 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/fonts/")
                     if fonts_dir_1 and os.path.exists(fonts_dir_1[0]):
                         shutil.rmtree(fonts_dir_1[0])
                     if fonts_dir_2 and os.path.exists(fonts_dir_2[0]):
                         shutil.rmtree(fonts_dir_2[0])
+
                     if os.path.exists(static_path_css):
                         os.remove(static_path_css)
                     shutil.copy(static_path_new_css, static_path_css)
@@ -742,6 +765,7 @@ if __name__ == "__main__":
                     if os.path.exists(static_path_underscore):
                         os.remove(static_path_underscore)
                     shutil.copy(static_path_new_underscore, static_path_underscore)
+
                     if os.path.exists(static_path_jquery):
                         os.remove(static_path_jquery_)
                     if os.path.exists(static_path_underscore_):
