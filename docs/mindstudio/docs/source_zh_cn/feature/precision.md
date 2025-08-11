@@ -14,16 +14,10 @@ msprobe 是 MindStudio Training Tools 工具链下精度调试部分的工具包
     </tr>
     <tr>
         <td rowspan="7">msprobe</td>
-        <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/09.accuracy_checker_MindSpore.md">离线预检</a></td>
+        <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/09.accuracy_checker_MindSpore.md">离线精度预检</a></td>
         <td>为网络中每个API创建用例，检验其精度，并根据不同比对算法综合判定API在NPU上的精度是否达标，快速找出精度差异API。</td>
         <td>1. 对模型中所有的API做精度初步排查 <br>2. 精度排查不受模型累计误差影响</td>
         <td>仅支持mindspore.mint API</td>
-    </tr>
-    <tr>
-        <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/19.monitor.md">训练状态监控</a></td>
-        <td>收集模型训练过程中的激活值、梯度和优化器状态，助力分析计算、通信、优化器各部分异常情况。</td>
-        <td>通过监控模块级统计量指标，快速定位异常模块位置，如loss出现Nan</td>
-        <td>1. 仅支持模块级别统计量指标分析 <br>2. 仅支持Megatron、DeepSeed框架 <br>3. 会产生少量耗时和显存膨胀</td>
     </tr>
     <tr>
         <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md">数据采集</a></td>
@@ -36,6 +30,12 @@ msprobe 是 MindStudio Training Tools 工具链下精度调试部分的工具包
         <td>检测模型计算过程的输入输出，并在溢出时落盘数据，助力用户快速定位溢出位置。</td>
         <td>1. 当模型出现溢出时，可用于定位最先溢出的API或Cell或kernel <br>2. 相比数据采集，性能更优，磁盘压力更小</td>
         <td>1. 除具有与数据采集功能相同的约束外，动态图场景下，不支持 Primitive 和 Jit 类 API 的检测 <br>2. 动态图场景下，仅支持检测API或Cell级别溢出 <br>3. 静态图场景下，仅支持检测kernel级别溢出</td>
+    </tr>
+    <tr>
+        <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/19.monitor.md">训练状态监控</a></td>
+        <td>收集模型训练过程中的激活值、梯度和优化器状态，助力分析计算、通信、优化器各部分异常情况。</td>
+        <td>通过监控模块级统计量指标，快速定位异常模块位置，如loss出现Nan</td>
+        <td>1. 仅支持模块级别统计量指标分析 <br>2. 仅支持Megatron、DeepSeed框架 <br>3. 会产生少量耗时和显存膨胀</td>
     </tr>
     <tr>
         <td><a href="https://gitee.com/ascend/mstt/blob/br_release_MindStudio_8.1.RC1_TR5_20260623/debug/accuracy_tools/msprobe/docs/22.visualization_MindSpore.md">可视化比对</a></td>
