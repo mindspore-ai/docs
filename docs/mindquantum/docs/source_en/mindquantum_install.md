@@ -152,7 +152,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQua
 
 2. **Verify the Hash** (optional)
 
-   First, compute the SHA256 hash of your downloaded `whl` file (replace `your_downloaded_file.whl` with your actual filename):
+   First, compute the hash value of your downloaded `whl` file (replace `your_downloaded_file.whl` with your actual filename):
 
    ```bash
    sha256sum your_downloaded_file.whl
