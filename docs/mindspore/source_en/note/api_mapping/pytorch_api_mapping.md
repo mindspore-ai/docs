@@ -37,7 +37,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | :-------------: | :----------------------------------------------------------: |:--:|
 |       out       |                 Indicates the output Tensor                  |Assign the operation result to the out parameter, not supported in MindSpore.|
 |     layout      |          Indicates the memory distribution strategy          |PyTorch supports torch.striped and torch.split_coo, not supported in MindSpore.|
-|     device      |            Indicates the Tensor storage location             |Including device type and optional device number, MindSpore currently supports operator or network-level device scheduling.|
+|     device      |            Indicates the Tensor storage location             |Including device type and optional device number. MindSpore supports the following options: <br/>1. After creating a Tensor, it is created on the CPU by default. When executing operators, it will be automatically copied to the corresponding device_target according to [set_device](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_device.html). <br/>2. If you want to manually copy the Tensor after creation, you can also call the [Tensor.move_to](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.move_to.html). |
 |  requires_grad  |           Indicates whether to update the gradient           |MindSpore can be accessed through the `Parameter.requires_grad` attribute to control.|
 |   pin_memory   |         Indicates whether to use locking page memory         |Not supported in MindSpore.|
 |  memory_format  |          Indicates the memory format of the Tensor           |Not supported in MindSpore.|
