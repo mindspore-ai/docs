@@ -1206,13 +1206,35 @@ Serialization类汇总了模型文件读写的方法。
 
 | 函数                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------------------------|--------|--------|
-| [Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load)     |    ✕    |    √    |
-| [Status Load(const std::vector\<std::string\> &files, ModelType model_type, std::vector\<Graph\> *graphs, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-1)     |    ✕    |    ✕    |
-| [Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-2)     |    ✕    |    √    |
+| [Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load)     |    ✕    |    √    |
+| [Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-1)     |    ✕    |    √    |
+| [Status Load(const std::vector\<std::string\> &files, ModelType model_type, std::vector\<Graph\> *graphs, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-2)     |    ✕    |    ✕    |
 | [static Status SetParameters(const std::map\<std::string, Buffer\> &parameters, Model *model)](#setparameters)     |    ✕    |    ✕    |
 | [static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data)](#exportmodel)     |    ✕    |    √    |
 | [static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file, QuantizationType quantization_type = kNoQuant, bool export_inference_only = true, std::vector\<std::string\> output_tensor_name = {})](#exportmodel)     |    ✕    |    √    |
 | [static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type, const std::string &weight_file, bool is_inference = true, bool enable_fp16 = false, const std::vector\<std::string\> &changeable_weights_name = {})](#exportweightscollaboratewithmicro)     |    ✕    |    √    |
+
+#### Load
+
+从内存缓冲区加载模型。
+
+```cpp
+Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph,
+            const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)
+```
+
+- 参数
+
+    - `model_data`：模型数据指针。
+    - `data_size`：模型数据字节数。
+    - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
+    - `graph`：输出参数，保存图数据的对象。
+    - `dec_key`：解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`：解密模式，可选有`AES-GCM`、`AES-CBC`。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 #### Load
 
@@ -1225,11 +1247,11 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph, const K
 
 - 参数
 
-    - `file`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
-    - `graph`: 输出参数，保存图数据的对象。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+    - `file`：模型文件路径。
+    - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
+    - `graph`：输出参数，保存图数据的对象。
+    - `dec_key`：解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`：解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
@@ -1246,33 +1268,11 @@ Status Load(const std::vector<std::string> &files, ModelType model_type, std::ve
 
 - 参数
 
-    - `files`: 多个模型文件路径，用vector存储。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
-    - `graphs`: 输出参数，依次保存图数据的对象。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-#### Load
-
-从内存缓冲区加载模型。
-
-```cpp
-Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph,
-            const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)
-```
-
-- 参数
-
-    - `model_data`：模型数据指针。
-    - `data_size`：模型数据字节数。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
-    - `graph`：输出参数，保存图数据的对象。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+    - `files`：多个模型文件路径，用vector存储。
+    - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。
+    - `graphs`：输出参数，依次保存图数据的对象。
+    - `dec_key`：解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`：解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
@@ -1362,7 +1362,7 @@ static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType mo
 
 ## Buffer
 
-\#include &lt;types.h&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
 
 Buffer定义了MindSpore中Buffer数据的结构。
 
@@ -1388,7 +1388,7 @@ Buffer定义了MindSpore中Buffer数据的结构。
 #### Data
 
 ```cpp
-const void *Data() const;
+const void *Data() const
 ```
 
 获取只读的数据地址。
@@ -1412,7 +1412,7 @@ void *MutableData()
 #### DataSize
 
 ```cpp
-size_t DataSize() const;
+size_t DataSize() const
 ```
 
 获取data大小。
@@ -1457,7 +1457,7 @@ bool SetData(const void *data, size_t data_len)
 #### Clone
 
 ```cpp
-Buffer Clone() const;
+Buffer Clone() const
 ```
 
 拷贝一份自身的副本。
@@ -1753,7 +1753,7 @@ MSTensor GetInputByTensorName(const std::string &tensor_name)
 #### GetGradients
 
 ```cpp
-std::vector<MSTensor> GetGradients() const;
+std::vector<MSTensor> GetGradients() const
 ```
 
 获取所有Tensor的梯度。
@@ -1777,7 +1777,7 @@ Status ApplyGradients(const std::vector<MSTensor> &gradients)
 #### GetOptimizerParams
 
 ```cpp
-std::vector<MSTensor> GetOptimizerParams() const;
+std::vector<MSTensor> GetOptimizerParams() const
 ```
 
 获取optimizer参数MSTensor。
@@ -1801,7 +1801,7 @@ Status SetOptimizerParams(const std::vector<MSTensor> &params)
 #### GetTrainableParams
 
 ```cpp
-std::vector<MSTensor> GetTrainableParams() const;
+std::vector<MSTensor> GetTrainableParams() const
 ```
 
 获取optimizer中所有参与权重更新的MSTensor。
@@ -1927,7 +1927,7 @@ session设置训练模式。
 #### GetTrainMode
 
 ```cpp
-bool GetTrainMode() const;
+bool GetTrainMode() const
 ```
 
 获取session是否是训练模式。
@@ -2184,7 +2184,7 @@ Status UpdateWeights(const std::vector<MSTensor> &new_weights)
 #### UpdateWeights
 
 ```cpp
-Status UpdateWeights(const std::vector<std::vector<MSTensor>> &new_weights);
+Status UpdateWeights(const std::vector<std::vector<MSTensor>> &new_weights)
 ```
 
 更新模型的权重的大小和内容。
@@ -2212,7 +2212,7 @@ const std::shared_ptr<ModelImpl> impl() const
 #### GetModelInfo
 
 ```cpp
-inline std::string GetModelInfo(const std::string &key);
+inline std::string GetModelInfo(const std::string &key)
 ```
 
 获取模型的信息。
@@ -2228,7 +2228,7 @@ inline std::string GetModelInfo(const std::string &key);
 #### Finalize
 
 ```cpp
-Status Finalize();
+Status Finalize()
 ```
 
 模型终止。
@@ -2260,7 +2260,7 @@ explicit MSTensor(std::nullptr_t)
 | 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |------------------------------------------------------------------------------------------------------------------|---------|---------|
 | [MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector\<int64_t\> &shape, const void *data, size_t data_len, const std::string &device = "", int device_id = -1) noexcept](#createtensor)     |    √    |    √    |
-| [MSTensor *CreateTensor(const std::string &name, const MSTensor &tensor, const std::string &device = "", int device_id = -1) noexcept](#createtensor)     |    √    |    √    |
+| [MSTensor *CreateTensor(const std::string &name, const MSTensor &tensor, const std::string &device = "", int device_id = -1) noexcept](#createtensor-1)     |    √    |    √    |
 | [MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vector\<int64_t\> &shape, void *data, size_t data_len) noexcept](#createreftensor)     |    √    |    √    |
 | [static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type, const std::vector\<int64_t\> &shape, void *data, size_t data_len) noexcept](#createdevicetensor)     |    √    |    ✕    |
 | [static inline MSTensor *CreateTensorFromFile(const std::string &file, DataType type = DataType::kNumberTypeUInt8, const std::vector\<int64_t\> &shape = {}) noexcept](#createtensorfromfile)     |    √    |    ✕    |
@@ -2273,7 +2273,7 @@ explicit MSTensor(std::nullptr_t)
 ```cpp
 MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape,
                        const void *data, size_t data_len, const std::string &device = "",
-                       int device_id = -1) noexcept;
+                       int device_id = -1) noexcept
 ```
 
 创建一个`MSTensor`对象，其数据需复制后才能由`Model`访问，必须与`DestroyTensorPtr`成对使用。
@@ -2296,7 +2296,7 @@ MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector
 
 ```cpp
 MSTensor *CreateTensor(const std::string &name, const MSTensor &tensor, const std::string &device = "",
-                       int device_id = -1) noexcept;
+                       int device_id = -1) noexcept
 ```
 
 创建一个`MSTensor`对象，其数据需复制后才能由`Model`访问，必须与`DestroyTensorPtr`成对使用。
@@ -2316,7 +2316,7 @@ MSTensor *CreateTensor(const std::string &name, const MSTensor &tensor, const st
 
 ```cpp
 MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, void *data,
-                          size_t data_len) noexcept;
+                          size_t data_len) noexcept
 ```
 
 创建一个`MSTensor`对象，其数据可以直接由`Model`访问，必须与`DestroyTensorPtr`成对使用。
@@ -2337,7 +2337,7 @@ MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vec
 
 ```cpp
 static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape,
-                                          void *data, size_t data_len) noexcept;
+                                          void *data, size_t data_len) noexcept
 ```
 
 创建一个`MSTensor`对象，其device数据可以直接由`Model`访问，不需要与`DestroyTensorPtr`成对使用。
@@ -2358,7 +2358,7 @@ static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type
 
 ```cpp
 static inline MSTensor *CreateTensorFromFile(const std::string &file, DataType type = DataType::kNumberTypeUInt8,
-                                             const std::vector<int64_t> &shape = {}) noexcept;
+                                             const std::vector<int64_t> &shape = {}) noexcept
 ```
 
 创建一个`MSTensor`对象，其数据由文件路径`file`所指定，必须与`DestroyTensorPtr`成对使用。
@@ -2409,7 +2409,7 @@ std::vector<std::string> TensorToStrings(const MSTensor &tensor)
 #### DestroyTensorPtr
 
 ```cpp
-void DestroyTensorPtr(MSTensor *tensor) noexcept;
+void DestroyTensorPtr(MSTensor *tensor) noexcept
 ```
 
 销毁一个由`Clone`、`StringsToTensor`、`CreateRefTensor`或`CreateTensor`所创建的对象，请勿用于销毁其他来源的`MSTensor`。
@@ -2455,7 +2455,7 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
 #### Name
 
 ```cpp
-std::string Name() const;
+std::string Name() const
 ```
 
 获取`MSTensor`的名字。
@@ -2467,7 +2467,7 @@ std::string Name() const;
 #### DataType
 
 ```cpp
-enum DataType DataType() const;
+enum DataType DataType() const
 ```
 
 获取`MSTensor`的数据类型。
@@ -2479,7 +2479,7 @@ enum DataType DataType() const;
 #### Shape
 
 ```cpp
-const std::vector<int64_t> &Shape() const;
+const std::vector<int64_t> &Shape() const
 ```
 
 获取`MSTensor`的Shape。
@@ -2491,7 +2491,7 @@ const std::vector<int64_t> &Shape() const;
 #### ElementNum
 
 ```cpp
-int64_t ElementNum() const;
+int64_t ElementNum() const
 ```
 
 获取`MSTensor`的元素个数。
@@ -2503,7 +2503,7 @@ int64_t ElementNum() const;
 #### Data
 
 ```cpp
-std::shared_ptr<const void> Data() const;
+std::shared_ptr<const void> Data() const
 ```
 
 获取指向`MSTensor`中的数据拷贝的智能指针。
@@ -2527,7 +2527,7 @@ void *MutableData()
 #### DataSize
 
 ```cpp
-size_t DataSize() const;
+size_t DataSize() const
 ```
 
 获取`MSTensor`中的数据的以字节为单位的内存长度。
@@ -2539,7 +2539,7 @@ size_t DataSize() const;
 #### GetDevice
 
 ```cpp
-int GetDevice() const;
+int GetDevice() const
 ```
 
 获取`MSTensor`所处的设备类型。
@@ -2551,7 +2551,7 @@ int GetDevice() const;
 #### GetDeviceId
 
 ```cpp
-int GetDeviceId() const;
+int GetDeviceId() const
 ```
 
 获取`MSTensor`所处的设备编号。
@@ -2563,7 +2563,7 @@ int GetDeviceId() const;
 #### IsConst
 
 ```cpp
-bool IsConst() const;
+bool IsConst() const
 ```
 
 判断`MSTensor`中的数据是否是常量数据。
@@ -2575,7 +2575,7 @@ bool IsConst() const;
 #### IsDevice
 
 ```cpp
-bool IsDevice() const;
+bool IsDevice() const
 ```
 
 判断`MSTensor`中是否在设备上。
@@ -2587,7 +2587,7 @@ bool IsDevice() const;
 #### Clone
 
 ```cpp
-MSTensor *Clone() const;
+MSTensor *Clone() const
 ```
 
 拷贝一份自身的副本。
@@ -2599,7 +2599,7 @@ MSTensor *Clone() const;
 #### operator==(std::nullptr_t)
 
 ```cpp
-bool operator==(std::nullptr_t) const;
+bool operator==(std::nullptr_t) const
 ```
 
 判断`MSTensor`是否合法。
@@ -2611,7 +2611,7 @@ bool operator==(std::nullptr_t) const;
 #### operator!=(std::nullptr_t)
 
 ```cpp
-bool operator!=(std::nullptr_t) const;
+bool operator!=(std::nullptr_t) const
 ```
 
 判断`MSTensor`是否合法。
@@ -2623,7 +2623,7 @@ bool operator!=(std::nullptr_t) const;
 #### operator==(const MSTensor &tensor)
 
 ```cpp
-bool operator==(const MSTensor &tensor) const;
+bool operator==(const MSTensor &tensor) const
 ```
 
 判断`MSTensor`是否与另一个MSTensor相等。
@@ -2635,7 +2635,7 @@ bool operator==(const MSTensor &tensor) const;
 #### operator!=(const MSTensor &tensor)
 
 ```cpp
-bool operator!=(const MSTensor &tensor) const;
+bool operator!=(const MSTensor &tensor) const
 ```
 
 判断`MSTensor`是否与另一个MSTensor不相等。
@@ -2683,7 +2683,7 @@ void SetAllocator(std::shared_ptr<Allocator> allocator)
 #### allocator
 
 ```cpp
-std::shared_ptr<Allocator> allocator() const;
+std::shared_ptr<Allocator> allocator() const
 ```
 
 获取`MSTensor`数据所属的内存池。
@@ -2703,7 +2703,7 @@ void SetFormat(mindspore::Format format)
 #### format
 
 ```cpp
-mindspore::Format format() const;
+mindspore::Format format() const
 ```
 
 获取`MSTensor`数据的format，目前在[Delegate](#delegate)机制使用。
@@ -2740,7 +2740,7 @@ void *GetDeviceData()
 #### QuantParams
 
 ```cpp
-std::vector<QuantParam> QuantParams() const;
+std::vector<QuantParam> QuantParams() const
 ```
 
 获取`MSTensor`的量化参数，目前在[Delegate](#delegate)机制使用。
@@ -2860,8 +2860,8 @@ execute_time
 ### 构造函数和析构函数
 
 ```cpp
-Delegate() = default;
-virtual ~Delegate() = default;
+Delegate() = default
+virtual ~Delegate() = default
 ```
 
 ### 公有成员函数
@@ -2869,7 +2869,7 @@ virtual ~Delegate() = default;
 #### Init
 
 ```cpp
-virtual Status Init() = 0;
+virtual Status Init() = 0
 ```
 
 初始化Delegate资源。
@@ -2881,7 +2881,7 @@ virtual Status Init() = 0;
 #### Build
 
 ```cpp
-virtual Status Build(DelegateModel *model) = 0;
+virtual Status Build(DelegateModel *model) = 0
 ```
 
 Delegate在线构图。
@@ -2897,7 +2897,7 @@ Delegate在线构图。
 #### CreateKernel
 
 ```cpp
-std::shared_ptr<kernel::Kernel> CreateKernel(const std::shared_ptr<kernel::Kernel> &node) override;
+std::shared_ptr<kernel::Kernel> CreateKernel(const std::shared_ptr<kernel::Kernel> &node) override
 ```
 
 创建Kernel。
@@ -2913,7 +2913,7 @@ std::shared_ptr<kernel::Kernel> CreateKernel(const std::shared_ptr<kernel::Kerne
 #### IsDelegateNode
 
 ```cpp
-bool IsDelegateNode(const std::shared_ptr<kernel::Kernel> &node) override;
+bool IsDelegateNode(const std::shared_ptr<kernel::Kernel> &node) override
 ```
 
 是否是Delegate节点。
@@ -2929,7 +2929,7 @@ bool IsDelegateNode(const std::shared_ptr<kernel::Kernel> &node) override;
 #### ReplaceNode
 
 ```cpp
-void ReplaceNodes(const std::shared_ptr<LiteDelegateGraph> &graph) override {}
+void ReplaceNodes(const std::shared_ptr<LiteDelegateGraph> &graph) override
 ```
 
 替换节点。
@@ -2955,7 +2955,7 @@ CoreMLDelegate()
 #### Init
 
 ```cpp
-Status Init() overirde;
+Status Init() override
 ```
 
 初始化CoreMLDelegate资源，仅在内部图编译阶段调用。
@@ -2967,7 +2967,7 @@ Status Init() overirde;
 #### Build
 
 ```cpp
-Status Build(DelegateModel *model) override;
+Status Build(DelegateModel *model) override
 ```
 
 CoreMLDelegate在线构图，仅在内部图编译阶段调用。
@@ -3001,7 +3001,7 @@ typedef enum {
 定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
 
 ```cpp
-using KernelIter = std::vector<kernel::Kernel *>::iterator;
+using KernelIter = std::vector<kernel::Kernel *>::iterator
 ```
 
 ## DelegateModel
@@ -3021,7 +3021,7 @@ DelegateModel(std::vector<kernel::Kernel *> *kernels, const std::vector<MSTensor
 ### 析构函数
 
 ```cpp
-~DelegateModel() = default;
+~DelegateModel() = default
 ```
 
 ### 保护成员
@@ -3029,7 +3029,7 @@ DelegateModel(std::vector<kernel::Kernel *> *kernels, const std::vector<MSTensor
 #### kernels_
 
 ```cpp
-std::vector<kernel::Kernel *> *kernels_;
+std::vector<kernel::Kernel *> *kernels_
 ```
 
 [**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
@@ -3037,7 +3037,7 @@ std::vector<kernel::Kernel *> *kernels_;
 #### inputs_
 
 ```cpp
-const std::vector<mindspore::MSTensor> &inputs_;
+const std::vector<mindspore::MSTensor> &inputs_
 ```
 
 [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输入tensor。
@@ -3045,7 +3045,7 @@ const std::vector<mindspore::MSTensor> &inputs_;
 #### outputs_
 
 ```cpp
-const std::vector<mindspore::MSTensor> &outputs;
+const std::vector<mindspore::MSTensor> &outputs
 ```
 
 [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输出tensor。
@@ -3053,7 +3053,7 @@ const std::vector<mindspore::MSTensor> &outputs;
 #### primitives_
 
 ```cpp
-const std::map<kernel::Kernel *, const schema::Primitive *> &primitives_;
+const std::map<kernel::Kernel *, const schema::Primitive *> &primitives_
 ```
 
 [**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
@@ -3061,7 +3061,7 @@ const std::map<kernel::Kernel *, const schema::Primitive *> &primitives_;
 #### version_
 
 ```cpp
-SchemaVersion version_;
+SchemaVersion version_
 ```
 
 **enum**值，当前执行推理的模型的版本[SchemaVersion](#schemaversion)。
@@ -3071,7 +3071,7 @@ SchemaVersion version_;
 #### GetPrimitive
 
 ```cpp
-const schema::Primitive *GetPrimitive(kernel::Kernel *kernel) const;
+const schema::Primitive *GetPrimitive(kernel::Kernel *kernel) const
 ```
 
 获取一个Kernel的属性值。
@@ -3185,13 +3185,13 @@ const SchemaVersion GetVersion()
 ```cpp
 AbstractDelegate();
 AbstractDelegate(const std::vector<mindspore::MSTensor> &inputs, const std::vector<mindspore::MSTensor> &outputs)
-      : inputs_(inputs), outputs_(outputs) {}
+      : inputs_(inputs), outputs_(outputs)
 ```
 
 ### 析构函数
 
 ```cpp
-virtual ~AbstractDelegate() = default;
+virtual ~AbstractDelegate() = default
 ```
 
 ### 公有成员函数
@@ -3241,7 +3241,7 @@ std::vector<mindspore::MSTensor> outputs_
 ```cpp
 IDelegate();
 IDelegate(const std::vector<mindspore::MSTensor> &inputs, const std::vector<mindspore::MSTensor> &outputs)
-      : AbstractDelegate(inputs, outputs) {}
+      : AbstractDelegate(inputs, outputs)
 ```
 
 ### 析构函数
@@ -3300,13 +3300,13 @@ TrainCfg(const TrainCfg &rhs) {
 ### 析构函数
 
 ```cpp
-~TrainCfg() = default;
+~TrainCfg() = default
 ```
 
 ### 公有成员变量
 
 ```cpp
-OptimizationLevel optimization_level_ = kO0;
+OptimizationLevel optimization_level_ = kO0
 ```
 
 优化的数据类型。
@@ -3322,19 +3322,19 @@ enum OptimizationLevel : uint32_t {
 ```
 
 ```cpp
-std::string loss_name_;
+std::string loss_name_
 ```
 
 损失节点的名称。
 
 ```cpp
-MixPrecisionCfg mix_precision_cfg_;
+MixPrecisionCfg mix_precision_cfg_
 ```
 
 混合精度配置。
 
 ```cpp
-bool accumulate_gradients_;
+bool accumulate_gradients_
 ```
 
 是否累加梯度。
@@ -3344,7 +3344,7 @@ bool accumulate_gradients_;
 #### GetLossName
 
 ```cpp
-inline std::vector<std::string> GetLossName() const;
+inline std::vector<std::string> GetLossName() const
 ```
 
 获得损失名称。
@@ -3356,7 +3356,7 @@ inline std::vector<std::string> GetLossName() const;
 #### SetLossName
 
 ```cpp
-inline void SetLossName(const std::vector<std::string> &loss_name);
+inline void SetLossName(const std::vector<std::string> &loss_name)
 ```
 
 设置损失名称。
@@ -3394,37 +3394,37 @@ inline void SetLossName(const std::vector<std::string> &loss_name);
 ### 析构函数
 
 ```cpp
-~MixPrecisionCfg() = default;
+~MixPrecisionCfg() = default
 ```
 
 ### 共有成员变量
 
 ```cpp
-bool dynamic_loss_scale_ = false;
+bool dynamic_loss_scale_ = false
 ```
 
 混合精度训练中是否启用动态损失比例。
 
 ```cpp
-float loss_scale_;
+float loss_scale_
 ```
 
 初始损失比例。
 
 ```cpp
-uint32_t num_of_not_nan_iter_th_;
+uint32_t num_of_not_nan_iter_th_
 ```
 
 动态损失阈值。
 
 ```cpp
-bool is_raw_mix_precision_;
+bool is_raw_mix_precision_
 ```
 
 原始模型是否是原生混合精度模型。
 
 ```cpp
-bool keep_batchnorm_fp32_ = true;
+bool keep_batchnorm_fp32_ = true
 ```
 
 原型模型是否保持BatchNorm算子为Fp32格式。
@@ -3460,7 +3460,7 @@ virtual ~AccuracyMetrics()
 #### Clear
 
 ```cpp
-void Clear() override;
+void Clear() override
 ```
 
 精度清零。
@@ -3468,7 +3468,7 @@ void Clear() override;
 #### Eval
 
 ```cpp
-float Eval() override;
+float Eval() override
 ```
 
 模型验证。
@@ -3486,7 +3486,7 @@ float Eval() override;
 ### 析构函数
 
 ```cpp
-virtual ~Metrics() = default;
+virtual ~Metrics() = default
 ```
 
 ### 公有成员函数
@@ -3494,7 +3494,7 @@ virtual ~Metrics() = default;
 #### Clear
 
 ```cpp
-virtual void Clear() {}
+virtual void Clear()
 ```
 
 训练指标清零。
@@ -3514,7 +3514,7 @@ virtual float Eval()
 #### Update
 
 ```cpp
-virtual void Update(std::vector<MSTensor *> inputs, std::vector<MSTensor *> outputs) {}
+virtual void Update(std::vector<MSTensor *> inputs, std::vector<MSTensor *> outputs)
 ```
 
 模型输入输出数据更新。
@@ -3533,7 +3533,7 @@ virtual void Update(std::vector<MSTensor *> inputs, std::vector<MSTensor *> outp
 ### 析构函数
 
 ```cpp
-virtual ~TrainCallBack() = default;
+virtual ~TrainCallBack() = default
 ```
 
 ### 公有成员函数
@@ -3541,7 +3541,7 @@ virtual ~TrainCallBack() = default;
 #### Begin
 
 ```cpp
-virtual void Begin(const TrainCallBackData &cb_data) {}
+virtual void Begin(const TrainCallBackData &cb_data)
 ```
 
 网络执行前调用。
@@ -3553,7 +3553,7 @@ virtual void Begin(const TrainCallBackData &cb_data) {}
 #### End
 
 ```cpp
-  virtual void End(const TrainCallBackData &cb_data) {}
+  virtual void End(const TrainCallBackData &cb_data)
 ```
 
 网络执行后调用。
@@ -3565,7 +3565,7 @@ virtual void Begin(const TrainCallBackData &cb_data) {}
 #### EpochBegin
 
 ```cpp
-  virtual void EpochBegin(const TrainCallBackData &cb_data) {}
+  virtual void EpochBegin(const TrainCallBackData &cb_data)
 ```
 
 每轮迭代前回调。
@@ -3602,7 +3602,7 @@ virtual void Begin(const TrainCallBackData &cb_data) {}
 #### StepBegin
 
 ```cpp
-  virtual void StepBegin(const TrainCallBackData &cb_data) {}
+  virtual void StepBegin(const TrainCallBackData &cb_data)
 ```
 
 每步迭代前回调。
@@ -3614,7 +3614,7 @@ virtual void Begin(const TrainCallBackData &cb_data) {}
 #### StepEnd
 
 ```cpp
-  virtual void StepEnd(const TrainCallBackData &cb_data) {}
+  virtual void StepEnd(const TrainCallBackData &cb_data)
 ```
 
 每步迭代后回调。
@@ -3777,7 +3777,7 @@ int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication)
 ### 析构函数
 
 ```cpp
-  virtual ~TimeMonitor() = default;
+  virtual ~TimeMonitor() = default
 ```
 
 ### 公有成员函数
@@ -3785,7 +3785,7 @@ int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication)
 #### EpochBegin
 
 ```cpp
-  void EpochBegin(const TrainCallBackData &cb_data) override;
+  void EpochBegin(const TrainCallBackData &cb_data) override
 ```
 
 每轮迭代前调用。
@@ -3801,7 +3801,7 @@ int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication)
 #### EpochEnd
 
 ```cpp
-  CallbackRetValue EpochEnd(const TrainCallBackData &cb_data) override;
+  CallbackRetValue EpochEnd(const TrainCallBackData &cb_data) override
 ```
 
 每轮迭代后调用。
@@ -4058,7 +4058,7 @@ inline Status(const StatusCode code, int line_of_code, const char *file_name, co
 #### StatusCode
 
 ```cpp
-enum StatusCode StatusCode() const;
+enum StatusCode StatusCode() const
 ```
 
 获取状态码。
@@ -4070,7 +4070,7 @@ enum StatusCode StatusCode() const;
 #### ToString
 
 ```cpp
-inline std::string ToString() const;
+inline std::string ToString() const
 ```
 
 状态码转成字符串。
@@ -4082,7 +4082,7 @@ inline std::string ToString() const;
 #### GetLineOfCode
 
 ```cpp
-int GetLineOfCode() const;
+int GetLineOfCode() const
 ```
 
 获取代码行数。
@@ -4094,7 +4094,7 @@ int GetLineOfCode() const;
 #### GetFileName
 
 ```cpp
-inline std::string GetFileName() const;
+inline std::string GetFileName() const
 ```
 
 获取文件名。
@@ -4106,7 +4106,7 @@ inline std::string GetFileName() const;
 #### GetErrDescription
 
 ```cpp
-inline std::string GetErrDescription() const;
+inline std::string GetErrDescription() const
 ```
 
 获取错误描述字符串。
@@ -4163,7 +4163,7 @@ friend std::ostream &operator<<(std::ostream &os, const Status &s)
 #### operator==(const Status &other)
 
 ```cpp
-bool operator==(const Status &other) const;
+bool operator==(const Status &other) const
 ```
 
 判断是否与另一个Status相等。
@@ -4179,7 +4179,7 @@ bool operator==(const Status &other) const;
 #### operator==(enum StatusCode other_code)
 
 ```cpp
-bool operator==(enum StatusCode other_code) const;
+bool operator==(enum StatusCode other_code) const
 ```
 
 判断是否与一个StatusCode相等。
@@ -4195,7 +4195,7 @@ bool operator==(enum StatusCode other_code) const;
 #### operator!=(const Status &other)
 
 ```cpp
-bool operator!=(const Status &other) const;
+bool operator!=(const Status &other) const
 ```
 
 判断是否与另一个Status不相等。
@@ -4211,7 +4211,7 @@ bool operator!=(const Status &other) const;
 #### operator!=(enum StatusCode other_code)
 
 ```cpp
-bool operator!=(enum StatusCode other_code) const;
+bool operator!=(enum StatusCode other_code) const
 ```
 
 判断是否与一个StatusCode不等。
@@ -4227,7 +4227,7 @@ bool operator!=(enum StatusCode other_code) const;
 #### operator bool()
 
 ```cpp
-explicit operator bool() const;
+explicit operator bool() const
 ```
 
 重载bool操作，判断是否当前状态为kSuccess。
@@ -4239,7 +4239,7 @@ explicit operator bool() const;
 #### explicit operator int() const
 
 ```cpp
-explicit operator int() const;
+explicit operator int() const
 ```
 
 重载int操作。当`Status`对象被作为整型表达式使用时，返回整型表示的当前状态值。
@@ -4263,7 +4263,7 @@ static Status OK()
 #### IsOk
 
 ```cpp
-bool IsOk() const;
+bool IsOk() const
 ```
 
 判断是否是kSuccess的状态码。
@@ -4275,7 +4275,7 @@ bool IsOk() const;
 #### IsError
 
 ```cpp
-bool IsError() const;
+bool IsError() const
 ```
 
 判断是否不是kSuccess的状态码。
@@ -4323,7 +4323,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 #### ModelType
 
 ```cpp
-  enum ModelType ModelType() const;
+  enum ModelType ModelType() const
 ```
 
 获取模型类型。
@@ -4335,7 +4335,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 #### operator==(std::nullptr_t)
 
 ```cpp
-  bool operator==(std::nullptr_t) const;
+  bool operator==(std::nullptr_t) const
 ```
 
 判断是否为空指针。
@@ -4347,7 +4347,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 #### operator!=(std::nullptr_t)
 
 ```cpp
-  bool operator!=(std::nullptr_t) const;
+  bool operator!=(std::nullptr_t) const
 ```
 
 判断是否为非空指针。
@@ -4392,7 +4392,7 @@ enum CompCode : uint32_t {
 ### 析构函数
 
 ```cpp
-~InputAndOutput() = default;
+~InputAndOutput() = default
 ```
 
 ### 公有成员函数
@@ -4412,7 +4412,7 @@ int32_t GetIndex() const
 #### SetIndex
 
 ```cpp
-void SetIndex(int32_t index) { index_ = index; }
+void SetIndex(int32_t index)
 ```
 
 设置输入/输出的index。
@@ -4437,7 +4437,7 @@ void SetIndex(int32_t index) { index_ = index; }
 #### Clone
 
 ```cpp
-  virtual std::shared_ptr<CellBase> Clone() const = 0;
+  virtual std::shared_ptr<CellBase> Clone() const = 0
 ```
 
 拷贝一份自身的副本。
@@ -4449,7 +4449,7 @@ void SetIndex(int32_t index) { index_ = index; }
 #### Construct
 
 ```cpp
-virtual std::vector<Output> Construct(const std::vector<Input> &inputs) {return {}; }
+virtual std::vector<Output> Construct(const std::vector<Input> &inputs)
 ```
 
 构建CellBase。
@@ -4469,7 +4469,7 @@ virtual std::vector<Output> Construct(const std::vector<Input> &inputs) {return 
 ### 析构函数
 
 ```cpp
-  virtual ~Cell() = default;
+  virtual ~Cell() = default
 ```
 
 ### 公有成员函数
@@ -4477,7 +4477,7 @@ virtual std::vector<Output> Construct(const std::vector<Input> &inputs) {return 
 #### Clone
 
 ```cpp
-  std::shared_ptr<CellBase> Clone() const;
+  std::shared_ptr<CellBase> Clone() const
 ```
 
 拷贝一份自身的副本。
@@ -4489,7 +4489,7 @@ virtual std::vector<Output> Construct(const std::vector<Input> &inputs) {return 
 #### Construct
 
 ```cpp
-virtual std::vector<Output> Construct(const std::vector<Input> &inputs) { return {}; }
+virtual std::vector<Output> Construct(const std::vector<Input> &inputs)
 ```
 
 构造一份CellBase。
@@ -4505,7 +4505,7 @@ virtual std::vector<Output> Construct(const std::vector<Input> &inputs) { return
 #### Run
 
 ```cpp
-virtual Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) { return kSuccess; }
+virtual Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs)
 ```
 
 运行CellBase。
@@ -4521,7 +4521,7 @@ virtual Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *o
 #### operator()
 
 ```cpp
-std::vector<Output> operator()(const std::vector<Input> &inputs) const;
+std::vector<Output> operator()(const std::vector<Input> &inputs) const
 ```
 
 括号运行符。
@@ -4565,7 +4565,7 @@ std::vector<Output> operator()(const std::vector<Input> &inputs) const;
 #### SetContext
 
 ```cpp
-void SetContext(const std::shared_ptr<Context> &context);
+void SetContext(const std::shared_ptr<Context> &context)
 ```
 
 设置Context。
@@ -4577,7 +4577,7 @@ void SetContext(const std::shared_ptr<Context> &context);
 #### Run
 
 ```cpp
-Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) override;
+Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) override
 ```
 
 运行。
@@ -4593,7 +4593,7 @@ Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) 
 #### GetInputs
 
 ```cpp
-std::vector<MSTensor> GetInputs();
+std::vector<MSTensor> GetInputs()
 ```
 
 获取输入。
@@ -4605,7 +4605,7 @@ std::vector<MSTensor> GetInputs();
 #### GetOutputs
 
 ```cpp
-std::vector<MSTensor> GetOutputs();
+std::vector<MSTensor> GetOutputs()
 ```
 
 获取输出。
@@ -4617,7 +4617,7 @@ std::vector<MSTensor> GetOutputs();
 #### Load
 
 ```cpp
-Status Load(uint32_t device_id);
+Status Load(uint32_t device_id)
 ```
 
 加载。
