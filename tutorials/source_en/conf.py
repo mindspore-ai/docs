@@ -40,7 +40,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = '2.6.0'
+release = '2.6.0-rc1'
 html_title = author + ' ' + release + ' ' + project
 
 
