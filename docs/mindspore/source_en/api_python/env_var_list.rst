@@ -341,7 +341,7 @@ Graph Compilation and Execution
        enable_debug_mode: Insert synchronization points before and after the graph kernel mod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
 
        path: use specified json file. When this option is set, the above options are ignored.
-     - Refer to the `Custom Fusion <https://www.mindspore.cn/tutorials/en/master/custom_program/fusion_pass.html>`_
+     - Refer to the `Custom Fusion <https://www.mindspore.cn/tutorials/en/master/compile/fusion_pass.html>`_
 
    * - MS_DEV_DISABLE_AUTO_H2D
      - Control whether the input of the operator performs implicit copying in PyNative mode. When enabled, implicit copying of operator input will be disabled.

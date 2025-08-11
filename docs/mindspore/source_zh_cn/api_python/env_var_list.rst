@@ -341,7 +341,7 @@
        enable_debug_mode：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
        path：指定读取json配置。当设置该选项时，忽略以上选项。
-     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/fusion_pass.html>`_
+     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/fusion_pass.html>`_
 
    * - MS_DEV_DISABLE_AUTO_H2D
      - 控制动态图流程算子输入是否隐式拷贝。开启后，将关闭动态图算子输入隐式拷贝。
