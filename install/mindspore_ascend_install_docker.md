@@ -28,7 +28,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 | Atlas 训练系列  | `mindspore` | `mindspore-ascend-a1` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
 | Atlas A2 训练系列 | `mindspore` | `mindspore-ascend-a2` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
 
-> `x.y.z`对应MindSpore版本号，例如安装2.7.0rc1版本MindSpore时，`x.y.z`应写为2.7.0rc1。
+> `x.y.z`对应MindSpore版本号，例如安装2.7.0版本MindSpore时，`x.y.z`应写为2.7.0。
 
 ## 确认系统环境信息
 
@@ -60,7 +60,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
 
 其中：
 
-- `{tag}`对应上述表格中的标签,如2.7.0rc1。
+- `{tag}`对应上述表格中的标签,如2.7.0。
 - `{image_name}` 对应上述表格中的docker镜像名称，使用 Atlas 训练系列产品请下载 `mindspore-ascend-a1` 镜像；Atlas A2 训练系列产品请下载 `mindspore-ascend-a2` 镜像。
 
 ## 运行MindSpore镜像
@@ -92,7 +92,7 @@ docker run -it --ipc=host \
 
 其中：
 
-- `{tag}`对应上述表格中的标签，如2.7.0rc1。
+- `{tag}`对应上述表格中的标签，如2.7.0。
 
 ## 验证是否安装成功
 
