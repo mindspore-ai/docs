@@ -45,6 +45,7 @@ MindSpore教程
    compile/statements
    compile/python_builtin_functions
    compile/static_graph_expert_programming
+   compile/fusion_pass
 
 .. toctree::
    :glob:
@@ -81,7 +82,6 @@ MindSpore教程
    :hidden:
 
    custom_program/op_custom
-   custom_program/fusion_pass
    custom_program/hook_program
 
 .. toctree::
