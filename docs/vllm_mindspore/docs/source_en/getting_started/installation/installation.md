@@ -148,6 +148,53 @@ docker exec -it $DOCKER_NAME bash
   export PYTHONPATH=$MF_PATH:$PYTHONPATH  
   ```
 
+- **Manual Component Installation**  
+
+    If user need to modify the components or use other versions, components need to be manually installed in a specific order. vLLM MindSpore requires the following installation sequence:  
+
+    1. Install vLLM  
+
+       ```bash  
+       pip install /path/to/vllm-*.whl  
+       ```  
+
+    2. Uninstall Torch-related components  
+
+       ```bash  
+       pip uninstall torch torch-npu torchvision torchaudio -y  
+       ```  
+
+    3. Install MindSpore  
+
+       ```bash  
+       pip install /path/to/mindspore-*.whl  
+       ```  
+
+    4. Clone the MindSpore Transformers repository and add it to `PYTHONPATH`  
+
+       ```bash  
+       git clone https://gitee.com/mindspore/mindformers.git  
+       export PYTHONPATH=`realpath mindformers`:$PYTHONPATH  
+       ```  
+
+    5. Install Golden Stick  
+
+       ```bash  
+       pip install /path/to/mindspore_gs-*.whl  
+       ```  
+
+    6. Install MSAdapter  
+
+       ```bash  
+       pip install /path/to/msadapter-*.whl  
+       ```  
+
+    7. Install vLLM MindSpore  
+
+       ```bash  
+       pip install .  
+       ```
+
 ### Quick Verification
 
 User can verify the installation with a simple offline inference test. First, user need to configure the environment variables with the following command:
