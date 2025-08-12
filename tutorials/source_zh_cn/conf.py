@@ -95,7 +95,16 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
+
+# Reconstruction of sphinx auto generated document translation.
+import sphinx
+import shutil
+mo_target = os.path.join(os.path.dirname(sphinx.__file__), 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
+if os.path.exists(mo_target):
+    os.remove(mo_target)
+language = 'zh_CN'
+locale_dirs = ['../../resource/locale/']
+
 html_theme = 'sphinx_rtd_theme'
 #modify layout.html for sphinx_rtd_theme.
 import sphinx_rtd_theme
