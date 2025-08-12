@@ -307,6 +307,8 @@ Graph Compilation and Execution
        acl_allocator: Whether to enable ACL memory allocator, with a default value of true.
 
        somas_whole_block: Whether to use the entire Somas for memory allocation, with a default value of false.
+
+       enable_small_pool: Whether to enable small pool, with a default value of false. When enabled, memory allocations smaller than 1MB are managed by the small memory pool.
      -
 
    * - MS_DEV_GRAPH_KERNEL_FLAGS
