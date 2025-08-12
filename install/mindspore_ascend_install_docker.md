@@ -166,7 +166,7 @@ print(ops.add(x, y))
 
 ## 注意事项
 
-- 在非root用户模式下创建容器时，必须确保目标NPU设备未被其他非root容器占用。启动后可以执行 `npu-smi info` 命令验证设备状态，若目标NPU设备已被其他非root容器占用，则会出现以下报错，可以在创建容器时加上 `-u root`。
+- 在非root用户模式下创建容器时，必须确保目标NPU设备未被其他非root容器占用。启动后可以执行 `npu-smi info` 命令验证设备状态，若目标NPU设备已被其他非root容器占用，则会出现以下报错，可以在创建容器时加上 `-u root --privileged`。
 
 ```text
     DrvMngGetConsoleLogLevel failed. (g_conLogLevel=3)
