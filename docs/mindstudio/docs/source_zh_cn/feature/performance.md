@@ -78,7 +78,7 @@ MindStudio Training Tools工具链中的MindStudio Insight工具、msprof-analyz
     </tr>
     <tr>
         <td rowspan="1">msleaks</td>
-        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/T&ITools/msleaks/atlas_msleaks_0001.html">内存泄漏检测</a></td>
+        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/T&ITools/msleaks/atlas_msleaks_0001.html">内存分析</a></td>
         <td>提供Step内和Step间的内存异常检测能力，包括Step内内存泄漏分析和Step间内存对比分析。</td>
         <td>适用于分析内存泄漏异常的场景。</td>
     </tr>
