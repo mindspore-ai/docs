@@ -688,7 +688,7 @@ In the previous section, the official inference test tool is used to perform the
 
     (3) Load the model.
 
-    Create a `Model` class object `model`. The `Model` class defines the model in MindSpore for computational graph management.
+    Create a `Model` class object `model`. The `Model` class defines the model in MindSpore Lite for computational graph management.
     For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html).
 
     ```cpp

@@ -47,7 +47,7 @@ config.init(context);
 config.setWorkersNum(2);
 ```
 
-> For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/docs/en/r2.7.0/infer/runtime_java.html#creating-a-configuration-context).
+> For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/docs/en/r2.7.0/mindir/runtime_java.html#creating-a-configuration-context).
 >
 > Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#devicetype), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#devicetype), and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#devicetype) several different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
 >
