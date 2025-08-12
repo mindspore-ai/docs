@@ -726,7 +726,7 @@ int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
 If the command for using the converter_lite is:
 
 ```bash
-./converter_lite --fmk=MINDIR --modelFile=./lenet.mindir --outputFile=lenet_enc --encryptKey=30313233343536373839414243444546 --encryption=true
+./converter_lite --fmk=MINDIR --modelFile=./lenet.mindir --outputFile=lenet_enc --encryptKey="your encrypt key" --encryption=true
 ```
 
 Compile the source code in the mindspore/lite/examples/runtime_cpp directory, and generate build/runtime_cpp:
@@ -740,7 +740,7 @@ cd build
 Run MindSpore Lite inference on the encrypted model file:
 
 ```bash
-./runtime_cpp  --modelFile=./lenet_enc.ms 6 30313233343536373839414243444546 ${your_openssl_path}
+./runtime_cpp  --modelFile=./lenet_enc.ms 6 "your decrypt key" ${your_openssl_path}
 ```
 
 ### Viewing Logs

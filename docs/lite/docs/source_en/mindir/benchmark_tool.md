@@ -115,5 +115,5 @@ If you need to specify the dimension of the input data (e.g. input dimension is 
 If the model is encryption model, inference is performed after both `decryptKey` and `cryptoLibPath` are configured to decrypt the model. For example:
 
 ```bash
-./benchmark --modelFile=/path/to/encry_model.mindir --decryptKey=30313233343536373839414243444546 --cryptoLibPath=/root/anaconda3/bin/openssl
+./benchmark --modelFile=/path/to/encry_model.mindir --decryptKey="your decrypt key" --cryptoLibPath=/root/anaconda3/bin/openssl
 ```

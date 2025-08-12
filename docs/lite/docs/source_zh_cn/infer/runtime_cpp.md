@@ -725,7 +725,7 @@ int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
 使用converter_lite工具的命令为：
 
 ```bash
-./converter_lite --fmk=MINDIR --modelFile=./lenet.mindir --outputFile=lenet_enc --encryptKey=30313233343536373839414243444546 --encryption=true
+./converter_lite --fmk=MINDIR --modelFile=./lenet.mindir --outputFile=lenet_enc --encryptKey="your encrypt key" --encryption=true
 ```
 
 在mindspore/lite/examples/runtime_cpp目录下编译源码生成build/runtime_cpp文件：
@@ -739,7 +739,7 @@ cd build
 运行Lite端侧使用加密后的模型进行推理：
 
 ```bash
-./runtime_cpp  --modelFile=./lenet_enc.ms 6 30313233343536373839414243444546 ${your_openssl_path}
+./runtime_cpp  --modelFile=./lenet_enc.ms 6 "your decrypt key" ${your_openssl_path}
 ```
 
 ### 查看日志
