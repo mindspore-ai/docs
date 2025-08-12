@@ -284,18 +284,20 @@ vllm-mindspore serve
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-W8A8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```
 
-张量并行场景下，`--tensor-parallel-size`参数会覆盖模型yaml文件中`parallel_config`的`model_parallel`配置。
+张量并行场景下，`--tensor-parallel-size`参数会覆盖模型yaml文件中`parallel_config`的`model_parallel`配置。用户可以通过`--model`参数，指定模型保存的本地路径。
 
 #### 发起请求
 
 使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-W8A8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
 ```
+
+用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。
 
 ## 混合并行推理
 
@@ -344,6 +346,7 @@ parallel_config:
 
 ### 在线推理
 
+#### 启动服务
 `vllm-mindspore`可使用OpenAI的API协议部署在线推理。以下是在线推理的拉起流程：
 
 ```bash
@@ -366,20 +369,22 @@ vllm-mindspore serve
  --enable-expert-parallel # 使能专家并行
 ```
 
-执行示例：
+用户可以通过`--model`参数，指定模型保存的本地路径。以下为执行示例：
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-W8A8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
 
 # 从节点：
-vllm-mindspore serve --headless --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
+vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-W8A8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
 ```
 
-## 发送请求
+#### 发送请求
 
 使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am, "max_tokens": 120, "temperature": 0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-W8A8", "prompt": "I am, "max_tokens": 120, "temperature": 0}'
 ```
+
+用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。
