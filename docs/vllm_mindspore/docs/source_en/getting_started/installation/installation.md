@@ -153,9 +153,7 @@ docker exec -it $DOCKER_NAME bash
 User can verify the installation with a simple offline inference test. First, user need to configure the environment variables with the following command:
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 

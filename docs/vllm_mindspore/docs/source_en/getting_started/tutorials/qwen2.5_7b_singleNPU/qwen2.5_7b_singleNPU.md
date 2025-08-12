@@ -127,17 +127,13 @@ For [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct), the following
 
 ```bash  
 #set environment variables  
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.  
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore TransFormers as model backend.  
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation  
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.  
 ```  
 
 Here is an explanation of these variables:  
 
-- `ASCEND_TOTAL_MEMORY_GB`: The memory size of each compute card. Query using `npu-smi info`, corresponding to `HBM-Usage(MB)` in the results.  
 - `vLLM_MODEL_BACKEND`: The model backend. Currently supported models and backends are listed in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
-- `vLLM_MODEL_MEMORY_USE_GB`: Memory reserved for model loading. Adjust this if encountering insufficient memory.  
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5). For Qwen2.5-7B, the YAML file is [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml).  
 
 User can check memory usage with `npu-smi info` and set the compute card for inference using:  

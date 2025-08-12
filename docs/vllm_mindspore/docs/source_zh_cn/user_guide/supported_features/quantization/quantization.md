@@ -27,9 +27,7 @@
 用户可以参考[安装指南](../../../getting_started/installation/installation.md)，进行vLLM MindSpore的环境搭建。用户需设置以下环境变量：
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
