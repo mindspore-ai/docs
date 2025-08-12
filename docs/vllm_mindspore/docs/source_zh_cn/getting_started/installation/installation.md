@@ -147,6 +147,52 @@ docker exec -it $DOCKER_NAME bash
     export PYTHONPATH=$MF_PATH:$PYTHONPATH
     ```
 
+- **组件手动安装**
+
+    若用户对组件有修改，或者需使用其他版本，则用户需要按照特定顺序，手动安装组件。vLLM MindSpore对组件的安装顺序要求如下：
+    1. 安装vLLM
+
+       ```bash
+       pip install /path/to/vllm-*.whl
+       ```
+
+    2. 卸载torch相关组件
+
+       ```bash
+       pip uninstall torch torch-npu torchvision torchaudio -y 
+       ```
+
+    3. 安装MindSpore
+
+       ```bash
+       pip install /path/to/mindspore-*.whl
+       ```
+
+    4. 引入MindSpore Transformers仓，加入到`PYTHONPATH`中
+
+       ```bash
+       git clone https://gitee.com/mindspore/mindformers.git
+       export PYTHONPATH=`realpath mindformers`:$PYTHONPATH
+       ```
+
+    5. 安装Golden Stick
+
+       ```bash
+       pip install /path/to/mindspore_gs-*.whl
+       ```
+
+    6. 安装MSAdapter
+
+       ```bash
+       pip install /path/to/msadapter-*.whl
+       ```
+
+    7. 安装vLLM MindSpore
+
+       ```bash
+       pip install .
+       ```
+
 ### 快速验证
 
 用户可以创建一个简单的离线推理场景，验证安装是否成功。下面以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例。首先用户需要执行以下命令，设置环境变量：
