@@ -14,15 +14,15 @@ This document describes the steps to install the vLLM MindSpore environment. Thr
 - Python: 3.9 / 3.10 / 3.11  
 - Software version compatibility  
 
-  | Software | Version | Corresponding Branch |  
-  | -------- | ------- | -------------------- |  
-  | [CANN](https://www.hiascend.com/developer/download/community/result?module=cann) | 8.1 | - |  
-  | [MindSpore](https://www.mindspore.cn/install/) | 2.7 | master |  
-  | [MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter) | 0.2 | master |  
-  | [MindSpore Transformers](https://gitee.com/mindspore/mindformers) | 1.6 | dev |  
-  | [Golden Stick](https://gitee.com/mindspore/golden-stick) | 1.1.0 | r1.1.0 |  
-  | [vLLM](https://github.com/vllm-project/vllm) | 0.9.1 | v0.9.1 |  
-  | [vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.3 | master |  
+   | Software | Version |
+   | -----    | -----   |
+   |[CANN](https://www.hiascend.com/developer/download/community/result?module=cann)     |   8.1      |
+   |[MindSpore](https://www.mindspore.cn/install/) |  2.7.0    |
+   |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| 0.0.1 |
+   |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| 1.6.0  |
+   |[Golden Stick](https://gitee.com/mindspore/golden-stick)| 1.2.0  |
+   |[vLLM](https://github.com/vllm-project/vllm)      | 0.8.3 |
+   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.3.0 |
 
 ## Environment Setup
 
