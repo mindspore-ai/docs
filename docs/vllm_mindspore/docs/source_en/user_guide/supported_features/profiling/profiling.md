@@ -40,7 +40,7 @@ curl -X POST http://127.0.0.1:8000/start_profile
 curl http://localhost:8000/v1/completions \  
     -H "Content-Type: application/json" \  
     -d '{  
-        "model": "/home/DeepSeekV3",  
+        "model": "Qwen/Qwen2.5-32B-Instruct",  
         "prompt": "San Francisco is a",  
         "max_tokens": 7,  
         "temperature": 0  
