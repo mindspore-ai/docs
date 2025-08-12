@@ -131,17 +131,13 @@ git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 Before launching the model, user need to set the following environment variables:  
 
 ```bash  
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.  
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.  
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation.  
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.  
 ```  
 
 Here is an explanation of these environment variables:  
 
-- `ASCEND_TOTAL_MEMORY_GB`: The memory size of each card. User can check the memory by using `npu-smi info`, where the value corresponds to `HBM-Usage(MB)` in the query results.
 - `vLLM_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM MindSpore in the [Model Support List](../../user_guide/supported_models/models_list/models_list.md).  
-- `vLLM_MODEL_MEMORY_USE_GB`: The memory reserved for model loading. Adjust this value if insufficient memory error occurs during model loading.  
 - `MINDFORMERS_MODEL_CONFIG`: The model configuration file.  
 
 Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
