@@ -156,7 +156,7 @@ export MAX_MODEL_LEN=1024
 python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-32B-Instruct" --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
 ```
 
-Here, `TENSOR_PARALLEL_SIZE` specifies the number of NPU cards, and `MAX_MODEL_LEN` sets the maximum output token length.
+Here, `TENSOR_PARALLEL_SIZE` specifies the number of NPU cards, and `MAX_MODEL_LEN` sets the maximum output token length. User can also set the local model path by `--model` argument.
 
 If the service starts successfully, similar output will be obtained:
 
@@ -177,8 +177,10 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 
 Use the following command to send a request, where `prompt` is the model input:  
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen2.5-32B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-32B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
+
+User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
 
 If processed successfully, the inference result will be:
 
@@ -186,7 +188,7 @@ If processed successfully, the inference result will be:
 {
     "id":"cmpl-11fe2898c77d4ff18c879f57ae7aa9ca","object":"text_completion",
     "create":1748568696,
-    "model":"Qwen2.5-32B-Instruct",
+    "model":"Qwen/Qwen2.5-32B-Instruct",
     "choices":[
         {
             "index":0,

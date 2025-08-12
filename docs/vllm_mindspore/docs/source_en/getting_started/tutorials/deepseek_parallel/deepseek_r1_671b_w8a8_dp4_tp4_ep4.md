@@ -241,18 +241,20 @@ Execution example:
 
 ```bash  
 # Master node:  
-vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-W8A8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```  
 
-In tensor parallel scenarios, the `--tensor-parallel-size` parameter overrides the `model_parallel` configuration in the model YAML file.  
+In tensor parallel scenarios, the `--tensor-parallel-size` parameter overrides the `model_parallel` configuration in the model YAML file. User can also set the local model path by `--model` argument. 
 
 #### Sending Requests
 
 Use the following command to send requests, where `prompt` is the model input:  
 
 ```bash  
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'  
-```  
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-W8A8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'  
+```
+
+User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
 
 ## Hybrid Parallel Inference
 
@@ -301,6 +303,7 @@ parallel_config:
 
 ### Online Inference
 
+#### Starting the Service
 `vllm-mindspore` can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service:  
 
 ```bash  
@@ -321,22 +324,24 @@ vllm-mindspore serve
  --data-parallel-address [Master node communication IP]  
  --data-parallel-rpc-port [Master node communication port]  
  --enable-expert-parallel # Enable expert parallelism  
-```  
+```
 
-Execution example:  
+User can also set the local model path by `--model` argument. The following is an execution example:  
 
 ```bash  
 # Master node:  
-vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel  
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-W8A8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel  
 
 # Worker node:  
-vllm-mindspore serve --headless --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel  
-```  
+vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-W8A8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel  
+```
 
-## Sending Requests
+#### Sending Requests
 
 Use the following command to send requests, where `prompt` is the model input:  
 
 ```bash  
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0}'  
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-W8A8", "prompt": "I am", "max_tokens": 20, "temperature": 0}'  
 ```
+
+User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.

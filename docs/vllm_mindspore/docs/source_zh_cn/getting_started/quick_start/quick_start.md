@@ -198,7 +198,7 @@ vLLM MindSpore可使用OpenAI的API协议，进行在线推理部署。以下是
 python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-7B-Instruct"
 ```
 
-若服务成功拉起，则可以获得类似的执行结果：
+用户可以通过`--model`参数，指定模型保存的本地路径。若服务成功拉起，则可以获得类似的执行结果：
 
 ```text
 INFO:   Started server process [6363]
@@ -220,7 +220,7 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
-若请求处理成功，将获得以下的推理结果：
+其中，用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。可以通过请求处理成功，将获得以下的推理结果：
 
 ```text
 {

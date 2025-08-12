@@ -192,7 +192,7 @@ Use the model `Qwen/Qwen2.5-7B-Instruct` and start the vLLM service with the fol
 python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-7B-Instruct"  
 ```  
 
-If the service starts successfully, similar output will be obtained:
+User can also set the local model path by `--model` argument. If the service starts successfully, similar output will be obtained:
 
 ```text  
 INFO:   Started server process [6363]  
@@ -214,13 +214,15 @@ Use the following command to send a request, where `prompt` is the model input:
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 15, "temperature": 0}'  
 ```  
 
+User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
+
 If the request is processed successfully, the following inference result will be returned:
 
 ```text  
 {  
     "id":"cmpl-5e6e314861c24ba79fea151d86c1b9a6","object":"text_completion",  
     "create":1747398389,  
-    "model":"Qwen2.5-7B-Instruct",  
+    "model":"Qwen/Qwen2.5-7B-Instruct",  
     "choices":[  
         {  
             "index":0,  
