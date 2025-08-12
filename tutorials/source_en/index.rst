@@ -90,11 +90,8 @@ MindSpore Tutorial
    :caption: Infer
    :hidden:
 
+   model_infer/introduction
    model_infer/ms_infer/ms_infer_model_infer
-   model_infer/ms_infer/ms_infer_network_develop
-   model_infer/ms_infer/ms_infer_parallel_infer
-   model_infer/ms_infer/ms_infer_quantization
-   model_infer/ms_infer/ms_infer_model_serving_infer
    model_infer/lite_infer/overview
 
 .. toctree::
