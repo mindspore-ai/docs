@@ -428,6 +428,7 @@ save_path = "../"
 
 extract_tar_gz(lite_package_path, save_path)
 
+# 拷贝需要的部分到include里
 source_path = "../" + header_path + "/"
 source_runtime_include = os.path.join(source_path, "runtime/include")
 target_runtime_include = "../include/runtime/include"

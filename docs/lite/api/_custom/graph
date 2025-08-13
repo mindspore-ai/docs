@@ -2120,6 +2120,8 @@ class ExhaleRoot(object):
             #         old_name = str(file)
             #         new_name = str(file).replace('_runtime', '').replace('_converter', '')
             #         os.rename(os.path.join(dirA, old_name), os.path.join(dirA, new_name))
+
+            # 拷贝c++目录文件至临时文件夹并改名
             for i in os.listdir(dirA):
                 if i.startswith('namespace_mindspore') and i != 'namespace_mindspore__dataset.rst':
                     new_name = i.replace("__", "_").split("_", 1)[-1]
@@ -2132,6 +2134,7 @@ class ExhaleRoot(object):
                     if not re.findall(f'\n.*\n[=-]+\n(?:.|\n|)+?\w', generate_doc) and '.. toctree::' not in generate_doc:
                         os.remove(os.path.join(dirA, i))
                         del_list_en.append(i)
+            # 特殊rst文件处理，删除toctree
             if os.path.exists(os.path.join(dirA, 'unabridged_api.rst')):
                 with open(os.path.join(dirA, 'unabridged_api.rst'), 'r+', encoding='utf-8') as h:
                     content = h.read()
@@ -2147,6 +2150,7 @@ class ExhaleRoot(object):
                 if "mindspore_utils" in file:
                     os.remove(dirB+file)
 
+            # 调整目录文件中的链接方式
             title = re.compile(r'[\s\n\S]*=====')
             content = re.compile(r'(Classes|Functions|Enums|Type Definition|Structs)([\s\n\S]*)') 
             for file in os.listdir(dirB):
@@ -2165,6 +2169,7 @@ class ExhaleRoot(object):
 
             shutil.rmtree(dirB)
 
+            # 遍历generate文件夹找出c相关的rst并生成目录文件
             dirE = './source_en/api_c/'
             if not os.path.exists(dirE):
                 os.makedirs(dirE)
@@ -2186,6 +2191,7 @@ class ExhaleRoot(object):
                             p.write("\n\n"+"".join(mycapi))
                         mycapi = []
 
+            # index.rst 目录生成
             cppresult = []
             javaresult = []
             cresult = []

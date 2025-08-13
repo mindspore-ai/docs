@@ -48,7 +48,7 @@ html_title = author + ' ' + release + ' ' + project
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
-
+# 允许生成几级及以上的锚点
 myst_heading_anchors = 5
 extensions = [
     'myst_parser',

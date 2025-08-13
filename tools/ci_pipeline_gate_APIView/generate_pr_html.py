@@ -545,7 +545,7 @@ def supplement_pr_file_cn(pr_cn, repo_path, samedfn_rst, pr_need, base_raw_url, 
                         samedfn_cn.append(rel_filename)
                         raw_rst_list[rel_filename] = f'{base_raw_url}/{rel_filename}'
                         break
-                    elif j == ori_p.replace('.func_', '.'):
+                    elif j.replace('.func_', '.') == ori_p:
                         samedfn_cn.append(rel_filename)
                         raw_rst_list[rel_filename] = f'{base_raw_url}/{rel_filename}'
                         break
