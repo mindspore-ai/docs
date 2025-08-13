@@ -108,7 +108,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 
 ### Method of convert
 
-Usage scenario: Convert a third-party model into a MindSpore model. You can call the convert method multiple times to convert multiple models.
+Usage scenario: Convert a third-party model into a MindSpore Lite cloud-side inference model. You can call the convert method multiple times to convert multiple models.
 
 Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/r2.7.0/mindir/converter_tool.html) are provided below.
 

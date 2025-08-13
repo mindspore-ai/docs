@@ -25,10 +25,10 @@ Concurrent inference with MindSpore Lite consists of the following main steps:
 
 2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.7.0/mindir/converter_tool.html) and copy it to the `mindspore-lite/examples/cloud_infer/quick_start_parallel_python` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) and input data [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin).
 
-3. Install the MindSpore Lite cloud-side inference Python package for Python version 3.7 via pip.
+3. Install the MindSpore Lite cloud-side inference Python package for Python version 3.9 via pip.
 
     ```bash
-    python -m pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MINDSPORE_LITE_VERSION}/MindSpore/lite/release/centos_x86/cloud_fusion/mindspore_lite-${MINDSPORE_LITE_VERSION}-cp37-cp37m-linux_x86.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+    python -m pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MINDSPORE_LITE_VERSION}/MindSporeLite/lite/release/x86_64/cloud_fusion/mindspore_lite-${MINDSPORE_LITE_VERSION}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
 ### Creating configuration context

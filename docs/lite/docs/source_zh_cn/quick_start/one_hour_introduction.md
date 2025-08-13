@@ -688,7 +688,7 @@ mindspore-lite-{version}-linux-x64
 
     (3) 加载模型
 
-    首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore中的模型，用于计算图管理。
+    首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore Lite中的模型，用于计算图管理。
     关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#model)。
 
     ```cpp

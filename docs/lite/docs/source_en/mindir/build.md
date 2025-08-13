@@ -49,7 +49,7 @@ Cloud-side MindSpore Lite contains modules:
 
 ## Compilation Options
 
-The `build.sh` script in the MindSpore root directory can be used to compile cloud-side MindSpore Lite.
+The `build.sh` script in the MindSpore Lite root directory can be used to compile cloud-side MindSpore Lite.
 
 ### Instructions for Using the Parameters of `build.sh`
 
@@ -86,10 +86,10 @@ General module compilation options:
 
 ## Compilation Examples
 
-First, you need to download the source code from the MindSpore code repository before compiling.
+First, you need to download the source code from the MindSpore Lite code repository before compiling.
 
 ```bash
-git clone -b v2.7.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0 https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 ### Environment Preparation

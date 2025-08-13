@@ -49,7 +49,7 @@
 
 ## 编译选项
 
-MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译。
+MindSpore Lite根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译。
 
 ### `build.sh`的参数使用说明
 
@@ -86,10 +86,10 @@ MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译�
 
 ## 编译示例
 
-首先，在进行编译之前，需从MindSpore代码仓下载源码。
+首先，在进行编译之前，需从MindSpore Lite代码仓下载源码。
 
 ```bash
-git clone -b v2.7.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0 https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 ### 环境准备

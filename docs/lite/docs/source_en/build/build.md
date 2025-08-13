@@ -123,10 +123,10 @@ The construction of modules is controlled by environment variables. Users can co
 
 ### Compilation Example
 
-First, download source code from the MindSpore code repository.
+First, download source code from the MindSpore Lite code repository.
 
 ```bash
-git clone -b v2.7.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0 https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:
@@ -320,10 +320,10 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 
 ### Compilation Example
 
-First, use the git tool to download the source code from the MindSpore code repository.
+First, use the git tool to download the source code from the MindSpore Lite code repository.
 
 ```bat
-git clone -b v2.7.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0 https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
@@ -413,10 +413,10 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 
 ### Compilation Example
 
-First, use the git tool to download the source code from the MindSpore code repository.
+First, use the git tool to download the source code from the MindSpore Lite code repository.
 
 ```bash
-git clone -b v2.7.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.0 https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.

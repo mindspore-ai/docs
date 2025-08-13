@@ -20,7 +20,7 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
 
 使用MindSpore Lite云侧推理的Python接口进行模型转换，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/mindir/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
 
     > 当前，提供下载Python3.7版本对应的安装包，若需要其他Python版本，请使用编译功能生成安装包。
 
@@ -108,7 +108,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 
 ### convert方法
 
-方法使用场景：将第三方模型转换生成MindSpore模型，可多次调用convert方法，转换多个模型。
+方法使用场景：将第三方模型转换生成MindSpore Lite云侧推理模型，可多次调用convert方法，转换多个模型。
 
 下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/mindir/converter_tool.html)中参数的对应关系。
 
