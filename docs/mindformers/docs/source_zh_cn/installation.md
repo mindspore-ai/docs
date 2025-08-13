@@ -8,9 +8,9 @@
 
 当前套件建议使用的Python版本为3.11.4。
 
-| MindSpore Transformers |                   MindSpore                   |                                                      CANN                                                      |                                                     固件与驱动                                                     |
-|:----------------------:|:---------------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|
-|         1.6.0          | [2.7.0-rc1](https://www.mindspore.cn/install) | [8.2.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) | [25.2.0](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) |
+| MindSpore Transformers |                 MindSpore                 |                                                      CANN                                                      |                                                     固件与驱动                                                     |
+|:----------------------:|:-----------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|
+|         1.6.0          | [2.7.0](https://www.mindspore.cn/install) | [8.2.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) | [25.2.0](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) |
 
 **当前MindSpore Transformers建议使用如上的软件配套关系。**
 
