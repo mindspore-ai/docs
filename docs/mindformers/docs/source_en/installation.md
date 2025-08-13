@@ -8,9 +8,9 @@ The currently supported hardware is the Atlas 800T A2、Atlas 800I A2、Atlas 90
 
 The current recommended Python version for the suite is 3.11.4.
 
-| MindSpore Transformers |                   MindSpore                   |                                                      CANN                                                      |                                              Firmware & Drivers                                               | Mirror Links |
-|:----------------------:|:---------------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|:------------:|
-|         1.6.0          | [2.7.0-rc1](https://www.mindspore.cn/install) | [8.2.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) | [25.2.0](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) |
+| MindSpore Transformers |                 MindSpore                 |                                                      CANN                                                      |                                              Firmware & Drivers                                               | Mirror Links |
+|:----------------------:|:-----------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|:------------:|
+|         1.6.0          | [2.7.0](https://www.mindspore.cn/install) | [8.2.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) | [25.2.0](https://www.hiascend.com/document/detail/zh/canncommercial/82RC1/softwareinst/instg/instg_0000.html) |
 
 **Currently MindSpore Transformers recommends using a software package relationship as above.**
 
