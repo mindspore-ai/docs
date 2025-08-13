@@ -222,7 +222,7 @@ If the request is processed successfully, the following inference result will be
 {  
     "id":"cmpl-5e6e314861c24ba79fea151d86c1b9a6","object":"text_completion",  
     "create":1747398389,  
-    "model":"Qwen/Qwen2.5-7B-Instruct",  
+    "model":"Qwen2.5-7B-Instruct",  
     "choices":[  
         {  
             "index":0,  

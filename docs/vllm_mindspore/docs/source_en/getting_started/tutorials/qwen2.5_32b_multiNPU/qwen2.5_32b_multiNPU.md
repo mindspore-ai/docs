@@ -134,7 +134,7 @@ export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Tra
 Here is an explanation of these environment variables:  
 
 - `vLLM_MODEL_BACKEND`: The model backend. Currently supported models and backends are listed in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
-- `MINDFORMERS_MODEL_CONFIG`: Model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/r1.5.0/research/qwen2_5). For Qwen2.5-32B, the YAML file is [predict_qwen2_5_32b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2_5/predict_qwen2_5_32b_instruct.yaml).
+- `MINDFORMERS_MODEL_CONFIG`: Model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5). For Qwen2.5-32B, the YAML file is [predict_qwen2_5_32b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_32b_instruct.yaml).
 
 Users can check memory usage with `npu-smi info` and set the NPU cards for inference using the following example (assuming cards 4,5,6,7 are used):
 
@@ -188,7 +188,7 @@ If processed successfully, the inference result will be:
 {
     "id":"cmpl-11fe2898c77d4ff18c879f57ae7aa9ca","object":"text_completion",
     "create":1748568696,
-    "model":"Qwen/Qwen2.5-32B-Instruct",
+    "model":"Qwen2.5-32B-Instruct",
     "choices":[
         {
             "index":0,
