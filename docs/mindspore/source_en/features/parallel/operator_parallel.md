@@ -6,7 +6,7 @@
 
 With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel.
 
-Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is silced. The training of large models is enabled by reducing the memory consumption of a single device.
+Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is sliced. The training of large models is enabled by reducing the memory consumption of a single device.
 
 MindSpore provides two operator-level parallelism capabilities: [Operator-level Parallelism](#basic-principle) and [Higher-order Operator-level Parallelism](#higher-order-operator-level-parallelism). Operator-level Parallelism uses simple tensor dimension splitting strategies to describe tensor distribution, meeting the requirements of most common scenarios. Higher-order Operator-level Parallelism enables complex partitioning scenarios by opening device arrangement descriptions, supporting: Non-contiguous device allocation, Multi-dimensional hybrid partitioning and so on. Both ops and mint operators are supported for the operator-level parallel capability of the two granularities. This chapter only introduces the operator-level parallelism and high-order operator-level parallelism based on ops operators. For the configuration method of operator-level parallelism based on mint operators, please refer to the mint Operator Parallel Practice and Higher-Order mint Operator Parallel Practice in the [Operator-level Parallelism Tutorial](https://www.mindspore.cn/tutorials/en/master/parallel/operator_parallel.html).
 
@@ -25,7 +25,7 @@ Related interfaces:
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`: This interface configures the first input of the Gather operator to be non-uniformly sliced, which is only valid for axis=0. `split_tuple` is a tuple with elements of type int, the sum of the elements must be equal to the length of the 0th dimension of the first input in the Gather operator, and the number of tuples must be equal to the number of 0th dimensional slices of the first input in the Gather operator.
     - `ops.Gather().add_prim_attr("primitive_target", "CPU")`: This interface configures the Gather operator to execute on the CPU for heterogeneous scenarios.
     - `ops.Reshape().add_prim_attr("skip_redistribution")`: Do not apply tensor redistribution (For tensor redistribution, see [Basic Principle](#basic-principle)) before and after ops.Reshape.
-    - `ops.ReduceSum().add_prim_attr("cross_batch")`: This interface only supports Reduce operators. When cross_batch is configurated, if the sliced axis is same as the calculated axis of reduce ops, the synchronization will not be added to each cards, which causes different result that is different from that of single card.
+    - `ops.ReduceSum().add_prim_attr("cross_batch")`: This interface only supports Reduce operators. When cross_batch is configured, if the sliced axis is same as the calculated axis of reduce ops, the synchronization will not be added to each cards, which causes different result that is different from that of single card.
     - `ops.TensorScatterUpdate().add_prim_attr("self_define_shard", True)`: When set `self_define_shard` to an operator, input/output layout can config to this operator (whatever this operator supports sharding). However, user needs to ensure the correctness of input/output layout and accuracy of operator.
 
 ## Basic Principle
@@ -40,7 +40,7 @@ Tensor Layout is used to describe the distribution information about the Tensor 
 
 If the two-dimensional matrix is sliced to four nodes, there are four types of slices: simultaneously slices both row and column, replication, row slicing + replication, and column slicing + replication, as shown below:
 
-Tensor Redistribution is used to handle the conversion between different Tensor Layout, which can convert the Tensor from one layout to another in the cluster. All redistribution operations are decomposed into combinations of operators such as "set communication+split+concat". The following two figures illustrate several Tensor Redistribution operations.
+Tensor Redistribution is used to handle the conversion between different Tensor Layouts, which can convert the Tensor from one layout to another in the cluster. All redistribution operations are decomposed into combinations of operators such as "set communication+split+concat". The following two figures illustrate several Tensor Redistribution operations.
 
 *Figure: Tensor is sliced to redistribution of two nodes*
 
@@ -64,7 +64,7 @@ class DenseMatMulNet(nn.Cell):
         return z
 
 net = DenseMatMulNet()
-paralell_net = AutoParallel(net, parallel_mode='semi_auto')
+parallel_net = AutoParallel(net, parallel_mode='semi_auto')
 ```
 
 In the above example, the user computes two consecutive two-dimensional matrix multiplications on 4 cards: `Z = (X * W) * V` . For the first matrix multiplication `Y = X * W`, the user wants to slice X by rows in 4 parts (i.e. data parallelism), while for the second matrix multiplication `Z = Y * V`, the user wants to slice V by columns in 4 parts (i.e. model parallelism):
@@ -142,5 +142,5 @@ class DenseMatMulNet(nn.Cell):
         return y
 
 net = DenseMatMulNet()
-paralell_net = AutoParallel(net, parallel_mode='semi_auto')
+parallel_net = AutoParallel(net, parallel_mode='semi_auto')
 ```

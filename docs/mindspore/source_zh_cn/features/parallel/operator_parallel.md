@@ -72,7 +72,7 @@ class DenseMatMulNet(nn.Cell):
         return z
 
 net = DenseMatMulNet()
-paralell_net = AutoParallel(net, parallel_mode='semi_auto')
+parallel_net = AutoParallel(net, parallel_mode='semi_auto')
 ```
 
 在以上例子中，用户在4个卡上计算两个连续的二维矩阵乘：`Z = (X * W) * V` 。第一个矩阵乘`Y = X * W`，用户想把X按行切4份（即数据并行）；而第二个矩阵乘`Z = Y * V`，用户想把V按列切4份（即模型并行）：
@@ -152,5 +152,5 @@ class DenseMatMulNet(nn.Cell):
         return y
 
 net = DenseMatMulNet()
-paralell_net = AutoParallel(net, parallel_mode='semi_auto')
+parallel_net = AutoParallel(net, parallel_mode='semi_auto')
 ```
