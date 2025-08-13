@@ -307,6 +307,8 @@
        acl_allocator: 是否使用ACL内存分配器，默认值为true。
 
        somas_whole_block: 是否使用SOMAS整块内存分配，默认值为false。
+
+       enable_small_pool: 是否开启小内存池，默认值为false。开启后小于1MB的内存申请使用小内存池单独管理。
      -
 
    * - MS_DEV_GRAPH_KERNEL_FLAGS
