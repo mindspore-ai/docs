@@ -61,7 +61,7 @@ In addition, due to the limited resources of device-side scenarios, MindSpore pr
 
     The data processing pipeline continuously processes the data and sends the processed data to the Device-side cache, and after the execution of one Step, the data of the next Step is read directly from the Device's cache.
 
-    - datat processing: for processing the dataset into the input needed by the network and passing it to the sending queue to ensure efficient data processing.
+    - data processing: for processing the dataset into the input needed by the network and passing it to the sending queue to ensure efficient data processing.
 
     - sending Queue: maintaining data queues to ensure that data processing and network computing processes do not interfere with each other, acting as a bridge.
 
