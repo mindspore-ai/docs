@@ -920,7 +920,7 @@ Dump调试
      - 取值
      - 说明
    * - OPTION_PROTO_LIB_PATH
-     - RPOTO依赖库库路径
+     - PROTO依赖库库路径
      - String
      - 目录路径，支持相对路径与绝对路径
      -

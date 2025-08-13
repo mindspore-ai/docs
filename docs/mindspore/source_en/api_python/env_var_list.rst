@@ -103,7 +103,7 @@ Graph Compilation and Execution
      - Specify which modules are treated as third-party libraries in static graph mode without JIT static compilation. Their functions and methods will be interpreted and executed.
      - String
      - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_IGNORE_MODULES=numpy,scipy`.
-     - Static graph mode can automatically recognize third-party libraries, and generally there is no need to set this environment variable for recognizable third-party libraries such as NumPy and Scipy. If `MS_JIT_IGNORE_MODULES` and `MS_JIT_MODULES` specify the same module name at the same time, the former takes effect and the latter does not.
+     - Static graph mode can automatically recognize third-party libraries, and generally there is no need to set this environment variable for recognizable third-party libraries such as NumPy and SciPy. If `MS_JIT_IGNORE_MODULES` and `MS_JIT_MODULES` specify the same module name at the same time, the former takes effect and the latter does not.
    * - MS_DEV_FALLBACK_DUMP_NODE
      - Print syntax expressions supported by Static Graph Syntax Enhancement in the code.
      - Integer
@@ -279,7 +279,7 @@ Graph Compilation and Execution
 
        compile_statistics: Whether to enable compile statistics, with a default value of false.
 
-       backend_compile_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable complie cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
+       backend_compile_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable compilation cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
 
        view: Whether to enable view kernels, only effective in O0 or O1 mode, with a default value of true.
      -
@@ -354,7 +354,7 @@ Graph Compilation and Execution
      -
 
    * - MS_DEV_LAUNCH_BLOCKING
-     - Control whether the operator is synchronously launched. When enabled, the operator will be launced in a single thread and will synchronize the stream.
+     - Control whether the operator is synchronously launched. When enabled, the operator will be launched in a single thread and will synchronize the stream.
      - Integer
      - 1: Enable operator synchronization launch.
 
@@ -394,7 +394,7 @@ Graph Compilation and Execution
    * - MS_SUPPORT_BINARY
      - Control whether support run pyc or so in graph mode.
      - Integer
-     - 1：Support run pyc or so in graph mode.
+     - 1: Support run pyc or so in graph mode.
 
        No setting or other value: Not support.
      -
@@ -874,11 +874,11 @@ Silent Data Corruption Detection
      - Integer
      - 0: Disable feature value detection function
 
-       1: Enable feature value detection function, when error was detected, just print log, not thow exception
+       1: Enable feature value detection function, when error was detected, just print log, not throw exception
 
-       2: Enable feature value detection function, when error was detected, thow exception
+       2: Enable feature value detection function, when error was detected, throw exception
 
-       3: Enable feature value detection function, when error was detected, thow exception, but at the same time write value detection info of each time to log file (this requires set ascend log level to info or debug)
+       3: Enable feature value detection function, when error was detected, throw exception, but at the same time write value detection info of each time to log file (this requires set ascend log level to info or debug)
      - Currently, this feature only supports Atlas A2 training series products, and only detects abnormal feature value that occur during the training of Transformer class models with bfloat16 data type
 
        Considering that the feature value range can not be known ahead, setting NPU_ASD_ENABLE to 1 is recommended to enable silent check, which prevents training interruption caused by false detection
@@ -924,7 +924,7 @@ Third-party Library
      - Value Range
      - Description
    * - OPTION_PROTO_LIB_PATH
-     - Specifies the RPOTO dependent library path.
+     - Specifies the PROTO dependent library path.
      - String
      - File path, which can be a relative path or an absolute path.
      -
