@@ -143,7 +143,7 @@ MindSpore Transformers功能特性说明
 
 - 模型开发
 
-  - `开发迁移 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/advanced_development/r1.6.0_migration.html>`_
+  - `开发迁移 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/advanced_development/dev_migration.html>`_
 
 - 精度对比
 

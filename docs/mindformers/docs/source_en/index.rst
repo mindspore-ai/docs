@@ -116,7 +116,7 @@ Advanced developing with MindSpore Transformers
 
 - Model Development
 
-  - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/advanced_development/r1.6.0_migration.html>`_
+  - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/r1.6.0/advanced_development/dev_migration.html>`_
 
 Environment Variables
 ------------------------------------

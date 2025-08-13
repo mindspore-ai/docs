@@ -165,7 +165,7 @@ MSStatus MSModelBuildFromFile(MSModelHandle model, const char* model_path, MSMod
 
     - `model`: 指向模型对象的指针。
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/mr2.7.0rc1/api_c/types_c.html#msmodeltype)。
+    - `model_type`: 模型文件类型，具体见: [MSModelType](https://mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_c/types_c.html#msmodeltype)。
     - `model_context`: 模型的上下文环境，具体见: [Context](https://mindspore.cn/lite/api/zh-CN/r2.7.0rc1/api_c/context_c.html)。
 
 - 返回值
