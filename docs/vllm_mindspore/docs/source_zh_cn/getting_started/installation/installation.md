@@ -13,19 +13,19 @@
 - Python：3.9 / 3.10 / 3.11
 - 软件版本配套
 
-   | 软件 | 版本 |
+   | 软件 | 配套版本与下载链接 |
    | -----    | -----   |
-   |[CANN](https://www.hiascend.com/developer/download/community/result?module=cann)     |   8.1      |
-   |[MindSpore](https://www.mindspore.cn/install/) |  2.7.0    |
-   |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| 0.0.1 |
-   |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| 1.6.0  |
-   |[Golden Stick](https://gitee.com/mindspore/golden-stick)| 1.2.0  |
-   |[vLLM](https://github.com/vllm-project/vllm)      | 0.8.3 |
-   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.3.0 |
+   |[CANN](https://www.hiascend.com/developer/download/community/result?module=cann)     |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit)      |
+   |[MindSpore](https://www.mindspore.cn/install/) |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250814/master_20250814091143_7548abc43af03319bfa528fc96d0ccd3917fcc9c_newest/unified/)    |
+   |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| [0.5.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250814/master_20250814010018_4615051c43eef898b6bbdc69768656493b5932f8_newest/any/) |
+   |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| [1.6.0](https://gitee.com/mindspore/mindformers)  |
+   |[Golden Stick](https://gitee.com/mindspore/golden-stick)| [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/)  |
+   |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
+   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
 ## 配置环境
 
-在本章节中，我们将介绍[docker安装](#docker安装)、[pip安装](#pip安装)、[源码安装](#源码安装)三种安装方式，以及[快速验证](#快速验证)用例，用于验证安装是否成功。
+在本章节中，我们将介绍[docker安装](#docker安装)、[源码安装](#源码安装)两种安装方式，以及[快速验证](#快速验证)用例，用于验证安装是否成功。
 
 ### docker安装
 
@@ -105,29 +105,33 @@ docker exec -it $DOCKER_NAME bash
 
 ### 源码安装
 
-- **CANN安装**
+#### CANN安装
 
-    CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)，若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
+CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)，若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
 
-    CANN默认安装路径为`/usr/local/Ascend`。用户在安装CANN完毕后，使用如下命令，为CANN配置环境变量：
+CANN默认安装路径为`/usr/local/Ascend`。用户在安装CANN完毕后，使用如下命令，为CANN配置环境变量：
 
-    ```bash
-    LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
-    source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
-    export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
-    ```
+```bash
+LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
+source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
+export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
+```
 
-- **vLLM前置依赖安装**
+#### vLLM前置依赖安装
 
-    vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
+vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
 
-    ```bash
-    yum install -y gcc gcc-c++
-    ```
+```bash
+yum install -y gcc gcc-c++
+```
 
-- **vLLM MindSpore安装**
+#### vLLM MindSpore安装
 
-    安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
+vLLM MindSpore有以下两种安装方式。**vLLM MindSpore一键式安装**适用于用户快速使用与部署的场景。**vLLM MindSpore手动安装**适用于用户对组件有自定义修改的场景。
+
+- **vLLM MindSpore一键式安装**
+
+    采用一键式安装脚本来安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
 
     ```bash
     git clone https://gitee.com/mindspore/vllm-mindspore.git
@@ -147,53 +151,58 @@ docker exec -it $DOCKER_NAME bash
     export PYTHONPATH=$MF_PATH:$PYTHONPATH
     ```
 
-- **组件手动安装**
+- **vLLM MindSpore手动安装**
 
-    若用户对组件有修改，或者需使用其他版本，则用户需要按照特定顺序，手动安装组件。vLLM MindSpore对组件的安装顺序要求如下：
+    若用户对组件有修改，或者需使用其他版本，则用户需要按照特定顺序，手动安装组件。vLLM MindSpore软件配套下载地址可以参考[版本配套](#版本配套)，且对组件的安装顺序要求如下：
+
     1. 安装vLLM
 
-       ```bash
-       pip install /path/to/vllm-*.whl
-       ```
+        ```bash
+        pip install /path/to/vllm-*.whl
+        ```
 
     2. 卸载torch相关组件
 
-       ```bash
-       pip uninstall torch torch-npu torchvision torchaudio -y 
-       ```
+        ```bash
+        pip uninstall torch torch-npu torchvision torchaudio -y
+        ```
 
     3. 安装MindSpore
 
-       ```bash
-       pip install /path/to/mindspore-*.whl
-       ```
+        ```bash
+        pip install /path/to/mindspore-*.whl
+        ```
 
     4. 引入MindSpore Transformers仓，加入到`PYTHONPATH`中
 
-       ```bash
-       git clone https://gitee.com/mindspore/mindformers.git
-       export PYTHONPATH=`realpath mindformers`:$PYTHONPATH
-       ```
+        ```bash
+        git clone https://gitee.com/mindspore/mindformers.git
+        export PYTHONPATH=$MF_PATH:$PYTHONPATH
+        ```
 
     5. 安装Golden Stick
 
-       ```bash
-       pip install /path/to/mindspore_gs-*.whl
-       ```
+        ```bash
+        pip install /path/to/mindspore_gs-*.whl
+        ```
 
     6. 安装MSAdapter
 
-       ```bash
-       pip install /path/to/msadapter-*.whl
-       ```
+        ```bash
+        pip install /path/to/msadapter-*.whl
+        ```
 
     7. 安装vLLM MindSpore
 
-       ```bash
-       pip install .
-       ```
+        需要先拉取vLLM MindSpore源码，再执行安装
 
-### 快速验证
+        ```bash
+        git clone https://gitee.com/mindspore/vllm-mindspore.git
+        cd vllm-mindspore
+        pip install .
+        ```
+
+## 快速验证
 
 用户可以创建一个简单的离线推理场景，验证安装是否成功。下面以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例。首先用户需要执行以下命令，设置环境变量：
 

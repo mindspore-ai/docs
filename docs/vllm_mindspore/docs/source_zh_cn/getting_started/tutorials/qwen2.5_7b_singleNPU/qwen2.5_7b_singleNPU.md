@@ -135,7 +135,7 @@ export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Tra
 以下是对上述环境变量的解释：
 
 - `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM MindSpore所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询；
-- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.5.0/research/qwen2_5)中，找到对应模型的yaml文件。以Qwen2.5-7B为例，则其yaml文件为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml) 。
+- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5)中，找到对应模型的yaml文件。以Qwen2.5-7B为例，则其yaml文件为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml) 。
 
 用户可通过`npu-smi info`查看显存占用情况，并可以使用如下环境变量，设置用于推理的计算卡：
 
@@ -194,7 +194,7 @@ vLLM MindSpore可使用OpenAI的API协议，部署为在线推理。以下是以
 python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-7B-Instruct"
 ```
 
-若服务成功拉起，则可以获得类似的执行结果：
+用户可以通过`--model`参数，指定模型保存的本地路径。若服务成功拉起，则可以获得类似的执行结果：
 
 ```text
 INFO:   Started server process [6363]
@@ -216,7 +216,7 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
-若请求处理成功，将获得以下的推理结果：
+其中，用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
 
 ```text
 {

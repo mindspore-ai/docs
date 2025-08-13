@@ -16,7 +16,7 @@
 
 ### 直接下载量化权重
 
-我们已经将量化好的DeepSeek-R1上传到[魔乐社区](https://modelers.cn)：[MindSpore-Lab/DeepSeek-R1-W8A8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-W8A8)，可以参考[魔乐社区文档](https://modelers.cn/docs/zh/openmind-hub-client/0.9/basic_tutorial/download.html)将权重下载到本地。
+我们已经将量化好的DeepSeek-R1上传到[魔乐社区](https://modelers.cn)：[MindSpore-Lab/DeepSeek-R1-0528-A8W8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8)，可以参考[魔乐社区文档](https://modelers.cn/docs/zh/openmind-hub-client/0.9/basic_tutorial/download.html)将权重下载到本地。
 
 ## 量化模型推理
 
