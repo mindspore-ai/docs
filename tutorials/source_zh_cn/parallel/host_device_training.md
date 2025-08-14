@@ -10,13 +10,13 @@
 
 ### 基本原理
 
-流水线并行和算子级并行适用于模型的算子数量较大，同时参数较均匀的分布在各个算子中。如果模型中的算子数量较少，同时参数只集中在几个算子中呢？Wide&Deep就是这样的例子，如下图所示。Wide&Deep中的Embedding table作为需训练的参数可达几百GB甚至几TB，若放在加速器（device）上执行，那么所需的加速器数量巨大，训练费用昂贵。另一方面，若使用加速器计算，其获得的训练加速有限，同时会引发跨服务器的通信量，端到端的训练效率不会很高。
+流水线并行和算子级并行适用于模型算子数量较多，且参数较均匀地分布在各算子中的场景。若模型算子较少而参数集中在少数算子中，则需要采用不同策略。Wide & Deep 是典型例子，如下图所示。Wide&Deep中的Embedding table作为需训练的参数可达几百GB甚至几TB，若放在加速器（device）上执行，那么所需的加速器数量巨大，训练费用昂贵。另一方面，若使用加速器计算，其获得的训练加速有限，同时会引发跨服务器的通信量，端到端的训练效率不会很高。
 
 ![image](./images/host_device_image_0_zh.png)
 
 *图：Wide&Deep模型的部分结构*
 
-仔细分析Wide&Deep模型的特殊结构后可得：Embedding table虽然参数量巨大，但其参与的计算量很少，可以将Embedding table和其对应的算子EmbeddingLookup算子放置在Host端计算，其余算子放置在加速器端。这样做能够同时发挥Host端内存量大、加速器端计算快的特性，同时利用了同一台服务器的Host到加速器高带宽的特性。下图展示了Wide&Deep异构切分的方式：
+仔细分析Wide&Deep模型的特殊结构后可得：Embedding table虽然参数量巨大，但其参与的计算量很少，可以将Embedding table和其对应的EmbeddingLookup算子放置在Host端计算，其余算子放置在加速器端。这样做能够同时发挥Host端内存量大、加速器端计算快的特性，同时利用了同一台服务器的Host到加速器高带宽的特性。下图展示了Wide&Deep异构切分的方式：
 
 ![image](./images/host_device_image_1_zh.png)
 
@@ -69,6 +69,7 @@ init()
 import os
 import mindspore as ms
 import mindspore.dataset as ds
+from mindspore.communication import get_rank, get_group_size
 
 ms.set_seed(1)
 
@@ -93,7 +94,7 @@ data_set = create_dataset(32)
 
 ### 网络定义
 
-网络定义与单卡网络区别在于，配置[ops.Add()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html)算子在主机端运行，代码如下：
+网络定义与单卡网络区别在于，配置[ops.Add()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Add.html)算子在主机端运行，代码如下：
 
 ```python
 import mindspore as ms
@@ -180,7 +181,7 @@ for epoch in range(5):
 bash run.sh
 ```
 
-训练完后，关于Loss部分结果保存在`log_output/worker_*.log`中，示例如下：
+训练完成后，关于Loss部分结果保存在`log_output/worker_*.log`中，示例如下：
 
 ```text
 epoch: 0, step: 0, loss is 2.302936
