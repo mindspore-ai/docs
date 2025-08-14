@@ -37,7 +37,7 @@ mindspore.mint.argmax只有一种API形式，即mindspore.mint.argmax(input, dim
 |:-------------:| :------------------------------------------------: |:------------------------------------------------------------:|
 |      out      |                  表示输出的Tensor                  |                把运算结果赋值给out参数，MindSpore目前无此机制                 |
 |    layout     |                  表示内存分布策略                  | PyTorch支持torch.strided和torch.sparse_coo两种模式, MindSpore目前无此机制 |
-|    device     |                 表示Tensor存放位置                 |            包含设备类型及可选设备号。MindSpore的支持方案如下：<br/>1. 创建Tensor后，默认在CPU上，在执行算子的时候，会根据[set_device](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_device.html)自动拷贝到对应的device_target。<br/>2. 如果想在创建了Tensor之后手动拷贝，也可以调用[Tensor.move_to](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.move_to.html)接口。          |
+|    device     |                 表示Tensor存放位置                 |            包含设备类型及可选设备号。MindSpore的支持方案如下：<br/>1. 创建Tensor后，默认在CPU上，在执行算子的时候，会根据[mindspore.set_device](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_device.html)自动拷贝到对应的device_target。<br/>2. 如果想在创建了Tensor之后手动拷贝，也可以调用[mindspore.Tensor.move_to](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.move_to.html)接口。          |
 | requires_grad |                  表示是否更新梯度                  |           MindSpore中可以通过`Parameter.requires_grad`控制           |
 |  pin_memory  |                表示是否使用锁页内存                |                       MindSpore目前无此机制                        |
 | memory_format |                表示Tensor的内存格式                |                       MindSpore目前无此机制                        |
