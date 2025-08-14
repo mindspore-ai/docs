@@ -21,8 +21,8 @@ This document describes the steps to install the vLLM MindSpore environment. Thr
   | [MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter) | 0.2 | master |  
   | [MindSpore Transformers](https://gitee.com/mindspore/mindformers) | 1.6 | dev |  
   | [Golden Stick](https://gitee.com/mindspore/golden-stick) | 1.1.0 | r1.1.0 |  
-  | [vLLM](https://github.com/vllm-project/vllm) | 0.8.3 | v0.8.3 |  
-  | [vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | master |  
+  | [vLLM](https://github.com/vllm-project/vllm) | 0.9.1 | v0.9.1 |  
+  | [vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.3 | master |  
 
 ## Environment Setup
 
@@ -120,7 +120,7 @@ docker exec -it $DOCKER_NAME bash
 
 - **vLLM Prerequisites Installation**
 
-  For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.8.3/getting_started/installation/cpu.html). In vllM installation, `gcc/g++ >= 12.3.0` is required, and it could be  installed by the following command:
+  For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html). In vllM installation, `gcc/g++ >= 12.3.0` is required, and it could be  installed by the following command:
 
   ```bash
   yum install -y gcc gcc-c++

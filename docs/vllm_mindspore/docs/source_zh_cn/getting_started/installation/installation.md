@@ -20,8 +20,8 @@
    |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| 0.2 | master  |
    |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)|1.6      | dev |
    |[Golden Stick](https://gitee.com/mindspore/golden-stick)|1.1.0    | r1.1.0 |
-   |[vLLM](https://github.com/vllm-project/vllm)      | 0.8.3 | v0.8.3   |
-   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.2 | master  |
+   |[vLLM](https://github.com/vllm-project/vllm)      | 0.9.1 | v0.9.1   |
+   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | 0.3 | master  |
 
 ## 配置环境
 
@@ -119,7 +119,7 @@ docker exec -it $DOCKER_NAME bash
 
 - **vLLM前置依赖安装**
 
-    vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.8.3/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
+    vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
 
     ```bash
     yum install -y gcc gcc-c++
