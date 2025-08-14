@@ -96,7 +96,7 @@ MindSpore大语言模型为了能够实现最优的性价比，针对大语言�
 
   - **Flash Attention**：Attention计算中会存在两个大矩阵相乘（4K大小），实际计算会将大矩阵分解为多个芯片能够计算的小矩阵单元进行计算，由于芯片的最小级的缓存大小限制，需要不断地将待计算数据在缓存和主存间搬入搬出，导致计算资源实际无法充分利用，因此当前主流芯片下，Attention计算实际上是带宽bound。Flash Attention技术将原本Attention进行分块，使得每一块计算都能够在芯片上独立计算完成，避免了在计算Key和Value时多次数据的搬入和搬出，从而提升Attention计算性能，具体可以参考 `Flash Attention <https://arxiv.org/abs/2205.14135>`_。
 
-  - **Page Attention显存优化**：标准的Flash Attention每次会读取和保存整个输入的Key和Value数据，这种方式虽然比较简单，但是会造成较多的资源浪费，如“中国的首都”和“中国的国旗”，都有共同的“中国的”作为公共前缀，其Attention对应的Key和Value值实际上是一样的，标准Flash Attention就需要存两份Key和Value，导致显存浪费。Page Attention基于Linux操作系统页表原理对KVCache进行优化，按照特定大小的块来存储Key和Value的数据，将上面例子中的Key和Value存储为“中国”、“的”、“首都”、“国旗”一共四份Key和Value数据，相比原来的六份数据，有效地节省了显存资源。在服务化的场景下，更多空闲显存可以让模型推理的batch更大，从而获得更高的吞吐量，具体可以参考 `Page Attention <https://arxiv.org/pdf/2309.06180>`_。
+  - **Paged Attention**：标准的Flash Attention每次会读取和保存整个输入的Key和Value数据，这种方式虽然比较简单，但是会造成较多的资源浪费，当一个batch中多个请求序列长度不一致时，Flash Attention需要key和value用最长的序列的显存，如“中国的首都是北京“和“中国的国旗是五星红旗”，假设分词按字分词，则需要10 * 2 = 20个KVCache显存单元。Paged Attention基于Linux操作系统页表原理对KVCache进行优化，按照特定大小的块来存储Key和Value的数据，如块大小为2时，可以按照块使用KVCache，只需要4 * 2 + 5 * 2 = 18个KVCache的显存单元，由于Paged Attention离散的特性，也可以结合Prefix Cache这类技术进一步节省“中国的”所占用的显存，最终只需要3 * 2 + 5 * 2 = 16个KVCache单元。在服务化的场景下，更多空闲显存可以让模型推理的batch更大，从而获得更高的吞吐量，具体可以参考 `Page Attention <https://arxiv.org/pdf/2309.06180>`_。
 
 - **模型量化**：MindSpore大语言模型推理支持通过量化技术减小模型体积，提供了A16W8、A16W4、A8W8量化以及KVCache量化等技术，减少模型资源占用，提升推理吞吐量。
 
