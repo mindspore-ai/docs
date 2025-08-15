@@ -21,7 +21,7 @@
 
 考虑到实际并行训练中，可能会对训练性能、吞吐量或规模有要求，可以从三个方面考虑优化：并行策略优化、内存优化和通信优化
 
-- 并行策略优化：并行策略优化主要包括并行策略的选择、算子级并行下的切分技巧以及多副本技巧。
+- 并行策略优化：主要包括并行策略的选择、算子级并行下的切分技巧以及多副本技巧。
   
   - `策略选择 <https://www.mindspore.cn/tutorials/zh-CN/master/parallel/strategy_select.html>`_：根据模型规模和数据量大小，可以选择不同的并行策略，以提高训练效率和资源利用率。
   - `切分技巧 <https://www.mindspore.cn/tutorials/zh-CN/master/parallel/split_technique.html>`_：切分技巧是指通过手动配置某些关键算子的切分策略，减少张量重排布来提升训练效率。
