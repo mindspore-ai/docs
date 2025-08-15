@@ -148,7 +148,7 @@ MindSpore Tutorial
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./dataset/sampler.html" class="article-link">
+                     <a href="./dataset/overview.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Data Processing</span>
@@ -234,7 +234,7 @@ MindSpore Tutorial
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./model_infer/ms_infer/llm_inference_overview.html" class="article-link">
+                     <a href="./model_infer/introduction.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Inference</span>
