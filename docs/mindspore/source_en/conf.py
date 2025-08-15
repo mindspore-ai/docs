@@ -467,10 +467,10 @@ for cur, _, files in os.walk(des_sir):
                 #     if 'resource/_static/logo_source' not in new_content:
                 #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
 
-                # if new_content != content:
-                #     f.seek(0)
-                #     f.truncate()
-                #     f.write(new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
 
 import mindspore
 
