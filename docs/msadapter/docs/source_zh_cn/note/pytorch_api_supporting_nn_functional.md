@@ -10,7 +10,7 @@
 |[conv2d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv2d.html)|Beta|支持数据类型：bf16、fp16、fp32|
 |[conv3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv3d.html)|Not Support|N/A|
 |[conv_transpose1d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv_transpose1d.html)|Not Support|N/A|
-|[conv_transpose2d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv_transpose2d.html)|Not Support|N/A|
+|[conv_transpose2d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv_transpose2d.html)|Demo|不支持CPU平台|
 |[conv_transpose3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv_transpose3d.html)|Not Support|N/A|
 |[unfold](https://pytorch.org/docs/2.1/generated/torch.nn.functional.unfold.html)|Stable|N/A|
 |[fold](https://pytorch.org/docs/2.1/generated/torch.nn.functional.fold.html)|Stable|N/A|
@@ -103,7 +103,7 @@
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
-|[dropout](https://pytorch.org/docs/2.1/generated/torch.nn.functional.dropout.html)|Beta|入参不支持inplace；支持数据类型：bf16、fp16、fp32|
+|[dropout](https://pytorch.org/docs/2.1/generated/torch.nn.functional.dropout.html)|Stable|支持数据类型：bf16、fp16、fp32|
 |[alpha_dropout](https://pytorch.org/docs/2.1/generated/torch.nn.functional.alpha_dropout.html)|Not Support|N/A|
 |[feature_alpha_dropout](https://pytorch.org/docs/2.1/generated/torch.nn.functional.feature_alpha_dropout.html)|Not Support|N/A|
 |[dropout1d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.dropout1d.html)|Not Support|N/A|
