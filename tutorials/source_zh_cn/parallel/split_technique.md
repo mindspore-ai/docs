@@ -118,7 +118,7 @@ class CoreAttention(nn.Cell):
 </tr>
 </table>
 
-再看[FlashAttention](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/flash_attention.py)的例子:
+再看[FlashAttention](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/flash_attention.py)的例子：
 <table>
 <tr>
 <td valign='top'>
@@ -193,4 +193,4 @@ class LlamaForCausalLM(LlamaPretrainedModel):
 </tr>
 </table>
 
-**用户无法确认是否需要对算子配置策略时，可以不配置，由算法传播找寻最优策略，但是可能无法获得最佳的并行效果；若用户能够确认该算子需要配置什么策略，则可以进行配置帮助算法获得预期效果。**
+**用户无法确认是否需要对算子配置策略时，可以不配置，由算法传播找寻最优策略，但是可能无法获得最佳的并行效果；若用户能够确认该算子需要配置什么策略，则可以进行配置，帮助算法获得预期效果。**
