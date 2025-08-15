@@ -20,7 +20,7 @@
    |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| [0.5.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250814/master_20250814010018_4615051c43eef898b6bbdc69768656493b5932f8_newest/any/) |
    |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| [1.6.0](https://gitee.com/mindspore/mindformers)  |
    |[Golden Stick](https://gitee.com/mindspore/golden-stick)| [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/)  |
-   |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
+   |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
    |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
 ## 配置环境
@@ -127,11 +127,11 @@ yum install -y gcc gcc-c++
 
 #### vLLM MindSpore安装
 
-vLLM MindSpore有以下两种安装方式。**vLLM MindSpore一键式安装**适用于用户快速使用与部署的场景。**vLLM MindSpore手动安装**适用于用户对组件有自定义修改的场景。
+vLLM MindSpore有以下两种安装方式。**vLLM MindSpore快速安装**适用于用户快速使用与部署的场景。**vLLM MindSpore手动安装**适用于用户对组件有自定义修改的场景。
 
-- **vLLM MindSpore一键式安装**
+- **vLLM MindSpore快速安装**
 
-    采用一键式安装脚本来安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
+    采用快速安装脚本来安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
 
     ```bash
     git clone https://gitee.com/mindspore/vllm-mindspore.git

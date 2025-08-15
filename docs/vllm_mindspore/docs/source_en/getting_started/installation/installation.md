@@ -20,7 +20,7 @@ This document describes the steps to install the vLLM MindSpore environment. Thr
    |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| [0.5.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250814/master_20250814010018_4615051c43eef898b6bbdc69768656493b5932f8_newest/any/) |
    |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| [1.6.0](https://gitee.com/mindspore/mindformers)  |
    |[Golden Stick](https://gitee.com/mindspore/golden-stick)| [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/)  |
-   |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
+   |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
    |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
 ## Environment Setup
@@ -127,9 +127,9 @@ yum install -y gcc gcc-c++
 
 #### vLLM MindSpore Installation
 
-vLLM MindSpore can be installed in the following two ways. **vLLM MindSpore One-click Installation** is suitable for scenarios where users need quick deployment and usage. **vLLM MindSpore Manual Installation** is suitable for scenarios where users require custom modifications to the components.
+vLLM MindSpore can be installed in the following two ways. **vLLM MindSpore Quick Installation** is suitable for scenarios where users need quick deployment and usage. **vLLM MindSpore Manual Installation** is suitable for scenarios where users require custom modifications to the components.
 
-- **vLLM MindSpore One-click Installation**
+- **vLLM MindSpore Quick Installation**
 
     To install vLLM MindSpore, user needs to pull the vLLM MindSpore source code and then runs the following command to install the dependencies:
 

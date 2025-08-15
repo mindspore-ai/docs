@@ -58,7 +58,7 @@ Branch
 -----------------------------------------------------
 The vllm-mindspore repository contains the main branch, development branch, and version branches:
 
-- **main**: the main branch, compatible with Mindspore master branch and vLLM v0.8.3 version, is continuously monitored for quality through Ascend-MindSpore CI.
+- **main**: the main branch, compatible with Mindspore master branch and vLLM v0.9.1 version, is continuously monitored for quality through Ascend-MindSpore CI.
 - **develop**: the development branch for adapting vLLM features, which is forked from the main branch when a new vLLM version is released. Once the adapted features is stable, it will be merged into the main branch. The current development branch is adapting vLLM v0.9.1 version.
 - **rX.Y.Z**: version branches used for archiving version release, which is forked from the main branch after the adaptation of a certain vLLM version is completed.
 
@@ -72,7 +72,7 @@ The following are the version branches:
       -  Notes
    *  -  master
       -  Maintained
-      -  Compatible with vLLM v0.8.3, and CI commitment for MindSpore master branch
+      -  Compatible with vLLM v0.9.1, and CI commitment for MindSpore master branch
    *  -  develop
       -  Maintained
       -  Compatible with vLLM v0.9.1
@@ -82,6 +82,9 @@ The following are the version branches:
    *  -  r0.2
       -  Maintained
       -  Compatible with vLLM v0.7.3, and CI commitment for MindSpore 2.6.0
+   *  -  r0.3.0
+      -  Maintained
+      -  Compatible with vLLM v0.8.3, and CI commitment for MindSpore 2.7.0
 
 SIG
 -----------------------------------------------------
