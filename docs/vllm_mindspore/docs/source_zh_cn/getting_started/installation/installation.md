@@ -16,12 +16,14 @@
    | 软件 | 配套版本与下载链接 |
    | -----    | -----   |
    |[CANN](https://www.hiascend.com/developer/download/community/result?module=cann)     |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit)      |
-   |[MindSpore](https://www.mindspore.cn/install/) |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250814/master_20250814091143_7548abc43af03319bfa528fc96d0ccd3917fcc9c_newest/unified/)    |
-   |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| [0.5.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250814/master_20250814010018_4615051c43eef898b6bbdc69768656493b5932f8_newest/any/) |
+   |[MindSpore](https://www.mindspore.cn/install/) |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250807/r2.7_20250807154652_7edec76ede691ac90be9590b0ebb2a65923b55fe_newest/unified/)    |
+   |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| [0.2.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250807/r0.2.0_20250807013007_e7636d61563c4beafac4b877891172464fdcf321_newest/any/) |
    |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| [1.6.0](https://gitee.com/mindspore/mindformers)  |
-   |[Golden Stick](https://gitee.com/mindspore/golden-stick)| [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/)  |
-   |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
+   |[Golden Stick](https://gitee.com/mindspore/golden-stick)| [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250806/r1.2.0_20250806120007_eaf90684e2eed9c135c4a64d3ea9c7c70d8ced74_newest/any/)  |
+   |[vLLM](https://github.com/vllm-project/vllm)      | [0.8.3](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
    |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
+
+注：[vLLM软件包](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/)使用vLLM 0.8.3分支，并加入数据并行功能。
 
 ## 配置环境
 
@@ -119,7 +121,7 @@ export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
 
 #### vLLM前置依赖安装
 
-vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
+vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.8.3/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
 
 ```bash
 yum install -y gcc gcc-c++
@@ -127,11 +129,11 @@ yum install -y gcc gcc-c++
 
 #### vLLM MindSpore安装
 
-vLLM MindSpore有以下两种安装方式。**vLLM MindSpore一键式安装**适用于用户快速使用与部署的场景。**vLLM MindSpore手动安装**适用于用户对组件有自定义修改的场景。
+vLLM MindSpore有以下两种安装方式。**vLLM MindSpore快速安装**适用于用户快速使用与部署的场景。**vLLM MindSpore手动安装**适用于用户对组件有自定义修改的场景。
 
-- **vLLM MindSpore一键式安装**
+- **vLLM MindSpore快速安装**
 
-    采用一键式安装脚本来安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
+    采用快速安装脚本来安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
 
     ```bash
     git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
