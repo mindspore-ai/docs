@@ -145,7 +145,7 @@
 |[Tensor.det](https://pytorch.org/docs/2.1/generated/torch.Tensor.det.html)|Not Support|N/A|
 |[Tensor.dense_dim](https://pytorch.org/docs/2.1/generated/torch.Tensor.dense_dim.html)|Not Support|N/A|
 |[Tensor.detach](https://pytorch.org/docs/2.1/generated/torch.Tensor.detach.html)|Not Support|N/A|
-|[Tensor.detach_](https://pytorch.org/docs/2.1/generated/torch.Tensor.detach_.html)|Not Support|N/A|
+|[Tensor.detach_](https://pytorch.org/docs/2.1/generated/torch.Tensor.detach_.html)|Demo|N/A|
 |[Tensor.diag](https://pytorch.org/docs/2.1/generated/torch.Tensor.diag.html)|Not Support|N/A|
 |[Tensor.diag_embed](https://pytorch.org/docs/2.1/generated/torch.Tensor.diag_embed.html)|Not Support|N/A|
 |[Tensor.diagflat](https://pytorch.org/docs/2.1/generated/torch.Tensor.diagflat.html)|Not Support|N/A|
@@ -506,7 +506,7 @@
 |[Tensor.tril](https://pytorch.org/docs/2.1/generated/torch.Tensor.tril.html)|Not Support|N/A|
 |[Tensor.tril_](https://pytorch.org/docs/2.1/generated/torch.Tensor.tril_.html)|Not Support|N/A|
 |[Tensor.triu](https://pytorch.org/docs/2.1/generated/torch.Tensor.triu.html)|Not Support|N/A|
-|[Tensor.triu_](https://pytorch.org/docs/2.1/generated/torch.Tensor.triu_.html)|Not Support|N/A|
+|[Tensor.triu_](https://pytorch.org/docs/2.1/generated/torch.Tensor.triu_.html)|Demo|N/A|
 |[Tensor.true_divide](https://pytorch.org/docs/2.1/generated/torch.Tensor.true_divide.html)|Not Support|N/A|
 |[Tensor.true_divide_](https://pytorch.org/docs/2.1/generated/torch.Tensor.true_divide_.html)|Not Support|N/A|
 |[Tensor.trunc](https://pytorch.org/docs/2.1/generated/torch.Tensor.trunc.html)|Stable|支持数据类型：fp16、fp32|

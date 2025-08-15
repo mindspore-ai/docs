@@ -6,9 +6,9 @@
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
-|[nn.Conv1d](https://pytorch.org/docs/2.1/generated/torch.nn.Conv1d.html)|Beta|入参不支持device；支持数据类型：fp16、fp32|
-|[nn.Conv2d](https://pytorch.org/docs/2.1/generated/torch.nn.Conv2d.html)|Beta|入参不支持device；支持数据类型：bf16、fp16、fp32|
-|[nn.Conv3d](https://pytorch.org/docs/2.1/generated/torch.nn.Conv3d.html)|Beta|入参不支持device|
+|[nn.Conv1d](https://pytorch.org/docs/2.1/generated/torch.nn.Conv1d.html)|Beta|入参不支持device；不支持circular模式；replicate模式不支持bfloat16输入；支持数据类型：fp16、fp32|
+|[nn.Conv2d](https://pytorch.org/docs/2.1/generated/torch.nn.Conv2d.html)|Beta|入参不支持device；不支持circular模式；replicate模式不支持bfloat16输入；支持数据类型：bf16、fp16、fp32|
+|[nn.Conv3d](https://pytorch.org/docs/2.1/generated/torch.nn.Conv3d.html)|Beta|入参不支持device；不支持circular模式；replicate模式不支持bfloat16输入；|
 |[nn.ConvTranspose1d](https://pytorch.org/docs/2.1/generated/torch.nn.ConvTranspose1d.html)|Beta|不支持out出参、入参不支持device；支持数据类型：fp32|
 |[nn.ConvTranspose2d](https://pytorch.org/docs/2.1/generated/torch.nn.ConvTranspose2d.html)|Beta|不支持out出参、入参不支持device；支持数据类型：fp16、fp32|
 |[nn.ConvTranspose3d](https://pytorch.org/docs/2.1/generated/torch.nn.ConvTranspose3d.html)|Beta|不支持out出参、入参不支持device|
@@ -26,12 +26,12 @@
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
 |[nn.MaxPool1d](https://pytorch.org/docs/2.1/generated/torch.nn.MaxPool1d.html)|Beta|N/A|
-|[nn.MaxPool2d](https://pytorch.org/docs/2.1/generated/torch.nn.MaxPool2d.html)|Beta|N/A|
+|[nn.MaxPool2d](https://pytorch.org/docs/2.1/generated/torch.nn.MaxPool2d.html)|Beta|只支持4维输入；不支持bfloat16类型输入|
 |[nn.MaxPool3d](https://pytorch.org/docs/2.1/generated/torch.nn.MaxPool3d.html)|Beta|N/A|
 |[nn.MaxUnpool1d](https://pytorch.org/docs/2.1/generated/torch.nn.MaxUnpool1d.html)|Not Support|N/A|
 |[nn.MaxUnpool2d](https://pytorch.org/docs/2.1/generated/torch.nn.MaxUnpool2d.html)|Not Support|N/A|
 |[nn.MaxUnpool3d](https://pytorch.org/docs/2.1/generated/torch.nn.MaxUnpool3d.html)|Not Support|N/A|
-|[nn.AvgPool1d](https://pytorch.org/docs/2.1/generated/torch.nn.AvgPool1d.html)|Beta|支持数据类型：fp16、fp32|
+|[nn.AvgPool1d](https://pytorch.org/docs/2.1/generated/torch.nn.AvgPool1d.html)|Stable|不支持CPU；支持数据类型：fp16、fp32|
 |[nn.AvgPool2d](https://pytorch.org/docs/2.1/generated/torch.nn.AvgPool2d.html)|Beta|支持数据类型：fp16、fp32|
 |[nn.AvgPool3d](https://pytorch.org/docs/2.1/generated/torch.nn.AvgPool3d.html)|Beta|N/A|
 |[nn.FractionalMaxPool2d](https://pytorch.org/docs/2.1/generated/torch.nn.FractionalMaxPool2d.html)|Not Support|N/A|
@@ -88,7 +88,7 @@
 |[nn.Sigmoid](https://pytorch.org/docs/2.1/generated/torch.nn.Sigmoid.html)|Beta|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[nn.SiLU](https://pytorch.org/docs/2.1/generated/torch.nn.SiLU.html)|Stable|支持数据类型：bf16、fp16、fp32|
 |[nn.Mish](https://pytorch.org/docs/2.1/generated/torch.nn.Mish.html)|Beta|支持数据类型：fp16、fp32|
-|[nn.Softplus](https://pytorch.org/docs/2.1/generated/torch.nn.Softplus.html)|Beta|支持数据类型：fp16、fp32|
+|[nn.Softplus](https://pytorch.org/docs/2.1/generated/torch.nn.Softplus.html)|Stable|支持数据类型：fp16、fp32|
 |[nn.Softshrink](https://pytorch.org/docs/2.1/generated/torch.nn.Softshrink.html)|Not Support|N/A|
 |[nn.Softsign](https://pytorch.org/docs/2.1/generated/torch.nn.Softsign.html)|Not Support|N/A|
 |[nn.Tanh](https://pytorch.org/docs/2.1/generated/torch.nn.Tanh.html)|Beta|支持数据类型：bf16、fp16、fp32、bool|
@@ -101,7 +101,7 @@
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
 |[nn.Softmin](https://pytorch.org/docs/2.1/generated/torch.nn.Softmin.html)|Not Support|N/A|
-|[nn.Softmax](https://pytorch.org/docs/2.1/generated/torch.nn.Softmax.html)|Beta|支持数据类型：bf16、fp16、fp32|
+|[nn.Softmax](https://pytorch.org/docs/2.1/generated/torch.nn.Softmax.html)|Stable|支持数据类型：bf16、fp16、fp32|
 |[nn.Softmax2d](https://pytorch.org/docs/2.1/generated/torch.nn.Softmax2d.html)|Not Support|N/A|
 |[nn.LogSoftmax](https://pytorch.org/docs/2.1/generated/torch.nn.LogSoftmax.html)|Beta|支持数据类型：bf16、fp16、fp32|
 |[nn.AdaptiveLogSoftmaxWithLoss](https://pytorch.org/docs/2.1/generated/torch.nn.AdaptiveLogSoftmaxWithLoss.html)|Beta|入参不支持device|
@@ -112,11 +112,11 @@
 |-------|-------|---------|
 |[nn.BatchNorm1d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm1d.html)|Beta|入参不支持device；支持数据类型：fp16、fp32|
 |[nn.BatchNorm2d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm2d.html)|Beta|入参不支持device；支持数据类型：fp16、fp32|
-|[nn.BatchNorm3d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm3d.html)|Beta|入参不支持device；支持数据类型：fp16、fp32|
+|[nn.BatchNorm3d](https://pytorch.org/docs/2.1/generated/torch.nn.BatchNorm3d.html)|Stable|入参不支持device；支持数据类型：fp16、fp32|
 |[nn.LazyBatchNorm1d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyBatchNorm1d.html)|Not Support|N/A|
 |[nn.LazyBatchNorm2d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyBatchNorm2d.html)|Not Support|N/A|
 |[nn.LazyBatchNorm3d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyBatchNorm3d.html)|Not Support|N/A|
-|[nn.GroupNorm](https://pytorch.org/docs/2.1/generated/torch.nn.GroupNorm.html)|Not Support|N/A|
+|[nn.GroupNorm](https://pytorch.org/docs/2.1/generated/torch.nn.GroupNorm.html)|Stable|入参不支持device|
 |[nn.SyncBatchNorm](https://pytorch.org/docs/2.1/generated/torch.nn.SyncBatchNorm.html)|Not Support|N/A|
 |[nn.InstanceNorm1d](https://pytorch.org/docs/2.1/generated/torch.nn.InstanceNorm1d.html)|Beta|N/A|
 |[nn.InstanceNorm2d](https://pytorch.org/docs/2.1/generated/torch.nn.InstanceNorm2d.html)|Beta|N/A|
@@ -124,7 +124,7 @@
 |[nn.LazyInstanceNorm1d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyInstanceNorm1d.html)|Not Support|N/A|
 |[nn.LazyInstanceNorm2d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyInstanceNorm2d.html)|Not Support|N/A|
 |[nn.LazyInstanceNorm3d](https://pytorch.org/docs/2.1/generated/torch.nn.LazyInstanceNorm3d.html)|Not Support|N/A|
-|[nn.LayerNorm](https://pytorch.org/docs/2.1/generated/torch.nn.LayerNorm.html)|Stable|支持数据类型：bf16、fp16、fp32|
+|[nn.LayerNorm](https://pytorch.org/docs/2.1/generated/torch.nn.LayerNorm.html)|Stable|入参不支持device；支持数据类型：bf16、fp16、fp32|
 |[nn.LocalResponseNorm](https://pytorch.org/docs/2.1/generated/torch.nn.LocalResponseNorm.html)|Not Support|N/A|
 |[nn.RMSNorm](https://pytorch.org/docs/2.1/generated/torch.nn.RMSNorm.html)|Not Support|N/A|
 
@@ -154,8 +154,8 @@
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
-|[nn.Identity](https://pytorch.org/docs/2.1/generated/torch.nn.Identity.html)|Stable|支持数据类型：fp32|
-|[nn.Linear](https://pytorch.org/docs/2.1/generated/torch.nn.Linear.html)|Stable|支持数据类型：fp16、fp32|
+|[nn.Identity](https://pytorch.org/docs/2.1/generated/torch.nn.Identity.html)|Stable|入参不支持device；支持数据类型：fp32|
+|[nn.Linear](https://pytorch.org/docs/2.1/generated/torch.nn.Linear.html)|Stable|入参不支持device；支持数据类型：fp16、fp32|
 |[nn.Bilinear](https://pytorch.org/docs/2.1/generated/torch.nn.Bilinear.html)|Not Support|N/A|
 |[nn.LazyLinear](https://pytorch.org/docs/2.1/generated/torch.nn.LazyLinear.html)|Not Support|N/A|
 
@@ -174,7 +174,7 @@
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
-|[nn.Embedding](https://pytorch.org/docs/2.1/generated/torch.nn.Embedding.html)|Beta|支持数据类型：int32、int64|
+|[nn.Embedding](https://pytorch.org/docs/2.1/generated/torch.nn.Embedding.html)|Beta|入参不支持device；支持数据类型：int32、int64|
 |[nn.EmbeddingBag](https://pytorch.org/docs/2.1/generated/torch.nn.EmbeddingBag.html)|Not Support|N/A|
 
 ## Distance Functions
@@ -189,7 +189,7 @@
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
 |[nn.L1Loss](https://pytorch.org/docs/2.1/generated/torch.nn.L1Loss.html)|Beta|支持数据类型：fp16、fp32、int64|
-|[nn.MSELoss](https://pytorch.org/docs/2.1/generated/torch.nn.MSELoss.html)|Beta|支持数据类型：fp16、fp32|
+|[nn.MSELoss](https://pytorch.org/docs/2.1/generated/torch.nn.MSELoss.html)|Stable|支持数据类型：fp16、fp32|
 |[nn.CrossEntropyLoss](https://pytorch.org/docs/2.1/generated/torch.nn.CrossEntropyLoss.html)|Beta|支持数据类型：fp16、fp32|
 |[nn.CTCLoss](https://pytorch.org/docs/2.1/generated/torch.nn.CTCLoss.html)|Beta|支持数据类型：fp32|
 |[nn.NLLLoss](https://pytorch.org/docs/2.1/generated/torch.nn.NLLLoss.html)|Beta|支持数据类型：fp16、fp32|
