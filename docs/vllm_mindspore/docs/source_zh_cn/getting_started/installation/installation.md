@@ -2,10 +2,10 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
 
-本文档将介绍vLLM MindSpore的[版本配套](#版本配套)，vLLM MindSpore的安装步骤，与[快速验证](#快速验证)用例，用于验证安装是否成功。其中安装步骤分为两种安装方式：
+本文档将介绍vLLM-MindSpore插件的[版本配套](#版本配套)，vLLM-MindSpore插件的安装步骤，与[快速验证](#快速验证)用例，用于验证安装是否成功。其中安装步骤分为两种安装方式：
 
 - [docker安装](#docker安装)：适合用户快速使用的场景；
-- [源码安装](#源码安装)：适合用户有增量开发vLLM MindSpore的场景。
+- [源码安装](#源码安装)：适合用户有增量开发vLLM-MindSpore插件的场景。
 
 ## 版本配套
 
@@ -21,15 +21,15 @@
    |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| [1.6.0](https://gitee.com/mindspore/mindformers)  |
    |[Golden Stick](https://gitee.com/mindspore/golden-stick)| [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/)  |
    |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
-   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
+   |[vLLM-MindSpore插件](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
 ## docker安装
 
-在本章节中，我们推荐用docker创建的方式，以快速部署vLLM MindSpore环境，以下是部署docker的步骤介绍：
+在本章节中，我们推荐用docker创建的方式，以快速部署vLLM-MindSpore插件环境，以下是部署docker的步骤介绍：
 
 ### 构建镜像
 
-用户可执行以下命令，拉取vLLM MindSpore代码仓库，并构建镜像：
+用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
 git clone https://gitee.com/mindspore/vllm-mindspore.git
@@ -121,13 +121,13 @@ vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vl
 yum install -y gcc gcc-c++
 ```
 
-### vLLM MindSpore安装
+### vLLM-MindSpore插件安装
 
-vLLM MindSpore有以下两种安装方式。**vLLM MindSpore快速安装**适用于用户快速使用与部署的场景。**vLLM MindSpore手动安装**适用于用户对组件有自定义修改的场景。
+vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速安装**适用于用户快速使用与部署的场景。**vLLM-MindSpore插件手动安装**适用于用户对组件有自定义修改的场景。
 
-- **vLLM MindSpore快速安装**
+- **vLLM-MindSpore插件快速安装**
 
-    采用快速安装脚本来安装vLLM MindSpore，需要在拉取vLLM MindSpore源码后，执行以下命令，安装依赖包：
+    采用快速安装脚本来安装vLLM-MindSpore插件，需要在拉取vLLM-MindSpore插件源码后，执行以下命令，安装依赖包：
 
     ```bash
     git clone https://gitee.com/mindspore/vllm-mindspore.git
@@ -135,7 +135,7 @@ vLLM MindSpore有以下两种安装方式。**vLLM MindSpore快速安装**适用
     bash install_depend_pkgs.sh
     ```
 
-    编译安装vLLM MindSpore：
+    编译安装vLLM-MindSpore插件：
 
     ```bash
     pip install .
@@ -147,9 +147,9 @@ vLLM MindSpore有以下两种安装方式。**vLLM MindSpore快速安装**适用
     export PYTHONPATH=$MF_PATH:$PYTHONPATH
     ```
 
-- **vLLM MindSpore手动安装**
+- **vLLM-MindSpore插件手动安装**
 
-    若用户对组件有修改，或者需使用其他版本，则用户需要按照特定顺序，手动安装组件。vLLM MindSpore软件配套下载地址可以参考[版本配套](#版本配套)，且对组件的安装顺序要求如下：
+    若用户对组件有修改，或者需使用其他版本，则用户需要按照特定顺序，手动安装组件。vLLM-MindSpore插件软件配套下载地址可以参考[版本配套](#版本配套)，且对组件的安装顺序要求如下：
 
     1. 安装vLLM
 
@@ -188,9 +188,9 @@ vLLM MindSpore有以下两种安装方式。**vLLM MindSpore快速安装**适用
         pip install /path/to/msadapter-*.whl
         ```
 
-    7. 安装vLLM MindSpore
+    7. 安装vLLM-MindSpore插件
 
-        需要先拉取vLLM MindSpore源码，再执行安装
+        需要先拉取vLLM-MindSpore插件源码，再执行安装
 
         ```bash
         git clone https://gitee.com/mindspore/vllm-mindspore.git

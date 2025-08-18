@@ -1,19 +1,19 @@
-vLLM MindSpore 文档
+vLLM-MindSpore插件文档
 =========================================
 
-vLLM MindSpore 简介
+vLLM-MindSpore插件简介
 -----------------------------------------------------
-vLLM MindSpore插件（`vllm-mindspore`）是一个由 `MindSpore社区 <https://www.mindspore.cn/>`_ 孵化的vLLM后端插件。其将基于MindSpore构建的大模型推理能力接入 `vLLM <https://github.com/vllm-project/vllm>`_ ，从而有机整合MindSpore和vLLM的技术优势，提供全栈开源、高性能、易用的大模型推理解决方案。
+vLLM-MindSpore插件（`vllm-mindspore`）是一个由 `MindSpore社区 <https://www.mindspore.cn/>`_ 孵化的vLLM后端插件。其将基于MindSpore构建的大模型推理能力接入 `vLLM <https://github.com/vllm-project/vllm>`_ ，从而有机整合MindSpore和vLLM的技术优势，提供全栈开源、高性能、易用的大模型推理解决方案。
 
 vLLM是由加州大学伯克利分校Sky Computing Lab创建的社区开源项目，已广泛用于学术研究和工业应用。vLLM以Continuous Batching调度机制和PagedAttention Key-Value缓存管理为基础，提供了丰富的推理服务功能，包括投机推理、Prefix Caching、Multi-LoRA等。同时，vLLM已支持种类丰富的开源大模型，包括Transformer类（如LLaMa）、混合专家类（如DeepSeek）、Embedding类（如E5-Mistral）、多模态类（如LLaVA）等。由于vLLM选用PyTorch构建大模型和管理计算存储资源，此前无法使用其部署基于MindSpore大模型的推理服务。
 
-vLLM MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部署为功能目标。其遵循以下设计原则：
+vLLM-MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部署为功能目标。其遵循以下设计原则：
 
 - 接口兼容：支持vLLM原生的API和服务部署接口，避免新增配置文件或接口，降低用户学习成本和确保易用性。
 - 最小化侵入式修改：尽可能避免侵入式修改vLLM代码，以保障系统的可维护性和可演进性。
 - 组件解耦：最小化和规范化MindSpore大模型组件和vLLM服务组件的耦合面，以利于多种MindSpore大模型套件接入。
 
-基于上述设计原则，vLLM MindSpore采用如下图所示的系统架构，分组件类别实现vLLM与MindSpore的对接：
+基于上述设计原则，vLLM-MindSpore插件采用如下图所示的系统架构，分组件类别实现vLLM与MindSpore的对接：
 
 - 服务化组件：通过将LLM Engine、Scheduler等服务化组件中的PyTorch API调用映射至MindSpore能力调用，继承支持包括Continuous Batching、PagedAttention在内的服务化功能。
 - 大模型组件：通过注册或替换模型、网络层、自定义算子等组件，将MindSpore Transformers、MindSpore One等MindSpore大模型套件和自定义大模型接入vLLM。
@@ -28,7 +28,7 @@ vLLM MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部�
       </tr>
    </table>
 
-vLLM MindSpore采用vLLM社区推荐的插件机制，实现能力注册。未来期望遵循 `RPC Multi-framework support for vllm <https://gitee.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ 所述原则。
+vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册。未来期望遵循 `RPC Multi-framework support for vllm <https://gitee.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ 所述原则。
 
 代码仓地址：<https://gitee.com/mindspore/vllm-mindspore>
 
@@ -41,8 +41,8 @@ vLLM MindSpore采用vLLM社区推荐的插件机制，实现能力注册。未�
 
   * Python >= 3.9, < 3.12
   * CANN >= 8.0.0.beta1
-  * MindSpore (与vLLM MindSpore版本配套)
-  * vLLM (与vLLM MindSpore版本配套)
+  * MindSpore (与vLLM-MindSpore插件版本配套)
+  * vLLM (与vLLM-MindSpore插件版本配套)
 
 快速体验
 -----------------------------------------------------
@@ -56,7 +56,7 @@ vLLM MindSpore采用vLLM社区推荐的插件机制，实现能力注册。未�
 
 分支策略
 -----------------------------------------------------
-vLLM MindSpore代码仓包含主干分支、开发分支、版本分支：
+vLLM-MindSpore插件代码仓包含主干分支、开发分支、版本分支：
 
 - **main**: 主干分支，与MindSpore master分支和vLLM v0.9.1版本配套，并通过昇腾+昇思CI持续进行质量看护；
 - **develop**: 开发分支，在vLLM部分新版本发布时从主干分支拉出，用于开发适配vLLM的新功能特性。待特性适配稳定后合入主干分支。当前开发分支正在适配vLLM v0.9.1版本；

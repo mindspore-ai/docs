@@ -2,9 +2,9 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/features_list/features_list.md)
 
-The features supported by vLLM MindSpore are consistent with the community version of vLLM. For feature descriptions and usage, please refer to the [vLLM Official Documentation](https://docs.vllm.ai/en/latest/).
+The features supported by vLLM-MindSpore Plugin are consistent with the community version of vLLM. For feature descriptions and usage, please refer to the [vLLM Official Documentation](https://docs.vllm.ai/en/latest/).
 
-The following is the features supported in vLLM MindSpore.
+The following is the features supported in vLLM-MindSpore Plugin.
 
 | **Features**                          | **vLLM V0** | **vLLM V1** |  
 |-----------------------------------|--------------------|--------------------|  
@@ -39,5 +39,5 @@ The following is the features supported in vLLM MindSpore.
 
 ## Feature Description
 
-- LoRA currently only supports the Qwen2.5 vLLM MindSpore native model, other models are in the process of adaptation;
+- LoRA currently only supports the Qwen2.5 vLLM-MindSpore Plugin native model, other models are in the process of adaptation;
 - Tool Calling only supports DeepSeek V3 0324 W8A8 model.

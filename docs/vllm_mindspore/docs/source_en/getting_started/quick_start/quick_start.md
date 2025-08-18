@@ -2,15 +2,15 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/quick_start/quick_start.md)  
 
-This document provides a quick guide to deploy vLLM MindSpore by [docker](https://www.docker.com/), with the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example. User can quickly experience the serving and inference abilities of vLLM MindSpore by [offline inference](#offline-inference) and [online inference](#online-inference). For more information about installation, please refer to the [Installation Guide](../installation/installation.md).  
+This document provides a quick guide to deploy vLLM-MindSpore Plugin by [docker](https://www.docker.com/), with the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example. User can quickly experience the serving and inference abilities of vLLM-MindSpore Plugin by [offline inference](#offline-inference) and [online inference](#online-inference). For more information about installation, please refer to the [Installation Guide](../installation/installation.md).  
 
 ## Docker Installation
 
-In this section, we recommend to use docker to deploy the vLLM MindSpore environment. The following sections are the steps for deployment:
+In this section, we recommend to use docker to deploy the vLLM-MindSpore Plugin environment. The following sections are the steps for deployment:
 
 ### Building the Image  
 
-User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
+User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
 ```bash  
 git clone https://gitee.com/mindspore/vllm-mindspore.git
@@ -137,7 +137,7 @@ export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Tra
 
 Here is an explanation of these environment variables:  
 
-- `vLLM_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM MindSpore in the [Model Support List](../../user_guide/supported_models/models_list/models_list.md).  
+- `vLLM_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: The model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5). For Qwen2.5-7B, the YAML file is [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml).
 
 Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
@@ -188,7 +188,7 @@ Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compost
 
 ### Online Inference
 
-vLLM MindSpore supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
+vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
 
 #### Starting the Service
 
