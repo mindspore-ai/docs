@@ -2,11 +2,11 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_zh_cn/general/security.md)
 
-通过 vLLM-MindSpore插件 在 Ascend 上使能推理服务时，由于服务化、节点通信、模型执行等必要功能需要使用一些网络端口，因此会存在安全相关的一些问题。
+通过vLLM-MindSpore插件在 Ascend 上使能推理服务时，由于服务化、节点通信、模型执行等必要功能需要使用一些网络端口，因此会存在安全相关的一些问题。
 
 ## 服务化端口配置
 
-使用 vLLM-MindSpore插件 启动推理服务时，需要相关 IP 与端口信息，包括：
+使用vLLM-MindSpore插件启动推理服务时，需要相关 IP 与端口信息，包括：
 
 1. `host`: 配置服务关联的 IP 地址，默认值为 `0.0.0.0`。
 2. `port`: 配置服务关联的端口，默认值为 `8000`。
@@ -17,7 +17,7 @@
 
 ## 节点间通信
 
-通过 vLLM-MindSpore插件 进行多节点部署时，使用默认配置进行节点间的通信是不安全的，包括以下场景：
+通过vLLM-MindSpore插件进行多节点部署时，使用默认配置进行节点间的通信是不安全的，包括以下场景：
 
 1. MindSpore 分布式通信。
 2. 模型TP、DP并行下的通信。

@@ -35,7 +35,7 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
 
-拉取vLLM代码仓，导入vLLM-MindSpore插件插件，复用其中benchmark功能：
+拉取vLLM代码仓，导入vLLM-MindSpore插件，复用其中benchmark功能：
 
 ```bash
 export VLLM_BRANCH=v0.8.3
@@ -106,7 +106,7 @@ export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model back
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-并拉取vLLM代码仓，导入vLLM-MindSpore插件插件，复用其中benchmark功能：
+并拉取vLLM代码仓，导入vLLM-MindSpore插件，复用其中benchmark功能：
 
 ```bash
 export VLLM_BRANCH=v0.8.3

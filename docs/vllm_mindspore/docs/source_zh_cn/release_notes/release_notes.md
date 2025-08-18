@@ -4,7 +4,7 @@
 
 ## vLLM-MindSpore插件 0.3.0 Release Notes
 
-以下为vLLM-MindSpore插件插件0.3.0版本支持的关键新功能和模型。
+以下为vLLM-MindSpore插件0.3.0版本支持的关键新功能和模型。
 
 ### 新特性
 

@@ -15,13 +15,13 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 
    | Software | Version And Links |
    | -----    | -----   |
-   |[CANN](https://www.hiascend.com/developer/download/community/result?module=cann)     |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit)      |
-   |[MindSpore](https://www.mindspore.cn/install/) |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250807/r2.7_20250807154652_7edec76ede691ac90be9590b0ebb2a65923b55fe_newest/unified/)    |
-   |[MSAdapter](https://git.openi.org.cn/OpenI/MSAdapter)| [0.2.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250807/r0.2.0_20250807013007_e7636d61563c4beafac4b877891172464fdcf321_newest/any/) |
-   |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| [1.6.0](https://gitee.com/mindspore/mindformers)  |
-   |[Golden Stick](https://gitee.com/mindspore/golden-stick)| [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250806/r1.2.0_20250806120007_eaf90684e2eed9c135c4a64d3ea9c7c70d8ced74_newest/any/)  |
-   |[vLLM](https://github.com/vllm-project/vllm)      | [0.8.3](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
-   |[vLLM-MindSpore Plugin](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
+   | CANN     |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit)      |
+   | MindSpore |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250807/r2.7_20250807154652_7edec76ede691ac90be9590b0ebb2a65923b55fe_newest/unified/)    |
+   | MSAdapter | [0.2.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250807/r0.2.0_20250807013007_e7636d61563c4beafac4b877891172464fdcf321_newest/any/) |
+   | MindSpore Transformers | [1.6.0](https://gitee.com/mindspore/mindformers)  |
+   | Golden Stick | [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250806/r1.2.0_20250806120007_eaf90684e2eed9c135c4a64d3ea9c7c70d8ced74_newest/any/)  |
+   | vLLM      | [0.8.3](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
+   | vLLM-MindSpore Plugin | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
 Note: [vLLM Package](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) uses vLLM 0.8.3 branch，and add data parallel.
 
