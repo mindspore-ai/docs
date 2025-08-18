@@ -4,7 +4,7 @@
 
 ## vLLM-MindSpore Plugin 0.3.0 Release Notes
 
-The following are the key new features and models supported in the vLLM-MindSpore Plugin plugin version 0.3.0.  
+The following are the key new features and models supported in the vLLM-MindSpore Plugin version 0.3.0.  
 
 ### New Features
 

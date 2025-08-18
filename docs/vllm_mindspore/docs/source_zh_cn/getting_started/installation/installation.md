@@ -23,8 +23,6 @@
    | vLLM     | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
    | vLLM-MindSpore插件 | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
-
-
 ## docker安装
 
 在本章节中，我们推荐用docker创建的方式，以快速部署vLLM-MindSpore插件环境，以下是部署docker的步骤介绍：

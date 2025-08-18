@@ -7,7 +7,7 @@ vLLM-MindSpore Plugin (`vllm-mindspore`) is a plugin brewed by the `MindSpore co
 
 vLLM, an opensource and community-driven project initiated by Sky Computing Lab, UC Berkeley, has been widely used in academic research and industry applications. On the basis of Continuous Batching scheduling mechanism and PagedAttention Key-Value cache management, vLLM provides a rich set of inference service features, including speculative inference, Prefix Caching, Multi-LoRA, etc. vLLM also supports a wide range of open-source large models, including Transformer-based models (e.g., LLaMa), Mixture-of-Expert models (e.g., DeepSeek), Embedding models (e.g., E5-Mistral), and multi-modal models (e.g., LLaVA). Because vLLM chooses to use PyTorch to build large models and manage storage resources, it cannot deploy large models built upon MindSpore.
 
-vLLM-MindSpore Plugin plugin aims to integrate Mindspore large models into vLLM and to enable deploying MindSpore-based LLM inference services. It follows the following design principles:
+vLLM-MindSpore Plugin aims to integrate Mindspore large models into vLLM and to enable deploying MindSpore-based LLM inference services. It follows the following design principles:
 
 - Interface compatibility: support the native APIs and service deployment interfaces of vLLM to avoid adding new configuration files or interfaces, reducing user learning costs and ensuring ease of use.
 - Minimal invasive modifications: minimize invasive modifications to the vLLM code to ensure system maintainability and evolvability.

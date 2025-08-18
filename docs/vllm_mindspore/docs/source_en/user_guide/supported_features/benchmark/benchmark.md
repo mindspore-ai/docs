@@ -35,7 +35,7 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
 
-Clone the vLLM repository and import the vLLM-MindSpore Plugin plugin to reuse the benchmark tools:  
+Clone the vLLM repository and import the vLLM-MindSpore Plugin to reuse the benchmark tools:  
 
 ```bash  
 export VLLM_BRANCH=v0.9.1
