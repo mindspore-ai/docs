@@ -18,6 +18,6 @@
 More environment variable information can be referred in the following links:
 
 - [CANN Environment Variable List](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/81RC1beta1/index/index.html)
-- [MindSpore Environment Variable List](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html)
-- [MindSpore Transformers Environment Variable List](https://www.mindspore.cn/mindformers/docs/en/master/index.html)
+- [MindSpore Environment Variable List](https://www.mindspore.cn/docs/en/r2.7.0/api_python/env_var_list.html)
+- [MindSpore Transformers Environment Variable List](https://www.mindspore.cn/mindformers/docs/en/r1.6.0/index.html)
 - [vLLM Environment Variable List](https://docs.vllm.ai/en/v0.8.4/serving/env_vars.html)
