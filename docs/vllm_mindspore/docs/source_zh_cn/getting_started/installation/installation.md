@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
 
-本文档将介绍安装vLLM MindSpore环境的操作步骤。分为三种安装方式：
+本文档将介绍vLLM MindSpore的[版本配套](#版本配套)，vLLM MindSpore的安装步骤，与[快速验证](#快速验证)用例，用于验证安装是否成功。其中安装步骤分为两种安装方式：
 
 - [docker安装](#docker安装)：适合用户快速使用的场景；
 - [源码安装](#源码安装)：适合用户有增量开发vLLM MindSpore的场景。
@@ -23,15 +23,11 @@
    |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
    |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
-## 配置环境
-
-在本章节中，我们将介绍[docker安装](#docker安装)、[源码安装](#源码安装)两种安装方式，以及[快速验证](#快速验证)用例，用于验证安装是否成功。
-
-### docker安装
+## docker安装
 
 在本章节中，我们推荐用docker创建的方式，以快速部署vLLM MindSpore环境，以下是部署docker的步骤介绍：
 
-#### 构建镜像
+### 构建镜像
 
 用户可执行以下命令，拉取vLLM MindSpore代码仓库，并构建镜像：
 
@@ -53,7 +49,7 @@ Successfully tagged vllm_ms_20250726:latest
 docker images
 ```
 
-#### 新建容器
+### 新建容器
 
 用户在完成[构建镜像](#构建镜像)后，设置`DOCKER_NAME`与`IMAGE_NAME`以设置容器名与镜像名，并执行以下命令，以新建容器：
 
@@ -95,7 +91,7 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
 docker ps
 ```
 
-#### 进入容器
+### 进入容器
 
 用户在完成[新建容器](#新建容器)后，使用已定义的环境变量`DOCKER_NAME`，启动并进入容器：
 
@@ -103,9 +99,9 @@ docker ps
 docker exec -it $DOCKER_NAME bash
 ```
 
-### 源码安装
+## 源码安装
 
-#### CANN安装
+### CANN安装
 
 CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)，若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
 
@@ -117,7 +113,7 @@ source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
 export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
 ```
 
-#### vLLM前置依赖安装
+### vLLM前置依赖安装
 
 vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
 
@@ -125,7 +121,7 @@ vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vl
 yum install -y gcc gcc-c++
 ```
 
-#### vLLM MindSpore安装
+### vLLM MindSpore安装
 
 vLLM MindSpore有以下两种安装方式。**vLLM MindSpore快速安装**适用于用户快速使用与部署的场景。**vLLM MindSpore手动安装**适用于用户对组件有自定义修改的场景。
 

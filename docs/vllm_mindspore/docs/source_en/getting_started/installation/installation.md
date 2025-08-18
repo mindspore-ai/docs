@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)  
 
-This document describes the steps to install the vLLM MindSpore environment. Three installation methods are provided:  
+This document will introduce the [Version Matching](#version-compatibility) of vLLM MindSpore, the installation steps for vLLM MindSpore, and the [Quick Verification](#quick-verification) to verify whether the installation is successful. The installation steps provide two installation methods:
 
 - [Docker Installation](#docker-installation): Suitable for quick deployment scenarios.
 - [Source Code Installation](#source-code-installation): Suitable for incremental development of vLLM MindSpore.  
@@ -23,15 +23,11 @@ This document describes the steps to install the vLLM MindSpore environment. Thr
    |[vLLM](https://github.com/vllm-project/vllm)      | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
    |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
-## Environment Setup
-
-This section introduces two installation methods: [Docker Installation](#docker-installation), [Source Code Installation](#source-code-installation), and [Quick Verification](#quick-verification) example to check the installation.  
-
-### Docker Installation
+## Docker Installation
 
 We recommend using Docker for quick deployment of the vLLM MindSpore environment. Below are the steps:  
 
-#### Building the Image  
+### Building the Image  
 
 User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
 
@@ -53,7 +49,7 @@ Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image
 docker images  
 ```
 
-#### Creating a Container
+### Creating a Container
 
 After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then execute the following command to create the container:  
 
@@ -95,7 +91,7 @@ The container ID will be returned if docker is created successfully. User can al
 docker ps  
 ```  
 
-#### Entering the Container
+### Entering the Container
 
 After [creating the container](#creating-a-container), user can start and enter the container, using the environment variable `DOCKER_NAME`:  
 
@@ -103,9 +99,9 @@ After [creating the container](#creating-a-container), user can start and enter 
 docker exec -it $DOCKER_NAME bash  
 ```  
 
-### Source Code Installation
+## Source Code Installation
 
-#### CANN Installation
+### CANN Installation
 
 For CANN installation methods and environment configuration, please refer to [CANN Community Edition Installation Guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit). If you encounter any issues during CANN installation, please consult the [Ascend FAQ](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html) for troubleshooting.
 
@@ -117,7 +113,7 @@ source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
 export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
 ```
 
-#### vLLM Prerequisites Installation
+### vLLM Prerequisites Installation
 
 For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html). In vllM installation, `gcc/g++ >= 12.3.0` is required, and it could be  installed by the following command:
 
@@ -125,7 +121,7 @@ For vLLM environment configuration and installation methods, please refer to the
 yum install -y gcc gcc-c++
 ```
 
-#### vLLM MindSpore Installation
+### vLLM MindSpore Installation
 
 vLLM MindSpore can be installed in the following two ways. **vLLM MindSpore Quick Installation** is suitable for scenarios where users need quick deployment and usage. **vLLM MindSpore Manual Installation** is suitable for scenarios where users require custom modifications to the components.
 
