@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/profiling/profiling.md)
 
-vLLM MindSpore支持使用`mindspore.Profiler`模块，跟踪vLLM MindSpore中worker的性能。用户可以根据[采集profiling数据](#采集profiling数据)章节，在完成数据采集后，根据[分析profiling数据](#分析profiling数据)，进行数据分析。另一方面，用户可以根据[图数据dump](#图数据dump)，查看模型的IR图，从而进行对模型结构的分析与调试。
+vLLM-MindSpore插件支持使用`mindspore.Profiler`模块，跟踪vLLM-MindSpore插件中worker的性能。用户可以根据[采集profiling数据](#采集profiling数据)章节，在完成数据采集后，根据[分析profiling数据](#分析profiling数据)，进行数据分析。另一方面，用户可以根据[图数据dump](#图数据dump)，查看模型的IR图，从而进行对模型结构的分析与调试。
 
 ## 采集profiling数据
 
@@ -12,7 +12,7 @@ vLLM MindSpore支持使用`mindspore.Profiler`模块，跟踪vLLM MindSpore中wo
 export VLLM_TORCH_PROFILER_DIR=/path/to/save/vllm_profile
 ```
 
-设置完成后，以[Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) 为例，启动vLLM MindSpore服务：
+设置完成后，以[Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) 为例，启动vLLM-MindSpore插件服务：
 
 ```bash
 export TENSOR_PARALLEL_SIZE=4

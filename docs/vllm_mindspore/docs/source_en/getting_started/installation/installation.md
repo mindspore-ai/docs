@@ -2,10 +2,10 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)  
 
-This document will introduce the [Version Matching](#version-compatibility) of vLLM MindSpore, the installation steps for vLLM MindSpore, and the [Quick Verification](#quick-verification) to verify whether the installation is successful. The installation steps provide two installation methods:
+This document will introduce the [Version Matching](#version-compatibility) of vLLM-MindSpore Plugin, the installation steps for vLLM-MindSpore Plugin, and the [Quick Verification](#quick-verification) to verify whether the installation is successful. The installation steps provide two installation methods:
 
 - [Docker Installation](#docker-installation): Suitable for quick deployment scenarios.
-- [Source Code Installation](#source-code-installation): Suitable for incremental development of vLLM MindSpore.  
+- [Source Code Installation](#source-code-installation): Suitable for incremental development of vLLM-MindSpore Plugin.  
 
 ## Version Compatibility
 
@@ -21,17 +21,17 @@ This document will introduce the [Version Matching](#version-compatibility) of v
    |[MindSpore Transformers](https://gitee.com/mindspore/mindformers)| [1.6.0](https://gitee.com/mindspore/mindformers)  |
    |[Golden Stick](https://gitee.com/mindspore/golden-stick)| [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250806/r1.2.0_20250806120007_eaf90684e2eed9c135c4a64d3ea9c7c70d8ced74_newest/any/)  |
    |[vLLM](https://github.com/vllm-project/vllm)      | [0.8.3](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
-   |[vLLM MindSpore](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
+   |[vLLM-MindSpore Plugin](https://gitee.com/mindspore/vllm-mindspore) | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
 Note: [vLLM Package](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) uses vLLM 0.8.3 branch，and add data parallel.
 
 ## Docker Installation
 
-We recommend using Docker for quick deployment of the vLLM MindSpore environment. Below are the steps:  
+We recommend using Docker for quick deployment of the vLLM-MindSpore Plugin environment. Below are the steps:  
 
 ### Building the Image  
 
-User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
+User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
 ```bash  
 git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
@@ -123,13 +123,13 @@ For vLLM environment configuration and installation methods, please refer to the
 yum install -y gcc gcc-c++
 ```
 
-### vLLM MindSpore Installation
+### vLLM-MindSpore Plugin Installation
 
-vLLM MindSpore can be installed in the following two ways. **vLLM MindSpore Quick Installation** is suitable for scenarios where users need quick deployment and usage. **vLLM MindSpore Manual Installation** is suitable for scenarios where users require custom modifications to the components.
+vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpore Plugin Quick Installation** is suitable for scenarios where users need quick deployment and usage. **vLLM-MindSpore Plugin Manual Installation** is suitable for scenarios where users require custom modifications to the components.
 
-- **vLLM MindSpore Quick Installation**
+- **vLLM-MindSpore Plugin Quick Installation**
 
-    To install vLLM MindSpore, user needs to pull the vLLM MindSpore source code and then runs the following command to install the dependencies:
+    To install vLLM-MindSpore Plugin, user needs to pull the vLLM-MindSpore Plugin source code and then runs the following command to install the dependencies:
 
     ```bash  
     git clone https://gitee.com/mindspore/vllm-mindspore.git  
@@ -137,7 +137,7 @@ vLLM MindSpore can be installed in the following two ways. **vLLM MindSpore Quic
     bash install_depend_pkgs.sh  
     ```  
 
-    Compile and install vLLM MindSpore:  
+    Compile and install vLLM-MindSpore Plugin:  
 
     ```bash  
     pip install .  
@@ -149,9 +149,9 @@ vLLM MindSpore can be installed in the following two ways. **vLLM MindSpore Quic
     export PYTHONPATH=$MF_PATH:$PYTHONPATH  
     ```
 
-- **vLLM MindSpore Manual Installation**
+- **vLLM-MindSpore Plugin Manual Installation**
 
-    If user need to modify the components or use other versions, components need to be manually installed in a specific order. Version compatibility of vLLM MindSpore can be found [Version Compatibility](#version-compatibility), abd vLLM MindSpore requires the following installation sequence:  
+    If user need to modify the components or use other versions, components need to be manually installed in a specific order. Version compatibility of vLLM-MindSpore Plugin can be found [Version Compatibility](#version-compatibility), abd vLLM-MindSpore Plugin requires the following installation sequence:  
 
     1. Install vLLM  
 
@@ -190,9 +190,9 @@ vLLM MindSpore can be installed in the following two ways. **vLLM MindSpore Quic
        pip install /path/to/msadapter-*.whl  
        ```  
 
-    7. Install vLLM MindSpore
+    7. Install vLLM-MindSpore Plugin
 
-       User needs to pull source of vLLM MindSpore, and run installation.
+       User needs to pull source of vLLM-MindSpore Plugin, and run installation.
 
        ```bash  
        git clone https://gitee.com/mindspore/vllm-mindspore.git

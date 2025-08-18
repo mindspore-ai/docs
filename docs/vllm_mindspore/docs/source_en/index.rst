@@ -1,22 +1,22 @@
-vLLM MindSpore
+vLLM-MindSpore Plugin
 =========================================
 
 Overview
 -----------------------------------------------------
-vLLM MindSpore (`vllm-mindspore`) is a plugin brewed by the `MindSpore community <https://www.mindspore.cn/en>`_ , which aims to integrate MindSpore LLM inference capabilities into `vLLM <https://github.com/vllm-project/vllm>`_ . With vLLM MindSpore, technical strengths of Mindspore and vLLM will be organically combined to provide a full-stack open-source, high-performance, easy-to-use LLM inference solution.
+vLLM-MindSpore Plugin (`vllm-mindspore`) is a plugin brewed by the `MindSpore community <https://www.mindspore.cn/en>`_ , which aims to integrate MindSpore LLM inference capabilities into `vLLM <https://github.com/vllm-project/vllm>`_ . With vLLM-MindSpore Plugin, technical strengths of Mindspore and vLLM will be organically combined to provide a full-stack open-source, high-performance, easy-to-use LLM inference solution.
 
 vLLM, an opensource and community-driven project initiated by Sky Computing Lab, UC Berkeley, has been widely used in academic research and industry applications. On the basis of Continuous Batching scheduling mechanism and PagedAttention Key-Value cache management, vLLM provides a rich set of inference service features, including speculative inference, Prefix Caching, Multi-LoRA, etc. vLLM also supports a wide range of open-source large models, including Transformer-based models (e.g., LLaMa), Mixture-of-Expert models (e.g., DeepSeek), Embedding models (e.g., E5-Mistral), and multi-modal models (e.g., LLaVA). Because vLLM chooses to use PyTorch to build large models and manage storage resources, it cannot deploy large models built upon MindSpore.
 
-vLLM MindSpore plugin aims to integrate Mindspore large models into vLLM and to enable deploying MindSpore-based LLM inference services. It follows the following design principles:
+vLLM-MindSpore Plugin plugin aims to integrate Mindspore large models into vLLM and to enable deploying MindSpore-based LLM inference services. It follows the following design principles:
 
 - Interface compatibility: support the native APIs and service deployment interfaces of vLLM to avoid adding new configuration files or interfaces, reducing user learning costs and ensuring ease of use.
 - Minimal invasive modifications: minimize invasive modifications to the vLLM code to ensure system maintainability and evolvability.
 - Component decoupling: minimize and standardize the coupling between MindSpore large model components and vLLM service components to facilitate the integration of various MindSpore large model suites.
 
-On the basis of the above design principles, vLLM MindSpore adopts the system architecture shown in the figure below, and implements the docking between vLLM and Mindspore in categories of components:
+On the basis of the above design principles, vLLM-MindSpore Plugin adopts the system architecture shown in the figure below, and implements the docking between vLLM and Mindspore in categories of components:
 
-- Service components: vLLM MindSpore maps PyTorch API calls in service components including LLMEngine and Scheduler to MindSpore capabilities, inheriting support for service functions like Continuous Batching and PagedAttention.
-- Model components: vLLM MindSpore registers or replaces model components including models, network layers, and custom operators, and integrates MindSpore Transformers, MindSpore One, and other MindSpore large model suites, as well as custom large models, into vLLM.
+- Service components: vLLM-MindSpore Plugin maps PyTorch API calls in service components including LLMEngine and Scheduler to MindSpore capabilities, inheriting support for service functions like Continuous Batching and PagedAttention.
+- Model components: vLLM-MindSpore Plugin registers or replaces model components including models, network layers, and custom operators, and integrates MindSpore Transformers, MindSpore One, and other MindSpore large model suites, as well as custom large models, into vLLM.
 
 .. raw:: html
 
@@ -28,7 +28,7 @@ On the basis of the above design principles, vLLM MindSpore adopts the system ar
       </tr>
    </table>
 
-vLLM MindSpore uses the plugin mechanism recommended by the vLLM community to realize capability registration. In the future, we expect to promote vLLM community to support integration of inference capabilities of third-party AI frameworks, including PaddlePaddle and JAX by following principles described in `[RPC] Multi-framework support for vllm <https://gitee.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ .
+vLLM-MindSpore Plugin uses the plugin mechanism recommended by the vLLM community to realize capability registration. In the future, we expect to promote vLLM community to support integration of inference capabilities of third-party AI frameworks, including PaddlePaddle and JAX by following principles described in `[RPC] Multi-framework support for vllm <https://gitee.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ .
 
 Code：<https://gitee.com/mindspore/vllm-mindspore>
 
@@ -88,7 +88,7 @@ The following are the version branches:
 
 SIG
 -----------------------------------------------------
-- Welcome to join vLLM MindSpore SIG to participate in the co-construction of open-source projects and industrial cooperation: https://www.mindspore.cn/community/SIG
+- Welcome to join vLLM-MindSpore Plugin SIG to participate in the co-construction of open-source projects and industrial cooperation: https://www.mindspore.cn/community/SIG
 - SIG meetings, every other Friday or Saturday evening, 20:00 - 21:00 (UTC+8,  `Convert to your timezone <https://dateful.com/convert/gmt8?t=15>`_ )
 
 License

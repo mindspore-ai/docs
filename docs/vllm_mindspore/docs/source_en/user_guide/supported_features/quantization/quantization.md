@@ -24,7 +24,7 @@ After obtaining the DeepSeek-R1 W8A8 weights, ensure they are stored in the rela
 
 ### Offline Inference
 
-Refer to the [Installation Guide](../../../getting_started/installation/installation.md) to set up the vLLM MindSpore environment. User need to set the following environment variables:
+Refer to the [Installation Guide](../../../getting_started/installation/installation.md) to set up the vLLM-MindSpore Plugin environment. User need to set the following environment variables:
 
 ```bash
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.

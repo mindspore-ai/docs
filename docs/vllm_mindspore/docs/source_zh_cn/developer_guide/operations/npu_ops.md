@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_zh_cn/developer_guide/operations/npu_ops.md)
 
-本文档将以 **`adv_step_flash`** 算子的接入为例，讲解如何在 vLLM MindSpore 项目中接入一个新的自定义算子。本文重点在于接入流程，算子的实现参考 MindSpore 官方教程：[动态图自定义算子接入方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/custom_program/operation/op_customopbuilder.html)。以下章节将介绍文件的组织结构及接入步骤。
+本文档将以 **`adv_step_flash`** 算子的接入为例，讲解如何在 vLLM-MindSpore插件 项目中接入一个新的自定义算子。本文重点在于接入流程，算子的实现参考 MindSpore 官方教程：[动态图自定义算子接入方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/custom_program/operation/op_customopbuilder.html)。以下章节将介绍文件的组织结构及接入步骤。
 
 实际开发中，可根据项目需求扩展更多功能，算子实现细节可参考 [MindSpore 自定义算子实现方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/custom_program/operation/op_customopbuilder.html)。
 
@@ -10,7 +10,7 @@
 
 ## 文件组织结构
 
-接入自定义算子需要在 vLLM MindSpore 项目的 `vllm_mindspore/ops` 目录下添加代码，目录结构如下：
+接入自定义算子需要在 vLLM-MindSpore插件 项目的 `vllm_mindspore/ops` 目录下添加代码，目录结构如下：
 
 ```text
 vllm_mindspore/ops/
@@ -93,7 +93,7 @@ MS_EXTENSION_MODULE(my_custom_op) {
 ### 算子编译并测试
 
 1. **代码集成**：将代码集成至 vllm-mindspore 项目。
-2. **编译项目**：于vllm-mindspore工程中，执行`pip install .`，编译安装vLLM MindSpore。
+2. **编译项目**：于vllm-mindspore工程中，执行`pip install .`，编译安装vLLM-MindSpore插件。
 3. **测试算子接口**：使用 Python 调用注册的算子接口：
 
     ```python

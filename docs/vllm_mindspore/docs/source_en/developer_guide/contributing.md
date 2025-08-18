@@ -13,11 +13,11 @@ Before submitting code to the MindSpore community, you need to sign the Contribu
 
 ## Supporting New Models
 
-To support a new model for vLLM MindSpore code repository, please note the following:
+To support a new model for vLLM-MindSpore Plugin code repository, please note the following:
 
 - **Follow file format and location specifications.** Model code files should be placed under the `vllm_mindspore/model_executor` directory, organized in corresponding subfolders by model type.
-- **Implement models using MindSpore interfaces with jit static graph support.** Model definitions in vLLM MindSpore must be implemented using MindSpore interfaces. Since MindSpore's static graph mode offers performance advantages, models should support execution via @jit static graphs. For reference, see the [Qwen2.5](https://gitee.com/mindspore/vllm-mindspore/blob/r0.3.0/vllm_mindspore/model_executor/models/qwen2.py) implementation.
-- **Register new models in vLLM MindSpore.** After implementing the model structure, register it in vLLM MindSpore by adding it to `_NATIVE_MODELS` in `vllm_mindspore/model_executor/models/registry.py`.
+- **Implement models using MindSpore interfaces with jit static graph support.** Model definitions in vLLM-MindSpore Plugin must be implemented using MindSpore interfaces. Since MindSpore's static graph mode offers performance advantages, models should support execution via @jit static graphs. For reference, see the [Qwen2.5](https://gitee.com/mindspore/vllm-mindspore/blob/r0.3.0/vllm_mindspore/model_executor/models/qwen2.py) implementation.
+- **Register new models in vLLM-MindSpore Plugin.** After implementing the model structure, register it in vLLM-MindSpore Plugin by adding it to `_NATIVE_MODELS` in `vllm_mindspore/model_executor/models/registry.py`.
 - **Write unit tests.** New models must include corresponding unit tests. Refer to the [Qwen2.5 testcases](https://gitee.com/mindspore/vllm-mindspore/blob/r0.3.0/tests/st/python/cases_parallel/vllm_qwen_7b.py) for examples.
 
 ## Contribution Process
@@ -27,12 +27,12 @@ To support a new model for vLLM MindSpore code repository, please note the follo
 Follow these guidelines for community code review, maintenance, and development.
 
 - **Coding Standards:** Use vLLM community code checking tools: yapf, codespell, ruff, isort, and mypy. For more details, see the [Toolchain Usage Guide](https://gitee.com/mindspore/vllm-mindspore/blob/r0.3.0/codecheck_toolkits/README.md).
-- **Unit Testing Guidelines:** vLLM MindSpore uses the [pytest](http://www.pytest.org/en/latest/) framework. Test names should clearly reflect their purpose.
+- **Unit Testing Guidelines:** vLLM-MindSpore Plugin uses the [pytest](http://www.pytest.org/en/latest/) framework. Test names should clearly reflect their purpose.
 - **Refactoring Guidelines:** Developers are encouraged to refactor code to eliminate [code smells](https://en.wikipedia.org/wiki/Code_smell). All code, including refactored code, must adhere to coding and testing standards.
 
 ### Fork-Pull Development Model
 
-- **Fork the vLLM MindSpore Repository:** Before submitting code, fork the project to your own repository. Ensure consistency between the vLLM MindSpore repository and your fork during parallel development.
+- **Fork the vLLM-MindSpore Plugin Repository:** Before submitting code, fork the project to your own repository. Ensure consistency between the vLLM-MindSpore Plugin repository and your fork during parallel development.
 
 - **Clone the Remote Repository:** users can use git to pull the source code:
 
@@ -59,13 +59,13 @@ Follow these guidelines for community code review, maintenance, and development.
   git push origin {new_branch_name}
   ```
 
-- **Create a Pull Request to vLLM MindSpore:** Compare and create a PR between your branch and the vLLM MindSpore master branch. After submission, manually trigger CI checks with `/retest` in the comments. PRs should be merged into upstream master promptly to minimize merge risks.
+- **Create a Pull Request to vLLM-MindSpore Plugin:** Compare and create a PR between your branch and the vLLM-MindSpore Plugin master branch. After submission, manually trigger CI checks with `/retest` in the comments. PRs should be merged into upstream master promptly to minimize merge risks.
 
 ### Reporting Issues
 
 To contribute by reporting issues, follow these guidelines:
 
-- Specify your environment versions (vLLM MindSpore, MindSpore TransFormers, MindSpore, OS, Python, etc.).
+- Specify your environment versions (vLLM-MindSpore Plugin, MindSpore TransFormers, MindSpore, OS, Python, etc.).
 - Indicate whether it's a bug report or feature request.
 - Label the issue type for visibility on the issue board.
 - Describe the problem and expected resolution.
@@ -92,4 +92,4 @@ To contribute by reporting issues, follow these guidelines:
 - Keep your branch synchronized with master.
 - For bug-fix PRs, ensure all related issues are referenced.
 
-Thank you for your interest in contributing to vLLM MindSpore. We welcome and value all forms of collaboration.
+Thank you for your interest in contributing to vLLM-MindSpore Plugin. We welcome and value all forms of collaboration.

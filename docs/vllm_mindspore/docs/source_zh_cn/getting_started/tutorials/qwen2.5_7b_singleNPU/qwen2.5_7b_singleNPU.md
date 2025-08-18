@@ -2,15 +2,15 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md)
 
-本文档将为用户介绍使用vLLM MindSpore进行单卡推理流程。以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)模型为例，用户通过以下[docker安装](#docker安装)章节，或[安装指南](../../installation/installation.md#安装指南)进行环境配置，并[下载模型权重](#下载模型权重)。在[设置环境变量](#设置环境变量)之后，可进行[离线推理](#离线推理)与[在线推理](#在线推理)，以体验单卡推理功能。
+本文档将为用户介绍使用vLLM-MindSpore插件进行单卡推理流程。以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)模型为例，用户通过以下[docker安装](#docker安装)章节，或[安装指南](../../installation/installation.md#安装指南)进行环境配置，并[下载模型权重](#下载模型权重)。在[设置环境变量](#设置环境变量)之后，可进行[离线推理](#离线推理)与[在线推理](#在线推理)，以体验单卡推理功能。
 
 ## docker安装
 
-在本章节中，我们推荐用docker创建的方式，以快速部署vLLM MindSpore环境。以下是部署docker的步骤介绍：
+在本章节中，我们推荐用docker创建的方式，以快速部署vLLM-MindSpore插件环境。以下是部署docker的步骤介绍：
 
 ### 构建镜像
 
-用户可执行以下命令，拉取vLLM MindSpore代码仓库，并构建镜像：
+用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
 git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
@@ -134,7 +134,7 @@ export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Tra
 
 以下是对上述环境变量的解释：
 
-- `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM MindSpore所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询；
+- `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询；
 - `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/qwen2_5)中，找到对应模型的yaml文件。以Qwen2.5-7B为例，则其yaml文件为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml) 。
 
 用户可通过`npu-smi info`查看显存占用情况，并可以使用如下环境变量，设置用于推理的计算卡：
@@ -184,7 +184,7 @@ Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compost
 
 ## 在线推理
 
-vLLM MindSpore可使用OpenAI的API协议，部署为在线推理。以下是以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，介绍模型的[启动服务](#启动服务)，并[发送请求](#发送请求)，得到在线推理的推理结果。
+vLLM-MindSpore插件可使用OpenAI的API协议，部署为在线推理。以下是以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，介绍模型的[启动服务](#启动服务)，并[发送请求](#发送请求)，得到在线推理的推理结果。
 
 ### 启动服务
 

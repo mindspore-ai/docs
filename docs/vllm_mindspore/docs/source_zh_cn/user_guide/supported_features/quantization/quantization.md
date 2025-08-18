@@ -24,7 +24,7 @@
 
 ### 离线推理
 
-用户可以参考[安装指南](../../../getting_started/installation/installation.md)，进行vLLM MindSpore的环境搭建。用户需设置以下环境变量：
+用户可以参考[安装指南](../../../getting_started/installation/installation.md)，进行vLLM-MindSpore插件的环境搭建。用户需设置以下环境变量：
 
 ```bash
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.

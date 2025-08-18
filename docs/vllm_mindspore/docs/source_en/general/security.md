@@ -2,11 +2,11 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_en/general/security.md)
 
-When enabling inference services using vLLM MindSpore on Ascend, there may be some security-related issues due to the need for certain network ports for necessary functions such as serviceification, node communication, and model execution.
+When enabling inference services using vLLM-MindSpore Plugin on Ascend, there may be some security-related issues due to the need for certain network ports for necessary functions such as serviceification, node communication, and model execution.
 
 ## Service Port Configuration
 
-When starting the inference service using vLLM MindSpore, relevant IP and port information is required, including:
+When starting the inference service using vLLM-MindSpore Plugin, relevant IP and port information is required, including:
 
 1. `host`: Sets the IP address associated with the vLLM serve (default: `0.0.0.0`).
 2. `port`: Sets the port for vLLM serve (default: `8000`).
@@ -36,7 +36,7 @@ For security, it should be deployed in a sufficiently secure isolated network en
 
 ### Executing Framework Distributed Communication
 
-It should be noted that vLLM MindSpore use MindSpore's distributed communication. For detailed security information about MindSpore, please refer to the [MindSpore](https://www.mindspore.cn/en).
+It should be noted that vLLM-MindSpore Plugin use MindSpore's distributed communication. For detailed security information about MindSpore, please refer to the [MindSpore](https://www.mindspore.cn/en).
 
 ## Security Recommendations
 
