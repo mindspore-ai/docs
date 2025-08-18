@@ -426,7 +426,7 @@ The error codes for HCCL & HCCP start with `EI` and `EJ`. Throughout the communi
 
 ### EI0006: Socket Build Timeout
 
-When the socker build timeout occurs, it will report an `EI0006` error, and the MindSpore log will show a `Distribute Task Failed` error. This means the cluster has a socket build timeout error, as shown in the following log:
+When the socket build timeout occurs, it will report an `EI0006` error, and the MindSpore log will show a `Distribute Task Failed` error. This means the cluster has a socket build timeout error, as shown in the following log:
 
 ```c++
 [ERROR] ASCENDCL(83434,python):2022-11-30-23:31:08.729.325 [tensor_data_transfer.cpp:899]89062 acltdtSendTensor: [Push][Data]failed to send, tdt result = -1, device is 1, name is 62576f78-70c2-11ed-b633-000132214e48
