@@ -38,7 +38,6 @@ from mindspore.train import Model, LossMonitor
 from mindspore.train.callback import OnRequestExit
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.communication.management import init
-from mindspore.context import ParallelMode
 from mindspore.parallel.auto_parallel import AutoParallel
 from mindspore.nn.utils import no_init_parameters
 

@@ -14,7 +14,7 @@ When an error is reported during data processing, check whether C++ error messag
 
 *Figure 1*
 
-As shown in the following figure, `batch_op.cc` reports a C++ error. The batch operation combines multiple consecutive pieces of data in a dataset into a batch for data processing, which is implemented at the backend. According to the error description, the input data does not meet the parameter requirements of the batch operation. Data to be batch operated has the same shape, and the data shape size required by the batch operation and the data shape size of the current error should be displayed.
+As shown in the figure 1, `batch_op.cc` reports a C++ error. The batch operation combines multiple consecutive pieces of data in a dataset into a batch for data processing, which is implemented at the backend. According to the error description, the input data does not meet the parameter requirements of the batch operation. Data to be batch operated has the same shape, and the data shape size required by the batch operation and the data shape size of the current error should be displayed.
 
 Data loading and processing has three phases: data preparation, data loading, and data augmentation. The following table lists common errors.
 
