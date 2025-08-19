@@ -41,7 +41,7 @@ print(generate_text)
 
 ## 推理教程
 
-MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM MindSpore适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM MindSpore文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.3.0/index.html)。
+MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM MindSpore适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM MindSpore文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/index.html)。
 
 本章主要简单介绍vLLM MindSpore服务化推理的基础使用。
 
