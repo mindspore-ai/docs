@@ -16,7 +16,7 @@
 
 ### 直接下载量化权重
 
-我们已经将量化好的DeepSeek-R1上传到[魔乐社区](https://modelers.cn)：[MindSpore-Lab/DeepSeek-R1-W8A8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-W8A8)，可以参考[魔乐社区文档](https://modelers.cn/docs/zh/openmind-hub-client/0.9/basic_tutorial/download.html)将权重下载到本地。
+我们已经将量化好的DeepSeek-R1上传到[魔乐社区](https://modelers.cn)：[MindSpore-Lab/DeepSeek-R1-0528-A8W8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8)，可以参考[魔乐社区文档](https://modelers.cn/docs/zh/openmind-hub-client/0.9/basic_tutorial/download.html)将权重下载到本地。
 
 ## 量化模型推理
 
@@ -24,16 +24,14 @@
 
 ### 离线推理
 
-用户可以参考[安装指南](../../../getting_started/installation/installation.md)，进行vLLM MindSpore的环境搭建。用户需设置以下环境变量：
+用户可以参考[安装指南](../../../getting_started/installation/installation.md)，进行vLLM-MindSpore插件的环境搭建。用户需设置以下环境变量：
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-关于DeepSeek-R1 W8A8量化推理的yaml文件，可以使用[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
+关于DeepSeek-R1 W8A8量化推理的yaml文件，可以使用[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
 
 环境准备完成后，用户可以使用如下Python代码，进行离线推理服务：
 

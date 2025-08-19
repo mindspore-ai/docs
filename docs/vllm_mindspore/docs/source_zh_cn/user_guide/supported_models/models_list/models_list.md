@@ -6,7 +6,7 @@
 |-------| --------- | ---- |
 | DeepSeek-V3 |   已支持 | [DeepSeek-V3](https://modelers.cn/models/MindSpore-Lab/DeepSeek-V3) |
 | DeepSeek-R1 |   已支持 | [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-V3) |
-| DeepSeek-R1 W8A8 |   已支持 | [Deepseek-R1-W8A8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-r1-w8a8) |
+| DeepSeek-R1 W8A8 |   已支持 | [Deepseek-R1-W8A8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8) |
 | Qwen2.5 | 已支持 | [Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct)、[Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct)、[Qwen2.5-3B-Instruct](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct)、 [Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)、[Qwen2.5-14B-Instruct](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct)、[Qwen2.5-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct)、[Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) |
 | Qwen3-32B | 已支持 | [Qwen3-32B](https://modelers.cn/models/MindSpore-Lab/Qwen3-32B) |
 | Qwen3-235B-A22B | 已支持 | [Qwen3-235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) |

@@ -2,16 +2,14 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/benchmark/benchmark.md)  
 
-The benchmark tool of vLLM MindSpore is inherited from vLLM. You can refer to the [vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md) documentation for more details. This document introduces [Online Benchmark](#online-benchmark) and [Offline Benchmark](#offline-benchmark). Users can follow the steps to conduct performance tests.  
+The benchmark tool of vLLM-MindSpore Plugin is inherited from vLLM. You can refer to the [vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md) documentation for more details. This document introduces [Online Benchmark](#online-benchmark) and [Offline Benchmark](#offline-benchmark). Users can follow the steps to conduct performance tests.  
 
 ## Online Benchmark
 
 For single-card inference, we take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. You can prepare the environment by following the guide [Single-Card Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#online-inference), set the environment variables:
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
@@ -37,7 +35,7 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
 
-Clone the vLLM repository and import the vLLM MindSpore plugin to reuse the benchmark tools:  
+Clone the vLLM repository and import the vLLM-MindSpore Plugin to reuse the benchmark tools:  
 
 ```bash  
 export VLLM_BRANCH=v0.8.3
@@ -46,7 +44,7 @@ cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
 ```  
 
-Here, `VLLM_BRANCH` refers to the branch name of vLLM, which needs to be compatible with vLLM MindSpore. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
+Here, `VLLM_BRANCH` refers to the branch name of vLLM, which needs to be compatible with vLLM-MindSpore Plugin. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
 
 Execute the test script:  
 
@@ -104,9 +102,7 @@ P99 ITL (ms):                            ....
 For offline performance benchmark, take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. Prepare the environment by following the guide [Single-Card Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#offline-inference). User need to set the environment variables:
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
@@ -119,7 +115,7 @@ cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
 ```  
 
-Here, `VLLM_BRANCH` refers to the branch name of vLLM, which needs to be compatible with vLLM MindSpore. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
+Here, `VLLM_BRANCH` refers to the branch name of vLLM, which needs to be compatible with vLLM-MindSpore Plugin. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
 
 Run the test script with the following command. The script below will start the model automatically, and user does not need to start the model manually:  
 

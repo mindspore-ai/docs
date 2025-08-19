@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/profiling/profiling.md)
 
-vLLM MindSpore supports the `mindspore.Profiler` module to track the performance of workers in vLLM MindSpore. User can follow the [Collecting Profiling Data](#collecting-profiling-data) section to gather data and then analyze it according to [Analyzing Profiling Data](#analyzing-profiling-data). Additionally, user can inspect the model's IR graph through [Graph Data Dump](#graph-data-dump) to analyze and debug the model structure.  
+vLLM-MindSpore Plugin supports the `mindspore.Profiler` module to track the performance of workers in vLLM-MindSpore Plugin. User can follow the [Collecting Profiling Data](#collecting-profiling-data) section to gather data and then analyze it according to [Analyzing Profiling Data](#analyzing-profiling-data). Additionally, user can inspect the model's IR graph through [Graph Data Dump](#graph-data-dump) to analyze and debug the model structure.  
 
 ## Collecting Profiling Data
 
@@ -12,7 +12,7 @@ To enable profiling data collection, user need to set the `VLLM_TORCH_PROFILER_D
 export VLLM_TORCH_PROFILER_DIR=/path/to/save/vllm_profile
 ```
 
-After setting the variable, Run the following command to launch the vLLM MindSpore service. We take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example:  
+After setting the variable, Run the following command to launch the vLLM-MindSpore Plugin service. We take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example:  
 
 ```bash  
 export TENSOR_PARALLEL_SIZE=4
@@ -40,7 +40,7 @@ curl -X POST http://127.0.0.1:8000/start_profile
 curl http://localhost:8000/v1/completions \  
     -H "Content-Type: application/json" \  
     -d '{  
-        "model": "/home/DeepSeekV3",  
+        "model": "Qwen/Qwen2.5-32B-Instruct",  
         "prompt": "San Francisco is a",  
         "max_tokens": 7,  
         "temperature": 0  

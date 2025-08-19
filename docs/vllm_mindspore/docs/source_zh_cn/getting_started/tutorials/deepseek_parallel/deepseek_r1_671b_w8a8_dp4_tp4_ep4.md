@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
 
-vLLM MindSpore支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理，不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。
+vLLM-MindSpore插件支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理，不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。
 
 本文档将以DeepSeek R1 671B W8A8为例介绍[张量并行](#tp16-张量并行推理)及[混合并行](#混合并行推理)推理流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理模型。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。
 
@@ -10,11 +10,11 @@ vLLM MindSpore支持张量并行（TP）、数据并行（DP）、专家并行�
 
 ## docker安装
 
-在本章节中，我们推荐用docker创建的方式，以快速部署vLLM MindSpore环境。以下是部署docker的步骤介绍：
+在本章节中，我们推荐用docker创建的方式，以快速部署vLLM-MindSpore插件环境。以下是部署docker的步骤介绍：
 
 ### 构建镜像
 
-用户可执行以下命令，拉取vLLM MindSpore代码仓库，并构建镜像：
+用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
 git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
@@ -94,8 +94,8 @@ docker exec -it $DOCKER_NAME bash
 
 ```python
 from openmind_hub import snapshot_download
-snapshot_download(repo_id="MindSpore-Lab/DeepSeek-R1-W8A8",
-                  local_dir="/path/to/save/deepseek_r1_w8a8",
+snapshot_download(repo_id="MindSpore-Lab/DeepSeek-R1-0528-A8W8",
+                  local_dir="/path/to/save/deepseek_r1_0528_a8w8",
                   local_dir_use_symlinks=False)
 ```
 
@@ -120,7 +120,7 @@ Git LFS initialized.
 工具确认可用后，执行以下命令，下载权重：
 
 ```shell
-git clone https://modelers.cn/MindSpore-Lab/DeepSeek-R1-W8A8.git
+git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8.git
 ```
 
 ## TP16 张量并行推理
@@ -156,8 +156,8 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/pre
 - `HCCL_OP_EXPANSION_MODE`: 配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
 - `MS_ALLOC_CONF`: 设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
-- `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM MindSpore所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
-- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml) 。
+- `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
+- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml) 。
 
 模型并行策略通过配置文件中的`parallel_config`指定，例如TP16 张量并行配置如下所示：
 
@@ -264,7 +264,7 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 
 #### 启动服务
 
-vLLM MindSpore可使用OpenAI的API协议，部署为在线推理。以下是在线推理的拉起流程。
+vLLM-MindSpore插件可使用OpenAI的API协议，部署为在线推理。以下是在线推理的拉起流程。
 
 ```bash
 # 启动配置参数说明
@@ -284,18 +284,20 @@ vllm-mindspore serve
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```
 
-张量并行场景下，`--tensor-parallel-size`参数会覆盖模型yaml文件中`parallel_config`的`model_parallel`配置。
+张量并行场景下，`--tensor-parallel-size`参数会覆盖模型yaml文件中`parallel_config`的`model_parallel`配置。用户可以通过`--model`参数，指定模型保存的本地路径。
 
 #### 发起请求
 
 使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
 ```
+
+用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。
 
 ## 混合并行推理
 
@@ -326,8 +328,8 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/pre
 - `HCCL_OP_EXPANSION_MODE`: 配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
 - `MS_ALLOC_CONF`: 设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
-- `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM MindSpore所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
-- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml)。
+- `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
+- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml)。
 
 模型并行策略通过配置文件中的`parallel_config`指定，例如混合并行配置如下所示：
 
@@ -343,6 +345,8 @@ parallel_config:
 `data_parallel`及`model_parallel`指定attn及ffn-dense部分的并行策略，`expert_parallel`指定moe部分路由专家并行策略，且需满足`data_parallel` * `model_parallel`可被`expert_parallel`整除。
 
 ### 在线推理
+
+#### 启动服务
 
 `vllm-mindspore`可使用OpenAI的API协议部署在线推理。以下是在线推理的拉起流程：
 
@@ -366,20 +370,22 @@ vllm-mindspore serve
  --enable-expert-parallel # 使能专家并行
 ```
 
-执行示例：
+用户可以通过`--model`参数，指定模型保存的本地路径。以下为执行示例：
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
 
 # 从节点：
-vllm-mindspore serve --headless --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
+vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
 ```
 
-## 发送请求
+#### 发送请求
 
 使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am, "max_tokens": 120, "temperature": 0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am, "max_tokens": 120, "temperature": 0}'
 ```
+
+用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。
