@@ -345,6 +345,16 @@ Graph Compilation and Execution
        path: use specified json file. When this option is set, the above options are ignored.
      - Refer to the `Custom Fusion <https://www.mindspore.cn/tutorials/en/master/compile/fusion_pass.html>`_
 
+   * - MS_DEV_PYNATIVE_FUSION_FLAGS
+     - Configure operator fusion in PyNative asynchronous execution mode.
+     - String
+     - Configuration items, with the format "--key=value", multiple configuration items separated by space, multiple value items separated by commas, for example, `export MS_DEV_PYNATIVE_FUSION_FLAGS="--opt_level=1 --enable_ops=MatMul,MatMulExt"`
+
+       opt_level: Determines whether to enable operator fusion, 0 means disabled, and 1 means enabled. Default: 0.
+
+       enable_ops: Under the premise of enabling operator fusion, add some operators that are not fused by default to the fusion process. The operators supported by this configuration item are: Dense, MatMul, MatMulExt, BatchMatMul, and BatchMatMulExt.
+     -
+
    * - MS_DEV_DISABLE_AUTO_H2D
      - Control whether the input of the operator performs implicit copying in PyNative mode. When enabled, implicit copying of operator input will be disabled.
      - Integer
