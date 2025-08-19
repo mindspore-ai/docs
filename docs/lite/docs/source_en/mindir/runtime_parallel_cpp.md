@@ -27,7 +27,7 @@ To use the MindSpore Lite concurrent inference framework, perform the following 
 
 ## Creating configuration
 
-The configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#runnerconfig) will save some basic configuration parameters required for concurrent inference, which are used to guide the number of concurrent models, model compilation and model execution.
+The configuration item [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_RunnerConfig.html) will save some basic configuration parameters required for concurrent inference, which are used to guide the number of concurrent models, model compilation and model execution.
 
 The following sample code demonstrates how to create a RunnerConfig and configure the number of workers for concurrent inference:
 

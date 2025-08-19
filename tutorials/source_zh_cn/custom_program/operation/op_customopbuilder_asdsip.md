@@ -10,7 +10,7 @@
 
 在 [基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html) 中，MindSpore提供了 `PyboostRunner` 方便用户在动态图接入自定义算子。现在针对ASDSIP算子，MindSpore又额外提供了一套`AsdSipFFTOpRunner`用于把ASDSIP FFT算子的调用流程和动态图多级流水封装到一起。
 
-用户基于 [AsdSipFFTOpRunner类](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#class-asdsipfftoprunner) 对接ASDSIP FFT算子时，仅需要提供`Param`，并调用`Init`接口初始化（即构造`Operation`），再调用`Run`接口即可执行ASDSIP算子。还可以直接调用 [RunAsdSipFFTOp](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#function-launchasdsipfft)函数一键执行（函数内包含了`Init`和`Run`接口的调用）。
+用户基于 [AsdSipFFTOpRunner类](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#class-asdsipfftoprunner) 对接ASDSIP FFT算子时，仅需要提供`Param`，并调用`Init`接口初始化（即构造`Operation`），再调用`Run`接口即可执行ASDSIP算子。还可以直接调用 [RunAsdSipFFTOp](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#function-runasdsipfftop)函数一键执行（函数内包含了`Init`和`Run`接口的调用）。
 
 本指南以一个`FftC2C`为例，展示ASDSIP FFT算子的接入流程。完整代码请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/jit_test_files/asdsip_fftc2c.cpp)。
 
