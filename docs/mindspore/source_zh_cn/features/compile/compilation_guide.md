@@ -71,7 +71,7 @@ subgraph @foo() {
 
 - 绝大部分计算以及优化都是基于对Tensor计算的优化，建议被修饰的函数应该是用来进行真正的数据计算的函数，而不是一些简单的标量计算或者数据结构的变换。
 
-- 被`@mindspore.jit`修饰的函数，若其输入存在常量，那么该函数每次输入值的变化都会导致重新编译，关于变量常量的概念请见[即时编译下的常量与变量](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph)。因此，建议被修饰的函数以Tensor或者被Mutable修饰的数据作为输入。避免因多次编译导致的额外性能损耗。
+- 被`@mindspore.jit`修饰的函数，若其输入存在常量，那么该函数每次输入值的变化都会导致重新编译，关于变量常量的概念请见[即时编译下的常量与变量](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)。因此，建议被修饰的函数以Tensor或者被Mutable修饰的数据作为输入。避免因多次编译导致的额外性能损耗。
 
 ## 图优化（前端）
 
