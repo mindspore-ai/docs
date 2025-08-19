@@ -176,11 +176,11 @@ try:
 except:
     print('golden_stick替换安装包内容失败')
 
-re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+re_url2 = r"(gitee.com/mindspore/(mindspore|mindspore-lite)/[\w\d/_.-]*?)/(master)"
 
 re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
 
