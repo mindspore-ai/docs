@@ -6,7 +6,7 @@
 
 It is recommended that you start from the image classification demo on the Android device to understand how to build the MindSpore Lite application project, configure dependencies, and use related APIs.
 
-This tutorial demonstrates the on-device deployment process based on the image classification sample program on the Android device provided by the MindSpore team.  
+This tutorial demonstrates the on-device deployment process based on the image classification sample program on the Android device provided by the MindSpore Lite team.  
 
 1. Select an image classification model.
 2. Convert the model into a MindSpore Lite model.
@@ -118,7 +118,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/build/build.html) to generate the `mindspore-lite-{version}-android-{arch}.tar.gz` library package and extract it (contains the `libmindspore-lite.so` library file and related header files). In this case, you need to use the compile command of generate with image preprocessing module.
+When MindSpore Lite C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/build/build.html) to generate the `mindspore-lite-{version}-android-{arch}.tar.gz` library package and extract it (contains the `libmindspore-lite.so` library file and related header files). In this case, you need to use the compile command of generate with image preprocessing module.
 
 > version: Version number of the .tar package, which is the same as the version of the compiled branch code.
 >
@@ -269,9 +269,9 @@ The inference process code is as follows. For details about the complete code, s
         }
         ```
 
-2. Convert the input image into the Tensor format of the MindSpore model.
+2. Convert the input image into the Tensor format of the MindSpore Lite model.
 
-    - Cut the size of the image `srcbitmap` to be detected and convert it to LiteMat format `lite_norm_mat_cut`. The width, height and channel number information are converted into float format data `dataHWC`. Finally, copy the `dataHWC` to the input `inTensor` of MindSpore model.
+    - Cut the size of the image `srcbitmap` to be detected and convert it to LiteMat format `lite_norm_mat_cut`. The width, height and channel number information are converted into float format data `dataHWC`. Finally, copy the `dataHWC` to the input `inTensor` of MindSpore Lite model.
 
         ```cpp
         void **labelEnv = reinterpret_cast<void **>(netEnv);
@@ -342,7 +342,7 @@ The inference process code is as follows. For details about the complete code, s
         auto status = mModel->Predict(msInputs, &outputs);
         ```
 
-   - Get the tensor output `msOutputs` of MindSpore model. The text information `resultCharData` displayed in the APP is calculated through `msOutputs` and classification array information.
+   - Get the tensor output `msOutputs` of MindSpore Lite model. The text information `resultCharData` displayed in the APP is calculated through `msOutputs` and classification array information.
 
         ```cpp
         auto names = mModel->GetOutputTensorNames();

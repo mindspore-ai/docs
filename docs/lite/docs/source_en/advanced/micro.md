@@ -32,7 +32,7 @@ The following describes how to prepare the environment for using the conversion 
 
     You can obtain the conversion tool in either of the following ways:
 
-    - Download [Release Version](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from the MindSpore official website.
+    - Download [Release Version](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from the MindSpore Lite official website.
 
         Download the release package whose OS is Linux-x86_64 and hardware platform is CPU.
 
@@ -491,7 +491,7 @@ For preparing environment section, refer to the [above](#preparing-environment),
 After generating model inference code, you need to obtain the `Micro` lib on which the generated inference code depends before performing integrated development on the code.
 
 The inference code of different platforms depends on the `Micro` lib of the corresponding platform. You need to specify the platform via the micro configuration item `target` based on the platform in use when generating code, and obtain the `Micro` lib of the platform when obtaining the inference package.
-You can download the [Release Version](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) of the corresponding platform from the MindSpore official website.
+You can download the [Release Version](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) of the corresponding platform from the MindSpore Lite official website.
 
 In chapter [Generating Model Inference Code](#generating-model-inference-code), we obtain the model inference code of the Linux platform with the x86_64 architecture. The `Micro` lib on which the code depends is the release package used by the conversion tool.
 In the release package, the following content depended by the inference code:
@@ -619,7 +619,7 @@ mnist                          # Specified name of generated code root directory
 
 The STM32F767 uses the Cortex-M7 architecture. You can obtain the `Micro` lib of the architecture in either of the following ways:
 
-- Download [Release Version](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from the MindSpore official website.
+- Download [Release Version](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from the MindSpore Lite official website.
 
     You need to download the release package whose OS is None and hardware platform is Cortex-M7.
 
@@ -627,7 +627,7 @@ The STM32F767 uses the Cortex-M7 architecture. You can obtain the `Micro` lib of
 
     You can run the `MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64` command to compile the Cortex-M7 release package.
 
-For other Cortex-M architecture platforms that do not provide release packages for download, you can modify MindSpore source code and manually compile the code to obtain the release package by referring to the method of compiling and building from source code.
+For other Cortex-M architecture platforms that do not provide release packages for download, you can modify MindSpore Lite source code and manually compile the code to obtain the release package by referring to the method of compiling and building from source code.
 
 ### Code Integration and Compilation Deployment on Windows: Integrated Development Through IAR
 
@@ -1225,7 +1225,7 @@ Users can directly refer to the above content.
 
 ### Export weights of inference model
 
-MindSpore `Serialization` class provides the `ExportWeightsCollaborateWithMicro` function, and `ExportWeightsCollaborateWithMicro` is as follows.
+MindSpore Lite  `Serialization` class provides the `ExportWeightsCollaborateWithMicro` function, and `ExportWeightsCollaborateWithMicro` is as follows.
 
 ```cpp
   static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type,

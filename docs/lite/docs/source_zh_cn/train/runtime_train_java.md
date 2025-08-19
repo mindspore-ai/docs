@@ -24,7 +24,7 @@ MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/
 
 ### 读取模型
 
-模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Graph](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/graph.html#graph)类中实现，该类实现了模型文件读写的方法。
+模型文件是一个flatbuffer序列化文件，它通过MindSpore Lite模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Graph](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/graph.html#graph)类中实现，该类实现了模型文件读写的方法。
 
 ### 创建上下文
 
