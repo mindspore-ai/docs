@@ -2,15 +2,15 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md)  
 
-This document introduces single NPU inference process by vLLM MindSpore. Taking the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example, user can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [downloading model weights](#downloading-model-weights). After [setting environment variables](#setting-environment-variables), user can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.  
+This document introduces single NPU inference process by vLLM-MindSpore Plugin. Taking the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example, user can configure the environment through the [Docker Installation](#docker-installation) or the [Installation Guide](../../installation/installation.md#installation-guide), and [downloading model weights](#downloading-model-weights). After [setting environment variables](#setting-environment-variables), user can perform [offline inference](#offline-inference) and [online inference](#online-inference) to experience single NPU inference abilities.  
 
 ## Docker Installation
 
-In this section, we recommend using Docker for quick deployment of the vLLM MindSpore environment. Below are the steps for Docker deployment:  
+In this section, we recommend using Docker for quick deployment of the vLLM-MindSpore Plugin environment. Below are the steps for Docker deployment:  
 
 ### Building the Image  
 
-User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
+User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
 ```bash  
 git clone https://gitee.com/mindspore/vllm-mindspore.git
@@ -127,17 +127,13 @@ For [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct), the following
 
 ```bash  
 #set environment variables  
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.  
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore TransFormers as model backend.  
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation  
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.  
 ```  
 
 Here is an explanation of these variables:  
 
-- `ASCEND_TOTAL_MEMORY_GB`: The memory size of each compute card. Query using `npu-smi info`, corresponding to `HBM-Usage(MB)` in the results.  
 - `vLLM_MODEL_BACKEND`: The model backend. Currently supported models and backends are listed in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
-- `vLLM_MODEL_MEMORY_USE_GB`: Memory reserved for model loading. Adjust this if encountering insufficient memory.  
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5). For Qwen2.5-7B, the YAML file is [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml).  
 
 User can check memory usage with `npu-smi info` and set the compute card for inference using:  
@@ -186,7 +182,7 @@ Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compost
 
 ## Online Inference
 
-vLLM MindSpore supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
+vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. The following section would introduce how to [starting the service](#starting-the-service) and [send requests](#sending-requests) to obtain inference results, using [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example.  
 
 ### Starting the Service
 
@@ -196,7 +192,7 @@ Use the model `Qwen/Qwen2.5-7B-Instruct` and start the vLLM service with the fol
 python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-7B-Instruct"  
 ```  
 
-If the service starts successfully, similar output will be obtained:
+User can also set the local model path by `--model` argument. If the service starts successfully, similar output will be obtained:
 
 ```text  
 INFO:   Started server process [6363]  
@@ -217,6 +213,8 @@ Use the following command to send a request, where `prompt` is the model input:
 ```bash  
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 15, "temperature": 0}'  
 ```  
+
+User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
 
 If the request is processed successfully, the following inference result will be returned:
 

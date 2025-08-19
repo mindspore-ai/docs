@@ -2,15 +2,15 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/quick_start/quick_start.md)
 
-本文档将为用户提供快速指引，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)模型为例，使用[docker](https://www.docker.com/)的安装方式部署vLLM MindSpore，并以[离线推理](#离线推理)与[在线推理](#在线推理)两种方式，快速体验vLLM MindSpore的服务化与推理能力。如用户需要了解更多的安装方式，请参考[安装指南](../installation/installation.md)。
+本文档将为用户提供快速指引，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)模型为例，使用[docker](https://www.docker.com/)的安装方式部署vLLM-MindSpore插件，并以[离线推理](#离线推理)与[在线推理](#在线推理)两种方式，快速体验vLLM-MindSpore插件的服务化与推理能力。如用户需要了解更多的安装方式，请参考[安装指南](../installation/installation.md)。
 
 ## docker安装
 
-在本章节中，我们推荐用docker创建的方式，以快速部署vLLM MindSpore环境，以下是部署docker的步骤介绍：
+在本章节中，我们推荐用docker创建的方式，以快速部署vLLM-MindSpore插件环境，以下是部署docker的步骤介绍：
 
 ### 构建镜像
 
-用户可执行以下命令，拉取vLLM MindSpore代码仓库，并构建镜像：
+用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
 git clone https://gitee.com/mindspore/vllm-mindspore.git
@@ -131,18 +131,14 @@ git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 用户在拉起模型前，需设置以下环境变量：
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
 以下是对上述环境变量的解释：
 
-- `ASCEND_TOTAL_MEMORY_GB`: 每一张计算卡的显存大小。用户可使用`npu-smi info`命令进行查询，该值对应查询结果中的`HBM-Usage(MB)`；
-- `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM MindSpore所支持的模型与模型后端，可在[模型支持列表](../../user_guide/supported_models/models_list/models_list.md)中进行查询；
-- `vLLM_MODEL_MEMORY_USE_GB`：模型加载时所用空间，根据用户所使用的模型进行设置。若用户在模型加载过程中遇到显存不足时，可适当增大该值并重试；
-- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。
+- `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../user_guide/supported_models/models_list/models_list.md)中进行查询；
+- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5)中，找到对应模型的yaml文件。以Qwen2.5-7B为例，则其yaml文件为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)。
 
 另外，用户需要确保MindSpore Transformers已安装。用户可通过
 
@@ -192,7 +188,7 @@ Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compost
 
 ### 在线推理
 
-vLLM MindSpore可使用OpenAI的API协议，进行在线推理部署。以下是以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，介绍模型的[启动服务](#启动服务)，并[发送请求](#发送请求)，得到在线推理的推理结果。
+vLLM-MindSpore插件可使用OpenAI的API协议，进行在线推理部署。以下是以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，介绍模型的[启动服务](#启动服务)，并[发送请求](#发送请求)，得到在线推理的推理结果。
 
 #### 启动服务
 
@@ -202,7 +198,7 @@ vLLM MindSpore可使用OpenAI的API协议，进行在线推理部署。以下是
 python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-7B-Instruct"
 ```
 
-若服务成功拉起，则可以获得类似的执行结果：
+用户可以通过`--model`参数，指定模型保存的本地路径。若服务成功拉起，则可以获得类似的执行结果：
 
 ```text
 INFO:   Started server process [6363]
@@ -224,7 +220,7 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
-若请求处理成功，将获得以下的推理结果：
+其中，用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
 
 ```text
 {
