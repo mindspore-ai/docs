@@ -136,7 +136,7 @@ boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
 
 MindSpore Lite Java接口提供`getInputsByTensorName`以及`getInputs`两种方法获得输入Tensor，同时支持`byte[]`或者`ByteBuffer`两种类型的数据，通过[setData](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mstensor.html#setdata)设置输入Tensor的数据。
 
-1. 使用[getInputsByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getinputsbytensorname)方法，根据模型输入Tensor的名称来获取模型输入Tensor中连接到输入节点的Tensor，下面[示例代码](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java)演示如何调用`getInputsByTensorName`获得输入Tensor并填充数据。
+1. 使用[getInputsByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getinputbytensorname)方法，根据模型输入Tensor的名称来获取模型输入Tensor中连接到输入节点的Tensor，下面[示例代码](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java)演示如何调用`getInputsByTensorName`获得输入Tensor并填充数据。
 
     ```java
     MSTensor inputTensor = model.getInputsByTensorName("2031_2030_1_construct_wrapper:x");
