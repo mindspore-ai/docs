@@ -1,6 +1,3 @@
 # mindspore.nn API接口变更
 
-与上一版本相比，MindSpore中`mindspore.nn`API接口的添加、删除和支持平台的更改信息如下表所示。
-
-|API|变更状态|概述|支持平台|类别
-|:----|:----|:----|:----|:----
+与上一版本2.6.0相比，MindSpore中 `mindspore.nn` API接口没有变化。
