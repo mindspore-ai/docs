@@ -41,7 +41,7 @@ As an efficient service-oriented model inference backend, it should provide the 
 
 ## Inference Tutorial
 
-MindSpore inference works with the vLLM community solution to provide users with full-stack end-to-end inference service capabilities. The vLLM MindSpore adaptation layer implements seamless interconnection of the vLLM community service capabilities in the MindSpore framework. For details, see [vLLM MindSpore](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.3.0/index.html).
+MindSpore inference works with the vLLM community solution to provide users with full-stack end-to-end inference service capabilities. The vLLM MindSpore adaptation layer implements seamless interconnection of the vLLM community service capabilities in the MindSpore framework. For details, see [vLLM MindSpore](https://www.mindspore.cn/vllm_mindspore/docs/en/master/index.html).
 
 This section describes the basic usage of vLLM MindSpore service-oriented inference.
 
