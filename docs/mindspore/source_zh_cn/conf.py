@@ -361,11 +361,11 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
 import json
 
 # 发版本时这里启用
-re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+re_url2 = r"(gitee.com/mindspore/(mindspore|mindspore-lite)/[\w\d/_.-]*?)/(master)"
 
 re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
 
@@ -405,7 +405,6 @@ for cur, _, files in os.walk(des_sir):
                     new_content = content
                     # 发版本时这里启用
                     new_content = re.sub(re_url, r'\1/r2.7.0', new_content)
-                    new_content = re.sub(re_url2, r'\1/v2.7.0', new_content)
                     new_content = re.sub(re_url3, r'\1/r1.2.0', new_content)
                     new_content = re.sub(re_url4, r'\1/r0.3.0', new_content)
                     new_content = re.sub(re_url5, r'\1/81RC1', new_content)
