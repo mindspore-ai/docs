@@ -86,7 +86,7 @@ Get the shape of the MindSpore MSTensor.
 public int getDataType()
 ```
 
-DataType is defined in [com.mindspore.DataType](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.0/mindspore-lite/java/src/main/java/com/mindspore/config/DataType.java).
+DataType is defined in [com.mindspore.DataType](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/java/src/main/java/com/mindspore/config/DataType.java).
 
 - Returns
 

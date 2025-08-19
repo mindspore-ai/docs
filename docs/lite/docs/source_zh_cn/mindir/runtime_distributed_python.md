@@ -22,7 +22,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持�
 
 ## 准备工作
 
-1. 下载云侧分布式推理python示例代码，请选择设备类型：[Ascend](https://gitee.com/mindspore/mindspore-lite/tree/r2.7.0/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_python)或[GPU](https://gitee.com/mindspore/mindspore-lite/tree/r2.7.0/mindspore-lite/examples/cloud_infer/gpu_trt_distributed_python)。后文将该目录称为示例代码目录。
+1. 下载云侧分布式推理python示例代码，请选择设备类型：[Ascend](https://gitee.com/mindspore/mindspore-lite/tree/r2.7/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_python)或[GPU](https://gitee.com/mindspore/mindspore-lite/tree/r2.7/mindspore-lite/examples/cloud_infer/gpu_trt_distributed_python)。后文将该目录称为示例代码目录。
 
 2. 通过MindSpore切分，并导出分布式MindIR模型，将其存放至示例代码目录。如需快速体验，可下载已切分的两个Matmul模型文件[Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir)、[Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir)。
 
