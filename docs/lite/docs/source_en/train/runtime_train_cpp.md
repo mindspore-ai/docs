@@ -69,7 +69,7 @@ int CreateSession() {
 }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.0/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
 
 ## Data Processing
 

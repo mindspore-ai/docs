@@ -48,7 +48,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/
 
 2. 已有ONNX文件。
 
-3. 实现自定义Pass，代码请参考[example](https://gitee.com/mindspore/mindspore-lite/tree/r2.7.0/mindspore-lite/examples/converter_acl_custom_pass)。
+3. 实现自定义Pass，代码请参考[example](https://gitee.com/mindspore/mindspore-lite/tree/r2.7/mindspore-lite/examples/converter_acl_custom_pass)。
 
 与[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/advanced/third_party/converter_register.html)不同的是，注册位置的参数需要更改。
 
