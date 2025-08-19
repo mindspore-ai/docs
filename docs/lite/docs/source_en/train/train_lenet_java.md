@@ -20,13 +20,13 @@ This tutorial demonstrates how to use the Java API on MindSpore Lite by building
 
     - [OpenJDK](https://openjdk.java.net/install/) 1.8 to 1.15
 
-### Downloading MindSpore and Building the Java Package for On-device Training
+### Downloading MindSpore Lite and Building the Java Package for On-device Training
 
 Clone the source code and build the Java package for MindSpore Lite training. The `Linux` command is as follows:
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
-cd mindspore
+git clone https://gitee.com/mindspore/mindspore-lite.git
+cd mindspore-lite
 bash build.sh -I x86_64 -j8
 ```
 
@@ -60,7 +60,7 @@ MNIST_Data/
 1. Go to the directory where the sample project is located and execute the sample project. The commands are as follows:
 
     ```bash
-    cd /codes/mindspore/mindspore-lite/examples/train_lenet_java
+    cd /codes/mindspore-lite/mindspore-lite/examples/train_lenet_java
     ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x64.tar.gz
     ```
 

@@ -24,7 +24,7 @@ The following figure shows the detailed training process:
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the MindSpore Model Converter Tool. These files have a `.ms` extension. Before model training or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Serialization](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the MindSpore Lite Model Converter Tool. These files have a `.ms` extension. Before model training or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Serialization](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
 
 ### Creating Contexts
 
@@ -112,7 +112,7 @@ The example allows the user to define the training data processing flow by calli
 
 ## Executing Training
 
-MindSpore has provided some off-the-shelf callback classes for users (e.g., `AccuracyMetrics`, `CkptSaver`, `TrainAccuracy`, `LossMonitor` and `Metrics`). The function `Train` and `Evaluate` of the class `Model` can set the model to the training or evaluation mode separately, specify the methods of the data processing and monitor the session status.
+MindSpore Lite has provided some off-the-shelf callback classes for users (e.g., `AccuracyMetrics`, `CkptSaver`, `TrainAccuracy`, `LossMonitor` and `Metrics`). The function `Train` and `Evaluate` of the class `Model` can set the model to the training or evaluation mode separately, specify the methods of the data processing and monitor the session status.
 
 ### Training
 

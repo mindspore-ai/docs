@@ -10,7 +10,7 @@
 
 ## Functions
 
-- Load the `.ms` models. The MindSpore version must be 1.2.0 or later.
+- Load the `.ms` models. The MindSpore Lite version must be 1.2.0 or later.
 - Display subgraphs.
 - Display the topology structure and data flow `shape`.
 - Display the `format`, `input`, and `output` of a model.

@@ -6,7 +6,7 @@
 
 推荐用户从端侧Android图像分割demo入手，了解MindSpore Lite应用工程的构建、依赖项配置以及相关Java API的使用。
 
-本教程基于MindSpore团队提供的Android“端侧图像分割”示例程序，演示了端侧部署的流程。  
+本教程基于MindSpore Lite团队提供的Android“端侧图像分割”示例程序，演示了端侧部署的流程。  
 
 ## 选择模型
 
@@ -101,7 +101,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android调用MindSpore Android AAR时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)生成`mindspore-lite-maven-{version}.zip`库文件包并解压缩（包含`mindspore-lite-{version}.aar`库文件）。
+Android调用MindSpore Lite Android AAR时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)生成`mindspore-lite-maven-{version}.zip`库文件包并解压缩（包含`mindspore-lite-{version}.aar`库文件）。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 
@@ -151,9 +151,9 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
       }
       ```
 
-2. 将输入图片转换为传入MindSpore模型的Tensor格式。
+2. 将输入图片转换为传入MindSpore Lite模型的Tensor格式。
 
-      将待检测图片数据转换为输入MindSpore模型的Tensor。
+      将待检测图片数据转换为输入MindSpore Lite模型的Tensor。
 
       ```java
       List<MSTensor> inputs = model.getInputs();

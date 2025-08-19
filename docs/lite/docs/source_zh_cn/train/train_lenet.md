@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/train/train_lenet.md)
 
-> MindSpore已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧训练，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。
+> MindSpore Lite 已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧训练，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。
 
 ## 概述
 
@@ -64,13 +64,13 @@
 通过`git`克隆源码，进入源码目录，`Linux`指令如下：
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git -b {version}
-cd ./mindspore
+git clone https://gitee.com/mindspore/mindspore-lite.git -b {version}
+cd ./mindspore-lite
 ```
 
 源码路径下的`mindspore-lite/examples/train_lenet_cpp`目录包含了本示例程序的源码。其中version和下文中[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)的version保持一致。如果-b 指定master，需要通过[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)的方式获取对应的安装包。
 
-请到[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。最后将文件放到MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
+请到[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。最后将文件放到MindSpore Lite源码下的`output`目录（如果没有`output`目录，请创建它）。
 
 假设下载的安装包存放在`/Downloads`目录，上述操作对应的`Linux`指令如下：
 

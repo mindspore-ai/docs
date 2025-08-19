@@ -24,7 +24,7 @@ MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/
 
 ### 读取模型
 
-模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)类中实现，该类实现了模型文件读写的方法。
+模型文件是一个flatbuffer序列化文件，它通过MindSpore Lite模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)类中实现，该类实现了模型文件读写的方法。
 
 ### 创建上下文
 
@@ -112,7 +112,7 @@ int DataSetPipeline() {
 
 ## 执行训练
 
-MindSpore为用户提供了现有的回调类：`AccuracyMetrics`、`CkptSaver`、`TrainAccuracy`、`LossMonitor`和`Metrics`。`Model`类的`Train`和`Evaluate`函数分别将模型设置为训练和验证模式，指定数据预处理方法并监测会话状态。
+MindSpore Lite为用户提供了现有的回调类：`AccuracyMetrics`、`CkptSaver`、`TrainAccuracy`、`LossMonitor`和`Metrics`。`Model`类的`Train`和`Evaluate`函数分别将模型设置为训练和验证模式，指定数据预处理方法并监测会话状态。
 
 ### 训练
 
@@ -473,7 +473,7 @@ if (ret != RET_OK) {
 
 ### 保存模型
 
-MindSpore的`Serialization`类实际调用的是`ExportModel`函数，`ExportModel`原型如下：
+MindSpore Lite的`Serialization`类实际调用的是`ExportModel`函数，`ExportModel`原型如下：
 
 ```cpp
   static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
