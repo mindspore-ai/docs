@@ -209,20 +209,6 @@ transform_process_num: 2
 
 用户在使用离线转换时，可以根据具体需求手动配置转换参数，确保转换过程灵活且可控，尤其适用于在严格控制的计算环境中进行模型部署和优化的场景。
 
-#### 参数说明
-
-**离线权重转换**相关`yaml`参数说明如下：
-
-| 参数名称        | 说明        |
-| ----------------- |-----------------------------|
-| src_checkpoint | 源权重的绝对路径或文件夹路径。<br> - 如果是**完整权重**，则填写**绝对路径**；<br> - 如果是**分布式权重**，则填写**文件夹路径**，分布式权重须按照`model_dir/rank_x/xxx.ckpt`格式存放，文件夹路径填写为`model_dir`。<br>**如果rank_x文件夹下存在多个ckpt，将会使用文件名默认排序最后的ckpt文件用于转换。** |
-| src_strategy_path_or_dir   | 源权重对应的分布式策略文件路径。<br> - 如果是完整权重，则**不填写**；<br> - 如果是分布式权重，且使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果是分布式权重，且未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径；                                 |
-| dst_checkpoint | 保存目标权重的文件夹路径。           |
-| dst_strategy   | 目标权重对应的分布式策略文件路径。<br> - 如果是完整权重，则**不填写**；<br> - 如果是分布式权重，且使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果是分布式权重，且未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径；           |
-| prefix          | 目标权重保存的前缀名，权重保存为”{prefix}rank_x.ckpt”，默认”checkpoint_”。 |
-| world_size     | 目标权重的切片总数，一般等于dp \* mp \* pp。   |
-| process_num    | 离线权重转换使用的进程数，默认为1。<br> - 如果process_num = 1，使用**单进程转换**；<br>- 如果process_num > 1，使用**多进程转换**，比如转换的目标权重为8卡分布式权重，process_num=2时，会启动两个进程分别负责rank_0/1/2/3和rank_4/5/6/7切片权重的转换；                          |
-
 #### 离线转换配置说明
 
 **生成分布式策略**
@@ -240,8 +226,9 @@ MindSpore每次运行分布式任务后都会在`output/strategy`文件夹下生
 ```shell
 python transform_checkpoint.py \
   --src_checkpoint /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
-  --dst_checkpoint /worker/transform_ckpt/llama3_8b_1to8/ \
-  --dst_strategy /worker/mindformers/output/strategy/
+  --dst_checkpoint_dir /worker/transform_ckpt/llama3_8b_1to8/ \
+  --dst_strategy /worker/mindformers/output/strategy/ \
+  --prefix "checkpoint_"
 ```
 
 **多进程转换**
@@ -256,12 +243,29 @@ bash transform_checkpoint.sh \
   None \
   /worker/transform_ckpt/llama3_8b_1to8/ \
   /worker/mindformers/output/strategy/ \
-  8 2
+  8 2 "checkpoint_"
 ```
 
-**注意事项**：
+> 参数顺序为src_checkpoint、src_strategy、dst_checkpoint_dir、dst_strategy、world_size、transform_process_num、prefix。
 
-- 使用[transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.sh)脚本时，参数`8`表示目标设备数，参数`2`表示使用2个进程进行转换。
+**参数说明**
+
+- 单进程转换使用参数
+
+  | 参数名称           | 说明                                                         |
+  | ------------------ | ------------------------------------------------------------ |
+  | src_checkpoint     | 源权重的绝对路径或文件夹路径。<br> - 如果是**完整权重**，则填写**绝对路径**；<br> - 如果是**分布式权重**，则填写**文件夹路径**，分布式权重须按照`model_dir/rank_x/xxx.ckpt`格式存放，文件夹路径填写为`model_dir`。<br>**如果rank_x文件夹下存在多个ckpt，将会使用文件名默认排序最后的ckpt文件用于转换。** |
+  | src_strategy       | 源权重对应的分布式策略文件路径。<br> - 如果是完整权重，则**不填写**；<br> - 如果是分布式权重，且使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果是分布式权重，且未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径； |
+  | dst_checkpoint_dir | 保存目标权重的文件夹路径。                                   |
+  | dst_strategy       | 目标权重对应的分布式策略文件路径。<br> - 如果是完整权重，则**不填写**；<br> - 如果是分布式权重，且使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果是分布式权重，且未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径； |
+  | prefix             | 目标权重保存的前缀名，权重保存为”{prefix}rank_x.ckpt”，默认”checkpoint_”。 |
+
+- 多进程转换额外使用参数
+
+  | 参数名称              | 说明                                                         |
+  | --------------------- | ------------------------------------------------------------ |
+  | world_size            | 目标权重的切片总数，一般等于dp \* mp \* pp。                 |
+  | transform_process_num | 离线权重转换使用的进程数，默认为1。<br/> - 如果process_num = 1，使用**单进程转换**；<br/>- 如果process_num > 1，使用**多进程转换**，比如转换的目标权重为8卡分布式权重，process_num=2时，会启动两个进程分别负责rank_0/1/2/3和rank_4/5/6/7切片权重的转换； |
 
 ### 特殊场景
 
