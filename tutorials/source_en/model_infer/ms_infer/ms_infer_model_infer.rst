@@ -6,13 +6,13 @@ MindSpore LLM Inference with Framework
     :alt: View Source On Gitee
 
 .. toctree::
-  :maxdepth: 1
-  :hidden:
+   :maxdepth: 1
+   :hidden:
 
-  ms_infer_network_develop
-  ms_infer_parallel_infer
-  ms_infer_quantization
-  ms_infer_model_serving_infer
+   ms_infer_network_develop
+   ms_infer_parallel_infer
+   ms_infer_quantization
+   ms_infer_model_serving_infer
 
 Background
 ------------
