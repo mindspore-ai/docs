@@ -23,9 +23,9 @@ from sphinx.ext import autodoc as sphinx_autodoc
 
 # -- Project information -----------------------------------------------------
 
-project = 'vLLM-MindSpore插件'
+project = 'vLLM-MindSpore Plugin'
 copyright = 'MindSpore'
-author = 'vLLM-MindSpore插件'
+author = 'vLLM-MindSpore Plugin'
 
 # The full version, including alpha/beta/rc tags
 release = '0.3.0'

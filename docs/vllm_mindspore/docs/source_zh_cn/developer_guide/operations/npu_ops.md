@@ -92,8 +92,8 @@ MS_EXTENSION_MODULE(my_custom_op) {
 
 ### 算子编译并测试
 
-1. **代码集成**：将代码集成至 vllm-mindspore 项目。
-2. **编译项目**：于vllm-mindspore工程中，执行`pip install .`，编译安装vLLM-MindSpore插件。
+1. **代码集成**：将代码集成至vLLM-MindSpore插件项目。
+2. **编译项目**：在项目代码根目录vllm-mindspore下，执行`pip install .`，编译安装vLLM-MindSpore插件。
 3. **测试算子接口**：使用 Python 调用注册的算子接口：
 
     ```python

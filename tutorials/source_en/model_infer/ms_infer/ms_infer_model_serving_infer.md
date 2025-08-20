@@ -41,13 +41,13 @@ As an efficient service-oriented model inference backend, it should provide the 
 
 ## Inference Tutorial
 
-MindSpore inference works with the vLLM community solution to provide users with full-stack end-to-end inference service capabilities. The vLLM MindSpore adaptation layer implements seamless interconnection of the vLLM community service capabilities in the MindSpore framework. For details, see [vLLM MindSpore](https://www.mindspore.cn/vllm_mindspore/docs/en/master/index.html).
+MindSpore inference works with the vLLM community solution to provide users with full-stack end-to-end inference service capabilities. The vLLM-MindSpore Plugin adaptation layer implements seamless interconnection of the vLLM community service capabilities in the MindSpore framework. For details, see [vLLM-MindSpore Plugin](https://www.mindspore.cn/vllm_mindspore/docs/en/master/index.html).
 
-This section describes the basic usage of vLLM MindSpore service-oriented inference.
+This section describes the basic usage of vLLM-MindSpore Plugin service-oriented inference.
 
 ### Setting Up the Environment
 
-The vLLM MindSpore adaptation layer provides an environment installation script. You can run the following commands to create a vLLM MindSpore operating environment:
+The vLLM-MindSpore Plugin adaptation layer provides an environment installation script. You can run the following commands to create a vLLM-MindSpore Plugin operating environment:
 
 ```shell
 # download vllm-mindspore code
@@ -69,11 +69,11 @@ bash install_depend_pkgs.sh
 python setup.py install
 ```
 
-After the vLLM MindSpore operating environment is created, you need to install the following dependency packages:
+After the vLLM-MindSpore Plugin operating environment is created, you need to install the following dependency packages:
 
 - **mindspore**: MindSpore development framework, which is the basis for model running.
 
-- **vLLM**: vLLM service software.
+- **vllm**: vLLM service software.
 
 - **vllm-mindspore**: vLLM extension that adapts to the MindSpore framework. It is required for running MindSpore models.
 
@@ -85,14 +85,14 @@ After the vLLM MindSpore operating environment is created, you need to install t
 
 ### Preparing a Model
 
-The service-oriented vLLM MindSpore supports the direct running of the native Hugging Face model. Therefore, you can directly download the model from the Hugging Face official website. The following uses the Qwen2-7B-Instruct model as an example:
+The service-oriented vLLM-MindSpore Plugin supports the direct running of the native Hugging Face model. Therefore, you can directly download the model from the Hugging Face official website. The following uses the Qwen2-7B-Instruct model as an example:
 
 ```shell
 git lfs install
 git clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
 ```
 
-If `git lfs install` fails during the pull process, refer to the vLLM MindSpore FAQ for a solution.
+If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore Plugin [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/en/master/faqs/faqs.html) for a solution.
 
 ### Starting a Service
 
@@ -122,7 +122,7 @@ unset vLLM_MODEL_BACKEND
 export MODEL_ID="/path/to/model/Qwen2-7B-Instruct"
 ```
 
-Run the following command to start the vLLM MindSpore service backend:
+Run the following command to start the vLLM-MindSpore Plugin service backend:
 
 ```shell
 vllm-mindspore serve --model=${MODEL_ID} --port=${VLLM_HTTP_PORT} --trust_remote_code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 1 --data-parallel-size 1 --data-parallel-size-local 1 --data-parallel-start-rank 0  --data-parallel-address ${VLLM_MASTER_IP} --data-parallel-rpc-port ${VLLM_RPC_PORT} &> vllm-mindspore.log &
