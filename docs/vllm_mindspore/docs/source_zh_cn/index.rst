@@ -7,7 +7,7 @@ vLLM-MindSpore插件（`vllm-mindspore`）是一个由 `MindSpore社区 <https:/
 
 vLLM是由加州大学伯克利分校Sky Computing Lab创建的社区开源项目，已广泛用于学术研究和工业应用。vLLM以Continuous Batching调度机制和PagedAttention Key-Value缓存管理为基础，提供了丰富的推理服务功能，包括投机推理、Prefix Caching、Multi-LoRA等。同时，vLLM已支持种类丰富的开源大模型，包括Transformer类（如LLaMa）、混合专家类（如DeepSeek）、Embedding类（如E5-Mistral）、多模态类（如LLaVA）等。由于vLLM选用PyTorch构建大模型和管理计算存储资源，此前无法使用其部署基于MindSpore大模型的推理服务。
 
-vLLM-MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部署为功能目标。其遵循以下设计原则：
+vLLM-MindSpore插件已将MindSpore大模型接入vLLM，并实现服务化部署为功能目标。其遵循以下设计原则：
 
 - 接口兼容：支持vLLM原生的API和服务部署接口，避免新增配置文件或接口，降低用户学习成本和确保易用性。
 - 最小化侵入式修改：尽可能避免侵入式修改vLLM代码，以保障系统的可维护性和可演进性。

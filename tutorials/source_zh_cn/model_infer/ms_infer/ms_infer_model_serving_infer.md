@@ -41,13 +41,13 @@ print(generate_text)
 
 ## 推理教程
 
-MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM MindSpore适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM MindSpore文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/index.html)。
+MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM-MindSpore插件适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM-MindSpore插件文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/index.html)。
 
-本章主要简单介绍vLLM MindSpore服务化推理的基础使用。
+本章主要简单介绍vLLM-MindSpore插件服务化推理的基础使用。
 
 ### 环境准备
 
-vLLM MindSpore适配层提供了环境安装脚本，用户可以执行如下命令创建一个vLLM MindSpore的运行环境：
+vLLM-MindSpore插件适配层提供了环境安装脚本，用户可以执行如下命令创建一个vLLM-MindSpore插件的运行环境：
 
 ```shell
 # download vllm-mindspore code
@@ -69,7 +69,7 @@ bash install_depend_pkgs.sh
 python setup.py install
 ```
 
-vLLM MindSpore的运行环境创建后，还需要安装以下依赖包：
+vLLM-MindSpore插件的运行环境创建后，还需要安装以下依赖包：
 
 - **mindspore**：MindSpore开发框架，模型运行基础。
 
@@ -85,14 +85,14 @@ vLLM MindSpore的运行环境创建后，还需要安装以下依赖包：
 
 ### 模型准备
 
-vllm-mindspore服务化支持原生Hugging Face的模型直接运行，因此直接从Hugging Face官网下载模型即可，此处我们仍然以Qwen2-7B-Instruct模型为例。
+vLLM-MindSpore插件服务化支持原生Hugging Face的模型直接运行，因此直接从Hugging Face官网下载模型即可，此处我们仍然以Qwen2-7B-Instruct模型为例。
 
 ```shell
 git lfs install
 git clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
 ```
 
-若在拉取过程中，执行`git lfs install失败`，可以参考vLLM MindSpore FAQ 进行解决。
+若在拉取过程中，执行`git lfs install失败`，可以参考vLLM-MindSpore插件 [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/faqs/faqs.html) 进行解决。
 
 ### 启动服务
 
@@ -122,7 +122,7 @@ unset vLLM_MODEL_BACKEND
 export MODEL_ID="/path/to/model/Qwen2-7B-Instruct"
 ```
 
-执行如下命令可以启动vLLM MindSpore的服务后端。
+执行如下命令可以启动vLLM-MindSpore插件的服务后端。
 
 ```shell
 vllm-mindspore serve --model=${MODEL_ID} --port=${VLLM_HTTP_PORT} --trust_remote_code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 1 --data-parallel-size 1 --data-parallel-size-local 1 --data-parallel-start-rank 0  --data-parallel-address ${VLLM_MASTER_IP} --data-parallel-rpc-port ${VLLM_RPC_PORT} &> vllm-mindspore.log &
