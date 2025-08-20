@@ -146,7 +146,7 @@ export ASCEND_RT_VISIBLE_DEVICES=$NPU_VISIBE_DEVICES
 
 ## 离线推理
 
-vllm MindSprore环境搭建之后，用户可以使用如下Python代码，进行模型的离线推理：
+vLLM-MindSprore插件环境搭建之后，用户可以使用如下Python代码，进行模型的离线推理：
 
 ```python
 import vllm_mindspore # Add this line on the top of script.
