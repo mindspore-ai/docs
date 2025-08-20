@@ -2,11 +2,11 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/error_analysis/mindrt_debug.md)&nbsp;&nbsp;
 
-静态图模式下，网络构建与训练过程的常见的报错类型如下所示：
+静态图模式下，网络构建与训练过程的常见报错类型如下所示：
 
 ## context配置问题
 
-执行网络训练时，需要指定后端设备，使用方式是：`set_context(device_target=device)`。MindSpore支持CPU，GPU和昇腾后端Ascend。如果在GPU设备上，错误指定后端设备为Ascend，即`set_context(device_target="Ascend")`，会得到如下报错信息：
+执行网络训练时，需要指定后端设备，使用方式是：`set_context(device_target=device)`。MindSpore支持CPU、GPU和昇腾后端Ascend。如果在GPU设备上错误指定后端设备为Ascend，即`set_context(device_target="Ascend")`，会得到如下报错信息：
 
 ```python
 ValueError: For 'set_context', package type mindspore-gpu support 'device_target' type gpu or cpu, but got Ascend.
@@ -24,7 +24,7 @@ ValueError: For 'set_context', package type mindspore-gpu support 'device_target
 
 ### construct函数参数错误
 
-MindSpore中神经网络的基本构成单元为`nn.Cell`。模型或神经网络层应当继承该基类。基类的成员函数`construct`是定义要执行的计算逻辑，所有继承类都必须重写此方法。`construct`函数的定义原型为：
+MindSpore中神经网络的基本构成单元为`nn.Cell`。模型或神经网络层应当继承该基类。基类的成员函数`construct`定义要执行的计算逻辑，所有继承类都必须重写此方法。`construct`函数的定义原型为：
 
 ```python
 def construct(self, *inputs, **kwargs):
