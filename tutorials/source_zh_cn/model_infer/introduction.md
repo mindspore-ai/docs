@@ -62,7 +62,7 @@ MindSpore框架提供多种模型推理方式，以方便用户在面对不同�
 
 - **带框架推理**：面向丰富计算资源场景，只提供Python API接口，用户需要通过Python脚本构建模型并推理，其中服务化组件不是必备的。
 
-    - **vLLM&vLLM-MindSpore**：提供带框架推理方案上的服务化能力，使用当前开源社区热门的vLLM推理服务化能力，实现社区的服务化能力无缝衔接到MindSpore推理生态。
+    - **vLLM & vLLM-MindSpore插件**：提供带框架推理方案上的服务化能力，使用当前开源社区热门的vLLM推理服务化能力，实现社区的服务化能力无缝衔接到MindSpore推理生态。
 
     - **Python API**：MindSpore框架提供Python API接口，其中包括mint算子接口（和PyTorch语义一致）、nn接口、parallel接口等。
 

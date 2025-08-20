@@ -145,7 +145,7 @@ export ASCEND_RT_VISIBLE_DEVICES=$NPU_VISIBE_DEVICES
 
 ## Offline Inference
 
-Taking [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example, user can perform offline inference with the following Python code:  
+After setting up the vLLM-MindSpore Plugin environment, user can use the following python code to perform offline inference on the model:
 
 ```python  
 import vllm_mindspore # Add this line on the top of script.  
