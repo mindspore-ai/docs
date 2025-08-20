@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/lite/docs/source_zh_cn/infer/runtime_cpp.md)
 
-> MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html)。
+> MindSpore Lite已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html)。
 
 ## 概述
 
@@ -318,7 +318,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    // Users need to free input_buf.
    ```
 
-> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考基于JNI接口的Android应用开发中[编写端侧推理代码](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/infer/quick_start.html#编写端侧推理代码)的第2步，将输入图片转换为传入MindSpore模型的Tensor格式。
+> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考基于JNI接口的Android应用开发中[编写端侧推理代码](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/infer/quick_start.html#编写端侧推理代码)的第2步，将输入图片转换为传入MindSpore Lite模型的Tensor格式。
 >
 > [GetInputs](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#getinputs)和[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#getinputbytensorname)方法返回的数据不需要用户释放。
 

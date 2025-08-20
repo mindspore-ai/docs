@@ -4,10 +4,10 @@
 
 ## 概述
 
-创建MindSpore端侧模型的步骤：
+创建MindSpore Lite端侧模型的步骤：
 
 - 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/beginner/save_load.html#保存和加载mindir)。
-- 然后将`.mindir`模型文件转换成`.ms`文件，`.ms`文件可以导入端侧设备并基于MindSpore端侧框架训练。
+- 然后将`.mindir`模型文件转换成`.ms`文件，`.ms`文件可以导入端侧设备并基于MindSpore Lite端侧框架训练。
 
 ## Linux环境
 
@@ -55,7 +55,7 @@ MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Li
 CONVERT RESULT SUCCESS:0
 ```
 
-这表明 MindSpore 模型成功转换为 MindSpore 端侧模型，并生成了新文件`my_model.ms`。如果转换失败输出如下：
+这表明 MindSpore 模型成功转换为 MindSpore Lite端侧模型，并生成了新文件`my_model.ms`。如果转换失败输出如下：
 
 ```text
 CONVERT RESULT FAILED:

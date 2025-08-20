@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/lite/docs/source_zh_cn/infer/quick_start_cpp.md)
 
-> MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/quick_start_cpp.html)。
+> MindSpore Lite已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/infer/quick_start_cpp.html)。
 
 ## 概述
 
@@ -73,11 +73,11 @@
 
 - 编译构建
 
-    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)，将解压后`runtime\lib`目录下的所有文件拷贝到`mindspore\lite\examples\quick_start_cpp\lib`工程目录、`runtime\include`目录里的文件拷贝到`mindspore\lite\examples\quick_start_cpp\include`工程目录下。（注意：工程项目下的`lib`、`include`目录需手工创建）
+    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)，将解压后`runtime\lib`目录下的所有文件拷贝到`mindspore-lite\examples\quick_start_cpp\lib`工程目录、`runtime\include`目录里的文件拷贝到`mindspore-lite\examples\quick_start_cpp\include`工程目录下。（注意：工程项目下的`lib`、`include`目录需手工创建）
 
-    - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore\lite\examples\quick_start_cpp\model`目录。
+    - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore-lite\examples\quick_start_cpp\model`目录。
 
-    - 编译：在`mindspore\lite\examples\quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/quick_start_cpp/build.bat)，将能够自动下载相关文件并编译Demo。
+    - 编译：在`mindspore-lite\examples\quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/quick_start_cpp/build.bat)，将能够自动下载相关文件并编译Demo。
 
   ```bash
   call build.bat
@@ -85,7 +85,7 @@
 
 - 执行推理
 
-  编译构建后，进入`mindspore\lite\examples\quick_start_cpp\build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+  编译构建后，进入`mindspore-lite\examples\quick_start_cpp\build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
   ```bash
   set PATH=..\lib;%PATH%

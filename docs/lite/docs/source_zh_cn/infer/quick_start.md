@@ -6,7 +6,7 @@
 
 我们推荐你从端侧Android图像分类demo入手，了解MindSpore Lite应用工程的构建、依赖项配置以及相关API的使用。
 
-本教程基于MindSpore团队提供的Android“端侧图像分类”示例程序，演示了端侧部署的流程。
+本教程基于MindSpore Lite团队提供的Android“端侧图像分类”示例程序，演示了端侧部署的流程。
 
 1. 选择图像分类模型。
 2. 将模型转换成MindSpore Lite模型格式。
@@ -38,7 +38,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
 ## 部署应用
 
-接下来介绍如何构建和执行mindspore Lite端侧图像分类任务。
+接下来介绍如何构建和执行MindSpore Lite端侧图像分类任务。
 
 ### 运行依赖
 
@@ -122,7 +122,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/build/build.html)生成`mindspore-lite-{version}-android-{arch}.tar.gz`库文件包并解压缩（包含`libmindspore-lite.so`库文件和相关头文件），在本例中需使用生成带图像预处理模块的编译命令。
+Android JNI层调用MindSpore Lite C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/build/build.html)生成`mindspore-lite-{version}-android-{arch}.tar.gz`库文件包并解压缩（包含`libmindspore-lite.so`库文件和相关头文件），在本例中需使用生成带图像预处理模块的编译命令。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 >
@@ -273,9 +273,9 @@ target_link_libraries( # Specifies the target library.
         }
         ```
 
-2. 将输入图片转换为传入MindSpore模型的Tensor格式。
+2. 将输入图片转换为传入MindSpore Lite模型的Tensor格式。
 
-    - 将待检测图片`srcBitmap`进行尺寸裁剪并转换为LiteMat格式`lite_norm_mat_cut`。对其宽高以及通道数信息转换成float格式数据`dataHWC`。最终把`dataHWC`拷贝到MindSpore模型的Tensor输入`inTensor`中。
+    - 将待检测图片`srcBitmap`进行尺寸裁剪并转换为LiteMat格式`lite_norm_mat_cut`。对其宽高以及通道数信息转换成float格式数据`dataHWC`。最终把`dataHWC`拷贝到MindSpore Lite模型的Tensor输入`inTensor`中。
 
         ```cpp
         void **labelEnv = reinterpret_cast<void **>(netEnv);
@@ -346,7 +346,7 @@ target_link_libraries( # Specifies the target library.
         auto status = mModel->Predict(msInputs, &outputs);
         ```
 
-   - 获取对MindSpore模型的Tensor输出`msOutputs`。通过`msOutputs`以及分类数组信息，计算得到在APP中显示的文本信息`resultCharData`。
+   - 获取对MindSpore Lite模型的Tensor输出`msOutputs`。通过`msOutputs`以及分类数组信息，计算得到在APP中显示的文本信息`resultCharData`。
 
         ```cpp
         auto names = mModel->GetOutputTensorNames();

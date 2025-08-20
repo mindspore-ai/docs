@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/lite/docs/source_en/train/train_lenet.md)
 
-> MindSpore has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for training, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
+> MindSpore Lite has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for training, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
 
 ## Overview
 
@@ -10,7 +10,7 @@ This tutorial is based on [LeNet training example code](https://gitee.com/mindsp
 
 The completed training procedure is as follows:
 
-1. Constructing your training model based on MindSpore Lite Architecture and Export it into `MindIR` model file.
+1. Constructing your training model based on MindSpore Architecture and Export it into `MindIR` model file.
 2. Converting `MindIR` model file to the `MS` ToD model file by using MindSpore Lite `Converter` tool.
 3. Loading `MS` model file and executing model training by calling MindSpore Lite training API.
 
@@ -64,8 +64,8 @@ MindSpore can be installed by source code or using `pip`. Refer to [MindSpore in
 Use `git` to clone the source code, the command in `Linux` is as follows:
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git -b {version}
-cd ./mindspore
+git clone https://gitee.com/mindspore/mindspore-lite.git -b {version}
+cd ./mindspore-lite
 ```
 
 The `mindspore-lite/examples/train_lenet_cpp` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/r2.7.0/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html).

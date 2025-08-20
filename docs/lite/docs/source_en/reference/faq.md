@@ -41,7 +41,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The model contains operators not supported by the MindSpore Lite converter. As a result, the conversion fails.
-    - Solution: For unsupported operators, add parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
+    - Solution: For unsupported operators, add parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore-lite/issues) to MindSpore Lite developers in the community.
 
 3. Unsupported operators exist. The error log information is as follows:
 
@@ -50,7 +50,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The converter supports the operator conversion, but does not support a special attribute or parameter of the operator. As a result, the model conversion fails. (The following uses caffe as an example. The log information of other frameworks is the same.)
-    - Solution: Add the custom operator parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
+    - Solution: Add the custom operator parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore-lite/issues) to MindSpore Lite developers in the community.
 
 ## Post-training Quantization Conversion Failed
 
@@ -152,7 +152,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The input shape of the MS model contains -1, that is, the model input is a dynamic shape. During GPU inference, the operator specifications check related to the shape is skipped in the graph build phase. By default, the GPU supports this operator, and the operator specifications are checked again in the prediction phase. If the operator specifications are not supported, an error is reported and the execution exits.
-    - Solution: Some operators are not supported. You can modify the operator types or parameter types in the model as prompted to avoid some errors. In most cases, you need to [commit an issue](https://gitee.com/mindspore/mindspore/issues) in the MindSpore community to notify developers to fix and adapt the code.
+    - Solution: Some operators are not supported. You can modify the operator types or parameter types in the model as prompted to avoid some errors. In most cases, you need to [commit an issue](https://gitee.com/mindspore/mindspore-lite/issues) in the MindSpore Lite community to notify developers to fix and adapt the code.
 
 2. Map buffer errors
 
@@ -170,7 +170,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: In the inference phase, the event check after the OpenCL operator is executed is ignored to improve the performance. However, the event check is inserted into the Enqueue class function in the OpenCL by default. If an error occurs during the execution of the OpenCL operator, an error is returned in the map phase.
-    - Solution: The OpenCL operator has a bug. You are advised to [commit an issue](https://gitee.com/mindspore/mindspore/issues) in the MindSpore community to notify developers to fix and adapt the code.
+    - Solution: The OpenCL operator has a bug. You are advised to [commit an issue](https://gitee.com/mindspore/mindspore-lite/issues) in the MindSpore Lite community to notify developers to fix and adapt the code.
 
 ### TensorRT GPU Inference Issues
 
@@ -215,7 +215,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: This error is caused by the NPU online graph construction failure.
-    - Solution: The graph construction is completed by calling the [HiAI DDK](https://developer.huawei.com/consumer/en/doc/development/HiAI-Library/ddk-download-0000001053590180) API. Therefore, the error is reported in the error log of HiAI. For some errors, you can modify the operator type or parameter type in the model as prompted. For most errors, you need to [commit an issue](https://gitee.com/mindspore/mindspore/issues) in the MindSpore community to notify the developers to fix and adapt the code. The following provides common HiAI error messages so that you can clearly describe the issue when asking questions in the community and improve the issue locating efficiency.
+    - Solution: The graph construction is completed by calling the [HiAI DDK](https://developer.huawei.com/consumer/en/doc/development/HiAI-Library/ddk-download-0000001053590180) API. Therefore, the error is reported in the error log of HiAI. For some errors, you can modify the operator type or parameter type in the model as prompted. For most errors, you need to [commit an issue](https://gitee.com/mindspore/mindspore-lite/issues) in the MindSpore Lite community to notify the developers to fix and adapt the code. The following provides common HiAI error messages so that you can clearly describe the issue when asking questions in the community and improve the issue locating efficiency.
 
     (1) Search for the keyword **E AI_FMK** in the log file. If the following error log is found before the "MS_LITE" error is reported:
 
@@ -276,7 +276,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
       ```
 
     - If the accuracy of the entire network inference performed by MindSpore Lite is incorrect, you can use the [Dump function](https://mindspore.cn/lite/docs/en/r2.7.0/tools/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer and compare the output with the inference result of the original framework to further locate the operator with incorrect accuracy.
-    - For operators with accuracy issues, you can download the [MindSpore source code](https://gitee.com/mindspore/mindspore) to check the operator implementation and construct the corresponding single-operator network for debugging and fault locating. You can also [commit an issue](https://gitee.com/mindspore/mindspore/issues) in the MindSpore community to MindSpore Lite developers for troubleshooting.
+    - For operators with accuracy issues, you can download the [MindSpore Lite source code](https://gitee.com/mindspore/mindspore-lite) to check the operator implementation and construct the corresponding single-operator network for debugging and fault locating. You can also [commit an issue](https://gitee.com/mindspore/mindspore-lite/issues) in the MindSpore Lite community to MindSpore Lite developers for troubleshooting.
 
 2. What do I do if the FP32 inference result is correct but the FP16 inference result contains the NaN or Inf value?
     - If the NaN or Inf value is displayed in the result, value overflow occurs during inference. You can view the model structure, filter out the operator layer where value overflow may occur, and use the [Dump function](https://mindspore.cn/lite/docs/en/r2.7.0/tools/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer and confirm the operator where value overflow occurs.
@@ -325,7 +325,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     - In most cases, the inference performance of the NPU is much better than that of the CPU. In a few cases, the inference performance of the NPU is poorer than that of the CPU.
 
     (1) Check whether there are a large number of Pad or StridedSlice operators in the model. The array format of the NPU is different from that of the CPU. The operation of these operators in the NPU involves array rearrangement. Therefore, the NPU has no advantage over the CPU and even is inferior to the CPU. If you need to run such an operator on the NPU, you are advised to remove or replace the operator.
-    (2) Use a tool (such as adb logcat) to capture background logs and search for the keyword **BuildIRModel build successfully**. It is found that related logs appear multiple times, indicating that the model is partitioned into multiple NPU-related subgraphs during online graph construction. Generally, subgraph partitioning is caused by the existence of Transpose and/or unsupported NPU operators in the graph. Currently, a maximum of 20 subgraphs can be partitioned. The more the subgraphs, the more time the NPU takes. You are advised to refer to the [NPU operators](https://www.mindspore.cn/lite/docs/en/r2.7.0/reference/operator_list_lite.html) supported by MindSpore Lite and avoid unsupported operators during model building. Alternatively, [commit an issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers.
+    (2) Use a tool (such as adb logcat) to capture background logs and search for the keyword **BuildIRModel build successfully**. It is found that related logs appear multiple times, indicating that the model is partitioned into multiple NPU-related subgraphs during online graph construction. Generally, subgraph partitioning is caused by the existence of Transpose and/or unsupported NPU operators in the graph. Currently, a maximum of 20 subgraphs can be partitioned. The more the subgraphs, the more time the NPU takes. You are advised to refer to the [NPU operators](https://www.mindspore.cn/lite/docs/en/r2.7.0/reference/operator_list_lite.html) supported by MindSpore Lite and avoid unsupported operators during model building. Alternatively, [commit an issue](https://gitee.com/mindspore/mindspore-lite/issues) to MindSpore Lite developers.
 
 ## Issues Related to Using Visual Studio
 
@@ -413,19 +413,19 @@ A:  Currently the MindSpore Lite built-in memory pool has a maximum capacity lim
 
 <font size=3>**Q: How do I visualize the MindSpore Lite offline model (.ms file) to view the network structure?**</font>
 
-A: Model visualization open-source repository `Netron` supports viewing MindSpore Lite models (MindSpore >= r1.2), which can be downloaded in the [Netron](https://github.com/lutzroeder/netron).
+A: Model visualization open-source repository `Netron` supports viewing MindSpore Lite models (MindSpore Lite >= r1.2), which can be downloaded in the [Netron](https://github.com/lutzroeder/netron).
 
 <br/>
 
-<font size=3>**Q: Does MindSpore have a quantized inference tool?**</font>
+<font size=3>**Q: Does MindSpore Lite have a quantized inference tool?**</font>
 
 A: [MindSpore Lite](https://www.mindspore.cn/lite/en) supports the inference of the quantization aware training model on the cloud. The MindSpore Lite converter tool provides the quantization after training and weight quantization functions which are being continuously improved.
 
 <br/>
 
-<font size=3>**Q: Does MindSpore have a lightweight on-device inference engine?**</font>
+<font size=3>**Q: Does MindSpore Lite have a lightweight on-device inference engine?**</font>
 
-A:The MindSpore lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
+A:The MindSpore Lite lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
 
 <br/>
 
