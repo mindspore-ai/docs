@@ -20,13 +20,13 @@
 
     - [OpenJDK](https://openjdk.java.net/install/) 1.8 到 1.15
 
-### 下载MindSpore并编译端侧训练Java包
+### 下载MindSpore Lite并编译端侧训练Java包
 
 首先克隆源码，然后编译MindSpore Lite端侧训练Java包，`Linux`指令如下：
 
 ```bash
-git clone -b v2.7.0 https://gitee.com/mindspore/mindspore.git
-cd mindspore
+git clone -b v2.7.0 https://gitee.com/mindspore/mindspore-lite.git
+cd mindspore-lite
 bash build.sh -I x86_64 -j8
 ```
 
@@ -60,7 +60,7 @@ MNIST_Data/
 1. 首先进入示例工程所在目录，运行示例程序，命令如下：
 
     ```bash
-    cd /codes/mindspore/mindspore-lite/examples/train_lenet_java
+    cd /codes/mindspore-lite/mindspore-lite/examples/train_lenet_java
     ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x64.tar.gz
     ```
 

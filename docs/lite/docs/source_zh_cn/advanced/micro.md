@@ -32,7 +32,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
     可以通过两种方式获取转换工具：
 
-    - MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)。
+    - MindSpore Lite官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)。
 
         用户需下载操作系统为Linux-x86_64，硬件平台为CPU的发布包。
 
@@ -489,7 +489,7 @@ target_device=DSP
 在生成模型推理代码之后，用户在对代码进行集成开发之前，需要获得生成的推理代码所依赖的`Micro`库。
 
 不同平台的推理代码依赖对应平台的`Micro`库，用户需根据使用的平台，在生成代码时，通过Micro配置项`target`指定该平台，并在获取`Micro`库时，获得该平台的`Micro`库。
-用户可通过MindSpore官网下载对应平台的[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)。
+用户可通过MindSpore Lite官网下载对应平台的[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)。
 
 在[模型推理代码生成](#模型推理代码生成)章节，我们得到了x86_64架构Linux平台的模型推理代码，而该代码所依赖的`Micro`库，就在转换工具所使用的发布包内。
 发布包内，推理代码所依赖的库和头文件如下：
@@ -616,7 +616,7 @@ mnist                          # 指定的生成代码根目录名称
 
 STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架构的`Micro`库：
 
-- MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)。
+- MindSpore Lite官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/use/downloads.html)。
 
     用户需下载操作系统为None，硬件平台为Cortex-M7的发布包。
 
@@ -624,7 +624,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
     用户可通过`MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64`命令，来编译得到`Cortex-M7`的发布包。
 
-对于暂未提供发布包进行下载的其他Cortex-M架构平台，用户可参考从源码编译构建的方式，修改MindSpore源码，进行手动编译，得到发布包。
+对于暂未提供发布包进行下载的其他Cortex-M架构平台，用户可参考从源码编译构建的方式，修改MindSpore Lite源码，进行手动编译，得到发布包。
 
 ### 在Windows上的代码集成及编译部署：通过IAR进行集成开发
 
@@ -1222,7 +1222,7 @@ changeable_weights_name=name0,name1
 
 ### 训练导出推理模型的权重
 
-MindSpore的Serialization类提供了ExportWeightsCollaborateWithMicro函数，ExportWeightsCollaborateWithMicro原型如下：
+MindSpore Lite的Serialization类提供了ExportWeightsCollaborateWithMicro函数，ExportWeightsCollaborateWithMicro原型如下：
 
 ```cpp
   static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type,

@@ -24,7 +24,7 @@ The following figure shows the detailed training process:
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the MindSpore Model Converter Tool. These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Graph](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/graph.html#graph) class which holds the model data such as the network structure, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the MindSpore Lite Model Converter Tool. These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Graph](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/graph.html#graph) class which holds the model data such as the network structure, weights data and operators attributes.
 
 ### Creating Contexts
 

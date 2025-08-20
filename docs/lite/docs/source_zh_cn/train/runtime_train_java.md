@@ -24,7 +24,7 @@ MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/
 
 ### 读取模型
 
-模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Graph](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_java/graph.html#graph)类中实现，该类实现了模型文件读写的方法。
+模型文件是一个flatbuffer序列化文件，它通过MindSpore Lite模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Graph](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_java/graph.html#graph)类中实现，该类实现了模型文件读写的方法。
 
 ### 创建上下文
 
@@ -177,7 +177,7 @@ bool ret = model.resize(inputs, dims);
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[getInputsByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_java/model.html#getinputsbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[getInputsByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_java/model.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```java
      /**

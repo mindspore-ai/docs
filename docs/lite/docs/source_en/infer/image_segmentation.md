@@ -6,7 +6,7 @@
 
 It is recommended that you start from the image segmentation demo on the Android device to understand how to build the MindSpore Lite application project, configure dependencies, and use related Java APIs.
 
-This tutorial demonstrates the on-device deployment process based on the image segmentation demo on the Android device provided by the MindSpore team.
+This tutorial demonstrates the on-device deployment process based on the image segmentation demo on the Android device provided by the MindSpore Lite team.
 
 ## Selecting a Model
 
@@ -101,7 +101,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-Related library files are required for Android to call MindSpore Android AAR. You can use MindSpore Lite [source code](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html) to generate the `mindspore-lite-maven-{version}.zip` library file package (including the `mindspore-lite-{version}.aar` library file) and decompress it.
+Related library files are required for Android to call MindSpore Lite Android AAR. You can use MindSpore Lite [source code](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html) to generate the `mindspore-lite-maven-{version}.zip` library file package (including the `mindspore-lite-{version}.aar` library file) and decompress it.
 
 > version: version number in the output file, which is the same as the version number of the built branch code.
 
@@ -152,9 +152,9 @@ The inference code and process are as follows. For details about the complete co
       }
       ```
 
-2. Convert the input image into the Tensor format that is input to the MindSpore model.
+2. Convert the input image into the Tensor format that is input to the MindSpore Lite model.
 
-      Convert the image data to be detected into the Tensor format that is input to the MindSpore model.
+      Convert the image data to be detected into the Tensor format that is input to the MindSpore Lite model.
 
       ```java
       List<MSTensor> inputs = model.getInputs();

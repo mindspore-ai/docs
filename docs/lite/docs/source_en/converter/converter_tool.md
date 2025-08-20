@@ -88,7 +88,7 @@ The following describes the parameters in detail.
 > - The `configFile` configuration files uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [quantization](https://www.mindspore.cn/lite/docs/en/r2.7.0/advanced/quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/r2.7.0/advanced/third_party/converter_register.html#extension-configuration).
 > - `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to gpu_oriented, the general optimization and extra optimization for GPU hardware will be performed (the converted model only supports GPU hardware backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
 > - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html) time and only supports Linux x86 platforms, and the key is a string represented by hexadecimal. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
-It should be noted that the encryption and decryption algorithm has been updated in version 1.7. As a result, the new version of the converter tool does not support the conversion of the encrypted model exported by MindSpore in version 1.6 and earlier.
+It should be noted that the encryption and decryption algorithm has been updated in version 1.7. As a result, the new version of the converter tool does not support the conversion of the encrypted model exported by MindSpore Lite in version 1.6 and earlier.
 > - Parameters `--input_shape` and dynamicDims are stored in the model during conversion. Call model.get_model_info("input_shape") and model.get_model_info("dynamic_dims") to get it when using the model.
 
 ### CPU Model Optimization
@@ -177,6 +177,8 @@ The following describes how to use the conversion command by using several commo
 ### Environment Preparation  
 
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
+
+- The Windows conversion tool is compiled based on mingw-64 and depends on related dynamic libraries. Therefore, [mingw-w64](https://www.mingw-w64.org/downloads/) must be installed.
 
 - [Compile](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.7.0/use/downloads.html) model transfer tool.
 

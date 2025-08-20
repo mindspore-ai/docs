@@ -12,7 +12,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 
 使用MindSpore Lite裁剪工具，需要进行如下环境准备工作。
 
-- 编译：裁剪工具代码在MindSpore源码的`mindspore-lite/tools/cropper`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/build/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/build/build.html#编译示例)编译x86_64版本。
+- 编译：裁剪工具代码在MindSpore Lite源码的`mindspore-lite/tools/cropper`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/build/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/build/build.html#编译示例)编译x86_64版本。
 
 - 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/build/build.html#目录结构)，获得`cropper`工具。
 

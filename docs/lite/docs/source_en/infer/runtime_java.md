@@ -134,9 +134,9 @@ boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
 
 ## Inputting Data
 
-MindSpore Lite Java APIs provide the `getInputsByTensorName` and `getInputs` methods to obtain the input tensor. Both the `byte[]` and `ByteBuffer` data types are supported. You can set the data of the input tensor by calling [setData](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#setdata).
+MindSpore Lite Java APIs provide the `getInputByTensorName` and `getInputs` methods to obtain the input tensor. Both the `byte[]` and `ByteBuffer` data types are supported. You can set the data of the input tensor by calling [setData](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#setdata).
 
-1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#getinputbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputByTensorName` function to obtain the input tensor and fill in data.
+1. Use the [getInputByTensorName](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#getinputbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputByTensorName` function to obtain the input tensor and fill in data.
 
     ```java
     MSTensor inputTensor = model.getInputByTensorName("2031_2030_1_construct_wrapper:x");

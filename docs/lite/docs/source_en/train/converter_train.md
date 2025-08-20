@@ -55,7 +55,7 @@ The output of successful conversion is as follows:
 CONVERT RESULT SUCCESS:0
 ```
 
-This indicates that the MindSpore model is successfully converted to a MindSpore end-side model and a new file `my_model.ms` is generated. If the output of conversion failure is as follows:
+This indicates that the MindSpore model is successfully converted to a MindSpore Lite end-side model and a new file `my_model.ms` is generated. If the output of conversion failure is as follows:
 
 ```text
 CONVERT RESULT FAILED:
