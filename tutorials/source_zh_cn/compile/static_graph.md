@@ -7,21 +7,16 @@
 在即时编译（Just-In-Time
 Compilation，JIT）模式下，Python代码并不是由Python解释器直接执行，而是先将代码编译成静态计算图，再执行该静态计算图。
 
-在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate
-Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR。
+在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR。
 
 目前，将Python源码转换为中间表示（IR）的方法主要有三种：基于抽象语法树（Abstract
-Syntax Tree,
-AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法
-。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
+Syntax Tree, AST）的解析、基于字节码（ByteCode）的解析，以及基于算子调用追踪（Trace）的方法。这三种模式在语法支持程度上存在一定差异。本文档将首先详细阐述基于抽象语法树（AST）场景下的语法支持情况，随后分别介绍基于字节码（ByteCode）和基于算子追踪（Trace）方式构建计算图时，语法支持的差异。
 
 MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时用户并不会分别感知到这两阶段，MindSpore已将这两阶段均封装在Cell的`__call__`方法中，因此实际调用过程为：
 
 `model(inputs) = model.compile(inputs) + model.construct(inputs)`，其中`model`为实例化的Cell对象。
 
-即时编译可以使用 [JIT接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)
-，或者通过设置`ms.set_context(mode=ms.GRAPH_MODE)`进入Graph模式，并在`Cell`类的`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell
-API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+即时编译可以使用 [JIT接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)，或者通过设置`ms.set_context(mode=ms.GRAPH_MODE)`进入Graph模式，并在`Cell`类的`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在\[STRICT，LAX\]范围内，选择`STRICT`则认为使用基础语法，不扩展静态图语法。默认值为`LAX`。全部级别都支持所有后端。
 
