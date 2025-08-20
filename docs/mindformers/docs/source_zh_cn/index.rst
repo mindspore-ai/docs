@@ -144,6 +144,7 @@ MindSpore Transformers功能特性说明
 - 模型开发
 
   - `开发迁移 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/dev_migration.html>`_
+  - `推理配置模板使用指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/yaml_config_inference.html>`_
 
 - 精度对比
 
@@ -219,6 +220,7 @@ FAQ
    advanced_development/precision_optimization
    advanced_development/performance_optimization
    advanced_development/dev_migration
+   advanced_development/yaml_config_inference
    advanced_development/accuracy_comparison
    advanced_development/api
 
