@@ -31,9 +31,7 @@ The overall architecture of MindSpore is as follows:
 
 MindSpore is a full-scenario deep learning framework designed to achieve three major goals: easy development, efficient execution, and unified deployment across all scenarios. Easy development is reflected in API friendliness and low debugging difficulty; efficient execution includes computational efficiency, data preprocessing efficiency, and distributed training efficiency; full-scenario means the framework simultaneously supports cloud, edge, and device-side scenarios.
 
-### Programming Paradigms and Experience (pynative + graph mode)
-
-#### Fusion of Functional and Object-Oriented Programming
+### Fusion of Functional and Object-Oriented Programming
 
 MindSpore provides both object-oriented and function-oriented programming paradigms, both of which can be used to construct network algorithms and training processes.
 
@@ -45,7 +43,7 @@ MindSpore implements functional differential programming, which performs differe
 
 At the same time, based on the functional programming paradigm, MindSpore provides rich higher-order functions such as vmap, shard, and other built-in higher-order functions. Like the differential function grad, these allow developers to conveniently construct a function or object as a parameter for higher-order functions. Higher-order functions, after internal compilation optimization, generate optimized versions of developers' functions, implementing features such as vectorization transformation and distributed parallel partitioning.
 
-#### Unified Programming Experience for Pynative and Graph Mode
+### Unified Programming Experience for Pynative and Graph Mode
 
 Traditional AI frameworks mainly have two programming execution forms: static graph mode and dynamic eager mode.
 
