@@ -399,6 +399,14 @@ Graph Compilation and Execution
        No setting or other value: Not support.
      -
 
+   * - MS_DEV_OPTIMIZE_OP_IMPL
+     - Control whether to adopt mathematically equivalent but higher-performance underlying operator invocation strategies during graph compilation.
+     - Integer
+     - 1: Enables mathematically equivalent operator invocation logic with optimized performance.
+
+       No setting or other value: Retains default operator invocation logic.
+     - This setting cannot be modified during program execution once applied.
+
 Dump Debugging
 ---------------
 
