@@ -52,15 +52,10 @@ MindSpore Lite包含模块：
 
 > Gradle建议采用[gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all)版本，配置其他版本gradle将会采用gradle wrapper机制自动下载`gradle-6.6.1-complete`。
 >
-> 也可直接使用已配置好上述依赖的Docker编译镜像。
->
-> - 下载镜像：`docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
-> - 创建容器：`docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
-> - 进入容器：`docker exec -ti -u 0 docker01 bash`
 
 ### 编译选项
 
-MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
+MindSpore Lite根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 #### `build.sh`的参数使用说明
 
@@ -123,10 +118,10 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 ### 编译示例
 
-首先，在进行编译之前，需从MindSpore代码仓下载源码。
+首先，在进行编译之前，需从MindSpore Lite代码仓下载源码。
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 然后，在源码根目录下执行如下命令，可编译不同版本的MindSpore Lite。
@@ -294,7 +289,7 @@ python -c "import mindspore_lite"
 
 ### 编译选项
 
-MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
+MindSpore Lite根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
 
 #### `build.bat`的编译参数
 
@@ -320,10 +315,10 @@ MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
 
 ### 编译示例
 
-首先，使用git工具，从MindSpore代码仓下载源码。
+首先，使用git工具，从MindSpore Lite代码仓下载源码。
 
 ```bat
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
@@ -396,7 +391,7 @@ call build.bat lite 8
 
 ### 编译选项
 
-MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
+MindSpore Lite根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 #### `build.sh`的编译参数
 
@@ -413,10 +408,10 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 ### 编译示例
 
-首先，在进行编译之前，需从MindSpore代码仓下载源码。
+首先，在进行编译之前，需从MindSpore Lite代码仓下载源码。
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 然后，在源码根目录下执行如下命令即可编译MindSpore Lite。
