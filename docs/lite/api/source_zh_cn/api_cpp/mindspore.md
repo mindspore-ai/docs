@@ -568,6 +568,7 @@ enum DeviceType GetDeviceType() const override
 ```
 
 - 返回值
+
   DeviceType::kCPU
 
 #### SetEnableFP16
@@ -625,6 +626,7 @@ enum DeviceType GetDeviceType() const override
 ```
 
 - 返回值
+
   DeviceType::kGPU
 
 #### SetDeviceID
@@ -802,6 +804,7 @@ enum DeviceType GetDeviceType() const override
 ```
 
 - 返回值
+
   DeviceType::kKirinNPU
 
 #### SetEnableFP16
@@ -1206,20 +1209,20 @@ Serialization类汇总了模型文件读写的方法。
 
 | 函数                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------------------------|--------|--------|
-| [Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load)     |    ✕    |    √    |
-| [Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-1)     |    ✕    |    √    |
-| [Status Load(const std::vector\<std::string\> &files, ModelType model_type, std::vector\<Graph\> *graphs, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-2)     |    ✕    |    ✕    |
-| [static Status SetParameters(const std::map\<std::string, Buffer\> &parameters, Model *model)](#setparameters)     |    ✕    |    ✕    |
-| [static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data)](#exportmodel)     |    ✕    |    √    |
-| [static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file, QuantizationType quantization_type = kNoQuant, bool export_inference_only = true, std::vector\<std::string\> output_tensor_name = {})](#exportmodel)     |    ✕    |    √    |
-| [static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type, const std::string &weight_file, bool is_inference = true, bool enable_fp16 = false, const std::vector\<std::string\> &changeable_weights_name = {})](#exportweightscollaboratewithmicro)     |    ✕    |    √    |
+| [static inline Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load)     |    ✕    |    √    |
+| [static inline Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-1)     |    ✕    |    √    |
+| [static inline Status Load(const std::vector\<std::string\> &files, ModelType model_type, std::vector\<Graph\> *graphs, const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)](#load-2)     |    ✕    |    ✕    |
+| [static inline Status SetParameters(const std::map\<std::string, Buffer\> &parameters, Model *model)](#setparameters)     |    ✕    |    ✕    |
+| [static inline Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data)](#exportmodel)     |    ✕    |    √    |
+| [static inline Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file, QuantizationType quantization_type = kNoQuant, bool export_inference_only = true, std::vector\<std::string\> output_tensor_name = {})](#exportmodel-1)     |    ✕    |    √    |
+| [static inline Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type, const std::string &weight_file, bool is_inference = true, bool enable_fp16 = false, const std::vector\<std::string\> &changeable_weights_name = {})](#exportweightscollaboratewithmicro)     |    ✕    |    √    |
 
 #### Load
 
 从内存缓冲区加载模型。
 
 ```cpp
-Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph,
+static inline Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph,
             const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)
 ```
 
@@ -1241,7 +1244,7 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 从文件加载模型。
 
 ```cpp
-Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {},
+static inline Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {},
             const std::string &dec_mode = kDecModeAesGcm)
 ```
 
@@ -1262,7 +1265,7 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph, const K
 从多个文件加载多个模型。
 
 ```cpp
-Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs,
+static inline Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs,
             const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm)
 ```
 
@@ -1283,7 +1286,7 @@ Status Load(const std::vector<std::string> &files, ModelType model_type, std::ve
 配置模型参数。
 
 ```cpp
-static Status SetParameters(const std::map<std::string, Buffer> &parameters, Model *model)
+static inline Status SetParameters(const std::map<std::string, Buffer> &parameters, Model *model)
 ```
 
 - 参数
@@ -1300,7 +1303,7 @@ static Status SetParameters(const std::map<std::string, Buffer> &parameters, Mod
 导出训练模型，MindSpore Lite训练使用。
 
 ```cpp
-static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data)
+static inline Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data)
 ```
 
 - 参数
@@ -1311,14 +1314,14 @@ static Status ExportModel(const Model &model, ModelType model_type, Buffer *mode
 
 - 返回值
 
-    状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 #### ExportModel
 
 导出训练模型，MindSpore Lite训练使用。
 
 ```cpp
-static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
+static inline Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
                         QuantizationType quantization_type = kNoQuant, bool export_inference_only = true,
                         std::vector<std::string> output_tensor_name = {})
 ```
@@ -1341,7 +1344,7 @@ static Status ExportModel(const Model &model, ModelType model_type, const std::s
 试验接口，导出供micro推理使用的模型权重，MindSpore Lite训练使用。
 
 ```cpp
-static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type,
+static inline Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type,
                                                 const std::string &weight_file, bool is_inference = true,
                                                 bool enable_fp16 = false,
                                                 const std::vector<std::string> &changeable_weights_name = {})
@@ -1484,28 +1487,24 @@ Model()
 | 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|
 | [Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build)     |    √    |    √    |
-| [Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-1)     |    √    |    √    |
-| [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-2)     |    √    |    √    |
-| [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
+| [inline Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-1)     |    √    |    √    |
+| [inline Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-2)     |    √    |    √    |
+| [inline Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
 | [Status Build(GraphCell graph, const std::shared_ptr\<Context\> &model_context = nullptr, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#build-4)     |    ✕    |    √    |
 | [Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr\<Context\> &context, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#buildtransferlearning)     |    ✕    |    √    |
 | [Status Resize(const std::vector\<MSTensor\> &inputs, const std::vector\<std::vector\<int64_t\>\> &dims)](#resize)     |    √    |    √    |
 | [Status UpdateWeights(const std::vector\<MSTensor\> &new_weights)](#updateweights)     |    ✕    |    √    |
+| [Status UpdateWeights(const std::vector\<std::vector\<MSTensor\>\> &new_weights)](#updateweights-1) | √    |  √     |
 | [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict)     |    √    |    √    |
 | [Status Predict(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict-1)     |    ✕    |    √    |
 | [Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#runstep)     |    ✕    |    √    |
 | [Status PredictWithPreprocess(const std::vector\<std::vector\<MSTensor\>\> &inputs, std::vector\<MSTensor\> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predictwithpreprocess)     |    ✕    |    ✕    |
 | [Status Preprocess(const std::vector\<std::vector\<MSTensor\>\> &inputs, std::vector\<MSTensor\> *outputs)](#preprocess)     |    ✕    |    ✕    |
 | [bool HasPreprocess()](#haspreprocess)     |    ✕    |    ✕    |
-| [Status LoadConfig(const std::string &config_path)](#loadconfig)     |    √    |    √    |
-| [Status UpdateConfig(const std::string &section, const std::pair\<std::string, std::string\> &config)](#updateconfig)     |    √    |    √    |
+| [inline Status LoadConfig(const std::string &config_path)](#loadconfig)     |    √    |    √    |
+| [inline Status UpdateConfig(const std::string &section, const std::pair\<std::string, std::string\> &config)](#updateconfig)     |    √    |    √    |
 | [std::vector\<MSTensor\> GetInputs()](#getinputs)     |    √    |    √    |
-| [MSTensor GetInputByTensorName(const std::string &tensor_name)](#getinputbytensorname)     |    √    |    √    |
-| [std::vector\<MSTensor\> GetOutputs()](#getoutputs)     |    √    |    √    |
-| [std::vector\<std::string\> GetOutputTensorNames()](#getoutputtensornames)     |    √    |    √    |
-| [MSTensor GetOutputByTensorName(const std::string &tensor_name)](#getoutputbytensorname)     |    √    |    √    |
-| [std::vector\<MSTensor\> GetOutputsByNodeName(const std::string &node_name)](#getoutputsbynodename)     |    ✕    |    √    |
-| [static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)](#checkmodelsupport)     |    √    |    √    |
+| [inline MSTensor GetInputByTensorName(const std::string &tensor_name)](#getinputbytensorname)     |    √    |    √    |
 | [std::vector\<MSTensor\> GetGradients() const](#getgradients)     |    ✕    |    √    |
 | [Status ApplyGradients(const std::vector\<MSTensor\> &gradients)](#applygradients)     |    ✕    |    √    |
 | [std::vector\<MSTensor\> GetFeatureMaps() const](#getfeaturemaps)     |    ✕    |    √    |
@@ -1518,15 +1517,19 @@ Model()
 | [float GetLearningRate()](#getlearningrate)     |    ✕    |    √    |
 | [Status InitMetrics(std::vector\<Metrics *\> metrics)](#initmetrics)     |    ✕    |    √    |
 | [std::vector\<Metrics *\> GetMetrics()](#getmetrics)     |    ✕    |    √    |
+| [std::vector\<MSTensor\> GetOutputs()](#getoutputs)     |    √    |    √    |
+| [inline std::vector\<std::string\> GetOutputTensorNames()](#getoutputtensornames)     |    √    |    √    |
+| [inline MSTensor GetOutputByTensorName(const std::string &tensor_name)](#getoutputbytensorname)     |    √    |    √    |
+| [inline std::vector\<MSTensor\> GetOutputsByNodeName(const std::string &node_name)](#getoutputsbynodename)     |    ✕    |    √    |
 | [Status BindGLTexture2DMemory(const std::map\<std::string, unsigned int\> &inputGLTexture, std::map\<std::string, unsigned int\> *outputGLTexture)](#bindgltexture2dmemory)     |    ✕    |    √    |
+| [static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)](#checkmodelsupport)     |    √    |    √    |
 | [Status SetTrainMode(bool train)](#settrainmode)     |    ✕    |    √    |
 | [bool GetTrainMode() const](#gettrainmode)     |    ✕    |    √    |
 | [Status Train(int epochs, std::shared_ptr\<dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#train)     |    ✕    |    √    |
 | [Status Evaluate(std::shared_ptr\<dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#evaluate)     |    ✕    |    √    |
-| [Status Finalize()](#finalize)     |  √ |  √ |
-| [Status UpdateWeights(const std::vector\<std::vector\<MSTensor\>\> &new_weights)](#updateweights) | √    |  √     |
 | [const std::shared_ptr\<ModelImpl\> impl()](#impl) | √    |  √     |
 | [inline std::string GetModelInfo(const std::string &key)](#getmodelinfo) | √    |  √     |
+| [Status Finalize()](#finalize)     |  √ |  √ |
 
 #### Build
 
@@ -1546,14 +1549,33 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 
 - 返回值
 
-    状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 #### Build
 
 ```cpp
-Status Build(const void *model_data, size_t data_size, ModelType model_type,
-             const std::shared_ptr<Context> &model_context = nullptr, const Key &dec_key = {},
-             const std::string &dec_mode = kDecModeAesGcm, const std::string &cropto_lib_path)
+inline Status Build(const std::string &model_path, ModelType model_type,
+             const std::shared_ptr<Context> &model_context = nullptr)
+```
+
+根据路径读取加载模型，并将模型编译至可在Device上运行的状态。
+
+- 参数
+
+    - `model_path`: 模型文件路径。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `model_context`: 模型[Context](#context)。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Build
+
+```cpp
+inline Status Build(const void *model_data, size_t data_size, ModelType model_type,
+             const std::shared_ptr<Context> &model_context, const Key &dec_key,
+             const std::string &dec_mode, const std::string &cropto_lib_path)
 ```
 
 从内存缓冲区加载模型，并将模型编译至可在Device上运行的状态。
@@ -1575,28 +1597,9 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 #### Build
 
 ```cpp
-Status Build(const std::string &model_path, ModelType model_type,
-             const std::shared_ptr<Context> &model_context = nullptr)
-```
-
-根据路径读取加载模型，并将模型编译至可在Device上运行的状态。
-
-- 参数
-
-    - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
-    - `model_context`: 模型[Context](#context)。
-
-- 返回值
-
-    状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-#### Build
-
-```cpp
-Status Build(const std::string &model_path, ModelType model_type,
-             const std::shared_ptr<Context> &model_context = nullptr, const Key &dec_key = {},
-             const std::string &dec_mode = kDecModeAesGcm, const std::string &cropto_lib_path)
+inline Status Build(const std::string &model_path, ModelType model_type,
+             const std::shared_ptr<Context> &model_context, const Key &dec_key,
+             const std::string &dec_mode, const std::string &cropto_lib_path)
 ```
 
 根据路径读取加载模型，并将模型编译至可在Device上运行的状态。
@@ -1635,6 +1638,75 @@ Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nu
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
+#### BuildTransferLearning
+
+```cpp
+Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context,
+                      const std::shared_ptr<TrainCfg> &train_cfg = nullptr)
+```
+
+构建一个迁移学习模型，其中主干权重是固定的，头部权重是可训练的。
+
+- 参数
+
+    - `backbone`: 静态、不可学习部分。
+    - `head`: 可训练部分。
+    - `model_context`: 模型[Context](#context)。
+    - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
+
+- 返回值
+
+  状态码。
+
+#### Resize
+
+```cpp
+Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims)
+```
+
+调整已编译模型的输入张量形状。
+
+- 参数
+
+    - `inputs`: 模型输入按顺序排列的`vector`。
+    - `dims`: 输入张量形状，按输入顺序排列的由形状组成的`vector`，模型会按顺序依次调整对应输入顺序的`inputs`张量形状。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### UpdateWeights
+
+```cpp
+Status UpdateWeights(const std::vector<MSTensor> &new_weights)
+```
+
+更新模型的权重Tensor的大小和内容。
+
+- 参数
+
+    - `new_weights`: 要更新的权重Tensor，可同时更新大小和内容。
+
+- 返回值
+
+  状态码。
+
+#### UpdateWeights
+
+```cpp
+Status UpdateWeights(const std::vector<std::vector<MSTensor>> &new_weights)
+```
+
+更新模型的权重的大小和内容。
+
+- 参数
+
+    - `new_weights`: 要更新的权重Tensor，可同时更新大小和内容。
+
+- 返回值
+
+  状态码。
+
 #### Predict
 
 ```cpp
@@ -1671,10 +1743,76 @@ Status Predict(const MSKernelCallBack &before = nullptr, const MSKernelCallBack 
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
+#### RunStep
+
+```cpp
+Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)
+```
+
+单步训练模型。
+
+- 参数
+
+    - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+
+- 返回值
+
+  状态码。
+
+#### PredictWithPreprocess
+
+```cpp
+Status PredictWithPreprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs,
+                             const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)
+```
+
+进行推理模型，并在推理前进行数据预处理。
+
+- 参数
+
+    - `inputs`: 模型输入按顺序排列的`vector`。
+    - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
+    - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+
+- 返回值
+
+  状态码。
+
+#### Preprocess
+
+```cpp
+Status Preprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs)
+```
+
+若模型配置了数据预处理，对模型输入数据进行数据预处理。
+
+- 参数
+
+    - `inputs`: 模型输入按顺序排列的`vector`。
+    - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
+
+- 返回值
+
+  状态码。
+
+#### HasPreprocess
+
+```cpp
+bool HasPreprocess()
+```
+
+模型是否配置了数据预处理。
+
+- 返回值
+
+  模型是否配置了数据预处理。
+
 #### LoadConfig
 
 ```cpp
-Status LoadConfig(const std::string &config_path)
+inline Status LoadConfig(const std::string &config_path)
 ```
 
 根据路径读取配置文件。
@@ -1712,7 +1850,7 @@ Status LoadConfig(const std::string &config_path)
 #### UpdateConfig
 
 ```cpp
-Status UpdateConfig(const std::string &section, const std::pair<std::string, std::string> &config)
+inline Status UpdateConfig(const std::string &section, const std::pair<std::string, std::string> &config)
 ```
 
 刷新配置，读文件相对比较费时，如果少部分配置发生变化可以通过该接口更新部分配置。
@@ -1741,7 +1879,7 @@ std::vector<MSTensor> GetInputs()
 #### GetInputByTensorName
 
 ```cpp
-MSTensor GetInputByTensorName(const std::string &tensor_name)
+inline MSTensor GetInputByTensorName(const std::string &tensor_name)
 ```
 
 获取模型指定名字的输入张量。
@@ -1774,6 +1912,46 @@ Status ApplyGradients(const std::vector<MSTensor> &gradients)
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
+#### GetFeatureMaps
+
+```cpp
+std::vector<MSTensor> GetFeatureMaps() const
+```
+
+获取模型的所有权重Tensors。
+
+- 返回值
+
+  获取模型的所有权重Tensor。
+
+#### GetTrainableParams
+
+```cpp
+std::vector<MSTensor> GetTrainableParams() const
+```
+
+获取optimizer中所有参与权重更新的MSTensor。
+
+- 返回值
+
+  optimizer中所有参与权重更新的MSTensor。
+
+#### UpdateFeatureMaps
+
+```cpp
+Status UpdateFeatureMaps(const std::vector<MSTensor> &new_weights)
+```
+
+更新模型的权重Tensor内容。
+
+- 参数
+
+    - `new_weights`: 要更新的权重Tensor。
+
+- 返回值
+
+  状态码。
+
 #### GetOptimizerParams
 
 ```cpp
@@ -1798,87 +1976,51 @@ Status SetOptimizerParams(const std::vector<MSTensor> &params)
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
-#### GetTrainableParams
+#### SetupVirtualBatch
 
 ```cpp
-std::vector<MSTensor> GetTrainableParams() const
+Status SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f)
 ```
 
-获取optimizer中所有参与权重更新的MSTensor。
-
-- 返回值
-
-  optimizer中所有参与权重更新的MSTensor。
-
-#### GetOutputs
-
-```cpp
-std::vector<MSTensor> GetOutputs()
-```
-
-获取模型所有输出张量。
-
-- 返回值
-
-  包含模型所有输出张量的容器类型变量。
-
-#### GetOutputTensorNames
-
-```cpp
-std::vector<std::string> GetOutputTensorNames()
-```
-
-获取模型所有输出张量的名字。
-
-- 返回值
-
-  包含模型所有输出张量名字的容器类型变量。
-
-#### GetOutputByTensorName
-
-```cpp
-MSTensor GetOutputByTensorName(const std::string &tensor_name)
-```
-
-获取模型指定名字的输出张量。
-
-- 返回值
-
-  指定名字的输出张量，如果该名字不存在则返回非法张量。
-
-#### GetOutputsByNodeName
-
-```cpp
-std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name)
-```
-
-通过节点名获取模型的MSTensors输出张量。不建议使用，将在2.0版本废弃。
+设置虚拟batch用于训练。
 
 - 参数
 
-    - `node_name`: 节点名称。
+    - `virtual_batch_multiplier`: 虚拟batch乘法器，当设置值小于1时，表示禁用虚拟batch。
+    - `lr`: 学习率，默认为-1.0f。
+    - `momentum`: 动量，默认为-1.0f。
 
 - 返回值
 
-    包含在模型输出Tensor中的该节点输出Tensor的vector。
+  状态码。
 
-#### BindGLTexture2DMemory
+#### SetLearningRate
 
 ```cpp
-  Status BindGLTexture2DMemory(const std::map<std::string, unsigned int> &inputGLTexture,
-                               std::map<std::string, unsigned int> *outputGLTexture)
+Status SetLearningRate(float learning_rate)
 ```
 
-将OpenGL纹理数据与模型的输入和输出进行绑定。
+设置学习率。
 
 - 参数
 
-    - `inputGLTexture`: 模型输入的OpenGL纹理数据, key为输入Tensor的名称，value为OpenGL纹理。
-    - `outputGLTexture`: 模型输出的OpenGL纹理数据，key为输出Tensor的名称，value为OpenGL纹理。
+    - `learning_rate`: 指定的学习率。
 
 - 返回值
 
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+  状态码。
+
+#### GetLearningRate
+
+```cpp
+float GetLearningRate()
+```
+
+获取学习率。
+
+- 返回值
+
+  float类型，获取学习率。如果为0.0，表示没有找到优化器。
 
 #### InitMetrics
 
@@ -1907,6 +2049,93 @@ std::vector<Metrics *> GetMetrics()
 - 返回值
 
   训练指标参数。
+
+#### GetOutputs
+
+```cpp
+std::vector<MSTensor> GetOutputs()
+```
+
+获取模型所有输出张量。
+
+- 返回值
+
+  包含模型所有输出张量的容器类型变量。
+
+#### GetOutputTensorNames
+
+```cpp
+inline std::vector<std::string> GetOutputTensorNames()
+```
+
+获取模型所有输出张量的名字。
+
+- 返回值
+
+  包含模型所有输出张量名字的容器类型变量。
+
+#### GetOutputByTensorName
+
+```cpp
+inline MSTensor GetOutputByTensorName(const std::string &tensor_name)
+```
+
+获取模型指定名字的输出张量。
+
+- 返回值
+
+  指定名字的输出张量，如果该名字不存在则返回非法张量。
+
+#### GetOutputsByNodeName
+
+```cpp
+inline std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name)
+```
+
+通过节点名获取模型的MSTensors输出张量。不建议使用，将在2.0版本废弃。
+
+- 参数
+
+    - `node_name`: 节点名称。
+
+- 返回值
+
+  包含在模型输出Tensor中的该节点输出Tensor的vector。
+
+#### BindGLTexture2DMemory
+
+```cpp
+  Status BindGLTexture2DMemory(const std::map<std::string, unsigned int> &inputGLTexture,
+                               std::map<std::string, unsigned int> *outputGLTexture)
+```
+
+将OpenGL纹理数据与模型的输入和输出进行绑定。
+
+- 参数
+
+    - `inputGLTexture`: 模型输入的OpenGL纹理数据, key为输入Tensor的名称，value为OpenGL纹理。
+    - `outputGLTexture`: 模型输出的OpenGL纹理数据，key为输出Tensor的名称，value为OpenGL纹理。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### CheckModelSupport
+
+```cpp
+static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)
+```
+
+检查设备是否支持该模型。
+
+- 参数
+
+    - `device_type`: 设备类型，例如`kMaliGPU`。
+    - `model_type`: 模型类型，例如`MindIR`。
+
+- 返回值
+
+  状态码。
 
 #### SetTrainMode
 
@@ -1971,232 +2200,6 @@ Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack 
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
-#### Resize
-
-```cpp
-Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims)
-```
-
-调整已编译模型的输入张量形状。
-
-- 参数
-
-    - `inputs`: 模型输入按顺序排列的`vector`。
-    - `dims`: 输入张量形状，按输入顺序排列的由形状组成的`vector`，模型会按顺序依次调整对应输入顺序的`inputs`张量形状。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-#### CheckModelSupport
-
-```cpp
-static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)
-```
-
-检查设备是否支持该模型。
-
-- 参数
-
-    - `device_type`: 设备类型，例如`kMaliGPU`。
-    - `model_type`: 模型类型，例如`MindIR`。
-
-- 返回值
-
-    状态码。
-
-#### BuildTransferLearning
-
-```cpp
-Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context,
-                      const std::shared_ptr<TrainCfg> &train_cfg = nullptr)
-```
-
-构建一个迁移学习模型，其中主干权重是固定的，头部权重是可训练的。
-
-- 参数
-
-    - `backbone`: 静态、不可学习部分。
-    - `head`: 可训练部分。
-    - `model_context`: 模型[Context](#context)。
-    - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
-
-- 返回值
-
-    状态码。
-
-#### GetLearningRate
-
-```cpp
-float GetLearningRate()
-```
-
-获取学习率。
-
-- 返回值
-
-    float类型，获取学习率。如果为0.0，表示没有找到优化器。
-
-#### SetLearningRate
-
-```cpp
-Status SetLearningRate(float learning_rate)
-```
-
-设置学习率。
-
-- 参数
-
-    - `learning_rate`: 指定的学习率。
-
-- 返回值
-
-    状态码。
-
-#### SetupVirtualBatch
-
-```cpp
-Status SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f)
-```
-
-设置虚拟batch用于训练。
-
-- 参数
-
-    - `virtual_batch_multiplier`: 虚拟batch乘法器，当设置值小于1时，表示禁用虚拟batch。
-    - `lr`: 学习率，默认为-1.0f。
-    - `momentum`: 动量，默认为-1.0f。
-
-- 返回值
-
-    状态码。
-
-#### RunStep
-
-```cpp
-Status RunStep(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)
-```
-
-单步训练模型。
-
-- 参数
-
-    - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
-    - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
-
-- 返回值
-
-    状态码。
-
-#### PredictWithPreprocess
-
-```cpp
-Status PredictWithPreprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs,
-                             const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)
-```
-
-进行推理模型，并在推理前进行数据预处理。
-
-- 参数
-
-    - `inputs`: 模型输入按顺序排列的`vector`。
-    - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
-    - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
-    - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
-
-- 返回值
-
-    状态码。
-
-#### Preprocess
-
-```cpp
-Status Preprocess(const std::vector<std::vector<MSTensor>> &inputs, std::vector<MSTensor> *outputs)
-```
-
-若模型配置了数据预处理，对模型输入数据进行数据预处理。
-
-- 参数
-
-    - `inputs`: 模型输入按顺序排列的`vector`。
-    - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
-
-- 返回值
-
-    状态码。
-
-#### HasPreprocess
-
-```cpp
-bool HasPreprocess()
-```
-
-模型是否配置了数据预处理。
-
-- 返回值
-
-    模型是否配置了数据预处理。
-
-#### GetFeatureMaps
-
-```cpp
-std::vector<MSTensor> GetFeatureMaps() const
-```
-
-获取模型的所有权重Tensors。
-
-- 返回值
-
-    获取模型的所有权重Tensor。
-
-#### UpdateFeatureMaps
-
-```cpp
-Status UpdateFeatureMaps(const std::vector<MSTensor> &new_weights)
-```
-
-更新模型的权重Tensor内容。
-
-- 参数
-
-    - `new_weights`: 要更新的权重Tensor。
-
-- 返回值
-
-    状态码。
-
-#### UpdateWeights
-
-```cpp
-Status UpdateWeights(const std::vector<MSTensor> &new_weights)
-```
-
-更新模型的权重Tensor的大小和内容。
-
-- 参数
-
-    - `new_weights`: 要更新的权重Tensor，可同时更新大小和内容。
-
-- 返回值
-
-    状态码。
-
-#### UpdateWeights
-
-```cpp
-Status UpdateWeights(const std::vector<std::vector<MSTensor>> &new_weights)
-```
-
-更新模型的权重的大小和内容。
-
-- 参数
-
-    - `new_weights`: 要更新的权重Tensor，可同时更新大小和内容。
-
-- 返回值
-
-    状态码。
-
 #### impl
 
 ```cpp
@@ -2207,7 +2210,7 @@ const std::shared_ptr<ModelImpl> impl() const
 
 - 返回值
 
-    获得模型的实现。
+  获得模型的实现。
 
 #### GetModelInfo
 
@@ -2219,11 +2222,11 @@ inline std::string GetModelInfo(const std::string &key)
 
 - 参数
 
-    `key`: 模型的key。
+    - `key`: 模型的key。
 
 - 返回值
 
-    模型的信息。
+  模型的信息。
 
 #### Finalize
 
@@ -2235,7 +2238,7 @@ Status Finalize()
 
 - 返回值
 
-     状态码。
+  状态码。
 
 ## MSTensor
 
@@ -2690,7 +2693,7 @@ std::shared_ptr<Allocator> allocator() const
 
 - 返回值
 
-    - 指向Allocator的指针。
+  指向Allocator的指针。
 
 #### SetFormat
 
@@ -3136,7 +3139,7 @@ std::vector<kernel::Kernel *> *nodes()
 
 - 返回值
 
-    Kernel组成的vector。
+  Kernel组成的vector。
 
 #### inputs
 
@@ -3295,7 +3298,7 @@ TrainCfg(const TrainCfg &rhs) {
 
 - 参数
 
-    `rhs`: 训练配置。
+    - `rhs`: 训练配置。
 
 ### 析构函数
 
@@ -3351,7 +3354,7 @@ inline std::vector<std::string> GetLossName() const
 
 - 返回值
 
-    损失的名称。
+  损失的名称。
 
 #### SetLossName
 
@@ -3363,7 +3366,7 @@ inline void SetLossName(const std::vector<std::string> &loss_name)
 
 - 参数
 
-    `loss_name`: 损失的名称。
+    - `loss_name`: 损失的名称。
 
 ## MixPrecisionCfg
 
@@ -3389,7 +3392,7 @@ inline void SetLossName(const std::vector<std::string> &loss_name)
 
 - 参数
 
-    `rhs`: 混合精度配置。tr
+    - `rhs`: 混合精度配置。tr
 
 ### 析构函数
 
@@ -3443,11 +3446,11 @@ explicit AccuracyMetrics(int accuracy_metrics = METRICS_CLASSIFICATION, const st
 
 - 参数
 
-    `accuracy_metrics`: 精度度量标准。
+    - `accuracy_metrics`: 精度度量标准。
 
-    `input_indexes`: 输入的序列号。
+    - `input_indexes`: 输入的序列号。
 
-    `output_indexes`: 输出的序列号。
+    - `output_indexes`: 输出的序列号。
 
 ### 析构函数
 
@@ -3885,7 +3888,7 @@ std::string Version()
 
 - 返回值
 
-    MindSpore Lite版本的字符串。
+  MindSpore Lite版本的字符串。
 
 ## Allocator
 
@@ -4065,7 +4068,7 @@ enum StatusCode StatusCode() const
 
 - 返回值
 
-    状态码。
+  状态码。
 
 #### ToString
 
@@ -4077,7 +4080,7 @@ inline std::string ToString() const
 
 - 返回值
 
-    状态码的字符串。
+  状态码的字符串。
 
 #### GetLineOfCode
 
@@ -4089,7 +4092,7 @@ int GetLineOfCode() const
 
 - 返回值
 
-    代码行数。
+  代码行数。
 
 #### GetFileName
 
@@ -4101,7 +4104,7 @@ inline std::string GetFileName() const
 
 - 返回值
 
-    文件名。
+  文件名。
 
 #### GetErrDescription
 
@@ -4113,7 +4116,7 @@ inline std::string GetErrDescription() const
 
 - 返回值
 
-    错误描述字符串。
+  错误描述字符串。
 
 #### SetErrDescription
 
@@ -4129,7 +4132,7 @@ inline std::string SetErrDescription(const std::string &err_description)
 
 - 返回值
 
-    状态信息字符串。
+  状态信息字符串。
 
 #### SetStatusMsg
 
@@ -4158,7 +4161,7 @@ friend std::ostream &operator<<(std::ostream &os, const Status &s)
 
 - 返回值
 
-    输出流。
+  输出流。
 
 #### operator==(const Status &other)
 
@@ -4174,7 +4177,7 @@ bool operator==(const Status &other) const
 
 - 返回值
 
-    是否与另一个Status相等。
+  是否与另一个Status相等。
 
 #### operator==(enum StatusCode other_code)
 
@@ -4190,7 +4193,7 @@ bool operator==(enum StatusCode other_code) const
 
 - 返回值
 
-    是否与一个StatusCode相等。
+  是否与一个StatusCode相等。
 
 #### operator!=(const Status &other)
 
@@ -4206,7 +4209,7 @@ bool operator!=(const Status &other) const
 
 - 返回值
 
-    是否与另一个Status不相等。
+  是否与另一个Status不相等。
 
 #### operator!=(enum StatusCode other_code)
 
@@ -4222,7 +4225,7 @@ bool operator!=(enum StatusCode other_code) const
 
 - 返回值
 
-    是否与一个StatusCode不等。
+  是否与一个StatusCode不等。
 
 #### operator bool()
 
@@ -4234,7 +4237,7 @@ explicit operator bool() const
 
 - 返回值
 
-    是否当前状态为kSuccess。
+  是否当前状态为kSuccess。
 
 #### explicit operator int() const
 
@@ -4246,7 +4249,7 @@ explicit operator int() const
 
 - 返回值
 
-    当前状态值。
+  当前状态值。
 
 #### OK
 
@@ -4258,7 +4261,7 @@ static Status OK()
 
 - 返回值
 
-    StatusCode::kSuccess。
+  StatusCode::kSuccess。
 
 #### IsOk
 
@@ -4270,7 +4273,7 @@ bool IsOk() const
 
 - 返回值
 
-    是否是kSuccess。
+  是否是kSuccess。
 
 #### IsError
 
@@ -4282,7 +4285,7 @@ bool IsError() const
 
 - 返回值
 
-    是否不是kSuccess。
+  是否不是kSuccess。
 
 #### CodeAsString
 
@@ -4298,7 +4301,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 
 - 返回值
 
-    状态码对应的字符串。
+  状态码对应的字符串。
 
 ## Graph
 
@@ -4383,11 +4386,11 @@ enum CompCode : uint32_t {
 
 - 参数
 
-    `cell`: 输入CellBase。
+    - `cell`: 输入CellBase。
 
-    `prev`: 之前的InputAndOutput。
+    - `prev`: 之前的InputAndOutput。
 
-    `index`: 序列号。
+    - `index`: 序列号。
 
 ### 析构函数
 
@@ -4407,7 +4410,7 @@ int32_t GetIndex() const
 
 - 返回值
 
-    返回输入/输出的index。
+  返回输入/输出的index。
 
 #### SetIndex
 
@@ -4419,7 +4422,7 @@ void SetIndex(int32_t index)
 
 - 参数
 
-    `index`: 输入/输出的index。
+    - `index`: 输入/输出的index。
 
 ## CellBase
 
@@ -4456,11 +4459,11 @@ virtual std::vector<Output> Construct(const std::vector<Input> &inputs)
 
 - 参数
 
-    `inputs`: 输入。
+    - `inputs`: 输入。
 
 - 返回值
 
-    输出。
+  输出。
 
 ## Cell
 
@@ -4496,11 +4499,11 @@ virtual std::vector<Output> Construct(const std::vector<Input> &inputs)
 
 - 参数
 
-    Input组成的vector。
+    - `inputs`: Input组成的vector。
 
 - 返回值
 
-    Output组成的vector。
+  Output组成的vector。
 
 #### Run
 
@@ -4512,7 +4515,8 @@ virtual Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *o
 
 - 参数
 
-    Input组成的vector，Output组成的vector。
+    - `inputs`: Input组成的vector。
+    - `outputs`: Output组成的vector。
 
 - 返回值
 
@@ -4528,7 +4532,7 @@ std::vector<Output> operator()(const std::vector<Input> &inputs) const
 
 - 参数
 
-    Input组成的vector。
+    - `inputs`: Input组成的vector。
 
 - 返回值
 
@@ -4572,7 +4576,7 @@ void SetContext(const std::shared_ptr<Context> &context)
 
 - 参数
 
-    指向Context[Context]实例的共享指针。
+    - `context`: 指向Context[Context]实例的共享指针。
 
 #### Run
 
@@ -4584,11 +4588,12 @@ Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) 
 
 - 参数
 
-    [MSTensor]构成的inputs, outputs vector。
+    - `inputs`: [MSTensor]构成的vector。
+    - `outputs`: [MSTensor]构成的vector。
 
 - 返回值
 
-    状态码。
+  状态码。
 
 #### GetInputs
 
@@ -4600,7 +4605,7 @@ std::vector<MSTensor> GetInputs()
 
 - 返回值
 
-    [MSTensor]构成的vector。
+  [MSTensor]构成的vector。
 
 #### GetOutputs
 
@@ -4612,7 +4617,7 @@ std::vector<MSTensor> GetOutputs()
 
 - 返回值
 
-    [MSTensor]构成的vector。
+  [MSTensor]构成的vector。
 
 #### Load
 
@@ -4624,7 +4629,7 @@ Status Load(uint32_t device_id)
 
 - 参数
 
-    device_id（芯片编号）
+    - `device_id`: 芯片编号。
 
 - 输出
 
