@@ -13,6 +13,8 @@ Based on MindSpore's built-in parallel technology and component-based design, th
 
 Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/master/introduction/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported foundation models.
 
+The open source code repository for MindSpore Transformers is located at `Gitee | MindSpore/mindformers <https://gitee.com/mindspore/mindformers>`_.
+
 If you have any suggestions for MindSpore Transformers, please contact us via `issue <https://gitee.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
 
 Full-process Developing with MindSpore Transformers

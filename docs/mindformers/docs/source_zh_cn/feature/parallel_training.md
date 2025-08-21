@@ -191,7 +191,7 @@ parallel_config:
 参数说明：
 
 - pipeline_interleave：是否开启多流水交织并行。
-- pipeline_scheduler：流水线的调度策略，目前mindformers只支持设置为`"seqpipe"`。
+- pipeline_scheduler：流水线的调度策略，目前MindSpore Transformers只支持设置为`"seqpipe"`。
 - seq_split_num：输入按序列维度的切分个数。
 
 注意：

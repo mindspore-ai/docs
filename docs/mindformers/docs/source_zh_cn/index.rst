@@ -13,6 +13,8 @@ MindSpore Transformers套件基于MindSpore内置的多维混合并行技术和�
 
 用户可以参阅 `整体架构 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/overview.html>`_ 和 `模型库 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html>`_ ，快速了解MindSpore Transformers的系统架构，以及所支持的大模型清单。
 
+MindSpore Transformers的开源仓库地址为 `Gitee | MindSpore/mindformers <https://gitee.com/mindspore/mindformers>`_ 。
+
 如果您对MindSpore Transformers有任何建议，请通过 `issue <https://gitee.com/mindspore/mindformers/issues>`_ 与我们联系，我们将及时处理。
 
 使用MindSpore Transformers进行大模型全流程开发

@@ -2,6 +2,18 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/faq/feature_related.md)
 
+## Q: What is the difference between the names MindSpore Transformers and MindFormers?
+
+A: Both refer to the same suite. MindSpore Transformers is the suite's official name; MindFormers is its abbreviated name, serving as both the repository name and the designation used within the code.
+
+<br/>
+
+## Q: What is the difference between the MindSpore Transformers and MindSpore NLP suites?
+
+A: MindSpore Transformers is MindSpore's large-model suite, primarily designed for training and inference of large language models (LLMs) and Multi-modal models (MMs) in large-scale scenarios. MindSpore NLP is MindSpore's domain-specific suite, primarily designed for training small-to-medium-sized models in the natural language processing (NLP) domain. The two differ in their positioning; users may select the appropriate one based on their requirements.
+
+<br/>
+
 ## Q: The WikiText dataset download link is not available.
 
 A: The official download link is not available, please follow the community Issue [#IBV35D](https://gitee.com/mindspore/mindformers/issues/IBV35D).
