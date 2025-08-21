@@ -137,6 +137,11 @@ res = foo()
 assert res is None
 ```
 
+```text
+x:
+3
+```
+
 ### break Statements
 
 The `break` statement is used to terminate a loop statement, i.e., it stops execution of the loop statement even if the loop condition does not have a `False` condition or if the sequence is not fully recursive, usually used in `while` and `for` loops. In nested loops, the `break` statement stops execution of the innermost loop.
@@ -604,8 +609,16 @@ The use of multi-layer nested iterators is not supported in graph mode.
 The example usage of the restriction is as follows (two levels of iterators are used):
 
 ```python
-x = ({'a': 1, 'b': 2}, {'d': 1, 'e': 2}, {'g': 1, 'h': 2})
-res = {k: v for y in x for (k, v) in y.items()}
+import mindspore
+
+@mindspore.jit
+def test():
+    x = ({'a': 1, 'b': 2}, {'d': 1, 'e': 2}, {'g': 1, 'h': 2})
+    res = {k: v for y in x for (k, v) in y.items()}
+    return res
+
+ret = test()
+print('ret:{}'.format(ret))
 ```
 
 An error will be prompted:

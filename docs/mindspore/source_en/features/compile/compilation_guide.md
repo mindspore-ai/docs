@@ -265,19 +265,19 @@ The purpose and techniques used in MindSpore redundancy elimination are similar 
     Suppose there is Python code with redundant calculations as follows:
 
     ```python
-        import mindspore
+    import mindspore
 
-        @mindspore.jit
-        def func(x, y):
-            a = x + y
-            b = x - y
-            c = x * y # Dead code
-            d = a / b
-            return d
+    @mindspore.jit
+    def func(x, y):
+        a = x + y
+        b = x - y
+        c = x * y # Dead code
+        d = a / b
+        return d
 
-        x = mindspore.tensor(20, mindspore.float32)
-        y = mindspore.tensor(10, mindspore.float32)
-        out = func(x, y)
+    x = mindspore.tensor(20, mindspore.float32)
+    y = mindspore.tensor(10, mindspore.float32)
+    out = func(x, y)
     ```
 
     The MindSpore graph compiler will convert Python code decorated with `@mindspore.jit` to MindIR representation through static analysis and eliminate the redundant calculation of c = x * y. The final generated MindIR is as follows:

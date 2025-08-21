@@ -1090,7 +1090,7 @@ ret:[[3. 3. 3. 3.]]
 Currently supported Python statements include raise statement, assert statement, pass statement, return statement, break statement, continue
 statement, if statement, for statement, while statement, with statement, list comprehension, generator expression and function definition
 statement. For more details, please refer to
-[Statements](https://www.mindspore.cn/tutorials/en/r2.7.0/compile/statements.html)
+[Statements](https://www.mindspore.cn/tutorials/en/r2.7.0/compile/statements.html).
 
 ### Python Built-in Functions
 
@@ -2019,6 +2019,13 @@ res = net()
 assert res is None
 ```
 
+The results are as follows:
+
+``` text
+x:
+3
+```
+
 As in the example below, \'None\' is used as the default input parameter
 for the top graph.
 
@@ -2040,6 +2047,14 @@ x = [1, 2]
 net = Net()
 res = net(x)
 assert res is None
+```
+
+The results are as follows:
+
+``` text
+y is None
+x:
+[1, 2]
 ```
 
 ### Built-in Functions Support More Data Types
@@ -2203,6 +2218,12 @@ shape is (2, 2)
 
     net = Net()
     net()
+    ```
+
+    The results are as follows:
+
+    ``` text
+    net.m2 is 3
     ```
 
 - Set and modify Cell objects and jit_class objects in the static graph
