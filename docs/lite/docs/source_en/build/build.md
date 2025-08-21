@@ -52,15 +52,10 @@ Modules in MindSpore Lite:
 
 > Gradle is recommended to use the [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all) version. If you configure other versions, gradle will automatically download  `gradle-6.6.1-complete` by gradle wrapper mechanism.
 >
-> You can also directly use the Docker compilation image that has been configured with the above dependencies.
->
-> - Download the docker image: `docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
-> - Create a container: `docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
-> - Enter the container: `docker exec -ti -u 0 docker01 bash`
 
 ### Compilation Options
 
-The script `build.sh` in the root directory of MindSpore can be used to compile MindSpore Lite.
+The script `build.sh` in the root directory of MindSpore Lite can be used to compile MindSpore Lite.
 
 #### Instructions for Parameters of `build.sh`
 
@@ -182,7 +177,7 @@ Finally, the following files will be generated in the `output/` directory:
 
 - `mindspore-lite-{version}-{python}-{os}-{arch}.whl`: The Whl package which contains runtime (Python).
 
-> - version: Version of the output, consistent with that of the MindSpore.
+> - version: Version of the output, consistent with that of the MindSpore Lite.
 > - python: Python version of the output, for example, Python 3.7 is `cp37-cp37m`.
 > - os: Operating system on which the output will be deployed.
 > - arch: System architecture on which the output will be deployed.
@@ -294,7 +289,7 @@ After successful installation, you can use the command of `pip show mindspore_li
 
 ### Compilation Options
 
-The script `build.bat` in the root directory of MindSpore can be used to compile MindSpore Lite.
+The script `build.bat` in the root directory of MindSpore Lite can be used to compile MindSpore Lite.
 
 #### The Compilation Parameter of `build.bat`
 
@@ -339,7 +334,7 @@ Finally, the following files will be generated in the `output/` directory:
 
 - `mindspore-lite-{version}-win-x64.zip`: Contains model inference framework and related tool.
 
-> version: Version of the output, consistent with that of the MindSpore.
+> version: Version of the output, consistent with that of the MindSpore Lite.
 
 ### Directory Structure
 
@@ -396,7 +391,7 @@ Finally, the following files will be generated in the `output/` directory:
 
 ### Compilation Options
 
-The script `build.sh` in the root directory of MindSpore can be used to compile MindSpore Lite.
+The script `build.sh` in the root directory of MindSpore Lite can be used to compile MindSpore Lite.
 
 #### The Compilation Parameter of `build.sh`
 
@@ -437,7 +432,7 @@ Finally, the following files will be generated in the `output/` directory:
 
 - `mindspore-lite-{version}-{os}-{arch}.tar.gz`: Contains model inference framework.
 
-> - version: Version of the output, consistent with that of the MindSpore.
+> - version: Version of the output, consistent with that of the MindSpore Lite.
 > - os: Operating system on which the output will be deployed.
 > - arch: System architecture on which the output will be deployed.
 

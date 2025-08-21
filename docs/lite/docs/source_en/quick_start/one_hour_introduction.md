@@ -140,7 +140,7 @@ The model conversion procedure is as follows:
     You can use your own model or click [here](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) to download a MindSpore model for testing.
     Take the downloaded model as an example. Copy the model `mobilenetv2.mindir` to the directory where the converter is located. The model conversion command is as follows:
 
-   ```bash
+    ```bash
     ./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
     ```
 
@@ -914,7 +914,7 @@ The model conversion procedure is as follows:
     You can use your own model or click [here](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) to download a MindSpore model for testing.
     Take the downloaded model as an example. Copy the model `mobilenetv2.mindir` to the directory where the converter is located. The model conversion command is as follows:
 
-   ```bash
+    ```bash
     call converter_lite.exe --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
     ```
 
@@ -1397,7 +1397,7 @@ In the previous section, the official inference test tool is used to perform the
 
     (3) Load the model.
 
-    Create a `Model` class object `model`. The `Model` class defines the model in MindSpore for computational graph management.
+    Create a `Model` class object `model`. The `Model` class defines the model in MindSpore Lite for computational graph management.
     For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html).
 
     ```cpp
