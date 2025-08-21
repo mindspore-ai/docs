@@ -1050,17 +1050,17 @@ print('ret:{}'.format(ret))
 ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, value= [1]))
 ```
 
-### view和in-place功能
+### View和in-place功能
 
-Graph Mode支持对Tensor的view和in-place操作与求导。
+静态图支持对Tensor的view和in-place操作与求导。
 
 #### 支持view操作
 
-view操作是指创建一个新的张量，它与原始张量共享相同的数据存储，但具有不同的形状或排列方式。换句话说，view操作不会复制数据，而是通过不同的视角来解释现有的数据，避免了不必要的内存分配和数据复制。
+View操作是指创建一个新的张量，它与原始张量共享相同的数据存储，但具有不同的形状或排列方式。换句话说，view操作不会复制数据，而是通过不同的视角来解释现有的数据，避免了不必要的内存分配和数据复制。
 
 支持`Ascend`设备，使用`mindspore.jit`进行编译时，`jit_level=00`和`01`均支持。
 
-view操作和求导：Graph Mode和PyNative Mode结果一致。
+View操作和求导：静态图和动态图结果一致。
 
 示例如下：
 
@@ -1070,12 +1070,10 @@ import mindspore
 from mindspore import nn, mint
 from mindspore import grad
 
-
 class Net(nn.Cell):
     def construct(self, x):
         out = mint.narrow(x, 1, 1, 2)
         return out
-
 
 net = Net()
 np_x = np.arange(9).reshape(3, 3).astype(np.float32)
@@ -1094,9 +1092,9 @@ assert (graph_grad_out == pynative_grad_out).all()
 
 #### 支持in-place操作
 
-in-place操作是指直接修改输入张量的内容，而不创建新的张量。其优点在于节省内存，尤其是在处理高维数据时，能显著减少额外的内存开销。
+In-place操作是指直接修改输入张量的内容，而不创建新的张量。其优点在于节省内存，尤其是在处理高维数据时，能显著减少额外的内存开销。
 
-下面使用Tensor和Parameter相关用例对Graph Mode支持in-place操作和求导进行说明。
+下面使用Tensor和Parameter相关用例对静态图支持in-place操作和求导进行说明。
 
 - Tensor使用示例
 
@@ -1105,12 +1103,10 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
     from mindspore import nn
     from mindspore import grad
 
-
     class Net(nn.Cell):
         def construct(self, x, y):
             x.add_(y)
             return x
-
 
     x = mindspore.tensor(2, dtype=mindspore.int32)
     y = mindspore.tensor(3, dtype=mindspore.int32)
@@ -1122,28 +1118,26 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
     print("graph_grad_out: ", graph_grad_out)
     ```
 
-    Graph Mode下输出正确结果：
+    静态图下输出正确结果：
 
     ```text
     graph_out:  5
     graph_grad_out:  1
     ```
 
-    Graph Mode下，由于可以获取更多全局的信息，可以保证in-place操作的求导正确性。
+    静态图下，由于可以获取更多全局的信息，可以保证in-place操作的求导正确性。
 
-    PyNative Mode下，对前向张量的修改会影响反向传播，在自动求导中可能引发错误，所以要谨慎使用。
+    动态图下，对前向张量的修改会影响反向传播，在自动求导中可能引发错误，所以要谨慎使用。
 
     ```python
     import mindspore
     from mindspore import nn
     from mindspore import grad
 
-
     class Net(nn.Cell):
         def construct(self, x, y):
             x.add_(y)
             return x
-
 
     x = mindspore.tensor(2, dtype=mindspore.int32)
     y = mindspore.tensor(3, dtype=mindspore.int32)
@@ -1154,7 +1148,7 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
     print("pynative_grad_out: ", pynative_grad_out)
     ```
 
-    PyNative Mode下求导报错如下：
+    动态图下求导报错如下：
 
     ```text
     pynative_out:  5
@@ -1169,7 +1163,6 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
     from mindspore import dtype as mstype
     from mindspore import ops
 
-
     class GradOfAllInputsAndParams(nn.Cell):
         def __init__(self, net):
             super(GradOfAllInputsAndParams, self).__init__()
@@ -1181,7 +1174,6 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
             gradient_function = self.grad_op(self.net, self.params)
             return gradient_function(x, y)
 
-
     class Net(nn.Cell):
         def __init__(self):
             super(Net, self).__init__()
@@ -1192,7 +1184,6 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
             out = self.param1 + self.param2 + x + y
             out = out * x
             return out.add_(y)
-
 
     x = mindspore.tensor([1], dtype=mstype.float32)
     y = mindspore.tensor([2], dtype=mstype.float32)
@@ -1213,7 +1204,7 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
 
 #### 支持view inplace场景
 
-合理结合view操作和in-place操作，能够显著提升内存效率和优化计算速度，适用于处理大尺寸张量、部署资源受限的环境、计算密集型操作等场景。下面介绍Graph Mode支持的view inplace场景。
+合理结合view操作和in-place操作，能够显著提升内存效率和优化计算速度，适用于处理大尺寸张量、部署资源受限的环境、计算密集型操作等场景。下面介绍静态图支持的view inplace场景。
 
 - 显式的view inplace场景
 
@@ -1224,7 +1215,6 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
     import mindspore
     import mindspore.nn as nn
     from mindspore import ops
-
 
     class ViewOut(nn.Cell):
         def __init__(self):
@@ -1237,7 +1227,6 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
             x = self.transpose(x, (0, 1, 2))
             self.assign(x, x * 2)
             return x * 3
-
 
     x1 = mindspore.tensor(np.array([[[1, 0, 0, 0], [0, 0, 0, 0], [-1, -1, 0, -1]],
                              [[0, -1, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]]]), mindspore.int32)
@@ -1265,12 +1254,10 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
     import numpy as np
     import mindspore
 
-
     @mindspore.jit(capture_mode='ast', jit_level="O0", backend="ms_backend")
     def func(ms_x):
         ms_x[slice(0, 1)] = -1
         return ms_x
-
 
     np_x = np.arange(2 * 3 * 4).reshape(2, 3, 4)
     ms_x = mindspore.tensor(np_x)
@@ -1284,99 +1271,117 @@ in-place操作是指直接修改输入张量的内容，而不创建新的张量
 
 - 支持view inplace场景反向
 
-    在Graph Mode的自动微分中，梯度的传递依赖于节点的连边关系，而view和in-place类算子作为原地操作类算子，会影响节点的连边关系，进而影响梯度的传递。
+    在静态图的自动微分中，梯度的传递依赖于节点的连边关系，而view和in-place类算子作为原地操作类算子，会影响节点的连边关系，进而可能影响梯度的传递。框架在计算图中同时存在view和in-place算子的场景下，对自动微分的支持是有限的。
 
-    当计算图中存在view和in-place算子时，如果可以在图节点的表达上正确传播梯度，也就可以支持view inplace场景反向，否则当前不支持，会存在相应的报错信息。
+    1. In-place算子修改的对象不是view算子的输出。示例如下:
 
-    示例如下:
+        ```python
+        import mindspore
+        import mindspore.nn as nn
+        from mindspore import ops, mint
+        from mindspore import grad
 
-    ```python
-    import mindspore
-    import mindspore.nn as nn
-    from mindspore import ops, mint
-    from mindspore import grad
+        class Net(nn.Cell):
+            def construct(self, x):
+                y = ops.abs(x)
+                y.add_(mindspore.tensor(-1, dtype=mindspore.float32))
+                y_viewed = mint.select(y, 0, 0)
+                return y_viewed
 
+        x = mindspore.tensor([[0, 1], [2, 3]], dtype=mindspore.float32)
+        net = Net()
+        out_expect = grad(net)(x)
+        net.construct = mindspore.jit(net.construct, backend="ms_backend")
+        out_jit = grad(net)(x)
+        assert (out_expect.asnumpy() == out_jit.asnumpy()).all()
+        ```
 
-    class Net(nn.Cell):
-        def construct(self, x):
-            y = ops.abs(x)
-            y_viewed = mint.select(y, 0, 0)
-            y_viewed.add_(mindspore.tensor(-1, dtype=mindspore.float32))
-            return y
+    2. 当in-place算子修改了view算子的输出，此时view算子的输入数据也会同步修改，节点的数据关系更为复杂。框架通过在构图时插入虚拟算子，重建连边关系，确保梯度能正常传递并计算。当前能够支持非控制流场景，以及in-place算子修改的对象明确为某一个view算子输出的控制流场景。
 
+        一个非控制流场景的示例如下:
 
-    x = mindspore.tensor([[0, 1], [2, 3]], dtype=mindspore.float32)
-    net = Net()
-    out_expect = grad(net)(x)
-    net.construct = mindspore.jit(net.construct, backend="ms_backend")
-    out_jit = grad(net)(x)
-    assert (out_expect.asnumpy() == out_jit.asnumpy()).all()
-    ```
+        ```python
+        import mindspore
+        import mindspore.nn as nn
+        from mindspore import ops, mint
+        from mindspore import grad
 
-- view inplace场景反向异常
+        class Net(nn.Cell):
+            def construct(self, x):
+                y = ops.abs(x)
+                y_viewed = mint.select(y, 0, 0)
+                y_viewed.add_(mindspore.tensor(-1, dtype=mindspore.float32))
+                return y
 
-  1. 当in-place算子中不进行修改的输入需要传递梯度时，因当前方案不支持将抛出`RuntimeError`异常。示例如下:
+        x = mindspore.tensor([[0, 1], [2, 3]], dtype=mindspore.float32)
+        net = Net()
+        out_expect = grad(net)(x)
+        net.construct = mindspore.jit(net.construct, backend="ms_backend")
+        out_jit = grad(net)(x)
+        assert (out_expect.asnumpy() == out_jit.asnumpy()).all()
+        ```
 
-     ```python
-     import mindspore
-     import mindspore.nn as nn
-     from mindspore import ops, mint
-     from mindspore import grad
+        一个in-place修改view算子输出明确的控制流场景的示例如下：
 
+        ```python
+        import mindspore as ms
+        import mindspore.nn as nn
+        from mindspore import ops, mint
+        from mindspore import grad
 
-     class Net(nn.Cell):
-         def construct(self, input_tensor):
-             input_abs = ops.abs(input_tensor)
-             m = mint.select(input_abs, 0, 0)
-             n = mint.select(input_abs, 0, 1)
-             m.mul_(n)
-             return input_abs
+        class Net(nn.Cell):
+            @ms.jit(backend="ms_backend")
+            def construct(self, input_tensor, y):
+                input_abs = ops.abs(input_tensor)
+                x = mint.select(input_abs, 0, 0)
+                if y < 10:
+                   x.add_(2)
+                else:
+                   x.mul_(3)
+                return x
 
+        net = Net()
+        out_jit = grad(net)(ms.Tensor([3, 4]), ms.Tensor(5))
+        ```
 
-     net = Net()
-     net.construct = mindspore.jit(net.construct, backend="ms_backend")
-     out_jit = grad(net)(mindspore.tensor([3, 4]))
-     ```
+        该用例中虽然`x`在不同分支中有不同的in-place操作，但是对每一个in-place操作，其原地更新的对象`x`是明确的，是通过`mint.select(input_abs, 0, 0)`计算产生，所以框架当前能支持该场景。
 
-     结果报错如下：
+- view in-place场景反向异常
 
-     ```text
-     RuntimeError: When performing an in-place operation on an object generated by a view operation, it is currently not supported to compute gradients for the other inputs of this in-place operator.
-     ```
+    1. 当in-place算子修改的对象，不能明确表达为某一个特定Tensor经过view算子处理的视图，比如来自多个分支，其中有一个或者多个为view操作的输出，此时，由于变量控制流的存在，框架在构建静态图时，无法准确表达出当前in-place节点的梯度传递对象及其计算逻辑，所以在静态图模式下，暂时不支持对这类使用场景的自动微分。
+        示例如下：
 
-     `m`和`n`均是`input_abs`的view输出，in-place操作的输入`m`和`n`均存在梯度传递，`n`不进行修改，当前方案不支持，故进行拦截报错。
+        ```python
+        import mindspore as ms
+        import mindspore.nn as nn
+        from mindspore import ops, mint
+        from mindspore import grad
 
-  2. 当网络返回值是view操作的结果或者依赖view操作的结果时，因当前方案不支持将抛出`RuntimeError`异常。示例如下：
+        class Net(nn.Cell):
+            @ms.jit(backend="ms_backend")
+            def construct(self, input_tensor, y):
+                input_abs = ops.abs(input_tensor)
+                if y < 10:
+                    x = mint.select(input_abs, 0, 0)
+                else:
+                    x = mint.select(input_abs, 0, 1)
+                x.add_(2)
+                return x
 
-     ```python
-     import mindspore
-     import mindspore.nn as nn
-     from mindspore import ops, mint
-     from mindspore import grad
+        net = Net()
+        out_jit = grad(net)(ms.Tensor([3, 4]), ms.Tensor(5))
+        ```
 
+        由于x来自两个分支，表示的视图区域不唯一确定，当前方案不支持对这类场景的自动微分，会拦截报错，报错信息如下：
 
-     class Net(nn.Cell):
-         def construct(self, input_tensor):
-             input_abs = ops.abs(input_tensor)
-             x = mint.select(input_abs, 0, 0)
-             y = mint.select(input_abs, 0, 1)
-             x.add_(2)
-             y.add_(3)
-             return x
+        ```text
+        In backpropagation, inplace modification of the output of view operations within control flow is not supported.
+        ```
 
+        对于这一类问题，可以通过将x.add_(2)分别添加在两个分支的view语句后来解决。对于复杂控制流，如果较难通过更改脚本明确in-place算子和view算子的对应关系，建议在静态图模式下，不使用view算子和in-place算子实现代码逻辑。
+        实际在执行view和in-place算子组合使用时的反向图时，可能会比动态图模式下执行的算子数增加，影响执行性能，复杂场景建议慎重使用。
 
-     net = Net()
-     net.construct = mindspore.jit(net.construct, backend="ms_backend")
-     out_jit = grad(net)(mindspore.tensor([3, 4]))
-     ```
-
-     结果报错如下：
-
-     ```text
-     RuntimeError: The current view inplace differentiation scenario is not supported.
-     ```
-
-     网络返回值`x`是`input_abs`的view输出，当前方案不支持，故进行拦截报错。
+    2. 目前暂不支持 `UnstackExtView` 这一类输出为多个Tensor组成的Tuple类型的View算子，在view inplace场景下的自动微分。
 
 ## 基础语法的语法约束
 
