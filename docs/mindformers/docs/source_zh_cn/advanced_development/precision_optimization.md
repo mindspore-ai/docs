@@ -254,9 +254,18 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
 
 #### step1的loss对比
 
-在固定权重、数据集、随机性后，对比训练第一个step的loss值差异。第一个step的loss值由网络的前向计算获得，若与标杆loss的差异较大，则可判定前向计算存在精度差异，这可能是模型结构未对齐、算子精度异常导致。可通过打印或者Dump工具获取MindSpore及PyTorch每层的tensor值。当前工具暂不具备自动比对功能，需要用户人工识别对应关系进行比对。MindSpore Dump工具介绍参考[精度调试工具介绍](#精度调试工具介绍)，PyTorch Dump工具使用可参考[精度工具功能说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)。
+在固定权重、数据集、随机性后，对比训练第一个step的loss值差异。第一个step的loss值由网络的前向计算获得，若与标杆loss的差异较大，则可判定前向计算存在精度差异，这可能是模型结构未对齐、算子精度异常导致。可通过打印或者Dump工具获取MindSpore及PyTorch每层的tensor值，初步通过max、min、L2Norm统计量信息判断两边数据输入输出的差异程度。若需要进一步的对比，可以加载相应的真实数据进行详细比对。
 
-通过PyTorch的api_stack_dump.pkl文件，及MindSpore的statistic.csv文件找到层的对应关系，初步通过max、min、L2Norm判断输入输出的差异程度。若需要进一步的对比，可以加载相应的npy数据进行详细比对。
+在静态图模式下，建议采用“由粗到细”的分层定位策略，通过从模块级到算子级的分层递进式排查，提升精度问题的定位效率：
+
+1. L0 级别数据采集：先对整体或模块级输出进行数据 Dump，并利用工具的自动比对功能，定位差异较大的模块；
+2. L2 级别精细 Dump：在初步定位的基础上，针对模块内部可疑算子进行细粒度数据采集，进一步排查具体算子的精度偏差。
+
+当前，msprobe 精度分析工具提供了分级的数据采集与比对能力，可有效支持此类问题的定位。相关操作可参考以下文档：
+
+[msprobe 工具 MindSpore场景精度数据采集指南](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
+[msprobe 工具 Pytorch场景精度数据采集指南](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
+[MindSpore 场景的精度比对](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
 
 #### step1的local norm值对比
 
