@@ -4,15 +4,15 @@
 
 当内置算子不满足需求时，你可以利用MindSpore提供的自定义算子功能接入你的算子。
 
-本文档将以 **`advance_step_flashattn`** 算子为例，讲解如何在 vLLM MindSpore 项目中接入一个AscendC自定义算子。
+本文档将以 **`advance_step_flashattn`** 算子为例，讲解如何在vLLM-MindSpore插件项目中接入一个AscendC自定义算子。
 
-本文重点在于介绍把算子集成进vLLM MindSpore的流程，自定义算子的细节请参考 MindSpore 官方教程：[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。AscendC算子的开发流程请参考昇腾官方文档：[Ascend C算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html)。
+本文重点在于介绍把算子集成进vLLM-MindSpore插件的流程，自定义算子的细节请参考 MindSpore 官方教程：[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。AscendC算子的开发流程请参考昇腾官方文档：[Ascend C算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html)。
 
-**注：目前vLLM MindSpore的自定义算子仅支持动态图（PyNative Mode）场景。**
+**注：目前vLLM-MindSpore插件的自定义算子仅支持动态图（PyNative Mode）场景。**
 
 ## 文件组织结构
 
-接入自定义算子需要在 vLLM MindSpore 项目的 `csrc` 目录下添加代码，目录结构如下：
+接入自定义算子需要在vLLM-MindSpore插件项目的 `csrc` 目录下添加代码，目录结构如下：
 
 ```text
 vllm-mindspore/
@@ -111,11 +111,11 @@ VLLM_MS_EXTENSION_MODULE(m) {
 
 上面`m.def()`接口的第一个参数`"advance_step_flashattn"`就是算子的Python接口名。
 
-`module.h` 和 `module.cpp` 文件的作用是基于pybind11创建算子的Python模块。因为一个动态库内只能有一个 `PYBIND11_MODULE` ，为了让用户可以在一个文件内完成算子接入工作，vLLM MindSpore提供了一个新的注册接口 `VLLM_MS_EXTENSION_MODULE` 宏。自定义算子动态库加载时，所有算子接口都会被自动注册到同一个Python模块中。
+`module.h` 和 `module.cpp` 文件的作用是基于pybind11创建算子的Python模块。因为一个动态库内只能有一个 `PYBIND11_MODULE` ，为了让用户可以在一个文件内完成算子接入工作，vLLM-MindSpore插件提供了一个新的注册接口 `VLLM_MS_EXTENSION_MODULE` 宏。自定义算子动态库加载时，所有算子接口都会被自动注册到同一个Python模块中。
 
 ### 算子调用接口
 
-vLLM MindSpore的自定义算子被编译到了 `_C_ops.so` 里面，为了方便调用，可以在 `vllm_mindspore/_custom_ops.py` 添加一个调用接口。如果在算子调用前后需要做额外适配，也可以在这接口内实现。
+vLLM-MindSpore插件的自定义算子被编译到了 `_C_ops.so` 里面，为了方便调用，可以在 `vllm_mindspore/_custom_ops.py` 添加一个调用接口。如果在算子调用前后需要做额外适配，也可以在这接口内实现。
 
 ```python
 def advance_step_flashattn(num_seqs: int, num_queries: int, block_size: int,
@@ -142,8 +142,8 @@ def advance_step_flashattn(num_seqs: int, num_queries: int, block_size: int,
 
 ### 算子编译和测试
 
-1. **代码集成**：将代码集成至 vLLM MindSpore 项目。
-2. **编译项目**：在项目代码根目录下，执行 `pip install .` ，编译安装vLLM MindSpore。
+1. **代码集成**：将代码集成至vLLM-MindSpore插件项目。
+2. **编译项目**：在项目代码根目录下，执行 `pip install .` ，编译安装vLLM-MindSpore插件。
 3. **测试算子接口**：通过 `_custom_ops` 调用算子接口，可以参考测试用例[test_custom_advstepflash.py](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_custom_advstepflash.py)：
 
 ```python
@@ -154,18 +154,18 @@ custom_ops.advance_step_flashattn(...)
 
 ## 自定义算子编译工程
 
-当前MindSpore仅提供了一个 [CustomOpBuilder接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomOpBuilder.html) 用于在线编译自定义算子，接口内置了默认的编译和链接选项。vLLM MindSpore基于MindSpore的自定义算子功能接入算子，并编译成动态库随包发布。下面是编译流程介绍：
+当前MindSpore仅提供了一个 [CustomOpBuilder接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomOpBuilder.html) 用于在线编译自定义算子，接口内置了默认的编译和链接选项。vLLM-MindSpore插件基于MindSpore的自定义算子功能接入算子，并编译成动态库随包发布。下面是编译流程介绍：
 
 ### 算子扩展库模块
 
-在 `setup.py` 中，vLLM MindSpore添加了一个 `vllm_mindspore._C_ops` 扩展，并添加了相应的编译模块：
+在 `setup.py` 中，vLLM-MindSpore插件添加了一个 `vllm_mindspore._C_ops` 扩展，并添加了相应的编译模块：
 
 ```python
 ext_modules = [Extension("vllm_mindspore._C_ops", sources=[])],
 cmdclass = {"build_ext": CustomBuildExt},
 ```
 
-这里不需要指定 `sources` ，是因为vLLM MindSpore通过CMake触发算子编译，自动收集了源文件。
+这里不需要指定 `sources` ，是因为vLLM-MindSpore插件通过CMake触发算子编译，自动收集了源文件。
 
 ### 算子编译流程
 

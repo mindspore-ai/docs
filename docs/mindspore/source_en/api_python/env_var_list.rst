@@ -103,7 +103,7 @@ Graph Compilation and Execution
      - Specify which modules are treated as third-party libraries in static graph mode without JIT static compilation. Their functions and methods will be interpreted and executed.
      - String
      - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_IGNORE_MODULES=numpy,scipy`.
-     - Static graph mode can automatically recognize third-party libraries, and generally there is no need to set this environment variable for recognizable third-party libraries such as NumPy and Scipy. If `MS_JIT_IGNORE_MODULES` and `MS_JIT_MODULES` specify the same module name at the same time, the former takes effect and the latter does not.
+     - Static graph mode can automatically recognize third-party libraries, and generally there is no need to set this environment variable for recognizable third-party libraries such as NumPy and SciPy. If `MS_JIT_IGNORE_MODULES` and `MS_JIT_MODULES` specify the same module name at the same time, the former takes effect and the latter does not.
    * - MS_DEV_FALLBACK_DUMP_NODE
      - Print syntax expressions supported by Static Graph Syntax Enhancement in the code.
      - Integer
@@ -279,7 +279,7 @@ Graph Compilation and Execution
 
        compile_statistics: Whether to enable compile statistics, with a default value of false.
 
-       backend_compile_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable complie cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
+       backend_compile_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable compilation cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
 
        view: Whether to enable view kernels, only effective in O0 or O1 mode, with a default value of true.
      -
@@ -307,6 +307,8 @@ Graph Compilation and Execution
        acl_allocator: Whether to enable ACL memory allocator, with a default value of true.
 
        somas_whole_block: Whether to use the entire Somas for memory allocation, with a default value of false.
+
+       enable_small_pool: Whether to enable small pool, with a default value of false. When enabled, memory allocations smaller than 1MB are managed by the small memory pool.
      -
 
    * - MS_DEV_GRAPH_KERNEL_FLAGS
@@ -341,7 +343,17 @@ Graph Compilation and Execution
        enable_debug_mode: Insert synchronization points before and after the graph kernel mod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
 
        path: use specified json file. When this option is set, the above options are ignored.
-     - Refer to the `Custom Fusion <https://www.mindspore.cn/tutorials/en/master/custom_program/fusion_pass.html>`_
+     - Refer to the `Custom Fusion <https://www.mindspore.cn/tutorials/en/master/compile/fusion_pass.html>`_
+
+   * - MS_DEV_PYNATIVE_FUSION_FLAGS
+     - Configure operator fusion in PyNative asynchronous execution mode.
+     - String
+     - Configuration items, with the format "--key=value", multiple configuration items separated by space, multiple value items separated by commas, for example, `export MS_DEV_PYNATIVE_FUSION_FLAGS="--opt_level=1 --enable_ops=MatMul,MatMulExt"`
+
+       opt_level: Determines whether to enable operator fusion, 0 means disabled, and 1 means enabled. Default: 0.
+
+       enable_ops: Under the premise of enabling operator fusion, add some operators that are not fused by default to the fusion process. The operators supported by this configuration item are: Dense, MatMul, MatMulExt, BatchMatMul, and BatchMatMulExt.
+     -
 
    * - MS_DEV_DISABLE_AUTO_H2D
      - Control whether the input of the operator performs implicit copying in PyNative mode. When enabled, implicit copying of operator input will be disabled.
@@ -352,7 +364,7 @@ Graph Compilation and Execution
      -
 
    * - MS_DEV_LAUNCH_BLOCKING
-     - Control whether the operator is synchronously launched. When enabled, the operator will be launced in a single thread and will synchronize the stream.
+     - Control whether the operator is synchronously launched. When enabled, the operator will be launched in a single thread and will synchronize the stream.
      - Integer
      - 1: Enable operator synchronization launch.
 
@@ -392,7 +404,7 @@ Graph Compilation and Execution
    * - MS_SUPPORT_BINARY
      - Control whether support run pyc or so in graph mode.
      - Integer
-     - 1：Support run pyc or so in graph mode.
+     - 1: Support run pyc or so in graph mode.
 
        No setting or other value: Not support.
      -
@@ -872,11 +884,11 @@ Silent Data Corruption Detection
      - Integer
      - 0: Disable feature value detection function
 
-       1: Enable feature value detection function, when error was detected, just print log, not thow exception
+       1: Enable feature value detection function, when error was detected, just print log, not throw exception
 
-       2: Enable feature value detection function, when error was detected, thow exception
+       2: Enable feature value detection function, when error was detected, throw exception
 
-       3: Enable feature value detection function, when error was detected, thow exception, but at the same time write value detection info of each time to log file (this requires set ascend log level to info or debug)
+       3: Enable feature value detection function, when error was detected, throw exception, but at the same time write value detection info of each time to log file (this requires set ascend log level to info or debug)
      - Currently, this feature only supports Atlas A2 training series products, and only detects abnormal feature value that occur during the training of Transformer class models with bfloat16 data type
 
        Considering that the feature value range can not be known ahead, setting NPU_ASD_ENABLE to 1 is recommended to enable silent check, which prevents training interruption caused by false detection
@@ -922,7 +934,7 @@ Third-party Library
      - Value Range
      - Description
    * - OPTION_PROTO_LIB_PATH
-     - Specifies the RPOTO dependent library path.
+     - Specifies the PROTO dependent library path.
      - String
      - File path, which can be a relative path or an absolute path.
      -
@@ -961,9 +973,9 @@ Third-party Library
      - Absolute path for CUDA package installation
      - Required for GPU environment only, generally no need to set. If multiple versions of CUDA are installed in the GPU environment, it is recommended to configure this environment variable in order to avoid confusion.
    * - MS_ENABLE_TFT
-     - Enable `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ feature. Turn on TTP, UCE, TRE or ARF feature.
+     - Enable Training Fault Tolerance. Most functions rely on `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ .
      - String
-     - "{TTP:1,UCE:1,TRE:1,ARF:1,TSP:1}". TTP (Try To Persist): End of life CKPT, UCE (Uncorrectable Memory Error): Fault tolerance and recovery, TRE(Training Result Error): Restoring training result exceptions, ARF (Air Refuelling), TSP(Training step pause): Process level rescheduling and recovery feature. The four features can be enabled separately. If you only want to enable one of them, set the corresponding value to 1. Other values: MindIO TFT not turned on. (When using UCE or ARF, TTP is enabled by default. TRE can not be used with UCE or ARF feature.)
+     - "{TTP:1,UCE:1,TRE:1,ARF:1,TSP:1,RSC:1}". TTP (Try To Persist): End of life CKPT, UCE (Uncorrectable Memory Error): Fault tolerance and recovery, TRE(Training Result Error): Restoring training result exceptions, ARF (Air Refuelling), TSP(Training step pause): Process level rescheduling and recovery feature, RSC (Register Stop/Start Controller): POD-level rescheduling function. Above features can be enabled separately. If you only want to enable one of them, set the corresponding value to 1. (When using UCE or ARF, TTP is enabled by default. TRE can not be used with UCE or ARF feature. When only RSC:1 is enabled (the current version must rely on MindX), other training fault tolerance features are not effective.)
      - Graph mode can only be enabled on the Ascend backend and jit_level is set to "O0" or "O1".
    * - MS_TFT_IP
      - The IP address where the MindIO controller thread is located for processor connections.

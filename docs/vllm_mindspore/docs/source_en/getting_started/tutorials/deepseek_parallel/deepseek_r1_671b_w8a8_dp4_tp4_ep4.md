@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)  
 
-vLLM MindSpore supports hybrid parallel inference with configurations of tensor parallelism (TP), data parallelism (DP), expert parallelism (EP), and their combinations. For the applicable scenarios of different parallel strategies, refer to the [vLLM official documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies).  
+vLLM-MindSpore Plugin supports hybrid parallel inference with configurations of tensor parallelism (TP), data parallelism (DP), expert parallelism (EP), and their combinations. For the applicable scenarios of different parallel strategies, refer to the [vLLM official documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies).  
 
 This document uses the DeepSeek R1 671B W8A8 model as an example to introduce the inference workflows for [tensor parallelism (TP16)](#tp16-tensor-parallel-inference) and [hybrid parallelism](#hybrid-parallel-inference). The DeepSeek R1 671B W8A8 model requires multiple nodes to run inference. To ensure consistent execution configurations (including model configuration file paths, Python environments, etc.) across all nodes, it is recommended to use Docker containers to eliminate execution differences.  
 
@@ -10,11 +10,11 @@ Users can configure the environment by following the [Docker Installation](#dock
 
 ## Docker Installation
 
-In this section, we recommend to use docker to deploy the vLLM MindSpore environment. The following sections are the steps for deployment:
+In this section, we recommend to use docker to deploy the vLLM-MindSpore Plugin environment. The following sections are the steps for deployment:
 
 ### Building the Image  
 
-User can execute the following commands to clone the vLLM MindSpore code repository and build the image:
+User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
 ```bash  
 git clone https://gitee.com/mindspore/vllm-mindspore.git
@@ -52,8 +52,8 @@ Execute the following Python script to download the MindSpore-compatible DeepSee
 
 ```python  
 from openmind_hub import snapshot_download
-snapshot_download(repo_id="MindSpore-Lab/DeepSeek-R1-W8A8",
-                  local_dir="/path/to/save/deepseek_r1_w8a8",
+snapshot_download(repo_id="MindSpore-Lab/DeepSeek-R1-0528-A8W8",
+                  local_dir="/path/to/save/deepseek_r1_0528_a8w8",
                   local_dir_use_symlinks=False)
 ```
 
@@ -78,7 +78,7 @@ If the tool is unavailable, install [git-lfs](https://git-lfs.com) first. Refer 
 Once confirmed, download the weights by executing the following command:
 
 ```shell  
-git clone https://modelers.cn/MindSpore-Lab/DeepSeek-R1-W8A8.git  
+git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8.git  
 ```  
 
 ## TP16 Tensor Parallel Inference
@@ -114,7 +114,7 @@ Environment variable descriptions:
 - `HCCL_OP_EXPANSION_MODE`: Configure the communication algorithm expansion location to the AI Vector Core (AIV) computing unit on the device side.  
 - `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).  
 - `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.  
-- `vLLM_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM MindSpore can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
+- `vLLM_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM-MindSpore Plugin can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. Users can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3/deepseek_r1_671b), such as [predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).  
 
 The model parallel strategy is specified in the `parallel_config` of the configuration file. For example, the TP16 tensor parallel configuration is as follows:  
@@ -222,7 +222,7 @@ Before managing a multi-node cluster, ensure that the hostnames of all nodes are
 
 #### Starting the Service
 
-vLLM MindSpore can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service.  
+vLLM-MindSpore Plugin can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service.  
 
 ```bash  
 # Service launch parameter explanation  
@@ -241,18 +241,20 @@ Execution example:
 
 ```bash  
 # Master node:  
-vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```  
 
-In tensor parallel scenarios, the `--tensor-parallel-size` parameter overrides the `model_parallel` configuration in the model YAML file.  
+In tensor parallel scenarios, the `--tensor-parallel-size` parameter overrides the `model_parallel` configuration in the model YAML file. User can also set the local model path by `--model` argument.
 
 #### Sending Requests
 
 Use the following command to send requests, where `prompt` is the model input:  
 
 ```bash  
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'  
-```  
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'  
+```
+
+User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
 
 ## Hybrid Parallel Inference
 
@@ -283,7 +285,7 @@ Environment variable descriptions:
 - `HCCL_OP_EXPANSION_MODE`: Configure the communication algorithm expansion location to the AI Vector Core (AIV) computing unit on the device side.  
 - `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).  
 - `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.  
-- `vLLM_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM MindSpore can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
+- `vLLM_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM-MindSpore Plugin can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. Users can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3/deepseek_r1_671b), such as [predict_deepseek_r1_671b_w8a8_ep4t4.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml).  
 
 The model parallel strategy is specified in the `parallel_config` of the configuration file. For example, the hybrid parallel configuration is as follows:  
@@ -300,6 +302,8 @@ parallel_config:
 `data_parallel` and `model_parallel` specify the parallelism strategy for the attention and feed-forward dense layers, while `expert_parallel` specifies the expert routing parallelism strategy for MoE layers. Ensure that `data_parallel` * `model_parallel` is divisible by `expert_parallel`.  
 
 ### Online Inference
+
+#### Starting the Service
 
 `vllm-mindspore` can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service:  
 
@@ -321,22 +325,24 @@ vllm-mindspore serve
  --data-parallel-address [Master node communication IP]  
  --data-parallel-rpc-port [Master node communication port]  
  --enable-expert-parallel # Enable expert parallelism  
-```  
+```
 
-Execution example:  
+User can also set the local model path by `--model` argument. The following is an execution example:  
 
 ```bash  
 # Master node:  
-vllm-mindspore serve --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel  
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel  
 
 # Worker node:  
-vllm-mindspore serve --headless --model="/path/to/save/deepseek_r1_w8a8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel  
-```  
+vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel  
+```
 
-## Sending Requests
+#### Sending Requests
 
 Use the following command to send requests, where `prompt` is the model input:  
 
 ```bash  
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/save/deepseek_r1_w8a8", "prompt": "I am", "max_tokens": 20, "temperature": 0}'  
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 20, "temperature": 0}'  
 ```
+
+User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.

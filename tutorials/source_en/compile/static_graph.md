@@ -1090,7 +1090,7 @@ ret:[[3. 3. 3. 3.]]
 Currently supported Python statements include raise statement, assert statement, pass statement, return statement, break statement, continue
 statement, if statement, for statement, while statement, with statement, list comprehension, generator expression and function definition
 statement. For more details, please refer to
-[Statements](https://www.mindspore.cn/tutorials/en/master/compile/statements.html)
+[Statements](https://www.mindspore.cn/tutorials/en/master/compile/statements.html).
 
 ### Python Built-in Functions
 
@@ -1165,12 +1165,10 @@ import mindspore
 from mindspore import nn, mint
 from mindspore import grad
 
-
 class Net(nn.Cell):
     def construct(self, x):
         out = mint.narrow(x, 1, 1, 2)
         return out
-
 
 net = Net()
 np_x = np.arange(9).reshape(3, 3).astype(np.float32)
@@ -1200,12 +1198,10 @@ The following uses examples related to Tensor and Parameter to illustrate the su
     from mindspore import nn
     from mindspore import grad
 
-
     class Net(nn.Cell):
         def construct(self, x, y):
             x.add_(y)
             return x
-
 
     x = mindspore.tensor(2, dtype=mindspore.int32)
     y = mindspore.tensor(3, dtype=mindspore.int32)
@@ -1233,12 +1229,10 @@ The following uses examples related to Tensor and Parameter to illustrate the su
     from mindspore import nn
     from mindspore import grad
 
-
     class Net(nn.Cell):
         def construct(self, x, y):
             x.add_(y)
             return x
-
 
     x = mindspore.tensor(2, dtype=mindspore.int32)
     y = mindspore.tensor(3, dtype=mindspore.int32)
@@ -1264,7 +1258,6 @@ The following uses examples related to Tensor and Parameter to illustrate the su
     from mindspore import dtype as mstype
     from mindspore import ops
 
-
     class GradOfAllInputsAndParams(nn.Cell):
         def __init__(self, net):
             super(GradOfAllInputsAndParams, self).__init__()
@@ -1276,7 +1269,6 @@ The following uses examples related to Tensor and Parameter to illustrate the su
             gradient_function = self.grad_op(self.net, self.params)
             return gradient_function(x, y)
 
-
     class Net(nn.Cell):
         def __init__(self):
             super(Net, self).__init__()
@@ -1287,7 +1279,6 @@ The following uses examples related to Tensor and Parameter to illustrate the su
             out = self.param1 + self.param2 + x + y
             out = out * x
             return out.add_(y)
-
 
     x = mindspore.tensor([1], dtype=mstype.float32)
     y = mindspore.tensor([2], dtype=mstype.float32)
@@ -1320,7 +1311,6 @@ Combining view and in-place operations improves memory efficiency and computatio
     import mindspore.nn as nn
     from mindspore import ops
 
-
     class ViewOut(nn.Cell):
         def __init__(self):
             super(ViewOut, self).__init__()
@@ -1332,7 +1322,6 @@ Combining view and in-place operations improves memory efficiency and computatio
             x = self.transpose(x, (0, 1, 2))
             self.assign(x, x * 2)
             return x * 3
-
 
     x1 = mindspore.tensor(np.array([[[1, 0, 0, 0], [0, 0, 0, 0], [-1, -1, 0, -1]],
                              [[0, -1, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]]]), mindspore.int32)
@@ -1360,12 +1349,10 @@ Combining view and in-place operations improves memory efficiency and computatio
     import numpy as np
     import mindspore
 
-
     @mindspore.jit(capture_mode='ast', jit_level="O0", backend="ms_backend")
     def func(ms_x):
         ms_x[slice(0, 1)] = -1
         return ms_x
-
 
     np_x = np.arange(2 * 3 * 4).reshape(2, 3, 4)
     ms_x = mindspore.tensor(np_x)
@@ -1379,99 +1366,117 @@ Combining view and in-place operations improves memory efficiency and computatio
 
 - Supported cases
 
-    Gradient propagation relies on node connections, which are affected by view/in-place operations.
+    Gradient propagation relies on node connections, which are affected by view/in-place operations. The framework's support for automatic differentiation is limited in scenarios where both view and inplace operators exist in the computation graph.
 
-    When there are view and in-place operators in the computation graph, if gradients can be correctly propagated on the expression of the graph nodes, the view in-place scenario can be supported in reverse. Otherwise, it is currently not supported, and corresponding error messages will be displayed.
+    1. In-place operator modifies a tensor that is not the output of the view operator, even if both operators are used simultaneously. For example:
 
-    Example:
+        ```python
+        import mindspore
+        import mindspore.nn as nn
+        from mindspore import ops, mint
+        from mindspore import grad
 
-    ```python
-    import mindspore
-    import mindspore.nn as nn
-    from mindspore import ops, mint
-    from mindspore import grad
+        class Net(nn.Cell):
+            def construct(self, x):
+                y = ops.abs(x)
+                y.add_(mindspore.tensor(-1, dtype=mindspore.float32))
+                y_viewed = mint.select(y, 0, 0)
+                return y_viewed
 
+        x = mindspore.tensor([[0, 1], [2, 3]], dtype=mindspore.float32)
+        net = Net()
+        out_expect = grad(net)(x)
+        net.construct = mindspore.jit(net.construct, backend="ms_backend")
+        out_jit = grad(net)(x)
+        assert (out_expect.asnumpy() == out_jit.asnumpy()).all()
+        ```
 
-    class Net(nn.Cell):
-        def construct(self, x):
-            y = ops.abs(x)
-            y_viewed = mint.select(y, 0, 0)
-            y_viewed.add_(mindspore.tensor(-1, dtype=mindspore.float32))
-            return y
+    2. Considering the scenario where the in-place operator modifies the output of the view operator, the input tensor of the view operator will also be modified synchronously. The data relationship between nodes becomes more complex. The framework inserts virtual operators during graph construction to rebuild the connection, ensuring the correctness of backpropagation. Currently, it supports graphs without control flow and control flow scenarios where the object modified by the in-place operator is clearly identified as the output of a specific view operator.
 
+        An example without control flow is as follows:
 
-    x = mindspore.tensor([[0, 1], [2, 3]], dtype=mindspore.float32)
-    net = Net()
-    out_expect = grad(net)(x)
-    net.construct = mindspore.jit(net.construct, backend="ms_backend")
-    out_jit = grad(net)(x)
-    assert (out_expect.asnumpy() == out_jit.asnumpy()).all()
-    ```
+        ```python
+        import mindspore
+        import mindspore.nn as nn
+        from mindspore import ops, mint
+        from mindspore import grad
+
+        class Net(nn.Cell):
+            def construct(self, x):
+                y = ops.abs(x)
+                y_viewed = mint.select(y, 0, 0)
+                y_viewed.add_(mindspore.tensor(-1, dtype=mindspore.float32))
+                return y
+
+        x = mindspore.tensor([[0, 1], [2, 3]], dtype=mindspore.float32)
+        net = Net()
+        out_expect = grad(net)(x)
+        net.construct = mindspore.jit(net.construct, backend="ms_backend")
+        out_jit = grad(net)(x)
+        assert (out_expect.asnumpy() == out_jit.asnumpy()).all()
+        ```
+
+        An example of a control flow scenario where the output of the view operator is explicitly modified by the in-place operator is as follows:
+
+        ```python
+        import mindspore as ms
+        import mindspore.nn as nn
+        from mindspore import ops, mint
+        from mindspore import grad
+
+        class Net(nn.Cell):
+            @ms.jit(backend="ms_backend")
+            def construct(self, input_tensor, y):
+                input_abs = ops.abs(input_tensor)
+                x = mint.select(input_abs, 0, 0)
+                if y < 10:
+                    x.add_(2)
+                else:
+                    x.mul_(3)
+                return x
+
+        net = Net()
+        out_jit = grad(net)(ms.Tensor([3, 4]), ms.Tensor(5))
+        ```
+
+        In this use case, although `x` undergoes different in-place operations in different branches, for each in-place operation, the object `x` that is updated in place is clearly defined and is generated through the calculation `mint.select(input_abs, 0, 0)`. Therefore, the framework currently supports this scenario.
 
 - Unsupported cases (throw errors)
 
-  1. Gradient required for non-modified inputs of in-place ops.
+    1. When the tensor modified by the in-place operator cannot be explicitly expressed as a view of a specific tensor, such as coming from multiple branches, where one or more are outputs from view operations, at this time, due to the existence of variable control flow, the framework cannot accurately express the gradient propagation object and its calculation logic of the current in-place node when constructing the static graph. Therefore, in static graph mode, automatic differentiation for such use cases is temporarily not supported. For example:
 
-     ```python
-     import mindspore
-     import mindspore.nn as nn
-     from mindspore import ops, mint
-     from mindspore import grad
+        ```python
+        import mindspore as ms
+        import mindspore.nn as nn
+        from mindspore import ops, mint
+        from mindspore import grad
 
+        class Net(nn.Cell):
+            @ms.jit(backend="ms_backend")
+            def construct(self, input_tensor, y):
+                input_abs = ops.abs(input_tensor)
+                if y < 10:
+                    x = mint.select(input_abs, 0, 0)
+                else:
+                    x = mint.select(input_abs, 0, 1)
+                x.add_(2)
+                return x
 
-     class Net(nn.Cell):
-         def construct(self, input_tensor):
-             input_abs = ops.abs(input_tensor)
-             m = mint.select(input_abs, 0, 0)
-             n = mint.select(input_abs, 0, 1)
-             m.mul_(n)
-             return input_abs
+        net = Net()
+        out_jit = grad(net)(ms.Tensor([3, 4]), ms.Tensor(5))
+        ```
 
+        Since `x` comes from two branches and the view region it represents is not uniquely determined, such scenarios does not supported. It will throw a RuntimeError error:
 
-     net = Net()
-     net.construct = mindspore.jit(net.construct, backend="ms_backend")
-     out_jit = grad(net)(mindspore.tensor([3, 4]))
-     ```
+        ```text
+        RuntimeError: In backpropagation, inplace modification of the output of view operations within control flow is not supported.
+        ```
 
-     Error:
+        This type of liminitation may be avoided by adding `x.add_(2)` after the view operation in both branches. For complex control flows, if it is difficult to clarify the correspondence between in-place operators and view operators by modifying the script, it is recommended not to use view operators and in-place operators to implement the logic in static graph mode.
 
-     ```text
-     RuntimeError: When performing an in-place operation on an object generated by a view operation, it is currently not supported to compute gradients for the other inputs of this in-place operator.
-     ```
+        When using view and in-place operators together in the computation graph, the actual execution of the backward graph may involve additional operators compared to Pynative Mode, potentially affecting execution performance. Therefore, it is advisable to use this combination cautiously in complex scenarios.
 
-     Both `m` and `n` are view outputs derived from `input_abs`. In this in-place operation, gradient propagation is required for both inputs `m` and `n`. However, since `n` is not being modified, the current implementation does not support this scenario, and therefore the operation is intercepted with an error.
-
-  2. Returning view results or depending on view results.
-
-     ```python
-     import mindspore
-     import mindspore.nn as nn
-     from mindspore import ops, mint
-     from mindspore import grad
-
-
-     class Net(nn.Cell):
-         def construct(self, input_tensor):
-             input_abs = ops.abs(input_tensor)
-             x = mint.select(input_abs, 0, 0)
-             y = mint.select(input_abs, 0, 1)
-             x.add_(2)
-             y.add_(3)
-             return x
-
-
-     net = Net()
-     net.construct = mindspore.jit(net.construct, backend="ms_backend")
-     out_jit = grad(net)(mindspore.tensor([3, 4]))
-     ```
-
-     Error:
-
-     ```text
-     RuntimeError: The current view inplace differentiation scenario is not supported.
-     ```
-
-     The network's return value `x` is a view output derived from `input_abs`. The current implementation does not support this scenario, and therefore the operation is intercepted with an error.
+    2. Automatic differentiation for `UnstackExtView` and other view operators that output a tuple of multiple Tensors is not supported in the view inplace scenario.
 
 ## Syntax Constraints of Basic Syntaxes
 
@@ -2019,6 +2024,13 @@ res = net()
 assert res is None
 ```
 
+The results are as follows:
+
+``` text
+x:
+3
+```
+
 As in the example below, \'None\' is used as the default input parameter
 for the top graph.
 
@@ -2040,6 +2052,14 @@ x = [1, 2]
 net = Net()
 res = net(x)
 assert res is None
+```
+
+The results are as follows:
+
+``` text
+y is None
+x:
+[1, 2]
 ```
 
 ### Built-in Functions Support More Data Types
@@ -2203,6 +2223,12 @@ shape is (2, 2)
 
     net = Net()
     net()
+    ```
+
+    The results are as follows:
+
+    ``` text
+    net.m is 3
     ```
 
 - Set and modify Cell objects and jit_class objects in the static graph

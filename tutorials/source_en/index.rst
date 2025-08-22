@@ -45,6 +45,7 @@ MindSpore Tutorial
    compile/statements
    compile/python_builtin_functions
    compile/static_graph_expert_programming
+   compile/fusion_pass
 
 .. toctree::
    :glob:
@@ -81,7 +82,6 @@ MindSpore Tutorial
    :hidden:
 
    custom_program/op_custom
-   custom_program/fusion_pass
    custom_program/hook_program
 
 .. toctree::
@@ -90,11 +90,8 @@ MindSpore Tutorial
    :caption: Infer
    :hidden:
 
+   model_infer/introduction
    model_infer/ms_infer/ms_infer_model_infer
-   model_infer/ms_infer/ms_infer_network_develop
-   model_infer/ms_infer/ms_infer_parallel_infer
-   model_infer/ms_infer/ms_infer_quantization
-   model_infer/ms_infer/ms_infer_model_serving_infer
    model_infer/lite_infer/overview
 
 .. toctree::
@@ -151,7 +148,7 @@ MindSpore Tutorial
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./dataset/sampler.html" class="article-link">
+                     <a href="./dataset/overview.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Data Processing</span>
@@ -237,7 +234,7 @@ MindSpore Tutorial
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./model_infer/ms_infer/llm_inference_overview.html" class="article-link">
+                     <a href="./model_infer/introduction.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Inference</span>

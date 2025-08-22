@@ -45,6 +45,7 @@ MindSpore教程
    compile/statements
    compile/python_builtin_functions
    compile/static_graph_expert_programming
+   compile/fusion_pass
 
 .. toctree::
    :glob:
@@ -81,7 +82,6 @@ MindSpore教程
    :hidden:
 
    custom_program/op_custom
-   custom_program/fusion_pass
    custom_program/hook_program
 
 .. toctree::
@@ -148,7 +148,7 @@ MindSpore教程
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./dataset/sampler.html" class="article-link">
+                     <a href="./dataset/overview.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">数据处理</span>
@@ -234,7 +234,7 @@ MindSpore教程
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./model_infer/ms_infer/llm_inference_overview.html" class="article-link">
+                     <a href="./model_infer/introduction.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">推理</span>

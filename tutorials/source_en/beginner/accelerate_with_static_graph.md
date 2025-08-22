@@ -131,7 +131,7 @@ For an example of using static graphs for network compilation, see [Network Buil
 
 ## Static Graph Mode Startup Method
 
-Usually, due to the flexibility of dynamic graphs, we choose to use PyNative mode for free neural network construction for model innovation and optimization. But when performance acceleration is needed, we need to accelerate the neural network partially or as a whole. MindSpore provides two ways of switching to graph mode, the decorator-based startup method and the global context-based startup method.
+Usually, due to the flexibility of dynamic graphs, we choose to use PyNative mode for free neural network construction for model innovation and optimization. But when performance acceleration is needed, we need to accelerate the neural network partially or as a whole. MindSpore provides two ways of switching to static graph mode, the decorator-based startup method and the global context-based startup method.
 
 ### Decorator-based Startup Method
 

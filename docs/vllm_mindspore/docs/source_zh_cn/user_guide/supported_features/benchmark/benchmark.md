@@ -2,16 +2,14 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/benchmark/benchmark.md)
 
-vLLM MindSpore的性能测试能力，继承自vLLM所提供的性能测试能力，详情可参考[vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md)文档。该文档将介绍[在线性能测试](#在线性能测试)与[离线性能测试](#离线性能测试)，用户可以根据所介绍步骤进行性能测试。
+vLLM-MindSpore插件的性能测试能力，继承自vLLM所提供的性能测试能力，详情可参考[vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md)文档。该文档将介绍[在线性能测试](#在线性能测试)与[离线性能测试](#离线性能测试)，用户可以根据所介绍步骤进行性能测试。
 
 ## 在线性能测试
 
 若用户使用单卡推理，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，可按照文档[单卡推理（Qwen2.5-7B）](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#在线推理)进行环境准备，设置以下环境变量：
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
@@ -37,16 +35,16 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
 
-拉取vLLM代码仓，导入vLLM MindSpore插件，复用其中benchmark功能：
+拉取vLLM代码仓，导入vLLM-MindSpore插件，复用其中benchmark功能：
 
 ```bash
-export VLLM_BRANCH=v0.8.3
+export VLLM_BRANCH=v0.9.1
 git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
 ```
 
-其中，`VLLM_BRANCH`为vLLM的分支名，其需要与vLLM MindSpore相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
+其中，`VLLM_BRANCH`为vLLM的分支名，其需要与vLLM-MindSpore插件相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
 
 执行测试脚本：
 
@@ -104,22 +102,20 @@ P99 ITL (ms):                            ....
 用户使用离线性能测试时，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，可按照文档[单卡推理（Qwen2.5-7B）](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#离线推理)进行环境准备，设置以下环境变量：
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-并拉取vLLM代码仓，导入vLLM MindSpore插件，复用其中benchmark功能：
+并拉取vLLM代码仓，导入vLLM-MindSpore插件，复用其中benchmark功能：
 
 ```bash
-export VLLM_BRANCH=v0.8.3
+export VLLM_BRANCH=v0.9.1
 git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
 ```
 
-其中，`VLLM_BRANCH`为vLLM的分支名，其需要与vLLM MindSpore相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
+其中，`VLLM_BRANCH`为vLLM的分支名，其需要与vLLM-MindSpore插件相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
 
 用户可通过以下命令，运行测试脚本。该脚本将启动模型，并执行测试，用户不需要再拉起模型：
 

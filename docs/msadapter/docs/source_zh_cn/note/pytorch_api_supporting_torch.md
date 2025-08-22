@@ -58,6 +58,8 @@
 |[torch.complex](https://pytorch.org/docs/2.1/generated/torch.complex.html)|Not Support|N/A|
 |[torch.polar](https://pytorch.org/docs/2.1/generated/torch.polar.html)|Beta|不支持out出参；支持数据类型：fp32|
 |[torch.heaviside](https://pytorch.org/docs/2.1/generated/torch.heaviside.html)|Beta|不支持out出参|
+|[torch.linalg.norm](https://docs.pytorch.org/docs/2.1/generated/torch.linalg.norm.html)|Demo|N/A|
+|[torch.linalg.vector_norm](https://docs.pytorch.org/docs/2.1/generated/torch.linalg.vector_norm.html)|Demo|不支持CPU平台|
 
 ### Indexing, Slicing, Joining, Mutation Ops
 
@@ -256,7 +258,7 @@
 |[torch.lerp](https://pytorch.org/docs/2.1/generated/torch.lerp.html)|Beta|不支持out出参；支持数据类型：支持fp16、fp32|
 |[torch.lgamma](https://pytorch.org/docs/2.1/generated/torch.lgamma.html)|Beta|不支持out出参|
 |[torch.log](https://pytorch.org/docs/2.1/generated/torch.log.html)|Stable|支持数据类型：bf16、fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
-|[torch.log10](https://pytorch.org/docs/2.1/generated/torch.log10.html)|Beta|不支持out出参；支持数据类型：bf16、fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
+|[torch.log10](https://pytorch.org/docs/2.1/generated/torch.log10.html)|Beta|支持数据类型：bf16、fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
 |[torch.log1p](https://pytorch.org/docs/2.1/generated/torch.log1p.html)|Stable|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[torch.log2](https://pytorch.org/docs/2.1/generated/torch.log2.html)|Stable|支持数据类型：bf16、fp32、int64、bool、fp16|
 |[torch.logaddexp](https://pytorch.org/docs/2.1/generated/torch.logaddexp.html)|Not Support|N/A|
@@ -274,6 +276,7 @@
 |[torch.multiply](https://pytorch.org/docs/2.1/generated/torch.multiply.html)|Not Support|N/A|
 |[torch.mvlgamma](https://pytorch.org/docs/2.1/generated/torch.mvlgamma.html)|Beta|不支持out出参|
 |[torch.nan_to_num](https://pytorch.org/docs/2.1/generated/torch.nan_to_num.html)|Stable|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool|
+|[torch.nan_to_num_](https://pytorch.org/docs/2.1/generated/torch.nan_to_num.html)|Demo|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[torch.neg](https://pytorch.org/docs/2.1/generated/torch.neg.html)|Stable|支持数据类型：bf16、fp16、fp32、int8、int32、int64|
 |[torch.negative](https://pytorch.org/docs/2.1/generated/torch.negative.html)|Beta|不支持out出参；支持数据类型：bf16、fp16、fp32、int8、int32、int64|
 |[torch.nextafter](https://pytorch.org/docs/2.1/generated/torch.nextafter.html)|Beta|不支持out出参|
@@ -401,7 +404,7 @@
 |[torch.broadcast_to](https://pytorch.org/docs/2.1/generated/torch.broadcast_to.html)|Stable|支持数据类型：bf16、fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
 |[torch.broadcast_shapes](https://pytorch.org/docs/2.1/generated/torch.broadcast_shapes.html)|Beta|N/A|
 |[torch.bucketize](https://pytorch.org/docs/2.1/generated/torch.bucketize.html)|Not Support|N/A|
-|[torch.cartesian_prod](https://pytorch.org/docs/2.1/generated/torch.cartesian_prod.html)|Not Support|N/A|
+|[torch.cartesian_prod](https://pytorch.org/docs/2.1/generated/torch.cartesian_prod.html)|Demo|N/A|
 |[torch.cdist](https://pytorch.org/docs/2.1/generated/torch.cdist.html)|Beta|N/A|
 |[torch.clone](https://pytorch.org/docs/2.1/generated/torch.clone.html)|Beta|入参不支持memory_format；支持数据类型：bf16、fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
 |[torch.combinations](https://pytorch.org/docs/2.1/generated/torch.combinations.html)|Not Support|N/A|
@@ -410,7 +413,7 @@
 |[torch.cross](https://pytorch.org/docs/2.1/generated/torch.cross.html)|Not Support|N/A|
 |[torch.cummax](https://pytorch.org/docs/2.1/generated/torch.cummax.html)|Not Support|N/A|
 |[torch.cummin](https://pytorch.org/docs/2.1/generated/torch.cummin.html)|Not Support|N/A|
-|[torch.cumprod](https://pytorch.org/docs/2.1/generated/torch.cumprod.html)|Not Support|N/A|
+|[torch.cumprod](https://pytorch.org/docs/2.1/generated/torch.cumprod.html)|Stable|不支持bfloat16输入|
 |[torch.cumsum](https://pytorch.org/docs/2.1/generated/torch.cumsum.html)|Stable|支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[torch.diag](https://pytorch.org/docs/2.1/generated/torch.diag.html)|Beta|入参不支持diagnoal、out；支持数据类型：fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[torch.diag_embed](https://pytorch.org/docs/2.1/generated/torch.diag_embed.html)|Not Support|N/A|

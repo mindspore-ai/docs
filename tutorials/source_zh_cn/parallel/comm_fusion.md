@@ -4,7 +4,7 @@
 
 ## 简介
 
-在分布式并行训练场景下训练大规模参数量的模型（如GPT-3, Pangu-$\alpha$），跨设备甚至跨节点的数据传输是制约扩展性以及算力利用率的瓶颈[1]。通信融合是一种提升网络资源利用率、加速数据传输效率的重要方法，其将相同源节点和目的节点的通信算子打包同时执行，以避免多个单算子执行带来的额外开销。
+在分布式并行训练场景下训练大规模参数量的模型（如GPT-3、Pangu-$\alpha$），跨设备甚至跨节点的数据传输是制约扩展性以及算力利用率的瓶颈[1]。通信融合是一种提升网络资源利用率、加速数据传输效率的重要方法，其将相同源节点和目的节点的通信算子打包同时执行，以避免多个单算子执行带来的额外开销。
 
 MindSpore支持对分布式训练中三种常用通信算子（[AllReduce](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllReduce.html)、[AllGather](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllGather.html)、[ReduceScatter](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceScatter.html)）的融合，并提供简洁易用的接口方便用户自行配置。在长稳训练任务支撑中，通信融合特性发挥了重要作用。
 
@@ -54,7 +54,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍：
 
 2. 利用`Cell`提供的接口
 
-    无论在哪种并行模式场景下，用户都可以通过[Cell.set_comm_fusion](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion)接口为模型某layer的参数设置index，MindSpore将融合相同index的参数所对应的通信算子。
+    无论在哪种并行模式场景下，用户都可以通过[Cell.set_comm_fusion](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion)接口为模型某个layer的参数设置index，MindSpore将融合相同index的参数所对应的通信算子。
 
 ## 操作实践
 
@@ -91,7 +91,7 @@ net.comm_fusion(config={"allreduce": {"mode": "auto", "config": None}})
 init()
 ```
 
-若将所有的同类通信算子融合成一个算子，在当前训练迭代中，传输需要等待计算完全结束后才能执行，这样会造成设备的等待。
+若将所有的同类通信算子融合成一个算子，在当前训练迭代中，需要等待计算完全结束后才能执行传输，这样会造成设备的等待。
 
 为了避免上述问题，可以将网络参数进行分组融合：在下一组参数进行的计算的同时，进行上组参数的通信，使得计算和通信能够互相隐藏，可以通过限定fusion buffer的大小，或者index分区的方法进行分组融合。
 

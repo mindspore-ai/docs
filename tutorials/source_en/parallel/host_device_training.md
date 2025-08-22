@@ -10,7 +10,7 @@ In MindSpore, users can easily implement hybrid training by configuring trainabl
 
 ### Basic Principle
 
-Pipeline parallel and operator-level parallel are suitable for the model to have a large number of operators, and the parameters are more evenly distributed among the operators. What if the number of operators in the model is small, and the parameters are concentrated in only a few operators? Wide & Deep is an example of this, as shown in the image below. The Embedding table in Wide & Deep can be trained as a parameter of hundreds of GIGabytes or even a few terabytes. If it is executed on an accelerator (device), the number of accelerators required is huge, and the training cost is expensive. On the other hand, if you use accelerator computing, the training acceleration obtained is limited, and it will also trigger cross-server traffic, and the end-to-end training efficiency will not be very high.
+Pipeline parallel and operator-level parallel are suitable for scenarios where there are a large number of model operators and parameters are distributed evenly across the operators. If there are fewer model operators and parameters are concentrated in a small number of operators, a different strategy is required. Wide & Deep is an example of this, as shown in the image below. The Embedding table in Wide & Deep can be trained as a parameter of hundreds of GIGabytes or even a few terabytes. If it is executed on an accelerator (device), the number of accelerators required is huge, and the training cost is expensive. On the other hand, if you use accelerator computing, the training acceleration obtained is limited, and it will also trigger cross-server traffic, and the end-to-end training efficiency will not be very high.
 
 ![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/host_device_image_0_zh.png)
 
@@ -69,6 +69,7 @@ The dataset is loaded and the data is parallelized consistently with the followi
 import os
 import mindspore as ms
 import mindspore.dataset as ds
+from mindspore.communication import get_rank, get_group_size
 
 ms.set_seed(1)
 

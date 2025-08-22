@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindSpore Transformers high availability provides the following six functions:
+MindSpore Transformers high availability provides the following several functions:
 
 - **End-of-life CKPT**: It is mainly aimed at accelerating the fault recovery in the training process of large models. This feature verifies the integrity and consistency of the intermediate state data after a fault occurs during the training process and generates an end-of-life CheckPoint data, which can be used to recover the training and reduce the loss of training iterations caused by the fault.
 - **UCE Fault-tolerant Recovery**: It mainly focuses on the detection of UCE faults in on-chip memory during the training process of large models, and accomplishes online repair to reach Step-level recomputation.
@@ -12,16 +12,17 @@ MindSpore Transformers high availability provides the following six functions:
 - **TRE Training Result Excepition Recovery**：It mainly focuses on the detection of value excepton of loss, global-norm, etc. during the training process of large models, and accomplishes online repair to reach Step-level recomputation.
 - **ARF Process-Level Rescheduling Recovery**: Instead of pulling up the entire cluster again after an anomaly in training occurs, simply restart or replace it on a node-by-node basis to complete the repair and continue training.
 - **TSP Training Step Pause Function**：After each training step is completed, enter the train pause interface，pause or resume training according to the needs of upper level operations. For example, pause training to perform communication network track switching, and resume training after successful switching.
+- **RSC POD-Level Rescheduling Function**: Primarily serves as a fallback solution when other fast recovery features fail. It kills the faulty process and other normal processes (the pods where the normal processes reside will not be terminated), removes the faulty pod from the current cluster, and rescheduling a new pod to join the cluster, and resumes training (the current version must rely on MindX).
 
 Constraints and dependencies of the high availability functions:
 
-| | End-of-life CKPT | UCE | HCCE | ARF | TRE | TSP |
-| - | - | - | - | - | - | - |
-| Depending on MindIO | Yes | Yes | Yes | Yes | No | Yes |
-| Replica relationship between between cards | Yes | Yes | No | Yes | No | No |
-| Sink Size is 1 | Yes | Yes | Yes | Yes | No | No |
+| | End-of-life CKPT | UCE | HCCE | ARF | TRE | TSP | RSC |
+| - | - | - | - | - | - | - | - |
+| Depending on MindIO | Yes | Yes | Yes | Yes | No | Yes | No |
+| Replica relationship between between cards | Yes | Yes | No | Yes | No | No | No |
+| Sink Size is 1 | Yes | Yes | Yes | Yes | No | No | No |
 
-These six high availability functions are currently only supported in the MindSpore Ascend back-end graph schema to support Step-level recovery.
+These high availability functions are currently only supported in the MindSpore Ascend back-end graph schema to support Step-level recovery.
 
 The replica relationship between cards is used to make sure when one of the cards fails, it can be recovered from the other card. It requires that there must be at least two copies of redundancy in both the weights and the optimizer. To ensure this redundancy relationship, data parallelism must be turned on to ensure that there are two cards with the same weights, and also if optimizer parallelism is turned on, it must be ensured that there are two cards with the same optimizer state.
 
@@ -52,13 +53,15 @@ export MS_TFT_PORT=30051
 ```
 
 - `MINDIO_FOR_MINDSPORE`: Enabling MindIO TFT SDK to support MindSpore
-- `MS_ENABLE_TFT`: Indicates that the TTP, UCE, ARF, TRE and TSP functions are enabled. If you want to enable only one of these functions, set the corresponding value to 1.
+- `MS_ENABLE_TFT`: Indicates that Training Fault Tolerance is enabled. If you want to enable only one of these functions, set the corresponding value to 1.
     - **TTP (Try To Persist)**: End-of-life CKPT function
     - **UCE (Uncorrectable Memory Error)**: UCE fault tolerance recovery
     - **HCCE (Huawei Collective Communication Error)**: HCCL recompute error recovery
     - **ARF (Air Refuelling)**: Process-level rescheduling recovery function
     - **TRE (Training Result Error)**: Training result exception recovery
     - **TSP (Training Step Pause)**：Training step pause function
+    - **RSC (Register Stop/Start Controller)**: POD-level rescheduling function
+    - POD-level rescheduling only hands over the training processes to a third-party component (such as MindX) for management. When only RSC:1 is enabled (the current version must rely on MindX), other training fault tolerance features are not effective.
     - When UCE or ARF is enabled, TTP is enabled by default.
     - Enabling both TRE and asynchronous CKPT features at the same time cannot guarantee that the loss before and after resuming training is exactly the same.
     - TRE does not depend on MindIO. It is not necessary to configure the MindIO-related environment variables MINDIO_FOR_MINDSPORE, MS_TFT_IP, and MS_TFT_PORT to enable only the TRE feature

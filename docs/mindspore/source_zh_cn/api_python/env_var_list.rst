@@ -307,6 +307,8 @@
        acl_allocator: 是否使用ACL内存分配器，默认值为true。
 
        somas_whole_block: 是否使用SOMAS整块内存分配，默认值为false。
+
+       enable_small_pool: 是否开启小内存池，默认值为false。开启后小于1MB的内存申请使用小内存池单独管理。
      -
 
    * - MS_DEV_GRAPH_KERNEL_FLAGS
@@ -341,7 +343,17 @@
        enable_debug_mode：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
        path：指定读取json配置。当设置该选项时，忽略以上选项。
-     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/fusion_pass.html>`_
+     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/master/compile/fusion_pass.html>`_
+
+   * - MS_DEV_PYNATIVE_FUSION_FLAGS
+     - 设置动态图异步执行模式下的算子融合选项
+     - String
+     - 配置项，格式为“--key=value”，多个配置项以空格分隔，多个value以逗号分隔。例如 `export MS_DEV_PYNATIVE_FUSION_FLAGS="--opt_level=1 --enable_ops=MatMul,MatMulExt"`
+
+       opt_level：是否开启算子融合，0表示不开启，1表示开启。默认值：0。
+
+       enable_ops：在开启算子融合的前提下，将部分默认不参与融合的算子加入融合。该配置项支持的算子：Dense、MatMul、MatMulExt、BatchMatMul、BatchMatMulExt。
+     -
 
    * - MS_DEV_DISABLE_AUTO_H2D
      - 控制动态图流程算子输入是否隐式拷贝。开启后，将关闭动态图算子输入隐式拷贝。
@@ -918,7 +930,7 @@ Dump调试
      - 取值
      - 说明
    * - OPTION_PROTO_LIB_PATH
-     - RPOTO依赖库库路径
+     - PROTO依赖库库路径
      - String
      - 目录路径，支持相对路径与绝对路径
      -
@@ -957,9 +969,9 @@ Dump调试
      - CUDA包安装的绝对路径
      - 仅限GPU环境需要，一般无需设置，如在GPU环境中安装了多种版本的CUDA，为了避免混淆，建议配置此环境变量。
    * - MS_ENABLE_TFT
-     - 使能 `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ 特性，表示启用 TTP、UCE、TRE 或 ARF 功能。
+     - 使能训练故障容错（Training Fault Tolerance）功能，大多数功能依赖 `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ 组件。
      - String
-     - "{TTP:1,UCE:1,ARF:1, TSP:1}"。TTP (Try To Persist)：临终 CKPT 功能、UCE (Uncorrectable Memory Error)：UCE 故障容错恢复功能、TRE (Training Result Error)：训练结果异常恢复功能、ARF (Air Refuelling)：进程级重调度恢复功能. TSP(Training Step Pause)：训练迭代暂停。五个特性可以分开使能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。其他值：未开启MindIO TFT。（开启 UCE 或者 ARF 功能时，默认开启 TTP 功能。TRE 功能不可以与 UCE 或 ARF 功能同时使用。）
+     - "{TTP:1,UCE:1,ARF:1,TSP:1}"。TTP (Try To Persist)：临终 CKPT 功能、UCE (Uncorrectable Memory Error)：UCE 故障容错恢复功能、TRE (Training Result Error)：训练结果异常恢复功能、ARF (Air Refuelling)：进程级重调度恢复功能、TSP(Training Step Pause)：训练迭代暂停、RSC (Register Stop/Start Controller)： POD级重调度功能。上述特性可以分开使能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。（开启 UCE 或者 ARF 功能时，默认开启 TTP 功能。TRE 功能不可以与 UCE 或 ARF 功能同时使用。仅开启 RSC （当前版本必须依赖MindX）时，其他训练故障容错功能不生效。）
      - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。
    * - MS_TFT_IP
      - MindIO的controller线程所在IP，供processor链接。

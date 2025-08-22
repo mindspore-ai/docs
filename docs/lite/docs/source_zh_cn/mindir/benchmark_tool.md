@@ -115,5 +115,5 @@ Mean bias of all nodes: 0%
 如果输入的模型是加密模型，需要同时配置`decryptKey`和`cryptoLibPath`对模型解密后进行推理，使用如下命令：
 
 ```bash
-./benchmark --modelFile=/path/to/encry_model.mindir --decryptKey=30313233343536373839414243444546 --cryptoLibPath=/root/anaconda3/bin/openssl
+./benchmark --modelFile=/path/to/encry_model.mindir --decryptKey="your decrypt key" --cryptoLibPath=/root/anaconda3/bin/openssl
 ```

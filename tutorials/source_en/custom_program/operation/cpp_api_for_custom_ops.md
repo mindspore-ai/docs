@@ -517,3 +517,50 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
     - `param`: Parameters required to initialize the ATB operator.
     - `inputs`: A list of input tensors for the operator.
     - `outputs`: A list of output tensors for the operator.
+
+### class AsdSipFFTOpRunner
+
+The `AsdSipFFTOpRunner` class is a runner for executing Ascend Sip Boost (ASDSIP) operators, defined in the [asdsip_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/asdsip/asdsip_common.h) header file.
+
+This class inherits from `PyboostRunner` and encapsulates the process of invoking ASDSIP FFT operators, including initialization, running the ASDSIP FFT operator, managing input/output tensor, memory allocation, and kernel scheduling.
+
+Refer to the tutorial [CustomOpBuilder Integrates the ASDSIP FFT Operators through AsdSipFFTOpRunner](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder_asdsip.html) for usage methods.
+
+#### Constructor
+
+- **AsdSipFFTOpRunner**
+
+  ```cpp
+  explicit AsdSipFFTOpRunner(std::string op_name) : PyboostRunner(op_name) {}
+  ```
+
+  Constructor inherited from `PyboostRunner`.
+
+#### Public Methods
+
+- **Init(const FFTParam &param);**
+
+  ```cpp
+  void Init(const FFTParam &param);
+  ```
+
+    - **Description**: [API] Initializes the ASDSIP FFT operator with the given parameters. This method creates a corresponding `asdFftHandle` instance for the operator via `AsdFftCreate` and places it in the cache. Only one `asdFftHandle` instance is created for operators with the same `param`.
+    - **Parameters**:
+        - `param`: Parameters used to configure the ASDSIP FFT operator.
+
+### function RunAsdSipFFTOp
+
+The interface for executing ASDSIP FFT operators in dynamic graphs, defined in the [asdsip_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/asdsip/asdsip_common.h) header file.
+
+```cpp
+inline void RunAsdSipFFTOp(const std::string &op_name, const FFTParam &fft_param, const ms::Tensor &input,
+                           const ms::Tensor &output)
+```
+
+[API] Executes an ASDSIP FFT operator using the provided parameters, input, and output. This function is a wrapper around `AsdSipFFTOpRunner`.
+
+- **Parameters**
+    - `op_name`: The name of the ASDSIP FFT operator to execute.
+    - `fft_param`: Parameters required to initialize the ASDSIP FFT operator.
+    - `inputs`: A list of input tensor for the operator.
+    - `outputs`: A list of output tensor for the operator.

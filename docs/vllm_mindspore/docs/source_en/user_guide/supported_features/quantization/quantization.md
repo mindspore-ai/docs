@@ -16,7 +16,7 @@ We employ [MindSpore Golden Stick's PTQ algorithm](https://gitee.com/mindspore/g
 
 ### Downloading Quantized Weights
 
-We have uploaded the quantized DeepSeek-R1 to [ModelArts Community](https://modelers.cn): [MindSpore-Lab/DeepSeek-R1-W8A8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-W8A8). Refer to the [ModelArts Community documentation](https://modelers.cn/docs/en/openmind-hub-client/0.9/basic_tutorial/download.html) to download the weights locally.
+We have uploaded the quantized DeepSeek-R1 to [ModelArts Community](https://modelers.cn): [MindSpore-Lab/DeepSeek-R1-0528-A8W8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8). Refer to the [ModelArts Community documentation](https://modelers.cn/docs/en/openmind-hub-client/0.9/basic_tutorial/download.html) to download the weights locally.
 
 ## Quantized Model Inference
 
@@ -24,12 +24,10 @@ After obtaining the DeepSeek-R1 W8A8 weights, ensure they are stored in the rela
 
 ### Offline Inference
 
-Refer to the [Installation Guide](../../../getting_started/installation/installation.md) to set up the vLLM MindSpore environment. User need to set the following environment variables:
+Refer to the [Installation Guide](../../../getting_started/installation/installation.md) to set up the vLLM-MindSpore Plugin environment. User need to set the following environment variables:
 
 ```bash
-export ASCEND_TOTAL_MEMORY_GB=64 # Please use `npu-smi info` to check the memory.
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export vLLM_MODEL_MEMORY_USE_GB=32 # Memory reserved for model execution. Set according to the model's maximum usage, with the remaining environment used for kvcache allocation
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 

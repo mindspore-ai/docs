@@ -28,7 +28,7 @@ The current support for containerized build options is as follows:
 | Atlas Training Series‌| `mindspore` | `mindspore-ascend-a1` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 | Atlas A2 Training Series‌| `mindspore` | `mindspore-ascend-a2` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 
-> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.7.0rc1 is installed, `x.y.z` should be written as 2.7.0rc1.
+> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.7.0 is installed, `x.y.z` should be written as 2.7.0.
 
 ## System Environment Information Confirmation
 
@@ -165,7 +165,7 @@ When you need to update the MindSpore version:
 
 ## Notes
 
-- When deploying containers in non-root user mode, it is essential to verify that the target NPU device is not occupied by other unprivileged containers. After startup, execute the `npu-smi` info command to check device status. If the target NPU device is already allocated to another non-root container, the following error will occur, You can add `-u root` when creating the container.
+- When deploying containers in non-root user mode, it is essential to verify that the target NPU device is not occupied by other unprivileged containers. After startup, execute the `npu-smi` info command to check device status. If the target NPU device is already allocated to another non-root container, the following error will occur, You can add `-u root  --privileged` when creating the container.
 
 ```text
     DrvMngGetConsoleLogLevel failed. (g_conLogLevel=3)

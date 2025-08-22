@@ -36,7 +36,7 @@
 
 #### 下载发布件
 
-用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，得到各版本的MindSpore Lite发布件。
+用户可在MindSpore Lite官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，得到各版本的MindSpore Lite发布件。
 在本例中，我们选择的是软件系统为Linux、底层架构为x86_64的CPU发布件，以1.6.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.6.0-linux-x64.tar.gz)。
 每个发布件的包结构会有不同，本例中，Linux发布件的包结构如下（随着用户对MindSpore Lite各个功能的学习，我们将逐步讲解发布件中文件的作用，在此处，用户对发布件结构有个简略印象即可）：
 
@@ -446,7 +446,7 @@ mindspore-lite-{version}-linux-x64
 
 2. 获得版本发布件
 
-    用户可通过MindSpore官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)查看各版本。
+    用户可通过MindSpore Lite官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)查看各版本。
     在本例中，仍然采用了和前几节一样的发布件，用于本节集成开发，点击此处可直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.6.0-linux-x64.tar.gz)。
     在本节简单的推理集成例子中，需要用到的发布件内容如下：
 
@@ -688,7 +688,7 @@ mindspore-lite-{version}-linux-x64
 
     (3) 加载模型
 
-    首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore中的模型，用于计算图管理。
+    首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore Lite中的模型，用于计算图管理。
     关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
 
     ```cpp
@@ -818,7 +818,7 @@ mindspore-lite-{version}-linux-x64
 
 #### 下载发布件
 
-用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，得到各版本的MindSpore Lite发布件。
+用户可在MindSpore Lite官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，得到各版本的MindSpore Lite发布件。
 在本例中，我们选择的是软件系统为Windows、底层架构为x86_64的CPU发布件，以1.6.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/windows/mindspore-lite-1.6.0-win-x64.zip)。
 每个发布件的包结构会有不同。本例中，Windows发布件的包结构如下：
 
@@ -1149,7 +1149,7 @@ mindspore-lite-{version}-win-x64
 
 2. 得到版本发布件
 
-    用户可通过MindSpore官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)查看各版本。
+    用户可通过MindSpore Lite官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)查看各版本。
     在本例中，仍然采用了和前几节一样的发布件，用于本节集成开发，点击此处可直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/windows/mindspore-lite-1.6.0-win-x64.zip)。
     在本节简单的推理集成例子中，需要用到的发布件内容如下：
 
@@ -1397,7 +1397,7 @@ mindspore-lite-{version}-win-x64
 
     (3) 加载模型
 
-    首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore中的模型，用于计算图管理。
+    首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore Lite中的模型，用于计算图管理。
     关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
 
     ```cpp

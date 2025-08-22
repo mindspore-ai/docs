@@ -300,8 +300,8 @@
     {
         "version": "master",
         "label": {
-            "zh": "vLLM MindSpore",
-            "en": "vLLM MindSpore"
+            "zh": "vLLM-MindSpore Plugin",
+            "en": "vLLM-MindSpore Plugin"
         },
         "repo_name": "vllm_mindspore",
         "theme": "theme-docs"

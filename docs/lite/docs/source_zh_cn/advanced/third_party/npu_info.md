@@ -12,7 +12,7 @@ DDK包含了使用NPU的对外接口（包括模型构建、加载，计算等�
 
 ### 编译构建
 
-在Linux环境下，使用MindSpore[源代码](https://gitee.com/mindspore/mindspore)根目录下的build.sh脚本可以构建集成NPU的MindSpore Lite包，命令如下，它将在MindSpore源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含NPU的动态库，libmindspore-lite动态库以及测试工具Benchmark。
+在Linux环境下，使用MindSpore[源代码](https://gitee.com/mindspore/mindspore-lite)根目录下的build.sh脚本可以构建集成NPU的MindSpore Lite包，命令如下，它将在MindSpore Lite源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含NPU的动态库，libmindspore-lite动态库以及测试工具Benchmark。
 
 ```bash
 export MSLITE_ENABLE_NPU=ON

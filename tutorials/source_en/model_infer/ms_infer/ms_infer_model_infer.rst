@@ -6,13 +6,13 @@ MindSpore LLM Inference with Framework
     :alt: View Source On Gitee
 
 .. toctree::
-  :maxdepth: 1
-  :hidden:
+   :maxdepth: 1
+   :hidden:
 
-  ms_infer_network_develop
-  ms_infer_parallel_infer
-  ms_infer_quantization
-  ms_infer_model_serving_infer
+   ms_infer_network_develop
+   ms_infer_parallel_infer
+   ms_infer_quantization
+   ms_infer_model_serving_infer
 
 Background
 ------------
@@ -94,9 +94,9 @@ To achieve the optimal cost-effectiveness, MindSpore LLM has undergone multiple 
 
 - **Attention optimization**: The primary computation in the LLM's network involves the computation of attention. Since the attention size in mainstream models is often large (typically 4096 x 4096 or more), the performance of the entire inference process heavily relies on the efficiency of attention computation. Many studies focus on optimizing the performance of attention computation, with notable techniques such as flash attention and page attention.
 
-  - **Flash attention**: During attention computation, two large matrices (4096 x 4096) are multiplied. This computation breaks the large matrix into smaller matrices that can be processed on multiple chips. Subject to the minimum cache size of chips, data must continuously be moved between the cache and main memory. As a result, compute resources cannot be fully used. Consequently, attention computation is often bandwidth-bound. Flash attention addresses this by dividing attention into blocks, allowing each block to be computed independently on a chip, avoiding multiple data movements during the computation of KVs and enhancing attention computation performance. For details, see `Flash Attention <https://arxiv.org/abs/2205.14135>`_.
+  - **Flash Attention**: During attention computation, two large matrices (4096 x 4096) are multiplied. This computation breaks the large matrix into smaller matrices that can be processed on multiple chips. Subject to the minimum cache size of chips, data must continuously be moved between the cache and main memory. As a result, compute resources cannot be fully used. Consequently, attention computation is often bandwidth-bound. Flash attention addresses this by dividing attention into blocks, allowing each block to be computed independently on a chip, avoiding multiple data movements during the computation of KVs and enhancing attention computation performance. For details, see `Flash Attention <https://arxiv.org/abs/2205.14135>`_.
 
-  - **Page attention graphics memory optimization**: Standard flash attention reads and saves the entire input KV data each time. This method is simple but wastes many resources. For example, "China's capital" and "China's national flag" share "China's", leading to identical KVs for their attention. Standard flash attention needs to store two copies of KVs, wasting the graphics memory. Page attention optimizes KVCache based on the page table principle of the Linux OS. It stores KVs in blocks of a specific size. In the preceding example, "China", "'s", "capital", and "national flag" are stored as four pieces of KV data. Compared with the original six pieces of data, this method effectively saves graphics memory resources. In the service-oriented scenario, more idle graphics memory allows for a larger batch size for model inference, thereby achieving higher throughput. For details, see `Page Attention <https://arxiv.org/pdf/2309.06180>`_.
+  - **Paged Attention**: Standard Flash Attention reads and saves the entire input Key and Value data each time. Although this method is relatively simple, it causes a significant waste of resources. When multiple requests in a batch have inconsistent sequence lengths, Flash Attention requires the key and value to use the memory of the longest sequence. For example, "The capital of China is Beijing" and "The national flag of China is the Five-Star Red Flag", assuming that the words are divided by characters, 10 * 2 = 20 KVCache memory units are required. Paged attention optimizes KVCache based on the page table principle of the Linux OS. Store Key and Value data in blocks of a specific size. For example, when the block size is 2, you can use KVCache per block, only 4 * 2 + 5 * 2 = 18 KVCache memory units are required. Due to the discrete feature of Paged Attention, you can also combine it with technologies such as Prefix Cache to further reduce the memory occupied by "of China". Therefore only 3 * 2 + 5 * 2 = 16 KVCache units are ultimately required. In the service-oriented scenario, more idle graphics memory allows for a larger batch size for model inference, thereby achieving higher throughput. For details, see `Page Attention <https://arxiv.org/pdf/2309.06180>`_.
 
 - **Model quantization**: MindSpore LLM inference supports quantization to reduce the model size. It provides technologies such as A16W8, A16W4, A8W8, and KVCache quantizations to reduce model resource usage and improve the inference throughput.
 

@@ -70,11 +70,11 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 - Compiling and building
 
-    - Library downloading: Please manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) with CPU as the hardware platform and Windows-x64 as the operating system, after decompression copy all files in the `runtime\lib` directory to the `mindspore\lite\examples\quick_start_clib\` project directory, and the files in the `runtime\include` directory to the `mindspore\lite\examples\quick_start_c\include` project directory. (Note: the `lib` and `include` directories under the project need to be created manually)
+    - Library downloading: Please manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) with CPU as the hardware platform and Windows-x64 as the operating system, after decompression copy all files in the `runtime\lib` directory to the `mindspore-lite\examples\quick_start_clib\` project directory, and the files in the `runtime\include` directory to the `mindspore-lite\examples\quick_start_c\include` project directory. (Note: the `lib` and `include` directories under the project need to be created manually)
 
-    - Model downloading: Please manually download the relevant model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore\ lite\examples\quick_start_c\model` directory.
+    - Model downloading: Please manually download the relevant model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore-lite\examples\quick_start_c\model` directory.
 
-    - Compiling: Execute the [build script](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/quick_start_c/build.bat) in the `mindspore\lite\examples\quick_start_c` directory, which can automatically download the relevant files and compile the Demo.
+    - Compiling: Execute the [build script](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/quick_start_c/build.bat) in the `mindspore-lite\examples\quick_start_c` directory, which can automatically download the relevant files and compile the Demo.
 
   ```bash
   call build.bat
@@ -82,7 +82,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 - Executing inference
 
-  After compiling and building, go to the `mindspore\lite\examples\quick_start_c\build` directory and execute the following command to experience the MobileNetV2 model inference by MindSpore Lite.
+  After compiling and building, go to the `mindspore-lite\examples\quick_start_c\build` directory and execute the following command to experience the MobileNetV2 model inference by MindSpore Lite.
 
   ```bash
   set PATH=..\lib;%PATH%
@@ -92,7 +92,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
   When the execution is completed, the following results will be obtained. Print the name, the size and the number of the output Tensor and the first 50 data:
 
   ```text
-  Tensor name: Softmax-65, tensor size is 4004 ,elements num: 1001.
+  Tensor name: Softmax-65, tensor size is 4004, elements num: 1001.
   output data is:
   0.000011 0.000015 0.000015 0.000079 0.000070 0.000702 0.000120 0.000590 0.000009 0.000004 0.000004 0.000002 0.000002 0.000002 0.000010 0.000055 0.000006 0.000010 0.000003 0.000010 0.000002 0.000005 0.000001 0.000002 0.000004 0.000006 0.000008 0.000003 0.000015 0.000005 0.000011 0.000020 0.000006 0.000002 0.000011 0.000170 0.000005 0.000009 0.000006 0.000002 0.000003 0.000009 0.000005 0.000006 0.000003 0.000011 0.000005 0.000027 0.000003 0.000050 0.000016
   ```

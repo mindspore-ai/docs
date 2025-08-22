@@ -4,9 +4,9 @@
 
 When the built-in operators do not meet your requirements, you can use MindSpore's custom operator functionality to integrate your operators.
 
-This document would introduce how to integrate a new custom operator into the vLLM MindSpore project, with the **`advance_step_flashattn`** operator as an example. The focus here is on the integration process into vLLM MindSpore. For the details of custom operator development, please refer to the official MindSpore tutorial: [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html), and for AscendC operator development, see the official Ascend documentation: [Ascend C Operator Development](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html).
+This document would introduce how to integrate a new custom operator into the vLLM-MindSpore Plugin project, with the **`advance_step_flashattn`** operator as an example. The focus here is on the integration process into vLLM-MindSpore Plugin. For the details of custom operator development, please refer to the official MindSpore tutorial: [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html), and for AscendC operator development, see the official Ascend documentation: [Ascend C Operator Development](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html).
 
-**Note: Currently, custom operators in vLLM MindSpore are only supported in PyNative Mode.**
+**Note: Currently, custom operators in vLLM-MindSpore Plugin are only supported in PyNative Mode.**
 
 ## File Structure
 
@@ -109,11 +109,11 @@ VLLM_MS_EXTENSION_MODULE(m) {
 
 In the above, the first parameter `"advance_step_flashattn"` in `m.def()` is the Python interface name for the operator.
 
-The `module.h` and `module.cpp` files create the Python module for the operator based on pybind11. Since only one `PYBIND11_MODULE` is allowed per dynamic library, and to allow users to complete operator integration in a single file, vLLM MindSpore provides a new registration macro `VLLM_MS_EXTENSION_MODULE`. When the custom operator dynamic library is loaded, all operator interfaces will be automatically registered into the same Python module.
+The `module.h` and `module.cpp` files create the Python module for the operator based on pybind11. Since only one `PYBIND11_MODULE` is allowed per dynamic library, and to allow users to complete operator integration in a single file, vLLM-MindSpore Plugin provides a new registration macro `VLLM_MS_EXTENSION_MODULE`. When the custom operator dynamic library is loaded, all operator interfaces will be automatically registered into the same Python module.
 
 ### Operator Interface
 
-The custom operator in vLLM MindSpore is compiled into `_C_ops.so`. For convenient calls, user can add a call interface in `vllm_mindspore/_custom_ops.py`. If extra adaptation is needed before or after the operator call, user can implement it in this interface.
+The custom operator in vLLM-MindSpore Plugin is compiled into `_C_ops.so`. For convenient calls, user can add a call interface in `vllm_mindspore/_custom_ops.py`. If extra adaptation is needed before or after the operator call, user can implement it in this interface.
 
 ```python
 def advance_step_flashattn(num_seqs: int, num_queries: int, block_size: int,
@@ -140,8 +140,8 @@ Here, importing `_C_ops` allows user to use the Python module for the custom ope
 
 ### Operator Compilation and Testing
 
-1. **Code Integration**: Merge the code into the vLLM MindSpore project.
-2. **Project Compilation**: Run `pip install .` in vllm-mindspore to build and install vLLM MindSpore.
+1. **Code Integration**: Merge the code into the vLLM-MindSpore Plugin project.
+2. **Project Compilation**: Run `pip install .` in vllm-mindspore to build and install vLLM-MindSpore Plugin.
 3. **Operator Testing**: Call the operator interface via `_custom_ops`. Refer to testcase [test_custom_advstepflash.py](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_custom_advstepflash.py):
 
 ```python
@@ -152,18 +152,18 @@ custom_ops.advance_step_flashattn(...)
 
 ## Custom Operator Compilation Project
 
-Currently, MindSpore provides only a [CustomOpBuilder](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CustomOpBuilder.html) interface for online compilation of custom operators, with default compilation and linking options built in. vLLM MindSpore integrates operators based on MindSpore’s custom operator feature and compiles them into a dynamic library for package release. The following introduces the build process:
+Currently, MindSpore provides only a [CustomOpBuilder](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CustomOpBuilder.html) interface for online compilation of custom operators, with default compilation and linking options built in. vLLM-MindSpore Plugin integrates operators based on MindSpore’s custom operator feature and compiles them into a dynamic library for package release. The following introduces the build process:
 
 ### Extension Module
 
-In `setup.py`, vLLM MindSpore adds a `vllm_mindspore._C_ops` extension and the corresponding build module:
+In `setup.py`, vLLM-MindSpore Plugin adds a `vllm_mindspore._C_ops` extension and the corresponding build module:
 
 ```python
 ext_modules = [Extension("vllm_mindspore._C_ops", sources=[])],
 cmdclass = {"build_ext": CustomBuildExt},
 ```
 
-There is no need to specify `sources` here because vLLM MindSpore triggers the operator build via CMake, which automatically collects the source files.
+There is no need to specify `sources` here because vLLM-MindSpore Plugin triggers the operator build via CMake, which automatically collects the source files.
 
 ### Building Process
 

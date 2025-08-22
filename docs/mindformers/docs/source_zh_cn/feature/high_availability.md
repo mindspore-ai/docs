@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Transformers 高可用特性提供了如下六个功能：
+MindSpore Transformers 高可用特性提供了如下几个功能：
 
 - **临终 CKPT 功能**：主要针对大模型训练过程中的故障恢复加速，该特性在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临终 CheckPoint 数据，恢复训练时能够通过该 CheckPoint 数据恢复，减少故障造成的训练迭代损失。
 - **UCE 故障容错恢复功能**：主要是针对大模型训练过程中片上内存的 UCE 故障检测，并完成在线修复，达到 Step 级重计算。
@@ -12,16 +12,17 @@ MindSpore Transformers 高可用特性提供了如下六个功能：
 - **TRE 训练结果异常恢复功能**：主要是针对大模型训练过程中出现loss或global norm等值异常检测，并完成在线修复，达到 Step 级重计算。
 - **ARF 进程级重调度恢复功能**：训练发生异常后，不需要重新拉起整个集群，只需以节点为单位进行重启或替换，完成修复并继续训练。
 - **TSP 训练迭代暂停功能**：在每个训练step结束后，进入训练暂停接口，根据上层运维需要进行训练暂停和继续，例如，暂停训练执行通信网络轨道切换，切换成功后继续训练。
+- **RSC POD级重调度功能**：主要是其他快恢特性执行失败之后的兜底方案，kill故障进程以及其他正常进程（正常进程所在pod不会被kill），将故障pod从当前集群中隔离，同时调度新的pod加入集群，并恢复训练（当前版本必须依赖MindX）。
 
 这几个高可用特性的**约束**和**依赖**如下：
 
-| | 临终 CKPT | UCE | HCCE | ARF | TRE | TSP |
-| - | - | - | - | - | - | - |
-| 依赖MindIO组件 | Yes | Yes | Yes | Yes | No | Yes |
-| 卡间存在副本关系 | Yes | Yes | No | Yes | No | No |
-| Sink Size 为 1 | Yes | Yes | Yes | Yes | No | No |
+| | 临终 CKPT | UCE | HCCE | ARF | TRE | TSP | RSC |
+| - | - | - | - | - | - | - | - |
+| 依赖MindIO组件 | Yes | Yes | Yes | Yes | No | Yes | No |
+| 卡间存在副本关系 | Yes | Yes | No | Yes | No | No | No |
+| Sink Size 为 1 | Yes | Yes | Yes | Yes | No | No | No |
 
-目前这六个高可用特性只支持Ascend后端上图模式的Step级别恢复。
+目前这几个高可用特性只支持Ascend后端上图模式的Step级别恢复。
 
 卡间存在副本关系的目的是当其中一张卡发生故障时，可从另外一张卡恢复，要求权重和优化器状态都会存在至少两份冗余。为保证这种冗余关系，必须开启数据并行，保证有两张卡权重一致，同时如果开启了优化器并行，也必须确保存在两张卡的优化器状态一致。
 
@@ -52,13 +53,15 @@ export MS_TFT_PORT=30051
 ```
 
 - `MINDIO_FOR_MINDSPORE`：使能 MindIO TFT SDK 支持 MindSpore
-- `MS_ENABLE_TFT`：表示启用 TTP、UCE、ARF、TRE、TSP功能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。
+- `MS_ENABLE_TFT`：表示启用训练故障容错（Training Fault Tolerance）功能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。
     - **TTP (Try To Persist)**：临终 CKPT 功能
     - **UCE (Uncorrectable Memory Error)**：UCE 故障容错恢复功能
     - **HCCE (Huawei Collective Communication Error)**：HCCL 重计算失败恢复功能
     - **ARF (Air Refuelling)**：进程级重调度恢复功能
     - **TRE (Training Result Error)**：TRE 训练结果异常恢复功能
     - **TSP (Training Step Pause)**：TSP 训练迭代暂停功能
+    - **RSC (Register Stop/Start Controller)**：POD级重调度功能
+    - POD级重调度只把训练进程交给第三方组件（如 MindX）管控，仅开启RSC（当前版本必须依赖MindX）时，其他训练故障容错功能不生效
     - 开启 UCE 或者 ARF 功能时，默认开启 TTP 功能
     - 同时开启 TRE 和异步 CKPT 特性，无法保证续训前后的 loss 完全一致
     - TRE 功能不依赖 MindIO 组件，若只使能TRE特性，无需配置 MindIO 相关的环境变量 MINDIO_FOR_MINDSPORE、MS_TFT_IP 和 MS_TFT_PORT

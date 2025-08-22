@@ -426,7 +426,7 @@ HCCL&HCCP的错误码以`EI`和`EJ`开头，在整个通信过程中，集群中
 
 ### EI0006: socket建链超时
 
-当socker建链超时时，会报`EI0006`错误码，同时MindSpore日志会出现`Distribute Task Failed`的报错，说明集群出现socket建链超时错误，如下述日志所示：
+当socket建链超时时，会报`EI0006`错误码，同时MindSpore日志会出现`Distribute Task Failed`的报错，说明集群出现socket建链超时错误，如下述日志所示：
 
 ```c++
 [ERROR] ASCENDCL(83434,python):2022-11-30-23:31:08.729.325 [tensor_data_transfer.cpp:899]89062 acltdtSendTensor: [Push][Data]failed to send, tdt result = -1, device is 1, name is 62576f78-70c2-11ed-b633-000132214e48

@@ -517,3 +517,50 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
     - `param`：初始化 ATB 算子所需的参数。
     - `inputs`：算子的输入 Tensor 列表。
     - `outputs`：算子的输出 Tensor 列表。
+
+### class AsdSipFFTOpRunner
+
+用于执行 Ascend Sip Boost (ASDSIP) 算子的运行器类，定义在[asdsip_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/asdsip/asdsip_common.h)头文件中。
+
+此类继承自 `PyboostRunner`，并封装了 ASDSIP FFT 算子的调用流程，包括初始化和运行 ASDSIP FFT 算子、管理输入输出 Tensor、内存分配及内核调度。
+
+可以查看教程 [CustomOpBuilder通过AsdSipFFTOpRunner接入ASDSIP FFT算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder_asdsip.html) 获取使用方法。
+
+#### 构造函数
+
+- **AsdSipFFTOpRunner**
+
+  ```cpp
+  explicit AsdSipFFTOpRunner(std::string op_name) : PyboostRunner(op_name) {}
+  ```
+
+  继承自 `PyboostRunner` 的构造函数。
+
+#### 公共方法
+
+- **Init(const FFTParam &param);**
+
+  ```cpp
+  void Init(const FFTParam &param);
+  ```
+
+    - **描述**： 【API】 使用给定参数初始化 ASDSIP FFT 算子。此方法通过 `AsdFftCreate` 创建对应算子的 `asdFftHandle` 实例，并将其放入缓存中。对于`param`相同的算子，只会创建一份 `asdFftHandle` 实例。
+    - **参数**
+        - `param`：用于配置 ASDSIP FFT 算子的参数。
+
+### function RunAsdSipFFTOp
+
+动态图执行ASDSIP FFT算子的接口，定义在[asdsip_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/asdsip/asdsip_common.h)头文件中。
+
+```cpp
+inline void RunAsdSipFFTOp(const std::string &op_name, const FFTParam &fft_param, const ms::Tensor &input,
+                           const ms::Tensor &output)
+```
+
+【API】 使用提供的参数、输入和输出执行一个 ASDSIP FFT 算子。此函数是对 `AsdSipFFTOpRunner` 的一层封装。
+
+- **参数**
+    - `op_name`：要执行的 ASDSIP FFT 算子名称。
+    - `fft_param`：初始化 ASDSIP FFT 算子所需的参数。
+    - `inputs`：算子的输入 Tensor。
+    - `outputs`：算子的输出 Tensor。
