@@ -6,7 +6,7 @@
 
 本教程提供了MindSpore Lite执行云侧推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)进行云侧推理的基本流程，用户能够快速了解MindSpore Lite执行云侧推理相关API的使用。相关代码放置在[mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python)目录。
 
-MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU和CPU硬件后端。
+MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品和CPU硬件后端。
 
 下面以Ubuntu 18.04为例，介绍了在Linux X86操作系统配合CPU硬件平台下如何使用Python云侧推理Demo：
 
@@ -108,18 +108,6 @@ context.ascend.device_id = 0
 context.ascend.provider = "ge"
 ```
 
-如果用户需要在GPU设备上运行推理时，因此需要设置上下文的目标设备为gpu。
-
-```python
-import numpy as np
-import mindspore_lite as mslite
-
-# init context, and set target is gpu.
-context = mslite.Context()
-context.target = ["gpu"]
-context.gpu.device_id = 0
-```
-
 ### 模型加载与编译
 
 模型加载与编译可以调用`Model`的[build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口，直接从文件缓存加载、编译得到运行时的模型。
@@ -190,10 +178,10 @@ variable_weights_file="update_weight_name_list.txt"
 import numpy as np
 import mindspore_lite as mslite
 
-# init context, and set target is gpu.
+# init context, and set target is ascend.
 context = mslite.Context()
 context.target = ["ascend"]
-context.gpu.device_id = 0
+context.ascend.device_id = 0
 
 # build model from file
 MODEL_PATH = "./SD1.5/unet.mindir"

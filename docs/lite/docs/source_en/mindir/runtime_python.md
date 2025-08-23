@@ -6,7 +6,7 @@
 
 This tutorial provides a sample program for MindSpore Lite to perform cloud-side inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform the basic process of cloud-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite APIs related to cloud-side inference execution. The related files are put in the directory [mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python).
 
-MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series, Nvidia GPU and CPU hardware backends are supported.
+MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU hardware backends are supported.
 
 The following is an example of how to use the Python Cloud-side Inference Demo on a Linux X86 operating system and a CPU hardware platform, using Ubuntu 18.04 as an example:
 
@@ -108,18 +108,6 @@ If the backend is Ascend deployed on the Elastic Cloud Server, set the `provider
 context.ascend.provider = "ge"
 ```
 
-If the user needs to run inference on a GPU device, they need to set Context's target to gpu.
-
-```python
-import numpy as np
-import mindspore_lite as mslite
-
-# init context, and set target is gpu.
-context = mslite.Context()
-context.target = ["gpu"]
-context.gpu.device_id = 0
-```
-
 ### Model Loading and Compilation
 
 Model loading and compilation can be done by calling [build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface of `Model` to load and compile the runtime model directly from the file cache.
@@ -190,10 +178,10 @@ variable_weights_file="update_weight_name_list.txt"
 import numpy as np
 import mindspore_lite as mslite
 
-# init context, and set target is gpu.
+# init context, and set target is ascend.
 context = mslite.Context()
 context.target = ["ascend"]
-context.gpu.device_id = 0
+context.ascend.device_id = 0
 
 # build model from file
 MODEL_PATH = "./SD1.5/unet.mindir"
