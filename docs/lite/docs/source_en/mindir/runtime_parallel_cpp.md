@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html). Multi model concurrent inference now supports Atlas 200/300/500 inference product, Atlas inference series, Atlas training series, Nvidia GPU and CPU backends.
+MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html). Multi model concurrent inference now supports Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU backends.
 
 After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [C++ interface](https://www.mindspore.cn/lite/api/en/master/index.html).
 
@@ -23,7 +23,7 @@ To use the MindSpore Lite concurrent inference framework, perform the following 
 
 2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 
-3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` from [official website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp` directory.
+3. Download the MindSpore Lite cloud-side inference package with integrated Ascend and CPU support `mindspore-lite-{version}-linux-{arch}.tar.gz` from [official website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp` directory.
 
 ## Creating configuration
 
@@ -63,7 +63,7 @@ runner_config->SetWorkersNum(kNumWorkers);
 
 > For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html#creating-configuration-context).
 >
-> Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html) several different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
+> Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html) and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html) several different hardware backends.
 >
 > Multi-model concurrent inference does not support FP32-type data inference. Binding cores only supports no core binding or binding large cores. It does not support the parameter settings of the bound cores, and does not support configuring the binding core list.
 >
