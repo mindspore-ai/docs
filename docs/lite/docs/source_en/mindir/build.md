@@ -12,7 +12,6 @@ Cloud-side MindSpore Lite contains modules:
 | runtime(cpp, java) | Linux    | Model Inference Framework |
 | benchmark          | Linux    | Benchmarking Tool |
 | minddata           | Linux    | Image Processing Library   |
-| akg                | Linux                   | Polyhedral-based deep learning operator compiler ([Auto Kernel Generator](https://gitee.com/mindspore/akg)) |
 
 ## Environment Requirements
 
@@ -35,21 +34,12 @@ Cloud-side MindSpore Lite contains modules:
     - [Python](https://www.python.org/) >= 3.7.0
     - [NumPy](https://numpy.org/) >= 1.17.0 (If installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
     - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 (If installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
-- Compilation dependency for AKG (optional, compiled by default), which is not compiled if LLVM-12 or Python3 is not installed. To compile the AKG for the Ascend backend, git-lfs must be installed.
-    - [llvm](#installing-llvm-optional) == 12.0.1
-    - [git-lfs](https://git-lfs.com/)
 
 > Gradle recommends using [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all), and configuring other versions of gradle will use the gradle wrapper mechanism to automatically download ` gradle-6.6.1-complete`.
->
-> You can also directly use Docker compiling images that have been configured with the above dependencies.
->
-> - Download images: `docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
-> - Create a container: `docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
-> - Enter the container: `docker exec -ti -u 0 docker01 bash`
 
 ## Compilation Options
 
-The `build.sh` script in the MindSpore root directory can be used to compile cloud-side MindSpore Lite.
+The `build.sh` script in the MindSpore Lite root directory can be used to compile cloud-side MindSpore Lite.
 
 ### Instructions for Using the Parameters of `build.sh`
 
@@ -59,7 +49,6 @@ The `build.sh` script in the MindSpore root directory can be used to compile clo
 | -d | Set this parameter to compile the Debug version, otherwise compile the Release version  | None | None |
 | -i | Set this parameter for incremental compilation, otherwise for full compilation | None | None |
 | -j[n] | Set the number of threads used at compile time, otherwise the default setting is 8 threads | Integer | 8 |
-| -K | Set whether to compile AKG during compilation, otherwise the default setting is on | on, off | on |
 
 > - If the JAVA_HOME environment variable is configured and Gradle is installed, the JAR package is compiled at the same time.
 > - Add the `-i` parameter for incremental compilation does not take effect when the `-I` parameter changes, e.g. `-I x86_64` becomes `-I arm64`.
@@ -73,7 +62,6 @@ General module compilation options:
 
 | Options  |  Description of the parameters  | Range of values  | Default values |
 | -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND                   | Set GPU backend, only tensorrt is valid at `-I x86_64`. | tensorrt, off | off in `-I x86_64` |
 | MSLITE_ENABLE_TOOLS                  | Whether to compile the accompanying benchmarking tool          | on, off       | on                   |
 | MSLITE_ENABLE_TESTCASES              | Whether to compile test cases                           | on, off       | off                  |
 | MSLITE_ENABLE_ACL                    | Whether to enable Ascend ACL                            | on, off       | off                  |
@@ -86,10 +74,10 @@ General module compilation options:
 
 ## Compilation Examples
 
-First, you need to download the source code from the MindSpore code repository before compiling.
+First, you need to download the source code from the MindSpore Lite code repository before compiling.
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 ### Environment Preparation
@@ -100,9 +88,9 @@ git clone https://gitee.com/mindspore/mindspore.git
 
     - The Ascend package is available in both commercial and community versions.
 
-        1. Please refer to the [Ascend Data Center Solution 23.0.RC3 Installation Guide document](https://support.huawei.com/enterprise/en/doc/EDOC1100336282) for the download link and installation method of the commercial version.
+        1. Commercial edition needs approval from Ascend to download, release date is TBD.
 
-        2. There is no restriction on downloading the Community Edition. Please go to [CANN Community Edition](https://www.hiascend.com/developer/download/community/result?module=cann), select `7.0.RC1.beta1` version, and get the corresponding firmware and driver installation packages from the [Firmware and Driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). For package selection and installation, please refer to the commercial version installation guide document above.
+        2. There is no restriction on downloading the Community Edition. Please go to [CANN Community Edition](https://www.hiascend.com/developer/download/community/result?module=cann), select `8.2.RC1` version, and get the corresponding firmware and driver installation packages from the [Firmware and Driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). For package selection and installation, please refer to the commercial version installation guide document above.
     - The default installation path for the installation package is `/usr/local/Ascend`. After installation, make sure the current user has permission to access the installation path of the Ascend AI processor companion package. If you don't have permission, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
     - Install the whl package included with the Ascend AI processor companion software. If you have previously installed the package included with the Ascend AI processor, you need to uninstall the corresponding whl package first by using the following command.
 
@@ -138,21 +126,13 @@ git clone https://gitee.com/mindspore/mindspore.git
         export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
         ```
 
-#### GPU
-
-GPU environment compilation. Using TensorRT requires integration with CUDA, TensorRT. The current version is adapted to [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
-
-Install the appropriate version of CUDA and set the installed directory to the environment variable `${CUDA_HOME}`. The build script will use this environment variable to find CUDA.
-
-Download the corresponding version of the TensorRT archive and set the directory where the archive was unzipped to the environment variable `${TENSORRT_PATH}`. The build script will use this environment variable to find TensorRT.
-
 #### CPU
 
 Use x86_64 or ARM64 environment.
 
 #### Installing LLVM-optional
 
-The CPU backend of the graph kernel fusion in the converter needs to rely on LLVM-12. Run the following commands to install [LLVM](https://llvm.org/) to enable CPU backend. If LLVM-12 is not installed, the graph kernel fusion can only support GPU and Ascend backend.
+The CPU backend of the graph kernel fusion in the converter needs to rely on LLVM-12. Run the following commands to install [LLVM](https://llvm.org/) to enable CPU backend. If LLVM-12 is not installed, the graph kernel fusion can only support Ascend backend.
 
 ```shell
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
@@ -163,16 +143,14 @@ sudo apt-get install llvm-12-dev -y
 
 ### Executing Compilation
 
-Three-backend-unification packages need to configure the following environment variables:
+Double-backend-unification packages need to configure the following environment variables:
 
 ```bash
 export MSLITE_ENABLE_CLOUD_INFERENCE=on
-export MSLITE_GPU_BACKEND=tensorrt
 export MSLITE_ENABLE_ACL=on
 ```
 
 > - If you don't need Ascend backend, you can configure ``export MSLITE_ENABLE_ACL=off``.
-> - If you don't need GPU backend, you can configure ``export MSLITE_GPU_BACKEND=off``.
 
 Execute the following command in the source root directory to compile different versions of MindSpore Lite.
 
@@ -186,12 +164,6 @@ Execute the following command in the source root directory to compile different 
 
     ```bash
     bash build.sh -I arm64 -j32
-    ```
-
-- Compile the x86_64 architecture version while setting the number of threads, but do not compile AKG.
-
-    ```bash
-    bash build.sh -I x86_64 -j32 -K off
     ```
 
 Finally, the following file will be generated in the `output/` directory:
@@ -215,12 +187,6 @@ After installation, you can use the following command to check whether the insta
 
 ```bash
 python -c "import mindspore_lite"
-```
-
-After installation, you can use the following command to check if the built-in AKG in MindSpore Lite is installed successfully: if no error is reported, the installation is successful.
-
-```bash
-python -c "import mindspore_lite.akg"
 ```
 
 After successful installation, you can use the `pip show mindspore_lite` command to see where the Python modules for MindSpore Lite are installed.
@@ -247,8 +213,6 @@ mindspore-lite-{version}-linux-{arch}
 │       ├── libjpeg-turbo
 │       └── securec
 └── tools
-    ├── akg
-    |    └── akg-{version}-{python}-linux-{arch}.whl # AKG Python whl package
     ├── benchmark              # Benchmarking Tools
     │   └── benchmark          # Benchmarking tool executable file
     └── converter              # Model converter
