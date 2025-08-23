@@ -364,7 +364,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型
 
 ## 部署Ascend自定义算子
 
-MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模型转换为MindSpore Lite的模型，通过自定义算子，可以在特殊场景下使用自定义算子对模型推理性能进行优化，如使用自定义的MatMul实现更高的矩阵乘法计算，使用MindSpore Lite提供的transformer融合算子提升transformer模型性能（待上线）以及使用AKG图算融合算子对模型进行自动融合优化提升推理性能等。
+MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模型转换为MindSpore Lite的模型，通过自定义算子，可以在特殊场景下使用自定义算子对模型推理性能进行优化，如使用自定义的MatMul实现更高的矩阵乘法计算，使用MindSpore Lite提供的transformer融合算子提升transformer模型性能（待上线）。
 
 如果MindSpore Lite转换Ascend模型时有自定义算子，用户需要在调用converter之前部署自定义算子到ACL的算子库中才能正常完成转换，以下描述了部署Ascend自定义算子的关键步骤：
 
@@ -395,7 +395,7 @@ MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模
 
 4. 查看昇腾算子库目录检查是否安装成功
 
-    完成部署自定义算子之后，进入昇腾算子库目录``/usr/local/Ascend/latest/opp/vendors/``，查看其下目录是否有对应的自定义算子文件，当前主要提供了基本算子样例和AKG图算融合算子实现，具体文件结构如下：
+    完成部署自定义算子之后，进入昇腾算子库目录``/usr/local/Ascend/latest/opp/vendors/``，查看其下目录是否有对应的自定义算子文件，当前主要提供了基本算子样例，具体文件结构如下：
 
     ```text
     /usr/local/Ascend/latest/opp/vendors/
@@ -417,8 +417,6 @@ MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模
         │   │       └── mslite_impl                                    # 算子的实现逻辑目录
         │   │           ├── add_dsl.py                                 # 基于dsl开发的add样例逻辑实现文件
         │   │           ├── add_tik.py                                 # 基于tik开发的add样例逻辑实现文件
-        │   │           ├── compiler.py                                # akg图算需要的算子编译逻辑文件
-        │   │           ├── custom.py                                  # akg自定义算子实现文件
         │   │           ├── matmul_tik.py                              # 基于tik开发的matmul样例逻辑实现文件
         │   ├── cpu                                                    # aicpu自定义算子目录，非必需
         │   │   └── aicpu_kernel
@@ -430,5 +428,5 @@ MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模
         │               ├── add_tik.py                                 # 基于tik开发的add样例逻辑实现文件
         │               └── matmul_tik.py                              # 基于tik开发的matmul样例逻辑实现文件
         └── op_proto                                                   # 算子原型定义包目录
-            └── libcust_op_proto.so                                    # 算子原型定义so文件，akg自定义算子默认注册，不需要此文件
+            └── libcust_op_proto.so                                    # 算子原型定义so文件
     ```
