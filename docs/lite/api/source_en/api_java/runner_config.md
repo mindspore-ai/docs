@@ -17,6 +17,7 @@ RunnerConfig defines the configuration parameters of MindSpore Lite concurrent i
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
 | [public void setDeviceIds(ArrayList<Integer\> deviceIds)](#setdeviceids)                         | √      | ✕      |
 | [public ArrayList<Integer\> getDeviceIds()](#getdeviceids)                         | √      | ✕      |
+| [public void free()](#free)    | √      | ✕      |
 
 ## init
 
@@ -128,3 +129,11 @@ Get the list of device id set in RunnerConfig.
 - Returns
 
   list of device id.
+
+## free
+
+```java
+public void free()
+```
+
+Release runnerConfig.
