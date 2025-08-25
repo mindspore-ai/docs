@@ -12,7 +12,7 @@ Before performing inference after converting the model, you can use the Benchmar
 
 To use the Benchmark tool, you need to do the following environment preparation work.
 
-- Compile: The Benchmark tool code is in the `mindspore-lite/tools/benchmark` directory of the MindSpore source code. Refer to the build documentation for [Environment requirements](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#environment-requirements) and [Compilation Examples](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#compilation-examples) in the build documentation to perform the compilation.
+- Compile: The Benchmark tool code is in the `mindspore-lite/tools/benchmark` directory of the MindSpore Lite source code. Refer to the build documentation for [Environment requirements](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#environment-requirements) and [Compilation Examples](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#compilation-examples) in the build documentation to perform the compilation.
 
 - Run: Refer to [compilation output](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#directory-structure) in the build documentation to get the `benchmark` tool from the compiled package.
 
@@ -54,7 +54,7 @@ Detailed parameter descriptions are provided below.
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specify the accuracy threshold. | Float           | 0.5    | -        |
 | `--benchmarkDataFile=<CALIBDATAPATH>` | Optional | Specify the file path to the benchmark data. The benchmark data is used as the comparison output for this test model, which is derived from the same input and forward inference from other deep learning frameworks. | String | null | - |
 | `--benchmarkDataType=<CALIBDATATYPE>` | Optional | Specify the benchmark data type. | String | FLOAT | FLOAT, INT32, INT8, UINT8 |
-| `--device=<DEVICE>` | Optional | Specify the type of device on which the model inference program runs. | String | CPU | CPU, GPU, NPU, Ascend |
+| `--device=<DEVICE>` | Optional | Specify the type of device on which the model inference program runs. | String | CPU | CPU, NPU, Ascend |
 | `--help` | Optional | Display help information for the `benchmark` command. | - | - | - |
 | `--inDataFile=<INDATAPATH>` | Optional | Specify the file path to the test model input data. If not set, random input is used. | String | null | - |
 | `--loopCount=<LOOPCOUNT>` | Optional | Specify the number of forward inference runs for the test model when Benchmark tool performs benchmarking, with a positive integer value. | Integer | 10 | - |
