@@ -6,7 +6,7 @@
 
 For scenarios where large-scale neural network models have many parameters and cannot be fully loaded into a single device for inference, distributed inference can be performed using multiple devices. This tutorial describes how to perform MindSpore Lite cloud-side distributed inference using the [Python interface](https://www.mindspore.cn/lite/api/en/master/mindspore_lite.html). Cloud-side distributed inference is roughly the same process as [Cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_python.html) and can be cross-referenced. MindSpore Lite cloud-side distributed inference has more optimization for performance aspects.
 
-MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployments with Atlas training series and Nvidia GPU as the supported device types. As shown in the figure below, the distributed inference is currently initiated by a multi-process approach, where each process corresponds to a `Rank` in the communication set, loading, compiling and executing the respective sliced model, with the same input data for each process.
+MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployments with Atlas training series as the supported device types. As shown in the figure below, the distributed inference is currently initiated by a multi-process approach, where each process corresponds to a `Rank` in the communication set, loading, compiling and executing the respective sliced model, with the same input data for each process.
 
 ![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/mindir/images/lite_runtime_distributed.png)
 
@@ -22,7 +22,7 @@ Each process consists of the following main steps:
 
 ## Preparation
 
-1. To download the cloud-side distributed inference python sample code, please select the device type: [Ascend](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp) or [GPU](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/gpu_trt_distributed_cpp). The directory will be referred to later as the example code directory.
+1. To download the cloud-side distributed inference python sample code, please select the device type: [Ascend](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp). The directory will be referred to later as the example code directory.
 
 2. Slice and export the distributed MindIR model via MindSpore and store it to the sample code directory. For a quick experience, you can download the two sliced Matmul model files [Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir), [Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir).
 
@@ -41,7 +41,7 @@ The contextual configuration holds the required basic configuration parameters a
 context = mslite.Context()
 ```
 
-Ascend, Nvidia GPU are supported in distributed inference scenarios, and can be specified by [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to specify the device to run.
+Ascend is supported in distributed inference scenarios, and can be specified by [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to specify the device to run.
 
 ### Configuring Ascend Device Context
 
@@ -53,17 +53,6 @@ context.target = ["Ascend"]
 context.ascend.device_id = args.device_id
 context.ascend.rank_id = args.rank_id
 context.ascend.provider = "ge"
-```
-
-### Configuring GPU Device Context
-
-When the device type is GPU, set [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) as `gpu`. The distributed inference multi-process application for GPU devices is pulled up by mpi, which automatically sets the `RankID` of each process, and the user only needs to specify `CUDA_VISIBLE_DEVICES` in the environment variable, without specifying the group information file. Therefore, the `RankID` of each process can be used as `DeviceID`. In addition, GPU also provides multiple inference engine backends. Currently only `tensorrt` backend supports distributed inference, and the GPU inference engine backend is specified as `tensorrt` by `gpu.provider`. The sample code is as follows.
-
-```python
-# set GPU target and distributed info
-context.target = ["gpu"]
-context.gpu.device_id = context.gpu.rank_id
-context.gpu.provider = "tensorrt"
 ```
 
 ## Model Creation, Loading and Compilation
@@ -131,10 +120,6 @@ Start the distributed inference in the following multi-process manner. Please re
 # for Ascend, run the executable file for each rank using shell commands
 python3 ./ascend_ge_distributed.py --model_path=/your/path/to/Matmul0.mindir --device_id=0 --rank_id=0 --config_file=./config_file.ini &
 python3 ./ascend_ge_distributed.py --model_path=/your/path/to/Matmul1.mindir --device_id=1 --rank_id=1 --config_file=./config_file.ini
-
-# for GPU, run the executable file for each rank using mpi
-RANK_SIZE=2
-mpirun -n $RANK_SIZE python3 ./main.py --model_path=/your/path/to/Matmul.mindir
 ```
 
 ## Multiple Models Sharing Weights

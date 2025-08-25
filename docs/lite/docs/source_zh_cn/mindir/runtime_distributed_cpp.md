@@ -6,7 +6,7 @@
 
 针对大规模神经网络模型参数多、无法完全加载至单设备推理的场景，可利用多设备进行分布式推理。本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行MindSpore Lite云侧分布式推理。云侧分布式推理与[云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html)流程大致相同，可以相互参考。MindSpore Lite云侧分布式推理针对性能方面具有更多的优化。
 
-MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持的设备类型为Atlas训练系列产品和Nvidia GPU。如下图所示，当前通过多进程方式启动分布式推理，每个进程对应通信集合中的一个`Rank`，对各自已切分的模型进行加载、编译与执行，每个进程输入数据相同。
+MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持的设备类型为Atlas训练系列产品。如下图所示，当前通过多进程方式启动分布式推理，每个进程对应通信集合中的一个`Rank`，对各自已切分的模型进行加载、编译与执行，每个进程输入数据相同。
 
 ![img](./images/lite_runtime_distributed.png)
 
@@ -22,7 +22,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持�
 
 ## 准备工作
 
-1. 下载云侧分布式推理C++示例代码，请选择设备类型：[Ascend](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp)或[GPU](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/gpu_trt_distributed_cpp)。后文将该目录称为示例代码目录。
+1. 下载云侧分布式推理C++示例代码，请选择设备类型：[Ascend](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp)。后文将该目录称为示例代码目录。
 
 2. 通过MindSpore切分，并导出分布式MindIR模型，将其存放至示例代码目录。如需快速体验，可下载已切分的两个Matmul模型文件[Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir)、[Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir)。
 
@@ -46,7 +46,7 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-分布式推理场景下支持[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)，分别用于设置Ascend与Nvidia GPU上下文信息。
+分布式推理场景下支持[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)用于设置Ascend上下文信息。
 
 ### 配置Ascend设备上下文
 
@@ -67,28 +67,9 @@ device_info->SetProvider("ge");
 device_list.push_back(device_info);
 ```
 
-### 配置使用GPU设备上下文
-
-当设备类型为GPU时，新建[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)。GPU设备的分布式推理多进程应用由mpi拉起，mpi会自动设置每个进程的`RankID`，用户只需在环境变量中指定`CUDA_VISIBLE_DEVICES`，无需指定组网信息文件。因此，每个进程的`RankID`可以当作`DeviceID`使用。另外，GPU也提供多个推理引擎后端，当前仅`tensorrt`后端支持分布式推理，通过[DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)指定GPU推理引擎后端为`tensorrt`。示例代码如下：
-
-```c++
-// for GPU
-auto device_info = std::make_shared<mindspore::GPUDeviceInfo>();
-if (device_info == nullptr) {
-  std::cerr << "New GPUDeviceInfo failed." << std::endl;
-  return -1;
-}
-
-// set distributed info
-auto rank_id = device_info->GetRankID();  // rank id is returned from mpi
-device_info->SetDeviceID(rank_id);  // as we set visible device id in env, we use rank id as device id
-device_info->SetProvider("tensorrt");
-device_list.push_back(device_info);
-```
-
 ## 模型创建、加载与编译
 
-与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)接口，可进行模型加载、编译和执行。对于Ascend设备，使用[Model::LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口载入配置文件[config_file.ini](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini)，GPU设备则不需要。最后，调用[Model::Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build-2)接口来实现模型加载与模型编译，示例代码如下：
+与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)接口，可进行模型加载、编译和执行。对于Ascend设备，使用[Model::LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口载入配置文件[config_file.ini](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini)。最后，调用[Model::Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build-2)接口来实现模型加载与模型编译，示例代码如下：
 
 ```c++
 mindspore::Model model;
@@ -194,10 +175,6 @@ make
 # for Ascend, run the executable file for each rank using shell commands
 ./build/ascend_ge_distributed /your/path/to/Matmul0.mindir 0 0 ./config_file.ini &
 ./build/ascend_ge_distributed /your/path/to/Matmul1.mindir 1 1 ./config_file.ini
-
-# for GPU, run the executable file for each rank using mpi
-RANK_SIZE=2
-mpirun -n $RANK_SIZE ./build/gpu_trt_distributed /your/path/to/Matmul.mindir
 ```
 
 ## 多模型共享权重
