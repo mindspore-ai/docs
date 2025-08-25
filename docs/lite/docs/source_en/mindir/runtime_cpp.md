@@ -6,7 +6,7 @@
 
 This tutorial describes how to perform cloud-side inference with MindSpore Lite by using the [C++ interface](https://www.mindspore.cn/lite/api/en/master/index.html).
 
-MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series, Nvidia GPU and CPU hardware backends are supported.
+MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU hardware backends are supported.
 
 To experience the MindSpore Lite device-side inference process, please refer to the document [Using C++ Interface to Perform Cloud-side Inference](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html).
 
@@ -26,7 +26,7 @@ Using the MindSpore Lite inference framework consists of the following main step
 
 2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore-lite/examples/cloud_infer/runtime_cpp/model` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 
-3. Download the Ascend, Nvidia GPU, CPU triplet MindSpore Lite cloud-side inference package `mindspore- lite-{version}-linux-{arch}.tar.gz` in the [official website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore-lite/examples/cloud_infer/runtime_cpp` directory.
+3. Download the Ascend, CPU dual-purpose MindSpore Lite cloud-side inference package `mindspore- lite-{version}-linux-{arch}.tar.gz` in the [official website](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and save it to `mindspore-lite/examples/cloud_infer/runtime_cpp` directory.
 
 ## Creating Configuration Context
 
@@ -43,7 +43,7 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-Return a reference to the list of backend information for specifying the running device via [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html). User-set device information is supported in `MutableDeviceInfo`, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html). The number of devices set can only be one of them currently.
+Return a reference to the list of backend information for specifying the running device via [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html). User-set device information is supported in `MutableDeviceInfo`, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html). The number of devices set can only be one of them currently.
 
 ### Configuring to Use the CPU Backend
 
@@ -93,40 +93,6 @@ Optionally, you can additionally set the number of threads, thread affinity, par
     // Configure the inference supports parallel.
     context->SetInterOpParallelNum(2);
     ```
-
-### Configuring Using GPU Backend
-
-When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables float16 inference by `SetEnableFP16` or `SetPrecisionMode`.
-
-The following sample code demonstrates how to create a GPU inference backend while the device ID is set to 0:
-
-```c++
-auto context = std::make_shared<mindspore::Context>();
-if (context == nullptr) {
-    std::cerr << "New context failed." << std::endl;
-  return nullptr;
-}
-auto &device_list = context->MutableDeviceInfo();
-
-auto device_info = std::make_shared<mindspore::GPUDeviceInfo>();
-if (device_info == nullptr) {
-  std::cerr << "New GPUDeviceInfo failed." << std::endl;
-  return nullptr;
-}
-// Set NVIDIA device id.
-device_info->SetDeviceID(0);
-// The GPU device context needs to be push_back into device_list to work.
-device_list.push_back(device_info);
-```
-
-Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing power] of the current device (https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix).
-
-`SetPrecisionMode()` has two parameters to control float16 inference, `SetPrecisionMode("preferred_fp16")` equals to `SetEnableFP16(true)`, vice versa.
-
-| SetPrecisionMode() | SetEnableFP16() |
-| ------------------ | --------------- |
-| enforce_fp32       | false           |
-| preferred_fp16     | true            |
 
 ### Configuring Using Ascend Backend
 
@@ -190,8 +156,6 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
   std::shared_ptr<mindspore::DeviceInfoContext> device_info = nullptr;
   if (device_type == "CPU") {
     device_info = CreateCPUDeviceInfo();
-  } else if (device_type == "GPU") {
-    device_info = CreateGPUDeviceInfo(device_id);
   } else if (device_type == "Ascend") {
     device_info = CreateAscendDeviceInfo(device_id);
   }
@@ -345,11 +309,11 @@ tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
 
 ### Dynamic Shape Input
 
-Lite cloud-side inference framework supports dynamic shape input for models. GPU and Ascend hardware backend needs to be configured with dynamic input information during model conversion and model inference.
+Lite cloud-side inference framework supports dynamic shape input for models. Ascend hardware backend needs to be configured with dynamic input information during model conversion and model inference.
 
-The configuration of dynamic input information is related to offline and online scenarios. For offline scenarios, the model conversion tool parameter `--optimize=general`, `--optimize=gpu_oriented` or `--optimize=ascend_oriented`, i.e. experiencing the hardware-related fusion and optimization. The generated MindIR model can only run on the corresponding hardware backend. For example, in Atlas 200/300/500 inference product environment, if the model conversion tool specifies `--optimize=ascend_oriented`, the generated model will only support running on Atlas 200/300/500 inference product. If `--optimize=general` is specified, running on GPU and CPU is supported. For online scenarios, the loaded MindIR has not experienced hardware-related fusion and optimization, supports running on Ascend, GPU, and CPU. The model conversion tool parameter `--optimize=none`, or the MindSpore-exported MindIR model has not been processed by the conversion tool.
+The configuration of dynamic input information is related to offline and online scenarios. For offline scenarios, the model conversion tool parameter `--optimize=general` or `--optimize=ascend_oriented`, i.e. experiencing the hardware-related fusion and optimization. The generated MindIR model can only run on the corresponding hardware backend. For example, in Atlas 200/300/500 inference product environment, if the model conversion tool specifies `--optimize=ascend_oriented`, the generated model will only support running on Atlas 200/300/500 inference product. If `--optimize=general` is specified, running on CPU is supported. For online scenarios, the loaded MindIR has not experienced hardware-related fusion and optimization, supports running on Ascend and CPU. The model conversion tool parameter `--optimize=none`, or the MindSpore-exported MindIR model has not been processed by the conversion tool.
 
-Ascend hardware backend offline scenarios require dynamic input information to be configured during the model conversion phase. Ascend hardware backend online scenarios, as well as GPU hardware backend offline and online scenarios, require dynamic input information to be configured during the model loading phase via the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html# loadconfig) interface.
+Ascend hardware backend offline scenarios require dynamic input information to be configured during the model conversion phase. Ascend hardware backend online scenarios require dynamic input information to be configured during the model loading phase via the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html# loadconfig) interface.
 
 An example configuration file loaded via `LoadConfig` is shown below:
 
@@ -357,24 +321,17 @@ An example configuration file loaded via `LoadConfig` is shown below:
 [ascend_context]
 input_shape=input_1:[-1,3,224,224]
 dynamic_dims=[1~4],[8],[16]
-
-[gpu_context]
-input_shape=input_1:[-1,3,224,224]
-dynamic_dims=[1~16]
-opt_dims=[1]
 ```
 
-The `[ascend_context]` and `[gpu_context]` act on the Ascend and GPU hardware backends, respectively.
+The `[ascend_context]` indicates that it acts on the Ascend hardware backend.
 
-1. Ascend and GPU hardware backends require dynamic input information for graph compilation and optimization, while CPU hardware backends do not require configuration of dynamic dimensional information.
+1. Ascend hardware backends require dynamic input information for graph compilation and optimization, while CPU hardware backends do not require configuration of dynamic dimensional information.
 
 2. `input_shape` is used to indicate the input shape information in the format `input_name1:[shape1];input_name2:[shape2]`. If there are dynamic inputs, the corresponding dimension needs to be set to -1. Multiple inputs are separated by the English semicolon `;`.
 
-3. `dynamic_dims` is used to indicate the value range of the dynamic dimension, with multiple non-contiguous ranges of values separated by the comma `,`. In the above example, Ascend batch dimension values range in `1,2,3,4,8,16` and GPU batch dimension values range from 1 to 16. Ascend hardware backend with dynamic inputs are in multi-step mode, the larger the dynamic input range, the longer the model compilation time.
+3. `dynamic_dims` is used to indicate the value range of the dynamic dimension, with multiple non-contiguous ranges of values separated by the comma `,`. In the above example, Ascend batch dimension values range in `1,2,3,4,8,16`. Ascend hardware backend with dynamic inputs are in multi-step mode, the larger the dynamic input range, the longer the model compilation time.
 
-4. For the GPU hardware backend, additional configuration of `opt_dims` is required to indicate the optimal value in the `dynamic_dims` range.
-
-5. If `input_shape` is configured as a static shape, `dynamic_dims` and `opt_dims` do not need to be configured.
+4. If `input_shape` is configured as a static shape, `dynamic_dims` do not need to be configured.
 
 Load the configuration file information via `LoadConfig` before the model `Build`:
 
@@ -424,7 +381,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 ### Specifying Input and Output Host Memory
 
-Specify that the device memory supports the CPU, Ascend, and GPU hardware backend. The specified input host memory, the data in the cache will be directly copied to the device memory, and the specified output host memory, the data in the device memory will be directly copied to this cache. Unnecessary data copying between hosts is avoided and inference performance is improved.
+Specify that the device memory supports the CPU and Ascend hardware backend. The specified input host memory, the data in the cache will be directly copied to the device memory, and the specified output host memory, the data in the device memory will be directly copied to this cache. Unnecessary data copying between hosts is avoided and inference performance is improved.
 
 Input and output host memory can be specified separately or simultaneously by [SetData](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html). It is recommended that the parameter `own_data` be false. When `own_data` is false, the user needs to maintain the life cycle of host memory and is responsible for the request and release of host memory. When the parameter `own_data` is true, the specified memory is freed at the MSTensor destruct.
 
@@ -473,7 +430,7 @@ Input and output host memory can be specified separately or simultaneously by [S
 
 ### Specifying the Memory of the Input and Output Devices
 
-Specifying device memory supports Ascend and GPU hardware backends. Specifying input and output device memory can avoid mutual copying from device to host memory, for example, the device memory input generated by chip dvpp preprocessing is directly used as input for model inference, avoiding preprocessing results copied from device memory to host memory and host results used as model inference input and re-copied to device before inference.
+Specifying device memory supports Ascend hardware backends. Specifying input and output device memory can avoid mutual copying from device to host memory, for example, the device memory input generated by chip dvpp preprocessing is directly used as input for model inference, avoiding preprocessing results copied from device memory to host memory and host results used as model inference input and re-copied to device before inference.
 
 Sample memory for specified input and output devices can be found in [sample device memory](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/device_example_cpp).
 
@@ -637,7 +594,7 @@ ge.dynamicNodeType=1
 
 ### Loading Models through Multiple Threads
 
-When the backend is Ascend and the provider is the default, it supports loading multiple Ascend optimized models through multiple threads to improve model loading performance. Using the [Model converting tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html), we can specify `--optimize=ascend_oriented` to convert `MindIR` models exported from MindSpore, third-party framework models such as TensorFlow and ONNX into Ascend optimized models. The `MindIR` models exported by MindSpore have not undergone Ascend optimization. For third-party framework models, the `MindIR` model generated by specifying `--optimize=none` in the converting tool has not undergone Ascend optimization.
+When the backend is Ascend and the provider is the default, it supports loading multiple Ascend optimized models through multiple threads to improve model loading performance. Using the [Model converting tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html), we can specify `--optimize=ascend_oriented` to convert `MindIR` models exported from MindSpore, third-party framework models such as TensorFlow and ONNX into Ascend optimized models. The `MindIR` models exported by MindSpore have not undergone Ascend optimization. For third-party framework models, the `MindIR` model generated by specifying `--optimize=none` in the converting tool has not undergone Ascend optimization.
 
 ### Multiple Models Sharing Weights
 
@@ -753,7 +710,6 @@ std::vector<Model> LoadModel(const std::string &model_path0, const std::string &
     }
     device_info->SetDeviceID(device_id);
     device_info->SetRankID(rank_id);
-    device_info->SetProvider("ge");
     device_list.push_back(device_info);
 
     mindspore::Model model0;

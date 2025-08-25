@@ -6,7 +6,7 @@
 
 本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行MindSpore Lite云侧推理。
 
-MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU和CPU硬件后端。
+MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品和CPU硬件后端。
 
 如需体验MindSpore Lite端侧推理流程，请参考文档[使用C++接口执行端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html)。
 
@@ -26,7 +26,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore-lite/examples/cloud_infer/runtime_cpp/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
 
-3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、Nvidia GPU、CPU三合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore-lite/examples/cloud_infer/runtime_cpp`目录。
+3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、CPU二合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore-lite/examples/cloud_infer/runtime_cpp`目录。
 
 ## 创建配置上下文
 
@@ -43,7 +43,7 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-通过[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，指定运行的设备。`MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)。设置的设备个数当前只能为其中一个。
+通过[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，指定运行的设备。`MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)。设置的设备个数当前只能为其中一个。
 
 ### 配置使用CPU后端
 
@@ -93,40 +93,6 @@ device_list.push_back(device_info);
     // Configure the inference supports parallel.
     context->SetInterOpParallelNum(2);
     ```
-
-### 配置使用GPU后端
-
-当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)为推理后端。其中GPUDeviceInfo通过`SetDeviceID`来设置设备ID，通过`SetEnableFP16`或者`SetPrecisionMode`使能float16推理。
-
-下面示例代码演示如何创建GPU推理后端，同时设备ID设置为0：
-
-```c++
-auto context = std::make_shared<mindspore::Context>();
-if (context == nullptr) {
-    std::cerr << "New context failed." << std::endl;
-  return nullptr;
-}
-auto &device_list = context->MutableDeviceInfo();
-
-auto device_info = std::make_shared<mindspore::GPUDeviceInfo>();
-if (device_info == nullptr) {
-  std::cerr << "New GPUDeviceInfo failed." << std::endl;
-  return nullptr;
-}
-// Set NVIDIA device id.
-device_info->SetDeviceID(0);
-// The GPU device context needs to be push_back into device_list to work.
-device_list.push_back(device_info);
-```
-
-`SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
-
-用户可通过调用 `SetPrecisionMode()`接口配置精度模式，设置 `SetPrecisionMode("preferred_fp16")` 时，同时 `SetEnableFP16(true)` 会自动设置，反之亦然。
-
-| SetPrecisionMode() | SetEnableFP16() |
-| ------------------ | --------------- |
-| enforce_fp32       | false           |
-| preferred_fp16     | true            |
 
 ### 配置使用Ascend后端
 
@@ -190,8 +156,6 @@ std::shared_ptr<mindspore::Model> BuildModel(const std::string &model_path, cons
   std::shared_ptr<mindspore::DeviceInfoContext> device_info = nullptr;
   if (device_type == "CPU") {
     device_info = CreateCPUDeviceInfo();
-  } else if (device_type == "GPU") {
-    device_info = CreateGPUDeviceInfo(device_id);
   } else if (device_type == "Ascend") {
     device_info = CreateAscendDeviceInfo(device_id);
   }
@@ -345,11 +309,11 @@ tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
 
 ### 动态shape输入
 
-Lite云侧推理框架支持动态shape输入的模型，GPU和Ascend硬件后端，需要在模型转换和模型推理时配置动态输入信息。
+MindSpore Lite云侧推理框架支持动态shape输入的模型，Ascend硬件后端需要在模型转换和模型推理时配置动态输入信息。
 
-动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--optimize=general`，`--optimize=gpu_oriented`或`--optimize=ascend_oriented`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如，在Atlas 200/300/500推理产品环境上，模型转换工具指定`--optimize=ascend_oriented`，则产生的模型仅支持在Atlas 200/300/500推理产品上运行，如果指定`--optimize=general`，则支持在GPU和CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend、GPU和CPU上运行，模型转换工具参数`--optimize=none`，或MindSpore导出的MindIR模型没有经过转换工具处理。
+动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--optimize=general`或`--optimize=ascend_oriented`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如，在Atlas 200/300/500推理产品环境上，模型转换工具指定`--optimize=ascend_oriented`，则产生的模型仅支持在Atlas 200/300/500推理产品上运行，如果指定`--optimize=general`，则支持在CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend和CPU上运行，模型转换工具参数`--optimize=none`，或MindSpore导出的MindIR模型没有经过转换工具处理。
 
-Ascend硬件后端离线场景下，需要在模型转换阶段配置动态输入信息。Ascend硬件后端在线场景下，以及GPU硬件后端离线和在线场景下，需要在模型加载阶段通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口配置动态输入信息。
+Ascend硬件后端离线场景下，需要在模型转换阶段配置动态输入信息。Ascend硬件后端在线场景下，需要在模型加载阶段通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口配置动态输入信息。
 
 通过`LoadConfig`加载的配置文件示例如下所示：
 
@@ -357,24 +321,17 @@ Ascend硬件后端离线场景下，需要在模型转换阶段配置动态输�
 [ascend_context]
 input_shape=input_1:[-1,3,224,224]
 dynamic_dims=[1~4],[8],[16]
-
-[gpu_context]
-input_shape=input_1:[-1,3,224,224]
-dynamic_dims=[1~16]
-opt_dims=[1]
 ```
 
-`[ascend_context]`和`[gpu_context]`分别作用于Ascend和GPU硬件后端。
+`[ascend_context]`表示作用于Ascend后端。
 
-1. Ascend和GPU硬件后端需要通过动态输入信息进行图的编译和优化，CPU硬件后端不需要配置动态维度信息。
+1. Ascend后端需要通过动态输入信息进行图的编译和优化，CPU硬件后端不需要配置动态维度信息。
 
 2. `input_shape`用于指示输入shape信息，格式为`input_name1:[shape1];input_name2:[shape2]`，如果有动态输入，则需要将相应的维度设定为-1，多个输入通过英文分号`;`隔开。
 
-3. `dynamic_dims`用于指示动态维度的值范围，多个非连续的值范围通过英文逗号`,`隔开。上例子中，Ascend的batch维度值范围为`1,2,3,4,8,16`，GPU的batch维度值范围为1到16。Ascend硬件后端，动态输入为多档模式，动态输入范围越大，模型编译时间越长。
+3. `dynamic_dims`用于指示动态维度的值范围，多个非连续的值范围通过英文逗号`,`隔开。上例子中，Ascend的batch维度值范围为`1,2,3,4,8,16`。Ascend硬件后端，动态输入为多档模式，动态输入范围越大，模型编译时间越长。
 
-4. 对于GPU硬件后端，需要额外配置`opt_dims`用于指示`dynamic_dims`范围中最优的值。
-
-5. 如果`input_shape`配置的为静态shape，则不需要配置`dynamic_dims`和`opt_dims`。
+4. 如果`input_shape`配置的为静态shape，则不需要配置`dynamic_dims`。
 
 在模型`Build`前，通过`LoadConfig`加载配置文件信息：
 
@@ -424,7 +381,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 ### 指定输入输出host内存
 
-指定设备内存支持CPU、Ascend和GPU硬件后端。指定的输入host内存，缓存中的数据将直接拷贝到设备（device）内存上，指定的输出host内存，设备（device）内存的数据将直接拷贝到这块缓存中。避免了额外的host之间的数据拷贝，提升推理性能。
+指定设备内存支持CPU和Ascend硬件后端。指定的输入host内存，缓存中的数据将直接拷贝到设备（device）内存上，指定的输出host内存，设备（device）内存的数据将直接拷贝到这块缓存中。避免了额外的host之间的数据拷贝，提升推理性能。
 
 通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)可单独或者同时指定输入和输出host内存。建议参数`own_data`为false，当`own_data`为false，用户需要维护host内存的生命周期，负责host内存的申请和释放。当参数`own_data`为true时，在MSTensor析构时释放指定的内存。
 
@@ -473,7 +430,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 ### 指定输入输出设备（device）内存
 
-指定设备内存支持Ascend和GPU硬件后端。指定输入输出设备内存可以避免device到host内存之间的相互拷贝，比如经过芯片dvpp预处理产生的device内存输入直接作为模型推理的输入，避免预处理结果从device内存拷贝到host内存，host结果作为模型推理输入，推理前重新拷贝到device上。
+指定设备内存支持Ascend硬件后端。指定输入输出设备内存可以避免device到host内存之间的相互拷贝，比如经过芯片dvpp预处理产生的device内存输入直接作为模型推理的输入，避免预处理结果从device内存拷贝到host内存，host结果作为模型推理输入，推理前重新拷贝到device上。
 
 指定输入输出设备内存样例可参考[设备内存样例](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/device_example_cpp)。
 
@@ -638,7 +595,7 @@ ge.dynamicNodeType=1
 
 ### 多线程加载模型
 
-硬件后端为Ascend，provider为默认时，支持多线程并发加载多个Ascend优化后模型，以提升模型加载性能。使用[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)，指定 `--optimize=ascend_oriented` 可将MindSpore导出的 `MindIR` 模型、TensorFlow和ONNX等第三方框架模型转换为Ascend优化后模型。MindSpore导出的 `MindIR` 模型未进行Ascend优化，对于第三方框架模型，转换工具中如果指定 `--optimize=none` 产生的 `MindIR` 模型也未进行Ascend优化。
+硬件后端为Ascend，provider为默认时，支持多线程并发加载多个Ascend优化后模型，以提升模型加载性能。使用[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)，指定 `--optimize=ascend_oriented` 可将MindSpore导出的 `MindIR` 模型、TensorFlow和ONNX等第三方框架模型转换为Ascend优化后模型。MindSpore导出的 `MindIR` 模型未进行Ascend优化，对于第三方框架模型，转换工具中如果指定 `--optimize=none` 产生的 `MindIR` 模型也未进行Ascend优化。
 
 ### 多模型共享权重
 
@@ -755,7 +712,6 @@ std::vector<Model> LoadModel(const std::string &model_path0, const std::string &
     }
     device_info->SetDeviceID(device_id);
     device_info->SetRankID(rank_id);
-    device_info->SetProvider("ge");
     device_list.push_back(device_info);
 
     mindspore::Model model0;
