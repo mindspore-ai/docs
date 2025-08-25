@@ -254,9 +254,18 @@ By comparing the loss and local norm of the first step (step1) and the second st
 
 #### Comparison of Step1 Losses
 
-After fixing the weights, dataset, and randomness, the difference in the loss value of the first step of training is compared. The loss value of the first step is obtained from the forward computation of the network. If the difference with the benchmark loss is large, it can be determined that there is an precision difference in the forward computation, which may be due to the model structure is not aligned, and the precision of the operator is abnormal. The tensor values of each layer of MindSpore and PyTorch can be obtained by printing or Dump tool. Currently, the tool does not have automatic comparison function, users need to manually identify the correspondence for comparison. For the introduction of MindSpore Dump tool, please refer to [Introduction of Precision Debugging Tools](#introduction-to-precision-debugging-tools), and for the use of PyTorch Dump tool, please refer to [Function Explanation of Precision Tools](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md).
+After fixing the weights, dataset, and randomness, the difference in the loss value of the first step of training is compared. The loss value of the first step is obtained from the forward computation of the network. If the difference with the benchmark loss is large, it can be determined that there is an precision difference in the forward computation, which may be due to the model structure is not aligned, and the precision of the operator is abnormal. The tensor values of each layer of MindSpore and PyTorch can be obtained by printing or Dump tool. The degree of difference between input and output data on both sides can be initially judged based on statistical information such as max, min, and L2Norm. If further comparison is required, the corresponding real data can be loaded for detailed verification. 
 
-Find the correspondence of layers through PyTorch api_stack_dump.pkl file, and MindSpore statistic.csv file, and initially determine the degree of difference between input and output through max, min, and L2Norm. If you need further comparison, you can load the corresponding npy data for detailed comparison.
+In graph mode, it is recommended to adopt a "from coarse to fine" hierarchical localization strategy. By conducting hierarchical and progressive troubleshooting from the module level to the operator level, the efficiency of locating precision issues can be improved:
+
+1. L0-level data collection: First, perform data dumping on the overall or module-level outputs, and use the automatic comparison function of tools to identify modules with significant differences.
+2. L2-level fine-grained dumping: Based on the initial localization, conduct fine-grained data collection for suspicious operators within the module to further investigate the precision deviations of specific operators.
+
+Currently, the msprobe accuracy analysis tool provides hierarchical data collection and comparison capabilities, effectively supporting the localization of such issues. Relevant operations can refer to the following documents:
+
+- [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
+- [msprobe Tool PyTorch Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
+- [Accuracy comparison of MindSpore scenarios](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
 
 #### Comparison of local norm Values for step1
 
