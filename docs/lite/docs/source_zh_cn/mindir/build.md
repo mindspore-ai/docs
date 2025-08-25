@@ -12,7 +12,6 @@
 | runtime(cpp、java) | Linux    | 模型推理框架 |
 | benchmark          | Linux    | 基准测试工具 |
 | minddata           | Linux    | 图像处理库   |
-| akg                | Linux                   | 基于Polyhedral的算子编译器（[Auto Kernel Generator](https://gitee.com/mindspore/akg)） |
 
 ## 环境要求
 
@@ -35,21 +34,12 @@
     - [Python](https://www.python.org/) >= 3.7.0
     - [NumPy](https://numpy.org/) >= 1.17.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
     - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
-- AKG（可选，默认编译），未安装LLVM-12或者Python3则不编译akg，未安装git-lfs则无法编译ascend后端的akg。
-  - [llvm](#安装llvm-可选) == 12.0.1
-  - [git-lfs](https://git-lfs.com/)
 
 > Gradle建议采用[gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all)版本，配置其他版本gradle将会采用gradle wrapper机制自动下载`gradle-6.6.1-complete`。
->
-> 也可直接使用已配置好上述依赖的Docker编译镜像。
->
-> - 下载镜像：`docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
-> - 创建容器：`docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
-> - 进入容器：`docker exec -ti -u 0 docker01 bash`
 
 ## 编译选项
 
-MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译。
+MindSpore Lite根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译。
 
 ### `build.sh`的参数使用说明
 
@@ -59,7 +49,6 @@ MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译�
 | -d    | 设置该参数，则编译Debug版本，否则编译Release版本 | 无            | 无     |
 | -i    | 设置该参数，则进行增量编译，否则进行全量编译     | 无            | 无     |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程      | Integer       | 8      |
-| -K    | 设定编译时是否编译akg，否则默认编译akg      | on、off       | on      |
 
 > - 若配置了JAVA_HOME环境变量并安装了Gradle，则同时编译JAR包。
 > - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
@@ -73,7 +62,6 @@ MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译�
 
 | 选项                                 | 参数说明                                   | 取值范围      | 默认值               |
 | ------------------------------------ | ------------------------------------------ | ------------- | -------------------- |
-| MSLITE_GPU_BACKEND                   | 设置GPU后端，在`-I x86_64`时仅tensorrt有效 | tensorrt、off | 在`-I x86_64`时为off |
 | MSLITE_ENABLE_TOOLS                  | 是否编译配套Benchmark基准测试工具          | on、off       | on                   |
 | MSLITE_ENABLE_TESTCASES              | 是否编译测试用例                           | on、off       | off                  |
 | MSLITE_ENABLE_ACL                    | 是否使能昇腾ACL                            | on、off       | off                  |
@@ -86,10 +74,10 @@ MindSpore根目录下的`build.sh`脚本可用于云侧MindSpore Lite的编译�
 
 ## 编译示例
 
-首先，在进行编译之前，需从MindSpore代码仓下载源码。
+首先，在进行编译之前，需从MindSpore Lite代码仓下载源码。
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 ### 环境准备
@@ -100,9 +88,9 @@ git clone https://gitee.com/mindspore/mindspore.git
 
     - 昇腾软件包提供商用版和社区版两种下载途径：
 
-        1. 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Data Center Solution 23.0.RC3安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282)。
+        1. 商用版下载需要申请权限，下载链接即将发布。
 
-        2. 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`7.0.RC1.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+        2. 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.2.RC1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
     - 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
     - 安装昇腾AI处理器配套软件所包含的whl包。如果之前已经安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载对应的whl包。
 
@@ -138,21 +126,13 @@ git clone https://gitee.com/mindspore/mindspore.git
         export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
         ```
 
-#### GPU
-
-GPU环境编译，使用TensorRT需要集成CUDA、TensorRT。当前版本适配[CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) 和 [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download)。
-
-安装相应版本的CUDA，并将安装后的目录设置为环境变量`${CUDA_HOME}`。构建脚本将使用这个环境变量寻找CUDA。
-
-下载对应版本的TensorRT压缩包，并将压缩包解压后的目录设置为环境变量`${TENSORRT_PATH}`。构建脚本将使用这个环境变量寻找TensorRT。
-
 #### CPU
 
 使用x86_64或ARM64环境。
 
 #### 安装LLVM-可选
 
-模型转换工具中图算融合功能的CPU后端需要依赖LLVM-12，可以通过以下命令安装[LLVM](https://llvm.org/)。如果没有安装LLVM-12则图算融合功能仅能支持GPU和Ascend后端。
+模型转换工具中图算融合功能的CPU后端需要依赖LLVM-12，可以通过以下命令安装[LLVM](https://llvm.org/)。如果没有安装LLVM-12则图算融合功能仅能支持Ascend后端。
 
 ```shell
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
@@ -163,16 +143,14 @@ sudo apt-get install llvm-12-dev -y
 
 ### 执行编译
 
-三后端合一包需配置如下环境变量：
+双后端合一包需配置如下环境变量：
 
 ```bash
 export MSLITE_ENABLE_CLOUD_INFERENCE=on
-export MSLITE_GPU_BACKEND=tensorrt
 export MSLITE_ENABLE_ACL=on
 ```
 
 > - 如无需Ascend后端，可配置``export MSLITE_ENABLE_ACL=off``
-> - 如无需GPU后端，可配置``export MSLITE_GPU_BACKEND=off``
 
 在源码根目录下执行如下命令，可编译不同版本的MindSpore Lite。
 
@@ -186,12 +164,6 @@ export MSLITE_ENABLE_ACL=on
 
     ```bash
     bash build.sh -I arm64 -j32
-    ```
-
-- 编译x86_64架构版本，同时设定线程数，但是不编译AKG。
-
-    ```bash
-    bash build.sh -I x86_64 -j32 -K off
     ```
 
 最后，会在`output/`目录中生成如下文件：
@@ -215,12 +187,6 @@ pip install mindspore-lite-{version}-{python}-{os}-{arch}.whl
 
 ```bash
 python -c "import mindspore_lite"
-```
-
-安装后可以使用以下命令检查mindspore_lite内置的AKG是否安装成功：若无报错，则表示安装成功。
-
-```bash
-python -c "import mindspore_lite.akg"
 ```
 
 安装成功后，可使用`pip show mindspore_lite`命令查看MindSpore Lite的Python模块的安装位置。
@@ -247,8 +213,6 @@ mindspore-lite-{version}-linux-{arch}
 │       ├── libjpeg-turbo
 │       └── securec
 └── tools
-    ├── akg
-    |    └── akg-{version}-{python}-linux-{arch}.whl # AKG的whl包
     ├── benchmark              # 基准测试工具
     │   └── benchmark          # 基准测试工具可执行文件
     └── converter              # 模型转换工具
