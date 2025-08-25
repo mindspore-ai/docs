@@ -94,13 +94,6 @@ The relevant environment variables:
         <td align="left"></td>
     </tr>
     <tr>
-        <td align="left" style="white-space:nowrap">MS_RECOVERY_PATH</td>
-        <td align="left">Persistent path folder.</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">Legal user directory.</td>
-        <td align="left">The Worker and Scheduler processes perform the necessary persistence during execution, such as node information for restoring the networking and training the intermediate state of the service, and are saved via files.</td>
-    </tr>
-    <tr>
         <td align="left" style="white-space:nowrap">MS_ENABLE_LCCL</td>
         <td align="left">Whether to use LCCL as communication library.</td>
         <td align="left" style="white-space:nowrap">Integer</td>

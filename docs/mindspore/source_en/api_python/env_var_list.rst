@@ -575,11 +575,6 @@ Distributed Parallel
      - Integer
      - 1 for on, 0 for off. The default is 0.
      -
-   * - MS_RECOVERY_PATH
-     - Persistent path folder.
-     - String
-     - Legal user directory.
-     - The Worker and Scheduler processes perform the necessary persistence during execution, such as node information for restoring the grouping and training the intermediate state of the service, and are saved via files.
    * - GROUP_INFO_FILE
      - Specify communication group information storage path
      - String

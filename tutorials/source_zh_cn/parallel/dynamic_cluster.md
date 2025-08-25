@@ -94,13 +94,6 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left"></td>
     </tr>
     <tr>
-        <td align="left" style="white-space:nowrap">MS_RECOVERY_PATH</td>
-        <td align="left">持久化路径文件夹。</td>
-        <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">合法的用户目录。</td>
-        <td align="left">Worker和Scheduler进程在执行过程中会进行必要的持久化，如用于恢复组网的节点信息以及训练业务中间状态等，并通过文件保存。</td>
-    </tr>
-    <tr>
         <td align="left" style="white-space:nowrap">MS_ENABLE_LCCL</td>
         <td align="left">是否使用LCCL通信库。</td>
         <td align="left" style="white-space:nowrap">Integer</td>

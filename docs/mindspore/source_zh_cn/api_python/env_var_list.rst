@@ -573,11 +573,6 @@ Dump调试
      - Integer
      - 1代表开启，0代表关闭。默认为0。
      -
-   * - MS_RECOVERY_PATH
-     - 持久化路径文件夹。
-     - String
-     - 合法的用户目录。
-     - Worker和Scheduler进程在执行过程中会进行必要的持久化，如用于恢复组网的节点信息以及训练业务中间状态等，并通过文件保存。
    * - GROUP_INFO_FILE
      - 指定通信域信息存储路径
      - String
