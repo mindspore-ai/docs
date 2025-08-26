@@ -592,7 +592,7 @@ The basic usage scenarios of \'List\' are as follows:
 
         ``` text
         output1:[1, 2, 3, 4, 'a']
-        output2:[1, 2, 3, Tensor(shape=[1], dtype=Int64, value= [4]), Tensor(shape=[1], dtype=Int64, value= [5])]
+        output2:[1, 2, 3, Tensor(shape=[], dtype=Int64, value= 4), Tensor(shape=[], dtype=Int64, value= 5)]
         ```
 
     - List.pop
@@ -657,7 +657,7 @@ The basic usage scenarios of \'List\' are as follows:
         The results are as follows:
 
         ``` text
-        output1:[3, 2, 1]
+        output:[3, 2, 1]
         ```
 
     - List.insert
@@ -1711,7 +1711,7 @@ current extension base on AST compilation.
     The results are as follows:
 
     ``` text
-    [2, 3, 4]
+    [2 3 4]
     ```
 
 - The assignment of subscripts for data types in third-party libraries
@@ -1944,7 +1944,7 @@ The specific usage scenarios are as follows:
     The results are as follows:
 
     ``` text
-    out:{'y': 'a'}
+    out: {'y': 'a'}
     ```
 
 - Support Dictionary Index Value Retrieval and Assignment
@@ -2191,7 +2191,7 @@ shape is (2, 2)
        @mindspore.jit
        def construct(self):
           self.m = 3
-          return
+          return 0
 
     net = Net()
     net()
@@ -2219,10 +2219,11 @@ shape is (2, 2)
        @mindspore.jit
        def construct(self):
           self.m2 = 3
-          return
+          return 0
 
     net = Net()
     net()
+    print(f"net.m2 is {net.m2}")
     ```
 
     The results are as follows:
@@ -2253,7 +2254,7 @@ shape is (2, 2)
        @mindspore.jit
        def construct(self):
           self.inner.x = 100
-          return
+          return 0
 
     net = Net()
     net()
@@ -2341,7 +2342,7 @@ The results are as follows:
 y1 value is 2.0, dtype is Float32
 y2 value is 2.0, dtype is Float32
 y3 value is 2.0, dtype is Float64
-y4 value is 2.0, dtype is Float64
+y4 value is 2.0, dtype is Float32
 ```
 
 In the above example, you can see the difference related to creating \'Tensor\'. Due to the lack of Annotation indication in the Tensor
