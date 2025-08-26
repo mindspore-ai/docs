@@ -50,7 +50,7 @@ print(loss)
 ```
 
 ```text
-1.342315
+1.3423151
 ```
 
 ## Differential Functions and Gradient Computing
