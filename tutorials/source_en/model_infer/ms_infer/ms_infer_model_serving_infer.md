@@ -116,7 +116,7 @@ export VLLM_MODEL_MEMORY_USE_GB=26
 export VLLM_MASTER_IP=127.0.0.1
 export VLLM_RPC_PORT=12390
 export VLLM_HTTP_PORT=8080
-unset vLLM_MODEL_BACKEND
+unset VLLM_MS_MODEL_BACKEND
 
 # model envs
 export MODEL_ID="/path/to/model/Qwen2-7B-Instruct"

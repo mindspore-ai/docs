@@ -9,7 +9,7 @@ vLLM-MindSpore插件的性能测试能力，继承自vLLM所提供的性能测�
 若用户使用单卡推理，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，可按照文档[单卡推理（Qwen2.5-7B）](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#在线推理)进行环境准备，设置以下环境变量：
 
 ```bash
-export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
@@ -102,7 +102,7 @@ P99 ITL (ms):                            ....
 用户使用离线性能测试时，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，可按照文档[单卡推理（Qwen2.5-7B）](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#离线推理)进行环境准备，设置以下环境变量：
 
 ```bash
-export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 

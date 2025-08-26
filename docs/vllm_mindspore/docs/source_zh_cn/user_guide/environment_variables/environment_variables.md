@@ -4,7 +4,7 @@
 
 |   环境变量   |   功能   |   类型   |   取值   |   说明   |
 |   ------   |   -------  |   ------   |   ------   |   ------   |
-|   `vLLM_MODEL_BACKEND`   |   用于指定模型后端。使用vLLM-MindSpore插件原生模型后端时无需指定；使用模型为vLLM-MindSpore插件外部后端时则需要指定。   |   String   | `MindFormers`: 模型后端为MindSpore Transformers。   |   原生模型后端当前支持Qwen2.5系列；MindSpore Transformers模型后端支持Qwen系列、DeepSeek、Llama系列模型，使用时需配置环境变量：`export PYTHONPATH=/path/to/mindformers/:$PYTHONPATH`。   |
+|   `VLLM_MS_MODEL_BACKEND`   |   用于指定模型后端。如果不配置变量，会按照 MindFormers > 原生模型 > MindONE 的优先级自动寻找支持的后端； 配置之后则按指定后端执行。  |   String   | `MindFormers`: 模型后端为MindSpore Transformers。 `Native`: 模型后端为原生模型。 `MindONE`: 模型后端为MindONE  |   原生模型后端当前支持Qwen2.5、Qwen2.5VL、Qwen3、Llama系列；MindSpore Transformers模型后端支持Qwen系列、DeepSeek、TeleChat系列模型，使用时需配置环境变量：`export PYTHONPATH=/path/to/mindformers/:$PYTHONPATH`。   |
 |   `MINDFORMERS_MODEL_CONFIG`   |   MindSpore Transformers模型的配置文件。使用Qwen2.5系列、DeepSeek系列模型时，需要配置文件路径。   |   String   |   模型配置文件路径。   |   **该环境变量在后续版本会被移除。** 样例：`export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml`。   |
 |   `GLOO_SOCKET_IFNAME`   |   用于多机之间使用gloo通信时的网口名称。   |   String   |  网口名称，例如enp189s0f0。    |   多机场景使用，可通过`ifconfig`查找ip对应网卡的网卡名。   |
 |   `TP_SOCKET_IFNAME`   |   用于多机之间使用TP通信时的网口名称。   |   String   | 网口名称，例如enp189s0f0。      |   多机场景使用，可通过`ifconfig`查找ip对应网卡的网卡名。   |

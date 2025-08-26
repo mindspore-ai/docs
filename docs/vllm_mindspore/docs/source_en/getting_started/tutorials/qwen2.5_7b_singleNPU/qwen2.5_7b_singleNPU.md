@@ -127,13 +127,13 @@ For [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct), the following
 
 ```bash  
 #set environment variables  
-export vLLM_MODEL_BACKEND=MindFormers # use MindSpore TransFormers as model backend.  
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore TransFormers as model backend.
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.  
 ```  
 
 Here is an explanation of these variables:  
 
-- `vLLM_MODEL_BACKEND`: The model backend. Currently supported models and backends are listed in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
+- `VLLM_MS_MODEL_BACKEND`: The model backend. Currently supported models and backends are listed in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5). For Qwen2.5-7B, the YAML file is [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml).  
 
 User can check memory usage with `npu-smi info` and set the compute card for inference using:  

@@ -9,7 +9,7 @@ The benchmark tool of vLLM-MindSpore Plugin is inherited from vLLM. You can refe
 For single-card inference, we take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. You can prepare the environment by following the guide [Single-Card Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#online-inference), set the environment variables:
 
 ```bash
-export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
@@ -102,7 +102,7 @@ P99 ITL (ms):                            ....
 For offline performance benchmark, take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. Prepare the environment by following the guide [Single-Card Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#offline-inference). User need to set the environment variables:
 
 ```bash
-export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 

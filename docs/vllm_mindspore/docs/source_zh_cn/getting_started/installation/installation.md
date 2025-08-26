@@ -203,7 +203,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
 用户可以创建一个简单的离线推理场景，验证安装是否成功。下面以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例。首先用户需要执行以下命令，设置环境变量：
 
 ```bash
-export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
