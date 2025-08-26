@@ -889,7 +889,7 @@ Silent Data Corruption Detection
        2: Enable feature value detection function, when error was detected, throw exception
 
        3: Enable feature value detection function, when error was detected, throw exception, but at the same time write value detection info of each time to log file (this requires set ascend log level to info or debug)
-     - Currently, this feature only supports Atlas A2 training series products, and only detects abnormal feature value that occur during the training of Transformer class models with bfloat16 data type
+     - Currently, this feature only supports the Atlas A2 training series products, and only detects abnormal feature value that occur during the training of Transformer class models with bfloat16 data type
 
        Considering that the feature value range can not be known ahead, setting NPU_ASD_ENABLE to 1 is recommended to enable silent check, which prevents training interruption caused by false detection
    * - NPU_ASD_UPPER_THRESH
@@ -915,8 +915,31 @@ Silent Data Corruption Detection
      - Integer
      - 0: Disable CheckSum for silent data corruption detection
 
-       1: Enable CheckSum for silent data corruption Detection
-     - Currently, this feature only supports Atlas A2 training series products, and only supports CheckSum for MatMul with bfloat16 data type in O0 or O1 mode
+       1: Enable CheckSum for silent data corruption detection
+     - Currently, this feature only supports the Atlas A2 training series products, and only supports CheckSum for MatMul with bfloat16 data type in O0 or O1 mode
+   * - MS_NPU_ASD_CONFIG
+     - Configure the silent detection
+     - Strings
+     - Configuration items, with the format "key: value", multiple configuration items separated by commas, for example, "export MS_NPU_ASD_CONFIG=enable:true,with_checksum:true,grad_sample_interval:10,upper_thresh1:1000000,upper_thresh2:100,cooldown:5,strikes_num:3,strikes_window:480,checksum_cooldown:180".
+
+       enable: Whether to enable feature value detection, with a default value of false
+
+       with_checksum: Whether to work with CheckSum, with a default value of false
+
+       grad_sample_interval: Gradient feature value sampling interval, with a default value of 10, i.e. a sampling rate of 1/10
+
+       upper_thresh1: First-level threshold for feature value detection, in the format of an integer greater than or equal to 3, with a default value of 1000000
+
+       upper_thresh2: Second-level threshold for feature value detection, in the format of an integer greater than or equal to 3, with a default value of 100
+
+       cooldown: Feature value detection anomaly cooldown time and CheckSum execution time, in the format of a positive integer, in minutes, with a default value of 5
+
+       strikes_num: strikes_num: Number of times that feature value anomalies trigger CheckSum detection, with a default value of 3
+
+       strikes_window: Time window for counting the number of feature values detection anomalies, in the format of a positive integer, in minutes, with a default value of 480
+
+       checksum_cooldown: CheckSum detection cooldown time, in the format of a positive integer, in minutes, with a default value of 180
+     - Currently, this feature only supports the Atlas A2 training series products and is limited to networks that support automatic and semi-automatic parallel training modes.
 
 For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/tutorials/en/master/debug/sdc.html>`_.
 
