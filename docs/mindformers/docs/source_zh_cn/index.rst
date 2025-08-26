@@ -230,6 +230,7 @@ FAQ
    :caption: 优秀实践
    :hidden:
 
+   example/docker-installation
    example/distilled/distilled
    example/convert_ckpt_to_megatron/convert_ckpt_to_megatron
 
