@@ -234,510 +234,411 @@ MindSpore Transformers推荐用户使用Megatron数据集进行模型预训练�
 
    修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型预训练任务，这里以[Llama3_1模型文档](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md)为例。
 
-## HuggingFace数据集
+## Hugging Face数据集
 
-目前数据集加载功能已接入 [魔乐开源社区](https://modelers.cn/datasets)、[HuggingFace社区](https://huggingface.co/datasets)，并支持数据集在线加载与预处理，同时还可对数据集进行[packing](#数据集packing)，提升模型训练效率。
+MindSpore Transformers对接了 [Hugging Face数据集](https://huggingface.co/datasets)（以下简称HF数据集）模块，提供了高效灵活的 **HF数据集加载与处理功能**，主要特性包括：
 
-### 使用说明
+1. **多样化数据加载**：支持 Hugging Face `datasets` 库的多种数据格式与加载方式，轻松适配不同来源与结构的数据。
+2. **丰富的数据处理接口**：兼容 `datasets` 库的多种数据处理方法（如 `sort`、`flatten`、`shuffle` 等），满足常见预处理需求。
+3. **可扩展的数据操作**：支持用户自定义数据集处理逻辑，并提供高效的数据 **packing 功能**，适合大规模训练场景下的优化。
 
-HuggingFace数据集可实现HuggingFace社区以及魔乐开源社区中的数据集在线、离线加载，下面主要针对环境准备、数据集加载流程、以及在如何在配置文件中配置使用HuggingFace数据集功能进行介绍。
+> 在MindSpore Transformers中使用Hugging Face数据集需要了解`datasets`第三方库的数据集加载与处理等基本功能，可参考[链接](https://huggingface.co/docs/datasets/loading)进行查阅。
 
-#### 对接开源社区
+### 配置说明
 
-- 对接HuggingFace社区
-
-   如果需要使用HuggingFace社区中的数据集需要执行如下步骤：
-
-  1. 环境准备
-
-     环境变量 `HF_ENDPOINT` 可以控制开源社区huggingFace实际使用的远程仓库，未配置时默认为 `https://huggingFace.co` ，
-     针对国内环境，需要配置成镜像地址 ```export HF_ENDPOINT=https://hf-mirror.com``` 。
-
-  2. 安装依赖
-
-     ```shell
-     pip install datasets
-     ```
-
-- 对接魔乐开源社区
-
-   如果需要使用魔乐开源社区中的数据集需要执行如下步骤：
-
-  1. 环境准备
-
-     环境变量 `OPENMIND_HUB_ENDPOINT` 可以控制魔乐开源社区实际使用的远程仓库，
-     未配置时默认为 ```export OPENMIND_HUB_ENDPOINT=https://telecom.openmind.cn``` 。
-
-  2. 安装依赖
-
-     ```shell
-     git clone https://gitee.com/openmind-ai/openmind-hub.git
-     cd openmind-hub
-     pip install -e .
-     cd ..
-     git clone https://gitee.com/foundation-models/openmind-datasets.git
-     cd openmind-datasets
-     pip install -e .
-     cd ..
-     ```
-
-> 当环境安装了 openmind-datasets 三方件时，默认对接的是魔乐开源社区，如果这是想对接 HuggingFace，环境变量 `USE_OM` 可以控制具体对接哪个社区，默认值为 `ON` 为魔乐社区，修改为 `OFF` 对接 HuggingFace 社区
-
-#### 数据集加载流程
-
-![commondataloader.png](images/commondataloader.png)
-
-在线数据集加载与处理功能主要通过`CommonDataLoader`实现，其中数据加载部分可通过配置文件进行自定义配置，具体配置内容可参考[dataloader参数说明](#dataloader参数说明)，在线加载模块需要用户针对不同数据集进行自定义实现，如通过`AlpacaInstructDataHandler`类可实现对`alpaca`数据集进行预处理，具体实现过程可参考[自定义数据handler](#自定义数据handler)。
-
-以下过程中示例中涉及的`seq_length`、`tokenizer`等参数均来自`qwen2.5`模型，由于`qwen2.5`模型在`research`目录下，启动任务时需要结合`--register_path`参数使用，用户可根据实际情况自行调整。
-
-#### dataloader参数说明
-
-在线数据集加载功能通过在配置文件中对`data_loader`进行配置来使能，下面是在线数据集加载相关配置的示例：
+在模型训练任务中使用HF数据集功能，需要在YAML文件中修改`data_loader`相关配置：
 
 ```yaml
 train_dataset: &train_dataset
-  input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
-  construct_args_key: *input_columns
+  input_columns: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+  construct_args_key: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+
   data_loader:
-    type: CommonDataLoader
+    type: HFDataLoader
+
+    # datasets load arguments
     load_func: 'load_dataset'
-    shuffle: False
+    path: "json"
+    data_files: "/path/alpaca-gpt4-data.json"
     split: "train"
-    path: "llm-wizard/alpaca-gpt4-data"
-    packing: pack
+
+    # MindFormers dataset arguments
+    create_attention_mask: True
+    create_compressed_eod_mask: False
+    compressed_eod_mask_length: 128
+    use_broadcast_data: True
+    shuffle: False
+
+    # dataset process arguments
     handler:
       - type: AlpacaInstructDataHandler
+        seq_length: 4096
+        padding: False
         tokenizer:
-          model_max_length: 131072
-          bos_token: null
-          eos_token: "<|im_end|>"
-          unk_token: null
-          pad_token: "<|endoftext|>"
-          vocab_file: "/path/vocab.json"   # qwen2.5
-          merges_file: "/path/merges.txt"  # qwen2.5
-          auto_register: qwen2_5_tokenizer.Qwen2Tokenizer
-          type: Qwen2Tokenizer
-        seq_length: 8192
-        prompt_key: "conversations"
-        output_columns: ["input_ids", "labels"]
-        is_dynamic: False
+          pretrained_model_dir: '/path/qwen3'
+          trust_remote_code: True
+          padding_side: 'right'
       - type: PackingHandler
-        seq_length: 8192
-        output_columns: ["input_ids", "labels", "actual_seq_len"]
-    adaptor_config:
-      compress_mask: False
-    column_names: *input_columns
+        seq_length: 4096
+        pack_strategy: 'pack'
+
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  numa_enable: False
+  prefetch_size: 1
+  seed: 1234
 ```
 
-其中`data_loader`中相关参数说明如下：
+> 所有示例中涉及的`seq_length`、`tokenizer`等参数均来自`qwen3`模型。
 
-| 参数名            | 概述                                                                                                                                                   |  类型  |
-|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|
-| type           | 固定为`CommonDataLoader`，该模块支持HuggingFace以及魔乐开源社区的数据集加载功能                                                                                               | str  |
-| packing        | 使用`handler`处理数据集时packing配置项，可选值为`pack`或`truncate`                                                                                                    | str  |
-| load_func      | 加载数据集调用接口名，可选值为`load_dataset`或`load_from_disk`，读取通过`save_to_disk`接口保存的数据使用`load_from_disk`，其他场景使用`load_dataset`，默认值为`load_dataset`                   | str  |
-| path           | 在`load_func=load_dataset`时，该参数含义与[datasets.load_dataset](https://huggingface.co/docs/datasets/loading)中接口相同，在`load_func=load_from_disk`时，该参数为加载数据集路径 | str  |
-| data_files     | 在`load_func=load_dataset`时，该参数含义与[datasets.load_dataset](https://huggingface.co/docs/datasets/loading)中接口相同，在`load_func=load_from_disk`时不生效          | str  |
-| handler        | 可配置多个`handler`，按配置顺序对加载后的数据集进行预处理，`handler`配置说明参考[自定义数据handler](#自定义数据handler)中的handler参数说明                                                          | list |
-| adaptor_config | 在模型训练过程中数据集的相关配置，当前支持设置`compress_mask`，在设置`packing`时生效，开启后返回压缩后的数据掩码，默认为`False`                                                                      | dict |
-| shuffle        | 是否在读取数据集时开启随机采样                                                                                                                                      | bool |
-| column_names   | 设置数据集返回的列名，不指定时返回所有列                                                                                                                                 | list |
-| is_dynamic     | 设置数据集返回动态长度的数据，默认为`False`                                                                                                                            | bool |
+`data_loader`中参数说明：
 
-> 除了以上配置外，[datasets.load_dataset](https://huggingface.co/docs/datasets/loading)接口中的所有配置均已支持，且参数含义与功能相同。
+| 参数名                        | 概述                                                                                       |  类型  |
+|----------------------------|------------------------------------------------------------------------------------------|:----:|
+| type                       | 固定为`HFDataLoader`，该模块支持HuggingFace开源社区的数据集加载与处理功能，也可以设置为`CommonDataLoader`，但该接口在后续版本会废弃  | str  |
+| load_func                  | 指定加载数据集调用接口，可选值为`load_dataset`和`load_from_disk`，具体配置说明见[数据集加载](#数据集加载)，默认值为`load_dataset` | str  |
+| create_attention_mask      | 是否在数据集迭代过程中返回对应的attention mask，默认值为`False`                                               | bool |
+| create_compressed_eod_mask | 是否在数据集迭代过程中返回经过压缩的一维attention mask，默认值为`False`                                           | bool |
+| compressed_eod_mask_length | 生成压缩attention mask的长度，通常为数据集内各样本中eod token个数的最大值，默认值为`128`                               | int  |
+| use_broadcast_data         | 是否开启数据广播功能，默认值为`True`                                                                    | bool |
+| shuffle                    | 是否对数据集进行随机采样，默认值为`False`                                                                 | bool |
+| handler                    | 数据预处理操作，具体介绍可参考[数据集处理](#数据集处理)章节                                                         | list |
 
-数据集在配置packing之后返回`actual_seq_len`数据列，其含义可参考[文档](https://www.hiascend.com/document/detail/zh/Pytorch/600/ptmoddevg/trainingmigrguide/performance_tuning_0027.html)中`actual_seq_qlen`以及`actual_seq_kvlen`参数介绍。
+### 数据集加载
 
-### 功能介绍
+数据集加载功能主要通过`load_func`参数实现，`HFDataLoader`会[配置说明](#配置说明)中之外的所有参数作为数据集加载接口的入参，具体使用说明如下：
 
-#### 动态序列长度微调
+1. 使用`datasets.load_dataset`接口加载数据集：
 
-`CommonDataLoader`支持加载HuggingFace数据集进行动态shape微调，HuggingFace数据集加载分为在线加载和离线加载，下面以`alpaca`数据集为例介绍如何配置动态shape微调。
+   在数据集配置中设置`load_func: 'load_dataset'`，同时配置如下参数：
 
-- 在线加载
+    1. **path (str)** — 数据集文件夹的路径或名称
 
-  在线数据名称为`llm-wizard/alpaca-gpt4-data`，可在[HuggingFace官网](https://huggingface.co/datasets)搜索名称进行下载或使用在线名称进行加载；
+        - 如果 path 是本地目录，则从该目录中的支持文件（csv、json、parquet 等）加载数据集，例如：'/path/json/'；
+        - 如果 path 是某个数据集构建器的名称，并且指定了 data_files 或 data_dir（可用的构建器包括 "json", "csv", "parquet", "arrow"等） 则从 data_files 或 data_dir 中的文件加载数据集。
 
-  在线加载配置文件示例：
+    2. **data_dir (str, 可选)** — 当path配置为数据集构建器的名称时，指定数据集文件夹路径。
 
-  ```yaml
-  train_dataset: &train_dataset
-    input_columns: &input_columns ["input_ids", "labels"]
-    dynamic_batch: True                    # 开启动态shape
-    divisor: 32                            # 配置divisor和remainder后，动态shape中seq_length会成为divisor的倍数以及remainder的和
-    remainder: 1
-    data_loader:
-      type: CommonDataLoader
-      shuffle: True
-      split: "train"                       # 在线数据集子集名称
-      path: "llm-wizard/alpaca-gpt4-data"  # 在线数据集名称
-      handler:
-        - type: AlpacaInstructDataHandler
-          tokenizer:
-            model_max_length: 131072
-            bos_token: null
-            eos_token: "<|im_end|>"
-            unk_token: null
-            pad_token: "<|endoftext|>"
-            vocab_file: "/path/vocab.json"   # qwen2.5
-            merges_file: "/path/merges.txt"  # qwen2.5
-            auto_register: qwen2_5_tokenizer.Qwen2Tokenizer
-            type: Qwen2Tokenizer
-          seq_length: 8192
-          prompt_key: "conversations"
-          output_columns: *input_columns
-          is_dynamic: True
-    seed: 0
-    num_parallel_workers: 8
-    python_multiprocessing: False
-    drop_remainder: True
-    numa_enable: False
-    prefetch_size: 1
-  ```
+    3. **data_files (str, 可选)** — 当path配置为数据集构建器的名称时，指定数据集文件路径，可以是单个文件或包含多个文件路径的列表。
 
-   1. `train_dataset`中参数说明可参考[文档](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)；
+    4. **split (str)** — 要加载的数据切分。如果为 None，将返回包含所有切分的字典（通常是 datasets.Split.TRAIN 和 datasets.Split.TEST）；如果指定，则返回对应切分的Dataset实例。
 
-   2. `AlpacaInstructDataHandler`是针对`alpaca`数据集开发的在线处理脚本，如果使用其他数据集，用户需要参考[自定义数据handler](#自定义数据handler)完成自定义数据处理的功能实现。
+2. 使用`datasets.load_from_disk`接口加载数据集：
 
-- 离线加载
+   在数据集配置中设置`load_func: 'load_from_disk'`，同时配置如下参数：
 
-  离线加载需要准备好`alpaca`数据集中的json文件，离线配置与在线配置仅如下配置项不同。
+    - **dataset_path (str)** — 数据集文件夹路径，通常使用该接口加载离线处理后的数据，或使用`datasets.save_to_disk`保存的数据集。
 
-  ```yaml
-   train_dataset:
-     data_loader:
-       path: "json"                               # load_dataset接口加载文件格式
-       data_files: '/path/alpaca_gpt4_data.json'  # alpaca数据集文件路径
-   ```
+### 数据集处理
 
-配置完数据集加载方式之后，还需要在模型配置中修改`is_dynamic=True`来开启模型动态shape训练。
+`HFDataLoader`支持datasets原生数据处理以及用户自定义处理操作，数据预处理操作主要通过`handler`机制实现，该模块会按照配置顺序执行数据预处理操作。
+
+#### 原生数据处理功能
+
+如果要实现重命名数据列、移除数据列、随机采样数据集功能，可进行如下配置：
 
 ```yaml
-model_config:
-  is_dynamic: True
+handler:
+  - type: 'rename_column'
+    original_column_name: 'col1'
+    new_column_name: 'col2'
+  - type: 'remove_columns'
+    column_names: 'col2'
+  - type: 'shuffle'
+    seed: 42
 ```
 
-由于动态shape会存在算子编译缓存，当运行环境内存有限时，推荐配置如下环境变量来限制编译缓存的数量，避免出现内存不足的问题：
+1. rename_column - 重命名数据列
 
-```shell
-export ACLNN_CACHE_LIMIT=10
-export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:64"
+   示例中配置可以将`col1`重命名为`col2`。
+
+2. remove_columns - 移除数据列
+
+   示例中配置可以将重命名后的`col2`移除。
+
+3. shuffle - 随机打乱数据集
+
+   示例中配置以42为随机种子，对数据集进行随机采样。
+
+其他datasets原生数据处理可参考[datasets process](https://huggingface.co/docs/datasets/process)文档。
+
+#### 自定义数据处理功能
+
+自定义数据预处理功能需要用户自己实现数据处理模块，下面介绍自定义数据处理模块实现过程，可参考[AlpacaInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/alpaca_handler.py)。
+
+用户自定义数据处理支持`Class`和`Method`两种形式：
+
+如果使用`Class`构造数据处理模块：
+
+1. 实现包含__call__函数的`Class`
+
+   ```python
+   class CustomHandler:
+       def __init__(self, seed):
+           self.seed = seed
+
+       def __call__(self, dataset):
+           dataset = dataset.shuffle(seed=self.seed)
+           return dataset
+   ```
+
+   上面的`CustomHandler`实现了数据集随机采样的处理操作，如果要实现其他功能，可以修改数据预处理操作并返回处理后的数据集。
+
+   同时，MindSpore Transformers提供了[BaseInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/base_handler.py)并内置了tokenizer配置功能，如果需要使用tokenizer可以继承`BaseInstructDataHandler`类。
+
+2. 在[\_\_init__.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py)中添加调用
+
+   ```python
+   from .custom_handler import CustomHandler
+   ```
+
+3. 在配置中使用`CustomHandler`
+
+   ```yaml
+   handler:
+     CustomHandler:
+       seed: 42
+   ```
+
+如果使用`Method`构造数据处理模块：
+
+1. 实现包含dataset实例入参的函数
+
+   ```python
+   def custom_process(dataset, seed):
+       dataset = dataset.shuffle(seed)
+       return dataset
+   ```
+
+2. 在[\_\_init__.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py)中添加调用
+
+   ```python
+   from .custom_handler import custom_process
+   ```
+
+3. 在配置中使用`custom_process`
+
+   ```yaml
+   handler:
+     - type: 'custom_process'
+       seed: 42
+   ```
+
+### 应用实践
+
+下面以`qwen3`模型以及`alpaca`数据集为例介绍如何使用HF数据集进行微调，需要使用`AlpacaInstructDataHandler`对数据进行在线处理，具体参数说明如下。
+
+- seq_length：通过tokenizer将文本编码为token id的最大长度，通常与模型训练的序列长度一致。
+- padding：是否在tokenizer编码将token id填充到最大长度。
+- tokenizer：pretrained_model_dir表示从HF社区上下载的模型词表及权重文件夹，trust_remote_code通常设置为True，padding_side表示从token id右侧进行填充。
+
+#### alpaca数据集微调
+
+以`qwen3`模型微调为例，修改`qwen3`模型训练配置文件：
+
+```yaml
+train_dataset: &train_dataset
+  input_columns: ["input_ids", "labels"]
+  construct_args_key: ["input_ids", "labels"]
+
+  data_loader:
+    type: HFDataLoader
+
+    # datasets load arguments
+    load_func: 'load_dataset'
+    path: 'json'
+    data_files: '/path/alpaca-gpt4-data.json'
+
+    # MindFormers dataset arguments
+    use_broadcast_data: True
+    shuffle: False
+
+    # dataset process arguments
+    handler:
+      - type: AlpacaInstructDataHandler
+        seq_length: 4096
+        padding: True
+        tokenizer:
+          pretrained_model_dir: '/path/qwen3'  # qwen3 repo dir
+          trust_remote_code: True
+          padding_side: 'right'
+
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  numa_enable: False
+  prefetch_size: 1
+  seed: 1234
+
+context:
+  ascend_config:
+    parallel_speed_up_json_path: "configs/qwen3/parallel_speed_up.json"
+
+parallel_config:
+  data_parallel: &dp 2
+
+parallel:
+  full_batch: False
+  dataset_strategy: [
+    [*dp, 1],
+    [*dp, 1]
+  ]  # *dp = data_parallel
 ```
 
-- `ACLNN_CACHE_LIMIT`参数说明参考[文档](https://www.hiascend.com/document/detail/zh/canncommercial/800/apiref/envvar/envref_07_0031.html)。
-- `MS_DEV_RUNTIME_CONF`是MindSpore中设置算子缓存序列长度的参数，其中64代表该序列的长度，默认为1024，可根据实际环境进行调整，数值设置过小可能会影响模型训练性能。
+`parallel_speed_up_json_path`、`dataset_strategy`等配置详情可参考[Megatron数据集](#Megatron数据集)章节。
 
-完成以上所有配置后，即可参考具体使用的模型文档进行动态shape微调。
+修改配置文件后，即可参考`qwen3`模型文档拉起微调任务。
 
-#### 自定义数据handler
+#### alpaca数据集packing微调
 
-用户可以使用自定义数据 handler 逻辑，对加载到的数据集进行各种数据预处理定制逻辑。
+MindSpore Transformers实现了数据集的packing功能，主要用于大模型训练任务中将多个短序列拼接成定长的长序列，以提升训练效率。它目前支持两种策略，可以通过`pack_strategy`进行配置：
 
-- handler参数说明
+1. **pack**：将多个样本拼接成一个定长序列，当待拼接样本超过最大长度`seq_length`后，将该样本放入下一个拼接样本中。
+2. **truncate**：将多个样本拼接成一个定长序列，当待拼接样本超过最大长度`seq_length`后对样本进行截断，并将剩余部分放入下一个拼接样本中。
 
-  | 参数名            | 概述                                                                      |    类型    |
-  |----------------|-------------------------------------------------------------------------|:--------:|
-  | type           | 自定义数据 handler 名称，自定义handler必须继承`BaseInstructDataHandler`                |   str    |
-  | tokenizer_name | 使用的 tokenizer 分词器名称                                                     |   str    |
-  | tokenizer      | tokenizer 相关配置参数, 可以是字典或者字符串，也可以直接配置`tokenizer`对象，优先级低于`tokenizer_name` | dict/str |
-  | seq_length     | 处理序列的最大长度，通常与模型的序列长度相同                                                  |   int    |
-  | output_columns | 数据预处理后返回的数据列名                                                           |   list   |
-  | prompt_key     | 增加 prompt 处理后数据的列名                                                      |   str    |
+该功能通过`PackingHandler`类实现，最终输出只包含`input_ids`、`labels`和`actual_seq_len`三个字段。
 
-- 开发样例一
+以`qwen3`模型微调为例，修改`qwen3`模型训练配置文件：
 
-  自定义数据 handler 一般放在 `mindformers/dataset/handler` 目录下，自定义的需要继承抽象基类 ``BaseInstructDataHandler`` ，
-  需要实现 ``format_func`` 、 ``tokenize_func`` 两个方法，该方法是对加载到的每条数据进行预处理，可以参考 `alpaca_handler.py` 。
+```yaml
+train_dataset: &train_dataset
+  input_columns: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+  construct_args_key: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
 
-  ```python
-  @MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
-  class XXXInstructDataHandler(BaseInstructDataHandler):
+  data_loader:
+    type: HFDataLoader
 
-      def format_func(self, example):
-          # 自定义数据格式转换
+    # datasets load arguments
+    load_func: 'load_dataset'
+    path: 'json'
+    data_files: '/path/alpaca-gpt4-data.json'
 
-      def tokenize_func(self, example):
-          # 自定义tokenizer分词处理
-  ```
+    # MindFormers dataset arguments
+    use_broadcast_data: True
+    shuffle: False
 
-  ``BaseInstructDataHandler`` 默认提供的实现了入口 ``handler`` 方法，用于遍历每条数据进行数据的预处理，
-  ``format_func`` 用于实现如何从原始数据中转换成所需要的数据格式，而 ``tokenize_func`` 方法用于把处理后的数据进行按自定义分词，
-  实例里的入参 ``example`` 为获取到的每一条样本数据。
+    # dataset process arguments
+    handler:
+      - type: AlpacaInstructDataHandler
+        seq_length: 4096
+        padding: False
+        tokenizer:
+          pretrained_model_dir: '/path/qwen3'  # qwen3 repo dir
+          trust_remote_code: True
+          padding_side: 'right'
+      - type: PackingHandler
+        seq_length: 4096
+        pack_strategy: 'pack'
 
-- 开发样例二
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  numa_enable: False
+  prefetch_size: 1
+  seed: 1234
 
-  若用户想直接对于整个 dataset 进行数据处理，而不是每条数据分批处理的话，可以在自定义 handler 实现入口 ``handle`` 方法，得到的就是完整的 dataset，参考如下：
+context:
+  ascend_config:
+    parallel_speed_up_json_path: "configs/qwen3/parallel_speed_up.json"
 
-  ```python
-      def handle(self, dataset):
-          """data handler"""
-          return dataset.rename_columns({"content":"prompt","summary":"answer"})
-  ```
+parallel_config:
+  data_parallel: &dp 2
 
-- alpaca 数据集示例
+parallel:
+  full_batch: False
+  dataset_strategy: [
+    [*dp, 1],
+    [*dp, 1],
+    [*dp, 1],
+    [*dp, 1],
+    [*dp, 1, 1, 1]
+  ]  # *dp = data_parallel
+```
 
-  修改任务配置文件 [finetune_qwen2_5_0_5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml)。
+修改配置文件后，即可参考`qwen3`模型文档拉起微调任务。
 
-  修改如下参数：
+#### 离线处理alpaca数据微调
 
-  ```yaml
-  train_dataset: &train_dataset
-    input_columns: &input_columns ["input_ids", "labels"]
-    data_loader:
-      type: CommonDataLoader
-      shuffle: True
-      split: "train"
-      path: "llm-wizard/alpaca-gpt4-data"
-      handler:
-        - type: AlpacaInstructDataHandler
-          tokenizer:
-            model_max_length: 131072
-            bos_token: null
-            eos_token: "<|im_end|>"
-            unk_token: null
-            pad_token: "<|endoftext|>"
-            vocab_file: "/path/vocab.json"   # qwen2.5
-            merges_file: "/path/merges.txt"  # qwen2.5
-            auto_register: qwen2_5_tokenizer.Qwen2Tokenizer
-            type: Qwen2Tokenizer
-          seq_length: 8192
-          prompt_key: "conversations"
-          output_columns: *input_columns
-    seed: 0
-    num_parallel_workers: 8
-    python_multiprocessing: False
-    drop_remainder: True
-    numa_enable: False
-    prefetch_size: 1
-  ```
+`HFDataLoader`支持离线处理HF数据集并保存，加载离线处理的数据可直接拉起模型训练。
 
-  其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 的 “模型训练配置” 和 “模型评估配置”。
+1. 修改`qwen3`模型训练配置文件：
 
-  自定义数据 handler：
+   ```yaml
+   train_dataset: &train_dataset
+     data_loader:
+       type: HFDataLoader
 
-  ```python
-  @MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
-  class AlpacaInstructDataHandler(BaseInstructDataHandler):
+       # datasets load arguments
+       load_func: 'load_dataset'
+       path: 'json'
+       data_files: '/path/alpaca-gpt4-data.json'
 
-      def format_func(self, example):
-          """format func"""
-          source = PROMPT_INPUT.format_map(example) \
-              if example.get(self.input_key, "") != "" \
-              else PROMPT_NO_INPUT.format_map(example)
-          target = example.get(self.output_key)
-          formatted_example = [
-              {
-                  "from": self.user_role,
-                  "value": source,
-              },
-              {
-                  "from": self.assistant_role,
-                  "value": target,
-              },
-          ]
+       # dataset process arguments
+       handler:
+         - type: AlpacaInstructDataHandler
+           seq_length: 4096
+           padding: False
+           tokenizer:
+             pretrained_model_dir: '/path/qwen3'  # qwen3 repo dir
+             trust_remote_code: True
+             padding_side: 'right'
+         - type: PackingHandler
+           seq_length: 4096
+           pack_strategy: 'pack'
+   ```
 
-          return formatted_example
+2. 执行数据预处理脚本
 
-      def tokenize_func(self, messages):
-          """tokenize func"""
-          conversation = self.gen_prompt(messages)
-          sep = self.template.sep + self.assistant_role + ": "
-          # Tokenize conversations
-          rounds = conversation.split(self.template.sep2)
-          ids = [self.tokenizer.bos_token_id]
-          mask = [1]
-          for _, rou in enumerate(rounds):
-              if rou == "":
-                  break
-              conv_out = self.tokenizer(rou)
-              ids.extend(conv_out['input_ids'][1:])
-              mask.extend(conv_out['attention_mask'][1:])
-          d = {'input_ids': ids, 'attention_mask': mask}
-          # pylint: disable=W0212
-          if not self.dynamic:
-              d = self.tokenizer._pad(d, max_length=self.seq_length + 1, padding_strategy='max_length')
-          input_id = d['input_ids'][:self.seq_length + 1]
-          target = np.array(d['input_ids'])
-          total_len = int(np.not_equal(target, self.tokenizer.pad_token_id).sum())
-          cur_len = 1
-          target[:cur_len] = self.ignore_token_id
-          for _, rou in enumerate(rounds):
-              if rou == "":
-                  break
-              parts = rou.split(sep)
-              if len(parts) != 2:
-                  break
-              parts[0] += sep
-              round_len = len(self.tokenizer(rou)['input_ids']) - 1
-              instruction_len = len(self.tokenizer(parts[0])['input_ids']) - 3
+   ```shell
+   python toolkit/data_preprocess/huggingface/datasets_preprocess.py --config configs/qwen3/pretrain_qwen3_32b_4k.yaml --save_path processed_dataset/
+   ```
 
-              target[cur_len: cur_len + instruction_len] = self.ignore_token_id
+3. 修改配置文件
 
-              cur_len += round_len
-          if self.dynamic:
-              return {
-                  "input_ids": input_id,
-                  "labels": target[:len(input_id)].tolist()
-              }
-          target[cur_len:] = self.ignore_token_id
-          if cur_len < self.seq_length + 1:
-              if cur_len != total_len:
-                  target[:] = self.ignore_token_id
-          else:
-              target = target[:self.seq_length + 1]
-          label = target.tolist()
-          return {
-              "input_ids": input_id,
-              "labels": label,
-          }
-  ```
+   ```yaml
+   train_dataset: &train_dataset
+     input_columns: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+     construct_args_key: ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
 
-- ADGEN 数据集示例
+     data_loader:
+       type: HFDataLoader
 
-  修改如下参数：
+       # datasets load arguments
+       load_func: 'load_from_disk'
+       dataset_path: '/path/processed_dataset'
 
-  ```yaml
-  train_dataset: &train_dataset
-    data_loader:
-      type: CommonDataLoader
-      path: "HasturOfficial/adgen"
-      split: "train"
-      shuffle: True
-      handler:
-        - type: AdgenInstructDataHandler
-      phase: "train"
-      version: 3
-      column_names: ["prompt", "answer"]
-    tokenizer:
-      type: ChatGLM3Tokenizer
-      vocab_file: "/path/to/tokenizer.model"
-    input_columns: ["input_ids", "labels"]
-    max_source_length: 1024
-    max_target_length: 1023
-    ignore_pad_token_for_loss: True
-    num_parallel_workers: 8
-    python_multiprocessing: False
-    drop_remainder: True
-    batch_size: 8
-    numa_enable: False
-    prefetch_size: 1
-    seed: 0
-  ```
+       # MindFormers dataset arguments
+       create_attention_mask: True
+       use_broadcast_data: True
+       shuffle: False
 
-  其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 的 “模型训练配置” 和 “模型评估配置”。
+     num_parallel_workers: 8
+     python_multiprocessing: False
+     drop_remainder: True
+     numa_enable: False
+     prefetch_size: 1
+     seed: 1234
 
-  自定义 adgen_handler：
+   context:
+     ascend_config:
+       parallel_speed_up_json_path: "configs/qwen3/parallel_speed_up.json"
 
-  ```python
-  @MindFormerRegister.register(MindFormerModuleType.DATA_HANDLER)
-  class AdgenInstructDataHandler(BaseInstructDataHandler):
-      """agden data handler"""
-      def handle(self, dataset):
-          """data handler"""
-          return dataset.rename_columns({"content": "prompt", "summary": "answer"})
-  ```
+   parallel_config:
+     data_parallel: &dp 2
 
-#### 数据集packing
+   parallel:
+     full_batch: False
+     dataset_strategy: [
+       [*dp, 1],
+       [*dp, 1],
+       [*dp, 1],
+       [*dp, 1],
+       [*dp, 1, 1, 1]
+     ]  # *dp = data_parallel
+   ```
 
-在`CommonDataLoader`中配置`PackingHandler`可以实现对数据进行packing处理，目前需要在前置处理中将原始数据处理为可输入模型的`input_ids`以及`labels`。
-
-- 参数说明
-
-  | 参数名            | 概述                                                                                                                         |  类型  |
-  |----------------|----------------------------------------------------------------------------------------------------------------------------|:----:|
-  | type           | 固定为`PackingHandler`，该模块支持对数据进行packing，在[dataloader](#dataloader参数说明)中配置`packing=pack`和`packing=truncate`时，分别对数据进行非截断和截断的拼接 | str  |
-  | seq_length     | packing处理后数据的最大序列长度                                                                                                        | int  |
-  | pad_token      | 当packing后样本未达到最大长度时，对`input_ids`填充使用的token id，默认值为0                                                                        | int  |
-  | ignore_token   | 当packing后样本未达到最大长度时，对`labels`填充使用的token id，默认值为-100                                                                        | int  |
-
-- packing示例
-
-  按照如下配置，对`alpaca`数据集进行预处理，即可实现在线packing。
-
-  ```yaml
-  train_dataset: &train_dataset
-    input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
-    construct_args_key: *input_columns
-    data_loader:
-      type: CommonDataLoader
-      shuffle: False
-      split: "train"
-      path: "llm-wizard/alpaca-gpt4-data"
-      packing: pack
-      handler:
-        - type: AlpacaInstructDataHandler
-          tokenizer:
-            model_max_length: 131072
-            bos_token: null
-            eos_token: "<|im_end|>"
-            unk_token: null
-            pad_token: "<|endoftext|>"
-            vocab_file: "/path/vocab.json"   # qwen2.5
-            merges_file: "/path/merges.txt"  # qwen2.5
-            auto_register: qwen2_5_tokenizer.Qwen2Tokenizer
-            type: Qwen2Tokenizer
-          seq_length: 8192
-          prompt_key: "conversations"
-          output_columns: ["input_ids", "labels"]
-        - type: PackingHandler
-          seq_length: 8192
-          output_columns: ["input_ids", "labels", "actual_seq_len"]
-      adaptor_config:
-        compress_mask: False
-    seed: 0
-    num_parallel_workers: 8
-    python_multiprocessing: False
-    drop_remainder: True
-    numa_enable: False
-    prefetch_size: 1
-  ```
-
-使用上述配置文件处理`alpaca`数据集，会执行如下流程：
-
-1. 使用`AlpacaInstructDataHandler`以及`qwen2.5`的`tokenizer`将原始文本数据处理为`input_ids`和`labels`；
-2. 使用`PackingHandler`对处理后的`input_ids`和`labels`进行packing处理，得到拼接到`seq_length`长度的`input_ids`和`labels`, `actual_seq_len`拼接后样本中每个子样本的序列长度，在训练中会根据这个参数生成对应的数据掩码；
-3. 如果在`adaptor_config`中设置`compress_mask=False`表示训练时返回完整的数据掩码，否则返回`actual_seq_len`；
-
-#### 数据集离线处理
-
-`CommonDataLoader`除了支持数据集在线加载与处理，还支持离线处理数据集并进行保存。
-
-使用[datasets_preprocess.py](https://gitee.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/huggingface/datasets_preprocess.py)脚本可以离线处理 HuggingFace 数据集并进行保存。
-
-- 参数说明
-
-  | 参数名           | 概述                                                        | 类型  |
-  |---------------|-----------------------------------------------------------|:---:|
-  | config        | 离线处理数据的配置文件，与在线处理使用方法相同，具体参考[dataloader](#dataloader参数说明) | str |
-  | save_path     | 数据集经过预处理后的保存路径                                            | str |
-  | register_path | 模型API的注册路径，其中包含模型相关Python文件，通常是research目录下模型文件夹的路径        | int |
-
-- 使用示例
-
-  使用[数据集packing](#数据集packing)中提供的packing示例的配置文件即可，执行如下命令。
-
-  ```shell
-  python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
-    --config data_process.yaml \
-    --save_path /path/processed_data \
-    --register_path research/qwen2_5
-  ```
-
-  如果需要加载保存后的数据集，需要对yaml进行如下修改：
-
-  ```yaml
-  train_dataset: &train_dataset
-    input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
-    construct_args_key: *input_columns
-    data_loader:
-      type: CommonDataLoader
-      shuffle: False
-      load_func: "load_from_disk"
-      path: "/path/processed_data"
-      adaptor_config:
-        compress_mask: False
-  ```
+   修改配置文件后，即可参考`qwen3`模型文档拉起加载离线数据的微调任务。
 
 ## MindRecord数据集
 
