@@ -100,7 +100,30 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">1代表开启，0代表关闭。默认为0。</td>
         <td align="left">LCCL通信库暂只支持单机多卡，并且必须在图编译等级为O0时执行。</td>
     </tr>
-        <tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_DISABLE_LCCL_KERNELS_LIST</td>
+        <td align="left">指定不使能LCCL算子的列表。</td>
+        <td align="left" style="white-space:nowrap">String</td>
+        <td align="left">合法的算子名称，多个算子用','分割。</td>
+        <td align="left">
+            只有在使用LCCL通信库的场景下才生效。<br>
+            目前LCCL支持的算子：<br>
+            <ul>
+                <li>AllReduce</li>
+                <li>AllGather</li>
+                <li>AllGatherMatmul</li>
+                <li>Broadcast</li>
+                <li>Barrier</li>
+                <li>MatMulAllReduce</li>
+                <li>MatmulReduceScatter</li>
+                <li>ReduceScatter</li>
+            </ul>
+            注意：<br>
+                - 算子名称区分大小写<br>
+                - 多个算子用','分割时不能有空格
+        </td>
+    </tr>
+    <tr>
         <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
         <td align="left">集群组网阶段超时时间，单位：秒。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
