@@ -2,7 +2,7 @@ MindSpore LLM Inference with Framework
 ==========================================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/optimize_technique.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/ms_infer_model_infer.rst
     :alt: View Source On Gitee
 
 .. toctree::
