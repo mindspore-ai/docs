@@ -4,7 +4,7 @@
 
 ## Overview
 
-This tutorial provides a sample program for MindSpore Lite to perform cloud-side inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform the basic process of cloud-side inference through file input, inference execution, and inference result printing, and enables users to quickly understand the use of MindSpore Lite APIs related to cloud-side inference execution. The related files are put in the directory [mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python).
+This tutorial provides a sample program for MindSpore Lite to perform cloud-side inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform the basic process of cloud-side inference through file input, inference execution, inference result printing, dynamic weight update and subgraph splitting inference, and enables users to quickly understand the use of MindSpore Lite APIs related to cloud-side inference execution. The related files are put in the directory [mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python).
 
 MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU hardware backends are supported.
 
@@ -15,6 +15,10 @@ The following is an example of how to use the Python Cloud-side Inference Demo o
 - Execute the Python Cloud-side Inference Demo. See the [Execute Demo](#executing-demo) section for details.
 
 - For a description of the Python Cloud-side Inference Demo content, see the [Demo Content Description](#demo-content-description) section for details.
+
+- For a description of Weight Update content, see the [Dynamic Weight Update](#dynamic-weight-update) section for details.
+
+- For a description of Subgraph Splitting Inference content, see the [Subgraph Splitting Inference](#subgraph-splitting-inference) section for details.
 
 ## One-click Installation
 
@@ -201,4 +205,55 @@ Call the `update_weights` interface provided by MindSpore Lite to update weights
 new_weight = mslite.Tensor(data)
 new_weights = [new_weight]
 model.update_weights([new_weights])
+```
+
+## Subgraph Splitting Inference
+
+When performing offline model conversion, if the [SplitGraph] parameter under the split_node_name is configured in the configuration file, the subgraph splitting inference feature must be used to create and infer the model. The purpose of this feature is to split the original model into multiple parts according to the specified configuration during the conversion process. Users can obtain the output of the intermediate layers of the model or provide input to certain layers in the middle of the model in this way, enabling inference on only a part of the model.
+
+### Creating MultiModelRunner
+
+Create a MultiModelRunnerobject as shown below:
+
+```python
+import mindspore_lite as mslite
+model_path = "path_to_model"
+context = mslite.Context()
+context.target = ["ascend"]
+context.ascend.device_id = 0
+runner = mslite.MultiModelRunner()
+runner.build_from_file(model_path, mslite.ModelType.MINDIR, context)
+```
+
+### Obtaining ModelExecutor
+
+ModelExecutor can be understood as a ​​subgraph exported during model conversion​​ based on user-specified inputs and outputs. When creating a MultiModelRunner, multiple ModelExecutorinstances are simultaneously generated for inference. Obtain the ModelExecutoras follows:
+
+```python
+execs = runner.get_model_executor()
+```
+
+### Executing ModelExecutor Inference​
+
+When performing inference using ModelExecutor, you must first identify its input and output names. The inputs of a ModelExecutormay originate from either ​​the inputs of the entire graph​​ or ​​outputs from other ModelExecutorinstances​​. You can use the following methods to retrieve the inputs and outputs:
+ModelExecutor.get_inputs() Returns the input names of the current ModelExecutor.
+ModelExecutor.get_outputs() Returns the output names of the current ModelExecutor.It is important to note that the sliced subgraph inputs may be more specified in the conversion profile than the output, and the number of subgraphs may also be more than specified in the configuration file, because there are some additional inputs from other subgraphs to prevent duplicate nodes in the subgraph when performing subgraph splitting.
+Refer to the following code for inference with ModelExecutor:
+
+```python
+import numpy as np
+dtype_map = {
+  mslite.DataType.FLOAT32:np.float32,
+  mslite.DataType.INT32:np.int32,
+  mslite.DataType.FLOAT16:np.float16,
+  mslite.DataType.INT8:np.int8
+}
+for exec in execs:
+  exec_inputs = exec.get_inputs()
+  exec_outputs = exec.get_outputs()
+  for i,input in enumerate(exec_inputs):
+    print("input name:", input.name, " input.shape:", input.shape, " input.dtype:", input.dtype)
+    data = np.random.randn(*input.shape).astype(dtype_map[input.dtype])
+    input.set_data_from_numpy(data)
+  exec.predict(exec_inputs)
 ```

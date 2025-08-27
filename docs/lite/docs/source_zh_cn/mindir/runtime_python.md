@@ -4,7 +4,7 @@
 
 ## 概述
 
-本教程提供了MindSpore Lite执行云侧推理的示例程序，通过文件输入、执行推理、打印推理结果的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)进行云侧推理的基本流程，用户能够快速了解MindSpore Lite执行云侧推理相关API的使用。相关代码放置在[mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python)目录。
+本教程提供了MindSpore Lite执行云侧推理的示例程序，通过文件输入、执行推理、打印推理结果、动态权重更新以及子图切分推理的方式，演示了[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)进行云侧推理的基本流程，用户能够快速了解MindSpore Lite执行云侧推理相关API的使用。相关代码放置在[mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python)目录。
 
 MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品和CPU硬件后端。
 
@@ -15,6 +15,10 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 - 执行Python云侧推理Demo，详情参见[执行Demo](#执行demo)小节。
 
 - Python云侧推理Demo内容说明，详情参见[Demo内容说明](#demo内容说明)小节。
+
+- 动态权重更新内容说明，详情参见[动态权重更新](#动态权重更新)小节。
+
+- 子图切分推理内容说明，详情参见[子图切分推理](#子图切分推理)小节。
 
 ## 一键安装
 
@@ -202,3 +206,52 @@ new_weight = mslite.Tensor(data)
 new_weights = [new_weight]
 model.update_weights([new_weights])
 ```
+
+## 子图切分推理
+
+在进行离线模型转换时如果配置文件中配置了[SplitGraph]下split_node_name参数，则需要使用子图切分推理功能来进行模型的创建与推理。该特性的作用是在转换时根据指定的配置将原本的模型切分为多个，用户可以通过该方式获取到模型中间层的输出，或者为模型中间的某些层提供输入，以实现只推理模型中的一部分。
+
+### 创建模型
+
+按照如下所示方式创建MultiModelRunner对象：
+
+```python
+import mindspore_lite as mslite
+model_path = "path_to_model"
+context = mslite.Context()
+context.target = ["ascend"]
+context.ascend.device_id = 0
+runner = mslite.MultiModelRunner()
+runner.build_from_file(model_path, mslite.ModelType.MINDIR, context)
+```
+
+### 获取ModelExecutor
+
+ModelExecutor可以理解为在模型转换时按照用户所指定的输入和输出导出的一个子图，在创建MultiModelRunner时会同时创建多个ModelExecutor用于推理。需要注意的是切分后的子图输入与输出相比转换配置文件中指定的可能会更多，并且子图数量也可能会比配置文件中指定的更多，这是因为在进行子图切分时为了防止子图中存在重复节点，存在一些来自与其他子图的额外输入。按照如下方式获取ModelExecutor：
+
+```python
+execs = runner.get_model_executor()
+```
+
+### 执行ModelExecutor推理
+
+使用ModelExecutor推理时需要先查看ModelExecutor的输入名和输出名，每个ModelExecutor的输入可能来自于整图的输入或者其他ModelExecutor的输出，可以使用ModelExecutor.get_inputs()方法获取到当前ModelExecutor的输入，以及ModelExecutor.get_outputs()方法来获取ModelExecutor的输出，参考如下代码进行ModelExecutor的推理：
+
+```python
+import numpy as np
+dtype_map = {
+  mslite.DataType.FLOAT32:np.float32,
+  mslite.DataType.INT32:np.int32,
+  mslite.DataType.FLOAT16:np.float16,
+  mslite.DataType.INT8:np.int8
+}
+for exec in execs:
+  exec_inputs = exec.get_inputs()
+  exec_outputs = exec.get_outputs()
+  for i,input in enumerate(exec_inputs):
+    print("input name:", input.name, " input.shape:", input.shape, " input.dtype:", input.dtype)
+    data = np.random.randn(*input.shape).astype(dtype_map[input.dtype])
+    input.set_data_from_numpy(data)
+  exec.predict(exec_inputs)
+```
+
