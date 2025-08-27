@@ -209,20 +209,6 @@ The offline conversion function is designed to meet your requirements for manual
 
 When using offline conversion, you can manually configure conversion parameters as required to ensure that the conversion process is flexible and controllable. This function is especially suitable for model deployment and optimization in a strictly controlled computing environment.
 
-#### Parameters
-
-Parameters in the `yaml` file related to **offline weight conversion** are described as follows:
-
-| Parameter                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| src_checkpoint           | Absolute path or folder path of the source weight.<br> - For **a complete set of weights**, set this parameter to an **absolute path**.<br> - For **distributed weights**, set this parameter to the **folder path**. The distributed weights must be stored in the `model_dir/rank_x/xxx.ckpt` format. The folder path is `model_dir`.<br>**If there are multiple CKPT files in the rank_x folder, the last CKPT file in the file name sequence is used for conversion by default.**                                       |
-| src_strategy_path_or_dir | Path of the distributed strategy file corresponding to the source weight.<br> - For a complete set of weights, leave it **blank**.<br> - For distributed weights, if pipeline parallelism is used, set this parameter to the **merged strategy file path** or **distributed strategy folder path**.<br> - For distributed weights, if pipeline parallelism is not used, set this parameter to any **ckpt_strategy_rank_x.ckpt** path.                                                                                       |
-| dst_checkpoint           | Path of the folder that stores the target weight.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| dst_strategy             | Path of the distributed strategy file corresponding to the target weight.<br> - For a complete set of weights, leave it **blank**.<br> - For distributed weights, if pipeline parallelism is used, set this parameter to the **merged strategy file path** or **distributed strategy folder path**.<br> - For distributed weights, if pipeline parallelism is not used, set this parameter to any **ckpt_strategy_rank_x.ckpt** path.                                                                                       |
-| prefix                   | Prefix name of the saved target weight. The weight is saved as {prefix}rank_x.ckpt. The default value is checkpoint_.                                                                                                                                                                                                                                                                                                                                                                                                       |
-| world_size               | Total number of slices of the target weight. Generally, the value is dp \* mp \* pp.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| process_num              | Number of processes used for offline weight conversion. The default value is 1.<br> - If process_num is set to 1, **a single process is used for conversion**.<br>- If process_num is larger than 1, **multi-process conversion** is used. For example, if the target weight for conversion is the distributed weight of eight GPUs and process_num is set to 2, two processes are started to convert the weights of slices rank_0, rank_1, rank_2, and rank_3 and slices rank_4, rank_5, rank_6, and rank_7, respectively. |
-
 #### Offline Conversion Configuration
 
 **Generating Distributed Strategy**
@@ -241,7 +227,8 @@ Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com
 python transform_checkpoint.py \
   --src_checkpoint /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
   --dst_checkpoint /worker/transform_ckpt/llama3_8b_1to8/ \
-  --dst_strategy /worker/mindformers/output/strategy/
+  --dst_strategy /worker/mindformers/output/strategy/ \
+  --prefix "checkpoint_"
 ```
 
 **Multi-Process Conversion**
@@ -256,12 +243,29 @@ bash transform_checkpoint.sh \
   None \
   /worker/transform_ckpt/llama3_8b_1to8/ \
   /worker/mindformers/output/strategy/ \
-  8 2
+  8 2 "checkpoint_"
 ```
 
-**Precautions**:
+> The order of parameters is src_checkpoint, src_strategy, dst_checkpoint_dir, dst_strategy, world_size, transform_process_num, prefix.
 
-- When the [transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.sh) script is used, `8` indicates the number of target devices, and `2` indicates that two processes are used for conversion.
+#### Parameters
+
+- Parameters for single-process conversion
+
+  | Parameter          | Description                                                  |
+  | ------------------ | ------------------------------------------------------------ |
+  | src_checkpoint     | Absolute path or folder path of the source weight.<br> - For **a complete set of weights**, set this parameter to an **absolute path**.<br> - For **distributed weights**, set this parameter to the **folder path**. The distributed weights must be stored in the `model_dir/rank_x/xxx.ckpt` format. The folder path is `model_dir`.<br>**If there are multiple CKPT files in the rank_x folder, the last CKPT file in the file name sequence is used for conversion by default.** |
+  | src_strategy       | Path of the distributed strategy file corresponding to the source weight.<br> - For a complete set of weights, leave it **blank**.<br> - For distributed weights, if pipeline parallelism is used, set this parameter to the **merged strategy file path** or **distributed strategy folder path**.<br> - For distributed weights, if pipeline parallelism is not used, set this parameter to any **ckpt_strategy_rank_x.ckpt** path. |
+  | dst_checkpoint_dir | Path of the folder that stores the target weight.            |
+  | dst_strategy       | Path of the distributed strategy file corresponding to the target weight.<br> - For a complete set of weights, leave it **blank**.<br> - For distributed weights, if pipeline parallelism is used, set this parameter to the **merged strategy file path** or **distributed strategy folder path**.<br> - For distributed weights, if pipeline parallelism is not used, set this parameter to any **ckpt_strategy_rank_x.ckpt** path. |
+  | prefix             | Prefix name of the saved target weight. The weight is saved as {prefix}rank_x.ckpt. The default value is checkpoint_. |
+
+- Additional parameters used for multi-process conversion
+
+  | Parameter             | Description                                                  |
+  | --------------------- | ------------------------------------------------------------ |
+  | world_size            | Total number of slices of the target weight. Generally, the value is dp \* mp \* pp. |
+  | transform_process_num | Number of processes used for offline weight conversion. The default value is 1.<br> - If process_num is set to 1, **a single process is used for conversion**.<br>- If process_num is larger than 1, **multi-process conversion** is used. For example, if the target weight for conversion is the distributed weight of eight GPUs and process_num is set to 2, two processes are started to convert the weights of slices rank_0, rank_1, rank_2, and rank_3 and slices rank_4, rank_5, rank_6, and rank_7, respectively. |
 
 ### Special Scenarios
 
