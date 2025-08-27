@@ -117,6 +117,7 @@ Advanced developing with MindSpore Transformers
 - Model Development
 
   - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/dev_migration.html>`_
+  - `Guide to Using the Inference Configuration Template <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/yaml_config_inference.html>`_
 
 - Accuracy Comparison
 
@@ -192,6 +193,7 @@ FAQ
    advanced_development/precision_optimization
    advanced_development/performance_optimization
    advanced_development/dev_migration
+   advanced_development/yaml_config_inference
    advanced_development/accuracy_comparison
    advanced_development/api
 

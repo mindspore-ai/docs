@@ -12,13 +12,17 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ### 1. 选择推理的模型
 
-根据需要的推理任务，选择不同的模型，如文本生成可以选择Qwen3-8B等。
+根据需要的推理任务，选择不同的模型，如文本生成可以选择Qwen3等。
 
 ### 2. 准备模型文件
 
 获取Hugging Face模型文件：权重、配置与分词器，将下载的文件存放在同一个文件夹目录，方便后续使用。
 
-### 3. 执行推理任务
+### 3. 准备YAML配置文件
+
+用户需要配置一份YAML文件，来定义任务的所有配置。MindSpore Transformers提供了一份YAML配置模板，用户可以基于模板，根据实际场景自定义配置，详细可见[推理配置模板使用指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/yaml_config_inference.html)。
+
+### 4. 执行推理任务
 
 使用 `run_mindformer` 统一脚本执行推理任务。
 

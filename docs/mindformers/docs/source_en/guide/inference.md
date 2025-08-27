@@ -12,13 +12,17 @@ The inference process can be categorized into the following steps:
 
 ### 1. Models of Selective Inference
 
-Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3-8B, etc.
+Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3, etc.
 
 ### 2. Preparing Model Files
 
 Obtain the Hugging Face model file: weights, configurations, and tokenizers. Store the downloaded files in the same folder directory for convenient subsequent use.
 
-### 3. Executing Inference Tasks
+### 3. YAML Configuration File Modification
+
+The user needs to configure a YAML file to define all the configurations of the task. MindSpore Transformers provides a YAML configuration template. Users can customize the configuration based on the template according to the actual scenario. For detailed information, please refer to the [Guide to Using Inference Configuration Templates](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/yaml_config_inference.html).
+
+### 4. Executing Inference Tasks
 
 Use the unified script `run_mindformer` to execute inference tasks.
 
