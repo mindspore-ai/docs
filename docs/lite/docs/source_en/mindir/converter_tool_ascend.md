@@ -86,6 +86,12 @@ Table 3: Configure [acl_build_options] parameter
 | `ge.externalWeight`                 | Optional | Do you want to save the weights of constant nodes separately in a file. | String | Options: `"1"`, `"0"` |
 | `ge.exec.exclude_engines`           | Optional | Set the network model not to use one or some acceleration engines. | String | Options: `"AiCore"`, `"AiVec"`, `"AiCpu"` |
 
+Table 4: Configure [SplitGraph] parameter
+
+| Parameters  | Attributes  | Functions Description           | Types | Values Description |
+| ----------------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
+| `split_node_name`                      | Optional | Specify Subgraph Partitioning Nodes​ | String | The format is [[input nodes], [output nodes]]. ​​When the input nodes are empty, it indicates that the subgraph uses the entire graph's inputs. The output nodes cannot be empty.​ |
+
 ## Dynamic Shape Configuration
 
 In some inference scenarios, such as detecting a target and then executing the target recognition network, the number of targets is not fixed resulting in a variable input BatchSize for the target recognition network. If each inference is computed at the maximum BatchSize or maximum resolution, it will result in wasted computational resources. Therefore, it needs to support dynamic BatchSize and dynamic resolution scenarios during inference. Lite inference on Ascend supports dynamic BatchSize and dynamic resolution scenarios. The dynamic_dims dynamic parameter in [ascend_context] is configured via configFile in the convert phase, and the model [Resize](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html#dynamic-shape-input) is used during inference, to change the input shape.

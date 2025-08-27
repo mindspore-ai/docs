@@ -9,6 +9,8 @@
 | 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------|---------------------------------------------------|--------|--------|
 | [Model](#model)                                  | MindSpore中的模型，便于计算图管理。                            | √      | √      |
+| [ModelExecutor](#modelexecutor)                                  | 包装多个Model类，用于调度多个Model对象                            | √      | ✕     |
+| [MultiModelRunner](#multimodelrunner)                                  | 包装多个ModelExecutor类，用于调度多个Model对象                            | √      | ✕     |
 
 ### 运行环境配置
 
@@ -1193,7 +1195,7 @@ using Key = struct MS_API Key {
   size_t len = 0;
   unsigned char key[32] = {0};
   Key() : len(0) {}
-  explicit Key(const char *dec_key, size_t key_len);
+  explicit Key(const char *dec_key, size_t key_len)
 };
 ```
 
@@ -2240,6 +2242,177 @@ Status Finalize()
 
   状态码。
 
+## ModelExecutor
+
+\#include &lt;[multi_model_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/api/multi_model_runner.h)&gt;
+
+ModelExecutor定义了对Model的封装，用于调度多个Model的推理。
+
+### 构造函数
+
+```c++
+ModelExecutor()
+```
+
+```c++
+ModelExecutor(const std::vector<std::shared_ptr<ModelImpl>> &models, const std::vector<std::string> &executor_input_names,
+                const std::vector<std::string> &executor_output_names,
+                const std::vector<std::vector<std::string>> &subgraph_input_names)
+```
+
+- 参数
+
+    - `models`: 一个由ModelImplPtr组成的向量，用于在ModelExecutor中推理。
+    - `executor_input_names`: 由string组成的向量，当前ModelExecutor的输入名。
+    - `executor_output_names`: 由string组成的向量，当前ModelExecutor的输出名。
+    - `subgraph_input_names`: 由string组成的向量，当前ModelExecutor中所有模型的输入以及输出名。
+
+### 析构函数
+
+```c++
+~ModelExecutor()
+```
+
+### 公有成员函数
+
+| 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|
+| [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs)](#predict-2)     |    √    |    ✕   |
+| [std::vector\<MSTensor\> GetInputs() const](#getinputs-1)     |    √    |    ✕   |
+| [std::vector\<MSTensor\> GetOutputs() const](#getoutputs-1)     |    √    |    ✕   |
+
+#### Predict
+
+```cpp
+Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs)
+```
+
+ModelExecutor的推理接口。
+
+- 参数
+
+    - `inputs`: 模型输入按顺序排列的`vector`。
+    - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### GetInputs
+
+```cpp
+std::vector<MSTensor> GetInputs() const
+```
+
+获取模型所有输入张量。
+
+- 返回值
+
+  包含模型所有输入张量的容器类型变量。
+
+#### GetOutputs
+
+```cpp
+std::vector<MSTensor> GetOutputs() const
+```
+
+获取模型所有输出张量。
+
+- 返回值
+
+  包含模型所有输出张量的容器类型变量。
+
+## MultiModelRunner
+
+\#include &lt;[multi_model_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/api/multi_model_runner.h)&gt;
+
+MultiModelRunner用于创建包含多个Model的mindir，并提供调度多个模型的方式。
+
+### 构造函数
+
+```c++
+MultiModelRunner()
+```
+
+### 析构函数
+
+```c++
+~MultiModelRunner()
+```
+
+### 公有成员函数
+
+| 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|
+| [inline Status Build(const std::string &model_path, const ModelType &model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-5)     |    √    |    ✕   |
+| [std::vector\<ModelExecutor\> GetModelExecutor() const](#getmodelexecutor)     |    √    |    ✕   |
+| [inline Status LoadConfig(const std::string &config_path)](#loadconfig-1)     |    √    |    ✕   |
+| [inline Status UpdateConfig(const std::string &section, const std::pair\<std::string, std::string\> &config)](#updateconfig-1)     |    √    |    ✕   |
+
+#### Build
+
+```cpp
+inline Status Build(const std::string &model_path, const ModelType &model_type,
+             const std::shared_ptr<Context> &model_context = nullptr)
+```
+
+根据路径读取加载模型，并将模型编译至可在Device上运行的状态。与Model接口中同名接口的差别在于传入的model_path指定的mindir文件中包含多个Model。
+
+- 参数
+
+    - `model_path`: 模型文件路径。
+    - `model_type`: `ModelType::kMindIR`，对应``mindir`模型（MindSpore导出或`converter_lite`工具导出）。
+    - `model_context`: 模型[Context](#context)。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### GetModelExecutor
+
+```cpp
+std::vector<ModelExecutor> GetModelExecutor() const
+```
+
+获取MultiModelRunner中创建的多个ModelExecutor对象。
+
+- 返回值
+
+  包含MultiModelRunner中创建的所有ModelExecutor对象的列表。
+
+#### LoadConfig
+
+```cpp
+inline Status LoadConfig(const std::string &config_path)
+```
+
+根据路径读取配置文件。
+
+- 参数
+
+    - `config_path`: 配置文件路径。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### UpdateConfig
+
+```cpp
+inline Status UpdateConfig(const std::string &section, const std::pair<std::string, std::string> &config)
+```
+
+刷新配置，读文件相对比较费时，如果少部分配置发生变化可以通过该接口更新部分配置。
+
+- 参数
+
+    - `section`: 配置的章节名。
+    - `config`: 要更新的配置对。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
 ## MSTensor
 
 \#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
@@ -3186,7 +3359,7 @@ const SchemaVersion GetVersion()
 ### 构造函数
 
 ```cpp
-AbstractDelegate();
+AbstractDelegate()
 AbstractDelegate(const std::vector<mindspore::MSTensor> &inputs, const std::vector<mindspore::MSTensor> &outputs)
       : inputs_(inputs), outputs_(outputs)
 ```
@@ -3242,7 +3415,7 @@ std::vector<mindspore::MSTensor> outputs_
 ### 构造函数
 
 ```cpp
-IDelegate();
+IDelegate()
 IDelegate(const std::vector<mindspore::MSTensor> &inputs, const std::vector<mindspore::MSTensor> &outputs)
       : AbstractDelegate(inputs, outputs)
 ```
@@ -4380,8 +4553,8 @@ enum CompCode : uint32_t {
 ### 构造函数
 
 ```cpp
-  InputAndOutput();
-  InputAndOutput(const std::shared_ptr<CellBase> &cell, const std::vector<InputAndOutput> &prev, int32_t index);
+  InputAndOutput()
+  InputAndOutput(const std::shared_ptr<CellBase> &cell, const std::vector<InputAndOutput> &prev, int32_t index)
 ```
 
 - 参数
@@ -4803,9 +4976,9 @@ ModelParallelRunner()
 |-------------------------------------------------------------|---------|---------|
 | [inline Status Init(const std::string &model_path, const std::shared_ptr\<RunnerConfig\> &runner_config = nullptr)](#init)     |    √    |    ✕    |
 | [Status Init(const void *model_data, const size_t data_size, const std::shared_ptr\<RunnerConfig\> &runner_config = nullptr)](#init-1)     |    √    |    ✕    |
-| [std::vector\<MSTensor\> GetInputs()](#getinputs)     |    √    |    ✕    |
-| [std::vector\<MSTensor\> GetOutputs()](#getoutputs)     |    √    |    ✕    |
-| [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict)     |    √    |    ✕    |
+| [std::vector\<MSTensor\> GetInputs()](#getinputs-2)     |    √    |    ✕    |
+| [std::vector\<MSTensor\> GetOutputs()](#getoutputs-2)     |    √    |    ✕    |
+| [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)](#predict-3)     |    √    |    ✕    |
 
 #### Init
 
