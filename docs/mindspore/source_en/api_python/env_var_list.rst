@@ -967,6 +967,12 @@ Third-party Library
      - String
      - Absolute path for CUDA package installation
      - Required for GPU environment only, generally no need to set. If multiple versions of CUDA are installed in the GPU environment, it is recommended to configure this environment variable in order to avoid confusion.
+   * - MS_ENABLE_THM
+     - Enable Training Heath Monitor.
+     - String
+     - "{HCCL_WATCHDOG:1,HCCL_STATUS_SAVE:1}". HCCL_WATCHDOG: Use a thread to monitor for faults within the collective communicator, which is enabled by default. HCCL_STATUS_SAVE: Use a thread to record the execution status of communication operators, which is disabled by default.
+     - Graph mode can only be enabled on the Ascend backend and jit_level is set to "O0" or "O1".
+     - When using the HCCL_STATUS_SAVE feature, the HCCL_STATUS_SAVE_CONFIG field can be configured simultaneously, in the form of a JSON file (e.g., {HCCL_STATUS_SAVE:1,HCCL_STATUS_SAVE_CONFIG:'./abc.json'}). The JSON file content is: {"HCCL_STATUS_SAVE_PATH": str, "HCCL_STATUS_SAVE_INTERVAL": int}, where HCCL_STATUS_SAVE_PATH is the save path for the communication operator execution status file (an absolute path, or it will be saved to the default path /tmp), and HCCL_STATUS_SAVE_INTERVAL is the interval for saving the file. If HCCL_STATUS_SAVE_CONFIG is not configured, the file will be saved in the `/tmp` directory by default with a save interval of 30 seconds.
    * - MS_ENABLE_TFT
      - Enable Training Fault Tolerance. Most functions rely on `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ .
      - String
