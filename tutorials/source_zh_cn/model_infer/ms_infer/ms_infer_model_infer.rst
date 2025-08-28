@@ -149,7 +149,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 .. code:: shell
 
    git lfs install
-   git clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
+   git clone https://huggingface.co/Qwen/Qwen2-7B
 
 下载完成后，相关目录下应该显示如下文件树结构：
 
