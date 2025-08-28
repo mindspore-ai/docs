@@ -28,7 +28,7 @@ The inference capability required by a model varies with scenarios. Based on com
 
     - **Inference with a framework**: The model network structure and model weight file are saved separately. You can build a network and separately load the model weight to build AI model inference. The advantage of this type of inference is that the inference weight does not need to be updated, regardless of whether the model is fine-tuned, optimized, or developed and debugged, this inference solution has obvious advantages when the weight of the current LLM reaches hundreds of GB.
 
-    - **Inference with a model file**: The model network and weight are packed into a file (ProtoBuf or FlatBed file). You only need to manage one file to execute the model. This inference solution is convenient for deployment management when there are a large number of models and the model size is not large.
+    - **Inference with a model file**: The model network and weight are packed into a file (ProtoBuf or FlatBuffer file). You only need to manage one file to execute the model. This inference solution is convenient for deployment management when there are a large number of models and the model size is not large.
 
 - **By inference backend**
 
