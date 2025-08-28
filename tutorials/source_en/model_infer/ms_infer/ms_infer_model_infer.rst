@@ -149,7 +149,7 @@ For the Qwen2 LLM, you are advised to use the pre-trained weight files and token
 .. code:: shell
 
    git lfs install
-   git clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
+   git clone https://huggingface.co/Qwen/Qwen2-7B
 
 After the download is complete, the following file tree structure should be displayed in the related directory:
 

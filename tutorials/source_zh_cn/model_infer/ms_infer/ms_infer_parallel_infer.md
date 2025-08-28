@@ -655,22 +655,22 @@ class Qwen2Attention(nn.Cell):
             param_dtype=self.param_dtype
             bias=True
         )
--        self.q_proj = Qwen2Linear(
-+        self.q_proj = Qwen2ColParallelLinear(
+-        self.k_proj = Qwen2Linear(
++        self.k_proj = Qwen2ColParallelLinear(
             input_size=self.hidden_size,
             output_size=self.kv_size,
             param_dtype=self.param_dtype,
             bias=True
         )
--        self.q_proj = Qwen2Linear(
-+        self.q_proj = Qwen2ColParallelLinear(
+-        self.v_proj = Qwen2Linear(
++        self.v_proj = Qwen2ColParallelLinear(
             input_size=self.hidden_size,
             output_size=self.kv_size,
             param_dtype=self.param_dtype,
             bias=True
         )
--        self.q_proj = Qwen2Linear(
-+        self.q_proj = Qwen2RowParallelLinear(
+-        self.o_proj = Qwen2Linear(
++        self.o_proj = Qwen2RowParallelLinear(
             input_size=self.q_size,
             output_size=self.hidden_size,
             param_dtype=self.param_dtype,
@@ -744,21 +744,21 @@ class Qwen2MLP(nn.Cell):
     def __init__(self, config: Qwen2Config) -> None:
         super().__init__()
 
--        self.q_proj = Qwen2Linear(
+-        self.up_proj = Qwen2Linear(
 +        self.up_proj = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
             param_dtype=config.param_dtype,
             bias=False
         )
--        self.q_proj = Qwen2Linear(
+-        self.qgate_proj = Qwen2Linear(
 +        self.gate_proj = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
             param_dtype=config.param_dtype,
             bias=False
         )
--        self.q_proj = Qwen2Linear(
+-        self.down_proj = Qwen2Linear(
 +        self.down_proj = Qwen2RowParallelLinear(
             input_size=config.intermediate_size,
             output_size=config.hidden_size,
@@ -790,7 +790,7 @@ class Qwen2ForCausalLM(nn.Cell):
         super().__init__()
 
         self.model = Qwen2Model(config=config)
--        self.q_proj = Qwen2Linear(
+-        self.lm_head = Qwen2Linear(
 +        self.lm_head = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
             output_size=config.vocab_size,
