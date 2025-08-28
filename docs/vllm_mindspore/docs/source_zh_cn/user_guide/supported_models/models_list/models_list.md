@@ -16,4 +16,7 @@
 | Llama3.1 | 测试中 | [Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)、[Llama-3.1-70B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)、[Llama-3.1-405B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct)  |
 | Llama3.2 | 测试中 | [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct)、[Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)   |
 
-注：用户可参考[环境变量章节](../../environment_variables/environment_variables.md)，通过环境变量`VLLM_MS_MODEL_BACKEND`，指定模型后端。
+## 模型说明
+
+- 用户可参考[环境变量章节](../../environment_variables/environment_variables.md)，通过环境变量`VLLM_MS_MODEL_BACKEND`，指定模型后端；
+- 300I Duo已支持Qwen3模型，其余模型适配中。

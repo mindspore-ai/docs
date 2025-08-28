@@ -16,4 +16,8 @@
 | Llama3.1 | Testing | [Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct), [Llama-3.1-70B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct), [Llama-3.1-405B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct)  |
 | Llama3.2 | Testing | [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct), [Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)   |
 
-Note: refer to [Environment Variable List](../../environment_variables/environment_variables.md), and set the model backend by environment variable `VLLM_MS_MODEL_BACKEND`.
+## Model Description
+
+- refer to [Environment Variable List](../../environment_variables/environment_variables.md), and set the model backend by environment variable `VLLM_MS_MODEL_BACKEND`.
+- 300I Duo has supported Qwen3 model, and other models are in the process of adaptation.
+
