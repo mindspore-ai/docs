@@ -751,7 +751,7 @@ class Qwen2MLP(nn.Cell):
             param_dtype=config.param_dtype,
             bias=False
         )
--        self.qgate_proj = Qwen2Linear(
+-        self.gate_proj = Qwen2Linear(
 +        self.gate_proj = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
