@@ -12,7 +12,7 @@ When the input model type is MindSpore, since it is already a `mindir` model, tw
 
 1. Inference is performed directly without offline conversion.
 
-2. When using offline conversion, setting `optimize` to `general` in CPU/GPU hardware backend (for general optimization), setting `optimize` to `gpu_oriented` in GPU hardware (for GPU extra optimization based on general optimization), setting `optimize` to `ascend_oriented` in Ascend hardware. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
+2. When using offline conversion, setting `optimize` to `general` in CPU hardware backend (for general optimization), setting `optimize` to `ascend_oriented` in Ascend hardware. The relevant optimization is done in the offline phase to reduce the initialization time of inference execution.
 
 ## Linux Environment Usage Instructions
 
@@ -30,12 +30,6 @@ The following environment preparation is required for model conversion by using 
     python -c "import mindspore_lite"
     ```
 
-- After installation, you can use the following command to check if MindSpore Lite built-in AKG is successfully installed. If no error is reported, the installation is successful.
-
-  ```bash
-  python -c "import mindspore_lite.akg"
-  ```
-
 ### Directory Structure
 
 After successful installation, you can use the `pip show mindspore_lite` command to see where the Python module for MindSpore Lite cloud-side inference is installed.
@@ -43,30 +37,35 @@ After successful installation, you can use the `pip show mindspore_lite` command
 ```text
 mindspore_lite
 ├── __pycache__
-├── akg                                                         # AKG-related interfaces
 ├── include
 ├── lib
-|   ├── libakg.so                                               # Dynamic link libraries used by AKG
 │   ├── _c_lite_wrapper.cpython-37m-x86_64-linux-gnu.so         # MindSpore Lite cloud-side inference python module encapsulates the dynamic library of the C++ interface framework
 │   ├── libmindspore_converter.so                               # Dynamic library for model conversion
-│   ├── libmindspore_core.so                                    # MindSpore Core Dynamic Library
+│   ├── libmindspore_core_lite.so                               # MindSpore Core Dynamic Library
 │   ├── libmindspore_glog.so.0                                  # Glog dynamic library
 │   ├── libmindspore-lite.so                                    # MindSpore Lite Dynamic Library for Cloud-Side inference
 │   ├── libmslite_converter_plugin.so                           # Model Conversion Plugin
 │   ├── libascend_pass_plugin.so                                # Register for Ascend Backend Graph Optimization Plugin Dynamic Library
-│   ├── libmslite_shared_lib.so                                 # Adaptation of the dynamic library in the backend of Ascend
-│   ├── libascend_kernel_plugin.so                              # Ascend backend kernel plugin
-│   ├── libtensorrt_plugin.so                                   # tensorrt backend kernel plugin
+│   ├── libascend_acl_plugin.so                                 # Ascend backend acl plugin
+│   ├── libascend_ge_plugin.so                                  # Ascend backend GE plugin
+│   ├── liblite-unified-executor.so                             # MindSpore Lite unified executor dynamic library
+│   ├── libmindspore_graph_ir_lite.so                           # GE IR integration dynamic library
+│   ├── libmindspore_ops_lite.so                                # Operator dynamic library
+│   ├── libmsplugin-ge-litert.so                                # GE LiteRT plugin
+│   ├── libruntime_convert_plugin.so                            # Online conversion Plugin
 │   ├── libopencv_core.so.4.5                                   # Dynamic library for OpenCV
 │   ├── libopencv_imgcodecs.so.4.5                              # Dynamic library for OpenCV
 │   └── libopencv_imgproc.so.4.5                                # Dynamic library for OpenCV
-├── __init__.py        # Initialization package
-├── _checkparam.py     # Check parameter tool
-├── context.py         # Code related to context interface
-├── converter.py       # Code related to converter interface, conversion portal
-├── model.py           # Code related to model, inference portal
-├── tensor.py          # Code related to tensor interface
-└── version.py         # MindSpore Lite cloud-side inference version number
+├── __init__.py                        # Initialization package
+├── _check_ascend.py                   # Ascend backend environment verification related Code
+├── lite_infer.py                      # Code related to lite inference
+├── _parse_update_weights_name.py      # Weight update node name adaptation related code
+├── _checkparam.py                     # Parameter verification tool
+├── context.py                         # Code related to context interface
+├── converter.py                       # Code related to converter interface, conversion portal
+├── model.py                           # Code related to model, inference portal
+├── tensor.py                          # Code related to tensor interface
+└── version.py                         # MindSpore Lite cloud-side inference version number
 ```
 
 ### Description of Attributes
@@ -86,7 +85,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | Set the data type of the quantized model input Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model input Tensor are available. The default is to keep the same data type as the original model input Tensor. | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | - |
 | input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | Set the input format of the exported model, valid only for 4-dimensional inputs. | Format.NCHW, Format.NHWC | - |
 | input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | Set the dimensions of the model input, and the order of the input dimensions is kept the same as the original model. For example: {"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - |
-| optimize | str | `--optimize=<OPTIMIZE>` | Set the mode of optimization during the offline conversion. | "none", "general", "gpu_oriented", "ascend_oriented" | - |
+| optimize | str | `--optimize=<OPTIMIZE>` | Set the mode of optimization during the offline conversion. | "none", "general", "ascend_oriented" | - |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | Set the data type of the quantized model output Tensor. Only valid if the quantization parameters (`scale` and `zero point`) of the model output Tensor are available. The default is to keep the same data type as the original model output Tensor. | DataType.FLOAT32, DataType.INT8, DataType.UINT8, DataType.UNKNOWN | - |
 | save_type | ModelType | `--saveType=<SAVETYPE>` | Required | Set the model type needs to be export. | ModelType.MINDIR | The MINDIR model uses the MindSpore Lite cloud-side inference installation package |
 | weight_fp16 | bool | `--fp16=<FP16>` | Set whether the weights in float32 data format need to be stored in float16 data format during model serialization. | True, False | - |
@@ -100,15 +99,14 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 >
 > - `optimize` is an attribute, it used to set the mode of optimization during the offline conversion.
 >
->   - If this attribute is set to "none", no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be performed during the execution of the inference phase. The advantage of this attribute is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution.
->   - If this attribute is set to "general", general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend).
->   - If this parameter is set to "gpu_oriented", the general optimization and extra optimization for GPU hardware will be performed (the converted model only supports GPU hardware backend).
+>   - If this attribute is set to "none", no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be performed during the execution of the inference phase. The advantage of this attribute is that the converted model can be deployed directly to any CPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution.
+>   - If this attribute is set to "general", general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU hardware backend, not Ascend backend).
 >   - If this attribute is set to "ascend_oriented", the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
 >
 
 ### Method of convert
 
-Usage scenario: Convert a third-party model into a MindSpore model. You can call the convert method multiple times to convert multiple models.
+Usage scenario: Convert a third-party model into a MindSpore Lite cloud-side inference model. You can call the convert method multiple times to convert multiple models.
 
 Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) are provided below.
 

@@ -12,7 +12,7 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
 
 1. 不需要经过离线转换，直接进行推理执行。
 
-2. 使用离线转换，CPU/GPU后端设置optimize为"general"（使能通用优化），GPU后端设置optimize为"gpu_oriented"（在通用优化的基础上，使能针对GPU的额外优化），NPU后端设置optimize为"ascend_oriented"，在离线阶段完成相关优化，减少推理执行的初始化时间。
+2. 使用离线转换，CPU后端设置optimize为"general"（使能通用优化），Ascend后端设置optimize为"ascend_oriented"，在离线阶段完成相关优化，减少推理执行的初始化时间。
 
 ## Linux环境使用说明
 
@@ -20,7 +20,7 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
 
 使用MindSpore Lite云侧推理的Python接口进行模型转换，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
 
     > 当前，提供下载Python3.7版本对应的安装包，若需要其他Python版本，请使用编译功能生成安装包。
 
@@ -30,12 +30,6 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
     python -c "import mindspore_lite"
     ```
 
-- 安装后可以使用以下命令检查MindSpore Lite内置的AKG是否安装成功：若无报错，则表示安装成功。
-
-  ```bash
-  python -c "import mindspore_lite.akg"
-  ```
-
 ### 目录结构
 
 安装成功后，可使用`pip show mindspore_lite`命令查看MindSpore Lite云侧推理的Python模块的安装位置。
@@ -43,30 +37,35 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
 ```text
 mindspore_lite
 ├── __pycache__
-├── akg                                                         # AKG相关的接口
 ├── include
 ├── lib
-|   ├── libakg.so                                               # AKG使用的动态链接库
 │   ├── _c_lite_wrapper.cpython-37m-x86_64-linux-gnu.so         # MindSpore Lite 云侧推理python模块封装C++接口的框架的动态库
 │   ├── libmindspore_converter.so                               # 模型转换动态库
-│   ├── libmindspore_core.so                                    # MindSpore Core动态库
+│   ├── libmindspore_core_lite.so                               # MindSpore Core动态库
 │   ├── libmindspore_glog.so.0                                  # Glog的动态库
 │   ├── libmindspore-lite.so                                    # MindSpore Lite云侧推理的动态库
 │   ├── libmslite_converter_plugin.so                           # 模型转换插件
 │   ├── libascend_pass_plugin.so                                # 注册昇腾后端图优化插件动态库
-│   ├── libmslite_shared_lib.so                                 # 适配昇腾后端的动态库
-│   ├── libascend_kernel_plugin.so                              # 昇腾后端kernel插件
-│   ├── libtensorrt_plugin.so                                   # tensorrt后端kernel插件
+│   ├── libascend_acl_plugin.so                                 # 昇腾后端acl插件
+│   ├── libascend_ge_plugin.so                                  # 昇腾后端GE流程插件
+│   ├── liblite-unified-executor.so                             # MindSpore Lite统一执行器动态库
+│   ├── libmindspore_graph_ir_lite.so                           # GE IR对接动态库
+│   ├── libmindspore_ops_lite.so                                # 算子动态库
+│   ├── libmsplugin-ge-litert.so                                # GE LiteRT插件
+│   ├── libruntime_convert_plugin.so                            # 在线转换插件
 │   ├── libopencv_core.so.4.5                                   # OpenCV的动态库
 │   ├── libopencv_imgcodecs.so.4.5                              # OpenCV的动态库
 │   └── libopencv_imgproc.so.4.5                                # OpenCV的动态库
-├── __init__.py        # 初始化包
-├── _checkparam.py     # 校验参数工具
-├── context.py         # context接口相关代码
-├── converter.py       # converter接口相关代码，转换入口
-├── model.py           # model接口相关代码，推理入口
-├── tensor.py          # tensor接口相关代码
-└── version.py         # MindSpore Lite云侧推理版本号
+├── __init__.py                        # 初始化包
+├── _check_ascend.py                   # 昇腾后端环境校验相关代码
+├── lite_infer.py                      # lite infer相关代码
+├── _parse_update_weights_name.py      # 权重更新节点名称适配相关代码
+├── _checkparam.py                     # 校验参数工具
+├── context.py                         # context接口相关代码
+├── converter.py                       # converter接口相关代码，转换入口
+├── model.py                           # model接口相关代码，推理入口
+├── tensor.py                          # tensor接口相关代码
+└── version.py                         # MindSpore Lite云侧推理版本号
 ```
 
 ### 属性说明
@@ -86,7 +85,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | input_data_type | DataType | `--inputDataType=<INPUTDATATYPE>` | 设置量化模型输入Tensor的data type。仅当模型输入Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输入Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | - |
 | input_format | Format | `--inputDataFormat=<INPUTDATAFORMAT>` | 设置导出模型的输入format，只对四维输入有效。 | Format.NCHW、Format.NHWC | - |
 | input_shape | dict{string:list\[int]} | `--inputShape=<INPUTSHAPE>` | 设置模型输入的维度，输入维度的顺序和原始模型保持一致。如：{"inTensor1": \[1, 32, 32, 32], "inTensor2": \[1, 1, 32, 32]} | - | - |
-| optimize | str | `--optimize=<OPTIMIZE>` | 设定转换模型的过程所完成的优化。 | "none"、"general"、"gpu_oriented"、"ascend_oriented" | - |
+| optimize | str | `--optimize=<OPTIMIZE>` | 设定转换模型的过程所完成的优化。 | "none"、"general"、"ascend_oriented" | - |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | 设置量化模型输出Tensor的data type。仅当模型输出Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输出Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | - |
 | save_type | ModelType | `--saveType=<SAVETYPE>` | 设置导出模型文件的类型。| ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包 |
 | weight_fp16 | bool | `--fp16=<FP16>` | 设置在模型序列化时是否需要将float32数据格式的权重存储为float16数据格式。 | True、False | - |
@@ -100,15 +99,14 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 >
 > - `optimize` 该属性是用来设定在离线转换的过程中需要完成哪些特定的优化。
 >
->   - 如果该属性设置为"none"，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该属性的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。
->   - 如果设置成"general"，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。
->   - 如果设置成"gpu_oriented"，表示转换过程中会完成通用优化和针对GPU后端的额外优化（转换出来的模型只支持GPU后端）。
+>   - 如果该属性设置为"none"，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该属性的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。
+>   - 如果设置成"general"，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU后端，不支持Ascend后端）。
 >   - 如果设置成"ascend_oriented"，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
 >
 
 ### convert方法
 
-方法使用场景：将第三方模型转换生成MindSpore模型，可多次调用convert方法，转换多个模型。
+方法使用场景：将第三方模型转换生成MindSpore Lite云侧推理模型，可多次调用convert方法，转换多个模型。
 
 下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)中参数的对应关系。
 

@@ -368,7 +368,7 @@ AOE API tuning needs to be done through converter tool. When `optimize=ascend_or
 
 ## Deploying Ascend Custom Operators
 
-MindSpore Lite converter supports converting models with MindSpore Lite custom Ascend operators to MindSpore Lite models. Custom operators can be used to optimize model inference performance in special scenarios, such as using custom MatMul to achieve higher matrix multiplication, using the transformer fusion operators provided by MindSpore Lite to improve transformer model performance (to be launched) and using the AKG graph fusion operator to automatically fuse models to improve inference performance.
+MindSpore Lite converter supports converting models with MindSpore Lite custom Ascend operators to MindSpore Lite models. Custom operators can be used to optimize model inference performance in special scenarios, such as using custom MatMul to achieve higher matrix multiplication, using the transformer fusion operators provided by MindSpore Lite to improve transformer model performance (to be launched).
 
 If MindSpore Lite converts Ascend models with custom operators, user needs to deploy the custom operators to the ACL operator library before calling the converter in order to complete the conversion properly. The following describes the key steps to deploy Ascend custom operators:
 
@@ -399,7 +399,7 @@ If MindSpore Lite converts Ascend models with custom operators, user needs to de
 
 4. Check the Ascend library directory to see if the installation is successful
 
-    After deploying the custom operator, go to the Ascend operator library directory ``/usr/local/Ascend/latest/opp/vendors/`` and check whether there are corresponding custom operator files in the directory. At present, we mainly provide the basic operator sample and the AKG graph fusion operator implementation. The specific file structure is as follows:
+    After deploying the custom operator, go to the Ascend operator library directory ``/usr/local/Ascend/latest/opp/vendors/`` and check whether there are corresponding custom operator files in the directory. At present, we mainly provide the basic operator sample. The specific file structure is as follows:
 
     ```text
     /usr/local/Ascend/latest/opp/vendors/
@@ -421,8 +421,6 @@ If MindSpore Lite converts Ascend models with custom operators, user needs to de
         │   │       └── mslite_impl                                    # Implementation logic directory of operators
         │   │           ├── add_dsl.py                                 # add sample logic implementation file based on dsl development
         │   │           ├── add_tik.py                                 # add sample logic implementation file based on tik development
-        │   │           ├── compiler.py                                # Operator compilation logic file needed for akg graph
-        │   │           ├── custom.py                                  # akg custom operator implementation file
         │   │           ├── matmul_tik.py                              # matmul sample logic implementation file based on tik development
         │   ├── cpu                                                    # aicpu custom operator subdirectory, not required
         │   │   └── aicpu_kernel
@@ -434,5 +432,5 @@ If MindSpore Lite converts Ascend models with custom operators, user needs to de
         │               ├── add_tik.py                                 # add sample logic implementation file based on tik development
         │               └── matmul_tik.py                              # matmul sample logic implementation file based on tik development
         └── op_proto                                                   # Operator prototype definition package directory
-            └── libcust_op_proto.so                                    # operator prototype definition so file. akg custom operator is registered by default, and do not need this file
+            └── libcust_op_proto.so                                    # operator prototype definition so file.
     ```
