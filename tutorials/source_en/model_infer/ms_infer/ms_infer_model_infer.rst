@@ -157,6 +157,7 @@ After the download is complete, the following file tree structure should be disp
 
    ls
    |- config.json
+   |- generation_config.json
    |- LICENSE
    |- merges.txt
    |- model-00001-of-00004.safetensors
