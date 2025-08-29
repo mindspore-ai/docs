@@ -486,7 +486,7 @@ parallel:
   ]  # *dp = data_parallel
 ```
 
-`parallel_speed_up_json_path`、`dataset_strategy`等配置详情可参考[Megatron数据集](#Megatron数据集)章节。
+`parallel_speed_up_json_path`、`dataset_strategy`等配置详情可参考[Megatron数据集](#megatron数据集)章节。
 
 修改配置文件后，即可参考`qwen3`模型文档拉起微调任务。
 
