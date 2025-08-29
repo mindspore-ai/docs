@@ -53,49 +53,49 @@ DockerFile的内容可参考社区 issue：[https://gitee.com/mindspore/mindform
 
 - 创建文件夹
 
-```shell
-# 指定镜像名称和标签，这里以 MindSpore Transformers r1.6.0 + MindSpore 2.7.0 + CANN 8.2.RC1 + Python 3.11 为例
-# 命名格式为：仓库名为mindformers，tag为<mf_ver>_<ms ver>_<cann ver>_<py ver>
-IMAGE="mindformers:r1.6.0_ms2.7.0_cann8.2.RC1_py3.11"
+  ```shell
+  # 指定镜像名称和标签，这里以 MindSpore Transformers r1.6.0 + MindSpore 2.7.0 + CANN 8.2.RC1 + Python 3.11 为例
+  # 命名格式为：仓库名为mindformers，tag为<mf_ver>_<ms ver>_<cann ver>_<py ver>
+  IMAGE="mindformers:r1.6.0_ms2.7.0_cann8.2.RC1_py3.11"
 
-# 创建并进入存放 Dockerfile 的目录
-mkdir -p mindformers-Dockerfiles
-cd mindformers-Dockerfiles
-```
+  # 创建并进入存放 Dockerfile 的目录
+  mkdir -p mindformers-Dockerfiles
+  cd mindformers-Dockerfiles
+  ```
 
 - 在[社区issue](https://gitee.com/mindspore/mindformers/issues/ICQ9JF)中将Dockerfile保存到文件夹内，保存为以下格式：
 
-```text
-mindformers-Dockerfiles/
-└── Dockerfile
-```
+  ```text
+  mindformers-Dockerfiles/
+  └── Dockerfile
+  ```
 
 - 设置必要的构建参数
 
-```bash
-# 设置镜像名称和标签
-# 命名格式：仓库名为 mindformers，tag 为 <mf_ver>_<ms_ver>_<cann_ver>_<py_ver>
-export IMAGE="mindformers:r1.6.0_ms2.7.0_cann8.2.RC1_py3.11"
-# 设置构建参数
-export PYTHON_VERSION="3.11.4"
-export CANN_TOOLKIT_URL="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.2.RC1/Ascend-cann-toolkit_8.2.RC1_linux-aarch64.run"
-export CANN_KERNELS_URL="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.2.RC1/Ascend-cann-kernels-910b_8.2.RC1_linux-aarch64.run"
-export MS_WHL_URL="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0/MindSpore/unified/aarch64/mindspore-2.7.0-cp311-cp311-linux_aarch64.whl"
-export MINDFORMERS_GIT_REF="r1.6.0"
-```
+  ```bash
+  # 设置镜像名称和标签
+  # 命名格式：仓库名为 mindformers，tag 为 <mf_ver>_<ms_ver>_<cann_ver>_<py_ver>
+  export IMAGE="mindformers:r1.6.0_ms2.7.0_cann8.2.RC1_py3.11"
+  # 设置构建参数
+  export PYTHON_VERSION="3.11.4"
+  export CANN_TOOLKIT_URL="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.2.RC1/Ascend-cann-toolkit_8.2.RC1_linux-aarch64.run"
+  export CANN_KERNELS_URL="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.2.RC1/Ascend-cann-kernels-910b_8.2.RC1_linux-aarch64.run"
+  export MS_WHL_URL="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0/MindSpore/unified/aarch64/mindspore-2.7.0-cp311-cp311-linux_aarch64.whl"
+  export MINDFORMERS_GIT_REF="r1.6.0"
+  ```
 
 - 运行 Docker 构建命令
 
-```bash
-# 开始构建镜像
-docker build -f Dockerfile \
-  --build-arg PYTHON_VERSION="${PYTHON_VERSION}" \
-  --build-arg CANN_TOOLKIT_URL="${CANN_TOOLKIT_URL}" \
-  --build-arg CANN_KERNELS_URL="${CANN_KERNELS_URL}" \
-  --build-arg MS_WHL_URL="${MS_WHL_URL}" \
-  --build-arg MINDFORMERS_GIT_REF="${MINDFORMERS_GIT_REF}" \
-  -t "${IMAGE}" .
-```
+  ```bash
+  # 开始构建镜像
+  docker build -f Dockerfile \
+    --build-arg PYTHON_VERSION="${PYTHON_VERSION}" \
+    --build-arg CANN_TOOLKIT_URL="${CANN_TOOLKIT_URL}" \
+    --build-arg CANN_KERNELS_URL="${CANN_KERNELS_URL}" \
+    --build-arg MS_WHL_URL="${MS_WHL_URL}" \
+    --build-arg MINDFORMERS_GIT_REF="${MINDFORMERS_GIT_REF}" \
+    -t "${IMAGE}" .
+  ```
 
 > 构建过程可能需要 30 分钟左右，取决于网络速度和硬件性能。
 
