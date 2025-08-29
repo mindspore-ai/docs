@@ -606,7 +606,7 @@ class Qwen2Model(nn.Cell):
 
 ### KVCacheManager
 
-由于大语言模型通常会使用KVCache优化，MindSpore提供的FlashAttention和lashPagedAttention需要和KVCache配合使用，需要额外传入一些参数，其中主要包括：
+由于大语言模型通常会使用KVCache优化，MindSpore提供的FlashAttention和PagedAttention需要和KVCache配合使用，需要额外传入一些参数，其中主要包括：
 
 - **k_cache & v_cache**：kv_cache对象可以理解为是一个缓存表，用于保存上一次迭代中的key和value值。在下一次迭代时，可以直接读取这些值，从而避免重复计算前n个词的key和value，以提升性能。
 
