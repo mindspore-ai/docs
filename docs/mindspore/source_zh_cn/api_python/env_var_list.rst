@@ -909,6 +909,29 @@ Dump调试
 
        1：使能CheckSum检测静默故障
      - 目前本特性仅支持Atlas A2训练系列产品，仅支持在O0或O1模式下，对bfloat16数据类型的MatMul算子进行CheckSum校验
+   * - MS_NPU_ASD_CONFIG
+     - 设置静默检测选项
+     - String
+     - 配置项，格式为key:value，多个配置项以逗号分隔，例如 `export MS_NPU_ASD_CONFIG=enable:true,with_checksum:true,grad_sample_interval:10,upper_thresh1:1000000,upper_thresh2:100,cooldown:5,strikes_num:3,strikes_window:480,checksum_cooldown:180`
+
+       enable: 是否开启特征值检测，默认值为false
+
+       with_checksum: 是否联动CheckSum检测，默认值为false
+
+       grad_sample_interval: 梯度特征值采样间隔，默认值为10，即1/10的采样率
+
+       upper_thresh1: 特征值检测的一级阈值，格式为大于等于3的正整数，默认值为1000000
+
+       upper_thresh2: 特征值检测的二级阈值，格式为大于等于3的正整数，默认值为100
+
+       cooldown: 特征值异常冷却时间和CheckSum执行时间，格式为正整数，单位为分钟，默认值为5
+
+       strikes_num: 触发CheckSum检测的特征值异常次数，默认值为3
+
+       strikes_window: 统计特征值异常次数的时间窗口，格式为正整数，单位分钟，默认值为480
+
+       checksum_cooldown: CheckSum检测冷却时间，格式为正整数，单位为分钟，默认值为180
+     - 目前本特性仅支持Atlas A2训练系列产品，仅支持检测自动并行和半自动并行模式的网络
 
 特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/zh-CN/master/debug/sdc.html>`_ 。
 

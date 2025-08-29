@@ -14,6 +14,8 @@ MindSpore框架2.4版本提供了网络模型的特征值检测方案，该方�
 
 对于默认的特征值检测点，用户可以设置环境变量 `NPU_ASD_ENABLE` 为`1`、`2`或`3`使能检测能力，并且通过配置环境变量 `NPU_ASD_UPPER_THRESH`, `NPU_ASD_SIGMA_THRESH`，调整检测强度。
 
+MindSpore框架2.7.1版本提供了特征值与CheckSum联合检测方案，能够更加准确地定位静默故障。该方案采样参数梯度进行特征值检测，并在检测到多次特征值异常时，通过“三振出局”机制触发CheckSum校验，进一步定位故障卡。用户可以通过`MS_NPU_ASD_CONFIG`对联合检测进行配置。
+
 关于相关环境变量的配置，见 **特性开关及配置**。
 
 关于默认的特征值检测点的介绍，以及对于自定义特征值检测点的设计指导，见 **使用建议与检测原理** 。
@@ -32,11 +34,15 @@ MindSpore框架2.4版本提供了网络模型的特征值检测方案，该方�
 
 开启检测开关（设置`NPU_ASD_ENABLE`为`1`，`2`或`3`）后，针对Transformer结构模型训练的反向阶段，通过在反向图的通信算子前插入检测算子，采集Norm层的激活值梯度，并通过算法判断是否异常。若出现异常，则根据环境变量`NPU_ASD_ENABLE`的不同取值打印相关日志或终止训练，并将检测到异常的设备上的NPU状态置为Warning，上报故障事件。
 
+采用特征值与CheckSum联合检测方案（`MS_NPU_ASD_CONFIG`中设置`enable:true`）时，会在反向图中对参数通信前的梯度进行特征值采样，并通过算法判断是否异常。当联合CheckSum校验（`MS_NPU_ASD_CONFIG`中设置`with_checksum:true`）时，若在时间窗口内异常次数超过阈值，会进一步开启CheckSum校验，对各卡bfloat16数据类型的MatMul算子的计算结果进行校验。
+
 特征值异常原因可分为两类：硬件错误与软件错误，可参考**故障处理**章节进行后续分析。
 
 ### 使用限制
 
 目前本特性仅支持Atlas A2 训练系列产品，仅支持检测8维以内Transformer类模型，bfloat16和float32数据类型，训练过程中出现的特征值检测异常。
+
+联合检测方案目前仅支持自动并行或半自动并行模式。CheckSum仅针对bfloat16数据类型的MatMul算子进行校验。
 
 ## 特性开关及配置
 
@@ -45,6 +51,8 @@ MindSpore框架2.4版本提供了网络模型的特征值检测方案，该方�
 环境变量`NPU_ASD_UPPER_THRESH`控制检测的绝对数值阈值，格式为整型数据对，其中第一个元素控制绝对数值一级阈值，第二个元素控制绝对数值二级阈值；减小阈值可以检出波动更小的异常数据，增加检出率，增大阈值与之相反。在不配置该环境变量的默认情况下，`NPU_ASD_UPPER_THRESH=1000000,10000`。
 
 环境变量`NPU_ASD_SIGMA_THRESH`控制检测的相对数值阈值，格式与上者相同，其中第一个元素控制数值跳变一级阈值，第二个元素控制数值跳变二级阈值；默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`。
+
+环境变量`MS_NPU_ASD_CONFIG`对特征值和CheckSum联合检测方案进行配置，格式为key:value，并以逗号分隔各个配置项。其中`enable`为特征值检测开关，`with_checksum`为联动CheckSum开关，`grad_sample_interval`为特征值采样间隔，`upper_thresh1`和`upper_thresh2`分别控制特征值检测的绝对阈值和相对阈值，`cooldown`为特征值异常冷却时间和单次CheckSum执行时长，`strikes_num`和`strikes_window`为触发CheckSum所需的特征值异常次数和时间窗口大小，`checksum_cooldown`为CheckSum冷却时间。默认情况下，`MS_NPU_ASD_CONFIG="enable:false,with_checksum:false,grad_sample_interval:10,upper_thresh1:1000000,upper_thresh2:100,cooldown:5,strikes_num:3,strikes_window:480,checksum_cooldown:180"`。
 
 上述环境变量的详细说明参见[环境变量](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
 
@@ -262,6 +270,95 @@ device-2/device-311523_20250225184632284.log:1829:[INFO] AICPU(26559,aicpu_sched
 device-2/device-311523_20250225184632284.log:1891:[ERROR] AICPU(26559,aicpu_scheduler):2025-02-25-18:46:51.762.577 [silent_check_v3.cc:250][ComputeL1Error][tid:26572]SilentCheckV3 ComputeL1Error:val = [nan], max = [nan], avg=[5.752281e-08], step=[5], c_thresh_l1 = [1.000000e+06], c_thresh_l2 = [1.000000e+04], beta1 = [9.900000e-01], npu_asd_detect = [3].
 ```
 
+### 联合检测
+
+使用联合检测方案时（`MS_NPU_ASD_CONFIG`中设置`enable:true`），会采用该方案对应的特征值检测方法，`NPU_ASD_ENABLE`不再生效。
+
+这里构造了一个简单的神经网络，并通过MindSpore的故障注入算子模拟特征值异常。网络脚本（`silent_detect.py`）如下：
+
+```python
+"""Silent Detect Demo"""
+import time
+import numpy as np
+
+import mindspore as ms
+from mindspore import nn, Tensor, Parameter, context, ops, jit
+from mindspore.communication import init, get_rank
+from mindspore.nn import Momentum, TrainOneStepCell
+from mindspore.parallel.auto_parallel import AutoParallel
+
+context.set_context(mode=context.GRAPH_MODE)
+init()
+ms.set_seed(1)
+np.random.seed(1)
+
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.fc1 = nn.Dense(1, 8)
+        self.fc2 = nn.Dense(8, 8)
+        self.relu = ops.ReLU()
+        self.eod_mask = ops.auto_generate.GenerateEodMaskV2()
+        self.cur_step = Parameter(Tensor(-1, ms.int64), requires_grad=False)
+        rank_id = get_rank()
+        if rank_id == 2:
+            self.flip_mode = 'bitflip_designed'
+        else:
+            self.flip_mode = 'multiply'
+
+    def construct(self, x):
+        x = self.fc1(x)
+        x = self.relu(x)
+        ele_pos = Tensor(0, ms.int64)
+        seed = Tensor(0, ms.int64)
+        offset = Tensor(0, ms.int64)
+        start = 0
+        steps = [5]
+        error_mode = 'cycle'
+        multiply_factor = 1.0
+        bit_pos = 0
+        flip_probability = 0.0
+        self.cur_step = self.cur_step + 1
+        x = self.eod_mask(x, ele_pos, self.cur_step, seed, offset, start, steps, error_mode, self.flip_mode,
+                          multiply_factor, bit_pos, flip_probability)
+        x = self.fc2(x)
+        return x
+
+
+if __name__ == '__main__':
+    net = Net()
+    optimizer = Momentum(net.trainable_params(), learning_rate=0.1, momentum=0.9)
+    net = TrainOneStepCell(net, optimizer)
+    net.set_train()
+
+    @jit
+    def compiled_one_step(inputs):
+        net(inputs)
+
+    parallel_net = AutoParallel(compiled_one_step, parallel_mode='semi_auto')
+    for i in range(200):
+        inputs = Tensor(np.random.rand(8, 1).astype(np.float32))
+        parallel_net(inputs)
+        time.sleep(1)
+```
+
+启动命令：
+
+```bash
+export MS_NPU_ASD_CONFIG="enable:true,with_checksum:true,grad_sample_interval:1,cooldown:1,strikes_num:1"
+msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=11235 --join=True python silent_detect.py
+```
+
+通过查看训练日志（默认为`worker_*.log`），可以观察到特征值异常记录、CheckSum校验结果：
+
+```bash
+$ grep -m1 'Silent detect strike' worker_0.log
+[WARNING] DEBUG(2950752,fffee7e591e0,python):2025-08-26-10:46:26.665.782 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:109] SilentDetect] Silent detect strike detected: StrikeRecord{timestamp: 1756176386, name: fc1.weight, value: inf, stat: StatData{avg: 6.44326e+12, pre_value: 6.441e+14, count: 6, none_zero_count: 6}}
+$ grep -m1 'Global CheckSum result is' worker_0.log
+[WARNING] DEBUG(2950752,fffda37fe1e0,python):2025-08-26-10:47:28.934.305 [mindspore/ccsrc/tools/silent_detect/silent_detector.cc:316] DoCheckSum] Global CheckSum result is 0
+```
+
 ## 检测结果及处理
 
 ### 异常检测结果
@@ -273,6 +370,12 @@ device-2/device-311523_20250225184632284.log:1891:[ERROR] AICPU(26559,aicpu_sche
 * 通过搜索应用类日志，查询**ERROR**级别错误日志，关键字"accuracy sensitivity feature abnormal"；
 * 通过监控NPU健康状态：Health Status显示Warning，Error Code显示80818C00，Error Information显示node type=SoC, sensor type=Check Sensor, event state=check fail；
 * 通过查看[Ascend Device Plugin](https://github.com/Ascend/ascend-device-plugin)事件，上报错误码80818C00，事件类型为故障事件，故障级别次要。
+
+当使用联合检测时，若训练中发生特征值特异常、CheckSum检测出静默故障，会在业务训练日志中产生告警：
+
+* 特征值异常日志关键字为“Silent detect strike”；
+* 触发CheckSum校验日志关键字为“Feature value detection strikes out”；
+* 联合CheckSum识别出静默故障日志关键字为“CheckSum detects MatMul error on rank”和“SilentCheck detects SDC error”。
 
 ### 故障处理
 
