@@ -294,16 +294,16 @@ train_dataset: &train_dataset
 
 `data_loader`中参数说明：
 
-| 参数名                        | 概述                                                                                       |  类型  |
-|----------------------------|------------------------------------------------------------------------------------------|:----:|
-| type                       | 固定为`HFDataLoader`，该模块支持HuggingFace开源社区的数据集加载与处理功能，也可以设置为`CommonDataLoader`，但该接口在后续版本会废弃  | str  |
+| 参数名                        | 概述                                                                                        |  类型  |
+|----------------------------|-------------------------------------------------------------------------------------------|:----:|
+| type                       | 固定为`HFDataLoader`，该模块支持HuggingFace开源社区的数据集加载与处理功能，也可以设置为`CommonDataLoader`，但该接口在后续版本会废弃   | str  |
 | load_func                  | 指定加载数据集调用接口，可选值为`load_dataset`和`load_from_disk`，具体配置说明见[数据集加载](#数据集加载)，默认值为`load_dataset` | str  |
-| create_attention_mask      | 是否在数据集迭代过程中返回对应的attention mask，默认值为`False`                                               | bool |
-| create_compressed_eod_mask | 是否在数据集迭代过程中返回经过压缩的一维attention mask，默认值为`False`                                           | bool |
-| compressed_eod_mask_length | 生成压缩attention mask的长度，通常为数据集内各样本中eod token个数的最大值，默认值为`128`                               | int  |
-| use_broadcast_data         | 是否开启数据广播功能，默认值为`True`                                                                    | bool |
-| shuffle                    | 是否对数据集进行随机采样，默认值为`False`                                                                 | bool |
-| handler                    | 数据预处理操作，具体介绍可参考[数据集处理](#数据集处理)章节                                                         | list |
+| create_attention_mask      | 是否在数据集迭代过程中返回对应的attention mask，默认值为`False`                                                | bool |
+| create_compressed_eod_mask | 是否在数据集迭代过程中返回经过压缩的一维attention mask，默认值为`False`                                            | bool |
+| compressed_eod_mask_length | 生成压缩attention mask的长度，通常为数据集内各样本中eod token个数的最大值，默认值为`128`                                | int  |
+| use_broadcast_data         | 是否开启数据广播功能，默认值为`True`，开启该配置后可以降低内存和IO负载                                                   | bool |
+| shuffle                    | 是否对数据集进行随机采样，默认值为`False`                                                                  | bool |
+| handler                    | 数据预处理操作，具体介绍可参考[数据集处理](#数据集处理)章节                                                          | list |
 
 ### 数据集加载
 
