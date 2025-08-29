@@ -497,7 +497,7 @@ parallel:
   ]  # *dp = data_parallel
 ```
 
-See [Megatron Dataset](#Megatron-dataset) for details on `parallel_speed_up_json_path`, `dataset_strategy`, etc.
+See [Megatron Dataset](#megatron-dataset) for details on `parallel_speed_up_json_path`, `dataset_strategy`, etc.
 
 After modifying the configuration file, refer to the `qwen3` model documentation to initiate a fine-tuning task that loads offline data.
 
