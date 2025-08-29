@@ -123,7 +123,7 @@ MindSpore LLM inference with the framework mainly depends on the MindSpore open-
 
 You can also install the Python package adapted to your environment by referring to the official installation document. For details, see `MindSpore Installation <https://www.mindspore.cn/install/en>`_.
 
-MindSpore inference mainly runs on the Ascend AI Processor environment. You need to install the corresponding Ascend development environment. For details, see the following:
+MindSpore inference mainly runs on the Ascend AI Processor environment. You need to install the corresponding Ascend development environment. For details, see `CANN Software Installation <https://www.hiascend.com/en/document>`_:
 
 .. code:: shell
 
@@ -157,6 +157,7 @@ After the download is complete, the following file tree structure should be disp
 
    ls
    |- config.json
+   |- generation_config.json
    |- LICENSE
    |- merges.txt
    |- model-00001-of-00004.safetensors
@@ -418,7 +419,7 @@ The MindSpore LLM supports the following quantization technologies to improve th
 
 To quantize a model using golden-stick, perform the following steps:
 
-1. **Weight quantization**: Use a quantization algorithm to convert the model weight data from float16 to int8.
+1. **Model quantization**: Use a quantization algorithm to convert the model data type from high-bit type (eg. float16) to low-bit type (eg. int8 or int4).
 
 2. **Model inference**: Load the standard model, quantize the model network (by inserting corresponding quantization operators), load the quantized weight, and call the model inference.
 

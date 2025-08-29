@@ -12,7 +12,7 @@ The pressure on graphics memory makes it challenging for a single device to comp
 
 Before performing model sharding and parallelism, you need to analyze the parallelism based on the model structure to determine which layers can be parallelized and how to divide the model to achieve better performance acceleration. To achieve better acceleration, the parallelized part needs to be computed separately, minimizing the impact on other parts. The following uses the Qwen2 model structure as an example to analyze the parallelism of the main network structure:
 
-- **Embedding**: The embedding layer is actually a gather operation and can be parallelized properly regardless of the sharding dimension (**hidden_dim** or **num_embeddings**). Because **all_reduce** (reducing overheads of data arrangement) can be better performed based on **num_embedding**, sharding is performed based on the **num_embeddings** dimension.
+- **Embedding**: The embedding layer is actually a gather operation and can be parallelized properly regardless of the sharding dimension (**hidden_dim** or **num_embeddings**). Because **all_reduce** (reducing overheads of data arrangement) can be better performed based on **num_embeddings**, sharding is performed based on the **num_embeddings** dimension.
 
 - **Attention**: The Qwen2 model uses the attention computation method of GQA, that is, multiple independent attention computations. Therefore, the query, key, and value can be parallelized separately by column. However, the number of shards must be exactly divided by the number of attention heads.
 
@@ -739,7 +739,7 @@ class Qwen2MLP(nn.Cell):
             param_dtype=config.param_dtype,
             bias=False
         )
--        self.qgate_proj = Qwen2Linear(
+-        self.gate_proj = Qwen2Linear(
 +        self.gate_proj = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
@@ -923,7 +923,7 @@ class Qwen2ForCausalLM(nn.Cell):
         for path in glob(weight_path + "/*.safetensors"):
             weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
 
--        ms.load_param_into_net(self, weight_dict, strict_load=False)
+-        load_param_into_net(self, weight_dict, strict_load=False)
 +        param_dict = self.parameters_dict()
 +
 +        for (name, weight) in weight_dict.items():

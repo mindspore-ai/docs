@@ -12,7 +12,7 @@
 
 在对模型进行并行切分前，需要先根据模型的结构特征来进行并行分析，确认网络中哪些层可以并行，以及如何切分能够获得比较好的性能加速。为了要能够获得好的加速效果，并行切分的部分就需要尽可能的独立计算互不影响。以Qwen2模型结构为例，我们对其主要的网络结构进行并行分析：
 
-- **Embedding**：Embedding层实际上是一个gather操作，不管是按hidden_dim还是num_embeddings维度切分，都可以比较好地进行并行计算。由于按照num_embedding可以更好地进行all_reduce（减少数据排布的开销），此处我们按照num_embeddings维度进行切分。
+- **Embedding**：Embedding层实际上是一个gather操作，不管是按hidden_dim还是num_embeddings维度切分，都可以比较好地进行并行计算。由于按照num_embeddings可以更好地进行all_reduce（减少数据排布的开销），此处我们按照num_embeddings维度进行切分。
 
 - **Attention**：Qwen2模型使用了GQA的Attention计算方法，即有多个独立的Attention计算，因此我们可以按照列维度将query、key、value切分开来单独计算，但是需要保证切分能够被Attention的head数整除。
 
@@ -751,7 +751,7 @@ class Qwen2MLP(nn.Cell):
             param_dtype=config.param_dtype,
             bias=False
         )
--        self.qgate_proj = Qwen2Linear(
+-        self.gate_proj = Qwen2Linear(
 +        self.gate_proj = Qwen2ColParallelLinear(
             input_size=config.hidden_size,
             output_size=config.intermediate_size,
@@ -937,7 +937,7 @@ class Qwen2ForCausalLM(nn.Cell):
         for path in glob(weight_path + "/*.safetensors"):
             weight_dict.update(ms.load_checkpoint(path, format="safetensors"))
 
--        ms.load_param_into_net(self, weight_dict, strict_load=False)
+-        load_param_into_net(self, weight_dict, strict_load=False)
 +        param_dict = self.parameters_dict()
 +
 +        for (name, weight) in weight_dict.items():
