@@ -606,7 +606,7 @@ class Qwen2Model(nn.Cell):
 
 ### KVCacheManager
 
-Since KVCache is usually used to optimize LLMs, to use KVCache with FlashAttention and lashPagedAttention provided by MindSpore, some parameters need to be specified additionally, including:
+Since KVCache is usually used to optimize LLMs, to use KVCache with FlashAttention and PagedAttention provided by MindSpore, some parameters need to be specified additionally, including:
 
 - **k_cache & v_cache**: The kv_cache object can be considered as a cache table, which is used to store the keys and values in the previous iteration. In the next iteration, these values can be directly read, avoiding repeated computation of the keys and values of the first *n* words, thereby improving performance.
 

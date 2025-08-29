@@ -123,7 +123,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 
 同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见 `MindSpore安装 <https://www.mindspore.cn/install>`_。
 
-由于MindSpore推理主要支持Ascend芯片环境上运行，还需要安装相应的Ascend开发环境，具体可以参考：
+由于MindSpore推理主要支持Ascend芯片环境上运行，还需要安装相应的Ascend开发环境，具体可以参考 `快速安装CANN <https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1alpha001/softwareinst/instg/instg_quick.html> `：
 
 .. code:: shell
 
@@ -157,6 +157,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 
    ls
    |- config.json
+   |- generation_config.json
    |- LICENSE
    |- merges.txt
    |- model-00001-of-00004.safetensors
@@ -401,7 +402,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
    2048]矩阵乘法，可以切分成2个[1024, 4096]和[4096,
    1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能。对于Qwen、LLAMA这类大语言模型而言，其切分主要包含在Attention中query、key、value这些数据的linear操作上。
 
-2. **权重适配**：除了模型结构的并行化改造外，由于模型计算中的权重也被切分了，因此在模型加载的时候，相关的权重也要进行切分，以尽量减少不必要权重加载占用显存。对于大语言模型而言，主要的权重都集中在embbeding和linear两个网络层中，因此权重加载的适配主要涉及这两个模块改造。
+2. **权重适配**：除了模型结构的并行化改造外，由于模型计算中的权重也被切分了，因此在模型加载的时候，相关的权重也要进行切分，以尽量减少不必要权重加载占用显存。对于大语言模型而言，主要的权重都集中在embedding和linear两个网络层中，因此权重加载的适配主要涉及这两个模块改造。
 
 3. **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理时，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法可以参考 `构建可并行的大语言模型网络 <./ms_infer_parallel_infer.md>`_。
 
@@ -416,9 +417,9 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
 
 - **KVCache量化**：在大语言模型推理场景下，除了模型权重以外，KVCache也占用了大量显存，因此对KVCache进行量化，降低其显存消耗，也能够有效提升整体的吞吐量。MindSpore大语言模型支持对KVCache做float16到int8的量化，通过FA和PA适配，将量化和反量化融合到算子内部，降低量化带来的开销，实现整体吞吐量提升。
 
-使用golen-stick进行模型量化主要分为以下两步：
+使用golden-stick进行模型量化主要分为以下两步：
 
-1. **权重量化**：利用量化算法，将模型的权重数据从float16转化成int8数据。
+1. **模型量化**：利用量化算法，将模型的数据类型从高bit类型（如float16）转化成低bit类型（如int8或int4）。
 
 2. **模型推理**：加载标准模型，将模型网络进行量化改造（插入相应量化算子），加载量化后的权重，调用模型推理。
 
