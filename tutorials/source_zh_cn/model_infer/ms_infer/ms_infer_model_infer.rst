@@ -123,7 +123,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 
 同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见 `MindSpore安装 <https://www.mindspore.cn/install>`_。
 
-由于MindSpore推理主要支持Ascend芯片环境上运行，还需要安装相应的Ascend开发环境，具体可以参考 `快速安装CANN <https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1alpha001/softwareinst/instg/instg_quick.html> `：
+由于MindSpore推理主要支持Ascend芯片环境上运行，还需要安装相应的Ascend开发环境，具体可以参考 `快速安装CANN <https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1alpha001/softwareinst/instg/instg_quick.html>`_ ：
 
 .. code:: shell
 
