@@ -481,7 +481,7 @@ HostToDevice的连线通常有两种形态：倾斜和竖直。下图是一个�
 
 #### schedule配置错误问题
 
-schedule配置相关参数有5个：wait、warmup、active、repeat、skip_first。每个参数大小必须**大于等于0**；其中**active**必须**大于等于1**，否则抛出警告，并设置为默认值1；如果repeat设置为0，Profiler会根据模型训练次数来确定repeat值，此时会多生成一个采集不完整的的性能数据，最后一个step的数据用户无需关注，为异常数据。
+schedule配置相关参数有5个：wait、warmup、active、repeat、skip_first。每个参数大小必须**大于等于0**；其中**active**必须**大于等于1**，否则抛出警告，并设置为默认值1；如果repeat设置为0，Profiler会根据模型训练次数来确定repeat值，此时会多生成一个采集不完整的性能数据，最后一个step的数据用户无需关注，为异常数据。
 
 #### schedule与step配置不匹配问题
 
