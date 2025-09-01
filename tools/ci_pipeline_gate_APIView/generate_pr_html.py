@@ -371,6 +371,9 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/dataset/text', 'mindspore.dataset.text'],
         ['mindspore/python/mindspore/dataset/audio', 'mindspore.dataset.audio'],
         ['mindspore/python/mindspore/dataset/core/config.py', 'mindspore.dataset.config'],
+        ['mindspore/python/mindspore/dataset/dataloader', 'mindspore.dataset.dataloader'],
+        ['mindspore/python/mindspore/dataset/dataloader/_utils/collate.py',
+         'mindspore.dataset.dataloader._utils.collate'],
         ['mindspore/python/mindspore/dataset', 'mindspore.dataset'],
         ['mindspore/python/mindspore/communication/comm_func', 'mindspore.communication.comm_func'],
         ['mindspore/python/mindspore/communication', 'mindspore.communication'],
@@ -380,7 +383,9 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/experimental/optim/lr_scheduler.py', 'mindspore.experimental.optim.lr_scheduler'],
         ['mindspore/python/mindspore/experimental/optim', 'mindspore.experimental.optim'],
         ['mindspore/python/mindspore/common/initializer.py', 'mindspore.common.initializer'],
-        ['mindspore/python/mindspore/common', 'mindspore']]
+        ['mindspore/python/mindspore/common', 'mindspore'],
+        ['mindspore/python/mindspore/utils', 'mindspore.utils'],
+        ['mindspore/python/mindspore/utils/dryrun.py', 'mindspore.utils.dryrun']]
 
     generate_interface_list = []
 
