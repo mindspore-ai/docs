@@ -343,6 +343,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/profiler', 'mindspore.profiler'],
         ['mindspore/python/mindspore/parallel/nn', 'mindspore.parallel.nn'],
         ['mindspore/python/mindspore/parallel/auto_parallel', 'mindspore.parallel.auto_parallel'],
+        ['mindspore/python/mindspore/parallel/distributed', 'mindspore.parallel.distributed'],
         ['mindspore/python/mindspore/parallel', 'mindspore.parallel'],
         ['mindspore/python/mindspore/device_context/cpu', 'mindspore.device_context.cpu'],
         ['mindspore/python/mindspore/device_context/gpu', 'mindspore.device_context.gpu'],
@@ -373,7 +374,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/dataset/core/config.py', 'mindspore.dataset.config'],
         ['mindspore/python/mindspore/dataset/dataloader', 'mindspore.dataset.dataloader'],
         ['mindspore/python/mindspore/dataset', 'mindspore.dataset'],
-        ['mindspore/python/mindspore/communication/comm_func', 'mindspore.communication.comm_func'],
+        ['mindspore/python/mindspore/communication/comm_func.py', 'mindspore.communication.comm_func'],
         ['mindspore/python/mindspore/communication', 'mindspore.communication'],
         ['mindspore/python/mindspore/amp.py', 'mindspore.amp'],
         ['mindspore/python/mindspore/numpy/fft', 'mindspore.numpy.fft'],
@@ -383,6 +384,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/common/initializer.py', 'mindspore.common.initializer'],
         ['mindspore/python/mindspore/common', 'mindspore'],
         ['mindspore/python/mindspore/utils/dryrun.py', 'mindspore.utils.dryrun'],
+        ['mindspore/python/mindspore/utils/dlpack.py', 'mindspore.utils.dlpack'],
         ['mindspore/python/mindspore/utils', 'mindspore.utils']]
 
     generate_interface_list = []
@@ -487,8 +489,8 @@ def en_file_handle(py_file_list, repo_path, dict1):
                                         new_fullname = 'mindspore.mint.nn.functional.' + fullname[:-4].split('.')[-1]
                                         generate_interface_list.append(
                                             '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
-                                    elif fullname == 'collate' and mpn[1] == 'mindspore.dataset.dataloader':
-                                        new_fullname = 'mindspore.mint.dataset.dataloader._utils.collate.' + fullname
+                                    elif fullname == 'mindspore.dataset.dataloader.collate':
+                                        new_fullname = 'mindspore.dataset.dataloader._utils.collate.collate'
                                         generate_interface_list.append(
                                             '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
                                     else:
