@@ -242,7 +242,7 @@ device-0/device-299066_20250225184036913.log:2413:[ERROR] AICPU(26533,aicpu_sche
 NPU_ASD_ENABLE=2 bash run_silent_check.sh
 ```
 
-通过查看 CANN 的 device 日志，默认在 `~/ascend/log/` 目录下，关键 ERROR 日志如下，发现只有一条 ERROR 日志，即检测到异常值是中止了训练：
+通过查看 CANN 的 device 日志，默认在 `~/ascend/log/` 目录下，关键 ERROR 日志如下，发现只有一条 ERROR 日志，即检测到异常值时中止了训练：
 
 ```bash
 $ cd ~/ascend/log/debug/
@@ -260,7 +260,7 @@ device-2/device-305322_20250225184310213.log:1859:[ERROR] AICPU(25787,aicpu_sche
 NPU_ASD_ENABLE=3 bash run_silent_check.sh
 ```
 
-通过查看 CANN 的 device 日志，默认在 `~/ascend/log/` 目录下，关键 ERROR 日志如下，发现出了 ERROR 日志之外，还有一些 SilentCheck 的 INFO 日志：
+通过查看 CANN 的 device 日志，默认在 `~/ascend/log/` 目录下，关键 ERROR 日志如下，发现除了 ERROR 日志之外，还有一些 SilentCheck 的 INFO 日志：
 
 ```bash
 $ cd ~/ascend/log/debug/
@@ -371,7 +371,7 @@ $ grep -m1 'Global CheckSum result is' worker_0.log
 * 通过监控NPU健康状态：Health Status显示Warning，Error Code显示80818C00，Error Information显示node type=SoC, sensor type=Check Sensor, event state=check fail；
 * 通过查看[Ascend Device Plugin](https://github.com/Ascend/ascend-device-plugin)事件，上报错误码80818C00，事件类型为故障事件，故障级别次要。
 
-当使用联合检测时，若训练中发生特征值特异常、CheckSum检测出静默故障，会在业务训练日志中产生告警：
+当使用联合检测时，若训练中发生特征值异常、CheckSum检测出静默故障，会在业务训练日志中产生告警：
 
 * 特征值异常日志关键字为“Silent detect strike”；
 * 触发CheckSum校验日志关键字为“Feature value detection strikes out”；
