@@ -141,6 +141,9 @@ pygments_style = 'sphinx'
 # Whether to inherit class methods
 autodoc_inherit_docstrings = False
 
+# Whether to show typehints
+autodoc_typehints = "none"
+
 # Whether to use autosummary generate
 autosummary_generate = True
 
@@ -175,52 +178,6 @@ shutil.copy(layout_src, layout_target)
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', '../../../resource/python_objects.inv'),
 }
-
-# Modify default signatures for autodoc.
-autodoc_source_path = '../_ext/overwrite_autodoc.txt'
-autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
-get_param_func_str = r"""\
-import re
-import inspect as inspect_
-
-def get_param_func(func):
-    try:
-        source_code = inspect_.getsource(func)
-        if func.__doc__:
-            source_code = source_code.replace(func.__doc__, '')
-        all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
-        if "@classmethod" in source_code:
-            all_params = re.sub("(self|cls)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
-            if ',' in all_params_str[0][0]:
-                all_params = re.sub("(self|cls)(, |,)", '', all_params_str[0][0].replace("\n", ""))
-        elif "def __new__" in source_code:
-            all_params = re.sub("(self|cls|value|iterable)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
-            if ',' in all_params:
-                all_params = re.sub("(self|cls|value|iterable)(, |,)", '', all_params_str[0][0].replace("\n", ""))
-        else:
-            all_params = re.sub("(self)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
-            if ',' in all_params_str[0][0]:
-                all_params = re.sub("(self)(, |,)", '', all_params_str[0][0].replace("\n", ""))
-        return all_params
-    except:
-        return ''
-
-def get_obj(obj):
-    if isinstance(obj, type):
-        try:
-            test_source = inspect_.getsource(obj.__init__)
-        except:
-            return obj.__new__
-        return obj.__init__
-
-    return obj
-"""
-
-with open(autodoc_source_path, "r", encoding="utf8") as f:
-    code_str = f.read()
-    code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
-    exec(get_param_func_str, sphinx_autodoc.__dict__)
-    exec(code_str, sphinx_autodoc.__dict__)
 
 # Repair error decorators defined in mindspore.
 
@@ -278,23 +235,6 @@ for i in decorator_list:
                 f.write(content)
     except:
         print(f'替换{i[0]}下内容失败')
-
-# add @functools.wraps
-try:
-    decorator_list = [("mindspore/common/_tensor_overload.py", ".*?_mint")]
-
-    for i in decorator_list:
-        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
-            content = f.read()
-            new_content = re.sub('(import .*\n)', r'\1import functools\n', content, 1)
-            new_content = re.sub(f'def ({i[1]})\((.*?)\):\n((?:.|\n|)+?)([ ]+?)def wrapper\(',
-                             rf'def \1(\2):\n\3\4@functools.wraps(\2)\n\4def wrapper(', new_content)
-            if new_content != content:
-                f.seek(0)
-                f.truncate()
-                f.write(new_content)
-except:
-    print('mindspore替换安装包装饰器内容失败')
 
 sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
