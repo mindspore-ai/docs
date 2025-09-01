@@ -372,8 +372,6 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/dataset/audio', 'mindspore.dataset.audio'],
         ['mindspore/python/mindspore/dataset/core/config.py', 'mindspore.dataset.config'],
         ['mindspore/python/mindspore/dataset/dataloader', 'mindspore.dataset.dataloader'],
-        ['mindspore/python/mindspore/dataset/dataloader/_utils/collate.py',
-         'mindspore.dataset.dataloader._utils.collate'],
         ['mindspore/python/mindspore/dataset', 'mindspore.dataset'],
         ['mindspore/python/mindspore/communication/comm_func', 'mindspore.communication.comm_func'],
         ['mindspore/python/mindspore/communication', 'mindspore.communication'],
@@ -384,8 +382,8 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/experimental/optim', 'mindspore.experimental.optim'],
         ['mindspore/python/mindspore/common/initializer.py', 'mindspore.common.initializer'],
         ['mindspore/python/mindspore/common', 'mindspore'],
-        ['mindspore/python/mindspore/utils', 'mindspore.utils'],
-        ['mindspore/python/mindspore/utils/dryrun.py', 'mindspore.utils.dryrun']]
+        ['mindspore/python/mindspore/utils/dryrun.py', 'mindspore.utils.dryrun'],
+        ['mindspore/python/mindspore/utils', 'mindspore.utils']]
 
     generate_interface_list = []
 
@@ -487,6 +485,10 @@ def en_file_handle(py_file_list, repo_path, dict1):
                                         generate_interface_list.append(
                                             '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
                                         new_fullname = 'mindspore.mint.nn.functional.' + fullname[:-4].split('.')[-1]
+                                        generate_interface_list.append(
+                                            '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
+                                    elif fullname == 'collate' and mpn[1] == 'mindspore.dataset.dataloader':
+                                        new_fullname = 'mindspore.mint.dataset.dataloader._utils.collate.' + fullname
                                         generate_interface_list.append(
                                             '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
                                     else:
