@@ -779,7 +779,7 @@ Generate the numpy.array data.
 ## Notices
 
 - When an operator of type `bfloat16` is saved to the `npy` file, it will be converted to type `float32`.
-- Dump only supports saving data with type of bool, int, int8, in16, int32, int64, uint, uint8, uint16, uint32, uint64, float, float16, float32, float64, bfloat16, double, complex64 and complex128.
+- Dump only supports saving data with type of bool, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float, float16, float32, float64, bfloat16, double, complex64 and complex128.
 - Complex64 and complex128 only support saving as npy files, not as statistics information.
 - The Print operator has an input parameter with type of string, which is not a data type supported by Dump. Therefore, when the Print operator is included in the script, there will be an error log, which will not affect the saving data of other types.
 - When Ascend GE dump is enabled, sink size can only be set to 1. User can use [Model.train()](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) or [data_sink()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.data_sink.html) to set up sink size.

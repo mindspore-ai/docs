@@ -41,7 +41,7 @@ Actual peak memory usage (with fragments): 26244M
 该示例表示：
 
 1. device总内存大小，为65536MB，即64GB。
-2. MindSpore框架当前实际可调用的内存量为59392MB的内存，即约58GB。
+2. MindSpore框架当前实际可调用的内存量为59392MB，即约58GB。
 3. MindSpore分配的内存的起始地址为0xffffe9dc1407。
 4. MindSpore框架在不考虑内存碎片的情况下，曾经达到的峰值内存使用量为23716M。
 5. MindSpore框架在考虑内存碎片的情况下，曾经达到的实际峰值内存使用量为26244M，内存碎片是指由于内存分配和释放导致的内存空间不连续的情况，该值考虑了这些碎片的影响。

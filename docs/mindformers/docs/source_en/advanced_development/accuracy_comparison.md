@@ -14,13 +14,13 @@ This document focuses on the validation of precision consistency at the model le
 
 This section describes the recommended basic operating environment for the precision comparison experiment.
 
-### Driver version
+### Driver Version
 
 | GPU  | Version  | NPU  | Version     |
 |------|------|------|---------|
 | CUDA | 12.1 | CANN | 8.1.RC1 |
 
-### Important libraries and dependency versions
+### Important Libraries and Dependency Versions
 
 | GPU                | Version          | NPU                    | Version     |
 |--------------------|--------------|------------------------|---------|
@@ -31,7 +31,7 @@ This section describes the recommended basic operating environment for the preci
 | Transformer Engine | 2.1.0        |                        |         |
 | Apex               | 0.1          |                        |         |
 
-### Image links
+### Image Links
 
 The **GPU/NPU** dependency versions in the preceding tables are for reference only. The actual versions in official images prevail.
 
@@ -68,7 +68,7 @@ The following tables describe the configuration comparison with Megatron-LM.
     | `group-query-attention`                    | Specifies whether to enable group query attention.                                | `use_gqa`                                  | Specifies whether to enable group query attention.                                                        |
     | `num-query-groups`                         | Number of query groups.                                     | `n_kv_heads`                               | Number of query groups.                                                             |
     | `max-position-embeddings`                  | Maximum position encoding length.                                   | `max_position_embeddings`                  | Maximum position encoding length.                                                           |
-    | `position-embedding-type`                  | Position encoding type, such as **learned_absolute** and **rope**.           | `position_embedding_type`                  | Position encoding type, such as **learned_absolute** and **rope**.                                   |
+    | `position-embedding-type`                  | Position encoding type, such as learned_absolute and rope.           | `position_embedding_type`                  | Position encoding type, such as learned_absolute and rope.                                   |
     | `use-rotary-position-embeddings`           | Specifies whether to use rotary position embedding (RoPE).                           | Specified by `position_embedding_type`==`rope`      | Specifies whether to use RoPE.                                                   |
     | `rotary-base`                              | Rotary base used for RoPE.                               | `rotary_base`                              | Rotary base used for RoPE.                                                       |
     | `rotary-percent`                           | RoPE usage ratio.                                 | `rotary_percent`                           | RoPE usage ratio.                                                         |
@@ -83,9 +83,9 @@ The following tables describe the configuration comparison with Megatron-LM.
     | `init-method-std`                          | Standard deviation of the normal distribution used during model parameter initialization.                        | `init_method_std`                          | Standard deviation of the normal distribution used during model parameter initialization.                                                |
     | `attention-dropout`                        | Dropout probability applied in the multi-head self-attention mechanism.                    | `attention_dropout`                        | Dropout probability applied in the multi-head self-attention mechanism.                                            |
     | `hidden-dropout`                           | Dropout probability in the hidden layer.                            | `hidden_dropout`                           | Dropout probability in the hidden layer.                                                    |
-    | `normalization`                            | Normalization method, which can be **LayerNorm** or **RMSNorm**.                  | `normalization`                            | Normalization method, which can be **LayerNorm** or **RMSNorm**.                                          |
+    | `normalization`                            | Normalization method, which can be LayerNorm or RMSNorm.                  | `normalization`                            | Normalization method, which can be LayerNorm or RMSNorm.                                          |
     | `norm-epsilon`                             | Normalized stability factor (epsilon).                           | `rms_norm_eps`                             | RMSNorm stability factor.                                                       |
-    | `apply-layernorm-1p`                       | Specifies whether to add 1 after **LayerNorm**.                     | Not supported.                                     |                                                                     |
+    | `apply-layernorm-1p`                       | Specifies whether to add 1 after LayerNorm.                     | Not supported.                                     |                                                                     |
     | `apply-residual-connection-post-layernorm` | Specifies whether the residual connection is applied after LayerNorm.                     | `apply_residual_connection_post_layernorm` | Specifies whether the residual connection is applied after LayerNorm.                                             |
     | `openai-gelu`                              | Specifies whether to use the GELU activation function of the OpenAI version.                  | Not supported.                                     |                                                                     |
     | `squared-relu`                             | Specifies whether to use the square ReLU activation function.                           | Not supported.                                     |                                                                     |
