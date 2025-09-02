@@ -14,7 +14,7 @@
 
 2. [mindspore.parallel.auto_parallel.AutoParallel.pipeline(stages=1, output_broadcast=False, interleave=False, scheduler='1f1b')](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html#mindspore.parallel.auto_parallel.AutoParallel.pipeline)：设置流水线并行配置。`stages`表示流水线并行需要设置的切分总数，`output_broadcast`表示流水线并行推理时，最后一个stage的结果是否广播给其他stage，`interleave`表示是否开启interleave优化策略，`scheduler`表示流水线并行的调度策略，当前支持`gpipe`/`1f1b`/`seqpipe`/`seqvpp`/`seqsmartvpp`/`zero_bubble_v`。
 
-3. [mindspore.parallel.Pipeline(network, micro_size=1, stage_config={"cell1":0, "cell2":1})](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/parallel/mindspore.parallel.nn.Pipeline.html)：流水线并行需要需要在`network`外再添加一层`Pipeline`，并通过`micro_size`指定MicroBatch的个数，以及指出网络中各Cell在哪个`stage`中执行。如果对于`network`使用`nn.WithLossCell`封装，则会改变`Cell`的名称，并增加`_backbone`前缀。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，micro_size必须大于等于stages的数量。
+3. [mindspore.parallel.Pipeline(network, micro_size=1, stage_config={"cell1":0, "cell2":1})](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/parallel/mindspore.parallel.nn.Pipeline.html)：流水线并行需要在`network`外再添加一层`Pipeline`，并通过`micro_size`指定MicroBatch的个数，以及指出网络中各Cell在哪个`stage`中执行。如果对于`network`使用`nn.WithLossCell`封装，则会改变`Cell`的名称，并增加`_backbone`前缀。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，micro_size必须大于等于stages的数量。
 
 4. [mindspore.parallel.PipelineGradReducer(parameters, scale_sense=1.0, opt_shard=None)](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/parallel/mindspore.parallel.nn.PipelineGradReducer.html)：流水线并行需要使用`PipelineGradReducer`来完成梯度聚合。这是因为流水线并行中，其输出是由多个`MicroBatch`的结果相加得到，因此其梯度也需要进行累加。
 
@@ -42,7 +42,7 @@
 
 ### 1F1B流水线并行调度
 
-MindSpore的流水线并行实现中了对执行序进行调整，来达到更优的内存管理。
+MindSpore的流水线并行实现了对执行序进行调整，来达到更优的内存管理。
 
 如图3所示，在编号为0的MicroBatch的正向计算执行完后，立即执行其反向。这样做使得其中间结果的内存得以更早地（相较于图2）释放，进而确保内存使用峰值比图2的方式更低。
 
@@ -68,7 +68,7 @@ MindSpore在Megatron-LM的interleaved pipeline调度的基础上做了内存优�
 
 ### zero_bubble_v pipeline调度
 
-zero_bubble_v pipeline调度通过将反向计算过程拆分为梯度计算与参数更新，进一步提升流水线并行的效率，减少Bubble率，如图6所示。在zero_bubble_v pipeline调度中，对于连续的模型层，stage的数值会先增大后减小，前一半层的pipeline_segment为0，后一半层的pipeline_segment为1。例如：对于有8个连续层，stage为4时，stage0有第0和第7层，stage1有第1和第6层，stage2有第2和第5层，stage3有第3和第4层，第0层到和3层的pipeline_segment为0，第4层到第7层的pipeline_segment为1。
+zero_bubble_v pipeline调度通过将反向计算过程拆分为梯度计算与参数更新，进一步提升流水线并行的效率，减少Bubble率，如图6所示。在zero_bubble_v pipeline调度中，对于连续的模型层，stage的数值会先增大后减小，前一半层的pipeline_segment为0，后一半层的pipeline_segment为1。例如：对于有8个连续层，stage为4时，stage0有第0和第7层，stage1有第1和第6层，stage2有第2和第5层，stage3有第3和第4层，第0层到第3层的pipeline_segment为0，第4层到第7层的pipeline_segment为1。
 
 ![zero_bubble_v.png](images/zero_bubble_v.png)
 
