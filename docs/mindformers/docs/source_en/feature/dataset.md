@@ -408,7 +408,7 @@ If using a `Class`:
 
    ```yaml
    handler:
-     - type: 'custom_process'
+     - type: CustomHandler
        seed: 42
    ```
 
@@ -432,7 +432,7 @@ If using a `Method`:
 
    ```yaml
    handler:
-     custom_process:
+     - type: custom_process
        seed: 42
    ```
 

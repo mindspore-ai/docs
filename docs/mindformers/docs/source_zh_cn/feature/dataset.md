@@ -397,7 +397,7 @@ handler:
 
    ```yaml
    handler:
-     CustomHandler:
+     - type: CustomHandler
        seed: 42
    ```
 
@@ -421,7 +421,7 @@ handler:
 
    ```yaml
    handler:
-     - type: 'custom_process'
+     - type: custom_process
        seed: 42
    ```
 
