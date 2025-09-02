@@ -69,7 +69,7 @@ bash install_depend_pkgs.sh
 python setup.py install
 ```
 
-The main dependences packages of vLLM-MindSpore Plugin are listed in follow:
+The main dependency packages of vLLM-MindSpore Plugin are listed in follow:
 
 - **mindspore**: MindSpore development framework, which is the basis for model running.
 
