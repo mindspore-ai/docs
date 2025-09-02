@@ -27,7 +27,7 @@ MindSpore提供三种捕获方式，如下：
 - strict模式：此模式目标是构成一张图，开发者的Python代码如果无法构图，选择此模式运行程序时会报错，需要开发者进行代码修改，变为可构图的语法，适合追求性能的开发者。
 - lax模式：此模式目标是尽可能的让开发者程序可运行，思路是针对无法在strict模式构图的代码进行Python fallback，即返回Python层运行。
 
-Graph Mode模式约束请参考[语法约束](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/compile/static_graph.html)。ast如何将Python代码解析并构图，举例如下：
+Graph Mode约束请参考[语法约束](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/compile/static_graph.html)。ast如何将Python代码解析并构图，举例如下：
 
 ```python
 @mindspore.jit
@@ -258,7 +258,7 @@ subgraph @f1() {
 
 通常冗余代码可能是用户出于可读性等目的有意编写的，也可能仅仅是编码过程中的无心之举。此外，编译优化过程本身通过其它优化技术（如：代数化简、inline、公共子表达式消除等）产生的中间结果，也可能带来冗余消除的机会。
 
-MindSpore冗余消除的目的及使用的技术与传统编译器类似。不同的是这些冗余优化是在 MindIR 上完成的。例如:
+MindSpore冗余消除的目的及使用的技术与传统编译器类似。不同的是这些冗余优化是在 MindIR 上完成的。例如：
 
 1. **无用代码消除**
 
