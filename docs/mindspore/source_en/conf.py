@@ -141,9 +141,6 @@ pygments_style = 'sphinx'
 # Whether to inherit class methods
 autodoc_inherit_docstrings = False
 
-# Whether to show typehints
-autodoc_typehints = "none"
-
 # Whether to use autosummary generate
 autosummary_generate = True
 
@@ -178,6 +175,100 @@ shutil.copy(layout_src, layout_target)
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', '../../../resource/python_objects.inv'),
 }
+
+# Modify default signatures for autodoc.
+autodoc_source_path = '../_ext/overwrite_autodoc.txt'
+autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
+get_param_func_str = r"""\
+import re
+import inspect as inspect_
+
+def remove_typehints_content(text):
+    # 初始化括号匹配标记，0为无括号包裹
+    bracket_count = 0
+    start_idx = -1 # 记录第一个":"的位置
+
+    for i, char in enumerate(text):
+        # 1. 找到第一个":"，记录起始位置
+        if start_idx == -1 and char == ":":
+            start_idx = i
+            continue
+
+        # 2. 已找到":"，开始判断括号状态
+        if start_idx != -1:
+            # 遇到"("或"["，括号计数+1（进入括号内）
+            if char in ("(", "["):
+                bracket_count += 1
+            # 遇到")"或"]"，括号计数-1（离开括号内）
+            elif char in (")", "]"):
+                bracket_count = max(0, bracket_count - 1) # 避免负数值
+            # 3. 找到不在括号内的第一个","，执行删除
+            elif char == "," and bracket_count == 0:
+                return text[:start_idx] + text[i:] # 拼接删除后的内容
+            # 4. 找到不在括号内的第一个"="，执行删除
+            elif char == "=" and bracket_count == 0:
+                return text[:start_idx] + " " +  text[i:] # 拼接删除后的内容，"="前需要有一个空格
+
+    # 若未找到目标","，返回原文本
+    return text
+
+def get_param_func(func):
+    try:
+        source_code = inspect_.getsource(func)
+        if func.__doc__:
+            source_code = source_code.replace(func.__doc__, '')
+        all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+        if "@classmethod" in source_code:
+            all_params = re.sub("(self|cls)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params_str[0][0]:
+                all_params = re.sub("(self|cls)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+        elif "def __new__" in source_code:
+            all_params = re.sub("(self|cls|value|iterable)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params:
+                all_params = re.sub("(self|cls|value|iterable)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+        else:
+            all_params = re.sub("(self)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params_str[0][0]:
+                all_params = re.sub("(self)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+
+        if ":" in all_params:
+            colon_idx = all_params.find(":")
+            # 处理非最后一个":"以后的内容
+            while colon_idx != -1 and "," in all_params[colon_idx+1:]:
+                all_params = remove_typehints_content(all_params)
+                # 最后一个":"以后的内容中包含","
+                if colon_idx == all_params.find(":"):
+                    break
+                colon_idx = all_params.find(":")
+
+        # 去掉最后一个":"以后的内容
+        colon_idx = all_params.find(":")
+        # 最后一个":"以后的内容中包含"="，需要保留"="及以后的内容
+        if colon_idx != -1 and "=" in all_params[colon_idx+1:]:
+            all_params = re.sub(":(.*?)=", ' ', all_params)
+        # 正常删除最后一个":"以后的内容
+        else:
+            all_params = re.sub(":.*$", '', all_params)
+
+        return all_params
+    except:
+        return ''
+def get_obj(obj):
+    if isinstance(obj, type):
+        try:
+            test_source = inspect_.getsource(obj.__init__)
+        except:
+            return obj.__new__
+        return obj.__init__
+
+    return obj
+"""
+
+with open(autodoc_source_path, "r", encoding="utf8") as f:
+    code_str = f.read()
+    code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
+    exec(get_param_func_str, sphinx_autodoc.__dict__)
+    exec(code_str, sphinx_autodoc.__dict__)
 
 # Repair error decorators defined in mindspore.
 
