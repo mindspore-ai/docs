@@ -101,6 +101,29 @@ The relevant environment variables:
         <td align="left">The LCCL communication library currently only supports single-machine multi-card scenario and must be executed when the graph compilation level is O0.</td>
     </tr>
     <tr>
+        <td align="left" style="white-space:nowrap">MS_DISABLE_LCCL_KERNELS_LIST</td>
+        <td align="left">Specifies the blacklist of LCCL operators that are not enabled.</td>
+        <td align="left" style="white-space:nowrap">String</td>
+        <td align="left">Valid operator names, with multiple operators separated by commas (',').</td>
+        <td align="left">
+            Takes effect only when using the LCCL communication library.<br>
+            Currently supported LCCL operators:<br>
+            <ul>
+                <li>AllReduce</li>
+                <li>AllGather</li>
+                <li>AllGatherMatmul</li>
+                <li>Broadcast</li>
+                <li>Barrier</li>
+                <li>MatMulAllReduce</li>
+                <li>MatmulReduceScatter</li>
+                <li>ReduceScatter</li>
+            </ul>
+            Notes:<br>
+                - Operator names are case-sensitive<br>
+                - There should be no spaces when multiple operators are separated by commas
+        </td>
+    </tr>
+    <tr>
         <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
         <td align="left">Cluster networking phase timeout time in seconds.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
