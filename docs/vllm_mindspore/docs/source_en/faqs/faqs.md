@@ -58,6 +58,7 @@
    RuntimeError: Call aclnnNonzeroV2 failed, detail:E39999: Inner Error
    ```
 
+- Solution:
    Check whether the CANN and MindSpore versions are correctly matched.
 
 ### `torch` Not Found When Importing `vllm_mindspore`
@@ -68,9 +69,33 @@
    importlib.metadata.PackageNotFoundError: No package metadata was found for torch
    ```
 
+- Solution:
    Execute the following commands to uninstall torch-related components:
 
    ```bash
    pip uninstall torch
    pip uninstall torchvision
+   ```
+
+### `import vllm_mindspore` and raise `ImportError`
+
+#### `ImportError: cannot import name 'PlacementGroupSchedulingStrategy'`
+
+- Key error message:
+
+   ```text
+   Traceback (most recent call last):
+     File "<stdin>", line 1, in <module>
+     File "/home/miniconda3/envs/py39/lib/python3.9/site-packages/vllm_mindspore/__init__.py", line 236, in <module>
+       from vllm_mindspore.executor.ray_gpu_executor import (
+     File "/home/miniconda3/envs/py39/lib/python3.9/site-packages/vllm_mindspore/executor/ray_gpu_executor.py", line 27, in <module>
+       from vllm.executor.ray_distributed_executor import (
+   ImportError: cannot import name 'PlacementGroupSchedulingStrategy' from 'vllm.executor.ray_distributed_executor' (/home/miniconda3/envs/py39/lib/python3.9/site-packages/vllm_mindspore/executor/ray_gpu_executor.py)
+   ```
+
+- Solution:
+   `ray` module is needed. Please install ray with `pip install ray`, or run the following command to install modules.
+
+   ```bash
+   pip install -r requirements.txt
    ```
