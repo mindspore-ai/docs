@@ -91,12 +91,6 @@ The fine-grained activations SWAP technology offers high flexibility in usage. D
     memory_optimize_level=O0
   ```
 
-- When pipeline parallelism is disabled, the lazy_inline scenario must be enabled by setting the environment variable:
-
-  ```bash
-  ENABLE_LAZY_INLINE_NO_PIPELINE=1
-  ```
-
 - Only support Ascend backend
 
 #### Instruction for API
@@ -158,7 +152,6 @@ Execute the following script to launch single-node 8-NPU training, with the scri
 ```bash
 export GLOG_v=1
 export MS_MEMORY_STATISTIC=1
-export ENABLE_LAZY_INLINE_NO_PIPELINE=1
 YAML_FILE=$1 # User specifies the YAML file path.
 ROOT_PATH=`pwd`
 
@@ -206,7 +199,6 @@ Execute the following script to launch single-node 8-NPU training, with the scri
 ```bash
 export GLOG_v=1
 export MS_MEMORY_STATISTIC=1
-export ENABLE_LAZY_INLINE_NO_PIPELINE=1
 YAML_FILE=$1 # User specifies the YAML file path.
 ROOT_PATH=`pwd`
 
@@ -259,7 +251,6 @@ Execute the following script to launch single-node 8-NPU training, with the scri
 ```bash
 export GLOG_v=1
 export MS_MEMORY_STATISTIC=1
-export ENABLE_LAZY_INLINE_NO_PIPELINE=1
 YAML_FILE=$1 # User specifies the YAML file path.
 ROOT_PATH=`pwd`
 
@@ -315,7 +306,6 @@ Execute the following script to launch single-node 8-NPU training, with the scri
 ```bash
 export GLOG_v=1
 export MS_MEMORY_STATISTIC=1
-export ENABLE_LAZY_INLINE_NO_PIPELINE=1
 YAML_FILE=$1 # User specifies the YAML file path.
 ROOT_PATH=`pwd`
 
