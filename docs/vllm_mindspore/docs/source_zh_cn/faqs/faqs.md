@@ -76,3 +76,26 @@
    pip uninstall torch
    pip uninstall torchvision
    ```
+
+### `import vllm_mindspore`时报`ImportError`
+
+#### `ImportError: cannot import name 'PlacementGroupSchedulingStrategy'`
+
+- 错误关键信息：
+
+   ```text
+   Traceback (most recent call last):
+     File "<stdin>", line 1, in <module>
+     File "/home/miniconda3/envs/py39/lib/python3.9/site-packages/vllm_mindspore/__init__.py", line 236, in <module>
+       from vllm_mindspore.executor.ray_gpu_executor import (
+     File "/home/miniconda3/envs/py39/lib/python3.9/site-packages/vllm_mindspore/executor/ray_gpu_executor.py", line 27, in <module>
+       from vllm.executor.ray_distributed_executor import (
+   ImportError: cannot import name 'PlacementGroupSchedulingStrategy' from 'vllm.executor.ray_distributed_executor' (/home/miniconda3/envs/py39/lib/python3.9/site-packages/vllm_mindspore/executor/ray_gpu_executor.py)
+   ```
+
+- 解决思路：
+   缺少`ray`组件，请`pip install ray`以安装ray，或执行以下命令，安装相关依赖
+
+   ```bash
+   pip install -r requirements.txt
+   ```
