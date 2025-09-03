@@ -4,7 +4,9 @@
 
 ## 概述
 
-AOT类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。AOT类型的自定义算子支持昇腾平台的Ascend C编程语言，这是一款专为算子开发而设计的高效编程语言。本指南将从用户角度出发，详细介绍基于Ascend C的自定义算子开发和使用流程，包括以下关键步骤：
+AOT类型的自定义算子采用预编译方式。要求网络开发者基于特定接口，手写算子实现函数的源码文件，并提前将源码编译为动态链接库。网络运行时，框架会自动调用并执行动态链接库中的函数。
+
+AOT类型的自定义算子支持昇腾平台的Ascend C编程语言。这是一款专为算子开发设计的高效编程语言。本指南从用户角度出发，介绍基于Ascend C的自定义算子开发与使用流程，包括以下关键步骤：
 
 1. **自定义算子开发**：使用Ascend C编程语言，可以快速开发自定义算子，降低开发成本并提高开发效率。
 2. **离线编译与部署**：完成算子开发后，进行离线编译，确保算子可以在Ascend AI处理器上高效运行，并进行部署。
@@ -85,14 +87,11 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 
 ## MindSpore使用自定义算子
 
-MindSpore自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html)，
-详细的接口说明可以参看[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html)
-，本文侧重说明如何使用[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html)
-原语接入Ascend C自定义算子。
+MindSpore自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html)，详细接口说明请参见该文档。本文侧重说明如何使用`ops.Custom`原语接入Ascend C自定义算子。
 
 ### 环境准备
 
-在开始之前，请确保已完成Ascend C自定义算子的开发、编译和部署。您可以通过安装自定义算子包或设置环境变量`ASCEND_CUSTOM_OPP_PATH`来准备使用环境。
+在开始之前，请确保已完成Ascend C自定义算子的开发、编译和部署。您可以通过安装自定义算子包，或设置环境变量`ASCEND_CUSTOM_OPP_PATH`来准备使用环境。
 
 ### 参数说明
 
@@ -100,29 +99,22 @@ MindSpore自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-C
 ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, reg_info=None)
 ```
 
-- `func`(str)： 自定义算子名字。
-- `out_shape`(Union[function, list, tuple]): 输出shape或输出shape的推导函数。默认值： `None`。
-- `out_dtype` (Union[
-  function, [mindspore.dtype](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype)
-  ,list, tuple]) :
-  输出type或输出type的推导函数。默认值： `None`。
-- `func_type`(str): 自定义算子的函数类型， Ascend C自定义算子指定`func_type="aot"`。
-- `bprop`(function): 自定义算子的反向函数。默认值： `None`。
-- `reg_info`(Union[str, dict, list, tuple]): 自定义算子的算子注册信息。默认值： `None`。Ascend C自定义算子无需传入该参数，使用默认值。
+- `func`(str)：自定义算子名字。
+- `out_shape`(Union[function, list, tuple])：输出shape或输出shape的推导函数。默认值：`None`。
+- `out_dtype`(Union[function, [mindspore.dtype](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype), list, tuple])：输出type或输出type的推导函数。默认值：`None`。
+- `func_type`(str)：自定义算子的函数类型。Ascend C自定义算子请指定`func_type="aot"`。
+- `bprop`(function)：自定义算子的反向函数。默认值：`None`。
+- `reg_info`(Union[str, dict, list, tuple])：自定义算子的注册信息。默认值：`None`。Ascend C自定义算子无需传入该参数，使用默认值。
 
-**场景限制**： 当前动态图和静态图GE后端只支持输入输出为Tensor类型，静态图O0/O1模式无限制类型。Ascend
-C自定义算子动态图场景推荐使用[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。
+**场景限制**：当前动态图和静态图GE后端只支持输入输出为Tensor类型；静态图O0/O1模式对类型无限制。Ascend C自定义算子在动态图场景推荐使用[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)。
 
 ### 简单示例
 
 通过上述参数说明，使用Ascend C自定义算子时，需重点关注`func`、`out_shape`、`out_dtype`三个核心入参。下面是一个简单示例，帮助用户直观理解Ascend C自定义算子在MindSpore框架中的使用方法。
 
-首先，使用`ops.Custom`原语定义自定义算子，并传入必要参数。算子名字`func`指定为`aclnnCast`，`out_shape`
-传入通过lambda函数实现的推导shape函数，该算子的输出shape
-与第一个输入的shape相同，`out_dtype`直接指定为MindSpore的内置数据类型`mstype.float32`。关于`out_shape`和`out_dtype`
-的实现，将在后续部分进行详细介绍。
-定义好自定义算子后，通过传入该算子的所有合法输入来使用该算子，例如，在用例的construct中调用`self.custom_cast`
-，传入两个参数，分别是原始数据x（Tensor）和目标的数据类型dst_type（mindspore.dtype）。
+首先，使用`ops.Custom`原语定义自定义算子，并传入必要参数。算子名字`func`指定为`aclnnCast`。`out_shape`传入通过lambda实现的推导函数：该算子输出shape与第一个输入的shape相同。`out_dtype`直接指定为MindSpore内置数据类型`mstype.float32`。
+
+关于`out_shape`与`out_dtype`的实现，后续部分将详细介绍。定义好自定义算子后，通过传入该算子的所有合法输入来使用。例如，在用例的`construct`中调用`self.custom_cast`，传入两个参数，分别是原始数据`x`（Tensor）与目标数据类型`dst_type`（mindspore.dtype）。
 
 ```python
 import numpy as np
@@ -157,8 +149,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-您可以查看MindSpore仓中的 [自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc)
-获取更多数据类型和使用场景的Ascend C自定义算子用例。
+您可以查看MindSpore仓中的[自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
 样例工程的目录结构如下：
 
 ```text
@@ -184,8 +175,7 @@ assert output.asnumpy().shape == (1280, 1280)
 
 ### Infer Shape/Type
 
-为了确定自定义算子输出的类型和大小，通过`out_shape`和`out_dtype`参数传入算子的shape和type。这两个参数通常需要通过推导才能确定。用户可以传入确定的shape和type，
-也可以通过函数推导输出shape和type。本节主要说明如何通过函数推导输出shape和type。
+为确定自定义算子输出的类型与大小，需要通过`out_shape`和`out_dtype`参数传入算子的shape与type。这两个参数通常需要通过推导才能确定。可以传入确定的shape与type，也可以通过函数推导输出的shape与type。本节主要说明如何通过函数推导输出的shape与type。
 
 **说明**
 
@@ -216,7 +206,7 @@ assert output.asnumpy().shape == (1280, 1280)
    # 定义自定义算子
    custom_add = ops.Custom(func="aclnnAdd", out_shape=add_infer_shape, out_dtype=add_infer_type, func_type="aot")
 
-   # 对于简单的infer shape或infer type， 也可以直接使用lambda函数
+   # 对于简单的infer shape或infer type，也可以直接使用lambda函数
    custom_add = ops.Custom(func="aclnnAdd", out_shape=lambda x, y: x, out_dtype=lambda x, y: x, func_type="aot")
    ```
 
@@ -276,13 +266,13 @@ assert output.asnumpy().shape == (1280, 1280)
        return (out1, out2, out3)
 
 
-   # 多输出场景保证out_shape和out_dtype的类型相同，都为tuple类型
+   # 多输出场景需保证out_shape和out_dtype的类型相同，示例一：均为list类型
    custom_msda_grad = ops.Custom(
        func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_1,
        out_dtype=[mstype.float32, mstype.float32, mstype.float32],
        func_type="aot")
 
-   # 多输出场景保证out_shape和out_dtype的类型相同，都为list类型
+   # 多输出场景需保证out_shape和out_dtype的类型相同，示例二：均为tuple类型
    custom_msda_grad = ops.Custom(
        func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_2,
        out_dtype=(mstype.float32, mstype.float32, mstype.float32),
@@ -354,9 +344,7 @@ extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes,
 extern "C" std::vector<std::vector<int64_t>> FuncNameInferShape(int *ndims, int64_t **shapes, AotExtra *extra)
 ```
 
-其中，函数名`FuncName`为算子名字，单输出返回值为`std::vector<int64_t>`
-类型，多输出或动态输出返回值为`std::vector<std::vector<int64_t>>`
-类型，值为输出的shape。参数列表的含义如下：
+其中，函数名`FuncName`为算子名字。单输出返回值为`std::vector<int64_t>`类型，多输出或动态输出返回值为`std::vector<std::vector<int64_t>>`类型，值为输出的shape。参数列表含义如下：
 
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
@@ -371,8 +359,7 @@ extern "C" TypeId FuncNameInferType(std::vector<TypeId> type_ids, AotExtra *extr
 extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, AotExtra *extra)
 ```
 
-其中，函数名`FuncName`为算子算子的名字。单输出返回值为`TypeId`类型，多输出和动态输出返回值为`std::vector<TypeId>`
-类型，值为输出的type。参数列表的含义如下：
+其中，函数名`FuncName`为算子的名字。单输出返回值为`TypeId`类型，多输出或动态输出返回值为`std::vector<TypeId>`类型，值为输出的type。参数列表含义如下：
 
 - type_ids (std::vector<TypeId>): 输入的TypeId数组。
 - extra (AotExtra \*): 用于带属性的自定义算子扩展，与shape推导函数的入参一致。
@@ -402,7 +389,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
    }
 
    extern "C" TypeId aclnnAddInferType(std::vector<TypeId> type_ids, AotExtra *extra) {
-      // 输出type与第0个输入的type形同
+      // 输出type与第0个输入的type相同
       return type_ids[0];
    }
    ```
@@ -416,8 +403,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
 
 - 输出shape值依赖场景
 
-   在infer shape中存在输出shape依赖于具体值而不只时输入的shape的场景，当前无论是Python侧还是C++侧infer接口入参都为输入的shape，要想获取具体值，需要通过在`add_prim_attr`
-接口，把值以属性的形式设置给自定义算子的原语，在C++ infer shape时通过`extra`参数获取该值。下面是一个输出shape值依赖的例子。
+   在infer shape中，存在输出shape依赖具体值而不只是输入shape的场景。当前无论是Python侧还是C++侧，infer接口入参均为输入的shape。若需获取具体值，需要通过`add_prim_attr`接口把值以属性的形式设置给自定义算子的原语，并在C++ infer shape时通过`extra`参数获取。下面是一个输出shape值依赖的例子。
 
    C++推导函数文件 moe_infer.cc
 
@@ -430,7 +416,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
       std::vector<int64_t> out1_shape;
       // 输出shape的第0维与第0个输入的0维相同
       out1_shape.emplace_back(shapes[0][0]);
-      // 输出shape的1为从属性值中获取
+      // 输出shape的第1维从属性值中获取
       out1_shape.emplace_back(extra->Attr<int64_t>("attr_k"));
       // 算子由两个输出，且两个输出的shape相同
       res_output_shape.emplace_back(out1_shape);
@@ -485,7 +471,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
            self.custom_concat.add_prim_attr("attr_axis", self.axis)
 
        def construct(self, x1, x2):
-           res = self.concat((x1, x2), self.axis)
+           res = self.custom_concat((x1, x2), self.axis)
            return res
    ```
 
@@ -552,7 +538,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
     [INFO] RUNTIME(45311,python):2024-05-24-21:17:48.149.244 [stream.cc:682] 45311 FreeStreamId: Free stream_id=1600.
     ```
 
-   **解决方案**：上述问题一般是图模式下报错，根因是自定义算子使用时的注册信息与自定义算子实现中的原型定义不一致导致的，例如算子的实现中原型定义为：
+   **解决方案**：上述问题一般发生在图模式。根因多为自定义算子使用时的注册信息与实现中的原型定义不一致。例如，算子的实现中原型定义为：
 
     ```cpp
     class AddCustom : public OpDef {
@@ -580,7 +566,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
     };
     ```
 
-   而算子使用时的注册信息时：
+   而算子使用时的注册信息为：
 
     ```python
     reg_info = CustomRegOp("AddCustom") \
@@ -592,7 +578,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
                 .get_op_info()
     ```
 
-   两个算子信息中output的名字不一致，算子原型中命名为`z`，而reg_info中命名为`output`，注意这种细小差异导致的报错。
+   两个算子信息中，output的名字不一致。算子原型命名为`z`，`reg_info`中命名为`output`。需注意此类细微差异会导致报错。
 
 3. 报错不支持的算子类型
 
@@ -630,6 +616,4 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
    RuntimeError: Launch kernel failed, name:Default/Custom-op0
    ```
 
-   **解决方案**：从报错日志分析，用户指定`AddCustom`
-   底层使用aclnn，但是却在aclop流程报错，说明算子选择未找到aclnn对应的符号，而使用了默认的aclop。若出现这种情况，请用户首先检查环境配置是否正确，包括是否正确安装自定义算子安装包或正确指定自定义算子的环境变量`ASCEND_CUSTOM_OPP_PATH`
-   ，打开info日志，过滤`op_api_convert.h`文件的日志，检查符号是否正确加载。
+   **解决方案**：从报错日志分析，用户指定`AddCustom`底层使用aclnn，但在aclop流程报错。这说明算子选择未找到aclnn对应符号，而使用了默认的aclop。若出现此情况，请优先检查环境配置是否正确，包括是否正确安装自定义算子安装包，或是否正确设置环境变量`ASCEND_CUSTOM_OPP_PATH`。同时，打开info日志，过滤`op_api_convert.h`相关日志，检查符号是否正确加载。
