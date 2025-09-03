@@ -69,7 +69,7 @@ bash install_depend_pkgs.sh
 python setup.py install
 ```
 
-After the vLLM-MindSpore Plugin operating environment is created, you need to install the following dependency packages:
+The main package dependencies of vLLM-MindSpore Plugin are listed in follow:
 
 - **mindspore**: MindSpore development framework, which is the basis for model running.
 
@@ -89,7 +89,7 @@ The service-oriented vLLM-MindSpore Plugin supports the direct running of the na
 
 ```shell
 git lfs install
-git clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
+git clone https://huggingface.co/Qwen/Qwen2-7B
 ```
 
 If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore Plugin [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/en/master/faqs/faqs.html) for a solution.
@@ -119,7 +119,7 @@ export VLLM_HTTP_PORT=8080
 unset vLLM_MODEL_BACKEND
 
 # model envs
-export MODEL_ID="/path/to/model/Qwen2-7B-Instruct"
+export MODEL_ID="/path/to/model/Qwen2-7B"
 ```
 
 Run the following command to start the vLLM-MindSpore Plugin service backend:
@@ -145,7 +145,7 @@ After receiving the inference request, the service backend calculates and return
     "id":"cmpl-1c30caf453154b5ab4a579b7b06cea19",
     "object":"text_completion",
     "created":1754103773,
-    "model":"/path/to/model/Qwen2-7B-Instruct",
+    "model":"/path/to/model/Qwen2-7B",
     "choices":[
         {
             "index":0,

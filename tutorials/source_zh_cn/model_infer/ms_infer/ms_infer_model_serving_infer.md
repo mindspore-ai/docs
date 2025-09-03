@@ -69,7 +69,7 @@ bash install_depend_pkgs.sh
 python setup.py install
 ```
 
-vLLM-MindSpore插件的运行环境创建后，还需要安装以下依赖包：
+vLLM-MindSpore插件主要依赖的组件包含如下：
 
 - **mindspore**：MindSpore开发框架，模型运行基础。
 
@@ -89,7 +89,7 @@ vLLM-MindSpore插件服务化支持原生Hugging Face的模型直接运行，因
 
 ```shell
 git lfs install
-git clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
+git clone https://huggingface.co/Qwen/Qwen2-7B
 ```
 
 若在拉取过程中，执行`git lfs install失败`，可以参考vLLM-MindSpore插件 [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/faqs/faqs.html) 进行解决。
@@ -119,7 +119,7 @@ export VLLM_HTTP_PORT=8080
 unset vLLM_MODEL_BACKEND
 
 # model envs
-export MODEL_ID="/path/to/model/Qwen2-7B-Instruct"
+export MODEL_ID="/path/to/model/Qwen2-7B"
 ```
 
 执行如下命令可以启动vLLM-MindSpore插件的服务后端。
@@ -145,7 +145,7 @@ curl http://${VLLM_MASTER_IP}:${VLLM_HTTP_PORT}/v1/completions -H "Content-Type:
     "id":"cmpl-1c30caf453154b5ab4a579b7b06cea19",
     "object":"text_completion",
     "created":1754103773,
-    "model":"/path/to/model/Qwen2-7B-Instruct",
+    "model":"/path/to/model/Qwen2-7B",
     "choices":[
         {
             "index":0,
