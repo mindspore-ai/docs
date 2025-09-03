@@ -18,7 +18,7 @@ MindSpore Transformers支持全参微调和LoRA高效微调两种SFT微调方式
 
 ### 2. 数据集准备
 
-MindSpore Transformers微调阶段当前已支持[Hugging Face格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#huggingface%E6%95%B0%E6%8D%AE%E9%9B%86)以及[MindRecord格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#mindrecord%E6%95%B0%E6%8D%AE%E9%9B%86)的数据集。用户可根据任务需求完成数据准备。
+MindSpore Transformers微调阶段当前已支持[Hugging Face格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#hugging-face%E6%95%B0%E6%8D%AE%E9%9B%86)以及[MindRecord格式](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#mindrecord%E6%95%B0%E6%8D%AE%E9%9B%86)的数据集。用户可根据任务需求完成数据准备。
 
 ### 3. 配置文件准备
 
@@ -52,7 +52,7 @@ MindSpore Transformers提供加载Hugging Face模型权重的能力，支持直�
 
 ### 数据集准备
 
-MindSpore Transformers提供在线加载Hugging Face数据集的能力，详细信息可以参考[MindSpore Transformers-数据集-Hugging Face数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#huggingface%E6%95%B0%E6%8D%AE%E9%9B%86)。
+MindSpore Transformers提供在线加载Hugging Face数据集的能力，详细信息可以参考[MindSpore Transformers-数据集-Hugging Face数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#hugging-face%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 本实践流程以[llm-wizard/alpaca-gpt4-data](https://huggingface.co/datasets/llm-wizard/alpaca-gpt4-data)作为微调数据集为例。
 

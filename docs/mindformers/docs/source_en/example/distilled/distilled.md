@@ -227,7 +227,7 @@ python toolkit/data_preprocess/huggingface/datasets_preprocess.py \
 
 The processed dataset is stored in `packed_data` and is in the arrow format.
 
-For more information, see [MindSpore Transformers official documentation > Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#custom-data-handler).
+For more information, see [MindSpore Transformers official documentation > Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#custom-processing).
 
 ##### Option 2: Using converted data
 
