@@ -18,7 +18,7 @@ Before fine-tuning, the weight files of the pre-trained model need to be prepare
 
 ### 2. Dataset Preparation
 
-MindSpore Transformers currently supports datasets in [Hugging Face format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#huggingface-datasets) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#mindrecord-dataset) for the fine-tuning phase. Users can prepare data according to task requirements.
+MindSpore Transformers currently supports datasets in [Hugging Face format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#hugging-face-dataset) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#mindrecord-dataset) for the fine-tuning phase. Users can prepare data according to task requirements.
 
 ### 3. Configuration File Preparation
 
@@ -52,7 +52,7 @@ MindSpore Transformers supports loading Hugging Face model weights, enabling dir
 
 ### Dataset Preparation
 
-MindSpore Transformers supports online loading of Hugging Face datasets. For details, refer to [MindSpore Transformers-Dataset-Hugging Face Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#huggingface-datasets).
+MindSpore Transformers supports online loading of Hugging Face datasets. For details, refer to [MindSpore Transformers-Dataset-Hugging Face Dataset](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#hugging-face-dataset).
 
 This guide uses [llm-wizard/alpaca-gpt4-data](https://huggingface.co/datasets/llm-wizard/alpaca-gpt4-data) as the fine-tuning dataset.
 
