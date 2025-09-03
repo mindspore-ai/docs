@@ -36,7 +36,7 @@ The functions of each module are described as follows:
 
 - **Ascend Application Enablement**: AI platform or service capabilities provided by Huawei major product lines based on MindSpore.
 - **MindSpore**: Support for device-edge-cloud-independent and collaborative unified training and inference frameworks.
-- **CANN**: A driver layer that enables Ascend chips ([learn more](https://www.hiascend.com/en/software/cann)).
+- **CANN**: A driver layer that enables Ascend chips.
 - **Compute Resources**: Ascend serialized IP, chips and servers.
 
 For details, click [Huawei Ascend official website](https://e.huawei.com/en/products/servers/ascend).
