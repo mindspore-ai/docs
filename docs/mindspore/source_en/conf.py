@@ -243,12 +243,16 @@ def get_param_func(func):
 
         # 去掉最后一个":"以后的内容
         colon_idx = all_params.find(":")
-        # 最后一个":"以后的内容中包含"="，需要保留"="及以后的内容
-        if colon_idx != -1 and "=" in all_params[colon_idx+1:]:
-            all_params = re.sub(":(.*?)=", ' ', all_params)
-        # 正常删除最后一个":"以后的内容
-        else:
-            all_params = re.sub(":.*$", '', all_params)
+        if colon_idx != -1:
+            # 最后一个":"以后的内容中包含"="，需要保留"="及以后的内容
+            if "=" in all_params[colon_idx+1:]:
+                all_params = re.sub(":(.*?)=", ' =', all_params)
+            # 正常删除最后一个":"以后的内容
+            else:
+                all_params = re.sub(":.*$", '', all_params)
+                # 目前仅有lambda x出现在最后的情况
+                if all_params.endswith("lambda x"):
+                    all_params += ": ..."
 
         return all_params
     except:
