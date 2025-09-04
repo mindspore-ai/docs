@@ -71,7 +71,7 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
     - 数据处理：负责将数据集处理成网络需要的输入，并传递给发送队列中，保证数据处理的高效性；
 
-    - 发送队列Queue：维护数据列队，保证数据处理与网络计算过程互不影响，充当桥梁的作用；
+    - 发送队列Queue：维护数据队列，保证数据处理与网络计算过程互不影响，充当桥梁的作用；
 
     - 网络计算：从发送队列中获取数据，进行迭代训练。
 
@@ -93,11 +93,11 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
     - 对于各领域的常用数据集，可以直接使用MindSpore内置的API接口进行加载。MindSpore提供了[CelebADataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.CelebADataset.html)、[Cifar10Dataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.Cifar10Dataset.html)、[CocoDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.CocoDataset.html)、[ImageFolderDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.ImageFolderDataset.html)、[MnistDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.MnistDataset.html)、[VOCDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.VOCDataset.html)等常用数据集加载接口，在保证性能的同时，能够让用户开箱即用。
     - 对于暂不支持直接加载的数据集，可以先转换为MindSpore数据格式，即MindRecord，再通过[MindDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.MindDataset.html)接口进行加载。MindRecord可以将不同的数据集格式归一化，有聚合存储、高效读取、快速编解码、灵活控制分区大小等多种优势。
-    - 用户也可以通过Python编写自定义数据集读取类，再使用[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html) 接口进行数据集加载。该方式可以快速集成现有代码，但由于是Python IO Reader，需要额外关注数据加载性能。
+    - 用户也可以通过Python编写自定义数据集读取类，再使用[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html)接口进行数据集加载。该方式可以快速集成现有代码，但由于是Python IO Reader，需要额外关注数据加载性能。
 
 - 通过Python层自定义和C++层插件的方式支持更多操作
 
-    ![image](images/data/operation.png)
+    ![image](./images/data/operation.png)
 
     MindSpore内置了丰富的数据处理操作，根据实现的不同又可分为C++层和Python层操作。C++层操作往往具有更好的性能，而Python层操作则更方便集成第三方库，实现更为容易。对于框架暂不支持的操作，用户可以开发C++层实现代码，编译后以插件的形式注册到MindSpore的数据处理Pipeline中；或者直接在Python层自定义数据处理逻辑，然后通过`map`操作进行调用。
 
@@ -180,7 +180,7 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
 - 轻量化的数据处理
 
-    数据处理Pipeline在运行过程中会占用比较多的系统资源，包括CPU和内存。以ImageNet的训练过程为例，CPU占用达到20%，内存占用达到30到50G。云侧训练时，能够使用的资源比较充裕，但在端侧场景中，这种需求往往是不可接受的。并且数据处理Pipeline的初始化过程通常比较耗时，同样也不满足端侧需要快速启动、多次进行训练和推理的特点。因此，MindSpore提供了一套更轻量化、更适用于端侧场景的数据处理模式，解决了云化场景数据处理Pipeline不适用于端侧的问题。
+    数据处理Pipeline在运行过程中会占用比较多的系统资源，包括CPU和内存。以ImageNet的训练过程为例，CPU占用达到20%，内存占用达到30到50GB。云侧训练时，能够使用的资源比较充裕，但在端侧场景中，这种需求往往是不可接受的。并且数据处理Pipeline的初始化过程通常比较耗时，同样也不满足端侧需要快速启动、多次进行训练和推理的特点。因此，MindSpore提供了一套更轻量化、更适用于端侧场景的数据处理模式，解决了云化场景数据处理Pipeline不适用于端侧的问题。
 
     ![image](./images/data/data_process.png)
 

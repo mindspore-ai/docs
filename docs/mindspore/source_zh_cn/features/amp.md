@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/mindspore/source_zh_cn/features/amp.md)
 
-混合精度（Mix Precision）训练是指在训练时，对神经网络不同的运算采用不同的数值精度的运算策略。在神经网络运算中，部分运算对数值精度不敏感，此时使用较低精度可以达到明显的加速效果（如conv、matmul等）；而部分运算由于输入和输出的数值差异大，通常需要保留较高精度以保证结果的正确性（如log、softmax等）。
+混合精度（Mixed Precision）训练是指在训练时，对神经网络不同的运算采用不同的数值精度的运算策略。在神经网络运算中，部分运算对数值精度不敏感，此时使用较低精度可以达到明显的加速效果（如conv、matmul等）；而部分运算由于输入和输出的数值差异大，通常需要保留较高精度以保证结果的正确性（如log、softmax等）。
 
 ## 原理
 
@@ -38,7 +38,7 @@ ori_model = Net()
 # 使能自动混合精度
 model = amp.auto_mixed_precision(ori_model, amp_level="auto", dtype=mindspore.float16)
 loss_fn = Loss()
-optimizer = Opimizer()
+optimizer = Optimizer()
 
 # 构建前向网络
 def forward_fn(data, label):
