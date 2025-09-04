@@ -85,7 +85,7 @@ If you have already completed the compilation and deployment of the custom opera
 
 ## Using Custom Operators in MindSpore
 
-MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.Custom.html). Detailed interface instructions can be found at [ops.Custom](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.Custom.html). This article focuses on how to use [ops.Custom](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.Custom.html) to access Ascend C custom operators.
+The MindSpore custom operator interface is defined as [ops.Custom](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.Custom.html). For detailed interface specifications, please refer to this documentation. This article focuses on explaining how to use the `ops.Custom` primitive to integrate custom operators into Ascend C.
 
 ### Environment Preparation
 
@@ -261,15 +261,13 @@ The input to the inference function is the shape or type of the custom operator'
        return (out1, out2, out3)
 
 
-   # In multi-output scenarios, ensure that the types of out_shape and out_dtype are the same and
-   # both are of the tuple type.
+   # For multiple output scenarios, ensure that the types of `out_shape` and `out_dtype` are identical. Example 1: Both are of type list.
    custom_msda_grad = ops.Custom(
        func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_1,
        out_dtype=[mstype.float32, mstype.float32, mstype.float32],
        func_type="aot")
 
-   # In multi-output scenarios, ensure that the types of out_shape and out_dtype are the same and
-   # both are of the list type.
+   # For multiple output scenarios, ensure that the types of `out_shape` and `out_dtype` are identical. Example 1: Both are of type tuple.
    custom_msda_grad = ops.Custom(
        func="aclnnMultiScaleDeformableAttnGrad", out_shape=msda_grad_infer_shape_2,
        out_dtype=(mstype.float32, mstype.float32, mstype.float32),
@@ -466,7 +464,7 @@ Here, the function name `FuncName` is the operator name. For single-output, the 
            self.custom_concat.add_prim_attr("attr_axis", self.axis)
 
        def construct(self, x1, x2):
-           res = self.concat((x1, x2), self.axis)
+           res = self.custom_concat((x1, x2), self.axis)
            return res
    ```
 

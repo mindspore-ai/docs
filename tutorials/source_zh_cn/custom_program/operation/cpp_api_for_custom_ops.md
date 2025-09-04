@@ -314,7 +314,7 @@ Tensor tensor(const std::vector<double> &value, TypeId dtype = TypeId::kNumberTy
 - **描述**：【API】根据给定的初始值创建一个张量。
 - **参数**：
     - `value`：用于初始化张量的值，支持整型、浮点型、整型向量、浮点型向量。
-    - `dtype`：张量的数据类型，对整数类型，默认值为 `ms::TypeId::kNumberTypeInt64` ，对浮点数类型，默认值为 `ms::TypeId::kNumberTypeFloat64` 。
+    - `dtype`：张量的数据类型。对整数类型，默认值为 `ms::TypeId::kNumberTypeInt64`；对浮点数类型，默认值为 `ms::TypeId::kNumberTypeFloat64`。
 - **返回值**：一个包含指定值的张量。
 
 ### function ones
@@ -374,7 +374,7 @@ PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.co
   static py::object Call(FuncType func, Args &&... args)
   ```
 
-    - **描述**：【API】 执行给定函数并将其输出转成Python对象。
+    - **描述**：【API】 执行给定函数，并将其输出转成Python对象。
     - **模板参数**：
         - `OUT_NUM`：算子输出个数，需与 `func` 返回的tensor列表长度一致。暂不支持可变输出个数的场景。
         - `FuncType`：算子入口函数原型，可通过函数入参自动识别。
@@ -495,10 +495,10 @@ PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.co
   void Init(const ParamType &param)
   ```
 
-    - **描述**： 【API】 使用给定参数初始化 ATB 算子。此方法通过 `atb::CreateOperation` 创建对应算子的 `atb::Operation` 实例，并将其放入缓存中。对于`param`哈希值相同的算子，只会创建一份 `atb::Operation` 实例。
+    - **描述**：【API】 使用给定参数初始化ATB算子。此方法通过 `atb::CreateOperation` 创建对应算子的 `atb::Operation` 实例，并将其放入缓存中。对于 `param` 哈希值相同的算子，只创建一份 `atb::Operation` 实例。
     - **参数**
         - `param`：用于配置 ATB 算子的参数。
-    - **注意**： 对于传入的ParamType类型，需提前特例化 `template <> struct HashOpParam<ParamType>::operator()` 实例函数。
+    - **注意**：对于传入的ParamType类型，需提前特例化 `template <> struct HashOpParam<ParamType>::operator()` 实例函数。
 
 ### function RunAtbOp
 
@@ -512,7 +512,7 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
 
 【API】 使用提供的参数、输入和输出执行一个 ATB 算子。此函数是对 `AtbOpRunner` 的一层封装。
 
-- **参数**
+- **参数**：
     - `op_name`：要执行的 ATB 算子名称。
     - `param`：初始化 ATB 算子所需的参数。
     - `inputs`：算子的输入 Tensor 列表。
