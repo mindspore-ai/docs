@@ -418,7 +418,7 @@ def extract_tar_gz(gz_file, extract_to):
     with tarfile.open(gz_file, 'r:gz') as tar:
         tar.extractall(path=extract_to)
 
-lite_package_path=os.getenv("LITE_PACKAGE_PATH", "null")
+lite_package_path = os.getenv("LITE_PACKAGE_PATH", "null")
 if lite_package_path == "null":
     print("LITE_PACKAGE_PATH: This environment variable does not exist")
     print("End of program")
@@ -426,6 +426,11 @@ if lite_package_path == "null":
 header_path = lite_package_path.split("/")[-1].split(".tar")[0]
 save_path = "../"
 
+extract_tar_gz(lite_package_path, save_path)
+
+# cloud_fusion
+cloud_fusion_dir = "/cloud_fusion/"
+lite_package_path = cloud_fusion_dir.join(lite_package_path.rsplit('/', 1))
 extract_tar_gz(lite_package_path, save_path)
 
 # 拷贝需要的部分到include里

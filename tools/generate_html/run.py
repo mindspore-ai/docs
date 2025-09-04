@@ -86,6 +86,34 @@ def generate_version_json(repo_name, branch, js_data, version_flag, target_path)
                 json.dump(write_content, g, indent=4)
             break
 
+def download_tar(tar_name, url, s, user, pd):
+    """
+    下载tar包用于生成C++ API
+    """
+    if not url.endswith(".html") and not url.endswith("/"):
+        url += "/"
+    re_name = tar_name.replace('.tar.gz', '\\.tar\\.gz')
+    name = rf"{re_name}"
+    res = s.get(url, auth=(user, pd), verify=False)
+    html = etree.HTML(res.text, parser=etree.HTMLParser())
+    links = html.xpath("//a[@title]")
+    if links:
+        for link_ in links:
+            title = link_.get("title", "")
+            href = link_.get("href", "")
+            if re.findall(name, title):
+                download_url = url + href
+                if "cloud" in download_url:
+                    os.mkdir("cloud_fusion")
+                    os.chdir("cloud_fusion")
+                downloaded = requests.get(download_url, stream=True, auth=(user, pd),
+                                          verify=False, timeout=30)
+                with open(title, 'wb') as fd:
+                    for chunk in downloaded.iter_content(chunk_size=512):
+                        if chunk:
+                            fd.write(chunk)
+                print(f"Download {title} success!")
+
 #######################################
 # 运行检测
 #######################################
@@ -316,30 +344,13 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             time.sleep(1)
 
             # 下载tar包
-            if 'tar_path' in data[i].keys():
-                if data[i]['tar_path'] != '':
-                    url = f"{wgetdir}/{data[i]['tar_path']}"
-                    if not url.endswith(".html") and not url.endswith("/"):
-                        url += "/"
-                    re_name = data[i]['tar_name'].replace('.tar.gz', '\\.tar\\.gz')
-                    name = rf"{re_name}"
-                    res = s.get(url, auth=(user, pd), verify=False)
-                    html = etree.HTML(res.text, parser=etree.HTMLParser())
-                    links = html.xpath("//a[@title]")
-                    if links:
-                        for link_ in links:
-                            title = link_.get("title", "")
-                            href = link_.get("href", "")
-                            if re.findall(name, title):
-                                download_url = url+href
-                                downloaded = requests.get(download_url, stream=True, auth=(user, pd),
-                                                          verify=False, timeout=30)
-                                with open(title, 'wb') as fd:
-                                    #shutil.copyfileobj(dowmloaded.raw, fd)
-                                    for chunk in downloaded.iter_content(chunk_size=512):
-                                        if chunk:
-                                            fd.write(chunk)
-                                print(f"Download {title} success!")
+            if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
+                url = f"{wgetdir}/{data[i]['tar_path']}"
+                download_tar(data[i]['tar_name'], url, s, user, pd)
+            if 'cloud_tar_path' in data[i].keys() and data[i]['cloud_tar_path'] != '':
+                url = f"{wgetdir}/{data[i]['cloud_tar_path']}"
+                download_tar(data[i]['cloud_tar_name'], url, s, user, pd)
+
         # 发布版本构建时下载包
         elif version != "daily":
             if data[i]['whl_path'] != "":

@@ -7,8 +7,10 @@
     "whl_name" : "mindspore_lite-.*-cp39-cp39-linux_x86_64.whl$",
     "environ" : "MSL_PATH",
     "uninstall_name" : "mindspore_lite",
-    "tar_path" : "/mindspore-lite/newest/lite/centos_x86/cloud_fusion/python39",
+    "tar_path" : "/mindspore-lite/newest/lite/centos_x86/",
     "tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$",
+    "cloud_tar_path" : "/mindspore-lite/newest/lite/centos_x86/cloud_fusion/python39",
+    "cloud_tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$",
     "extra_whl_path" : "/mindspore/website/master/cpu/x86_64",
     "extra_whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$"
 },
