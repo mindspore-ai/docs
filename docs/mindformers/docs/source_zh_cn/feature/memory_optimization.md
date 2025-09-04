@@ -91,12 +91,6 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
     memory_optimize_level=O0
   ```
 
-- 未开启流水线并行时，需使能lazy_inline场景，设置环境变量
-
-  ```bash
-  ENABLE_LAZY_INLINE_NO_PIPELINE=1
-  ```
-
 - 仅支持Ascend后端
 
 #### 接口说明
@@ -158,7 +152,6 @@ swap_config:
 ```bash
 export GLOG_v=1
 export MS_MEMORY_STATISTIC=1
-export ENABLE_LAZY_INLINE_NO_PIPELINE=1
 YAML_FILE=$1 # 用户指定YAML文件路径
 ROOT_PATH=`pwd`
 
@@ -206,7 +199,6 @@ swap_config:
 ```bash
 export GLOG_v=1
 export MS_MEMORY_STATISTIC=1
-export ENABLE_LAZY_INLINE_NO_PIPELINE=1
 YAML_FILE=$1 # 用户指定YAML文件路径
 ROOT_PATH=`pwd`
 
@@ -259,7 +251,6 @@ swap_config:
 ```bash
 export GLOG_v=1
 export MS_MEMORY_STATISTIC=1
-export ENABLE_LAZY_INLINE_NO_PIPELINE=1
 YAML_FILE=$1 # 用户指定YAML文件路径
 ROOT_PATH=`pwd`
 
@@ -315,7 +306,6 @@ swap_config:
 ```bash
 export GLOG_v=1
 export MS_MEMORY_STATISTIC=1
-export ENABLE_LAZY_INLINE_NO_PIPELINE=1
 YAML_FILE=$1 # 用户指定YAML文件路径
 ROOT_PATH=`pwd`
 
