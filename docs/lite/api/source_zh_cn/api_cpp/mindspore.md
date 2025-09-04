@@ -2280,6 +2280,7 @@ ModelExecutor(const std::vector<std::shared_ptr<ModelImpl>> &models, const std::
 | [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs)](#predict-2)     |    √    |    ✕   |
 | [std::vector\<MSTensor\> GetInputs() const](#getinputs-1)     |    √    |    ✕   |
 | [std::vector\<MSTensor\> GetOutputs() const](#getoutputs-1)     |    √    |    ✕   |
+| [Status Initialize(const std::shared_ptr\<Context\> &model_context)](#initialize)     |    √    |    ✕   |
 
 #### Predict
 
@@ -2321,6 +2322,22 @@ std::vector<MSTensor> GetOutputs() const
 - 返回值
 
   包含模型所有输出张量的容器类型变量。
+
+#### Initialize
+
+```cpp
+Status Initialize(const std::shared_ptr<Context> &model_context)
+```
+
+初始化ModelExecutor的接口。
+
+- 参数
+
+    - `model_context`: 模型[Context](#context)，用于在推理时保存推理选项。
+
+- 返回值
+
+  状态码类`Status`对象。
 
 ## MultiModelRunner
 
