@@ -559,8 +559,8 @@ inline void RunAsdSipFFTOp(const std::string &op_name, const FFTParam &fft_param
 
 [API] Executes an ASDSIP FFT operator using the provided parameters, input, and output. This function is a wrapper around `AsdSipFFTOpRunner`.
 
-- **Parameters**
+- **Parameters**:
     - `op_name`: The name of the ASDSIP FFT operator to execute.
     - `fft_param`: Parameters required to initialize the ASDSIP FFT operator.
-    - `inputs`: A list of input tensor for the operator.
-    - `outputs`: A list of output tensor for the operator.
+    - `input`: A list of input tensor for the operator.
+    - `output`: A list of output tensor for the operator.

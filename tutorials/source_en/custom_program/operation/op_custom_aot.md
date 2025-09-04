@@ -6,7 +6,7 @@
 
 AOT (Ahead-Of-Time) type of custom operators employ a pre-compilation approach, which requires network developers to manually write the source code files corresponding to the operator implementation functions based on specific interfaces. These source code files need to be compiled into dynamic link libraries (DLLs) in advance. During network runtime, the framework will automatically invoke and execute the functions contained within these dynamic link libraries. AOT-type custom operators support the CUDA language for GPU platforms and the C and C++ languages for CPU platforms. For the development of custom operators specifically on the Ascend platform, please refer to [AOT-Type Custom Operators(Ascend)](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_ascendc.html).
 
-In this tutorial, we provide several simple use cases of AOT-type custom operators on both CPU and GPU platforms as demonstrations. For more comprehensive examples of AOT-type custom operators, please refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py) section in the MindSpore source code.
+In this tutorial, we provide several simple use cases of AOT-type custom operators on both CPU and GPU platforms as demonstrations. For more comprehensive examples, please refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py) section in the MindSpore source code.
 
 ## The Introduction to the General Usage Features of AOT-type Custom Operators
 
@@ -434,7 +434,7 @@ extern "C" std::vector<int64_t> CustomKernelInferShape(int *ndims, int64_t **sha
 In the above example, we need to note the following:
 
 - According to the MindSpore specifications, dynamic shape inputs includes two cases: the dynamic shape case and the dynamic rank case, with corresponding shape inputs as follows:
-    - dynamic shape: If the size of a certain dimension of the input is unknown, it is represented by -1. For example, the shape of the input is [1024, -1, 1024], which indicates that the input is a three-dimensional tensor with dimensions of 1024 and -1 for the second dimension;
+    - dynamic shape: If the size of a certain dimension of the input is unknown, it is represented by -1. For example, the shape of the input is [1024, -1, 1024], which indicates that the input is a three-dimensional tensor, with the first and third dimensions having a length of 1024 and the second dimension having an unknown length;
     - dynamic rank: The number of dimensions of the input is unknown, and the shape of the input is fixed as [-2, ].
 - To support C++ shape inference functions, we need to handle cases when inputs are either dynamic shape or dynamic rank. For example, in the above example, if the input is of dynamic rank, the output will also be of dynamic rank. Therefore, when we find that the input is [-2, ], we directly return [-2, ].
 - For scenarios where the output shape depends on attributes, you can use the `extra->Attr<T>(std::string name)` template interface to obtain attributes.
@@ -542,9 +542,9 @@ For the function of custom operator registration, please refer to the relevant d
 For each attribute, we create an `attr` for the operator registration file `reduce_cpu_info`, setting the attribute name and value.
 
 Each `attr` item here has four inputs: the first is the name, such as `"axis"` or `"keep_dim"`; the middle two are `"required"` and `"all"`; the last input needs to specify the input name as `value=`, and the input value is the value of the attribute, for example, `value=axis` and `value=keep_dim` here.
-We determine the values of these two parameters from the network input, and these values should match the types used in the `extra->Attr<T>` template interface in the initialization function and shape inference function above.
+These two parameters are derived from the network input, and their types should match the types obtained via the `extra->Attr<T>` template interface in the initialization function and shape derivation function.
 
-In addition, if we need to define multiple operator registration files, we need to use different operator file names, which is the argument of `CustomRegOp`, here it is `"add_with_attr_kernel_cpu"`. If we want to define another operator with the same prototype but different attribute values, the name cannot be duplicated.
+In addition, if we need to define multiple operator registration files, we need to use different operator file names, which is the argument of `CustomRegOp`. This should be consistent with the preceding text, such as `"reduce_kernel_cpu"`. If another operator is defined (with the same prototype but different attribute values), this name must not be duplicated.
 
 #### Operator Definition
 
