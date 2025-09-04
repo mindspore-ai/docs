@@ -85,7 +85,7 @@ The main package dependencies of vLLM-MindSpore Plugin are listed in follow:
 
 ### Preparing a Model
 
-The service-oriented vLLM-MindSpore Plugin supports the direct running of the native Hugging Face model. Therefore, you can directly download the model from the Hugging Face official website. The following uses the Qwen2-7B-Instruct model as an example:
+The service-oriented vLLM-MindSpore Plugin supports the direct running of the native Hugging Face model. Therefore, you can directly download the model from the Hugging Face official website. The following uses the Qwen2-7B model as an example:
 
 ```shell
 git lfs install

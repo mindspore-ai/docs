@@ -85,7 +85,7 @@ vLLM-MindSpore插件主要依赖的组件包含如下：
 
 ### 模型准备
 
-vLLM-MindSpore插件服务化支持原生Hugging Face的模型直接运行，因此直接从Hugging Face官网下载模型即可，此处我们仍然以Qwen2-7B-Instruct模型为例。
+vLLM-MindSpore插件服务化支持原生Hugging Face的模型直接运行，因此直接从Hugging Face官网下载模型即可，此处我们仍然以Qwen2-7B模型为例。
 
 ```shell
 git lfs install
