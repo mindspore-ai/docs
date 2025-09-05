@@ -84,9 +84,9 @@
 
 **Ascend配套软件包**
 
-|  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|  安装指引 | 社区版下载地址 |
 |--------|------------------|
-| TBD    | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| [安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html) | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 ## 2.7.0-rc1
 
@@ -110,9 +110,9 @@
 
 **Ascend配套软件包**
 
-|  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|  安装指引 | 社区版下载地址 |
 |--------|------------------|
-| TBD    | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| [安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html) | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 ## 2.6.0
 

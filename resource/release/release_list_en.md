@@ -82,9 +82,11 @@
 |           |               |               | Python3.10 | [mindspore-2.7.0-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0/MindSpore/cpu/x86_64/mindspore-2.7.0-cp310-cp310-macosx_10_15_x86_64.whl) | c33d010511be62dd5b8240a7f6d012c211776d0df89b4d454134ad3d304634d1 |
 |           |               |               | Python3.11 | [mindspore-2.7.0-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0/MindSpore/cpu/x86_64/mindspore-2.7.0-cp311-cp311-macosx_10_15_x86_64.whl) | 78fca18ef9d06015a8bbf8674f0fc658403828df92e5d5fe71fae9f1984efe1a |
 
-|  Commercial edition Installation Guide  | Community edition download link (refer to commercial edition for instructions) |
+**Ascend Supporting Software Package**
+
+|  Installation guide | Community edition download link |
 |--------|------------------|
-| TBD    | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html) | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 ## 2.7.0-rc1
 
@@ -106,9 +108,11 @@
 |           |               |               | Python3.10 | [mindspore-2.7.0rc1-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindSpore/cpu/x86_64/mindspore-2.7.0rc1-cp310-cp310-macosx_10_15_x86_64.whl) | 1004271c43c0978b17b5288be701fb0a54cad3ad568e3199563a78337e653f3b |
 |           |               |               | Python3.11 | [mindspore-2.7.0rc1-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindSpore/cpu/x86_64/mindspore-2.7.0rc1-cp311-cp311-macosx_10_15_x86_64.whl) | aaf5a73505c853f72eb8d22cdcc9c85c781dfc644735cd1b4c0bdb4248c4b4cc |
 
-|  Commercial edition Installation Guide  | Community edition download link (refer to commercial edition for instructions) |
+**Ascend Supporting Software Package**
+
+|  Installation guide | Community edition download link |
 |--------|------------------|
-| TBD    | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html) | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 ## 2.6.0
 
