@@ -36,17 +36,13 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 |软件名称|版本|作用|
 |-|-|-|
-|Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|运行MindSpore容器的操作系统|
+|Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|运行MindSporer容器的操作系统|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |Docker | Docker 18.03或更高版本 |提供轻量级容器化环境，实现MindSpore及其依赖的隔离部署与跨平台运行|
 
 ## 安装昇腾AI处理器配套软件包
 
-昇腾软件包提供商用版和社区版两种下载途径：
-
-- 商用版下载需要申请权限，下载链接即将发布。
-
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.2.RC1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+昇腾软件包社区版下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.2.RC1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html)。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -60,8 +56,20 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
 
 其中：
 
-- `{tag}`对应上述表格中的标签,如2.7.0。
 - `{image_name}` 对应上述表格中的docker镜像名称，使用 Atlas 训练系列产品请下载 `mindspore-ascend-a1` 镜像；Atlas A2 训练系列产品请下载 `mindspore-ascend-a2` 镜像。
+- `{tag}`对应上述表格中的标签,如2.7.0。
+
+如果需要使用MindSpore 2.7.0版本，Atlas训练系列硬件的镜像，使用以下命令：
+
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/2.7.0:mindspore-ascend-a1
+```
+
+如果需要使用MindSpore 2.7.0版本，Atlas A2训练系列硬件的镜像，使用以下命令：
+
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/2.7.0:mindspore-ascend-a2
+```
 
 ## 运行MindSpore镜像
 
