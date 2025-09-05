@@ -728,7 +728,7 @@ Log
 
        If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, the logs are output to the screen and not to the file
 
-       The log saving path is: `specified path/rank_${rank_id}/logs/`. Under non-distributed training scenario, `rank_id` is 0, while under distributed training scenario, `rank_id` is the ID of the current device in the cluster
+       The log saving path is: `specified path/rank_${RANK_ID}/logs/`. Under non-distributed training scenario, `RANK_ID` is 0, while under distributed training scenario, `RANK_ID` is the ID of the current device in the cluster
 
        C++ and Python logs are output to different files. The C++ logs follow the `GLOG` log file naming rules. In this case `mindspore.machine name. user name.log.log level.timestamp.Process ID`, the Python log file name is `mindspore.log.process ID`.
 

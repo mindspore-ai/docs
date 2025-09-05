@@ -62,7 +62,7 @@ A: MindSpore除了支持华为自己的`Ascend`之外，也支持`GPU`与`CPU`�
 
 ## Q: MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？
 
-A: 由于Protobuf的硬件限制，导出ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入ONNX格式，只支持导入MINDIR。 MINDIR的导入不存在模型参数大小限制。
+A: 由于Protobuf的硬件限制，导出ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入ONNX格式，只支持导入MINDIR。MINDIR的导入不存在模型参数大小限制。
 
 <br/>
 
