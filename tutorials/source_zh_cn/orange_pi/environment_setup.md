@@ -6,7 +6,7 @@
 
 ## 1. 镜像烧录（以Windows系统为例）
 
-镜像烧录可以在任何操作系统内执行，这里将以在Windows系统为例，演示使用相应版本的balenaEtcher工具，快速烧录镜像至您的Micro SD卡。
+镜像烧录可以在任何操作系统内执行。这里将以Windows系统为例，演示使用相应版本的balenaEtcher工具，快速烧录镜像至您的Micro SD卡。
 
 ### 1.1 制卡前准备
 
@@ -20,7 +20,7 @@
 
 > 此处仅做示意，不同算力开发板镜像下载地址不同，详细请查看[此链接](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-AIpro(20T).html)。
 
-步骤2 点击图片中箭头图标跳转百度网盘下载页面。
+步骤2 点击图片中箭头图标，跳转百度网盘下载页面。
 
 ![environment-setup-1-2](./images/environment_setup_1-2.png)
 
@@ -44,7 +44,7 @@
 
   ![environment-setup-1-4](./images/environment_setup_1-4.png)
 
-  步骤2 选择下载 Portable版本。
+  步骤2 选择下载Portable版本。
 
   Portable版本无需安装，双击打开即可使用。
 
@@ -52,7 +52,7 @@
 
   步骤3 备选下载方式。
 
-  如果官方网站下载过慢，可以使用以[此链接](https://obs-9be7.obs.cn-east-2.myhuaweicloud.com/OrangePi/balenaEtcher/balenaEtcher-Setup-1.18.4.exe )直接下载balenaEtcher-Setup-1.18.4软件。
+  如果官方网站下载过慢，可以使用[此链接](https://obs-9be7.obs.cn-east-2.myhuaweicloud.com/OrangePi/balenaEtcher/balenaEtcher-Setup-1.18.4.exe)直接下载balenaEtcher-Setup-1.18.4软件。
 
   步骤4 打开balenaEtcher。
 
@@ -90,7 +90,7 @@
 
   步骤2 烧录完成。
 
-  烧录完成后，balenaEtcher的显示界面如下图所示，如果显示绿色的指示图标说明镜像烧录成功，此时就可以退出balenaEtcher，拔出TF卡，插入到开发板的TF卡槽中使用：
+  烧录完成后，balenaEtcher的显示界面如下图所示。如果显示绿色的指示图标，说明镜像烧录成功。此时就可以退出balenaEtcher，拔出TF卡，插入到开发板的TF卡槽中使用：
 
   ![environment-setup-1-11](./images/environment_setup_1-11.png)
 
@@ -98,7 +98,7 @@
 
   步骤1 选择镜像、TF卡，烧录镜像。
 
-  sd卡插入读卡器，读卡器插入电脑、选择镜像与sd卡，点击“开始”。
+  SD卡插入读卡器，读卡器插入电脑、选择镜像与SD卡，点击“开始”。
 
   ![environment-setup-1-12](./images/environment_setup_1-12.png)
 
@@ -118,7 +118,7 @@
 
 ### 2.2 网络连接
 
-为方便后续环境升级下载软件包和运行代码，开发板需要完成网络连接。具体可参考《用户手册》“3.5 网络连接测试”。
+为方便后续环境升级、下载软件包和运行代码，开发板需要完成网络连接。具体可参考《用户手册》“3.5 网络连接测试”。
 
 ![environment-setup-1-21](./images/environment_setup_1-21.png)
 
@@ -150,7 +150,7 @@
 
 ![environment-setup-1-25](./images/environment_setup_1-25.png)
 
-### 3.2 CANN升级（以CANN8.1.RC1为例）
+### 3.2 CANN升级（以CANN 8.1.RC1为例）
 
 若当前CANN版本不满足开发需求，可按照如下内容对CANN版本进行升级。
 
@@ -211,7 +211,7 @@
 (base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.1.RC1_linux-aarch64.run --install
 ```
 
-安装时弹出此提示后输入Y，然后按回车键继续安装，该过程约需要10-15分钟，请耐心等待。
+安装时弹出此提示后输入Y，然后按回车键继续安装。该过程约需要10-15分钟，请耐心等待。
 
 ![environment-setup-1-16](./images/environment_setup_1-16.png)
 
@@ -314,7 +314,7 @@ xxx install success
 
 若当前MindSpore版本不满足开发需求，可按照如下内容对MindSpore版本进行升级。
 
-### 4.2 升级MindSpore（以MindSpore2.6.0为例）
+### 4.2 升级MindSpore（以MindSpore 2.6.0为例）
 
 #### 4.2.1 升级MindSpore
 

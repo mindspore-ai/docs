@@ -6,7 +6,7 @@
 
 MindSpore是一个全场景的AI框架。当模型部署到端侧或者其他轻量化设备上时，对于部署的内存、功耗、时延等有各种限制，因此在部署前需要对模型进行压缩。
 
-MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.2.0/index.html) 提供，MindSpore Golden Stick是华为诺亚团队和MindSpore团队联合设计开发的一个模型压缩算法集，为MindSpore提供了一系列模型压缩算法，支持A16W8、A16W4、A8W8和KVCache等量化方式。详细资料可前往 [MindSpore Golden Stick官方资料](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.2.0/index.html) 查看。
+MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.2.0/index.html) 提供。MindSpore Golden Stick是华为诺亚团队和MindSpore团队联合设计开发的模型压缩算法集，为MindSpore提供了一系列模型压缩算法，支持A16W8、A16W4、A8W8和KVCache等量化方式。详细资料可前往 [MindSpore Golden Stick官方资料](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.2.0/index.html) 查看。
 
 ## 模型量化基本流程
 
@@ -14,11 +14,11 @@ MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore
 
 ### 基本流程
 
-MindSpore Golden Stick量化算法主要可以分为两个阶段：量化阶段和部署阶段。量化阶段是部署前提前完成的，主要的工作是：收集权重的分布、计算量化参数、量化权重数据、插入反量化节点。部署阶段通常是指在生产环境，使用MindSpore框架对量化后的模型进行推理的过程。
+MindSpore Golden Stick量化算法主要可以分为两个阶段：量化阶段和部署阶段。量化阶段是部署前提前完成的，主要工作包括：收集权重的分布、计算量化参数、量化权重数据、插入反量化节点。部署阶段通常是指在生产环境中，使用MindSpore框架对量化后的模型进行推理的过程。
 
 MindSpore Golden Stick主要通过`PTQConfig`来自定义如何量化和部署，通过`apply`和`convert`接口实现量化和部署过程。`PTQConfig`中可配置是否对权重、激活和KVCache进行量化及量化到的bit位，同时也可配置数据校准策略。详细说明可参考[PTQConfig的配置说明](#ptqconfig的配置说明)。
 
-MindSpore Golden Stick的量化步骤如下:
+MindSpore Golden Stick的量化步骤如下：
 
 ```python
 import numpy as np
@@ -90,12 +90,12 @@ ptq.convert(net)
 ms.save_checkpoint(net.parameters_dict(), './simplenet_ptq.ckpt')
 ```
 
-1. 使用[nn.Cell](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/nn/mindspore.nn.Cell.html)定义网络，训练模型后得到模型的浮点权重，在推理过程中，加载该模型的浮点权重。上述例子对该过程进行了简化，直接创建网络，使用初始浮点权重进行量化。
+1. 使用[nn.Cell](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/nn/mindspore.nn.Cell.html)定义网络，训练模型后得到模型的浮点权重。在推理过程中，加载该模型的浮点权重。上述例子对该过程进行了简化，直接创建网络，使用初始浮点权重进行量化。
 2. 使用PTQConfig配置mode为量化模式，后端为Ascend，对权重进行8bit量化。详细说明可参考[PTQConfig的配置说明](#ptqconfig的配置说明)。
 3. 使用apply接口将网络转换为伪量化网络，根据`PTQConfig`中的配置统计量化对象的信息。
 4. 使用convert接口对上一步的伪量化网络进行真实量化，得到量化后的网络。
 
-量化结束后，可使用量化后的模型进行推理，步骤如下:
+量化结束后，可使用量化后的模型进行推理，步骤如下：
 
 ```python
 import numpy as np
@@ -150,7 +150,7 @@ print(output)
 
 ### PTQConfig的配置说明
 
-可通过自定义PTQConfig的配置来启用不同的量化能力，PTQConfig的含义可以参考其[API文档](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.2.0/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig)，这里我们展示这几种算法的配置样例：
+可通过自定义PTQConfig的配置来启用不同的量化能力。PTQConfig的含义可以参考其[API文档](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.2.0/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig)，这里我们展示这几种算法的配置样例：
 
 > A表示激活，W表示权重，C表示KVCache，数字代表bit位。例如：A16W8表示激活为float16，权重为int8的量化。
 
