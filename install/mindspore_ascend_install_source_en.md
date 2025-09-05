@@ -30,7 +30,7 @@ The following table lists the system environment and third-party dependencies re
 
 |Software|Version|Description|
 |-|-|-|
-|Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|OS for running MindSpore|
+|Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|Operating Systems compatible to MindSpore|
 |[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
@@ -80,11 +80,7 @@ python --version
 
 ### Installing Ascend AI processor software package
 
-Ascend software package provides two distributions, commercial edition and community edition:
-
-- Commercial edition needs approval from Ascend to download, release date is TBD.
-
-- Community edition has no restrictions, the recommended version is `8.2.RC1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+To install Ascend software package community edition, the recommended version is `8.2.RC1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html) to choose which packages are to be installed and how to install them.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
