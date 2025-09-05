@@ -53,7 +53,6 @@ print("结果形状:", y.shape)
 
     ```python
     import mindspore
-    from mindspore import ops
 
     x = mindspore.tensor([[1, 2, 3], [4, 5, 6]])
     y = mindspore.mint.transpose(x, (1, 0))  # 创建非连续张量
