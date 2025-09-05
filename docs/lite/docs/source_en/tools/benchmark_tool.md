@@ -82,7 +82,7 @@ The following describes the parameters in detail.
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 1      | 2: medium core<br/>1: large core<br/>0: not bound |
 | `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU or GPU or NPU or Ascend |
 | `--help` | Optional | Displays the help information about the `benchmark` command. | - | - | - |
-| `--inDataFile=<INDATAFILE>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -       |
+| `--inDataFile=<INDATAFILE>` | Optional | Specifies the file path of the input data of the tested model, and for several file paths, use "," to segregate. If this parameter is not set, a random value will be used. | String | Null  | -       |
 | `--loopCount=<LOOPCOUNT>` | Optional | Specifies the number of forward inference times of the tested model when the Benchmark tool is used for the benchmark testing. The value should be a positive integer. | Integer | 10 | - |
 | `--numThreads=<NUMTHREADS>` | Optional | Specifies the number of threads for running the model inference program. | Integer | 2 | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
@@ -179,6 +179,12 @@ To set specified input shapes (such as 1,32,32,1), use the command as follows:
 
 ```bash
 ./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
+```
+
+To set multiple input data files (such as 2 files) and specified input shapes (such as 1,32,32,1), use the command as follows:
+
+```bash
+./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input0.bin,/path/to/input1.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
 ```
 
 #### CPU Performance Test
@@ -363,6 +369,12 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
     ```bat
     call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
     ```
+
+- Set multiple input data files.
+
+  ```bat
+  call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input0.bin,/path/to/input1.bin --benchmarkDataFile=/path/to/output.out
+  ```
 
 ### Dump
 
