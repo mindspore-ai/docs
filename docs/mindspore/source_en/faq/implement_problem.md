@@ -221,7 +221,7 @@ net = Vgg(cfg['16'], num_classes=num_classes, args=args, batch_norm=args.batch_n
 
 ## Q: How to obtain middle-layer features of a VGG model?
 
-A: Obtaining the middle-layer features of a network is not closely related to the specific framework. For the `vgg` model defined in `torchvison`, the `features` field can be used to obtain the "middle-layer features". The `vgg` source code of `torchvison` is as follows:
+A: Obtaining the middle-layer features of a network is not closely related to the specific framework. For the `vgg` model defined in `torchvision`, the `features` field can be used to obtain the "middle-layer features". The `vgg` source code of `torchvision` is as follows:
 
 ```python
 class VGG(nn.Module):

@@ -10,7 +10,7 @@ A: 静态图模式能够支持覆盖Python常用语法子集，以支持神经�
 
 ## Q: 编译时报错'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function怎么办？
 
-A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html>) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
+A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
 
 <br/>
 
@@ -187,7 +187,7 @@ A: MindSpore编译网络时通过 `inspect.getsourcelines(self.fn)` 获取网络
 
 ## Q: 报错提示中的`Corresponding forward node candidate:”或“Corresponding code candidate:`是什么意思？
 
-A: `Corresponding forward node candidate:`为关联的正向网络中的代码，表示该反向传播算子与该正向代码对应。`Corresponding code candidate:`表示该算子是由这些代码融合而来，其中分符“-”用以区分不同的代码。
+A: `Corresponding forward node candidate:`为关联的正向网络中的代码，表示该反向传播算子与该正向代码对应。`Corresponding code candidate:`表示该算子是由这些代码融合而来，其中分隔符“-”用以区分不同的代码。
 
 例如：
 
@@ -240,7 +240,7 @@ A: 当需要加速执行时，MindSpore会将Python源码转换成一种基于�
 
 <br/>
 
-## Q: 编译时报出告警:`On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization.`，是什么意思？
+## Q: 编译时报出告警：`On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization.`，是什么意思？
 
 A: 由于Ascend平台不能真正返回一个内存地址，导致在整图下沉模式下，对于控制流场景中返回值存在参数的情况，会存在一些问题。为了避免出现问题，会对这种场景切换到统一运行时模式，从整图下沉模式切换到统一运行时模式，网络性能可能会劣化。如果控制流子图的返回值仅使用参数的值，可以通过参数的value接口获取参数的值，从而避免模式切换导致的性能劣化。
 
