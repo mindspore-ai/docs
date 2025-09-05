@@ -82,13 +82,13 @@
 | `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | 2：表示中核<br/>1：表示大核<br/>0：表示不绑定 |
 | `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU、NPU、Ascend |
 | `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
-| `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
+| `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径，多个输入数据文件用‘,’隔开。如果未设置，则使用随机输入。 | String | null | - |
 | `--loopCount=<LOOPCOUNT>` | 可选 | 指定Benchmark工具进行基准测试时，测试模型的前向推理运行次数，其值为正整数。 | Integer | 10 | - |
 | `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
 | `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
-| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入。维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
+| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入。维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开。 | String | Null | - |
 | `--perfProfiling=<PERFPROFILING>` | 可选 | CPU性能验证时生效，指定是否使用PerfProfiler打印每个算子的CPU性能，当timeProfiling为true时无效。目前仅支持aarch64 CPU。 | Boolean | false | true, false |
 | `--perfEvent=<PERFEVENT>` | 可选 | CPU性能验证时生效，指定PerfProfiler打印的CPU性能参数的具体内容，指定为CYCLE时，会打印算子的CPU周期数和指令条数；指定为CACHE时，会打印算子的缓存读取次数和缓存未命中次数；指定为STALL时，会打印CPU前端等待周期数和后端等待周期数。 | String | CYCLE | CYCLE/CACHE/STALL |
 | `--decryptKey=<DECRYPTKEY>` | 可选 | 用于解密文件的密钥，以十六进制字符表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | String | null | 注意密钥为十六进制表示的字符串，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。 |
@@ -175,10 +175,16 @@ Mean bias of all nodes: 0%
 =======================================================
 ```
 
-如果需要指定输入数据的维度（例如输入维度为1，32，32，1），使用如下命令：
+如果模型输入是动态维度，需要指定输入数据的维度（例如输入维度为1，32，32，1），使用如下命令：
 
 ```bash
 ./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
+```
+
+如果模型有多个输入数据文件（例如2个），且输入是动态维度（例如输入维度为1，32，32，1），使用如下命令：
+
+```bash
+./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input0.bin,/path/to/input1.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
 ```
 
 #### CPU性能测试
@@ -363,6 +369,12 @@ call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRES
     ```bat
     call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
     ```
+
+- 多个输入数据文件。
+
+  ```bat
+  call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input0.bin,/path/to/input1.bin --benchmarkDataFile=/path/to/output.out
+  ```
 
 ### Dump功能
 
