@@ -216,13 +216,13 @@
 |[mindspore.ops.slice](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.slice.html)|✔️|✔️|✔️|
 |[mindspore.ops.softmax](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.softmax.html)|✔️|✔️|✔️|
 |[mindspore.ops.softshrink](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.softshrink.html)|✔️|✔️|✔️|
-|[mindspore.ops.sort](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.sort.html)|✔️|❌|✔️||
+|[mindspore.ops.sort](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.sort.html)|✔️|❌|✔️|
 |[mindspore.ops.split](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.split.html)|❌|✔️|✔️|
 |[mindspore.ops.sqrt](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.sqrt.html)|✔️|✔️|✔️|
 |[mindspore.ops.square](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.square.html)|✔️|✔️|✔️|
 |[mindspore.ops.squeeze](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.squeeze.html)|✔️|✔️|✔️|
 |[mindspore.ops.stack](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.stack.html)|✔️|✔️|✔️|
-|[mindspore.ops.std](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.std.html)|✔️|❌|✔️||
+|[mindspore.ops.std](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.std.html)|✔️|❌|✔️|
 |[mindspore.ops.strided_slice](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.strided_slice.html)|✔️|✔️|✔️|
 |[mindspore.ops.sub](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.sub.html)|✔️|✔️|✔️|
 |[mindspore.ops.sum](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.sum.html)|✔️|✔️|✔️|
