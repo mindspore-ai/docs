@@ -7,7 +7,7 @@
 A: The `shape` of the [ops.concat](https://www.mindspore.cn/docs/en/r2.7.0/api_python/ops/mindspore.ops.concat.html) operator is too large. You are advised to set the output to `numpy` when creating an iterator for the `dataset` object. The setting is as follows:
 
 ```python
-gallaryloader.create_dict_iterator(output_numpy=True)
+galleryloader.create_dict_iterator(output_numpy=True)
 ```
 
 In the post-processing phase (in a non-network calculation process, that is, in a non-`construct` function), `numpy` can be directly used for computation. For example, `numpy.concatenate` is used to replace the `ops.concat` for computation.
