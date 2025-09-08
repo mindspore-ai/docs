@@ -55,6 +55,7 @@ MindSpore Quantum文档
    case_library/quantum_annealing_inspired_algorithm
    case_library/qaia_automatic_parameter_adjustment
    case_library/qaia_gpu_tutorial
+   case_library/qaia_npu_tutorial
 
 .. toctree::
    :glob:
