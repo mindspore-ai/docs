@@ -6,7 +6,7 @@
 
 ### Q: 使用pip安装时报错: `ERROR: mindspore_{VERSION}.whl is not a supported wheel on this platform`应该怎么办？
 
-A: pip会通过wheel安装包的文件名来判断该安装包是否与当前Python环境兼容，例如安装mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl时，pip会检查:
+A: pip会通过wheel安装包的文件名来判断该安装包是否与当前Python环境兼容，例如安装mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl时，pip会检查：
 
 1. 当前python环境为3.7.x版本
 2. 当前操作系统为Linux
@@ -22,7 +22,7 @@ A: 首先检查output目录下编译得到的安装包名，类似mindspore-1.6.
 
 解决方法一：可以重命名安装包后再尝试安装，例如将上述安装包重命名为mindspore-1.6.0-cp37-cp37m-macosx_10_15_x84_64.whl。
 
-解决方法二：在源码编译前，设置环境变量`MACOSX_DEPOLYMENT_TARGET`为`10.15`并重新编译。
+解决方法二：在源码编译前，设置环境变量`MACOSX_DEPLOYMENT_TARGET`为`10.15`并重新编译。
 
 <br/>
 
@@ -260,7 +260,7 @@ export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; prin
 
 A: 常见原因有两种: Ascend AI处理器配套软件包或固件/驱动包版本不正确，或没有安装在默认位置且未配置相应的环境变量。
 
-1. 打开Ascend AI处理器配套软件包安装目录，默认`/usr/local/Ascend`下，各个子目录中的`version.info`文件，观察其版本号是否与当前使用的MindSpore版本一直，参照[安装页面](https://www.mindspore.cn/install/)中关于Ascend AI处理器配套软件包版本的描述。如果版本不配套，请更换软件包或MindSpore版本。
+1. 打开Ascend AI处理器配套软件包安装目录，默认`/usr/local/Ascend`下，各个子目录中的`version.info`文件，观察其版本号是否与当前使用的MindSpore版本一致，参照[安装页面](https://www.mindspore.cn/install/)中关于Ascend AI处理器配套软件包版本的描述。如果版本不配套，请更换软件包或MindSpore版本。
 
 2. 检查Ascend AI处理器配套软件包与其他依赖软件是否安装在默认位置，MindSpore会尝试从默认安装位置`/usr/local/Ascend`自动加载，如果将Ascend软件包安装在自定义位置，请参照[安装页面](https://www.mindspore.cn/install/)页面的安装指南一栏设置环境变量。如果将其他依赖软件安装在自定义位置，请根据其位置关系设置`LD_LIBRARY_PATH`环境变量。
 

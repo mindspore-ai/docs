@@ -735,7 +735,7 @@ Log
 
        If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, the logs are output to the screen and not to the file
 
-       The log saving path is: `specified path/rank_${rank_id}/logs/`. Under non-distributed training scenario, `rank_id` is 0, while under distributed training scenario, `rank_id` is the ID of the current device in the cluster
+       The log saving path is: `specified path/rank_${RANK_ID}/logs/`. Under non-distributed training scenario, `RANK_ID` is 0, while under distributed training scenario, `RANK_ID` is the ID of the current device in the cluster
 
        C++ and Python logs are output to different files. The C++ logs follow the `GLOG` log file naming rules. In this case `mindspore.machine name. user name.log.log level.timestamp.Process ID`, the Python log file name is `mindspore.log.process ID`.
 
@@ -991,7 +991,7 @@ Third-party Library
      - Absolute path for CUDA package installation
      - Required for GPU environment only, generally no need to set. If multiple versions of CUDA are installed in the GPU environment, it is recommended to configure this environment variable in order to avoid confusion.
    * - MS_ENABLE_THM
-     - Enable Training Heath Monitor.
+     - Enable Training Health Monitor.
      - String
      - "{HCCL_WATCHDOG:1,HCCL_STATUS_SAVE:1}". HCCL_WATCHDOG: Use a thread to monitor for faults within the collective communicator, which is enabled by default. HCCL_STATUS_SAVE: Use a thread to record the execution status of communication operators, which is disabled by default.
      - Graph mode can only be enabled on the Ascend backend and jit_level is set to "O0" or "O1".

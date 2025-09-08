@@ -313,13 +313,13 @@ dataset3 = dataset2.map(***)
 
 ## Q: MindSpore中和DataLoader对应的接口是什么？
 
-A：如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
+A: 如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 
 ## Q: 自定义的Dataset出现错误时，应该如何调试？
 
-A：自定义的Dataset通常会传入到GeneratorDataset，在使用过程中错误指向了自定义的Dataset时，可通过一些方式进行调试（如增加打印信息，打印返回值的shape、dtype等），自定义Dataset通常要保持中间处理结果为numpy array，且不建议与MindSpore网络计算的算子混合使用。此外针对自定义的Dataset如下面的MyDataset，初始化后也可直接进行如下遍历（主要为简化调试，分析原始Dataset中的问题，可不传入GeneratorDataset），调试遵循常规的Python语法规则。
+A: 自定义的Dataset通常会传入到GeneratorDataset，在使用过程中错误指向了自定义的Dataset时，可通过一些方式进行调试（如增加打印信息，打印返回值的shape、dtype等），自定义Dataset通常要保持中间处理结果为numpy array，且不建议与MindSpore网络计算的算子混合使用。此外针对自定义的Dataset如下面的MyDataset，初始化后也可直接进行如下遍历（主要为简化调试，分析原始Dataset中的问题，可不传入GeneratorDataset），调试遵循常规的Python语法规则。
 
 ```python
 Dataset = MyDataset()
@@ -331,20 +331,20 @@ for item in Dataset:
 
 ## Q: 数据处理操作与网络计算算子能否混合使用？
 
-A：通常数据处理操作与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理操作且自定义Python操作不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理操作通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
+A: 通常数据处理操作与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理操作且自定义Python操作不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理操作通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
 将二者混合使用需要使上一个的输出格式和下一个所需的输入格式一致。数据处理操作指的是官网API文档中[mindspore.dataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html)模块下的接口，如 [mindspore.dataset.vision.CenterCrop](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html)，网络计算算子包含 mindspore.nn、 mindspore.ops等模块下的算子。
 
 <br/>
 
 ## Q: MindRecord为何会生成.db文件？ 缺少.db文件时加载数据集会有什么报错？
 
-A：.db文件为MindRecord文件对应的索引文件，缺少.db文件通常会在获取数据集总的数据量时报错，错误提示如：`MindRecordOp Count total rows failed`。
+A: .db文件为MindRecord文件对应的索引文件，缺少.db文件通常会在获取数据集总的数据量时报错，错误提示如：`MindRecordOp Count total rows failed`。
 
 <br/>
 
 ## Q: 自定义Dataset中如何进行图像读取并进行Decode操作？
 
-A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem__`函数）进行图像读取后可以直接返回bytes类型的数据、numpy array类型的数组或已经做了解码操作的numpy array，具体如下所示：
+A: 传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem__`函数）进行图像读取后可以直接返回bytes类型的数据、numpy array类型的数组或已经做了解码操作的numpy array，具体如下所示：
 
 - 读取图像后直接返回bytes类型的数据
 
@@ -551,7 +551,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
 
 ## Q: 数据处理阶段报错 `Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device MOC total size:65464696832 Device MOC free size:3596279808 may be other processes occupying this card, ...` 怎么办？
 
-A：通常是使用了自定义数据增强操作（其中包含了基于Ascend的数据增强操作）且使用了多进程模式，导致多进程使用同一个卡资源出现设备内存不足。
+A:通常是使用了自定义数据增强操作（其中包含了基于Ascend的数据增强操作）且使用了多进程模式，导致多进程使用同一个卡资源出现设备内存不足。
 
 报错信息如下：
 

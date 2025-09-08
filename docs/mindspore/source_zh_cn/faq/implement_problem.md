@@ -8,7 +8,7 @@ A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候�
 
 <br/>
 
-## Q: 如果MindSpore的`requires_grad=False`的`tensor`转化为`numpy`类型进行处理然后再转化会`tensor`，会对计算图和反向传播有影响吗？
+## Q: 如果MindSpore的`requires_grad=False`的`tensor`转化为`numpy`类型进行处理然后再转化为`tensor`，会对计算图和反向传播有影响吗？
 
 A: 在PyNative模式下，如果中间使用`numpy`计算，会导致梯度传递中断，`requires_grad=False`的场景下，如果该`tensor`的反向传播不传给其他参数使用，是没有影响的；如果`requires_grad=True`的场景下，是有影响的。
 
@@ -221,7 +221,7 @@ net = Vgg(cfg['16'], num_classes=num_classes, args=args, batch_norm=args.batch_n
 
 ## Q: 如何得到VGG模型中间层特征？
 
-A: 你好，获取网络中间层的特征，其实跟具体框架没有太大关系了。`torchvison`里定义的`vgg`模型，可以通过`features`字段获取"中间层特征"，`torchvison`的`vgg`源码如下:
+A: 你好，获取网络中间层的特征，其实跟具体框架没有太大关系了。`torchvision`里定义的`vgg`模型，可以通过`features`字段获取"中间层特征"，`torchvision`的`vgg`源码如下:
 
 ```python
 class VGG(nn.Module):
@@ -329,7 +329,7 @@ A: 在CPU ARM上进行resnet50训练时，部分算子的实现是基于oneDNN�
 
 ## Q: 为什么在Ascend平台执行模型时报错`Stream isn't enough`？
 
-A: 流表示一个操作队列，同一条流上的任务按序串行执行，不同流之间可以并行执行。网络中的各种操作会生成Task并被分配到流上，以控制任务执行的并发方式。由于Ascend平台对同一条流上的的任务数存在限制，超限的任务会分配新流，且MindSpore框架的多种并行方式也会分配新流，例如通信算子并行，因此当分配流的数目超过Ascend平台的资源限制就会报流超限的错误。参考解决方案：
+A: 流表示一个操作队列，同一条流上的任务按序串行执行，不同流之间可以并行执行。网络中的各种操作会生成Task并被分配到流上，以控制任务执行的并发方式。由于Ascend平台对同一条流上的任务数存在限制，超限的任务会分配新流，且MindSpore框架的多种并行方式也会分配新流，例如通信算子并行，因此当分配流的数目超过Ascend平台的资源限制就会报流超限的错误。参考解决方案：
 
 - 减小网络模型规模
 
