@@ -17,6 +17,7 @@ Custom Operators
    operation/cpp_api_for_custom_ops
    operation/op_customopbuilder_atb
    operation/op_customopbuilder_asdsip
+   operation/op_customopbuilder_aclnn
 
 When built-in operators cannot meet requirements during network development, you can use MindSpore's custom operator functionality to integrate your operators. Currently, MindSpore provides two approaches for integrating custom operators:
 
