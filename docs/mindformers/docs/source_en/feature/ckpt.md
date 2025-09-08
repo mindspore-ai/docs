@@ -248,7 +248,7 @@ bash transform_checkpoint.sh \
 
 > The order of parameters is src_checkpoint, src_strategy, dst_checkpoint_dir, dst_strategy, world_size, transform_process_num, prefix.
 
-#### Parameters
+**Parameters**
 
 - Parameters for single-process conversion
 
