@@ -22,7 +22,7 @@ A: First, check the name of the installation package under the output directory,
 
 Solution 1: You can rename the installation package and then try to install it. For example, rename the above installation package to mindspore-1.6.0-cp37-cp37m-macosx_10_15_x84_64.whl.
 
-Solution 2: Before compiling the source code, set the environment variable `MACOSX_DEPOLYMENT_TARGET` to `10.15` and recompile.
+Solution 2: Before compiling the source code, set the environment variable `MACOSX_DEPLOYMENT_TARGET` to `10.15` and recompile.
 
 <br/>
 

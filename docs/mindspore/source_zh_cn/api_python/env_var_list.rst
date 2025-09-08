@@ -449,7 +449,7 @@ Dump调试
        0：关闭Debugger选中节点的内存复用
      -
    * - MS_OM_PATH
-     - 配置task异常时dump数据路径以及图编译出错时dump的analyze_fail.ir文件的保存目录，保存路径为：指定的路径/rank_${rand_id}/om
+     - 配置task异常时dump数据路径以及图编译出错时dump的analyze_fail.ir文件的保存目录，保存路径为：指定的路径/rank_${rank_id}/om
      - String
      - 文件路径，支持相对路径与绝对路径
      -
@@ -620,7 +620,7 @@ Dump调试
        depend_dest_list(List[string])：需要插入控制边的终端算子名称列表，需要和depend_src_list中的算子按顺序一一对应，否则插入控制边的动作将失效。
 
        delete_depend_list(List[string])：需要被删除的算子名称列表，算子名称不存在或者和graph_id不匹配，删除节点的动作将失效。
-   * - MS_DEV_ENABLE_PASS_CIRCEL_RECOVERY
+   * - MS_DEV_ENABLE_PASS_CIRCLE_RECOVERY
      - 控制是否使能自动检测并行pass导致的计算图成环，并回退并行pass对计算图的修改功能。
      - Integer
      - 1：开启自动检测并行pass导致的计算图成环，并回退并行pass对计算图的修改功能。
@@ -722,7 +722,7 @@ Dump调试
 
        若指定了 `GLOG_log_dir` 且 `GLOG_logtostderr` 的值为1时，则日志输出到屏幕，不输出到文件
 
-       日志保存路径为： `指定的路径/rank_${rank_id}/logs/` ，非分布式训练场景下， `rank_id` 为0；分布式训练场景下， `rank_id` 为当前设备在集群中的ID
+       日志保存路径为： `指定的路径/rank_${RANK_ID}/logs/` ，非分布式训练场景下， `RANK_ID` 为0；分布式训练场景下， `RANK_ID` 为当前设备在集群中的ID
 
        C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从 `GLOG` 日志文件的命名规则，这里是 `mindspore.机器名.用户名.log.日志级别.时间戳.进程ID` ，Python日志的文件名为 `mindspore.log.进程ID`
 
@@ -816,7 +816,7 @@ Dump调试
    * - GLOG_logfile_mode
      - 用于控制MindSpore中GLOG日志文件的权限，是GLOG的环境变量
      - 八进制数字
-     - 可参考Linux文件权限设置的数字表示，默认值：0640(取值)
+     - 可参考Linux文件权限设置的数字表示，默认值：0640
      -
    * - MS_RDR_ENABLE
      - 是否开启程序运行数据记录器（RDR），如果MindSpore出现了运行异常，会自动导出MindSpore中预先记录的数据以辅助定位运行异常的原因
@@ -918,7 +918,7 @@ Dump调试
      - 取值
      - 说明
    * - OPTION_PROTO_LIB_PATH
-     - PROTO依赖库库路径
+     - PROTO依赖库路径
      - String
      - 目录路径，支持相对路径与绝对路径
      -

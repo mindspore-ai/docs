@@ -4,13 +4,13 @@
 
 ## Q: 进行HCCL分布式训练出错：`Init plugin so failed, ret = 1343225860`，该如何处理？
 
-A: 在Ascend进行分布式训练时初始化HCCL失败了，通常由于`rank_table.json`没写对，可以执行此文件[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成一个新的`rank_table.json`。或者导入环境变量`export ASCEND_SLOG_PRINT_TO_STDOUT=1`打开HCCL的日志打印，根据日志中的ERROR信息来排查问题。
+A: 在Ascend进行分布式训练时初始化HCCL失败了，通常由于`rank_table.json`配置不正确，可以执行此文件[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成一个新的`rank_table.json`。或者导出环境变量`export ASCEND_SLOG_PRINT_TO_STDOUT=1`打开HCCL的日志打印，根据日志中的ERROR信息来排查问题。
 
 <br/>
 
-## Q：GPU分布式训练场景下，若错误设置环境变量CUDA_VISIBLE_DEVICES的个数小于执行的进程数时，可能导致进程阻塞问题，该如何处理？
+## Q: GPU分布式训练场景下，若错误设置环境变量CUDA_VISIBLE_DEVICES的个数小于执行的进程数时，可能导致进程阻塞问题，该如何处理？
 
-A：此场景下，部分训练进程会提示如下报错：
+A: 此场景下，部分训练进程会提示如下报错：
 
 ```text
 [ERROR] DEVICE [mindspore/ccsrc/runtime/device/gpu/cuda_driver.cc:245] SetDevice] SetDevice for id:7 failed, ret[101], invalid device ordinal. Please make sure that the 'device_id' set in context is in the range:[0, total number of GPU). If the environment variable 'CUDA_VISIBLE_DEVICES' is set, the total number of GPU will be the number set in the environment variable 'CUDA_VISIBLE_DEVICES'. For example, if export CUDA_VISIBLE_DEVICES=4,5,6, the 'device_id' can be 0,1,2 at the moment, 'device_id' starts from 0, and 'device_id'=0 means using GPU of number 4.
@@ -24,14 +24,14 @@ A：此场景下，部分训练进程会提示如下报错：
 ```
 
 此步骤中会调用`NCCL`接口`ncclCommInitRank`，该接口会阻塞，直到所有进程达成一致。因此如果某进程没有调用`ncclCommInitRank`，则会导致进程阻塞。
-此问题我们已向`NCCL`社区反馈，社区开发者正在设计解决方案中，目前最新版本还未修复，详见[issue链接](https://github.com/NVIDIA/nccl/issues/593#issuecomment-965939279)。
+此问题我们已向`NCCL`社区反馈，社区开发者正在设计解决方案，目前最新版本还未修复，详见[issue链接](https://github.com/NVIDIA/nccl/issues/593#issuecomment-965939279)。
 解决方法：手动`kill`训练进程，根据报错日志，设置正确的卡号后，重启训练任务。
 
 <br/>
 
-## Q：GPU分布式训练场景下，若某进程异常退出，可能导致其余进程阻塞问题，该如何处理？
+## Q: GPU分布式训练场景下，若某进程异常退出，可能导致其余进程阻塞问题，该如何处理？
 
-A：此场景下，异常进程由于各种问题退出，其余进程由于GPU资源已分配成功，会正常执行到初始化`NCCL`步骤，日志如下：
+A: 此场景下，异常进程由于各种问题退出，其余进程由于GPU资源已分配成功，会正常执行到初始化`NCCL`步骤，日志如下：
 
 ```text
 [INFO] DEVICE [mindspore/ccsrc/runtime/hardware/gpu/gpu_device_context.cc:90] Initialize] Start initializing NCCL communicator for device 1
@@ -43,7 +43,7 @@ A：此场景下，异常进程由于各种问题退出，其余进程由于GPU�
 
 <br/>
 
-## Q：在执行GPU单机单卡的脚本时，不使用mpirun启动进程时，调用mindspore.communication.init方法可能会报错，导致执行失败，该如何处理？
+## Q: 在执行GPU单机单卡的脚本时，不使用mpirun启动进程时，调用mindspore.communication.init方法可能会报错，导致执行失败，该如何处理？
 
 ```text
 [CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid...
@@ -53,14 +53,14 @@ A：在用户不使用`mpirun`启动进程，但是依然调用了`init()`方法
 
 <br/>
 
-## Q：在通过OpenMPI执行多机多卡训练时，提示由于MPI_Allgather失败，该如何处理？
+## Q: 在通过OpenMPI执行多机多卡训练时，提示由于MPI_Allgather失败，该如何处理？
 
 ```text
 pml_ucx.c:175 Error: Failed to receive UCX worker address: Not found (-13)
 pml_ucx.c:452 Error: Failed to resolve UCX endpoint for rank X
 ```
 
-A：此问题是`OpenMPI`在Host侧通信时，无法和对端地址进行通信，一般是机器之间的网卡配置不同导致的，可以通过手动设置网卡名或者子网的方式解决：
+A: 此问题是`OpenMPI`在Host侧通信时，无法和对端地址进行通信，一般是机器之间的网卡配置不同导致的，可以通过手动设置网卡名或者子网的方式解决：
 
 ```text
 mpirun -n process_num --mca btl tcp --mca btl_tcp_if_include eth0 ./run.sh
@@ -78,14 +78,14 @@ mpirun -n process_num --mca btl tcp --mca btl_tcp_if_include 192.168.1.0/24 ./ru
 
 <br/>
 
-## Q：在通过OpenMPI执行分布式训练时，单机多卡训练正常，但在多机多卡训练时，某些机器提示GPU device id设置失败，该如何处理？
+## Q: 在通过OpenMPI执行分布式训练时，单机多卡训练正常，但在多机多卡训练时，某些机器提示GPU device id设置失败，该如何处理？
 
 ```text
 [ERROR] DEVICE [mindspore/ccsrc/runtime/device/gpu/cuda_driver.cc:245] SetDevice] SetDevice for id:7 failed, ret[101], invalid device ordinal. Please make sure that the 'device_id' set in context is in the range:[0, total number of GPU). If the environment variable 'CUDA_VISIBLE_DEVICES' is set, the total number of GPU will be the number set in the environment variable 'CUDA_VISIBLE_DEVICES'. For example, if export CUDA_VISIBLE_DEVICES=4,5,6, the 'device_id' can be 0,1,2 at the moment, 'device_id' starts from 0, and 'device_id'=0 means using GPU of number 4.
 [ERROR] DEVICE [mindspore/ccsrc/runtime/device/gpu/gpu_device_manager.cc:27] InitDevice] Op Error: Failed to set current device id | Error Number: 0
 ```
 
-A：在多机场景下，各进程卡号需要通过在Host侧`AllGather` `HOSTNAME`后计算得到，如果机器间有使用相同的`HOSTNAME`，则进程卡号会计算出错，导致卡号越界而设置失败。可以在执行脚本中设置每台机器的HOSTNAME为各自的IP地址来解决：
+A: 在多机场景下，各进程卡号需要通过在Host侧`AllGather` `HOSTNAME`后计算得到，如果机器间有使用相同的`HOSTNAME`，则进程卡号会计算出错，导致卡号越界而设置失败。可以在执行脚本中设置每台机器的HOSTNAME为各自的IP地址来解决：
 
 ```text
 export HOSTNAME=node_ip_address
@@ -93,13 +93,13 @@ export HOSTNAME=node_ip_address
 
 <br/>
 
-## Q：在通过OpenMPI执行多机多卡训练时，NCCL报错提示网络不通，该如何处理？
+## Q: 在通过OpenMPI执行多机多卡训练时，NCCL报错提示网络不通，该如何处理？
 
 ```text
 include/socket.h:403 NCCL WARN Connect to XXX failed: Network is unreachable
 ```
 
-A：此问题是`NCCL`在Host侧同步进程信息或者初始化通信域时，无法和对端地址进行通信，一般是机器之间的网卡配置不同导致的，可以通过设置`NCCL`环境变量`NCCL_SOCKET_IFNAME`，进行网卡选择：
+A: 此问题是`NCCL`在Host侧同步进程信息或者初始化通信域时，无法和对端地址进行通信，一般是机器之间的网卡配置不同导致的，可以通过设置`NCCL`环境变量`NCCL_SOCKET_IFNAME`，进行网卡选择：
 
 ```text
 export NCCL_SOCKET_IFNAME=eth
@@ -109,7 +109,7 @@ export NCCL_SOCKET_IFNAME=eth
 
 <br/>
 
-## Q：多机多卡选择特定名称的RDMA网卡(通过NCCL_SOCKET_IFNAME设置)通信后，训练仍然报错，该如何处理？
+## Q: 多机多卡选择特定名称的RDMA网卡(通过NCCL_SOCKET_IFNAME设置)通信后，训练仍然报错，该如何处理？
 
 ```text
 misc/ibvwrap.cc:284 NCCL WARN Call to ibv_modify_qp failed with error Invalid argument
@@ -117,7 +117,7 @@ misc/ibvwrap.cc:284 NCCL WARN Call to ibv_modify_qp failed with error Invalid ar
 include/socket.h:403 NCCL WARN Connect to XXX failed: Connection refused
 ```
 
-A：一般此问题是多机之间RDMA网卡配置存在差异，需要具体情况具体分析。但常见原因是存在某些主机网卡存在IB协议和RoCE协议同时存在的情况，可能出现连接建立失败的情况。解决方案：
+A: 一般此问题是多机之间RDMA网卡配置存在差异，需要具体情况具体分析。但常见原因是某些主机网卡存在IB协议和RoCE协议同时存在，可能出现连接建立失败的情况。解决方案：
 
 需要使用以下指令指定使用的RDMA网卡名为ib开头：
 
@@ -127,7 +127,7 @@ export NCCL_IB_HCA=mlx
 
 <br/>
 
-## Q：单机多卡训练能够成功，但是扩展脚本到多机多卡后，其他主机提示各类报错，该如何处理？
+## Q: 单机多卡训练能够成功，但是扩展脚本到多机多卡后，其他主机提示各类报错，该如何处理？
 
 报错内容有多种，下面是几种典型的报错，可能有：
 
@@ -135,7 +135,7 @@ export NCCL_IB_HCA=mlx
 2. IB网卡通信失败。
 3. Cuda库加载失败。
 
-A：这些问题，都是由于在`mpirun`启动其他主机时，其他主机的环境变量(包括NCCL的网卡选择配置)没有与本机同步，导致了单机多卡正常执行而多机多卡失败的现象。解决方法是通过mpirun的-x选项，导出特定的环境变量：
+A: 这些问题，都是由于在`mpirun`启动其他主机时，其他主机的环境变量（包括NCCL的网卡选择配置）没有与本机同步，导致了单机多卡正常执行而多机多卡失败的现象。解决方法是通过mpirun的-x选项，导出特定的环境变量：
 
 ```text
 mpirun --hostfile /path/to/hostfile -n 64 -x PYTHONPATH -x GLOG_v -x LD_LIBRARY_PATH -x NCCL_SOCKET_IFNAME -x NCCL_IB_HCA -x NCCL_DEBUG=INFO python train.py
@@ -151,7 +151,7 @@ mpirun --hostfile /path/to/hostfile -n 64 -x PYTHONPATH -x GLOG_v -x LD_LIBRARY_
 Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
 ```
 
-A: OpenMPI启动时，当前版本的hccl下，创建通信域时，相应的卡需要分配大约300M的device内存，因此每张卡所在的通信域的数量越多，则额外需要的内存越多，因此会有内存不足的问题。
+A: OpenMPI启动时，当前版本的hccl下，创建通信域时，相应的卡需要分配大约300M的device内存，每张卡所在的通信域的数量越多，则额外需要的内存越多，因此会有内存不足的问题。
 可以设置`set_memory`中的`max_size`来减少Ascend进程可用的内存，从而为hccl预留足够的内存创建通信域。
 
 <br/>
@@ -227,7 +227,7 @@ mindspore/ccsrc/distributed/collective/collective_manager.cc:1123 WaitCommInitDo
 mindspore/ccsrc/plugin/device/cpu/hal/hardware/ms_collective_comm_lib.cc:260 QueryUniqueID
 ```
 
-A: 以上报错为创建通信域阶段，通信域内的非rootrank进程向scheduler进程索取该rootinfo信息超时。在多卡HCCL后端，不传入环境变量 `RANK_TABLE_FILE` 也不传msrun参数 `--rank_table_file` 的场景下，框架默认使用HCCL自协商初始化通信域接口。创建通信域阶段，同一个通信域内，rootrank的进程会调用HCCL接口获取rootinfo信息，然后通过host侧tcp链接传递给scheduler进程；而通信域内的其他rank进程，会通过tcp链接向scheduler进程索取该rootinfo信息。为了保证同一通信域内，所有rank都拿到rootinfo之后，再继续调用HCCL的初始化接口，框架提供了重复QueryUniqueID且在一定时间后超时退出的能力，默认的超时时间为200s。以下是针对报错的解决方法：
+A: 以上报错为创建通信域阶段，通信域内的非root rank进程向scheduler进程索取该rootinfo信息超时。在多卡HCCL后端，不传入环境变量 `RANK_TABLE_FILE` 也不传msrun参数 `--rank_table_file` 的场景下，框架默认使用HCCL自协商初始化通信域接口。创建通信域阶段，同一个通信域内，root rank的进程会调用HCCL接口获取rootinfo信息，然后通过host侧tcp链接传递给scheduler进程；而通信域内的其他rank进程，会通过tcp链接向scheduler进程索取该rootinfo信息。为了保证同一通信域内，所有rank都拿到rootinfo之后，再继续调用HCCL的初始化接口，框架提供了重复QueryUniqueID且在一定时间后超时退出的能力，默认的超时时间为200s。以下是针对报错的解决方法：
 
 1. 查看 `scheduler.log` ，检查scheduler进程的状态是否异常。一般情况下，scheduler进程都在正常等待worker进程结束工作，如下：
 
