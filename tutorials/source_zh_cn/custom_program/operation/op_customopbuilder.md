@@ -6,7 +6,7 @@
 
 动态图模式下，网络流程更容易调试，可以支持执行单算子、普通函数和网络，以及单独求梯度等操作。
 
-[基于Custom原语的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_prim.html)虽然可以同时支持静态图和动态图，但是需要定义的内容较多。因此MindSpore针对动态图的自定义算子接入方式做了优化，提供了新的Python API [CustomOpBuilder](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomOpBuilder.html) ，在方便用户使用的同时，还能提升动态图自定义算子的执行性能。
+[基于Custom原语的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_custom_prim.html)虽然可以同时支持静态图和动态图，但是需要定义的内容较多。因此MindSpore针对动态图的自定义算子接入方式做了优化，提供了新的Python API [CustomOpBuilder](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomOpBuilder.html)，在方便用户使用的同时，还能提升动态图自定义算子的执行性能。
 
 用户基于[C++接口](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html)开发算子，需要定义算子函数体，包括推导并构造输出Tensor，调用执行device算子等功能。定义好算子函数体后，通过[pybind11](https://github.com/pybind/pybind11)组件即可将C++函数注册成为Python模块接口。
 
@@ -33,7 +33,7 @@ MindSpore以Python作为前端，用C++实现后端，每个算子执行时需�
 
 ### 算子定义
 
-在动态图定义自定义算子时，用户需要继承 `ms::pynative::PyboostRunner` 类重写其`CalcWorkspace`和`LaunchKernel`两个虚函数，以支持申请内存和执行算子两阶段调用流程。然后用户需要提供一个算子入口函数，并通过pybind11将C++接口映射到Python作为自定义算子使用。
+在动态图定义自定义算子时，用户需要继承`ms::pynative::PyboostRunner`类重写其`CalcWorkspace`和`LaunchKernel`两个虚函数，以支持申请内存和执行算子两阶段调用流程。然后用户需要提供一个算子入口函数，并通过pybind11将C++接口映射到Python作为自定义算子使用。
 
 ```cpp
 #include "ms_extension/api.h"
@@ -86,8 +86,8 @@ class CustomAdd3 : public ms::pynative::PyboostRunner {
   using PyboostRunner::PyboostRunner;
 ```
 
-- **继承**：`CustomAdd3` 继承自 `PyboostRunner`，这是一个用于支持 MindSpore 动态图多级流水机制的基类。
-- **构造函数**：通过 `using` 关键字直接继承父类的构造函数，简化代码实现。
+- **继承**：`CustomAdd3`继承自`PyboostRunner`，这是一个用于支持MindSpore动态图多级流水机制的基类。
+- **构造函数**：通过`using`关键字直接继承父类的构造函数，简化代码实现。
 
 #### 2. 工作区间大小计算
 
@@ -98,7 +98,7 @@ size_t CalcWorkspace() override { return inputs()[0].numel() * sizeof(int32_t); 
 ```
 
 - **调用阶段**：此接口在`DeviceTask`执行时被自动调用。
-- **核心功能**：`CalcWorkspace` 用于计算算子执行所需的工作区间大小（这里假设几个输入大小相同），框架根据接口返回结果申请工作区内存。
+- **核心功能**：`CalcWorkspace`用于计算算子执行所需的工作区间大小（这里假设几个输入大小相同），框架根据接口返回结果申请工作区内存。
 
 #### 3. 算子核心逻辑：LaunchKernel
 
@@ -125,13 +125,13 @@ void LaunchKernel() override {
 
 - **调用阶段**：此接口在`LaunchTask`执行时被自动调用，执行算子计算逻辑。
 - **核心功能**：
-    - **输入张量获取**：通过 `inputs()` 获取输入张量 `x`、`y`、`z`。
-    - **输出张量获取**：通过 `outputs()` 获取输出张量 `out`。
-    - **指针操作**：通过 `GetDataPtr()` 获取张量数据的指针，方便进行逐元素的计算。
-    - **工作区间操作**：通过 `workspace_ptr()` 获取工作区间的指针，用于临时存储中间结果。
+    - **输入张量获取**：通过`inputs()`获取输入张量`x`、`y`、`z`。
+    - **输出张量获取**：通过`outputs()`获取输出张量`out`。
+    - **指针操作**：通过`GetDataPtr()`获取张量数据的指针，方便进行逐元素的计算。
+    - **工作区间操作**：通过`workspace_ptr()`获取工作区间的指针，用于临时存储中间结果。
 - **计算逻辑**：
-    - 第一步：将 `x` 和 `y` 的对应元素相加，结果存储到工作区间 `ws_base_ptr` 中。
-    - 第二步：将工作区间结果与 `z` 的对应元素相加，结果存储到输出张量 `out_base_ptr` 中。
+    - 第一步：将`x`和`y`的对应元素相加，结果存储到工作区间`ws_base_ptr`中。
+    - 第二步：将工作区间结果与`z`的对应元素相加，结果存储到输出张量`out_base_ptr`中。
 
 #### 4. C++算子包装函数
 
@@ -170,12 +170,12 @@ PYBIND11_MODULE(MS_EXTENSION_NAME, m) {
 }
 ```
 
-- **功能**：通过 `pybind11` 实现 C++ 算子与 Python 接口的绑定。
+- **功能**：通过`pybind11`实现C++算子与Python接口的绑定。
 - **实现**：
-    - 使用 `PYBIND11_MODULE` 定义模块名称。
-    - 通过 `m.def` 将 C++ 函数 `pyboost_add3` 绑定为 Python 接口 `add3`。
+    - 使用`PYBIND11_MODULE`定义模块名称。
+    - 通过`m.def`将C++函数`pyboost_add3`绑定为Python接口`add3`。
 
-通过以上步骤，我们完成了一个基于 `PyboostRunner` 的自定义算子的定义、实现、绑定。借助 MindSpore 提供的多级流水机制，以及 `pybind11` 的高效接口绑定能力，自定义算子的开发变得更加高效和灵活。
+通过以上步骤，我们完成了一个基于`PyboostRunner`的自定义算子的定义、实现、绑定。借助MindSpore提供的多级流水机制，以及`pybind11`的高效接口绑定能力，自定义算子的开发变得更加高效和灵活。
 
 ### 算子调用
 
