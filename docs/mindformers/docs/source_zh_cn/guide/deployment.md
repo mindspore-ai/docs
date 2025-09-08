@@ -66,7 +66,7 @@ mf_model
         ├── vocab.json                  # 模型vocab文件，Hugging Face上对应模型下载
         ├── merges.txt                  # 模型merges文件，Hugging Face上对应模型下载
         ├── predict_qwen1_5_72b.yaml    # 模型yaml配置文件
-        ├── qwen1_5_tokenizer.py        # 模型tokenizer文件，从mindformers仓中research目录下找到对应模型复制
+        ├── qwen1_5_tokenizer.py        # 模型tokenizer文件，从MindSpore Transformers仓中research目录下找到对应模型复制
         └── qwen1_5_72b_ckpt_dir        # 模型分布式权重文件夹
 ```
 
@@ -94,7 +94,7 @@ processor:
 
 #### 1. 一键启动（推荐）
 
-mindformers仓上提供一键拉起MindIE脚本，脚本中已预置环境变量设置和服务化配置，仅需输入模型文件目录后即可快速拉起服务。
+MindSpore Transformers仓上提供一键拉起MindIE脚本，脚本中已预置环境变量设置和服务化配置，仅需输入模型文件目录后即可快速拉起服务。
 
 进入`scripts`目录下，执行MindIE启动脚本：
 

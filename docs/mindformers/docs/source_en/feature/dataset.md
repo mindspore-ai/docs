@@ -272,7 +272,7 @@ train_dataset: &train_dataset
     data_files: "/path/alpaca-gpt4-data.json"
     split: "train"
 
-    # MindFormers dataset arguments
+    # MindSpore Transformers dataset arguments
     create_attention_mask: True
     create_compressed_eod_mask: False
     compressed_eod_mask_length: 128
@@ -396,7 +396,7 @@ If using a `Class`:
 
    The `CustomHandler` above implements the random sampling of the dataset. To achieve other functions, you can modify the data preprocessing operations and return the processed dataset.
 
-   MindFormers provides [BaseInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/base_handler.py) with built-in tokenizer config. If need to use a tokenizer, you can inherit from the `BaseInstructDataHandler` class.
+   MindSpore Transformers provides [BaseInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/base_handler.py) with built-in tokenizer config. If need to use a tokenizer, you can inherit from the `BaseInstructDataHandler` class.
 
 2. Add to [\_\_init__.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py):
 
@@ -461,7 +461,7 @@ train_dataset: &train_dataset
     path: 'json'
     data_files: '/path/alpaca-gpt4-data.json'
 
-    # MindFormers dataset arguments
+    # MindSpore Transformers dataset arguments
     use_broadcast_data: True
     shuffle: False
 
@@ -525,7 +525,7 @@ train_dataset: &train_dataset
     path: 'json'
     data_files: '/path/alpaca-gpt4-data.json'
 
-    # MindFormers dataset arguments
+    # MindSpore Transformers dataset arguments
     use_broadcast_data: True
     shuffle: False
 
@@ -619,7 +619,7 @@ After modifying the config, refer to the `qwen3` model documentation to start fi
        load_func: 'load_from_disk'
        dataset_path: '/path/processed_dataset'
 
-       # MindFormers dataset arguments
+       # MindSpore Transformers dataset arguments
        create_attention_mask: True
        use_broadcast_data: True
        shuffle: False

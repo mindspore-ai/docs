@@ -2,6 +2,18 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/faq/feature_related.md)
 
+## Q: MindSpore Transformers和MindFormers两个名字的区别？
+
+A: 二者指的是同一个套件。MindSpore Transformers是套件的正式名称；MindFormers是套件的简称，也是仓库名，并在代码中使用。
+
+<br/>
+
+## Q: MindSpore Transformers和MindSpore NLP两个套件的区别？
+
+A: MindSpore Transformers是MindSpore的大模型套件，主要面向大语言模型（LLM）和多模态模型（MM）在大规模场景下的训练和推理。MindSpore NLP是MindSpore的领域套件，主要面向自然语言处理（NLP）领域的中小模型的训练。二者在定位上有所不同，用户可以根据自身需求选择使用。
+
+<br/>
+
 ## Q: WikiText数据集下载链接失效。
 
 A: 官方下载链接失效，请关注社区Issue [#IBV35D](https://gitee.com/mindspore/mindformers/issues/IBV35D)。

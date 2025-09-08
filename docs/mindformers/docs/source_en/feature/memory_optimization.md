@@ -126,7 +126,7 @@ This section demonstrates the usage of fine-grained activations SWAP using Llama
 
 #### Environmental Preparation
 
-Download Mindformers, and prepare the pre-training dataset, such as wikitext.
+Download MindSpore Transformers, and prepare the pre-training dataset, such as wikitext.
 
 #### Case 1: Default SWAP Strategy
 

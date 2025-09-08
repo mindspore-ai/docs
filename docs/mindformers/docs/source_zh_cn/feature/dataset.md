@@ -262,7 +262,7 @@ train_dataset: &train_dataset
     data_files: "/path/alpaca-gpt4-data.json"
     split: "train"
 
-    # MindFormers dataset arguments
+    # MindSpore Transformers dataset arguments
     create_attention_mask: True
     create_compressed_eod_mask: False
     compressed_eod_mask_length: 128
@@ -450,7 +450,7 @@ train_dataset: &train_dataset
     path: 'json'
     data_files: '/path/alpaca-gpt4-data.json'
 
-    # MindFormers dataset arguments
+    # MindSpore Transformers dataset arguments
     use_broadcast_data: True
     shuffle: False
 
@@ -514,7 +514,7 @@ train_dataset: &train_dataset
     path: 'json'
     data_files: '/path/alpaca-gpt4-data.json'
 
-    # MindFormers dataset arguments
+    # MindSpore Transformers dataset arguments
     use_broadcast_data: True
     shuffle: False
 
@@ -608,7 +608,7 @@ parallel:
        load_func: 'load_from_disk'
        dataset_path: '/path/processed_dataset'
 
-       # MindFormers dataset arguments
+       # MindSpore Transformers dataset arguments
        create_attention_mask: True
        use_broadcast_data: True
        shuffle: False
