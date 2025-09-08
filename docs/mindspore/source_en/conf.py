@@ -257,6 +257,7 @@ def get_param_func(func):
         return all_params
     except:
         return ''
+
 def get_obj(obj):
     if isinstance(obj, type):
         try:
