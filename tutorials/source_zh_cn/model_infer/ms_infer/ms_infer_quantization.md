@@ -6,7 +6,7 @@
 
 MindSpore是一个全场景的AI框架。当模型部署到端侧或者其他轻量化设备上时，对于部署的内存、功耗、时延等有各种限制，因此在部署前需要对模型进行压缩。
 
-MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html) 提供，MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计开发的一个模型压缩算法集，为MindSpore提供了一系列模型压缩算法，支持A16W8、A16W4、A8W8和KVCache等量化方式。详细资料可前往 [MindSpore Golden Stick官方资料](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html) 查看。
+MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html) 提供，MindSpore Golden Stick是华为诺亚团队和MindSpore团队联合设计开发的一个模型压缩算法集，为MindSpore提供了一系列模型压缩算法，支持A16W8、A16W4、A8W8和KVCache等量化方式。详细资料可前往 [MindSpore Golden Stick官方资料](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html) 查看。
 
 ## 模型量化基本流程
 
