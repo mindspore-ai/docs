@@ -6,7 +6,7 @@
 
 MindSpore is an all-scenario AI framework. When a model is deployed on the device or other lightweight devices, it may be subject to memory, power consumption, and latency. Therefore, the model needs to be compressed before deployment.
 
-[MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.2.0/index.html) provides the model compression capability of MindSpore. MindSpore Golden Stick is a set of model compression algorithms jointly designed and developed by Huawei Noah's Ark team and Huawei MindSpore team. It provides a series of model compression algorithms for MindSpore, supporting quantization modes such as A16W8, A16W4, A8W8, and KVCache. For details, see [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.2.0/index.html).
+[MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.2.0/index.html) provides the model compression capability of MindSpore. MindSpore Golden Stick is a set of model compression algorithms jointly designed and developed by Huawei Noah's Ark team and MindSpore team. It provides a series of model compression algorithms for MindSpore, supporting quantization modes such as A16W8, A16W4, A8W8, and KVCache. For details, see [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.2.0/index.html).
 
 ## Basic Model Quantization Process
 
