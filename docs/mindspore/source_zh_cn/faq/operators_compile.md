@@ -7,7 +7,7 @@
 A: 这种报错，主要为[ops.concat](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.concat.html)算子提示`shape`过大。建议对`dataset`对象创建迭代器时可设置输出为`numpy`, 如下设置：
 
 ```python
-gallaryloader.create_dict_iterator(output_numpy=True)
+galleryloader.create_dict_iterator(output_numpy=True)
 ```
 
 另外在上述后处理环节（非网络计算过程中，即非`construct`函数里面），可以采用`numpy`直接计算，如采用`numpy.concatenate`代替上述`ops.concat`进行计算。
@@ -22,7 +22,7 @@ A: 建议使用[ops.clip_by_value](https://www.mindspore.cn/docs/zh-CN/master/ap
 
 ## Q: `TransData`算子的功能是什么，能否优化性能？
 
-A: `TransData`算子出现的场景是: 如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。华为Ascend支持5D格式运算，通过`transdata`算子将数据由4D转为5D以提升性能。
+A: `TransData`算子出现的场景是: 如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。华为Ascend支持5D格式运算，通过`TransData`算子将数据由4D转为5D以提升性能。
 
 <br/>
 
@@ -50,7 +50,7 @@ A: 可以使用mindspore.Tensor.var接口计算Tensor的方差，你可以参考
 
 <br/>
 
-## Q: `nn.Embedding`层与PyTorch相比缺少了`Padding`操作，有其余的算子可以实现吗？
+## Q: `nn.Embedding`层与PyTorch相比缺少了`Padding`操作，有其他算子可以实现吗？
 
 A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位置的词向量置为0，并且反向传播时不会更新`padding_idx`位置的词向量。在MindSpore中，可以手动将embedding的`padding_idx`位置对应的权重初始化为0，并且在训练时通过`mask`的操作，过滤掉`padding_idx`位置对应的`Loss`。
 
@@ -59,11 +59,11 @@ A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位�
 ## Q: Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？
 
 A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
-相关的资料可以看[静态图语法支持](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)。
+相关的资料可参考[静态图语法支持](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)。
 
 <br/>
 
-## Q: 使用conv2d算子将卷积核设置为(3,10)，Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错: `FM_W+pad_left+pad_right-KW>=strideW`，而CPU下不报错，怎么回事？
+## Q: 使用conv2d算子将卷积核设置为(3,10)，Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错：`FM_W+pad_left+pad_right-KW>=strideW`，而CPU下不报错，怎么回事？
 
 A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，在TVM框架基础上扩展，进行自定义算子开发。上述问题是这个TBE算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
 
@@ -71,13 +71,13 @@ A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，�
 
 ## Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？
 
-A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/op_custom.html)。
+A: 目前 MindSpore 暂无反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/op_custom.html)。
 
 <br/>
 
 ## Q: Ascend环境上，一些尽管经过调优工具调试过的算子，性能依旧很差，这时候该怎么办？
 
-A: 遇到这种情况，
+A: 解决方案如下：
 
 1. 看一下这些算子是否为融合算子。因为算子预编译可能会改变算子的fusion_type属性，而该属性会影响算子的融合，导致原本不应该融合的小算子融合成了大算子，这些融合出来的大算子性能不一定比小算子性能好。
 
