@@ -35,9 +35,9 @@ print(generate_text)
 
 - **快速启动**：通过编译缓存、并行加载等技术，实现大语言模型快速加载和初始化，减少模型权重不断增大带来的额外启动开销。
 
-- **batch推理**：合理的组batch机制，实现海量并发请求时最优的用户体验。
+- **Batch推理**：合理的批处理机制，实现海量并发请求时最优的用户体验。
 
-- **高效调度**：面向大语言模型的全量和增量推理特性，通过全量和增量请求调度，最大化资源计算效能，提升系统吞吐。
+- **高效调度**：面向大语言模型的全量和增量推理特性，通过全量和增量请求调度，最大化资源计算效能，提升系统吞吐量。
 
 ## 推理教程
 
@@ -132,7 +132,7 @@ vllm-mindspore serve --model=${MODEL_ID} --port=${VLLM_HTTP_PORT} --trust_remote
 
 ### 发送请求
 
-用户可以通过发送http请求来实现模型推理，具体可以执行如下命令：
+用户可以通过发送HTTP请求来实现模型推理，具体可以执行如下命令：
 
 ```shell
 curl http://${VLLM_MASTER_IP}:${VLLM_HTTP_PORT}/v1/completions -H "Content-Type: application/json" -d "{\"model\": \"${MODEL_ID}\", \"prompt\": \"I love Beijing, because\", \"max_tokens\": 128, \"temperature\": 1.0, \"top_p\": 1.0, \"top_k\": 1, \"repetition_penalty\": 1.0}"
