@@ -94,8 +94,8 @@ docker exec -it $DOCKER_NAME bash
 
 ```python
 from openmind_hub import snapshot_download
-snapshot_download(repo_id="MindSpore-Lab/DeepSeek-R1-0528-A8W8",
-                  local_dir="/path/to/save/deepseek_r1_0528_a8w8",
+snapshot_download(repo_id="MindSpore-Lab/DeepSeek-R1-0528-A8W8FA3",
+                  local_dir="/path/to/save/deepseek_r1_0528_a8w8fa3",
                   local_dir_use_symlinks=False)
 ```
 
@@ -144,7 +144,6 @@ export HCCL_OP_EXPANSION_MODE=AIV
 export MS_ALLOC_CONF=enable_vmm:true
 export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export VLLM_MS_MODEL_BACKEND=MindFormers
-export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml
 ```
 
 环境变量说明：
@@ -157,18 +156,6 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/pre
 - `MS_ALLOC_CONF`: 设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
 - `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
-- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml) 。
-
-模型并行策略通过配置文件中的`parallel_config`指定，例如TP16 张量并行配置如下所示：
-
-```text
-# default parallel of device num = 16 for Atlas 800T A2
-parallel_config:
-  data_parallel: 1
-  model_parallel: 16
-  pipeline_stage: 1
-  expert_parallel: 1
-```
 
 另外，用户需要确保MindSpore Transformers已安装。用户可通过
 
@@ -271,6 +258,7 @@ vLLM-MindSpore插件可使用OpenAI的API协议，部署为在线推理。以下
 
 vllm-mindspore serve
  --model=[模型Config/权重路径]
+ --quantization [权重量化来源] # 可选golden-stick/ascend分别表示量化权重来源于golden-stick或modelslim量化工具
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
  --max-model-len [输出输出最大长度]
@@ -284,7 +272,7 @@ vllm-mindspore serve
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```
 
 张量并行场景下，`--tensor-parallel-size`参数会覆盖模型yaml文件中`parallel_config`的`model_parallel`配置。用户可以通过`--model`参数，指定模型保存的本地路径。
@@ -319,7 +307,6 @@ export HCCL_OP_EXPANSION_MODE=AIV
 export MS_ALLOC_CONF=enable_vmm:true
 export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export VLLM_MS_MODEL_BACKEND=MindFormers
-export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml
 ```
 
 环境变量说明：
@@ -329,20 +316,6 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/pre
 - `MS_ALLOC_CONF`: 设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
 - `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
-- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/master/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml)。
-
-模型并行策略通过配置文件中的`parallel_config`指定，例如混合并行配置如下所示：
-
-```text
-# default parallel of device num = 16 for Atlas 800T A2
-parallel_config:
-  data_parallel: 4
-  model_parallel: 4
-  pipeline_stage: 1
-  expert_parallel: 4
-```
-
-`data_parallel`及`model_parallel`指定attn及ffn-dense部分的并行策略，`expert_parallel`指定moe部分路由专家并行策略，且需满足`data_parallel` * `model_parallel`可被`expert_parallel`整除。
 
 ### 在线推理
 
@@ -354,6 +327,7 @@ parallel_config:
 # 启动配置参数说明
 vllm-mindspore serve
  --model=[模型Config/权重路径]
+ --quantization [权重量化来源] # 可选golden-stick/ascend分别表示量化权重来源于golden-stick或modelslim量化工具
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
  --max-model-len [输出输出最大长度]
@@ -368,16 +342,19 @@ vllm-mindspore serve
  --data-parallel-address [主节点的通讯IP]
  --data-parallel-rpc-port [主节点的通讯端口]
  --enable-expert-parallel # 使能专家并行
+ --additional-config '{"expert_parallel": [EP 并行数]}'
 ```
+
+`data-parallel-size`及`tensor-parallel-size`指定attn及ffn-dense部分的并行策略，`expert_parallel`指定moe部分路由专家并行策略，且需满足`data-parallel-size * tensor-parallel-size`可被`expert_parallel`整除。
 
 用户可以通过`--model`参数，指定模型保存的本地路径。以下为执行示例：
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
 
 # 从节点：
-vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel
+vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
 ```
 
 #### 发送请求
