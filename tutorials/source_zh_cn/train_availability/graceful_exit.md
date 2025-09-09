@@ -158,7 +158,7 @@ config_json = r"./graceful_exit.json"
 cb = OnRequestExit(file_name="LeNet", config_file=config_json)
 ```
 
-另外，在配置 `OnRequestExit` callback函数时，保存mindir、保存checkpoint以及其他配置参数可以根据需要自行配置，详情参见[OnRequestExit](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.OnRequestExit.html)。
+另外，在配置 `OnRequestExit` callback函数时，保存mindir、保存checkpoint以及其他配置参数可以根据需要自行配置。详情参见 [OnRequestExit](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.OnRequestExit.html)。
 
 ```python
 def graceful_exit_case():
@@ -197,7 +197,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=
 
 ## 结果分析
 
-训练结束后，日志中会有如下WARNING打印：`Graceful exit is triggered, stop training` 。同时，在当前执行目录下，会生成有 `rank_0` 至 `rank_7` 8个目录，每个目录下都有一个 `LeNet_train.ckpt` 文件（如果callback里面配置了保存checkpoint）。
+训练结束后，日志中会有如下WARNING打印：`Graceful exit is triggered, stop training`。同时，在当前执行目录下，会生成 `rank_0` 至 `rank_7` 共8个目录，每个目录下都有一个 `LeNet_train.ckpt` 文件（如果callback里面配置了保存checkpoint）。
 
 ```text
 ./rank_0
@@ -232,7 +232,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_addr=127.0.0.1 --master_port=
 
 如果网络模型需要重写TrainOneStepCell，则：
 
-1. 继承父类TrainOneStepCell，construct方法里面添加如下 `if` 条件分支代码来保证优雅退出功能可以正常运行（继承于TrainOneStepCell，可以直接使用这些成员变量）：
+1. 继承父类TrainOneStepCell，在construct方法里面添加如下 `if` 条件分支代码来保证优雅退出功能可以正常运行（继承于TrainOneStepCell，可以直接使用这些成员变量）：
 
     ```python
     class TrainOneStepCellWithABC(TrainOneStepCell):
