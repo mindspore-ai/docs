@@ -4,13 +4,13 @@
 
 随着模型规模的不断扩展，大语言模型所需的计算资源，特别是显存需求，呈指数级增长。以Qwen2-72B为例，在半精度（FP16）下，这些参数本身就需要约144GB的显存。
 
-同时大模型日益膨胀的序列长度也给显存带来极大的压力。显存不仅影响了模型的加载，还限制了批处理（batch size）大小。较小的批处理可能会降低推理效率，进而影响整个系统的吞吐量。
+同时，大模型日益膨胀的序列长度也给显存带来极大的压力。显存不仅影响了模型的加载，还限制了批处理（batch size）大小。较小的批处理可能会降低推理效率，进而影响整个系统的吞吐量。
 
 显存的压力使得单一设备很难在合理时间内完成推理任务，并行计算成为应对这一挑战的关键。本章将以常见大语言模型网络结构为例，分析模型并行的方案。
 
 ## 模型并行需求分析
 
-在对模型进行并行切分前，需要先根据模型的结构特征来进行并行分析，确认网络中哪些层可以并行，以及如何切分能够获得比较好的性能加速。为了要能够获得好的加速效果，并行切分的部分就需要尽可能的独立计算互不影响。以Qwen2模型结构为例，我们对其主要的网络结构进行并行分析：
+在对模型进行并行切分前，需要先根据模型的结构特征来进行并行分析，确认网络中哪些层可以并行，以及如何切分能够获得比较好的性能加速。为了能够获得好的加速效果，并行切分的部分就需要尽可能独立计算、互不影响。以Qwen2模型结构为例，我们对其主要的网络结构进行并行分析：
 
 - **Embedding**：Embedding层实际上是一个gather操作，不管是按hidden_dim还是num_embeddings维度切分，都可以比较好地进行并行计算。由于按照num_embeddings可以更好地进行all_reduce（减少数据排布的开销），此处我们按照num_embeddings维度进行切分。
 
@@ -18,7 +18,7 @@
 
 - **MLP**：MLP层实际上是两个Linear的矩阵乘法，可以按块切分。
 
-- **RmsNorm&Add**：由于RmsNorm需要对一行数据进行归一操作，需要有全局信息，因此无法有效并行计算，此处需要先通过all_reduce将数据汇总，然后计算，同时Add和RmsNorm通常在一起出现，因此都不进行切分。
+- **RmsNorm&Add**：由于RmsNorm需要对一行数据进行归一操作，需要有全局信息，因此无法有效并行计算，此处需要先通过all_reduce将数据汇总，然后计算。同时，Add和RmsNorm通常在一起出现，因此都不进行切分。
 
 - **LMHead**：LMHead层实际就是一层Linear层，输入shape通常是（batch_size， hidden_size）*（hidden_size， vocab_size），我们可以对vocab_size维度进行切分，并在最后通过all_gather合并以此提速。
 
@@ -26,7 +26,7 @@
 
 ![matmul1](images/llm_qwen2_parallel_split.png)
 
-从图中可以看出，由于RmsNorm无法切分，因此每次RmsNorm计算前，需要在网络中加入一个AllReduce的算子同步各个子进程的计算结果。而RmsNorm之后的结果，一般都是hidden_states，因此可以通过一个列切的Linear进行切分计算分配到各个子进程上，在需要归一的时候，可以通过行切的RowLinear进行归一。
+从图中可以看出，由于RmsNorm无法切分，因此每次RmsNorm计算前，需要在网络中加入一个AllReduce的算子同步各个子进程的计算结果。而RmsNorm之后的结果，一般都是hidden_states，因此可以通过一个列切的Linear进行切分计算分配到各个子进程上。在需要归一的时候，可以通过行切的RowLinear进行归一。
 
 ## 模型模块并行方案
 
@@ -344,7 +344,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
 
 ### TransformerModel并行适配
 
-可以看出张量按顺序，先经过`ColumnParallelLinear`列切矩阵乘得到并行的结果，然后输入`RowParallelLinear`行切矩阵乘，就能得到完整的两次矩阵乘结果。
+可以看出，张量按顺序先经过`ColumnParallelLinear`列切矩阵乘得到并行的结果，然后输入`RowParallelLinear`行切矩阵乘，就能得到完整的两次矩阵乘结果。
 
 ![Column+Row](images/column+row.png)
 
@@ -491,7 +491,7 @@ msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log
 
 3. **KVCache适配**：由于Attention分数计算时的数量计算也根据并行度切分了，因此在KVCache管理中也要对应更新shape。
 
-为了能够简化场景，本章只对Qwen2模型中的Linear进行并行度为2的切分，Embedding层的切分暂时不涉及。建议，将示例中原本单卡的infer.py和qwen2.py文件，重命名为infer_parallel.py和qwen2_parallel.py，防止代码的冲突。
+为了能够简化场景，本章只对Qwen2模型中的Linear进行并行度为2的切分，Embedding层的切分暂时不涉及。建议将示例中原本单卡的infer.py和qwen2.py文件，重命名为infer_parallel.py和qwen2_parallel.py，防止代码的冲突。
 
 ### 通信组建立
 
@@ -532,7 +532,7 @@ def init_communication():
 
 ### 模型并行切分
 
-本方案主要对Linear层进行并行切分，因此主要的修改是对其进行修改，实现上，需要将Qwen2Linear修改为Qwen2ColParallelLinear和Qwen2RowParallelLinear两个类，分别对应列切和行切的Linear，具体代码可以参考如下：
+本方案主要对Linear层进行并行切分，因此主要的修改是对其进行修改。实现上，需要将Qwen2Linear修改为Qwen2ColParallelLinear和Qwen2RowParallelLinear两个类，分别对应列切和行切的Linear，具体代码可以参考如下：
 
 ```python
 from typing import Optional, Type, Tuple
@@ -607,17 +607,17 @@ class Qwen2RowParallelLinear(nn.Cell):
         return x.view(*origin_shape[:-1], -1)
 ```
 
-由上面代码可以看出，Linear改造其实很简单，Qwen2ColParallelLinear只需要在output维度按并行度切分即可，Qwen2RowParallelLinear则只需要在input维度按并行度切分即可，由于行切后通常会要all_reduce计算，因此在Qwen2RowParallelLinear中加入了一个all_reduce操作。
+由上面代码可以看出，Linear改造其实很简单，Qwen2ColParallelLinear只需要在output维度按并行度切分即可，Qwen2RowParallelLinear则只需要在input维度按并行度切分即可。由于行切后通常需要进行all_reduce计算，因此在Qwen2RowParallelLinear中加入了一个all_reduce操作。
 
 除此之外，我们需要将原来使用Qwen2Linear的地方根据算法修改成新的Linear层，我们主要关注以下三部分：
 
 - **Attention**：主要包括query、key、value、output共4个Linear，其中query、key、value需要替换成Qwen2ColParallelLinear，output需要替换成Qwen2RowParallelLinear。
 
-- **MLP**：主要包括gate、up、down共3个Linear，其中，gate、up需要替换成Qwen2ColParallelLinear，down需要替换成Qwen2RowParallelLinear。
+- **MLP**：主要包括gate、up、down共3个Linear，其中gate、up需要替换成Qwen2ColParallelLinear，down需要替换成Qwen2RowParallelLinear。
 
 - **LMHead**：包含一个Linear，由于没有行切Linear与其对应，需要通过all_gather操作获取多卡结果。
 
-用户可以简单的进行类对象替换完成下面的修改和适配，此处列出修改后的网络层实现：
+用户可以简单地进行类对象替换完成下面的修改和适配，此处列出修改后的网络层实现：
 
 ```diff
 import numpy as np
@@ -816,11 +816,11 @@ class Qwen2ForCausalLM(nn.Cell):
         return logits
 ```
 
-可以看到，代码实现变化很小，主要需要注意的是Attention中query、key、value实际是按照Attention的Head进行切分，因此对于FlashAttention和PagedAttention的输入输出维度需要同样适配的除以并行度，以缩小计算范围，同时需要保证并行度可以被query和key、value的head数整除。
+可以看到，代码实现变化很小，主要需要注意的是Attention中query、key、value实际是按照Attention的Head进行切分，因此对于FlashAttention和PagedAttention的输入输出维度需要同样适配地除以并行度，以缩小计算范围。同时需要保证并行度可以被query和key、value的head数整除。
 
 ### 模型权重切分
 
-原始的Qwen2ForCausalLM使用了MindSpore提供的load_param_into_net函数将权重注入到模型中，其逻辑是按照原始权重进行加载的，当模型被切分后，需要加载的模型也要进行适配，大小要变化，非0卡的进程需要按偏移读取数据，因此需要修改load_weight函数，实现并行下的权重加载。
+原始的Qwen2ForCausalLM使用了MindSpore提供的load_param_into_net函数将权重注入到模型中，其逻辑是按照原始权重进行加载的。当模型被切分后，需要加载的模型也要进行适配，大小要变化，非0卡的进程需要按偏移读取数据，因此需要修改load_weight函数，实现并行下的权重加载。
 
 此处建议使用通过在权重参数注册加载函数方式实现，可以参考以下代码：
 
@@ -950,7 +950,7 @@ class Qwen2ForCausalLM(nn.Cell):
 +                    param.set_data(weight)
 ```
 
-上面代码对需要自定义加载权重的网络层增加了weight_load方法，并且对其权重对象通过setattr方法设置了自定义权重加载方法，在模型权重加载时，通过读取权重的映射表，找到对应的参数对象，更新其权重。对于列切和行切的Linear，使用了Tensor的narrow获取对应偏移的数据，唯一不同是两者切分维度不同。
+上面代码对需要自定义加载权重的网络层增加了weight_load方法，并且对其权重对象通过setattr方法设置了自定义权重加载方法。在模型权重加载时，通过读取权重的映射表，找到对应的参数对象，更新其权重。对于列切和行切的Linear，使用了Tensor的narrow获取对应偏移的数据，唯一不同是两者切分维度不同。
 
 ### KVCache切分
 
@@ -981,7 +981,7 @@ class CacheManager:
 
 ### 并行执行
 
-由于并行执行需要初始化通信域，还需要在infer_paralle.py的初始化阶段调用init_communication函数，具体建议在set_context后面执行，可以参考如下代码：
+由于并行执行需要初始化通信域，还需要在infer_parallel.py的初始化阶段调用init_communication函数，具体建议在set_context后面执行，可以参考如下代码：
 
 ```diff
 
