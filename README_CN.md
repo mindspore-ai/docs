@@ -6,11 +6,11 @@
 
 ## 简介
 
-此工程提供MindSpore官方网站<https://www.mindspore.cn>所呈现安装指南、教程、文档的源文件以及API的相关配置。
+此工程提供MindSpore官方网站<https://www.mindspore.cn>所呈现的安装指南、教程、文档的源文件以及API的相关配置。
 
 ## 贡献
 
-我们非常欢迎您贡献文档！如果想要参与，请阅读[CONTRIBUTING_DOC_CN.md](./CONTRIBUTING_DOC_CN.md#)，务必遵守文档写作规范，并按照流程规则提交，审核通过后，改动会在文档工程和官网中呈现。
+我们非常欢迎您贡献文档！如果想要参与，请阅读[CONTRIBUTING_DOC_CN.md](./CONTRIBUTING_DOC_CN.md#)，务必遵守文档写作规范，并按照流程规则提交。审核通过后，改动会在文档工程和官网中呈现。
 
 同时，如果您对文档有任何意见或建议，请在Issues中提交。
 
@@ -87,7 +87,7 @@ docs
 
 ## 文档构建
 
-MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/master/)工具生成，构建MindSpore等各组件API文档之前需完成对应模块的安装。下面以MindSpore Python API文档为例介绍具体步骤，操作前需完成MindSpore的安装。
+MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/master/)工具生成。构建MindSpore等各组件API文档之前，需完成对应模块的安装。下面以MindSpore Python API文档为例介绍具体步骤，操作前需完成MindSpore的安装。
 
 1. 使用pip安裝MindSpore模块，API文档需要根据安装后的MindSpore模块生成，参考[安装](https://www.mindspore.cn/install)。
 
