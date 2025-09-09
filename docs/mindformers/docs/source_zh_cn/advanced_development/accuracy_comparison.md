@@ -45,7 +45,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 ### 3.1 配置对齐
 
-精度对比流程的第一步是确保两个框架使用**完全一致的模型配置**。为此，本小节提供了 [Megatron-LM](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/accuracy_comparison/example.sh) 与 [MindSpore Transformers] 的对应配置文件，分别定义了模型结构、并行策略以及关键训练超参数。
+精度对比流程的第一步是确保两个框架使用**完全一致的模型配置**。为此，本小节提供了 [Megatron-LM](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/accuracy_comparison/example.sh) 与 [MindSpore Transformers](https://gitee.com/mindspore/mindformers) 的对应配置文件，分别定义了模型结构、并行策略以及关键训练超参数。
 
 配置对齐的目标是保证两个系统在初始化状态下尽可能一致，从而使得后续的前向输出、梯度反向传播等比对具有可比性。
 
@@ -274,7 +274,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 两个框架均支持加载 Megatron 数据集，该数据集通常经过预处理，序列化为二进制格式（例如`.bin`或`.idx`文件），并配套特定索引机制，便于在分布式集群环境下高效并行加载与数据切分。
 
-- 数据集下载：[wikitext-103数据集](https://dagshub.com/DagsHub/WIkiText-103/src/main/dataset/tokens)
+- 数据集下载：[wikitext-103数据集](https://dagshub.com/DagsHub/WikiText-103/src/main/dataset/tokens)
 
 - 分词模型下载：分词模型[tokenizer.json](https://huggingface.co/deepseek-ai/DeepSeek-V3/resolve/main/tokenizer.json?download=true)
 
@@ -306,9 +306,9 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
    make
    ```
 
-   其中，`$MINDFORMERS_HOME` 指 Mindspore Transformers 源代码所在的目录。
+   其中，`$MINDFORMERS_HOME` 指 MindSpore Transformers 源代码所在的目录。
 
-#### 3.2.2 数据集配置
+#### 3.2.3 数据集配置
 
 本小节会将两个框架配置文件中的数据集配置项，进行对比和说明。
 
@@ -356,7 +356,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 由于 MindSpore Transformers 和 Megatron-LM 使用的权重格式、参数命名方式及张量排列存在差异，直接加载权重通常会导致不兼容。因此，需要通过专门的转换脚本将源框架导出的模型权重转换为目标框架可识别的格式。
 
-1. 生成 MinSpore Transformers 初始权重
+1. 生成 MindSpore Transformers 初始权重
 
    参照[callbacks 配置](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#callbacks%E9%85%8D%E7%BD%AE)通过修改 `example.yaml` 文件并执行[查看结果](#34-查看结果)中提供的命令，即可通过预训练在`example.yaml`中的`output_dir`的`checkpoints`下获得一份初始权重，修改内容如下：
 
@@ -407,7 +407,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 - MindSpore Transformers
 
-  在 MindSpore Transformer 代码目录下，执行以下代码：
+  在 MindSpore Transformers 代码目录下，执行以下代码：
 
   ```shell
   bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -423,6 +423,6 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
   | Megatron-LM     | MindSpore Transformers | 含义                                                                                                                                                             |
   |-----------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
   | `iteration`     | `epoch` 与 `step` 的组合   | 表示训练过程中的全局迭代次数。MindSpore Transformers 通常以 `(epoch, step)` 表示当前训练位置，而 Megatron-LM 使用单一的 `iteration` 表示。两者关系为：`iteration = (epoch - 1) * steps_per_epoch + step` |
-  | `lm loss`       | `loss`                 | 训练损失，精度对比核心指标。MindSpore Transformers 的`loss`是指`lm loss`和`aux loss`的和，未来将会分别打印输出                                                                                |
+  | `lm loss`       | `loss`                 | 训练损失，精度对比核心指标。MindSpore Transformers 的`loss`是指`lm loss`和`aux loss`的和，未来将分别打印输出                                                                                |
   | `learning rate` | `lr`                   | 学习率，精度对比参考指标                                                                                                                                                   |
   | `grad norm`    | `global norm`          | 全局梯度范数，精度对比参考指标                                                                                                                                                |
