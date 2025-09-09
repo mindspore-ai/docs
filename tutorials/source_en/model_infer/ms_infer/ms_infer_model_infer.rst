@@ -86,7 +86,7 @@ Main Features
 
 To achieve the optimal cost-effectiveness, MindSpore LLM has undergone multiple in-depth optimizations tailored to the characteristics of LLM networks. The main features include:
 
-- **Full and incremental inference**: The core network structure of LLMs primarily utilizes a transformer-based self-attention mechanism, where attention scores of all tokens are computed in each training step. However, the attention scores of the same token sequence yield the same key and value (KV) results. For example, the KV of ["the", "area", "of", "China", "is"] may be understood as a combination of ["the", "area", "of", "China"] and ["is"]. Therefore, by caching the keys and values of previously computed sequences, the computation workload for the next training step can be reduced. This technique is commonly known as KVCache optimization. In two consecutive training steps, *N* and *N* +1, the KVs from training step *N* can be fully reused in training step *N* +1 because the first *N* sequences are identical and only the first token of *N* +1 steps needs to be computed. In this way, the model inference can be divided into the following two phases:
+- **Full and incremental inference**: The core network structure of LLMs primarily utilizes a Transformer-based self-attention mechanism, where attention scores of all tokens are computed in each training step. However, the attention scores of the same token sequence yield the same key and value (KV) results. For example, the KV of ["the", "area", "of", "China", "is"] may be understood as a combination of ["the", "area", "of", "China"] and ["is"]. Therefore, by caching the keys and values of previously computed sequences, the computation workload for the next training step can be reduced. This technique is commonly known as KVCache optimization. In two consecutive training steps, *N* and *N* +1, the KVs from training step *N* can be fully reused in training step *N* +1 because the first *N* sequences are identical and only the first token of *N* +1 steps needs to be computed. In this way, the model inference can be divided into the following two phases:
 
   - **Full inference**: This is the first training step initiated by your input, where the length *N* of the input statement and the content is unpredictable. All keys and values must be computed, which is called a full inference.
 
@@ -417,7 +417,7 @@ The MindSpore LLM supports the following quantization technologies to improve th
 
 - **KVCache quantization**: reduces graphics memory consumption, effectively enhancing overall throughput. (KVCache consumes considerable graphics memory and model weights in LLM inference.) MindSpore supports quantizing KVCache from float16 to int8. Through flash attention and page attention, quantization and dequantization are fused into operators to reduce the overhead caused by quantization and improve the overall throughput.
 
-To quantize a model using golden-stick, perform the following steps:
+To quantize a model using Golden Stick, perform the following steps:
 
 1. **Model quantization**: Use a quantization algorithm to convert the model data type from high-bit type (eg. float16) to low-bit type (eg. int8 or int4).
 

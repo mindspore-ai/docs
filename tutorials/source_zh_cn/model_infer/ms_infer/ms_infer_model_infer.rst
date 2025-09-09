@@ -417,7 +417,7 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
 
 - **KVCache量化**：在大语言模型推理场景下，除了模型权重以外，KVCache也占用了大量显存，因此对KVCache进行量化，降低其显存消耗，也能够有效提升整体的吞吐量。MindSpore大语言模型支持对KVCache做float16到int8的量化，通过Flash Attention和Paged Attention适配，将量化和反量化融合到算子内部，降低量化带来的开销，实现整体吞吐量提升。
 
-使用GoldenStick进行模型量化主要分为以下两步：
+使用Golden Stick进行模型量化主要分为以下两步：
 
 1. **模型量化**：利用量化算法，将模型的数据类型从高bit类型（如float16）转化成低bit类型（如int8或int4）。
 
