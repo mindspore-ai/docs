@@ -52,13 +52,13 @@ The MindSpore framework provides multiple model inference modes so that users ca
 
 The following figure shows the selection routes of common model inference scenarios.
 
-![LLAMA network structure](images/model_infer_case_select.png)
+![Model Inference Scenario Selection](images/model_infer_case_select.png)
 
 You can select the most suitable MindSpore inference solution based on your application scenario.
 
 The following figure shows the key technology stack of MindSpore inference.
 
-![LLAMA network structure](images/model_infer_stack.png)
+![MindSpore Inference Technology Stack](images/model_infer_stack.png)
 
 - **Inference with a framework**: In scenarios with abundant computing resources, only Python APIs are provided. You need to use Python scripts to build models and perform inference. Service-oriented components are not mandatory.
 

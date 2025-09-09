@@ -967,7 +967,7 @@ As can be seen from the code, only a slight adjustment to the shape of the KVCac
 
 ### Parallel Execution
 
-Since parallel execution requires initializing the communication domain, the init_communication function must also be called during the initialization phase of infer_paralle.py. It is recommended to execute this function after set_context. Please refer to the following code for reference:
+Since parallel execution requires initializing the communication domain, the init_communication function must also be called during the initialization phase of infer_parallel.py. It is recommended to execute this function after set_context. Please refer to the following code for reference:
 
 ```diff
 
