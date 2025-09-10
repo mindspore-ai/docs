@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/dev_migration.md)
 
-本文档将指导用户如何基于MindSpore Transformers开发构建一个大模型，并完成最基本的适配，以拉起训练和推理流程。
+本文档将指导用户如何基于MindSpore Transformers构建一个大模型，并完成最基本的适配，以拉起训练和推理流程。
 
 ## 基于MindSpore Transformers构建大模型
 
@@ -12,7 +12,7 @@ MindSpore Transformers中大模型的基本组成包含配置、模型、分词�
 
 模型配置是一个实例，包含模型的所有信息。MindSpore Transformers中所有模型的`__init__`方法都接收一个模型配置的实例作为入参，模型的所有子模块都通过这个配置实例中所包含的信息来初始化。
 
-MindSpore Transformers提供了[PretrainedConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.PretrainedConfig.html)类，负责提供一些配置的通用方法。所有模型的配置类都应该继承于PretrainedConfig类，开发者只需关心定义所有帮助构建大模型的配置参数：Transformer类大模型通常都拥有`seq_length`、`hidden_size`、`num_layers`、`num_heads`等配置参数，文本类的大模型通常还有`vocab_size`等。
+MindSpore Transformers提供了[PretrainedConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.PretrainedConfig.html)类，负责提供一些配置的通用方法。所有模型的配置类都应该继承于PretrainedConfig类，开发者只需关心定义所有帮助构建大模型的配置参数：Transformer类大模型通常拥有`seq_length`、`hidden_size`、`num_layers`、`num_heads`等配置参数，文本类的大模型通常还有`vocab_size`等。
 
 可以参考MindSpore Transformers中Llama模型的配置类[LlamaConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/master/models/mindformers.models.LlamaConfig.html)。
 

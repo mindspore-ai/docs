@@ -434,7 +434,7 @@ You can also optimize the amount of IO by starting with the dataset, which shoul
 
 ### Too Many Bubbles in the pp Scenario
 
-The main overhead in the pipeline scenario is the introduction of computational idleness (bubble), which is roughly estimated as $bubble\ ratio=\frac{p-1}{m+p-1}$, where $p$ is the number of pipeline stages and $m$ is the set micro batch num.
+The main overhead in the pipeline scenario is the introduction of computational idleness (bubble), which is roughly estimated as $\text{bubble ratio}=\frac{p-1}{m+p-1}$, where $p$ is the number of pipeline stages and $m$ is the set micro batch num.
 
 In order to reduce the bubble idle, we can start from the formula, in the case of a fixed number of stage, we can increase the micro batch num, so that the overall percentage of bubble is reduced, which can effectively improve the training efficiency.
 
@@ -525,7 +525,7 @@ After analyzing, 13B performance bottleneck mainly lies in memory, whether singl
 Adjusting the sharding strategy to DP: 8, MP: 1, PP: 2, micro: 128 with dual machines and full recomputation on improves performance to 2136tokens/s/p. Changing the full recomputation to selective recomputation and fine selecting the operators to minimize the amount of memory at each layer improves performance to 2189tokens/s/p.
 
 ```yaml
-select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w1\.matmul', 'feed_forward\.w3\.matmul', 'feed_forward\.W3\.reshape', 'feed_forward\.w2\.matmul', 'feed_forward\.w2\.reshape', 'ffn_norm\.norm', 'ffn_norm\.rcast', 'attention_norm\.norm', 'attention_norm\.rcast', 'attention\.wq\.reshape', 'attention\.wk\.reshape', 'attention\.wv\.reshape', 'attention\.wo\.matmul', 'attention\.wo\.reshape', 'attention\.merger_head_transpose', 'add', 'attention\.flash attention']
+select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w1\.matmul', 'feed_forward\.w3\.matmul', 'feed_forward\.W3\.reshape', 'feed_forward\.w2\.matmul', 'feed_forward\.w2\.reshape', 'ffn_norm\.norm', 'ffn_norm\.rcast', 'attention_norm\.norm', 'attention_norm\.rcast', 'attention\.wq\.reshape', 'attention\.wk\.reshape', 'attention\.wv\.reshape', 'attention\.wo\.matmul', 'attention\.wo\.reshape', 'attention\.merger_head_transpose', 'add', 'attention\.flash_attention']
 ```
 
 Adjusting the number of recomputation layers for different stages results in less recomputation for stage1 and performance improvement to 2210tokens/s/p.
@@ -543,13 +543,13 @@ select_recompute:
   'ffn_norm\.norm': [20, 0]
   'ffn_norm\.rcast': [20, 0]
   'attention_norm\.norm': [20, 0]
-  'attention_normi.rcast': [20, 0]
-  'attention\.wq\.reshape': [20, 0]e
-  'attention\.wk\.reshape': [20, 0]e
-  'attention\.w\.reshape': [20, 0]e
-  'attention\.wol.matmul': [20, 0]
-  'attention\.wo\.reshape': [20, 0]e
-  'attention\.merger head transpose': [20, 0]
+  'attention_norm\.rcast': [20, 0]
+  'attention\.wq\.reshape': [20, 0]
+  'attention\.wk\.reshape': [20, 0]
+  'attention\.wv\.reshape': [20, 0]
+  'attention\.wo\.matmul': [20, 0]
+  'attention\.wo\.reshape': [20, 0]
+  'attention\.merger_head_transpose': [20, 0]
   'add': [20, 0]
   'attention\.flash_attention': [20, 0]
 ```
@@ -592,7 +592,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
    parallel:             # In the parallel module
      ...
      full_batch: False   # Set full batch to False
-     dataset_strategy: [[8, 1],] # dp is 8, one input only
+     dataset_strategy: [[8, 1]] # dp is 8, one input only
      ...
    ```
 

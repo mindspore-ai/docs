@@ -434,7 +434,7 @@ parallel:             # 在parallel模块下
 
 ### pp场景bubble过多
 
-pipeline场景下主要开销是引入了计算闲置（bubble），其大概估算公式为：$bubble\ ratio=\frac{p-1}{m+p-1}$，其中，$p$为pipeline的stage数量，$m$为设定的micro batch num。
+pipeline场景下主要开销是引入了计算闲置（bubble），其大概估算公式为：$\text{bubble ratio}=\frac{p-1}{m+p-1}$，其中，$p$为pipeline的stage数量，$m$为设定的micro batch num。
 
 为减小bubble空闲，可以从公式入手，在stage数量固定的情况下，可以增大micro batch num，使得整体的bubble占比降低，能够有效提高训练效率；
 
@@ -525,7 +525,7 @@ recompute_config:
 经过实测，开MP关闭重计算，性能比纯DP还要低。双机并行策略调整为DP: 8、MP: 1、PP: 2、micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的内存尽可能减少，性能提升至2189tokens/s/p。
 
 ```yaml
-select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w1\.matmul', 'feed_forward\.w3\.matmul', 'feed_forward\.W3\.reshape', 'feed_forward\.w2\.matmul', 'feed_forward\.w2\.reshape', 'ffn_norm\.norm', 'ffn_norm\.rcast', 'attention_norm\.norm', 'attention_norm\.rcast', 'attention\.wq\.reshape', 'attention\.wk\.reshape', 'attention\.wv\.reshape', 'attention\.wo\.matmul', 'attention\.wo\.reshape', 'attention\.merger_head_transpose', 'add', 'attention\.flash attention']
+select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w1\.matmul', 'feed_forward\.w3\.matmul', 'feed_forward\.W3\.reshape', 'feed_forward\.w2\.matmul', 'feed_forward\.w2\.reshape', 'ffn_norm\.norm', 'ffn_norm\.rcast', 'attention_norm\.norm', 'attention_norm\.rcast', 'attention\.wq\.reshape', 'attention\.wk\.reshape', 'attention\.wv\.reshape', 'attention\.wo\.matmul', 'attention\.wo\.reshape', 'attention\.merger_head_transpose', 'add', 'attention\.flash_attention']
 ```
 
 调整不同stage的重计算层数，使stage1的重计算量减少，性能提升至2210tokens/s/p。
@@ -543,13 +543,13 @@ select_recompute:
   'ffn_norm\.norm': [20, 0]
   'ffn_norm\.rcast': [20, 0]
   'attention_norm\.norm': [20, 0]
-  'attention_normi.rcast': [20, 0]
-  'attention\.wq\.reshape': [20, 0]e
-  'attention\.wk\.reshape': [20, 0]e
-  'attention\.w\.reshape': [20, 0]e
-  'attention\.wol.matmul': [20, 0]
-  'attention\.wo\.reshape': [20, 0]e
-  'attention\.merger head transpose': [20, 0]
+  'attention_norm\.rcast': [20, 0]
+  'attention\.wq\.reshape': [20, 0]
+  'attention\.wk\.reshape': [20, 0]
+  'attention\.wv\.reshape': [20, 0]
+  'attention\.wo\.matmul': [20, 0]
+  'attention\.wo\.reshape': [20, 0]
+  'attention\.merger_head_transpose': [20, 0]
   'add': [20, 0]
   'attention\.flash_attention': [20, 0]
 ```
@@ -592,7 +592,7 @@ recompute_config:
    parallel:             # 在parallel模块下
      ...
      full_batch: False   # 配置full batch为False
-     dataset_strategy: [[8, 1],] # dp为8，仅一项输入
+     dataset_strategy: [[8, 1]] # dp为8，仅一项输入
      ...
    ```
 

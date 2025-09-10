@@ -45,7 +45,7 @@ This section describes the model-level precision consistency validation process 
 
 ### 3.1 Configuration Alignment
 
-The first step of the precision comparison process is to ensure that the two frameworks use **the same model configuration**. This section provides the configuration files of [Megatron-LM](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/accuracy_comparison/example.sh) and [MindSpore Transformers], which define the model structure, parallel policy, and key training hyperparameters.
+The first step of the precision comparison process is to ensure that the two frameworks use **the same model configuration**. This section provides the configuration files of [Megatron-LM](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/accuracy_comparison/example.sh) and [MindSpore Transformers](https://gitee.com/mindspore/mindformers), which define the model structure, parallel policy, and key training hyperparameters.
 
 The configuration alignment aims to ensure that the two systems are as consistent as possible in the initial state, so that the forward output and gradient backpropagation can be compared.
 
@@ -401,7 +401,7 @@ After the preceding steps are complete, you can start training and extract key d
 
 - MindSpore Transformers
 
-  Run the following commands in the MindSpore Transformer code directory:
+  Run the following commands in the MindSpore Transformers code directory:
 
   ```shell
   bash scripts/msrun_launcher.sh "run_mindformer.py \

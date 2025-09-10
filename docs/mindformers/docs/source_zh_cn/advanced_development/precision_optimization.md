@@ -33,7 +33,7 @@
 | n_kv_heads        | kv分组数                                                     | 对应Megatron中的num-query-groups，检查是否一致。                                     |
 | 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindSpore Transformers中使用指定的正则化函数，无法通过配置修改。Megatron中可通过normalization自定义配置，检查是否一致。   |
 | rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                     |
-| dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议两边都关闭，减少随机因素。                     |
+| dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开启重计算；若进行精度比对，建议两边都关闭，减少随机因素。                     |
 | 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，需要保持一致。 <br>2. 不同硬件下进行精度比对时，重点检查融合计算部分是否有计算差异。 |
 
 #### MOE结构
@@ -263,9 +263,9 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
 
 当前，msprobe 精度分析工具提供了分级的数据采集与比对能力，可有效支持此类问题的定位。相关操作可参考以下文档：
 
-- [msprobe 工具 MindSpore场景精度数据采集指南](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
-- [msprobe 工具 PyTorch场景精度数据采集指南](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
-- [MindSpore 场景的精度比对](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
+* [msprobe 工具 MindSpore场景精度数据采集指南](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
+* [msprobe 工具 PyTorch场景精度数据采集指南](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
+* [MindSpore 场景的精度比对](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
 
 #### step1的local norm值对比
 
