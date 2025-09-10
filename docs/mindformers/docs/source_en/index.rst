@@ -198,6 +198,7 @@ FAQ
    advanced_development/yaml_config_inference
    advanced_development/accuracy_comparison
    advanced_development/training_template_instruction
+   advanced_development/weight_transfer
    advanced_development/api
 
 .. toctree::
