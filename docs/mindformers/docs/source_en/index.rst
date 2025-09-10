@@ -26,6 +26,7 @@ MindSpore Transformers supports one-click start of single/multi-card training, f
 - `Supervised Fine-Tuning <https://www.mindspore.cn/mindformers/docs/en/master/guide/supervised_fine_tuning.html>`_
 - `Inference <https://www.mindspore.cn/mindformers/docs/en/master/guide/inference.html>`_
 - `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/master/guide/deployment.html>`_
+- `Benchmark <https://www.mindspore.cn/mindformers/docs/en/master/guide/benchmarks.html>`_
 
 Code repository address: <https://gitee.com/mindspore/mindformers>
 
@@ -169,6 +170,7 @@ FAQ
    guide/supervised_fine_tuning
    guide/inference
    guide/deployment
+   guide/benchmarks
 
 .. toctree::
    :glob:
