@@ -243,6 +243,8 @@ MindSpore Transformers对接了 [Hugging Face数据集](https://huggingface.co/d
 3. **可扩展的数据操作**：支持用户自定义数据集处理逻辑，并提供高效的数据 **packing 功能**，适合大规模训练场景下的优化。
 
 > 在MindSpore Transformers中使用Hugging Face数据集需要了解`datasets`第三方库的数据集加载与处理等基本功能，可参考[链接](https://huggingface.co/docs/datasets/loading)进行查阅。
+>
+> 如果使用Python版本小于3.10，则需要安装aiohttp 3.8.1以下版本。
 
 ### 配置说明
 
