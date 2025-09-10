@@ -14,94 +14,151 @@ MindSpore Transformers提供的`YAML`文件中包含对于不同功能的配置�
 
 基础配置主要用于指定MindSpore随机种子以及加载权重的相关设置。
 
-| 参数                            | 说明                                                                                                                                                                                                            | 类型             |
-|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
-| seed                          | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。                                                                                    | int            |
-| run_mode                      | 设置模型的运行模式，可选`train`、`finetune`、`eval`或`predict`。                                                                                                                                                              | str            |
-| output_dir                    | 设置保存log、checkpoint、strategy等文件的路径。                                                                                                                                                                            | str            |
-| load_checkpoint               | 加载权重的文件或文件夹路径，目前有3个应用场景：<br/>1. 支持传入完整权重文件路径。<br/>2. 支持传入离线切分后的权重文件夹路径。<br/>3. 支持传入包含lora权重和base权重的文件夹路径。<br/>各种权重的获取途径可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。 | str            |
-| auto_trans_ckpt               | 是否开启分布式权重自动切分与合并功能，详情可参考[分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。                                                                                               | bool           |
-| resume_training               | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。                                                           | bool           |
-| load_ckpt_format              | 加载的模型权重的格式，可选`ckpt`、`safetensors`。                                                                                                                                                                            | str            |
-| remove_redundancy             | 加载的模型权重是否去除了冗余。默认值为`False`。                                                                                                                                                                                   | bool           |
-| train_precision_sync          | 训练确定性计算开关。默认值为`None` 。                                                                                                                                                                                        | Optional[bool] |
-| infer_precision_sync          | 推理确定性计算开关。默认值为`None`。                                                                                                                                                                                         | Optional[bool] |
-| use_skip_data_by_global_norm  | 数据跳过功能开关。默认值为`False`。                                                                                                                                                                                         |                |
-| use_checkpoint_health_monitor | 健康监测功能开关。默认值为`False`。                                                                                                                                                                                         |                |
+| 参数名称                          | 数据类型  | 是否可选 | 默认值    | 取值说明                                                                                                                                                                                                                                 |
+|-------------------------------|-------|------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| seed                          | int   | 可选   | 0      | 设置全局随机种子，用于保证实验可复现性。详情可参考 [mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。                                                                                             |
+| run_mode                      | str   | 必选   | 无      | 设置模型的运行模式，可选：`train`、`finetune`、`eval` 或 `predict`。                                                                                                                                                                                  |
+| output_dir                    | str   | 可选   | 无      | 设置保存日志（log）、权重（checkpoint）、并行策略（strategy）等文件的输出路径。若路径不存在会尝试自动创建。                                                                                                                                                                     |
+| load_checkpoint               | str   | 可选   | 无      | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)                           |
+| auto_trans_ckpt               | bool  | 可选   | False  | 是否开启分布式权重自动切分与合并功能。开启后可在单卡加载多卡切分权重，或多卡加载单卡权重。详情见 [分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)                                                                                              |
+| resume_training               | bool  | 可选   | False  | 是否开启断点续训功能。开启后将从 `load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                |
+| load_ckpt_format              | str   | 可选   | "ckpt" | 加载的模型权重的格式，可选 `"ckpt"` 和 `"safetensors"`。                                                                                                                                                                                            |
+| remove_redundancy             | bool  | 可选   | False  | 加载的模型权重是否已去除冗余。详情可参考[权重去冗余保存与加载](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html#%E5%8E%BB%E5%86%97%E4%BD%99%E4%BF%9D%E5%AD%98%E5%8F%8A%E5%8A%A0%E8%BD%BD)                                           |
+| train_precision_sync          | bool  | 可选   | None   | 训练确定性计算开关。设置为 `True`，则开启训练同步计算，可以提升计算的确定性，一般可用于确保实验的可复现性；设置为 `False`，则不开启。                                                                                                                                                           |
+| infer_precision_sync          | bool  | 可选   | None   | 推理确定性计算开关。设置为 `True`，则开启推理同步计算，可以提升计算的确定性，一般可用于确保实验的可复现性；设置为 `False`，则不开启。                                                                                                                                                           |
+| use_skip_data_by_global_norm  | bool  | 可选   | False  | 是否启用基于全局梯度范数的数据跳过功能。当某批次数据导致梯度爆炸时，自动跳过该批次以提升训练稳定性。详情可见 [数据跳过](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/skip_data_and_ckpt_health_monitor.html)。                                                                |
+| use_checkpoint_health_monitor | bool  | 可选   | False  | 是否启用权重健康监测功能。开启后会在保存 checkpoint 时校验其完整性与可用性，防止保存损坏的权重文件。详情可见 [权重健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/skip_data_and_ckpt_health_monitor.html#%E6%9D%83%E9%87%8D%E5%81%A5%E5%BA%B7%E7%9B%91%E6%B5%8B)。 |
 
 ### Context配置
 
 Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)中的相关参数。
 
-| 参数                          | 说明                                                                                                                                                                                                                                                             | 类型       |
-|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| context.mode                | 设置后端执行模式，`0`表示GRAPH_MODE，MindSpore Transformers目前仅支持在GRAPH_MODE模式下运行。                                                                                                                                                                                          | int      |
-| context.device_target       | 设置后端执行设备，MindSpore Transformers仅支持在`Ascend`设备上运行。                                                                                                                                                                                                              | str      |
-| context.device_id           | 设置执行设备ID，其值必须在可用设备范围内，默认值为`0`。                                                                                                                                                                                                                                 | int      |
-| context.enable_graph_kernel | 是否开启图算融合去优化网络执行性能，默认值为`False`。                                                                                                                                                                                                                                 | bool     |
-| context.max_call_depth      | 设置函数调用的最大深度，其值必须为正整数，默认值为`1000`。                                                                                                                                                                                                                               | int      |
-| context.max_device_memory   | 设置设备可用的最大内存，格式为"xxGB"，默认值为`1024GB`。                                                                                                                                                                                                                            | str      |
-| context.mempool_block_size  | 设置内存块大小，格式为"xxGB"，默认值为`1GB`。                                                                                                                                                                                                                                   | str      |
-| context.save_graphs         | 在执行过程中保存编译图。<br/>1. `False`或`0`表示不保存中间编译图。<br/>2. `1`表示运行时会输出图编译过程中生成的一些中间文件。<br/>3. `True`或`2`表示生成更多后端流程相关的IR文件。<br/>4. `3`表示生成可视化计算图和更多详细的前端IR图。                                                                                                             | bool/int |
-| context.save_graphs_path    | 保存编译图的路径。                                                                                                                                                                                                                                                      | str      |
-| context.affinity_cpu_list   | 可选配置项，用于实现用户自定义绑核策略。不配置时，默认绑核。`None`表示关闭绑核。默认值为`{}`，如想使能自定义绑核策略，需传入`dict`，详情可参考[mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html#mindspore.runtime.set_cpu_affinity)。 | dict/str |
+| 参数名称                        | 数据类型          | 是否可选 | 默认值       | 取值说明                                                                                                                                                                                                                                        |
+|-----------------------------|---------------|------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| context.mode                | int           | 必选   | 无         | 设置后端执行模式，`0` 表示 GRAPH_MODE。MindSpore Transformers 目前仅支持在 GRAPH_MODE 模式下运行。                                                                                                                                                                  |
+| context.device_target       | string        | 必选   | 无         | 设置后端执行设备，MindSpore Transformers 仅支持在 `Ascend` 设备上运行。                                                                                                                                                                                        |
+| context.device_id           | int           | 可选   | 0         | 设置执行设备 ID，其值必须在可用设备范围内，默认值为 `0`。                                                                                                                                                                                                            |
+| context.enable_graph_kernel | bool          | 可选   | False     | 是否开启图算融合去优化网络执行性能，默认值为 `False`。                                                                                                                                                                                                             |
+| context.max_call_depth      | int           | 可选   | 1000      | 设置函数调用的最大深度，其值必须为正整数，默认值为 `1000`。                                                                                                                                                                                                           |
+| context.max_device_memory   | string        | 可选   | "1024GB"  | 设置设备可用的最大内存，格式为 `"xxGB"`。默认值为 `"1024GB"`。                                                                                                                                                                                                   |
+| context.mempool_block_size  | string        | 可选   | "1GB"     | 设置内存块大小，格式为 `"xxGB"`，默认值为 `"1GB"`。                                                                                                                                                                                                          |
+| context.save_graphs         | bool / int    | 可选   | False     | 在执行过程中保存编译图：<br/>• `False` 或 `0` ：不保存中间编译图<br/>• `1`：输出图编译过程中的部分中间文件<br/>• `True`或`2`：生成更多后端流程相关的IR文件<br/>• `3`：生成可视化计算图和更详细的前端IR图                                                                                                          |
+| context.save_graphs_path    | string        | 可选   | './graph' | 保存编译图的路径。若未设置且 `save_graphs != False`，则使用默认临时路径 `'./graph'`。                                                                                                                                                                                |
+| context.affinity_cpu_list   | dict / string | 可选   | None      | 可选配置项，用于实现用户自定义绑核策略。<br/>• 不配置时：默认自动绑核<br/>• `None` 或未设置：关闭绑核<br/>• 传入 `dict`：自定义CPU核心绑定策略，详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html) |
 
-### 模型配置
+### Legacy 模型配置
+
+如果使用 MindSpore Transformer 拉起 legacy 模型的任务，需要在 yaml 文件中进行相关超参的配置。注意，此板块介绍的配置仅适用于 legacy 模型，不可与 mcore 模型配置进行混用，请注意[版本配套关系](https://gitee.com/mindspore/mindformers/blob/master/README_CN.md#%E6%A8%A1%E5%9E%8B%E5%88%97%E8%A1%A8)。
 
 由于不同的模型配置会有差异，这里仅对MindSpore Transformers中模型的通用配置进行说明。
 
-| 参数                                         | 说明                                                                                                                                    | 类型   |
-|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|------|
-| model.arch.type                            | 设置模型类，构建模型时可以根据模型类对模型进行实例化。                                                                                                           | str  |
-| model.model_config.type                    | 设置模型配置类，模型配置类需要与模型类匹配使用，即模型配置类中应包含所有模型类使用的参数。                                                                                         | str  |
-| model.model_config.num_layers              | 设置模型层数，通常指模型Decoder Layer的层数。                                                                                                         | int  |
-| model.model_config.seq_length              | 设置模型序列长度，该参数表示模型所支持的最大序列长度。                                                                                                           | int  |
-| model.model_config.hidden_size             | 设置模型隐藏状态的维数。                                                                                                                          | int  |
-| model.model_config.vocab_size              | 设置模型词表大小。                                                                                                                             | int  |
-| model.model_config.top_k                   | 设置推理时从概率最大的`top_k`个tokens中采样。                                                                                                         | int  |
-| model.model_config.top_p                   | 设置推理时从概率最大且概率累计不超过`top_p`的tokens中采样。                                                                                                  | int  |
-| model.model_config.use_past                | 是否开启模型增量推理，开启后可使用Paged Attention提升推理性能，在模型训练时必须设置为`False`。                                                                            | bool |
-| model.model_config.max_decode_length       | 设置生成文本的最大长度，包括输入长度。                                                                                                                   | int  |
-| model.model_config.max_length              | 同`max_decode_length`，与`max_decode_length`同时设置时，`max_length`生效。                                                                        | int  |
-| model.model_config.max_new_tokens          | 设置生成新文本的最大长度，不包括输入长度，与`max_length`同时设置时，`max_new_tokens`生效。                                                                           | int  |
-| model.model_config.min_length              | 设置生成文本的最小长度，包括输入长度。                                                                                                                   | int  |
-| model.model_config.min_new_tokens          | 设置生成新文本的最小长度，不包括输入长度，与`min_length`同时设置时，`min_new_tokens`生效。                                                                           | int  |
-| model.model_config.repetition_penalty      | 设置生成重复文本的惩罚系数，`repetition_penalty`不小于1，等于1时不对重复输出进行惩罚。                                                                                | int  |
-| model.model_config.block_size              | 设置Paged Attention中block的大小，仅`use_past=True`时生效。                                                                                       | int  |
-| model.model_config.num_blocks              | 设置Paged Attention中block的总数，仅`use_past=True`时生效，应满足`batch_size×seq_length<=block_size×num_blocks`。                                     | int  |
-| model.model_config.return_dict_in_generate | 是否以字典形式返回`generate`接口的推理结果，默认为`False`。                                                                                                | bool |
-| model.model_config.output_scores           | 是否以字典形式返回结果时，包含每次前向生成时的输入softmax前的分数，默认为`False`。                                                                                      | bool |
-| model.model_config.output_logits           | 是否以字典形式返回结果时，包含每次前向生成时模型输出的logits，默认为`False`。                                                                                         | bool |
-| model.model_config.layers_per_stage        | 设置开启pipeline stage时，每个stage分配到的transformer层数，默认为`None`，表示每个stage平均分配。设置的值为一个长度为pipeline stage数量的整数列表，第i位表示第i个stage被分配到的transformer层数。 | list |
-| model.model_config.bias_swiglu_fusion      | 是否使用swiglu融合算子，默认为`False`。                                                                                                            | bool |
-| model.model_config.apply_rope_fusion       | 是否使用RoPE融合算子，默认为`False`。                                                                                                              | bool |
-| model.model_config.moe_permute_fusion      | 是否使用moe_token_permute融合算子，默认为`False`。                                                                                                 | bool |
+| 参数名称                                       | 数据类型      | 是否可选 | 默认值   | 取值说明                                                                                                                                                     |
+|--------------------------------------------|-----------|------|-------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| model.arch.type                            | string    | 必选   | 无     | 设置模型类，构建模型时可以根据模型类对模型进行实例化。                                                                                                                              |
+| model.model_config.type                    | string    | 必选   | 无     | 设置模型配置类，模型配置类需要与模型类匹配使用，即模型配置类中应包含所有模型类使用的参数。                                                                                                            |
+| model.model_config.num_layers              | int       | 必选   | 无     | 设置模型层数，通常指模型 Decoder Layer 的层数。                                                                                                                          |
+| model.model_config.seq_length              | int       | 必选   | 无     | 设置模型序列长度，该参数表示模型所支持的最大序列长度。                                                                                                                              |
+| model.model_config.hidden_size             | int       | 必选   | 无     | 设置模型隐藏状态的维数。                                                                                                                                             |
+| model.model_config.vocab_size              | int       | 必选   | 无     | 设置模型词表大小。                                                                                                                                                |
+| model.model_config.top_k                   | int       | 可选   | 无     | 设置推理时从概率最大的 `top_k` 个 tokens 中采样。                                                                                                                        |
+| model.model_config.top_p                   | float     | 可选   | 无     | 设置推理时从概率最大且概率累计不超过 `top_p` 的 tokens 中采样，取值范围通常为 `(0,1]`。                                                                                                 |
+| model.model_config.use_past                | bool      | 可选   | False | 是否开启模型增量推理，开启后可使用 Paged Attention 提升推理性能，在模型训练时必须设置为 `False`。                                                                                            |
+| model.model_config.max_decode_length       | int       | 可选   | 无     | 设置生成文本的最大长度，包括输入长度。                                                                                                                                      |
+| model.model_config.max_length              | int       | 可选   | 无     | 同 `max_decode_length`，与 `max_decode_length` 同时设置时，仅 `max_length` 生效。                                                                                     |
+| model.model_config.max_new_tokens          | int       | 可选   | 无     | 设置生成新文本的最大长度，不包括输入长度，与`max_length`同时设置时，仅 `max_new_tokens` 生效。                                                                                           |
+| model.model_config.min_length              | int       | 可选   | 无     | 设置生成文本的最小长度，包括输入长度。                                                                                                                                      |
+| model.model_config.min_new_tokens          | int       | 可选   | 无     | 设置生成新文本的最小长度，不包括输入长度，与 `min_length` 同时设置时，仅 `min_new_tokens`生效。                                                                                          |
+| model.model_config.repetition_penalty      | float     | 可选   | 1.0   | 设置生成重复文本的惩罚系数，`repetition_penalty` 不小于 1；等于 1 时，不对重复输出进行惩罚。                                                                                              |
+| model.model_config.block_size              | int       | 可选   | 无     | 设置 Paged Attention中block 的大小，仅 `use_past=True` 时生效。                                                                                                      |
+| model.model_config.num_blocks              | int       | 可选   | 无     | 设置 Paged Attention中block 的总数，仅 `use_past=True` 时生效，应满足 `batch_size×seq_length <= block_size×num_blocks`。                                                 |
+| model.model_config.return_dict_in_generate | bool      | 可选   | False | 是否以字典形式返回 `generate` 接口的推理结果，默认为 `False`。                                                                                                                |
+| model.model_config.output_scores           | bool      | 可选   | False | 是否以字典形式返回结果时，包含每次前向生成时的输入softmax前的分数，默认为 `False`。                                                                                                        |
+| model.model_config.output_logits           | bool      | 可选   | False | 是否以字典形式返回结果时，包含每次前向生成时模型输出的logits，默认为 `False`。                                                                                                           |
+| model.model_config.layers_per_stage        | list(int) | 可选   | None  | 设置开启 pipeline stage 时，每个 stage 分配到的 transformer 层数。默认为 `None`，表示每个 stage 平均分配。设置的值为一个长度为 pipeline stage 数量的整数列表，第 i 位表示第 i 个 stage 被分配到的 transformer 层数。 |
+| model.model_config.bias_swiglu_fusion      | bool      | 可选   | False | 是否使用 swiglu 融合算子，默认为 `False`。                                                                                                                            |
+| model.model_config.apply_rope_fusion       | bool      | 可选   | False | 是否使用 RoPE 融合算子，默认为 `False`。                                                                                                                              |
 
-### MoE配置
+除了上述模型的基本配置，MoE模型需要单独配置一些MoE模块的超参，由于不同模型使用的参数会有不同，仅对通用配置进行说明：
 
-除了上述模型的基本配置，MoE模型需要单独配置一些moe模块的超参，由于不同模型使用的参数会有不同，仅对通用配置进行说明：
+| 参数名称                                  | 数据类型        | 是否可选 | 默认值    | 取值说明                                                                                        |
+|---------------------------------------|-------------|------|--------|---------------------------------------------------------------------------------------------|
+| moe_config.expert_num                 | int         | 必选   | 无      | 设置路由专家数量。                                                                                   |
+| moe_config.shared_expert_num          | int         | 必选   | 无      | 设置共享专家数量。                                                                                   |
+| moe_config.moe_intermediate_size      | int         | 必选   | 无      | 设置专家层中间维度大小。                                                                                |
+| moe_config.capacity_factor            | int         | 必选   | 无      | 设置专家容量因子。                                                                                   |
+| moe_config.num_experts_chosen         | int         | 必选   | 无      | 设置每个 token 选择专家数目。                                                                          |
+| moe_config.enable_sdrop               | bool        | 可选   | False  | 设置是否使能 token 丢弃策略`sdrop`，由于 MindSpore Transformers 的 MoE 是静态 shape 实现，所以不能保留所有 token。       |
+| moe_config.aux_loss_factor            | list(float) | 可选   | 无      | 设置均衡性 loss 的权重。                                                                             |
+| moe_config.first_k_dense_replace      | int         | 可选   | 1      | 设置 moe 层的使能 block，一般设置为 `1`，表示第一个 block 不使能 moe。                                            |
+| moe_config.balance_via_topk_bias      | bool        | 可选   | False  | 设置是否使能 `aux_loss_free` 负载均衡算法。                                                              |
+| moe_config.topk_bias_update_rate      | float       | 可选   | 无      | 设置`aux_loss_free`负载均衡算法`bias`更新步长。                                                          |
+| moe_config.comp_comm_parallel         | bool        | 可选   | False  | 设置是否开启 ffn 的计算通信并行。                                                                         |
+| moe_config.comp_comm_parallel_degree  | int         | 可选   | 无      | 设置 ffn 计算通信的分割数。数字越大，重叠越多，但会消耗更多内存。此参数仅在 `comp_com_parallel=True` 时有效。                      |
+| moe_config.moe_shared_expert_overlap  | bool        | 可选   | False  | 设置是否开启共享专家和路由专家的计算通信并行。                                                                     |
+| moe_config.use_gating_sigmoid         | bool        | 可选   | False  | 设置 MoE 中 gating 的结果使用 sigmoid 函数进行激活。                                                       |
+| moe_config.use_gmm                    | bool        | 可选   | False  | 设置 MoE 专家计算是否使用 GroupedMatmul。                                                              |
+| moe_config.use_fused_ops_permute      | bool        | 可选   | False  | 设置是否 MoE 使用 permute、unpermute 融合算子进行性能加速，仅在 `use_gmm=True` 时生效。                               |
+| moe_config.enable_deredundency        | bool        | 可选   | False  | 设置是否开启去冗余通信，要求专家并行数是每个节点中NPU卡数量的整数倍，默认值：`False`，当 `use_gmm=True` 时生效。                       |
+| moe_config.npu_nums_per_device        | int         | 可选   | 8      | 设置每个节点中 NPU 卡的数量，默认值：`8`，当 `enable_deredundency=True` 时生效。                                  |
+| moe_config.enable_gmm_safe_tokens     | bool        | 可选   | False  | 保证每个专家至少分配 1 个 tokens，避免极度负载不均衡情况下，GroupedMatmul 计算失败，默认值为 `False`。当 `use_gmm=True` 时，建议开启。 |
 
-| 参数                                   | 说明                                                                               | 类型          |
-|--------------------------------------|----------------------------------------------------------------------------------|-------------|
-| moe_config.expert_num                | 设置路由专家数量。                                                                        | int         |
-| moe_config.shared_expert_num         | 设置共享专家数量。                                                                        | int         |
-| moe_config.moe_intermediate_size     | 设置专家层中间维度大小。                                                                     | int         |
-| moe_config.capacity_factor           | 设置专家容量因子。                                                                        | int         |
-| moe_config.num_experts_chosen        | 设置每个token选择专家数目。                                                                 | int         |
-| moe_config.enable_sdrop              | 设置是否使能token丢弃策略`sdrop`，由于MindSpore Transformers的MoE是静态shape实现所以不能保留所有token。      | bool        |
-| moe_config.aux_loss_factor           | 设置均衡性loss的权重。                                                                    | list[float] |
-| moe_config.first_k_dense_replace     | 设置moe层的使能block，一般设置为1，表示第一个block不使能moe。                                          | int         |
-| moe_config.balance_via_topk_bias     | 设置是否使能`aux_loss_free`负载均衡算法。                                                     | bool        |
-| moe_config.topk_bias_update_rate     | 设置`aux_loss_free`负载均衡算法`bias`更新步长。                                               | float       |
-| moe_config.comp_comm_parallel        | 设置是否开启ffn的计算通信并行。默认值：False。                                                      | bool        |
-| moe_config.comp_comm_parallel_degree | 设置ffn计算通信的分割数。数字越大，重叠越多，但会消耗更多内存。此参数仅在comp_com_parallel启用时有效。                    | int         |
-| moe_config.moe_shared_expert_overlap | 设置是否开启共享专家和路由专家的计算通信并行。默认值：False。                                                | bool        |
-| moe_config.use_gating_sigmoid        | 设置MoE中gating的结果使用sigmoid函数进行激活。默认值：False。                                        | bool        |
-| moe_config.use_gmm                   | 设置MoE专家计算是否使用GroupedMatmul。默认值：False。                                            | bool        |
-| moe_config.use_fused_ops_permute     | 设置是否MoE使用permute、unpermute融合算子进行性能加速，仅在use_gmm=True时生效。                          | bool        |
-| moe_config.enable_deredundency       | 设置是否开启去冗余通信，要求专家并行数是每个节点中NPU卡数量的整数倍，默认值：False，当use_gmm为True时生效。                  | bool        |
-| moe_config.npu_nums_per_device       | 设置每个节点中NPU卡的数量，默认值：8，当enable_deredundency=True时生效。                               | int         |
-| moe_config.enable_gmm_safe_tokens    | 保证每个专家至少分配1个tokens，避免极度负载不均衡情况下，GroupedMatmul计算失败，默认值为False。当use_gmm=True时，建议开启。 | bool        |
+### Mcore 模型配置
+
+使用 MindSpore Transformer 拉起 mcore 模型的任务时，需要在 `model_config` 下对相关超参进行配置，包括模型选择、模型参数、计算类型、MoE 参数等。
+
+由于不同的模型配置会有差异，这里介绍在 MindSpore Transformers 中模型常用配置。
+
+| 参数                                                        | 数据类型                  | 是否可选 | 默认值        | 取值说明                                                                                                                                                                                                                                   |
+|-----------------------------------------------------------|-----------------------|------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| model.model_config.model_type                             | string                | 必选   | None       | 设置模型配置类，模型配置类需要与模型类匹配使用，即模型配置类中应包含所有模型类使用的参数。例如 `qwen3`、`deepseek_v3` 等。                                                                                                                                                               |
+| model.model_config.architectures                          | string / list(string) | 必选   | None       | 设置模型类，构建模型时可以根据模型类对模型进行实例化。例如可设置为 `["Qwen3ForCausalLM"]`、`["DeepseekV3ForCausalLM"]`、`"Qwen3MoeForCausalLM"` 等。                                                                                                                        |
+| model.model_config.offset                                 | int / list(int)       | 可选   | 0          | 开启 pp 并行时，需要根据模型层数设置偏移量，构建流水线并行。                                                                                                                                                                                                       |
+| model.model_config.vocab_size                             | int                   | 可选   | 128000     | 模型的词表大小。                                                                                                                                                                                                                               |
+| model.model_config.hidden_size                            | int                   | 必选   | 0          | Transformer 隐藏层大小。                                                                                                                                                                                                                     |
+| model.model_config.ffn_hidden_size                        | int                   | 可选   | None       | Transformer 前馈层大小，对应 HuggingFace 中的 `intermediate_size` 。若不配置，默认设置为 `4 * hidden_size`。                                                                                                                                                 |
+| model.model_config.num_layers                             | int                   | 必选   | 0          | Transformer 层数，对应 HuggingFace 中的 `num_hidden_layers`。                                                                                                                                                                                  |
+| model.model_config.max_position_embeddings                | int                   | 可选   | 4096       | 模型可以处理的最大序列长度。                                                                                                                                                                                                                         |
+| model.model_config.hidden_act                             | string                | 可选   | 'gelu'     | 用于 MLP 中的非线性的激活函数。可选配：`'gelu'`、`'silu'`、`'swiglu'`。                                                                                                                                                                                    |
+| model.model_config.num_attention_heads                    | int                   | 必选   | 0          | Transformer 注意力头数。                                                                                                                                                                                                                     |
+| model.model_config.num_query_groups                       | int                   | 可选   | None       | 组查询注意力机制的查询组数量，对应 HuggingFace 中的 `num_key_value_heads` 。若不配置，则使用普通注意力机制。                                                                                                                                                               |
+| model.model_config.kv_channels                            | int                   | 可选   | None       | 多头注意力机制中的投影权重维度，对应 HuggingFace 中的 `head_dim`。若不配置，则默认为 `hidden_size // num_attention_heads`。                                                                                                                                           |
+| model.model_config.layernorm_epsilon                      | float                 | 可选   | 1e-5       | 任何 LayerNorm 操作的 Epsilon 值。                                                                                                                                                                                                            |
+| model.model_config.add_bias_linear                        | bool                  | 可选   | True       | 如果开启此项，则将在所有线性层中包含一个偏差项（QKV 投影、core attention 之后以及 MLP 层中的两个）。                                                                                                                                                                         |
+| model.model_config.tie_word_embeddings                    | bool                  | 可选   | True       | 是否共享输入和输出 embedding 权重。                                                                                                                                                                                                                |
+| model.model_config.use_flash_attention                    | bool                  | 可选   | True       | 是否在注意力层中使用 Flash Attention。                                                                                                                                                                                                            |
+| model.model_config.use_contiguous_weight_layout_attention | bool                  | 可选   | False      | 确定 Self Attention 的 QKV 线性投影中的权重排列。仅影响 Self Attention 层。                                                                                                                                                                               |
+| model.model_config.hidden_dropout                         | float                 | 可选   | 0.1        | Transformer 隐藏状态的 Dropout 概率。                                                                                                                                                                                                          |
+| model.model_config.attention_dropout                      | float                 | 可选   | 0.1        | 后注意力层的 Dropout 概率。                                                                                                                                                                                                                     |
+| model.model_config.position_embedding_type                | string                | 可选   | 'rope'     | 用于注意层的位置嵌入类型。                                                                                                                                                                                                                          |
+| model.model_config.params_dtype                           | string                | 可选   | 'float32'  | 初始化权重时使用的 dtype。可以配置为 `'float32'`、`'float16'`、`'bfloat16'`。                                                                                                                                                                            |
+| model.model_config.compute_dtype                          | string                | 可选   | 'bfloat16' | Linear 层的计算 dtype。可以配置为 `'float32'`、`'float16'`、`'bfloat16'`。                                                                                                                                                                          |
+| model.model_config.layernorm_compute_dtype                | string                | 可选   | 'float32'  | LayerNorm 层的计算 dtype。可以配置为 `'float32'`、`'float16'`、`'bfloat16'`。                                                                                                                                                                       |
+| model.model_config.softmax_compute_dtype                  | string                | 可选   | 'float32'  | 用于在注意力计算期间计算 softmax 的 dtype。可以配置为 `'float32'`、`'float16'`、`'bfloat16'`。                                                                                                                                                               |
+| model.model_config.rotary_dtype                           | string                | 可选   | 'float32'  | 自定义旋转位置嵌入的计算 dtype。可以配置为 `'float32'`、`'float16'`、`'bfloat16'`。                                                                                                                                                                         |
+| model.model_config.init_method_std                        | float                 | 可选   | 0.02       | 默认初始化方法的零均值正态的标准偏差，对应 HuggingFace 中的 `initializer_range` 。如果提供了 `init_method` 和 `output_layer_init_method` ，则不使用此方法。                                                                                                                   |
+| model.model_config.moe_grouped_gemm                       | bool                  | 可选   | False      | 当每个等级有多个专家时，在单次内核启动中压缩多个本地（可能很小）gemm，以利用分组 GEMM 功能来提高利用率和性能。                                                                                                                                                                           |
+| model.model_config.num_moe_experts                        | int                   | 可选   | None       | 用于 MoE 层的专家数量，对应 HuggingFace 中的 `n_routed_experts` 。设置后，将用 MoE 层替换 MLP。设置为 None 则不使用 MoE。                                                                                                                                              |
+| model.model_config.num_experts_per_tok                    | int                   | 可选   | 2          | 每个 token 路由到的专家数量。                                                                                                                                                                                                                     |
+| model.model_config.moe_ffn_hidden_size                    | int                   | 可选   | None       | MoE 前馈网络隐藏层大小，对应 HuggingFace 中的 `moe_intermediate_size` 。                                                                                                                                                                              |
+| model.model_config.moe_router_dtype                       | string                | 可选   | 'float32'  | 用于路由和专家输出加权平均的数据类型。对应 HuggingFace 中的 `router_dense_type` 。                                                                                                                                                                             |
+| model.model_config.gated_linear_unit                      | bool                  | 可选   | False      | 对 MLP 中的第一个线性层使用门控线性单元。                                                                                                                                                                                                                |
+| model.model_config.norm_topk_prob                         | bool                  | 可选   | True       | 是否使用 top-k 概率进行归一化。                                                                                                                                                                                                                    |
+| model.model_config.moe_router_pre_softmax                 | bool                  | 可选   | False      | 为 MoE 启用 pre-softmax（pre-sigmoid）路由，这意味着 softmax 会在 top-k 选择之前进行。默认情况下，softmax 会在 top-k 选择之后进行。                                                                                                                                        |
+| model.model_config.moe_token_drop_policy                  | string                | 可选   | 'probs'    | 丢弃 token 的策略。可以是 `'probs'` 或 `'position'`。如果是 `'probs'` ，则丢弃概率最低的 token。 如果是 `'position'` ，则丢弃每个批次末尾的 token。                                                                                                                           |
+| model.model_config.moe_router_topk_scaling_factor         | float                 | 可选   | None       | Top-K 路由选择中路由得分的缩放因子，对应 HuggingFace 中的 `routed_scaling_factor` 。仅在启用 `moe_router_pre_softmax` 时有效。默认为 `None`，表示不缩放。                                                                                                                    |
+| model.model_config.moe_aux_loss_coeff                     | float                 | 可选   | 0.0        | 辅助损耗的缩放系数。建议初始值为 `1e-2`。                                                                                                                                                                                                               |
+| model.model_config.moe_router_load_balancing_type         | string                | 可选   | 'aux_loss' | 路由器的负载均衡策略。 `'aux_loss'` 对应于 GShard 和 SwitchTransformer 中使用的负载均衡损失；`'seq_aux_loss'` 对应于 DeepSeekV2 和 DeepSeekV3 中使用的负载均衡损失，用于计算每个样本的损失；`'sinkhorn'` 对应于 S-BASE 中使用的均衡算法，`'none'` 表示无负载均衡。                                              |
+| model.model_config.moe_permute_fusion                     | bool                  | 可选   | False      | 是否使用 moe_token_permute 融合算子，默认为 `False`。                                                                                                                                                                                               |
+| model.model_config.moe_router_force_expert_balance        | bool                  | 可选   | False      | 是否在专家路由中使用强制负载均衡。此选项仅用于性能测试，不用于一般用途，默认为 `False`。                                                                                                                                                                                       |
+| model.model_config.use_interleaved_weight_layout_mlp      | bool                  | 可选   | True       | 确定 MLP 的 linear_fc1 投影中的权重排列。仅影响 MLP 层。 <br>1. 为 True 时，使用交错排布：`[Gate_weights[0], Hidden_weights[0], Gate_weights[1], Hidden_weights[1], ...]`。<br> 2. 为 False 时，使用连续排布：`[Gate_weights, Hidden_weights]`。<br>注意：这会影响张量内存布局，但不会影响数学等价性。 |
+| model.model_config.moe_router_enable_expert_bias          | bool                  | 可选   | False      | 是否在无辅助损失负载均衡策略中，采用动态专家偏差的 TopK 路由。路由决策基于路由得分与专家偏差之和。                                                                                                                                                                                   |
+| model.model_config.enable_expert_relocation               | bool                  | 可选   | False      | 是否启用动态专家迁移功能，以实现 MoE 模型中的负载平衡。启用后，专家将根据其负载历史记录在设备之间动态重新分配，以提高训练效率和负载平衡，默认为 `False`。                                                                                                                                                    |
+| model.model_config.expert_relocation_initial_iteration    | int                   | 可选   | 20         | 启动专家迁移的初始迭代。专家迁移将在经过这么多次训练迭代后开始。                                                                                                                                                                                                       |
+| model.model_config.expert_relocation_freq                 | int                   | 可选   | 50         | 训练迭代中专家迁移的频率。初始迭代后，每 N 次迭代执行一次专家迁移。                                                                                                                                                                                                    |
+| model.model_config.print_expert_load                      | bool                  | 可选   | False      | 是否打印专家负载信息。启用后，将在训练期间打印详细的专家负载统计信息，默认为 `False`。                                                                                                                                                                                        |
+| model.model_config.moe_router_num_groups                  | int                   | 可选   | None       | 用于分组路由的专家分组数量，等价于 HuggingFace 中的 `n_group`。                                                                                                                                                                                            |
+| model.model_config.moe_router_group_topk                  | int                   | 可选   | None       | 组限制路由的选定组数，等价于 HuggingFace 中的 `topk_group`。                                                                                                                                                                                            |
+| model.model_config.moe_router_topk                        | int                   | 可选   | 2          | 每个 token 路由到的专家数量，等价于 HuggingFace 中的 `num_experts_per_tok`。配合 `moe_router_num_groups` 和 `moe_router_group_topk` 一起使用时，先分组 `moe_router_num_groups`，然后选出 `moe_router_group_topk`，再从 `moe_router_group_topk` 中选出 `moe_router_topk` 个专家。   |
 
 ### 模型训练配置
 
@@ -186,7 +243,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | parallel.pipeline_config.pipeline_interleave                    | 使能interleave，使用Seq-Pipe或ZeroBubbleV（也称为DualPipeV）流水线并行时需设置为`true`。                                                                                                                                                                                                                  | bool |
 | parallel.pipeline_config.pipeline_scheduler                     | 流水线调度策略，目前只支持`"seqpipe"`和`"zero_bubble_v"`。                                                                                                                                                                                                                                         | str  |
 
-> 配置并行策略时应满足device_num = data_parallel × model_parallel × context_parallel × pipeline_stage。
+> 配置并行策略时应满足：device_num = data_parallel × model_parallel × context_parallel × pipeline_stage。
 
 ### 模型优化配置
 
@@ -219,19 +276,19 @@ MindSpore Transformers提供封装后的Callbacks函数类，主要实现在模�
 
    该回调函数类主要用于在训练过程中对训练进度、模型Loss、学习率等信息进行打印，有如下几个可配置项：
 
-   | 参数                             | 说明                                                                                       | 类型    |
-   |--------------------------------|------------------------------------------------------------------------------------------|-------|
-   | learning_rate                  | 设置`MFLossMonitor`中初始化学习率，默认值为`None`。                                                     | float |
-   | per_print_times                | 设置`MFLossMonitor`中日志信息打印频率，默认值为`1`，即每一步打印一次日志信息。                                         | int   |
-   | micro_batch_num                | 设置训练中每一步的批数据大小，用于计算实际的loss值，若不配置该参数，则与[并行配置](#并行配置)中`parallel_config.micro_batch_num`一致。 | int   |
-   | micro_batch_interleave_num     | 设置训练中每一步的多副本批数据大小，用于计算实际的loss值，若不配置该参数，则与[并行配置](#并行配置)中`micro_batch_interleave_num`一致。   | int   |
-   | origin_epochs                  | 设置`MFLossMonitor`中训练的轮数，若不配置该参数，则与[模型训练配置](#模型训练配置)中`runner_config.epochs`一致。            | int   |
-   | dataset_size                   | 设置`MFLossMonitor`中初始化数据集大小，若不配置该参数，则与实际训练使用的数据集大小一致。                                     | int   |
-   | initial_epoch                  | 设置`MFLossMonitor`中训练起始轮数，默认值为`0`。                                                        | int   |
-   | initial_step                   | 设置`MFLossMonitor`中训练起始步数，默认值为`0`。                                                        | int   |
-   | global_batch_size              | 设置`MFLossMonitor`中全局批数据样本数，若不配置该参数，则会根据数据集大小以及并行策略自动计算。                                  | int   |
-   | gradient_accumulation_steps    | 设置`MFLossMonitor`中梯度累计步数，若不配置该参数，则与[模型训练配置](#模型训练配置)中`gradient_accumulation_steps`一致。    | int   |
-   | check_for_nan_in_loss_and_grad | 设置是否在`MFLossMonitor`中开启溢出检测，开启后在模型训练过程中出现溢出则退出训练，默认值为`False`。                            | bool  |
+   | 参数名称                            | 数据类型  | 是否可选 | 默认值   | 取值说明                                                                                                         |
+   |---------------------------------|-------|------|-------|--------------------------------------------------------------------------------------------------------------|
+   | learning_rate                   | float | 可选   | None  | 设置 `MFLossMonitor` 中初始化学习率。用于日志打印和训练进度计算。若未设置，则尝试从优化器或其他配置中获取。                                               |
+   | per_print_times                 | int   | 可选   | 1     | 设置 `MFLossMonitor` 中日志信息的打印频率，单位为“步”。默认值为 `1`，表示每训练一步打印一次日志信息。                                               |
+   | micro_batch_num                 | int   | 可选   | 1     | 设置训练中每一步处理的微批次（micro batch）数量，用于计算实际 loss 值。若未配置，则与 [并行配置](#并行配置) 中 `parallel_config.micro_batch_num` 一致。    |
+   | micro_batch_interleave_num      | int   | 可选   | 1     | 设置训练中每一步的多副本微批次大小，用于 loss 计算。若未配置，则与 [并行配置](#并行配置) 中 `micro_batch_interleave_num` 一致。                        |
+   | origin_epochs                   | int   | 可选   | None  | 设置 `MFLossMonitor` 中的总训练轮数（epochs）。若未配置，则与 [模型训练配置](#模型训练配置) 中 `runner_config.epochs` 一致。                    |
+   | dataset_size                    | int   | 可选   | None  | 设置 `MFLossMonitor` 中数据集的样本总数。若未配置，则自动使用实际加载的数据集大小。                                                           |
+   | initial_epoch                   | int   | 可选   | 0     | 设置 `MFLossMonitor` 中训练起始轮数，默认值为 `0`，表示从第0轮开始计数。断点续训时可用于恢复训练进度。                                               |
+   | initial_step                    | int   | 可选   | 0     | 设置 `MFLossMonitor` 中训练起始步数，默认值为 `0`。断点续训时可用于对齐日志和进度条。                                                        |
+   | global_batch_size               | int   | 可选   | 0     | 设置 `MFLossMonitor` 中的全局批大小（即每个训练 step 所使用的总样本数）。若未配置，则根据数据集大小和并行策略自动计算。                                      |
+   | gradient_accumulation_steps     | int   | 可选   | 1     | 设置 `MFLossMonitor` 中的梯度累积步数。若未配置，则与 [模型训练配置](#模型训练配置) 中 `gradient_accumulation_steps` 一致。用于 loss 归一化和训练进度估算。 |
+   | check_for_nan_in_loss_and_grad  | bool  | 可选   | False | 是否在 `MFLossMonitor` 中开启损失值和梯度的 NaN/Inf 检测。开启后，若检测到溢出（NaN 或 INF），则终止训练，默认值为`False`。建议在调试阶段开启以提升训练稳定性。         |
 
 2. SummaryMonitor
 
@@ -239,23 +296,23 @@ MindSpore Transformers提供封装后的Callbacks函数类，主要实现在模�
 
 3. CheckpointMonitor
 
-   该回调函数类主要用于在模型训练过程中保存模型权重文件，有如下几个可配置项：
+   该回调函数类主要用于在模型训练过程中保存模型权重文件，有如下可配置项：
 
-   | 参数                             | 说明                                                                                                                                                | 类型    |
-   |--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-------|
-   | prefix                         | 设置保存文件名称的前缀。                                                                                                                                      | str   |
-   | directory                      | 设置保存文件名称的目录。                                                                                                                                      | str   |
-   | save_checkpoint_seconds        | 设置保存模型权重的间隔秒数。                                                                                                                                    | int   |
-   | save_checkpoint_steps          | 设置保存模型权重的间隔steps数。                                                                                                                                | int   |
-   | keep_checkpoint_max            | 设置保存模型权重文件的最大数量，如果保存路径内存在超出数量的模型权重文件，会从创建时间最早的文件开始删除，以保证文件总数不超过`keep_checkpoint_max`。                                                             | int   |
-   | keep_checkpoint_per_n_minutes  | 设置保存模型权重的间隔分钟数。                                                                                                                                   | int   |
-   | integrated_save                | 开启聚合保存权重文件。<br/>1. 设为True时表示在保存权重文件时聚合所有device的权重，即所有device权重一致。<br/>2. 设为False时表示所有device各自保存自己的权重。<br/>使用半自动并行模式时通常需要设置为False，以避免保存权重文件时出现内存问题。 | bool  |
-   | save_network_params            | 是否仅保存模型权重，默认值为`False`。                                                                                                                            | bool  |
-   | save_trainable_params          | 是否额外保存可训练的参数权重，即部分微调时模型的参数权重，默认为`False`。                                                                                                          | bool  |
-   | async_save                     | 是否异步执行保存模型权重文件。                                                                                                                                   | bool  |
-   | remove_redundancy              | 是否去除模型权重的冗余，默认值为`False`。                                                                                                                          | bool  |                                                                                                                                            |      |
-   | checkpoint_format              | 保存的模型权重的格式，默认值为`ckpt`。可选`ckpt`，`safetensors`。                                                                                                     | str   |
-   | embedding_local_norm_threshold | 设置健康监测的embedding norm的阈值，默认值为`1.0`。                                                                                                               | float |
+   | 参数名称                            | 数据类型   | 是否可选 | 默认值    | 取值说明                                                                                                                                         |
+   |---------------------------------|--------|------|--------|----------------------------------------------------------------------------------------------------------------------------------------------|
+   | prefix                          | string | 可选   | 'CKP'  | 设置保存权重文件名的前缀。例如生成 `CKP-100.ckpt`。若未配置，则使用默认值 `'CKP'`。                                                                                        |
+   | directory                       | string | 可选   | None   | 设置权重文件的保存目录。若未配置，则默认保存在 `output_dir` 指定路径下的 `checkpoint/` 子目录中。                                                                              |
+   | save_checkpoint_seconds         | int    | 可选   | 0      | 以时间间隔方式设置自动保存权重的周期（单位：秒）。与 `save_checkpoint_steps` 互斥，优先级更高。例如每 3600 秒保存一次。                                                                  |
+   | save_checkpoint_steps           | int    | 可选   | 1      | 以训练步数间隔方式设置自动保存权重的周期（单位：steps）。与 `save_checkpoint_seconds` 互斥，若两者均设置，以时间优先。例如每1000步保存一次。                                                     |
+   | keep_checkpoint_max             | int    | 可选   | 5      | 最多保留的权重文件数量。当保存数量超过该值时，系统将按创建时间顺序删除最早的文件，确保总数不超过此限制。用于控制磁盘空间使用。                                                                              |
+   | keep_checkpoint_per_n_minutes   | int    | 可选   | 0      | 每隔 N 分钟保留一个权重。这是一种基于时间窗口的保留策略，常用于长期训练中平衡存储与恢复灵活性。例如设置为 `60` 表示每小时至少保留一个权重。                                                                   |
+   | integrated_save                 | bool   | 可选   | True   | 是否开启聚合保存权重文件：<br/>• `True`：在保存权重文件时聚合所有device的权重，即所有device权重一致；<br/>• `False`：所有device各自保存自己的权重。<br/>在半自动并行模式下建议设为 `False`，以避免保存权重文件时出现内存问题。 |
+   | save_network_params             | bool   | 可选   | False  | 是否仅保存模型权重，默认值为 `False`。                                                                                                                      |
+   | save_trainable_params           | bool   | 可选   | False  | 是否额外单独保存可训练参数（即部分微调时模型的参数权重）。                                                                                                                |
+   | async_save                      | bool   | 可选   | False  | 是否异步执行权重保存。开启后保存操作不会阻塞训练主流程，提升训练效率，但需注意 I/O 资源竞争可能导致延迟写入。                                                                                    |
+   | remove_redundancy               | bool   | 可选   | False  | 保存权重时是否去除模型权重的冗余，默认值为 `False`。                                                                                                               |
+   | checkpoint_format               | string | 可选   | 'ckpt' | 保存的模型权重格式，默认值为 `ckpt`。可选 `ckpt`，`safetensors`。                                                                                               |
+   | embedding_local_norm_threshold  | float  | 可选   | 1.0    | 健康监测中用于检测 embedding 层梯度或输出范数异常的阈值。若 norm 超过该值，可能触发告警或数据跳过机制，防止训练发散。默认值为 `1.0`，可根据模型规模调整。                                                     |
 
 在`callbacks`字段下可同时配置多个Callbacks函数类，以下是`callbacks`配置示例。
 
@@ -273,79 +330,79 @@ callbacks:
 
 Processor主要用于对输入模型的推理数据进行预处理，由于Processor配置项不固定，这里仅对MindSpore Transformers中的Processor通用配置项进行说明。
 
-| 参数                             | 说明                                    | 类型  |
-|--------------------------------|---------------------------------------|-----|
-| processor.type                 | 设置数据处理类。                              | str |
-| processor.return_tensors       | 设置数据处理类返回的张量类型，一般使用'ms'。              | str |
-| processor.image_processor.type | 设置图像数据处理类。                            | str |
-| processor.tokenizer.type       | 设置文本tokenizer类。                       | str |
-| processor.tokenizer.vocab_file | 设置文本tokenizer读取文件路径，需要与tokenizer类相对应。 | str |
+| 参数名称                            | 数据类型 | 是否可选 | 默认值   | 取值说明                                                                                                                            |
+|---------------------------------|------|------|-------|---------------------------------------------------------------------------------------------------------------------------------|
+| processor.type                  | str  | 必选   | None  | 设置使用的数据处理类（Processor）的名称，例如 `LlamaProcessor`、`Qwen2Processor` 等。该类决定整体输入数据的预处理流程，需与模型结构匹配。                                      |
+| processor.return_tensors        | str  | 可选   | 'ms'  | 设置数据处理后返回的张量类型。可设置为 `'ms'`，表示 MindSpore Tensor。                                                                                 |
+| processor.image_processor.type  | str  | 必选   | None  | 设置图像数据处理类的类型。负责图像归一化、缩放、裁剪等操作，需与模型视觉编码器兼容。                                                                                      |
+| processor.tokenizer.type        | str  | 必选   | None  | 设置文本分词器（Tokenizer）的类型，例如 `LlamaTokenizer`、`Qwen2Tokenizer` 等。决定文本如何被切分为子词或 token，需与语言模型部分一致。                                    |
+| processor.tokenizer.vocab_file  | str  | 必选   | None  | 设置 tokenizer 所需的词汇表文件路径（如 `vocab.txt` 或 `tokenizer.model`），具体文件类型取决于 tokenizer 实现。必须与 `processor.tokenizer.type` 对应，否则可能导致加载失败。 |
 
 ### 模型评估配置
 
 MindSpore Transformers提供模型评估功能，同时支持模型边训练边评估功能，以下是模型评估相关配置。
 
-| 参数                  | 说明                                                          | 类型   |
-|---------------------|-------------------------------------------------------------|------|
-| eval_dataset        | 使用方式与`train_dataset`相同。                                     | -    |
-| eval_dataset_task   | 使用方式与`eval_dataset_task`相同。                                 | -    |
-| metric.type         | 使用方式与`callbacks`相同。                                         | -    |
-| do_eval             | 是否开启边训练边评估功能 。                                              | bool |
-| eval_step_interval  | 设置评估的step间隔，默认值为100，设置小于0表示关闭根据step间隔评估功能。                  | int  |
-| eval_epoch_interval | 设置评估的epoch间隔，默认值为-1，设置小于0表示关闭根据epoch间隔评估功能，不建议在数据下沉模式使用该配置。 | int  |
-| metric.type         | 设置评估的类型。                                                    | str  |
+| 参数名称                | 数据类型   | 是否可选 | 默认值   | 取值说明                                                             |
+|---------------------|--------|------|-------|------------------------------------------------------------------|
+| eval_dataset        | dict   | 必选   | 无     | 用于评估的数据集配置，使用方式与 `train_dataset` 相同。                             |
+| eval_dataset_task   | dict   | 必选   | 无     | 评估任务的配置，使用方式与数据集任务配置一致（如预处理、批大小等），用于定义评估流程。                      |
+| metric.type         | string | 必选   | 无     | 设置评估的类型，如 `'Accuracy'`、`'F1'` 等，具体取值需与支持的评估指标一致。                 |
+| do_eval             | bool   | 可选   | False | 是否开启边训练边评估功能。                                                    |
+| eval_step_interval  | int    | 可选   | 100   | 设置评估的 step 间隔，默认值为 `100`，小于等于 0 表示关闭按 step 间隔评估。                 |
+| eval_epoch_interval | int    | 可选   | -1    | 设置评估的 epoch 间隔，默认值为 `-1`，小于 0 表示关闭按 epoch 间隔评估；不建议在数据下沉模式下使用该配置。 |
+| metric.type         | string | 必选   | 无     | 设置评估的类型。                                                         |
 
 ### Profile配置
 
 MindSpore Transformers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html)。以下是Profile相关配置。
 
-| 参数                    | 说明                                                                                                                                         | 类型   |
-|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------|------|
-| profile               | 是否开启性能采集工具，默认值为`False`，详情可参考[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html)。 | bool |
-| profile_start_step    | 设置开始采集性能数据的step数，默认值为`1`。                                                                                                                  | int  |
-| profile_stop_step     | 设置停止采集性能数据的step数，默认值为`10`。                                                                                                                 | int  |
-| profile_communication | 设置是否在多设备训练中收集通信性能数据，使用单卡训练时，该参数无效，默认值为`False`。                                                                                             | bool |
-| profile_memory        | 设置是否收集Tensor内存数据，默认值为`True`。                                                                                                               | bool |
-| profile_rank_ids      | 设置开启性能采集的rank ids，默认值为`None`，表示所有rank id均开启性能采集。                                                                                           | list |
-| profile_pipeline      | 设置是否按流水线并行每个stage的其中一张卡开启性能采集，默认值为`False`。                                                                                                 | bool |
-| profile_output        | 设置保存性能采集生成文件的文件夹路径。                                                                                                                        | str  |
-| profiler_level        | 设置采集数据的级别，可选值为(0, 1, 2)，默认值为`1`。                                                                                                           | int  |
-| with_stack            | 设置是否收集Python侧的调用栈数据，默认值为`False`。                                                                                                           | bool |
-| data_simplification   | 设置是否开启数据精简，开启后将在导出性能采集数据后删除FRAMEWORK目录以及其他多余数据，默认为`False`。                                                                                 | int  |
-| init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效，开启`profile_memory`时需要将该参数设为`True`。                                                 | bool |
-| mstx                  | 设置是否收集mstx时间戳记录，包括训练step、HCCL通信算子等，默认值为`False`。                                                                                            | bool |
+| 参数名称                  | 数据类型   | 是否可选 | 默认值   | 取值说明                                                                                                                                        |
+|-----------------------|--------|------|-------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| profile               | bool   | 可选   | False | 是否开启性能采集工具，默认值为 `False`，详情可参考[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html)。 |
+| profile_start_step    | int    | 可选   | 1     | 设置开始采集性能数据的 step 数，默认值为 `1`。                                                                                                                |
+| profile_stop_step     | int    | 可选   | 10    | 设置停止采集性能数据的 step 数，默认值为 `10`。                                                                                                               |
+| profile_communication | bool   | 可选   | False | 设置是否在多设备训练中收集通信性能数据，使用单卡训练时，该参数无效，默认值为 `False`。                                                                                             |
+| profile_memory        | bool   | 可选   | True  | 设置是否收集 Tensor 内存数据，默认值为 `True`。                                                                                                             |
+| profile_rank_ids      | list   | 可选   | None  | 设置开启性能采集的 rank ids，默认值为 `None`，表示所有 rank id 均开启性能采集。                                                                                        |
+| profile_pipeline      | bool   | 可选   | False | 设置是否按流水线并行每个 stage 的其中一张卡开启性能采集，默认值为 `False`。                                                                                               |
+| profile_output        | string | 必选   | 无     | 设置保存性能采集生成文件的文件夹路径。                                                                                                                         |
+| profiler_level        | int    | 可选   | 1     | 设置采集数据的级别，可选值为 `(0, 1, 2)`，默认值为 `1`。                                                                                                        |
+| with_stack            | bool   | 可选   | False | 设置是否收集 Python 侧的调用栈数据，默认值为 `False`。                                                                                                         |
+| data_simplification   | int    | 可选   | False | 设置是否开启数据精简，开启后将在导出性能采集数据后删除 FRAMEWORK 目录以及其他多余数据，默认为 `False`。                                                                               |
+| init_start_profile    | bool   | 可选   | False | 设置是否在 Profiler 初始化时开启采集性能数据，设置 `profile_start_step` 时该参数不生效，开启 `profile_memory` 时需要将该参数设为 `True`。                                           |
+| mstx                  | bool   | 可选   | False | 设置是否收集 mstx 时间戳记录，包括训练 step、HCCL 通信算子等，默认值为 `False`。                                                                                        |
 
 ### 指标监控配置
 
 指标监控配置主要用于配置训练过程中各指标的记录方式，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html)。以下是MindSpore Transformers中通用的指标监控配置项说明：
 
-| 参数名称                                             | 说明                                                                                                                          | 类型            |
-|--------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|---------------|
-| monitor_config.monitor_on                        | 设置是否开启监控。默认为`False`，此时以下所有参数不生效。                                                                                            | bool          |
-| monitor_config.dump_path                         | 设置训练过程中`local_norm`、`device_local_norm`、`local_loss`指标文件的保存路径。未设置或设置为`null`时取默认值'./dump'。                                   | str           |
-| monitor_config.target                            | 设置指标`优化器状态`和`local_norm`所监控的的目标参数的名称（片段），可为正则表达式。未设置或设置为`null`时取默认值['.*']，即指定所有参数。                                          | list[str]     |
-| monitor_config.invert                            | 设置反选`monitor_config.target`所指定的参数，默认为`False`。                                                                               | bool          |
-| monitor_config.step_interval                     | 设置记录指标的频率。默认为1，即每个step记录一次。                                                                                                 | int           |
-| monitor_config.local_loss_format                 | 设置指标`local_loss`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。        | str或list[str] |
-| monitor_config.device_local_loss_format          | 设置指标`device_local_loss`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。 | str或list[str] |
-| monitor_config.local_norm_format                 | 设置指标`local_norm`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。        | str或list[str] |
-| monitor_config.device_local_norm_format          | 设置指标`device_local_norm`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。 | str或list[str] |
-| monitor_config.optimizer_state_format            | 设置指标`优化器状态`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。             | str或list[str] |
-| monitor_config.weight_state_format               | 设置指标`权重L2-norm`的记录形式，可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时默认为`null`，表示不监控该指标。         | str或list[str] |
-| monitor_config.throughput_baseline               | 设置指标`吞吐量线性度`的基线值，需要为正数。未设置时默认为`null`，表示不监控该指标。                                                                              | int或float     |
-| monitor_config.print_struct                      | 设置是否打印模型的全部可训练参数名。若为`True`，则会在第一个step开始时打印所有可训练参数的名称，并在step结束后退出训练。默认为`False`。                                              | bool          |
-| monitor_config.check_for_global_norm             | 设置是否开启进程级故障快恢功能。默认为`False`。                                                                                                 | bool          |
-| monitor_config.global_norm_spike_threshold       | 设置global norm的阈值，当global norm超过时触发数据跳过。默认值为`3.0`。                                                                           | float         |
-| monitor_config.global_norm_spike_count_threshold | 设置连续异常global norm累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`。                                                                       | int           |
+| 参数名称                                             | 数据类型                  | 是否可选 | 默认值      | 取值说明                                                                                                                                   |
+|--------------------------------------------------|-----------------------|------|----------|----------------------------------------------------------------------------------------------------------------------------------------|
+| monitor_config.monitor_on                        | bool                  | 可选   | False    | 设置是否开启监控。默认为`False`，此时以下所有参数不生效。                                                                                                       |
+| monitor_config.dump_path                         | string                | 可选   | './dump' | 设置训练过程中 `local_norm`、`device_local_norm`、`local_loss` 指标文件的保存路径。未设置或设置为 `null` 时取默认值 `'./dump'`。                                       |
+| monitor_config.target                            | list(string)          | 可选   | ['.*']   | 设置指标 `优化器状态` 和 `local_norm` 所监控的的目标参数的名称（片段），可为正则表达式。未设置或设置为 `null` 时取默认值 `['.*']`，即指定所有参数。                                            |
+| monitor_config.invert                            | bool                  | 可选   | False    | 设置反选 `monitor_config.target` 所指定的参数，默认为`False`。                                                                                        |
+| monitor_config.step_interval                     | int                   | 可选   | 1        | 设置记录指标的频率。默认为 `1`，即每个 step 记录一次。                                                                                                       |
+| monitor_config.local_loss_format                 | string / list(string) | 可选   | null     | 设置指标 `local_loss` 的记录形式，可选值为字符串 `'tensorboard'` 和 `'log'`（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或 `null`。未设置时默认为 `null`，表示不监控该指标。        |
+| monitor_config.device_local_loss_format          | string / list(string) | 可选   | null     | 设置指标 `device_local_loss` 的记录形式，可选值为字符串 `'tensorboard'` 和 `'log'`（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或 `null`。未设置时默认为 `null`，表示不监控该指标。 |
+| monitor_config.local_norm_format                 | string / list(string) | 可选   | null     | 设置指标 `local_norm` 的记录形式，可选值为字符串 `'tensorboard'` 和 `'log'`（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或 `null`。未设置时默认为`null`，表示不监控该指标。         |
+| monitor_config.device_local_norm_format          | string / list(string) | 可选   | null     | 设置指标 `device_local_norm` 的记录形式，可选值为字符串 `'tensorboard'` 和 `'log'`（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或 `null`。未设置时默认为 `null`，表示不监控该指标。 |
+| monitor_config.optimizer_state_format            | string / list(string) | 可选   | null     | 设置指标 `优化器状态` 的记录形式，可选值为字符串 `'tensorboard'` 和 `'log'`（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或 `null`。未设置时默认为 `null`，表示不监控该指标。             |
+| monitor_config.weight_state_format               | string / list(string) | 可选   | null     | 设置指标 `权重L2-norm` 的记录形式，可选值为字符串 `'tensorboard'` 和 `'log'`（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或 `null`。未设置时默认为 `null`，表示不监控该指标。         |
+| monitor_config.throughput_baseline               | int / float           | 可选   | null     | 设置指标 `吞吐量线性度` 的基线值，需要为正数。未设置时默认为 `null`，表示不监控该指标。                                                                                      |
+| monitor_config.print_struct                      | bool                  | 可选   | False    | 设置是否打印模型的全部可训练参数名。若为 `True`，则会在第一个 step 开始时打印所有可训练参数的名称，并在 step 结束后退出训练。默认为 `False`。                                                   |
+| monitor_config.check_for_global_norm             | bool                  | 可选   | False    | 设置是否开启进程级故障快恢功能。默认为 `False`。                                                                                                           |
+| monitor_config.global_norm_spike_threshold       | float                 | 可选   | 3.0      | 设置 global norm 的阈值，当 global norm 超过时触发数据跳过。默认值为 `3.0`。                                                                                 |
+| monitor_config.global_norm_spike_count_threshold | int                   | 可选   | 10       | 设置连续异常 global norm 累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为 `10`。                                                                               |
 
 ### TensorBoard配置
 
 TensorBoard配置主要用于配置训练过程中与TensorBoard相关的参数，便于在训练过程中实时查看和监控训练信息，详情可参考[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html)。以下是MindSpore Transformers中通用的TensorBoard配置项说明：
 
-| 参数名称                                       | 说明                                                       | 类型   |
-|--------------------------------------------|----------------------------------------------------------|------|
-| tensorboard.tensorboard_dir                | 设置 TensorBoard 事件文件的保存路径。                                | str  |
-| tensorboard.tensorboard_queue_size         | 设置采集队列的最大缓存值，超过该值便会写入事件文件，默认值为10。                        | int  |
-| tensorboard.log_loss_scale_to_tensorboard  | 设置是否将 loss scale 信息记录到事件文件，默认为`False`。                   | bool |
-| tensorboard.log_timers_to_tensorboard      | 设置是否将计时器信息记录到事件文件，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量，默认为`False`。 | bool |
-| tensorboard.log_expert_load_to_tensorboard | 设置是否将专家负载记录到事件文件，默认为`False`。                             | bool |
+| 参数名称                                       | 数据类型  | 是否可选 | 默认值   | 取值说明                                                     |
+|--------------------------------------------|-------|------|-------|----------------------------------------------------------|
+| tensorboard.tensorboard_dir                | str   | 必选   | 无     | 设置 TensorBoard 事件文件的保存路径。                                |
+| tensorboard.tensorboard_queue_size         | int   | 可选   | 10    | 设置采集队列的最大缓存值，超过该值便会写入事件文件，默认值为10。                        |
+| tensorboard.log_loss_scale_to_tensorboard  | bool  | 可选   | False | 设置是否将 loss scale 信息记录到事件文件，默认为`False`。                   |
+| tensorboard.log_timers_to_tensorboard      | bool  | 可选   | False | 设置是否将计时器信息记录到事件文件，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量，默认为`False`。 |
+| tensorboard.log_expert_load_to_tensorboard | bool  | 可选   | False | 设置是否将专家负载记录到事件文件，默认为`False`。                             |
