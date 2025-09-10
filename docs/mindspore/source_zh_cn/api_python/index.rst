@@ -21,6 +21,7 @@ API 文档
    mindspore.numpy
    mindspore.scipy
    mindspore.multiprocessing
+   minsspore.tools
    mindspore.utils
    mindspore.experimental
    mindspore.ops.primitive
@@ -69,8 +70,10 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 类SciPy接口。
    * - `mindspore.multiprocessing <./mindspore.multiprocessing.html>`_
      - 多进程接口。
-   * - `mindspore.utils <./mindspore.utils.html>`_
+   * - `mindspore.tools <./mindspore.tools.html>`_
      - 工具接口。
+   * - `mindspore.utils <./mindspore.utils.html>`_
+     - dryrun等辅助接口。
    * - `mindspore.experimental <./mindspore.experimental.html>`_
      - 实验性接口。
    * - `mindspore.ops.primitive <./mindspore.ops.primitive.html>`_
