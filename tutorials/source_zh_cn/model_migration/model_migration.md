@@ -2,15 +2,15 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_migration/model_migration.md)
 
-本章节主要对模型迁移场景所必须的数据集、模型和训练、推理流程等在MindSpore上构建方法做简单的介绍。同时展示了MindSpore和PyTorch在数据集包装、模型构建、训练流程代码上的差别。
+本章节主要对模型迁移场景所必需的数据集、模型和训练、推理流程等在MindSpore上的构建方法做简单介绍。同时展示MindSpore和PyTorch在数据集包装、模型构建、训练流程代码上的差别。
 
 ## 模型分析
 
 在进行正式的代码迁移前，需要对即将进行迁移的代码做一些简单的分析，判断哪些代码可以直接复用，哪些代码必须迁移到MindSpore。
 
-一般的，只有与硬件相关的代码部分，才必须要迁移到MindSpore，比如：
+一般来说，只有与硬件相关的代码部分才必须迁移到MindSpore，比如：
 
-- 模型输入相关，包含模型参数加载，数据集包装等；
+- 模型输入相关，包含模型参数加载、数据集包装等；
 - 模型构建和执行的代码；
 - 模型输出相关，包含模型参数保存等。
 
@@ -49,12 +49,12 @@ dataset = ds.GeneratorDataset(source=MyDataset(), column_names=["data", "label"]
 train_dataset = dataset.batch(batch_size=2, drop_remainder=True, num_parallel_workers=num_parallel_workers)
 ```
 
-一个典型的数据集构造如上：构造一个Python类，必须有\_\_getitem\_\_和\_\_len\_\_方法，分别表示每一步迭代取的数据和整个数据集遍历一次的大小，其中index表示每次取数据的索引，当shuffle=False时按顺序递增，当shuffle=True时随机打乱。
+一个典型的数据集构造如上：构造一个Python类，必须有`__getitem__`和`__len__`方法，分别表示每一步迭代取的数据和整个数据集遍历一次的大小。其中index表示每次取数据的索引，当shuffle=False时按顺序递增，当shuffle=True时随机打乱。
 
 GeneratorDataset至少需要包含：
 
 - source：一个Python迭代器；
-- column_names：迭代器\_\_getitem\_\_方法每个输出的名字。
+- column_names：迭代器`__getitem__`方法每个输出的名字。
 
 更多使用方法参考[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
 
@@ -188,7 +188,7 @@ PyTorch单步执行优化器时，一般需要手动执行 `zero_grad()` 方法�
 
 使用MindSpore中的优化器时，只需要直接对梯度进行计算，然后使用 `optimizer(grads)` 执行网络权重的更新。
 
-如果在训练过程中需要动态调整学习率，PyTorch提供了 `LRScheduler` 类用于对学习率管理。使用动态学习率时，将 `optimizer` 实例传入 `LRScheduler` 子类中，通过循环调用 `scheduler.step()` 执行学习率修改，并将修改同步至优化器中。
+如果在训练过程中需要动态调整学习率，PyTorch提供了 `LRScheduler` 类用于学习率管理。使用动态学习率时，将 `optimizer` 实例传入 `LRScheduler` 子类中，通过循环调用 `scheduler.step()` 执行学习率修改，并将修改同步至优化器中。
 
 MindSpore提供了`Cell`和`list`两种动态修改学习率的方法。使用时对应动态学习率对象直接传入优化器，学习率的更新在优化器中自动执行，具体请参考[动态学习率](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#%E5%8A%A8%E6%80%81%E5%AD%A6%E4%B9%A0%E7%8E%87)。
 
@@ -308,7 +308,7 @@ optimizer(grads)
 
 ## 模型训练和推理
 
-下面是一个在MindSpore的Trainer的例子，包含了训练和训练时推理。训练部分主要包含了将数据集、模型、优化器等模块组合训练；推理部分主要包含了评估指标获取、保存最优模型参数等。
+下面是一个在MindSpore的Trainer的例子，包含了训练和训练时推理。训练部分主要包含将数据集、模型、优化器等模块组合训练；推理部分主要包含评估指标获取、保存最优模型参数等。
 
 ```python
 import mindspore as ms
@@ -326,7 +326,7 @@ class Trainer:
         self.train_dataset = train_dataset
         self.train_data_size = self.train_dataset.get_dataset_size()    # 获取训练集batch数
         self.weights = self.opt.parameters
-        # 注意value_and_grad的第一个参数需要是需要做梯度求导的图，一般包含网络和loss。这里可以是一个函数，也可以是Cell
+        # 注意value_and_grad的第一个参数是需要做梯度求导的图，一般包含网络和loss。这里可以是一个函数，也可以是Cell
         self.value_and_grad = ms.value_and_grad(self.forward_fn, None, weights=self.weights, has_aux=True)
 
         # 分布式场景使用
@@ -373,7 +373,7 @@ class Trainer:
             for batch, data in enumerate(train_dataset):
                 loss, loss1, loss2 = self.train_single(data["image"], data["label"])
                 if batch % 100 == 0:
-                    print(f"step: [{batch} /{self.train_data_size}] "
+                    print(f"step: [{batch}/{self.train_data_size}] "
                           f"loss: {loss}, loss1: {loss1}, loss2: {loss2}", flush=True)
             # 保存当前epoch的模型和优化器权重
             ms.save_checkpoint(self.net, f"epoch_{epoch}.ckpt")
