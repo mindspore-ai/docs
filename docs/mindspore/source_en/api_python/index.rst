@@ -21,6 +21,7 @@ API
    mindspore.numpy
    mindspore.scipy
    mindspore.multiprocessing
+   minsspore.tools
    mindspore.utils
    mindspore.experimental
    mindspore.ops.primitive
@@ -69,8 +70,10 @@ MindSpore provides rich interfaces for model building, training, and inference. 
      - SciPy Class interface.
    * - `mindspore.multiprocessing <./mindspore.multiprocessing.html>`_
      - Multi-processing interface.
-   * - `mindspore.utils <./mindspore.utils.html>`_
+   * - `mindspore.tools <./mindspore.tools.html>`_
      - Tools interface.
+   * - `mindspore.utils <./mindspore.utils.html>`_
+     - Auxiliary interfaces such as dryrun.
    * - `mindspore.experimental <./mindspore.experimental.html>`_
      - Experimental interface.
    * - `mindspore.ops.primitive <./mindspore.ops.primitive.html>`_
