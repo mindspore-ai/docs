@@ -253,6 +253,8 @@ The HuggingFace Dataset (HF Dataset) module is integrated with the [HuggingFace 
 3. **Extensible Data Operations**: Supports user-defined dataset processing logic and provides efficient **packing functionality** for large-scale training optimization.
 
 > To use HuggingFace datasets in MindSpore Transformers, you need to understand the basic functionalities of the `datasets` third-party library, such as dataset loading and processing. For more details, please refer to [this link](https://huggingface.co/docs/datasets/loading).
+>
+> If the Python version is less than 3.10, you need to install a version of aiohttp below 3.8.1.
 
 ### Configuration
 
