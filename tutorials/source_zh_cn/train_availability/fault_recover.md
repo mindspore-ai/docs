@@ -12,7 +12,7 @@ MindSpore支持以step或epoch为周期保存模型参数。模型参数保存�
 
 ## 数据和模型准备
 
-为了提供完整的体验，这里使用MNIST数据集和LeNet5网络模拟故障恢复的过程，如已准备好，可直接跳过本章节。
+为了提供完整的体验，这里使用MNIST数据集和LeNet5网络模拟故障恢复的过程。如已准备好，可直接跳过本章节。
 
 ### 数据准备
 
@@ -115,7 +115,8 @@ model = Model(net, loss_fn=loss, optimizer=optim)  # Model封装
 
 ### 用户自定义保存数据
 
-`CheckpointConfig` 的参数 `append_info` 可以在Checkpoint文件中保存用户自定义信息。`append_info` 支持传入 ``epoch_num`` 、 ``step_num`` 和字典类型数据。``epoch_num`` 和 ``step_num`` 可以在Checkpoint文件中保存训练过程中的epoch数和step数。
+`CheckpointConfig` 的参数 `append_info` 可以在Checkpoint文件中保存用户自定义信息。`append_info` 支持传入 `epoch_num`、`step_num` 和字典类型数据。`epoch_num` 和 `step_num` 可以在Checkpoint文件中保存训练过程中的epoch数和step数。
+
 字典类型数据的 `key` 必须是string类型，`value` 必须是int、float、bool、string、Parameter或Tensor类型。
 
 ```python
@@ -147,7 +148,7 @@ model.train(10, train_dataset, callbacks=[ckpoint_cb, my_callback], dataset_sink
      └── lenet-6_1875.ckpt
 ```
 
-> 如果用户使用相同的前缀名，运行多次训练脚本，可能会生成同名Checkpoint文件。MindSpore为方便用户区分每次生成的文件，会在用户定义的前缀后添加”_”和数字加以区分。如果想要删除.ckpt文件时，请同步删除.meta 文件。例如：`lenet_3-2_1875.ckpt` 表示运行第4次脚本生成的第2个epoch的第1875个step的Checkpoint文件。
+> 如果用户使用相同的前缀名，运行多次训练脚本，可能会生成同名Checkpoint文件。MindSpore为方便用户区分每次生成的文件，会在用户定义的前缀后添加“_”和数字加以区分。如果想要删除.ckpt文件时，请同步删除.meta文件。例如：`lenet_3-2_1875.ckpt` 表示运行第4次脚本生成的第2个epoch的第1875个step的Checkpoint文件。
 
 用户可以使用自定义脚本找到最新保存的Checkpoint文件。
 
@@ -169,7 +170,7 @@ ckpt_file = ckpt_path + "/" + ckptnames[-1]
 使用 [load_checkpoint](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore/mindspore.load_checkpoint.html) 和 [load_param_into_net](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore/mindspore.load_param_into_net.html) 方法加载最新保存的Checkpoint文件。
 
 - `load_checkpoint` 方法会把Checkpoint文件中的网络参数加载到字典param_dict中。
-- `load_param_into_net` 方法会把字典param_dict中的参数加载到网络或者优化器中，加载后网络中的参数就是Checkpoint文件中保存的。
+- `load_param_into_net` 方法会把字典param_dict中的参数加载到网络或优化器中。加载后，网络中的参数就是Checkpoint文件中保存的。
 
 ```python
 # 将模型参数加载到param_dict中，这里加载的是训练过程中保存的模型参数和用户自定义保存的数据

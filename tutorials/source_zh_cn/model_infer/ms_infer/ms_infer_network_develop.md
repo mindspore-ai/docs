@@ -6,9 +6,9 @@
 
 MindSpore提供两种模式运行模型：
 
-- **静态图模式**：将模型网络编译成一整张网络图，对图进行融合优化，提升模型执行性能，但由于一些语法支持问题，对于模型的开发有一定限制，易用性相对较低。
+- **静态图模式**：将模型网络编译成一整张网络图，对图进行融合优化，提升模型执行性能。但由于一些语法支持问题，对模型开发有一定限制，易用性相对较低。
 
-- **动态图模式**：根据网络脚本的python语句一条一条执行，可以随时使用打印、pdb等进行调试，易用性较高，但是相对性能不如静态图模式。
+- **动态图模式**：根据网络脚本的Python语句逐条执行，可以随时使用打印、pdb等进行调试，易用性较高。但相对性能不如静态图模式。
 
 MindSpore推荐用户先用动态图模式进行模型开发，然后根据需要进行动转静的改造，以获取最大的模型性能。
 
@@ -20,11 +20,11 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 由此可见，Qwen2的核心层主要分为以下几部分：
 
-- **Embedding**：将每个token对应的索引转换成一个向量，实现特征分散效果。类似onehot向量化，Embedding的权重会参与训练过程，可以更好地适配语言模型中上下文语义。这个过程是通过Embedding算子来实现的。
+- **Embedding**：将每个token对应的索引转换成一个向量，实现特征分散效果。类似one-hot向量化，Embedding的权重会参与训练过程，可以更好地适配语言模型中的上下文语义。这个过程通过Embedding算子来实现。
 
-- **DecodeLayer**：即Transformer结构，是大语言模型关键计算模块，通常根据配置不同，会重复多层计算，每一层实际就是一个Transformer结构。
+- **DecodeLayer**：即Transformer结构，是大语言模型的关键计算模块。通常根据配置不同，会重复多层计算，每一层实际就是一个Transformer结构。
 
-- **RmsNorm & Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出成每个token的概率分布返回。
+- **RmsNorm & Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出每个token的概率分布。
 
 使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程，完整端到端样例可以参考[qwen2.py](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/sample_code/infer_code/qwen2/qwen2.py)。
 
@@ -93,7 +93,7 @@ class Qwen2ModelInput:
     q_seq_lens: Optional[Tensor] = None
 ```
 
-其中，Qwen2Config配置和Hugging Face的配置基本一致，具体请参考Qwen2的官方文档。需要注意的是Qwen2Config用param_dtype替换了torch_dtype，原因是MindSpore的datatype类型与PyTorch的不一致。Qwen2ModelInput定义了模型的输入，主要包括单词id、KVCache和Attention融合算子等MindSpore推理优化特性所需要的数据。
+其中，Qwen2Config配置和Hugging Face的配置基本一致，具体请参考Qwen2的官方文档。需要注意的是，Qwen2Config用param_dtype替换了torch_dtype，原因是MindSpore的datatype类型与PyTorch的不一致。Qwen2ModelInput定义了模型的输入，主要包括单词id、KVCache和Attention融合算子等MindSpore推理优化特性所需要的数据。
 
 #### RmsNorm
 
@@ -130,7 +130,7 @@ class RmsNorm(nn.Cell):
 
 #### Linear
 
-Linear层实际就是一个线性变换，其主要的计算逻辑就是一个矩阵乘法MatMul，不过会根据具体使用场景来判断是否要进行bias加法的偏差纠正（query、key、value转换时需要bias），我们将这些计算融入到一个网络结构中，代码如下：
+Linear层实际就是一个线性变换，其主要的计算逻辑就是矩阵乘法MatMul。不过会根据具体使用场景来判断是否要进行bias加法的偏差纠正（query、key、value转换时需要bias），我们将这些计算融入到一个网络结构中，代码如下：
 
 ```python
 from typing import Optional, Type
@@ -169,7 +169,7 @@ class Qwen2Linear(nn.Cell):
         return x.view(*origin_shape[:-1], -1)
 ```
 
-其中，由于我们需要支持多batch计算，因此传入的input的shape可能是input_size的n倍，为了保证计算正确，我们保存了原始输入shape，并在计算完成后，重新通过view还原shape。
+其中，由于我们需要支持多batch计算，因此传入的input的shape可能是input_size的n倍。为了保证计算正确，我们保存了原始输入shape，并在计算完成后，重新通过view还原shape。
 
 ### Qwen2ForCausalLM
 
@@ -215,7 +215,7 @@ class Qwen2ForCausalLM(nn.Cell):
 
 - **load_weight**：从Hugging Face官网模型加载权重，并且按照网络脚本注入到模型中。
 
-- **construct**：主要推理计算，会调用子模块一层层完成计算。
+- **construct**：主要推理计算，会调用子模块逐层完成计算。
     由construct可以看出，模型核心分为主干网络计算和最后一个lm_head的linear计算，将hidden_size的特征转换成vocab_size的词表概率分布。
 
 ### Qwen2Model
@@ -254,7 +254,7 @@ class VocabEmbedding(nn.Cell):
 
 #### DecoderLayer
 
-DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含在这一层中，从Qwen2的网络结构图可以看出，主要包含Rope、Attention、MLP等网络层，为了方便开发，我们先完成这些网络层的构建。
+DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含在这一层中。从Qwen2的网络结构图可以看出，主要包含Rope、Attention、MLP等网络层，为了方便开发，我们先完成这些网络层的构建。
 
 - **Rope**
 
@@ -528,7 +528,7 @@ DecoderLayer是Transformer网络的核心计算单元，其主要计算都包含
             return output
     ```
 
-DecoderLayer层可以用上述的网络层参考如下构建：
+DecoderLayer层可以用上述的网络层参考以下方式构建：
 
 ```python
 from typing import Tuple
@@ -612,7 +612,7 @@ class Qwen2Model(nn.Cell):
 
 - **block_tables & slot_mapping**：PagedAttention通过类似分页的机制，将KVCache按block储存，以便相同词能够集中在同一块block，从而提升显存利用率。
 
-根据上面描述，这些参数可以用一个管理类进行封装，代码可以参考：
+根据上述描述，这些参数可以用一个管理类进行封装，代码可以参考：
 
 ```python
 import math
@@ -714,9 +714,9 @@ class Qwen2Model(nn.Cell):
 
 除此之外，由于MindSpore的静态图模式实现的限制，部分场景可能会导致动转静失败，此处列出一些常见的原因：
 
-- **使用setattrs**：由于MindSpore图捕获时不支持python的setattrs语法，因此不能使用封装类封装参数，如上例中的Qwen2ModelInput不能直接传给要转静态的Qwen2Model，否则会导致静态图执行失败。
+- **使用setattrs**：由于MindSpore图捕获时不支持Python的setattrs语法，因此不能使用封装类封装参数，如上例中的Qwen2ModelInput不能直接传给要转静态的Qwen2Model，否则会导致静态图执行失败。
 
-- **List取值**：转静态的时候，如果有List参数，需要通过mutable进行wrap，保证MindSpore能够正确处理，如上例中的k_caches和v_caches。否则会触发fallback到python的操作，会影响推理性能，部分场景会导致计算失败。
+- **List取值**：转静态的时候，如果有List参数，需要通过mutable进行wrap，保证MindSpore能够正确处理，如上例中的k_caches和v_caches。否则会触发fallback到Python的操作，会影响推理性能，部分场景会导致计算失败。
 
 - **图输入名称**：如果使用了MindSpore的PagedAttention算子，两个图输入必须命名为batch_valid_length和q_seq_lens，否则会导致PagedAttention算子初始化失败。
 
