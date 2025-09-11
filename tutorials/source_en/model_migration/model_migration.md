@@ -373,7 +373,7 @@ class Trainer:
             for batch, data in enumerate(train_dataset):
                 loss, loss1, loss2 = self.train_single(data["image"], data["label"])
                 if batch % 100 == 0:
-                    print(f"step: [{batch} /{self.train_data_size}] "
+                    print(f"step: [{batch}/{self.train_data_size}] "
                           f"loss: {loss}, loss1: {loss1}, loss2: {loss2}", flush=True)
             # Save the model and optimizer weights for the current epoch
             ms.save_checkpoint(self.net, f"epoch_{epoch}.ckpt")

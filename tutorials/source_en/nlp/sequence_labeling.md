@@ -42,7 +42,7 @@ The formula for calculating $\text{Score}$ is as follows:
 
 $$\begin{align}\text{Score}(x,y) = \sum_i \log \psi_\text{EMIT}(x_i \rightarrow y_i) + \log \psi_\text{TRANS}(y_{i-1} \rightarrow y_i) \qquad (2)\end{align} $$
 
-Assume that the label set is $T$. Build a matrix $\textbf{P}$ with a size of $|T|x|T|$ to store the transition probability between labels. A hidden state $h$ output by the encoding layer (which may be Dense, LSTM, or the like) may be directly considered as an emission probability. In this case, the formula for calculating $\text{Score}$ can be converted into the following:
+Assume that the label set is $T$. Build a matrix $\textbf{P}$ with a size of $|T| \times |T|$ to store the transition probability between labels. A hidden state $h$ output by the encoding layer (which may be Dense, LSTM, or the like) may be directly considered as an emission probability. In this case, the formula for calculating $\text{Score}$ can be converted into the following:
 
 $$\begin{align}\text{Score}(x,y) = \sum_i h_i[y_i] + \textbf{P}_{y_{i-1}, y_{i}} \qquad (3)\end{align}$$
 
@@ -163,7 +163,7 @@ After obtaining the maximum probability score $\text{Score}$ and the label histo
 
 $$P_{0,i} = max(P_{0, i-1}) + P_{i-1, i}$$
 
-The 0th token to the $i$th token correspond to sequences with a maximum probability. Only sequences with a maximum probability corresponding to the 0th token to the $i-1$th token and labels with a maximum probability corresponding to the $i$th token to the $i-1$th token need to be considered. Therefore, we solve each label with the highest probability in reverse order to form the optimal prediction sequence.
+The 0th token to the $i$th token correspond to sequences with a maximum probability. Only sequences with a maximum probability corresponding to the 0th token to the $i-1$th token and labels with a maximum probability corresponding to the $i-1$th token to the $i$th token need to be considered. Therefore, we solve each label with the highest probability in reverse order to form the optimal prediction sequence.
 
 > Due to the syntax restrictions of static graphs, the Viterbi algorithm is used to solve the optimal prediction sequence as a post-processing function and is not included in the implementation of the CRF layer.
 
