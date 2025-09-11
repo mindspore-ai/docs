@@ -75,13 +75,14 @@ Execute the script of [run_harness.sh](https://gitee.com/mindspore/mindformers/b
 
 The following table lists the parameters of the script of `run_harness.sh`:
 
-| Parameter           | Type | Description                                                                                                                                                                                   | Required |
-|---------------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research) directory. | No(The cheat code is required)     |
-| `--model`       | str  | The value must be `mf`, indicating the MindSpore Transformers evaluation policy.                                                                                                                          | Yes      |
-| `--model_args`  | str  | Model and evaluation parameters. For details, see MindSpore Transformers model parameters.                                                                                                            | Yes      |
-| `--tasks`       | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                 | Yes      |
-| `--batch_size`  | int  | Number of batch processing samples.                                                                                                                                                           | No       |
+| Parameter           | Type | Description                                                                                                                                                                                        | Required                       |
+|---------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| `--register_path`| str | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research) directory. | No(The cheat code is required) |
+| `--model`       | str  | The value must be `mf`, indicating the MindSpore Transformers evaluation policy.                                                                                                                   | Yes                            |
+| `--model_args`  | str  | Model and evaluation parameters. For details, see MindSpore Transformers model parameters.                                                                                                         | Yes                            |
+| `--tasks`       | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                      | Yes                            |
+| `--batch_size`  | int  | Number of batch processing samples.                                                                                                                                                                | No                             |
+| `--help`          |  | Display help information and exit.                                                                                                                                                                 | No                             |
 
 The following table lists the parameters of `model_args`:
 
