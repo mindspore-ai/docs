@@ -98,7 +98,7 @@ Here we introduce balenaEtcher, Rufus to burn the image, you can burn according 
 
   Step 1 Select Mirror, TF card, and start burn.
 
-  Insert the sd card into the card reader, insert the card reader into the computer, select the image and sd card, click "Start".
+  Insert the SD card into the card reader, insert the card reader into the computer, select the image and SD card, click "Start".
 
   ![environment-setup-1-12](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/environment_setup_1-12.png)
 
