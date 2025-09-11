@@ -21,7 +21,7 @@ API
    mindspore.numpy
    mindspore.scipy
    mindspore.multiprocessing
-   minsspore.tools
+   mindspore.tools
    mindspore.utils
    mindspore.experimental
    mindspore.ops.primitive
