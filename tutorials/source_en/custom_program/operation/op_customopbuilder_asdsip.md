@@ -82,7 +82,7 @@ param.batchSize = batch_size;
 param.dimType = ms::pynative::asdFft1dDimType::ASCEND_FFT_HORIZONTAL;
 ```
 
-### 3. Execute the Operator via the RunAtbOp Interface
+### 3. Execute the Operator via the AsdSipFFTOpRunner Interface
 
 ```cpp
 ms::pynative::PyboostRunner::Call<1>(npu_fft, input, n, batch_size);
