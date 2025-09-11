@@ -116,6 +116,7 @@ During model training, the `callbacks` parameter in `Model.train` is used to pas
 ### User-defined Saved Data
 
 The parameter `append_info` of `CheckpointConfig` can save user-defined information in the Checkpoint file. `append_info` supports passing in ``epoch_num``, ``step_num`` and data of dictionary type. ``epoch_num`` and ``step_num`` can save the number of epochs and the number of steps during training in the Checkpoint file.
+
 `key` of the dictionary type data must be of type string, and `value` must be of type int, float, bool, string, Parameter, or Tensor.
 
 ```python
