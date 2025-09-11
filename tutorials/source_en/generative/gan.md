@@ -247,7 +247,7 @@ optimizer_d.update_parameters_name('optim_d')
 
 Training is divided into two parts.
 
-The first part is to train the discriminator. The discriminator is trained to improve the probability of discriminating real images to the greatest extent. According to the method of the original paper, the discriminator is updated by increasing its stochastic gradient to maximize the value of $log D(x) + log(1 - D(G(z))$.
+The first part is to train the discriminator. The discriminator is trained to improve the probability of discriminating real images to the greatest extent. According to the method of the original paper, the discriminator is updated by increasing its stochastic gradient to maximize the value of $log D(x) + log(1 - D(G(z)))$.
 
 The second part is to train the generator. As described in the paper, $log(1 - D(G(z)))$ is minimized to train the generator to produce better false images.
 
