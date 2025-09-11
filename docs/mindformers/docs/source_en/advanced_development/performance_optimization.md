@@ -38,7 +38,7 @@ The meaning of each field is as follows:
 
 * SeqLength: refers to the length of the sequence, for text processing, we need to convert the input text into a sequence of numbers, and then use these number sequences as input to the model. SeqLength is the length of these number sequences, which is the length of the text. During model training and inference, we need to specify a fixed SeqLength for batch processing and computation. A longer SeqLength improves the accuracy of the model, but increases computation and memory consumption, while a shorter SeqLength reduces computation and memory consumption, but may decrease the accuracy of the model.
 
-* sample: its value is equal to global_batch_size. in distributed training, the data is divided into multiple parts, and each part is sent to a different NPU for computation. The batch size on these NPUs adds up to the global batch size. The choice of global batch size is an important decision because it directly affects the training performance of the model. If the global batch size is too small, the batch size on each NPU may be too small, resulting in slower convergence of the model. If the global batch size is too large, the batch size on each NPU may be too large, resulting in either a lack of NPU memory or a decrease in the accuracy of the model. A good rule to find the optimal Batch Size is to reach the NPU's memory limit for a given data type, i.e., the Batch Size fills up the NPU memory.
+* sample: its value is equal to global_batch_size. In distributed training, the data is divided into multiple parts, and each part is sent to a different NPU for computation. The batch size on these NPUs adds up to the global batch size. The choice of global batch size is an important decision because it directly affects the training performance of the model. If the global batch size is too small, the batch size on each NPU may be too small, resulting in slower convergence of the model. If the global batch size is too large, the batch size on each NPU may be too large, resulting in either a lack of NPU memory or a decrease in the accuracy of the model. A good rule to find the optimal Batch Size is to reach the NPU's memory limit for a given data type, i.e., the Batch Size fills up the NPU memory.
 
 * s: i.e., per_step_time in seconds, refers to the time spent on each step in the training process.
 
@@ -125,7 +125,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
 
    `profile_start_step` and `profile_stop_step` determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, and it should be set to 2 to 4 steps. Since the first step involves compilation, it is recommended to start collecting from step 3.
 
-   The parameters of profiling configuration are shown as below:
+   The parameters of profiling configuration are as shown below:
 
    | Parameters            | Descriptions                                                                                                                                                                                                                            | Types |
    |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
@@ -139,7 +139,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
    | profile_output        | Set the directory of saving performance data.                                                                                                                                                                                           | str   |
    | profile_level         | Set the collection level. Should be one of (0, 1, 2). Default: `1`.                                                                                                                                                                     | int   |
    | with_stack            | Set whether to collect Python-side stack trace data. Default: `False`.                                                                                                                                                                  | bool  |
-   | data_simplification   | Set whether to enable data simplification, which will delete the FRAMEWORK directory and other extraneous data after exporting performance data. Default: `False`.                                                                      | int   |
+   | data_simplification   | Set whether to enable data simplification, which will delete the FRAMEWORK directory and other extraneous data after exporting performance data. Default: `False`.                                                                      | bool   |
    | init_start_profile    | Set whether to turn on collecting performance data when the Profiler is initialized; this parameter does not take effect when `profile_start_step` is set. This parameter needs to be set to `True` when `profile_memory` is turned on. | bool  |
    | mstx                  | Set whether to enable mstx timestamp recording, including training step, HCCL-operators and etc. Default: `False`.                                                                                                                      | bool  |
 
@@ -153,7 +153,7 @@ MindSpore Transformers itself integrates profiling data collection with the foll
 
 3. View mstx timestamp
 
-   The collection tool does not generate files of mstx information directly, so it need to be extract from `profile` folder manually via command line. Taking the first device for example, the corresponding directory structure is shown below:
+   The collection tool does not generate files of mstx information directly, so it need to be extracted from `profile` folder manually via command line. Taking the first device for example, the corresponding directory structure is shown below:
 
    ```sh
    output
@@ -417,7 +417,7 @@ The idea of solving IO bottlenecks is to optimize the amount of IO and IO behavi
 
 **full_batch=false**:
 
-full_batch is a control item for the data aggregation behavior of MindSpore. When configured to true, each card takes the global batch size amount of data, and then completes the slicing of the data within the graph, taking only the required data in the corresponding DP domain for training. This approach leads to steep pressure on IO in large-scale clusters, where there is DP-fold redundancy in the amount of IO read by each card, which occurs on each card and aggregates to overstress the shared storage, affecting IO performance. It is recommended to change the behavior mode to full_batch=false when encountering IO bottlenecks, which has been verified to be able to optimize the IO efficiency in a more obvious way, and the configuration mode can be referred to MindSpore[set_auto_parallel_context interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context). yaml example is listed below:
+full_batch is a control item for the data aggregation behavior of MindSpore. When configured to true, each card takes the global batch size amount of data, and then completes the slicing of the data within the graph, taking only the required data in the corresponding DP domain for training. This approach leads to steep pressure on IO in large-scale clusters, where there is DP-fold redundancy in the amount of IO read by each card, which occurs on each card and aggregates to overstress the shared storage, affecting IO performance. It is recommended to change the behavior mode to full_batch=false when encountering IO bottlenecks, which has been verified to be able to optimize the IO efficiency in a more obvious way, and the configuration mode can be referred to MindSpore [set_auto_parallel_context interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context). yaml example is listed below:
 
 ```yaml
 #yaml file configuration
@@ -475,7 +475,7 @@ In distributed training, the pipeline parallel strategy involves the phenomenon 
 
 Under pipeline parallelism, because the model is sliced into stages by layer, the first and last stages design modules outside the layer to realize, such as embedding, head, loss calculation and other modules, so that the computation time of the first and last stages is higher than that of the middle stage, which is the load imbalance in time. And due to the pipeline flow execution before the reverse characteristics that the earliest execution stage, the latest all the memory release, the memory consumption of different stages is different. The more front stage consumes more memory, which is spatial imbalance.
 
-In this case you can manually adjust the number of load layers between individual stages by configuring the model layer offset offset.
+In this case you can manually adjust the number of load layers between individual stages by configuring the model layer offset.
 
 For example, in the scenario where PP stage is 4 and the first stage consumes too much memory, you can set `offset:[-2, 1, 1, 0]` to put the two layers of load from stage 0 on stage 1 and stage 2 respectively, which reduces the space consumption of the first stage, and at the same time, the computational load is shifted from the limitation of first and last stages to the extra layer on the middle stage, which also does not reduce the computational efficiency too much.
 
@@ -577,7 +577,7 @@ The initial slicing strategy was tested to collect performance and memory data t
 * **IO Bottleneck**: Thousands of cards accessing shared storage to read data at the same time. The storage pressure is too high to catch up with the training speed, resulting in performance fluctuations;
 * **Large Vocabulary List Memory Bottleneck**: The vocab_size of the custom hyperparameter is on the large side, causing the embedding and lm_head structures to take up too much memory;
 * **Unmasked Communication Bottleneck**: With the mp parallel count set to 8, the communication volume is relatively high and more unmasked communication occurs;
-* **To Much bubbles**: The PP stage slices reach 16, while micro_batch_num is limited to 16 by the gbs, so that there are too many bubbles in the pipeline flow;
+* **Too Many Bubbles**: The PP stage slices reach 16, while micro_batch_num is limited to 16 by the gbs, so that there are too many bubbles in the pipeline flow;
 * **Load Imbalance Between Stages**: stage 0 and stage 1 memory consumption is too high and the load balancing policy needs to be adjusted.
 
 **Optimization methods**:

@@ -22,10 +22,10 @@ For details, see the configuration class [LlamaConfig](https://www.mindspore.cn/
 
 The MindSpore Transformers foundation model is developed based on the MindSpore framework. Developers only need to pay attention to the implementation of the model network.
 
-MindSpore Transformers provides the [PretrainedModel](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedModel.html) class, which is responsible for storage model configurations and processing the methods of loading and saving models. All model classes must be inherited from the PretrainedModel class, and the model input must be the same. That is, the input parameters of the `construct` method of the model must be the same. For details about the input parameters and meanings, see the Llama model class [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaForCausalLM.html) in MindSpore Transformers. In addition, the model class must implement some abstract methods of the base class, including:
+MindSpore Transformers provides the [PreTrainedModel](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedModel.html) class, which is responsible for storage model configurations and processing the methods of loading and saving models. All model classes must be inherited from the PretrainedModel class, and the model input must be the same. That is, the input parameters of the `construct` method of the model must be the same. For details about the input parameters and meanings, see the Llama model class [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaForCausalLM.html) in MindSpore Transformers. In addition, the model class must implement some abstract methods of the base class, including:
 
 - `prepare_inputs_for_generation`: method for building input for model inference.
-- `prepare_inputs_for_predict_layout`: method for building virtual input for the distributed loading model weight.
+- `prepare_inputs_for_predict_layout`: method for building virtual input for the distributed loading of model weight.
 
 For specific meanings, refer to the descriptions in [LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.LlamaForCausalLM.html).
 
@@ -35,7 +35,7 @@ For specific meanings, refer to the descriptions in [LlamaForCausalLM](https://w
 
 A tokenizer is used to process input and output of LLMs. It is required in the workflow of LLMs.
 
-MindSpore Transformers provides the [PretrainedTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedTokenizer.html) and [PretrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedTokenizerFast.html) classes, which use Python only and use the Rust library, respectively. The features of the latter one are as follows:
+MindSpore Transformers provides the [PreTrainedTokenizer](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedTokenizer.html) and [PreTrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/en/master/models/mindformers.models.PreTrainedTokenizerFast.html) classes, which use Python only and use the Rust library, respectively. The features of the latter one are as follows:
 
 - Faster batch processing.
 - Additional methods for mapping between text strings and lexical spaces. For example, the indexes of the lexical element containing a given character or the character spans corresponding to the given lexical element are obtained.
@@ -74,7 +74,7 @@ processor:
 
 The relative import path `auto_register: llama3_1_tokenizer.Llama3Tokenizer` of `Llama3Tokenizer` is configured under `tokenizer`.
 
-Also, `vocab_file` under `tokenizer` should configure as the real path to the tokenizer `tokenizer.model`.
+Also, `vocab_file` under `tokenizer` should be configured as the real path to the tokenizer `tokenizer.model`.
 
 Run the following command to start the inference job:
 
