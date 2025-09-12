@@ -48,7 +48,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### Legacy 模型配置
 
-如果使用 MindSpore Transformer 拉起 legacy 模型的任务，需要在 yaml 文件中进行相关超参的配置。注意，此板块介绍的配置仅适用于 legacy 模型，不可与 mcore 模型配置进行混用，请注意[版本配套关系](https://gitee.com/mindspore/mindformers/blob/master/README_CN.md#%E6%A8%A1%E5%9E%8B%E5%88%97%E8%A1%A8)。
+如果使用 MindSpore Transformers 拉起 legacy 模型的任务，需要在 yaml 文件中进行相关超参的配置。注意，此板块介绍的配置仅适用于 legacy 模型，不可与 mcore 模型配置进行混用，请注意[版本配套关系](https://gitee.com/mindspore/mindformers/blob/master/README_CN.md#%E6%A8%A1%E5%9E%8B%E5%88%97%E8%A1%A8)。
 
 由于不同的模型配置会有差异，这里仅对MindSpore Transformers中模型的通用配置进行说明。
 
@@ -93,7 +93,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | moe_config.balance_via_topk_bias      | bool        | 可选   | False  | 设置是否使能 `aux_loss_free` 负载均衡算法。                                                              |
 | moe_config.topk_bias_update_rate      | float       | 可选   | 无      | 设置`aux_loss_free`负载均衡算法`bias`更新步长。                                                          |
 | moe_config.comp_comm_parallel         | bool        | 可选   | False  | 设置是否开启 ffn 的计算通信并行。                                                                         |
-| moe_config.comp_comm_parallel_degree  | int         | 可选   | 无      | 设置 ffn 计算通信的分割数。数字越大，重叠越多，但会消耗更多内存。此参数仅在 `comp_com_parallel=True` 时有效。                      |
+| moe_config.comp_comm_parallel_degree  | int         | 可选   | 无      | 设置 ffn 计算通信的分割数。数字越大，重叠越多，但会消耗更多内存。此参数仅在 `comp_comm_parallel=True` 时有效。                      |
 | moe_config.moe_shared_expert_overlap  | bool        | 可选   | False  | 设置是否开启共享专家和路由专家的计算通信并行。                                                                     |
 | moe_config.use_gating_sigmoid         | bool        | 可选   | False  | 设置 MoE 中 gating 的结果使用 sigmoid 函数进行激活。                                                       |
 | moe_config.use_gmm                    | bool        | 可选   | False  | 设置 MoE 专家计算是否使用 GroupedMatmul。                                                              |
@@ -104,9 +104,9 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### Mcore 模型配置
 
-使用 MindSpore Transformer 拉起 mcore 模型的任务时，需要在 `model_config` 下对相关超参进行配置，包括模型选择、模型参数、计算类型、MoE 参数等。
+使用 MindSpore Transformers 拉起 mcore 模型的任务时，需要在 `model_config` 下对相关超参进行配置，包括模型选择、模型参数、计算类型、MoE 参数等。
 
-由于不同的模型配置会有差异，这里介绍在 MindSpore Transformers 中模型常用配置。
+由于不同的模型配置会有差异，这里介绍 MindSpore Transformers 中模型常用配置。
 
 | 参数                                                        | 数据类型                  | 是否可选 | 默认值        | 取值说明                                                                                                                                                                                                                                   |
 |-----------------------------------------------------------|-----------------------|------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -350,7 +350,6 @@ MindSpore Transformers提供模型评估功能，同时支持模型边训练边�
 | do_eval             | bool   | 可选   | False | 是否开启边训练边评估功能。                                                    |
 | eval_step_interval  | int    | 可选   | 100   | 设置评估的 step 间隔，默认值为 `100`，小于等于 0 表示关闭按 step 间隔评估。                 |
 | eval_epoch_interval | int    | 可选   | -1    | 设置评估的 epoch 间隔，默认值为 `-1`，小于 0 表示关闭按 epoch 间隔评估；不建议在数据下沉模式下使用该配置。 |
-| metric.type         | string | 必选   | 无     | 设置评估的类型。                                                         |
 
 ### Profile配置
 
