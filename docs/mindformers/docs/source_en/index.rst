@@ -197,6 +197,7 @@ FAQ
    advanced_development/dev_migration
    advanced_development/yaml_config_inference
    advanced_development/accuracy_comparison
+   advanced_development/training_template_instruction
    advanced_development/api
 
 .. toctree::
