@@ -220,6 +220,7 @@ FAQ
    advanced_development/performance_optimization
    advanced_development/dev_migration
    advanced_development/accuracy_comparison
+   advanced_development/training_template_instruction
    advanced_development/api
 
 .. toctree::
