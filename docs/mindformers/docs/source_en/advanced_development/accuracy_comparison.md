@@ -8,7 +8,7 @@ In the LLM training system, precision validation at the model level is a key ste
 
 Megatron-LM is a mature framework for large-scale training tasks. It is highly modular and scalable and is widely used in training scenarios with high performance requirements. MindSpore Transformers r1.6.0 upgrades the model architecture by using the ModuleSpec configuration mode to build models. This makes model structure definition **more flexible** and **easier to reuse**, greatly improving development efficiency. In addition, comprehensive training support is provided in the NPU environment, fully leveraging the advantages of the NPU architecture.
 
-This document focuses on the validation of precision consistency at the model level. By building equivalent model structures and configurations and using unified inputs, this document compares key training performance indicators such as the forward output, loss, gradient behavior to validate the reliability and precision controllability of MindSpore Transformers in the NPU environment.
+This document focuses on the validation of precision consistency at the model level. By building equivalent model structures and configurations and using unified inputs, this document compares key training performance indicators such as the forward output, loss, and gradient behavior to validate the reliability and precision controllability of MindSpore Transformers in the NPU environment.
 
 ## 2. Environment
 
@@ -218,7 +218,7 @@ The following tables describe the configuration comparison with Megatron-LM.
     | `vocab-size`                  | Vocabulary size.                     | `vocab_size`           | Vocabulary size.                          |
     | `vocab-file`                  | Vocabulary file path.                   | Not supported.                 |                                |
     | `merge-file`                  | BPE combination rule file.               | Not supported.                 |                                |
-    | `tokenizer-type`              | Tokenizer type (for example, **GPT2BPETokenizer**).| Not supported.                 | The tokenizer corresponding to Huggingface is used by default.|
+    | `tokenizer-type`              | Tokenizer type (for example, **GPT2BPETokenizer**).| Not supported.                 | The tokenizer corresponding to Hugging Face is used by default.|
     | `seq-length`                  | Input sequence length.                   | `seq_length`           | Input sequence length.                        |
     | `encoder-seq-length`          | Encoder input length.                  | Not supported.                 |                                |
     | `decoder-seq-length`          | Decoder input length.                  | Not supported.                 |                                |
@@ -264,7 +264,7 @@ The following tables describe the configuration comparison with Megatron-LM.
     | `checkpoint-activations`       | Specifies whether to enable the activation checkpoint mechanism to reduce the video RAM.    | Not supported.                 |                          |
     | `moe-layer-recompute`          | Enables recomputation at the MoE layer.           | Not supported.                 |                          |
 
-**Note:** The two frameworks have other configurations that are not closely related to training. For details about MindSpore Transformer, see [Configuration Description]. You can run the `torchrun --nproc_per_node=1 pretrain_gpt.py --help` command to view the Megatron-LM configuration.
+**Note:** The two frameworks have other configurations that are not closely related to training. For details about MindSpore Transformers, see [Configuration Description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html). You can run the `torchrun --nproc_per_node=1 pretrain_gpt.py --help` command to view the Megatron-LM configuration.
 
 ### 3.2 Dataset Alignment
 
@@ -412,11 +412,11 @@ After the preceding steps are complete, you can start training and extract key d
 
 - Result comparison
 
-  View the output logs of the two models. The log path of Megatron-LM is `logs/${logtime}.log` in `example.sh`, and that of MindSpore Transformer is `msrun_log/worker_0.log` in `output_dir` of `example.yaml`. The following table lists the comparison results.
+  View the output logs of the two models. The log path of Megatron-LM is `logs/${logtime}.log` in `example.sh`, and that of MindSpore Transformers is `msrun_log/worker_0.log` in `output_dir` of `example.yaml`. The following table lists the comparison results.
 
   | Megatron-LM     | MindSpore Transformers | Description                                                                                                                                                            |
   |-----------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
   | `iteration`     | `epoch` and `step`  | Number of global iterations during training. In MindSpore Transformers, `(epoch, step)` indicates the current training location, while Megatron-LM uses a single `iteration`. The relationship between them is as follows: `iteration = (epoch – 1) x steps_per_epoch + step`|
   | `lm loss`       | `loss`                 | Training loss, which is a core indicator in precision comparison. The value of `loss` of MindSpore Transformers is the sum of `lm loss` and `aux loss`. The values will be printed separately in the future.                                                                               |
   | `learning rate` | `lr`                   | Learning rate, which is the precision comparison reference indicator.                                                                                                                                                  |
-  | `grand norm`    | `global norm`          | Global gradient norm, which is the precision comparison reference indicator.                                                                                                                                               |
+  | `grad norm`    | `global norm`          | Global gradient norm, which is the precision comparison reference indicator.                                                                                                                                               |
