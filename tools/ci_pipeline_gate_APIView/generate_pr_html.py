@@ -125,7 +125,14 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
                 file_list.append(os.path.join(
                     repo_path, '/'.join(i.split('/')[:-1]), j.rstrip('\r\t')))
         file_list.append(os.path.join(repo_path, i))
-
+        if i.startswith('docs/api/api_python/tools/'):
+            tools_rst_path = os.path.join(repo_path, 'mindspore.tools.rst')
+            if tools_rst_path not in file_list:
+                file_list.append(tools_rst_path)
+        if i.startswith('docs/api/api_python/utils/'):
+            utils_rst_path = os.path.join(repo_path, 'mindspore.utils.rst')
+            if utils_rst_path not in file_list:
+                file_list.append(utils_rst_path)
     return file_list
 
 def get_api(fullname):
@@ -581,19 +588,35 @@ def make_index_rst(target_path, language_f):
         len(title_content) + '\n\n' + \
         '.. toctree::\n    :glob:\n    :maxdepth: 1\n\n'
     dir_set = set()
+    added_entries = set()  # 用于存储已经添加的条目
     # pylint: disable=W0612
     for rt, dirs, files in os.walk(os.path.join(target_path, 'api_python')):
         for file in files:
             if file.endswith('.rst') and rt.split('api_python')[-1] not in dir_set:
                 if not rt.split('api_python')[-1]:
-                    content += f"    api_python/{file}\n"
+                    entry = f"    api_python/{file}\n"
+                    content += entry
+                    added_entries.add(entry)
                 elif not os.path.basename(rt).startswith('_'):
-                    content += f"    api_python{rt.split('api_python')[-1]}/*\n"
+                    entry = f"    api_python{rt.split('api_python')[-1]}/*\n"
+                    content += entry
+                    added_entries.add(entry)
                 else:
                     continue
                 dir_set.add(rt.split('api_python')[-1])
 
-    content += "    api_python/mint/*\n"
+    mint_entry = "    api_python/mint/*\n"
+    tools_entry = "    api_python/mindspore.tools.rst\n"
+    utils_entry = "    api_python/mindspore.utils.rst\n"
+    if mint_entry not in added_entries:
+        content += mint_entry
+        added_entries.add(mint_entry)
+    if tools_entry not in added_entries:
+        content += tools_entry
+        added_entries.add(tools_entry)
+    if utils_entry not in added_entries:
+        content += utils_entry
+        added_entries.add(utils_entry)
     with open(os.path.join(target_path, 'index.rst'), 'w+', encoding='utf-8') as f:
         f.write(content)
 
