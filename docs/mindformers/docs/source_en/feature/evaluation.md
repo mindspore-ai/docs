@@ -173,10 +173,100 @@ After executing the evaluation command, the evaluation results will be printed o
 | gsm8k |       3 | flexible-extract |      5 | exact_match | ↑ | 0.5034 | ± | 0.0138 |
 |       |         | strict-match     |      5 | exact_match | ↑ | 0.5011 | ± | 0.0138 |
 
-## FAQ
+### FAQ
 
 1. Use Harness for evaluation, when loading the HuggingFace datasets, report `SSLError`:
 
    Refer to [SSL Error reporting solution](https://stackoverflow.com/questions/71692354/facing-ssl-error-with-huggingface-pretrained-models).
 
    Note: Turning off SSL verification is risky and may be exposed to MITM. It is only recommended to use it in the test environment or in the connection you fully trust.
+
+## Evaluation after training
+
+### Overview
+
+After training, the model generally uses the trained model weights to run evaluation tasks to verify the training effect. This chapter introduces the necessary steps from training to evaluation, including:
+
+1. Processing of distributed weights after training (this step can be ignored for single-card training);
+2. Writing inference configuration files for evaluation based on the training configuration;
+3. Running a simple inference task to verify the correctness of the above steps;
+4. Performing the evaluation task.
+
+Users can refer to this document to evaluate their trained models.
+
+### Distributed Weight Merging
+
+If the weights generated after training are distributed, the existing distributed weights need to be merged into complete weights first, and then the weights can be loaded through online slicing to complete the inference task. Using the [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py) provided by MindSpore Transformers, the merged weights are in the format of complete weights.
+
+Parameters can be filled in as follows:
+
+```shell
+python toolkit/safetensors/unified_safetensors.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --output_dir output_dir \
+  --file_suffix "1_1" \
+  --filter_out_param_prefix "adam_"
+```
+
+Script parameter description:
+
+- src_strategy_dirs: The path to the distributed strategy file corresponding to the source weight, usually saved in the output/strategy/ directory by default after starting the training task. Distributed weights need to be filled in according to the following situations:
+
+   1. Source weights enable pipeline parallelism: Weight conversion is based on the merged strategy file, fill in the path of the distributed strategy folder. The script will automatically merge all ckpt_strategy_rank_x.ckpt files in the folder and generate merged_ckpt_strategy.ckpt in the folder. If merged_ckpt_strategy.ckpt already exists, you can directly fill in the path of this file.
+   2. Source weights do not enable pipeline parallelism: Weight conversion can be based on any strategy file, just fill in the path of any ckpt_strategy_rank_x.ckpt file.
+
+   Note: If merged_ckpt_strategy.ckpt already exists in the strategy folder and the folder path is still passed in, the script will first delete the old merged_ckpt_strategy.ckpt and then merge to generate a new merged_ckpt_strategy.ckpt for weight conversion. Therefore, please ensure that the folder has sufficient write permissions, otherwise the operation will report an error.
+
+- mindspore_ckpt_dir: Path to distributed weights, please fill in the path of the folder where the source weights are located. The source weights should be stored in the format model_dir/rank_x/xxx.safetensors, and fill in the folder path as model_dir.
+- output_dir: Save path of target weights, the default value is `/new_llm_data/******/ckpt/nbg3_31b/tmp`, that is, the target weights will be placed in the `/new_llm_data/******/ckpt/nbg3_31b/tmp` directory.
+- file_suffix: Naming suffix of target weight files, the default value is "1_1", that is, the target weights will be searched in the format *1_1.safetensors.
+- has_redundancy: Whether the merged source weights are redundant weights, the default is True.
+- filter_out_param_prefix: When merging weights, you can customize to filter out some parameters, and the filtering rules match by prefix name, such as optimizer parameters "adam_".
+- max_process_num: Maximum number of processes for merging. Default value: 64.
+
+### Inference Configuration Development
+
+After completing the merging of weight files, you need to develop the corresponding inference configuration file based on the training configuration file.
+
+Taking Qwen3 as an example, modify the [Qwen3 training configuration](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) based on the [Qwen3 inference configuration](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml):
+
+Main modification points of Qwen3 training configuration include:
+
+- Modify the value of run_mode to "predict".
+- Add pretrained_model_dir: Hugging Face or ModelScope model directory path, place model configuration, Tokenizer and other files.
+- In parallel_config, only keep data_parallel and model_parallel.
+- In model_config, only keep compute_dtype, layernorm_compute_dtype, softmax_compute_dtype, rotary_dtype, params_dtype, and keep the precision consistent with the inference configuration.
+- In the parallel module, only keep parallel_mode and enable_alltoall, and modify the value of parallel_mode to "MANUAL_PARALLEL".
+
+### Inference Function Verification
+
+After the weights and configuration files are ready, use a single data input for inference to check whether the output content meets the expected logic. Refer to the [inference document](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/inference.md) to start the inference task.
+
+For example:
+
+```shell
+python run_mindformer.py \
+--config configs/qwen3/predict_qwen3.yaml \
+--run_mode predict \
+--use_parallel False \
+--predict_data '帮助我制定一份去上海的旅游攻略'
+```
+
+If the output content appears garbled or does not meet expectations, you need to locate the precision problem.
+
+1. Check the correctness of the model configuration
+
+    Confirm that the model structure is consistent with the training configuration. Refer to the training configuration template usage tutorial to ensure that the configuration file complies with specifications and avoid inference exceptions caused by parameter errors.
+
+2. Verify the completeness of weight loading
+
+    Check whether the model weight files are loaded completely, and ensure that the weight names strictly match the model structure. Refer to the new model weight conversion adaptation tutorial to view the weight log, that is, whether the weight slicing method is correct, to avoid inference errors caused by mismatched weights.
+
+3. Locate inference precision issues
+
+    If the model configuration and weight loading are both correct, but the inference results still do not meet expectations, precision comparison analysis is required. Refer to the inference precision comparison document to compare the output differences between training and inference layer by layer, and troubleshoot potential data preprocessing, computational precision, or operator issues.
+
+### Evaluation using AISBench
+
+Refer to the AISBench evaluation section and use the AISBench tool for evaluation to verify model precision.

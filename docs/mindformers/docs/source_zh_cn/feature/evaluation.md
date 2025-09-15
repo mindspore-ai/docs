@@ -173,10 +173,100 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 | gsm8k |       3 | flexible-extract |      5 | exact_match | ↑ | 0.5034 | ± | 0.0138 |
 |       |         | strict-match     |      5 | exact_match | ↑ | 0.5011 | ± | 0.0138 |
 
-## FAQ
+### FAQ
 
 1. 使用Harness进行评测，在加载HuggingFace数据集时，报错`SSLError`：
 
    参考[SSL Error报错解决方案](https://stackoverflow.com/questions/71692354/facing-ssl-error-with-huggingface-pretrained-models)。
 
    注意：关闭SSL校验存在风险，可能暴露在中间人攻击（MITM）下。仅建议在测试环境或你完全信任的连接里使用。
+
+## 训练后模型进行评测
+
+### 概述
+
+模型在训练过程中或训练结束后，一般会将训练得到的模型权重去跑评测任务，来验证模型的训练效果。本章节介绍了从训练后到评测前的必要步骤，包括：
+
+1. 训练后的分布式权重的处理（单卡训练可忽略此步骤）；
+2. 基于训练配置编写评测使用的推理配置文件；
+3. 运行简单的推理任务验证上述步骤的正确性；
+4. 进行评测任务。
+
+用户可以参考本文档来对自己训练的模型进行评测。
+
+### 分布式权重合并
+
+训练后产生的权重如果是分布式的，需要先将已有的分布式权重合并成完整权重后，再通过在线切分的方式进行权重加载完成推理任务。使用MindSpore Transformers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，合并后的权重格式为完整权重。
+
+可以按照以下方式填写参数：
+
+```shell
+python toolkit/safetensors/unified_safetensors.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --output_dir output_dir \
+  --file_suffix "1_1" \
+  --filter_out_param_prefix "adam_"
+```
+
+脚本参数说明：
+
+- src_strategy_dirs：源权重对应的分布式策略文件路径，通常在启动训练任务后默认保存在 output/strategy/ 目录下。分布式权重需根据以下情况填写：
+
+   1. 源权重开启了流水线并行：权重转换基于合并的策略文件，填写分布式策略文件夹路径。脚本会自动将文件夹内的所有 ckpt_strategy_rank_x.ckpt 文件合并，并在文件夹下生成 merged_ckpt_strategy.ckpt。如果已经存在 merged_ckpt_strategy.ckpt，可以直接填写该文件的路径。
+   2. 源权重未开启流水线并行：权重转换可基于任一策略文件，填写任意一个 ckpt_strategy_rank_x.ckpt 文件的路径即可。
+
+   注意：如果策略文件夹下已存在 merged_ckpt_strategy.ckpt 且仍传入文件夹路径，脚本会首先删除旧的 merged_ckpt_strategy.ckpt，再合并生成新的 merged_ckpt_strategy.ckpt 以用于权重转换。因此，请确保该文件夹具有足够的写入权限，否则操作将报错。
+
+- mindspore_ckpt_dir：分布式权重路径，请填写源权重所在文件夹的路径，源权重应按 model_dir/rank_x/xxx.safetensors 格式存放，并将文件夹路径填写为 model_dir。
+- output_dir：目标权重的保存路径，默认值为 `/new_llm_data/******/ckpt/nbg3_31b/tmp`，即目标权重将放置在 `/new_llm_data/******/ckpt/nbg3_31b/tmp` 目录下。
+- file_suffix：目标权重文件的命名后缀，默认值为 "1_1"，即目标权重将按照 *1_1.safetensors 格式查找。
+- has_redundancy：合并的源权重是否是冗余的权重，默认为 True。
+- filter_out_param_prefix：合并权重时可自定义过滤掉部分参数，过滤规则以前缀名匹配。如优化器参数"adam_"。
+- max_process_num：合并最大进程数。默认值：64。
+
+### 推理配置开发
+
+在完成权重文件的合并后，需依据训练配置文件开发对应的推理配置文件。
+
+以Qwen3为例，基于[Qwen3推理配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)修改[Qwen3训练配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)：
+
+Qwen3训练配置主要修改点包括：
+
+- run_mode的值修改为"predict"。
+- 添加pretrained_model_dir：Hugging Face或ModelScope的模型目录路径，放置模型配置、Tokenizer等文件。
+- parallel_config只保留data_parallel和model_parallel。
+- model_config中只保留compute_dtype、layernorm_compute_dtype、softmax_compute_dtype、rotary_dtype、params_dtype，和推理配置保持精度一致。
+- parallel模块中，只保留parallel_mode和enable_alltoall，parallel_mode的值修改为"MANUAL_PARALLEL"。
+
+### 推理功能验证
+
+在权重和配置文件都准备好的情况下，使用单条数据输入进行推理，检查输出内容是否符合预期逻辑，参考[推理文档](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/inference.md)，拉起推理任务。
+
+例如：
+
+```shell
+python run_mindformer.py \
+--config configs/qwen3/predict_qwen3.yaml \
+--run_mode predict \
+--use_parallel False \
+--predict_data '帮助我制定一份去上海的旅游攻略'
+```
+
+如果输出内容出现乱码或者不符合预期，需要定位精度问题。
+
+1. 检查模型配置正确性
+
+    确认模型结构与训练配置一致。参考训练配置模板使用教程，确保配置文件符合规范，避免因参数错误导致推理异常。
+
+2. 验证权重加载完整性
+
+    检查模型权重文件是否完整加载，确保权重名称与模型结构严格匹配。参考新模型权重转换适配教程，查看权重日志即权重切分方式是否正确，避免因权重不匹配导致推理错误。
+
+3. 定位推理精度问题
+
+    若模型配置与权重加载均无误，但推理结果仍不符合预期，需进行精度比对分析，参考推理精度比对文档，逐层比对训练与推理的输出差异，排查潜在的数据预处理、计算精度或算子问题。
+
+### 使用AISBench进行评测
+
+参考AISBench评测章节，使用AISBench工具进行评测，验证模型精度。
