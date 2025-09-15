@@ -22,7 +22,7 @@ Harness supports two installation methods: pip installation and source code comp
 
 #### pip Installation
 
-Users can execute the following command to install Harness (Recommend using version 0.4.4):
+Users can execute the following command to install Harness (It is recommended to use version 0.4.4):
 
 ```shell
 pip install lm_eval==0.4.4
@@ -44,9 +44,9 @@ pip install -e .
 
   1. Create a new directory with e.g. the name `model_dir` for storing the model yaml files.
   2. Place the model inference yaml configuration file (predict_xxx_.yaml) in the directory created in the previous step. The directory location of the reasoning yaml configuration file for different models refers to [model library](../introduction/models.md).
-  3. Configure the yaml file. If the model class, model Config class, and model Tokenzier class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/tree/master/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
+  3. Configure the yaml file. If the model class, model Config class, and model Tokenizer class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/tree/master/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
 
-      Using [predict_1lama3_1_8b. yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
+      Using [predict_llama3_1_8b. yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
 
       ```yaml
       run_mode: 'predict'    # Set inference mode
@@ -59,7 +59,7 @@ pip install -e .
       ```
 
       For detailed instructions on each configuration item, please refer to the [configuration description](../feature/configuration.md).
-  4. If you use the `ceval-valid`, `mmlu`, `cmmlu`, `race`, and `lambada` datasets for evaluation, you need to set `use_flash_attention` to `False`. Using `predict_lama3_1_8b.yaml` as an example, modify the yaml as follow:
+  4. If you use the `ceval-valid`, `mmlu`, `cmmlu`, `race`, and `lambada` datasets for evaluation, you need to set `use_flash_attention` to `False`. Using `predict_llama3_1_8b.yaml` as an example, modify the yaml as follows:
 
       ```yaml
       model:
@@ -157,10 +157,10 @@ Harness evaluation supports single-device single-card, single-device multiple-ca
    - `BATCH_SIZE` is the sample size for batch processing of models;
    - `WORKER_NUM` is the total number of compute devices used on all nodes;
    - `LOCAL_WORKER` is the number of compute devices used on the current node;
-   - `MASTER_ADDR` is the ip address of the primary node to be started in distributed mode;
+   - `MASTER_ADDR` is the IP address of the primary node to be started in distributed mode;
    - `MASTER_PORT` is the Port number bound for distributed startup;
    - `NODE_RANK` is the Rank ID of the current node;
-   - `CLUSTER_TIME_OUT`is the waiting time for distributed startup, in seconds.
+   - `CLUSTER_TIME_OUT` is the waiting time for distributed startup, in seconds.
 
    To execute the multi-node multi-device script for evaluating, you need to run the script on different nodes and set MASTER_ADDR to the IP address of the primary node. The IP address should be the same across all nodes, and only the NODE_RANK parameter varies across nodes.
 

@@ -29,13 +29,13 @@ output
             └── error.log   # 记录 0 号卡的报错信息
         ├── ...
         └── rank_7
-            ├── info.log    # 记录 8 号卡的训练信息
-            └── error.log   # 记录 8 号卡的报错信息
+            ├── info.log    # 记录 7 号卡的训练信息
+            └── error.log   # 记录 7 号卡的报错信息
     └── msrun_log
         ├── scheduler.log   # 记录各张卡之间的通信信息
         ├── worker_0.log    # 记录 0 号卡的训练及信息
         ├── ...
-        └── worker_7.log    # 记录 8 号卡的训练及信息
+        └── worker_7.log    # 记录 7 号卡的训练及信息
 ```
 
 ### 配置与使用

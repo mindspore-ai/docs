@@ -107,7 +107,7 @@ mindformers
 
     **目标**：过滤掉推理数据中的错误或不准确的CoT数据，确保数据质量。
 
-    ``` shell
+    ```shell
     python distilled/reject_sampling.py \
         --src /path/to/numinamath_r1_generations.jsonl \
         --dst /path/to/numinamath_r1_generations_filtered.jsonl

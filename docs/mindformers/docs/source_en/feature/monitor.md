@@ -47,7 +47,7 @@ callbacks:
 | monitor_config field parameter name              | Descriptions                                                                                                                                                                                                                                 | Types            |
 |--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
 | monitor_config.monitor_on                        | Sets whether monitoring is enabled. The default is `False`, when all the following parameters do not take effect                                                                                                                             | bool          |
-| monitor_config.dump_path                         | Sets the path where the `local_norm`, `device_local_norm`, `local_loss`, and `device_local_loss` metrics files are saved during training. When not set or set to `null` take the default value '. /dump'                                     | str           |
+| monitor_config.dump_path                         | Sets the path where the `local_norm`, `device_local_norm`, `local_loss`, and `device_local_loss` metrics files are saved during training. When not set or set to `null` take the default value `./dump`                                    | str           |
 | monitor_config.target                            | Sets the name (fragment) of the target parameter monitored by the indicator `optimizer_state` and `local_norm`, which can be a regular expression. When not set or set to `null` take the default value ['. *'], i.e. specify all parameters | list[str]     |
 | monitor_config.invert                            | Sets the parameter specified by counterselecting `monitor_config.target`. Defaults to `False`.                                                                                                                                               | bool          |
 | monitor_config.step_interval                     | Sets the frequency of logging the indicator. Default is 1, i.e., record once per step                                                                                                                                                        | int           |
@@ -57,17 +57,17 @@ callbacks:
 | monitor_config.device_local_norm_format          | Sets the logging form of the indicator `device_local_norm`                                                                                                                                                                                   | str or list[str] |
 | monitor_config.optimizer_state_format            | Sets the logging form of the indicator `optimizer_state`                                                                                                                                                                                     | str or list[str] |
 | monitor_config.weight_state_format               | Sets the logging form of the indicator `weight L2-norm`                                                                                                                                                                                      | str or list[str] |
-| monitor_config.throughput_baseline               | Sets the baseline value for the metric `throughput linearity`, which needs to be positive. It will be written to both Tensorboard and logs. Defaults to `null` when not set, indicating that the metric is not monitored                     | int or float     |
+| monitor_config.throughput_baseline               | Sets the baseline value for the metric `throughput linearity`, which needs to be positive. It will be written to both TensorBoard and logs. Defaults to `null` when not set, indicating that the metric is not monitored                     | int or float     |
 | monitor_config.print_struct                      | Sets whether to print all trainable parameter names for the model. If `True`, it will print the names of all trainable parameters at the start of the first step and exit training at the end of the step. Default is `False`.               | bool          |
 | monitor_config.check_for_global_norm             | Sets whether to enable anomaly monitoring for indicator `global norm`. Default is `False`                                                                                                                                                    | bool          |
 | monitor_config.global_norm_spike_threshold       | Sets a relative threshold for the indicator `global norm`, which is considered abnormal if it exceeds this value. Default is `3.0`                                                                                                           | float         |
 | monitor_config.global_norm_spike_count_threshold | Sets the cumulative number of consecutive abnormal indicators `global norm`, and when the number of occurrences reaches the threshold, trigger an abnormal interrupt and terminate the training. Default is `10`                             | int           |
 
-The optional values for the parameters of the form xxx_format above are the strings 'tensorboard' and 'log' (for writing to the Tensorboard and writing to the log, respectively), or a list of both, or `null`. All default to `null` when not set, indicating that the corresponding metrics are not monitored.
+The optional values for the parameters of the form xxx_format above are the strings 'tensorboard' and 'log' (for writing to the TensorBoard and writing to the log, respectively), or a list of both, or `null`. All default to `null` when not set, indicating that the corresponding metrics are not monitored.
 
 **Note**: when monitoring `optimizer_state` and `weight L2 norm` metrics is enabled, it will greatly increase the time consumption of the training process, so please choose carefully according to your needs. "rank_x" directory under the `monitor_config.dump_path` path will be cleared, so make sure that there is no file under the set path that needs to be kept.
 
-| tensoraboardfield parameter name           | Descriptions                                                                                                                                                                                    | Types |
+| TensorBoard field parameter name           | Descriptions                                                                                                                                                                                    | Types |
 |--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
 | tensorboard.tensorboard_dir                | Sets the path where TensorBoard event files are saved                                                                                                                                           | str   |
 | tensorboard.tensorboard_queue_size         | Sets the maximum cache value of the capture queue. If it exceeds this value, it will be written to the event file, the default value is 10.                                                     | int   |
@@ -85,7 +85,7 @@ The feature of experts load balancing and monitoring is implemented by callback 
 model:
     model_config:
         moe_router_enable_expert_bias: True
-        moe_router_bias_update_rate: 0.001              # 0.001 is the official opensource setting of Deepseek-V3
+        moe_router_bias_update_rate: 0.001              # 0.001 is the official open source setting of Deepseek-V3
 
 tensorboard:
     log_expert_load_to_tensorboard: True
@@ -100,7 +100,7 @@ callbacks:
 
 After the above configuration, the event file for each card will be saved under the path `./worker/tensorboard/rank_{id}`, where `{id}` is the rank number of each card. The event files are named `events.*`. The file contains `scalars` and `text` data, where `scalars` are the scalars of key metrics in the training process, such as learning rate, loss, etc.; `text` is the text data of all configurations for the training task, such as parallel configuration, dataset configuration, etc. In addition, according to the specific configuration, some metrics will be displayed in the log.
 
-Use the following command to start the Tensorboard Web Visualization Service:
+Use the following command to start the TensorBoard Web Visualization Service:
 
 ```bash
 tensorboard --logdir=./worker/tensorboard/ --host=0.0.0.0 --port=6006
@@ -140,7 +140,7 @@ The names and descriptions of the metrics monitored by `MFLossMonitor` are liste
 | model-flops-throughput-per-npu | Model operator throughput in TFLOPS/npu (trillion floating point operations per second per card)                                       |
 | B-samples-per-day    | Cluster data throughput in B samples/day (one billion samples per day), logging requires setting `log_timers_to_tensorboard` to `True` |
 
-In Tensorboard SCALARS page, the above metrics (assumed to be named `scalar_name`) have drop-down tabs for `scalar_name` and `scalar_name-vs-samples`, except for the last two. A line plot of this scalar versus the number of training iterations is shown under `scalar_name`, and a line plot of this scalar versus the number of samples is shown under `scalar_name-vs-samples`. An example of a plot of learning rate `learning-rate` is shown below:
+In TensorBoard SCALARS page, the above metrics (assumed to be named `scalar_name`) have drop-down tabs for `scalar_name` and `scalar_name-vs-samples`, except for the last two. A line plot of this scalar versus the number of training iterations is shown under `scalar_name`, and a line plot of this scalar versus the number of samples is shown under `scalar_name-vs-samples`. An example of a plot of learning rate `learning-rate` is shown below:
 
 ![/tensorboard_scalar](./images/tensorboard_scalar.png)
 
@@ -169,7 +169,7 @@ The names and descriptions of the metrics monitored by `TrainingStateMonitor` ar
 
 #### Examples of the Visualization of Indicators
 
-Depending on the specific settings, the above metrics will be displayed in the Tensorboard or logs as follows:
+Depending on the specific settings, the above metrics will be displayed in the TensorBoard or logs as follows:
 
 **Example of logging effect**
 
@@ -197,7 +197,7 @@ On the TEXT page, a tab exists for each training configuration where the values 
 
 All configuration names and descriptions are listed below:
 
-| Configuration names                        | descriptions                                                           |
+| Configuration names                        | Descriptions                                                           |
 |----------------------------|--------------------------------------------------------------|
 | seed                       | random seed                                                         |
 | output_dir                 | Save paths to checkpoint and strategy                                     |
@@ -221,7 +221,7 @@ All configuration names and descriptions are listed below:
 | profile_stop_step          | Performance analysis ends with step. Recorded only when `profile` value is `True`                         |
 | profile_rank_ids           | Specify the rank ids to turn on profiling. Recorded only when `profile` value is `True`               |
 | profile_pipeline           | Whether to turn on profiling by for the cards of each stage in pipeline parallel. Recorded only when `profile` value is `True`    |
-| init_start_profile         | Whether to enable data acquisition during Profiler initialization.Recorded only when `profile` value is `True`                                      |
+| init_start_profile         | Whether to enable data acquisition during Profiler initialization. Recorded only when `profile` value is `True`                                      |
 | layer_decay                | Layer decay coefficient                                                        |
 | layer_scale                | whether to enable layer scaling                                                       |
 | lr_scale                   | Whether to enable learning rate scaling                                                    |

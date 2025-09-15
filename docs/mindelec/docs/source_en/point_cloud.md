@@ -29,7 +29,7 @@ MindSpore Elec provides two types of automatic execution scripts for converting 
 
 ### Example
 
-``` shell
+```shell
 python export_stp.py --cst_path CST_PATH
                      --stp_path STP_PATH
                      --json_path JSON_PATH
@@ -45,7 +45,7 @@ When using this module, `stp_path` and `json_path` can be configured to specify 
 
 The following is an example:
 
-``` shell
+```shell
 python generate_cloud_point.py --stp_path STP_PATH
                                --json_path JSON_PATH
                                --material_dir MATERIAL_DIR

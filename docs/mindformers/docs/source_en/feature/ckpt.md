@@ -4,18 +4,18 @@
 
 ## Overview
 
-Ckpt is a common file format used to save model training status in the deep learning framework. It contains model parameters, optimizer status, and training progress. It is used to restore training or fine-tune models. This document describes how MindSpore Transformers supports conversion , slice and merge.
+Ckpt is a common file format used to save model training status in the deep learning framework. It contains model parameters, optimizer status, and training progress. It is used to restore training or fine-tune models. This document describes how MindSpore Transformers supports conversion, slice and merge.
 
-> The ckpt format is planned to offline. The safetensors format is recommended for weights. Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). For details, see [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).
+> The ckpt format is planned to be offline. The safetensors format is recommended for weights. Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). For details, see [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).
 
 ## Weight Format Conversion
 
 ### Overview
 
-MindSpore Transformers provides a unified weight conversion tool that allows model weights to convert between the HuggingFace and MindSpore Transformers formats. This helps you:
+MindSpore Transformers provides a unified weight conversion tool that allows model weights to be converted between the HuggingFace and MindSpore Transformers formats. This helps you:
 
 - Convert a HuggingFace weight to a MindSpore Transformers one for fine-tuning, evaluation, or inference on MindSpore Transformers.
-- Convert the weights trained or fine-tuned using MindSpore Transformers to HuggingFace weights and uses them on other frameworks.
+- Convert the weights trained or fine-tuned using MindSpore Transformers to HuggingFace weights and use them on other frameworks.
 
 ### Conversion Procedure
 
@@ -239,7 +239,7 @@ Use [mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com
 
 ```shell
 bash transform_checkpoint.sh \
-  /worker/checkpoint/llam3-8b-2layer/rank_0/llama3_8b.ckpt \
+  /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
   None \
   /worker/transform_ckpt/llama3_8b_1to8/ \
   /worker/mindformers/output/strategy/ \

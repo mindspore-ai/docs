@@ -19,7 +19,7 @@ When the training task is started using the `ms_run` method, an additional log d
 | log       | The log information of each card is divided into `rank_{i}` folders. (`i` corresponds to the NPU card number used for training tasks)<br>Each `rank_{i}` folder will include `info.log` and `error.log` to record the INFO level and ERROR level information output during training respectively. The default maximum size for a single log file is 50 MB, with a maximum of 5 backup logs. |
 | msrun_log | `worker_{i}.log` is used to record the training log of each card (including error information), and `scheduler.log` records the startup information of msrun. <br>Training log information is usually viewed through this folder.                                                                                                                                                           |
 
-Take an 8-rank task started by `msrun` as an example, the specific log structure is as follows:
+Take an 8-rank task started by `msrun` as an example. The specific log structure is as follows:
 
 ```text
 output
@@ -29,13 +29,13 @@ output
             └── error.log   # Record the error information of NPU rank 0
         ├── ...
         └── rank_7
-            ├── info.log    # Record the training information of NPU rank 8
-            └── error.log   # Record the error information of NPU rank 8
+            ├── info.log    # Record the training information of NPU rank 7
+            └── error.log   # Record the error information of NPU rank 7
     └── msrun_log
         ├── scheduler.log   # Record the communication information between each NPU rank
         ├── worker_0.log    # Record the training and error information of NPU rank 0
         ├── ...
-        └── worker_7.log    # Record the training and error information of NPU rank 8
+        └── worker_7.log    # Record the training and error information of NPU rank 7
 ```
 
 ### Configuration and Usage
@@ -54,7 +54,7 @@ output_dir: './output' # path to save logs/checkpoint/strategy
 
 #### Specifying Output Directory for Single-Card Tasks
 
-In addition to specifying the yaml file configuration, MindSpore Transformers also supports [run_mindformer In the one-click start script](https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html#run-mindformer-one-click-start-script),
+In addition to specifying the yaml file configuration, MindSpore Transformers also supports [run_mindformer in the one-click start script](https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html#run-mindformer-one-click-start-script),
 use the `--output_dir` start command to specify the log output path.
 
 > If the output path is configured here, it will overwrite the configuration in the yaml file!
