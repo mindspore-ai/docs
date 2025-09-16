@@ -12,11 +12,11 @@ The inference process can be categorized into the following steps:
 
 ### 1. Models of Selective Inference
 
-Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3, etc.
+Depending on the required inference task, different models are chosen, e.g. for text generation one can choose Qwen3.
 
 ### 2. Preparing Model Files
 
-Obtain the Hugging Face model file: weights, configurations, and tokenizers. Store the downloaded files in the same folder directory for convenient subsequent use.
+Obtain the Hugging Face model file: weights, configurations, and tokenizers. Store the downloaded files in the same directory for convenient subsequent use.
 
 ### 3. YAML Configuration File Modification
 
@@ -36,7 +36,7 @@ The arguments to run_mindformer.py are described below:
 |:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
 | config                   | Path to the yaml configuration file                                                                                                                |
 | run_mode                 | The running mode, with inference set to predict                                                                                                    |
-| use_parallel             | Whether to use multicard inference                                                                                                                 |
+| use_parallel             | Whether to use multi-card inference                                                                                                                 |
 | predict_data             | Input data for inference. Multi-batch inference needs to pass the path to the txt file of the input data, which contains multiple lines of inputs. |
 | predict_batch_size       | batch_size for multi-batch inference                                                                                                               |
 
@@ -71,7 +71,7 @@ For specific configuration instructions, please refer to [yaml Configuration Ins
 
 ### Single-Device Inference
 
-When using full weight reasoning, it is recommended to use the default configuration and execute the following command to start the reasoning task:
+When using full weight inference, it is recommended to use the default configuration and execute the following command to start the inference task:
 
 ```shell
 python run_mindformer.py \
@@ -81,7 +81,7 @@ python run_mindformer.py \
 --predict_data '帮助我制定一份去上海的旅游攻略'
 ```
 
-The following results appear, proving the success of the reasoning. The reasoning results will also be saved to the `text_generation_result.txt` file in the current directory.
+The following results appear, proving the success of the inference. The inference results will also be saved to the `text_generation_result.txt` file in the current directory.
 
 ```text
 'text_generation_text': [帮助我制定一份去上海的旅游攻略，包括景点、美食、住宿等信息...]
@@ -94,7 +94,7 @@ The configuration requirements for multi-card inference are different from those
 1. The configuration of model_parallel and the number of cards used need to be consistent. The following use case is 4-card inference, and model_parallel needs to be set to 4;
 2. The current version of multi-card inference does not support data parallelism. data_parallel needs to be set to 1.
 
-When using full weight reasoning, it is necessary to enable the online splitting mode to load the weights. Refer to the following command:
+When using full weight inference, it is necessary to enable the online splitting mode to load the weights. Refer to the following command:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -104,7 +104,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --predict_data '帮助我制定一份去上海的旅游攻略'" 4
 ```
 
-The following results appear, proving the success of the reasoning. The reasoning results will also be saved to the text_generation_result.txt file in the current directory. Detailed logs can be viewed through the directory `./output/msrun_log`.
+The following results appear, proving the success of the inference. The inference results will also be saved to the text_generation_result.txt file in the current directory. Detailed logs can be viewed through the directory `./output/msrun_log`.
 
 ```text
 'text_generation_text': [帮助我制定一份去上海的旅游攻略，包括景点、美食、住宿等信息...]
@@ -123,7 +123,7 @@ The content and format of the `input_predict_data.txt` file is an input each lin
 帮助我制定一份去上海的旅游攻略
 ```
 
-Take full weight reasoning as an example. The reasoning task can be started by referring to the following command:
+Take full weight inference as an example. The inference task can be started by referring to the following command:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

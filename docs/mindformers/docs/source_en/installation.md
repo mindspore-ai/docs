@@ -4,7 +4,7 @@
 
 ## Confirming Version Matching Relationship
 
-The currently supported hardware is the Atlas 800T A2, Atlas 800I A2, and Atlas 900 A3 SuperPoD.
+The currently supported hardware are the Atlas 800T A2, Atlas 800I A2, and Atlas 900 A3 SuperPoD.
 
 The current recommended Python version for the suite is 3.11.4.
 
@@ -12,7 +12,7 @@ The current recommended Python version for the suite is 3.11.4.
 |:----------------------:|:----------------------:|:----------------------:|:----------------------:|
 | In-Development Version | In-Development Version | In-Development Version | In-Development Version |
 
-**Currently MindSpore Transformers recommends using a software package relationship as above.**
+**Currently, MindSpore Transformers recommends using a software package relationship as above.**
 
 Historical version matching relationship:
 
@@ -32,7 +32,7 @@ Historical version matching relationship:
 
 ## Installing MindSpore Transformers
 
-Currently only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
+Currently, only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
 
 ```bash
 git clone -b master https://gitee.com/mindspore/mindformers.git
@@ -48,7 +48,7 @@ To determine whether MindSpore Transformers has been successfully installed, exe
 python -c "import mindformers as mf;mf.run_check()"
 ```
 
-A similar result as below proves that the installation was successful:
+A similar result to the following proves that the installation was successful:
 
 ```text
 - INFO - All checks passed, used **** seconds, the environment is correctly set up!

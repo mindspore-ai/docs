@@ -103,7 +103,7 @@ train_dataset: &train_dataset
     data_loader:
         type: CommonDataLoader
         handler:
-            - type: AlpacaInsturctDataHandler
+            - type: AlpacaInstructDataHandler
             pretrained_model_dir: *pretrained_model_dir
             trust_remote_code: False
             tokenizer:

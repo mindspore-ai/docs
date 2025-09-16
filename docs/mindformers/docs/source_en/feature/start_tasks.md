@@ -23,11 +23,11 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |   `--device_target`   | Set the backend execution device. MindSpore Transformers is only supported on `Ascend` devices.                                                                                              | str, optional                                                                                       | pre-train/finetune/predict |
 |     `--run_mode`      | Set the running mode of the model: `train`, `finetune` or `predict`.                                                                                                                         | str, optional                                                                                       | pre-train/finetune/predict |
 |  `--load_checkpoint`  | File or folder paths for loading weights. For detailed usage, please refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html)               | str, optional                                                                                       | pre-train/finetune/predict |
-|   `--use_parallel`    | Whether use parallel mode.                                                                                                                                                                   | bool, optional                                                                                      | pre-train/finetune/predict |
+|   `--use_parallel`    | Whether to use parallel mode.                                                                                                                                                                   | bool, optional                                                                                      | pre-train/finetune/predict |
 |      `--options`      | Override some settings in the used config, the key-value pair in xxx=yyy format will be merged into config file. This parameter has been deprecated and will be removed in the next version. | str, optional                                                                                       | pre-train/finetune/predict |
 |    `--output_dir`     | Set the paths for saving logs, weights, sharding strategies, and other files.                                                                                                                | str, optional                                                                                       | pre-train/finetune/predict |
 |   `--register_path`   | The absolute path of the directory where the external code is located. For example, the model directory under the research directory.                                                        | str, optional                                                                                       | pre-train/finetune/predict |
-|  `--remote_save_url`  | Remote save url, where all the output files will transferred and stored in here. This parameter has been deprecated and will be removed in the next version.                                 | str, optional                                                                                       | pre-train/finetune/predict |
+|  `--remote_save_url`  | Remote save url, where all the output files will be transferred and stored in here. This parameter has been deprecated and will be removed in the next version.                                 | str, optional                                                                                       | pre-train/finetune/predict |
 |       `--seed`        | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_seed.html).                                       | int, optional                                                                                       | pre-train/finetune/predict |
 | `--trust_remote_code` | Whether Hugging Face AutoTokenizer trusts remote code.                                                                                                                                       | bool, optional                                                                                      | pre-train/finetune/predict |
 
@@ -70,25 +70,25 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 
 The distributed task pull up script `msrun_launcher.sh` is located in the `scripts/` directory and can automatically start distributed multiprocess tasks using the [msrun](https://www.mindspore.cn/tutorials/en/master/parallel/msrun_launcher.html) command based on the input parameters. This script has the following several usage methods:
 
-1. For Default 8 Devices In Single Machine：
+1. For Default 8 Devices In Single Machine:
 
 ```bash
 bash msrun_launcher.sh [EXECUTE_ORDER]
 ```
 
-2. For Quick Start On Multiple Devices In Single Machine：
+2. For Quick Start On Multiple Devices In Single Machine:
 
 ```bash
 bash msrun_launcher.sh [EXECUTE_ORDER] [WORKER_NUM]
 ```
 
-3. For Multiple Devices In Single Machine：
+3. For Multiple Devices In Single Machine:
 
 ```bash
 bash msrun_launcher.sh [EXECUTE_ORDER] [WORKER_NUM] [MASTER_PORT] [LOG_DIR] [JOIN] [CLUSTER_TIME_OUT]
 ```
 
-4. For Multiple Devices In Multiple Machines：
+4. For Multiple Devices In Multiple Machines:
 
 ```bash
 bash msrun_launcher.sh [EXECUTE_ORDER] [WORKER_NUM] [LOCAL_WORKER] [MASTER_ADDR] [MASTER_PORT] [NODE_RANK] [LOG_DIR] [JOIN] [CLUSTER_TIME_OUT]
@@ -153,11 +153,11 @@ Take Qwen2.5-0.5B as an example to perform 2-node 16-device fine-tuning.
       gradient_aggregation_group: 4
     ```
 
-    > If the number of nodes and the number of devices are used to change, `data_parallel`, `model_parallel`, and `pipeline_stage` need to be modified to meet the actual number of running devices . `device_num=data_parallel×model_parallel×pipeline_stage`. Meanwhile, `micro_batch_num >= pipeline_stage`.
+    > If the number of nodes and the number of devices are used to change, `data_parallel`, `model_parallel`, and `pipeline_stage` need to be modified to meet the actual number of running devices. `device_num=data_parallel×model_parallel×pipeline_stage`. Meanwhile, `micro_batch_num >= pipeline_stage`.
 
 2. Execute the msrun startup script:
 
-    For distributed tasks by executing scripts on multiple nodes and multiple devices, it is necessary to run the scripts on different nodes respectively and set the parameter `MASTER_ADDR` to the ip address of the main node. The ip addresses set for all nodes are the same, and only the parameter `NODE_RANK` is different among different nodes.
+    For distributed tasks by executing scripts on multiple nodes and multiple devices, it is necessary to run the scripts on different nodes respectively and set the parameter `MASTER_ADDR` to the IP address of the main node. The IP addresses set for all nodes are the same, and only the parameter `NODE_RANK` is different among different nodes.
 
     ```shell
     # Node 0. Set the IP address of node 0 to the value of {master_addr}, which is used as the IP address of the primary node. There are 16 devices in total with 2 devices for each node.

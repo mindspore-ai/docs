@@ -22,7 +22,7 @@ The model support for MindIE inference can be found in [model repository](https:
 
    Refer to [MindIE Installation Dependencies Documentation](https://www.hiascend.com/document/detail/zh/mindie/100/envdeployment/instg/mindie_instg_0010.html) to complete the dependency installation. After that, go to [MindIE Resource Download Center](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) to download the package and install it.
 
-   MindIE and CANN versions must be matched, version matching relationship is as follows.
+   MindIE and CANN versions must be matched, and version matching relationship is as follows.
 
    |                                           MindIE                                            |                                        CANN-toolkit                                         |                                        CANN-kernels                                         |
    |:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
@@ -41,7 +41,7 @@ source /usr/local/Ascend/mindie/latest/mindie-service/set_env.sh
 # MindSpore
 export LCAL_IF_PORT=8129
 # Networking Configuration
-export MS_SCHED_HOST=127.0.0.1     # scheduler node ip address
+export MS_SCHED_HOST=127.0.0.1     # scheduler node IP address
 export MS_SCHED_PORT=8090          # Scheduler node service port
 ```
 
@@ -138,7 +138,7 @@ When `Daemon start success!` appears in the log, it means the service started su
 | `--npu-mem-size`           | This can be used to apply for the upper limit of the KV Cache size in the NPU.                                                                                                                                                                                                                                                                                              | int, optional. Default value: 50          |
 | `--max-prefill-batch-size` | The maximum prefill batch size.                                                                                                                                                                                                                                                                                                                                             | int, optional. Default value: 50          |
 | `--world-size`             | Enable several cards for inference. By default, this parameter is not set. The value of parallel_config in the YAML file prevails. After the parameter is set, the model_parallel parameter in the parallel configuration in the YAML file is overwritten.                                                                                                                  | str, optional.                            |
-| `--ms-sched-host`          | MindSpore scheduler ip address.                                                                                                                                                                                                                                                                                                                                             | str, optional. Default value: "127.0.0.1" |
+| `--ms-sched-host`          | MindSpore scheduler IP address.                                                                                                                                                                                                                                                                                                                                             | str, optional. Default value: "127.0.0.1" |
 | `--ms-sched-port`          | MindSpore scheduler port.                                                                                                                                                                                                                                                                                                                                                   | int, optional. Default value: 8119        |
 | `--help`                   | Show parameter description messages.                                                                                                                                                                                                                                                                                                                                        | str, optional.                            |
 

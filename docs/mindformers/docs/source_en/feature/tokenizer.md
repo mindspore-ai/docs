@@ -6,7 +6,7 @@
 
 Hugging Face Tokenizer is an efficient and flexible text word segmentation tool developed by Hugging Face. It aims to provide strong support for natural language processing (NLP) tasks by converting text into a form that the model can understand - that is, tokens. Tokenizer is not only responsible for dividing text into lexical units, but also manages the mapping relationship between these lexical units and their corresponding indexes, which is crucial for input representation in machine learning models.
 
-The processes involving the use of Tokenizer in MindSpore Transformers include: inference, online dataset loading when fine-tuning, and preprocessing of offline datasets, etc. Currently, direct use of Tokenizers based on Hugging Face transformers is supported.
+The processes involving the use of Tokenizer in MindSpore Transformers include: inference, online dataset loading when fine-tuning, and preprocessing of offline datasets. Currently, direct use of Tokenizers based on Hugging Face transformers is supported.
 
 The original Tokenizer component of MindSpore Transformers has the same function as the Hugging Face Tokenizer. It can be used directly without additional development costs and is relatively friendly when migrating models on Hugging Face. This document mainly introduces how to reuse Hugging Face Tokenizer by taking the reasoning process as an example. Currently, only the Qwen3 series models of the new architecture are supported, and the generalization ability will be continuously optimized in the future.
 
@@ -16,11 +16,11 @@ The usage process can be decomposed into the following steps:
 
 ### 1. Select and Download the Tokenizer File Based on the Model
 
-Download the corresponding Tokenizer-related files to the corresponding folder based on the model. The files include word list files, etc. Furthermore, Hugging Face's tokenizers can be specifically divided into two major categories:
+Download the corresponding Tokenizer-related files to the corresponding folder based on the model. The files include word list files. Furthermore, Hugging Face's tokenizers can be specifically divided into two major categories:
 
 1. The built-in Tokenizer of transformers. For example, Qwen2Tokenizer;
 
-2. A custom Tokenizer implemented by inheriting the base class of the Tokenizer from transformers is not merged into transformers. Only the Python files of the Tokenizer exist on Hugging Face's repository or locally. It is necessary to support remote loading and saving the Python files of the Tokenizer to the corresponding folders. Such as ChatGLM4Tokenizer.
+2. A custom Tokenizer implemented by inheriting the base class of the Tokenizer from transformers is not merged into transformers. Only the Python files of the Tokenizer exist on Hugging Face's repository or locally. It is necessary to support remote loading and saving the Python files of the Tokenizer to the corresponding folders, such as ChatGLM4Tokenizer.
 
 ### 2. Modify the Configuration File
 
@@ -86,7 +86,7 @@ tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path="path/to
 Parameter description:
 
 - pretrained_model_name_or_path: The folder path where the files related to the Tokenizer downloaded by HuggingFace are stored.
-- trust_remote_code: Whether to trust the code downloaded remotely, default value: 'False'.
+- trust_remote_code: Whether to trust the code downloaded remotely, default value: `False`.
 
 ## Training Process Example
 
@@ -103,14 +103,14 @@ train_dataset: &train_dataset
     data_loader:
         type: CommonDataLoader
         handler:
-            - type: AlpacaInsturctDataHandler
+            - type: AlpacaInstructDataHandler
             pretrained_model_dir: *pretrained_model_dir
             trust_remote_code: False
             tokenizer:
                 padding_side: "right"
 ```
 
-Parameter description
+Parameter description:
 
 - use_legacy: Decide whether to use the old architecture, default value: `True`.
 - pretrained_model_dir: The folder path where the files related to the Tokenizer downloaded by HuggingFace are stored.
