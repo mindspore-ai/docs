@@ -1,0 +1,109 @@
+# The CODEOWNERS file is used to define the maintainer of a specific file or directory in the code repository.
+# Its main purpose is to automatically request designated maintainer to conduct code review in Pull Request (PR),
+# in order to clarify code ownership, improve code quality, and accelerate the review process.
+
+# The lines starting with # are comments.
+# Each line corresponds to a specified file or directory and maintainer by @ splitting.
+# The rules are applied from top to bottom, and the last matching rule will take effect.
+
+# If the file in PR does not match rule, the default maintainer gemini524 will be designated to conduct code review.
+* @gemini524
+
+# The maintainers of install.
+/install @nicholas_yhr @hanshize
+
+# The maintainers of tutorials.
+/tutorials/source_zh_cn/beginner @zwiori @gemini524
+/tutorials/source_zh_cn/compile @ginfung @gemini524
+/tutorials/source_zh_cn/custom_program/op_custom.rst @chujinjin @gemini524
+/tutorials/source_zh_cn/custom_program/operation @chujinjin @gemini524
+/tutorials/source_zh_cn/custom_program/hook_program.ipynb @zwiori @gemini524
+/tutorials/source_zh_cn/cv @zwiori @gemini524
+/tutorials/source_zh_cn/dataset @jonyguo @gemini524
+/tutorials/source_zh_cn/debug/error_analysis.rst @zwiori @gemini524
+/tutorials/source_zh_cn/debug/error_analysis @zwiori @gemini524
+/tutorials/source_zh_cn/debug/dryrun.md @limingqi107 @gemini524
+/tutorials/source_zh_cn/debug/dump.md @DavidFFFan @gemini524
+/tutorials/source_zh_cn/debug/profiler.md @changzherui @gemini524
+/tutorials/source_zh_cn/debug/pynative.md @chujinjin @gemini524
+/tutorials/source_zh_cn/debug/sdc.md @fary86 @gemini524
+/tutorials/source_zh_cn/generative @zwiori @gemini524
+/tutorials/source_zh_cn/model_infer/introduction.md @liulili-huawei @gemini524
+/tutorials/source_zh_cn/model_infer/ms_infer @liulili-huawei @gemini524
+/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_quantization.md @hangangqiang @gemini524
+/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md @zlq2020 @horcam @gemini524
+/tutorials/source_zh_cn/model_infer/lite_infer @jjfeing @gemini524
+/tutorials/source_zh_cn/model_migration @zwiori @gemini524
+/tutorials/source_zh_cn/nlp @zwiori @gemini524
+/tutorials/source_zh_cn/orange_pi @xing-yiren @gemini524
+/tutorials/source_zh_cn/parallel @yangzhenzhang @gemini524
+/tutorials/source_zh_cn/train_availability @fary86 @gemini524
+/tutorials/source_zh_cn/train_availability/fault_recover.md @changzherui @gemini524
+/tutorials/source_zh_cn/train_availability/graceful_exit.md @fary86 @gemini524
+
+# The maintainers of MindSpore docs.
+/docs/mindspore/docs/source_zh_cn @zwiori @gemini524
+/docs/mindspore/docs/source_zh_cn/_static @gemini524
+/docs/mindspore/docs/source_zh_cn/_templates @gemini524
+/docs/mindspore/docs/source_zh_cn/conf.py @gemini524
+/docs/sample_code/docs/source_zh_cn @zwiori @gemini524
+
+# The maintainers of MindSpore Lite docs.
+/docs/lite/docs/source_zh_cn @jjfeing @xuzhenyoumi
+/docs/lite/docs/source_zh_cn/_static @xuzhenyoumi
+/docs/lite/docs/source_zh_cn/conf.py @xuzhenyoumi
+/docs/lite/api/source_zh_cn @jjfeing @xuzhenyoumi
+/docs/lite/api/source_zh_cn/_templates @xuzhenyoumi
+/docs/lite/api/source_zh_cn/conf.py @xuzhenyoumi
+
+# The maintainers of MindSpore Transformers docs.
+/docs/mindformers/docs/source_zh_cn @Lin-Bert @gemini524
+/docs/mindformers/docs/source_zh_cn/feature/high_availability.md @fary86 @gemini524
+/docs/mindformers/docs/source_zh_cn/_templates @gemini524
+/docs/mindformers/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of vLLM-MindSpore Plugin docs.
+/docs/vllm_mindspore/docs/source_zh_cn @zlq2020 @horcam @gemini524
+/docs/vllm_mindspore/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MindStudio docs.
+/docs/mindstudio/docs/source_zh_cn @hwfuchao @gemini524
+/docs/mindstudio/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MindSpore Armour docs.
+/docs/mindarmour/docs/source_zh_cn @yyuse @gemini524
+/docs/mindarmour/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MindSpore Chemistry docs.
+/docs/mindchemistry/docs/source_zh_cn @yi-zhang95 @gemini524
+/docs/mindchemistry/docs/source_zh_cn/_templates @gemini524
+/docs/mindchemistry/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MindSpore Earth docs.
+/docs/mindearth/docs/source_zh_cn @yi-zhang95 @gemini524
+/docs/mindearth/docs/source_zh_cn/_templates @gemini524
+/docs/mindearth/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MindSpore Elec docs.
+/docs/mindelec/docs/source_zh_cn @yi-zhang95 @gemini524
+/docs/mindelec/docs/source_zh_cn/_templates @gemini524
+/docs/mindelec/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MindSpore Flow docs.
+/docs/mindflow/docs/source_zh_cn @yi-zhang95 @gemini524
+/docs/mindflow/docs/source_zh_cn/_templates @gemini524
+/docs/mindflow/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MindSpore Quantum docs.
+/docs/mindquantum/docs/source_zh_cn @dsdsdshe @gemini524
+/docs/mindquantum/docs/source_zh_cn/_templates @gemini524
+/docs/mindquantum/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MindSpore SPONGE docs.
+/docs/mindsponge/docs/source_zh_cn @yi-zhang95 @gemini524
+/docs/mindsponge/docs/source_zh_cn/_templates @gemini524
+/docs/mindsponge/docs/source_zh_cn/conf.py @gemini524
+
+# The maintainers of MSAdapter docs.
+/docs/msadapter/docs/source_zh_cn @lvyufenghw @gemini524
+/docs/msadapter/docs/source_zh_cn/conf.py @gemini524
