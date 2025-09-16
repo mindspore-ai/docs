@@ -655,9 +655,9 @@ After modifying the config, refer to the `qwen3` model documentation to start fi
 
 ## MindRecord Dataset
 
-MindRecord is an efficient data storage and reading module provided by MindSpore. It reduces disk IO and network IO overhead, resulting in a better data loading experience. For more detailed feature introductions, refer to the [documentation](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mindrecord.html). Here, we only cover how to use MindRecord in MindSpore Transformers model training tasks.
+MindRecord is an efficient data storage and reading module provided by MindSpore. It reduces disk IO and network IO overhead, resulting in a better data loading experience. For more detailed feature introductions, refer to the [documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mindrecord.html). Here, we only cover how to use MindRecord in MindSpore Transformers model training tasks.
 
-The following example uses `qwen2_5-0.5b` fine-tuning to explain related functionalities.
+The following example uses `qwen2_5-0.5b` fine-tuning to explain related functionalities.  The provided scripts are only applicable to the specified dataset. If you need to process a custom dataset, please refer to [MindRecord format conversion](https://www.mindspore.cn/tutorials/en/master/dataset/record.html) for data preprocessing.
 
 ### Data Preprocessing
 
