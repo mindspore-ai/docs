@@ -101,7 +101,7 @@ moe_config:
 When using the gmm fusion operator, an error may occur if the workload is unbalanced, resulting in no tokens being assigned to an expert on a specific NPU. The error is as follows:
 
 ```text
-VallueError: For primitive[Reshape]， the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
+ValueError: For primitive[Reshape]， the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
 ```
 
 In this case, you can configure `enable_gmm_safe_tokens: True` to ensure each expert is assigned at least 1 token, avoiding program errors.
@@ -123,7 +123,7 @@ When training models using the MoE (Mixture of Experts) capacity scheme, certain
 
 #### YAML Parameter Configuration
 
-To enable the droprate logging feature, users need to configure the `callback_moe_droprate` parameter under the moe_config section in the configuration file and set it to `True`. Additionally, add the `MoEDropRateCallback` configuration item in the callback section and set model-related parameters such as `expert_num`, `capacity_factor`, `num_layers`, and `mtp_depth`. For example:
+To enable the droprate logging feature, users need to configure the `callback_moe_droprate` parameter under the moe_config section in the configuration file and set it to `True`. Add the `MoEDropRateCallback` configuration item in the callback section and set model-related parameters such as `expert_num`, `capacity_factor`, `num_layers`, and `mtp_depth`. For example:
 
 ```yaml
 moe_config:
@@ -146,10 +146,10 @@ callback:
 | Parameter            | Description                | Value Specification                       |
 |---------------|-------------------|----------------------------|
 | callback_moe_droprate | Whether to print MoE Droprate in callback. | (bool, optional) - Default: `False` .|
-| expert_num | Number of experts. | (int, required) 。-  Default: `None`。 |
-| capacity_factor | Capacity factor. | (float, required) 。- Default: `None`。 |
-| num_layers | Number of model layers. | (int, required) 。- Default: `None`。 |
-| mtp_depth | Number of MTP layers. | (int, required) 。- Default: `None`。 |
+| expert_num | Number of experts. | (int, required) -  Default: `None`. |
+| capacity_factor | Capacity factor. | (float, required) - Default: `None`. |
+| num_layers | Number of model layers. | (int, required) - Default: `None`. |
+| mtp_depth | Number of MTP layers. | (int, required) - Default: `None`. |
 
 ## Rotary Position Embedding Fusion Operator
 

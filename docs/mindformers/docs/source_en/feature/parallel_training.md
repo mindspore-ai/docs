@@ -76,7 +76,7 @@ parallel_config:
 
 Parameter description:
 
-- use_seq_parallel：Whether to enable sequence parallelism, which is Fasle by default.
+- use_seq_parallel: Whether to enable sequence parallelism, which is False by default.
 
 For the configuration method of distributed parallel parameters, see the parallel configuration section in the [MindSpore Transformers Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
@@ -86,7 +86,7 @@ From generative AI to scientific models, long sequence training is becoming very
 
 #### Ring Attention Sequence Parallelism
 
-> This feature has been deprecated and will be removed in subsequent versions. Currently, you can using other sequence parallel methods. If you have any questions or suggestions, please submit feedback through **[Community Issue](https://gitee.com/mindspore/mindformers/issues/new)**. Thank you for your understanding and support!
+> This feature has been deprecated and will be removed in subsequent versions. Currently, you can use other sequence parallel methods. If you have any questions or suggestions, please submit feedback through **[Community Issue](https://gitee.com/mindspore/mindformers/issues/new)**. Thank you for your understanding and support!
 
 Long Sequence Parallel Algorithm, Ring Attention, is a representative technique for long sequence parallelism in the current industry, which is used to solve the memory overhead problem during long sequence training, while realizing computation and communication masking. The Ring Attention algorithm utilizes the chunking property of Attention, when the sequence parallelism is N, Q, K, V are sliced into N sub-chunks, and each card calls the Flash Attention algorithm to compute the Attention result of the local QKV sub-chunks respectively. Since each card only needs to compute the Attention of the sliced QKV sub-chunks, its memory occupation is reduced significantly. Ring Attention uses ring communication to collect and send sub-chunks to neighboring cards while doing FA computation to maximize the masking of computation and communication, which guarantees the overall performance of long sequence parallelism.
 
@@ -191,7 +191,7 @@ parallel_config:
 Parameter Descriptions:
 
 - pipeline_interleave: Whether to enable multi-pipeline interleaved parallelism.
-- pipeline_scheduler: The scheduling policy of the pipeline is currently only supported by mindformers "seqpipe" .
+- pipeline_scheduler: The scheduling policy of the pipeline is currently only supported by mindformers 'seqpipe'.
 - seq_split_num: The number of Sequence Chunk which splits along the sequence dimension of the input.
 
 Notes:
@@ -199,7 +199,7 @@ Notes:
 - Currently, only Llama and DeepSeek series models are supported.
 - Using Megatron's multi-source datasets for training is not yet supported.
 
-For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html), specifically the section on parallel configuration.
+For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html), specifically the section on parallel configuration.
 
 ### Optimizer parallelism
 
@@ -216,7 +216,7 @@ parallel:
 
 Parameter Descriptions:
 
-- enable_parallel_optimizer：Whether to enable optimizer parallelism, which is Fasle by default.
+- enable_parallel_optimizer: Whether to enable optimizer parallelism, which is False by default.
 
 For more information on configuring distributed parallel parameters, see the [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html), specifically the section on parallel configuration.
 

@@ -39,7 +39,7 @@ SMA算法公式：$PMA_n = (W_1 + ... + Wn) / n$
       Xiaoying Jia, Xun Zhou, Siyuan Qiao, Liang Xiang, Yonghui Wu},
       year={2025},
       archivePrefix={arXiv},
-      primaryClasee={cs.CL},
+      primaryClass={cs.CL},
       url={https://arxiv.org/abs/2505.12082}
 }
 ```
@@ -67,7 +67,7 @@ optimizer:
 | 参数名称            | 描述                                                                  | 类型                              | 是否可选       | 取值范围           |
 |-----------------|---------------------------------------------------------------------|---------------------------------|------------|----------------|
 | type            | 优化器类型，启用PMA特性需要设定为`PmaAdamW`。默认值为`AdamW`。                           | String                          | 可选         |                |
-| betas           | `moment1`、 `moment2` 的指数衰减率。每一个参数范围（0.0,1.0）。默认值为``(0.9, 0.999)`` 。 | Union[list(float), tuple(float)] |   可选         | （0.0,1.0）      |
+| betas           | `moment1`、 `moment2` 的指数衰减率。每一个参数范围（0.0,1.0）。默认值为``(0.9, 0.999)`` 。 | Union[list(float), tuple(float)] |   可选         | (0.0,1.0)      |
 | eps             | 将添加到分母中，以提高数值稳定性。必须大于0。默认值： ``1e-6`` 。                              | float                           |     可选       | 正数             |
 | weight_decay    | 设定优化器权重衰减系数。默认值为`0.0`。                                              | float                           |     可选       |                |
 | fused_num       | 设定`fused_num`个权重进行融合，根据融合算法将融合后的权重更新到网络参数中。默认值为`10`。                | int                             | 可选         | 正整数            |

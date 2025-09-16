@@ -25,7 +25,7 @@ SMA algorithm formula: $PMA_n = (W_1+ ... + Wn) / n$
 | $\alpha$    | The fusion coefficient will only take effect when the algorithm chooses EMA |
 | $n$         | Take the average of n weights                                               |
 
-> The model will select a weight every fixed number of steps for formula calculation during training and save it as the middle  value `pma_weight` in the weight, which will not affect the parameter values of the original weight.
+> The model will select a weight every fixed number of steps for formula calculation during training and save it as the middle value `pma_weight` in the weight, which will not affect the parameter values of the original weight.
 > When the number of selected weights reaches the set number, the middle value of the weights `pma_weight` is written and overwritten with the zero after the original parameter value, and the training enters the next cycle of weight merging.
 
 The reference is as follows:
@@ -39,7 +39,7 @@ The reference is as follows:
       Xiaoying Jia, Xun Zhou, Siyuan Qiao, Liang Xiang, Yonghui Wu},
       year={2025},
       archivePrefix={arXiv},
-      primaryClasee={cs.CL},
+      primaryClass={cs.CL},
       url={https://arxiv.org/abs/2505.12082}
 }
 ```
@@ -67,7 +67,7 @@ optimizer:
 | Parameter            | Description                                                                                                                                                              | Type                            | Optional       | Value Range           |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|------------|----------------|
 | type            | Optimizer type, to enable PMA feature, it needs to be set to `PmaAdamW`. Default to `AdamW`.                                                                             | String                          | Optional         |                |
-| betas           | The exponential decay rate of `moment1` and `moment2`. Each parameter range (0.0, 1.0). Default to ``(0.9, 0.999)``.                                                     | Union[list(float), tuple(float)] |   Optional         | （0.0,1.0）      |
+| betas           | The exponential decay rate of `moment1` and `moment2`. Each parameter range (0.0, 1.0). Default to ``(0.9, 0.999)``.                                                     | Union[list(float), tuple(float)] |   Optional         | (0.0,1.0)      |
 | eps             | Add it to the denominator to improve numerical stability. Must be greater than 0. Default to ``1e-6``.                                                                   | float                           |     Optional       | positive number             |
 | weight_decay    | Set the optimizer weight decay coefficient. Default to `0.0`.                                                                                                            | float                           |     Optional       |                |
 | fused_num       | Set `fused_num` weights for fusion, and update the fused weights to the network parameters according to the fusion algorithm. Default to `10`.                          | int                             | Optional         | Positive integer            |
