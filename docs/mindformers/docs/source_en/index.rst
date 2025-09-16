@@ -124,6 +124,7 @@ Advanced developing with MindSpore Transformers
 - Accuracy Comparison
 
   - `Compare Training Accuracy with Megatron-LM <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/accuracy_comparison.html>`_
+  - `Comparison of Reasoning Precision <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/inference_precision_comparison.md>`_
 
 Environment Variables
 ------------------------------------
@@ -196,6 +197,7 @@ FAQ
    advanced_development/performance_optimization
    advanced_development/dev_migration
    advanced_development/yaml_config_inference
+   advanced_development/inference_precision_comparison
    advanced_development/accuracy_comparison
    advanced_development/training_template_instruction
    advanced_development/weight_transfer
