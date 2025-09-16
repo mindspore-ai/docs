@@ -126,11 +126,11 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
                     repo_path, '/'.join(i.split('/')[:-1]), j.rstrip('\r\t')))
         file_list.append(os.path.join(repo_path, i))
         if i.startswith('docs/api/api_python/tools/'):
-            tools_rst_path = os.path.join(repo_path, 'mindspore.tools.rst')
+            tools_rst_path = os.path.join(repo_path, 'docs/api/api_python/mindspore.tools.rst')
             if tools_rst_path not in file_list:
                 file_list.append(tools_rst_path)
         if i.startswith('docs/api/api_python/utils/'):
-            utils_rst_path = os.path.join(repo_path, 'mindspore.utils.rst')
+            utils_rst_path = os.path.join(repo_path, 'docs/api/api_python/mindspore.utils.rst')
             if utils_rst_path not in file_list:
                 file_list.append(utils_rst_path)
     return file_list
