@@ -4,16 +4,20 @@
 
 ## 概览
 
-大语言模型（LLM）的迅猛发展催生了对其能力边界与局限性的系统化评估需求，模型评测已成为AI领域不可或缺的基础设施。主流的模型评测流程就像考试，通过模型对试卷（评测数据集）的答题正确率，来对模型的能力进行评估。常见数据集如ceval包含中文的52个不同学科职业考试选择题，主要评估模型的知识量；GSM8K由人类出题者编写的8500道高质量的小学数学题组成，主要评估模型的推理能力等。当然由于大模型能力的发展，这几个数据集都面临数据污染和饱和问题，这里仅作为说明。同时业界也涌现了很多非问答式的前沿的模型评测方法，这不在本教程的考虑范围内。
+大语言模型（LLM）的迅猛发展催生了对其能力边界与局限性的系统化评估需求。模型评测已成为AI领域不可或缺的基础设施。
 
-MindSpore Transformers的服务化评测推荐AISBench Benchmark套件，AISBench Benchmark是基于OpenCompass构建的模型评测工具，兼容OpenCompass的配置体系、数据集结构与模型后端实现，并在此基础上扩展了对服务化模型的支持能力。同时支持30+开源数据集：[AISBench支持的评测数据集](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86)。
+主流的模型评测流程就像考试，通过模型对试卷（评测数据集）的答题正确率来评估模型能力。常见数据集如ceval包含中文的52个不同学科职业考试选择题，主要评估模型的知识量；GSM8K由人类出题者编写的8500道高质量小学数学题组成，主要评估模型的推理能力等。
+
+由于大模型能力的发展，这几个数据集都面临数据污染和饱和问题，这里仅作为说明。同时业界也涌现了很多非问答式的前沿模型评测方法，这不在本教程的考虑范围内。
+
+MindSpore Transformers的服务化评测推荐AISBench Benchmark套件。AISBench Benchmark是基于OpenCompass构建的模型评测工具，兼容OpenCompass的配置体系、数据集结构与模型后端实现，并在此基础上扩展了对服务化模型的支持能力。同时支持30+开源数据集：[AISBench支持的评测数据集](https://gitee.com/aisbench/benchmark/blob/master/doc/users_guide/datasets.md#%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 当前，AISBench支持两大类推理任务的评测场景：
 
 - **精度评测**：支持对服务化模型和本地模型在各类问答、推理基准数据集上的精度验证以及模型能力评估。
 - **性能评测**：支持对服务化模型的延迟与吞吐率评估，并可进行压测场景下的极限性能测试。
 
-两项任务都遵循同一套评测范式，用户侧发送请求，并对服务侧输出的结果做分析，输出最终评测结果，如下图：
+两项任务都遵循同一套评测范式：用户侧发送请求，对服务侧输出的结果做分析，输出最终评测结果，如下图：
 
 ![benchmark_illustrate](./images/benchmark_illustrate.png)
 
@@ -65,7 +69,7 @@ rm ceval-exam.zip
 
 ### Step1 更改接口配置
 
-AISBench支持openai的v1/chat/completions和v1/completions接口，在AISBench中分别对应不同的配置文件。以v1/completions接口为例，以下称general接口，需更改以下文件`ais_bench/benchmark/configs/models/vllm_api/vllm_api_general.py`配置：
+AISBench支持OpenAI的v1/chat/completions和v1/completions接口，在AISBench中分别对应不同的配置文件。以v1/completions接口为例，以下称general接口，需更改以下文件`ais_bench/benchmark/configs/models/vllm_api/vllm_api_general.py`配置：
 
 ```python
 from ais_bench.benchmark.models import VLLMCustomAPIChat
@@ -216,7 +220,7 @@ for _split in ['val']:
 具体取决于模型类型和数据集类型的综合考虑。像reasoning类model就推荐用chat接口，可以使能think，推理长度就要设得长一点；像base模型就用general接口。
 
 - 以Qwen2.5模型评测MMLU数据集为例：从数据集来看，MMLU这类数据集以知识考察为主，就推荐用general接口，同时在数据集任务时不选用带cot的，即不使能思维链。
-- 若以QWQ32B模型评测AIME2025这类困难的数学推理题为例：推挤使用chat接口，并设置超长推理长度，使用带cot的数据集任务。
+- 若以QWQ32B模型评测AIME2025这类困难的数学推理题为例：推荐使用chat接口，并设置超长推理长度，使用带cot的数据集任务。
 
 ### 常见报错
 

@@ -18,11 +18,11 @@
 
 - 重构指南
 
-  我们鼓励开发人员重构我们的代码，以消除代码坏味道。所有代码都要符合编码风格和测试风格，重构代码也不例外。无注释的代码行（nloc）的Lizard阈值为100，圈复杂度（ccn）的阈值为20。当收到Lizard警告时，必须重构要合并的代码。
+  我们鼓励开发人员重构代码，以消除代码坏味道。所有代码都要符合编码风格和测试风格，重构代码也不例外。无注释的代码行（nloc）的Lizard阈值为100，圈复杂度（ccn）的阈值为20。当收到Lizard警告时，必须重构要合并的代码。
 
 - 文档指南
 
-  我们使用MarkdownLint来检查Markdown文档格式。基于默认配置修改了以下规则
+  我们使用MarkdownLint来检查Markdown文档格式。基于默认配置修改了以下规则：
 
     1. MD007（无序列表缩进）：参数indent设置为4，表示无序列表中的所有内容都需要缩进4个空格。
     2. MD009（行尾空格）：参数br_spaces设置为2，表示行尾可以有0或2个空格。
@@ -32,7 +32,7 @@
 
 - Fork MindSpore Transformers代码仓
 
-  在提交代码至MindSpore Transformers项目之前，请确保已fork此项目到您自己的代码仓。MindSpore Transformers代码仓和您自己的代码仓之间可能会并行开发，请注意它们之间的一致性。
+  在提交代码至MindSpore Transformers项目之前，请确保已fork此项目到您自己的代码仓。MindSpore Transformers代码仓和您自己的代码仓之间可能会并行开发，请注意保持它们之间的一致性。
 
 - 克隆远程代码仓
 
@@ -45,7 +45,7 @@
 
 - 本地开发代码
 
-  `dev`为开发分支，请从`dev`分支拉取最新代码进行开发。并在提交Pull Request时提交到`dev`分支。
+  `dev`为开发分支，请从`dev`分支拉取最新代码进行开发。在提交Pull Request时，请提交到`dev`分支。
 
   ```shell
   git checkout -b {新分支名称} origin/dev
@@ -53,11 +53,11 @@
 
 - 提交PR到MindSpore Transformers代码仓
 
-  在最后一步中，您需要在新分支和`MindSpore Transformers`主分支之间拉取比较请求。完成拉取请求后，`Jenkins CI`将自动设置，进行构建测试。PR应该尽快合并到上游master分支中，以降低合并的风险。
+  在最后一步中，您需要在新分支和`MindSpore Transformers`主分支之间创建Pull Request。完成Pull Request后，`Jenkins CI`将自动进行构建测试。PR应该尽快合并到上游master分支中，以降低合并风险。
 
   ```shell
   # 添加所有更改到暂存区
-  git add
+  git add .
 
   # 查看更新状态
   git status
@@ -75,14 +75,14 @@
 
 ### 文件及代码格式
 
-若希望将自定义模型合入`MindSpore Transformers`代码仓库，需要注意几点：
+若希望将自定义模型合入`MindSpore Transformers`代码仓库，需要注意以下几点：
 
 1. 文件格式及位置要遵循规范。
 2. 将新模型在代码中进行注册，以适配高阶接口使用。
 
 #### 文件格式及位置
 
-1. 模型代码文件统一放置于`research/{model_name}`文件夹下，格式如下:
+1. 模型代码文件统一放置于`research/{model_name}`文件夹下，格式如下：
 
     ```text
     research/{model_name}
@@ -126,7 +126,7 @@ squash 01234567 对功能A进行了一些优化
 
 ### PR描述
 
-请使用以下md模板:
+请使用以下md模板：
 
 ```markdown
 
@@ -152,4 +152,4 @@ squash 01234567 对功能A进行了一些优化
 
 1. 提交PR需要[签署CLA](https://www.mindspore.cn/icla)。
 
-2. 提交PR需要通过CI门禁检查，门禁失败修改代码后，需要在评论下评论`/retest`手动重启门禁检查。
+2. 提交PR需要通过CI门禁检查。门禁失败修改代码后，需要在评论下评论`/retest`手动重启门禁检查。

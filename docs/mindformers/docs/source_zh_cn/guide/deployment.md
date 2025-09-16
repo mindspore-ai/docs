@@ -144,7 +144,7 @@ tail -f output.log
 
 #### 2. 自定义启动
 
-MindIE安装路径均为默认路径`/usr/local/Ascend/.` 如自定义安装路径，同步修改以下例子中的路径。
+MindIE安装路径均为默认路径`/usr/local/Ascend/.`。如自定义安装路径，需同步修改以下例子中的路径。
 
 打开mindie-service目录中的config.json，修改server相关配置。
 
@@ -198,7 +198,7 @@ tail -f /usr/local/Ascend/mindie/latest/mindie-service/logs/pythonlog.log
 
 ## MindIE服务化部署及推理示例
 
-以下例子各组件安装路径均为默认路径`/usr/local/Ascend/.` ， 模型使用`Qwen1.5-72B`。
+以下例子各组件安装路径均为默认路径`/usr/local/Ascend/.`，模型使用`Qwen1.5-72B`。
 
 ### 准备模型文件
 
@@ -364,7 +364,7 @@ Daemon start success!
 curl -w "\ntime_total=%{time_total}\n" -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"inputs": "I love Beijing, because","stream": false}' http://127.0.0.1:1025/generate
 ```
 
-返回推理结果验证成功：
+返回推理结果，验证成功：
 
 ```json
 {"generated_text":" it is a city with a long history and rich culture....."}
@@ -372,4 +372,4 @@ curl -w "\ntime_total=%{time_total}\n" -H "Accept: application/json" -H "Content
 
 ## 模型列表
 
-其他模型的MindIE推理示例可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)中的各模型的介绍文档。
+其他模型的MindIE推理示例可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/master/introduction/models.html)中各模型的介绍文档。

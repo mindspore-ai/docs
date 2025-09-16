@@ -20,7 +20,7 @@ MindSpore Transformers 提供了大模型推理能力，用户可以执行 `run_
 
 ### 3. 准备YAML配置文件
 
-用户需要配置一份YAML文件，来定义任务的所有配置。MindSpore Transformers提供了一份YAML配置模板，用户可以基于模板，根据实际场景自定义配置，详细可见[推理配置模板使用指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/yaml_config_inference.html)。
+用户需要配置一份YAML文件，来定义任务的所有配置。MindSpore Transformers提供了一份YAML配置模板，用户可以基于模板，根据实际场景自定义配置。详细可见[推理配置模板使用指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/yaml_config_inference.html)。
 
 ### 4. 执行推理任务
 
@@ -46,7 +46,7 @@ msrun_launcher.sh包括run_mindformer.py命令和推理卡数两个参数。
 
 ### 配置修改
 
-当前推理可以直接复用Hugging Face的配置文件和tokenizer，并且在线加载Hugging Face的safetensors格式的权重，使用时的配置修改如下：
+当前推理可以直接复用Hugging Face的配置文件和tokenizer，并且在线加载Hugging Face的safetensors格式的权重。使用时的配置修改如下：
 
 ```yaml
 use_legacy: False
@@ -91,7 +91,7 @@ python run_mindformer.py \
 
 多卡推理的配置要求与单卡存在差异，需参考下面修改配置：
 
-1. 模型并行model_parallel的配置和使用的卡数需保持一致，下文用例为4卡推理，需将model_parallel设置成4；
+1. 模型并行model_parallel的配置和使用的卡数需保持一致。下文用例为4卡推理，需将model_parallel设置成4；
 2. 当前版本的多卡推理不支持数据并行，需将data_parallel设置为1。
 
 当使用完整权重推理时，需要开启在线切分方式加载权重，参考以下命令：

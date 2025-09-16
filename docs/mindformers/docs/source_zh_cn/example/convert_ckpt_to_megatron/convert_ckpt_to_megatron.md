@@ -62,7 +62,7 @@
         --swiglu
     ```
 
-    参数说明
+    参数说明：
 
     | 名称 | 可选/必选 | 默认值 | 功能介绍 |
     | ---- | --------- | ------ | -------- |
@@ -90,7 +90,7 @@
     | `--swiglu` | 可选 | False | 使用SwiGLU激活（布尔开关，添加该参数则为True） |
     | `--ms2torch-ckpt-path` | 可选 | ./ms2pt_checkpoint | 中间转换权重的输出路径 |
 
-3. 执行成功，权重保存在`--ms2torch-ckpt-path`配置的位置，默认在`./ms2pt_checkpoint`位置。
+3. 执行成功后，权重保存在`--ms2torch-ckpt-path`配置的位置，默认在`./ms2pt_checkpoint`位置。
 
 ## 常见问题
 

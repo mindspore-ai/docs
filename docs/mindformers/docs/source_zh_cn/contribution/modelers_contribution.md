@@ -76,7 +76,7 @@ openmind_hub.upload_folder(
 tokenizer.save_pretrained("./my_model", save_json=True)
 ```
 
-并在保存的tokenizer_config.json中添加auto映射:
+并在保存的tokenizer_config.json中添加auto映射：
 
 ```json
 {

@@ -28,7 +28,7 @@ MindSpore Transformers 提供[一键启动脚本](https://www.mindspore.cn/mindf
 
 ### 5. 故障恢复
 
-为应对训练中断等异常情况，MindSpore Transformers 具备临终保存、自动恢复等[训练高可用](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/high_availability.html)，并支持[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html)，提升训练稳定性。
+为应对训练中断等异常情况，MindSpore Transformers 具备临终保存、自动恢复等[训练高可用](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/high_availability.html)特性，并支持[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html)，提升训练稳定性。
 
 ## 基于 MindSpore Transformers 的预训练实践
 
@@ -50,7 +50,7 @@ MindSpore Transformers 目前已经支持加载 Megatron 数据集，该数据�
 
    将数据集文件`wiki.train.tokens`和分词模型文件`tokenizer.json`放置在`../dataset`下。
 
-   使用以下命令将数据集文件转换为BIN格式文件。
+   使用以下命令将数据集文件转换为BIN格式文件：
 
    ```shell
    cd $MINDFORMERS_HOME
@@ -64,7 +64,7 @@ MindSpore Transformers 目前已经支持加载 Megatron 数据集，该数据�
 
 - 构建Megatron BIN数据集模块
 
-   执行如下命令构建Megatron BIN数据集模块。
+   执行如下命令构建Megatron BIN数据集模块：
 
    ```shell
    pip install pybind11
@@ -78,7 +78,7 @@ MindSpore Transformers 目前已经支持加载 Megatron 数据集，该数据�
 
 ### 单机训练
 
-通过指定模型路径和配置文件[pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml)以msrun的方式启动[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py)脚本，进行8卡分布式训练。
+通过指定模型路径和配置文件[pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml)，以msrun的方式启动[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py)脚本，进行8卡分布式训练。
 
 默认配置中的模型层数、隐藏维度等参数较大，适用于多机大规模分布式训练，无法直接在单机环境启动预训练，需要参考[DeepSeek-V3-修改配置](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/README.md#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE)修改配置文件。
 
@@ -91,11 +91,12 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --config research/deepseek3/deepseek3_671b/pretrain_deepseek3_1b.yaml"
 ```
 
-   其中，
-   - `register_path`：  模型地址，即模型实现文件所在目录
-   - `config`：         模型的配置文件，文件在 MindSpore Transformers 代码仓中 config 目录下
+其中：
 
-任务执行完成后，在 mindformers/output 目录下，会生成 checkpoint 文件夹，同时模型文件(`.safetensors`)会保存在该文件夹下。
+- `register_path`：模型地址，即模型实现文件所在目录
+- `config`：模型的配置文件，文件在MindSpore Transformers代码仓中config目录下
+
+任务执行完成后，在 mindformers/output 目录下，会生成 checkpoint 文件夹，同时模型文件（`.safetensors`）会保存在该文件夹下。
 
 ### 多机训练
 
@@ -114,9 +115,9 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  1024 8 $master_ip 8118 $node_rank output/msrun_log False 7200
 ```
 
-> 此处样例代码假设主节点为`192.168.1.1`、当前Rank序号为`0`。实际执行时请将`master_ip`设置为实际的主节点IP地址；将`node_rank`设置为当前节点的Rank序号。
+> 此处样例代码假设主节点为`192.168.1.1`、当前Rank序号为`0`。实际执行时，请将`master_ip`设置为实际的主节点IP地址；将`node_rank`设置为当前节点的Rank序号。
 
-**注意**： 在多机分布式训练的过程中，可能会遇到一些性能问题。为了确保训练过程的高效性和稳定性，建议参考[大模型性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html)，进行必要的性能优化和调整。
+**注意**：在多机分布式训练的过程中，可能会遇到一些性能问题。为了确保训练过程的高效性和稳定性，建议参考[大模型性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html)，进行必要的性能优化和调整。
 
 ## 更多信息
 

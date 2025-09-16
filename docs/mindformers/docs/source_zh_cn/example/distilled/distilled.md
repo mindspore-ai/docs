@@ -288,7 +288,7 @@ export ACLNN_CACHE_LIMIT=10 # CANN 缓存限制
 export MS_DEV_RUNTIME_CONF="aclnn_cache_queue_length:128" # MS缓存队列长度建议设置成128，设置过大内存容易OOM，设置越小性能越差
 ```
 
-在MindSpore Transformers目录下执行如下命令行启动微调：
+在MindSpore Transformers目录下执行如下命令启动微调：
 
 ```bash
 bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qwen_2_5_7b.yaml --run_mode finetune" 8
@@ -301,7 +301,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py --config distilled/finetune_qw
 
 ## 3. 执行推理
 
-若想使用微调后的权重进行推理，可以参考[Qwen2.5-Math-7B-Instruct](https://modelers.cn/models/MindSpore-Lab/Qwen2.5-Math-7B-Instruct)中的推理部分，但需要修改[run_qwen2_5.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2_5/run_qwen2_5.py)脚本中的system的提示词：
+若想使用微调后的权重进行推理，可以参考[Qwen2.5-Math-7B-Instruct](https://modelers.cn/models/MindSpore-Lab/Qwen2.5-Math-7B-Instruct)中的推理部分，但需要修改[run_qwen2_5.py](https://gitee.com/mindspore/mindformers/blob/r1.5.0/research/qwen2_5/run_qwen2_5.py)脚本中的system提示词：
 
 ```python
     messages = [

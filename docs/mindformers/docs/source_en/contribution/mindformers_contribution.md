@@ -57,7 +57,7 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
 
   ```shell
   # Add all changes to the staging area
-  git add
+  git add .
 
   # Check Update Status
   git status

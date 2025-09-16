@@ -12,9 +12,9 @@
 
 - **硬件要求**：宿主机需安装 NPU 驱动和固件。参考文档：[昇腾社区-安装NPU驱动和固件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_0005.html?Mode=DockerIns&InstallType=local&OS=Debian&Software=cannToolKit)。
 
-- **软件要求**：Docker 版本：`26.1.4`；Git：用于克隆仓库.
+- **软件要求**：Docker 版本：`26.1.4`；Git：用于克隆仓库。
 
-- **网络要求**：稳定的互联网连接；能访问华为云（下载 CANN、MindSpore 等）；网络慢时，构建时间会延长.
+- **网络要求**：稳定的互联网连接；能访问华为云（下载 CANN、MindSpore 等）；网络慢时，构建时间会延长。
 
 > 确保主机时间和时区正确，以避免下载问题。
 
@@ -55,7 +55,7 @@ DockerFile的内容可参考社区 issue：[https://gitee.com/mindspore/mindform
 
   ```shell
   # 指定镜像名称和标签，这里以 MindSpore Transformers r1.6.0 + MindSpore 2.7.0 + CANN 8.2.RC1 + Python 3.11 为例
-  # 命名格式为：仓库名为mindformers，tag为<mf_ver>_<ms ver>_<cann ver>_<py ver>
+  # 命名格式为：仓库名为mindformers，tag为<mf_ver>_<ms_ver>_<cann_ver>_<py_ver>
   IMAGE="mindformers:r1.6.0_ms2.7.0_cann8.2.RC1_py3.11"
 
   # 创建并进入存放 Dockerfile 的目录
