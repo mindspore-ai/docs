@@ -460,11 +460,13 @@ Use the [safetensors weights merging script](https://gitee.com/mindspore/mindfor
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
-  --src_strategy_dirs src_strategy_path_or_dir \
-  --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --output_dir output_dir \
+  --src_strategy_dirs "src_strategy_path_or_dir/" \
+  --mindspore_ckpt_dir "src_ckpt_dir/" \
+  --output_dir "merged_ckpt_dir/" \
   --file_suffix "1_1" \
-  --has_redundancy has_redundancy
+  --has_redundancy False \
+  --filter_out_param_prefix "adam_" \
+  --max_process_num 32
 ```
 
 #### Parameter Descriptions
@@ -476,11 +478,11 @@ python toolkit/safetensors/unified_safetensors.py \
 
     **Note**: If `merged_ckpt_strategy.ckpt` already exists in the strategy folder and the folder path is still passed in, the script will first delete the old `merged_ckpt_strategy.ckpt` and merge it to create a new `merged_ckpt_strategy.ckpt` for weight conversion. Therefore, make sure that the folder has sufficient write permissions, otherwise the operation will report an error.
 - **mindspore_ckpt_dir**: Distributed weights path, please fill in the path of the folder where the source weights are located, the source weights should be stored in `model_dir/rank_x/xxx.safetensors` format, and fill in the folder path as `model_dir`.
-- **output_dir**: The path where the target weights will be saved. The default value is "/new_llm_data/******/ckpt/nbg3_31b/tmp", i.e., the target weights will be placed in the `/new_llm_data/******/ckpt/nbg3_31b/tmp` directory.
-- **file_suffix**: The naming suffix of the target weights file. The default value is "1_1", i.e. the target weights will be looked up in the `*1_1.safetensors` format.
-- **has_redundancy**: Whether the merged source weights are redundant weights, defaults to `True`.
-- **filter_out_param_prefix**: You can customize the parameters to be filtered out when merging weights, and the filtering rules are based on prefix name matching. For example, optimizer parameter "adam_".
-- **max_process_num**: Maximum number of processes to merge. Default value: 64.
+- **output_dir**: The path where the target weights will be saved. The default value is `"/new_llm_data/******/ckpt/nbg3_31b/tmp"`, i.e., the target weights will be placed in the `/new_llm_data/******/ckpt/nbg3_31b/tmp` directory.
+- **file_suffix**: The naming suffix of the target weights file. The default value is `"1_1"`, i.e. the target weights will be merged by searching for matching weight files in the `*1_1.safetensors` format.
+- **has_redundancy**: Whether the merged source weights are redundant weights. The default value is `True`, which means that the original weights used for merging are redundant. If the original weights are saved as de-redundant weights, it needs to be set to `False`.
+- **filter_out_param_prefix**: You can customize the parameters to be filtered out when merging weights, and the filtering rules are based on prefix name matching. For example, optimizer parameter `"adam_"`.
+- **max_process_num**: Maximum number of processes to merge. Default value: `64`.
 
 #### Samples
 
@@ -490,9 +492,9 @@ If merging to remove redundant safetensors weights, you can fill in the paramete
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
-  --src_strategy_dirs src_strategy_path_or_dir \
-  --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --output_dir output_dir \
+  --src_strategy_dirs "src_strategy_path_or_dir/" \
+  --mindspore_ckpt_dir "src_ckpt_dir/" \
+  --output_dir "merged_ckpt_dir/" \
   --file_suffix "1_1" \
   --has_redundancy False
 ```
@@ -503,9 +505,9 @@ If merge filtering the Adam optimizer's safetensors weights, you can fill in the
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
-  --src_strategy_dirs src_strategy_path_or_dir \
-  --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --output_dir output_dir \
+  --src_strategy_dirs "src_strategy_path_or_dir/" \
+  --mindspore_ckpt_dir "src_ckpt_dir/" \
+  --output_dir "merged_ckpt_dir/" \
   --file_suffix "1_1" \
   --filter_out_param_prefix "adam_"
 ```

@@ -460,11 +460,13 @@ generation:
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
-  --src_strategy_dirs src_strategy_path_or_dir \
-  --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --output_dir output_dir \
+  --src_strategy_dirs "src_strategy_path_or_dir/" \
+  --mindspore_ckpt_dir "src_ckpt_dir/" \
+  --output_dir "merged_ckpt_dir/" \
   --file_suffix "1_1" \
-  --has_redundancy has_redundancy
+  --has_redundancy False \
+  --filter_out_param_prefix "adam_" \
+  --max_process_num 32
 ```
 
 #### 参数说明
@@ -476,11 +478,11 @@ python toolkit/safetensors/unified_safetensors.py \
 
     **注意**：如果策略文件夹下已存在 `merged_ckpt_strategy.ckpt` 且仍传入文件夹路径，脚本会首先删除旧的 `merged_ckpt_strategy.ckpt`，再合并生成新的 `merged_ckpt_strategy.ckpt` 以用于权重转换。因此，请确保该文件夹具有足够的写入权限，否则操作将报错。
 - **mindspore_ckpt_dir**：分布式权重路径，请填写源权重所在文件夹的路径，源权重应按 `model_dir/rank_x/xxx.safetensors` 格式存放，并将文件夹路径填写为 `model_dir`。
-- **output_dir**：目标权重的保存路径，默认值为 "/new_llm_data/******/ckpt/nbg3_31b/tmp"，即目标权重将放置在 `/new_llm_data/******/ckpt/nbg3_31b/tmp` 目录下。
-- **file_suffix**：目标权重文件的命名后缀，默认值为 "1_1"，即目标权重将按照 `*1_1.safetensors` 格式查找。
-- **has_redundancy**：合并的源权重是否是冗余的权重，默认为 `True`。
-- **filter_out_param_prefix**：合并权重时可自定义过滤掉部分参数，过滤规则以前缀名匹配。如优化器参数"adam_"。
-- **max_process_num**：合并最大进程数。默认值：64。
+- **output_dir**：目标权重的保存路径，默认值为 `"/new_llm_data/******/ckpt/nbg3_31b/tmp"`，即目标权重将放置在 `/new_llm_data/******/ckpt/nbg3_31b/tmp` 目录下。
+- **file_suffix**：目标权重文件的命名后缀，默认值为 `"1_1"`，即目标权重将按照 `*1_1.safetensors` 格式查找匹配的权重文件进行合并。
+- **has_redundancy**：合并的源权重是否是冗余的权重，默认为 `True`，表示用于合并的原始权重有冗余；若原始权重保存时为去冗余权重，则需设置为 `False`。
+- **filter_out_param_prefix**：合并权重时可自定义过滤掉部分参数，过滤规则以前缀名匹配。如优化器参数 `"adam_"`。
+- **max_process_num**：合并最大进程数。默认值：`64`。
 
 #### 示例
 
@@ -490,9 +492,9 @@ python toolkit/safetensors/unified_safetensors.py \
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
-  --src_strategy_dirs src_strategy_path_or_dir \
-  --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --output_dir output_dir \
+  --src_strategy_dirs "src_strategy_path_or_dir/" \
+  --mindspore_ckpt_dir "src_ckpt_dir/" \
+  --output_dir "merged_ckpt_dir/" \
   --file_suffix "1_1" \
   --has_redundancy False
 ```
@@ -503,9 +505,9 @@ python toolkit/safetensors/unified_safetensors.py \
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
-  --src_strategy_dirs src_strategy_path_or_dir \
-  --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --output_dir output_dir \
+  --src_strategy_dirs "src_strategy_path_or_dir/" \
+  --mindspore_ckpt_dir "src_ckpt_dir/" \
+  --output_dir "merged_ckpt_dir/" \
   --file_suffix "1_1" \
   --filter_out_param_prefix "adam_"
 ```
