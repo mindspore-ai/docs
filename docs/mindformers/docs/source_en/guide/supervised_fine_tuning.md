@@ -144,7 +144,7 @@ After task completion, a checkpoint folder will be generated in the mindformers/
 
 #### Multi-Node Training
 
-Multi-Node, multi-NPU fine-tuning tasks are similar to launching pre-training. Refer to [multi-node, multi-NPU pre-training commands](https://www.mindspore.cn/mindformers/docs/en/master/guide/pre_training.html#multi-node-training).
+Multi-Node, multi-NPU fine-tuning tasks are similar to launching pre-training. Refer to [Multi-Node, Multi-NPU pre-training commands](https://www.mindspore.cn/mindformers/docs/en/master/guide/pre_training.html#multi-node-training).
 
 First, modify the configuration file, adjusting settings based on the number of nodes:
 

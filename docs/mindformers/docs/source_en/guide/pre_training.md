@@ -10,7 +10,7 @@ Pretraining refers to training a model on large-scale unlabeled data, so that th
 
 Based on actual operations, the basic pretraining process can be divided into the following steps:
 
-### 1. Preparing a dataset
+### 1. Preparing a Dataset
 
    The pretraining phase of MindSpore Transformers currently supports datasets in both [Megatron format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#megatron-dataset) and [MindRecord format](https://www.mindspore.cn/mindformers/docs/en/master/feature/dataset.html#mindrecord-dataset). Users can prepare the data according to the specific requirements of their tasks.
 
@@ -22,7 +22,7 @@ Based on actual operations, the basic pretraining process can be divided into th
 
    MindSpore Transformers provides a convenient [one-click script](https://www.mindspore.cn/mindformers/docs/en/master/feature/start_tasks.html) to launch the pretraining task. During training, users can monitor the progress using [logging](https://www.mindspore.cn/mindformers/docs/en/master/feature/logging.html) and [visualization tools](https://www.mindspore.cn/mindformers/docs/en/master/feature/monitor.html).
 
-### 4. Saving a model
+### 4. Saving a Model
 
    Checkpoint files can be saved during training or after completion. Currently, MindSpore Transformers supports saving models in [Ckpt format](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html) or [Safetensors format](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html), which can be used for later tasks such as resuming training or fine-tuning.
 
@@ -38,7 +38,7 @@ Currently, MindSpore Transformers supports mainstream foundation models in the i
 
 Currently, MindSpore Transformers supports Megatron dataset, which is typically preprocessed and serialized into binary formats (such as `.bin` or `.idx` files). It also comes with a specific indexing mechanism to enable efficient parallel loading and data sharding in distributed cluster environments.
 
-- Dataset download: [wikitext-103](https://dagshub.com/DagsHub/WIkiText-103/src/main/dataset/tokens)
+- Dataset download: [WikiText-103](https://dagshub.com/DagsHub/WIkiText-103/src/main/dataset/tokens)
 
 - Tokenizer model download: [tokenizer.json](https://huggingface.co/deepseek-ai/DeepSeek-V3/resolve/main/tokenizer.json?download=true)
 
@@ -91,9 +91,10 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --config research/deepseek3/deepseek3_671b/pretrain_deepseek3_1b.yaml"
 ```
 
-   Here:
-   - `register_path`:  The path to the model implementation directory.
-   - `config`:         The model configuration file, located in the **config** directory of the **MindSpore Transformers** repository.
+Here:
+
+- `register_path`: The path to the model implementation directory.
+- `config`: The model configuration file, located in the **config** directory of the **MindSpore Transformers** repository.
 
 After the task is executed, the **checkpoint** folder is generated in the **mindformers/output** directory, and the model file (`.safetensors`) is saved in this folder.
 
@@ -120,4 +121,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ## More Information
 
-For more training examples of different models, see [the models supported by MindSpore TransFormers](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
+For more training examples of different models, see [the models supported by MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).

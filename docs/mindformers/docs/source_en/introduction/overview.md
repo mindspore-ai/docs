@@ -10,8 +10,8 @@ The overall architecture of MindSpore Transformers is as follows:
 
 The northbound API of MindSpore Transformers supports users integrating into their own training and inference platforms or open-source components, supporting Ascend's own technology stack while also actively embracing the open-source community, as follows:
 
-1. Training platforms: MindCluster, third-party platforms  
-2. Service components: vLLM  
+1. Training platforms: MindCluster, third-party platforms
+2. Service components: vLLM
 3. Communities: Modelers, Hugging Face
 
 MindSpore Transformers Southbound is based on MindSpore+Ascend's large-scale model technology stack, leveraging the MindSpore framework combined with CANN to optimize Ascend hardware for compatibility, providing a high-performance model training and inference experience.

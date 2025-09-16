@@ -67,9 +67,9 @@ qwen2_7b
 
 ### Overview
 
-In the training process of deep learning models, saving the model weights is a crucial step. The weight saving function allows us to store the model parameters at any stage of training, so that users can restore, continue training, evaluate or deploy after training is interrupted or completed.  At the same time, by saving weights, experimental results can be reproduced in different environments.
+In the training process of deep learning models, saving the model weights is a crucial step. The weight saving function allows us to store the model parameters at any stage of training, so that users can restore, continue training, evaluate or deploy after training is interrupted or completed. At the same time, by saving weights, experimental results can be reproduced in different environments.
 
-Currently, MindSpore TransFormer supports reading and saving weight files in the [safetensors](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html) format.
+Currently, MindSpore Transformers supports reading and saving weight files in the [safetensors](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html) format.
 
 ### Directory Structure
 
@@ -96,7 +96,7 @@ output
         └── rank_7
             ├── meta.json
             └── {prefix}-{epoch}_{step}.safetensors
-    └──checkpoint_network
+    └── checkpoint_network
         ├── rank_0
             └── {prefix}-{epoch}_{step}.safetensors
         ...
@@ -221,7 +221,7 @@ parallel_config:                                    # Configure the target distr
 load_checkpoint: '/output/distributed_safetenosrs'  # Load source distributed weights file paths
 src_strategy_path_or_dir: '/output/src_strategy'    # Load source strategy file for merging source distributed weights into full weights
 load_ckpt_format: 'safetensors'                     # Load weight file format
-auto_trans_ckpt: True                               # Able the online slicing function
+auto_trans_ckpt: True                               # Enable the online slicing function
 parallel_config:                                    # Configure the target distributed strategy
   data_parallel: 4
   model_parallel: 2
@@ -543,7 +543,7 @@ ms.load_distributed_checkpoint(
 
 ## Weights Format Conversion
 
-### Converting Ckpt ot Safetensors
+### Converting Ckpt to Safetensors
 
 MindSpore Transformers stock weights file is in ckpt format, which can be formatted into safetensors file in the following two ways.
 
@@ -565,7 +565,7 @@ The MindSpore Transformers training task is started after adjusting the configur
 
 ```yaml
 load_checkpoint: 'output/checkpoint/'               # Load weights file path
-load_ckpt_format: 'ckpt'                            # Load weight file format为ckpt
+load_ckpt_format: 'ckpt'                            # Load weight file format as ckpt
 callbacks:
   - type: CheckpointMonitor
     checkpoint_format: 'safetensors'                # Save the weights file format as safetensor

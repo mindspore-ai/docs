@@ -5,15 +5,15 @@ The goal of the MindSpore Transformers suite is to build a full-process developm
 
 Based on MindSpore's built-in parallel technology and component-based design, the MindSpore Transformers suite has the following features:
 
-- One-click initiation of single or multi card pre-training, fine-tuning, inference, and deployment processes for large models;
-- Provides rich multi-dimensional hybrid parallel capabilities for flexible and easy-to-use personalized configuration;
+- One-click initiation of single or multi-card pre-training, fine-tuning, inference, and deployment processes for large models;
+- Provide rich multi-dimensional hybrid parallel capabilities for flexible and easy-to-use personalized configuration;
 - System-level deep optimization on large model training and inference, native support for ultra-large-scale cluster efficient training and inference, rapid fault recovery;
 - Support for configurable development of task components. Any module can be enabled by unified configuration, including model network, optimizer, learning rate policy, etc.;
 - Provide real-time visualization of training accuracy/performance monitoring indicators.
 
 Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/master/introduction/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported foundation models.
 
-The open source code repository for MindSpore Transformers is located at `Gitee | MindSpore/mindformers <https://gitee.com/mindspore/mindformers>`_.
+The open-source code repository for MindSpore Transformers is located at `Gitee | MindSpore/mindformers <https://gitee.com/mindspore/mindformers>`_.
 
 If you have any suggestions for MindSpore Transformers, please contact us via `issue <https://gitee.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
 
@@ -63,7 +63,7 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
   - `Using Tokenizer <https://www.mindspore.cn/mindformers/docs/en/master/feature/tokenizer.html>`_
 
-    Introduction of tokenizer, supports the Hugging Face Tokenizer for use in reasoning and datasets.
+    Introduction of tokenizer, supports the Hugging Face Tokenizer for use in inference and datasets.
 
 - Training Features:
 
@@ -83,7 +83,7 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
     Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
 
-  - `Training High Availability (Beta) <https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html>`_
+  - `Training High-Availability (Beta) <https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html>`_
 
     Provides high-availability capabilities for the training phase of large models, including end-of-life CKPT preservation, UCE fault-tolerant recovery, and process-level rescheduling recovery (Beta feature).
 
@@ -107,7 +107,7 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
   - `Quantization <https://www.mindspore.cn/mindformers/docs/en/master/feature/quantization.html>`_
 
-    Integrated MindSpore Golden Stick toolkit to provides a unified quantization inference process.
+    Integrates MindSpore Golden Stick toolkit and provides a unified quantization inference process.
 
 Advanced developing with MindSpore Transformers
 -------------------------------------------------
@@ -125,7 +125,7 @@ Advanced developing with MindSpore Transformers
 - Accuracy Comparison
 
   - `Compare Training Accuracy with Megatron-LM <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/accuracy_comparison.html>`_
-  - `Comparison of Reasoning Precision <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/inference_precision_comparison.md>`_
+  - `Comparison of Inference Precision <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/inference_precision_comparison.md>`_
 
 Environment Variables
 ------------------------------------
