@@ -76,7 +76,7 @@ parallel_config:
 
 参数说明：
 
-- use_seq_parallel：是否开启序列并行，默认为Fasle。
+- use_seq_parallel：是否开启序列并行，默认为False。
 
 关于分布式并行参数的配置方法，参见 [MindSpore Transformers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html) 中的并行配置章节下的具体内容。
 
@@ -191,7 +191,7 @@ parallel_config:
 参数说明：
 
 - pipeline_interleave：是否开启多流水交织并行。
-- pipeline_scheduler：流水线的调度策略，目前MindSpore Transformers只支持设置为`"seqpipe"`。
+- pipeline_scheduler：流水线的调度策略，目前MindSpore Transformers只支持设置为`'seqpipe'`。
 - seq_split_num：输入按序列维度的切分个数。
 
 注意：

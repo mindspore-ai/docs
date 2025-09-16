@@ -314,7 +314,7 @@ Graph Compilation and Execution
    * - MS_DEV_GRAPH_KERNEL_FLAGS
      - Configure the graph kernel fusion strategy.
      - String
-     - Configuration items, with the format "--key=value", multiple configuration items separated by space, multiple value items separated by commas, for example, `export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+     - Configuration items, with the format `--key=value`, multiple configuration items separated by space, multiple value items separated by commas, for example, ``export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"``
 
        opt_level: Set the optimization level. Default: `2` .
 
@@ -348,7 +348,7 @@ Graph Compilation and Execution
    * - MS_DEV_PYNATIVE_FUSION_FLAGS
      - Configure operator fusion in PyNative asynchronous execution mode.
      - String
-     - Configuration items, with the format "--key=value", multiple configuration items separated by space, multiple value items separated by commas, for example, `export MS_DEV_PYNATIVE_FUSION_FLAGS="--opt_level=1 --enable_ops=MatMul,MatMulExt"`
+     - Configuration items, with the format `--key=value`, multiple configuration items separated by space, multiple value items separated by commas, for example, ``export MS_DEV_PYNATIVE_FUSION_FLAGS="--opt_level=1 --enable_ops=MatMul,MatMulExt"``
 
        opt_level: Determines whether to enable operator fusion, 0 means disabled, and 1 means enabled. Default: 0.
 

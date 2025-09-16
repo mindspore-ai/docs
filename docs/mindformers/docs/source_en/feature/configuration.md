@@ -162,7 +162,7 @@ Because different model configurations may vary, here are some common model conf
 
 ### Model Training Configuration
 
-When starting model training, in addition to model-related parameters, you also need to set the parameters of trainer, runner_config, learning rate, and optimizer and other modules Required for training, MindSpore Transformers provides the following configuration items.
+When starting model training, in addition to model-related parameters, you also need to set the parameters of trainer, runner_config, learning rate, and optimizer and other modules required for training, MindSpore Transformers provides the following configuration items.
 
 | Parameters                                  | Descriptions                                                                                                                                                                                                                         | Types  |
 |---------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
@@ -336,7 +336,7 @@ Processor is mainly used to preprocess the inference data of the input model. Si
 | processor.return_tensors        | string  | Optional  | 'ms'          | Sets the type of tensors returned after data processing. Can be set to `'ms'` to indicate a MindSpore Tensor.                                                                                                                                        |
 | processor.image_processor.type  | string  | Required  | None          | Sets the type of the image data processing class. Responsible for image normalization, scaling, cropping, and other operations, and must be compatible with the model's visual encoder.                                                              |
 | processor.tokenizer.type        | string  | Required  | None          | Sets the text tokenizer type, such as `LlamaTokenizer` or `Qwen2Tokenizer`. This determines how the text is segmented into subwords or tokens and must be consistent with the language model.                                                        |
-| processor.tokenizer.vocab_file  | string  | Required  | None          | Sets the vocabulary file path Required by the tokenizer (such as `vocab.txt` or `tokenizer.model`). The specific file type depends on the tokenizer implementation. This must correspond to `processor.tokenizer.type`; otherwise, loading may fail. |
+| processor.tokenizer.vocab_file  | string  | Required  | None          | Sets the vocabulary file path required by the tokenizer (such as `vocab.txt` or `tokenizer.model`). The specific file type depends on the tokenizer implementation. This must correspond to `processor.tokenizer.type`; otherwise, loading may fail. |
 
 ### Model Evaluation Configuration
 

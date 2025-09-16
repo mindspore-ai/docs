@@ -314,7 +314,7 @@
    * - MS_DEV_GRAPH_KERNEL_FLAGS
      - 设置图算融合的融合策略
      - String
-     - 配置项，格式为“--key=value”，多个配置项以空格分隔，多个value以逗号分隔，例如 `export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+     - 配置项，格式为 `--key=value`，多个配置项以空格分隔，多个value以逗号分隔，例如 ``export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"``
 
        opt_level：设置优化级别。默认值： `2` 。
 
@@ -348,7 +348,7 @@
    * - MS_DEV_PYNATIVE_FUSION_FLAGS
      - 设置动态图异步执行模式下的算子融合选项
      - String
-     - 配置项，格式为“--key=value”，多个配置项以空格分隔，多个value以逗号分隔。例如 `export MS_DEV_PYNATIVE_FUSION_FLAGS="--opt_level=1 --enable_ops=MatMul,MatMulExt"`
+     - 配置项，格式为 `--key=value`，多个配置项以空格分隔，多个value以逗号分隔。例如 ``export MS_DEV_PYNATIVE_FUSION_FLAGS="--opt_level=1 --enable_ops=MatMul,MatMulExt"``
 
        opt_level：是否开启算子融合，0表示不开启，1表示开启。默认值：0。
 
