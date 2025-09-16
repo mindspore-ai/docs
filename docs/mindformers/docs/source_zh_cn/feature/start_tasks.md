@@ -157,23 +157,23 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 2. 执行msrun启动脚本：
 
-    多机多卡执行脚本进行分布式任务需要分别在不同节点运行脚本，并将参数`MASTER_ADDR`设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数`NODE_RANK`不同，各个参数位置含义参见[msrun快速启动](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/msrun_launcher.html)。
+    多机多卡执行脚本进行分布式任务需要分别在不同节点运行脚本，并将参数`MASTER_ADDR`设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数`NODE_RANK`不同。
 
     ```shell
-    # 节点0作为主节点, {ip_addr}处填写节点0实际ip, 总共16卡且每个节点8卡
+    # 节点0作为主节点, {master_addr}处填写节点0实际ip, 总共16卡且每个节点8卡
     bash scripts/msrun_launcher.sh "run_mindformer.py \
       --register_path research/qwen2_5 \
       --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
       --train_dataset_dir /{path}/wiki4096.mindrecord \
       --run_mode finetune" \
-      16 8 {ip_addr} 8118 0 output/msrun_log False 300
+      16 8 {master_addr} 8118 0 output/msrun_log False 300
 
 
-    # 节点1，{ip_addr}处填写节点0实际ip，节点0与节点1启动命令仅参数NODE_RANK不同
+    # 节点1，{master_addr}处填写节点0实际ip，节点0与节点1启动命令仅参数NODE_RANK不同
     bash scripts/msrun_launcher.sh "run_mindformer.py \
       --register_path research/qwen2_5 \
       --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
       --train_dataset_dir /{path}/wiki4096.mindrecord \
       --run_mode finetune" \
-      16 8 {ip_addr} 8118 1 output/msrun_log False 300
+      16 8 {master_addr} 8118 1 output/msrun_log False 300
     ```
