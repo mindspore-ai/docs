@@ -192,6 +192,7 @@ FAQ
    :caption: 大模型全流程指南
    :hidden:
 
+   guide/llm_training
    guide/pre_training
    guide/supervised_fine_tuning
    guide/inference
