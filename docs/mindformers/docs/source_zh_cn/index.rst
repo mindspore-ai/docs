@@ -51,6 +51,7 @@ MindSpore Transformers提供了统一的一键启动脚本，支持一键启动�
             <ul style="text-align: left; display: inline-block;">
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/inference.html"><span>推理</span></a></li>
                 <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html"><span>服务化部署</span></a></li>
+                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html"><span>评测</span></a></li>
             </ul>
          </td>
       </tr>
@@ -198,6 +199,7 @@ FAQ
    guide/supervised_fine_tuning
    guide/inference
    guide/deployment
+   guide/benchmarks
 
 .. toctree::
    :glob:
