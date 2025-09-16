@@ -9,9 +9,9 @@ MindSpore Transformers high availability provides the following several function
 - **End-of-life CKPT**: It is mainly aimed at accelerating the fault recovery in the training process of large models. This feature verifies the integrity and consistency of the intermediate state data after a fault occurs during the training process and generates an end-of-life CheckPoint data, which can be used to recover the training and reduce the loss of training iterations caused by the fault.
 - **UCE Fault-tolerant Recovery**: It mainly focuses on the detection of UCE faults in on-chip memory during the training process of large models, and accomplishes online repair to reach Step-level recomputation.
 - **HCCE Fault-tolerant Recovery**: It mainly focuses on hccl recompute error during the training process of large models, and accomplishes online repair to reach Step-level recomputation.
-- **TRE Training Result Excepition Recovery**：It mainly focuses on the detection of value excepton of loss, global-norm, etc. during the training process of large models, and accomplishes online repair to reach Step-level recomputation.
+- **TRE Training Result Exception Recovery**: It mainly focuses on the detection of value exception of loss, global-norm, etc. during the training process of large models, and accomplishes online repair to reach Step-level recomputation.
 - **ARF Process-Level Rescheduling Recovery**: Instead of pulling up the entire cluster again after an anomaly in training occurs, simply restart or replace it on a node-by-node basis to complete the repair and continue training.
-- **TSP Training Step Pause Function**：After each training step is completed, enter the train pause interface，pause or resume training according to the needs of upper level operations. For example, pause training to perform communication network track switching, and resume training after successful switching.
+- **TSP Training Step Pause Function**: After each training step is completed, enter the train pause interface，pause or resume training according to the needs of upper level operations. For example, pause training to perform communication network track switching, and resume training after successful switching.
 - **RSC POD-Level Rescheduling Function**: Primarily serves as a fallback solution when other fast recovery features fail. It kills the faulty process and other normal processes (the pods where the normal processes reside will not be terminated), removes the faulty pod from the current cluster, and rescheduling a new pod to join the cluster, and resumes training (the current version must rely on MindX).
 
 Constraints and dependencies of the high availability functions:
@@ -19,7 +19,7 @@ Constraints and dependencies of the high availability functions:
 | | End-of-life CKPT | UCE | HCCE | ARF | TRE | TSP | RSC |
 | - | - | - | - | - | - | - | - |
 | Depending on MindIO | Yes | Yes | Yes | Yes | No | Yes | No |
-| Replica relationship between between cards | Yes | Yes | No | Yes | No | No | No |
+| Replica relationship between cards | Yes | Yes | No | Yes | No | No | No |
 | Sink Size is 1 | Yes | Yes | Yes | Yes | No | No | No |
 
 These high availability functions are currently only supported in the MindSpore Ascend back-end graph schema to support Step-level recovery.
@@ -39,7 +39,7 @@ Quick recovery and use instructions for malfunctions:
 
 ## Instructions for Use
 
-The high availability feature switch is enabled by an environment variable, and the switch is not set separately in the YAML configuration file. For high availability functions which depend on replica relationship between between cards, the YAML file needs to be able to configure the weights and optimizer states to be the same for both cards, as detailed in the [Replica Relationships Configuration](#replica-relationships-configuration) section of this document.
+The high availability feature switch is enabled by an environment variable, and the switch is not set separately in the YAML configuration file. For high availability functions which depend on replica relationship between cards, the YAML file needs to be able to configure the weights and optimizer states to be the same for both cards, as detailed in the [Replica Relationships Configuration](#replica-relationships-configuration) section of this document.
 
 For high availability functions which depend on MindIO, the user needs to install the MindIO TFT SDK package. Please refer to [Install MindIO TFT SDK on compute nodes](https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft011.html).
 
@@ -59,12 +59,12 @@ export MS_TFT_PORT=30051
     - **HCCE (Huawei Collective Communication Error)**: HCCL recompute error recovery
     - **ARF (Air Refuelling)**: Process-level rescheduling recovery function
     - **TRE (Training Result Error)**: Training result exception recovery
-    - **TSP (Training Step Pause)**：Training step pause function
+    - **TSP (Training Step Pause)**: Training step pause function
     - **RSC (Register Stop/Start Controller)**: POD-level rescheduling function
     - POD-level rescheduling only hands over the training processes to a third-party component (such as MindX) for management. When only RSC:1 is enabled (the current version must rely on MindX), other training fault tolerance features are not effective.
     - When UCE or ARF is enabled, TTP is enabled by default.
     - Enabling both TRE and asynchronous CKPT features at the same time cannot guarantee that the loss before and after resuming training is exactly the same.
-    - TRE does not depend on MindIO. It is not necessary to configure the MindIO-related environment variables MINDIO_FOR_MINDSPORE, MS_TFT_IP, and MS_TFT_PORT to enable only the TRE feature
+    - TRE does not depend on MindIO. It is not necessary to configure the MindIO-related environment variables MINDIO_FOR_MINDSPORE, MS_TFT_IP, and MS_TFT_PORT to enable only the TRE feature.
 
 - `MS_TFT_IP` and `MS_TFT_PORT` represent the IP and port number of TFT Controller respectively, no default value, need to be specified by user. If the Controller is started by MindSpore Transformers, the IP and port number of the rank0 node in the user's cluster are configured. If the Controller is started by the user, configure the IP and port number of the Controller.
 
@@ -270,7 +270,7 @@ This chapter uses Llama3.1-8B training as an example to demonstrate the use of r
 1. Install [MindSpore](https://www.mindspore.cn/install/en) first.
 2. Download MindSpore Transformers, using [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add and modify parameters according to the configuration below:
 
-   ```yaml
+    ```yaml
     output_dir: './output'
 
     monitor_config:
@@ -283,7 +283,7 @@ This chapter uses Llama3.1-8B training as an example to demonstrate the use of r
         save_checkpoint_steps: 1
     ```
 
-    **Parameter：**
+    **Parameter:**
 
     | Parameters                  | Description                                                                                                                                           | Type  | Optional        |
     |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------|-----------------|
@@ -322,7 +322,7 @@ This chapter uses Llama3.1-8B training as an example to demonstrate the use of r
     - INFO - Current global norm [45.702465] is greater equal than threshold 44.0, stop training...
     ```
 
-6. After retraining, the training will continue from the previous breakpoint step count. If the global norm is still greater than the set threshold, since the corresponding global step has already been recorded in the abnormal_global_norm.json under the output dir set by YAML, only the corresponding global norm will be recorded here and it will not raise error.
+6. After retraining, the training will continue from the previous breakpoint step count. If the global norm is still greater than the set threshold, since the corresponding global step has already been recorded in the abnormal_global_norm.json under the output directory set by YAML, only the corresponding global norm will be recorded here and it will not raise error.
 
     ```text
     - INFO - { Epoch:[  1/  2], step:[    2/ 6500], loss: 11.905, per_step_time: 3504ms, lr: 2.5641025e-08, overflow cond: False, loss_scale: 1.0, global_norm: [45.706497], train_throughput_per_npu: 135.552T

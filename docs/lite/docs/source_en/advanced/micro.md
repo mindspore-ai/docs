@@ -1157,7 +1157,7 @@ int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_nu
 
 Users need to implement this function and add their source files to the cmake project. For example, we provide the custom kernel example dynamic library libmicro_nnie.so that supports NNIE from Hysis, which is included in the [official download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) "NNIE inference runtime lib, benchmark tool" component. Users need to modify the CMakeLists.txt of the generated code, add the name and path of the linked library.
 
-``` shell
+```shell
 
 link_directories(<YOUR_PATH>/mindspore-lite-1.8.1-linux-aarch32/providers/Hi3516D)
 
@@ -1170,7 +1170,7 @@ target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe 
 In the generated `benchmark/benchmark.c` file, add the [NNIE device related initialization code](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/test/config_level0/micro/svp_sys_init.c) before and after calling the main function.
 Finally, we compile the source code:
 
-``` shell
+```shell
 
 mkdir buid && cd build
 

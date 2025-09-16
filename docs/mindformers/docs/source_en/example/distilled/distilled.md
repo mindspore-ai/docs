@@ -107,7 +107,7 @@ This case provides three dataset preparation modes:
 
     **Objective**: Filter out incorrect or inaccurate CoT data in the inference data to ensure data quality.
 
-    ``` shell
+    ```shell
     python distilled/reject_sampling.py \
         --src /path/to/numinamath_r1_generations.jsonl \
         --dst /path/to/numinamath_r1_generations_filtered.jsonl
@@ -140,7 +140,7 @@ This case provides three dataset preparation modes:
 
 **Application scenario**: This method is applicable when users want to fine-tune models with high-quality pre-distilled datasets.
 
-If you fine-tune models with the OpenR1-Math-220K dataset (distilled by DeepSeek-R1), [detailed processes](#option-1-using-raw-data-for-offline-processing) and [converted datasets](#option-2-using-converted-data).
+If you fine-tune models with the OpenR1-Math-220K dataset (distilled by DeepSeek-R1), see [detailed processes](#option-1-using-raw-data-for-offline-processing) and [converted datasets](#option-2-using-converted-data).
 
 ##### Option 1: Using Raw Data for Offline Processing
 
@@ -159,7 +159,7 @@ You need to modify the dataset processing configuration file `data_process_handl
     ```
 
 2. Modify the dataset file path: Replace the path in `data_files` with the path of the original dataset. List each Parquet file here.
-    - Example: `["/path/to/data1.parquet", "/path/to/data2.parquet",...]`
+    - Example: `["/path/to/data1.parquet", "/path/to/data2.parquet", ...]`
 3. Change the tokenizer path: Replace `vocab_file` and `merges_file` with the paths of the **vocabulary file** and **merges file** of the Qwen2.5-7B-Instruct model, respectively.
 
     ```yaml

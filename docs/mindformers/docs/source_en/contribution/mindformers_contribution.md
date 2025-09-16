@@ -18,7 +18,7 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
 
 - Reconstruction Guide
 
-  We encourage developers to reconstruct our code to eliminate code bad taste. All code should conform to coding style and testing style, and reconstructing code is no exception. The Lizard threshold for uncommented lines of code (nloc) is 100, and the circle complexity (cnc) threshold is 20. when a Lizard warning is received, the code to be merged must be reconstructed.
+  We encourage developers to reconstruct our code to eliminate code bad taste. All code should conform to coding style and testing style, and reconstructing code is no exception. The Lizard threshold for uncommented lines of code (nloc) is 100, and the cyclomatic complexity (ccn) threshold is 20. When a Lizard warning is received, the code to be merged must be reconstructed.
 
 - Documentation Guide
 
@@ -65,7 +65,7 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
   # To commit changes, add a commit header with the -m option
   git commit -m "The title of your commit"
 
-  # Add a specific description of the commit, add a signature with the -s option, and modify the most recent commit with the -amend option.
+  # Add a specific description of the commit, add a signature with the -s option, and modify the most recent commit with the `--amend` option.
   git commit -s --amend
 
   # Push changes to a new branch in the remote repository
@@ -101,7 +101,7 @@ If you wish to merge custom models into the `MindSpore Transformers` code reposi
 
 ### Only One Commit
 
-For multi-commit PRs, use the `squash` command to merge multiple commits into one. For example use:
+For multi-commit PRs, use the `squash` command to merge multiple commits into one. For example, use:
 
 ```shell
 git rebase -i HEAD~3
@@ -135,7 +135,7 @@ Please use the following md template.
 
 ### Description (what was done, what was changed)
 
-### check list
+### Checklist
 
 #### Was a program review or root cause analysis of the problem completed (Y/N)
 

@@ -239,7 +239,7 @@ python transform_checkpoint.py \
 
 ```shell
 bash transform_checkpoint.sh \
-  /worker/checkpoint/llam3-8b-2layer/rank_0/llama3_8b.ckpt \
+  /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
   None \
   /worker/transform_ckpt/llama3_8b_1to8/ \
   /worker/mindformers/output/strategy/ \

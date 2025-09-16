@@ -270,7 +270,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 1. 先安装 [MindSpore](https://www.mindspore.cn/install)。
 2. 下载 MindSpore Transformers，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照如下配置添加和修改参数：
 
-   ```yaml
+    ```yaml
     output_dir: './output'
 
     monitor_config:

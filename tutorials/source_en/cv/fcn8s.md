@@ -367,7 +367,7 @@ $$ P A=\frac{\sum_{i=0}^k p_{i i}}{\sum_{i=0}^k \sum_{j=0}^k p_{i j}} $$
 
 $$ M P A=\frac{1}{k+1} \sum_{i=0}^k \frac{p_{i i}}{\sum_{j=0}^k p_{i j}} $$
 
-- Mean intersection over union (MloU): a standard measure of semantic segmentation. It calculates an intersection set and a union set of two sets. In a semantic segmentation problem, the two sets are real values (ground truth) and prediction values (predicted segmentation). This ratio can be transformed into a positive true value (intersection) to the sum of true positive, false negative, and false positive values (union). IoU is calculated on each class and then averaged.
+- Mean intersection over union (MIoU): a standard measure of semantic segmentation. It calculates an intersection set and a union set of two sets. In a semantic segmentation problem, the two sets are real values (ground truth) and prediction values (predicted segmentation). This ratio can be transformed into a positive true value (intersection) to the sum of true positive, false negative, and false positive values (union). IoU is calculated on each class and then averaged.
 
 $$ M I o U=\frac{1}{k+1} \sum_{i=0}^k \frac{p_{i i}}{\sum_{j=0}^k p_{i j}+\sum_{j=0}^k p_{j i}-p_{i i}} $$
 

@@ -96,7 +96,7 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
 
    The optional value of `tokenizer-type` is 'HuggingFaceTokenizer' and 'AutoRegister'. When it's set to 'HuggingFaceTokenizer', `AutoTokenizer` class in `transformers` library will instantiate tokenizer in local HuggingFace repository. When it's set to 'AutoRegister', outer tokenizer class specified by `register_path` and `auto_register` will be applied.
 
-   Take [LlamaTokenizerFast](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer_config.json) and [vocab file](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer.json) in [DeepSeek-V3 repository](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base) as an example. If there is no corresponding repository, configuration file (tokenizer_config.json) and vocab file (tokenizer.json) needed to be download to local path. Let it be /path/to/huggingface/tokenizer. Execute the following command to preprocess the dataset:
+   Take [LlamaTokenizerFast](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer_config.json) and [vocab file](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer.json) in [DeepSeek-V3 repository](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base) as an example. If there is no corresponding repository, configuration file (tokenizer_config.json) and vocab file (tokenizer.json) need to be download to local path. Let it be /path/to/huggingface/tokenizer. Execute the following command to preprocess the dataset:
 
    ```shell
    python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
