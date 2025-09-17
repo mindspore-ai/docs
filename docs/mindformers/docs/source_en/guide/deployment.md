@@ -2,7 +2,90 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/deployment.md)
 
-## Introduction
+## vLLM Service Deployment
+
+### Overview
+
+The vLLM-MindSpore plugin is designed with the functional goal of integrating MindSpore large models into vLLM and enabling their servitized deployment: [Introduction to the vLLM-MindSpore Plugin](https://www.mindspore.cn/vllm_mindspore/docs/en/master/index.html#overview).
+
+The MindSpore Transformers suite aims to build a full-cycle development toolkit for large-scale models, covering pre-training, fine-tuning, evaluation, inference, and deployment. It provides mainstream Transformer-based large language models (LLMs) and multimodal understanding models (MMs) in the industry.
+
+### Environment Setup
+
+The environment installation steps are divided into two methods:
+
+- [Docker Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html#docker-installation): Suitable for scenarios where users need quick deployment and use.
+- [Source Code Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html#source-code-installation): Suitable for users who require incremental development of the vLLM-MindSpore plugin.
+
+### Quick Start
+
+After completing the environment deployment and before running the model, users need to prepare the model files. They can follow the guidelines in the Model Download section to prepare the model. Once the environment variables are configured, they can proceed with either offline inference or online services.
+
+**Environment Variables**
+
+Before launching the model, users need to configure the following environment variables:
+
+```bash
+export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers
+export MINDFORMERS_MODEL_CONFIG=/path/to/yaml # Required for non-Mcore models
+```
+
+Currently, vLLM MindSpore supports different model backends. The environment variables specified above designate MindSpore Transformers as the integrated model suite. For non-MCore models, it is necessary to configure the model's YAML configuration file.
+
+For more environment variables, please refer to: [Environment Variables](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/environment_variables/environment_variables.html).
+
+After preparing the model and environment variables, you can proceed with inference.
+
+#### Online Inference
+
+vLLM online inference is designed for real-time service scenarios, leveraging dynamic batching and the OpenAI API to deliver high concurrency, high throughput, and low latency, making it suitable for enterprise-level applications.
+
+- Please refer to the single-GPU inference process: [Single-Card Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.html)
+- Please refer to the single-node multi-GPU inference process: [Multi-Card Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.html)
+- Please refer to the multi-node parallel inference process: [Multi-machine Parallel Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.html)
+
+#### Offline Inference
+
+vLLM's offline inference is designed for efficiently processing large-scale batch requests, making it particularly suitable for non-real-time, data-intensive model inference scenarios.
+
+For the offline inference process, please refer to: [Offline Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/quick_start/quick_start.html#offline-inference)
+
+### Mcore Model Adaptation
+
+vLLM MindSpore supports multiple model suite libraries. When the model suite is MindSpore Transformers, the Mcore models registered in the MindSpore Transformers registry can be directly deployed as services through vLLM by default. This implementation leverages the AutoModel interface of MindSpore Transformers.
+
+The principle is as follows: In vLLM's model registry, all MindSpore Transformers models are uniformly registered under the `MindFormersForCausalLM` class, following MindSpore Transformers' model loading logic. On the MindSpore Transformers side, all Mcore model configurations and models are automatically registered in the registry when the `mindformers` component is loaded. During the model loading process, the model or model file is retrieved from the registry based on the `model_type` or `architectures` specified in the model's `config.json` configuration file, thereby completing model configuration instantiation and model loading.
+
+In the vLLM MindSpore model registry, only the `MindFormersForCausalLM` class is registered:
+
+![vLLM MindSpore Model Registry](../../source_zh_cn/vllm-registry.png)
+
+In the MindSpore Transformers model registry, model configuration classes and model classes are registered:
+
+![MindSpore Transformers Registry](../../source_zh_cn/mindspore-transformers-registry.png)
+
+If configuration modifications are required, please refer to the [Configuration](https://gitee.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/mf_models/config.py) file. Based on existing mapping relationships, vLLM's CLI parameters can be converted and applied to take effect on the model side.
+
+### Appendix
+
+#### Compatible Versions
+
+For supporting information on each component, please refer to: [Compatible Versions](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html)
+
+#### Supported Models List
+
+| Model | Mcore New Architecture | Status | Download Link |
+|-|-|-|-|
+|Qwen3-32B|YES|Supported|[Qwen3-32B](https://modelers.cn/models/MindSpore-Lab/Qwen3-32B)|
+|Qwen3-235B-A22B|YES|Supported|[Qwen3-235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B)|
+|Qwen3|YES|testing|[Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B), [Qwen3-1.7B](https://huggingface.co/Qwen/Qwen3-1.7B), [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B), [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B), [Qwen3-14B](https://modelers.cn/models/MindSpore-Lab/Qwen3-14B)|
+|Qwen3-MOE|YES|testing|[Qwen3-30B-A3](https://modelers.cn/models/MindSpore-Lab/Qwen3-30B-A3B-Instruct-2507)|
+|deepSeek-V3|YES|testing|[deepSeek-V3](https://modelers.cn/models/MindSpore-Lab/DeepSeek-V3)|
+|Qwen2.5|NO|Supported|[Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct), [Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct), [Qwen2.5-3B-Instruct](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct), [Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct), [Qwen2.5-14B-Instruct](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct), [Qwen2.5-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct), [Qwen2.5-72B-Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct)|
+
+## MindIE Service Deployment
+
+### Introduction
 
 MindIE, full name Mind Inference Engine, is a high-performance inference framework based on Ascend hardware. For more information, please refer to [Official Document](https://www.hiascend.com/software/mindie).
 
@@ -10,9 +93,9 @@ MindSpore Transformers are hosted in the model application layer MindIE LLM, and
 
 The model support for MindIE inference can be found in [model repository](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
 
-## Environment Setup
+### Environment Setup
 
-### Software Installation
+#### Software Installation
 
 1. Install MindSpore Transformers
 
@@ -28,7 +111,7 @@ The model support for MindIE inference can be found in [model repository](https:
    |:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
    | [1.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.0](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) |
 
-### Environment Variables
+#### Environment Variables
 
 If the installation path is the default path, you can run the following command to initialize the environment variables of each component.
 
@@ -47,9 +130,9 @@ export MS_SCHED_PORT=8090          # Scheduler node service port
 
 > If there are other cards on the machine that have MindIE enabled, you need to be aware of any conflicts with the `MS_SCHED_PORT` parameter. If you get an error on this parameter in the log printout, try again with a different port number.
 
-## Basic Process of Inference Service Deployment
+### Basic Process of Inference Service Deployment
 
-### Preparing Model Files
+#### Preparing Model Files
 
 Create a folder for the specified model related files in the MindIE backend, such as model tokenizer files, yaml configuration files and config files.
 
@@ -90,9 +173,9 @@ For model weight downloading and conversions, refer to the [Weight Format Conver
 
 Required files and configurations may vary from model to model. Refer to the model-specific inference sections in [Model Repository](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html) for details.
 
-### Starting MindIE
+#### Starting MindIE
 
-#### 1. One-click Start (Recommended)
+**1. One-click Start (Recommended)**
 
 The mindformers repository provides a one-click pull-up MindIE script with preconfigured environment variable settings and servitization configurations, which allows you to quickly pull up the service by simply entering the directory of the model file.
 
@@ -142,7 +225,7 @@ When `Daemon start success!` appears in the log, it means the service started su
 | `--ms-sched-port`          | MindSpore scheduler port.                                                                                                                                                                                                                                                                                                                                                   | int, optional. Default value: 8119        |
 | `--help`                   | Show parameter description messages.                                                                                                                                                                                                                                                                                                                                        | str, optional.                            |
 
-#### 2. Customized Startup
+**2. Customized Startup**
 
 The MindIE installation paths are all the default paths `/usr/local/Ascend/.` If you customize the installation path, synchronize the path in the following example.
 
@@ -196,11 +279,11 @@ export MINDIE_LLM_PYTHON_LOG_PATH=/usr/local/Ascend/mindie/latest/mindie-service
 tail -f /usr/local/Ascend/mindie/latest/mindie-service/logs/pythonlog.log
 ```
 
-## MindIE Service Deployment and Inference Example
+### MindIE Service Deployment and Inference Example
 
 The following example installs each component to the default path `/usr/local/Ascend/.` and the model uses `Qwen1.5-72B`.
 
-### Preparing Model Files
+#### Preparing Model Files
 
 Take Qwen1.5-72B as an example to prepare the model file directory. For details of the directory structure and configuration, refer to [Preparing Model Files](#preparing-model-files):
 
@@ -208,9 +291,9 @@ Take Qwen1.5-72B as an example to prepare the model file directory. For details 
 mkdir -p mf_model/qwen1_5_72b
 ```
 
-### Starting MindIE
+#### Starting MindIE
 
-#### 1. One-click Start (Recommended)
+**1. One-click Start (Recommended)**
 
 Go to the `scripts` directory and execute the mindie startup script:
 
@@ -227,7 +310,7 @@ tail -f output.log
 
 When `Daemon start success!` appears in the log, it means the service started successfully.
 
-#### 2. Customized Startup
+**2. Customized Startup**
 
 Open config.json in the mindie-service directory and modify the server-related configuration.
 
@@ -356,7 +439,7 @@ The following message is printed, indicating that the startup was successful.
 Daemon start success!
 ```
 
-### Request Test
+#### Request Test
 
 After the service has started successfully, you can use the curl command to send a request for verification, as shown in the following example:
 
@@ -370,6 +453,6 @@ The validation is successful with the following returned inference result:
 {"generated_text":" it is a city with a long history and rich culture....."}
 ```
 
-## Model List
+### Model List
 
 Examples of MindIE inference for other models can be found in the introduction documentation for each model in [Model Library](https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html).
