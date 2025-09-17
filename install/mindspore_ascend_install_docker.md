@@ -62,13 +62,13 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
 如果需要使用MindSpore 2.7.0版本，Atlas训练系列硬件的镜像，使用以下命令：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/2.7.0:mindspore-ascend-a1
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.7.0
 ```
 
 如果需要使用MindSpore 2.7.0版本，Atlas A2训练系列硬件的镜像，使用以下命令：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/2.7.0:mindspore-ascend-a2
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.0
 ```
 
 ## 运行MindSpore镜像
