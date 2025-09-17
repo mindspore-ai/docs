@@ -61,7 +61,7 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 设备及后端管理接口。
    * - `mindspore.communication <./mindspore.communication.html>`_
      - 集合通信接口。
-   * - `mindspore.dataset <./mindspore.dataset.loading.html>`_
+   * - `mindspore.dataset <./mindspore.dataset.html>`_
      - 加载和处理各种数据集的接口。
    * - `mindspore.numpy <./mindspore.numpy.html>`_
      - 类NumPy接口。
