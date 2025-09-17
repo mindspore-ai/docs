@@ -16,7 +16,7 @@
 2. 调用`convert_name`方法转换权重 key，这步也是权重转换开发必须适配的一步，同时返回权重`key`和对应的权重值；
 3. 遍历权重`key`和对应的权重值，判断权重`key`类型：
    - 不属于`MoE`或特殊结构的`key`，可直接用`weight_loader`加载；
-   - `MOE`中和路由专家相关的`key`，生成相应处理规则`expert_params_mapping`，遍历`expert_params_mapping`，匹配名称，最终调用相应的`weight_loader`处理；
+   - `MoE`中和路由专家相关的`key`，生成相应处理规则`expert_params_mapping`，遍历`expert_params_mapping`，匹配名称，最终调用相应的`weight_loader`处理；
    - 非`MoE`路由专家但需特殊处理的`key`，需要生成相应处理规则`stacked_params_mapping`，遍历`stacked_params_mapping`，匹配名称，最终调用相应的`weight_loader`处理。
 
 ## 开发步骤

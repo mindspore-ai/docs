@@ -84,7 +84,7 @@ The fundamental reason for the occurrence of logical but inaccurate and inconsis
 Possible problems and solutions:
 
 - Question: The first token is consistent, but after pushing about 10 tokens, the phenomenon of inconsistent precision occurs.
-    - Positioning method: Generally, the differences in data are compared by printing and dumping data. If the printed data cannot be observed by the naked eye to determine whether it is within the acceptable range, then the dumped data can be used, and then the comparison tool can be used to determine whether the module meets the precision standard.The comparison tool can be compared using the methods provided by MindSpore Transformers. The usage method is as follows:
+    - Positioning method: Generally, the differences in data are compared by printing and dumping data. If the printed data cannot be observed by the naked eye to determine whether it is within the acceptable range, then the dumped data can be used, and then the comparison tool can be used to determine whether the module meets the precision standard. The comparison tool can be compared using the methods provided by MindSpore Transformers. The usage method is as follows:
 
       ```py
       import numpy as np
@@ -97,7 +97,7 @@ Possible problems and solutions:
       ```
 
       > For information on how to dump data, you can refer to the [Dump Tutorial Document](https://www.mindspore.cn/tutorials/en/master/debug/dump.html) provided on the MindSpore official website.
-    - Possible reasons: Precision loss caused by inconsistent dtype types of a certain input,etc.
+    - Possible reasons: Precision loss caused by inconsistent dtype types of a certain input, etc.
     - Solution: Align the dtype of the benchmark.
 
 #### 2. The evaluation score of the dataset does not meet the acceptance criteria
