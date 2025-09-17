@@ -42,13 +42,13 @@ bash build.sh
 
 ## 验证是否成功安装
 
-判断MindSpore Transformers是否安装成功可以执行以下代码：
+要验证MindSpore Transformers是否安装成功，可以执行以下代码：
 
 ```bash
 python -c "import mindformers as mf;mf.run_check()"
 ```
 
-出现以下类似结果，证明安装成功：
+出现以下类似结果，说明安装成功：
 
 ```text
 - INFO - All checks passed, used **** seconds, the environment is correctly set up!
