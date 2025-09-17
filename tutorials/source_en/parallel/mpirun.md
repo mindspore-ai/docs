@@ -6,9 +6,8 @@
 
 Open Message Passing Interface (OpenMPI) is an open source, high-performance message-passing programming library for parallel computing and distributed memory computing, which realizes parallel computing by passing messages between different processes for many scientific computing and machine learning tasks. Parallel training with OpenMPI is a generalized approach to accelerate the training process by utilizing parallel computing resources on computing clusters or multi-core machines. OpenMPI serves the function of synchronizing data on the Host side as well as inter-process networking in distributed training scenarios.
 
-Unlike rank table startup, the user does not need to configure the `RANK_TABLE_FILE` environment variable to run the script via OpenMPI `mpirun` command on the Ascend hardware platform.
-
-> The `mpirun` startup supports Ascend and GPU, in addition to both PyNative mode and Graph mode.
+> - The `mpirun` startup supports Ascend and GPU, in addition to both PyNative mode and Graph mode.
+> - The user must not configure the `RANK_TABLE_FILE` environment variable when running the script via OpenMPI `mpirun` command on the Ascend hardware platform.
 
 Related commands:
 
