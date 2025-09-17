@@ -16,7 +16,7 @@ The main steps are as follows:
 2. Call the `convert_name` method to convert the weight keys. This step is also a necessary adaptation for weight conversion development, and it returns the weight `key` and the corresponding weight value;
 3. Traverse the weight `key` and the corresponding weight value, and determine the type of the weight `key`:
    - For keys that do not belong to `MoE` or special structures, they can be directly loaded using `weight_loader`;
-   - For keys related to routing experts in `MOE`, generate the corresponding processing rules `expert_params_mapping`, traverse `expert_params_mapping`, match the names, and finally call the corresponding `weight_loader` for processing;
+   - For keys related to routing experts in `MoE`, generate the corresponding processing rules `expert_params_mapping`, traverse `expert_params_mapping`, match the names, and finally call the corresponding `weight_loader` for processing;
    - For keys that do not belong to `MoE` routing experts but require special handling, generate the corresponding processing rules `stacked_params_mapping`, traverse `stacked_params_mapping`, match the names, and finally call the corresponding `weight_loader` for processing.
 
 ## Development Steps
