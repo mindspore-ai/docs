@@ -6,9 +6,8 @@
 
 OpenMPI（Open Message Passing Interface）是一个开源的、高性能的消息传递编程库，用于并行计算和分布式内存计算。它通过在不同进程之间传递消息来实现并行计算，适用于许多科学计算和机器学习任务。使用OpenMPI进行并行训练，是一种通用的加速训练过程的方法，通过在计算集群或多核机器上充分利用并行计算资源来实现。OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能。
 
-与rank table启动不同的是，在Ascend硬件平台上通过OpenMPI的`mpirun`命令运行脚本，用户不需要配置`RANK_TABLE_FILE`环境变量。
-
-> `mpirun`启动支持Ascend和GPU，此外还同时支持PyNative模式和Graph模式。
+> - `mpirun`启动支持Ascend和GPU，此外还同时支持PyNative模式和Graph模式。
+> - 在Ascend硬件平台上通过OpenMPI的`mpirun`命令运行脚本时，用户不能配置`RANK_TABLE_FILE`环境变量。
 
 相关命令：
 
