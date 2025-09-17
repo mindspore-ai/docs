@@ -110,7 +110,7 @@ git clone https://gitee.com/mindspore/mindspore-lite.git
     - 安装好Ascend软件包之后，需要导出Runtime相关环境变量，下述命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
 
         ```bash
-        # control log level. 0-EBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
+        # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
         export GLOG_v=2
 
         # Conda environmental options
