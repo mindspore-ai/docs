@@ -22,67 +22,59 @@ docs
 |
 ├───docs // 设计、规格、FAQ等技术文档，以及用于生成API的相关配置文件
 |    |
-|    ├───devtoolkit // MindSpore Dev Toolkit文档
-|    |
-|    ├───federated // MindSpore Federated文档
-|    |
 |    ├───golden_stick // MindSpore Golden Stick文档
-|    |
-|    ├───graphlearning // MindSpore Graph Learning文档
-|    |
-|    ├───hub // MindSpore Hub文档
 |    |
 |    ├───lite // MindSpore Lite文档
 |    |
-|    ├───mindarmour // MindArmour文档
+|    ├───mindarmour // MindSpore Armour文档
 |    |
-|    ├───mindearth // MindEarth文档
+|    ├───mindchemistry // MindSpore Chemistry文档
 |    |
-|    ├───mindflow // MindFlow文档
+|    ├───mindearth // MindSpore Earth文档
 |    |
-|    ├───mindelec // MindElec文档
+|    ├───mindelec // MindSpore Elec文档
 |    |
-|    ├───mindinsight // MindInsight文档
+|    ├───mindflow // MindSpore Flow文档
 |    |
-|    ├───mindpandas // MindPandas文档
+|    ├───mindformers // MindSpore Transformers文档
 |    |
-|    ├───mindquantum // MindQuantum文档
+|    ├───mindquantum // MindSpore Quantum文档
 |    |
 |    ├───mindscience // MindScience文档
 |    |
-|    ├───mindsponge // MindSPONGE文档
+|    ├───mindsponge // MindSpore SPONGE文档
 |    |
 |    ├───mindspore // MindSpore文档
-|    |
-|    ├───mindformers // mindformers文档
-|    |
-|    ├───probability // MindSpore Probability文档
-|    |
-|    ├───recommender // MindSpore Recommender文档
-|    |
-|    ├───reinforcement // MindSpore Reinforcement文档
 |    |
 |    ├───sample_code // 文档对应样例代码
 |    |
 |    ├───sciai // MindSpore SciAI文档
 |    |
-|    ├───serving // MindSpore Serving文档
-|    |
-|    └───xai // MindSpore XAI文档
+|    └───vllm_mindspore // vLLM-MindSpore Plugin文档
 |
 │───install // 安装指南
 |
-│───templates // 文档模板和样例
-|
 │───resource // 资源相关文档
+|
+│───templates // 文档模板和样例
 |
 │───tools // 自动化工具
 |
 │───tutorials // MindSpore教程相关文档
 |
-│───CONTRIBUTING_DOC_CN.md //  贡献文档
+│───CODEOWNERS //  Maintainer列表
 |
-└───README_CN.md // Docs仓说明
+│───CONTRIBUTING_DOC.md //  贡献文档英文版
+|
+│───CONTRIBUTING_DOC_CN.md //  贡献文档中文版
+|
+│───LICENSE //  LICENSE文档
+|
+│───NOTICE //  NOTICE文档
+|
+│───README.md //  Docs仓说明英文版
+|
+└───README_CN.md // Docs仓说明中文版
 ```
 
 ## 文档构建
@@ -92,7 +84,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 1. 使用pip安裝MindSpore模块，API文档需要根据安装后的MindSpore模块生成，参考[安装](https://www.mindspore.cn/install)。
 
    ```bash
-   pip install mindspore-*.*.*-cp37-cp37m-linux_x86_64.whl
+   pip install mindspore-*.*.*-cp39-cp39m-linux_x86_64.whl
    ```
 
 2. 下载MindSpore Docs仓代码。
@@ -129,16 +121,16 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 
 ### 注意事项
 
-1. 构建MindSpore、MindInsight、MindQuantum等不同仓的API时，由于会使用到对应不同仓的一些资源文件，需要先克隆对应仓，并配置环境变量，给出以下配置列表供使用：
+1. 构建MindSpore等不同仓的API时，由于会使用到对应不同仓的一些资源文件，需要先克隆对应仓，并配置环境变量，给出以下配置列表供使用：
 
    | 对应API的生成 | 环境变量 | 仓库链接 | 仓库名 |
    | ---- | ---- | ---- | ---- |
    | MindSpore | MS_PATH | <https://gitee.com/mindspore/mindspore.git> | mindspore |
    | MindSpore Lite | MSL_PATH | <https://gitee.com/mindspore/mindspore-lite.git> | mindspore_lite |
-   | MindQuantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
-   | Golden Stick | GS_PATH | <https://gitee.com/mindspore/golden-stick.git> | golden_stick |
+   | MindSpore Transformers | MFM_PATH | <https://gitee.com/mindspore/mindformers.git> | mindformers |
+   | MindSpore Golden Stick | GS_PATH | <https://gitee.com/mindspore/golden-stick.git> | golden_stick |
+   | MindSpore Quantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
    | MindScience | MSC_PATH | <https://gitee.com/mindspore/mindscience.git> | mindscience |
-   | MindFormers | MFM_PATH | <https://gitee.com/mindspore/mindformers.git> | mindformers |
 
    克隆仓库以及设置环境变量的代码如下：
 
@@ -154,9 +146,19 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
       export LITE_PACKAGE_PATH = 本地的Lite包路径
       ```
 
+      其中，发布包需要同时包含端侧和云侧，并按以下方式存放：
+
+      ```txt
+      LITE_PACKAGE_PATH
+      ├───mindspore-lite-*.*.*-linux-x64.tar.gz
+      |
+      └───cloud_fusion
+             |
+             └───mindspore-lite-*.*.*-linux-x64.tar.gz
+      ```
+
 3. 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 
 ## 版权
 
 - [Apache License 2.0](LICENSE)
-- [Creative Commons License version 4.0](LICENSE-CC-BY-4.0)
