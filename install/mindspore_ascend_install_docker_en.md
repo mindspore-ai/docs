@@ -62,13 +62,13 @@ of which,
 To install MindSpore 2.7.0 on Atlas Training Platform, use the following command:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/2.7.0:mindspore-ascend-a1
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.7.0
 ```
 
 To install MindSpore 2.7.0 on Atlas A2 Training Platform, use the following command:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/2.7.0:mindspore-ascend-a2
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.0
 ```
 
 ## Running MindSpore Image
