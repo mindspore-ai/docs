@@ -22,7 +22,7 @@ MindSpore Transformers提供了统一的权重转换工具，能够将模型权�
 要进行权重转换，首先请将待转换模型的HuggingFace仓库完整克隆到本地，然后执行`mindformers/convert_weight.py`脚本。该脚本能够自动将HuggingFace的模型权重文件转换为适用于MindSpore Transformers的权重文件。如若希望将MindSpore Transformers权重转为HuggingFace权重，请将`reversed`设置为`True`。
 
 ```shell
-python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--n_head N_HEAD] [--hidden_size HIDDEN_SIZE] [--layers LAYERS] [--is_pretrain IS_PRETRAIN] [--telechat_type TELECHAT_TYPE]
+python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--telechat_type TELECHAT_TYPE]
 ```
 
 #### 参数说明
@@ -32,10 +32,6 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 - input_path：HuggingFace权重文件夹的路径，指向已下载的权重文件。
 - output_path：转换后MindSpore Transformers权重文件的保存路径。
 - dtype：转换后的权重数据类型。
-- n_head：只对BLOOM模型生效，使用`bloom_560m`时请设为`16`，使用`bloom_7.1b`时请设为`32`。
-- hidden_size：只对BLOOM模型生效，使用`bloom_560m`时请设为`1024`，使用`bloom_7.1b`时请设为`4096`。
-- layers：只对GPT2和WizardCoder模型生效，模型被转换的层数。
-- is_pretrain：只对Swin模型生效，转换预训练权重。
 - telechat_type：只对TeleChat模型生效，TeleChat模型的版本。
 
 ### 转换示例
@@ -391,6 +387,26 @@ bash transform_checkpoint.sh \
     16 2
   ```
 
+**参数说明**
+
+- transform_checkpoint.py转换使用参数
+
+  | 参数名称                  | 说明                                                                                                                                                                                               |
+  |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | src_checkpoint        | 源权重的绝对路径或文件夹路径。<br> - 如果是**完整权重**，则填写**绝对路径**；<br> - 如果是**分布式权重**，则填写**文件夹路径**，分布式权重须按照`model_dir/rank_x/xxx.ckpt`格式存放，文件夹路径填写为`model_dir`。<br>**如果rank_x文件夹下存在多个ckpt，将会使用文件名默认排序最后的ckpt文件用于转换。** |
+  | src_strategy          | 源权重对应的分布式策略文件路径。<br> - 如果是完整权重，则**不填写**；<br> - 如果是分布式权重，且使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果是分布式权重，且未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径；                                |
+  | dst_checkpoint_dir    | 保存目标权重的文件夹路径。                                                                                                                                                                                    |
+  | dst_strategy          | 目标权重对应的分布式策略文件路径。<br> - 如果是完整权重，则**不填写**；<br> - 如果是分布式权重，且使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果是分布式权重，且未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径；                               |
+  | prefix                | 目标权重保存的前缀名，权重保存为”{prefix}rank_x.ckpt”，默认”checkpoint_”。                                                                                                                                           |
+  | rank_id               | 当前转换进程的rank_id。单进程无需使用。                                                                                                                                                                          |
+  | world_size            | 目标权重的切片总数，一般等于dp \* mp \* pp。单进程无需使用。                                                                                                                                                            |_
+  | transform_process_num | 离线权重转换使用的进程数，默认为1。<br/> - 如果process_num = 1，使用**单进程转换**；<br/>- 如果process_num > 1，使用**多进程转换**，比如转换的目标权重为8卡分布式权重，process_num=2时，会启动两个进程分别负责rank_0/1/2/3和rank_4/5/6/7切片权重的转换；                       |
+  | transform_by_rank     | 转换时是否启动mindspore.transform_checkpoint_by_rank。当transform_process_num>1时，它将自动设置为True。                                                                                                             |
+
+- transform_checkpoint.sh转换使用参数
+
+  参数说明参考transform_checkpoint.py转换使用参数。参数顺序为src_checkpoint、src_strategy、dst_checkpoint_dir、dst_strategy、world_size、transform_process_num、prefix。
+
 - **复制权重到其他节点**
 
   将转换得到的分布式权重分别复制到各自节点。0节点只需要 `rank_0` 到 `rank_7` 的切片权重，1节点只需要 `rank_8` 到 `rank_15` 的切片权重。
@@ -442,9 +458,11 @@ python mindformers/tools/transform_ckpt_lora.py \
 
     **注意**：如果策略文件夹下已存在 `merged_ckpt_strategy.ckpt` 且仍传入文件夹路径，脚本会首先删除旧的 `merged_ckpt_strategy.ckpt`，再合并生成新的 `merged_ckpt_strategy.ckpt` 以用于权重转换。因此，请确保该文件夹具有足够的写入权限，否则操作将报错。
 - **src_ckpt_path_or_dir**：源权重的路径。如果为分布式权重，请填写源权重所在文件夹的路径，源权重应按 `model_dir/rank_x/xxx.ckpt` 格式存放，并将文件夹路径填写为 `model_dir`。若源权重为完整权重，则填写完整权重的绝对路径。
+- **dst_ckpt_strategy**：目标权重对应的分布式策略文件路径。
 - **dst_ckpt_dir**：目标权重的保存路径，需为自定义的空文件夹路径。目标权重将按 `model_dir/rank_x/xxx.ckpt` 格式保存。
 - **prefix**：目标权重文件的命名前缀，默认值为 "checkpoint_"，即目标权重将按照 `model_dir/rank_x/checkpoint_x.ckpt` 格式保存。
 - **lora_scaling**：LoRA 权重的合并系数，默认为 `lora_alpha/lora_rank`，这两个参数即为 LoRA 模型配置时的参数，需自行计算。
+- **save_format**：目标权重的保存格式。默认为 `ckpt`。
 
 #### 示例
 

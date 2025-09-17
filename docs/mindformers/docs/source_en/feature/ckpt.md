@@ -22,7 +22,7 @@ MindSpore Transformers provides a unified weight conversion tool that allows mod
 To perform weight conversion, clone the complete HuggingFace repository of the model to be converted locally, and execute the `mindformers/convert_weight.py` script. This script automatically converts the HuggingFace model weight file into a weight file applicable to MindSpore Transformers. If you want to convert a MindSpore Transformers weight to a HuggingFace one, set `reversed` to `True`.
 
 ```shell
-python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--n_head N_HEAD] [--hidden_size HIDDEN_SIZE] [--layers LAYERS] [--is_pretrain IS_PRETRAIN] [--telechat_type TELECHAT_TYPE]
+python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--telechat_type TELECHAT_TYPE]
 ```
 
 #### Parameters
@@ -32,10 +32,6 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 - input_path: path of the HuggingFace weight folder, which points to the downloaded weight file.
 - output_path: path for storing the MindSpore Transformers weight file after conversion.
 - dtype: weight data type after conversion.
-- n_head: takes effect only for the BLOOM model. Set this parameter to `16` when `bloom_560m` is used and to `32` when `bloom_7.1b` is used.
-- hidden_size: takes effect only for the BLOOM model. Set this parameter to `1024` when `bloom_560m` is used and to `4096` when `bloom_7.1b` is used.
-- layers: number of layers to be converted. This parameter takes effect only for the GPT2 and WizardCoder models.
-- is_pretrain: converts the pre-trained weight. This parameter takes effect only for the Swin model.
 - telechat_type: version of the TeleChat model. This parameter takes effect only for the TeleChat model.
 
 ### Conversion Example
@@ -391,6 +387,26 @@ If there is no shared disk between servers, you need to use the offline weight c
     16 2
   ```
 
+**Parameters**
+
+- Parameters for transform_checkpoint.py conversion
+
+  | Parameter            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+  |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | src_checkpoint       | Absolute path or folder path of the source weight.<br> - For **a complete set of weights**, set this parameter to an **absolute path**.<br> - For **distributed weights**, set this parameter to the **folder path**. The distributed weights must be stored in the `model_dir/rank_x/xxx.ckpt` format. The folder path is `model_dir`.<br>**If there are multiple CKPT files in the rank_x folder, the last CKPT file in the file name sequence is used for conversion by default.**                                       |
+  | src_strategy         | Path of the distributed strategy file corresponding to the source weight.<br> - For a complete set of weights, leave it **blank**.<br> - For distributed weights, if pipeline parallelism is used, set this parameter to the **merged strategy file path** or **distributed strategy folder path**.<br> - For distributed weights, if pipeline parallelism is not used, set this parameter to any **ckpt_strategy_rank_x.ckpt** path.                                                                                       |
+  | dst_checkpoint_dir   | Path of the folder that stores the target weight.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+  | dst_strategy         | Path of the distributed strategy file corresponding to the target weight.<br> - For a complete set of weights, leave it **blank**.<br> - For distributed weights, if pipeline parallelism is used, set this parameter to the **merged strategy file path** or **distributed strategy folder path**.<br> - For distributed weights, if pipeline parallelism is not used, set this parameter to any **ckpt_strategy_rank_x.ckpt** path.                                                                                       |
+  | prefix               | Prefix name of the saved target weight. The weight is saved as {prefix}rank_x.ckpt. The default value is checkpoint_.                                                                                                                                                                                                                                                                                                                                                                                                       |
+  | rank_id              | Rank ID of the current conversion process. Single-process is not required.                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+  | world_size           | Total number of slices of the target weight. Generally, the value is dp \* mp \* pp. Single-process is not required.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+  | transform_process_num | Number of processes used for offline weight conversion. The default value is 1.<br> - If process_num is set to 1, **a single process is used for conversion**.<br>- If process_num is larger than 1, **multi-process conversion** is used. For example, if the target weight for conversion is the distributed weight of eight GPUs and process_num is set to 2, two processes are started to convert the weights of slices rank_0, rank_1, rank_2, and rank_3 and slices rank_4, rank_5, rank_6, and rank_7, respectively. |
+  | transform_by_rank    | Whether the mindspore.transform_checkpoint_by_rank is used for checkpoint transform. It will automatically be set to True when transform_process_num > 1.                                                                                                                                                                                                                                                                                                                                                                   |
+
+- Additional parameters used for transform_checkpoint.sh conversion
+
+  The order of parameters is src_checkpoint, src_strategy, dst_checkpoint_dir, dst_strategy, world_size, transform_process_num, prefix.
+
 - **Copy the weights to other nodes.**
 
   Copy the distributed weights that have been converted to respective nodes. Node 0 requires only the weights of slices from `rank_0` to `rank_7`, and node 1 requires only the weights of slices from `rank_8` to `rank_15`.
@@ -443,8 +459,10 @@ python mindformers/tools/transform_ckpt_lora.py \
     **Note**: If a `merged_ckpt_strategy.ckpt` already exists in the strategy folder and is still transferred to the folder path, the script deletes the old `merged_ckpt_strategy.ckpt` and then merges files into a new `merged_ckpt_strategy.ckpt` for weight conversion. Therefore, ensure that the folder has enough write permission. Otherwise, an error will be reported.
 - **src_ckpt_path_or_dir**: specifies the path of the source weight. For distributed weights, set the parameter to the path of the folder where the source weights are located. The source weights must be stored in the `model_dir/rank_x/xxx.ckpt` format, and the folder path must be set to `model_dir`. If the source is a complete set of weights, set the parameter to an absolute path.
 - **dst_ckpt_dir**: specifies the path for storing the target weight, which must be a user-defined path of an empty folder. The target weight is saved in the `model_dir/rank_x/xxx.ckpt` format.
+- **dst_ckpt_strategy**: The distributed policy file path corresponding to the target weight.
 - **prefix**: name prefix of the target weight file. The default value is "checkpoint_", indicating that the target weight is saved in the `model_dir/rank_x/checkpoint_x.ckpt` format.
 - **lora_scaling**: combination coefficient of the LoRA weight. The default value is `lora_alpha/lora_rank`. The two parameters are used for LoRA model configuration and need to be calculated.
+- **save_format**: The format for saving target weights. The default value is `ckpt`.
 
 #### Examples
 
