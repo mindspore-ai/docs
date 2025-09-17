@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/lite/docs/source_en/advanced/third_party/ascend_info.md)
 
-> - The Ascend backend support on device-side version will be deprecated later. For related usage of the Ascend backend, please refer to the cloud-side inference version documentation.
+> - The Ascend backend support in the device-side version will be deprecated. For related usage of the Ascend backend, please refer to the cloud-side inference version documentation.
 > - [Build Cloud-side MindSpore Lite](https://mindspore.cn/lite/docs/en/r2.7.0/mindir/build.html)
 > - [Cloud-side Model Converter](https://mindspore.cn/lite/docs/en/r2.7.0/mindir/converter.html)
 > - [Cloud-side Benchmark Tool](https://mindspore.cn/lite/docs/en/r2.7.0/mindir/benchmark.html)
@@ -54,7 +54,7 @@ This document describes how to use MindSpore Lite to perform inference and use t
 After the Ascend software package is installed, export runtime environment variables. In the following command, `/usr/local/Ascend` in `LOCAL_ASCEND=/usr/local/Ascend` indicates the installation path of the software package. Change it to the actual installation path.
 
 ```bash
-# control log level. 0-EBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options
@@ -101,7 +101,7 @@ First, use the converter to convert a model into an `ms` model. Then, use the ru
 
 5. (Optional) Configuring configFile
 
-    You can use this option to configure the Ascend option for model conversion. The configuration file is in the INI format. For the Ascend scenario, the configurable parameter is [acl_option_cfg_param]. For details about the parameter, see the following table,  Ascend initialization can be configured through the acl_init_options parameter, and Ascend composition can be configured through the acl_build_options parameter.
+    You can use this option to configure the Ascend option for model conversion. The configuration file is in the INI format. For the Ascend scenario, the configurable parameter is [acl_option_cfg_param]. For details about the parameter, see the following table: Ascend initialization can be configured through the acl_init_options parameter, and Ascend composition can be configured through the acl_build_options parameter.
 
 6. Execute the converter to generate an Ascend `ms` model.
 
@@ -147,7 +147,7 @@ Table 1 [acl_option_cfg_param] parameter configuration
 
 After obtaining the converted model, use the matching runtime inference framework to perform inference. For details about how to use runtime to perform inference, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.7.0/infer/runtime_cpp.html).
 
-## Executinge the Benchmark
+## Executing the Benchmark
 
 MindSpore Lite provides a benchmark test tool, which can be used to perform quantitative (performance) analysis on the execution time consumed by forward inference of the MindSpore Lite model. In addition, you can perform comparative error (accuracy) analysis based on the output of a specified model.
 For details about the inference tool, see [benchmark](https://www.mindspore.cn/lite/docs/en/r2.7.0/tools/benchmark_tool.html).
