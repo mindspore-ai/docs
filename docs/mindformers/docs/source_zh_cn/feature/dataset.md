@@ -646,7 +646,7 @@ parallel:
 
 MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁盘IO、网络IO开销，从而获得更好的数据加载体验，更多具体功能介绍可参考[文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mindrecord.html)，这里仅对如何在MindSpore Transformers模型训练任务中使用MindRecord进行介绍。
 
-下面以`qwen2_5-0.5b`进行微调为示例进行相关功能说明。
+下面以`qwen2_5-0.5b`进行微调为示例进行相关功能说明，示例中的脚本仅适用于指定数据集，如果需要对自定义数据集进行处理，可以参考[MindRecord格式转换](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/record.html)进行数据预处理。
 
 ### 数据预处理
 
