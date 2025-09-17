@@ -42,11 +42,11 @@
 /tutorials/source_zh_cn/train_availability/graceful_exit.md @fary86 @gemini524
 
 # The maintainers of MindSpore docs.
-/docs/mindspore/docs/source_zh_cn/ @zwiori @gemini524
-/docs/mindspore/docs/source_zh_cn/_static/ @gemini524
-/docs/mindspore/docs/source_zh_cn/_templates/ @gemini524
-/docs/mindspore/docs/source_zh_cn/conf.py @gemini524
-/docs/sample_code/docs/source_zh_cn/ @zwiori @gemini524
+/docs/mindspore/source_zh_cn/ @zwiori @gemini524
+/docs/mindspore/source_zh_cn/_static/ @gemini524
+/docs/mindspore/source_zh_cn/_templates/ @gemini524
+/docs/mindspore/source_zh_cn/conf.py @gemini524
+/docs/sample_code/ @zwiori @gemini524
 
 # The maintainers of MindSpore Lite docs.
 /docs/lite/docs/source_zh_cn/ @jjfeing @xuzhenyoumi
