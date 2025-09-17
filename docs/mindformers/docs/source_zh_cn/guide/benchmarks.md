@@ -61,7 +61,7 @@ rm ceval-exam.zip
 
 ### Step3 启动vLLM-MindSpore服务
 
-具体启动过程见：[服务化部署教程](.\deployment.md)，评测支持所有可服务化部署模型。
+具体启动过程见：[服务化部署教程](./deployment.md)，评测支持所有可服务化部署模型。
 
 ## 精度评测流程
 
