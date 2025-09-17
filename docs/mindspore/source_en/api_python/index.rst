@@ -62,7 +62,7 @@ MindSpore provides rich interfaces for model building, training, and inference. 
      - Device and backend management interface.
    * - `mindspore.communication <./mindspore.communication.html>`_
      - Collection communication interface.
-   * - `mindspore.dataset <./mindspore.dataset.loading.html>`_
+   * - `mindspore.dataset <./mindspore.dataset.html>`_
      - Interfaces for loading and processing various datasets.
    * - `mindspore.numpy <./mindspore.numpy.html>`_
      - NumPy Class interface.
