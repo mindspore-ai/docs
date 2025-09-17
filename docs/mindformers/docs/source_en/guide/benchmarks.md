@@ -57,7 +57,7 @@ For other dataset downloads, you can find download links in the corresponding da
 
 ### Step 3 Start vLLM-MindSpore Service
 
-For the specific startup process, see: [Service Deployment Tutorial](.\deployment.md). Evaluation supports all service-deployable models.
+For the specific startup process, see: [Service Deployment Tutorial](./deployment.md). Evaluation supports all service-deployable models.
 
 ## Accuracy Evaluation Process
 
