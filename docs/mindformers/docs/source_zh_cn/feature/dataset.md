@@ -16,7 +16,7 @@ Megatron数据集是为大规模分布式语言模型预训练场景设计的一
 
 ### 数据预处理
 
-MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)用于将`json`格式的原始文本预料转换成`.bin`或`.idx`文件。如果用户的原始文本不是`json`格式，需要自行将数据处理成对应格式的文件。
+MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/master/toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py)，用于将`json`格式的原始文本语料转换成`.bin`或`.idx`文件。如果用户的原始文本不是`json`格式，需要自行将数据处理成对应格式的文件。
 
 下面是`json`格式文件的示例：
 
@@ -66,7 +66,7 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
 
 3. 下载模型的词表文件
 
-   由于不同模型对应不用的词表文件，因此需要下载对应训练模型的词表文件，这里以`Llama3`模型为例，下载[tokenizer.model](https://huggingface.co/meta-llama/Meta-Llama-3-8B/blob/main/original/tokenizer.model)以用于数据预处理。
+   由于不同模型对应不同的词表文件，因此需要下载对应训练模型的词表文件。这里以`Llama3`模型为例，下载[tokenizer.model](https://huggingface.co/meta-llama/Meta-Llama-3-8B/blob/main/original/tokenizer.model)以用于数据预处理。
 
 4. 生成`.bin`或`.idx`数据文件
 
@@ -91,9 +91,9 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
    | register_path     | 选择外部tokenizer代码所在目录，仅在`tokenizer-type`='AutoRegister'时生效                  |
    | auto_register     | 选择外部tokenizer的导入路径，仅在`tokenizer-type`='AutoRegister'时生效                   |
 
-   `tokenizer-type`的可选值为'HuggingFaceTokenizer'和'AutoRegister'，其中设置为'HuggingFaceTokenizer'时，transformers库的AutoTokenizer类会使用本地HuggingFace仓库对其中的tokenizer实例化；而设置为'AutoRegister'时，表示调用由register_path和auto_register参数指定的外部tokenizer类。
+   `tokenizer-type`的可选值为'HuggingFaceTokenizer'和'AutoRegister'。其中，设置为'HuggingFaceTokenizer'时，transformers库的AutoTokenizer类会使用本地HuggingFace仓库中的tokenizer进行实例化；设置为'AutoRegister'时，表示调用由register_path和auto_register参数指定的外部tokenizer类。
 
-   以[Deepseek-V3仓库](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base)中的[LlamaTokenizerFast](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer_config.json)和[词表](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer.json)为例。如果本地不存在对应仓库，需要将配置文件(tokenizer_config.json)和词表文件(tokenizer.json)手动下载到本地目录，假设为/path/to/huggingface/tokenizer。执行如下命令处理数据集：
+   以[Deepseek-V3仓库](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base)中的[LlamaTokenizerFast](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer_config.json)和[词表](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base/blob/main/tokenizer.json)为例。如果本地不存在对应仓库，需要将配置文件（tokenizer_config.json）和词表文件（tokenizer.json）手动下载到本地目录，假设为`/path/to/huggingface/tokenizer`。执行如下命令处理数据集：
 
    ```shell
    python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
@@ -309,7 +309,7 @@ train_dataset: &train_dataset
 
 ### 数据集加载
 
-数据集加载功能主要通过`load_func`参数实现，`HFDataLoader`会[配置说明](#配置说明)中之外的所有参数作为数据集加载接口的入参，具体使用说明如下：
+数据集加载功能主要通过`load_func`参数实现。`HFDataLoader`会将[配置说明](#配置说明)中之外的所有参数作为数据集加载接口的入参，具体使用说明如下：
 
 1. 使用`datasets.load_dataset`接口加载数据集：
 
@@ -367,7 +367,7 @@ handler:
 
 #### 自定义数据处理功能
 
-自定义数据预处理功能需要用户自己实现数据处理模块，下面介绍自定义数据处理模块实现过程，可参考[AlpacaInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/alpaca_handler.py)。
+自定义数据预处理功能需要用户自己实现数据处理模块。下面介绍自定义数据处理模块实现过程，可参考[AlpacaInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/alpaca_handler.py)。
 
 用户自定义数据处理支持`Class`和`Method`两种形式：
 
@@ -385,9 +385,9 @@ handler:
            return dataset
    ```
 
-   上面的`CustomHandler`实现了数据集随机采样的处理操作，如果要实现其他功能，可以修改数据预处理操作并返回处理后的数据集。
+   上面的`CustomHandler`实现了数据集随机采样的处理操作。如果要实现其他功能，可以修改数据预处理操作并返回处理后的数据集。
 
-   同时，MindSpore Transformers提供了[BaseInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/base_handler.py)并内置了tokenizer配置功能，如果需要使用tokenizer可以继承`BaseInstructDataHandler`类。
+   同时，MindSpore Transformers提供了[BaseInstructDataHandler](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/base_handler.py)，并内置了tokenizer配置功能。如果需要使用tokenizer，可以继承`BaseInstructDataHandler`类。
 
 2. 在[\_\_init__.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/dataset/handler/__init__.py)中添加调用
 
@@ -429,10 +429,10 @@ handler:
 
 ### 应用实践
 
-下面以`qwen3`模型以及`alpaca`数据集为例介绍如何使用HF数据集进行微调，需要使用`AlpacaInstructDataHandler`对数据进行在线处理，具体参数说明如下。
+下面以`qwen3`模型以及`alpaca`数据集为例，介绍如何使用HF数据集进行微调。需要使用`AlpacaInstructDataHandler`对数据进行在线处理，具体参数说明如下。
 
 - seq_length：通过tokenizer将文本编码为token id的最大长度，通常与模型训练的序列长度一致。
-- padding：是否在tokenizer编码将token id填充到最大长度。
+- padding：是否在tokenizer编码时将token id填充到最大长度。
 - tokenizer：pretrained_model_dir表示从HF社区上下载的模型词表及权重文件夹，trust_remote_code通常设置为True，padding_side表示从token id右侧进行填充。
 
 #### alpaca数据集微调
@@ -496,8 +496,8 @@ parallel:
 
 MindSpore Transformers实现了数据集的packing功能，主要用于大模型训练任务中将多个短序列拼接成定长的长序列，以提升训练效率。它目前支持两种策略，可以通过`pack_strategy`进行配置：
 
-1. **pack**：将多个样本拼接成一个定长序列，当待拼接样本超过最大长度`seq_length`后，将该样本放入下一个拼接样本中。
-2. **truncate**：将多个样本拼接成一个定长序列，当待拼接样本超过最大长度`seq_length`后对样本进行截断，并将剩余部分放入下一个拼接样本中。
+1. **pack**：将多个样本拼接成一个定长序列。当待拼接样本超过最大长度`seq_length`后，将该样本放入下一个拼接样本中。
+2. **truncate**：将多个样本拼接成一个定长序列。当待拼接样本超过最大长度`seq_length`后，对样本进行截断，并将剩余部分放入下一个拼接样本中。
 
 该功能通过`PackingHandler`类实现，最终输出只包含`input_ids`、`labels`和`actual_seq_len`三个字段。
 
@@ -562,7 +562,7 @@ parallel:
 
 #### 离线处理alpaca数据微调
 
-`HFDataLoader`支持离线处理HF数据集并保存，加载离线处理的数据可直接拉起模型训练。
+`HFDataLoader`支持离线处理HF数据集并保存。加载离线处理的数据可直接拉起模型训练。
 
 1. 修改`qwen3`模型训练配置文件：
 
@@ -715,7 +715,7 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
 MindSpore框架原生数据集加载模块[MindDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html)，在对多个MindRecord数据集进行加载和采样时存在性能等瓶颈，因此MindSpore Transformers通过`MultiSourceDataLoader`实现多个数据集高效加载与采样功能。
 
-多源数据集功能主要通过修改配置文件中`data_loader`中配置开启，下面提供示例：
+多源数据集功能主要通过修改配置文件中`data_loader`配置开启，下面提供示例：
 
 ```yaml
 train_dataset: &train_dataset

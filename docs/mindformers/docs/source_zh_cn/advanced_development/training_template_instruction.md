@@ -33,7 +33,7 @@ MindSpore Transformers对于不同训练场景提供了对应的配置模板，�
 | 模型优化配置   | MindSpore Transformers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html#%E9%87%8D%E8%AE%A1%E7%AE%97)。                                                                                                                                                                                                          |
 | 模型训练配置   | 启动模型训练时相关参数的配置模块，模板中主要包含trainer、runner_config、runner_wrapper、学习率（lr_schedule）以及优化器（optimizer）相关训练所需模块的参数。                                                                                                                                                                                                                                                                                                  |
 | 并行配置     | 为了提升模型的性能，在大规模集群的使用场景中通常需要为模型配置并行策略，详情可参考[分布式并行](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/parallel_training.html)。                                                                                                                                                                                                                                                                   |
-| 回调函数配置   | MindSpore Transformers提供封装后的Callbacks函数类，主要实现在模型训练过程中返回模型的训练状态并输出、保存模型权重文件等一些操作，目前支持以下几个Callbacks函数类。<br>1.MFLossMonitor<br> 该回调函数类主要用于在训练过程中对训练进度、模型Loss、学习率等信息进行打印<br>2.SummaryMonitor<br>该回调函数类主要用于收集Summary数据，详情可参考[mindspore.SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html)。<br>3.CheckpointMonitor<br>该回调函数类主要用于在模型训练过程中保存模型权重文件。 |
+| 回调函数配置   | MindSpore Transformers提供封装后的Callbacks函数类，主要实现在模型训练过程中返回模型的训练状态并输出、保存模型权重文件等操作。目前支持以下几个Callbacks函数类：<br>1.MFLossMonitor<br> 该回调函数类主要用于在训练过程中对训练进度、模型Loss、学习率等信息进行打印<br>2.SummaryMonitor<br>该回调函数类主要用于收集Summary数据，详情可参考[mindspore.SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html)。<br>3.CheckpointMonitor<br>该回调函数类主要用于在模型训练过程中保存模型权重文件。 |
 | context配置 | Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)中的相关参数。                                                                                                                                                                                                                                                                  |
 | 性能分析工具配置 | MindSpore Transformers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html)。                                                                                                                                                                                                                                     |
 
@@ -58,7 +58,7 @@ MindSpore Transformers对于不同训练场景提供了对应的配置模板，�
    | Qwen3    |
    | Qwen2_5  |
 
-2. 生成的模型配置优先以yaml配置为准，未配置参数则取值pretrained_model_dir路径下的config.json中的参数。如若要修改定制模型配置，则只需要在mode_config中添加相关配置即可。
+2. 生成的模型配置优先以yaml配置为准，未配置参数则取值pretrained_model_dir路径下的config.json中的参数。如若要修改定制模型配置，则只需要在model_config中添加相关配置即可。
 3. 通用配置详情请参考[模型配置](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#%E6%A8%A1%E5%9E%8B%E9%85%8D%E7%BD%AE)。
 
 ## 进阶配置修改

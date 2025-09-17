@@ -6,9 +6,9 @@
 
 Hugging Face Tokenizer 是由 Hugging Face 开发的一款高效、灵活的文本分词工具。它旨在为自然语言处理（NLP）任务提供强大的支持，通过将文本转换为模型能够理解的形式——即分词（tokens）。Tokenizer 不仅负责将文本分割成词汇单元，还管理着这些词汇单元与它们对应的索引之间的映射关系，这在机器学习模型中用于输入表示至关重要。
 
-MindSpore Transformers中涉及使用Tokenizer的流程有：推理、微调在线数据集加载及离线数据集预处理等。当前已支持直接使用基于Hugging Face transformers的Tokenizer。
+MindSpore Transformers中涉及使用Tokenizer的流程有：推理、微调、在线数据集加载及离线数据集预处理等。当前已支持直接使用基于Hugging Face transformers的Tokenizer。
 
-MindSpore Transformers原有的Tokenizer组件与Hugging Face Tokenizer的功能相同，直接使用无需额外开发成本，对于迁移Hugging Face上的模型时比较友好。本文档主要介绍以推理流程为例，介绍如何复用Hugging Face Tokenizer。目前仅支持新架构的Qwen3系列模型，后续持续优化泛化性。
+MindSpore Transformers原有的Tokenizer组件与Hugging Face Tokenizer的功能相同，直接使用无需额外开发成本，对于迁移Hugging Face上的模型时比较友好。本文档主要以推理流程为例，介绍如何复用Hugging Face Tokenizer。目前仅支持新架构的Qwen3系列模型，后续将持续优化泛化性。
 
 ## 基本流程
 
@@ -16,11 +16,11 @@ MindSpore Transformers原有的Tokenizer组件与Hugging Face Tokenizer的功能
 
 ### 1. 根据模型选择下载Tokenizer文件
 
-根据模型下载对应的Tokenizer相关文件到对应的文件夹，文件包括词表文件等。此外，Hugging Face的Tokenizer具体可以分为两大类：
+根据模型下载对应的Tokenizer相关文件到指定文件夹，文件包括词表文件等。此外，Hugging Face的Tokenizer具体可以分为两大类：
 
 1. transformers的内置Tokenizer。如Qwen2Tokenizer；
 
-2. 继承transformers的Tokenizer的基类实现的自定义的Tokenizer，并没有合入transformers。只是在Hugging Face的仓库上或者本地存在Tokenizer的Python文件，需要支持远程加载和将Tokenizer的Python文件存到对应文件夹。如ChatGLM4Tokenizer。
+2. 继承transformers的Tokenizer的基类实现的自定义Tokenizer，并没有合入transformers。只是在Hugging Face的仓库上或者本地存在Tokenizer的Python文件，需要支持远程加载和将Tokenizer的Python文件存到对应文件夹。如ChatGLM4Tokenizer。
 
 ### 2. 修改配置文件
 
@@ -69,7 +69,7 @@ MindSpore Transformers原有的Tokenizer组件与Hugging Face Tokenizer的功能
     - config：yaml配置文件的路径；
     - load_checkpoint：放置权重的文件夹路径；
     - run_mode：运行模式，推理任务配置为`predict`；
-    - trust_remote_code：是否信任从远程下载的代码，默认值：`False`;
+    - trust_remote_code：是否信任从远程下载的代码，默认值：`False`；
     - predict_data：推理的输入。
 
 ### 自定义脚本
@@ -112,7 +112,7 @@ train_dataset: &train_dataset
 
 参数说明：
 
-- use_legacy：决定是否使用老架构，默认值：`True`；
+- use_legacy：决定是否使用老架构，默认值：`True`。
 - pretrained_model_dir：HuggingFace下载的Tokenizer相关的文件存储的文件夹路径。
 - padding_side: 指定Tokenizer的padding的位置，训练时需要设置：`"right"`。
 - trust_remote_code：是否信任从远程下载的代码，默认值：`False`。

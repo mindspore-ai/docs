@@ -5,7 +5,7 @@
 ## 概述
 
 Safetensors 是 Huggingface 推出的一种可靠、易移植的机器学习模型存储格式，用于安全地存储Tensor，而且存储速度较快（零拷贝）。
-本文主要介绍了safetensor的几种格式类型，以及MindSpore Transformers如何支持该格式权重的保存与加载，权重特性，权重的分布式切分与合并和权重格式转换，帮助用户更好更快地使用权重。
+本文主要介绍了safetensors的几种格式类型，以及MindSpore Transformers如何支持该格式权重的保存与加载、权重特性、权重的分布式切分与合并以及权重格式转换，帮助用户更好更快地使用权重。
 
 ## 权重示例
 
@@ -22,7 +22,7 @@ Huggingface Safetensors示例目录结构：
 
 ```text
 qwen2_7b
- └── hf_unified_safetenosrs
+ └── hf_unified_safetensors
         ├── model-00001-of-00004.safetensors
         ├── model-00002-of-00004.safetensors
         ├── model-00003-of-00004.safetensors
@@ -34,7 +34,7 @@ MindSpore Safetensors示例目录结构：
 
 ```text
 qwen2_7b
- └── ms_unified_safetenosrs
+ └── ms_unified_safetensors
         ├── model-00001-of-00004.safetensors
         ├── model-00002-of-00004.safetensors
         ├── model-00003-of-00004.safetensors
@@ -54,7 +54,7 @@ Safetensors分布式权重可通过以下两种方式获取：
 
 ```text
 qwen2_7b
- └── distributed_safetenosrs
+ └── distributed_safetensors
         ├── rank_0
             └── qwen2_7b_rank_0.safetensors
         ├── rank_1
@@ -68,7 +68,7 @@ qwen2_7b
 
 ### 概述
 
-在深度学习模型的训练过程中，保存模型的权重是至关重要的一步。权重保存功能使得我们能够在训练的任意阶段存储模型的参数，以便用户在训练中断或完成后进行恢复、继续训练、评估或部署。同时还可以通过保存权重的方式，在不同环境下复现实验结果。
+在深度学习模型的训练过程中，保存模型的权重是至关重要的一步。权重保存功能使得我们能够在训练的任意阶段存储模型的参数，以便用户在训练中断或完成后进行恢复、继续训练、评估或部署。同时，还可以通过保存权重的方式，在不同环境下复现实验结果。
 
 目前，MindSpore Transformers 支持 [safetensors](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html) 格式的权重文件读取和保存。
 
@@ -164,7 +164,7 @@ MindSpore Transformers支持训练、推理、续训在单卡多卡全场景下�
 
 | 参数名称         | 说明                                                         |
 | ---------------- | ------------------------------------------------------------ |
-| load_checkpoint  | 预加载权重的文件夹路径。<br> - 如果是完整权重，填写切片/单个权重文件所在文件夹路径。<br/>注：支持Huggingface safetensor权重加载（当前仅支持Llama系列模型）。在线加载过程中，会保存一份转换后的MindSpore safetensor权重文件至`/output/ms_safetensors`下。<br> - 如果是分布式权重，需按照`model_dir/rank_x/xxx.safetensor`格式存放，文件夹路径填写为`model_dir`。 |
+| load_checkpoint  | 预加载权重的文件夹路径。<br> - 如果是完整权重，填写切片/单个权重文件所在文件夹路径。<br/>注：支持Huggingface safetensors权重加载（当前仅支持Llama系列模型）。在线加载过程中，会保存一份转换后的MindSpore safetensors权重文件至`/output/ms_safetensors`下。<br> - 如果是分布式权重，需按照`model_dir/rank_x/xxx.safetensors`格式存放，文件夹路径填写为`model_dir`。 |
 | load_ckpt_format | 加载的模型权重的格式，可选`ckpt`、`safetensors`，默认为`ckpt`。<br/>加载权重为`safetensors`格式时，需配套修改此配置为`safetensors`。 |
 | use_parallel     | 是否并行加载。                                               |
 | auto_trans_ckpt  | 是否开启在线切分功能。<br/>- 如果加载权重是完整权重：<br/>a. `use_parallel: True`时，判断为分布式加载，需同步设置`auto_trans_ckpt: True`，开启在线切分功能。<br/>b. `use_parallel: False`时，判断为单卡加载，需同步设置`auto_trans_ckpt: False`，关闭在线切分功能。<br/>- 如果加载权重是分布式权重：<br/>a. 不改变原有切分策略，需设置`auto_trans_ckpt: False`，直接按原先切分策略直接加载。<br/>b. 改变原有切分策略，需设置`auto_trans_ckpt: True` 并配置`src_strategy_path_or_dir`为原有切分策略文件路径。<br/>任务拉起时，会将权重在线合并为完整权重，并依据配置文件中设定的并行策略进行切分与加载。在线合并的完整权重会保存在当前目录`/output/unified_checkpoint`文件下。 |
@@ -175,7 +175,7 @@ MindSpore Transformers支持训练、推理、续训在单卡多卡全场景下�
 
 ```yaml
 # 配置文件
-load_checkpoint: '/qwen2_7b/unified_safetenosrs'    # 加载完整权重文件路径
+load_checkpoint: '/qwen2_7b/unified_safetensors'    # 加载完整权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: False                              # 完整权重+单卡加载时需关闭此配置项
 use_parallel: False                                 # 单卡加载
@@ -189,7 +189,7 @@ parallel_config:                                    # 配置目标分布式策�
 
 ```yaml
 # 配置文件
-load_checkpoint: '/qwen2_7b/unified_safetenosrs'    # 加载完整权重文件路径
+load_checkpoint: '/qwen2_7b/unified_safetensors'    # 加载完整权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重+分布式加载时需打开此配置项，开启在线切分功能
 use_parallel: True                                  # 多卡加载
@@ -205,7 +205,7 @@ parallel_config:                                    # 配置目标分布式策�
 
 ```yaml
 # 配置文件
-load_checkpoint: '/output/distributed_safetenosrs'  # 加载源分布式权重文件路径
+load_checkpoint: '/output/distributed_safetensors'  # 加载源分布式权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: False                              # 关闭在线切分功能
 parallel_config:                                    # 配置目标分布式策略
@@ -218,7 +218,7 @@ parallel_config:                                    # 配置目标分布式策�
 
 ```yaml
 # 配置文件
-load_checkpoint: '/output/distributed_safetenosrs'  # 加载源分布式权重文件路径
+load_checkpoint: '/output/distributed_safetensors'  # 加载源分布式权重文件路径
 src_strategy_path_or_dir: '/output/src_strategy'    # 加载源策略文件，用于合并源分布式权重为完整权重
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 开启在线切分功能
@@ -234,7 +234,7 @@ parallel_config:                                    # 配置目标分布式策�
 
 #### 物理机多机多卡训练
 
-大规模模型通常需要通过多台服务器组成的集群进行训练。权重切分转换需要依赖编译完成后的目标切分策略文件，在这种多机多卡的场景下，如果服务器之间存在共享盘，生成的策略文件在同一个目录下，则可以使用自动转换功能；如果服务器之间无共享盘，需要手动复制策略文件后在进行转换功能。下面以两台服务器、16卡训练为例进行说明。
+大规模模型通常需要通过多台服务器组成的集群进行训练。权重切分转换需要依赖编译完成后的目标切分策略文件，在这种多机多卡的场景下，如果服务器之间存在共享盘，生成的策略文件在同一个目录下，则可以使用自动转换功能；如果服务器之间无共享盘，需要手动复制策略文件后再进行转换功能。下面以两台服务器、16卡训练为例进行说明。
 
 **场景一：服务器之间有共享盘**
 
@@ -244,7 +244,7 @@ parallel_config:                                    # 配置目标分布式策�
 
 ```yaml
 output_dir: './output'                              # 策略文件会生成在./output/strategy下，用于权重在线切分
-load_checkpoint: '/qwen2_7b/unified_safetenosrs'    # 加载完整权重文件路径
+load_checkpoint: '/qwen2_7b/unified_safetensors'    # 加载完整权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重+分布式加载时需打开此配置项，开启在线切分功能
 train_dataset: &train_dataset
@@ -339,7 +339,7 @@ ms.parallel.merge_pipeline_strategys("/output/strategy", "/output/merged_strateg
 
 ```yaml
 output_dir: './output'                              # 确保每个节点下的./output/merged_strategy/都有合并完后的策略文件
-load_checkpoint: '/qwen2_7b/unified_safetenosrs'    # 加载完整权重文件路径
+load_checkpoint: '/qwen2_7b/unified_safetensors'    # 加载完整权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重+分布式加载时需打开此配置项，开启在线切分功能
 ```
@@ -351,7 +351,7 @@ auto_trans_ckpt: True                               # 完整权重+分布式加�
 因为分布式权重文件一般比策略文件大，分发操作更耗时，更推荐第一种方式。
 
 ```yaml
-load_checkpoint: '/output/distributed_safetenosrs'  # 加载分布式权重文件路径
+load_checkpoint: '/output/distributed_safetensors'  # 加载分布式权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: False                              # 分布式权重加载，关闭在线切分功能
 ```
@@ -450,7 +450,7 @@ generation:
 
 ### 概述
 
-在当前的分布式训练和推理环境中，当用户需要改变分布式策略时，需要先将已有的分布式权重合并成完整权重后，再通过在线切分/离线切分的方式完成权重加载。为满足不同场景下的权重转换需求，可以参考下面脚本和接口，实现权重多卡合并单卡和单卡切分多卡的功能。
+在当前的分布式训练和推理环境中，当用户需要改变分布式策略时，需要先将已有的分布式权重合并成完整权重后，再通过在线切分或离线切分的方式完成权重加载。为满足不同场景下的权重转换需求，可以参考下面脚本和接口，实现权重多卡合并单卡和单卡切分多卡的功能。
 
 ### 权重合并
 
@@ -561,14 +561,14 @@ ms.ckpt_to_safetensors("./ckpt_save_path/rank0/checkpoint_0.ckpt", "./output/saf
 
 #### 训练任务
 
-调整配置文件后启动MindSpore Transformers训练任务，通过以ckpt格式加载和safetensor格式保存的方法实现转换。
+调整配置文件后启动MindSpore Transformers训练任务，通过以ckpt格式加载和safetensors格式保存的方法实现转换。
 
 ```yaml
 load_checkpoint: 'output/checkpoint/'               # 加载权重文件路径
 load_ckpt_format: 'ckpt'                            # 加载权重文件格式为ckpt
 callbacks:
   - type: CheckpointMonitor
-    checkpoint_format: 'safetensors'                # 保存权重文件格式为safetensor
+    checkpoint_format: 'safetensors'                # 保存权重文件格式为safetensors
 ```
 
 ## 任务示例
@@ -579,7 +579,7 @@ callbacks:
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2.5_7b/hf_unified_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2.5_7b/hf_unified_safetensors' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重时需打开此配置项，开启在线切分功能
 parallel_config:                                    # 配置目标分布式策略
@@ -595,7 +595,7 @@ callbacks:
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2.5_7b/distributed_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2.5_7b/distributed_safetensors' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                      # 加载权重文件格式
 parallel_config:                                     # 配置目标分布式策略
   data_parallel: 2
@@ -627,7 +627,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2.5_7b/hf_unified_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2.5_7b/hf_unified_safetensors' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重时需打开此配置项，开启在线切分功能
 parallel_config:
@@ -640,7 +640,7 @@ parallel_config:
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2.5_7b/distributed_safetenosrs' # 加载权重文件路径
+load_checkpoint: '/qwen2.5_7b/distributed_safetensors' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                      # 加载权重文件格式
 parallel_config:
   data_parallel: 1
@@ -684,7 +684,7 @@ callbacks:
     checkpoint_format: safetensors                   # 保存权重文件格式
 ```
 
-若分布式权重多卡续训且改变切分策略，需额外传入源切分策略文件路径，修改配置项后启动原训练任务：
+若使用分布式权重多卡续训且改变切分策略，需额外传入源切分策略文件路径，修改配置项后启动原训练任务：
 
 ```yaml
 # 修改后的配置
@@ -703,4 +703,3 @@ callbacks:
 ```
 
 更多详情请参考：[断点续训介绍](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html)。
-

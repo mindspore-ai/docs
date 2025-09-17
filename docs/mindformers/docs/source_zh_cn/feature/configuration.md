@@ -4,11 +4,11 @@
 
 ## 概述
 
-在模型的训练和推理过程中通常需要配置不同的参数，MindSpore Transformers支持使用`YAML`文件集中管理和调整可配置项，使模型的配置更加结构化，同时提高了其可维护性。
+在模型的训练和推理过程中，通常需要配置不同的参数。MindSpore Transformers支持使用`YAML`文件集中管理和调整可配置项，使模型配置更加结构化，同时提高了可维护性。
 
 ## YAML文件内容说明
 
-MindSpore Transformers提供的`YAML`文件中包含对于不同功能的配置项，下面按照配置项的内容对其进行说明。
+MindSpore Transformers提供的`YAML`文件中包含不同功能的配置项，下面按照配置项内容对其进行说明。
 
 ### 基础配置
 
@@ -18,7 +18,7 @@ MindSpore Transformers提供的`YAML`文件中包含对于不同功能的配置�
 |-------------------------------|-------|------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | seed                          | int   | 可选   | 0      | 设置全局随机种子，用于保证实验可复现性。详情可参考 [mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。                                                                                             |
 | run_mode                      | str   | 必选   | 无      | 设置模型的运行模式，可选：`train`、`finetune`、`eval` 或 `predict`。                                                                                                                                                                                  |
-| output_dir                    | str   | 可选   | 无      | 设置保存日志（log）、权重（checkpoint）、并行策略（strategy）等文件的输出路径。若路径不存在会尝试自动创建。                                                                                                                                                                     |
+| output_dir                    | str   | 可选   | 无      | 设置保存日志（log）、权重（checkpoint）、并行策略（strategy）等文件的输出路径。若路径不存在，会尝试自动创建。                                                                                                                                                                     |
 | load_checkpoint               | str   | 可选   | 无      | 加载权重的文件或文件夹路径，支持以下三种场景：<br/>1. 完整权重文件路径；<br/>2. 离线切分后的分布式权重文件夹路径；<br/>3. 包含 LoRA 增量权重和 base 模型权重的文件夹路径。<br/>各种权重的获取方式详见 [权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)                           |
 | auto_trans_ckpt               | bool  | 可选   | False  | 是否开启分布式权重自动切分与合并功能。开启后可在单卡加载多卡切分权重，或多卡加载单卡权重。详情见 [分布式权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)                                                                                              |
 | resume_training               | bool  | 可选   | False  | 是否开启断点续训功能。开启后将从 `load_checkpoint` 指定的路径恢复优化器状态、学习率调度器状态等，继续训练。详情见 [断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                |
@@ -162,20 +162,20 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### 模型训练配置
 
-启动模型训练时，除了模型相关参数，还需要设置trainer、runner_config、学习率以及优化器等训练所需模块的参数，MindSpore Transformers提供了如下配置项。
+启动模型训练时，除了模型相关参数，还需要设置trainer、runner_config、学习率以及优化器等训练所需模块的参数。MindSpore Transformers提供了如下配置项。
 
 | 参数                                          | 说明                                                                                                                                                                   | 类型     |
 |---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | trainer.type                                | 设置trainer类，通常不同应用场景的模型会设置不同的trainer类。                                                                                                                                | str    |
-| trainer.model_name                          | 设置模型名称，格式为'{name}_xxb'，表示模型的某一规格。                                                                                                                                    | str    |
+| trainer.model_name                          | 设置模型名称，格式为`'{name}_xxb'`，表示模型的某一规格。                                                                                                                                    | str    |
 | runner_config.epochs                        | 设置模型训练的轮数。                                                                                                                                                           | int    |
 | runner_config.batch_size                    | 设置批处理数据的样本数，该配置会覆盖数据集配置中的`batch_size`。                                                                                                                               | int    |
 | runner_config.sink_mode                     | 是否开启数据下沉模式。                                                                                                                                                          | bool   |
 | runner_config.sink_size                     | 设置每次从Host下发到Device的迭代数量，仅`sink_mode=True`时生效，此参数将在后续版本中废弃。                                                                                                           | int    |
 | runner_config.gradient_accumulation_steps   | 设置梯度累积步数，默认值为1，表示不开启梯度累积。                                                                                                                                            | int    |
-| runner_wrapper.type                         | 设置wrapper类，一般设置'MFTrainOneStepCell'即可。                                                                                                                               | str    |
+| runner_wrapper.type                         | 设置wrapper类，一般设置`'MFTrainOneStepCell'`即可。                                                                                                                               | str    |
 | runner_wrapper.local_norm                   | 设置打印单卡上各参数的梯度范数。                                                                                                                                                     | bool   |
-| runner_wrapper.scale_sense.type             | 设置梯度缩放类，一般设置'DynamicLossScaleUpdateCell'即可。                                                                                                                          | str    |
+| runner_wrapper.scale_sense.type             | 设置梯度缩放类，一般设置`'DynamicLossScaleUpdateCell'`即可。                                                                                                                          | str    |
 | runner_wrapper.scale_sense.loss_scale_value | 设置loss动态尺度系数，模型loss可以根据该参数配置动态变化。                                                                                                                                    | int    |
 | runner_wrapper.use_clip_grad                | 是否开启梯度剪裁，开启可避免反向梯度过大导致训练无法收敛的情况。                                                                                                                                     | bool   |
 | lr_schedule.type                            | 设置lr_schedule类，lr_schedule主要用于调整模型训练中的学习率。                                                                                                                           | str    |

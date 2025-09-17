@@ -48,7 +48,7 @@ callbacks:
 |--------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------|
 | monitor_config.monitor_on                        | 设置是否开启监控。默认为`False`，此时以下所有参数不生效                                                                           | bool          |
 | monitor_config.dump_path                         | 设置训练过程中`local_norm`、`device_local_norm`、`local_loss`、`device_local_loss`指标文件的保存路径。未设置或设置为`null`时取默认值'./dump' | str           |
-| monitor_config.target                            | 设置指标`优化器状态`和`local_norm`所监控的的目标参数的名称（片段），可为正则表达式。未设置或设置为`null`时取默认值['.*']，即指定所有参数                         | list[str]     |
+| monitor_config.target                            | 设置指标`优化器状态`和`local_norm`所监控的目标参数的名称（片段），可为正则表达式。未设置或设置为`null`时取默认值['.*']，即指定所有参数                         | list[str]     |
 | monitor_config.invert                            | 设置反选`monitor_config.target`所指定的参数。默认为`False`                                                              | bool          |
 | monitor_config.step_interval                     | 设置记录指标的频率。默认为1，即每个step记录一次                                                                                | int           |
 | monitor_config.local_loss_format                 | 设置指标`local_loss`的记录形式                                                                                     | str或list[str] |
@@ -57,17 +57,17 @@ callbacks:
 | monitor_config.device_local_norm_format          | 设置指标`device_local_norm`的记录形式                                                                              | str或list[str] |
 | monitor_config.optimizer_state_format            | 设置指标`optimizer_state`的记录形式                                                                                           | str或list[str] |
 | monitor_config.weight_state_format               | 设置指标`权重L2-norm`的记录形式                                                                                      | str或list[str] |
-| monitor_config.throughput_baseline               | 设置指标`吞吐量线性度`的基线值，需要为正数。会同时写入到 Tensorboard 和日志。未设置时默认为`null`，表示不监控该指标                                      | int或float     |
+| monitor_config.throughput_baseline               | 设置指标`吞吐量线性度`的基线值，需要为正数。会同时写入到 TensorBoard 和日志。未设置时默认为`null`，表示不监控该指标                                      | int或float     |
 | monitor_config.print_struct                      | 设置是否打印模型的全部可训练参数名。若为`True`，则会在第一个step开始时打印所有可训练参数的名称，并在step结束后退出训练。默认为`False`                             | bool          |
 | monitor_config.check_for_global_norm             | 设置是否开启指标`global norm`的异常监测。默认为`False`                                                                     | bool          |
-| monitor_config.global_norm_spike_threshold       | 设置指标`global norm`的相对阈值，大于该值即判定为异常。默认值为`3.0`                                                               | float         |
+| monitor_config.global_norm_spike_threshold       | 设置指标`global norm`的相对阈值，大于该值即判定为异常。默认值为`1.0`                                                               | float         |
 | monitor_config.global_norm_spike_count_threshold | 设置连续异常指标`global norm`累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`                                                  | int           |
 
-上述 xxx_format 形式的参数的可选值为字符串'tensorboard'和'log'（分别表示写入 Tensorboard 和写入日志），或由两者组成的列表，或`null`。未设置时均默认为`null`，表示不监控对应指标。
+上述 xxx_format 形式的参数的可选值为字符串'tensorboard'和'log'（分别表示写入 TensorBoard 和写入日志），或由两者组成的列表，或`null`。未设置时均默认为`null`，表示不监控对应指标。
 
-**注意**：当前开启对`优化器状态`和`权重L2 norm`指标的监控时会极大增加训练进程的耗时，请根据需要谨慎选择；`monitor_config.dump_path`路径下对应的"rank_x"目录将被清空，请确保所设置路径下没有需要保留的文件。
+**注意**：当前开启对`优化器状态`和`权重L2 norm`指标的监控时会极大增加训练进程的耗时，请根据需要谨慎选择。`monitor_config.dump_path`路径下对应的"rank_x"目录将被清空，请确保所设置路径下没有需要保留的文件。
 
-| tensoraboard字段参数名称                         | 说明                                                      | 类型   |
+| tensorboard字段参数名称                         | 说明                                                      | 类型   |
 |--------------------------------------------|---------------------------------------------------------|------|
 | tensorboard.tensorboard_dir                | 设置 TensorBoard 事件文件的保存路径                                | str  |
 | tensorboard.tensorboard_queue_size         | 设置采集队列的最大缓存值，超过该值便会写入事件文件，默认值为10                        | int  |
@@ -98,9 +98,9 @@ callbacks:
 
 ## 查看训练数据
 
-进行上述配置后，训练期间将会在路径 `./worker/tensorboard/rank_{id}` 下保存每张卡的事件文件，其中 `{id}` 为每张卡对应的的rank号。事件文件以 `events.*` 命名。文件中包含 `scalars` 和 `text` 数据，其中 `scalars` 为训练过程中关键指标的标量，如学习率、损失等； `text` 为训练任务所有配置的文本数据，如并行配置、数据集配置等。此外，根据具体配置，部分指标将在日志中进行展示。
+进行上述配置后，训练期间将会在路径 `./worker/tensorboard/rank_{id}` 下保存每张卡的事件文件，其中 `{id}` 为每张卡对应的rank号。事件文件以 `events.*` 命名。文件中包含 `scalars` 和 `text` 数据，其中 `scalars` 为训练过程中关键指标的标量，如学习率、损失等； `text` 为训练任务所有配置的文本数据，如并行配置、数据集配置等。此外，根据具体配置，部分指标将在日志中进行展示。
 
-使用以下命令可以启动 Tensorboard Web 可视化服务：
+使用以下命令可以启动 TensorBoard Web 可视化服务：
 
 ```bash
 tensorboard --logdir=./worker/tensorboard/ --host=0.0.0.0 --port=6006
@@ -140,7 +140,7 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 | model-flops-throughput-per-npu | 模型算力吞吐量，单位为TFLOPS/npu（万亿次浮点数运算每秒每卡）                                       |
 | B-samples-per-day    | 集群数据吞吐量，单位为B samples/day（十亿样本每天），记录需要设置`log_timers_to_tensorboard`为`True` |
 
-在 Tensorboard 的 SCALARS 页面中，上述指标（假设名为 `scalar_name`）除了最后两个，其他都存在 `scalar_name` 和 `scalar_name-vs-samples` 两个下拉标签页。其中 `scalar_name` 下展示了该标量随训练迭代步数进行变化的折线图； `scalar_name-vs-samples` 下展示了该标量随样本数进行变化的折线图。如下图所示为学习率`learning-rate`的曲线图示例：
+在 TensorBoard 的 SCALARS 页面中，上述指标（假设名为 `scalar_name`）除了最后两个，其他都存在 `scalar_name` 和 `scalar_name-vs-samples` 两个下拉标签页。其中 `scalar_name` 下展示了该标量随训练迭代步数进行变化的折线图； `scalar_name-vs-samples` 下展示了该标量随样本数进行变化的折线图。如下图所示为学习率`learning-rate`的曲线图示例：
 
 ![/tensorboard_scalar](./images/tensorboard_scalar.png)
 
@@ -169,7 +169,7 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 
 #### 指标可视化样例
 
-根据具体的设置，上述指标将在 Tensorboard 或日志中进行展示，如下：
+根据具体的设置，上述指标将在 TensorBoard 或日志中进行展示，如下：
 
 **日志效果示例**
 
