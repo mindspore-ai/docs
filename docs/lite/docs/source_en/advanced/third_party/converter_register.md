@@ -6,15 +6,15 @@
 
 MindSpore Lite [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html), in addition to the basic model conversion function, also supports user-defined model optimization and construction to generate models with user-defined operators.
 
-We have designed a set of registration mechanism, which allows users to expand, including node-parse extension, model-parse extension and graph-optimization extension. The users can combined them as needed to achieve their own intention.
+We have designed a set of registration mechanisms, which allows users to expand, including node-parse extension, model-parse extension and graph-optimization extension. The users can combined them as needed to achieve their own intention.
 
 node-parse extension: The users can define the process to parse a certain node of a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [NodeParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html), [NodeParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_NodeParserRegistry.html).
 model-parse extension: The users can define the process to parse a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [ModelParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_ModelParser.html), [ModelParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_ModelParserRegistry.html).
 graph-optimization extension: After parsing a model, a graph structure defined by MindSpore Lite will show up and then, the users can define the process to optimize the parsed graph. The related interfaces are [PassBase](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassBase.html), [PassPosition](https://mindspore.cn/lite/api/en/master/generate/enum_mindspore_registry_PassPosition-1.html), [PassRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassRegistry.html).
 
-> The node-parse extension needs to rely on the flatbuffers, protobuf and the serialization files of third-party frameworks, at the same time, the version of flatbuffers and the protobuf needs to be consistent with that of the released package, the serialized files must be compatible with that used by the released package. Note that the flatbuffers, protobuf and the serialization files are not provided in the released package, users need to compile and generate the serialized files by themselves. The users can obtain the basic information about [flabuffers](https://gitee.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/flatbuffers.cmake), [probobuf](https://gitee.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/protobuf.cmake), [ONNX prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/onnx), [CAFFE prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/caffe), [TF prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/tensorflow) and [TFLITE prototype file](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/tools/converter/parser/tflite/schema.fbs) from the [MindSpore WareHouse](https://gitee.com/mindspore/mindspore-lite/tree/master).
+> The node-parse extension needs to rely on the flatbuffers, protobuf and the serialization files of third-party frameworks, at the same time, the version of flatbuffers and the protobuf needs to be consistent with that of the released package, the serialized files must be compatible with that used by the released package. Note that the flatbuffers, protobuf and the serialization files are not provided in the released package, users need to compile and generate the serialized files by themselves. The users can obtain the basic information about [flatbuffers](https://gitee.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/flatbuffers.cmake), [protobuf](https://gitee.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/protobuf.cmake), [ONNX prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/onnx), [CAFFE prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/caffe), [TF prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/tensorflow) and [TFLITE prototype file](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/tools/converter/parser/tflite/schema.fbs) from the [MindSpore WareHouse](https://gitee.com/mindspore/mindspore-lite/tree/master).
 >
-> MindSpore Lite alse providers a series of registration macros to facilitate user access. These macros include node-parse registration [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_node_parser_registry.h_REG_NODE_PARSER-1.html), model-parse registration [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_model_parser_registry.h_REG_MODEL_PARSER-1.html), graph-optimization registration [REG_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_PASS-1.html) and graph-optimization scheduled registration [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_SCHEDULED_PASS-1.html)
+> MindSpore Lite alse provides a series of registration macros to facilitate user access. These macros include node-parse registration [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_node_parser_registry.h_REG_NODE_PARSER-1.html), model-parse registration [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_model_parser_registry.h_REG_MODEL_PARSER-1.html), graph-optimization registration [REG_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_PASS-1.html) and graph-optimization scheduled registration [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_SCHEDULED_PASS-1.html)
 
 The expansion capability of MindSpore Lite conversion tool only supports on Linux system currently.
 
@@ -22,7 +22,7 @@ In this chapter, we will show the users a sample of extending MindSpore Lite con
 
 > Due to that model-parse extension is a modular extension ability, the chapter will not introduce in details. However, we still provide the users with a simplified unit case for inference.
 
-The chapter takes a [add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite), which only includes an opreator of adding, as an example. We will show the users how to convert the single operator of adding to that of [Custom](https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/register_kernel.html#custom-operators) and finally obtain a model which only includs a single operator of custom.
+The chapter takes a [add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite), which only includes an operator of adding, as an example. We will show the users how to convert the single operator of adding to that of [Custom](https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/register_kernel.html#custom-operators) and finally obtain a model which only includes a single operator of custom.
 
 The code related to the example can be obtained from the path [mindspore-lite/examples/converter_extend](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend).
 
@@ -126,7 +126,7 @@ For the sample code, please refer to [pass](https://gitee.com/mindspore/mindspor
    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
    ```
 
-3. Create extension configuration file(converter.cfg, please refer to [Extension Configuration](#extension-configuration)), the content is as follows:
+3. Create extension configuration file (converter.cfg, please refer to [Extension Configuration](#extension-configuration)), the content is as follows:
 
    ```text
    [registry]
@@ -155,7 +155,7 @@ To load the extension module when converting, users need to configure the path o
 | ----------------- | --------- | -------------------------------------------- | -------------- | ------------- | ------------------------------------------------------- |
 | plugin_path       | Optional  | Third-party library path                     | String         | -             | If there are more than one, please use `;` to separate. |
 | disable_fusion    | Optional  | Indicate whether to close fusion             | String         | off           | off or on.                                              |
-| fusion_blacklists | Optional  | Specified fusion operator names to be closed | String         | -             | If there are more than one, please use `,` to separate  |
+| fusion_blacklists | Optional  | Specified fusion operator names to be closed | String         | -             | If there are more than one, please use `,` to separate.  |
 
 We have generated the default configuration file (converter.cfg). The content is as follows:
 
@@ -164,7 +164,7 @@ We have generated the default configuration file (converter.cfg). The content is
 plugin_path=libconverter_extend_tutorial.so      # users need to configure the correct path of the dynamic library
 ```
 
-If the user needs to turn off the specified operator fusions, the fusion configuration of the the specified operator names to be closed are as follows:
+If the user needs to turn off the specified operator fusions, the fusion configuration of the specified operator names to be closed are as follows:
 
 ```ini
 [registry]

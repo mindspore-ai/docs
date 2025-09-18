@@ -110,7 +110,7 @@ git clone https://gitee.com/mindspore/mindspore-lite.git
     - After installing Ascend package, you need to export Runtime-related environment variables. `/usr/local/Ascend` of the `/LOCAL_ASCEND=/usr/local/Ascend` in the following command indicates the installation path of the package, so you need to change it to the actual installation path of the package.
 
         ```bash
-        # control log level. 0-EBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
+        # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
         export GLOG_v=2
 
         # Conda environmental options
