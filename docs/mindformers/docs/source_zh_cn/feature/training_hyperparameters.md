@@ -76,7 +76,7 @@ lr_schedule:
 
 优化器是用于优化神经网络权重的算法选择，其在训练过程中更新模型权重以最小化损失函数。
 
-选择合适的优化器对模型的收敛速度和最终性能有着至关重要的影响。不同的优化器通过不同的方法调整学习率和其他超参数来加速训练过程、改善收敛性并避免局部最优解。
+选择合适的优化器对模型的收敛速度和最终性能有着至关重要的影响。不同的优化器通过不同的方法调整学习率和其他超参数，来加速训练过程、改善收敛性并避免局部最优解。
 
 当前，MindSpore Transformers 只支持 [AdamW 优化器](https://www.mindspore.cn/mindformers/docs/zh-CN/master/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)。
 
@@ -84,7 +84,7 @@ lr_schedule:
 
 #### YAML 参数配置
 
-用户可通过在模型训练的 yaml 配置文件中新增 `optimizer` 模块来使用学习率。
+用户可通过在模型训练的 yaml 配置文件中新增 `optimizer` 模块来使用优化器。
 
 以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 

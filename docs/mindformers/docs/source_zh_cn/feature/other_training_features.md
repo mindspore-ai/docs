@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/other_training_features.md)
 
-在大规模的深度学习模型训练中，会遇到诸如：内存限制、计算资源的有效利用、分布式训练中的同步问题等挑战，需要使用训练优化算法来提高训练效率、加速收敛速度以及改善最终模型性能。
+在大规模的深度学习模型训练中，会遇到诸多挑战，如：内存限制、计算资源的有效利用、分布式训练中的同步问题等，需要使用训练优化算法来提高训练效率、加速收敛速度以及改善最终模型性能。
 
 MindSpore Transformers 提供了梯度累积、梯度裁剪等训练优化算法，可供开发者进行训练时使用。
 
@@ -10,7 +10,7 @@ MindSpore Transformers 提供了梯度累积、梯度裁剪等训练优化算法
 
 ### 概述
 
-MindSpore 在 2.1.1 之后的版本中增加了 `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` 这一梯度累积实现接口，通过拆分 MiniBatch 的形式提供了梯度累加的能力，MindSpore Transformers 将其封装进了统一的训练流程，通过 yaml 配置进行使能。关于梯度累积的原理和框架测的能力可以参考 [MindSpore 文档：梯度累加](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/distributed_gradient_accumulation.html)。
+MindSpore 在 2.1.1 之后的版本中增加了 `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` 这一梯度累积实现接口，通过拆分 MiniBatch 的形式提供了梯度累加的能力。MindSpore Transformers 将其封装进了统一的训练流程，通过 yaml 配置进行使能。关于梯度累积的原理和框架侧的能力可以参考 [MindSpore 文档：梯度累加](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/distributed_gradient_accumulation.html)。
 
 ### 配置与使用
 
@@ -80,7 +80,7 @@ runner_wrapper:
 
 针对MoE单卡多专家计算，存在细碎的专家计算操作与通信，通过GroupedMatmul算子对多专家计算进行合并，提升MoE单卡多专家训练性能。通过调用GroupedMatmul算子，对多个专家计算进行融合达到加速效果。
 
-`token_dispatcher`可以根据根据计算后的路由策略，将不同的 token（输入的子词/子单元）路由分派给不同的专家（Expert）、计算单元或分支进行独立处理，该模块主要有`all_to_all`通信构成。
+`token_dispatcher`可以根据计算后的路由策略，将不同的 token（输入的子词/子单元）路由分派给不同的专家（Expert）、计算单元或分支进行独立处理。该模块主要由`all_to_all`通信构成。
 
 ### 配置与使用
 
@@ -104,7 +104,7 @@ moe_config:
 ValueError: For primitive[Reshape]， the accumulate of x_shape must be equal to out_shape, but got x_shape: [const vector]{}, and output_shape: [const vector]{0, hiddensize}
 ```
 
-此时，可以配置enable_gmm_safe_tokens: True，保证每个专家至少分配1个tokens，避免程序报错。
+此时，可以配置`enable_gmm_safe_tokens: True`，保证每个专家至少分配1个tokens，避免程序报错。
 
 ```yaml
 moe_config:
@@ -162,7 +162,7 @@ callback:
 
 #### YAML 参数配置
 
-用户需要使用rotary_position_embedding融合算子，需在配置文件中的 `model_config` 项下配置 `use_fused_rope` 项，设置为`True`，示例：
+用户需要使用rotary_position_embedding融合算子，需在配置文件中的 `model_config` 项下配置 `use_fused_rope` 项，设置为`True`。示例：
 
 ```yaml
 model_config:
@@ -182,7 +182,7 @@ model_config:
 
 #### YAML 参数配置
 
-用户需要使用SwiGLU融合算子，需在配置文件中的 `model_config` 项下配置 `use_fused_swiglu` 项，设置为`True`，示例：
+用户需要使用SwiGLU融合算子，需在配置文件中的 `model_config` 项下配置 `use_fused_swiglu` 项，设置为`True`。示例：
 
 ```yaml
 model_config:

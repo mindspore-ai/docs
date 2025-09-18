@@ -4,7 +4,7 @@
 
 ## 概述
 
-ckpt是深度学习框架中用于保存模型训练状态的通用文件格式，包含模型参数、优化器状态和训练进度等信息，主要用于恢复训练或微调模型，本文主要介绍MindSpore Transformers如何支持该文件格式的转换和切分。
+ckpt是深度学习框架中用于保存模型训练状态的通用文件格式，包含模型参数、优化器状态和训练进度等信息，主要用于恢复训练或微调模型。本文主要介绍MindSpore Transformers如何支持该文件格式的转换和切分。
 
 > 已计划日落ckpt格式，使用权重更推荐使用safetensors格式。Safetensors 是 Huggingface 推出的一种可靠、易移植的机器学习模型存储格式，用于安全地存储Tensor，而且存储速度较快。详细参考文档[Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)。
 
@@ -34,7 +34,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 - dtype：转换后的权重数据类型。
 - n_head：只对BLOOM模型生效，使用`bloom_560m`时请设为`16`，使用`bloom_7.1b`时请设为`32`。
 - hidden_size：只对BLOOM模型生效，使用`bloom_560m`时请设为`1024`，使用`bloom_7.1b`时请设为`4096`。
-- layers：只对GPT2和WizardCoder模型生效，模型被转换的层数。
+- layers：只对GPT2和WizardCoder模型生效，指定模型被转换的层数。
 - is_pretrain：只对Swin模型生效，转换预训练权重。
 - telechat_type：只对TeleChat模型生效，TeleChat模型的版本。
 

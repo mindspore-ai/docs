@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/introduction/models.md)
 
-当前MindSpore Transformers全量的模型列表如下：
+当前MindSpore Transformers支持的模型列表如下：
 
 | 模型名                                                                                                     | 支持规格                                      |    模型类型     | 最新支持版本 |
 |:--------------------------------------------------------------------------------------------------------|:------------------------------------------|:-----------:|:------:|
@@ -58,4 +58,4 @@
 | [Ziya](https://gitee.com/mindspore/mindformers/blob/r1.0/research/ziya/ziya.md)                         | 13B                                       |    稠密LLM    |  1.0   |
 | [Bert](https://gitee.com/mindspore/mindformers/blob/r0.8/docs/model_cards/bert.md)                      | 4M/110M                                   |    稠密LLM    |  0.8   |
 
-&#42; ***LLM:*** *大语言模型（Large Language Model）;* ***MM:*** *多模态（Multi-Modal）*
+*注：**LLM** 表示大语言模型（Large Language Model）；**MM** 表示多模态（Multi-Modal）*

@@ -4,7 +4,7 @@
 
 ## 并行模式与应用场景
 
-在大规模深度学习模型的训练中，尤其是面对庞大的数据集和复杂的模型架构时，单一设备的算力往往不足以应对这种需求。为了解决这个问题，MindSpore 提供了一套强大的并行策略配置，通过灵活的并行策略可以大幅提升训练效率，并降低计算资源的消耗。
+在大规模深度学习模型的训练中，尤其是面对庞大的数据集和复杂的模型架构时，单一设备的算力往往不足以应对这种需求。为了解决这个问题，MindSpore 提供了一套强大的并行策略配置，通过灵活的并行策略可以大幅提升训练效率、降低计算资源的消耗。
 
 MindSpore 的并行模式包括数据并行、模型并行、流水线并行、序列并行等。这些模式可以单独使用，也可以结合在一起，形成复杂的混合并行策略，以应对不同的模型训练需求。通过合理配置这些并行策略，开发者可以有效利用多设备的计算资源，极大地提升训练效率。
 
@@ -25,7 +25,7 @@ MindSpore Transformers 支持多种并行特性，开发者可以利用这些特
 
 ### 数据并行
 
-数据并行是每个设备（worker）都持有一份完整的模型权重，將输入的数据分片并分配到不同的计算设备上并行处理，并基于分配到的局部数据进行前向传播和反向传播计算，在反向传播完成后，所有设备上计算的梯度会通过全局规约（AllReduce）操作进行聚合，确保各设备上的模型参数保持一致性。多路数据同时训练时，仅在梯度更新进行一次通信，性能最优，但内存不会减少。数据并行适用于数据量大且模型规模较小的场景。关于数据并行的框架侧实现，参见 [MindSpore 数据并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/data_parallel.html) 的具体内容。
+数据并行是每个设备（worker）都持有一份完整的模型权重，将输入的数据分片并分配到不同的计算设备上并行处理。各设备基于分配到的局部数据进行前向传播和反向传播计算，在反向传播完成后，所有设备上计算的梯度会通过全局规约（AllReduce）操作进行聚合，确保各设备上的模型参数保持一致性。多路数据同时训练时，仅在梯度更新进行一次通信，性能最优，但内存不会减少。数据并行适用于数据量大且模型规模较小的场景。关于数据并行的框架侧实现，参见 [MindSpore 数据并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/data_parallel.html) 的具体内容。
 
 MindSpore Transformers已支持数据并行方案，可通过以下配置项使能：
 
@@ -44,7 +44,7 @@ parallel_config:
 
 ### 模型并行
 
-数据并行训练中，每个设备均存储全部模型参数，显存占用较高，在模型规模较大时可能存在瓶颈。模型并行将整个模型切分并分布在一个设备阵列上，每个设备仅维护模型的一部分权重，网络并行计算各自部分并在LayerNorm等位置进行通信，最省内存，但通信量较大。模型并行适用于模型规模较大，单个设备无法容纳整个模型的场景。关于模型并行的框架侧实现，参见 [MindSpore 模型并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/operator_parallel.html) 的具体内容。
+数据并行训练中，每个设备均存储全部模型参数，显存占用较高，在模型规模较大时可能存在瓶颈。模型并行将整个模型切分并分布在一个设备阵列上，每个设备仅维护模型的一部分权重。网络并行计算各自部分，并在LayerNorm等位置进行通信，最省内存，但通信量较大。模型并行适用于模型规模较大，单个设备无法容纳整个模型的场景。关于模型并行的框架侧实现，参见 [MindSpore 模型并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/operator_parallel.html) 的具体内容。
 
 MindSpore Transformers已支持模型并行方案，可通过以下配置项使能：
 
@@ -88,7 +88,7 @@ parallel_config:
 
 > 本功能已废弃，将在后续版本中下架，可使用其他序列并行方法。如有任何问题或建议，请通过 **[社区Issue](https://gitee.com/mindspore/mindformers/issues/new)** 提交反馈，感谢您的理解和支持！
 
-长序列并行算法 Ring Attention 是当前业界长序列并行的代表性技术，用于解决长序列训练时的内存开销问题，同时实现计算与通信掩盖。Ring Attention 算法利用 Attention 的分块计算性质，当序列并行度为 N 时，将 Q，K，V 分别切分为 N 个子块，每张卡分别调用 Flash Attention 算子来计算本地 QKV 子块的 Attention 结果。由于每张卡只需要计算切分后 QKV 子块的 Attention，其内存占用大幅降低。Ring Attention 在做 FA 计算的同时采用环形通信向相邻卡收集和发送子块，实现计算与通信的最大化掩盖，保障了长序列并行的整体性能。
+长序列并行算法 Ring Attention 是当前业界长序列并行的代表性技术，用于解决长序列训练时的内存开销问题，同时实现计算与通信掩盖。Ring Attention 算法利用 Attention 的分块计算性质，当序列并行度为 N 时，将 Q、K、V 分别切分为 N 个子块，每张卡分别调用 Flash Attention 算子来计算本地 QKV 子块的 Attention 结果。由于每张卡只需要计算切分后 QKV 子块的 Attention，其内存占用大幅降低。Ring Attention 在做 FA 计算的同时采用环形通信向相邻卡收集和发送子块，实现计算与通信的最大化掩盖，保障了长序列并行的整体性能。
 
 MindSpore Transformers已支持配置Ring Attention序列并行方案，可通过以下配置项使能：
 
@@ -205,7 +205,7 @@ parallel_config:
 
 在进行数据并行训练时，模型的参数更新部分在各卡间存在冗余计算。通过优化器并行，可以将优化器的计算量分散到数据并行维度的卡上，在大规模网络上有效减少内存消耗并提升网络性能。关于优化器并行的框架侧实现，参见 [MindSpore 优化器并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/optimizer_parallel.html) 的具体内容。
 
- MindSpore Transformers已支持优化器并行方案，可通过以下配置项使能：
+MindSpore Transformers已支持优化器并行方案，可通过以下配置项使能：
 
 ```yaml
 parallel:
@@ -224,7 +224,7 @@ parallel:
 
 多副本并行用于在多个副本之间实现精细的并行控制，优化性能和资源利用率，适合大规格模型的高效训练。关于多副本并行的框架侧实现，参见 [MindSpore 多副本并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/pipeline_parallel.html#mindspore%E4%B8%AD%E7%9A%84interleaved-pipeline%E8%B0%83%E5%BA%A6) 的具体内容。
 
- MindSpore Transformers已支持多副本并行方案，可通过以下配置项使能：
+MindSpore Transformers已支持多副本并行方案，可通过以下配置项使能：
 
 ```yaml
 model_config:

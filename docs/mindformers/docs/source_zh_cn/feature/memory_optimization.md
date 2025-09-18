@@ -6,7 +6,7 @@
 
 ### 概述
 
-重计算可以显著降低训练时的激活内存，但会额外增加一些计算。关于重计算的原理和框架测能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html)。
+重计算可以显著降低训练时的激活内存，但会额外增加一些计算。关于重计算的原理和框架侧能力可参考 [MindSpore 教程文档：重计算](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/recompute.html)。
 
 ### 配置与使用
 
@@ -26,7 +26,7 @@ recompute_config:
   recompute_slice_activation: True
 ```
 
-如果需要对选择重计算配置到某几个特定层进行，可以使用 tuple 的方式进行配置。
+如果需要对某几个特定层进行选择重计算配置，可以使用 tuple 的方式进行配置。
 
 例如：一个网络有48层， `pp_interleave_num` 为 `2` ， `pipeline_stage` 为 `5` ，offset设为 `[[0,1,1,1,1],[1,1,1,1,0]]` ，重计算配置如下：
 
@@ -64,7 +64,7 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 | recompute                         | （按层）完全重计算。                                               | 可配置为 bool，整数型的 list 或 tuple，或二维 list 或 tuple。<br>配置为 bool 类型时，对所有层开启或关闭完全重计算；<br>配置为整数型 list 或 tuple 时，代表每个 `pipeline_stage` 中有多少层开启完全重计算， `pp_interleave_num > 1` 时开启的重计算层数会均匀分配到各 interleave 中；<br>配置为整数型二维 list 或 tuple 时，代表每个 mini stage 中有多少层开启完全重计算。                                                                                                                                                                                                                                                                         |
 | select_recompute                  | （按算子）选择重计算。                                              | 可配置为 bool，整数型的 list 或 tuple，或二维 list 或 tuple，字符串的 list 或 tuple，以及 dict。<br>默认选择重计算算子为 `['feed_forward\\.mul', 'feed_forward\\.w1\\.activation\\.silu']` 。<br>配置为 bool 类型时，对所有层开启或关闭默认算子的选择重计算；<br>配置为整数型 list 或 tuple 时，代表每个 `pipeline_stage` 中有多少层开启默认算子的选择重计算， `pp_interleave_num > 1` 时开启的选择重计算层数会均匀分配到各 interleave 中；<br>配置为整数型二维 list 或 tuple 时，代表每个 mini stage 中有多少层开启默认算子的选择重计算。<br>配置为字符串 list 或 tuple 时，代表对哪些算子开启选择重计算，算子名通过正则表达式匹配，层级关系通过 `'\\.'` 分割；<br>配置为 dict 时，key 值对应算子名，value 值对应选择重计算的配置方式，这种配法可以对每个算子精细配置重计算策略。 |
 | select_comm_recompute             | （按算子）选择通信重计算。                                            | 配置方式与 **select_recompute** 相同，默认选择通信重计算算子为 `['.*\\.norm']` 。一般仅对 layer_norm 或类似层进行配置。                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| parallel_optimizer_comm_recompute | 优化器并行通信重计算。在优化器并行下，是否重计算 AllGather 通信。                   | (bool, 可选) - 开启后在自动并行或半自动并行模式下，指定 Cell 内部由优化器并行引入的 AllGather 通信是否重计算。 默认值： `False` 。                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| parallel_optimizer_comm_recompute | 优化器并行通信重计算。在优化器并行下，是否重计算 AllGather 通信。                   | (bool, 可选) - 开启后在自动并行或半自动并行模式下，指定 Cell 内部由优化器并行引入的 AllGather 通信是否重计算。默认值： `False` 。                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | mp_comm_recompute                 | 模型并行通信重计算，在模型并行下，是否重计算通信算子。 | (bool, 可选) - 开启后在自动并行或半自动并行模式下，指定 Cell 内部由模型并行引入的通信操作是否重计算。默认值： `True` 。                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | recompute_slice_activation        | 切片重计算，是否对将保留在内存中的 Cell 输出进行切片。                           | (bool, 可选) - 默认值： `False` 。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
@@ -72,9 +72,9 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
 ### 概述
 
-在传统大模型训练任务中，计算卡的显存资源常常成为训练瓶颈，采用更大规模的模型并行（model parallel, mp）和流水线并行（pipeline parallel, pp）切分策略，虽然能一定程度上缓解单张计算卡的显存压力，但需要更大规模的集群资源，且引入过多的通信会极大地降低模型的MFU。在集群资源有限的情况下，重计算是另一个缓解内存压力的有效手段，其通过放弃存储正向传播阶段的激活值，并在梯度反向回传时重新计算所需激活值，来降低激活值的显存占用，由于重计算需引入额外的计算开销，因此该方法同样会显著降低模型训练的MFU（Model FLOPs Utilization）。
+在传统大模型训练任务中，计算卡的显存资源常常成为训练瓶颈。采用更大规模的模型并行（model parallel, mp）和流水线并行（pipeline parallel, pp）切分策略，虽然能一定程度上缓解单张计算卡的显存压力，但需要更大规模的集群资源，且引入过多的通信会极大地降低模型的MFU。在集群资源有限的情况下，重计算是另一个缓解内存压力的有效手段，其通过放弃存储正向传播阶段的激活值，并在梯度反向回传时重新计算所需激活值，来降低激活值的显存占用。由于重计算需引入额外的计算开销，因此该方法同样会显著降低模型训练的MFU（Model FLOPs Utilization）。
 
-在此背景下，细粒度激活值SWAP技术可以提供第三种降低内存占用的有效手段，且拥有更大的性能优势。具体地，激活值SWAP技术在模型正向传播阶段，将需要长期存储的激活值卸载至host侧，并在反向传播阶段，使用该激活值时，提前将其预取回device侧。资源使用方面，激活值SWAP技术使用D2H/H2D带宽，可以在训练阶段与计算任务、D2D通信任务并发，实现对内存搬运开销的掩盖。
+在此背景下，细粒度激活值SWAP技术可以提供第三种降低内存占用的有效手段，且拥有更大的性能优势。具体地，激活值SWAP技术在模型正向传播阶段，将需要长期存储的激活值卸载至host侧，并在反向传播阶段使用该激活值时，提前将其预取回device侧。资源使用方面，激活值SWAP技术使用D2H/H2D带宽，可以在训练阶段与计算任务、D2D通信任务并发，实现对内存搬运开销的掩盖。
 
 细粒度激活值SWAP技术具备较高的使用灵活度。大模型训练的正向传播阶段，将产生数据量大小不同的若干激活值，用户可按需选择特定的激活值进行SWAP，且选择激活值的粒度为算子级。当模型类型或规格改变时，用户可灵活调整对应的SWAP策略，以追求最低的内存开销和最优的性能。
 
@@ -209,7 +209,7 @@ bash ./scripts/msrun_launcher.sh "run_mindformer.py \
     8 8 <machine_ip> 8118 0 output/msrun False 300
 ```
 
-训练完毕后执行命令`cat output/msrun/worker_0.log | grep 'Set layer swap at'`查看默认SWAP策略的执行情况：
+训练完毕后执行命令`cat output/msrun/worker_0.log | grep 'Set layer swap at'`查看选择特定层使能SWAP策略的执行情况：
 
 ```text
 -INFO - Set layer swap at layer 0 and value is: 20
@@ -261,7 +261,7 @@ bash ./scripts/msrun_launcher.sh "run_mindformer.py \
     8 8 <machine_ip> 8118 0 output/msrun False 300
 ```
 
-训练完毕后执行命令`cat output/msrun/worker_0.log | grep 'Set op_swap at layer'`查看默认SWAP策略的执行情况：
+训练完毕后执行命令`cat output/msrun/worker_0.log | grep 'Set op_swap at layer'`查看选择特定层的特定算子使能SWAP策略的执行情况：
 
 ```text
 -INFO - Set op_swap at layer 0: .attention, value=20
@@ -316,7 +316,7 @@ bash ./scripts/msrun_launcher.sh "run_mindformer.py \
     8 8 <machine_ip> 8118 0 output/msrun False 300
 ```
 
-训练完毕后执行命令`cat output/msrun/worker_0.log | grep 'Set op_swap at layer' -C 1`查看默认SWAP策略的执行情况：
+训练完毕后执行命令`cat output/msrun/worker_0.log | grep 'Set op_swap at layer' -C 1`查看细粒度激活值SWAP与重计算混用的执行情况：
 
 ```text
 -INFO - Set select recompute at layer 0: feed_forward

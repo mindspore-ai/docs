@@ -18,7 +18,7 @@
 
 ### 准备 Hugging Face 模型配置
 
-以 Qwen3 为例，从 Hugging Face 官网下载模型的配置文件（包括 config.json和generation.json）存放在本地文件夹`./local/qwen3`。
+以 Qwen3 为例，从 Hugging Face 官网下载模型的配置文件（包括 config.json和generation.json），存放在本地文件夹`./local/qwen3`。
 
 ### 准备 yaml 配置文件
 
@@ -38,7 +38,7 @@ model:
     params_dtype: "bfloat16"
 ```
 
-若不需要复用 Hugging Face 模型配置，MindSpore Transformers 需要在 model_config 和 generation 配置所有所需字段，其中 model_type 和 architectures 为必须配置字段。
+若不需要复用 Hugging Face 模型配置，MindSpore Transformers 需要在 model_config 和 generation 配置所有所需字段。其中 model_type 和 architectures 为必须配置字段。
 
 ```yaml
 model:
@@ -63,8 +63,8 @@ generation_config:
 
 ## 常见问题FAQ
 
-- 若不加载 Hugging Face 模型配置， model_type 和 architectures 为必须配置字段，该如何配置？
+- 若不加载 Hugging Face 模型配置，model_type 和 architectures 为必须配置字段，该如何配置？
 
     以 Qwen3 为例：
 
-    注册其模型配置类 Qwen3Config 时，若传入参数 search_names 非空，则 model_type 只需要配置为 search_names 的值即可；若未传入参数 search_names，则 model_type 配置成 Qwen3Config 即可；architectures 配置成对应的模型类名称 Qwen3ForCausalLM 即可。
+    注册其模型配置类 Qwen3Config 时，若传入参数 search_names 非空，则 model_type 只需要配置为 search_names 的值即可；若未传入参数 search_names，则 model_type 配置成 Qwen3Config 即可。architectures 配置成对应的模型类名称 Qwen3ForCausalLM 即可。

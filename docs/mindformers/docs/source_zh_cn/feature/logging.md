@@ -19,7 +19,7 @@ MindSpore Transformers 会将模型的训练配置、训练步数、Loss、吞�
 | log        | 以 `rank_{i}` 文件夹来划分保存每一张卡的日志信息。（ `i` 对应为训练任务所用的 NPU 卡号）<br>每一个 `rank_{i}` 文件夹底下将包括 `info.log` 和 `error.log` 来分别记录训练时输出的 INFO 级别和 ERROR 级别的信息。单个日志默认大小为50M，且最多有5个日志备份。 |
 | msrun_log  | 以 `worker_{i}.log` 来记录每一张卡的训练日志（包括报错信息）， `scheduler.log` 则记录了 msrun 的启动信息。<br>一般更常通过此文件夹查看训练日志信息。                                                                     |
 
-以一个使用 `msrun` 当时启动的 8 卡任务为例，具体日志结构如下所示：
+以一个使用 `msrun` 方式启动的 8 卡任务为例，具体日志结构如下所示：
 
 ```text
 output
@@ -33,9 +33,9 @@ output
             └── error.log   # 记录 7 号卡的报错信息
     └── msrun_log
         ├── scheduler.log   # 记录各张卡之间的通信信息
-        ├── worker_0.log    # 记录 0 号卡的训练及信息
+        ├── worker_0.log    # 记录 0 号卡的训练信息
         ├── ...
-        └── worker_7.log    # 记录 7 号卡的训练及信息
+        └── worker_7.log    # 记录 7 号卡的训练信息
 ```
 
 ### 配置与使用

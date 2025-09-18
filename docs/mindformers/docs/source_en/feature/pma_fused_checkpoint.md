@@ -12,7 +12,7 @@ EMA algorithm formula: $PMA_n = (1 - \alpha) \times PMA_{n-1} + \alpha \times W_
 
 > The EMA algorithm allocates weights in an exponentially decreasing manner, making it more sensitive to the weights of the nearest model and able to quickly respond to changes in the model during the later stages of training.
 
-SMA algorithm formula: $PMA_n = (W_1+ ... + Wn) / n$
+SMA algorithm formula: $PMA_n = (W_1+ ... + W_n) / n$
 
 > The SMA algorithm evenly distributes weights across all model weights and treats each weight equally.
 

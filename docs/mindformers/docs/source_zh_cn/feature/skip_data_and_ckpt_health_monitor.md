@@ -4,7 +4,9 @@
 
 ## 概述
 
-数据跳过功能是指当训练过程中，遇到某个step的global norm超过设定的阈值时，会跳过当前步数训练数据；当连续累计的越界次数达到阈值时，便会触发异常中断，终止训练。而健康监测功能是指在保存权重时，对保存的权重的健康状况进行监测，生成一个文件记录权重的健康状况，并在下次续训时通过该文件来选择最新的健康的权重进行续训。
+数据跳过功能是指当训练过程中，遇到某个step的global norm超过设定的阈值时，会跳过当前步数训练数据。当连续累计的越界次数达到阈值时，便会触发异常中断，终止训练。
+
+健康监测功能是指在保存权重时，对保存的权重的健康状况进行监测，生成一个文件记录权重的健康状况，并在下次续训时通过该文件来选择最新的健康的权重进行续训。
 
 权重的健康状况判定请参考[权重健康监测](#权重健康监测)。
 
@@ -86,19 +88,19 @@ ValueError: Current global norm [47.329006] of step 2 has been 2 consecutive tim
 
 ### 概述
 
-MindSpore Transformers提供的健康监测功能，能够通过监测stage0下的embedding local norm，来判定保存的权重的健康情况，通过文件health_ckpts.json，来记录训练过程中所有保存的权重的健康状况，续训时通过该文件自动寻找最新的健康的权重进行续训。
+MindSpore Transformers提供的健康监测功能，能够通过监测stage0下的embedding local norm判定保存的权重的健康情况。通过文件health_ckpts.json记录训练过程中所有保存的权重的健康状况，续训时通过该文件自动寻找最新的健康的权重进行续训。
 
 本功能涵盖以下三个步骤：
 
 1. 打开健康监测开关，通过一段时间的正常训练来确定需要设定的embedding local norm的阈值。
-2. 设定阈值后重新开启训练，当保存权重时，embedding local norm超过阈值，则记录权重健康状况为不健康，反之则记录为健康，记录中1表示不健康，0表示健康。
+2. 设定阈值后重新开启训练。当保存权重时，embedding local norm超过阈值，则记录权重健康状况为不健康，反之则记录为健康。记录中1表示不健康，0表示健康。
 3. 续训时，自动根据上次训练生成的health_ckpts.josn文件中记录的最新的健康权重进行续训。
 
 **注意**：
 
 - 只有当pipeline stage>1时的stage0下的embedding norm才有意义。
-- 只有stage0下的卡的权重才有对应的健康状况，记录文件记录的是所有卡权重汇总后的结果，即只要有一张卡的权重的健康状况为不健康，那么该步数对应的权重的健康状况则为不健康。当stage0下所有卡的权重均为健康时，文件才会记录该步数下对应的权重的健康状况为健康。
-- 当记录文件中不存在健康的权重时，则会提示用户重新训练直到存在健康的权重，如若训练一直无法产生健康的权重，则应当考虑设定的embedding local norm的阈值是否合理。
+- 只有stage0下的卡的权重才有对应的健康状况。记录文件记录的是所有卡权重汇总后的结果，即只要有一张卡的权重的健康状况为不健康，那么该步数对应的权重的健康状况则为不健康。当stage0下所有卡的权重均为健康时，文件才会记录该步数下对应的权重的健康状况为健康。
+- 当记录文件中不存在健康的权重时，则会提示用户重新训练直到存在健康的权重。如若训练一直无法产生健康的权重，则应当考虑设定的embedding local norm的阈值是否合理。
 - 如果指定权重进行续训，则优先以指定的权重进行续训，不考虑权重的健康状况。
 - 该功能不支持full batch的场景。
 - 开启该功能可能会存在通信内存不足的风险。
@@ -146,8 +148,8 @@ parallel_config:
 | save_checkpoint_steps          | 保存权重的步数间隔。                                                                                                                                                                                                                                                                          | int   | 必选         | 正整数 |
 | embedding_local_norm_threshold | 健康监测的embedding norm的阈值。默认值为`1.0`。                                                                                                                                                                                                                                                   | float | 可选         | 大于0 |
 | parallel                       | 并行策略配置。                                                                                                                                                                                                                                                                             |       | 必选         |     |
-| full_batch                     | 是否在并行模式下从数据集中读取加载完整的批数据，设置为`True`表示所有rank都读取完整的批数据，设置为`False`表示每个rank仅加载对应的批数据，设置为`False`时必须设置对应的`dataset_strategy`。此功能仅支持`False`。                                                                                                                                                  |    bool   | 必选 `False` |     |
-| dataset_strategy               | 仅支持`List of List`类型且仅在`full_batch=False`时生效，列表中子列表的个数需要等于`train_dataset.input_columns`的长度，并且列表中的每个子列表需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子列表的第1位数配置与`data_parallel`相同，其他位配置为`1`。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dataset_slice.html)。 |   list    | 必选         |     |
+| full_batch                     | 是否在并行模式下从数据集中读取加载完整的批数据。设置为`True`表示所有rank都读取完整的批数据，设置为`False`表示每个rank仅加载对应的批数据。设置为`False`时必须设置对应的`dataset_strategy`。此功能仅支持`False`。                                                                                                                                                  |    bool   | 必选 `False` |     |
+| dataset_strategy               | 仅支持`List of List`类型且仅在`full_batch=False`时生效。列表中子列表的个数需要等于`train_dataset.input_columns`的长度，并且列表中的每个子列表需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子列表的第1位数配置与`data_parallel`相同，其他位配置为`1`。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/dataset_slice.html)。 |   list    | 必选         |     |
 | parallel_config                | 并行参数配置。                                                                                                                                                                                                                                                                             |       | 必选         |     |
 | data_parallel                  | 设置数据并行数。                                                                                                                                                                                                                                                                            |   int    | 必选         | 正整数 |
 | pipeline_stage                 | 设置流水线并行数。                                                                                                                                                                                                                                                                           |    int   | 必选         | 正整数 |
@@ -180,7 +182,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 health_ckpts.json记录数据如下：
 
-ckpt_name记录的为权重文件名，is_health记录的是对应权重的健康状况。记录中1表示不健康，0表示健康。
+ckpt_name记录的是权重文件名，is_health记录的是对应权重的健康状况。记录中1表示不健康，0表示健康。
 
 ```json
 [

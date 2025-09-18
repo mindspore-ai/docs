@@ -58,7 +58,7 @@ The default configuration template uses 8 cards.
    | Qwen3      |
    | Qwen2_5    |
 
-2. The generated model configuration shall be based on the YAML configuration first, and if no parameters are configured, the parameters in the config.json file under the pretrained-model-dir path shall be taken as the values. If you want to modify the custom model configuration, you only need to add the relevant configuration in mode_config.
+2. The generated model configuration shall be based on the YAML configuration first, and if no parameters are configured, the parameters in the config.json file under the pretrained-model-dir path shall be taken as the values. If you want to modify the custom model configuration, you only need to add the relevant configuration in model_config.
 3. For general configuration details, please refer to [Model Configuration](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#basic-configuration).
 
 ## Advanced Configuration Modification

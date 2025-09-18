@@ -6,13 +6,13 @@
 
 MindSpore Transformers 高可用特性提供了如下几个功能：
 
-- **临终 CKPT 功能**：主要针对大模型训练过程中的故障恢复加速，该特性在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临终 CheckPoint 数据，恢复训练时能够通过该 CheckPoint 数据恢复，减少故障造成的训练迭代损失。
-- **UCE 故障容错恢复功能**：主要是针对大模型训练过程中片上内存的 UCE 故障检测，并完成在线修复，达到 Step 级重计算。
-- **HCCE 故障恢复功能**：主要是针对大模型训练过程中HCCL通信算子重计算失败，并完成在线修复，达到 Step 级重计算。
-- **TRE 训练结果异常恢复功能**：主要是针对大模型训练过程中出现loss或global norm等值异常检测，并完成在线修复，达到 Step 级重计算。
+- **临终 CKPT 功能**：主要针对大模型训练过程中的故障恢复加速。该特性在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临终 Checkpoint 数据。恢复训练时能够通过该 Checkpoint 数据恢复，减少故障造成的训练迭代损失。
+- **UCE 故障容错恢复功能**：主要针对大模型训练过程中片上内存的 UCE 故障检测，并完成在线修复，达到 Step 级重计算。
+- **HCCE 故障恢复功能**：主要针对大模型训练过程中HCCL通信算子重计算失败，并完成在线修复，达到 Step 级重计算。
+- **TRE 训练结果异常恢复功能**：主要针对大模型训练过程中出现loss或global norm等值异常检测，并完成在线修复，达到 Step 级重计算。
 - **ARF 进程级重调度恢复功能**：训练发生异常后，不需要重新拉起整个集群，只需以节点为单位进行重启或替换，完成修复并继续训练。
-- **TSP 训练迭代暂停功能**：在每个训练step结束后，进入训练暂停接口，根据上层运维需要进行训练暂停和继续，例如，暂停训练执行通信网络轨道切换，切换成功后继续训练。
-- **RSC POD级重调度功能**：主要是其他快恢特性执行失败之后的兜底方案，kill故障进程以及其他正常进程（正常进程所在pod不会被kill），将故障pod从当前集群中隔离，同时调度新的pod加入集群，并恢复训练（当前版本必须依赖MindX）。
+- **TSP 训练迭代暂停功能**：在每个训练step结束后，进入训练暂停接口，根据上层运维需要进行训练暂停和继续。例如，暂停训练执行通信网络轨道切换，切换成功后继续训练。
+- **RSC POD 级重调度功能**：主要作为其他快恢特性执行失败之后的兜底方案，kill故障进程以及其他正常进程（正常进程所在pod不会被kill），将故障pod从当前集群中隔离，同时调度新的pod加入集群，并恢复训练（当前版本必须依赖MindX）。
 
 这几个高可用特性的**约束**和**依赖**如下：
 
@@ -24,9 +24,9 @@ MindSpore Transformers 高可用特性提供了如下几个功能：
 
 目前这几个高可用特性只支持Ascend后端上图模式的Step级别恢复。
 
-卡间存在副本关系的目的是当其中一张卡发生故障时，可从另外一张卡恢复，要求权重和优化器状态都会存在至少两份冗余。为保证这种冗余关系，必须开启数据并行，保证有两张卡权重一致，同时如果开启了优化器并行，也必须确保存在两张卡的优化器状态一致。
+卡间存在副本关系的目的是当其中一张卡发生故障时，可从另外一张卡恢复。要求权重和优化器状态都会存在至少两份冗余。为保证这种冗余关系，必须开启数据并行，保证有两张卡权重一致。同时，如果开启了优化器并行，也必须确保存在两张卡的优化器状态一致。
 
-临终 CKPT、UCE 和 ARF 组合开启这三个功能时，依次生效的顺序是：UCE -> ARF -> 临终 CKPT ，如果其中一个功能可以恢复，就不会执行下一个功能。临终 CKPT 功能作为最后的保障，完成该功能后整个训练进程会退出，所以在 UCE 或 ARF 功能开启时，会默认开启临终 CKPT。
+临终 CKPT、UCE 和 ARF 组合开启这三个功能时，依次生效的顺序是：UCE -> ARF -> 临终 CKPT。如果其中一个功能可以恢复，就不会执行下一个功能。临终 CKPT 功能作为最后的保障，完成该功能后整个训练进程会退出。所以在 UCE 或 ARF 功能开启时，会默认开启临终 CKPT。
 
 故障快速恢复由ARF和TRE两个功能组合，生效顺序为：TRE -> ARF 。TRE负责监测global norm的异常值并抛出异常，ARF负责捕获TRE异常后重新拉起整个集群修复训练，整个过程不中断训练。
 
@@ -53,7 +53,7 @@ export MS_TFT_PORT=30051
 ```
 
 - `MINDIO_FOR_MINDSPORE`：使能 MindIO TFT SDK 支持 MindSpore
-- `MS_ENABLE_TFT`：表示启用训练故障容错（Training Fault Tolerance）功能，如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。
+- `MS_ENABLE_TFT`：表示启用训练故障容错（Training Fault Tolerance）功能。如果只想启用其中的某一个功能，则将对应的值设置为 1 即可。
     - **TTP (Try To Persist)**：临终 CKPT 功能
     - **UCE (Uncorrectable Memory Error)**：UCE 故障容错恢复功能
     - **HCCE (Huawei Collective Communication Error)**：HCCL 重计算失败恢复功能
@@ -74,12 +74,12 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
 #### 保存及恢复配置
 
-临终的 CheckPoint 保存和恢复能力分别用于初始训练和续训，这部分复用现有的 MindSpore Transformers 的配置，以下分别介绍初始训练和续训的配置。
+临终的 Checkpoint 保存和恢复能力分别用于初始训练和续训，这部分复用现有的 MindSpore Transformers 的配置。以下分别介绍初始训练和续训的配置。
 
 - **初始训练配置**
 
     ```yaml
-    output_dir: './output' # 保存 CheckPoint 和 Strategy 的目录
+    output_dir: './output' # 保存 Checkpoint 和 Strategy 的目录
     load_checkpoint: ''    # 初次训练时配置为空
     src_strategy_path_or_dir: '/output/strategy/'
     only_save_strategy: False
@@ -97,8 +97,8 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 - **续训配置**
 
     ```yaml
-    output_dir: './output' # 保存 CheckPoint 和 Strategy 的目录
-    load_checkpoint: './output/checkpoint/'   # 续训时配置 CheckPoint 路径
+    output_dir: './output' # 保存 Checkpoint 和 Strategy 的目录
+    load_checkpoint: './output/checkpoint/'   # 续训时配置 Checkpoint 路径
     src_strategy_path_or_dir: '/output/strategy/'
     only_save_strategy: False
     resume_training: True  # 续训时配置为 True
@@ -114,7 +114,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
 #### 副本关系配置
 
-高可用的临终 CKPT、UCE 和 ARF 这三个功能的关键是配置出权重和优化器的副本冗余关系，配置的核心是数据并行域的维度大于 2，如果叠加优化器并行，需要同时保证优化器的副本数大于 2。所以配置分两类，开启优化器并行和不开启优化器并行。下面以 8 卡为例，介绍如何配置。
+高可用的临终 CKPT、UCE 和 ARF 这三个功能的关键是配置出权重和优化器的副本冗余关系。配置的核心是数据并行域的维度大于 2，如果叠加优化器并行，需要同时保证优化器的副本数大于 2。所以配置分两类：开启优化器并行和不开启优化器并行。下面以 8 卡为例，介绍如何配置。
 
 - **不开启优化器并行**
 
@@ -131,7 +131,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
 - **开启优化器并行**
 
-    开优化器并行后必须要保证优化器的状态存在副本，配置的关键是 optimizer_weight_shard_size 为 2。此时优化器状态的副本数为 data_parallel/optimizer_weight_shard_size。因此，如果数据并行度配置为 2 时，是不存在优化器副本的，必须把数据并行度配置为 4；此时的副本数为 data_parallel/optimizer_weight_shard_size = 4/2 = 2。
+    开启优化器并行后必须要保证优化器的状态存在副本，配置的关键是 optimizer_weight_shard_size 为 2。此时优化器状态的副本数为 data_parallel/optimizer_weight_shard_size。因此，如果数据并行度配置为 2 时，是不存在优化器副本的，必须把数据并行度配置为 4。此时的副本数为 data_parallel/optimizer_weight_shard_size = 4/2 = 2。
 
     ```yaml
     parallel:
@@ -192,10 +192,10 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
     需要注意以下关键点：
 
-    - `sink_size: 1`： 临终 CKPT 和 UCE 故障容错恢复等特性不支持 `sink_size` 大于 1 的场景，因此这里配置为 1。
-    - `enable_parallel_optimizer: True`： 使能优化器并行。
-    - `optimizer_weight_shard_size: 4`： 优化器并行的切分大小为 4。
-    - `data_parallel: 8`: 数据并行配置为 8。
+    - `sink_size: 1`：临终 CKPT 和 UCE 故障容错恢复等特性不支持 `sink_size` 大于 1 的场景，因此这里配置为 1。
+    - `enable_parallel_optimizer: True`：使能优化器并行。
+    - `optimizer_weight_shard_size: 4`：优化器并行的切分大小为 4。
+    - `data_parallel: 8`：数据并行配置为 8。
 
     按照前面章节的说明，`data_parallel/optimizer_weight_shard_size` 的值为 `8 / 4 = 2`，大于 1，因此存在副本关系。
 3. 执行下面命令启动训练
@@ -216,12 +216,12 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
     注意：需要将 `/YourDataSetPath` 换成实际数据集的路径。
 4. 待训练执行若干个 step 之后，终止 worker 进程，触发临终 CKPT 保存
 
-    注意：通过上述启动方式， MindIO Controller 附着在 worker 0 进程上，此种情况下不能终止 worker 0，否则导致 MindIO Controller 退出，无法触发临终 CKPT。但是通过 taskd 方式启动训练时，MindIO Controller 是个单独的进程，可以终止 worker 0 进程。
-5. 确认临终的 CheckPoint 生成
+    注意：通过上述启动方式，MindIO Controller 附着在 worker 0 进程上，此种情况下不能终止 worker 0，否则导致 MindIO Controller 退出，无法触发临终 CKPT。但是通过 taskd 方式启动训练时，MindIO Controller 是个单独的进程，可以终止 worker 0 进程。
+5. 确认临终的 Checkpoint 生成
 
-    在整个训练进程结束后，通过日志确认最终生成的 CheckPoint 文件的合理性，具体操作如下：
+    在整个训练进程结束后，通过日志确认最终生成的 Checkpoint 文件的合理性，具体操作如下：
 
-    1). 执行命令 `find output/checkpoint/ -name '*.ckpt'` 查找生成的 CheckPoint 文件：
+    1). 执行命令 `find output/checkpoint/ -name '*.ckpt'` 查找生成的 Checkpoint 文件：
 
     ```text
     $ find output/checkpoint/ -name '*.ckpt'
@@ -252,9 +252,9 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
     2025-04-07 15:34:27.393515 info 1879142 [TTP controller.cpp:1512] rank:1, report group list: [1, 5]
     ```
 
-    从上面训练的 step 信息可以看出已经训练的 5 个 step，和 CheckPoint 的文件名 `llama2_13b_rank_2-5_1.ckpt` 中的 5 是一致的。
+    从上面训练的 step 信息可以看出已经训练的 5 个 step，和 Checkpoint 的文件名 `llama2_13b_rank_2-5_1.ckpt` 中的 5 是一致的。
 
-    从日志中输出的副本关系 `[0, 4]`、`[3, 7]`、 `[2, 6]` 和 `[1, 5]` 得知：
+    从日志中输出的副本关系 `[0, 4]`、`[3, 7]`、`[2, 6]` 和 `[1, 5]` 得知：
 
     - rank 0 和 rank 4 权重存在副本关系，临终的 Checkpoint 保存在 rank 0
     - rank 3 和 rank 7 权重存在副本关系，临终的 Checkpoint 保存在 rank 3

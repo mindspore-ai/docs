@@ -21,7 +21,7 @@ Huggingface Safetensors example catalog structure is as follows:
 
 ```text
 qwen2_7b
- └── hf_unified_safetenosrs
+ └── hf_unified_safetensors
         ├── model-00001-of-00004.safetensors
         ├── model-00002-of-00004.safetensors
         ├── model-00003-of-00004.safetensors
@@ -33,7 +33,7 @@ MindSpore Safetensors example catalog structure is as follows:
 
 ```text
 qwen2_7b
- └── ms_unified_safetenosrs
+ └── ms_unified_safetensors
         ├── model-00001-of-00004.safetensors
         ├── model-00002-of-00004.safetensors
         ├── model-00003-of-00004.safetensors
@@ -53,7 +53,7 @@ Distributed Safetensors example catalog structure is as follows:
 
 ```text
 qwen2_7b
- └── distributed_safetenosrs
+ └── distributed_safetensors
         ├── rank_0
             └── qwen2_7b_rank_0.safetensors
         ├── rank_1
@@ -164,7 +164,7 @@ MindSpore Transformers supports training, inference, and resumable training in a
 
 | Parameter names              | Descriptions                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| load_checkpoint     | The path to the folder where the weights are preloaded.<br> - In case of full weights, fill in the path to the folder where the slices/individual weight files are located.<br/>Note: Huggingface safetensor weights loading is supported (currently only Llama series models are supported). During the online loading process, a copy of the converted MindSpore safetensor weights file is saved to `/output/ms_safetensors`.<br> - In case of distributed weights, they need to be stored in `model_dir/rank_x/xxx.safetensor` format, with the folder path filled in as `model_dir`.                                                                                                                                                                                                             |
+| load_checkpoint     | The path to the folder where the weights are preloaded.<br> - In case of full weights, fill in the path to the folder where the slices/individual weight files are located.<br/>Note: Huggingface safetensors weights loading is supported (currently only Llama series models are supported). During the online loading process, a copy of the converted MindSpore safetensors weights file is saved to `/output/ms_safetensors`.<br> - In case of distributed weights, they need to be stored in `model_dir/rank_x/xxx.safetensors` format, with the folder path filled in as `model_dir`.                                                                                                                                                                                                             |
 | load_ckpt_format | The format of the loaded model weights, optionally `ckpt`, `safetensors`, defaults to `ckpt`.<br/>Loading weights in `safetensors` format needs to change this configuration to `safetensors`.                                                                                                                                                                                                                                                                                                                                                                  |
 | use_parallel     | Whether to load in parallel.                                               |
 | auto_trans_ckpt | Whether to enable the online slicing function.<br/>- If loading weight is full weight:<br/>a. when `use_parallel: True`, it is judged as distributed loading, `auto_trans_ckpt: True` needs to be set synchronously to turn on online slicing. <br/>b. When `use_parallel: False`, it is judged as single card loading, you need to set `auto_trans_ckpt: False` synchronously to disable the online slicing function.<br/>- If loading weight is distributed weight:<br/>a. Without changing the original slicing strategy, you need to set `auto_trans_ckpt: False` to load directly according to the original slicing strategy.<br/>b. To change the original slicing strategy, set `auto_trans_ckpt: True` and configure `src_strategy_path_or_dir` to be the original slicing strategy file path.<br/>When the task is pulled up, the weights are merged online into full weights, which are sliced and loaded according to the parallelism strategy set in the configuration file. The online merged weights are saved in the current directory under the `/output/unified_checkpoint` file. |
@@ -175,7 +175,7 @@ MindSpore Transformers supports training, inference, and resumable training in a
 
 ```yaml
 # configuration file
-load_checkpoint: '/qwen2_7b/unified_safetenosrs'    # Load full weights file path
+load_checkpoint: '/qwen2_7b/unified_safetensors'    # Load full weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: False                              # Full weights + single card loading requires this configuration item to be turned off
 use_parallel: False                                 # single card loading
@@ -189,7 +189,7 @@ parallel_config:                                    # Configure the target distr
 
 ```yaml
 # configuration file
-load_checkpoint: '/qwen2_7b/unified_safetenosrs'    # Load full weights file path
+load_checkpoint: '/qwen2_7b/unified_safetensors'    # Load full weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for full weights + distributed loading to turn on online slicing
 use_parallel: True                                  # Multi-cards loading
@@ -205,7 +205,7 @@ parallel_config:                                    # Configure the target distr
 
 ```yaml
 # configuration file
-load_checkpoint: '/output/distributed_safetenosrs'  # Load source distributed weights file paths
+load_checkpoint: '/output/distributed_safetensors'  # Load source distributed weights file paths
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: False                              # Disable the online slicing function
 parallel_config:                                    # Configure the target distributed strategy
@@ -218,7 +218,7 @@ parallel_config:                                    # Configure the target distr
 
 ```yaml
 # configuration file
-load_checkpoint: '/output/distributed_safetenosrs'  # Load source distributed weights file paths
+load_checkpoint: '/output/distributed_safetensors'  # Load source distributed weights file paths
 src_strategy_path_or_dir: '/output/src_strategy'    # Load source strategy file for merging source distributed weights into full weights
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: True                               # Enable the online slicing function
@@ -244,7 +244,7 @@ In scenarios where there are shared disks between servers, you can use MindSpore
 
 ```yaml
 output_dir: './output'                              # The strategy file is generated under ./output/strategy, which is used to slice the weights online.
-load_checkpoint: '/qwen2_7b/unified_safetenosrs'    # Load full weights file path
+load_checkpoint: '/qwen2_7b/unified_safetensors'    # Load full weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for full weights + distributed loading to turn on online slicing
 train_dataset: &train_dataset
@@ -339,7 +339,7 @@ Distribute the merged strategy file `dst_strategy.ckpt` to each node under the `
 
 ```yaml
 output_dir: './output'                              # Make sure that each node under ./output/merged_strategy/ has the merged strategy file
-load_checkpoint: '/qwen2_7b/unified_safetenosrs'    # Load full weights file path
+load_checkpoint: '/qwen2_7b/unified_safetensors'    # Load full weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for full weights + distributed loading to turn on online slicing
 ```
@@ -351,7 +351,7 @@ According to the [weight slicing](#weight-slicing) guide, the full weights are f
 Because distributed weight files are generally larger than strategy files and distribution operations are more time-consuming, the first approach is more recommended.
 
 ```yaml
-load_checkpoint: '/output/distributed_safetenosrs'  # Load distributed weights file path
+load_checkpoint: '/output/distributed_safetensors'  # Load distributed weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: False                              # Distributed weight loading with online slicing turned off
 ```
@@ -442,7 +442,7 @@ generation:
 
 The priority for selecting the weight path of `load_checkpoint` is high. When configuring this parameter, the weight files in the path of `pretrained_model_dir` will not be loaded.
 
-When `load_checkpoint` is not configured, if there are safetensor weight files in the path 'pretrained_model_dir', it will be loaded. If it does not exist, the weights will be randomly initialized.
+When `load_checkpoint` is not configured, if there are safetensors weight files in the path 'pretrained_model_dir', it will be loaded. If it does not exist, the weights will be randomly initialized.
 
 > This feature currently only supports Qwen3 series and DeepSeek V3 series models in fine-tuning/inference scenarios, and is being continuously updated.
 
@@ -561,14 +561,14 @@ ms.ckpt_to_safetensors("./ckpt_save_path/rank0/checkpoint_0.ckpt", "./output/saf
 
 #### Training Tasks
 
-The MindSpore Transformers training task is started after adjusting the configuration file, and the conversion is achieved by loading in ckpt format and saving in safetensor format on a trial basis.
+The MindSpore Transformers training task is started after adjusting the configuration file, and the conversion is achieved by loading in ckpt format and saving in safetensors format on a trial basis.
 
 ```yaml
 load_checkpoint: 'output/checkpoint/'               # Load weights file path
 load_ckpt_format: 'ckpt'                            # Load weight file format as ckpt
 callbacks:
   - type: CheckpointMonitor
-    checkpoint_format: 'safetensors'                # Save the weights file format as safetensor
+    checkpoint_format: 'safetensors'                # Save the weights file format as safetensors
 ```
 
 ## Usage Example
@@ -579,7 +579,7 @@ If you use the full weighted multicard online fine-tuning, take the Qwen2.5-7B m
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2.5_7b/hf_unified_safetenosrs' # Load weights file path
+load_checkpoint: '/qwen2.5_7b/hf_unified_safetensors' # Load weights file path
 load_ckpt_format: 'safetensors'                     # Load weights file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for complete weights to enable the online slicing feature
 parallel_config:                                    # Configure the target distributed strategy
@@ -595,7 +595,7 @@ If you use distributed weights multicard online fine-tuning, take the Qwen2.5-7B
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2.5_7b/distributed_safetenosrs' # Load weights file path
+load_checkpoint: '/qwen2.5_7b/distributed_safetensors' # Load weights file path
 load_ckpt_format: 'safetensors'                      # Load weights file format
 parallel_config:                                     # Configure the target distributed strategy
   data_parallel: 2
@@ -627,7 +627,7 @@ If you use complete weighted multicard online inference, take the Qwen2.5-7B mod
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2.5_7b/hf_unified_safetenosrs' # Load weights file path
+load_checkpoint: '/qwen2.5_7b/hf_unified_safetensors' # Load weights file path
 load_ckpt_format: 'safetensors'                     # Load weights file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for complete weights to enable the online slicing function
 parallel_config:
@@ -640,7 +640,7 @@ If you use distributed weighted multicard online inference, take the Qwen2.5-7B 
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2.5_7b/distributed_safetenosrs' # Load weights file path
+load_checkpoint: '/qwen2.5_7b/distributed_safetensors' # Load weights file path
 load_ckpt_format: 'safetensors'                      # Load weights file format
 parallel_config:
   data_parallel: 1

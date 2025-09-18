@@ -13,7 +13,7 @@
 主要分为以下几个步骤：
 
 1. 读取所有`.safetensors`文件，获取每个权重的`key`名称；
-2. 调用`convert_name`方法转换权重 key，这步也是权重转换开发必须适配的一步，同时返回权重`key`和对应的权重值；
+2. 调用`convert_name`方法转换权重 key。这步也是权重转换开发必须适配的一步，同时返回权重`key`和对应的权重值；
 3. 遍历权重`key`和对应的权重值，判断权重`key`类型：
    - 不属于`MoE`或特殊结构的`key`，可直接用`weight_loader`加载；
    - `MoE`中和路由专家相关的`key`，生成相应处理规则`expert_params_mapping`，遍历`expert_params_mapping`，匹配名称，最终调用相应的`weight_loader`处理；
@@ -21,7 +21,7 @@
 
 ## 开发步骤
 
-根据上述流程图可以看出，权重转换适配只需要完成一项修改： 调用convert_name方法，完成Hugging Face权重key至中间态key的转换。
+根据上述流程图可以看出，权重转换适配只需要完成一项修改：调用convert_name方法，完成Hugging Face权重key至中间态key的转换。
 
 操作步骤如下：
 
@@ -55,7 +55,7 @@
     ]
     ```
 
-   其中元组的第一个元素为Hugging Face权重key，第二个元素为中间态权重key。
+   其中，元组的第一个元素为Hugging Face权重key，第二个元素为中间态权重key。
 
 ## Qwen3模型权重转换适配样例
 
@@ -89,7 +89,7 @@ class Qwen3PreTrainedModel(PreTrainedModel, ModelMixin):
 
 ## 验证权重加载是否成功
 
-参考[推理文档](../guide/inference.md)执行推理流程，然后查看日志，如果日志中出现以下内容，表明权重和网络完全匹配，权重已经完全加入到网络中，检验模型推理结果是否符合预期，若出现乱码情况，需要进一步定位，参考推理精度比对文档：
+参考[推理文档](../guide/inference.md)执行推理流程，然后查看日志。如果日志中出现以下内容，表明权重和网络完全匹配，权重已经完全加入到网络中。检验模型推理结果是否符合预期，若出现乱码情况，需要进一步定位，参考推理精度比对文档：
 
 ```text
 These parameters are not loaded in the network: {}'
