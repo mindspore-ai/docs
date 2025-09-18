@@ -1,9 +1,9 @@
-vLLM-MindSpore Plugin
+vLLM-MindSpore Plugin Documentation
 =========================================
 
-Overview
+vLLM-MindSpore Plugin Overview
 -----------------------------------------------------
-vLLM-MindSpore Plugin (`vllm-mindspore`) is a plugin brewed by the `MindSpore community <https://www.mindspore.cn/en>`_ , which aims to integrate MindSpore LLM inference capabilities into `vLLM <https://github.com/vllm-project/vllm>`_ . With vLLM-MindSpore Plugin, technical strengths of Mindspore and vLLM will be organically combined to provide a full-stack open-source, high-performance, easy-to-use LLM inference solution.
+vLLM-MindSpore Plugin is a plugin brewed by the `MindSpore community <https://www.mindspore.cn/en>`_ , which aims to integrate MindSpore LLM inference capabilities into `vLLM <https://github.com/vllm-project/vllm>`_ . With vLLM-MindSpore Plugin, technical strengths of Mindspore and vLLM will be organically combined to provide a full-stack open-source, high-performance, easy-to-use LLM inference solution.
 
 vLLM, an opensource and community-driven project initiated by Sky Computing Lab, UC Berkeley, has been widely used in academic research and industry applications. On the basis of Continuous Batching scheduling mechanism and PagedAttention Key-Value cache management, vLLM provides a rich set of inference service features, including speculative inference, Prefix Caching, Multi-LoRA, etc. vLLM also supports a wide range of open-source large models, including Transformer-based models (e.g., LLaMa), Mixture-of-Expert models (e.g., DeepSeek), Embedding models (e.g., E5-Mistral), and multi-modal models (e.g., LLaVA). Because vLLM chooses to use PyTorch to build large models and manage storage resources, it cannot deploy large models built upon MindSpore.
 
