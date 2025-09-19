@@ -312,7 +312,7 @@ Graph Compilation and Execution
    * - MS_DEV_GRAPH_KERNEL_FLAGS
      - Configure the graph kernel fusion strategy.
      - String
-     - Configuration items, with the format "--key=value", multiple configuration items separated by space, multiple value items separated by commas, for example, `export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+     - Configuration items, with the format ``--key=value``, multiple configuration items separated by space, multiple value items separated by commas, for example, `export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
 
        opt_level: Set the optimization level. Default: `2` .
 

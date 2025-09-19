@@ -120,7 +120,7 @@ class XXXGraph : public kernel::Kernel {
   }
 
   int ReSize() override {
-    // Support dynamic shape, and input shape will changed.
+    // Support dynamic shape, and input shape will be changed.
   }
 };
 ```
@@ -301,7 +301,7 @@ class NPUGraph : public kernel::Kernel {
 
  protected:
   std::vector<NPUOp *> npu_ops_{};
-  NPUManager *npu_manager_ = nullptr;  
+  NPUManager *npu_manager_ = nullptr;
   NPUExecutor *executor_ = nullptr;     // NPU inference executor.
 };
 ```

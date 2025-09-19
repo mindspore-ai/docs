@@ -10,7 +10,7 @@ MindSpore Lite当前提供了一套南向的算子注册机制，如果用户想
 
 1. 确定算子类型：分为通用算子与Custom算子。
 2. 算子实现：继承Kernel类实现自定义算子，并注册进MindSpore Lite。
-3. 算子InferShape：继承mindspore::kernel::KernelInteface实现自定义算子的InferShape能力，并注册进MindSpore Lite。
+3. 算子InferShape：继承mindspore::kernel::KernelInterface实现自定义算子的InferShape能力，并注册进MindSpore Lite。
 
 ### 确定算子类型
 
@@ -207,7 +207,7 @@ class Test2Fusion : public Pass {
       if (custom_cnode == nullptr) {
         return false;
       }
-      manager->Replace(node, custom_cnode)        // 通过管理器用新节点替换旧节点
+      manager->Replace(node, custom_cnode);        // 通过管理器用新节点替换旧节点
     }
     return true;
   }
