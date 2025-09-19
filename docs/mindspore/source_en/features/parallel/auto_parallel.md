@@ -1,21 +1,17 @@
-Automatic Parallel Strategy Search
-====================================
+# Automatic Parallel Strategy Search
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/features/parallel/auto_parallel.rst
-    :alt: View Source On Gitee
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.6.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.6.0/docs/mindspore/source_en/features/parallel/auto_parallel.md)
 
 The auto-parallel mode allows the user to automatically build the cost model and find a parallel strategy with shorter training time without paying attention to the strategy configuration. Currently MindSpore supports the following two different auto-parallel schemes:
 
 - Sharding Strategy Propagation Algorithm: propagation of parallel strategy from operators configured with parallel strategy to operators not configured. When propagating, the algorithm tries to pick the strategy that triggers the least amount of tensor rearranging communication.
 - Double Recursive Strategy Search Algorithm: Its cost model based on symbolic operations can be freely adapted to different accelerator clusters, and can generate optimal strategy fast for huge networks and large-scale multi-card slicing.
 
-Automatic Parallel Strategy Search is the strategy search algorithm based on the operator-level model parallel, and to understand the principles, it is first necessary to understand the basic concepts in MindSpore operator-level parallel: distributed operators, tensor arranging, and tensor rearranging. Operator-level parallel is an implementation of Single Program Multiple Data (SPMD). The same program is executed on different data slices.
+Automatic Parallel Strategy Search is the strategy search algorithm based on the operator-level model parallel, and to understand the principles, it is first necessary to understand the basic concepts in MindSpore operator-level parallel: distributed operators, tensorarranging, and tensor rearranging. Operator-level parallel is an implementation of Single Program Multiple Data (SPMD). The same programis executed on different data slices.
 
 MindSpore converts a stand-alone version of a program into a parallel version. The conversion is fine-grained, replacing each operator in the stand-alone version of the program with a distributed operator, while ensuring that the replacement is mathematically equivalent.
 
-Distributed Operators
-------------------------
+## Distributed Operators
 
 Distributed operators running on multiple devices guarantees computational semantic equivalence with the stand-alone version of the operator. That is: given the same input, the distributed operator always gets the same output as that of the stand-alone version.
 
@@ -26,46 +22,42 @@ Taking the matrix multiplication operator (MatMul) as an example, inputs are two
 
 In addition to Single Program (SP), Multiple Data (MD) also needs to be specified, i.e., the device is specified to get one slice of the data. To do this, we first define the sharding strategy.
 
-Sharding Strategy
-------------------
+## Sharding Strategy
 
 The sharding strategy of an operator is a two-dimensional array representing the number of slices in each dimension of each input tensor for that operator. Here the slices are all uniformly sliced.
 
 From the sharding strategy, one can derive **Tensor Arrangement** to characterize how tensors are distributed across devices.
 
-Tensor Arrangement
--------------------
+## Tensor Arrangement
 
 Given a sharding strategy for an operator, a **tensor arrangement** that can derive the input and output tensors of that operator. Tensor arrangement is composed of a **logical device matrix** and a **tensor mapping**:
 
 - The logical device matrix, which is shared by the input and output tensor of this operator, is a one-dimensional array representing how the devices are organized.
 - The tensor mapping is a two-dimensional array that represents a dimension of the tensor sliced into a dimension of the logical device matrix.
 
-Taking the matrix multiplication operator (MatMul) as an example, its inputs are two matrices X and W, and the output is Y = MatMul(X, W). Configure the operator with a sharding strategy of [[2, 1], [1, 4]], and the obtained tensor arrangement and computations performed on each device are shown below. X is uniformly sliced into 2 parts along the rows, and W is uniformly sliced into 4 parts along the columns (Figure (b) below). Based on the sharding strategy, the logical device matrix and tensor mapping are derived as shown in Figure (c) below. The coordinates of the individual devices are thus determined, describing their positions in the logical device matrix. The distribution of the tensor in each device is determined by the coordinates of the device. From column '2' of the table in figure (c) below: device 0-device 3 get :math:`X_0` slice, device 4-device 7 get :math:`X_1` slice. From column '4' of the table in figure (c) below: device 0 and device 4 get :math:`W_0` slice, device 1 and device 5 get :math:`W_1` slice, device 2 and device 6 get :math:`W_2` slice, device 3 and device 7 get :math:`W_3` Slicing. Therefore, the calculations on each device are also determined as shown in figure (d) below.
+Taking the matrix multiplication operator (MatMul) as an example, its inputs are two matrices X and W, and the output is Y = MatMul(X, W). Configure the operator with a sharding strategy of [[2, 1], [1, 4]], and the obtained tensor arrangement and computations performed on each device are shown below. X is uniformly sliced into 2 parts along the rows, and W is uniformly sliced into 4 parts along the columns (Figure (b) below). Based on the sharding strategy, the logical device matrix and tensor mapping are derived as shown in Figure (c) below. The coordinates of the individual devices are thus determined, describing their positions in the logical device matrix. The distribution of the tensor in each device is determined by the coordinates of the device. From column '2' of the table in figure (c) below: device 0-device 3 get $X_0$ slice, device 4-device 7 get $X_1$ slice. From column '4' of the table in figure (c) below: device 0 and device 4 get $W_0$ slice, device 1 and device 5 get $W_1$ slice, device 2 and device 6 get $W_2$ slice, device 3 and device 7 get $W_3$ Slicing. Therefore, the calculations on each device are also determined as shown in figure (d) below.
 
-.. image:: ./images/tensor_layout.png
+![image](./images/tensor_layout.png)
 
 For two operators with data dependency (i.e., the output tensor of one operator is used by the second operator), the tensor arrangement defined by the two operators for that data-dependent tensor may be different (due to different logical device matrices or different tensor mappings), and thus **tensor rearrangement** is proposed to convert the inconsistent arrangement. The definition of tensor rearrangement is given here and the specific algorithm is omitted.
 
-Tensor Rearrangement
----------------------
+## Tensor Rearrangement
 
 Given two inconsistent tensor arrangements of the same tensor, tensor rearrangement is able to convert the source arrangement to the destination arrangement while ensuring that the communication cost incurred by the conversion is minimized. The communication cost here refers to the amount of data communicated by each device.
 
-Taking two matrix multiplication operators as an example: Z = MatMul(X, W), O = MatMul(Z, Y). In order to make the tensor rearrangement work, the two matrix multiplication operators are configured with different sharding strategies that make the arrangement of tensor Z inconsistent. In the figure (a) below, the output tensor Z of the first matrix multiplication operator is sliced by rows, however, the second matrix multiplication operator requires the tensor Z to be complete, so the tensor rearrangement infers that the AllGather operator needs to be inserted here to complete the conversion :sup:`[1]`. In figure (b) below, the output tensor Z of the first matrix multiplication operator is sliced by rows, however, the second matrix multiplication operator requires that the tensor Z is sliced by columns, so the tensor rearrangement deduces that the AllToAll operator needs to be inserted here to complete the conversion.
+Taking two matrix multiplication operators as an example: Z = MatMul(X, W), O = MatMul(Z, Y). In order to make the tensor rearrangement work,the two matrix multiplication operators are configured with different sharding strategies that make the arrangement of tensor Z inconsistent. In the figure (a) below, the output tensor Z of the first matrix multiplication operator is sliced by rows, however, the second matrix multiplication operator requires the tensor Z to be complete, so the tensor rearrangement infers that the AllGather operator needs to be inserted here to complete the conversion <sup>[1]</sup>. In figure (b) below, the output tensor Z of the first matrix multiplication operator is sliced by rows, however, the second matrix multiplication operator requires that the tensor Z is sliced by columns, so the tensor rearrangement deduces that the AllToAll operator needs to be inserted here to complete the conversion.
 
-[1]: Note: the AllGather operator and the Concat operator actually need to be inserted.
+![image](./images/tensor_redistribution.png)
 
-Strategy Propagation Algorithm
-------------------------------------------------
+[1] Note: The AllGather operator and the Concat operator actually need to be inserted.
 
-Sharding Strategy Propagation Algorithm
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Strategy Propagation Algorithm
+
+### Sharding Strategy Propagation Algorithm
 
 The sharding strategy propagation algorithm means that the user only needs to manually define the strategies for a few key operators, and the strategies for the rest of the operators in the computation graph are automatically generated by the algorithm. Because the strategies of the key operators have been defined, the cost model of the algorithm mainly describes the redistribution cost between operators, and the optimization objective is to minimize the cost of the whole graph redistribution. Because the main operator strategy has been defined, which is equivalent to compress the search space, the search time of this scheme is shorter, and its strategy performance relies on the definition of the key operator strategy, so it still requires the user to have some ability to analyze the definition strategy.
 
-.. note::
-   Hardware platforms supported by the sharding strategy propagation algorithm include Ascend, in addition to both PyNative mode and Graph mode.
+> Hardware platforms supported by the sharding strategy propagation algorithm include Ascend, in addition to both PyNative mode and Graph mode.
 
 Related interfaces:
 
@@ -75,8 +67,7 @@ Related interfaces:
 
 In summary, the sharding strategy propagation algorithm requires the user to manually configure the sharding strategy of the key operator.
 
-Basic Principles
-^^^^^^^^^^^^^^^^^^^^^^^^
+#### Basic Principles
 
 Given a computation graph, **Sharding Propagation** is a functionality that propagates the Sharding Strategies from configured operator to the whole graph, with the goal of minimizing the communication cost in Tensor Redistribution.
 
@@ -90,19 +81,15 @@ The following figure illustrates an example process of applying Sharding Propaga
 
 1. Given an computation graph with some configured strategies, it first enumerates possible strategies for non-configured operators, as shown in figure (b).
 2. Next, it enumerates possible strategies and the Tensor Redistribution costs for each edge. Demonstrated in figure (c), the strategy for an edge is defined as a pair [*s_strategy*, *t_strategy*], where *s_strategy* and *t_strategy* denote Sharding Strategy for source operator and target operator, respectively.
-3. Finally, starting from the configured operator, it determines the next operator’s Sharding Strategy, such that the communication cost in Tensor Redistribution is minimized. The propagation ends when the Sharding Strategies for all operators are settled, as shown in figure (d).
+3. Finally, starting from the configured operator, it determines the next operator's Sharding Strategy, such that the communication cost in Tensor Redistribution is minimized. The propagation ends when the Sharding Strategies for all operators are settled, as shown in figure (d).
 
-.. image:: ./images/sharding_propagation.png
-   :alt: An example process of applying Sharding Propagation
-   :target: ./images/sharding_propagation.png
+[![An example process of applying Sharding Propagation](./images/sharding_propagation.png)](./images/sharding_propagation.png)
 
-Double Recursive Strategy Search Algorithm
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Double Recursive Strategy Search Algorithm
 
 The double recursive strategy search algorithm is based on Symbolic Automatic Parallel Planner (SAPP). The SAPP algorithm is able to instantly generate optimal strategy for huge networks and large-scale slicing. SAPP is modeled based on the principle of parallel, and describes the topology of hardware clusters by building an abstraction machine, and optimizes the cost model through symbolic simplicity. The cost model compares the relative costs of different parallel strategy rather than the predicted absolute delay, thus greatly compressing the search space and guaranteeing minute-level search times for 100-card clusters.
 
-.. note::
-   Hardware platforms supported by the double recursive strategy search algorithm include Ascend, and need to run in Graph mode.
+> Hardware platforms supported by the double recursive strategy search algorithm include Ascend, and need to run in Graph mode.
 
 Related interfaces:
 
@@ -110,8 +97,7 @@ Related interfaces:
 
 No additional configuration is required for the double recursive strategy search algorithm, except for the ``AutoParallel`` above.
 
-Basic Principles
-^^^^^^^^^^^^^^^^^^^^^^^^
+#### Basic Principles
 
 The double recursive strategy search algorithm is a fully automatic operator-level strategy search scheme, where the user does not need to configure the model in any way, and the algorithm automatically searches for parallel policies that minimize the communication cost.
 
