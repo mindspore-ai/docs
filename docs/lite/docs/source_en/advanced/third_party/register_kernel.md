@@ -10,7 +10,7 @@ To implement custom operators, perform the following steps:
 
 1. Determine operator types: Classify operators into common and custom operators.
 2. Implement operators: Inherit the Kernel class to implement custom operators and register them in MindSpore Lite.
-3. Implement the InferShape capability: Inherit mindspore::kernel::KernelInteface to implement the InferShape capability of custom operators and register them in MindSpore Lite.
+3. Implement the InferShape capability: Inherit mindspore::kernel::KernelInterface to implement the InferShape capability of custom operators and register them in MindSpore Lite.
 
 ### Determining Operator Types
 
@@ -94,7 +94,7 @@ REGISTER_KERNEL(CPU, BuiltInTest, kFloat32, PrimitiveType_AddFusion, TestCustomA
 
 #### Common Operator InferShape
 
-Reload the Infer function after inheriting KernelInterface to implement the InferShape capability. The implementation procedure is as follows:
+Override the Infer function after inheriting KernelInterface to implement the InferShape capability. The implementation procedure is as follows:
 
 1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_KernelInterface.html).
 2. Overload the Infer function to derive the shape, format, and data_type of the output tensor.
@@ -207,7 +207,7 @@ class Test2Fusion : public Pass {
       if (custom_cnode == nullptr) {
         return false;
       }
-      manager->Replace(node, custom_cnode)        // Replace old nodes with new nodes through the manager.
+      manager->Replace(node, custom_cnode);        // Replace old nodes with new nodes through the manager.
     }
     return true;
   }
@@ -404,7 +404,7 @@ REGISTER_CUSTOM_KERNEL(GPU, BuiltInTest, kFloat32, Custom_Add, CustomAddCreator)
 
 ### Implementing Operators
 
-In this example, the operator is implemented as the `CustomAddKernel` class. This class inherits [mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_kernel.html) and reloads necessary APIs to implement the custom operator computation.
+In this example, the operator is implemented as the `CustomAddKernel` class. This class inherits [mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_kernel.html) and overloads necessary APIs to implement the custom operator computation.
 
 #### Constructor and Destructor Functions
 
@@ -458,8 +458,8 @@ class CustomAddKernel : public kernel::Kernel {
 
 #### Code and Description of the Prepare Implementation
 
-In the graph build phase `mindspore::Model::Build`, the Prepare function of the operator is called. You can perform some time-consuming and one-off operations to save the operator computation time of `mindspore::Model::Predict`.
-In this example, the Prepare API is overloaded to load and build the custom OpenCL code.
+In the graph build phase `mindspore::Model::Build`, the Prepare function of the operator is called. You can perform some time-consuming and one-off operations to reduce the operator computation time of `mindspore::Model::Predict`.
+In this example, the Prepare API is overridden to load and build the custom OpenCL code.
 
 1. Check the environment.
 
@@ -581,7 +581,7 @@ In this example, the Prepare API is overloaded to load and build the custom Open
 
 4. Set the OpenCL working group and work items.
 
-    For an operator registered as a GPU, the input data received is in image format except that the input is a constant. The format is NHWC4 (C-axis 4-byte aligned NHWC format data).
+    For an operator registered as a GPU, the input data received is in image format except when the input is a constant. The format is NHWC4 (C-axis 4-byte aligned NHWC format data).
     In this example, all data is converted to this format for computation and output.
     In the routine, a simple addition custom operator is implemented. Therefore, the `GpuTensorInfo` function is used to compute the width and height of the `Image` memory used by the output data to set the work items.
 
@@ -798,7 +798,7 @@ In this example, the Prepare API is overloaded to load and build the custom Open
 
 6. Set values of OpenCL kernel runtime parameters.
 
-    Some unchanged parameters during the OpenCL kernel running can be set in the `Prepare` phase.
+    Some unchanged parameters during the OpenCL kernel execution can be set in the `Prepare` phase.
     In this example, `OpenCLRuntimeWrapper::SetKernelArg` is used to set the third parameter (computation range) of the `ElementAdd` runtime.
 
     ```cpp
@@ -813,12 +813,12 @@ In this example, the Prepare API is overloaded to load and build the custom Open
 
 #### Code and Description of the ReSize and Execute Implementations
 
-By overloading `Execute`, you can customize the computation operations of the operator during inference.
+By overriding `Execute`, you can customize the computation operations of the operator during inference.
 
 1. Call the `ReSize` function to support shape changes during running.
 
     In this example, `PreProcess` is called to prepare for the computation.
-    In `PreProcess()`, call the `ReSize` function first. This function is the runtime shape change adaptation API that needs to be overloaded.
+    In `PreProcess()`, call the `ReSize` function first. This function is the runtime shape change adaptation API that needs to be overridden.
     In the `ReSize` function, call `CheckOutputs` to check whether the shape of the output tensor of the operator contains invalid values to determine whether shape inference needs to be performed again. If no, the function returns directly.
     When shape inference is required, call `registry::RegisterKernelInterface::GetKernelInterface` to obtain the shape inference function registered by the operator. The obtained function is the InferShape function implemented and registered by the user in this routine.
     After re-inference, call the previously implemented `Prepare` API to re-apply for and allocate the memory and related variables required for operator computation.
@@ -862,9 +862,9 @@ By overloading `Execute`, you can customize the computation operations of the op
 
 2. Allocate memory for the output tensor.
 
-    Before running the operator, you need to apply for GPU memory for the output tensor. Due to the limitation of the framework, the GPU memory needs to be hosted by the framework for management and cannot be manually released. The process is as follows:
+    Before running the operator, you need to apply for GPU memory for the output tensor. Due to the limitation of the framework, the GPU memory needs to be managed by the framework for management and cannot be manually released. The process is as follows:
 
-    1. Call the `allocator()` API of the output tensor to obtain the memory allocator that manages the tensor in the framework. In the GPU registration operator, the memory allocator is responsible for allocating the GPU memory.
+    1. Call the `allocator()` API of the output tensor to obtain the memory allocator that manages the tensor in the framework. In GPU-registered operators, the memory allocator is responsible for allocating the GPU memory.
     2. Compute the size of the memory to be allocated. In this example, the `GpuTensorInfo` function is used to compute the size of the memory to be allocated.
     3. Apply for memory by using the `Malloc` API of the memory allocator. You can obtain the memory in image or buffer format by using the `void *Malloc(size_t weight, size_t height, DataType type)` and `void *Malloc(size_t size)` APIs.
     4. Use the `SetData` API to assign the requested memory to the tensor. After that, the memory is managed by the framework in a unified manner and cannot be manually released.
@@ -893,7 +893,7 @@ By overloading `Execute`, you can customize the computation operations of the op
 
 3. Run the OpenCL kernel.
 
-    The `SetKernelArg` API is used to set parameters for running the OpenCL kernel, and the `RunKernel` API is used to run the OpenCL kernel.
+    The `SetKernelArg` API is used to set parameters for executing the OpenCL kernel, and the `RunKernel` API is used to run the OpenCL kernel.
 
     ```cpp
     int Execute() override {
