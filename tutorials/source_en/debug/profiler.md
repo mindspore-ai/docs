@@ -34,7 +34,7 @@ Sample as follows:
 
 ```python
 import mindspore
-from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics, HostSystem
+from mindspore.profiler import ProfilerLevel, ProfilerActivity, AicoreMetrics
 
 # Define model training times
 steps = 15
@@ -48,8 +48,7 @@ experimental_config = mindspore.profiler._ExperimentalConfig(
     aic_metrics=AicoreMetrics.AiCoreNone,
     l2_cache=False,
     mstx=False,
-    data_simplification=False,
-    host_sys=[HostSystem.CPU, HostSystem.MEM]
+    data_simplification=False
 )
 
 # Initialize profile
