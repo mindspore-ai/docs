@@ -8,7 +8,7 @@
 
 Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html), using the NPU requires the integration of the HUAWEI HiAI DDK.
 HUAWEI HiAI DDK, which contains APIs (including building, loading models and calculation processes) and interfaces implemented to encapsulate dynamic libraries (namely libhiai*.so), is required for the use of NPU.
-Download [DDK 100.510.010.010](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180), and set the directory of extracted files as `${HWHIAI_DDK}`. Our build script uses this environment viriable to seek DDK.
+Download [DDK 100.510.010.010](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180), and set the directory of extracted files as `${HWHIAI_DDK}`. Our build script uses this environment variable to seek DDK.
 
 ### Build
 

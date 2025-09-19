@@ -4,7 +4,7 @@
 
 ## Overview
 
-Delegate of MindSpore Lite is used to support third-party AI frameworks (such as NPU, TensorRT) to quickly access to the inference process in MindSpore Lite. Third-party frameworks can be implemented by users themselves, or other open source frameworks. Generally, the framework has the ability to build model online, that is, multiple operators can be built into a sub-graph and distributed to the device for inference. If the user wants to schedule other inference frameworks through MindSpore Lite, please refer to this article.
+Delegate of MindSpore Lite is used to support third-party AI frameworks (such as NPU, TensorRT) to quickly access the inference process in MindSpore Lite. Third-party frameworks can be implemented by users themselves, or other open source frameworks. Generally, the framework has the ability to build model online, that is, multiple operators can be built into a sub-graph and distributed to the device for inference. If the user wants to schedule other inference frameworks through MindSpore Lite, please refer to this article.
 
 ## Usage of Delegate
 
@@ -120,14 +120,14 @@ class XXXGraph : public kernel::Kernel {
   }
 
   int ReSize() override {
-    // Support dynamic shape, and input shape will changed.
+    // Support dynamic shape, and input shape will be changed.
   }
 };
 ```
 
 ## Calling Delegate by Lite Framework
 
-MindSpore Lite schedules user-defined delegate by [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context). Use [SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#setdelegate) to set a custom delegate for Context.  Delegate will be passed by [Build](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html) to MindSpore Lite. If the Delegate in the Context is a null pointer, the process will call the inner inference of MindSpore Lite.
+MindSpore Lite schedules user-defined delegate by [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context). Use [SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#setdelegate) to set a custom delegate for Context. Delegate will be passed by [Build](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html) to MindSpore Lite. If the Delegate in the Context is a null pointer, the process will call the inner inference of MindSpore Lite.
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -301,7 +301,7 @@ class NPUGraph : public kernel::Kernel {
 
  protected:
   std::vector<NPUOp *> npu_ops_{};
-  NPUManager *npu_manager_ = nullptr;  
+  NPUManager *npu_manager_ = nullptr;
   NPUExecutor *executor_ = nullptr;     // NPU inference executor.
 };
 ```
@@ -325,4 +325,4 @@ int NPUGraph::Execute() {
 }
 ```
 
-> [NPU](https://www.mindspore.cn/lite/docs/en/r2.7.0/advanced/third_party/npu_info.html) is a third-party AI framework that added by MindSpore Lite internal developers. The usage of NPU is slightly different. You can set the [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context) through [SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#setdelegate), or you can add the description of the NPU device [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) to [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html) of the Context.
+> [NPU](https://www.mindspore.cn/lite/docs/en/r2.7.0/advanced/third_party/npu_info.html) is a third-party AI framework that was added by MindSpore Lite internal developers. The usage of NPU is slightly different. You can set the [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context) through [SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#setdelegate), or you can add the description of the NPU device [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) to [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html) of the Context.

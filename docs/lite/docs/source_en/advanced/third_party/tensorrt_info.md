@@ -6,11 +6,11 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html), CUDA and TensorRT is required as well. Current version supports [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) and [TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download), and [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html), CUDA and TensorRT are required as well. Current version supports [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) and [TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download), and [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
 
 Install the appropriate version of CUDA and set the installed directory as environment variable `${CUDA_HOME}`. Our build script uses this environment variable to seek CUDA.
 
-Install TensorRT of the corresponding CUDA version, and set the installed directory as environment viriable `${TENSORRT_PATH}`. Our build script uses this environment viriable to seek TensorRT.
+Install TensorRT of the corresponding CUDA version, and set the installed directory as environment variable `${TENSORRT_PATH}`. Our build script uses this environment variable to seek TensorRT.
 
 ### Build
 
@@ -41,7 +41,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 - Using Benchmark testing TensorRT inference
 
-    Users can also test TensorRT inference using MindSpore Lite Benchmark tool. The location of the compiled Benchmark is shown in [Compiled Output](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html). Pass the build package to a device with a TensorRT environment(TensorRT 6.0.1.5) and use the Benchmark tool to test TensorRT inference. Examples are as follows:
+    Users can also test TensorRT inference using MindSpore Lite Benchmark tool. The location of the compiled Benchmark is shown in [Compiled Output](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html). Pass the build package to a device with a TensorRT environment (TensorRT 6.0.1.5) and use the Benchmark tool to test TensorRT inference. Examples are as follows:
 
     - Test performance
 
