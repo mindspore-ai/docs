@@ -13,6 +13,9 @@ import shutil
 import subprocess
 import importlib
 from functools import reduce
+import ast
+from typing import List, Tuple, Dict, Union, Optional
+from pathlib import Path
 import sphinx
 import requests
 from git import Repo
@@ -339,6 +342,99 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
 
     return list(set(generate_interface_list))
 
+# ----------------------------------------------------------
+# 提取py文件中类/类方法/全局函数的docstring区间及对应的文档模板
+# ----------------------------------------------------------
+def _parse_one_py(
+        file_path: Union[str, Path],
+        rel_path: str,
+        module_path_name: List[Tuple[str, str]]
+) -> Tuple[Dict[str, List[List[int]]], List[str]]:
+    """
+    返回:
+        interface_doc_dict: {name: [[start, end]], ...}   仅含带 docstring 的节点
+        sphinx_lines:       拼好的 '.. autofunction::' / '.. autoclass::' / '.. automethod::' 行
+    """
+    file_path = str(file_path)
+    with open(file_path, encoding='utf-8') as f:
+        source = f.read()
+
+    tree = ast.parse(source)
+    doc_dict: Dict[str, List[List[int]]] = {}
+    sphinx_lines: List[str] = []
+
+    # 找模块全名
+    module_name = ''
+    for seg, root in module_path_name:
+        if seg in file_path:
+            module_name = root
+            break
+
+    # 顶层节点
+    for node in tree.body:
+        if not isinstance(node, (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)):
+            continue
+        if node.name.startswith('_'):
+            continue
+
+        # ****** 无docstring直接跳过 ******
+        rng = _line_range(node)
+        if rng is None:
+            continue
+
+        start, end = rng
+        name = node.name
+
+        # ---------- 类分支 ----------
+        if isinstance(node, ast.ClassDef):
+            key = name
+            tmpl = f'.. autoclass:: {module_name}.{name}&&&{rel_path}'
+
+            # 1. 类本身第一段docstring
+            doc_dict[key] = [[start, end]]
+            sphinx_lines.append(tmpl)
+
+            # 2. 类方法分两种情况
+            for item in node.body:
+                if not isinstance(item, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    continue
+                if item.name.startswith('_'):
+                    continue
+                m_rng = _line_range(item)   # 仅返回带docstring的区间
+                if m_rng is None:
+                    continue
+                m_start, m_end = m_rng
+
+                if name in ('Tensor', 'Dataset'):
+                    # 2.1 Tensor/Dataset类的方法：单独建方法key，区间不再追加到类
+                    meth_key = f'{name}.{item.name}'
+                    doc_dict[meth_key] = [[m_start, m_end]]
+                    sphinx_lines.append(
+                        f'.. automethod:: {module_name}.{meth_key}&&&{rel_path}'
+                    )
+                else:
+                    # 2.2 非Tensor/Dataset类的方法：把方法区间追加到类key，不建方法key
+                    doc_dict[key].append([m_start, m_end])
+
+        # ---------- 全局函数 ----------
+        else:
+            key = name + '.'
+            tmpl = f'.. autofunction:: {module_name}.{name}&&&{rel_path}'
+            doc_dict[key] = [[start, end]]
+            sphinx_lines.append(tmpl)
+
+    return doc_dict, sphinx_lines
+
+# -------------------- 工具：仅返回docstring行号范围 --------------------
+def _line_range(node: ast.AST) -> Optional[List[int]]:
+    """有 docstring 返回 [start, end+1]；无 docstring 返回 None"""
+    if not (node.body and isinstance(node.body[0], ast.Expr) and
+            isinstance(node.body[0].value, ast.Constant) and
+            isinstance(node.body[0].value.value, str)):
+        return None
+    start = node.body[0].lineno - 1
+    end = node.body[0].end_lineno - 1
+    return [start, end + 1]
 
 def en_file_handle(py_file_list, repo_path, dict1):
     """
@@ -402,78 +498,14 @@ def en_file_handle(py_file_list, repo_path, dict1):
         repo_py_path = os.path.join(repo_path, dict1['mindspore_py'], i[0])
         print(repo_py_path)
 
-        with open(repo_py_path, 'r+', encoding='utf-8') as f:
-            content = f.read()
+        interface_doc_dict, sphinx_lines = _parse_one_py(repo_py_path, i[0], module_path_name)
 
-        interface_doc_dict = {}
-        interface_doc = re.findall(
-            r'(\nclass|\ndef|\n[ ]+?def) ([^_].+?:|[^_].+?:[ ]+# .*|[^_].+?,\n(?:.|\n|)+?)\n.*?("""(?:.|\n|)+?)"""', content)
-
-        for doc in interface_doc:
-            first_p = doc[0]
-            sec_p = doc[1]
-            third_p = doc[2]
-            if re.findall(r'(\nclass|\ndef|\n[ ]+?def) ', sec_p):
-                first_p = re.findall(r'(\nclass|\ndef|\n[ ]+?def) (.+)', sec_p)[-1][0]
-                sec_p = re.findall(r'(\nclass|\ndef|\n[ ]+?def) (.+)', sec_p)[-1][1]
-                if sec_p.startswith('_'):
-                    continue
-            if first_p.startswith('\ndef'):
-                len_doc = third_p.count('\n')
-                interface_name = sec_p.split('(')[0]
-                func_name = interface_name + '.'
-                index = content.find(third_p)
-                begin_line = content[:index].count('\n')
-                interface_doc_dict[func_name] = [
-                    [begin_line, begin_line + len_doc + 1]]
-                if not i[1]:
-                    for mpn in module_path_name:
-                        if mpn[0] in repo_py_path:
-                            generate_interface_list.append(
-                                '.. autofunction:: ' + mpn[1] + '.' + func_name.replace('.', '') + f'&&&{i[0]}')
-                            break
-
-            elif first_p.startswith('\n '):
-                len_doc = third_p.count('\n')
-                meth_name = ""
-                index = content.find(third_p)
-                begin_line = content[:index].count('\n')
-                try:
-                    interface_name = re.findall(
-                        r'\nclass ([^_].+?):', content[:index])[-1]
-                    interface_name = interface_name.split('(')[0]
-                # pylint: disable=W0702
-                except:
-                    continue
-                if interface_name in ('Tensor', 'Dataset'):
-                    meth_name = sec_p.split('(')[0]
-                if meth_name:
-                    interface_doc_dict[interface_name + '.' +
-                                       meth_name] = [[begin_line, begin_line + len_doc + 1]]
-                elif interface_name in interface_doc_dict:
-                    interface_doc_dict[interface_name].append(
-                        [begin_line, begin_line + len_doc + 1])
-                else:
-                    interface_doc_dict[interface_name] = [[begin_line, begin_line + len_doc + 1]]
-            else:
-                len_doc = third_p.count('\n')
-                interface_name = sec_p.split('(')[0]
-                if interface_name.endswith(':'):
-                    interface_name = interface_name.rstrip(':')
-                index = content.find(third_p)
-                begin_line = content[:index].count('\n')
-                interface_doc_dict[interface_name] = [
-                    [begin_line, begin_line + len_doc + 1]]
-                if not i[1]:
-                    for mpn in module_path_name:
-                        if mpn[0] in repo_py_path:
-                            generate_interface_list.append(
-                                '.. autoclass:: ' + mpn[1] + '.' + interface_name + f'&&&{i[0]}')
-                            break
-
+        # 整个py文件新增，一次性合并所有模板
         if not i[1]:
+            generate_interface_list.extend(sphinx_lines)
             continue
 
+        # 修改py文件，只合并与PR行号有交集的docstring区间对应的接口模板
         print(i[1])
         # pylint: disable=R1702
         for pr_lines in i[1]:
@@ -530,7 +562,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
 
                         # break
 
-    return list(set(generate_interface_list))
+    return list(dict.fromkeys(generate_interface_list))
 
 def supplement_pr_file_cn(pr_cn, repo_path, samedfn_rst, pr_need, base_raw_url, raw_rst_list):
     """
@@ -588,35 +620,26 @@ def make_index_rst(target_path, language_f):
         len(title_content) + '\n\n' + \
         '.. toctree::\n    :glob:\n    :maxdepth: 1\n\n'
     dir_set = set()
-    added_entries = set()  # 用于存储已经添加的条目
     # pylint: disable=W0612
     for rt, dirs, files in os.walk(os.path.join(target_path, 'api_python')):
-        for file in files:
-            if file.endswith('.rst') and rt.split('api_python')[-1] not in dir_set:
-                if not rt.split('api_python')[-1]:
-                    entry = f"    api_python/{file}\n"
-                    content += entry
-                    added_entries.add(entry)
-                elif not os.path.basename(rt).startswith('_'):
-                    entry = f"    api_python{rt.split('api_python')[-1]}/*\n"
-                    content += entry
-                    added_entries.add(entry)
-                else:
-                    continue
-                dir_set.add(rt.split('api_python')[-1])
+        # ------------- 根目录 -------------
+        if rt.split('api_python')[-1] == '':
+            if 'samedfn.rst' in files:
+                content += f"    api_python/samedfn.rst\n"
+            for file in files:
+                if file != 'samedfn.rst' and file.endswith('.rst'):
+                    content += f"    api_python/{file}\n"
+        # ------- 目录下有.rst文件且非_开头的子目录 -------
+        elif (rt.split('api_python')[-1] not in dir_set and
+              not os.path.basename(rt).startswith('_') and
+              any(file.endswith('.rst') for file in files)):
+            content += f"    api_python{rt.split('api_python')[-1]}/*\n"
+            dir_set.add(rt.split('api_python')[-1])
+        else:
+            continue
 
-    mint_entry = "    api_python/mint/*\n"
-    tools_entry = "    api_python/mindspore.tools.rst\n"
-    utils_entry = "    api_python/mindspore.utils.rst\n"
-    if mint_entry not in added_entries:
-        content += mint_entry
-        added_entries.add(mint_entry)
-    if tools_entry not in added_entries:
-        content += tools_entry
-        added_entries.add(tools_entry)
-    if utils_entry not in added_entries:
-        content += utils_entry
-        added_entries.add(utils_entry)
+    if "    api_python/mint/*\n" not in content:
+        content += "    api_python/mint/*\n"
     with open(os.path.join(target_path, 'index.rst'), 'w+', encoding='utf-8') as f:
         f.write(content)
 
