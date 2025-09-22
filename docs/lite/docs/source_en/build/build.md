@@ -9,7 +9,7 @@ Modules in MindSpore Lite:
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
 | converter          | Linux, Windows               | Model Conversion Tool    |
-| runtime(cpp, java) | Linux, Windows, Android, iOS, OpenHarmony(OHOS) | Model Inference Framework(Windows platform does not support java version runtime) |
+| runtime(cpp, java) | Linux, Windows, Android, iOS, OpenHarmony(OHOS) | Model Inference Framework (Windows platform does not support java version runtime) |
 | benchmark          | Linux, Windows, Android, OpenHarmony(OHOS)      | Benchmarking Tool        |
 | benchmark_train    | Linux, Android               | Performance and Accuracy Validation              |
 | cropper            | Linux                        | Static library crop tool for libmindspore-lite.a |
@@ -42,7 +42,7 @@ Modules in MindSpore Lite:
         - Configure environment variables: `export JAVA_HOME=JDK path`.
         - Add the bin directory to the PATH: `export PATH=${JAVA_HOME}/bin:$PATH`.
     - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
-        - Create a new directory, configure environment variables`export ANDROID_SDK_ROOT=new directory`.
+        - Create a new directory, configure environment variables `export ANDROID_SDK_ROOT=new directory`.
         - Download `SDK Tools`, uncompress and go to directory `cmdline-tools/bin`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`.
         - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
 - Compilation dependency of the Python API module (optional). If Python3 or NumPy is not installed, this module will not be compiled:
@@ -97,7 +97,7 @@ The construction of modules is controlled by environment variables. Users can co
     > - When the AVX instruction set is enabled, the CPU of the running environment needs to support both AVX and FMA features.
     > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
     > - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>. In addition, the path of libcrypto.so.1.1 should be added to LD_LIBRARY_PATH.
-    > - When pre-inference during model compilation is enabled, for the non-encrypted model, the inference framework will create a child process for pre-inference when Build interface is called. After the child process returns successfully, the main precess will formally execute the process of graph compilation.
+    > - When pre-inference during model compilation is enabled, for the non-encrypted model, the inference framework will create a child process for pre-inference when Build interface is called. After the child process returns successfully, the main process will formally execute the process of graph compilation.
     > - At present, OpenHarmony only supports CPU reasoning, not GPU reasoning.
 
 - Runtime feature compilation options
@@ -194,7 +194,7 @@ After installation, you can use the following command to check whether the insta
 python -c "import mindspore_lite"
 ```
 
-After successful installation, you can use the command of `pip show mindspore_lite` to check the installation location of the Python module of MindSpot Lite.
+After successful installation, you can use the command of `pip show mindspore_lite` to check the installation location of the Python module of MindSpore Lite.
 
 ### Directory Structure
 
@@ -258,7 +258,7 @@ After successful installation, you can use the command of `pip show mindspore_li
                 └── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
     ```
 
-- When the compilation option is `-I arm64` or `-I arm32`, and specifies`TOOLCHAIN_NAME=ohos`:
+- When the compilation option is `-I arm64` or `-I arm32`, and specifies `TOOLCHAIN_NAME=ohos`:
 
     ```text
     mindspore-lite-{version}-ohos-{arch}

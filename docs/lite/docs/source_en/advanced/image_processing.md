@@ -38,7 +38,7 @@ The image processing operations here can be used in any combination according to
 
 ### Resizing Image
 
-Here we use the [ResizeBilinear](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/function_mindspore_dataset_ResizeBilinear-1.html) function in `image_process.h` to resize the image through a bilinear algorithm. Currently, the supported data type is unit8, and the supported channels are 3 and 1.
+Here we use the [ResizeBilinear](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/function_mindspore_dataset_ResizeBilinear-1.html) function in `image_process.h` to resize the image through a bilinear algorithm. Currently, the supported data type is uint8, and the supported channels are 3 and 1.
 
 ```cpp
 bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
