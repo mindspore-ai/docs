@@ -298,16 +298,8 @@ import search_code
 
 src_release = "./release_notes/release_notes.md"
 des_release = "./RELEASE.md"
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
-if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
-else:
-    content = re.findall("(## [\s\S\n]*)", data)
-
-with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
+if os.path.isfile(src_release):
+    os.rename(src_release, des_release)
 
 os.makedirs(os.path.join(present_path, "../build_en/html/"), exist_ok=True)
 shutil.copy(os.path.join(present_path, "arch.png"), os.path.join(present_path, "../build_en/html/"))
