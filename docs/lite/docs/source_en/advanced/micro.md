@@ -73,7 +73,7 @@ The following describes how to prepare the environment for using the conversion 
 
     enable_micro=true
 
-    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+    # specify HW target, support x86, Cortex-M, AMR32A, ARM64 only.
 
     target=x86
 
@@ -170,7 +170,7 @@ Table 1: micro_param Parameter Definition
 
     enable_micro=true
 
-    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+    # specify HW target, support x86, Cortex-M, AMR32A, ARM64 only.
 
     target=x86
 
@@ -312,7 +312,7 @@ An example of a `x86` multithreaded code generation configuration file is as fol
 
 enable_micro=true
 
-# specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+# specify HW target, support x86, Cortex-M, AMR32A, ARM64 only.
 
 target=x86
 
@@ -363,7 +363,7 @@ An example of Int8 quantitative inference code generation configuration file for
 # enable code-generation for MCU HW
 enable_micro=true
 
-# specify HW target, support x86,Cortex-M, ARM32, ARM64 only.
+# specify HW target, support x86, Cortex-M, ARM32, ARM64 only.
 target=Cortex-M
 
 # code generation for Inference or Train
@@ -436,7 +436,7 @@ For preparing environment section, refer to the [above](#preparing-environment),
 
     enable_micro=true
 
-    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+    # specify HW target, support x86, Cortex-M, AMR32A, ARM64 only.
 
     target=x86
 
@@ -1196,7 +1196,7 @@ Except for MCU, micro inference is a inference model that separates model struct
 
 - Export the weights of the inference model based on device-side training, then overwrite the original weight file, and verify it
 
-    Next, we will provide a detailed introduction to eace step and its precautions
+    Next, we will provide a detailed introduction to each step and its precautions
 
 ### Exporting Inference Model
 

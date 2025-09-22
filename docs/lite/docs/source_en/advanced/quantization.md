@@ -12,11 +12,11 @@ There are two kinds of quantization algorithms: quantization-aware training and 
 
 MindSpore Lite post-training quantization currently supports three specific algorithms with the following specifications:
 
-| Algorithm Types | Quantification of Weights | Quantification of Activation |  Compression Effect of Model Size | Inference Acceleration Effect | Precision Loss Effect |
+| Algorithm Types | Quantization of Weights | Quantization of Activation |  Compression Effect of Model Size | Inference Acceleration Effect | Precision Loss Effect |
 | -------- | ---------- | ---------- | ---------------- | ------------ | ------------ |
-| weight quantification | Y         | N         | Excellent               | Average         | Excellent           |
+| weight quantization | Y         | N         | Excellent               | Average         | Excellent           |
 | full quantization   | Y         | Y         | Excellent               | Good           | Average         |
-| dynamic quantification | Y         | Y         | Excellent               | Good         | Good         |
+| dynamic quantization | Y         | Y         | Excellent               | Good         | Good         |
 
 ### Weight Quantization
 
@@ -118,7 +118,7 @@ For image data, it currently supports the functions of channel adjustment, norma
 
 User configuration of full quantization requires at least `[common_quant_param]`, `[data_preprocess_param]`, and `[full_quant_param]`.
 
-> The model calibration data must be co-distributed with the training data, and the Format of the calibration data and that of the inputs of the exported floating-point model need to be consistent.
+> The model calibration data must be co-distributed with the training data, and the format of the calibration data and that of the inputs of the exported floating-point model need to be consistent.
 
 The general form of the full quantization conversion command is:
 
@@ -138,7 +138,7 @@ bit_num=8
 
 [data_preprocess_param]
 # Calibration dataset path, the format is input_name_1:input_1_dir,input_name_2:input_2_dir
-# Full quantification must provide correction dataset
+# Full quantization must provide correction dataset
 calibrate_path=input_name_1:/mnt/image/input_1_dir,input_name_2:input_2_dir
 # Calibration data size
 calibrate_size=100
@@ -253,7 +253,7 @@ Ascend quantization needs to configure Ascend-related configuration at [offline 
     ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --optimize=ascend_oriented --inputShape="inTensorName_1:1,32,32,4"
     ```
 
-- Ascend fully quantized parameter dynamic shape scenarios also needs to add new `[ascend_context]` related configurations.
+- Ascend fully quantized parameter dynamic shape scenarios also need to add new `[ascend_context]` related configurations.
 
     ```ini
     [full_quant_param]
@@ -312,7 +312,7 @@ Post training quantization can be enabled by configuring `configFile` through [C
 
 ### Common Quantization Parameter
 
-common quantization parameters are the basic settings for post training quantization. The detailed description of the parameters is as follows:
+Common quantization parameters are the basic settings for post training quantization. The detailed description of the parameters is as follows:
 
 | Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                 |
 | -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
@@ -391,7 +391,7 @@ The detailed description of the ON_THE_FLY quantization parameters is as follows
 
 | Parameter               | Attribute | Function Description                                | Parameter Type | Default Value | Value Range                                                  |
 | ----------------------- | --------- | --------------------------------------------------- | -------------- | ------------- | ------------------------------------------------------------ |
-| dequant_strategy | optional | Weight quantification model | String   | -      | ON_THE_FLY. If it is enabled, the Ascend online inverse quantization mode is enabled. |
+| dequant_strategy | optional | Weight quantization model | String   | -      | ON_THE_FLY. If it is enabled, the Ascend online inverse quantization mode is enabled. |
 
 The ON_THE_FLY quantization parameter is configured as shown below:
 
@@ -457,7 +457,7 @@ The data preprocessing parameter configuration is as follows:
 ```ini
 [data_preprocess_param]
 # Calibration dataset path, the format is input_name_1:input_1_dir,input_name_2:input_2_dir
-# Full quantification must provide correction dataset
+# Full quantization must provide correction dataset
 calibrate_path=input_name_1:/mnt/image/input_1_dir,input_name_2:input_2_dir
 # Calibration data size
 calibrate_size=100
@@ -488,7 +488,7 @@ The detailed description of the dynamic quantization parameter is as follows:
 
 | Parameter  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range |
 | ---------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------- |
-| quant_strategy | Optional | the dynamic quantizaiton strategy | String  | ALWC   |  ALWC: Enable activation perlayer and weight perchannel quantization; <br/>ACWL: Enable activation perchannel and weight perlayer quantization. |
+| quant_strategy | Optional | the dynamic quantization strategy | String  | ALWC   |  ALWC: Enable activation perlayer and weight perchannel quantization; <br/>ACWL: Enable activation perchannel and weight perlayer quantization. |
 
 The dynamic quantization parameter configuration is as follows:
 
@@ -557,7 +557,7 @@ The quantization parameter report `quant_param.csv` contains information about t
 
 ### Partial Operators Skip Quantization
 
-Quantization is to convert float32 operator to int8 operator. The current quantization strategy is the Node contained in a certain class of supportable operators will be quantized, but there is a part of the Node sensitivity is high, the quantization will trigger a large error, while some layers of quantization after the inference speed is much lower than the inference speed of float16. Supporting the specified layer without quantization can effectively improve the accuracy and inference speed.
+Quantization is to convert float32 operator to int8 operator. The current quantization strategy is the Node contained in a certain class of supportable operators will be quantized, but some Nodes have high sensitivity, the quantization will trigger a large error, while some layers of quantization after the inference speed is much lower than the inference speed of float16. Supporting the specified layer without quantization can effectively improve the accuracy and inference speed.
 
 The following is an example of `conv2d_1`, `add_8` and `concat_1` Node without quantization:
 

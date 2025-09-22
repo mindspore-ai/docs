@@ -34,11 +34,11 @@ The following describes how to build and execute an on-device image segmentation
 
 ### Building and Running
 
-1. Load the [sample source code](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
+1. Load the [sample source code](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation) into Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
 
     ![start_home](../images/lite_quick_start_home.png)
 
-2. Connect to an Android device and runs the image segmentation application.
+2. Connect to an Android device and run the image segmentation application.
 
     Connect to the Android device through a USB cable for debugging. Click `Run 'app'` to run the demo on your device.
 
