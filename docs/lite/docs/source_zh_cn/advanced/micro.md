@@ -73,7 +73,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
     enable_micro=true
 
-    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+    # specify HW target, support x86, Cortex-M, AMR32A, ARM64 only.
 
     target=x86
 
@@ -170,7 +170,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
     enable_micro=true
 
-    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+    # specify HW target, support x86, Cortex-M, AMR32A, ARM64 only.
 
     target=x86
 
@@ -312,7 +312,7 @@ dynamic_dim_params=d0:[1,3];d1:[1~8]
 
 enable_micro=true
 
-# specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+# specify HW target, support x86, Cortex-M, AMR32A, ARM64 only.
 
 target=x86
 
@@ -361,7 +361,7 @@ support_parallel=true
 # enable code-generation for MCU HW
 enable_micro=true
 
-# specify HW target, support x86,Cortex-M, ARM32, ARM64 only.
+# specify HW target, support x86, Cortex-M, ARM32, ARM64 only.
 target=Cortex-M
 
 # code generation for Inference or Train
@@ -434,7 +434,7 @@ target_device=DSP
 
     enable_micro=true
 
-    # specify HW target, support x86,Cortex-M, AMR32A, ARM64 only.
+    # specify HW target, support x86, Cortex-M, AMR32A, ARM64 only.
 
     target=x86
 
