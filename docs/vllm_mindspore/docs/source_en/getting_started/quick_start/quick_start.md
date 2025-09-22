@@ -82,7 +82,7 @@ docker exec -it $DOCKER_NAME bash
 
 ## Using the Service
 
-After deploying the environment, user need to prepare the model files before running the model. Refer to the [Download Model](#downloading-model) section for guidance. After [setting environment variables](#setting-environment-variables), user can experience the model bt [offline inference](#offline-inference) or [online inference](#online-serving).  
+After deploying the environment, user need to prepare the model files before running the model. Refer to the [Download Model](#downloading-model) section for guidance. After [setting environment variables](#setting-environment-variables), user can experience the model bt [offline inference](#offline-inference) or [online inference](#online-inference).  
 
 ### Downloading Model
 
