@@ -20,7 +20,7 @@ MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple 
 
     ```bash
     export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
-    ````
+    ```
 
     ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
 

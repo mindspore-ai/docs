@@ -28,10 +28,10 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 - If you use Python 3.11 when compiling the MindSpore Lite package, you need to add the Python dynamic link library to the environment variable LD_LIBRARY_PATH when using the conversion tools and the runtime tools.
 
     ```bash
-    export LD_LIBRARY_PATH=${PATHON_ROOT_PATH}/lib:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=${PYTHON_ROOT_PATH}/lib:${LD_LIBRARY_PATH}
     ```
 
-  ${PATHON_ROOT_PATH} is the path of the Python environment used. After decoupling the Python dependency, the environment variable does not need to be set.
+  ${PYTHON_ROOT_PATH} is the path of the Python environment used. After decoupling the Python dependency, the environment variable does not need to be set.
 
 ### Directory Structure
 
@@ -68,8 +68,8 @@ The following describes the parameters in detail.
 | `--configFile=<CONFIGFILE>` | No | 1. Configure quantization parameter; 2. Profile path for extension. | - | - | - |
 | `--fp16=<FP16>` | No | Serialize const tensor in float16 data type, only effective for const tensor in float32 data type. | on or off | off | - |
 | `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
-| `--saveType=<SAVETYPE>` | No | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR_LITE | This device-side version can only be reasoned with models turned out by setting to MINDIR_LITE | - | - |
-| `--optimize=<OPTIMIZE>` | No | Set the optimization accomplished in the process of converting model. | none, general, gpu_oriented, ascend_oriented | general | - | - |
+| `--saveType=<SAVETYPE>` | No | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR_LITE | This device-side version can only be reasoned with models turned out by setting to MINDIR_LITE |
+| `--optimize=<OPTIMIZE>` | No | Set the optimization accomplished in the process of converting model. | none, general, gpu_oriented, ascend_oriented | general | - |
 | `--inputDataFormat=<INPUTDATAFORMAT>` | No | Set the input format of exported model. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC | - |
 | `--decryptKey=<DECRYPTKEY>` | No | The key used to decrypt the MindIR file, expressed in hexadecimal characters. Only valid when fmkIn is 'MINDIR'. | - | - | - |
 | `--decryptMode=<DECRYPTMODE>` | No | Decryption mode for the MindIR file. Only valid when dec_key is set. | AES-GCM, AES-CBC | AES-GCM | - |
@@ -81,24 +81,23 @@ The following describes the parameters in detail.
 | `--infer=<INFER>` | No | Set whether to pre-inference when conversion is complete. | true, false | false | - |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
-> - Because the compilation option that supports the conversion of PyTorch models is turned off by default, the downloaded installation package does not support the conversion of PyTorch models. You need to open the specified compilation option to compile locally. The following preconditions must be met for converting PyTorch models:`export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL=on && export LIB_TORCH_PATH="/home/user/libtorch"` before compiling. Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.0.1%2Bcpu.zip). Then unzip it to the directory `/home/user/libtorch`. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"`.
+> - Because the compilation option that supports the conversion of PyTorch models is turned off by default, the downloaded installation package does not support the conversion of PyTorch models. You need to open the specified compilation option to compile locally. The following preconditions must be met for converting PyTorch models: `export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL=on && export LIB_TORCH_PATH="/home/user/libtorch"` before compiling. Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.0.1%2Bcpu.zip). Then unzip it to the directory `/home/user/libtorch`. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}"`.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of float32 when serializing model.
 > - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification, designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
 > - The `configFile` configuration files uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [quantization](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/converter_register.html#extension-configuration).
 > - `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to gpu_oriented, the general optimization and extra optimization for GPU hardware will be performed (the converted model only supports GPU hardware backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
-> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/build/build.html) time and only supports Linux x86 platforms, and the key is a string represented by hexadecimal. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
-It should be noted that the encryption and decryption algorithm has been updated in version 1.7. As a result, the new version of the converter tool does not support the conversion of the encrypted model exported by MindSpore Lite in version 1.6 and earlier.
+> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/build/build.html) time and only supports Linux x86 platforms, and the key is a string represented by hexadecimal. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation. It should be noted that the encryption and decryption algorithm has been updated in version 1.7. As a result, the new version of the converter tool does not support the conversion of the encrypted model exported by MindSpore Lite in version 1.6 and earlier.
 > - Parameters `--input_shape` and dynamicDims are stored in the model during conversion. Call model.get_model_info("input_shape") and model.get_model_info("dynamic_dims") to get it when using the model.
 
 ### CPU Model Optimization
 
-If the converted ms model is running on android cpu backend, and hope the model compile with lower latency. Try to turn on this optimization. Add the configuration item `[cpu_option_cfg_param]` in the `configFile` to get a lower compile latency model. At present, the optimization is only available when the model include Matmul operator and its data type is `float32` or dynamic quantization is enabled.
+If the converted ms model uses the Android CPU backend for inference and has stringent requirements for model compilation latency, you may consider enabling this optimization. Add the configuration item `[cpu_option_cfg_param]` in the `configFile` to get a lower compile latency model. At present, the optimization is only available when the model include Matmul operator and its data type is `float32` or dynamic quantization is enabled.
 
 | Parameter | Attribute | Function Description | Value Range |
 |--------|--------|--------|--------|
 |    `architecture`    |    Mandatory    |     target cpu architecture, only support ARM64    |     ARM64    |
-|    `instruction`    |    Mandatory    |    target instruction set, only support SMID_DOT    |    SIMD_DOT    |
+|    `instruction`    |    Mandatory    |    target instruction set, only support SIMD_DOT    |    SIMD_DOT    |
 
 ### Example
 
@@ -186,7 +185,7 @@ To use the MindSpore Lite model conversion tool, the following environment prepa
 
     ```bash
     set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
-    ````
+    ```
 
     ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
 
@@ -250,7 +249,7 @@ Several common examples are selected below to illustrate the use of conversion c
 
      > The `MindIR` model exported by version earlier than MindSpore v1.1.1 is recommended to be converted to the `ms` model using the converter tool of the corresponding version. In MindSpore v1.1.1 and later versions, the converter tool will be forward compatible.
 
-    - TensorFlow Lite model`model.tflite`
+    - TensorFlow Lite model `model.tflite`
 
       ```bat
       call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
@@ -262,7 +261,7 @@ Several common examples are selected below to illustrate the use of conversion c
       call converter_lite --fmk=TF --modelFile=model.pb --outputFile=model
       ```
 
-    - ONNX model`model.onnx`
+    - ONNX model `model.onnx`
 
       ```bat
       call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
