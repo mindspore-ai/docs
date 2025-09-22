@@ -1,0 +1,119 @@
+# MindSpore Lite支持的TensorFlow算子列表
+
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_tensorflow.md)
+
+| MindSpore Lite算子名称 | 对应的TensorFlow算子                                         |
+| ---------------------- | ------------------------------------------------------------ |
+| Abs                    | Abs                                                          |
+| Activation             | Activation, Elu, Relu, Relu6, Sigmoid, Tanh, Selu, LeakyRelu, Softplus |
+| Adam                   | Adam                                                         |
+| AddFusion              | Add, AddV2                                                   |
+| All                    | All                                                          |
+| ApplyMomentum          | ApplyMomentum                                                |
+| Assert                 | Assert                                                       |
+| Assign                 | Assign                                                       |
+| ArgmaxFusion           | ArgMax                                                       |
+| ArgminFusion           | ArgMin                                                       |
+| AvgPoolFusion          | AvgPool                                                      |
+| BatchToSpace           | BatchToSpace                                                 |
+| BatchToSpaceND         | BatchToSpaceND                                               |
+| BiasAdd                | BiasAdd                                                      |
+| BinaryCrossEntropy     | BinaryCrossEntropy                                           |
+| BroadcastTo            | BroadcastTo                                                  |
+| Cast                   | Cast                                                         |
+| Ceil                   | Ceil                                                         |
+| Clip                   | Clip                                                         |
+| Concat                 | ConcatV2                                                     |
+| Conv2DFusion           | Conv2D                                                       |
+| Conv2dTransposeFusion  | Conv2DBackpropInput                                          |
+| Cos                    | Cos                                                          |
+| CropAndResize          | CropAndResize                                                |
+| CumSum                 | Cumsum                                                       |
+| DepthToSpace           | DepthToSpace                                                 |
+| DivFusion              | Div, RealDiv                                                 |
+| Dropout                | Dropout                                                      |
+| Elu                    | NonMaxSuppressionV3                                          |
+| Equal                  | Equal                                                        |
+| Erf                    | Erf                                                          |
+| ExpFusion              | Exp                                                          |
+| ExpandDims             | ExpandDims                                                   |
+| Fill                   | Fill                                                         |
+| Floor                  | Floor                                                        |
+| FloorDiv               | FloorDiv                                                     |
+| FloorMod               | FloorMod                                                     |
+| FusedBatchNorm         | FusedBatchNorm,<br/>FusedBatchNormV3                         |
+| GatherNd               | GatherNd                                                     |
+| Gather                 | GatherV2                                                     |
+| Greater                | Greater                                                      |
+| GreaterEqual           | GreaterEqual                                                 |
+| InvertPermutation      | InvertPermutation                                            |
+| IsFinite               | IsFinite                                                     |
+| LeakyReLU              | LeakyRelu                                                    |
+| Less                   | Less                                                         |
+| LessEqual              | LessEqual                                                    |
+| Log                    | Log                                                          |
+| Log1p                  | Log1p                                                        |
+| LogicalAnd             | LogicalAnd                                                   |
+| LogicalNot             | LogicalNot                                                   |
+| LogicalOr              | LogicalOr                                                    |
+| MatMulFusion           | MatMul,<br/>BatchMatMul,<br/>BatchMatMulV2                   |
+| Maximum                | Maximum                                                      |
+| MaxPoolFusion          | MaxPool                                                      |
+| Merge                  | Merge                                                        |
+| Minimum                | Minimum                                                      |
+| Mod                    | Mod                                                          |
+| MulFusion              | Mul                                                          |
+| Neg                    | Neg                                                          |
+| NotEqual               | NotEqual                                                     |
+| NonMaxSupppression     | NonMaxSupppression                                           |
+| NonZero                | NonZero                                                      |
+| OneHot                 | OneHot                                                       |
+| OnesLike               | OnesLike                                                     |
+| PadFusion              | MirrorPad, Pad, PadV2                                        |
+| PowFusion              | Pow                                                          |
+| RaggedRange            | RaggedRange                                                  |
+| RandomNormal           | RandomNormal                                                 |
+| RandomStandardNormal   | RandomStandardNormal                                         |
+| Range                  | Range                                                        |
+| Rank                   | Rank                                                         |
+| ReduceFusion           | Sum, Max, Min, Mean, Prod, All                               |
+| Reshape                | Reshape                                                      |
+| Resize                 | ResizeBilinear,<br/>ResizeBicubic,<br/>ResizeNearestNeighbor |
+| ReverseV2              | ReverseV2                                                    |
+| ReverseSequence        | ReverseSequence                                              |
+| Round                  | Round                                                        |
+| Rsqrt                  | Rsqrt                                                        |
+| Select                 | Select                                                       |
+| Selu                   | Selu                                                         |
+| SGD                    | SGD                                                          |
+| Shape                  | Shape                                                        |
+| Sin                    | Sin                                                          |
+| Size                   | Size                                                         |
+| SliceFusion            | Slice                                                        |
+| Softmax                | Softmax                                                      |
+| Softplus               | Softplus                                                     |
+| SpaceToBatchND         | SpaceToBatchND                                               |
+| Split                  | Split, SplitV                                                |
+| Sqrt                   | Sqrt                                                         |
+| Square                 | Square                                                       |
+| SquaredDifference      | SquaredDifference                                            |
+| Squeeze                | Squeeze                                                      |
+| StridedSlice           | StridedSlice                                                 |
+| Stack                  | Pack                                                         |
+| SubFusion              | Sub                                                          |
+| Switch                 | Switch                                                       |
+| TensorListFromTensor   | TensorListFromTensor                                         |
+| TensorListGetItem      | TensorListGetItem                                            |
+| TensorListReserve      | TensorListReserve                                            |
+| TensorListSetItem      | TensorListSetItem                                            |
+| TensorListStack        | TensorListStack                                              |
+| TensorScatterAdd       | TensorScatterAdd                                             |
+| TileFusion             | Tile                                                         |
+| TopKFusion             | TopKV2                                                       |
+| Transpose              | Transpose                                                    |
+| UnsortedSegmentSum     | UnsortedSegmentSum                                           |
+| Where                  | Where                                                        |
+| ZerosLike              | ZerosLike                                                    |
+| 转换工具支持的其他算子 | Dropout, Enter,<br/>Exit, If, <br/>LinSpace,<br/>LoopCond,<br/>NextIteration,<br/>StatelessIf,<br/>StatelessWhile,<br/>TensorArrayGatherV3,<br/>TensorArrayReadV3,<br/>TensorArrayScatterV3,<br/>TensorArraySizeV3,<br/>TensorArrayV3,<br/>TensorArrayWriteV3,<br/>While |
+
+> [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。

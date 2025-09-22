@@ -1,0 +1,116 @@
+# MindSpore Lite支持的TensorFlow Lite算子列表
+
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_tflite.md)
+
+| MindSpore Lite算子名称 | 对应的TensorFlow Lite算子                                    |
+| ---------------------- | ------------------------------------------------------------ |
+| Abs                    | Abs                                                          |
+| Activation             | Activation, ReLU, ReLU6, PReLU, <br/>LeakyReLU, Tanh, HardSwish, Logistic |
+| Adam                   | Adam                                                         |
+| AddFusion              | Add                                                          |
+| AddN                   | AddN                                                         |
+| All                    | All                                                          |
+| ApplyMomentum          | ApplyMomentum                                                |
+| Assign                 | Assign                                                       |
+| ArgmaxFusion           | Argmax                                                       |
+| ArgminFusion           | Argmin                                                       |
+| AvgPoolFusion          | MeanPooling                                                  |
+| BatchToSpace           | BatchToSpace                                                 |
+| BatchToSpaceND         | BatchToSpaceND                                               |
+| BinaryCrossEntropy     | BinaryCrossEntropy                                           |
+| BroadcastTo            | BroadcastTo                                                  |
+| Cast                   | Cast,<br/>QUANTIZE,<br/>DEQUANTIZE                           |
+| Ceil                   | Ceil                                                         |
+| Clip                   | Clip                                                         |
+| Concat                 | Concat                                                       |
+| Conv2DFusion           | Conv2D                                                       |
+| Conv2dTransposeFusion  | DeConv2D                                                     |
+| Cos                    | Cos                                                          |
+| CustomExtractFeatures  | ExtractFeatures                                              |
+| CustomNormalize        | Normalize                                                    |
+| CustomPredict          | Predict                                                      |
+| DepthToSpace           | DepthToSpace                                                 |
+| DetectionPostProcess   | Custom                                                       |
+| DivFusion              | Div, RealDiv                                                 |
+| Dropout                | Dropout                                                      |
+| Equal                  | Equal                                                        |
+| Erf                    | Erf                                                          |
+| ExpFusion              | Exp                                                          |
+| ExpandDims             | ExpandDims                                                   |
+| Fill                   | Fill                                                         |
+| Floor                  | flOOR                                                        |
+| FloorDiv               | FloorDiv                                                     |
+| FloorMod               | FloorMod                                                     |
+| FullConnection         | FullyConnected                                               |
+| FusedBatchNorm         | FusedBatchNorm                                               |
+| GatherNd               | GatherND                                                     |
+| Gather                 | Gather                                                       |
+| Greater                | Greater                                                      |
+| GreaterEqual           | GreaterEqual                                                 |
+| HashtableLookup        | HashtableLookup                                              |
+| InstanceNorm           | InstanceNorm                                                 |
+| IsFinite               | IsFinite                                                     |
+| LeakyReLU              | LeakyRelu                                                    |
+| Less                   | Less                                                         |
+| LessEqual              | LessEqual                                                    |
+| LRN                    | LocalResponseNorm                                            |
+| Log                    | Log                                                          |
+| Log1p                  | Log1p                                                        |
+| LogicalAnd             | LogicalAnd                                                   |
+| LogicalNot             | LogicalNot                                                   |
+| LogicalOr              | LogicalOr                                                    |
+| LogSoftmax             | LogSoftmax                                                   |
+| LshProjection          | LshProjection                                                |
+| MatMulFusion           | BatchMatMul                                                  |
+| Maximum                | Maximum                                                      |
+| MaxPoolFusion          | MaxPooling                                                   |
+| Minimum                | Minimum                                                      |
+| Mod                    | Mod                                                          |
+| MulFusion              | Mul                                                          |
+| Neg                    | Neg                                                          |
+| NotEqual               | NotEqual                                                     |
+| NonMaxSupppression     | NonMaxSupppression                                           |
+| NonZero                | NonZero                                                      |
+| OneHot                 | OneHot                                                       |
+| OnesLike               | OnesLike                                                     |
+| PadFusion              | Pad, MirrorPad, PadV2                                        |
+| PowFusion              | Pow                                                          |
+| PReLUFusion            | PRELU                                                        |
+| RandomNormal           | RandomNormal                                                 |
+| Range                  | Range                                                        |
+| Rank                   | Rank                                                         |
+| ReduceFusion           | Sum, Mean, ReduceMax, ReduceMin, ReduceProd                  |
+| Reshape                | Reshape                                                      |
+| Resize                 | ResizeBilinear,<br/>NearestNeighbor                          |
+| ReverseV2              | reverse                                                      |
+| ReverseSequence        | ReverseSequence                                              |
+| Round                  | Round                                                        |
+| Rsqrt                  | Rsqrt                                                        |
+| ScatterNd              | ScatterNd                                                    |
+| ScatterNdUpdate        | ScatterNdUpdate                                              |
+| SGD                    | SGD                                                          |
+| Shape                  | Shape                                                        |
+| Sin                    | Sin                                                          |
+| SliceFusion            | Slice                                                        |
+| SkipGram               | SKipGram                                                     |
+| Softmax                | Softmax                                                      |
+| SpaceToBatch           | SpaceToBatch                                                 |
+| SpaceToBatchND         | SpaceToBatchND                                               |
+| SpaceToDepth           | SpaceToDepth                                                 |
+| SparseToDense          | SpareToDense                                                 |
+| Split                  | Split, SplitV                                                |
+| Sqrt                   | Sqrt                                                         |
+| Square                 | Square                                                       |
+| SquaredDifference      | SquaredDifference                                            |
+| Squeeze                | Squeeze                                                      |
+| StridedSlice           | StridedSlice                                                 |
+| Stack                  | Stack                                                        |
+| SubFusion              | Sub                                                          |
+| TensorScatterAdd       | TensorScatterAdd                                             |
+| TileFusion             | Tile                                                         |
+| TopKFusion             | TopKV2                                                       |
+| Transpose              | Transpose                                                    |
+| Unique                 | Unique                                                       |
+| Unstack                | Unstack                                                      |
+| Where                  | Where                                                        |
+| ZerosLike              | ZerosLike                                                    |
