@@ -83,7 +83,7 @@ Graph 模式。
 2. 为每条边枚举重排布策略和相应的代价。如下图(c)所示，这里的重排布策略定义为二元组[*s_strategy* , *t_strategy* ]，其中 *s_strategy*表示的是源算子（下图(c)中的ReLU）的切分策略， *t_strategy*表示的是目的算子（下图(c)中的MatMul）的切分策略。
 3. 当沿着一条边传播到下一个算子时（如图中ReLU切分策略已确定，为[2, 4]，下一步要决定MatMul算子的切分策略），在表中选择引起通信代价最小的目的算子策略（即为MatMul选择[[2,4], [4, 1]]）。最后，所有算子的切分策略都被确定，如下图(d)所示。
 
-[![切分策略传播的流程实例](./images/sharding_propagation_zh.png)](./images/sharding_propagation_zh.png)
+![切分策略传播的流程实例](./images/sharding_propagation_zh.png)
 
 ### 双递归策略搜索算法
 

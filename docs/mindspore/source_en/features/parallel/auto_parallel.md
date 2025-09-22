@@ -82,7 +82,7 @@ The following figure illustrates an example process of applying Sharding Propaga
 2. Next, it enumerates possible strategies and the Tensor Redistribution costs for each edge. Demonstrated in figure (c), the strategy for an edge is defined as a pair [*s_strategy*, *t_strategy*], where *s_strategy* and *t_strategy* denote Sharding Strategy for source operator and target operator, respectively.
 3. Finally, starting from the configured operator, it determines the next operator's Sharding Strategy, such that the communication cost in Tensor Redistribution is minimized. The propagation ends when the Sharding Strategies for all operators are settled, as shown in figure (d).
 
-[![An example process of applying Sharding Propagation](./images/sharding_propagation.png)](./images/sharding_propagation.png)
+![An example process of applying Sharding Propagation](./images/sharding_propagation.png)
 
 ### Double Recursive Strategy Search Algorithm
 
