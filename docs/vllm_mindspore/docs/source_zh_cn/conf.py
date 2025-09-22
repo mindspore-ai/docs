@@ -182,10 +182,10 @@ present_path = os.path.dirname(__file__)
 #         copy_list.append(os.path.join(present_path,i))
 
 # add view
-import json
+# import json
 
-with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
-    version_inf = json.load(f)
+# with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+#     version_inf = json.load(f)
 
 # if os.getenv("VLLM_PATH").split('/')[-1]:
 #     copy_repo = os.getenv("VLLM_PATH").split('/')[-1]
@@ -249,16 +249,8 @@ def setup(app):
 
 src_release = "./release_notes/release_notes.md"
 des_release = "./RELEASE.md"
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
-if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
-else:
-    content = re.findall("(## [\s\S\n]*)", data)
-
-with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
+if os.path.isfile(src_release):
+    os.rename(src_release, des_release)
 
 os.makedirs(os.path.join(present_path, "../build_zh_cn/html/"), exist_ok=True)
 shutil.copy(os.path.join(present_path, "arch.cn.png"), os.path.join(present_path, "../build_zh_cn/html/"))

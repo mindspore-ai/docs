@@ -76,5 +76,14 @@
         "uninstall_name" : "mindspore_gs",
         "extra_whl_path" : "2.7.0rc1/MindFormers/any/",
         "extra_whl_name" : "mindformers-1.6.0-py3-none-any.whl"
+    },
+    {
+        "id" : 8 ,
+        "name" : "vllm_mindspore",
+        "branch" : "r0.3.0",
+        "whl_path" : "",
+        "whl_name" : "",
+        "environ" : "",
+        "uninstall_name" : ""
     }
  ]
