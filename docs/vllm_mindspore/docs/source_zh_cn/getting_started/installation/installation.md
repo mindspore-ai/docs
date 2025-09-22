@@ -17,12 +17,12 @@
    | -----    | -----   |
    |CANN |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit)      |
    |MindSpore |  [2.7.0](https://www.mindspore.cn/versions#2.7.0)    |
-   |MSAdapter |  [0.2.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250807/r0.2.0_20250807013007_e7636d61563c4beafac4b877891172464fdcf321_newest/any/) |
+   |MSAdapter |  [0.5.0](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0/MSAdapter/any/msadapter-0.5.0-py3-none-any.whl) |
    |MindSpore Transformers| [1.6.0](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.6.0/installation.html)  |
    |Golden Stick| [1.2.0](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.2.0/install.html)  |
-   |vLLM  | [0.8.3](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/) |
+   |vLLM  | [0.8.3](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/vllm-0.8.4.dev0%2Bg296c657.d20250514.empty-py3-none-any.whl) |
 
-注：[vLLM软件包](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/)使用vLLM 0.8.3分支，并加入数据并行功能。
+注：[vLLM软件包](https://repo.mindspore.cn/mirrors/vllm/version/202505/20250514/v0.8.4.dev0_newest/any/vllm-0.8.4.dev0%2Bg296c657.d20250514.empty-py3-none-any.whl)使用vLLM 0.8.3分支，并加入数据并行功能。
 
 ## docker安装
 

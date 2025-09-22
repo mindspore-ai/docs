@@ -10,7 +10,7 @@ The following is the features supported in vLLM-MindSpore Plugin.
 |-----------------------------------|--------------------|--------------------|  
 | Chunked Prefill                   | √                  | √                  |  
 | Automatic Prefix Caching          | √                  | √                  |  
-| Multi step scheduler              | √                  | ×                  |  
+| Multi-step scheduler              | √                  | ×                  |  
 | DeepSeek MTP                      | √                  | WIP                |  
 | Async output                      | √                  | √                  |  
 | Quantization                      | √                  | √                  |  

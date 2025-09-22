@@ -10,7 +10,7 @@ vLLM-MindSpore插件支持的特性功能与vLLM社区版本保持一致，特�
 |-----------------------------------|--------------------|--------------------|  
 | Chunked Prefill                   | √                  | √                  |  
 | Automatic Prefix Caching          | √                  | √                  |  
-| Multi step scheduler              | √                  | ×                  |  
+| Multi-step scheduler              | √                  | ×                  |  
 | DeepSeek MTP                      | √                  | WIP                |  
 | Async output                      | √                  | √                  |  
 | Quantization                      | √                  | √                  |  
