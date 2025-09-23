@@ -24,11 +24,11 @@
 
 ## 构建与运行
 
-### Linux X86
+### Linux x86_64
 
 - 环境要求
 
-    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
+    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02 LTS
     - 编译依赖：
         - [CMake](https://cmake.org/download/) >= 3.18.3
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
@@ -133,7 +133,7 @@ target_link_libraries(
 )
 
 # Due to the increased compilation options for stack protection,
-# it is necessary to target link ssp library when Use the static library in Windows.
+# it is necessary to target link ssp library when using the static library in Windows.
 if(WIN32)
     target_link_libraries(
             mindspore_quick_start_cpp

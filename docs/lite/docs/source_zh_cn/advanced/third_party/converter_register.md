@@ -85,7 +85,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
 - 环境要求
 
-    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
+    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02 LTS
     - 编译依赖：
         - [CMake](https://cmake.org/download/) >= 3.18.3
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0

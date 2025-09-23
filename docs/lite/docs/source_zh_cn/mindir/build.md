@@ -15,7 +15,7 @@
 
 ## 环境要求
 
-- 系统环境：Linux x86_64或arm64，推荐使用Ubuntu 18.04.02LTS。
+- 系统环境：Linux x86_64或arm64，推荐使用Ubuntu 18.04.02 LTS。
 - C++编译依赖
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [CMake](https://cmake.org/download/) >= 3.18.3

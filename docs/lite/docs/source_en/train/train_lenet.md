@@ -22,7 +22,7 @@ Ubuntu 18.04 64-bit operating system on x86 platform is recommended.
 
 ### Environment Requirements
 
-- The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02LTS is recommended.
+- The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
 
 - Software dependency
 

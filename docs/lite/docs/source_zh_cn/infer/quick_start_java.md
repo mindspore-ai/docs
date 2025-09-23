@@ -23,7 +23,7 @@
 ## 构建与运行
 
 - 环境要求
-    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
+    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02 LTS
     - 编译依赖：
         - [Git](https://git-scm.com/downloads) >= 2.28.0
         - [Maven](https://maven.apache.org/download.cgi) >= 3.3
