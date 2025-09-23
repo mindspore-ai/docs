@@ -1,8 +1,8 @@
-# MindSpore Lite支持的TensorFlow Lite算子列表
+# List of TensorFlow Lite Operators Supported by MindSpore Lite
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_tflite.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/operator_list_lite_for_tflite.md)
 
-| MindSpore Lite算子名称 | 对应的TensorFlow Lite算子                                    |
+| MindSpore Lite Operator Names | Corresponding TensorFlow Lite Operators                                    |
 | ---------------------- | ------------------------------------------------------------ |
 | Abs                    | Abs                                                          |
 | Activation             | Activation, ReLU, ReLU6, PReLU, <br/>LeakyReLU, Tanh, HardSwish, Logistic |
