@@ -119,7 +119,7 @@
 | NLLLoss                             | 计算负对数似然损失                                           | FP32                                                | -         | -                       |
 | NLLLossGrad                         | 计算NLLLoss的梯度                                            | FP32                                                | -         | -                       |
 | NotEqual                            | 逐元素比较两个张量，返回 A != B的逻辑结果                    | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| NonMaxSupppression                  | 非极大值抑制                                                 | FP32                                                | -         | -                       |
+| NonMaxSuppression                  | 非极大值抑制                                                 | FP32                                                | -         | -                       |
 | NonZero                             | 返回输入张量中所有非零元素的索引                             | Bool                                                | -         | -                       |
 | OneHot                              | 将整数索引张量转换为独热编码表示                             | FP16<br/>FP32<br/>Int32                             | -         | FP16<br/>FP32<br/>Int32 |
 | OnesLike                            | 创建一个与输入张量 X形状完全相同但所有元素值均为1的新张量    | FP16<br/>FP32<br/>Int32                             | -         | -                       |

@@ -65,7 +65,7 @@
 | MulFusion              | Mul                                                          |
 | Neg                    | Neg                                                          |
 | NotEqual               | NotEqual                                                     |
-| NonMaxSupppression     | NonMaxSupppression                                           |
+| NonMaxSuppression     | NonMaxSuppression                                           |
 | NonZero                | NonZero                                                      |
 | OneHot                 | OneHot                                                       |
 | OnesLike               | OnesLike                                                     |
