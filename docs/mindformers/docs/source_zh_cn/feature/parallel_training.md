@@ -186,6 +186,11 @@ parallel:
 # parallel config
 parallel_config:
   seq_split_num: 2
+
+# model config
+model:
+  model_config:
+    offset: 0
 ```
 
 参数说明：
@@ -193,6 +198,7 @@ parallel_config:
 - pipeline_interleave：是否开启多流水交织并行。
 - pipeline_scheduler：流水线的调度策略，目前MindSpore Transformers只支持设置为`'seqpipe'`。
 - seq_split_num：输入按序列维度的切分个数。
+- offset：开启 pp 并行时，设置每个stage层数的偏移量。详情请参考[MindSpore Transformers配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)。
 
 注意：
 
