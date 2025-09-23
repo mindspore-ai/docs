@@ -186,6 +186,11 @@ parallel:
 # parallel config
 parallel_config:
   seq_split_num: 2
+
+# model config
+model:
+  model_config:
+    offset: 0
 ```
 
 Parameter Descriptions:
@@ -193,6 +198,7 @@ Parameter Descriptions:
 - pipeline_interleave: Whether to enable multi-pipeline interleaved parallelism.
 - pipeline_scheduler: The scheduling policy of the pipeline is currently only supported by mindformers 'seqpipe'.
 - seq_split_num: The number of Sequence Chunk which splits along the sequence dimension of the input.
+- offset: When enabling PP parallelism, set the offset of each stage layer. For details, please refer to [MindSpore Transformers configuration description](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 Notes:
 
