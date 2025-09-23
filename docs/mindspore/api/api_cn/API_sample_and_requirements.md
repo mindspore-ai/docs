@@ -457,24 +457,24 @@
 
     b. 如果文档内不想写全称，可写成如下形式，html页面会正常显示全称链接。
 
-        ```
-        :class:`.Metric`
-        ```
+      ```text
+      :class:`.Metric`
+      ```
 
     c. 如果html页面不想显示全称链接，只显示接口名，可写成如下形式：
 
-        ```
-        :class:`~.Metric`
-        ```
+      ```text
+      :class:`~.Metric`
+      ```
 
     注意：其中b,c两种写法，如果不同模块有同名接口，请多加上一些判断用模块，如下：
 
-    ```
+    ```text
     :class:`.train.Metric`
     :class:`~.train.Metric`
     ```
 
-10. rst文档内换行的用法
+1. rst文档内换行的用法
 
     a. rst文档没有一行内字数的限制，完整的一句话可以写在一行内；
 
