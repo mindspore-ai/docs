@@ -10,7 +10,7 @@
 | Abs                    | 逐元素计算绝对值                                             | Abs                                                          | 不支持uint8类型。不支持输入张量量化参数为空。                |
 | Activation             | 激活函数                                                     | Relu、LeakyRelu、PRelu、Elu、Tanh、Sigmoid、HardSigmoid、Softplus、Gelu | -                                                            |
 | AddFusion              | 逐元素计算加法                                               | Add、Int8Add                                                 | -                                                            |
-| AdderFusion            | 逐元素加法                                                   | adder_f                                                      | -                                                            |
+| AdderFusion            | 基于加法的卷积运算                                                   | adder_f                                                      | -                                                            |
 | ArgmaxFusion           | 求某一维度最大值                                             | ArgMax                                                       | 不支持uint8类型。不支持输入张量量化参数为空。                |
 | ArgminFusion           | 求某一维度最小值                                             | ArgMin                                                       | -                                                            |
 | AvgPoolFusion          | 平均池化                                                     | AveragePool、GlobalAveragePool、Int8AveragePool             | -                                                            |
