@@ -862,7 +862,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
    - Environment Requirements
 
-       - System environment: Linux x86_64; Recommend Ubuntu 18.04.02LTS
+       - System environment: Linux x86_64; Recommend Ubuntu 18.04.02 LTS
        - compilation dependencies:
            - [CMake](https://cmake.org/download/) >= 3.18.3
            - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0

@@ -26,7 +26,7 @@ The following describes how to prepare the environment for using the conversion 
 
 1. System environment required for running the conversion tool
 
-    In this example, the Linux operating system is used. Ubuntu 18.04.02LTS is recommended.
+    In this example, the Linux operating system is used. Ubuntu 18.04.02 LTS is recommended.
 
 2. Obtain the conversion tool
 
