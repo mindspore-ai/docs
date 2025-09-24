@@ -1,13 +1,13 @@
-# MindSpore Lite支持的TensorFlow算子列表
+# List of TensorFlow Operators Supported by MindSpore Lite
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_tensorflow.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/operator_list_lite_for_tensorflow.md)
 
-| MindSpore Lite算子名称 | 对应的TensorFlow算子                                         |
+| MindSpore Lite Operator Names | Corresponding TensorFlow Operators                                    |
 | ---------------------- | ------------------------------------------------------------ |
 | Abs                    | Abs                                                          |
-| Activation             | Activation、Elu、Relu、Relu6、Sigmoid、Tanh、Selu、LeakyRelu、Softplus |
+| Activation             | Activation, Elu, Relu, Relu6, Sigmoid, Tanh, Selu, LeakyRelu, Softplus |
 | Adam                   | Adam                                                         |
-| AddFusion              | Add、AddV2                                                   |
+| AddFusion              | Add, AddV2                                                   |
 | All                    | All                                                          |
 | ApplyMomentum          | ApplyMomentum                                                |
 | Assert                 | Assert                                                       |
@@ -30,7 +30,7 @@
 | CropAndResize          | CropAndResize                                                |
 | CumSum                 | Cumsum                                                       |
 | DepthToSpace           | DepthToSpace                                                 |
-| DivFusion              | Div、RealDiv                                                 |
+| DivFusion              | Div, RealDiv                                                 |
 | Dropout                | Dropout                                                      |
 | Elu                    | NonMaxSuppressionV3                                          |
 | Equal                  | Equal                                                        |
@@ -41,7 +41,7 @@
 | Floor                  | Floor                                                        |
 | FloorDiv               | FloorDiv                                                     |
 | FloorMod               | FloorMod                                                     |
-| FusedBatchNorm         | FusedBatchNorm、<br/>FusedBatchNormV3                         |
+| FusedBatchNorm         | FusedBatchNorm,<br/>FusedBatchNormV3                         |
 | GatherNd               | GatherNd                                                     |
 | Gather                 | GatherV2                                                     |
 | Greater                | Greater                                                      |
@@ -56,7 +56,7 @@
 | LogicalAnd             | LogicalAnd                                                   |
 | LogicalNot             | LogicalNot                                                   |
 | LogicalOr              | LogicalOr                                                    |
-| MatMulFusion           | MatMul、<br/>BatchMatMul、<br/>BatchMatMulV2                   |
+| MatMulFusion           | MatMul,<br/>BatchMatMul,<br/>BatchMatMulV2                   |
 | Maximum                | Maximum                                                      |
 | MaxPoolFusion          | MaxPool                                                      |
 | Merge                  | Merge                                                        |
@@ -69,16 +69,16 @@
 | NonZero                | NonZero                                                      |
 | OneHot                 | OneHot                                                       |
 | OnesLike               | OnesLike                                                     |
-| PadFusion              | MirrorPad、Pad、PadV2                                        |
+| PadFusion              | MirrorPad, Pad, PadV2                                        |
 | PowFusion              | Pow                                                          |
 | RaggedRange            | RaggedRange                                                  |
 | RandomNormal           | RandomNormal                                                 |
 | RandomStandardNormal   | RandomStandardNormal                                         |
 | Range                  | Range                                                        |
 | Rank                   | Rank                                                         |
-| ReduceFusion           | Sum、Max、Min、Mean、Prod、All                               |
+| ReduceFusion           | Sum, Max, Min, Mean, Prod, All                               |
 | Reshape                | Reshape                                                      |
-| Resize                 | ResizeBilinear、<br/>ResizeBicubic、<br/>ResizeNearestNeighbor |
+| Resize                 | ResizeBilinear,<br/>ResizeBicubic,<br/>ResizeNearestNeighbor |
 | ReverseV2              | ReverseV2                                                    |
 | ReverseSequence        | ReverseSequence                                              |
 | Round                  | Round                                                        |
@@ -93,7 +93,7 @@
 | Softmax                | Softmax                                                      |
 | Softplus               | Softplus                                                     |
 | SpaceToBatchND         | SpaceToBatchND                                               |
-| Split                  | Split、SplitV                                                |
+| Split                  | Split, SplitV                                                |
 | Sqrt                   | Sqrt                                                         |
 | Square                 | Square                                                       |
 | SquaredDifference      | SquaredDifference                                            |
@@ -114,6 +114,6 @@
 | UnsortedSegmentSum     | UnsortedSegmentSum                                           |
 | Where                  | Where                                                        |
 | ZerosLike              | ZerosLike                                                    |
-| 转换工具支持的其他算子 | Dropout、Enter、<br/>Exit、If、<br/>LinSpace、<br/>LoopCond、<br/>NextIteration、<br/>StatelessIf、<br/>StatelessWhile、<br/>TensorArrayGatherV3、<br/>TensorArrayReadV3、<br/>TensorArrayScatterV3、<br/>TensorArraySizeV3、<br/>TensorArrayV3、<br/>TensorArrayWriteV3、<br/>While |
+| Other operators supported by the conversion tool | Dropout, Enter,<br/>Exit, If, <br/>LinSpace,<br/>LoopCond,<br/>NextIteration,<br/>StatelessIf,<br/>StatelessWhile,<br/>TensorArrayGatherV3,<br/>TensorArrayReadV3,<br/>TensorArrayScatterV3,<br/>TensorArraySizeV3,<br/>TensorArrayV3,<br/>TensorArrayWriteV3,<br/>While |
 
-> [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
+> [Converter too](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) supports operators that are not required to be explicitly implemented. Typically, such operators are optimized away in conversion tools—either fused or replaced with other operators.
