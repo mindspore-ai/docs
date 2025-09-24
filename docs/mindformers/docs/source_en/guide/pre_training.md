@@ -78,23 +78,40 @@ For dataset processing, refer to [Megatron Dataset - Data Preprocessing](https:/
 
 ### Single-Node Training
 
-Specify the configuration file [pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
+Specify the configuration file [pretrain_qwen3_32b_4k.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/pretrain_qwen3_32b_4k.yaml) and after modifying the configuration, then start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
 
-The default configuration includes large values for parameters such as the number of layers and hidden dimensions, which are intended for large-scale multi-node distributed training. It cannot be directly used for pretraining on a single machine. You will need to modify the configuration as described in [DeepSeek-V3 - Configuration Modification](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/README.md#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE).
+The configuration provided on the warehouse is a 32B model with a large number of parameters, which makes it impossible to directly start pre-training in a single-machine environment. In this example, the model size is reduced to 0.6B to demonstrate single-machine training. Modify the following parameters in the configuration file while keeping the remaining parameters unchanged:
 
-For detailed instructions on launching the training task, refer to [Launch Task](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/README.md#%E6%8B%89%E8%B5%B7%E4%BB%BB%E5%8A%A1). The launch command is as follows:
+```yaml
+# model_config
+model:
+  model_config:
+    hidden_size: 1024
+    num_attention_heads: 16
+    num_hidden_layers: 28
+```
+
+The launch command is as follows:
 
 ```shell
 cd $MINDFORMERS_HOME
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/deepseek3 \
- --config research/deepseek3/deepseek3_671b/pretrain_deepseek3_1b.yaml"
+--config configs/qwen3/pretrain_qwen3_32b_4k.yaml \
+--parallel_config.data_parallel 1 \
+--parallel_config.model_parallel 2 \
+--parallel_config.pipeline_stage 4 \
+--parallel_config.micro_batch_num 2"
 ```
 
 Here:
 
-- `register_path`: The path to the model implementation directory.
 - `config`: The model configuration file, located in the **config** directory of the **MindSpore Transformers** repository.
+- `parallel_config.data_parallel`: Set the number of data parallel.
+- `parallel_config.model_parallel`: Set the number of model parallel.
+- `parallel_config.pipeline_stage`: Set the number of pipeline parallel.
+- `parallel_config.micro_batch_num`: Set the pipeline parallel microbatch size, which should satisfy `parallel_config.micro_batch_num` >= `parallel_config.pipeline_stage` when `parallel_config.pipeline_stage` is greater than 1.
+
+For detailed instructions on launching the training task, refer to [Start Pre-training Task](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#3-启动预训练任务).
 
 After the task is executed, the **checkpoint** folder is generated in the **mindformers/output** directory, and the model file (`.safetensors`) is saved in this folder.
 
@@ -107,12 +124,12 @@ Execute the following command on each server. Set `master_ip` to the **IP addres
 ```shell
 master_ip=192.168.1.1
 node_rank=0
+port=50001
 
 cd $MINDFORMERS_HOME
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/deepseek3 \
- --config research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml" \
- 1024 8 $master_ip 8118 $node_rank output/msrun_log False 7200
+--config configs/qwen3/pretrain_qwen3_32b_4k.yaml" \
+16 8 $master_ip $port $node_rank output/msrun_log False 7200
 ```
 
 > The example code below assumes the **master node IP** is `192.168.1.1` and the current node's **Rank** is `0`. In actual execution, please set `master_ip` to the real **IP address** of the master node, and set `node_rank` to the **Rank** index of the current node.

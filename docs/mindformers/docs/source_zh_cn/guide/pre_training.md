@@ -78,23 +78,40 @@ MindSpore Transformers 目前已经支持加载 Megatron 数据集，该数据�
 
 ### 单机训练
 
-通过指定模型路径和配置文件[pretrain_deepseek3_671b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml)，以msrun的方式启动[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py)脚本，进行8卡分布式训练。
+通过指定模型路径和配置文件[pretrain_qwen3_32b_4k.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/pretrain_qwen3_32b_4k.yaml)，修改配置后以msrun的方式启动[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py)脚本，进行8卡分布式训练。
 
-默认配置中的模型层数、隐藏维度等参数较大，适用于多机大规模分布式训练，无法直接在单机环境启动预训练，需要参考[DeepSeek-V3-修改配置](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/README.md#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE)修改配置文件。
+仓上提供的配置为32B模型，参数量较大，无法直接在单机环境启动预训练。本例中缩减模型规模至0.6B，以演示单机训练。修改配置文件中的如下参数，其余参数保持不变：
 
-启动详细介绍详见[拉起任务](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/README.md#%E6%8B%89%E8%B5%B7%E4%BB%BB%E5%8A%A1)，启动命令如下：
+```yaml
+# model_config
+model:
+  model_config:
+    hidden_size: 1024
+    num_attention_heads: 16
+    num_hidden_layers: 28
+```
+
+启动命令如下：
 
 ```shell
 cd $MINDFORMERS_HOME
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/deepseek3 \
- --config research/deepseek3/deepseek3_671b/pretrain_deepseek3_1b.yaml"
+--config configs/qwen3/pretrain_qwen3_32b_4k.yaml \
+--parallel_config.data_parallel 1 \
+--parallel_config.model_parallel 2 \
+--parallel_config.pipeline_stage 4 \
+--parallel_config.micro_batch_num 2"
 ```
 
 其中：
 
-- `register_path`：模型地址，即模型实现文件所在目录
-- `config`：模型的配置文件，文件在MindSpore Transformers代码仓中config目录下
+- `config`：模型的配置文件，文件在MindSpore Transformers代码仓中config目录下。
+- `parallel_config.data_parallel`：设置数据并行数。
+- `parallel_config.model_parallel`：设置模型并行数。
+- `parallel_config.pipeline_stage`：设置流水线并行数。
+- `parallel_config.micro_batch_num`：设置流水线并行的微批次大小，在`parallel_config.pipeline_stage`大于1时，应满足`parallel_config.micro_batch_num` >= `parallel_config.pipeline_stage`。
+
+启动详细介绍详见[启动预训练任务](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#3-启动预训练任务)。
 
 任务执行完成后，在 mindformers/output 目录下，会生成 checkpoint 文件夹，同时模型文件（`.safetensors`）会保存在该文件夹下。
 
@@ -107,12 +124,12 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 ```shell
 master_ip=192.168.1.1
 node_rank=0
+port=50001
 
 cd $MINDFORMERS_HOME
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/deepseek3 \
- --config research/deepseek3/deepseek3_671b/pretrain_deepseek3_671b.yaml" \
- 1024 8 $master_ip 8118 $node_rank output/msrun_log False 7200
+--config configs/qwen3/pretrain_qwen3_32b_4k.yaml \
+16 8 $master_ip $port $node_rank output/msrun_log False 7200
 ```
 
 > 此处样例代码假设主节点为`192.168.1.1`、当前Rank序号为`0`。实际执行时，请将`master_ip`设置为实际的主节点IP地址；将`node_rank`设置为当前节点的Rank序号。
