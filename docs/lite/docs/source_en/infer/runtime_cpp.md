@@ -12,7 +12,7 @@ To use the MindSpore Lite inference framework, perform the following steps:
 
 1. Read the model: Read the `.ms` model file converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.7.0/converter/converter_tool.html) from the file system.
 2. Create and configure context: Create and configure [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context) to save some basic configuration parameters required to build and execute the model.
-3. Create, load and build a model: Use [Build](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html#class-model) to create and build the model, and configure the [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context) obtained in the previous step. In the model loading phase, the file cache is parsed into a runtime model. In the model building phase, subgraph partition, operator selection and scheduling are performed, which will take a long time. Therefore, it is recommended that the model should be created once, built once, and performed for multiple times.
+3. Create, load and build a model: Use [Build](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html#class-model) to create and build the model, and configure the [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context) obtained in the previous step. In the model loading phase, the file cache is parsed into a runtime model. In the model building phase, subgraph partition, operator selection and scheduling are performed, which will take a long time. Therefore, it is recommended that the model should be created once, built once, and performed multiple times.
 4. Input data: Before the model is executed, data needs to be filled in the `Input Tensor`.
 5. Perform inference: Use [Predict](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#predict) of [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html#class-model) to perform model inference.
 6. Obtain the output: After the model execution is complete, you can obtain the inference result by `Output Tensor`.
@@ -116,7 +116,7 @@ if (gpu_device_info == nullptr) {
 }
 // GPU uses float16 operator as priority.
 gpu_device_info->SetEnableFP16(true);
-// Set VNIDIA device id, only valid when GPU backend is TensorRT.
+// Set NVIDIA device id, only valid when GPU backend is TensorRT.
 gpu_device_info->SetDeviceID(0);
 // The GPU device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
@@ -131,7 +131,7 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
-> The current GPU backend distinguishes `arm64`and `x86_64`platforms.
+> The current GPU backend distinguishes `arm64` and `x86_64` platforms.
 >
 > - On `arm64`, the backend of GPU is based on OpenCL. GPUs of Mali and Adreno are supported. The OpenCL version is 2.0.
 >
@@ -251,7 +251,7 @@ context->SetDelegate(coreml_delegate);
 
 When MindSpore Lite is used for inference, [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html#class-model) is the main entry for inference. You can use [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html#class-model) to load, build and execute model. Use the [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context) created in the previous step to call the [Build](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#build) of Model to load and build the runtime model.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/runtime_cpp/main.cc#L265) demonstrates how to create, load and build a model:
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/runtime_cpp/main.cc#L265) demonstrates how to create, load, and build a model:
 
 ```cpp
 // Create model
@@ -271,7 +271,7 @@ if (build_ret != mindspore::kSuccess) {
 
 > After the [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html#class-model) is loaded and built, the [Context](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Context.html#class-context) created in the previous step can be released.
 >
-> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html) interface, where `section` is `model_File` , `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
+> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, set the model path through [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html) interface, where `section` is `model_File`, `key` is `mindir_path`. When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
 >
 > If the user enables the `MSLITE_ENABLE_MODEL_PRE_INFERENCE` function when compiling the source code, the runtime will perform pre-inference by default in the Build phase(non-encrypted scenario) to check whether the program can execute normally. This function can be disabled through [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html) or [UpdateConfig](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html) interface, where `section` is `common`, `key` is `enable_pre_inference`, `value` is `true` or `false`.
 
@@ -483,7 +483,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ### OpenGL Texture Data Input
 
-MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic inference, and the inference result is returned as OpenGL texture data. This function needs to be configured in the Context during use, and OpenGL texture data is bound to it during inference. These two processes.
+MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic inference, and the inference result is returned as OpenGL texture data. This function needs to be configured in the Context during use, and OpenGL texture data is bound to it during inference. These are the two processes.
 
 1. Configured Context
 
@@ -751,7 +751,7 @@ If an exception occurs during inference, you can view logs to locate the fault. 
 logcat -s "MS_LITE"
 ```
 
-> For the iOS platform, does not support viewing logs temporarily.
+> For the iOS platform, viewing logs is not supported temporarily.
 
 ### Obtaining the Version Number
 
@@ -887,7 +887,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
 2. Execute Program
 
-   After compiling and building, please enter the directory of `mindspore-lite/examples/runtime_extend/build`, and then execute the following command to experience the extension usaged.
+   After compiling and building, please enter the directory of `mindspore-lite/examples/runtime_extend/build`, and then execute the following command to experience the extension usage.
 
    ```bash
    ./runtime_extend_tutorial ../model/add_extend.ms
