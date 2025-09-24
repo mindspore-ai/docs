@@ -529,14 +529,14 @@ MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic
     ```cpp
     std::vector<mindspore::MSTensor> inputs;
     vector<GLuint> inTextureIDs;
-    for (auto i; i < inputs.size(); i++) {
-      inputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), inTextureIDs.at(i));
+    for (auto i = 0; i < inputs.size(); i++) {
+      inputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), inTextureIDs.at(i)));
     }
 
     std::vector<mindspore::MSTensor> outputs;
     vector<GLuint> outTextureIDs;
-    for (auto i; i < inputs.size(); i++) {
-      outputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), outTextureIDs.at(i));
+    for (auto i = 0; i < inputs.size(); i++) {
+      outputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), outTextureIDs.at(i)));
     }
     ```
 
