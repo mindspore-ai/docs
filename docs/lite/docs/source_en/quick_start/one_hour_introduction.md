@@ -439,7 +439,7 @@ In the previous section, the official inference test tool is used to perform the
 
 1. Environment Requirements
 
-    - System environment: Linux x86_64 (Ubuntu 18.04.02LTS is recommended.)
+    - System environment: Linux x86_64 (Ubuntu 18.04.02 LTS is recommended.)
     - C++ build dependencies
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
         - [CMake](https://cmake.org/download/) >= 3.12

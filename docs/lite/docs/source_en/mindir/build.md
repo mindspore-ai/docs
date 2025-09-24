@@ -16,7 +16,7 @@ Cloud-side MindSpore Lite contains modules:
 
 ## Environment Requirements
 
-- System Environment: Linux x86_64 or arm64, Ubuntu 18.04.02LTS recommended
+- System Environment: Linux x86_64 or arm64, Ubuntu 18.04.02 LTS recommended
 - C++ compilation dependencies
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [CMake](https://cmake.org/download/) >= 3.18.3

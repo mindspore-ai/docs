@@ -28,7 +28,7 @@ The MindSpore Lite inference steps are as follows:
 
 - Environment requirements
 
-    - System environment: Linux x86_64 (Ubuntu 18.04.02LTS is recommended.)
+    - System environment: Linux x86_64 (Ubuntu 18.04.02 LTS is recommended.)
     - Build dependency:
         - [CMake](https://cmake.org/download/) >= 3.18.3
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
@@ -41,7 +41,7 @@ The MindSpore Lite inference steps are as follows:
   bash build.sh
   ```
 
-  > If the MindSpore Lite inference framework fails to be downloaded by using this build script, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.7.0/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.so` file in the decompressed lib directory to the `mindspore-lite/examples/quick_start_cpp/lib` directory. Also copy the files from `runtime/include` to the `mindspore-lite/examples/quick_start_cpp/include` directory, and copy the `libmindspore_glog.so.0` file from the `runtime/third_party/glog` directory to the `libmindspore_glog.so` file in `mindspore/ lite/examples/quick_start_cpp/lib` directory.
+  > If the MindSpore Lite inference framework fails to be downloaded by using this build script, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.7.0/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.so` file in the decompressed lib directory to the `mindspore-lite/examples/quick_start_cpp/lib` directory. Also copy the files from `runtime/include` to the `mindspore-lite/examples/quick_start_cpp/include` directory, and copy the `libmindspore_glog.so.0` file from the `runtime/third_party/glog` directory to the `libmindspore_glog.so` file in `mindspore/lite/examples/quick_start_cpp/lib` directory.
   >
   > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore-lite/examples/quick_start_cpp/model` directory.
   >
@@ -133,7 +133,7 @@ target_link_libraries(
 )
 
 # Due to the increased compilation options for stack protection,
-# it is necessary to target link ssp library when Use the static library in Windows.
+# it is necessary to target link ssp library when using the static library in Windows.
 if(WIN32)
     target_link_libraries(
             mindspore_quick_start_cpp
@@ -181,7 +181,7 @@ device_list.push_back(device_info);
 
 ## Model Creating Loading and Building
 
-Use [Build](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html#class-model) to load the model directly from the memory buffer and build the model.  
+Use [Build](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/generate/classmindspore_Model.html#class-model) to load the model directly from the memory buffer and build the model.
 
 ```c++
 // Create model
