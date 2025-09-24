@@ -32,7 +32,7 @@
 /tutorials/source_zh_cn/model_infer/introduction.md @liulili-huawei @gemini524
 /tutorials/source_zh_cn/model_infer/ms_infer/ @liulili-huawei @gemini524
 /tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_quantization.md @hangangqiang @gemini524
-/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md @zlq2020 @horcam @gemini524
+/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md @zlq2020 @horcham_zhq @gemini524
 /tutorials/source_zh_cn/model_infer/lite_infer/ @jjfeing @gemini524
 /tutorials/source_zh_cn/model_migration/ @zwiori @gemini524
 /tutorials/source_zh_cn/nlp/ @zwiori @gemini524
@@ -64,7 +64,7 @@
 /docs/mindformers/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of vLLM-MindSpore Plugin docs.
-/docs/vllm_mindspore/docs/source_zh_cn/ @zlq2020 @horcam @gemini524
+/docs/vllm_mindspore/docs/source_zh_cn/ @zlq2020 @horcham_zhq @gemini524
 /docs/vllm_mindspore/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MindStudio docs.
