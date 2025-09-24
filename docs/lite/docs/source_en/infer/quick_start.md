@@ -6,7 +6,7 @@
 
 It is recommended that you start from the image classification demo on the Android device to understand how to build the MindSpore Lite application project, configure dependencies, and use related APIs.
 
-This tutorial demonstrates the on-device deployment process based on the image classification sample program on the Android device provided by the MindSpore Lite team.  
+This tutorial demonstrates the on-device deployment process based on the image classification sample program on the Android device provided by the MindSpore Lite team.
 
 1. Select an image classification model.
 2. Convert the model into a MindSpore Lite model.
@@ -22,7 +22,7 @@ We provide the APK file corresponding to this example. You can scan the QR code 
 
 ## Selecting a Model
 
-The MindSpore team provides a series of preset device models that you can use in your application.  
+The MindSpore team provides a series of preset device models that you can use in your application.
 Click to download [image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.ms) in MindSpore ModelZoo.
 In addition, you can use the preset model to perform transfer learning to implement your image classification tasks.
 
@@ -44,7 +44,7 @@ The following section describes how to build and execute an on-device image clas
 
 - Android Studio 3.2 or later and Android 4.0 or later is recommended.
 - Native development kit (NDK) 21.3
-- [CMake](https://cmake.org/download) >= 3.18.3  
+- [CMake](https://cmake.org/download) >= 3.18.3
 - Android software development kit (SDK) 26 or later
 - JDK 1.8 or later
 
@@ -62,7 +62,7 @@ The following section describes how to build and execute an on-device image clas
 
     ![project_structure](../images/lite_quick_start_project_structure.png)
 
-2. Connect to an Android device and runs the image classification application.
+2. Connect to an Android device and run the image classification application.
 
     Connect to the Android device through a USB cable for debugging. Click `Run 'app'` to run the sample project on your device.
 
@@ -80,7 +80,7 @@ The following section describes how to build and execute an on-device image clas
 
 This image classification sample program on the Android device includes a Java layer and a JNI layer. At the Java layer, the Android Camera 2 API is used to enable a camera to obtain image frames and process images. At the JNI layer, the model inference process is completed in [Runtime](https://www.mindspore.cn/lite/docs/en/r2.7.0/infer/runtime_cpp.html).
 
-> This following describes the JNI layer implementation of the sample program. At the Java layer, the Android Camera 2 API is used to enable a device camera and process image frames. Readers are expected to have the basic Android development knowledge.
+> The following describes the JNI layer implementation of the sample program. At the Java layer, the Android Camera 2 API is used to enable a device camera and process image frames. Readers are expected to have the basic Android development knowledge.
 
 ### Sample Program Structure
 
@@ -199,7 +199,7 @@ target_link_libraries( # Specifies the target library.
 
 In this example, the build process automatically downloads the `mobilenetv2.ms` by referring to the `app/download.gradle` file and saves in the `app/src/main/assets/model` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files [mobilenetv2.ms]( https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.ms) and put them in the corresponding location.
+Note: if the automatic download fails, please manually download the relevant library files [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.ms) and put them in the corresponding location.
 
 ### Writing On-Device Inference Code
 

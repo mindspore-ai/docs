@@ -9,7 +9,7 @@ This tutorial provides an example program for MindSpore Lite to perform inferenc
 The MindSpore Lite inference steps are as follows:
 
 1. Load the model(optional): Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.7.0/converter/converter_tool.html) from the file system.
-2. Create and configure context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a session to guide graph build and execution. including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
+2. Create and configure context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a session to guide graph build and execution, including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
 3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#build) interface of [model](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#model) needs to be called to build the graph, including subgraph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with one [model](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#model) created, one graph be built. In this case, the inference will be performed for multiple times.
 4. Input data: Before the graph is executed, data needs to be filled in the `Input Tensor`.
 5. Perform inference: Use the [predict](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#predict) of the [model](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#model) to perform model inference.
@@ -74,7 +74,7 @@ try {
 
 ## Model Build
 
-Model build includes context configuration creation and model compilation. current graph build support file and mappedbytebuffer format. The following sample code describes model compilation by reading from a file.
+Model build includes context configuration creation and model compilation. Current graph build support file and MappedByteBuffer format. The following sample code describes model compilation by reading from a file.
 
 ```java
 private static boolean compile(String modelPath) {

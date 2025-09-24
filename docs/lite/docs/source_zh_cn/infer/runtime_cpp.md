@@ -116,7 +116,7 @@ if (gpu_device_info == nullptr) {
 }
 // GPU uses float16 operator as priority.
 gpu_device_info->SetEnableFP16(true);
-// Set VNIDIA device id, only valid when GPU backend is TensorRT.
+// Set NVIDIA device id, only valid when GPU backend is TensorRT.
 gpu_device_info->SetDeviceID(0);
 // The GPU device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
