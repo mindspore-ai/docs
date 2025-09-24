@@ -10,7 +10,7 @@ This tutorial demonstrates how to use the Java API on MindSpore Lite by building
 
 ### Environment Requirements
 
-- System environment: Linux x86_64 (Ubuntu 18.04.02LTS is recommended.)
+- System environment: Linux x86_64 (Ubuntu 18.04.02 LTS is recommended.)
 
 - Software dependencies
 

@@ -26,7 +26,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 1. 转换工具运行所需的系统环境
 
-    本例采用Linux下的系统环境，推荐使用Ubuntu 18.04.02LTS。
+    本例采用Linux下的系统环境，推荐使用Ubuntu 18.04.02 LTS。
 
 2. 获取转换工具
 
