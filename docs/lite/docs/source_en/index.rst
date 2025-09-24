@@ -93,7 +93,7 @@ MindSpore Lite Documentation
    :hidden:
 
    reference/architecture_lite
-   reference/operator_list_lite
+   reference/operator_lite
    reference/environment_variable_support
    reference/operator_list_codegen
    reference/model_lite
