@@ -186,8 +186,25 @@ bash run_mindie.sh --model-name xxx --model-path /path/to/model
 
 # 参数说明
 --model-name: 必传，设置MindIE后端名称
---model-path：必传，设置模型文件夹路径，如/path/to/mf_model/qwen1_5_72b
+--model-path: 必传，设置模型文件夹路径，如/path/to/mf_model/qwen1_5_72b
 --help      : 脚本使用说明
+--max-seq-len: 最大序列长度。默认值：2560。
+--max-iter-times: 模型全局最大输出长度。默认值：512。
+--max-input-token-len: 输入token id最大长度。默认值：2048。
+--truncation: 是否进行参数合理化校验拦截。false：校验，true：不校验。默认值：false。
+--world-size: 启用几张卡推理。多机推理场景下该值无效，worldSize根据ranktable计算获得。默认值：4。
+--template-type: 推理类型。Standard：PD混部场景，Prefill请求和Decode请求各自组batch。Mix：Splitfuse特性相关参数，Prefill请求和Decode请求可以一起组batch。PD分离场景下该字段配置不生效。默认值："Standard"。
+--max-preempt-count: 每一批次最大可抢占请求的上限，即限制一轮调度最多抢占请求的数量，最大上限为maxBatchSize，取值大于0则表示开启可抢占功能。默认值：0。
+--support-select-batch: batch选择策略。PD分离场景下该字段不生效。false：表示每一轮调度时，优先调度和执行Prefill阶段的请求。true：表示每一轮调度时，根据当前Prefill与Decode请求的数量，自适应调整Prefill和Decode阶段请求调度和执行的先后顺序。默认值：false。
+--npu-mem-size: 单个NPU中可以用来申请KV Cache的size上限。默认值：-1。
+--max-prefill-batch-size: 最大prefill batch size。默认值：50。
+--ip: EndPoint提供的业务面RESTful接口绑定的IP地址。默认值："127.0.0.1"。
+--port: EndPoint提供的业务面RESTful接口绑定的端口号。默认值：1025。
+--management-ip: EndPoint提供的管理面RESTful接口绑定的IP地址。默认值："127.0.0.2"。
+--management-port: EndPoint提供的管理面（管理面接口请参见表1）接口绑定的端口号。默认值：1026。
+--metrics-port: 服务管控指标接口（普罗格式）端口号。默认值：1027。
+--ms-sched-host: scheduler节点ip地址。默认值：127.0.0.1。
+--ms-sched-port: scheduler节点服务端口。默认值：8090。
 ```
 
 查看日志：

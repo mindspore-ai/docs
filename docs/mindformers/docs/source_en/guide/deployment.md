@@ -189,6 +189,23 @@ bash run_mindie.sh --model-name xxx --model-path /path/to/model
 --model-name: Mandatory, set MindIE backend name
 --model-path: Mandatory, set model folder path, such as /path/to/mf_model/qwen1_5_72b
 --help      : Instructions for using the script
+--max-seq-len: Maximum sequence length. Default value: 2560.
+--max-iter-times: Global maximum output length of the model. Default value: 512.
+--max-input-token-len: Maximum length of input token IDs. Default value: 2048.
+--truncation: Whether to perform parameter rationality check and interception. false: check, true: no check. Default value: false.
+--world-size: Number of cards used for inference. In multi-node inference scenarios, this value is invalid, and worldSize is calculated based on the ranktable. Default value: 4.
+--template-type: Inference type. Standard: PD mixed deployment scenario, Prefill requests and Decode requests are batched separately. Mix: Splitfuse feature-related parameter, Prefill requests and Decode requests can be batched together. This field configuration does not take effect in PD separation scenarios. Default value: "Standard".
+--max-preempt-count: The upper limit of the maximum preemptible requests per batch, i.e., limits the number of requests that can be preempted in one round of scheduling. The maximum limit is maxBatchSize. A value greater than 0 indicates that the preemptible function is enabled. Default value: 0.
+--support-select-batch: Batch selection strategy. This field does not take effect in PD separation scenarios. false: indicates that during each round of scheduling, Prefill stage requests are prioritized for scheduling and execution. true: indicates that during each round of scheduling, the scheduling and execution order of Prefill and Decode stage requests is adaptively adjusted based on the current number of Prefill and Decode requests. Default value: false.
+--npu-mem-size: The upper limit of the size that can be used to apply for KV Cache in a single NPU. Default value: -1.
+--max-prefill-batch-size: Maximum prefill batch size. Default value: 50.
+--ip: IP address bound to the business RESTful interface provided by EndPoint. Default value: "127.0.0.1".
+--port: Port number bound to the business RESTful interface provided by EndPoint. Default value: 1025.
+--management-ip: IP address bound to the management RESTful interface provided by EndPoint. Default value: "127.0.0.2".
+--management-port: Port number bound to the management interface (see Table 1 for management interface) provided by EndPoint. Default value: 1026.
+--metrics-port: Port number of the service management metrics interface (Prometheus format). Default value: 1027.
+--ms-sched-host: Scheduler node IP address. Default value: 127.0.0.1.
+--ms-sched-port: Scheduler node service port. Default value: 8090.
 ```
 
 View logs:

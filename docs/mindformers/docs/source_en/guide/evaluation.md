@@ -357,6 +357,7 @@ The following table lists the parameters of the script of `run_harness.sh`:
 | `--model_args`    | str  | Model and evaluation parameters. For details, see MindSpore Transformers model parameters.                                                                                                         | Yes                            |
 | `--tasks`         | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                      | Yes                            |
 | `--batch_size`    | int  | Number of batch processing samples.                                                                                                                                                                | No                             |
+| `--help`          |      | Display help information and exit.                                                                                                                                                                 | No                             |
 
 The following table lists the parameters of `model_args`:
 
