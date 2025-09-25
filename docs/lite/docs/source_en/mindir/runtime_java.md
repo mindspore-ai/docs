@@ -83,12 +83,12 @@ boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
 
 ## Inputting the Data
 
-MindSpore Lite Java interface provides `getInputsByTensorName` and `getInputs` methods to get the input Tensor, and supports `byte[]` or `ByteBuffer` types of data, set the input Tensor data by [setData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#setdata).
+MindSpore Lite Java interface provides `getInputByTensorName` and `getInputs` methods to get the input Tensor, and supports `byte[]` or `ByteBuffer` types of data, set the input Tensor data by [setData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#setdata).
 
-1. Use [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputbytensorname) method. Obtain the Tensor connected to the input node in the model input Tensor based on the name of the model input Tensor. The following demonstrates how to call `getInputsByTensorName` to get the input Tensor and pad the data.
+1. Use [getInputByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputbytensorname) method. Obtain the Tensor connected to the input node in the model input Tensor based on the name of the model input Tensor. The following demonstrates how to call `getInputByTensorName` to get the input Tensor and pad the data.
 
     ```java
-    MSTensor inputTensor = model.getInputsByTensorName("2031_2030_1_construct_wrapper:x");
+    MSTensor inputTensor = model.getInputByTensorName("2031_2030_1_construct_wrapper:x");
     // Set Input Data.
     inputTensor.setData(inputData);
     ```

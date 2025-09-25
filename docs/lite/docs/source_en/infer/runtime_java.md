@@ -8,7 +8,7 @@ After the model is converted into a `.ms` model by using the MindSpore Lite mode
 
 If MindSpore Lite is used in an Android project, you can use [C++ API](https://www.mindspore.cn/lite/api/en/master/index.html) or [Java API](https://www.mindspore.cn/lite/api/en/master/index.html) to run the inference framework. Compared with C++ APIs, Java APIs can be directly called in the Java class. Users do not need to implement the code at the JNI layer, which is more convenient. To run the MindSpore Lite inference framework, perform the following steps:
 
-1. Load the model(optional): Read the `.ms` model converted by the model conversion tool introduced in [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) from the file system.
+1. Load the model (optional): Read the `.ms` model converted by the model conversion tool introduced in [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) from the file system.
 2. Create a configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a model to guide graph build and execution, including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU core binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
 3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) API of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) created each time, one graph be built. In this case, the inference will be performed for multiple times.
 4. Input data: Before the graph is performed, data needs to be filled in to the `Input Tensor`.
@@ -77,11 +77,11 @@ try {
 
 Create the configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by the session to guide graph build and execution. Configure the number of threads, thread affinity and whether to enable heterogeneous parallel inference via the [init](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#init) interface. MindSpore Lite has a built-in thread pool shared by processes. During inference, `threadNum` is used to specify the maximum number of threads in the thread pool. The default value is 2.
 
-MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `deviceType` of [AddDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo). Currently, CPU, GPU and NPU are supported. During graph build, operator selection and scheduling are performed based on the preferred backend.If the backend supports Float16, you can use the Float16 operator first by setting `isEnableFloat16` to `true`. If it is an NPU backend, you can also set the NPU frequency value. The default frequency value is 3, and can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), and 4 (extreme performance).
+MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `deviceType` of [AddDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo). Currently, CPU, GPU and NPU are supported. During graph build, operator selection and scheduling are performed based on the preferred backend. If the backend supports Float16, you can use the Float16 operator first by setting `isEnableFloat16` to `true`. If it is an NPU backend, you can also set the NPU frequency value. The default frequency value is 3, and can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), and 4 (extreme performance).
 
 ### Configuring the CPU Backend
 
-If the backend to be performed is a CPU, you need to configure [addDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo) after `MSContext` is inited. In addition, the CPU supports the setting of the core binding mode and whether to preferentially use the float16 operator.
+If the backend to be performed is a CPU, you need to configure [addDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo) after `MSContext` is initialized. In addition, the CPU supports the setting of the core binding mode and whether to preferentially use the float16 operator.
 
 The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L59) demonstrates how to create a CPU backend, set the CPU core binding mode to large-core priority, and enable float16 inference:
 
@@ -112,7 +112,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo), NPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the NPU and CPU preferentially use the float16 operator.
 
-The following sample code demonstrates how to create the CPU and NPU heterogeneous inference backend and how to enable float16 inference for the NPU.KirinNPUDeviceInfo frequency can be set by `NPUFrequency`.
+The following sample code demonstrates how to create the CPU and NPU heterogeneous inference backend and how to enable float16 inference for the NPU. KirinNPUDeviceInfo frequency can be set by `NPUFrequency`.
 
 ```java
 MSContext context = new MSContext();
@@ -134,9 +134,9 @@ boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
 
 ## Inputting Data
 
-MindSpore Lite Java APIs provide the `getInputsByTensorName` and `getInputs` methods to obtain the input tensor. Both the `byte[]` and `ByteBuffer` data types are supported. You can set the data of the input tensor by calling [setData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#setdata).
+MindSpore Lite Java APIs provide the `getInputByTensorName` and `getInputs` methods to obtain the input tensor. Both the `byte[]` and `ByteBuffer` data types are supported. You can set the data of the input tensor by calling [setData](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#setdata).
 
-1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputByTensorName` function to obtain the input tensor and fill in data.
+1. Use the [getInputByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputByTensorName` function to obtain the input tensor and fill in data.
 
     ```java
     MSTensor inputTensor = model.getInputByTensorName("2031_2030_1_construct_wrapper:x");
@@ -209,7 +209,7 @@ When using MindSpore Lite for inference, if you need to resize the input shape, 
 The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164) demonstrates how to perform [resize](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#resize) on the input tensor of MindSpore Lite:
 
 ```java
-List<MSTensor> inputs = session.getInputs();
+List<MSTensor> inputs = model.getInputs();
 int[][] dims = {{1, 300, 300, 3}};
 bool ret = model.resize(inputs, dims);
 ```

@@ -27,7 +27,7 @@ To use the Benchmark tool, you need to do the following environment preparation 
 - If benchmarking based on Ascend, use the following command to switch:
 
     ```bash
-    export ASCEND_DEVICE_ID=$RANKK_ID
+    export ASCEND_DEVICE_ID=$RANK_ID
     ```
 
 ### Description of Parameters
@@ -48,7 +48,7 @@ When using the compiled Benchmark tool to benchmark the model, the command forma
 
 Detailed parameter descriptions are provided below.
 
-| Parameter names            | Properties | Function Descriptions                                                     | Tpyes of parameters                                                 | Default values | Value range |  Remarks  |
+| Parameter names            | Properties | Function Descriptions                                                     | Types of parameters                                                 | Default values | Value range |  Remarks  |
 | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | --------------------- | ---- |
 | `--modelFile=<MODELPATH>` | Required | Specify the path to the MindSpore Lite model file that needs to be benchmarked. | String | null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specify the accuracy threshold. | Float           | 0.5    | -        |
@@ -63,7 +63,7 @@ Detailed parameter descriptions are provided below.
 | `--inputShapes=<INPUTSHAPES>` | Optional | Specify the input dimensions, which should follow the original model format. The dimension values are separated by ',' and multiple input dimensions are separated by ':' | String | Null | - |
 | `--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>` | Optional | Specify the cosine distance threshold. The cosine distance will be calculated only if this parameter is specified and its value is greater than -1. | Float           | -1.1    | -        | Not supported at the moment |
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specify the type of CPU core to which the model inference program is bound when it runs. | Integer | 1      | 2: means medium core<br/>1: means large core<br/>0: means no binding | Not supported at the moment |
-| `--enableFp16=<FP16PIORITY>` | Optional | Specify whether to give preference to float16 operator. | Boolean | false | true, false | Not supported at the moment |
+| `--enableFp16=<FP16PRIORITY>` | Optional | Specify whether to give preference to float16 operator. | Boolean | false | true, false | Not supported at the moment |
 | `--timeProfiling=<TIMEPROFILING>`  | Optional | Take effect at performance verification, specifying whether to use TimeProfiler to print the time of each operator. | Boolean | false | true, false | Not supported at the moment |
 | `--perfEvent=<PERFEVENT>` | Optional | Take effect during CPU performance verification. Specify the specific content of the CPU performance parameters printed by PerfProfiler. When specified as CYCLE, the number of CPU cycles and the number of instructions of the operator will be printed. When specified as CACHE, the number of cache reads and the number of cache misses of the operator will be printed. When specified as STALL, the number of CPU front-end waiting cycles and the number of back-end waiting cycles will be printed. | String | CYCLE | CYCLE/CACHE/STALL | Not supported at the moment |
 | `--decryptKey=<DECRYPTKEY>` | Optional | The key used to decrypt the file, expressed in hexadecimal characters. Only AES-GCM is supported, and the key length is only 16Byte. | String | null | Note that the key is a hexadecimal representation of the string. Linux platform users can use the `xxd` tool to convert the byte representation of the key to hexadecimal expression. | Not supported at the moment |
