@@ -168,7 +168,7 @@ public boolean setTrainMode(boolean isTrain)
 下面示例代码演示训练时如何对MindSpore Lite的输入Tensor进行Resize：
 
 ```java
-List<MSTensor> inputs = session.getInputs();
+List<MSTensor> inputs = model.getInputs();
 int[][] dims = {{1, 300, 300, 3}};
 bool ret = model.resize(inputs, dims);
 ```
@@ -177,7 +177,7 @@ bool ret = model.resize(inputs, dims);
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[getInputsByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[getInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```java
      /**
