@@ -56,9 +56,22 @@ pretrained_model_dir: '/path/hf_dir'
 参数说明：
 
 - use_legacy：决定是否使用老架构，默认值：`True`；
-- pretrained_model_dir：Hugging Face模型目录路径，放置模型配置、Tokenizer等文件。
+- pretrained_model_dir：Hugging Face模型目录路径，放置模型配置、Tokenizer等文件。`/path/hf_dir`中的内容如下：
 
-默认配置是单卡推理配置。如需使用多卡推理，相关配置修改如下：
+```text
+📂Qwen3-8B
+├── 📄config.json
+├── 📄generation_config.json
+├── 📄merges.txt
+├── 📄model-xxx.safetensors
+├── 📄model-xxx.safetensors
+├── 📄model.safetensors.index.json
+├── 📄tokenizer.json
+├── 📄tokenizer_config.json
+└── 📄vocab.json
+```
+
+默认配置是单卡推理配置，相关配置如下：
 
 ```yaml
 use_parallel: False
@@ -67,11 +80,20 @@ parallel_config:
   model_parallel: 1
 ```
 
+如果需要执行多卡推理任务，相关配置的修改如下：
+
+```yaml
+use_parallel: True
+parallel_config:
+  data_parallel: 1
+  model_parallel: 2 # 修改为实际使用的卡数
+```
+
 具体配置说明均可参考[yaml配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)。
 
 ### 单卡推理
 
-当使用完整权重推理时，推荐使用默认配置，执行以下命令即可启动推理任务：
+按照[配置修改](#配置修改)章节修改完成后，执行以下命令即可启动单卡推理任务：
 
 ```shell
 python run_mindformer.py \
@@ -94,7 +116,7 @@ python run_mindformer.py \
 1. 模型并行model_parallel的配置和使用的卡数需保持一致。下文用例为4卡推理，需将model_parallel设置成4；
 2. 当前版本的多卡推理不支持数据并行，需将data_parallel设置为1。
 
-当使用完整权重推理时，需要开启在线切分方式加载权重，参考以下命令：
+按照[配置修改](#配置修改)章节修改完成后，执行以下命令即可启动多卡推理任务：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
