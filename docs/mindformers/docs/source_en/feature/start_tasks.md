@@ -145,12 +145,8 @@ Take Qwen2.5-0.5B as an example to perform 2-node 16-device fine-tuning.
 
     ```yaml
     parallel_config:
-      data_parallel: 2
-      model_parallel: 4
-      pipeline_stage: 2
-      micro_batch_num: 16
-      vocab_emb_dp: True
-      gradient_aggregation_group: 4
+      data_parallel: 16
+      ...
     ```
 
     > If the number of nodes and the number of devices are used to change, `data_parallel`, `model_parallel`, and `pipeline_stage` need to be modified to meet the actual number of running devices. `device_num=data_parallel×model_parallel×pipeline_stage`. Meanwhile, `micro_batch_num >= pipeline_stage`.

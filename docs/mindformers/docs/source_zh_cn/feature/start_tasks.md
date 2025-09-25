@@ -145,12 +145,8 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
     ```yaml
     parallel_config:
-      data_parallel: 2
-      model_parallel: 4
-      pipeline_stage: 2
-      micro_batch_num: 16
-      vocab_emb_dp: True
-      gradient_aggregation_group: 4
+      data_parallel: 16
+      ...
     ```
 
     > 如使用节点数和卡数改变需要修改`data_parallel`、 `model_parallel`、 `pipeline_stage`满足实际运行的卡数 `device_num=data_parallel×model_parallel×pipeline_stage`，同时满足`micro_batch_num >= pipeline_stage`。
