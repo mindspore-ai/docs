@@ -56,9 +56,22 @@ pretrained_model_dir: '/path/hf_dir'
 Parameter Description:
 
 - use_legacy: Determine whether to use the old architecture. Default value: 'True';
-- pretrained_model_dir: Hugging Face model directory path, where files such as model configuration and Tokenizer are placed.
+- pretrained_model_dir: Hugging Face model directory path, where files such as model configuration and Tokenizer are placed. The contents in `/path/hf_dir` are as follows:
 
-The default configuration is a single-card inference configuration. If multi-card inference is required, the relevant configuration modifications are as follows:
+```text
+📂Qwen3-8B
+├── 📄config.json
+├── 📄generation_config.json
+├── 📄merges.txt
+├── 📄model-xxx.safetensors
+├── 📄model-xxx.safetensors
+├── 📄model.safetensors.index.json
+├── 📄tokenizer.json
+├── 📄tokenizer_config.json
+└── 📄vocab.json
+```
+
+The default configuration is single-card inference configuration. The relevant configuration is as follows:
 
 ```yaml
 use_parallel: False
@@ -67,11 +80,20 @@ parallel_config:
   model_parallel: 1
 ```
 
+If multi-card inference tasks need to be executed, the relevant configuration modifications are as follows:
+
+```yaml
+use_parallel: True
+parallel_config:
+  data_parallel: 1
+  model_parallel: 2 # Modify to the actual number of cards used
+```
+
 For specific configuration instructions, please refer to [yaml Configuration Instructions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html).
 
 ### Single-Device Inference
 
-When using full weight inference, it is recommended to use the default configuration and execute the following command to start the inference task:
+After completing the modification according to the [Configuration Modification](#configuration-modification) section, execute the following command to start the single-card inference task:
 
 ```shell
 python run_mindformer.py \
@@ -94,7 +116,7 @@ The configuration requirements for multi-card inference are different from those
 1. The configuration of model_parallel and the number of cards used need to be consistent. The following use case is 4-card inference, and model_parallel needs to be set to 4;
 2. The current version of multi-card inference does not support data parallelism. data_parallel needs to be set to 1.
 
-When using full weight inference, it is necessary to enable the online splitting mode to load the weights. Refer to the following command:
+After completing the modification according to the [Configuration Modification](#configuration-modification) section, execute the following command to start the multi-card inference task:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
