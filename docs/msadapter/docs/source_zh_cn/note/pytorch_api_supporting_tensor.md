@@ -9,20 +9,20 @@
 |[Tensor.new_tensor](https://pytorch.org/docs/2.1/generated/torch.Tensor.new_tensor.html)|Not Support|N/A|
 |[Tensor.new_full](https://pytorch.org/docs/2.1/generated/torch.Tensor.new_full.html)|Not Support|N/A|
 |[Tensor.new_empty](https://pytorch.org/docs/2.1/generated/torch.Tensor.new_empty.html)|Not Support|N/A|
-|[Tensor.new_ones](https://pytorch.org/docs/2.1/generated/torch.Tensor.new_ones.html)|Not Support|N/A|
-|[Tensor.new_zeros](https://pytorch.org/docs/2.1/generated/torch.Tensor.new_zeros.html)|Not Support|N/A|
+|[Tensor.new_ones](https://pytorch.org/docs/2.1/generated/torch.Tensor.new_ones.html)|Beta|N/A|
+|[Tensor.new_zeros](https://pytorch.org/docs/2.1/generated/torch.Tensor.new_zeros.html)|Beta|N/A|
 |[Tensor.is_cuda](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_cuda.html)|Not Support|N/A|
 |[Tensor.is_quantized](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_quantized.html)|Not Support|N/A|
 |[Tensor.is_meta](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_meta.html)|Not Support|N/A|
 |[Tensor.device](https://pytorch.org/docs/2.1/generated/torch.Tensor.device.html)|Not Support|N/A|
-|[Tensor.grad](https://pytorch.org/docs/2.1/generated/torch.Tensor.grad.html)|Not Support|N/A|
+|[Tensor.grad](https://pytorch.org/docs/2.1/generated/torch.Tensor.grad.html)|Beta|N/A|
 |[Tensor.ndim](https://pytorch.org/docs/2.1/generated/torch.Tensor.ndim.html)|Not Support|N/A|
-|[Tensor.real](https://pytorch.org/docs/2.1/generated/torch.Tensor.real.html)|Not Support|N/A|
-|[Tensor.imag](https://pytorch.org/docs/2.1/generated/torch.Tensor.imag.html)|Not Support|N/A|
+|[Tensor.real](https://pytorch.org/docs/2.1/generated/torch.Tensor.real.html)|Beta|N/A|
+|[Tensor.imag](https://pytorch.org/docs/2.1/generated/torch.Tensor.imag.html)|Beta|N/A|
 |[Tensor.nbytes](https://pytorch.org/docs/2.1/generated/torch.Tensor.nbytes.html)|Not Support|N/A|
 |[Tensor.itemsize](https://pytorch.org/docs/2.1/generated/torch.Tensor.itemsize.html)|Not Support|N/A|
 |[Tensor.abs](https://pytorch.org/docs/2.1/generated/torch.Tensor.abs.html)|Stable|支持数据类型：bf16、fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
-|[Tensor.abs_](https://pytorch.org/docs/2.1/generated/torch.Tensor.abs_.html)|Not Support|N/A|
+|[Tensor.abs_](https://pytorch.org/docs/2.1/generated/torch.Tensor.abs_.html)|Beta|N/A|
 |[Tensor.absolute](https://pytorch.org/docs/2.1/generated/torch.Tensor.absolute.html)|Stable|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64|
 |[Tensor.absolute_](https://pytorch.org/docs/2.1/generated/torch.Tensor.absolute_.html)|Not Support|N/A|
 |[Tensor.acos](https://pytorch.org/docs/2.1/generated/torch.Tensor.acos.html)|Not Support|N/A|
@@ -34,9 +34,9 @@
 |[Tensor.addbmm](https://pytorch.org/docs/2.1/generated/torch.Tensor.addbmm.html)|Not Support|N/A|
 |[Tensor.addbmm_](https://pytorch.org/docs/2.1/generated/torch.Tensor.addbmm_.html)|Not Support|N/A|
 |[Tensor.addcdiv](https://pytorch.org/docs/2.1/generated/torch.Tensor.addcdiv.html)|Not Support|N/A|
-|[Tensor.addcdiv_](https://pytorch.org/docs/2.1/generated/torch.Tensor.addcdiv_.html)|Not Support|N/A|
+|[Tensor.addcdiv_](https://pytorch.org/docs/2.1/generated/torch.Tensor.addcdiv_.html)|Beta|N/A|
 |[Tensor.addcmul](https://pytorch.org/docs/2.1/generated/torch.Tensor.addcmul.html)|Not Support|N/A|
-|[Tensor.addcmul_](https://pytorch.org/docs/2.1/generated/torch.Tensor.addcmul_.html)|Not Support|N/A|
+|[Tensor.addcmul_](https://pytorch.org/docs/2.1/generated/torch.Tensor.addcmul_.html)|Beta|N/A|
 |[Tensor.addmm](https://pytorch.org/docs/2.1/generated/torch.Tensor.addmm.html)|Not Support|N/A|
 |[Tensor.addmm_](https://pytorch.org/docs/2.1/generated/torch.Tensor.addmm_.html)|Not Support|N/A|
 |[Tensor.sspaddmm](https://pytorch.org/docs/2.1/generated/torch.Tensor.sspaddmm.html)|Not Support|N/A|
@@ -70,14 +70,14 @@
 |[Tensor.arctan2_](https://pytorch.org/docs/2.1/generated/torch.Tensor.arctan2_.html)|Not Support|N/A|
 |[Tensor.all](https://pytorch.org/docs/2.1/generated/torch.Tensor.all.html)|Not Support|N/A|
 |[Tensor.any](https://pytorch.org/docs/2.1/generated/torch.Tensor.any.html)|Not Support|N/A|
-|[Tensor.backward](https://pytorch.org/docs/2.1/generated/torch.Tensor.backward.html)|Not Support|N/A|
+|[Tensor.backward](https://pytorch.org/docs/2.1/generated/torch.Tensor.backward.html)|Demo|N/A|
 |[Tensor.baddbmm](https://pytorch.org/docs/2.1/generated/torch.Tensor.baddbmm.html)|Not Support|N/A|
 |[Tensor.baddbmm_](https://pytorch.org/docs/2.1/generated/torch.Tensor.baddbmm_.html)|Not Support|N/A|
 |[Tensor.bernoulli](https://pytorch.org/docs/2.1/generated/torch.Tensor.bernoulli.html)|Not Support|N/A|
 |[Tensor.bernoulli_](https://pytorch.org/docs/2.1/generated/torch.Tensor.bernoulli_.html)|Not Support|N/A|
 |[Tensor.bfloat16](https://pytorch.org/docs/2.1/generated/torch.Tensor.bfloat16.html)|Not Support|N/A|
 |[Tensor.bincount](https://pytorch.org/docs/2.1/generated/torch.Tensor.bincount.html)|Not Support|N/A|
-|[Tensor.bitwise_not](https://pytorch.org/docs/2.1/generated/torch.Tensor.bitwise_not.html)|Not Support|N/A|
+|[Tensor.bitwise_not](https://pytorch.org/docs/2.1/generated/torch.Tensor.bitwise_not.html)|Demo|N/A|
 |[Tensor.bitwise_not_](https://pytorch.org/docs/2.1/generated/torch.Tensor.bitwise_not_.html)|Not Support|N/A|
 |[Tensor.bitwise_and](https://pytorch.org/docs/2.1/generated/torch.Tensor.bitwise_and.html)|Not Support|N/A|
 |[Tensor.bitwise_and_](https://pytorch.org/docs/2.1/generated/torch.Tensor.bitwise_and_.html)|Not Support|N/A|
@@ -157,7 +157,7 @@
 |[Tensor.diff](https://pytorch.org/docs/2.1/generated/torch.Tensor.diff.html)|Not Support|N/A|
 |[Tensor.digamma](https://pytorch.org/docs/2.1/generated/torch.Tensor.digamma.html)|Not Support|N/A|
 |[Tensor.digamma_](https://pytorch.org/docs/2.1/generated/torch.Tensor.digamma_.html)|Not Support|N/A|
-|[Tensor.dim](https://pytorch.org/docs/2.1/generated/torch.Tensor.dim.html)|Not Support|N/A|
+|[Tensor.dim](https://pytorch.org/docs/2.1/generated/torch.Tensor.dim.html)|Stable|N/A|
 |[Tensor.dim_order](https://pytorch.org/docs/2.1/generated/torch.Tensor.dim_order.html)|Not Support|N/A|
 |[Tensor.dist](https://pytorch.org/docs/2.1/generated/torch.Tensor.dist.html)|Not Support|N/A|
 |[Tensor.div](https://pytorch.org/docs/2.1/generated/torch.Tensor.div.html)|Not Support|N/A|
@@ -167,7 +167,7 @@
 |[Tensor.dot](https://pytorch.org/docs/2.1/generated/torch.Tensor.dot.html)|Not Support|N/A|
 |[Tensor.double](https://pytorch.org/docs/2.1/generated/torch.Tensor.double.html)|Not Support|N/A|
 |[Tensor.dsplit](https://pytorch.org/docs/2.1/generated/torch.Tensor.dsplit.html)|Not Support|N/A|
-|[Tensor.element_size](https://pytorch.org/docs/2.1/generated/torch.Tensor.element_size.html)|Not Support|N/A|
+|[Tensor.element_size](https://pytorch.org/docs/2.1/generated/torch.Tensor.element_size.html)|Beta|N/A|
 |[Tensor.eq](https://pytorch.org/docs/2.1/generated/torch.Tensor.eq.html)|Not Support|N/A|
 |[Tensor.eq_](https://pytorch.org/docs/2.1/generated/torch.Tensor.eq_.html)|Not Support|N/A|
 |[Tensor.equal](https://pytorch.org/docs/2.1/generated/torch.Tensor.equal.html)|Not Support|N/A|
@@ -181,7 +181,7 @@
 |[Tensor.exp_](https://pytorch.org/docs/2.1/generated/torch.Tensor.exp_.html)|Not Support|N/A|
 |[Tensor.expm1](https://pytorch.org/docs/2.1/generated/torch.Tensor.expm1.html)|Not Support|N/A|
 |[Tensor.expm1_](https://pytorch.org/docs/2.1/generated/torch.Tensor.expm1_.html)|Not Support|N/A|
-|[Tensor.expand](https://pytorch.org/docs/2.1/generated/torch.Tensor.expand.html)|Not Support|N/A|
+|[Tensor.expand](https://pytorch.org/docs/2.1/generated/torch.Tensor.expand.html)|Stable|N/A|
 |[Tensor.expand_as](https://pytorch.org/docs/2.1/generated/torch.Tensor.expand_as.html)|Not Support|N/A|
 |[Tensor.exponential_](https://pytorch.org/docs/2.1/generated/torch.Tensor.exponential_.html)|Not Support|N/A|
 |[Tensor.fix](https://pytorch.org/docs/2.1/generated/torch.Tensor.fix.html)|Not Support|N/A|
@@ -191,7 +191,7 @@
 |[Tensor.flip](https://pytorch.org/docs/2.1/generated/torch.Tensor.flip.html)|Not Support|N/A|
 |[Tensor.fliplr](https://pytorch.org/docs/2.1/generated/torch.Tensor.fliplr.html)|Not Support|N/A|
 |[Tensor.flipud](https://pytorch.org/docs/2.1/generated/torch.Tensor.flipud.html)|Not Support|N/A|
-|[Tensor.float](https://pytorch.org/docs/2.1/generated/torch.Tensor.float.html)|Not Support|N/A|
+|[Tensor.float](https://pytorch.org/docs/2.1/generated/torch.Tensor.float.html)|Stable|N/A|
 |[Tensor.float_power](https://pytorch.org/docs/2.1/generated/torch.Tensor.float_power.html)|Not Support|N/A|
 |[Tensor.float_power_](https://pytorch.org/docs/2.1/generated/torch.Tensor.float_power_.html)|Not Support|N/A|
 |[Tensor.floor](https://pytorch.org/docs/2.1/generated/torch.Tensor.floor.html)|Stable|支持数据类型：fp16、fp32|
@@ -257,9 +257,9 @@
 |[Tensor.is_contiguous](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_contiguous.html)|Not Support|N/A|
 |[Tensor.is_complex](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_complex.html)|Not Support|N/A|
 |[Tensor.is_conj](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_conj.html)|Not Support|N/A|
-|[Tensor.is_floating_point](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_floating_point.html)|Not Support|N/A|
+|[Tensor.is_floating_point](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_floating_point.html)|Beta|N/A|
 |[Tensor.is_inference](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_inference.html)|Not Support|N/A|
-|[Tensor.is_leaf](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_leaf.html)|Not Support|N/A|
+|[Tensor.is_leaf](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_leaf.html)|Beta|N/A|
 |[Tensor.is_pinned](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_pinned.html)|Not Support|N/A|
 |[Tensor.is_set_to](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_set_to.html)|Not Support|N/A|
 |[Tensor.is_shared](https://pytorch.org/docs/2.1/generated/torch.Tensor.is_shared.html)|Not Support|N/A|
@@ -278,7 +278,7 @@
 |[Tensor.less_equal](https://pytorch.org/docs/2.1/generated/torch.Tensor.less_equal.html)|Not Support|N/A|
 |[Tensor.less_equal_](https://pytorch.org/docs/2.1/generated/torch.Tensor.less_equal_.html)|Not Support|N/A|
 |[Tensor.lerp](https://pytorch.org/docs/2.1/generated/torch.Tensor.lerp.html)|Not Support|N/A|
-|[Tensor.lerp_](https://pytorch.org/docs/2.1/generated/torch.Tensor.lerp_.html)|Not Support|N/A|
+|[Tensor.lerp_](https://pytorch.org/docs/2.1/generated/torch.Tensor.lerp_.html)|Beta|N/A|
 |[Tensor.lgamma](https://pytorch.org/docs/2.1/generated/torch.Tensor.lgamma.html)|Not Support|N/A|
 |[Tensor.lgamma_](https://pytorch.org/docs/2.1/generated/torch.Tensor.lgamma_.html)|Not Support|N/A|
 |[Tensor.log](https://pytorch.org/docs/2.1/generated/torch.Tensor.log.html)|Stable|支持数据类型：bf16、fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
@@ -313,15 +313,15 @@
 |[Tensor.lu_solve](https://pytorch.org/docs/2.1/generated/torch.Tensor.lu_solve.html)|Not Support|N/A|
 |[Tensor.as_subclass](https://pytorch.org/docs/2.1/generated/torch.Tensor.as_subclass.html)|Not Support|N/A|
 |[Tensor.map_](https://pytorch.org/docs/2.1/generated/torch.Tensor.map_.html)|Not Support|N/A|
-|[Tensor.masked_scatter_](https://pytorch.org/docs/2.1/generated/torch.Tensor.masked_scatter_.html)|Not Support|N/A|
+|[Tensor.masked_scatter_](https://pytorch.org/docs/2.1/generated/torch.Tensor.masked_scatter_.html)|Beta|N/A|
 |[Tensor.masked_scatter](https://pytorch.org/docs/2.1/generated/torch.Tensor.masked_scatter.html)|Not Support|N/A|
 |[Tensor.masked_fill_](https://pytorch.org/docs/2.1/generated/torch.Tensor.masked_fill_.html)|Not Support|N/A|
-|[Tensor.masked_fill](https://pytorch.org/docs/2.1/generated/torch.Tensor.masked_fill.html)|Not Support|N/A|
+|[Tensor.masked_fill](https://pytorch.org/docs/2.1/generated/torch.Tensor.masked_fill.html)|Stable|N/A|
 |[Tensor.masked_select](https://pytorch.org/docs/2.1/generated/torch.Tensor.masked_select.html)|Not Support|N/A|
 |[Tensor.matmul](https://pytorch.org/docs/2.1/generated/torch.Tensor.matmul.html)|Stable|支持数据类型：fp16、fp32|
 |[Tensor.matrix_power](https://pytorch.org/docs/2.1/generated/torch.Tensor.matrix_power.html)|Not Support|N/A|
 |[Tensor.matrix_exp](https://pytorch.org/docs/2.1/generated/torch.Tensor.matrix_exp.html)|Not Support|N/A|
-|[Tensor.max](https://pytorch.org/docs/2.1/generated/torch.Tensor.max.html)|Not Support|N/A|
+|[Tensor.max](https://pytorch.org/docs/2.1/generated/torch.Tensor.max.html)|Stable|N/A|
 |[Tensor.maximum](https://pytorch.org/docs/2.1/generated/torch.Tensor.maximum.html)|Not Support|N/A|
 |[Tensor.mean](https://pytorch.org/docs/2.1/generated/torch.Tensor.mean.html)|Not Support|N/A|
 |[Tensor.module_load](https://pytorch.org/docs/2.1/generated/torch.Tensor.module_load.html)|Not Support|N/A|
@@ -345,11 +345,11 @@
 |[Tensor.mvlgamma](https://pytorch.org/docs/2.1/generated/torch.Tensor.mvlgamma.html)|Not Support|N/A|
 |[Tensor.mvlgamma_](https://pytorch.org/docs/2.1/generated/torch.Tensor.mvlgamma_.html)|Not Support|N/A|
 |[Tensor.nansum](https://pytorch.org/docs/2.1/generated/torch.Tensor.nansum.html)|Not Support|N/A|
-|[Tensor.narrow](https://pytorch.org/docs/2.1/generated/torch.Tensor.narrow.html)|Not Support|N/A|
+|[Tensor.narrow](https://pytorch.org/docs/2.1/generated/torch.Tensor.narrow.html)|Stable|N/A|
 |[Tensor.narrow_copy](https://pytorch.org/docs/2.1/generated/torch.Tensor.narrow_copy.html)|Not Support|N/A|
 |[Tensor.ndimension](https://pytorch.org/docs/2.1/generated/torch.Tensor.ndimension.html)|Not Support|N/A|
 |[Tensor.nan_to_num](https://pytorch.org/docs/2.1/generated/torch.Tensor.nan_to_num.html)|Not Support|N/A|
-|[Tensor.nan_to_num_](https://pytorch.org/docs/2.1/generated/torch.Tensor.nan_to_num_.html)|Not Support|N/A|
+|[Tensor.nan_to_num_](https://pytorch.org/docs/2.1/generated/torch.Tensor.nan_to_num_.html)|Beta|N/A|
 |[Tensor.ne](https://pytorch.org/docs/2.1/generated/torch.Tensor.ne.html)|Stable|支持数据类型：bf16、fp16、fp32、uint8、int8、int16、int32、int64、bool|
 |[Tensor.ne_](https://pytorch.org/docs/2.1/generated/torch.Tensor.ne_.html)|Not Support|N/A|
 |[Tensor.not_equal](https://pytorch.org/docs/2.1/generated/torch.Tensor.not_equal.html)|Not Support|N/A|
@@ -358,13 +358,13 @@
 |[Tensor.neg_](https://pytorch.org/docs/2.1/generated/torch.Tensor.neg_.html)|Not Support|N/A|
 |[Tensor.negative](https://pytorch.org/docs/2.1/generated/torch.Tensor.negative.html)|Not Support|N/A|
 |[Tensor.negative_](https://pytorch.org/docs/2.1/generated/torch.Tensor.negative_.html)|Not Support|N/A|
-|[Tensor.nelement](https://pytorch.org/docs/2.1/generated/torch.Tensor.nelement.html)|Not Support|N/A|
+|[Tensor.nelement](https://pytorch.org/docs/2.1/generated/torch.Tensor.nelement.html)|Stable|N/A|
 |[Tensor.nextafter](https://pytorch.org/docs/2.1/generated/torch.Tensor.nextafter.html)|Not Support|N/A|
 |[Tensor.nextafter_](https://pytorch.org/docs/2.1/generated/torch.Tensor.nextafter_.html)|Not Support|N/A|
 |[Tensor.nonzero](https://pytorch.org/docs/2.1/generated/torch.Tensor.nonzero.html)|Not Support|N/A|
 |[Tensor.norm](https://pytorch.org/docs/2.1/generated/torch.Tensor.norm.html)|Not Support|N/A|
 |[Tensor.normal_](https://pytorch.org/docs/2.1/generated/torch.Tensor.normal_.html)|Not Support|N/A|
-|[Tensor.numel](https://pytorch.org/docs/2.1/generated/torch.Tensor.numel.html)|Not Support|N/A|
+|[Tensor.numel](https://pytorch.org/docs/2.1/generated/torch.Tensor.numel.html)|Stable|N/A|
 |[Tensor.numpy](https://pytorch.org/docs/2.1/generated/torch.Tensor.numpy.html)|Not Support|N/A|
 |[Tensor.orgqr](https://pytorch.org/docs/2.1/generated/torch.Tensor.orgqr.html)|Not Support|N/A|
 |[Tensor.ormqr](https://pytorch.org/docs/2.1/generated/torch.Tensor.ormqr.html)|Not Support|N/A|
@@ -394,22 +394,22 @@
 |[Tensor.reciprocal](https://pytorch.org/docs/2.1/generated/torch.Tensor.reciprocal.html)|Not Support|N/A|
 |[Tensor.reciprocal_](https://pytorch.org/docs/2.1/generated/torch.Tensor.reciprocal_.html)|Not Support|N/A|
 |[Tensor.record_stream](https://pytorch.org/docs/2.1/generated/torch.Tensor.record_stream.html)|Not Support|N/A|
-|[Tensor.register_hook](https://pytorch.org/docs/2.1/generated/torch.Tensor.register_hook.html)|Not Support|N/A|
+|[Tensor.register_hook](https://pytorch.org/docs/2.1/generated/torch.Tensor.register_hook.html)|Beta|N/A|
 |[Tensor.register_post_accumulate_grad_hook](https://pytorch.org/docs/2.1/generated/torch.Tensor.register_post_accumulate_grad_hook.html)|Not Support|N/A|
 |[Tensor.remainder](https://pytorch.org/docs/2.1/generated/torch.Tensor.remainder.html)|Not Support|N/A|
 |[Tensor.remainder_](https://pytorch.org/docs/2.1/generated/torch.Tensor.remainder_.html)|Not Support|N/A|
 |[Tensor.renorm](https://pytorch.org/docs/2.1/generated/torch.Tensor.renorm.html)|Not Support|N/A|
 |[Tensor.renorm_](https://pytorch.org/docs/2.1/generated/torch.Tensor.renorm_.html)|Not Support|N/A|
-|[Tensor.repeat](https://pytorch.org/docs/2.1/generated/torch.Tensor.repeat.html)|Not Support|N/A|
+|[Tensor.repeat](https://pytorch.org/docs/2.1/generated/torch.Tensor.repeat.html)|Stable|N/A|
 |[Tensor.repeat_interleave](https://pytorch.org/docs/2.1/generated/torch.Tensor.repeat_interleave.html)|Not Support|N/A|
-|[Tensor.requires_grad](https://pytorch.org/docs/2.1/generated/torch.Tensor.requires_grad.html)|Not Support|N/A|
-|[Tensor.requires_grad_](https://pytorch.org/docs/2.1/generated/torch.Tensor.requires_grad_.html)|Not Support|N/A|
-|[Tensor.reshape](https://pytorch.org/docs/2.1/generated/torch.Tensor.reshape.html)|Not Support|N/A|
+|[Tensor.requires_grad](https://pytorch.org/docs/2.1/generated/torch.Tensor.requires_grad.html)|Beta|N/A|
+|[Tensor.requires_grad_](https://pytorch.org/docs/2.1/generated/torch.Tensor.requires_grad_.html)|Beta|N/A|
+|[Tensor.reshape](https://pytorch.org/docs/2.1/generated/torch.Tensor.reshape.html)|Stable|N/A|
 |[Tensor.reshape_as](https://pytorch.org/docs/2.1/generated/torch.Tensor.reshape_as.html)|Not Support|N/A|
-|[Tensor.resize_](https://pytorch.org/docs/2.1/generated/torch.Tensor.resize_.html)|Not Support|N/A|
+|[Tensor.resize_](https://pytorch.org/docs/2.1/generated/torch.Tensor.resize_.html)|Beta|N/A|
 |[Tensor.resize_as_](https://pytorch.org/docs/2.1/generated/torch.Tensor.resize_as_.html)|Not Support|N/A|
-|[Tensor.retain_grad](https://pytorch.org/docs/2.1/generated/torch.Tensor.retain_grad.html)|Not Support|N/A|
-|[Tensor.retains_grad](https://pytorch.org/docs/2.1/generated/torch.Tensor.retains_grad.html)|Not Support|N/A|
+|[Tensor.retain_grad](https://pytorch.org/docs/2.1/generated/torch.Tensor.retain_grad.html)|Beta|N/A|
+|[Tensor.retains_grad](https://pytorch.org/docs/2.1/generated/torch.Tensor.retains_grad.html)|Beta|N/A|
 |[Tensor.roll](https://pytorch.org/docs/2.1/generated/torch.Tensor.roll.html)|Not Support|N/A|
 |[Tensor.rot90](https://pytorch.org/docs/2.1/generated/torch.Tensor.rot90.html)|Not Support|N/A|
 |[Tensor.round](https://pytorch.org/docs/2.1/generated/torch.Tensor.round.html)|Not Support|N/A|
@@ -445,12 +445,12 @@
 |[Tensor.arcsinh](https://pytorch.org/docs/2.1/generated/torch.Tensor.arcsinh.html)|Not Support|N/A|
 |[Tensor.arcsinh_](https://pytorch.org/docs/2.1/generated/torch.Tensor.arcsinh_.html)|Not Support|N/A|
 |[Tensor.shape](https://pytorch.org/docs/2.1/generated/torch.Tensor.shape.html)|Not Support|N/A|
-|[Tensor.size](https://pytorch.org/docs/2.1/generated/torch.Tensor.size.html)|Not Support|N/A|
+|[Tensor.size](https://pytorch.org/docs/2.1/generated/torch.Tensor.size.html)|Stable|N/A|
 |[Tensor.slogdet](https://pytorch.org/docs/2.1/generated/torch.Tensor.slogdet.html)|Not Support|N/A|
 |[Tensor.slice_scatter](https://pytorch.org/docs/2.1/generated/torch.Tensor.slice_scatter.html)|Not Support|N/A|
 |[Tensor.softmax](https://pytorch.org/docs/2.1/generated/torch.Tensor.softmax.html)|Not Support|N/A|
 |[Tensor.sort](https://pytorch.org/docs/2.1/generated/torch.Tensor.sort.html)|Not Support|N/A|
-|[Tensor.split](https://pytorch.org/docs/2.1/generated/torch.Tensor.split.html)|Not Support|N/A|
+|[Tensor.split](https://pytorch.org/docs/2.1/generated/torch.Tensor.split.html)|Stable|N/A|
 |[Tensor.sparse_mask](https://pytorch.org/docs/2.1/generated/torch.Tensor.sparse_mask.html)|Not Support|N/A|
 |[Tensor.sparse_dim](https://pytorch.org/docs/2.1/generated/torch.Tensor.sparse_dim.html)|Not Support|N/A|
 |[Tensor.sqrt](https://pytorch.org/docs/2.1/generated/torch.Tensor.sqrt.html)|Stable|支持数据类型：bf16、fp16、fp32、fp64、uint8、int8、int16、int32、int64、bool|
@@ -458,7 +458,7 @@
 |[Tensor.square](https://pytorch.org/docs/2.1/generated/torch.Tensor.square.html)|Stable|支持数据类型：fp16、fp32、fp64、uint8、int8、int16、int32、int64|
 |[Tensor.square_](https://pytorch.org/docs/2.1/generated/torch.Tensor.square_.html)|Not Support|N/A|
 |[Tensor.squeeze](https://pytorch.org/docs/2.1/generated/torch.Tensor.squeeze.html)|Not Support|N/A|
-|[Tensor.squeeze_](https://pytorch.org/docs/2.1/generated/torch.Tensor.squeeze_.html)|Not Support|N/A|
+|[Tensor.squeeze_](https://pytorch.org/docs/2.1/generated/torch.Tensor.squeeze_.html)|Stable|N/A|
 |[Tensor.std](https://pytorch.org/docs/2.1/generated/torch.Tensor.std.html)|Not Support|N/A|
 |[Tensor.stft](https://pytorch.org/docs/2.1/generated/torch.Tensor.stft.html)|Not Support|N/A|
 |[Tensor.storage](https://pytorch.org/docs/2.1/generated/torch.Tensor.storage.html)|Not Support|N/A|
@@ -478,7 +478,7 @@
 |[Tensor.t](https://pytorch.org/docs/2.1/generated/torch.Tensor.t.html)|Not Support|N/A|
 |[Tensor.t_](https://pytorch.org/docs/2.1/generated/torch.Tensor.t_.html)|Not Support|N/A|
 |[Tensor.tensor_split](https://pytorch.org/docs/2.1/generated/torch.Tensor.tensor_split.html)|Not Support|N/A|
-|[Tensor.tile](https://pytorch.org/docs/2.1/generated/torch.Tensor.tile.html)|Not Support|N/A|
+|[Tensor.tile](https://pytorch.org/docs/2.1/generated/torch.Tensor.tile.html)|Stable|N/A|
 |[Tensor.to](https://pytorch.org/docs/2.1/generated/torch.Tensor.to.html)|Not Support|N/A|
 |[Tensor.to_mkldnn](https://pytorch.org/docs/2.1/generated/torch.Tensor.to_mkldnn.html)|Not Support|N/A|
 |[Tensor.take](https://pytorch.org/docs/2.1/generated/torch.Tensor.take.html)|Not Support|N/A|
@@ -501,9 +501,9 @@
 |[Tensor.to_sparse_bsc](https://pytorch.org/docs/2.1/generated/torch.Tensor.to_sparse_bsc.html)|Not Support|N/A|
 |[Tensor.trace](https://pytorch.org/docs/2.1/generated/torch.Tensor.trace.html)|Not Support|N/A|
 |[Tensor.transpose](https://pytorch.org/docs/2.1/generated/torch.Tensor.transpose.html)|Not Support|N/A|
-|[Tensor.transpose_](https://pytorch.org/docs/2.1/generated/torch.Tensor.transpose_.html)|Not Support|N/A|
+|[Tensor.transpose_](https://pytorch.org/docs/2.1/generated/torch.Tensor.transpose_.html)|Beta|N/A|
 |[Tensor.triangular_solve](https://pytorch.org/docs/2.1/generated/torch.Tensor.triangular_solve.html)|Not Support|N/A|
-|[Tensor.tril](https://pytorch.org/docs/2.1/generated/torch.Tensor.tril.html)|Not Support|N/A|
+|[Tensor.tril](https://pytorch.org/docs/2.1/generated/torch.Tensor.tril.html)|Demo|N/A|
 |[Tensor.tril_](https://pytorch.org/docs/2.1/generated/torch.Tensor.tril_.html)|Not Support|N/A|
 |[Tensor.triu](https://pytorch.org/docs/2.1/generated/torch.Tensor.triu.html)|Not Support|N/A|
 |[Tensor.triu_](https://pytorch.org/docs/2.1/generated/torch.Tensor.triu_.html)|Demo|N/A|
@@ -524,8 +524,8 @@
 |[Tensor.values](https://pytorch.org/docs/2.1/generated/torch.Tensor.values.html)|Not Support|N/A|
 |[Tensor.var](https://pytorch.org/docs/2.1/generated/torch.Tensor.var.html)|Not Support|N/A|
 |[Tensor.vdot](https://pytorch.org/docs/2.1/generated/torch.Tensor.vdot.html)|Not Support|N/A|
-|[Tensor.view](https://pytorch.org/docs/2.1/generated/torch.Tensor.view.html)|Not Support|N/A|
-|[Tensor.view_as](https://pytorch.org/docs/2.1/generated/torch.Tensor.view_as.html)|Not Support|N/A|
+|[Tensor.view](https://pytorch.org/docs/2.1/generated/torch.Tensor.view.html)|Stable|N/A|
+|[Tensor.view_as](https://pytorch.org/docs/2.1/generated/torch.Tensor.view_as.html)|Stable|N/A|
 |[Tensor.vsplit](https://pytorch.org/docs/2.1/generated/torch.Tensor.vsplit.html)|Not Support|N/A|
 |[Tensor.where](https://pytorch.org/docs/2.1/generated/torch.Tensor.where.html)|Not Support|N/A|
 |[Tensor.xlogy](https://pytorch.org/docs/2.1/generated/torch.Tensor.xlogy.html)|Not Support|N/A|
