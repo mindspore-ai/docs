@@ -62,6 +62,16 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, sphinx_mathjax.__dict__)
 
+# Fix reftype of Keyword Arguments, the latest version of Sphinx has been fixed
+from sphinx.ext import napoleon
+
+with open(napoleon.__file__, "r", encoding="utf-8") as f:
+    code_str = f.read()
+    old_str = """                         typerolename='obj', typenames=('paramtype', 'kwtype'),"""
+    new_str = """                         typerolename='class', typenames=('paramtype', 'kwtype'),"""
+    code_str = code_str.replace(old_str, new_str)
+    exec(code_str, napoleon.__dict__)
+
 # Add the source file link for the web version (deprecated)
 # from sphinx.ext import viewcode
 # with open('../_ext/overwriteviewcode_en.txt', 'r', encoding="utf8") as f:
