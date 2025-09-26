@@ -24,7 +24,7 @@ For information on how the model performs online reasoning tasks, please refer t
 ### Dataset Evaluation
 
 After verification through online reasoning, the output of the benchmark of the model can remain basically consistent while keeping the input the same. However, the data volume is relatively small and the problem involved is not comprehensive enough in terms of domain. Therefore, the precision of the model needs to be ultimately verified through dataset evaluation. Only when the evaluation score of the dataset and the benchmark data can meet an error of 0.4% can it be proved that the precision of the model meets the acceptance criteria.
-For information on how to evaluate the model using datasets, please refer to the [Evaluation Guide](https://www.mindspore.cn/mindformers/docs/en/master/guide/benchmarks.html).
+For information on how to evaluate the model using datasets, please refer to the [Evaluation Guide](https://www.mindspore.cn/mindformers/docs/en/master/guide/evaluation.html).
 
 ## Positioning Precision Issue
 

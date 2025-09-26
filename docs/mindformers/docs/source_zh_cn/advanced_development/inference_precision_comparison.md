@@ -24,7 +24,7 @@
 ### 数据集评测
 
 通过在线推理验证之后，模型在保持输入相同的情况下，标杆的输出可以基本保持一致。但是数据量比较小，并且问题涉及领域不够全面，需要通过数据集评测来最终验证模型的精度。只有数据集的评测得分和标杆数据能够满足0.4%的误差，才能证明模型的精度符合验收标准。
-关于模型如何用数据集评测可以参考[评测指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/benchmarks.html)。
+关于模型如何用数据集评测可以参考[评测指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/evaluation.html)。
 
 ## 定位精度问题
 
