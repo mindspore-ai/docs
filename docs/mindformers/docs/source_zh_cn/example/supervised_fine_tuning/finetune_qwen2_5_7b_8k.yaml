@@ -49,6 +49,7 @@ lr_schedule:
 # dataset
 train_dataset: &train_dataset
   input_columns: &input_columns ["input_ids", "labels", "loss_mask", "position_ids", "attention_mask"]
+  num_parallel_workers: 8
   construct_args_key: *input_columns
   data_loader:
     type: CommonDataLoader
@@ -67,7 +68,7 @@ train_dataset: &train_dataset
           bos_token: null
           type: Qwen2Tokenizer
           auto_register: qwen2_5_tokenizer.Qwen2Tokenizer
-        seq_length: &seq_length 8192
+        seq_length: &seq_length 4096
         prompt_key: "conversations"
         output_columns: ["input_ids", "labels"]
         is_dynamic: False
@@ -85,24 +86,10 @@ train_dataset_task:
   type: CausalLanguageModelDataset
   dataset_config: *train_dataset
 
-use_parallel: True
-# parallel context config
-parallel:
-  parallel_mode: 1 # 0-data parallel, 1-semi-auto parallel, 2-auto parallel, 3-hybrid parallel
-  gradients_mean: False
-  enable_alltoall: False
-  full_batch: True
-  search_mode: "sharding_propagation"
-  strategy_ckpt_save_file: "./ckpt_strategy.ckpt"
-  enable_parallel_optimizer: True
-  parallel_optimizer_config:
-    gradient_accumulation_shard: False
-    parallel_optimizer_threshold: 64
-
 # default parallel of device num = 8
 parallel_config:
-  data_parallel: 4
-  model_parallel: 1
+  data_parallel: &dp 1
+  model_parallel: 4
   pipeline_stage: 2
   context_parallel: 1
   use_seq_parallel: True
@@ -111,6 +98,27 @@ parallel_config:
   gradient_aggregation_group: 4
 # when model parallel is greater than 1, we can set micro_batch_interleave_num=2, that may accelerate the train process.
 micro_batch_interleave_num: 1
+
+use_parallel: True
+# parallel context config
+parallel:
+  parallel_mode: 1 # 0-data parallel, 1-semi-auto parallel, 2-auto parallel, 3-hybrid parallel
+  gradients_mean: False
+  enable_alltoall: False
+  full_batch: False
+  dataset_strategy: [
+      [*dp, 1],
+      [*dp, 1],
+      [*dp, 1],
+      [*dp, 1],
+      [*dp, 1, 1, 1]
+    ]
+  search_mode: "sharding_propagation"
+  strategy_ckpt_save_file: "./ckpt_strategy.ckpt"
+  enable_parallel_optimizer: True
+  parallel_optimizer_config:
+    gradient_accumulation_shard: False
+    parallel_optimizer_threshold: 64
 
 # recompute config
 recompute_config:
@@ -149,6 +157,7 @@ context:
     jit_level: "O1"
   ascend_config:
     precision_mode: "must_keep_origin_dtype"
+    parallel_speed_up_json_path: "./configs/qwen3/parallel_speed_up.json"  # Path to the parallel speedup JSON file
 
 # model config
 model:
