@@ -2257,7 +2257,8 @@ ModelExecutor()
 ```c++
 ModelExecutor(const std::vector<std::shared_ptr<ModelImpl>> &models, const std::vector<std::string> &executor_input_names,
                 const std::vector<std::string> &executor_output_names,
-                const std::vector<std::vector<std::string>> &subgraph_input_names)
+                const std::vector<std::vector<std::string>> &subgraph_input_names,
+                const std::vector<std::vector<MSTensor>> &model_output_tensors)
 ```
 
 - 参数
@@ -2266,6 +2267,7 @@ ModelExecutor(const std::vector<std::shared_ptr<ModelImpl>> &models, const std::
     - `executor_input_names`: 由string组成的向量，当前ModelExecutor的输入名。
     - `executor_output_names`: 由string组成的向量，当前ModelExecutor的输出名。
     - `subgraph_input_names`: 由string组成的向量，当前ModelExecutor中所有模型的输入以及输出名。
+    - `model_output_tensors`: 由MSTensor组成的向量，模型的输出tensor。
 
 ### 析构函数
 
@@ -2322,22 +2324,6 @@ std::vector<MSTensor> GetOutputs() const
 - 返回值
 
   包含模型所有输出张量的容器类型变量。
-
-#### Initialize
-
-```cpp
-Status Initialize(const std::shared_ptr<Context> &model_context)
-```
-
-初始化ModelExecutor的接口。
-
-- 参数
-
-    - `model_context`: 模型[Context](#context)，用于在推理时保存推理选项。
-
-- 返回值
-
-  状态码类`Status`对象。
 
 ## MultiModelRunner
 
