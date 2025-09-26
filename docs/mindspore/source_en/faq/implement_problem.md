@@ -491,7 +491,7 @@ In addition, CANN may throw some Inner Errors, for example, the error code is "E
 
 ## Q: How to control the Tensor value printed by the `print` method?
 
-A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` to control the output value. In the Graph static graph mode, because the `print` method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html).
+A: In PyNative mode, you can use numpy native methods such as `set_printoptions` to control the output value. In the Graph static graph mode, because the `print` method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html).
 <br/>
 
 ## Q: How does `Tensor.asnumpy()` share the underlying storage with Tensor?

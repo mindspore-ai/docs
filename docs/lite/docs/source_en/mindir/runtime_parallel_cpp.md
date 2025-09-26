@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html). Multi model concurrent inference now supports Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU backends.
+MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html). Multi-model concurrent inference now supports Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU backends.
 
 After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [C++ interface](https://www.mindspore.cn/lite/api/en/master/index.html).
 
@@ -67,7 +67,7 @@ runner_config->SetWorkersNum(kNumWorkers);
 >
 > Multi-model concurrent inference does not support FP32-type data inference. Binding cores only supports no core binding or binding large cores. It does not support the parameter settings of the bound cores, and does not support configuring the binding core list.
 >
-> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, sets the model path through [SetConfigInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_RunnerConfig.html) interface, where `section` is `model_File` , `key` is `mindir_path`; When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
+> For large models, when using the model buffer to load and compile, you need to set the path of the weight file separately, set the model path through [SetConfigInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_RunnerConfig.html) interface, where `section` is `model_File`, `key` is `mindir_path`; When using the model path to load and compile, you do not need to set other parameters. The weight parameters will be automatically read.
 
 ## Initialization
 
@@ -103,7 +103,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Compiling And Executing
 
-Follow the [quick start](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#executing-compilation) environment variables, set the environment variables. Run the build.sh script in the `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
+Follow the [quick start](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#executing-compilation) environment variables to set the environment variables. Run the build.sh script in the `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
 
 ```bash
 bash build.sh

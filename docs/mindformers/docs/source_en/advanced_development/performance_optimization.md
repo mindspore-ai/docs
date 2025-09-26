@@ -616,7 +616,7 @@ For the bottleneck points analyzed above, we can apply the following optimizatio
 
 3. Enable Llama's `fine-grained multi-copy` policy masks most of the communication behavior under the model-parallel policy;
 
-   An introduction to multi-copy parallel can be found in the [MindSpore Multicopy Parallelism Documentation](https://www.mindspore.cn/tutorials/en/master/parallel/multiple_copy.html), and the behavior of fine-grained multicopy parallelism can be configured in MindSpore Transformers through the ` fine_grain_interleave` item. The reference configuration is as follows:
+   An introduction to multi-copy parallel can be found in the [MindSpore Multicopy Parallelism Documentation](https://www.mindspore.cn/tutorials/en/master/parallel/multiple_copy.html), and the behavior of fine-grained multicopy parallelism can be configured in MindSpore Transformers through the `fine_grain_interleave` item. The reference configuration is as follows:
 
    ```yaml
    model:

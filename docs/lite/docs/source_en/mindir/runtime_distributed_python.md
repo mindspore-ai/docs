@@ -45,7 +45,7 @@ Ascend is supported in distributed inference scenarios, and can be specified by 
 
 ### Configuring Ascend Device Context
 
-When the device type is Ascend (Atlas training series is currently supported by distributed inference), set [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to `Ascend` and set `DeviceID`, `RankID` by the following way. Since Ascend provides multiple inference engine backends, currently only the `ge` backend supports distributed inference, and the Ascend inference engine backend is specified as `ge` by via `ascend.provider`.The sample code is as follows.
+When the device type is Ascend (Atlas training series is currently supported by distributed inference), set [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to `Ascend` and set `DeviceID`, `RankID` by the following way. Since Ascend provides multiple inference engine backends, currently only the `ge` backend supports distributed inference, and the Ascend inference engine backend is specified as `ge` by `ascend.provider`. The sample code is as follows.
 
 ```python
 # set Ascend target and distributed info
@@ -57,7 +57,7 @@ context.ascend.provider = "ge"
 
 ## Model Creation, Loading and Compilation
 
-Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface for model loading, compilation and execution. Create [Model](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) and call the [Model.build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to implement the model Loading and model compilation, the sample code is as follows.
+Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface for model loading, compilation and execution. Create [Model](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) and call the [Model.build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to implement the model loading and model compilation, the sample code is as follows.
 
 ```python
 # create Model and build Model
