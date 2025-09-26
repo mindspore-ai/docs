@@ -169,7 +169,7 @@ When MindSpore Lite is used for inference, if you need to Resize the input shape
 The following sample code demonstrates how to perform Resize on the input tensor of MindSpore Lite:
 
 ```java
-List<MSTensor> inputs = session.getInputs();
+List<MSTensor> inputs = model.getInputs();
 int[][] dims = {{1, 300, 300, 3}};
 bool ret = model.resize(inputs, dims);
 ```
@@ -179,7 +179,7 @@ bool ret = model.resize(inputs, dims);
 Before graph execution, whether it is during training or inference, the input data must be filled-in into the model input tensors.
 MindSpore Lite provides the following methods to obtain model input tensors:
 
-1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#getinputbytensorname) method to obtain model input tensors that are connected to the model input node based on the tensor name.
+1. Use the [getInputByTensorName](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#getinputbytensorname) method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
     ```java
      /**

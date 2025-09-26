@@ -39,7 +39,7 @@ Cloud-side MindSpore Lite contains modules:
     - [llvm](#installing-llvm-optional) == 12.0.1
     - [git-lfs](https://git-lfs.com/)
 
-> Gradle recommends using [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all), and configuring other versions of gradle will use the gradle wrapper mechanism to automatically download ` gradle-6.6.1-complete`.
+> Gradle recommends using [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all), and configuring other versions of gradle will use the gradle wrapper mechanism to automatically download `gradle-6.6.1-complete`.
 >
 > You can also directly use Docker compiling images that have been configured with the above dependencies.
 >
@@ -81,7 +81,7 @@ General module compilation options:
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid for `-I x86_64` | on, off | off |
 | MSLITE_ENABLE_AVX512 | Whether to enable AVX512 instruction set, only valid for `-I x86_64` | on, off | off |
 
-> - The cloud-side inference version relies on the model converter, so when ``MSLITE_ENABLE_CLOUD_INFERENCE`` is configured to ``on``, it will compile ``converter`` at the same time.
+> - The cloud-side inference version relies on the model converter, so when `MSLITE_ENABLE_CLOUD_INFERENCE` is configured to ``on``, it will compile `converter` at the same time.
 > - If the environment only supports the SSE instruction set, the AVX512 instruction set needs to be configured as ``off``.
 
 ## Compilation Examples
