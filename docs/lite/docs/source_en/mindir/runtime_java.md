@@ -9,7 +9,7 @@ After converting the `.mindir` model by [MindSpore Lite model conversion tool](h
 Compared with C++ API, Java API can be called directly in Java Class, and users do not need to implement the code related to JNI layer, with better convenience. Running MindSpore Lite inference framework mainly consists of the following steps:
 
 1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.7.0/mindir/converter_tool.html).
-2. Create configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#mscontext) and save some basic configuration parameters used to guide model compilation and model execution, including device type, number of threads, CPU pinning, and enabling fp16 mixed precision inference.
+2. Create configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#mscontext) and save some basic configuration parameters used to guide model compilation and model execution, including device type, number of threads, CPU pinning, and enabling float16 mixed precision inference.
 3. Model creation, loading and compilation: Before executing inference, you need to call [build](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#build) interface of [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#model) for model loading and model compilation. Both loading files and MappedByteBuffer are currently supported. The model loading phase parses the file or buffer into a runtime model.
 4. Input data: The model needs to be padded with data from the input Tensor before execution.
 5. Execute inference: Use [predict](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#predict) of [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#model) method for model inference.
@@ -84,7 +84,7 @@ context.addDeviceInfo(DeviceType.DT_ASCEND, false, 0);
 
 ## Model Creation, Loading and Compilation
 
-When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#model) is the main entry for inference. Model loading, compilation and execution are implemented through Model. Using the [MSContext](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#init) created in the previous step, call the compound [build](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#build) interface of Model to implement model loading and model compilation.
+When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#model) is the main entry for inference. Model loading, compilation and execution are implemented. Using the [MSContext](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mscontext.html#init) created in the previous step, call the compound [build](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#build) interface of Model to implement model loading and model compilation.
 
 The following demonstrates the process of Model creation, loading and compilation:
 
@@ -129,13 +129,13 @@ boolean ret = model.predict();
 
 MindSpore Lite can get the inference result by outputting Tensor after performing inference. MindSpore Lite provides three methods to get the output of the model [MSTensor](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html), and also supports [getByteData](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#getbytedata), [getFloatData](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#getfloatdata), [getIntData](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#getintdata), [getLongData](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#getlongdata) four methods to get the output data.
 
-1. Use the [getOutputs](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#getoutputs) method, get all the model to output list of [MSTensor](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#mstensor). The following demonstrates how to call `getOutputs` to get the list of output Tensor.
+1. Use the [getOutputs](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#getoutputs) method, get all the model output list of [MSTensor](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#mstensor). The following demonstrates how to call `getOutputs` to get the list of output Tensor.
 
     ```java
     List<MSTensor> outTensors = model.getOutputs();
     ```
 
-2. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#getoutputsbynodename) method and get the vector of the Tensor connected to that node in the model output [MSTensor](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#mstensor) according to the name of model output node. The following demonstrates how to call ` getOutputByTensorName` to get the output Tensor.
+2. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/model.html#getoutputsbynodename) method and get the vector of the Tensor connected to that node in the model output [MSTensor](https://www.mindspore.cn/lite/api/en/r2.7.0/api_java/mstensor.html#mstensor) according to the name of model output node. The following demonstrates how to call `getOutputByTensorName` to get the output Tensor.
 
     ```java
     MSTensor outTensor = model.getOutputsByNodeName("Default/head-MobileNetV2Head/Softmax-op204");

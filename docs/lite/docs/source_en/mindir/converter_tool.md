@@ -10,7 +10,7 @@ The currently supported input formats are MindSpore, TensorFlow Lite, Caffe, Ten
 
 The `mindir` model converted by the converter supports the converter companion and higher versions of the Runtime inference framework to perform inference.
 
-Note: Due to interface compatibility issues, the conversion tool cannot be run in CANN packages below version 7.5 due to interface compatibility issues. The version number of the CANN package is the content in the latest/version.cfg directory of the CANN package installation directory.
+Note: Due to interface compatibility issues, the conversion tool cannot be run in CANN packages below version 7.5. The version number of the CANN package is the content in the latest/version.cfg directory of the CANN package installation directory.
 
 ## Linux Environment Usage Instructions
 
@@ -75,8 +75,8 @@ Detailed parameter descriptions are provided below.
 | `--fp16=<FP16>` | Not | Set whether the weights in float32 data format need to be stored in float16 data format during model serialization. | on, off | off | Not supported at the moment|
 | `--inputDataType=<INPUTDATATYPE>` | Not | Set the data type of the quantized model input tensor. Only if the quantization parameters (scale and zero point) of the model input tensor are available. The default is to keep the same data type as the original model input tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
 | `--outputDataType=<OUTPUTDATATYPE>` | Not | Set the data type of the quantized model output tensor. Only if the quantization parameters (scale and zero point) of the model output tensor are available. The default is to keep the same data type as the original model output tensor. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | Not supported at the moment |
-| `--device=<DEVICE>` | Not | Set target device when converter model. The use case is when on the Ascend device, if you need to the converted model to have the ability to use Ascend backend to perform inference, you can set the parameter. If it is not set, the converted model will use CPU backend to perform inference by default. | This option will be deprecated. It is replaced by setting `optimize` option to `ascend_oriented` |
-| `--optimizeTransformer=<OPTIMIZETRANSFORMER>` | Not | Set whether to do transformer-fursion or not. | true, false | false | only support tensorrt |
+| `--device=<DEVICE>` | Not | Set target device when converting model. The use case is when on the Ascend device, if you need to the converted model to have the ability to use Ascend backend to perform inference, you can set the parameter. If it is not set, the converted model will use CPU backend to perform inference by default. | This option will be deprecated. It is replaced by setting `optimize` option to `ascend_oriented` |
+| `--optimizeTransformer=<OPTIMIZETRANSFORMER>` | Not | Set whether to do transformer-fusion or not. | true, false | false | only support tensorrt |
 
 Notes:
 
@@ -84,7 +84,7 @@ Notes:
 - Caffe models are generally divided into two files: `*.prototxt` model structure, corresponding to the `--modelFile` parameter, and `*.caffemodel` model weights, corresponding to the `--weightFile` parameter.
 - The `configFile` configuration file uses the `key=value` approach to define the relevant parameters.
 - `--optimize` parameter is used to set the mode of optimization during the offline conversion. If this parameter is set to none, no relevant graph optimization operations will be performed during the offline conversion phase of the model, and the relevant graph optimization operations will be done during the execution of the inference phase. The advantage of this parameter is that the converted model can be deployed directly to any CPU/GPU/Ascend hardware backend since it is not optimized in a specific way, while the disadvantage is that the initialization time of the model increases during inference execution. If this parameter is set to general, general optimization will be performed, such as constant folding and operator fusion (the converted model only supports CPU/GPU hardware backend, not Ascend backend). If this parameter is set to gpu_oriented, the general optimization and extra optimization for GPU hardware will be performed (the converted model only supports GPU hardware backend). If this parameter is set to ascend_oriented, the optimization for Ascend hardware will be performed (the converted model only supports Ascend hardware backend).
-- The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/r2.7.0/mindir/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. Linux platform users can use the' xxd 'tool to convert the key expressed in bytes into hexadecimal expressions.
+- The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/r2.7.0/mindir/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. Linux platform users can use the `xxd` tool to convert the key expressed in bytes into hexadecimal expressions.
 - For the MindSpore model, since it is already a `mindir` model, two approaches are suggested:
 
     Inference is performed directly without offline conversion.

@@ -87,7 +87,7 @@ if (!ret) {
 
 ### Build
 
-Set environment variables, and Run the [build script](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/cloud_infer/quick_start_parallel_java/build.sh) in the `mindspore-lite/examples/quick_start_parallel_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
+Set environment variables, and run the [build script](https://gitee.com/mindspore/mindspore-lite/blob/r2.7/mindspore-lite/examples/cloud_infer/quick_start_parallel_java/build.sh) in the `mindspore-lite/examples/quick_start_parallel_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
 
 ```bash
 export JAVA_HOME=/{path}/default-java
@@ -106,7 +106,7 @@ After the build, go to the `mindspore-lite/examples/cloud_infer/quick_start_para
 java -classpath .:./quick_start_parallel_java.jar:../lib/runtime/lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.mindir
 ```
 
-After the execution is completed, it will show the model concurrent inference success.
+After the execution is completed, it will show that the model concurrent inference was successful.
 
 ## Memory release
 
