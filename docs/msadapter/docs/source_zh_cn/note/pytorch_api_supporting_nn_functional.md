@@ -8,7 +8,7 @@
 |-------|-------|---------|
 |[conv1d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv1d.html)|Beta|支持数据类型：fp16、fp32|
 |[conv2d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv2d.html)|Beta|支持数据类型：bf16、fp16、fp32|
-|[conv3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv3d.html)|Not Support|N/A|
+|[conv3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv3d.html)|Stable|N/A|
 |[conv_transpose1d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv_transpose1d.html)|Not Support|N/A|
 |[conv_transpose2d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv_transpose2d.html)|Demo|不支持CPU平台|
 |[conv_transpose3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.conv_transpose3d.html)|Not Support|N/A|
@@ -24,7 +24,7 @@
 |[avg_pool3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.avg_pool3d.html)|Not Support|N/A|
 |[max_pool1d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.max_pool1d.html)|Beta|N/A|
 |[max_pool2d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.max_pool2d.html)|Stable|N/A|
-|[max_pool3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.max_pool3d.html)|Not Support|N/A|
+|[max_pool3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.max_pool3d.html)|Stable|N/A|
 |[max_unpool1d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.max_unpool1d.html)|Not Support|N/A|
 |[max_unpool2d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.max_unpool2d.html)|Not Support|N/A|
 |[max_unpool3d](https://pytorch.org/docs/2.1/generated/torch.nn.functional.max_unpool3d.html)|Not Support|N/A|
@@ -44,7 +44,7 @@
 
 |API名称|API状态|限制与说明|
 |-------|-------|---------|
-|[scaled_dot_product_attention](https://pytorch.org/docs/2.1/generated/torch.nn.functional.scaled_dot_product_attention.html)|Not Support|N/A|
+|[scaled_dot_product_attention](https://pytorch.org/docs/2.1/generated/torch.nn.functional.scaled_dot_product_attention.html)|Beta|N/A|
 
 ## Non-linear activation functions
 
@@ -89,7 +89,7 @@
 |[instance_norm](https://pytorch.org/docs/2.1/generated/torch.nn.functional.instance_norm.html)|Not Support|N/A|
 |[layer_norm](https://pytorch.org/docs/2.1/generated/torch.nn.functional.layer_norm.html)|Stable|支持数据类型：bf16、fp16、fp32|
 |[local_response_norm](https://pytorch.org/docs/2.1/generated/torch.nn.functional.local_response_norm.html)|Not Support|N/A|
-|[rms_norm](https://pytorch.org/docs/2.1/generated/torch.nn.functional.rms_norm.html)|Not Support|N/A|
+|[rms_norm](https://pytorch.org/docs/2.1/generated/torch.nn.functional.rms_norm.html)|Beta|N/A|
 |[normalize](https://pytorch.org/docs/2.1/generated/torch.nn.functional.normalize.html)|Beta|不支持out出参；支持数据类型：bf16、fp16、fp32|
 
 ## Linear functions

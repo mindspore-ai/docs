@@ -4,62 +4,11 @@
 
 本文介绍MindSpore和PyTorch实现上的主要区别：
 
-1. 微分机制
-2. Dispatch机制
-3. Storage机制
-4. 静态编译机制
+1. Dispatch机制
+2. Storage机制
+3. 静态编译机制
 
 这些机制的不同，导致用户需要手动修改代码，或者部分功能暂时不支持。
-
-## 微分机制
-
-PyTorch 使用的是动态计算图，运算在代码执行时立即计算，正反向计算图在每次前向传播时动态构建。PyTorch微分为命令式反向微分，更符合面对对象编程的使用习惯。
-
-MindSpore使用函数式自动微分的设计理念，提供更接近于数学语义的自动微分接口。MindSpore的微分可以简单理解为函数包装了一个模型，接口是一个函数，而PyTorch的接口是模型。
-
-详情参考[MindSpore函数式微分](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html)。
-
-由于两者底层设计的不同，MSAdapter不支持以下相关接口：
-
-- torch.Tensor.backward()
-- torch.autograd.*
-
-部分相关接口PyTorch原始用法如下：
-
-```python
-loss.backward()
-```
-
-```python
-loss.backward(gradient_tensor)
-```
-
-由于计算图的实现差异（包含命令式微分与函数式微分的差异），**原始正向计算以及反向计算需要用户手动进行如下修改**：
-
-原始PyTorch写法：
-
-```python
-outputs = model(inputs)
-loss = criterion(outputs, labels)
-loss.backward()
-```
-
-MSAdapter修改后的写法：
-
-```python
-import mindspore
-def forward_fn(inputs, labels):
-    outputs = model(inputs)
-    loss = criterion(outputs, labels)
-    return loss
-grad_fn = mindspore.value_and_grad(forward_fn, None, weights=model.trainable_params())
-
-loss, grads = grad_fn(inputs, labels)
-```
-
-mindspore.value_and_grad的第二个参数为grad_position，定义对于哪些输入进行求导。当用户设置为None的时候必须定义weights。详细定义可以参考[mindspore.value_and_grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.value_and_grad.html)。
-
-MSAdapter只需要调用grad_fn就能够一次性调用正向计算加反向计算。
 
 ## Dispatch机制
 

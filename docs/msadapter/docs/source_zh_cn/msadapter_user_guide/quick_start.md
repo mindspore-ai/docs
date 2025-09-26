@@ -6,13 +6,8 @@
 
 模型适配详细步骤如下：
 
-1. 导入依赖包
-2. 模型定义
-3. 参数解析
-4. 数据下载与预处理
-5. 模型构建
-6. 定义损失函数
-7. 训练
+1. 使能MSAdapter
+2. 训练
 
 ## PyTorch用例
 
@@ -86,11 +81,16 @@ if __name__ == "__main__":
 
 接下来，对应PyTorch的完整流程，说明如何使用MSAdapter完成相同的任务。
 
-### 1. 导入依赖包
+### 1. 使能MSAdapter
 
-MSAdapter已经兼容PyTorch的各类子模块，无需修改。
+MSAdapter已经兼容PyTorch的各类子模块，这里使能MSAdapter有两种方式第一种是微调脚本切换后端，第二种是环境变量切换。
+
+#### 1.1 微调脚本切换后端
+
+这种方式的前提是我们已经安装了MSAdapter，具体安装流程可以参考安装章节。需要在脚本前加一行，来切换后端，具体修改如下：
 
 ```python
+import msadapter # 改为mindspore后端执行
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -98,207 +98,18 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 ```
 
-### 2. 模型定义
+#### 1.2 环境变量切换
 
-MSAdapter已经兼容torch.nn.Module，无需修改。
+这种方式要求我们下载源码，将源码路径加入到环境变量中来使能MSAdapter流程。
 
-```python
-class ToyModel(nn.Module):
-    def __init__(self):
-        super(ToyModel, self).__init__()
-        self.net1 = nn.Linear(784, 64)
-        self.relu = nn.ReLU()
-        self.net2 = nn.Linear(64, 10)
-    def forward(self, x):
-        return self.net2(self.relu(self.net1(x)))
+```bash
+export PYTHONPATH=${work_dir}/msadapter/:$PYTHONPATH
+export PYTHONPATH=${work_dir}/msadapter/msa_thirdparty:$PYTHONPATH
 ```
 
-### 3. 参数解析
+### 2. 训练
 
-argparse是常规Python，与深度学习无关，无需修改。
-
-### 4. 数据下载与预处理
-
-MSAdapter已经兼容基础数据集相关接口，无需修改。
-
-```python
-def data_process(inputs, labels):
-    inputs = inputs.view(inputs.size(0), -1)
-    return inputs, labels
-
-# 预处理函数
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
-])
-train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
-# 加载数据集
-train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
-```
-
-### 5. 模型构建
-
-MSAdapter在torch.nn.Module.to()调用上与PyTorch有差别。
-
-```python
-model = ToyModel().to('cuda')
-```
-
-由于MSAdapter暂时不支持torch.nn.Module.to接口，需要转换为如下方式，MSAdapter默认将模型放置于NPU上。若用户希望将模型或者张量搬运至CPU，则需要调用.cpu()接口。
-
-修改如下：
-
-```python
-model = ToyModel()
-```
-
-### 6. 定义损失函数
-
-MSAdapter的损失函数使用方式与PyTorch一致，无需修改。
-
-```python
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
-```
-
-### 7. 训练
-
-MSAdapter在torch.Tensor.to()、正向计算、反向微分计算的调用上与PyTorch有差别，需要修改代码。
-
-```python
-for epoch in range(args.epochs):
-    model.train()
-    for inputs, labels in train_loader:
-        inputs, labels = data_process(inputs, labels)
-        inputs, labels = inputs.to('cuda'), labels.to('cuda')  # Tensor.to()问题
-        optimizer.zero_grad()
-        outputs = model(inputs) # 前向调用不同
-        loss = criterion(outputs, labels).to('cuda') # Tensor.to()问题
-        loss.backward() # 反向调用不同
-        optimizer.step()
-        step += 1
-```
-
-#### torch.Tensor.to()
-
-与步骤5类似，由于MSAdapter暂时不支持torch.nn.Tensor.to接口，需要转换为如下方式。注意：MSAdapter默认将模型放置于NPU上。
-
-```python
-inputs, labels = inputs.to('cuda'), labels.to('cuda')
-loss = criterion(outputs, labels).to('cuda')
-```
-
-修改如下：
-
-```python
-# inputs, labels无需显示指定NPU
-loss = criterion(outputs, labels)
-```
-
-#### 前向与反向计算
-
-由于MSAdapter使用了函数式微分，正向反向计算均要调用函数，所以需要将PyTorch模型封装为函数。用户除了修改代码，还需要导入MindSpore。
-
-```python
-outputs = model(inputs) # 前向调用不同
-loss = criterion(outputs, labels).to('cuda') # Tensor.to()问题不在此重述
-loss.backward() # 反向调用不同
-```
-
-修改如下：
-
-1. 预定义正向计算函数和反向计算函数
-
-    ```python
-    import mindspore
-    def forward_fn(inputs, labels):
-        outputs = model(inputs)
-        loss = criterion(outputs, labels)
-        return loss
-    grad_fn = mindspore.value_and_grad(forward_fn, None, weights=model.trainable_params())
-    ```
-
-2. 替换原始的PyTorch计算过程
-
-    ```python
-    loss, grads = grad_fn(inputs, labels)
-    ```
-
-## MSAdapter适配后代码
-
-此处提供MSAdapter可运行的代码：
-
-```python
-import argparse
-import torch
-import torch_npu
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-import mindspore
-
-class ToyModel(nn.Module):
-    def __init__(self):
-        super(ToyModel, self).__init__()
-        self.net1 = nn.Linear(784, 64)
-        self.relu = nn.ReLU()
-        self.net2 = nn.Linear(64, 10)
-
-    def forward(self, x):
-        return self.net2(self.relu(self.net1(x)))
-
-def parse_args():
-    parser = argparse.ArgumentParser(description="command line arguments")
-    parser.add_argument('--batch_size', type=int, default=64)
-    parser.add_argument('--epochs', type=int, default=1)
-    parser.add_argument('--learning_rate', type=float, default=0.0001)
-    return parser.parse_args()
-
-def data_process(inputs, labels):
-    inputs = inputs.view(inputs.size(0), -1)
-    return inputs, labels
-
-def main():
-    # 获取传参
-    args = parse_args()
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))
-    ])
-    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
-    # 加载数据集
-    train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
-    # 将模型转移到NPU上
-    model = ToyModel()
-    # 定义损失函数
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
-    step = 0
-
-    def forward_fn(inputs, labels):
-        outputs = model(inputs)
-        loss = criterion(outputs, labels)
-        return loss
-    grad_fn = mindspore.value_and_grad(forward_fn, None, weights=model.trainable_params())
-
-    for epoch in range(args.epochs):
-        model.train()
-        for inputs, labels in train_loader:
-            # 数据预处理，将数据集的数据转成需要的shape
-            inputs, labels = data_process(inputs, labels)
-
-            optimizer.zero_grad()
-            loss, grads = grad_fn(inputs, labels)
-            optimizer.step()
-
-            # 添加每个step的打印，用户可自行修改
-            print(f"step = {step}, loss : {loss}")
-            step += 1
-
-if __name__ == "__main__":
-    main()
-```
+当前MSAdapter微分机制这部分已与torch对齐，无需用户去做调整。根据使能MSAdapter章节的修改即可拉起训练。
 
 ## loss对比
 

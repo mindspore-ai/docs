@@ -129,56 +129,6 @@ Dataloader中的pin_memory参数仅支持设置为False
             return data.pin_memory(device)
     TypeError: pin_memory() takes 1 positional argument but 2 were given
 
-不支持tensor.backward()操作
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-示例代码：
-
-.. code-block::
-
-    import torch
-    x = torch.randn(2,)
-    x.backward()
-
-报错信息如下：
-
-.. code-block::
-
-    Traceback (most recent call last):
-        File "/path/to/your/demo.py", line XX, in <module>
-            x.backward()
-        File "/path/to/your/torch/_tensor.py", line 325, in backward
-            raise ValueError('not support Tensor.backward yet.')
-    ValueError: not support Tensor.backward yet.
-
-不支持to(device)操作
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-示例代码：
-
-.. code-block::
-
-    import torch
-    x = torch.randn(2,)
-    device = "cuda"
-    x.to(device)
-
-报错信息如下：
-
-.. code-block::
-
-    Traceback (most recent call last):
-        File "/path/to/your/demo.py", line XX, in <module>
-            x.to(device)
-        File "/path/to/your/mindspore/common/tensor.py", line 3018, in to
-            return self if self.dtype == dtype else self._to(dtype)
-    TypeError: _to(): argument 'dtype' (position 1) must be mstype, not str.
-
-    ----------------------------------------------------
-    - C++ Call Stack: (For framework developers)
-    ----------------------------------------------------
-    mindspore/ccsrc/pynative/op_function/converter.cc:657 Parse
-
 MindSpore导出的ckpt文件无法被直接加载到PyTorch模型中
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

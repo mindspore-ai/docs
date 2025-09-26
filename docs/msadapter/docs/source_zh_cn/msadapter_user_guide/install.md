@@ -18,8 +18,8 @@ pip install mindspore
 - 如果用户希望直接使用源码，设置如下环境环境变量：
 
     ``` bash
-    git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
-    export $PYTHONPATH=your_workspace/MSAdapter/mindtorch
+    export PYTHONPATH=${your_workspace}/msadapter/:$PYTHONPATH
+    export PYTHONPATH=${your_workspace}/msadapter/msa_thirdparty:$PYTHONPATH
     ```
 
     其中，your_workspace是git clone下载的目录。此方法不会影响用户的PyTorch使用。
@@ -27,9 +27,12 @@ pip install mindspore
 - 如果用户希望以Python安装包编译的形式使用，进入MSAdapter目录，进行源码编译操作：
 
     ```bash
-    git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
-    cd MSAdapter
-    pip install .
+    git clone https://gitee.com/mindspore/msadapter.git
+    cd msadapter
+    bash scripts/build.sh
+    pip install ${your_workspace}/msadapter/dist/*.whl
+    export PYTHONPATH=/*/site-packages/msa_thirdparty:$PYTHONPATH
+    # /*/site-packages 指python环境下的安装包路径，可以使用pip show msadapter获取。
     ```
 
     直接安装会覆盖原始PyTorch的使用，如果希望同时使用PyTorch和MSAdapter，可以考虑直接使用源码。
