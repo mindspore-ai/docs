@@ -4,7 +4,7 @@
 
 本文档将为用户介绍模型量化与量化推理的方法。量化方法通过牺牲部分模型精度的方式，达到降低模型部署时的资源需求的目的，并提升模型部署时的性能，从而允许模型被部署到更多的设备上。由于大语言模型的规模较大，出于成本考虑，训练后量化成为主流模型量化方案，具体可以参考[后量化技术简介](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/README_CN.md)。
 
-本文档中，[创建量化模型](#创建量化模型)章节，将以[DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1)为例，介绍模型后量化的步骤；[量化模型推理](#量化模型推理)章节，介绍如何使用量化模型进行推理。
+本文档中，[创建量化模型](#创建量化模型)章节将以[DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1)为例，介绍模型后量化的步骤；[量化模型推理](#量化模型推理)章节介绍如何使用量化模型进行推理。
 
 ## 创建量化模型
 
@@ -31,7 +31,7 @@ export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model b
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-关于DeepSeek-R1 W8A8量化推理的yaml文件，可以使用[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
+关于DeepSeek-R1 W8A8量化推理的YAML文件，可以使用[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml)。
 
 环境准备完成后，用户可以使用如下Python代码，进行离线推理服务：
 
