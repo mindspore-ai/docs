@@ -2,11 +2,11 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/profiling/profiling.md)
 
-vLLM-MindSpore插件支持使用`mindspore.Profiler`模块，跟踪vLLM-MindSpore插件中worker的性能。用户可以根据[采集profiling数据](#采集profiling数据)章节，在完成数据采集后，根据[分析profiling数据](#分析profiling数据)，进行数据分析。另一方面，用户可以根据[图数据dump](#图数据dump)，查看模型的IR图，从而进行对模型结构的分析与调试。
+vLLM-MindSpore插件支持使用`mindspore.Profiler`模块，跟踪vLLM-MindSpore插件中worker的性能。用户可以根据[采集profiling数据](#采集profiling数据)章节完成数据采集，然后根据[分析profiling数据](#分析profiling数据)进行数据分析。另一方面，用户可以根据[图数据dump](#图数据dump)查看模型的IR图，从而进行模型结构的分析与调试。
 
 ## 采集profiling数据
 
-用户开启profiling数据的采集，需要将`VLLM_TORCH_PROFILER_DIR`环境变量，设置为跟踪结果的保存目录，来开启跟踪功能。如果多机推理，在组网前每台机器都需要设置该变量：
+用户开启profiling数据的采集，需要将`VLLM_TORCH_PROFILER_DIR`环境变量设置为跟踪结果的保存目录，来开启跟踪功能。如果多机推理，在组网前每台机器都需要设置该变量：
 
 ```bash
 export VLLM_TORCH_PROFILER_DIR=/path/to/save/vllm_profile
@@ -30,7 +30,7 @@ INFO: Waiting for application startup.
 INFO: Application startup complete.
 ```
 
-在服务成功启动后，用户可通过以下命令，发送请求，执行一次profiling采集：
+在服务成功启动后，用户可通过以下命令发送请求，执行一次profiling采集：
 
 ```shell
 # Request for starting profiling
@@ -58,7 +58,7 @@ Parsing: [####################] 3/3 Done
 
 ## 分析profiling数据
 
-`VLLM_TORCH_PROFILER_DIR`指向的目录保存profiling结果，该目录下存在多个以`ascend_ms`为后缀结尾的子目录夹。一个子文件夹保存了一个worker的profiling结果。子文件夹中各文件作用可参考[Ascend性能调优](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/debug/profiler.html)。
+`VLLM_TORCH_PROFILER_DIR`指向的目录保存profiling结果，该目录下存在多个以`ascend_ms`为后缀的子文件夹。一个子文件夹保存了一个worker的profiling结果。子文件夹中各文件作用可参考[Ascend性能调优](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/debug/profiler.html)。
 
 用户可选择一个子文件夹进行一个worker的性能分析：
 

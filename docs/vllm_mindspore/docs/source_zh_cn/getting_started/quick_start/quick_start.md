@@ -6,7 +6,7 @@
 
 ## docker安装
 
-在本章节中，我们推荐用docker创建的方式，以快速部署vLLM-MindSpore插件环境，以下是部署docker的步骤介绍：
+在本章节中，我们推荐使用docker创建方式，快速部署vLLM-MindSpore插件环境。以下是部署docker的步骤介绍：
 
 ### 构建镜像
 
@@ -24,7 +24,7 @@ Successfully built e40bcbeae9fc
 Successfully tagged vllm_ms_20250726:latest
 ```
 
-其中，`e40bcbeae9fc`为镜像id，`vllm_ms_20250726:latest`为镜像名与tag。用户可执行以下命令，确认docker镜像创建成功：
+其中，`e40bcbeae9fc`为镜像ID，`vllm_ms_20250726:latest`为镜像名与tag。用户可执行以下命令，确认docker镜像创建成功：
 
 ```bash
 docker images
@@ -82,7 +82,7 @@ docker exec -it $DOCKER_NAME bash
 
 ## 使用服务
 
-用户在环境部署完毕后，在运行模型前，需要准备模型文件，用户可通过[下载模型](#下载模型)章节的指引作模型准备，在[设置环境变量](#设置环境变量)后，可采用[离线推理](#离线推理)或[在线推理](#在线推理)的方式，进行模型体验。
+用户在环境部署完毕后，运行模型前需要准备模型文件。用户可通过[下载模型](#下载模型)章节的指引进行模型准备。在[设置环境变量](#设置环境变量)后，可采用[离线推理](#离线推理)或[在线推理](#在线推理)的方式进行模型体验。
 
 ### 下载模型
 
@@ -90,7 +90,7 @@ docker exec -it $DOCKER_NAME bash
 
 #### Python工具下载
 
-执行以下 Python 脚本，从[Huggingface Face社区](https://huggingface.co/)下载 [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 权重及文件：
+执行以下 Python 脚本，从[Hugging Face社区](https://huggingface.co/)下载[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)权重及文件：
 
 ```python
 from huggingface_hub import snapshot_download
@@ -102,7 +102,7 @@ snapshot_download(
 )
 ```
 
-其中`local_dir`为模型保存路径，由用户指定，请确保该路径下有足够的硬盘空间。
+其中，`local_dir`为模型保存路径，由用户指定，请确保该路径下有足够的硬盘空间。
 
 #### git-lfs工具下载
 
@@ -120,7 +120,7 @@ Git LFS initialized.
 
 若工具不可用，则需要先安装[git-lfs](https://git-lfs.com)，可参考[FAQ](../../faqs/faqs.md)章节中关于[git-lfs安装](../../faqs/faqs.md#git-lfs安装)的阐述。
 
-工具确认可用后，执行以下命令，下载权重：
+工具确认可用后，执行以下命令下载权重：
 
 ```bash
 git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
@@ -128,7 +128,7 @@ git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 
 ### 设置环境变量
 
-用户在拉起模型前，需设置以下环境变量：
+用户在启动模型前，需设置以下环境变量：
 
 ```bash
 export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
@@ -138,15 +138,13 @@ export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Tra
 以下是对上述环境变量的解释：
 
 - `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../user_guide/supported_models/models_list/models_list.md)中进行查询；
-- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/qwen2_5)中，找到对应模型的yaml文件。以Qwen2.5-7B为例，则其yaml文件为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)。
+- `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/qwen2_5)中，找到对应模型的YAML文件。以Qwen2.5-7B为例，其YAML文件为[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)。
 
-另外，用户需要确保MindSpore Transformers已安装。用户可通过
+另外，用户需要确保MindSpore Transformers已安装。用户可通过以下方式引入MindSpore Transformers：
 
 ```bash
 export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
 ```
-
-以引入MindSpore Tranformers。
 
 ### 离线推理
 
@@ -188,17 +186,17 @@ Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compost
 
 ### 在线推理
 
-vLLM-MindSpore插件可使用OpenAI的API协议，进行在线推理部署。以下是以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) 为例，介绍模型的[启动服务](#启动服务)，并[发送请求](#发送请求)，得到在线推理的推理结果。
+vLLM-MindSpore插件可使用OpenAI的API协议，进行在线推理部署。以下以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，介绍模型的[启动服务](#启动服务)和[发送请求](#发送请求)，得到在线推理的推理结果。
 
 #### 启动服务
 
-使用模型`Qwen/Qwen2.5-7B-Instruct`，并用如下命令拉起vLLM服务：
+使用模型`Qwen/Qwen2.5-7B-Instruct`，执行如下命令启动vLLM服务：
 
 ```bash
 python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-7B-Instruct"
 ```
 
-用户可以通过`--model`参数，指定模型保存的本地路径。若服务成功拉起，则可以获得类似的执行结果：
+用户可以通过`--model`参数，指定模型保存的本地路径。若服务成功启动，则可以获得类似的执行结果：
 
 ```text
 INFO:   Started server process [6363]
@@ -206,7 +204,7 @@ INFO:   Waiting for application startup.
 INFO:   Application startup complete.
 ```
 
-另外，日志中还会打印出服务的性能数据信息，如：
+另外，日志中还会打印服务的性能数据信息，如：
 
 ```text
 Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
@@ -214,13 +212,13 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 
 
 #### 发送请求
 
-使用如下命令发送请求。其中`prompt`字段为模型输入：
+使用如下命令发送请求。其中，`prompt`字段为模型输入：
 
 ```bash
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
 ```
 
-其中，用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
+其中，用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
 
 ```text
 {

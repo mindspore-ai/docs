@@ -2,15 +2,15 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.0/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
 
-vLLM-MindSpore插件支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理，不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。
+vLLM-MindSpore插件支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理。不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。
 
-本文档将以DeepSeek R1 671B W8A8为例介绍[张量并行](#tp16-张量并行推理)及[混合并行](#混合并行推理)推理流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理模型。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。
+本文档将以DeepSeek R1 671B W8A8为例，介绍[张量并行](#tp16-张量并行推理)及[混合并行](#混合并行推理)推理流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。
 
 用户可通过以下[docker安装](#docker安装)章节进行环境配置。
 
 ## docker安装
 
-在本章节中，我们推荐用docker创建的方式，以快速部署vLLM-MindSpore插件环境。以下是部署docker的步骤介绍：
+在本章节中，我们推荐使用docker创建的方式，快速部署vLLM-MindSpore插件环境。以下是部署docker的步骤介绍：
 
 ### 构建镜像
 
@@ -28,7 +28,7 @@ Successfully built e40bcbeae9fc
 Successfully tagged vllm_ms_20250726:latest
 ```
 
-其中，`e40bcbeae9fc`为镜像id，`vllm_ms_20250726:latest`为镜像名与tag。用户可执行以下命令，确认docker镜像创建成功：
+其中，`e40bcbeae9fc`为镜像ID，`vllm_ms_20250726:latest`为镜像名与tag。用户可执行以下命令，确认docker镜像创建成功：
 
 ```bash
 docker images
@@ -70,7 +70,7 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         bash
 ```
 
-新建容器后成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
+新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 
 ```bash
 docker ps
@@ -129,7 +129,7 @@ vLLM 通过 Ray 对多个节点资源进行管理和运行。该样例对应张�
 
 ### 设置环境变量
 
-环境变量必须设置在 Ray 创建集群前，且当环境有变更时，需要通过 `ray stop` 将主从节点集群停止，并重新创建集群，否则环境变量将不生效。
+环境变量必须设置在 Ray 创建集群前。当环境有变更时，需要通过 `ray stop` 将主从节点集群停止，并重新创建集群，否则环境变量将不生效。
 
 分别在主从节点配置如下环境变量：
 
@@ -149,13 +149,13 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/pre
 
 环境变量说明：
 
-- `GLOO_SOCKET_IFNAME`: GLOO后端端口。可通过`ifconfig`查找ip对应网卡的网卡名。
-- `HCCL_SOCKET_IFNAME`: 配置HCCL端口。可通过`ifconfig`查找ip对应网卡的网卡名。
-- `TP_SOCKET_IFNAME`: 配置TP端口。可通过`ifconfig`查找ip对应网卡的网卡名。
+- `GLOO_SOCKET_IFNAME`: GLOO后端端口。可通过`ifconfig`查找IP对应网卡的网卡名。
+- `HCCL_SOCKET_IFNAME`: 配置HCCL端口。可通过`ifconfig`查找IP对应网卡的网卡名。
+- `TP_SOCKET_IFNAME`: 配置TP端口。可通过`ifconfig`查找IP对应网卡的网卡名。
 - `MS_ENABLE_LCCL`: 关闭LCCL，使能HCCL通信。
 - `HCCL_OP_EXPANSION_MODE`: 配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
 - `MS_ALLOC_CONF`: 设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/env_var_list.html)。
-- `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
+- `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用的设备ID。用户可使用`npu-smi info`命令进行查询。
 - `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
 - `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml) 。
 
@@ -170,21 +170,19 @@ parallel_config:
   expert_parallel: 1
 ```
 
-另外，用户需要确保MindSpore Transformers已安装。用户可通过
+另外，用户需要确保MindSpore Transformers已安装。用户可通过以下命令引入MindSpore Transformers：
 
 ```bash
 export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
 ```
 
-以引入MindSpore Tranformers。
-
 ### 启动 Ray 进行多节点集群管理
 
-在 Ascend 上，需要额外安装 pyACL 包来适配 Ray。且所有节点的 CANN 依赖版本需要保持一致。
+在 Ascend 上，需要额外安装 pyACL 包来适配 Ray。所有节点的 CANN 依赖版本需要保持一致。
 
 #### 安装 pyACL
 
-pyACL (Python Ascend Computing Language) 通过 CPython 封装了 AscendCL 对应的 API 接口，使用接口可以管理 Ascend AI 处理器和对应的计算资源。
+pyACL（Python Ascend Computing Language）通过 CPython 封装了 AscendCL 对应的 API 接口，使用该接口可以管理 Ascend AI 处理器和对应的计算资源。
 
 在对应环境中，获取相应版本的 Ascend-cann-nnrt 安装包后，解压出 pyACL 依赖包并单独安装，并将安装路径添加到环境变量中：
 
@@ -201,13 +199,13 @@ export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPAT
 chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 ```
 
-在 Ascend 的首页中可以下载 Ascend 运行包。如, 可以下载 [8.0.RC1.beta1](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1) 对应版本的运行包。
+在 Ascend 的首页中可以下载 Ascend 运行包。例如，可以下载 [8.0.RC1.beta1](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1) 对应版本的运行包。
 
 #### 多节点间集群
 
-多节点集群管理前，需要检查各节点的 hostname 是否各异，如果存在相同的，需要通过 `hostname <new-host-name>` 设置不同的 hostname。
+多节点集群管理前，需要检查各节点的 hostname 是否各异。如果存在相同的，需要通过 `hostname <new-host-name>` 设置不同的 hostname。
 
-1. 启动主节点 `ray start --head --port=<port-to-ray>`，启动成功后，会提示从节点的连接方式。如在 ip 为 `192.5.5.5` 的环境中，通过 `ray start --head --port=6379`，提示如下：
+1. 启动主节点 `ray start --head --port=<port-to-ray>`。启动成功后，会提示从节点的连接方式。例如，在 IP 为 `192.5.5.5` 的环境中，通过 `ray start --head --port=6379`，提示如下：
 
     ```text
     Local node IP: 192.5.5.5
@@ -232,7 +230,7 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
     ```
 
 2. 从节点连接主节点 `ray start --address=<head_node_ip>:<port>`。
-3. 通过 `ray status` 查询集群状态，显示的NPU总数为节点总合，则表示集群成功。
+3. 通过 `ray status` 查询集群状态。显示的NPU总数为节点总和，则表示集群成功。
 
    当有两个节点，每个节点有8个NPU时，其结果如下：
 
@@ -264,7 +262,7 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 
 #### 启动服务
 
-vLLM-MindSpore插件可使用OpenAI的API协议，部署为在线推理。以下是在线推理的拉起流程。
+vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下是在线推理的启动流程。
 
 ```bash
 # 启动配置参数说明
@@ -273,10 +271,10 @@ vllm-mindspore serve
  --model=[模型Config/权重路径]
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
- --max-model-len [输出输出最大长度]
- --max-num-batched-tokens [单次迭代最大支持token数, 推荐4096]
- --block-size [Block Size 大小, 推荐128]
- --gpu-memory-utilization [显存利用率, 推荐0.9]
+ --max-model-len [输入输出最大长度]
+ --max-num-batched-tokens [单次迭代最大支持token数，推荐4096]
+ --block-size [Block Size 大小，推荐128]
+ --gpu-memory-utilization [显存利用率，推荐0.9]
  --tensor-parallel-size [TP 并行数]
 ```
 
@@ -287,7 +285,7 @@ vllm-mindspore serve
 vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```
 
-张量并行场景下，`--tensor-parallel-size`参数会覆盖模型yaml文件中`parallel_config`的`model_parallel`配置。用户可以通过`--model`参数，指定模型保存的本地路径。
+张量并行场景下，`--tensor-parallel-size`参数会覆盖模型YAML文件中`parallel_config`的`model_parallel`配置。用户可以通过`--model`参数，指定模型保存的本地路径。
 
 #### 发起请求
 
@@ -297,7 +295,7 @@ vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remot
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
 ```
 
-用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。
+用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。
 
 ## 混合并行推理
 
@@ -327,7 +325,7 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/research/deepseek3/deepseek_r1_671b/pre
 - `MS_ENABLE_LCCL`: 关闭LCCL，使能HCCL通信。
 - `HCCL_OP_EXPANSION_MODE`: 配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
 - `MS_ALLOC_CONF`: 设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html)。
-- `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
+- `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用的设备ID。用户可使用`npu-smi info`命令进行查询。
 - `vLLM_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
 - `MINDFORMERS_MODEL_CONFIG`：模型配置文件。用户可以在[MindSpore Transformers工程](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/deepseek3/deepseek_r1_671b)中，找到对应模型的yaml文件[predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8_ep4tp4.yaml)。
 
@@ -342,13 +340,13 @@ parallel_config:
   expert_parallel: 4
 ```
 
-`data_parallel`及`model_parallel`指定attn及ffn-dense部分的并行策略，`expert_parallel`指定moe部分路由专家并行策略，且需满足`data_parallel` * `model_parallel`可被`expert_parallel`整除。
+`data_parallel`及`model_parallel`指定attn及ffn-dense部分的并行策略，`expert_parallel`指定moe部分路由专家并行策略，且需满足`data_parallel` * `model_parallel`可被`expert_parallel`整除
 
 ### 在线推理
 
 #### 启动服务
 
-`vllm-mindspore`可使用OpenAI的API协议部署在线推理。以下是在线推理的拉起流程：
+`vllm-mindspore`可使用OpenAI的API协议部署在线推理。以下是在线推理的启动流程：
 
 ```bash
 # 启动配置参数说明
@@ -356,10 +354,10 @@ vllm-mindspore serve
  --model=[模型Config/权重路径]
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
- --max-model-len [输出输出最大长度]
- --max-num-batched-tokens [单次迭代最大支持token数, 推荐4096]
- --block-size [Block Size 大小, 推荐128]
- --gpu-memory-utilization [显存利用率, 推荐0.9]
+ --max-model-len [输入输出最大长度]
+ --max-num-batched-tokens [单次迭代最大支持token数，推荐4096]
+ --block-size [Block Size大小，推荐128]
+ --gpu-memory-utilization [显存利用率，推荐0.9]
  --tensor-parallel-size [TP 并行数]
  --headless # 仅从节点需要配置，表示不需要服务侧相关内容
  --data-parallel-size [DP 并行数]
@@ -385,7 +383,7 @@ vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --
 使用如下命令发送请求。其中`prompt`字段为模型输入：
 
 ```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am, "max_tokens": 120, "temperature": 0}'
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 120, "temperature": 0}'
 ```
 
-用户需确认`"model"`字段与启动服务中`--model`一致，请求才能成功匹配到模型。
+用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。
