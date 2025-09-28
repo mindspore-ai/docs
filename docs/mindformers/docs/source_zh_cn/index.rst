@@ -22,40 +22,12 @@ MindSpore Transformers的开源仓库地址为 `Gitee | MindSpore/mindformers <h
 
 MindSpore Transformers提供了统一的一键启动脚本，支持一键启动任意任务的单卡/多卡训练、微调、推理流程，它通过简化操作、提供灵活性和自动化流程，使得深度学习任务的执行变得更加高效和用户友好，用户可以通过以下说明文档进行学习：
 
-.. raw:: html
-
-   <table style="width: 100%">
-      <tr>
-         <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/full-process_1.png">
-         </td>
-         <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/full-process_2.png">
-         </td>
-         <td style="text-align: center; width: 20%; border: none">
-            <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/full-process_3.png">
-         </td>
-      </tr>
-      <tr>
-         <td style="text-align: center; width: 20%; border: none">
-            <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/pre_training.html"><span>预训练</span></a></li>
-            </ul>
-         </td>
-         <td style="text-align: center; width: 20%; border: none">
-            <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/supervised_fine_tuning.html"><span>SFT微调</span></a></li>
-            </ul>
-         </td>
-         <td style="text-align: center; width: 20%; border: none">
-            <ul style="text-align: left; display: inline-block;">
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/inference.html"><span>推理</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html"><span>服务化部署</span></a></li>
-                <li><a href="https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html"><span>评测</span></a></li>
-            </ul>
-         </td>
-      </tr>
-   </table>
+- `训练指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/llm_training.html>`_
+- `预训练实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/pre_training.html>`_
+- `监督微调实践 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/supervised_fine_tuning.html>`_
+- `推理指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/inference.html>`_
+- `服务化部署指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/deployment.html>`_
+- `评测指南 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/guide/evaluation.html>`_
 
 代码仓地址： <https://gitee.com/mindspore/mindformers>
 
@@ -128,10 +100,6 @@ MindSpore Transformers功能特性说明
 
 - 推理功能
 
-  - `评测 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/evaluation.html>`_
-
-    支持使用第三方开源评测框架和数据集进行大模型榜单评测。
-
   - `量化 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/quantization.html>`_
 
     集成 MindSpore Golden Stick 工具组件，提供统一量化推理流程开箱即用。
@@ -199,7 +167,7 @@ FAQ
    guide/supervised_fine_tuning
    guide/inference
    guide/deployment
-   guide/benchmarks
+   guide/evaluation
 
 .. toctree::
    :glob:

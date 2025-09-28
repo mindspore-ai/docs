@@ -1,4 +1,4 @@
-# SFT微调
+# 监督微调实践
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/supervised_fine_tuning.md)
 
@@ -6,11 +6,11 @@
 
 SFT（Supervised Fine-Tuning，监督微调）采用有监督学习思想，是指在预训练模型的基础上，通过调整部分或全部参数，使模型更适应特定任务或数据集的过程。
 
-MindSpore Transformers支持全参微调和LoRA高效微调两种SFT微调方式。全参微调是指在训练过程中对所有参数进行更新，适用于大规模数据精调，能获得最优的任务适应能力，但需要的计算资源较大。LoRA高效微调在训练过程中仅更新部分参数，相比全参微调显存占用更少、训练速度更快，但在某些任务中的效果不如全参微调。
+MindSpore Transformers支持全参微调和LoRA高效微调两种监督微调方式。全参微调是指在训练过程中对所有参数进行更新，适用于大规模数据精调，能获得最优的任务适应能力，但需要的计算资源较大。LoRA高效微调在训练过程中仅更新部分参数，相比全参微调显存占用更少、训练速度更快，但在某些任务中的效果不如全参微调。
 
-## SFT微调的基本流程
+## 监督微调的基本流程
 
-结合实际操作，可以将SFT微调分解为以下步骤：
+结合实际操作，可以将监督微调分解为以下步骤：
 
 ### 1. 权重准备
 
