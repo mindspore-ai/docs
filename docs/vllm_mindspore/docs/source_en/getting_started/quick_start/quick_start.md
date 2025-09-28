@@ -131,13 +131,13 @@ git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 Before launching the model, user need to set the following environment variables:  
 
 ```bash  
-export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.  
+export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.  
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.  
 ```  
 
 Here is an explanation of these environment variables:  
 
-- `vLLM_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](../../user_guide/supported_models/models_list/models_list.md).  
+- `VLLM_MS_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: The model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5). For Qwen2.5-7B, the YAML file is [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml).
 
 Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
