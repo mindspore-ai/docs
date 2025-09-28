@@ -120,11 +120,11 @@ MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all
         "op_debug_mode": 0,
         "dump_mode": 0,
         "path": "/absolute_path",
-        "net_name": "ResNet50",
+        "net_name": "Qwen3",
         "iteration": "0|5-8|100-120",
         "saved_data": "tensor",
         "input_output": 0,
-        "kernels": ["Default/Conv-op12"],
+        "kernels": ["Default"],
         "support_device": [0,1,2,3,4,5,6,7]
     },
     "e2e_dump_settings": {
@@ -147,6 +147,8 @@ After setting the environment variables, start the program training to get the c
 ### Other Introductions
 
 In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/tutorials/en/master/debug/dump.html) for configuration and use. In addition, the msprobe precision debugging tool is provided. msprobe is a tool package under the precision debugging component of the MindStudio Training Tools suite. It mainly includes functions such as precision pre-check, overflow detection, and precision comparison. For more information, refer to [msprobe User Guide](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe).
+
+When **deterministic computation** is enabled or the **Dump** feature is used, the training **performance** will significantly degrade. This may cause larger training steps and slower execution, which is expected behavior.
 
 ## Generalized Processes for Precision Positioning
 
@@ -217,7 +219,7 @@ The training process fixes randomness and turns on deterministic computation in 
       torch.cuda.manual_seed_all(seed)
       torch.cuda.manual_seed(seed)
       torch.backends.cudnn.deterministic = True
-      torch.backends.cudnn.enable = False
+      torch.backends.cudnn.enabled = False
       torch.backends.cudnn.benchmark = False
 
   if __name__ == "__main__":
@@ -254,7 +256,7 @@ By comparing the loss and local norm of the first step (step1) and the second st
 
 #### Comparison of Step1 Losses
 
-After fixing the weights, dataset, and randomness, the difference in the loss value of the first step of training is compared. The loss value of the first step is obtained from the forward computation of the network. If the difference with the benchmark loss is large, it can be determined that there is an precision difference in the forward computation, which may be due to the model structure is not aligned, and the precision of the operator is abnormal. The tensor values of each layer of MindSpore and PyTorch can be obtained by printing or Dump tool. The degree of difference between input and output data on both sides can be initially judged based on statistical information such as max, min, and L2Norm. If further comparison is required, the corresponding real data can be loaded for detailed verification. 
+After fixing the weights, dataset, and randomness, the difference in the loss value of the first step of training is compared. The loss value of the first step is obtained from the forward computation of the network. If the difference with the benchmark loss is large, it can be determined that there is an precision difference in the forward computation, which may be due to the model structure is not aligned, and the precision of the operator is abnormal. The tensor values of each layer of MindSpore and PyTorch can be obtained by printing or Dump tool. The degree of difference between input and output data on both sides can be initially judged based on statistical information such as max, min, and L2Norm. If further comparison is required, the corresponding real data can be loaded for detailed verification.
 
 In graph mode, it is recommended to adopt a "from coarse to fine" hierarchical localization strategy. By conducting hierarchical and progressive troubleshooting from the module level to the operator level, the efficiency of locating precision issues can be improved:
 
@@ -263,9 +265,9 @@ In graph mode, it is recommended to adopt a "from coarse to fine" hierarchical l
 
 Currently, the msprobe accuracy analysis tool provides hierarchical data collection and comparison capabilities, effectively supporting the localization of such issues. Relevant operations can refer to the following documents:
 
-- [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
-- [msprobe Tool PyTorch Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
-- [Accuracy comparison of MindSpore scenarios](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
+* [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
+* [msprobe Tool PyTorch Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
+* [Accuracy comparison of MindSpore scenarios](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
 
 #### Comparison of local norm Values for step1
 
