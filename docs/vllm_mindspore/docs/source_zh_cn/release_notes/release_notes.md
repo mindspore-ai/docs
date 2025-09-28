@@ -23,12 +23,12 @@ vLLM MindSpore插件0.3.0版本，配套vLLM 0.8.3版本。以下为此版本支
     - [测试中] Qwen2.5-VL：3B、7B、32B、72B；
 - Qwen3 系列模型：
     - [已支持] Qwen3：32B；Qwen3-MOE：235B-A22B；
-    - [测试中] Qwen3：0.6B、1.7B、4B、8B、14B；Qwen3-MOE：Qwen3-30B-A3
+    - [测试中] Qwen3：0.6B、1.7B、4B、8B、14B；Qwen3-MOE：Qwen3-30B-A3；
 - QwQ 系列模型：
-    - [测试中] QwQ：32B
+    - [测试中] QwQ：32B；
 - Llama 系列模型：
-    - [测试中] Llama3.1：8B、70B、405B
-    - [测试中] Llama3.2：1B、3B
+    - [测试中] Llama3.1：8B、70B、405B；
+    - [测试中] Llama3.2：1B、3B；
 
 ### 贡献者
 

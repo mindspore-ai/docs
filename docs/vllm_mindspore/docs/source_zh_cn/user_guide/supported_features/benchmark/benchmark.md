@@ -13,7 +13,7 @@ export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model back
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-并以下命令启动在线推理：
+使用以下命令启动在线推理：
 
 ```bash
 vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests
@@ -35,7 +35,7 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
 
-拉取vLLM代码仓，导入vLLM-MindSpore插件，复用其中benchmark功能：
+拉取vLLM代码仓库，导入vLLM-MindSpore插件，复用其中的benchmark功能：
 
 ```bash
 export VLLM_BRANCH=v0.8.3
@@ -106,7 +106,7 @@ export vLLM_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model back
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-并拉取vLLM代码仓，导入vLLM-MindSpore插件，复用其中benchmark功能：
+并拉取vLLM代码仓库，导入vLLM-MindSpore插件，复用其中的benchmark功能：
 
 ```bash
 export VLLM_BRANCH=v0.8.3
@@ -117,7 +117,7 @@ sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
 
 其中，`VLLM_BRANCH`为vLLM的分支名，其需要与vLLM-MindSpore插件相配套。配套关系可以参考[这里](../../../getting_started/installation/installation.md#版本配套)。
 
-用户可通过以下命令，运行测试脚本。该脚本将启动模型，并执行测试，用户不需要再拉起模型：
+用户可通过以下命令运行测试脚本。该脚本将启动模型并执行测试，用户无需额外启动模型：
 
 ```bash
 python3 benchmarks/benchmark_throughput.py \  
