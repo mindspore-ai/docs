@@ -284,7 +284,7 @@ int SpecifyInputDataExample(const std::string &model_path, const std::string &de
 
 ## Compilation and Execution
 
-Set the environment variables as described in the Environment Variables section in [quick start](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91), and then compile the prograom as follows:
+Set the environment variables as described in the Environment Variables section in [quick start](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91), and then compile the program as follows:
 
 ```bash
 mkdir build && cd build
@@ -313,7 +313,7 @@ Lite cloud-side inference framework supports dynamic shape input for models. Asc
 
 The configuration of dynamic input information is related to offline and online scenarios. For offline scenarios, the model conversion tool parameter `--optimize=general` or `--optimize=ascend_oriented`, i.e. experiencing the hardware-related fusion and optimization. The generated MindIR model can only run on the corresponding hardware backend. For example, in Atlas 200/300/500 inference product environment, if the model conversion tool specifies `--optimize=ascend_oriented`, the generated model will only support running on Atlas 200/300/500 inference product. If `--optimize=general` is specified, running on CPU is supported. For online scenarios, the loaded MindIR has not experienced hardware-related fusion and optimization, supports running on Ascend and CPU. The model conversion tool parameter `--optimize=none`, or the MindSpore-exported MindIR model has not been processed by the conversion tool.
 
-Ascend hardware backend offline scenarios require dynamic input information to be configured during the model conversion phase. Ascend hardware backend online scenarios require dynamic input information to be configured during the model loading phase via the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html# loadconfig) interface.
+Ascend hardware backend offline scenarios require dynamic input information to be configured during the model conversion phase. Ascend hardware backend online scenarios require dynamic input information to be configured during the model loading phase via the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#loadconfig) interface.
 
 An example configuration file loaded via `LoadConfig` is shown below:
 
@@ -576,7 +576,7 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
-In the configuration file, the options from `[ge_global_options]`, `[ge_sesion_options]` and `[ge_graph_options]` will be used as global, session and model (graph) level options for the GE interface. For details, please refer to [GE Options](https://www.hiascend.com/document/detail/zh/canncommercial/700/inferapplicationdev/graphdevg/atlasgeapi_07_0119.html). For example:
+In the configuration file, the options from `[ge_global_options]`, `[ge_session_options]` and `[ge_graph_options]` will be used as global, session and model (graph) level options for the GE interface. For details, please refer to [GE Options](https://www.hiascend.com/document/detail/zh/canncommercial/700/inferapplicationdev/graphdevg/atlasgeapi_07_0119.html). For example:
 
 ```ini
 [ge_global_options]
@@ -600,7 +600,7 @@ When the backend is Ascend and the provider is the default, it supports loading 
 
 In the Ascend device GE scenario, a single device can deploy multiple models, and models deployed in the same device can share weights, including constants and variables.
 
-The same model script can export different models with the same weights for different conditional branches or input shapes. During the inference process, some weights can no longer be updated and are parsed as constants, where multiple models will have the same constant weights, while some weights may be updated and are parsed as variables. If one model updates one weight, the modified weight can be use and updated in the next inference or by other models.
+The same model script can export different models with the same weights for different conditional branches or input shapes. During the inference process, some weights can no longer be updated and are parsed as constants, where multiple models will have the same constant weights, while some weights may be updated and are parsed as variables. If one model updates one weight, the modified weight can be used and updated in the next inference or by other models.
 
 The relationship between multiple models sharing weights can be indicated through interface [ModelGroup](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelGroup.html#mindspore_lite.ModelGroup).
 
@@ -755,4 +755,4 @@ AddModel, CalMaxSizeOfWorkspace, and model.build need to be executed in child th
 
 ### multi-backend runtime
 
-MindSpore Lite cloud inference is supporting multi-backend heterogeneous inference, which can be enabled by specifying the environment variable 'export ENABLE_MULTI_BACKEND_RUNTIME=on' during runtime, and other interfaces are used in the same way as the original cloud inference. At present, this feature is an experimental feature, and the correctness, stability and subsequent compatibility of the feature are not guaranteed.
+MindSpore Lite cloud inference supports multi-backend heterogeneous inference, which can be enabled by specifying the environment variable 'export ENABLE_MULTI_BACKEND_RUNTIME=on' during runtime, and other interfaces are used in the same way as the original cloud inference. At present, this feature is an experimental feature, and the correctness, stability and subsequent compatibility of the feature are not guaranteed.

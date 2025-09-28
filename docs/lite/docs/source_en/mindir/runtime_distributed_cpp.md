@@ -169,7 +169,7 @@ cmake ..
 make
 ```
 
-After successful compilation, the `{device_type}_{backend}_distributed_cpp` executable programs is obtained in the `build` directory, and the distributed inference is started in the following multi-process manner. Please refer to `run.sh` in the sample code directory for the complete run command. When run successfully, the name, data size, number of elements and the first 10 elements of each output `Tensor` will be printed.
+After successful compilation, the `{device_type}_{backend}_distributed_cpp` executable programs are obtained in the `build` directory, and the distributed inference is started in the following multi-process manner. Please refer to `run.sh` in the sample code directory for the complete run command. When run successfully, the name, data size, number of elements and the first 10 elements of each output `Tensor` will be printed.
 
 ```bash
 # for Ascend, run the executable file for each rank using shell commands
