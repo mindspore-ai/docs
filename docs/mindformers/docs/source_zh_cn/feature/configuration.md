@@ -249,15 +249,15 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 1. MindSpore Transformers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html#重计算)。
 
-   | 参数                                                 | 说明                             | 类型              |
-   |----------------------------------------------------|--------------------------------|-----------------|
-   | recompute_config.recompute                         | 是否开启重计算。                       | bool/list/tuple |
-   | recompute_config.select_recompute                  | 开启选择重计算，只针对attention层的算子进行重计算。 | bool/list       |
-   | recompute_config.parallel_optimizer_comm_recompute | 是否对由优化器并行引入的AllGather通信进行重计算。  | bool/list       |
-   | recompute_config.mp_comm_recompute                 | 是否对由模型并行引入的通信进行重计算。            | bool            |
-   | recompute_config.recompute_slice_activation        | 是否对保留在内存中的Cell输出切片。            | bool            |
-   | recompute_config.select_recompute_exclude          | 关闭指定算子的重计算，只对Primitive算子有效。    | bool/list       |
-   | recompute_config.select_comm_recompute_exclude     | 关闭指定算子的通讯重计算，只对Primitive算子有效。  | bool/list       |
+   | 参数                                                 | 说明                                 | 类型              |
+   |----------------------------------------------------|------------------------------------|-----------------|
+   | recompute_config.recompute                         | 是否开启重计算。                           | bool/list/tuple |
+   | recompute_config.select_recompute                  | 开启选择重计算，只针对attention层的算子进行重计算。     | bool/list       |
+   | recompute_config.parallel_optimizer_comm_recompute | 是否对由优化器并行引入的AllGather通信进行重计算。      | bool/list       |
+   | recompute_config.mp_comm_recompute                 | 是否对由模型并行引入的通信进行重计算。                | bool            |
+   | recompute_config.recompute_slice_activation        | 是否对保留在内存中的Cell输出切片。该参数仅支持legacy模型。 | bool            |
+   | recompute_config.select_recompute_exclude          | 关闭指定算子的重计算，只对Primitive算子有效。        | bool/list       |
+   | recompute_config.select_comm_recompute_exclude     | 关闭指定算子的通讯重计算，只对Primitive算子有效。      | bool/list       |
 
 2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html#%E7%BB%86%E7%B2%92%E5%BA%A6%E6%BF%80%E6%B4%BB%E5%80%BCswap)。
 

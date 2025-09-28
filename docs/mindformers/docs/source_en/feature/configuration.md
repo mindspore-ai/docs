@@ -255,7 +255,7 @@ In order to improve the performance of the model, it is usually necessary to con
    | recompute_config.select_recompute                  | Turn on recomputation to recompute only for the operators in the attention layer.                       | bool/list       |
    | recompute_config.parallel_optimizer_comm_recompute | Whether to recompute AllGather communication introduced in parallel by the optimizer.                   | bool/list       |
    | recompute_config.mp_comm_recompute                 | Whether to recompute communications introduced by model parallel.                                       | bool            |
-   | recompute_config.recompute_slice_activation        | Whether to output slices for Cells kept in memory.                                                      | bool            |
+   | recompute_config.recompute_slice_activation        | Whether to output slices for Cells kept in memory. This parameter is only supported in legacy models.   | bool            |
    | recompute_config.select_recompute_exclude          | Disable recomputation for the specified operator, valid only for the Primitive operators.               | bool/list       |
    | recompute_config.select_comm_recompute_exclude     | Disable communication recomputation for the specified operator, valid only for the Primitive operators. | bool/list       |
 
