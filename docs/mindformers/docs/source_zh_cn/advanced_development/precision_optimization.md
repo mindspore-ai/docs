@@ -120,11 +120,11 @@ MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网�
         "op_debug_mode": 0,
         "dump_mode": 0,
         "path": "/absolute_path",
-        "net_name": "ResNet50",
+        "net_name": "Qwen3",
         "iteration": "0|5-8|100-120",
         "saved_data": "tensor",
         "input_output": 0,
-        "kernels": ["Default/Conv-op12"],
+        "kernels": ["Default"],
         "support_device": [0,1,2,3,4,5,6,7]
     },
     "e2e_dump_settings": {
@@ -147,6 +147,8 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 ### 其他介绍
 
 除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)进行配置使用。此外，还提供了msprobe精度调试工具。msprobe是 MindStudio Training Tools 工具链下精度调试部分的工具包，主要包括精度预检、溢出检测和精度比对等功能，详细请参考[msprobe使用手册](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe)。
+
+需要特别注意的是，开启**确定性计算**和使用**Dump**功能时，模型训练的**性能**会明显下降。这可能导致训练步长变大、运行速度变慢，这是正常现象。
 
 ## 模型迁移精度定位通用流程
 
@@ -217,7 +219,7 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
       torch.cuda.manual_seed_all(seed)
       torch.cuda.manual_seed(seed)
       torch.backends.cudnn.deterministic = True
-      torch.backends.cudnn.enable = False
+      torch.backends.cudnn.enabled = False
       torch.backends.cudnn.benchmark = False
 
   if __name__ == "__main__":
