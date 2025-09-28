@@ -120,11 +120,11 @@ MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all
         "op_debug_mode": 0,
         "dump_mode": 0,
         "path": "/absolute_path",
-        "net_name": "ResNet50",
+        "net_name": "Qwen3",
         "iteration": "0|5-8|100-120",
         "saved_data": "tensor",
         "input_output": 0,
-        "kernels": ["Default/Conv-op12"],
+        "kernels": ["Default"],
         "support_device": [0,1,2,3,4,5,6,7]
     },
     "e2e_dump_settings": {
@@ -147,6 +147,8 @@ After setting the environment variables, start the program training to get the c
 ### Other Introductions
 
 In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/tutorials/en/r2.7.0rc1/debug/dump.html) for configuration and use. In addition, the msprobe precision debugging tool is provided. msprobe is a tool package under the precision debugging component of the MindStudio Training Tools suite. It mainly includes functions such as precision pre-check, overflow detection, and precision comparison. For more information, refer to [msprobe User Guide](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe).
+
+When **deterministic computation** is enabled or the **Dump** feature is used, the training **performance** will significantly degrade. This may cause larger training steps and slower execution, which is expected behavior.
 
 ## Generalized Processes for Precision Positioning
 
@@ -217,7 +219,7 @@ The training process fixes randomness and turns on deterministic computation in 
       torch.cuda.manual_seed_all(seed)
       torch.cuda.manual_seed(seed)
       torch.backends.cudnn.deterministic = True
-      torch.backends.cudnn.enable = False
+      torch.backends.cudnn.enabled = False
       torch.backends.cudnn.benchmark = False
 
   if __name__ == "__main__":
