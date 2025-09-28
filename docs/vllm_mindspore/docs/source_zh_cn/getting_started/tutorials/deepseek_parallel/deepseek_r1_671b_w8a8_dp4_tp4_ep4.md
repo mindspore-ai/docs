@@ -271,7 +271,7 @@ vllm-mindspore serve
  --model=[模型Config/权重路径]
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
- --max-model-len [输入输出最大长度]
+ --max-model-len [模型上下文长度]
  --max-num-batched-tokens [单次迭代最大支持token数，推荐4096]
  --block-size [Block Size 大小，推荐128]
  --gpu-memory-utilization [显存利用率，推荐0.9]
@@ -282,7 +282,7 @@ vllm-mindspore serve
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```
 
 张量并行场景下，`--tensor-parallel-size`参数会覆盖模型YAML文件中`parallel_config`的`model_parallel`配置。用户可以通过`--model`参数，指定模型保存的本地路径。
@@ -354,7 +354,7 @@ vllm-mindspore serve
  --model=[模型Config/权重路径]
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
- --max-model-len [输入输出最大长度]
+ --max-model-len [模型上下文长度]
  --max-num-batched-tokens [单次迭代最大支持token数，推荐4096]
  --block-size [Block Size大小，推荐128]
  --gpu-memory-utilization [显存利用率，推荐0.9]
