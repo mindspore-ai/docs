@@ -230,7 +230,7 @@ vllm-mindspore serve
  --model=[Model Config/Weights Path]  
  --trust-remote-code # Use locally downloaded model files  
  --max-num-seqs [Maximum Batch Size]  
- --max-model-len [Maximum Input/Output Length]  
+ --max-model-len [Model context Length]  
  --max-num-batched-tokens [Maximum Tokens per Iteration, recommended: 4096]  
  --block-size [Block Size, recommended: 128]  
  --gpu-memory-utilization [GPU Memory Utilization, recommended: 0.9]  
@@ -241,7 +241,7 @@ Execution example:
 
 ```bash  
 # Master node:  
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```  
 
 In tensor parallel scenarios, the `--tensor-parallel-size` parameter overrides the `model_parallel` configuration in the model YAML file. User can also set the local model path by `--model` argument.
@@ -313,7 +313,7 @@ vllm-mindspore serve
  --model=[Model Config/Weights Path]  
  --trust-remote-code # Use locally downloaded model files  
  --max-num-seqs [Maximum Batch Size]  
- --max-model-len [Maximum Input/Output Length]  
+ --max-model-len [Model context Length]  
  --max-num-batched-tokens [Maximum Tokens per Iteration, recommended: 4096]  
  --block-size [Block Size, recommended: 128]  
  --gpu-memory-utilization [GPU Memory Utilization, recommended: 0.9]  
