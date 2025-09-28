@@ -17,7 +17,7 @@
 若希望将一个新模型合入vLLM-MindSpore插件代码仓库，需要注意几点：
 
 - **文件格式及位置要遵循规范。** 模型代码文件统一放置于`vllm_mindspore/model_executor`文件夹下，请根据不同模型将代码文件放置于对应的文件夹下。
-- **模型基于MindSpore接口实现，支持jit静态图方式执行。** vLLM-MindSpore插件中的模型定义实现需基于MindSpore接口实现。由于MindSpore静态图模式执行性能有优势，因此模型需支持@jit静态图方式执行。详细可参考[Qwen2.5](https://gitee.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/qwen2.py)模型定义实现。
+- **模型基于MindSpore接口实现，支持jit静态图方式执行。** vLLM-MindSpore插件中的模型定义需基于MindSpore接口实现。由于MindSpore静态图模式执行性能有优势，因此模型需支持@jit静态图方式执行。详细可参考[Qwen2.5](https://gitee.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/qwen2.py)模型定义实现。
 - **将新模型在vLLM-MindSpore插件代码中进行注册。** 模型结构定义实现后，需要将该模型注册到vLLM-MindSpore插件中，注册文件位于'vllm_mindspore/model_executor/models/registry.py'中，请将模型注册到`_NATIVE_MODELS`。
 - **编写单元测试。** 新增的模型需同步提交单元测试用例，用例编写请参考[Qwen2.5模型用例](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/cases_parallel/vllm_qwen_7b.py)。
 
@@ -31,7 +31,7 @@
 
 - **单元测试指南：** vLLM-MindSpore插件使用Python单元测试框架[pytest](http://www.pytest.org/en/latest/)。注释名称需反映测试用例的设计意图。
 
-- **重构指南：** 我们鼓励开发人员重构我们的代码，以消除[代码坏味道](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%A0%81%E5%BC%82%E5%91%B3)。所有代码都要符合编码风格和测试风格，重构代码也不例外。
+- **重构指南：** 我们鼓励开发人员重构我们的代码，以消除[代码异味](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%A0%81%E5%BC%82%E5%91%B3)。所有代码都要符合编码风格和测试风格，重构代码也不例外。
 
 ### Fork-Pull开发模型
 
@@ -63,7 +63,7 @@
     git push origin {新分支名称}
     ```
 
-- **将请求拉取到vLLM-MindSpore插件代码仓：** 在最后一步中，您需要在新分支和vLLM-MindSpore插件主分支之间拉取比较请求然后创建PR。提交PR提交后，需要在评论中通过`/retest`手动触发门禁检查，进行构建测试。PR应该尽快合并到上游master分支中，以降低合并的风险。
+- **将请求拉取到vLLM-MindSpore插件代码仓：** 在最后一步中，您需要在新分支和vLLM-MindSpore插件主分支之间拉取比较请求，然后创建PR。提交PR后，需要在评论中通过`/retest`手动触发门禁检查，进行构建测试。PR应该尽快合并到上游master分支中，以降低合并的风险。
 
 ### 报告Issue
 
@@ -71,9 +71,9 @@
 
 报告issue时，请参考以下格式：
 
-- 说明您使用的环境版本（vLLM-MindSpore插件、MindSpore TransFormers、MindSpore、OS、Python等）;
+- 说明您使用的环境版本（vLLM-MindSpore插件、MindSpore TransFormers、MindSpore、OS、Python等）；
 - 说明是错误报告还是功能需求；
-- 说明issue类型，添加标签可以在issue板上突出显示该issue;
+- 说明issue类型，添加标签可以在issue板上突出显示该issue；
 - 问题是什么；
 - 期望如何处理；
 - 如何复现（尽可能精确具体地描述）；
@@ -99,4 +99,4 @@
 - 确保您的分支与主分支始终一致。
 - 用于修复错误的PR中，确保已关联所有相关问题。
 
-最后，感谢您对为vLLM-MindSpore插件项目做出贡献的兴趣，我们欢迎并重视任何形式的贡献与合作。
+最后，感谢您对vLLM-MindSpore插件项目做出贡献的兴趣，我们欢迎并重视任何形式的贡献与合作。

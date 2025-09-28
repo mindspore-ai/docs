@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
 
-本文档将介绍vLLM-MindSpore插件的[版本配套](#版本配套)，vLLM-MindSpore插件的安装步骤，与[快速验证](#快速验证)用例，用于验证安装是否成功。其中安装步骤分为两种安装方式：
+本文档将介绍vLLM-MindSpore插件的[版本配套](#版本配套)、安装步骤与[快速验证](#快速验证)用例，用于验证安装是否成功。其中安装步骤分为两种方式：
 
 - [docker安装](#docker安装)：适合用户快速使用的场景；
 - [源码安装](#源码安装)：适合用户有增量开发vLLM-MindSpore插件的场景。
@@ -25,7 +25,7 @@
 
 ## docker安装
 
-在本章节中，我们推荐用docker创建的方式，以快速部署vLLM-MindSpore插件环境，以下是部署docker的步骤介绍：
+在本章节中，我们推荐使用docker创建的方式，快速部署vLLM-MindSpore插件环境。以下是部署docker的步骤介绍：
 
 ### 构建镜像
 
@@ -51,7 +51,7 @@ docker images
 
 ### 新建容器
 
-用户在完成[构建镜像](#构建镜像)后，设置`DOCKER_NAME`与`IMAGE_NAME`以设置容器名与镜像名，并执行以下命令，以新建容器：
+用户在完成[构建镜像](#构建镜像)后，设置`DOCKER_NAME`与`IMAGE_NAME`以设置容器名与镜像名，并执行以下命令新建容器：
 
 ```bash
 export DOCKER_NAME=vllm-mindspore-container  # your container name
@@ -85,7 +85,7 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         bash
 ```
 
-新建容器后成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
+新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 
 ```bash
 docker ps
@@ -103,7 +103,7 @@ docker exec -it $DOCKER_NAME bash
 
 ### CANN安装
 
-CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)，若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
+CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)。若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
 
 CANN默认安装路径为`/usr/local/Ascend`。用户在安装CANN完毕后，使用如下命令，为CANN配置环境变量：
 
@@ -123,11 +123,11 @@ yum install -y gcc gcc-c++
 
 ### vLLM-MindSpore插件安装
 
-vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速安装**适用于用户快速使用与部署的场景。**vLLM-MindSpore插件手动安装**适用于用户对组件有自定义修改的场景。
+vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速安装**适用于用户快速使用与部署的场景；**vLLM-MindSpore插件手动安装**适用于用户对组件有自定义修改的场景。
 
 - **vLLM-MindSpore插件快速安装**
 
-    采用快速安装脚本来安装vLLM-MindSpore插件，需要在拉取vLLM-MindSpore插件源码后，执行以下命令，安装依赖包：
+    采用快速安装脚本来安装vLLM-MindSpore插件，需要在拉取vLLM-MindSpore插件源码后，执行以下命令安装依赖包：
 
     ```bash
     git clone https://gitee.com/mindspore/vllm-mindspore.git
@@ -149,7 +149,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
 
 - **vLLM-MindSpore插件手动安装**
 
-    若用户对组件有修改，或者需使用其他版本，则用户需要按照特定顺序，手动安装组件。vLLM-MindSpore插件软件配套下载地址可以参考[版本配套](#版本配套)，且对组件的安装顺序要求如下：
+    若用户对依赖的vLLM、MindSpore、Golden Stick、MSAdapter等组件有自定义修改的需求，可以在本地准备好修改后的安装包，按照特定的顺序进行手动安装。安装顺序要求如下：
 
     1. 安装vLLM
 
@@ -169,7 +169,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
         pip install /path/to/mindspore-*.whl
         ```
 
-    4. 引入MindSpore Transformers仓，加入到`PYTHONPATH`中
+    4. 引入MindSpore Transformers仓库，加入到`PYTHONPATH`中
 
         ```bash
         git clone https://gitee.com/mindspore/mindformers.git
@@ -190,7 +190,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
 
     7. 安装vLLM-MindSpore插件
 
-        需要先拉取vLLM-MindSpore插件源码，再执行安装
+        需要先拉取vLLM-MindSpore插件源码，再执行安装：
 
         ```bash
         git clone https://gitee.com/mindspore/vllm-mindspore.git

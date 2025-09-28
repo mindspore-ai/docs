@@ -9,9 +9,9 @@ vLLM是由加州大学伯克利分校Sky Computing Lab创建的社区开源项�
 
 vLLM-MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部署为功能目标。其遵循以下设计原则：
 
-- 接口兼容：支持vLLM原生的API和服务部署接口，避免新增配置文件或接口，降低用户学习成本和确保易用性。
-- 最小化侵入式修改：尽可能避免侵入式修改vLLM代码，以保障系统的可维护性和可演进性。
-- 组件解耦：最小化和规范化MindSpore大模型组件和vLLM服务组件的耦合面，以利于多种MindSpore大模型套件接入。
+- 接口兼容：支持vLLM原生的API和服务部署接口，避免新增配置文件或接口，降低用户学习成本，确保易用性。
+- 最小化侵入式修改：尽可能避免侵入式修改vLLM代码，保障系统的可维护性和可演进性。
+- 组件解耦：最小化和规范化MindSpore大模型组件和vLLM服务组件的耦合面，便于多种MindSpore大模型套件接入。
 
 基于上述设计原则，vLLM-MindSpore插件采用如下图所示的系统架构，分组件类别实现vLLM与MindSpore的对接：
 
@@ -41,8 +41,8 @@ vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册�
 
   * Python >= 3.9, < 3.12
   * CANN >= 8.0.0.beta1
-  * MindSpore (与vLLM-MindSpore插件版本配套)
-  * vLLM (与vLLM-MindSpore插件版本配套)
+  * MindSpore（与vLLM-MindSpore插件版本配套）
+  * vLLM（与vLLM-MindSpore插件版本配套）
 
 快速体验
 -----------------------------------------------------
@@ -50,7 +50,7 @@ vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册�
 
 贡献
 -----------------------------------------------------
-请参考  `CONTRIBUTING <./developer_guide/contributing.html>`_  文档了解更多关于开发环境搭建、功能测试以及 PR 提交规范的信息。
+请参考 `CONTRIBUTING <./developer_guide/contributing.html>`_ 文档了解更多关于开发环境搭建、功能测试以及PR提交规范的信息。
 
 我们欢迎并重视任何形式的贡献与合作，请通过 `Issue <https://gitee.com/mindspore/vllm-mindspore/issues>`_ 来告知我们您遇到的任何Bug，或提交您的特性需求、改进建议、技术方案。
 
@@ -88,12 +88,12 @@ vLLM-MindSpore插件代码仓包含主干分支、开发分支、版本分支：
 
 SIG组织
 -----------------------------------------------------
-- 欢迎加入LLM Infercence Serving，参与开源项目共建和产业合作：https://www.mindspore.cn/community/SIG
-- SIG例会，双周周五或周六晚上，20:00 - 21:00 (UTC+8,  `查看您的时区 <https://dateful.com/convert/gmt8?t=15>`_ )
+- 欢迎加入LLM Inference Serving，参与开源项目共建和产业合作：https://www.mindspore.cn/community/SIG
+- SIG例会，双周周五或周六晚上，20:00 - 21:00（UTC+8，`查看您的时区 <https://dateful.com/convert/gmt8?t=15>`_）
 
 许可证
 -----------------------------------------------------
-Apache 许可证 2.0，如  `LICENSE <https://gitee.com/mindspore/vllm-mindspore/blob/master/LICENSE>`_  文件中所示。
+Apache 许可证 2.0，如 `LICENSE <https://gitee.com/mindspore/vllm-mindspore/blob/master/LICENSE>`_ 文件中所示。
 
 
 .. toctree::
