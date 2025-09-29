@@ -288,7 +288,7 @@ public boolean updateConfig(String section, HashMap<String, String> config)
 ## export
 
 ```java
-public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String> outputTensorNames)
+public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer, List<String> outputTensorNames)
 ```
 
 导出模型。

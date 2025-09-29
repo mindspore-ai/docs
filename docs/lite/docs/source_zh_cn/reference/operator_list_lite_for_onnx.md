@@ -38,7 +38,6 @@
 | Flatten                | 数据按维度展开                                               | Flatten                                                      | 不支持uint8类型。                                            |
 | Floor                  | 向下取整                                                     | Floor                                                        | -                                                            |
 | FusedBatchNorm         | 对输入做标准化                                               | BatchNormalization                                           | -                                                            |
-| GatherNd               | 根据索引张量从输入张量中收集指定位置的元素                   | GatherND                                                     | -                                                            |
 | Gather                 | 沿单一维度收集指定索引位置的元素                             | Gather                                                       | 不支持uint8类型。不支持QuantType_QUANT_NONE量化类型。        |
 | GatherD                | 将输入tensor中的元素根据索引tensor进行收集                   | GatherElements                                               | -                                                            |
 | GatherNd               | 将输入张量的切片聚合成具有indices指定维度的新张量            | GatherND                                                     | -                                                            |
@@ -47,7 +46,6 @@
 | InstanceNorm           | 实例归一化                                                   | InstanceNormalization                                        | -                                                            |
 | LeakyReLU              | 带泄漏的 ReLU激活函数，对负输入给予微小斜率                  | LeakyRelu                                                    | -                                                            |
 | Less                   | 逐元素比较两个张量，返回 A < B的逻辑结果。                   | Less                                                         | -                                                            |
-| LRN                    | 局部响应归一化                                               | Lrn、LRN                                                     | -                                                            |
 | Log                    | 逐元素求对数                                                 | Log                                                          | 不支持负数输入。                                             |
 | LogicalAnd             | 逐元素逻辑与（AND）运算                                      | And                                                          | -                                                            |
 | LogicalNot             | 元素级逻辑非运算                                                 | Not                                                          | -                                                            |

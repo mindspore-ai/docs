@@ -86,13 +86,13 @@ liteModel.build(g, context, cfg);
                     }
                 }
 
-                DataLabelTuple data_label_tupel = new DataLabelTuple();
-                data_label_tupel.data = hwc_bin_image;
-                data_label_tupel.label = labels[i];
-                dataset.add(data_label_tupel);
+                DataLabelTuple data_label_tuple = new DataLabelTuple();
+                data_label_tuple.data = hwc_bin_image;
+                data_label_tuple.label = labels[i];
+                dataset.add(data_label_tuple);
             }
         } catch (IOException e) {
-            System.err.println("Read Dateset exception");
+            System.err.println("Read Dataset exception");
         }
     }
 ```
@@ -264,11 +264,11 @@ MindSpore Lite提供了`export`接口用于保存模型，原型如下：
      *
      * @param fileName          Name Model file name.
      * @param quantizationType  The quant type.0,no_quant,1,weight_quant,2,full_quant.
-     * @param isOnlyExportInfer if export only inferece.
+     * @param isOnlyExportInfer if export only inference.
      * @param outputTensorNames tensor name used for export inference graph.
      * @return Whether the export is successful.
      */
-    public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String> outputTensorNames);
+    public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer, List<String> outputTensorNames);
 ```
 
 保存的模型可继续用于训练或推理。

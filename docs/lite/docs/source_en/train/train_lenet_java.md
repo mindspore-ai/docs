@@ -10,7 +10,7 @@ This tutorial demonstrates how to use the Java API on MindSpore Lite by building
 
 ### Environment Requirements
 
-- System environment: Linux x86_64 (Ubuntu 18.04.02 LTS is recommended.)
+- System environment: Linux x86_64 (Ubuntu 18.04.02 LTS is recommended)
 
 - Software dependencies
 
@@ -30,7 +30,8 @@ cd mindspore-lite
 bash build.sh -I x86_64 -j8
 ```
 
-Environment requirements and settings about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/build/build.html).
+For environment requirements and settings about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/build/build.html).
+
 The sample source code used in this tutorial is in the `mindspore-lite/examples/train_lenet_java` directory.
 
 ### Downloading the Dataset
@@ -144,7 +145,7 @@ For details about how to use Java APIs, visit <https://www.mindspore.cn/lite/api
 2. Switch to training mode, perform cyclic iteration, and train the model.
 
     ```java
-    model.setTrainMode(true)
+    model.setTrainMode(true);
     float min_loss = 1000;
     float max_acc = 0;
     for (int i = 0; i < cycles; i++) {

@@ -12,7 +12,7 @@ Using MindSpore Lite to perform image segmentation [example](https://gitee.com/m
 
 The following table shows the data of some image segmentation models using MindSpore Lite inference.
 
-> The performance of the table below is tested on the mate30.
+> The performance of the table below is tested on the Mate30.
 
 | Model name         | Size(Mb) | IoU | CPU 4 thread delay (ms) |
 |-----------------------| :----------: | :----: | :-----------: |
