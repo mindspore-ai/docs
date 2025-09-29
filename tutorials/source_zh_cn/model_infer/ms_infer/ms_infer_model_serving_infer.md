@@ -41,53 +41,91 @@ print(generate_text)
 
 ## 推理教程
 
-MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM-MindSpore插件适配层，实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM-MindSpore插件文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/index.html)。
+MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM-MindSpore插件实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM-MindSpore插件文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/index.html)。
 
 本章主要简单介绍vLLM-MindSpore插件服务化推理的基础使用。
 
 ### 环境准备
 
-vLLM-MindSpore插件适配层提供了环境安装脚本，用户可以执行如下命令创建一个vLLM-MindSpore插件的运行环境：
+vLLM-MindSpore插件提供了[docker安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/installation/installation.html#docker%E5%AE%89%E8%A3%85)与[源码安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/installation/installation.html#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85)的方式，让用户可以便捷地安装使用vLLM-MindSpore插件。以下是部署docker的步骤介绍：
 
-```shell
-# download vllm-mindspore code
+**构建镜像**
+
+用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
+
+```bash
 git clone https://gitee.com/mindspore/vllm-mindspore.git
-cd vllm-mindspore
-
-# create conda env
-conda create -n vllm-mindspore-py311 python=3.11
-conda activate vllm-mindspore-py311
-
-# install extra dependent packages
-pip install setuptools_scm
-pip install numba
-
-# run install dependences script
-bash install_depend_pkgs.sh
-
-# install vllm-mindspore
-python setup.py install
+bash build_image.sh
 ```
 
-vLLM-MindSpore插件主要依赖的组件包含如下：
+构建成功后，用户可以得到以下信息：
 
-- **mindspore**：MindSpore开发框架，模型运行基础。
+```text
+Successfully built e40bcbeae9fc
+Successfully tagged vllm_ms_20250726:latest
+```
 
-- **vllm**：vLLM服务化软件。
+其中，`e40bcbeae9fc`为镜像ID，`vllm_ms_20250726:latest`为镜像名与tag。用户可执行以下命令，确认docker镜像创建成功：
 
-- **vllm-mindspore**：适配MindSpore框架能力的vLLM插件，运行MindSpore模型必备。
+```bash
+docker images
+```
 
-- **msadapter**：MindSpore对接PyTorch的适配层，部分vLLM的功能依赖PyTorch能力，需要MSAdapter进行适配。
+**新建容器**
 
-- **golden-stick**：MindSpore模型量化框架，如果要使用量化能力，需要安装此软件。
+用户在构建镜像后，设置`DOCKER_NAME`与`IMAGE_NAME`为容器名与镜像名，并执行以下命令新建容器：
 
-- **mindformers**：MindSpore框架提供的Transformers模型库，用户可以直接使用这些模型，也可以自己对接MindSpore原生的模型。
+```bash
+export DOCKER_NAME=vllm-mindspore-container  # your container name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
+
+docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
+        --device=/dev/davinci0 \
+        --device=/dev/davinci1 \
+        --device=/dev/davinci2 \
+        --device=/dev/davinci3 \
+        --device=/dev/davinci4 \
+        --device=/dev/davinci5 \
+        --device=/dev/davinci6 \
+        --device=/dev/davinci7 \
+        --device=/dev/davinci_manager \
+        --device=/dev/devmm_svm \
+        --device=/dev/hisi_hdc \
+        -v /usr/local/sbin/:/usr/local/sbin/ \
+        -v /var/log/npu/slog/:/var/log/npu/slog \
+        -v /var/log/npu/profiling/:/var/log/npu/profiling \
+        -v /var/log/npu/dump/:/var/log/npu/dump \
+        -v /var/log/npu/:/usr/slog \
+        -v /etc/hccn.conf:/etc/hccn.conf \
+        -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+        -v /usr/local/dcmi:/usr/local/dcmi \
+        -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+        -v /etc/ascend_install.info:/etc/ascend_install.info \
+        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        --shm-size="250g" \
+        ${IMAGE_NAME} \
+        bash
+```
+
+新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
+
+```bash
+docker ps
+```
+
+**进入容器**
+
+用户在新建容器后，使用已定义的环境变量`DOCKER_NAME`，启动并进入容器：
+
+```bash
+docker exec -it $DOCKER_NAME bash
+```
 
 ### 模型准备
 
-vLLM-MindSpore插件服务化支持原生Hugging Face的模型直接运行，因此直接从Hugging Face官网下载模型即可，此处我们仍然以Qwen2-7B模型为例。
+vLLM-MindSpore插件服务化支持原生Hugging Face的模型直接运行，因此直接从[Hugging Face社区](https://huggingface.co/)下载模型即可，此处我们以[Qwen2-7B](https://huggingface.co/Qwen/Qwen2-7B)模型为例。
 
-```shell
+```bash
 git lfs install
 git clone https://huggingface.co/Qwen/Qwen2-7B
 ```
@@ -96,51 +134,53 @@ git clone https://huggingface.co/Qwen/Qwen2-7B
 
 ### 启动服务
 
-在启动后端服务前，需要按照实际环境设置对应的环境变量。
+在启动后端服务前，需要设置对应的环境变量。
 
-```shell
-# set Ascend CANN tools envs
-source /usr/local/Ascend/ascend-toolkit/set_env.sh
-export ASCEND_CUSTOM_PATH=${ASCEND_HOME_PATH}/../
-export ASCEND_RT_VISIBLE_DEVICES=3
-export ASCEND_TOTAL_MEMORY_GB=32
-
-# mindspore envs
-export MS_ALLOC_CONF=enable_vmm:true
-export CPU_AFFINITY=0
-
-# vLLM envs
-export VLLM_MODEL_MEMORY_USE_GB=26
-
-# backend envs
-export VLLM_MASTER_IP=127.0.0.1
-export VLLM_RPC_PORT=12390
-export VLLM_HTTP_PORT=8080
-unset VLLM_MS_MODEL_BACKEND
-
-# model envs
-export MODEL_ID="/path/to/model/Qwen2-7B"
+```bash
+export vLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 ```
 
-执行如下命令可以启动vLLM-MindSpore插件的服务后端。
+以下是对上述环境变量的解释：
 
-```shell
-vllm-mindspore serve --model=${MODEL_ID} --port=${VLLM_HTTP_PORT} --trust_remote_code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 1 --data-parallel-size 1 --data-parallel-size-local 1 --data-parallel-start-rank 0  --data-parallel-address ${VLLM_MASTER_IP} --data-parallel-rpc-port ${VLLM_RPC_PORT} &> vllm-mindspore.log &
+- `vLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/user_guide/supported_models/models_list/models_list.html)与[环境变量清单](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/user_guide/environment_variables/environment_variables.html)中进行查询。
+
+另外，用户需要确保MindSpore Transformers已安装。用户可通过以下方式引入MindSpore Transformers：
+
+```bash
+export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
 ```
 
-后端服务加载完成后，会显示后端服务监听的端口和提供的接口。
+vLLM-MindSpore插件可使用OpenAI的API协议，进行在线推理部署。执行如下命令，启动vLLM-MindSpore插件的在线推理服务：
+
+```bash
+vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9
+```
+
+用户可以通过`--model`参数，指定模型保存的本地路径。若服务成功启动，则可以获得类似的执行结果：
+
+```text
+INFO:   Started server process [6363]
+INFO:   Waiting for application startup.
+INFO:   Application startup complete.
+```
+
+另外，日志中还会打印服务的性能数据信息，如：
+
+```text
+Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+```
 
 ### 发送请求
 
-用户可以通过发送HTTP请求来实现模型推理，具体可以执行如下命令：
+使用如下命令发送请求。其中，`prompt`字段为模型输入：
 
-```shell
-curl http://${VLLM_MASTER_IP}:${VLLM_HTTP_PORT}/v1/completions -H "Content-Type: application/json" -d "{\"model\": \"${MODEL_ID}\", \"prompt\": \"I love Beijing, because\", \"max_tokens\": 128, \"temperature\": 1.0, \"top_p\": 1.0, \"top_k\": 1, \"repetition_penalty\": 1.0}"
+```bash
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/model/Qwen2-7B", "prompt": "I love Beijing, because", "max_tokens": 128, "temperature": 1.0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
 ```
 
-服务后端收到推理请求后，计算后会返回如下结果：
+其中，用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
 
-```json
+```text
 {
     "id":"cmpl-1c30caf453154b5ab4a579b7b06cea19",
     "object":"text_completion",
