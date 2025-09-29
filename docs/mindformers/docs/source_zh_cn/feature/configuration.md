@@ -311,7 +311,7 @@ MindSpore Transformers提供封装后的Callbacks函数类，主要实现在模�
    | save_trainable_params           | bool   | 可选   | False  | 是否额外单独保存可训练参数（即部分微调时模型的参数权重）。                                                                                                                |
    | async_save                      | bool   | 可选   | False  | 是否异步执行权重保存。开启后保存操作不会阻塞训练主流程，提升训练效率，但需注意 I/O 资源竞争可能导致延迟写入。                                                                                    |
    | remove_redundancy               | bool   | 可选   | False  | 保存权重时是否去除模型权重的冗余，默认值为 `False`。                                                                                                               |
-   | checkpoint_format               | string | 可选   | 'ckpt' | 保存的模型权重格式，默认值为 `ckpt`。可选 `ckpt`，`safetensors`。                                                                                               |
+   | checkpoint_format               | string | 可选   | 'ckpt' | 保存的模型权重格式，默认值为 `ckpt`。可选 `ckpt`，`safetensors`。<br/>注意：使用 Mcore 架构进行训练时，仅支持 `safetensors` 格式权重，此配置项不会生效。                                      |
    | embedding_local_norm_threshold  | float  | 可选   | 1.0    | 健康监测中用于检测 embedding 层梯度或输出范数异常的阈值。若 norm 超过该值，可能触发告警或数据跳过机制，防止训练发散。默认值为 `1.0`，可根据模型规模调整。                                                     |
 
 在`callbacks`字段下可同时配置多个Callbacks函数类，以下是`callbacks`配置示例。
