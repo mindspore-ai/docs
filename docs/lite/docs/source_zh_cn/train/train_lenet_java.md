@@ -144,7 +144,7 @@ train_lenet_java
 2. 切换为训练模式，循环迭代，训练模型。
 
     ```java
-    model.setTrainMode(true)
+    model.setTrainMode(true);
     float min_loss = 1000;
     float max_acc = 0;
     for (int i = 0; i < cycles; i++) {

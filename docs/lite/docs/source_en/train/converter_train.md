@@ -4,16 +4,16 @@
 
 ## Overview
 
-Creating your MindSpore Lite(Train on Device) model is a two step procedure:
+Creating your MindSpore Lite (Train on Device) model is a two-step procedure:
 
 - In the first step, create a network model based on the MindSpore architecture using Python and export it as a `.mindir` file. See [saving model](https://www.mindspore.cn/tutorials/en/r2.7.0/beginner/save_load.html#saving-and-loading-mindir) in the cloud.
-- In the seconde step, this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore Lite framework.
+- In the second step, this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore Lite framework.
 
 ## Linux Environment
 
 ### Environment Preparation
 
-MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is as follows:
+MindSpore Lite model transfer tool (only support Linux OS) has provided multiple parameters. The procedure is as follows:
 
 - [Compile](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.7.0/use/downloads.html) model transfer tool.
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.

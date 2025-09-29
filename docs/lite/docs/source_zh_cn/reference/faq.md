@@ -59,7 +59,7 @@
 1. 针对动态Shape的模型，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0/converter/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，例如
 
     ```
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=input_1:1,224,224,3;input_2:1,48;
     ```
 
 2. 针对多Batch的模型，需要无法直接使用数据预处理的功能，用户需要提前预处理矫正数据集，然后以`BIN`的形式设置校准数据集。

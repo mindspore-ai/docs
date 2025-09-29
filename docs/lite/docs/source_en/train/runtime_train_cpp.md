@@ -4,13 +4,13 @@
 
 ## Overview
 
-The principal procedures of lite training is as follows:
+The principal procedures of lite training are as follows:
 
 1. Design the network and export the `MindIR` model file by using the cloud side APIs.
 2. Transfer the `MindIR` file to `ms` model file.
 3. Train, evaluate and save `ms` model files.
 
-> The model structure is saved in the transferred `ms` model file which will be load to the device platform for training.
+> The model structure is saved in the transferred `ms` model file which will be loaded to the device platform for training.
 
 The following figure shows the detailed training process:
 
@@ -38,7 +38,7 @@ User can create the object of the class `Model` by using the function `Build` to
 
   `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`
 
-The following codes show ho to create a training session based on the multi-threads CPU by using the class `Model`.
+The following codes show how to create a training session based on the multi-threads CPU by using the class `Model`.
 
 ```cpp
 int CreateSession() {
@@ -75,11 +75,11 @@ int CreateSession() {
 
 ### Data Reading Pipeline
 
-The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer to [Dataset](https://www.mindspore.cn/lite/api/en/r2.7.0/api_cpp/mindspore_dataset.html) for more detials.
+The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data processing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer to [Dataset](https://www.mindspore.cn/lite/api/en/r2.7.0/api_cpp/mindspore_dataset.html) for more details.
 
 ### Data Preprocessing Pipeline
 
-The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer to [Vision](https://www.mindspore.cn/lite/api/en/r2.7.0/api_cpp/mindspore_dataset_vision.html) for more detials.
+The class `TensorTransform` has provided abundant data preprocessing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer to [Vision](https://www.mindspore.cn/lite/api/en/r2.7.0/api_cpp/mindspore_dataset_vision.html) for more details.
 
 ### Example
 
@@ -116,7 +116,7 @@ MindSpore Lite has provided some off-the-shelf callback classes for users (e.g.,
 
 ### Training
 
-Create the objects of the off-the-shelf functions and call the `Train` function of the class `Model` to training:
+Create the objects of the off-the-shelf functions and call the `Train` function of the class `Model` for training:
 
 ```cpp
 int Train() {
@@ -291,7 +291,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     // Assuming batch_size and data_size variables hold the Batch size and the size of a single data tensor, respectively:
     // And assuming sparse labels are used
     if ((inputs.at(data_index)->Size() != batch_size*data_size) ||
-        (inputs.at(label_index)->ElementsNum() != batch_size)) {
+        (inputs.at(label_index)->ElementNum() != batch_size)) {
         std::cerr << "Input data size does not match model input" << std::endl;
         return -1;
     }
@@ -300,7 +300,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
     auto *in_data = inputs.at(data_index)->MutableData();
     auto *in_labels = inputs.at(label_index)->MutableData();
-    if ((in_data == nullptr)|| (in_labels == nullptr)) {
+    if ((in_data == nullptr) || (in_labels == nullptr)) {
         std::cerr << "Model's input tensor is nullptr" << std::endl;
         return -1;
     }
@@ -312,7 +312,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     ```
 
     > - The data layout in the model input tensors of MindSpore Lite must be NHWC (batch size, height, weight and channel).
-    > - The Tensors returned by `GetInputs` and `GetInputByTensorName` methods shuold not be released by users.
+    > - The Tensors returned by `GetInputs` and `GetInputByTensorName` methods should not be released by users.
 
 ### Obtaining Output Tensors
 
@@ -486,4 +486,4 @@ The function `Serialization` calls the function `ExportModel` actually. The `Exp
 
 You can load the saved model to perform training or inference.
 
-> Please use [benchmark_train](https://www.mindspore.cn/lite/docs/en/r2.7.0/tools/benchmark_train_tool.html) to measure the performance and accuarcy of the trained models.
+> Please use [benchmark_train](https://www.mindspore.cn/lite/docs/en/r2.7.0/tools/benchmark_train_tool.html) to measure the performance and accuracy of the trained models.

@@ -4,7 +4,7 @@
 
 ## Image Classification Introduction
 
-Image classification model is to identity what an image represents, to predict the object list and the probabilities. For example, the following table shows the classification results after mode inference.
+Image classification model is to identify what an image represents, to predict the object list and the probabilities. For example, the following table shows the classification results after model inference.
 
 ![image_classification](images/image_classification_result.png)
 
@@ -21,7 +21,7 @@ Use MindSpore Lite to realize image classification [example](https://gitee.com/m
 
 The following table shows the data of some image classification models using MindSpore Lite inference.
 
-> The performance of the table below is tested on the mate30.
+> The performance of the table below is tested on the Mate30.
 
 | Model name         | Size(Mb) | Top1 | Top5 | F1 | CPU 4 thread delay (ms) |
 |-----------------------| :----------: | :----------: | :----------: | :----------: | :-----------: |

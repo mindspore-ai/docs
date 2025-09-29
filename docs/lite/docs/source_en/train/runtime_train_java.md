@@ -16,7 +16,7 @@ The following figure shows the detailed training process:
 
 ![img](../images/side_train_sequence_unify_api.png)
 
-> For more javaAPI description, please refer to [API Documentation](https://www.mindspore.cn/lite/api/en/r2.7.0/index.html).
+> For more java API description, please refer to [API Documentation](https://www.mindspore.cn/lite/api/en/r2.7.0/index.html).
 
 ## Model Creating, Loading and Building
 
@@ -87,13 +87,13 @@ The following codes shows the Mnist data reading and data preprocessing process:
                     }
                 }
 
-                DataLabelTuple data_label_tupel = new DataLabelTuple();
-                data_label_tupel.data = hwc_bin_image;
-                data_label_tupel.label = labels[i];
-                dataset.add(data_label_tupel);
+                DataLabelTuple data_label_tuple = new DataLabelTuple();
+                data_label_tuple.data = hwc_bin_image;
+                data_label_tuple.label = labels[i];
+                dataset.add(data_label_tuple);
             }
         } catch (IOException e) {
-            System.err.println("Read Dateset exception");
+            System.err.println("Read Dataset exception");
         }
     }
 ```
@@ -267,11 +267,11 @@ MindSpore Lite provides the `export` interface to save the model, the prototype 
      *
      * @param fileName          Name Model file name.
      * @param quantizationType  The quant type.0,no_quant,1,weight_quant,2,full_quant.
-     * @param isOnlyExportInfer if export only inferece.
+     * @param isOnlyExportInfer if export only inference.
      * @param outputTensorNames tensor name used for export inference graph.
      * @return Whether the export is successful.
      */
-    public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String> outputTensorNames);
+    public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer, List<String> outputTensorNames);
 ```
 
 You can load the saved model to perform training or inference.

@@ -6,7 +6,7 @@
 
 ## Overview
 
-This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore-lite/tree/r2.7/mindspore-lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device .
+This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore-lite/tree/r2.7/mindspore-lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device.
 
 The completed training procedure is as follows:
 
@@ -70,8 +70,7 @@ cd ./mindspore-lite
 
 The `mindspore-lite/examples/train_lenet_cpp` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/r2.7.0/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/en/r2.7.0/build/build.html).
 
-Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/r2.7.0/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code (if there is no `output` directory, you should create it).
-
+Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/r2.7.0/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MINDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code (if there is no `output` directory, you should create it).
 Suppose these packags are downloaded in `/Downloads` directory, `Linux` commands for operations above is as follows:
 
 ```bash

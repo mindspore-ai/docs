@@ -288,7 +288,7 @@ Update config.
 ## export
 
 ```java
-public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String> outputTensorNames)
+public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer, List<String> outputTensorNames)
 ```
 
 Export the model.

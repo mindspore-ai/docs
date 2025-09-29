@@ -31,7 +31,7 @@ python mslite_gold.py --inputFile "/path/to/input.npz" --outputFile "/path/to/ou
 After executing the command, the following file is generated in the `/path/to/save_data/` directory:
 
 - `input.bin`: Input data, `flatten` the data of each input Tensor one-dimensionally and save it separately to a binary file `input.bin` without meta-information such as name, dtype, and shape.
-- `output.out`: Output data, all output is saved to a text file with the following format:
+- `output.out`: Output data, all outputs are saved to a text file with the following format:
 
 Each output Tensor occupies 2 lines:
 
@@ -64,7 +64,7 @@ The following is an example of generating benchmark data from an ONNX model to i
 
    The `input.npz` and `output.npz` files are generated in the `/path/to/data_example/` directory.
 
-2. Converts the input and output `npz` files into a benchmark data file.
+2. Convert the input and output `npz` files into a benchmark data file.
 
    ```bash
    python mslite_gold.py --inputFile "/path/to/data_example/input.npz" --outputFile "/path/to/data_example/output.npz" --savePath "/path/to/save_data"

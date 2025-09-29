@@ -72,11 +72,11 @@ Model = test_benchmark.ms, numThreads = 1, MinRunTime = 72.228996 ms, MaxRuntime
 ./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10 --timeProfiling=true
 ```
 
-这条命令使用随机输入，并且输出模型网络层的耗时信息，其他参数使用默认值。该命令执行后，模型网络层的耗时会输出如下统计信息，在该例中，该统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`avg`表示该算子的平均单次运行时间，`percent`表示该算子运行耗时占所有算子运行总耗时的比例，`calledTimess`表示该算子的运行次数，`opTotalTime`表示该算子运行指定次数的总耗时。最后，`total time`和`kernel cost`分别显示了该模型单次推理的平均耗时和模型推理中所有算子的平均耗时之和。
+这条命令使用随机输入，并且输出模型网络层的耗时信息，其他参数使用默认值。该命令执行后，模型网络层的耗时会输出如下统计信息，在该例中，该统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`avg`表示该算子的平均单次运行时间，`percent`表示该算子运行耗时占所有算子运行总耗时的比例，`calledTimes`表示该算子的运行次数，`opTotalTime`表示该算子运行指定次数的总耗时。最后，`total time`和`kernel cost`分别显示了该模型单次推理的平均耗时和模型推理中所有算子的平均耗时之和。
 
 ```text
 -----------------------------------------------------------------------------------------
-opName                                                          avg(ms)         percent         calledTimess    opTotalTime
+opName                                                          avg(ms)         percent         calledTimes    opTotalTime
 conv2d_1/convolution                                            2.264800        0.824012        10              22.648003
 conv2d_2/convolution                                            0.223700        0.081390        10              2.237000
 dense_1/BiasAdd                                                 0.007500        0.002729        10              0.075000
@@ -94,7 +94,7 @@ reshape_1/Reshape/shape                                         0.009900        
 reshape_1/Shape                                                 0.002300        0.000837        10              0.023000
 reshape_1/strided_slice                                         0.009700        0.003529        10              0.097000
 -----------------------------------------------------------------------------------------
-opType          avg(ms)         percent         calledTimess    opTotalTime
+opType          avg(ms)         percent         calledTimes    opTotalTime
 Activation      0.006900        0.002510        10              0.069000
 BiasAdd         0.012800        0.004657        20              0.128000
 Conv2D          2.488500        0.905401        20              24.885004
