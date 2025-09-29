@@ -4,7 +4,7 @@
 
 ## Overview
 
-The same as `benchmark`, you can use the `benchmark_train` tool to perform benchmark testing on a MindSpore Lite ToD (Train on Device) model. It can not only perform quantitative analysis (performance) on the execution duration the model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+The same as `benchmark`, you can use the `benchmark_train` tool to perform benchmark testing on a MindSpore Lite ToD (Train on Device) model. It can not only perform quantitative analysis (performance) on the execution duration of the model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 
 ## Linux Environment Usage
 
@@ -56,7 +56,7 @@ When using the `benchmark_train` tool to perform benchmark testing, you can set 
 
 #### Performance Test
 
-The main test indicator of the performance test performed by the `benchmark_train` tool is the duration of a single forward inference. In a performance test, please set `epochs` to a value greater than 1, no need to set benchmark data parameters such as `expectedDataFile` etc. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
+The main test indicator of the performance test performed by the `benchmark_train` tool is the duration of a single forward inference. In a performance test, please set `epochs` to a value greater than 1, no need to set benchmark data parameters such as `expectedDataFile`, etc. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
 
 ```bash
 ./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10
@@ -72,11 +72,11 @@ Model = test_benchmark.ms, numThreads = 1, MinRunTime = 72.228996 ms, MaxRuntime
 ./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10 --timeProfiling=true
 ```
 
-This command uses a random input, sets the parameter `timeProfiling` as true,  times and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
+This command uses a random input, sets the parameter `timeProfiling` as true,  times and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by `opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimes` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
 
 ```text
 -----------------------------------------------------------------------------------------
-opName                                                          avg(ms)         percent         calledTimess    opTotalTime
+opName                                                          avg(ms)         percent         calledTimes    opTotalTime
 conv2d_1/convolution                                            2.264800        0.824012        10              22.648003
 conv2d_2/convolution                                            0.223700        0.081390        10              2.237000
 dense_1/BiasAdd                                                 0.007500        0.002729        10              0.075000
@@ -94,7 +94,7 @@ reshape_1/Reshape/shape                                         0.009900        
 reshape_1/Shape                                                 0.002300        0.000837        10              0.023000
 reshape_1/strided_slice                                         0.009700        0.003529        10              0.097000
 -----------------------------------------------------------------------------------------
-opType          avg(ms)         percent         calledTimess    opTotalTime
+opType          avg(ms)         percent         calledTimes    opTotalTime
 Activation      0.006900        0.002510        10              0.069000
 BiasAdd         0.012800        0.004657        20              0.128000
 Conv2D          2.488500        0.905401        20              24.885004

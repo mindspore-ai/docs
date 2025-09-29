@@ -59,7 +59,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 1. For dynamic shape models, you need to set `--inputShape=<INPUTSHAPE>` listed in the [Parameter Description](https://www.mindspore.cn/lite/docs/en/r2.7.0/converter/converter_tool.html#parameter-description). For example:
 
     ```
-    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore-lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=input_1:1,224,224,3;input_2:1,48;
     ```
 
 2. For a multi-batch model, the data preprocessing function cannot be directly used. You need to preprocess the calibration dataset in advance and then set the calibration dataset in the `BIN` format.
@@ -384,7 +384,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
 ## Other Issues
 
-<font size=3>**Q: Why does a device not take effect after being specified as a GPU or NPU?*</font>
+<font size=3>**Q: Why does a device not take effect after being specified as a GPU or NPU?**</font>
 
 A: The device priority depends on the configuration sequence. Ensure that the GPU or NPU configuration in the context is prior to the CPU configuration.
 
@@ -392,24 +392,24 @@ A: The device priority depends on the configuration sequence. Ensure that the GP
 
 <font size=3>**Q: How many log levels are supported by MindSpore Lite? How can I set the log level?**</font>
 
-A: Currently MindSpore Lite supports 4 log levels, including DEBUG, INFO, WARNING and ERROR. Users can set log level by set environment parameter GLOG_v. This environment parameter ranges from 0 to 3, which represents DEBUG, INFO, WARNING and ERROR. The default log level is WARNING or ERROR. For example, if the user sets GLOG_v to 1, MindSpore Lite will print the log of INFO level or higher.
+A: Currently MindSpore Lite supports 4 log levels, including DEBUG, INFO, WARNING and ERROR. Users can set log level by setting environment parameter GLOG_v. This environment parameter ranges from 0 to 3, which represents DEBUG, INFO, WARNING and ERROR. The default log level is WARNING or ERROR. For example, if the user sets GLOG_v to 1, MindSpore Lite will print the log of INFO level or higher.
 <br/>
 
 <font size=3>**Q: What are the limitations of NPU?**</font>
 
-A:  Currently NPU only supports system ROM version EMUI>=11. Chip support includes Kirin 9000, Kirin 9000E, Kirin 990, Kirin 985, Kirin 820, Kirin 810, etc. For specific constraints and chip support, please see: <https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718>.
+A: Currently NPU only supports system ROM version EMUI>=11. Chip support includes Kirin 9000, Kirin 9000E, Kirin 990, Kirin 985, Kirin 820, Kirin 810, etc. For specific constraints and chip support, please see: <https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718>.
 
 <br/>
 
 <font size=3>**Q: Why does the static library after cutting with the cropper tool fail to compile during integration?**</font>
 
-A:  Currently the cropper tool only supports CPU and GPU libraries. For details, please refer to [Use clipping tool to reduce library file size](https://www.mindspore.cn/lite/docs/en/r2.7.0/tools/cropper_tool.html) document.
+A: Currently the cropper tool only supports CPU and GPU libraries. For details, please refer to [Use clipping tool to reduce library file size](https://www.mindspore.cn/lite/docs/en/r2.7.0/tools/cropper_tool.html) document.
 
 <br/>
 
 <font size=3>**Q: Will MindSpore Lite run out of device memory, when running model?**</font>
 
-A:  Currently the MindSpore Lite built-in memory pool has a maximum capacity limit 3GB. If a model is bigger than 3GB, MindSpore Lite will throw error.
+A: Currently the MindSpore Lite built-in memory pool has a maximum capacity limit of 3GB. If a model is bigger than 3GB, MindSpore Lite will throw an error.
 
 <font size=3>**Q: How do I visualize the MindSpore Lite offline model (.ms file) to view the network structure?**</font>
 
@@ -425,7 +425,7 @@ A: [MindSpore Lite](https://www.mindspore.cn/lite/en) supports the inference of 
 
 <font size=3>**Q: Does MindSpore Lite have a lightweight on-device inference engine?**</font>
 
-A:The MindSpore Lite lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
+A: The MindSpore Lite lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
 
 <br/>
 

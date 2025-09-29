@@ -289,7 +289,7 @@ return model->Resize(inputs, new_shapes);
     // Assuming batch_size and data_size variables hold the Batch size and the size of a single data tensor, respectively:
     // And assuming sparse labels are used
     if ((inputs.at(data_index)->Size() != batch_size*data_size) ||
-        (inputs.at(label_index)->ElementsNum() != batch_size)) {
+        (inputs.at(label_index)->ElementNum() != batch_size)) {
         std::cerr << "Input data size does not match model input" << std::endl;
         return -1;
     }
