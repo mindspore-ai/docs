@@ -116,11 +116,11 @@ Model = model.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094
 ./benchmark --modelFile=/path/to/model.ms --timeProfiling=true
 ```
 
-This command uses a random input, sets the parameter `timeProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
+This command uses a random input, sets the parameter `timeProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by `opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimes` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
 
 ```text
 -----------------------------------------------------------------------------------------
-opName                                                          avg(ms)         percent         calledTimess    opTotalTime
+opName                                                          avg(ms)         percent         calledTimes    opTotalTime
 conv2d_1/convolution                                            2.264800        0.824012        10              22.648003
 conv2d_2/convolution                                            0.223700        0.081390        10              2.237000
 dense_1/BiasAdd                                                 0.007500        0.002729        10              0.075000
@@ -138,7 +138,7 @@ reshape_1/Reshape/shape                                         0.009900        
 reshape_1/Shape                                                 0.002300        0.000837        10              0.023000
 reshape_1/strided_slice                                         0.009700        0.003529        10              0.097000
 -----------------------------------------------------------------------------------------
-opType          avg(ms)         percent         calledTimess    opTotalTime
+opType          avg(ms)         percent         calledTimes    opTotalTime
 Activation      0.006900        0.002510        10              0.069000
 BiasAdd         0.012800        0.004657        20              0.128000
 Conv2D          2.488500        0.905401        20              24.885004
@@ -222,7 +222,7 @@ Model = model.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.17900
 -----------------------------------------------------------------------------------------
 ```
 
-When `perfEvent` is set as `CACHE`, the columns will be `cache ref(k)`/`cache ref(%)`/`miss(k)`/`miss(%)`, which indicate cache reference times / cache reference ratio / cache miss times / cache miss ratio(to all cache misses, not to cache references); when `perfEvent` is set as `STALL`, the columns will be`frontend(k)`/`frontend(%)`/`backend(k)`/`backend(%)`, which indicate CPU front-end stall cycles / front-end stall cycles ratio / back-end stall cycles / back-end stall cycles ratio. For example:
+When `perfEvent` is set as `CACHE`, the columns will be `cache ref(k)`/`cache ref(%)`/`miss(k)`/`miss(%)`, which indicate cache reference times / cache reference ratio / cache miss times / cache miss ratio(to all cache misses, not to cache references); when `perfEvent` is set as `STALL`, the columns will be `frontend(k)`/`frontend(%)`/`backend(k)`/`backend(%)`, which indicate CPU front-end stall cycles / front-end stall cycles ratio / back-end stall cycles / back-end stall cycles ratio. For example:
 
 ```bash
 ./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --perfEvent="CACHE"
@@ -238,7 +238,7 @@ Benchmark tool provides Dump function (currently only supports `CPU` and mobile 
 
 #### Dump Step
 
-1. Create dump json file:`data_dump.json`, the name and location of the JSON file can be customized.
+1. Create dump json file: `data_dump.json`, the name and location of the JSON file can be customized.
 
     ```json
     {

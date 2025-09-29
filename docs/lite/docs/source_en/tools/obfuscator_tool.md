@@ -36,7 +36,7 @@ The following describes the parameters in detail.
 | `--outputFile=<OUTPUTFILE>` | Yes| Specifies the path of the output model. You do not need to add a suffix because the suffix `.ms` is automatically generated.| -        | -      |
 | `--obfDegree=<OBFDEGREE>`   | No| Sets the obfuscation degree of the model. A larger value indicates that more nodes and edges are added to the model.| \(0,1]| 0.2    |
 
-> - The `.ms` model can be input.
+> - The `.ms` model can be used as input.
 > - The parameter name and value are separated by an equal sign (=) and no space is allowed between them.
 > - Model obfuscation increases the model scale. A larger value of obfDegree indicates a larger model scale.
 
@@ -46,7 +46,7 @@ The following examples describe how to use the obfuscation command.
 
 - Set the log display level to INFO.
 
-  ```bat
+  ```bash
   set GLOG_v=1
   ```
 
