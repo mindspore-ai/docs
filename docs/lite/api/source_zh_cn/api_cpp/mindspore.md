@@ -2282,7 +2282,6 @@ ModelExecutor(const std::vector<std::shared_ptr<ModelImpl>> &models, const std::
 | [Status Predict(const std::vector\<MSTensor\> &inputs, std::vector\<MSTensor\> *outputs)](#predict-2)     |    √    |    ✕   |
 | [std::vector\<MSTensor\> GetInputs() const](#getinputs-1)     |    √    |    ✕   |
 | [std::vector\<MSTensor\> GetOutputs() const](#getoutputs-1)     |    √    |    ✕   |
-| [Status Initialize(const std::shared_ptr\<Context\> &model_context)](#initialize)     |    √    |    ✕   |
 
 #### Predict
 
