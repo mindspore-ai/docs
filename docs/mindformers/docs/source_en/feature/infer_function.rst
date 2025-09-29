@@ -5,5 +5,4 @@ Inference Function
    :glob:
    :maxdepth: 1
 
-   evaluation
    quantization
