@@ -25,7 +25,7 @@ generate_text = tokenizer.decode(next_token)
 print(generate_text)
 ```
 
-This model inference mode is simple, but the model and weight need to be reloaded each time inference is performed. As a result, the inference efficiency is low in actual applications. To solve this problem, a model inference backend service is usually deployed to receive inference requests online and send requests to the model for computing. This inference mode is called service-oriented inference. MindSpore does not provide the service-oriented inference capability. If service-oriented inference is required in actual applications, you need to develop a service backend and integrate the related model.
+This model inference mode is simple, but the model and weight need to be reloaded each time inference is performed. As a result, the inference efficiency is low in actual applications. To solve this problem, a model inference backend service is usually deployed to receive inference requests online and send requests to the model for computing. This inference mode is called service-oriented inference. MindSpore does not provide the service-oriented inference capability. If service-oriented inference is required in actual applications, users need to develop a service backend and integrate the related model.
 
 To help users easily deploy out-of-the-box model inference capabilities in the production environment, MindSpore provides full-stack service-oriented model inference capabilities based on the popular vLLM model inference open-source software. Service-oriented inference supports real-time online inference and efficiently improves the overall throughput of model inference and reduces inference costs through efficient user request scheduling.
 
@@ -41,53 +41,90 @@ As an efficient service-oriented model inference backend, it should provide the 
 
 ## Inference Tutorial
 
-MindSpore inference works with the vLLM community solution to provide users with full-stack end-to-end inference service capabilities. The vLLM-MindSpore Plugin adaptation layer implements seamless interconnection of the vLLM community service capabilities in the MindSpore framework. For details, see [vLLM-MindSpore Plugin](https://www.mindspore.cn/vllm_mindspore/docs/en/master/index.html).
+MindSpore inference works with the vLLM community solution to provide users with full-stack end-to-end inference service capabilities. The vLLM-MindSpore Plugin implements seamless interconnection of the vLLM community service capabilities in the MindSpore framework. For details, see [vLLM-MindSpore Plugin](https://www.mindspore.cn/vllm_mindspore/docs/en/master/index.html).
 
 This section describes the basic usage of vLLM-MindSpore Plugin service-oriented inference.
 
 ### Setting Up the Environment
 
-The vLLM-MindSpore Plugin adaptation layer provides an environment installation script. You can run the following commands to create a vLLM-MindSpore Plugin operating environment:
+The vLLM-MindSpore Plugin provides [Docker Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html#docker-installation) and [Source Code Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html#source-code-installation) for users to do installation. The belows are steps for docker installation:
 
-```shell
-# download vllm-mindspore code
+**Building the Image**
+User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
+
+```bash  
 git clone https://gitee.com/mindspore/vllm-mindspore.git
-cd vllm-mindspore
+bash build_image.sh
+```  
 
-# create conda env
-conda create -n vllm-mindspore-py311 python=3.11
-conda activate vllm-mindspore-py311
+After a successful build, user will get the following output:
 
-# install extra dependent packages
-pip install setuptools_scm
-pip install numba
-
-# run install dependences script
-bash install_depend_pkgs.sh
-
-# install vllm-mindspore
-python setup.py install
+```text
+Successfully built e40bcbeae9fc
+Successfully tagged vllm_ms_20250726:latest
 ```
 
-The main package dependencies of vLLM-MindSpore Plugin are listed in follow:
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
 
-- **mindspore**: MindSpore development framework, which is the basis for model running.
+```bash  
+docker images  
+```
 
-- **vllm**: vLLM service software.
+**Creating a Container**
 
-- **vllm-mindspore**: vLLM extension that adapts to the MindSpore framework. It is required for running MindSpore models.
+After building the image, set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then execute the following command to create the container:  
 
-- **msadapter**: adaptation layer for MindSpore to connect to PyTorch. Some vLLM functions depend on the PyTorch capabilities and need to be adapted by MSAdapter.
+```bash  
+export DOCKER_NAME=vllm-mindspore-container  # your container name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
 
-- **golden-stick**: MindSpore model quantization framework. If the quantization capability is required, install this software.
+docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
+        --device=/dev/davinci0 \
+        --device=/dev/davinci1 \
+        --device=/dev/davinci2 \
+        --device=/dev/davinci3 \
+        --device=/dev/davinci4 \
+        --device=/dev/davinci5 \
+        --device=/dev/davinci6 \
+        --device=/dev/davinci7 \
+        --device=/dev/davinci_manager \
+        --device=/dev/devmm_svm \
+        --device=/dev/hisi_hdc \
+        -v /usr/local/sbin/:/usr/local/sbin/ \
+        -v /var/log/npu/slog/:/var/log/npu/slog \
+        -v /var/log/npu/profiling/:/var/log/npu/profiling \
+        -v /var/log/npu/dump/:/var/log/npu/dump \
+        -v /var/log/npu/:/usr/slog \
+        -v /etc/hccn.conf:/etc/hccn.conf \
+        -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+        -v /usr/local/dcmi:/usr/local/dcmi \
+        -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+        -v /etc/ascend_install.info:/etc/ascend_install.info \
+        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        --shm-size="250g" \
+        ${IMAGE_NAME} \
+        bash
+```  
 
-- **mindformers**: Transformer model library provided by the MindSpore framework. You can use the models directly or connect to the native models of MindSpore.
+The container ID will be returned if docker is created successfully. User can also check the container by executing the following command:  
+
+```bash  
+docker ps  
+```  
+
+**Entering the Container**
+
+After [creating the container](#creating-a-container), user can start and enter the container, using the environment variable `DOCKER_NAME`:  
+
+```bash  
+docker exec -it $DOCKER_NAME bash  
+```
 
 ### Preparing a Model
 
-The service-oriented vLLM-MindSpore Plugin supports the direct running of the native Hugging Face model. Therefore, you can directly download the model from the Hugging Face official website. The following uses the Qwen2-7B model as an example:
+The service-oriented vLLM-MindSpore Plugin supports the direct running of the native Hugging Face model. Therefore, users can directly download the model from the [Hugging Face](https://huggingface.co/). The following uses the [Qwen2-7B](https://huggingface.co/Qwen/Qwen2-7B) model as an example:
 
-```shell
+```bash
 git lfs install
 git clone https://huggingface.co/Qwen/Qwen2-7B
 ```
@@ -96,51 +133,53 @@ If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore 
 
 ### Starting a Service
 
-Before starting the backend service, you need to set the environment variables based on the actual environment.
+Before launching the model, user need to set the following environment variables:  
 
-```shell
-# set Ascend CANN tools envs
-source /usr/local/Ascend/ascend-toolkit/set_env.sh
-export ASCEND_CUSTOM_PATH=${ASCEND_HOME_PATH}/../
-export ASCEND_RT_VISIBLE_DEVICES=3
-export ASCEND_TOTAL_MEMORY_GB=32
-
-# mindspore envs
-export MS_ALLOC_CONF=enable_vmm:true
-export CPU_AFFINITY=0
-
-# vLLM envs
-export VLLM_MODEL_MEMORY_USE_GB=26
-
-# backend envs
-export VLLM_MASTER_IP=127.0.0.1
-export VLLM_RPC_PORT=12390
-export VLLM_HTTP_PORT=8080
-unset VLLM_MS_MODEL_BACKEND
-
-# model envs
-export MODEL_ID="/path/to/model/Qwen2-7B"
+```bash
+export vLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 ```
 
-Run the following command to start the vLLM-MindSpore Plugin service backend:
+Here is an explanation of these environment variables:
 
-```shell
-vllm-mindspore serve --model=${MODEL_ID} --port=${VLLM_HTTP_PORT} --trust_remote_code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 1 --data-parallel-size 1 --data-parallel-size-local 1 --data-parallel-start-rank 0  --data-parallel-address ${VLLM_MASTER_IP} --data-parallel-rpc-port ${VLLM_RPC_PORT} &> vllm-mindspore.log &
+- `vLLM_MS_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/supported_models/models_list/models_list.html) and [Environment Variable List](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/environment_variables/environment_variables.html).
+
+Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
+
+```bash  
+export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
 ```
 
-After the backend service is loaded, the listening port and provided APIs of the backend service are displayed.
+vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. Users can run the following command to start the vLLM-MindSpore Plugin online inference service:
+
+```bash
+vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9
+```
+
+User can also set the local model path by `--model` argument. If the service starts successfully, similar output will be obtained:  
+
+```text  
+INFO:   Started server process [6363]  
+INFO:   Waiting for application startup.  
+INFO:   Application startup complete.  
+```  
+
+Additionally, performance metrics will be logged, such as:
+
+```text  
+Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+```
 
 ### Sending a Request
 
-You can run the following command to send an HTTP request to implement model inference:
+Use the following command to send a request, where `prompt` is the model input:
 
-```shell
-curl http://${VLLM_MASTER_IP}:${VLLM_HTTP_PORT}/v1/completions -H "Content-Type: application/json" -d "{\"model\": \"${MODEL_ID}\", \"prompt\": \"I love Beijing, because\", \"max_tokens\": 128, \"temperature\": 1.0, \"top_p\": 1.0, \"top_k\": 1, \"repetition_penalty\": 1.0}"
+```bash
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "/path/to/model/Qwen2-7B", "prompt": "I love Beijing, because", "max_tokens": 128, "temperature": 1.0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
 ```
 
-After receiving the inference request, the service backend calculates and returns the following results:
+The user needs to ensure that the `"model"` field matches the `--model` specified during the service starting for the request to successfully match the model. If the request is processed successfully, the following inference result will be returned:
 
-```json
+```text
 {
     "id":"cmpl-1c30caf453154b5ab4a579b7b06cea19",
     "object":"text_completion",
