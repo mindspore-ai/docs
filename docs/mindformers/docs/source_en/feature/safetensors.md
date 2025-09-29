@@ -520,21 +520,28 @@ Use [strategy merging interface](https://www.mindspore.cn/docs/en/master/api_pyt
 
 ```python
 import mindspore as ms
+
 # step1: Merge target slicing strategy document
-ms.parallel.merge_pipeline_strategys("output/strategy", "output/merged_strategy/dst_strategy.ckpt")
+ms.parallel.merge_pipeline_strategys(
+    src_strategy_dirs="output/strategy",
+    dst_strategy_file="output/merged_strategy/dst_strategy.ckpt"
+)
+
 # step2: Based on the merged target slicing strategy and the complete weights, the weights are sliced and saved as distributed weights
 ms.load_distributed_checkpoint(
-            network=None,
-            predict_strategy='output/merged_strategy/dst_strategy.ckpt',
-            unified_safetensors_dir='/path/unified_safetensors',
-            dst_safetensors_dir='/path/distributed_safetensors',
-            format='safetensors',
-            max_process_num=64
-        )
+    network=None,
+    predict_strategy='output/merged_strategy/dst_strategy.ckpt',
+    unified_safetensors_dir='/path/unified_safetensors',
+    dst_safetensors_dir='/path/distributed_safetensors',
+    format='safetensors',
+    max_process_num=64
+)
 ```
 
 #### Parameter Descriptions
 
+- **src_strategy_dirs** (str) - The directory where the strategy files for training tasks are stored, typically under `output/strategy`. If a new `output_dir` is specified in the training config yaml, `output_dir/strategy` should be configured.
+- **dst_strategy_file** (str) – The merged strategy file path. It can be specified as any path, such as `output/merged_strategy/dst_strategy.ckpt`, which is passed to `predict_strategy` in step 2.
 - **network** (Cell) - Distributed Predictive Network, when format is safetensors, network is passed as None, at which point the interface executes the save mode.
 - **predict_strategy** (Union[dict, str]) - The target slice strategy file. Default: `None` .
 - **unified_safetensors_dir** (str) - Directory of complete weights files. Default: `None` .

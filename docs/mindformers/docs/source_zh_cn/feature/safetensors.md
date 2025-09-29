@@ -520,21 +520,28 @@ python toolkit/safetensors/unified_safetensors.py \
 
 ```python
 import mindspore as ms
+
 # step1:合并目标切分策略文件
-ms.parallel.merge_pipeline_strategys("output/strategy", "output/merged_strategy/dst_strategy.ckpt")
+ms.parallel.merge_pipeline_strategys(
+    src_strategy_dirs="output/strategy",
+    dst_strategy_file="output/merged_strategy/dst_strategy.ckpt"
+)
+
 # step2:根据合并后的目标切分策略以及完整权重，将权重切分并保存成分布式权重
 ms.load_distributed_checkpoint(
-            network=None,
-            predict_strategy='output/merged_strategy/dst_strategy.ckpt',
-            unified_safetensors_dir='/path/unified_safetensors',
-            dst_safetensors_dir='/path/distributed_safetensors',
-            format='safetensors',
-            max_process_num=64
-        )
+    network=None,
+    predict_strategy='output/merged_strategy/dst_strategy.ckpt',
+    unified_safetensors_dir='/path/unified_safetensors',
+    dst_safetensors_dir='/path/distributed_safetensors',
+    format='safetensors',
+    max_process_num=64
+)
 ```
 
 #### 参数说明
 
+- **src_strategy_dirs** (str) - 存放有训练任务的策略文件的目录，一般在 `output/strategy` 下。如果训练时配置 yaml 指定了新的 `output_dir`，则需配置为 `output_dir/strategy` 。
+- **dst_strategy_file** (str) - 合并后的策略文件路径，可以指定为任意路径，如 `output/merged_strategy/dst_strategy.ckpt`，在 step2 中对应传给 `predict_strategy`。
 - **network** (Cell) - 分布式预测网络，format为 safetensors 时，network传递为None，此时接口执行保存模式。
 - **predict_strategy** (Union[dict, str]) - 目标切分策略文件。默认值： `None` 。
 - **unified_safetensors_dir** (str) - 完整权重文件目录。默认值： `None` 。
