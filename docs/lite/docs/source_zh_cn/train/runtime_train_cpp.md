@@ -257,7 +257,7 @@ return model->Resize(inputs, new_shapes);
     /// \brief Obtains the number of elements of the MSTensor.
     ///
     /// \return The number of elements of the MSTensor.
-    int64_t ElementNum() const;
+    int64_t ElementsNum() const;
 
     /// \brief Obtains the data type of the MSTensor.
     ///
@@ -289,7 +289,7 @@ return model->Resize(inputs, new_shapes);
     // Assuming batch_size and data_size variables hold the Batch size and the size of a single data tensor, respectively:
     // And assuming sparse labels are used
     if ((inputs.at(data_index)->Size() != batch_size*data_size) ||
-        (inputs.at(label_index)->ElementNum() != batch_size)) {
+        (inputs.at(label_index)->ElementsNum() != batch_size)) {
         std::cerr << "Input data size does not match model input" << std::endl;
         return -1;
     }
@@ -379,7 +379,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     /// \brief Obtains the number of elements of the MSTensor.
     ///
     /// \return The number of elements of the MSTensor.
-    int64_t ElementNum() const;
+    int64_t ElementsNum() const;
 
     /// \brief Obtains the data type of the MSTensor.
     ///
@@ -399,7 +399,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     auto out_tensors = model->GetOutputs();
     for (auto out_tensor : out_tensors) {
       std::cout << "tensor name is:" << out_tensor.Name() << " tensor size is:" << out_tensor.DataSize()
-                << " tensor elements num is:" << out_tensor.ElementNum() << std::endl;
+                << " tensor elements num is:" << out_tensor.ElementsNum() << std::endl;
       // The model output data is float 32.
       if (out_tensor.DataType() != mindspore::DataType::kNumberTypeFloat32) {
         std::cerr << "Output should in float32" << std::endl;
@@ -411,7 +411,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
         return -1;
       }
       std::cout << "output data is:";
-      for (int i = 0; i < out_tensor.ElementNum() && i < 10; i++) {
+      for (int i = 0; i < out_tensor.ElementsNum() && i < 10; i++) {
         std::cout << out_data[i] << " ";
       }
       std::cout << std::endl;
