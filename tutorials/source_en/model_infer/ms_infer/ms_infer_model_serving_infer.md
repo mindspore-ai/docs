@@ -152,7 +152,7 @@ export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
 vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API protocol. Users can run the following command to start the vLLM-MindSpore Plugin online inference service:
 
 ```bash
-vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9
+vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9
 ```
 
 User can also set the local model path by `--model` argument. If the service starts successfully, similar output will be obtained:  
@@ -166,7 +166,7 @@ INFO:   Application startup complete.
 Additionally, performance metrics will be logged, such as:
 
 ```text  
-Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
 ```
 
 ### Sending a Request

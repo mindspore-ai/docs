@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/general/security.md)
 
-When enabling inference services using vLLM-MindSpore Plugin on Ascend, there may be some security-related issues due to the need for certain network ports for necessary functions such as serviceification, node communication, and model execution.
+When enabling inference services using vLLM-MindSpore Plugin on Ascend, there may be some security-related issues due to the need for certain network ports for necessary functions such as service-oriented, node communication, and model execution.
 
 ## Service Port Configuration
 
@@ -28,15 +28,15 @@ For security, it should be deployed in a sufficiently secure isolated network en
 
 1. Environment Variables:
     * `VLLM_HOST_IP`: Sets the IP address for vLLM processes to communicate on, main scenario is to communicate in MindSpore distributed network.
-    * `VLLM_DP_MASTER_IP`: Sets the IP address for data parallel(not for online-serving, default: `127.0.0.1`).
-    * `VLLM_DP_MASTER_PORT`: Sets the port for data parallel(not for online-serving, default: `0`).
+    * `VLLM_DP_MASTER_IP`: Sets the IP address for data parallel (not for online-serving, default: `127.0.0.1`).
+    * `VLLM_DP_MASTER_PORT`: Sets the port for data parallel (not for online-serving, default: `0`).
 2. Data Parallel Configuration:
-    * `data_parallel_master_ip`: Sets the IP address for data parallel(default: `127.0.0.1`).
-    * `data_parallel_master_port`: Sets the port for data parallel(default: `29500`).
+    * `data_parallel_master_ip`: Sets the IP address for data parallel (default: `127.0.0.1`).
+    * `data_parallel_master_port`: Sets the port for data parallel (default: `29500`).
 
 ### Executing Framework Distributed Communication
 
-It should be noted that vLLM-MindSpore Plugin use MindSpore's distributed communication. For detailed security information about MindSpore, please refer to the [MindSpore](https://www.mindspore.cn/en).
+It should be noted that vLLM-MindSpore Plugin uses MindSpore's distributed communication. For detailed security information about MindSpore, please refer to the [MindSpore](https://www.mindspore.cn/en).
 
 ## Security Recommendations
 
