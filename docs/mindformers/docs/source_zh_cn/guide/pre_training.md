@@ -100,7 +100,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 --parallel_config.data_parallel 1 \
 --parallel_config.model_parallel 2 \
 --parallel_config.pipeline_stage 4 \
---parallel_config.micro_batch_num 2"
+--parallel_config.micro_batch_num 4"
 ```
 
 其中：
