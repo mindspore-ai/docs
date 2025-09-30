@@ -128,13 +128,11 @@ parallel_config:
   expert_parallel: 1
 ```
 
-Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
+Additionally, users need to ensure that MindSpore Transformers is installed. Users can introduce MindSpore Transformers through the following methods:
 
 ```bash  
 export PYTHONPATH=/path/to/mindformers:$PYTHONPATH  
-```  
-
-This will include MindSpore Transformers in the Python path.
+```
 
 ### Starting Ray for Multi-Node Cluster Management
 
