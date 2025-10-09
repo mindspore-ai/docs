@@ -2,11 +2,11 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
 
-vLLM-MindSpore插件支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理。不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。
+本文档介绍DeepSeek R1 671B W8A8并行推理启动流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理模型。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。用户可通过以下[docker安装](#docker安装)章节进行环境配置。
 
-本文档将以DeepSeek R1 671B W8A8为例，介绍[张量并行](#tp16-张量并行推理)及[混合并行](#混合并行推理)推理流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。
+vLLM-MindSpore插件支持[张量并行（TP）](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#tensor-parallelism-tp)、[数据并行（DP）](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#data-parallelism-dp)、[专家并行（EP）](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#expert-parallelism-ep)及其组合配置的混合并行推理。关于多机并行推理的更多信息，可以参考[并行推理方法介绍](../../../user_guide/supported_features/parallel/parallel.md)。
 
-用户可通过以下[docker安装](#docker安装)章节进行环境配置。
+该文档样例，需要2台Atlas 800 A2服务器节点。共16个可用的NPU，每个NPU为64GB的规格。
 
 ## docker安装
 
@@ -84,6 +84,10 @@ docker ps
 docker exec -it $DOCKER_NAME bash
 ```
 
+## Ray多节点集群管理
+
+在 Ascend 上，如果使用Ray，则需要额外安装 pyACL 包来适配 Ray。所有节点的 CANN 依赖版本需要保持一致。该样例需要依赖Ray进行多机启动。Ray的安装介绍请查看[Ray安装流程介绍](#ray安装流程)。
+
 ## 下载模型权重
 
 用户可采用[Python工具下载](#python工具下载)或[git-lfs工具下载](#git-lfs工具下载)两种方式，进行模型下载。
@@ -123,49 +127,97 @@ Git LFS initialized.
 git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8.git
 ```
 
-## TP16 张量并行推理
+## 启动模型服务
 
-vLLM 通过 Ray 对多个节点资源进行管理和运行。该样例对应张量并行（TP）为16的场景。
+以下样例以DeepSeek R1 671B W8A8为例，启动模型服务。
 
 ### 设置环境变量
-
-环境变量必须设置在 Ray 创建集群前。当环境有变更时，需要通过 `ray stop` 将主从节点集群停止，并重新创建集群，否则环境变量将不生效。
 
 分别在主从节点配置如下环境变量：
 
 ```bash
 source /usr/local/Ascend/ascend-toolkit/set_env.sh
 
-export GLOO_SOCKET_IFNAME=enp189s0f0
-export HCCL_SOCKET_IFNAME=enp189s0f0
-export TP_SOCKET_IFNAME=enp189s0f0
 export MS_ENABLE_LCCL=off
 export HCCL_OP_EXPANSION_MODE=AIV
 export MS_ALLOC_CONF=enable_vmm:true
 export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export VLLM_MS_MODEL_BACKEND=MindFormers
+export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
+export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+export GLOO_SOCKET_IFNAME=enp189s0f0
+export HCCL_SOCKET_IFNAME=enp189s0f0
+export TP_SOCKET_IFNAME=enp189s0f0
 ```
 
 环境变量说明：
 
-- `GLOO_SOCKET_IFNAME`: GLOO后端端口。可通过`ifconfig`查找IP对应网卡的网卡名。
-- `HCCL_SOCKET_IFNAME`: 配置HCCL端口。可通过`ifconfig`查找IP对应网卡的网卡名。
-- `TP_SOCKET_IFNAME`: 配置TP端口。可通过`ifconfig`查找IP对应网卡的网卡名。
-- `MS_ENABLE_LCCL`: 关闭LCCL，使能HCCL通信。
-- `HCCL_OP_EXPANSION_MODE`: 配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
-- `MS_ALLOC_CONF`: 设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
-- `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用的设备ID。用户可使用`npu-smi info`命令进行查询。
+- `MS_ENABLE_LCCL`：关闭LCCL，使能HCCL通信。
+- `HCCL_OP_EXPANSION_MODE`：配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
+- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+- `ASCEND_RT_VISIBLE_DEVICES`：配置每个节点可用的设备ID。用户可使用`npu-smi info`命令进行查询。
 - `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
+- `PYTHONPATH`：将MindSpore Transformers路径，加入到`PYTHONPATH`。当`VLLM_MS_MODEL_BACKEND`设置为`MindFormers`需要配置。
+- `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION`：当版本不兼容时使用。
+- `GLOO_SOCKET_IFNAME`：GLOO后端端口，用于多机之间使用gloo通信时的网口名称。可通过`ifconfig`查找IP对应网卡的网卡名。
+- `HCCL_SOCKET_IFNAME`：配置HCCL端口，用于多机之间使用HCCL通信时的网口名称。可通过`ifconfig`查找IP对应网卡的网卡名。
+- `TP_SOCKET_IFNAME`：配置TP端口，用于多机之间使用TP通信时的网口名称。可通过`ifconfig`查找IP对应网卡的网卡名。
 
-另外，用户需要确保MindSpore Transformers已安装。用户可通过以下命令引入MindSpore Transformers：
+### 在线推理
+
+#### 启动服务
+
+vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下是在线推理的启动流程。
 
 ```bash
-export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
+# 启动配置参数说明
+vllm-mindspore serve
+ --model=[模型Config/权重路径]
+ --trust-remote-code # 使用本地下载的model文件
+ --max-num-seqs [最大Batch数]
+ --max-model-len [模型上下文长度]
+ --max-num-batched-tokens [单次迭代最大支持token数，推荐4096]
+ --block-size [Block Size 大小，推荐128]
+ --gpu-memory-utilization [显存利用率，推荐0.9]
+ --tensor-parallel-size [TP 并行数]
+ --headless # 仅从节点需要配置，表示不需要服务侧相关内容
+ --data-parallel-size [DP 并行数]
+ --data-parallel-size-local [当前服务节点中的DP数，所有节点求和等于data-parallel-size]
+ --data-parallel-start-rank [当前服务节点中负责的首个DP的偏移量，当使用multiprocess启动方式时使用]
+ --data-parallel-address [主节点的通讯IP，当使用multiprocess启动方式时使用]
+ --data-parallel-rpc-port [主节点的通讯端口，当使用multiprocess启动方式时使用]
+ --enable-expert-parallel # 使能专家并行
+ --data-parallel-backend [ray，mp] # 指定 dp 部署方式为 ray 或是 mp(即multiprocess)
+ --addition-config # 并行功能与额外配置
 ```
 
-### 启动 Ray 进行多节点集群管理
+- 用户可以通过`--model`参数，指定模型保存的本地路径；
+- 用户可以通过`--addition-config`参数，配置并行与其他功能。
 
-在 Ascend 上，需要额外安装 pyACL 包来适配 Ray。所有节点的 CANN 依赖版本需要保持一致。
+以下为Ray启动命令：
+
+```bash
+# 主节点：
+vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
+```
+
+关于multiprocess启动命令，可以参考[multiprocess启动方式](../../../user_guide/supported_features/parallel/parallel.md#启动服务)。
+
+#### 发送请求
+
+使用如下命令发送请求。其中`prompt`字段为模型输入：
+
+```bash
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 120, "temperature": 0}'
+```
+
+用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。
+
+## 附录
+
+### Ray安装流程
+
+在 Ascend 上，如果使用Ray，则需要额外安装 pyACL 包来适配 Ray。所有节点的 CANN 依赖版本需要保持一致。
 
 #### 安装 pyACL
 
@@ -194,173 +246,54 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 
 1. 启动主节点 `ray start --head --port=<port-to-ray>`。启动成功后，会提示从节点的连接方式。例如，在 IP 为 `192.5.5.5` 的环境中，通过 `ray start --head --port=6379`，提示如下：
 
-    ```text
-    Local node IP: 192.5.5.5
+  ```text
+  Local node IP: 192.5.5.5
 
-    --------------------
-    Ray runtime started.
-    --------------------
+  --------------------
+  Ray runtime started.
+  --------------------
 
-    Next steps
-      To add another node to this Ray cluster, run
-        ray start --address='192.5.5.5:6379'
+  Next steps
+   To add another node to this Ray cluster, run
+     ray start --address='192.5.5.5:6379'
 
-      To connect to this Ray cluster:
-        import ray
-        ray.init()
+     To connect to this Ray cluster:
+      import ray
+      ray.init()
 
-      To terminate the Ray runtime, run
-        ray stop
+    To terminate the Ray runtime, run
+      ray stop
 
-      To view the status of the cluster, use
-        ray status
-    ```
-
-2. 从节点连接主节点 `ray start --address=<head_node_ip>:<port>`。
-3. 通过 `ray status` 查询集群状态。显示的NPU总数为节点总和，则表示集群成功。
-
-   当有两个节点，每个节点有8个NPU时，其结果如下：
-
-   ```shell
-   ======== Autoscaler status: 2025-05-19 00:00:00.000000 ========
-   Node status
-   ---------------------------------------------------------------
-   Active:
-    1 node_efa0981305b1204810c3080c09898097099090f09ee909d0ae12545
-    1 node_184f44c4790135907ab098897c878699d89098e879f2403bc990112
-   Pending:
-    (no pending nodes)
-   Recent failures:
-    (no failures)
-
-   Resources
-   ---------------------------------------------------------------
-   Usage:
-    0.0/384.0 CPU
-    0.0/16.0 NPU
-    0B/2.58TiB memory
-    0B/372.56GiB object_store_memory
-
-   Demands:
-    (no resource demands)
+    To view the status of the cluster, use
+      ray status
    ```
 
-### 在线推理
+2. 从节点连接主节点 `ray start --address=<head_node_ip>:<port>`。
 
-#### 启动服务
+3. 通过 `ray status` 查询集群状态。显示的NPU总数为节点总和，则表示集群成功。
 
-vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下是在线推理的启动流程。
+  当有两个节点，每个节点有8个NPU时，其结果如下：
 
-```bash
-# 启动配置参数说明
+  ```shell
+  ======== Autoscaler status: 2025-05-19 00:00:00.000000 ========
+  Node status
+  ---------------------------------------------------------------
+  Active:
+   1 node_efa0981305b1204810c3080c09898097099090f09ee909d0ae12545
+   1 node_184f44c4790135907ab098897c878699d89098e879f2403bc990112
+  Pending:
+   (no pending nodes)
+  Recent failures:
+   (no failures)
 
-vllm-mindspore serve
- --model=[模型Config/权重路径]
- --quantization [权重量化来源] # 可选golden-stick/ascend分别表示量化权重来源于golden-stick或modelslim量化工具
- --trust-remote-code # 使用本地下载的model文件
- --max-num-seqs [最大Batch数]
- --max-model-len [模型上下文长度]
- --max-num-batched-tokens [单次迭代最大支持token数，推荐4096]
- --block-size [Block Size 大小，推荐128]
- --gpu-memory-utilization [显存利用率，推荐0.9]
- --tensor-parallel-size [TP 并行数]
-```
+  Resources
+  ---------------------------------------------------------------
+  Usage:
+   0.0/384.0 CPU
+   0.0/16.0 NPU
+   0B/2.58TiB memory
+   0B/372.56GiB object_store_memory
 
-执行示例
-
-```bash
-# 主节点：
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
-```
-
-张量并行场景下，`--tensor-parallel-size`参数会覆盖模型YAML文件中`parallel_config`的`model_parallel`配置。用户可以通过`--model`参数，指定模型保存的本地路径。
-
-#### 发起请求
-
-使用如下命令发送请求。其中`prompt`字段为模型输入：
-
-```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
-```
-
-用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。
-
-## 混合并行推理
-
-vLLM 通过 Ray 对多个节点资源进行管理和运行。该样例对应以下并行策略场景：
-
-- 数据并行（DP）为4；
-- 张量并行（TP）为4；
-- 专家并行（EP）为4。
-
-### 设置环境变量
-
-分别在主从节点配置如下环境变量：
-
-```bash
-source /usr/local/Ascend/ascend-toolkit/set_env.sh
-
-export MS_ENABLE_LCCL=off
-export HCCL_OP_EXPANSION_MODE=AIV
-export MS_ALLOC_CONF=enable_vmm:true
-export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export VLLM_MS_MODEL_BACKEND=MindFormers
-```
-
-环境变量说明：
-
-- `MS_ENABLE_LCCL`: 关闭LCCL，使能HCCL通信。
-- `HCCL_OP_EXPANSION_MODE`: 配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
-- `MS_ALLOC_CONF`: 设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html)。
-- `ASCEND_RT_VISIBLE_DEVICES`: 配置每个节点可用的设备ID。用户可使用`npu-smi info`命令进行查询。
-- `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
-
-### 在线推理
-
-#### 启动服务
-
-`vllm-mindspore`可使用OpenAI的API协议部署在线推理。以下是在线推理的启动流程：
-
-```bash
-# 启动配置参数说明
-vllm-mindspore serve
- --model=[模型Config/权重路径]
- --quantization [权重量化来源] # 可选golden-stick/ascend分别表示量化权重来源于golden-stick或modelslim量化工具
- --trust-remote-code # 使用本地下载的model文件
- --max-num-seqs [最大Batch数]
- --max-model-len [模型上下文长度]
- --max-num-batched-tokens [单次迭代最大支持token数，推荐4096]
- --block-size [Block Size大小，推荐128]
- --gpu-memory-utilization [显存利用率，推荐0.9]
- --tensor-parallel-size [TP 并行数]
- --headless # 仅从节点需要配置，表示不需要服务侧相关内容
- --data-parallel-size [DP 并行数]
- --data-parallel-size-local [当前服务节点中的DP数，所有节点求和等于data-parallel-size]
- --data-parallel-start-rank [当前服务节点中负责的首个DP的偏移量]
- --data-parallel-address [主节点的通讯IP]
- --data-parallel-rpc-port [主节点的通讯端口]
- --enable-expert-parallel # 使能专家并行
- --additional-config '{"expert_parallel": [EP 并行数]}'
-```
-
-`data-parallel-size`及`tensor-parallel-size`指定attn及ffn-dense部分的并行策略，`expert_parallel`指定MoE部分路由专家并行策略，且需满足`data-parallel-size * tensor-parallel-size`可被`expert_parallel`整除。
-
-用户可以通过`--model`参数，指定模型保存的本地路径。以下为执行示例：
-
-```bash
-# 主节点：
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
-
-# 从节点：
-vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
-```
-
-#### 发送请求
-
-使用如下命令发送请求。其中`prompt`字段为模型输入：
-
-```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 120, "temperature": 0}'
-```
-
-用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。
+  Demands:
+   (no resource demands)
+  ```
