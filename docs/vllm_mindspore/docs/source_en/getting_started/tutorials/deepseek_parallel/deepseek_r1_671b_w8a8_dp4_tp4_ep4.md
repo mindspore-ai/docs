@@ -115,13 +115,11 @@ Environment variable descriptions:
 - `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.  
 - `VLLM_MS_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM-MindSpore Plugin can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
 
-Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
+Additionally, users need to ensure that MindSpore Transformers is installed. Users can introduce MindSpore Transformers through the following methods:
 
 ```bash  
 export PYTHONPATH=/path/to/mindformers:$PYTHONPATH  
-```  
-
-This will include MindSpore Transformers in the Python path.
+```
 
 ### Starting Ray for Multi-Node Cluster Management
 
@@ -302,7 +300,7 @@ vllm-mindspore serve
  --additional-config '{"expert_parallel": [EP Parallelism Degree]}'
 ```
 
-`data-parallel-size` and `tensor-parallel-size` specify the parallel policies for the attn and ffn-dense parts, and `expert_parallel` specifies the parallel policies for the routing experts in the moe part. And it must satisfy that `data-parallel-size * tensor-parallel-size` is divisible by `expert_parallel`.
+`data-parallel-size` and `tensor-parallel-size` specify the parallel policies for the attn and ffn-dense parts, and `expert_parallel` specifies the parallel policies for the routing experts in the MOE part. And it must satisfy that `data-parallel-size * tensor-parallel-size` is divisible by `expert_parallel`.
 
 User can also set the local model path by `--model` argument. The following is an execution example:  
 

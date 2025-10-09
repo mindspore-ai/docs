@@ -153,7 +153,7 @@ export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
 vLLM-MindSpore插件可使用OpenAI的API协议，进行在线推理部署。执行如下命令，启动vLLM-MindSpore插件的在线推理服务：
 
 ```bash
-vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-num-seqs=256 --max_model_len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9
+vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block_size=128 --gpu-memory-utilization=0.9
 ```
 
 用户可以通过`--model`参数，指定模型保存的本地路径。若服务成功启动，则可以获得类似的执行结果：
@@ -167,7 +167,7 @@ INFO:   Application startup complete.
 另外，日志中还会打印服务的性能数据信息，如：
 
 ```text
-Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
 ```
 
 ### 发送请求

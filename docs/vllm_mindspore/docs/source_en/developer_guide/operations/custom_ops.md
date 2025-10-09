@@ -35,7 +35,7 @@ vllm-mindspore/
 
 ## Integration Process
 
-To integrate a custom operator, user need to create [Operator Interface Declaration](#operator-interface-declaration), [Operator Implementation](#operator-implementation) and [Operator Integration](#operator-integration) in the directory `ops/ascendc/`. After the initial development and integration of the custom operator, user can add [Operator Interface](#add-operator-call-interface) and do [Operator Compilation and Testing](#operator-compilation-and-testing) after declaration and implementation.
+To integrate a custom operator, users need to create [Operator Interface Declaration](#operator-interface-declaration), [Operator Implementation](#operator-implementation) and [Operator Integration](#operator-integration) in the directory `ops/ascendc/`. After the initial development and integration of the custom operator, user can add [Operator Interface](#add-operator-call-interface) and do [Operator Compilation and Testing](#operator-compilation-and-testing) after declaration and implementation.
 
 ### Operator Interface Declaration
 
