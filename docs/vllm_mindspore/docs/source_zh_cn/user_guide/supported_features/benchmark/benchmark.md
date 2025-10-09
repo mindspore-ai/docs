@@ -10,7 +10,6 @@ vLLM-MindSpore插件的性能测试能力，继承自vLLM所提供的性能测�
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
 使用以下命令启动在线推理：
@@ -24,7 +23,7 @@ vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-reques
 ```bash
 export TENSOR_PARALLEL_SIZE=4
 export MAX_MODEL_LEN=1024
-python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-32B-Instruct" --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
+vllm-mindspore serve Qwen/Qwen2.5-32B-Instruct --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
 ```
 
 当返回以下日志时，则服务已成功拉起：
@@ -103,7 +102,6 @@ P99 ITL (ms):                            ....
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
 并拉取vLLM代码仓库，导入vLLM-MindSpore插件，复用其中的benchmark功能：

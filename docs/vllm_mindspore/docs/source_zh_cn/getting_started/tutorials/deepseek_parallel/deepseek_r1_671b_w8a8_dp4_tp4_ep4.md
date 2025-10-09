@@ -143,7 +143,6 @@ export HCCL_OP_EXPANSION_MODE=AIV
 export MS_ALLOC_CONF=enable_vmm:true
 export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export VLLM_MS_MODEL_BACKEND=MindFormers
-export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
 export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 export GLOO_SOCKET_IFNAME=enp189s0f0
 export HCCL_SOCKET_IFNAME=enp189s0f0
@@ -157,7 +156,6 @@ export TP_SOCKET_IFNAME=enp189s0f0
 - `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`：配置每个节点可用的设备ID。用户可使用`npu-smi info`命令进行查询。
 - `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
-- `PYTHONPATH`：将MindSpore Transformers路径，加入到`PYTHONPATH`。当`VLLM_MS_MODEL_BACKEND`设置为`MindFormers`需要配置。
 - `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION`：当版本不兼容时使用。
 - `GLOO_SOCKET_IFNAME`：GLOO后端端口，用于多机之间使用gloo通信时的网口名称。可通过`ifconfig`查找IP对应网卡的网卡名。
 - `HCCL_SOCKET_IFNAME`：配置HCCL端口，用于多机之间使用HCCL通信时的网口名称。可通过`ifconfig`查找IP对应网卡的网卡名。
@@ -172,7 +170,7 @@ vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下是
 ```bash
 # 启动配置参数说明
 vllm-mindspore serve
- --model=[模型Config/权重路径]
+ [模型标签：模型Config/权重路径]
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
  --max-model-len [模型上下文长度]
@@ -191,14 +189,14 @@ vllm-mindspore serve
  --addition-config # 并行功能与额外配置
 ```
 
-- 用户可以通过`--model`参数，指定模型保存的本地路径；
+- 用户可以通过指定模型保存的本地路径为模型标签；
 - 用户可以通过`--addition-config`参数，配置并行与其他功能。
 
 以下为Ray启动命令：
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
 ```
 
 关于multiprocess启动命令，可以参考[multiprocess启动方式](../../../user_guide/supported_features/parallel/parallel.md#启动服务)。
@@ -211,7 +209,7 @@ vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remot
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 120, "temperature": 0}'
 ```
 
-用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。
+用户需确认`"model"`字段与启动服务中的模型标签一致，请求才能成功匹配到模型。
 
 ## 附录
 

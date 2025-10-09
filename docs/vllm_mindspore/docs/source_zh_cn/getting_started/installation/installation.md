@@ -141,12 +141,6 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
     pip install .
     ```
 
-    上述命令执行完毕之后，将在`vllm-mindspore/install_depend_pkgs`目录下生成`mindformers`文件夹，将其加入到环境变量中：
-
-    ```bash
-    export PYTHONPATH=$MF_PATH:$PYTHONPATH
-    ```
-
 - **vLLM-MindSpore插件手动安装**
 
     若用户对依赖的vLLM、MindSpore、Golden Stick、MSAdapter等组件有自定义修改的需求，可以在本地准备好修改后的安装包，按照特定的顺序进行手动安装。安装顺序要求如下：
@@ -169,11 +163,10 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
         pip install /path/to/mindspore-*.whl
         ```
 
-    4. 引入MindSpore Transformers仓库，加入到`PYTHONPATH`中
+    4. 安装MindSpore Transformers
 
         ```bash
-        git clone -b r1.7.0 https://gitee.com/mindspore/mindformers.git
-        export PYTHONPATH=$MF_PATH:$PYTHONPATH
+        pip install /path/to/mindformers-*.whl
         ```
 
     5. 安装Golden Stick
@@ -204,7 +197,6 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
 关于环境变量的具体含义，可参考[这里](../quick_start/quick_start.md#设置环境变量)。
