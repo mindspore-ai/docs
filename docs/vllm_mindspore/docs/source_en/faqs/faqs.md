@@ -37,14 +37,14 @@
 
 - Solution:
   1. Check if the model path exists and is valid;
-  2. If the model path exists and the model files are in `safetensors` format, confirm whether the yaml file contains the `load_ckpt_format: "safetensors"` field:
-     1. Print the path of the yaml file used by the model:
+  2. If the model path exists and the model files are in `safetensors` format, confirm whether the YAML file contains the `load_ckpt_format: "safetensors"` field:
+     1. Print the path of the YAML file used by the model:
 
         ```bash
         echo $MINDFORMERS_MODEL_CONFIG
         ```
 
-     2. Check the yaml file. If the `load_ckpt_format` field is missing, add it:
+     2. Check the YAML file. If the `load_ckpt_format` field is missing, add it:
 
         ```text
         load_ckpt_format: "safetensors"

@@ -140,13 +140,11 @@ Here is an explanation of these environment variables:
 - `vLLM_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: The model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/qwen2_5). For Qwen2.5-7B, the YAML file is [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml).
 
-Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
+Additionally, users need to ensure that MindSpore Transformers is installed. Users can introduce MindSpore Transformers through the following methods:
 
 ```bash  
 export PYTHONPATH=/path/to/mindformers:$PYTHONPATH  
-```  
-
-This will include MindSpore Transformers in the Python path.
+```
 
 ### Offline Inference
 
@@ -209,7 +207,7 @@ INFO:   Application startup complete.
 Additionally, performance metrics will be logged, such as:  
 
 ```text  
-Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg gereration throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
 ```  
 
 #### Sending Requests

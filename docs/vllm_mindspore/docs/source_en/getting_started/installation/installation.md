@@ -150,7 +150,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
 
 - **vLLM-MindSpore Plugin Manual Installation**
 
-    If user need to modify the components or use other versions, components need to be manually installed in a specific order. Version compatibility of vLLM-MindSpore Plugin can be found [Version Compatibility](#version-compatibility), abd vLLM-MindSpore Plugin requires the following installation sequence:  
+    If users require custom modifications to dependent components such as vLLM, MindSpore, Golden Stick, or MSAdapter, they can prepare the modified installation packages locally and perform manual installation in a specific sequence. The installation sequence requirements are as follows:
 
     1. Install vLLM  
 
