@@ -65,7 +65,7 @@ int CreateSession() {
     std::cout << "Error " << status << " during build of model " << ms_file_;
     MS_ASSERT(status != mindspore::kSuccess);
   }
-  return;
+  return status;
 }
 ```
 
@@ -154,10 +154,11 @@ float Evaluate() {
   test_ds_ = test_ds_->Map({&typecast}, {"label"});
   test_ds_ = test_ds_->Batch(batch_size_, true);
 
-  model_->Evaluate(test_ds_, {});
+  auto acc_metrics_ = model_->Evaluate(test_ds_, {});
+  auto res = acc_metrics_->Eval();
   std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
 
-  return 0.0;
+  return res;
 }
 ```
 
