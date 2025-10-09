@@ -9,7 +9,7 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 
 ## Version Compatibility
 
-- OS: Linux-aarch64  
+- OS: Linux-aarch64
 - Python: 3.9 / 3.10 / 3.11  
 - Software version compatibility  
 
