@@ -17,7 +17,7 @@ export VLLM_TORCH_PROFILER_DIR=/path/to/save/vllm_profile
 ```bash
 export TENSOR_PARALLEL_SIZE=4
 export MAX_MODEL_LEN=1024
-python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-32B-Instruct" --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
+vllm-mindspore serve Qwen/Qwen2.5-32B-Instruct --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
 ```
 
 若服务成功拉起，则可以获得类似的执行结果，且可以从中看到监听`start_profile`和`stop_profile`请求：
