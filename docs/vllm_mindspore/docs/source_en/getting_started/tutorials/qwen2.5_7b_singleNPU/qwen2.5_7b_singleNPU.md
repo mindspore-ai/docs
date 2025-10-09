@@ -139,8 +139,8 @@ Here is an explanation of these variables:
 User can check memory usage with `npu-smi info` and set the compute card for inference using:  
 
 ```bash  
-export NPU_VISIBE_DEVICES=0  
-export ASCEND_RT_VISIBLE_DEVICES=$NPU_VISIBE_DEVICES  
+export NPU_VISIBLE_DEVICES=0  
+export ASCEND_RT_VISIBLE_DEVICES=$NPU_VISIBLE_DEVICES  
 ```  
 
 ## Offline Inference

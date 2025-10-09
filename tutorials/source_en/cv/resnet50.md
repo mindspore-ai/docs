@@ -428,7 +428,7 @@ In this part, [a ResNet-50 pre-trained model](https://mindspore-website.obs.cn-n
 
 To ensure successful loading of pre-trained weights, we need to set the fully connected layer's output size to the default value of 1000, which corresponds to the num_classes parameter in resnet50 model. However, since the CIFAR10 dataset only has 10 categories, we'll need to reset the output size of the fully connected layer to 10 when using this dataset for training.
 
-> Here we demonstrate the training process of 5 epochs. In order to achieve reasonable model performance, we recommend to train for 80 epochs.
+> Here we demonstrate the training process of 5 epochs. In order to achieve reasonable model performance, we recommend training for 80 epochs.
 
 ```python
 # Define the ResNet50 network.

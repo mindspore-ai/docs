@@ -8,14 +8,14 @@ This document introduces single-node multi-card inference process by vLLM-MindSp
 
 In this section, we recommend using Docker for quick deployment of the vLLM-MindSpore Plugin environment. Below are the steps for Docker deployment:
 
-### Building the Image  
+### Building the Image
 
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
-```bash  
+```bash
 git clone -b r0.3.0 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
-```  
+```
 
 After a successful build, user will get the following output:
 
@@ -24,10 +24,10 @@ Successfully built e40bcbeae9fc
 Successfully tagged vllm_ms_20250726:latest
 ```
 
-Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:
 
-```bash  
-docker images  
+```bash
+docker images
 ```
 
 ### Creating a Container
@@ -35,38 +35,38 @@ docker images
 After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then create the container:
 
 ```bash
-export DOCKER_NAME=vllm-mindspore-container  # your container name  
-export IMAGE_NAME=hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  # your image name  
+export DOCKER_NAME=vllm-mindspore-container  # your container name
+export IMAGE_NAME=hub.oepkgs.net/oedeploy/openeuler/aarch64/mindspore:latest  # your image name
 
-docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \  
-        --device=/dev/davinci0 \  
-        --device=/dev/davinci1 \  
-        --device=/dev/davinci2 \  
-        --device=/dev/davinci3 \  
-        --device=/dev/davinci4 \  
-        --device=/dev/davinci5 \  
-        --device=/dev/davinci6 \  
-        --device=/dev/davinci7 \  
-        --device=/dev/davinci_manager \  
-        --device=/dev/devmm_svm \  
-        --device=/dev/hisi_hdc \  
-        -v /usr/local/sbin/:/usr/local/sbin/ \  
-        -v /var/log/npu/slog/:/var/log/npu/slog \  
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \  
-        -v /var/log/npu/dump/:/var/log/npu/dump \  
-        -v /var/log/npu/:/usr/slog \  
-        -v /etc/hccn.conf:/etc/hccn.conf \  
-        -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \  
-        -v /usr/local/dcmi:/usr/local/dcmi \  
-        -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \  
-        -v /etc/ascend_install.info:/etc/ascend_install.info \  
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \  
-        --shm-size="250g" \  
-        ${IMAGE_NAME} \  
-        bash  
+docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
+        --device=/dev/davinci0 \
+        --device=/dev/davinci1 \
+        --device=/dev/davinci2 \
+        --device=/dev/davinci3 \
+        --device=/dev/davinci4 \
+        --device=/dev/davinci5 \
+        --device=/dev/davinci6 \
+        --device=/dev/davinci7 \
+        --device=/dev/davinci_manager \
+        --device=/dev/devmm_svm \
+        --device=/dev/hisi_hdc \
+        -v /usr/local/sbin/:/usr/local/sbin/ \
+        -v /var/log/npu/slog/:/var/log/npu/slog \
+        -v /var/log/npu/profiling/:/var/log/npu/profiling \
+        -v /var/log/npu/dump/:/var/log/npu/dump \
+        -v /var/log/npu/:/usr/slog \
+        -v /etc/hccn.conf:/etc/hccn.conf \
+        -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+        -v /usr/local/dcmi:/usr/local/dcmi \
+        -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+        -v /etc/ascend_install.info:/etc/ascend_install.info \
+        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        --shm-size="250g" \
+        ${IMAGE_NAME} \
+        bash
 ```
 
-After successful creation, the container ID will be returned. Verify the container by running:  
+After successful creation, the container ID will be returned. Verify the container by running:
 
 ```bash
 docker ps
@@ -74,7 +74,7 @@ docker ps
 
 ### Entering the Container
 
-After [creating the container](#creating-a-container), start and enter the container using the predefined `DOCKER_NAME`:  
+After [creating the container](#creating-a-container), start and enter the container using the predefined `DOCKER_NAME`:
 
 ```bash
 docker exec -it $DOCKER_NAME bash
@@ -107,13 +107,13 @@ Run the following command to verify if [git-lfs](https://git-lfs.com) is availab
 git lfs install
 ```
 
-If available, the following output will be displayed:  
+If available, the following output will be displayed:
 
 ```text
 Git LFS initialized.
 ```
 
-If the tool is unavailable, install [git-lfs](https://git-lfs.com) first. Refer to [git-lfs installation](../../../faqs/faqs.md#git-lfs-installation) guidance in the [FAQ](../../../faqs/faqs.md) section.  
+If the tool is unavailable, install [git-lfs](https://git-lfs.com) first. Refer to [git-lfs installation](../../../faqs/faqs.md#git-lfs-installation) guidance in the [FAQ](../../../faqs/faqs.md) section.
 
 Once confirmed, execute the following command to download the weights:
 
@@ -131,7 +131,7 @@ export vLLM_MODEL_BACKEND=MindFormers # Use MindSpore TransFormers as the model 
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model YAML file.
 ```
 
-Here is an explanation of these environment variables:  
+Here is an explanation of these environment variables:
 
 - `vLLM_MODEL_BACKEND`: The model backend. Currently supported models and backends are listed in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).  
 - `MINDFORMERS_MODEL_CONFIG`: Model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/r1.6.0/research/qwen2_5). For Qwen2.5-32B, the YAML file is [predict_qwen2_5_32b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.6.0/research/qwen2_5/predict_qwen2_5_32b_instruct.yaml).
@@ -148,7 +148,7 @@ vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API p
 
 ### Starting the Service
 
-Use the model `Qwen/Qwen2.5-32B-Instruct` and start the vLLM service with the following command:  
+Use the model `Qwen/Qwen2.5-32B-Instruct` and start the vLLM service with the following command:
 
 ```bash
 export TENSOR_PARALLEL_SIZE=4
@@ -166,7 +166,7 @@ INFO:   Waiting for application startup.
 INFO:   Application startup complete.
 ```
 
-Additionally, performance metrics will be logged, such as:  
+Additionally, performance metrics will be logged, such as:
 
 ```text
 Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
@@ -174,7 +174,7 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 
 
 ### Sending Requests
 
-Use the following command to send a request, where `prompt` is the model input:  
+Use the following command to send a request, where `prompt` is the model input:
 
 ```bash
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-32B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
