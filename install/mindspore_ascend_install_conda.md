@@ -28,7 +28,7 @@
 |软件名称|版本|作用|
 |-|-|-|
 |Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|编译和运行MindSpore的操作系统|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 8.2.RC1、CANN 8.1.RC1、CANN 8.0.0|MindSpore使用的Ascend平台AI计算库|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 
