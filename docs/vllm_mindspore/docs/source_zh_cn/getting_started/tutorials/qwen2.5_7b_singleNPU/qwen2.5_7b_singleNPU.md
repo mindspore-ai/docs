@@ -139,8 +139,8 @@ export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Tra
 用户可通过`npu-smi info`查看显存占用情况，并可以使用如下环境变量，设置用于推理的计算卡：
 
 ```bash
-export NPU_VISIBE_DEVICES=0
-export ASCEND_RT_VISIBLE_DEVICES=$NPU_VISIBE_DEVICES
+export NPU_VISIBLE_DEVICES=0
+export ASCEND_RT_VISIBLE_DEVICES=$NPU_VISIBLE_DEVICES
 ```
 
 ## 离线推理

@@ -1,40 +1,40 @@
 # Installation Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)  
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)
 
 This document will introduce the [Version Matching](#version-compatibility) of vLLM-MindSpore Plugin, the installation steps for vLLM-MindSpore Plugin, and the [Quick Verification](#quick-verification) to verify whether the installation is successful. The installation steps provide two installation methods:
 
 - [Docker Installation](#docker-installation): Suitable for quick deployment scenarios.
-- [Source Code Installation](#source-code-installation): Suitable for incremental development of vLLM-MindSpore Plugin.  
+- [Source Code Installation](#source-code-installation): Suitable for incremental development of vLLM-MindSpore Plugin.
 
 ## Version Compatibility
 
-- OS: Linux-aarch64  
-- Python: 3.9 / 3.10 / 3.11  
-- Software version compatibility  
+- OS: Linux-aarch64
+- Python: 3.9 / 3.10 / 3.11
+- Software version compatibility
 
    | Software | Version And Links |
    | -----    | -----   |
-   | CANN   |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit)      |
-   | MindSpore  |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250814/master_20250814091143_7548abc43af03319bfa528fc96d0ccd3917fcc9c_newest/unified/)    |
+   | CANN   |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit) |
+   | MindSpore  |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250814/master_20250814091143_7548abc43af03319bfa528fc96d0ccd3917fcc9c_newest/unified/) |
    | MSAdapter | [0.5.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250814/master_20250814010018_4615051c43eef898b6bbdc69768656493b5932f8_newest/any/) |
-   | MindSpore Transformers | [1.6.0](https://gitee.com/mindspore/mindformers)  |
-   | Golden Stick | [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/)  |
+   | MindSpore Transformers | [1.6.0](https://gitee.com/mindspore/mindformers) |
+   | Golden Stick | [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/) |
    | vLLM       | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
    | vLLM-MindSpore Plugin  | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
 
 ## Docker Installation
 
-We recommend using Docker for quick deployment of the vLLM-MindSpore Plugin environment. Below are the steps:  
+We recommend using Docker for quick deployment of the vLLM-MindSpore Plugin environment. Below are the steps:
 
-### Building the Image  
+### Building the Image
 
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
-```bash  
+```bash
 git clone https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
-```  
+```
 
 After a successful build, user will get the following output:
 
@@ -43,17 +43,17 @@ Successfully built e40bcbeae9fc
 Successfully tagged vllm_ms_20250726:latest
 ```
 
-Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:
 
-```bash  
-docker images  
+```bash
+docker images
 ```
 
 ### Creating a Container
 
-After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then execute the following command to create the container:  
+After [building the image](#building-the-image), set `DOCKER_NAME` and `IMAGE_NAME` as the container and image names, then execute the following command to create the container:
 
-```bash  
+```bash
 export DOCKER_NAME=vllm-mindspore-container  # your container name
 export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
 
@@ -83,21 +83,21 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
-```  
+```
 
-The container ID will be returned if docker is created successfully. User can also check the container by executing the following command:  
+The container ID will be returned if docker is created successfully. User can also check the container by executing the following command:
 
-```bash  
-docker ps  
-```  
+```bash
+docker ps
+```
 
 ### Entering the Container
 
-After [creating the container](#creating-a-container), user can start and enter the container, using the environment variable `DOCKER_NAME`:  
+After [creating the container](#creating-a-container), user can start and enter the container, using the environment variable `DOCKER_NAME`:
 
-```bash  
-docker exec -it $DOCKER_NAME bash  
-```  
+```bash
+docker exec -it $DOCKER_NAME bash
+```
 
 ## Source Code Installation
 
@@ -115,7 +115,7 @@ export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
 
 ### vLLM Prerequisites Installation
 
-For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html). In vllM installation, `gcc/g++ >= 12.3.0` is required, and it could be  installed by the following command:
+For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html). In vLLM installation, `gcc/g++ >= 12.3.0` is required, and it can be installed by the following command:
 
 ```bash
 yum install -y gcc gcc-c++
@@ -129,73 +129,73 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
 
     To install vLLM-MindSpore Plugin, user needs to pull the vLLM-MindSpore Plugin source code and then runs the following command to install the dependencies:
 
-    ```bash  
-    git clone https://gitee.com/mindspore/vllm-mindspore.git  
-    cd vllm-mindspore  
-    bash install_depend_pkgs.sh  
-    ```  
-
-    Compile and install vLLM-MindSpore Plugin:  
-
-    ```bash  
-    pip install .  
+    ```bash
+    git clone https://gitee.com/mindspore/vllm-mindspore.git
+    cd vllm-mindspore
+    bash install_depend_pkgs.sh
     ```
 
-    After executing the above commands, `mindformers` folder will be generated in the `vllm-mindspore/install_depend_pkgs` directory. Add this folder to the environment variables:  
+    Compile and install vLLM-MindSpore Plugin:
 
     ```bash
-    export PYTHONPATH=$MF_PATH:$PYTHONPATH  
+    pip install .
+    ```
+
+    After executing the above commands, `mindformers` folder will be generated in the `vllm-mindspore/install_depend_pkgs` directory. Add this folder to the environment variables:
+
+    ```bash
+    export PYTHONPATH=$MF_PATH:$PYTHONPATH
     ```
 
 - **vLLM-MindSpore Plugin Manual Installation**
 
     If users require custom modifications to dependent components such as vLLM, MindSpore, Golden Stick, or MSAdapter, they can prepare the modified installation packages locally and perform manual installation in a specific sequence. The installation sequence requirements are as follows:
 
-    1. Install vLLM  
+    1. Install vLLM
 
-       ```bash  
-       pip install /path/to/vllm-*.whl  
-       ```  
+       ```bash
+       pip install /path/to/vllm-*.whl
+       ```
 
-    2. Uninstall Torch-related components  
+    2. Uninstall Torch-related components
 
-       ```bash  
-       pip uninstall torch torch-npu torchvision torchaudio -y  
-       ```  
+       ```bash
+       pip uninstall torch torch-npu torchvision torchaudio -y
+       ```
 
-    3. Install MindSpore  
+    3. Install MindSpore
 
-       ```bash  
-       pip install /path/to/mindspore-*.whl  
-       ```  
+       ```bash
+       pip install /path/to/mindspore-*.whl
+       ```
 
-    4. Clone the MindSpore Transformers repository and add it to `PYTHONPATH`  
+    4. Clone the MindSpore Transformers repository and add it to `PYTHONPATH`
 
-       ```bash  
-       git clone https://gitee.com/mindspore/mindformers.git  
-       export PYTHONPATH=$MF_PATH:$PYTHONPATH  
-       ```  
+       ```bash
+       git clone https://gitee.com/mindspore/mindformers.git
+       export PYTHONPATH=$MF_PATH:$PYTHONPATH
+       ```
 
-    5. Install Golden Stick  
+    5. Install Golden Stick
 
-       ```bash  
-       pip install /path/to/mindspore_gs-*.whl  
-       ```  
+       ```bash
+       pip install /path/to/mindspore_gs-*.whl
+       ```
 
-    6. Install MSAdapter  
+    6. Install MSAdapter
 
-       ```bash  
-       pip install /path/to/msadapter-*.whl  
-       ```  
+       ```bash
+       pip install /path/to/msadapter-*.whl
+       ```
 
     7. Install vLLM-MindSpore Plugin
 
        User needs to pull source of vLLM-MindSpore Plugin, and run installation.
 
-       ```bash  
+       ```bash
        git clone https://gitee.com/mindspore/vllm-mindspore.git
        cd vllm-mindspore
-       pip install .  
+       pip install .
        ```
 
 ## Quick Verification
@@ -207,11 +207,11 @@ export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model b
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-About environment variables above, user can also refer to [here](../quick_start/quick_start.md#setting-environment-variables) for more details.
+About environment variables above, user can also refer to [environment variables section](../quick_start/quick_start.md#setting-environment-variables) for more details.
 
-User can use the following Python scripts to verify with [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct):  
+User can use the following Python scripts to verify with [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct):
 
-```python  
+```python
 import vllm_mindspore # Add this line on the top of script.
 from vllm import LLM, SamplingParams
 
@@ -235,14 +235,14 @@ for output in outputs:
     prompt = output.prompt
     generated_text = output.outputs[0].text
     print(f"Prompt: {prompt!r}. Generated text: {generated_text!r}")
-```  
+```
 
-If successful, the output will resemble:  
+If successful, the output will resemble:
 
-```text  
-Prompt: 'I am'. Generated text: ' trying to create a virtual environment for my Python project, but I am encountering some'  
-Prompt: 'Today is'. Generated text: ' the 100th day of school. To celebrate, the teacher has'  
-Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compostable alternative'  
-```  
+```text
+Prompt: 'I am'. Generated text: ' trying to create a virtual environment for my Python project, but I am encountering some'
+Prompt: 'Today is'. Generated text: ' the 100th day of school. To celebrate, the teacher has'
+Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compostable alternative'
+```
 
 Alternatively, refer to the [Quick Start](../quick_start/quick_start.md) guide for [online inference](../quick_start/quick_start.md#online-serving) verification.
