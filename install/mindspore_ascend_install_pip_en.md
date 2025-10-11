@@ -26,7 +26,7 @@ The following table lists the system environment and third-party dependencies re
 |-|-|-|
 |Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|OS for running MindSpore|
 |[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.1.RC1, CANN 8.0.0, CANN 8.0.RC3|Ascend platform AI computing library used by MindSpore|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 
 The following describes how to install the third-party dependencies.
