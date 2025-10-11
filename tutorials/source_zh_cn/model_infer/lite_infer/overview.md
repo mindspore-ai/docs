@@ -16,7 +16,7 @@ MindSpore Lite是专注于离线模型的高效推理部署方案和端上设备
 
 MindSpore Lite推理框架支持将MindSpore训练导出的`.mindir`模型以及其他第三方框架训练导出的模型结构，通过`converter_lite`转换工具转换成MindSpore Lite格式模型结构，并部署到不同的硬件后端进行模型推理。MindSpore Lite推理方案如下图所示：
 
-<img src="images/MindSpore-Lite-architecture-zh-cn.png" alt="MindSpore Lite Inference" width="800"/>
+![MindSpore Lite架构图](images/MindSpore-Lite-architecture-zh-cn.png)
 
 1. 转换工具
 

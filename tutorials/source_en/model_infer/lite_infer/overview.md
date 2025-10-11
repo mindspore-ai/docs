@@ -16,7 +16,7 @@ In order to achieve more efficient model inference, MindSpore Lite supports the 
 
 The MindSpore Lite inference framework supports the conversion of MindSpore trained and exported `.mindir` models, as well as model structures trained and exported by other third-party frameworks, into MindSpore Lite format model structures using the `converter_lite` conversion tool, and deploying them to different hardware backends for model inference. The reasoning scheme of MindSpore Lite is shown in the following figure:
 
-<img src="images/MindSpore-Lite-architecture-en.png" alt="MindSpore Lite Inference" width="800"/>
+![MindSpore Lite architecture](images/MindSpore-Lite-architecture-en.png)
 
 1. Conversion tool
 
