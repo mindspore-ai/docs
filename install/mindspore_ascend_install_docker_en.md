@@ -37,7 +37,7 @@ The following table outlines the system requirements for deploying MindSpore usi
 |Software Name|Version|Function|
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|‌Recommended OS for MindSpore Container Deployment|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing libraries required by MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.2.RC1, CANN 8.1.RC1, CANN 8.0.0|Ascend platform AI computing library used by MindSpore|
 |Docker | Docker 18.03+ |Provides lightweight containerization environment for isolated deployment and cross-platform execution of MindSpore and its dependencies|
 
 ## Installing Ascend AI processor software package
@@ -100,7 +100,19 @@ docker run -it --ipc=host \
 
 of which,
 
+- `{image_name}` corresponds to the image name in the above table. For Atlas Training Series A1 products, use `mindspore-ascend-a1` image; for Atlas A2 Training Series products, use `mindspore-ascend-a2` image.
 - `{tag}` corresponds to the label in the above table.
+- Description for parameters are listed below:
+
+|Parameter|Description|
+|-|-|
+|--device|Mapping devices to the container. <br> /dev/davinciX: NPU device, X represents device ID, e.g. davinci0. <br> /dev/davinci_manager: Management device for NPU. <br> /dev/hisi_hdc: Management device for HDC. <br> /dev/devmm_svm: Management device for device memory.|
+|-v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi|Mapping NPU management interface `npu-smi` to the container.|
+|-v /usr/local/Ascend/driver:/usr/local/Ascend/driver|Mapping host directory "/usr/local/Ascend/driver" to the container.|
+|-v /etc/ascend_install.info:/etc/ascend_install.info|Mapping installation log for CANN software packages to the container.|
+|-v /var/log/npu/:/usr/slog|Mapping NPU log to the container.|
+|-v /usr/bin/hccn_tool:/usr/bin/hccn_tool|Mapping NPU communication configuration tool `hccn_tool` to the container.|
+|-v /etc/hccn.conf:/etc/hccn.conf|Mapping hccn configuration file to the container.|
 
 ## Installation Verification
 

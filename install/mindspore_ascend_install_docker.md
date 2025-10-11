@@ -37,7 +37,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 |软件名称|版本|作用|
 |-|-|-|
 |Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|运行MindSporer容器的操作系统|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 8.2.RC1、CANN 8.1.RC1、CANN 8.0.0|MindSpore使用的Ascend平台AI计算库|
 |Docker | Docker 18.03或更高版本 |提供轻量级容器化环境，实现MindSpore及其依赖的隔离部署与跨平台运行|
 
 ## 安装昇腾AI处理器配套软件包
@@ -100,7 +100,19 @@ docker run -it --ipc=host \
 
 其中：
 
+- `{image_name}` 对应上述表格中的docker镜像名称，Atlas 训练系列产品对应 `mindspore-ascend-a1` 镜像；Atlas A2 训练系列产品对应 `mindspore-ascend-a2` 镜像。
 - `{tag}`对应上述表格中的标签，如2.7.0。
+- 详细参数说明请见下表：
+
+|参数|参数说明|
+|-|-|
+|--device|表示映射的设备，可以挂载一个或多个设备。<br> /dev/davinciX：NPU设备，X代表设备id，如：davinci0。<br>/dev/davinci_manager：NPU相关管理设备。<br>/dev/hisi_hdc：HDC相关管理设备。<br>/dev/devmm_svm：内存管理设备。|
+|-v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi|将设备状态查询工具`npu-smi`挂载到容器。|
+|-v /usr/local/Ascend/driver:/usr/local/Ascend/driver|将宿主机目录“/usr/local/Ascend/driver”挂载到容器。|
+|-v /etc/ascend_install.info:/etc/ascend_install.info|将宿主机上CANN软件包安装记录文件挂载到容器。|
+|-v /var/log/npu/:/usr/slog|将宿主机上的NPU日志目录挂载到容器。|
+|-v /usr/bin/hccn_tool:/usr/bin/hccn_tool|将NPU通信配置工具`hccn_tool`挂载到容器。|
+|-v /etc/hccn.conf:/etc/hccn.conf|将NPU通信配置文件挂载到容器。|
 
 ## 验证是否安装成功
 

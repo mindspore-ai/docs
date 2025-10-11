@@ -28,7 +28,7 @@ The following table lists the system environment and third-party dependencies re
 |Software|Version|Description|
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|Operating Systems compatible to MindSpore|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.2.RC1, CANN 8.1.RC1, CANN 8.0.0|Ascend platform AI computing library used by MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 
