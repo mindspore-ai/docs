@@ -1,6 +1,6 @@
 # 基于双递归搜索的多维混合并行案例
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/multiple_mixed.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/parallel/multiple_mixed.md)
 
 ## 概述
 
@@ -12,7 +12,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[multiple_mix](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/multiple_mix)。
+> 下载完整的样例代码：[multiple_mix](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/multiple_mix)。
 
 目录结构如下：
 
@@ -107,7 +107,7 @@ data_set = create_dataset(32)
 
 ### 训练网络
 
-这部分与流水线并行的训练代码一致。在单机训练代码基础上需要调用两个额外的接口：[nn.WithLossCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.WithLossCell.html)用于封装网络和损失函数、[parallel.nn.Pipeline](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.Pipeline.html)用于封装LossCell和配置MicroBatch大小。通过[Autoparallel](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，`stages`为流水线并行中stage的数量，`hsdp`用于开启优化器并行。代码如下：
+这部分与流水线并行的训练代码一致。在单机训练代码基础上需要调用两个额外的接口：[nn.WithLossCell](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/nn/mindspore.nn.WithLossCell.html)用于封装网络和损失函数、[parallel.nn.Pipeline](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.nn.Pipeline.html)用于封装LossCell和配置MicroBatch大小。通过[Autoparallel](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，`stages`为流水线并行中stage的数量，`hsdp`用于开启优化器并行。代码如下：
 
 ```python
 import mindspore as ms

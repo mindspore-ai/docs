@@ -1,6 +1,6 @@
 # 算子级并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/parallel/operator_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_zh_cn/features/parallel/operator_parallel.md)
 
 ## 概述
 
@@ -8,19 +8,19 @@
 
 算子级并行是将网络模型中每个算子涉及到的张量进行切分，当仅切分数据维度时，为逻辑上的数据并行；当仅切分模型维度时，为逻辑上的模型并行。通过将张量切分到多个设备上，降低单个设备的内存消耗，从而使大模型的训练成为可能。
 
-MindSpore提供两种粒度的算子级并行能力：[算子级并行](#基本原理)和[高阶算子级并行](#高阶算子级并行)。算子级并行通过简单切分策略描述张量维度分布，满足大多数场景需求。高阶算子级并行通过开放设备排布描述，支持复杂切分场景（如非连续设备分配、多维混合切分）。两种粒度的算子级并行能力均同时支持ops和mint算子，本章仅介绍基于ops算子的算子级并行和高阶算子级并行，基于mint算子的算子级并行配置方法请参照[算子级并行教程](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/operator_parallel.html)中的mint算子并行和高阶mint算子并行章节。
+MindSpore提供两种粒度的算子级并行能力：[算子级并行](#基本原理)和[高阶算子级并行](#高阶算子级并行)。算子级并行通过简单切分策略描述张量维度分布，满足大多数场景需求。高阶算子级并行通过开放设备排布描述，支持复杂切分场景（如非连续设备分配、多维混合切分）。两种粒度的算子级并行能力均同时支持ops和mint算子，本章仅介绍基于ops算子的算子级并行和高阶算子级并行，基于mint算子的算子级并行配置方法请参照[算子级并行教程](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/parallel/operator_parallel.html)中的mint算子并行和高阶mint算子并行章节。
 
-目前，MindSpore支持并行的算子列表，可以参考[算子级并行使用约束](https://www.mindspore.cn/docs/zh-CN/master/api_python/operator_list_parallel.html)。
+目前，MindSpore支持并行的算子列表，可以参考[算子级并行使用约束](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/operator_list_parallel.html)。
 
 > 算子级并行模型支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
 
 相关接口：
 
-1. [mindspore.parallel.auto_parallel.AutoParallel(network, parallel_mode="semi_auto")](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)：通过静态图并行封装指定并行模式，其中`network`是待封装的顶层`Cell`或函数，`parallel_mode`取值`semi_auto`，表示半自动并行模式。该接口返回封装后包含并行配置的`Cell`。
+1. [mindspore.parallel.auto_parallel.AutoParallel(network, parallel_mode="semi_auto")](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)：通过静态图并行封装指定并行模式，其中`network`是待封装的顶层`Cell`或函数，`parallel_mode`取值`semi_auto`，表示半自动并行模式。该接口返回封装后包含并行配置的`Cell`。
 
-2. [mindspore.ops.Primitive.shard()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard)：指定算子切分策略，详细案例请参考本章的[基本原理](#基本原理)。
+2. [mindspore.ops.Primitive.shard()](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard)：指定算子切分策略，详细案例请参考本章的[基本原理](#基本原理)。
 
-3. [`mindspore.ops.Primitive.add_prim_attr()`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.add_prim_attr)：为满足不同场景诉求，部分算子能通过`add_prim_attr`接口对其分布式实现进行配置，这些配置仅对`SEMI_AUTO_PARALLEL`与`AUTO_PARALLEL`模式适用，例如：
+3. [`mindspore.ops.Primitive.add_prim_attr()`](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.add_prim_attr)：为满足不同场景诉求，部分算子能通过`add_prim_attr`接口对其分布式实现进行配置，这些配置仅对`SEMI_AUTO_PARALLEL`与`AUTO_PARALLEL`模式适用，例如：
 
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`：该接口配置Gather算子的第一个输入非均匀切分，它仅对axis=0时有效。其中`split_tuple`是一个元素为int类型的元组，元素之和应等于Gather算子第一个输入的第零维的长度，元组个数应等于Gather算子第一个输入的第零维切分份数。
     - `ops.Gather().add_prim_attr("primitive_target", "CPU")`：该接口配置Gather算子在CPU上执行，用于异构场景。
@@ -87,7 +87,7 @@ parallel_net = AutoParallel(net, parallel_mode='semi_auto')
 
 为了应对这些复杂场景，本章节将介绍一种开放设备排布描述的高阶算子级并行配置方法。
 
-[算子级并行](https://www.mindspore.cn/docs/zh-CN/master/features/parallel/operator_parallel.html) 中介绍了MindSpore对张量的基本切分逻辑，但不能表达出所有的切分场景。例如，对于一个二维张量 "[[a0, a1, a2, a3], [a4, a5, a6, a7]]"，其张量排布如下图所示：
+[算子级并行](https://www.mindspore.cn/docs/zh-CN/r2.7.1/features/parallel/operator_parallel.html) 中介绍了MindSpore对张量的基本切分逻辑，但不能表达出所有的切分场景。例如，对于一个二维张量 "[[a0, a1, a2, a3], [a4, a5, a6, a7]]"，其张量排布如下图所示：
 
 ![image](images/advanced_operator_parallel_view1.PNG)
 
@@ -103,9 +103,9 @@ parallel_net = AutoParallel(net, parallel_mode='semi_auto')
 
 ### 接口配置
 
-为了表达出如上述场景下的切分，[shard](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.shard.html) 接口进行了功能扩展。
+为了表达出如上述场景下的切分，[shard](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.shard.html) 接口进行了功能扩展。
 
-入参in_strategy和out_strategy都额外接收新的数据类型——tuple(Layout)。其中[Layout](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.Layout.html) 通过设备矩阵进行初始化，并同时要求给设备矩阵的每个轴取一个别名。例如："layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))"表示该设备共有128张卡，按照(8, 4, 4)的形状进行排列，并为每个轴分别取了别名"dp"、"sp"、"mp"。
+入参in_strategy和out_strategy都额外接收新的数据类型——tuple(Layout)。其中[Layout](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.Layout.html) 通过设备矩阵进行初始化，并同时要求给设备矩阵的每个轴取一个别名。例如："layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))"表示该设备共有128张卡，按照(8, 4, 4)的形状进行排列，并为每个轴分别取了别名"dp"、"sp"、"mp"。
 
 关于Layout的具体含义与配置推导方法，可参考如下两篇技术文档：
 

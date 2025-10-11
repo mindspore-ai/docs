@@ -1,6 +1,6 @@
 # Custom Primitive AOT-Type Custom Operators(Ascend)
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/operation/op_custom_ascendc.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/custom_program/operation/op_custom_ascendc.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ Custom operators of the AOT (Ahead-Of-Time) type adopt a pre-compilation approac
 2. **Offline Compilation and Deployment**: After completing the operator development, perform offline compilation to ensure that the operator can run efficiently on the Ascend AI processor and deploy it.
 3. **Using Custom Operators in MindSpore**: Integrate the compiled Ascend C custom operators into the MindSpore framework to enable their use in actual AI applications.
 
-This chapter aims to help developers fully understand and master the entire lifecycle of Ascend C custom operators, from development to deployment, and to effectively utilize them in MindSpore. For AOT custom operator development for other platforms, refer to [AOT type custom operator (CPU/GPU platforms)](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_custom_aot.html).
+This chapter aims to help developers fully understand and master the entire lifecycle of Ascend C custom operators, from development to deployment, and to effectively utilize them in MindSpore. For AOT custom operator development for other platforms, refer to [AOT type custom operator (CPU/GPU platforms)](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_custom_aot.html).
 
 ## Custom Operator Development
 
@@ -85,7 +85,7 @@ If you have already completed the compilation and deployment of the custom opera
 
 ## Using Custom Operators in MindSpore
 
-The MindSpore custom operator interface is defined as [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html). For detailed interface specifications, please refer to this documentation. This article focuses on explaining how to use the `ops.Custom` primitive to integrate custom operators into Ascend C.
+The MindSpore custom operator interface is defined as [ops.Custom](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.Custom.html). For detailed interface specifications, please refer to this documentation. This article focuses on explaining how to use the `ops.Custom` primitive to integrate custom operators into Ascend C.
 
 ### Environment Preparation
 
@@ -99,12 +99,12 @@ ops.Custom(func, bprop=None, out_dtype=None, func_type='aot', out_shape=None, re
 
 - `func`(str): Name of the custom operator.
 - `out_shape`(Union[function, list, tuple])：Output shape or shape inference function. Default value: `None`.
-- `out_dtype` (Union[function, [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype), list, tuple])：Output type or type inference function. Default value: `None`.
+- `out_dtype` (Union[function, [mindspore.dtype](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.dtype.html#mindspore.dtype), list, tuple])：Output type or type inference function. Default value: `None`.
 - `func_type`(str)：Function type of the custom operator. For Ascend C custom operators, specify `func_type="aot"`.
 - `bprop`(function)：Backpropagation function for the custom operator. Default value: `None`.
 - `reg_info`(Union[str, dict, list, tuple])：Registration information for the custom operator. Default value: `None`. Ascend C custom operators do not need to pass this parameter and can use the default value.
 
-**Scenario Limitations**： Currently, dynamic graphs and static graphs in GE backend only support input and output of Tensor types. Static graphs in O0/O1 modes have no type restrictions. For dynamic graph scenarios with Ascend C custom operators, it is recommended to use [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html).
+**Scenario Limitations**： Currently, dynamic graphs and static graphs in GE backend only support input and output of Tensor types. Static graphs in O0/O1 modes have no type restrictions. For dynamic graph scenarios with Ascend C custom operators, it is recommended to use [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_customopbuilder.html).
 
 ### Simple Example
 
@@ -145,7 +145,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-You can view the [custom operator test cases](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
+You can view the [custom operator test cases](https://gitee.com/mindspore/mindspore/tree/v2.7.1/tests/st/graph_kernel/custom/custom_ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
 
 ```text
 .
@@ -343,7 +343,7 @@ Here, the function name `FuncName` is the operator name. For single-output, the 
 
 - ndims (int \*): Array of input shape dimensions.
 - shapes (int64_t \*\*): Array of input shapes.
-- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h).
+- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h).
 
 **Infer Type Function Prototype**
 

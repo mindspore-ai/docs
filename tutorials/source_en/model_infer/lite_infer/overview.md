@@ -1,6 +1,6 @@
 # MindSpore Lite Inference Overview
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_infer/lite_infer/overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/model_infer/lite_infer/overview.md)
 
 ## Background
 
@@ -32,15 +32,15 @@ The MindSpore Lite inference framework supports the conversion of MindSpore trai
 
 ## Main Features
 
-1. [Support Ascend hardware inference](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_python.html)
+1. [Support Ascend hardware inference](https://www.mindspore.cn/lite/docs/en/r2.7.1/mindir/runtime_python.html)
 
 2. [Supporting HarmonyOS](https://developer.huawei.com/consumer/cn/sdk/mindspore-lite-kit)
 
-3. [Quantification after Training](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html)
+3. [Quantification after Training](https://www.mindspore.cn/lite/docs/en/r2.7.1/advanced/quantization.html)
 
-4. [Lightweight Micro inference deployment](https://www.mindspore.cn/lite/docs/en/master/advanced/micro.html#%20Model%20inference%20code%20generation)
+4. [Lightweight Micro inference deployment](https://www.mindspore.cn/lite/docs/en/r2.7.1/advanced/micro.html#%20Model%20inference%20code%20generation)
 
-5. [Benchmark Debugging Tool](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark.html)
+5. [Benchmark Debugging Tool](https://www.mindspore.cn/lite/docs/en/r2.7.1/tools/benchmark.html)
 
 ## Inference Tutorial
 
@@ -52,6 +52,6 @@ This chapter will explain the inference deployment of MindSpore Lite through two
 
 2. Integrated deployment
 
-    By using the [MindSpore Lite inference API](https://www.mindspore.cn/lite/api/en/master/index.html) By completing the model inference integration obtained from the quasi exchange and passing the user inference input data code to the relevant API interface, MindSpore Lite's model inference can be implemented.
+    By using the [MindSpore Lite inference API](https://www.mindspore.cn/lite/api/en/r2.7.1/index.html) By completing the model inference integration obtained from the quasi exchange and passing the user inference input data code to the relevant API interface, MindSpore Lite's model inference can be implemented.
 
-Among them, the reasoning tutorial for the `.ms` model can refer to [Quick Start of End Side Reasoning](https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html). For the inference tutorial of the `.mindir` model, you can refer to [using Python interface to perform cloud side inference](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_python.html).
+Among them, the reasoning tutorial for the `.ms` model can refer to [Quick Start of End Side Reasoning](https://www.mindspore.cn/lite/docs/en/r2.7.1/quick_start/one_hour_introduction.html). For the inference tutorial of the `.mindir` model, you can refer to [using Python interface to perform cloud side inference](https://www.mindspore.cn/lite/docs/en/r2.7.1/mindir/runtime_python.html).

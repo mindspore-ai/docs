@@ -1,12 +1,12 @@
 # 分布式训练通信融合
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/comm_fusion.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/parallel/comm_fusion.md)
 
 ## 简介
 
 在分布式并行训练场景下训练大规模参数量的模型（如GPT-3、Pangu-$\alpha$），跨设备甚至跨节点的数据传输是制约扩展性以及算力利用率的瓶颈[1]。通信融合是一种提升网络资源利用率、加速数据传输效率的重要方法，其将相同源节点和目的节点的通信算子打包同时执行，以避免多个单算子执行带来的额外开销。
 
-MindSpore支持对分布式训练中三种常用通信算子（[AllReduce](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllReduce.html)、[AllGather](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllGather.html)、[ReduceScatter](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceScatter.html)）的融合，并提供简洁易用的接口方便用户自行配置。在长稳训练任务支撑中，通信融合特性发挥了重要作用。
+MindSpore支持对分布式训练中三种常用通信算子（[AllReduce](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.AllReduce.html)、[AllGather](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.AllGather.html)、[ReduceScatter](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.ReduceScatter.html)）的融合，并提供简洁易用的接口方便用户自行配置。在长稳训练任务支撑中，通信融合特性发挥了重要作用。
 
 ### 基本原理
 
@@ -50,17 +50,17 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍：
     net.comm_fusion(config=config)
     ```
 
-    在自动并行或半自动并行场景下，用户在通过`net = AutoParallel(net, parallel_mode="semi_auto")`来配置并行策略时，可以利用该顶层`AutoParallel`类提供的[comm_fusion](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion)接口的参数`congfig`来设置并行策略，输入格式为{"通信类型": {"mode":str, "config": None int 或者 list}}。具体可以参考[并行配置](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)中的`comm_fusion`。在这种场景下，优先推荐此种配置方法。
+    在自动并行或半自动并行场景下，用户在通过`net = AutoParallel(net, parallel_mode="semi_auto")`来配置并行策略时，可以利用该顶层`AutoParallel`类提供的[comm_fusion](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion)接口的参数`congfig`来设置并行策略，输入格式为{"通信类型": {"mode":str, "config": None int 或者 list}}。具体可以参考[并行配置](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)中的`comm_fusion`。在这种场景下，优先推荐此种配置方法。
 
 2. 利用`Cell`提供的接口
 
-    无论在哪种并行模式场景下，用户都可以通过[Cell.set_comm_fusion](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion)接口为模型某个layer的参数设置index，MindSpore将融合相同index的参数所对应的通信算子。
+    无论在哪种并行模式场景下，用户都可以通过[Cell.set_comm_fusion](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion)接口为模型某个layer的参数设置index，MindSpore将融合相同index的参数所对应的通信算子。
 
 ## 操作实践
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_comm_fusion](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion)。
+> 下载完整的样例代码：[distributed_comm_fusion](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/distributed_comm_fusion)。
 
 目录结构如下：
 
@@ -95,7 +95,7 @@ init()
 
 为了避免上述问题，可以将网络参数进行分组融合：在下一组参数进行的计算的同时，进行上组参数的通信，使得计算和通信能够互相隐藏，可以通过限定fusion buffer的大小，或者index分区的方法进行分组融合。
 
-更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/master/tests/ut/python/parallel/test_comm_fusion.py)。
+更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/v2.7.1/tests/ut/python/parallel/test_comm_fusion.py)。
 
 > 用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
 

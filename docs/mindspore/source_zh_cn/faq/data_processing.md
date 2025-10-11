@@ -1,10 +1,10 @@
 # 数据处理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/data_processing.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_zh_cn/faq/data_processing.md)
 
 ## Q: 请问如果不使用高阶API，怎么实现数据下沉？
 
-A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
+A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/v2.7.1/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
 
 <br/>
 
@@ -38,7 +38,7 @@ A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，�
 
 ## Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？
 
-A: 开启`shuffle`，需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)章节。
+A: 开启`shuffle`，需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.GeneratorDataset.html)章节。
 
 <br/>
 
@@ -77,7 +77,7 @@ A: 推荐使用`c_transforms`，因为纯C层执行，所以性能会更好。
 
 原理:`c_transform`底层使用的是C版本`opencv/jpeg-turbo`进行的数据处理，`py_transform`使用的是Python版本的`Pillow`进行数据处理。
 
-在MindSpore1.8开始，数据增强API进行了合并，用户无需显式感知`c_transforms`和`py_transforms`，MindSpore将根据传入数据增强API的数据类型决定使用何种后端，默认使用`c_transforms`，因其性能更佳。详细可以参考[最新API文档与import说明](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst#视觉)。
+在MindSpore1.8开始，数据增强API进行了合并，用户无需显式感知`c_transforms`和`py_transforms`，MindSpore将根据传入数据增强API的数据类型决定使用何种后端，默认使用`c_transforms`，因其性能更佳。详细可以参考[最新API文档与import说明](https://gitee.com/mindspore/mindspore/blob/v2.7.1/docs/api/api_python/mindspore.dataset.transforms.rst#视觉)。
 
 <br/>
 
@@ -160,7 +160,7 @@ A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不�
 
 A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/research/cv/FCN8s/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
-[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)
+[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.GeneratorDataset.html)
 
 <br/>
 
@@ -189,7 +189,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 说明: label是一个数组，numpy类型，这里面可以存 1，1，0，1，0，1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
-可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/record.html#转换成record格式)教程。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/dataset/record.html#转换成record格式)教程。
 
 <br/>
 
@@ -201,7 +201,7 @@ A: 首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时
 
 ## Q: MindSpore设计了专门用于数据处理的框架，有相关的设计和用法介绍？
 
-A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline，并以高效（多进程/多线程）的方式处理数据集中样本，同时MindSpore Dataset也提供了多样化的API加载和处理数据集，详细介绍请参阅[数据处理Pipeline介绍](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.loading.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pipeline%E4%BB%8B%E7%BB%8D)。如果想进一步对数据处理Pipeline进行性能调优，请参阅[数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/optimize.html)。
+A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline，并以高效（多进程/多线程）的方式处理数据集中样本，同时MindSpore Dataset也提供了多样化的API加载和处理数据集，详细介绍请参阅[数据处理Pipeline介绍](https://mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore.dataset.loading.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pipeline%E4%BB%8B%E7%BB%8D)。如果想进一步对数据处理Pipeline进行性能调优，请参阅[数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/dataset/optimize.html)。
 
 <br/>
 
@@ -213,7 +213,7 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
 2. **在图编译阶段，训练还没开始报错时**（例如日志中还没打印loss），请先检查下报错（ERROR）日志中是否有网络中涉及的相关算子报错或涉及环境没配置好导致的报错（如hccl.json不对导致多卡通信初始化异常）。
 
-3. **在中间训练过程中报错时**，通常为下发的数据量（batch数）与网络训练需要的数据量（step数）不匹配导致的，可以通过[get_dataset_size](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/attribute/mindspore.dataset.Dataset.get_dataset_size.html)接口打印一个epoch中包含的batch数，导致异常的部分可能原因如下：
+3. **在中间训练过程中报错时**，通常为下发的数据量（batch数）与网络训练需要的数据量（step数）不匹配导致的，可以通过[get_dataset_size](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/dataset_method/attribute/mindspore.dataset.Dataset.get_dataset_size.html)接口打印一个epoch中包含的batch数，导致异常的部分可能原因如下：
 
     - 通过查看打印loss次数的等方式判断如果数据量（step数）刚好为一个epoch中batch数的整数倍，则可能是数据处理部分涉及epoch的处理存在问题，如下面这场景:
 
@@ -313,7 +313,7 @@ dataset3 = dataset2.map(***)
 
 ## Q: MindSpore中和DataLoader对应的接口是什么？
 
-A: 如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
+A: 如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.GeneratorDataset.html)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/r2.7.1/note/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 
@@ -332,7 +332,7 @@ for item in Dataset:
 ## Q: 数据处理操作与网络计算算子能否混合使用？
 
 A: 通常数据处理操作与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理操作且自定义Python操作不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理操作通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
-将二者混合使用需要使上一个的输出格式和下一个所需的输入格式一致。数据处理操作指的是官网API文档中[mindspore.dataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html)模块下的接口，如 [mindspore.dataset.vision.CenterCrop](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html)，网络计算算子包含 mindspore.nn、 mindspore.ops等模块下的算子。
+将二者混合使用需要使上一个的输出格式和下一个所需的输入格式一致。数据处理操作指的是官网API文档中[mindspore.dataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore.dataset.html)模块下的接口，如 [mindspore.dataset.vision.CenterCrop](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html)，网络计算算子包含 mindspore.nn、 mindspore.ops等模块下的算子。
 
 <br/>
 
@@ -495,7 +495,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
     2022-05-09-11:36:01.893.412 -> 2022-05-09-11:36:02.006.771
     ```
 
-    改进方法：查看最后一条 `push_end_time` 时间与GetNext报错时间，如果超过默认GetNext超时时间（默认：1900s，且可通过 `mindspore.device_context.ascend.op_debug.execute_timeout(xx)`来进行修改），说明数据预处理性能差，可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/optimize.html) 对数据预处理部分进行优化。
+    改进方法：查看最后一条 `push_end_time` 时间与GetNext报错时间，如果超过默认GetNext超时时间（默认：1900s，且可通过 `mindspore.device_context.ascend.op_debug.execute_timeout(xx)`来进行修改），说明数据预处理性能差，可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/dataset/optimize.html) 对数据预处理部分进行优化。
 
 4. 当日志输出类似如下时，表示数据预处理产生了182条数据，正在向设备发送第183条数据，并且 `device_queue` 显示设备侧有充足的数据缓存。
 
@@ -545,7 +545,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
     2022-05-09-14:31:04.064.571 ->
     ```
 
-    改进方法：可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/optimize.html) 对数据预处理部分进行优化。
+    改进方法：可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/dataset/optimize.html) 对数据预处理部分进行优化。
 
 <br/>
 

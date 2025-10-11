@@ -1,6 +1,6 @@
 # 流水线并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/pipeline_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/parallel/pipeline_parallel.md)
 
 ## 简介
 
@@ -12,7 +12,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel)。
+> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/distributed_pipeline_parallel)。
 
 目录结构如下：
 
@@ -122,11 +122,11 @@ class Network(nn.Cell):
 
 ### 训练网络定义
 
-在这一步，我们需要定义损失函数、优化器以及训练过程。需要注意的是，这里对网络和优化器的定义都需要延后初始化。除此之外，还需要增加 [mindspore.parallel.nn.PipelineGradReducer](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.nn.PipelineGradReducer.html) 接口，用于处理流水线并行下的梯度，该接口的第一个参数为需要更新的网络参数，第二个为是否使用优化器并行。
+在这一步，我们需要定义损失函数、优化器以及训练过程。需要注意的是，这里对网络和优化器的定义都需要延后初始化。除此之外，还需要增加 [mindspore.parallel.nn.PipelineGradReducer](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.nn.PipelineGradReducer.html) 接口，用于处理流水线并行下的梯度，该接口的第一个参数为需要更新的网络参数，第二个为是否使用优化器并行。
 
 与单卡模型不同，在这部分需要调用两个接口来配置流水线并行：
 
-- 首先需要定义LossCell，本例中调用了[mindspore.nn.WithLossCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.WithLossCell.html)接口封装网络和损失函数。
+- 首先需要定义LossCell，本例中调用了[mindspore.nn.WithLossCell](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/nn/mindspore.nn.WithLossCell.html)接口封装网络和损失函数。
 - 然后需要在LossCell外包一层`Pipeline`，并指定MicroBatch的size，并通过`stage_config`配置每个包含训练参数的`Cell`的`pipeline_stage`。
 
 ```python
@@ -248,7 +248,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 [  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/parallel/startup_method.html)。
 
 ## 推理操作实践
 
@@ -256,7 +256,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel)。
+> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/distributed_pipeline_parallel)。
 
 目录结构如下：
 
@@ -353,7 +353,7 @@ net.head.pipeline_stage = 3
 
 我们需要进一步设置并行有关的配置，用`AutoParallel`再包裹一次network，指定并行模式`semi_auto`为半自动并行模式，此外，还需开启流水线并行，配置`pipeline`，并通过配置`stages`数来指定stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备（默认为Ascend）。`output_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
 
-在执行推理前，先编译计算图`parallel_net.compile()`，再调用[mindspore.parallel.sync_pipeline_shared_parameters(parallel_net)](https://www.mindspore.cn/docs/zh-CN/master/api_python/parallel/mindspore.parallel.sync_pipeline_shared_parameters.html)接口，框架自动同步stage间的共享权重。
+在执行推理前，先编译计算图`parallel_net.compile()`，再调用[mindspore.parallel.sync_pipeline_shared_parameters(parallel_net)](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.sync_pipeline_shared_parameters.html)接口，框架自动同步stage间的共享权重。
 
 ```python
 

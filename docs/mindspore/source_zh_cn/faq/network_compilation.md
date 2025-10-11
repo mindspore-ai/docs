@@ -1,16 +1,16 @@
 # 网络编译
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/network_compilation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_zh_cn/faq/network_compilation.md)
 
 ## Q: 静态图模式支持的语法集合是什么？
 
-A: 静态图模式能够支持覆盖Python常用语法子集，以支持神经网络的构建和训练，部分Python语法暂不支持。具体支持的语法集合，请参考[静态图语法支持](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)。静态图模式提供了JIT语法支持级别选项，便于用户选择是否扩展静态图语法，对于一些网络场景，推荐使用基础语法（nn/ops等）而非扩展语法（例如numpy三方库）。此外，推荐使用 [静态图高级编程技巧](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph_expert_programming.html) 优化编译性能。
+A: 静态图模式能够支持覆盖Python常用语法子集，以支持神经网络的构建和训练，部分Python语法暂不支持。具体支持的语法集合，请参考[静态图语法支持](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/compile/static_graph.html)。静态图模式提供了JIT语法支持级别选项，便于用户选择是否扩展静态图语法，对于一些网络场景，推荐使用基础语法（nn/ops等）而非扩展语法（例如numpy三方库）。此外，推荐使用 [静态图高级编程技巧](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/compile/static_graph_expert_programming.html) 优化编译性能。
 
 <br/>
 
 ## Q: 编译时报错'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function怎么办？
 
-A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
+A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.Parameter.html) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
 
 <br/>
 
@@ -298,7 +298,7 @@ A: 首先检查导出参数和导入执行的参数个数是否是匹配的。�
 
 因为导出数据输入为非Tensor时，该导出的输入将会变成常量固化到MindIR中，使MindIR中的输入要少于网络构建的Construct入参。
 
-如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型，可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
+如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型，可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
 
 <br/>
 
@@ -531,7 +531,7 @@ net = Net()
 out = net(Tensor(x))
 ```
 
-3) 自定义类中调用了使用@jit装饰器修饰的函数，将会报错。这种场景建议将网络中的自定义类加上@jit_class装饰器，避免使用JIT Fallback特性。自定义类的更多使用可参考[自定义类的使用](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html#支持自定义类的使用)。jit_class装饰器的使用可参考[使用jit_class](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph_expert_programming.html#使用jit-class)。
+3) 自定义类中调用了使用@jit装饰器修饰的函数，将会报错。这种场景建议将网络中的自定义类加上@jit_class装饰器，避免使用JIT Fallback特性。自定义类的更多使用可参考[自定义类的使用](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/compile/static_graph.html#支持自定义类的使用)。jit_class装饰器的使用可参考[使用jit_class](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/compile/static_graph_expert_programming.html#使用jit-class)。
 
 ```python
 import mindspore as ms
@@ -766,13 +766,13 @@ A: 以下场景会触发重新编译：
 
 - Tuple或List的长度发生改变。
 
-- 网络的输入是tuple[Tensor]、list[Tensor]或Dict[Tensor]，即使里面Tensor的shape和dtype没有发生变化。详情请参考 [mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)。
+- 网络的输入是tuple[Tensor]、list[Tensor]或Dict[Tensor]，即使里面Tensor的shape和dtype没有发生变化。详情请参考 [mutable](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.mutable.html)。
 
 <br/>
 
 ## Q: 静态图模式如何判断有几张图？什么情况会切分子图？多子图有什么影响？如何避免出现多子图？
 
-A: 1、子图数量可以通过查看IR文件并搜索"Total subgraphs"获取。关于如何查看分析IR文件，请参考 [IR文件分析](https://www.mindspore.cn/tutorials/zh-CN/master/debug/error_analysis/mindir.html)。
+A: 1、子图数量可以通过查看IR文件并搜索"Total subgraphs"获取。关于如何查看分析IR文件，请参考 [IR文件分析](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/error_analysis/mindir.html)。
 
 2、图模式切分子图，常见于控制流场景，如if/while等。除了用户手动编写，MindSpore框架内部实现的控制流语法也可能会切分出多张子图。
 

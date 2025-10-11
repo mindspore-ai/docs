@@ -1,6 +1,6 @@
 # 多机并行推理（DeepSeek R1）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
 
 本文档介绍DeepSeek R1 671B W8A8并行推理启动流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理模型。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。用户可通过以下[docker安装](#docker安装)章节进行环境配置。
 
@@ -17,7 +17,7 @@ vLLM-MindSpore插件支持[张量并行（TP）](https://docs.vllm.ai/en/v0.9.1/
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 
@@ -154,7 +154,7 @@ export TP_SOCKET_IFNAME=enp189s0f0
 
 - `MS_ENABLE_LCCL`：关闭LCCL，使能HCCL通信。
 - `HCCL_OP_EXPANSION_MODE`：配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
-- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`：配置每个节点可用的设备ID。用户可使用`npu-smi info`命令进行查询。
 - `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
 - `PYTHONPATH`：将MindSpore Transformers路径，加入到`PYTHONPATH`。当`VLLM_MS_MODEL_BACKEND`设置为`MindFormers`需要配置。

@@ -1,6 +1,6 @@
 # List of TensorFlow Operators Supported by MindSpore Lite
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/operator_list_lite_for_tensorflow.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/docs/source_en/reference/operator_list_lite_for_tensorflow.md)
 
 | MindSpore Lite Operator Names | Corresponding TensorFlow Operators                                    |
 | ---------------------- | ------------------------------------------------------------ |
@@ -116,4 +116,4 @@
 | ZerosLike              | ZerosLike                                                    |
 | Other operators supported by the conversion tool | Dropout, Enter,<br/>Exit, If, <br/>LinSpace,<br/>LoopCond,<br/>NextIteration,<br/>StatelessIf,<br/>StatelessWhile,<br/>TensorArrayGatherV3,<br/>TensorArrayReadV3,<br/>TensorArrayScatterV3,<br/>TensorArraySizeV3,<br/>TensorArrayV3,<br/>TensorArrayWriteV3,<br/>While |
 
-> [Converter too](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) supports operators that are not required to be explicitly implemented. Typically, such operators are optimized away in conversion tools—either fused or replaced with other operators.
+> [Converter too](https://www.mindspore.cn/lite/docs/en/r2.7.1/converter/converter_tool.html) supports operators that are not required to be explicitly implemented. Typically, such operators are optimized away in conversion tools—either fused or replaced with other operators.

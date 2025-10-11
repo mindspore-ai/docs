@@ -1,12 +1,12 @@
 # mindspore.jit Multi-Level Compilation Optimization
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/compile/compilation_guide.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_en/features/compile/compilation_guide.md)
 
 ## MindSpore Compilation Architecture
 
 MindSpore utilizes jit (just-in-time) for performance optimization. The jit mode converts Python code to intermediate representation graphs (IR, Intermediate Representation) through AST tree parsing, Python bytecode parsing, or code execution tracing. We name it MindIR. The compiler optimizes this IR graph to achieve code optimization and improve runtime performance. In contrast to PyNative Mode, this JIT compilation mode is called Graph Mode.
 
-Python code written by developers runs in PyNative Mode mode by default. Functions can be decorated with the @mindspore.jit decorator to specify execution in Graph Mode. For documentation on the @mindspore.jit decorator, please refer to the [jit documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html).
+Python code written by developers runs in PyNative Mode mode by default. Functions can be decorated with the @mindspore.jit decorator to specify execution in Graph Mode. For documentation on the @mindspore.jit decorator, please refer to the [jit documentation](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.jit.html).
 
 Graph Mode is roughly divided into 3 stages:
 
@@ -27,7 +27,7 @@ Taking ast as an example: developers can choose `@mindspore.jit:(capture_mode="a
 - strict mode: The goal of this mode is to construct a single graph. If the developer's Python code cannot construct a graph, choosing this mode will cause an error when running the program, requiring the developer to modify the code to use graphable syntax. This is suitable for developers pursuing performance.
 - lax mode: The goal of this mode is to make the developer's program runnable as much as possible. The idea is to perform Python fallback for code that cannot construct graphs in strict mode, that is, return to the Python layer for execution.
 
-For Graph Mode constraints, please refer to [Syntax Constraints](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html). Here's an example of how ast parses Python code and constructs graphs:
+For Graph Mode constraints, please refer to [Syntax Constraints](https://www.mindspore.cn/tutorials/en/r2.7.1/compile/static_graph.html). Here's an example of how ast parses Python code and constructs graphs:
 
 ```python
 @mindspore.jit
@@ -38,7 +38,7 @@ def foo(x, y):
 
 The corresponding abstract syntax tree is as follows:
 
-![Abstract Syntax Tree](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
+![Abstract Syntax Tree](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
 
 By parsing the above abstract syntax tree, we obtain the following IR:
 
@@ -71,7 +71,7 @@ subgraph @foo() {
 
 - Most calculations and optimizations are based on optimization of Tensor calculations. It is recommended that decorated functions should be used for real data calculation functions, rather than simple scalar calculations or data structure transformations.
 
-- For functions decorated with `@mindspore.jit`, if their inputs contain constants, changes in input values each time will cause recompilation. For the concept of variable constants, please refer to [Constants and Variables in Just-in-Time Compilation](https://www.mindspore.cn/tutorials/en/master/compile/static_graph.html). Therefore, it is recommended that decorated functions take Tensors or data modified by Mutable as input to avoid additional performance loss caused by multiple compilations.
+- For functions decorated with `@mindspore.jit`, if their inputs contain constants, changes in input values each time will cause recompilation. For the concept of variable constants, please refer to [Constants and Variables in Just-in-Time Compilation](https://www.mindspore.cn/tutorials/en/r2.7.1/compile/static_graph.html). Therefore, it is recommended that decorated functions take Tensors or data modified by Mutable as input to avoid additional performance loss caused by multiple compilations.
 
 ## Graph Optimization (Frontend)
 
@@ -349,7 +349,7 @@ After the MindIR graph completes frontend optimization, it needs further optimiz
 - **jit_level=O0**: Only performs basic graph segmentation optimization and operator selection (hardware-related). The advantage is that it can guarantee the original structure of the IR graph and has faster compilation speed.
 - **jit_level=O1**: Adds graph optimization and automatic operator fusion. Compilation performance is somewhat lost, but after the model starts training, efficiency is higher.
 
-After this round of optimization, MindIR will be executed by the runtime module, involving multi-level pipeline concurrency and other technologies. For reference, see [Multi-Level Pipeline](https://www.mindspore.cn/docs/en/master/features/runtime/multilevel_pipeline.html).
+After this round of optimization, MindIR will be executed by the runtime module, involving multi-level pipeline concurrency and other technologies. For reference, see [Multi-Level Pipeline](https://www.mindspore.cn/docs/en/r2.7.1/features/runtime/multilevel_pipeline.html).
 
 ### jit_level=O0 Mode
 
@@ -390,7 +390,7 @@ Execution order scheduling is a complex problem of solving optimal operator conc
 - First, the optimization module needs to address the complexity of solving for optimal operator concurrency. Due to the large number of operators in the computational graph and their interdependencies, finding an execution order that maximizes concurrency while maintaining the logical correctness of the computational graph is a challenging task.
 
 - Second, memory constraints are a critical factor that cannot be ignored in execution order optimization. Increasing concurrency, while improving computational efficiency, tends to significantly increase peak memory requirements, which may lead to Out of Memory (OOM) errors, especially in resource-constrained environments. Therefore, the optimization module must weigh the relationship between concurrency and memory usage to ensure that concurrency is increased without exceeding the memory capacity of the system.
-- MindSpore's execution order adjustment module combines rule-based and heuristic-based strategies to provide both bfs/dfs execution order orchestration algorithms [mindspore.jit(option={"exec_order":"bfs/dfs"})](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html) to achieve fine-grained adjustment of the execution order of the computation graph, thus effectively dealing with multiple challenges such as memory constraints and system stability while ensuring computational efficiency.
+- MindSpore's execution order adjustment module combines rule-based and heuristic-based strategies to provide both bfs/dfs execution order orchestration algorithms [mindspore.jit(option={"exec_order":"bfs/dfs"})](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.jit.html) to achieve fine-grained adjustment of the execution order of the computation graph, thus effectively dealing with multiple challenges such as memory constraints and system stability while ensuring computational efficiency.
 
 ### jit_level=O1 Mode
 

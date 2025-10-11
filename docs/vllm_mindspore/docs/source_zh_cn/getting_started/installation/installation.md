@@ -1,6 +1,6 @@
 # 安装指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
 
 本文档将介绍vLLM-MindSpore插件的[版本配套](#版本配套)、安装步骤与[快速验证](#快速验证)用例，用于验证安装是否成功。其中安装步骤分为两种方式：
 
@@ -32,7 +32,7 @@
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 
@@ -130,7 +130,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
     采用快速安装脚本来安装vLLM-MindSpore插件，需要在拉取vLLM-MindSpore插件源码后，执行以下命令安装依赖包：
 
     ```bash
-    git clone https://gitee.com/mindspore/vllm-mindspore.git
+    git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     ```
@@ -193,7 +193,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
         需要先拉取vLLM-MindSpore插件源码，再执行安装：
 
         ```bash
-        git clone https://gitee.com/mindspore/vllm-mindspore.git
+        git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
         cd vllm-mindspore
         pip install .
         ```
