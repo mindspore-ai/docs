@@ -82,7 +82,7 @@ docker exec -it $DOCKER_NAME bash
 
 ## Using the Service
 
-After deploying the environment, user need to prepare the model files before running the model. Refer to the [Downloading Model](#downloading-model) section for guidance. After [setting environment variables](#setting-environment-variables), user can experience the model by [offline inference](#offline-inference) or [online inference](#online-inference).
+After deploying the environment, user needs to prepare the model files before running the model. Refer to the [Downloading Model](#downloading-model) section for guidance. After [setting environment variables](#setting-environment-variables), user can experience the model by [offline inference](#offline-inference) or [online inference](#online-inference).
 
 ### Downloading Model
 
@@ -128,7 +128,7 @@ git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
 
 ### Setting Environment Variables
 
-Before launching the model, user need to set the following environment variables:
+Before launching the model, user needs to set the following environment variables:
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.

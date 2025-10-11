@@ -200,7 +200,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
 
 ## Quick Verification
 
-User can verify the installation with a simple offline inference test. First, user need to configure the environment variables with the following command:
+User can verify the installation with a simple offline inference test. First, user needs to configure the environment variables with the following command:
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.

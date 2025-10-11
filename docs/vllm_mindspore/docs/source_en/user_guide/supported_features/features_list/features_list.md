@@ -4,40 +4,40 @@
 
 The features supported by vLLM-MindSpore Plugin are consistent with the community version of vLLM. For feature descriptions and usage, please refer to the [vLLM Official Documentation](https://docs.vllm.ai/en/latest/).
 
-The following is the features supported in vLLM-MindSpore Plugin.
+The following are the features supported in vLLM-MindSpore Plugin.
 
-| **Features**                          | **vLLM V0** | **vLLM V1** |  
-|-----------------------------------|--------------------|--------------------|  
-| Chunked Prefill                   | √                  | √                  |  
-| Automatic Prefix Caching          | √                  | √                  |  
-| Multi step scheduler              | √                  | ×                  |  
-| DeepSeek MTP                      | √                  | WIP                |  
-| Async output                      | √                  | √                  |  
-| Quantization                      | √                  | √                  |  
-| LoRA                              | WIP                | WIP                |  
-| Tensor Parallel                   | √                  | √                  |  
-| Pipeline Parallel                 | WIP                | WIP                |  
-| Expert Parallel                   | ×                  | √                  |  
-| Data Parallel                     | ×                  | √                  |  
-| Prefill Decode Disaggregation     | ×                  | WIP                |  
-| Multi Modality                    | WIP                | WIP                |  
-| Prompt adapter                    | ×                  | WIP                |  
-| Speculative decoding              | ×                  | WIP                |  
-| LogProbs                          | ×                  | √                  |  
-| Prompt logProbs                   | ×                  | WIP                |  
-| Best of                           | ×                  | ×                  |  
-| Beam search                       | ×                  | WIP                |  
-| Guided Decoding                   | ×                  | WIP                |  
+| **Features**                          | **vLLM V0** | **vLLM V1** |
+|-----------------------------------|--------------------|--------------------|
+| Chunked Prefill                   | √                  | √                  |
+| Automatic Prefix Caching          | √                  | √                  |
+| Multi step scheduler              | √                  | ×                  |
+| DeepSeek MTP                      | √                  | WIP                |
+| Async output                      | √                  | √                  |
+| Quantization                      | √                  | √                  |
+| LoRA                              | WIP                | WIP                |
+| Tensor Parallel                   | √                  | √                  |
+| Pipeline Parallel                 | WIP                | WIP                |
+| Expert Parallel                   | ×                  | √                  |
+| Data Parallel                     | ×                  | √                  |
+| Prefill Decode Disaggregation     | ×                  | WIP                |
+| Multi Modality                    | WIP                | WIP                |
+| Prompt adapter                    | ×                  | WIP                |
+| Speculative decoding              | ×                  | WIP                |
+| LogProbs                          | ×                  | √                  |
+| Prompt logProbs                   | ×                  | WIP                |
+| Best of                           | ×                  | ×                  |
+| Beam search                       | ×                  | WIP                |
+| Guided Decoding                   | ×                  | WIP                |
 | Pooling                           | ×                  | ×                  |
 | Enc-dec                           | ×                  | ×                  |
 | Reasoning Outputs                 | √                  | √                  |
 | Tool Calling                      | WIP                | √                  |
 
-- √：Feature aligned with the community version of vLLM.
-- ×：Currently unsupported; alternative solutions are recommended.
-- WIP：Under development or planned for future implementation.
+- √: Feature aligned with the community version of vLLM.
+- ×: Currently unsupported; alternative solutions are recommended.
+- WIP: Under development or planned for future implementation.
 
 ## Feature Description
 
-- LoRA currently only supports the Qwen2.5 vLLM-MindSpore Plugin native model, other models are in the process of adaptation;
+- LoRA currently only supports the Qwen2.5 vLLM-MindSpore Plugin native model, other models are in the process of adaptation.
 - Tool Calling only supports DeepSeek V3 0324 W8A8 model.

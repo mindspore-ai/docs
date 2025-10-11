@@ -1,8 +1,8 @@
 # Benchmark
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/benchmark/benchmark.md)  
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/benchmark/benchmark.md)
 
-The benchmark tool of vLLM-MindSpore Plugin is inherited from vLLM. You can refer to the [vLLM BenchMark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md) documentation for more details. This document introduces [Online Benchmark](#online-benchmark) and [Offline Benchmark](#offline-benchmark). Users can follow the steps to conduct performance tests.  
+The benchmark tool of vLLM-MindSpore Plugin is inherited from vLLM. You can refer to the [vLLM Benchmark](https://github.com/vllm-project/vllm/blob/main/benchmarks/README.md) documentation for more details. This document introduces [Online Benchmark](#online-benchmark) and [Offline Benchmark](#offline-benchmark). Users can follow the steps to conduct performance tests.
 
 ## Online Benchmark
 
@@ -13,19 +13,19 @@ export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model b
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-then start the online inference with the following command:  
+then start the online inference with the following command:
 
 ```bash
-vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests  
-```  
+vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests
+```
 
-For multi-card inference, we take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example. You can prepare the environment by following the guide [Multi-Card Inference (Qwen2.5-32B)](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#online-inference), then start the online inference with the following command:  
+For multi-card inference, we take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example. You can prepare the environment by following the guide [Multi-Card Inference (Qwen2.5-32B)](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#online-inference), then start the online inference with the following command:
 
-```bash  
+```bash
 export TENSOR_PARALLEL_SIZE=4
 export MAX_MODEL_LEN=1024
 python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-32B-Instruct" --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
-```  
+```
 
 If the service is successfully started, the following inference result will be returned:
 
@@ -35,20 +35,20 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ```
 
-Clone the vLLM repository and import the vLLM-MindSpore Plugin to reuse the benchmark tools:  
+Clone the vLLM repository and import the vLLM-MindSpore Plugin to reuse the benchmark tools:
 
-```bash  
+```bash
 export VLLM_BRANCH=v0.9.1
 git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
-```  
+```
 
 Here, `VLLM_BRANCH` refers to the branch name of vLLM, which needs to be compatible with vLLM-MindSpore Plugin. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
 
-Execute the test script:  
+Execute the test script:
 
-```bash  
+```bash
 # download dataset
 # wget https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/main/ShareGPT_V3_unfiltered_cleaned_split.json
 
@@ -71,9 +71,9 @@ python3 benchmarks/benchmark_serving.py \
     --num-prompts 10
 ```  
 
-If the test runs successfully, the following results will be returned:  
+If the test runs successfully, the following results will be returned:
 
-```text  
+```text
 ============ Serving Benchmark Result ============
 Successful requests:                     ....
 Benchmark duration (s):                  ....
@@ -95,11 +95,11 @@ Mean ITL (ms):                           ....
 Median ITL (ms):                         ....
 P99 ITL (ms):                            ....
 ==================================================
-```  
+```
 
 ## Offline Benchmark
 
-For offline performance benchmark, take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. Prepare the environment by following the guide [Single-Card Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#offline-inference). User need to set the environment variables:
+For offline performance benchmark, take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) as an example. Prepare the environment by following the guide [Single-Card Inference (Qwen2.5-7B)](../../../getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md#offline-inference). User needs to set the environment variables:
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
@@ -113,23 +113,23 @@ export VLLM_BRANCH=v0.9.1
 git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
-```  
+```
 
 Here, `VLLM_BRANCH` refers to the branch name of vLLM, which needs to be compatible with vLLM-MindSpore Plugin. For compatibility details, please refer to [here](../../../getting_started/installation/installation.md#version-compatibility).
 
-Run the test script with the following command. The script below will start the model automatically, and user does not need to start the model manually:  
+Run the test script with the following command. The script below will start the model automatically, and user does not need to start the model manually:
 
-```bash  
+```bash
 python3 benchmarks/benchmark_throughput.py \  
     --model Qwen/Qwen2.5-7B-Instruct \  
     --dataset-name sonnet \  
     --dataset-path benchmarks/sonnet.txt \  
     --num-prompts 10
-```  
+```
 
-If the test runs successfully, the following results will be returned:  
+If the test runs successfully, the following results will be returned:
 
-```text  
+```text
 Throughput: ... requests/s, ... total tokens/s, ... output tokens/s
 Total num prompt tokens:  ...
 Total num output tokens:  ...

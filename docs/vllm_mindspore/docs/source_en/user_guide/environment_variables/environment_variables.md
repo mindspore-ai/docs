@@ -12,7 +12,7 @@
 | `ASCEND_RT_VISIBLE_DEVICES` | Specifies which devices are visible to the current process, supporting one or multiple Device IDs. | String | Device IDs as a comma-separated string (e.g., `"0,1,2,3,4,5,6,7"`). | Recommended for Ray usage scenarios. |
 | `HCCL_BUFFSIZE` | Controls the buffer size for data sharing between two NPUs. | int | Buffer size in MB (e.g., `2048`). | Usage reference: [HCCL_BUFFSIZE](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/81RC1beta1/maintenref/envvar/envref_07_0080.html). Example: For DeepSeek hybrid parallelism (Data Parallel: 32, Expert Parallel: 32) with `max-num-batched-tokens=256`, set `export HCCL_BUFFSIZE=2048`. |
 | `MS_MEMPOOL_BLOCK_SIZE` | Set the size of the memory pool block in PyNative mode for devices | String | String of positive number, and the unit is GB. |  |
-| `vLLM_USE_NPU_ADV_STEP_FLASH_OP` | Whether to use Ascend operation `adv_step_flash`  | String | `on`: Use；`off`：Not use | If the variable is set to `off`, model will use the implement of small operations. |
+| `vLLM_USE_NPU_ADV_STEP_FLASH_OP` | Whether to use Ascend operation `adv_step_flash`  | String | `on`: Use; `off`: Not use | If the variable is set to `off`, model will use the implementation of small operations. |
 | `VLLM_TORCH_PROFILER_DIR` | Enables profiling data collection and takes effect when a data save path is configured. | String | The path to save profiling data. | |
 
 More environment variable information can be referred in the following links:

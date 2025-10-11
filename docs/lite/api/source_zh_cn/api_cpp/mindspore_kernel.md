@@ -8,7 +8,7 @@
 | --- | --- |
 | [Kernel](#kernel) | 算子基类。|
 | [KernelInterface](#kernelinterface) | 算子扩展能力基类。|
-| [MSKernel](#mskernel) | Mindspore Kernel Mindspore算子基类。 |
+| [MSKernel](#mskernel) | MindSpore Kernel MindSpore算子基类。 |
 | [IKernel](#ikernel) | IKernel 算子模板类。 |
 
 ## Kernel
@@ -150,7 +150,7 @@ virtual Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<minds
 
 \#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/kernel_api.h)>
 
-Mindspore Kernel 算子类。是IKernel的父类。
+MindSpore Kernel 算子类。是IKernel的父类。
 
 ### 构造函数
 

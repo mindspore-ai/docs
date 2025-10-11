@@ -2,9 +2,9 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/quantization/quantization.md)
 
-This document introduces model quantization and quantized inference methods. Quantization reduces inference resource with minor cost of precision, while improving inference performance to enable deployment on more devices. With the large scale of LLMs, post-training quantization has become the mainstream approach for model quantization. For details, refer to [Post-Training Quantization Introduction](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/README.md).
+This document introduces model quantization and quantized inference methods. Quantization reduces inference resources with minor cost of precision, while improving inference performance to enable deployment on more devices. With the large scale of LLMs, post-training quantization has become the mainstream approach for model quantization. For details, refer to [Post-Training Quantization Introduction](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/README.md).
 
-In this document, the [Creating Quantized Models](#creating-quantized-models) section introduces post-training quantization steps using [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) as an example. A the [Quantized Model Inference](#quantized-model-inference) section explains how to perform inference with quantized models.
+In this document, the [Creating Quantized Models](#creating-quantized-models) section introduces post-training quantization steps using [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) as an example. The [Quantized Model Inference](#quantized-model-inference) section explains how to perform inference with quantized models.
 
 ## Creating Quantized Models
 
@@ -24,14 +24,14 @@ After obtaining the DeepSeek-R1 W8A8 weights, ensure they are stored in the rela
 
 ### Offline Inference
 
-Refer to the [Installation Guide](../../../getting_started/installation/installation.md) to set up the vLLM-MindSpore Plugin environment. User need to set the following environment variables:
+Refer to the [Installation Guide](../../../getting_started/installation/installation.md) to set up the vLLM-MindSpore Plugin environment. User needs to set the following environment variables:
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
-About the yaml for the DeepSeek-R1 W8A8 quantization inference, user can use [predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
+For the yaml for the DeepSeek-R1 W8A8 quantization inference, user can use [predict_deepseek_r1_671b_w8a8.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b_w8a8.yaml).
 
 Once ready, use the following Python code for offline inference:
 
