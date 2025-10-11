@@ -1,6 +1,6 @@
 # Model Online Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/model_infer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/orange_pi/model_infer.md)
 
 This section describes how to download the Ascend MindSpore online inference case on the OrangePi AIpro (hereafter: OrangePi development board) and launch the Jupyter Lab interface to perform inference.
 
@@ -58,15 +58,15 @@ Step 1 Launch the Jupyter Lab interface.
 
 After executing the script, the following printout will appear in the terminal, in which there will be a link to the URL for logging into Jupyter Lab.
 
-![model-infer1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer1.png)
+![model-infer1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/orange_pi/images/model_infer1.png)
 
 Then open the browser.
 
-![model-infer2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer2.png)
+![model-infer2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/orange_pi/images/model_infer2.png)
 
 Then enter the URL link you see above in your browser to log into the Jupyter Lab software.
 
-![model-infer3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer3.png)
+![model-infer3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/orange_pi/images/model_infer3.png)
 
 Step 2 In the Jupyter Lab interface, double-click the case directory shown in the figure below, take “04-FCN” as an example here, you can enter the case directory. The operation process of other cases is similar, just select the corresponding case directory and .ipynb file.
 
@@ -76,7 +76,7 @@ Step 3 In this directory there are all the resources to run the sample, where mi
 
 ![model-infer5](../../source_zh_cn/orange_pi/images/model_infer5.png)
 
-The beginning of the file describes the information of hardware resources (Orange Pi development board) and the versions of CANN and MindSpore required for running the sample. Please note to check the environment. For details on environment checking and setup, refer to [Environment Setup Guide](https://www.mindspore.cn/tutorials/en/master/orange_pi/environment_setup.html).
+The beginning of the file describes the information of hardware resources (Orange Pi development board) and the versions of CANN and MindSpore required for running the sample. Please note to check the environment. For details on environment checking and setup, refer to [Environment Setup Guide](https://www.mindspore.cn/tutorials/en/r2.7.1/orange_pi/environment_setup.html).
 
 Step 4 Click the ⏩ button to run the sample. In the pop-up dialog box, click the "Restart" button, then the sample begins to run.
 
@@ -90,4 +90,4 @@ After the inference execution is completed, it is necessary to navigate to `KERN
 
 ## Next Suggestion
 
-For specific case development based on MindSpore, please refer to [Quick Start](https://www.mindspore.cn/tutorials/en/master/orange_pi/dev_start.html)
+For specific case development based on MindSpore, please refer to [Quick Start](https://www.mindspore.cn/tutorials/en/r2.7.1/orange_pi/dev_start.html)

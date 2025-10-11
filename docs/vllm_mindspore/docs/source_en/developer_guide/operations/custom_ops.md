@@ -1,10 +1,10 @@
 # Custom Operator Integration
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/developer_guide/operations/custom_ops.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/developer_guide/operations/custom_ops.md)
 
 When the built-in operators do not meet your requirements, you can use MindSpore's custom operator functionality to integrate your operators.
 
-This document would introduce how to integrate a new custom operator into the vLLM-MindSpore Plugin project, with the **`advance_step_flashattn`** operator as an example. The focus here is on the integration process into vLLM-MindSpore Plugin. For the details of custom operator development, please refer to the official MindSpore tutorial: [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/master/custom_program/operation/op_customopbuilder.html), and for AscendC operator development, see the official Ascend documentation: [Ascend C Operator Development](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html).
+This document would introduce how to integrate a new custom operator into the vLLM-MindSpore Plugin project, with the **`advance_step_flashattn`** operator as an example. The focus here is on the integration process into vLLM-MindSpore Plugin. For the details of custom operator development, please refer to the official MindSpore tutorial: [CustomOpBuilder-Based Custom Operators](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_customopbuilder.html), and for AscendC operator development, see the official Ascend documentation: [Ascend C Operator Development](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html).
 
 **Note: Currently, custom operators in vLLM-MindSpore Plugin are only supported in PyNative Mode.**
 
@@ -39,7 +39,7 @@ To integrate a custom operator, users need to create [Operator Interface Declara
 
 ### Operator Interface Declaration
 
-Create a header file in `csrc/ascendc/` to declare the operator function and related interfaces. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.h):
+Create a header file in `csrc/ascendc/` to declare the operator function and related interfaces. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/csrc/ascendc/adv_step_flash.h):
 
 ```cpp
 #ifndef VLLM_MINDSPORE_CSRC_ASCENDC_ADV_STEP_FLASH_H
@@ -55,7 +55,7 @@ extern void AdvStepFlashKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclS
 
 ### Operator Implementation
 
-Create an implementation file in `csrc/ascendc/` for the core logic. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.c):
+Create an implementation file in `csrc/ascendc/` for the core logic. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/csrc/ascendc/adv_step_flash.c):
 
 ```cpp
 #include "kernel_operator.h"
@@ -82,7 +82,7 @@ void AdvStepFlashKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclStream, 
 
 ### Operator Integration
 
-Create an integration file in `csrc/module/`. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/module/adv_step_flash.cpp):
+Create an integration file in `csrc/module/`. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/csrc/module/adv_step_flash.cpp):
 
 ```cpp
 #include "ms_extension/api.h"
@@ -142,7 +142,7 @@ Here, importing `_C_ops` allows user to use the Python module for the custom ope
 
 1. **Code Integration**: Merge the code into the vLLM-MindSpore Plugin project.
 2. **Project Compilation**: Run `pip install .` in vllm-mindspore to build and install vLLM-MindSpore Plugin.
-3. **Operator Testing**: Call the operator interface via `_custom_ops`. Refer to testcase [test_custom_advstepflash.py](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_custom_advstepflash.py):
+3. **Operator Testing**: Call the operator interface via `_custom_ops`. Refer to testcase [test_custom_advstepflash.py](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/tests/st/python/test_custom_advstepflash.py):
 
 ```python
 from vllm_mindspore import _custom_ops as custom_ops
@@ -152,7 +152,7 @@ custom_ops.advance_step_flashattn(...)
 
 ## Custom Operator Compilation Project
 
-Currently, MindSpore provides only a [CustomOpBuilder](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CustomOpBuilder.html) interface for online compilation of custom operators, with default compilation and linking options built in. vLLM-MindSpore Plugin integrates operators based on MindSpore’s custom operator feature and compiles them into a dynamic library for package release. The following introduces the build process:
+Currently, MindSpore provides only a [CustomOpBuilder](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.CustomOpBuilder.html) interface for online compilation of custom operators, with default compilation and linking options built in. vLLM-MindSpore Plugin integrates operators based on MindSpore’s custom operator feature and compiles them into a dynamic library for package release. The following introduces the build process:
 
 ### Extension Module
 

@@ -93,7 +93,7 @@ SIG组织
 
 许可证
 -----------------------------------------------------
-Apache 许可证 2.0，如 `LICENSE <https://gitee.com/mindspore/vllm-mindspore/blob/master/LICENSE>`_ 文件中所示。
+Apache 许可证 2.0，如 `LICENSE <https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/LICENSE>`_ 文件中所示。
 
 
 .. toctree::

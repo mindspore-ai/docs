@@ -1,12 +1,12 @@
 # Model Quantization
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_infer/ms_infer/ms_infer_quantization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/model_infer/ms_infer/ms_infer_quantization.md)
 
 ## Overview
 
 MindSpore is an all-scenario AI framework. When a model is deployed on the device or other lightweight devices, it may be subject to memory, power consumption, and latency. Therefore, the model needs to be compressed before deployment.
 
-[MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/index.html) provides the model compression capability of MindSpore. MindSpore Golden Stick is a set of model compression algorithms jointly designed and developed by Huawei Noah's Ark team and MindSpore team. It provides a series of model compression algorithms for MindSpore, supporting quantization modes such as A16W8, A16W4, A8W8, and KVCache. For details, see [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/index.html).
+[MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/index.html) provides the model compression capability of MindSpore. MindSpore Golden Stick is a set of model compression algorithms jointly designed and developed by Huawei Noah's Ark team and MindSpore team. It provides a series of model compression algorithms for MindSpore, supporting quantization modes such as A16W8, A16W4, A8W8, and KVCache. For details, see [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/index.html).
 
 ## Basic Model Quantization Process
 
@@ -90,7 +90,7 @@ ptq.convert(net)
 ms.save_checkpoint(net.parameters_dict(), './simplenet_ptq.ckpt')
 ```
 
-1. Use [nn.Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html) to define the network. After the model is trained, the floating-point weights of the model are obtained. During inference, the floating-point weights of the model are loaded. The preceding example simplifies the process by directly creating a network and quantizing the network using the initial floating-point weights.
+1. Use [nn.Cell](https://www.mindspore.cn/docs/en/r2.7.1/api_python/nn/mindspore.nn.Cell.html) to define the network. After the model is trained, the floating-point weights of the model are obtained. During inference, the floating-point weights of the model are loaded. The preceding example simplifies the process by directly creating a network and quantizing the network using the initial floating-point weights.
 2. Use PTQConfig to set the mode to quantization and backend to Ascend for 8-bit quantization of the weights. For details, see [PTQConfig Description](#ptqconfig-description).
 3. Use the apply API to convert the network into a fake-quantized network and collect statistics on the quantization objects according to `PTQConfig`.
 4. Use the convert API to perform real quantization on the fake-quantized network obtained in the previous step to obtain the quantized network.
@@ -150,7 +150,7 @@ print(output)
 
 ### PTQConfig Description
 
-You can customize the PTQConfig to enable different quantization capabilities. For details about PTQConfig, see the [API document](https://www.mindspore.cn/golden_stick/docs/en/master/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig). The following lists the configuration examples of these algorithms:
+You can customize the PTQConfig to enable different quantization capabilities. For details about PTQConfig, see the [API document](https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/ptq/mindspore_gs.ptq.PTQConfig.html#mindspore_gs.ptq.PTQConfig). The following lists the configuration examples of these algorithms:
 
 > **A** indicates activation, **W** indicates weight, **C** indicates KVCache, and the number indicates the bit. For example, A16W8 indicates that the activation is quantized to float16 and the weight is quantized to int8.
 
@@ -192,13 +192,13 @@ You can customize the PTQConfig to enable different quantization capabilities. F
 
 The following provides the complete process of quantizing and deploying the post-training quantization (PTQ) algorithm on the Llama2 network:
 
-- [PTQ algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/ptq/ptq.html): supports 8-bit weight quantization, 8-bit full quantization, and KVCacheInt8 quantization. SmoothQuant can be used to improve the quantization precision. Combined quantization algorithms of different algorithms are supported to improve the quantization inference performance.
+- [PTQ algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/ptq/ptq.html): supports 8-bit weight quantization, 8-bit full quantization, and KVCacheInt8 quantization. SmoothQuant can be used to improve the quantization precision. Combined quantization algorithms of different algorithms are supported to improve the quantization inference performance.
 
 ### Perceptual Quantization Training Examples
 
-- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/quantization/simulated_quantization.html): A basic quantization aware algorithm based on the fake quantization technology.
-- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/quantization/slb.html): A non-linear low-bit quantization aware algorithm.
+- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/quantization/simulated_quantization.html): A basic quantization aware algorithm based on the fake quantization technology.
+- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/quantization/slb.html): A non-linear low-bit quantization aware algorithm.
 
 ### Pruning Examples
 
-- [SCOP pruning algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/pruner/scop.html): A structured weight pruning algorithm.
+- [SCOP pruning algorithm](https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/pruner/scop.html): A structured weight pruning algorithm.

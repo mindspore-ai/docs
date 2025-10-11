@@ -1,6 +1,6 @@
 # CustomOpBuilder通过AtbOpRunner接入ATB算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_atb.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_atb.md)
 
 ## 概述
 
@@ -8,13 +8,13 @@
 
 当用户需要使用ATB加速库的算子，而MindSpore未提供相应算子接口时，用户可以使用自定义算子的方法快速接入使用。
 
-在 [基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html) 中，MindSpore提供了 `PyboostRunner` 方便用户在动态图接入自定义算子。现在针对ATB算子，MindSpore又额外提供了一套`AtbOpRunner`用于把ATB算子的调用流程和动态图多级流水封装到一起。
+在 [基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_customopbuilder.html) 中，MindSpore提供了 `PyboostRunner` 方便用户在动态图接入自定义算子。现在针对ATB算子，MindSpore又额外提供了一套`AtbOpRunner`用于把ATB算子的调用流程和动态图多级流水封装到一起。
 
 在完整的[ATB算子的调用流程](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/acce/ascendtb/ascendtb_0037.html)中，用户需要执行构造`Param`、创建`Operation`和`Context`、设置`variantPack`（算子输入输出张量）、调用`Setup`、调用`Execute`、销毁`Context`和`Operation` 等流程。但是对于一个算子来说，其`Operation`仅依赖于算子属性（`Param`），其`Context`仅依赖于流（stream），且都是可以复用的，因此MindSpore提供了一个缓存，将这些数据结构放在缓存中，避免多次创建和销毁带来不必要的时间消耗。
 
-用户基于 [AtbOpRunner类](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#class-atboprunner) 对接ATB算子时，仅需要提供相应`Param`的哈希函数（作为缓存`Operation`的键值），并调用`Init`接口初始化（即构造`Operation`），再调用`Run`接口即可执行ATB算子。还可以直接调用 [RunAtbOp](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/cpp_api_for_custom_ops.html#function-runatbop)函数一键执行（函数内包含了`Init`和`Run`接口的调用）。
+用户基于 [AtbOpRunner类](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/cpp_api_for_custom_ops.html#class-atboprunner) 对接ATB算子时，仅需要提供相应`Param`的哈希函数（作为缓存`Operation`的键值），并调用`Init`接口初始化（即构造`Operation`），再调用`Run`接口即可执行ATB算子。还可以直接调用 [RunAtbOp](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/cpp_api_for_custom_ops.html#function-runatbop)函数一键执行（函数内包含了`Init`和`Run`接口的调用）。
 
-本指南以一个`SwiGLU`为例，展示ATB算子的接入流程。完整代码请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/jit_test_files/atb_swiglu.cpp)。
+本指南以一个`SwiGLU`为例，展示ATB算子的接入流程。完整代码请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/v2.7.1/tests/st/graph_kernel/custom/jit_test_files/atb_swiglu.cpp)。
 
 ## 安装ATB加速库
 

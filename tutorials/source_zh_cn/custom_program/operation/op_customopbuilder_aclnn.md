@@ -1,6 +1,6 @@
 # CustomOpBuilder 通过 AclnnOpRunner 接入 ACLNN 算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_aclnn.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/custom_program/operation/op_customopbuilder_aclnn.md)
 
 ## 概述
 
@@ -15,9 +15,9 @@ aclnnStatus aclxxXxx(void * workspace, uint64_t workspaceSize, aclOpExecutor * e
 
 必须先调用第一段接口`aclxxXxxGetWorkspaceSize`，用于计算本次API调用过程中需要多少workspace内存，获取到计算所需的workspace size后，按照workspace size申请NPU内存，然后调用第二段接口`aclxxXxx`执行计算。
 
-在 [基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)中，MindSpore提供了 `PyboostRunner` 方便用户在动态图接入自定义算子。为了简化调用流程，隐藏接口数据类型转换操作，MindSpore针对`aclnn`算子提供了统一的执行入口`ms::pynative::AclnnOpRunner`，其支持PyBoost多级流水和MindSpore框架的算子缓存能力，提高算子和网络执行效率。
+在 [基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_customopbuilder.html)中，MindSpore提供了 `PyboostRunner` 方便用户在动态图接入自定义算子。为了简化调用流程，隐藏接口数据类型转换操作，MindSpore针对`aclnn`算子提供了统一的执行入口`ms::pynative::AclnnOpRunner`，其支持PyBoost多级流水和MindSpore框架的算子缓存能力，提高算子和网络执行效率。
 
-本教程以 `ArgMin`为例，展示完整接入流程。完整代码可参考 [MindSpore 代码仓](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/jit_test_files/)。
+本教程以 `ArgMin`为例，展示完整接入流程。完整代码可参考 [MindSpore 代码仓](https://gitee.com/mindspore/mindspore/tree/v2.7.1/tests/st/graph_kernel/custom/jit_test_files/)。
 
 ## 安装 ACLNN 开发环境
 
@@ -103,7 +103,7 @@ auto y = GenResultTensor(x, axis, keep_dims);
 
 ### 2. 创建AclnnOpRunner
 
-在[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder.html)中，MindSpore提供了通用的接入自定义算子类`PyboostRunner`。针对aclnn算子，用户可直接使用`AclnnOpRunner`类创建对象。
+在[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_customopbuilder.html)中，MindSpore提供了通用的接入自定义算子类`PyboostRunner`。针对aclnn算子，用户可直接使用`AclnnOpRunner`类创建对象。
 
 ```c++
 auto runner = std::make_shared<ms::pynative::AclnnOpRunner>("ArgMin");

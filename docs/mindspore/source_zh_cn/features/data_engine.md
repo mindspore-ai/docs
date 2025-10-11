@@ -1,6 +1,6 @@
 # 高性能数据处理引擎
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/data_engine.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_zh_cn/features/data_engine.md)
 
 ## 背景介绍
 
@@ -14,7 +14,7 @@ MindSpore训练数据处理引擎核心是将训练样本（数据集）高效�
 - 提供了自动数据增强模式，能够基于特定策略自动对图像进行数据增强处理；
 - 提供单节点数据缓存能力，解决重复加载、处理数据的问题，降低数据处理开销，提升端到端训练效率。
 
-具体用法参考：[数据处理与加载](https://www.mindspore.cn/tutorials/zh-CN/master/dataset/overview.html)
+具体用法参考：[数据处理与加载](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/dataset/overview.html)
 
 ![image](./images/data/data_engine.png)
 
@@ -91,9 +91,9 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
     针对数据集种类繁多、格式与组织方式各异的难题，MindSpore提供了三种不同的数据集加载方法：
 
-    - 对于各领域的常用数据集，可以直接使用MindSpore内置的API接口进行加载。MindSpore提供了[CelebADataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.CelebADataset.html)、[Cifar10Dataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html)、[CocoDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.CocoDataset.html)、[ImageFolderDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.ImageFolderDataset.html)、[MnistDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MnistDataset.html)、[VOCDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.VOCDataset.html)等常用数据集加载接口，在保证性能的同时，能够让用户开箱即用。
-    - 对于暂不支持直接加载的数据集，可以先转换为MindSpore数据格式，即MindRecord，再通过[MindDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html)接口进行加载。MindRecord可以将不同的数据集格式归一化，有聚合存储、高效读取、快速编解码、灵活控制分区大小等多种优势。
-    - 用户也可以通过Python编写自定义数据集读取类，再使用[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)接口进行数据集加载。该方式可以快速集成现有代码，但由于是Python IO Reader，需要额外关注数据加载性能。
+    - 对于各领域的常用数据集，可以直接使用MindSpore内置的API接口进行加载。MindSpore提供了[CelebADataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.CelebADataset.html)、[Cifar10Dataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.Cifar10Dataset.html)、[CocoDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.CocoDataset.html)、[ImageFolderDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.ImageFolderDataset.html)、[MnistDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.MnistDataset.html)、[VOCDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.VOCDataset.html)等常用数据集加载接口，在保证性能的同时，能够让用户开箱即用。
+    - 对于暂不支持直接加载的数据集，可以先转换为MindSpore数据格式，即MindRecord，再通过[MindDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.MindDataset.html)接口进行加载。MindRecord可以将不同的数据集格式归一化，有聚合存储、高效读取、快速编解码、灵活控制分区大小等多种优势。
+    - 用户也可以通过Python编写自定义数据集读取类，再使用[GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.GeneratorDataset.html)接口进行数据集加载。该方式可以快速集成现有代码，但由于是Python IO Reader，需要额外关注数据加载性能。
 
 - 通过Python层自定义和C++层插件的方式支持更多操作
 
@@ -111,7 +111,7 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
     为了支持AutoAugment这种自动数据增强策略，MindSpore提供了以下接口。
 
-    - [RandomChoice](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_transforms/mindspore.dataset.transforms.RandomChoice.html)即随机选择，允许用户定义一个数据增强操作列表，数据处理过程中将针对每张图像等概率选择列表中的一个数据增强操作执行。
+    - [RandomChoice](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset_transforms/mindspore.dataset.transforms.RandomChoice.html)即随机选择，允许用户定义一个数据增强操作列表，数据处理过程中将针对每张图像等概率选择列表中的一个数据增强操作执行。
 
         ```python
         from mindspore.dataset.transforms import RandomChoice
@@ -122,7 +122,7 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
                                        RandomRotation((90, 90))])
         ```
 
-    - [RandomApply](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_transforms/mindspore.dataset.transforms.RandomApply.html)即随机概率执行，允许用户定义一个数据增强操作列表和对应概率，数据处理过程中将针对每张图像以指定的概率执行列表中的数据增强操作，要么全都执行，要么全不执行。
+    - [RandomApply](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset_transforms/mindspore.dataset.transforms.RandomApply.html)即随机概率执行，允许用户定义一个数据增强操作列表和对应概率，数据处理过程中将针对每张图像以指定的概率执行列表中的数据增强操作，要么全都执行，要么全不执行。
 
         ```python
         from mindspore.dataset.transforms import RandomApply
@@ -133,7 +133,7 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
                                       RandomRotation((90, 90))], 0.8)
         ```
 
-    - [RandomSelectSubpolicy](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomSelectSubpolicy.html)即随机子策略选择，允许用户定义多个数据增强操作子策略列表，并对子策略中的每个数据增强操作指定执行的概率，数据处理过程中将针对每张图像先等概率选择一个子策略，然后按顺序依照概率决定其中各个数据增强操作是否执行。
+    - [RandomSelectSubpolicy](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset_vision/mindspore.dataset.vision.RandomSelectSubpolicy.html)即随机子策略选择，允许用户定义多个数据增强操作子策略列表，并对子策略中的每个数据增强操作指定执行的概率，数据处理过程中将针对每张图像先等概率选择一个子策略，然后按顺序依照概率决定其中各个数据增强操作是否执行。
 
         ```python
         from mindspore.dataset.vision import RandomSelectSubpolicy, RandomRotation, RandomVerticalFlip, \

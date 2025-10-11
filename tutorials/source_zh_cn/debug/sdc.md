@@ -1,6 +1,6 @@
 # 特征值检测
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/sdc.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/debug/sdc.md)
 
 ## 概述
 
@@ -54,7 +54,7 @@ MindSpore框架2.7.1版本提供了特征值与CheckSum联合检测方案，能�
 
 环境变量`MS_NPU_ASD_CONFIG`对特征值和CheckSum联合检测方案进行配置，格式为key:value，并以逗号分隔各个配置项。其中`enable`为特征值检测开关，`with_checksum`为联动CheckSum开关，`grad_sample_interval`为特征值采样间隔，`upper_thresh1`和`upper_thresh2`分别控制特征值检测的绝对阈值和相对阈值，`cooldown`为特征值异常冷却时间和单次CheckSum执行时长，`strikes_num`和`strikes_window`为触发CheckSum所需的特征值异常次数和时间窗口大小，`checksum_cooldown`为CheckSum冷却时间。默认情况下，`MS_NPU_ASD_CONFIG="enable:false,with_checksum:false,grad_sample_interval:10,upper_thresh1:1000000,upper_thresh2:100,cooldown:5,strikes_num:3,strikes_window:480,checksum_cooldown:180"`。
 
-上述环境变量的详细说明参见[环境变量](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+上述环境变量的详细说明参见[环境变量](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/env_var_list.html)。
 
 ## 使用用例
 

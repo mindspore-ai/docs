@@ -1,6 +1,6 @@
 # 并行推理方法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/parallel/parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/parallel/parallel.md)
 
 vLLM-MindSpore插件支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理，并可以使用`Ray`或者`multiprocess`进行多机多卡启动。不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。下面将展开介绍[张量并行](#张量并行)、[数据并行](#数据并行)、[专家并行](#专家并行)、[混合并行](#混合并行)的使用场景、参数配置与[在线推理](#在线推理)。
 

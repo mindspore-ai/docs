@@ -1,6 +1,6 @@
 # 自定义算子的C++接口说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/cpp_api_for_custom_ops.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/custom_program/operation/cpp_api_for_custom_ops.md)
 
 ## 概述
 
@@ -18,7 +18,7 @@ MindSpore自定义算子的C++接口分为两类：
 
 ### enum TypeId
 
-`TypeId` 枚举类型定义在[type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/include/mindapi/base/type_id.h)头文件中，定义了 MindSpore 中支持的张量数据类型，包括布尔值、整数类型、浮点数类型、复数类型等。
+`TypeId` 枚举类型定义在[type_id.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/core/include/mindapi/base/type_id.h)头文件中，定义了 MindSpore 中支持的张量数据类型，包括布尔值、整数类型、浮点数类型、复数类型等。
 
 此接口也被包含在 `namespace ms`中，通过`ms::TypeId`也可以访问。
 
@@ -51,7 +51,7 @@ kNumberTypeEnd,         // Number 类型结束值
 
 ### class Tensor
 
-张量类定义在[tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/common/tensor.h)头文件中，表示 MindSpore 的张量对象，提供操作和查询张量属性的方法。
+张量类定义在[tensor.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/common/tensor.h)头文件中，表示 MindSpore 的张量对象，提供操作和查询张量属性的方法。
 
 #### 构造函数
 
@@ -302,7 +302,7 @@ kNumberTypeEnd,         // Number 类型结束值
 
 ### function tensor
 
-构造常量张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/common/tensor_utils.h)头文件中。
+构造常量张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/common/tensor_utils.h)头文件中。
 
 ```cpp
 Tensor tensor(int64_t value, TypeId dtype = TypeId::kNumberTypeInt64)
@@ -319,7 +319,7 @@ Tensor tensor(const std::vector<double> &value, TypeId dtype = TypeId::kNumberTy
 
 ### function ones
 
-构造全1张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/common/tensor_utils.h)头文件中。
+构造全1张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/common/tensor_utils.h)头文件中。
 
 ```cpp
 Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
@@ -333,7 +333,7 @@ Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
 
 ### function zeros
 
-构造全0张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/common/tensor_utils.h)头文件中。
+构造全0张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/common/tensor_utils.h)头文件中。
 
 ```cpp
 Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
@@ -349,7 +349,7 @@ Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32
 
 ### class PyboostRunner
 
-PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/pynative/pyboost_extension.h)头文件中，为管理执行、内存分配和内核启动提供方法。
+PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/pynative/pyboost_extension.h)头文件中，为管理执行、内存分配和内核启动提供方法。
 
 `PyboostRunner` 是 `std::enable_shared_from_this` 的子类，需要使用智能指针 `std::shared_ptr` 管理其对象。
 
@@ -470,11 +470,11 @@ PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.co
 
 ### class AtbOpRunner
 
-用于执行 Ascend Transformer Boost (ATB) 算子的运行器类，定义在[atb_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/atb/atb_common.h)头文件中。
+用于执行 Ascend Transformer Boost (ATB) 算子的运行器类，定义在[atb_common.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/ascend/atb/atb_common.h)头文件中。
 
 此类继承自 `PyboostRunner`，并封装了 ATB 算子的调用流程，包括初始化和运行 ATB 算子、管理输入输出 Tensor、内存分配及内核调度。
 
-可以查看教程 [CustomOpBuilder通过AtbOpRunner接入ATB算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder_atb.html) 获取使用方法。
+可以查看教程 [CustomOpBuilder通过AtbOpRunner接入ATB算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_customopbuilder_atb.html) 获取使用方法。
 
 #### 构造函数
 
@@ -502,7 +502,7 @@ PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.co
 
 ### function RunAtbOp
 
-动态图执行ATB算子的接口，定义在[atb_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/atb/atb_common.h)头文件中。
+动态图执行ATB算子的接口，定义在[atb_common.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/ascend/atb/atb_common.h)头文件中。
 
 ```cpp
 template <typename ParamType>
@@ -520,11 +520,11 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
 
 ### class AsdSipFFTOpRunner
 
-用于执行 Ascend Sip Boost (ASDSIP) 算子的运行器类，定义在[asdsip_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/asdsip/asdsip_common.h)头文件中。
+用于执行 Ascend Sip Boost (ASDSIP) 算子的运行器类，定义在[asdsip_common.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/ascend/asdsip/asdsip_common.h)头文件中。
 
 此类继承自 `PyboostRunner`，并封装了 ASDSIP FFT 算子的调用流程，包括初始化和运行 ASDSIP FFT 算子、管理输入输出 Tensor、内存分配及内核调度。
 
-可以查看教程 [CustomOpBuilder通过AsdSipFFTOpRunner接入ASDSIP FFT算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/operation/op_customopbuilder_asdsip.html) 获取使用方法。
+可以查看教程 [CustomOpBuilder通过AsdSipFFTOpRunner接入ASDSIP FFT算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_customopbuilder_asdsip.html) 获取使用方法。
 
 #### 构造函数
 
@@ -550,7 +550,7 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
 
 ### function RunAsdSipFFTOp
 
-动态图执行ASDSIP FFT算子的接口，定义在[asdsip_common.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/ms_extension/ascend/asdsip/asdsip_common.h)头文件中。
+动态图执行ASDSIP FFT算子的接口，定义在[asdsip_common.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/ccsrc/ms_extension/ascend/asdsip/asdsip_common.h)头文件中。
 
 ```cpp
 inline void RunAsdSipFFTOp(const std::string &op_name, const FFTParam &fft_param, const ms::Tensor &input,

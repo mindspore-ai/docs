@@ -1,8 +1,8 @@
 # Quantization Methods
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/quantization/quantization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/quantization/quantization.md)
 
-This document introduces model quantization and quantized inference methods. Quantization reduces inference resources with minor cost of precision, while improving inference performance to enable deployment on more devices. With the large scale of LLMs, post-training quantization has become the mainstream approach for model quantization. For details, refer to [Post-Training Quantization Introduction](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/README.md).
+This document introduces model quantization and quantized inference methods. Quantization reduces inference resources with minor cost of precision, while improving inference performance to enable deployment on more devices. With the large scale of LLMs, post-training quantization has become the mainstream approach for model quantization. For details, refer to [Post-Training Quantization Introduction](https://gitee.com/mindspore/golden-stick/blob/r1.3.0/mindspore_gs/ptq/README.md).
 
 In this document, the [Creating Quantized Models](#creating-quantized-models) section introduces post-training quantization steps using [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) as an example. The [Quantized Model Inference](#quantized-model-inference) section explains how to perform inference with quantized models.
 
@@ -12,7 +12,7 @@ We use the [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) network
 
 ### Quantizing Networks with MindSpore Golden Stick
 
-We employ [MindSpore Golden Stick's PTQ algorithm](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/ptq/README.md) for quantization of DeepSeek-R1. For detailed methods, refer to [DeepSeekR1-OutlierSuppressionLite Quantization Example](https://gitee.com/mindspore/golden-stick/blob/master/example/deepseekv3/a8w8-osl/readme.md).
+We employ [MindSpore Golden Stick's PTQ algorithm](https://gitee.com/mindspore/golden-stick/blob/r1.3.0/mindspore_gs/ptq/ptq/README.md) for quantization of DeepSeek-R1. For detailed methods, refer to [DeepSeekR1-OutlierSuppressionLite Quantization Example](https://gitee.com/mindspore/golden-stick/blob/r1.3.0/example/deepseekv3/a8w8-osl/readme.md).
 
 ### Downloading Quantized Weights
 

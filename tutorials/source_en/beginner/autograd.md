@@ -1,12 +1,12 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/autograd.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/beginner/autograd.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || **Autograd** || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.7.1/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.7.1/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.7.1/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.7.1/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.7.1/beginner/model.html) || **Autograd** || [Train](https://www.mindspore.cn/tutorials/en/r2.7.1/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.7.1/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.7.1/beginner/accelerate_with_static_graph.html)
 
 # Automatic Differentiation
 
 The training of the neural network mainly uses the back propagation algorithm. Model predictions (logits) and the correct labels are fed into the loss function to obtain the loss, and then the back propagation calculation is performed to obtain the gradients, which are finally updated to the model parameters. Automatic differentiation is able to calculate the value of the derivative of a derivable function at a point and is a generalization of the backpropagation algorithm. The main problem solved by automatic differentiation is to decompose a complex mathematical operation into a series of simple basic operations. The function shields the user from a large number of derivative details and processes, which greatly reduces the threshold of using the framework.
 
-MindSpore uses the design philosophy of functional auto-differentiation to provide auto-differentiation interfaces [mindspore.grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html) and [mindspore.value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html) that are closer to the mathematical semantics. We introduce it below by using a simple single-level linear transform model.
+MindSpore uses the design philosophy of functional auto-differentiation to provide auto-differentiation interfaces [mindspore.grad](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.grad.html) and [mindspore.value_and_grad](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.value_and_grad.html) that are closer to the mathematical semantics. We introduce it below by using a simple single-level linear transform model.
 
 ```python
 import numpy as np
@@ -18,7 +18,7 @@ from mindspore import ops, nn, Tensor, Parameter
 
 Computing graphs are a way to represent mathematical functions in a graph-theoretic language and a unified way to represent neural network models in a deep learning framework. We will construct computing functions and neural networks based on the following computing graphs.
 
-![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/comp-graph.png)
+![compute-graph](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/beginner/images/comp-graph.png)
 
 In this model, $x$ is the input, $y$ is the correct value, and $w$ and $b$ are the parameters to be optimized.
 
@@ -32,7 +32,7 @@ b = Parameter(Tensor(np.random.randn(3,), mindspore.float32), name='b') # bias
 
 We construct the computing function based on the computing process described by the computing graphs.
 
-[binary_cross_entropy_with_logits](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html) is a loss function,
+[binary_cross_entropy_with_logits](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html) is a loss function,
 which computes binary cross entropy between the logits and the label.
 
 ```python
@@ -114,7 +114,7 @@ print(grads)
   [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]]), Tensor(shape=[3], dtype=Float32, value= [ 1.06568694e+00,  1.05373347e+00,  1.30146706e+00]))
 ```
 
-You can see that the gradient values corresponding to $w$ and $b$ have changed. At this point, if you want to block out the effect of z on the gradient, i.e., still only find the derivative of the parameter with respect to loss, you can use the [mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.stop_gradient.html) interface to truncate the gradient here. We add the `function` implementation to `stop_gradient` and execute it.
+You can see that the gradient values corresponding to $w$ and $b$ have changed. At this point, if you want to block out the effect of z on the gradient, i.e., still only find the derivative of the parameter with respect to loss, you can use the [mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.stop_gradient.html) interface to truncate the gradient here. We add the `function` implementation to `stop_gradient` and execute it.
 
 ```python
 def function_stop_gradient(x, y, w, b):

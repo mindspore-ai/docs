@@ -1,6 +1,6 @@
 # Installation Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)
 
 This document will introduce the [Version Matching](#version-compatibility) of vLLM-MindSpore Plugin, the installation steps for vLLM-MindSpore Plugin, and the [Quick Verification](#quick-verification) to verify whether the installation is successful. The installation steps provide two installation methods:
 
@@ -32,7 +32,7 @@ We recommend using Docker for quick deployment of the vLLM-MindSpore Plugin envi
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 
@@ -130,7 +130,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
     To install vLLM-MindSpore Plugin, user needs to pull the vLLM-MindSpore Plugin source code and then runs the following command to install the dependencies:
 
     ```bash
-    git clone https://gitee.com/mindspore/vllm-mindspore.git
+    git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     ```
@@ -193,7 +193,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
        User needs to pull source of vLLM-MindSpore Plugin, and run installation.
 
        ```bash
-       git clone https://gitee.com/mindspore/vllm-mindspore.git
+       git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
        cd vllm-mindspore
        pip install .
        ```

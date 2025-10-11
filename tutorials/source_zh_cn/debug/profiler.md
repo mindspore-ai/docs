@@ -1,6 +1,6 @@
 # Ascend性能调优
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/profiler.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/debug/profiler.md)
 
 ## 概述
 
@@ -10,7 +10,7 @@
 
 1. 准备训练脚本；
 
-2. 在训练脚本中调用性能调试接口，如[mindspore.profiler.profile](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html)以及[mindspore.profiler.DynamicProfilerMonitor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)接口；
+2. 在训练脚本中调用性能调试接口，如[mindspore.profiler.profile](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.profile.html)以及[mindspore.profiler.DynamicProfilerMonitor](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)接口；
 
 3. 运行训练脚本；
 
@@ -22,7 +22,7 @@
 
 ### 方式一：mindspore.profiler.profile接口使能
 
-在训练脚本中添加MindSpore profile相关接口，用户可以参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html)和[_ExperimentalConfig可扩展参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html)，针对自己的数据需求配置采集性能数据的级别等参数。
+在训练脚本中添加MindSpore profile相关接口，用户可以参考[MindSpore profile参数详解](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.profile.html)和[_ExperimentalConfig可扩展参数详解](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html)，针对自己的数据需求配置采集性能数据的级别等参数。
 
 该接口支持两种采集方式：自定义for循环方式和CallBack方式，且在Graph和PyNative两种模式下都支持。
 
@@ -67,22 +67,22 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 ```
 
 - schedule：使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息。根据样例中schedule的配置，skip_first跳过0个step，wait等待0个step，warmup预热0个step。根据active为1，则从第0个step开始采集，采集1个step。因此Step ID为0，表示采集的是第0个step。
-- on_trace_ready：profiler的落盘路径是通过on_trace_ready的tensorboard_trace_handler参数指定的，tensorboard_trace_handler会默认解析性能数据，用户如果没有配置tensorboard_trace_handler，数据会默认落盘到当前脚本同级目录的'/data'文件夹下，可以通过离线解析功能解析性能数据，离线解析功能可参考[方式四：离线解析](https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html#%E6%96%B9%E5%BC%8F%E5%9B%9B-%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90)。
+- on_trace_ready：profiler的落盘路径是通过on_trace_ready的tensorboard_trace_handler参数指定的，tensorboard_trace_handler会默认解析性能数据，用户如果没有配置tensorboard_trace_handler，数据会默认落盘到当前脚本同级目录的'/data'文件夹下，可以通过离线解析功能解析性能数据，离线解析功能可参考[方式四：离线解析](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/profiler.html#%E6%96%B9%E5%BC%8F%E5%9B%9B-%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90)。
 
-完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)。
+完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/profiler/for_loop_profiler.py)。
 
 **schedule参数配置原理如下：**
 
 如下图，schedule中有5个参数可以配置，分别为：skip_first、wait、warmup、active、repeat。其中skip_first表示跳过前skip_first个step；wait表示等待阶段，
 跳过wait个step；warmup表示预热阶段，跳过warmup个step；active表示采集active个step；repeat表示重复执行次数。其中1个repeat包括wait+warmup+active个step。
-一个repeat内所有step执行完之后，会执行on_trace_ready配置的回调函数解析性能数据。各个参数的详细介绍请参考[schedule API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.schedule.html)。
+一个repeat内所有step执行完之后，会执行on_trace_ready配置的回调函数解析性能数据。各个参数的详细介绍请参考[schedule API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.schedule.html)。
 
 ![schedule.png](./images/schedule.png)
 
 例如：模型训练共100个step（0-99），此时配置schedule为 `schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)` 。那么profiler将会先跳过前10个step（0-9）。从step 10开始，第1个repeat将等待10个step（10-19），预热5个step（20-24），最终采集5个step（25-29）的性能数据。第2个repeat重复等待10个step（30-39），预热5个step（40-44），最终采集5个step（45-49）的性能数据。
 
 > - 在单卡场景下，profiler根据repeat次数在同一目录下生成多份性能数据。每个repeat对应一个文件夹，包含该repeat中所有active step采集到的性能数据。在多卡场景下，每张卡会独立生成性能数据，每张卡的数据都会根据repeat次数分成多份。当repeat配置为0时，表示重复执行的具体次数由总step数确定，不断重复wait-warmup-active直到所有step执行完毕。
-> - schedule需要配合[mindspore.profiler.profile.step](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step)接口使用，如果配置了schedule而没有调用mindspore.profiler.profile.step接口进行数据采集，则profiler数据采集区间的所有数据都属于第0个step，因此只有在第0个step对应active（wait、warmup、skip_first都配置为0）时，才会生成性能数据文件。
+> - schedule需要配合[mindspore.profiler.profile.step](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step)接口使用，如果配置了schedule而没有调用mindspore.profiler.profile.step接口进行数据采集，则profiler数据采集区间的所有数据都属于第0个step，因此只有在第0个step对应active（wait、warmup、skip_first都配置为0）时，才会生成性能数据文件。
 
 #### CallBack方式采集样例
 
@@ -114,7 +114,7 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-完整案例请参考[CallBack方式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)。
+完整案例请参考[CallBack方式采集完整代码样例](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/profiler/call_back_profiler.py)。
 
 ### 方式二：动态profiler使能
 
@@ -148,7 +148,7 @@ JSON配置样例如下：
 }
 ```
 
-1. 用户需要在实例化DynamicProfilerMonitor前，配置如上的JSON文件，并将配置文件保存在cfg_path中。详细参数介绍请参考[DynamicProfilerMonitor参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)；
+1. 用户需要在实例化DynamicProfilerMonitor前，配置如上的JSON文件，并将配置文件保存在cfg_path中。详细参数介绍请参考[DynamicProfilerMonitor参数详解](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)；
 2. 在模型训练后调用DynamicProfilerMonitor的step接口采集数据；
 3. 用户如果想在训练中变更采集、解析任务，可以修改JSON配置文件。如变更上述JSON配置中的start_step为8，stop_step为10。保存后，DynamicProfilerMonitor会自动识别出配置文件，变更成新的采集、解析任务。
 
@@ -170,11 +170,11 @@ for _ in range(STEP_NUM):
 
 此时生成的结果文件包含两个文件夹：rank0_start2_stop5以及rank0_start8_stop10，分别代表采集的step为2-5和8-10。
 
-完整案例请参考[动态Profiler使能方式案例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py)。
+完整案例请参考[动态Profiler使能方式案例](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/profiler/dynamic_profiler.py)。
 
 ### 方式三：环境变量使能
 
-用户如果想最简单地使能Profiler，可以使用环境变量使能方式，目前只支持单卡场景。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。该方式暂不支持schedule、on_trace_ready、experimental_config参数，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+用户如果想最简单地使能Profiler，可以使用环境变量使能方式，目前只支持单卡场景。该方式只需将参数配置到环境变量中，在模型训练中会自动采集性能数据。该方式暂不支持schedule、on_trace_ready、experimental_config参数，其他参数都可以使用。详细配置项介绍请参考[环境变量使能方式参数详解](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/env_var_list.html)。
 
 > 使用环境变量使能方式，请在脚本开始执行之前通过环境变量设置好device_id。禁止在脚本中通过set_context函数设置device_id。
 
@@ -195,7 +195,7 @@ export MS_PROFILER_OPTIONS='
 
 ### 方式四：离线解析
 
-用户如果想重新解析已经采集的性能数据，可以使用[mindspore.profiler.profiler.analyse](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html)接口进行离线解析。analyse接口详细介绍请参考[离线解析analyse接口参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.profiler.analyse.html)。
+用户如果想重新解析已经采集的性能数据，可以使用[mindspore.profiler.profiler.analyse](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.profiler.analyse.html)接口进行离线解析。analyse接口详细介绍请参考[离线解析analyse接口参数详解](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.profiler.analyse.html)。
 
 离线解析样例如下：
 
@@ -211,7 +211,7 @@ analyse("./profiler_data_path") # './profiler_data_path'为离线解析数据路
 
 ![mstx_profiler.png](./images/mstx_profiler.png)
 
-使用轻量化打点功能时需要保证[_ExperimentalConfig](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html)接口中的mstx配置为True，同时注意轻量化打点数据只在profiler的数据采集区间生效。mstx接口详细介绍请参考[mstx API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.mstx.html)。
+使用轻量化打点功能时需要保证[_ExperimentalConfig](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html)接口中的mstx配置为True，同时注意轻量化打点数据只在profiler的数据采集区间生效。mstx接口详细介绍请参考[mstx API文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.mstx.html)。
 
 轻量化打点样例如下：
 
@@ -224,7 +224,7 @@ mstx.mark("start")
 mstx.range_end(range_id)
 ```
 
-完整案例请参考[mstx轻量化打点方式案例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/mstx_profiler.py)。
+完整案例请参考[mstx轻量化打点方式案例](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/profiler/mstx_profiler.py)。
 
 ## 性能数据
 

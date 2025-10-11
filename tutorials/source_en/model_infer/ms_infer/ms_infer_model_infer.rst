@@ -1,8 +1,8 @@
 MindSpore LLM Inference with Framework
 ==========================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/model_infer/ms_infer/ms_infer_model_infer.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/model_infer/ms_infer/ms_infer_model_infer.rst
     :alt: View Source On Gitee
 
 .. toctree::
@@ -137,7 +137,7 @@ If you need to reuse the tokenizer capability of the mainstream LLM, you can ins
 
    pip install transformers
 
-If you need to use model quantization to enhance inference performance, you need to install the mindspore_gs package. For details, see `Installing MindSpore Golden Stick <https://www.mindspore.cn/golden_stick/docs/en/master/install.html>`_.
+If you need to use model quantization to enhance inference performance, you need to install the mindspore_gs package. For details, see `Installing MindSpore Golden Stick <https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/install.html>`_.
 
 Weight Preparation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -379,7 +379,7 @@ Once the model is built, you can utilize the model object for text generation, e
 
   It can be seen that the model-inferred token IDs are translated to a human-readable statement. In actual verification, due to the randomness of **do_sample**, each inference is different, but the result logic is basically understandable.
 
-  For details about the complete end-to-end example, see `infer.py <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/qwen2/infer.py>`_.
+  For details about the complete end-to-end example, see `infer.py <https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/infer_code/qwen2/infer.py>`_.
 
 Model Parallelism
 ~~~~~~~~~~~~~~~~~~~~

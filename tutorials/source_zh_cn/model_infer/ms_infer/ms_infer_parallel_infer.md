@@ -1,6 +1,6 @@
 # 构建可并行的大语言模型网络
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_parallel_infer.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_parallel_infer.md)
 
 随着模型规模的不断扩展，大语言模型所需的计算资源，特别是显存需求，呈指数级增长。以Qwen2-72B为例，在半精度（FP16）下，这些参数本身就需要约144GB的显存。
 
@@ -475,7 +475,7 @@ Linear层作为切分主要的网络层，其核心是MatMul矩阵计算，因�
             return hidden_state
     ```
 
-具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/model_dev.py)脚本，通过运行如下命令进行验证：
+具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/infer_code/model_dev.py)脚本，通过运行如下命令进行验证：
 
 ```shell
 msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py

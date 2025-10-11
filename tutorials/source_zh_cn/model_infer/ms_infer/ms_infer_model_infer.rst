@@ -1,8 +1,8 @@
 MindSpore大语言模型带框架推理
 =============================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_infer.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_infer.rst
     :alt: 查看源文件
 
 .. toctree::
@@ -137,7 +137,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 
    pip install transformers
 
-如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考 `MindSpore GoldenStick安装 <https://www.mindspore.cn/golden_stick/docs/zh-CN/master/install.html>`_。
+如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考 `MindSpore GoldenStick安装 <https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.3.0/install.html>`_。
 
 权重准备
 ~~~~~~~~
@@ -379,7 +379,7 @@ MindSpore大语言模型带框架推理主要依赖MindSpore开源软件，用�
 
   可以看到，将模型推理的token id翻译后，即是一句可以被正常人理解的语句。实际验证过程中，由于do_sample的随机性，每次推理会有一定的差异，但是结果的逻辑基本都是可以被理解的。
 
-  完整端到端样例可以参考 `infer.py <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/qwen2/infer.py>`_ 。
+  完整端到端样例可以参考 `infer.py <https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/infer_code/qwen2/infer.py>`_ 。
 
 模型并行
 ~~~~~~~~
