@@ -148,11 +148,11 @@ device_list.push_back(cpu_device_info);
 >   `SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
 >   `SetDeviceID`属性仅在TensorRT的GPU上有效，用于指定NVIDIA显卡。
 
-### 配置使用NPU后端
+### 配置使用Kirin NPU后端
 
-当需要执行的后端为NPU时，需要设置[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在NPU后，以保证泛化模型的推理。其中KirinNPUDeviceInfo通过`SetFrequency`来设置NPU频率。
+当需要执行的后端为Kirin NPU时，需要设置[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在Kirin NPU后，以保证泛化模型的推理。其中KirinNPUDeviceInfo通过`SetFrequency`来设置Kirin NPU频率。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_cpp/main.cc#L127)如何创建CPU与NPU异构推理后端，同时NPU频率设置为3。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）：
+下面[示例代码](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_cpp/main.cc#L127)如何创建CPU与Kirin NPU异构推理后端，同时Kirin NPU频率设置为3。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）：
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -161,17 +161,17 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// Set NPU device first, make NPU preferred backend.
+// Set Kirin NPU device first, make Kirin NPU preferred backend.
 auto npu_device_info = std::make_shared<mindspore::KirinNPUDeviceInfo>();
 if (npu_device_info == nullptr) {
   std::cerr << "New KirinNPUDeviceInfo failed." << std::endl;
 }
-// NPU sets frequency to be 3.
+// Kirin NPU sets frequency to be 3.
 npu_device_info->SetFrequency(3);
-// The NPU device context needs to be push_back into device_list to work.
+// The Kirin NPU device context needs to be push_back into device_list to work.
 device_list.push_back(npu_device_info);
 
-// Set CPU device after NPU as second choice.
+// Set CPU device after Kirin NPU as second choice.
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
@@ -219,7 +219,7 @@ device_list.push_back(cpu_device_info);
 
 ### 配置使用CoreML后端
 
-当需要执行的后端为CoreML时，只需实例化[CoreMLDelegate](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#coremldelegate)类，并将实例对象通过[SetDelegate](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdelegate)接口传入上下文对象(context)即可。这与NPU和GPU等以硬件为区分的后端配置步骤有些许不同。
+当需要执行的后端为CoreML时，只需实例化[CoreMLDelegate](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#coremldelegate)类，并将实例对象通过[SetDelegate](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdelegate)接口传入上下文对象(context)即可。这与Kirin NPU和GPU等以硬件为区分的后端配置步骤有些许不同。
 
 下面示例代码演示了如何创建CPU与CoreML异构推理后端：
 
@@ -230,7 +230,7 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// Set CPU device after NPU as second choice.
+// Set CPU device after CoreML as second choice.
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
@@ -460,7 +460,7 @@ MindSpore Lite 支持多硬件异构推理。
 
 ```cpp
 mindspore::Context context;
-// enable NPU CPU GPU in inference. NPU is preferentially used, then the CPU, and GPU gets the lowest priority.
+// enable Kirin NPU, CPU, and GPU in inference. Kirin NPU is preferentially used, then the CPU, and GPU gets the lowest priority.
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::KirinNPUDeviceInfo>());
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::CPUDeviceInfo>());
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::GPUDeviceInfo>());

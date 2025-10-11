@@ -77,7 +77,7 @@ try {
 
 创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。通过[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#init)接口配置线程数，线程亲和性和是否开启异构并行推理。MindSpore Lite内置一个进程共享的线程池，推理时通过`threadNum`指定线程池的最大线程数，默认为2线程。
 
-MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)接口中的`deviceType`指定，目前支持CPU、GPU和NPU。在进行图编译时，会根据主选后端进行算子选型调度。如果后端支持float16，可通过设置`isEnableFloat16`为`true`后，优先使用float16算子。如果是NPU后端，还可以设置NPU频率值。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）。
+MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)接口中的`deviceType`指定，目前支持CPU、GPU和Kirin NPU。在进行图编译时，会根据主选后端进行算子选型调度。如果后端支持float16，可通过设置`isEnableFloat16`为`true`后，优先使用float16算子。如果是Kirin NPU后端，还可以设置Kirin NPU频率值。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）。
 
 ### 配置使用CPU后端
 
@@ -108,11 +108,11 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 > 目前GPU只能在Android手机端侧运行，所以只有`AAR`库才能支持运行。
 
-### 配置使用NPU后端
+### 配置使用Kirin NPU后端
 
-当需要执行的后端为CPU和GPU的异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中先后添加[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用NPU推理。如果使能float16推理，NPU和CPU都会优先使用float16算子。
+当需要执行的后端为CPU和GPU的异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中先后添加[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用Kirin NPU推理。如果使能float16推理，Kirin NPU和CPU都会优先使用float16算子。
 
-下面代码演示了如何创建CPU与GPU异构推理后端，其中KirinNPUDeviceInfo可通过`NPUFrequency`来设置NPU频率。
+下面代码演示了如何创建CPU与Kirin NPU异构推理后端，其中KirinNPUDeviceInfo可通过`NPUFrequency`来设置Kirin NPU频率。
 
 ```java
 MSContext context = new MSContext();

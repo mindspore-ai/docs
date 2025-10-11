@@ -149,11 +149,11 @@ device_list.push_back(cpu_device_info);
 >
 >   The attribute `SetDeviceID` only valid for TensorRT, used to specify the NVIDIA device ID.
 
-### Configuring the NPU Backend
+### Configuring the Kirin NPU Backend
 
-If the backend to be executed is NPUs, you need to set [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetFrequency` to set npu frequency.
+If the backend to be executed is Kirin NPU, you need to set [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetFrequency` to set Kirin NPU frequency.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_cpp/main.cc#L127) shows how to create the CPU and NPU heterogeneous inference backend and set the NPU frequency to 3. It can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), 4 (extreme performance).
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/runtime_cpp/main.cc#L127) shows how to create the CPU and Kirin NPU heterogeneous inference backend and set the Kirin NPU frequency to 3. It can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), 4 (extreme performance).
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -162,17 +162,17 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// Set NPU device first, make NPU preferred backend.
+// Set Kirin NPU device first, make Kirin NPU preferred backend.
 auto npu_device_info = std::make_shared<mindspore::KirinNPUDeviceInfo>();
 if (npu_device_info == nullptr) {
   std::cerr << "New KirinNPUDeviceInfo failed." << std::endl;
 }
-// NPU sets frequency to be 3.
+// Kirin NPU sets frequency to be 3.
 npu_device_info->SetFrequency(3);
-// The NPU device context needs to be push_back into device_list to work.
+// The Kirin NPU device context needs to be push_back into device_list to work.
 device_list.push_back(npu_device_info);
 
-// Set CPU device after NPU as second choice.
+// Set CPU device after Kirin NPU as second choice.
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
@@ -220,7 +220,7 @@ device_list.push_back(cpu_device_info);
 
 ### Configuring the CoreML Backend
 
-If the backend to be executed is CoreML, you need to instantiate the [CoreMLDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_CoreMLDelegate.html) class, and use [SetDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html?highlight=SetDelegate) to pass the instance object into the context object. It is slightly different from the configuring steps of backends defined by hardware such as NPU and GPU.
+If the backend to be executed is CoreML, you need to instantiate the [CoreMLDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_CoreMLDelegate.html) class, and use [SetDelegate](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html?highlight=SetDelegate) to pass the instance object into the context object. It is slightly different from the configuring steps of backends defined by hardware such as Kirin NPU and GPU.
 
 The following sample code shows how to create the CPU and CoreML heterogeneous inference backend:
 
@@ -231,7 +231,7 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// Set CPU device after NPU as second choice.
+// Set CPU device after CoreML as second choice.
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
@@ -461,7 +461,7 @@ The following sample code from [main.cc](https://gitee.com/mindspore/mindspore-l
 
 ```cpp
 mindspore::Context context;
-// enable NPU CPU GPU in inference. NPU is preferentially used, then the CPU, and GPU gets the lowest priority.
+// enable Kirin NPU, CPU, and GPU in inference. Kirin NPU is preferentially used, then the CPU, and GPU gets the lowest priority.
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::KirinNPUDeviceInfo>());
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::CPUDeviceInfo>());
 context.MutableDeviceInfo().push_back(std::make_shared<mindspore::GPUDeviceInfo>());

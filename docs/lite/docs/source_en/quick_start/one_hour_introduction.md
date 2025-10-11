@@ -367,7 +367,7 @@ In this example, we use MindSpore Lite 1.6.0 (download [here](https://ms-release
 
     - Comparison with model training: In the training framework, save the pre-processed data as the input data specified by `inDataFile`. After model inference, save the output data that has not been post-processed in the benchmark file format, and use it as the benchmark.
 
-    - Comparison with different devices or data types: Use different data types (such as FP16) or devices (such as GPU/NPU) for inference to obtain the benchmark in the environment.
+    - Comparison with different devices or data types: Use different data types (such as FP16) or devices (such as GPU/Kirin NPU) for inference to obtain the benchmark in the environment.
 
     - Comparison with theoretical values: For some simple models, manually construct output benchmarks based on your understanding of the models.
 
@@ -1068,7 +1068,7 @@ In this example, we use MindSpore Lite 1.6.0 (download [here](https://ms-release
 
     - Comparison with model training: In the training framework, save the pre-processed data as the input data specified by `inDataFile`. After model inference, save the output data that has not been post-processed in the benchmark file format, and use it as the benchmark.
 
-    - Comparison with different devices or data types: Use different data types (such as FP16) or devices (such as GPU/NPU) for inference to obtain the benchmark in the environment.
+    - Comparison with different devices or data types: Use different data types (such as FP16) or devices (such as GPU/Kirin NPU) for inference to obtain the benchmark in the environment.
 
     - Comparison with theoretical values: For some simple models, manually construct output benchmarks based on your understanding of the models.
 
