@@ -37,7 +37,7 @@ copyright = 'MindSpore'
 author = 'vLLM-MindSpore Plugin'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.4.0'
 
 # -- General configuration ---------------------------------------------------
 

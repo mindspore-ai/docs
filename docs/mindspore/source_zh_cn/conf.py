@@ -182,7 +182,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '2.7.1'
 
 # -- General configuration ---------------------------------------------------
 
@@ -405,22 +405,26 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
             convert2utf8(os.path.join(root, file_))
 
 # Rename .rst file to .txt file for include directive. master使用
-from rename_include import rename_include
+#from rename_include import rename_include
 
-rename_include('api_python')
-rename_include('migration_guide')
+#rename_include('api_python')
+#rename_include('migration_guide')
 
 # modify urls
 import json
 
 # 发版本时这里启用
-# re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
-#          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-#          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url = r"(((gitee.com/mindspore/(docs|mindspore-lite))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url5 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
 if os.path.exists('../../../tools/generate_html/version.json'):
     with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
@@ -453,16 +457,19 @@ for cur, _, files in os.walk(des_sir):
                     content = f.read()
                     new_content = content
                     # 发版本时这里启用
-                    # new_content = re.sub(re_url, r'\1/r2.7.0rc1', new_content)
-                    # new_content = re.sub(re_url3, r'\1/r1.6.0', new_content)
-                    # if i.endswith('.rst'):
-                    #     new_content = re.sub(re_url2, r'\1/v2.7.0-rc1', new_content)
+                    new_content = re.sub(re_url, r'\1/r2.7.1', new_content)
+                    new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
+                    new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
+                    new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
+                    if i.endswith('.rst'):
+                        new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
 
                     # master使用
-                    if i.endswith('.md'):
-                        md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                        if 'resource/_static/logo_source' not in new_content:
-                            new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                    # if i.endswith('.md'):
+                    #     md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                    #     if 'resource/_static/logo_source' not in new_content:
+                    #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+
                     if new_content != content:
                         f.seek(0)
                         f.truncate()
@@ -472,28 +479,28 @@ for cur, _, files in os.walk(des_sir):
                 print(f'打开{i}文件失败')
 
         # master使用
-        if i.endswith('.rst'):
-            try:
-                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                    content = f.read()
-                    new_content = content
-                    if '.. include::' in content and '.. automodule::' in content:
-                        continue
-                    if 'autosummary::' not in content and "\n=====" in content:
-                        re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
-                        new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
-                    if new_content != content:
-                        f.seek(0)
-                        f.truncate()
-                        f.write(new_content)
-            except Exception:
-                print(f'打开{i}文件失败')
+        # if i.endswith('.rst'):
+        #     try:
+        #         with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+        #             content = f.read()
+        #             new_content = content
+        #             if '.. include::' in content and '.. automodule::' in content:
+        #                 continue
+        #             if 'autosummary::' not in content and "\n=====" in content:
+        #                 re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
+        #                 new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+        #             if new_content != content:
+        #                 f.seek(0)
+        #                 f.truncate()
+        #                 f.write(new_content)
+        #     except Exception:
+        #         print(f'打开{i}文件失败')
 
 # # Rename .rst file to .txt file for include directive. (发版本时这里启用)
-# from rename_include import rename_include
+from rename_include import rename_include
 
-# rename_include('api_python')
-# rename_include('migration_guide')
+rename_include('api_python')
+rename_include('migration_guide')
 
 # rename file name to solve Case sensitive.
 
@@ -742,7 +749,8 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
-    # content = re.sub(re_url, r'\1/r2.7.0rc1', content)
-    # content = re.sub(re_url2, r'\1/v2.7.0-rc1', content)
+    # 发版本时这里启用
+    content = re.sub(re_url, r'\1/r2.7.1', content)
+    content = re.sub(re_url2, r'\1/v2.7.1', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
