@@ -172,7 +172,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
     4. Clone the MindSpore Transformers repository and add it to `PYTHONPATH`
 
        ```bash
-       git clone https://gitee.com/mindspore/mindformers.git
+       git clone -b r1.7.0 https://gitee.com/mindspore/mindformers.git
        export PYTHONPATH=$MF_PATH:$PYTHONPATH
        ```
 
