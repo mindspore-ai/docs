@@ -201,11 +201,11 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     - Analysis: When an operator is in the offline converter, the operator is automatically broadcast offline by specifying `--inputShape=<INPUTSHAPE>`. Take the ones like operator as an example. 1 is broadcast to the corresponding constant tensor based on the input shape information. In this case, when the input is resized to different dimensions, an error is reported for operators (such as concat and matmul) that are sensitive to the input tensor dimensions on the network.
     - Solution: Replace this type of operator with the input of a model, assign a value by copying the memory during inference, and specify the corresponding shape information during resizing.
 
-### NPU Inference Issues
+### Kirin NPU Inference Issues
 
 #### Failed to Build a Graph
 
-1. Failed to build an NPU graph. A tool is used to capture background logs and search for **MS_LITE** in the logs. The following error information is displayed:
+1. Failed to build a Kirin NPU graph. A tool is used to capture background logs and search for **MS_LITE** in the logs. The following error information is displayed:
 
     ```cpp
     MS_LITE : [mindspore-lite/src/delegate/npu/npu_subgraph.cc:**] BuildIRModel] Build IR model failed.
@@ -214,7 +214,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     MS_LITE : [mindspore-lite/src/delegate/npu/npu_delegate.cc:**] Build] Create NPU Graph failed.
     ```
 
-    - Analysis: This error is caused by the NPU online graph construction failure.
+    - Analysis: This error is caused by the Kirin NPU online graph construction failure.
     - Solution: The graph construction is completed by calling the [HiAI DDK](https://developer.huawei.com/consumer/en/doc/development/HiAI-Library/ddk-download-0000001053590180) API. Therefore, the error is reported in the error log of HiAI. For some errors, you can modify the operator type or parameter type in the model as prompted. For most errors, you need to [commit an issue](https://gitee.com/mindspore/mindspore-lite/issues) in the MindSpore Lite community to notify the developers to fix and adapt the code. The following provides common HiAI error messages so that you can clearly describe the issue when asking questions in the community and improve the issue locating efficiency.
 
     (1) Search for the keyword **E AI_FMK** in the log file. If the following error log is found before the "MS_LITE" error is reported:
@@ -238,7 +238,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
 #### Failed to Execute a Graph
 
-1. NPU inference fails. A tool is used to capture background logs and search for **MS_LITE** in the logs. The following error information is displayed:
+1. Kirin NPU inference fails. A tool is used to capture background logs and search for **MS_LITE** in the logs. The following error information is displayed:
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_executor.cc:**] Run] NPU Process failed. code is 1
@@ -246,8 +246,8 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
       MS_LITE : [mindspore-lite/src/lite_mindrt.h:**] RunKernel] run kernel failed, name: ****
       ```
 
-    - Analysis: This error is reported because the NPU fails to perform inference.
-    - Solution: The underlying inference of the NPU model is implemented by HiAI. Therefore, the error is first displayed in the HiAI error log. The following describes common HiAI error information to help you locate the fault.
+    - Analysis: This error is reported because the Kirin NPU fails to perform inference.
+    - Solution: The underlying inference of the Kirin NPU model is implemented by HiAI. Therefore, the error is first displayed in the HiAI error log. The following describes common HiAI error information to help you locate the fault.
 
     Search for the keyword **E AI_FMK** in the log file. If the following error log is found before the **MS_LITE** error is reported:
 
@@ -261,7 +261,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
       /vendor/bin/hiaiserver: [DEVMM][E] DevmmJudgeAllocSize:** the alloc memory size exceeds the specification limit, already alloc total size = 0x3ff95000
       ```
 
-    This indicates that the memory application of the NPU exceeds the limit. Check whether the model file is large or whether a tensor with a large shape exists in the model. According to [official HiAI requirements](https://developer.huawei.com/consumer/en/doc/development/hiai-References/modelbuildoptions-0000001139374903), the size of a single NPU's subgraph should not exceed 200 MB, and the memory requested for the array should not exceed the NPU's video memory. For example, in the log in this example, the NPU can apply for a maximum of 1 GB video memory. If you still need to run the NPU, adjust the model structure, split the model, or adjust the shape of the tensor.
+    This indicates that the memory application of the Kirin NPU exceeds the limit. Check whether the model file is large or whether a tensor with a large shape exists in the model. According to [official HiAI requirements](https://developer.huawei.com/consumer/en/doc/development/hiai-References/modelbuildoptions-0000001139374903), the size of a single Kirin NPU's subgraph should not exceed 200 MB, and the memory requested for the array should not exceed the Kirin NPU's video memory. For example, in the log in this example, the Kirin NPU can apply for a maximum of 1 GB video memory. If you still need to run the Kirin NPU, adjust the model structure, split the model, or adjust the shape of the tensor.
 
 ## Model Inference Accuracy Issues
 
@@ -291,41 +291,41 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
 ## Model Inference Performance Issues
 
-1. Why is the actual inference performance the same as that of the CPU after the device is specified as the NPU?
-    - If the device does not support the NPU but the NPU is specified in the context, the model automatically runs on a CPU instead of the NPU. In this case, the inference performance is the same as that of the CPU. You can use a tool (such as adb logcat) to capture background logs and search for the keyword **MS_LITE** in the logs to check whether the device supports NPUs. The common prompts and descriptions are as follows:
+1. Why is the actual inference performance the same as that of the CPU after the device is specified as the Kirin NPU?
+    - If the device does not support the Kirin NPU but the Kirin NPU is specified in the context, the model automatically runs on a CPU instead of the Kirin NPU. In this case, the inference performance is the same as that of the CPU. You can use a tool (such as adb logcat) to capture background logs and search for the keyword **MS_LITE** in the logs to check whether the device supports Kirin NPUs. The common prompts and descriptions are as follows:
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
-    - If the log contains only the preceding information, check whether your device is a Huawei device with a HiSilicon Kirin processor. If not, NPUs are not supported.
+    - If the log contains only the preceding information, check whether your device is a Huawei device with a HiSilicon Kirin processor. If not, Kirin NPUs are not supported.
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsKirinChip] Unsupported KirinChip ***.
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
-    - If the log contains the preceding information, your device uses the Kirin chip, but the chip model does not support NPUs. Currently, the following Kirin chips support NPUs: Kirin 810, Kirin 820, Kirin 985, and later versions.
+    - If the log contains the preceding information, your device uses the Kirin chip, but the chip model does not support Kirin NPUs. Currently, the following Kirin chips support Kirin NPUs: Kirin 810, Kirin 820, Kirin 985, and later versions.
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] CheckDDKVerGreatEqual] DDK Version 100.***.***.*** less than 100.320.011.019.
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
-    - If the log contains the preceding information, your device meets the hardware requirements, but the HiAI ROM version does not meet the requirements. As a result, the NPU operator cannot run. MindSpore Lite requires that the HiAI ROM version be later than 100.320.011.018.
+    - If the log contains the preceding information, your device meets the hardware requirements, but the HiAI ROM version does not meet the requirements. As a result, the Kirin NPU operator cannot run. MindSpore Lite requires that the HiAI ROM version be later than 100.320.011.018.
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/op/convolution_npu.cc:**] GetNPUConvOp] NPU does not support runtime inference shape.
       MS_LITE : [mindspore-lite/src/delegate/npu/op/npu_op.h:** GetNPUOp] NPU does not support runtime inference shape.
       ```
 
-    - If either of the preceding two messages appears in the log for multiple times, check whether the model input is a dynamic shape and whether the input shape is specified before inference. If yes, the model cannot run on the NPU, and the program automatically switches to the CPU for execution.
+    - If either of the preceding two messages appears in the log for multiple times, check whether the model input is a dynamic shape and whether the input shape is specified before inference. If yes, the model cannot run on the Kirin NPU, and the program automatically switches to the CPU for execution.
 
-2. Why is the actual inference performance poorer than that of the CPU after the device is specified as the NPU?
-    - In most cases, the inference performance of the NPU is much better than that of the CPU. In a few cases, the inference performance of the NPU is poorer than that of the CPU.
+2. Why is the actual inference performance poorer than that of the CPU after the device is specified as the Kirin NPU?
+    - In most cases, the inference performance of the Kirin NPU is much better than that of the CPU. In a few cases, the inference performance of the Kirin NPU is poorer than that of the CPU.
 
-    (1) Check whether there are a large number of Pad or StridedSlice operators in the model. The array format of the NPU is different from that of the CPU. The operation of these operators in the NPU involves array rearrangement. Therefore, the NPU has no advantage over the CPU and even is inferior to the CPU. If you need to run such an operator on the NPU, you are advised to remove or replace the operator.
-    (2) Use a tool (such as adb logcat) to capture background logs and search for the keyword **BuildIRModel build successfully**. It is found that related logs appear multiple times, indicating that the model is partitioned into multiple NPU-related subgraphs during online graph construction. Generally, subgraph partitioning is caused by the existence of Transpose and/or unsupported NPU operators in the graph. Currently, a maximum of 20 subgraphs can be partitioned. The more the subgraphs, the more time the NPU takes. You are advised to refer to the [NPU operators](https://www.mindspore.cn/lite/docs/en/r2.7.1/reference/operator_list_lite.html) supported by MindSpore Lite and avoid unsupported operators during model building. Alternatively, [commit an issue](https://gitee.com/mindspore/mindspore-lite/issues) to MindSpore Lite developers.
+    (1) Check whether there are a large number of Pad or StridedSlice operators in the model. The array format of the Kirin NPU is different from that of the CPU. The operation of these operators in the Kirin NPU involves array rearrangement. Therefore, the Kirin NPU has no advantage over the CPU and even is inferior to the CPU. If you need to run such an operator on the Kirin NPU, you are advised to remove or replace the operator.
+    (2) Use a tool (such as adb logcat) to capture background logs and search for the keyword **BuildIRModel build successfully**. It is found that related logs appear multiple times, indicating that the model is partitioned into multiple Kirin NPU-related subgraphs during online graph construction. Generally, subgraph partitioning is caused by the existence of Transpose and/or unsupported Kirin NPU operators in the graph. Currently, a maximum of 20 subgraphs can be partitioned. The more the subgraphs, the more time the Kirin NPU takes. You are advised to refer to the [Kirin NPU operators](https://www.mindspore.cn/lite/docs/en/r2.7.1/reference/operator_list_lite.html) supported by MindSpore Lite and avoid unsupported operators during model building. Alternatively, [commit an issue](https://gitee.com/mindspore/mindspore-lite/issues) to MindSpore Lite developers.
 
 ## Issues Related to Using Visual Studio
 
@@ -384,9 +384,9 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
 ## Other Issues
 
-<font size=3>**Q: Why does a device not take effect after being specified as a GPU or NPU?**</font>
+<font size=3>**Q: Why does a device not take effect after being specified as a GPU or Kirin NPU?**</font>
 
-A: The device priority depends on the configuration sequence. Ensure that the GPU or NPU configuration in the context is prior to the CPU configuration.
+A: The device priority depends on the configuration sequence. Ensure that the GPU or Kirin NPU configuration in the context is prior to the CPU configuration.
 
 <br/>
 
@@ -395,9 +395,9 @@ A: The device priority depends on the configuration sequence. Ensure that the GP
 A: Currently MindSpore Lite supports 4 log levels, including DEBUG, INFO, WARNING and ERROR. Users can set log level by setting environment parameter GLOG_v. This environment parameter ranges from 0 to 3, which represents DEBUG, INFO, WARNING and ERROR. The default log level is WARNING or ERROR. For example, if the user sets GLOG_v to 1, MindSpore Lite will print the log of INFO level or higher.
 <br/>
 
-<font size=3>**Q: What are the limitations of NPU?**</font>
+<font size=3>**Q: What are the limitations of Kirin NPU?**</font>
 
-A: Currently NPU only supports system ROM version EMUI>=11. Chip support includes Kirin 9000, Kirin 9000E, Kirin 990, Kirin 985, Kirin 820, Kirin 810, etc. For specific constraints and chip support, please see: <https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718>.
+A: Currently Kirin NPU only supports system ROM version EMUI>=11. Chip support includes Kirin 9000, Kirin 9000E, Kirin 990, Kirin 985, Kirin 820, Kirin 810, etc. For specific constraints and chip support, please see: <https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718>.
 
 <br/>
 
