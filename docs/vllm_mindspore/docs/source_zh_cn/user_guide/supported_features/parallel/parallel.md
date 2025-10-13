@@ -82,7 +82,7 @@ vllm-mindspore serve /path/to/Qwen2.5/model --headless --trust-remote-code --dat
 
 ## 专家并行
 
-专家并行是混合专家（MoE）模型特有的并行化形式，通过将不同专家网络分布到多个NPU上实现。该并行模式适用于MoE模型（如DeepSeekV3、Qwen3MoE、Llama-4等），且需要跨NPU平衡专家网络计算负载时，是进行大模型推理时的推荐策略。通过设置`enable_expert_parallel=True`和`--additional-config`启用专家并行，该设置将使MoE层采用专家并行而非张量并行策略。专家并行的并行度将保持与已设置的张量并行度一致。更多信息可查看[vLLM中关于专家并行的介绍](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#expert-parallelism-ep)。
+专家并行是混合专家（MoE）模型特有的并行化形式，通过将不同专家网络分布到多个NPU上实现。该并行模式适用于MoE模型（如DeepSeekV3、Qwen3-MoE、Llama-4等），且需要跨NPU平衡专家网络计算负载时，是进行大模型推理时的推荐策略。通过设置`enable_expert_parallel=True`和`--additional-config`启用专家并行，该设置将使MoE层采用专家并行而非张量并行策略。专家并行的并行度将保持与已设置的张量并行度一致。更多信息可查看[vLLM中关于专家并行的介绍](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#expert-parallelism-ep)。
 
 ### 参数配置
 
@@ -144,7 +144,7 @@ pyACL (Python Ascend Computing Language) 通过 CPython 封装了 AscendCL 对�
 
 在对应环境中，获取相应版本的 Ascend-cann-nnrt 安装包后，解压出 pyACL 依赖包并单独安装，并将安装路径添加到环境变量中：
 
-```shell
+```bash
 ./Ascend-cann-nnrt_8.0.RC1_linux-aarch64.run --noexec --extract=./
 cd ./run_package
 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
@@ -193,7 +193,7 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 
    当有两个节点，每个节点有8个NPU时，其结果如下：
 
-   ```shell
+   ```text
    ======== Autoscaler status: 2025-05-19 00:00:00.000000 ========
    Node status
    ---------------------------------------------------------------
@@ -237,7 +237,7 @@ export VLLM_MS_MODEL_BACKEND=MindFormers
 
 - `MS_ENABLE_LCCL`：关闭LCCL，使能HCCL通信。
 - `HCCL_OP_EXPANSION_MODE`：配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
-- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.6.0/api_python/env_var_list.html)。
+- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`：配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
 - `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
 
@@ -264,7 +264,7 @@ vLLM-MindSpore插件可使用OpenAI的API协议部署在线推理。以下是在
 ```bash
 # 启动配置参数说明
 vllm-mindspore serve
- [模型标签：模型Config/权重路径]
+ [模型标签：模型Config和权重文件路径]
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
  --max-model-len [模型上下文长度]

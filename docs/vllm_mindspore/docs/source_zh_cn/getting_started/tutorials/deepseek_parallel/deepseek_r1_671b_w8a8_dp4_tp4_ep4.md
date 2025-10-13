@@ -123,7 +123,7 @@ Git LFS initialized.
 
 工具确认可用后，执行以下命令，下载权重：
 
-```shell
+```bash
 git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8.git
 ```
 
@@ -170,7 +170,7 @@ vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下是
 ```bash
 # 启动配置参数说明
 vllm-mindspore serve
- [模型标签：模型Config/权重路径]
+ [模型标签：模型Config和权重文件路径]
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
  --max-model-len [模型上下文长度]
@@ -223,7 +223,7 @@ pyACL（Python Ascend Computing Language）通过 CPython 封装了 AscendCL 对
 
 在对应环境中，获取相应版本的 Ascend-cann-nnrt 安装包后，解压出 pyACL 依赖包并单独安装，并将安装路径添加到环境变量中：
 
-```shell
+```bash
 ./Ascend-cann-nnrt_8.0.RC1_linux-aarch64.run --noexec --extract=./
 cd ./run_package
 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
@@ -272,7 +272,7 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 
   当有两个节点，每个节点有8个NPU时，其结果如下：
 
-  ```shell
+  ```text
   ======== Autoscaler status: 2025-05-19 00:00:00.000000 ========
   Node status
   ---------------------------------------------------------------
