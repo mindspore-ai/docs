@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Lite的Delegate接口用于支持第三方AI框架（例如：NPU、TensorRT）能快速接入Lite的推理流程。第三方框架可以是用户自己实现，也可以是业内其他开源的框架，一般都具备在线构图的能力，即可以将多个算子构建成一张子图发放给设备执行。如果用户想通过MindSpore Lite框架调度到其他框架的推理流程，可参考本文。
+MindSpore Lite的Delegate接口用于支持第三方AI框架（例如：Kirin NPU、TensorRT）能快速接入Lite的推理流程。第三方框架可以是用户自己实现，也可以是业内其他开源的框架，一般都具备在线构图的能力，即可以将多个算子构建成一张子图发放给设备执行。如果用户想通过MindSpore Lite框架调度到其他框架的推理流程，可参考本文。
 
 ## Delegate使用
 
@@ -17,7 +17,7 @@ MindSpore Lite的Delegate接口用于支持第三方AI框架（例如：NPU、Te
 
 ### 新增自定义Delegate类
 
-自定义Delegate要继承自[Delegate](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#delegate)类。可以在构造函数中完成对第三方框架调度硬件设备有关config的初始化，如NPU指定频率、CPU指定线程数等。
+自定义Delegate要继承自[Delegate](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#delegate)类。可以在构造函数中完成对第三方框架调度硬件设备有关config的初始化，如Kirin NPU指定频率、CPU指定线程数等。
 
 ```cpp
 class XXXDelegate : public Delegate {
@@ -156,7 +156,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ## NPUDelegate示例
 
-目前，MindSpore Lite对于NPU后端的集成采用了[NPUDelegate](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.1/mindspore-lite/src/litert/delegate/npu/npu_delegate.h#L29)接口。本教程对NPUDelegate做简单说明，使用户能快速了解Delegate相关API的使用。
+目前，MindSpore Lite对于Kirin NPU后端的集成采用了[NPUDelegate](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.1/mindspore-lite/src/litert/delegate/npu/npu_delegate.h#L29)接口。本教程对NPUDelegate做简单说明，使用户能快速了解Delegate相关API的使用。
 
 ### 新增NPUDelegate类
 
@@ -173,37 +173,37 @@ class NPUDelegate : public Delegate {
 
  protected:
   // Analyze a kernel and its attribute.
-  // If NPU supports it, return an NPUOp, which has the information of connection relationship with other kernels and the attributes.
+  // If Kirin NPU supports it, return an NPUOp, which has the information of connection relationship with other kernels and the attributes.
   // If not support, return null pointer.
   NPUOp *GetOP(kernel::Kernel *kernel, const schema::Primitive *primitive);
 
-  // Construct a NPU sub-graph with a continuous NPUOps
+  // Construct a Kirin NPU sub-graph with a continuous NPUOps
   kernel::Kernel *CreateNPUGraph(const std::vector<NPUOp *> &ops, DelegateModel *model, KernelIter from,
                                  KernelIter end);
 
   NPUManager *npu_manager_ = nullptr;
   NPUPassManager *pass_manager_ = nullptr;
   std::map<schema::PrimitiveType, NPUGetOp> op_func_lists_;
-  int frequency_ = 0;  // NPU frequency
+  int frequency_ = 0;  // Kirin NPU frequency
 };
 ```
 
 ### 实现Init接口
 
-[Init](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.1/mindspore-lite/src/litert/delegate/npu/npu_delegate.cc#L75)接口实现和NPU有关的资源申请。
+[Init](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.1/mindspore-lite/src/litert/delegate/npu/npu_delegate.cc#L75)接口实现和Kirin NPU有关的资源申请。
 
 ```cpp
 Status NPUDelegate::Init() {
-  npu_manager_ = new (std::nothrow) NPUManager();       // NPU manager of model buffer and client.
+  npu_manager_ = new (std::nothrow) NPUManager();       // Kirin NPU manager of model buffer and client.
   if (npu_manager_ == nullptr) {
     MS_LOG(ERROR) << "New npu manager failed.";
     return RET_ERROR;
   }
-  if (!npu_manager_->IsSupportNPU()) {                  // Check whether the current device supports NPU.
+  if (!npu_manager_->IsSupportNPU()) {                  // Check whether the current device supports Kirin NPU.
     MS_LOG(DEBUG) << "Checking npu is unsupported.";
     return RET_NOT_SUPPORT;
   }
-  pass_manager_ = new (std::nothrow) NPUPassManager();  // The default format of MindSpore Lite is NHWC, and the default format of NPU is NCHW. The NPUPassManager is used to pack data between the sub-graphs.
+  pass_manager_ = new (std::nothrow) NPUPassManager();  // The default format of MindSpore Lite is NHWC, and the default format of Kirin NPU is NCHW. The NPUPassManager is used to pack data between the sub-graphs.
   if (pass_manager_ == nullptr) {
     MS_LOG(ERROR) << "New npu pass manager failed.";
     return RET_ERROR;
@@ -221,32 +221,32 @@ Build接口解析DelegateModel实例，主要实现算子支持判断、子图�
 
 ```cpp
 Status NPUDelegate::Build(DelegateModel *model) {
-  KernelIter from, end;                     // Record the start and end positions of kernel supported by the NPU sub-graph.
-  std::vector<NPUOp *> npu_ops;             // Save all NPUOp used to construct an NPU sub-graph.
+  KernelIter from, end;                     // Record the start and end positions of kernel supported by the Kirin NPU sub-graph.
+  std::vector<NPUOp *> npu_ops;             // Save all NPUOp used to construct a Kirin NPU sub-graph.
   int graph_index = 0;
   for (KernelIter iter = model->BeginKernelIterator(); iter != model->EndKernelIterator(); iter++) {
     kernel::Kernel *kernel = *iter;
     auto npu_op = GetOP(kernel, model->GetPrimitive(kernel));  // Obtain an NPUOp according to the kernel and the primitive. Each NPUOp contains information such as input tensors, output tensors and operator attribute.
-    if (npu_op != nullptr) {                // NPU supports the current kernel.
+    if (npu_op != nullptr) {                // Kirin NPU supports the current kernel.
       if (npu_ops.size() == 0) {
         from = iter;
       }
       npu_ops.push_back(npu_op);
       end = iter;
-    } else {                                 // NPU does not support the current kernel.
+    } else {                                 // Kirin NPU does not support the current kernel.
       if (npu_ops.size() > 0) {
-        auto npu_graph_kernel = CreateNPUGraph(npu_ops);  // Create a NPU sub-graph kernel.
+        auto npu_graph_kernel = CreateNPUGraph(npu_ops);  // Create a Kirin NPU sub-graph kernel.
         if (npu_graph_kernel == nullptr) {
           MS_LOG(ERROR) << "Create NPU Graph failed.";
           return RET_ERROR;
         }
         npu_graph_kernel->set_name("NpuGraph" + std::to_string(graph_index++));
-        iter = model->Replace(from, end + 1, npu_graph_kernel);  // Replace the supported kernel list with a NPU sub-graph kernel.
+        iter = model->Replace(from, end + 1, npu_graph_kernel);  // Replace the supported kernel list with a Kirin NPU sub-graph kernel.
         npu_ops.clear();
       }
     }
   }
-  auto ret = npu_manager_->LoadOMModel();    // Build model online. Load NPU model.
+  auto ret = npu_manager_->LoadOMModel();    // Build model online. Load Kirin NPU model.
   if (ret != RET_OK) {
     MS_LOG(ERROR) << "NPU client load model failed.";
     return RET_ERROR;
@@ -257,7 +257,7 @@ Status NPUDelegate::Build(DelegateModel *model) {
 
 ### 实现构图代码
 
-以下[示例代码](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.1/mindspore-lite/src/litert/delegate/npu/npu_delegate.cc#L273)是NPUDelegate的CreateNPUGraph接口，用于生成一张NPU子图。
+以下[示例代码](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.1/mindspore-lite/src/litert/delegate/npu/npu_delegate.cc#L273)是NPUDelegate的CreateNPUGraph接口，用于生成一张Kirin NPU子图。
 
 ```cpp
 kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
@@ -294,7 +294,7 @@ class NPUGraph : public kernel::Kernel {
 
   int Execute() override;
 
-  int ReSize() override {               // NPU does not support dynamic shapes.
+  int ReSize() override {               // Kirin NPU does not support dynamic shapes.
     MS_LOG(ERROR) << "NPU does not support the resize function temporarily.";
     return lite::RET_ERROR;
   }
@@ -302,7 +302,7 @@ class NPUGraph : public kernel::Kernel {
  protected:
   std::vector<NPUOp *> npu_ops_{};
   NPUManager *npu_manager_ = nullptr;
-  NPUExecutor *executor_ = nullptr;     // NPU inference executor.
+  NPUExecutor *executor_ = nullptr;     // Kirin NPU inference executor.
 };
 ```
 
@@ -310,7 +310,7 @@ class NPUGraph : public kernel::Kernel {
 
 ```cpp
 int NPUGraph::Prepare() {
-  // Find the mapping relationship between hiai::AiTensor defined by NPU and MSTensor defined by MindSpore Lite
+  // Find the mapping relationship between hiai::AiTensor defined by Kirin NPU and MSTensor defined by MindSpore Lite
 }
 ```
 
@@ -325,4 +325,4 @@ int NPUGraph::Execute() {
 }
 ```
 
-> [NPU](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/advanced/third_party/npu_info.html)是MindSpore Lite开发人员对接的第三方AI框架，使用方法和用户自定义的Delegate略有不同，既可以通过[SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#setdelegate)设置[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#context)，也可以设置Context的[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mutabledeviceinfo)，增加NPU设备的描述[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#kirinnpudeviceinfo)。
+> [Kirin NPU](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/advanced/third_party/npu_info.html)是MindSpore Lite开发人员对接的第三方AI框架，使用方法和用户自定义的Delegate略有不同，既可以通过[SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#setdelegate)设置[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#context)，也可以设置Context的[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mutabledeviceinfo)，增加Kirin NPU设备的描述[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#kirinnpudeviceinfo)。

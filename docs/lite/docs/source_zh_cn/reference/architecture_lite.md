@@ -32,6 +32,6 @@ MindSpore Lite 分为离线模块和在线模块两个部分，其框架的总�
 
     - **Delegate:** 用于对接专业AI硬件引擎的代理。
 
-    - **Kernels:** 内置的高性能算子库，提供CPU、GPU和NPU算子。
+    - **Kernels:** 内置的高性能算子库，提供CPU、GPU、Kirin NPU和昇腾算子。
 
     - **Learning Strategies:** 端侧学习策略，如迁移学习。
