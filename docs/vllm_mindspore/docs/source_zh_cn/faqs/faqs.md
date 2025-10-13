@@ -27,29 +27,6 @@
 
 ## 部署相关问题
 
-### 离线或在线推理时，报模型无法加载
-
-- 错误关键信息：
-
-   ```text
-   raise ValueError(f"{config.load_checkpoint} is not a valid path to load checkpoint ")
-   ```
-
-- 解决思路：
-  1. 检查模型路径是否存在且合法；
-  2. 若模型路径存在，且其中的模型文件为`safetensors`格式，则需要确认YAML文件中，是否已含有`load_ckpt_format: "safetensors"`字段；
-     1. 打印模型所使用的YAML文件路径：
-
-        ```bash
-        echo $MINDFORMERS_MODEL_CONFIG
-        ```
-
-     2. 查看该YAML文件，若不存在`load_ckpt_format`字段，则添加该字段：
-
-        ```text
-        load_ckpt_format: "safetensors"
-        ```
-
 ### 拉起在线推理时，报`aclnnNonzeroV2`相关错误
 
 - 错误关键信息：

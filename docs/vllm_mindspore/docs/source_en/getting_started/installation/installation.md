@@ -135,18 +135,6 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
     bash install_depend_pkgs.sh
     ```
 
-    Compile and install vLLM-MindSpore Plugin:
-
-    ```bash
-    pip install .
-    ```
-
-    After executing the above commands, `mindformers` folder will be generated in the `vllm-mindspore/install_depend_pkgs` directory. Add this folder to the environment variables:
-
-    ```bash
-    export PYTHONPATH=$MF_PATH:$PYTHONPATH
-    ```
-
 - **vLLM-MindSpore Plugin Manual Installation**
 
     If users require custom modifications to dependent components such as vLLM, MindSpore, Golden Stick, or MSAdapter, they can prepare the modified installation packages locally and perform manual installation in a specific sequence. The installation sequence requirements are as follows:
@@ -169,11 +157,10 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
        pip install /path/to/mindspore-*.whl
        ```
 
-    4. Clone the MindSpore Transformers repository and add it to `PYTHONPATH`
+    4. Install MindSpore Transformers
 
        ```bash
-       git clone -b r1.7.0 https://gitee.com/mindspore/mindformers.git
-       export PYTHONPATH=$MF_PATH:$PYTHONPATH
+       pip install /path/to/mindformers-*.whl
        ```
 
     5. Install Golden Stick
@@ -204,7 +191,6 @@ User can verify the installation with a simple offline inference test. First, us
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
 About environment variables above, user can also refer to [environment variables section](../quick_start/quick_start.md#setting-environment-variables) for more details.

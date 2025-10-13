@@ -27,29 +27,6 @@
 
 ## Deployment-related Issues
 
-### Model Fails to Load During Offline/Online Inference
-
-- Key error message:
-
-   ```text
-   raise ValueError(f"{config.load_checkpoint} is not a valid path to load checkpoint ")
-   ```
-
-- Solution:
-  1. Check if the model path exists and is valid;
-  2. If the model path exists and the model files are in `safetensors` format, confirm whether the YAML file contains the `load_ckpt_format: "safetensors"` field:
-     1. Print the path of the YAML file used by the model:
-
-        ```bash
-        echo $MINDFORMERS_MODEL_CONFIG
-        ```
-
-     2. Check the YAML file. If the `load_ckpt_format` field is missing, add it:
-
-        ```text
-        load_ckpt_format: "safetensors"
-        ```
-
 ### `aclnnNonzeroV2` Related Error When Starting Online Inference
 
 - Key error message:

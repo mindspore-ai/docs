@@ -17,7 +17,7 @@ After setting the variable, run the following command to launch the vLLM-MindSpo
 ```bash
 export TENSOR_PARALLEL_SIZE=4
 export MAX_MODEL_LEN=1024
-python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-32B-Instruct" --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
+vllm-mindspore serve Qwen/Qwen2.5-32B-Instruct --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
 ```
 
 If the service starts successfully, you will see output similar to the following, indicating that the `start_profile` and `stop_profile` requests are being monitored:
