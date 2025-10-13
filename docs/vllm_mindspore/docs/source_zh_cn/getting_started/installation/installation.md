@@ -172,7 +172,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
     4. 引入MindSpore Transformers仓库，加入到`PYTHONPATH`中
 
         ```bash
-        git clone https://gitee.com/mindspore/mindformers.git
+        git clone -b r1.7.0 https://gitee.com/mindspore/mindformers.git
         export PYTHONPATH=$MF_PATH:$PYTHONPATH
         ```
 
