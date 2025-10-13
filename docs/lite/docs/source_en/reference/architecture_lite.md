@@ -32,6 +32,6 @@ MindSpore Lite is divided into two parts: offline module and online module. The 
 
     - **Delegate:** agent for docking professional AI hardware engine.
 
-    - **Kernels:** the built-in high-performance operator library that provides CPU, GPU and NPU operators.
+    - **Kernels:** the built-in high-performance operator library that provides CPU, GPU, Kirin NPU and ASCEND operators.
 
     - **Learning Strategies:** device-side learning strategies, such as transfer learning.

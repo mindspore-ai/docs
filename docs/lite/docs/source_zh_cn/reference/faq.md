@@ -201,11 +201,11 @@
     - 问题分析：有算子在离线 converter 时，通过指定`--inputShape=<INPUTSHAPE>`自动做了离线 broadcast。例如 ones like，会依据输入的 shape 信息，将1 broadcast 成对应的常量tensor，此时再将输入 resize 成不同维度时，网络中对输入 tensor 维度敏感的算子（例如concat、matmul等）就会出现报错。
     - 解决方法：将此类算子替换为一个模型的输入，推理时通过内存拷贝的方式赋值，并在 resize 的时候指定对应的 shape 信息。
 
-### NPU推理问题
+### Kirin NPU推理问题
 
 #### 图编译失败
 
-1. NPU图编译失败，通过工具抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，得到报错提示如下：
+1. Kirin NPU图编译失败，通过工具抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，得到报错提示如下：
 
     ```cpp
     MS_LITE : [mindspore-lite/src/delegate/npu/npu_subgraph.cc:**] BuildIRModel] Build IR model failed.
@@ -214,7 +214,7 @@
     MS_LITE : [mindspore-lite/src/delegate/npu/npu_delegate.cc:**] Build] Create NPU Graph failed.
     ```
 
-    - 问题分析：此报错为NPU在线构图失败。
+    - 问题分析：此报错为Kirin NPU在线构图失败。
     - 解决方法：由于构图系通过调用[HiAI DDK](https://developer.huawei.com/consumer/cn/doc/development/HiAI-Library/ddk-download-0000001053590180) 的接口完成，因此报错一般会首先出现在HiAI的错误日志中，部分报错用户可根据提示修改模型中的算子类型或参数类型来进行规避，但大部分可能需要通过在MindSpore Lite社区[提ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 来通知开发人员进行代码修复和适配。因此，我们下面仅给出较为常见的HiAI报错信息，以便您在社区提问时对问题有更清晰的描述，并加快问题定位的效率。
 
     （1）在日志中搜索“**E AI_FMK**”关键字，若在“MS_LITE”日志报错之前的位置处得到报错日志如下：
@@ -238,7 +238,7 @@
 
 #### 图执行失败
 
-1. NPU推理失败，通过工具抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，得到报错提示如下：
+1. Kirin NPU推理失败，通过工具抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，得到报错提示如下：
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_executor.cc:**] Run] NPU Process failed. code is 1
@@ -246,8 +246,8 @@
       MS_LITE : [mindspore-lite/src/lite_mindrt.h:**] RunKernel] run kernel failed, name: ****
       ```
 
-    - 问题分析：此报错为NPU执行推理失败。
-    - 解决方法：由于NPU模型的底层推理实际由HiAI完成，因此报错同样会首先出现在HiAI的错误日志中，我们下面仅给出较为常见的HiAI报错信息，以方便您定位。
+    - 问题分析：此报错为Kirin NPU执行推理失败。
+    - 解决方法：由于Kirin NPU模型的底层推理实际由HiAI完成，因此报错同样会首先出现在HiAI的错误日志中，我们下面仅给出较为常见的HiAI报错信息，以方便您定位。
 
     在日志中搜索“**E AI_FMK**”关键字，若在“**MS_LITE**”日志报错之前的位置处得到报错日志如下：
 
@@ -261,7 +261,7 @@
       /vendor/bin/hiaiserver: [DEVMM][E] DevmmJudgeAllocSize:** the alloc memory size exceeds the specification limit, already alloc total size = 0x3ff95000
       ```
 
-    说明NPU的内存申请超出了限制。请确认模型文件是否比较大，或模型中存在shape较大的tensor。根据HiAI[官方要求](https://developer.huawei.com/consumer/cn/doc/development/hiai-References/modelbuildoptions-0000001139374903) ，单张NPU子图的大小不应超过200MB，数组的内存申请也不要超过NPU的显存大小，比如在本例的日志中，NPU可申请的显存上限为1GB。若仍需要跑NPU，请调整模型结构、将模型进行拆分或者调整tensor的shape大小。
+    说明Kirin NPU的内存申请超出了限制。请确认模型文件是否比较大，或模型中存在shape较大的tensor。根据HiAI[官方要求](https://developer.huawei.com/consumer/cn/doc/development/hiai-References/modelbuildoptions-0000001139374903) ，单张Kirin NPU子图的大小不应超过200MB，数组的内存申请也不要超过Kirin NPU的显存大小，比如在本例的日志中，Kirin NPU可申请的显存上限为1GB。若仍需要跑Kirin NPU，请调整模型结构、将模型进行拆分或者调整tensor的shape大小。
 
 ## 模型推理精度问题
 
@@ -291,41 +291,41 @@
 
 ## 模型推理性能问题
 
-1. 为何将设备指定为NPU后，实际推理性能和CPU并没有差别？
-    - 若设备不支持NPU但在上下文中进行了指定，则模型并不会运行在NPU上，而是会自动切换到CPU来执行，此时的推理性能自然与CPU一致。可以通过工具（如adb logcat）抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，以确认设备是否支持NPU。常见的提示信息及说明如下：
+1. 为何将设备指定为Kirin NPU后，实际推理性能和CPU并没有差别？
+    - 若设备不支持Kirin NPU但在上下文中进行了指定，则模型并不会运行在Kirin NPU上，而是会自动切换到CPU来执行，此时的推理性能自然与CPU一致。可以通过工具（如adb logcat）抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，以确认设备是否支持Kirin NPU。常见的提示信息及说明如下：
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
-    - 若日志中仅包含以上这一行提示，请检查您的设备是否为包含海思麒麟处理器的华为设备，否则不支持NPU。
+    - 若日志中仅包含以上这一行提示，请检查您的设备是否为包含海思麒麟处理器的华为设备，否则不支持Kirin NPU。
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsKirinChip] Unsupported KirinChip ***.
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
-    - 若日志中包含以上这两行提示，说明您的设备虽然使用的是麒麟芯片，但芯片型号不支持NPU。当前支持NPU的麒麟处理器芯片为：Kirin 810、Kirin 820、Kirin 985及其他高于此版本的型号。
+    - 若日志中包含以上这两行提示，说明您的设备虽然使用的是麒麟芯片，但芯片型号不支持Kirin NPU。当前支持Kirin NPU的麒麟处理器芯片为：Kirin 810、Kirin 820、Kirin 985及其他高于此版本的型号。
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] CheckDDKVerGreatEqual] DDK Version 100.***.***.*** less than 100.320.011.019.
       MS_LITE : [mindspore-lite/src/delegate/npu/npu_manager.cc:**] IsSupportNPU] The current devices NOT SUPPORT NPU.
       ```
 
-    - 若日志中包含以上这两行提示，说明您的设备虽然满足硬件要求，但系统的HiAI ROM版本不满足要求，同样无法运行NPU算子。当前MindSpore Lite要求HiAI ROM版本必须大于100.320.011.018。
+    - 若日志中包含以上这两行提示，说明您的设备虽然满足硬件要求，但系统的HiAI ROM版本不满足要求，同样无法运行Kirin NPU算子。当前MindSpore Lite要求HiAI ROM版本必须大于100.320.011.018。
 
       ```cpp
       MS_LITE : [mindspore-lite/src/delegate/npu/op/convolution_npu.cc:**] GetNPUConvOp] NPU does not support runtime inference shape.
       MS_LITE : [mindspore-lite/src/delegate/npu/op/npu_op.h:** GetNPUOp] NPU does not support runtime inference shape.
       ```
 
-    - 若以上两条提示（或其中一条）在日志中出现多次，请确认您的模型输入是否为动态shape且在推理前对输入shape进行了指定，若是则不支持在NPU上运行，程序会自动切换到CPU执行。
+    - 若以上两条提示（或其中一条）在日志中出现多次，请确认您的模型输入是否为动态shape且在推理前对输入shape进行了指定，若是则不支持在Kirin NPU上运行，程序会自动切换到CPU执行。
 
-2. 为何将设备指定为NPU后，实际推理性能比CPU还要差？
-    - 绝大多数情况下，NPU的推理性能要大幅优于CPU，但在少数情况下会比CPU更劣：
+2. 为何将设备指定为Kirin NPU后，实际推理性能比CPU还要差？
+    - 绝大多数情况下，Kirin NPU的推理性能要大幅优于CPU，但在少数情况下会比CPU更劣：
 
-    （1）检查模型中是否存在大量Pad或StridedSlice等算子，由于NPU中的数组格式与CPU有所不同，这类算子在NPU中运算时涉及数组的重排，因此相较CPU不存在任何优势，甚至劣于CPU。若确实需要在NPU上运行，建议尝试去除或替换此类算子。
-    （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)，在模型搭建时规避不支持的算子，或在MindSpore Lite社区[提ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 询问MindSpore Lite的开发人员。
+    （1）检查模型中是否存在大量Pad或StridedSlice等算子，由于Kirin NPU中的数组格式与CPU有所不同，这类算子在Kirin NPU中运算时涉及数组的重排，因此相较CPU不存在任何优势，甚至劣于CPU。若确实需要在Kirin NPU上运行，建议尝试去除或替换此类算子。
+    （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张Kirin NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的Kirin NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，Kirin NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的Kirin NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)，在模型搭建时规避不支持的算子，或在MindSpore Lite社区[提ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 询问MindSpore Lite的开发人员。
 
 ## 使用Visual Studio相关问题
 
@@ -384,9 +384,9 @@
 
 ## 其他问题
 
-<font size=3>**Q 为何将设备指定为GPU/NPU后，并没有起作用？**</font>
+<font size=3>**Q 为何将设备指定为GPU/Kirin NPU后，并没有起作用？**</font>
 
-A：Device的优先级取决于配置的先后顺序，请确保Context里面GPU/NPU的配置在CPU前面。
+A：Device的优先级取决于配置的先后顺序，请确保Context里面GPU/Kirin NPU的配置在CPU前面。
 
 <br/>
 
@@ -396,9 +396,9 @@ A：目前支持DEBUG、INFO、WARNING、ERROR四种日志级别，用户可以�
 
 <br/>
 
-<font size=3>**Q：NPU推理存在什么限制？**</font>
+<font size=3>**Q：Kirin NPU推理存在什么限制？**</font>
 
-A：目前NPU仅支持在系统ROM版本EMUI>=11、芯片支持包括Kirin 9000、Kirin 9000E、Kirin 990、Kirin 985、Kirin 820、Kirin 810等，具体约束和芯片支持请查看：<https://developer.huawei.com/consumer/cn/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718>。
+A：目前Kirin NPU仅支持在系统ROM版本EMUI>=11、芯片支持包括Kirin 9000、Kirin 9000E、Kirin 990、Kirin 985、Kirin 820、Kirin 810等，具体约束和芯片支持请查看：<https://developer.huawei.com/consumer/cn/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718>。
 
 <br/>
 

@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/operator_list_lite.md)
 
-| Operator Names                            | Operator Functions                                                     | CPU                                                 | NPU (Kirin) | GPU (Mali/Adreno)        |
+| Operator Names                            | Operator Functions                                                     | CPU                                                 | Kirin NPU | GPU (Mali/Adreno)        |
 | ----------------------------------- | ------------------------------------------------------------ | --------------------------------------------------- | --------- | ----------------------- |
 | Abs                                 | Element-wise calculate the absolute value                                             | FP16<br>FP32<br/>Int32<br/>Int8<br/>UInt8           | FP16      | FP16<br/>FP32           |
 | AbsGrad                             | Compute the gradient of the absolute value function                                         | FP32                                                | -         | -                       |

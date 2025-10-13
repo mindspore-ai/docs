@@ -1,4 +1,4 @@
-# NPU Integration Information
+# Kirin NPU Integration Information
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/advanced/third_party/npu_info.md)
 
@@ -6,14 +6,14 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/build/build.html), using the NPU requires the integration of the HUAWEI HiAI DDK.
-HUAWEI HiAI DDK, which contains APIs (including building, loading models and calculation processes) and interfaces implemented to encapsulate dynamic libraries (namely libhiai*.so), is required for the use of NPU.
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/build/build.html), using the Kirin NPU requires the integration of the HUAWEI HiAI DDK.
+HUAWEI HiAI DDK, which contains APIs (including building, loading models and calculation processes) and interfaces implemented to encapsulate dynamic libraries (namely libhiai*.so), is required for the use of Kirin NPU.
 Download [DDK 100.510.010.010](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180), and set the directory of extracted files as `${HWHIAI_DDK}`. Our build script uses this environment variable to seek DDK.
 
 ### Build
 
-Under the Linux operating system, one can easily build MindSpore Lite Package integrating NPU interfaces and libraries using build.sh under the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore-lite). The command is as follows.
-It will build MindSpore Lite's package under the output directory under the MindSpore source code root directory, which contains the NPU's dynamic library, the libmindspore-lite dynamic library, and the test tool Benchmark.
+Under the Linux operating system, one can easily build MindSpore Lite Package integrating Kirin NPU interfaces and libraries using build.sh under the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore-lite). The command is as follows.
+It will build MindSpore Lite's package under the output directory under the MindSpore source code root directory, which contains the Kirin NPU's dynamic library, the libmindspore-lite dynamic library, and the test tool Benchmark.
 
 ```bash
 export MSLITE_ENABLE_NPU=ON
@@ -26,9 +26,9 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 - Integration instructions
 
-    When developers need to integrate the use of NPU features, it is important to note:
+    When developers need to integrate the use of Kirin NPU features, it is important to note:
 
-    - [Configure the NPU backend](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#configuring-the-npu-backend).
+    - [Configure the Kirin NPU backend](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#configuring-the-npu-backend).
         For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html).
 
     - Compile and execute the binary. If you use dynamic linking, refer to [compile output](https://www.mindspore.cn/lite/docs/en/master/build/build.html) when the compile option is `-I arm64` or `-I arm32`.
@@ -38,9 +38,9 @@ For more information about compilation, see [Linux Environment Compilation](http
         export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
         ```
 
-- Using Benchmark testing NPU inference
+- Using Benchmark testing Kirin NPU inference
 
-    Users can also test NPU inference using MindSpore Lite's Benchmark tool. Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with NPU chips and test NPU inference using the Benchmark tool on the phone, as shown in the example below:
+    Users can also test Kirin NPU inference using MindSpore Lite's Benchmark tool. Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with Kirin NPU chips and test Kirin NPU inference using the Benchmark tool on the phone, as shown in the example below:
 
     - Test performance
 
@@ -56,12 +56,12 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html).
 
-For environment variable settings, you need to set the directory where the libmindspore-lite.so (under the directory `mindspore-lite-{version}-android-{arch}/runtime/lib`) and NPU libraries (under the directory `mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
+For environment variable settings, you need to set the directory where the libmindspore-lite.so (under the directory `mindspore-lite-{version}-android-{arch}/runtime/lib`) and Kirin NPU libraries (under the directory `mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
 
 ## Supported Chips
 
-For supported NPU chips, see [Chipset Platforms and Supported HUAWEI HiAI Versions](https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718).
+For supported Kirin NPU chips, see [Chipset Platforms and Supported HUAWEI HiAI Versions](https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718).
 
 ## Supported Operators
 
-For supported NPU operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html).
+For supported Kirin NPU operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html).
