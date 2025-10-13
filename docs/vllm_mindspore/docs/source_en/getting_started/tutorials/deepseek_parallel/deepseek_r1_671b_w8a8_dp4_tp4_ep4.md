@@ -115,12 +115,6 @@ Environment variable descriptions:
 - `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.
 - `VLLM_MS_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM-MindSpore Plugin can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
 
-Additionally, users need to ensure that MindSpore Transformers is installed. Users can introduce MindSpore Transformers through the following methods:
-
-```bash
-export PYTHONPATH=/path/to/mindformers:$PYTHONPATH
-```
-
 ### Starting Ray for Multi-Node Cluster Management
 
 On Ascend, the pyACL package must be installed to adapt Ray. Additionally, the CANN dependency versions on all nodes must be consistent.
@@ -212,7 +206,7 @@ vLLM-MindSpore Plugin can deploy online inference using the OpenAI API protocol.
 ```bash
 # Service launch parameter explanation
 vllm-mindspore serve
- --model=[Model Config/Weights Path]
+ [Model Tag: Config/Weights Path]
  --quantization [Source of weight quantification] # golden-stick/ascend are optional, respectively indicating that the quantified weights come from the golden-stick or modelslim quantification tools
  --trust-remote-code # Use locally downloaded model files
  --max-num-seqs [Maximum Batch Size]
@@ -227,10 +221,10 @@ Execution example:
 
 ```bash
 # Master node:
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
 ```
 
-In tensor parallel scenarios, the `--tensor-parallel-size` parameter overrides the `model_parallel` configuration in the model YAML file. User can also set the local model path by `--model` argument.
+In tensor parallel scenarios, the `--tensor-parallel-size` parameter overrides the `model_parallel` configuration in the model YAML file. User can pass the local model path by `--model` argument.
 
 #### Sending Requests
 
@@ -279,9 +273,9 @@ Environment variable descriptions:
 `vllm-mindspore` can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service:
 
 ```bash
-# Parameter explanations for service launch
+# Parameter explanations for service launch  
 vllm-mindspore serve
- --model=[Model Config/Weights Path]
+ [Model Tag: Config/Weights Path]
  --quantization [Source of weight quantification] # golden-stick/ascend are optional, respectively indicating that the quantified weights come from the golden-stick or modelslim quantification tools
  --trust-remote-code # Use locally downloaded model files
  --max-num-seqs [Maximum Batch Size]
@@ -302,14 +296,14 @@ vllm-mindspore serve
 
 `data-parallel-size` and `tensor-parallel-size` specify the parallel policies for the attn and ffn-dense parts, and `expert_parallel` specifies the parallel policies for the routing experts in the MOE part. And it must satisfy that `data-parallel-size * tensor-parallel-size` is divisible by `expert_parallel`.
 
-User can also set the local model path by `--model` argument. The following is an execution example:
+User can also set the local model path as model tag. The following is an execution example:
 
 ```bash
 # Master node:
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
 
 # Worker node:
-vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless  --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
 ```
 
 #### Sending Requests

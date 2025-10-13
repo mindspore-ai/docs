@@ -21,7 +21,7 @@ vLLM-MindSpore插件支持张量并行（TP）、数据并行（DP）、专家�
 ```bash
 TENSOR_PARALLEL_SIZE=4       # TP 并行数
 
-vllm-mindspore serve --model=/path/to/Qwen2.5/model --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE}
+vllm-mindspore serve /path/to/Qwen2.5/model --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE}
 ```
 
 ### 多机示例
@@ -34,7 +34,7 @@ vllm-mindspore serve --model=/path/to/Qwen2.5/model --trust-remote-code --tensor
 # 主节点：
 
 TENSOR_PARALLEL_SIZE=4       # TP 并行数
-vllm-mindspore serve --model=/path/to/Qwen2.5/model --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE}
+vllm-mindspore serve /path/to/Qwen2.5/model --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE}
 ```
 
 ## 数据并行
@@ -65,7 +65,7 @@ Ray在多机场景中可以简化启动，是推荐的启动方式，请参考[R
 DATA_PARALLEL_SIZE=4       # DP 并行数
 DATA_PARALLEL_SIZE_LOCAL=2 # 当前服务节点中的DP数，所有节点求和等于`--data-parallel-size`
 
-vllm-mindspore serve --model=/path/to/Qwen2.5/model --trust-remote-code --data-parallel-size ${DATA_PARALLEL_SIZE} --data-parallel-size-local ${DATA_PARALLEL_SIZE_LOCAL} --data-parallel-backend=ray
+vllm-mindspore serve /path/to/Qwen2.5/model --trust-remote-code --data-parallel-size ${DATA_PARALLEL_SIZE} --data-parallel-size-local ${DATA_PARALLEL_SIZE_LOCAL} --data-parallel-backend=ray
 ```
 
 #### multiprocess启动
@@ -74,10 +74,10 @@ vllm-mindspore serve --model=/path/to/Qwen2.5/model --trust-remote-code --data-p
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model=/path/to/Qwen2.5/model --trust-remote-code --data-parallel-size ${DATA_PARALLEL_SIZE} --data-parallel-size-local ${DATA_PARALLEL_SIZE_LOCAL}
+vllm-mindspore serve /path/to/Qwen2.5/model --trust-remote-code --data-parallel-size ${DATA_PARALLEL_SIZE} --data-parallel-size-local ${DATA_PARALLEL_SIZE_LOCAL}
 
 # 从节点：
-vllm-mindspore serve --headless --model=/path/to/Qwen2.5/model --trust-remote-code --data-parallel-size ${DATA_PARALLEL_SIZE} --data-parallel-size-local ${DATA_PARALLEL_SIZE_LOCAL}
+vllm-mindspore serve /path/to/Qwen2.5/model --headless --trust-remote-code --data-parallel-size ${DATA_PARALLEL_SIZE} --data-parallel-size-local ${DATA_PARALLEL_SIZE_LOCAL}
 ```
 
 ## 专家并行
@@ -107,7 +107,7 @@ vllm-mindspore serve --headless --model=/path/to/Qwen2.5/model --trust-remote-co
 以下命令为单机八卡，启动Qwen-3 MOE的专家并行示例：
 
 ```bash
-vllm-mindspore serve --model=/path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --addition-config '{"expert_parallel": 8}
+vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --addition-config '{"expert_parallel": 8}
 ```
 
 #### 多机示例
@@ -115,7 +115,7 @@ vllm-mindspore serve --model=/path/to/Qwen3-MOE --trust-remote-code --enable-exp
 多机专家并行依赖Ray进行启动。请参考[Ray多节点集群管理](#ray多节点集群管理)进行Ray环境配置。以下命令为双机四卡，Ray启动Qwen-3 MOE的专家并行示例：
 
 ```bash
-vllm-mindspore serve --model=/path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --addition-config '{"expert_parallel": 8} --data-parallel-backend=ray
+vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --addition-config '{"expert_parallel": 8} --data-parallel-backend=ray
 ```
 
 ## 混合并行
@@ -129,7 +129,7 @@ vllm-mindspore serve --model=/path/to/Qwen3-MOE --trust-remote-code --enable-exp
 可根据上述介绍，分别将三种并行策略的配置叠加，在启动命令`vllm-mindspore serve`中使能。多机混合并行依赖Ray进行启动。请参考[Ray多节点集群管理](#ray多节点集群管理)进行Ray环境配置。其叠加后混合并行的Ray启动命令如下：
 
 ```bash
-vllm-mindspore serve --model="/path/to/DeepSeek-R1" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve /path/to/DeepSeek-R1 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
 ```
 
 ## 附录
@@ -264,7 +264,7 @@ vLLM-MindSpore插件可使用OpenAI的API协议部署在线推理。以下是在
 ```bash
 # 启动配置参数说明
 vllm-mindspore serve
- --model=[模型Config/权重路径]
+ [模型标签：模型Config/权重路径]
  --trust-remote-code # 使用本地下载的model文件
  --max-num-seqs [最大Batch数]
  --max-model-len [模型上下文长度]
@@ -283,7 +283,7 @@ vllm-mindspore serve
  --addition-config # 并行功能与额外配置
 ```
 
-- 用户可以通过`--model`参数，指定模型保存的本地路径。
+- 用户可以通过指定模型保存的本地路径为模型标签；
 
 - 用户可以通过`--addition-config`参数，配置并行与其他功能。其中并行可进行如下配置，对应的是DP4-EP4-TP4场景：
 
@@ -297,17 +297,17 @@ vllm-mindspore serve
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
 
 # 从节点：
-vllm-mindspore serve --headless --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
 ```
 
 **Ray启动方式**
 
 ```bash
 # 主节点：
-vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}' --data-parallel-backend=ray
 ```
 
 #### 发送请求
@@ -318,4 +318,4 @@ vllm-mindspore serve --model="MindSpore-Lab/DeepSeek-R1-0528-A8W8" --trust-remot
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am, "max_tokens": 120, "temperature": 0}'
 ```
 
-用户需确认`"model"`字段与启动服务中的`--model`一致，请求才能成功匹配到模型。
+用户需确认`"model"`字段与启动服务中的模型标签一致，请求才能成功匹配到模型。

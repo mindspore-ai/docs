@@ -128,19 +128,16 @@ For [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct), the following
 ```bash  
 #set environment variables  
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore TransFormers as model backend.
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.  
 ```  
 
 Here is an explanation of these variables:  
 
 - `VLLM_MS_MODEL_BACKEND`: The model backend. Currently supported models and backends are listed in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
-- `MINDFORMERS_MODEL_CONFIG`: Model configuration file. User can find the corresponding YAML file in the [MindSpore Transformers repository](https://gitee.com/mindspore/mindformers/tree/master/research/qwen2_5). For Qwen2.5-7B, the YAML file is [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml).  
 
 User can check memory usage with `npu-smi info` and set the compute card for inference using:  
 
 ```bash  
-export NPU_VISIBLE_DEVICES=0  
-export ASCEND_RT_VISIBLE_DEVICES=$NPU_VISIBLE_DEVICES  
+export ASCEND_RT_VISIBLE_DEVICES=0  
 ```  
 
 ## Offline Inference
@@ -189,10 +186,10 @@ vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API p
 Use the model `Qwen/Qwen2.5-7B-Instruct` and start the vLLM service with the following command:
 
 ```bash  
-python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-7B-Instruct"  
+vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct
 ```  
 
-User can also set the local model path by `--model` argument. If the service starts successfully, similar output will be obtained:
+User can also set the local model path as model tag. If the service starts successfully, similar output will be obtained:
 
 ```text  
 INFO:   Started server process [6363]  
@@ -214,7 +211,7 @@ Use the following command to send a request, where `prompt` is the model input:
 curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 15, "temperature": 0}'  
 ```  
 
-User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
+User needs to ensure that the `"model"` field matches the model tag in the service startup, and the request can successfully match the model.
 
 If the request is processed successfully, the following inference result will be returned:
 

@@ -10,13 +10,12 @@ For single-card inference, we take [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
 then start the online inference with the following command:
 
 ```bash
-vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests
+vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct --device auto --disable-log-requests  
 ```
 
 For multi-card inference, we take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) as an example. You can prepare the environment by following the guide [Multi-Card Inference (Qwen2.5-32B)](../../../getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md#online-inference), then start the online inference with the following command:
@@ -24,7 +23,7 @@ For multi-card inference, we take [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen
 ```bash
 export TENSOR_PARALLEL_SIZE=4
 export MAX_MODEL_LEN=1024
-python3 -m vllm_mindspore.entrypoints vllm.entrypoints.openai.api_server --model "Qwen/Qwen2.5-32B-Instruct" --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
+vllm-mindspore serve Qwen/Qwen2.5-32B-Instruct --trust_remote_code --tensor-parallel-size $TENSOR_PARALLEL_SIZE --max-model-len $MAX_MODEL_LEN
 ```
 
 If the service is successfully started, the following inference result will be returned:
@@ -103,7 +102,6 @@ For offline performance benchmark, take [Qwen2.5-7B](https://huggingface.co/Qwen
 
 ```bash
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
-export MINDFORMERS_MODEL_CONFIG=$YAML_PATH # Set the corresponding MindSpore Transformers model's YAML file.
 ```
 
 Clone the vLLM repository and import the vLLM-MindSpore plugin to reuse the benchmark tools:
