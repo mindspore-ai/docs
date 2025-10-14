@@ -1,6 +1,6 @@
 # Parallel Inference Methods
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/parallel/parallel.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/parallel/parallel.md)
 
 The vLLM-MindSpore plugin supports hybrid parallel inference configurations combining Tensor Parallelism (TP), Data Parallelism (DP), and Expert Parallelism (EP), and can be launched for multi-node multi-card setups using `Ray` or `multiprocess`. For applicable scenarios of different parallel strategies, refer to the [vLLM Official Documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies). The following sections will detail the usage scenarios, parameter configuration, and [Online Inference](#online-inference) for [Tensor Parallelism](#tensor-parallelism), [Data Parallelism](#data-parallelism), [Expert Parallelism](#expert-parallelism), and [Hybrid Parallelism](#hybrid-parallelism).
 
