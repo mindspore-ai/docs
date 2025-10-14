@@ -2,53 +2,99 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
 
-vLLM-MindSpore Plugin supports hybrid parallel inference with configurations of tensor parallelism (TP), data parallelism (DP), expert parallelism (EP), and their combinations. For the applicable scenarios of different parallel strategies, refer to the [vLLM official documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies).
+This document describes the parallel inference startup process for the DeepSeek R1 671B W8A8 model. The DeepSeek R1 671B W8A8 model requires resources from multiple nodes to run the inference model. To ensure consistent execution configurations (including model configuration file paths, Python environment, etc.) across all nodes, it is recommended to use a Docker image to create containers and avoid execution discrepancies. Users can configure the environment by following the instructions in the [Docker Installation](#docker-installation) section below.
 
-This document uses the DeepSeek R1 671B W8A8 model as an example to introduce the inference workflows for [tensor parallelism (TP16)](#tp16-tensor-parallel-inference) and [hybrid parallelism](#hybrid-parallel-inference). The DeepSeek R1 671B W8A8 model requires multiple nodes to run inference. To ensure consistent execution configurations (including model configuration file paths, Python environments, etc.) across all nodes, it is recommended to use Docker containers to eliminate execution differences.
+The vLLM-MindSpore plugin supports hybrid parallel inference configurations combining [Tensor Parallelism (TP)](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#tensor-parallelism-tp), [Data Parallelism (DP)](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#data-parallelism-dp), [Expert Parallelism (EP)](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#expert-parallelism-ep), and their combinations. For more information on multi-node parallel inference, refer to the [Parallel Inference Methods Introduction](../../../user_guide/supported_features/parallel/parallel.md).
 
-Users can configure the environment by following the [Docker Installation](#docker-installation) section below.
+This document's example requires two Atlas 800 A2 server nodes, providing a total of 16 available NPUs, each with 64GB specifications.
 
 ## Docker Installation
 
-In this section, we recommend using docker to deploy the vLLM-MindSpore Plugin environment. The following sections are the steps for deployment:
+In this section, we recommend using Docker creation to quickly deploy the vLLM-MindSpore plugin environment. The following are the steps for deploying Docker:
 
 ### Building the Image
 
-User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
+Users can execute the following commands to pull the vLLM-MindSpore plugin code repository and build the image:
 
 ```bash
 git clone https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 
-After a successful build, user will get the following output:
+After a successful build, users will receive the following information:
 
 ```text
 Successfully built e40bcbeae9fc
 Successfully tagged vllm_ms_20250726:latest
 ```
 
-Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:
+Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. Users can execute the following command to confirm the Docker image was created successfully:
 
 ```bash
 docker images
 ```
 
+### Creating a New Container
+
+After completing the [Building the Image](#building-the-image) step, set `DOCKER_NAME` and `IMAGE_NAME` as the container name and image name, respectively, and execute the following command to create a new container:
+
+```bash
+export DOCKER_NAME=vllm-mindspore-container  # your container name
+export IMAGE_NAME=vllm_ms_20250726:latest  # your image name
+
+docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=true \
+        --device=/dev/davinci0 \
+        --device=/dev/davinci1 \
+        --device=/dev/davinci2 \
+        --device=/dev/davinci3 \
+        --device=/dev/davinci4 \
+        --device=/dev/davinci5 \
+        --device=/dev/davinci6 \
+        --device=/dev/davinci7 \
+        --device=/dev/davinci_manager \
+        --device=/dev/devmm_svm \
+        --device=/dev/hisi_hdc \
+        -v /usr/local/sbin/:/usr/local/sbin/ \
+        -v /var/log/npu/slog/:/var/log/npu/slog \
+        -v /var/log/npu/profiling/:/var/log/npu/profiling \
+        -v /var/log/npu/dump/:/var/log/npu/dump \
+        -v /var/log/npu/:/usr/slog \
+        -v /etc/hccn.conf:/etc/hccn.conf \
+        -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+        -v /usr/local/dcmi:/usr/local/dcmi \
+        -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+        -v /etc/ascend_install.info:/etc/ascend_install.info \
+        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        --shm-size="250g" \
+        ${IMAGE_NAME} \
+        bash
+```
+
+After successfully creating the container, the container ID will be returned. Users can execute the following command to confirm if the container was created successfully:
+
+```bash
+docker ps
+```
+
 ### Entering the Container
 
-After [building the image](#building-the-image) step, use the predefined environment variable `DOCKER_NAME` to start and enter the container:
+After completing the [Creating a New Container](#creating-a-new-container) step, use the predefined environment variable `DOCKER_NAME` to start and enter the container:
 
 ```bash
 docker exec -it $DOCKER_NAME bash
 ```
 
+## Ray Multi-Node Cluster Management
+
+On Ascend, if using Ray, an additional pyACL package needs to be installed to adapt Ray. The CANN dependency versions on all nodes must be consistent. This example relies on Ray for multi-node startup. For Ray installation instructions, please see the [Ray Installation Process Introduction](#ray-installation-process).
+
 ## Downloading Model Weights
 
-User can download the model using either [Python Tool](#downloading-with-python-tool) or [git-lfs Tool](#downloading-with-git-lfs-tool).
+Users can download the model using either the [Python Tool Download](#python-tool-download) method or the [git-lfs Tool Download](#git-lfs-tool-download) method.
 
-### Downloading with Python Tool
+### Python Tool Download
 
-Execute the following Python script to download the MindSpore-compatible DeepSeek-R1 W8A8 weights and files from [Modelers Community](https://modelers.cn):
+Execute the following Python script to download the MindSpore version of the DeepSeek-R1 W8A8 weights and files from [Modelers Community](https://modelers.cn):
 
 ```python
 from openmind_hub import snapshot_download
@@ -57,123 +103,176 @@ snapshot_download(repo_id="MindSpore-Lab/DeepSeek-R1-0528-A8W8FA3",
                   local_dir_use_symlinks=False)
 ```
 
-`local_dir` is the user-specified model save path. Ensure sufficient disk space is available.
+Where `local_dir` is the path to save the model, specified by the user. Please ensure there is sufficient hard disk space in this path.
 
-### Downloading with git-lfs Tool
+### Git-lfs Tool Download
 
-Run the following command to check if [git-lfs](https://git-lfs.com) is available:
+Execute the following code to confirm if the [git-lfs](https://git-lfs.com) tool is available:
 
 ```bash
 git lfs install
 ```
 
-If available, the following output will be displayed:
+If available, you will get a return result similar to the following:
 
 ```text
 Git LFS initialized.
 ```
 
-If the tool is unavailable, install [git-lfs](https://git-lfs.com) first. Refer to [git-lfs installation](../../../faqs/faqs.md#git-lfs-installation) guidance in the [FAQ](../../../faqs/faqs.md) section.
+If the tool is not available, you need to install [git-lfs](https://git-lfs.com) first. Please refer to the instructions for [git-lfs installation](../../../faqs/faqs.md#git-lfs-installation) in the [FAQ](../../../faqs/faqs.md) section.
 
-Once confirmed, download the weights by executing the following command:
+After confirming the tool is available, execute the following command to download the weights:
 
-```shell
+```bash
 git clone https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8.git
 ```
 
-## TP16 Tensor Parallel Inference
+## Starting the Model Service
 
-vLLM manages and runs multi-node resources through Ray. This example corresponds to a scenario with Tensor Parallelism (TP) set to 16.
+The following example uses the DeepSeek R1 671B W8A8 model to demonstrate starting the model service.
 
 ### Setting Environment Variables
 
-Environment variables must be set before creating the Ray cluster. If the environment changes, stop the cluster with `ray stop` and recreate it; otherwise, the environment variables will not take effect.
-
-Configure the following environment variables on the master and worker nodes:
+Configure the following environment variables on both the head and worker nodes:
 
 ```bash
 source /usr/local/Ascend/ascend-toolkit/set_env.sh
 
-export GLOO_SOCKET_IFNAME=enp189s0f0
-export HCCL_SOCKET_IFNAME=enp189s0f0
-export TP_SOCKET_IFNAME=enp189s0f0
 export MS_ENABLE_LCCL=off
 export HCCL_OP_EXPANSION_MODE=AIV
 export MS_ALLOC_CONF=enable_vmm:true
 export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export VLLM_MS_MODEL_BACKEND=MindFormers
+export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+export GLOO_SOCKET_IFNAME=enp189s0f0
+export HCCL_SOCKET_IFNAME=enp189s0f0
+export TP_SOCKET_IFNAME=enp189s0f0
 ```
 
-Environment variable descriptions:
+Environment Variable Descriptions:
 
-- `GLOO_SOCKET_IFNAME`: GLOO backend port. Use `ifconfig` to find the network interface name corresponding to the IP.
-- `HCCL_SOCKET_IFNAME`: Configure the HCCL port. Use `ifconfig` to find the network interface name corresponding to the IP.
-- `TP_SOCKET_IFNAME`: Configure the TP port. Use `ifconfig` to find the network interface name corresponding to the IP.
-- `MS_ENABLE_LCCL`: Disable LCCL and enable HCCL communication.
-- `HCCL_OP_EXPANSION_MODE`: Configure the communication algorithm expansion location to the AI Vector Core (AIV) computing unit on the device side.
-- `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
-- `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.
-- `VLLM_MS_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM-MindSpore Plugin can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
+- `MS_ENABLE_LCCL`: Disables LCCL and enables HCCL communication.
+- `HCCL_OP_EXPANSION_MODE`: Configures the scheduling and expansion location of the communication algorithm to be the AI Vector Core computing unit on the Device side.
+- `MS_ALLOC_CONF`: Sets the memory policy. Refer to the [MindSpore Official Documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
+- `ASCEND_RT_VISIBLE_DEVICES`: Configures the available device IDs for each node. Users can query this using the `npu-smi info` command.
+- `VLLM_MS_MODEL_BACKEND`: The backend of the model being run. The models and model backends currently supported by the vLLM-MindSpore plugin can be queried in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
+- `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION`: Used when there are version compatibility issues.
+- `GLOO_SOCKET_IFNAME`: The GLOO backend port name, used for the network interface name when using gloo communication between multiple machines. Find the network card name corresponding to the IP via `ifconfig`.
+- `HCCL_SOCKET_IFNAME`: Configures the HCCL port name, used for the network interface name when using HCCL communication between multiple machines. Find the network card name corresponding to the IP via `ifconfig`.
+- `TP_SOCKET_IFNAME`: Configures the TP port name, used for the network interface name when using TP communication between multiple machines. Find the network card name corresponding to the IP via `ifconfig`.
 
-### Starting Ray for Multi-Node Cluster Management
+### Online Inference
 
-On Ascend, the pyACL package must be installed to adapt Ray. Additionally, the CANN dependency versions on all nodes must be consistent.
+#### Starting the Service
+
+The vLLM-MindSpore plugin can deploy online inference using the OpenAI API protocol. The following is the startup process for online inference.
+
+```bash
+# Launch configuration parameter explanation
+vllm-mindspore serve
+ [Model Tag: Path to model Config and weight files]
+ --trust-remote-code # Use the locally downloaded model file
+ --max-num-seqs [Maximum Batch Size]
+ --max-model-len [Model Context Length]
+ --max-num-batched-tokens [Maximum number of tokens supported per iteration, recommended 4096]
+ --block-size [Block Size, recommended 128]
+ --gpu-memory-utilization [Memory utilization rate, recommended 0.9]
+ --tensor-parallel-size [TP parallelism degree]
+ --headless # Only needed for worker nodes, indicates no server-side related content is needed
+ --data-parallel-size [DP parallelism degree]
+ --data-parallel-size-local [Number of DP workers on the current service node. The sum across all nodes equals data-parallel-size]
+ --data-parallel-start-rank [The offset of the first DP worker responsible for the current service node, used when using the multiprocess startup method]
+ --data-parallel-address [The communication IP address of the master node, used when using the multiprocess startup method]
+ --data-parallel-rpc-port [The communication port of the master node, used when using the multiprocess startup method]
+ --enable-expert-parallel # Enable Expert Parallelism
+ --data-parallel-backend [ray, mp] # Specify the dp deployment method as Ray or mp (i.e., multiprocess)
+ --additional-config # Parallel features and additional configurations
+```
+
+- Users can specify the local path where the model is saved as the model tag.
+- Users can configure parallelism and other features using the `--additional-config` parameter.
+
+The following is the Ray startup command:
+
+```bash
+# Master Node:
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
+```
+
+For the multiprocess startup command, please refer to the [Multiprocess Startup Method](../../../user_guide/supported_features/parallel/parallel.md#starting-the-service).
+
+#### Sending Requests
+
+Use the following command to send a request. The `prompt` field is the model input:
+
+```bash
+curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 120, "temperature": 0}'
+```
+
+Users must ensure that the `"model"` field matches the model tag used when starting the service for the request to successfully match the model.
+
+## Appendix
+
+### Ray Multi-Node Cluster Management
+
+On Ascend, there are two startup methods: multiprocess and Ray. In multi-node scenarios, if using Ray, an additional pyACL package needs to be installed to adapt Ray, and the CANN dependency versions on all nodes must be consistent.
 
 #### Installing pyACL
 
-pyACL (Python Ascend Computing Language) encapsulates AscendCL APIs via CPython, enabling management of Ascend AI processors and computing resources.
+pyACL (Python Ascend Computing Language) wraps the corresponding API interfaces of AscendCL through CPython. Using these interfaces allows management of Ascend AI processors and their corresponding computing resources.
 
-In the corresponding environment, obtain the Ascend-cann-nnrt installation package for the required version, extract the pyACL dependency package, install it separately, and add the installation path to the environment variables:
+In the target environment, after obtaining the appropriate version of the Ascend-cann-nnrt installation package, extract the pyACL dependency package and install it separately. Then add the installation path to the environment variables:
 
-```shell
+```bash
 ./Ascend-cann-nnrt_8.0.RC1_linux-aarch64.run --noexec --extract=./
 cd ./run_package
 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
 export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPATH
 ```
 
-If you encounter permission issues during installation, you can grant permissions using:
+If there are permission issues during installation, use the following command to add permissions:
 
 ```bash
 chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 ```
 
-Download the Ascend runtime package from the [Ascend homepage](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1).
+The Ascend runtime package can be downloaded from the Ascend homepage. For example, you can download the runtime package for version [8.0.RC1.beta1](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1).
 
 #### Multi-Node Cluster
 
-Before managing a multi-node cluster, ensure that the hostnames of all nodes are unique. If they are the same, set different hostnames using `hostname <new-host-name>`.
+Before managing a multi-node cluster, check that the hostnames of all nodes are different. If any are the same, set different hostnames using `hostname <new-host-name>`.
 
-1. Start the master node: `ray start --head --port=<port-to-ray>`. After successful startup, the connection method for worker nodes will be displayed. For example, running `ray start --head --port=6379` on a node with IP `192.5.5.5` will display:
+1. Start the head node: `ray start --head --port=<port-to-ray>`. Upon successful startup, the connection method for worker nodes will be displayed. For example, in an environment with IP `192.5.5.5`, running `ray start --head --port=6379` will prompt:
 
-    ```text
-    Local node IP: 192.5.5.5
+  ```text
+  Local node IP: 192.5.5.5
 
-    --------------------
-    Ray runtime started.
-    --------------------
+  -------------------
+  Ray runtime started.
+  --------------------
 
-    Next steps
-      To add another node to this Ray cluster, run
-        ray start --address='192.5.5.5:6379'
+  Next steps
+    To add another node to this Ray cluster, run
+      ray start --address='192.5.5.5:6379'
 
-      To connect to this Ray cluster:
-        import ray
-        ray.init()
+    To connect to this Ray cluster:
+      import ray
+      ray.init()
 
-      To terminate the Ray runtime, run
-        ray stop
+    To terminate the Ray runtime, run
+      ray stop
 
-      To view the status of the cluster, use
-        ray status
-    ```
+    To view the status of the cluster, use
+      ray status
+   ```
 
-2. Connect worker nodes to the master node: `ray start --address=<head_node_ip>:<port>`.
-3. Check the cluster status with `ray status`. If the total number of NPUs displayed matches the sum of all nodes, the cluster is successfully created.
+2. Connect worker nodes to the head node: `ray start --address=<head_node_ip>:<port>`.
 
-    For example, with two nodes, each with 8 NPUs, the output will be:
+3. Check the cluster status using `ray status`. If the displayed total number of NPUs matches the sum across all nodes, the cluster is successful.
 
-   ```shell
+   When there are two nodes, each with 8 NPUs, the result is as follows:
+
+   ```text
    ======== Autoscaler status: 2025-05-19 00:00:00.000000 ========
    Node status
    ---------------------------------------------------------------
@@ -196,122 +295,3 @@ Before managing a multi-node cluster, ensure that the hostnames of all nodes are
    Demands:
     (no resource demands)
    ```
-
-### Online Inference
-
-#### Starting the Service
-
-vLLM-MindSpore Plugin can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service.
-
-```bash
-# Service launch parameter explanation
-vllm-mindspore serve
- [Model Tag: Config/Weights Path]
- --quantization [Source of weight quantification] # golden-stick/ascend are optional, respectively indicating that the quantified weights come from the golden-stick or modelslim quantification tools
- --trust-remote-code # Use locally downloaded model files
- --max-num-seqs [Maximum Batch Size]
- --max-model-len [Model context Length]
- --max-num-batched-tokens [Maximum Tokens per Iteration, recommended: 4096]
- --block-size [Block Size, recommended: 128]
- --gpu-memory-utilization [GPU Memory Utilization, recommended: 0.9]
- --tensor-parallel-size [TP Parallelism Degree]
-```
-
-Execution example:
-
-```bash
-# Master node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 16 --distributed-executor-backend=ray
-```
-
-In tensor parallel scenarios, the `--tensor-parallel-size` parameter overrides the `model_parallel` configuration in the model YAML file. User can pass the local model path by `--model` argument.
-
-#### Sending Requests
-
-Use the following command to send requests, where `prompt` is the model input:
-
-```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 20, "temperature": 0, "top_p": 1.0, "top_k": 1, "repetition_penalty": 1.0}'
-```
-
-User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
-
-## Hybrid Parallel Inference
-
-vLLM manages and operates resources across multiple nodes through Ray. This example corresponds to the following parallel strategy:
-
-- Data Parallelism (DP): 4;
-- Tensor Parallelism (TP): 4;
-- Expert Parallelism (EP): 4.
-
-### Setting Environment Variables
-
-Configure the following environment variables on the master and worker nodes:
-
-```bash
-source /usr/local/Ascend/ascend-toolkit/set_env.sh
-
-export MS_ENABLE_LCCL=off
-export HCCL_OP_EXPANSION_MODE=AIV
-export MS_ALLOC_CONF=enable_vmm:true
-export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export VLLM_MS_MODEL_BACKEND=MindFormers
-```
-
-Environment variable descriptions:
-
-- `MS_ENABLE_LCCL`: Disable LCCL and enable HCCL communication.
-- `HCCL_OP_EXPANSION_MODE`: Configure the communication algorithm expansion location to the AI Vector Core (AIV) computing unit on the device side.
-- `MS_ALLOC_CONF`: Set the memory policy. Refer to the [MindSpore documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
-- `ASCEND_RT_VISIBLE_DEVICES`: Configure the available device IDs for each node. Use the `npu-smi info` command to check.
-- `VLLM_MS_MODEL_BACKEND`: The backend of the model to run. Currently supported models and backends for vLLM-MindSpore Plugin can be found in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
-
-### Online Inference
-
-#### Starting the Service
-
-`vllm-mindspore` can deploy online inference using the OpenAI API protocol. Below is the workflow for launching the service:
-
-```bash
-# Parameter explanations for service launch  
-vllm-mindspore serve
- [Model Tag: Config/Weights Path]
- --quantization [Source of weight quantification] # golden-stick/ascend are optional, respectively indicating that the quantified weights come from the golden-stick or modelslim quantification tools
- --trust-remote-code # Use locally downloaded model files
- --max-num-seqs [Maximum Batch Size]
- --max-model-len [Model context Length]
- --max-num-batched-tokens [Maximum Tokens per Iteration, recommended: 4096]
- --block-size [Block Size, recommended: 128]
- --gpu-memory-utilization [GPU Memory Utilization, recommended: 0.9]
- --tensor-parallel-size [TP Parallelism Degree]
- --headless # Required only for worker nodes, indicating no service-side content
- --data-parallel-size [DP Parallelism Degree]
- --data-parallel-size-local [DP count on the current service node, sum across all nodes equals data-parallel-size]
- --data-parallel-start-rank [Offset of the first DP handled by the current service node]
- --data-parallel-address [Master node communication IP]
- --data-parallel-rpc-port [Master node communication port]
- --enable-expert-parallel # Enable expert parallelism
- --additional-config '{"expert_parallel": [EP Parallelism Degree]}'
-```
-
-`data-parallel-size` and `tensor-parallel-size` specify the parallel policies for the attn and ffn-dense parts, and `expert_parallel` specifies the parallel policies for the routing experts in the MOE part. And it must satisfy that `data-parallel-size * tensor-parallel-size` is divisible by `expert_parallel`.
-
-User can also set the local model path as model tag. The following is an execution example:
-
-```bash
-# Master node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
-
-# Worker node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless  --quantization ascend --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --additional-config '{"expert_parallel": 4}'
-```
-
-#### Sending Requests
-
-Use the following command to send requests, where `prompt` is the model input:
-
-```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "MindSpore-Lab/DeepSeek-R1-0528-A8W8", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
-```
-
-User needs to ensure that the `"model"` field matches the `--model` in the service startup, and the request can successfully match the model.
