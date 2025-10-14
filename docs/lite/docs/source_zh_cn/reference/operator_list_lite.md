@@ -2,203 +2,203 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/operator_list_lite.md)
 
-| 算子名称                            | 算子功能                                                     | CPU                                                 | Kirin NPU | GPU(Mali/Adreno)        |
-| ----------------------------------- | ------------------------------------------------------------ | --------------------------------------------------- | --------- | ----------------------- |
-| Abs                                 | 逐元素计算绝对值                                             | FP16<br>FP32<br/>Int32<br/>Int8<br/>UInt8           | FP16      | FP16<br/>FP32           |
-| AbsGrad                             | 计算绝对值函数的梯度                                         | FP32                                                | -         | -                       |
-| Activation                          | 激活函数                                                     | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| ActivationGrad                      | 计算特定激活函数的梯度                                       | FP16<br/>FP32                                       | -         | -                       |
-| Adam                                | 执行Adam优化器的一次参数更新步骤                             | FP32                                                | -         | -                       |
-| AddFusion                           | 逐元素计算加法                                               | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int8  |
-| AdderFusion                         | 基于加法的卷积运算                                                   | FP32                                                | -         | -                       |
-| AddGrad                             | 计算加法操作的梯度                                           | FP32                                                | -         | -                       |
-| AddN                                | 对N个相同形状和数据类型的输入张量进行逐元素相加              | FP16<br/>FP32                                       | -         | -                       |
-| Affine                              | 对输入张量执行仿射变换                                       | FP32                                                | -         | -                       |
-| All                                 | 判断张量中所有元素在指定维度上是否都为True（非零）           | FP32                                                | -         | -                       |
-| AllGather                           | 分布式集合通信操作                                           | FP32                                                | -         | -                       |
-| ApplyMomentum                       | 执行带动量的随机梯度下降的一次参数更新步骤                  | FP32                                                | -         | -                       |
-| Assert                              | 断言                                                         | FP16<br/>FP32<br/>Bool                              | -         | -                       |
-| Assign                              | 将一个值赋值给一个变量                                       | FP32                                                | -         | -                       |
-| ArgmaxFusion                        | 求某一维度最大值                                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| ArgminFusion                        | 求某一维度最小值                                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |
-| AvgPoolFusion                       | 平均池化                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| AvgPoolGrad                         | 计算平均池化层的梯度                                         | FP16<br/>FP32                                       | -         | -                       |
-| BatchNorm                           | 批量归一化                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |
-| BatchNormGrad                       | 计算批量归一化层的梯度                                       | FP16<br/>FP32                                       | -         | -                       |
-| BatchToSpace                        | 空间到批次变换的逆操作                                       | FP32<br/>Int8<br/>UInt8                             | -         | FP16<br/>FP32           |
-| BatchToSpaceND                      | BatchToSpace的ND通用版本                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |
-| BiasAdd                             | 将偏置向量添加到输入张量                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |
-| BiasAddGrad                         | 计算BiasAdd操作的梯度                                       | FP16<br/>FP32                                       | -         | -                       |
-| BinaryCrossEntropy                  | 计算二元交叉熵损失                                           | FP32                                                | -         | -                       |
-| BinaryCrossEntropyGrad              | 计算二元交叉熵损失函数的梯度                                 | FP32                                                | -         | -                       |
-| BroadcastTo                         | 扩维                                                         | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |
-| Call                                | 调用一个子计算图或函数                                       | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |
-| Cast                                | 数据类型转换                                                 | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32           |
-| Ceil                                | 向上取整                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Clip                                | 限制元素范围                                                 | FP32<br/>Int32                                      | -         | -                       |
-| Concat                              | 拼接张量                                                     | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 |
-| ConstantOfShape                     | 生成一个与输入形状相同的张量，并用指定常量填充               | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| Conv2DFusion                        | 2D卷积                                                       | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Conv2DBackpropFilterFusion          | 计算普通卷积操作对卷积核的梯度                               | FP16<br/>FP32                                       | -         | -                       |
-| Conv2DBackpropInputFusion           | 计算普通卷积操作对输入数据的梯度                             | FP16<br/>FP32                                       | -         | -                       |
-| Conv2dTransposeFusion               | 执行转置卷积运算                                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Cos                                 | 逐元素计算余弦                                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Crop                                | 从输入图像或特征图中裁剪出一个指定区域                       | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | -         | -                       |
-| CropAndResize                       | 从输入图像中根据一组边界框裁剪出区域，然后将每个区域缩放到统一大小 | FP32                                                | FP16      | -                       |
-| CumSum                              | 累计元素和                                                   | FP32<br/>Int32                                      | -         | -                       |
-| CustomExtractFeatures               | 自定义特征提取算子                                           | FP32                                                | -         | -                       |
-| CustomNormalize                     | 自定义归一化算子                                             | FP32                                                | -         | -                       |
-| CustomPredict                       | 自定义预测算子                                               | FP32<br/>Int32                                      | -         | -                       |
-| DEConv2DGradFilter                  | 计算转置卷积对卷积核的梯度                                   | FP32                                                | -         |                         |
-| DepthToSpace                        | 将深度数据重新排列到空间维度中                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |
-| DetectionPostProcess                | 目标检测后处理                                               | FP32<br/>Int8<br/>UInt8                             | -         | -                       |
-| DivFusion                           | 逐元素除法                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| DivGrad                             | 计算除法操作的梯度                                           | FP32                                                | -         | -                       |
-| Dropout                             | 随机将输入张量的部分元素置 0                                 | FP16<br/>FP32                                       | -         | -                       |
-| DropoutGrad                         | 计算Dropout操作的梯度                                        | FP16<br/>FP32                                       | -         | -                       |
-| DynamicQuant                        | 动态将浮点张量量化为uint8类型                                | FP32                                                | -         | -                       |
-| Eltwise                             | 元素级运算                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Elu                                 | 激活函数，对负输入使用指数修正                               | FP16<br/>FP32                                       | -         | -                       |
-| Equal                               | 判断输入是否相等                                             | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| EmbeddingLookupFusion               | 优化版的词嵌入查找，将整数索引映射为密集向量                 | FP32                                                | -         | -                       |
-| Erf                                 | 误差函数                                                     | FP16<br/>FP32                                       | -         | -                       |
-| ExpFusion                           | 逐元素取指数                                                 | FP16<br/>FP32                                       | -         | FP16<br/>FP32           |
-| ExpandDims                          | 在指定位置插入长度为1的维度                                  | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 |
-| Fill                                | 生成一个填充指定常量的张量                                   | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | FP16<br/>FP32           |
-| Flatten                             | 数据按维度展开                                               | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| FlattenGrad                         | 计算Flatten操作的梯度                                        | FP16<br/>FP32                                       | -         | -                       |
-| Floor                               | 向下取整                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| FloorDiv                            | 逐元素向下取整除法                                           | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           |
-| FloorMod                            | 逐元素取模运算，结果的符号与除数一致                         | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           |
-| FullConnection                      | 全连接层                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| FusedBatchNorm                      | 对输入做标准化                                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | -                       |
-| GatherNd                            | 根据索引张量从输入张量中收集指定位置的元素                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | -         | FP16<br/>FP32           |
-| Gather                              | 沿单一维度收集指定索引位置的元素                             | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 |
-| GatherD                             | 将输入tensor中的元素根据索引tensor进行收集                   | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |
-| GLU                                 | 门控线性单元激活函数，将输入拆分为两部分并逐元素相乘         | FP32                                                | -         | -                       |
-| Greater                             | 逐元素比较两个张量，返回A>B的逻辑结果（True/False）          | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| GreaterEqual                        | 逐元素比较两个张量，返回 A≥B的逻辑结果（True/False）         | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| GroupNormFusion                     | 融合优化的组归一化                                           | FP32                                                | -         | -                       |
-| GRU                                 | 门控循环单元，简化版LSTM                                     | FP16<br/>FP32                                       | -         | -                       |
-| HashtableLookup                     | 哈希表查找                                                   | FP32<br/>Int32                                      | -         | -                       |
-| InstanceNorm                        | 实例归一化                                                   | FP16<br/>FP32                                       | FP16      | -                       |
-| InvertPermutation                   | 反转置换索引                                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| IsFinite                            | 检测张量中每个元素是否为有限值（非inf/NaN）                  | FP32                                                | -         | -                       |
-| L2NormalizeFusion                   | 融合优化的L2归一化                                           | FP32<br/>Int8<br/>UInt8                             | -         | -                       |
-| LayerNormFusion                     | 融合优化的层归一化                                           | FP16<br/>FP32<br/>Int8                              | -         | FP16<br/>FP32           |
-| LayerNormGrad                       | 计算层归一化的梯度                                           | FP16<br/>FP32                                       | -         | -                       |
-| LeakyReLU                           | 带泄漏的 ReLU激活函数，对负输入给予微小斜率                  | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Less                                | 逐元素比较两个张量，返回 A<B的逻辑结果                       | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| LessEqual                           | 逐元素比较A ≤ B，返回布尔张量                                | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| LRN                                 | 局部响应归一化                                               | FP32                                                | -         | -                       |
-| Log                                 | 逐元素求对数                                                 | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Log1p                               | 计算log(1+X)                                                 | FP32                                                | -         | -                       |
-| LogGrad                             | 计算对数函数的梯度                                           | FP16<br/>FP32                                       | -         | -                       |
-| LogicalAnd                          | 逐元素逻辑与运算                                             | FP16<br/>FP32<br/>Int32<br/>Bool                    | FP16      | FP16<br/>FP32           |
-| LogicalNot                          | 逐元素逻辑非运算                                                 | FP16<br/>FP32<br/>Int8<br/>UInt8<br/>Bool           | FP16      | FP16<br/>FP32           |
-| LogicalOr                           | 逐元素逻辑或运算                                             | FP16<br/>FP32<br/>Bool                              | FP16      | FP16<br/>FP32           |
-| LogSoftmax                          | 对输入向量进行softmax操作，然后再对softmax结果取对数         | FP16<br/>FP32                                       | -         | -                       |
-| LshProjection                       | 局部敏感哈希投影                                             | FP32                                                | -         | -                       |
-| LSTM                                | 长短期记忆网络单元                                           | FP16<br/>FP32                                       | -         | -                       |
-| LSTMGrad                            | 计算LSTM对隐状态的反向传播梯度                               | FP32                                                | -         | -                       |
-| LSTMGradData                        | 计算LSTM对输入数据的反向传播梯度                             | FP32                                                | -         | -                       |
-| LSTMGradWeight                      | 计算LSTM对权重的反向传播梯度                                 | FP32                                                | -         | -                       |
-| MatMulFusion                        | 对2个输入做矩阵乘法运算                                      | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Maximum                             | 取元素级最大值                                               | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           |
-| MaximumGrad                         | 计算最大值函数的梯度                                         | FP16<br/>FP32                                       | -         | -                       |
-| MaxPoolFusion                       | 最大池化                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| MaxPoolGrad                         | 计算最大池化层的梯度                                         | FP16<br/>FP32                                       | -         | -                       |
-| Merge                               | 创建一个与输入张量X形状完全相同但所有元素值均为1的新张量     | FP16<br/>FP32                                       | -         | -                       |
-| Minimum                             | 取元素级最小值                                               | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           |
-| MinimumGrad                         | 计算最小值函数的梯度                                         | FP16<br/>FP32                                       | -         | -                       |
-| Mod                                 | 返回除法元素的余数                                           | FP32<br/>Int32                                      | -         | -                       |
-| MulFusion                           | 逐元素乘法                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| MulGrad                             | 计算乘法操作的梯度                                           | FP32                                                | -         | -                       |
-| Neg                                 | 逐元素求负数                                                 | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           |
-| NegGrad                             | 计算取负操作的梯度                                           | FP16<br/>FP32                                       | -         | -                       |
-| NLLLoss                             | 计算负对数似然损失                                           | FP32                                                | -         | -                       |
-| NLLLossGrad                         | 计算NLLLoss的梯度                                            | FP32                                                | -         | -                       |
-| NotEqual                            | 逐元素比较两个张量，返回 A != B的逻辑结果                    | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| NonMaxSuppression                  | 非极大值抑制                                                 | FP32                                                | -         | -                       |
-| NonZero                             | 返回输入张量中所有非零元素的索引                             | Bool                                                | -         | -                       |
-| OneHot                              | 将整数索引张量转换为独热编码表示                             | FP16<br/>FP32<br/>Int32                             | -         | FP16<br/>FP32<br/>Int32 |
-| OnesLike                            | 创建一个与输入张量 X形状完全相同但所有元素值均为1的新张量    | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| PadFusion                           | 将输入张量加上指定的padding，使其达到指定的大小              | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| PartialFusion                       | 部分融合                                                     | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |
-| PowFusion                           | 逐元素求幂                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |
-| PowerGrad                           | 计算幂运算的梯度                                             | FP32                                                | -         | -                       |
-| PriorBox                            | 生成先验框                                                   | FP32<br/>Int8<br/>UInt8                             | -         | -                       |
-| PReLUFusion                         | PRelu激活函数                                                | FP16<br/>FP32                                       | -         | FP16<br/>FP32           |
-| QuantDTypeCast                      | 执行量化数据类型转换                                         | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | -                       |
-| RaggedRange                         | 生成非均匀间隔的序列                                         | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| RandomNormal                        | 生成一个张量，其中的值从正态分布中随机采样                   | FP16<br/>FP32                                       | -         | -                       |
-| RandomStandardNormal                | 生成服从标准正态分布的随机数张量                             | FP16<br/>FP32                                       | -         | -                       |
-| Range                               | 生成某个区间内的元素                                         | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| Rank                                | 返回输入张量的维度数                                         | FP16<br/>FP32                                       | -         | -                       |
-| RealDiv                             | 逐元素除法                                                   | FP16<br/>FP32                                       | -         | -                       |
-| Reciprocal                          | 返回倒数                                                     | FP16<br/>FP32<br/>Int8                              | FP16      | -                       |
-| ReduceFusion                        | 归约操作                                                     | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32           |
-| ReduceScatter                       | 分布式操作，将输入张量分段后分发到各设备，每设备仅保留一段结果 | FP32                                                | -         | -                       |
-| Reshape                             | 改变张量形状，总元素个数不变                                 | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 |
-| Resize                              | 对输入张量进行上采样或调整大小                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| ResizeGrad                          | 计算Resize的梯度                                             | FP16<br/>FP32                                       | -         | -                       |
-| ReverseV2                           | 沿指定轴反转张量                                             | FP32<br/>Int32                                      | -         | -                       |
-| ReverseSequence                     | 对输入张量的可变长度序列进行部分反转                         | FP32                                                | -         | -                       |
-| ROIPooling                          | 区域兴趣池化                                                 | FP32                                                | -         | -                       |
-| Round                               | 四舍五入到最接近的整数数值                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Rsqrt                               | 逐元素计算平方根倒数，用于归一化                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| RsqrtGrad                           | 计算平方根倒数的梯度                                         | FP32                                                | -         | -                       |
-| Select                              | 根据条件从两个张量中选择元素                                 | FP32<br/>Bool                                       | -         | -                       |
-| Selu                                | 自归一化指数线性单元激活函数                                 | -                                                   | -         | -                       |
-| ScaleFusion                         | 将缩放操作与相邻算子融合                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| ScatterNd                           | 根据索引将更新张量中的值散射到输出张量的指定位置             | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| ScatterNdUpdate                     | 使用给定值以及输入索引更新输入数据的值                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| SGD                                 | 随机梯度下降优化器                                           | FP32                                                | -         | -                       |
-| Shape                               | 获得张量shape                                                | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | -         | FP16<br/>FP32           |
-| SigmoidCrossEntropyWithLogits       | 结合Sigmoid激活和交叉熵损失                                  | FP32                                                | -         | -                       |
-| SigmoidCrossEntropyWithLogitsGrad   | 计算带Sigmoid的交叉熵损失的梯度                              | FP32                                                | -         | -                       |
-| Sin                                 | 逐元素计算正弦                                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| Size                                | 获取张量维度大小                                             | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| SliceFusion                         | 张量切片操作                                                 | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| SkipGram                            | Skip-gram模型的核心操作，用于词向量训练                      | FP32                                                | -         | -                       |
-| SmoothL1Loss                        | 平滑L1损失                                                   | FP32                                                | -         | -                       |
-| SmoothL1LossGrad                    | 计算平滑L1损失的梯度                                         | FP32                                                | -         | -                       |
-| Softmax                             | 归一化操作                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| SoftmaxGrad                         | 计算Softmax的梯度                                            | FP32                                                | -         | -                       |
-| Softplus                            | 平滑的ReLU变体                                               | FP16<br/>FP32                                       | -         | -                       |
-| SpaceToBatch                        | 高度和宽度维度的值移至深度维度                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |
-| SpaceToBatchND                      | 将空间维度的数据块拆分到批次维度                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |
-| SpaceToDepth                        | 将空间数据重组为深度通道                                     | FP16<br/>FP32                                       | -         | FP16<br/>FP32           |
-| SparseToDense                       | 将稀疏表示转换为密集张量                                     | FP16<br/>FP32<br/>Int32                             | -         | FP16<br/>FP32<br/>Int32 |
-| SparseSoftmaxCrossEntropyWithLogits | 稀疏标签的Softmax交叉熵                                      | FP32                                                | -         | -                       |
-| Splice                              | 沿指定轴连接输入张量的多个切片或范围                         | FP16<br/>FP32                                       | -         | -                       |
-| Split                               | 将输入张量沿指定轴分割成多个较小的输出张量                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| SplitWithOverlap                    | 带重叠的分割张量                                             | FP16<br/>FP32                                       | -         | -                       |
-| Sqrt                                | 逐元素开根号                                                 | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| SqrtGrad                            | 计算平方根的梯度                                             | FP32                                                | -         | -                       |
-| Square                              | 逐元素平方                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |
-| SquaredDifference                   | 逐元素计算 (A-B)²                                            | FP16<br/>FP32                                       | -         | FP16<br/>FP32           |
-| Squeeze                             | 移除维度为1的维度                                            | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | -         | FP16<br/>FP32<br/>Int32 |
-| StridedSlice                        | Tensor切片                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| StridedSliceGrad                    | 计算切片操作的梯度                                           | FP16<br/>FP32                                       | -         | -                       |
-| Stack                               | 沿新轴堆叠多个张量                                           | FP16<br/>FP32<br/>Int32                             | -         | FP16<br/>FP32           |
-| SubFusion                           | 逐元素相减                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |
-| SubGrad                             | 计算减法的梯度                                               | FP32                                                | -         | -                       |
-| Switch                              | 根据布尔条件选择输出分支                                     | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |
-| SwitchLayer                         | 在模型中选择执行不同的子网络分支                             | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |
-| TensorListFromTensor                | 将普通张量转换为张量列表，按指定轴分割                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| TensorListGetItem                   | 从张量列表中获取指定索引位置的张量                           | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| TensorListReserve                   | 预分配一个空张量列表，指定元素数据类型和初始容量             | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| TensorListSetItem                   | 将张量插入张量列表的指定位置                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| TensorListStack                     | 将张量列表堆叠为一个普通张量                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| TensorScatterAdd                    | 根据索引将更新张量的值分散添加到目标张量的指定位置           | FP32<br/>Int32                                      | -         | -                       |
-| TileFusion                          | 平铺给定矩阵                                                 | FP16<br/>FP32<br/>Int32<br/>Bool                    | FP16      | -                       |
-| TopKFusion                          | 从输入张量中返回topK个元素                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | -         | -                       |
-| Transpose                           | Tensor转置                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>Bool           | FP16      | FP16<br/>FP32           |
-| UniformReal                         | 生成服从均匀分布的随机数张量                                 | FP32<br/>Int32                                      | -         | -                       |
-| Unique                              | 返回输入张量中的唯一值，并可返回该值的索引和计数               | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| UnsortedSegmentSum                  | 对张量进行分段求和，不要求分段索引有序                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| Unsqueeze                           | 将输入张量添加一个新的维度                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 |
-| Unstack                             | 沿指定轴拆分张量为多个子张量                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |
-| Where                               | 元素选择                                                     | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |
-| ZerosLike                           | 生成与输入张量形状相同但全为 0的新张量                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |
+| 算子名称                            | 算子功能                                                     | CPU                                                 | Kirin NPU | GPU(Mali/Adreno)        | Ascend  |
+| ----------------------------------- | ------------------------------------------------------------ | --------------------------------------------------- | --------- | ----------------------- | ----------------------- |
+| Abs                                 | 逐元素计算绝对值                                             | FP16<br>FP32<br/>Int32<br/>Int8<br/>UInt8           | FP16      | FP16<br/>FP32           | FP16       |
+| AbsGrad                             | 计算绝对值函数的梯度                                         | FP32                                                | -         | -                       |                        |
+| Activation                          | 激活函数                                                     | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| ActivationGrad                      | 计算特定激活函数的梯度                                       | FP16<br/>FP32                                       | -         | -                       |                        |
+| Adam                                | 执行Adam优化器的一次参数更新步骤                             | FP32                                                | -         | -                       |                        |
+| AddFusion                           | 逐元素计算加法                                               | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int8  | FP16 |
+| AdderFusion                         | 基于加法的卷积运算                                                   | FP32                                                | -         | -                       |                        |
+| AddGrad                             | 计算加法操作的梯度                                           | FP32                                                | -         | -                       |                        |
+| AddN                                | 对N个相同形状和数据类型的输入张量进行逐元素相加              | FP16<br/>FP32                                       | -         | -                       |                        |
+| Affine                              | 对输入张量执行仿射变换                                       | FP32                                                | -         | -                       | FP16                   |
+| All                                 | 判断张量中所有元素在指定维度上是否都为True（非零）           | FP32                                                | -         | -                       |                        |
+| AllGather                           | 分布式集合通信操作                                           | FP32                                                | -         | -                       |                        |
+| ApplyMomentum                       | 执行带动量的随机梯度下降的一次参数更新步骤                  | FP32                                                | -         | -                       | FP16                   |
+| Assert                              | 断言                                                         | FP16<br/>FP32<br/>Bool                              | -         | -                       |                        |
+| Assign                              | 将一个值赋值给一个变量                                       | FP32                                                | -         | -                       | FP16                   |
+| ArgmaxFusion                        | 求某一维度最大值                                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| ArgminFusion                        | 求某一维度最小值                                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           | FP16       |
+| AvgPoolFusion                       | 平均池化                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| AvgPoolGrad                         | 计算平均池化层的梯度                                         | FP16<br/>FP32                                       | -         | -                       |                        |
+| BatchNorm                           | 批量归一化                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           | FP16       |
+| BatchNormGrad                       | 计算批量归一化层的梯度                                       | FP16<br/>FP32                                       | -         | -                       |                        |
+| BatchToSpace                        | 空间到批次变换的逆操作                                       | FP32<br/>Int8<br/>UInt8                             | -         | FP16<br/>FP32           |            |
+| BatchToSpaceND                      | BatchToSpace的ND通用版本                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |            |
+| BiasAdd                             | 将偏置向量添加到输入张量                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           | FP16       |
+| BiasAddGrad                         | 计算BiasAdd操作的梯度                                       | FP16<br/>FP32                                       | -         | -                       |                        |
+| BinaryCrossEntropy                  | 计算二元交叉熵损失                                           | FP32                                                | -         | -                       | FP16                   |
+| BinaryCrossEntropyGrad              | 计算二元交叉熵损失函数的梯度                                 | FP32                                                | -         | -                       |                        |
+| BroadcastTo                         | 扩维                                                         | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |                        |
+| Call                                | 调用一个子计算图或函数                                       | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       | FP16                   |
+| Cast                                | 数据类型转换                                                 | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32           | FP16       |
+| Ceil                                | 向上取整                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Clip                                | 限制元素范围                                                 | FP32<br/>Int32                                      | -         | -                       | FP16                   |
+| Concat                              | 拼接张量                                                     | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 | FP16 |
+| ConstantOfShape                     | 生成一个与输入形状相同的张量，并用指定常量填充               | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| Conv2DFusion                        | 2D卷积                                                       | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Conv2DBackpropFilterFusion          | 计算普通卷积操作对卷积核的梯度                               | FP16<br/>FP32                                       | -         | -                       |                        |
+| Conv2DBackpropInputFusion           | 计算普通卷积操作对输入数据的梯度                             | FP16<br/>FP32                                       | -         | -                       |                        |
+| Conv2dTransposeFusion               | 执行转置卷积运算                                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Cos                                 | 逐元素计算余弦                                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Crop                                | 从输入图像或特征图中裁剪出一个指定区域                       | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | -         | -                       |                        |
+| CropAndResize                       | 从输入图像中根据一组边界框裁剪出区域，然后将每个区域缩放到统一大小 | FP32                                                | FP16      | -                       |                        |
+| CumSum                              | 累计元素和                                                   | FP32<br/>Int32                                      | -         | -                       | FP16                   |
+| CustomExtractFeatures               | 自定义特征提取算子                                           | FP32                                                | -         | -                       |                        |
+| CustomNormalize                     | 自定义归一化算子                                             | FP32                                                | -         | -                       |                        |
+| CustomPredict                       | 自定义预测算子                                               | FP32<br/>Int32                                      | -         | -                       |                        |
+| DEConv2DGradFilter                  | 计算转置卷积对卷积核的梯度                                   | FP32                                                | -         |                         |                         |
+| DepthToSpace                        | 将深度数据重新排列到空间维度中                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |            |
+| DetectionPostProcess                | 目标检测后处理                                               | FP32<br/>Int8<br/>UInt8                             | -         | -                       |                        |
+| DivFusion                           | 逐元素除法                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| DivGrad                             | 计算除法操作的梯度                                           | FP32                                                | -         | -                       |                        |
+| Dropout                             | 随机将输入张量的部分元素置 0                                 | FP16<br/>FP32                                       | -         | -                       | FP16                   |
+| DropoutGrad                         | 计算Dropout操作的梯度                                        | FP16<br/>FP32                                       | -         | -                       |                        |
+| DynamicQuant                        | 动态将浮点张量量化为uint8类型                                | FP32                                                | -         | -                       |                        |
+| Eltwise                             | 元素级运算                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Elu                                 | 激活函数，对负输入使用指数修正                               | FP16<br/>FP32                                       | -         | -                       | FP16                   |
+| Equal                               | 判断输入是否相等                                             | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| EmbeddingLookupFusion               | 优化版的词嵌入查找，将整数索引映射为密集向量                 | FP32                                                | -         | -                       |                        |
+| Erf                                 | 误差函数                                                     | FP16<br/>FP32                                       | -         | -                       | FP16                   |
+| ExpFusion                           | 逐元素取指数                                                 | FP16<br/>FP32                                       | -         | FP16<br/>FP32           | FP16       |
+| ExpandDims                          | 在指定位置插入长度为1的维度                                  | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 | FP16 |
+| Fill                                | 生成一个填充指定常量的张量                                   | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | FP16<br/>FP32           | FP16       |
+| Flatten                             | 数据按维度展开                                               | FP16<br/>FP32<br/>Int32                             | -         | -                       | FP16                   |
+| FlattenGrad                         | 计算Flatten操作的梯度                                        | FP16<br/>FP32                                       | -         | -                       |                        |
+| Floor                               | 向下取整                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| FloorDiv                            | 逐元素向下取整除法                                           | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           |            |
+| FloorMod                            | 逐元素取模运算，结果的符号与除数一致                         | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           |            |
+| FullConnection                      | 全连接层                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| FusedBatchNorm                      | 对输入做标准化                                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | -                       | FP16                   |
+| GatherNd                            | 根据索引张量从输入张量中收集指定位置的元素                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | -         | FP16<br/>FP32           | FP16       |
+| Gather                              | 沿单一维度收集指定索引位置的元素                             | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 | FP16 |
+| GatherD                             | 将输入tensor中的元素根据索引tensor进行收集                   | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       | FP16                   |
+| GLU                                 | 门控线性单元激活函数，将输入拆分为两部分并逐元素相乘         | FP32                                                | -         | -                       |                        |
+| Greater                             | 逐元素比较两个张量，返回A>B的逻辑结果（True/False）          | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| GreaterEqual                        | 逐元素比较两个张量，返回 A≥B的逻辑结果（True/False）         | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| GroupNormFusion                     | 融合优化的组归一化                                           | FP32                                                | -         | -                       |                        |
+| GRU                                 | 门控循环单元，简化版LSTM                                     | FP16<br/>FP32                                       | -         | -                       |                        |
+| HashtableLookup                     | 哈希表查找                                                   | FP32<br/>Int32                                      | -         | -                       |                        |
+| InstanceNorm                        | 实例归一化                                                   | FP16<br/>FP32                                       | FP16      | -                       | FP16                   |
+| InvertPermutation                   | 反转置换索引                                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| IsFinite                            | 检测张量中每个元素是否为有限值（非inf/NaN）                  | FP32                                                | -         | -                       | FP16                   |
+| L2NormalizeFusion                   | 融合优化的L2归一化                                           | FP32<br/>Int8<br/>UInt8                             | -         | -                       |                        |
+| LayerNormFusion                     | 融合优化的层归一化                                           | FP16<br/>FP32<br/>Int8                              | -         | FP16<br/>FP32           | FP16       |
+| LayerNormGrad                       | 计算层归一化的梯度                                           | FP16<br/>FP32                                       | -         | -                       |                        |
+| LeakyReLU                           | 带泄漏的 ReLU激活函数，对负输入给予微小斜率                  | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Less                                | 逐元素比较两个张量，返回 A<B的逻辑结果                       | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| LessEqual                           | 逐元素比较A ≤ B，返回布尔张量                                | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| LRN                                 | 局部响应归一化                                               | FP32                                                | -         | -                       | FP16                   |
+| Log                                 | 逐元素求对数                                                 | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Log1p                               | 计算log(1+X)                                                 | FP32                                                | -         | -                       | FP16                   |
+| LogGrad                             | 计算对数函数的梯度                                           | FP16<br/>FP32                                       | -         | -                       |                        |
+| LogicalAnd                          | 逐元素逻辑与运算                                             | FP16<br/>FP32<br/>Int32<br/>Bool                    | FP16      | FP16<br/>FP32           |            |
+| LogicalNot                          | 逐元素逻辑非运算                                                 | FP16<br/>FP32<br/>Int8<br/>UInt8<br/>Bool           | FP16      | FP16<br/>FP32           |            |
+| LogicalOr                           | 逐元素逻辑或运算                                             | FP16<br/>FP32<br/>Bool                              | FP16      | FP16<br/>FP32           |            |
+| LogSoftmax                          | 对输入向量进行softmax操作，然后再对softmax结果取对数         | FP16<br/>FP32                                       | -         | -                       | FP16                   |
+| LshProjection                       | 局部敏感哈希投影                                             | FP32                                                | -         | -                       |                        |
+| LSTM                                | 长短期记忆网络单元                                           | FP16<br/>FP32                                       | -         | -                       |                        |
+| LSTMGrad                            | 计算LSTM对隐状态的反向传播梯度                               | FP32                                                | -         | -                       |                        |
+| LSTMGradData                        | 计算LSTM对输入数据的反向传播梯度                             | FP32                                                | -         | -                       |                        |
+| LSTMGradWeight                      | 计算LSTM对权重的反向传播梯度                                 | FP32                                                | -         | -                       |                        |
+| MatMulFusion                        | 对2个输入做矩阵乘法运算                                      | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Maximum                             | 取元素级最大值                                               | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           | FP16       |
+| MaximumGrad                         | 计算最大值函数的梯度                                         | FP16<br/>FP32                                       | -         | -                       |                        |
+| MaxPoolFusion                       | 最大池化                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| MaxPoolGrad                         | 计算最大池化层的梯度                                         | FP16<br/>FP32                                       | -         | -                       |                        |
+| Merge                               | 创建一个与输入张量X形状完全相同但所有元素值均为1的新张量     | FP16<br/>FP32                                       | -         | -                       |                        |
+| Minimum                             | 取元素级最小值                                               | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           | FP16       |
+| MinimumGrad                         | 计算最小值函数的梯度                                         | FP16<br/>FP32                                       | -         | -                       |                        |
+| Mod                                 | 返回除法元素的余数                                           | FP32<br/>Int32                                      | -         | -                       | FP16                   |
+| MulFusion                           | 逐元素乘法                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| MulGrad                             | 计算乘法操作的梯度                                           | FP32                                                | -         | -                       |                        |
+| Neg                                 | 逐元素求负数                                                 | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           | FP16       |
+| NegGrad                             | 计算取负操作的梯度                                           | FP16<br/>FP32                                       | -         | -                       |                        |
+| NLLLoss                             | 计算负对数似然损失                                           | FP32                                                | -         | -                       | FP16                   |
+| NLLLossGrad                         | 计算NLLLoss的梯度                                            | FP32                                                | -         | -                       |                        |
+| NotEqual                            | 逐元素比较两个张量，返回 A != B的逻辑结果                    | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           |            |
+| NonMaxSuppression                  | 非极大值抑制                                                 | FP32                                                | -         | -                       | FP16                   |
+| NonZero                             | 返回输入张量中所有非零元素的索引                             | Bool                                                | -         | -                       | FP16                   |
+| OneHot                              | 将整数索引张量转换为独热编码表示                             | FP16<br/>FP32<br/>Int32                             | -         | FP16<br/>FP32<br/>Int32 |  |
+| OnesLike                            | 创建一个与输入张量 X形状完全相同但所有元素值均为1的新张量    | FP16<br/>FP32<br/>Int32                             | -         | -                       | FP16                   |
+| PadFusion                           | 将输入张量加上指定的padding，使其达到指定的大小              | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| PartialFusion                       | 部分融合                                                     | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |                        |
+| PowFusion                           | 逐元素求幂                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           | FP16       |
+| PowerGrad                           | 计算幂运算的梯度                                             | FP32                                                | -         | -                       |                        |
+| PriorBox                            | 生成先验框                                                   | FP32<br/>Int8<br/>UInt8                             | -         | -                       | FP16                   |
+| PReLUFusion                         | PRelu激活函数                                                | FP16<br/>FP32                                       | -         | FP16<br/>FP32           | FP16       |
+| QuantDTypeCast                      | 执行量化数据类型转换                                         | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | -                       |                        |
+| RaggedRange                         | 生成非均匀间隔的序列                                         | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| RandomNormal                        | 生成一个张量，其中的值从正态分布中随机采样                   | FP16<br/>FP32                                       | -         | -                       |                        |
+| RandomStandardNormal                | 生成服从标准正态分布的随机数张量                             | FP16<br/>FP32                                       | -         | -                       |                        |
+| Range                               | 生成某个区间内的元素                                         | FP16<br/>FP32<br/>Int32                             | -         | -                       | FP16                   |
+| Rank                                | 返回输入张量的维度数                                         | FP16<br/>FP32                                       | -         | -                       |                        |
+| RealDiv                             | 逐元素除法                                                   | FP16<br/>FP32                                       | -         | -                       | FP16                   |
+| Reciprocal                          | 返回倒数                                                     | FP16<br/>FP32<br/>Int8                              | FP16      | -                       | FP16                   |
+| ReduceFusion                        | 归约操作                                                     | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32           | FP16       |
+| ReduceScatter                       | 分布式操作，将输入张量分段后分发到各设备，每设备仅保留一段结果 | FP32                                                | -         | -                       |                        |
+| Reshape                             | 改变张量形状，总元素个数不变                                 | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 | FP16 |
+| Resize                              | 对输入张量进行上采样或调整大小                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |            |
+| ResizeGrad                          | 计算Resize的梯度                                             | FP16<br/>FP32                                       | -         | -                       |                        |
+| ReverseV2                           | 沿指定轴反转张量                                             | FP32<br/>Int32                                      | -         | -                       |                        |
+| ReverseSequence                     | 对输入张量的可变长度序列进行部分反转                         | FP32                                                | -         | -                       | FP16                   |
+| ROIPooling                          | 区域兴趣池化                                                 | FP32                                                | -         | -                       | FP16                   |
+| Round                               | 四舍五入到最接近的整数数值                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Rsqrt                               | 逐元素计算平方根倒数，用于归一化                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           |            |
+| RsqrtGrad                           | 计算平方根倒数的梯度                                         | FP32                                                | -         | -                       |                        |
+| Select                              | 根据条件从两个张量中选择元素                                 | FP32<br/>Bool                                       | -         | -                       |                        |
+| Selu                                | 自归一化指数线性单元激活函数                                 | -                                                   | -         | -                       |                        |
+| ScaleFusion                         | 将缩放操作与相邻算子融合                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| ScatterNd                           | 根据索引将更新张量中的值散射到输出张量的指定位置             | FP16<br/>FP32<br/>Int32                             | -         | -                       | FP16                   |
+| ScatterNdUpdate                     | 使用给定值以及输入索引更新输入数据的值                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| SGD                                 | 随机梯度下降优化器                                           | FP32                                                | -         | -                       | FP16                   |
+| Shape                               | 获得张量shape                                                | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | -         | FP16<br/>FP32           | FP16       |
+| SigmoidCrossEntropyWithLogits       | 结合Sigmoid激活和交叉熵损失                                  | FP32                                                | -         | -                       | FP16                   |
+| SigmoidCrossEntropyWithLogitsGrad   | 计算带Sigmoid的交叉熵损失的梯度                              | FP32                                                | -         | -                       | FP16                   |
+| Sin                                 | 逐元素计算正弦                                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| Size                                | 获取张量维度大小                                             | FP16<br/>FP32<br/>Int32                             | -         | -                       | FP16                   |
+| SliceFusion                         | 张量切片操作                                                 | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| SkipGram                            | Skip-gram模型的核心操作，用于词向量训练                      | FP32                                                | -         | -                       |                        |
+| SmoothL1Loss                        | 平滑L1损失                                                   | FP32                                                | -         | -                       | FP16                   |
+| SmoothL1LossGrad                    | 计算平滑L1损失的梯度                                         | FP32                                                | -         | -                       |                        |
+| Softmax                             | 归一化操作                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| SoftmaxGrad                         | 计算Softmax的梯度                                            | FP32                                                | -         | -                       |                        |
+| Softplus                            | 平滑的ReLU变体                                               | FP16<br/>FP32                                       | -         | -                       | FP16                   |
+| SpaceToBatch                        | 高度和宽度维度的值移至深度维度                               | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           | FP16       |
+| SpaceToBatchND                      | 将空间维度的数据块拆分到批次维度                             | FP16<br/>FP32<br/>Int8<br/>UInt8                    | -         | FP16<br/>FP32           |            |
+| SpaceToDepth                        | 将空间数据重组为深度通道                                     | FP16<br/>FP32                                       | -         | FP16<br/>FP32           |            |
+| SparseToDense                       | 将稀疏表示转换为密集张量                                     | FP16<br/>FP32<br/>Int32                             | -         | FP16<br/>FP32<br/>Int32 |  |
+| SparseSoftmaxCrossEntropyWithLogits | 稀疏标签的Softmax交叉熵                                      | FP32                                                | -         | -                       | FP16                   |
+| Splice                              | 沿指定轴连接输入张量的多个切片或范围                         | FP16<br/>FP32                                       | -         | -                       |                        |
+| Split                               | 将输入张量沿指定轴分割成多个较小的输出张量                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| SplitWithOverlap                    | 带重叠的分割张量                                             | FP16<br/>FP32                                       | -         | -                       |                        |
+| Sqrt                                | 逐元素开根号                                                 | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| SqrtGrad                            | 计算平方根的梯度                                             | FP32                                                | -         | -                       |                        |
+| Square                              | 逐元素平方                                                   | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| SquaredDifference                   | 逐元素计算 (A-B)²                                            | FP16<br/>FP32                                       | -         | FP16<br/>FP32           |            |
+| Squeeze                             | 移除维度为1的维度                                            | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | -         | FP16<br/>FP32<br/>Int32 |  |
+| StridedSlice                        | Tensor切片                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| StridedSliceGrad                    | 计算切片操作的梯度                                           | FP16<br/>FP32                                       | -         | -                       |                        |
+| Stack                               | 沿新轴堆叠多个张量                                           | FP16<br/>FP32<br/>Int32                             | -         | FP16<br/>FP32           | FP16       |
+| SubFusion                           | 逐元素相减                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
+| SubGrad                             | 计算减法的梯度                                               | FP32                                                | -         | -                       |                        |
+| Switch                              | 根据布尔条件选择输出分支                                     | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |                        |
+| SwitchLayer                         | 在模型中选择执行不同的子网络分支                             | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |                        |
+| TensorListFromTensor                | 将普通张量转换为张量列表，按指定轴分割                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| TensorListGetItem                   | 从张量列表中获取指定索引位置的张量                           | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| TensorListReserve                   | 预分配一个空张量列表，指定元素数据类型和初始容量             | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| TensorListSetItem                   | 将张量插入张量列表的指定位置                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| TensorListStack                     | 将张量列表堆叠为一个普通张量                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| TensorScatterAdd                    | 根据索引将更新张量的值分散添加到目标张量的指定位置           | FP32<br/>Int32                                      | -         | -                       |                        |
+| TileFusion                          | 平铺给定矩阵                                                 | FP16<br/>FP32<br/>Int32<br/>Bool                    | FP16      | -                       | FP16                   |
+| TopKFusion                          | 从输入张量中返回topK个元素                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | -         | -                       | FP16                   |
+| Transpose                           | Tensor转置                                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>Bool           | FP16      | FP16<br/>FP32           | FP16       |
+| UniformReal                         | 生成服从均匀分布的随机数张量                                 | FP32<br/>Int32                                      | -         | -                       |                        |
+| Unique                              | 返回输入张量中的唯一值，并可返回该值的索引和计数               | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| UnsortedSegmentSum                  | 对张量进行分段求和，不要求分段索引有序                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| Unsqueeze                           | 将输入张量添加一个新的维度                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 |  |
+| Unstack                             | 沿指定轴拆分张量为多个子张量                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| Where                               | 元素选择                                                     | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |                        |
+| ZerosLike                           | 生成与输入张量形状相同但全为 0的新张量                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
