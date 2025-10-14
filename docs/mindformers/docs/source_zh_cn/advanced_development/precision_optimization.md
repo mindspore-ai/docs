@@ -24,17 +24,17 @@
 
 #### 通用结构
 
-| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          | **说明**                                                     | **检查项**                                                                  |
-| ----------------- | ------------------------------------------------------------ |--------------------------------------------------------------------------|
-| num_layers        | transformer层数                                              | 对应Megatron num-layers参数，检查是否一致。                                          |
-| num_heads         | transformer中attention heads数量                             | 对应Megatron num-attention-heads参数，检查是否一致。                                 |
-| hidden_size       | transformer隐藏层大小                                        | 对应Megatron hidden-size参数，检查是否一致。                                         |
-| intermediate_size | Feed-Forward Network的隐藏层大小                             | 对应Megatron中ffn-hidden-size参数，检查是否一致。                                     |
-| n_kv_heads        | kv分组数                                                     | 对应Megatron中的num-query-groups，检查是否一致。                                     |
-| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindSpore Transformers中使用指定的正则化函数，无法通过配置修改。Megatron中可通过normalization自定义配置，检查是否一致。   |
-| rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                     |
-| dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开启重计算；若进行精度比对，建议两边都关闭，减少随机因素。                     |
-| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，需要保持一致。 <br>2. 不同硬件下进行精度比对时，重点检查融合计算部分是否有计算差异。 |
+| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          | **说明**                                                     | **检查项**                                                                                   |
+| ----------------- | ------------------------------------------------------------ |-------------------------------------------------------------------------------------------|
+| num_layers        | transformer层数                                              | 检查标杆的对应参数是否一致。                                                                            |
+| num_heads         | transformer中attention heads数量                             | 检查标杆的对应参数是否一致。                                                                            |
+| hidden_size       | transformer隐藏层大小                                        | 检查标杆的对应参数是否一致。                                                                            |
+| intermediate_size | Feed-Forward Network的隐藏层大小                             | 检查标杆的对应参数是否一致。                                                                            |
+| n_kv_heads        | kv分组数                                                     | 检查标杆的对应参数是否一致。                                                                            |
+| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindSpore Transformers中使用指定的正则化函数，Legacy模型无法通过配置修改。 |
+| rms_norm_eps      | 正则化的epsilon参数                                          | 检查标杆的对应参数是否一致。                                                      |
+| dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议两边都关闭，减少随机因素。                                      |
+| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，需要保持一致。 <br>2. 不同硬件下进行精度比对时，重点检查融合计算部分是否有计算差异。                    |
 
 #### MOE结构
 
@@ -72,17 +72,17 @@
 
 ### 混合精度CheckList
 
-| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            | **说明**                                             | **检查项**                                                                                                             |
-| ---------------------- |----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| compute_dtype          | 计算精度                                               | Megatron 设置 `--bf16: true` 则为BF16，否则为FP16。                                                                          |
-| layernorm_compute_type | LayerNorm/RMSNorm的计算精度                             | Megatron不可配置，需要检查实现是否保持一致。                                                                                          |
-| softmax_compute_type   | MindSpore使用FA时，内部Softmax固定用FA计算，仅在小算子拼接实现时可配置计算类型。 | Megatron不可配置，需要检查实现是否保持一致。                                                                                          |
-| rotary_dtype           | 旋转位置编码的计算精度                                        | Megatron不可配置，需要检查实现是否保持一致。                                                                                          |
-| 各权重计算             | Embedding、lm_head等各权重精度计算                          | 由于MindSpore Transformers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要确认权重计算前，是否将权重数据类型转为BF16/FP16。                                       |
-| bias add               | 线性层的bias                                           | 线性层若有bias，检查add的计算精度是否一致。                                                                                           |
-| residual add           | 残差相加                                               | 检查残差的计算精度是否与标杆一致。                                                                                                   |
-| loss                   | loss计算模块                                           | 检查整个loss模块的计算精度是否与标杆一致。                                                                                             |
-| 算子高精度模式         | 昇腾算子支持高精度模式                                        | 开启方式： `context.set_context(ascend_config= {"ge_options":{ "global":{ "ge.opSelectImplmode":"high_precision" } } })` |
+| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            | **说明**                                             | **检查项**                                                                                   |
+| ---------------------- |----------------------------------------------------|-------------------------------------------------------------------------------------------|
+| compute_dtype          | 计算精度                                               | Megatron 设置 `--bf16: true` 则为BF16，否则为FP16。                                                |
+| layernorm_compute_type | LayerNorm/RMSNorm的计算精度                             | Megatron不可配置，需要检查实现是否保持一致。                                                                |
+| softmax_compute_type   | MindSpore使用FA时，内部Softmax固定用FA计算，仅在小算子拼接实现时可配置计算类型。 | Megatron不可配置，需要检查实现是否保持一致。                                                                |
+| rotary_dtype           | 旋转位置编码的计算精度                                        | Megatron不可配置，需要检查实现是否保持一致。                                                                |
+| 各权重计算             | Embedding、lm_head等各权重精度计算                          | 由于MindSpore Transformers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要确认权重计算前，是否将权重数据类型转为BF16/FP16。  |
+| bias add               | 线性层的bias                                           | 线性层若有bias，检查add的计算精度是否一致。                                                                 |
+| residual add           | 残差相加                                               | 检查残差的计算精度是否与标杆一致。                                                                         |
+| loss                   | loss计算模块                                           | 检查整个loss模块的计算精度是否与标杆一致。                                                                   |
+| 算子高精度模式         | 昇腾算子支持高精度模式                                        | 开启方式： 在启动脚本中添加代码`import mindspore as ms;ms.device_context.ascend.op_precision.precision_mode("force_fp32")` |
 
 ### 并行策略CheckList
 
@@ -97,16 +97,16 @@
 
 ### 其他CheckList
 
-| **关键点**        | **检查项**                                                                                      |
-| ------------- |----------------------------------------------------------------------------------------------|
-| 数据检查      | 查看数据是否异常，可随机抽取部分数据进行decode、encode检查，查看input与label的位置是否正确对应。                                  |
-| 特殊词检查    | 检查bos_token_id、eos_token_id、pad_token_id等特殊ids是否与数据制作时的ids保持一致。                              |
-| inputs_id校验 | 检查Embedding中的inputs_id是否符合0<=inputs_id<vocab_size；若有越界行为，会取脏数据，导致精度异常。                       |
-| 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即`export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`。         |
-| 图算融合      | 关闭图算融合，即`enable_graph_kernel: False`。                                                          |
-| 训推模板一致  | 若进行SFT训练，需要确认训练推理时使用的输入模板一致。                                                                 |
-| 版本检查      | 检查MindSpore、MindSpore Transformers、CANN版本是否配套，建议使用最新的配套版本。                                              |
-| 与开源差异    | MindSpore Transformers中已支持主流的开源LLM模型，也经过了较为充分的测试。如果用户基于MindSpore Transformers中开源模型进行开发，可以重点排查与MindSpore Transformers开源模型的差异。 |
+| **关键点**        | **检查项**                                                                                                                                                                                                         |
+| ------------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 数据检查      | 查看数据是否异常，可随机抽取部分数据进行decode、encode检查，查看input与label的位置是否正确对应。                                                                                                                                                     |
+| 特殊词检查    | 检查bos_token_id、eos_token_id、pad_token_id等特殊ids是否与数据制作时的ids保持一致。                                                                                                                                                 |
+| inputs_id校验 | 检查Embedding中的inputs_id是否符合0<=inputs_id<vocab_size；若有越界行为，会取脏数据，导致精度异常。                                                                                                                                          |
+| 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即`export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`。                                                                                                                            |
+| 图算融合      | 关闭图算融合，即`enable_graph_kernel: False`。                                                                                                                                                                           |
+| 训推模板一致  | 若进行SFT训练，需要确认训练推理时使用的输入模板一致。                                                                                                                                                                                    |
+| 版本检查      | 检查MindSpore、MindSpore Transformers、CANN版本是否配套，建议使用[最新的配套版本](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/installation.html#%E7%A1%AE%E8%AE%A4%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)。 |
+| 与开源差异    | MindSpore Transformers中已支持主流的开源LLM模型，也经过了较为充分的测试。如果用户基于MindSpore Transformers中开源模型进行开发，可以重点排查与MindSpore Transformers开源模型的差异。                                                                                    |
 
 ## 精度调试工具介绍
 
