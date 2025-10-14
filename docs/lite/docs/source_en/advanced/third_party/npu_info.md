@@ -40,7 +40,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 - Using Benchmark testing Kirin NPU inference
 
-    Users can also test Kirin NPU inference using MindSpore Lite's Benchmark tool. Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with Kirin NPU chips and test Kirin NPU inference using the Benchmark tool on the phone, as shown in the example below:
+    Users can also test Kirin NPU inference using MindSpore Lite's Benchmark tool. Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with Kirin NPU chips and use the Benchmark tool on the phone, as shown in the example below:
 
     - Test performance
 
