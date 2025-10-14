@@ -11,7 +11,7 @@ MindSpore Lite的Delegate接口用于支持第三方AI框架（例如：Kirin NP
 使用Delegate接入第三方AI框架执行推理主要包含以下步骤：
 
 1. 新增自定义Delegate类：继承[Delegate](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#delegate)类实现自定义的Delegate。
-2. 实现初始化接口：[Init](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#init)接口实现判断运行设备是否支持Delegate框架，初始化Delegate资源等功能。
+2. 实现初始化接口：[Init](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#init)接口实现判断运行设备是否支持Delegate框架、初始化Delegate资源等功能。
 3. 实现构图接口：[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口要实现算子支持判断、子图构建、在线构图功能。
 4. 实现子图Kernel：继承[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)实现Delegate的子图Kernel。
 
@@ -45,7 +45,7 @@ Status XXXDelegate::Init() {
 
 ### 实现构图接口
 
-构图接口[Build(DelegateModel *model)](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口的入参是[DelegateModel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#delegatemodel)的实例。
+构图接口[Build(DelegateModel *model)](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)的入参是[DelegateModel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#delegatemodel)的实例。
 
 > `DelegateModel`中，[std::vector<kernel::Kernel *> *kernels_](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)是已经完成MindSpore Lite内置算子注册、经过拓扑排序的算子列表。
 >
@@ -79,7 +79,7 @@ Status XXXDelegate::Build(DelegateModel *model) {
 
 ### 实现子图Kernel
 
-上述`CreateXXXGraph`接口要返回一张Delegate的子图，示例代码如下所示:
+上述`CreateXXXGraph`接口要返回一张Delegate的子图，示例代码如下所示：
 
 ```cpp
 kernel::Kernel *XXXDelegate::CreateXXXGraph(KernelIter from, KernelIter end, DelegateModel *model) {
@@ -306,7 +306,7 @@ class NPUGraph : public kernel::Kernel {
 };
 ```
 
-[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/src/litert/delegate/npu/npu_graph.cc#L306)接口主要实现:
+[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/src/litert/delegate/npu/npu_graph.cc#L306)接口主要实现：
 
 ```cpp
 int NPUGraph::Prepare() {
@@ -314,7 +314,7 @@ int NPUGraph::Prepare() {
 }
 ```
 
-[NPUGraph::Execute](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/src/litert/delegate/npu/npu_graph.cc#L322)接口主要实现:
+[NPUGraph::Execute](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/src/litert/delegate/npu/npu_graph.cc#L322)接口主要实现：
 
 ```cpp
 int NPUGraph::Execute() {
