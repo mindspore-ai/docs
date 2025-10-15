@@ -40,4 +40,5 @@ vLLM-MindSpore插件支持的特性功能与vLLM社区版本保持一致，特�
 ## 特性说明
 
 - LoRA目前仅支持Qwen2.5 vLLM-MindSpore插件原生模型，其他模型正在适配中；
-- Tool Calling目前已支持DeepSeek V3 0324 W8A8模型。
+- Tool Calling目前已支持DeepSeek V3 0324 W8A8模型；
+- 300I Duo目前已支持Chunked Prefill、Automatic Prefix Caching和Tensor Parallel特性，其他特性适配中。

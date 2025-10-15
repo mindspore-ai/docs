@@ -29,12 +29,25 @@
 
 ### 构建镜像
 
-用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
+用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库：
 
 ```bash
 git clone https://gitee.com/mindspore/vllm-mindspore.git
-bash build_image.sh
 ```
+
+根据计算卡类型，构建镜像：
+
+- 若为Atlas 800I A2，则执行
+
+  ```bash
+  bash build_image.sh
+  ```
+
+- 若为Atlas 300I Duo，则执行
+
+  ```bash
+  bash build_image.sh -a 310p
+  ```
 
 构建成功后，用户可以得到以下信息：
 
