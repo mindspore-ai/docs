@@ -17,6 +17,7 @@ import shutil
 import sys
 from sphinx.ext import autodoc as sphinx_autodoc
 import sphinx.ext.autosummary.generate as g
+from pathlib import Path
 
 sys.path.append(os.path.abspath('../_ext'))
 
@@ -249,27 +250,44 @@ for i in os.listdir(src_dir_api):
     if not os.path.isfile(os.path.join(src_dir_api, i)):
         outer_dir.append(os.path.join(src_dir_api, i))
 
-for root,dirs,files in os.walk(src_dir_api):
+for root, dirs, files in os.walk(src_dir_api):
+    root_p = Path(root)
+    # ----------- 根目录 -----------
+    if root_p == Path(src_dir_api):
+        for file in files:
+            dst = Path(moment_dir) / file
+            if dst.exists():
+                os.remove(dst)
+            shutil.copy(root_p / file, dst)
+            if file.endswith('.rst'):
+                content = (root_p / file).read_text(encoding='utf-8')
+                if '.. toctree::' in content:
+                    continue
+                if 'autosummary::' not in content and '\n=====' in content:
+                    copy_list.append('./' + file)
+        continue
+
+    # ----------- 平铺：仅一级子目录 -----------
+    if root_p.parent == Path(src_dir_api):   # 直接子目录
+        od_name = root_p.name
+        for file in files:
+            dst = Path(moment_dir) / od_name / file
+            dst.parent.mkdir(exist_ok=True)
+            if dst.exists():
+                os.remove(dst)
+            shutil.copy(root_p / file, dst)
+            copy_list.append(str(dst))
+        continue
+
+    # ----------- 层级：更深目录 -----------
+    rel = '.' + str(root_p).split(copy_path)[-1]
+    os.makedirs(rel, exist_ok=True)
     for file in files:
-        if root==src_dir_api:
-            if os.path.exists(os.path.join(moment_dir, file)):
-                os.remove(os.path.join(moment_dir, file))
-            shutil.copy(os.path.join(root, file), os.path.join(moment_dir, file))
-            continue
-        for i in outer_dir:
-            if i in root:
-                outer_dir_name = i.split('/')[-1]
-                os.makedirs(f'./{outer_dir_name}', exist_ok=True)
-                if os.path.exists(os.path.join(f'./{outer_dir_name}', file)):
-                    os.remove(os.path.join(f'./{outer_dir_name}', file))
-                shutil.copy(os.path.join(root, file), os.path.join(f'./{outer_dir_name}', file))
-                break
-        else:
-            if not os.path.exists('.' + root.split(copy_path)[-1]):
-                os.makedirs('.' + root.split(copy_path)[-1])
-            if os.path.exists('.' + root.split(copy_path)[-1] + '/'+file):
-                os.remove('.' + root.split(copy_path)[-1] + '/'+file)
-            shutil.copy(os.path.join(root, file), '.' + root.split(copy_path)[-1]+'/'+file)
+        dst = Path(rel) / file
+        if dst.exists():
+            os.remove(dst)
+        shutil.copy(root_p / file, dst)
+        copy_list.append(str(dst))
 
 readme_path = os.path.join(os.getenv("GS_PATH"), 'README_CN.md')
 
@@ -397,31 +415,34 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
           f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
 
-for cur, _, files in os.walk(moment_dir):
-    for i in files:
-        flag_copy = 0
-        if i.endswith('.rst'):
-            for j in copy_list:
-                if j in cur:
-                    flag_copy = 1
-                    break
-            if os.path.join(cur, i) in copy_list or flag_copy:
-                try:
-                    with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                        content = f.read()
-                        new_content = content
-                        if '.. include::' in content and '.. automodule::' in content:
-                            continue
-                        if 'autosummary::' not in content and "\n=====" in content:
-                            re_view_ = re_view + copy_path + cur.split(moment_dir)[-1] + '/' + i + \
-                                       '\n    :alt: 查看源文件\n\n'
-                            new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
-                        if new_content != content:
-                            f.seek(0)
-                            f.truncate()
-                            f.write(new_content)
-                except Exception:
-                    print(f'打开{i}文件失败')
+# copy_list白名单转绝对路径（去重）
+copy_list_abs = list({Path(p).resolve() for p in copy_list})
+
+# 只遍历白名单文件
+inserted = []
+for rst_file in copy_list_abs:
+    if not rst_file.exists() or not rst_file.suffix == '.rst':
+        continue
+    try:
+        with open(rst_file, 'r+', encoding='utf-8') as f:
+            content = f.read()
+            new_content = content
+
+            # 跳过自动生成文件
+            if '.. include::' in content and '.. automodule::' in content:
+                continue
+
+            # 插链接条件：有标题下划线且无 autosummary
+            if 'autosummary::' not in content and "\n=====" in content:
+                rel_path = rst_file.relative_to(Path(moment_dir)).as_posix()
+                re_view_ = re_view + copy_path + '/' + rel_path + '\n    :alt: 查看源文件\n\n'
+                new_content = re.sub(r'([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+            if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
+    except Exception:
+        print(f'打开{i}文件失败')
 
 if not os.path.exists(os.path.join(moment_dir, 'install.md')):
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/install.md'),
