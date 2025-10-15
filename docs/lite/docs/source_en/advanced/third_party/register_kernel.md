@@ -190,7 +190,7 @@ class Test2Fusion : public Pass {
   }
 
   bool Run(const FuncGraphPtr &func_graph) override {
-    auto manager = Manage(func_graph, true);       // Create a FuncGrap manager.
+    auto manager = Manage(func_graph, true);       // Create a FuncGraph manager.
     if (manager == nullptr) {
       return false;
     }

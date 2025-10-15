@@ -7,7 +7,7 @@
 ### 环境准备
 
 在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)之外，使用Kirin NPU需要集成HUAWEI HiAI DDK。
-DDK包含了使用Kirin NPU的对外接口（包括模型构建、加载，计算等），以及封装成动态库的接口实现（名为libhiai*.so）。
+DDK包含了使用Kirin NPU的对外接口（包括模型构建、加载、计算等），以及封装成动态库的接口实现（名为libhiai*.so）。
 下载[DDK 100.510.010.010版本](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180)，并将压缩包解压后的目录设置为环境变量`${HWHIAI_DDK}`。构建脚本将使用这个环境变量寻找DDK。
 
 ### 编译构建
@@ -35,7 +35,7 @@ bash build.sh -I arm64 -j8
 
 - Benchmark测试Kirin NPU推理
 
-    用户也可以使用MindSpore Lite的Benchmark工具测试Kirin NPU推理。将构建包传到具有Kirin NPU芯片的Android手机的`/data/local/tmp/`目录下，在手机上使用Benchmark工具测试Kirin NPU推理，示例如下：
+    用户也可以使用MindSpore Lite的Benchmark工具测试Kirin NPU推理。将构建包传到具有Kirin NPU芯片的Android手机的`/data/local/tmp/`目录下，在手机上使用Benchmark工具，示例如下：
 
     - 测性能
 

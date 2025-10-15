@@ -14,7 +14,7 @@ MindSpore Lite当前提供了一套南向的算子注册机制，如果用户想
 
 ### 确定算子类型
 
-查看mindspore-lite/schema/ops.fbs中的算子原型定义，确认要注册实现的算子原型是否在PrimitiveType中有定义，有定义的话则要注册的算子为通用算子，可以按照已有的IR直接实现算子与注册，否则即为Custom算子。
+查看mindspore-lite/schema/ops.fbs中的算子原型定义，确认要注册实现的算子原型是否在PrimitiveType中有定义，有定义的话，则要注册的算子为通用算子，可以按照已有的IR直接实现算子与注册，否则即为Custom算子。
 
 ### 通用算子
 
@@ -74,7 +74,7 @@ int TestCustomAdd::Execute() {
 
 #### 通用算子注册
 
-当前提供的现成的宏[REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel)可以进行算子注册，实现步骤如下：
+当前提供的宏[REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel)可以进行算子注册，实现步骤如下：
 
 1. 函数TestCustomAddCreator用来创建Kernel。
 2. 通过宏REGISTER_KERNEL进行Kernel注册，这里生产商假定为BuiltInTest。
@@ -190,7 +190,7 @@ class Test2Fusion : public Pass {
   }
 
   bool Run(const FuncGraphPtr &func_graph) override {
-    auto manager = Manage(func_graph, true);       // 创建FuncGrap管理器
+    auto manager = Manage(func_graph, true);       // 创建FuncGraph管理器
     if (manager == nullptr) {
       return false;
     }
@@ -295,7 +295,7 @@ int TestCustomOp::Execute() {
 
 #### Custom算子注册
 
-当前提供的现成的宏[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel)可以进行算子注册，步骤如下：
+当前提供的宏[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel)可以进行算子注册，步骤如下：
 
 1. TestCustomAddCreator函数用来创建Kernel。
 2. 通过宏REGISTER_CUSTOM_KERNEL进行算子注册，这里假定生产商为BuiltInTest，算子类型为Add。
@@ -336,7 +336,7 @@ class TestCustomOpInfer : public KernelInterface {
 
 #### Custom算子InferShape注册
 
-当前提供的现成的宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel-interface)可以进行Custom算子InferShape的注册，步骤如下：
+当前提供的宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel-interface)可以进行Custom算子InferShape的注册，步骤如下：
 
 1. CustomAddInferCreator函数用于创建自定义的KernelInterface。
 2. 通过宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel-interface)注册InferShape能力，这里的算子类型Add必须与REGISTER_CUSTOM_KERNEL_INTERFACE时的算子类型一致。

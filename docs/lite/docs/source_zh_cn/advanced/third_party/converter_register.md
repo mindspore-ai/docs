@@ -6,7 +6,7 @@
 
 MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)除了基本的模型转换功能之外，还支持用户对模型进行自定义的优化与构建，生成用户自定义算子的模型。
 
-我们提供了一套注册机制，允许用户基于转换工具进行能力扩展：包括节点解析扩展、模型解析扩展以及图优化扩展，用户可以根据自身的需要对模型实现自定义的解析与融合优化。
+我们提供了一套注册机制，允许用户基于转换工具进行能力扩展：包括节点解析扩展、模型解析扩展以及图优化扩展。用户可以根据自身的需要对模型实现自定义的解析与融合优化。
 
 节点解析扩展：用户自定义模型中某一节点的解析过程，支持ONNX、CAFFE、TF、TFLITE。接口可参考[NodeParser](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparser)、[NodeParserRegistry](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#nodeparserregistry)。
 模型解析扩展：用户自定义模型的整个解析过程，支持ONNX、CAFFE、TF、TFLITE。接口可参考[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#modelparser)、[ModelParserRegistry](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#modelparserregistry)。
@@ -18,7 +18,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/
 
 MindSpore Lite转换工具的扩展能力，目前仅支持Linux系统。
 
-本章节将通过MindSpore Lite转换工具扩展功能的示例程序，涵盖节点扩展案例、优化扩展案例以及编译链接全流程，来使用户能够快速了解转换工具的扩展功能的使用。
+本章节将通过MindSpore Lite转换工具扩展功能的示例程序，涵盖节点扩展案例、优化扩展案例以及编译链接全流程，使用户能够快速了解转换工具的扩展功能的使用。
 
 > 鉴于模型解析扩展是模块化的扩展能力，本章对其不做详细介绍，但会提供一个简化的单元案例，以供用户参考。
 
@@ -55,7 +55,7 @@ REG_NODE_PARSER(kFmkTypeTflite, ADD, std::make_shared<AddParserTutorial>());    
 
 1. 自定义优化：用户需继承[PassBase](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#passbase)，重载Execute接口函数[Execute](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#execute)。
 
-2. 优化注册：调用优化的注册接口[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-pass)，完成自定义把用户自己实现的Pass类注册进MindSpore Lite里。
+2. 优化注册：调用优化的注册接口[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-pass)，完成将用户自己实现的Pass类注册进MindSpore Lite里。
 
 ```c++
 class PassTutorial : public registry::PassBase {  // 继承基类
@@ -164,11 +164,11 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 plugin_path=libconverter_extend_tutorial.so      # 用户请配置动态库的正确路径
 ```
 
-如果用户需要关闭指定算子融合优化，关闭指定名单融合配置如下所示：
+如果用户需要关闭指定算子融合优化，关闭指定融合算子的配置如下所示：
 
 ```ini
 [registry]
-# 当参数disable_fusion=off时，可通过配置fusion_blacklists关闭指定融合优化，当参数disable_fusion=on时，关闭所有融合优化，参数fusion_blacklists不生效。
+# 当参数disable_fusion=off时，可通过配置fusion_blacklists关闭指定融合优化；当参数disable_fusion=on时，关闭所有融合优化，参数fusion_blacklists不生效。
 disable_fusion=off
 fusion_blacklists=ConvActivationFusion,MatMulActivationFusion
 ```
