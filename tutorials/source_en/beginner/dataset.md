@@ -181,10 +181,10 @@ for data in dataset:
 ```
 
 ```text
-[Tensor(shape=[1], dtype=Int32, value= [0]), Tensor(shape=[], dtype=String, value= '0.jpg'), Tensor(shape=[], dtype=Int32, value= 0)]
-[Tensor(shape=[2], dtype=Int32, value= [1, 1]), Tensor(shape=[], dtype=String, value= '1.jpg'), Tensor(shape=[], dtype=Int32, value= 1)]
-[Tensor(shape=[3], dtype=Int32, value= [2, 2, 2]), Tensor(shape=[], dtype=String, value= '2.jpg'), Tensor(shape=[], dtype=Int32, value= 2)]
-[Tensor(shape=[4], dtype=Int32, value= [3, 3, 3, 3]), Tensor(shape=[], dtype=String, value= '3.jpg'), Tensor(shape=[], dtype=Int32, value= 3)]
+[Tensor(shape=[1], dtype=Int32, value= [0]), array('0.jpg', dtype='<U5'), Tensor(shape=[], dtype=Int32, value= 0)]
+[Tensor(shape=[2], dtype=Int32, value= [1, 1]), array('1.jpg', dtype='<U5'), Tensor(shape=[], dtype=Int32, value= 1)]
+[Tensor(shape=[3], dtype=Int32, value= [2, 2, 2]), array('2.jpg', dtype='<U5'), Tensor(shape=[], dtype=Int32, value= 2)]
+[Tensor(shape=[4], dtype=Int32, value= [3, 3, 3, 3]), array('3.jpg', dtype='<U5'), Tensor(shape=[], dtype=Int32, value= 3)]
 ```
 
 ### Common Datasets
