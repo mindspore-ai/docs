@@ -210,7 +210,6 @@ FAQ
    example/docker-installation
    example/distilled/distilled
    example/convert_ckpt_to_megatron/convert_ckpt_to_megatron
-   example/finetune_with_glm4/finetune_with_glm4
 
 .. toctree::
    :glob:
