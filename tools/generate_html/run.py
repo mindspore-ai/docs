@@ -227,7 +227,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 print(f'{repo_name}仓库克隆或更新失败')
 
         # 组件仓内有.sh需提前运行
-        if 'golden_stick' in repo_path:
+        if 'golden-stick' in repo_path:
             os.chdir(repo_path)
             cmd_reppath = ["sh", "./docs/adapte_to_docs.sh", f"{branch_}"]
             subprocess.run(cmd_reppath)
