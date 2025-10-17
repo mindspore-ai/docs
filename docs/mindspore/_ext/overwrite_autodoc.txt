@@ -1796,7 +1796,10 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                 mint_doc = re.sub(r'(\n[ ]+(-|\*) GPU(/CPU)?:.*\n|\n[ ]+(-|\*) CPU(/GPU)?:.*\n)', '\n', docstrings[i])
                 mint_doc = re.sub(r'(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
                 mint_doc = re.sub(r'(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
-                mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
+                if 'mindspore/mint/optim' in py_source_rel:
+                    mint_doc = re.sub('(>>> from mindspore import .*?)(ops)', r'\1mint', mint_doc)
+                else:
+                    mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
                 mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
                 if not re.findall(f'>>> .*?{usename}', mint_doc):
                     mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext)?', rf'\1{usename}', mint_doc)
