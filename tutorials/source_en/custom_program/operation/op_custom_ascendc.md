@@ -145,7 +145,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-You can view the [custom operator test cases](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
+You can view the [custom operator test cases](https://gitee.com/mindspore/mindspore/tree/master/tests/st/custom/ops_custom/ascendc) in the MindSpore repository to obtain Ascend C custom operator test cases for more data types and usage scenarios. The sample project directory structure is as follows:
 
 ```text
 .
@@ -343,7 +343,7 @@ Here, the function name `FuncName` is the operator name. For single-output, the 
 
 - ndims (int \*): Array of input shape dimensions.
 - shapes (int64_t \*\*): Array of input shapes.
-- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h).
+- extra (AotExtra \*): Used for extending custom operators with attributes. The `AotExtra` type is defined in the MindSpore-provided header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h).
 
 **Infer Type Function Prototype**
 
@@ -597,7 +597,7 @@ Here, the function name `FuncName` is the operator name. For single-output, the 
    [ERROR] DEVICE(3915621,fffe47fff1e0,python):2024-06-26-16:57:38.219.637 [mindspore/ccsrc/plugin/device/ascend/hal/hardware/ge kernel executor.cc:1169] LaunchKernel] Launch kernel failed, kernel
    full name: Default/Custom-op0
    Traceback (most recent call last):
-   File "/home/jenkins0/dyp/mindspore_custom/tests/st/ops/graph_kernel/custom/custom ascendc/test add.py", Line 58, in <module>
+   File "/home/jenkins0/dyp/mindspore_custom/tests/st/ops/custom/ops_custom/custom ascendc/test add.py", Line 58, in <module>
        out = net(Tensor(x), Tensor(y), Tensor(z))
    File "/home/jenkinsO/.conda/envs/dyp_py37_temp/Lib/python3.7/site-packages/mindspore/nn/cell.py", line 721, in _call_
    raise err
