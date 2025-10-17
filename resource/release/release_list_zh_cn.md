@@ -88,6 +88,12 @@
 |--------|------------------|
 | [安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html) | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
+**配套资料**
+
+|        安装   |      教程      |  文档    |  API|
+|        ---   |       ---      |     ---     |     ---      |
+| [安装指南](https://gitee.com/mindspore/docs/tree/r2.7.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0/api_python/mindspore.html)  |
+
 ## 2.7.0-rc1
 
 | 组件        | 硬件平台          | 操作系统          | Python版本   | 链接                                                                                                                                                                                                 | SHA-256                                                          |
@@ -107,12 +113,19 @@
 |           |               | MacOS-x64     | Python3.9  | [mindspore-2.7.0rc1-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindSpore/cpu/x86_64/mindspore-2.7.0rc1-cp39-cp39-macosx_10_15_x86_64.whl)     | 3e9ede2052e0eaac37431b5b1363dfe1e3d73859b590dad4999d9b954412a671 |
 |           |               |               | Python3.10 | [mindspore-2.7.0rc1-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindSpore/cpu/x86_64/mindspore-2.7.0rc1-cp310-cp310-macosx_10_15_x86_64.whl) | 1004271c43c0978b17b5288be701fb0a54cad3ad568e3199563a78337e653f3b |
 |           |               |               | Python3.11 | [mindspore-2.7.0rc1-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindSpore/cpu/x86_64/mindspore-2.7.0rc1-cp311-cp311-macosx_10_15_x86_64.whl) | aaf5a73505c853f72eb8d22cdcc9c85c781dfc644735cd1b4c0bdb4248c4b4cc |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/use/downloads.html)   |      |
 
 **Ascend配套软件包**
 
 |  安装指引 | 社区版下载地址 |
 |--------|------------------|
 | [安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html) | [CANN 8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|        安装   |      教程      |  文档    |  API|
+|        ---   |       ---      |     ---     |     ---      |
+| [安装指南](https://gitee.com/mindspore/docs/tree/r2.7.0rc1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.0rc1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.0rc1/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.0rc1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.7.0rc1/index.html) |
 
 ## 2.6.0
 
