@@ -471,54 +471,58 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
 ### 分布式权重合并
 
-训练后产生的权重如果是分布式的，需要先将已有的分布式权重合并成完整权重后，再通过在线切分的方式进行权重加载完成推理任务。使用MindSpore Transformers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，合并后的权重格式为完整权重。
+训练后产生的权重如果是分布式的，需要先将已有的分布式权重合并成完整权重后，再通过在线切分的方式进行权重加载完成推理任务。
 
-可以按照以下方式填写参数：
+MindSpore Transformers 提供了一份 [safetensors 权重合并脚本](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，使用该脚本，可以将分布式训练得到的多个 safetensors 权重进行合并，得到完整权重。
+
+合并指令参考如下（对第 1000 步训练权重进行去 adam 优化器参数合并，且训练权重在保存时开启了去冗余功能）：
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
-  --src_strategy_dirs src_strategy_path_or_dir \
-  --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --output_dir output_dir \
-  --file_suffix "1_1" \
-  --filter_out_param_prefix "adam_"
+  --src_strategy_dirs output/strategy \
+  --mindspore_ckpt_dir output/checkpoint \
+  --output_dir /path/to/unified_train_ckpt \
+  --file_suffix "1000_1" \
+  --filter_out_param_prefix "adam_" \
+  --has_redundancy False
 ```
 
 脚本参数说明：
 
-- src_strategy_dirs：源权重对应的分布式策略文件路径，通常在启动训练任务后默认保存在 output/strategy/ 目录下。分布式权重需根据以下情况填写：
+- **src_strategy_dirs**：源权重对应的分布式策略文件路径，通常在启动训练任务后默认保存在 `output/strategy/` 目录下。分布式权重需根据以下情况填写：
 
-   1. 源权重开启了流水线并行：权重转换基于合并的策略文件，填写分布式策略文件夹路径。脚本会自动将文件夹内的所有 ckpt_strategy_rank_x.ckpt 文件合并，并在文件夹下生成 merged_ckpt_strategy.ckpt。如果已经存在 merged_ckpt_strategy.ckpt，可以直接填写该文件的路径。
-   2. 源权重未开启流水线并行：权重转换可基于任一策略文件，填写任意一个 ckpt_strategy_rank_x.ckpt 文件的路径即可。
+    - **源权重开启了流水线并行**：权重转换基于合并的策略文件，填写分布式策略文件夹路径。脚本会自动将文件夹内的所有 `ckpt_strategy_rank_x.ckpt` 文件合并，并在文件夹下生成 `merged_ckpt_strategy.ckpt`。如果已经存在 `merged_ckpt_strategy.ckpt`，可以直接填写该文件的路径。
+    - **源权重未开启流水线并行**：权重转换可基于任一策略文件，填写任意一个 `ckpt_strategy_rank_x.ckpt` 文件的路径即可。
 
-   注意：如果策略文件夹下已存在 merged_ckpt_strategy.ckpt 且仍传入文件夹路径，脚本会首先删除旧的 merged_ckpt_strategy.ckpt，再合并生成新的 merged_ckpt_strategy.ckpt 以用于权重转换。因此，请确保该文件夹具有足够的写入权限，否则操作将报错。
-
-- mindspore_ckpt_dir：分布式权重路径，请填写源权重所在文件夹的路径，源权重应按 model_dir/rank_x/xxx.safetensors 格式存放，并将文件夹路径填写为 model_dir。
-- output_dir：目标权重的保存路径，默认值为 `/new_llm_data/******/ckpt/nbg3_31b/tmp`，即目标权重将放置在 `/new_llm_data/******/ckpt/nbg3_31b/tmp` 目录下。
-- file_suffix：目标权重文件的命名后缀，默认值为 "1_1"，即目标权重将按照 *1_1.safetensors 格式查找。
-- has_redundancy：合并的源权重是否是冗余的权重，默认为 True。
-- filter_out_param_prefix：合并权重时可自定义过滤掉部分参数，过滤规则以前缀名匹配。如优化器参数"adam_"。
-- max_process_num：合并最大进程数。默认值：64。
+    **注意**：如果策略文件夹下已存在 `merged_ckpt_strategy.ckpt` 且仍传入文件夹路径，脚本会首先删除旧的 `merged_ckpt_strategy.ckpt`，再合并生成新的 `merged_ckpt_strategy.ckpt` 以用于权重转换。因此，请确保该文件夹具有足够的写入权限，否则操作将报错。
+- **mindspore_ckpt_dir**：分布式权重路径，请填写源权重所在文件夹的路径，源权重应按 `model_dir/rank_x/xxx.safetensors` 格式存放，并将文件夹路径填写为 `model_dir`。
+- **output_dir**：目标权重的保存路径，默认值为 `"/path/output_dir"`，如若未配置该参数，目标权重将默认放置在 `/path/output_dir` 目录下。
+- **file_suffix**：目标权重文件的命名后缀，默认值为 `"1_1"`，即目标权重将按照 `*1_1.safetensors` 格式查找匹配的权重文件进行合并。
+- **filter_out_param_prefix**：合并权重时可自定义过滤掉部分参数，过滤规则以前缀名匹配。如优化器参数 `"adam_"`。
+- **has_redundancy**：合并的源权重是否是冗余的权重，默认为 `True`，表示用于合并的原始权重有冗余；若原始权重保存时为去冗余权重，则需设置为 `False`。
 
 ### 推理配置开发
 
 在完成权重文件的合并后，需依据训练配置文件开发对应的推理配置文件。
 
-以Qwen3为例，基于[Qwen3推理配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)修改[Qwen3训练配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)：
+以 Qwen3 为例，基于 [Qwen3 推理配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)修改 [Qwen3 训练配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)：
 
-Qwen3训练配置主要修改点包括：
+Qwen3 训练配置主要修改点包括：
 
-- run_mode的值修改为"predict"。
-- 添加pretrained_model_dir：Hugging Face或ModelScope的模型目录路径，放置模型配置、Tokenizer等文件。
-- parallel_config只保留data_parallel和model_parallel。
-- model_config中只保留compute_dtype、layernorm_compute_dtype、softmax_compute_dtype、rotary_dtype、params_dtype，和推理配置保持精度一致。
-- parallel模块中，只保留parallel_mode和enable_alltoall，parallel_mode的值修改为"MANUAL_PARALLEL"。
+- `run_mode` 的值修改为 `"predict"`。
+- 添加 `pretrained_model_dir` 参数，配置为 Hugging Face 或 ModelScope 的模型目录路径，放置模型配置、Tokenizer 等文件。如果将训练得到的完整权重放置在此目录底下，则 yaml 中可以不配置 `load_checkpoint`。
+- `parallel_config` 只保留 `data_parallel` 和 `model_parallel`。
+- `model_config` 中只保留 `compute_dtype`、`layernorm_compute_dtype`、`softmax_compute_dtype`、`rotary_dtype`、`params_dtype`，和推理配置保持精度一致。
+- `parallel` 模块中，只保留 `parallel_mode` 和 `enable_alltoall`，`parallel_mode` 的值修改为 `"MANUAL_PARALLEL"`。
+
+> 如果模型的参数量在训练时进行了自定义，或与开源配置不同，进行推理时需要同步修改 `pretrained_model_dir` 对应路径下的模型配置 config.json。也可以在 `model_config` 中配置对应修改后的参数，传入推理时，`model_config` 中的同名配置会覆盖 config.json 中对应配置的值。
+> </br>如需检查传入的配置项是否正确，可以通过查找日志中的 `The converted TransformerConfig is: ...` 或 `The converted MLATransformerConfig is: ...` 内容，查找对应的配置项。
 
 ### 推理功能验证
 
-在权重和配置文件都准备好的情况下，使用单条数据输入进行推理，检查输出内容是否符合预期逻辑，参考[推理文档](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/inference.md)，拉起推理任务。
+在权重和配置文件都准备好的情况下，使用单条数据输入进行推理，检查输出内容是否符合预期逻辑，参考[推理文档](../guide/inference.md)，拉起推理任务。
 
-例如：
+如，以 Qwen3 单卡推理为例，拉起推理任务的指令为：
 
 ```shell
 python run_mindformer.py \
@@ -542,6 +546,6 @@ python run_mindformer.py \
 
     若模型配置与权重加载均无误，但推理结果仍不符合预期，需进行精度比对分析，参考推理精度比对文档，逐层比对训练与推理的输出差异，排查潜在的数据预处理、计算精度或算子问题。
 
-### 使用AISBench进行评测
+### 使用 AISBench 进行评测
 
-参考AISBench评测章节，使用AISBench工具进行评测，验证模型精度。
+参考 [AISBench 评测章节](#aisbench评测)，使用 AISBench 工具进行评测，验证模型精度。
