@@ -229,6 +229,35 @@ try:
 except:
     print('golden_stick替换安装包内容失败')
 
+# 发版本时这里启用
+# re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+#          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+#          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+# re_url2 = r"(gitee.com/mindspore/(mindspore|mindspore-lite)/[\w\d/_.-]*?)/(master)"
+
+# re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+
+# re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
+
+# re_url5 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+
+# 发版本时这里启用
+# for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_gs')):
+#     for i in files:
+#         if i.endswith('.py'):
+#             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+#                 content = f.read()
+#                 new_content = re.sub(re_url, r'\1/r2.7.1', content)
+#                 new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
+#                 new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
+#                 new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
+#                 new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
+#                 if new_content != content:
+#                     f.seek(0)
+#                     f.truncate()
+#                     f.write(new_content)
+
 import mindspore_gs
 
 # Copy source files of chinese python api from golden-stick repository.
@@ -407,3 +436,23 @@ else:
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes"+"\n\n")
     p.write(content[0])
+
+# 发版本时这里启用
+# for cur, _, files in os.walk(moment_dir):
+#     for i in files:
+#         if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
+#             try:
+#                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+#                     content = f.read()
+#                     new_content = re.sub(re_url, r'\1/r2.7.1', content)
+#                     new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
+#                     new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
+#                     new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
+#                     new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
+#                     if new_content != content:
+#                         f.seek(0)
+#                         f.truncate()
+#                         f.write(new_content)
+
+#             except Exception:
+#                 print(f'打开{i}文件失败')
