@@ -448,7 +448,7 @@ For the image calibration dataset, post training quantization provides data prep
 | normalize_std      | Optional  | Normalized standard deviation<br/>dst = (src - mean) / std   | Vector         | -             | Channel 3: [std_1, std_2, std_3] <br/>Channel 1: [std_1]     |
 | resize_width       | Optional  | Resize width                                                 | Integer        | -             | [1, 65535]                                                   |
 | resize_height      | Optional  | Resize height                                                | Integer        | -             | [1, 65535]                                                   |
-| resize_method      | Optional  | Resize algorithm                                             | String         | -             | LINEAR, NEAREST, CUBIC<br/>LINEAR: Bilinear interpolation<br/>NEARST: Nearest neighbor interpolation<br/>CUBIC: Bicubic interpolation |
+| resize_method      | Optional  | Resize algorithm                                             | String         | -             | LINEAR, NEAREST, CUBIC<br/>LINEAR: Bilinear interpolation<br/>NEAREST: Nearest neighbor interpolation<br/>CUBIC: Bicubic interpolation |
 | center_crop_width  | Optional  | Center crop width                                            | Integer        | -             | [1, 65535]                                                   |
 | center_crop_height | Optional  | Center crop height                                           | Integer        | -             | [1, 65535]                                                   |
 
@@ -524,7 +524,7 @@ The data distribution statistics report `round_*.csv` counts the distribution of
 | NodeName         | Node name                                  |
 | NodeType         | Node type                                                 |
 | TensorName       | Tensor name                                                 |
-| InOutFlag        | Tensor output, output type                                     |
+| InOutFlag        | Tensor input, output type                                     |
 | DataTypeFlag     | Data type, Origin for raw data, Dequant for inverse quantized data      |
 | TensorTypeFlag   | Data classes such as inputs and outputs are represented as Activation, and constants are represented as Weight. |
 | Min              | Minimum, 0% quantile point                                         |

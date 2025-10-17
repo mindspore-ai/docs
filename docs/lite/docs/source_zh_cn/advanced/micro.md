@@ -184,7 +184,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
     # set project name.
 
-    project_name=minst
+    project_name=mnist
 
     [model_param]
 
@@ -1168,7 +1168,7 @@ target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe dnvqe 
 
 ```shell
 
-mkdir buid && cd build
+mkdir build && cd build
 
 cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore-lite/cmake/himix200.toolchain.cmake -DPLATFORM_ARM32=ON -DPKG_PATH=<RUNTIME_PKG_PATH> ..
 

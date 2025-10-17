@@ -80,7 +80,7 @@ MindSpore Lite根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
     | 选项  |  参数说明  | 取值范围 | 默认值 |
     | -------- | ----- | ---- | ---- |
-    | MSLITE_GPU_BACKEND | 设置GPU后端，在非OpenHarmony系统且`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl， 在`-I x86_64`时为off |
+    | MSLITE_GPU_BACKEND | 设置GPU后端，在非OpenHarmony系统且`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl，在`-I x86_64`时为off |
     | MSLITE_ENABLE_NPU | 是否编译Kirin NPU算子，仅在非OpenHarmony系统且`-I arm64`或`-I arm32`时有效 | on、off | off |
     | MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
     | MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
@@ -153,7 +153,7 @@ git clone https://gitee.com/mindspore/mindspore-lite.git
 
 - 编译OpenHarmony系统的aarch32或aarch64的包：
 
-   编译aarch32
+   编译aarch32：
 
     ```bash
     export OHOS_NDK=NDK路径
@@ -161,7 +161,7 @@ git clone https://gitee.com/mindspore/mindspore-lite.git
     bash build.sh -I arm32 -j32
     ```
 
-    编译aarch64
+    编译aarch64：
 
     ```bash
     export OHOS_NDK=NDK路径
@@ -178,7 +178,7 @@ git clone https://gitee.com/mindspore/mindspore-lite.git
 - `mindspore-lite-{version}-{python}-{os}-{arch}.whl`：包含runtime(Python)的Whl包。
 
 > - version: 输出件版本号，与所编译的分支代码对应的版本一致。
-> - python: 输出件Python版本, 如：Python3.7为`cp37-cp37m`。
+> - python: 输出件Python版本，如：Python3.7为`cp37-cp37m`。
 > - os: 输出件应部署的操作系统。
 > - arch: 输出件应部署的系统架构。
 
