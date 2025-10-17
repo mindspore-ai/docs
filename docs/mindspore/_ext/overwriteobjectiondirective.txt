@@ -97,6 +97,9 @@ def get_example(name: str):
             if re.findall(rf'>>> .*?ops\.\w+\(', api_doc):
                 api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint, ops', api_doc)
                 api_doc = api_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint, ops')
+            elif 'mint.optim' in usename:
+                api_doc = re.sub('(>>> from mindspore import .*?)(ops)', r'\1mint', api_doc)
+                api_doc = api_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
             else:
                 api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', api_doc)
                 api_doc = api_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
