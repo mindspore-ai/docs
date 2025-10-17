@@ -184,7 +184,7 @@ Table 1: micro_param Parameter Definition
 
     # set project name.
 
-    project_name=minst
+    project_name=mnist
 
     [model_param]
 
@@ -1172,7 +1172,7 @@ Finally, we compile the source code:
 
 ```shell
 
-mkdir buid && cd build
+mkdir build && cd build
 
 cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore-lite/cmake/himix200.toolchain.cmake -DPLATFORM_ARM32=ON -DPKG_PATH=<RUNTIME_PKG_PATH> ..
 
