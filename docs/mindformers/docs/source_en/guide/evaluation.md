@@ -467,34 +467,35 @@ After training, the model generally uses the trained model weights to run evalua
 
 ### Distributed Weight Merging
 
-If the weights generated after training are distributed, the existing distributed weights need to be merged into complete weights first, and then the weights can be loaded through online slicing to complete the inference task. Using the [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/r1.7.0/toolkit/safetensors/unified_safetensors.py) provided by MindSpore Transformers, the merged weights are in the format of complete weights.
+If the weights generated after training are distributed, the existing distributed weights need to be merged into complete weights first, and then the weights can be loaded through online slicing to complete the inference task.
 
-Parameters can be filled in as follows:
+MindSpore Transformers provides a [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/r1.7.0/toolkit/safetensors/unified_safetensors.py) that can be used to merge multiple safetensors weights obtained from distributed training to obtain the complete weights.
+
+The merging instruction is as follows (the Adam optimizer parameters are merged for the training weights in step 1000, and the redundancy removal function is enabled when saving the training weights):
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
-  --src_strategy_dirs src_strategy_path_or_dir \
-  --mindspore_ckpt_dir mindspore_ckpt_dir\
-  --output_dir output_dir \
-  --file_suffix "1_1" \
-  --filter_out_param_prefix "adam_"
+  --src_strategy_dirs output/strategy \
+  --mindspore_ckpt_dir output/checkpoint \
+  --output_dir /path/to/unified_train_ckpt \
+  --file_suffix "1000_1" \
+  --filter_out_param_prefix "adam_" \
+  --has_redundancy False
 ```
 
 Script parameter description:
 
-- src_strategy_dirs: The path to the distributed strategy file corresponding to the source weight, usually saved in the output/strategy/ directory by default after starting the training task. Distributed weights need to be filled in according to the following situations:
+- **src_strategy_dirs**: The path to the distributed strategy file corresponding to the source weights, usually saved by default in the `output/strategy/` directory after starting the training task. Distributed weights need to be filled in according to the following:
 
-   1. Source weights enable pipeline parallelism: Weight conversion is based on the merged strategy file, fill in the path of the distributed strategy folder. The script will automatically merge all ckpt_strategy_rank_x.ckpt files in the folder and generate merged_ckpt_strategy.ckpt in the folder. If merged_ckpt_strategy.ckpt already exists, you can directly fill in the path of this file.
-   2. Source weights do not enable pipeline parallelism: Weight conversion can be based on any strategy file, just fill in the path of any ckpt_strategy_rank_x.ckpt file.
+    - **Source weights turn on pipeline parallelism**: The weight conversion is based on the merged strategy files, fills in the path to the distributed strategies folder. The script will automatically merge all `ckpt_strategy_rank_x.ckpt` files in the folder and generate `merged_ckpt_strategy.ckpt` in the folder. If `merged_ckpt_strategy.ckpt` already exists, you can just fill in the path to that file.
+    - **Source weights turn off pipeline parallelism**: The weight conversion can be based on any of the strategy files, just fill in the path to any of the `ckpt_strategy_rank_x.ckpt` files.
 
-   Note: If merged_ckpt_strategy.ckpt already exists in the strategy folder and the folder path is still passed in, the script will first delete the old merged_ckpt_strategy.ckpt and then merge to generate a new merged_ckpt_strategy.ckpt for weight conversion. Therefore, please ensure that the folder has sufficient write permissions, otherwise the operation will report an error.
-
-- mindspore_ckpt_dir: Path to distributed weights, please fill in the path of the folder where the source weights are located. The source weights should be stored in the format model_dir/rank_x/xxx.safetensors, and fill in the folder path as model_dir.
-- output_dir: Save path of target weights, the default value is `/new_llm_data/******/ckpt/nbg3_31b/tmp`, that is, the target weights will be placed in the `/new_llm_data/******/ckpt/nbg3_31b/tmp` directory.
-- file_suffix: Naming suffix of target weight files, the default value is "1_1", that is, the target weights will be searched in the format *1_1.safetensors.
-- has_redundancy: Whether the merged source weights are redundant weights, the default is True.
-- filter_out_param_prefix: When merging weights, you can customize to filter out some parameters, and the filtering rules match by prefix name, such as optimizer parameters "adam_".
-- max_process_num: Maximum number of processes for merging. Default value: 64.
+    **Note**: If `merged_ckpt_strategy.ckpt` already exists in the strategy folder and the folder path is still passed in, the script will first delete the old `merged_ckpt_strategy.ckpt` and merge it to create a new `merged_ckpt_strategy.ckpt` for weight conversion. Therefore, make sure that the folder has sufficient write permissions, otherwise the operation will report an error.
+- **mindspore_ckpt_dir**: Distributed weights path, please fill in the path of the folder where the source weights are located, the source weights should be stored in `model_dir/rank_x/xxx.safetensors` format, and fill in the folder path as `model_dir`.
+- **output_dir**: The path where the target weights will be saved. The default value is `"/path/output_dir"`. If this parameter is not configured, the target weights will be placed in the `/path/output_dir` directory by default.
+- **file_suffix**: The naming suffix of the target weights file. The default value is `"1_1"`, i.e. the target weights will be merged by searching for matching weight files in the `*1_1.safetensors` format.
+- **filter_out_param_prefix**: You can customize the parameters to be filtered out when merging weights, and the filtering rules are based on prefix name matching. For example, optimizer parameter `"adam_"`.
+- **has_redundancy**: Whether the merged source weights are redundant weights. The default value is `True`, which means that the original weights used for merging are redundant. If the original weights are saved as de-redundant weights, it needs to be set to `False`.
 
 ### Inference Configuration Development
 
@@ -504,17 +505,20 @@ Taking Qwen3 as an example, modify the [Qwen3 training configuration](https://gi
 
 Main modification points of Qwen3 training configuration include:
 
-- Modify the value of run_mode to "predict".
-- Add pretrained_model_dir: Hugging Face or ModelScope model directory path, place model configuration, Tokenizer and other files.
-- In parallel_config, only keep data_parallel and model_parallel.
-- In model_config, only keep compute_dtype, layernorm_compute_dtype, softmax_compute_dtype, rotary_dtype, params_dtype, and keep the precision consistent with the inference configuration.
-- In the parallel module, only keep parallel_mode and enable_alltoall, and modify the value of parallel_mode to "MANUAL_PARALLEL".
+- Modify the value of `run_mode` to `"predict"`.
+- Add the `pretrained_model_dir` parameter, set to the Hugging Face or ModelScope model directory path, to place model configuration, Tokenizer, and other files. If the trained weights are placed in this directory, `load_checkpoint` can be omitted in the YAML file.
+- In `parallel_config`, only keep `data_parallel` and `model_parallel`.
+- In `model_config`, only keep `compute_dtype`, `layernorm_compute_dtype`, `softmax_compute_dtype`, `rotary_dtype`, `params_dtype`, and keep the precision consistent with the inference configuration.
+- In the `parallel` module, only keep `parallel_mode` and `enable_alltoall`, and modify the value of `parallel_mode` to `"MANUAL_PARALLEL"`.
+
+> If the model's parameters were customized during training, or differ from the open-source configuration, you must modify the model configuration file config.json in the `pretrained_model_dir` directory when performing inference. You can also configure the modified parameters in `model_config`. When passing the modified parameters to the `model_config` file, the values ​​in the corresponding configuration file in config.json will be overwritten when the model is passed to the inference function.
+> </br>To verify that the passed configuration is correct, look for `The converted TransformerConfig is: ...` or `The converted MLATransformerConfig is: ...` in the logs.
 
 ### Inference Function Verification
 
-After the weights and configuration files are ready, use a single data input for inference to check whether the output content meets the expected logic. Refer to the [inference document](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/guide/inference.md) to start the inference task.
+After the weights and configuration files are ready, use a single data input for inference to check whether the output content meets the expected logic. Refer to the [inference document](../guide/inference.md) to start the inference task.
 
-For example:
+For example, taking Qwen3 single-card inference as an example, the command to start the inference task is:
 
 ```shell
 python run_mindformer.py \
@@ -540,4 +544,4 @@ If the output content appears garbled or does not meet expectations, you need to
 
 ### Evaluation using AISBench
 
-Refer to the AISBench evaluation section and use the AISBench tool for evaluation to verify model precision.
+Refer to the [AISBench evaluation section](#aisbench-benchmarking) and use the AISBench tool for evaluation to verify model precision.
