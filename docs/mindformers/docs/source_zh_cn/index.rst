@@ -120,7 +120,7 @@ MindSpore Transformers功能特性说明
 - 精度对比
 
   - `与 Megatron-LM 比对训练精度 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/advanced_development/accuracy_comparison.html>`_
-  - `推理精度比对 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/advanced_development/inference_precision_comparison.md>`_
+  - `推理精度比对 <https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/advanced_development/inference_precision_comparison.html>`_
 
 环境变量
 ------------------------------------
