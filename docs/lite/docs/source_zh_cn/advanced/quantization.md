@@ -53,7 +53,7 @@ init_scale=0.02
 ```
 
 用户可根据模型及自身需要对权重量化的参数作出调整。
-> init_scale默认的初始值为0.02，搜索的压缩率相当与6-7固定比特的压缩效果。
+> init_scale默认的初始值为0.02，搜索的压缩率相当于6-7固定比特的压缩效果。
 >
 > 混合比特需要搜索最佳比特位，等待时间可能较长，如果需要查看日志，可以在执行前设置export GLOG_v=1，用于打印相关Info级别日志。
 
@@ -448,7 +448,7 @@ target_device=NVGPU
 | normalize_std      | 可选 | 图像归一化的标准差<br/>dst = (src - mean) / std              | Vector   | -      | 3通道：[std_1, std_2, std_3] <br/>1通道：[std_1]             |
 | resize_width       | 可选 | 图像缩放宽度                                                 | Integer  | -      | [1, 65535]                                                   |
 | resize_height      | 可选 | 图像缩放高度                                                 | Integer  | -      | [1, 65535]                                                   |
-| resize_method      | 可选 | 图像缩放算法                                                 | String   | -      | LINEAR、NEAREST、CUBIC<br/>LINEAR：线性插值<br/>NEARST：最邻近插值<br/>CUBIC：三次样条插值 |
+| resize_method      | 可选 | 图像缩放算法                                                 | String   | -      | LINEAR、NEAREST、CUBIC<br/>LINEAR：线性插值<br/>NEAREST：最邻近插值<br/>CUBIC：三次样条插值 |
 | center_crop_width  | 可选 | 中心裁剪宽度                                                 | Integer  | -      | [1, 65535]                                                   |
 | center_crop_height | 可选 | 中心裁剪高度                                                 | Integer  | -      | [1, 65535]                                                   |
 
@@ -524,7 +524,7 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 | NodeName         | 节点名                                                   |
 | NodeType         | 节点类型                                                 |
 | TensorName       | Tensor名                                                 |
-| InOutFlag        | Tensor输出、输出类型                                     |
+| InOutFlag        | Tensor输入、输出类型                                     |
 | DataTypeFlag     | 数据类型，原始数据用Origin，反量化后的数据用Dequant      |
 | TensorTypeFlag   | 针对输入输出等数据类用Activation表示，常量等用Weight表示 |
 | Min              | 最小值，0%分位点                                         |
@@ -557,7 +557,7 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 
 ### 部分算子跳过量化
 
-量化是将float32算子转换int8算子，目前的量化策略是针对可支持的某一类算子所包含的Node都会进行量化，但是存在部分Node敏感度较高，量化后会引发较大的误差，同时某些层量化后推理速度远低于float16的推理速度。支持指定层不量化，可以有效提高精度和推理速度。
+量化是将float32算子转换为int8算子，目前的量化策略是针对可支持的某一类算子所包含的Node都会进行量化，但是存在部分Node敏感度较高，量化后会引发较大的误差，同时某些层量化后推理速度远低于float16的推理速度。支持指定层不量化，可以有效提高精度和推理速度。
 
 下面将`conv2d_1`、 `add_8`和 `concat_1`三个Node不进行量化的示例：
 
@@ -588,7 +588,7 @@ skip_quant_node=conv2d_1,add_8,concat_1
 | [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz) | [ImageNet](http://image-net.org/) | 70.96%       | 70.56%               |
 | [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | 71.56%       | 71.53%               |
 
-以上所有结果均在x86环境上测得。
+以上所有结果均在x86环境中测得。
 
 ### 全量化
 
