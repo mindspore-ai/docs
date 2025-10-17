@@ -121,7 +121,7 @@ Advanced developing with MindSpore Transformers
 - Accuracy Comparison
 
   - `Compare Training Accuracy with Megatron-LM <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/accuracy_comparison.html>`_
-  - `Comparison of Inference Precision <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/inference_precision_comparison.md>`_
+  - `Comparison of Inference Precision <https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/inference_precision_comparison.html>`_
 
 Environment Variables
 ------------------------------------
