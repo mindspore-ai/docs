@@ -31,7 +31,7 @@
 
 - 编译构建
 
-  在`mindspore-lite/examples/quick_start_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/quick_start_java/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
+  在`mindspore-lite/examples/quick_start_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/quick_start_java/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
 
   ```bash
   bash build.sh
