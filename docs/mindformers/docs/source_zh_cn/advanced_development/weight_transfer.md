@@ -36,24 +36,24 @@
    - base_model_prefix：设置为模型名称字符串标识
 4. 实现调用convert_name()方法需实现的key值映射表weight_mapping：
 
-    weight_mapping示例如下：
+   weight_mapping示例如下：
 
-    ```python
-    weight_mapping = [
-        ('model.embed_tokens.', 'embedding.word_embeddings.'),
-        ('.self_attn.q_proj.', '.self_attention.linear_q.'),
-        ('.self_attn.k_proj.', '.self_attention.linear_k.'),
-        ('.self_attn.v_proj.', '.self_attention.linear_v.'),
-        ('.self_attn.o_proj.', '.self_attention.linear_proj.'),
-        ('.mlp.gate_proj.', '.mlp.gating.'),
-        ('.mlp.down_proj.', '.mlp.linear_fc2.'),
-        ('.mlp.up_proj.', '.mlp.hidden.'),
-        ('.post_attention_layernorm.', '.pre_mlp_layernorm.'),
-        ('model.norm.', 'decoder.final_layernorm.'),
-        ('lm_head.', 'output_layer.'),
-        ('model.layers.', 'decoder.layers.')
-    ]
-    ```
+   ```python
+   weight_mapping = [
+       ('model.embed_tokens.', 'embedding.word_embeddings.'),
+       ('.self_attn.q_proj.', '.self_attention.linear_q.'),
+       ('.self_attn.k_proj.', '.self_attention.linear_k.'),
+       ('.self_attn.v_proj.', '.self_attention.linear_v.'),
+       ('.self_attn.o_proj.', '.self_attention.linear_proj.'),
+       ('.mlp.gate_proj.', '.mlp.gating.'),
+       ('.mlp.down_proj.', '.mlp.linear_fc2.'),
+       ('.mlp.up_proj.', '.mlp.hidden.'),
+       ('.post_attention_layernorm.', '.pre_mlp_layernorm.'),
+       ('model.norm.', 'decoder.final_layernorm.'),
+       ('lm_head.', 'output_layer.'),
+       ('model.layers.', 'decoder.layers.')
+   ]
+   ```
 
    其中，元组的第一个元素为Hugging Face权重key，第二个元素为中间态权重key。
 
