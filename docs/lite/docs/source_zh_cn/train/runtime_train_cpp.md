@@ -299,7 +299,7 @@ return model->Resize(inputs, new_shapes);
     // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
     auto *in_data = inputs.at(data_index)->MutableData();
     auto *in_labels = inputs.at(label_index)->MutableData();
-    if ((in_data == nullptr)|| (in_labels == nullptr)) {
+    if ((in_data == nullptr) || (in_labels == nullptr)) {
         std::cerr << "Model's input tensor is nullptr" << std::endl;
         return -1;
     }
