@@ -149,7 +149,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-您可以查看MindSpore仓中的[自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
+您可以查看MindSpore仓中的[自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/custom/ops_custom/ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
 样例工程的目录结构如下：
 
 ```text
@@ -349,7 +349,7 @@ extern "C" std::vector<std::vector<int64_t>> FuncNameInferShape(int *ndims, int6
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
 - extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`
-  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h)。
 
 **Infer Type函数原型**
 
@@ -605,7 +605,7 @@ extern "C" std::vector<TypeId> FuncNameInferType(std::vector<TypeId> type_ids, A
    [ERROR] DEVICE(3915621,fffe47fff1e0,python):2024-06-26-16:57:38.219.637 [mindspore/ccsrc/plugin/device/ascend/hal/hardware/ge kernel executor.cc:1169] LaunchKernel] Launch kernel failed, kernel
    full name: Default/Custom-op0
    Traceback (most recent call last):
-   File "/home/jenkins0/dyp/mindspore_custom/tests/st/ops/graph_kernel/custom/custom ascendc/test add.py", Line 58, in <module>
+   File "/home/jenkins0/dyp/mindspore_custom/tests/st/ops/custom/ops_custom/custom ascendc/test add.py", Line 58, in <module>
        out = net(Tensor(x), Tensor(y), Tensor(z))
    File "/home/jenkinsO/.conda/envs/dyp_py37_temp/Lib/python3.7/site-packages/mindspore/nn/cell.py", line 721, in _call_
    raise err
