@@ -40,18 +40,18 @@ The steps are as follows:
 
    ```python
    weight_mapping = [
-      ('model.embed_tokens.', 'embedding.word_embeddings.'),
-      ('.self_attn.q_proj.', '.self_attention.linear_q.'),
-      ('.self_attn.k_proj.', '.self_attention.linear_k.'),
-      ('.self_attn.v_proj.', '.self_attention.linear_v.'),
-      ('.self_attn.o_proj.', '.self_attention.linear_proj.'),
-      ('.mlp.gate_proj.', '.mlp.gating.'),
-      ('.mlp.down_proj.', '.mlp.linear_fc2.'),
-      ('.mlp.up_proj.', '.mlp.hidden.'),
-      ('.post_attention_layernorm.', '.pre_mlp_layernorm.'),
-      ('model.norm.', 'decoder.final_layernorm.'),
-      ('lm_head.', 'output_layer.'),
-      ('model.layers.', 'decoder.layers.')
+       ('model.embed_tokens.', 'embedding.word_embeddings.'),
+       ('.self_attn.q_proj.', '.self_attention.linear_q.'),
+       ('.self_attn.k_proj.', '.self_attention.linear_k.'),
+       ('.self_attn.v_proj.', '.self_attention.linear_v.'),
+       ('.self_attn.o_proj.', '.self_attention.linear_proj.'),
+       ('.mlp.gate_proj.', '.mlp.gating.'),
+       ('.mlp.down_proj.', '.mlp.linear_fc2.'),
+       ('.mlp.up_proj.', '.mlp.hidden.'),
+       ('.post_attention_layernorm.', '.pre_mlp_layernorm.'),
+       ('model.norm.', 'decoder.final_layernorm.'),
+       ('lm_head.', 'output_layer.'),
+       ('model.layers.', 'decoder.layers.')
    ]
    ```
 

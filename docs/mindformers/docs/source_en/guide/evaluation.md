@@ -25,7 +25,7 @@ Both tasks follow the same evaluation paradigm. The user side sends requests and
 
 The preparation phase mainly completes three tasks: installing the AISBench evaluation environment, downloading datasets, and starting the vLLM-MindSpore service.
 
-**Step 1 Install AISBench Evaluation Environment**
+#### Step 1 Install AISBench Evaluation Environment
 
 Since AISBench has dependencies on both torch and transformers, but the official vLLM-MindSpore image contains a mocked torch implementation from the msadapter package which may cause conflicts, it is recommended to set up a separate container for installing the AISBench evaluation environment. If you insist on using the vLLM-MindSpore image to create a container for installing the evaluation environment, you need to perform the following steps to remove the existing torch and transformers packages inside the container after launching it:
 
@@ -43,7 +43,7 @@ cd benchmark/
 pip3 install -e ./ --use-pep517
 ```
 
-**Step 2 Dataset Download**
+#### Step 2 Dataset Download
 
 The official documentation provides download links for each dataset. Taking CEVAL as an example, you can find the download link in the [CEVAL documentation,](https://gitee.com/aisbench/benchmark/blob/master/ais_bench/benchmark/configs/datasets/ceval/README.md), and execute the following commands to download and extract the dataset to the specified path:
 
@@ -59,7 +59,7 @@ rm ceval-exam.zip
 
 For other dataset downloads, you can find download links in the corresponding dataset's official documentation.
 
-**Step 3 Start vLLM-MindSpore Service**
+#### Step 3 Start vLLM-MindSpore Service
 
 For the specific startup process, see: [Service Deployment Tutorial](./deployment.md). Evaluation supports all service-deployable models.
 
@@ -192,6 +192,8 @@ After the evaluation is completed, performance evaluation results will be output
 
 ### Appendix
 
+#### FAQ
+
 **Q: Evaluation results output does not conform to format, how to make the results output conform to expectations?**
 
 In some datasets, we may want the model's output to conform to our expectations, so we can change the prompt.
@@ -252,7 +254,7 @@ This specifically depends on the comprehensive consideration of model type and d
 
    **Solution**: Check if the model path in the interface configuration is accessible.
 
-### Interface Configuration Parameter Description Table
+#### Interface Configuration Parameter Description Table
 
 | Parameter                | Description                                                                 |
 |---------------------|----------------------------------------------------------------------|
@@ -272,7 +274,7 @@ This specifically depends on the comprehensive consideration of model type and d
 | repetition_penalty  | Post-processing parameter, repetition penalty                                               |
 | ignore_eos          | Inference service output ignores eos (output length will definitely reach max_out_len)                 |
 
-### References
+#### References
 
 The above only introduces the basic usage of AISBench. For more tutorials and usage methods, please refer to the official materials:
 
