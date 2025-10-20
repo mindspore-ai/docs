@@ -1335,9 +1335,9 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
                 input_abs = ops.abs(input_tensor)
                 x = mint.select(input_abs, 0, 0)
                 if y < 10:
-                   x.add_(2)
+                    x.add_(2)
                 else:
-                   x.mul_(3)
+                    x.mul_(3)
                 return x
 
         net = Net()

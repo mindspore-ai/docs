@@ -97,7 +97,7 @@ output
         └── rank_7
             ├── meta.json
             └── {prefix}-{epoch}_{step}.safetensors
-    └──checkpoint_network
+    └── checkpoint_network
         ├── rank_0
             └── {prefix}-{epoch}_{step}.safetensors
         ...

@@ -67,7 +67,7 @@ Successfully tagged vllm_ms_20250726:latest
 Here, `e40bcbeae9fc` is the image ID, and `vllm_ms_20250726:latest` is the image name and tag. User can run the following command to confirm that the Docker image has been successfully created:  
 
 ```bash  
-docker images  
+docker images
 ```
 
 **Creating a Container**
@@ -109,7 +109,7 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
 The container ID will be returned if docker is created successfully. User can also check the container by executing the following command:  
 
 ```bash  
-docker ps  
+docker ps
 ```  
 
 **Entering the Container**
@@ -158,9 +158,9 @@ vllm-mindspore serve --model=/path/to/model/Qwen2-7B --trust_remote_code --max-n
 User can also set the local model path by `--model` argument. If the service starts successfully, similar output will be obtained:  
 
 ```text  
-INFO:   Started server process [6363]  
-INFO:   Waiting for application startup.  
-INFO:   Application startup complete.  
+INFO:   Started server process [6363]
+INFO:   Waiting for application startup.
+INFO:   Application startup complete.
 ```  
 
 Additionally, performance metrics will be logged, such as:
