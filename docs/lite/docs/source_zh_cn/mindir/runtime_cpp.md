@@ -14,7 +14,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/mindir/converter_tool.html)转换获得MindIR模型。
 2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
-3. 模型加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#build-3)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
+3. 模型加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#build-3)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要填充输入数据。
 5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#predict)进行模型推理。
 
@@ -43,7 +43,7 @@ if (context == nullptr) {
 auto &device_list = context->MutableDeviceInfo();
 ```
 
-通过[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，指定运行的设备。`MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#cpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#ascenddeviceinfo)。设置的设备个数当前只能为其中一个。
+通过[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，指定运行的设备。`MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#cpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#ascenddeviceinfo)。当前只能设置一个设备。
 
 ### 配置使用CPU后端
 

@@ -4,7 +4,7 @@
 
 ## 概述
 
-通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/mindir/converter_tool.html)转换成`.mindir`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[JAVA接口](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/index.html)执行云侧推理。
+通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/mindir/converter_tool.html)转换成`.mindir`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[Java接口](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/index.html)执行云侧推理。
 
 相比C++ API，Java API可以直接在Java Class中调用，用户无需实现JNI层的相关代码，具有更好的便捷性。运行MindSpore Lite推理框架主要包括以下步骤：
 

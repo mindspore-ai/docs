@@ -104,7 +104,7 @@ mindspore-lite-{version}-linux-x64
         ```
 
         在转换Caffe模型时，将fmk配置为CAFFE（`--fmk=CAFFE`），同时分别通过modelFile和weightFile参数传入模型结构（lenet.prototxt）、模型权值（lenet.caffemodel）两个文件。
-        同时通过outputFile，指定转换后输出的模型名，因未指定路径，生成的模型默认在当前路径，并带有`.ms`后缀，既`lenet.ms`。
+        同时通过outputFile，指定转换后输出的模型名，因未指定路径，生成的模型默认在当前路径，并带有`.ms`后缀，即`lenet.ms`。
 
     - 以MindSpore、TensorFlow Lite、TensorFlow和ONNX模型为例，执行转换命令。
 
@@ -878,7 +878,7 @@ mindspore-lite-{version}-win-x64
         ```
 
         在转换Caffe模型时，将fmk配置为CAFFE（`--fmk=CAFFE`），同时分别通过modelFile和weightFile参数传入模型结构（lenet.prototxt）、模型权值（lenet.caffemodel）两个文件。
-        同时通过outputFile，指定转换后输出的模型名，因未指定路径，生成的模型默认在当前路径，并带有`.ms`后缀，既`lenet.ms`。
+        同时通过outputFile，指定转换后输出的模型名，因未指定路径，生成的模型默认在当前路径，并带有`.ms`后缀，即`lenet.ms`。
 
     - 以MindSpore、TensorFlow Lite、TensorFlow和ONNX模型为例，执行转换命令。
 
@@ -907,7 +907,7 @@ mindspore-lite-{version}-win-x64
             ```
 
         在转换各种模型时，将`fmk`配置为模型类型对应的标志符号，同时通过modelFile参数传入模型文件。
-        通过outputFile，指定转换后输出的模型名，因未指定路径，生成的模型默认在当前路径，并带有`.ms`后缀，既`lenet.ms`。
+        通过outputFile，指定转换后输出的模型名，因未指定路径，生成的模型默认在当前路径，并带有`.ms`后缀，即`lenet.ms`。
 
 4. 执行转换
 
@@ -1450,7 +1450,7 @@ mindspore-lite-{version}-win-x64
 
     (5) 执行推理
 
-    首先申请一个放置模型推理输出张量的数组`outputs`，然后调用模型推理接口`Predict`，将输入张量和输出张量作它的参数。
+    首先申请一个放置模型推理输出张量的数组`outputs`，然后调用模型推理接口`Predict`，将输入张量和输出张量作为参数。
     在推理成功后，输出张量被保存在`outputs`内。
 
     ```cpp
