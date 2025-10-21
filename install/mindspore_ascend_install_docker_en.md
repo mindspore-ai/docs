@@ -28,7 +28,7 @@ The current support for containerized build options is as follows:
 | Atlas Training Series‌| `mindspore` | `mindspore-ascend-a1` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 | Atlas A2 Training Series‌| `mindspore` | `mindspore-ascend-a2` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 
-> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.7.0 is installed, `x.y.z` should be written as 2.7.0.
+> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.7.1 is installed, `x.y.z` should be written as 2.7.1.
 
 ## System Environment Information Confirmation
 
@@ -37,12 +37,12 @@ The following table outlines the system requirements for deploying MindSpore usi
 |Software Name|Version|Function|
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|‌Recommended OS for MindSpore Container Deployment|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.2.RC1, CANN 8.1.RC1, CANN 8.0.0|Ascend platform AI computing library used by MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.3.RC1, CANN 8.2.RC1, CANN 8.1.RC1|Ascend platform AI computing library used by MindSpore|
 |Docker | Docker 18.03+ |Provides lightweight containerization environment for isolated deployment and cross-platform execution of MindSpore and its dependencies|
 
 ## Installing Ascend AI processor software package
 
-To install Ascend software package community edition, the recommended version is `8.2.RC1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1/softwareinst/instg/instg_quick.html) to choose which packages are to be installed and how to install them.
+To install Ascend software package community edition, the recommended version is `8.3.RC1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html) to choose which packages are to be installed and how to install them.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -59,16 +59,16 @@ of which,
 - `{image_name}` corresponds to the image name in the above table. For Atlas Training Series A1 products, download the `mindspore-ascend-a1` image; for Atlas A2 Training Series products, download the `mindspore-ascend-a2` image.
 - `{tag}` corresponds to the label in the above table.
 
-To install MindSpore 2.7.0 on Atlas Training Platform, use the following command:
+To install MindSpore 2.7.1 on Atlas Training Platform, use the following command:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.7.0
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.7.1
 ```
 
-To install MindSpore 2.7.0 on Atlas A2 Training Platform, use the following command:
+To install MindSpore 2.7.1 on Atlas A2 Training Platform, use the following command:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.0
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.1
 ```
 
 ## Running MindSpore Image
