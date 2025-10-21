@@ -3,6 +3,7 @@
 <!-- TOC -->
 
 - [Release List](#release-list)
+    - [2.7.1](#271)
     - [2.7.0](#270)
     - [2.7.0-rc1](#270-rc1)
     - [2.6.0](#260)
@@ -61,6 +62,32 @@
 <!-- /TOC -->
 
 [![View source on Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_en.md)
+
+## 2.7.1
+
+| Module Name                           | Hardware Platform   | Operating System          | Python Version   | Download Links                                                                                                                                                                                 | SHA-256                                                          |
+|-----------|---------------|---------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| MindSpore | Ascend<br>CPU | Linux-aarch64 | Python3.9  | [mindspore-2.7.1-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/unified/aarch64/mindspore-2.7.1-cp39-cp39-linux_aarch64.whl)            | 812285ae08043068ee964691bbb177cb1d8b7779836df2ef1dcaca907ca93f53 |
+|           |               |               | Python3.10 | [mindspore-2.7.1-cp310-cp310-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/unified/aarch64/mindspore-2.7.1-cp310-cp310-linux_aarch64.whl)        | 272b1226b37f643bf3972a19d018afbb59e5a123e2fd7e99dfe55c6312a2df2f |
+|           |               |               | Python3.11 | [mindspore-2.7.1-cp311-cp311-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/unified/aarch64/mindspore-2.7.1-cp311-cp311-linux_aarch64.whl)        | 95e90d9ee02274fc5d83fd616a2d40fd8ce9470e1879eb934375597b2b0f31f2 |
+|           | Ascend<br>CPU | Linux-x86_64  | Python3.9  | [mindspore-2.7.1-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/unified/x86_64/mindspore-2.7.1-cp39-cp39-linux_x86_64.whl)               | cbecbb8b7695fc42364fbb07e9bb5234a56750fd12ca0b843f7ed3b6b0d9a32f |
+|           |               |               | Python3.10 | [mindspore-2.7.1-cp310-cp310-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/unified/x86_64/mindspore-2.7.1-cp310-cp310-linux_x86_64.whl)           | 2be5e78a9912e053c7e4c6cfbe065d5e8560e3ba9eedccb89b485f6fd007c155 |
+|           |               |               | Python3.11 | [mindspore-2.7.1-cp311-cp311-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/unified/x86_64/mindspore-2.7.1-cp311-cp311-linux_x86_64.whl)           | 1c376f8d4c5ce3cb58b1d51bfee6647ce434d9bcd0bdc8eb7161f48d8622571b |
+|           | CPU           | Windows-x64   | Python3.9  | [mindspore-2.7.1-cp39-cp39-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp39-cp39-win_amd64.whl)                         | 19543564aaf64ff6373122e428a8970bb8f92664205dcb40a1fa5d1c9ae35e35 |
+|           |               |               | Python3.10 | [mindspore-2.7.1-cp310-cp310-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp310-cp310-win_amd64.whl)                     | 6e8a5888c0f7e8d7a8df61ffd151681d13c585083fad47ccf26e85da02b20251 |
+|           |               |               | Python3.11 | [mindspore-2.7.1-cp311-cp311-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp311-cp311-win_amd64.whl)                     | f9a57518cd8a5fe6d51ef2018d9e18a74aa382b79994419747c3e01e4dab31ff |
+|           |               | MacOS-aarch64 | Python3.9  | [mindspore-2.7.1-cp39-cp39-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/aarch64/mindspore-2.7.1-cp39-cp39-macosx_11_0_arm64.whl)        | c20446650bd711232a2fd93250b862d2894b8a27489442a99a83ad05b45b9f8d |
+|           |               |               | Python3.10 | [mindspore-2.7.1-cp310-cp310-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/aarch64/mindspore-2.7.1-cp310-cp310-macosx_11_0_arm64.whl)    | 40802e63d673d359817a567db81508461ff827acef905d77041e8414673bc084 |
+|           |               |               | Python3.11 | [mindspore-2.7.1-cp311-cp311-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/aarch64/mindspore-2.7.1-cp311-cp311-macosx_11_0_arm64.whl)    | 1c961b470126ee55df40814697c477d5cce68c4321d162f8663734ac2e345b90 |
+|           |               | MacOS-x64     | Python3.9  | [mindspore-2.7.1-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp39-cp39-macosx_10_15_x86_64.whl)     | 7c87f12652f9311d057e6a3909bbbfc192ee400d913db94779563df8d06f216e |
+|           |               |               | Python3.10 | [mindspore-2.7.1-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp310-cp310-macosx_10_15_x86_64.whl) | 9cdf743990adb2b8c18085e82e858b45cd787b1a5ab82611260a5a1877e375c1 |
+|           |               |               | Python3.11 | [mindspore-2.7.1-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindSpore/cpu/x86_64/mindspore-2.7.1-cp311-cp311-macosx_10_15_x86_64.whl) | 25e63d3862cdf80202664b743f9f0946edabb49d5de0c5227b7eec5d8b25ac4b |
+
+**Ascend Supporting Software Package**
+
+|  Installation guide | Community edition download link |
+|--------|------------------|
+| [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html) | [CANN 8.3.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 ## 2.7.0
 
