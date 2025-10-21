@@ -1039,7 +1039,7 @@ std::map<int, std::vector<int>> GetInputShapeMap() const
 void SetDynamicBatchSize(const std::vector<size_t> &dynamic_batch_size)
 ```
 
-指定模型动态batch的挡位，支持个数范围[2, 100]，为数组形式。
+指定模型动态batch的档位，支持个数范围[2, 100]，为数组形式。
 
 - 参数
 
@@ -1061,7 +1061,7 @@ inline std::string GetDynamicBatchSize() const
 inline void SetDynamicImageSize(const std::string &dynamic_image_size)
 ```
 
-指定模型动态分辨率的挡位，支持个数范围[2, 100]，为字符串形式，每个shape值由`,`隔开，不同输入由`;`隔开。
+指定模型动态分辨率的档位，支持个数范围[2, 100]，为字符串形式，每个shape值由`,`隔开，不同输入由`;`隔开。
 
 - 参数
 
