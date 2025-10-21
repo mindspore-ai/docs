@@ -22,7 +22,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/
 
 5. 可选属性`optional_input_names`，数据类型为String[]，可选输入名是必选输入名的子集；
 
-6. 可选属性`output_num`，数据类型为int，算子有多输出的时且模型中仅使用第一个输出时需要指定；
+6. 可选属性`output_num`，数据类型为int，算子有多输出且模型中仅使用第一个输出时需要指定；
 
 7. 如果自定义算子原始属性是`bool`类型，但由于ONNX属性中无`bool`类型，所以需要以String类型的方式接入，值可以设置为`True`、`true`、`False`和`false`其中之一。
 
@@ -53,7 +53,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/
 与[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/advanced/third_party/converter_register.html)不同的是，注册位置的参数需要更改。
 
 ```c++
-// register customed Pass
+// register custom Pass
 using mindspore::registry::POSITION_ASCEND;
 REG_PASS(PassTutorial, opt::PassTutorial)
 REG_SCHEDULED_PASS(POSITION_ASCEND, {"PassTutorial"})

@@ -39,7 +39,7 @@ if (model_buf == nullptr) {
 
 ## 创建配置上下文
 
-上下文会保存一些所需的基本配置参数，用于指导模型编译和模型执行，如果用户通过`new`创建[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#context)，不再需要时，需要用户通过`delete`释放。一般在创建编译完[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#model)后，[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#context)即可释放。
+上下文会保存一些所需的基本配置参数，用于指导模型编译和模型执行。如果用户通过`new`创建[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#context)，不再需要时，需要用户通过`delete`释放。一般在创建编译完[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#model)后，[Context](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#context)即可释放。
 
 MindSpore Lite默认执行的后端是CPU，Context创建后调用[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，向列表中添加默认的[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#cpudeviceinfo)。
 
