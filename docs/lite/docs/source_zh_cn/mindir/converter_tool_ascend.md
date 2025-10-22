@@ -15,7 +15,7 @@
 | `input_format`             | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`、`"NHWC"`、`"ND"` |
 | `input_shape`       | 可选 | 指定模型输入Shape，input_name必须是转换前的网络模型中的输入名称，按输入次序排列，用`；`隔开，仅对动态BatchSize生效，对静态BatchSize，需要converter_lite命令指定inputShape参数。 | String | 例如：`"input1:[1,64,64,3];input2:[1,256,256,3]"` |
 | `dynamic_dims`       | 可选 | 指定动态BatchSize和动态分辨率参数。 | String | 见[动态shape配置](#动态shape配置) |
-| `precision_mode`           | 可选 | 配置模型精度模式。    | String | 可选有`"enforce_fp32"`，`"preferred_fp32"`，`"enforce_fp16"`，`"enforce_origin"`或者`"preferred_optimal"`，默认为`"enforce_fp16"`|
+| `precision_mode`           | 可选 | 配置模型精度模式。    | String | 可选有`"enforce_fp32"`、`"preferred_fp32"`、`"enforce_fp16"`、`"enforce_origin"`或者`"preferred_optimal"`，默认为`"enforce_fp16"`|
 | `op_select_impl_mode`      | 可选 | 配置算子选择模式。    | String | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
 | `output_type`       | 可选 | 指定网络输出数据类型。  | String | 可选有`"FP16"`、`"FP32"`、`"UINT8"` |
 | `fusion_switch_config_file_path` | 可选 | 配置[融合规则开关配置](https://www.hiascend.com/document/detail/zh/canncommercial/601/inferapplicationdev/atctool/atctool_0078.html)文件路径及文件名。 | String   | 指定融合规则开关的配置文件      |
@@ -44,7 +44,7 @@
 | `ge.opSelectImplmode`        |  可选  | 选择算子实现模式。 | String | 可选有`"high_precision"`、`"high_performance"` |
 | `ge.optypelistForImplmode`   |  可选  | 算子列表，列表中算子使用`ge.opSelectImplmode`参数指定的模式。 | String | 算子类型 |
 | `ge.op_compiler_cache_mode`  |  可选  | 配置算子编译磁盘缓存模式。 | String | 可选有`"enable"`、`"force"`、`"disable"` |
-| `ge.op_compiler_cache_dir`   |  可选  | 配置算子变异磁盘缓存目录。 | String | 默认值`$HOME/atc_data` |
+| `ge.op_compiler_cache_dir`   |  可选  | 配置算子编译磁盘缓存目录。 | String | 默认值`$HOME/atc_data` |
 | `ge.debugDir`                |  可选  | 配置保存算子编译生成的调试相关的过程文件的路径。 | String | 默认生成当前路径 |
 | `ge.opDebugLevel`            |  可选  | 算子debug功能开关。 | String | 可选有`"0"`、`"1"` |
 | `ge.exec.modify_mixlist`     |  可选  | 配置混合精度名单。 | String | 配置文件路径 |
@@ -61,7 +61,7 @@
 | 参数                          | 属性  | 功能描述        | 参数类型 | 取值说明 |
 | ----------------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
 | `input_format`                      | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`、`"NHWC"`、`"ND"` |
-| `input_shape`                       | 可选 | 模型输入shape。模型转换后可以用Model.get_model_info("input_shpae")获取到。该参数与命令行中input_shape已统一。 | String | 例如：`input1:1,3,512,512;input2:1,3,224,224` |
+| `input_shape`                       | 可选 | 模型输入shape。模型转换后可以用Model.get_model_info("input_shape")获取到。该参数与命令行中input_shape已统一。 | String | 例如：`input1:1,3,512,512;input2:1,3,224,224` |
 | `op_name_map`                       | 可选 | 扩展算子映射配置文件路径。 | String | 配置文件路径 |
 | `ge.dynamicBatchSize`               | 可选 | 设置动态batch档位参数。 | String | 该参数需要与`input_shape`参数配合使用 |
 | `ge.dynamicImageSize`               | 可选 | 设置输入图片的动态分辨率参数。 | String | 该参数需要与`input_shape`参数配合使用 |
@@ -74,7 +74,7 @@
 | `ge.INPUT_NODES_SET_FP16`           | 可选 | 指定输入数据类型为FP16的输入节点名称。 | String | `"node_name1;node_name2"` |
 | `log`                               | 可选 | 设置日志级别。 | String | 可选有`"debug"`、`"info"`、`"warning"`、`"error"` |
 | `ge.op_compiler_cache_mode`         | 可选 | 配置算子编译磁盘缓存模式。 | String | 可选有`"enable"`、`"force"`、`"disable"` |
-| `ge.op_compiler_cache_dir`          | 可选 | 配置算子变异磁盘缓存目录。 | String | 默认值`$HOME/atc_data` |
+| `ge.op_compiler_cache_dir`          | 可选 | 配置算子编译磁盘缓存目录。 | String | 默认值`$HOME/atc_data` |
 | `ge.debugDir`                       | 可选 | 配置保存算子编译生成的调试相关的过程文件的路径。 | String | 默认生成当前路径 |
 | `ge.opDebugLevel`                   | 可选 | 算子debug功能开关。 | String | 可选有`"0"`、`"1"` |
 | `ge.mdl_bank_path`                  | 可选 | 加载模型调优后自定义知识库的路径。 | String | 该参数需要和`ge.bufferOptimize`配合使用 |
@@ -118,7 +118,7 @@
 
     其中，input_shape中的"-1"表示设置动态batch，档位可取值为"1,2"，即支持档位0：[1,64,64,3]，档位1：[2,64,64,3]。
 
-    若存在多个输入，不同输入对应的挡位需要一致，并用`;`隔开。
+    若存在多个输入，不同输入对应的档位需要一致，并用`;`隔开。
 
     ```
     [ascend_context]
