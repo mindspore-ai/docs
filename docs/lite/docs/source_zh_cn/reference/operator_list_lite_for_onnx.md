@@ -44,11 +44,11 @@
 | Greater                | 逐元素比较两个张量，返回 A > B的逻辑结果（True/False）       | Greater                                                      | -                                                            |
 | GreaterEqual           | 逐元素比较两个张量，返回 A ≥ B的逻辑结果                     | GreaterOrEqual                                               | -                                                            |
 | InstanceNorm           | 实例归一化                                                   | InstanceNormalization                                        | -                                                            |
-| LeakyReLU              | 带泄漏的 ReLU激活函数，对负输入给予微小斜率                  | LeakyRelu                                                    | -                                                            |
+| LeakyReLU              | 带泄漏的ReLU激活函数，对负输入给予微小斜率                  | LeakyRelu                                                    | -                                                            |
 | Less                   | 逐元素比较两个张量，返回 A < B的逻辑结果。                   | Less                                                         | -                                                            |
 | Log                    | 逐元素求对数                                                 | Log                                                          | 不支持负数输入。                                             |
 | LogicalAnd             | 逐元素逻辑与（AND）运算                                      | And                                                          | -                                                            |
-| LogicalNot             | 元素级逻辑非运算                                                 | Not                                                          | -                                                            |
+| LogicalNot             | 逐元素逻辑非运算                                                 | Not                                                          | -                                                            |
 | LogicalOr              | 逐元素逻辑或（OR）运算                                       | Or                                                           | -                                                            |
 | LogSoftmax             | 对输入向量进行softmax操作，然后再对softmax结果取对数         | LogSoftmax                                                   | 不支持inf输入。                                              |
 | LRN                    | 局部响应标准化，用于防止数据过度拟合                         | LRN                                                          | -                                                            |
@@ -69,7 +69,7 @@
 | RandomNormal           | 生成一个张量，其中的值从正态分布（高斯分布）中随机采样     | RandomNormal                                                 | -                                                            |
 | Range                  | 生成某个区间内的元素                                         | Range                                                        | -                                                            |
 | Reciprocal             | 返回倒数                                                     | Reciprocal                                                   | -                                                            |
-| ReduceFusion           | 归约操作                                                     | ReduceMean、ReduceMax、ReduceMin、ReduceProd、ReduceSum、ReduceSumSquare、ReduceL2,ReduceL1、ReduceLogSum | -                                                            |
+| ReduceFusion           | 归约操作                                                     | ReduceMean、ReduceMax、ReduceMin、ReduceProd、ReduceSum、ReduceSumSquare、ReduceL2、ReduceL1、ReduceLogSum | -                                                            |
 | Reshape                | 改变张量形状，总元素个数不变                                 | Reshape、Flatten                                             | -                                                            |
 | Resize                 | 对输入张量进行上采样或调整大小                               | Resize、Upsample                                             | -                                                            |
 | ReverseSequence        | 对输入张量的可变长度序列进行部分反转                         | ReverseSequence                                              | -                                                            |
@@ -82,8 +82,8 @@
 | SliceFusion            | 张量切片操作                                                 | Slice                                                        | -                                                            |
 | Softmax                | 归一化操作                                                   | Softmax                                                      | -                                                            |
 | SpaceToDepth           | 高度和宽度维度的值移至深度维度                               | SpaceToDepth                                                 | -                                                            |
-| Splice                 | 沿指定轴连接输入张量的多个切片或范围。                       | Splice                                                       | -                                                            |
-| Split                  | 将输入张量沿指定轴分割成多个较小的输出张量。                 | Split                                                        | -                                                            |
+| Splice                 | 沿指定轴连接输入张量的多个切片或范围                       | Splice                                                       | -                                                            |
+| Split                  | 将输入张量沿指定轴分割成多个较小的输出张量                 | Split                                                        | -                                                            |
 | Sqrt                   | 逐元素开根号                                                 | Sqrt                                                         | -                                                            |
 | Squeeze                | 移除维度为1的维度                                            | Squeeze                                                      | -                                                            |
 | StridedSlice           | Tensor切片                                                   | Slice、DynamicSlice                                          | -                                                            |
