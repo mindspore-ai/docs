@@ -36,8 +36,8 @@
 
 ```bash
 cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
+bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
 cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
@@ -83,10 +83,10 @@ sudo apt-get install gcc-9 -y
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.7.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)，选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.7.1版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.7.0
+export MS_VERSION=2.7.1
 ```
 
 然后执行以下命令安装MindSpore。

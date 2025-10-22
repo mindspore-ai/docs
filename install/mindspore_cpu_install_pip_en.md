@@ -36,8 +36,8 @@ Install Miniconda:
 
 ```bash
 cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
+bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
 cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
@@ -83,10 +83,10 @@ sudo apt-get install gcc-9 -y
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.7.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.7.1 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.7.0
+export MS_VERSION=2.7.1
 ```
 
 Then run the following command to install MindSpore.
