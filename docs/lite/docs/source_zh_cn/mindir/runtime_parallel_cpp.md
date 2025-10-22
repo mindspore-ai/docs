@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#modelparallelrunner)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、CPU后端。
+MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#modelparallelrunner)，多model并发推理目前支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、CPU后端。
 
 通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行多model并发推理。
 
@@ -12,7 +12,7 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.
 
 1. 创建配置项：创建多model并发推理配置项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#runnerconfig)，用于配置多model并发。
 2. 初始化：多model并发推理前的初始化。
-3. 执行并发推理：使用ModelParallelRunner的Predict接口进行多Model并发推理。
+3. 执行并发推理：使用ModelParallelRunner的Predict接口进行多model并发推理。
 4. 释放内存：无需使用MindSpore Lite并发推理框架时，需要释放自己创建的ModelParallelRunner以及相关的Tensor。
 
 ![](./images/server_inference.png)
@@ -27,7 +27,7 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.
 
 ## 创建配置项
 
-配置项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#runnerconfig)会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行。
+配置项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#runnerconfig)会保存一些并发推理所需的基本配置参数，用于指导并发model的数量以及模型编译和模型执行。
 
 下面示例代码演示了如何创建RunnerConfig，并配置并发推理的worker数量。
 
@@ -63,7 +63,7 @@ runner_config->SetWorkersNum(kNumWorkers);
 
 > Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E4%B8%8A%E4%B8%8B%E6%96%87)。
 >
-> 多model并发推理现阶段支持[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)几种不同的硬件后端。
+> 多model并发推理目前支持[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)几种不同的硬件后端。
 >
 > 多model并发推理不支持FP32类型数据推理，绑核只支持不绑核或者绑大核，不支持绑中核的参数设置，且不支持配置绑核列表。
 >
@@ -71,7 +71,7 @@ runner_config->SetWorkersNum(kNumWorkers);
 
 ## 初始化
 
-使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，通过ModelParallelRunner可以初始化以及执行并发推理。采用上一步创建得到的RunnerConfig，调用ModelParallelRunner的Init接口来实现ModelParallelRunner的初始化。
+使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，通过ModelParallelRunner可以初始化并执行并发推理。采用上一步创建得到的RunnerConfig，调用ModelParallelRunner的Init接口来实现ModelParallelRunner的初始化。
 
 ```cpp
 // Build model
@@ -83,7 +83,7 @@ delete model_runner;
 }
 ```
 
-> ModelParallelRunner的初始化，可以不设置RunnerConfig配置参数，则会使用默认参数进行多model的并发推理。
+> ModelParallelRunner的初始化，可以不设置RunnerConfig配置参数，则会使用默认参数进行多model并发推理。
 
 ## 执行并发推理
 
@@ -103,7 +103,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## 编译和执行
 
-按照[快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)环境变量，设置环境变量。在`mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp`目录下执行build.sh脚本，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
+按照[快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)中的环境变量设置。在`mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp`目录下执行build.sh脚本，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
 
 ```bash
 bash build.sh
@@ -115,7 +115,7 @@ bash build.sh
 ./mindspore_quick_start_cpp ../model/mobilenetv2.mindir CPU
 ```
 
-执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
+执行完成后将能得到如下结果，打印输出Tensor的名称、大小、数量以及前50个数据：
 
 ```bash
 tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
