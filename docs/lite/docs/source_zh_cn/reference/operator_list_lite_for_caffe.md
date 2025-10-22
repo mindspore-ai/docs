@@ -4,7 +4,7 @@
 
 | MindSpore Lite算子名称 | 对应的Caffe算子                  |
 | ---------------------- | -------------------------------- |
-| Activation             | ReLU, ReLU6, Sigmoid,  TanH, Elu |
+| Activation             | ReLU, ReLU6, Sigmoid, TanH, Elu |
 | ArgmaxFusion           | ArgMax                           |
 | AvgPoolFusion          | Pooling                          |
 | BatchNorm              | BatchNorm                        |
