@@ -116,4 +116,4 @@
 | ZerosLike              | ZerosLike                                                    |
 | 转换工具支持的其他算子 | Dropout、Enter、<br/>Exit、If、<br/>LinSpace、<br/>LoopCond、<br/>NextIteration、<br/>StatelessIf、<br/>StatelessWhile、<br/>TensorArrayGatherV3、<br/>TensorArrayReadV3、<br/>TensorArrayScatterV3、<br/>TensorArraySizeV3、<br/>TensorArrayV3、<br/>TensorArrayWriteV3、<br/>While |
 
-> [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
+> [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转换工具中被优化而消失，如被融合掉或者使用其他算子代替。

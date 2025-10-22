@@ -14,7 +14,7 @@ mslite_gold标杆数据生成工具，可基于原始模型输入数据`input.np
 
 ### 环境要求
 
-python依赖库
+python依赖库：
 
 - `numpy` >= 2.0.2
 - `onnx` >= 1.17.0

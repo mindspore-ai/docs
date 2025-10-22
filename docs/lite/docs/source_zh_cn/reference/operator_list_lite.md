@@ -87,7 +87,7 @@
 | L2NormalizeFusion                   | 融合优化的L2归一化                                           | FP32<br/>Int8<br/>UInt8                             | -         | -                       |                        |
 | LayerNormFusion                     | 融合优化的层归一化                                           | FP16<br/>FP32<br/>Int8                              | -         | FP16<br/>FP32           | FP16       |
 | LayerNormGrad                       | 计算层归一化的梯度                                           | FP16<br/>FP32                                       | -         | -                       |                        |
-| LeakyReLU                           | 带泄漏的 ReLU激活函数，对负输入给予微小斜率                  | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
+| LeakyReLU                           | 带泄漏的ReLU激活函数，对负输入给予微小斜率                  | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
 | Less                                | 逐元素比较两个张量，返回 A<B的逻辑结果                       | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
 | LessEqual                           | 逐元素比较A ≤ B，返回布尔张量                                | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8          | FP16      | FP16<br/>FP32           | FP16       |
 | LRN                                 | 局部响应归一化                                               | FP32                                                | -         | -                       | FP16                   |
@@ -201,4 +201,4 @@
 | Unsqueeze                           | 将输入张量添加一个新的维度                                   | FP16<br/>FP32<br/>Int32<br/>Int8<br/>UInt8<br/>Bool | FP16      | FP16<br/>FP32<br/>Int32 |  |
 | Unstack                             | 沿指定轴拆分张量为多个子张量                                 | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
 | Where                               | 元素选择                                                     | FP16<br/>FP32<br/>Int32<br/>Bool                    | -         | -                       |                        |
-| ZerosLike                           | 生成与输入张量形状相同但全为 0的新张量                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
+| ZerosLike                           | 生成与输入张量形状相同但全为0的新张量                       | FP16<br/>FP32<br/>Int32                             | -         | -                       |                        |
