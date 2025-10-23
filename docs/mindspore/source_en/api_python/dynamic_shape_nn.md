@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/api_python/dynamic_shape_nn.md)
 
-> The following list provides nn interfaces that support dynamic shape functionality in PYNATIVE mode. However, some nn interfaces may have incomplete data type support. If you encounter such issues, you can resolve them by manually incorporating the [Cast](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator.
+> The following list provides nn interfaces that support dynamic shape functionality in GRAPH mode. However, some nn interfaces may have incomplete data type support. If you encounter such issues, you can resolve them by manually incorporating the [Cast](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator.
 >
 > nn interfaces outside of this list have limited support for dynamic shape functionality and may fail to execute. Additionally, in graph mode, dynamic shape functionality is also limited and may result in execution failures.
 >
