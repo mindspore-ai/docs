@@ -116,6 +116,7 @@ Apache License 2.0, as found in the `LICENSE <https://gitee.com/mindspore/vllm-m
 
    user_guide/supported_models/models_list/models_list
    user_guide/supported_features/features_list/features_list
+   user_guide/supported_features/parallel/parallel
    user_guide/supported_features/quantization/quantization
    user_guide/supported_features/profiling/profiling
    user_guide/supported_features/benchmark/benchmark

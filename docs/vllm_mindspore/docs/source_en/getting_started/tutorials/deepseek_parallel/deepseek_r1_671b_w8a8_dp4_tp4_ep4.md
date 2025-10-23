@@ -86,7 +86,7 @@ docker exec -it $DOCKER_NAME bash
 
 ## Ray Multi-Node Cluster Management
 
-On Ascend, if using Ray, an additional pyACL package needs to be installed to adapt Ray. The CANN dependency versions on all nodes must be consistent. This example relies on Ray for multi-node startup. For Ray installation instructions, please see the [Ray Installation Process Introduction](#ray-installation-process).
+On Ascend, if using Ray, an additional pyACL package needs to be installed to adapt Ray. The CANN dependency versions on all nodes must be consistent. This example relies on Ray for multi-node startup. For Ray installation instructions, please see the [Ray Installation Process Introduction](#ray-multi-node-cluster-management-1).
 
 ## Downloading Model Weights
 
