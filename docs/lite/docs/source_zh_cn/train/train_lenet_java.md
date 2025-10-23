@@ -39,7 +39,7 @@ bash build.sh -I x86_64 -j8
 
 > MNIST数据集官网下载地址：<http://yann.lecun.com/exdb/mnist/>，共4个下载链接，分别是训练数据、训练标签、测试数据和测试标签。
 
-下载并解压到本地，解压后的训练和测试集分别存放于`/PATH/MNIST_Data/train`和`/PATH/MNIST_Data/test`路径下。
+下载并解压到本地。解压后，训练集和测试集分别存放于`/PATH/MNIST_Data/train`和`/PATH/MNIST_Data/test`路径下。
 
 目录结构如下：
 
@@ -199,7 +199,7 @@ train_lenet_java
     }
     ```
 
-    推理完成后，如果需要继续训练，需要切换为训练模式。
+    推理完成后，如需继续训练，请切换为训练模式。
 
 4. 保存训练模型。
 

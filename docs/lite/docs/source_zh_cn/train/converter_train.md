@@ -55,7 +55,7 @@ MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Li
 CONVERT RESULT SUCCESS:0
 ```
 
-这表明 MindSpore 模型成功转换为 MindSpore Lite端侧模型，并生成了新文件`my_model.ms`。如果转换失败输出如下：
+这表明 MindSpore 模型成功转换为 MindSpore Lite端侧模型，并生成了新文件`my_model.ms`。如果转换失败，输出如下：
 
 ```text
 CONVERT RESULT FAILED:
