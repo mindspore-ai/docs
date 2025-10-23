@@ -372,8 +372,6 @@ try:
     decorator_list = [("mindspore_lite/model.py","del decorator",
                        "@set_env","# generate api by del decorator set_env."),
                       ("mindspore_lite/converter.py","del decorator",
-                       "@set_env","# generate api by del decorator set_env."),
-                      ("mindspore_lite/llm_engine.py","del decorator",
                        "@set_env","# generate api by del decorator set_env.")]
 
     for i in decorator_list:
