@@ -41,3 +41,4 @@ The following are the features supported in vLLM-MindSpore Plugin.
 
 - LoRA currently only supports the Qwen2.5 vLLM-MindSpore Plugin native model, other models are in the process of adaptation.
 - Tool Calling only supports DeepSeek V3 0324 W8A8 model.
+- 300I Duo has supported Chunked Prefill, Automatic Prefix Caching and Tensor Parallel，and other features are in the process of adaptation.
