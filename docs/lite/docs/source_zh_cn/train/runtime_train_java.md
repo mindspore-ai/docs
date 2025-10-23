@@ -16,7 +16,7 @@
 
 ![训练流程图](../images/train_sequence_unify_api.png)
 
-> 更多java API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/index.html)。
+> 更多Java API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/index.html)。
 
 ## 模型创建加载与编译
 
@@ -177,7 +177,7 @@ bool ret = model.resize(inputs, dims);
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[getInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_java/model.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[getInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_java/model.html#getinputbytensorname)方法，获取基于张量名称连接到模型输入节点的输入张量。
 
     ```java
      /**
@@ -243,7 +243,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
         public MSTensor getOutputByTensorName(String tensorName);
     ```
 
-3. 使用[getOutputs](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_java/model.html#getoutputs)方法，根据张量名称排序的所有输出张量。
+3. 使用[getOutputs](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_java/model.html#getoutputs)方法，获取按张量名称排序的所有输出张量。
 
     ```java
         /**

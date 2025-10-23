@@ -298,7 +298,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     }
 
     // Assuming data_ptr is the pointer to a batch of data tensors
-    // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
+    // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoader)
     auto *in_data = inputs.at(data_index)->MutableData();
     auto *in_labels = inputs.at(label_index)->MutableData();
     if ((in_data == nullptr) || (in_labels == nullptr)) {

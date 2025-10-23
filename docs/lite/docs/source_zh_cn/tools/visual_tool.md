@@ -10,12 +10,12 @@
 
 ## 功能列表
 
-- 支持加载`.ms`模型，要求MindSpore Lite版本>=1.2.0;
+- 支持加载`.ms`模型，要求MindSpore Lite版本>=1.2.0；
 - 支持查看子图；
 - 支持拓扑结构和数据流`shape`的展示；
 - 支持查看模型的`format`、`input`和`output`等；
 - 支持查看节点的`type`、`name`、`attribute`、`input`和`output`等；
-- 支持结构化的`weight`、`bias`等数据的查看与保存;
+- 支持结构化的`weight`、`bias`等数据的查看与保存；
 - 支持可视化结果导出为图片保存。
 
 ## 使用方式
@@ -42,6 +42,6 @@ ms模型的支持代码已经合入官方库。`Netron`的下载地址为 <https
 
 步骤3：执行`make build`进行编译，在./dist路径下将生成可执行程序
 
-### 使用Javacript调试模型
+### 使用JavaScript调试模型
 
 在调试模型时，在`netron`文件夹下，先在`./test/models.json`中添加调试模型的信息，然后使用`node.js`调试`./test/model.js`脚本即可。
