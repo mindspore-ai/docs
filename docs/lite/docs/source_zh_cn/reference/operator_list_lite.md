@@ -108,7 +108,7 @@
 | MaximumGrad                         | 计算最大值函数的梯度                                         | FP16<br/>FP32                                       | -         | -                       |                        |
 | MaxPoolFusion                       | 最大池化                                                     | FP16<br/>FP32<br/>Int8<br/>UInt8                    | FP16      | FP16<br/>FP32           | FP16       |
 | MaxPoolGrad                         | 计算最大池化层的梯度                                         | FP16<br/>FP32                                       | -         | -                       |                        |
-| Merge                               | 创建一个与输入张量X形状完全相同但所有元素值均为1的新张量     | FP16<br/>FP32                                       | -         | -                       |                        |
+| Merge                               | 从一组输入张量中获取第一个可用的张量并输出    | FP16<br/>FP32                                       | -         | -                       |                        |
 | Minimum                             | 取元素级最小值                                               | FP16<br/>FP32<br/>Int32                             | FP16      | FP16<br/>FP32           | FP16       |
 | MinimumGrad                         | 计算最小值函数的梯度                                         | FP16<br/>FP32                                       | -         | -                       |                        |
 | Mod                                 | 返回除法元素的余数                                           | FP32<br/>Int32                                      | -         | -                       | FP16                   |

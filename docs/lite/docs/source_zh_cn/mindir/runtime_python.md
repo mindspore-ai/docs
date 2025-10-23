@@ -169,11 +169,29 @@ MindSpore Lite推理，在Ascend后端上支持动态权重更新，使用步骤
 
 ### 创建配置文件
 
-将需要更新的Matmul算子所对应的Tensor名称全部写入一个文本文件中，每个Tensor名字占一行。构建模型加载配置文件，配置文件设置，配置文件`config.ini`内容如下所示:
+将需要更新的算子所对应的权重名称、权重形状、算子名称全部写入一个文本文档。构建模型加载配置文件，配置文件设置，配置文件`config.ini`内容如下所示:
 
 ```text
 [ascend_context]
 variable_weights_file="update_weight_name_list.txt"
+```
+
+update_weight_name_list.txt内容格式如下：
+
+```text
+weight_name:weight_shape;node_name
+weight_name1:weight_shape1;node_name1
+weight_name2:weight_shape2;node_name2
+......
+```
+
+比如：
+
+```text
+matmul.weight:512,512;/Matmul
+matmul2.weight:512,512;/Matmul2
+matmul3.weight:512,512;/Matmul3
+......
 ```
 
 ### 模型加载

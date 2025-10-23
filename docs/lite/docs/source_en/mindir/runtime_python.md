@@ -169,11 +169,29 @@ MindSpore Lite inference supports dynamic weight updates on the Ascend backend. 
 
 ### Creating Config File
 
-Write all tensor names corresponding to the Matmul operators that need to be updated into a text file, with each tensor name occupying one line. Build a model to load the configuration file, set the configuration file, and the content of the configuration file `config.ini` is as follows:
+Write the weight names, weight shapes, and operator names corresponding to the operators that need to be updated into a text file. Build a model to load the configuration file, set the configuration file, and the content of the configuration file `config.ini` is as follows:
 
 ```text
 [ascend_context]
 variable_weights_file="update_weight_name_list.txt"
+```
+
+The content format of update_weight_name_list.txt is as follows:
+
+```text
+weight_name:weight_shape;node_name
+weight_name1:weight_shape1;node_name1
+weight_name2:weight_shape2;node_name2
+......
+```
+
+For example:
+
+```text
+matmul.weight:512,512;/Matmul
+matmul2.weight:512,512;/Matmul2
+matmul3.weight:512,512;/Matmul3
+......
 ```
 
 ### Model Loading and Compilation
