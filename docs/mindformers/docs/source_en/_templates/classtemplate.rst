@@ -49,7 +49,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: record_last_ckpt_to_json, save_checkpoint, save_checkpoint_network, print_savetime, remove_redundancy, get_checkpoint_health_info
+    :exclude-members: record_last_ckpt_to_json, save_checkpoint, save_checkpoint_network, print_savetime, remove_redundancy, get_checkpoint_health_info, end, step_end, on_train_end, on_train_step_begin
     :members:
 
 {% elif fullname=="mindformers.core.EmF1Metric" %}
@@ -133,7 +133,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_flags_custom, prepare_inputs_for_predict_layout, to_embeddings, construct, prepare_inputs_for_prefill_flatten, convert_map_dict, convert_weight_dict, convert_name, pre_gather_func
+    :exclude-members: add_flags_custom, prepare_inputs_for_predict_layout, to_embeddings, construct, prepare_inputs_for_prefill_flatten, convert_map_dict, convert_weight_dict, convert_name, pre_gather_func, get_model_parameters
     :members:
 
 {% elif fullname=="mindformers.models.LlamaTokenizer" %}
@@ -182,7 +182,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_adapter
+    :exclude-members: add_adapter, save_pet_config
     :members:
 
 {% elif fullname=="mindformers.pipeline.MultiModalToTextPipeline" %}
@@ -232,6 +232,20 @@
 
 .. autoclass:: {{ name }}
     :exclude-members: perform_token_counting, construct
+    :members:
+
+{% elif fullname=="mindformers.wrapper.MFPipelineWithLossScaleCell" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: grads_for_legacy, grads_for_mcore
+    :members:
+
+{% elif fullname=="mindformers.wrapper.MFTrainOneStepCell" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: grads_for_legacy, grads_for_mcore
     :members:
 
 {% elif fullname in ["mindformers.AutoModelForCausalLM", "mindformers.AutoModelForZeroShotImageClassification", "mindformers.AutoModel"] %}
