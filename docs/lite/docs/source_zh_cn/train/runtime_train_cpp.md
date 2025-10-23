@@ -79,7 +79,7 @@ int CreateSession() {
 
 ### 数据预处理流
 
-`TensorTransform`类其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数，Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/generate/namespace_mindspore__dataset__vision.html)。
+`TensorTransform`类及其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数，Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/generate/namespace_mindspore__dataset__vision.html)。
 
 ### 使用示例
 
@@ -223,7 +223,7 @@ return model->Resize(inputs, new_shapes);
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#getinputbytensorname)方法，获取基于张量名称的模型输入张量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model by tensor    name.
@@ -243,7 +243,7 @@ return model->Resize(inputs, new_shapes);
     std::vector<MSTensor> GetInputs();
     ```
 
-    如果模型需要1个以上的输入张量（例如训练过程中，数据和标签都作为网络的输入），用户有必要知道输入顺序和张量名称，这些信息可以从Python对应的模型中获取。此外，用户也根据输入张量的大小推导出这些信息。
+    如果模型需要1个以上的输入张量（例如训练过程中，数据和标签都作为网络的输入），用户有必要知道输入顺序和张量名称，这些信息可以从Python对应的模型中获取。此外，用户也可以根据输入张量的大小推导出这些信息。
 
 3. 拷贝数据
 
@@ -296,7 +296,7 @@ return model->Resize(inputs, new_shapes);
     }
 
     // Assuming data_ptr is the pointer to a batch of data tensors
-    // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
+    // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoader)
     auto *in_data = inputs.at(data_index)->MutableData();
     auto *in_labels = inputs.at(label_index)->MutableData();
     if ((in_data == nullptr) || (in_labels == nullptr)) {
@@ -369,7 +369,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-3. 使用[GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#getoutputs)方法，根据张量名称排序的所有输出张量。
+3. 使用[GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#getoutputs)方法，获取根据张量名称排序的所有输出张量。
 
     ```cpp
     /// \brief Obtains all output tensors of the model.
@@ -443,7 +443,7 @@ using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs
  std::vector<tensor::MSTensor *> outputs,  const CallBackParam &opInfo)>;
 ```
 
-以下代码为如何在执行训练前后使用回调函数：
+以下代码展示了如何在执行训练前后使用回调函数：
 
 ```cpp
 // Assuming model is a valid instance of Model and that data was assigned to the input tensors
