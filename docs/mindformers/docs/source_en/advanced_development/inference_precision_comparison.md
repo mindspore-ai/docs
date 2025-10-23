@@ -104,4 +104,4 @@ Possible problems and solutions:
 
 According to the process of precision comparison, the prerequisite for dataset evaluation is that the responses from online reasoning are already logical. However, now there is a significant difference between the evaluation scores of the dataset and the benchmark data. The reason is that some responses do not align with those of the benchmark.
 
-Location method: Identify the questions where the output does not align with the benchmark answers, extract the questions separately as the input for online reasoning, and then locate and solve the problems following the approach of [answering questions with logical precision but inconsistent with the benchmark](#precision-questions-that-answer-are-logical-but-inconsistent-with-the-benchmark).
+Location method: Identify the questions where the output does not align with the benchmark answers, extract the questions separately as the input for online reasoning, and then locate and solve the problems following the approach of [answering questions with logical precision but inconsistent with the benchmark](#1-the-answers-are-logical-but-do-not-align-with-the-benchmark-answers).

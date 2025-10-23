@@ -98,7 +98,7 @@ models = [
 ]
 ```
 
-For more specific parameter descriptions, refer to [Interface Configuration Parameter Description](#appendix-interface-configuration-parameter-description-table).
+For more specific parameter descriptions, refer to [Interface Configuration Parameter Description](#interface-configuration-parameter-description-table).
 
 #### Step 2 Start Evaluation via Command Line
 
@@ -153,7 +153,7 @@ models = [
 ]
 ```
 
-For specific parameter descriptions, refer to [Interface Configuration Parameter Description](#appendix-interface-configuration-parameter-description-table)
+For specific parameter descriptions, refer to [Interface Configuration Parameter Description](#interface-configuration-parameter-description-table)
 
 #### Step 2 Evaluation Command
 
