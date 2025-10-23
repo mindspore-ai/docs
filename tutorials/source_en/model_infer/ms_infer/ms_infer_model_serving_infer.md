@@ -106,7 +106,7 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         bash
 ```  
 
-The container ID will be returned if docker is created successfully. User can also check the container by executing the following command:  
+The container ID will be returned if docker is created successfully. User can also check the container by executing the following command:
 
 ```bash  
 docker ps
@@ -114,7 +114,7 @@ docker ps
 
 **Entering the Container**
 
-After [creating the container](#creating-a-container), user can start and enter the container, using the environment variable `DOCKER_NAME`:  
+After creating the container, user can start and enter the container, using the environment variable `DOCKER_NAME`:
 
 ```bash  
 docker exec -it $DOCKER_NAME bash  
