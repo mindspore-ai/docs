@@ -998,8 +998,7 @@ Dump调试
      - 使能训练监控（Training Health Monitor）功能
      - String
      - "{HCCL_WATCHDOG:1,HCCL_STATUS_SAVE:1}"。HCCL_WATCHDOG：使用一个线程监控集合通信域内是否存在故障，默认开启。HCCL_STATUS_SAVE：使用一个线程记录集合通信算子执行状态，默认关闭。
-     - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。
-     - 使用 HCCL_STATUS_SAVE 功能时，可以同时配置 HCCL_STATUS_SAVE_CONFIG 字段，配置形式为`JSON`文件（例如：{HCCL_STATUS_SAVE:1,HCCL_STATUS_SAVE_CONFIG='./abc.json'}）。文件内容：`{"HCCL_STATUS_SAVE_PATH": str, "HCCL_STATUS_SAVE_INTERVAL": int}`，其中 HCCL_STATUS_SAVE_PATH 为通信算子执行状态文件保存路径（绝对路径，否则保存在默认路径`/tmp`下），HCCL_STATUS_SAVE_INTERVAL 为保存文件间隔。如果不配 HCCL_STATUS_SAVE_CONFIG，默认保存在`/tmp`目录下，保存间隔30秒。
+     - 仅限在 Ascend 后端开启图模式，且 jit_level 设置为 "O0" 或 "O1"。使用 HCCL_STATUS_SAVE 功能时，可以同时配置 HCCL_STATUS_SAVE_CONFIG 字段，配置形式为`JSON`文件（例如：{HCCL_STATUS_SAVE:1,HCCL_STATUS_SAVE_CONFIG='./abc.json'}）。文件内容：`{"HCCL_STATUS_SAVE_PATH": str, "HCCL_STATUS_SAVE_INTERVAL": int}`，其中 HCCL_STATUS_SAVE_PATH 为通信算子执行状态文件保存路径（绝对路径，否则保存在默认路径`/tmp`下），HCCL_STATUS_SAVE_INTERVAL 为保存文件间隔。如果不配 HCCL_STATUS_SAVE_CONFIG，默认保存在`/tmp`目录下，保存间隔30秒。
    * - MS_ENABLE_TFT
      - 使能训练故障容错（Training Fault Tolerance）功能，大多数功能依赖 `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ 组件。
      - String
