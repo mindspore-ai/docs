@@ -142,13 +142,13 @@ std::shared_ptr<Allocator> GetAllocator()
 void *MapBuffer(void *host_ptr, int flags, bool sync = true)
 ```
 
-重新将GPU内存映射到主机内存地址，以便读写。
+将GPU内存重新映射到主机内存地址，以便读写。
 
 - 参数
 
     - `host_ptr`: 主机内存地址（为GPU内存所映射的CPU地址）。
 
-    - `flags`: 内存映射的OpenCL功能符号，如CL_MAP_READ，CL_MAP_WRITE。
+    - `flags`: 内存映射的OpenCL功能符号，如CL_MAP_READ、CL_MAP_WRITE。
 
     - `sync`: 是否同步标志。
 

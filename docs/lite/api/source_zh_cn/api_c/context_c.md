@@ -3,7 +3,7 @@
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/api/source_zh_cn/api_c/context_c.md)
 
 ```c
-#include<context_c.h>
+#include <context_c.h>
 ```
 
 context_c.h提供了操作Context的接口，Context对象用于保存执行中的环境变量。
@@ -138,7 +138,7 @@ int32_t* MSContextGetThreadAffinityCoreList(const MSContextHandle context, size_
 ```
 
 获取当前CPU绑核列表，该选项仅MindSpore Lite有效。
-若参数context为空则会返回`nullptr`，并在日志中输出空指针信息。  
+若参数context为空则会返回`nullptr`，并在日志中输出空指针信息。
 
 - 参数
     - `context`: 指向MSContext的指针。
@@ -175,7 +175,7 @@ bool MSContextGetEnableParallel(const MSContextHandle context)
 
 - 返回值
 
-  返回值为为true，代表支持并行。
+  返回值为true，代表支持并行。
 
 ### MSContextAddDeviceInfo
 
@@ -195,7 +195,7 @@ void MSContextAddDeviceInfo(MSContextHandle context, MSDeviceInfoHandle device_i
 MSDeviceInfoHandle MSDeviceInfoCreate(MSDeviceType device_type)
 ```
 
-新建运行设备信息，若创建失败则会返回`nullptr`，并日志中输出信息。
+新建运行设备信息，若创建失败则会返回`nullptr`，并在日志中输出信息。
 
 - 参数
     - `device_type`: 设备类型，具体见[MSDeviceType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_c/types_c.html#msdevicetype)。
@@ -260,7 +260,7 @@ void MSDeviceInfoSetProviderDevice(MSDeviceInfoHandle device_info, const char* d
 const char* MSDeviceInfoGetProviderDevice(const MSDeviceInfoHandle device_info)
 ```
 
-获取生产商设备名。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
+获取生产商设备名称。若参数device_info为空则不会做任何操作，并在日志中输出空指针信息。
 
 - 参数
     - `device_info`: 指向设备类型信息的指针。
@@ -290,7 +290,7 @@ const char* MSDeviceType MSDeviceInfoGetDeviceType(const MSDeviceInfoHandle devi
 bool MSDeviceInfoGetEnableFP16(const MSDeviceInfoHandle device_info)
 ```
 
-获取是否开启float16推理模式，仅CPU/GPU设备可用。若参数device_info为空则返回flase，并在日志中输出空指针信息。
+获取是否开启float16推理模式，仅CPU/GPU设备可用。若参数device_info为空则返回false，并在日志中输出空指针信息。
 
 - 参数
     - `device_info`: 指向设备类型信息的指针。

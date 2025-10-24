@@ -16,7 +16,7 @@ mindspore::dataset
 Dataset函数
 -----------------
 
-Dataset函数提供各种函数来加载和处理数据集。
+Dataset函数提供加载和处理数据集的功能。
 
 Vision
 ^^^^^^
@@ -73,7 +73,7 @@ Eager类
 -------------
 
 Eager类提供了Execute类的定义。
-该类用于在eager模式下对输入张量进行变换（例如视觉/文本）。
+该类用于在eager模式下对输入张量进行变换。例如视觉/文本变换。
 
 - :doc:`../generate/classmindspore_dataset_Execute`
 

@@ -271,7 +271,7 @@ public boolean getEnableParallel()
 
 - 返回值
 
-  返回值为为true，代表使能异构并行。
+  返回值为true，代表使能异构并行。
 
 ## DeviceType
 

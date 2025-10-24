@@ -3,7 +3,7 @@
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/api/source_zh_cn/api_c/types_c.md)
 
 ```C
-#include<types_c.h>
+#include <types_c.h>
 ```
 
 该文件定义了一些枚举类型的数据类型。
@@ -84,4 +84,4 @@ typedef enum MSQuantizationType {
 | kMSNO_QUANT           | 0          | 不进行量化            |
 | kMSWEIGHT_QUANT       | 1          | 权重量化             |
 | kMSFULL_QUANT         | 2          | 全量化               |
-| kMSKOPTIMIZATIONTYPE  | 0xFFFFFFFF | 非法类型             |
+| kMSUNKNOWN_QUANT_TYPE  | 0xFFFFFFFF | 非法类型             |
