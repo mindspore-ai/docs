@@ -163,10 +163,10 @@ The Ascend runtime package can be downloaded from the Ascend homepage. For examp
 
 Before managing a multi-node cluster, check that the hostnames of all nodes are different. If any are the same, set different hostnames using `hostname <new-host-name>`.
 
-1. Start the head node: `ray start --head --port=<port-to-ray>`. Upon successful startup, the connection method for worker nodes will be displayed. For example, in an environment with IP `192.5.5.5`, running `ray start --head --port=6379` will prompt:
+1. Start the head node: `ray start --head --port=<port-to-ray>`. Upon successful startup, the connection method for worker nodes will be displayed. Configure as follows, replacing `IP` and `address` with the actual environment information.
 
   ```text
-  Local node IP: 192.5.5.5
+  Local node IP: *.*.*.*
 
   -------------------
   Ray runtime started.
@@ -174,7 +174,7 @@ Before managing a multi-node cluster, check that the hostnames of all nodes are 
 
   Next steps
     To add another node to this Ray cluster, run
-      ray start --address='192.5.5.5:6379'
+      ray start --address='*.*.*.*:*'
 
     To connect to this Ray cluster:
       import ray
@@ -296,11 +296,13 @@ The following are execution examples for the multiprocess and Ray startup method
 
 ```bash
 # Master Node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
 
 # Worker Node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
 ```
+
+Specifically, `data-parallel-address` and `--data-parallel-rpc-port` must be configured with the actual environment information for the running instance.
 
 **Ray Startup Method**
 
