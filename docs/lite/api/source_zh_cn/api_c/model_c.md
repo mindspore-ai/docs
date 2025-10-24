@@ -3,7 +3,7 @@
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_c/model_c.md)
 
 ```C
-#include<model_c.h>
+#include <model_c.h>
 ```
 
 Model定义了MindSpore中编译和运行的模型。
@@ -71,7 +71,7 @@ MSStatus MSExportModel(MSModelHandle model, MSModelType model_type, const char *
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `model_type`: 模型文件类型。
     - `model_file`: 模型路径。
     - `quantization_type`: 模型量化类型。
@@ -95,7 +95,7 @@ MSStatus MSExportModelBuffer(MSModelHandle model, MSModelType model_type, char *
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `model_type`: 模型文件类型。
     - `model_data`: 模型的缓存数据。
     - `data_size`: 导出模型的缓存大小。
@@ -120,7 +120,7 @@ MSStatus MSExportWeightsCollaborateWithMicro(MSModelHandle model, MSModelType mo
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `model_type`: 模型文件类型。
     - `weight_file`: 导出权重文件路径。
     - `is_inference`: 是否从推理图模型导出权重，当前仅支持设置为`true`。
@@ -205,7 +205,7 @@ void MSModelDestroy(MSModelHandle* model)
 
 - 参数
 
-    - `model`:指向模型对象指针的指针。
+    - `model`: 指向模型对象指针的指针。
 
 #### MSModelExportWeight
 
@@ -268,7 +268,7 @@ float MSModelGetLearningRate(MSModelHandle model)
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
 
 - 返回值
 
@@ -318,11 +318,11 @@ bool MSModelGetTrainMode(MSModelHandle model)
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
 
 - 返回值
 
-  bool值，是否为训练模型。
+  bool值，是否为训练模式。
 
 #### MSModelGetWeights
 
@@ -334,7 +334,7 @@ MSTensorHandleArray MSModelGetWeights(MSModelHandle model)
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
 
 - 返回值
 
@@ -409,7 +409,7 @@ MSStatus MSModelSetLearningRate(MSModelHandle model, float learning_rate)
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `learning_rate`: 设置的模型学习率。
 
 - 返回值
@@ -439,12 +439,12 @@ MSStatus MSModelSetTrainMode(const MSModelHandle model, bool train)
 MSStatus MSModelSetTrainMode(MSModelHandle model, bool train)
 ```
 
-设置模型是否为训练。
+设置模型是否为训练模式。
 
 - 参数
 
-    - `mode`: 模型对象句柄。
-    - `train`: bool值，指定模型是否训练。
+    - `model`: 模型对象句柄。
+    - `train`: bool值，指定模型是否训练模式。
 
 - 返回值
 
@@ -473,7 +473,7 @@ MSStatus MSModelSetupVirtualBatch(MSModelHandle model, int virtual_batch_multipl
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `virtual_batch_multiplier`: 虚拟批次系数，若设为小于1的数值则禁用此功能。
     - `lr`: 虚拟批次训练使用的学习率，设为-1时采用内部默认配置。
     - `momentum`: 虚拟批次训练中BatchNorm层使用的动量参数，设为-1时采用内部默认配置。
@@ -492,7 +492,7 @@ MSStatus MSModelUpdateWeights(MSModelHandle model, const MSTensorHandleArray new
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `new_weights`: 需要更新的模型权重组成的tensor数组句柄。
 
 - 返回值
@@ -509,7 +509,7 @@ MSStatus MSRunStep(MSModelHandle model, const MSKernelCallBackC before, const MS
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `before`: 模型执行前回调函数。
     - `after`: 模型执行后回调函数。
 
@@ -594,7 +594,7 @@ void MSTrainCfgSetLossName(MSTrainCfgHandle train_cfg, const char **loss_name, s
 void MSTrainCfgSetOptimizationLevel(MSTrainCfgHandle train_cfg, MSOptimizationLevel level)
 ```
 
-用于指定训练配置中优化级别，仅适用于训练。
+用于指定训练配置中的优化级别，仅适用于训练。
 
 - 参数
 
@@ -612,7 +612,7 @@ MSStatus MSTrainModelBuild(MSModelHandle model, const void *model_data, size_t d
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `model_data`: 模型文件读取的缓存。
     - `data_size`: 模型文件缓存的字节数。
     - `model_type`: 模型文件的类型。
@@ -634,7 +634,7 @@ MSStatus MSTrainModelBuildFromFile(MSModelHandle model, const char *model_path, 
 
 - 参数
 
-    - `mode`: 模型对象句柄。
+    - `model`: 模型对象句柄。
     - `model_path`: 模型文件的存储路径。
     - `model_type`: 模型文件的类型。
     - `model_context`: 模型执行期间上下文。
@@ -705,7 +705,7 @@ typedef struct MSTensorHandleArray {
 } MSTensorHandleArray;
 ```
 
-张量数组结构体
+张量数组结构体。
 
 - 成员变量
 

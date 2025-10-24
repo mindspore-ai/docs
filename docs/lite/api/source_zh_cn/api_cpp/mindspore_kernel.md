@@ -8,7 +8,7 @@
 | --- | --- |
 | [Kernel](#kernel) | 算子基类。|
 | [KernelInterface](#kernelinterface) | 算子扩展能力基类。|
-| [MSKernel](#mskernel) | MindSpore Kernel MindSpore算子基类。 |
+| [MSKernel](#mskernel) | MindSpore Kernel算子基类。 |
 | [IKernel](#ikernel) | IKernel 算子模板类。 |
 
 ## Kernel
@@ -166,7 +166,7 @@ MSKernel(std::vector<mindspore::MSTensor> inputs, std::vector<mindspore::MSTenso
 
     `inputs`: 输入。
 
-    `output`: 输出。
+    `outputs`: 输出。
 
     `ctx`: 算子对应Context。
 
@@ -223,7 +223,7 @@ virtual int ReSize() = 0;
 ```
 
 在用户调用`Model::Resize`接口时，或是模型推理中需要重新推理算子形状时，会调用到该接口。
-在`ReSize`函数中，若有必要，根据输入的形状态重新推理输出形状，并分配算子运算中需要的内存。
+在`ReSize`函数中，若有必要，根据输入的形状重新推理输出形状，并分配算子运算中需要的内存。
 
 - 返回值
 
@@ -265,7 +265,7 @@ virtual void set_outputs(const std::vector<mindspore::MSTensor> &out_tensors) { 
 
 - 参数
 
-    - `out_tensor`: 算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)列表。
+    - `out_tensors`: 算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)列表。
 
 #### set_output
 

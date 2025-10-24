@@ -3,7 +3,7 @@
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_c/data_type_c.md)
 
 ```C
-#include<data_type_c.h>
+#include <data_type_c.h>
 ```
 
 以下表格描述了MSTensor保存的数据支持的类型。
@@ -62,4 +62,3 @@ typedef enum MSDataType {
 | kMSDataTypeNumberTypeFloat64 | 44        | 表示float64数据类型。    |
 | kMSDataTypeNumberTypeEnd     | 46        | 表示number类型的结尾。   |
 | kMSDataTypeInvalid           | INT32_MAX | 表示无效的数据类型。      |
-
