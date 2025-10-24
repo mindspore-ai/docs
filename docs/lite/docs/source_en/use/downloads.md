@@ -6,7 +6,7 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 
 For different user scenarios, the release packages of MindSpore Lite are mainly divided into the following two categories:
 
-- Cloud-side: supports high-performance deployment of server-side devices such as CPU, Ascend, and GPU.
+- Cloud-side: supports high-performance deployment of server-side devices such as CPU and Ascend.
 
 - End-side: supports various smart devices such as mobile phones, tablets, and IoT with HarmonyOS and Android operating systems.
 
