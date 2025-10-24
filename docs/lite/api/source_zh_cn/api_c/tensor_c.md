@@ -3,7 +3,7 @@
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/api/source_zh_cn/api_c/tensor_c.md)
 
 ```C
-#include<tensor_c.h>
+#include <tensor_c.h>
 ```
 
 tensor_c.h提供了控制MindSpore MSTensor(后文简称：MSTensor)的接口，借助该接口，用户可以创建、销毁张量，也可以获取或者修改张量的属性。
@@ -248,11 +248,11 @@ int64_t MSTensorGetElementNum(const MSTensorHandle tensor)
 size_t MSTensorGetDataSize(const MSTensorHandle tensor)
 ```
 
-获取MSTensor中的数据的字节数大小。
+获取MSTensor中数据的字节数大小。
 
 - 参数
     - `tensor`: 指向MSTensor的指针。
 
 - 返回值
 
-  MSTensor中的数据的字节数大小。
+  MSTensor中数据的字节数大小。
