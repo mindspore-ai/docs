@@ -96,8 +96,8 @@ sudo chmod a+r /usr/local/cuda-11.6/include/cudnn*.h /usr/local/cuda-11.6/lib64/
 
   ```bash
   cd /tmp
-  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-  bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
+  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py39_25.7.0-2-Linux-$(arch).sh
+  bash Miniconda3-py39_25.7.0-2-Linux-$(arch).sh -b
   cd -
   . ~/miniconda3/etc/profile.d/conda.sh
   conda init bash
