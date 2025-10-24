@@ -3,7 +3,7 @@
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_c/status_c.md)
 
 ```C
-#include<status_c.h>
+#include <status_c.h>
 ```
 
 status_c.h提供了MindSpore Lite运行时的状态码。
@@ -93,4 +93,3 @@ typedef enum MSStatus {
 | kMSStatusLiteInferError | kMSCompCodeLite \| (0x0FFFFFFF & -500) |MindSpore Lite 形状推理异常状态码。|
 | kMSStatusLiteInferInvalid | kMSCompCodeLite \| (0x0FFFFFFF & -501) |MindSpore Lite 无效的形状推理的状态码。|
 | kMSStatusLiteInputParamInvalid | kMSCompCodeLite \| (0x0FFFFFFF & -600) |MindSpore Lite 用户输入的参数无效状态码。|
-
