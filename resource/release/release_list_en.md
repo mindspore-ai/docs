@@ -87,7 +87,7 @@
 
 |  Installation guide | Community edition download link |
 |--------|------------------|
-| [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html) | [CANN 8.3.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| [Installation guide(TBD)] | CANN TBD <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 ## 2.7.0
 

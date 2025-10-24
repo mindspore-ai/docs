@@ -87,7 +87,7 @@
 
 |  安装指引 | 社区版下载地址 |
 |--------|------------------|
-| [安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html) | [CANN 8.3.RC1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| [安装指引文档（待发布）] | CANN版本待发布 <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 ## 2.7.0
 
