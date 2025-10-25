@@ -39,7 +39,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'dev'
+release = 'master'
 
 
 # -- General configuration ---------------------------------------------------
