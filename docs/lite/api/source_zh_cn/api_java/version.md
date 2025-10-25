@@ -6,7 +6,7 @@
 import com.mindspore.config.Version;
 ```
 
-获取MindSpore Lite 版本信息。
+获取MindSpore Lite版本信息。
 
 ## 公有成员函数
 
@@ -29,7 +29,7 @@ public static void init()
 public static native String version()
 ```
 
-获取MindSpore Lite 版本信息。
+获取MindSpore Lite版本信息。
 
 - 返回值
 
