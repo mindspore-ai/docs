@@ -28,7 +28,7 @@ copyright = 'MindSpore'
 author = 'vLLM-MindSpore Plugin'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.4.0'
 
 # -- General configuration ---------------------------------------------------
 
@@ -235,10 +235,10 @@ present_path = os.path.dirname(__file__)
 #         copy_list.append(os.path.join(present_path,i))
 
 # add view
-import json
+# import json
 
-with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
-    version_inf = json.load(f)
+# with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+#    version_inf = json.load(f)
 
 # if os.getenv("VLLM_PATH").split('/')[-1]:
 #     copy_repo = os.getenv("VLLM_PATH").split('/')[-1]

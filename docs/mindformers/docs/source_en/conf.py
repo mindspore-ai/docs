@@ -37,7 +37,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'dev'
+release = '1.7.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -256,6 +256,33 @@ try:
 except:
     print('mindformers替换安装包内容失败')
 
+re_url = r"(((gitee.com/mindspore/(docs|mindspore-lite))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
+
+re_url5 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+
+for cur, _, files in os.walk(os.path.join(base_path, 'mindformers')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.7.1', content)
+                new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
+                new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
+                new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
+
 import mindformers
 
 # Copy source files of chinese python api from golden-stick repository.
@@ -313,15 +340,15 @@ import nbsphinx_mod
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
-# src_release = os.path.join(os.getenv("MFM_PATH"), 'RELEASE.md')
-# des_release = "./RELEASE.md"
-# with open(src_release, "r", encoding="utf-8") as f:
-#     data = f.read()
-# if len(re.findall("\n## (.*?)\n",data)) > 1:
-#     content = re.findall("(## [\s\S\n]*?)\n## ", data)
-# else:
-#     content = re.findall("(## [\s\S\n]*)", data)
-# #result = content[0].replace('# MindSpore', '#', 1)
-# with open(des_release, "w", encoding="utf-8") as p:
-#     p.write("# Release Notes"+"\n\n")
-#     p.write(content[0])
+src_release = os.path.join(os.getenv("MFM_PATH"), 'RELEASE.md')
+des_release = "./RELEASE.md"
+with open(src_release, "r", encoding="utf-8") as f:
+    data = f.read()
+if len(re.findall("\n## (.*?)\n",data)) > 1:
+    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+else:
+    content = re.findall("(## [\s\S\n]*)", data)
+#result = content[0].replace('# MindSpore', '#', 1)
+with open(des_release, "w", encoding="utf-8") as p:
+    p.write("# Release Notes"+"\n\n")
+    p.write(content[0])

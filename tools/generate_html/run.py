@@ -179,7 +179,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 克隆仓库与配置环境变量
         repo_name = data[i]['name'].replace('_', '-')
         repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
-        repo_path = f"{REPODIR}/{data[i]['name']}"
+        repo_path = f"{REPODIR}/{repo_name}"
         branch_ = data[i]["branch"]
         if not branch_:
             continue
@@ -227,7 +227,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 print(f'{repo_name}仓库克隆或更新失败')
 
         # 组件仓内有.sh需提前运行
-        if 'golden_stick' in repo_path:
+        if 'golden-stick' in repo_path:
             os.chdir(repo_path)
             cmd_reppath = ["sh", "./docs/adapte_to_docs.sh", f"{branch_}"]
             subprocess.run(cmd_reppath)
@@ -373,17 +373,28 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         if chunk:
                             fd.write(chunk)
                 print(f"Download {data[i]['extra_whl_name']} success!")
-            if 'tar_path' in data[i].keys():
-                if data[i]['tar_path'] != '':
-                    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                    download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
-                    downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-                    with open(data[i]['tar_name'], 'wb') as fd:
-                        #shutil.copyfileobj(dowmloaded.raw, fd)
-                        for chunk in downloaded.iter_content(chunk_size=512):
-                            if chunk:
-                                fd.write(chunk)
-                    print(f"Download {data[i]['tar_name']} success!")
+            if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
+                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
+                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
+                with open(data[i]['tar_name'], 'wb') as fd:
+                    #shutil.copyfileobj(dowmloaded.raw, fd)
+                    for chunk in downloaded.iter_content(chunk_size=512):
+                        if chunk:
+                            fd.write(chunk)
+                print(f"Download {data[i]['tar_name']} success!")
+            if 'cloud_tar_path' in data[i].keys() and data[i]['cloud_tar_path'] != '':
+                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                os.mkdir("cloud_fusion")
+                os.chdir("cloud_fusion")
+                download_url = release_url + data[i]['cloud_tar_path'] + data[i]['cloud_tar_name']
+                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
+                with open(data[i]['tar_name'], 'wb') as fd:
+                    #shutil.copyfileobj(dowmloaded.raw, fd)
+                    for chunk in downloaded.iter_content(chunk_size=512):
+                        if chunk:
+                            fd.write(chunk)
+                print(f"Download {data[i]['cloud_tar_name']} success!")
 
         # 默认html上显示的分支跟仓库分支相同，如果配置了html_version，以html_version为准
         html_branch = branch_
@@ -667,7 +678,7 @@ if __name__ == "__main__":
              release_url=args.release_url, generate_list=generate_list_p)
 
         # 替换页面左侧目录部分
-        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/master"
+        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/r2.7.1"
         if os.path.exists(ms_path):
             replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
             print('docs中文目录大纲调整完成！')
@@ -680,7 +691,7 @@ if __name__ == "__main__":
             pool.close()
             pool.join()
             print('docs所有页面search链接已修改！')
-        ts_path = f"{MAINDIR}/{args.version}/output/tutorials/zh-CN/master"
+        ts_path = f"{MAINDIR}/{args.version}/output/tutorials/zh-CN/r2.7.1"
         if os.path.exists(ts_path):
             modify_menu_num(ts_path)
             print('tutorials中文目录大纲调整完成！')

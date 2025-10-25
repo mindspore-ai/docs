@@ -1,3 +1,6 @@
 # docs
 "docs/docs/mindformers/docs/source_zh_cn/example/distilled/distilled/generate_reasoning.py"                                                            "Unexpected keyword argument"
 "docs/docs/mindformers/docs/_ext/myautosummary.py"                                                            "Unused argument"
+
+#tools
+"docs/tools/generate_html"
