@@ -6,7 +6,7 @@
 import com.mindspore.config.MSContext;
 ```
 
-MSContext类用于配置运行时的上下文配置。
+MSContext类用于配置运行时的上下文。
 
 ## 公有成员函数
 
@@ -162,12 +162,12 @@ public void setThreadNum(int threadNum)
 public int getThreadNum()
 ```
 
-获取当MSContext的线程数量设置，该选项仅MindSpore Lite有效。
+获取MSContext的线程数量设置，该选项仅MindSpore Lite有效。
 若未初始化 MSContext 则会返回-1，并在日志中输出空指针信息。
 
 - 返回值
 
-  线程数量
+  线程数量。
 
 ## setInterOpParallelNum
 
@@ -241,11 +241,11 @@ public ArrayList<Integer> getThreadAffinityCoreList()
 ```
 
 获取当前CPU绑核列表。
-若未初始化 MSContext 则会返回长度为0的`ArrayList`，并在日志中输出空指针信息。  
+若未初始化 MSContext 则会返回长度为0的`ArrayList`，并在日志中输出空指针信息。
 
 - 返回值
 
-  当前CPU绑核列表
+  当前CPU绑核列表。
 
 ## setEnableParallel
 

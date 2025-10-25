@@ -12,9 +12,9 @@ import com.mindspore.config.AscendDeviceInfo;
 
 | function                                   | 云侧推理是否支持 | 端侧推理是否支持 |
 | ------------------------------------------ |--------|--------|
-| [int getDeviceID)](#getdeviceid) | √      | ✕     |
-| [int getDeviceType](#getdevicetype) | √      | ✕     |
-| [String getProvider](#getprovider) | √      | ✕     |
+| [int getDeviceID()](#getdeviceid) | √      | ✕     |
+| [int getDeviceType()](#getdevicetype) | √      | ✕     |
+| [String getProvider()](#getprovider) | √      | ✕     |
 | [void setProvider(String provider)](#setprovider) | √      | ✕     |
 | [void setDeviceID(int deviceId)](#setdeviceid) | √ | ✕ |
 | [int getRankID()](#getrankid) | √      | ✕     |
@@ -236,7 +236,7 @@ public ArrayList<Integer> getDynamicBatchSize()
 public void setDynamicBatchSize(ArrayList<Integer> dynamicBatchSize)
 ```
 
-设置模型的动态batch大小。取值范围为 2 到 100。例如 {1, 2} 表示batch大小配置为 1 和 2。
+设置模型的动态batch大小。入参的长度范围为 2 到 100。例如 {1, 2} 表示batch大小配置为 1 和 2。
 
 - 参数
 - `dynamicBatchSize`: 要设置的动态batch大小。
@@ -328,7 +328,7 @@ public String getOpSelectImplMode()
 public void setOpSelectImplMode(String opSelectImplMode)
 ```
 
-设置模型的算子选择实现方式。可选“high_performance”和“high_precision”，默认设置为“high_performace”。
+设置模型的算子选择实现方式。可选“high_performance”和“high_precision”，默认设置为“high_performance”。
 
 - 参数
 - `opSelectImplMode`: 算子实现方式。
