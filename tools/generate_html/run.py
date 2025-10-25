@@ -373,17 +373,28 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         if chunk:
                             fd.write(chunk)
                 print(f"Download {data[i]['extra_whl_name']} success!")
-            if 'tar_path' in data[i].keys():
-                if data[i]['tar_path'] != '':
-                    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                    download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
-                    downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
-                    with open(data[i]['tar_name'], 'wb') as fd:
-                        #shutil.copyfileobj(dowmloaded.raw, fd)
-                        for chunk in downloaded.iter_content(chunk_size=512):
-                            if chunk:
-                                fd.write(chunk)
-                    print(f"Download {data[i]['tar_name']} success!")
+            if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
+                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
+                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
+                with open(data[i]['tar_name'], 'wb') as fd:
+                    #shutil.copyfileobj(dowmloaded.raw, fd)
+                    for chunk in downloaded.iter_content(chunk_size=512):
+                        if chunk:
+                            fd.write(chunk)
+                print(f"Download {data[i]['tar_name']} success!")
+            if 'cloud_tar_path' in data[i].keys() and data[i]['cloud_tar_path'] != '':
+                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                os.mkdir("cloud_fusion")
+                os.chdir("cloud_fusion")
+                download_url = release_url + data[i]['cloud_tar_path'] + data[i]['cloud_tar_name']
+                downloaded = requests.get(download_url, stream=True, verify=False, timeout=30)
+                with open(data[i]['tar_name'], 'wb') as fd:
+                    #shutil.copyfileobj(dowmloaded.raw, fd)
+                    for chunk in downloaded.iter_content(chunk_size=512):
+                        if chunk:
+                            fd.write(chunk)
+                print(f"Download {data[i]['cloud_tar_name']} success!")
 
         # 默认html上显示的分支跟仓库分支相同，如果配置了html_version，以html_version为准
         html_branch = branch_
