@@ -38,11 +38,11 @@ public boolean init(String loss_name)
 
 - 参数
 
-- `loss_name`:用于分割推理和训练部分的损失函数名称。
+- `loss_name`: 用于分割推理和训练部分的损失函数名称。
 
 - 返回值
 
-  初始化状态。  
+  初始化状态。
 
 ## free
 
@@ -63,7 +63,7 @@ public boolean addMixPrecisionCfg(boolean dynamicLossScale, float lossScale, int
 - 参数
 - `dynamicLossScale`: 是动态还是静态损失比例因子。
 
-- `lossScale`:损失比例因子 。
+- `lossScale`: 损失比例因子。
 
 - `thresholdIterNum`: 启用dynamicLossScale时修改损失比例因子的阈值。
 
