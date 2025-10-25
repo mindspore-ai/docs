@@ -150,7 +150,7 @@ Step 2 Execute the following command to obtain version information.
 
 ![environment-setup-1-25](../../source_zh_cn/orange_pi/images/environment_setup_1-25.png)
 
-### 3.2 CANN Upgrading (taking 8.1.RC1 version as an example)
+### 3.2 CANN Upgrading (taking 8.3.RC1.alpha002 version as an example)
 
 If the current CANN version does not meet the development requirements, the CANN version can be upgraded according to the following steps.
 
@@ -181,7 +181,7 @@ Step 2 Remove installed CANN packages to free up disk space and prevent installi
 
 ```
 
-Step 3 Open the official website of Ascend CANN to access the community version of the resource [download address](https://www.hiascend.com/developer/download/community/result?module=cann), download the required version of the toolkit package. Taking 8.1.RC1 version as an example, as shown below:
+Step 3 Open the official website of Ascend CANN to access the community version of the resource [download address](https://www.hiascend.com/developer/download/community/result?module=cann), download the required version of the toolkit package. Taking 8.3.RC1.alpha002 version as an example, as shown below:
 
 ![environment-setup-1-15](../../source_zh_cn/orange_pi/images/environment_setup_1-15.png)
 
@@ -202,13 +202,13 @@ Step 4 Go to the Toolkit package download directory.
 Step 5 Add execution permissions to the CANN package.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.1.RC1_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.3.RC1.alpha002_linux-aarch64.run
 ```
 
 Step 6 Execute the following command to upgrade the software.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.1.RC1_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.3.RC1.alpha002_linux-aarch64.run --install
 ```
 
 Type Y when this prompt pops up during installation, then press Enter to continue the installation. This process takes about 10-15 minutes, please be patient.
@@ -275,13 +275,13 @@ Step 4 Go to the Kernels package download directory.
 Step 5 Add execution permissions to the kernels package.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.1.RC1_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.3.RC1.alpha002_linux-aarch64.run
 ```
 
 Step 6 Execute the following command to upgrade the software.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.1.RC1_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.3.RC1.alpha002_linux-aarch64.run --install
 ```
 
 After the upgrade is completed, if the following message is displayed, the software upgrade is successful:
@@ -314,25 +314,11 @@ Step 2 Execute the following command to obtain version information.
 
 If the current MindSpore version does not meet the development requirements, the MindSpore version can be upgraded according to the following methods.
 
-### 4.2 Installing the Official Version of the Website (Taking MindSpore 2.6.0 as an example)
+### 4.2 Installing the Official Version of the Website (Taking MindSpore 2.7.1 as an example)
 
 #### 4.2.1 MindSpore Upgrading
 
-Please note that both installation methods for MindSpore need to be performed under the HwHiAiUser user. Choose either method for installation.
-
-Method 1: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bottom of the page to open the terminal, keep the HwHiAiUser user logged in, and run the pip install command directly on the terminal.
-
-```bash
-(base) HwHiAiUser@orangepiaipro:~$ pip install mindspore==2.6.0
-```
-
-Method 2: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bottom of the page to open the terminal, refer to [MindSpore official website installation tutorial](https://www.mindspore.cn/install/en) to install.
-
-```bash
-(base) HwHiAiUser@orangepiaipro:~$ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.6.0/MindSpore/unified/aarch64/mindspore-2.6.0-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-
-# Confirm the operating system and programming language, and the default environment of the OrangePi AIpro development board is linux-aarch64 and python3.9
-```
+Please refer to the MindSpore official website [installation tutorial](https://www.mindspore.cn/install) to install MindSpore 2.7.1.
 
 #### 4.2.2 Installation Verification
 
@@ -343,7 +329,7 @@ Method 2: Use the CTRL+ALT+T shortcut key or click on the icon with $_ at the bo
 If the output is as follows, it indicates that MindSpore has been successfully installed.
 
 ```bash
-MindSpore version: 2.6.0
+MindSpore version: 2.7.1
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
