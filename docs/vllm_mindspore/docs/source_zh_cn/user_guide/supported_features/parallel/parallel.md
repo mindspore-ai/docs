@@ -163,10 +163,10 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 
 多节点集群管理前，需要检查各节点的 hostname 是否各异。如果存在相同的，需要通过 `hostname <new-host-name>` 设置不同的 hostname。
 
-1. 启动主节点 `ray start --head --port=<port-to-ray>`，启动成功后，会提示从节点的连接方式。如在 IP 为 `192.5.5.5` 的环境中，通过 `ray start --head --port=6379`，提示如下：
+1. 启动主节点 `ray start --head --port=<port-to-ray>`，启动成功后，会提示从节点的连接方式。配置方式如下，其中`IP`和`address`需要修改成实际运行的环境信息。
 
   ```text
-  Local node IP: 192.5.5.5
+  Local node IP: *.*.*.*
 
   -------------------
   Ray runtime started.
@@ -174,7 +174,7 @@ chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
 
   Next steps
     To add another node to this Ray cluster, run
-      ray start --address='192.5.5.5:6379'
+      ray start --address='*.*.*.*:*'
 
     To connect to this Ray cluster:
       import ray
@@ -297,11 +297,13 @@ vllm-mindspore serve
 
 ```bash
 # 主节点：
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
 
 # 从节点：
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 192.10.10.10 --data-parallel-rpc-port 12370 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
 ```
+
+其中，`data-parallel-address`和`--data-parallel-rpc-port`需要设置成实际运行的环境信息。
 
 **Ray启动方式**
 
