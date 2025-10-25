@@ -315,7 +315,7 @@ public boolean exportWeightsCollaborateWithMicro(String weightFile, boolean isIn
 - 参数
 
     - `weightFile`: 模型权重文件路径名称。
-    - `isInference`: 是否导出推理图权重。当前只支持true。
+    - `isInference`: 是否导出推理图权重。当前仅支持true。
     - `enableFp16`: 是否权重保存fp16。
     - `changeableWeightNames`: 可变shape的权重tensor名称。
 

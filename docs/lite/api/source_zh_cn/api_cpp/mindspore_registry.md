@@ -18,7 +18,7 @@
 | [RegisterKernel](#registerkernel) | 算子注册实现类。|
 | [KernelReg](#kernelreg) | 算子注册构造类。|
 | [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_registry.html#register-kernel) | 注册算子。|
-| [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_registry.html#register-custom-kernel) | 注册Custom算子注册。|
+| [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_registry.html#register-custom-kernel) | Custom算子注册。|
 | [RegisterKernelInterface](#registerkernelinterface) | 算子扩展能力注册实现类。|
 | [KernelInterfaceReg](#kernelinterfacereg) | 算子扩展能力注册构造类。|
 | [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_registry.html#register-kernel-interface) | 注册算子扩展能力。|
@@ -45,7 +45,7 @@ NodeParserRegistry(converter::FmkType fmk_type, const std::string &node_type,
 
     - `node_type`: 节点的类型。
 
-    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_converter.html#nodeparserptr)说明。
+    - `node_parser`: NodeParser类型的共享智能指针实例，具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_converter.html#nodeparserptr)说明。
 
 ### ~NodeParserRegistry
 
@@ -87,7 +87,7 @@ static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const
 
     - `node_type`: 节点的类型。
 
-    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_converter.html#nodeparserptr)说明。
+    - `node_parser`: NodeParser类型的共享智能指针实例，具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_converter.html#nodeparserptr)说明。
 
 ## ModelParserCreator
 
@@ -117,7 +117,7 @@ ModelParserRegistry(FmkType fmk, ModelParserCreator creator)
 
     - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_converter.html#fmktype)说明。
 
-    - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#modelparsercreator)说明。
+    - `creator`: ModelParserCreator类型的函数指针，具体见[ModelParserCreator](#modelparsercreator)说明。
 
 ### ~ModelParserRegistry
 
@@ -155,7 +155,7 @@ static ModelParser *GetModelParser(FmkType fmk)
 
     - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_converter.html#fmktype)说明。
 
-    - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#modelparsercreator)说明。
+    - `creator`: ModelParserCreator类型的函数指针，具体见[ModelParserCreator](#modelparsercreator)说明。
 
 > 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_converter.html#fmktype)。
 
@@ -330,7 +330,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 >
 > `ToNCHWFormat`与`ToNHWCFormat`需配套使用。在开放的运行位置处，用户所得到的模型已统一为NHWC的格式，用户也需确保在当前运行位置处返回之时，模型也是NHWC的格式。
 >
-> 例: 指定names为{"ToNCHWFormat"， "UserPass"，"ToNHWCFormat"}。
+> 例: 指定names为{"ToNCHWFormat", "UserPass", "ToNHWCFormat"}。
 
 ## KernelDesc
 
@@ -425,7 +425,7 @@ static CreateKernel GetCreator(const schema::Primitive *primitive, KernelDesc *d
 
     - `primitive`: 算子经由flatbuffers反序化为Primitive后的结果。
 
-    - `desc`: 算子的基本属性,具体见[KernelDesc](#kerneldesc)说明。
+    - `desc`: 算子的基本属性，具体见[KernelDesc](#kerneldesc)说明。
 
 ## KernelReg
 
@@ -651,7 +651,6 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `op_type`: 算子类型，由用户自定义，确保唯一同时要与REGISTER_CUSTOM_KERNEL时注册的op_type保持一致。
+    - `op_type`: 算子类型，由用户自定义，确保唯一，同时要与REGISTER_CUSTOM_KERNEL时注册的op_type保持一致。
 
     - `creator`: 创建算子的函数指针，具体见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
-
