@@ -17,19 +17,19 @@
     </tr>
     <tr>
         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/msquickstart/atlasquick_train_0006.html">训练状态监控</a></td>
-        <td>收集和聚合模型训练过程中的网络层，优化器，通信算子的中间值，帮助诊断模型训练过程中计算，通信，优化器各部分出现的异常情况。</td>
+        <td>收集和聚合模型训练过程中的网络层、优化器、通信算子的中间值，帮助诊断模型训练过程中计算、通信、优化器各部分出现的异常情况。</td>
     </tr>
     <tr>
         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/msquickstart/atlasquick_train_0008.html">精度数据采集</a></td>
-        <td>采集模型训练过程中API或Module层级的前反向输入输出数据，支持采集的数据包括Module的层次关系、Module或API的输入输出的真实数据和统计值信息、Module或API的调用栈等等。</td>
+        <td>采集模型训练过程中API或Module层级的前反向输入输出数据。支持采集的数据包括Module的层次关系、Module或API的输入输出的真实数据和统计值信息、Module或API的调用栈等等。</td>
     </tr>
     <tr>
         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/msquickstart/atlasquick_train_0010.html">精度预检</a></td>
-        <td>在执行训练前使用，会扫描在昇腾NPU环境下训练模型的API，输出精度情况的诊断和分析，综合判定API在NPU上的精度是否达标，从而找出NPU中存在精度问题的API。</td>
+        <td>在执行训练前使用，会扫描在昇腾NPU环境下训练模型的API，输出精度情况的诊断和分析。综合判定API在NPU上的精度是否达标，从而找出NPU中存在精度问题的API。</td>
     </tr>
     <tr>
         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/msquickstart/atlasquick_train_0012.html">compare精度比对</a></td>
-        <td>比对功能依赖精度数据采集工具采集的数据，计算模型整网NPU侧和标杆设备（如CPU、GPU、NPU等）的误差指标（如余弦相似度、相对误差小于千分之一的比例、最大值误差等），标记可疑的精度异常API或Module，快速定位精度问题根因。</td>
+        <td>比对功能依赖精度数据采集工具采集的数据，计算模型整网NPU侧和标杆设备（如CPU、GPU、NPU等）的误差指标（如余弦相似度、相对误差小于千分之一的比例、最大值误差等，标记可疑的精度异常API或Module，快速定位精度问题根因。</td>
     </tr>
     <tr>
         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/msquickstart/atlasquick_train_0013.html">分级可视化构图比对</a></td>
