@@ -325,6 +325,8 @@ re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
 
 re_url5 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
+re_url6 = r"(mindspore.cn/mindstudio/[\w\d/_.-]*?)/(master)"
+
 for cur, _, files in os.walk(moment_dir):
     for i in files:
         flag_copy = 0
@@ -352,6 +354,7 @@ for cur, _, files in os.walk(moment_dir):
                         new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
                         new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
                         new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
+                        new_content = re.sub(re_url6, r'\1/82RC1', new_content)
 
                         if new_content != content:
                             f.seek(0)

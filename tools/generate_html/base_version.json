@@ -118,21 +118,13 @@
         "theme": "theme-docs"
     },
     {
-        "version": "r1.7.0",
+        "version": "82RC1",
+        "versionAlias": "8.2.RC1",
         "label": {
-            "zh": "MindSpore Transformers",
-            "en": "MindSpore Transformers"
+            "zh": "MindStudio",
+            "en": "MindStudio"
         },
-        "repo_name": "mindformers",
+        "repo_name": "mindstudio",
         "theme": "theme-docs"
-    },
-    {
-        "version": "r0.4.0",
-        "label": {
-            "zh": "vLLM-MindSpore Plugin",
-            "en": "vLLM-MindSpore Plugin"
-        },
-        "repo_name": "vllm_mindspore",
-        "theme": "theme-docs"
-    }
+    }  
 ]
