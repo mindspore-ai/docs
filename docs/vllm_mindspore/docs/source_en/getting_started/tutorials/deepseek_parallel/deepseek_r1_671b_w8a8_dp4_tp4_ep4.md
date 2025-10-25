@@ -242,10 +242,10 @@ The Ascend runtime package can be downloaded from the Ascend homepage. For examp
 
 Before managing a multi-node cluster, check that the hostnames of all nodes are different. If any are the same, set different hostnames using `hostname <new-host-name>`.
 
-1. Start the head node: `ray start --head --port=<port-to-ray>`. Upon successful startup, the connection method for worker nodes will be displayed. For example, in an environment with IP `192.5.5.5`, running `ray start --head --port=6379` will prompt:
+1. Start the head node: `ray start --head --port=<port-to-ray>`. Upon successful startup, the connection method for worker nodes will be displayed. Configure as follows, replacing `IP` and `address` with the actual environment information.
 
   ```text
-  Local node IP: 192.5.5.5
+  Local node IP: *.*.*.*
 
   -------------------
   Ray runtime started.
@@ -253,7 +253,7 @@ Before managing a multi-node cluster, check that the hostnames of all nodes are 
 
   Next steps
     To add another node to this Ray cluster, run
-      ray start --address='192.5.5.5:6379'
+      ray start --address='*.*.*.*:*'
 
     To connect to this Ray cluster:
       import ray
