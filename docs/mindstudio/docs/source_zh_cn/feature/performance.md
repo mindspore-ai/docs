@@ -32,7 +32,7 @@ MindStudio Training Tools工具链中的MindStudio Insight工具、msprof-analyz
     <tr>
         <td><a href="https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html#方式四-离线解析">离线解析数据</a></td>
         <td>对已采集的数据进行离线解析。</td>
-        <td>期望在模型运行过程中仅进行性能数据采集，以节省整体运行时间，或对历史已采集数据进行再次解析。</td>
+        <td>期望在模型运行过程中仅进行性能数据采集，以节省整体运行时间；或对历史已采集数据进行再次解析。</td>
     </tr>
     <tr>
         <td rowspan="5">MindStudio Insight</td>
@@ -47,13 +47,13 @@ MindStudio Training Tools工具链中的MindStudio Insight工具、msprof-analyz
     </tr>
     <tr>
         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0049.html">概览界面</a></td>
-        <td>提供通信域识别、划分和耗时拆解、分析功能。支持自动识别通信域和用户自行配置通信域；支持按照通信域对比stage耗时、计算耗时和通信耗时。</td>
+        <td>提供通信域识别、划分和耗时拆解、分析功能。支持自动识别通信域和用户自行配置通信域。支持按照通信域对比stage耗时、计算耗时和通信耗时。</td>
         <td>分析同一通信域内的切分是否均匀，是否存在通信慢卡和慢链路问题，帮助开发者快速识别问题。</td>
     </tr>
     <tr>
         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0052.html">通信界面</a></td>
         <td>展示集群中全网链路性能以及所有节点的通信性能。</td>
-        <td>通过集群通信与计算重叠时间的分析可以找出集群训练中的慢主机或慢节点。</td>
+        <td>通过集群通信与计算重叠时间的分析，可以找出集群训练中的慢主机或慢节点。</td>
     </tr>
     <tr>
         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0041.html">内存界面</a></td>

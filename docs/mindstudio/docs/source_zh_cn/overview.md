@@ -33,12 +33,12 @@
       </tr>
       <tr>
          <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/T&ITools/msleaks/atlas_msleaks_0001.html">msleaks</a></td>
-         <td>CANN包提供的命令行工具，用于模型训内存问题定位，提供Step内和Step间的内存异常检测能力，包括Step内内存泄漏分析和Step间内存对比分析。</td>
+         <td>CANN包提供的命令行工具，用于模型训练内存问题定位，提供Step内和Step间的内存异常检测能力，包括Step内内存泄漏分析和Step间内存对比分析。</td>
          <td><a href="https://www.mindspore.cn/install">安装MindSpore</a></td>
       </tr>
       <tr>
          <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0002.html">MindStudio Insight</a></td>
          <td>可视化性能调优工具，提供时间线视图、算子耗时、通信瓶颈分析等功能，辅助快速分析模型性能瓶颈。</td>
-         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0005.html">安装MindStudio Insight</a><br><a href=https://www.mindspore.cn/mindstudio/docs/zh-CN/master/version/mindstudio_insight.html>查询版本配套关系</a></td>
+         <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0005.html">安装MindStudio Insight</a><br><a href="https://www.mindspore.cn/mindstudio/docs/zh-CN/master/version/mindstudio_insight.html">查询版本配套关系</a></td>
       </tr>
    </table>
