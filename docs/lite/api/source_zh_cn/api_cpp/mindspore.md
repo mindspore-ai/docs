@@ -307,7 +307,7 @@ void SetBuiltInDelegate(DelegateMode mode)
 
 - 参数
 
-    - `mode`: 内置Delegate模式，可选配置选项`kNoDelegate`、`kCoreML`、`kNNAPI`。`kNoDelegate`表示不使用第三方AI框架辅助推理，`kCoreML`表示使用CoreMI进行推理（在iOS上可选），`kNNAPI`表示使用NNAPI进行推理（在Android上可选）。
+    - `mode`: 内置Delegate模式，可选配置选项`kNoDelegate`、`kCoreML`、`kNNAPI`。`kNoDelegate`表示不使用第三方AI框架辅助推理，`kCoreML`表示使用CoreML进行推理（在iOS上可选），`kNNAPI`表示使用NNAPI进行推理（在Android上可选）。
 
 #### GetBuiltInDelegate
 
@@ -523,7 +523,7 @@ inline std::string GetProviderDevice() const
 inline void SetProviderDevice(const std::string &device)
 ```
 
-设备生产商设备名。
+设置设备生产商设备名。
 
 - 参数
 
@@ -581,7 +581,7 @@ void SetEnableFP16(bool is_fp16)
 
 用于指定是否以FP16精度进行推理。
 
-- 参数：
+- 参数
 
     - `is_fp16`: 是否以FP16精度进行推理。
 
@@ -639,7 +639,7 @@ void SetDeviceID(uint32_t device_id)
 
 用于指定设备ID。
 
-- 参数：
+- 参数
 
     - `device_id`: 设备ID。
 
@@ -681,9 +681,9 @@ inline void SetPrecisionMode(const std::string &precision_mode)
 
 用于指定推理时算子精度。
 
-- 参数：
+- 参数
 
-    - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin`。
+    - `precision_mode`: 可选值`origin`（以模型中指定精度进行推理）， `fp16`（以FP16精度进行推理），默认值: `origin`。
 
 #### GetPrecisionMode
 
@@ -703,7 +703,7 @@ void SetEnableFP16(bool is_fp16)
 
 用于指定是否以FP16精度进行推理。
 
-- 参数：
+- 参数
 
     - `is_fp16`: 是否以FP16精度进行推理。
 
@@ -725,7 +725,7 @@ void SetEnableGLTexture(bool is_enable_gl_texture)
 
 用于指定是否绑定OpenGL纹理数据。
 
-- 参数：
+- 参数
 
     - `is_enable_gl_texture`: 是否在推理时绑定OpenGL纹理数据。
 
@@ -747,7 +747,7 @@ void SetGLContext(void *gl_context)
 
 用于指定OpenGL EGLContext。
 
-- 参数：
+- 参数
 
     - `gl_context`: OpenGL的当前运行时的EGLContext值。
 
@@ -769,7 +769,7 @@ void SetGLDisplay(void *gl_display)
 
 用于指定OpenGL EGLDisplay。
 
-- 参数：
+- 参数
 
     - `gl_display`: OpenGL的当前运行时的EGLDisplay值。
 
@@ -817,7 +817,7 @@ void SetEnableFP16(bool is_fp16)
 
 用于指定是否以FP16精度进行推理。
 
-- 参数：
+- 参数
 
     - `is_fp16`: 是否以FP16精度进行推理。
 
@@ -839,7 +839,7 @@ void SetFrequency(int frequency)
 
 用于指定NPU频率。
 
-- 参数：
+- 参数
 
     - `frequency`: 设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），默认为3。
 
@@ -904,7 +904,7 @@ enum DeviceType GetDeviceType() const override
 #### SetDeviceID
 
 ```cpp
-void SetDeviceType(unit32_t device_id)
+void SetDeviceType(uint32_t device_id)
 ```
 
 用于指定设备ID。
@@ -916,7 +916,7 @@ void SetDeviceType(unit32_t device_id)
 #### GetDeviceID
 
 ```cpp
-unit32_t GetDeviceID() const
+uint32_t GetDeviceID() const
 ```
 
 - 返回值
@@ -926,7 +926,7 @@ unit32_t GetDeviceID() const
 #### SetRankID
 
 ```cpp
-void SetRankID(unit32_t rank_id)
+void SetRankID(uint32_t rank_id)
 ```
 
 指定模型rank_id。
@@ -938,7 +938,7 @@ void SetRankID(unit32_t rank_id)
 #### GetRankID
 
 ```cpp
-unit32_t GetRankID() const
+uint32_t GetRankID() const
 ```
 
 - 返回值
@@ -977,7 +977,7 @@ inline void SetInputFormat(const std::string &format)
 
 - 参数
 
-    - `format`: 输入格式，可选有 `"NCHW"`、`"NHWC"` 和 `"ND"`。
+    - `format`: 输入格式，可选值有 `"NCHW"`、`"NHWC"` 和 `"ND"`。
 
 #### GetInputFormat
 
@@ -987,7 +987,7 @@ inline std::string GetInputFormat() const
 
 - 返回值
 
-  已配置模型输入格式。
+  已配置的模型输入格式。
 
 #### SetInputShape
 
@@ -1009,7 +1009,7 @@ inline std::string GetInputShape() const
 
 - 返回值
 
-  已配置模型输入shape。
+  已配置的模型输入shape。
 
 #### SetInputShapeMap
 
