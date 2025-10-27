@@ -26,7 +26,7 @@ Load the MindSpore model from file.
 
 - Parameters
 
-    - `File`: Model File.
+    - `File`: Model file.
 
 - Returns
 

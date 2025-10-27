@@ -39,7 +39,7 @@ MSContext is defined for holding environment variables during runtime.
 public boolean init()
 ```
 
-Use default parameters initialize MSContext, use two thread, no bind, no parallel.
+Use default parameters to initialize MSContext, use two threads, no bind, no parallel.
 
 - Returns
 
@@ -70,7 +70,7 @@ Initialize MSContext.
 
     - `threadNum`: Thread number config for thread pool.
     - `cpuBindMode`: A **[CpuBindMode](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)** **enum** variable.
-    - `isEnableParallel`: Is enable parallel in different device.
+    - `isEnableParallel`: Whether to enable parallel in different devices.
 
 - Returns
 
@@ -87,7 +87,7 @@ Add device info for mscontext.
 - Parameters
 
     - `deviceType`: A **[DeviceType](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/java/src/main/java/com/mindspore/config/DeviceType.java)** **enum** type.
-    - `isEnableFloat16`: Is enable fp16.
+    - `isEnableFloat16`: Whether to enable fp16.
 
 - Returns
 
@@ -188,7 +188,7 @@ If MSContext is not initialized, this function will do nothing and output null p
 public int getInterOpParallelNum()
 ```
 
-et the current operators parallel number setting.
+Get the current operators parallel number setting.
 If MSContext is not initialized, this function will return -1 and output null pointer information in the log.
 
 - Returns

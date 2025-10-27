@@ -62,7 +62,7 @@ Create MindSpore MSTensor.
 - Parameters
 
     - `tensorName`: tensor name.
-    - `obj`: Array object of java or a scalar, support dtype: float, double, int, long, boolean.
+    - `obj`: Array object of Java or a scalar. Supported dtype: float, double, int, long, boolean.
 
 - Returns
 
@@ -78,7 +78,7 @@ Get the shape of the MindSpore MSTensor.
 
 - Returns
 
-  A array of int as the shape of the MindSpore MSTensor.
+  An array of int as the shape of the MindSpore MSTensor.
 
 ## getDataType
 
@@ -182,7 +182,7 @@ Set the input data of MSTensor.
 
 - Returns
 
-  whether set data success.
+  Whether setting the data was successful.
 
 ```java
 public boolean setData(float[] data)
@@ -196,7 +196,7 @@ Set the input data of MSTensor.
 
 - Returns
 
-  whether set data success.
+  Whether setting the data was successful.
 
 ```java
 public boolean setData(int[] data)
@@ -210,7 +210,7 @@ Set the input data of MSTensor.
 
 - Returns
 
-  whether set data success.
+  Whether setting the data was successful.
 
 ```java
 public boolean setData(long[] data)
@@ -224,7 +224,7 @@ Set the input data of MSTensor.
 
 - Returns
 
-  whether set data success.
+  Whether setting the data was successful.
 
 ```java
 public boolean setData(ByteBuffer data)
@@ -238,7 +238,7 @@ Set the input data of MSTensor.
 
 - Returns
 
-  whether set data success.
+  Whether setting the data was successful.
 
 ## size
 
