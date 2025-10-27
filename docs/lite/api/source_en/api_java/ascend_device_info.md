@@ -12,7 +12,7 @@ The AscendDeviceInfo class is used to configure MindSpore Lite Ascend device opt
 
 | function                                   | Supported At Cloud-side Inference | Supported At Device-side Inference |
 | ------------------------------------------ |--------|--------|
-| [int getDeviceID)](#getdeviceid) | √      | ✕     |
+| [int getDeviceID()](#getdeviceid) | √      | ✕     |
 | [int getDeviceType](#getdevicetype) | √      | ✕     |
 | [String getProvider](#getprovider) | √      | ✕     |
 | [void setProvider(String provider)](#setprovider) | √      | ✕     |
@@ -166,11 +166,11 @@ Get the input format of the model.
 public void setInputFormat(String inputFormat)
 ```
 
-Set the input format of the model.Optional "NCHW", "NHWC", and "ND"
+Set the input format of the model. Optional "NCHW", "NHWC", and "ND"
 
 - Parameters
 
-- `inputFormat`: inputFormat .
+- `inputFormat`: inputFormat.
 
 ## getInputShape
 
@@ -213,7 +213,7 @@ Get the input shape mapping of the model.
 public void setInputShapeMap(HashMap<Integer, ArrayList<Integer>> inputShapeMap)
 ```
 
-Model input shape. e.g. {{0, {1,2,3,4}}, {1, {4,3,2,1}}}。
+Model input shape. e.g. {{0, {1,2,3,4}}, {1, {4,3,2,1}}}.
 
 - Parameters
 - `inputShapeMap`: inputShapeMap the inputShapeMap to set.
@@ -282,7 +282,7 @@ Get the output type of the model.
 public void setOutputType(int outputType)
 ```
 
-Set the type of model outputs. can be DataType.kNumberTypeFloat32, DataType.kNumberTypeUInt8, or DataType.kNumberTypeFloat16.
+Set the type of model outputs. Can be DataType.kNumberTypeFloat32, DataType.kNumberTypeUInt8, or DataType.kNumberTypeFloat16.
 
 - Parameters
 - `outputType`: outputType the outputType to set.
@@ -328,7 +328,7 @@ Get the operator selection implementation mode of the model.
 public void setOpSelectImplMode(String opSelectImplMode)
 ```
 
-Set the operator selection implementation mode of the model. Optional "high_performance" and "high_precision". "high_performace" is set as default.
+Set the operator selection implementation mode of the model. Optional "high_performance" and "high_precision". "high_performance" is set as default.
 
 - Parameters
 - `opSelectImplMode`: opSelectImplMode.
@@ -362,7 +362,7 @@ Set fusion switch config file path.
 public String getBufferOptimizeMode()
 ```
 
-Set the buffer optimize mode. Optional "l1_optimize", "l2_optimize", or "off_optimize". "l2_optimize" is set as default.
+Get the buffer optimize mode. Optional "l1_optimize", "l2_optimize", or "off_optimize". "l2_optimize" is set as default.
 
 - Returns
 

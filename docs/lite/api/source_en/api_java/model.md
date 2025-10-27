@@ -266,7 +266,7 @@ Load config file.
 
 - Returns
 
-  Whether the LoadConfig is successful.
+  Whether the loadConfig is successful.
 
 ## updateConfig
 
@@ -296,7 +296,7 @@ Export the model.
 - Parameters
 
     - `fileName`: Model file name.
-    - `quantization_type`: The quant type.
+    - `quantizationType`: The quant type.
     - `isOnlyExportInfer`: Is only export infer.
     - `outputTensorNames`: The output tensor names for export.
 
@@ -349,7 +349,7 @@ Update model Features.
 
 - Returns
 
-    Whether the model features is successfully update.
+    Whether the model features are successfully updated.
 
 ## settrainMode
 
@@ -373,7 +373,7 @@ Get train mode.
 
 - Returns
 
-    Whether the model work in train mode.
+    Whether the model works in train mode.
 
 ## setLearningRate
 
@@ -401,9 +401,9 @@ Set the virtual batch.
 
 - Parameters
 
-    - `virtualBatchMultiplier`: virtual batch multuplier.
+    - `virtualBatchMultiplier`: virtual batch multiplier.
     - `learningRate`: learning rate.
-    - `momentum`: monentum.
+    - `momentum`: momentum.
 
 - Returns
 
