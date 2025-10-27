@@ -42,7 +42,7 @@ Init train config specified loss name.
 
 - Returns
 
-  初始化状态。  
+  Initialization state.  
 
 ## free
 
