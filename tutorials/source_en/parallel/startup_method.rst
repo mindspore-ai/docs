@@ -24,6 +24,9 @@ Currently GPU, Ascend and CPU support multiple startup methods respectively, fou
 - `mpirun <https://www.mindspore.cn/tutorials/en/master/parallel/mpirun.html>`_: this method relies on the open source library OpenMPI, and startup command is simple. Multi-machine need to ensure two-by-two password-free login. It is recommended for users who have experience in using OpenMPI to use this startup method.
 - `rank table <https://www.mindspore.cn/tutorials/en/master/parallel/rank_table.html>`_: this method requires the Ascend hardware platform and does not rely on third-party library. After manually configuring the rank_table file, you can start the parallel program via a script, and the script is consistent across multiple machines for easy batch deployment.
 
+.. warning::
+    `rank_table` method has been deprecated in MindSpore 2.4 version.
+
 The hardware support for the four startup methods is shown in the table below:
 
 +-------------------------+--------------+-----------------+-------------+
