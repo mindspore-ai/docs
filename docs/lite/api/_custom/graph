@@ -2219,15 +2219,7 @@ class ExhaleRoot(object):
 
             with open('./source_en/index.rst', "w", encoding="utf-8") as p:
                 p.write(indexdata)
-                p.write(
-        """.. MindSpore documentation master file, created by
-   sphinx-quickstart on Thu Mar 24 10:00:00 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-MindSpore Lite API
-=======================
-
+                p.write("""
 .. toctree::
    :maxdepth: 1
    :caption: C++ API
@@ -2332,9 +2324,7 @@ MindSpore Lite API
 
             with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
                 p.write(indexdata)
-                p.write("""MindSpore Lite API
-=======================
-
+                p.write("""
 .. toctree::
    :maxdepth: 1
    :caption: C++ API
