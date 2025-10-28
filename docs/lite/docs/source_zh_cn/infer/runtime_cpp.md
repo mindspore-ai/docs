@@ -60,7 +60,7 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
-> `MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)。设置的设备个数不能超过3个，推理过程按照用户设置的先后顺序选择后端设备进行部署推理。
+> `MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)、[DSPDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#dspdeviceinfo)。设置的设备个数不能超过3个，推理过程按照用户设置的先后顺序选择后端设备进行部署推理。
 >
 > float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到float32执行。
 >
@@ -245,6 +245,36 @@ context->SetDelegate(coreml_delegate);
 ```
 
 > 当前CoreML后端暂时只支持操作系统版本不低于iOS 11的设备。
+
+### 配置使用DSP后端
+
+当需要执行的后端为DSP（目前支持`ft04`和`ft78`推理产品）时，需要设置[DSPDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#dspdeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在DSP后，以保证泛化模型的推理。
+
+下面示例代码演示了如何创建CPU与DSP异构推理后端：
+
+```cpp
+auto context = std::make_shared<mindspore::Context>();
+if (context == nullptr) {
+    std::cerr << "New context failed." << std::endl;
+}
+auto &device_list = context->MutableDeviceInfo();
+
+// Set ft04/ft78 inference product device first, make ft04/ft78 inference product preferred backend.
+auto dsp_device_info = std::make_shared<mindspore::DSPDeviceInfo>();
+if (dsp_device_info == nullptr) {
+  std::cerr << "New DSPDeviceInfo failed." << std::endl;
+}
+// The ft04/ft78 inference product device context needs to be push_back into device_list to work.
+device_list.push_back(dsp_device_info);
+
+// Set CPU device after ft04/ft78 inference product as second choice.
+auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (cpu_device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+}
+
+device_list.push_back(cpu_device_info);
+```
 
 ## 模型创建加载与编译
 
