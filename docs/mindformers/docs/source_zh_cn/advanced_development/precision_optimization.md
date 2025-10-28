@@ -146,7 +146,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 ### 其他介绍
 
-除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)进行配置使用。此外，还提供了msprobe精度调试工具。msprobe是 MindStudio Training Tools 工具链下精度调试部分的工具包，主要包括精度预检、溢出检测和精度比对等功能，详细请参考[msprobe使用手册](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe)。
+除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/zh-CN/master/debug/dump.html)进行配置使用。此外，还提供了msprobe精度调试工具。msprobe是 MindStudio Training Tools 工具链下精度调试部分的工具包，主要包括精度预检、溢出检测和精度比对等功能，详细请参考[msprobe使用手册](https://gitcode.com/Ascend/mstt/tree/master/debug/accuracy_tools/msprobe)。
 
 需要特别注意的是，开启**确定性计算**和使用**Dump**功能时，模型训练的**性能**会明显下降。这可能导致训练步长变大、运行速度变慢，这是正常现象。
 
@@ -265,9 +265,9 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
 
 当前，msprobe 精度分析工具提供了分级的数据采集与比对能力，可有效支持此类问题的定位。相关操作可参考以下文档：
 
-* [msprobe 工具 MindSpore场景精度数据采集指南](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
-* [msprobe 工具 PyTorch场景精度数据采集指南](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
-* [MindSpore 场景的精度比对](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
+* [msprobe 工具 MindSpore场景精度数据采集指南](https://gitcode.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
+* [msprobe 工具 PyTorch场景精度数据采集指南](https://gitcode.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
+* [MindSpore 场景的精度比对](https://gitcode.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
 
 #### step1的local norm值对比
 

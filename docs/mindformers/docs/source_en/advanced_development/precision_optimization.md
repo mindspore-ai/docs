@@ -146,7 +146,7 @@ After setting the environment variables, start the program training to get the c
 
 ### Other Introductions
 
-In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/tutorials/en/master/debug/dump.html) for configuration and use. In addition, the msprobe precision debugging tool is provided. msprobe is a tool package under the precision debugging component of the MindStudio Training Tools suite. It mainly includes functions such as precision pre-check, overflow detection, and precision comparison. For more information, refer to [msprobe User Guide](https://gitee.com/ascend/mstt/tree/master/debug/accuracy_tools/msprobe).
+In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/tutorials/en/master/debug/dump.html) for configuration and use. In addition, the msprobe precision debugging tool is provided. msprobe is a tool package under the precision debugging component of the MindStudio Training Tools suite. It mainly includes functions such as precision pre-check, overflow detection, and precision comparison. For more information, refer to [msprobe User Guide](https://gitcode.com/Ascend/mstt/tree/master/debug/accuracy_tools/msprobe).
 
 When **deterministic computation** is enabled or the **Dump** feature is used, the training **performance** will significantly degrade. This may cause larger training steps and slower execution, which is expected behavior.
 
@@ -265,9 +265,9 @@ In graph mode, it is recommended to adopt a "from coarse to fine" hierarchical l
 
 Currently, the msprobe accuracy analysis tool provides hierarchical data collection and comparison capabilities, effectively supporting the localization of such issues. Relevant operations can refer to the following documents:
 
-* [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
-* [msprobe Tool PyTorch Scenario Accuracy Data Collection Guide](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
-* [Accuracy comparison of MindSpore scenarios](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
+* [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://gitcode.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
+* [msprobe Tool PyTorch Scenario Accuracy Data Collection Guide](https://gitcode.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
+* [Accuracy comparison of MindSpore scenarios](https://gitcode.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
 
 #### Comparison of local norm Values for step1
 
