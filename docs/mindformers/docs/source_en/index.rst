@@ -234,3 +234,11 @@ FAQ
 
    faq/model_related
    faq/feature_related
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+   :hidden:
+
+   RELEASE

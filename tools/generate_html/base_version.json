@@ -126,5 +126,14 @@
         },
         "repo_name": "mindstudio",
         "theme": "theme-docs"
-    }  
+    },
+    {
+        "version": "r1.7.0",
+        "label": {
+            "zh": "MindSpore Transformers",
+            "en": "MindSpore Transformers"
+        },
+        "repo_name": "mindformers",
+        "theme": "theme-docs"
+    }
 ]

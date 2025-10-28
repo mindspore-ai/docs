@@ -424,7 +424,7 @@ re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\
 
 # re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url5 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
+re_url5 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(master)"
 
 re_url6 = r"(mindspore.cn/mindstudio/[\w\d/_.-]*?)/(master)"
 
@@ -462,7 +462,7 @@ for cur, _, files in os.walk(des_sir):
                     new_content = re.sub(re_url, r'\1/r2.7.1', new_content)
                     new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
                     # new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
-                    # new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
+                    new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
                     new_content = re.sub(re_url6, r'\1/82RC1', new_content)
                     if i.endswith('.rst'):
                         new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
