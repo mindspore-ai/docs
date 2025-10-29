@@ -8,9 +8,9 @@ The currently supported hardware are the Atlas 800T A2, Atlas 800I A2, and Atlas
 
 The current recommended Python version for the suite is 3.11.4.
 
-| MindSpore Transformers |       MindSpore        |          CANN          |   Firmware & Drivers   |
-|:----------------------:|:----------------------:|:----------------------:|:----------------------:|
-| In-Development Version | In-Development Version | In-Development Version | In-Development Version |
+| MindSpore Transformers |                 MindSpore                 |                                                      CANN                                                      |                                               Firmware & Drivers                                                |
+|:----------------------:|:-----------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
+|         1.7.0          | [2.7.1](https://www.mindspore.cn/install) | [8.3.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/83RC1/softwareinst/instg/instg_0000.html) | [25.3.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/83RC1/softwareinst/instg/instg_0000.html) |
 
 **Currently, MindSpore Transformers recommends using a software package relationship as above.**
 
