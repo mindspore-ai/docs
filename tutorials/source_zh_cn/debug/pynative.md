@@ -184,4 +184,4 @@ def some_function():
 
 ## 更多实际案例
 
-参考[调试案例](https://www.hiascend.com/developer/blog/details/0229108045633055169)。
+参考[调试案例](https://discuss.mindspore.cn/t/topic/1297)。

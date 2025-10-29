@@ -184,4 +184,4 @@ When you need to see if the backpropagation accuracy is accurate under a dynamic
 
 ## More Practical Examples
 
-Refer to [debugging case](https://www.hiascend.com/developer/blog/details/0229108045633055169).
+Refer to [debugging case](https://discuss.mindspore.cn/t/topic/1297).
