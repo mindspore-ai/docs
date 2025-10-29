@@ -1,2 +1,3 @@
 #tools
 "docs/tools/generate_html"
+"docs/tools/ci_pipeline_gate_APIView"

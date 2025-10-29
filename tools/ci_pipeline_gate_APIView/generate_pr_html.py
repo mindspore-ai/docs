@@ -522,13 +522,16 @@ def en_file_handle(py_file_list, repo_path, dict1):
                             if mpn[0] in repo_py_path:
                                 if k.endswith('.'):
                                     fullname = mpn[1] + '.' + k.replace('.', '')
-                                    if fullname.endswith('_ext') and mpn[1] == 'mindspore.ops':
-                                        new_fullname = 'mindspore.mint.' + fullname[:-4].split('.')[-1]
-                                        generate_interface_list.append(
-                                            '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
-                                        new_fullname = 'mindspore.mint.nn.functional.' + fullname[:-4].split('.')[-1]
-                                        generate_interface_list.append(
-                                            '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
+                                    if fullname.endswith(('_ext', '_view')) and mpn[1] == 'mindspore.ops':
+                                        b_name = fullname.rsplit('.', 1)[-1]
+                                        if b_name.endswith('_ext'):
+                                            simple_name = b_name[:-4]                 # 去掉 _ext
+                                        else:
+                                            simple_name = b_name[:-5]                 # 去掉 _view
+                                        for prefix in ('mindspore.mint.', 'mindspore.mint.nn.functional.'):
+                                            generate_interface_list.append(
+                                                f'.. autofunction:: {prefix}{simple_name}&&&{i[0]}')
+
                                     elif fullname == 'mindspore.dataset.dataloader.collate':
                                         new_fullname = 'mindspore.dataset.dataloader._utils.collate.collate'
                                         generate_interface_list.append(
