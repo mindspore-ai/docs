@@ -60,7 +60,7 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
-> `MutableDeviceInfo` supports multiple DeviceInfos, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo), [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo). The device number limit is 3. During the inference, the operator will choose device in order.
+> `MutableDeviceInfo` supports multiple DeviceInfos, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo), [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo), [DSPDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DSPDeviceInfo.html#class-dspdeviceinfo). The device number limit is 3. During the inference, the operator will choose device in order.
 >
 > float16 takes effect only when the CPU is under the ARM v8.2 architecture. Other models and x86 platforms that do not supported float16 will be automatically rolled back to float32.
 >
@@ -246,6 +246,36 @@ context->SetDelegate(coreml_delegate);
 ```
 
 > The CoreML backend is only supported on devices whose operating system version is not lower than iOS 11 for now.
+
+### Configuring the DSP Backend
+
+If the backend to be executed is Ascend(only support `ft04` and `ft78` inference product), you need to set [DSPDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DSPDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference.
+
+The following sample code shows how to create the CPU and DSP heterogeneous inference backend.
+
+```cpp
+auto context = std::make_shared<mindspore::Context>();
+if (context == nullptr) {
+    std::cerr << "New context failed." << std::endl;
+}
+auto &device_list = context->MutableDeviceInfo();
+
+// Set ft04/ft78 inference product device first, make ft04/ft78 inference product preferred backend.
+auto dsp_device_info = std::make_shared<mindspore::DSPDeviceInfo>();
+if (dsp_device_info == nullptr) {
+  std::cerr << "New DSPDeviceInfo failed." << std::endl;
+}
+// The ft04/ft78 inference product device context needs to be push_back into device_list to work.
+device_list.push_back(dsp_device_info);
+
+// Set CPU device after ft04/ft78 inference product as second choice.
+auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (cpu_device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+}
+
+device_list.push_back(cpu_device_info);
+```
 
 ## Model Creating Loading and Building
 
