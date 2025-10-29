@@ -32,13 +32,28 @@
 
 ## 安装MindSpore Transformers
 
-目前在研版本仅支持源码编译安装，用户可以执行如下命令安装MindSpore Transformers：
+MindSpore Transformers支持源码编译安装和pip安装两种方式。
+
+### 源码编译方式安装
+
+用户可以执行如下命令编译并安装MindSpore Transformers：
 
 ```bash
-git clone -b master https://gitee.com/mindspore/mindformers.git
+git clone -b r1.7.0 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
+
+### pip方式安装
+
+用户可以执行如下命令安装MindSpore Transformers：
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindFormers/any/mindformers-1.7.0-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://repo.huaweicloud.com/repository/pypi/simple
+```
+
+> - 此安装方式需要访问公网，如果您处于内网环境，请确保网络连接配置正确。
+> - 此方式只安装了MindSpore Transformers基础软件包，模型文件和脚本等请从MindSpore Transformers gitee仓库中获取。
 
 ## 验证是否成功安装
 

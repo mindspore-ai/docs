@@ -32,13 +32,28 @@ Historical version matching relationship:
 
 ## Installing MindSpore Transformers
 
-Currently, only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
+MindSpore Transformers supports both source code compiled installation and pip installation.
+
+### Installation by Source Code Compilation
+
+Users can compile and install MindSpore Transformers by executing the following command:
 
 ```bash
-git clone -b master https://gitee.com/mindspore/mindformers.git
+git clone -b r1.7.0 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
+
+### Installation by pip
+
+Users can install MindSpore Transformers by executing the following command:
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MindFormers/any/mindformers-1.7.0-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://repo.huaweicloud.com/repository/pypi/simple
+```
+
+> - This installation method requires access to the public network. If you are in an internal network environment, please ensure that the network connection is configured correctly.
+> - This method only installs the basic software package of MindSpore Transformers. Model files and scripts, etc., please obtain from the MindSpore Transformers Gitee repository.
 
 ## Installation Verification
 
