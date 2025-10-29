@@ -32,6 +32,7 @@ vLLM-MindSpore插件支持的特性功能与vLLM社区版本保持一致，特�
 | Enc-dec                           | ×                  | ×                  |
 | Reasoning Outputs                 | √                  | √                  |
 | Tool Calling                      | WIP                | √                  |
+| Graph Capture                     | x                  | √                  |
 
 - √：功能已与vLLM社区版本能力对齐。
 - ×：暂无支持计划，建议使用其他方案代替。
