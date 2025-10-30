@@ -62,7 +62,7 @@ benchmark_train工具所在完整路径为`/path/mindspore-lite-{version}-{os}-{
 ./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10
 ```
 
-这条命令使用随机输入，循环10次，其他参数使用默认值。该命令执行后会输出如下统计信息，该信息显示了测试模型在运行指定推理轮数后所统计出的单次推理最短耗时、单次推理最长耗时和平均推理耗时。
+这条命令使用随机输入，循环10次，其他参数使用默认值。该命令执行后会输出如下统计信息，该信息显示了测试模型在运行指定训练轮数后所统计出的单次训练最短耗时、单次训练最长耗时和平均训练耗时。
 
 ```text
 Model = test_benchmark.ms, numThreads = 1, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
