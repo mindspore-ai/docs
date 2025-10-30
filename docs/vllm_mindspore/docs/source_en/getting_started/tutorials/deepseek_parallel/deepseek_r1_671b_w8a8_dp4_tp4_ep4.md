@@ -153,7 +153,7 @@ Environment Variable Descriptions:
 
 - `MS_ENABLE_LCCL`: Disables LCCL and enables HCCL communication.
 - `HCCL_OP_EXPANSION_MODE`: Configures the scheduling and expansion location of the communication algorithm to be the AI Vector Core computing unit on the Device side.
-- `MS_ALLOC_CONF`: Sets the memory policy. Refer to the [MindSpore Official Documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
+- `MS_ALLOC_CONF`: Sets the memory policy. Refer to the [MindSpore Official Documentation](https://www.mindspore.cn/docs/en/r2.7.1/api_python/env_var_list.html).
 - `ASCEND_RT_VISIBLE_DEVICES`: Configures the available device IDs for each node. Users can query this using the `npu-smi info` command.
 - `VLLM_MS_MODEL_BACKEND`: The backend of the model being run. The models and model backends currently supported by the vLLM-MindSpore plugin can be queried in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
 - `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION`: Used when there are version compatibility issues.
