@@ -12,7 +12,7 @@
 |:----------------------:|:-----------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
 |         1.7.0          | [2.7.1](https://www.mindspore.cn/install) | [8.3.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/83RC1/softwareinst/instg/instg_0000.html) | [25.3.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/83RC1/softwareinst/instg/instg_0000.html) |
 
-**当前MindSpore Transformers建议使用如上的软件配套关系。**
+**当前MindSpore Transformers建议使用如上的软件配套关系。同时，MindSpore Transformers可兼容上一个版本的MindSpore框架，基础功能可以正常使用，但可能无法体验依赖新框架版本的功能特性。**
 
 历史版本配套关系：
 
