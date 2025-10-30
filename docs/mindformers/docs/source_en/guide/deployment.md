@@ -6,7 +6,7 @@
 
 ### Overview
 
-The vLLM-MindSpore plugin is designed with the functional goal of integrating MindSpore large models into vLLM and enabling their servitized deployment: [Introduction to the vLLM-MindSpore Plugin](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/index.html#overview).
+The vLLM-MindSpore plugin is designed with the functional goal of integrating MindSpore large models into vLLM and enabling their servitized deployment: [Introduction to the vLLM-MindSpore Plugin](https://www.mindspore.cn/vllm_mindspore/docs/en/master/index.html#overview).
 
 The MindSpore Transformers suite aims to build a full-cycle development toolkit for large-scale models, covering pre-training, fine-tuning, evaluation, inference, and deployment. It provides mainstream Transformer-based large language models (LLMs) and multimodal understanding models (MMs) in the industry.
 
@@ -14,8 +14,8 @@ The MindSpore Transformers suite aims to build a full-cycle development toolkit 
 
 The environment installation steps are divided into two methods:
 
-- [Docker Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/installation/installation.html#docker-installation): Suitable for scenarios where users need quick deployment and use.
-- [Source Code Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/installation/installation.html#source-code-installation): Suitable for users who require incremental development of the vLLM-MindSpore plugin.
+- [Docker Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html#docker-installation): Suitable for scenarios where users need quick deployment and use.
+- [Source Code Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html#source-code-installation): Suitable for users who require incremental development of the vLLM-MindSpore plugin.
 
 ### Quick Start
 
@@ -32,7 +32,7 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/yaml # Required for non-Mcore models
 
 Currently, vLLM MindSpore supports different model backends. The environment variables specified above designate MindSpore Transformers as the integrated model suite. For non-MCore models, it is necessary to configure the model's YAML configuration file.
 
-For more environment variables, please refer to: [Environment Variables](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/user_guide/environment_variables/environment_variables.html).
+For more environment variables, please refer to: [Environment Variables](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/environment_variables/environment_variables.html).
 
 After preparing the model and environment variables, you can proceed with inference.
 
@@ -40,15 +40,15 @@ After preparing the model and environment variables, you can proceed with infere
 
 vLLM online inference is designed for real-time service scenarios, leveraging dynamic batching and the OpenAI API to deliver high concurrency, high throughput, and low latency, making it suitable for enterprise-level applications.
 
-- Please refer to the single-GPU inference process: [Single-Card Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.html)
-- Please refer to the single-node multi-GPU inference process: [Multi-Card Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.html)
-- Please refer to the multi-node parallel inference process: [Multi-machine Parallel Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.html)
+- Please refer to the single-GPU inference process: [Single-Card Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.html)
+- Please refer to the single-node multi-GPU inference process: [Multi-Card Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.html)
+- Please refer to the multi-node parallel inference process: [Multi-machine Parallel Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.html)
 
 #### Offline Inference
 
 vLLM's offline inference is designed for efficiently processing large-scale batch requests, making it particularly suitable for non-real-time, data-intensive model inference scenarios.
 
-For the offline inference process, please refer to: [Offline Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/quick_start/quick_start.html#offline-inference)
+For the offline inference process, please refer to: [Offline Inference](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/quick_start/quick_start.html#offline-inference)
 
 ### Mcore Model Adaptation
 
@@ -70,7 +70,7 @@ If configuration modifications are required, please refer to the [Configuration]
 
 #### Compatible Versions
 
-For supporting information on each component, please refer to: [Compatible Versions](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/installation/installation.html)
+For supporting information on each component, please refer to: [Compatible Versions](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html)
 
 #### Supported Models List
 

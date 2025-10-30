@@ -41,13 +41,13 @@ As an efficient service-oriented model inference backend, it should provide the 
 
 ## Inference Tutorial
 
-MindSpore inference works with the vLLM community solution to provide users with full-stack end-to-end inference service capabilities. The vLLM-MindSpore Plugin implements seamless interconnection of the vLLM community service capabilities in the MindSpore framework. For details, see [vLLM-MindSpore Plugin](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/index.html).
+MindSpore inference works with the vLLM community solution to provide users with full-stack end-to-end inference service capabilities. The vLLM-MindSpore Plugin implements seamless interconnection of the vLLM community service capabilities in the MindSpore framework. For details, see [vLLM-MindSpore Plugin](https://www.mindspore.cn/vllm_mindspore/docs/en/master/index.html).
 
 This section describes the basic usage of vLLM-MindSpore Plugin service-oriented inference.
 
 ### Setting Up the Environment
 
-The vLLM-MindSpore Plugin provides [Docker Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/installation/installation.html#docker-installation) and [Source Code Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/getting_started/installation/installation.html#source-code-installation) for users to do installation. The belows are steps for docker installation:
+The vLLM-MindSpore Plugin provides [Docker Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html#docker-installation) and [Source Code Installation](https://www.mindspore.cn/vllm_mindspore/docs/en/master/getting_started/installation/installation.html#source-code-installation) for users to do installation. The belows are steps for docker installation:
 
 **Building the Image**
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
@@ -129,7 +129,7 @@ git lfs install
 git clone https://huggingface.co/Qwen/Qwen2-7B
 ```
 
-If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore Plugin [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/faqs/faqs.html) for a solution.
+If `git lfs install` fails during the pull process, refer to the vLLM-MindSpore Plugin [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/en/master/faqs/faqs.html) for a solution.
 
 ### Starting a Service
 
@@ -141,7 +141,7 @@ export vLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model b
 
 Here is an explanation of these environment variables:
 
-- `vLLM_MS_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/user_guide/supported_models/models_list/models_list.html) and [Environment Variable List](https://www.mindspore.cn/vllm_mindspore/docs/en/r0.4.0/user_guide/environment_variables/environment_variables.html).
+- `vLLM_MS_MODEL_BACKEND`: The backend of the model to run. User could find supported models and backends for vLLM-MindSpore Plugin in the [Model Support List](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/supported_models/models_list/models_list.html) and [Environment Variable List](https://www.mindspore.cn/vllm_mindspore/docs/en/master/user_guide/environment_variables/environment_variables.html).
 
 Additionally, users need to ensure that MindSpore Transformers is installed. Users can add it by running the following command:  
 
