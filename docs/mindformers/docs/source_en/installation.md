@@ -12,7 +12,7 @@ The current recommended Python version for the suite is 3.11.4.
 |:----------------------:|:-----------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|
 |         1.7.0          | [2.7.1](https://www.mindspore.cn/install) | [8.3.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/83RC1/softwareinst/instg/instg_0000.html) | [25.3.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/83RC1/softwareinst/instg/instg_0000.html) |
 
-**Currently, MindSpore Transformers recommends using a software package relationship as above.**
+**The current MindSpore Transformers recommends the aforementioned software compatibility configuration. Concurrently, MindSpore Transformers remains compatible with the previous version of the MindSpore framework, enabling core functionalities to operate normally. However, features dependent upon the new framework version may not be accessible.**
 
 Historical version matching relationship:
 
