@@ -237,7 +237,7 @@ export VLLM_MS_MODEL_BACKEND=MindFormers
 
 - `MS_ENABLE_LCCL`：关闭LCCL，使能HCCL通信。
 - `HCCL_OP_EXPANSION_MODE`：配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
-- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
+- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`：配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
 - `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
 

@@ -4,14 +4,14 @@
 
 ## 基于MindSpore TransFormers大模型套件的调试调优指南
 
-[MindSpore TransFormers](https://www.mindspore.cn/mindformers/docs/zh-CN/master/index.html)是MindSpore提供的包含大模型预训练、微调、推理、部署的全流程开发套件，也是MindSpore当前常用的大模型开发套件。
+[MindSpore TransFormers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/index.html)是MindSpore提供的包含大模型预训练、微调、推理、部署的全流程开发套件，也是MindSpore当前常用的大模型开发套件。
 
-我们总结了大模型训练过程中常见精度问题、通用的精度问题定位方法、精度基准以及大模型场景工具常见用法，详见[大模型精度调试指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/precision_optimization.html#)。
+我们总结了大模型训练过程中常见精度问题、通用的精度问题定位方法、精度基准以及大模型场景工具常见用法，详见[大模型精度调试指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/advanced_development/precision_optimization.html#)。
 
 为了方便用户进行性能调优，MindSpore TransFormers套件集成了以下功能：
 
-- 集成了Profiler数据采集的功能，并提供了超参可直接通过模型参数配置使用，详见[大模型性能调试指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html#)。
-- 集成了精度在线监控功能，详见[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/monitor.html)。
+- 集成了Profiler数据采集的功能，并提供了超参可直接通过模型参数配置使用，详见[大模型性能调试指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/advanced_development/performance_optimization.html#)。
+- 集成了精度在线监控功能，详见[训练指标监控](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/feature/monitor.html)。
 
 ## 基于MindSpeed加速库的调试调优指南
 

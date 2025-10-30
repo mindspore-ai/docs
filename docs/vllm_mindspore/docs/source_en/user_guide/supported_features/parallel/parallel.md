@@ -1,6 +1,6 @@
 # Parallel Inference Methods
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/parallel/parallel.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/parallel/parallel.md)
 
 The vLLM-MindSpore plugin supports hybrid parallel inference configurations combining Tensor Parallelism (TP), Data Parallelism (DP), and Expert Parallelism (EP), and can be launched for multi-node multi-card setups using `Ray` or `multiprocess`. For applicable scenarios of different parallel strategies, refer to the [vLLM Official Documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies). The following sections will detail the usage scenarios, parameter configuration, and [Online Inference](#online-inference) for [Tensor Parallelism](#tensor-parallelism), [Data Parallelism](#data-parallelism), [Expert Parallelism](#expert-parallelism), and [Hybrid Parallelism](#hybrid-parallelism).
 
@@ -237,7 +237,7 @@ Environment Variable Descriptions:
 
 - `MS_ENABLE_LCCL`: Disables LCCL and enables HCCL communication.
 - `HCCL_OP_EXPANSION_MODE`: Configures the scheduling and expansion location of the communication algorithm to be the AI Vector Core computing unit on the Device side.
-- `MS_ALLOC_CONF`: Sets the memory policy. Refer to the [MindSpore Official Documentation](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
+- `MS_ALLOC_CONF`: Sets the memory policy. Refer to the [MindSpore Official Documentation](https://www.mindspore.cn/docs/en/r2.7.1/api_python/env_var_list.html).
 - `ASCEND_RT_VISIBLE_DEVICES`: Configures the available device IDs for each node. Users can query this using the `npu-smi info` command.
 - `VLLM_MS_MODEL_BACKEND`: The backend of the model being run. The models and model backends currently supported by the vLLM-MindSpore plugin can be queried in the [Model Support List](../../../user_guide/supported_models/models_list/models_list.md).
 
