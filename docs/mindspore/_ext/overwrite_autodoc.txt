@@ -581,7 +581,7 @@ class Documenter:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                     break
             if not re.findall(f'>>> .*?{usename}', mint_doc):
-                mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext|_ext_view)?(?!\w)', rf'\1{usename}', mint_doc)
+                mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext|_ext_view|_view)?(?!\w)', rf'\1{usename}', mint_doc)
             if re.findall(rf'>>> .*?ops\.\w+\(', mint_doc):
                 mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint, ops', mint_doc)
                 mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint, ops')
