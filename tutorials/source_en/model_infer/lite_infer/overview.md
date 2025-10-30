@@ -38,7 +38,7 @@ The MindSpore Lite inference framework supports the conversion of MindSpore trai
 
 3. [Quantification after Training](https://www.mindspore.cn/lite/docs/en/r2.7.1/advanced/quantization.html)
 
-4. [Lightweight Micro inference deployment](https://www.mindspore.cn/lite/docs/en/r2.7.1/advanced/micro.html#%20Model%20inference%20code%20generation)
+4. [Lightweight Micro inference deployment](https://www.mindspore.cn/lite/docs/en/r2.7.1/advanced/micro.html#generating-model-inference-code)
 
 5. [Benchmark Debugging Tool](https://www.mindspore.cn/lite/docs/en/r2.7.1/tools/benchmark.html)
 
