@@ -46,7 +46,7 @@ MindSpore Transformers对于不同训练场景提供了对应的配置模板，�
 ### 数据集配置修改
 
 1. 预训练场景使用Megatron数据集，详情请参考[Megatron数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#megatron%E6%95%B0%E6%8D%AE%E9%9B%86)。
-2. 微调场景使用HuggingFace数据集，详情请参考[HuggingFace数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#huggingface%E6%95%B0%E6%8D%AE%E9%9B%86)。
+2. 微调场景使用HuggingFace数据集，详情请参考[HuggingFace数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#hugging-face%E6%95%B0%E6%8D%AE%E9%9B%86)。
 
 ### 模型配置修改
 
@@ -59,7 +59,7 @@ MindSpore Transformers对于不同训练场景提供了对应的配置模板，�
    | Qwen2_5  |
 
 2. 生成的模型配置优先以yaml配置为准，未配置参数则取值pretrained_model_dir路径下的config.json中的参数。如若要修改定制模型配置，则只需要在model_config中添加相关配置即可。
-3. 通用配置详情请参考[模型配置](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#%E6%A8%A1%E5%9E%8B%E9%85%8D%E7%BD%AE)。
+3. 通用配置详情请参考[模型配置](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#legacy-%E6%A8%A1%E5%9E%8B%E9%85%8D%E7%BD%AE)。
 
 ## 进阶配置修改
 

@@ -369,7 +369,7 @@ $ grep -m1 'Global CheckSum result is' worker_0.log
 
 * 通过搜索应用类日志，查询**ERROR**级别错误日志，关键字"accuracy sensitivity feature abnormal"；
 * 通过监控NPU健康状态：Health Status显示Warning，Error Code显示80818C00，Error Information显示node type=SoC, sensor type=Check Sensor, event state=check fail；
-* 通过查看[Ascend Device Plugin](https://github.com/Ascend/ascend-device-plugin)事件，上报错误码80818C00，事件类型为故障事件，故障级别次要。
+* 通过查看[MindCluster](https://gitcode.com/Ascend/mind-cluster)事件，上报错误码80818C00，事件类型为故障事件，故障级别次要。
 
 当使用联合检测时，若训练中发生特征值异常、CheckSum检测出静默故障，会在业务训练日志中产生告警：
 

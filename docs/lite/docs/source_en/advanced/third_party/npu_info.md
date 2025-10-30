@@ -28,7 +28,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
     When developers need to integrate the use of Kirin NPU features, it is important to note:
 
-    - [Configure the Kirin NPU backend](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#configuring-the-npu-backend).
+    - [Configure the Kirin NPU backend](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#configuring-the-kirin-npu-backend).
         For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html).
 
     - Compile and execute the binary. If you use dynamic linking, refer to [compile output](https://www.mindspore.cn/lite/docs/en/master/build/build.html) when the compile option is `-I arm64` or `-I arm32`.
