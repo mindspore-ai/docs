@@ -56,6 +56,8 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
      - 训练接口。
    * - `mindspore.parallel <./mindspore.parallel.html>`_
      - 自动并行接口。
+   * - `mindspore.graph <./mindspore.graph.html>`_
+     - 图编译接口。
    * - `mindspore.runtime <./mindspore.runtime.html>`_
      - 运行时接口。
    * - `mindspore.device_context <./mindspore.device_context.html>`_
