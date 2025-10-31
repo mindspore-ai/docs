@@ -195,7 +195,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
     | `moe-aux-loss-coeff`                  | MoE 辅助损失系数                 | 不支持配置                                 |                            |
     | `moe-z-loss-coeff`                    | MoE z-loss 系数              | 不支持配置                                 |                            |
     | `moe-input-jitter-eps`                | MoE 输入 jitter 噪声量          | `moe_input_jitter_eps`                | MoE 输入 jitter 噪声量          |
-    | `moe-token-dispatcher-type`           | token 调度策略（allgather 等）    | 不支持配置                                 |                            |
+    | `moe-token-dispatcher-type`           | token 调度策略（allgather 等）    | `moe_token_dispatcher_type`           | token 调度策略（allgather 等）    |
     | `moe-enable-deepep`                   | 是否启用 DeepEP 混合专家优化         | `moe_enable_deepep`                   | 是否启用 DeepEP 混合专家优化         |
     | `moe-per-layer-logging`               | 每层 MoE 打印日志                | `moe_per_layer_logging`               | 每层 MoE 打印日志                |
     | `moe-expert-capacity-factor`          | expert 容量扩展比例              | `capacity_factor`                     | expert 容量扩展比例              |
