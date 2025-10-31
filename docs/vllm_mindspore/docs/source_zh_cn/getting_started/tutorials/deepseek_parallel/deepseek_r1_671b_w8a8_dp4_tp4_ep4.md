@@ -178,7 +178,7 @@ vllm-mindspore serve
  --block-size [Block Size 大小，推荐128]
  --gpu-memory-utilization [显存利用率，推荐0.9]
  --tensor-parallel-size [TP 并行数]
- --headless # 仅从节点需要配置，表示不需要服务侧相关内容
+ --headless # 启用headless模式，多节点数据并行时使用
  --data-parallel-size [DP 并行数]
  --data-parallel-size-local [当前服务节点中的DP数，所有节点求和等于data-parallel-size]
  --data-parallel-start-rank [当前服务节点中负责的首个DP的偏移量，当使用multiprocess启动方式时使用]
@@ -186,17 +186,17 @@ vllm-mindspore serve
  --data-parallel-rpc-port [主节点的通讯端口，当使用multiprocess启动方式时使用]
  --enable-expert-parallel # 使能专家并行
  --data-parallel-backend [ray，mp] # 指定 dp 部署方式为 ray 或是 mp(即multiprocess)
- --addition-config # 并行功能与额外配置
+ --additional-config # 并行功能与额外配置
 ```
 
 - 用户可以通过指定模型保存的本地路径为模型标签；
-- 用户可以通过`--addition-config`参数，配置并行与其他功能。
+- 用户可以通过`--additional-config`参数，配置并行与其他功能。
 
 以下为Ray启动命令：
 
 ```bash
 # 主节点：
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray --quantization ascend
 ```
 
 关于multiprocess启动命令，可以参考[multiprocess启动方式](../../../user_guide/supported_features/parallel/parallel.md#启动服务)。
@@ -224,19 +224,19 @@ pyACL（Python Ascend Computing Language）通过 CPython 封装了 AscendCL 对
 在对应环境中，获取相应版本的 Ascend-cann-nnrt 安装包后，解压出 pyACL 依赖包并单独安装，并将安装路径添加到环境变量中：
 
 ```bash
-./Ascend-cann-nnrt_8.0.RC1_linux-aarch64.run --noexec --extract=./
+./Ascend-cann-nnrt_*_linux-aarch64.run --noexec --extract=./
 cd ./run_package
-./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
+./Ascend-pyACL_*_linux-aarch64.run --full --install-path=<install_path>
 export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPATH
 ```
 
 若安装过程有权限问题，可以使用以下命令加权限：
 
 ```bash
-chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
+chmod -R 777 ./Ascend-pyACL_*_linux-aarch64.run
 ```
 
-在 Ascend 的首页中可以下载 Ascend 运行包。例如，可以下载 [8.0.RC1.beta1](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1) 对应版本的运行包。
+在 Ascend 的首页中可以下载 Ascend 运行包。例如，可以参考[安装指南](../../installation/installation.md)下载运行包。
 
 #### 多节点间集群
 

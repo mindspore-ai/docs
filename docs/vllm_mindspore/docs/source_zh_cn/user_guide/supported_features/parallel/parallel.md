@@ -93,7 +93,7 @@ vllm-mindspore serve /path/to/Qwen2.5/model --headless --trust-remote-code --dat
 - `--additional-config`：配置`expert_parallel`字段为EP并行数。例如配置EP为4，则
 
   ```bash
-  --addition-config '{"expert_parallel": 4}
+  --additional-config '{"expert_parallel": 4}
   ```
 
 > - 如果不配置`--enable-expert-parallel`则不使能EP，配置 `--additional-config '{"expert_parallel": 4}'`不会生效；
@@ -107,7 +107,7 @@ vllm-mindspore serve /path/to/Qwen2.5/model --headless --trust-remote-code --dat
 以下命令为单机八卡，启动Qwen-3 MOE的专家并行示例：
 
 ```bash
-vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --addition-config '{"expert_parallel": 8}
+vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --additional-config '{"expert_parallel": 8}
 ```
 
 #### 多机示例
@@ -115,7 +115,7 @@ vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-para
 多机专家并行依赖Ray进行启动。请参考[Ray多节点集群管理](#ray多节点集群管理)进行Ray环境配置。以下命令为双机四卡，Ray启动Qwen-3 MOE的专家并行示例：
 
 ```bash
-vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --addition-config '{"expert_parallel": 8} --data-parallel-backend=ray
+vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --additional-config '{"expert_parallel": 8} --data-parallel-backend ray
 ```
 
 ## 混合并行
@@ -129,7 +129,7 @@ vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-para
 可根据上述介绍，分别将三种并行策略的配置叠加，在启动命令`vllm-mindspore serve`中使能。多机混合并行依赖Ray进行启动。请参考[Ray多节点集群管理](#ray多节点集群管理)进行Ray环境配置。其叠加后混合并行的Ray启动命令如下：
 
 ```bash
-vllm-mindspore serve /path/to/DeepSeek-R1 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve /path/to/DeepSeek-R1 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray
 ```
 
 ## 附录
@@ -145,19 +145,19 @@ pyACL (Python Ascend Computing Language) 通过 CPython 封装了 AscendCL 对�
 在对应环境中，获取相应版本的 Ascend-cann-nnrt 安装包后，解压出 pyACL 依赖包并单独安装，并将安装路径添加到环境变量中：
 
 ```bash
-./Ascend-cann-nnrt_8.0.RC1_linux-aarch64.run --noexec --extract=./
+./Ascend-cann-nnrt_*_linux-aarch64.run --noexec --extract=./
 cd ./run_package
-./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
+./Ascend-pyACL_*_linux-aarch64.run --full --install-path=<install_path>
 export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPATH
 ```
 
 若安装过程有权限问题，可以使用以下命令加权限：
 
 ```bash
-chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
+chmod -R 777 ./Ascend-pyACL_*_linux-aarch64.run
 ```
 
-在 Ascend 的首页中可以下载 Ascend 运行包。例如，可以下载 [8.0.RC1.beta1](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1) 对应版本的运行包。
+在 Ascend 的首页中可以下载 Ascend 运行包。例如，可以参考[安装指南](../../installation/installation.md)下载运行包。
 
 #### 多节点间集群
 
@@ -280,27 +280,21 @@ vllm-mindspore serve
  --data-parallel-rpc-port [主节点的通讯端口，当使用multiprocess启动方式时使用]
  --enable-expert-parallel # 使能专家并行
  --data-parallel-backend [ray，mp] # 指定 dp 部署方式为 Ray 或是 mp(即multiprocess)
- --addition-config # 并行功能与额外配置
+ --additional-config # 并行功能与额外配置
 ```
 
 - 用户可以通过指定模型保存的本地路径为模型标签；
 
-- 用户可以通过`--addition-config`参数，配置并行与其他功能。其中并行可进行如下配置，对应的是DP4-EP4-TP4场景：
-
-  ```bash
-  --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
-  ```
-
-以下分别为multiprocess与Ray两种启动方式的执行示例：
+以DP4-EP4-TP4场景为例，以下分别为multiprocess与Ray两种启动方式的执行示例：
 
 **multiprocess启动方式**
 
 ```bash
 # 主节点：
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --quantization ascend
 
 # 从节点：
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --headless --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --quantization ascend
 ```
 
 其中，`data-parallel-address`和`--data-parallel-rpc-port`需要设置成实际运行的环境信息。
@@ -309,7 +303,7 @@ vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless --trust-remo
 
 ```bash
 # 主节点：
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray --quantization ascend
 ```
 
 #### 发送请求

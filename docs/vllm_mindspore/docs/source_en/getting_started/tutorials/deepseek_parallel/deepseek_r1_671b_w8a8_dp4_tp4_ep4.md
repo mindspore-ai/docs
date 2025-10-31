@@ -178,7 +178,7 @@ vllm-mindspore serve
  --block-size [Block Size, recommended 128]
  --gpu-memory-utilization [Memory utilization rate, recommended 0.9]
  --tensor-parallel-size [TP parallelism degree]
- --headless # Only needed for worker nodes, indicates no server-side related content is needed
+ --headless # Run in headless mode, used in multi-node data parallel
  --data-parallel-size [DP parallelism degree]
  --data-parallel-size-local [Number of DP workers on the current service node. The sum across all nodes equals data-parallel-size]
  --data-parallel-start-rank [The offset of the first DP worker responsible for the current service node, used when using the multiprocess startup method]
@@ -196,7 +196,7 @@ The following is the Ray startup command:
 
 ```bash
 # Master Node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray --quantization ascend
 ```
 
 For the multiprocess startup command, please refer to the [Multiprocess Startup Method](../../../user_guide/supported_features/parallel/parallel.md#starting-the-service).
@@ -224,19 +224,19 @@ pyACL (Python Ascend Computing Language) wraps the corresponding API interfaces 
 In the target environment, after obtaining the appropriate version of the Ascend-cann-nnrt installation package, extract the pyACL dependency package and install it separately. Then add the installation path to the environment variables:
 
 ```bash
-./Ascend-cann-nnrt_8.0.RC1_linux-aarch64.run --noexec --extract=./
+./Ascend-cann-nnrt_*_linux-aarch64.run --noexec --extract=./
 cd ./run_package
-./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
+./Ascend-pyACL_*_linux-aarch64.run --full --install-path=<install_path>
 export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPATH
 ```
 
 If there are permission issues during installation, use the following command to add permissions:
 
 ```bash
-chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
+chmod -R 777 ./Ascend-pyACL_*_linux-aarch64.run
 ```
 
-The Ascend runtime package can be downloaded from the Ascend homepage. For example, you can download the runtime package for version [8.0.RC1.beta1](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1).
+The Ascend runtime package can be downloaded from the Ascend homepage. For example, you can refer to [installation](../../installation/installation.md) and download the runtime package.
 
 #### Multi-Node Cluster
 
