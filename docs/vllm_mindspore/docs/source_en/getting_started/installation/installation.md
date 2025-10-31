@@ -11,17 +11,21 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 
 - OS: Linux-aarch64
 - Python: 3.9 / 3.10 / 3.11
-- Software version compatibility
+- Depent Software version compatibility
 
    | Software | Version And Links |
    | -----    | -----   |
-   | CANN   |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit) |
-   | MindSpore  |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250814/master_20250814091143_7548abc43af03319bfa528fc96d0ccd3917fcc9c_newest/unified/) |
-   | MSAdapter | [0.5.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250814/master_20250814010018_4615051c43eef898b6bbdc69768656493b5932f8_newest/any/) |
-   | MindSpore Transformers | [1.6.0](https://gitee.com/mindspore/mindformers) |
-   | Golden Stick | [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/) |
-   | vLLM       | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
-   | vLLM-MindSpore Plugin  | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
+   | CANN   |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html) |
+   | MindSpore  |  [2.7.1](https://www.mindspore.cn/versions#2.7.1) |
+   | MSAdapter| [0.0.5](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MSAdapter/any/msadapter-0.0.5-py3-none-any.whl) |
+   | MindSpore Transformers | [1.7.0](https://www.mindspore.cn/mindformers/docs/en/r1.7.0) |
+   | vLLM       | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/) |
+
+- Source code and download link of vLLM-MindSpore Plugin
+
+   | Source Code Link | Package Link |
+   | -----    | -----   |
+   | [0.4.0](https://gitee.com/mindspore/vllm-mindspore/tree/r0.4.0/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp39-cp39-linux_aarch64.whl), [Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp310-cp310-linux_aarch64.whl), [Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp311-cp311-linux_aarch64.whl) |
 
 ## Docker Installation
 
@@ -116,7 +120,7 @@ docker exec -it $DOCKER_NAME bash
 
 ### CANN Installation
 
-For CANN installation methods and environment configuration, please refer to [CANN Community Edition Installation Guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit). If you encounter any issues during CANN installation, please consult the [Ascend FAQ](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html) for troubleshooting.
+For CANN installation methods and environment configuration, please refer to [CANN Community Edition Installation Guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html?Mode=PmIns&InstallType=local&OS=openEuler&Software=cannToolKit). If you encounter any issues during CANN installation, please consult the [Ascend FAQ](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html) for troubleshooting.
 
 The default installation path for CANN is `/usr/local/Ascend`. After completing CANN installation, configure the environment variables with the following commands:
 
@@ -128,11 +132,7 @@ export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
 
 ### vLLM Prerequisites Installation
 
-For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html). In vLLM installation, `gcc/g++ >= 12.3.0` is required, and it can be installed by the following command:
-
-```bash
-yum install -y gcc gcc-c++
-```
+For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html).
 
 ### vLLM-MindSpore Plugin Installation
 
@@ -148,9 +148,17 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
     bash install_depend_pkgs.sh
     ```
 
+    Compile and install vLLM-MindSpore Plugin:
+
+    ```bash
+    pip install .
+    ```
+
+    User can also refer to [Version Compatibility](#version-compatibility), check the Python version, download vLLM-Mindspore Pulgin whl package, and use pip to install.
+
 - **vLLM-MindSpore Plugin Manual Installation**
 
-    If users require custom modifications to dependent components such as vLLM, MindSpore, Golden Stick, or MSAdapter, they can prepare the modified installation packages locally and perform manual installation in a specific sequence. The installation sequence requirements are as follows:
+    If users require custom modifications to dependent components such as vLLM, MindSpore, or MSAdapter, they can prepare the modified installation packages locally and perform manual installation in a specific sequence. The installation sequence requirements are as follows:
 
     1. Install vLLM
 
@@ -158,37 +166,25 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
        pip install /path/to/vllm-*.whl
        ```
 
-    2. Uninstall Torch-related components
-
-       ```bash
-       pip uninstall torch torch-npu torchvision torchaudio -y
-       ```
-
-    3. Install MindSpore
+    2. Install MindSpore
 
        ```bash
        pip install /path/to/mindspore-*.whl
        ```
 
-    4. Install MindSpore Transformers
+    3. Install MindSpore Transformers
 
        ```bash
        pip install /path/to/mindformers-*.whl
        ```
 
-    5. Install Golden Stick
-
-       ```bash
-       pip install /path/to/mindspore_gs-*.whl
-       ```
-
-    6. Install MSAdapter
+    4. Install MSAdapter
 
        ```bash
        pip install /path/to/msadapter-*.whl
        ```
 
-    7. Install vLLM-MindSpore Plugin
+    5. Install vLLM-MindSpore Plugin
 
        User needs to pull source of vLLM-MindSpore Plugin, and run installation.
 

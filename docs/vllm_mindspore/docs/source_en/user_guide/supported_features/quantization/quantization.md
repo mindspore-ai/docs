@@ -8,7 +8,7 @@ In this document, the [Creating Quantized Models](#creating-quantized-models) se
 
 ## Creating Quantized Models
 
-We use the [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) network as an example to introduce W8A8 quantization with the OutlierSuppressionLite algorithm.
+We use the [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) network as an example to introduce W8A8 quantization with the OutlierSuppressionLite algorithm. This chapter requires the MindSpore Golden Stick module. Please refer to [here](https://www.mindspore.cn/golden_stick/docs/en/r1.3.0/index.html) for details about this module.
 
 ### Quantizing Networks with MindSpore Golden Stick
 

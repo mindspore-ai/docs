@@ -11,17 +11,21 @@
 
 - OS：Linux-aarch64
 - Python：3.9 / 3.10 / 3.11
-- 软件版本配套
+- 依赖软件版本配套
 
    | 软件 | 配套版本与下载链接 |
    | -----    | -----   |
-   | CANN  |   [8.1.RC1](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/softwareinst/instg/instg_0000.html?Mode=PmIns&InstallType=local&OS=Debian&Software=cannToolKit)      |
-   | MindSpore |  [2.7.0](https://repo.mindspore.cn/mindspore/mindspore/version/202508/20250814/master_20250814091143_7548abc43af03319bfa528fc96d0ccd3917fcc9c_newest/unified/)    |
-   | MSAdapter| [0.5.0](https://repo.mindspore.cn/mindspore/msadapter/version/202508/20250814/master_20250814010018_4615051c43eef898b6bbdc69768656493b5932f8_newest/any/) |
-   | MindSpore Transformers | [1.6.0](https://gitee.com/mindspore/mindformers)  |
-   | Golden Stick | [1.2.0](https://repo.mindspore.cn/mindspore/golden-stick/version/202508/20250814/master_20250814010017_2713821db982330b3bcd6d84d85a3b337d555f27_newest/any/)  |
-   | vLLM     | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/any/) |
-   | vLLM-MindSpore插件 | [0.3.0](https://gitee.com/mindspore/vllm-mindspore/) |
+   | CANN  |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html)      |
+   | MindSpore |  [2.7.1](https://www.mindspore.cn/versions#2.7.1)    |
+   | MSAdapter| [0.0.5](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/MSAdapter/any/msadapter-0.0.5-py3-none-any.whl) |
+   | MindSpore Transformers | [1.7.0](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0)  |
+   | vLLM     | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/) |
+
+- vLLM-MindSpore插件代码仓与下载链接
+
+   |代码仓链接 | 插件包下载链接 |
+   | -----    | -----   |
+   | [0.4.0](https://gitee.com/mindspore/vllm-mindspore/tree/r0.4.0/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp39-cp39-linux_aarch64.whl)，[Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp310-cp310-linux_aarch64.whl)，[Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp311-cp311-linux_aarch64.whl) |
 
 ## docker安装
 
@@ -116,7 +120,7 @@ docker exec -it $DOCKER_NAME bash
 
 ### CANN安装
 
-CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/82RC1alpha002/softwareinst/instg/instg_0001.html?Mode=PmIns&OS=openEuler&Software=cannToolKit)。若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
+CANN安装方法与环境配套，请参考[CANN社区版软件安装](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html?Mode=PmIns&InstallType=local&OS=openEuler&Software=cannToolKit)。若用户在安装CANN过程中遇到问题，可参考[昇腾常见问题](https://www.hiascend.com/document/detail/zh/AscendFAQ/ProduTech/CANNFAQ/cannfaq_000.html)进行解决。
 
 CANN默认安装路径为`/usr/local/Ascend`。用户在安装CANN完毕后，使用如下命令，为CANN配置环境变量：
 
@@ -128,11 +132,7 @@ export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
 
 ### vLLM前置依赖安装
 
-vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html)。其依赖`gcc/g++ >= 12.3.0`版本，可通过以下命令完成安装：
-
-```bash
-yum install -y gcc gcc-c++
-```
+vLLM的环境配置与安装方法，请参考[vLLM安装教程](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html)。
 
 ### vLLM-MindSpore插件安装
 
@@ -154,9 +154,11 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
     pip install .
     ```
 
+    也可以参考[软件配套](#版本配套)，根据对应的Python版本，下载vLLM-MindSpore插件包，进行pip安装。
+
 - **vLLM-MindSpore插件手动安装**
 
-    若用户对依赖的vLLM、MindSpore、Golden Stick、MSAdapter等组件有自定义修改的需求，可以在本地准备好修改后的安装包，按照特定的顺序进行手动安装。安装顺序要求如下：
+    若用户对依赖的vLLM、MindSpore、MSAdapter等组件有自定义修改的需求，可以在本地准备好修改后的安装包，按照特定的顺序进行手动安装。安装顺序要求如下：
 
     1. 安装vLLM
 
@@ -164,37 +166,25 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
         pip install /path/to/vllm-*.whl
         ```
 
-    2. 卸载torch相关组件
-
-        ```bash
-        pip uninstall torch torch-npu torchvision torchaudio -y
-        ```
-
-    3. 安装MindSpore
+    2. 安装MindSpore
 
         ```bash
         pip install /path/to/mindspore-*.whl
         ```
 
-    4. 安装MindSpore Transformers
+    3. 安装MindSpore Transformers
 
         ```bash
         pip install /path/to/mindformers-*.whl
         ```
 
-    5. 安装Golden Stick
-
-        ```bash
-        pip install /path/to/mindspore_gs-*.whl
-        ```
-
-    6. 安装MSAdapter
+    4. 安装MSAdapter
 
         ```bash
         pip install /path/to/msadapter-*.whl
         ```
 
-    7. 安装vLLM-MindSpore插件
+    5. 安装vLLM-MindSpore插件
 
         需要先拉取vLLM-MindSpore插件源码，再执行安装：
 
@@ -212,7 +202,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
 export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model backend.
 ```
 
-关于环境变量的具体含义，可参考[这里](../quick_start/quick_start.md#设置环境变量)。
+关于环境变量的具体含义，可参考[环境变量](../quick_start/quick_start.md#设置环境变量)。
 
 用户可以使用如下Python脚本，进行模型的离线推理：
 

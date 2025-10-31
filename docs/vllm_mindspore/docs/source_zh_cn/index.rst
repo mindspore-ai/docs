@@ -80,11 +80,14 @@ vLLM-MindSpore插件代码仓包含主干分支、开发分支、版本分支：
       -  Unmaintained
       -  仅允许文档修复
    *  -  r0.2
-      -  Maintained
-      -  基于vLLM v0.7.3版本和MindSpore 2.6.0版本CI看护
+      -  Unmaintained
+      -  基于vLLM v0.7.3版本和MindSpore 2.6.0版本CI看护。仅允许文档修复
    *  -  r0.3.0
       -  Maintained
-      -  基于vLLM v0.7.3版本和MindSpore 2.7.0版本CI看护
+      -  基于vLLM v0.8.3版本和MindSpore 2.7.0版本CI看护
+   *  -  r0.4.0
+      -  Maintained
+      -  基于vLLM v0.9.1版本和MindSpore 2.7.1版本CI看护
 
 SIG组织
 -----------------------------------------------------
