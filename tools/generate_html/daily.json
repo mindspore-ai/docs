@@ -43,6 +43,15 @@
 },
 {
     "id" : 5 ,
+    "name" : "golden_stick",
+    "branch" : "master",
+    "whl_path" : "/golden-stick/newest/any/",
+    "whl_name" : "mindspore_gs-.*-py3-none-any.whl$",
+    "environ" : "GS_PATH",
+    "uninstall_name" : "mindspore_gs"
+},
+{
+    "id" : 6 ,
     "name" : "mindchemistry",
     "branch" : "master",
     "whl_path" : "/mindscience/website/mindchemistry/gpu/x86_64/cuda-11.1/",
@@ -51,7 +60,7 @@
     "uninstall_name" : "mindchemistry_gpu"
 },
 {
-    "id" : 6 ,
+    "id" : 7 ,
     "name" : "mindformers",
     "branch" : "master",
     "whl_search" : "any/",
@@ -63,7 +72,7 @@
     "extra_whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$"
 },
 {
-    "id" : 7 ,
+    "id" : 8 ,
     "name" : "vllm_mindspore",
     "branch" : "master",
     "whl_path" : "",
@@ -72,7 +81,7 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 8 ,
+    "id" : 9 ,
     "name" : "mindstudio",
     "branch" : "master",
     "whl_path" : "",
@@ -81,7 +90,7 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 9 ,
+    "id" : 10 ,
     "name" : "msadapter",
     "branch" : "master",
     "whl_path" : "",
@@ -90,7 +99,7 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 10 ,
+    "id" : 11 ,
     "name" : "mindquantum",
     "branch" : "master",
     "whl_path" : "/mindquantum/newest/gpu/x86_64/cuda-11.1/",
