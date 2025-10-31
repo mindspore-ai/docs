@@ -289,81 +289,45 @@ for root, dirs, files in os.walk(src_dir_api):
         shutil.copy(root_p / file, dst)
         copy_list.append(str(dst))
 
-readme_path = os.path.join(os.getenv("GS_PATH"), 'README_CN.md')
-
-with open(readme_path, 'r', encoding='utf-8') as f:
-    content = f.read()
-
-ind_content = 'MindSpore Golden Stick 文档\n=============================\n'
-
-sc_doc = re.findall('\n## 概述\n((?:.|\n|)+?)\n## ', content)
-if sc_doc:
-    ind_content += re.sub('!\[(.*?)\]\((.*?)\)', r'.. image:: \2', sc_doc[0])
-    ind_content = re.sub('.. image:: docs/.*?/(images/.*)', r'.. image:: ./\1', ind_content)
-    ind_content = re.sub('\n\n> (.+)', r'\n\n.. note::\n    \1', ind_content)
-    ind_content = re.sub('\n> (.+)', r'\n    \1', ind_content)
-    ind_content += "\n\n代码仓地址： <https://gitee.com/mindspore/golden-stick>\n"
+if os.path.exists(os.path.join(moment_dir, 'index.rst')):
+    os.remove(os.path.join(moment_dir, 'index.rst'))
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/index.rst'),
+                os.path.join(moment_dir, 'index.rst'))
 
 gsdocs_image = os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/images')
 if not os.path.exists(os.path.join(moment_dir, 'images')):
     shutil.copytree(gsdocs_image, os.path.join(moment_dir, 'images'))
 
-ind_content += """
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 安装部署
+def extract_toctree(content):
+    """
+    从index.rst内容中提取所有toctree指令中的文档条目
+    """
+    entries = re.findall(r'^\s+([a-zA-Z0-9_\-./]+)\s*$', content, re.MULTILINE)
+    keywords = ['ptq/', 'quantization/', 'pruner/']
+    filtered_entries = [entry for entry in entries if any(keyword in entry for keyword in keywords)]
+    spec_copy=[]
 
-   install
+    for path in filtered_entries:
+        path_split = path.split('/') 
+        directory = path_split[0]
+        filename = path_split[1]  
+        if filename == 'overview':
+            gs_p = 'mindspore_gs/' + directory + '/README_CN.md' 
+            docs_p = directory + '/' + filename + '.md'
+        else:
+            if 'round_to_nearest' in filename:
+                gs_p = 'mindspore_gs/' + path + '/README_CN.ipynb' 
+                docs_p = directory + '/' + filename + '.ipynb'
+            else:
+                gs_p = 'mindspore_gs/' + path + '/README_CN.md' 
+                docs_p = directory + '/' + filename + '.md'
+        spec_copy.append([gs_p, docs_p])
 
-"""
+    return spec_copy
 
-toctree = []
-
-spec_copy = []
-toctree_list = re.findall('<thead>(?:.|\n|)+?</thead>\n[ ]+?<tbody>(?:.|\n|)+?</tbody>', content)
-if toctree_list:
-    for i in toctree_list:
-        toctree_n = re.findall('<th .*<div.*?>(.*?)</div>', i)
-        if 'demo' in toctree_n[-1] or 'TBD' in toctree_n[-1] or toctree_n[-1] == '概览' or toctree_n[-1] == '其他':
-            continue
-        toctree_p = []
-        if re.findall('<th .*?<a href="(.*?)"', i) and 'README.' not in re.findall('<th .*?<a href="(.*?)"', i)[0].split('/')[-1]:
-            href = re.findall('<th .*?<a href="(.*?)"', i)[0]
-            toctree_p.append('/'.join(re.findall('<th .*?<a href="(.*?)"', i)[0].split('/')[:-1])+'/overview')
-            docs_p = '/'.join(href.replace('mindspore_gs/', '').split('/')[:-1]) + '/overview.' + href.split('.')[-1]
-            spec_copy.append([href, docs_p])
-        if re.findall('<td .*?<a href="(.*?)">(.*?)<', i):
-            for href, name in re.findall('<td .*?<a href="(.*?)">(.*?)<', i):
-                if 'demo' not in name and 'README.' not in href.split('/')[-1]:
-                    toctree_p.append('/'.join(href.split('/')[:-1]))
-                    docs_p = '/'.join(href.replace('mindspore_gs/', '').split('/')[:-1]) + '.' + href.split('.')[-1]
-                    spec_copy.append([href, docs_p])
-        toctree.append([toctree_n[-1], toctree_p])
-
-for toc_n, toc_p in toctree:
-    ind_content += f'.. toctree::\n   :glob:\n   :maxdepth: 1\n   :caption: {toc_n}\n\n'
-    for p in toc_p:
-        p_new = p.replace('mindspore_gs/', '')
-        ind_content += f'   {p_new}\n'
-    ind_content += '\n'
-
-with open(os.path.join(src_dir_api, 'index.rst'), 'r', encoding='utf-8') as f:
-    api_ind = f.read()
-
-api_toc = re.findall('.. toctree::(?:.|\n|)+', api_ind)[0]
-ind_content += api_toc
-
-ind_content += """
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-
-   RELEASE
-"""
-with open(os.path.join('./index.rst'), 'w', encoding='utf-8') as f:
-    f.write(ind_content)
+with open("index.rst", 'r', encoding='utf-8') as f:
+    content = f.read()
+spec_copy = extract_toctree(content)
 
 for gs_p, f_p in spec_copy:
     ori_p = os.path.join(os.getenv("GS_PATH"), gs_p)
@@ -448,6 +412,26 @@ if not os.path.exists(os.path.join(moment_dir, 'install.md')):
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/install.md'),
                 os.path.join(moment_dir, 'install.md'))
     with open(os.path.join(moment_dir, 'install.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('\n\[View English\].*\n', '', content, 1)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+if not os.path.exists(os.path.join(moment_dir, 'design.md')):
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/design.md'),
+                os.path.join(moment_dir, 'design.md'))
+    with open(os.path.join(moment_dir, 'design.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('\n\[View English\].*\n', '', content, 1)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'CONTRIBUTING_CN.md'),
+                os.path.join(moment_dir, 'CONTRIBUTING.md'))
+    with open(os.path.join(moment_dir, 'CONTRIBUTING.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('\n\[View English\].*\n', '', content, 1)
         f.seek(0)
