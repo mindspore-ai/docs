@@ -8,15 +8,13 @@ MindSpore Transformers 提供了如下几类超参数的配置方式。
 
 ## 学习率
 
-### 概述
+### 动态学习率
 
 学习率控制着模型权重更新的步长大小，决定了参数更新的速度。
 
 学习率是影响模型训练速度和稳定性的关键参数。在每次迭代过程中，通过计算损失函数相对于权重的梯度，并根据学习率调整这些权重。学习率设置得过大可能会导致模型无法收敛，而设置得过小则会使训练过程过于缓慢。
 
-### 配置与使用
-
-#### YAML 参数配置
+**YAML 参数配置**
 
 用户可通过在模型训练的 yaml 配置文件中新增 `lr_schedule` 模块来使用学习率。
 以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
@@ -30,7 +28,7 @@ lr_schedule:
   total_steps: -1 # -1 means it will load the total steps of the dataset
 ```
 
-#### 主要配置参数介绍
+**主要配置参数介绍**
 
 各学习率需配置的参数不同，MindSpore Transformers 目前支持了以下学习率：
 
@@ -69,6 +67,41 @@ lr_schedule:
 ```
 
 更多关于学习率 API 的介绍（如 `type` 的配置名称、学习率算法的介绍），可参见 [MindSpore Transformers API 文档：学习率部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/mindformers.core.html#%E5%AD%A6%E4%B9%A0%E7%8E%87) 的相关链接。
+
+### 分组学习率
+
+由于模型中不同层或参数对学习率的敏感度不同，在训练过程中针对不同的参数设置不同的学习率策略能够提高训练效率和性能，避免网络中部分参数过拟合训练或训练不充分的情况发生。
+
+在配置文件中配置`grouped_lr_schedule`字段即可开启分组学习率功能，该配置下包含`default`和`grouped`两个可配置项：
+
+| 参数名     | 说明                                                                                                                                             | 类型   |
+|---------|------------------------------------------------------------------------------------------------------------------------------------------------|------|
+| default | 不需要分组的参数对应的学习率策略配置，可配置内容与[动态学习率](#动态学习率)中`lr_schedule`相同。                                                                                       | dict |
+| grouped | 各参数组及其对应的学习率策略配置，每个参数组中可配置内容与[动态学习率](#动态学习率)中`lr_schedule`相比需要额外配置`params`参数； <br/> `params`是一个字符串列表，表示需要匹配的参数名，配置后会通过正则匹配模型中的参数名并配置对应的学习率策略。 | list |
+
+> 当同时配置lr_schedule和grouped_lr_schedule时，lr_schedule不生效。
+
+以下是分组学习率配置示例：
+
+```yaml
+grouped_lr_schedule:
+  default:
+    type: LinearWithWarmUpLR
+    learning_rate: 5.e-5
+    warmup_steps: 0
+    total_steps: -1 # -1 means it will load the total steps of the dataset
+  grouped:
+    - type: LinearWithWarmUpLR
+      params: ['embedding.*', 'output_layer.weight']
+      learning_rate: 2.5e-5
+      warmup_steps: 0
+      total_steps: -1
+    - type: ConstantWarmUpLR
+      params: ['q_layernorm', 'kv_layernorm']
+      learning_rate: 5.e-6
+      warmup_steps: 0
+      total_steps: -1
+```
 
 ## 优化器
 

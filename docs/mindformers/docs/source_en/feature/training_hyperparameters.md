@@ -10,7 +10,7 @@ MindSpore Transformers offers several categories of hyperparameter configuration
 
 ## Learning Rate
 
-### Overview
+### Dynamic Learning Rate
 
 The learning rate controls the size of the step taken during updates to model weights, determining the pace at which parameters are updated.
 
@@ -18,9 +18,7 @@ It is a critical parameter affecting both the training speed and stability of th
 
 Setting the learning rate too high can prevent the model from converging, while setting it too low can make the training process unnecessarily slow.
 
-### Configuration and Usage
-
-#### YAML Parameter Configuration
+**YAML Parameter Configuration**
 
 Users can utilize the learning rate by adding an `lr_schedule` module to the YAML configuration file used for model training.
 
@@ -35,7 +33,7 @@ lr_schedule:
   total_steps: -1 # -1 means it will load the total steps of the dataset
 ```
 
-#### Key Parameters Introduction
+**Key Parameters Introduction**
 
 Different learning rates require different configuration parameters. MindSpore Transformers currently supports the following learning rates:
 
@@ -74,6 +72,41 @@ lr_schedule:
 ```
 
 For more details about the learning rate API (such as `type` configuration names and introductions to learning rate algorithms), please refer to the related links in the [MindSpore Transformers API Documentation: Learning Rate](https://www.mindspore.cn/mindformers/docs/en/master/mindformers.core.html#learning-rate).
+
+### Grouped Learning Rate
+
+Since different layers or parameters in a model have varying sensitivities to the learning rate, configuring different learning rate strategies for different parameters during training can improve training efficiency and performance. This helps avoid overfitting or insufficient training in certain parts of the network.
+
+To enable grouped learning rate functionality, configure the `grouped_lr_schedule` field in the configuration file. This configuration includes two configurable options: `default` and `grouped`.
+
+| Parameter   | Description                                                                                                                                                        | Type  |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+| default     | The learning rate strategy for parameters that do not require grouping. The configuration contents are the same as the `lr_schedule` in [Dynamic Learning Rate](#dynamic-learning-rate). | dict  |
+| grouped     | Each parameter group and its corresponding learning rate strategy configuration. Compared to the `lr_schedule` in [Dynamic Learning Rate] (#dynamic-learning-rate), an additional `params` parameter needs to be configured for each parameter group. The model's parameters are matched using regex, and the corresponding learning rate strategy is applied. | list  |
+
+> When both lr_schedule and grouped_lr_schedule are set, lr_schedule will not take effect.
+
+Here is an example of grouped learning rate configuration:
+
+```yaml
+grouped_lr_schedule:
+  default:
+    type: LinearWithWarmUpLR
+    learning_rate: 5.e-5
+    warmup_steps: 0
+    total_steps: -1 # -1 means it will load the total steps of the dataset
+  grouped:
+    - type: LinearWithWarmUpLR
+      params: ['embedding.*', 'output_layer.weight']
+      learning_rate: 2.5e-5
+      warmup_steps: 0
+      total_steps: -1
+    - type: ConstantWarmUpLR
+      params: ['q_layernorm', 'kv_layernorm']
+      learning_rate: 5.e-6
+      warmup_steps: 0
+      total_steps: -1
+```
 
 ## Optimizer
 
