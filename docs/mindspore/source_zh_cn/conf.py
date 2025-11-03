@@ -502,13 +502,12 @@ rename_list = [("./api_python/ops/", "func_", ""),
                ("./api_python/mindspore/Tensor/", "method_", ""),
                ("./api_python/mint/", "func_", "")]
 
-try:
-    for tp in rename_list:
-        for filename in os.listdir(tp[0]):
-            newname = filename.replace(tp[1], tp[2])
-            os.rename(os.path.join(tp[0], filename),os.path.join(tp[0], newname))
-except Exception as e:
-    print(e)
+for tp in rename_list:
+    if not os.path.isdir(tp[0]):
+        continue
+    for filename in os.listdir(tp[0]):
+        newname = filename.replace(tp[1], tp[2])
+        os.rename(os.path.join(tp[0], filename),os.path.join(tp[0], newname))
 
 del_redundant_api_file(des_sir, ['mindspore.ops.rst', 'mindspore.ops.primitive.rst'], 'ops', 'mindspore.ops.', ops_del+primi_del, 'ops.silent_check.')
 del_redundant_api_file(des_sir, ['mindspore.nn.rst'], 'nn', 'mindspore.nn.', nn_del, 'optim_')
