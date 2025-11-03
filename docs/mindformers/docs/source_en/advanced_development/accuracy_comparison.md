@@ -191,18 +191,18 @@ The following tables describe the configuration comparison with Megatron-LM.
     | `moe-router-topk-scaling-factor`      | Top-*k* score scaling factor.              | `routed_scaling_factor`               | Top-*k* score scaling factor.              |
     | `moe-router-enable-expert-bias`       | Specifies whether to use the bias of an expert.        | `balance_via_topk_bias`               | Specifies whether to use the bias of an expert.        |
     | `moe-router-bias-update-rate`         | Update rate of expert bias.           | `topk_bias_update_rate`               | Update rate of expert bias.           |
-    | `moe-use-legacy-grouped-gemm`         | Specifies whether to use the source version of Grouped GEMM.       | Not supported.                                |                            |
-    | `moe-aux-loss-coeff`                  | Auxiliary loss coefficient of MoE.                | Not supported.                                |                            |
-    | `moe-z-loss-coeff`                    | MoE z-loss coefficient.             | Not supported.                                |                            |
+    | `moe-use-legacy-grouped-gemm`         | Specifies whether to use the source version of Grouped GEMM.       | Not supported.                        |                            |
+    | `moe-aux-loss-coeff`                  | Auxiliary loss coefficient of MoE.                | Not supported.                        |                            |
+    | `moe-z-loss-coeff`                    | MoE z-loss coefficient.             | Not supported.                        |                            |
     | `moe-input-jitter-eps`                | Input jitter noise of MoE.         | `moe_input_jitter_eps`                | Input jitter noise of MoE.         |
-    | `moe-token-dispatcher-type`           | Token scheduling policy (for example, **allgather**).   | Not supported.                                |                            |
+    | `moe-token-dispatcher-type`           | Token scheduling policy (for example, **allgather**).   | `moe_token_dispatcher_type`           |  Token scheduling policy (for example, **allgather**).                          |
     | `moe-enable-deepep`                   | Specifies whether to enable DeepEP hybrid expert optimization.        | `moe_enable_deepep`                   | Specifies whether to enable DeepEP hybrid expert optimization.        |
     | `moe-per-layer-logging`               | Prints logs at each MoE layer.               | `moe_per_layer_logging`               | Prints logs at each MoE layer.               |
     | `moe-expert-capacity-factor`          | Expansion ratio of the expert capacity.             | `capacity_factor`                     | Expansion ratio of the expert capacity.             |
     | `moe-pad-expert-input-to-capacity`    | Specifies whether to fill the expert input to the capacity upper limit.       | `moe_pad_expert_input_to_capacity`    | Specifies whether to fill the expert input to the capacity upper limit.       |
     | `moe-token-drop-policy`               | Token discarding policy (for example, **probs** or **position**).| `enable_sdrop`                        | Token discarding policy (for example, **probs** or **position**).|
-    | `moe-extended-tp`                     | Enables extended tensor parallelism.          | Not supported.                                |                            |
-    | `moe-use-upcycling`                   | Specifies whether to enable expert upcycling.          | Not supported.                                |                            |
+    | `moe-extended-tp`                     | Enables extended tensor parallelism.          | Not supported.                        |                            |
+    | `moe-use-upcycling`                   | Specifies whether to enable expert upcycling.          | Not supported.                        |                            |
     | `moe-permute-fusion`                  | Enables internal permute fusion optimization of experts.       | `moe_permute_fusion`                  | Enables internal permute fusion optimization of experts.       |
     | `mtp-num-layers`                      | Number of MoE layers.                  | `mtp_depth`                           | Number of MoE layers.                  |
     | `mtp-loss-scaling-factor`             | Loss scaling in the MoE architecture.              | `mtp_loss_factor`                     | Loss scaling in the MoE architecture.              |
