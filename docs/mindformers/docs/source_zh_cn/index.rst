@@ -96,7 +96,7 @@ MindSpore Transformers功能特性说明
 
   - `其它训练特性 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/other_training_features.html>`_
 
-    支持梯度累积、梯度裁剪等特性。
+    支持梯度累积、梯度裁剪、CPU绑核等特性。
 
 - 推理功能
 

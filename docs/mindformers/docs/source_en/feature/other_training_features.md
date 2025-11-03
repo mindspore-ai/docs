@@ -29,7 +29,7 @@ gradient_accumulation_steps: 4
 #### Key Parameters Introduction
 
 | Parameter                   | Description                                                                                  | Value Description                     |
-|-----------------------------|----------------------------------------------------------------------------------------------|---------------------------------------|
+| --------------------------- |----------------------------------------------------------------------------------------------|---------------------------------------|
 | gradient_accumulation_steps | The number of steps to accumulate gradients before performing backpropagation. Default: `1`. | (int, required) - Default value: `1`. |
 
 #### Other Ways to Use Gradient Accumulation
@@ -69,10 +69,10 @@ max_grad_norm: 1.0
 
 #### Key Parameters Introduction
 
-| Parameter     | Description                                                                            | Value Description                         |
-|---------------|----------------------------------------------------------------------------------------|-------------------------------------------|
-| use_clip_grad | Controls whether gradient clipping is enabled during training, default value: `False`. | (bool, optional) - Default: `False`.      |
-| max_grad_norm | Controls the maximum norm value of gradient clipping, default value: `1.0`.            | (float, optional) - Default: `1.0`. |
+| Parameter     | Description                                                                           | Value Description                   |
+| ------------- | ------------------------------------------------------------------------------------- | ----------------------------------- |
+| use_clip_grad | Controls whether gradient clipping is enabled during training, default value:`False`. | (bool, optional) - Default:`False`. |
+| max_grad_norm | Controls the maximum norm value of gradient clipping, default value:`1.0`.            | (float, optional) - Default:`1.0`.  |
 
 ## GroupedMatmul
 
@@ -143,13 +143,13 @@ callback:
 
 #### Key Configuration Parameters
 
-| Parameter            | Description                | Value Specification                       |
-|---------------|-------------------|----------------------------|
-| callback_moe_droprate | Whether to print MoE Droprate in callback. | (bool, optional) - Default: `False` .|
-| expert_num | Number of experts. | (int, required) -  Default: `None`. |
-| capacity_factor | Capacity factor. | (float, required) - Default: `None`. |
-| num_layers | Number of model layers. | (int, required) - Default: `None`. |
-| mtp_depth | Number of MTP layers. | (int, required) - Default: `None`. |
+| Parameter             | Description                                | Value Specification                  |
+| --------------------- | ------------------------------------------ | ------------------------------------ |
+| callback_moe_droprate | Whether to print MoE Droprate in callback. | (bool, optional) - Default:`False` . |
+| expert_num            | Number of experts.                         | (int, required) -  Default:`None`.   |
+| capacity_factor       | Capacity factor.                           | (float, required) - Default:`None`.  |
+| num_layers            | Number of model layers.                    | (int, required) - Default:`None`.    |
+| mtp_depth             | Number of MTP layers.                      | (int, required) - Default:`None`.    |
 
 ## Rotary Position Embedding Fusion Operator
 
@@ -190,3 +190,42 @@ model_config:
   use_fused_swiglu: True
   ...
 ```
+
+## CPU Affinity Binding Configuration
+
+### Overview
+
+MindSpore provides thread-level CPU core binding to allocate specific CPU cores for key MindSpore modules (main thread, pynative, runtime, and minddata), preventing performance instability caused by CPU core contention among MindSpore threads.
+
+### Configuration and Usage
+
+#### YAML Parameter Configuration
+
+There are two places to configure CPU affinity under the `context` field: `affinity_cpu_list` and `affinity_config`. `affinity_cpu_list` is merged into `affinity_config`, it will not be elaborated here. When both are configured, `affinity_config` will take effect.
+
+Configure items in the `affinity_config` field under the `context` field. `affinity_config` and all its sub-fields are optional. For details, please refer to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html). An example is as follows:
+
+```yaml
+context:
+  ...
+  affinity_config:
+    device_0:
+      affinity_cpu_list: ["0-3", "8-11"]
+      module_to_cpu_dict:
+        main: [0, 1]
+        minddata: [6, 7]
+    device_1:
+      affinity_cpu_list: ...
+      module_to_cpu_dict:
+        main: ...
+        ...
+    ...
+```
+
+#### Key Configuration Parameters
+
+| Parameter          | Description                                                                                                                                                                                                                   | Value Specification                            |
+| ------------------ |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|
+| device_id          | The id of the device to be configured                                                                                                                                                                                         | Replace the letter `id` with effective number. |
+| affinity_cpu_list  | Manually specifies the CPU affinity range for the process. Format: `["cpuidX-cpuidY"]` (e.g. `["0-3", "8-11"]`)                                                                                                               | (list, optional) - Default: `None`.            |
+| module_to_cpu_dict | Customizes core binding for specific modules. Valid keys (module names) are`main`, `runtime`, `pynative`, `minddata`. Valid value is a list of int indices representing CPU cores (e.g. `{"main": [0,1], "minddata": [6,7]}`) | (dict, optional) - Default: `None`.            |
