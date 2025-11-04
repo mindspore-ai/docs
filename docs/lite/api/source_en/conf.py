@@ -498,7 +498,7 @@ shutil.rmtree("../include/runtime/include/schema")
 shutil.rmtree("../include/runtime/include/third_party")
 shutil.rmtree("../include/converter/include/schema")
 shutil.rmtree("../include/converter/include/third_party")
-shutil.rmtree("../include/converter/include/cxx_api")
+shutil.rmtree("../include/converter/include/api")
 
 source_dataset_dir = os.path.join(base_path, "mindspore/include/dataset/")
 for file_ in os.listdir(source_dataset_dir):
