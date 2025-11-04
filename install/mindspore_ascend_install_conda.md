@@ -36,7 +36,7 @@
 
 ### 安装昇腾AI处理器配套软件包
 
-昇腾软件包社区版下载链接待发布，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档（待发布）]。
+昇腾软件包社区版下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.3.RC1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html)。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
