@@ -489,6 +489,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/utils/dryrun.py', 'mindspore.utils.dryrun'],
         ['mindspore/python/mindspore/utils/dlpack.py', 'mindspore.utils.dlpack'],
         ['mindspore/python/mindspore/utils', 'mindspore.utils'],
+        ['mindspore/python/mindspore/graph', 'mindspore.graph'],
         ['mindspore/python/mindspore/tools', 'mindspore.tools']]
 
     generate_interface_list = []
