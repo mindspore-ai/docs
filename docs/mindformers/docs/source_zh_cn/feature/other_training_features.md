@@ -28,9 +28,9 @@ runner_config:
 
 #### 主要配置参数介绍
 
-| 参数                          | 描述                              | 取值说明                   |
-|-----------------------------|---------------------------------|------------------------|
-| gradient_accumulation_steps | 在执行反向传播前，累积梯度的步数。 | (int, 必选) - 默认值： `1` 。 |
+| 参数                        | 描述                               | 取值说明                     |
+| --------------------------- | ---------------------------------- | ---------------------------- |
+| gradient_accumulation_steps | 在执行反向传播前，累积梯度的步数。 | (int, 必选) - 默认值：`1` 。 |
 
 #### 其他方式使用梯度累积
 
@@ -69,10 +69,10 @@ runner_wrapper:
 
 #### 主要配置参数介绍
 
-| 参数            | 描述                | 取值说明                       |
-|---------------|-------------------|----------------------------|
-| use_clip_grad | 控制在训练过程中是否开启梯度裁剪。 | (bool, 可选) - 默认值： `False` 。 |
-| max_grad_norm | 控制梯度裁剪的最大 norm 值。 | (float, 可选) - 默认值： `1.0` 。 |
+| 参数          | 描述                               | 取值说明                          |
+| ------------- | ---------------------------------- | --------------------------------- |
+| use_clip_grad | 控制在训练过程中是否开启梯度裁剪。 | (bool, 可选) - 默认值：`False` 。 |
+| max_grad_norm | 控制梯度裁剪的最大 norm 值。       | (float, 可选) - 默认值：`1.0` 。  |
 
 ## GroupedMatmul
 
@@ -143,13 +143,13 @@ callback:
 
 #### 主要配置参数介绍
 
-| 参数            | 描述                | 取值说明                       |
-|---------------|-------------------|----------------------------|
-| callback_moe_droprate | 是否在callback中打印MoE Droprate。 | (bool, 可选) - 默认值： `False` 。 |
-| expert_num | 专家数量。 | (int, 必选) - 默认值： `None`。 |
-| capacity_factor | 容量因子。 | (float, 必选) - 默认值： `None`。 |
-| num_layers | 模型层数。 | (int, 必选) - 默认值： `None`。 |
-| mtp_depth | mtp层层数。 | (int, 必选) - 默认值： `None`。 |
+| 参数                  | 描述                               | 取值说明                          |
+| --------------------- | ---------------------------------- | --------------------------------- |
+| callback_moe_droprate | 是否在callback中打印MoE Droprate。 | (bool, 可选) - 默认值：`False` 。 |
+| expert_num            | 专家数量。                         | (int, 必选) - 默认值：`None`。    |
+| capacity_factor       | 容量因子。                         | (float, 必选) - 默认值：`None`。  |
+| num_layers            | 模型层数。                         | (int, 必选) - 默认值：`None`。    |
+| mtp_depth             | mtp层层数。                        | (int, 必选) - 默认值：`None`。    |
 
 ## RoPE融合算子
 
@@ -190,3 +190,42 @@ model_config:
   use_fused_swiglu: True
   ...
 ```
+
+## CPU绑核配置
+
+### 概述
+
+MindSpore提供线程级CPU绑核功能，允许给MindSpore的主要模块（主线程、pynative、runtime、minddata）分配特定的CPU核，防止MindSpore线程抢占CPU导致性能不稳定的情况。
+
+### 配置与使用
+
+#### YAML 参数配置
+
+`context`字段下有两处可以配置CPU亲和度。分别是`affinity_cpu_list`与`affinity_config`，`affinity_cpu_list`已合并至`affinity_config`，因此不做赘述。他们同时配置时以`affinity_config`为准。
+
+在`context`字段的`affinity_config`字段中写入配置项，`affinity_config`及其子项都是可选的。详情参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。示例如下：
+
+```yaml
+context:
+  ...
+  affinity_config:
+    device_0:
+      affinity_cpu_list: ["0-3", "8-11"]
+      module_to_cpu_dict:
+        main: [0, 1]
+        minddata: [6, 7]
+    device_1:
+      affinity_cpu_list: ...
+      module_to_cpu_dict:
+        main: ...
+        ...
+    ...
+```
+
+#### 主要配置参数介绍
+
+| 参数               | 描述                                                                                                                                                                                                                       | 取值说明                        |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| device_X           | 需要配置的设备`id`                                                                                                                                                                                                         | 将`X`替换为有效数字             |
+| affinity_cpu_list  | 自定义指定本进程的绑核CPU范围。传入列表需要为`["cpuidX-cpuidY"]` 格式，例如 `["0-3", "8-11"]`                                                                                                                              | (list, 可选) - 默认值：`None`。 |
+| module_to_cpu_dict | 自定义指定的绑核策略。传入字典的key需要为模块名称字符串，目前支持传入`main` 、 `runtime` 、 `pynative` 、 `minddata`；value需要为包含 `int` 元素的列表，表示绑核CPU范围中的索引，例如 `{"main": [0,1], "minddata": [6,7]}` | (dict, 可选) - 默认值：`None`。 |

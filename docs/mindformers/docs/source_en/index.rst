@@ -97,7 +97,7 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
   - `Other Training Features <https://www.mindspore.cn/mindformers/docs/en/master/feature/other_training_features.html>`_
 
-    Supports gradient accumulation and gradient clipping, etc.
+    Supports gradient accumulation, gradient clipping, CPU affinity binding, etc.
 
 - Inference Features:
 
