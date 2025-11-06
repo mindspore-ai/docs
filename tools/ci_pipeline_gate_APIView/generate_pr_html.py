@@ -1281,6 +1281,9 @@ if __name__ == "__main__":
     subprocess.run(cmd_uninstall)
     cmd_install = ["pip", "install", pr_whl_path]
     subprocess.run(cmd_install)
+    requ_file_url = f'{repo_dir_docs}/docs/{repo_name}/requirements.txt'
+    cmd_install = ["pip", "install", "-r", requ_file_url]
+    subprocess.run(cmd_install)
 
     # 生成version.json
     with open(os.path.join(present_dir_path, "base_version.json"), 'r+', encoding='utf-8') as g:
