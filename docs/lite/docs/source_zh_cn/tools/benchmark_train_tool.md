@@ -72,7 +72,7 @@ Model = test_benchmark.ms, numThreads = 1, MinRunTime = 72.228996 ms, MaxRuntime
 ./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10 --timeProfiling=true
 ```
 
-这条命令使用随机输入，并且输出模型网络层的耗时信息，其他参数使用默认值。该命令执行后，模型网络层的耗时会输出如下统计信息，在该例中，该统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`avg`表示该算子的平均单次运行时间，`percent`表示该算子运行耗时占所有算子运行总耗时的比例，`calledTimes`表示该算子的运行次数，`opTotalTime`表示该算子运行指定次数的总耗时。最后，`total time`和`kernel cost`分别显示了该模型单次推理的平均耗时和模型推理中所有算子的平均耗时之和。
+这条命令使用随机输入，并且输出模型网络层的耗时信息，其他参数使用默认值。该命令执行后，模型网络层的耗时会输出如下统计信息，在该例中，该统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`avg`表示该算子的平均单次运行时间，`percent`表示该算子运行耗时占所有算子运行总耗时的比例，`calledTimes`表示该算子的运行次数，`opTotalTime`表示该算子运行指定次数的总耗时。最后，`total time`和`kernel cost`分别显示了该模型单次训练的平均耗时和模型训练中所有算子的平均耗时之和。
 
 ```text
 -----------------------------------------------------------------------------------------
