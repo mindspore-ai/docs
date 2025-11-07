@@ -267,11 +267,11 @@ bash transform_checkpoint.sh \
 
 #### Multi-Node Multi-Device Training on Physical Machines
 
-Training a large-scale model usually needs a cluster of servers. In the multi-node multi-device scenario, if there is a shared disk between servers, the automatic conversion function can be used. Otherwise, only offline conversion can be used. The following example is a training that uses two servers and 16 GPUs.
+Training a large-scale model usually needs a cluster of servers. In the multi-node multi-device scenario, if a unified shared storage path (such as the NFS-mounted /worker directory) is configured between servers, the automatic conversion function can be used. Otherwise, only offline conversion can be used. The following example is a training that uses two servers and 16 GPUs.
 
 **Scenario 1: A shared disk exists between servers.**
 
-If there is a shared disk between servers, you can use MindSpore Transformers to automatically convert a weight before multi-node multi-device training. Assume that `/data` is the shared disk between the servers and the MindSpore Transformers project code is stored in the `/data/mindformers` directory.
+If a unified shared storage path (such as the NFS-mounted /worker directory) is configured between servers, you can use MindSpore Transformers to automatically convert a weight before multi-node multi-device training.
 
 - **Single-process conversion**
 
@@ -332,9 +332,9 @@ If there is a shared disk between servers, you can use MindSpore Transformers to
     16 8 ${ip} ${port} 1 output/msrun_log False 300
   ```
 
-**Scenario 2: No shared disk exists between servers.**
+**Scenario 2: No shared path exists between servers.**
 
-If there is no shared disk between servers, you need to use the offline weight conversion tool to convert the weight. The following steps describe how to perform offline weight conversion and start a multi-node multi-device training task.
+If there is no shared path between servers, you need to use the offline weight conversion tool to convert the weight. The following steps describe how to perform offline weight conversion and start a multi-node multi-device training task.
 
 - **Obtain the distributed policy file.**
 

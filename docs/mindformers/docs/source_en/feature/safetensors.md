@@ -234,11 +234,11 @@ In large cluster scale scenarios, to avoid the online merging process taking too
 
 #### Physical Machine Multi-machcine Multi-card Training
 
-Large-scale models usually need to be trained by clusters of multiple servers. Weight slicing conversion needs to rely on the target slicing strategy file after the compilation is completed. In this multi-machine and multi-card scenario, if there is a shared disk between servers and the generated strategy file is in the same directory, you can use the automatic conversion function; if there is no shared disk between servers, you need to manually copy the strategy file and then carry out the conversion function. The following is an example of two servers and 16 cards training.
+Large-scale models usually need to be trained by clusters of multiple servers. Weight slicing conversion needs to rely on the target slicing strategy file after the compilation is completed. In this multi-machine and multi-card scenario, if a unified shared storage path (such as the NFS-mounted /worker directory) is configured between servers and the generated strategy file is in the same directory, you can use the automatic conversion function; if there is no shared disk between servers, you need to manually copy the strategy file and then carry out the conversion function. The following is an example of two servers and 16 cards training.
 
 **Scenario 1: There are shared disks between servers**
 
-In scenarios where there are shared disks between servers, you can use MindSpore Transformers Auto-Weight Conversion feature to automatically perform weight conversion prior to multi-computer, multi-card training. Assuming that `/data` is a shared disk on the server and the project code for MindSpore Transformers is located under the `data/mindformers` path.
+If a unified shared storage path (such as the NFS-mounted /worker directory) is configured between servers, you can use MindSpore Transformers to automatically convert a weight before multi-node multi-device training.
 
 **Parameter Configuration:**
 
@@ -279,9 +279,9 @@ Use [mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindform
     16 8 ${ip} ${port} 1 output/msrun_log False 300
   ```
 
-**Scenario 2: No shared disks between servers**
+**Scenario 2: No shared path between servers**
 
-In the case where there is no shared disk between servers, you need to perform an offline merge and forward operation on the generated strategy files before enabling the online slicing function. The following steps describe how to perform this operation and start a multi-machine, multi-card training task.
+In the case where there is no shared path between servers, you need to perform an offline merge and forward operation on the generated strategy files before enabling the online slicing function. The following steps describe how to perform this operation and start a multi-machine, multi-card training task.
 
 **1.Getting Distributed Strategies**
 
@@ -547,6 +547,8 @@ ms.load_distributed_checkpoint(
 - **unified_safetensors_dir** (str) - Directory of complete weights files. Default: `None` .
 - **dst_safetensors_dir** (str) - The save directory for the weights in the save mode scenario.
 - **max_process_num** (int) - Maximum number of processes. Default: 64.
+
+> Note: When loading the weights of offline sliced, the distributed strategy of the task must remain unchanged.
 
 ## Weights Format Conversion
 
