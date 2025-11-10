@@ -80,11 +80,15 @@ The following are the version branches:
       -  Unmaintained
       -  Only doc fixed is allowed
    *  -  r0.2
-      -  Maintained
-      -  Compatible with vLLM v0.7.3, and CI commitment for MindSpore 2.6.0
+      -  Unmaintained
+      -  Only doc fixed is allowed
+      -  Compatible with vLLM v0.7.3, and CI commitment for MindSpore 2.6.0. Only doc fixed is allowed
    *  -  r0.3.0
-      -  Maintained
+      -  Unmaintained
       -  Compatible with vLLM v0.8.3, and CI commitment for MindSpore 2.7.0
+   *  -  r0.4.0
+      -  Maintained
+      -  Compatible with vLLM v0.9.1, and CI commitment for MindSpore 2.7.1
 
 SIG
 -----------------------------------------------------
