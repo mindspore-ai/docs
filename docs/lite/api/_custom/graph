@@ -2205,7 +2205,7 @@ class ExhaleRoot(object):
                 for filename in filenames:
                     if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
                         javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
-            javaresult.sort()
+            javaresult.sort(key=lambda x: (0 if 'class_list' in x else 1, x))
 
             for parent,dirnames,filenames in os.walk(dirE):
                 for filename in filenames:
@@ -2310,7 +2310,7 @@ class ExhaleRoot(object):
                 for filename in filenames:
                     if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
                         javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
-            javaresult.sort()
+            javaresult.sort(key=lambda x: (0 if 'class_list' in x else 1, x))
 
             for parent,dirnames,filenames in os.walk(dire):
                 for filename in filenames:
