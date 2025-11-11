@@ -2655,7 +2655,7 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept
 | [void *MutableData()](#mutabledata)     |    √    |    √    |
 | [size_t DataSize() const](#datasize)     |    √    |    √    |
 | [int GetDevice() const](#getdevice)     |    √    |    ✕    |
-| [int GetDeviceId() const](#getdeviceid-2)     |    √    |    ✕    |
+| [int GetDeviceId() const](#getdeviceid-3)     |    √    |    ✕    |
 | [bool IsConst() const](#isconst)     |    √    |    √    |
 | [bool IsDevice() const](#isdevice)     |    √    |    ✕    |
 | [MSTensor *Clone() const](#clone)     |    √    |    √    |
