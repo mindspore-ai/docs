@@ -19,6 +19,7 @@
 | [Context](#context)                              | 保存执行中的环境变量。                                       | √      | √      |
 | [DeviceInfoContext](#deviceinfocontext)          | 不同硬件设备的环境信息。                                      | √      | √      |
 | [CPUDeviceInfo](#cpudeviceinfo)                  | 模型运行在CPU上的配置。                   | √      | √      |
+| [DSPDeviceInfo](#dspdeviceinfo)                  | 模型运行在DSP上的配置。支持ft04和ft78设备。 |  ✕      | √      |
 | [GPUDeviceInfo](#gpudeviceinfo)                  | 模型运行在GPU上的配置。                                     | √      | √      |
 | [KirinNPUDeviceInfo](#kirinnpudeviceinfo)        | 模型运行在NPU上的配置。                   | ✕      | √      |
 | [AscendDeviceInfo](#ascenddeviceinfo)            | 模型运行在Atlas 200/300/500推理产品、Atlas推理系列产品上的配置。                               | √      | √      |
@@ -1186,6 +1187,52 @@ inline std::string GetBufferOptimizeMode() const
 - 返回值
 
   已配置的缓存优化模式。
+
+## DSPDeviceInfo
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
+
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在DSP上的配置。
+
+### 公有成员函数
+
+|     函数     | 云侧推理是否支持 | 端侧推理是否支持 |
+| ------------ | ---------|---------|
+| [enum DeviceType GetDeviceType() const override](#getdevicetype-5) |        x |        √ |
+| [void SetDeviceID(uint32_t device_id)](#setdeviceid-2)             |        x |        √ |
+| [uint32_t GetDeviceID() const](#getdeviceid-2)                     |        x |        √ |
+
+#### GetDeviceType
+
+```cpp
+enum DeviceType GetDeviceType() const override
+```
+
+- 返回值
+
+  DeviceType::kDSP
+
+#### SetDeviceID
+
+```cpp
+void SetDeviceID(uint32_t device_id)
+```
+
+用于指定设备ID。
+
+- 参数
+
+    - `device_id`: 设备ID。
+
+#### GetDeviceID
+
+```cpp
+uint32_t GetDeviceID() const
+```
+
+- 返回值
+
+  已配置的设备ID。
 
 ## Key
 

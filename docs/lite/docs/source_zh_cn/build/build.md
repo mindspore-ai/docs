@@ -93,7 +93,7 @@ MindSpore Lite根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
     | MSLITE_ENABLE_MODEL_PRE_INFERENCE | 是否启用模型编译时预推理 | on、off | off |
     | MSLITE_ENABLE_GITEE_MIRROR | 是否使能三方库从码云镜像下载 | on、off | off |
 
-    > - TensorRT 和 Kirin NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/asic.html)。
+    > - TensorRT、Kirin NPU 和 DSP 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/asic.html)。
     > - 启用AVX指令集时，需要运行环境的CPU同时支持avx特性和fma特性。
     > - 模型转换工具的编译时间较长，若非必要，建议通过`MSLITE_ENABLE_CONVERTER`关闭转换工具编译，以加快编译速度。
     > - 解密所需的OpenSSL加密库crypto支持的版本为1.1.1k，需要用户自行下载编译，相关方法可参考：<https://github.com/openssl/openssl#build-and-install>。此外，还需要将libcrypto.so.1.1文件的路径加入到LD_LIBRARY_PATH中。
