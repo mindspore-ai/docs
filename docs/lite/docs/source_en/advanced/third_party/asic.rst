@@ -8,6 +8,7 @@ Application Specific Integrated Circuit Integration Instructions
 .. toctree::
    :maxdepth: 1
 
+   dsp_info
    npu_info
    tensorrt_info
    ascend_info
