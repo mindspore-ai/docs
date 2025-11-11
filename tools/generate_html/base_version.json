@@ -135,5 +135,14 @@
         },
         "repo_name": "mindformers",
         "theme": "theme-docs"
+    },
+    {
+        "version": "r0.4.0",
+        "label": {
+            "zh": "vLLM-MindSpore Plugin",
+            "en": "vLLM-MindSpore Plugin"
+        },
+        "repo_name": "vllm_mindspore",
+        "theme": "theme-docs"
     }
 ]
