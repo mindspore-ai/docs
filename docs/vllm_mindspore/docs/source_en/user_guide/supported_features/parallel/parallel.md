@@ -157,7 +157,7 @@ If there are permission issues during installation, use the following command to
 chmod -R 777 ./Ascend-pyACL_*_linux-aarch64.run
 ```
 
-The Ascend runtime package can be downloaded from the Ascend homepage. For example, you can refer to [installation](../../installation/installation.md) and download the runtime package.
+The Ascend runtime package can be downloaded from the Ascend homepage. For example, you can refer to [installation](../../../getting_started/installation/installation.md) and download the runtime package.
 
 #### Multi-Node Cluster
 

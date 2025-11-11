@@ -157,7 +157,7 @@ export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPAT
 chmod -R 777 ./Ascend-pyACL_*_linux-aarch64.run
 ```
 
-在 Ascend 的首页中可以下载 Ascend 运行包。例如，可以参考[安装指南](../../installation/installation.md)下载运行包。
+在 Ascend 的首页中可以下载 Ascend 运行包。例如，可以参考[安装指南](../../../getting_started/installation/installation.md)下载运行包。
 
 #### 多节点间集群
 
