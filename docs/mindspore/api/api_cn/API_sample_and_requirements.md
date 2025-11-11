@@ -3,7 +3,7 @@
 ## 类 Class
 
 ```text
-.. py:class:: mindspore.Tensor(default_input, dtype=None, init_with_data=True)
+.. py:class:: mindspore.Tensor(default_input, dtype=None, init_with_data=True, **kwargs)
 
     Tensor简介。
 
@@ -15,6 +15,10 @@
           - **二级参数2** (int) – 二级参数2说明。
 
         - **参数3** (bool, 可选) – 参数3说明。默认值： ``True`` 。
+        - **\*\*kwargs** (dict, 可选) – 其他参数。
+
+          - **二级参数3** (int) – 二级参数3说明。
+          - **二级参数4** (str, 可选) – 二级参数4说明。默认值： ``"default"`` 。
 
     返回：
         返回说明。
