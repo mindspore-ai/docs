@@ -107,7 +107,7 @@ To use Expert Parallelism (EP), configure the following options in the launch co
 The following command is an example of launching Expert Parallelism for Qwen-3 MOE on a single node with eight cards:
 
 ```bash
-vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --addition-config '{"expert_parallel": 8}
+vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --additional-config '{"expert_parallel": 8}
 ```
 
 #### Multi-Node Example
@@ -115,7 +115,7 @@ vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-para
 Multi-node Expert Parallelism relies on Ray for launch. Please refer to [Ray Multi-Node Cluster Management](#ray-multi-node-cluster-management) for Ray environment configuration. The following command is an example of launching Expert Parallelism for Qwen-3 MOE across two nodes with eight cards total using Ray:
 
 ```bash
-vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --addition-config '{"expert_parallel": 8} --data-parallel-backend=ray
+vllm-mindspore serve /path/to/Qwen3-MOE --trust-remote-code --enable-expert-parallel --additional-config '{"expert_parallel": 8} --data-parallel-backend ray
 ```
 
 ## Hybrid Parallelism
@@ -129,7 +129,7 @@ Users can flexibly combine and adjust parallel strategies based on the model use
 Based on the introductions above, the configurations for the three parallel strategies can be combined and enabled in the `vllm-mindspore serve` launch command. Multi-node Hybrid Parallelism relies on Ray for launch. Please refer to [Ray Multi-Node Cluster Management](#ray-multi-node-cluster-management) for Ray environment configuration. The combined Ray launch command for Hybrid Parallelism is as follows:
 
 ```bash
-vllm-mindspore serve /path/to/DeepSeek-R1 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve /path/to/DeepSeek-R1 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray
 ```
 
 ## Appendix
@@ -145,19 +145,19 @@ pyACL (Python Ascend Computing Language) wraps the corresponding API interfaces 
 In the target environment, after obtaining the appropriate version of the Ascend-cann-nnrt installation package, extract the pyACL dependency package and install it separately. Then add the installation path to the environment variables:
 
 ```bash
-./Ascend-cann-nnrt_8.0.RC1_linux-aarch64.run --noexec --extract=./
+./Ascend-cann-nnrt_*_linux-aarch64.run --noexec --extract=./
 cd ./run_package
-./Ascend-pyACL_8.0.RC1_linux-aarch64.run --full --install-path=<install_path>
+./Ascend-pyACL_*_linux-aarch64.run --full --install-path=<install_path>
 export PYTHONPATH=<install_path>/CANN-<VERSION>/python/site-packages/:$PYTHONPATH
 ```
 
 If there are permission issues during installation, use the following command to add permissions:
 
 ```bash
-chmod -R 777 ./Ascend-pyACL_8.0.RC1_linux-aarch64.run
+chmod -R 777 ./Ascend-pyACL_*_linux-aarch64.run
 ```
 
-The Ascend runtime package can be downloaded from the Ascend homepage. For example, you can download the runtime package for version [8.0.RC1.beta1](https://www.hiascend.cn/developer/download/community/result?module=cann&version=8.0.RC1.beta1).
+The Ascend runtime package can be downloaded from the Ascend homepage. For example, you can refer to [installation](../../../getting_started/installation/installation.md) and download the runtime package.
 
 #### Multi-Node Cluster
 
@@ -284,22 +284,17 @@ vllm-mindspore serve
 ```
 
 - Users can specify the local path where the model is saved as the model tag.
-- Users can configure parallelism and other features using the `--additional-config` parameter. Parallelism can be configured as follows, corresponding to a DP4-EP4-TP4 scenario:
 
-  ```bash
-  --additional-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
-  ```
-
-The following are execution examples for the multiprocess and Ray startup methods respectively:
+The following are execution examples for the multiprocess and Ray startup methods respectively, taking DP4-EP4-TP4 as example:
 
 **Multiprocess Startup Method**
 
 ```bash
 # Master Node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 0 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --quantization ascend
 
 # Worker Node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --headless --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}'
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --headless --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --data-parallel-start-rank 2 --data-parallel-address 127.0.0.1 --data-parallel-rpc-port 29550 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --quantization ascend
 ```
 
 Specifically, `data-parallel-address` and `--data-parallel-rpc-port` must be configured with the actual environment information for the running instance.
@@ -308,7 +303,7 @@ Specifically, `data-parallel-address` and `--data-parallel-rpc-port` must be con
 
 ```bash
 # Master Node:
-vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --addition-config '{"data_parallel": 4, "model_parallel": 4, "expert_parallel": 4}' --data-parallel-backend=ray
+vllm-mindspore serve MindSpore-Lab/DeepSeek-R1-0528-A8W8 --trust-remote-code --max-num-seqs=256 --max-model-len=32768 --max-num-batched-tokens=4096 --block-size=128 --gpu-memory-utilization=0.9 --tensor-parallel-size 4 --data-parallel-size 4 --data-parallel-size-local 2 --enable-expert-parallel --additional-config '{"expert_parallel": 4}' --data-parallel-backend ray --quantization ascend
 ```
 
 #### Sending Requests
