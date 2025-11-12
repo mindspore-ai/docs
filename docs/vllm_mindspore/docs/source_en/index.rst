@@ -78,10 +78,10 @@ The following are the version branches:
       -  Compatible with vLLM v0.9.1
    *  -  r0.1
       -  Unmaintained
-      -  Only doc fixed is allowed
+      -  Allow document modification only
    *  -  r0.2
       -  Unmaintained
-      -  Compatible with vLLM v0.7.3, and CI commitment for MindSpore 2.6.0. Only doc fixed is allowed.
+      -  Compatible with vLLM v0.7.3, and CI commitment for MindSpore 2.6.0. Allow document modification only.
    *  -  r0.3.0
       -  Unmaintained
       -  Compatible with vLLM v0.8.3, and CI commitment for MindSpore 2.7.0
