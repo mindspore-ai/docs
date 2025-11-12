@@ -137,8 +137,11 @@ def remove_typehints_content(text):
 
         # 2. 已找到":"，开始判断括号状态
         if start_idx != -1:
+            #当遇到参数值有":"时，跳过删除操作
+            if text[start_idx - 1] == '"' or text[start_idx - 1] == "'":
+                return text
             # 遇到"("或"["，括号计数+1（进入括号内）
-            if char in ("(", "["):
+            elif char in ("(", "["):
                 bracket_count += 1
             # 遇到")"或"]"，括号计数-1（离开括号内）
             elif char in (")", "]"):
@@ -174,8 +177,11 @@ def get_param_func(func):
         # 去掉最后一个":"以后的内容
         colon_idx = all_params.find(":")
         if colon_idx != -1:
+            #当遇到参数值有":"时，跳过后续操作
+            if all_params[colon_idx - 1] == '"' or all_params[colon_idx - 1] == "'":
+                return all_params
             # 最后一个":"以后的内容中包含"="，需要保留"="及以后的内容
-            if "=" in all_params[colon_idx+1:]:
+            elif "=" in all_params[colon_idx+1:]:
                 all_params = re.sub(":(.*?)=", ' =', all_params)
             # 正常删除最后一个":"以后的内容
             else:
