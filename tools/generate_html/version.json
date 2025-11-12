@@ -69,5 +69,14 @@
       "uninstall_name" : "mindformers",
       "extra_whl_path" : "2.7.1/MindSpore/unified/x86_64/",
       "extra_whl_name" : "mindspore-2.7.1-cp39-cp39-linux_x86_64.whl"
+    },
+    {
+      "id" : 7 ,
+      "name" : "vllm_mindspore",
+      "branch" : "r0.4.0",
+      "whl_path" : "",
+      "whl_name" : "",
+      "environ" : "",
+      "uninstall_name" : ""
     }
  ]
