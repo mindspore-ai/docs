@@ -117,7 +117,7 @@ docker ps
 After creating the container, user can start and enter the container, using the environment variable `DOCKER_NAME`:
 
 ```bash  
-docker exec -it $DOCKER_NAME bash  
+docker exec -it $DOCKER_NAME bash
 ```
 
 ### Preparing a Model
