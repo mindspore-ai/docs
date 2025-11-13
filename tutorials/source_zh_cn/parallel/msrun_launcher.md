@@ -80,7 +80,7 @@
         <td align="left">开启进程绑核。</td>
         <td align="left" style="white-space:nowrap">Bool/Dict</td>
         <td align="left">True、False或者给指定设备分配CPU范围段的字典。默认为False。</td>
-        <td align="left">若设置为True，则会基于环境信息按照设备亲和去自动分配CPU范围段；若手动传入一个字典，如<code>{"device0":["0-10"],"device1":["11-20"]}</code>，则会给0号进程（对应device0）分配CPU范围段0-10，给1号进程（对应device1）分配CPU范围段11-20。</td>
+        <td align="left">若设置为True，则会基于环境信息按照设备亲和去自动分配CPU范围段；若手动传入一个字典，则根据该字典分配的CPU范围段去绑核。具体配置可参考**进程级绑核**章节。。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_level</td>
@@ -495,3 +495,70 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 - `l` (list)：显示当前代码的上下文。
 - `b` (break)：设置断点，可以指定行号或函数名。
 - `h` (help)：显示帮助信息，列出所有可用命令。
+
+## 进程级绑核
+
+`msrun` 支持通过 `--bind_core` 参数在进程启动时设置进程的 CPU 亲和性，其核心实现是在 `msrun` 内部调用 `taskset -c CPUA-CPUB python XXX.py` 命令，在启动 Python 文件的同时，为进程绑定 `CPUA` 到 `CPUB` 范围的 CPU 核。进程级绑核支持基于当前环境信息去自动获取绑核策略，也支持用户自定义绑核策略。
+
+### 1. 自动绑核（--bind_core=True）
+
+- **功能**：基于当前环境信息（CPU 资源、NUMA 节点、设备亲和性）自动分配 CPU 核范围，无需手动指定具体核编号。
+- **自动分配逻辑**：
+
+    - 优先使用亲和池内的 CPU 核；若亲和池内 CPU 核不足，则使用非亲和池内的 CPU 核。
+    - 自动绑核功能依赖系统命令（如 `lscpu`、`npu-smi`）获取硬件信息；若命令执行失败，将仅根据可用 CPU 资源生成分配策略。
+    - CPU 与 NPU 间亲和关系的获取方式，与 MindSpore 接口 `mindspore.runtime.set_cpu_affinity` 一致，可参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。
+
+### 2. 自定义绑核
+
+- **功能**：依据用户传参，定制绑核策略。
+- **格式要求**：传入 JSON 格式的字典，在 shell 环境中需用 `''` 包裹 `{}`。
+- **参数说明**：
+
+    - 字典的 `key` 支持 `scheduler`（调度进程）或 `deviceX`（设备进程，`X` 为设备编号）。
+    - 字典的 `value` 为 CPU 核范围段列表（如 `["0-9", "20-29"]`）。
+
+- **示例**：
+
+    ```bash
+    --bind_core='{"scheduler":["0-9"], "device0":["10-19"], "device1":["20-29", "40-49"]}'
+    ```
+
+    表示：
+
+    - 为`scheduler`进程分配 CPU 核 0-9；
+    - 为 0 号 worker 进程（对应`device0`）分配 CPU 核 10-19；
+    - 为 1 号 worker 进程（对应`device1`）分配 CPU 核 20-29 和 40-49。
+
+- **注意事项**：
+
+    1. 进程编号需与设备编号匹配。例如，若通过`ASCEND_RT_VISIBLE_DEVICES=6,7`配置，使 0 号进程对应`device6`、1 号进程对应`device7`，则需按如下方式配置，否则无法为对应进程绑核：
+
+        ```bash
+        --bind_core='{"scheduler":["0-9"], "device6":["10-19"], "device7":["20-29", "40-49"]}'
+        ```
+
+        scheduler 进程不占用设备资源，因此不参与设备排序，键的顺序不影响生效（如上述示例中`scheduler`与`device6`顺序可互换）。
+    2. 若 CPU 范围段列表为空，则跳过对该进程的亲和性设置。例如：
+
+        ```bash
+        --bind_core='{"scheduler":[], "device0":[], "device1":["20-29", "40-49"]}'
+        ```
+
+        表示：跳过`scheduler`进程和 0 号 worker 进程的绑核，仅为 1 号 worker 进程（`device1`）分配 CPU 核。
+    3. 建议 worker 进程数量与`--bind_core`字典的键值对数量一致。例如，单机两卡任务中，若仅需为 1 号 worker 进程绑核，需显式配置所有进程（包括不绑核的进程）：
+
+        ```bash
+        # 正确示例
+        --bind_core='{"scheduler":[], "device0":[], "device1":["20-29", "40-49"]}'
+
+        # 错误示例
+        --bind_core='{"device1":["20-29", "40-49"]}'
+        ```
+
+        错误示例中，0 号 worker 进程可能被误判为对应`device1`而跳过绑核，`scheduler`和 1 号 worker 进程因未在配置中也会被跳过。
+
+### 3. 关闭绑核（--bind_core=False）
+
+- **功能**：不启用进程级绑核功能。
+- **默认值**：`msrun --bind_core` 参数默认值为`False`。

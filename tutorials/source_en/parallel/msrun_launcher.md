@@ -80,7 +80,7 @@ A parameters list of command line:
         <td align="left">Enable processes binding CPU cores.</td>
         <td align="left" style="white-space:nowrap">Bool/Dict</td>
         <td align="left">True/False or a device-to-CPU-range dict. Default: False.</td>
-        <td align="left">If set to True, msrun will automatically allocates CPU ranges based on device affinity; when manually passing a dict, e.g., <code>{"device0":["0-10"],"device1":["11-20"]}</code>, it assigns CPU range 0-10 to process 0 (device0) and 11-20 to process 1 (device1).</td>
+        <td align="left">If set to True, msrun will automatically allocate CPU ranges based on device affinity; if a dictionary is manually passed, CPU binding will be performed according to the CPU ranges allocated in the dictionary. For specific configurations, please refer to the **Process-Level CPU Binding** section.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--sim_level</td>
@@ -495,3 +495,68 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 - `l` (list): Display the context of the current code.
 - `b` (break): Set a breakpoint, either by specifying a line number or a function name.
 - `h` (help): Display a help message listing all available commands.
+
+## Process-Level Core Binding
+
+`msrun` supports setting the CPU affinity of a process at startup through the `--bind_core` parameter. The core implementation involves `msrun` internally calling the `taskset -c CPUA-CPUB python XXX.py` command to bind the process to CPU cores in the range from `CPUA` to `CPUB` while starting the Python file. Process-level core binding supports automatically obtaining the core binding strategy based on current environment information and also allows users to customize the core binding strategy.
+
+### 1. Automatic Core Binding (`--bind_core=True`)
+
+- **Function**: Automatically allocate CPU core ranges based on current environment information (CPU resources, NUMA nodes, device affinity) without manually specifying specific core numbers.
+- **Automated allocation logic**:
+
+    - Priority is given to using CPU cores within the affinity pool; if there are insufficient CPU cores in the affinity pool, CPU cores outside the affinity pool will be used.
+    - The automatic core binding function relies on system commands (such as `lscpu`, `npu-smi`) to obtain hardware information; if the command execution fails, the allocation strategy will be generated only based on available CPU resources.
+    - The method for obtaining the affinity relationship between CPUs and NPUs is consistent with the MindSpore interface `mindspore.runtime.set_cpu_affinity`, which can be referred to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html).
+
+### 2. Custom Core Binding
+
+- **Function**: Customize the core binding strategy based on user input parameters.
+- **Format Requirement**: Pass a dictionary in JSON format, which needs to be wrapped with `''` around `{}` in the shell environment.
+- **Parameter Description**:
+
+    - The `key` of the dictionary supports `scheduler` (scheduling process) or `deviceX` (device process, where `X` is the device number).
+    - The `value` of the dictionary is a list of CPU core range segments (e.g., `["0-9", "20-29"]`).
+
+- **Example Explanation**:
+
+    ```bash
+    --bind_core='{"scheduler":["0-9"], "device0":["10-19"], "device1":["20-29", "40-49"]}'
+    ```
+
+    - Allocate CPU cores 0-9 to the `scheduler` process.
+    - Allocate CPU cores 10-19 to the worker process 0 (corresponding to `device0`).
+    - Allocate CPU cores 20-29 and 40-49 to the worker process 1 (corresponding to `device1`).
+
+- **Notes**:
+
+    1. The process number must match the device number. For example, if `ASCEND_RT_VISIBLE_DEVICES=6,7` is configured so that process 0 corresponds to `device6` and process 1 corresponds to `device7`, the `key` in the configuration must use `device6` and `device7` to ensure effective core binding:
+
+        ```bash
+        --bind_core='{"scheduler":["0-9"], "device6":["10-19"], "device7":["20-29", "40-49"]}'
+        ```
+
+        The scheduler process does not occupy device resources, so it does not participate in device sorting. The order of keys does not affect their effectiveness (for example, the order of `scheduler` and `device6` in the above example can be interchanged).
+    2. If the list of CPU range segments is empty, the affinity setting for that process is skipped. For example:
+
+        ```bash
+        --bind_core='{"scheduler":[], "device0":[], "device1":["20-29", "40-49"]}'
+        ```
+
+        An empty list for `scheduler` or `device0` means core binding is not performed for those processes.
+    3. It is recommended that the number of worker processes be consistent with the number of key-value pairs in `--bind_core`. For example, in a single-machine two-devices task, if only core binding for worker process 1 is required, all processes (including those not needing core binding) must be explicitly configured:
+
+        ```bash
+        # correct example
+        --bind_core='{"scheduler":[], "device0":[], "device1":["20-29", "40-49"]}'
+
+        # wrong example
+        --bind_core='{"device1":["20-29", "40-49"]}'
+        ```
+
+        In the wrong example, worker process 0 may be mistakenly identified as corresponding to `device1` and thus have core binding skipped. The `scheduler` and worker process 1 will also be skipped because they are not included in the configuration.
+
+### 3. Disabling Core Binding (`--bind_core=False`)
+
+- **Function**: Do not enable the process-level core binding function.
+- **Default Value**: The default value of the `msrun --bind_core` parameter is `False`.
