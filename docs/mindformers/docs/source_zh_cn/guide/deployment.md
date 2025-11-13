@@ -6,7 +6,7 @@
 
 ### 概述
 
-vLLM-MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部署为功能目标: [vLLM-MindSpore插件简介](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/index.html#vllm-mindspore%E6%8F%92%E4%BB%B6%E7%AE%80%E4%BB%8B)。
+vLLM-MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部署为功能目标: [vLLM-MindSpore插件简介](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/index.html#vllm-mindspore%E6%8F%92%E4%BB%B6%E7%AE%80%E4%BB%8B)。
 
 MindSpore Transformers 套件的目标是构建一个大模型预训练、微调、评测、推理、部署的全流程开发套件，提供业内主流的 Transformer 类大语言模型（Large Language Models, LLMs）和多模态理解模型（Multimodal Models, MMs）。
 
@@ -14,8 +14,8 @@ MindSpore Transformers 套件的目标是构建一个大模型预训练、微调
 
 环境安装步骤分为两种安装方式：
 
-- [docker安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/installation/installation.html#docker%E5%AE%89%E8%A3%85)：适合用户快速使用的场景；
-- [源码安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/installation/installation.html#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85)：适合用户有增量开发vLLM-MindSpore插件的场景。
+- [docker安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/installation/installation.html#docker%E5%AE%89%E8%A3%85)：适合用户快速使用的场景；
+- [源码安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/installation/installation.html#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85)：适合用户有增量开发vLLM-MindSpore插件的场景。
 
 ### 快速开始
 
@@ -31,7 +31,7 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/yaml # 非MCore模型需要
 ```
 
 目前vLLM MindSpore可支持不同的模型后端，以上环境变量指定MindSpore Tranformers 作为对接模型套件。非MCore模型需要配置模型的yaml配置文件。
-更多环境变量可参考：[环境变量](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/user_guide/environment_variables/environment_variables.html)。
+更多环境变量可参考：[环境变量](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/user_guide/environment_variables/environment_variables.html)。
 
 准备好模型和环境变量后，即可开始推理。
 
@@ -39,15 +39,15 @@ export MINDFORMERS_MODEL_CONFIG=/path/to/yaml # 非MCore模型需要
 
 vLLM在线推理面向实时服务场景，依托动态批处理和 OpenAI API，具有高并发、高吞吐、低延迟的特点，适用于企业级应用。
 
-- 单卡推理流程请参照：[单卡推理](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.html)
-- 单节点多卡推理流程请参照：[多卡推理](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.html)
-- 多节点的并行推理流程请参照：[多机并行推理](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.html)
+- 单卡推理流程请参照：[单卡推理](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.html)
+- 单节点多卡推理流程请参照：[多卡推理](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.html)
+- 多节点的并行推理流程请参照：[多机并行推理](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.html)
 
 #### 离线推理
 
 vLLM的离线推理专为高效处理大规模批量请求而设计，尤其适用于非实时，数据密集型的模型推理场景。
 
-离线推理流程请参照：[离线推理](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/quick_start/quick_start.html#%E7%A6%BB%E7%BA%BF%E6%8E%A8%E7%90%86)
+离线推理流程请参照：[离线推理](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/quick_start/quick_start.html#%E7%A6%BB%E7%BA%BF%E6%8E%A8%E7%90%86)
 
 ### Mcore模型适配
 
@@ -69,7 +69,7 @@ MindSpore Transformers模型注册表中，注册模型配置类和模型类等�
 
 #### 版本配套信息
 
-各个组件的配套相关信息详见：[版本配套](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/installation/installation.html#%E7%89%88%E6%9C%AC%E9%85%8D%E5%A5%97)。
+各个组件的配套相关信息详见：[版本配套](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/installation/installation.html#%E7%89%88%E6%9C%AC%E9%85%8D%E5%A5%97)。
 
 #### 模型支持列表
 
