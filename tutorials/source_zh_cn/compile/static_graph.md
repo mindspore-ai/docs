@@ -1375,7 +1375,7 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
         由于x来自两个分支，表示的视图区域不唯一确定，当前方案不支持对这类场景的自动微分，会拦截报错，报错信息如下：
 
         ```text
-        In backpropagation, inplace modification of the output of view operations within control flow is not supported.
+        RuntimeError: In backpropagation, inplace modification of the output of view operations within control flow is not supported.
         ```
 
         对于这一类问题，可以通过将x.add_(2)分别添加在两个分支的view语句后来解决。对于复杂控制流，如果较难通过更改脚本明确in-place算子和view算子的对应关系，建议在静态图模式下，不使用view算子和in-place算子实现代码逻辑。
