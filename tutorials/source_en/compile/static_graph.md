@@ -2226,7 +2226,7 @@ shape is (2, 2)
     The results are as follows:
 
     ``` text
-    net.m is 3
+    net.m2 is 3
     ```
 
 - Set and modify Cell objects and jit_class objects in the static graph
