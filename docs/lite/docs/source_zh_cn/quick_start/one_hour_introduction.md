@@ -141,7 +141,7 @@ mindspore-lite-{version}-linux-x64
     以下载的模型为例，将模型`mobilenetv2.mindir`拷贝到转换工具所在目录，根据上述转换参数的说明，可以知道该模型的转换命令如下：
 
    ```bash
-    ./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
+   ./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
    ```
 
     执行命令后，若转换成功，结果显示如下，并在当前目录生成名为`mobilenetv2.ms`的新模型文件。
