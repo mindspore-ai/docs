@@ -32,6 +32,13 @@ monitor_config:
     check_for_global_norm: False
     global_norm_spike_threshold: 1.0
     global_norm_spike_count_threshold: 10
+    stable_rank_config:
+        format: ['log', 'tensorboard']
+        step_interval: 100
+        target: None
+        do_aggregation: False
+        moe_show_mode: 'all'
+        power_iteration_num: 5
 
 tensorboard:
     tensorboard_dir: 'worker/tensorboard'
@@ -62,6 +69,12 @@ callbacks:
 | monitor_config.check_for_global_norm             | 设置是否开启指标`global norm`的异常监测。默认为`False`                                                                     | bool          |
 | monitor_config.global_norm_spike_threshold       | 设置指标`global norm`的相对阈值，大于该值即判定为异常。默认值为`1.0`                                                               | float         |
 | monitor_config.global_norm_spike_count_threshold | 设置连续异常指标`global norm`累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`                                                  | int           |
+| monitor_config.stable_rank_config.format         | 设置指标`stable_rank`和`max_eigenvalue`的记录形式                                                                               | str或list[str] |
+| monitor_config.stable_rank_config.step_interval  | 设置指标`stable_rank`和`max_eigenvalue`的记录频率。默认为100，即每100个训练步（step）记录一次                                                                               | int |
+| monitor_config.stable_rank_config.target         | 设置指标`stable_rank`和`max_eigenvalue`所监控的目标参数的名称（片段），默认值['.*']，即指定所有参数                                                                               | list[str] |
+| monitor_config.stable_rank_config.do_aggregation | 设置计算指标`stable_rank`和`max_eigenvalue`时是否先做卡间通信，默认值为False                                                                                 | bool |
+| monitor_config.stable_rank_config.moe_show_mode  | MOE模型下设置指标`stable_rank`和`max_eigenvalue`的展示形式："full"直接输出各专家的计算值；"statistics"输出各专家计算结果的统计值（min，max，mean）；"all"输出所有计算值和统计值，默认值为"all"       | str |
+| monitor_config.stable_rank_config.power_iteration_num | 幂迭代法计算`max_eigenvalue`，设置迭代次数。迭代次数越大，计算值越接近真实值，但相应计算开销会增大，默认值为5                                                                           | int |
 
 上述 xxx_format 形式的参数的可选值为字符串'tensorboard'和'log'（分别表示写入 TensorBoard 和写入日志），或由两者组成的列表，或`null`。未设置时均默认为`null`，表示不监控对应指标。
 

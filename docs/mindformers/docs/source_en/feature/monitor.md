@@ -32,6 +32,13 @@ monitor_config:
     check_for_global_norm: False
     global_norm_spike_threshold: 1.0
     global_norm_spike_count_threshold: 10
+    stable_rank_config:
+        format: ['log', 'tensorboard']
+        step_interval: 100
+        target: None
+        do_aggregation: False
+        moe_show_mode: 'all'
+        power_iteration_num: 5
 
 tensorboard:
     tensorboard_dir: 'worker/tensorboard'
@@ -62,6 +69,12 @@ callbacks:
 | monitor_config.check_for_global_norm             | Sets whether to enable anomaly monitoring for indicator `global norm`. Default is `False`                                                                                                                                                    | bool          |
 | monitor_config.global_norm_spike_threshold       | Sets a relative threshold for the indicator `global norm`, which is considered abnormal if it exceeds this value. Default is `3.0`                                                                                                           | float         |
 | monitor_config.global_norm_spike_count_threshold | Sets the cumulative number of consecutive abnormal indicators `global norm`, and when the number of occurrences reaches the threshold, trigger an abnormal interrupt and terminate the training. Default is `10`                             | int           |
+| monitor_config.stable_rank_config.format        | Sets the logging form of the indicator `stable_rank` and `max_eigenvalue`                                      | str or list[str] |
+| monitor_config.stable_rank_config.step_interval | Sets the frequency of logging the indicator `stable_rank` and `max_eigenvalue`. Default is `100`                                      | int |
+| monitor_config.stable_rank_config.target | Sets the name (fragment) of the target parameter monitored by the indicator `stable_rank` and `max_eigenvalue`. Default value ['.*'] to specify all parameters                     | list[str] |
+| monitor_config.stable_rank_config.do_aggregation                | Whether to perform param aggregation via communication before setting the calculation metrics `stable_rank` and `max_eigenvalue`       | bool |
+| monitor_config.stable_rank_config.moe_show_mode                  | Sets data display mode when calculating `stable_rank` and `max_eigenvalue` for MOE model (3D param). Options: `full` (list all experts data), `statistics` (min, max, mean of all experts), `all` (show both). Default is `all`                                      | str |
+| monitor_config.stable_rank_config.power_iteration_num | The power iteration method is used to approximate `max_eigenvalue`. The more iterations performed, the closer the computed result is to the true value, but the computational cost increases accordingly. Default is `5`                                      | int |
 
 The optional values for the parameters of the form xxx_format above are the strings 'tensorboard' and 'log' (for writing to the TensorBoard and writing to the log, respectively), or a list of both, or `null`. All default to `null` when not set, indicating that the corresponding metrics are not monitored.
 
