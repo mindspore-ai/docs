@@ -7,7 +7,7 @@ MindStudio Insight可视化工具，需要与采集性能数据时使用的MindS
 
 |         MindStudio Insight      |               MindSpore                  |
 |:----------------------------------------------------:|:-------------------------------------------:|
-| [8.1.RC1](https://www.hiascend.com/developer/download/community/result?module=sto+cann&sto=8.1.RC1&cann=8.2.RC1) | [2.7.0](https://www.mindspore.cn/versions#2.7.0) |
+| [8.2.RC1](https://www.hiascend.com/developer/download/community/result?module=sto+cann&sto=8.2.RC1&cann=8.3.RC1) | [2.7.1](https://www.mindspore.cn/versions#2.7.1) |
 
 历史版本配套关系：
 

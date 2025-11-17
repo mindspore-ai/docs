@@ -36,27 +36,27 @@ MindStudio Training Tools工具链中的MindStudio Insight工具、msprof-analyz
     </tr>
     <tr>
         <td rowspan="5">MindStudio Insight</td>
-        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0034.html">时间线界面</a></td>
+        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0034.html">时间线界面</a></td>
         <td>将模型在host、device上的运行详细情况平铺在时间轴上，直观呈现host侧的API耗时情况以及device侧的task耗时，并将host与device进行关联呈现。</td>
         <td>帮助用户快速识别host瓶颈或device瓶颈，同时提供各种筛选分类、专家建议等功能，支撑用户进行深度调优。</td>
     </tr>
     <tr>
-        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0045.html">算子界面</a></td>
+        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0045.html">算子界面</a></td>
         <td>呈现计算算子和通信算子耗时数据。</td>
         <td>帮助开发者快速分析由算子耗时导致的性能瓶颈。</td>
     </tr>
     <tr>
-        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0049.html">概览界面</a></td>
+        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0049.html">概览界面</a></td>
         <td>提供通信域识别、划分和耗时拆解、分析功能。支持自动识别通信域和用户自行配置通信域。支持按照通信域对比stage耗时、计算耗时和通信耗时。</td>
         <td>分析同一通信域内的切分是否均匀，是否存在通信慢卡和慢链路问题，帮助开发者快速识别问题。</td>
     </tr>
     <tr>
-        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0052.html">通信界面</a></td>
+        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0052.html">通信界面</a></td>
         <td>展示集群中全网链路性能以及所有节点的通信性能。</td>
         <td>通过集群通信与计算重叠时间的分析，可以找出集群训练中的慢主机或慢节点。</td>
     </tr>
     <tr>
-        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0041.html">内存界面</a></td>
+        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/GUI_baseddevelopmenttool/msascendinsightug/Insight_userguide_0041.html">内存界面</a></td>
         <td>提供执行过程中内存信息的可视化呈现。</td>
         <td>查看整体内存趋势，以及通过框选峰值区域快速定位到内存消耗过大的算子。</td>
     </tr>
@@ -78,7 +78,7 @@ MindStudio Training Tools工具链中的MindStudio Insight工具、msprof-analyz
     </tr>
     <tr>
         <td rowspan="1">msleaks</td>
-        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/81RC1/T&ITools/msleaks/atlas_msleaks_0001.html">内存分析</a></td>
+        <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/T&ITools/msleaks/atlas_msleaks_0001.html">内存分析</a></td>
         <td>提供Step内和Step间的内存异常检测能力，包括Step内内存泄漏分析和Step间内存对比分析。</td>
         <td>适用于分析内存泄漏异常的场景。</td>
     </tr>
