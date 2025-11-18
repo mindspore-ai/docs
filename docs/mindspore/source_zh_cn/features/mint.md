@@ -16,18 +16,18 @@
 | `dtype` | `dtype` | 可选 |
 | `device` | `device` | 可选 |
 | `layout` | 无 | 可选 |
-`requires_grad` | 无 | 可选 |
+|`requires_grad` | 无 | 可选 |
 | `pin_memory` | 无 | 可选 |
 |`memory_format` | 无 | 可选 |
 | `out` | 无 | 可选 |
 
 #### 当前不支持的参数说明
 
-- `layout`: 创建torch tensor时，一般默认layout是stride，即dense tensor。mindspore创建tensor时，默认是dense tensor，与torch 无差异。开发者无需设置。
-- `memory_format`: tensor的内存排布，默认都是NCHW格式。torch 提供channel_last格式即NHWC，在一些场景中，这样会有性能提升，但是泛化性和兼容性需要开发者实际测试和验证。使用mindspore开发，可不设置此参数。
-- `requires_grad`: 由于框架自动微分求导机制不同，mindspore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stop_gradient.html)。
-- `pin_memory`: 返回的tensor被分配到pinned memory，我们已经规划支持此功能。计划在2.7.1版本推出。
-- `out`: 指定输出张量，用于原地操作和内存优化。当提供 `out` 参数时，操作结果会直接写入到指定的张量中，而不是创建新的张量。当前未规划支持此参数。
+- `layout`：创建torch tensor时，一般默认layout是stride，即dense tensor。mindspore创建tensor时，默认是dense tensor，与torch 无差异。开发者无需设置。
+- `memory_format`：tensor的内存排布，默认都是NCHW格式。torch 提供channel_last格式即NHWC，在一些场景中，这样会有性能提升，但是泛化性和兼容性需要开发者实际测试和验证。使用mindspore开发，可不设置此参数。
+- `requires_grad`：由于框架自动微分求导机制不同，mindspore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stop_gradient.html)。
+- `pin_memory`：返回的tensor被分配到pinned memory，我们已经规划支持此功能。计划在2.7.1版本推出。
+- `out`：指定输出张量，用于原地操作和内存优化。当提供 `out` 参数时，操作结果会直接写入到指定的张量中，而不是创建新的张量。当前未规划支持此参数。
 
 **代码示例**：
 
@@ -51,7 +51,7 @@
 | `generator` | `generator`| 可选 |
 | `out` | 无 | 可选 |
 
-out参数差异参考张量创建
+out参数差异参考张量创建。
 
 **代码示例**：
 
@@ -101,7 +101,7 @@ out参数差异参考张量创建
 | `out_channels`(int) | `out_channels`(int) | 必选 |
 | `kernel_size` (int or tuple) | `kernel_size` (int or tuple) | 必选 |
 | `stride` (int or tuple) | `stride` (int or tuple) | 可选 |
-| `padding`(int,tuple or str) | `padding`(int,tuple or str) | 可选 |
+| `padding`(int, tuple or str) | `padding`(int, tuple or str) | 可选 |
 | `padding_mode` (str) | `padding_mode` (str)  | 可选 |
 | `dilation`(int or tuple) | `dilation`(int or tuple) | 可选 |
 | `groups` (int) | `groups` (int) | 可选 |
@@ -134,7 +134,7 @@ output = model(input)
 | API  | Args  |
 | :--- | :--- |
 | torch.nn.functional_dropout2d | input, p=0.5, training=True, inplace=False |
-| mindspore.mint.nn.functional_dropout2d | input, p=0.5, training=True
+| mindspore.mint.nn.functional_dropout2d | input, p=0.5, training=True|
 
 torch废弃的参数，不支持，例如：
 
