@@ -16,7 +16,7 @@
 .. autoclass:: {{ name }}
     :members:
     :inherited-members:
-    :exclude-members: loss, set_save_mindir_path, set_save_mindir, callbacks
+    :exclude-members: loss, set_save_mindir_path, set_save_mindir, callbacks, set_ptq_config, set_generate_func
 
 {% elif objname[0].istitle() %}
 {{ fullname | underline }}
