@@ -595,7 +595,90 @@ ge.dynamicNodeType=1
 
 ### 多线程加载模型
 
-硬件后端为Ascend，provider为默认时，支持多线程并发加载多个Ascend优化后模型，以提升模型加载性能。使用[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)，指定 `--optimize=ascend_oriented` 可将MindSpore导出的 `MindIR` 模型、TensorFlow和ONNX等第三方框架模型转换为Ascend优化后模型。MindSpore导出的 `MindIR` 模型未进行Ascend优化，对于第三方框架模型，转换工具中如果指定 `--optimize=none` 产生的 `MindIR` 模型也未进行Ascend优化。
+后端为ACL或CPU时，支持多线程并发加载模型，以提升模型加载性能。
+
+多线程并发加载模型默认配置为关闭，可通过配置文件开启，在`[common_context]`中设置`compile_graph_parallel`选项为`on`：
+
+```ini
+[common_context]
+compile_graph_parallel=on
+```
+
+关闭多线程并发加载模型：
+
+```ini
+[common_context]
+compile_graph_parallel=off
+```
+
+关闭多线程并发加载模型后，在多个线程加载模型，将仍以串行方式加载模型。
+
+#### 示例
+
+C++ 多线程并发加载模型：
+
+```c++
+using namespace mindspore;
+char *MODEL_PATH = "/path/to/model";
+char *CONFIG_PATH = "/path/to/config";
+ModelType MODEL_TYPE = ModelType.MINDIR;
+const int PARALLEL = 2;
+int build_model(int i, std::string model_path, std::string config_path, ModelType model_type, std::array<std::unique_ptr<Model>, PARALLEL>* models) {
+  if (models == nullptr) { return -1; }
+  auto context = std::make_shared<Context>();
+  if (context == nullptr) { return -1; }
+  auto& device_list = context->MutableDeviceInfo();
+  device_list.push_back(std::make_shared<AscendDeviceInfo>());
+  auto model = std::make_unique<Model>();
+  if (model == nullptr) { return -1; }
+  if (!config_path.empty()){
+    auto ret = model->LoadConfig(config_path);
+    if (ret != kSuccess) { return -1; }
+  }
+  auto ret = model->Build(model_path, model_type, context);
+  if (ret != kSuccess) { return -1; }
+
+  auto& models_ref = *models
+  models_ref[i] = std::move(model);
+  return 0;
+}
+
+void main() {
+  std::array<std::unique_ptr<Model>, PARALLEL> models;
+  std::vector<std::thread> threads;
+  for (int i = 0; i < PARALLEL; i++) {
+    threads.emplace_back(build_model, i, MODEL_PATH, CONFIG_PATH, MODEL_TYPE, &models);
+  }
+  for (auto& thread : threads) { thread.join(); }
+  return 0;
+}
+```
+
+Python 多线程并发加载模型：
+
+```python
+import mindspore_lite as mslite
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+MODEL_PATH = "/path/to/model"
+CONFIG_PATH = "/path/to/config"
+MODEL_TYPE = mslite.ModelType.MINDIR
+PARALLEL = 2
+
+def build_model(model_path, model_type, config_path):
+  try:
+    context = mslite.Context()
+    model = mslite.Model()
+    context.target = ["ascend"]
+    model.build_from_file(model_path, model_type, context, config_path=config_path)
+    return model
+  except:
+    return None
+
+pool = ThreadPoolExecutor(max_workers=PARALLEL)
+tasks = [pool.submit(build_model, MODEL_PATH, CONFIG_PATH, MODEL_TYPE) for i in range(PARALLEL)]
+models = [task.result() for task in as_completed(tasks, timeout=thread_pool_timeout)]
+```
 
 ### 多模型共享权重
 
@@ -752,6 +835,31 @@ ge.externalWeight=1
 ```
 
 acl后端的模型在进行激活共享并且为多线程共享时AddModel，CalMaxSizeOfWorkspace，以及model.build需要在子线程中执行。ModelGroup和model需要使用不同的context实例，不要共用一个context，即N个模型要初始化N个context用于模型，再加一个context用于ModelGroup。
+
+### ACL离线模型推理时间限制
+
+ACL离线模型推理时，支持限制推理时间，推理时间超过指定时间将返回错误。
+
+推理时间限制默认配置为关闭，可通过配置文件开启，在`[ascend_context]`中设置`timeout`选项：
+
+|值 | 描述 |
+|:--- |:--- |
+|-1 | 表示永久等待 |
+|>0 | 限制推理时间，单位是毫秒 |
+
+永久等待配置：
+
+```ini
+[ascend_context]
+timeout=-1
+```
+
+50ms超时配置：
+
+```ini
+[ascend_context]
+timeout=50
+```
 
 ## 实验特性
 
