@@ -150,7 +150,7 @@
 
 ![environment-setup-1-25](./images/environment_setup_1-25.png)
 
-### 3.2 CANN升级（以CANN 8.3.RC1.alpha002为例）
+### 3.2 CANN升级（以CANN 8.3.RC1为例）
 
 若当前CANN版本不满足开发需求，可按照如下内容对CANN版本进行升级。
 
@@ -181,7 +181,7 @@
 
 ```
 
-步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.3.RC1.alpha002版本为例，如下图：
+步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.3.RC1版本为例，如下图：
 
 ![environment-setup-1-15](./images/environment_setup_1-15.png)
 
@@ -202,13 +202,13 @@
 步骤5 给CANN包添加执行权限。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.3.RC1.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.3.RC1_linux-aarch64.run
 ```
 
 步骤6 执行以下命令升级软件。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.3.RC1.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.3.RC1_linux-aarch64.run --install
 ```
 
 安装时弹出此提示后输入Y，然后按回车键继续安装。该过程约需要10-15分钟，请耐心等待。
@@ -275,13 +275,13 @@ npu-smi info
 步骤5 给kernels包添加执行权限。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.3.RC1.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.3.RC1_linux-aarch64.run
 ```
 
 步骤6 执行以下命令升级软件。
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.3.RC1.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.3.RC1_linux-aarch64.run --install
 ```
 
 升级完成后，若显示如下信息，则说明软件升级成功：
