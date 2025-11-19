@@ -281,7 +281,7 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                 class_name = re.findall(r'class:\n\s+?name:(.*)', op_content)
                 func_name = re.findall(r'function:\n\s+?name:(.*)', op_content)
                 mint_flag = 0
-                if '_ext_op.yaml' in op_fp:
+                if any([i in op_fp for i in ['_ext_op.yaml', '_view_op.yaml']]):
                     mint_flag = 1
                 if re.findall(r'function:\n\s+?disable: True', op_content):
                     if class_name:
@@ -303,6 +303,8 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                         func_name = yaml_file.replace('_doc.yaml', '').replace('_op.yaml', '')
                     if func_name.endswith('_ext'):
                         func_name = func_name[:-4]
+                    if func_name.endswith('_view'):
+                        func_name = func_name[:-5]
                     if mint_flag:
                         generate_interface_list.append(
                             f'.. autofunction:: mindspore.mint.{func_name.strip()}&&&{yaml_fp}')
