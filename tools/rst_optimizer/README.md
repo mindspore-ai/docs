@@ -2,13 +2,13 @@
 
 ## 🔧 环境要求
 
-* [Node.js](https://nodejs.org/) ≥ 16
-* [VS Code](https://code.visualstudio.com/) ≥ 1.80
+* [Node.js](https://nodejs.org/) ≥ 16  
+* [VS Code](https://code.visualstudio.com/) ≥ 1.80  
 * 已全局安装 [vsce](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)（用于打包插件）
 
 ```bash
 npm install -g vsce
-```
+````
 
 ---
 
@@ -17,13 +17,13 @@ npm install -g vsce
 在项目根目录执行：
 
 ```bash
-npm install        # 安装依赖
+npm install        # 安装依赖  
 vsce package       # 生成 .vsix 插件包
 ```
 
 生成的文件形如：
 
-```
+```text
 rst-optimizer-0.0.1.vsix
 ```
 
@@ -33,7 +33,7 @@ rst-optimizer-0.0.1.vsix
 
 打开 VS Code，运行命令：
 
-```
+```text
 Extensions: Install from VSIX...
 ```
 
@@ -43,5 +43,8 @@ Extensions: Install from VSIX...
 code --install-extension rst-optimizer-0.0.1.vsix
 ```
 
+---
+
 ## 插件配置
-安装好插件后，直接在 VsCode 中打开设置，找到本插件设置，填入模型名称和 API Key。
+
+安装好插件后，直接在 VS Code 中打开设置，找到本插件设置，填入模型名称和 API Key。
