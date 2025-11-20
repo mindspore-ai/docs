@@ -10,7 +10,7 @@ After obtaining the OrangePi AIpro development board, developers first need to c
 
 | OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
 | :----:| :----: | :----:| :----: |
-| 8T 16G | Ubuntu | 8.1.RC1| 2.6.0 |
+| 8T 16G | Ubuntu | 8.3.RC1| 2.7.0 |
 
 ### Image Burning
 
@@ -351,7 +351,7 @@ for data, label in test_dataset:
         plt.subplot(2, 3, i + 1)
         # If the prediction is correct, it will be displayed in blue; if the prediction is incorrect, it will be displayed in red
         color = 'blue' if predicted[i] == label[i] else 'red'
-        plt.title('Predicted:{}'.format(predicted[i]), color=color)
+        plt.title(f'Predicted:{i}'.format(predicted[i]), color=color)
         plt.imshow(data.asnumpy()[i][0], interpolation="None", cmap="gray")
         plt.axis('off')
     plt.show()
@@ -368,4 +368,4 @@ The required environment for the operation of this case:
 
 | OrangePi AIpro | Image | CANN Toolkit/Kernels | MindSpore |
 | :----:| :----: | :----:| :----: |
-| 8T 16G | Ubuntu | 8.1.RC1| 2.6.0 |
+| 8T 16G | Ubuntu | 8.3.RC1| 2.7.0 |
