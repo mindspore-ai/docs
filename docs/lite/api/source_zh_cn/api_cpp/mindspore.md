@@ -1520,7 +1520,7 @@ Buffer Clone() const
 
 ## Model
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model.h)&gt;
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/model.h)&gt;
 
 Model定义了MindSpore中的模型，便于计算图管理。
 
@@ -1536,10 +1536,11 @@ Model()
 | 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|
 | [Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build)     |    √    |    √    |
-| [inline Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-1)     |    √    |    √    |
-| [inline Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-2)     |    √    |    √    |
-| [inline Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
-| [Status Build(GraphCell graph, const std::shared_ptr\<Context\> &model_context = nullptr, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#build-4)     |    ✕    |    √    |
+| [Status Build(const void *model_data, size_t data_size, const void *weight_data, size_t weight_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-1)     |    √    |    ✕    |
+| [inline Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-2)     |    √    |    √    |
+| [inline Status Build(const void *model_data, size_t data_size, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
+| [inline Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr\<Context\> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-4)     |    √    |    √    |
+| [Status Build(GraphCell graph, const std::shared_ptr\<Context\> &model_context = nullptr, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#build-5)     |    ✕    |    √    |
 | [Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr\<Context\> &context, const std::shared_ptr\<TrainCfg\> &train_cfg = nullptr)](#buildtransferlearning)     |    ✕    |    √    |
 | [Status Resize(const std::vector\<MSTensor\> &inputs, const std::vector\<std::vector\<int64_t\>\> &dims)](#resize)     |    √    |    √    |
 | [Status UpdateWeights(const std::vector\<MSTensor\> &new_weights)](#updateweights)     |    ✕    |    √    |
@@ -1593,7 +1594,29 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 
     - `model_data`: 指向存储读入模型文件缓冲区的指针。
     - `data_size`: 缓冲区大小。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云侧推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `model_context`: 模型[Context](#context)。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Build
+
+```cpp
+Status Build(const void *model_data, size_t data_size, const void *weight_data, size_t weight_size, ModelType model_type,
+             const std::shared_ptr<Context> &model_context = nullptr)
+```
+
+从内存缓冲区加载模型和权重数据，并将模型编译至可在Device上运行的状态。
+
+- 参数
+
+    - `model_data`: 指向存储读入模型文件缓冲区的指针。
+    - `data_size`: 模型缓冲区大小。
+    - `weight_data`: 指向存储读入权重文件缓冲区的指针。
+    - `weight_size`: 权重缓冲区大小。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云侧推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `model_context`: 模型[Context](#context)。
 
 - 返回值
@@ -1612,7 +1635,7 @@ inline Status Build(const std::string &model_path, ModelType model_type,
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云侧推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `model_context`: 模型[Context](#context)。
 
 - 返回值
@@ -1633,7 +1656,7 @@ inline Status Build(const void *model_data, size_t data_size, ModelType model_ty
 
     - `model_data`: 指向存储读入模型文件缓冲区的指针。
     - `data_size`: 缓冲区大小。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云侧推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16。
     - `dec_mode`: 解密模式，可选有`AES-GCM`。
@@ -1656,7 +1679,7 @@ inline Status Build(const std::string &model_path, ModelType model_type,
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云侧推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16。
     - `dec_mode`: 解密模式，可选有`AES-GCM`。
@@ -2393,7 +2416,7 @@ MultiModelRunner()
 
 | 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|
-| [inline Status Build(const std::string &model_path, const ModelType &model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-5)     |    √    |    ✕   |
+| [inline Status Build(const std::string &model_path, const ModelType &model_type, const std::shared_ptr\<Context\> &model_context = nullptr)](#build-6)     |    √    |    ✕   |
 | [std::vector\<ModelExecutor\> GetModelExecutor() const](#getmodelexecutor)     |    √    |    ✕   |
 | [inline Status LoadConfig(const std::string &config_path)](#loadconfig-1)     |    √    |    ✕   |
 | [inline Status UpdateConfig(const std::string &section, const std::pair\<std::string, std::string\> &config)](#updateconfig-1)     |    √    |    ✕   |
