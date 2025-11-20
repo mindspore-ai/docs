@@ -1,0 +1,164 @@
+{
+  "name": "rst-optimizer",
+  "displayName": "RST Optimizer",
+  "description": "使用 LLM 优化 reStructuredText 文档的 VS Code 扩展",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:restructuredtext",
+    "onCommand:rstOptimizer.optimizeCurrent",
+    "onCommand:rstOptimizer.optimizePickFile",
+    "onCommand:rstOptimizer.applyResult",
+    "onCommand:rstOptimizer.discardResult",
+    "onCommand:rstOptimizer.openSettings",
+    "onCommand:rstOptimizer.showQuickPick",
+    "onView:rstOptimizer.batchResults"
+  ],
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "menus": {
+      "editor/title": [
+        {
+          "command": "rstOptimizer.applyResult",
+          "group": "navigation@100",
+          "when": "isInDiffEditor && rstOptimizer.hasActiveDiff"
+        },
+        {
+          "command": "rstOptimizer.discardResult",
+          "group": "navigation@101",
+          "when": "isInDiffEditor && rstOptimizer.hasActiveDiff"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "rstOptimizer",
+          "title": "RST Optimizer",
+          "icon": "media/rst-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "rstOptimizer": [
+        {
+          "id": "rstOptimizer.batchResults",
+          "name": "批量优化结果",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "rstOptimizer.optimizeCurrent",
+        "title": "Optimize Current RST",
+        "category": "RST Optimizer"
+      },
+      {
+        "command": "rstOptimizer.optimizePickFile",
+        "title": "Optimize Chosen RST File",
+        "category": "RST Optimizer"
+      },
+      {
+        "command": "rstOptimizer.applyResult",
+        "title": "Apply Optimized Changes",
+        "category": "RST Optimizer"
+      },
+      {
+        "command": "rstOptimizer.discardResult",
+        "title": "Discard Optimized Changes",
+        "category": "RST Optimizer"
+      },
+      {
+        "command": "rstOptimizer.revealBatchResultsView",
+        "title": "Reveal Batch Results View",
+        "category": "RST Optimizer"
+      },
+      {
+        "command": "rstOptimizer.openSettings",
+        "title": "Open Settings",
+        "category": "RST Optimizer"
+      }
+    ],
+    "configuration": {
+      "title": "RST Optimizer",
+      "properties": {
+        "rstOptimizer.api.provider": {
+          "type": "string",
+          "default": "openai-compatible",
+          "description": "LLM API 提供商类型"
+        },
+        "rstOptimizer.api.baseUrl": {
+          "type": "string",
+          "default": "https://api.openai.com/v1",
+          "description": "API 基础 URL，支持 OpenAI 兼容端点"
+        },
+        "rstOptimizer.api.model": {
+          "type": "string",
+          "default": "gpt-4o-mini",
+          "description": "使用的模型名称"
+        },
+        "rstOptimizer.api.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API 密钥（也可通过环境变量 RST_OPTIMIZER_API_KEY 设置）"
+        },
+        "rstOptimizer.prompt.userPrompt": {
+          "type": "string",
+          "default": "请优化可读性与结构，必要时合并短句、首段给出简明目的说明；术语遵循 Python/Sphinx 文档风格；中文标点与空格规范化；英文与数字两侧留空格；不改变技术含义。",
+          "editPresentation": "multilineText",
+          "description": "用户自定义优化提示词"
+        },
+        "rstOptimizer.generation.maxTokens": {
+          "type": "number",
+          "default": 4096,
+          "description": "生成的最大 token 数量"
+        },
+        "rstOptimizer.generation.temperature": {
+          "type": "number",
+          "default": 0.3,
+          "minimum": 0,
+          "maximum": 2,
+          "description": "生成温度（0-2，越低越确定性）"
+        },
+        "rstOptimizer.safety.neverUploadIfWorkspaceTrusted": {
+          "type": "boolean",
+          "default": false,
+          "description": "如果工作区受信任，则拒绝上传内容到外部 API"
+        },
+        "rstOptimizer.format.rewrapWidth": {
+          "type": "number",
+          "default": 0,
+          "description": "自动重排行宽（0 表示不重排，>0 时进行硬换行包裹）"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src/**/*.ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.6",
+    "eslint": "^8.52.0",
+    "glob": "^11.0.3",
+    "mocha": "^11.7.2",
+    "typescript": "^5.2.2"
+  }
+}
