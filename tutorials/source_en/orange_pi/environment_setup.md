@@ -150,7 +150,7 @@ Step 2 Execute the following command to obtain version information.
 
 ![environment-setup-1-25](../../source_zh_cn/orange_pi/images/environment_setup_1-25.png)
 
-### 3.2 CANN Upgrading (taking 8.3.RC1.alpha002 version as an example)
+### 3.2 CANN Upgrading (taking 8.3.RC1 version as an example)
 
 If the current CANN version does not meet the development requirements, the CANN version can be upgraded according to the following steps.
 
@@ -181,7 +181,7 @@ Step 2 Remove installed CANN packages to free up disk space and prevent installi
 
 ```
 
-Step 3 Open the official website of Ascend CANN to access the community version of the resource [download address](https://www.hiascend.com/developer/download/community/result?module=cann), download the required version of the toolkit package. Taking 8.3.RC1.alpha002 version as an example, as shown below:
+Step 3 Open the official website of Ascend CANN to access the community version of the resource [download address](https://www.hiascend.com/developer/download/community/result?module=cann), download the required version of the toolkit package. Taking 8.3.RC1 version as an example, as shown below:
 
 ![environment-setup-1-15](../../source_zh_cn/orange_pi/images/environment_setup_1-15.png)
 
@@ -202,13 +202,13 @@ Step 4 Go to the Toolkit package download directory.
 Step 5 Add execution permissions to the CANN package.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.3.RC1.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-toolkit_8.3.RC1_linux-aarch64.run
 ```
 
 Step 6 Execute the following command to upgrade the software.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.3.RC1.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-toolkit_8.3.RC1_linux-aarch64.run --install
 ```
 
 Type Y when this prompt pops up during installation, then press Enter to continue the installation. This process takes about 10-15 minutes, please be patient.
@@ -275,13 +275,13 @@ Step 4 Go to the Kernels package download directory.
 Step 5 Add execution permissions to the kernels package.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.3.RC1.alpha002_linux-aarch64.run
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads# chmod +x ./Ascend-cann-kernels-310b_8.3.RC1_linux-aarch64.run
 ```
 
 Step 6 Execute the following command to upgrade the software.
 
 ```bash
-(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.3.RC1.alpha002_linux-aarch64.run --install
+(base) root@orangepiaipro: /home/HwHiAiUser/Downloads#./Ascend-cann-kernels-310b_8.3.RC1_linux-aarch64.run --install
 ```
 
 After the upgrade is completed, if the following message is displayed, the software upgrade is successful:
