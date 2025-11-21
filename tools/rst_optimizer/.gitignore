@@ -1,0 +1,32 @@
+# 编译输出
+out/
+
+# 依赖
+node_modules/
+
+# 测试
+.vscode-test/
+
+# 日志
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 环境变量
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# 临时文件
+*.tmp
+*.temp
