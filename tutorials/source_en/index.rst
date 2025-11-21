@@ -82,6 +82,7 @@ MindSpore Tutorial
    :hidden:
 
    custom_program/op_custom
+   custom_program/custom_backend
    custom_program/hook_program
 
 .. toctree::
