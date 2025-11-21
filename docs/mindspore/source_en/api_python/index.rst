@@ -56,6 +56,8 @@ MindSpore provides rich interfaces for model building, training, and inference. 
      - Training interface.
    * - `mindspore.parallel <./mindspore.parallel.html>`_
      - Auto Parallel interface.
+   * - `mindspore.graph <./mindspore.graph.html>`_
+     - Graph compilation interface.
    * - `mindspore.runtime <./mindspore.runtime.html>`_
      - Runtime interface.
    * - `mindspore.device_context <./mindspore.device_context.html>`_
