@@ -578,6 +578,50 @@ folder_converter = '../include/converter/include'
 # 查找同名文件并删除converter下的
 find_common_files2del(folder_runtime, folder_converter)
 
+def replace_key_struct_in_type_h(file_path):
+    # 原代码块
+    original_code = '''
+using Key = struct MS_API Key {
+  size_t max_key_len = 32;
+  size_t len = 0;
+  unsigned char key[32] = {0};
+  Key() : len(0) {}
+  explicit Key(const char *dec_key, size_t key_len);
+};'''
+
+    # 新代码块
+    new_code = '''
+struct MS_API Key {
+  size_t max_key_len = 32;
+  size_t len = 0;
+  unsigned char key[32] = {0};
+  Key() : len(0) {}
+  explicit Key(const char *dec_key, size_t key_len);
+};
+
+using Key = Key;'''
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    except Exception as e:
+        print(f"读取文件失败：{e}")
+        return False
+
+    modified_content = content.replace(original_code, new_code)
+    print("找到完全匹配的代码块，执行精准替换")
+
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(modified_content)
+        print(f"文件修改完成！路径：{file_path}")
+        return True
+    except Exception as e:
+        print(f"写入文件失败：{e}")
+        return False
+    
+types_h_path = "../include/runtime/include/api/types.h"
+replace_key_struct_in_type_h(types_h_path)
+
 # for file_name in fileList:
 #     file_data = ''
 #     with open(file_name, 'r', encoding='utf-8') as f:
