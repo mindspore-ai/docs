@@ -421,8 +421,6 @@ import pdb
 import mindspore as ms
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 pdb.set_trace()
 ms.set_seed(1)
@@ -445,8 +443,6 @@ import pdb
 import mindspore as ms
 from mindspore.communication import init, get_rank
 
-ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 if get_rank() == 7:
     pdb.set_trace()
@@ -464,8 +460,6 @@ from mindspore.communication import init, get_rank
 from mindspore.communication.comm_func import barrier
 from mindspore.runtime import synchronize
 
-ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 if get_rank() == 7:
     pdb.set_trace()
