@@ -147,7 +147,7 @@ install(TARGETS custom_backend
 
 ## 使用自定义后端
 
-使用`mindspore.graph.register_custom_backend`接入后端，并通过`mindspore.jit`接口选择使用：
+使用[mindspore.graph.register_custom_backend](https://www.mindspore.cn/docs/zh-CN/master/api_python/graph/mindspore.graph.register_custom_backend.html)接入后端，并通过[mindspore.jit](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)接口选择使用：
 
 ```python
 import mindspore

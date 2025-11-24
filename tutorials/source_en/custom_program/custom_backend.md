@@ -147,7 +147,7 @@ install(TARGETS custom_backend
 
 ## Using Custom Backend
 
-Using `mindspore.graph.register_custom_backend` to register the backend and use `mindspore.jit` to enable the backend:
+Using [mindspore.graph.register_custom_backend](https://www.mindspore.cn/docs/en/master/api_python/graph/mindspore.graph.register_custom_backend.html) to register the backend and use [mindspore.jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html) to enable the backend:
 
 ```python
 import mindspore
