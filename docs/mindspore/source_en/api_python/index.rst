@@ -14,6 +14,7 @@ API
    mindspore.amp
    mindspore.train
    mindspore.parallel
+   mindspore.graph
    mindspore.runtime
    mindspore.device_context
    mindspore.communication
