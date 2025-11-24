@@ -2438,3 +2438,5 @@ ret: 3
 
 In the above example, m is a variable, so the entire for loop control
 flow cannot be included in the graph and needs to be executed in dynamic graph mode.
+
+4. When constructing graphs based on bytecode, Python 3.12 and higher versions are currently not supported.
