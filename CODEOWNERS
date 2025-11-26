@@ -16,6 +16,7 @@
 # The maintainers of tutorials.
 /tutorials/source_zh_cn/beginner/ @zwiori @gemini524
 /tutorials/source_zh_cn/compile/ @ginfung @gemini524
+/tutorials/source_zh_cn/custom_program/custom_backend.md @limingqi107 @gemini524
 /tutorials/source_zh_cn/custom_program/op_custom.rst @chujinjin @gemini524
 /tutorials/source_zh_cn/custom_program/operation/ @chujinjin @gemini524
 /tutorials/source_zh_cn/custom_program/hook_program.ipynb @zwiori @gemini524
