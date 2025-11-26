@@ -229,3 +229,46 @@ context:
 | device_X           | 需要配置的设备`id`                                                                                                                                                                                                         | 将`X`替换为有效数字             |
 | affinity_cpu_list  | 自定义指定本进程的绑核CPU范围。传入列表需要为`["cpuidX-cpuidY"]` 格式，例如 `["0-3", "8-11"]`                                                                                                                              | (list, 可选) - 默认值：`None`。 |
 | module_to_cpu_dict | 自定义指定的绑核策略。传入字典的key需要为模块名称字符串，目前支持传入`main` 、 `runtime` 、 `pynative` 、 `minddata`；value需要为包含 `int` 元素的列表，表示绑核CPU范围中的索引，例如 `{"main": [0,1], "minddata": [6,7]}` | (dict, 可选) - 默认值：`None`。 |
+
+## 位置编码
+
+### 概述
+
+位置编码是为Transformer架构引入序列顺序信息的关键机制。在MindSpore Transformers中，位置编码通过 `position_embedding_type` 参数进行配置，支持多种主流的位置编码方案，以增强模型对token位置的感知能力。具体支持的编码类型包括：
+
+- RoPE（Rotary Position Embedding）：通过旋转矩阵编码位置信息，具有良好的外推性。
+- YaRN：改进的RoPE变体，能更好地处理长序列。
+- 可学习绝对位置编码：将位置信息作为可训练参数。
+- 无位置编码：不使用显式位置编码。
+
+### 配置与使用
+
+#### YAML 参数配置
+
+用户在配置文件中的 `model_config` 项下配置 `position_embedding_type` 项，设置位置编码。当前 `position_embedding_type` 的可选值和含义如下所示：
+
+- 'none'：所有层都不使用位置编码。
+- 'rope'：所有层都使用 RoPE 位置编码。如果需要实现 RoPE 层与无位置编码层的交替模式，可以将 `nope_layer_interval` 参数配置为正整数。`nope_layer_interval` 表示相邻无位置编码层之间间隔有编码层的数量。
+- 'yarn'：所有层都使用 YaRN 位置编码。
+- 'learned_absolute'：所有层都使用可学习绝对位置编码。
+
+示例：
+
+- 所有层都使用 YaRN 位置编码:
+
+  ```yaml
+  model_config:
+    ...
+    position_embedding_type: 'yarn'
+    ...
+  ```
+
+- 每两层无位置编码层之间插入四层 RoPE 位置编码层:
+
+  ```yaml
+  model_config:
+    ...
+    position_embedding_type: 'rope'
+    nope_layer_interval: 4
+    ...
+  ```

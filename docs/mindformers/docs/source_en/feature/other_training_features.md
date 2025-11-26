@@ -229,3 +229,46 @@ context:
 | device_id          | The id of the device to be configured                                                                                                                                                                                         | Replace the letter `id` with effective number. |
 | affinity_cpu_list  | Manually specifies the CPU affinity range for the process. Format: `["cpuidX-cpuidY"]` (e.g. `["0-3", "8-11"]`)                                                                                                               | (list, optional) - Default: `None`.            |
 | module_to_cpu_dict | Customizes core binding for specific modules. Valid keys (module names) are`main`, `runtime`, `pynative`, `minddata`. Valid value is a list of int indices representing CPU cores (e.g. `{"main": [0,1], "minddata": [6,7]}`) | (dict, optional) - Default: `None`.            |
+
+## Positional Encoding
+
+### Overview
+
+Positional encoding is a key mechanism introduced to incorporate sequence order information into the Transformer architecture. In MindSpore Transformers, positional encoding is configured via the `position_embedding_type` parameter, supporting various mainstream positional encoding schemes to enhance the model's awareness of token positions. The specific supported encoding types include:
+
+- RoPE (Rotary Position Embedding): Encodes positional information through rotation matrices, offering good extrapolation capabilities.
+- YaRN: An improved variant of RoPE that better handles long sequences.
+- Learned Absolute Positional Encoding: Treats positional information as trainable parameters.
+- No Positional Encoding: Does not use explicit positional encoding.
+
+### Configuration and Usage
+
+#### YAML Parameter Configuration
+
+Users configure the `position_embedding_type` parameter under the `model_config` section in the configuration file to set the positional encoding. The current optional values and meanings for `position_embedding_type` are as follows:
+
+- 'none': No positional encoding is used in any layer.
+- 'rope': RoPE positional encoding is used in all layers. To achieve an alternating pattern between RoPE layers and layers without positional encoding, the `nope_layer_interval` parameter can be configured as a positive integer. `nope_layer_interval` represents the number of encoded layers between adjacent layers without positional encoding.
+- 'yarn': YaRN positional encoding is used in all layers.
+- 'learned_absolute': Learnable absolute positional encoding is used in all layers.
+
+Examples:
+
+- Use YaRN positional encoding in all layers:
+
+  ```yaml
+  model_config:
+    ...
+    position_embedding_type: 'yarn'
+    ...
+  ```
+
+- Insert four RoPE positional encoding layers between every two layers without positional encoding:
+
+  ```yaml
+  model_config:
+    ...
+    position_embedding_type: 'rope'
+    nope_layer_interval: 4
+    ...
+  ```
