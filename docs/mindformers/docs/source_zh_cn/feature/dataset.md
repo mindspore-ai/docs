@@ -296,7 +296,7 @@ train_dataset: &train_dataset
 
 `data_loader`中参数说明：
 
-| 参数名                        | 概述                                                                                        |  类型  |
+| 参数名                        | 描述                                                                                        |  类型  |
 |----------------------------|-------------------------------------------------------------------------------------------|:----:|
 | type                       | 固定为`HFDataLoader`，该模块支持HuggingFace开源社区的数据集加载与处理功能，也可以设置为`CommonDataLoader`，但该接口在后续版本会废弃   | str  |
 | load_func                  | 指定加载数据集调用接口，可选值为`load_dataset`和`load_from_disk`，具体配置说明见[数据集加载](#数据集加载)，默认值为`load_dataset` | str  |
@@ -331,6 +331,35 @@ train_dataset: &train_dataset
    在数据集配置中设置`load_func: 'load_from_disk'`，同时配置如下参数：
 
     - **dataset_path (str)** — 数据集文件夹路径，通常使用该接口加载离线处理后的数据，或使用`datasets.save_to_disk`保存的数据集。
+
+### 数据集流式加载
+
+在使用样本数非常多的数据集时，可能会存在设备内存不足的问题，除了开启数据广播功能，还可以通过使用流式加载来降低内存负载，该功能原理及相关说明可参考[stream](https://huggingface.co/docs/datasets/v4.0.0/en/stream)。
+
+开启数据集流式加载功能需要在[配置说明](#配置说明)中`data_loader`中添加如下配置：
+
+```yaml
+train_dataset: &train_dataset
+  data_loader:
+    streaming: True
+    size: 2000
+    dataset_state_dir: '/path/dataset_state_dir'
+```
+
+参数说明：
+
+| 参数名               | 描述                                                                                                                                                                                                                  |  类型  |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|
+| streaming         | 是否开启数据集流式加载功能                                                                                                                                                                                                       | bool |
+| size              | 指定数据集迭代总样本数，以流式模式加载数据集将创建一个[IterableDataset](https://huggingface.co/docs/datasets/v4.0.0/en/package_reference/main_classes#datasets.IterableDataset)实例，在迭代所有数据的前提下无法获取总样本数，因此需要指定该参数。                               | int  |
+| dataset_state_dir | 指定保存和加载数据集状态文件夹，主要用于在保存权重时同步保存数据集状态以及加载进行断点续训。<br/>由于MindSpore数据集默认开启数据下沉功能，数据集状态会在权重保存之前进行保存；<br/>在使用流式加载数据集进行断点续训时，修改影响`global_batch_size`的参数（如`data_parallel`、`batch_size`、`micro_batch_num`等），会导致无法续训并重新采样进行训练。 | str  |
+
+目前流式加载功能在以下预处理场景经过验证：
+
+1. Alpaca数据集预处理，相关配置：`AlpacaInstructDataHandler`；
+2. Packing数据集预处理，相关配置：`PackingHandler`；
+3. 重命名列操作，相关配置：`rename_column`；
+4. 移除列操作，相关配置：`remove_columns`。
 
 ### 数据集处理
 

@@ -343,6 +343,35 @@ The dataset loading functionality is mainly implemented through the `load_func` 
 
     - **dataset\_path (str)** — Path to the dataset directory. This interface is typically used to load datasets that have been preprocessed offline or saved using `datasets.save_to_disk`.
 
+### Streaming Dataset Loading
+
+When working with datasets containing a very large number of samples, you may encounter insufficient device memory issues. In addition to enabling the data broadcasting feature, you can also reduce memory usage by using streaming loading. The principles and related details can be found in the documentation for [stream](https://huggingface.co/docs/datasets/v4.0.0/en/stream).
+
+To enable streaming dataset loading, add the following configuration under `data_loader` in the [Configuration](#Configuration):
+
+```yaml
+train_dataset: &train_dataset
+  data_loader:
+    streaming: True
+    size: 2000
+    dataset_state_dir: '/path/dataset_state_dir'
+```
+
+Parameter Description:
+
+| Parameter Name    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Type |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----:|
+| streaming         | Whether to enable the dataset streaming loading feature.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | bool |
+| size              | Specifies the total iteration size of the dataset. When using streaming mode, an [IterableDataset](https://huggingface.co/docs/datasets/v4.0.0/en/package_reference/main_classes#datasets.IterableDataset) instance is created. Since the total number of samples cannot be obtained when iterating over all data, this parameter must be specified.                                                                                                                                                                                                                                                                       | int  |
+| dataset_state_dir | Specify a folder for saving and loading dataset state files, mainly used to save the dataset state in sync when saving model weights, and to load it for resuming training from a checkpoint. <br/> Because MindSpore datasets enable data sinking by default, the dataset state is saved before weights are saved. <br/> When using streaming dataset loading for resuming training, modifying parameters that affect the `global_batch_size` (such as `data_parallel`, `batch_size`, or `micro_batch_num`) will cause the training process to restart from the beginning with new samples instead of resuming correctly. | str  |
+
+The streaming loading feature has been validated in the following preprocessing scenarios:
+
+1. Alpaca dataset preprocessing, with the related configuration: `AlpacaInstructDataHandler`;
+2. Packing dataset preprocessing, with the related configuration: `PackingHandler`;
+3. Column renaming operations, with the related configuration: `rename_column`;
+4. Column removal operations, with the related configuration: `remove_columns`.
+
 ### Dataset Processing
 
 `HFDataLoader` supports native datasets processing and user-defined operations, mainly via the `handler` mechanism, which executes preprocessing steps in order.
