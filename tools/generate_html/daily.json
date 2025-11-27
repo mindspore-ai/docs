@@ -36,7 +36,7 @@
     "id" : 4 ,
     "name" : "golden_stick",
     "branch" : "master",
-    "whl_path" : "/golden-stick/newest/any/",
+    "whl_path" : "/golden-stick/newest/ascend/any/",
     "whl_name" : "mindspore_gs-.*-py3-none-any.whl$",
     "environ" : "GS_PATH",
     "uninstall_name" : "mindspore_gs"
