@@ -347,7 +347,7 @@ The dataset loading functionality is mainly implemented through the `load_func` 
 
 When working with datasets containing a very large number of samples, you may encounter insufficient device memory issues. In addition to enabling the data broadcasting feature, you can also reduce memory usage by using streaming loading. The principles and related details can be found in the documentation for [stream](https://huggingface.co/docs/datasets/v4.0.0/en/stream).
 
-To enable streaming dataset loading, add the following configuration under `data_loader` in the [Configuration](#Configuration):
+To enable streaming dataset loading, add the following configuration under `data_loader` in the [Configuration](#configuration):
 
 ```yaml
 train_dataset: &train_dataset
