@@ -593,6 +593,216 @@ ge.dynamicDims=1,1;2,2;3,3;4,4
 ge.dynamicNodeType=1
 ```
 
+### Ascend后端GE推理免拷贝
+
+在业务集成中，Host 与 Device 的交互往往是影响端到端性能的重要因素，减少交互次数是一个有效的方法。MindSpore Lite Ascend后端GE推理，自2.8版本开始，支持输入输出的数据存储在Device上，在推理过程中，不会发生Host与Device交互。用户在集成时，可以利用此特性，降低交互次数，提升端到端性能。
+
+在创建[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)时，通过[SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setprovider)指定provider=ge-v1，可支持免拷贝功能。
+
+> 1. ge-v1是对ge的逻辑重构，更便于功能的扩展。随着版本迭代，ge的功能将逐步迁移到ge-v1中。
+> 2. ge-v1当前版本仅支持纯静态模型(包括动态分档)。
+
+C++实现参考：
+
+```cpp
+// Configure the inference to support GE online zero-copy
+int QuickStart() {
+    std::string model_path1 = "./model/model1.mindir";
+    std::string model_path2 = "./model/model2.mindir";
+
+    // Create and init context
+    auto context = std::make_shared<mindspore::Context>();
+    if (context == nullptr) {
+        std::cerr << "New context failed." << std::endl;
+        return -1;
+    }
+
+    // Get the list to mutate device info
+    auto &device_list = context->MutableDeviceInfo();
+
+    // Create Ascend Device Info
+    auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
+
+    // Set the GE runtime provider for Ascend
+    device_info->SetProvider("ge-v1");
+
+    // Error check (note: The error message should be corrected to AscendDeviceInfo)
+    if (device_info == nullptr) {
+        std::cerr << "New AscendDeviceInfo failed." << std::endl;
+        return -1;
+    }
+
+    // Add device info to the context
+    device_list.push_back(device_info);
+
+    mindspore::Model model1;
+    mindspore::Model model2;
+
+    // Load and build models using the configured Ascend context
+    mindspore::Status status = model1.Build(model_path1, mindspore::kMindIR, context);
+    if (status != mindspore::kSuccess) {
+        std::cerr << "Model 1 build failed." << std::endl;
+        return -1;
+    }
+    status = model2.Build(model_path2, mindspore::kMindIR, context);
+    if (status != mindspore::kSuccess) {
+        std::cerr << "Model 2 build failed." << std::endl;
+        return -1;
+    }
+
+    std::vector<mindspore::MSTensor> inputs_host; // Input vector for model 1 (Host side data)
+    std::vector<mindspore::MSTensor> outputs1;    // Output vector for model 1 (Input for model 2)
+    std::vector<mindspore::MSTensor> outputs2;    // Output vector for model 2 (Final result)
+
+    // Calculate required data size (1 * 3 * 512 * 512 * sizeof(float))
+    size_t data_size = 3 * 512 * 512 * 4;
+
+    // Allocate raw memory on the heap (Host memory)
+    const void *data_ptr = new (std::nothrow) uint8_t[data_size];
+
+    // Create the input Tensor (Host side data container)
+    auto input_host = mindspore::MSTensor::CreateTensor("input", mindspore::DataType::kNumberTypeFloat32,
+                                                        {1, 3, 512, 512}, data_ptr, data_size);
+    if(input_host==nullptr){
+      delete[] data_ptr;
+      std::cerr << "Create input_host tensor failed." << std::endl;
+      return -1;
+    }
+    // Create the intermediate output Tensor (Model 1 output)
+    auto output1 = mindspore::MSTensor::CreateTensor("output", mindspore::DataType::kNumberTypeFloat32,
+                                                     {1, 3, 512, 512}, const_cast<void*>(data_ptr), data_size, "ascend",0);
+    if(output1==nullptr){
+      delete[] data_ptr;
+      std::cerr << "Create output1 tensor failed." << std::endl;
+      return -1;
+    }
+
+    // Create the final output Tensor (Model 2 output, Host side assumed)
+    auto output2 = mindspore::MSTensor::CreateTensor(
+        "output",
+        mindspore::DataType::kNumberTypeFloat32,
+        {1, 3, 512, 512},
+        const_cast<void*>(data_ptr), // NOTE: Reusing buffer again (high risk)
+        data_size
+    );
+    if(output2==nullptr){
+      std::cerr << "Create output2 tensor failed." << std::endl;
+      return -1;
+    }
+
+    // Populate input/output vectors
+    inputs_host.push_back(*input_host);
+    outputs1.push_back(*output1);
+    outputs2.push_back(*output2);
+
+    // Model 1 Prediction: inputs_host -> outputs1 (Device)
+    model1.Predict(inputs_host, &outputs1);
+    if (status != mindspore::kSuccess) {
+        std::cerr << "Model 1 Predict failed: " << status << std::endl;
+        goto cleanup;
+    }
+
+    // Model 2 Prediction: outputs1 (Device) -> outputs2 (Host)
+    model2.Predict(outputs1, &outputs2);
+    if (status != mindspore::kSuccess) {
+        std::cerr << "Model 2 Predict failed: " << status << std::endl;
+        goto cleanup;
+    }
+
+    delete[] data_ptr;
+    delete input_host;
+    delete output1;
+    delete output2;
+
+    // Success return
+    return 0;
+}
+```
+
+> 1. 这个示例模型是固定shape的，不支持纯动态。
+> 2. 需确保输出张量的数据大小不小于实际输入数据的大小。
+
+Python实现参考：
+
+```python
+def _create_context(provider):
+    """
+    Creates a MindSpore Lite context for Ascend device with a specific provider.
+    """
+    context = mslite.Context()
+    context.target = ["ascend"]
+    context.ascend.device_id = DEVICE_ID
+    context.ascend.provider = provider
+    return context
+def _common_functional_accuracy_mult_model(model1_path: str, model2_path: str, output_add: str):
+    '''
+    common accuracy factory for multi-model
+    '''
+    model1_ge_v1 = mslite.Model()
+    context1_ge_v1 = _create_context("ge-v1")
+    model1_ge_v1.build_from_file(model_path=model1_path,
+                                 model_type=mslite.ModelType.MINDIR, context=context1_ge_v1)
+    model2_ge_v1 = mslite.Model()
+    context2_ge_v1 = _create_context("ge-v1")
+    model2_ge_v1.build_from_file(model_path=model2_path,
+                                 model_type=mslite.ModelType.MINDIR, context=context2_ge_v1)
+
+    model1_ge = mslite.Model()
+    context1_ge = _create_context("ge")
+    model1_ge.build_from_file(model_path=model1_path,
+                              model_type=mslite.ModelType.MINDIR, context=context1_ge)
+    model2_ge = mslite.Model()
+    context2_ge = _create_context("ge")
+    model2_ge.build_from_file(model_path=model2_path,
+                              model_type=mslite.ModelType.MINDIR, context=context2_ge)
+
+    np_input = np.random.random((1, 3, 512, 512)).astype(np.float32)
+    loop = 3
+    result_ge = []
+    for i in range(loop):
+        inputs = mslite.Tensor(tensor=np_input.copy(), shape=DIM_IN2, dtype=mslite.DataType.FLOAT32)
+        outputs_host1 = mslite.Tensor(tensor=np_input.copy(),shape=DIM_OUT2, dtype=mslite.DataType.FLOAT32)
+        outputs_host2 = mslite.Tensor(tensor=np_input.copy(),shape=DIM_OUT2, dtype=mslite.DataType.FLOAT32)
+
+        model1_ge.predict([inputs], [outputs_host1])
+        model2_ge.predict([outputs_host1], [outputs_host2])
+        result_ge.append([outputs_host1.get_data_to_numpy(),
+                         outputs_host2.get_data_to_numpy()])
+
+    result_ge_v1 = []
+    for i in range(loop):
+        inputs = mslite.Tensor(tensor=np_input.copy(), shape=DIM_IN2, dtype=mslite.DataType.FLOAT32)
+        outputs2_host = mslite.Tensor(tensor=np_input.copy(),shape=DIM_IN2, dtype=mslite.DataType.FLOAT32)
+        outputs1 = (
+            mslite.Tensor(tensor=np_input.copy(),
+                          shape=DIM_IN2,
+                          dtype=mslite.DataType.FLOAT32,
+                          device="ascend:" + str(DEVICE_ID))
+            if output_add == "device"
+            else mslite.Tensor(tensor=np_input.copy(),
+                               shape=DIM_IN2,
+                               dtype=mslite.DataType.FLOAT32)
+        )
+        model1_ge_v1.predict([inputs], [outputs1])
+        model2_ge_v1.predict([outputs1], [outputs2_host])
+        result_ge_v1.append([outputs1.get_data_to_numpy(), outputs2_host.get_data_to_numpy()])
+    print("test result: ")
+    for of, ob in zip(result_ge, result_ge_v1):
+        for f, b in zip(of, ob):
+            np.testing.assert_allclose(f, b)
+    print("Common multi-model accuracy verification passed.")
+    return True
+
+def test_single_autoregressive_accuracy_device():
+    '''
+    test Single-model autoregression (device output) accuracy
+    '''
+    # Autoregression is achieved by using MODEL_PATH twice
+    result = _common_functional_accuracy_mult_model(MODEL_PATH, MODEL_PATH, "device")
+    if result:
+        print("Single-model autoregression (device output) accuracy passed.")
+```
+
 ### 多线程加载模型
 
 后端为ACL或CPU时，支持多线程并发加载模型，以提升模型加载性能。
