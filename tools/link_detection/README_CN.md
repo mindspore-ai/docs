@@ -34,7 +34,7 @@ ERROR:docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb: line_2: 
 
 `ERROR:docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb: line_2: Error link: https://xxxxx`
 
-- 链接检测状态：`ERROR`表示检测出了链接报错，如果是`WARRING`表示该失效链接属于`gitee.com`中的链接，可能由于文件正在合入而造成的链接报错。
+- 链接检测状态：`ERROR`表示检测出了链接报错，如果是`WARNING`表示该失效链接属于`gitee.com`中的链接，可能由于文件正在合入而造成的链接报错。
 
 - 检测文件：`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb`
 

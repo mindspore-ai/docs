@@ -214,7 +214,7 @@ def generator_report(all_files):
 
     for msg in msg_list:
         if "gitee.com" in msg:
-            print(f"WARRING:{msg}")
+            print(f"WARNING:{msg}")
         else:
             print(f"ERROR:{msg}")
 
