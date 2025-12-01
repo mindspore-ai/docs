@@ -326,6 +326,8 @@ for i in decorator_list:
 # Repair error content defined in mindspore.
 decorator_list = [("mindspore/common/dtype.py","del decorator",
                    "@enum.unique","# generate api by del decorator."),
+                   ("mindspore/mint/__init__.py","del decorator",
+                   "@jit_view_unsupported","# generate api by del decorator."),                   
                    ("mindspore/common/dtype.py","del class",
                    "class QuantDtype(enum.Enum):","class QuantDtype():")
                    ]
