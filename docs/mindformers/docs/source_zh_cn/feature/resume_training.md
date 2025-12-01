@@ -4,206 +4,178 @@
 
 ## 概述
 
-MindSpore Transformers支持**step级断点续训**功能，允许在训练中保存模型的checkpoint，并在训练中断后，加载保存的checkpoint恢复之前的状态继续训练。这一特性在处理大规模训练任务时尤为重要，能够有效减少因意外中断导致的时间和资源浪费。此外，在数据集不变，但`global batch size`改变的断点续训场景下，例如更换集群或修改配置时，本工具还支持续训步数与数据跳过步数自动同比例缩放。
+MindSpore Transformers支持**step级断点续训**功能，支持加载已保存的checkpoint来恢复之前的状态继续训练。这一特性在处理大规模训练任务时尤为重要，能够有效减少因意外中断导致的时间和资源浪费。
 
-## 配置与使用
+MindSpore Transformers支持保存和加载**ckpt**、**safetensors**两种格式权重，支持**中断续训**、**策略转换续训**、**增量续训**、**自动恢复续训**等多种续训场景，以及支持**加载最后保存完整的权重**、**加载指定step权重**、**加载MindSpore合并的权重**续训等不同的权重加载方式。
 
-### YAML参数配置
+分布式环境中，断点续训要求所有节点的权重在**同一共享目录**下。用户可通过环境变量`SHARED_PATHS`来设置共享路径。
 
-用户可通过修改配置文件来控制断点续训的行为。以下是主要参数，其他参数可参考CheckpointMonitor介绍：
+## 权重和策略文件介绍
 
-| 参数            | 描述                                                                                                                                                            |
-| --------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| load_checkpoint | 断点续训时加载的权重路径。路径可以是文件夹路径（用于加载分布式权重），也可以是具体权重文件的路径。默认为空字符串，即不加载权重（断点续训时必填）。当配置的路径为空目录时，会退化为使用随机初始化权重进行预训练。|
-| resume_training | 断点续训开关，可设置为`True`或指定特定的权重文件名。为`True`时，系统会自动从上次中断处恢复训练。默认为`False`。                                |
-| load_ckpt_async | 是否将加载权重与模型编译的操作并行执行。不支持在线自动切分权重场景（auto_trans_ckpt=True），该场景下不生效。默认为False串行执行。<br />为`True`时，并行执行，减少总体拉起续训的耗时。                                                 |
+MindSpore Transformers保存权重和策略文件，默认保存在`output/checkpoint`和`output/strategy`两个文件夹下，用户可以修改yaml配置的`output_dir`参数修改`output`文件夹路径。
 
-根据传入参数不同，可分为如下四种情况：
+权重文件主要保存了**网络参数**、**优化器参数**和**续训信息**，权重文件根据rank文件夹分开保存，每个rank文件夹下单独维护一个`meta.json`文件用以记录当前rank最后保存完整的权重信息。以单机8卡为例，权重保存格式如下：
 
-| load_checkpoint | resume_training | 功能描述                                                                                                                                                                                                                                                                                                                                             | 是否为推荐使用方式 |
-|-----------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
-| 权重文件路径          | True            | 基于load_checkpoint指代的权重续训                                                                                                                                                                                                                                                                                                                         | √         |
-| 权重文件路径          | 权重文件名           | resume_training指代的文件名无效，基于load_checkpoint指代的权重续训                                                                                                                                                                                                                                                                                                 | ×         |
-| 权重文件夹路径         | True            | **场景1："单机"或"多机+共享目录"或"ModelArts"**<br />① 基于meta.json记录的权重续训，支持故障恢复。<br />② 若任一rank文件夹下缺少meta.json，所有rank基于最后时间戳的权重续训。<br />**场景2："多机+非共享目录"**<br />所有rank基于最后时间戳的权重续训。<br />**场景3："自动恢复训练"**<br />为方便自动恢复训练功能的使用，可以将load_checkpoint配置为权重checkpoint的保存路径，这样在续训时不需要对配置项load_checkpoint做手动修改。首次开始训练时，该目录为空，会正常随机初始化权重；续训时，会从该目录下保存的checkpoint恢复训练。 | √         |
-| 权重文件夹路径         | 权重文件名           | 基于resume_training指代的权重续训                                                                                                                                                                                                                                                                                                                         | √         |
+```text
+output/checkpoint
+    ├── rank_0
+      ├── meta.json
+      └── {prefix}-{epoch}_{step}.safetensors
+    ├── rank_1
+      ├── meta.json
+      └── {prefix}-{epoch}_{step}.safetensors
+    ...
+    ├── rank_7
+      ├── meta.json
+      └── {prefix}-{epoch}_{step}.safetensors
+```
 
-此外，用户还可通过增改配置文件的如下参数来使用相关功能。
+> 权重名的prefix中携带rank_id信息，如：llama3_1_8b_rank_0；若保存权重时已存在相同prefix的权重，prefix会自动添加自增后缀以防止旧权重被覆盖。如"llama3_1_8b_rank_0"已存在时，prefix会更新为"llama3_1_8b_rank_0_1"，若"llama3_1_8b_rank_0_1"也已存在，prefix会更新为"llama3_1_8b_rank_0_2"。
 
-| 参数               | 描述                                                                                                          |
-|------------------|-------------------------------------------------------------------------------------------------------------|
-| ignore_data_skip | 是否忽略断点续训时跳过数据的机制，而从头开始读取数据集。用于续训时数据集更换的场景。设置为`True`时不会跳过数据集，默认为`False`。                                     |
-| data_skip_steps  | 数据集跳过步数。用于更换数据集续训后再次断开续训或`global batch size`改变的场景，须手动设置此参数来配置新数据集跳过步数，如`global batch size`改变，需向下整除缩放系数后再传入。 |
+策略文件仅在分布式训练任务中保存，用于**权重策略转换**。策略文件以rank_id作为后缀，固定保存为ckpt格式的文件，主要记录了当前rank的网络和优化器切分信息。以单机8卡为例，策略文件保存格式如下：
 
-### 故障恢复机制
+```text
+output/strategy
+    ├── ckpt_strategy_rank_0.ckpt
+    ├── ckpt_strategy_rank_1.ckpt
+    ...
+    └── ckpt_strategy_rank_7.ckpt
+```
 
-当`resume_training`设置为`True`时，系统会自动基于`meta.json`记录的权重进行续训。如果某个rank的权重文件缺失或损坏，系统会回退到上一个可用的权重进行恢复。
+> 注：策略文件保存时会覆盖旧文件，为防止覆盖或混杂不同任务的策略文件，请及时将策略文件保存到自定义文件夹。
 
-> 分布式环境中，断点续训要求所有节点的权重在同一共享目录下。用户可通过环境变量`SHARED_PATHS`来设置共享路径。
+可参考[Ckpt权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)和[Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)，获取更多权重相关信息。
 
-## 分布式训练示例
+## YAML参数配置说明
 
-以下示例演示了如何在单卡和多卡环境中启动断点续训。示例基于 `llama3.1 8b` 模型，相关配置文件[research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
+| 参数                     | 描述                                                         |
+| ------------------------ | ------------------------------------------------------------ |
+| load_checkpoint          | 权重文件或文件夹路径，**断点续训时必填**，默认为空字符串。<br />当配置的路径为空目录时，会退化为使用随机初始化权重进行预训练。<br />若为单卡权重，可配置为权重文件路径，需要确保文件父目录不以"rank_"开头。 |
+| src_strategy_path_or_dir | 策略文件或文件夹路径，**`auto_trans_ckpt=True`且load_checkpoint为分布式权重**时需要配置，默认为空字符串。<br />若load_checkpoint配置的权重不带流水线并行切分，则可配置为任一策略文件路径，否则配置为策略文件夹路径。 |
+| auto_trans_ckpt          | 权重自动转换开关，load_checkpoint配置的**权重和当前任务的分布式策略不匹配**时需要开启，默认为False。 |
+| transform_process_num    | 权重自动转换使用进程数，**仅适用于ckpt格式权重的自动转换**，可加速权重转换。默认为`None`不开启。<br />设置值需要能够整除集群总卡数，设置值越大，host内存占用越高，若host内存不足，需要减少进程数。 |
+| resume_training          | 断点续训开关，可设置为`True`或任一rank子文件夹下的权重文件名。默认为`False`。<br />为`True`时，**加载最后保存完整的权重**续训。<br />为权重文件名时，**加载指定step的权重**续训。 |
+| load_ckpt_format         | load_checkpoint配置的权重格式，可配置为`safetensors`或`ckpt`，默认为`ckpt`。 |
+| remove_redundancy        | 去冗余加载开关，load_checkpoint配置的权重为**去冗余保存的safetensors格式权重**时需要开启，默认为`False`。 |
+| load_ckpt_async          | 是否将加载权重与模型编译的操作并行执行。该配置**仅适用于ckpt格式权重且分布式策略不变**的异步加载场景。默认为`False`。 |
 
-### 完整训练
+## 断点续训使用场景介绍
 
-1. 修改`research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml`：
+### 中断续训
 
-   如果想首次运行随机初始化训练，并且后续断点续训不改配置文件，可在此时将`resume_training`设置为`True`，并将`load_checkpoint`设为即将保存权重的目录：
+**概述**：正常训练任务异常中断，不改变分布式策略，基于保存的权重重新恢复训练任务。
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ```
+- 基于最后保存完整的权重续训
 
-   > 一旦目录为空目录，模型权重即会自动随机初始化。因此，如果误设了一个非即将保存权重的空目录，会导致第二次拉起任务时训练从头开始。
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  resume_training: True
+  ```
 
-   根据需要设置并行配置：
+  系统会自动基于各rank的`meta.json`记录的权重，搜索并加载最后保存完整的权重进行续训。
 
-   ```yaml
-   parallel_config:
-     data_parallel: 1
-     model_parallel: 2
-     pipeline_stage: 2
-     micro_batch_num: 2
-   ```
+  > 若权重文件夹的所有rank子文件夹下均无meta.json，则退化为基于各自rank最后时间戳的权重续训。
 
-   根据需要设置模型权重保存配置：
+- 基于指定step的权重续训
 
-   ```yaml
-   callbacks:
-     ...
-     - type: CheckpointMonitor
-       prefix: "llama3_1_8b"
-       save_checkpoint_steps: 10
-       keep_checkpoint_max: 3
-       integrated_save: False
-       async_save: False
-     ...
-   ```
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  # 若为ckpt权重，则填写{prefix}-{epoch}_{step}.ckpt
+  resume_training: {prefix}-{epoch}_{step}.safetensors
+  ```
 
-2. 准备数据集，此处以 [alpaca 数据集](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)为例，启动4卡分布式训练：
+  用户需确保指定权重的完整性。各rank会自动替换"prefix"中的rank信息来更新要加载的权重名，比如指定的权重名为`llama3_1_8b_rank_0-200_1.safetensors`，rank_1加载时会将权重名替换为`llama3_1_8b_rank_1-200_1.safetensors`。若某rank下权重缺失，会报错权重文件找不到。
 
-   ```shell
-   bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
-       --run_mode train \
-       --use_parallel True" 4
-   ```
+### 策略转换续训
 
-   在第四次保存完毕后，结束进程，此时 `checkpoint` 下的 `rank_0` 文件夹结构为：
+**概述**：修改了**分布式策略**或**扩大/缩小集群规模**继续训练任务，需要**开启权重自动转换**。
 
-   ```text
-   checkpoint/rank_0
-     ├── llama3_1_8b_rank_0-10_2.ckpt
-     ├── llama3_1_8b_rank_0-15_2.ckpt
-     ├── llama3_1_8b_rank_0-20_2.ckpt
-     └── meta.json
-   ```
+#### safetensors权重
 
-### 断点续训
+开启权重自动转换，系统会自动合并safetensors权重为[完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html#完整权重)后进行分布式加载，合并的safetensors权重会落盘到`output/unified_checkpoint`文件夹下；若已经将权重离线合并为[完整权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html#完整权重)，则会直接进行分布式加载。离线合并步骤请参考[Safetensors权重-权重切分与合并](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)章节。
 
-1. 如果在前置训练的配置中，`resume_training`为`False`，此时需修改配置，指定断点续训权重文件：
+- 基于最后保存完整的权重续训
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ```
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  src_strategy_path_or_dir: /path/to/strategy
+  resume_training: True
+  auto_trans_ckpt: True
+  ```
 
-2. 启动断点续训：
+- 基于指定step的权重续训
 
-   ```shell
-   bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
-       --run_mode train \
-       --use_parallel True" 4
-   ```
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  src_strategy_path_or_dir: /path/to/strategy
+  resume_training: {prefix}-{epoch}_{step}.safetensors
+  auto_trans_ckpt: True
+  ```
 
-   如若初始步数从第`42`步开始，则断点续训成功。由于最后保存的权重包含了第`40`步的信息，`sink_size`默认为`2`，即每两步打印一次信息，因此初始步数为`42`。
+- 基于合并的权重续训
 
-### 切换数据集断点续训
+  ```yaml
+  load_checkpoint: /path/to/unified_checkpoint
+  resume_training: True
+  auto_trans_ckpt: True
+  ```
 
-在切换数据集并进行断点续训时，有三种主要场景，每个场景需要针对配置文件进行不同的修改。下面逐一介绍每种情况，并详细说明在哪些场景下需要对基本断点续训流程的哪一步进行修改，以及如何修改具体配置来达成预期效果。
+#### ckpt权重
 
-**场景一：全新数据集，继续训练（无需跳过已训练的步数）**
+开启权重自动转换，系统会自动转换权重到当前任务的分布式策略后进行加载，转换的ckpt权重会落盘到`output/transformed_checkpoint`文件夹下，可用于后续直接加载使用且无需开启权重自动转换。
 
-在这种场景中，当切换到一个全新数据集时，模型的训练将从新数据集的开头开始，而无需跳过任何步数。对于这种情况，配置文件需要设置为**忽略之前的数据进度**，让模型在新数据集上从头训练。
+若权重的rank子文件夹下存在多个step的权重文件，需要离线对权重进行筛选，确保**每个rank子文件夹下只有需要加载的单个ckpt文件**。
 
-- **配置修改**：需要在基本断点续训流程的第一步的基础上对`ignore_data_skip`进行设置。将`ignore_data_skip`设置为`True`，表示不跳过数据集。
+```yaml
+load_checkpoint: /path/to/checkpoint
+src_strategy_path_or_dir: /path/to/strategy
+resume_training: True
+auto_trans_ckpt: True
+transform_process_num: 8
+```
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ignore_data_skip: True
-   ```
+### 增量续训
 
-- **预期效果**：模型将在新数据集上从头训练，而不会跳过任何步数。
+**概述**：训练数据集需要**边生产边训练**，当前数据集训练结束后，加入新生产的数据集继续训练，直到所有数据集训练完毕。该场景需要用户基于训练的总数据量，提前预设学习率曲线的总步数。
 
-**场景二：在新数据集上断点续训，并跳过部分已训练的步数**
+假设一共训练10T tokens数据，每次生产的数据集只包含1T tokens数据，整个训练过程分10个epoch训完，一共需要花费100000steps。
 
-在这种情况下，模型在新数据集上已经训练了一部分（例如断开前已训练了`2`步），期望从上次中断的地方继续训练。此时，必须手动指定需要跳过的步数。
+- 步骤1：预设总训练步数，固定整个训练流程的学习率曲线
 
-- **配置修改**：需要在基本断点续训流程的第一步的基础上对`ignore_data_skip`和`data_skip_steps`进行设置。将`ignore_data_skip`设置为`False`，并且通过`data_skip_steps`指定要跳过的已训练步数（例如，跳过`2`步）。
+  ```yaml
+  lr_schedule:
+    total_steps: 100000
+  ```
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ignore_data_skip: False
-   data_skip_steps: 2
-   ```
+- 步骤2：设置足够大的epoch值，确保能够训完所有数据集
 
-- **预期效果**：模型将跳过新数据集的前`2`步，从第`3`步开始继续训练。
+  ```yaml
+  runner_config:
+    epochs: 15
+  ```
 
-**场景三：在新数据集上断点续训时，`global batch size`发生变化**
+  > 整个训练过程的学习率曲线已固定，epochs值设置不会影响学习率，可以设置较大值，确保能训完10个数据集。
 
-如果在新数据集上继续断点续训时，`global batch size`改变了（例如，变为原先的 2 倍），手动指定需跳过的步数时需要对已训练的步数进行缩放。具体来说，跳过的步数需要根据缩放系数向下整除。例如，如果`global batch size`变为原先的`2`倍，需跳过的步数则相应减少一半。
+- 步骤3：数据集训完1个epoch后，可以更换数据集续训，如下为基于最后保存完整的权重续训，其他续训方式请参考[中断续训](#中断续训)或[策略转换续训](#策略转换续训)。
 
-- **配置修改**：需要在场景二的基础上对`data_skip_steps`进行调整。将`data_skip_steps`设置为缩放后的步数。例如，`global batch size`变为原先的`2`倍，需跳过的步数变为`1`（向下整除）。
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  resume_training: True
+  ```
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ignore_data_skip: False
-   data_skip_steps: 1
-   ```
+  > 由于各个数据集样本数量不一致，更换数据集续训，显示的epoch和step可能发生变化，但是当前训练的总step数不变，为正常现象。
 
-- **预期效果**：模型将根据新的`global batch size`调整跳过的步数，并从正确的地方继续训练。
+### 自动恢复续训
 
-### 故障恢复示例
+**概述**：为方便平台能够自动拉起断点续训，无需人工干预，可以将load_checkpoint配置为权重checkpoint的保存路径，首次开始训练时，该目录为空，会正常随机初始化权重；续训时，会基于该目录下最后保存完整的权重恢复训练。
 
-当部分权重文件缺失时，系统会自动基于上一个可用的权重进行恢复。
+```yaml
+load_checkpoint: /path/to/output/checkpoint
+resume_training: True
+```
 
-1. 删除`rank_3`下的`llama3_1_8b_rank_0-20_2.ckpt`文件。删除后文件夹结构应为：
+## 注意事项和建议
 
-   ```text
-   checkpoint/rank_3
-     ├── llama3_1_8b_rank_0-10_2.ckpt
-     ├── llama3_1_8b_rank_0-15_2.ckpt
-     └── meta.json
-   ```
-
-2. 修改配置，启用故障恢复：
-
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ```
-
-3. 启动分布式训练：
-
-   ```shell
-   bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
-       --run_mode train \
-       --use_parallel True" 4
-   ```
-
-   如若初始步数从第`32`步开始，则断点续训成功。由于`rank_3`下的包含了第`40`步的信息的权重被删除，因此自动使用上一次保存的权重，即包含第
-   `30`步信息的权重。由于`sink_size`默认为`2`，即每两步打印一次信息，因此初始步数为`32`。
-
-## 注意事项
-
-- **数据下沉模式**：分布式断点续训必须开启数据下沉模式，配置`sink_mode=True`。
-- **权重文件检查**：确保断点续训加载的权重为训练中断时的权重，而不是整个训练过程最后保存的权重，否则会报错。
+- 分布式断点续训必须开启**数据下沉模式**，配置`sink_mode=True`。
+- 建议配置`SHARED_PATHS`环境变量为最上层共享目录路径，比如`/data01`是共享目录，工程目录在该目录下，配置`export SHARED_PATHS=/data01`。
+- 建议不同分布式策略训练任务的权重和策略文件分开文件夹保存。
