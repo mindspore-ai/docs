@@ -128,7 +128,7 @@ port=50001
 
 cd $MINDFORMERS_HOME
 bash scripts/msrun_launcher.sh "run_mindformer.py \
---config configs/qwen3/pretrain_qwen3_32b_4k.yaml \
+--config configs/qwen3/pretrain_qwen3_32b_4k.yaml" \
 16 8 $master_ip $port $node_rank output/msrun_log False 7200
 ```
 
