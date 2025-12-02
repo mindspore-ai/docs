@@ -4,206 +4,178 @@
 
 ## Overview
 
-MindSpore Transformers supports **step-level resumable training**, which allows the checkpoints of a model to be saved during training. If the training is interrupted, you can load a saved checkpoint to resume the training. This feature is crucial for processing large-scale training tasks, and can effectively reduce time and resource waste caused by unexpected interruptions. In addition, to resume a training where the dataset remains unchanged but the `global batch size` is changed, for example, when the cluster is changed or the configuration is modified, this tool supports automatic scaling of the number of resumable training steps and skipped data steps in the same proportion.
+MindSpore Transformers supports **step-level resume training** functionality, enabling the loading of saved checkpoints to resume previous training states. This feature is particularly important for handling large-scale training tasks, as it effectively reduces time and resource waste caused by unexpected interruptions.
 
-## Configuration and Usage
+MindSpore Transformers supports saving and loading weights in both **ckpt** and **safetensors** formats. It supports various resume training scenarios such as **interrupted training resumption**, **strategy conversion resumption**, **incremental training resumption**, and **automatic recovery resumption**. It also supports different weight loading methods including **loading the last fully saved weights**, **loading weights from a specified step**, and **loading MindSpore merged weights** for resumption.
 
-### YAML Parameters
+In a distributed environment, resume training requires that weights from all nodes be stored in the **same shared directory**. Users can set the shared path via the environment variable `SHARED_PATHS`.
 
-You can modify the configuration file to control resumable training. The main parameters are as follows. For details about other parameters, see the description of CheckpointMonitor.
+## Introduction to Weight and Strategy Files
 
-| Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| load_checkpoint  | Weight path loaded during resumable training. The path can be a folder path (used to load distributed weights) or a specific weight file path. The default value is an empty string, indicating that no weight is loaded (required for resumable training). When the configured path is an empty directory, the system will fall back to pretraining with randomly initialized weights. |
-| resume_training  | Specifies whether to enable resumable training. You can set it to `True` or specify a weight file name. If the value is `True`, the system automatically resumes the training from the last interruption. The default value is `False`.                                                                                       |
-| load_ckpt_async  | Determines whether to load model weights and compile in parallel (this configuration does not take effect when auto_trans_ckpt is set to true). The default value is False (serial execution). <br /> When it is `True`, the parallel capability of loading ckpt weights and building model is enabled to reduce the overall time resume training.                                                                                                                                                                                                                         |
+MindSpore Transformers saves weight and strategy files, which are by default stored in the `output/checkpoint` and `output/strategy` folders. Users can modify the `output_dir` parameter in the YAML configuration to change the path of the `output` folder.
 
-Based on the input parameters, there are four cases.
+Weight files mainly store **network parameters**, **optimizer parameters**, and **resume training information**. Weight files are saved separately in rank-specific folders, and each rank folder maintains a `meta.json` file to record the last fully saved weight information for that rank. Taking a single-machine 8-card setup as an example, the weight saving format is as follows:
 
-| load_checkpoint     | resume_training   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Recommended or Not |
-|---------------------|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| Weight file path    | True              | Resumes a training based on the weights specified by load_checkpoint.                                                                                                                                                                                                                                                                                                                                                                                                                     | √                  |
-| Weight file path    | Weight file name  | The file name specified by resume_training is invalid. A training is resumed based on the weights specified by load_checkpoint.                                                                                                                                                                                                                                                                                                                                                           | ×                  |
-| Weight folder path  | True              | **Scenario 1: Single-node system, multi-node system+shared directory, or ModelArts**<br>1. Resumes the training based on the weights recorded in meta.json files and supports fault recovery.<br>2. Resumes the training based on the latest weight of all ranks if the meta.json file of any rank is missing.<br>**Scenario 2: Multi-node+non-shared directory**<br>Resumes the training based on the latest weight of all ranks.<br>**Scenario 3: Automatically resume training**<br>To facilitate using the automatic training recovery feature, configure `load_checkpoint` as the save path for weight checkpoints, eliminating the need to manually modify this setting when resuming training. If the directory is empty during initial training, weights will initialize randomly normally; when resuming, training will recover from checkpoints saved in this directory. | √                  |
-| Weight folder path  | Weight file name  | Resumes the training based on the weights specified by resume_training.                                                                                                                                                                                                                                                                                                                                                                                                                   | √                  |
+```text
+output/checkpoint
+    ├── rank_0
+      ├── meta.json
+      └── {prefix}-{epoch}_{step}.safetensors
+    ├── rank_1
+      ├── meta.json
+      └── {prefix}-{epoch}_{step}.safetensors
+    ...
+    ├── rank_7
+      ├── meta.json
+      └── {prefix}-{epoch}_{step}.safetensors
+```
 
-In addition, you can modify the following parameters in the configuration file to use related functions.
+> The prefix of the weight name contains rank_id information, e.g., `llama3_1_8b_rank_0`. If a weight with the same prefix already exists when saving, an incremental suffix will be automatically added to the prefix to prevent overwriting old weights. For example, if "llama3_1_8b_rank_0" already exists, the prefix will be updated to "llama3_1_8b_rank_0_1", and if "llama3_1_8b_rank_0_1" also exists, it will be updated to "llama3_1_8b_rank_0_2".
 
-| Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ignore_data_skip | Specifies whether to ignore the mechanism of skipping data during resumable training and read the dataset from the beginning instead. This parameter is used when the dataset is changed during resumable training. If this parameter is set to `True`, no data is skipped. The default value is `False`.                                                                                                                                                          |
-| data_skip_steps  | Number of steps skipped for the dataset. This parameter is used when the training is interrupted again after being resumed because the dataset or `global batch size` is changed. You need to manually set this parameter to configure the number of steps skipped for the new dataset. If the `global batch size` is changed, you need to divide and round down its value by the scaling coefficient and then specify the result as the value of this parameter.  |
+Strategy files are only saved in distributed training tasks and are used for **weight strategy conversion**. Strategy files are saved in ckpt format with the rank_id as the suffix, mainly recording the network and optimizer sharding information for the current rank. Taking a single-machine 8-card setup as an example, the strategy file saving format is as follows:
 
-### Fault Recovery Mechanism
+```text
+output/strategy
+    ├── ckpt_strategy_rank_0.ckpt
+    ├── ckpt_strategy_rank_1.ckpt
+    ...
+    └── ckpt_strategy_rank_7.ckpt
+```
 
-If `resume_training` is set to `True`, the system automatically resumes training based on the weights recorded in `meta.json`. If the weight file of a rank is missing or damaged, the system rolls back to the latest available weight for recovery.
+> Strategy files will overwrite old files when saved. To prevent overwriting or mixing strategy files from different tasks, please promptly save strategy files to a custom folder.
 
-> In a distributed environment, resumable training requires that the weights of all nodes be in the same shared directory. You can use the `SHARED_PATHS` environment variable to set the shared path.
+For more information about weights, refer to [Ckpt Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html) and [Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).
 
-## Example of Distributed Training
+## YAML Parameter Configuration Description
 
-The following example shows how to enable resumable training in single-device and multi-device environments. The example is based on the `llama3.1 8b` model.
-For related configuration files, see [research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
+| Parameter                | Description                                                  |
+| ------------------------ | ------------------------------------------------------------ |
+| load_checkpoint          | Path to the weight file or folder, **required for resuming training**, default is an empty string.<br />If the configured path is an empty directory, it will fall back to using randomly initialized weights for pre-training.<br />For single-card weights, configure the path to the weight file, ensuring the parent directory does not start with "rank_". |
+| src_strategy_path_or_dir | Path to the strategy file or folder, required when **`auto_trans_ckpt=True` and load_checkpoint is a distributed weight**, default is an empty string.<br />If the weights configured in load_checkpoint do not have pipeline parallel sharding, configure any strategy file path; otherwise, configure the strategy folder path. |
+| auto_trans_ckpt          | Switch for automatic weight conversion, needs to be enabled when the **weights configured in load_checkpoint do not match the distributed strategy of the current task**, default is False. |
+| transform_process_num    | Number of processes used for automatic weight conversion, **only applicable to automatic conversion of ckpt format weights**, which can accelerate weight conversion. Default is `None` (disabled).<br />The set value must be divisible by the total number of cluster cards. A larger value increases host memory usage; reduce the number of processes if host memory is insufficient. |
+| resume_training          | Switch for resuming training, can be set to `True` or the weight file name in any rank sub-folder. Default is `False`.<br />When set to `True`, it **loads the last fully saved weights** for resumption.<br />When set to a weight file name, it **loads the weights from the specified step** for resumption. |
+| load_ckpt_format         | Format of the weights configured in load_checkpoint, can be set to `safetensors` or `ckpt`, default is `ckpt`. |
+| remove_redundancy        | Switch for loading without redundancy, needs to be enabled when the weights configured in load_checkpoint are **safetensors format weights saved without redundancy**, default is False. |
+| load_ckpt_async          | Whether to execute weight loading in parallel with model compilation. This configuration **only applies to asynchronous loading scenarios with ckpt format weights and unchanged distributed strategy**. Default is `False`. |
 
-### Complete Training
+## Introduction to Resume Training Scenarios
 
-1. Modify `research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml`.
+### Interrupted Training Resumption
 
-   For initial training with randomly initialized weights followed by resume training without changing the configuration file, set `resume_training` to `True` and `load_checkpoint` to the directory where checkpoints will be saved:
+**Overview**: Resume training based on saved weights after an unexpected interruption of a normal training task, without changing the distributed strategy.
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ```
+- Resume training from the last fully saved weights
 
-   > Use an empty directory for `load_checkpoint` only if it is intended for saving checkpoints; otherwise, the next run will start from scratch instead of resuming.
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  resume_training: True
+  ```
 
-   Configure the parallelism as required.
+  The system will automatically search for and load the last fully saved weights based on the weight records in each rank's `meta.json` for resumption.
 
-   ```yaml
-   parallel_config:
-     data_parallel: 1
-     model_parallel: 2
-     pipeline_stage: 2
-     micro_batch_num: 2
-   ```
+  > If there is no meta.json in all rank sub-folders of the weight folder, it will fall back to resuming from the weights with the latest timestamp for each rank.
 
-   Configure the model weight saving as required.
+- Resume training from weights of a specified step
 
-   ```yaml
-   callbacks:
-     ...
-     - type: CheckpointMonitor
-       prefix: "llama3_1_8b"
-       save_checkpoint_steps: 10
-       keep_checkpoint_max: 3
-       integrated_save: False
-       async_save: False
-     ...
-   ```
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  # For ckpt weights, fill in {prefix}-{epoch}_{step}.ckpt
+  resume_training: {prefix}-{epoch}_{step}.safetensors
+  ```
 
-2. Prepare a dataset. The following uses [alpaca datasets](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87) as an example to describe how to start four-device distributed training.
+  Users must ensure the integrity of the specified weights. Each rank will automatically replace the rank information in the "prefix" to update the weight name to be loaded. For example, if the specified weight name is `llama3_1_8b_rank_0-200_1.safetensors`, when loading rank_1, the weight name will be replaced with `llama3_1_8b_rank_1-200_1.safetensors`. An error will occur if the weight is missing for a certain rank.
 
-   ```shell
-   bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
-       --run_mode train \
-       --use_parallel True" 4
-   ```
+### Strategy Conversion Resumption
 
-   After the fourth saving is complete, end the process. The structure of the `rank_0` folder under `checkpoint` is as follows:
+**Overview**: Continue training after modifying the **distributed strategy** or **expanding/shrinking the cluster scale**, requiring **enabling automatic weight conversion**.
 
-   ```text
-   checkpoint/rank_0
-     ├── llama3_1_8b_rank_0-10_2.ckpt
-     ├── llama3_1_8b_rank_0-15_2.ckpt
-     ├── llama3_1_8b_rank_0-20_2.ckpt
-     └── meta.json
-   ```
+#### Safetensors Weights
 
-### Resumable Training
+Enabling automatic weight conversion will automatically merge safetensors weights into [full weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html#full-weights) for distributed loading. The merged safetensors weights will be saved to the `output/unified_checkpoint` folder. If the weights have been offline merged into [full weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html#full-weights), they will be directly loaded in a distributed manner. For offline merging steps, refer to the [Safetensors Weights - Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html) section.
 
-1. If `resume_training` is set to `False` in the pre-training configuration, update the configuration to specify the resumable training weight file.
+- Resume training from the last fully saved weights
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ```
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  src_strategy_path_or_dir: /path/to/strategy
+  resume_training: True
+  auto_trans_ckpt: True
+  ```
 
-2. Resume training.
+- Resume training from weights of a specified step
 
-   ```shell
-   bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
-       --run_mode train \
-       --use_parallel True" 4
-   ```
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  src_strategy_path_or_dir: /path/to/strategy
+  resume_training: {prefix}-{epoch}_{step}.safetensors
+  auto_trans_ckpt: True
+  ```
 
-   If the initial number of steps is `42`, the training is resumed successfully. The saved weight file contains the information about step `40`. The default value of `sink_size` is `2`, indicating that the information is printed every two steps. Therefore, the initial number of steps is `42`.
+- Resume training from merged weights
 
-### Resumable Training with the Dataset Changed
+  ```yaml
+  load_checkpoint: /path/to/unified_checkpoint
+  resume_training: True
+  auto_trans_ckpt: True
+  ```
 
-There are three main scenarios where the dataset is changed in resumable training. You need to modify the configuration file in each scenario. The following describes each case one by one, and describes in detail which step of the basic resumable training process needs to be modified, and how to modify a specific configuration to achieve an expected effect.
+#### Ckpt Weights
 
-**Scenario 1: Training resumed with a new dataset (but not skipping trained steps)**
+Enabling automatic weight conversion will automatically convert weights to the distributed strategy of the current task before loading. The converted ckpt weights will be saved to the `output/transformed_checkpoint` folder, which can be directly loaded for subsequent use without enabling weight automatic conversion.
 
-In this scenario, when the new dataset is used, the model training starts from scratch without skipping any data or steps. In this case, you need to set the configuration file **to ignore the previous data progress** so that the model can be trained from scratch based on the new dataset.
+If there are multiple step weight files in the rank sub-folder of the weights, it is necessary to offline filter the weights to ensure that **each rank sub-folder contains only a single ckpt file to be loaded**.
 
-- **Configuration modification**: You need to set `ignore_data_skip` based on the first step of the basic resumable training process. Set `ignore_data_skip` to `True`, indicating that no data is skipped.
+```yaml
+load_checkpoint: /path/to/checkpoint
+src_strategy_path_or_dir: /path/to/strategy
+resume_training: True
+auto_trans_ckpt: True
+transform_process_num: 8
+```
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ignore_data_skip: True
-   ```
+### Incremental Training Resumption
 
-- **Expected result**: The model is trained from scratch based on the new dataset without skipping any steps.
+**Overview**: The training dataset needs to be **produced and trained incrementally**. After training on the current dataset, new produced datasets are added for continued training until all datasets are processed. This scenario requires users to preset the total steps of the learning rate curve in advance based on the total amount of training data.
 
-**Scenario 2: Training resumed with a new dataset, skipping trained steps**
+Assume a total of 10T tokens of data will be trained, with each produced dataset containing 1T tokens. The entire training process is completed in 10 epochs, requiring a total of 100,000 steps.
 
-In this case, the model has been partially trained based on the new dataset (for example, `2` steps have been performed before the training is interrupted), and the training is expected to continue from the last interruption. In this case, you must manually specify the number of steps to be skipped.
+- Step 1: Preset the total training steps to fix the learning rate curve for the entire training process
 
-- **Configuration modification**: You need to set `ignore_data_skip` and `data_skip_steps` based on the first step of the basic resumable training process. Set `ignore_data_skip` to `False` and use `data_skip_steps` to specify the number of trained steps to skip (for example, `2`).
+  ```yaml
+  lr_schedule:
+    total_steps: 100000
+  ```
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ignore_data_skip: False
-   data_skip_steps: 2
-   ```
+- Step 2: Set a sufficiently large epoch value to ensure all datasets can be trained
 
-- **Expected result**: The model skips the first `2` steps and continues the training from step `3` based on the new dataset.
+  ```yaml
+  runner_config:
+    epochs: 15
+  ```
 
-**Scenario 3: Training resumed with a new dataset and `global batch size` changed**
+  > The learning rate curve for the entire training process is fixed, and the epoch value setting will not affect the learning rate. You can set a larger value to ensure that all 10 datasets are fully trained.
 
-If `global batch size` is changed (for example, doubled) when a training is resumed based on a new dataset, you need to scale the number of steps that have been performed when manually specifying the number of steps to be skipped. Specifically, the number of skipped steps needs to be divided and rounded down based on the scaling coefficient. For example, if the value of `global batch size` is changed to `2` times of the original value, the number of steps that need to be skipped is halved.
+- Step 3: After training 1 epoch of the dataset, replace the dataset and resume training. The following example resumes from the last fully saved weights; for other resumption methods, refer to [Interrupted Training Resumption](#interrupted-training-resumption) or [Strategy Conversion Resumption](#strategy-conversion-resumption).
 
-- **Configuration modification**: Adjust `data_skip_steps` based on Scenario 2. Set `data_skip_steps` to the number of steps after scaling. For example, if `global batch size` is changed to `2` times of the original value, the number of steps to be skipped is changed to `1` (rounded down).
+  ```yaml
+  load_checkpoint: /path/to/checkpoint
+  resume_training: True
+  ```
 
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ignore_data_skip: False
-   data_skip_steps: 1
-   ```
+  > Due to inconsistent sample counts across datasets, the displayed epoch and step may change when resuming with a new dataset. However, the total number of training steps remains unchanged, which is a normal phenomenon.
 
-- **Expected result**: The model adjusts the number of skipped steps based on the new setting of `global batch size` and continues the training from the specified position.
+### Automatic Recovery Resumption
 
-### Fault Recovery Example
+**Overview**: To facilitate automatic resumption of training by the platform without manual intervention, configure load_checkpoint to the save path of weight checkpoints. During the first training run, this directory is empty, and training will start normally with randomly initialized weights. For resumption, training will resume from the last fully saved weights in this directory.
 
-If some weight files are missing, the system automatically restores the files based on the latest available weight.
+```yaml
+load_checkpoint: /path/to/output/checkpoint
+resume_training: True
+```
 
-1. Delete the `llama3_1_8b_rank_0-20_2.ckpt` file from the `rank_3` directory. The folder structure after the deletion is as follows:
+## Notes and Recommendations
 
-   ```text
-   checkpoint/rank_3
-     ├── llama3_1_8b_rank_0-10_2.ckpt
-     ├── llama3_1_8b_rank_0-15_2.ckpt
-     └── meta.json
-   ```
-
-2. Modify the configuration to enable fault recovery.
-
-   ```yaml
-   load_checkpoint: './output/checkpoint'
-   resume_training: True
-   ```
-
-3. Start distributed training.
-
-   ```shell
-   bash scripts/msrun_launcher.sh "run_mindformer.py \
-       --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-       --train_dataset /path/to/alpaca-fastchat8192.mindrecord \
-       --run_mode train \
-       --use_parallel True" 4
-   ```
-
-   If the initial number of steps is `32`, the training is resumed successfully. Because the weight of the information in step `40` under `rank_3` is deleted, the weight saved last time, that is, the weight of the information in step `30`, is automatically used. The default value of `sink_size` is `2`, indicating that information is printed every two steps. Therefore, the initial number of steps is `32`.
-
-## Precautions
-
-- **Data offloading**: You must enable data offloading and configure `sink_mode=True` for distributed resumable training.
-- **Weight file check**: Ensure that the weights loaded for resumable training are the ones saved when the training is interrupted instead of in the entire training process. Otherwise, an error is reported.
+- Distributed resume training must enable **data sinking mode** by configuring `sink_mode=True`.
+- It is recommended to set the `SHARED_PATHS` environment variable to the path of the top-level shared directory. For example, if `/data01` is the shared directory and the project directory is under it, configure `export SHARED_PATHS=/data01`.
+- It is recommended to save weights and strategy files of training tasks with different distributed strategies in separate folders.
