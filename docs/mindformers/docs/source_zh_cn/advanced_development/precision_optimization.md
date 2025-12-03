@@ -24,17 +24,17 @@
 
 #### 通用结构
 
-| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          | **说明**                                                     | **检查项**                                                                                   |
-| ----------------- | ------------------------------------------------------------ |-------------------------------------------------------------------------------------------|
-| num_layers        | transformer层数                                              | 检查标杆的对应参数是否一致。                                                                            |
-| num_heads         | transformer中attention heads数量                             | 检查标杆的对应参数是否一致。                                                                            |
-| hidden_size       | transformer隐藏层大小                                        | 检查标杆的对应参数是否一致。                                                                            |
-| intermediate_size | Feed-Forward Network的隐藏层大小                             | 检查标杆的对应参数是否一致。                                                                            |
-| n_kv_heads        | kv分组数                                                     | 检查标杆的对应参数是否一致。                                                                            |
-| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindSpore Transformers中使用指定的正则化函数，Legacy模型无法通过配置修改。 |
-| rms_norm_eps      | 正则化的epsilon参数                                          | 检查标杆的对应参数是否一致。                                                      |
-| dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议两边都关闭，减少随机因素。                                      |
-| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，需要保持一致。 <br>2. 不同硬件下进行精度比对时，重点检查融合计算部分是否有计算差异。                    |
+| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          | **说明**                                            | **检查项**                                                                                   |
+| ----------------- |---------------------------------------------------|-------------------------------------------------------------------------------------------|
+| num_layers        | transformer层数                                     | 检查标杆的对应参数是否一致。                                                                            |
+| num_heads         | transformer中attention heads数量                     | 检查标杆的对应参数是否一致。                                                                            |
+| hidden_size       | transformer隐藏层大小                                  | 检查标杆的对应参数是否一致。                                                                            |
+| intermediate_size | Feed-Forward Network的隐藏层大小                        | 检查标杆的对应参数是否一致。                                                                            |
+| n_kv_heads        | kv分组数                                             | 检查标杆的对应参数是否一致。                                                                            |
+| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                      | MindSpore Transformers中使用指定的正则化函数，Legacy模型无法通过配置修改。 |
+| rms_norm_eps      | 正则化的epsilon参数                                     | 检查标杆的对应参数是否一致。                                                      |
+| dropout           | 网络中的dropout                                       | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议两边都关闭，减少随机因素。                                      |
+| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwiGLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，需要保持一致。 <br>2. 不同硬件下进行精度比对时，重点检查融合计算部分是否有计算差异。                    |
 
 #### MOE结构
 
@@ -65,10 +65,10 @@
 
 ### 权重CheckList
 
-| **关键参数**    | **说明**             | **检查项**                                                   |
-| --------------- | -------------------- | ------------------------------------------------------------ |
-| param_init_type | 权重初始化类型       | MindSpore Transformers通常会设置param_init_dtype类型为FP32，这是因为梯度通信类型是跟权重类型一致，控制通信类型为FP32。而Megatron的梯度通信类型默认为FP32，不与权重类型绑定。 |
-| init-method-std | 权重随机初始化的分布 | 若使用权重随机初始化，需要检查随机分布中的mean/std等参数是否一致。 |
+| **关键参数**        | **说明**             | **检查项**                                                                                                         |
+|-----------------| -------------------- |-----------------------------------------------------------------------------------------------------------------|
+| params_dtype    | 权重初始化类型       | MindSpore Transformers通常会设置params_dtype类型为FP32，这是因为梯度通信类型是跟权重类型一致，控制通信类型为FP32。而Megatron的梯度通信类型默认为FP32，不与权重类型绑定。 |
+| init-method-std | 权重随机初始化的分布 | 若使用权重随机初始化，需要检查随机分布中的mean/std等参数是否一致。                                                                           |
 
 ### 混合精度CheckList
 
