@@ -1,6 +1,6 @@
 # Pre-trained Model Average Weight Consolidation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/pma_fused_checkpoint.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/pma_fused_checkpoint.md)
 
 ## Overview
 
@@ -77,4 +77,4 @@ optimizer:
 
 ### PmaAdamW Optimizer Configuration Introduction
 
-For information on configuring the PmaAdamW optimizer, please refer to [MindSpore Transformers PmaAdamW Source Code](https://gitee.com/mindspore/mindformers/blob/master/mindformers/core/optim/pma_adamw.py).
+For information on configuring the PmaAdamW optimizer, please refer to [MindSpore Transformers PmaAdamW Source Code](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/core/optim/pma_adamw.py).

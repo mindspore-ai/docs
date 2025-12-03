@@ -2,7 +2,7 @@ Error Reporting Analysis
 =========================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis.rst
+    :target: https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis.rst
     :alt: View Source On Gitee
 
 .. toctree::
@@ -117,7 +117,7 @@ Based on the error message and the location of the error code, combined with the
    In addition, MindSpore open source community has a lot of issues feedbacked by developers, involving network development error reporting, framework failure and many other issues. Users can search for similar problems using, for example, network name, error reporting content keywords. The keyword selection can refer to the error reporting case.
 
    The search address is as follows: \ `MindSpore
-   Issues <https://gitee.com/mindspore/mindspore/issues>`__\ .
+   Issues <https://atomgit.com/mindspore/mindspore/issues>`__\ .
 
 Debug Positioning
 ~~~~~~~~~~~~~~~~~~

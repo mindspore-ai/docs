@@ -31,7 +31,7 @@
 
 ##### Python APIs
 
-- `nn.EmbeddingLookup` 新增参数 `sparse` ，设置是否使用稀疏模式。[(!8202)](https://gitee.com/mindspore/mindspore/pulls/8202)
+- `nn.EmbeddingLookup` 新增参数 `sparse` ，设置是否使用稀疏模式。[(!8202)](https://atomgit.com/mindspore/mindspore/pulls/8202)
 
   <table>
   <tr>
@@ -59,7 +59,7 @@
   </tr>
   </table>
 
-- `nn.probability.bijector.GumbelCDF` 移除参数 `dtype` 。[(!8191)](https://gitee.com/mindspore/mindspore/pulls/8191)
+- `nn.probability.bijector.GumbelCDF` 移除参数 `dtype` 。[(!8191)](https://atomgit.com/mindspore/mindspore/pulls/8191)
 
   <table>
   <tr>
@@ -83,7 +83,7 @@
   </tr>
   </table>
 
-- `nn.layer.combined.Conv2dBnAct` 从 nn.layer.quant 移动到 nn.layer.combined 。[(!8187)](https://gitee.com/mindspore/mindspore/pulls/8187)
+- `nn.layer.combined.Conv2dBnAct` 从 nn.layer.quant 移动到 nn.layer.combined 。[(!8187)](https://atomgit.com/mindspore/mindspore/pulls/8187)
 
   <table>
   <tr>
@@ -110,13 +110,13 @@
 
 #### Executor
 
-- 修复图模式和PyNative模式之间共享权重是的执行错误。[(!26635)](https://gitee.com/mindspore/mindspore/pulls/26635)
-- 修复了PyNative模式下释放内存时的概率问题。[(!25472)](https://gitee.com/mindspore/mindspore/pulls/25472)
+- 修复图模式和PyNative模式之间共享权重是的执行错误。[(!26635)](https://atomgit.com/mindspore/mindspore/pulls/26635)
+- 修复了PyNative模式下释放内存时的概率问题。[(!25472)](https://atomgit.com/mindspore/mindspore/pulls/25472)
 
 #### Dataset
 
-- 修复长时间运行数据集时内存异常增长的问题。[(!26237)](https://gitee.com/mindspore/mindspore/pulls/26237)
-- 修复在Windows上使用中文路径保存MindRecord文件的问题。[(!28378)](https://gitee.com/mindspore/mindspore/pulls/28378)
+- 修复长时间运行数据集时内存异常增长的问题。[(!26237)](https://atomgit.com/mindspore/mindspore/pulls/26237)
+- 修复在Windows上使用中文路径保存MindRecord文件的问题。[(!28378)](https://atomgit.com/mindspore/mindspore/pulls/28378)
 
 ### 贡献者
 

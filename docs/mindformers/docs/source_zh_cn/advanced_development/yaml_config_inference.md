@@ -1,6 +1,6 @@
 # 推理配置模板使用指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/yaml_config_inference.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/yaml_config_inference.md)
 
 ## 概述
 
@@ -45,7 +45,7 @@
 
 ## 使用样例
 
-Mindspore Transformers提供了Qwen3系列模型的YAML配置文件模板[predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)，不同规格的Qwen3模型可以通过修改相关配置使用该模板执行推理任务。
+Mindspore Transformers提供了Qwen3系列模型的YAML配置文件模板[predict_qwen3.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)，不同规格的Qwen3模型可以通过修改相关配置使用该模板执行推理任务。
 
 以Qwen3-32B为例，按照如下步骤修改YAML配置文件：
 
@@ -63,4 +63,4 @@ Mindspore Transformers提供了Qwen3系列模型的YAML配置文件模板[predic
         model_parallel: 4
     ```
 
-关于执行推理任务的后续操作，详细可见[Qwen3的README](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#%E6%8E%A8%E7%90%86%E6%A0%B7%E4%BE%8B)。
+关于执行推理任务的后续操作，详细可见[Qwen3的README](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#%E6%8E%A8%E7%90%86%E6%A0%B7%E4%BE%8B)。

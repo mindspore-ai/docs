@@ -1,6 +1,6 @@
 # Device-side Training (C++)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/train/runtime_train_cpp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/train/runtime_train_cpp.md)
 
 ## Overview
 
@@ -69,7 +69,7 @@ int CreateSession() {
 }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
+> Refer to [Train a LeNet](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
 
 ## Data Processing
 

@@ -1,6 +1,6 @@
 # Service Deployment
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/deployment.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/deployment.md)
 
 ## vLLM Service Deployment
 
@@ -64,7 +64,7 @@ In the MindSpore Transformers model registry, model configuration classes and mo
 
 ![MindSpore Transformers Registry](../../source_zh_cn/mindspore-transformers-registry.png)
 
-If configuration modifications are required, please refer to the [Configuration](https://gitee.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/mf_models/config.py) file. Based on existing mapping relationships, vLLM's CLI parameters can be converted and applied to take effect on the model side.
+If configuration modifications are required, please refer to the [Configuration](https://atomgit.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/mf_models/config.py) file. Based on existing mapping relationships, vLLM's CLI parameters can be converted and applied to take effect on the model side.
 
 ### Appendix
 

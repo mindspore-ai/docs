@@ -31,7 +31,7 @@
 
 ##### Python APIs
 
-- `nn.EmbeddingLookup` add the parameter `sparse` ，set to use sparse mode. [(!8202)](https://gitee.com/mindspore/mindspore/pulls/8202)
+- `nn.EmbeddingLookup` add the parameter `sparse` ，set to use sparse mode. [(!8202)](https://atomgit.com/mindspore/mindspore/pulls/8202)
 
   <table>
   <tr>
@@ -59,7 +59,7 @@
   </tr>
   </table>
 
-- `nn.probability.bijector.GumbelCDF` delete the parameter `dtype` . [(!8191)](https://gitee.com/mindspore/mindspore/pulls/8191)
+- `nn.probability.bijector.GumbelCDF` delete the parameter `dtype` . [(!8191)](https://atomgit.com/mindspore/mindspore/pulls/8191)
 
   <table>
   <tr>
@@ -83,7 +83,7 @@
   </tr>
   </table>
 
-- `nn.layer.combined.Conv2dBnAct` move from nn.layer.quant to nn.layer.combined . [(!8187)](https://gitee.com/mindspore/mindspore/pulls/8187)
+- `nn.layer.combined.Conv2dBnAct` move from nn.layer.quant to nn.layer.combined . [(!8187)](https://atomgit.com/mindspore/mindspore/pulls/8187)
 
   <table>
   <tr>
@@ -110,13 +110,13 @@
 
 #### Executor
 
-- Fix the execution error when the weights are shared between graph mode and PyNative mode. [(!26635)](https://gitee.com/mindspore/mindspore/pulls/26635)
-- Fixed the probability coredump when free memory under PyNative mode. [(!25472)](https://gitee.com/mindspore/mindspore/pulls/25472)
+- Fix the execution error when the weights are shared between graph mode and PyNative mode. [(!26635)](https://atomgit.com/mindspore/mindspore/pulls/26635)
+- Fixed the probability coredump when free memory under PyNative mode. [(!25472)](https://atomgit.com/mindspore/mindspore/pulls/25472)
 
 #### Dataset
 
-- Fix memory increase abnormally when running dataset for a long time. [(!26237)](https://gitee.com/mindspore/mindspore/pulls/26237)
-- Fix saving MindRecord files with Chinese path on Windows. [(!28378)](https://gitee.com/mindspore/mindspore/pulls/28378)
+- Fix memory increase abnormally when running dataset for a long time. [(!26237)](https://atomgit.com/mindspore/mindspore/pulls/26237)
+- Fix saving MindRecord files with Chinese path on Windows. [(!28378)](https://atomgit.com/mindspore/mindspore/pulls/28378)
 
 ### Contributors
 

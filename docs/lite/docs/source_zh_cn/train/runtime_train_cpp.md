@@ -1,6 +1,6 @@
 # 端侧训练（C++接口）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/train/runtime_train_cpp.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/train/runtime_train_cpp.md)
 
 ## 概述
 
@@ -69,7 +69,7 @@ int CreateSession() {
 }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc)获取完整代码。
+> 参见[训练一个LeNet](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc)获取完整代码。
 
 ## 数据处理
 

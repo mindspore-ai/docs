@@ -1,6 +1,6 @@
 # mindspore::kernel
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore_kernel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore_kernel.md)
 
 ## 接口汇总
 
@@ -13,7 +13,7 @@
 
 ## Kernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/kernel.h)>
+\#include <[kernel.h](https://atomgit.com/mindspore/mindspore/blob/master/include/api/kernel.h)>
 
 Kernel是算子实现的基类，定义了几个必须实现的接口。继承自IKernel。
 
@@ -84,7 +84,7 @@ virtual schema::QuantType quant_type()
 
 ## KernelInterface
 
-\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/kernel_interface.h)>
+\#include <[kernel_interface.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/kernel_interface.h)>
 
 算子扩展能力基类。
 
@@ -148,7 +148,7 @@ virtual Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<minds
 
 ## MSKernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/kernel_api.h)>
+\#include <[kernel.h](https://atomgit.com/mindspore/mindspore/blob/master/include/api/kernel_api.h)>
 
 MindSpore Kernel 算子类。是IKernel的父类。
 

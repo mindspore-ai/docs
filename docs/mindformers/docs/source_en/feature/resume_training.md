@@ -1,6 +1,6 @@
 # Resumable Training After Breakpoint
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/resume_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/resume_training.md)
 
 ## Overview
 
@@ -43,7 +43,7 @@ If `resume_training` is set to `True`, the system automatically resumes training
 ## Example of Distributed Training
 
 The following example shows how to enable resumable training in single-device and multi-device environments. The example is based on the `llama3.1 8b` model.
-For related configuration files, see [research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
+For related configuration files, see [research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
 
 ### Complete Training
 
@@ -82,7 +82,7 @@ For related configuration files, see [research/llama3_1/llama3_1_8b/finetune_lla
      ...
    ```
 
-2. Prepare a dataset. The following uses [alpaca datasets](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87) as an example to describe how to start four-device distributed training.
+2. Prepare a dataset. The following uses [alpaca datasets](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87) as an example to describe how to start four-device distributed training.
 
    ```shell
    bash scripts/msrun_launcher.sh "run_mindformer.py \

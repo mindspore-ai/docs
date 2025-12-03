@@ -15,7 +15,7 @@ Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/d
 
 The open-source code repository for MindSpore Transformers is located at `Gitee | MindSpore/mindformers <https://gitee.com/mindspore/mindformers>`_.
 
-If you have any suggestions for MindSpore Transformers, please contact us via `issue <https://gitee.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
+If you have any suggestions for MindSpore Transformers, please contact us via `issue <https://atomgit.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
 
 Full-process Developing with MindSpore Transformers
 -------------------------------------------------------------------------------------------

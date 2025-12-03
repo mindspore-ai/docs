@@ -1,6 +1,6 @@
 # 安装 MindSpore Quantum
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_zh_cn/mindquantum_install.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_zh_cn/mindquantum_install.md)
 
 ## 确认系统环境信息
 
@@ -203,4 +203,4 @@ python -c 'import mindquantum'
 
 ## Docker 安装
 
-通过 Docker 也可以在 Mac 系统或者 Windows 系统中使用 MindQuantum。具体参考[Docker 安装指南](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker.md)。
+通过 Docker 也可以在 Mac 系统或者 Windows 系统中使用 MindQuantum。具体参考[Docker 安装指南](https://atomgit.com/mindspore/mindquantum/blob/master/install_with_docker.md)。

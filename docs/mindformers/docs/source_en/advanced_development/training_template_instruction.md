@@ -1,6 +1,6 @@
 # Training Configuration Template Instruction
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/training_template_instruction.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/training_template_instruction.md)
 
 ## Overview
 
@@ -11,13 +11,13 @@ MindSpore Transformers provides a universal configuration file template for trai
 
 MindSpore Transformers provides corresponding configuration templates for different training scenarios, as follows:
 
-When pre-training DENSE model, please use [llm_pretrain_dense_template.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/general/llm_pretrain_dense_template.yaml).
+When pre-training DENSE model, please use [llm_pretrain_dense_template.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/general/llm_pretrain_dense_template.yaml).
 
-When pre-training MOE model, please use [llm_pretrain_moe_template.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/general/llm_pretrain_moe_template.yaml).
+When pre-training MOE model, please use [llm_pretrain_moe_template.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/general/llm_pretrain_moe_template.yaml).
 
-When fine-tuning DENSE model training, please use [llm_finetune_dense_template.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/general/llm_finetune_dense_template.yaml).
+When fine-tuning DENSE model training, please use [llm_finetune_dense_template.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/general/llm_finetune_dense_template.yaml).
 
-When fine-tuning MOE model training, please use [llm_finetune_moe_template.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/general/llm_finetune_moe_template.yaml).
+When fine-tuning MOE model training, please use [llm_finetune_moe_template.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/general/llm_finetune_moe_template.yaml).
 
 ## Instructions for Use
 

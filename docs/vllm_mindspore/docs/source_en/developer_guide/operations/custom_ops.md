@@ -1,6 +1,6 @@
 # Custom Operator Integration
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/developer_guide/operations/custom_ops.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/developer_guide/operations/custom_ops.md)
 
 When the built-in operators do not meet your requirements, you can use MindSpore's custom operator functionality to integrate your operators.
 
@@ -39,7 +39,7 @@ To integrate a custom operator, users need to create [Operator Interface Declara
 
 ### Operator Interface Declaration
 
-Create a header file in `csrc/ascendc/` to declare the operator function and related interfaces. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.h):
+Create a header file in `csrc/ascendc/` to declare the operator function and related interfaces. Refer to [adv_step_flash.cpp](https://atomgit.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.h):
 
 ```cpp
 #ifndef VLLM_MINDSPORE_CSRC_ASCENDC_ADV_STEP_FLASH_H
@@ -55,7 +55,7 @@ extern void AdvStepFlashKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclS
 
 ### Operator Implementation
 
-Create an implementation file in `csrc/ascendc/` for the core logic. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.c):
+Create an implementation file in `csrc/ascendc/` for the core logic. Refer to [adv_step_flash.cpp](https://atomgit.com/mindspore/vllm-mindspore/blob/master/csrc/ascendc/adv_step_flash.c):
 
 ```cpp
 #include "kernel_operator.h"
@@ -82,7 +82,7 @@ void AdvStepFlashKernelEntry(uint32_t blockDims, void *l2ctrl, void *aclStream, 
 
 ### Operator Integration
 
-Create an integration file in `csrc/module/`. Refer to [adv_step_flash.cpp](https://gitee.com/mindspore/vllm-mindspore/blob/master/csrc/module/adv_step_flash.cpp):
+Create an integration file in `csrc/module/`. Refer to [adv_step_flash.cpp](https://atomgit.com/mindspore/vllm-mindspore/blob/master/csrc/module/adv_step_flash.cpp):
 
 ```cpp
 #include "ms_extension/api.h"
@@ -142,7 +142,7 @@ Here, importing `_C_ops` allows user to use the Python module for the custom ope
 
 1. **Code Integration**: Merge the code into the vLLM-MindSpore Plugin project.
 2. **Project Compilation**: Run `pip install .` in vllm-mindspore to build and install vLLM-MindSpore Plugin.
-3. **Operator Testing**: Call the operator interface via `_custom_ops`. Refer to testcase [test_custom_advstepflash.py](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_custom_advstepflash.py):
+3. **Operator Testing**: Call the operator interface via `_custom_ops`. Refer to testcase [test_custom_advstepflash.py](https://atomgit.com/mindspore/vllm-mindspore/blob/master/tests/st/python/test_custom_advstepflash.py):
 
 ```python
 from vllm_mindspore import _custom_ops as custom_ops

@@ -1,6 +1,6 @@
 # Safetensors Weights
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/safetensors.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/safetensors.md)
 
 ## Overview
 
@@ -119,7 +119,7 @@ Users can control the weight saving behavior by modifying the configuration file
 
 Users can modify the fields under `CheckpointMonitor` in the `yaml` configuration file to control the weight saving behavior.
 
-Taking [`DeepSeek-V3` pre-training yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, the following configuration can be made:
+Taking [`DeepSeek-V3` pre-training yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, the following configuration can be made:
 
 ```yaml
 # callbacks
@@ -164,7 +164,7 @@ MindSpore Transformers supports training, inference, and resumable training in a
 
 | Parameter names   | Descriptions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| load_checkpoint   | The path to the folder where the weights are preloaded. Supports MindSpore Safetensors and Hugging Face Safetensors. <br/>For MindSpore Safetensors:<br/>- If it's a complete weight, enter the folder path to the slice/single weight file. <br/>- If it's a distributed weight, it must be stored in the format `model_dir/rank_x/xxx.safetensors`, and the folder path should be `model_dir`. <br/>For Hugging Face Safetensors:<br/>- Supports directly loading model weights downloaded from Hugging Face (currently supports the [Qwen3](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3) and [Qwen3-MoE](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3_moe) series models of the Mcore architecture).<br/>- During loading, it will automatically convert to MindSpore Safetensors for loading, and save a copy of the converted weight file to `/output/ms_safetensors`.                                                                                                                                                                                  |
+| load_checkpoint   | The path to the folder where the weights are preloaded. Supports MindSpore Safetensors and Hugging Face Safetensors. <br/>For MindSpore Safetensors:<br/>- If it's a complete weight, enter the folder path to the slice/single weight file. <br/>- If it's a distributed weight, it must be stored in the format `model_dir/rank_x/xxx.safetensors`, and the folder path should be `model_dir`. <br/>For Hugging Face Safetensors:<br/>- Supports directly loading model weights downloaded from Hugging Face (currently supports the [Qwen3](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3) and [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3_moe) series models of the Mcore architecture).<br/>- During loading, it will automatically convert to MindSpore Safetensors for loading, and save a copy of the converted weight file to `/output/ms_safetensors`.                                                                                                                                                                                  |
 | load_ckpt_format  | The format of the loaded model weights, optionally `ckpt`, `safetensors`, defaults to `ckpt`.<br/>Loading weights in `safetensors` format needs to change this configuration to `safetensors`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | use_parallel      | Whether to load in parallel.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | auto_trans_ckpt   | Whether to enable the online slicing function.<br/>- If loading weight is full weight:<br/>a. when `use_parallel: True`, it is judged as distributed loading, `auto_trans_ckpt: True` needs to be set synchronously to turn on online slicing. <br/>b. When `use_parallel: False`, it is judged as single card loading, you need to set `auto_trans_ckpt: False` synchronously to disable the online slicing function.<br/>- If loading weight is distributed weight:<br/>a. Without changing the original slicing strategy, you need to set `auto_trans_ckpt: False` to load directly according to the original slicing strategy.<br/>b. To change the original slicing strategy, set `auto_trans_ckpt: True` and configure `src_strategy_path_or_dir` to be the original slicing strategy file path.<br/>When the task is pulled up, the weights are merged online into full weights, which are sliced and loaded according to the parallelism strategy set in the configuration file. The online merged weights are saved in the current directory under the `/output/unified_checkpoint` file. |
@@ -264,7 +264,7 @@ parallel_config:                                    # Configuring a 16-card dist
 
 **Initiating tasks**:
 
-Use [mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh) to initiate tasks.
+Use [mindformers/scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh) to initiate tasks.
 
   ```shell
   # The first server (master node)
@@ -358,7 +358,7 @@ auto_trans_ckpt: False                              # Distributed weight loading
 
 **4. Initiating tasks**：
 
-Use [mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh) to initiate tasks.
+Use [mindformers/scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh) to initiate tasks.
 
   ```shell
   # The first server (master node)
@@ -456,7 +456,7 @@ In the current distributed training and inference environment, when users need t
 
 #### Usage Directions
 
-Use the [safetensors weights merging script](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py) provided by MindSpore Transformers to perform safetensors weight merging as follows. The format of the merged weights is [complete-weights](#complete-weights).
+Use the [safetensors weights merging script](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py) provided by MindSpore Transformers to perform safetensors weight merging as follows. The format of the merged weights is [complete-weights](#complete-weights).
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
@@ -584,7 +584,7 @@ callbacks:
 
 ### Examples of Training Tasks
 
-If you use the full weighted multicard online fine-tuning, take the Qwen2.5-7B model as an example and modify the configuration item [finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
+If you use the full weighted multicard online fine-tuning, take the Qwen2.5-7B model as an example and modify the configuration item [finetune_qwen2_5_7b_8k.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
 
 ```yaml
 # Modified configuration
@@ -600,7 +600,7 @@ callbacks:
     checkpoint_format: safetensors                  # Save weights file format
 ```
 
-If you use distributed weights multicard online fine-tuning, take the Qwen2.5-7B model as an example, modify the configuration item [finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml):
+If you use distributed weights multicard online fine-tuning, take the Qwen2.5-7B model as an example, modify the configuration item [finetune_qwen2_5_7b_8k.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml):
 
 ```yaml
 # Modified configuration
@@ -632,7 +632,7 @@ For more details, please refer to [Introduction to SFT fine-tuning](https://www.
 
 ### Example of an Inference Task
 
-If you use complete weighted multicard online inference, take the Qwen2.5-7B model as an example, and modify the configuration item [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml):
+If you use complete weighted multicard online inference, take the Qwen2.5-7B model as an example, and modify the configuration item [predict_qwen2_5_7b_instruct.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml):
 
 ```yaml
 # Modified configuration
@@ -645,7 +645,7 @@ parallel_config:
   pipeline_stage: 1
 ```
 
-If you use distributed weighted multicard online inference, take the Qwen2.5-7B model as an example, modify the configuration item [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml):
+If you use distributed weighted multicard online inference, take the Qwen2.5-7B model as an example, modify the configuration item [predict_qwen2_5_7b_instruct.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml):
 
 ```yaml
 # Modified configuration

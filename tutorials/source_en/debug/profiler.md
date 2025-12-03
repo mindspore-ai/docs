@@ -1,6 +1,6 @@
 # Ascend Performance Tuning
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/profiler.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/debug/profiler.md)
 
 ## Overview
 
@@ -69,7 +69,7 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 - schedule: After schedule is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 0 steps, wait 0 step, warmup 0 step. Based on the active value being 1, data collection starts from step 0 and continues for 1 step. Therefore, the Step ID is 0, indicating that the 0th step is being collected.
 - on_trace_ready: The disk loading path of profiler is specified through the tensorboard_trace_handler parameter of on_trace_ready. tensorboard_trace_handler will parse the performance data by default. If the user does not configure tensorboard_trace_handler, the data will be written to the '/data' folder in the same-level directory of the current script by default. The performance data can be parsed through the off-line parsing function. The off-line parsing function can be referred to [Method 4: Off-line Parsing](https://www.mindspore.cn/tutorials/en/master/debug/profiler.html#method-4-off-line-parsing).
 
-For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py).
+For the complete case, refer to [custom for loop collection complete code example](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py).
 
 **The principle of configuring schedule parameters is as follows:**
 
@@ -112,7 +112,7 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py).
+For the complete case, refer to [CallBack mode collection complete code example](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py).
 
 ### Method 2: Dynamic Profiler Enabling
 
@@ -168,7 +168,7 @@ for _ in range(STEP_NUM):
 
 At this point, the results include two folders: rank0_start2_stop5 and rank0_start8_stop10, representing the collection of steps 2-5 and 8-10 respectively.
 
-For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py).
+For the complete case, refer to [dynamic profiler enabling method case](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py).
 
 ### Method 3: Environment Variable Enabling
 
@@ -222,7 +222,7 @@ mstx.mark("start")
 mstx.range_end(range_id)
 ```
 
-For the complete case, refer to [mstx lightweight marking method case](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/mstx_profiler.py).
+For the complete case, refer to [mstx lightweight marking method case](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/profiler/mstx_profiler.py).
 
 ## Performance Data
 

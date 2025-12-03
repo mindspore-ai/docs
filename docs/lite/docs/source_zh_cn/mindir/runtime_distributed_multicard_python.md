@@ -1,6 +1,6 @@
 # 使用Python接口执行Ascend后端多卡/多芯推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/runtime_distributed_multicard_python.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/runtime_distributed_multicard_python.md)
 
 ## 概述
 
@@ -10,7 +10,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，本教�
 
 ## 准备工作
 
-1. 下载云侧Ascend后端多卡/多芯推理Python[示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python)，后文将该目录称为示例代码目录。
+1. 下载云侧Ascend后端多卡/多芯推理Python[示例代码](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python)，后文将该目录称为示例代码目录。
 
 2. 下载MindSpore Lite云侧推理安装包[mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，存放至示例代码目录，并通过`pip`工具安装。
 
@@ -22,7 +22,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，本教�
 
 更多converter工具的使用方法以及模型转换时可配置的优化点，可参考[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter.html)页面。
 
-后续章节将结合代码讲述MindSpore Lite云侧分布式推理主要步骤，参考[示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python)。
+后续章节将结合代码讲述MindSpore Lite云侧分布式推理主要步骤，参考[示例代码](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python)。
 
 ## 推理流程
 

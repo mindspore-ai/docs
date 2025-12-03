@@ -1,6 +1,6 @@
 # 问题定位指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/faq.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/faq.md)
 
 ## 概述
 
@@ -41,7 +41,7 @@
     ```
 
     - 问题分析：模型中存在MindSpore Lite转换工具不支持的算子导致转换失败。
-    - 解决方法：对于不支持的算子可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparser) 自行添加parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 给MindSpore Lite开发人员处理。
+    - 解决方法：对于不支持的算子可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparser) 自行添加parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 给MindSpore Lite开发人员处理。
 
 3. 存在不支持的算子，日志报错信息：
 
@@ -50,7 +50,7 @@
     ```
 
     - 问题分析：转换工具支持该算子转换，但是不支持该算子的某种特殊属性或参数导致模型转换失败（示例日志以caffe为例，其他框架日志信息相同）。
-    - 解决方法：可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparser) 添加自定义算子parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 给MindSpore Lite开发人员处理。
+    - 解决方法：可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparser) 添加自定义算子parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 给MindSpore Lite开发人员处理。
 
 ## 训练后量化转换失败
 
@@ -152,7 +152,7 @@
     ```
 
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，GPU推理时在图编译阶段会跳过和Shape相关的算子规格检查，默认GPU支持该算子，并在Predict阶段会再次进行算子规格检查，如果算子规格检查为不支持，则报错退出。
-    - 解决方法：由于存在不支持的GPU算子，部分报错用户可根据提示修改模型中的算子类型或参数类型来进行规避，但大部分可能需要通过在MindSpore Lite社区[提ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 来通知开发人员进行代码修复和适配。
+    - 解决方法：由于存在不支持的GPU算子，部分报错用户可根据提示修改模型中的算子类型或参数类型来进行规避，但大部分可能需要通过在MindSpore Lite社区[提ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 来通知开发人员进行代码修复和适配。
 
 2. Map buffer类错误
 
@@ -170,7 +170,7 @@
     ```
 
     - 问题分析：推理阶段为了提升性能会忽略OpenCL算子执行结束后的Event检查，而OpenCL中Enqueue类函数会默认插入Event检查，如果有OpenCL算子执行出错，会在Map阶段返回错误。
-    - 解决办法：由于OpenCL算子存在BUG，建议通过在MindSpore Lite社区[提ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 来通知开发人员进行代码修复和适配。
+    - 解决办法：由于OpenCL算子存在BUG，建议通过在MindSpore Lite社区[提ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 来通知开发人员进行代码修复和适配。
 
 ### TensorRT GPU 推理问题
 
@@ -215,7 +215,7 @@
     ```
 
     - 问题分析：此报错为Kirin NPU在线构图失败。
-    - 解决方法：由于构图系通过调用[HiAI DDK](https://developer.huawei.com/consumer/cn/doc/development/HiAI-Library/ddk-download-0000001053590180) 的接口完成，因此报错一般会首先出现在HiAI的错误日志中，部分报错用户可根据提示修改模型中的算子类型或参数类型来进行规避，但大部分可能需要通过在MindSpore Lite社区[提ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 来通知开发人员进行代码修复和适配。因此，我们下面仅给出较为常见的HiAI报错信息，以便您在社区提问时对问题有更清晰的描述，并加快问题定位的效率。
+    - 解决方法：由于构图系通过调用[HiAI DDK](https://developer.huawei.com/consumer/cn/doc/development/HiAI-Library/ddk-download-0000001053590180) 的接口完成，因此报错一般会首先出现在HiAI的错误日志中，部分报错用户可根据提示修改模型中的算子类型或参数类型来进行规避，但大部分可能需要通过在MindSpore Lite社区[提ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 来通知开发人员进行代码修复和适配。因此，我们下面仅给出较为常见的HiAI报错信息，以便您在社区提问时对问题有更清晰的描述，并加快问题定位的效率。
 
     （1）在日志中搜索“**E AI_FMK**”关键字，若在“MS_LITE”日志报错之前的位置处得到报错日志如下：
 
@@ -276,7 +276,7 @@
       ```
 
     - 若MindSpore Lite进行整网推理存在精度问题，可以通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能) 保存算子层输出，和原框架推理结果进行对比进一步定位出现精度异常的算子。
-    - 针对存在精度问题的算子，可以下载[MindSpore Lite源码](https://gitee.com/mindspore/mindspore-lite) 检查算子实现并构造相应单算子网络进行调试与问题定位；也可以在MindSpore Lite社区[提ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 给MindSpore Lite的开发人员处理。
+    - 针对存在精度问题的算子，可以下载[MindSpore Lite源码](https://gitee.com/mindspore/mindspore-lite) 检查算子实现并构造相应单算子网络进行调试与问题定位；也可以在MindSpore Lite社区[提ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 给MindSpore Lite的开发人员处理。
 
 2. MindSpore Lite使用fp32推理结果正确，但是fp16推理结果出现NaN或者Inf值怎么办？
     - 结果出现NaN或者Inf值一般为推理过程中出现数值溢出，可以查看模型结构，筛选可能出数值溢出的算子层，然后通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能) 保存算子层输出确认出现数值溢出的算子。
@@ -325,7 +325,7 @@
     - 绝大多数情况下，Kirin NPU的推理性能要大幅优于CPU，但在少数情况下会比CPU更劣：
 
     （1）检查模型中是否存在大量Pad或StridedSlice等算子，由于Kirin NPU中的数组格式与CPU有所不同，这类算子在Kirin NPU中运算时涉及数组的重排，因此相较CPU不存在任何优势，甚至劣于CPU。若确实需要在Kirin NPU上运行，建议尝试去除或替换此类算子。
-    （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张Kirin NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的Kirin NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，Kirin NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的Kirin NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)，在模型搭建时规避不支持的算子，或在MindSpore Lite社区[提ISSUE](https://gitee.com/mindspore/mindspore-lite/issues) 询问MindSpore Lite的开发人员。
+    （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张Kirin NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的Kirin NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，Kirin NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的Kirin NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)，在模型搭建时规避不支持的算子，或在MindSpore Lite社区[提ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 询问MindSpore Lite的开发人员。
 
 ## 使用Visual Studio相关问题
 

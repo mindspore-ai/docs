@@ -41,7 +41,7 @@ docker --version
 
 这样可以减少最终镜像大小，并提高构建效率。
 
-DockerFile的内容可参考[社区 issue](https://gitee.com/mindspore/mindformers/issues/ICQ9JF)
+DockerFile的内容可参考[社区 issue](https://atomgit.com/mindspore/mindformers/issues/ICQ9JF)
 
 并将其中的Dockerfile保存到本地。
 
@@ -174,4 +174,4 @@ docker run -itd \
 - [Docker 官方文档](https://docs.docker.com)
 - [Ascend 社区](https://www.hiascend.com/developer)
 - [MindSpore 社区](https://gitee.com/mindspore/community)
-- [相关 issue](https://gitee.com/mindspore/mindformers/issues/ICQ9JF)
+- [相关 issue](https://atomgit.com/mindspore/mindformers/issues/ICQ9JF)

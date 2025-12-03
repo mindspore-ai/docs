@@ -1,6 +1,6 @@
 # Development Migration
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/dev_migration.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/dev_migration.md)
 
 This document describes how to develop and build foundation models based on MindSpore Transformers and complete basic adaptation to start the training and inference processes.
 
@@ -56,7 +56,7 @@ MindSpore Transformers uses a `YAML` file to configure all parameters required b
 
 The code of the customized model is not in the MindSpore Transformers library, and the customized module in the code is not registered with MindSpore Transformers. Therefore, the customized model cannot be automatically instantiated. The code is also called external code (for example, the code in the `research` directory). Therefore, you need to add the `auto_register` configuration item for automatically registering any module to the corresponding module configuration in the `YAML` file and set the configuration items to the relative import paths of the API to be registered. When the run_mindformer.py script is executed to start the task, you need to add the input parameter `--register_path` of the registration path and set it to the relative path of the directory where the external code is located.
 
-For example, in the `YAML` file [`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) of the Llama3.1-8B model inference in the `research` directory, the configuration item `auto_register` is added for automatic registration to register the customized `Llama3Tokenizer` in [`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py).
+For example, in the `YAML` file [`research/llama3_1/predict_llama3_1_8b.yaml`](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) of the Llama3.1-8B model inference in the `research` directory, the configuration item `auto_register` is added for automatic registration to register the customized `Llama3Tokenizer` in [`research/llama3_1/llama3_1_tokenizer.py`](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py).
 
 ```yaml
 ...
@@ -91,9 +91,9 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 |  register_path  | Path of the directory where the external code is located. |
 |  predict_data   | Input data for inference.                                 |
 
-`register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
+`register_path` is set to `research/llama3_1` (path of the directory where the external code is located). For details about how to prepare the model weight, see [Llama3.1 Description Document > Model Weight Download](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD).
 
-For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama3_1-8B fine-tuning configuration file](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
+For details about the configuration file and configurable items, see [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html). When compiling a configuration file, you can refer to an existing configuration file in the library, for example, [Llama3_1-8B fine-tuning configuration file](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml).
 
 After all the preceding basic elements are prepared, you can refer to other documents in the MindSpore Transformers tutorial to perform model training, fine-tuning, and inference. For details about subsequent model debugging and optimization, see [Large Model Accuracy Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/precision_optimization.html) and [Large Model Performance Optimization Guide](https://www.mindspore.cn/mindformers/docs/en/master/advanced_development/performance_optimization.html).
 

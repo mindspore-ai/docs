@@ -28,7 +28,7 @@ vLLM-MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部�
       </tr>
    </table>
 
-vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册。未来期望遵循 `RPC Multi-framework support for vllm <https://gitee.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ 所述原则。
+vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册。未来期望遵循 `RPC Multi-framework support for vllm <https://atomgit.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ 所述原则。
 
 代码仓地址：<https://gitee.com/mindspore/vllm-mindspore>
 
@@ -52,7 +52,7 @@ vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册�
 -----------------------------------------------------
 请参考 `CONTRIBUTING <./developer_guide/contributing.html>`_ 文档了解更多关于开发环境搭建、功能测试以及PR提交规范的信息。
 
-我们欢迎并重视任何形式的贡献与合作，请通过 `Issue <https://gitee.com/mindspore/vllm-mindspore/issues>`_ 来告知我们您遇到的任何Bug，或提交您的特性需求、改进建议、技术方案。
+我们欢迎并重视任何形式的贡献与合作，请通过 `Issue <https://atomgit.com/mindspore/vllm-mindspore/issues>`_ 来告知我们您遇到的任何Bug，或提交您的特性需求、改进建议、技术方案。
 
 分支策略
 -----------------------------------------------------
@@ -96,7 +96,7 @@ SIG组织
 
 许可证
 -----------------------------------------------------
-Apache 许可证 2.0，如 `LICENSE <https://gitee.com/mindspore/vllm-mindspore/blob/master/LICENSE>`_ 文件中所示。
+Apache 许可证 2.0，如 `LICENSE <https://atomgit.com/mindspore/vllm-mindspore/blob/master/LICENSE>`_ 文件中所示。
 
 
 .. toctree::

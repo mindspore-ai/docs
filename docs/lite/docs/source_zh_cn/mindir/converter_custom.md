@@ -1,6 +1,6 @@
 # 三方ONNX模型对接自定义算子
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/converter_custom.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/converter_custom.md)
 
 ## 概述
 
@@ -48,7 +48,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/
 
 2. 已有ONNX文件。
 
-3. 实现自定义Pass，代码请参考[example](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_acl_custom_pass)。
+3. 实现自定义Pass，代码请参考[example](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_acl_custom_pass)。
 
 与[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/converter_register.html)不同的是，注册位置的参数需要更改。
 

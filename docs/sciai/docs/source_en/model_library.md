@@ -1,6 +1,6 @@
 # Model Library
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/model_library.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/model_library.md)&nbsp;&nbsp;
 
 SciAI model library provides a wide variety of models that are frequently used and cited in scientific computation.
 The following table summarizes the current available neural networks and their corresponding domains.

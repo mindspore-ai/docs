@@ -1,6 +1,6 @@
 # Pipeline Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/pipeline_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/pipeline_parallel.md)
 
 ## Overview
 
@@ -12,7 +12,7 @@ The following is an illustration of pipeline parallel operation using Ascend or 
 
 ### Sample Code Description
 
-> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel).
+> Download the complete sample code: [distributed_pipeline_parallel](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel).
 
 The directory structure is as follows:
 
@@ -256,7 +256,7 @@ The following is an illustration of pipeline parallel inference operation using 
 
 ### Sample Code Description
 
-> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel).
+> Download the complete sample code: [distributed_pipeline_parallel](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel).
 
 The directory structure is as follows:
 

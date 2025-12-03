@@ -1,6 +1,6 @@
 # Pretraining
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/pre_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/pre_training.md)
 
 ## Overview
 
@@ -78,7 +78,7 @@ For dataset processing, refer to [Megatron Dataset - Data Preprocessing](https:/
 
 ### Single-Node Training
 
-Specify the configuration file [pretrain_qwen3_32b_4k.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/pretrain_qwen3_32b_4k.yaml) and after modifying the configuration, then start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
+Specify the configuration file [pretrain_qwen3_32b_4k.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/pretrain_qwen3_32b_4k.yaml) and after modifying the configuration, then start the [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py) script in msrun mode to perform 8-device distributed training.
 
 The configuration provided on the warehouse is a 32B model with a large number of parameters, which makes it impossible to directly start pre-training in a single-machine environment. In this example, the model size is reduced to 0.6B to demonstrate single-machine training. Modify the following parameters in the configuration file while keeping the remaining parameters unchanged:
 
@@ -111,7 +111,7 @@ Here:
 - `parallel_config.pipeline_stage`: Set the number of pipeline parallel.
 - `parallel_config.micro_batch_num`: Set the pipeline parallel microbatch size, which should satisfy `parallel_config.micro_batch_num` >= `parallel_config.pipeline_stage` when `parallel_config.pipeline_stage` is greater than 1.
 
-For detailed instructions on launching the training task, refer to [Start Pre-training Task](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#3-启动预训练任务).
+For detailed instructions on launching the training task, refer to [Start Pre-training Task](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#3-启动预训练任务).
 
 After the task is executed, the **checkpoint** folder is generated in the **mindformers/output** directory, and the model file (`.safetensors`) is saved in this folder.
 

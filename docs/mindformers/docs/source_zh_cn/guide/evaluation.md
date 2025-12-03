@@ -1,6 +1,6 @@
 # 评测指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/evaluation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/evaluation.md)
 
 ## 概览
 
@@ -323,9 +323,9 @@ pip install -e .
 
 1. 创建一个新目录，例如名称为`model_dir`，用于存储模型yaml文件。
 2. 在上个步骤创建的目录中，放置模型推理yaml配置文件（predict_xxx_.yaml）。不同模型的推理yaml配置文件所在目录位置，请参考[模型库](../introduction/models.md)。
-3. 配置yaml文件。如果yaml中模型类、模型Config类、模型Tokenizer类使用了外挂代码，即代码文件在[research](https://gitee.com/mindspore/mindformers/tree/master/research)目录或其他外部目录下，需要修改yaml文件：在相应类的`type`字段下，添加`auto_register`字段，格式为“module.class”（其中“module”为类所在脚本的文件名，“class”为类名。如果已存在，则不需要修改）。
+3. 配置yaml文件。如果yaml中模型类、模型Config类、模型Tokenizer类使用了外挂代码，即代码文件在[research](https://atomgit.com/mindspore/mindformers/tree/master/research)目录或其他外部目录下，需要修改yaml文件：在相应类的`type`字段下，添加`auto_register`字段，格式为“module.class”（其中“module”为类所在脚本的文件名，“class”为类名。如果已存在，则不需要修改）。
 
-    以[predict_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)配置为例，对其中的部分配置项进行如下修改：
+    以[predict_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)配置为例，对其中的部分配置项进行如下修改：
 
       ```yaml
       run_mode: 'predict'       # 设置推理模式
@@ -350,13 +350,13 @@ pip install -e .
 
 #### 评测样例
 
-执行脚本[run_harness.sh](https://gitee.com/mindspore/mindformers/blob/master/toolkit/benchmarks/run_harness.sh)进行评测。
+执行脚本[run_harness.sh](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/benchmarks/run_harness.sh)进行评测。
 
 run_harness.sh脚本参数配置如下表：
 
 | 参数                | 类型  | 参数介绍                                                                                             | 是否必须      |
 |-------------------|-----|--------------------------------------------------------------------------------------------------|-----------|
-| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://gitee.com/mindspore/mindformers/tree/master/research)目录下的模型目录 | 否（外挂代码必填） |
+| `--register_path` | str | 外挂代码所在目录的绝对路径。比如[research](https://atomgit.com/mindspore/mindformers/tree/master/research)目录下的模型目录 | 否（外挂代码必填） |
 | `--model`         | str | 需设置为 `mf` ，对应为MindSpore Transformers评估策略                                                         | 是         |
 | `--model_args`    | str | 模型及评估相关参数，见下方模型参数介绍                                                                              | 是         |
 | `--tasks`         | str | 数据集名称。可传入多个数据集，使用逗号（，）分隔                                                                         | 是         |
@@ -474,7 +474,7 @@ Harness评测支持单机单卡、单机多卡、多机多卡场景，每种场�
 
 训练后产生的权重如果是分布式的，需要先将已有的分布式权重合并成完整权重后，再通过在线切分的方式进行权重加载完成推理任务。
 
-MindSpore Transformers 提供了一份 [safetensors 权重合并脚本](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，使用该脚本，可以将分布式训练得到的多个 safetensors 权重进行合并，得到完整权重。
+MindSpore Transformers 提供了一份 [safetensors 权重合并脚本](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，使用该脚本，可以将分布式训练得到的多个 safetensors 权重进行合并，得到完整权重。
 
 合并指令参考如下（对第 1000 步训练权重进行去 adam 优化器参数合并，且训练权重在保存时开启了去冗余功能）：
 
@@ -506,7 +506,7 @@ python toolkit/safetensors/unified_safetensors.py \
 
 在完成权重文件的合并后，需依据训练配置文件开发对应的推理配置文件。
 
-以 Qwen3 为例，基于 [Qwen3 推理配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)修改 [Qwen3 训练配置](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)：
+以 Qwen3 为例，基于 [Qwen3 推理配置](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml)修改 [Qwen3 训练配置](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)：
 
 Qwen3 训练配置主要修改点包括：
 

@@ -1,6 +1,6 @@
 # Quantization
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/quantization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/quantization.md)
 
 ## Overview
 
@@ -14,5 +14,5 @@ Currently, only the following models are supported, and the supported models are
 
 | Supported Model                                                                                                                   |
 |-----------------------------------------------------------------------------------------------------------------------------------|
-| [DeepSeek-V3](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek3_671b/predict_deepseek3_671b.yaml)     |
-| [DeepSeek-R1](https://gitee.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b.yaml) |
+| [DeepSeek-V3](https://atomgit.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek3_671b/predict_deepseek3_671b.yaml)     |
+| [DeepSeek-R1](https://atomgit.com/mindspore/mindformers/blob/master/research/deepseek3/deepseek_r1_671b/predict_deepseek_r1_671b.yaml) |

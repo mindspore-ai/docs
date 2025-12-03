@@ -8,7 +8,7 @@ This project supports contribution documents in markdown and reStructuredText fo
 
 ## Document
 
-MindSpore docs repository provides [Document Writing Specifications](https://gitee.com/mindspore/docs/wikis/Document%20Writing%20Specifications?sort_id=3379825) for your reference.
+MindSpore docs repository provides [Document Writing Specifications](https://atomgit.com/mindspore/docs/wikis/Document%20Writing%20Specifications?sort_id=3379825) for your reference.
 
 ### Updating or Adding a Document
 
@@ -20,7 +20,7 @@ If you want to update an existing document, click `View source on Gitee` (as sho
 
 #### Adding a Document
 
-If you need to add a document, create a markdown or reStructuredText file in a proper directory. For details about the directory structure of the MindSpore docs repository, see [README](https://gitee.com/mindspore/docs/blob/master/README.md#directory-structure-description).
+If you need to add a document, create a markdown or reStructuredText file in a proper directory. For details about the directory structure of the MindSpore docs repository, see [README](https://atomgit.com/mindspore/docs/blob/master/README.md#directory-structure-description).
 
 1. Create a document.
 
@@ -33,7 +33,7 @@ If you need to add a document, create a markdown or reStructuredText file in a p
 
     After the writing is complete, add the new document to the web page directory.
 
-   Take a training tutorial as an example. Find the [index.rst](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
+   Take a training tutorial as an example. Find the [index.rst](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
 
     Add the new document to the corresponding category. You can also create a category before adding the document. Take **Implementing an Image Classification Application** as an example. Save the document in the `quick_start` directory and name it as `quick_start.md`. Add `quick_start/quick_start` to the Quick Start category, as shown below.
 
@@ -81,7 +81,7 @@ Take **Quick Start for Beginners** as an example. The document link is <
 
 ## API
 
-MindSpore docs repository provides [API Comment Specifications](https://gitee.com/mindspore/docs/wikis/MindSpore%20API%20Comment%20Specifications?sort_id=3379820) for your reference.
+MindSpore docs repository provides [API Comment Specifications](https://atomgit.com/mindspore/docs/wikis/MindSpore%20API%20Comment%20Specifications?sort_id=3379820) for your reference.
 
 ### Updating or Adding an API
 
@@ -91,7 +91,7 @@ If you want to update an existing API, find the source file of the A
 
 If you do not know the file link, click **source** and find the file link by referring to the content following `_modules` in the link.
 
-Take Tensor as an example. After clicking **source**, you can obtain the source file link <https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>.
+Take Tensor as an example. After clicking **source**, you can obtain the source file link <https://atomgit.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>.
 
 ![API Source](./resource/_static/api_source.png)
 
@@ -105,14 +105,14 @@ If you want to add an API, check whether the API has been added to an existing m
 
     If the API belongs to the following modules, the API list of the MindSpore docs repository needs to be updated. Please add APIs in alphabetical order.
 
-    - `mindspore.dataset`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.rst)
-    - `mindspore.dataset.transforms`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.transforms.rst)
-    - `mindspore.nn`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.rst)
-    - `mindspore.nn.probability`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.probability.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.probability.rst)
-    - `mindspore.ops`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.rst)
-    - `mindspore.ops.primitive`: [中文](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.primitive.rst) | [English](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.primitive.rst)
+    - `mindspore.dataset`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.rst)
+    - `mindspore.dataset.transforms`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.dataset.transforms.rst)
+    - `mindspore.nn`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.rst)
+    - `mindspore.nn.probability`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.probability.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.nn.probability.rst)
+    - `mindspore.ops`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.rst)
+    - `mindspore.ops.primitive`: [中文](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.primitive.rst) | [English](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.ops.primitive.rst)
 
-- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.mindrecord` module, you need to create the [mindspore.mindrecord.rst](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mindrecord.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
+- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.mindrecord` module, you need to create the [mindspore.mindrecord.rst](https://atomgit.com/mindspore/mindspore/blob/master/docs/api/api_python_en/mindspore.mindrecord.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
 
     ```rst
     .. toctree::
@@ -161,7 +161,7 @@ By default, APIs of the latest version are displayed. To view the newly merged c
 
 The images in the document are mainly divided into program flowcharts, configuration flowcharts, functional structure diagrams and so on.
 
-For specific image requirements and specifications, please refer to [Image Specifications](https://gitee.com/mindspore/docs/wikis/%E4%BD%9C%E5%9B%BE%E8%A7%84%E8%8C%83?sort_id=3498531) provided by MindSpore docs.
+For specific image requirements and specifications, please refer to [Image Specifications](https://atomgit.com/mindspore/docs/wikis/%E4%BD%9C%E5%9B%BE%E8%A7%84%E8%8C%83?sort_id=3498531) provided by MindSpore docs.
 
 ### Updating or Adding an Image
 
@@ -171,7 +171,7 @@ If you want to update an existing image or adding a new image, click ![View Sour
 
 ### Image Citation
 
-The format of the image citation is: \!\[image name] (the path where the image is located). For details, please refer to [Markdown Image Citation Requirements](https://gitee.com/mindspore/docs/wikis/Document%20Writing%20Specifications?sort_id=3379825#image) and [Notebook Image Citation Requirements](https://gitee.com/mindspore/docs/wikis/Notebook%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82?sort_id=3462614).
+The format of the image citation is: \!\[image name] (the path where the image is located). For details, please refer to [Markdown Image Citation Requirements](https://atomgit.com/mindspore/docs/wikis/Document%20Writing%20Specifications?sort_id=3379825#image) and [Notebook Image Citation Requirements](https://atomgit.com/mindspore/docs/wikis/Notebook%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82?sort_id=3462614).
 
 ### Confirming the Content
 

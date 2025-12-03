@@ -15,7 +15,7 @@ MindSpore Transformers套件基于MindSpore内置的多维混合并行技术和�
 
 MindSpore Transformers的开源仓库地址为 `Gitee | MindSpore/mindformers <https://gitee.com/mindspore/mindformers>`_ 。
 
-如果您对MindSpore Transformers有任何建议，请通过 `issue <https://gitee.com/mindspore/mindformers/issues>`_ 与我们联系，我们将及时处理。
+如果您对MindSpore Transformers有任何建议，请通过 `issue <https://atomgit.com/mindspore/mindformers/issues>`_ 与我们联系，我们将及时处理。
 
 使用MindSpore Transformers进行大模型全流程开发
 -----------------------------------------------------

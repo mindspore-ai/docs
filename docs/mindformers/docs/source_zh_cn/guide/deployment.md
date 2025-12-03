@@ -1,6 +1,6 @@
 # 服务化部署指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/deployment.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/deployment.md)
 
 ## vLLM服务化部署
 
@@ -63,7 +63,7 @@ MindSpore Transformers模型注册表中，注册模型配置类和模型类等�
 
 ![MindSpore Transformers注册表](../mindspore-transformers-registry.png)
 
-如果有涉及配置修改，可以参照 [配置](https://gitee.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/mf_models/config.py) 文件。参照已有的映射关系，可将 vLLM 的 CLI 参数经过转换后，在模型侧生效。
+如果有涉及配置修改，可以参照 [配置](https://atomgit.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/mf_models/config.py) 文件。参照已有的映射关系，可将 vLLM 的 CLI 参数经过转换后，在模型侧生效。
 
 ### 附录
 

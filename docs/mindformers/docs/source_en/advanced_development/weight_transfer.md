@@ -1,6 +1,6 @@
 # Weight Conversion Development Adaptation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/weight_transfer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/weight_transfer.md)
 
 This document will guide developers on how to adapt the weight conversion functionality of new models to MindSpore Transformers during development, enabling users to convert Hugging Face weights into MindSpore Transformers weights through a unified automatic conversion process, thus initiating the inference workflow.
 
@@ -59,7 +59,7 @@ The steps are as follows:
 
 ## Qwen3 Model Weight Conversion Adaptation Example
 
-Create a new utils.py file under the models/qwen3 directory. Refer to [utils.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/qwen3/utils.py) for more details.
+Create a new utils.py file under the models/qwen3 directory. Refer to [utils.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/qwen3/utils.py) for more details.
 
 Partial code of Qwen3PreTrainedModel is as follows:
 

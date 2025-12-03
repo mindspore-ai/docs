@@ -1,6 +1,6 @@
 # Data Skip And Checkpoint Health Monitor
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/skip_data_and_ckpt_health_monitor.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/skip_data_and_ckpt_health_monitor.md)
 
 ## Overview
 
@@ -53,7 +53,7 @@ monitor_config:
 
 ### Conversion Example
 
-Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters according to the above [Configuration](#usage), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md) for the remaining steps. Start training:
+Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters according to the above [Configuration](#usage), please refer to the [Llama3.1-8B Document](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -155,7 +155,7 @@ parallel_config:
 
 ### Conversion Example
 
-Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md) for the remaining steps. Start training:
+Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1), please refer to the [Llama3.1-8B Document](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

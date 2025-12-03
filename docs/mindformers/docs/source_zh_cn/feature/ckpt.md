@@ -1,6 +1,6 @@
 # Ckpt权重
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/ckpt.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/ckpt.md)
 
 ## 概述
 
@@ -36,7 +36,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ### 转换示例
 
-假设用户已经下载了[Llama3.1模型的权重](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindSpore Transformers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
+假设用户已经下载了[Llama3.1模型的权重](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindSpore Transformers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
 
 ```bash
 python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
@@ -63,7 +63,7 @@ python convert_weight.py --model llama --input_path /home/user/torch_weights --o
 
 ### 模型权重转换开发示例
 
-此处以Llama为例。如若希望转换HuggingFace权重至MindSpore Transformers权重，需在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_weight.py)内定义`convert_pt_to_ms`函数：
+此处以Llama为例。如若希望转换HuggingFace权重至MindSpore Transformers权重，需在[convert_weight.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_weight.py)内定义`convert_pt_to_ms`函数：
 
 ```python
 def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
@@ -96,7 +96,7 @@ def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
     return True
 ```
 
-而若是希望转换MindSpore Transformers权重至HuggingFace权重，则需在[convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_reversed.py)内定义`convert_ms_to_pt`函数：
+而若是希望转换MindSpore Transformers权重至HuggingFace权重，则需在[convert_reversed.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_reversed.py)内定义`convert_ms_to_pt`函数：
 
 ```python
 def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):
@@ -215,7 +215,7 @@ MindSpore每次运行分布式任务后都会在`output/strategy`文件夹下生
 
 **单进程转换**
 
-使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.py)对载入权重进行单进程转换。
+使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.py)对载入权重进行单进程转换。
 
 **运行命令**：
 
@@ -229,7 +229,7 @@ python transform_checkpoint.py \
 
 **多进程转换**
 
-使用[mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.sh)对载入权重进行多进程转换。
+使用[mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.sh)对载入权重进行多进程转换。
 
 **运行命令**：
 
@@ -317,7 +317,7 @@ bash transform_checkpoint.sh \
 
   **启动任务：**
 
-  使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)进行任务启动。
+  使用[mindformers/scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)进行任务启动。
 
   ```shell
   # 第一台服务器（主节点）
@@ -368,7 +368,7 @@ bash transform_checkpoint.sh \
 
 - **离线权重转换**
 
-  在保存有所有策略文件的服务器上，使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.py)进行离线权重转换。
+  在保存有所有策略文件的服务器上，使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/tools/ckpt_transform/transform_checkpoint.py)进行离线权重转换。
 
   **单进程转换：**
 
@@ -443,7 +443,7 @@ LoRA（Low-Rank Adaptation）的基本原理是对原始模型的参数进行低
 
 #### 使用说明
 
-使用MindSpore Transformers提供的[LoRA权重合并脚本](https://gitee.com/mindspore/mindformers/blob/master/mindformers/tools/transform_ckpt_lora.py)，按照如下方式进行LoRA权重合并。
+使用MindSpore Transformers提供的[LoRA权重合并脚本](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/tools/transform_ckpt_lora.py)，按照如下方式进行LoRA权重合并。
 
 ```shell
 python mindformers/tools/transform_ckpt_lora.py \

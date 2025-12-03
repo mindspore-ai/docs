@@ -1,6 +1,6 @@
 # 功能相关 FAQ
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/faq/feature_related.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/faq/feature_related.md)
 
 ## Q: MindSpore Transformers和MindFormers两个名字的区别？
 
@@ -16,7 +16,7 @@ A: MindSpore Transformers是MindSpore的大模型套件，主要面向大语言�
 
 ## Q: WikiText数据集下载链接失效
 
-A: 官方下载链接失效，请关注社区Issue [#IBV35D](https://gitee.com/mindspore/mindformers/issues/IBV35D)。
+A: 官方下载链接失效，请关注社区Issue [#IBV35D](https://atomgit.com/mindspore/mindformers/issues/IBV35D)。
 
 <br/>
 

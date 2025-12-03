@@ -1,12 +1,12 @@
 # Custom Backend
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/custom_backend.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/custom_backend.md)
 
 ## Overview
 
 If the built-in backend is not sufficient to meet the requirements when using MindSpore, you can utilize MindSpore's custom backend feature to enable your own implemented backend.
 
-This tutorial provides a simple custom backend case as a demonstration. For more comprehensive examples, please refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/backend/custom_backend/test_custom_backend.py).
+This tutorial provides a simple custom backend case as a demonstration. For more comprehensive examples, please refer to the [examples](https://atomgit.com/mindspore/mindspore/blob/master/tests/st/backend/custom_backend/test_custom_backend.py).
 
 ## Implementing Custom Backend
 
