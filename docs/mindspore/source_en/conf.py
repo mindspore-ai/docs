@@ -222,24 +222,27 @@ def remove_typehints_content(text):
     # 若未找到目标","，返回原文本
     return text
 
-def get_param_func(func):
+def get_param_func(func, args_str):
     try:
-        source_code = inspect_.getsource(func)
-        if func.__doc__:
-            source_code = source_code.replace(func.__doc__, '')
-        all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
-        if "@classmethod" in source_code:
-            all_params = re.sub("(self|cls)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
-            if ',' in all_params_str[0][0]:
-                all_params = re.sub("(self|cls)(, |,)", '', all_params_str[0][0].replace("\n", ""))
-        elif "def __new__" in source_code:
-            all_params = re.sub("(self|cls|value|iterable)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
-            if ',' in all_params:
-                all_params = re.sub("(self|cls|value|iterable)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+        if args_str:
+            all_params = args_str
         else:
-            all_params = re.sub("(self)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
-            if ',' in all_params_str[0][0]:
-                all_params = re.sub("(self)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+            source_code = inspect_.getsource(func)
+            if func.__doc__:
+                source_code = source_code.replace(func.__doc__, '')
+            all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+            if "@classmethod" in source_code:
+                all_params = re.sub("(self|cls)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+                if ',' in all_params_str[0][0]:
+                    all_params = re.sub("(self|cls)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+            elif "def __new__" in source_code:
+                all_params = re.sub("(self|cls|value|iterable)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+                if ',' in all_params:
+                    all_params = re.sub("(self|cls|value|iterable)(, |,)", '', all_params_str[0][0].replace("\n", ""))
+            else:
+                all_params = re.sub("(self)(, |,)?", '', all_params_str[0][0].replace("\n", ""))
+                if ',' in all_params_str[0][0]:
+                    all_params = re.sub("(self)(, |,)", '', all_params_str[0][0].replace("\n", ""))
 
         if ":" in all_params:
             colon_idx = all_params.find(":")
@@ -281,7 +284,7 @@ def get_obj(obj):
 
 with open(autodoc_source_path, "r", encoding="utf8") as f:
     code_str = f.read()
-    code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
+    code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object), args_str) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
@@ -327,7 +330,7 @@ for i in decorator_list:
 decorator_list = [("mindspore/common/dtype.py","del decorator",
                    "@enum.unique","# generate api by del decorator."),
                    ("mindspore/mint/__init__.py","del decorator",
-                   "@jit_view_unsupported","# generate api by del decorator."),                   
+                   "@jit_view_unsupported","# generate api by del decorator."),
                    ("mindspore/common/dtype.py","del class",
                    "class QuantDtype(enum.Enum):","class QuantDtype():")
                    ]
