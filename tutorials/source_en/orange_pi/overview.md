@@ -1,6 +1,6 @@
 # OrangePi AIpro Development
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/overview.md)
 
 [OrangePi AIpro](http://www.orangepi.org/) adopts the route of Ascend AI technology, specifically 4-core 64-bit processor and AI processor, integrated graph processor.
 

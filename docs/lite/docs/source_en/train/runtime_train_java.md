@@ -1,6 +1,6 @@
 # Device-side Training (Java)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/train/runtime_train_java.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/train/runtime_train_java.md)
 
 ## Overview
 
@@ -50,7 +50,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Data Processing
 
@@ -98,7 +98,7 @@ The following codes shows the Mnist data reading and data preprocessing process:
     }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Execute Training
 
@@ -133,7 +133,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ### Evaluating
 

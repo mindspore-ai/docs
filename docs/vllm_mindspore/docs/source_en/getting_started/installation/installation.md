@@ -1,6 +1,6 @@
 # Installation Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/installation/installation.md)
 
 This document will introduce the [Version Matching](#version-compatibility) of vLLM-MindSpore Plugin, the installation steps for vLLM-MindSpore Plugin, and the [Quick Verification](#quick-verification) to verify whether the installation is successful. The installation steps provide two installation methods:
 
@@ -25,7 +25,7 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 
    | Source Code Link | Package Link |
    | -----    | -----   |
-   | [0.4.0](https://gitee.com/mindspore/vllm-mindspore/tree/r0.4.0/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp39-cp39-linux_aarch64.whl), [Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp310-cp310-linux_aarch64.whl), [Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp311-cp311-linux_aarch64.whl) |
+   | [0.4.0](https://atomgit.com/mindspore/vllm-mindspore/tree/r0.4.0/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp39-cp39-linux_aarch64.whl), [Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp310-cp310-linux_aarch64.whl), [Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp311-cp311-linux_aarch64.whl) |
 
 ## Docker Installation
 

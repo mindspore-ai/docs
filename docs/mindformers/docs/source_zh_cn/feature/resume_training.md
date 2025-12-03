@@ -1,6 +1,6 @@
 # 断点续训
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/resume_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/resume_training.md)
 
 ## 概述
 
@@ -42,7 +42,7 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
 
 ## 分布式训练示例
 
-以下示例演示了如何在单卡和多卡环境中启动断点续训。示例基于 `llama3.1 8b` 模型，相关配置文件[research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
+以下示例演示了如何在单卡和多卡环境中启动断点续训。示例基于 `llama3.1 8b` 模型，相关配置文件[research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
 
 ### 完整训练
 
@@ -81,7 +81,7 @@ MindSpore Transformers支持**step级断点续训**功能，允许在训练中�
      ...
    ```
 
-2. 准备数据集，此处以 [alpaca 数据集](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)为例，启动4卡分布式训练：
+2. 准备数据集，此处以 [alpaca 数据集](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)为例，启动4卡分布式训练：
 
    ```shell
    bash scripts/msrun_launcher.sh "run_mindformer.py \

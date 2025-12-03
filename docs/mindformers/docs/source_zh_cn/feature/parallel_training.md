@@ -1,6 +1,6 @@
 # 分布式并行训练
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/parallel_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/parallel_training.md)
 
 ## 并行模式与应用场景
 
@@ -86,7 +86,7 @@ parallel_config:
 
 #### Ring Attention序列并行
 
-> 本功能已废弃，将在后续版本中下架，可使用其他序列并行方法。如有任何问题或建议，请通过 **[社区Issue](https://gitee.com/mindspore/mindformers/issues/new)** 提交反馈，感谢您的理解和支持！
+> 本功能已废弃，将在后续版本中下架，可使用其他序列并行方法。如有任何问题或建议，请通过 **[社区Issue](https://atomgit.com/mindspore/mindformers/issues/new)** 提交反馈，感谢您的理解和支持！
 
 长序列并行算法 Ring Attention 是当前业界长序列并行的代表性技术，用于解决长序列训练时的内存开销问题，同时实现计算与通信掩盖。Ring Attention 算法利用 Attention 的分块计算性质，当序列并行度为 N 时，将 Q、K、V 分别切分为 N 个子块，每张卡分别调用 Flash Attention 算子来计算本地 QKV 子块的 Attention 结果。由于每张卡只需要计算切分后 QKV 子块的 Attention，其内存占用大幅降低。Ring Attention 在做 FA 计算的同时采用环形通信向相邻卡收集和发送子块，实现计算与通信的最大化掩盖，保障了长序列并行的整体性能。
 
@@ -251,7 +251,7 @@ model_config:
 
 ## MindSpore Transformers 分布式并行应用实践
 
-在官网提供的[Llama3_1-70B微调配置](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
+在官网提供的[Llama3_1-70B微调配置](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
 
 - **数据并行**：未启用额外的数据并行（`data_parallel: 1`）。
 - **模型并行**：模型被切分成8个部分，在不同设备上计算（`model_parallel: 8`）。

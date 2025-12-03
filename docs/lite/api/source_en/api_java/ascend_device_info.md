@@ -1,6 +1,6 @@
 # AscendDeviceInfo
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/ascend_device_info.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/ascend_device_info.md)
 
 ```java
 import com.mindspore.config.AscendDeviceInfo;

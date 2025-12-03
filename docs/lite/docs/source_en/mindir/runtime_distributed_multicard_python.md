@@ -1,6 +1,6 @@
 # Performing Ascend Backend Multi-card/Multi-core Inference Using Python Interfaces
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_distributed_multicard_python.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_distributed_multicard_python.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ MindSpore Lite cloud-side distributed inference is only supported to run in Linu
 
 ## Preparations
 
-1. Download the cloud-side Ascend backend multi-card/multi-core inference Python [sample code](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python), which will later be referred to as the sample code directory.
+1. Download the cloud-side Ascend backend multi-card/multi-core inference Python [sample code](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python), which will later be referred to as the sample code directory.
 
 2. Download the MindSpore Lite cloud-side inference installer [mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html), store it to the sample code directory, and install it via the `pip` tool.
 
@@ -22,7 +22,7 @@ MindSpore Lite cloud-side distributed inference is only supported to run in Linu
 
 For more usage of the converter tool and configurable optimization points for model conversion, refer to the [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter.html).
 
-Subsequent chapters will describe the main steps of MindSpore Lite cloud-side distributed inference with code. Refer to [sample code](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python).
+Subsequent chapters will describe the main steps of MindSpore Lite cloud-side distributed inference with code. Refer to [sample code](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python).
 
 ## Inference Process
 

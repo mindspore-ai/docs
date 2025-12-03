@@ -690,18 +690,18 @@ def linkcode_resolve(domain, info):
             py_source_rel = func_yaml + name.split('.')[-1] + '_doc.yaml'
 
         if py_source_rel:
-            return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
+            return f"https://atomgit.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
 
         source, linenum = inspect.getsourcelines(obj)
     except Exception:
         name = info["fullname"]
         if name.startswith('mindspore.Tensor.') and name.split('.')[-1] + '_doc.yaml' in tensor_yaml_list:
             py_source_rel = tensor_yaml + name.split('.')[-1] + '_doc.yaml'
-            return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
+            return f"https://atomgit.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
         return None
 
     pkg_fn = os.path.relpath(pkg_fn, start=os.path.dirname(mindspore.__file__))
-    return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{repo_whl}{copy_repo}/{pkg_fn}#L{linenum}"
+    return f"https://atomgit.com/mindspore/mindspore/blob/{branch}/{repo_whl}{copy_repo}/{pkg_fn}#L{linenum}"
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)

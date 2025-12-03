@@ -1,6 +1,6 @@
 # Training High Availability
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/high_availability.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/high_availability.md)
 
 ## Overview
 
@@ -268,7 +268,7 @@ This chapter uses Llama3.1-8B training as an example to demonstrate the use of r
 > The parameter values shown in the following examples are only experimental data, please refer to real training data.
 
 1. Install [MindSpore](https://www.mindspore.cn/install/en) first.
-2. Download MindSpore Transformers, using [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add and modify parameters according to the configuration below:
+2. Download MindSpore Transformers, using [finetune_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add and modify parameters according to the configuration below:
 
     ```yaml
     output_dir: './output'

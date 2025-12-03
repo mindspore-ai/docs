@@ -1,6 +1,6 @@
 # Using Tokenizer
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/tokenizer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/tokenizer.md)
 
 ## Overview
 
@@ -38,7 +38,7 @@ The inference process takes the Qwen3 model as an example.
 
 1. Modify the yaml configuration
 
-    Qwen3 model configuration file [predict_qwen3 yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml) needs to be modified The places are as follows:
+    Qwen3 model configuration file [predict_qwen3 yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml) needs to be modified The places are as follows:
 
     ```yaml
     use_legacy: False

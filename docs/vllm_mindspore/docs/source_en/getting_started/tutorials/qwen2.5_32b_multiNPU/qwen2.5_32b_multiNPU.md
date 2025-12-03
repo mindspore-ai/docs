@@ -1,6 +1,6 @@
 # Multi-Card Inference (Qwen2.5-32B)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU.md)
 
 This document introduces single-node multi-card inference process by vLLM-MindSpore Plugin. Taking the [Qwen2.5-32B](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) model as an example, users can configure the environment through the [Docker Installation](#docker-installation) section or the [Installation Guide](../../installation/installation.md#installation-guide), and then [download the model weights](#downloading-model-weights). After [setting environment variables](#setting-environment-variables), users can perform [online inference](#online-inference) to experience single-node multi-card inference capabilities.
 

@@ -1,6 +1,6 @@
 # Recomputation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/recompute.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/recompute.md)
 
 ## Overview
 
@@ -40,7 +40,7 @@ The following is an illustration of the recomputation operation using an Ascend 
 
 ### Sample Code Description
 
-> Download the complete sample code: [recompute](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/recompute).
+> Download the complete sample code: [recompute](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/recompute).
 
 The directory structure is as follows:
 

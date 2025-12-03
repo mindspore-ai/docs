@@ -1,6 +1,6 @@
 # Ascend性能调优
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/profiler.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/profiler.md)
 
 ## 概述
 
@@ -69,7 +69,7 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 - schedule：使能后，落盘数据中kernel_details.csv中包含了Step ID一列信息。根据样例中schedule的配置，skip_first跳过0个step，wait等待0个step，warmup预热0个step。根据active为1，则从第0个step开始采集，采集1个step。因此Step ID为0，表示采集的是第0个step。
 - on_trace_ready：profiler的落盘路径是通过on_trace_ready的tensorboard_trace_handler参数指定的，tensorboard_trace_handler会默认解析性能数据，用户如果没有配置tensorboard_trace_handler，数据会默认落盘到当前脚本同级目录的'/data'文件夹下，可以通过离线解析功能解析性能数据，离线解析功能可参考[方式四：离线解析](https://www.mindspore.cn/tutorials/zh-CN/master/debug/profiler.html#%E6%96%B9%E5%BC%8F%E5%9B%9B-%E7%A6%BB%E7%BA%BF%E8%A7%A3%E6%9E%90)。
 
-完整案例参考[自定义for循环采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)。
+完整案例参考[自定义for循环采集完整代码样例](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/profiler/for_loop_profiler.py)。
 
 **schedule参数配置原理如下：**
 
@@ -114,7 +114,7 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-完整案例请参考[CallBack方式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)。
+完整案例请参考[CallBack方式采集完整代码样例](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/profiler/call_back_profiler.py)。
 
 ### 方式二：动态profiler使能
 
@@ -170,7 +170,7 @@ for _ in range(STEP_NUM):
 
 此时生成的结果文件包含两个文件夹：rank0_start2_stop5以及rank0_start8_stop10，分别代表采集的step为2-5和8-10。
 
-完整案例请参考[动态Profiler使能方式案例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py)。
+完整案例请参考[动态Profiler使能方式案例](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py)。
 
 ### 方式三：环境变量使能
 
@@ -224,7 +224,7 @@ mstx.mark("start")
 mstx.range_end(range_id)
 ```
 
-完整案例请参考[mstx轻量化打点方式案例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/mstx_profiler.py)。
+完整案例请参考[mstx轻量化打点方式案例](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/profiler/mstx_profiler.py)。
 
 ## 性能数据
 

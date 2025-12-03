@@ -1,6 +1,6 @@
 # Safetensors权重
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/safetensors.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/safetensors.md)
 
 ## 概述
 
@@ -120,7 +120,7 @@ output
 
 用户可修改 `yaml` 配置文件中 `CheckpointMonitor` 下的字段来控制权重保存行为。
 
-以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # callbacks
@@ -164,7 +164,7 @@ MindSpore Transformers支持训练、推理、续训在单卡多卡全场景下�
 
 | 参数名称             | 说明                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 |------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| load_checkpoint  | 预加载权重所在的文件夹路径。支持MindSpore Safetensors和Hugging Face Safetensors。<br/>对于MindSpore Safetensors：<br/>- 如果是完整权重，填写切片/单个权重文件所在文件夹路径。<br/>- 如果是分布式权重，需按照`model_dir/rank_x/xxx.safetensors`格式存放，文件夹路径填写为`model_dir`。<br/>对于Hugging Face Safetensors：<br/>- 支持直接加载从Hugging Face下载的模型权重（当前支持 Mcore 架构的 [Qwen3](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3) 及 [Qwen3-MoE](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3_moe) 系列模型）<br/>- 加载过程中，会自动转换成MindSpore Safetensors进行加载，同时保存一份转换后的权重文件至`/output/ms_safetensors`下。 |
+| load_checkpoint  | 预加载权重所在的文件夹路径。支持MindSpore Safetensors和Hugging Face Safetensors。<br/>对于MindSpore Safetensors：<br/>- 如果是完整权重，填写切片/单个权重文件所在文件夹路径。<br/>- 如果是分布式权重，需按照`model_dir/rank_x/xxx.safetensors`格式存放，文件夹路径填写为`model_dir`。<br/>对于Hugging Face Safetensors：<br/>- 支持直接加载从Hugging Face下载的模型权重（当前支持 Mcore 架构的 [Qwen3](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3) 及 [Qwen3-MoE](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3_moe) 系列模型）<br/>- 加载过程中，会自动转换成MindSpore Safetensors进行加载，同时保存一份转换后的权重文件至`/output/ms_safetensors`下。 |
 | load_ckpt_format | 加载的模型权重的格式，可选`ckpt`、`safetensors`，默认为`ckpt`。<br/>加载权重为`safetensors`格式时，需配套修改此配置为`safetensors`。                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | use_parallel     | 是否并行加载。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | auto_trans_ckpt  | 是否开启在线切分功能。<br/>- 如果加载权重是完整权重：<br/>a. `use_parallel: True`时，判断为分布式加载，需同步设置`auto_trans_ckpt: True`，开启在线切分功能。<br/>b. `use_parallel: False`时，判断为单卡加载，需同步设置`auto_trans_ckpt: False`，关闭在线切分功能。<br/>- 如果加载权重是分布式权重：<br/>a. 不改变原有切分策略，需设置`auto_trans_ckpt: False`，直接按原先切分策略直接加载。<br/>b. 改变原有切分策略，需设置`auto_trans_ckpt: True` 并配置`src_strategy_path_or_dir`为原有切分策略文件路径。<br/>任务拉起时，会将权重在线合并为完整权重，并依据配置文件中设定的并行策略进行切分与加载。在线合并的完整权重会保存在当前目录`/output/unified_checkpoint`文件下。                                                                                          |
@@ -264,7 +264,7 @@ parallel_config:                                    # 配置16卡分布式策略
 
 **启动任务**：
 
-使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)进行任务启动。
+使用[mindformers/scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)进行任务启动。
 
   ```shell
   # 第一台服务器（主节点）
@@ -358,7 +358,7 @@ auto_trans_ckpt: False                              # 分布式权重加载，�
 
 **4.启动任务**：
 
-使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)进行任务启动。
+使用[mindformers/scripts/msrun_launcher.sh](https://atomgit.com/mindspore/mindformers/blob/master/scripts/msrun_launcher.sh)进行任务启动。
 
   ```shell
   # 第一台服务器（主节点）
@@ -456,7 +456,7 @@ generation:
 
 #### 使用说明
 
-使用MindSpore Transformers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，按照如下方式进行safetensors权重合并。合并后的权重格式为[完整权重](#完整权重)。
+使用MindSpore Transformers提供的[safetensors权重合并脚本](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py)，按照如下方式进行safetensors权重合并。合并后的权重格式为[完整权重](#完整权重)。
 
 ```shell
 python toolkit/safetensors/unified_safetensors.py \
@@ -584,7 +584,7 @@ callbacks:
 
 ### 训练任务示例
 
-若使用完整权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
+若使用完整权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -600,7 +600,7 @@ callbacks:
     checkpoint_format: safetensors                  # 保存权重文件格式
 ```
 
-若使用分布式权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
+若使用分布式权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -632,7 +632,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ### 推理任务示例
 
-若使用完整权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
+若使用完整权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
@@ -645,7 +645,7 @@ parallel_config:
   pipeline_stage: 1
 ```
 
-若使用分布式权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
+若使用分布式权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置

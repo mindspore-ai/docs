@@ -1,6 +1,6 @@
 # Distributed Training Communication Fusion
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/comm_fusion.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/comm_fusion.md)
 
 ## Overview
 
@@ -60,7 +60,7 @@ MindSpore provides two interfaces to enable communication fusion, each of which 
 
 ### Sample Code Description
 
-> You can download the full sample code here: [distributed_comm_fusion](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion).
+> You can download the full sample code here: [distributed_comm_fusion](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion).
 
 The directory structure is as follows:
 
@@ -95,7 +95,7 @@ If all similar communication operators are fused into one operator, in the curre
 
 In order to avoid the above problem, the network parameters can be fused in groups: while the next group of parameters is computed, the communication of the previous group of parameters is carried out, so that the computation and communication can be hidden from each other, to perform group fusion either by limiting the size of the fusion buffer, or by index partitioning.
 
-For more usage, you can refer to MindSpore [test cases](https://gitee.com/mindspore/mindspore/blob/v2.5.0/tests/ut/python/parallel/test_comm_fusion.py).
+For more usage, you can refer to MindSpore [test cases](https://atomgit.com/mindspore/mindspore/blob/v2.5.0/tests/ut/python/parallel/test_comm_fusion.py).
 
 > Users can try the size and index modes of `comm_fusion` on their own, which are essentially methods of the fusion buffer class.
 

@@ -1,6 +1,6 @@
 # Contribution Guidelines
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/developer_guide/contributing.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/developer_guide/contributing.md)
 
 ## Contributor License Agreement
 
@@ -9,16 +9,16 @@ Before submitting code to the MindSpore community, you need to sign the Contribu
 ## Quick Start
 
 - Fork the repository on [Gitee](https://gitee.com/mindspore/vllm-mindspore).
-- Refer to [README.md](https://gitee.com/mindspore/vllm-mindspore/blob/master/README.md) and the installation page for project information and build instructions.
+- Refer to [README.md](https://atomgit.com/mindspore/vllm-mindspore/blob/master/README.md) and the installation page for project information and build instructions.
 
 ## Supporting New Models
 
 To support a new model for vLLM-MindSpore Plugin code repository, please note the following:
 
 - **Follow file format and location specifications.** Model code files should be placed under the `vllm_mindspore/model_executor` directory, organized in corresponding subfolders by model type.
-- **Implement models using MindSpore interfaces with jit static graph support.** Model definitions in vLLM-MindSpore Plugin must be implemented using MindSpore interfaces. Since MindSpore's static graph mode offers performance advantages, models should support execution via @jit static graphs. For reference, see the [Qwen2.5](https://gitee.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/qwen2.py) implementation.
+- **Implement models using MindSpore interfaces with jit static graph support.** Model definitions in vLLM-MindSpore Plugin must be implemented using MindSpore interfaces. Since MindSpore's static graph mode offers performance advantages, models should support execution via @jit static graphs. For reference, see the [Qwen2.5](https://atomgit.com/mindspore/vllm-mindspore/blob/master/vllm_mindspore/model_executor/models/qwen2.py) implementation.
 - **Register new models in vLLM-MindSpore Plugin.** After implementing the model structure, register it in vLLM-MindSpore Plugin by adding it to `_NATIVE_MODELS` in `vllm_mindspore/model_executor/models/registry.py`.
-- **Write unit tests.** New models must include corresponding unit tests. Refer to the [Qwen2.5 testcases](https://gitee.com/mindspore/vllm-mindspore/blob/master/tests/st/python/cases_parallel/vllm_qwen_7b.py) for examples.
+- **Write unit tests.** New models must include corresponding unit tests. Refer to the [Qwen2.5 testcases](https://atomgit.com/mindspore/vllm-mindspore/blob/master/tests/st/python/cases_parallel/vllm_qwen_7b.py) for examples.
 
 ## Contribution Process
 
@@ -26,7 +26,7 @@ To support a new model for vLLM-MindSpore Plugin code repository, please note th
 
 Follow these guidelines for community code review, maintenance, and development.
 
-- **Coding Standards:** Use vLLM community code checking tools: yapf, codespell, ruff, isort, and mypy. For more details, see the [Toolchain Usage Guide](https://gitee.com/mindspore/vllm-mindspore/blob/master/codecheck_toolkits/README.md).
+- **Coding Standards:** Use vLLM community code checking tools: yapf, codespell, ruff, isort, and mypy. For more details, see the [Toolchain Usage Guide](https://atomgit.com/mindspore/vllm-mindspore/blob/master/codecheck_toolkits/README.md).
 - **Unit Testing Guidelines:** vLLM-MindSpore Plugin uses the [pytest](http://www.pytest.org/en/latest/) framework. Test names should clearly reflect their purpose.
 - **Refactoring Guidelines:** Developers are encouraged to refactor code to eliminate [code smells](https://en.wikipedia.org/wiki/Code_smell). All code, including refactored code, must adhere to coding and testing standards.
 

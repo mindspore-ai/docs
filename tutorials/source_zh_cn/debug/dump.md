@@ -1,6 +1,6 @@
 # Dump功能调试
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/dump.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/dump.md)
 
 为了对训练过程进行分析，MindSpore提供了Dump功能，用于保存训练过程中算子的输入和输出数据。
 
@@ -291,11 +291,11 @@ ms_execution_order_graph_{graph_id}.csv
 
 ### 数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，只需要执行 `bash run_sync_dump.sh`。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/dump) ，只需要执行 `bash run_sync_dump.sh`。
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例：
+以[AlexNet脚本](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例：
 
 ```python
 ...
@@ -638,11 +638,11 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 ### 数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，CPU/GPU后端下Dump只需要执行 `bash run_sync_dump.sh`。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/dump) ，CPU/GPU后端下Dump只需要执行 `bash run_sync_dump.sh`。
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例：
+以[AlexNet脚本](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例：
 
 ```python
 ...

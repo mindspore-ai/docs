@@ -1,6 +1,6 @@
 # Large Model Precision Optimization Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/precision_optimization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/precision_optimization.md)
 
 ## Overview and Scenarios of Precision Issues
 
@@ -228,7 +228,7 @@ The training process fixes randomness and turns on deterministic computation in 
       # Original code
   ```
 
-* MindSpore code, in [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
+* MindSpore code, in [run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
 
   ```python
   import numpy as np
@@ -348,7 +348,7 @@ def get_parameters(self):
     return params
 ```
 
-For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
+For MindSpore Transformers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindSpore Transformers and PyTorch gradient. Refer to the following modified code:
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):

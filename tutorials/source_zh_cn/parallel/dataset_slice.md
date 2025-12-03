@@ -1,6 +1,6 @@
 # 数据集切分
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/dataset_slice.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/dataset_slice.md)
 
 ## 简介
 
@@ -22,7 +22,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[dataset_slice](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dataset_slice)。
+> 下载完整的样例代码：[dataset_slice](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/dataset_slice)。
 
 目录结构如下：
 

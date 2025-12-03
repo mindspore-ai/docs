@@ -1,6 +1,6 @@
 # Custom原语AOT类型自定义算子（Ascend平台）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_ascendc.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/operation/op_custom_ascendc.md)
 
 ## 概述
 
@@ -149,7 +149,7 @@ assert output.asnumpy().dtype == 'float32'
 assert output.asnumpy().shape == (1280, 1280)
 ```
 
-您可以查看MindSpore仓中的[自定义算子测试用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/custom/ops_custom/ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
+您可以查看MindSpore仓中的[自定义算子测试用例](https://atomgit.com/mindspore/mindspore/tree/master/tests/st/custom/ops_custom/ascendc)，获取更多数据类型与使用场景的Ascend C自定义算子用例。
 样例工程的目录结构如下：
 
 ```text
@@ -349,7 +349,7 @@ extern "C" std::vector<std::vector<int64_t>> FuncNameInferShape(int *ndims, int6
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
 - extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`
-  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h)。
+  类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://atomgit.com/mindspore/mindspore/blob/master/tests/st/custom/ops_custom/aot_test_files/custom_aot_extra.h)。
 
 **Infer Type函数原型**
 

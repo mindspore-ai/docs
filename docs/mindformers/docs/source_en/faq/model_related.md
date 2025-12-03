@@ -1,6 +1,6 @@
 # Model-Related FAQ
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/faq/model_related.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/faq/model_related.md)
 
 ## Q: How to deal with network runtime error “Out of Memory” (`OOM`)?
 
@@ -12,6 +12,6 @@ A: First of all, the above error refers to insufficient memory on the device, wh
 4. Adjust the hybrid parallelism strategy, increase pipeline parallelism (pp) and model parallelism (mp) appropriately, and reduce data parallelism (dp) accordingly, keep `dp * mp * pp = device_num`, and increase the number of NPUs if necessary.
 5. Try to reduce batch size or sequence length.
 6. Turn on selective recalculation or full recalculation, turn on optimizer parallelism.
-7. If the problem still needs further troubleshooting, please feel free to [raise issue](https://gitee.com/mindspore/mindformers/issues) for feedback.
+7. If the problem still needs further troubleshooting, please feel free to [raise issue](https://atomgit.com/mindspore/mindformers/issues) for feedback.
 
 <br/>

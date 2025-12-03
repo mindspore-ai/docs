@@ -1,6 +1,6 @@
 # 训练超参数
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/training_hyperparameters.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/training_hyperparameters.md)
 
 超参数对模型的性能有着重要影响，不同的超参数设置可能导致模型表现的巨大差异。参数的选择会影响到模型的训练速度、收敛性、容量和泛化能力等方面。且它们并非通过训练数据直接学习得到的，而是由开发者根据经验、实验或调优过程来确定的。
 
@@ -17,7 +17,7 @@ MindSpore Transformers 提供了如下几类超参数的配置方式。
 **YAML 参数配置**
 
 用户可通过在模型训练的 yaml 配置文件中新增 `lr_schedule` 模块来使用学习率。
-以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [`DeepSeek-V3` 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # lr schedule
@@ -119,7 +119,7 @@ grouped_lr_schedule:
 
 用户可通过在模型训练的 yaml 配置文件中新增 `optimizer` 模块来使用优化器。
 
-以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [DeepSeek-V3 预训练 yaml](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 # optimizer

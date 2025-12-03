@@ -1,6 +1,6 @@
 # 配置文件说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/configuration.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/configuration.md)
 
 ## 概述
 
@@ -49,7 +49,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### Legacy 模型配置
 
-如果使用 MindSpore Transformers 拉起 legacy 模型的任务，需要在 yaml 文件中进行相关超参的配置。注意，此板块介绍的配置仅适用于 legacy 模型，不可与 mcore 模型配置进行混用，请注意[版本配套关系](https://gitee.com/mindspore/mindformers/blob/master/README_CN.md#%E6%A8%A1%E5%9E%8B%E5%88%97%E8%A1%A8)。
+如果使用 MindSpore Transformers 拉起 legacy 模型的任务，需要在 yaml 文件中进行相关超参的配置。注意，此板块介绍的配置仅适用于 legacy 模型，不可与 mcore 模型配置进行混用，请注意[版本配套关系](https://atomgit.com/mindspore/mindformers/blob/master/README_CN.md#%E6%A8%A1%E5%9E%8B%E5%88%97%E8%A1%A8)。
 
 由于不同的模型配置会有差异，这里仅对MindSpore Transformers中模型的通用配置进行说明。
 
@@ -109,7 +109,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 由于不同的模型配置会有差异，这里介绍 MindSpore Transformers 中模型常用配置。
 
-对于这些参数的默认值，不同模型的定义可能会不同，此处仅展示大多数情况的默认值。具体的默认值，请参考每个模型的配置类定义 `configuration_xxx.py` （如 DeepSeek-V3 的配置类为 [configuration_deepseek_v3.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/deepseek3/configuration_deepseek_v3.py)）。
+对于这些参数的默认值，不同模型的定义可能会不同，此处仅展示大多数情况的默认值。具体的默认值，请参考每个模型的配置类定义 `configuration_xxx.py` （如 DeepSeek-V3 的配置类为 [configuration_deepseek_v3.py](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/deepseek3/configuration_deepseek_v3.py)）。
 
 | 参数                                                        | 数据类型                  | 是否可选 | 默认值        | 取值说明                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 |-----------------------------------------------------------|-----------------------|------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

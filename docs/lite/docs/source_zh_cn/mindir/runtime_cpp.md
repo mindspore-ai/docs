@@ -1,6 +1,6 @@
 # 使用C++接口执行云侧推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/runtime_cpp.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/runtime_cpp.md)
 
 ## 概述
 
@@ -22,7 +22,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 ## 准备工作
 
-1. 以下代码样例来自于[使用C++接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/runtime_cpp)。
+1. 以下代码样例来自于[使用C++接口执行云侧推理示例代码](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/runtime_cpp)。
 
 2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore-lite/examples/cloud_infer/runtime_cpp/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
 
@@ -432,7 +432,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 指定设备内存支持Ascend硬件后端。指定输入输出设备内存可以避免device到host内存之间的相互拷贝，比如经过芯片dvpp预处理产生的device内存输入直接作为模型推理的输入，避免预处理结果从device内存拷贝到host内存，host结果作为模型推理输入，推理前重新拷贝到device上。
 
-指定输入输出设备内存样例可参考[设备内存样例](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/device_example_cpp)。
+指定输入输出设备内存样例可参考[设备内存样例](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/device_example_cpp)。
 
 通过[SetDeviceData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdevicedata)可单独或者同时指定输入和输出设备内存。用户需要维护设备内存的生命周期，负责设备内存的申请和释放。
 

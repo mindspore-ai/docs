@@ -1,6 +1,6 @@
 # 使用Python接口执行并发推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/runtime_parallel_python.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/runtime_parallel_python.md)
 
 ## 概述
 
@@ -21,7 +21,7 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mind
 
 ## 准备工作
 
-1. 以下代码样例来自于[使用Python接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python)。
+1. 以下代码样例来自于[使用Python接口执行云侧推理示例代码](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python)。
 
 2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore-lite/examples/cloud_infer/quick_start_parallel_python`目录。可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)和输入数据[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)。
 
@@ -158,7 +158,7 @@ print("total run time: ", total_end_time - total_start_time, " s")
 
 ## 一键配置Python环境
 
-在[mindspore-lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python)目录下执行lite-server-cpu-pip.sh脚本。该脚本会安装python、pip、numpy以及wheel，下载模型文件和模型输入数据，重新安装MindSpore Lite whl包，检查MindSpore Lite whl包安装情况。
+在[mindspore-lite/examples/cloud_infer/quick_start_parallel_python](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python)目录下执行lite-server-cpu-pip.sh脚本。该脚本会安装python、pip、numpy以及wheel，下载模型文件和模型输入数据，重新安装MindSpore Lite whl包，检查MindSpore Lite whl包安装情况。
 
 ```bash
 bash lite-server-cpu-pip.sh
@@ -166,7 +166,7 @@ bash lite-server-cpu-pip.sh
 
 ## 执行Demo
 
-一键安装后，在[mindspore-lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python)目录，执行以下命令，体验MindSpore Lite并发推理MobileNetV2模型。
+一键安装后，在[mindspore-lite/examples/cloud_infer/quick_start_parallel_python](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_python)目录，执行以下命令，体验MindSpore Lite并发推理MobileNetV2模型。
 
 ```bash
 python quick_start_parallel_python.py

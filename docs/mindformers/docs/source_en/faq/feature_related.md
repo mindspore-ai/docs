@@ -1,6 +1,6 @@
 # Feature-Related FAQ
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/faq/feature_related.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/faq/feature_related.md)
 
 ## Q: What is the difference between the names MindSpore Transformers and MindFormers?
 
@@ -16,7 +16,7 @@ A: MindSpore Transformers is MindSpore's large-model suite, primarily designed f
 
 ## Q: The WikiText dataset download link is not available.
 
-A: The official download link is not available, please follow the community Issue [#IBV35D](https://gitee.com/mindspore/mindformers/issues/IBV35D).
+A: The official download link is not available, please follow the community Issue [#IBV35D](https://atomgit.com/mindspore/mindformers/issues/IBV35D).
 
 <br/>
 

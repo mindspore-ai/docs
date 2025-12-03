@@ -1,6 +1,6 @@
 # Evaluation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/evaluation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/guide/evaluation.md)
 
 ## Overview
 
@@ -321,9 +321,9 @@ pip install -e .
 
 1. Create a new directory with e.g. the name `model_dir` for storing the model yaml files.
 2. Place the model inference yaml configuration file (predict_xxx_.yaml) in the directory created in the previous step. The directory location of the reasoning yaml configuration file for different models refers to [model library](../introduction/models.md).
-3. Configure the yaml file. If the model class, model Config class, and model Tokenizer class in yaml use cheat code, that is, the code files are in [research](https://gitee.com/mindspore/mindformers/tree/master/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
+3. Configure the yaml file. If the model class, model Config class, and model Tokenizer class in yaml use cheat code, that is, the code files are in [research](https://atomgit.com/mindspore/mindformers/tree/master/research) directory or other external directories, it is necessary to modify the yaml file: under the corresponding class `type` field, add the `auto_register` field in the format of `module.class`. (`module` is the file name of the script where the class is located, and `class` is the class name. If it already exists, there is no need to modify it.).
 
-    Using [predict_llama3_1_8b. yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
+    Using [predict_llama3_1_8b. yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml) configuration as an example, modify some of the configuration items as follows:
 
     ```yaml
     run_mode: 'predict'    # Set inference mode
@@ -348,13 +348,13 @@ pip install -e .
 
 #### Evaluation Example
 
-Execute the script of [run_harness.sh](https://gitee.com/mindspore/mindformers/blob/master/toolkit/benchmarks/run_harness.sh) to evaluate.
+Execute the script of [run_harness.sh](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/benchmarks/run_harness.sh) to evaluate.
 
 The following table lists the parameters of the script of `run_harness.sh`:
 
 | Parameter         | Type | Description                                                                                                                                                                                        | Required                       |
 |-------------------|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
-| `--register_path` | str  | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://gitee.com/mindspore/mindformers/tree/master/research) directory. | No(The cheat code is required) |
+| `--register_path` | str  | The absolute path of the directory where the cheat code is located. For example, the model directory under the [research](https://atomgit.com/mindspore/mindformers/tree/master/research) directory. | No(The cheat code is required) |
 | `--model`         | str  | The value must be `mf`, indicating the MindSpore Transformers evaluation policy.                                                                                                                   | Yes                            |
 | `--model_args`    | str  | Model and evaluation parameters. For details, see MindSpore Transformers model parameters.                                                                                                         | Yes                            |
 | `--tasks`         | str  | Dataset name. Multiple datasets can be specified and separated by commas (,).                                                                                                                      | Yes                            |
@@ -472,7 +472,7 @@ After training, the model generally uses the trained model weights to run evalua
 
 If the weights generated after training are distributed, the existing distributed weights need to be merged into complete weights first, and then the weights can be loaded through online slicing to complete the inference task.
 
-MindSpore Transformers provides a [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py) that can be used to merge multiple safetensors weights obtained from distributed training to obtain the complete weights.
+MindSpore Transformers provides a [safetensors weight merging script](https://atomgit.com/mindspore/mindformers/blob/master/toolkit/safetensors/unified_safetensors.py) that can be used to merge multiple safetensors weights obtained from distributed training to obtain the complete weights.
 
 The merging instruction is as follows (the Adam optimizer parameters are merged for the training weights in step 1000, and the redundancy removal function is enabled when saving the training weights):
 
@@ -504,7 +504,7 @@ Script parameter description:
 
 After completing the merging of weight files, you need to develop the corresponding inference configuration file based on the training configuration file.
 
-Taking Qwen3 as an example, modify the [Qwen3 training configuration](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) based on the [Qwen3 inference configuration](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml):
+Taking Qwen3 as an example, modify the [Qwen3 training configuration](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) based on the [Qwen3 inference configuration](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml):
 
 Main modification points of Qwen3 training configuration include:
 

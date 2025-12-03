@@ -1,6 +1,6 @@
 # msrun Launching
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/msrun_launcher.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/msrun_launcher.md)
 
 ## Overview
 
@@ -192,7 +192,7 @@ msrun is used as an encapsulation of the Dynamic Cluster startup method, and all
 
 The startup script is consistent across hardware platforms. The following is an example of how to write a startup script for Ascend:
 
-> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 
@@ -299,7 +299,7 @@ for epoch in range(10):
 
 The following is an example of performing a single-machine 8-card training session:
 
-The script [msrun_single.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_single.sh) uses the msrun command to pull up 1 `Scheduler` process as well as 8 `Worker` processes on the current node (no need to set `master_addr`, defaults to `127.0.0.1`; no need to set `node_rank` for single-machine):
+The script [msrun_single.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_single.sh) uses the msrun command to pull up 1 `Scheduler` process as well as 8 `Worker` processes on the current node (no need to set `master_addr`, defaults to `127.0.0.1`; no need to set `node_rank` for single-machine):
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -338,7 +338,7 @@ epoch: 0, step: 30, loss is 1.0437132
 
 The following is an example of executing 2-machine, 8-card training, with each machine executing the startup of 4 Workers:
 
-The script [msrun_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_1.sh) is executed on node 1 and uses the msrun command to pull up 1 `Scheduler` process and 4 `Worker` processes, configures `master_addr` as the IP address of node 1 (msrun automatically detects that the current node ip matches the `master_addr` and pulls up the `Scheduler` process). Set the current node to node 0 with `node_rank`:
+The script [msrun_1.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_1.sh) is executed on node 1 and uses the msrun command to pull up 1 `Scheduler` process and 4 `Worker` processes, configures `master_addr` as the IP address of node 1 (msrun automatically detects that the current node ip matches the `master_addr` and pulls up the `Scheduler` process). Set the current node to node 0 with `node_rank`:
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -357,7 +357,7 @@ echo "start training"
 msrun --worker_num=8 --local_worker_num=4 --master_addr=<node_1 ip address> --master_port=8118 --node_rank=0 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
 ```
 
-The script [msrun_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_2.sh) is executed on node 2 and uses the msrun command to pull up 4 `Worker` processes, configures `master_addr` as the IP address of node 1. Set the current node to node 0 with `node_rank`:
+The script [msrun_2.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_2.sh) is executed on node 2 and uses the msrun command to pull up 4 `Worker` processes, configures `master_addr` as the IP address of node 1. Set the current node to node 0 with `node_rank`:
 
 ```bash
 EXEC_PATH=$(pwd)

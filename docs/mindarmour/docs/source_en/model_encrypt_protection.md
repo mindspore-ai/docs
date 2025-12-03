@@ -1,6 +1,6 @@
 # Model Encryption Protection
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/model_encrypt_protection.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/model_encrypt_protection.md)&nbsp;&nbsp;
 
 ## Overview
 
@@ -9,7 +9,7 @@ Currently, the encryption solution protects checkpoint and MindIR model files on
 
 The following uses an example to describe how to encrypt, export, decrypt, and load data.
 
-> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_encrypt_protection/encrypt_checkpoint.py>
+> Download address of the complete sample code: <https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/model_encrypt_protection/encrypt_checkpoint.py>
 
 ## Safely Exporting a Checkpoint File
 

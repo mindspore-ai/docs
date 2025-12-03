@@ -1,6 +1,6 @@
 # High Dimension Tensor Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/high_dimension_tensor_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/high_dimension_tensor_parallel.md)
 
 ## Overview
 
@@ -69,7 +69,7 @@ The following is an illustration of 2D tensor parallel operation in an Ascend st
 
 ### Sample Code Description
 
-> Download the full sample code: [high_dimension_tensor_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_dimension_tensor_parallel).
+> Download the full sample code: [high_dimension_tensor_parallel](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/high_dimension_tensor_parallel).
 
 The directory structure is as follows:
 

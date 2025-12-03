@@ -1,6 +1,6 @@
 # Performing Cloud-side Distributed Inference Using Python Interface
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_distributed_python.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_distributed_python.md)
 
 ## Overview
 
@@ -22,7 +22,7 @@ Each process consists of the following main steps:
 
 ## Preparation
 
-1. To download the cloud-side distributed inference python sample code, please select the device type: [Ascend](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp). The directory will be referred to later as the example code directory.
+1. To download the cloud-side distributed inference python sample code, please select the device type: [Ascend](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp). The directory will be referred to later as the example code directory.
 
 2. Slice and export the distributed MindIR model via MindSpore and store it to the sample code directory. For a quick experience, you can download the two sliced Matmul model files [Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir), [Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir).
 

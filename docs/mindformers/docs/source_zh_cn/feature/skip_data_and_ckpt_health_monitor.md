@@ -1,6 +1,6 @@
 # 数据跳过和健康监测
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/skip_data_and_ckpt_health_monitor.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/skip_data_and_ckpt_health_monitor.md)
 
 ## 概述
 
@@ -55,7 +55,7 @@ monitor_config:
 
 ### 使用示例
 
-假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Llama3.1-8B文档](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md)。开启训练：
+假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Llama3.1-8B文档](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -157,7 +157,7 @@ parallel_config:
 
 ### 使用示例
 
-假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Llama3.1-8B文档](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md)。开启训练：
+假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Llama3.1-8B文档](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \

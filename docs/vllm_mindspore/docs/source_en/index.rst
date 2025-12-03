@@ -28,7 +28,7 @@ On the basis of the above design principles, vLLM-MindSpore Plugin adopts the sy
       </tr>
    </table>
 
-vLLM-MindSpore Plugin uses the plugin mechanism recommended by the vLLM community to realize capability registration. In the future, we expect to promote vLLM community to support integration of inference capabilities of third-party AI frameworks, including PaddlePaddle and JAX by following principles described in `[RPC] Multi-framework support for vllm <https://gitee.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ .
+vLLM-MindSpore Plugin uses the plugin mechanism recommended by the vLLM community to realize capability registration. In the future, we expect to promote vLLM community to support integration of inference capabilities of third-party AI frameworks, including PaddlePaddle and JAX by following principles described in `[RPC] Multi-framework support for vllm <https://atomgit.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ .
 
 Code: <https://gitee.com/mindspore/vllm-mindspore>
 
@@ -52,7 +52,7 @@ Contributing
 -----------------------------------------------------
 Please read `CONTRIBUTING <./developer_guide/contributing.html>`_ for details on setting up development environments, testing functions, and submitting PR.
 
-We welcome and value any form of contribution and cooperation. Please use `Issue <https://gitee.com/mindspore/vllm-mindspore/issues>`_ to inform us of any bugs you encounter, or to submit your feature requests, improvement suggestions, and technical solutions.
+We welcome and value any form of contribution and cooperation. Please use `Issue <https://atomgit.com/mindspore/vllm-mindspore/issues>`_ to inform us of any bugs you encounter, or to submit your feature requests, improvement suggestions, and technical solutions.
 
 Branch
 -----------------------------------------------------
@@ -96,7 +96,7 @@ SIG
 
 License
 -----------------------------------------------------
-Apache License 2.0, as found in the `LICENSE <https://gitee.com/mindspore/vllm-mindspore/blob/master/LICENSE>`_ file.
+Apache License 2.0, as found in the `LICENSE <https://atomgit.com/mindspore/vllm-mindspore/blob/master/LICENSE>`_ file.
 
 
 .. toctree::

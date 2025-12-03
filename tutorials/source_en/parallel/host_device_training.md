@@ -1,6 +1,6 @@
 # Host&Device Heterogeneous
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/host_device_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/host_device_training.md)
 
 ## Overview
 
@@ -34,7 +34,7 @@ The following is an illustration of Host&Device heterogeneous operation using As
 
 ### Sample Code Description
 
-> Download the complete example code: [host_device](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/host_device).
+> Download the complete example code: [host_device](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/host_device).
 
 The directory structure is as follows:
 

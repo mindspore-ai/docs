@@ -1,6 +1,6 @@
 # Building Custom Operators Offline
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/advanced/third_party/converter_register.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/advanced/third_party/converter_register.md)
 
 ## Overview
 
@@ -12,7 +12,7 @@ node-parse extension: The users can define the process to parse a certain node o
 model-parse extension: The users can define the process to parse a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [ModelParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_ModelParser.html), [ModelParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_ModelParserRegistry.html).
 graph-optimization extension: After parsing a model, a graph structure defined by MindSpore Lite will show up and then, the users can define the process to optimize the parsed graph. The related interfaces are [PassBase](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassBase.html), [PassPosition](https://mindspore.cn/lite/api/en/master/generate/enum_mindspore_registry_PassPosition-1.html), [PassRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassRegistry.html).
 
-> The node-parse extension needs to rely on the flatbuffers, protobuf and the serialization files of third-party frameworks, at the same time, the version of flatbuffers and the protobuf needs to be consistent with that of the released package, the serialized files must be compatible with that used by the released package. Note that the flatbuffers, protobuf and the serialization files are not provided in the released package, users need to compile and generate the serialized files by themselves. The users can obtain the basic information about [flatbuffers](https://gitee.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/flatbuffers.cmake), [protobuf](https://gitee.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/protobuf.cmake), [ONNX prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/onnx), [CAFFE prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/caffe), [TF prototype file](https://gitee.com/mindspore/mindspore-lite/tree/master/third_party/proto/tensorflow) and [TFLITE prototype file](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/tools/converter/parser/tflite/schema.fbs) from the [MindSpore WareHouse](https://gitee.com/mindspore/mindspore-lite/tree/master).
+> The node-parse extension needs to rely on the flatbuffers, protobuf and the serialization files of third-party frameworks, at the same time, the version of flatbuffers and the protobuf needs to be consistent with that of the released package, the serialized files must be compatible with that used by the released package. Note that the flatbuffers, protobuf and the serialization files are not provided in the released package, users need to compile and generate the serialized files by themselves. The users can obtain the basic information about [flatbuffers](https://atomgit.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/flatbuffers.cmake), [protobuf](https://atomgit.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/protobuf.cmake), [ONNX prototype file](https://atomgit.com/mindspore/mindspore-lite/tree/master/third_party/proto/onnx), [CAFFE prototype file](https://atomgit.com/mindspore/mindspore-lite/tree/master/third_party/proto/caffe), [TF prototype file](https://atomgit.com/mindspore/mindspore-lite/tree/master/third_party/proto/tensorflow) and [TFLITE prototype file](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/tools/converter/parser/tflite/schema.fbs) from the [MindSpore WareHouse](https://atomgit.com/mindspore/mindspore-lite/tree/master).
 >
 > MindSpore Lite alse provides a series of registration macros to facilitate user access. These macros include node-parse registration [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_node_parser_registry.h_REG_NODE_PARSER-1.html), model-parse registration [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/en/master/generate/define_model_parser_registry.h_REG_MODEL_PARSER-1.html), graph-optimization registration [REG_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_PASS-1.html) and graph-optimization scheduled registration [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_SCHEDULED_PASS-1.html)
 
@@ -24,7 +24,7 @@ In this chapter, we will show the users a sample of extending MindSpore Lite con
 
 The chapter takes a [add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite), which only includes an operator of adding, as an example. We will show the users how to convert the single operator of adding to that of [Custom](https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/register_kernel.html#custom-operators) and finally obtain a model which only includes a single operator of custom.
 
-The code related to the example can be obtained from the path [mindspore-lite/examples/converter_extend](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend).
+The code related to the example can be obtained from the path [mindspore-lite/examples/converter_extend](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend).
 
 ## Node Extension
 
@@ -45,11 +45,11 @@ class AddParserTutorial : public NodeParser {  // inherit the base class
 REG_NODE_PARSER(kFmkTypeTflite, ADD, std::make_shared<AddParserTutorial>());     // call the registration interface
 ```
 
-For the sample code, please refer to [node_parser](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend/node_parser).
+For the sample code, please refer to [node_parser](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend/node_parser).
 
 ## Model Extension
 
-For the sample code, please refer to the unit case [ModelParserRegistryTest](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/test/ut/tools/converter/registry/model_parser_registry_test.cc).
+For the sample code, please refer to the unit case [ModelParserRegistryTest](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/test/ut/tools/converter/registry/model_parser_registry_test.cc).
 
 ### Optimization Extension
 
@@ -75,9 +75,9 @@ REG_PASS(PassTutorial, opt::PassTutorial)             // register PassBase's sub
 REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // register scheduling logic
 ```
 
-For the sample code, please refer to [pass](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend/pass).
+For the sample code, please refer to [pass](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend/pass).
 
-> In the offline phase of conversion, we will infer the basic information of output tensors of each node of the model, including the format, data type and shape. So, in this phase, users need to provide the inferring process of self-defined operator. Here, users can refer to [Operator Infershape Extension](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#operator-infershape-extension), and the sample code can be found in [infer](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend/infer).
+> In the offline phase of conversion, we will infer the basic information of output tensors of each node of the model, including the format, data type and shape. So, in this phase, users need to provide the inferring process of self-defined operator. Here, users can refer to [Operator Infershape Extension](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#operator-infershape-extension), and the sample code can be found in [infer](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/converter_extend/infer).
 
 ## Example
 
@@ -94,13 +94,13 @@ For the sample code, please refer to [pass](https://gitee.com/mindspore/mindspor
 
   The release package of MindSpore Lite doesn't provide serialized files of other frameworks, therefore, users need to compile and obtain by yourselves. Here, please refer to [Overview](https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/converter_register.html#overview).
 
-  The case is a tflite model, users need to compile [flatbuffers](https://gitee.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/flatbuffers.cmake) and combine the [TFLITE Proto File](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/tools/converter/parser/tflite/schema.fbs) to generate the serialized file.
+  The case is a tflite model, users need to compile [flatbuffers](https://atomgit.com/mindspore/mindspore-lite/blob/master/cmake/external_libs/flatbuffers.cmake) and combine the [TFLITE Proto File](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/tools/converter/parser/tflite/schema.fbs) to generate the serialized file.
 
   After generating, users need to create a directory `schema` under the directory of `mindspore-lite/examples/converter_extend` and then place the serialized file in it.
 
 - Compilation and Build
 
-  Execute the script [build.sh](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/converter_extend/build.sh) in the directory of `mindspore-lite/examples/converter_extend`. And then, the released package of MindSpore Lite will be downloaded and the demo will be compiled automatically.
+  Execute the script [build.sh](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/converter_extend/build.sh) in the directory of `mindspore-lite/examples/converter_extend`. And then, the released package of MindSpore Lite will be downloaded and the demo will be compiled automatically.
 
   ```bash
   bash build.sh

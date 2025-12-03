@@ -1,6 +1,6 @@
 # 性能调优
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/feature/performance.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/feature/performance.md)
 
 MindSpore框架和MindStudio Training Tools工具链提供了多个性能分析与优化工具。
 MindSpore Profiler可以为用户提供算子执行时间分析、内存使用分析、AI Core指标分析、Timeline展示等功能，帮助用户分析性能瓶颈、优化训练效率。

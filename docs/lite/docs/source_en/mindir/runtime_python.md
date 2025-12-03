@@ -1,10 +1,10 @@
 # Using Python Interface to Perform Cloud-side Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_python.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_python.md)
 
 ## Overview
 
-This tutorial provides a sample program for MindSpore Lite to perform cloud-side inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform the basic process of cloud-side inference through file input, inference execution, inference result printing, dynamic weight update and subgraph splitting inference, and enables users to quickly understand the use of MindSpore Lite APIs related to cloud-side inference execution. The related files are put in the directory [mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python).
+This tutorial provides a sample program for MindSpore Lite to perform cloud-side inference, demonstrating the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform the basic process of cloud-side inference through file input, inference execution, inference result printing, dynamic weight update and subgraph splitting inference, and enables users to quickly understand the use of MindSpore Lite APIs related to cloud-side inference execution. The related files are put in the directory [mindspore-lite/examples/cloud_infer/quick_start_python](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python).
 
 MindSpore Lite cloud-side inference is supported for running in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU hardware backends are supported.
 
@@ -24,7 +24,7 @@ The following is an example of how to use the Python Cloud-side Inference Demo o
 
 This session introduces the installation of MindSpore Lite for Python version 3.7 via pip on a Linux-x86_64 system with a CPU environment, taking the new Ubuntu 18.04 as an example.
 
-Go to the [mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python) directory, and execute the `lite-cpu-pip.sh` script for a one-click installation, taking installation of MindSpore Lite version 2.0.0 as an example. Script installation needs to download the model required for inference and input data files, the dependencies required for MindSpore_Lite installation, and download and install MindSpore Lite.
+Go to the [mindspore-lite/examples/cloud_infer/quick_start_python](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python) directory, and execute the `lite-cpu-pip.sh` script for a one-click installation, taking installation of MindSpore Lite version 2.0.0 as an example. Script installation needs to download the model required for inference and input data files, the dependencies required for MindSpore_Lite installation, and download and install MindSpore Lite.
 
 Note: This command sets the installed version of MindSpore Lite. Since the cloud-side inference Python interface is supported from MindSpore Lite version 2.0.0, the version cannot be set lower than 2.0.0. See the version provided in [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) for details on the versions that can be set.
 
@@ -52,7 +52,7 @@ Successfully installed mindspore-lite-2.0.0
 
 ## Executing Demo
 
-After one-click installation, go to the [mindspore-lite/examples/cloud_infer/quick_start_python](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python) directory and execute the following command to experience MindSpore Lite inference MobileNetV2 models.
+After one-click installation, go to the [mindspore-lite/examples/cloud_infer/quick_start_python](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_python) directory and execute the following command to experience MindSpore Lite inference MobileNetV2 models.
 
 ```bash
 python quick_start_cloud_infer_python.py

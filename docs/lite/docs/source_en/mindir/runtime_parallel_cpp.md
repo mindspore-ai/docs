@@ -1,6 +1,6 @@
 # Using C++ Interface to Perform Concurrent Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_parallel_cpp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_parallel_cpp.md)
 
 ## Overview
 
@@ -19,7 +19,7 @@ To use the MindSpore Lite concurrent inference framework, perform the following 
 
 ## Preparation
 
-1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp).
+1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp).
 
 2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore-lite/examples/cloud_infer/quick_start_parallel_cpp/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 

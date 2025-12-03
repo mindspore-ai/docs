@@ -1,6 +1,6 @@
 # mindspore::registry::opencl
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore_registry_opencl.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore_registry_opencl.md)
 
 ## 接口汇总
 
@@ -10,7 +10,7 @@
 
 ## OpenCLRuntimeWrapper
 
-\#include <[include/registry/opencl_runtime_wrapper.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/opencl_runtime_wrapper.h)>
+\#include <[include/registry/opencl_runtime_wrapper.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/opencl_runtime_wrapper.h)>
 
 OpenCLRuntimeWrapper类包装了内部OpenCL的相关接口，用于支持南向GPU算子的开发。
 

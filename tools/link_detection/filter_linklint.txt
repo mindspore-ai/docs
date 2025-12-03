@@ -10,5 +10,5 @@ http://xxxx/v1/mindinsight/debugger/sessions/xxxx/update-watchpoint
 http://%s:%s%s
 http://localhost:5500/x/:add_common
 http://xxxx/v1/mindinsight/profile/memory-graphics
-https://gitee.com/mindspore/docs/blob/xxx
+https://atomgit.com/mindspore/docs/blob/xxx
 http://127.0.0.1:11202/scaleout

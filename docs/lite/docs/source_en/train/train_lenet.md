@@ -1,12 +1,12 @@
 # C++ Interface Sample
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/train/train_lenet.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/train/train_lenet.md)
 
 > MindSpore Lite has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for training, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
 
 ## Overview
 
-This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device.
+This tutorial is based on [LeNet training example code](https://atomgit.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device.
 
 The completed training procedure is as follows:
 
@@ -57,7 +57,7 @@ The directory structure is as follows:
 
 ### Installing MindSpore
 
-MindSpore can be installed by source code or using `pip`. Refer to [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) for more details.
+MindSpore can be installed by source code or using `pip`. Refer to [MindSpore installation guide](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) for more details.
 
 ### Downloading and Installing MindSpore Lite
 
@@ -281,7 +281,7 @@ After successful conversion, the `lenet_tod.ms` model file is generated in the c
 
 ### Model Training
 
-The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc).
+The model training progress is in [net_runner.cc](https://atomgit.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc).
 
 The main code continues as follows:
 

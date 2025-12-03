@@ -1,6 +1,6 @@
 # Optimizer Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/parallel/optimizer_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/optimizer_parallel.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ The following is an illustration of optimizer parallel operation using an Ascend
 
 ## Sample Code Description
 
-> Download the full sample code: [distributed_optimizer_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel).
+> Download the full sample code: [distributed_optimizer_parallel](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel).
 
 The directory structure is as follows:
 

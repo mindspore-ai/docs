@@ -1,6 +1,6 @@
 # 切分技巧
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/split_technique.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/split_technique.md)
 
 ## 概述
 
@@ -8,7 +8,7 @@
 
 ### 配置涉及权重的算子
 
-参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindSpore TransFormers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
+参数权重的切分策略是十分重要的，尤其对大模型来说，因为参数权重引起的内存消耗占据模型训练总内存消耗的大部分。因此，涉及权重的算子通常需要显式地配置切分策略。在下图的两个例子中，涉及权重的Gather和MatMul算子配置了切分策略，而其他算子没有配置。这分别对应[MindSpore TransFormers](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py)中的数据并行VocabEmbedding层和混合并行FeedForward层。
 
 ![sp_case1_zh](./images/sp_case1_zh.png "配置涉及权重的算子")
 
@@ -118,7 +118,7 @@ class CoreAttention(nn.Cell):
 </tr>
 </table>
 
-再看[FlashAttention](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/flash_attention.py)的例子：
+再看[FlashAttention](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/modules/flash_attention.py)的例子：
 <table>
 <tr>
 <td valign='top'>
@@ -160,7 +160,7 @@ class FlashAttention(Cell):
 </tr>
 </table>
 
-若直接使用MindSpore TransFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/llama.py)。
+若直接使用MindSpore TransFormers中开源且已经配好策略的类，则外部网络无需对算子再配置shard策略，如[LlamaForCausalLM](https://atomgit.com/mindspore/mindformers/blob/master/mindformers/models/llama/llama.py)。
 <table>
 <tr>
 <td valign='top'>

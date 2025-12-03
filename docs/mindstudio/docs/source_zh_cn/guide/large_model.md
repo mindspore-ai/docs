@@ -1,6 +1,6 @@
 # 大模型调试调优指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/guide/large_model.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/guide/large_model.md)
 
 ## 基于MindSpore TransFormers大模型套件的调试调优指南
 

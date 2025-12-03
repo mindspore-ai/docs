@@ -1,6 +1,6 @@
 # 动态组网启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/dynamic_cluster.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/parallel/dynamic_cluster.md)
 
 ## 概述
 
@@ -173,7 +173,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 
 动态组网启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
-> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://atomgit.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
 
 目录结构如下：
 
@@ -276,7 +276,7 @@ for epoch in range(10):
 
 #### 单机多卡
 
-单机多卡启动脚本内容[run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster.sh)如下，以单机8卡为例：
+单机多卡启动脚本内容[run_dynamic_cluster.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster.sh)如下，以单机8卡为例：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -333,7 +333,7 @@ epoch: 0, step: 30, loss is 1.0437132
 
 多机训练场景下，需拆分启动脚本。下面以执行双机8卡训练为例，每台机器执行启动4个Worker：
 
-脚本[run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1个`Scheduler`进程以及4个`Worker`进程：
+脚本[run_dynamic_cluster_1.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1个`Scheduler`进程以及4个`Worker`进程：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -368,7 +368,7 @@ export MS_ROLE=MS_SCHED                    # 设置启动的进程为MS_SCHED角
 python ./net.py > device/scheduler.log 2>&1 &     # 启动训练脚本
 ```
 
-脚本[run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_2.sh)在节点2上启动`Worker5`到`Worker8`（无需执行Scheduler）：
+脚本[run_dynamic_cluster_2.sh](https://atomgit.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_2.sh)在节点2上启动`Worker5`到`Worker8`（无需执行Scheduler）：
 
 ```bash
 EXEC_PATH=$(pwd)

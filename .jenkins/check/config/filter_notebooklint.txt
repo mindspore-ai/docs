@@ -1,0 +1,5 @@
+"docs/docs/mindchemistry/docs"
+"docs/docs/mindearth/docs"
+"docs/docs/mindflow/docs"
+"docs/docs/mindquantum/docs"
+"docs/tutorials/source_zh_cn"

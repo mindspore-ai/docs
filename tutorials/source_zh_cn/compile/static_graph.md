@@ -1,6 +1,6 @@
 # 图模式编程介绍
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/static_graph.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/static_graph.md)
 
 ## 概述
 
@@ -1512,7 +1512,7 @@ In-place操作是指直接修改输入张量的内容，而不创建新的张量
 - 第三方库
 
     1. Python内置模块和Python标准库。例如`os`、`sys`、`math`、`time`等模块。
-    2. 第三方代码库。路径在Python安装目录的`site-packages`目录下，需要先安装后导入，例如`numpy`、`scipy`等，具体列表可以参考[third_party_modules](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/_extends/parse/jit_fallback_modules/third_party_modules.py)文件。
+    2. 第三方代码库。路径在Python安装目录的`site-packages`目录下，需要先安装后导入，例如`numpy`、`scipy`等，具体列表可以参考[third_party_modules](https://atomgit.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/_extends/parse/jit_fallback_modules/third_party_modules.py)文件。
     3. 通过环境变量`MS_JIT_IGNORE_MODULES`指定的模块。与之相对的有环境变量`MS_JIT_MODULES`，具体使用方法请参考[环境变量](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
 
 - 支持第三方库的数据类型，允许调用和返回第三方库的对象。
