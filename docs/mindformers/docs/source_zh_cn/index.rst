@@ -62,7 +62,7 @@ MindSpore Transformers功能特性说明
 
   - `使用Tokenizer <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/tokenizer.html>`_
 
-    Tokenizer相关介绍，支持在Hugging Face Tokenizer在推理、数据集中使用。
+    Tokenizer相关介绍，支持在推理、数据集中使用Hugging Face Tokenizer。
 
 - 训练功能：
 

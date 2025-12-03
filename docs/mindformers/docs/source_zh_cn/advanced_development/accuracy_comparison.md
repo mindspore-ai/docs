@@ -53,11 +53,11 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 - 模型配置
 
-    本文档仅支持 mcore 模型的精度比对，故 Megatron-LM 必须配置 `use-mcore-model`，MindSpore Transformers 必须配置`use_legacy: False`
+    本文档仅支持 mcore 模型的精度比对，故 Megatron-LM 必须配置 `--use-mcore-model`，MindSpore Transformers 必须配置`use_legacy: False`
 
     | Megatron-LM                                | 含义                                          | MindSpore Transformers                     | 含义                                                                  |
     |--------------------------------------------|---------------------------------------------|--------------------------------------------|---------------------------------------------------------------------|
-    | `use-legacy-model`和`use-mcore-model`组合     | 是否使用 mcore 模型                               | `use_legacy`                               | 是否使用 mcore 模型                                                       |
+    | `use-legacy-model`和`use-mcore-model`组合     | 是否使用 mcore 模型                               | `use_legacy`                               | 是否使用 mcore 模型，`use_legacy: False`等价于`--use-mcore-model`             |
     | `num-layers`                               | 网络层数，Transformer层的数量                        | `num_layers`                               | 网络层数，Transformer层的数量                                                |
     | `encoder-num-layers`                       | 编码器（Encoder）层数                              | 不支持配置                                      |                                                                     |
     | `decoder-num-layers`                       | 解码器（Decoder）层数                              | 不支持配置                                      |                                                                     |
