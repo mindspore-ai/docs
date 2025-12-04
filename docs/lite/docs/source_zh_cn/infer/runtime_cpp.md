@@ -246,11 +246,11 @@ context->SetDelegate(coreml_delegate);
 
 > 当前CoreML后端暂时只支持操作系统版本不低于iOS 11的设备。
 
-### 配置使用DSP后端
+### 配置使用银河飞腾DSP后端
 
-当需要执行的后端为DSP（目前支持`ft04`和`ft78`推理产品）时，需要设置[DSPDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#dspdeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在DSP后，以保证泛化模型的推理。
+当需要执行的后端为银河飞腾DSP（目前支持`ft04`和`ft78`推理产品）时，需要设置[DSPDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#dspdeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在银河飞腾DSP后，以保证泛化模型的推理。
 
-下面示例代码演示了如何创建CPU与DSP异构推理后端：
+下面示例代码演示了如何创建CPU与银河飞腾DSP异构推理后端：
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
