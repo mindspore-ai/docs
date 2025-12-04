@@ -37,7 +37,7 @@ def update_repo(clone_branch, rp_dir_docs):
     # docs工程运行仓克隆更新
     if not os.path.exists(rp_dir_docs):
         os.makedirs(rp_dir_docs, exist_ok=True)
-        Repo.clone_from("https://gitee.com/mindspore/docs.git",
+        Repo.clone_from("https://atomgit.com/mindspore/docs.git",
                         rp_dir_docs, branch=clone_branch)
     else:
         # Repo(rp_dir).git.execute(["git","pull","origin","master"])
@@ -122,7 +122,7 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
         if i == 'need_auto':
             continue
         if i.endswith('.rst'):
-            raw_content = requests.get(raw_rst_list[i], timeout=30).text
+            raw_content = requests.get(raw_rst_list[i], headers=headers, timeout=30).text
             other_file_path = re.findall('.. include:: (.*?)\n', raw_content)
             for j in other_file_path:
                 file_list.append(os.path.join(
@@ -750,11 +750,11 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                   'mindspore_Tensor_yaml': "mindspore/ops/api_def/method_doc/",
                   'mindspore_function_yaml': "mindspore/ops/api_def/function_doc/"}
 
-    wb_data = requests.get(pf_url, timeout=30)  # 引入requests库来请求数据
+    wb_data = requests.get(pf_url, headers=headers, timeout=30)  # 引入requests库来请求数据
     result = wb_data.json()  # 将请求的数据转换为json格式
 
     # 获取pr文件的diff
-    diff = requests.get(pf_diff, timeout=30).text
+    diff = requests.get(pf_diff, headers=headers, timeout=30).text
 
     cn_flag = 0
     en_flag = 0
@@ -796,7 +796,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         # 记录中文API相关文件
         elif split_dict['mindspore_cn'] in filename:
             if filename.endswith('.md') or filename.endswith('.ipynb') or filename.endswith('.rst'):
-                file_data = str(requests.get(raw_url, timeout=30).content, 'utf-8')
+                file_data = str(requests.get(raw_url, headers=headers, timeout=30).content, 'utf-8')
                 # 通过汇总列表新增的接口（未完待续）
                 part_atsm = re.findall(r'\.\..*?autosummary::\n\s+?:toctree: (.*)\n(?:.|\n|)+?\n\n((?:.|\n|)+?)\n\n',
                                        file_data+'\n\n')
@@ -837,7 +837,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             if not filename.split(split_dict['mindspore_en'])[-1].startswith('mindspore.'):
                 continue
             if filename.endswith('.md') or filename.endswith('.ipynb') or filename.endswith('.rst'):
-                file_data = str(requests.get(raw_url, timeout=30).content, 'utf-8')
+                file_data = str(requests.get(raw_url, headers=headers, timeout=30).content, 'utf-8')
                 part_atsm = re.findall(r'\.\..*?autosummary::\n\s+?:toctree: (.*)\n(?:.|\n|)+?\n\n((?:.|\n|)+?)\n\n',
                                        file_data+'\n\n')
                 if '--- /dev/null' not in diff_file and filename.endswith('.rst'):
@@ -911,7 +911,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                 [filename.split(split_dict['mindspore_py'])[-1], diff_lines])
 
     # docs仓内mindspore工程仓位置
-    generate_path = rp_dir_docs + f"/docs/{re.findall('([^/]+?)/pulls/', file_url)[0]}"
+    generate_path = rp_dir_docs + f"/docs/{repo}"
 
     # 没有需要生成的API时直接退出
     if not pr_file_yaml and not pr_file_py and not pr_file_cn and not generate_pr_list_en_sum:
@@ -1046,7 +1046,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             print(print_api)
 
         copy_file_list = get_all_copy_list(
-            pr_file_cn, re.findall('([^/]*?)/pulls/', file_url)[0], clone_branch, rp_dir, all_raw_rst)
+            pr_file_cn, repo, clone_branch, rp_dir, all_raw_rst)
         copy_source(os.path.join(rp_dir, 'docs/api/api_python'),
                     os.path.join(generate_path, 'source_zh_cn', 'api_python'),
                     'docs/api/api_python/', fp_list=copy_file_list)
@@ -1257,23 +1257,29 @@ if __name__ == "__main__":
     pr_url = args.pr_url
     pr_whl_path = args.whl_path
 
+    # 获取Token
+    TOKEN = os.getenv("GITCODE_TOKEN")
+    headers = {"Private-Token": TOKEN} if TOKEN else {}
+
     # 参数处理（准备工作）
-    file_url = pr_url.split('.com/')[-1].split('/files')[0]
-    apiv5_url = f'https://gitee.com/api/v5/repos/{file_url}'
-    diff_url = f'https://gitee.com/{file_url}.diff'
-    pr_comments_url = f'{apiv5_url}/comments?page=1&per_page=100&direction=desc'
+    pr_info = re.match(r'https://(?:atomgit|gitcode)\.com/([^/]+)/([^/]+)/pull/(\d+)', pr_url)
+    if not pr_info:
+        raise ValueError('PR 链接格式不符')
+    owner, repo, number = pr_info.groups()
+    apiv5_url = f'https://api.gitcode.com/api/v5/repos/{owner}/{repo}/pulls/{number}'
+    diff_url = f'{apiv5_url}/diff'
+    # pr_comments_url = f'{apiv5_url}/comments?page=1&per_page=100&direction=desc'
     pr_files_url = f'{apiv5_url}/files'
 
     # docs仓和repo仓路径
     present_dir_path = os.path.dirname(os.path.abspath(__file__))
     theme_path = os.path.join(present_dir_path, 'template')
     repo_dir_docs = os.path.join(present_dir_path, '../../../docs')
-    repo_name = re.findall('([^/]*?)/pulls/', file_url)[0]
-    repo_dir = os.path.join(present_dir_path, f'../../../{repo_name}')
+    repo_dir = os.path.join(present_dir_path, f'../../../{repo}')
 
     # 获取pr合入的分支
-    res = requests.get(apiv5_url, timeout=30).text
-    repo_branch = re.findall('"base":{"label":"(.+?)"', res)[0]
+    res = requests.get(apiv5_url, headers=headers, timeout=30).json()
+    repo_branch = res['base']['label']
 
     # 切换本地仓库分支
     docs_branch = update_repo(repo_branch, repo_dir_docs)
@@ -1283,7 +1289,7 @@ if __name__ == "__main__":
     subprocess.run(cmd_uninstall)
     cmd_install = ["pip", "install", pr_whl_path]
     subprocess.run(cmd_install)
-    requ_file_url = f'{repo_dir_docs}/docs/{repo_name}/requirements.txt'
+    requ_file_url = f'{repo_dir_docs}/docs/{repo}/requirements.txt'
     cmd_install = ["pip", "install", "-r", requ_file_url]
     subprocess.run(cmd_install)
 
@@ -1292,7 +1298,7 @@ if __name__ == "__main__":
         data_b = json.load(g)
     target_version = os.path.join(present_dir_path, f"{docs_branch}_version")
     flush(target_version)
-    generate_version_json(repo_name, docs_branch, data_b, target_version)
+    generate_version_json(repo, docs_branch, data_b, target_version)
 
     # mindspore仓pr修改准备
     mk_ht_path, cn_f, en_f = api_generate_prepare(
