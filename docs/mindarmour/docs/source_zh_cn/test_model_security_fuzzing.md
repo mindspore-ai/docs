@@ -10,7 +10,7 @@ MindSpore Armour的fuzz_testing模块以神经元覆盖率作为测试评价准�
 
 这里以LeNet模型，MNIST数据集为例，说明如何使用Fuzzer。
 
-> 本例面向CPU、GPU、Atlas训练系列产品，目前仅支持GRAPH_MODE。你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>。
+> 本例面向CPU、GPU、Atlas训练系列产品，目前仅支持GRAPH_MODE。你可以在这里下载完整的样例代码：<https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>。
 
 ## 实现阶段
 
@@ -93,7 +93,7 @@ ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
    数据变异方法中一定要包含基于图像像素值变化的方法。
 
-   前两种类型的图像变化方法，支持用户自定义配置参数，也支持算法随机选择参数。用户自定义参数配置范围请参考:<https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image>
+   前两种类型的图像变化方法，支持用户自定义配置参数，也支持算法随机选择参数。用户自定义参数配置范围请参考:<https://atomgit.com/mindspore-lab/mindarmour/tree/master/mindarmour/natural_robustness/transform/image>
    中对应的类方法。算法随机选择参数，则`params`设置为`'auto_param': [True]`，参数将在推荐范围内随机生成。
 
    基于对抗攻击方法的参数配置请参考对应的攻击方法类。

@@ -30,7 +30,7 @@ MindSpore Armour的差分隐私模块Differential-Privacy，实现了差分隐�
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用差分隐私优化器训练神经网络模型。
 
 > 由于API支持的限制，差分隐私训练目前只支持在GPU或者Ascend服务器上面进行，不支持CPU。
-本例面向Atlas训练系列产品，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>
+本例面向Atlas训练系列产品，你可以在这里下载完整的样例代码：<https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>
 
 ## 实现阶段
 
@@ -63,7 +63,7 @@ TAG = 'Lenet5_train'
 
 ### 参数配置
 
-1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数，`data_path`数据路径替换成你的数据集所在路径。更多配置可以参考<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>。
+1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数，`data_path`数据路径替换成你的数据集所在路径。更多配置可以参考<https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>。
 
    ```python
    cfg = edict({

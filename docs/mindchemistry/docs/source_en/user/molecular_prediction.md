@@ -10,7 +10,7 @@ Prediction of crystalline material properties. We integrate the Matformer model 
 
 | Function                        | Model                                                                                                 | Training | Inferring | Back-end |
 |:--------------------------------|:------------------------------------------------------------------------------------------------------| :--- | :--- |:---------|
-| Property prediction             | [Nequip](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/nequip)       | √    | √   | Ascend   |
-| Property prediction             | [Allgro](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/allegro)      | √    | √   | Ascend   |
-| Electronic structure prediction | [Deephe3nn](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/deephe3nn) | √    | √   | Ascend   |
-| Prediction of crystalline material properties                        | [Matformer](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/matformer) | √    | √   | Ascend   |
+| Property prediction             | [Nequip](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/nequip)       | √    | √   | Ascend   |
+| Property prediction             | [Allgro](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/allegro)      | √    | √   | Ascend   |
+| Electronic structure prediction | [Deephe3nn](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/deephe3nn) | √    | √   | Ascend   |
+| Prediction of crystalline material properties                        | [Matformer](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/matformer) | √    | √   | Ascend   |

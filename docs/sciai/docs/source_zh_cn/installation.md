@@ -7,7 +7,7 @@
 
 - 硬件平台为Ascend或GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
-- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/SciAI/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://atomgit.com/mindspore-lab/mindscience/blob/master/SciAI/requirements.txt)。
 
 ## 安装方式
 
@@ -41,7 +41,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScienc
 
     ```bash
     cd ~
-    git clone https://gitee.com/mindspore/mindscience.git
+    git clone https://atomgit.com/mindspore-lab/mindscience.git
     ```
 
 2. 使用脚本`build.sh`编译SciAI。

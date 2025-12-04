@@ -21,7 +21,7 @@ The following is a simple example showing the overall process of model fault inj
 3. Call the fault injection module.
 4. View the execution result.
 
-> You can obtain the complete executable code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/model_fault_injection.py>
+> You can obtain the complete executable code at <https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/reliability/model_fault_injection.py>
 
 ## Preparations
 

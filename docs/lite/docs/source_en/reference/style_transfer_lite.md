@@ -14,4 +14,4 @@ Selecting the first standard image from the left to perform the style transfer, 
 
 ![image_after_transfer](images/after_transfer.png)
 
-Using MindSpore Lite to realize style transfer [example](https://gitee.com/mindspore/models/tree/master/official/lite/style_transfer).
+Using MindSpore Lite to realize style transfer [example](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/style_transfer).

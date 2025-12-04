@@ -10,7 +10,7 @@
 
 | 功能            | 模型                                                                                                              | 训练 | 推理 | 后端       |
 | :------------- |:----------------------------------------------------------------------------------------------------------------| :--- | :--- | :-------- |
-| 分子预测| [Nequip](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/nequip)    | √    | √   | Ascend |
-| 分子预测| [Allgro](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/allegro)    | √    | √   | Ascend |
-| 电子结构预测| [Deephe3nn](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/deephe3nn) | √    | √   | Ascend |
-| 晶体材料性质预测| [Matformer](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/matformer) | √    | √   | Ascend |
+| 分子预测| [Nequip](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/nequip)    | √    | √   | Ascend |
+| 分子预测| [Allgro](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/allegro)    | √    | √   | Ascend |
+| 电子结构预测| [Deephe3nn](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/deephe3nn) | √    | √   | Ascend |
+| 晶体材料性质预测| [Matformer](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/matformer) | √    | √   | Ascend |

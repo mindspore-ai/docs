@@ -86,7 +86,7 @@ A: MindSpore支持Python原生表达，`import mindspore`相关包即可使用�
 
 ## Q: 请问MindSpore支持梯度截断吗？
 
-A: 支持，可以参考代码[梯度截断脚本](https://gitee.com/mindspore/models/blob/master/official/nlp/Transformer/src/transformer_for_train.py#L35)。
+A: 支持，可以参考代码[梯度截断脚本](https://atomgit.com/mindspore-lab/models/blob/master/official/nlp/Transformer/src/transformer_for_train.py#L35)。
 
 <br/>
 

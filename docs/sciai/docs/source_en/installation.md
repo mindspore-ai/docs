@@ -9,7 +9,7 @@
 - See [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
   The versions of MindSpore Elec and MindSpore must be consistent.
 - All other dependencies are included
-  in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/SciAI/requirements.txt).
+  in [requirements.txt](https://atomgit.com/mindspore-lab/mindscience/blob/master/SciAI/requirements.txt).
 
 ## Installation
 
@@ -48,7 +48,7 @@ Note: If you have other MindScience package(s) installed in your conda or python
 
     ```bash
     cd ~
-    git clone https://gitee.com/mindspore/mindscience.git
+    git clone https://atomgit.com/mindspore-lab/mindscience.git
     ```
 
 2. Build SciAI with script `build.sh`.

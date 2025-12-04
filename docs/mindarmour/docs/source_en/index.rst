@@ -13,7 +13,7 @@ The current version of MindSpore Armour (v2.0) achieves security and privacy pro
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindarmour/docs/source_en/images/mindarmour.png" width="700px" alt="" >
 
-Code repository address: <https://gitee.com/mindspore/mindarmour>
+Code repository address: <https://atomgit.com/mindspore-lab/mindarmour>
 
 Typical Application Scenarios
 -----------------------------
