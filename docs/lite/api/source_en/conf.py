@@ -285,7 +285,7 @@ exhale_args = {
     # Fix broken Sphinx RTD Theme 'Edit on GitHub' links
     # Search for 'Edit on GitHub' on the FAQ:
     #     http://exhale.readthedocs.io/en/latest/faq.html
-    "pageLevelConfigMeta": ":gitee_url: https://gitee.com/mindspore/docs", #页面元数据
+    "pageLevelConfigMeta": ":gitee_url: https://atomgit.com/mindspore/docs", #页面元数据
     ############################################################################
     # Individual page layout example configuration.                            #
     ############################################################################
@@ -440,7 +440,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 cst_module_name = 'mindspore_lite'
 repo_whl = 'mindspore-lite/python/api'
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 
 import mindspore_lite
 

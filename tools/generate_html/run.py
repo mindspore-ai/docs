@@ -186,7 +186,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
         # git仓库名称和json数据中name对不上时，需要手动配置克隆地址
         if data[i]['environ'] == "MSL_PATH":
-            repo_url = "https://gitee.com/mindspore/mindspore-lite.git"
+            repo_url = "https://atomgit.com/mindspore/mindspore-lite.git"
             repo_path = f"{REPODIR}/mindspore-lite"
         elif data[i]['environ'] == "MSC_PATH":
             repo_url = "https://atomgit.com/mindspore-lab/mindscience.git"

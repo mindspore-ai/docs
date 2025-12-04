@@ -53,7 +53,7 @@ The vLLM-MindSpore Plugin provides [Docker Installation](https://www.mindspore.c
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
 ```bash  
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone https://atomgit.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```  
 

@@ -15,7 +15,7 @@ sudo apt-get update && apt-get install -y --no-install-recommends \
 
 ### 编译构建
 
-在Linux环境，执行MindSpore Lite[源代码](https://gitee.com/mindspore/mindspore-lite)根目录下的build.sh脚本，将在MindSpore Lite源代码根目录下的output文件夹构建出集成DSP的MindSpore Lite包，其中包含libmindspore-lite动态库以及测试工具Benchmark。命令如下：
+在Linux环境，执行MindSpore Lite[源代码](https://atomgit.com/mindspore/mindspore-lite)根目录下的build.sh脚本，将在MindSpore Lite源代码根目录下的output文件夹构建出集成DSP的MindSpore Lite包，其中包含libmindspore-lite动态库以及测试工具Benchmark。命令如下：
 
 ```bash
 export MSLITE_REGISTRY_DEVICE=ft78

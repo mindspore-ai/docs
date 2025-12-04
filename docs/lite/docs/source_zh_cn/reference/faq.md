@@ -276,7 +276,7 @@
       ```
 
     - 若MindSpore Lite进行整网推理存在精度问题，可以通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能) 保存算子层输出，和原框架推理结果进行对比进一步定位出现精度异常的算子。
-    - 针对存在精度问题的算子，可以下载[MindSpore Lite源码](https://gitee.com/mindspore/mindspore-lite) 检查算子实现并构造相应单算子网络进行调试与问题定位；也可以在MindSpore Lite社区[提ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 给MindSpore Lite的开发人员处理。
+    - 针对存在精度问题的算子，可以下载[MindSpore Lite源码](https://atomgit.com/mindspore/mindspore-lite) 检查算子实现并构造相应单算子网络进行调试与问题定位；也可以在MindSpore Lite社区[提ISSUE](https://atomgit.com/mindspore/mindspore-lite/issues) 给MindSpore Lite的开发人员处理。
 
 2. MindSpore Lite使用fp32推理结果正确，但是fp16推理结果出现NaN或者Inf值怎么办？
     - 结果出现NaN或者Inf值一般为推理过程中出现数值溢出，可以查看模型结构，筛选可能出数值溢出的算子层，然后通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能) 保存算子层输出确认出现数值溢出的算子。

@@ -25,7 +25,7 @@ Usage: `Fixes #<issue number>`, or `Fixes (paste link of issue)`.
 Fixes #
 
 
-**Code review checklist [[illustration]](https://gitee.com/mindspore/community/blob/master/security/code_review_checklist_mechanism.md)**:
+**Code review checklist [[illustration]](https://atomgit.com/mindspore/community/blob/master/security/code_review_checklist_mechanism.md)**:
 
 + - [ ] whether to verify the function's return value (It is forbidden to use void to mask the return values of security functions and self-developed functions. C++ STL functions can be masked if there is no problem)
 + - [ ] Whether to comply with ***SOLID principle / Demeter's law***

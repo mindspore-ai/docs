@@ -15,7 +15,7 @@ sudo apt-get update && apt-get install -y --no-install-recommends \
 
 ### Build
 
-Under the Linux operating system, one can easily build MindSpore Lite Package integrating DSP interfaces and libraries using build.sh under the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore-lite). The command is as follows.
+Under the Linux operating system, one can easily build MindSpore Lite Package integrating DSP interfaces and libraries using build.sh under the root directory of MindSpore [Source Code](https://atomgit.com/mindspore/mindspore-lite). The command is as follows.
 It will build MindSpore Lite's package under the output directory under the MindSpore source code root directory, which contains the libmindspore-lite dynamic library, and the test tool Benchmark.
 
 ```bash

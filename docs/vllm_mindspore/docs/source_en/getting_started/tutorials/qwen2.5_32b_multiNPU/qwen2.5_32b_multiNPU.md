@@ -13,7 +13,7 @@ In this section, we recommend using Docker for quick deployment of the vLLM-Mind
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository:
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone https://atomgit.com/mindspore/vllm-mindspore.git
 ```  
 
 To build the image according to your npu type, follow these steps:

@@ -270,7 +270,7 @@ Among them, the level is divided into E, W, I, respectively, indicating error, a
 > AICORE operator: The AI Core operator is the main component of the computational core of the Ascend AI processor and is responsible for performing computationally intensive operator related to vector and tensor.
 > AICPU operator: AI CPU operator is the AI CPU responsible for executing CPU-like operator (including control operator, scalar and vector, and other general-purpose computations) in the Hayes SoC of the Ascend processor.
 
-Among the 4-bit error codes, 0000~8999 are user-class errors and 9000~9999 are internal error codes. Generally, user-class error users can correct the error by themselves according to the error message, while internal error codes need to contact Huawei for troubleshooting. You can go to [MindSpore Community](https://gitee.com/mindspore) or [Ascend Community](https://gitee.com/ascend) to submit issue to get help. Some common error reporting scenarios are shown in the following table:
+Among the 4-bit error codes, 0000~8999 are user-class errors and 9000~9999 are internal error codes. Generally, user-class error users can correct the error by themselves according to the error message, while internal error codes need to contact Huawei for troubleshooting. You can go to [MindSpore Community](https://atomgit.com/mindspore) or [Ascend Community](https://gitee.com/ascend) to submit issue to get help. Some common error reporting scenarios are shown in the following table:
 
 | Common Error Types   | Error Description | Case Analysis |
 | - | - | - |

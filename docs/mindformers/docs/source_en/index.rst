@@ -13,7 +13,7 @@ Based on MindSpore's built-in parallel technology and component-based design, th
 
 Users can refer to `Overall Architecture <https://www.mindspore.cn/mindformers/docs/en/master/introduction/overview.html>`_ and `Model Library <https://www.mindspore.cn/mindformers/docs/en/master/introduction/models.html>`_ to get a quick overview of the MindSpore Transformers system architecture, and the list of supported foundation models.
 
-The open-source code repository for MindSpore Transformers is located at `Gitee | MindSpore/mindformers <https://gitee.com/mindspore/mindformers>`_.
+The open-source code repository for MindSpore Transformers is located at `Gitee | MindSpore/mindformers <https://atomgit.com/mindspore/mindformers>`_.
 
 If you have any suggestions for MindSpore Transformers, please contact us via `issue <https://atomgit.com/mindspore/mindformers/issues>`_ and we will handle them promptly.
 
@@ -28,7 +28,7 @@ MindSpore Transformers supports one-click start of single/multi-card training, f
 - `Service Deployment <https://www.mindspore.cn/mindformers/docs/en/master/guide/deployment.html>`_
 - `Evaluation <https://www.mindspore.cn/mindformers/docs/en/master/guide/evaluation.html>`_
 
-Code repository address: <https://gitee.com/mindspore/mindformers>
+Code repository address: <https://atomgit.com/mindspore/mindformers>
 
 Features description of MindSpore Transformers
 -------------------------------------------------------------------------------------------

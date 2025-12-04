@@ -27,7 +27,7 @@ pip install mindspore
 - 如果用户希望以Python安装包编译的形式使用，进入MSAdapter目录，进行源码编译操作：
 
     ```bash
-    git clone https://gitee.com/mindspore/msadapter.git
+    git clone https://atomgit.com/mindspore/msadapter.git
     cd msadapter
     bash scripts/build.sh
     pip install ${your_workspace}/msadapter/dist/*.whl

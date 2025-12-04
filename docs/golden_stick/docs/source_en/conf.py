@@ -388,7 +388,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 cst_module_name = 'mindspore_gs'
 repo_whl = 'mindspore_gs'
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 
 def setup(app):
     app.add_config_value('docs_branch', '', True)

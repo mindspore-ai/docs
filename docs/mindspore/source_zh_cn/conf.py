@@ -581,7 +581,7 @@ for mint_n, aclnn_str in re.findall(r'\n\| \[(.*?)\].*?\|(.*?)\|', mint_aclnn_co
     mint_aclnn[new_mint_n] = all_aclnn
 
 repo_whl = 'mindspore/python/'
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
 tensor_yaml = 'mindspore/ops/api_def/method_doc/'
 func_yaml = 'mindspore/ops/api_def/function_doc/'

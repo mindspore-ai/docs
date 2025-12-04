@@ -30,7 +30,7 @@ vLLM-MindSpore插件以将MindSpore大模型接入vLLM，并实现服务化部�
 
 vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册。未来期望遵循 `RPC Multi-framework support for vllm <https://atomgit.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ 所述原则。
 
-代码仓地址：<https://gitee.com/mindspore/vllm-mindspore>
+代码仓地址：<https://atomgit.com/mindspore/vllm-mindspore>
 
 环境准备
 -----------------------------------------------------

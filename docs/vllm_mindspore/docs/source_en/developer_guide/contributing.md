@@ -8,7 +8,7 @@ Before submitting code to the MindSpore community, you need to sign the Contribu
 
 ## Quick Start
 
-- Fork the repository on [Gitee](https://gitee.com/mindspore/vllm-mindspore).
+- Fork the repository on [Gitee](https://atomgit.com/mindspore/vllm-mindspore).
 - Refer to [README.md](https://atomgit.com/mindspore/vllm-mindspore/blob/master/README.md) and the installation page for project information and build instructions.
 
 ## Supporting New Models
@@ -39,7 +39,7 @@ Follow these guidelines for community code review, maintenance, and development.
   ```shell
   # On Gitee:
   git clone https://gitee.com/{insert_your_forked_repo}/vllm-mindspore.git
-  git remote add upstream https://gitee.com/mindspore/vllm-mindspore.git
+  git remote add upstream https://atomgit.com/mindspore/vllm-mindspore.git
   ```
 
 - **Local Development:** To avoid branch inconsistencies, switch to a new branch:

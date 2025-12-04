@@ -14,7 +14,7 @@ Install TensorRT of the corresponding CUDA version, and set the installed direct
 
 ### Build
 
-In the Linux environment, use the build.sh script in the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore-lite) to build the MindSpore Lite package integrated with TensorRT. First configure the environment variable `MSLITE_GPU_BACKEND=tensorrt`, and then execute the compilation command as follows. It will build a package for MindSpore Lite in the output directory under the root of the MindSpore source code, containing `libmindspore-lite.so` and the test tool Benchmark.
+In the Linux environment, use the build.sh script in the root directory of MindSpore [Source Code](https://atomgit.com/mindspore/mindspore-lite) to build the MindSpore Lite package integrated with TensorRT. First configure the environment variable `MSLITE_GPU_BACKEND=tensorrt`, and then execute the compilation command as follows. It will build a package for MindSpore Lite in the output directory under the root of the MindSpore source code, containing `libmindspore-lite.so` and the test tool Benchmark.
 
 ```bash
 bash build.sh -I x86_64

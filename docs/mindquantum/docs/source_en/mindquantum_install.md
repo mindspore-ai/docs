@@ -183,7 +183,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.0rc1/MindQua
 
    ```bash
    cd ~
-   git clone https://gitee.com/mindspore/mindquantum.git
+   git clone https://atomgit.com/mindspore/mindquantum.git
    ```
 
 2. Compiling MindSpore Quantum

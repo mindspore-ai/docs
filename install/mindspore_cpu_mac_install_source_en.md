@@ -63,7 +63,7 @@ Create a Conda virtual environment based on the Python version you want to use a
 ## Downloading Source Code from Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://atomgit.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore
