@@ -25,7 +25,7 @@ MindSpore SPONGE是一款基于MindSpore的计算生物领域套件，支持分�
 - 高通量的分子模拟；
 - 分子设计等。
 
-代码仓地址： <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE>
+代码仓地址： <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindSPONGE>
 
 MindSpore SPONGE 安装说明
 -------------------------
@@ -62,7 +62,7 @@ MindSpore安装教程请参考\ `MindSpore官网 <https://www.mindspore.cn/insta
 
 .. code:: 
 
-    git clone https://gitee.com/mindspore/mindscience.git
+    git clone https://atomgit.com/mindspore-lab/mindscience.git
     cd mindscience/MindSPONGE
 
 - 安装依赖
@@ -136,7 +136,7 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
 贡献指南
 --------
 
--  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md#>`__\ 。
+-  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://atomgit.com/mindspore-lab/mindscience/blob/master/CONTRIBUTION.md#>`__\ 。
 
 .. toctree::
    :glob:

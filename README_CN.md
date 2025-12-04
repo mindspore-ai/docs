@@ -130,7 +130,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    | MindSpore Transformers | MFM_PATH | <https://gitee.com/mindspore/mindformers.git> | mindformers |
    | MindSpore Golden Stick | GS_PATH | <https://gitee.com/mindspore/golden-stick.git> | golden_stick |
    | MindSpore Quantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
-   | MindScience | MSC_PATH | <https://gitee.com/mindspore/mindscience.git> | mindscience |
+   | MindScience | MSC_PATH | <https://atomgit.com/mindspore-lab/mindscience.git> | mindscience |
 
    克隆仓库以及设置环境变量的代码如下：
 

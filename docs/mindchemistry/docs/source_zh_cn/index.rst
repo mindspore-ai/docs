@@ -104,7 +104,7 @@ master        master >=2.3     >=3.8
 
    .. code:: bash
 
-      git clone https://gitee.com/mindspore/mindscience.git
+      git clone https://atomgit.com/mindspore-lab/mindscience.git
       cd {PATH}/mindscience/MindChemistry
 
 -  **编译昇腾Ascend后端源码**
@@ -133,7 +133,7 @@ wujian, wangyuheng, Lin Peijia, gengchenhua, caowenbin, Siyu Yang
 贡献指南
 --------
 
--  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md>`__
+-  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://atomgit.com/mindspore-lab/mindscience/blob/master/CONTRIBUTION.md>`__
 
 许可证
 ------

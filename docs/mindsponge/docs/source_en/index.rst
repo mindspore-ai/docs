@@ -44,7 +44,7 @@ and application scenarios, such as:
 - High throughput molecular simulation;
 - Molecular design, etc.
 
-Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE>
+Code repository address: <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindSPONGE>
 
 Installation
 ------------
@@ -82,7 +82,7 @@ Source Code Installation
 
 .. code:: 
 
-    git clone https://gitee.com/mindspore/mindscience.git
+    git clone https://atomgit.com/mindspore-lab/mindscience.git
     cd mindscience/MindSPONGE
 
 -  dependency install
@@ -178,7 +178,7 @@ Contribution Guide
 ------------------
 
 -  Please click here to see how to contribute your code:\ `Contribution
-   Guide <https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md#>`__
+   Guide <https://atomgit.com/mindspore-lab/mindscience/blob/master/CONTRIBUTION.md#>`__
 
 .. toctree::
    :glob:

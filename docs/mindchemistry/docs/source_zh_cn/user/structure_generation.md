@@ -8,4 +8,4 @@
 
 | 功能            | 模型                  | 训练 | 推理 | 后端       |
 | :------------- | :-------------------- | :--- | :--- | :-------- |
-| 结构生成| [DiffCSP](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/diffcsp)     | √    | √   | Ascend |
+| 结构生成| [DiffCSP](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/diffcsp)     | √    | √   | Ascend |

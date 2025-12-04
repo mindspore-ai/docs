@@ -8,4 +8,4 @@ Structure generation, which is a structure generation model based on deep learni
 
 | Function             | Model                  | Training | Inferring | Back-end   |
 |:---------------------| :-------------------- | :--- | :--- |:-----------|
-| structure generation | [DiffCSP](https://gitee.com/mindspore/mindscience/tree/master/MindChemistry/applications/diffcsp)    | √    | √   | Ascend     |
+| structure generation | [DiffCSP](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindChemistry/applications/diffcsp)    | √    | √   | Ascend     |

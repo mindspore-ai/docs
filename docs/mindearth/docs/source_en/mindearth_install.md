@@ -6,7 +6,7 @@
 
 - The hardware platform should be Ascend, GPU.
 - See our [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
-- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/MindEarth/requirements.txt).
+- All other dependencies are included in [requirements.txt](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindEarth/requirements.txt).
 
 ## Installation
 
@@ -25,7 +25,7 @@ pip install mindearth_${DEVICE_NAME}
 1. Download source code from Gitee.
 
    ```bash
-   git clone https://gitee.com/mindspore/mindscience.git
+   git clone https://atomgit.com/mindspore-lab/mindscience.git
    cd {PATH}/mindscience/MindEarth
    ```
 

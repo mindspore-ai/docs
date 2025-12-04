@@ -51,10 +51,10 @@ Fuzz Testing架构主要包括三个模块：
 
 ## 代码实现
 
-1. [fuzzing.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/fuzzing.py)：Fuzzer总体流程。
-2. [model_coverage_metrics.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/model_coverage_metrics.py)：神经元覆盖率指标，包括KMNC，NBC，SNAC。
-3. [image transform methods](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image)：图像变异方法，包括多种加噪、模糊、亮度调整、仿射变化方法。
-4. [adversarial attacks](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/adv_robustness/attacks)：对抗样本攻击方法，包含多种黑盒、白盒攻击方法。
+1. [fuzzing.py](https://atomgit.com/mindspore-lab/mindarmour/blob/master/mindarmour/fuzz_testing/fuzzing.py)：Fuzzer总体流程。
+2. [model_coverage_metrics.py](https://atomgit.com/mindspore-lab/mindarmour/blob/master/mindarmour/fuzz_testing/model_coverage_metrics.py)：神经元覆盖率指标，包括KMNC，NBC，SNAC。
+3. [image transform methods](https://atomgit.com/mindspore-lab/mindarmour/tree/master/mindarmour/natural_robustness/transform/image)：图像变异方法，包括多种加噪、模糊、亮度调整、仿射变化方法。
+4. [adversarial attacks](https://atomgit.com/mindspore-lab/mindarmour/tree/master/mindarmour/adv_robustness/attacks)：对抗样本攻击方法，包含多种黑盒、白盒攻击方法。
 
 ## 参考文献
 

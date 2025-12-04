@@ -211,7 +211,7 @@ train_lenet_cpp/
 
 ### Model Exporting
 
-Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/models/tree/master/research/cv/lenet).
+Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://atomgit.com/mindspore-lab/models/tree/master/research/cv/lenet).
 
 > This summary is exported using the MindSpore cloud side feature. For more information, please refer to [MindSpore Tutorial](https://www.mindspore.cn/tutorials/en/master/index.html).
 

@@ -86,7 +86,7 @@ A: MindSpore supports Python native expression and `import mindspore` related pa
 
 ## Q: Does MindSpore support truncated gradient?
 
-A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/models/blob/master/official/nlp/Transformer/src/transformer_for_train.py#L35).
+A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://atomgit.com/mindspore-lab/models/blob/master/official/nlp/Transformer/src/transformer_for_train.py#L35).
 
 <br/>
 
