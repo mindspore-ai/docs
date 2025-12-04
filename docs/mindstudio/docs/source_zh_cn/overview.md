@@ -27,9 +27,9 @@
          <td><a href="https://www.mindspore.cn/install">安装MindSpore</a></td>
       </tr>
       <tr>
-         <td><a href="https://gitcode.com/Ascend/mstt/tree/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/">msprof-anaylze</a></td>
-         <td>为采集的性能数据提供统计、分析、专家建议等功能。推荐优先选择msprof-anaylze 8.2.0版本</td>
-         <td><a href="https://gitcode.com/Ascend/mstt/tree/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/#-安装">安装msprof-anaylze</a></td>
+         <td><a href="https://gitcode.com/Ascend/mstt/tree/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/">msprof-analyze</a></td>
+         <td>为采集的性能数据提供统计、分析、专家建议等功能。推荐优先选择msprof-analyze 8.2.0版本</td>
+         <td><a href="https://gitcode.com/Ascend/mstt/tree/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/#-安装">安装msprof-analyze</a></td>
       </tr>
       <tr>
          <td><a href="https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/T&ITools/msleaks/atlas_msleaks_0001.html">msleaks</a></td>

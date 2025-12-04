@@ -61,7 +61,7 @@ MindStudio Training Tools工具链中的MindStudio Insight工具、msprof-analyz
         <td>查看整体内存趋势，以及通过框选峰值区域快速定位到内存消耗过大的算子。</td>
     </tr>
     <tr>
-        <td rowspan="3">msprof-anaylze</td>
+        <td rowspan="3">msprof-analyze</td>
         <td><a href="https://gitcode.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/cluster_analyse/README.md">集群分析工具</a></td>
         <td>训练场景的集群性能数据分析工具，主要对基于通信域的迭代内耗时、通信时间、通信矩阵进行分析。</td>
         <td>适用于定位集群内慢卡、慢节点、慢链路等问题。</td>
