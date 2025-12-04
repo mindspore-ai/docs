@@ -8,6 +8,8 @@ This tutorial provides a sample program for MindSpore Lite to perform cloud-side
 
 MindSpore Lite cloud-side inference is supported for running in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series and CPU hardware backends are supported.
 
+> When using MindSpore Lite together with other third-party frameworks, please ensure that the import actions of other third-party frameworks are placed before `mindspore_lite.Model.build_from_file` and `mindspore_lite.ModelGroup.cal_max_size_of_workspace`, otherwise it may lead to unexpected issues.
+
 The following is an example of how to use the Python Cloud-side Inference Demo on a Linux X86 operating system and a CPU hardware platform, using Ubuntu 18.04 as an example:
 
 - One-click installation of inference-related model files, MindSpore Lite and its required dependencies. See the [One-click installation](#one-click-installation) section for details.

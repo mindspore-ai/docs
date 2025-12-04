@@ -8,6 +8,8 @@
 
 MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品和CPU硬件后端。
 
+> 当MindSpore Lite与其他第三方框架共用时，请确保将其他第三方框架的导入操作放在`mindspore_lite.Model.build_from_file`和`mindspore_lite.ModelGroup.cal_max_size_of_workspace`方法调用之前，否则可能导致不可预见的问题。
+
 下面以Ubuntu 18.04为例，介绍了在Linux X86操作系统配合CPU硬件平台下如何使用Python云侧推理Demo：
 
 - 一键安装推理相关模型文件、MindSpore Lite及其所需的依赖，详情参见[一键安装](#一键安装)小节。
