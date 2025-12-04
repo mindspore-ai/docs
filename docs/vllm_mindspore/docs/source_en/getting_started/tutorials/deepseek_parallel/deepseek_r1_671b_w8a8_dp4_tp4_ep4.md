@@ -17,7 +17,7 @@ In this section, we recommend using Docker creation to quickly deploy the vLLM-M
 Users can execute the following commands to pull the vLLM-MindSpore plugin code repository and build the image:
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone https://atomgit.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 

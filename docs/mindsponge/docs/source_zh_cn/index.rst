@@ -125,7 +125,7 @@ SIG小组目前有着六位核心专家老师，加入SIG小组之后可以由�
 × Science进阶课程三大主题，详见\ `AI+科学计算|MindSpore
 SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_from=333.999.0.0&vd_source=94e532d8ff646603295d235e65ef1453>`__\ 。
 
-在SIG小组中，我们还会发布众智任务和\ `开源实习任务 <https://gitee.com/mindspore/community/issues/I561LI?from=project-issue>`__\ ，欢迎大家来认领。
+在SIG小组中，我们还会发布众智任务和\ `开源实习任务 <https://atomgit.com/mindspore/community/issues/I561LI?from=project-issue>`__\ ，欢迎大家来认领。
 
 核心贡献者
 ~~~~~~~~~~

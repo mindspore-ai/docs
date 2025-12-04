@@ -90,7 +90,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 2. 下载MindSpore Docs仓代码。
 
    ```bash
-   git clone https://gitee.com/mindspore/docs.git
+   git clone https://atomgit.com/mindspore/docs.git
    ```
 
 3. 进入API所在目录`docs/mindspore`，安装该目录下`requirements.txt`文件中的依赖项。
@@ -125,11 +125,11 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 
    | 对应API的生成 | 环境变量 | 仓库链接 | 仓库名 |
    | ---- | ---- | ---- | ---- |
-   | MindSpore | MS_PATH | <https://gitee.com/mindspore/mindspore.git> | mindspore |
-   | MindSpore Lite | MSL_PATH | <https://gitee.com/mindspore/mindspore-lite.git> | mindspore_lite |
-   | MindSpore Transformers | MFM_PATH | <https://gitee.com/mindspore/mindformers.git> | mindformers |
-   | MindSpore Golden Stick | GS_PATH | <https://gitee.com/mindspore/golden-stick.git> | golden_stick |
-   | MindSpore Quantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
+   | MindSpore | MS_PATH | <https://atomgit.com/mindspore/mindspore.git> | mindspore |
+   | MindSpore Lite | MSL_PATH | <https://atomgit.com/mindspore/mindspore-lite.git> | mindspore_lite |
+   | MindSpore Transformers | MFM_PATH | <https://atomgit.com/mindspore/mindformers.git> | mindformers |
+   | MindSpore Golden Stick | GS_PATH | <https://atomgit.com/mindspore/golden-stick.git> | golden_stick |
+   | MindSpore Quantum | MQ_PATH | <https://atomgit.com/mindspore/mindquantum.git> | mindquantum |
    | MindScience | MSC_PATH | <https://atomgit.com/mindspore-lab/mindscience.git> | mindscience |
 
    克隆仓库以及设置环境变量的代码如下：

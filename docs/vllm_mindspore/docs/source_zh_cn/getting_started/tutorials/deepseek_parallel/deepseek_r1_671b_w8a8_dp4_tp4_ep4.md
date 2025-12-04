@@ -17,7 +17,7 @@ vLLM-MindSpore插件支持[张量并行（TP）](https://docs.vllm.ai/en/v0.9.1/
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone https://atomgit.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 

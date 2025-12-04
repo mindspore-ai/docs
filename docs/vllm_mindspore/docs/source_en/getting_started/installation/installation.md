@@ -36,7 +36,7 @@ We recommend using Docker for quick deployment of the vLLM-MindSpore Plugin envi
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository:
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone https://atomgit.com/mindspore/vllm-mindspore.git
 ```  
 
 To build the image according to your npu type, follow these steps:
@@ -143,7 +143,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
     To install vLLM-MindSpore Plugin, user needs to pull the vLLM-MindSpore Plugin source code and then runs the following command to install the dependencies:
 
     ```bash
-    git clone https://gitee.com/mindspore/vllm-mindspore.git
+    git clone https://atomgit.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     ```
@@ -189,7 +189,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
        User needs to pull source of vLLM-MindSpore Plugin, and run installation.
 
        ```bash
-       git clone https://gitee.com/mindspore/vllm-mindspore.git
+       git clone https://atomgit.com/mindspore/vllm-mindspore.git
        cd vllm-mindspore
        pip install .
        ```

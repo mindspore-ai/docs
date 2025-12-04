@@ -9,7 +9,7 @@
 
 ## 快速入门
 
-- 在[Gitee](https://gitee.com/mindspore/vllm-mindspore)上fork代码仓。
+- 在[Gitee](https://atomgit.com/mindspore/vllm-mindspore)上fork代码仓。
 - 参见[README.md](https://atomgit.com/mindspore/vllm-mindspore/blob/master/README.md)和安装页面了解项目信息和构建说明。
 
 ## 增加新模型
@@ -42,7 +42,7 @@
     ```shell
     # 在Gitee上：
     git clone https://gitee.com/{insert_your_forked_repo}/vllm-mindspore.git
-    git remote add upstream https://gitee.com/mindspore/vllm-mindspore.git
+    git remote add upstream https://atomgit.com/mindspore/vllm-mindspore.git
     ```
 
 - **本地开发代码：** 为避免分支不一致，建议切换到新分支：

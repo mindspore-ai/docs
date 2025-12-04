@@ -270,7 +270,7 @@ EK0001: Path [/ms_test/csj/csj/user_scene/profiler_chinese_中文/resnet/scripts
 > AICORE算子：AI Core 算子是昇腾 AI 处理器计算核心的主要构成，负责执行向量和张量相关的计算密集型算子。
 > AICPU算子：AI CPU算子是AI CPU负责执行昇腾处理器中海思 SoC 的CPU类算子（包括控制算子、标量和向量等通用计算）。
 
-在4位错误码中0000~8999为用户类错误，9000~9999为内部错误码。一般情况下，用户类错误可根据报错消息自行修正，而内部错误码需要联系华为进行故障排查，可以到[MindSpore社区](https://gitee.com/mindspore)或者[昇腾社区](https://gitee.com/ascend)提交issue获取帮助。常见的一些报错场景如下表所示：
+在4位错误码中0000~8999为用户类错误，9000~9999为内部错误码。一般情况下，用户类错误可根据报错消息自行修正，而内部错误码需要联系华为进行故障排查，可以到[MindSpore社区](https://atomgit.com/mindspore)或者[昇腾社区](https://gitee.com/ascend)提交issue获取帮助。常见的一些报错场景如下表所示：
 
 | 常见错误类型   | 错误说明 | 案例分析 |
 | - | - | - |

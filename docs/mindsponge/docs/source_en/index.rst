@@ -160,7 +160,7 @@ get the replay
 
 In the SIG group, we will also release the public intelligence task and
 `open source internship
-task <https://gitee.com/mindspore/community/issues/I561LI?from=project-issue>`__,
+task <https://atomgit.com/mindspore/community/issues/I561LI?from=project-issue>`__,
 welcome everyone to claim it.
 
 Core Contributor

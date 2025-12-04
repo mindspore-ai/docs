@@ -119,7 +119,7 @@ In file /cache/user-job-dir/mindspore_clip_20210923/msvision/backbone/clip.py(56
 In file /cache/user-job-dir/mindspore_clip_20210923/msvision/backbone/clip.py(635)/        image_features = self.encode_image(image)/
 ```
 
-从上述错误码的报错信息中可以看到，这个transpose算子的规格不支持，其做内存拷贝指令时数据超过了限制。针对此类问题，用户可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
+从上述错误码的报错信息中可以看到，这个transpose算子的规格不支持，其做内存拷贝指令时数据超过了限制。针对此类问题，用户可以到[MindSpore社区](https://atomgit.com/mindspore)提交issue获取帮助。
 
 ## AICORE算子执行问题
 
@@ -161,7 +161,7 @@ Traceback (most recent call last):
 RuntimeError: mindspore/ccsrc/backend/session/ascend_session.cc:1456 Execute] run task error!
 ```
 
-AICORE算子执行失败，可能是数据输入不匹配、访问越界、计算溢出等问题，也有可能是算子本身代码问题。针对此类问题用户可以通过日志和dump数据先自行排查，构造单算子用例进行定位，若无法定位出问题可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
+AICORE算子执行失败，可能是数据输入不匹配、访问越界、计算溢出等问题，也有可能是算子本身代码问题。针对此类问题用户可以通过日志和dump数据先自行排查，构造单算子用例进行定位，若无法定位出问题可以到[MindSpore社区](https://atomgit.com/mindspore)提交issue获取帮助。
 
 ## AICPU算子执行问题
 
@@ -196,7 +196,7 @@ E39999: Inner Error!
 INFO 2021-09-14 09:26:01 - root - test_ms_cifar10_tdt_consume_beyond_produce_more_RDR.py:test_run:50 - when dataset batch num is less than train loop, error msg is mindspore/ccsrc/backend/session/ascend_session.cc:1456 Execute] run task error!
 ```
 
-AICPU算子执行失败，可能是数据输入不匹配、访问越界、AICPU线程挂死等问题，也有可能是算子本身代码问题。针对此类问题用户可以通过日志和dump数据先自行排查，构造单算子用例进行定位，若无法定位出问题可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
+AICPU算子执行失败，可能是数据输入不匹配、访问越界、AICPU线程挂死等问题，也有可能是算子本身代码问题。针对此类问题用户可以通过日志和dump数据先自行排查，构造单算子用例进行定位，若无法定位出问题可以到[MindSpore社区](https://atomgit.com/mindspore)提交issue获取帮助。
 
 ## runtime常见问题
 
@@ -378,7 +378,7 @@ mindspore/ccsrc/plugin/device/ascend/hal/hardware/ascend_graph_executor.cc:214 R
 
 2. 在执行多卡分布式程序时，若某张卡的进程意外终止，可能会导致其他卡在数据读取时出现超时问题。
 
-如果排查后不是GetNext取数据超时的问题，用户可以到[MindSpore社区](https://gitee.com/mindspore)提交issue获取帮助。
+如果排查后不是GetNext取数据超时的问题，用户可以到[MindSpore社区](https://atomgit.com/mindspore)提交issue获取帮助。
 
 ### EE1001: device id设置错误
 

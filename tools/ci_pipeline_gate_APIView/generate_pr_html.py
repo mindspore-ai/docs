@@ -37,7 +37,7 @@ def update_repo(clone_branch, rp_dir_docs):
     # docs工程运行仓克隆更新
     if not os.path.exists(rp_dir_docs):
         os.makedirs(rp_dir_docs, exist_ok=True)
-        Repo.clone_from("https://gitee.com/mindspore/docs.git",
+        Repo.clone_from("https://atomgit.com/mindspore/docs.git",
                         rp_dir_docs, branch=clone_branch)
     else:
         # Repo(rp_dir).git.execute(["git","pull","origin","master"])

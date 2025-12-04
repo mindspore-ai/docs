@@ -64,7 +64,7 @@
 通过`git`克隆源码，进入源码目录，`Linux`指令如下：
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore-lite.git -b {version}
+git clone https://atomgit.com/mindspore/mindspore-lite.git -b {version}
 cd ./mindspore-lite
 ```
 

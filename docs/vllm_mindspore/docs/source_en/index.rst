@@ -30,7 +30,7 @@ On the basis of the above design principles, vLLM-MindSpore Plugin adopts the sy
 
 vLLM-MindSpore Plugin uses the plugin mechanism recommended by the vLLM community to realize capability registration. In the future, we expect to promote vLLM community to support integration of inference capabilities of third-party AI frameworks, including PaddlePaddle and JAX by following principles described in `[RPC] Multi-framework support for vllm <https://atomgit.com/mindspore/vllm-mindspore/issues/IBTNRG>`_ .
 
-Code: <https://gitee.com/mindspore/vllm-mindspore>
+Code: <https://atomgit.com/mindspore/vllm-mindspore>
 
 Prerequisites
 -----------------------------------------------------

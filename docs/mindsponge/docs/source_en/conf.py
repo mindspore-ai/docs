@@ -251,7 +251,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 cst_module_name = ['mindsponge', 'sponge']
 repo_whl = ['MindSPONGE/src/mindsponge', 'MindSPONGE/src/sponge']
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 
 import mindsponge
 

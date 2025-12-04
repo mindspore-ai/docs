@@ -12,7 +12,7 @@ Download [DDK 100.510.010.010](https://developer.huawei.com/consumer/en/doc/deve
 
 ### Build
 
-Under the Linux operating system, one can easily build MindSpore Lite Package integrating Kirin NPU interfaces and libraries using build.sh under the root directory of MindSpore [Source Code](https://gitee.com/mindspore/mindspore-lite). The command is as follows.
+Under the Linux operating system, one can easily build MindSpore Lite Package integrating Kirin NPU interfaces and libraries using build.sh under the root directory of MindSpore [Source Code](https://atomgit.com/mindspore/mindspore-lite). The command is as follows.
 It will build MindSpore Lite's package under the output directory under the MindSpore source code root directory, which contains the Kirin NPU's dynamic library, the libmindspore-lite dynamic library, and the test tool Benchmark.
 
 ```bash

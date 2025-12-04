@@ -64,7 +64,7 @@ MindSpore can be installed by source code or using `pip`. Refer to [MindSpore in
 Use `git` to clone the source code, the command in `Linux` is as follows:
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore-lite.git -b {version}
+git clone https://atomgit.com/mindspore/mindspore-lite.git -b {version}
 cd ./mindspore-lite
 ```
 

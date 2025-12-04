@@ -54,7 +54,7 @@ vLLM-MindSpore插件提供了[docker安装](https://www.mindspore.cn/vllm_mindsp
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone https://atomgit.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 

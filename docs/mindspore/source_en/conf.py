@@ -463,7 +463,7 @@ else:
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 repo_whl = 'mindspore/python/'
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
 tensor_yaml = 'mindspore/ops/api_def/method_doc/'
 func_yaml = 'mindspore/ops/api_def/function_doc/'
