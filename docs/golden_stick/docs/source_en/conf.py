@@ -230,17 +230,17 @@ except:
     print('golden_stick替换安装包内容失败')
 
 # 发版本时这里启用
-# re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+# re_url = r"(((atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
 #          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
 #          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(gitee.com/mindspore/(mindspore|mindspore-lite)/[\w\d/_.-]*?)/(master)"
+# re_url2 = r"(atomgit.com/mindspore/(mindspore|mindspore-lite)/[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+# re_url3 = r"(((atomgit.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
 
 # re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url5 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+# re_url5 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
 
 # 发版本时这里启用
 # for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_gs')):
@@ -388,7 +388,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 cst_module_name = 'mindspore_gs'
 repo_whl = 'mindspore_gs'
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 
 def setup(app):
     app.add_config_value('docs_branch', '', True)

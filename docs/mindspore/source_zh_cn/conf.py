@@ -414,13 +414,13 @@ rename_include('migration_guide')
 import json
 
 # 发版本时这里启用
-# re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+# re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
 #          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
 #          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(gitee.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
+# re_url2 = r"(atomgit.com/mindspore/mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+# re_url3 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
 
 if os.path.exists('../../../tools/generate_html/version.json'):
     with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
@@ -441,7 +441,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
-          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+          f"resource/_static/logo_source.svg\n    :target: https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/"
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
@@ -460,7 +460,7 @@ for cur, _, files in os.walk(des_sir):
 
                     # master使用
                     if i.endswith('.md'):
-                        md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                        md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                         if 'resource/_static/logo_source' not in new_content:
                             new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                     if new_content != content:
@@ -581,7 +581,7 @@ for mint_n, aclnn_str in re.findall(r'\n\| \[(.*?)\].*?\|(.*?)\|', mint_aclnn_co
     mint_aclnn[new_mint_n] = all_aclnn
 
 repo_whl = 'mindspore/python/'
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
 tensor_yaml = 'mindspore/ops/api_def/method_doc/'
 func_yaml = 'mindspore/ops/api_def/function_doc/'
@@ -718,7 +718,7 @@ def setup(app):
 
 src_release = os.path.join(repo_path, 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
-release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
+release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
 
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()

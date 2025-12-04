@@ -178,7 +178,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
         # 克隆仓库与配置环境变量
         repo_name = data[i]['name'].replace('_', '-')
-        repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
+        repo_url = f"https://atomgit.com/mindspore/{repo_name}.git"
         repo_path = f"{REPODIR}/{repo_name}"
         branch_ = data[i]["branch"]
         if not branch_:
@@ -186,7 +186,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
         # git仓库名称和json数据中name对不上时，需要手动配置克隆地址
         if data[i]['environ'] == "MSL_PATH":
-            repo_url = "https://gitee.com/mindspore/mindspore-lite.git"
+            repo_url = "https://atomgit.com/mindspore/mindspore-lite.git"
             repo_path = f"{REPODIR}/mindspore-lite"
         elif data[i]['environ'] == "MSC_PATH":
             repo_url = "https://gitee.com/mindspore/mindscience.git"

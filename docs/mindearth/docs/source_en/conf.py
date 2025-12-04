@@ -239,7 +239,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 cst_module_name = 'mindearth'
 repo_whl = 'MindEarth/mindearth'
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import nbsphinx_mod
