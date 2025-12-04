@@ -166,7 +166,7 @@ print(output)
 
 - A8W8量化
 
-    > A8W8量化基于[SmoothQuant](https://gitcode.com/gh_mirrors/smo/smoothquant/overview)算法，PTQConfig提供outliers_suppression字段控制是否进行smooth操作。
+    > A8W8量化基于[SmoothQuant](https://atomgit.com/gh_mirrors/smo/smoothquant/overview)算法，PTQConfig提供outliers_suppression字段控制是否进行smooth操作。
 
     ```python
     from mindspore import dtype as msdtype

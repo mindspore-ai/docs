@@ -166,7 +166,7 @@ You can customize the PTQConfig to enable different quantization capabilities. F
 
 - A8W8 quantization
 
-    > A8W8 quantization is based on the [SmoothQuant](https://gitcode.com/gh_mirrors/smo/smoothquant/overview) algorithm. PTQConfig provides the **outliers_suppression** field to specify whether to perform the smooth operation.
+    > A8W8 quantization is based on the [SmoothQuant](https://atomgit.com/gh_mirrors/smo/smoothquant/overview) algorithm. PTQConfig provides the **outliers_suppression** field to specify whether to perform the smooth operation.
 
     ```python
     from mindspore import dtype as msdtype

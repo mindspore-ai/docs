@@ -7,7 +7,7 @@ MindStudio是面向AI开发者提供的全流程工具链，提供了精度、�
 
 本文档汇总了MindStudio和MindSpore框架等提供的系列调试工具，并简要介绍这些工具的安装方式、主要功能、入门指导，以及在大模型场景的使用方式。
 
-代码仓地址： <https://gitcode.com/Ascend/mstt>
+代码仓地址： <https://atomgit.com/Ascend/mstt>
 
 .. image:: ./images/MindStudio8.2.RC1.png
    :alt: Architecture
