@@ -61,18 +61,18 @@ MindStudio Training Tools工具链中的MindStudio Insight工具、msprof-analyz
         <td>查看整体内存趋势，以及通过框选峰值区域快速定位到内存消耗过大的算子。</td>
     </tr>
     <tr>
-        <td rowspan="3">msprof-anaylze</td>
-        <td><a href="https://gitcode.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/cluster_analyse/README.md">集群分析工具</a></td>
+        <td rowspan="3">msprof-analyze</td>
+        <td><a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/cluster_analyse/README.md">集群分析工具</a></td>
         <td>训练场景的集群性能数据分析工具，主要对基于通信域的迭代内耗时、通信时间、通信矩阵进行分析。</td>
         <td>适用于定位集群内慢卡、慢节点、慢链路等问题。</td>
     </tr>
     <tr>
-        <td><a href="https://gitcode.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/compare_tools/README.md">性能比对工具</a></td>
+        <td><a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/compare_tools/README.md">性能比对工具</a></td>
         <td>对采集的性能数据进行比对分析。</td>
         <td>比较不同硬件/框架下的性能数据，快速识别性能差异点。</td>
     </tr>
     <tr>
-        <td><a href="https://gitcode.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/advisor/README.md">专家建议工具</a></td>
+        <td><a href="https://atomgit.com/Ascend/mstt/blob/br_release_MindStudio_8.2.RC1_TR5_20260923/profiler/msprof_analyze/advisor/README.md">专家建议工具</a></td>
         <td>分析训练场景的性能数据并给出专家建议。</td>
         <td>将采集的性能数据进行分析，并输出性能调优建议。支持对计算、通信、空闲等维度对性能数据进行拆解，分析出计算瓶颈、调度瓶颈。</td>
     </tr>

@@ -143,7 +143,7 @@ When numerical anomalies are detected, the training task fails and alerts are re
 
 * Search application logs for **ERROR** level error logs with the keyword "accuracy sensitivity feature abnormal";
 * Monitor the NPU health status: if Health Status displays Warning, Error Code displays 80818C00, and Error Information displays node type=SoC, sensor type=Check Sensor, event state=check fail;
-* Check the [MindCluster](https://gitcode.com/Ascend/mind-cluster) events, report error code 80818C00, event type is fault event, and the fault level is minor.
+* Check the [MindCluster](https://atomgit.com/Ascend/mind-cluster) events, report error code 80818C00, event type is fault event, and the fault level is minor.
 
 When using combined detection, if feature value detection anomalies occur and CheckSum detects silent faults, warning logs can be found in the training logs:
 
