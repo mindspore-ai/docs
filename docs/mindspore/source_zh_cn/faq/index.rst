@@ -10,6 +10,7 @@ FAQ
    implement_problem
    network_compilation
    operators_compile
+   tools
    performance_tuning
    precision_tuning
    distributed_parallel
