@@ -1,6 +1,6 @@
 # Security
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/general/security.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/general/security.md)
 
 When enabling inference services using vLLM-MindSpore Plugin on Ascend, there may be some security-related issues due to the need for certain network ports for necessary functions such as service-oriented, node communication, and model execution.
 

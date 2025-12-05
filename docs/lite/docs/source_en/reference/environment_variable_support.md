@@ -1,6 +1,6 @@
 # Description of Environment Variable Support
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/environment_variable_support.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/environment_variable_support.md)
 
 This document lists the environment variables supported by MindSpore Lite along with their meanings, and provides the available values and default settings for each environment variable.
 

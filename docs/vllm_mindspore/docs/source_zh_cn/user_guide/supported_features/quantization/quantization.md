@@ -1,6 +1,6 @@
 # 量化方法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/quantization/quantization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/quantization/quantization.md)
 
 本文档将为用户介绍模型量化与量化推理的方法。量化方法通过牺牲部分模型精度的方式，达到降低模型部署时的资源需求的目的，并提升模型部署时的性能，从而允许模型被部署到更多的设备上。由于大语言模型的规模较大，出于成本考虑，训练后量化成为主流模型量化方案，具体可以参考[后量化技术简介](https://atomgit.com/mindspore/golden-stick/blob/master/mindspore_gs/ptq/README_CN.md)。
 

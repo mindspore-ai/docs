@@ -1,7 +1,7 @@
 Error Reporting Analysis
 =========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg
     :target: https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis.rst
     :alt: View Source On Gitee
 
@@ -53,7 +53,7 @@ Understanding the meaning of error description information plays an important ro
 MindSpore error messages are processed by using Python
 Traceback processing, including Python stack information, error types and error descriptions, error messages related to network developers, and error messages related to framework developers. As shown in the following figure:
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/debug/images/graph_errmsg.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/tutorials/source_zh_cn/debug/images/graph_errmsg.png
 
 -  Python stack information:
 

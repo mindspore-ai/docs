@@ -1,6 +1,6 @@
 # 香橙派开发
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/orange_pi/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/orange_pi/overview.md)
 
 [OrangePi AIpro(香橙派 AIpro)](http://www.orangepi.cn/index.html)采用昇腾AI技术路线，具体为4核64位处理器和AI处理器，并集成图形处理器。
 

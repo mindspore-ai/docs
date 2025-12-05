@@ -1,6 +1,6 @@
 # Performing Cloud-side Distributed Inference Using Python Interface
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_distributed_python.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/mindir/runtime_distributed_python.md)
 
 ## Overview
 
@@ -8,7 +8,7 @@ For scenarios where large-scale neural network models have many parameters and c
 
 MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployments with Atlas training series as the supported device types. As shown in the figure below, the distributed inference is currently initiated by a multi-process approach, where each process corresponds to a `Rank` in the communication set, loading, compiling and executing the respective sliced model, with the same input data for each process.
 
-![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/mindir/images/lite_runtime_distributed.png)
+![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/lite/docs/source_zh_cn/mindir/images/lite_runtime_distributed.png)
 
 Each process consists of the following main steps:
 

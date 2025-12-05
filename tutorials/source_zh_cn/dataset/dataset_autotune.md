@@ -1,6 +1,6 @@
 # 自动数据加速
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/dataset/dataset_autotune.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/dataset/dataset_autotune.md)
 
 ## 概述
 
@@ -112,7 +112,7 @@ def create_dataset(...)
 
 ### 开始训练
 
-根据[resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/README_CN.md#)所描述的步骤
+根据[resnet/README.md](https://atomgit.com/mindspore-lab/models/blob/master/official/cv/ResNet/README_CN.md#)所描述的步骤
 启动CIFAR10数据集的训练，随后自动数据加速模块会通过LOG的形式展示其对于性能瓶颈的分析情况：
 
 ```text

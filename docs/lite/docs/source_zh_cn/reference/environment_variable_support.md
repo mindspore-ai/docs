@@ -1,6 +1,6 @@
 # 环境变量支持说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/environment_variable_support.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/environment_variable_support.md)
 
 本文列举MindSpore Lite所支持的环境变量及其含义说明，并相应地给出了每个环境变量的可选取值和默认取值。
 

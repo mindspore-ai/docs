@@ -1,6 +1,6 @@
 # Molecular Simulation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/user/simulation.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/user/simulation.md)
 
 MindSpore SPONGE has adopted a unique "AI-like" molecular simulation program architecture:
 

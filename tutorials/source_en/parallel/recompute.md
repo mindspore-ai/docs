@@ -1,6 +1,6 @@
 # Recomputation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/recompute.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/recompute.md)
 
 ## Overview
 
@@ -14,7 +14,7 @@ In order to reduce memory peaks, the recompute technique can not save the comput
 
 The recompute function is implemented as a forward operator that is recomputed according to the user's specified needs, copies the same operator, outputs it to the reverse operator, and deletes the continuous edge relationship between the original forward operator and the reverse operator. In addition, we need to ensure that the copied operator only begins to be evaluated when the corresponding inverse part is computed, so we need to insert control dependencies to ensure the order in which the operators are executed. As shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/recompute_image_0_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/tutorials/source_zh_cn/parallel/images/recompute_image_0_zh.png)
 
 *Figure: Forward and reverse diagram before and after the recompute function is enabled*
 
@@ -22,7 +22,7 @@ For user convenience, MindSpore currently provides not only a recompute interfac
 
 Taking the GPT-3 model as an example, the policy is set to recalculate the cell corresponding to the each layer, and then the output operator of the layer is set to non-recompute. The effect of recompute on the 72-layer GPT-3 network is shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/recompute_image_1_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/tutorials/source_zh_cn/parallel/images/recompute_image_1_zh.png)
 
 *Figure: Comparison of GPT-3 memory usage before and after recalculation function is enabled*
 

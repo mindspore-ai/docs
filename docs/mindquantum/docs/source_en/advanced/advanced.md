@@ -1,6 +1,6 @@
 # Advanced Tutorial Overview
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/advanced/advanced.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/advanced/advanced.md)
 
 Understand the design and usage of MindSpore Quantum for NISQ algorithms, particularly how to design variational quantum algorithms and collaborate with MindSpore to train hybrid quantum-classical algorithms.
 

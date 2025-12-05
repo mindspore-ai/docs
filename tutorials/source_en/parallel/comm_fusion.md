@@ -1,6 +1,6 @@
 # Distributed Training Communication Fusion
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/comm_fusion.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/parallel/comm_fusion.md)
 
 ## Overview
 
@@ -18,7 +18,7 @@ The whole process of distributed training can be roughly divided into two proces
 
 As shown in the figure below, each node backs up the complete neural network model and uses the local dataset partition to train a mini-batch for forward and backward computation. The gradient obtained from the backward computation is synchronized across the nodes, and the training of the next mini-batch continues after synchronization, and so on, until the accuracy/loss reaches a threshold, or a certain number of epochs are trained. It can be seen that computation and communication alternate in the distributed training process. Work has been done on how to do pipelining of interdependent computation and transmission to reduce the percentage of cross-node data synchronization in the overall training duration [5][6], which will not be repeated here.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/parallel/images/data_parallel.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/tutorials/source_zh_cn/parallel/images/data_parallel.png)
 
 #### The Necessity of Communication Fusion
 

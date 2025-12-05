@@ -1,6 +1,6 @@
 # MindSpore Elec Introduction and Installation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/intro_and_install.md)&nbsp;&nbsp;
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/intro_and_install.md)&nbsp;&nbsp;
 
 ## MindSpore Elec Overview
 

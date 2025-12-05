@@ -1,6 +1,6 @@
 # Launching Model with API
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/launch_with_api.md)&nbsp;&nbsp;
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/launch_with_api.md)&nbsp;&nbsp;
 
 MindSpore SciAI provides users with a high order interface `AutoModel`, with which the supported model in the model library can be instantiated with one line code.
 

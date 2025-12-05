@@ -1,6 +1,6 @@
 # Model Online Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/model_infer.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/orange_pi/model_infer.md)
 
 This section describes how to download the Ascend MindSpore online inference case on the OrangePi AIpro (hereafter: OrangePi development board) and launch the Jupyter Lab interface to perform inference.
 
@@ -58,15 +58,15 @@ Step 1 Launch the Jupyter Lab interface.
 
 After executing the script, the following printout will appear in the terminal, in which there will be a link to the URL for logging into Jupyter Lab.
 
-![model-infer1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer1.png)
+![model-infer1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/tutorials/source_zh_cn/orange_pi/images/model_infer1.png)
 
 Then open the browser.
 
-![model-infer2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer2.png)
+![model-infer2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/tutorials/source_zh_cn/orange_pi/images/model_infer2.png)
 
 Then enter the URL link you see above in your browser to log into the Jupyter Lab software.
 
-![model-infer3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/orange_pi/images/model_infer3.png)
+![model-infer3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/tutorials/source_zh_cn/orange_pi/images/model_infer3.png)
 
 Step 2 In the Jupyter Lab interface, double-click the case directory shown in the figure below, take “04-FCN” as an example here, you can enter the case directory. The operation process of other cases is similar, just select the corresponding case directory and .ipynb file.
 

@@ -1,6 +1,6 @@
 # 调试方法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/profiling/profiling.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/profiling/profiling.md)
 
 vLLM-MindSpore插件支持使用`mindspore.Profiler`模块，跟踪vLLM-MindSpore插件中worker的性能。用户可以根据[采集profiling数据](#采集profiling数据)章节完成数据采集，然后根据[分析profiling数据](#分析profiling数据)进行数据分析。另一方面，用户可以根据[图数据dump](#图数据dump)查看模型的IR图，从而进行模型结构的分析与调试。
 

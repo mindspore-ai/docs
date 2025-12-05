@@ -1,6 +1,6 @@
 # mindspore.jit 多级编译优化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/compile/compilation_guide.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/compile/compilation_guide.md)
 
 ## MindSpore编译架构
 
@@ -38,7 +38,7 @@ def foo(x, y):
 
 它对应的抽象语法树如下：
 
-![抽象语法树](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
+![抽象语法树](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
 
 通过解析上面的抽象语法树，我们得到下面的IR：
 

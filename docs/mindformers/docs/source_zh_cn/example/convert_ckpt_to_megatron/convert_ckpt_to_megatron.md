@@ -1,6 +1,6 @@
 # 转换模型权重为Megatron模型权重的实践案例
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.md)
 
 本案例提供了一个将 [MindSpore Transformers](https://atomgit.com/mindspore/mindformers) 库的模型权重（safetensors格式）转换为 [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 库的模型权重格式的方法，以便后续进行精度比对或迁移训练。转换后的 Megatron-LM 权重为bf16类型。
 

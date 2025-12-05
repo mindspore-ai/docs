@@ -1,6 +1,6 @@
 # Multi-machine Parallel Inference (DeepSeek R1)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4.md)
 
 This document describes the parallel inference startup process for the DeepSeek R1 671B W8A8 model. The DeepSeek R1 671B W8A8 model requires resources from multiple nodes to run the inference model. To ensure consistent execution configurations (including model configuration file paths, Python environment, etc.) across all nodes, it is recommended to use a Docker image to create containers and avoid execution discrepancies. Users can configure the environment by following the instructions in the [Docker Installation](#docker-installation) section below.
 

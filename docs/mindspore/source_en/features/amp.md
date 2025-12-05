@@ -1,6 +1,6 @@
 # Automatic Mixed Precision
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/amp.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/amp.md)
 
 Mixed precision training refers to an operation policy in which different numerical precisions are used for different operations of a neural network during training. In neural network operations, some operations are insensitive to numerical precision. In this case, using lower precision can achieve a significant acceleration effect (such as conv and matmul). For operations with a large difference between the input and output values, higher precision is required to ensure the correctness of the results (such as log and softmax).
 
@@ -25,7 +25,7 @@ Therefore, when using mixed precision to accelerate training and save memory, yo
 
 The following figure shows the typical mixed-precision computing process.
 
-![mix precision](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/images/mix_precision_fp16.png)
+![mix precision](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindspore/source_zh_cn/features/images/mix_precision_fp16.png)
 
 ## Mixed Precision Usage Examples
 

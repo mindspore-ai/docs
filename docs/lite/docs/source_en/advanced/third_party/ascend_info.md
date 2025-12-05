@@ -1,6 +1,6 @@
 # Integrated Ascend
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/advanced/third_party/ascend_info.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/advanced/third_party/ascend_info.md)
 
 > - The Ascend backend support in the device-side version will be deprecated. For related usage of the Ascend backend, please refer to the cloud-side inference version documentation.
 > - [Build Cloud-side MindSpore Lite](https://mindspore.cn/lite/docs/en/master/mindir/build.html)

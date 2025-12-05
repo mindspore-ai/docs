@@ -1,6 +1,6 @@
 # Data Processing Debugging Methods and Common Errors Analysis
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis/minddata_debug.md)&nbsp;&nbsp;
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis/minddata_debug.md)&nbsp;&nbsp;
 
 ## Data Processing Debugging Methods
 

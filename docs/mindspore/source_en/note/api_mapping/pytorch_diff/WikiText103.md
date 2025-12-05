@@ -1,6 +1,6 @@
 # Differences with torchtext.datasets.WikiText103
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/WikiText103.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/WikiText103.md)
 
 ## torchtext.datasets.WikiText103
 
