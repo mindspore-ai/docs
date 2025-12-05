@@ -178,7 +178,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
         # 克隆仓库与配置环境变量
         repo_name = data[i]['name'].replace('_', '-')
-        repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
+        repo_url = f"https://atomgit.com/mindspore/{repo_name}.git"
         repo_path = f"{REPODIR}/{repo_name}"
         branch_ = data[i]["branch"]
         if not branch_:

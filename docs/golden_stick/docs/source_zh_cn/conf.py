@@ -377,7 +377,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
-          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+          f"resource/_static/logo_source.svg\n    :target: https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/"
 
 # master使用
 # copy_list白名单转绝对路径（去重）
@@ -458,17 +458,17 @@ with open(des_release, "w", encoding="utf-8") as p:
     p.write(content[0])
 
 # 发版本时这里启用
-# re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+# re_url = r"(((atomgit.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
 #          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
 #          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-# re_url2 = r"(gitee.com/mindspore/(mindspore|mindspore-lite)/[\w\d/_.-]*?)/(master)"
+# re_url2 = r"(atomgit.com/mindspore/(mindspore|mindspore-lite)/[\w\d/_.-]*?)/(master)"
 
-# re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+# re_url3 = r"(((atomgit.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
 
 # re_url4 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
 
-# re_url5 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+# re_url5 = r"(((atomgit.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
 
 # 发版本时这里启用
 # for cur, _, files in os.walk(moment_dir):
