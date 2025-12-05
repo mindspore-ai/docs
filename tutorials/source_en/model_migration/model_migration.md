@@ -1,6 +1,6 @@
 # Model Migration
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/model_migration/model_migration.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/model_migration/model_migration.md)
 
 This chapter mainly gives a brief introduction to the dataset, model, and training and inference processes necessary for model migration scenarios to be built on MindSpore. It also shows the differences between MindSpore and PyTorch in terms of dataset packing, model building, and training process code.
 
@@ -66,7 +66,7 @@ For more use methods, refer to [Dataset.batch](https://www.mindspore.cn/docs/en/
 
 ### Differences with PyTorch Dataset Construction
 
-![generatordataset_dataloader.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/model_migration/images/generatordataset_dataloader.png)
+![generatordataset_dataloader.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/tutorials/source_zh_cn/model_migration/images/generatordataset_dataloader.png)
 
 The main differences between MindSpore's GeneratorDataset and PyTorch's DataLoader are:
 

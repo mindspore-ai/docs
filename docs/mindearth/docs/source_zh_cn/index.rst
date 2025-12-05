@@ -7,7 +7,7 @@ MindSpore Earth介绍
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindearth/docs/source_zh_cn/images/mindearth_archi_cn.png" width="1200px" alt="" style="display: inline-block">
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindearth/docs/source_zh_cn/images/mindearth_archi_cn.png" width="1200px" alt="" style="display: inline-block">
 
 代码仓地址: <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindEarth>
 

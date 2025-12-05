@@ -3,3 +3,4 @@
 "docs/docs/mindflow/docs"
 "docs/docs/mindquantum/docs"
 "docs/tutorials/source_zh_cn"
+"docs/tutorials/source_en/dataset"

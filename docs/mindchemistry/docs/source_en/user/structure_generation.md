@@ -1,6 +1,6 @@
 # Structure Generation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindchemistry/docs/source_en/user/structure_generation.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindchemistry/docs/source_en/user/structure_generation.md)
 
 Structure generation, which is a structure generation model based on deep learning to predict the structures of crystalline materials. DiffCSP integrates graph neural networks and equivalent diffusion models to jointly generate crystal lattices and atomic coordinates. It also leverages a periodic E(3)-equivalent denouncing model to better simulate the geometric properties of crystals. Compared with traditional methods based on density functional theory, DiffCSP significantly reduces computational costs and demonstrates excellent performance in crystal structure prediction tasks.
 

@@ -1,6 +1,6 @@
 # 安装指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/getting_started/installation/installation.md)
 
 本文档将介绍vLLM-MindSpore插件的[版本配套](#版本配套)、安装步骤与[快速验证](#快速验证)用例，用于验证安装是否成功。其中安装步骤分为两种方式：
 

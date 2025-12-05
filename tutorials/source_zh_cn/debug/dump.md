@@ -1,6 +1,6 @@
 # Dump功能调试
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/dump.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/dump.md)
 
 为了对训练过程进行分析，MindSpore提供了Dump功能，用于保存训练过程中算子的输入和输出数据。
 

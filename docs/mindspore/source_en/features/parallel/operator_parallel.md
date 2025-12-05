@@ -1,6 +1,6 @@
 # Operator-level Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/parallel/operator_parallel.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/parallel/operator_parallel.md)
 
 ## Overview
 
@@ -79,13 +79,13 @@ To cope with these complex scenarios, this tutorial introduces a higher-order op
 
 [Operator-level Parallelism](https://www.mindspore.cn/tutorials/en/master/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For example, for a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
 
 *Figure: Schematic of 2D tensor arrangement*
 
 It can be seen that the 0-axis of the tensor, e.g. "[a0, a1, a2, a3]" slices to the discontinuous card "[Rank0, Rank4, Rank2, Rank6]" and the tensor is sliced according to strategy=(2, 4), the arrangement should be as follows:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view2.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view2.PNG)
 
 *Figure: Schematic of a 2D tensor arranged according to a sharding strategy*
 
@@ -121,7 +121,7 @@ a_strategy = layout("mp", ("sp", "dp"))
 
 It can be seen that the "[a0, a1, a2, a3]" of the tensor a is sliced twice to the "sp" and "dp" axes of the device, so that the result comes out as:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindspore/source_zh_cn/features/parallel/images/advanced_operator_parallel_view1.PNG)
 
 The following is exemplified by a concrete example in which the user computes a two-dimensional matrix multiplication over 8 cards: `Y = (X * W)` , where the devices are organized according to `2 * 2 * 2`, and the cut of X coincides with the cut of the tensor a. The code is as follows:
 

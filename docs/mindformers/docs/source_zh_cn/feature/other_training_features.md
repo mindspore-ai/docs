@@ -1,6 +1,6 @@
 # 其它训练特性
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/other_training_features.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/other_training_features.md)
 
 在大规模的深度学习模型训练中，会遇到诸多挑战，如：内存限制、计算资源的有效利用、分布式训练中的同步问题等，需要使用训练优化算法来提高训练效率、加速收敛速度以及改善最终模型性能。
 

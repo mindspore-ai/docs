@@ -7,7 +7,7 @@ Flow simulation aims to solve the fluid governing equation under a given boundar
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindflow/docs/source_en/images/mindflow_archi_en.png" width="1200px" alt="" style="display: inline-block">
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindflow/docs/source_en/images/mindflow_archi_en.png" width="1200px" alt="" style="display: inline-block">
 
 Code repository address: <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindFlow>
 

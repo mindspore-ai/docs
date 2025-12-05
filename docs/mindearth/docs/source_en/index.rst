@@ -7,7 +7,7 @@ Weather phenomena are closely related to human production and life, social econo
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindearth/docs/source_en/images/mindearth_archi_en.png" width="1200px" alt="" style="display: inline-block">
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindearth/docs/source_en/images/mindearth_archi_en.png" width="1200px" alt="" style="display: inline-block">
 
 Code repository address: <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindEarth>
 

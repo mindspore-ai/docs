@@ -1,7 +1,7 @@
 模型支持
 ===================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg
     :target: https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/reference/model_lite.rst
     :alt: 查看源文件
 

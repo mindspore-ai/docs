@@ -1,6 +1,6 @@
 # Custom Operator Integration
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/developer_guide/operations/custom_ops.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/developer_guide/operations/custom_ops.md)
 
 When the built-in operators do not meet your requirements, you can use MindSpore's custom operator functionality to integrate your operators.
 

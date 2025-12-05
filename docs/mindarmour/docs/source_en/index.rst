@@ -5,13 +5,13 @@ AI is the catalyst for change but also faces challengs in security and privacy p
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindarmour/docs/source_en/images/roadmap.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindarmour/docs/source_en/images/roadmap.png" width="700px" alt="" >
 
 The current version of MindSpore Armour (v2.0) achieves security and privacy protection for MindSpore through technologies such as adversarial robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection.
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindarmour/docs/source_en/images/mindarmour.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindarmour/docs/source_en/images/mindarmour.png" width="700px" alt="" >
 
 Code repository address: <https://atomgit.com/mindspore-lab/mindarmour>
 

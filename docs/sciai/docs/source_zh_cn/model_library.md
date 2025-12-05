@@ -1,6 +1,6 @@
 # 网络模型库
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/model_library.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/model_library.md)&nbsp;&nbsp;
 
 SciAI基础模型库提供了丰富的科学计算高频模型，下表中汇总了当前已实现的网络模型及其对应领域。
 

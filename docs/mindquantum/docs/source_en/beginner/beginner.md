@@ -1,6 +1,6 @@
 # Beginner Tutorial Overview
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/beginner/beginner.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/beginner/beginner.md)
 
 Understand the basic components of MindSpore Quantum, including quantum gates, quantum circuits, hamiltonian, and the usage of quantum simulators.
 

@@ -1,7 +1,7 @@
 Device-to-device differentiable FDTD method
 =============================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg
     :target: https://atomgit.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/AD_FDTD.rst
     :alt: View Source On Gitee
 

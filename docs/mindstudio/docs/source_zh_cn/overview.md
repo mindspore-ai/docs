@@ -1,6 +1,6 @@
 # 调试调优工具概览与安装说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/overview.md)
 
    <table style="width: 100%;">
       <tr>

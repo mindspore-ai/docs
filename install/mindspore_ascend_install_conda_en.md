@@ -1,21 +1,8 @@
 # Installing MindSpore Ascend by Conda
 
-<!-- TOC -->
+<!-- TOC -->autoauto- [Installing MindSpore Ascend by Conda](#installing-mindspore-ascend-by-conda)auto    - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)auto        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)auto        - [Installing Conda](#installing-conda)auto        - [Installing GCC](#installing-gcc)auto        - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)auto        - [Installing MindSpore](#installing-mindspore)auto    - [Configuring Environment Variables](#configuring-environment-variables)auto    - [Installation Verification](#installation-verification)auto    - [Version Update](#version-update)autoauto<!-- /TOC -->
 
-- [Installing MindSpore Ascend by Conda](#installing-mindspore-ascend-by-conda)
-    - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
-        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
-        - [Installing Conda](#installing-conda)
-        - [Installing GCC](#installing-gcc)
-        - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
-        - [Installing MindSpore](#installing-mindspore)
-    - [Configuring Environment Variables](#configuring-environment-variables)
-    - [Installation Verification](#installation-verification)
-    - [Version Update](#version-update)
-
-<!-- /TOC -->
-
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_ascend_install_conda_en.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_ascend_install_conda_en.md)
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 

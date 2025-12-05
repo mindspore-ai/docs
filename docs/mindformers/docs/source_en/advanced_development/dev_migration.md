@@ -1,6 +1,6 @@
 # Development Migration
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/dev_migration.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/advanced_development/dev_migration.md)
 
 This document describes how to develop and build foundation models based on MindSpore Transformers and complete basic adaptation to start the training and inference processes.
 
@@ -111,7 +111,7 @@ Llama3-8B and Llama2-7B have the same model structure but different model parame
 
 The following compares the model configurations between Llama2-7B and Llama3-8B.
 
-![model_config_comparison](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/advanced_development/images/model_config_comparison.png)
+![model_config_comparison](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindformers/docs/source_zh_cn/advanced_development/images/model_config_comparison.png)
 
 The differences are as follows:
 

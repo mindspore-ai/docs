@@ -1,6 +1,6 @@
 # 模型迁移
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_migration/model_migration.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/model_migration/model_migration.md)
 
 本章节主要对模型迁移场景所必需的数据集、模型和训练、推理流程等在MindSpore上的构建方法做简单介绍。同时展示MindSpore和PyTorch在数据集包装、模型构建、训练流程代码上的差别。
 

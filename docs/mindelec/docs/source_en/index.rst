@@ -9,7 +9,7 @@ MindSpore Elec has now achieved milestones in Huawei's terminal cell phone toler
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_en/images/MindElec-architecture-en.jpg" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindelec/docs/source_en/images/MindElec-architecture-en.jpg" width="600px" alt="" >
 
 Code repository address: <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindElec>
 

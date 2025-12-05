@@ -1,6 +1,6 @@
 # mindspore.jit Multi-Level Compilation Optimization
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/compile/compilation_guide.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/features/compile/compilation_guide.md)
 
 ## MindSpore Compilation Architecture
 
@@ -38,7 +38,7 @@ def foo(x, y):
 
 The corresponding abstract syntax tree is as follows:
 
-![Abstract Syntax Tree](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
+![Abstract Syntax Tree](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
 
 By parsing the above abstract syntax tree, we obtain the following IR:
 

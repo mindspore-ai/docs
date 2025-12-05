@@ -1,6 +1,6 @@
 # 精度调试
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/feature/precision.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/feature/precision.md)
 
 msprobe 是 MindStudio Training Tools 工具链下精度调试部分的工具包。主要包括精度预检、溢出检测和精度比对等功能，目前适配 PyTorch 和 MindSpore 框架。msprobe提供多个子工具，侧重不同的训练场景，可以定位模型训练中的精度问题。
 

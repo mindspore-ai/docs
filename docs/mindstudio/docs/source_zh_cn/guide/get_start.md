@@ -1,6 +1,6 @@
 # 全流程调试调优工具使用指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/guide/get_start.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindstudio/docs/source_zh_cn/guide/get_start.md)
 
 为方便开发者快速上手使用调试调优工具，[《开发工具快速入门》](https://www.hiascend.com/document/detail/zh/mindstudio/82RC1/msquickstart/atlasquick_train_0004.html)介绍了精度调试、性能调优过程中工具常用功能的用法，包含使用msprobe工具进行训练前配置检查、训练状态监控、精度数据采集和比对、精度预检，使用Profiler进行性能数据采集，使用msprof-analyze和MindStudio Insight工具进行性能分析等。
 

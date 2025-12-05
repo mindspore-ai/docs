@@ -1,6 +1,6 @@
 # 中级使用教程概述
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_zh_cn/middle_level/middle_level.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_zh_cn/middle_level/middle_level.md)
 
 了解 MindSpore Quantum 在含噪声量子模拟、量子线路编译、比特映射等更贴近真实量子芯片场景的应用。
 
