@@ -68,7 +68,7 @@ When adapting a new model with a similar structure, it is generally done by dire
 
 Possible problems and solutions:
 
-- Problem: The reasoning output remains unchanged even when the inputs differ..
+- Problem: The reasoning output remains unchanged even when the inputs differ.
     - Possible reasons: The MLP module, MoE module, and the linear module involved in the Attention module do not require bias, but they impose bias, and there are Nans in the input and output, etc.
     - Positioning method: You can directly print the input and output of each module and observe whether the printing result is normal.
     - Solution: After confirming that a certain module has a problem, compare it with the benchmark to determine whether bias is needed for that module. If bias is not needed, simply set the configuration item of bias to False.
