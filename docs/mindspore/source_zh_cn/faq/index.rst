@@ -9,7 +9,7 @@ FAQ
    data_processing
    implement_problem
    network_compilation
-   operators_compile
+   operators_api
    tools
    performance_tuning
    precision_tuning

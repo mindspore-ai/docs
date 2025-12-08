@@ -1,8 +1,16 @@
-# 算子编译
+# 算子API
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/operators_compile.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/operators_api.md)
 
-## Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？
+## 常见问题
+
+### Q: 在Ascend机器上使用`ops.ring_attention_update`算子，搭配8.1.RC1的CANN包，发生报错`RuntimeError: aclnnRingAttentionUpdateGetWorkSpaceSize call failed`，是怎么回事？
+
+A: 出于性能考虑，[ops.ring_attention_update](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ring_attention_update.html)算子不再兼容8.1.RC1及更早之前版本的CANN包，建议安装8.2.RC1或更新版本的CANN包。
+
+<br/>
+
+### Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？
 
 A: 这种报错，主要为[ops.concat](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.concat.html)算子提示`shape`过大。建议对`dataset`对象创建迭代器时可设置输出为`numpy`, 如下设置：
 
@@ -14,68 +22,68 @@ galleryloader.create_dict_iterator(output_numpy=True)
 
 <br/>
 
-## Q: 请问在静态图模式的`construct`函数里，如何把一个`tensor`中所含有的负数值全部去除掉？
+### Q: 请问在静态图模式的`construct`函数里，如何把一个`tensor`中所含有的负数值全部去除掉？
 
 A: 建议使用[ops.clip_by_value](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.clip_by_value.html)接口，把负数全变成0来进行计算。
 
 <br/>
 
-## Q: `TransData`算子的功能是什么，能否优化性能？
+### Q: `TransData`算子的功能是什么，能否优化性能？
 
 A: `TransData`算子出现的场景是: 如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。华为Ascend支持5D格式运算，通过`TransData`算子将数据由4D转为5D以提升性能。
 
 <br/>
 
-## Q: 算子`Concat`拼接包含多个Tensor的元组出错，似乎传入的`tensor list`元素个数>=192就会报错。如果要`Concat`包含多个Tensor的元组，有什么较好的解决方案？
+### Q: 算子`Concat`拼接包含多个Tensor的元组出错，似乎传入的`tensor list`元素个数>=192就会报错。如果要`Concat`包含多个Tensor的元组，有什么较好的解决方案？
 
 A: 这个昇腾算子底层规格限制一次拼接的Tensor个数不能超过192个，可以尝试分开两次进行拼接。
 
 <br/>
 
-## Q: 在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？
+### Q: 在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？
 
 A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用[ops.Conv2D](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Conv2D.html)，这个算子目前不支持`group`>1。目前MindSpore只有[nn.Conv2D](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html)接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
 
 <br/>
 
-## Q: MindSpore支持矩阵转置吗？
+### Q: MindSpore支持矩阵转置吗？
 
 A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 <br/>
 
-## Q: 请问MindSpore能算给定任意一个`tensor`的方差吗？
+### Q: 请问MindSpore能算给定任意一个`tensor`的方差吗？
 
 A: 可以使用mindspore.Tensor.var接口计算Tensor的方差，你可以参考[mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var)来实现。
 
 <br/>
 
-## Q: `nn.Embedding`层与PyTorch相比缺少了`Padding`操作，有其他算子可以实现吗？
+### Q: `nn.Embedding`层与PyTorch相比缺少了`Padding`操作，有其他算子可以实现吗？
 
 A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位置的词向量置为0，并且反向传播时不会更新`padding_idx`位置的词向量。在MindSpore中，可以手动将embedding的`padding_idx`位置对应的权重初始化为0，并且在训练时通过`mask`的操作，过滤掉`padding_idx`位置对应的`Loss`。
 
 <br/>
 
-## Q: Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？
+### Q: Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？
 
 A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
 相关的资料可参考[静态图语法支持](https://www.mindspore.cn/tutorials/zh-CN/master/compile/static_graph.html)。
 
 <br/>
 
-## Q: 使用conv2d算子将卷积核设置为(3,10)，Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错：`FM_W+pad_left+pad_right-KW>=strideW`，而CPU下不报错，怎么回事？
+### Q: 使用conv2d算子将卷积核设置为(3,10)，Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错：`FM_W+pad_left+pad_right-KW>=strideW`，而CPU下不报错，怎么回事？
 
 A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，在TVM框架基础上扩展，进行自定义算子开发。上述问题是这个TBE算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
 
 <br/>
 
-## Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？
+### Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？
 
 A: 目前 MindSpore 暂无反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorials/zh-CN/master/custom_program/op_custom.html)。
 
 <br/>
 
-## Q: Ascend环境上，一些尽管经过调优工具调试过的算子，性能依旧很差，这时候该怎么办？
+### Q: Ascend环境上，一些尽管经过调优工具调试过的算子，性能依旧很差，这时候该怎么办？
 
 A: 解决方案如下：
 
@@ -85,7 +93,7 @@ A: 解决方案如下：
 
 <br/>
 
-## Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`，怎么办？
+### Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`，怎么办？
 
 具体代码：
 
@@ -105,7 +113,7 @@ A: 这边的问题是选择了Graph模式却使用了PyNative的写法，所以�
 
 <br/>
 
-## Q: Ascend后端报错：`AI CORE` 和`AI CPU`中都找不到有效的`kernel info`这个Kernel Select Failed时，如何定位？
+### Q: Ascend后端报错：`AI CORE` 和`AI CPU`中都找不到有效的`kernel info`这个Kernel Select Failed时，如何定位？
 
 A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI CORE支持，部分算子AI CPU支持，部分算子两者同时支持。根据报错信息：
 
@@ -116,7 +124,7 @@ A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI C
 
 <br/>
 
-## Q: MindSpore的算子输入的类型转换规则是什么？如果输入中存在零维Tensor，是否遵循这个规则？
+### Q: MindSpore的算子输入的类型转换规则是什么？如果输入中存在零维Tensor，是否遵循这个规则？
 
 A: MindSpore的算子输入的类型转换，可以参考[类型转换规则](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html)。与PyTorch不同的是，算子输入中存在零维Tensor时，MindSpore同样遵循这一规则。示例代码如下：
 
