@@ -9,7 +9,7 @@
 - See [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
   The versions of MindSpore Elec and MindSpore must be consistent.
 - All other dependencies are included
-  in [requirements.txt](https://atomgit.com/mindspore-lab/mindscience/blob/master/SciAI/requirements.txt).
+  in [requirements.txt](https://atomgit.com/mindspore/mindscience/blob/master/SciAI/requirements.txt).
 
 ## Installation
 

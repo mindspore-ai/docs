@@ -222,7 +222,7 @@ Thanks to the multi-tiered data structure of HDF5, H5MD itself is highly scalabl
 
 ## Tutorial
 
-A tutorial on molecular dynamics simulations using the MindSpore SPONGE is available at [MindScience](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindSPONGE/tutorials/basic).
+A tutorial on molecular dynamics simulations using the MindSpore SPONGE is available at [MindScience](https://atomgit.com/mindspore/mindscience/tree/master/MindSPONGE/tutorials/basic).
 
 ## Reference
 

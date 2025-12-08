@@ -8,7 +8,7 @@
 
 | 功能          | 模型                            | 训练 | 推理 | 后端       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| 小分子化合物预训练模型 | [GROVER](https://atomgit.com/mindspore-lab/mindscience/pulls/441/files#) | √    | √   | GPU/Ascend |
-| 小分子化合物预训练模型 | [MGBERT](https://atomgit.com/mindspore-lab/mindscience/pulls/631/files#) | √    | √   | GPU/Ascend |
+| 小分子化合物预训练模型 | [GROVER](https://atomgit.com/mindspore/mindscience/pulls/441/files#) | √    | √   | GPU/Ascend |
+| 小分子化合物预训练模型 | [MGBERT](https://atomgit.com/mindspore/mindscience/pulls/631/files#) | √    | √   | GPU/Ascend |
 
 后续将提供蛋白质预训练等基础模型，敬请期待。

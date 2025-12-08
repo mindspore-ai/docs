@@ -15,7 +15,7 @@ AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判�
 这里通过图像分类任务上的对抗性攻防，以攻击算法FGSM和防御算法NAD为例，介绍MindSpore Armour在对抗攻防上的使用方法。
 
 > 本例面向CPU、GPU、Atlas训练系列产品，你可以在这里下载完整的样例代码：
-> <https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
+> <https://atomgit.com/mindspore/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
 
 ## 建立被攻击模型
 

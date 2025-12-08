@@ -6,7 +6,7 @@
 
 - 硬件平台为Ascend、GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
-- 其余依赖请参见[requirements.txt](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindEarth/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://atomgit.com/mindspore/mindscience/blob/master/MindEarth/requirements.txt)。
 
 ## 安装方式
 

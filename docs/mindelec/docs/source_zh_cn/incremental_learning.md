@@ -9,7 +9,7 @@
 本教程重点介绍基于MindSpore Elec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
 
 > 本例面向Atlas训练系列产品，你可以在这里下载完整的样例代码：
-> <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
+> <https://atomgit.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
 
 ## 问题描述
 

@@ -221,7 +221,7 @@ MindSpore SPONGE采用H5MD作为记录模拟轨迹的默认文件格式。H5MD�
 
 ## 使用教程
 
-使用MindSpore SPONGE进行分子动力学模拟的教程可在[MindScience仓库](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindSPONGE/tutorials/basic)进行查看。
+使用MindSpore SPONGE进行分子动力学模拟的教程可在[MindScience仓库](https://atomgit.com/mindspore/mindscience/tree/master/MindSPONGE/tutorials/basic)进行查看。
 
 ## 参考文献
 

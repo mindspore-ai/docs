@@ -4,9 +4,9 @@
 
 The models in MindSpore SciAI provides users with scripts for training and evaluation.
 
-User can train or evaluate any model by running scripts, and the model parameters can be adjusted either through editing the config file or passing parameters in the command line. [This folder](https://atomgit.com/mindspore-lab/mindscience/tree/master/SciAI/sciai/model) contains all the models that support launching with scripts.
+User can train or evaluate any model by running scripts, and the model parameters can be adjusted either through editing the config file or passing parameters in the command line. [This folder](https://atomgit.com/mindspore/mindscience/tree/master/SciAI/sciai/model) contains all the models that support launching with scripts.
 
-The following content introduces the general process of training, evaluating models with scripts, taking Conservative Physics-Informed Neural Networks(CPINNs) as an example. For the codes of CPINNs model, please refer to the [link](https://atomgit.com/mindspore-lab/mindscience/tree/master/SciAI/sciai/model/cpinns).
+The following content introduces the general process of training, evaluating models with scripts, taking Conservative Physics-Informed Neural Networks(CPINNs) as an example. For the codes of CPINNs model, please refer to the [link](https://atomgit.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns).
 
 The fundamental idea about this model can be found in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0045782520302127).
 
@@ -19,7 +19,7 @@ git clone https://atomgit.com/mindspore-lab/mindscience
 source ./mindscience/SciAI/.env
 ```
 
-After a successful clone, user can start training or evaluating according to the `Quick Start` section in the [README.md](https://atomgit.com/mindspore-lab/mindscience/blob/master/SciAI/sciai/model/cpinns/README.md)(In case of CPINNs).
+After a successful clone, user can start training or evaluating according to the `Quick Start` section in the [README.md](https://atomgit.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/README.md)(In case of CPINNs).
 
 ```bash
 cd ./mindscience/SciAI/sciai/model/cpinns/
@@ -27,7 +27,7 @@ cd ./mindscience/SciAI/sciai/model/cpinns/
 
 ## Training and Fine-tuning the Model
 
-User can run script [train.py](https://atomgit.com/mindspore-lab/mindscience/blob/master/SciAI/sciai/model/cpinns/train.py) in each model directory to train the models.
+User can run script [train.py](https://atomgit.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/train.py) in each model directory to train the models.
 
 ```bash
 python ./train.py [--parameters]
@@ -47,7 +47,7 @@ python ./train.py --load_ckpt true --load_ckpt_path {your_file}.ckpt [--paramete
 
 Using the optional parameter `[--parameters]`, user can configure the training process of the model, including learning rate, training epochs, data saving and loading paths and so on.
 
-For details about the configurable parameters in each model, see the `Script Parameters` section in the [README.md](https://atomgit.com/mindspore-lab/mindscience/blob/master/SciAI/sciai/model/cpinns/README.md).
+For details about the configurable parameters in each model, see the `Script Parameters` section in the [README.md](https://atomgit.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/README.md).
 
 ## Evaluating the Model
 
