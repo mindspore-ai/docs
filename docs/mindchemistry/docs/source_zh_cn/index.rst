@@ -133,7 +133,7 @@ wujian, wangyuheng, Lin Peijia, gengchenhua, caowenbin, Siyu Yang
 贡献指南
 --------
 
--  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://atomgit.com/mindspore-lab/mindscience/blob/master/CONTRIBUTION.md>`__
+-  如何贡献您的代码，请点击此处查看：\ `贡献指南 <https://atomgit.com/mindspore/mindscience/blob/master/CONTRIBUTION.md>`__
 
 许可证
 ------

@@ -6,7 +6,7 @@
 
 This tutorial uses natural perturbation serving to evaluate the robustness of the OCR model, CNN-CTC. Multiple natural perturbation sample datasets are generated based on serving, and then the robustness of the CNN-CTC model is evaluated based on the model performance on the natural perturbation sample datasets.
 
-> You can obtain the complete executable sample code at <https://atomgit.com/mindspore-lab/mindarmour/tree/master/examples/natural_robustness/ocr_evaluate>.
+> You can obtain the complete executable sample code at <https://atomgit.com/mindspore/mindarmour/tree/master/examples/natural_robustness/ocr_evaluate>.
 
 ## Environment Requirements
 
@@ -63,7 +63,7 @@ In the preceding information, `%09d` indicates a string of 9 digits. Example: la
 
 ### Generating an Evaluation Dataset based on Natural Perturbation Serving
 
-1. Start the serving server for generating natural perturbation samples. For details, see [Generating Natural Perturbation Samples Based on the Serving Server](https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/natural_robustness/serving/README.md#).
+1. Start the serving server for generating natural perturbation samples. For details, see [Generating Natural Perturbation Samples Based on the Serving Server](https://atomgit.com/mindspore/mindarmour/blob/master/examples/natural_robustness/serving/README.md#).
 
    ```bash
    cd serving/server/
@@ -81,7 +81,7 @@ In the preceding information, `%09d` indicates a string of 9 digits. Example: la
 
    2. The core code is described as follows:
 
-      1. Configure the perturbation method. For details about the available perturbation methods and parameter configurations, see [transform/image](https://atomgit.com/mindspore-lab/mindarmour/tree/master/mindarmour/natural_robustness/transform/image). The following is a configuration example.
+      1. Configure the perturbation method. For details about the available perturbation methods and parameter configurations, see [transform/image](https://atomgit.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image). The following is a configuration example.
 
          ```python
          PerturbConfig = [

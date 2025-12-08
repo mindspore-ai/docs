@@ -10,7 +10,7 @@ MindSpore SPONGE生物计算工具包提供一系列基于深度生成模型的�
 
 | 功能          | 模型                            | 训练 | 推理 | 后端       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| 蛋白质序列设计 | [ProteinMPNN](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindSPONGE/applications/model_cards/ProteinMPNN.MD) | ×    | √   | GPU/Ascend |
-| 蛋白质序列设计 | [ESM-IF1](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindSPONGE/applications/model_cards/ESM-IF1.md)          | ×    | √   | GPU/Ascend |
+| 蛋白质序列设计 | [ProteinMPNN](https://atomgit.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/ProteinMPNN.MD) | ×    | √   | GPU/Ascend |
+| 蛋白质序列设计 | [ESM-IF1](https://atomgit.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/ESM-IF1.md)          | ×    | √   | GPU/Ascend |
 
 未来我们还将提供抗体序列设计，分子生成等工具，敬请期待。

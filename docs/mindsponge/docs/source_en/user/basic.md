@@ -8,7 +8,7 @@ In fields such as biological computing and drug design, it is very expensive to 
 
 | Function            | Model                  | Training | Inferring | Back-end       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| Molecular Compound Pre-training Model | [GROVER](https://atomgit.com/mindspore-lab/mindscience/pulls/441/files#) | √    | √   | GPU/Ascend |
-| Molecular Compound Pre-training Model | [MGBERT](https://atomgit.com/mindspore-lab/mindscience/pulls/631/files#) | √    | √   | GPU/Ascend |
+| Molecular Compound Pre-training Model | [GROVER](https://atomgit.com/mindspore/mindscience/pulls/441/files#) | √    | √   | GPU/Ascend |
+| Molecular Compound Pre-training Model | [MGBERT](https://atomgit.com/mindspore/mindscience/pulls/631/files#) | √    | √   | GPU/Ascend |
 
 In the future, basic models such as protein pre-training will be provided. Please stay tuned.

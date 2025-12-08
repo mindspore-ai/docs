@@ -29,7 +29,7 @@ MindSpore Armour differential privacy module Differential-Privacy implements the
 
 The LeNet model and MNIST dataset are used as an example to describe how to use the differential privacy optimizer to train a neural network model on MindSpore.
 
-> Because of the limit of CPU APIs, differential privacy training can only run on GPU or Ascend, except for CPU. This example is for the Atlas training series. You can download the complete sample code from <https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>.
+> Because of the limit of CPU APIs, differential privacy training can only run on GPU or Ascend, except for CPU. This example is for the Atlas training series. You can download the complete sample code from <https://atomgit.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>.
 
 ## Implementation
 
@@ -62,7 +62,7 @@ TAG = 'Lenet5_train'
 
 ### Configuring Parameters
 
-1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace `data_path` with your data path. For more configurations, see <https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>.
+1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace `data_path` with your data path. For more configurations, see <https://atomgit.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>.
 
     ```python
     cfg = edict({

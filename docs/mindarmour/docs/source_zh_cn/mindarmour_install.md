@@ -7,7 +7,7 @@
 - 硬件平台为Ascend、GPU或CPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。  
     MindSpore Armour与MindSpore的版本需保持一致。
-- 其余依赖请参见[setup.py](https://atomgit.com/mindspore-lab/mindarmour/blob/master/setup.py)。
+- 其余依赖请参见[setup.py](https://atomgit.com/mindspore/mindarmour/blob/master/setup.py)。
 
 ## MindSpore版本依赖关系
 
@@ -15,10 +15,10 @@
 
 | MindSpore Armour | 分支                                                      | MindSpore |
 | ---------- | --------------------------------------------------------- | --------- |
-| 2.0.0      | [r2.0](https://atomgit.com/mindspore-lab/mindarmour/tree/r2.0/) | >=1.7.0   |
-| 1.9.0      | [r1.9](https://atomgit.com/mindspore-lab/mindarmour/tree/r1.9/) | >=1.7.0   |
-| 1.8.0      | [r1.8](https://atomgit.com/mindspore-lab/mindarmour/tree/r1.8/) | >=1.7.0   |
-| 1.7.0      | [r1.7](https://atomgit.com/mindspore-lab/mindarmour/tree/r1.7/) | 1.7.0     |
+| 2.0.0      | [r2.0](https://atomgit.com/mindspore/mindarmour/tree/r2.0/) | >=1.7.0   |
+| 1.9.0      | [r1.9](https://atomgit.com/mindspore/mindarmour/tree/r1.9/) | >=1.7.0   |
+| 1.8.0      | [r1.8](https://atomgit.com/mindspore/mindarmour/tree/r1.8/) | >=1.7.0   |
+| 1.7.0      | [r1.7](https://atomgit.com/mindspore/mindarmour/tree/r1.7/) | 1.7.0     |
 
 ## 安装方式
 
@@ -30,7 +30,7 @@
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindArmour/any/mindarmour-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindSpore Armour安装包的依赖项（依赖项详情参见[setup.py](https://atomgit.com/mindspore-lab/mindarmour/blob/master/setup.py)），其余情况需自行安装。
+> - 在联网状态下，安装whl包时会自动下载MindSpore Armour安装包的依赖项（依赖项详情参见[setup.py](https://atomgit.com/mindspore/mindarmour/blob/master/setup.py)），其余情况需自行安装。
 > - `{version}`表示MindSpore Armour版本号，例如下载1.3.0版本MindSpore Armour时，`{version}`应写为1.3.0。
 
 ### 源码安装

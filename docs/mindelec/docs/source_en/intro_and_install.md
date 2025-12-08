@@ -8,7 +8,7 @@ Electromagnetic simulation refers to simulating the propagation characteristics 
 
 MindSpore Elec is an AI electromagnetic simulation toolkit developed based on MindSpore. It consists of the electromagnetic model library, data build and conversion, simulation computation, and result visualization. End-to-end AI electromagnetic simulation is supported. Currently, Huawei has achieved phase achievements in the tolerance scenario of Huawei mobile phones. Compared with the commercial simulation software, the S parameter error of AI electromagnetic simulation is about 2%, and the end-to-end simulation speed is improved by more than 10 times.
 
-MindSpore Elec contains several AI EM simulation cases. For more details, please click to view [case](https://atomgit.com/mindspore-lab/mindscience/tree/master/MindElec/examples).
+MindSpore Elec contains several AI EM simulation cases. For more details, please click to view [case](https://atomgit.com/mindspore/mindscience/tree/master/MindElec/examples).
 
 In the future, MindSpore Elec will implement more simulation cases, and your contribution is welcome.
 
@@ -19,7 +19,7 @@ In the future, MindSpore Elec will implement more simulation cases, and your con
 - The hardware platform should be Ascend, GPU or CPU.
 - See our [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.  
     The versions of MindSpore Elec and MindSpore must be consistent.
-- All other dependencies are included in [requirements.txt](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindElec/requirements.txt).
+- All other dependencies are included in [requirements.txt](https://atomgit.com/mindspore/mindscience/blob/master/MindElec/requirements.txt).
 
 ### Installation
 
@@ -31,7 +31,7 @@ You can install MindSpore Elec either by pip or by source code.
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/mindscience/{arch}/mindscience_mindelec_ascend-{me_version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindElec/setup.py)), point cloud data sampling depends on [pythonocc](https://github.com/tpaviot/pythonocc-core), which you need to install manually.
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://atomgit.com/mindspore/mindscience/blob/master/MindElec/setup.py)), point cloud data sampling depends on [pythonocc](https://github.com/tpaviot/pythonocc-core), which you need to install manually.
 > - `{arch}` specifies system architecture, for example, when using x86-64 Linux, `{arch}` should be x86_64, and aarch64 for ARM system(64-bit).
 > - `{ms_version}` refers to the MindSpore version that matches with MindSpore Elec. For example, if you want to install MindSpore Elec 0.1.0, then,`{ms_version}` should be 1.5.0.
 > - `{me_version}` refers to the version of MindSpore Elec. For example, when you are downloading MindSpore Elec 0.1.0, `{me_version}` should be 0.1.0.

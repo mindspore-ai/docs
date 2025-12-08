@@ -11,7 +11,7 @@ MindSpore Elec目前已在华为终端手机容差场景中取得阶段性成果
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindelec/docs/source_zh_cn/images/MindElec-architecture.jpg" width="600px" alt="" >
 
-代码仓地址： <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindElec>
+代码仓地址： <https://atomgit.com/mindspore/mindscience/tree/master/MindElec>
 
 数据构建及转换
 ----------------

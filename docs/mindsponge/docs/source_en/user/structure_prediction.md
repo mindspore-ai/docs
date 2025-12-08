@@ -10,10 +10,10 @@ Currently, a series of tools for protein and RNA structure prediction are availa
 
 | Function       | Model                                        | Training | Inferring | Back-end   |
 | :------------- | :------------------------------------------- | :--- | :--- | :-------- |
-| Single Chain Structure Prediction | [MEGA-Fold](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)                   | √    | √   | GPU/Ascend |
-| MSA Generation/Correction    | [MEGA-EvoGen](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)               | √    | √   | GPU/Ascend |
-| Structural Quality Assessment | [MEGA-Assessment](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)       | √    | √   | GPU/Ascend |
-| Multi-chain Structure Prediction | [AlphaFold-Multimer](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindSPONGE/applications/model_cards/afmultimer.md) | ×    | √   | GPU/Ascend |
-| RNA Secondary Structure Prediction | [UFold](https://atomgit.com/mindspore-lab/mindscience/blob/master/MindSPONGE/applications/model_cards/UFold.md)                          | √    | √   | GPU/Ascend |
+| Single Chain Structure Prediction | [MEGA-Fold](https://atomgit.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)                   | √    | √   | GPU/Ascend |
+| MSA Generation/Correction    | [MEGA-EvoGen](https://atomgit.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)               | √    | √   | GPU/Ascend |
+| Structural Quality Assessment | [MEGA-Assessment](https://atomgit.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)       | √    | √   | GPU/Ascend |
+| Multi-chain Structure Prediction | [AlphaFold-Multimer](https://atomgit.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/afmultimer.md) | ×    | √   | GPU/Ascend |
+| RNA Secondary Structure Prediction | [UFold](https://atomgit.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/UFold.md)                          | √    | √   | GPU/Ascend |
 
 In the future, we will further improve the function of molecular structure prediction, and introduce more tools for protein-ligand complex structure prediction and small molecule structure prediction of compounds. Stay tuned for more information.

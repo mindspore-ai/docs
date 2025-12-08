@@ -172,7 +172,7 @@ Contribution Guide
 ------------------
 
 -  Please click here to see how to contribute your code: `Contribution
-   Guide <https://atomgit.com/mindspore-lab/mindscience/blob/master/CONTRIBUTION.md>`__
+   Guide <https://atomgit.com/mindspore/mindscience/blob/master/CONTRIBUTION.md>`__
 
 License
 -------

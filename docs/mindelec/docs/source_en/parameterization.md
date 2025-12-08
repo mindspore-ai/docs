@@ -14,7 +14,7 @@ MindSpore Elec use AI model to directly obtain the S-parameters of the target to
 - The point cloud solution implements the mapping from the sampling point cloud of the antenna/phone to the simulation result. In this solution, the structure file of the mobile phone is converted into the point cloud tensor data, and the convolutional neural network is used to extract the structure features. Then, the final simulation result (S-parameters) are obtained through the mapping of multiple full-connected layers. The advantage of this solution is that it is applicable to complex working conditions where the number or types of structural parameters may change.
 
 > This current sample is for Atlas training series. You can find the complete executable code at
-> <https://atomgit.com/mindspore-lab/mindscience/tree/master/MindElec/examples/data_driven/parameterization>
+> <https://atomgit.com/mindspore/mindscience/tree/master/MindElec/examples/data_driven/parameterization>
 
 ## Target Scenario
 
@@ -40,7 +40,7 @@ There are 495 pairs of parameter-S11 samples. The training set and testing set a
 
 The data have been provided as .npy files, which can be downloaded from the following address:
 
-<https://atomgit.com/mindspore-lab/mindscience/tree/master/MindElec/examples/data_driven/parameterization/dataset>
+<https://atomgit.com/mindspore/mindscience/tree/master/MindElec/examples/data_driven/parameterization/dataset>
 
 ## Parameterized Electromagnetic Simulation
 
