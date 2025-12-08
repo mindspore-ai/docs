@@ -721,7 +721,7 @@ Operators Compile
        Default value: empty string.
      -
 
-For more information, see `FAQ <https://mindspore.cn/docs/en/master/faq/operators_compile.html>`_.
+For more information, see `FAQ <https://mindspore.cn/docs/en/master/faq/operators_api.html>`_.
 
 Log
 ---

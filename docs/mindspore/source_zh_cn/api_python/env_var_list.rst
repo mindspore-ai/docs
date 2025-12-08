@@ -715,7 +715,7 @@ Dump调试
        默认：空。
      -
 
-常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/operators_compile.html>`_ 。
+常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/operators_api.html>`_ 。
 
 日志
 ----
