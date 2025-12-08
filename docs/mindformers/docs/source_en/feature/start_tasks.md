@@ -64,7 +64,7 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |     `--modal_type`     | Modal type of input data for predict. This parameter has been deprecated and will be removed in the next version. | str, optional                                                                                                                                                 | predict              |
 |     `--adapter_id`     | LoRA ID for predict. This parameter has been deprecated and will be removed in the next version.                  | str, optional                                                                                                                                                 | predict              |
 | `--predict_batch_size` | The batch size for multi-batch inference.                                                                         | int, optional                                                                                                                                                 | predict              |
-|     `--do_sample`      | Whether to use random sampling when selecting tokens for inference.                                               | int, optional, ``True`` means using sampling encoding, ``False`` means using greedy decoding.                                                                 | predict              |
+|     `--do_sample`      | Whether to use random sampling when selecting tokens for inference.                                               | bool, optional, ``True`` means using sampling encoding, ``False`` means using greedy decoding.                                                                 | predict              |
 
 ## Distributed Task Pull-up Script
 

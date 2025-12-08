@@ -64,7 +64,7 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |     `--modal_type`     | 模型推理输入对应模态。该参数已废弃，下个版本删除。 | str，可选                                              | 推理   |
 |     `--adapter_id`     | 推理的LoRA ID。该参数已废弃，下个版本删除。 | str，可选                                              | 推理   |
 | `--predict_batch_size` | 多batch推理的batch_size大小。    | int，可选                                              | 推理   |
-|     `--do_sample`      | 推理选择token时是否使用随机采样。       | int，可选，``True`` 表示使用随机采样，``False`` 代表使用贪心搜索。        | 推理   |
+|     `--do_sample`      | 推理选择token时是否使用随机采样。       | bool，可选，``True`` 表示使用随机采样，``False`` 代表使用贪心搜索。        | 推理   |
 
 ## 分布式任务拉起脚本
 
