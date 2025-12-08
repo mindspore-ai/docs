@@ -58,7 +58,7 @@ py_ext_sig_re = re.compile(
           )? $                   # and nothing more
           ''', re.VERBOSE)
 special_member_re = re.compile(r'^__\S+__$')
-
+args_str = ''
 
 def identity(x: Any) -> Any:
     return x
@@ -1270,7 +1270,13 @@ class DocstringSignatureMixin:
             if result:
                 # finish the loop when signature found
                 break
-
+        
+        # 返回None，让self.args保持None，触发结构化解析逻辑，使其能够调用format_args
+        if hasattr(self.object, '__name__') and self.object.__name__ == 'frombuffer':
+            self.saved_signature_result = result   
+            result = None
+            return result
+        
         return result
 
     def get_doc(self, ignore: int = None) -> List[List[str]]:
@@ -1329,6 +1335,16 @@ class FunctionDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # typ
             kwargs.setdefault('show_annotation', False)
         if self.config.autodoc_typehints_format == "short":
             kwargs.setdefault('unqualified_typehints', True)
+        if hasattr(self, 'saved_signature_result') and self.saved_signature_result[0]:
+            # 从暂存结果中提取参数字符串
+            args_str = self.saved_signature_result[0]
+            # 构造结构化Signature
+            sig = ''
+            # 对齐原有逻辑
+            args = stringify_signature(sig, **kwargs)
+            if self.config.strip_signature_backslash:
+                args = args.replace('\\', '\\\\')      
+            return args
 
         try:
             self.env.app.emit('autodoc-before-process-signature', self.object, False)
