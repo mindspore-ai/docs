@@ -114,6 +114,36 @@ def download_tar(tar_name, url, s, user, pd):
                             fd.write(chunk)
                 print(f"Download {title} success!")
 
+def download_with_retry(url, max_retries=3, auth=None, verify=True):
+    session = requests.Session()
+    retry = Retry(
+        total=max_retries,
+        backoff_factor=1,
+        status_forcelist=[500, 502, 503, 504],
+        allowed_methods=["GET"],
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+
+    try:
+        resp = session.get(url, stream=True, auth=auth, verify=verify, timeout=(10, 60))
+        resp.raise_for_status()
+        return resp
+    except requests.exceptions.ChunkedEncodingError as e:
+        print(f"Chunked encoding failed, retrying...: ({e})")
+        try:
+            resp = session.get(url, stream=False, auth=auth, verify=verify, timeout=(10, 60))
+            resp.raise_for_status()
+            print(f"Fallback to non-stream download success for {url}")
+            return resp
+        except Exception as e2:
+            print(f"Fallback failed for {url}: {e2}")
+            raise
+    except Exception as e:
+        print(f"Request failed: {e}")
+        raise
+
 #######################################
 # 运行检测
 #######################################
@@ -333,15 +363,22 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+href
-                            downloaded = requests.get(download_url, stream=True, auth=(user, pd),
-                                                      verify=False, timeout=30)
-                            with open(title, 'wb') as fd:
-                                #shutil.copyfileobj(dowmloaded.raw, fd)
-                                for chunk in downloaded.iter_content(chunk_size=512):
-                                    if chunk:
-                                        fd.write(chunk)
-                            print(f"Download {title} success!")
-                            time.sleep(1)
+                            save_path = os.path.join(WHLDIR, title)
+                            try:
+                                downloaded = download_with_retry(download_url, max_retries=3, auth=(user, pd),
+                                                        verify=False)
+                                with open(save_path, 'wb') as fd:
+                                    #shutil.copyfileobj(dowmloaded.raw, fd)
+                                    for chunk in downloaded.iter_content(chunk_size=512):
+                                        if chunk:
+                                            fd.write(chunk)
+                                print(f"Download {title} success!")
+                                time.sleep(1)
+                            except Exception as e:
+                                print(f"Download {title} failed: {e}")
+                                # 修复：清理不完整文件
+                                if os.path.exists(save_path):
+                                    os.remove(save_path)
 
             # 下载tar包
             if 'tar_path' in data[i].keys() and data[i]['tar_path'] != '':
