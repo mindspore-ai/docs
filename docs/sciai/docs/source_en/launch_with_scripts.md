@@ -15,7 +15,7 @@ The fundamental idea about this model can be found in this [paper](https://www.s
 User can clone the whole repository and initialize the environment variable `PYTHONPATH` with the following commands.
 
 ```bash
-git clone https://atomgit.com/mindspore-lab/mindscience
+git clone https://atomgit.com/mindspore/mindscience
 source ./mindscience/SciAI/.env
 ```
 

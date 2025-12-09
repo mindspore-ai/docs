@@ -41,7 +41,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScienc
 
     ```bash
     cd ~
-    git clone https://atomgit.com/mindspore-lab/mindscience.git
+    git clone https://atomgit.com/mindspore/mindscience.git
     ```
 
 2. 使用脚本`build.sh`编译SciAI。

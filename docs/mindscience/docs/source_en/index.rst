@@ -7,7 +7,7 @@ MindScience is scientific computing kits for various industries based on the con
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindscience/docs/source_en/images/mindscience_en.png" width="700px" alt="" >
 
-Code repository address: <https://atomgit.com/mindspore-lab/mindscience>
+Code repository address: <https://atomgit.com/mindspore/mindscience>
 
 Typical MindScience Application Scenarios
 ------------------------------------------

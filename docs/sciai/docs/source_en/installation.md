@@ -48,7 +48,7 @@ Note: If you have other MindScience package(s) installed in your conda or python
 
     ```bash
     cd ~
-    git clone https://atomgit.com/mindspore-lab/mindscience.git
+    git clone https://atomgit.com/mindspore/mindscience.git
     ```
 
 2. Build SciAI with script `build.sh`.
