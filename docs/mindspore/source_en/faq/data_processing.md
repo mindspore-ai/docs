@@ -716,3 +716,9 @@ Unsupported scenario description: error reporting behavior such as scoped acquir
 Suggestion: Replace with the above supported scenarios.
 
 <br/>
+
+### Q: Does MindSpore support processing Tensor data using multiple threads in Python scripts?
+
+A: No. MindSpore currently does not support processing Tensor data with multithreading, which may cause hangs or coredumps. You can switch to multiprocessing to process Tensor data, or first call `Tensor.numpy()` to convert the Tensor into a `numpy.ndarray` and then process the data with multiple threads.
+
+<br/>
