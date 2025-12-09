@@ -15,17 +15,13 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 
    | Software | Version And Links |
    | -----    | -----   |
-   | CANN   |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html) |
-   | MindSpore  |  [2.7.1](https://www.mindspore.cn/versions#2.7.1) |
-   | MSAdapter| [0.5.0](https://repo.mindspore.cn/mindspore/msadapter/version/202510/20251011/r0.3.0_20251011095813_951a8218d4c29785e48f304e720212b57056573e_newest/) |
-   | MindSpore Transformers | [1.7.0](https://www.mindspore.cn/mindformers/docs/en/r1.7.0) |
-   | vLLM       | [0.9.1](https://repo.mindspore.cn/mirrors/vllm/version/202507/20250715/v0.9.1/) |
-
-- Source code and download link of vLLM-MindSpore Plugin
-
-   | Source Code Link | Package Link |
-   | -----    | -----   |
-   | [0.4.0](https://gitee.com/mindspore/vllm-mindspore/tree/r0.4.0/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp39-cp39-linux_aarch64.whl), [Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp310-cp310-linux_aarch64.whl), [Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp311-cp311-linux_aarch64.whl) |
+   | CANN  |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html)      |
+   | MindSpore |  [2.7.1](https://repo.mindspore.cn/mindspore/mindspore/version/202510/20251023/r2.7.1_20251023150800_71340184dc86527cb1ac22c992b9a9b240bcd366_newest/)    |
+   | MSAdapter| [0.0.5](https://repo.mindspore.cn/mindspore/msadapter/version/202510/20251011/r0.3.0_20251011095813_951a8218d4c29785e48f304e720212b57056573e_newest/) |
+   | MindSpore Transformers | [1.7.0](https://repo.mindspore.cn/mindspore/mindformers/version/202510/20251030/r1.7.0_20251030031507_8ccc49b3f6645d3d1abfab80b4c78f3cafe5c84e_newest/)  |
+   | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/) |
+   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251203/master_20251203031508_007121f1940bf26aa8c40d479eb6a56548897bf3_newest/) |
+   | MindSpore ONE | [0.5.0](https://repo.mindspore.cn/mindspore-lab/mindone/version/202512/20251205/master_20251205093444_4be9653bfac58cedc70a5696b9b91f7d40e25ebb_newest/) |
 
 ## Docker Installation
 
@@ -132,7 +128,7 @@ export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit
 
 ### vLLM Prerequisites Installation
 
-For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.9.1/getting_started/installation/cpu.html).
+For vLLM environment configuration and installation methods, please refer to the [vLLM Installation Guide](https://docs.vllm.ai/en/v0.11.0/getting_started/installation/cpu.html).
 
 ### vLLM-MindSpore Plugin Installation
 
@@ -154,6 +150,12 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
     pip install .
     ```
 
+    If pip version is greater than or equal to 25.3, users need to use the following command to compile and install vLLM-MindSpore Plugin:
+
+    ```bash
+    pip install --no-build-isolation .
+    ```
+
     User can also refer to [Version Compatibility](#version-compatibility), check the Python version, download vLLM-Mindspore Pulgin whl package, and use pip to install.
 
 - **vLLM-MindSpore Plugin Manual Installation**
@@ -162,37 +164,61 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
 
     1. Install vLLM
 
-       ```bash
-       pip install /path/to/vllm-*.whl
-       ```
+        ```bash
+        pip install /path/to/vllm-*.whl
+        ```
 
     2. Install MindSpore
 
-       ```bash
-       pip install /path/to/mindspore-*.whl
-       ```
+        ```bash
+        pip install /path/to/mindspore-*.whl
+        ```
 
     3. Install MindSpore Transformers
 
-       ```bash
-       pip install /path/to/mindformers-*.whl
-       ```
+        ```bash
+        pip install /path/to/mindformers-*.whl
+        ```
 
     4. Install MSAdapter
 
-       ```bash
-       pip install /path/to/msadapter-*.whl
-       ```
+        ```bash
+        pip install /path/to/msadapter-*.whl
+        ```
 
-    5. Install vLLM-MindSpore Plugin
+    5. Install Custom Ops
 
-       User needs to pull source of vLLM-MindSpore Plugin, and run installation.
+        ```bash
+        pip install /path/to/ms_custom_ops-*.whl
+        ```
 
-       ```bash
-       git clone https://gitee.com/mindspore/vllm-mindspore.git
-       cd vllm-mindspore
-       pip install .
-       ```
+    6. Install MindSpore ONE
+
+        ```bash
+        pip install /path/to/mindone-*.whl
+        ```
+
+    7. Install vLLM-MindSpore Plugin
+
+        User can use whl package to install vLLM-MindSpore Plugin.
+
+        ```bash
+        pip install /path/to/vllm_mindspore-*.whl
+        ```
+
+        User could also use source code to install vLLM-MindSpore Plugin.
+
+        ```bash
+        git clone https://gitee.com/mindspore/vllm-mindspore.git
+        cd vllm-mindspore
+        pip install .
+        ```
+
+        If pip version is greater than or equal to 25.3, users need to use the following command to compile and install vLLM-MindSpore Plugin:
+
+        ```bash
+        pip install --no-build-isolation .
+        ```
 
 ## Quick Verification
 
