@@ -19,6 +19,8 @@ import urllib3
 from git import Repo
 from lxml import etree
 from replace_html_menu import replace_html_menu, modify_menu_num
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # 下载仓库
 def git_clone(repo_url, repo_dir, repo_branch, cmt_id):
