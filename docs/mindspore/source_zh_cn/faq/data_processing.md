@@ -711,3 +711,9 @@ A: 对于GeneratorDataset和map来说：
 建议：替换成上面已支持的场景。
 
 <br/>
+
+## Q: MindSpore支持Python脚本中启动多线程处理Tensor数据吗？
+
+A: 不支持。MindSpore框架暂时不支持多线程处理Tensor数据，可能会发生卡死或者coredump。可以改成多进程处理Tensor数据，或者先调用`Tensor.numpy()`接口将Tensor转成`numpy.ndarray`再用多线程处理数据。
+
+<br/>
