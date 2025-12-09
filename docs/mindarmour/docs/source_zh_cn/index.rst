@@ -13,7 +13,7 @@ MindSpore Armour当前版本（v2.0）通过对抗鲁棒性、模型安全测试
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/feature/atomgit/docs/mindarmour/docs/source_zh_cn/images/mindarmour_cn.png" width="700px" alt="" >
 
-代码仓地址：<https://atomgit.com/mindspore-lab/mindarmour>
+代码仓地址：<https://atomgit.com/mindspore/mindarmour>
 
 使用MindSpore Armour的典型场景
 ------------------------------

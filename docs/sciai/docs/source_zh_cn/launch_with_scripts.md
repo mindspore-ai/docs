@@ -15,7 +15,7 @@ MindSpore SciAI中的模型为用户提供了训练与评估的脚本文件。
 使用如下命令直接克隆整个仓库，并初始化环境变量`PYTHONPATH`。
 
 ```bash
-git clone https://atomgit.com/mindspore-lab/mindscience
+git clone https://atomgit.com/mindspore/mindscience
 source ./mindscience/SciAI/.env
 ```
 

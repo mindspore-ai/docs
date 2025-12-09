@@ -142,7 +142,7 @@ source code install
 
    .. code:: bash
 
-      git clone https://atomgit.com/mindspore-lab/mindscience.git
+      git clone https://atomgit.com/mindspore/mindscience.git
       cd {PATH}/mindscience/MindChemistry
 
 -  **Compile in Ascend backend**

@@ -82,7 +82,7 @@ Source Code Installation
 
 .. code:: 
 
-    git clone https://atomgit.com/mindspore-lab/mindscience.git
+    git clone https://atomgit.com/mindspore/mindscience.git
     cd mindscience/MindSPONGE
 
 -  dependency install

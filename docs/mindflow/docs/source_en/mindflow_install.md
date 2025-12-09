@@ -26,7 +26,7 @@ pip install mindflow_${DEVICE_NAME}
 1. Download source code from Gitee.
 
    ```bash
-   git clone https://atomgit.com/mindspore-lab/mindscience.git
+   git clone https://atomgit.com/mindspore/mindscience.git
    cd {PATH}/mindscience/MindFlow
    ```
 

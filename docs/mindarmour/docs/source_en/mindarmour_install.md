@@ -38,7 +38,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindAr
 1. Download source code from Gitee.
 
     ```bash
-    git clone https://atomgit.com/mindspore-lab/mindarmour.git
+    git clone https://atomgit.com/mindspore/mindarmour.git
     ```
 
 2. Compile and install in MindSpore Armour directory.
