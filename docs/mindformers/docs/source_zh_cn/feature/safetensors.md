@@ -2,6 +2,14 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/safetensors.md)
 
+本文档为 **MindSpore Transformers 框架下 Checkpoint 1.0 版本** 的 Safetensors 格式权重使用介绍。
+
+## 重要说明
+
+当前 MindSpore Transformers 已正式支持 **Checkpoint 2.0 版本**，为保障用户使用体验与功能兼容性，本 Checkpoint 1.0 版本相关文档将逐步 **日落（停止维护与更新）**。
+
+建议用户优先迁移至 [Checkpoint 2.0 版本](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/checkpoint_saving_and_loading.html)进行相关操作，后续功能迭代与技术支持将聚焦于新版本，感谢你的理解与支持。
+
 ## 概述
 
 Safetensors 是 Huggingface 推出的一种可靠、易移植的机器学习模型存储格式，用于安全地存储Tensor，而且存储速度较快（零拷贝）。

@@ -2,6 +2,12 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/feature/resume_training.md)
 
+本文档为 **MindSpore Transformers** 框架下 Checkpoint 1.0 版本的断点续训功能使用介绍。
+
+## 重要说明
+
+目前 MindSpore Transformers 已正式推出 **[Checkpoint 2.0 版本](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/checkpoint_saving_and_loading.html)**，并同步发布了适配新版本的[断点续训](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training2.0.html)官方文档。为保证功能使用的兼容性与先进性，本 Checkpoint 1.0 版本相关文档后续将逐步停止维护（日落），建议用户优先参考新版本文档进行开发与使用。
+
 ## 概述
 
 MindSpore Transformers支持**step级断点续训**功能，支持加载已保存的checkpoint来恢复之前的状态继续训练。这一特性在处理大规模训练任务时尤为重要，能够有效减少因意外中断导致的时间和资源浪费。

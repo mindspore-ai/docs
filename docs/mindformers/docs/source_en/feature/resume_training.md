@@ -2,6 +2,12 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/resume_training.md)
 
+This document is the user guide for the checkpoint resume training feature of **Checkpoint 1.0** under the MindSpore Transformers framework.
+
+## Important Note
+
+Currently, MindSpore Transformers has officially launched **[Checkpoint 2.0](https://www.mindspore.cn/mindformers/docs/en/master/feature/checkpoint_saving_and_loading.html)**, along with the official documentation for checkpoint [resume training adapted to the new version](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training2.0.html). To ensure compatibility and advancement in feature usage, this document related to Checkpoint 1.0 will be gradually discontinued (sunset) in the future. Users are advised to refer to the new version of the documentation first for development and usage.
+
 ## Overview
 
 MindSpore Transformers supports **step-level resume training** functionality, enabling the loading of saved checkpoints to resume previous training states. This feature is particularly important for handling large-scale training tasks, as it effectively reduces time and resource waste caused by unexpected interruptions.
