@@ -592,6 +592,216 @@ ge.dynamicDims=1,1;2,2;3,3;4,4
 ge.dynamicNodeType=1
 ```
 
+### Zero-Copy Inference with Ascend Backend and GE
+
+In business integration, the interaction between the Host and Device is often a key factor affecting end-to-end performance, and reducing the number of interactions is an effective approach. Starting from version 2.8, the MindSpore Lite Ascend backend GE inference supports storing input and output data directly on the Device. During inference, this eliminates Host-Device interaction. Users can leverage this feature during integration to reduce interaction counts and improve end-to-end performance.
+
+When creating [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html), you can specify provider=ge-v1 using [SetProvider](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DeviceInfoContext.html) to support the zero-copy feature.
+
+> 1. Ge-v1 is a logical refactoring of ge, designed for easier functional extension. With version iteration, ge's functionality will be gradually migrated to ge-v1.
+> 2. In the current version, ge-v1 only supports purely static models (including dynamic dimension segmentation/dynamic partitioning).
+
+C++ implementation for reference:
+
+```cpp
+// Configure the inference to support GE online zero-copy
+int QuickStart() {
+    std::string model_path1 = "./model/model1.mindir";
+    std::string model_path2 = "./model/model2.mindir";
+
+    // Create and init context
+    auto context = std::make_shared<mindspore::Context>();
+    if (context == nullptr) {
+        std::cerr << "New context failed." << std::endl;
+        return -1;
+    }
+
+    // Get the list to mutate device info
+    auto &device_list = context->MutableDeviceInfo();
+
+    // Create Ascend Device Info
+    auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
+
+    // Set the GE runtime provider for Ascend
+    device_info->SetProvider("ge-v1");
+
+    // Error check (note: The error message should be corrected to AscendDeviceInfo)
+    if (device_info == nullptr) {
+        std::cerr << "New AscendDeviceInfo failed." << std::endl;
+        return -1;
+    }
+
+    // Add device info to the context
+    device_list.push_back(device_info);
+
+    mindspore::Model model1;
+    mindspore::Model model2;
+
+    // Load and build models using the configured Ascend context
+    mindspore::Status status = model1.Build(model_path1, mindspore::kMindIR, context);
+    if (status != mindspore::kSuccess) {
+        std::cerr << "Model 1 build failed." << std::endl;
+        return -1;
+    }
+    status = model2.Build(model_path2, mindspore::kMindIR, context);
+    if (status != mindspore::kSuccess) {
+        std::cerr << "Model 2 build failed." << std::endl;
+        return -1;
+    }
+
+    std::vector<mindspore::MSTensor> inputs_host; // Input vector for model 1 (Host side data)
+    std::vector<mindspore::MSTensor> outputs1;    // Output vector for model 1 (Input for model 2)
+    std::vector<mindspore::MSTensor> outputs2;    // Output vector for model 2 (Final result)
+
+    // Calculate required data size (1 * 3 * 512 * 512 * sizeof(float))
+    size_t data_size = 3 * 512 * 512 * 4;
+
+    // Allocate raw memory on the heap (Host memory)
+    const void *data_ptr = new (std::nothrow) uint8_t[data_size];
+
+    // Create the input Tensor (Host side data container)
+    auto input_host = mindspore::MSTensor::CreateTensor("input", mindspore::DataType::kNumberTypeFloat32,
+                                                        {1, 3, 512, 512}, data_ptr, data_size);
+    if(input_host==nullptr){
+      delete[] data_ptr;
+      std::cerr << "Create input_host tensor failed." << std::endl;
+      return -1;
+    }
+    // Create the intermediate output Tensor (Model 1 output)
+    auto output1 = mindspore::MSTensor::CreateTensor("output", mindspore::DataType::kNumberTypeFloat32,
+                                                     {1, 3, 512, 512}, const_cast<void*>(data_ptr), data_size, "ascend",0);
+    if(output1==nullptr){
+      delete[] data_ptr;
+      std::cerr << "Create output1 tensor failed." << std::endl;
+      return -1;
+    }
+
+    // Create the final output Tensor (Model 2 output, Host side assumed)
+    auto output2 = mindspore::MSTensor::CreateTensor(
+        "output",
+        mindspore::DataType::kNumberTypeFloat32,
+        {1, 3, 512, 512},
+        const_cast<void*>(data_ptr), // NOTE: Reusing buffer again (high risk)
+        data_size
+    );
+    if(output2==nullptr){
+      std::cerr << "Create output2 tensor failed." << std::endl;
+      return -1;
+    }
+
+    // Populate input/output vectors
+    inputs_host.push_back(*input_host);
+    outputs1.push_back(*output1);
+    outputs2.push_back(*output2);
+
+ // Model 1 Prediction: inputs_host -> outputs1 (Device)
+    model1.Predict(inputs_host, &outputs1);
+    if (status != mindspore::kSuccess) {
+        std::cerr << "Model 1 Predict failed: " << status << std::endl;
+        goto cleanup;
+    }
+
+    // Model 2 Prediction: outputs1 (Device) -> outputs2 (Host)
+    model2.Predict(outputs1, &outputs2);
+    if (status != mindspore::kSuccess) {
+        std::cerr << "Model 2 Predict failed: " << status << std::endl;
+        goto cleanup;
+    }
+
+    delete[] data_ptr;
+    delete input_host;
+    delete output1;
+    delete output2;
+
+    // Success return
+    return 0;
+}
+```
+
+> 1. This sample model has a fixed shape and does not support fully dynamic shapes.
+> 2. The size of the output tensor’s buffer must not be smaller than the actual size of the input data.
+
+Python implementation reference:
+
+```python
+def _create_context(provider):
+    """
+    Creates a MindSpore Lite context for Ascend device with a specific provider.
+    """
+    context = mslite.Context()
+    context.target = ["ascend"]
+    context.ascend.device_id = DEVICE_ID
+    context.ascend.provider = provider
+    return context
+def _common_functional_accuracy_mult_model(model1_path: str, model2_path: str, output_add: str):
+    '''
+    common accuracy factory for multi-model
+    '''
+    model1_ge_v1 = mslite.Model()
+    context1_ge_v1 = _create_context("ge-v1")
+    model1_ge_v1.build_from_file(model_path=model1_path,
+                                 model_type=mslite.ModelType.MINDIR, context=context1_ge_v1)
+    model2_ge_v1 = mslite.Model()
+    context2_ge_v1 = _create_context("ge-v1")
+    model2_ge_v1.build_from_file(model_path=model2_path,
+                                 model_type=mslite.ModelType.MINDIR, context=context2_ge_v1)
+
+    model1_ge = mslite.Model()
+    context1_ge = _create_context("ge")
+    model1_ge.build_from_file(model_path=model1_path,
+                              model_type=mslite.ModelType.MINDIR, context=context1_ge)
+    model2_ge = mslite.Model()
+    context2_ge = _create_context("ge")
+    model2_ge.build_from_file(model_path=model2_path,
+                              model_type=mslite.ModelType.MINDIR, context=context2_ge)
+
+    np_input = np.random.random((1, 3, 512, 512)).astype(np.float32)
+    loop = 3
+    result_ge = []
+    for i in range(loop):
+        inputs = mslite.Tensor(tensor=np_input.copy(), shape=DIM_IN2, dtype=mslite.DataType.FLOAT32)
+        outputs_host1 = mslite.Tensor(tensor=np_input.copy(),shape=DIM_OUT2, dtype=mslite.DataType.FLOAT32)
+        outputs_host2 = mslite.Tensor(tensor=np_input.copy(),shape=DIM_OUT2, dtype=mslite.DataType.FLOAT32)
+
+        model1_ge.predict([inputs], [outputs_host1])
+        model2_ge.predict([outputs_host1], [outputs_host2])
+        result_ge.append([outputs_host1.get_data_to_numpy(),
+                         outputs_host2.get_data_to_numpy()])
+
+    result_ge_v1 = []
+    for i in range(loop):
+        inputs = mslite.Tensor(tensor=np_input.copy(), shape=DIM_IN2, dtype=mslite.DataType.FLOAT32)
+        outputs2_host = mslite.Tensor(tensor=np_input.copy(),shape=DIM_IN2, dtype=mslite.DataType.FLOAT32)
+        outputs1 = (
+            mslite.Tensor(tensor=np_input.copy(),
+                          shape=DIM_IN2,
+                          dtype=mslite.DataType.FLOAT32,
+                          device="ascend:" + str(DEVICE_ID))
+            if output_add == "device"
+            else mslite.Tensor(tensor=np_input.copy(),
+                               shape=DIM_IN2,
+                               dtype=mslite.DataType.FLOAT32)
+        )
+        model1_ge_v1.predict([inputs], [outputs1])
+        model2_ge_v1.predict([outputs1], [outputs2_host])
+        result_ge_v1.append([outputs1.get_data_to_numpy(), outputs2_host.get_data_to_numpy()])
+    print("test result: ")
+    for of, ob in zip(result_ge, result_ge_v1):
+        for f, b in zip(of, ob):
+            np.testing.assert_allclose(f, b)
+    print("Common multi-model accuracy verification passed.")
+    return True
+
+def test_single_autoregressive_accuracy_device():
+    '''
+    test Single-model autoregression (device output) accuracy
+    '''
+    # Autoregression is achieved by using MODEL_PATH twice
+    result = _common_functional_accuracy_mult_model(MODEL_PATH, MODEL_PATH, "device")
+    if result:
+        print("Single-model autoregression (device output) accuracy passed.")
+```
+
 ### Loading Models through Multiple Threads
 
 When the backend is Ascend or CPU, it supports loading multiple models through multiple threads to improve model loading performance.
