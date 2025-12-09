@@ -18,7 +18,7 @@ output_dir: './output'
 monitor_config:
     monitor_on: True
     dump_path: './dump'
-    target: ['layers.0', 'layers.1'] # Monitor only the first and second level parameters
+    target: ['layers.0.', 'layers.1.'] # Monitor only the first and second level parameters
     invert: False
     step_interval: 1
     local_loss_format: ['log', 'tensorboard']
@@ -32,13 +32,6 @@ monitor_config:
     check_for_global_norm: False
     global_norm_spike_threshold: 1.0
     global_norm_spike_count_threshold: 10
-    stable_rank_config:
-        format: ['log', 'tensorboard']
-        step_interval: 100
-        target: None
-        do_aggregation: False
-        moe_show_mode: 'all'
-        power_iteration_num: 5
 
 tensorboard:
     tensorboard_dir: 'worker/tensorboard'
@@ -54,7 +47,7 @@ callbacks:
 | monitor_config field parameter name              | Descriptions                                                                                                                                                                                                                                 | Types            |
 |--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
 | monitor_config.monitor_on                        | Sets whether monitoring is enabled. The default is `False`, when all the following parameters do not take effect                                                                                                                             | bool          |
-| monitor_config.dump_path                         | Sets the path where the `local_norm`, `device_local_norm`, `local_loss`, and `device_local_loss` metrics files are saved during training. When not set or set to `null` take the default value `./dump`                                    | str           |
+| monitor_config.dump_path                         | Sets the path where the `local_norm`, `device_local_norm`, `local_loss`, and `device_local_loss` metrics files are saved during training. When not set or set to `null` take the default value `./dump`                                      | str           |
 | monitor_config.target                            | Sets the name (fragment) of the target parameter monitored by the indicator `optimizer_state` and `local_norm`, which can be a regular expression. When not set or set to `null` take the default value ['. *'], i.e. specify all parameters | list[str]     |
 | monitor_config.invert                            | Sets the parameter specified by counterselecting `monitor_config.target`. Defaults to `False`.                                                                                                                                               | bool          |
 | monitor_config.step_interval                     | Sets the frequency of logging the indicator. Default is 1, i.e., record once per step                                                                                                                                                        | int           |
@@ -66,15 +59,9 @@ callbacks:
 | monitor_config.weight_state_format               | Sets the logging form of the indicator `weight L2-norm`                                                                                                                                                                                      | str or list[str] |
 | monitor_config.throughput_baseline               | Sets the baseline value for the metric `throughput linearity`, which needs to be positive. It will be written to both TensorBoard and logs. Defaults to `null` when not set, indicating that the metric is not monitored                     | int or float     |
 | monitor_config.print_struct                      | Sets whether to print all trainable parameter names for the model. If `True`, it will print the names of all trainable parameters at the start of the first step and exit training at the end of the step. Default is `False`.               | bool          |
-| monitor_config.check_for_global_norm             | Sets whether to enable anomaly monitoring for indicator `global norm`. Default is `False`                                                                                                                                                    | bool          |
-| monitor_config.global_norm_spike_threshold       | Sets a relative threshold for the indicator `global norm`, which is considered abnormal if it exceeds this value. Default is `3.0`                                                                                                           | float         |
-| monitor_config.global_norm_spike_count_threshold | Sets the cumulative number of consecutive abnormal indicators `global norm`, and when the number of occurrences reaches the threshold, trigger an abnormal interrupt and terminate the training. Default is `10`                             | int           |
-| monitor_config.stable_rank_config.format        | Sets the logging form of the indicator `stable_rank` and `max_eigenvalue`                                      | str or list[str] |
-| monitor_config.stable_rank_config.step_interval | Sets the frequency of logging the indicator `stable_rank` and `max_eigenvalue`. Default is `100`                                      | int |
-| monitor_config.stable_rank_config.target | Sets the name (fragment) of the target parameter monitored by the indicator `stable_rank` and `max_eigenvalue`. Default value ['.*'] to specify all parameters                     | list[str] |
-| monitor_config.stable_rank_config.do_aggregation                | Whether to perform param aggregation via communication before setting the calculation metrics `stable_rank` and `max_eigenvalue`       | bool |
-| monitor_config.stable_rank_config.moe_show_mode                  | Sets data display mode when calculating `stable_rank` and `max_eigenvalue` for MOE model (3D param). Options: `full` (list all experts data), `statistics` (min, max, mean of all experts), `all` (show both). Default is `all`                                      | str |
-| monitor_config.stable_rank_config.power_iteration_num | The power iteration method is used to approximate `max_eigenvalue`. The more iterations performed, the closer the computed result is to the true value, but the computational cost increases accordingly. Default is `5`                                      | int |
+| monitor_config.check_for_global_norm             | Sets whether to enable anomaly monitoring for indicator `global norm`. Default is `False`. See [Data Skip And Checkpoint Health Monitor](https://www.mindspore.cn/mindformers/docs/en/master/feature/skip_data_and_ckpt_health_monitor.html) and [Abnormal Training Results Recovery](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html#abnormal-training-results-recovery) for details | bool          |
+| monitor_config.global_norm_spike_threshold       | Sets a relative threshold for the indicator `global norm`, which is considered abnormal if it exceeds this value. Default is `3.0`. See [Data Skip And Checkpoint Health Monitor](https://www.mindspore.cn/mindformers/docs/en/master/feature/skip_data_and_ckpt_health_monitor.html) and [Abnormal Training Results Recovery](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html#abnormal-training-results-recovery) for details | float         |
+| monitor_config.global_norm_spike_count_threshold | Sets the cumulative number of consecutive abnormal indicators `global norm`, and when the number of occurrences reaches the threshold, trigger an abnormal interrupt and terminate the training. Default is `10`. See [Data Skip And Checkpoint Health Monitor](https://www.mindspore.cn/mindformers/docs/en/master/feature/skip_data_and_ckpt_health_monitor.html) and [Abnormal Training Results Recovery](https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html#abnormal-training-results-recovery) for details | int           |
 
 The optional values for the parameters of the form xxx_format above are the strings 'tensorboard' and 'log' (for writing to the TensorBoard and writing to the log, respectively), or a list of both, or `null`. All default to `null` when not set, indicating that the corresponding metrics are not monitored.
 
@@ -171,6 +158,11 @@ The names and descriptions of the metrics monitored by `TrainingStateMonitor` ar
 | adam_v_norm          | The optimizer's second-order moments estimate the number of paradigms for each parameter, records need to set `optimizer_state_format` to non-null |
 | weight_norm          | Weight L2 paradigm, records need to set `weight_state_format` to non-null                                                                          |
 | throughput_linearity | Data throughput linearity, records need to set `throughput_baseline` to non-null                                                                   |
+
+**Note**, for `local_loss` and `device_accum_local_loss`:
+
+1. There will be an extra tag added to the metric name written to log or tensorboard (such as `local_lm_loss`, `device_accum_local_lm_loss`), which shows the source of loss. Here are two possible tags `lm` and `mtp` currently, wherein `lm` means common cross entropy loss of language model and `mtp` means loss of MultiTokenPrediction layer.
+2. For pipeline parallel or gradient accumulation cases, `local_loss` metric will record the average localized losses among all micro batches when written to tensorboard, and record localized losses of every micro batch when written to log (with a prefix "micro", such as `micro_local_lm_loss`); in other scenarios, `local_loss` is equivalent to `device_accum_local_loss`.
 
 #### TopkBiasBalanceCallback Monitoring Metrics
 
