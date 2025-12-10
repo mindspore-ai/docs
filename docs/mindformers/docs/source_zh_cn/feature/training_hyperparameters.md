@@ -111,24 +111,59 @@ grouped_lr_schedule:
 
 选择合适的优化器对模型的收敛速度和最终性能有着至关重要的影响。不同的优化器通过不同的方法调整学习率和其他超参数，来加速训练过程、改善收敛性并避免局部最优解。
 
-当前，MindSpore Transformers 只支持 [AdamW 优化器](https://www.mindspore.cn/mindformers/docs/zh-CN/master/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)。
+MindSpore Transformers 当前支持以下两类优化器：
 
-### 配置与使用
+- [**AdamW 优化器**](https://www.mindspore.cn/mindformers/docs/zh-CN/master/mindformers.core.html#%E4%BC%98%E5%8C%96%E5%99%A8)  
+- **Muon 优化器**
 
-#### YAML 参数配置
+不同优化器通过不同的数学策略（如自适应学习率、动量估计、方向归一化等）影响训练稳定性、收敛速度和最终性能。
 
-用户可通过在模型训练的 yaml 配置文件中新增 `optimizer` 模块来使用优化器。
+用户可通过在模型训练的 yaml 配置文件中新增 `optimizer` 模块来选择并配置优化器。
 
-以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以下示例基于 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml)。
+
+### AdamW 优化器
+
+AdamW 是一种基于自适应矩估计（Adaptive Moment Estimation）的优化器，并改进了传统 Adam 的权重衰减方式，采用了 decoupled weight decay。它通过分别维护梯度的一阶、二阶动量来实现自适应学习率，使模型在训练过程中能够稳定地进行参数更新。
+
+由于其良好的收敛特性和训练稳定性，AdamW 广泛应用于大规模 Transformer 模型、LLM 预训练、MoE 结构等场景，是当前深度学习中最常用的优化器之一。
+
+#### YAML 示例
 
 ```yaml
-# optimizer
 optimizer:
   type: AdamW
   betas: [0.9, 0.95]
   eps: 1.e-8
+  weight_decay: 0.01
 ```
 
 #### 主要配置参数介绍
 
-有关优化器配置的主要参数，可参见 [MindSpore Transformers API 文档：优化器部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.AdamW.html#mindformers.core.AdamW) 的相关链接。
+有关 AdamW 优化器配置的主要参数，可参见 [MindSpore Transformers API 文档：AdamW优化器部分](https://www.mindspore.cn/mindformers/docs/zh-CN/master/core/mindformers.core.AdamW.html#mindformers.core.AdamW) 的相关链接。
+
+### Muon 优化器
+
+Muon（Momentum Orthogonalized by Newton-Schulz）是一种具备矩阵结构感知（matrix-structured）和几何特性（geometry-aware）的优化器，专为大规模深度学习特别是 LLM 训练设计。Muon 通过将 SGD 动量产生的更新，然后对每个更新进行牛顿-舒尔茨迭代，作为后处理步骤，再应用到参数上，从而优化二维神经网络参数。详情可参考[Muon 优化器](https://kellerjordan.github.io/posts/muon/)。
+
+#### YAML 示例
+
+```yaml
+optimizer:
+  type: Muon
+  adamw_betas: [0.9, 0.95]
+  adamw_eps: 1.e-8
+  weight_decay: 0.01
+  matched_adamw_rms: 0.2
+  qk_clip_threshold: 100
+```
+
+#### 主要配置参数介绍
+
+Muon 优化器支持以下配置参数：
+
+- `adamw_betas` (list[float] 或 tuple[float], 可选)：一阶和二阶矩的指数衰减率，用于匹配 AdamW 的动量统计。每个值范围在 (0.0, 1.0)。默认值：(0.95, 0.95)。
+- `adamw_eps` (float, 可选)：加在分母中以提高数值稳定性。必须大于 0。默认值：1e-8。
+- `weight_decay` (float, 可选)：权重衰减系数，用于在参数更新中施加 L2 正则化。默认值：0.1。
+- `matched_adamw_rms` (float, 可选)：用于对齐 AdamW 的 RMS（均方根幅度）统计，避免更新过大导致的不稳定，也防止过小更新带来的收敛变慢。默认值：0.2。
+- `qk_clip_threshold` (float, 可选)：用于 限制 Q/K 点积注意力的数值范围，防止 softmax 输入过大导致梯度爆炸或数值不稳定。默认值：100。
