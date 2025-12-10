@@ -359,8 +359,10 @@ Graph Compilation and Execution
      - Control whether the Dispatch feature is enabled for operators in PyNative mode. When enabled, operators automatically selects the corresponding device for execution based on the device where the input tensor is located.
      - Integer
      - 1: Enable dispatch and disable implicit copying of operator inputs in PyNative mode. If the input tensors are on different devices, an exception will be thrown.
-     - 2: Enable dispatch in PyNative mode. If the input tensors are on different devices, the Python stack trace will be printed, and the operator will run on the higher-priority device (for example, if both Ascend and CPU tensors exist, Ascend will be preferred).
-     - 3: Enable dispatch in PyNative mode. If the input tensors are on different devices, the operator will run on the higher-priority device.
+       
+       2: Enable dispatch in PyNative mode. If the input tensors are on different devices, the Python stack trace will be printed, and the operator will run on the higher-priority device (for example, if both Ascend and CPU tensors exist, Ascend will be preferred).
+       
+       3: Enable dispatch in PyNative mode. If the input tensors are on different devices, the operator will run on the higher-priority device.
 
        Not set or any other value: Dispatch is disabled.
      -
