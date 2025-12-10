@@ -359,8 +359,10 @@
      - 控制在动态图流程中算子是否启用Dispatch功能。启用后，算子会根据输入tensor所在的设备，自动选择对应的设备执行。
      - Integer
      - 1：开启动态图Dispatch功能，关闭动态图算子输入隐式拷贝。如果输入多个tensor的设备不一致，则会抛异常。
-     - 2：开启动态图Dispatch功能。如果输入多个tensor的设备不一致，则会打印堆栈信息，然后按高优先级的设备执行（例如：同时存在Ascend和CPU的tensor，则优先到Ascend执行）。
-     - 3：开启动态图Dispatch功能。如果输入多个tensor设备不一致，按高优先级的设备执行。
+       
+       2：开启动态图Dispatch功能。如果输入多个tensor的设备不一致，则会打印堆栈信息，然后按高优先级的设备执行（例如：同时存在Ascend和CPU的tensor，则优先到Ascend执行）。
+       
+       3：开启动态图Dispatch功能。如果输入多个tensor设备不一致，按高优先级的设备执行。
 
        不设置或其他值：不开启Dispatch功能
      -
