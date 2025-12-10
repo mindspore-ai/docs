@@ -484,6 +484,8 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                 spec_tp = [('mint.nn.functional.dense', 'mint.nn.functional.linear'),
                         ('mint.select_ext_view', 'mint.select'),
                         ('mint.transpose_ext_view', 'mint.transpose'),
+                        ('mint.narrow_view', 'mint.narrow'),
+                        ('mint.broadcast_to_view', 'mint.broadcast_to'),
                         ]
                 for i in spec_tp:
                     if name.endswith(i[1]):
