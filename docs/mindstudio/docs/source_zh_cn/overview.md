@@ -23,7 +23,7 @@
       <tr>
          <td rowspan="4">性能调优</td>
          <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/profiler.html">Profiler</a></td>
-         <td>MindSpore框架内置的性能数据采集、分析工具。推荐优先选择MindSpore 2.7.1版本。</td>
+         <td>MindSpore框架内置的性能数据采集、分析工具。推荐优先选择MindSpore 2.7.2版本。</td>
          <td><a href="https://www.mindspore.cn/install">安装MindSpore</a></td>
       </tr>
       <tr>
