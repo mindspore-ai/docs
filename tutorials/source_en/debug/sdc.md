@@ -14,7 +14,7 @@ The MindSpore framework version 2.4 provides a solution for feature value detect
 
 For default feature value detection checkpoints, users can enable detection capability using the environment variable `NPU_ASD_ENABLE=1`, `NPU_ASD_ENABLE=2` or `NPU_ASD_ENABLE=3`, and adjust the detection intensity by configuring the environment variables `NPU_ASD_UPPER_THRESH` and `NPU_ASD_SIGMA_THRESH`.
 
-The Mindspore framework version 2.7.1 provides a combined detection scheme using feature value and CheckSum, which can more accurately locate silent faults. It samples parameter gradients for feature value detection. When multiple anomalies occur, CheckSum is triggered by a "strike out" mechanism to further locate the faulty device. Users can configure the combined detection through `MS_NPU_ASD_CONFIG`.
+The Mindspore framework version 2.7.2 provides a combined detection scheme using feature value and CheckSum, which can more accurately locate silent faults. It samples parameter gradients for feature value detection. When multiple anomalies occur, CheckSum is triggered by a "strike out" mechanism to further locate the faulty device. Users can configure the combined detection through `MS_NPU_ASD_CONFIG`.
 
 For information on configuring related environment variables, see **Feature Switches and Configuration**.
 

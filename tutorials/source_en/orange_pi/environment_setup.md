@@ -314,11 +314,11 @@ Step 2 Execute the following command to obtain version information.
 
 If the current MindSpore version does not meet the development requirements, the MindSpore version can be upgraded according to the following methods.
 
-### 4.2 Installing the Official Version of the Website (Taking MindSpore 2.7.1 as an example)
+### 4.2 Installing the Official Version of the Website (Taking MindSpore 2.7.2 as an example)
 
 #### 4.2.1 MindSpore Upgrading
 
-Please refer to the MindSpore official website [installation tutorial](https://www.mindspore.cn/install) to install MindSpore 2.7.1.
+Please refer to the MindSpore official website [installation tutorial](https://www.mindspore.cn/install) to install MindSpore 2.7.2.
 
 #### 4.2.2 Installation Verification
 
@@ -329,7 +329,7 @@ Please refer to the MindSpore official website [installation tutorial](https://w
 If the output is as follows, it indicates that MindSpore has been successfully installed.
 
 ```bash
-MindSpore version: 2.7.1
+MindSpore version: 2.7.2
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 

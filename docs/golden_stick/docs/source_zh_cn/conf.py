@@ -466,8 +466,8 @@ for cur, _, files in os.walk(moment_dir):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
-                    new_content = re.sub(re_url, r'\1/r2.7.1', content)
-                    new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
+                    new_content = re.sub(re_url, r'\1/r2.7.2', content)
+                    new_content = re.sub(re_url2, r'\1/v2.7.2', new_content)
                     new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
                     # new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
                     new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)

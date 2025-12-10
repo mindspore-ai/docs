@@ -314,11 +314,11 @@ xxx install success
 
 若当前MindSpore版本不满足开发需求，可按照如下内容对MindSpore版本进行升级。
 
-### 4.2 升级MindSpore（以MindSpore 2.7.1为例）
+### 4.2 升级MindSpore（以MindSpore 2.7.2为例）
 
 #### 4.2.1 升级MindSpore
 
-请参考MindSpore官网[安装教程](https://www.mindspore.cn/install)安装MindSpore2.7.1。
+请参考MindSpore官网[安装教程](https://www.mindspore.cn/install)安装MindSpore2.7.2。
 
 #### 4.2.2 验证是否成功安装
 
@@ -331,7 +331,7 @@ xxx install success
 如果输出如下，说明MindSpore安装成功了。
 
 ```bash
-MindSpore version: 2.7.1
+MindSpore version: 2.7.2
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 

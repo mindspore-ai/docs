@@ -17,7 +17,7 @@ aclnnStatus aclxxXxx(void * workspace, uint64_t workspaceSize, aclOpExecutor * e
 
 在 [基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/op_customopbuilder.html)中，MindSpore提供了 `PyboostRunner` 方便用户在动态图接入自定义算子。为了简化调用流程，隐藏接口数据类型转换操作，MindSpore针对`aclnn`算子提供了统一的执行入口`ms::pynative::AclnnOpRunner`，其支持PyBoost多级流水和MindSpore框架的算子缓存能力，提高算子和网络执行效率。
 
-本教程以 `ArgMin`为例，展示完整接入流程。完整代码可参考 [MindSpore 代码仓](https://gitee.com/mindspore/mindspore/tree/v2.7.1/tests/st/graph_kernel/custom/jit_test_files/)。
+本教程以 `ArgMin`为例，展示完整接入流程。完整代码可参考 [MindSpore 代码仓](https://gitee.com/mindspore/mindspore/tree/v2.7.2/tests/st/graph_kernel/custom/jit_test_files/)。
 
 ## 安装 ACLNN 开发环境
 

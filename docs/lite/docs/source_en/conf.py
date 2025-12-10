@@ -22,7 +22,7 @@ copyright = 'MindSpore'
 author = 'MindSpore Lite'
 
 # The full version, including alpha/beta/rc tags
-release = '2.7.1'
+release = '2.7.2'
 
 
 # -- General configuration ---------------------------------------------------

@@ -88,7 +88,7 @@ copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = '2.7.1'
+release = '2.7.2'
 
 
 # -- General configuration ---------------------------------------------------
@@ -365,8 +365,8 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
         if i.endswith('.py'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url, r'\1/r2.7.1', content)
-                new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
+                new_content = re.sub(re_url, r'\1/r2.7.2', content)
+                new_content = re.sub(re_url2, r'\1/v2.7.2', new_content)
                 new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
                 # new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
                 new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
@@ -503,13 +503,13 @@ for cur, _, files in os.walk(des_sir):
                 new_content = content
 
                 # 发版本时这里启用
-                new_content = re.sub(re_url, r'\1/r2.7.1', new_content)
+                new_content = re.sub(re_url, r'\1/r2.7.2', new_content)
                 new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
                 # new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
                 new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)
                 new_content = re.sub(re_url6, r'\1/82RC1', new_content)
                 if i.endswith('.rst'):
-                    new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
+                    new_content = re.sub(re_url2, r'\1/v2.7.2', new_content)
 
                 # master使用
                 # if i.endswith('.md'):
@@ -705,7 +705,7 @@ else:
 
 with open(des_release, "w", encoding="utf-8") as p:
     # 发版本时这里启用
-    content = re.sub(re_url, r'\1/r2.7.1', content)
-    content = re.sub(re_url2, r'\1/v2.7.1', content)
+    content = re.sub(re_url, r'\1/r2.7.2', content)
+    content = re.sub(re_url2, r'\1/v2.7.2', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)

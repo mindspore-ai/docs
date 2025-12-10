@@ -44,10 +44,10 @@ Create a Conda virtual environment based on the Python version you want to use a
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.7.1 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.7.2 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.7.1
+export MS_VERSION=2.7.2
 ```
 
 Then run the following command to install MindSpore.
@@ -59,7 +59,7 @@ conda install scipy -c conda-forge
 pip install mindspore==${MS_VERSION} -i https://repo.mindspore.cn/pypi/simple --trusted-host repo.mindspore.cn --extra-index-url https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.1/setup.py). In other cases, install the dependencies by yourself.
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.2/setup.py). In other cases, install the dependencies by yourself.
 
 ## Installation Verification
 
