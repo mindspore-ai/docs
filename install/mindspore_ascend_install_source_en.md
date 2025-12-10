@@ -1,26 +1,8 @@
 # Installing MindSpore in Ascend by Source Code
 
-<!-- TOC -->
+<!-- TOC -->autoauto- [Installing MindSpore in Ascend by Source Code](#installing-mindspore-in-ascend-by-source-code)auto    - [Installing dependencies](#installing-dependencies)auto        - [Installing Python](#installing-python)auto        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)auto        - [Installing wheel setuptools PyYAML and Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)auto        - [Installing GCC](#installing-gcc)auto        - [Installing git tclsh patch NUMA and Flex](#installing-git-tclsh-patch-numa-and-flex)auto        - [Installing git-lfs](#installing-git-lfs)auto        - [Installing CMake](#installing-cmake)auto    - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)auto    - [Configuring Environment Variables](#configuring-environment-variables)auto    - [Compiling MindSpore](#compiling-mindspore)auto    - [Installing MindSpore](#installing-mindspore)auto    - [Installation Verification](#installation-verification)auto    - [Version Update](#version-update)autoauto<!-- /TOC -->
 
-- [Installing MindSpore in Ascend by Source Code](#installing-mindspore-in-ascend-by-source-code)
-    - [Installing dependencies](#installing-dependencies)
-        - [Installing Python](#installing-python)
-        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
-        - [Installing wheel setuptools PyYAML and Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)
-        - [Installing GCC](#installing-gcc)
-        - [Installing git tclsh patch NUMA and Flex](#installing-git-tclsh-patch-numa-and-flex)
-        - [Installing git-lfs](#installing-git-lfs)
-        - [Installing CMake](#installing-cmake)
-    - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
-    - [Configuring Environment Variables](#configuring-environment-variables)
-    - [Compiling MindSpore](#compiling-mindspore)
-    - [Installing MindSpore](#installing-mindspore)
-    - [Installation Verification](#installation-verification)
-    - [Version Update](#version-update)
-
-<!-- /TOC -->
-
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/install/mindspore_ascend_install_source_en.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/install/mindspore_ascend_install_source_en.md)
 
 This document describes how to install MindSpore by compiling source code on Linux in an Ascend environment.
 
@@ -221,7 +203,7 @@ Note: The Numpy version used in the runtime environment must be no less than the
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone -b v2.7.1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.2 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Configuring Environment Variables

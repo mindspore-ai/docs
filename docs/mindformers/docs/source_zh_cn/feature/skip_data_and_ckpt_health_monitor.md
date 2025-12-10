@@ -1,6 +1,6 @@
 # 数据跳过和健康监测
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/feature/skip_data_and_ckpt_health_monitor.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/feature/skip_data_and_ckpt_health_monitor.md)
 
 ## 概述
 
@@ -149,7 +149,7 @@ parallel_config:
 | embedding_local_norm_threshold | 健康监测的embedding norm的阈值。默认值为`1.0`。                                                                                                                                                                                                                                                   | float | 可选         | 大于0 |
 | parallel                       | 并行策略配置。                                                                                                                                                                                                                                                                             |       | 必选         |     |
 | full_batch                     | 是否在并行模式下从数据集中读取加载完整的批数据。设置为`True`表示所有rank都读取完整的批数据，设置为`False`表示每个rank仅加载对应的批数据。设置为`False`时必须设置对应的`dataset_strategy`。此功能仅支持`False`。                                                                                                                                                  |    bool   | 必选 `False` |     |
-| dataset_strategy               | 仅支持`List of List`类型且仅在`full_batch=False`时生效。列表中子列表的个数需要等于`train_dataset.input_columns`的长度，并且列表中的每个子列表需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子列表的第1位数配置与`data_parallel`相同，其他位配置为`1`。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/parallel/dataset_slice.html)。 |   list    | 必选         |     |
+| dataset_strategy               | 仅支持`List of List`类型且仅在`full_batch=False`时生效。列表中子列表的个数需要等于`train_dataset.input_columns`的长度，并且列表中的每个子列表需要和数据集返回的数据的shape保持一致。一般在数据的第1维进行数据并行切分，所以子列表的第1位数配置与`data_parallel`相同，其他位配置为`1`。具体原理可以参考[数据集切分](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/parallel/dataset_slice.html)。 |   list    | 必选         |     |
 | parallel_config                | 并行参数配置。                                                                                                                                                                                                                                                                             |       | 必选         |     |
 | data_parallel                  | 设置数据并行数。                                                                                                                                                                                                                                                                            |   int    | 必选         | 正整数 |
 | pipeline_stage                 | 设置流水线并行数。                                                                                                                                                                                                                                                                           |    int   | 必选         | 正整数 |

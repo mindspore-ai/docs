@@ -1,6 +1,6 @@
 # 转换模型权重为Megatron模型权重的实践案例
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron.md)
 
 本案例提供了一个将 [MindSpore Transformers](https://gitee.com/mindspore/mindformers) 库的模型权重（safetensors格式）转换为 [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 库的模型权重格式的方法，以便后续进行精度比对或迁移训练。转换后的 Megatron-LM 权重为bf16类型。
 
@@ -14,7 +14,7 @@
     git clone https://github.com/NVIDIA/Megatron-LM.git -b core_r0.12.0
     ```
 
-2. 拷贝[转换脚本](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py)到 Megatron-LM/tools/checkpoint/ 目录下。
+2. 拷贝[转换脚本](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py)到 Megatron-LM/tools/checkpoint/ 目录下。
 
 ## 模型权重准备
 

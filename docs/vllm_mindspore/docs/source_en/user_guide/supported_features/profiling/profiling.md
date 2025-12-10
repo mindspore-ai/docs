@@ -1,6 +1,6 @@
 # Profiling Methods
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/profiling/profiling.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/profiling/profiling.md)
 
 vLLM-MindSpore Plugin supports the `mindspore.Profiler` module to track the performance of workers in vLLM-MindSpore Plugin. User can follow the [Collecting Profiling Data](#collecting-profiling-data) section to gather data and then analyze it according to [Analyzing Profiling Data](#analyzing-profiling-data). Additionally, user can inspect the model's IR graph through [Graph Data Dump](#graph-data-dump) to analyze and debug the model structure.
 
@@ -58,7 +58,7 @@ Parsing: [####################] 3/3 Done
 
 ## Analyzing Profiling Data
 
-The directory specified by `VLLM_TORCH_PROFILER_DIR` contains the profiling results, with subdirectories named with the `ascend_ms` suffix. Each subdirectory stores the profiling results for one worker. The files in these subdirectories can be referenced for performance analysis, as described in [Ascend Performance Tuning](https://www.mindspore.cn/tutorials/en/r2.7.1/debug/profiler.html).
+The directory specified by `VLLM_TORCH_PROFILER_DIR` contains the profiling results, with subdirectories named with the `ascend_ms` suffix. Each subdirectory stores the profiling results for one worker. The files in these subdirectories can be referenced for performance analysis, as described in [Ascend Performance Tuning](https://www.mindspore.cn/tutorials/en/r2.7.2/debug/profiler.html).
 
 User can select a subdirectory to analyze the performance of a single worker:
 
@@ -84,6 +84,6 @@ User can select a subdirectory to analyze the performance of a single worker:
 
 ## Graph Data Dump
 
-Refer to the [MindSpore Dump Documentation](https://www.mindspore.cn/tutorials/en/r2.7.1/debug/dump.html). First, configure the JSON file, then set the `MINDSPORE_DUMP_CONFIG` environment variable to point to the absolute path of this configuration file. After inference completes, the graph data can be obtained.
+Refer to the [MindSpore Dump Documentation](https://www.mindspore.cn/tutorials/en/r2.7.2/debug/dump.html). First, configure the JSON file, then set the `MINDSPORE_DUMP_CONFIG` environment variable to point to the absolute path of this configuration file. After inference completes, the graph data can be obtained.
 
 The dump results include the IR graph. Additionally, by configuring the `dump_mode` in the JSON file, user can choose to dump execution data for all operators or specific operators.

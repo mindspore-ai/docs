@@ -270,7 +270,7 @@
 
     教程样例：
         - `Graph Mode加速
-          <https://mindspore.cn/tutorials/zh-CN/r2.7.1/beginner/accelerate_with_static_graph.html>`_
+          <https://mindspore.cn/tutorials/zh-CN/r2.7.2/beginner/accelerate_with_static_graph.html>`_
 
 ```
 
@@ -284,7 +284,7 @@
 
     教程样例：
         - `Graph Mode加速
-          <https://mindspore.cn/tutorials/zh-CN/r2.7.1/beginner/accelerate_with_static_graph.html>`_
+          <https://mindspore.cn/tutorials/zh-CN/r2.7.2/beginner/accelerate_with_static_graph.html>`_
 
 ```
 

@@ -1,6 +1,6 @@
 # Supported Model List
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/user_guide/supported_models/models_list/models_list.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_en/user_guide/supported_models/models_list/models_list.md)
 
 | Model | Status | Backend Supported | Hardware Supported | Model Download Link |
 |-------| ---- |  ---- | --------- | ---- |

@@ -1,6 +1,6 @@
 # 推理精度比对
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/advanced_development/inference_precision_comparison.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/advanced_development/inference_precision_comparison.md)
 
 ## 概述
 
@@ -95,7 +95,7 @@
       checker.check_precision(gpu_data, npu_data)
       ```
 
-      > 关于如何dump数据可以参考MindSpore官网提供的[Dump教程文档](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/dump.html)。
+      > 关于如何dump数据可以参考MindSpore官网提供的[Dump教程文档](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/dump.html)。
     - 可能的原因：某个输入的dtype类型不一致等导致的精度损失。
     - 解决方法：对齐标杆的dtype。
 

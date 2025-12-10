@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/install/mindspore_cpu_install_source.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/install/mindspore_cpu_install_source.md)
 
 本文档介绍如何在CPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore编译安装步骤。
 
@@ -133,7 +133,7 @@ sudo apt-get install llvm-12-dev -y
 ## 从代码仓下载源码
 
 ```bash
-git clone -b v2.7.1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.2 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore

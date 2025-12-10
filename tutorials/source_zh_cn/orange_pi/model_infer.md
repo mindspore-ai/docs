@@ -1,6 +1,6 @@
 # 模型在线推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/orange_pi/model_infer.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_zh_cn/orange_pi/model_infer.md)
 
 本章节将介绍如何在OrangePi AIpro（下称：香橙派开发板）下载昇思MindSpore在线推理案例，并启动Jupyter Lab界面执行推理。
 
@@ -76,7 +76,7 @@
 
 ![model-infer5](./images/model_infer5.png)
 
-文件开头说明了硬件资源（香橙派开发板）信息，以及运行样例所需的CANN和MindSpore等版本。请注意检查环境，环境的检查与搭建详见[环境搭建指南](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/orange_pi/environment_setup.html)。
+文件开头说明了硬件资源（香橙派开发板）信息，以及运行样例所需的CANN和MindSpore等版本。请注意检查环境，环境的检查与搭建详见[环境搭建指南](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/orange_pi/environment_setup.html)。
 
 步骤4 单击⏩按钮运行样例，在弹出的对话框中单击“Restart”按钮，此时该样例开始运行。
 
@@ -90,4 +90,4 @@
 
 ## 下一步建议
 
-具体基于昇思MindSpore的案例开发详见[开发入门](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/orange_pi/dev_start.html)。
+具体基于昇思MindSpore的案例开发详见[开发入门](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/orange_pi/dev_start.html)。

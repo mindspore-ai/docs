@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/install/mindspore_cpu_mac_install_source_en.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/install/mindspore_cpu_mac_install_source_en.md)
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
@@ -63,7 +63,7 @@ Create a Conda virtual environment based on the Python version you want to use a
 ## Downloading Source Code from Code Repository
 
 ```bash
-git clone -b v2.7.1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.2 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore

@@ -1,6 +1,6 @@
 # Host&Device Heterogeneous
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/parallel/host_device_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/parallel/host_device_training.md)
 
 ## Overview
 
@@ -12,21 +12,21 @@ In MindSpore, users can easily implement hybrid training by configuring trainabl
 
 Pipeline parallel and operator-level parallel are suitable for scenarios where there are a large number of model operators and parameters are distributed evenly across the operators. If there are fewer model operators and parameters are concentrated in a small number of operators, a different strategy is required. Wide & Deep is an example of this, as shown in the image below. The Embedding table in Wide & Deep can be trained as a parameter of hundreds of GIGabytes or even a few terabytes. If it is executed on an accelerator (device), the number of accelerators required is huge, and the training cost is expensive. On the other hand, if you use accelerator computing, the training acceleration obtained is limited, and it will also trigger cross-server traffic, and the end-to-end training efficiency will not be very high.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/parallel/images/host_device_image_0_zh.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/parallel/images/host_device_image_0_zh.png)
 
 *Figure: Part of the structure of the Wide & Deep model*
 
 A careful analysis of the special structure of the Wide & Deep model can be obtained: although the Embedding table has a huge amount of parameters, it participates in very little computation, and the Embedding table and its corresponding operator, the EmbeddingLookup operator, can be placed on the Host side, by using the CPU for calculation, and the rest of the operators are placed on the accelerator side. This can take advantage of the large amount of memory on the Host side and the fast computing of the accelerator side, while taking advantage of the high bandwidth of the Host to accelerator of the same server. The following diagram shows how Wide & Deep heterogeneous slicing works:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/parallel/images/host_device_image_1_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/parallel/images/host_device_image_1_zh.png)
 
 *Figure: Wide & Deep Heterogeneous Approach*
 
 ### Related Interfaces
 
-1. [mindspore.ops.Primitive.set_device()](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.set_device): Set Primitive to execute the backend.
+1. [mindspore.ops.Primitive.set_device()](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.set_device): Set Primitive to execute the backend.
 
-2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/en/r2.7.1/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target): This attribute specifies whether the parameter should be updated on the host or on the device. The input type is str and can only be "CPU" or "Ascend".
+2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/en/r2.7.2/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target): This attribute specifies whether the parameter should be updated on the host or on the device. The input type is str and can only be "CPU" or "Ascend".
 
 ## Operator Practices
 
@@ -34,7 +34,7 @@ The following is an illustration of Host&Device heterogeneous operation using As
 
 ### Sample Code Description
 
-> Download the complete example code: [host_device](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/host_device).
+> Download the complete example code: [host_device](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/sample_code/host_device).
 
 The directory structure is as follows:
 
@@ -50,7 +50,7 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-First, the parallel mode is specified as [data parallel](https://www.mindspore.cn/tutorials/en/r2.7.1/parallel/data_parallel.html) mode through the context interface, and the communication is initialized through init.
+First, the parallel mode is specified as [data parallel](https://www.mindspore.cn/tutorials/en/r2.7.2/parallel/data_parallel.html) mode through the context interface, and the communication is initialized through init.
 
 ```python
 import mindspore as ms
@@ -94,7 +94,7 @@ data_set = create_dataset(32)
 
 ### Defining the Network
 
-The network definition differs from a single-card network in that the [ops.Add()](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.Add.html) operator is configured to run on the host side with the following code:
+The network definition differs from a single-card network in that the [ops.Add()](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.Add.html) operator is configured to run on the host side with the following code:
 
 ```python
 import mindspore as ms
@@ -145,7 +145,7 @@ net.layer3.add.set_device("CPU")
 
 ### Training the Network
 
-The loss function, optimizer, and training process are consistent with data parallelism, and [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/en/r2.7.1/api_python/nn/mindspore.nn.DistributedGradReducer.html) interface is used to aggregate the gradients across all cards with the following code:
+The loss function, optimizer, and training process are consistent with data parallelism, and [mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/en/r2.7.2/api_python/nn/mindspore.nn.DistributedGradReducer.html) interface is used to aggregate the gradients across all cards with the following code:
 
 ```python
 from mindspore import nn

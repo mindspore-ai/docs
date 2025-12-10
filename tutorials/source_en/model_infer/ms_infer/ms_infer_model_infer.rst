@@ -1,8 +1,8 @@
 MindSpore LLM Inference with Framework
 ==========================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/model_infer/ms_infer/ms_infer_model_infer.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/model_infer/ms_infer/ms_infer_model_infer.rst
     :alt: View Source On Gitee
 
 .. toctree::
@@ -379,7 +379,7 @@ Once the model is built, you can utilize the model object for text generation, e
 
   It can be seen that the model-inferred token IDs are translated to a human-readable statement. In actual verification, due to the randomness of **do_sample**, each inference is different, but the result logic is basically understandable.
 
-  For details about the complete end-to-end example, see `infer.py <https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/infer_code/qwen2/infer.py>`_.
+  For details about the complete end-to-end example, see `infer.py <https://gitee.com/mindspore/docs/blob/r2.7.2/docs/sample_code/infer_code/qwen2/infer.py>`_.
 
 Model Parallelism
 ~~~~~~~~~~~~~~~~~~~~

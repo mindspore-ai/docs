@@ -1,6 +1,6 @@
 # Large Model Precision Optimization Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/advanced_development/precision_optimization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/advanced_development/precision_optimization.md)
 
 ## Overview and Scenarios of Precision Issues
 
@@ -110,7 +110,7 @@ Before locating the operator precision problem, we should first eliminate the in
 
 ## Introduction to Precision Debugging Tools
 
-In precision localization, MindSpore's Dump tool is mainly used. For details, please refer to [Dump Function Debugging](https://www.mindspore.cn/tutorials/en/r2.7.1/debug/dump.html).
+In precision localization, MindSpore's Dump tool is mainly used. For details, please refer to [Dump Function Debugging](https://www.mindspore.cn/tutorials/en/r2.7.2/debug/dump.html).
 
 MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all the operator data in the network, saving the tensor and statistics in the statistic.csv table. The following gives a JSON example of full operator Dump:
 
@@ -134,7 +134,7 @@ MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all
 }
 ```
 
-Refer to [Dump Function Debug](https://www.mindspore.cn/tutorials/en/r2.7.1/debug/dump.html) for the field meanings of the configuration parameters.
+Refer to [Dump Function Debug](https://www.mindspore.cn/tutorials/en/r2.7.2/debug/dump.html) for the field meanings of the configuration parameters.
 
 After configuring the JSON file, set the Dump environment variable to point to the configured JSON file, you need to set the absolute path:
 
@@ -146,7 +146,7 @@ After setting the environment variables, start the program training to get the c
 
 ### Other Introductions
 
-In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/tutorials/en/r2.7.1/debug/dump.html) for configuration and use. In addition, the msprobe precision debugging tool is provided. msprobe is a tool package under the precision debugging component of the MindStudio Training Tools suite. It mainly includes functions such as precision pre-check, overflow detection, and precision comparison. For more information, refer to [msprobe User Guide](https://gitcode.com/Ascend/mstt/tree/master/debug/accuracy_tools/msprobe).
+In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/tutorials/en/r2.7.2/debug/dump.html) for configuration and use. In addition, the msprobe precision debugging tool is provided. msprobe is a tool package under the precision debugging component of the MindStudio Training Tools suite. It mainly includes functions such as precision pre-check, overflow detection, and precision comparison. For more information, refer to [msprobe User Guide](https://gitcode.com/Ascend/mstt/tree/master/debug/accuracy_tools/msprobe).
 
 When **deterministic computation** is enabled or the **Dump** feature is used, the training **performance** will significantly degrade. This may cause larger training steps and slower execution, which is expected behavior.
 

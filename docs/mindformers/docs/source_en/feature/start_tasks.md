@@ -1,13 +1,13 @@
 # Start Tasks
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/feature/start_tasks.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/feature/start_tasks.md)
 
 ## Overview
 
 MindSpore Transformers provides a one-click startup script `run_mindformer.py` and a distributed task launch script `msrun_launcher.sh`.
 
 - The `run_mindformer.py` script is used to start tasks on a **single device**, providing one-click capabilities for pre-training, fine-tuning, and inference tasks.
-- The `msrun_launcher.sh` script is used to start distributed tasks on **multi-device within a single node** or **multi-device with multi-node**, launching tasks on each device through the [msrun](https://www.mindspore.cn/tutorials/en/r2.7.1/parallel/msrun_launcher.html) tool.
+- The `msrun_launcher.sh` script is used to start distributed tasks on **multi-device within a single node** or **multi-device with multi-node**, launching tasks on each device through the [msrun](https://www.mindspore.cn/tutorials/en/r2.7.2/parallel/msrun_launcher.html) tool.
 
 ## Run_mindformer One-click Start Script
 
@@ -28,7 +28,7 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |    `--output_dir`     | Set the paths for saving logs, weights, sharding strategies, and other files.                                                                                                                | str, optional                                                                                       | pre-train/finetune/predict |
 |   `--register_path`   | The absolute path of the directory where the external code is located. For example, the model directory under the research directory.                                                        | str, optional                                                                                       | pre-train/finetune/predict |
 |  `--remote_save_url`  | Remote save url, where all the output files will be transferred and stored in here. This parameter has been deprecated and will be removed in the next version.                                 | str, optional                                                                                       | pre-train/finetune/predict |
-|       `--seed`        | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.set_seed.html).                                       | int, optional                                                                                       | pre-train/finetune/predict |
+|       `--seed`        | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.set_seed.html).                                       | int, optional                                                                                       | pre-train/finetune/predict |
 | `--trust_remote_code` | Whether Hugging Face AutoTokenizer trusts remote code.                                                                                                                                       | bool, optional                                                                                      | pre-train/finetune/predict |
 
 ### Weight Slicing
@@ -68,7 +68,7 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 
 ## Distributed Task Pull-up Script
 
-The distributed task pull up script `msrun_launcher.sh` is located in the `scripts/` directory and can automatically start distributed multiprocess tasks using the [msrun](https://www.mindspore.cn/tutorials/en/r2.7.1/parallel/msrun_launcher.html) command based on the input parameters. This script has the following several usage methods:
+The distributed task pull up script `msrun_launcher.sh` is located in the `scripts/` directory and can automatically start distributed multiprocess tasks using the [msrun](https://www.mindspore.cn/tutorials/en/r2.7.2/parallel/msrun_launcher.html) command based on the input parameters. This script has the following several usage methods:
 
 1. For Default 8 Devices In Single Machine:
 

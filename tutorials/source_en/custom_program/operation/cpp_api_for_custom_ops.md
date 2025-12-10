@@ -1,6 +1,6 @@
 # C++ API Description for Custom Operators
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/custom_program/operation/cpp_api_for_custom_ops.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/custom_program/operation/cpp_api_for_custom_ops.md)
 
 ## Overview
 
@@ -474,7 +474,7 @@ The `AtbOpRunner` class is a runner for executing Ascend Transformer Boost (ATB)
 
 This class inherits from `PyboostRunner` and encapsulates the process of invoking ATB operators, including initialization, running the ATB operator, managing input/output tensors, memory allocation, and kernel scheduling.
 
-Refer to the tutorial [CustomOpBuilder Using AtbOpRunner to Integrate ATB Operators](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_customopbuilder_atb.html) for usage methods.
+Refer to the tutorial [CustomOpBuilder Using AtbOpRunner to Integrate ATB Operators](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_customopbuilder_atb.html) for usage methods.
 
 #### Constructor
 
@@ -524,7 +524,7 @@ The `AsdSipFFTOpRunner` class is a runner for executing Ascend Sip Boost (ASDSIP
 
 This class inherits from `PyboostRunner` and encapsulates the process of invoking ASDSIP FFT operators, including initialization, running the ASDSIP FFT operator, managing input/output tensor, memory allocation, and kernel scheduling.
 
-Refer to the tutorial [CustomOpBuilder Integrates the ASDSIP FFT Operators through AsdSipFFTOpRunner](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_customopbuilder_asdsip.html) for usage methods.
+Refer to the tutorial [CustomOpBuilder Integrates the ASDSIP FFT Operators through AsdSipFFTOpRunner](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_customopbuilder_asdsip.html) for usage methods.
 
 #### Constructor
 

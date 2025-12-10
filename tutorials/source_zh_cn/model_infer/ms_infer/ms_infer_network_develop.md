@@ -1,6 +1,6 @@
 # 从零构建大语言模型推理网络
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_network_develop.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_network_develop.md)
 
 ## 模型开发模式
 
@@ -26,7 +26,7 @@ MindSpore推荐用户先用动态图模式进行模型开发，然后根据需�
 
 - **RmsNorm & Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出每个token的概率分布。
 
-使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程，完整端到端样例可以参考[qwen2.py](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/infer_code/qwen2/qwen2.py)。
+使用MindSpore大语言模型推理构建网络，可以根据MindSpore提供的算子自己拼装。下面以Qwen2模型为例，简单描述构建模型的过程，完整端到端样例可以参考[qwen2.py](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/sample_code/infer_code/qwen2/qwen2.py)。
 
 ### 基础公共网络层
 

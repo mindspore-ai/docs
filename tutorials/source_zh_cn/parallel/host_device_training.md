@@ -1,6 +1,6 @@
 # Host&Device异构
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/parallel/host_device_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_zh_cn/parallel/host_device_training.md)
 
 ## 概述
 
@@ -24,9 +24,9 @@
 
 ### 相关接口
 
-1. [mindspore.ops.Primitive.set_device()](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.set_device)：设置Primitive执行后端。
+1. [mindspore.ops.Primitive.set_device()](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.set_device)：设置Primitive执行后端。
 
-2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target)：该属性用于指定在主机（host）上还是设备（device）上更新参数。输入类型为str，只能是"CPU"，"Ascend"。
+2. [mindspore.nn.Optimizer.target](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.target)：该属性用于指定在主机（host）上还是设备（device）上更新参数。输入类型为str，只能是"CPU"，"Ascend"。
 
 ## 操作实践
 
@@ -34,7 +34,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[host_device](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/host_device)。
+> 下载完整的样例代码：[host_device](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/sample_code/host_device)。
 
 目录结构如下：
 
@@ -50,7 +50,7 @@
 
 ### 配置分布式环境
 
-首先通过context接口指定并行模式为[数据并行](https://www.mindspore.cn/docs/zh-CN/r2.7.1/features/parallel/data_parallel.html)模式，并通过init初始化通信。
+首先通过context接口指定并行模式为[数据并行](https://www.mindspore.cn/docs/zh-CN/r2.7.2/features/parallel/data_parallel.html)模式，并通过init初始化通信。
 
 ```python
 import mindspore as ms
@@ -94,7 +94,7 @@ data_set = create_dataset(32)
 
 ### 网络定义
 
-网络定义与单卡网络区别在于，配置[ops.Add()](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.Add.html)算子在主机端运行，代码如下：
+网络定义与单卡网络区别在于，配置[ops.Add()](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.Add.html)算子在主机端运行，代码如下：
 
 ```python
 import mindspore as ms
@@ -145,7 +145,7 @@ net.layer3.add.set_device("CPU")
 
 ### 训练网络
 
-损失函数、优化器以及训练过程与数据并行一致，用[mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/nn/mindspore.nn.DistributedGradReducer.html)接口来对所有卡的梯度进行聚合，代码如下：
+损失函数、优化器以及训练过程与数据并行一致，用[mindspore.nn.DistributedGradReducer()](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/nn/mindspore.nn.DistributedGradReducer.html)接口来对所有卡的梯度进行聚合，代码如下：
 
 ```python
 from mindspore import nn

@@ -1,6 +1,6 @@
 # Practice Case of Using DeepSeek-R1 for Model Distillation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/example/distilled/distilled.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/example/distilled/distilled.md)
 
 This case uses OpenR1-Qwen-7B as an example to describe how to use DeepSeek-R1 to perform knowledge distillation and fine-tuning on the Qwen2.5-Math-7B model based on the MindSpore framework and MindSpore Transformers LLM suite, to improve its performance in mathematical inference tasks. This case covers the entire process from environment configuration, data generation, and preprocessing to model fine-tuning and inference testing. You can perform the following steps to learn how to use DeepSeek-R1 to generate inference data, filter out incorrect data, process datasets, and fine-tune the model to solve complex mathematical problems.
 
@@ -16,7 +16,7 @@ For more information, see [DeepSeek-R1-Distill-Qwen-7B](https://hf-mirror.com/de
 
 For details, see [MindSpore Transformers Installation Guidelines](https://www.mindspore.cn/mindformers/docs/en/r1.7.0/installation.html).
 
-Copy the [distilled](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/mindformers/docs/source_zh_cn/example/distilled/distilled) folder of this case to the root directory of the MindSpore Transformers source code.
+Copy the [distilled](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/mindformers/docs/source_zh_cn/example/distilled/distilled) folder of this case to the root directory of the MindSpore Transformers source code.
 
 The final directory structure is as follows:
 

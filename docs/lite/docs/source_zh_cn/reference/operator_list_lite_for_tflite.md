@@ -1,6 +1,6 @@
 # MindSpore Lite支持的TensorFlow Lite算子列表
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_tflite.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_tflite.md)
 
 | MindSpore Lite算子名称 | 对应的TensorFlow Lite算子                                    |
 | ---------------------- | ------------------------------------------------------------ |

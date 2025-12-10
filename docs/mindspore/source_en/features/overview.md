@@ -1,6 +1,6 @@
 # MindSpore Design Overview
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_en/features/overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_en/features/overview.md)
 
 ## Introduction
 
@@ -55,7 +55,7 @@ Static graph mode can effectively perceive the relationships between operators a
 
 MindSpore builds the graph structure of neural networks based on Python, which provides more usable and flexible expressiveness compared to traditional static graph modes. MindSpore innovatively builds source code conversion capabilities, constructing computational graphs based on Python statements by extracting AST, thus supporting developers' use of native Python syntax (conditions/loops, etc.) and other operations such as tuples, lists, and lambda expressions to build computational graphs and perform automatic differentiation. Therefore, MindSpore can better accommodate both dynamic and static graph programming interfaces, maintaining consistency at the code level, such as control flow writing.
 
-Native Python expressions can directly enable static graph mode execution based on Python control flow keywords, making the programming unification of dynamic and static graphs higher. At the same time, developers can flexibly control Python code fragments in dynamic and static graph modes based on MindSpore's interfaces. That is, local functions can be executed in static graph mode ([mindspore.jit](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.jit.html)) while other functions are executed in dynamic graph mode. This allows developers to flexibly specify function fragments for static graph optimization and acceleration when interleaving with common Python libraries and custom Python functions, without sacrificing the programming ease of interleaved execution.
+Native Python expressions can directly enable static graph mode execution based on Python control flow keywords, making the programming unification of dynamic and static graphs higher. At the same time, developers can flexibly control Python code fragments in dynamic and static graph modes based on MindSpore's interfaces. That is, local functions can be executed in static graph mode ([mindspore.jit](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.jit.html)) while other functions are executed in dynamic graph mode. This allows developers to flexibly specify function fragments for static graph optimization and acceleration when interleaving with common Python libraries and custom Python functions, without sacrificing the programming ease of interleaved execution.
 
 ### Distributed Parallel Computing
 
@@ -71,7 +71,7 @@ At the same time, MindSpore also provides various parallel strategies such as pi
 
 Based on compilation technology, MindSpore provides rich hardware-independent optimizations such as IR fusion, algebraic simplification, constant folding, and common subexpression elimination. At the same time, it also provides various hardware optimization capabilities for different hardware such as NPU and GPU, thereby better leveraging the large-scale computational acceleration capabilities of hardware.
 
-#### [Multi-Level Compilation Architecture](https://www.mindspore.cn/docs/en/r2.7.1/features/compile/compilation_guide.html)
+#### [Multi-Level Compilation Architecture](https://www.mindspore.cn/docs/en/r2.7.2/features/compile/compilation_guide.html)
 
 Mainstream AI computing frameworks like MindSpore typically define operators from the perspective of developer understanding and ease of use. Each operator carries varying amounts of computation and computational complexity. However, from a hardware execution perspective, this natural operator computational division based on the developer's perspective is not efficient and cannot fully utilize hardware computational capabilities. This is mainly reflected in:
 

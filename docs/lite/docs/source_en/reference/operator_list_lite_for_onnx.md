@@ -1,6 +1,6 @@
 # List of ONNX Operators Supported by MindSpore Lite
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/docs/source_en/reference/operator_list_lite_for_onnx.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/lite/docs/source_en/reference/operator_list_lite_for_onnx.md)
 
 > - None of the following operators support int64 type input.
 > - Currently, you can use the environment variable `export KEEP_ORIGIN_DTYPE=1` to preserve the data type as int64. Consider using this option when overflow occurs with the int32 data type. However, this is currently an experimental option and will be removed in future updates.

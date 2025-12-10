@@ -1,12 +1,12 @@
 # 自定义算子接入
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/developer_guide/operations/custom_ops.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_zh_cn/developer_guide/operations/custom_ops.md)
 
 当内置算子不满足需求时，你可以利用MindSpore提供的自定义算子功能接入你的算子。
 
 本文档将以 **`advance_step_flashattn`** 算子为例，讲解如何在vLLM-MindSpore插件项目中接入一个AscendC自定义算子。
 
-本文重点在于介绍把算子集成进vLLM-MindSpore插件的流程。自定义算子的细节请参考 MindSpore 官方教程：[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_customopbuilder.html)。AscendC算子的开发流程请参考昇腾官方文档：[Ascend C算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html)。
+本文重点在于介绍把算子集成进vLLM-MindSpore插件的流程。自定义算子的细节请参考 MindSpore 官方教程：[基于CustomOpBuilder的自定义算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/op_customopbuilder.html)。AscendC算子的开发流程请参考昇腾官方文档：[Ascend C算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/81RC1/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html)。
 
 **注：目前vLLM-MindSpore插件的自定义算子仅支持动态图（PyNative Mode）场景。**
 
@@ -154,7 +154,7 @@ custom_ops.advance_step_flashattn(...)
 
 ## 自定义算子编译工程
 
-当前MindSpore仅提供了一个 [CustomOpBuilder接口](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.CustomOpBuilder.html) 用于在线编译自定义算子，接口内置了默认的编译和链接选项。vLLM-MindSpore插件基于MindSpore的自定义算子功能接入算子，并编译成动态库随包发布。下面是编译流程介绍：
+当前MindSpore仅提供了一个 [CustomOpBuilder接口](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.CustomOpBuilder.html) 用于在线编译自定义算子，接口内置了默认的编译和链接选项。vLLM-MindSpore插件基于MindSpore的自定义算子功能接入算子，并编译成动态库随包发布。下面是编译流程介绍：
 
 ### 算子扩展库模块
 

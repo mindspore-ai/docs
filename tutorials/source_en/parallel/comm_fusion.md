@@ -1,12 +1,12 @@
 # Distributed Training Communication Fusion
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/parallel/comm_fusion.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/parallel/comm_fusion.md)
 
 ## Overview
 
 In distributed parallel training scenarios to train large-scale parameter models (e.g., GPT-3, Pangu-$\alpha$), data transmission of cross-device or even cross-node is a bottleneck that limits scalability as well as operator power utilization [1]. Communication fusion is an important method to improve network resource utilization and accelerate data transmission efficiency by encapsulating the communication operator of the same source and destination nodes for simultaneous execution to avoid the extra overhead caused by multiple single operator executions.
 
-MindSpore supports the fusion of three common communication operators ([AllReduce](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.AllReduce.html), [AllGather](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.AllGather.html), and [ReduceScatter](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.ReduceScatter.html)) in distributed training, and provides a simple and easy-to-use interface for user configuration. The communication fusion plays an important role in the long and steady training mission support.
+MindSpore supports the fusion of three common communication operators ([AllReduce](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.AllReduce.html), [AllGather](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.AllGather.html), and [ReduceScatter](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.ReduceScatter.html)) in distributed training, and provides a simple and easy-to-use interface for user configuration. The communication fusion plays an important role in the long and steady training mission support.
 
 ### Basic Principle
 
@@ -18,7 +18,7 @@ The whole process of distributed training can be roughly divided into two proces
 
 As shown in the figure below, each node backs up the complete neural network model and uses the local dataset partition to train a mini-batch for forward and backward computation. The gradient obtained from the backward computation is synchronized across the nodes, and the training of the next mini-batch continues after synchronization, and so on, until the accuracy/loss reaches a threshold, or a certain number of epochs are trained. It can be seen that computation and communication alternate in the distributed training process. Work has been done on how to do pipelining of interdependent computation and transmission to reduce the percentage of cross-node data synchronization in the overall training duration [5][6], which will not be repeated here.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/parallel/images/data_parallel.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/parallel/images/data_parallel.png)
 
 #### The Necessity of Communication Fusion
 
@@ -50,17 +50,17 @@ MindSpore provides two interfaces to enable communication fusion, each of which 
     net.comm_fusion(config=config)
     ```
 
-    In auto-parallel or semi-auto-parallel scenario, the user can utilize the [comm_fusion](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion) parameter provided by this interface to set the parallel strategy when configuring the parallel strategy via `set_auto_parallel_context`, with inputs in the format {"communication_type": {"mode":str, "config": None int or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/r2.5.0/api_python/mindspore/mindspore.set_auto_parallel_context.html). This configuration method is preferred in this scenario.
+    In auto-parallel or semi-auto-parallel scenario, the user can utilize the [comm_fusion](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.comm_fusion) parameter provided by this interface to set the parallel strategy when configuring the parallel strategy via `set_auto_parallel_context`, with inputs in the format {"communication_type": {"mode":str, "config": None int or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/r2.5.0/api_python/mindspore/mindspore.set_auto_parallel_context.html). This configuration method is preferred in this scenario.
 
 2. Use the interface provided by `Cell`
 
-    Regardless of the parallel mode scenarios, the user can set the index for the parameters in a layer of the model through the [Cell.set_comm_fusion](https://www.mindspore.cn/docs/en/r2.7.1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion) interface, and MindSpore will fuse the communication operators corresponding to parameters of the same index.
+    Regardless of the parallel mode scenarios, the user can set the index for the parameters in a layer of the model through the [Cell.set_comm_fusion](https://www.mindspore.cn/docs/en/r2.7.2/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_comm_fusion) interface, and MindSpore will fuse the communication operators corresponding to parameters of the same index.
 
 ## Operation Practice
 
 ### Sample Code Description
 
-> You can download the full sample code here: [distributed_comm_fusion](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/distributed_comm_fusion).
+> You can download the full sample code here: [distributed_comm_fusion](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/sample_code/distributed_comm_fusion).
 
 The directory structure is as follows:
 

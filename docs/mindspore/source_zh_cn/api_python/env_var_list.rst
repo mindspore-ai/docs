@@ -1,8 +1,8 @@
 环境变量
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_zh_cn/api_python/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_zh_cn/api_python/env_var_list.rst
     :alt: 查看源文件
 
 本文介绍MindSpore的环境变量。
@@ -73,8 +73,8 @@
        false: 关闭pipeline树优化
      -
 
-具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/zh-CN/r2.7.1/dataset/cache.html>`_
-和 `数据处理性能优化 <https://mindspore.cn/tutorials/zh-CN/r2.7.1/dataset/optimize.html>`_ 。
+具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/zh-CN/r2.7.2/dataset/cache.html>`_
+和 `数据处理性能优化 <https://mindspore.cn/tutorials/zh-CN/r2.7.2/dataset/optimize.html>`_ 。
 
 图编译执行
 ----------
@@ -251,7 +251,7 @@
      - 1：使用进程优雅退出功能。
 
        不设置或者其他值：不使用进程优雅退出功能。
-     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/train_availability/graceful_exit.html>`_ 。
+     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/train_availability/graceful_exit.html>`_ 。
    * - MS_DEV_BOOST_INFER
      - 针对前端图编译提供编译优化开关。该开关可加速类型推导模块，以加速网络编译。
      - Integer
@@ -343,7 +343,7 @@
        enable_debug_mode：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
        path：指定读取json配置。当设置该选项时，忽略以上选项。
-     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/compile/fusion_pass.html>`_
+     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/compile/fusion_pass.html>`_
 
    * - MS_DEV_PYNATIVE_FUSION_FLAGS
      - 设置动态图异步执行模式下的算子融合选项
@@ -430,13 +430,13 @@ Dump调试
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/dump.html>`_
-       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/dump.html>`_
+       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r2.7.2/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -
    * - MS_DIAGNOSTIC_DATA_PATH
-     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/dump.html>`_ 时，
+     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/dump.html>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
        若Dump配置文件中设置了 `path` 字段，则仍以该字段的实际取值为准。
      - String
@@ -484,7 +484,7 @@ Dump调试
      - 0~600，单位：秒，默认值为0。当取值为0时，表示使用默认超时时间，即 `mindspore.get_context("op_timeout")` 的取值。
      - 该环境变量仅仅在MS_DUMP_SLICE_SIZE不为零的情况下生效。目前二阶段的等待时间无法超过mindspore.get_context("op_timeout")的值。
 
-具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/dump.html>`_ 。
+具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/dump.html>`_ 。
 
 分布式并行
 -----------
@@ -644,7 +644,7 @@ Dump调试
      -
 
 
-动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/parallel/dynamic_cluster.html>`_ 。
+动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/parallel/dynamic_cluster.html>`_ 。
 
 算子编译
 --------
@@ -713,7 +713,7 @@ Dump调试
        默认：空。
      -
 
-常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r2.7.1/faq/operators_compile.html>`_ 。
+常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r2.7.2/faq/operators_compile.html>`_ 。
 
 日志
 ----
@@ -941,7 +941,7 @@ Dump调试
        checksum_cooldown: CheckSum检测冷却时间，格式为正整数，单位为分钟，默认值为180
      - 目前本特性仅支持Atlas A2训练系列产品，仅支持检测自动并行和半自动并行模式的网络
 
-特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/sdc.html>`_ 。
+特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/sdc.html>`_ 。
 
 三方库
 ------
@@ -1069,7 +1069,7 @@ Profiler
 
        profiler_level (str, 可选) - 设置采集性能数据级别。默认值：Level0。可取值：Level0、Level1、Level2。
 
-       其他参数可参考 `MindSpore profile参数详解 <https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.profiler.profile.html>`_ 。
+       其他参数可参考 `MindSpore profile参数详解 <https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore/mindspore.profiler.profile.html>`_ 。
 
      - 此环境变量使能与输入参数实例化Profiler方式使能性能数据采集的方式二选一。
    * - PROFILING_MODE

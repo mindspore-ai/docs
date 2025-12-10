@@ -1,6 +1,6 @@
 # Quick Start
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/getting_started/quick_start/quick_start.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_en/getting_started/quick_start/quick_start.md)
 
 This document provides a quick guide to deploy vLLM-MindSpore Plugin by [docker](https://www.docker.com/), with the [Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model as an example. User can quickly experience the serving and inference abilities of vLLM-MindSpore Plugin by [offline inference](#offline-inference) and [online inference](#online-inference). For more information about installation, please refer to the [Installation Guide](../installation/installation.md).
 

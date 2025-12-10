@@ -1,6 +1,6 @@
 # Environment Variable List
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/user_guide/environment_variables/environment_variables.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_en/user_guide/environment_variables/environment_variables.md)
 
 | Environment Variable | Function | Type | Values | Description |
 |----------------------|----------|------|--------|-------------|
@@ -17,6 +17,6 @@
 More environment variable information can be referred in the following links:
 
 - [CANN Environment Variable List](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/81RC1beta1/index/index.html)
-- [MindSpore Environment Variable List](https://www.mindspore.cn/docs/en/r2.7.1/api_python/env_var_list.html)
+- [MindSpore Environment Variable List](https://www.mindspore.cn/docs/en/r2.7.2/api_python/env_var_list.html)
 - [MindSpore Transformers Environment Variable List](https://www.mindspore.cn/mindformers/docs/en/r1.7.0/index.html)
 - [vLLM Environment Variable List](https://docs.vllm.ai/en/v0.8.4/serving/env_vars.html)

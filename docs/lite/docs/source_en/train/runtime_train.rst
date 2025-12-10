@@ -1,8 +1,8 @@
 Executing Model Training
 =================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/docs/source_en/train/runtime_train.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.7.2/docs/lite/docs/source_en/train/runtime_train.rst
     :alt: View Source On Gitee
 
 .. toctree::

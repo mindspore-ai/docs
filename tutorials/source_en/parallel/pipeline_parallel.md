@@ -1,6 +1,6 @@
 # Pipeline Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/parallel/pipeline_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/parallel/pipeline_parallel.md)
 
 ## Overview
 
@@ -12,7 +12,7 @@ The following is an illustration of pipeline parallel operation using Ascend or 
 
 ### Sample Code Description
 
-> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/distributed_pipeline_parallel).
+> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/sample_code/distributed_pipeline_parallel).
 
 The directory structure is as follows:
 
@@ -122,11 +122,11 @@ class Network(nn.Cell):
 
 ### Training Network Definition
 
-In this step, we need to define the loss function, the optimizer, and the training process. It should be noted that the definitions of both the network and the optimizer here require deferred initialization. Besides, the interface [mindspore.parallel.nn.PipelineGradReducer](https://www.mindspore.cn/docs/en/r2.7.1/api_python/parallel/mindspore.parallel.nn.PipelineGradReducer.html) is needed to handle gradient of pipeline parallelism, the first parameter of this interface is the network parameter to be updated, and the second one is whether to use optimizer parallelism.
+In this step, we need to define the loss function, the optimizer, and the training process. It should be noted that the definitions of both the network and the optimizer here require deferred initialization. Besides, the interface [mindspore.parallel.nn.PipelineGradReducer](https://www.mindspore.cn/docs/en/r2.7.2/api_python/parallel/mindspore.parallel.nn.PipelineGradReducer.html) is needed to handle gradient of pipeline parallelism, the first parameter of this interface is the network parameter to be updated, and the second one is whether to use optimizer parallelism.
 
 Unlike the single-card model, two interfaces need to be called in this section to configure the pipeline parallel:
 
-- First define the LossCell. In this case the [mindspore.nn.WithLossCell](https://www.mindspore.cn/docs/en/r2.7.1/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to encapsulate the network and loss functions.
+- First define the LossCell. In this case the [mindspore.nn.WithLossCell](https://www.mindspore.cn/docs/en/r2.7.2/api_python/nn/mindspore.nn.WithLossCell.html) interface is called to encapsulate the network and loss functions.
 - Finally, wrap the LossCell with `Pipeline`, and specify the size of MicroBatch. Configure the `pipeline_stage` for each `Cell` containing training parameters via `stage_config`.
 
 ```python
@@ -248,7 +248,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 [  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
-Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.1/parallel/startup_method.html).
+Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.2/parallel/startup_method.html).
 
 ## Inference Operation Practices
 
@@ -256,7 +256,7 @@ The following is an illustration of pipeline parallel inference operation using 
 
 ### Sample Code Description
 
-> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.7.1/docs/sample_code/distributed_pipeline_parallel).
+> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/sample_code/distributed_pipeline_parallel).
 
 The directory structure is as follows:
 
@@ -353,7 +353,7 @@ In the previous step, the parameter `embed` is shared by `self.word_embedding` a
 
 We need to further set up the parallelism-related configuration by wrapping the network again with `AutoParallel`, specifying the parallelism mode `semi-auto` as semi-automatic parallelism, in addition to turning on pipeline parallelism, configuring `pipeline`, and specifying the total number of stages by configuring the number of `stages`. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package (default is Ascend). `output_broadcast=True` indicates that the result of the last stage will be broadcast to the remaining stages when pipelined parallel inference is performed, which can be used in autoregressive inference scenarios.
 
-Before inference, executing `parallel_net.compile()` and [mindspore.parallel.sync_pipeline_shared_parameters(parallel_net)](https://www.mindspore.cn/docs/en/r2.7.1/api_python/parallel/mindspore.parallel.sync_pipeline_shared_parameters.html), the framework will synchronize the shared parameter between stages automatically.
+Before inference, executing `parallel_net.compile()` and [mindspore.parallel.sync_pipeline_shared_parameters(parallel_net)](https://www.mindspore.cn/docs/en/r2.7.2/api_python/parallel/mindspore.parallel.sync_pipeline_shared_parameters.html), the framework will synchronize the shared parameter between stages automatically.
 
 ```python
 

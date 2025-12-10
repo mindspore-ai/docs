@@ -1,6 +1,6 @@
 # 自定义算子的C++接口说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/custom_program/operation/cpp_api_for_custom_ops.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_zh_cn/custom_program/operation/cpp_api_for_custom_ops.md)
 
 ## 概述
 
@@ -474,7 +474,7 @@ PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.co
 
 此类继承自 `PyboostRunner`，并封装了 ATB 算子的调用流程，包括初始化和运行 ATB 算子、管理输入输出 Tensor、内存分配及内核调度。
 
-可以查看教程 [CustomOpBuilder通过AtbOpRunner接入ATB算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_customopbuilder_atb.html) 获取使用方法。
+可以查看教程 [CustomOpBuilder通过AtbOpRunner接入ATB算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/op_customopbuilder_atb.html) 获取使用方法。
 
 #### 构造函数
 
@@ -524,7 +524,7 @@ void RunAtbOp(const std::string &op_name, const ParamType &param, const std::vec
 
 此类继承自 `PyboostRunner`，并封装了 ASDSIP FFT 算子的调用流程，包括初始化和运行 ASDSIP FFT 算子、管理输入输出 Tensor、内存分配及内核调度。
 
-可以查看教程 [CustomOpBuilder通过AsdSipFFTOpRunner接入ASDSIP FFT算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_customopbuilder_asdsip.html) 获取使用方法。
+可以查看教程 [CustomOpBuilder通过AsdSipFFTOpRunner接入ASDSIP FFT算子](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/op_customopbuilder_asdsip.html) 获取使用方法。
 
 #### 构造函数
 
