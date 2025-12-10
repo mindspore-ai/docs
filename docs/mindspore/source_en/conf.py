@@ -541,6 +541,8 @@ def linkcode_resolve(domain, info):
             spec_tp = [('mint.nn.functional.dense', 'mint.nn.functional.linear', 'dense', 'linear'),
                        ('mint.select_ext_view', 'mint.select', 'select_ext_view', 'select'),
                        ('mint.transpose_ext_view', 'mint.transpose', 'transpose_ext_view', 'transpose'),
+                       ('mint.narrow_view', 'mint.narrow', 'narrow_view', 'narrow'),
+                       ('mint.broadcast_to_view', 'mint.broadcast_to', 'broadcast_to_view', 'broadcast_to'),
                        ('mint.nn.functional.im2col_ext', 'mint.nn.functional.unfold', 'im2col_ext', 'unfold'),
                        ('mint.nn.functional.col2im_ext', 'mint.nn.functional.fold', 'col2im_ext', 'fold'),
                        ('mint.nn.functional.inplace_threshold', 'mint.nn.functional.threshold_', 'inplace_threshold', 'threshold_'),
