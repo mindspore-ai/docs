@@ -18,7 +18,7 @@ output_dir: './output'
 monitor_config:
     monitor_on: True
     dump_path: './dump'
-    target: ['layers.0', 'layers.1'] # 只监控第一、二层的参数
+    target: ['layers.0.', 'layers.1.'] # 只监控第一、二层的参数
     invert: False
     step_interval: 1
     local_loss_format: ['log', 'tensorboard']
@@ -32,13 +32,6 @@ monitor_config:
     check_for_global_norm: False
     global_norm_spike_threshold: 1.0
     global_norm_spike_count_threshold: 10
-    stable_rank_config:
-        format: ['log', 'tensorboard']
-        step_interval: 100
-        target: None
-        do_aggregation: False
-        moe_show_mode: 'all'
-        power_iteration_num: 5
 
 tensorboard:
     tensorboard_dir: 'worker/tensorboard'
@@ -66,15 +59,9 @@ callbacks:
 | monitor_config.weight_state_format               | 设置指标`权重L2-norm`的记录形式                                                                                      | str或list[str] |
 | monitor_config.throughput_baseline               | 设置指标`吞吐量线性度`的基线值，需要为正数。会同时写入到 TensorBoard 和日志。未设置时默认为`null`，表示不监控该指标                                      | int或float     |
 | monitor_config.print_struct                      | 设置是否打印模型的全部可训练参数名。若为`True`，则会在第一个step开始时打印所有可训练参数的名称，并在step结束后退出训练。默认为`False`                             | bool          |
-| monitor_config.check_for_global_norm             | 设置是否开启指标`global norm`的异常监测。默认为`False`                                                                     | bool          |
-| monitor_config.global_norm_spike_threshold       | 设置指标`global norm`的相对阈值，大于该值即判定为异常。默认值为`1.0`                                                               | float         |
-| monitor_config.global_norm_spike_count_threshold | 设置连续异常指标`global norm`累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`                                                  | int           |
-| monitor_config.stable_rank_config.format         | 设置指标`stable_rank`和`max_eigenvalue`的记录形式                                                                               | str或list[str] |
-| monitor_config.stable_rank_config.step_interval  | 设置指标`stable_rank`和`max_eigenvalue`的记录频率。默认为100，即每100个训练步（step）记录一次                                                                               | int |
-| monitor_config.stable_rank_config.target         | 设置指标`stable_rank`和`max_eigenvalue`所监控的目标参数的名称（片段），默认值['.*']，即指定所有参数                                                                               | list[str] |
-| monitor_config.stable_rank_config.do_aggregation | 设置计算指标`stable_rank`和`max_eigenvalue`时是否先做卡间通信，默认值为False                                                                                 | bool |
-| monitor_config.stable_rank_config.moe_show_mode  | MOE模型下设置指标`stable_rank`和`max_eigenvalue`的展示形式："full"直接输出各专家的计算值；"statistics"输出各专家计算结果的统计值（min，max，mean）；"all"输出所有计算值和统计值，默认值为"all"       | str |
-| monitor_config.stable_rank_config.power_iteration_num | 幂迭代法计算`max_eigenvalue`，设置迭代次数。迭代次数越大，计算值越接近真实值，但相应计算开销会增大，默认值为5                                                                           | int |
+| monitor_config.check_for_global_norm             | 设置是否开启指标`global norm`的异常监测。默认为`False`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/high_availability.html#故障快速恢复) | bool          |
+| monitor_config.global_norm_spike_threshold       | 设置指标`global norm`的相对阈值，大于该值即判定为异常。默认值为`1.0`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/high_availability.html#故障快速恢复) | float         |
+| monitor_config.global_norm_spike_count_threshold | 设置连续异常指标`global norm`累计的次数，当次数达到该阈值则触发异常中断，终止训练。默认值为`10`。详情请见 [数据跳过和健康监测](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/skip_data_and_ckpt_health_monitor.html) 和 [故障快速恢复](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/high_availability.html#故障快速恢复) | int           |
 
 上述 xxx_format 形式的参数的可选值为字符串'tensorboard'和'log'（分别表示写入 TensorBoard 和写入日志），或由两者组成的列表，或`null`。未设置时均默认为`null`，表示不监控对应指标。
 
@@ -171,6 +158,11 @@ TensorBoard 2.18.0 at http://0.0.0.0:6006/ (Press CTRL+C to quit)
 | adam_v_norm          | 优化器二阶矩估计各参数的范数，记录需要设置`optimizer_state_format`非null |
 | weight_norm          | 权重L2范数，记录需要设置`weight_state_format`非null            |
 | throughput_linearity | 数据吞吐线性度，记录需要设置`throughput_baseline`非null           |
+
+**注意**，对于`local_loss`指标和`device_accum_local_loss`指标：
+
+1. 实际写入日志或tensorboard的指标名会添加标签（例如`local_lm_loss`、`device_accum_local_lm_loss`）以表示损失的来源。当前存在两种可能的标签`lm`和`mtp`，其中`lm`表示常规的模型交叉熵损失，`mtp`表示模型MultiTokenPrediction层的损失。
+2. 在流水线并行或梯度累积场景，`local_loss`指标在写入tensorboard时会记录单卡上所有micro batch的平均局部损失，在写入日志时则会记录每个micro batch的局部损失（指标名带前缀"micro"，例如`micro_local_lm_loss`）；而上述场景以外时，`local_loss`与`device_accum_local_loss`等价。
 
 #### TopkBiasBalanceCallback监控指标
 
