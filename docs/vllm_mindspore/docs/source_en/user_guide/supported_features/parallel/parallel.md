@@ -2,11 +2,11 @@
 
 [![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/parallel/parallel.md)
 
-The vLLM-MindSpore plugin supports hybrid parallel inference configurations combining Tensor Parallelism (TP), Data Parallelism (DP), and Expert Parallelism (EP), and can be launched for multi-node multi-card setups using `Ray` or `multiprocess`. For applicable scenarios of different parallel strategies, refer to the [vLLM Official Documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies). The following sections will detail the usage scenarios, parameter configuration, and [Online Inference](#online-inference) for [Tensor Parallelism](#tensor-parallelism), [Data Parallelism](#data-parallelism), [Expert Parallelism](#expert-parallelism), and [Hybrid Parallelism](#hybrid-parallelism).
+The vLLM-MindSpore plugin supports hybrid parallel inference configurations combining Tensor Parallelism (TP), Pipeline Parallelism (PP), Data Parallelism (DP), and Expert Parallelism (EP), and can be launched for multi-node multi-card setups using `Ray` or `multiprocess`. For applicable scenarios of different parallel strategies, refer to the [vLLM Official Documentation](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies). The following sections will detail the usage scenarios, parameter configuration, and [Online Inference](#online-inference) for [Tensor Parallelism](#tensor-parallelism), [Pipeline Parallelism](#pipeline-parallelism), [Data Parallelism](#data-parallelism), [Expert Parallelism](#expert-parallelism), and [Hybrid Parallelism](#hybrid-parallelism).
 
 ## Tensor Parallelism
 
-Tensor Parallelism shards the model weight parameters within each model layer across multiple NPUs. Tensor Parallelism is the recommended strategy for large model inference when the model size exceeds the capacity of a single NPU, or when there is a need to reduce the pressure on a single NPU and free up more space for the KV cache to achieve higher throughput. For more information, see the [Introduction to Tensor Parallelism in vLLM](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#tensor-parallelism-tp).
+Tensor Parallelism shards the model weight parameters within each model layer across multiple NPUs. Tensor Parallelism is the recommended strategy for large model inference when the model size exceeds the capacity of a single NPU, or when there is a need to reduce the pressure on a single NPU and free up more space for the KV cache to achieve higher throughput. For more information, see the [Introduction to Tensor Parallelism in vLLM](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html#tensor-parallelism-tp).
 
 ### Parameter Configuration
 
@@ -37,9 +37,47 @@ TENSOR_PARALLEL_SIZE=4       # TP parallelism degree
 vllm-mindspore serve /path/to/Qwen2.5/model --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE}
 ```
 
+## Pipeline Parallelism
+
+Pipeline parallelism partitions the model layer-wise and distributes the layers across multiple devices (NPUs). Both forward and backward passes are executed in a pipelined fashion, improving hardware utilization and system throughput. For more information, refer to the [Introduction to Pipeline Parallelism in vLLM](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html#pipeline-parallelism-pp).
+
+### Parameter Configuration
+
+To use Pipeline Parallelism (PP), configure the following options in the launch command `vllm-mindspore serve`:
+
+- `--pipeline-parallel-size`: The PP parallelism degree.
+- `VLLM_PP_LAYER_PARTITION`: This environment variable defines the number of layers per pipeline stage. If the total number of model layers is divisible by the pipeline parallelism degree (PIPELINE_PARALLEL_SIZE), the variable can be omitted. Otherwise, it must be explicitly set, and any remainder layers may be assigned to any stage as needed.
+
+### Single-Node Example
+
+The following command demonstrates launching the Qwen3-32B model with tensor parallelism (TP=2) and pipeline parallelism (PP=2) on a single node with four cards:
+
+```bash
+TENSOR_PARALLEL_SIZE=2       # TP parallelism degree
+PIPELINE_PARALLEL_SIZE=2       # Pipeline parallelism degree
+export VLLM_PP_LAYER_PARTITION=32,32 # The number of layers per pipeline stage
+
+vllm-mindspore serve /path/to/Qwen3-32B/ --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE} --pipeline-parallel-size ${PIPELINE_PARALLEL_SIZE}
+```
+
+### Multi-Node Example
+
+Multi-node Tensor Parallelism and Pipeline Parallelism rely on Ray for launch. Please refer to [Ray Multi-Node Cluster Management](#ray-multi-node-cluster-management) for Ray environment configuration.
+
+The following command demonstrates launching the Qwen3-235B model with tensor parallelism (TP=8) and pipeline parallelism (PP=2) across two nodes with a total of 16 cards:
+
+```bash
+# Master Node:
+
+TENSOR_PARALLEL_SIZE=8       # TP parallelism degree
+PIPELINE_PARALLEL_SIZE=2       # Pipeline parallelism degree
+export VLLM_PP_LAYER_PARTITION=47,47 # The number of layers per pipeline stage
+vllm-mindspore serve /path/to/Qwen3-235B/ --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE} --pipeline-parallel-size ${PIPELINE_PARALLEL_SIZE}
+```
+
 ## Data Parallelism
 
-Data Parallelism fully replicates the model across multiple groups of NPUs, and processes requests from different batches in parallel during inference. Data Parallelism is the recommended strategy for large model inference when there are sufficient NPUs to fully replicate the model, when there is a need to improve throughput rather than scale the model size, or when maintaining isolation between request batches in a multi-user environment is required. Data Parallelism can be combined with other parallel strategies. Please note: MoE (Mixture of Experts) layers will be sharded based on the product of the Tensor Parallelism degree and the Data Parallelism degree. For more information, see the [Introduction to Data Parallelism in vLLM](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#data-parallelism-dp).
+Data Parallelism fully replicates the model across multiple groups of NPUs, and processes requests from different batches in parallel during inference. Data Parallelism is the recommended strategy for large model inference when there are sufficient NPUs to fully replicate the model, when there is a need to improve throughput rather than scale the model size, or when maintaining isolation between request batches in a multi-user environment is required. Data Parallelism can be combined with other parallel strategies. Please note: MoE (Mixture of Experts) layers will be sharded based on the product of the Tensor Parallelism degree and the Data Parallelism degree. For more information, see the [Introduction to Data Parallelism in vLLM](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html#data-parallelism-dp).
 
 ### Parameter Configuration
 
@@ -82,7 +120,7 @@ vllm-mindspore serve /path/to/Qwen2.5/model --headless --trust-remote-code --dat
 
 ## Expert Parallelism
 
-Expert Parallelism is a parallelization form specific to Mixture of Experts (MoE) models, achieved by distributing different expert networks across multiple NPUs. This parallel mode is suitable for MoE models (such as DeepSeekV3, Qwen3-MoE, Llama-4, etc.) and is the recommended strategy for large model inference when there is a need to balance the computational load of expert networks across NPUs. Enable Expert Parallelism by setting `enable_expert_parallel=True` and `--additional-config`. This setting will cause the MoE layers to adopt the Expert Parallelism strategy instead of Tensor Parallelism. The parallelism degree for Expert Parallelism will remain consistent with the already set Tensor Parallelism degree. For more information, see the [Introduction to Expert Parallelism in vLLM](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#expert-parallelism-ep).
+Expert Parallelism is a parallelization form specific to Mixture of Experts (MoE) models, achieved by distributing different expert networks across multiple NPUs. This parallel mode is suitable for MoE models (such as DeepSeekV3, Qwen3-MoE, Llama-4, etc.) and is the recommended strategy for large model inference when there is a need to balance the computational load of expert networks across NPUs. Enable Expert Parallelism by setting `enable_expert_parallel=True` and `--additional-config`. This setting will cause the MoE layers to adopt the Expert Parallelism strategy instead of Tensor Parallelism. The parallelism degree for Expert Parallelism will remain consistent with the already set Tensor Parallelism degree. For more information, see the [Introduction to Expert Parallelism in vLLM](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html#expert-parallelism-ep).
 
 ### Parameter Configuration
 
