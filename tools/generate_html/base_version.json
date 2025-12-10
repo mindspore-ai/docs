@@ -1,6 +1,6 @@
 [
     {
-        "version": "r2.7.1",
+        "version": "r2.7.2",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -10,50 +10,50 @@
             "zh": [
                 {
                     "label": "Developer Notes",
-                    "url": "/docs/zh-CN/r2.7.1/features/index.html",
-                    "id": "r2.7.1-features"
+                    "url": "/docs/zh-CN/r2.7.2/features/index.html",
+                    "id": "r2.7.2-features"
                 },
                 {
                     "label": "API",
-                    "url": "/docs/zh-CN/r2.7.1/api_python/index.html",
-                    "id": "r2.7.1-api_python"
+                    "url": "/docs/zh-CN/r2.7.2/api_python/index.html",
+                    "id": "r2.7.2-api_python"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/zh-CN/r2.7.1/faq/installation.html",
-                    "id": "r2.7.1-faq"
+                    "url": "/docs/zh-CN/r2.7.2/faq/installation.html",
+                    "id": "r2.7.2-faq"
                 },
                 {
                     "label": "Release Notes",
-                    "url": "/docs/zh-CN/r2.7.1/RELEASE.html"
+                    "url": "/docs/zh-CN/r2.7.2/RELEASE.html"
                 }
             ],
             "en": [
                 {
                     "label": "Developer Notes",
-                    "url": "/docs/en/r2.7.1/features/index.html",
-                    "id": "r2.7.1-features"
+                    "url": "/docs/en/r2.7.2/features/index.html",
+                    "id": "r2.7.2-features"
                 },
                 {
                     "label": "API",
-                    "url": "/docs/en/r2.7.1/api_python/index.html",
-                    "id": "r2.7.1-api_python"
+                    "url": "/docs/en/r2.7.2/api_python/index.html",
+                    "id": "r2.7.2-api_python"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/en/r2.7.1/faq/installation.html",
-                    "id": "r2.7.1-faq"
+                    "url": "/docs/en/r2.7.2/faq/installation.html",
+                    "id": "r2.7.2-faq"
                 },
                 {
                     "label": "Release Notes",
-                    "url": "/docs/en/r2.7.1/RELEASE.html"
+                    "url": "/docs/en/r2.7.2/RELEASE.html"
                 }
             ]
         },
         "theme": "theme-tutorials"
     },
     {
-        "version": "r2.7.1",
+        "version": "r2.7.2",
         "label": {
             "zh": "教程",
             "en": "Tutorials"
@@ -62,7 +62,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "r2.7.1",
+        "version": "r2.7.2",
         "label": {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
@@ -72,37 +72,37 @@
             "zh": [
                 {
                     "label": "概述",
-                    "url": "/lite?version=r2.7.1"
+                    "url": "/lite?version=r2.7.2"
                 },
                 {
                     "label": "下载",
-                    "url": "/lite/docs/zh-CN/r2.7.1/use/downloads.html"
+                    "url": "/lite/docs/zh-CN/r2.7.2/use/downloads.html"
                 },
                 {
                     "label": "文档",
-                    "url": "/lite/docs/zh-CN/r2.7.1/index.html"
+                    "url": "/lite/docs/zh-CN/r2.7.2/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/zh-CN/r2.7.1/index.html"
+                    "url": "/lite/api/zh-CN/r2.7.2/index.html"
                 }
             ],
             "en": [
                 {
                     "label": "Overview",
-                    "url": "/lite/en?version=r2.7.1"
+                    "url": "/lite/en?version=r2.7.2"
                 },
                 {
                     "label": "Downloads",
-                    "url": "/lite/docs/en/r2.7.1/use/downloads.html"
+                    "url": "/lite/docs/en/r2.7.2/use/downloads.html"
                 },
                 {
                     "label": "Docs",
-                    "url": "/lite/docs/en/r2.7.1/index.html"
+                    "url": "/lite/docs/en/r2.7.2/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/en/r2.7.1/index.html"
+                    "url": "/lite/api/en/r2.7.2/index.html"
                 }
             ]
         },

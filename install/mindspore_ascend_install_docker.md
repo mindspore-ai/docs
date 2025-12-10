@@ -28,7 +28,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 | Atlas 训练系列  | `mindspore` | `mindspore-ascend-a1` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
 | Atlas A2 训练系列 | `mindspore` | `mindspore-ascend-a2` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
 
-> `x.y.z`对应MindSpore版本号，例如安装2.7.1版本MindSpore时，`x.y.z`应写为2.7.1。
+> `x.y.z`对应MindSpore版本号，例如安装2.7.2版本MindSpore时，`x.y.z`应写为2.7.2。
 
 ## 确认系统环境信息
 
@@ -57,18 +57,18 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/{image_name}:{tag}
 其中：
 
 - `{image_name}` 对应上述表格中的docker镜像名称，使用 Atlas 训练系列产品请下载 `mindspore-ascend-a1` 镜像；Atlas A2 训练系列产品请下载 `mindspore-ascend-a2` 镜像。
-- `{tag}`对应上述表格中的标签,如2.7.1。
+- `{tag}`对应上述表格中的标签,如2.7.2。
 
-如果需要使用MindSpore 2.7.1版本，Atlas训练系列硬件的镜像，使用以下命令：
+如果需要使用MindSpore 2.7.2版本，Atlas训练系列硬件的镜像，使用以下命令：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.7.1
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.7.2
 ```
 
-如果需要使用MindSpore 2.7.1版本，Atlas A2训练系列硬件的镜像，使用以下命令：
+如果需要使用MindSpore 2.7.2版本，Atlas A2训练系列硬件的镜像，使用以下命令：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.1
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.2
 ```
 
 ## 运行MindSpore镜像
@@ -101,7 +101,7 @@ docker run -it --ipc=host \
 其中：
 
 - `{image_name}` 对应上述表格中的docker镜像名称，Atlas 训练系列产品对应 `mindspore-ascend-a1` 镜像；Atlas A2 训练系列产品对应 `mindspore-ascend-a2` 镜像。
-- `{tag}`对应上述表格中的标签，如2.7.1。
+- `{tag}`对应上述表格中的标签，如2.7.2。
 - 详细参数说明请见下表：
 
 |参数|参数说明|

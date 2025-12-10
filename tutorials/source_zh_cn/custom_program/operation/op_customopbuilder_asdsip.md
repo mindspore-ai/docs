@@ -12,7 +12,7 @@
 
 用户基于 [AsdSipFFTOpRunner类](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/cpp_api_for_custom_ops.html#class-asdsipfftoprunner) 对接ASDSIP FFT算子时，仅需要提供`Param`，并调用`Init`接口初始化（即构造`Operation`），再调用`Run`接口即可执行ASDSIP算子。还可以直接调用 [RunAsdSipFFTOp](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/cpp_api_for_custom_ops.html#function-runasdsipfftop)函数一键执行（函数内包含了`Init`和`Run`接口的调用）。
 
-本指南以一个`FftC2C`为例，展示ASDSIP FFT算子的接入流程。完整代码请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/v2.7.1/tests/st/graph_kernel/custom/jit_test_files/asdsip_fftc2c.cpp)。
+本指南以一个`FftC2C`为例，展示ASDSIP FFT算子的接入流程。完整代码请参阅[代码仓库](https://gitee.com/mindspore/mindspore/blob/v2.7.2/tests/st/graph_kernel/custom/jit_test_files/asdsip_fftc2c.cpp)。
 
 ## 安装ASDSIP加速库
 

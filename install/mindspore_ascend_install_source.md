@@ -261,7 +261,7 @@ bash build.sh -e ascend -S on
 pip install output/mindspore-*.whl -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.1/setup.py)中的required_package），其余情况需自行安装依赖。
+在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.2/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
 

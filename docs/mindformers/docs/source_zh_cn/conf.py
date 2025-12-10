@@ -349,8 +349,8 @@ for cur, _, files in os.walk(moment_dir):
                         #     new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
 
                         # 发版本时这里启用
-                        new_content = re.sub(re_url, r'\1/r2.7.1', new_content)
-                        new_content = re.sub(re_url2, r'\1/v2.7.1', new_content)
+                        new_content = re.sub(re_url, r'\1/r2.7.2', new_content)
+                        new_content = re.sub(re_url2, r'\1/v2.7.2', new_content)
                         new_content = re.sub(re_url3, r'\1/r1.3.0', new_content)
                         new_content = re.sub(re_url4, r'\1/r0.4.0', new_content)
                         new_content = re.sub(re_url5, r'\1/r1.7.0', new_content)

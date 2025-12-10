@@ -21,10 +21,10 @@ This document describes how to install MindSpore by pip on Windows in a CPU envi
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.7.1 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.7.2 as an example, execute the following commands.
 
 ```bash
-set MS_VERSION=2.7.1
+set MS_VERSION=2.7.2
 ```
 
 Then run the following command to install MindSpore.
@@ -33,7 +33,7 @@ Then run the following command to install MindSpore.
 pip install mindspore==%MS_VERSION% -i https://repo.mindspore.cn/pypi/simple --trusted-host repo.mindspore.cn --extra-index-url https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.1/setup.py)). In other cases, you need to install dependency by yourself.
+When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.2/setup.py)). In other cases, you need to install dependency by yourself.
 
 ## Installation Verification
 

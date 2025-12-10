@@ -28,7 +28,7 @@ The current support for containerized build options is as follows:
 | Atlas Training Series‌| `mindspore` | `mindspore-ascend-a1` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 | Atlas A2 Training Series‌| `mindspore` | `mindspore-ascend-a2` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 
-> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.7.1 is installed, `x.y.z` should be written as 2.7.1.
+> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.7.2 is installed, `x.y.z` should be written as 2.7.2.
 
 ## System Environment Information Confirmation
 
@@ -59,16 +59,16 @@ of which,
 - `{image_name}` corresponds to the image name in the above table. For Atlas Training Series A1 products, download the `mindspore-ascend-a1` image; for Atlas A2 Training Series products, download the `mindspore-ascend-a2` image.
 - `{tag}` corresponds to the label in the above table.
 
-To install MindSpore 2.7.1 on Atlas Training Platform, use the following command:
+To install MindSpore 2.7.2 on Atlas Training Platform, use the following command:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.7.1
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a1:2.7.2
 ```
 
-To install MindSpore 2.7.1 on Atlas A2 Training Platform, use the following command:
+To install MindSpore 2.7.2 on Atlas A2 Training Platform, use the following command:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.1
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend-a2:2.7.2
 ```
 
 ## Running MindSpore Image

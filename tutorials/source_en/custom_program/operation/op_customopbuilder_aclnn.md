@@ -17,7 +17,7 @@ You must first call the first-stage interface `aclxxXxxGetWorkspaceSize` to calc
 
 In [Custom Operator Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_customopbuilder.html), MindSpore provides `PyboostRunner` to help users integrate custom operators in dynamic graph mode. To simplify the calling process and hide interface data type conversion operations, MindSpore provides a unified execution entry `ms::pynative::AclnnOpRunner` for `aclnn` operators. It supports PyBoost multi-level pipeline and MindSpore's operator caching capabilities, improving operator and network execution efficiency.
 
-This tutorial uses `ArgMin` as an example to demonstrate the full integration process. The complete code can be found in the [MindSpore repository](https://gitee.com/mindspore/mindspore/tree/v2.7.1/tests/st/graph_kernel/custom/jit_test_files/).
+This tutorial uses `ArgMin` as an example to demonstrate the full integration process. The complete code can be found in the [MindSpore repository](https://gitee.com/mindspore/mindspore/tree/v2.7.2/tests/st/graph_kernel/custom/jit_test_files/).
 
 ## Installing ACLNN Development Environment
 

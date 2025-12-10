@@ -48,7 +48,7 @@ call build.bat ms_vs_cpu
 for %x in (output\mindspore*.whl) do pip install %x -i https://repo.huaweicloud.com/repository/pypi/simple/
 ```
 
-在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.1/setup.py)中的required_package），其余情况需自行安装依赖。
+在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/v2.7.2/setup.py)中的required_package），其余情况需自行安装依赖。
 
 ## 验证是否成功安装
 

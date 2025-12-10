@@ -1626,7 +1626,7 @@ current extension base on AST compilation.
 
     1. Python built-in modules and Python standard libraries, such as `os`, `sys`, `math`, `time` and other modules.
     2. Third-party code libraries. Their module paths are under the `site-packages` directory of the Python installation directory,
-        which need to be installed first and then imported, such `numpy` and `scipy`. For a detailed list, please refer to the [third_party_modules](https://gitee.com/mindspore/mindspore/blob/v2.7.1/mindspore/python/mindspore/_extends/parse/jit_fallback_modules/third_party_modules.py) file.
+        which need to be installed first and then imported, such `numpy` and `scipy`. For a detailed list, please refer to the [third_party_modules](https://gitee.com/mindspore/mindspore/blob/v2.7.2/mindspore/python/mindspore/_extends/parse/jit_fallback_modules/third_party_modules.py) file.
     3. Modules specified by the environment variable `MS_JIT_IGNORE_MODULES`. In contrast, there is the environment
         variable `MS_JIT_MODULES`. For more details, please refer to
         [Environment Variables](https://www.mindspore.cn/docs/en/r2.7.2/api_python/env_var_list.html).
