@@ -1,6 +1,6 @@
 # CustomOpBuilder Integrates ACLNN Operators via AclnnOpRunner
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/custom_program/operation/op_customopbuilder_aclnn.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/custom_program/operation/op_customopbuilder_aclnn.md)
 
 ## Overview
 
@@ -15,7 +15,7 @@ aclnnStatus aclxxXxx(void * workspace, uint64_t workspaceSize, aclOpExecutor * e
 
 You must first call the first-stage interface `aclxxXxxGetWorkspaceSize` to calculate how much workspace memory is required for this API call. After obtaining the required workspace size, allocate NPU memory accordingly, and then call the second-stage interface `aclxxXxx` to perform the computation.
 
-In [Custom Operator Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_customopbuilder.html), MindSpore provides `PyboostRunner` to help users integrate custom operators in dynamic graph mode. To simplify the calling process and hide interface data type conversion operations, MindSpore provides a unified execution entry `ms::pynative::AclnnOpRunner` for `aclnn` operators. It supports PyBoost multi-level pipeline and MindSpore's operator caching capabilities, improving operator and network execution efficiency.
+In [Custom Operator Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_customopbuilder.html), MindSpore provides `PyboostRunner` to help users integrate custom operators in dynamic graph mode. To simplify the calling process and hide interface data type conversion operations, MindSpore provides a unified execution entry `ms::pynative::AclnnOpRunner` for `aclnn` operators. It supports PyBoost multi-level pipeline and MindSpore's operator caching capabilities, improving operator and network execution efficiency.
 
 This tutorial uses `ArgMin` as an example to demonstrate the full integration process. The complete code can be found in the [MindSpore repository](https://gitee.com/mindspore/mindspore/tree/v2.7.1/tests/st/graph_kernel/custom/jit_test_files/).
 
@@ -103,7 +103,7 @@ This step creates the output tensor based on the operator's logic, using `shape`
 
 ### 2. Create AclnnOpRunner
 
-In [Custom Operator Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_customopbuilder.html), MindSpore provides the general custom operator integration class `PyboostRunner`. For aclnn operators, users can directly use the `AclnnOpRunner` class to create an object.
+In [Custom Operator Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_customopbuilder.html), MindSpore provides the general custom operator integration class `PyboostRunner`. For aclnn operators, users can directly use the `AclnnOpRunner` class to create an object.
 
 ```cpp
 auto runner = std::make_shared<ms::pynative::AclnnOpRunner>("ArgMin");

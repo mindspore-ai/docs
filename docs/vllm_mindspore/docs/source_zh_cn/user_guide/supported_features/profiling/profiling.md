@@ -1,6 +1,6 @@
 # 调试方法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/profiling/profiling.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/profiling/profiling.md)
 
 vLLM-MindSpore插件支持使用`mindspore.Profiler`模块，跟踪vLLM-MindSpore插件中worker的性能。用户可以根据[采集profiling数据](#采集profiling数据)章节完成数据采集，然后根据[分析profiling数据](#分析profiling数据)进行数据分析。另一方面，用户可以根据[图数据dump](#图数据dump)查看模型的IR图，从而进行模型结构的分析与调试。
 
@@ -58,7 +58,7 @@ Parsing: [####################] 3/3 Done
 
 ## 分析profiling数据
 
-`VLLM_TORCH_PROFILER_DIR`指向的目录保存profiling结果，该目录下存在多个以`ascend_ms`为后缀的子文件夹。一个子文件夹保存了一个worker的profiling结果。子文件夹中各文件作用可参考[Ascend性能调优](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/profiler.html)。
+`VLLM_TORCH_PROFILER_DIR`指向的目录保存profiling结果，该目录下存在多个以`ascend_ms`为后缀的子文件夹。一个子文件夹保存了一个worker的profiling结果。子文件夹中各文件作用可参考[Ascend性能调优](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/profiler.html)。
 
 用户可选择一个子文件夹进行一个worker的性能分析：
 
@@ -84,6 +84,6 @@ Parsing: [####################] 3/3 Done
 
 ## 图数据dump
 
-参考[MindSpore dump功能文档](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/dump.html)，首先设置json配置文件，然后设置`MINDSPORE_DUMP_CONFIG`环境变量指向该配置文件的绝对路径，在推理结束可获取图数据。
+参考[MindSpore dump功能文档](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/dump.html)，首先设置json配置文件，然后设置`MINDSPORE_DUMP_CONFIG`环境变量指向该配置文件的绝对路径，在推理结束可获取图数据。
 
 dump结果包含了IR图，另外在json配置中对`dump_mode`做相应设置，选择dump所有算子或某些算子的执行数据。

@@ -1,12 +1,12 @@
 # Memory Optimization
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/feature/memory_optimization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/feature/memory_optimization.md)
 
 ## Recomputation
 
 ### Overview
 
-Recomputation can significantly reduce activation memory usage during training but at the cost of additional computations. For more information about the principles of recalculation and framework measurement capabilities, please refer to [MindSpore Tutorial Document: Recompute](https://www.mindspore.cn/tutorials/en/r2.7.1/parallel/recompute.html).
+Recomputation can significantly reduce activation memory usage during training but at the cost of additional computations. For more information about the principles of recalculation and framework measurement capabilities, please refer to [MindSpore Tutorial Document: Recompute](https://www.mindspore.cn/tutorials/en/r2.7.2/parallel/recompute.html).
 
 ### Configuration and Usage
 
@@ -14,7 +14,7 @@ Recomputation can significantly reduce activation memory usage during training b
 
 Users can enable recomputation by adding a `recompute_config` module to the YAML configuration file used for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
 
 ```yaml
 # recompute config

@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/install/mindspore_cpu_install_source_en.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/install/mindspore_cpu_install_source_en.md)
 
 This document describes how to install MindSpore by compiling source code on Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
 
@@ -131,7 +131,7 @@ sudo apt-get install llvm-12-dev -y
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone -b v2.7.1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.7.2 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore

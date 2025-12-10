@@ -1,6 +1,6 @@
 # 模型支持列表
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_models/models_list/models_list.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_models/models_list/models_list.md)
 
 | 模型 | 状态 | 支持后端 | 支持硬件 | 模型下载链接 |
 |------- | ---- | ---- | --------- | ---- |

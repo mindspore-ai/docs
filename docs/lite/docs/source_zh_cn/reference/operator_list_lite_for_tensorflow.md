@@ -1,6 +1,6 @@
 # MindSpore Lite支持的TensorFlow算子列表
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_tensorflow.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/lite/docs/source_zh_cn/reference/operator_list_lite_for_tensorflow.md)
 
 | MindSpore Lite算子名称 | 对应的TensorFlow算子                                         |
 | ---------------------- | ------------------------------------------------------------ |
@@ -116,4 +116,4 @@
 | ZerosLike              | ZerosLike                                                    |
 | 转换工具支持的其他算子 | Dropout、Enter、<br/>Exit、If、<br/>LinSpace、<br/>LoopCond、<br/>NextIteration、<br/>StatelessIf、<br/>StatelessWhile、<br/>TensorArrayGatherV3、<br/>TensorArrayReadV3、<br/>TensorArrayScatterV3、<br/>TensorArraySizeV3、<br/>TensorArrayV3、<br/>TensorArrayWriteV3、<br/>While |
 
-> [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转换工具中被优化而消失，如被融合掉或者使用其他算子代替。
+> [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.2/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转换工具中被优化而消失，如被融合掉或者使用其他算子代替。

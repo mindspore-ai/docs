@@ -1,10 +1,10 @@
 # Custom原语AOT类型自定义算子（CPU/GPU平台）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_zh_cn/custom_program/operation/op_custom_aot.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_zh_cn/custom_program/operation/op_custom_aot.md)
 
 ## 概述
 
-AOT类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。AOT类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。对于Ascend平台的自定义算子开发，参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_custom_ascendc.html)。
+AOT类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。AOT类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。对于Ascend平台的自定义算子开发，参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/op_custom_ascendc.html)。
 
 本教程提供几个AOT类型自定义算子在CPU、GPU平台的简单用例作为展示。更多完整示例，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/v2.7.1/tests/st/graph_kernel/custom/test_custom_aot.py)。
 
@@ -33,7 +33,7 @@ extern "C" int CustomFunc(int nparam, void **params, int *ndims, int64_t **shape
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/custom_program/operation/op_custom_adv.html#算子信息注册)。
+若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/custom_program/operation/op_custom_adv.html#算子信息注册)。
 
 下面通过例子介绍GPU平台和CPU平台上AOT类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
 
@@ -308,7 +308,7 @@ extern "C" TypeId FuncNameInferType(std::vector<TypeId> type_ids, AotExtra *extr
 def attr(self, name=None, param_type=None, value_type=None, default_value=None, **kwargs)
 ```
 
-其参数含义参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关接口文档。在AOT类型自定义算子注册时，需要注意以下四个参数：
+其参数含义参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关接口文档。在AOT类型自定义算子注册时，需要注意以下四个参数：
 
 - name: AOT类型自定义算子的属性的名称；
 - param_type: 属性的参数类型。对于AOT类型自定义算子的属性，这个输入固定为”required“，即必选参数；
@@ -520,7 +520,7 @@ class ReduceDynNet(Cell):
 
 #### 算子注册
 
-算子属性在初始化时的赋值，通过算子注册文件实现。关于自定义算子注册的函数，参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关文档。对于每一个属性，我们为算子注册文件`reduce_cpu_info`创建一个`attr`，设置属性名和属性的值。
+算子属性在初始化时的赋值，通过算子注册文件实现。关于自定义算子注册的函数，参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关文档。对于每一个属性，我们为算子注册文件`reduce_cpu_info`创建一个`attr`，设置属性名和属性的值。
 
 每个`attr`项有四个输入：第一个为名字，如`"axis"`或`"keep_dim"`；中间两个为`"required"`和`"all"`；最后一个输入需指定输入名为`value=`，其值为属性值，例如这里`value=axis`、`value=keep_dim`。这两个参数来自网络输入，其类型应与初始化函数和shape推导函数中通过`extra->Attr<T>`模板接口获取的类型匹配。
 

@@ -1,6 +1,6 @@
 # Quantization Methods
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/quantization/quantization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_en/user_guide/supported_features/quantization/quantization.md)
 
 This document introduces model quantization and quantized inference methods. Quantization reduces inference resources with minor cost of precision, while improving inference performance to enable deployment on more devices. With the large scale of LLMs, post-training quantization has become the mainstream approach for model quantization. For details, refer to [Post-Training Quantization Introduction](https://gitee.com/mindspore/golden-stick/blob/r1.3.0/mindspore_gs/ptq/README.md).
 

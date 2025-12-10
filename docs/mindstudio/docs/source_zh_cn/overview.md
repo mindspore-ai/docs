@@ -1,6 +1,6 @@
 # 调试调优工具概览与安装说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindstudio/docs/source_zh_cn/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindstudio/docs/source_zh_cn/overview.md)
 
    <table style="width: 100%;">
       <tr>
@@ -22,7 +22,7 @@
       </tr>
       <tr>
          <td rowspan="4">性能调优</td>
-         <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/profiler.html">Profiler</a></td>
+         <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/profiler.html">Profiler</a></td>
          <td>MindSpore框架内置的性能数据采集、分析工具。推荐优先选择MindSpore 2.7.1版本。</td>
          <td><a href="https://www.mindspore.cn/install">安装MindSpore</a></td>
       </tr>

@@ -1,6 +1,6 @@
 # 与 Megatron-LM 比对训练精度
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/advanced_development/accuracy_comparison.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/advanced_development/accuracy_comparison.md)
 
 ## 1. 概述
 
@@ -45,7 +45,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
 
 ### 3.1 配置对齐
 
-精度对比流程的第一步是确保两个框架使用**完全一致的模型配置**。为此，本小节提供了 [Megatron-LM](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/example/accuracy_comparison/example.sh) 与 [MindSpore Transformers](https://gitee.com/mindspore/mindformers) 的对应配置文件，分别定义了模型结构、并行策略以及关键训练超参数。
+精度对比流程的第一步是确保两个框架使用**完全一致的模型配置**。为此，本小节提供了 [Megatron-LM](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/accuracy_comparison/example.sh) 与 [MindSpore Transformers](https://gitee.com/mindspore/mindformers) 的对应配置文件，分别定义了模型结构、并行策略以及关键训练超参数。
 
 配置对齐的目标是保证两个系统在初始化状态下尽可能一致，从而使得后续的前向输出、梯度反向传播等比对具有可比性。
 

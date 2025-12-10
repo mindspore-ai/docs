@@ -1,6 +1,6 @@
 # CustomOpBuilder: Integrating ASDSIP FFT Operators Using AsdSipFFTOpRunner
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/custom_program/operation/op_customopbuilder.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/custom_program/operation/op_customopbuilder.md)
 
 ## Overview
 
@@ -8,9 +8,9 @@
 
 When users need to use operators from the ASDSIP acceleration library that are not provided by MindSpore, they can quickly integrate and use them through custom operators.
 
-In [Custom Operators Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_customopbuilder.html), MindSpore provides the `PyboostRunner` tool to allow users to integrate custom operators in dynamic graphs. Now, for ASDSIP FFT operators, MindSpore additionally provides the `AsdSipFFTOpRunner` tool to encapsulate the ASDSIP FFT operator's workflow and the dynamic graph's multi-stage pipeline.
+In [Custom Operators Based on CustomOpBuilder](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_customopbuilder.html), MindSpore provides the `PyboostRunner` tool to allow users to integrate custom operators in dynamic graphs. Now, for ASDSIP FFT operators, MindSpore additionally provides the `AsdSipFFTOpRunner` tool to encapsulate the ASDSIP FFT operator's workflow and the dynamic graph's multi-stage pipeline.
 
-When integrating ASDSIP FFT operators using the [AsdSipFFTOpRunner class](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/cpp_api_for_custom_ops.html#class-asdsipfftoprunner), users only need to provide a `Param` (used as the key for caching `Operation`) and call the `Init` interface for initialization (constructing `Operation`), followed by the `Run` interface to execute the ASDSIP FFT operator. Additionally, users can directly call the [RunAsdSipFFTOp](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/cpp_api_for_custom_ops.html#function-runasdsipfftop) function for one-click execution (the function internally includes calls to both `Init` and `Run` interfaces).
+When integrating ASDSIP FFT operators using the [AsdSipFFTOpRunner class](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/cpp_api_for_custom_ops.html#class-asdsipfftoprunner), users only need to provide a `Param` (used as the key for caching `Operation`) and call the `Init` interface for initialization (constructing `Operation`), followed by the `Run` interface to execute the ASDSIP FFT operator. Additionally, users can directly call the [RunAsdSipFFTOp](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/cpp_api_for_custom_ops.html#function-runasdsipfftop) function for one-click execution (the function internally includes calls to both `Init` and `Run` interfaces).
 
 This guide uses `FftC2C` as an example to demonstrate the ASDSIP FFT operator integration process. The complete code can be found in the [code repository](https://gitee.com/mindspore/mindspore/blob/v2.7.1/tests/st/graph_kernel/custom/jit_test_files/asdsip_fftc2c.cpp).
 

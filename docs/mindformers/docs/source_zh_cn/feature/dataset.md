@@ -1,6 +1,6 @@
 # 数据集
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/feature/dataset.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/feature/dataset.md)
 
 MindSpore Transformers目前支持多种类型的数据集加载方式，涵盖常用开源与自定义场景。具体包括：
 
@@ -121,7 +121,7 @@ MindSpore Transformers推荐用户使用Megatron数据集进行模型预训练�
 
 1. 准备`parallel_speed_up.json`文件
 
-   Megatron数据集依赖数据广播功能`dataset_broadcast_opt_level`，具体可参考[文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)，因此需要创建`parallel_speed_up.json`文件，文件内容如下：
+   Megatron数据集依赖数据广播功能`dataset_broadcast_opt_level`，具体可参考[文档](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)，因此需要创建`parallel_speed_up.json`文件，文件内容如下：
 
    ```json
    {
@@ -644,9 +644,9 @@ parallel:
 
 ## MindRecord数据集
 
-MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁盘IO、网络IO开销，从而获得更好的数据加载体验，更多具体功能介绍可参考[文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore.mindrecord.html)，这里仅对如何在MindSpore Transformers模型训练任务中使用MindRecord进行介绍。
+MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁盘IO、网络IO开销，从而获得更好的数据加载体验，更多具体功能介绍可参考[文档](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore.mindrecord.html)，这里仅对如何在MindSpore Transformers模型训练任务中使用MindRecord进行介绍。
 
-下面以`qwen2_5-0.5b`进行微调为示例进行相关功能说明，示例中的脚本仅适用于指定数据集，如果需要对自定义数据集进行处理，可以参考[MindRecord格式转换](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/dataset/record.html)进行数据预处理。
+下面以`qwen2_5-0.5b`进行微调为示例进行相关功能说明，示例中的脚本仅适用于指定数据集，如果需要对自定义数据集进行处理，可以参考[MindRecord格式转换](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/dataset/record.html)进行数据预处理。
 
 ### 数据预处理
 
@@ -713,7 +713,7 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
 ### 多源数据集
 
-MindSpore框架原生数据集加载模块[MindDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.MindDataset.html)，在对多个MindRecord数据集进行加载和采样时存在性能等瓶颈，因此MindSpore Transformers通过`MultiSourceDataLoader`实现多个数据集高效加载与采样功能。
+MindSpore框架原生数据集加载模块[MindDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/dataset/mindspore.dataset.MindDataset.html)，在对多个MindRecord数据集进行加载和采样时存在性能等瓶颈，因此MindSpore Transformers通过`MultiSourceDataLoader`实现多个数据集高效加载与采样功能。
 
 多源数据集功能主要通过修改配置文件中`data_loader`配置开启，下面提供示例：
 

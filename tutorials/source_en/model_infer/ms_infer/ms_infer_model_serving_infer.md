@@ -1,7 +1,7 @@
 
 # Service-oriented Model Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/model_infer/ms_infer/ms_infer_model_serving_infer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/model_infer/ms_infer/ms_infer_model_serving_infer.md)
 
 ## Background
 

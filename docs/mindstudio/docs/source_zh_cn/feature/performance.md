@@ -1,6 +1,6 @@
 # 性能调优
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindstudio/docs/source_zh_cn/feature/performance.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindstudio/docs/source_zh_cn/feature/performance.md)
 
 MindSpore框架和MindStudio Training Tools工具链提供了多个性能分析与优化工具。
 MindSpore Profiler可以为用户提供算子执行时间分析、内存使用分析、AI Core指标分析、Timeline展示等功能，帮助用户分析性能瓶颈、优化训练效率。
@@ -15,22 +15,22 @@ MindStudio Training Tools工具链中的MindStudio Insight工具、msprof-analyz
     </tr>
     <tr>
         <td rowspan="4">MindSpore框架提供的Profiler</td>
-        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/profiler.html#方式一-mindsporeprofilerprofile接口使能">性能数据采集</a></td>
+        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/profiler.html#方式一-mindsporeprofilerprofile接口使能">性能数据采集</a></td>
         <td>通用性能数据采集、分析功能。</td>
         <td>模型性能未达到预期，需要对模型性能数据进行采集、分析和调优。</td>
     </tr>
     <tr>
-        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/profiler.html#方式五-轻量化打点">轻量化打点数据采集</a></td>
+        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/profiler.html#方式五-轻量化打点">轻量化打点数据采集</a></td>
         <td>mstx轻量化打点模块，支持用户自定义打点以及框架内置打点。</td>
         <td>大集群场景轻量化获取模型关键指标性能数据，实现问题快速定界。</td>
     </tr>
     <tr>
-        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/profiler.html#方式二-动态profiler使能">动态Profiler</a></td>
+        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/profiler.html#方式二-动态profiler使能">动态Profiler</a></td>
         <td>在不中断训练流程的前提下，修改配置文件并完成新配置下的性能数据采集任务。</td>
         <td>常稳训练中发现性能劣化、抖动等，期望在不中断训练情况下进行性能分析。</td>
     </tr>
     <tr>
-        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/debug/profiler.html#方式四-离线解析">离线解析数据</a></td>
+        <td><a href="https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/debug/profiler.html#方式四-离线解析">离线解析数据</a></td>
         <td>对已采集的数据进行离线解析。</td>
         <td>期望在模型运行过程中仅进行性能数据采集，以节省整体运行时间；或对历史已采集数据进行再次解析。</td>
     </tr>

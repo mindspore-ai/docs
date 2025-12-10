@@ -1,6 +1,6 @@
 # Other Training Features
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/feature/other_training_features.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/feature/other_training_features.md)
 
 During the large-scale training of deep learning models, challenges such as memory limitations, effective utilization of computational resources, and synchronization issues in distributed training are encountered. To address these challenges, training optimization algorithms are employed to enhance training efficiency, accelerate convergence, and improve the final model performance.
 
@@ -10,7 +10,7 @@ MindSpore Transformers provides optimization algorithms like Recomputation, Grad
 
 ### Overview
 
-MindSpore supported the gradient accumulation implementation interface `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` in versions after 2.1.1, which provides the gradient accumulation capability by splitting MiniBatch. MindSpore Transformers encapsulates it into a unified training process and enables it through yaml configuration. For the principle of gradient accumulation and the ability of framework measurement, please refer to [MindSpore Document: Gradient Accumulation](https://www.mindspore.cn/tutorials/en/r2.7.1/parallel/distributed_gradient_accumulation.html).
+MindSpore supported the gradient accumulation implementation interface `mindspore.nn.wrap.cell_wrapper.GradAccumulationCell` in versions after 2.1.1, which provides the gradient accumulation capability by splitting MiniBatch. MindSpore Transformers encapsulates it into a unified training process and enables it through yaml configuration. For the principle of gradient accumulation and the ability of framework measurement, please refer to [MindSpore Document: Gradient Accumulation](https://www.mindspore.cn/tutorials/en/r2.7.2/parallel/distributed_gradient_accumulation.html).
 
 ### Configuration and Usage
 
@@ -156,7 +156,7 @@ callback:
 ### Overview
 
 When RoPE (Rotary Position Embedding) is used as the position encoding in the network, this fusion operator can be enabled to improve overall performance. This feature provides a fused implementation of RoPE, enhancing network performance. For the operator interface, refer to:
-[mindspore.ops.rotary_position_embedding](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.rotary_position_embedding.html)
+[mindspore.ops.rotary_position_embedding](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.rotary_position_embedding.html)
 
 ### Configuration and Usage
 
@@ -176,7 +176,7 @@ model_config:
 ### Overview
 
 When SwiGLU is used as the activation function in the network, this fusion operator can be enabled to improve overall performance. This feature provides a fused implementation of SwiGLU, enhancing network performance. For the operator functionality, refer to:
-[mindspore.ops.swiglu](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.swiglu.html).
+[mindspore.ops.swiglu](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.swiglu.html).
 
 ### Configuration and Usage
 

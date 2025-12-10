@@ -1,6 +1,6 @@
 # Training Hyperparameters
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/feature/training_hyperparameters.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/feature/training_hyperparameters.md)
 
 Hyperparameters significantly affect model performance, with different settings potentially leading to vastly different outcomes.
 
@@ -24,7 +24,7 @@ Setting the learning rate too high can prevent the model from converging, while 
 
 Users can utilize the learning rate by adding an `lr_schedule` module to the YAML configuration file used for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured as follows:
 
 ```yaml
 # lr schedule
@@ -91,7 +91,7 @@ Currently, MindSpore Transformers only supports the [AdamW optimizer](https://ww
 
 Users can use the optimizer by adding an `optimizer` module to the YAML configuration file for model training.
 
-Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured like this:
+Taking the [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example, it could be configured like this:
 
 ```yaml
 # optimizer

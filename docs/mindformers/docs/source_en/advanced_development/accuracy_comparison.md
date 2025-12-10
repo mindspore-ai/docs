@@ -1,6 +1,6 @@
 # Comparing the Model Precision with that of Megatron-LM
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/advanced_development/accuracy_comparison.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/advanced_development/accuracy_comparison.md)
 
 ## 1. Overview
 
@@ -45,7 +45,7 @@ This section describes the model-level precision consistency validation process 
 
 ### 3.1 Configuration Alignment
 
-The first step of the precision comparison process is to ensure that the two frameworks use **the same model configuration**. This section provides the configuration files of [Megatron-LM](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/example/accuracy_comparison/example.sh) and [MindSpore Transformers](https://gitee.com/mindspore/mindformers), which define the model structure, parallel policy, and key training hyperparameters.
+The first step of the precision comparison process is to ensure that the two frameworks use **the same model configuration**. This section provides the configuration files of [Megatron-LM](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/accuracy_comparison/example.sh) and [MindSpore Transformers](https://gitee.com/mindspore/mindformers), which define the model structure, parallel policy, and key training hyperparameters.
 
 The configuration alignment aims to ensure that the two systems are as consistent as possible in the initial state, so that the forward output and gradient backpropagation can be compared.
 

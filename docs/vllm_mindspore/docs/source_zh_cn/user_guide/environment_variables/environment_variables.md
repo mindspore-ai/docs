@@ -1,6 +1,6 @@
 # 环境变量清单
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/user_guide/environment_variables/environment_variables.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_zh_cn/user_guide/environment_variables/environment_variables.md)
 
 |   环境变量   |   功能   |   类型   |   取值   |   说明   |
 |   ------   |   -------  |   ------   |   ------   |   ------   |
@@ -17,6 +17,6 @@
 更多的环境变量信息，请查看：
 
 - [CANN 环境变量列表](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/81RC1beta1/index/index.html)
-- [MindSpore 环境变量列表](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/env_var_list.html)
+- [MindSpore 环境变量列表](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/env_var_list.html)
 - [MindSpore Transformers 环境变量列表](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.7.0/index.html)
 - [vLLM 环境变量列表](https://docs.vllm.ai/en/v0.8.4/serving/env_vars.html)

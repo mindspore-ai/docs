@@ -1,6 +1,6 @@
 # Weight Conversion Development Adaptation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/advanced_development/weight_transfer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/advanced_development/weight_transfer.md)
 
 This document will guide developers on how to adapt the weight conversion functionality of new models to MindSpore Transformers during development, enabling users to convert Hugging Face weights into MindSpore Transformers weights through a unified automatic conversion process, thus initiating the inference workflow.
 

@@ -1,6 +1,6 @@
 # 自动并行策略搜索
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_zh_cn/features/parallel/auto_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_zh_cn/features/parallel/auto_parallel.md)
 
 自动并行策略搜索模式能够让用户无需关心策略配置，自动地建立代价模型，找到训练时间较短的并行策略。当前MindSpore支持如下两种不同的自动并行策略搜索方案：
 
@@ -62,8 +62,8 @@ Graph 模式。
 
 相关接口：
 
-1. [mindspore.parallel.auto_parallel.AutoParallel(net,parallel_mode="sharding_propagation")](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)：设置并行模式，可以通过parallel_mode选择策略传播算法。
-2. [mindspore.nn.Cell.shard()](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.shard)以及[mindspore.ops.Primitive.shard()](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard)：指定算子切分策略，其余算子的策略通过传播算法推导得到。目前`mindspore.nn.Cell.shard()` 接口同时支持 PyNative 模式与 Graph 模式； `mindspore.ops.Primitive.shard()` 接口仅可在 Graph 模式下使用。
+1. [mindspore.parallel.auto_parallel.AutoParallel(net,parallel_mode="sharding_propagation")](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html)：设置并行模式，可以通过parallel_mode选择策略传播算法。
+2. [mindspore.nn.Cell.shard()](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.shard)以及[mindspore.ops.Primitive.shard()](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.shard)：指定算子切分策略，其余算子的策略通过传播算法推导得到。目前`mindspore.nn.Cell.shard()` 接口同时支持 PyNative 模式与 Graph 模式； `mindspore.ops.Primitive.shard()` 接口仅可在 Graph 模式下使用。
 
 总而言之，切分策略传播算法需要用户手动配置关键算子的切分策略。
 

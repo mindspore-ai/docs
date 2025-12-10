@@ -1,6 +1,6 @@
 # 安全
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/general/security.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_zh_cn/general/security.md)
 
 通过vLLM-MindSpore插件在 Ascend 上使能推理服务时，由于服务化、节点通信、模型执行等必要功能需要使用一些网络端口，因此会存在一些安全问题。
 

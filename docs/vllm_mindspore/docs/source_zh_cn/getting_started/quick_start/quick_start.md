@@ -1,6 +1,6 @@
 # 快速体验
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/getting_started/quick_start/quick_start.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_zh_cn/getting_started/quick_start/quick_start.md)
 
 本文档将为用户提供快速指引，以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)模型为例，使用[docker](https://www.docker.com/)的安装方式部署vLLM-MindSpore插件，并以[离线推理](#离线推理)与[在线推理](#在线推理)两种方式，快速体验vLLM-MindSpore插件的服务化与推理能力。如用户需要了解更多的安装方式，请参考[安装指南](../installation/installation.md)。
 

@@ -1,6 +1,6 @@
 # Model Quantization
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/model_infer/ms_infer/ms_infer_quantization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/model_infer/ms_infer/ms_infer_quantization.md)
 
 ## Overview
 
@@ -90,7 +90,7 @@ ptq.convert(net)
 ms.save_checkpoint(net.parameters_dict(), './simplenet_ptq.ckpt')
 ```
 
-1. Use [nn.Cell](https://www.mindspore.cn/docs/en/r2.7.1/api_python/nn/mindspore.nn.Cell.html) to define the network. After the model is trained, the floating-point weights of the model are obtained. During inference, the floating-point weights of the model are loaded. The preceding example simplifies the process by directly creating a network and quantizing the network using the initial floating-point weights.
+1. Use [nn.Cell](https://www.mindspore.cn/docs/en/r2.7.2/api_python/nn/mindspore.nn.Cell.html) to define the network. After the model is trained, the floating-point weights of the model are obtained. During inference, the floating-point weights of the model are loaded. The preceding example simplifies the process by directly creating a network and quantizing the network using the initial floating-point weights.
 2. Use PTQConfig to set the mode to quantization and backend to Ascend for 8-bit quantization of the weights. For details, see [PTQConfig Description](#ptqconfig-description).
 3. Use the apply API to convert the network into a fake-quantized network and collect statistics on the quantization objects according to `PTQConfig`.
 4. Use the convert API to perform real quantization on the fake-quantized network obtained in the previous step to obtain the quantized network.

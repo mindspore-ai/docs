@@ -1,6 +1,6 @@
 # Performance Tuning
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_en/faq/performance_tuning.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_en/faq/performance_tuning.md)
 
 ## Q: What can I do if the network performance is abnormal and weight initialization takes a long time during training after MindSpore is installed?
 

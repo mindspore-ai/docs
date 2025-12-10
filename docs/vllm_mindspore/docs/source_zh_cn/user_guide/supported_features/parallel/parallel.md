@@ -1,6 +1,6 @@
 # 并行推理方法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/parallel/parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/parallel/parallel.md)
 
 vLLM-MindSpore插件支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理，并可以使用`Ray`或者`multiprocess`进行多机多卡启动。不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。下面将展开介绍[张量并行](#张量并行)、[数据并行](#数据并行)、[专家并行](#专家并行)、[混合并行](#混合并行)的使用场景、参数配置与[在线推理](#在线推理)。
 
@@ -237,7 +237,7 @@ export VLLM_MS_MODEL_BACKEND=MindFormers
 
 - `MS_ENABLE_LCCL`：关闭LCCL，使能HCCL通信。
 - `HCCL_OP_EXPANSION_MODE`：配置通信算法的编排展开位置为Device侧的AI Vector Core计算单元。
-- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/env_var_list.html)。
+- `MS_ALLOC_CONF`：设置内存策略。可参考[MindSpore官网文档](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/env_var_list.html)。
 - `ASCEND_RT_VISIBLE_DEVICES`：配置每个节点可用device id。用户可使用`npu-smi info`命令进行查询。
 - `VLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](../../../user_guide/supported_models/models_list/models_list.md)中进行查询。
 

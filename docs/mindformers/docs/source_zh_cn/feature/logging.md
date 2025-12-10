@@ -1,6 +1,6 @@
 # 日志
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/feature/logging.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/feature/logging.md)
 
 ## 日志保存
 
@@ -46,7 +46,7 @@ MindSpore Transformers 默认会在训练的 yaml 文件中指定文件输出路
 
 如果需要重新指定输出的日志文件夹，可以在 yaml 中修改配置。
 
-以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
+以 [`DeepSeek-V3` 预训练 yaml](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，可做如下配置：
 
 ```yaml
 output_dir: './output' # path to save logs/checkpoint/strategy

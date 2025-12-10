@@ -1,6 +1,6 @@
 # Ascend Performance Tuning
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/debug/profiler.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/debug/profiler.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 1. Prepare the training script;
 
-2. Call the performance debugging interface in the training script, such as [mindspore.profiler.profile](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler.profile.html) and [mindspore.profiler.DynamicProfilerMonitor](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) interfaces;
+2. Call the performance debugging interface in the training script, such as [mindspore.profiler.profile](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler.profile.html) and [mindspore.profiler.DynamicProfilerMonitor](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) interfaces;
 
 3. Run the training script;
 
@@ -22,7 +22,7 @@ There are five ways to collect training performance data, and the following desc
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
-Add the MindSpore Profiler related interfaces in the training script, users can refer to [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.Profiler.html) and [_ExperimentalConfig Parameter Details](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) to configure parameters such as profiler_level according to their data requirements.
+Add the MindSpore Profiler related interfaces in the training script, users can refer to [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.Profiler.html) and [_ExperimentalConfig Parameter Details](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) to configure parameters such as profiler_level according to their data requirements.
 
 The interface supports two collection modes: CallBack mode and custom for loop mode, and supports both Graph and PyNative modes.
 
@@ -67,20 +67,20 @@ with mindspore.profiler.profile(activities=[ProfilerActivity.CPU, ProfilerActivi
 ```
 
 - schedule: After schedule is enabled, kernel_details.csv in disk drive data contains a column of Step ID information. According to the schedule configuration, skip_first skips 0 steps, wait 0 step, warmup 0 step. Based on the active value being 1, data collection starts from step 0 and continues for 1 step. Therefore, the Step ID is 0, indicating that the 0th step is being collected.
-- on_trace_ready: The disk loading path of profiler is specified through the tensorboard_trace_handler parameter of on_trace_ready. tensorboard_trace_handler will parse the performance data by default. If the user does not configure tensorboard_trace_handler, the data will be written to the '/data' folder in the same-level directory of the current script by default. The performance data can be parsed through the off-line parsing function. The off-line parsing function can be referred to [Method 4: Off-line Parsing](https://www.mindspore.cn/tutorials/en/r2.7.1/debug/profiler.html#method-4-off-line-parsing).
+- on_trace_ready: The disk loading path of profiler is specified through the tensorboard_trace_handler parameter of on_trace_ready. tensorboard_trace_handler will parse the performance data by default. If the user does not configure tensorboard_trace_handler, the data will be written to the '/data' folder in the same-level directory of the current script by default. The performance data can be parsed through the off-line parsing function. The off-line parsing function can be referred to [Method 4: Off-line Parsing](https://www.mindspore.cn/tutorials/en/r2.7.2/debug/profiler.html#method-4-off-line-parsing).
 
-For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/profiler/for_loop_profiler.py).
+For the complete case, refer to [custom for loop collection complete code example](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/sample_code/profiler/for_loop_profiler.py).
 
 **The principle of configuring schedule parameters is as follows:**
 
-As illustrated in the following figure, schedule has 5 configurable parameters: skip_first, wait, warmup, active, and repeat. Among them, skip_first indicates skipping the first skip_first steps; wait represents the waiting phase, skipping wait steps; warmup represents the warm-up phase, skipping warmup steps; active indicates collecting active steps; repeat indicates the number of repetitions. One repeat includes wait+warmup+active steps. After all steps in a repeat are executed, the callback function configured via on_trace_ready will be executed to parse performance data. For detailed descriptions of each parameter, please refer to the [schedule API](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler.schedule.html).
+As illustrated in the following figure, schedule has 5 configurable parameters: skip_first, wait, warmup, active, and repeat. Among them, skip_first indicates skipping the first skip_first steps; wait represents the waiting phase, skipping wait steps; warmup represents the warm-up phase, skipping warmup steps; active indicates collecting active steps; repeat indicates the number of repetitions. One repeat includes wait+warmup+active steps. After all steps in a repeat are executed, the callback function configured via on_trace_ready will be executed to parse performance data. For detailed descriptions of each parameter, please refer to the [schedule API](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler.schedule.html).
 
 ![schedule.png](../../source_zh_cn/debug/images/schedule.png)
 
 For example: If there are 100 steps (0-99) in model training and the schedule is configured as `schedule(skip_first=10, wait=10, warmup=5, active=5, repeat=2)` . Profiler will first skip the first 10 steps (0-9). Starting from step 10, the first repeat will wait for 10 steps (10-19), warm up for 5 steps (20-24), and finally collect performance data for 5 steps (25-29). The second repeat will again wait for 10 steps (30-39), warm up for 5 steps (40-44), and finally collect performance data for 5 steps (45-49).
 
 > - In single-card scenarios, profiler generates multiple performance data files in the same directory based on the repeat count. Each repeat corresponds to a folder containing performance data collected from all active steps in that repeat. In multi-card scenarios, each card generates performance data independently, and the data from each card is divided into multiple parts based on the repeat count. When repeat is configured to 0, the specific number of repetitions is determined by the total number of steps, continuously repeating the wait-warmup-active cycle until all steps are completed.
-> - The schedule needs to be used with [mindspore.profiler.profile.step](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step) interface. If you only configure schedule without using mindspore.profiler.profile.step interface to collect data, all collected data will belong to step 0. Therefore, performance data files will only be generated when step 0 corresponds to active (wait, warmup, skip_first are all set to 0).
+> - The schedule needs to be used with [mindspore.profiler.profile.step](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler.profile.html#mindspore.profiler.profile.step) interface. If you only configure schedule without using mindspore.profiler.profile.step interface to collect data, all collected data will belong to step 0. Therefore, performance data files will only be generated when step 0 corresponds to active (wait, warmup, skip_first are all set to 0).
 
 #### CallBack Mode Collection Example
 
@@ -112,7 +112,7 @@ class StopAtStep(mindspore.Callback):
             self.profiler.stop()
 ```
 
-For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/profiler/call_back_profiler.py).
+For the complete case, refer to [CallBack mode collection complete code example](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/sample_code/profiler/call_back_profiler.py).
 
 ### Method 2: Dynamic Profiler Enabling
 
@@ -146,7 +146,7 @@ JSON configuration example as follows:
 }
 ```
 
-1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, and save the configuration files in cfg_path. See [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
+1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, and save the configuration files in cfg_path. See [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
 2. Call the step interface of DynamicProfilerMonitor after the model training to collect data;
 3. If users want to change the collection and analysis tasks during training, they can modify the JSON configuration file, such as changing the start_step in the above JSON configuration to 8, stop_step to 10, save it, and DynamicProfilerMonitor will automatically identify that the configuration file has changed to the new collection and analysis tasks.
 
@@ -168,11 +168,11 @@ for _ in range(STEP_NUM):
 
 At this point, the results include two folders: rank0_start2_stop5 and rank0_start8_stop10, representing the collection of steps 2-5 and 8-10 respectively.
 
-For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/profiler/dynamic_profiler.py).
+For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/sample_code/profiler/dynamic_profiler.py).
 
 ### Method 3: Environment Variable Enabling
 
-Users can use the environment variable enabling method to enable Profiler most simply. Currently, only single-card scenarios are supported. This method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/r2.7.1/api_python/env_var_list.html) for details.
+Users can use the environment variable enabling method to enable Profiler most simply. Currently, only single-card scenarios are supported. This method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training. schedule, on_trace_ready, and experimental_config parameters are not supported in this mode, and other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/r2.7.2/api_python/env_var_list.html) for details.
 
 > If environment variables are enabled, set device_id using environment variables before executing the script. Do not use set_context to set device_id in the script.
 
@@ -193,7 +193,7 @@ After loading the environment variable, start the training script directly to co
 
 ### Method 4: Off-line Parsing
 
-If users want to analyze the collected performance data, you can use [mindspore.profiler.profiler.analyse](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler.profiler.analyse.html) interface for offline analysis. For details about the analyse interface, please refer to [offline parse analyse interface parameters](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler.profiler.analyse.html).
+If users want to analyze the collected performance data, you can use [mindspore.profiler.profiler.analyse](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler.profiler.analyse.html) interface for offline analysis. For details about the analyse interface, please refer to [offline parse analyse interface parameters](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler.profiler.analyse.html).
 
 The offline analysis sample is shown below:
 
@@ -209,7 +209,7 @@ To address the traditional profiler process being time-consuming and dealing wit
 
 ![mstx_profiler.png](../../source_zh_cn/debug/images/mstx_profiler.png)
 
-When using the lightweight marking feature, ensure that the mstx in the [_ExperimentalConfig](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) interface is set to True. Also note that lightweight marking data is only valid during the profiler's data collection interval. For details about the mstx interface, please refer to [mstx API](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore/mindspore.profiler.mstx.html).
+When using the lightweight marking feature, ensure that the mstx in the [_ExperimentalConfig](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler._ExperimentalConfig.html) interface is set to True. Also note that lightweight marking data is only valid during the profiler's data collection interval. For details about the mstx interface, please refer to [mstx API](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore/mindspore.profiler.mstx.html).
 
 The lightweight marking sample is shown below:
 
@@ -222,7 +222,7 @@ mstx.mark("start")
 mstx.range_end(range_id)
 ```
 
-For the complete case, refer to [mstx lightweight marking method case](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/profiler/mstx_profiler.py).
+For the complete case, refer to [mstx lightweight marking method case](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/sample_code/profiler/mstx_profiler.py).
 
 ## Performance Data
 

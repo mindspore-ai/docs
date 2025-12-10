@@ -1,6 +1,6 @@
 # Building an LLM Inference Network from Scratch
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/model_infer/ms_infer/ms_infer_network_develop.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/model_infer/ms_infer/ms_infer_network_develop.md)
 
 ## Model Development Modes
 
@@ -16,7 +16,7 @@ In MindSpore, you are advised to use the dynamic graph mode to develop a model a
 
 Most mainstream LLMs use the Transformer-based backbone network, where core computing relies on the self-attention mechanism. The following figure uses the Qwen2 LLM as an example to show the backbone network architecture.
 
-![Qwen2 network architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_qwen2_network_arch.png)
+![Qwen2 network architecture](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_qwen2_network_arch.png)
 
 The core layer of Qwen2 consists of the following parts:
 
@@ -26,7 +26,7 @@ The core layer of Qwen2 consists of the following parts:
 
 - **RmsNorm & Linear**: linearly normalizes the output of each layer to the same dimension as the model vocabulary after computation by the transformer structure and returns the probability distribution of each token.
 
-You can use the MindSpore LLM to build a network for inference. The network can be assembled as required using operators provided by MindSpore. The following uses the Qwen2 model as an example to describe how to build a model. For details about the complete end-to-end example, see [qwen2.py](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/infer_code/qwen2/qwen2.py).
+You can use the MindSpore LLM to build a network for inference. The network can be assembled as required using operators provided by MindSpore. The following uses the Qwen2 model as an example to describe how to build a model. For details about the complete end-to-end example, see [qwen2.py](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/sample_code/infer_code/qwen2/qwen2.py).
 
 ### Basic Common Network Layer
 

@@ -1,6 +1,6 @@
 # Dataset
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindformers/docs/source_en/feature/dataset.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_en/feature/dataset.md)
 
 MindSpore Transformers currently supports multiple types of dataset loading methods, covering common open-source and custom scenarios. Specifically, it includes:
 
@@ -127,7 +127,7 @@ The following explains how to configure and use Megatron datasets in the configu
 1. Prepare the `parallel_speed_up.json` file
 
    Megatron dataset relies on the `dataset_broadcast_opt_level` feature for data broadcasting.
-   For more details, refer to the [documentation](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html).
+   For more details, refer to the [documentation](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/parallel/mindspore.parallel.auto_parallel.AutoParallel.html).
    Therefore, you need to create a `parallel_speed_up.json` file with the following content:
 
    ```json
@@ -655,9 +655,9 @@ After modifying the config, refer to the `qwen3` model documentation to start fi
 
 ## MindRecord Dataset
 
-MindRecord is an efficient data storage and reading module provided by MindSpore. It reduces disk IO and network IO overhead, resulting in a better data loading experience. For more detailed feature introductions, refer to the [documentation](https://www.mindspore.cn/docs/en/r2.7.1/api_python/mindspore.mindrecord.html). Here, we only cover how to use MindRecord in MindSpore Transformers model training tasks.
+MindRecord is an efficient data storage and reading module provided by MindSpore. It reduces disk IO and network IO overhead, resulting in a better data loading experience. For more detailed feature introductions, refer to the [documentation](https://www.mindspore.cn/docs/en/r2.7.2/api_python/mindspore.mindrecord.html). Here, we only cover how to use MindRecord in MindSpore Transformers model training tasks.
 
-The following example uses `qwen2_5-0.5b` fine-tuning to explain related functionalities.  The provided scripts are only applicable to the specified dataset. If you need to process a custom dataset, please refer to [MindRecord format conversion](https://www.mindspore.cn/tutorials/en/r2.7.1/dataset/record.html) for data preprocessing.
+The following example uses `qwen2_5-0.5b` fine-tuning to explain related functionalities.  The provided scripts are only applicable to the specified dataset. If you need to process a custom dataset, please refer to [MindRecord format conversion](https://www.mindspore.cn/tutorials/en/r2.7.2/dataset/record.html) for data preprocessing.
 
 ### Data Preprocessing
 
@@ -724,7 +724,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 ### Multi-source Datasets
 
-The native MindSpore dataset loading module [MindDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/dataset/mindspore.dataset.MindDataset.html) has performance bottlenecks when loading and sampling multiple MindRecord datasets.
+The native MindSpore dataset loading module [MindDataset](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/dataset/mindspore.dataset.MindDataset.html) has performance bottlenecks when loading and sampling multiple MindRecord datasets.
 
 Therefore, MindSpore Transformers implements the `MultiSourceDataLoader` to achieve efficient loading and sampling across multiple datasets.
 

@@ -1,12 +1,12 @@
 # mindspore.jit 多级编译优化
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/mindspore/source_zh_cn/features/compile/compilation_guide.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_zh_cn/features/compile/compilation_guide.md)
 
 ## MindSpore编译架构
 
 MindSpore利用jit（just-in-time）来进行性能优化。jit模式会通过AST树解析、Python字节码解析或追踪代码执行的方式，将Python代码转换为中间表示图（IR，Intermediate Representation）。我们给它命名MindIR。编译器通过对该IR图的优化，来达到对代码的优化，提高运行性能。与PyNative Mode相对应，这种JIT的编译模式被称为Graph Mode。
 
-开发者写的Python代码默认以PyNative Mode运行，可以通过`@mindspore.jit`装饰器修饰函数，来指定其按照Graph Mode执行。有关`@mindspore.jit`装饰器的相关文档请见[jit 文档](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
+开发者写的Python代码默认以PyNative Mode运行，可以通过`@mindspore.jit`装饰器修饰函数，来指定其按照Graph Mode执行。有关`@mindspore.jit`装饰器的相关文档请见[jit 文档](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
 
 Graph Mode大致分为3个阶段：
 
@@ -27,7 +27,7 @@ MindSpore提供三种捕获方式，如下：
 - strict模式：此模式目标是构成一张图，开发者的Python代码如果无法构图，选择此模式运行程序时会报错，需要开发者进行代码修改，变为可构图的语法，适合追求性能的开发者。
 - lax模式：此模式目标是尽可能的让开发者程序可运行，思路是针对无法在strict模式构图的代码进行Python fallback，即返回Python层运行。
 
-Graph Mode约束请参考[语法约束](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/compile/static_graph.html)。ast如何将Python代码解析并构图，举例如下：
+Graph Mode约束请参考[语法约束](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/compile/static_graph.html)。ast如何将Python代码解析并构图，举例如下：
 
 ```python
 @mindspore.jit
@@ -38,7 +38,7 @@ def foo(x, y):
 
 它对应的抽象语法树如下：
 
-![抽象语法树](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
+![抽象语法树](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/docs/mindspore/source_zh_cn/features/compile/images/ast.png)
 
 通过解析上面的抽象语法树，我们得到下面的IR：
 
@@ -71,7 +71,7 @@ subgraph @foo() {
 
 - 绝大部分计算以及优化都是基于对Tensor计算的优化，建议被修饰的函数应该是用来进行真正的数据计算的函数，而不是一些简单的标量计算或者数据结构的变换。
 
-- 被`@mindspore.jit`修饰的函数，若其输入存在常量，那么该函数每次输入值的变化都会导致重新编译，关于变量常量的概念请见[即时编译下的常量与变量](https://www.mindspore.cn/tutorials/zh-CN/r2.7.1/compile/static_graph.html)。因此，建议被修饰的函数以Tensor或者被Mutable修饰的数据作为输入。避免因多次编译导致的额外性能损耗。
+- 被`@mindspore.jit`修饰的函数，若其输入存在常量，那么该函数每次输入值的变化都会导致重新编译，关于变量常量的概念请见[即时编译下的常量与变量](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/compile/static_graph.html)。因此，建议被修饰的函数以Tensor或者被Mutable修饰的数据作为输入。避免因多次编译导致的额外性能损耗。
 
 ## 图优化（前端）
 
@@ -349,7 +349,7 @@ MindSpore冗余消除的目的及使用的技术与传统编译器类似。不�
 - **jit_level=O0**：只做基本的图切分优化，以及算子选择（硬件相关），优点是可以保证IR图的原始结构，编译速度较快。
 - **jit_level=O1**：增加图优化和自动算子融合，编译性能有所损失，但模型开始训练后，效率较高。
 
-MindIR经过本轮优化后，会由runtime模块进行执行，涉及多级流水并发等技术，可参考[多级流水](https://www.mindspore.cn/docs/zh-CN/r2.7.1/features/runtime/multilevel_pipeline.html)。
+MindIR经过本轮优化后，会由runtime模块进行执行，涉及多级流水并发等技术，可参考[多级流水](https://www.mindspore.cn/docs/zh-CN/r2.7.2/features/runtime/multilevel_pipeline.html)。
 
 ### jit_level=O0 模式
 
@@ -389,7 +389,7 @@ MindSpore 在Ascend硬件的算子类型有aclnn kernel/aclop kernel/hccl kernel
 
 - 首先，优化模块需要解决求解最优算子并发的复杂性问题。由于计算图中的算子数量庞大且相互依赖，找到一个既能最大化并发又能保持计算图逻辑正确性的执行顺序是一个极具挑战性的任务。
 - 其次，内存限制是执行序优化中不可忽视的关键因素。增大并发虽然可以提升计算效率，但往往会显著增加峰值内存需求，从而可能导致内存溢出（OOM）错误，尤其是在资源受限的环境中。因此，优化模块必须权衡并发与内存使用之间的关系，确保在提升并发的同时，不会超出系统的内存容量。
-- MindSpore的执行序调整模块结合了基于规则和基于启发式策略的方式，提供bfs/dfs两种执行序编排算法[mindspore.jit(option={"exec_order":"bfs/dfs"})](https://www.mindspore.cn/docs/zh-CN/r2.7.1/api_python/mindspore/mindspore.jit.html)，以实现对计算图执行顺序的精细调整，从而在保证计算效率的同时，有效应对内存限制和系统稳定性等多重挑战。
+- MindSpore的执行序调整模块结合了基于规则和基于启发式策略的方式，提供bfs/dfs两种执行序编排算法[mindspore.jit(option={"exec_order":"bfs/dfs"})](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore/mindspore.jit.html)，以实现对计算图执行顺序的精细调整，从而在保证计算效率的同时，有效应对内存限制和系统稳定性等多重挑战。
 
 ### jit_level=O1 模式
 

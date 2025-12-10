@@ -1,6 +1,6 @@
 # mindspore
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/api/source_zh_cn/api_cpp/mindspore.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/lite/api/source_zh_cn/api_cpp/mindspore.md)
 
 ## 接口汇总
 
@@ -38,8 +38,8 @@
 |--------------------------------------------------|---------------------------------------------------|--------|--------|
 | [MSTensor](#mstensor)                            | MindSpore中的张量。                                    | √      | √      |
 | [QuantParam](#quantparam)                        | MSTensor中的一组量化参数。                                 | √      | √      |
-| [DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
-| [Format](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
+| [DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
+| [Format](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
 | [Allocator](#allocator-1)                          | 内存管理基类。                                           | √      | √      |
 
 ### 模型分组
@@ -157,9 +157,9 @@ Context的数据。
 | [bool GetEnableParallel() const](#getenableparallel)     |    ✕    |    √    |
 | [void SetBuiltInDelegate(DelegateMode mode)](#setbuiltindelegate)     |    ✕    |    √    |
 | [DelegateMode GetBuiltInDelegate() const](#getbuiltindelegate)     |    ✕    |    √    |
-| [void set_delegate(const std::shared_ptr\<AbstractDelegate\> &delegate)](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#set-delegate)         | ✕      | √      |
+| [void set_delegate(const std::shared_ptr\<AbstractDelegate\> &delegate)](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#set-delegate)         | ✕      | √      |
 | [void SetDelegate(const std::shared_ptr\<Delegate\> &delegate)](#setdelegate)     |    ✕    |    √    |
-| [std::shared_ptr\<AbstractDelegate\> get_delegate() const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#get-delegate)     |    ✕    |    √    |
+| [std::shared_ptr\<AbstractDelegate\> get_delegate() const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#get-delegate)     |    ✕    |    √    |
 | [std::shared_ptr\<Delegate\> GetDelegate() const](#getdelegate)     |    ✕    |    √    |
 | [void SetMultiModalHW(bool float_mode)](#setmultimodalhw)     |    ✕    |    √    |
 | [bool GetMultiModalHW() const](#getmultimodalhw)     |    ✕    |    √    |
@@ -2244,7 +2244,7 @@ Status Finalize()
 
 ## ModelExecutor
 
-\#include &lt;[multi_model_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.1/mindspore-lite/include/api/multi_model_runner.h)&gt;
+\#include &lt;[multi_model_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.2/mindspore-lite/include/api/multi_model_runner.h)&gt;
 
 ModelExecutor定义了对Model的封装，用于调度多个Model的推理。
 
@@ -2326,7 +2326,7 @@ std::vector<MSTensor> GetOutputs() const
 
 ## MultiModelRunner
 
-\#include &lt;[multi_model_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.1/mindspore-lite/include/api/multi_model_runner.h)&gt;
+\#include &lt;[multi_model_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.7.2/mindspore-lite/include/api/multi_model_runner.h)&gt;
 
 MultiModelRunner用于创建包含多个Model的mindir，并提供调度多个模型的方式。
 
@@ -2612,10 +2612,10 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept
 | [bool IsConst() const](#isconst)     |    √    |    √    |
 | [bool IsDevice() const](#isdevice)     |    √    |    ✕    |
 | [MSTensor *Clone() const](#clone)     |    √    |    √    |
-| [bool operator==(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operatorstd-nullptr-t)     |    √    |    √    |
-| [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operatorstd-nullptr-t-1)     |    √    |    √    |
-| [bool operator!=(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operatorconst-mstensor-tensor)     |    √    |    √    |
-| [bool operator==(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operatorconst-mstensor-tensor-1)     |    √    |    √    |
+| [bool operator==(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operatorstd-nullptr-t)     |    √    |    √    |
+| [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operatorstd-nullptr-t-1)     |    √    |    √    |
+| [bool operator!=(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operatorconst-mstensor-tensor)     |    √    |    √    |
+| [bool operator==(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operatorconst-mstensor-tensor-1)     |    √    |    √    |
 | [void SetShape(const std::vector\<int64_t\> &shape)](#setshape)     |    √    |    √    |
 | [void SetDataType(enum DataType data_type)](#setdatatype)     |    √    |    √    |
 | [void SetTensorName(const std::string &name)](#settensorname)     |    √    |    √    |
@@ -3176,7 +3176,7 @@ typedef enum {
 
 \#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/v2.7.1/include/api/delegate.h)&gt;
 
-定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
+定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
 
 ```cpp
 using KernelIter = std::vector<kernel::Kernel *>::iterator
@@ -3210,7 +3210,7 @@ DelegateModel(std::vector<kernel::Kernel *> *kernels, const std::vector<MSTensor
 std::vector<kernel::Kernel *> *kernels_
 ```
 
-[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
+[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
 
 #### inputs_
 
@@ -3218,7 +3218,7 @@ std::vector<kernel::Kernel *> *kernels_
 const std::vector<mindspore::MSTensor> &inputs_
 ```
 
-[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输入tensor。
+[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输入tensor。
 
 #### outputs_
 
@@ -3226,7 +3226,7 @@ const std::vector<mindspore::MSTensor> &inputs_
 const std::vector<mindspore::MSTensor> &outputs
 ```
 
-[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输出tensor。
+[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输出tensor。
 
 #### primitives_
 
@@ -3234,7 +3234,7 @@ const std::vector<mindspore::MSTensor> &outputs
 const std::map<kernel::Kernel *, const schema::Primitive *> &primitives_
 ```
 
-[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
+[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
 
 #### version_
 
@@ -3326,7 +3326,7 @@ const std::vector<mindspore::MSTensor> &inputs()
 
 - 返回值
 
-  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mstensor)的列表。
+  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#mstensor)的列表。
 
 #### outputs
 
@@ -3338,7 +3338,7 @@ const std::vector<mindspore::MSTensor> &outputs()
 
 - 返回值
 
-  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#mstensor)的列表。
+  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#mstensor)的列表。
 
 #### GetVersion
 
@@ -4221,11 +4221,11 @@ inline Status(const StatusCode code, int line_of_code, const char *file_name, co
 | [inline std::string GetErrDescription() const](#geterrdescription)     |    √    |    √    |
 | [inline std::string SetErrDescription(const std::string &err_description)](#seterrdescription)     |    √    |    √    |
 | [inline void SetStatusMsg(const std::string &status_msg)](#setstatusmsg)     |    √    |    √    |
-| [friend std::ostream &operator\<\<(std::ostream &os, const Status &s)](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operator<<std-ostream-os,-const-status-s)     |    √    |    √    |
-| [bool operator==(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operatorconst-status-other)     |    √    |    √    |
-| [bool operator==(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operatorenum-statuscode-other-code)     |    √    |    √    |
-| [bool operator!=(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operatorconst-status-other-1)     |    √    |    √    |
-| [bool operator!=(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/api_cpp/mindspore.html#operatorenum-statuscode-other-code-1)     |    √    |    √    |
+| [friend std::ostream &operator\<\<(std::ostream &os, const Status &s)](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operator<<std-ostream-os,-const-status-s)     |    √    |    √    |
+| [bool operator==(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operatorconst-status-other)     |    √    |    √    |
+| [bool operator==(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operatorenum-statuscode-other-code)     |    √    |    √    |
+| [bool operator!=(const Status &other) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operatorconst-status-other-1)     |    √    |    √    |
+| [bool operator!=(enum StatusCode other_code) const](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/api_cpp/mindspore.html#operatorenum-statuscode-other-code-1)     |    √    |    √    |
 | [explicit operator bool() const](#operator-bool)     |    √    |    √    |
 | [explicit operator int() const](#explicit-operator-int-const)     |    √    |    √    |
 | [static Status OK()](#ok)     |    √    |    √    |

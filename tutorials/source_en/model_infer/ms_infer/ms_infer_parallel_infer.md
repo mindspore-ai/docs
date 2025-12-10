@@ -1,6 +1,6 @@
 # Building a Parallel LLM Network
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/model_infer/ms_infer/ms_infer_parallel_infer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/model_infer/ms_infer/ms_infer_parallel_infer.md)
 
 As model sizes continue to expand, the computing resources required by LLMs, particularly graphics memory, are growing exponentially. For example, the Qwen2-72B requires approximately 144 GB of graphics memory at half-precision (FP16).
 
@@ -24,7 +24,7 @@ Before performing model sharding and parallelism, you need to analyze the parall
 
 The following figure shows the execution of one Qwen2 layer with a parallelism degree of 2.
 
-![matmul1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_qwen2_parallel_split.png)
+![matmul1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/model_infer/ms_infer/images/llm_qwen2_parallel_split.png)
 
 As shown in the figure, RmsNorm cannot be sharded. Therefore, an AllReduce operator needs to be added to the network before each RmsNorm computing to synchronize the computing results of each subprocess. The result after RmsNorm is usually **hidden_states**. Therefore, the result can be sharded by column-wise Linear and allocated to each subprocess for computing and then normalized by RowLinear.
 
@@ -34,15 +34,15 @@ The Linear layer is the main network layer for sharding, and its core is MatMul 
 
 ### Basic MatMul Module
 
-![matmul1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/images/gmm.png)
+![matmul1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/model_infer/ms_infer/images/gmm.png)
 
-![matmul2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/images/matmul.png)
+![matmul2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/model_infer/ms_infer/images/matmul.png)
 
 In LLM computations, matrix multiplication (MatMul) accounts for a significant portion of both weight and computation workload. MatMul exhibits both column-wise parallelism and row-wise parallelism.
 
-![Column-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/images/column.png)
+![Column-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/model_infer/ms_infer/images/column.png)
 
-![Row-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/images/row.png)
+![Row-wise Parallelism](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/model_infer/ms_infer/images/row.png)
 
 Starting with the original implementation of `nn.Dense` in MindSpore, we can build implementations for both column-wise and row-wise MatMul.
 
@@ -352,7 +352,7 @@ Based on the preceding analysis, TransformerModel can be modified to support par
 
     Take the multi-head attention (MHA) module as an example. The attention module in the Transformer is multi-headed, and attention heads are independent of each other. Therefore, the activation value can be sharded by `hidden_size` while ensuring that a single attention head is complete. For example, assume that the number of MHA headers (`num_heads`) is 16, the number of dimensions (`head_dim`) of each header is 256, then `hidden_size` is 4096, and the number of linear in/out dimensions of Q/K/V is 4096. When `tensor_model_parallel` is set to `4` for the model parallelism, these linear results are allocated to four devices. The shape of each device is (4096,1024), indicating that each device computes 4 heads.
 
-    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
+    ![MHA](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/tutorials/source_zh_cn/model_infer/ms_infer/images/MHA.png)
 
     The following is an example of the Attention module code:
 
@@ -473,7 +473,7 @@ Based on the preceding analysis, TransformerModel can be modified to support par
             return hidden_state
     ```
 
-For details about the end-to-end LLM code project, see the [model_dev.py](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/sample_code/infer_code/model_dev.py) script. Run the following command to verify the code:
+For details about the end-to-end LLM code project, see the [model_dev.py](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/sample_code/infer_code/model_dev.py) script. Run the following command to verify the code:
 
 ```shell
 msrun --worker_num 2 --local_worker_num 2 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py

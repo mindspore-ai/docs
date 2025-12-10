@@ -1,6 +1,6 @@
 # Building Cloud-side MindSpore Lite
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/docs/lite/docs/source_en/mindir/build.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/lite/docs/source_en/mindir/build.md)
 
 This section describes how to quickly compile MindSpore Lite.
 
@@ -77,7 +77,7 @@ General module compilation options:
 First, you need to download the source code from the MindSpore Lite code repository before compiling.
 
 ```bash
-git clone -b r2.7.1 https://gitee.com/mindspore/mindspore-lite.git
+git clone -b r2.7.2 https://gitee.com/mindspore/mindspore-lite.git
 ```
 
 ### Environment Preparation

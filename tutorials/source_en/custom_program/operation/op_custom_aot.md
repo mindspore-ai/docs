@@ -1,10 +1,10 @@
 # AOT-Type Custom Operators(CPU/GPU)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1/tutorials/source_en/custom_program/operation/op_custom_aot.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/tutorials/source_en/custom_program/operation/op_custom_aot.md)
 
 ## Overview
 
-AOT (Ahead-Of-Time) type of custom operators employ a pre-compilation approach, which requires network developers to manually write the source code files corresponding to the operator implementation functions based on specific interfaces. These source code files need to be compiled into dynamic link libraries (DLLs) in advance. During network runtime, the framework will automatically invoke and execute the functions contained within these dynamic link libraries. AOT-type custom operators support the CUDA language for GPU platforms and the C and C++ languages for CPU platforms. For the development of custom operators specifically on the Ascend platform, please refer to [AOT-Type Custom Operators(Ascend)](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_custom_ascendc.html).
+AOT (Ahead-Of-Time) type of custom operators employ a pre-compilation approach, which requires network developers to manually write the source code files corresponding to the operator implementation functions based on specific interfaces. These source code files need to be compiled into dynamic link libraries (DLLs) in advance. During network runtime, the framework will automatically invoke and execute the functions contained within these dynamic link libraries. AOT-type custom operators support the CUDA language for GPU platforms and the C and C++ languages for CPU platforms. For the development of custom operators specifically on the Ascend platform, please refer to [AOT-Type Custom Operators(Ascend)](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_custom_ascendc.html).
 
 In this tutorial, we provide several simple use cases of AOT-type custom operators on both CPU and GPU platforms as demonstrations. For more comprehensive examples, please refer to the [examples](https://gitee.com/mindspore/mindspore/blob/v2.7.1/tests/st/graph_kernel/custom/test_custom_aot.py) section in the MindSpore source code.
 
@@ -33,7 +33,7 @@ In the Python script, the format for the `func` input in `Custom` is `Path_To_Fu
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
 
-If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/en/r2.7.1/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
+If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/en/r2.7.2/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
 
 The following examples introduce the development process of AOT-type custom operator on GPU platform and CPU platform, where the custom operator implements the function of adding two input tensors.
 
@@ -321,7 +321,7 @@ The initialization of operator attributes is implemented through the operator re
 def attr(self, name=None, param_type=None, value_type=None, default_value=None, **kwargs)
 ```
 
-Please refer to the [CustomRegOp](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop) interface documentation for the meaning of each parameter. When registering a custom operator of Aot type, we set the following four parameters:
+Please refer to the [CustomRegOp](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop) interface documentation for the meaning of each parameter. When registering a custom operator of Aot type, we set the following four parameters:
 
 - `name`: the name of the attribute of the AOT-type custom operator;
 - `param_type`: the parameter type of the attribute. For attributes of AOT-type custom operators, this input is fixed to be "required", which means it is a required parameter;
@@ -538,7 +538,7 @@ The `ReduceDynNet` in this file includes two parts: the operator registration fu
 #### Operator Registration
 
 The assignment of operator attributes during initialization is implemented through the operator registration function.
-For the function of custom operator registration, please refer to the relevant documentation of [CustomRegOp](https://www.mindspore.cn/docs/en/r2.7.1/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop).
+For the function of custom operator registration, please refer to the relevant documentation of [CustomRegOp](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop).
 For each attribute, we create an `attr` for the operator registration file `reduce_cpu_info`, setting the attribute name and value.
 
 Each `attr` item here has four inputs: the first is the name, such as `"axis"` or `"keep_dim"`; the middle two are `"required"` and `"all"`; the last input needs to specify the input name as `value=`, and the input value is the value of the attribute, for example, `value=axis` and `value=keep_dim` here.
