@@ -203,6 +203,11 @@ class Qwen2ForCausalLM(nn.Cell):
         load_param_into_net(self, weight_dict, strict_load=False)
 
     def construct(self, model_input: Qwen2ModelInput) -> Tensor:
+        if model_input.is_prefill:
+            self.model.phase = "prefill"
+        else:
+            self.model.phase = "increment"
+
         hidden_state = self.model(model_input.input_ids, model_input.positions,
                                   model_input.batch_valid_length, model_input.is_prefill,
                                   model_input.k_caches, model_input.v_caches, model_input.slot_mapping,
@@ -216,7 +221,7 @@ class Qwen2ForCausalLM(nn.Cell):
 - **load_weight**：从Hugging Face官网模型加载权重，并且按照网络脚本注入到模型中。
 
 - **construct**：主要推理计算，会调用子模块逐层完成计算。
-    由construct可以看出，模型核心分为主干网络计算和最后一个lm_head的linear计算，将hidden_size的特征转换成vocab_size的词表概率分布。
+    由construct可以看出，模型核心分为主干网络计算和最后一个lm_head的linear计算，将hidden_size的特征转换成vocab_size的词表概率分布。除此之外，MindSpore会对设置了phase的模型做一些优化，因此还需要对全量和增量推理网络进行设置。
 
 ### Qwen2Model
 

@@ -203,6 +203,11 @@ class Qwen2ForCausalLM(nn.Cell):
         load_param_into_net(self, weight_dict, strict_load=False)
 
     def construct(self, model_input: Qwen2ModelInput) -> Tensor:
+        if model_input.is_prefill:
+            self.model.phase = "prefill"
+        else:
+            self.model.phase = "increment"
+
         hidden_state = self.model(model_input.input_ids, model_input.positions,
                                   model_input.batch_valid_length, model_input.is_prefill,
                                   model_input.k_caches, model_input.v_caches, model_input.slot_mapping,
@@ -216,7 +221,7 @@ As shown in the code, Qwen2ForCausalLM has two core APIs:
 - load_weight: loads weights from the Hugging Face official website model and injects them into the model based on the network script.
 
 - construct: performs inference and computing, and calls submodules to complete computing layer by layer.
-    As shown in the construct, the core of the model is the backbone network computing and the linear computing of the last **lm_head**, which converts the features of **hidden_size** into the vocabulary probability distribution of **vocab_size**.
+    As shown in the construct, the core of the model is the backbone network computing and the linear computing of the last **lm_head**, which converts the features of **hidden_size** into the vocabulary probability distribution of **vocab_size**. MindSpore will optimize the network for prefill and increment phases, so the model phase needs to be set accordingly for inference.
 
 ### Qwen2Model
 
