@@ -272,3 +272,34 @@ Examples:
     nope_layer_interval: 4
     ...
   ```
+
+## SlidingWindowAttention
+
+### Overview
+
+SlidingWindowAttention is a sparse attention mechanism that solves the problem of quadratic increase in computational complexity with sequence length in standard Transformer models by restricting each token to only focus on other tokens within a local window. The core idea is to narrow the attention range from global to a fixed window size.
+
+### Configuration and Usage
+
+#### YAML Parameter Configuration
+
+While use the SlidingWindowAttention module, you need to configure the `window_size` and `window_attn_skip_freq` items under the `model_config` item in the configuration file.
+
+The type of `window_size` is `Tuple[int, int]`, where `window_size[0]` represents `pre_tokens`, and `window_size[1]` represents `next_tokens`. Both are integers not less than -1, where -1 is a special value representing "infinite window size". The default starting point is the bottom right corner, as shown in the following figure:
+
+![/expert_load](./images/sliding_window.png)
+
+The type of `window_attn_skip_freq` is `Union[int, List[int]]`, which represents the range of the number of neighboring tokens that a token can 'focus' on in each attention operation; `window_size[0]` represents the number of tokens followed forward, while `window_size[1]` represents the number of tokens followed backward. Any token set to `-1` indicates an unlimited number of tokens to 'follow' forward or backward:
+
+- Equal Interval Mode: Specify an integer `N` to insert the full attention layer in a ratio of `(N-1) : 1` . After passing through `N − 1`  sliding window attention layers, a full attention layer is inserted.
+- Custom mode: freely define the alternating order of attention layers through a Boolean value list. For example: `[1, 1, 1, 1, 0, 0, 0]`, where `1` represents the sliding window attention layer and `0` represents the full attention layer. This list determines the type of each layer in the network in order.
+
+Example:
+
+```yaml
+model_config:
+  ...
+  window_size: (10, 0)  # Each token focuses on 10 tokens forward and not backward
+  window_attn_skip_freq: 2  # There is a full attention layer every 2 layers
+  ...
+```

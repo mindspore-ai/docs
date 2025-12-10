@@ -272,3 +272,34 @@ context:
     nope_layer_interval: 4
     ...
   ```
+
+## SlidingWindowAttention
+
+### 概述
+
+SlidingWindowAttention是一种稀疏注意力机制，通过限制每个token仅关注局部窗口内的其他token，解决标准Transformer模型计算复杂度随序列长度二次增长的问题。其核心思想是将注意力范围从全局缩小到固定窗口大小。
+
+### 配置与使用
+
+#### YAML 参数配置
+
+用户在使用SlidingWindowAttention模块时，需要配置文件中的 `model_config` 项下配置`window_size` 项和`window_attn_skip_freq` 项。
+
+`window_size`类型为`Tuple[int, int]`，此参数代表每个注意力操作中，一个token能够“关注”到的前后邻近token的数量范围；`window_size[0]`代表向前“关注”的token数量，`window_size[1]`代表向后“关注”的token数量。任何一个设置成`-1`，表示向前或向后“关注”的token数量无限制。默认起点为右下角，如下图所示：
+
+![/expert_load](./images/sliding_window.png)
+
+`window_attn_skip_freq`类型为`Union[int, List[int]]`，用于设定滑动窗口注意力（SWA）层中全注意力（Full Attention）层的插入频率。支持两种配置模式：
+
+- 等间隔模式：指定一个整数 `N` ，以 `(N-1) : 1` 的比例插入全注意力层。即每经过 `N − 1` 个滑动窗口注意力层后，插入一个全注意力层。
+- 自定义模式：通过布尔值列表自由定义注意力层的交替顺序。例如： `[1, 1, 1, 1, 0, 0, 0]` 其中 `1` 代表滑动窗口注意力层，`0` 代表全注意力层。该列表按顺序决定网络中每一层的类型。
+
+配置示例：
+
+```yaml
+model_config:
+  ...
+  window_size: (10, 0)  # 每个token向前关注10个tokens，向后不关注
+  window_attn_skip_freq: 2  # 每2层有一个全注意力层
+  ...
+```
