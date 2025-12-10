@@ -43,11 +43,11 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
   - `Ckpt Weights <https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html>`_
 
-    Supports conversion, slice and merge weight files in ckpt format.
+    [Checkpoint 1.0] Supports conversion, slice and merge weight files in ckpt format.
 
   - `Safetensors Weights <https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html>`_
 
-    Supports saving and loading weight files in safetensors format.
+    [Checkpoint 1.0] Supports saving and loading weight files in safetensors format.
 
   - `Configuration File Descriptions <https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html>`_
 
@@ -81,7 +81,15 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
   - `Resumable Training After Breakpoint <https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html>`_
 
-    Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
+    [Checkpoint 1.0] Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
+
+  - `Checkpoint Saving and Loading <https://www.mindspore.cn/mindformers/docs/en/master/feature/checkpoint_saving_and_laoding.html>`_
+
+    [Checkpoint 2.0] Supports checkpoint saving and loading.
+
+  - `Resumable Training After Breakpoint 2.0 <https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training2.0.html>`_
+
+    [Checkpoint 2.0] Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
 
   - `Training High-Availability (Beta) <https://www.mindspore.cn/mindformers/docs/en/master/feature/high_availability.html>`_
 

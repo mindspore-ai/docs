@@ -2,6 +2,14 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/feature/safetensors.md)
 
+This document provides an introduction to the usage of **Safetensors format weights for Checkpoint 1.0** under the MindSpore Transformers framework.
+
+## Important Note
+
+Currently, MindSpore Transformers has officially supported **Checkpoint 2.0**. To ensure user experience and functional compatibility, this document related to Checkpoint 1.0 will be gradually **sunset (discontinued from maintenance and updates)**.
+
+It is recommended that users prioritize migrating to [Checkpoint 2.0](https://www.mindspore.cn/mindformers/docs/en/master/feature/checkpoint_saving_and_loading.html) for relevant operations. Subsequent feature iterations and technical support will focus on the new version. Thank you for your understanding and support.
+
 ## Overview
 
 Safetensors is a reliable and portable machine learning model storage format from Huggingface for storing Tensors securely and with fast storage (zero copies). This article focuses on how MindSpore Transformers supports saving and loading of this file format to help users use weights better and faster.
