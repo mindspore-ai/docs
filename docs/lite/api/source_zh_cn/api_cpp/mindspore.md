@@ -3256,7 +3256,7 @@ using KernelIter = std::vector<kernel::Kernel *>::iterator
 
 \#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
 
-`DelegateModel`定义了MindSpore Lite Delegate机制操作的的模型对象。
+`DelegateModel`定义了MindSpore Lite Delegate机制操作的模型对象。
 
 ### 构造函数
 
@@ -3681,7 +3681,7 @@ bool keep_batchnorm_fp32_ = true
 
 \#include &lt;[accuracy.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/metrics/accuracy.h)&gt;
 
-`AccuracyMetrics`MindSpore Lite训练精度类。
+`AccuracyMetrics`是MindSpore Lite训练精度类。
 
 ### 构造函数
 
@@ -3955,7 +3955,7 @@ model_
 
 \#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
 
-`Metrics`MindSpore Lite训练学习率调度类。
+`Metrics`是MindSpore Lite训练学习率调度类。
 
 ### 构造函数和析构函数
 
@@ -4066,7 +4066,7 @@ int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication)
 
 \#include &lt;[train_accuracy.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/callback/train_accuracy.h)&gt;
 
-`Metrics`MindSpore Lite训练学习率调度类。
+`Metrics`是MindSpore Lite训练学习率调度类。
 
 ### 构造函数和析构函数
 
