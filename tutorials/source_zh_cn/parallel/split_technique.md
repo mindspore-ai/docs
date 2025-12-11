@@ -26,7 +26,7 @@
 
 ### 配置融合算子
 
-对于融合大算子，如[FlashAttentionScore](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_ops_FlashAttentionScore.html#exhale-class-classmindspore-ops-flashattentionscore)、[rms_norm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.rms_norm.html)，也是需要用户手动配置策略的算子，融合算子的输入与输出逻辑相对复杂，传播出的没有重排的策略并不一定是用户所期望的策略，这些算子也需要显式配置算子级策略。
+对于融合大算子，如[flash_attention_score](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.flash_attention_score.html)、[rms_norm](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.rms_norm.html)，也是需要用户手动配置策略的算子，融合算子的输入与输出逻辑相对复杂，传播出的没有重排的策略并不一定是用户所期望的策略，这些算子也需要显式配置算子级策略。
 
 用户在用策略传播时不仅需要对其传播算法本身有一定的了解，还要对要训练的模型的并行方式有一定的理解。如果存在某个由策略传播算法决定的算子的并行策略不符合用户的期望，那总可以通过多配置一个算子并行策略的方式解决。实际中，对于一个新模型，确实需要尝试几次才能获得性能较优的整体并行配置。
 
