@@ -3101,7 +3101,7 @@ execute_time
 
 ## Delegate
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
 
 `Delegate`定义了第三方AI框架接入MindSpore Lite的代理接口。
 
@@ -3188,7 +3188,7 @@ void ReplaceNodes(const std::shared_ptr<LiteDelegateGraph> &graph) override
 
 ## CoreMLDelegate
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
 
 `CoreMLDelegate`继承自`Delegate`类，定义了CoreML框架接入MindSpore Lite的代理接口。
 
@@ -3230,7 +3230,7 @@ CoreMLDelegate在线构图，仅在内部图编译阶段调用。
 
 ## SchemaVersion
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
 
 定义了MindSpore Lite执行在线推理时模型文件的版本。
 
@@ -3244,7 +3244,7 @@ typedef enum {
 
 ## KernelIter
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
 
 定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
 
@@ -3254,7 +3254,7 @@ using KernelIter = std::vector<kernel::Kernel *>::iterator
 
 ## DelegateModel
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
 
 `DelegateModel`定义了MindSpore Lite Delegate机制操作的的模型对象。
 
@@ -3679,7 +3679,7 @@ bool keep_batchnorm_fp32_ = true
 
 ## AccuracyMetrics
 
-\#include &lt;[accuracy.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/metrics/accuracy.h)&gt;
+\#include &lt;[accuracy.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/metrics/accuracy.h)&gt;
 
 `AccuracyMetrics`MindSpore Lite训练精度类。
 
@@ -4064,7 +4064,7 @@ int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication)
 
 ## TrainAccuracy
 
-\#include &lt;[train_accuracy.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/train_accuracy.h)&gt;
+\#include &lt;[train_accuracy.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/callback/train_accuracy.h)&gt;
 
 `Metrics`MindSpore Lite训练学习率调度类。
 
