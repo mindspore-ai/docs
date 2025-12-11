@@ -443,6 +443,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 特殊与一般性的往ArraySource中加入键值对
         if data[i]['name'] == "lite":
             ArraySource[data[i]['name'] + '/docs'] = html_branch
+            ArraySource[data[i]['name'] + '/cloud_docs'] = html_branch
             ArraySource[data[i]['name'] + '/api'] = html_branch
         elif data[i]['name'] == "tutorials":
             ArraySource[data[i]['name']] = html_branch
@@ -752,6 +753,7 @@ if __name__ == "__main__":
                 theme_list.append(dir_name)
             elif dir_name == 'lite':
                 theme_list.append(dir_name + '/docs')
+                theme_list.append(dir_name + '/cloud_docs')
                 theme_list.append(dir_name + '/api')
             else:
                 theme_list.append(dir_name + '/docs')
