@@ -9,7 +9,7 @@ Training Function
    training_hyperparameters
    monitor
    resume_training
-   checkpoint_saving_and_laoding
+   checkpoint_saving_and_loading
    resume_training2.0
    parallel_training
    high_availability

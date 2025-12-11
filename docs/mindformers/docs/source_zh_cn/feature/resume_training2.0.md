@@ -112,7 +112,7 @@ MindSpore Transformers 支持用户使用以下两种方式启动断点续训：
 
   > 整个训练过程的学习率曲线已固定，epochs值设置不会影响学习率，可以设置较大值，确保能训完10个数据集。
 
-- 步骤3：数据集训完1个epoch后，可以更换数据集续训，如下为基于`latest_checkpointed_iteration.txt`中记录的迭代步数续训，其他续训方式请参考[中断续训](#中断续训)或[策略转换续训](#策略转换续训)。
+- 步骤3：数据集训完1个epoch后，可以更换数据集续训，如下为基于`latest_checkpointed_iteration.txt`中记录的迭代步数续训，其他续训方式请参考[中断续训](#中断续训)或[扩缩容续训](#扩缩容续训)。
 
   ```yaml
   load_checkpoint: /path/to/checkpoint
