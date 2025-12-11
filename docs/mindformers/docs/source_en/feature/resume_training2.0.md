@@ -112,7 +112,7 @@ Assume that a total of 10T tokens of data are trained, each produced dataset con
 
   > The learning rate curve of the entire training process has been fixed, and the epoch value setting will not affect the learning rate. A larger value can be set to ensure that 10 datasets can be trained.
 
-- Step 3: After training one epoch of the dataset, you can replace the dataset to resume training. The following is resume training based on the number of iterations recorded in `latest_checkpointed_iteration.txt`. For other resume training methods, please refer to [Interruption Resume Training](#interruption-resume-training) or [Strategy Conversion Resume Training](#strategy-conversion-resume-training).
+- Step 3: After training one epoch of the dataset, you can replace the dataset to resume training. The following is resume training based on the number of iterations recorded in `latest_checkpointed_iteration.txt`. For other resume training methods, please refer to [Interruption Resume Training](#interruption-resume-training) or [Scaling Resume Training](#scaling-resume-training).
 
   ```yaml
   load_checkpoint: /path/to/checkpoint
