@@ -79,8 +79,12 @@
                     "url": "/lite/docs/zh-CN/master/use/downloads.html"
                 },
                 {
-                    "label": "文档",
+                    "label": "端侧推理文档",
                     "url": "/lite/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "云侧推理文档",
+                    "url": "/lite/cloud_docs/zh-CN/master/index.html"
                 },
                 {
                     "label": "API",
@@ -97,8 +101,12 @@
                     "url": "/lite/docs/en/master/use/downloads.html"
                 },
                 {
-                    "label": "Docs",
+                    "label": "Device-side Docs",
                     "url": "/lite/docs/en/master/index.html"
+                },
+                {
+                    "label": "Cloud-side Docs",
+                    "url": "/lite/cloud_docs/en/master/index.html"
                 },
                 {
                     "label": "API",
