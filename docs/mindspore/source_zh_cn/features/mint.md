@@ -16,8 +16,7 @@
 | `dtype` | `dtype` | 可选 |
 | `device` | `device` | 可选 |
 | `layout` | 无 | 可选 |
-`requires_grad` | 无 | 可选 |
-| `pin_memory` | 无 | 可选 |
+|`requires_grad` | 无 | 可选 |
 |`memory_format` | 无 | 可选 |
 | `out` | 无 | 可选 |
 
@@ -26,7 +25,6 @@
 - `layout`: 创建torch tensor时，一般默认layout是stride，即dense tensor。mindspore创建tensor时，默认是dense tensor，与torch 无差异。开发者无需设置。
 - `memory_format`: tensor的内存排布，默认都是NCHW格式。torch 提供channel_last格式即NHWC，在一些场景中，这样会有性能提升，但是泛化性和兼容性需要开发者实际测试和验证。使用mindspore开发，可不设置此参数。
 - `requires_grad`: 由于框架自动微分求导机制不同，mindspore在tensor的属性中没有设置此参数。对于是否需要计算梯度，常用的parameter类提供了此参数。如果无需计算梯度，可参考[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.stop_gradient.html)。
-- `pin_memory`: 返回的tensor被分配到pinned memory，我们已经规划支持此功能。计划在2.7.1版本推出。
 - `out`: 指定输出张量，用于原地操作和内存优化。当提供 `out` 参数时，操作结果会直接写入到指定的张量中，而不是创建新的张量。当前未规划支持此参数。
 
 **代码示例**：
