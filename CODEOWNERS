@@ -51,9 +51,12 @@
 /docs/sample_code/ @zwiori @gemini524
 
 # The maintainers of MindSpore Lite docs.
-/docs/lite/docs/source_zh_cn/ @YeFeng_24 @jjfeing @xuzhenyoumi
+/docs/lite/docs/source_zh_cn/ @fatmouse007fatmouse007 @jjfeing @xuzhenyoumi
 /docs/lite/docs/source_zh_cn/_static/ @xuzhenyoumi
 /docs/lite/docs/source_zh_cn/conf.py @xuzhenyoumi
+/docs/lite/cloud_docs/source_zh_cn/ @YeFeng_24 @jjfeing @xuzhenyoumi
+/docs/lite/cloud_docs/source_zh_cn/_static/ @xuzhenyoumi
+/docs/lite/cloud_docs/source_zh_cn/conf.py @xuzhenyoumi
 /docs/lite/api/source_zh_cn/ @YeFeng_24 @jjfeing @xuzhenyoumi
 /docs/lite/api/source_zh_cn/_templates/ @xuzhenyoumi
 /docs/lite/api/source_zh_cn/conf.py @xuzhenyoumi
@@ -65,8 +68,8 @@
 /docs/mindformers/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of vLLM-MindSpore Plugin docs.
-/docs/vllm_mindspore/docs/source_zh_cn/ @zlq2020 @horcham_zhq @gemini524
-/docs/vllm_mindspore/docs/source_zh_cn/conf.py @gemini524
+/docs/vllm_mindspore/docs/source_zh_cn/ @zlq2020 @horcham_zhq @xuzhenyoumi
+/docs/vllm_mindspore/docs/source_zh_cn/conf.py @xuzhenyoumi
 
 # The maintainers of MindStudio docs.
 /docs/mindstudio/docs/source_zh_cn/ @hwfuchao @gemini524
