@@ -224,7 +224,9 @@ def remove_typehints_content(text):
 
 def get_param_func(func, args_str):
     try:
-        if args_str:
+        if func is None:
+            return ""
+        elif args_str:
             all_params = args_str
         else:
             source_code = inspect_.getsource(func)
@@ -273,6 +275,8 @@ def get_param_func(func, args_str):
 
 def get_obj(obj):
     if isinstance(obj, type):
+        if 'Cell' in str(obj.__init__) and '__init__' not in obj.__dict__:
+            return None
         try:
             test_source = inspect_.getsource(obj.__init__)
         except:
