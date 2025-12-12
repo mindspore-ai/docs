@@ -79,11 +79,11 @@
                     "url": "/lite/docs/zh-CN/master/use/downloads.html"
                 },
                 {
-                    "label": "端侧推理文档",
+                    "label": "端侧推理",
                     "url": "/lite/docs/zh-CN/master/index.html"
                 },
                 {
-                    "label": "云侧推理文档",
+                    "label": "云侧推理",
                     "url": "/lite/cloud_docs/zh-CN/master/index.html"
                 },
                 {
@@ -101,11 +101,11 @@
                     "url": "/lite/docs/en/master/use/downloads.html"
                 },
                 {
-                    "label": "Device-side Docs",
+                    "label": "Device-side Inference",
                     "url": "/lite/docs/en/master/index.html"
                 },
                 {
-                    "label": "Cloud-side Docs",
+                    "label": "Cloud-side Inference",
                     "url": "/lite/cloud_docs/en/master/index.html"
                 },
                 {
