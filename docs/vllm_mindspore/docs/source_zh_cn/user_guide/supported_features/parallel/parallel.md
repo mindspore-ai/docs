@@ -2,11 +2,11 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/parallel/parallel.md)
 
-vLLM-MindSpore插件支持张量并行（TP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理，并可以使用`Ray`或者`multiprocess`进行多机多卡启动。不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。下面将展开介绍[张量并行](#张量并行)、[数据并行](#数据并行)、[专家并行](#专家并行)、[混合并行](#混合并行)的使用场景、参数配置与[在线推理](#在线推理)。
+vLLM-MindSpore插件支持张量并行（TP）、流水线并行（PP）、数据并行（DP）、专家并行（EP）及其组合配置的混合并行推理，并可以使用`Ray`或者`multiprocess`进行多机多卡启动。不同并行策略的适用场景可参考[vLLM官方文档](https://docs.vllm.ai/en/latest/configuration/optimization.html#parallelism-strategies)。下面将展开介绍[张量并行](#张量并行)、[流水线并行](#流水线并行)、[数据并行](#数据并行)、[专家并行](#专家并行)、[混合并行](#混合并行)的使用场景、参数配置与[在线推理](#在线推理)。
 
 ## 张量并行
 
-张量并行将模型权重参数，在每个模型层内跨多个NPU进行分片。当模型过大超过单个NPU容量，或需要降低单个NPU压力、为KV缓存腾出更多空间以实现更高吞吐量时，张量并行是进行大模型推理时的推荐策略。更多信息可查看[vLLM中关于张量并行的介绍](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#tensor-parallelism-tp)。
+张量并行将模型权重参数，在每个模型层内跨多个NPU进行分片。当模型过大超过单个NPU容量，或需要降低单个NPU压力、为KV缓存腾出更多空间以实现更高吞吐量时，张量并行是进行大模型推理时的推荐策略。更多信息可查看[vLLM中关于张量并行的介绍](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html#tensor-parallelism-tp)。
 
 ### 参数配置
 
@@ -37,9 +37,47 @@ TENSOR_PARALLEL_SIZE=4       # TP 并行数
 vllm-mindspore serve /path/to/Qwen2.5/model --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE}
 ```
 
+## 流水线并行
+
+流水线并行将模型按层切分，分配到多个设备（如 NPU）上，前向传播（Forward）和反向传播（Backward）以“流水线”方式执行，从而提高设备利用率和吞吐量。更多信息可查看[vLLM中关于流水线并行的介绍](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html#pipeline-parallelism-pp)。
+
+### 参数配置
+
+使用流水线并行（PP），需要在启动命令`vllm-mindspore serve`中配置以下选项：
+
+- `--pipeline-parallel-size`：PP 并行数
+- `VLLM_PP_LAYER_PARTITION`：PP 并行时每个 stage 的层数，如果PP并行数可以被模型的总层数整除，则不需要配置该环境变量。如果不能被整除，则必须配置该环境变量，余出的层数可选择的加到任意 stage 中。
+
+### 单机示例
+
+以下命令为单机四卡，TP2PP2并行启动Qwen3-32B模型的张量并行与流水线并行示例：
+
+```bash
+TENSOR_PARALLEL_SIZE=2       # TP 并行数
+PIPELINE_PARALLEL_SIZE=2       # PP 并行数
+export VLLM_PP_LAYER_PARTITION=32,32 # PP 并行时每个stage的层数
+
+vllm-mindspore serve /path/to/Qwen3-32B/ --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE} --pipeline-parallel-size ${PIPELINE_PARALLEL_SIZE}
+```
+
+### 多机示例
+
+多机张量并行加流水线并行依赖Ray进行启动。请参考[Ray多节点集群管理](#ray多节点集群管理)进行Ray环境配置。
+
+以下命令为双机16卡，TP8PP2并行启动Qwen3-235B的张量并行与流水线并行示例：
+
+```bash
+# 主节点：
+
+TENSOR_PARALLEL_SIZE=8       # TP 并行数
+PIPELINE_PARALLEL_SIZE=2       # PP 并行数
+export VLLM_PP_LAYER_PARTITION=47,47 # PP 并行时每个stage的层数
+vllm-mindspore serve /path/to/Qwen3-235B/ --trust-remote-code --tensor-parallel-size ${TENSOR_PARALLEL_SIZE} --pipeline-parallel-size ${PIPELINE_PARALLEL_SIZE}
+```
+
 ## 数据并行
 
-数据并行通过在多组NPU间完整复制模型副本，推理时并行处理不同batch的请求。当具备充足NPU可完整复制模型时，需要提升吞吐量而非扩大模型规模，在多用户环境中需要保持请求批次间隔离性时，数据并行是进行大模型推理时的推荐策略。数据并行可与其他并行策略组合使用。请注意：MoE（混合专家）层将根据张量并行规模与数据并行规模的乘积进行分片。更多信息可查看[vLLM中关于数据并行的介绍](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#data-parallelism-dp)。
+数据并行通过在多组NPU间完整复制模型副本，推理时并行处理不同batch的请求。当具备充足NPU可完整复制模型时，需要提升吞吐量而非扩大模型规模，在多用户环境中需要保持请求批次间隔离性时，数据并行是进行大模型推理时的推荐策略。数据并行可与其他并行策略组合使用。请注意：MoE（混合专家）层将根据张量并行规模与数据并行规模的乘积进行分片。更多信息可查看[vLLM中关于数据并行的介绍](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html#data-parallelism-dp)。
 
 ### 参数配置
 
@@ -82,7 +120,7 @@ vllm-mindspore serve /path/to/Qwen2.5/model --headless --trust-remote-code --dat
 
 ## 专家并行
 
-专家并行是混合专家（MoE）模型特有的并行化形式，通过将不同专家网络分布到多个NPU上实现。该并行模式适用于MoE模型（如DeepSeekV3、Qwen3-MoE、Llama-4等），且需要跨NPU平衡专家网络计算负载时，是进行大模型推理时的推荐策略。通过设置`enable_expert_parallel=True`和`--additional-config`启用专家并行，该设置将使MoE层采用专家并行而非张量并行策略。专家并行的并行度将保持与已设置的张量并行度一致。更多信息可查看[vLLM中关于专家并行的介绍](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#expert-parallelism-ep)。
+专家并行是混合专家（MoE）模型特有的并行化形式，通过将不同专家网络分布到多个NPU上实现。该并行模式适用于MoE模型（如DeepSeekV3、Qwen3-MoE、Llama-4等），且需要跨NPU平衡专家网络计算负载时，是进行大模型推理时的推荐策略。通过设置`enable_expert_parallel=True`和`--additional-config`启用专家并行，该设置将使MoE层采用专家并行而非张量并行策略。专家并行的并行度将保持与已设置的张量并行度一致。更多信息可查看[vLLM中关于专家并行的介绍](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html#expert-parallelism-ep)。
 
 ### 参数配置
 
