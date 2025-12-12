@@ -17,7 +17,6 @@ Let's examine the key differences using the API empty:
 | `device` | `device` | Optional |
 | `layout` | - | Optional |
 |`requires_grad` | - | Optional |
-| `pin_memory` | - | Optional |
 |`memory_format` | - | Optional |
 | `out` | - | Optional |
 
@@ -26,7 +25,6 @@ Let's examine the key differences using the API empty:
 - `layout`: When torch creates a tensor, the default layout is typically stride, i.e, a dense tensor. When MindSpore creates a tensor, the default is also a dense tensor, identical to torch. Developers do not need to set this.
 - `memory_format`: The default memory layout for tensors is NCHW format. Torch provides the channel_last format (NHWC), which may offer performance improvements in certain scenarios. However, developers should conduct actual testing and verification to ensure its generalizability and compatibility. When developing with MindSpore, this parameter does not need to be set.
 - `requires_grad`: Due to differences in the framework's automatic differentiation mechanism, MindSpore does not include this parameter in its Tensor attributes. For determining whether gradient computation is required, the commonly used parameter class provides this parameter. If gradient computation is unnecessary, refer to [mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.stop_gradient.html).
-- `pin_memory`: The returned tensor is allocated to pinned memory. We have planned to support this feature. It is scheduled for release in version 2.7.1.
 - `out`: Specify the output tensor for in-place operations and memory optimization. When the `out` parameter is provided, the operation result is written directly to the specified tensor instead of creating a new one. Support for this parameter is currently not planned.
 
 **Code Example**:
