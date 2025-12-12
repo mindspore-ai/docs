@@ -70,7 +70,7 @@ class Qwen2Config:
     @classmethod
     def from_json(cls, json_path: str) -> 'Qwen2Config':
         """Get Qwen2Config from json file"""
-        with open(json_path) as f:
+        with open(json_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
         config = cls(**data)
         return config
@@ -235,7 +235,6 @@ class FlashAttention(nn.Cell):
         super().__init__()
 
         input_layout = "TH"
-        scale = scale
         pre_tokens = 2147483647
         next_tokens = 2147483647
         self.flash_attention = \
@@ -340,7 +339,7 @@ class Qwen2Attention(nn.Cell):
         )
 
     def construct(self, hidden_state: Tensor, positions: Tensor, batch_valid_length: Tensor,
-                  is_prefill: bool, layer_idx: int, k_cache: Tensor, v_cache: Tensor,
+                  is_prefill: bool, k_cache: Tensor, v_cache: Tensor,
                   slot_mapping: Tensor, block_tables: Tensor, attn_mask: Tensor,
                   q_seq_lens: Tensor) -> Tensor:
         """layer compute"""
@@ -437,7 +436,7 @@ class Qwen2DecoderLayer(nn.Cell):
         self.post_attention_layernorm = RmsNorm(config=config)
 
     def construct(self, hidden_state: Tensor, residual: Tensor, positions: Tensor,
-                  batch_valid_length: Tensor, is_prefill: bool, layer_idx: int,
+                  batch_valid_length: Tensor, is_prefill: bool,
                   k_cache: Tensor, v_cache: Tensor, slot_mapping: Tensor,
                   block_tables: Tensor, attn_mask: Tensor, q_seq_lens: Tensor) -> Tuple[Tensor, Tensor]:
         """layer compute"""
@@ -448,7 +447,7 @@ class Qwen2DecoderLayer(nn.Cell):
             hidden_state, residual = self.input_layernorm(hidden_state, residual)
 
         hidden_state = self.self_attn(hidden_state, positions, batch_valid_length, is_prefill,
-                                      layer_idx, k_cache, v_cache, slot_mapping, block_tables,
+                                      k_cache, v_cache, slot_mapping, block_tables,
                                       attn_mask, q_seq_lens)
         hidden_state, residual = self.post_attention_layernorm(hidden_state, residual)
         hidden_state = self.mlp(hidden_state)
@@ -484,7 +483,7 @@ class Qwen2Model(nn.Cell):
         for i in range(self.num_hidden_layers):
             layer = self.layers[i]
             hidden_state, residual = layer(hidden_state, residual, positions, batch_valid_length,
-                                           is_prefill, i, k_caches[i], v_caches[i], slot_mapping,
+                                           is_prefill, k_caches[i], v_caches[i], slot_mapping,
                                            block_tables, attn_mask, q_seq_lens)
 
         hidden_state, _ = self.norm(hidden_state, residual)
@@ -514,7 +513,12 @@ class Qwen2ForCausalLM(nn.Cell):
         load_param_into_net(self, weight_dict, strict_load=False)
 
     def construct(self, model_input: Qwen2ModelInput) -> Tensor:
-        """layer compute"""
+        """model compute"""
+        if model_input.is_prefill:
+            self.model.phase = "prefill"
+        else:
+            self.model.phase = "increment"
+
         hidden_state = self.model(model_input.input_ids, model_input.positions,
                                   model_input.batch_valid_length, model_input.is_prefill,
                                   model_input.k_caches, model_input.v_caches, model_input.slot_mapping,
