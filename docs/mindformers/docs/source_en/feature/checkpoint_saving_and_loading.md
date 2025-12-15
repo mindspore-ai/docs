@@ -4,13 +4,13 @@
 
 ## Overview
 
-MindSpore Transformers supports saving intermediate checkpoints during training. Checkpoints include components such as **model weights**, **optimizer weights**, **training context information**, and **distributed strategy meta-information**. Their core functions are to **resume training after interruption**, **prevent progress loss due to training failures**, and support **subsequent fine-tuning**, **inference**, or **model iteration**.
+MindSpore Transformers supports saving intermediate checkpoints during training. A checkpoint includes **model weights**, **optimizer weights**, **training context information**, and **distributed strategy meta-information**. Their core functions are to **resume training after interruption**, **prevent progress loss due to training failures**, and support **subsequent fine-tuning**, **inference**, or **model iteration**.
 
 MindSpore Transformers has launched **Checkpoint 2.0**, which achieves comprehensive improvements in usability and loading efficiency by reconstructing the checkpoint saving strategy and loading process.
 
 Compared with Checkpoint 1.0, the core updates are as follows:
 
-- **New checkpoint saving [directory structure](#directory-structure)**: The checkpoint directory contains independent files for **model weights**, **optimizer weights**, **training context information**, **distributed strategy meta-information**, etc.;
+- **New checkpoint saving [directory structure](#directory-structure)**: The checkpoint directory contains files for **model weights**, **optimizer weights**, **training context information**, **distributed strategy meta-information**, etc.;
 - **Added online Reshard loading mechanism**: If the distributed strategy meta-information of the checkpoint to be loaded is inconsistent with the current task, Reshard conversion will be **automatically performed on the weight parameters** during loading to generate parameters adapted to the current distributed strategy;
 - **Simplified loading configuration**: Relying on the online Reshard mechanism, users **do not need to manually configure parameters such as `auto_trans_ckpt` and `src_strategy_path_or_dir`** to trigger weight strategy conversion, which significantly improves usability.
 
@@ -104,8 +104,8 @@ Users can control the weight loading behavior by modifying the relevant fields i
 | load_checkpoint      | The path to the checkpoint folder, supporting **filling in the `output/checkpoint` folder path** or **the specific `iteration` subfolder path**; if the former is filled in, the checkpoint in the corresponding `iteration` subfolder will be loaded according to the step recorded in `latest_checkpointed_iteration.txt`. | (str, optional) - Default value: `""`     |
 | pretrained_model_dir | Specify the folder path of HuggingFace community weights; if `load_checkpoint` is also configured, this field will be automatically invalidated. | (str, optional) - Default value: `""`     |
 | balanced_load        | Switch for the weight balanced loading function, **only supported in distributed tasks**; when set to `True`, each rank loads weights according to the parameter balanced allocation strategy, and then obtains the final weights through parameter broadcasting. | (bool, optional) - Default value: `False` |
-| use_legacy_format    | Switch for enabling Checkpoint 1.0, which needs to be set to `False` (i.e., using Checkpoint 2.0 by default). | (bool, optional) - Default value: `True`  |
-| load_ckpt_format     | Specify the format of the loaded weights, which needs to be set to `'safetensors'` (to adapt to Checkpoint 2.0). | (bool, optional) - Default value: `ckpt`  |
+| use_legacy_format    | Switch for enabling Checkpoint 1.0, which needs to be set to `False` (to use Checkpoint 2.0). | (bool, optional) - Default value: `True`  |
+| load_ckpt_format     | Specify the format of the loaded weights, which needs to be set to `'safetensors'` (to adapt to Checkpoint 2.0). | (str, optional) - Default value: `'ckpt'` |
 
 When `load_checkpoint` is configured as the path of the `output/checkpoint` folder, users can modify the step recorded in `latest_checkpointed_iteration.txt` to load the weights of the specified `iteration`.
 

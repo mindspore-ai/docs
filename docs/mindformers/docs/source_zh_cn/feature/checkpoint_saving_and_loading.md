@@ -4,13 +4,13 @@
 
 ## 概述
 
-MindSpore Transformers 支持训练过程中保存checkpoint。checkpoint包括**模型权重**、**优化器权重**、**训练上下文信息**和**分布式策略元信息**等组件，核心作用是**中断后恢复训练**、**防止训练失败丢失进度**，同时支持**后续微调**、**推理**或**模型迭代**。
+MindSpore Transformers 支持训练过程中保存checkpoint。checkpoint包括**模型权重**、**优化器权重**、**训练上下文信息**和**分布式策略元信息**，核心作用是**中断后恢复训练**、**防止训练失败丢失进度**，同时支持**后续微调**、**推理**或**模型迭代**。
 
 MindSpore Transformers 推出**Checkpoint 2.0 版本**，通过重构checkpoint保存策略与加载流程，实现易用性与加载效率的综合提升。
 
 相较于Checkpoint 1.0 版本，核心更新如下：
 
-- **全新checkpoint保存[目录结构](#目录结构)**：目录包含**模型权重**、**优化器权重**、**训练上下文信息**、**分布式策略元信息**等独立文件；
+- **全新checkpoint保存[目录结构](#目录结构)**：目录包含**模型权重**、**优化器权重**、**训练上下文信息**、**分布式策略元信息**等文件；
 - **新增在线 Reshard 加载机制**：若待加载checkpoint的分布式策略元信息与当前任务不一致，加载时将**自动对权重参数执行 Reshard 转换**，生成适配当前分布式策略的参数；
 - **简化加载配置**：依托在线 Reshard 机制，用户**无需手动配置`auto_trans_ckpt`、`src_strategy_path_or_dir`等参数**触发权重策略转换，易用性显著提升。
 
@@ -104,8 +104,8 @@ MindSpore Transformers 提供灵活的checkpoint加载能力，覆盖单卡与�
 | load_checkpoint      | checkpoint文件夹路径，可**填写`output/checkpoint`文件夹路径或`iteration`子文件夹路径**。<br />若为`checkpoint`文件夹路径，按照`latest_checkpointed_iteration.txt`中记录的步数加载对应`iteration`子文件夹checkpoint。 | (str，可选) - 默认值：`""`     |
 | pretrained_model_dir | 指定 HuggingFace 社区权重的文件夹路径；若同时配置了 `load_checkpoint`，该字段将自动失效。 | (str，可选) - 默认值：`""`     |
 | balanced_load        | 权重均衡加载功能开关，**仅支持在分布式任务中开启**；设为 `True` 时，各 rank 按参数均衡分配策略加载权重，再通过参数广播获取最终权重。 | (bool，可选) - 默认值：`False` |
-| use_legacy_format    | Checkpoint 1.0 版本启用开关，需设置为 `False`（即默认使用Checkpoint 2.0 版本）。 | (bool，可选) - 默认值：`True`  |
-| load_ckpt_format     | 指定加载权重的格式，需设置为 `'safetensors'`（适配Checkpoint 2.0 版本）。 | (bool，可选) - 默认值：`ckpt`  |
+| use_legacy_format    | Checkpoint 1.0 版本启用开关，需设置为 `False`（使用Checkpoint 2.0 版本）。 | (bool，可选) - 默认值：`True`  |
+| load_ckpt_format     | 指定加载权重的格式，需设置为 `'safetensors'`（适配Checkpoint 2.0 版本）。 | (str，可选) - 默认值：`'ckpt'` |
 
 当 `load_checkpoint` 配置为 `output/checkpoint` 文件夹路径时，用户可通过修改 `latest_checkpointed_iteration.txt` 中记录的步数，实现指定 `iteration` 权重的加载。
 
