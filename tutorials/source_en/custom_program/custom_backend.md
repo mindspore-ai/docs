@@ -39,7 +39,7 @@ class MSCustomBackendBase : public BackendBase {
   // The backend graph Run interface by the graph_id which are generated through the graph Build interface above.
   RunningStatus Run(BackendGraphId graph_id, const VectorRef &inputs, VectorRef *outputs) {
     MS_LOG(WARNING) << "MSCustomBackendBase use the origin ms_backend to run the graph.";
-    mindspore::backend::BackendManager::GetInstance().Run(BackendType::kMsBackend, graph_id, inputs, outputs);
+    mindspore::backend::BackendManager::GetInstance().Run(BackendType::kMSBackend, graph_id, inputs, outputs);
   }
 };
 MS_REGISTER_BACKEND(kCustomBackendName, MSCustomBackendBase)
@@ -49,7 +49,7 @@ MS_REGISTER_BACKEND(kCustomBackendName, MSCustomBackendBase)
 
 ## Compiling Custom Backend
 
-Save the above example code as `custom_backend.cpp` and compile it into `libcustom_backend.so`. The compilation command is as follows:
+Save the above example code as `custom_backend.cpp` and compile it into `libcustom_backend.so`. The CMake script is as follows:
 
 ```cmake
 cmake_minimum_required(VERSION 3.16)
@@ -59,7 +59,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Use specified MindSpore path
-set(MINDSPORE_INCLUDE_DIRS ${MINDSPORE_ROOT}/include)
+set(MINDSPORE_INCLUDE_DIR ${MINDSPORE_ROOT}/include)
 set(MINDSPORE_LIB_DIRS ${MINDSPORE_ROOT}/lib)
 message(STATUS "Using MindSpore from: ${MINDSPORE_ROOT}")
 
@@ -70,20 +70,20 @@ set(CMAKE_BUILD_TYPE "Release")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # Handle MindSpore include directories
-if(MINDSPORE_INCLUDE_DIRS)
-    include_directories(${include_dir})
+if(MINDSPORE_INCLUDE_DIR)
+    include_directories(${MINDSPORE_INCLUDE_DIR})
     # Add complete MindSpore include paths to ensure all dependency headers are found
-    include_directories(${include_dir}/mindspore)
-    include_directories(${include_dir}/mindspore/core/include)
+    include_directories(${MINDSPORE_INCLUDE_DIR}/mindspore)
+    include_directories(${MINDSPORE_INCLUDE_DIR}/mindspore/core/include)
     # Add MindSpore ccsrc path, contains mindspore/ccsrc/include/
-    include_directories(${include_dir}/mindspore/ccsrc/include)
+    include_directories(${MINDSPORE_INCLUDE_DIR}/mindspore/ccsrc/include)
     # Add MindSpore csrc path, contains mindspore/ccsrc/
-    include_directories(${include_dir}/mindspore/ccsrc)
+    include_directories(${MINDSPORE_INCLUDE_DIR}/mindspore/ccsrc)
     # Add third_party path, contains securec.h
-    include_directories(${include_dir}/third_party)
-    include_directories(${include_dir}/third_party/include)
+    include_directories(${MINDSPORE_INCLUDE_DIR}/third_party)
+    include_directories(${MINDSPORE_INCLUDE_DIR}/third_party/include)
     # Add specific pybind11 path
-    include_directories(${include_dir}/third_party/pybind11)
+    include_directories(${MINDSPORE_INCLUDE_DIR}/third_party/pybind11)
 endif()
 
 # Find Python
@@ -144,6 +144,15 @@ install(TARGETS custom_backend
     RUNTIME DESTINATION bin
 )
 ```
+
+The compilation command is as follows:
+
+```bash
+cmake . -DMINDSPORE_ROOT=/path/to/mindspore
+make
+```
+
+Among them, `/path/to/mindspore` represents the installation path of MindSpore.
 
 ## Using Custom Backend
 
