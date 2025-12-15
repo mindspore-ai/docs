@@ -265,9 +265,9 @@ In graph mode, it is recommended to adopt a "from coarse to fine" hierarchical l
 
 Currently, the msprobe accuracy analysis tool provides hierarchical data collection and comparison capabilities, effectively supporting the localization of such issues. Relevant operations can refer to the following documents:
 
-* [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md)
-* [msprobe Tool PyTorch Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
-* [Accuracy comparison of MindSpore scenarios](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md)
+* [msprobe Tool MindSpore Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/mindspore_data_dump_instruct.md)
+* [msprobe Tool PyTorch Scenario Accuracy Data Collection Guide](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/dump/pytorch_data_dump_instruct.md)
+* [Accuracy comparison of MindSpore scenarios](https://atomgit.com/Ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/zh/accuracy_compare/mindspore_accuracy_compare_instruct.md)
 
 #### Comparison of local norm Values for step1
 
