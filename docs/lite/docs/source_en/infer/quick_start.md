@@ -118,7 +118,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore Lite C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/build/build.html) to generate the `mindspore-lite-{version}-android-{arch}.tar.gz` library package and extract it (contains the `libmindspore-lite.so` library file and related header files). In this case, you need to use the compile command of generate with image preprocessing module.
+When MindSpore Lite C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to generate the `mindspore-lite-{version}-android-{arch}.tar.gz` library package and extract it (contains the `libmindspore-lite.so` library file and related header files). In this case, you need to use the compile command of generate with image preprocessing module.
 
 > version: Version number of the .tar package, which is the same as the version of the compiled branch code.
 >

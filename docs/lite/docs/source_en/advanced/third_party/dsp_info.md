@@ -6,7 +6,7 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/build/build.html), Using DSP requires the integration of dsp_sdk. Dsp_sdk includes heterogeneous programming interfaces using DSP and interface implementations encapsulated into static libraries (named libhthread_host.a). Set the dsp_sdk directory as the environment variable `${dsp_sdk_path}`, and the build script will use this environment variable to find dsp_sdk; In addition, a cross compilation tool is required. The installation command is as follows:
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), Using DSP requires the integration of dsp_sdk. Dsp_sdk includes heterogeneous programming interfaces using DSP and interface implementations encapsulated into static libraries (named libhthread_host.a). Set the dsp_sdk directory as the environment variable `${dsp_sdk_path}`, and the build script will use this environment variable to find dsp_sdk; In addition, a cross compilation tool is required. The installation command is as follows:
 
 ```bash
 sudo apt-get update && apt-get install -y --no-install-recommends \
@@ -27,7 +27,7 @@ bash build.sh -I arm32 -j8
 ```
 
 Where `${your path}/dsp_sdk` is the path of dsp_sdk. `MSLITE_REGISTRY_DEVICE` has two options: `ft78` and `ft04`, which correspond to different DSP chips respectively.
-For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/master/build/build.html#linux-environment-compilation).
+For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
 
 ### Integration
 

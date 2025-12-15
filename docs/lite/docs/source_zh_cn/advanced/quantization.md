@@ -223,7 +223,7 @@ target_device=DSP
 
 #### Ascend
 
-Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，然后在转换时，配置Ascend相关环境变量。
+Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，然后在转换时，配置Ascend相关环境变量。
 
 **Ascend全量化静态Shape参数配置**
 
@@ -245,7 +245,7 @@ Ascend量化需要先在[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/
     target_device=ASCEND
     ```
 
-**Ascend全量化支持动态Shape参数**，同时转换命令需要设置校准数据集相同的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
+**Ascend全量化支持动态Shape参数**，同时转换命令需要设置校准数据集相同的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
 
 - Ascend全量化动态Shape场景转换命令的一般形式为：
 
