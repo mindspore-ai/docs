@@ -37,7 +37,7 @@ INFO:     Application startup complete.
 Clone the vLLM repository and import the vLLM-MindSpore Plugin to reuse the benchmark tools:
 
 ```bash
-export VLLM_BRANCH=v0.9.1
+export VLLM_BRANCH=v0.11.0
 git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
@@ -107,7 +107,7 @@ export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model b
 Clone the vLLM repository and import the vLLM-MindSpore plugin to reuse the benchmark tools:
 
 ```bash
-export VLLM_BRANCH=v0.9.1
+export VLLM_BRANCH=v0.11.0
 git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py

@@ -4,7 +4,7 @@
 
 本文档介绍DeepSeek R1 671B W8A8并行推理启动流程。DeepSeek R1 671B W8A8模型需使用多个节点资源运行推理模型。为确保各个节点的执行配置（包括模型配置文件路径、Python环境等）一致，推荐通过 docker 镜像创建容器的方式避免执行差异。用户可通过以下[docker安装](#docker安装)章节进行环境配置。
 
-vLLM-MindSpore插件支持[张量并行（TP）](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#tensor-parallelism-tp)、[数据并行（DP）](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#data-parallelism-dp)、[专家并行（EP）](https://docs.vllm.ai/en/v0.9.1/configuration/optimization.html?h=expert#expert-parallelism-ep)及其组合配置的混合并行推理。关于多机并行推理的更多信息，可以参考[并行推理方法介绍](../../../user_guide/supported_features/parallel/parallel.md)。
+vLLM-MindSpore插件支持[张量并行（TP）](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html?h=expert#tensor-parallelism-tp)、[数据并行（DP）](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html?h=expert#data-parallelism-dp)、[专家并行（EP）](https://docs.vllm.ai/en/v0.11.0/configuration/optimization.html?h=expert#expert-parallelism-ep)及其组合配置的混合并行推理。关于多机并行推理的更多信息，可以参考[并行推理方法介绍](../../../user_guide/supported_features/parallel/parallel.md)。
 
 该文档样例，需要2台Atlas 800 A2服务器节点。共16个可用的NPU，每个NPU为64GB的规格。
 

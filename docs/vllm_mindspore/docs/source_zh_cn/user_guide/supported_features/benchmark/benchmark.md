@@ -37,7 +37,7 @@ INFO:     Application startup complete.
 拉取vLLM代码仓库，导入vLLM-MindSpore插件，复用其中的benchmark功能：
 
 ```bash
-export VLLM_BRANCH=v0.9.1
+export VLLM_BRANCH=v0.11.0
 git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_serving.py
@@ -107,7 +107,7 @@ export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model b
 并拉取vLLM代码仓库，导入vLLM-MindSpore插件，复用其中的benchmark功能：
 
 ```bash
-export VLLM_BRANCH=v0.9.1
+export VLLM_BRANCH=v0.11.0
 git clone https://github.com/vllm-project/vllm.git -b ${VLLM_BRANCH}
 cd vllm
 sed -i '1i import vllm_mindspore' benchmarks/benchmark_throughput.py
