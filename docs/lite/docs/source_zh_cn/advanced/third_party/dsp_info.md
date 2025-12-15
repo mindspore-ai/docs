@@ -6,7 +6,7 @@
 
 ### 环境准备
 
-在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)之外，使用银河飞腾DSP需要集成dsp_sdk。dsp_sdk包含了使用银河飞腾DSP的异构编程接口，以及封装成静态库的接口实现（名为libhthread_host.a）。将dsp_sdk目录设置为环境变量`${DSP_SDK_PATH}`，构建脚本将使用这个环境变量寻找dsp_sdk。此外还需要交叉编译工具，安装命令如下：
+在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用银河飞腾DSP需要集成dsp_sdk。dsp_sdk包含了使用银河飞腾DSP的异构编程接口，以及封装成静态库的接口实现（名为libhthread_host.a）。将dsp_sdk目录设置为环境变量`${DSP_SDK_PATH}`，构建脚本将使用这个环境变量寻找dsp_sdk。此外还需要交叉编译工具，安装命令如下：
 
 ```bash
 sudo apt-get update && apt-get install -y --no-install-recommends \
@@ -25,7 +25,7 @@ export MSLITE_ENABLE_TOOLS=ON
 bash build.sh -I arm32 -j8
 ```
 
-其中，`${your path}/dsp_sdk`为dsp_sdk的路径。`MSLITE_REGISTRY_DEVICE`有两个选项：`ft78`和`ft04`，分别对应不同的银河飞腾DSP芯片。有关编译详情见[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html#linux环境编译)。
+其中，`${your path}/dsp_sdk`为dsp_sdk的路径。`MSLITE_REGISTRY_DEVICE`有两个选项：`ft78`和`ft04`，分别对应不同的银河飞腾DSP芯片。有关编译详情见[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#linux环境编译)。
 
 ### 集成使用
 

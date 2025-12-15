@@ -36,7 +36,7 @@ The following describes how to prepare the environment for using the conversion 
 
         Download the release package whose OS is Linux-x86_64 and hardware platform is CPU.
 
-    - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/build/build.html).
+    - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
 
 3. Decompress the downloaded package.
 
@@ -623,7 +623,7 @@ The STM32F767 uses the Cortex-M7 architecture. You can obtain the `Micro` lib of
 
     You need to download the release package whose OS is None and hardware platform is Cortex-M7.
 
-- Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/build/build.html).
+- Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
 
     You can run the `MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64` command to compile the Cortex-M7 release package.
 

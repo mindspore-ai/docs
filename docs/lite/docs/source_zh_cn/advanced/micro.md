@@ -36,7 +36,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
         用户需下载操作系统为Linux-x86_64，硬件平台为CPU的发布包。
 
-    - 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)。
+    - 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
 
 3. 解压下载的包
 
@@ -620,7 +620,7 @@ STM32F767芯片为Cortex-M7架构，可以通过以下两种方式获取该架�
 
     用户需下载操作系统为None，硬件平台为Cortex-M7的发布包。
 
-- 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)。
+- 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
 
     用户可通过`MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64`命令，来编译得到`Cortex-M7`的发布包。
 

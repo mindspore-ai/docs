@@ -3,9 +3,9 @@
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/advanced/third_party/ascend_info.md)
 
 > - The Ascend backend support in the device-side version will be deprecated. For related usage of the Ascend backend, please refer to the cloud-side inference version documentation.
-> - [Build Cloud-side MindSpore Lite](https://mindspore.cn/lite/docs/en/master/mindir/build.html)
-> - [Cloud-side Model Converter](https://mindspore.cn/lite/docs/en/master/mindir/converter.html)
-> - [Cloud-side Benchmark Tool](https://mindspore.cn/lite/docs/en/master/mindir/benchmark.html)
+> - [Build Cloud-side MindSpore Lite](https://www.mindspore.cn/lite/cloud_docs/en/master/use/build.html)
+> - [Cloud-side Model Converter](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter.html)
+> - [Cloud-side Benchmark Tool](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/benchmark.html)
 
 This document describes how to use MindSpore Lite to perform inference and use the dynamic shape function on Linux in the Ascend environment. Currently, MindSpore Lite supports the Atlas 200/300/500 inference product and Atlas inference series.
 

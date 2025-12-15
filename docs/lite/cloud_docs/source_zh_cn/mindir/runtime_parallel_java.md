@@ -6,7 +6,7 @@
 
 MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html)，多model并发推理目前支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、CPU后端。
 
-通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[Java接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/class_list.html)执行多model并发推理。
+通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[Java接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/class_list.html)执行多model并发推理。
 
 使用MindSpore Lite并发推理主要包括以下步骤：
 
@@ -21,7 +21,7 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.
 
 1. 以下代码样例来自于[使用Java接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/quick_start_parallel_java)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore-lite/examples/cloud_infer/quick_start_parallel_java/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore-lite/examples/cloud_infer/quick_start_parallel_java/model`目录，可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)。
 
 3. 从[官网](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载Ascend、CPU双合一的MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，并存放到`mindspore-lite/examples/cloud_infer/quick_start_parallel_java`目录。
 

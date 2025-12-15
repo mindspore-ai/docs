@@ -4,7 +4,7 @@
 
 ## Overview
 
-For scenarios where large-scale neural network models have many parameters and cannot be fully loaded into a single device for inference, distributed inference can be performed using multiple devices. This tutorial describes how to perform MindSpore Lite cloud-side distributed inference using the [C++ interface](https://www.mindspore.cn/lite/api/en/master/index.html). Cloud-side distributed inference is roughly the same process as [Cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html) and can be cross-referenced. MindSpore Lite cloud-side distributed inference has more optimization for performance aspects.
+For scenarios where large-scale neural network models have many parameters and cannot be fully loaded into a single device for inference, distributed inference can be performed using multiple devices. This tutorial describes how to perform MindSpore Lite cloud-side distributed inference using the [C++ interface](https://www.mindspore.cn/lite/api/en/master/index.html). Cloud-side distributed inference is roughly the same process as [Cloud-side single-card inference](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_cpp.html) and can be cross-referenced. MindSpore Lite cloud-side distributed inference has more optimization for performance aspects.
 
 MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployments with Atlas training series as the supported device types. As shown in the figure below, the distributed inference is currently initiated by a multi-process approach, where each process corresponds to a `Rank` in the communication set, loading, compiling and executing the respective sliced model, with the same input data for each process.
 
@@ -69,7 +69,7 @@ device_list.push_back(device_info);
 
 ## Model Creation, Loading and Compilation
 
-Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface for model loading, compilation and execution. For Ascend devices, use the [Model::LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to load the configuration file [config_file.ini](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini). Finally, call the [Model::Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to implement model loading and model compilation, and the sample code is as follows.
+Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface for model loading, compilation and execution. For Ascend devices, use the [Model::LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to load the configuration file [config_file.ini](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini). Finally, call the [Model::Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to implement model loading and model compilation, and the sample code is as follows.
 
 ```c++
 mindspore::Model model;
@@ -179,4 +179,4 @@ After successful compilation, the `{device_type}_{backend}_distributed_cpp` exec
 
 ## Multiple Models Sharing Weights
 
-In the Ascend GE back-end scenario, a single card can deploy multiple models, and models deployed to the same card can share weights. For details, please refer to [Advanced Usage - Multiple Model Sharing Weights](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html#multiple-models-sharing-weights).
+In the Ascend GE back-end scenario, a single card can deploy multiple models, and models deployed to the same card can share weights. For details, please refer to [Advanced Usage - Multiple Model Sharing Weights](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/runtime_cpp.html#multiple-models-sharing-weights).

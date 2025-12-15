@@ -223,7 +223,7 @@ target_device=DSP
 
 #### Ascend
 
-Ascend quantization needs to configure Ascend-related configuration at [offline conversion](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html#description-of-parameters) first, i.e. `optimize` needs to be set to `ascend_oriented`, and then configure Ascend related environment variables during conversion.
+Ascend quantization needs to configure Ascend-related configuration at [offline conversion](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter_tool.html#description-of-parameters) first, i.e. `optimize` needs to be set to `ascend_oriented`, and then configure Ascend related environment variables during conversion.
 
 **Ascend Fully Quantized Static Shape Parameter Configuration**
 
@@ -245,7 +245,7 @@ Ascend quantization needs to configure Ascend-related configuration at [offline 
     target_device=ASCEND
     ```
 
-**Ascend full quantization supports dynamic Shape parameters**. The conversion command needs to set the same inputShape of the calibration dataset, which can be found in [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html#description-of-parameters).
+**Ascend full quantization supports dynamic Shape parameters**. The conversion command needs to set the same inputShape of the calibration dataset, which can be found in [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/cloud_docs/en/master/mindir/converter_tool.html#description-of-parameters).
 
 - The general form of the conversion command in the Ascend fully quantized static shape scenario is:
 
