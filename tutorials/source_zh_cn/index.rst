@@ -83,6 +83,7 @@ MindSpore教程
 
    custom_program/op_custom
    custom_program/custom_backend
+   custom_program/custom_pass
    custom_program/hook_program
 
 .. toctree::
