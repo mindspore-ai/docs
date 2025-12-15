@@ -32,6 +32,7 @@ The following are the features supported in vLLM-MindSpore Plugin.
 | Enc-dec                           | ×                  | ×                  |
 | Reasoning Outputs                 | √                  | √                  |
 | Tool Calling                      | WIP                | √                  |
+| Graph Capture                     | x                  | √                  |
 
 - √: Feature aligned with the community version of vLLM.
 - ×: Currently unsupported; alternative solutions are recommended.

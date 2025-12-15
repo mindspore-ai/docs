@@ -119,6 +119,7 @@ Apache 许可证 2.0，如 `LICENSE <https://gitee.com/mindspore/vllm-mindspore/
 
    user_guide/supported_models/models_list/models_list
    user_guide/supported_features/features_list/features_list
+   user_guide/supported_features/graph_capture/graph_capture
    user_guide/supported_features/parallel/parallel
    user_guide/supported_features/quantization/quantization
    user_guide/supported_features/profiling/profiling
