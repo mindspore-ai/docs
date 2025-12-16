@@ -36,10 +36,10 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ### Conversion Example
 
-Assume that you have downloaded the [Llama3.1 model weight](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path, to convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
+Assume that you have downloaded the [Qwen2.5 model weight](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path, to convert it to the MindSpore Transformers weight and save it in the `/home/user/ms_weights` path, run the following command:
 
 ```bash
-python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
+python convert_weight.py --model qwen2_5 --input_path /home/user/torch_weights --output_path /home/user/ms_weights/qwen2_5.ckpt
 ```
 
 After the preceding steps are performed, the HuggingFace weight is successfully converted to a MindSpore Transformers weight, facilitating model training or inference on MindSpore Transformers.
@@ -48,11 +48,9 @@ After the preceding steps are performed, the HuggingFace weight is successfully 
 
 | Parameter Value | Supported models             |
 |-----------------|------------------------------|
-| llama           | Llama3.1                     |
 | glm-n           | GLM4                         |
-| qwen            | Qwen2.5                      |
+| qwen2_5         | Qwen2.5                      |
 | mixtral         | Mixtral                      |
-| deepseek        | DeepSeekV3                   |
 
 ### Developing Weight Conversion for Unsupported Models
 
@@ -63,60 +61,78 @@ After the preceding steps are performed, the HuggingFace weight is successfully 
 
 ### Example of Developing Model Weight Conversion
 
-Llama is used as an example. To convert a HuggingFace weight to a MindSpore Transformers one, define the `convert_pt_to_ms` function in [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_weight.py).
+[GLM-4](https://gitee.com/mindspore/mindformers/blob/master/docs/model_cards/glm4.md) is used as an example. To convert a HuggingFace weight to a MindSpore Transformers one, define the `convert_pt_to_ms` function in [convert_weight.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/glm2/convert_weight.py).
 
 ```python
-def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
-    """convert hf weight to ms."""
-    print(f"Trying to convert huggingface checkpoint in '{input_path}'.", flush=True)
-    try:
-        from transformers import LlamaForCausalLM
-    except:
-        raise ImportError(f"Failed to load huggingface checkpoint. Please make sure transformers is available.")
+def convert_pt_to_ms(input_path, output_path, config, dtype=ms.float32, **kwargs):
+    """ Convert pytorch model file to MindSpore model file. """
+    config: ChatGLM2Config = MindFormerConfig(config)['model']['model_config']
+    config = ChatGLM2Config(**config)
+    model = AutoModel.from_pretrained(input_path)
 
-    try:
-        model_hf = LlamaForCausalLM.from_pretrained(os.path.dirname(input_path))
-    except Exception as e:
-        print(f"Do not find huggingface checkpoint in '{os.path.dirname(input_path)}', Error {e.message}.", flush=True)
-        return False
-    ckpt_list = []
-    for name, value in model_hf.state_dict().items():
-        name = name_replace(name)
-        if name == 'norm.weight':
-            name = 'norm_out.weight'
-        if name[:7] == 'layers.':
-            name = name[7:]
+    print('parameter convert....')
+    ms_param = []
+    for k, v in tqdm(model.state_dict().items()):
+        if "word_embeddings.weight" in k:
+            k = k.replace("word_embeddings.weight", "embedding_weight")
+        ms_param.append({"name": k, "data": v})
+    # qkv weight split
+    if not config.qkv_concat or config.use_rearrange_rope:
+        attn_split(ms_param, config, dtype)
 
-        print(f'\rprocessing parameter: {name} {value.shape}     ', end='', flush=True)
-        ckpt_list.append({'name': name, 'data': pt2ms(value, dtype)})
+    # mlp weight split
+    if not config.mlp_concat:
+        mlp_split(ms_param, config, dtype)
 
-    ms.save_checkpoint(ckpt_list, output_path)
-    print(f"\rConvert huggingface checkpoint finished, the mindspore checkpoint is saved in '{output_path}'.",
-          flush=True)
-    return True
+    tmp_list = []
+    pop_list = []
+    for i, item in enumerate(ms_param):
+        k, v = item["name"], item["data"]
+        if not isinstance(v, ms.Tensor):
+            tmp_list.append({"name": k, "data": pt2ms(v, dtype)})
+            pop_list.append(i)
+    for i in reversed(pop_list):
+        ms_param.pop(i)
+    ms_param += tmp_list
+
+    ms.save_checkpoint(ms_param, output_path)
+    print(f"Convert finished, the output is saved to {output_path}")
 ```
 
-To convert a MindSpore Transformers weight to a HuggingFace one, define the `convert_ms_to_pt` function in [convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_reversed.py).
+To convert a MindSpore Transformers weight to a HuggingFace one, define the `convert_ms_to_pt` function in [convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/glm2/convert_reversed.py).
 
 ```python
-def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):
-    """convert ms weight to hf."""
-    print(f"Trying to convert mindspore checkpoint in '{input_path}'.", flush=True)
-    model_ms = ms.load_checkpoint(input_path)
+def convert_ms_to_pt(input_path, output_path, config, dtype=torch.float32, **kwargs):
+    """ Convert MindSpore model file to pytorch model file. """
+    ckpt_dict = ms.load_checkpoint(input_path)
+    print('parameter convert....')
+    pt_param = {}
+    for k, v in tqdm(ckpt_dict.items()):
+        v = ms2pt(v, dtype)
+        if "embedding_weight" in k:
+            k = k.replace("embedding_weight", "word_embeddings.weight")
+        if is_lora_param(k):
+            k = k.replace(".tk_delta_lora_a", ".lora_A.weight")
+            k = k.replace(".tk_delta_lora_b", ".lora_B.weight")
+        pt_param[k] = v
 
-    state_dict = {}
-    for name, value in model_ms.items():
-        name = name_replace(name)
-        print(f'\rprocessing parameter: {name} {value.shape}     ', end='', flush=True)
-        if is_lora_param(name):
-            name = name.replace('.tk_delta_lora_a', '.lora_A.weight')
-            name = name.replace('.tk_delta_lora_b', 'lora_B.weight')
-        state_dict[name] = ms2pt(value, dtype)
+    # Convert pytorch model file to MindSpore model file.
+    config: ChatGLM2Config = MindFormerConfig(config)['model']['model_config']
+    config = ChatGLM2Config(**config)
 
-    torch.save(state_dict, output_path)
-    print(f"\rConvert mindspore checkpoint finished, the huggingface checkpoint is saved in '{output_path}'.",
-          flush=True)
-    return True
+    # qkv weight split
+    if not config.qkv_concat:
+        attn_merge(pt_param, config)
+    else:
+        attn_rearange(pt_param, config)
+
+    # mlp weight split
+    if not config.mlp_concat:
+        mlp_merge(pt_param)
+
+    print('saving pt ckpt....')
+    torch.save(pt_param, output_path)
+    print(f"Convert finished, the output is saved to {output_path}")
 ```
 
 ## Distributed Weight Slicing and Merging
@@ -149,7 +165,7 @@ Parameters in the `yaml` file related to **automatic weight conversion** are des
 
 ```yaml
 # load_checkpoint: specifies path of the pre-trained weight file.
-load_checkpoint: "/worker/llama3_8b/llama3_8b.ckpt"
+load_checkpoint: "/worker/qwen2_5-7b/qwen2_5-7b.ckpt"
 
 # auto_trans_ckpt: specifies whether to enable automatic conversion.
 auto_trans_ckpt: True
@@ -159,10 +175,10 @@ auto_trans_ckpt: True
 
 ```yaml
 # load_checkpoint: specifies the path of the multi-device weight folder.
-load_checkpoint: "/worker/checkpoint/llama3-8b-2layer-dp2mp2pp2"
+load_checkpoint: "/worker/checkpoint/qwen2_5-7b-2layer-dp2mp2pp2"
 
 # src_strategy_path_or_dir: specifies the path of the distributed strategy file.
-src_strategy_path_or_dir: "/worker/checkpoint/llama3-8b-2layer-dp2mp2pp2/strategy/merged_ckpt_strategy.ckpt"
+src_strategy_path_or_dir: "/worker/checkpoint/qwen2_5-7b-2layer-dp2mp2pp2/strategy/merged_ckpt_strategy.ckpt"
 
 # auto_trans_ckpt: specifies whether to enable automatic conversion.
 auto_trans_ckpt: True
@@ -172,10 +188,10 @@ auto_trans_ckpt: True
 
 ```yaml
 # load_checkpoint: specifies the path of the multi-device weight folder.
-load_checkpoint: "/worker/checkpoint/llama3-8b-2layer-dp1mp2pp2"
+load_checkpoint: "/worker/checkpoint/qwen2_5-7b-2layer-dp1mp2pp2"
 
 # src_strategy_path_or_dir: specifies the path of the distributed strategy file.
-src_strategy_path_or_dir: "/worker/checkpoint/llama3-8b-2layer-dp1mp2pp2/strategy/merged_ckpt_strategy.ckpt"
+src_strategy_path_or_dir: "/worker/checkpoint/qwen2_5-7b-2layer-dp1mp2pp2/strategy/merged_ckpt_strategy.ckpt"
 
 # auto_trans_ckpt: specifies whether to enable automatic conversion.
 auto_trans_ckpt: True
@@ -221,8 +237,8 @@ Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com
 
 ```shell
 python transform_checkpoint.py \
-  --src_checkpoint /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
-  --dst_checkpoint /worker/transform_ckpt/llama3_8b_1to8/ \
+  --src_checkpoint /worker/checkpoint/qwen2_5-7b-2layer/rank_0/qwen2_5-7b.ckpt \
+  --dst_checkpoint /worker/transform_ckpt/qwen2_5-7b_1to8/ \
   --dst_strategy /worker/mindformers/output/strategy/ \
   --prefix "checkpoint_"
 ```
@@ -235,9 +251,9 @@ Use [mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com
 
 ```shell
 bash transform_checkpoint.sh \
-  /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
+  /worker/checkpoint/qwen2_5-7b-2layer/rank_0/qwen2_5-7b.ckpt \
   None \
-  /worker/transform_ckpt/llama3_8b_1to8/ \
+  /worker/transform_ckpt/qwen2_5-7b_1to8/ \
   /worker/mindformers/output/strategy/ \
   8 2 "checkpoint_"
 ```
@@ -281,7 +297,7 @@ If a unified shared storage path (such as the NFS-mounted /worker directory) is 
 
   ```yaml
   # Set the path of the pre-trained weight file to an absolute path.
-  load_checkpoint: "/worker/checkpoint/llama3-8b/rank_0/llama3_8b.ckpt"
+  load_checkpoint: "/worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt"
 
   # Set auto_trans_ckpt to True to enable automatic weight conversion.
   auto_trans_ckpt: True
@@ -374,8 +390,8 @@ If there is no shared path between servers, you need to use the offline weight c
 
   ```shell
   python mindformers/tools/ckpt_transform/transform_checkpoint.py \
-    --src_checkpoint /worker/checkpoint/llama3-8b/rank_0/llama_7b.ckpt \
-    --dst_checkpoint ./output/llama3_8b_dp2mp4pp2 \
+    --src_checkpoint /worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt \
+    --dst_checkpoint ./output/qwen2_5-7b_dp2mp4pp2 \
     --dst_strategy ./output/strategy
   ```
 
@@ -384,9 +400,9 @@ If there is no shared path between servers, you need to use the offline weight c
   ```shell
   # Use two processes for conversion.
   bash mindformers/tools/ckpt_transform/transform_checkpoint.sh \
-    /worker/checkpoint/llama3-8b/rank_0/llama_7b.ckpt \
+    /worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt \
     None \
-    ./output/llama3_8b_dp2mp4pp2 \
+    ./output/qwen2_5-7b_dp2mp4pp2 \
     ./output/strategy \
     16 2
   ```
@@ -419,7 +435,7 @@ If there is no shared path between servers, you need to use the offline weight c
 
   ```yaml
   # Set the pre-trained weight path to model_dir, the distributed weight folder path.
-  load_checkpoint: "/worker/checkpoint/llama3_8b_dp2mp4pp2"
+  load_checkpoint: "/worker/checkpoint/qwen2_5-7b_dp2mp4pp2"
 
   # Change only_save_strategy to False.
   only_save_strategy: False

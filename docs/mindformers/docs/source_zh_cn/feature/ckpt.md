@@ -36,23 +36,21 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 
 ### 转换示例
 
-假设用户已经下载了[Llama3.1模型的权重](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindSpore Transformers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
+假设用户已经下载了 [Qwen2.5 模型的权重](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindSpore Transformers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
 
 ```bash
-python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
+python convert_weight.py --model qwen2_5 --input_path /home/user/torch_weights --output_path /home/user/ms_weights/qwen2_5.ckpt
 ```
 
 通过以上步骤，可将HuggingFace权重成功转换为MindSpore Transformers权重，方便在MindSpore Transformers中继续模型训练或推理。
 
 ### 已支持模型
 
-| 参数取值     | 支持模型                         |
-|----------|------------------------------|
-| llama    | Llama3.1                     |
-| glm-n    | GLM4                         |
-| qwen     | Qwen2.5                      |
-| mixtral  | Mixtral                      |
-| deepseek | DeepSeekV3                   |
+| 参数取值     | 支持模型    |
+|----------|---------|
+| glm-n    | GLM4    |
+| qwen2_5  | Qwen2.5 |
+| mixtral  | Mixtral |
 
 ### 未支持模型权重转换开发
 
@@ -63,60 +61,78 @@ python convert_weight.py --model llama --input_path /home/user/torch_weights --o
 
 ### 模型权重转换开发示例
 
-此处以Llama为例。如若希望转换HuggingFace权重至MindSpore Transformers权重，需在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_weight.py)内定义`convert_pt_to_ms`函数：
+此处以 [GLM-4](https://gitee.com/mindspore/mindformers/blob/master/docs/model_cards/glm4.md) 为例。如若希望转换HuggingFace权重至MindSpore Transformers权重，需在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/glm2/convert_weight.py)内定义`convert_pt_to_ms`函数：
 
 ```python
-def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
-    """convert hf weight to ms."""
-    print(f"Trying to convert huggingface checkpoint in '{input_path}'.", flush=True)
-    try:
-        from transformers import LlamaForCausalLM
-    except:
-        raise ImportError(f"Failed to load huggingface checkpoint. Please make sure transformers is available.")
+def convert_pt_to_ms(input_path, output_path, config, dtype=ms.float32, **kwargs):
+    """ Convert pytorch model file to MindSpore model file. """
+    config: ChatGLM2Config = MindFormerConfig(config)['model']['model_config']
+    config = ChatGLM2Config(**config)
+    model = AutoModel.from_pretrained(input_path)
 
-    try:
-        model_hf = LlamaForCausalLM.from_pretrained(os.path.dirname(input_path))
-    except Exception as e:
-        print(f"Do not find huggingface checkpoint in '{os.path.dirname(input_path)}', Error {e.message}.", flush=True)
-        return False
-    ckpt_list = []
-    for name, value in model_hf.state_dict().items():
-        name = name_replace(name)
-        if name == 'norm.weight':
-            name = 'norm_out.weight'
-        if name[:7] == 'layers.':
-            name = name[7:]
+    print('parameter convert....')
+    ms_param = []
+    for k, v in tqdm(model.state_dict().items()):
+        if "word_embeddings.weight" in k:
+            k = k.replace("word_embeddings.weight", "embedding_weight")
+        ms_param.append({"name": k, "data": v})
+    # qkv weight split
+    if not config.qkv_concat or config.use_rearrange_rope:
+        attn_split(ms_param, config, dtype)
 
-        print(f'\rprocessing parameter: {name} {value.shape}     ', end='', flush=True)
-        ckpt_list.append({'name': name, 'data': pt2ms(value, dtype)})
+    # mlp weight split
+    if not config.mlp_concat:
+        mlp_split(ms_param, config, dtype)
 
-    ms.save_checkpoint(ckpt_list, output_path)
-    print(f"\rConvert huggingface checkpoint finished, the mindspore checkpoint is saved in '{output_path}'.",
-          flush=True)
-    return True
+    tmp_list = []
+    pop_list = []
+    for i, item in enumerate(ms_param):
+        k, v = item["name"], item["data"]
+        if not isinstance(v, ms.Tensor):
+            tmp_list.append({"name": k, "data": pt2ms(v, dtype)})
+            pop_list.append(i)
+    for i in reversed(pop_list):
+        ms_param.pop(i)
+    ms_param += tmp_list
+
+    ms.save_checkpoint(ms_param, output_path)
+    print(f"Convert finished, the output is saved to {output_path}")
 ```
 
-而若是希望转换MindSpore Transformers权重至HuggingFace权重，则需在[convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/llama/convert_reversed.py)内定义`convert_ms_to_pt`函数：
+而若是希望转换MindSpore Transformers权重至HuggingFace权重，则需在[convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/master/mindformers/models/glm2/convert_reversed.py)内定义`convert_ms_to_pt`函数：
 
 ```python
-def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):
-    """convert ms weight to hf."""
-    print(f"Trying to convert mindspore checkpoint in '{input_path}'.", flush=True)
-    model_ms = ms.load_checkpoint(input_path)
+def convert_ms_to_pt(input_path, output_path, config, dtype=torch.float32, **kwargs):
+    """ Convert MindSpore model file to pytorch model file. """
+    ckpt_dict = ms.load_checkpoint(input_path)
+    print('parameter convert....')
+    pt_param = {}
+    for k, v in tqdm(ckpt_dict.items()):
+        v = ms2pt(v, dtype)
+        if "embedding_weight" in k:
+            k = k.replace("embedding_weight", "word_embeddings.weight")
+        if is_lora_param(k):
+            k = k.replace(".tk_delta_lora_a", ".lora_A.weight")
+            k = k.replace(".tk_delta_lora_b", ".lora_B.weight")
+        pt_param[k] = v
 
-    state_dict = {}
-    for name, value in model_ms.items():
-        name = name_replace(name)
-        print(f'\rprocessing parameter: {name} {value.shape}     ', end='', flush=True)
-        if is_lora_param(name):
-            name = name.replace('.tk_delta_lora_a', '.lora_A.weight')
-            name = name.replace('.tk_delta_lora_b', 'lora_B.weight')
-        state_dict[name] = ms2pt(value, dtype)
+    # Convert pytorch model file to MindSpore model file.
+    config: ChatGLM2Config = MindFormerConfig(config)['model']['model_config']
+    config = ChatGLM2Config(**config)
 
-    torch.save(state_dict, output_path)
-    print(f"\rConvert mindspore checkpoint finished, the huggingface checkpoint is saved in '{output_path}'.",
-          flush=True)
-    return True
+    # qkv weight split
+    if not config.qkv_concat:
+        attn_merge(pt_param, config)
+    else:
+        attn_rearange(pt_param, config)
+
+    # mlp weight split
+    if not config.mlp_concat:
+        mlp_merge(pt_param)
+
+    print('saving pt ckpt....')
+    torch.save(pt_param, output_path)
+    print(f"Convert finished, the output is saved to {output_path}")
 ```
 
 ## 权重切分与合并
@@ -135,13 +151,13 @@ def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):
 
 **自动权重转换**相关`yaml`文件参数说明如下：
 
-| 参数名称              | 说明                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| load_checkpoint     | 预加载权重的绝对路径或文件夹路径。<br> - 如果是完整权重，则填写绝对路径；<br> - 如果是分布式权重，则填写文件夹路径，分布式权重须按照`model_dir/rank_x/xxx.ckpt`格式存放，文件夹路径填写为`model_dir`。<br>**如果rank_x文件夹下存在多个ckpt，将会使用文件名默认排序最后的ckpt文件用于转换。**                                                                                                                                                                                                                                                |
-| src_strategy_path_or_dir        | 预加载权重对应的[分布式策略文件](#离线转换配置说明)路径。<br> - 如果预加载权重是完整权重，则**不填写**；<br> - 如果预加载权重是分布式权重，且预加载权重保存时使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果预加载权重是分布式权重，且预加载权重保存时未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径；                                                                                                                                                                                                                     |
-| auto_trans_ckpt     | 权重自动转换开关，为True开启，默认False。                                                                                                                                                                                                                                                                                                                                                                                                          |
-| transform_process_num | 权重自动转换使用的进程数，默认为1。<br> - 如果transform_process_num = 1，使用**单进程转换**，转换时只有rank_0负责权重转换，其他进程等待rank_0转换结束；<br> - 如果transform_process_num > 1，使用**多进程转换**，比如8卡任务，transform_process_num=2时，转换时rank_0负责rank_0/1/2/3切片权重的转换，rank_4负责rank_4/5/6/7切片权重的转换，其他进程等待rank_0/4转换结束；<br>**注意**：<br> 1. transform_process_num越大，转换时间越短，**转换所占用的host内存越大**；当出现host侧内存不足时，需要减少transform_process_num。<br> 2. transform_process_num必须能够整除NPU卡数，且最大不得超过NPU卡数。 |
-| transform_by_rank   | 是否使用mindspore.transform_checkpoint_by_rank接口做权重转换。<br> - transform_process_num > 1时，自动设置为`True`；<br> - transform_process_num = 1时，如果目标权重为分布式权重，则循环调用mindspore.transform_checkpoint_by_rank串行转换每一个rank切片权重。<br>- transform_process_num = 1时，如果目标权重为完整权重，则自动设置为`False`，使用mindspore.transform_checkpoints接口做权重转换；                                                                                                                     |
+| 参数名称                     | 说明                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| load_checkpoint          | 预加载权重的绝对路径或文件夹路径。<br> - 如果是完整权重，则填写绝对路径；<br> - 如果是分布式权重，则填写文件夹路径，分布式权重须按照`model_dir/rank_x/xxx.ckpt`格式存放，文件夹路径填写为`model_dir`。<br>**如果rank_x文件夹下存在多个ckpt，将会使用文件名默认排序最后的ckpt文件用于转换。**                                                                                                                                                                                                                                                  |
+| src_strategy_path_or_dir | 预加载权重对应的[分布式策略文件](#离线转换配置说明)路径。<br> - 如果预加载权重是完整权重，则**不填写**；<br> - 如果预加载权重是分布式权重，且预加载权重保存时使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果预加载权重是分布式权重，且预加载权重保存时未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径；                                                                                                                                                                                                                      |
+| auto_trans_ckpt          | 权重自动转换开关，为 `True` 开启，默认 `False` 。                                                                                                                                                                                                                                                                                                                                                                                                    |
+| transform_process_num    | 权重自动转换使用的进程数，默认为1。<br> - 如果transform_process_num = 1，使用**单进程转换**，转换时只有rank_0负责权重转换，其他进程等待rank_0转换结束；<br> - 如果transform_process_num > 1，使用**多进程转换**，比如8卡任务，transform_process_num=2时，转换时rank_0负责rank_0/1/2/3切片权重的转换，rank_4负责rank_4/5/6/7切片权重的转换，其他进程等待rank_0/4转换结束；<br>**注意**：<br> 1. transform_process_num越大，转换时间越短，**转换所占用的host内存越大**；当出现host侧内存不足时，需要减少transform_process_num。<br> 2. transform_process_num必须能够整除NPU卡数，且最大不得超过NPU卡数。 |
+| transform_by_rank        | 是否使用mindspore.transform_checkpoint_by_rank接口做权重转换。<br> - transform_process_num > 1时，自动设置为`True`；<br> - transform_process_num = 1时，如果目标权重为分布式权重，则循环调用mindspore.transform_checkpoint_by_rank串行转换每一个rank切片权重。<br>- transform_process_num = 1时，如果目标权重为完整权重，则自动设置为`False`，使用mindspore.transform_checkpoints接口做权重转换；                                                                                                                       |
 
 #### 不同场景下yaml配置说明
 
@@ -149,7 +165,7 @@ def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):
 
 ```yaml
 # load_checkpoint: 设置为预训练权重文件路径
-load_checkpoint: "/worker/llama3_8b/llama3_8b.ckpt"
+load_checkpoint: "/worker/qwen2_5-7b/qwen2_5-7b.ckpt"
 
 # auto_trans_ckpt: 开启自动转换
 auto_trans_ckpt: True
@@ -159,10 +175,10 @@ auto_trans_ckpt: True
 
 ```yaml
 # load_checkpoint: 设置为多卡权重文件夹路径
-load_checkpoint: "/worker/checkpoint/llama3-8b-2layer-dp2mp2pp2"
+load_checkpoint: "/worker/checkpoint/qwen2_5-7b-2layer-dp2mp2pp2"
 
 # src_strategy_path_or_dir: 设置为分布式策略文件路径
-src_strategy_path_or_dir: "/worker/checkpoint/llama3-8b-2layer-dp2mp2pp2/strategy/merged_ckpt_strategy.ckpt"
+src_strategy_path_or_dir: "/worker/checkpoint/qwen2_5-7b-2layer-dp2mp2pp2/strategy/merged_ckpt_strategy.ckpt"
 
 # auto_trans_ckpt: 开启自动转换
 auto_trans_ckpt: True
@@ -172,10 +188,10 @@ auto_trans_ckpt: True
 
 ```yaml
 # load_checkpoint: 设置为多卡权重文件夹路径
-load_checkpoint: "/worker/checkpoint/llama3-8b-2layer-dp1mp2pp2"
+load_checkpoint: "/worker/checkpoint/qwen2_5-7b-2layer-dp1mp2pp2"
 
 # src_strategy_path_or_dir: 设置为分布式策略文件路径
-src_strategy_path_or_dir: "/worker/checkpoint/llama3-8b-2layer-dp1mp2pp2/strategy/merged_ckpt_strategy.ckpt"
+src_strategy_path_or_dir: "/worker/checkpoint/qwen2_5-7b-2layer-dp1mp2pp2/strategy/merged_ckpt_strategy.ckpt"
 
 # auto_trans_ckpt: 开启自动转换
 auto_trans_ckpt: True
@@ -221,8 +237,8 @@ MindSpore每次运行分布式任务后都会在`output/strategy`文件夹下生
 
 ```shell
 python transform_checkpoint.py \
-  --src_checkpoint /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
-  --dst_checkpoint_dir /worker/transform_ckpt/llama3_8b_1to8/ \
+  --src_checkpoint /worker/checkpoint/qwen2_5-7b-2layer/rank_0/qwen2_5-7b.ckpt \
+  --dst_checkpoint_dir /worker/transform_ckpt/qwen2_5-7b_1to8/ \
   --dst_strategy /worker/mindformers/output/strategy/ \
   --prefix "checkpoint_"
 ```
@@ -235,9 +251,9 @@ python transform_checkpoint.py \
 
 ```shell
 bash transform_checkpoint.sh \
-  /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
+  /worker/checkpoint/qwen2_5-7b-2layer/rank_0/qwen2_5-7b.ckpt \
   None \
-  /worker/transform_ckpt/llama3_8b_1to8/ \
+  /worker/transform_ckpt/qwen2_5-7b_1to8/ \
   /worker/mindformers/output/strategy/ \
   8 2 "checkpoint_"
 ```
@@ -281,7 +297,7 @@ bash transform_checkpoint.sh \
 
   ```yaml
   # 配置预训练权重路径，填写权重文件的绝对路径
-  load_checkpoint: "/worker/checkpoint/llama3-8b/rank_0/llama3_8b.ckpt"
+  load_checkpoint: "/worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt"
 
   # 设置 auto_trans_ckpt 为 True 开启自动权重转换
   auto_trans_ckpt: True
@@ -374,8 +390,8 @@ bash transform_checkpoint.sh \
 
   ```shell
   python mindformers/tools/ckpt_transform/transform_checkpoint.py \
-    --src_checkpoint /worker/checkpoint/llama3-8b/rank_0/llama_7b.ckpt \
-    --dst_checkpoint ./output/llama3_8b_dp2mp4pp2 \
+    --src_checkpoint /worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt \
+    --dst_checkpoint ./output/qwen2_5-7b_dp2mp4pp2 \
     --dst_strategy ./output/strategy
   ```
 
@@ -384,9 +400,9 @@ bash transform_checkpoint.sh \
   ```shell
   # 使用2个进程进行转换
   bash mindformers/tools/ckpt_transform/transform_checkpoint.sh \
-    /worker/checkpoint/llama3-8b/rank_0/llama_7b.ckpt \
+    /worker/checkpoint/qwen2_5-7b/rank_0/qwen2_5-7b.ckpt \
     None \
-    ./output/llama3_8b_dp2mp4pp2 \
+    ./output/qwen2_5-7b_dp2mp4pp2 \
     ./output/strategy \
     16 2
   ```
@@ -419,7 +435,7 @@ bash transform_checkpoint.sh \
 
   ```yaml
   # 配置预训练权重路径，填写分布式权重文件夹路径 model_dir
-  load_checkpoint: "/worker/checkpoint/llama3_8b_dp2mp4pp2"
+  load_checkpoint: "/worker/checkpoint/qwen2_5-7b_dp2mp4pp2"
 
   # 将 only_save_strategy 改为 False
   only_save_strategy: False
