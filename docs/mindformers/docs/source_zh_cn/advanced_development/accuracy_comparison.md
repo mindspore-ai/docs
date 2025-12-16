@@ -105,7 +105,7 @@ Megatron-LM 是一个面向大规模训练任务的成熟框架，具备高度�
     | `min-loss-scale`                           | 最小损失缩放因子                                    | 不支持配置                                      |                                                                     |
     | `loss-scale-window`                        | 动态缩放窗口大小                                    | `loss_scale_window`                        | 动态缩放窗口大小                                                            |
     | `hysteresis`                               | 损失缩放迟滞参数                                    | 不支持配置                                      |                                                                     |
-    | `fp32-residual-connection`                 | 使用 Float32 残差连接                             | 不支持配置                                      |                                                                     |
+    | `fp32-residual-connection`                 | 使用 Float32 残差连接                             | `fp32_residual_connection`                 | 使用 Float32 残差连接                                                     |
     | `accumulate-allreduce-grads-in-fp32`       | 使用 Float32 累加并规约梯度                          | 不支持配置                                      | 默认使用 Float32 累加并规约梯度                                                |
     | `fp16-lm-cross-entropy`                    | 使用 Float16 执行语言模型交叉熵                        | 不支持配置                                      | 默认使用 Float32 执行语言模型交叉熵                                              |
     | `q-lora-rank`                              | Query 投影层的 LoRA rank，启用 Q-LoRA 时使用          | `q_lora_rank`                              | Query 投影层的 LoRA rank，启用 Q-LoRA 时使用                                  |
