@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/tools.md)
 
-## &nbsp;
+## FAQ
 
 ### Q: When using the overflow detection Dump feature, I encounter the error `RuntimeError: aclnnAllFiniteGetWorkspaceSize call failed, please check!`. How can I resolve this?
 

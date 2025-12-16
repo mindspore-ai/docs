@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/operators_api.md)
 
-## &nbsp;
+## FAQ
 
 ### Q: When using the `ops.ring_attention_update` operator on an Ascend machine with the CANN 8.1.RC1 package, the error `RuntimeError: aclnnRingAttentionUpdateGetWorkSpaceSize call failed` occurs. What is the reason?
 
