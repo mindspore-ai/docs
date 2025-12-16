@@ -592,6 +592,67 @@ folder_converter = '../include/converter/include'
 # 查找同名文件并删除converter下的
 find_common_files2del(folder_runtime, folder_converter)
 
+# 解决lite页面内容生成错误问题
+def code_content_replace(original_code, new_code, file_path):
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    except Exception as e:
+        print(f"读取文件失败：{e}")
+        return False
+    modified_content = content.replace(original_code, new_code)
+    if modified_content:
+        print("找到完全匹配的代码块，执行精准替换")
+
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(modified_content)
+        print(f"文件修改完成！路径：{file_path}")
+        return True
+    except Exception as e:
+        print(f"写入文件失败：{e}")
+        return False
+
+original_code = '''
+using Key = struct MS_API Key {
+  size_t max_key_len = 32;
+  size_t len = 0;
+  unsigned char key[32] = {0};
+  Key() : len(0) {}
+  explicit Key(const char *dec_key, size_t key_len);
+};'''
+new_code = '''
+struct MS_API Key {
+  size_t max_key_len = 32;
+  size_t len = 0;
+  unsigned char key[32] = {0};
+  Key() : len(0) {}
+  explicit Key(const char *dec_key, size_t key_len);
+};
+
+using Key = Key;'''
+types_h_path = "../include/runtime/include/api/types.h"
+code_content_replace(original_code, new_code, types_h_path)
+
+original_code = '''
+/// \\brief Get the value with the given type from a node if it is a ValueNode.'''
+new_code = '''
+/// \\overload  // Tell Doxygen that this is an independent overload and generate a separate entry
+/// \\brief Get the value with the given type from a node if it is a ValueNode.''' 
+anf_h_path = "../include/converter/include/mindapi/ir/anf.h"
+code_content_replace(original_code, new_code, anf_h_path)
+
+original_code = '''using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
+  const std::vector<MSTensor> &inputs, const std::vector<MSTensor> &outputs, const schema::Primitive *primitive,
+  const mindspore::Context *ctx)>;'''
+new_code = '''std::shared_ptr<kernel::Kernel> CreateKernel(
+  const std::vector<MSTensor> &inputs, const std::vector<MSTensor> &outputs, const schema::Primitive *primitive,
+  const mindspore::Context *ctx);
+
+using CreateKernel = std::function<decltype(CreateKernel)>;'''
+register_kernel_h_path = "../include/runtime/include/registry/register_kernel.h"
+code_content_replace(original_code, new_code, register_kernel_h_path)
+
 # for file_name in fileList:
 #     file_data = ''
 #     with open(file_name, 'r', encoding='utf-8') as f:
