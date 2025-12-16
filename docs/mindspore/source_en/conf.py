@@ -670,11 +670,7 @@ copy_image(src_dir, des_dir)
 # copy RELEASENotes
 src_release = os.path.join(repo_path, 'RELEASE.md')
 des_release = "./RELEASE.md"
-<<<<<<< HEAD
 release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
-=======
-release_source = f'[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
->>>>>>> 2afcb0b0dc (update view source links)
 
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()

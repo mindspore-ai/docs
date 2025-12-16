@@ -1252,14 +1252,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--pr_url', type=str, default="")  # pr网址
     parser.add_argument('--whl_path', type=str, default="") # 安装包地址
+    parser.add_argument('--atomgit_token', type=str, default="") # atomgit API访问令牌
     args = parser.parse_args()
 
     pr_url = args.pr_url
     pr_whl_path = args.whl_path
+    atomgit_token = args.atomgit_token
 
-    # 获取Token
-    TOKEN = os.getenv("GITCODE_TOKEN")
-    headers = {"Private-Token": TOKEN} if TOKEN else {}
+    headers = {"Private-Token": atomgit_token} if atomgit_token else {}
 
     # 参数处理（准备工作）
     pr_info = re.match(r'https://(?:atomgit|gitcode)\.com/([^/]+)/([^/]+)/pull/(\d+)', pr_url)
