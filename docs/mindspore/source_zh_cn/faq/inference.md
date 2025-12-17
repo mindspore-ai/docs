@@ -2,7 +2,9 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/inference.md)
 
-## Q: 原先基于MindSpore安装包进行Atlas 200/300/500推理产品推理，新版本MindSpore发布包不支持Atlas 200/300/500推理产品平台的推理？如何使用Atlas 200/300/500推理产品进行推理？（MindSpore Atlas 200/300/500推理产品推理功能发布包变更说明）
+## 常见问题
+
+### Q: 原先基于MindSpore安装包进行Atlas 200/300/500推理产品推理，新版本MindSpore发布包不支持Atlas 200/300/500推理产品平台的推理？如何使用Atlas 200/300/500推理产品进行推理？（MindSpore Atlas 200/300/500推理产品推理功能发布包变更说明）
 
 A: 由于MindSpore推理功能统一由MindSpore核心组件 - MindSpore Lite提供。自2.0版本起，统一由MindSpore Lite发布Atlas 200/300/500推理产品推理包，并提供相关功能的持续维护演进，而MindSpore主发布包里的对应接口不再维护和演进。自2.2版本起MindSpore主发布包不再提供配套Atlas 200/300/500推理产品的推理接口使能，如需使用请切换安装MindSpore Lite发布包或下载MindSpore 2.0之前的版本。MindSpore Lite的安装部署与用法详见 <https://www.mindspore.cn/lite>。
 
@@ -83,24 +85,24 @@ Atlas 200/300/500推理产品是面向边缘场景的高能效高集成度AI处�
 
 <br/>
 
-## Q: 编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办？
+### Q: 编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办？
 
 A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中。
 
 <br/>
 
-## Q: 更新MindSpore版本后，编译应用报错`WARNING: Package(s) not found: mindspore-ascend`、`CMake Error: The following variables are use in this project, but they are set to NOTFOUND. Please set them or make sure they are set and tested correctly in the CMake files: MS_LIB`怎么办？
+### Q: 更新MindSpore版本后，编译应用报错`WARNING: Package(s) not found: mindspore-ascend`、`CMake Error: The following variables are use in this project, but they are set to NOTFOUND. Please set them or make sure they are set and tested correctly in the CMake files: MS_LIB`怎么办？
 
 A: MindSpore 2.0开始统一了各平台的安装包，不再以`-ascend`、`-gpu`等后缀区分不同安装包，因此旧编译命令或旧`build.sh`中的``MINDSPORE_PATH="`pip show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`"``需要修改为``MINDSPORE_PATH="`pip show mindspore | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`"``。
 
 <br/>
 
-## Q: 运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？
+### Q: 运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？
 
 A: 安装MindSpore所依赖的Atlas 200/300/500推理产品配套软件包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。
 
 <br/>
 
-## Q: AIPP文件怎么配置？
+### Q: AIPP文件怎么配置？
 
 A: AIPP（Artificial Intelligence Pre-Processing）AI预处理，用于在AI Core上完成图像预处理，包括改变图像尺寸、色域转换（转换图像格式）、减均值/乘系数（改变图像像素），数据处理之后再进行真正的模型推理。相关的配置介绍比较复杂，可以参考[ATC工具的AIPP使能章节](https://www.hiascend.com/document/detail/zh/canncommercial/800/devaids/devtools/atc/atlasatc_16_0017.html)。

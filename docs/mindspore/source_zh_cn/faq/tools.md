@@ -2,7 +2,9 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/tools.md)
 
-## Q: 使用溢出检测Dump功能时，遇到`RuntimeError: aclnnAllFiniteGetWorkspaceSize call failed, please check!`报错，该如何解决？
+## 常见问题
+
+### Q: 使用溢出检测Dump功能时，遇到`RuntimeError: aclnnAllFiniteGetWorkspaceSize call failed, please check!`报错，该如何解决？
 
 A: 该错误通常是因为溢出检测功能所依赖的自定义算子与当前 CANN 版本不兼容所致。MindSpore 的溢出检测 Dump 功能对 CANN 版本有严格要求，高版本 MindSpore 无法兼容低版本 CANN。
 
