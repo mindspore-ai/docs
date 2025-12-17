@@ -6,6 +6,8 @@
 
 This section quickly implements a simple deep learning model through MindSpore APIs. For a deeper understanding of how to use MindSpore, see the reference links provided at the end of each section.
 
+First, import the common packages and interfaces required for the example.
+
 ```python
 import mindspore
 from mindspore import nn
