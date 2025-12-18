@@ -10,16 +10,16 @@
 ## 快速入门
 
 - 在[Gitee](https://gitee.com/mindspore/vllm-mindspore)上fork代码仓。
-- 参见[README.md](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/README.md)和安装页面了解项目信息和构建说明。
+- 参见[README.md](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.1/README.md)和安装页面了解项目信息和构建说明。
 
 ## 增加新模型
 
 若希望将一个新模型合入vLLM-MindSpore插件代码仓库，需要注意几点：
 
 - **文件格式及位置要遵循规范。** 模型代码文件统一放置于`vllm_mindspore/model_executor`文件夹下，请根据不同模型将代码文件放置于对应的文件夹下。
-- **模型基于MindSpore接口实现，支持jit静态图方式执行。** vLLM-MindSpore插件中的模型定义需基于MindSpore接口实现。由于MindSpore静态图模式执行性能有优势，因此模型需支持@jit静态图方式执行。详细可参考[Qwen2.5](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/vllm_mindspore/model_executor/models/qwen2.py)模型定义实现。
+- **模型基于MindSpore接口实现，支持jit静态图方式执行。** vLLM-MindSpore插件中的模型定义需基于MindSpore接口实现。由于MindSpore静态图模式执行性能有优势，因此模型需支持@jit静态图方式执行。详细可参考[Qwen2.5](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.1/vllm_mindspore/model_executor/models/qwen2.py)模型定义实现。
 - **将新模型在vLLM-MindSpore插件代码中进行注册。** 模型结构定义实现后，需要将该模型注册到vLLM-MindSpore插件中，注册文件位于'vllm_mindspore/model_executor/models/registry.py'中，请将模型注册到`_NATIVE_MODELS`。
-- **编写单元测试。** 新增的模型需同步提交单元测试用例，用例编写请参考[Qwen2.5模型用例](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/tests/st/python/cases_parallel/vllm_qwen_7b.py)。
+- **编写单元测试。** 新增的模型需同步提交单元测试用例，用例编写请参考[Qwen2.5模型用例](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.1/tests/st/python/cases_parallel/vllm_qwen_7b.py)。
 
 ## 贡献流程
 
@@ -27,7 +27,7 @@
 
 请遵循此风格，以便社区代码的审查、维护和开发。
 
-- **编码指南：** 使用vLLM社区代码检查工具：yapf、codespell、ruff、isort和mypy。更多信息可参考[检查工具链使用说明](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/codecheck_toolkits/README.md)。
+- **编码指南：** 使用vLLM社区代码检查工具：yapf、codespell、ruff、isort和mypy。更多信息可参考[检查工具链使用说明](https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.1/codecheck_toolkits/README.md)。
 
 - **单元测试指南：** vLLM-MindSpore插件使用Python单元测试框架[pytest](http://www.pytest.org/en/latest/)。注释名称需反映测试用例的设计意图。
 

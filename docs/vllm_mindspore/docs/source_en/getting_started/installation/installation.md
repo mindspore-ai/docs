@@ -25,7 +25,7 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 
    | Source Code Link | Package Link |
    | -----    | -----   |
-   | [0.4.0](https://gitee.com/mindspore/vllm-mindspore/tree/r0.4.0/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp39-cp39-linux_aarch64.whl), [Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp310-cp310-linux_aarch64.whl), [Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp311-cp311-linux_aarch64.whl) |
+   | [0.4.1](https://gitee.com/mindspore/vllm-mindspore/tree/r0.4.1/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.2/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.1-cp39-cp39-linux_aarch64.whl), [Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.2/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.1-cp310-cp310-linux_aarch64.whl), [Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.2/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.1-cp311-cp311-linux_aarch64.whl) |
 
 ## Docker Installation
 
@@ -36,7 +36,7 @@ We recommend using Docker for quick deployment of the vLLM-MindSpore Plugin envi
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository:
 
 ```bash
-git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.4.1 https://gitee.com/mindspore/vllm-mindspore.git
 ```  
 
 To build the image according to your npu type, follow these steps:
@@ -143,7 +143,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
     To install vLLM-MindSpore Plugin, user needs to pull the vLLM-MindSpore Plugin source code and then runs the following command to install the dependencies:
 
     ```bash
-    git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
+    git clone -b r0.4.1 https://gitee.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     ```
@@ -189,7 +189,7 @@ vLLM-MindSpore Plugin can be installed in the following two ways. **vLLM-MindSpo
        User needs to pull source of vLLM-MindSpore Plugin, and run installation.
 
        ```bash
-       git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
+       git clone -b r0.4.1 https://gitee.com/mindspore/vllm-mindspore.git
        cd vllm-mindspore
        pip install .
        ```

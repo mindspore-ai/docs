@@ -13,7 +13,7 @@
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库：
 
 ```bash
-git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.4.1 https://gitee.com/mindspore/vllm-mindspore.git
 ```
 
 根据计算卡类型，构建镜像：

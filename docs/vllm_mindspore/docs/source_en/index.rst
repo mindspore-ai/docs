@@ -96,7 +96,7 @@ SIG
 
 License
 -----------------------------------------------------
-Apache License 2.0, as found in the `LICENSE <https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.0/LICENSE>`_ file.
+Apache License 2.0, as found in the `LICENSE <https://gitee.com/mindspore/vllm-mindspore/blob/r0.4.1/LICENSE>`_ file.
 
 
 .. toctree::
