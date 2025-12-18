@@ -109,35 +109,7 @@
         "theme": "theme-lite"
     },
     {
-        "version": "r1.3.0",
-        "label": {
-            "zh": "MindSpore Golden Stick",
-            "en": "MindSpore Golden Stick"
-        },
-        "repo_name": "golden_stick",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "82RC1",
-        "versionAlias": "8.2.RC1",
-        "label": {
-            "zh": "MindStudio",
-            "en": "MindStudio"
-        },
-        "repo_name": "mindstudio",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "r1.7.0",
-        "label": {
-            "zh": "MindSpore Transformers",
-            "en": "MindSpore Transformers"
-        },
-        "repo_name": "mindformers",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "r0.4.0",
+        "version": "r0.4.1",
         "label": {
             "zh": "vLLM-MindSpore Plugin",
             "en": "vLLM-MindSpore Plugin"
