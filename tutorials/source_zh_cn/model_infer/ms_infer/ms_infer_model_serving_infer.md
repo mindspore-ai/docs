@@ -41,20 +41,20 @@ print(generate_text)
 
 ## 推理教程
 
-MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM-MindSpore插件实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM-MindSpore插件文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/index.html)。
+MindSpore推理结合vLLM社区方案，为用户提供了全栈端到端的推理服务化能力，通过vLLM-MindSpore插件实现vLLM社区的服务化能力在MindSpore框架下的无缝对接，具体可以参考[vLLM-MindSpore插件文档](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.1/index.html)。
 
 本章主要简单介绍vLLM-MindSpore插件服务化推理的基础使用。
 
 ### 环境准备
 
-vLLM-MindSpore插件提供了[docker安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/installation/installation.html#docker%E5%AE%89%E8%A3%85)与[源码安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/getting_started/installation/installation.html#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85)的方式，让用户可以便捷地安装使用vLLM-MindSpore插件。以下是部署docker的步骤介绍：
+vLLM-MindSpore插件提供了[docker安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.1/getting_started/installation/installation.html#docker%E5%AE%89%E8%A3%85)与[源码安装](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.1/getting_started/installation/installation.html#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85)的方式，让用户可以便捷地安装使用vLLM-MindSpore插件。以下是部署docker的步骤介绍：
 
 **构建镜像**
 
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
-git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.4.1 https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 
@@ -130,7 +130,7 @@ git lfs install
 git clone https://huggingface.co/Qwen/Qwen2-7B
 ```
 
-若在拉取过程中，执行`git lfs install失败`，可以参考vLLM-MindSpore插件 [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/faqs/faqs.html) 进行解决。
+若在拉取过程中，执行`git lfs install失败`，可以参考vLLM-MindSpore插件 [FAQ](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.1/faqs/faqs.html) 进行解决。
 
 ### 启动服务
 
@@ -142,7 +142,7 @@ export vLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore Transformers as model b
 
 以下是对上述环境变量的解释：
 
-- `vLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/user_guide/supported_models/models_list/models_list.html)与[环境变量清单](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.0/user_guide/environment_variables/environment_variables.html)中进行查询。
+- `vLLM_MS_MODEL_BACKEND`：所运行的模型后端。目前vLLM-MindSpore插件所支持的模型与模型后端，可在[模型支持列表](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.1/user_guide/supported_models/models_list/models_list.html)与[环境变量清单](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/r0.4.1/user_guide/environment_variables/environment_variables.html)中进行查询。
 
 另外，用户需要确保MindSpore Transformers已安装。用户可通过以下方式引入MindSpore Transformers：
 

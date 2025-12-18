@@ -25,7 +25,7 @@
 
    |代码仓链接 | 插件包下载链接 |
    | -----    | -----   |
-   | [0.4.0](https://gitee.com/mindspore/vllm-mindspore/tree/r0.4.0/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp39-cp39-linux_aarch64.whl)，[Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp310-cp310-linux_aarch64.whl)，[Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.1/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.0-cp311-cp311-linux_aarch64.whl) |
+   | [0.4.1](https://gitee.com/mindspore/vllm-mindspore/tree/r0.4.1/) | [Python3.9](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.2/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.1-cp39-cp39-linux_aarch64.whl)，[Python3.10](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.2/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.1-cp310-cp310-linux_aarch64.whl)，[Python3.11](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.7.2/VllmMindSpore/ascend/aarch64/vllm_mindspore-0.4.1-cp311-cp311-linux_aarch64.whl) |
 
 ## docker安装
 
@@ -36,7 +36,7 @@
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库：
 
 ```bash
-git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
+git clone -b r0.4.1 https://gitee.com/mindspore/vllm-mindspore.git
 ```
 
 根据计算卡类型，构建镜像：
@@ -143,7 +143,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
     采用快速安装脚本来安装vLLM-MindSpore插件，需要在拉取vLLM-MindSpore插件源码后，执行以下命令安装依赖包：
 
     ```bash
-    git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
+    git clone -b r0.4.1 https://gitee.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     ```
@@ -189,7 +189,7 @@ vLLM-MindSpore插件有以下两种安装方式。**vLLM-MindSpore插件快速�
         需要先拉取vLLM-MindSpore插件源码，再执行安装：
 
         ```bash
-        git clone -b r0.4.0 https://gitee.com/mindspore/vllm-mindspore.git
+        git clone -b r0.4.1 https://gitee.com/mindspore/vllm-mindspore.git
         cd vllm-mindspore
         pip install .
         ```
