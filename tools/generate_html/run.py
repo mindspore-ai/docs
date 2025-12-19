@@ -262,8 +262,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             subprocess.run(cmd_reppath)
 
         # 生成version.json后续放入_static/js/下
-        if data[i]['name'] != "mindscience":
-            generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
+        generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:
@@ -276,7 +275,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         if version == "daily" or flag_dev:
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             s = requests.session()
-            if data[i]['name'] == "reinforcement" or data[i]['name'] == "recommender":
+            if data[i]['name'] == "reinforcement" or data[i]['name'] == "recommender" or data[i]['name'] == "mindscience":
                 wgetdir = WGETDIR + "mindspore-lab"
             else:
                 wgetdir = WGETDIR + "mindspore"
@@ -446,8 +445,6 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             ArraySource[data[i]['name']] = html_branch
         elif data[i]['name'] == "mindspore":
             ArraySource[data[i]['name']] = html_branch
-        elif data[i]['name'] == "mindscience":
-            pass
         else:
             ArraySource[data[i]['name'] + '/docs'] = html_branch
 

@@ -12,6 +12,7 @@
 #
 import os
 import sys
+import shutil
 import IPython
 import re
 import sphinx
@@ -191,6 +192,73 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import nbsphinx_mod
 
+import mindformers
+
+moment_dir = os.path.dirname(__file__)
+if os.path.exists(os.path.join(moment_dir, 'index.rst')):
+    os.remove(os.path.join(moment_dir, 'index.rst'))
+shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'docs/en/index.rst'),
+            os.path.join(moment_dir, 'index.rst'))
+
+copy_path = 'docs/en/api'
+src_dir = os.path.join(os.getenv("MSC_PATH"), copy_path)
+present_path = os.path.dirname(__file__)
+target_dir = './api'
+
+if os.path.isdir(target_dir):
+    shutil.rmtree(target_dir)
+os.makedirs('./api', exist_ok=True)
+for i in os.listdir(src_dir):
+    if os.path.isfile(os.path.join(src_dir,i)):
+        shutil.copy(os.path.join(src_dir,i),'./api/'+i)
+    else:
+        shutil.copytree(os.path.join(src_dir,i),'./api/'+i)
+
+# 组件介绍处理
+component_name = ['MindChem', 'MindEarth', 'MindEnergy', 'MindFlow', 'MindSPONGE']
+spec_copy=[]
+for name in component_name:
+    minds_p = name + '/README.md' 
+    docs_p = name + '.md'
+    spec_copy.append([minds_p, docs_p])
+
+moment_dir = os.path.dirname(__file__)
+for minds_p, f_p in spec_copy:
+    ori_p = os.path.join(os.getenv("MSC_PATH"), minds_p)
+    if os.path.exists(os.path.join(moment_dir, f_p)):
+        os.remove(os.path.join(moment_dir, f_p))
+    shutil.copy(ori_p, os.path.join(moment_dir, f_p))
+
+for file_name in component_name:
+    file_path = os.path.join(moment_dir, f"{file_name}.md")  
+    with open(file_path, 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub(r'.*?(README_CN.md).*\n.*\n', '', content)
+        content = re.sub(r'^\s*\[\!\[.*?\]\(.*?\)\]\(.*?\)\s*$', '', content, flags=re.M)
+        content = re.sub(r'!\[MindSPONGE标志\]\(.*?"MindSPONGE logo"\)', '', content)
+        content = re.sub(r'## Contents\n[\s\S]*?\n---\n?', '', content)
+        content = re.sub(r'## Table of Contents\n*\s*(?:- \[.*?\]\(.*?\)\n*\s*)*', '', content)
+        content = re.sub(r'(?ms)^\s*#{1,6}\s*(Contribution Guide|License)\b.*', '', content)
+        content = re.sub(r'\n{2,}', '\n\n', content).strip()       
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+if not os.path.exists(os.path.join(moment_dir, 'install.md')):
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'install.md'),
+                os.path.join(moment_dir, 'install.md'))
+
+if not os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start.md'),
+                os.path.join(moment_dir, 'quick_start.md'))
+
+if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION.md'),
+                os.path.join(moment_dir, 'CONTRIBUTING.md'))
+
+if not os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE.md'),
+                os.path.join(moment_dir, 'RELEASE.md'))
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code

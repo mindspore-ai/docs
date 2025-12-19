@@ -3,7 +3,14 @@
 
 .. currentmodule:: {{ module }}
 
-{% if objname in [] %}
+{% if fullname=="mindscience.models.transformer.Attention" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: get_qkv, mask_scores, merge_mask, construct
+    :members:
+
+{% elif objname in [] %}
 {{ fullname | underline }}
 
 .. autofunction:: {{ fullname }}

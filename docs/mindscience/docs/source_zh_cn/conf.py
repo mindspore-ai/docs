@@ -207,17 +207,91 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+moment_dir = os.path.dirname(__file__)
+if os.path.exists(os.path.join(moment_dir, 'index.rst')):
+    os.remove(os.path.join(moment_dir, 'index.rst'))
+shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'docs/zh_cn/index.rst'),
+            os.path.join(moment_dir, 'index.rst'))
+
+copy_path = 'docs/zh_cn/api'
+src_dir = os.path.join(os.getenv("MSC_PATH"), copy_path)
+
+present_path = os.path.dirname(__file__)
+target_dir = './api'
+
+if os.path.isdir(target_dir):
+    shutil.rmtree(target_dir)
+os.makedirs('./api', exist_ok=True)
+for i in os.listdir(src_dir):
+    if os.path.isfile(os.path.join(src_dir,i)):
+        shutil.copy(os.path.join(src_dir,i),'./api/'+i)
+    else:
+        shutil.copytree(os.path.join(src_dir,i),'./api/'+i)
+
+# 组件介绍处理
+component_name = ['MindChem', 'MindEarth', 'MindEnergy', 'MindFlow', 'MindSPONGE']
+spec_copy=[]
+for name in component_name:
+    minds_p = name + '/README_CN.md' 
+    docs_p = name + '.md'
+    spec_copy.append([minds_p, docs_p])
+
+moment_dir = os.path.dirname(__file__)
+for minds_p, f_p in spec_copy:
+    ori_p = os.path.join(os.getenv("MSC_PATH"), minds_p)
+    if os.path.exists(os.path.join(moment_dir, f_p)):
+        os.remove(os.path.join(moment_dir, f_p))
+    shutil.copy(ori_p, os.path.join(moment_dir, f_p))
+
+for file_name in component_name:
+    file_path = os.path.join(moment_dir, f"{file_name}.md")        
+    with open(file_path, 'r+', encoding='utf-8') as f:
+        content = f.read()
+        if file_name != 'MindSPONGE':
+            content = re.sub(r'.*?(README.md).*\n.*\n', '', content, count=1)
+        content = re.sub(r'^\s*\[\!\[.*?\]\(.*?\)\]\(.*?\)\s*$', '', content, flags=re.M)
+        content = re.sub(r'!\[MindSPONGE标志\]\(.*?"MindSPONGE logo"\)', '', content)
+        content = re.sub(r'## 目录\n[\s\S]*?\n---\n?', '', content)
+        content = re.sub(r'## 目录\n*\s*(?:- \[.*?\]\(.*?\)\n*\s*)*', '', content)
+        content = re.sub(r'(?ms)^\s*#{1,6}\s*(贡献指南|许可证)\b.*', '', content)
+        content = re.sub(r'\n{2,}', '\n\n', content).strip()           
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+if not os.path.exists(os.path.join(moment_dir, 'install.md')):
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'install_CN.md'),
+                os.path.join(moment_dir, 'install.md'))
+
+if not os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start_CN.md'),
+                os.path.join(moment_dir, 'quick_start.md'))
+
+if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION_CN.md'),
+                os.path.join(moment_dir, 'CONTRIBUTING.md'))
+
+if not os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE_CN.md'),
+                os.path.join(moment_dir, 'RELEASE.md'))
+
+# 提取样例、支持平台至中文
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnPlatformAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsCnAutoSummary, MsNoteAutoSummary, MsCnPlatformAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('./**/*.rst', recursive=True)])
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
+    app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
