@@ -238,14 +238,14 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: grads_for_legacy, grads_for_mcore
+    :exclude-members: grads_for_legacy, grads_for_mcore, construct
     :members:
 
 {% elif fullname=="mindformers.wrapper.MFTrainOneStepCell" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: grads_for_legacy, grads_for_mcore
+    :exclude-members: grads_for_legacy, grads_for_mcore, construct
     :members:    
 
 {% elif fullname in ["mindformers.AutoModelForCausalLM", "mindformers.AutoModelForZeroShotImageClassification", "mindformers.AutoModel"] %}
