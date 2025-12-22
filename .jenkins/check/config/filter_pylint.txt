@@ -1,6 +1,11 @@
 # docs
 "docs/docs/mindformers/docs/source_zh_cn/example/distilled/distilled/generate_reasoning.py"                                                            "Unexpected keyword argument"
 "docs/docs/mindformers/docs/_ext/myautosummary.py"                                                            "Unused argument"
+"docs/docs/mindformers/docs/_ext/myautosummary.py"
+"docs/docs/mindformers/docs/source_zh_cn/example/convert_ckpt_to_megatron/convert_ckpt_to_megatron/loader_core_mf.py"
+"docs/docs/mindformers/docs/source_zh_cn/example/distilled/distilled/generate_reasoning.py"
+"docs/docs/mindformers/docs/source_zh_cn/example/distilled/distilled/openr1_data_handler.py"
+"docs/docs/mindformers/docs/source_zh_cn/example/distilled/distilled/reject_sampling.py"
 
 #tools
 "docs/tools/generate_html"
