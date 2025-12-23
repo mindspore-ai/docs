@@ -62,59 +62,12 @@
         "theme": "theme-docs"
     },
     {
-        "version": "r2.7.2",
+        "version": "r1.8.0",
         "label": {
-            "zh": "MindSpore Lite",
-            "en": "MindSpore Lite"
+            "zh": "MindSpore Transformers",
+            "en": "MindSpore Transformers"
         },
-        "repo_name": "lite",
-        "submenu": {
-            "zh": [
-                {
-                    "label": "概述",
-                    "url": "/lite?version=r2.7.2"
-                },
-                {
-                    "label": "下载",
-                    "url": "/lite/docs/zh-CN/r2.7.2/use/downloads.html"
-                },
-                {
-                    "label": "文档",
-                    "url": "/lite/docs/zh-CN/r2.7.2/index.html"
-                },
-                {
-                    "label": "API",
-                    "url": "/lite/api/zh-CN/r2.7.2/index.html"
-                }
-            ],
-            "en": [
-                {
-                    "label": "Overview",
-                    "url": "/lite/en?version=r2.7.2"
-                },
-                {
-                    "label": "Downloads",
-                    "url": "/lite/docs/en/r2.7.2/use/downloads.html"
-                },
-                {
-                    "label": "Docs",
-                    "url": "/lite/docs/en/r2.7.2/index.html"
-                },
-                {
-                    "label": "API",
-                    "url": "/lite/api/en/r2.7.2/index.html"
-                }
-            ]
-        },
-        "theme": "theme-lite"
-    },
-    {
-        "version": "r0.4.1",
-        "label": {
-            "zh": "vLLM-MindSpore Plugin",
-            "en": "vLLM-MindSpore Plugin"
-        },
-        "repo_name": "vllm_mindspore",
+        "repo_name": "mindformers",
         "theme": "theme-docs"
     }
 ]
