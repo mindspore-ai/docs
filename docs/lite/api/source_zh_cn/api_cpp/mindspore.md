@@ -120,7 +120,7 @@
 
 ## Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
 
@@ -408,7 +408,7 @@ std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo()
 
 ## DelegateMode
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 ```cpp
 enum DelegateMode {
@@ -421,7 +421,7 @@ Delegate模式。
 
 ## DeviceInfoContext
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 DeviceInfoContext类定义不同硬件设备的环境信息。
 
@@ -552,7 +552,7 @@ std::shared_ptr<Allocator> GetAllocator() const
 
 ## CPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在CPU上的配置。
 
@@ -598,7 +598,7 @@ bool GetEnableFP16() const
 
 ## GPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置。
 
@@ -786,7 +786,7 @@ void *GetGLDisplay() const
 
 ## KirinNPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在NPU上的配置。
 
@@ -856,7 +856,7 @@ int GetFrequency() const
 
 ## AscendDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Atlas 200/300/500推理产品、Atlas推理系列产品上的配置。
 
@@ -3913,7 +3913,7 @@ model_
 
 ## CkptSaver
 
-\#include &lt;[ckpt_saver.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/ckpt_saver.h)&gt;
+\#include &lt;[ckpt_saver.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/callback/ckpt_saver.h)&gt;
 
 `Metrics`MindSpore Lite训练模型文件保存类。
 
@@ -4137,7 +4137,7 @@ std::string Version()
 
 ## Allocator
 
-\#include &lt;[allocator.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/allocator.h)&gt;
+\#include &lt;[allocator.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/allocator.h)&gt;
 
 内存管理基类。
 
@@ -4882,7 +4882,7 @@ Status Load(uint32_t device_id)
 
 ## RunnerConfig
 
-\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model_parallel_runner.h)&gt;
+\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/model_parallel_runner.h)&gt;
 
 RunnerConfig定义了ModelParallelRunner中使用的配置选项参数。
 
@@ -5031,7 +5031,7 @@ std::vector<uint32_t> GetDeviceIds() const
 
 ## ModelParallelRunner
 
-\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model_parallel_runner.h)&gt;
+\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/model_parallel_runner.h)&gt;
 
 ModelParallelRunner定义了MindSpore的多个Model以及并发策略，便于多个Model的调度与管理。
 

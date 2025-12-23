@@ -148,7 +148,7 @@ virtual Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<minds
 
 ## MSKernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/kernel_api.h)>
+\#include <[kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/kernel_api.h)>
 
 MindSpore Kernel 算子类。是IKernel的父类。
 

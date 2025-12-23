@@ -82,7 +82,7 @@ MindSpore Transformers功能特性说明
 
     [Checkpoint 1.0 版本] 支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
 
-  - `checkpoint保存和加载 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/checkpoint_saving_and_laoding.html>`_
+  - `checkpoint保存和加载 <https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/checkpoint_saving_and_loading.html>`_
 
     [Checkpoint 2.0 版本] 支持checkpoint保存和加载功能。
 
