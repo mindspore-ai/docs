@@ -302,7 +302,7 @@ kNumberTypeEnd,         // Number 类型结束值
 
 ### function tensor
 
-构造常量张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/tensor_utils.h)头文件中。
+构造常量张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/tensor_utils.h)头文件中。
 
 ```cpp
 Tensor tensor(int64_t value, TypeId dtype = TypeId::kNumberTypeInt64)
@@ -319,7 +319,7 @@ Tensor tensor(const std::vector<double> &value, TypeId dtype = TypeId::kNumberTy
 
 ### function ones
 
-构造全1张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/tensor_utils.h)头文件中。
+构造全1张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/tensor_utils.h)头文件中。
 
 ```cpp
 Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
@@ -333,7 +333,7 @@ Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
 
 ### function zeros
 
-构造全0张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/tensor_utils.h)头文件中。
+构造全0张量的工厂方法，定义在[tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/tensor_utils.h)头文件中。
 
 ```cpp
 Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
