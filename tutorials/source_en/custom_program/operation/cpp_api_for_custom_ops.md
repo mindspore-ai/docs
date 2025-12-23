@@ -302,7 +302,7 @@ The following methods are not part of the API and are used only in internal modu
 
 ### function tensor
 
-Factory methods for constructing constant tensors, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/tensor_utils.h) header file.
+Factory methods for constructing constant tensors, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/tensor_utils.h) header file.
 
 ```cpp
 Tensor tensor(int64_t value, TypeId dtype = TypeId::kNumberTypeInt64)
@@ -319,7 +319,7 @@ Tensor tensor(const std::vector<double> &value, TypeId dtype = TypeId::kNumberTy
 
 ### function ones
 
-Factory method for constructing a tensor filled with ones, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/tensor_utils.h) header file.
+Factory method for constructing a tensor filled with ones, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/tensor_utils.h) header file.
 
 ```cpp
 Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
@@ -333,7 +333,7 @@ Tensor ones(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
 
 ### function zeros
 
-Factory method for constructing a tensor filled with zeros, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/tensor_utils.h) header file.
+Factory method for constructing a tensor filled with zeros, defined in the [tensor_utils.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/tensor_utils.h) header file.
 
 ```cpp
 Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32)
