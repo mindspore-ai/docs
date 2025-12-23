@@ -83,7 +83,7 @@ MindSpore Transformers provides a wealth of features throughout the full-process
 
     [Checkpoint 1.0] Supports step-level resumable training after breakpoint, effectively reducing the waste of time and resources caused by unexpected interruptions during large-scale training.
 
-  - `Checkpoint Saving and Loading <https://www.mindspore.cn/mindformers/docs/en/r1.8.0/feature/checkpoint_saving_and_laoding.html>`_
+  - `Checkpoint Saving and Loading <https://www.mindspore.cn/mindformers/docs/en/r1.8.0/feature/checkpoint_saving_and_loading.html>`_
 
     [Checkpoint 2.0] Supports checkpoint saving and loading.
 
