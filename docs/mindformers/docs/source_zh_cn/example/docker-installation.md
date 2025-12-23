@@ -1,5 +1,7 @@
 # 制作 MindSpore Transformers 的 Docker 镜像的实践案例
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/docker-installation.md)
+
 本案例将分享构建 **MindSpore Transformers** 的 Docker 镜像的实践，开发者可以参考本案例构建自己的镜像。
 
 > 本案例提供制作镜像的方案和软件包均来源于开源社区，仅供参考。用户参考本案例制作的镜像，如需用于生产环境部署等商用行为，需自行保障镜像的可靠性、安全性等，MindSpore Transformers 不对其网络安全性负责，请在可信的环境中使用。

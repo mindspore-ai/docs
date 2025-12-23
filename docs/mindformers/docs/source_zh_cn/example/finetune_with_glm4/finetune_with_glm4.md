@@ -1,5 +1,7 @@
 # 使用GLM4-9B进行多卡模型微调的实践案例
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/finetune_with_glm4/finetune_with_glm4.md)
+
 本文由Killjoy, chen-xialei, fuyao-15989607593, laozhuang, oacjiewen贡献。
 
 本案例基于MindSpore框架和MindSpore Transformers大模型套件，指导用户对GLM4-9B模型进行微调，以提升其在自定义任务上的性能。涵盖了从环境配置、数据准备、权重转换、模型训练、权重合并、反转和推理测试的完整流程。通过以下步骤，您可以了解如何利用MindSpore Transformers对模型进行训练。
