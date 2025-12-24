@@ -119,118 +119,10 @@
     {
         "version": "master",
         "label": {
-            "zh": "MindSpore Insight",
-            "en": "MindSpore Insight"
-        },
-        "repo_name": "mindinsight",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
             "zh": "MindSpore Golden Stick",
             "en": "MindSpore Golden Stick"
         },
         "repo_name": "golden_stick",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Graph Learning",
-            "en": "MindSpore Graph Learning"
-        },
-        "repo_name": "graphlearning",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Reinforcement",
-            "en": "MindSpore Reinforcement"
-        },
-        "repo_name": "reinforcement",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Elec",
-            "en": "MindSpore Elec"
-        },
-        "repo_name": "mindelec",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Earth",
-            "en": "MindSpore Earth"
-        },
-        "repo_name": "mindearth",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore SciAI",
-            "en": "MindSpore SciAI"
-        },
-        "repo_name": "sciai",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore SPONGE",
-            "en": "MindSpore SPONGE"
-        },
-        "repo_name": "mindsponge",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Flow",
-            "en": "MindSpore Flow"
-        },
-        "repo_name": "mindflow",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Serving",
-            "en": "MindSpore Serving"
-        },
-        "repo_name": "serving",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Pandas",
-            "en": "MindSpore Pandas"
-        },
-        "repo_name": "mindpandas",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Federated",
-            "en": "MindSpore Federated"
-        },
-        "repo_name": "federated",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Recommender",
-            "en": "MindSpore Recommender"
-        },
-        "repo_name": "recommender",
         "theme": "theme-docs"
     },
     {
@@ -245,55 +137,10 @@
     {
         "version": "master",
         "label": {
-            "zh": "MindSpore Dev Toolkit",
-            "en": "MindSpore Dev Toolkit"
-        },
-        "repo_name": "devtoolkit",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
             "zh": "MindSpore Quantum",
             "en": "MindSpore Quantum"
         },
         "repo_name": "mindquantum",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Hub",
-            "en": "MindSpore Hub"
-        },
-        "repo_name": "hub",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Probability",
-            "en": "MindSpore Probability"
-        },
-        "repo_name": "probability",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore XAI",
-            "en": "MindSpore XAI"
-        },
-        "repo_name": "xai",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "master",
-        "label": {
-            "zh": "MindSpore Chemistry",
-            "en": "MindSpore Chemistry"
-        },
-        "repo_name": "mindchemistry",
         "theme": "theme-docs"
     },
     {

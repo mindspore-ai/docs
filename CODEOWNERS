@@ -80,35 +80,10 @@
 /docs/mindarmour/docs/source_zh_cn/ @yyuse @gemini524
 /docs/mindarmour/docs/source_zh_cn/conf.py @gemini524
 
-# The maintainers of MindSpore Chemistry docs.
-/docs/mindchemistry/docs/source_zh_cn/ @yi-zhang95 @gemini524
-/docs/mindchemistry/docs/source_zh_cn/_templates/ @gemini524
-/docs/mindchemistry/docs/source_zh_cn/conf.py @gemini524
-
-# The maintainers of MindSpore Earth docs.
-/docs/mindearth/docs/source_zh_cn/ @yi-zhang95 @gemini524
-/docs/mindearth/docs/source_zh_cn/_templates/ @gemini524
-/docs/mindearth/docs/source_zh_cn/conf.py @gemini524
-
-# The maintainers of MindSpore Elec docs.
-/docs/mindelec/docs/source_zh_cn/ @yi-zhang95 @gemini524
-/docs/mindelec/docs/source_zh_cn/_templates/ @gemini524
-/docs/mindelec/docs/source_zh_cn/conf.py @gemini524
-
-# The maintainers of MindSpore Flow docs.
-/docs/mindflow/docs/source_zh_cn/ @yi-zhang95 @gemini524
-/docs/mindflow/docs/source_zh_cn/_templates/ @gemini524
-/docs/mindflow/docs/source_zh_cn/conf.py @gemini524
-
 # The maintainers of MindSpore Quantum docs.
 /docs/mindquantum/docs/source_zh_cn/ @dsdsdshe @gemini524
 /docs/mindquantum/docs/source_zh_cn/_templates/ @gemini524
 /docs/mindquantum/docs/source_zh_cn/conf.py @gemini524
-
-# The maintainers of MindSpore SPONGE docs.
-/docs/mindsponge/docs/source_zh_cn/ @yi-zhang95 @gemini524
-/docs/mindsponge/docs/source_zh_cn/_templates/ @gemini524
-/docs/mindsponge/docs/source_zh_cn/conf.py @gemini524
 
 # The maintainers of MSAdapter docs.
 /docs/msadapter/docs/source_zh_cn/ @lvyufenghw @gemini524
