@@ -98,6 +98,8 @@
     "whl_path" : "/mindscience/version/",
     "whl_name" : "mindscience-.*-linux_x86_64.whl$",
     "environ" : "MSC_PATH",
-    "uninstall_name" : "mindscience"
+    "uninstall_name" : "mindscience",
+    "extra_whl_path" : "/mindspore/website/master/cpu/x86_64",
+    "extra_whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$"
 }
 ]

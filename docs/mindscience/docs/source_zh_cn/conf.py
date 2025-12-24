@@ -207,6 +207,8 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+import mindscience
+
 moment_dir = os.path.dirname(__file__)
 if os.path.exists(os.path.join(moment_dir, 'index.rst')):
     os.remove(os.path.join(moment_dir, 'index.rst'))
@@ -259,21 +261,21 @@ for file_name in component_name:
         f.truncate()
         f.write(content)
 
-if not os.path.exists(os.path.join(moment_dir, 'install.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'install_CN.md'),
-                os.path.join(moment_dir, 'install.md'))
+# if not os.path.exists(os.path.join(moment_dir, 'install.md')):
+#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'install_CN.md'),
+#                 os.path.join(moment_dir, 'install.md'))
 
-if not os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start_CN.md'),
-                os.path.join(moment_dir, 'quick_start.md'))
+# if not os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
+#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start_CN.md'),
+#                 os.path.join(moment_dir, 'quick_start.md'))
 
 if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION_CN.md'),
+    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION.md'),
                 os.path.join(moment_dir, 'CONTRIBUTING.md'))
 
-if not os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE_CN.md'),
-                os.path.join(moment_dir, 'RELEASE.md'))
+# if not os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
+#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE_CN.md'),
+#                 os.path.join(moment_dir, 'RELEASE.md'))
 
 # 提取样例、支持平台至中文
 from sphinx import directives

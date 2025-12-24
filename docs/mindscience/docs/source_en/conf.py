@@ -191,8 +191,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import nbsphinx_mod
-
-import mindformers
+import mindscience
 
 moment_dir = os.path.dirname(__file__)
 if os.path.exists(os.path.join(moment_dir, 'index.rst')):
@@ -244,21 +243,21 @@ for file_name in component_name:
         f.truncate()
         f.write(content)
 
-if not os.path.exists(os.path.join(moment_dir, 'install.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'install.md'),
-                os.path.join(moment_dir, 'install.md'))
+# if not os.path.exists(os.path.join(moment_dir, 'install.md')):
+#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'install.md'),
+#                 os.path.join(moment_dir, 'install.md'))
 
-if not os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start.md'),
-                os.path.join(moment_dir, 'quick_start.md'))
+# if not os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
+#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start.md'),
+#                 os.path.join(moment_dir, 'quick_start.md'))
 
-if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION.md'),
-                os.path.join(moment_dir, 'CONTRIBUTING.md'))
+# if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
+#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION.md'),
+#                 os.path.join(moment_dir, 'CONTRIBUTING.md'))
 
-if not os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE.md'),
-                os.path.join(moment_dir, 'RELEASE.md'))
+# if not os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
+#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE.md'),
+#                 os.path.join(moment_dir, 'RELEASE.md'))
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code

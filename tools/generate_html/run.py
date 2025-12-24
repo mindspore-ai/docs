@@ -347,6 +347,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
             # 下载其他需求的组件whl包
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
+                if data[i]['name'] == "mindscience":
+                    wgetdir = WGETDIR + "mindspore"
                 url = f"{wgetdir}/{data[i]['extra_whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
                     url += "/"
