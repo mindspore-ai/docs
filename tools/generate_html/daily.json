@@ -89,5 +89,15 @@
     "whl_name" : "mindquantum-.*-cp39-cp39-linux_x86_64.whl$",
     "environ" : "MQ_PATH",
     "uninstall_name" : "mindquantum"
+},
+{
+    "id" : 10 ,
+    "name" : "mindscience",
+    "branch" : "master",
+    "whl_search" : "ascend/x86_64/",
+    "whl_path" : "/mindscience/version/",
+    "whl_name" : "mindscience-.*-linux_x86_64.whl$",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : "mindscience"
 }
 ]

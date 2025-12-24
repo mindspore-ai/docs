@@ -331,5 +331,14 @@
         },
         "repo_name": "msadapter",
         "theme": "theme-docs"
+    },
+    {
+        "version": "master",
+        "label": {
+            "zh": "MindSpore Science",
+            "en": "MindSpore Science"
+        },
+        "repo_name": "mindscience",
+        "theme": "theme-docs"
     }
 ]
