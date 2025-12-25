@@ -556,6 +556,8 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                     f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
                     py_source_rel + '\n    :alt: View Source On Gitee\n\n'
 
+                if "_c_expression" in py_source_rel:
+                    re_view = ''
                 if re_view not in content:
                     content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
         filename = os.path.join(path, filename_map.get(name, name) + suffix)
