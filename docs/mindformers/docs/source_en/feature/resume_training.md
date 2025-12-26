@@ -98,7 +98,7 @@ For more information about weights, refer to [Ckpt Weights](https://www.mindspor
 
 #### Safetensors Weights
 
-Enabling automatic weight conversion will automatically merge safetensors weights into [full weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html#full-weights) for distributed loading. The merged safetensors weights will be saved to the `output/unified_checkpoint` folder. If the weights have been offline merged into [full weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html#full-weights), they will be directly loaded in a distributed manner. For offline merging steps, refer to the [Safetensors Weights - Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html) section.
+Enabling automatic weight conversion will automatically merge safetensors weights into [complete weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html#complete-weights) for distributed loading. The merged safetensors weights will be saved to the `output/unified_checkpoint` folder. If the weights have been offline merged into [complete weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html#complete-weights), they will be directly loaded in a distributed manner. For offline merging steps, refer to the [Safetensors Weights - Weight Slicing and Merging](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html) section.
 
 - Resume training from the last fully saved weights
 
