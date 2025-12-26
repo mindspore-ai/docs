@@ -7,22 +7,22 @@
 1. Dispatch机制
 2. Storage机制
 3. 静态编译机制
+4. DTensor与FSDP2
 
-这些机制的不同，导致用户需要手动修改代码，或者部分功能暂时不支持。
+这些机制的不同，部分功能暂时不支持。
 
 ## Dispatch机制
 
 `torch.dispatch` 是 PyTorch 中用于拦截和自定义张量操作的机制。它允许开发者在张量运算被调用时插入自己的逻辑，无论是为了调试、性能优化，还是实现特定领域的功能增强。这个特性是在 PyTorch 1.7中引入的，并且为高级用户提供了强大的能力来扩展PyTorch的功能。
 
 - Dispatch机制：当用户执行任何张量操作（例如加法、乘法等）时，实际上都是通过PyTorch的dispatch机制进行的。该机制决定了哪个具体实现（CPU、CUDA等）应该被执行。
-- torch.Tensor的子类化：通过创建一个继承自torch.Tensor的新类，并使用@torch_dispatch装饰器，用户可以自定义这些操作的行为。
+- torch.Tensor的子类化：通过创建一个继承自torch.Tensor的新类，并使用`__torch_dispatch__`，用户可以自定义这些操作的行为。
 
-当前MindSpore Storage机制在规划设计中，未来会支持。当前MSAdapter暂时不支持以下相关接口：
+当前MindSpore Dispatch机制在规划设计中，未来会支持。当前MSAdapter暂时不支持以下相关接口：
 
-1. torch.Tensor.to()
-2. torch自定义算子涉及dispatch部分
+1. torch自定义算子涉及dispatch部分
 
-**以上接口需要用户手动修改，即无需进行.to()操作， MSAdapter默认将模型与Tensor放置于Ascend NPU。可参考[快速入门](quick_start.md#torchtensorto)。**
+**MSAdapter支持.to()操作， 但是默认将模型与Tensor放置于Ascend NPU，与torch在默认行为上有区别。**
 
 ## Storage机制
 
@@ -51,7 +51,7 @@ x_loaded = torch.load('tensor.pt') # 加载张量
 model.load_state_dict(torch.load('model_params.pt'))  # 加载参数
 ```
 
-**MSAdapter已经支持torch.load，使用MindSpore 2.7.0后，MSAdapter将支持torch.save相关功能。**
+**使用MindSpore 2.7.1后、MSAdapter支持torch.save、torch.load相关功能。但是torch无法加载我们保存的文件。**
 
 ## 静态编译机制
 
@@ -92,3 +92,7 @@ traced_model = torch.fx.symbolic_trace(model) # 使用 fx.symbolic_trace 追踪�
 ```
 
 **此类接口由于MindSpore与PyTorch底层实现不同，MSAdapter暂不支持。**
+
+## DTensor与FSDP2
+
+**DTensor与FSDP2将在MSAdapter实现相关功能，正在开发中。**
