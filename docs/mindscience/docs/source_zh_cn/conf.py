@@ -245,12 +245,59 @@ for minds_p, f_p in spec_copy:
         os.remove(os.path.join(moment_dir, f_p))
     shutil.copy(ori_p, os.path.join(moment_dir, f_p))
 
-for file_name in component_name:
-    file_path = os.path.join(moment_dir, f"{file_name}.md")        
+if os.path.exists(os.path.join(moment_dir, 'install.md')):
+    os.remove(os.path.join(moment_dir, 'install.md'))
+shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'README_CN.md'),
+            os.path.join(moment_dir, 'install.md'))
+
+if os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
+    os.remove(os.path.join(moment_dir, 'CONTRIBUTING.md'))
+shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION.md'),
+            os.path.join(moment_dir, 'CONTRIBUTING.md'))
+
+# if os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
+#     os.remove(os.path.join(moment_dir, 'quick_start.md'))
+# shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start_CN.md'),
+#             os.path.join(moment_dir, 'quick_start.md'))
+
+# if os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
+#     os.remove(os.path.join(moment_dir, 'RELEASE.md'))
+# shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE_CN.md'),
+#             os.path.join(moment_dir, 'RELEASE.md'))
+
+# 处理install.md文件
+try:
+    with open('install.md', 'r+', encoding='utf-8') as f:
+        content = f.read()
+        target_start = "## 安装"
+        start_index = content.find(target_start)
+        content = content[start_index:]
+        new_content = re.sub(r'## 合作伙伴[\s\S]*', '', content).rstrip('\n')
+
+        #标题升级处理
+        def upgrade_header(match):
+            hashes = match.group(1)
+            space = match.group(2)
+            if len(hashes) == 1:
+                return space
+            return hashes[:-1] + space
+        pattern = re.compile(r'^(#{1,})(\s+)', re.MULTILINE)
+        new_content = pattern.sub(upgrade_header, new_content)
+        f.seek(0)
+        f.truncate()
+        f.write(new_content)
+except Exception as e:
+    print(f"读取文件失败：{e}")
+
+# 对md文件作相关处理
+md_name = ['MindChem', 'MindEarth', 'MindEnergy', 'MindFlow', 'MindSPONGE', 'CONTRIBUTING']
+for file_name in md_name:
+    file_path = os.path.join(moment_dir, f"{file_name}.md")
     with open(file_path, 'r+', encoding='utf-8') as f:
         content = f.read()
         if file_name != 'MindSPONGE':
             content = re.sub(r'.*?(README.md).*\n.*\n', '', content, count=1)
+        content = re.sub(r'<!-- TOC -->[\s\S]*?<!-- /TOC -->', '', content)
         content = re.sub(r'^\s*\[\!\[.*?\]\(.*?\)\]\(.*?\)\s*$', '', content, flags=re.M)
         content = re.sub(r'!\[MindSPONGE标志\]\(.*?"MindSPONGE logo"\)', '', content)
         content = re.sub(r'## 目录\n[\s\S]*?\n---\n?', '', content)
@@ -260,22 +307,6 @@ for file_name in component_name:
         f.seek(0)
         f.truncate()
         f.write(content)
-
-# if not os.path.exists(os.path.join(moment_dir, 'install.md')):
-#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'install_CN.md'),
-#                 os.path.join(moment_dir, 'install.md'))
-
-# if not os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
-#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start_CN.md'),
-#                 os.path.join(moment_dir, 'quick_start.md'))
-
-if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
-    shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION.md'),
-                os.path.join(moment_dir, 'CONTRIBUTING.md'))
-
-# if not os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
-#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'RELEASE_CN.md'),
-#                 os.path.join(moment_dir, 'RELEASE.md'))
 
 # 提取样例、支持平台至中文
 from sphinx import directives
