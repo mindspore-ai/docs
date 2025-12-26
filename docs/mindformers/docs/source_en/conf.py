@@ -168,6 +168,12 @@ def get_param_func(func):
                 if hasattr(v, 'default'):
                     if isinstance(v.default, str):
                         all_params += f"{k} = '{v.default}', "
+                    elif isinstance(v.default, float) and 'e-' in f"{v.default}":
+                        sci_str = str(v.default)
+                        num, exp = sci_str.split('e-')
+                        exp_final = exp.lstrip('0')
+                        format_num = f"{num}e-{exp_final}"
+                        all_params += f"{k} = {format_num}, "
                     else:
                         all_params += f"{k} = {v.default}, "
                 else:
