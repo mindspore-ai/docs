@@ -41,7 +41,7 @@ Using the MindSpore Lite inference framework primarily involves the following st
 
    3. Graph compilation: After model loading completes, the MindSpore Lite runtime compiles the graph. The model compilation phase consumes significant time, so it is recommended to create the model once, compile it once, and perform multiple inferences.
 
-3. Input data:
+3. Model inference:
 
    1. Input data must be padded before model execution.
 
