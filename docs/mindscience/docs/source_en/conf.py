@@ -247,9 +247,10 @@ for file_name in component_name:
 #     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'install.md'),
 #                 os.path.join(moment_dir, 'install.md'))
 
-# if not os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
-#     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start.md'),
-#                 os.path.join(moment_dir, 'quick_start.md'))
+if os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
+    os.remove(os.path.join(moment_dir, 'quick_start.md'))
+shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'docs/en/quick_start.md'),
+            os.path.join(moment_dir, 'quick_start.md'))
 
 # if not os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
 #     shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION.md'),

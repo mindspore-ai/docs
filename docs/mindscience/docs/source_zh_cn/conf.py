@@ -255,10 +255,10 @@ if os.path.exists(os.path.join(moment_dir, 'CONTRIBUTING.md')):
 shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'CONTRIBUTION.md'),
             os.path.join(moment_dir, 'CONTRIBUTING.md'))
 
-# if os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
-#     os.remove(os.path.join(moment_dir, 'quick_start.md'))
-# shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'quick_start_CN.md'),
-#             os.path.join(moment_dir, 'quick_start.md'))
+if os.path.exists(os.path.join(moment_dir, 'quick_start.md')):
+    os.remove(os.path.join(moment_dir, 'quick_start.md'))
+shutil.copy(os.path.join(os.getenv("MSC_PATH"), 'docs/zh_cn/quick_start.md'),
+            os.path.join(moment_dir, 'quick_start.md'))
 
 # if os.path.exists(os.path.join(moment_dir, 'RELEASE.md')):
 #     os.remove(os.path.join(moment_dir, 'RELEASE.md'))
