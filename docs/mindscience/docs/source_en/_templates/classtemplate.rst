@@ -10,6 +10,13 @@
     :exclude-members: get_qkv, mask_scores, merge_mask, construct
     :members:
 
+{% elif fullname in ["mindscience.sciops.fft.ASD_FFT", "mindscience.sciops.fft.ASD_FFT2D"] %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: forward
+    :members:
+
 {% elif objname in [] %}
 {{ fullname | underline }}
 
