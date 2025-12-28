@@ -39,8 +39,8 @@ vLLM-MindSpore插件采用vLLM社区推荐的插件机制，实现能力注册�
 - 操作系统：openEuler或Ubuntu Linux
 - 软件：
 
-  * Python >= 3.9, < 3.12
-  * CANN >= 8.0.0.beta1
+  * Python >= 3.10, <= 3.12
+  * CANN >= 8.3.RC1
   * MindSpore（与vLLM-MindSpore插件版本配套）
   * vLLM（与vLLM-MindSpore插件版本配套）
 
@@ -83,11 +83,14 @@ vLLM-MindSpore插件代码仓包含主干分支、开发分支、版本分支：
       -  Unmaintained
       -  基于vLLM v0.7.3版本和MindSpore 2.6.0版本CI看护。仅允许文档修复
    *  -  r0.3.0
-      -  Maintained
-      -  基于vLLM v0.8.3版本和MindSpore 2.7.0版本CI看护
+      -  Unmaintained
+      -  基于vLLM v0.8.3版本和MindSpore 2.7.0版本CI看护。仅允许文档修复
    *  -  r0.4.0
       -  Maintained
       -  基于vLLM v0.9.1版本和MindSpore 2.7.1版本CI看护
+   *  -  r0.5.0
+      -  Maintained
+      -  基于vLLM v0.11.0版本和MindSpore 2.7.1.post1版本CI看护
 
 SIG组织
 -----------------------------------------------------
@@ -110,6 +113,7 @@ Apache 许可证 2.0，如 `LICENSE <https://gitee.com/mindspore/vllm-mindspore/
    getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU
    getting_started/tutorials/qwen2.5_32b_multiNPU/qwen2.5_32b_multiNPU
    getting_started/tutorials/deepseek_parallel/deepseek_r1_671b_w8a8_dp4_tp4_ep4
+   getting_started/tutorials/qwen3_vl_8b_singleNPU/qwen3_vl_8b_singleNPU
 
 .. toctree::
    :glob:

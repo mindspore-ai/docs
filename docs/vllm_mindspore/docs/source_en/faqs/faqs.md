@@ -82,3 +82,28 @@
 - Solution:
 
     vLLM-MindSpore Plugin related dependencies are not installed completely, such as missing `torch`, `MSAdapter` and other components. Please refer to the [installation guide](../getting_started/installation/installation.md) for installation.
+
+### Inference Warning Related to `vllm._C`
+
+- Key warning message:
+
+    ```text
+    Failed to import from vllm._C with ModuleNotFoundError("No module named 'vllm._C'")
+    ```
+
+- Description:
+    This warning does not affect inference and does not impact the offline inference of the model.
+
+### Out of Memory During Inference
+
+- Key error message:
+    If the key message `Out of Memory` or `Allocate memory failed` appears, it indicates insufficient device memory.
+
+- Solution:
+    This error indicates that the device memory is insufficient and may be caused by several factors. It is recommended to investigate the following aspects:
+
+    1. Run the command `npu-smi info` to check whether the card is in exclusive mode. If not, try setting the card to exclusive mode.
+    2. Verify whether the model parameters are too large, leading to insufficient memory. If so, try reducing the model parameters or using distributed inference.
+    3. For online inference, adjust the `--max-model-len` parameter to reduce the maximum model length and lower memory usage, or increase `--gpu-memory-utilization` to improve GPU memory utilization.
+    4. For offline inference, when initializing the `LLM` object, set the `max_model_len` parameter to reduce the maximum model length, or increase the `gpu_memory_utilization` parameter to raise GPU memory usage.
+    5. Tune the hybrid parallelism strategy by appropriately increasing pipeline parallelism (pp) and model parallelism (mp) while correspondingly decreasing data parallelism (dp), ensuring `dp * mp * pp = device_num`. Increase the number of NPUs if necessary.
