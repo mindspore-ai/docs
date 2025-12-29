@@ -11,7 +11,7 @@ MindSpore Lite inference comprises two components: cloud-side inference and devi
 Usage Scenarios
 ------------------
 
-MindSpore Lite cloud-side inference is primarily designed for server-side devices, offering enhanced compatibility with model structures exported from the MindSpore training framework, as well as various open-source formats including ONNX, TFLite, and Pb, which is primarily applicable to Ascend cards such as the Atlas 300I Duo, Atlas 800I A2, Atlas 800I A3 series, as well as CPU hardware based on the X86/Arm architecture. MindSpore Lite has also implemented targeted optimizations and adaptations for various algorithmic scenarios. Its current features and optimizations primarily focus on multi-modal generation, speech recognition, speech synthesis, autonomous driving, vector models, and traditional computer vision domains.
+MindSpore Lite cloud-side inference is primarily designed for server-side devices, offering compatibility with model structures exported from the MindSpore training framework, as well as various open-source formats including ONNX, TFLite, and Pb, which is primarily applicable to Ascend cards such as the Atlas 300I Duo, Atlas 800I A2, Atlas 800I A3 series, as well as CPU hardware based on the X86/Arm architecture. MindSpore Lite has also implemented targeted optimizations and adaptations for various algorithmic scenarios. Its current features and optimizations primarily focus on multi-modal generation, speech recognition, speech synthesis, autonomous driving, vector models, and traditional computer vision domains.
 
 Advantages
 ------------
@@ -55,6 +55,7 @@ Using the MindSpore Lite inference framework primarily involves the following st
    :glob:
    :maxdepth: 1
    :caption: Obtain MindSpore Lite
+   :hidden:
 
    use/downloads
    use/build
@@ -63,6 +64,7 @@ Using the MindSpore Lite inference framework primarily involves the following st
    :glob:
    :maxdepth: 1
    :caption: Quick Start
+   :hidden:
 
    quick_start/one_hour_introduction
 
@@ -70,6 +72,7 @@ Using the MindSpore Lite inference framework primarily involves the following st
    :glob:
    :maxdepth: 1
    :caption: Model Converter
+   :hidden:
 
    mindir/converter_tool
    mindir/converter_python
@@ -80,6 +83,7 @@ Using the MindSpore Lite inference framework primarily involves the following st
    :glob:
    :maxdepth: 1
    :caption: Cloud-side Inference
+   :hidden:
 
    mindir/runtime
    mindir/runtime_parallel
@@ -89,13 +93,15 @@ Using the MindSpore Lite inference framework primarily involves the following st
    :glob:
    :maxdepth: 1
    :caption: Cloud-side Tools
+   :hidden:
 
-   mindir/benchmark
+   mindir/benchmark_tool
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: References
+   :hidden:
 
    reference/operator_lite
    reference/environment_variable_support
@@ -103,5 +109,6 @@ Using the MindSpore Lite inference framework primarily involves the following st
 .. toctree::
    :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE
