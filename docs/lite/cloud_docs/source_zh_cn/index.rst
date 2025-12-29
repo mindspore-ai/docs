@@ -69,6 +69,16 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 模型转换
+
+   mindir/converter_tool
+   mindir/converter_python
+   mindir/converter_tool_ascend
+   mindir/converter_custom
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 云侧推理
 
    mindir/runtime
@@ -80,7 +90,6 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地
    :maxdepth: 1
    :caption: 云侧工具
 
-   mindir/converter
    mindir/benchmark
 
 .. toctree::

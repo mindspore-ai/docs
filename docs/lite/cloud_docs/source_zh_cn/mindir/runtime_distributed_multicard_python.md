@@ -20,7 +20,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，本教�
     ./converter_lite --modelFile=model.onnx --fmk=ONNX --outputFile=SD2.1_size512_bs1 --inputShape="sample:1,4,64,64;timestep:1;encoder_hidden_states:1,77,1024" --optimize=ascend_oriented
     ```
 
-更多converter工具的使用方法以及模型转换时可配置的优化点，可参考[模型转换工具](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter.html)页面。
+更多converter工具的使用方法以及模型转换时可配置的优化点，可参考[模型转换工具](https://www.mindspore.cn/lite/cloud_docs/zh-CN/master/mindir/converter_tool.html)页面。
 
 后续章节将结合代码讲述MindSpore Lite云侧分布式推理主要步骤，参考[示例代码](https://gitee.com/mindspore/mindspore-lite/tree/master/mindspore-lite/examples/cloud_infer/ascend_parallel_python)。
 
