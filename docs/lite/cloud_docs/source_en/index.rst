@@ -11,7 +11,7 @@ MindSpore Lite inference comprises two components: cloud-side inference and devi
 Usage Scenarios
 ------------------
 
-MindSpore Lite cloud-side inference is primarily designed for server-side devices, offering compatibility with model structures exported from the MindSpore training framework, as well as various open-source formats including ONNX, TFLite, and Pb, which is primarily applicable to Ascend cards such as the Atlas 300I Duo, Atlas 800I A2, Atlas 800I A3 series, as well as CPU hardware based on the X86/Arm architecture. MindSpore Lite has also implemented targeted optimizations and adaptations for various algorithmic scenarios. Its current features and optimizations primarily focus on multi-modal generation, speech recognition, speech synthesis, autonomous driving, vector models, and traditional computer vision domains.
+MindSpore Lite cloud-side inference is primarily designed for server-side devices. It offers compatibility with model structures exported from the MindSpore training framework and various open-source formats including ONNX, TFLite, and Pb. This version is applicable to Ascend cards (such as Atlas 300I Duo, Atlas 800I A2, Atlas 800I A3 series) and CPU hardware based on X86/Arm architectures. MindSpore Lite has also implemented targeted optimizations and adaptations for various algorithmic scenarios. Its current features and optimizations primarily focus on multi-modal generation, speech recognition, speech synthesis, autonomous driving, vector models, and traditional computer vision domains.
 
 Advantages
 ------------
