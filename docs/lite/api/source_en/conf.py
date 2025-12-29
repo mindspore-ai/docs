@@ -639,6 +639,27 @@ using CreateKernel = std::function<decltype(CreateKernel)>;'''
 register_kernel_h_path = "../include/runtime/include/registry/register_kernel.h"
 code_content_replace(original_code, new_code, register_kernel_h_path)
 
+original_code = '''
+/// \\brief Get primitive type value from a Value object.
+///
+/// \\param[in] value The pointer to the Value object.
+///
+/// \\return The primitive type value of the Value object.
+template <typename T, typename U = typename ImmTrait<T>::type>
+inline T GetValue(const ValuePtr &value) {
+  if (value == nullptr) {
+    return T();
+  }
+  U imm = value->cast<U>();
+  if (imm == nullptr) {
+    return T();
+  }
+  return imm->value();
+}'''
+new_code = ''''''
+value_h_path = "../include/converter/include/mindapi/ir/value.h"
+code_content_replace(original_code, new_code, value_h_path)
+
 # for file_name in fileList:
 #     file_data = ''
 #     with open(file_name, 'r', encoding='utf-8') as f:
