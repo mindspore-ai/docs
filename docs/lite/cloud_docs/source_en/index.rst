@@ -69,6 +69,16 @@ Using the MindSpore Lite inference framework primarily involves the following st
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Model Converter
+
+   mindir/converter_tool
+   mindir/converter_python
+   mindir/converter_tool_ascend
+   mindir/converter_custom
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Cloud-side Inference
 
    mindir/runtime
@@ -80,7 +90,6 @@ Using the MindSpore Lite inference framework primarily involves the following st
    :maxdepth: 1
    :caption: Cloud-side Tools
 
-   mindir/converter
    mindir/benchmark
 
 .. toctree::
