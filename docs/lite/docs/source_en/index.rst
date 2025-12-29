@@ -11,7 +11,7 @@ MindSpore Lite inference comprises two components: cloud-side inference and devi
 Usage Scenarios
 ----------------
 
-MindSpore Lite supports industry-standard CPUs and Kirin NPU hardware devices on the edge. As a lightweight AI engine built into HarmonyOS, it establishes an open AI architecture supporting multi-processor architectures for all scenarios, enabling HarmonyOS's full-scenario intelligent applications. It also supports development on Android/iOS platforms, providing developers with end-to-end solutions. For algorithm engineers and data scientists, it delivers a developer-friendly experience with efficient runtime and flexible deployment, fostering the flourishing development of the AI software and hardware application ecosystem.
+MindSpore Lite device-side inference supports industry-standard CPUs and Kirin NPU hardware devices on the edge. As a lightweight AI engine built into HarmonyOS, it establishes an open AI architecture supporting multi-processor architectures for all scenarios, enabling HarmonyOS's full-scenario intelligent applications. It also supports development on Android/iOS platforms, providing developers with end-to-end solutions. For algorithm engineers and data scientists, it delivers a developer-friendly experience with efficient runtime and flexible deployment, fostering the flourishing development of the AI software and hardware application ecosystem.
 
 It is currently widely used in applications such as image classification, object detection, facial recognition, text recognition, and automatic speech recognition. Common scenarios include:
 

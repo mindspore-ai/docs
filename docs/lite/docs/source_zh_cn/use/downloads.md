@@ -6,9 +6,9 @@
 
 面向不同用户场景，MindSpore Lite发布包主要分为以下两大类：
 
-- 云侧：支持CPU/Ascend等服务端设备高性能部署场景；
+- MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地兼容MindSpore训练框架导出的模型结构，以及开源ONNX、TFLite、Pb等多种不同格式的模型结构。主要适用于Atlas 300I Duo、Atlas 800I A2、Atlas 800I A3等系列昇腾卡，以及X86/Arm架构的CPU硬件。
 
-- 端侧：支持安装鸿蒙/Android操作系统的手机、平板、IoT等各种智能设备。
+- MindSpore Lite端侧推理支持业界通用的CPU、Kirin NPU硬件设备，在HarmonyOS是系统内置的轻量化AI引擎，面向全场景构建支持多处理器架构的开放AI架构，使能鸿蒙全场景智能应用，同时支持基于Android/iOS平台进行开发。
 
 其中Linux-x86_64、Linux-aarch64的包已在Linux发行版Euleros2.0、Centos7.8、Ubuntu18.04版本上经过测试验证。
 
