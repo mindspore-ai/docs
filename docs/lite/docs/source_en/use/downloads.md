@@ -6,9 +6,9 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 
 For different user scenarios, the release packages of MindSpore Lite are mainly divided into the following two categories:
 
-- MindSpore Lite cloud-side inference is primarily designed for server-side devices, offering enhanced compatibility with model structures exported from the MindSpore training framework, as well as various open-source formats including ONNX, TFLite, and Pb, which is primarily applicable to Ascend cards such as the Atlas 300I Duo, Atlas 800I A2, Atlas 800I A3 series, as well as CPU hardware based on the X86/Arm architecture.
+- MindSpore Lite cloud-side inference: primarily designed for server-side devices, offering compatibility with model structures exported from the MindSpore training framework, as well as various open-source formats including ONNX, TFLite, and Pb, which is primarily applicable to Ascend cards such as the Atlas 300I Duo, Atlas 800I A2, Atlas 800I A3 series, as well as CPU hardware based on the X86/Arm architecture.
 
-- MindSpore Lite device-side inference supports industry-standard CPUs and Kirin NPU hardware devices on the edge. As a lightweight AI engine built into HarmonyOS, it establishes an open AI architecture supporting multi-processor architectures for all scenarios, enabling HarmonyOS's full-scenario intelligent applications. It also supports development on Android/iOS platforms.
+- MindSpore Lite device-side inference: supports industry-standard CPUs and Kirin NPU hardware devices on the edge. As a lightweight AI engine built into HarmonyOS, it establishes an open AI architecture supporting multi-processor architectures for all scenarios, enabling HarmonyOS's full-scenario intelligent applications. It also supports development on Android/iOS platforms.
 
 The Linux-x86_64 and Linux-aarch64 target have been tested and verified on the Linux distribution versions Euleros2.0, Centos7.8 and Ubuntu18.04.
 

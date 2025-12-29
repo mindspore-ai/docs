@@ -11,7 +11,7 @@ MindSpore Lite推理包含云侧推理和端侧推理两部分，该文档主要
 使用场景
 --------
 
-MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地兼容MindSpore训练框架导出的模型结构，以及开源ONNX、TFLite、Pb等多种不同格式的模型结构。主要适用于Atlas 300I Duo、Atlas 800I A2、Atlas 800I A3等系列昇腾卡，以及X86/Arm架构的CPU硬件。MindSpore Lite针对不同的算法场景也做了针对性的优化适配，当前MindSpore Lite特性功能与优化主要集中在多模态生成、语音识别、语音合成、自动驾驶、向量模型、传统CV等领域。
+MindSpore Lite云侧推理主要用于服务侧设备的推理，可以兼容MindSpore训练框架导出的模型结构，以及开源ONNX、TFLite、Pb等多种不同格式的模型结构。主要适用于Atlas 300I Duo、Atlas 800I A2、Atlas 800I A3等系列昇腾卡，以及X86/Arm架构的CPU硬件。MindSpore Lite针对不同的算法场景也做了针对性的优化适配，当前MindSpore Lite特性功能与优化主要集中在多模态生成、语音识别、语音合成、自动驾驶、向量模型、传统CV等领域。
 
 优势
 ----
@@ -55,6 +55,7 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地
    :glob:
    :maxdepth: 1
    :caption: 获取MindSpore Lite
+   :hidden:
 
    use/downloads
    use/build
@@ -63,6 +64,7 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地
    :glob:
    :maxdepth: 1
    :caption: 快速入门
+   :hidden:
 
    quick_start/one_hour_introduction
 
@@ -70,6 +72,7 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地
    :glob:
    :maxdepth: 1
    :caption: 模型转换
+   :hidden:
 
    mindir/converter_tool
    mindir/converter_python
@@ -80,6 +83,7 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地
    :glob:
    :maxdepth: 1
    :caption: 云侧推理
+   :hidden:
 
    mindir/runtime
    mindir/runtime_parallel
@@ -89,13 +93,15 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地
    :glob:
    :maxdepth: 1
    :caption: 云侧工具
+   :hidden:
 
-   mindir/benchmark
+   mindir/benchmark_tool
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: 参考文档
+   :hidden:
 
    reference/operator_lite
    reference/environment_variable_support
@@ -103,5 +109,6 @@ MindSpore Lite云侧推理主要用于服务侧设备的推理，可以更好地
 .. toctree::
    :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE

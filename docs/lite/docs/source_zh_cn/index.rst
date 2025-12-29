@@ -71,6 +71,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 获取MindSpore Lite
+   :hidden:
 
    use/downloads
    use/build
@@ -79,6 +80,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 快速入门
+   :hidden:
 
    quick_start/one_hour_introduction
 
@@ -86,6 +88,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 模型转换
+   :hidden:
 
    converter/converter_tool
 
@@ -93,6 +96,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 端侧推理
+   :hidden:
 
    infer/runtime_cpp
    infer/runtime_java
@@ -102,6 +106,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 端侧训练
+   :hidden:
 
    train/converter_train
    train/runtime_train
@@ -111,6 +116,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 端侧第三方接入
+   :hidden:
 
    advanced/third_party/register
    advanced/third_party/delegate
@@ -120,6 +126,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 高阶开发
+   :hidden:
 
    advanced/image_processing
    advanced/quantization
@@ -129,6 +136,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 端侧工具
+   :hidden:
 
    tools/visual_tool
    tools/benchmark
@@ -140,6 +148,7 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :glob:
    :maxdepth: 1
    :caption: 参考文档
+   :hidden:
 
    reference/operator_lite
    reference/operator_list_codegen
@@ -150,5 +159,6 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
 .. toctree::
    :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE

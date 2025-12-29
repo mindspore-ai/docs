@@ -71,6 +71,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: Obtain MindSpore Lite
+   :hidden:
 
    use/downloads
    use/build
@@ -79,6 +80,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: Quick Start
+   :hidden:
 
    quick_start/one_hour_introduction
 
@@ -86,6 +88,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: Model Conversion
+   :hidden:
 
    converter/converter_tool
 
@@ -93,6 +96,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: Device-side Inference
+   :hidden:
 
    infer/runtime_cpp
    infer/runtime_java
@@ -102,6 +106,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: Device-side Training
+   :hidden:
 
    train/converter_train
    train/runtime_train
@@ -111,6 +116,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: Device-side Third-party Access
+   :hidden:
 
    advanced/third_party/register
    advanced/third_party/delegate
@@ -120,6 +126,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: Advanced Development
+   :hidden:
 
    advanced/image_processing
    advanced/quantization
@@ -129,6 +136,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: Device-side Tools
+   :hidden:
 
    tools/visual_tool
    tools/benchmark
@@ -140,6 +148,7 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :glob:
    :maxdepth: 1
    :caption: References
+   :hidden:
 
    reference/operator_lite
    reference/operator_list_codegen
@@ -150,5 +159,6 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
 .. toctree::
    :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE
