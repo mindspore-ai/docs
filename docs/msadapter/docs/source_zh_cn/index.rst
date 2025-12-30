@@ -54,3 +54,12 @@ MSAdapter使用核心与目标
    msadapter_user_guide/constraints
    api
    msadapter_user_guide/llm
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: ReleaseNotes
+   :titlesonly:
+   :hidden:
+
+   msadapter_user_guide/release_notes
