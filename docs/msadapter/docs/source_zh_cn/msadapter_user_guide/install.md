@@ -2,18 +2,21 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/msadapter/docs/source_zh_cn/msadapter_user_guide/install.md)
 
-在昇腾NPU设备上，完成[昇腾固件](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/softwareinst/instg/instg_0003.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit)的安装后，执行以下步骤完成PyTorch、MindSpore和MSAdapter的安装：
+在昇腾NPU设备上，完成[昇腾固件](https://www.hiascend.com/document/detail/zh/canncommercial/83RC1/softwareinst/instg/instg_0003.html?Mode=PmIns&InstallType=local&OS=Ubuntu&Software=cannToolKit)的安装后，执行以下步骤完成MindSpore和MSAdapter的安装：
 
-## 1. 安装PyTorch和MindSpore
+## 1. 安装MindSpore
 
 ```bash
-pip install torch==2.1.0
 pip install mindspore
 ```
+
+推荐使用最新版本MindSpore，当前版本为2.7.1。无需安装PyTorch。
 
 ## 2. 下载安装MSAdapter源码
 
 目前MSAdapter不支持`pip install msadapter`方式安装，仅支持源码直接使用和源码编译安装。
+
+启智社区源码：https://openi.pcl.ac.cn/OpenI/MSAdapter
 
 - 如果用户希望直接使用源码，设置如下环境环境变量：
 
@@ -27,7 +30,7 @@ pip install mindspore
 - 如果用户希望以Python安装包编译的形式使用，进入MSAdapter目录，进行源码编译操作：
 
     ```bash
-    git clone https://gitee.com/mindspore/msadapter.git
+    git clone https://openi.pcl.ac.cn/OpenI/MSAdapter
     cd msadapter
     bash scripts/build.sh
     pip install ${your_workspace}/msadapter/dist/*.whl

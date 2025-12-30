@@ -6,7 +6,7 @@
 
 模型适配详细步骤如下：
 
-1. 使能MSAdapter
+1. 使用MSAdapter
 2. 训练
 
 ## PyTorch用例
@@ -46,11 +46,7 @@ def data_process(inputs, labels):
 def main():
     # 获取传参
     args = parse_args()
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))
-    ])
-    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transforms.ToTensor())
     # 加载数据集
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
     model = ToyModel().to('cuda')
@@ -81,9 +77,9 @@ if __name__ == "__main__":
 
 接下来，对应PyTorch的完整流程，说明如何使用MSAdapter完成相同的任务。
 
-### 1. 使能MSAdapter
+### 1. 使用MSAdapter
 
-MSAdapter已经兼容PyTorch的各类子模块，这里使能MSAdapter有两种方式第一种是微调脚本切换后端，第二种是环境变量切换。
+MSAdapter已经兼容PyTorch的各类子模块，这里使用MSAdapter有两种方式第一种是微调脚本切换后端，第二种是环境变量切换。
 
 #### 1.1 微调脚本切换后端
 
