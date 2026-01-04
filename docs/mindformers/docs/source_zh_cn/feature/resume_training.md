@@ -36,7 +36,7 @@ output/checkpoint
       └── {prefix}-{epoch}_{step}.safetensors
 ```
 
-> 权重名的prefix中携带rank_id信息，如：llama3_1_8b_rank_0；若保存权重时已存在相同prefix的权重，prefix会自动添加自增后缀以防止旧权重被覆盖。如"llama3_1_8b_rank_0"已存在时，prefix会更新为"llama3_1_8b_rank_0_1"，若"llama3_1_8b_rank_0_1"也已存在，prefix会更新为"llama3_1_8b_rank_0_2"。
+> 权重名的prefix中携带rank_id信息，如：qwen3_8b_rank_0；若保存权重时已存在相同prefix的权重，prefix会自动添加自增后缀以防止旧权重被覆盖。如"qwen3_8b_rank_0"已存在时，prefix会更新为"qwen3_8b_rank_0_1"，若"qwen3_8b_rank_0_1"也已存在，prefix会更新为"qwen3_8b_rank_0_2"。
 
 策略文件仅在分布式训练任务中保存，用于**权重策略转换**。策略文件以rank_id作为后缀，固定保存为ckpt格式的文件，主要记录了当前rank的网络和优化器切分信息。以单机8卡为例，策略文件保存格式如下：
 
@@ -90,7 +90,7 @@ output/strategy
   resume_training: {prefix}-{epoch}_{step}.safetensors
   ```
 
-  用户需确保指定权重的完整性。各rank会自动替换"prefix"中的rank信息来更新要加载的权重名，比如指定的权重名为`llama3_1_8b_rank_0-200_1.safetensors`，rank_1加载时会将权重名替换为`llama3_1_8b_rank_1-200_1.safetensors`。若某rank下权重缺失，会报错权重文件找不到。
+  用户需确保指定权重的完整性。各rank会自动替换"prefix"中的rank信息来更新要加载的权重名，比如指定的权重名为`qwen3_8b_rank_0-200_1.safetensors`，rank_1加载时会将权重名替换为`qwen3_8b_rank_1-200_1.safetensors`。若某rank下权重缺失，会报错权重文件找不到。
 
 ### 策略转换续训
 

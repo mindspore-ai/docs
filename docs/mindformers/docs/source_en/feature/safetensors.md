@@ -28,24 +28,26 @@ Safetensors complete weights can be obtained in two ways:
 Huggingface Safetensors example catalog structure is as follows:
 
 ```text
-qwen2_7b
+qwen3_8b
  └── hf_unified_safetensors
-        ├── model-00001-of-00004.safetensors
-        ├── model-00002-of-00004.safetensors
-        ├── model-00003-of-00004.safetensors
-        ├── model-00004-of-00004.safetensors
+        ├── model-00001-of-00005.safetensors
+        ├── model-00002-of-00005.safetensors
+        ├── model-00003-of-00005.safetensors
+        ├── model-00004-of-00005.safetensors
+        ├── model-00005-of-00005.safetensors
         └── model.safetensors.index.json        # Huggingface weight parameter and file storage relationship mapping json file
 ```
 
 MindSpore Safetensors example catalog structure is as follows:
 
 ```text
-qwen2_7b
+qwen3_8b
  └── ms_unified_safetensors
-        ├── model-00001-of-00004.safetensors
-        ├── model-00002-of-00004.safetensors
-        ├── model-00003-of-00004.safetensors
-        ├── model-00004-of-00004.safetensors
+        ├── model-00001-of-00005.safetensors
+        ├── model-00002-of-00005.safetensors
+        ├── model-00003-of-00005.safetensors
+        ├── model-00004-of-00005.safetensors
+        ├── model-00005-of-00005.safetensors
         ├── hyper_param.safetensors            # Hyperparameter files for training task records
         └── param_name_map.json                # MindSpore weight parameter and file storage relationship mapping json file
 ```
@@ -60,15 +62,15 @@ Safetensors distributed weights can be obtained in two ways:
 Distributed Safetensors example catalog structure is as follows:
 
 ```text
-qwen2_7b
+qwen3_8b
  └── distributed_safetensors
         ├── rank_0
-            └── qwen2_7b_rank_0.safetensors
+            └── qwen3_8b_rank_0.safetensors
         ├── rank_1
-            └── qwen2_7b_rank_1.safetensors
+            └── qwen3_8b_rank_1.safetensors
         ...
         └── rank_x
-            └── qwen2_7b_rank_x.safetensors
+            └── qwen3_8b_rank_x.safetensors
 ```
 
 ## Weight Saving
@@ -183,7 +185,7 @@ MindSpore Transformers supports training, inference, and resumable training in a
 
 ```yaml
 # configuration file
-load_checkpoint: '/qwen2_7b/unified_safetensors'    # Load full weights file path
+load_checkpoint: '/qwen3_8b/unified_safetensors'    # Load full weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: False                              # Full weights + single card loading requires this configuration item to be turned off
 use_parallel: False                                 # single card loading
@@ -197,7 +199,7 @@ parallel_config:                                    # Configure the target distr
 
 ```yaml
 # configuration file
-load_checkpoint: '/qwen2_7b/unified_safetensors'    # Load full weights file path
+load_checkpoint: '/qwen3_8b/unified_safetensors'    # Load full weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for full weights + distributed loading to turn on online slicing
 use_parallel: True                                  # Multi-cards loading
@@ -252,7 +254,7 @@ If a unified shared storage path (such as the NFS-mounted /worker directory) is 
 
 ```yaml
 output_dir: './output'                              # The strategy file is generated under ./output/strategy, which is used to slice the weights online.
-load_checkpoint: '/qwen2_7b/unified_safetensors'    # Load full weights file path
+load_checkpoint: '/qwen3_8b/unified_safetensors'    # Load full weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for full weights + distributed loading to turn on online slicing
 train_dataset: &train_dataset
@@ -347,7 +349,7 @@ Distribute the merged strategy file `dst_strategy.ckpt` to each node under the `
 
 ```yaml
 output_dir: './output'                              # Make sure that each node under ./output/merged_strategy/ has the merged strategy file
-load_checkpoint: '/qwen2_7b/unified_safetensors'    # Load full weights file path
+load_checkpoint: '/qwen3_8b/unified_safetensors'    # Load full weights file path
 load_ckpt_format: 'safetensors'                     # Load weight file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for full weights + distributed loading to turn on online slicing
 ```
@@ -592,31 +594,31 @@ callbacks:
 
 ### Examples of Training Tasks
 
-If you use the full weighted multicard online fine-tuning, take the Qwen2.5-7B model as an example and modify the configuration item [finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
+If you use the full weighted multicard online fine-tuning, take the Qwen3-8B model as an example and modify the configuration item [finetune_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)：
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2.5_7b/hf_unified_safetensors' # Load weights file path
+load_checkpoint: '/qwen3_8b/hf_unified_safetensors' # Load weights file path
 load_ckpt_format: 'safetensors'                     # Load weights file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for complete weights to enable the online slicing feature
 parallel_config:                                    # Configure the target distributed strategy
-  data_parallel: 2
-  model_parallel: 4
+  data_parallel: 1
+  model_parallel: 8
   pipeline_stage: 1
 callbacks:
   - type: CheckpointMonitor
     checkpoint_format: safetensors                  # Save weights file format
 ```
 
-If you use distributed weights multicard online fine-tuning, take the Qwen2.5-7B model as an example, modify the configuration item [finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml):
+If you use distributed weights multicard online fine-tuning, take the Qwen3-8B model as an example, modify the configuration item [finetune_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml):
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2.5_7b/distributed_safetensors' # Load weights file path
+load_checkpoint: '/qwen3_8b/distributed_safetensors' # Load weights file path
 load_ckpt_format: 'safetensors'                      # Load weights file format
 parallel_config:                                     # Configure the target distributed strategy
-  data_parallel: 2
-  model_parallel: 4
+  data_parallel: 1
+  model_parallel: 8
   pipeline_stage: 1
 callbacks:
   - type: CheckpointMonitor
@@ -627,11 +629,7 @@ Execute the command when completed:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config research/qwen2_5/finetune_qwen2_5_7b_8k.yaml \
- --train_dataset_dir /{path}/alpaca-data.mindrecord \
- --register_path research/qwen2_5 \
- --use_parallel True \
- --run_mode finetune" 8
+ --config configs/qwen3/finetune_qwen3.yaml" 8
 ```
 
 After the task is executed, a checkpoint folder is generated in the mindformers/output directory, while the model files are saved in that folder.
@@ -640,28 +638,28 @@ For more details, please refer to [Introduction to SFT fine-tuning](https://www.
 
 ### Example of an Inference Task
 
-If you use complete weighted multicard online inference, take the Qwen2.5-7B model as an example, and modify the configuration item [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml):
+If you use complete weighted multicard online inference, take the Qwen3-8B model as an example, and modify the configuration item [predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml):
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2.5_7b/hf_unified_safetensors' # Load weights file path
+load_checkpoint: '/qwen3_8b/hf_unified_safetensors' # Load weights file path
 load_ckpt_format: 'safetensors'                     # Load weights file format
 auto_trans_ckpt: True                               # This configuration item needs to be turned on for complete weights to enable the online slicing function
 parallel_config:
   data_parallel: 1
-  model_parallel: 2
+  model_parallel: 4
   pipeline_stage: 1
 ```
 
-If you use distributed weighted multicard online inference, take the Qwen2.5-7B model as an example, modify the configuration item [predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml):
+If you use distributed weighted multicard online inference, take the Qwen3-8B model as an example, modify the configuration item [predict_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/predict_qwen3.yaml):
 
 ```yaml
 # Modified configuration
-load_checkpoint: '/qwen2.5_7b/distributed_safetensors' # Load weights file path
+load_checkpoint: '/qwen3_8b/distributed_safetensors' # Load weights file path
 load_ckpt_format: 'safetensors'                      # Load weights file format
 parallel_config:
   data_parallel: 1
-  model_parallel: 2
+  model_parallel: 4
   pipeline_stage: 1
 ```
 
@@ -669,12 +667,11 @@ Execute the command when completed:
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
---config research/qwen2_5/predict_qwen2_5_7b_instruct.yaml \
+--config configs/qwen3/predict_qwen3.yaml \
 --run_mode predict \
 --use_parallel True \
---register_path research/qwen2_5 \
 --predict_data 'I love Beijing, because'" \
-2
+4
 ```
 
 The results of executing the above single-card inference and multi-card inference commands are as follows:
