@@ -45,8 +45,6 @@ mindspore-lite-{version}-linux-x64
 ├── runtime
 │   ├── include                        # Header file of APIs integrated and developed by MindSpore Lite
 │   ├── lib
-│   │   ├── libminddata-lite.a         # Static library for image processing
-│   │   ├── libminddata-lite.so        # Dynamic library for image processing
 │   │   ├── libmindspore-lite.a        # Static library of the MindSpore Lite inference framework
 │   │   ├── libmindspore-lite-jni.so   # JNI dynamic library of the MindSpore Lite inference framework
 │   │   ├── libmindspore-lite.so       # Dynamic library of the MindSpore Lite inference framework

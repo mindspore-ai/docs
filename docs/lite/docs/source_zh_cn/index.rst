@@ -128,7 +128,6 @@ MindSpore Lite提供面向不同硬件设备的AI模型推理能力，使用Mind
    :caption: 高阶开发
    :hidden:
 
-   advanced/image_processing
    advanced/quantization
    advanced/micro
 

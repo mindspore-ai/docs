@@ -45,8 +45,6 @@ mindspore-lite-{version}-linux-x64
 ├── runtime
 │   ├── include                        # MindSpore Lite集成开发的API头文件
 │   ├── lib
-│   │   ├── libminddata-lite.a         # 图像处理静态库
-│   │   ├── libminddata-lite.so        # 图像处理动态库
 │   │   ├── libmindspore-lite.a        # MindSpore Lite推理框架的静态库
 │   │   ├── libmindspore-lite-jni.so   # MindSpore Lite推理框架的JNI动态库
 │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库

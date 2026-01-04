@@ -11,7 +11,6 @@ Cloud-side MindSpore Lite contains modules:
 | converter          | Linux    | Model Converter |
 | runtime(cpp, java) | Linux    | Model Inference Framework |
 | benchmark          | Linux    | Benchmarking Tool |
-| minddata           | Linux    | Image Processing Library   |
 
 ## Environment Requirements
 
@@ -200,8 +199,6 @@ mindspore-lite-{version}-linux-{arch}
 │   ├── lib
 │   │   ├── libascend_kernel_plugin.so # Ascend Kernel Plugin Dynamic Library
 │   │   ├── libdvpp_utils.so           # DVPP Image Preprocessing Tools Dynamic Library
-│   │   ├── libminddata-lite.a         # Image Processing Static Library
-│   │   ├── libminddata-lite.so        # Image Processing Dynamic Library
 │   │   ├── libmindspore-core.so       # MindSpore Core Dynamic Library
 │   │   ├── libmindspore-glog.so.0     # glog Dynamic Library
 │   │   ├── libmindspore-lite-jni.so   # jni dynamic library of MindSpore Lite inference framework

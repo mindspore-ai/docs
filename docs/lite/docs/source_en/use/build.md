@@ -13,7 +13,6 @@ Modules in MindSpore Lite:
 | benchmark          | Linux, Windows, Android, OpenHarmony(OHOS)      | Benchmarking Tool        |
 | benchmark_train    | Linux, Android               | Performance and Accuracy Validation              |
 | cropper            | Linux                        | Static library crop tool for libmindspore-lite.a |
-| minddata           | Linux, Android               | Image Processing Library |
 | codegen            | Linux                        | Model inference code generation tool |
 | obfuscator         | Linux                        | Model Obfuscation Tool   |
 
@@ -205,8 +204,6 @@ After successful installation, you can use the command of `pip show mindspore_li
     ├── runtime
     │   ├── include
     │   ├── lib
-    │   │   ├── libminddata-lite.a         # Static library of image processing
-    │   │   ├── libminddata-lite.so        # Dynamic library of image processing
     │   │   ├── libmindspore-lite.a        # Static library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite-jni.so   # Dynamic library of inference framework jni in MindSpore Lite
     │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
@@ -232,8 +229,6 @@ After successful installation, you can use the command of `pip show mindspore_li
     ├── runtime
     │   ├── include
     │   ├── lib
-    │   │   ├── libminddata-lite.a         # Static library of image processing
-    │   │   ├── libminddata-lite.so        # Dynamic library of image processing
     │   │   ├── libmindspore-lite.a        # Static library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
     │   │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite

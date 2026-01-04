@@ -13,7 +13,6 @@ MindSpore Lite包含模块：
 | benchmark          | Linux、Windows、Android、OpenHarmony(OHOS) | 基准测试工具                      |
 | benchmark_train    | Linux、Android          | 性能测试和精度校验工具              |
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
-| minddata           | Linux、Android          | 图像处理库                        |
 | codegen            | Linux                   | 模型推理代码生成工具               |
 | obfuscator         | Linux                   | 模型混淆工具                      |
 
@@ -205,8 +204,6 @@ python -c "import mindspore_lite"
     ├── runtime
     │   ├── include
     │   ├── lib
-    │   │   ├── libminddata-lite.a         # 图像处理静态库
-    │   │   ├── libminddata-lite.so        # 图像处理动态库
     │   │   ├── libmindspore-lite.a        # MindSpore Lite推理框架的静态库
     │   │   ├── libmindspore-lite-jni.so   # MindSpore Lite推理框架的jni动态库
     │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
@@ -232,8 +229,6 @@ python -c "import mindspore_lite"
     ├── runtime
     │   ├── include
     │   ├── lib
-    │   │   ├── libminddata-lite.a         # 图像处理静态库
-    │   │   ├── libminddata-lite.so        # 图像处理动态库
     │   │   ├── libmindspore-lite.a        # MindSpore Lite推理框架的静态库
     │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
     │   │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
