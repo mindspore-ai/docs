@@ -598,8 +598,7 @@ In business integration, the interaction between the Host and Device is often a 
 
 When creating [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html), you can specify provider=ge-v1 using [SetProvider](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DeviceInfoContext.html) to support the zero-copy feature.
 
-> 1. Ge-v1 is a logical refactoring of ge, designed for easier functional extension. With version iteration, ge's functionality will be gradually migrated to ge-v1.
-> 2. In the current version, ge-v1 only supports purely static models (including dynamic dimension segmentation/dynamic partitioning).
+> Ge-v1 is a logical refactoring of ge, designed for easier functional extension. With version iteration, ge's functionality will be gradually migrated to ge-v1.
 
 C++ implementation for reference:
 
@@ -718,8 +717,7 @@ int QuickStart() {
 }
 ```
 
-> 1. This sample model has a fixed shape and does not support fully dynamic shapes.
-> 2. The size of the output tensor’s buffer must not be smaller than the actual size of the input data.
+> The size of the output tensor’s buffer must not be smaller than the actual size of the input data.
 
 Python implementation reference:
 
