@@ -500,13 +500,8 @@ shutil.rmtree("../include/converter/include/schema")
 shutil.rmtree("../include/converter/include/third_party")
 shutil.rmtree("../include/converter/include/api")
 
-source_dataset_dir = os.path.join(base_path, "mindspore/include/dataset/")
-for file_ in os.listdir(source_dataset_dir):
-    target_dataset_dir = "../include/runtime/include/dataset/"
-    shutil.copy(source_dataset_dir+file_, target_dataset_dir)
-
 for file_ in os.listdir("./api_cpp"):
-    if file_.startswith("mindspore_") and file_ != 'mindspore_dataset.rst':
+    if file_.startswith("mindspore_"):
         os.remove("./api_cpp/"+file_)
 
 fileList = []
