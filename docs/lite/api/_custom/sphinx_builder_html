@@ -1292,6 +1292,64 @@ def validate_math_renderer(app: Sphinx) -> None:
     elif name not in app.registry.html_inline_math_renderers:
         raise ConfigError(__('Unknown math_renderer %r is given.') % name)
 
+def deal_with_generate_rst_files(app, env, docnames) -> None:
+    def sort_rst_files(rst_file_path, tag_type):
+        try:
+            with open(rst_file_path, 'r', encoding='utf-8') as f:
+                rst_content = f.read()
+        except Exception as e:
+            print(f"文件读取失败：{e}")
+            return
+
+        capture_pattern = rf'- :{tag_type}:`(.*?)-(\d+)`'
+        all_matches = re.findall(capture_pattern, rst_content)
+        if not all_matches:
+            return
+
+        prefix_first_occur = []
+        entry_dict = {}
+        for prefix, num_str in all_matches:
+            num = int(num_str)
+            full_entry = f"- :{tag_type}:`{prefix}-{num}`"
+            if prefix not in prefix_first_occur:
+                prefix_first_occur.append(prefix)
+            if prefix not in entry_dict:
+                entry_dict[prefix] = []
+            entry_dict[prefix].append((num, full_entry))
+
+        for prefix in entry_dict:
+            entry_dict[prefix].sort(key=lambda x: x[0])
+
+        sorted_entries = []
+        for prefix in prefix_first_occur:
+            sorted_entries.extend([entry for num, entry in entry_dict[prefix]])
+
+        sorted_iter = iter(sorted_entries)
+        def replace_func(match):
+            return next(sorted_iter)
+
+        replace_pattern = rf'- :{tag_type}:`.*?-\d+`'
+        new_rst_content = re.sub(replace_pattern, replace_func, rst_content)
+
+        try:
+            with open(rst_file_path, 'w', encoding='utf-8') as f:
+                f.write(new_rst_content)
+        except Exception as e:
+            print(f"文件写入失败：{e}")
+    
+    process_list = [
+        ("./source_en/generate", "ref"),
+        ("./source_en/api_cpp", "doc"),
+        ("./source_zh_cn/generate", "ref"),
+        ("./source_zh_cn/api_cpp", "doc")
+    ]
+    for target_dir, tag_type in process_list:
+        if os.path.exists(target_dir):
+            for root, _, files in os.walk(target_dir):
+                for file in files:
+                    if file.endswith(".rst"):
+                        sort_rst_files(os.path.join(root, file), tag_type)
+    return
 
 def validate_html_extra_path(app: Sphinx, config: Config) -> None:
     """Check html_extra_paths setting."""
@@ -1433,6 +1491,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.connect('config-inited', validate_html_logo, priority=800)
     app.connect('config-inited', validate_html_favicon, priority=800)
     app.connect('builder-inited', validate_math_renderer)
+    app.connect('env-before-read-docs', deal_with_generate_rst_files)
     app.connect('html-page-context', setup_css_tag_helper)
     app.connect('html-page-context', setup_js_tag_helper)
     app.connect('html-page-context', setup_resource_paths)
