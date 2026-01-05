@@ -171,7 +171,11 @@ def get_param_func(func):
                 # 目前仅有lambda x出现在最后的情况
                 if all_params.endswith("lambda x"):
                     all_params += ": ..."
-        
+        all_params = re.sub(
+            pattern=r'float32',
+            repl=r'mindspore.float32',
+            string=all_params
+        )
         return all_params
     except:
         return ''
