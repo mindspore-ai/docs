@@ -32,7 +32,7 @@ MindSpore Transformers 提供[一键启动脚本](https://www.mindspore.cn/mindf
 
 ## 基于 MindSpore Transformers 的预训练实践
 
-MindSpore Transformers 目前已经支持业界主流大模型，本实践流程选择以 DeepSeek-V3-671B 展示单机训练和多机训练。
+MindSpore Transformers 目前已经支持业界主流大模型，本实践流程选择以 Qwen3-32B 展示单机训练和多机训练。
 
 ### 数据集准备
 
@@ -40,39 +40,45 @@ MindSpore Transformers 目前已经支持加载 Megatron 数据集，该数据�
 
 - 数据集下载：[wikitext-103数据集](https://dagshub.com/DagsHub/WIkiText-103/src/main/dataset/tokens)
 
-- 分词模型下载：分词模型[tokenizer.json](https://huggingface.co/deepseek-ai/DeepSeek-V3/resolve/main/tokenizer.json?download=true)
+- 分词模型下载：分词模型[tokenizer.json](https://huggingface.co/Qwen/Qwen3-32B/blob/main/tokenizer.json)
 
 ### 数据预处理
 
-数据集处理可参考[Megatron数据集-数据预处理](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86)
+MindSpore Transformers 预训练阶段当前已支持[Megatron格式的数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html#megatron%E6%95%B0%E6%8D%AE%E9%9B%86)。用户可以参考[数据集](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/dataset.html)章节，使用 MindSpore 提供的工具将原始数据集转换为 Megatron 格式。
 
-- 生成Megatron BIN格式文件
+制作Megatron格式数据集，需要经过两个步骤。首先将原始文本数据集转换为jsonl格式数据，然后使用MindSpore Transformers提供的脚本将jsonl格式数据转换为Megatron格式的.bin和.idx文件。
 
-   将数据集文件`wiki.train.tokens`和分词模型文件`tokenizer.json`放置在`../dataset`下。
+- `wiki.train.tokens` 转为 `jsonl`格式数据
 
-   使用以下命令将数据集文件转换为BIN格式文件：
+  用户需要**自行将`wiki.train.tokens`数据集处理成jsonl格式的文件**。作为参考，[社区issue](https://gitee.com/mindspore/mindformers/issues/ICOKGY)提供了一个转换方案，用户需要根据实际需求自行开发和验证转换逻辑。
 
-   ```shell
-   cd $MINDFORMERS_HOME
-   python research/deepseek3/wikitext_to_bin.py \
-    --input ../dataset/wiki.train.tokens \
-    --output-prefix ../dataset/wiki_4096 \
-    --vocab-file ../dataset/tokenizer.json \
-    --seq-length 4096 \
-    --workers 1
-   ```
+  下面是jsonl格式文件的示例：
 
-- 构建Megatron BIN数据集模块
+  ```json
+  {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
+  {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
+  ...
+  ```
 
-   执行如下命令构建Megatron BIN数据集模块：
+- `jsonl`格式数据 转为 `bin`格式数据
 
-   ```shell
-   pip install pybind11
-   cd $MINDFORMERS_HOME/mindformers/dataset/blended_datasets
-   make
-   ```
+  MindSpore Transformers提供了数据预处理脚本`toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py`用于将jsonl格式的原始文本预料转换成.bin或.idx文件。
 
-   其中，`$MINDFORMERS_HOME` 指 Mindspore Transformers 源代码所在的目录。
+  > 这里需要提前下载[Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B/blob/main/tokenizer.json)模型的tokenizer文件。
+
+  示例：
+
+  ```shell
+  python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
+    --input /path/to/data.jsonl \
+    --output-prefix /path/to/wiki103-megatron \
+    --tokenizer-type HuggingFaceTokenizer \
+    --tokenizer-dir /path/to/Qwen3-32B # 其他规格的模型可以调整为对应的tokenizer路径
+  ```
+
+  运行完成后会生成`/path/to/wiki103-megatron_text_document.bin`和`/path/to/wiki103-megatron_text_document.idx`文件。
+
+  填写数据集路径时需要使用`/path/to/wiki103-megatron_text_document`，不需要带后缀名。
 
 ## 执行预训练任务
 
