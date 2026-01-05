@@ -44,35 +44,41 @@ Currently, MindSpore Transformers supports Megatron dataset, which is typically 
 
 ### Data Preprocessing
 
-For dataset processing, refer to [Megatron Dataset - Data Preprocessing](https://www.mindspore.cn/mindformers/docs/en/r1.8.0/feature/dataset.html#data-preprocessing).
+The MindSpore Transformers pre-training stage currently supports [Megatron format datasets](https://www.mindspore.cn/mindformers/docs/en/r1.8.0/feature/dataset.html#megatron-dataset). Users can refer to the [Datasets](https://www.mindspore.cn/mindformers/docs/en/r1.8.0/feature/dataset.html) section and use the tools provided by MindSpore to convert the original dataset into Megatron format.
 
-- Generate Megatron BIN Format Files
+To create a Megatron-formatted dataset, two steps are required. First, convert the original text dataset into JSONL format data. Then, use the script provided by MindSpore Transformers to convert the JSONL format data into .bin and .idx files in Megatron format.
 
-   Place the dataset file `wiki.train.tokens` and the tokenizer model file `tokenizer.json` under the `../dataset` directory.
+- Convert `wiki.train.tokens` to `jsonl` format data
 
-   Use the following command to convert the dataset file into BIN format.
+  Users need to **process the `wiki.train.tokens` dataset into a jsonl format file themselves**. For reference, a conversion scheme is provided in the [community issue](https://gitee.com/mindspore/mindformers/issues/ICOKGY). Users need to develop and verify the conversion logic according to their actual needs.
 
-   ```shell
-   cd $MINDFORMERS_HOME
-   python research/deepseek3/wikitext_to_bin.py \
-    --input ../dataset/wiki.train.tokens \
-    --output-prefix ../dataset/wiki_4096 \
-    --vocab-file ../dataset/tokenizer.json \
-    --seq-length 4096 \
-    --workers 1
-   ```
+  Below is an example of a JSONL format file:
 
-- Build the Megatron BIN Dataset Module
+  ```json
+  {"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
+  {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
+  ...
+  ```
 
-   Run the following command to build the Megatron BIN dataset module.
+- Convert `jsonl` format data to `bin` format data
 
-   ```shell
-   pip install pybind11
-   cd $MINDFORMERS_HOME/mindformers/dataset/blended_datasets
-   make
-   ```
+  MindSpore Transformers provides a data preprocessing script, `toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py`, for converting raw text data in JSONL format into .bin or .idx files.
 
-   Here, `$MINDFORMERS_HOME` refers to the directory where the **MindSpore Transformers** source code is located.
+  > You need to download the tokenizer file for the [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B/blob/main/tokenizer.json) model in advance.
+
+  For example:
+
+  ```shell
+  python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
+    --input /path/to/data.jsonl \
+    --output-prefix /path/to/wiki103-megatron \
+    --tokenizer-type HuggingFaceTokenizer \
+    --tokenizer-dir /path/to/Qwen3-32B # Models of other specifications can be adjusted to the corresponding tokenizer path
+  ```
+
+  After the operation is completed, the files `/path/to/wiki103-megatron_text_document.bin` and `/path/to/wiki103-megatron_text_document.idx` will be generated.
+
+  When filling in the dataset path, you need to use `/path/to/wiki103-megatron_text_document` without the suffix.
 
 ## Executing a Pretrained Task
 
