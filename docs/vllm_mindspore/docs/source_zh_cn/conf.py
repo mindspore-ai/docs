@@ -28,7 +28,7 @@ copyright = 'MindSpore'
 author = 'vLLM-MindSpore Plugin'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = '0.5.0'
 
 # -- General configuration ---------------------------------------------------
 
@@ -244,9 +244,6 @@ with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') 
 #     copy_repo = os.getenv("VLLM_PATH").split('/')[-1]
 # else:
 #     copy_repo = os.getenv("VLLM_PATH").split('/')[-2]
-
-# import pdb
-# pdb.set_trace()
 
 # branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 # docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
