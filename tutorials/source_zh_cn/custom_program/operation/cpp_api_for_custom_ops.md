@@ -349,7 +349,7 @@ Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32
 
 ### class PyboostRunner
 
-PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/pyboost_extension.h)头文件中，为管理执行、内存分配和内核启动提供方法。
+PyNative 流程的运行器类，定义在[pyboost_extension.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/pyboost_extension.h)头文件中，为管理执行、内存分配和内核启动提供方法。
 
 `PyboostRunner` 是 `std::enable_shared_from_this` 的子类，需要使用智能指针 `std::shared_ptr` 管理其对象。
 

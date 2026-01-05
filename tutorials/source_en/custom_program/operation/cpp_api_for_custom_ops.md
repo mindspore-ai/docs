@@ -349,7 +349,7 @@ Tensor zeros(const ShapeVector &shape, TypeId dtype = TypeId::kNumberTypeFloat32
 
 ### class PyboostRunner
 
-The `PyboostRunner` class for PyNative processes is defined in the [pyboost_extension.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/pyboost_extension.h) header file. It provides methods for managing execution, memory allocation, and kernel launching.
+The `PyboostRunner` class for PyNative processes is defined in the [pyboost_extension.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/pyboost_extension.h) header file. It provides methods for managing execution, memory allocation, and kernel launching.
 
 `PyboostRunner` is a subclass of `std::enable_shared_from_this` and requires the use of the smart pointer `std::shared_ptr` to manage its objects.
 
