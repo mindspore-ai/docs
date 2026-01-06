@@ -172,8 +172,8 @@ def get_param_func(func):
                 if all_params.endswith("lambda x"):
                     all_params += ": ..."
         all_params = re.sub(
-            pattern=r'float32',
-            repl=r'mindspore.float32',
+            pattern=r'dtype=float32',
+            repl=r'dtype=mindspore.float32',
             string=all_params
         )
         return all_params
