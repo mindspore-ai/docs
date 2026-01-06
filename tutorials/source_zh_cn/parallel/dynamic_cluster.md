@@ -141,7 +141,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left" style="white-space:nowrap">MS_RECEIVE_MSG_TIMEOUT</td>
         <td align="left">节点接收消息超时时间，单位：秒。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">默认为300秒</td>
+        <td align="left">默认为15秒</td>
         <td align="left">此数值代表节点接收对端消息超时时间，若时间窗口内无消息响应，则返回空消息。</td>
     </tr>
     <tr>

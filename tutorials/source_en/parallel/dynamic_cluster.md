@@ -141,7 +141,7 @@ The relevant environment variables:
         <td align="left" style="white-space:nowrap">MS_RECEIVE_MSG_TIMEOUT</td>
         <td align="left">Node timeout for receiving messages in seconds.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">The default is 300 seconds.</td>
+        <td align="left">The default is 15 seconds.</td>
         <td align="left">This value represents the timeout window for the node to receive messages from the other end. If there is no message response within the time window, an empty message is returned.</td>
     </tr>
     <tr>
