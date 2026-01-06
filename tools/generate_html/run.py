@@ -467,6 +467,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 subprocess.run(cmd_install)
                 break
         for i in whls:
+            if "mindspore_gs" in i:
+                continue
             if "mindpandas" in i and "cp38-cp38" in i:
                 os.rename(os.path.join(WHLDIR, i), os.path.join(WHLDIR, i.replace('cp38-cp38', 'cp37-cp37m')))
                 cmd_install = ["pip", "install", i.replace('cp38-cp38', 'cp37-cp37m')]
@@ -496,6 +498,14 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     # 遍历ArraySource开始生成html
     # pylint: disable=R1702
     for i in ArraySource:
+        if "golden_stick" in i:
+            os.chdir(WHLDIR)
+            whls = os.listdir()
+            for whl in whls:
+                if "mindspore_gs" in whl:
+                    cmd_install = ["pip", "install", whl]
+                    subprocess.run(cmd_install)
+
         # 切换到各个组件的工程目录下
         if "tutorials" in i:
             os.chdir(os.path.join(DOCDIR, "../../", i))
