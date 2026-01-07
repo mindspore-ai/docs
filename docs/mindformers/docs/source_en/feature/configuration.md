@@ -269,12 +269,23 @@ In order to improve the performance of the model, it is usually necessary to con
 
 2. MindSpore Transformers provides fine-grained activations SWAP-related configurations to reduce the memory footprint of the model during training, see [Fine-Grained Activations SWAP](https://www.mindspore.cn/mindformers/docs/en/r1.8.0/feature/memory_optimization.html#fine-grained-activations-swap) for details.
 
+   **Legacy Configuration (swap_config):**
+
    | Parameters                   | Descriptions                                                                                                                                                                                        | Types |
    |------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
-   | swap_config.swap             | Enable activations SWAP.                                                                                                                                                                            | bool  |
-   | swap_config.default_prefetch | Control the timing of releasing memory in forward phase and starting prefetch in backward phase of the default SWAP strategy, only taking effect when swap=True, layer_swap=None, and op_swap=None. | int   |
+   | swap_config.swap             | Whether to enable activations SWAP.                                                                                                                                                                            | bool  |
+   | swap_config.default_prefetch | Control the timing of releasing memory in the forward phase and starting prefetch in the backward phase of the default SWAP strategy, only taking effect when swap=True, layer_swap=None, and op_swap=None. | int   |
    | swap_config.layer_swap       | Select specific layers to enable activations SWAP.                                                                                                                                                  | list  |
    | swap_config.op_swap          | Select specific operators within layers to enable activations SWAP.                                                                                                                                 | list  |
+
+   **Mcore Configuration (model_config):**
+
+   | Parameters                                    | Descriptions                                                                                                                                                                                                                                                                    | Types |
+   |-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+   | model_config.cpu_offloading                   | Whether to enable activations SWAP.                                                                                                                                                                                                                                                       | bool  |
+   | model_config.default_prefetch                 | Control the timing of releasing memory in the forward phase and starting prefetch in the backward phase of the default SWAP strategy, only taking effect when cpu_offloading=True, cpu_offloading_num_layers=None, and op_swap=None. | int   |
+   | model_config.cpu_offloading_num_layers         | Select specific layers to enable activations SWAP.                                                                                                                                                                                                                             | list  |
+   | model_config.op_swap                          | Select specific operators within layers to enable activations SWAP.                                                                                                                                                                                                            | list  |
 
 ### Callbacks Configuration
 
