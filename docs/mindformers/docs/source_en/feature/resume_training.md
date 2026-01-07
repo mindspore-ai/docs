@@ -36,7 +36,7 @@ output/checkpoint
       └── {prefix}-{epoch}_{step}.safetensors
 ```
 
-> The prefix of the weight name contains rank_id information, e.g., `llama3_1_8b_rank_0`. If a weight with the same prefix already exists when saving, an incremental suffix will be automatically added to the prefix to prevent overwriting old weights. For example, if "llama3_1_8b_rank_0" already exists, the prefix will be updated to "llama3_1_8b_rank_0_1", and if "llama3_1_8b_rank_0_1" also exists, it will be updated to "llama3_1_8b_rank_0_2".
+> The prefix of the weight name contains rank_id information, e.g., `qwen3_8b_rank_0`. If a weight with the same prefix already exists when saving, an incremental suffix will be automatically added to the prefix to prevent overwriting old weights. For example, if "qwen3_8b_rank_0" already exists, the prefix will be updated to "qwen3_8b_rank_0_1", and if "qwen3_8b_rank_0_1" also exists, it will be updated to "qwen3_8b_rank_0_2".
 
 Strategy files are only saved in distributed training tasks and are used for **weight strategy conversion**. Strategy files are saved in ckpt format with the rank_id as the suffix, mainly recording the network and optimizer sharding information for the current rank. Taking a single-machine 8-card setup as an example, the strategy file saving format is as follows:
 
@@ -90,7 +90,7 @@ For more information about weights, refer to [Ckpt Weights](https://www.mindspor
   resume_training: {prefix}-{epoch}_{step}.safetensors
   ```
 
-  Users must ensure the integrity of the specified weights. Each rank will automatically replace the rank information in the "prefix" to update the weight name to be loaded. For example, if the specified weight name is `llama3_1_8b_rank_0-200_1.safetensors`, when loading rank_1, the weight name will be replaced with `llama3_1_8b_rank_1-200_1.safetensors`. An error will occur if the weight is missing for a certain rank.
+  Users must ensure the integrity of the specified weights. Each rank will automatically replace the rank information in the "prefix" to update the weight name to be loaded. For example, if the specified weight name is `qwen3_8b_rank_0-200_1.safetensors`, when loading rank_1, the weight name will be replaced with `qwen3_8b_rank_1-200_1.safetensors`. An error will occur if the weight is missing for a certain rank.
 
 ### Strategy Conversion Resumption
 
