@@ -204,32 +204,8 @@ class MySub(nn.Cell):
 
 ```bash
 #!/bin/bash
-set -e
-EXEC_PATH=$(pwd)
-export RANK_SIZE=8
-export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_8pcs.json
-
-for((i=0;i<RANK_SIZE;i++))
-do
-    rm -rf device$i
-    mkdir device$i
-    cp ./train.py ./device$i
-    cd ./device$i
-    export DEVICE_ID=$i
-    export RANK_ID=$i
-    echo "start training for device $i"
-    env > env$i.log
-    python ./train.py > train.log$i 2>&1 &
-    cd ../
-done
-echo "The program launch succeed, the log is under device0/train.log0."
+msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 train.py
 ```
-
-常见的错误场景有：
-
-1）使用for循环启动的训练任务数`RANK_SIZE`与配置文件`rank_table_8pcs.json`中配置的设备数不匹配，引起报错。
-
-2）执行训练脚本的命令没有使用异步执行的方式：`python ./train.py > train.log$i 2>&1`，造成不同的训练任务拉起的时间不一致，导致同时报错。正确的方式是在执行命令后加 `&` 操作符，表示将命令放在子shell中异步执行，由此实现多个任务同步启动。
 
 并行场景经常遇到`Distribute Task Failed`问题， 此时需要分析报错问题时出现在计算图编译阶段，还是在打印训练loss的执行阶段，这个可以缩小问题的范围。
 

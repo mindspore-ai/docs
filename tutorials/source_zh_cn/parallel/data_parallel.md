@@ -175,4 +175,4 @@ epoch: 0 step: 150, loss is 2.2822685
 ...
 ```
 
-其他启动方式如`mpirun`、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/parallel/startup_method.html)。
+其他启动方式如`mpirun`、`msrun`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/parallel/startup_method.html)。

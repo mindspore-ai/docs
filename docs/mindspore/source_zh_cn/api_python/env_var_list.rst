@@ -509,14 +509,14 @@ Dump调试
        注意：Ascend AI处理器，使用多卡执行分布式用例时，由用户指定。
      - Integer
      - 1~8，调用Ascend AI处理器的数量
-     - 与RANK_TABLE_FILE配合使用
-   * - RANK_TABLE_FILE 或 MINDSPORE_HCCL_CONFIG_PATH
+     -
+   * - RANK_TABLE_FILE
      - 路径指向文件，包含指定多Ascend AI处理器环境中Ascend AI处理器的 `device_id` 对应的 `device_ip` 。
 
        注意：Ascend AI处理器，使用多卡执行分布式用例时，由用户指定。
      - String
      - 文件路径，支持相对路径与绝对路径
-     - 与RANK_SIZE配合使用
+     -
    * - MS_COMM_COMPILER_OPT
      - Ascend后端图模式下编译时，指定可以复用的通信算子的上限。
 

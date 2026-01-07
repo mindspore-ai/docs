@@ -186,4 +186,4 @@ epoch: 0, step: 100, loss is 0.6854114
 ...
 ```
 
-Other startup methods such as `mpirun` and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.2/parallel/startup_method.html).
+Other startup methods such as `mpirun` and `msrun` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/en/r2.7.2/parallel/startup_method.html).

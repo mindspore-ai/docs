@@ -204,32 +204,8 @@ The following is a piece of code for running an 8-device Ascend environment and 
 
 ```bash
 #!/bin/bash
-set -e
-EXEC_PATH=$(pwd)
-export RANK_SIZE=8
-export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_8pcs.json
-
-for((i=0;i<RANK_SIZE;i++))
-do
-    rm -rf device$i
-    mkdir device$i
-    cp ./train.py ./device$i
-    cd ./device$i
-    export DEVICE_ID=$i
-    export RANK_ID=$i
-    echo "start training for device $i"
-    env > env$i.log
-    python ./train.py > train.log$i 2>&1 &
-    cd ../
-done
-echo "The program launch succeed, the log is under device0/train.log0."
+msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 train.py
 ```
-
-Errors may occur in the following scenarios:
-
-1) The number of training tasks (`RANK_SIZE`) started using the for loop does not match the number of devices configured in the `rank_table_8pcs.json` configuration file. As a result, an error is reported.
-
-2) The command for executing the training script is not executed in asynchronous mode (`python ./train.py > train.log$i 2>&1`). As a result, training tasks are started at different time, and an error is reported. In this case, add the `&` operator to the end of the command, indicating that the command is executed asynchronously in the subshell. In this way, multiple tasks can be started synchronously.
 
 In parallel scenarios, you may encounter the `Distributed Task Failed` error. In this case, analyze whether the error occurs in the computational graph build phase or the execution phase of printing training loss to further locate the error.
 
