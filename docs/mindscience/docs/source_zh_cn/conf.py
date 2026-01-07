@@ -230,6 +230,14 @@ for i in os.listdir(src_dir):
     else:
         shutil.copytree(os.path.join(src_dir,i),'./api/'+i)
 
+d_path = "./api/sciops"
+for j in os.listdir(d_path):
+        if j.split('.')[-1]=='rst':
+            new_name = j.replace("func_", '')
+            old_path = os.path.join(d_path, j)
+            new_path = os.path.join(d_path, new_name)
+            os.rename(old_path, new_path)
+
 # 组件介绍处理
 component_name = ['MindChem', 'MindEarth', 'MindEnergy', 'MindFlow', 'MindSPONGE']
 spec_copy=[]
