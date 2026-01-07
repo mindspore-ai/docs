@@ -24,10 +24,8 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |     `--run_mode`      | 设置模型的运行模式，可选`train`、`finetune`或`predict`。                                                                                  | str，可选                                                  | 预训练/微调/推理 |
 |  `--load_checkpoint`  | 加载的权重文件或文件夹路径，详细使用方式参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。                     | str，可选                                                  | 预训练/微调/推理 |
 |   `--use_parallel`    | 是否开启并行模式。                                                                                                                  | bool，可选                                                 | 预训练/微调/推理 |
-|      `--options`      | 覆盖已使用的配置中的部分设置，xxx=yyy格式的键值对将被合并到配置文件中。该参数已废弃，下个版本删除。                                                                      | str，可选                                                  | 预训练/微调/推理 |
 |    `--output_dir`     | 设置保存日志、权重、切分策略等文件的路径。                                                                                                      | str，可选                                                  | 预训练/微调/推理 |
 |   `--register_path`   | 外挂代码所在目录的绝对路径。比如research目录下的模型目录。                                                                                          | str，可选                                                  | 预训练/微调/推理 |
-|  `--remote_save_url`  | 远程保存url，所有输出文件都将传输并存储在此处。该参数已废弃，下个版本删除。                                                                                    | str，可选                                                  | 预训练/微调/推理 |
 |       `--seed`        | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。 | int，可选                                                  | 预训练/微调/推理 |
 | `--trust_remote_code` | Hugging Face AutoTokenizer是否信任远程代码。                                                                                        | bool，可选                                                 | 预训练/微调/推理 |
 
@@ -39,21 +37,16 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |     `--auto_trans_ckpt`      | 是否开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/ckpt.html)。 | bool，可选                        | 预训练/微调/推理 |
 |  `--transform_process_num`   | 负责权重转换的进程数。                                                                                          | int，可选                         | 预训练/微调/推理 |
 |    `--only_save_strategy`    | 是否仅保存切分策略文件。                                                                                         | bool，可选，为`true`时任务在保存策略文件后直接退出 | 预训练/微调/推理 |
-| `--strategy_load_checkpoint` | 要加载的分布式策略文件的路径。该参数已废弃，下个版本删除。                                                                        | str，可选                         | 预训练/微调/推理 |
 
 ### 训练
 
 |               参数                | 参数说明                                                                                                                                             | 取值说明    | 适用场景   |
 |:-------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------|---------|--------|
-|           `--do_eval`           | 是否开启边训练边评估功能。该参数已废弃，下个版本删除。                                                                                                                      | bool，可选 | 预训练/微调 |
-|      `--eval_dataset_dir`       | 评估的数据集目录。该参数已废弃，下个版本删除。                                                                                                                          | bool，可选 | 预训练/微调 |
 |      `--train_dataset_dir`      | 预训练/微调的数据集目录。                                                                                                                                    | str，可选  | 预训练/微调 |
 |       `--resume_training`       | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)。 | bool，可选 | 预训练/微调 |
-|           `--profile`           | 是否使用profile分析。该参数已废弃，下个版本删除。                                                                                                                     | bool，可选 | 预训练/微调 |
 |           `--epochs`            | 训练轮次。                                                                                                                                            | int，可选  | 预训练/微调 |
 |         `--batch_size`          | 批处理数据的样本数。                                                                                                                                       | int，可选  | 预训练/微调 |
 | `--gradient_accumulation_steps` | 梯度累积步数。                                                                                                                                          | int，可选  | 预训练/微调 |
-|          `--sink_mode`          | 是否使用下沉模式。该参数已废弃，下个版本删除。                                                                                                                          | bool，可选 | 预训练/微调 |
 |         `--num_samples`         | 使用的数据集样本数量。                                                                                                                                      | int，可选  | 预训练/微调 |
 
 ### 推理
@@ -61,8 +54,6 @@ MindSpore Transformers提供了一键启动脚本`run_mindformer.py`和分布式
 |           参数           | 参数说明                      | 取值说明                                                | 适用场景 |
 |:----------------------:|:--------------------------|-----------------------------------------------------|------|
 |    `--predict_data`    | 推理的输入数据。                  | str，可选，可以是推理的输入（单batch推理）或包含多行文本的txt文件路径（多batch推理）。 | 推理   |
-|     `--modal_type`     | 模型推理输入对应模态。该参数已废弃，下个版本删除。 | str，可选                                              | 推理   |
-|     `--adapter_id`     | 推理的LoRA ID。该参数已废弃，下个版本删除。 | str，可选                                              | 推理   |
 | `--predict_batch_size` | 多batch推理的batch_size大小。    | int，可选                                              | 推理   |
 |     `--do_sample`      | 推理选择token时是否使用随机采样。       | bool，可选，``True`` 表示使用随机采样，``False`` 代表使用贪心搜索。        | 推理   |
 
@@ -110,43 +101,106 @@ bash msrun_launcher.sh [EXECUTE_ORDER] [WORKER_NUM] [LOCAL_WORKER] [MASTER_ADDR]
 
 ## 任务启动教程
 
-下面以Qwen2.5-0.5B微调为例，进行单卡、单机和多机任务使用方式说明。
+下面以Qwen3-8B微调为例，进行单卡、单机和多机任务使用方式说明。
 
 ### 单卡
 
 在MindSpore Transformers代码根目录下执行Python脚本，进行单卡微调。命令中的路径需替换为真实路径。
 
-```shell
-python run_mindformer.py \
---register_path research/qwen2_5 \
---config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
---use_parallel False \
---run_mode finetune \
---train_dataset_dir ./path/alpaca-data.mindrecord
-```
+1. 根据使用节点数等信息，修改相应的配置文件`configs/qwen3/finetune_qwen3.yaml`：
+
+    ```yaml
+    pretrained_model_dir: '/path/to/Qwen3-8B'
+    ...
+    train_dataset: &train_dataset
+      ...
+      data_loader:
+        type: HFDataLoader
+        path: "llm-wizard/alpaca-gpt4-data-zh" # alpaca风格数据集，确保网络环境能够访问huggingface，以实现自动下载数据集功能。
+        # path: "json"  # 如果使用本地json文件离线加载数据集，可以取消注释下面两行，并注释掉上面一行
+        # data_files: '/path/to/alpaca_gpt4_data_zh.json'
+        ...
+        handler:
+          - type: take # 调用datasets库的take方法，取前n条数据用于示例
+            n: 2000    # 取前2000条数据用于示例，实际使用时可以去掉这一行和上面一行
+    model:
+      model_config:
+        num_hidden_layers: 4
+        ...
+    parallel_config:
+      data_parallel: 1
+      model_parallel: 1
+      pipeline_stage: 1
+      use_seq_parallel: False
+      micro_batch_num: 1
+    ```
+
+2. 执行`run_mindformer.py`启动单卡的微调任务，下面提供了一个使用示例：
+
+    ```shell
+    python run_mindformer.py \
+     --config configs/qwen3/finetune_qwen3.yaml \
+     --use_parallel False \
+     --run_mode finetune
+    ```
 
 ### 单机
 
 在MindSpore Transformers代码根目录下执行msrun启动脚本，进行单机微调。命令中的路径需替换为真实路径。
 
-```shell
-bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/qwen2_5 \
- --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
- --run_mode finetune \
- --train_dataset_dir ./path/alpaca-data.mindrecord "
-```
+1. 根据使用节点数等信息，修改相应的配置文件`configs/qwen3/finetune_qwen3.yaml`：
+
+    ```yaml
+    pretrained_model_dir: '/path/to/Qwen3-8B'
+    ...
+    train_dataset: &train_dataset
+      data_loader:
+        type: HFDataLoader
+        path: "llm-wizard/alpaca-gpt4-data-zh" # alpaca风格数据集，确保网络环境能够访问huggingface，以实现自动下载数据集功能。
+        # path: "json"  # 如果使用本地json文件离线加载数据集，可以取消注释下面两行，并注释掉上面一行
+        # data_files: '/path/to/alpaca_gpt4_data_zh.json'
+        ...
+        handler:
+          - type: take # 调用datasets库的take方法，取前n条数据用于示例
+            n: 2000    # 取前2000条数据用于示例，实际使用时可以去掉这一行和上面一行
+    parallel_config:
+      data_parallel: 1
+      model_parallel: 4
+      pipeline_stage: 2
+      micro_batch_num: 2
+    ```
+
+2. 执行以下msrun启动脚本，进行8卡分布式训练：
+
+    ```bash
+    total_rank_num=8
+    bash scripts/msrun_launcher.sh "run_mindformer.py \
+    --config configs/qwen3/finetune_qwen3.yaml \
+    --auto_trans_ckpt True \
+    --use_parallel True \
+    --run_mode finetune" \
+    $total_rank_num
+    ```
 
 ### 多机
 
-以Qwen2.5-0.5B为例，进行2机16卡微调。
+以Qwen3-8B为例，进行2机16卡微调。
 
-1. 根据使用节点数等信息，修改相应的配置文件`research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml`：
+1. 根据使用节点数等信息，修改相应的配置文件`configs/qwen3/finetune_qwen3.yaml`：
 
     ```yaml
-    parallel_config:
-      data_parallel: 16
-      ...
+    pretrained_model_dir: '/path/to/Qwen3-8B'
+    ...
+    train_dataset: &train_dataset
+      data_loader:
+        type: HFDataLoader
+        path: "llm-wizard/alpaca-gpt4-data-zh" # alpaca风格数据集，确保网络环境能够访问huggingface，以实现自动下载数据集功能。
+        # path: "json"  # 如果使用本地json文件离线加载数据集，可以取消注释下面两行，并注释掉上面一行
+        # data_files: '/path/to/alpaca_gpt4_data_zh.json'
+        ...
+        handler:
+          - type: take # 调用datasets库的take方法，取前n条数据用于示例
+            n: 2000    # 取前2000条数据用于示例，实际使用时可以去掉这一行和上面一行
     ```
 
     > 如使用节点数和卡数改变需要修改`data_parallel`、 `model_parallel`、 `pipeline_stage`满足实际运行的卡数 `device_num=data_parallel×model_parallel×pipeline_stage`，同时满足`micro_batch_num >= pipeline_stage`。
@@ -158,18 +212,14 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
     ```shell
     # 节点0作为主节点, {master_addr}处填写节点0实际ip, 总共16卡且每个节点8卡
     bash scripts/msrun_launcher.sh "run_mindformer.py \
-      --register_path research/qwen2_5 \
-      --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
-      --train_dataset_dir /{path}/wiki4096.mindrecord \
+      --config configs/qwen3/finetune_qwen3.yaml \
       --run_mode finetune" \
       16 8 {master_addr} 8118 0 output/msrun_log False 300
 
 
     # 节点1，{master_addr}处填写节点0实际ip，节点0与节点1启动命令仅参数NODE_RANK不同
     bash scripts/msrun_launcher.sh "run_mindformer.py \
-      --register_path research/qwen2_5 \
-      --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
-      --train_dataset_dir /{path}/wiki4096.mindrecord \
+      --config configs/qwen3/finetune_qwen3.yaml \
       --run_mode finetune" \
       16 8 {master_addr} 8118 1 output/msrun_log False 300
     ```

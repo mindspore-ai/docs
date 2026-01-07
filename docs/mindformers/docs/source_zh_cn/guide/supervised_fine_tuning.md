@@ -40,15 +40,15 @@ MindSpore Transformers提供[一键启动脚本](https://www.mindspore.cn/mindfo
 
 ### 选择预训练模型
 
-MindSpore Transformers目前已经支持业界主流大模型，该实践流程选择Qwen2.5-7B模型为例。
+MindSpore Transformers目前已经支持业界主流大模型，该实践流程选择Qwen3-8B模型为例。
 
 ### 下载模型权重
 
 MindSpore Transformers提供加载Hugging Face模型权重的能力，支持直接加载从Hugging Face模型库中下载的模型权重。详细信息可以参考[MindSpore Transformers-Safetensors权重](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/safetensors.html)。
 
-| 模型名称   |                Hugging Face权重下载链接           |
-| :--------- | :--------------------------------------------: |
-| Qwen2.5-7B | [Link](https://huggingface.co/Qwen/Qwen2.5-7B) |
+| 模型名称     |                Hugging Face权重下载链接           |
+|:---------| :--------------------------------------------: |
+| Qwen3-8B | [Link](https://huggingface.co/Qwen/Qwen3-8B) |
 
 ### 数据集准备
 
@@ -64,24 +64,37 @@ MindSpore Transformers提供在线加载Hugging Face数据集的能力，详细�
 
 #### 单卡训练
 
-首先准备配置文件，本实践流程以Qwen2.5-7B模型为例，提供了一个微调配置文件`finetune_qwen2_5_7b_8k_1p.yaml`，可以在[gitee仓库](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k_1p.yaml)下载。
+首先准备配置文件，本实践流程以Qwen3-8B模型为例，提供了一个微调配置文件`finetune_qwen3.yaml`，可以在[gitee仓库](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)下载。
 
 > 由于单卡显存有限，配置文件中的`num_layers`被设置为了4，仅作为示例使用。
 
 然后根据实际情况修改配置文件中的参数，主要包括：
 
 ```yaml
-load_checkpoint: '/path/to/Qwen2.5-7B/'                   # 预训练模型权重文件夹路径
+pretrained_model_dir: '/path/to/Qwen3-8B'
 ...
 train_dataset: &train_dataset
   ...
   data_loader:
+    type: HFDataLoader
+    path: "llm-wizard/alpaca-gpt4-data-zh" # alpaca风格数据集，确保网络环境能够访问huggingface，以实现自动下载数据集功能。
+    # path: "json"  # 如果使用本地json文件离线加载数据集，可以取消注释下面两行，并注释掉上面一行
+    # data_files: '/path/to/alpaca_gpt4_data_zh.json'
     ...
     handler:
-      - type: AlpacaInstructDataHandler
-        tokenizer:
-          vocab_file: "/path/to/Qwen2.5-7B/vocab.json"    # 词表文件路径
-          merges_file: "/path/to/Qwen2.5-7B/merges.txt"   # merges文件路径
+      - type: take # 调用datasets库的take方法，取前n条数据用于示例
+        n: 2000    # 取前2000条数据用于示例，实际使用时可以去掉这一行和上面一行
+
+model:
+  model_config:
+    num_hidden_layers: 4
+    ...
+parallel_config:
+  data_parallel: 1
+  model_parallel: 1
+  pipeline_stage: 1
+  use_seq_parallel: False
+  micro_batch_num: 1
 ```
 
 执行`run_mindformer.py`启动单卡的微调任务，下面提供了一个使用示例：
@@ -90,8 +103,7 @@ train_dataset: &train_dataset
 
 ```shell
 python run_mindformer.py \
- --config /path/to/finetune_qwen2_5_7b_8k_1p.yaml \
- --register_path research/qwen2_5 \
+ --config configs/qwen3/finetune_qwen3.yaml \
  --use_parallel False \
  --run_mode finetune
 ```
@@ -106,38 +118,49 @@ run_mode：          运行模式，train：训练，finetune：微调，predict
 
 #### 单机训练
 
-首先准备配置文件，本实践流程以Qwen2.5-7B模型为例，提供了一个微调配置文件`finetune_qwen2_5_7b_8k.yaml`，可以在[gitee仓库](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k.yaml)下载。
+首先准备配置文件，本实践流程以Qwen3-8B模型为例，提供了一个微调配置文件`finetune_qwen3.yaml`，可以在[gitee仓库](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml)下载。
 
 然后根据实际情况修改配置文件中的参数，主要包括：
 
 ```yaml
-load_checkpoint: '/path/to/Qwen2.5-7B/'                   # 预训练模型权重文件夹路径
+pretrained_model_dir: '/path/to/Qwen3-8B'
 ...
 train_dataset: &train_dataset
   ...
   data_loader:
+    type: HFDataLoader
+    path: "llm-wizard/alpaca-gpt4-data-zh" # alpaca风格数据集，确保网络环境能够访问huggingface，以实现自动下载数据集功能。
+    # path: "json"  # 如果使用本地json文件离线加载数据集，可以取消注释下面两行，并注释掉上面一行
+    # data_files: '/path/to/alpaca_gpt4_data_zh.json'
     ...
     handler:
-      - type: AlpacaInstructDataHandler
-        tokenizer:
-          vocab_file: "/path/to/Qwen2.5-7B/vocab.json"    # 词表文件路径
-          merges_file: "/path/to/Qwen2.5-7B/merges.txt"   # merges文件路径
+      - type: take # 调用datasets库的take方法，取前n条数据用于示例
+        n: 2000    # 取前2000条数据用于示例，实际使用时可以去掉这一行和上面一行
+
+parallel_config:
+  data_parallel: 1
+  model_parallel: 4
+  pipeline_stage: 2
+  micro_batch_num: 2
 ```
 
 执行以下msrun启动脚本，进行8卡分布式训练：
 
 ```bash
+total_rank_num=8
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/qwen2_5 \
- --config /path/to/finetune_qwen2_5_7b_8k.yaml \
- --use_parallel True \
- --run_mode finetune" 8
+--config configs/qwen3/finetune_qwen3.yaml \
+--auto_trans_ckpt True \
+--use_parallel True \
+--run_mode finetune" \
+$total_rank_num
 ```
 
 参数说明：
 
 ```text
 config：            模型的配置文件
+auto_trans_ckpt：   是否自动转换权重文件格式
 use_parallel：      是否开启并行
 run_mode：          运行模式，train：训练，finetune：微调，predict：推理
 ```
@@ -160,14 +183,14 @@ parallel_config:
 
 并对命令进行如下修改：
 
-1. 增加启动脚本入参`--config /path/to/finetune_qwen2_5_7b_8k.yaml`加载预训练权重。
+1. 增加启动脚本入参`--config configs/qwen3/finetune_qwen3.yaml`加载预训练权重。
 2. 设置启动脚本中的`--run_mode finetune`，run_mode表示运行模式，train：训练，finetune：微调，predict：推理。
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
 
 ## 使用MindSpore Transformers进行LoRA高效微调
 
-MindSpore Transformers支持配置化使能LoRA微调，无需对每个模型进行代码适配，而仅需修改全参微调的YAML配置文件中的模型配置，添加 `pet_config` 高效微调配置，即可使用其进行LoRA高效微调任务。以下展示了Llama2模型LoRA微调的YAML配置文件中的模型配置部分，并对 `pet_config` 参数进行了详细说明。
+MindSpore Transformers支持配置化使能LoRA微调，无需对每个模型进行代码适配，而仅需修改全参微调的YAML配置文件中的模型配置，添加 `pet_config` 高效微调配置，即可使用其进行LoRA高效微调任务。以下展示了Qwen3模型LoRA微调的YAML配置文件中的模型配置部分，并对 `pet_config` 参数进行了详细说明。
 
 ### LoRA 原理简介
 
@@ -177,19 +200,24 @@ LoRA通过将原始模型的权重矩阵分解为两个低秩矩阵来实现参�
 
 ### 修改配置文件
 
-基于全参微调的配置文件，我们需要在模型配置中添加LoRA相关的参数，并将其重命名为`fine_tune_qwen2_5_7b_8k_lora.yaml`。以下是一个示例配置片段，展示了如何在Qwen2.5-7B模型的配置文件中添加LoRA微调的相关参数：
+基于全参微调的配置文件，我们需要在模型配置中添加LoRA相关的参数，并将其重命名为`finetune_qwen3_8b_lora.yaml`。以下是一个示例配置片段，展示了如何在Qwen3-8B模型的配置文件中添加LoRA微调的相关参数：
 
 ```yaml
 # model config
 model:
   model_config:
     ...
+    # 在model_config层级下添加pet_config
     pet_config:
       pet_type: lora
-      lora_rank: 16
+      lora_rank: 8
       lora_alpha: 16
-      lora_dropout: 0.05
-      target_modules: '.*wq|.*wk|.*wv|.*wo'
+      lora_dropout: 0.1
+      lora_a_init: 'normal'
+      lora_b_init: 'zeros'
+      target_modules: '.*word_embeddings|.*linear_qkv|.*linear_proj|.*linear_fc1|.*linear_fc2'
+      freeze_include: ['*']
+      freeze_exclude: ['*lora*']
 ```
 
 ### pet_config 参数详解
@@ -200,18 +228,19 @@ model:
 - **lora_rank:** 定义了低秩矩阵的秩值。秩值越小，微调时需要更新的参数越少，从而减少计算资源的占用。这里设为16是一个常见的平衡点，在保持模型性能的同时，显著减少了参数量。
 - **lora_alpha:** 控制LoRA模块中权重更新的缩放比例。这个值决定了微调过程中，权重更新的幅度和影响程度。设为16表示缩放幅度适中，有助于稳定训练过程。
 - **lora_dropout:** 设置LoRA模块中的dropout概率。Dropout是一种正则化技术，用于减少过拟合风险。设置为0.05表示在训练过程中有5%的概率会随机“关闭”某些神经元连接，这在数据量有限的情况下尤为重要。
-- **target_modules:** 通过正则表达式指定LoRA将应用于模型中的哪些权重矩阵。在Llama中，这里的配置将LoRA应用于模型的自注意力机制中的Query（wq）、Key（wk）、Value（wv）和Output（wo）矩阵。这些矩阵在Transformer结构中扮演关键角色，插入LoRA后可以在减少参数量的同时保持模型性能。
+- **lora_a_init:** 指定LoRA模块中权重矩阵A的初始化方式。这里设为'normal'表示权重矩阵A的初始值为正态分布。
+- **lora_b_init:** 指定LoRA模块中权重矩阵B的初始化方式。这里设为'zeros'表示权重矩阵B的初始值为零。
+- **target_modules:** 应用LoRA的模块，上述配置对word_embeddings、attention和mlp的权重矩阵应用LoRA。
 
-### Qwen2.5-7B 的 LoRA 微调示例
+### Qwen3-8B 的 LoRA 微调示例
 
 LoRA微调过程中使用的数据集可以参考全参微调部分的[数据集准备](#数据集准备)章节。
 
-以 Qwen2.5-7B 为例，可以执行以下 msrun 启动脚本，进行 8 卡分布式微调。
+以 Qwen3-8B 为例，可以执行以下 msrun 启动脚本，进行 8 卡分布式微调。
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/qwen2_5 \
- --config /path/to/finetune_qwen2_5_7b_8k_lora.yaml \
+ --config /path/to/finetune_qwen3_8b_lora.yaml \
  --use_parallel True \
  --run_mode finetune" 8
 ```
