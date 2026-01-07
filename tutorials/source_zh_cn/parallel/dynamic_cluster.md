@@ -135,7 +135,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">节点心跳超时时间，单位：秒。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">默认为30秒</td>
-        <td align="left">此数值代表Scheduler以及Worker间心跳超时时间，若此时间窗口内没有心跳消息，则集群异常退出。</td>
+        <td align="left">Scheduler与Worker间的心跳超时阈值。若Scheduler在该时间内未收到Worker的心跳消息，将触发集群异常退出。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_RECEIVE_MSG_TIMEOUT</td>
@@ -164,6 +164,13 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">默认开启心跳业务</td>
         <td align="left">若设置为1，则关闭集群节点间心跳，此场景下Scheduler不会检测到Worker异常，集群不会被Scheduler控制退出。此变量可以降低Scheduler节点消息并发量。<br>在使用`gdb attach`指令调试时，建议开启此环境变量。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_HEARTBEAT_RETRY_TIMEOUT</td>
+        <td align="left">节点心跳重试超时时间，单位：秒。</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">默认为20秒</td>
+        <td align="left">Worker节点未收到Scheduler心跳回复后的重连超时阈值。若Worker在该时间内未重新建立与Scheduler的连接，将触发自身异常退出。建议配置<code>MS_NODE_TIMEOUT</code>值大于<code>MS_HEARTBEAT_RETRY_TIMEOUT</code>，确保Scheduler在<code>MS_NODE_TIMEOUT</code>窗口期内能够重新接收Worker的心跳消息，保障集群稳定运行。注意：当心跳功能关闭，或集群未采用Scheduler进程进行管理时，该环境变量配置不生效。</td>
     </tr>
 </table>
 
