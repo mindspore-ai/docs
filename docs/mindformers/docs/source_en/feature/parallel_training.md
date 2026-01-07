@@ -251,15 +251,15 @@ For more information on configuring distributed parallel parameters, see the [Mi
 
 ## MindSpore Transformers Distributed Parallel Application Practices
 
-In the [Llama3_1-70B fine-tuning configuration](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism strategies and key parameters involved in the configuration file are as follows:
+In the [Qwen3 fine-tuning configuration](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) file provided on the official website, multiple distributed parallelism strategies are used to improve the training efficiency in the multi-node multi-device environment. The main parallelism parameters involved in the configuration file are as follows:
 
-- **Data parallelism**: No additional data parallelism is enabled (`data_parallel: 1`).
-- **Model parallelism**: A model is sliced into eight parts, which are computed on different devices (`model_parallel: 8`).
-- **Pipeline parallelism**: A model is divided into eight pipeline phases, which run on different devices in sequence (`pipeline_stage: 8`).
-- **Sequence parallelism**: After it is enabled (`use_seq_parallel: True`), the inputs of LayerNorm and Dropout at the Transformer layer are sliced by sequence. In this way, each device only needs to process part of LayerNorm and Dropout, reducing the model GPU memory usage.
-- **Multi-copy parallelism**: Sequential scheduling algorithm is used to control the parallelism of fine-grained multi-branch operations (`fine_grain_interleave: 2`), improving the overlap of computing and communications.
-- **Optimizer parallelism**: The calculation of optimizers is distributed to multiple devices to reduce memory usage (`enable_parallel_optimizer: True`).
+- **Data Parallelism**: Input data is sharded and distributed across different computing devices for parallel processing.
+- **Model Parallelism**: The model is partitioned into multiple segments, which are computed on different devices.
+- **Pipeline Parallelism**: The model is divided into multiple pipeline stages, which run sequentially on different devices.
+- **Sequence Parallelism**: Sequence parallelism is enabled, where the inputs to LayerNorm and Dropout within Transformer layers are partitioned along the sequence dimension. This allows each device to process only a portion of the LayerNorm and Dropout operations, thereby reducing model GPU memory usage.
+- **Multi-Replica Parallelism**: Fine-grained multi-branch parallelism is controlled through an execution scheduling algorithm to improve the overlap of computation and communication.
+- **Optimizer Parallelism**: Optimizer computations are distributed across multiple devices to reduce memory consumption.
 
 > Sequential parallelism must be turned on at the same time that fine-grained multicopy parallelism is turned on.
 
-With the preceding configurations, the distributed training on Llama3_1-70B can effectively utilize hardware resources in a multi-node multi-device environment to implement efficient and stable model training.
+With the preceding configurations, the distributed training on Qwen3 can effectively utilize hardware resources in a multi-node multi-device environment to implement efficient and stable model training.

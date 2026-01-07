@@ -24,10 +24,8 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |     `--run_mode`      | Set the running mode of the model: `train`, `finetune` or `predict`.                                                                                                                         | str, optional                                                                                       | pre-train/finetune/predict |
 |  `--load_checkpoint`  | File or folder paths for loading weights. For detailed usage, please refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html)               | str, optional                                                                                       | pre-train/finetune/predict |
 |   `--use_parallel`    | Whether to use parallel mode.                                                                                                                                                                   | bool, optional                                                                                      | pre-train/finetune/predict |
-|      `--options`      | Override some settings in the used config, the key-value pair in xxx=yyy format will be merged into config file. This parameter has been deprecated and will be removed in the next version. | str, optional                                                                                       | pre-train/finetune/predict |
 |    `--output_dir`     | Set the paths for saving logs, weights, sharding strategies, and other files.                                                                                                                | str, optional                                                                                       | pre-train/finetune/predict |
 |   `--register_path`   | The absolute path of the directory where the external code is located. For example, the model directory under the research directory.                                                        | str, optional                                                                                       | pre-train/finetune/predict |
-|  `--remote_save_url`  | Remote save url, where all the output files will be transferred and stored in here. This parameter has been deprecated and will be removed in the next version.                                 | str, optional                                                                                       | pre-train/finetune/predict |
 |       `--seed`        | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_seed.html).                                       | int, optional                                                                                       | pre-train/finetune/predict |
 | `--trust_remote_code` | Whether Hugging Face AutoTokenizer trusts remote code.                                                                                                                                       | bool, optional                                                                                      | pre-train/finetune/predict |
 
@@ -39,21 +37,16 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |     `--auto_trans_ckpt`      | Enable online weight automatic conversion. Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/master/feature/ckpt.html). | bool, optional                                                                             | pre-train/finetune/predict  |
 |  `--transform_process_num`   | The number of processes responsible for checkpoint transform.                                                                                         | int, optional                                                                              | pre-train/finetune/predict  |
 |    `--only_save_strategy`    | Whether to only save the strategy files.                                                                                                              | bool, optional, when it is `true`, the task exits directly after saving the strategy file. | pre-train/finetune/predict  |
-| `--strategy_load_checkpoint` | The path to the distributed strategy file to be loaded. This parameter has been deprecated and will be removed in the next version.                   | str, optional                                                                              | pre-train/finetune/predict  |
 
 ### Training
 
 |           Parameters            | Parameter Descriptions                                                                                                                                                                                     | Value Description | Applicable Scenarios |
 |:-------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|----------------------|
-|           `--do_eval`           | Whether to evaluate in training process. This parameter has been deprecated and will be removed in the next version.                                                                                       | bool, optional    | pre-train/finetune   |
-|      `--eval_dataset_dir`       | Dataset directory of data loader to eval. This parameter has been deprecated and will be removed in the next version.                                                                                      | str, optional     | pre-train/finetune   |
 |      `--train_dataset_dir`      | Dataset directory of data loader to pre-train/finetune.                                                                                                                                                    | str, optional     | pre-train/finetune   |
 |       `--resume_training`       | Enable resumable training after breakpoint. For details, refer to [Resumable Training After Breakpoint](https://www.mindspore.cn/mindformers/docs/en/master/feature/resume_training.html#resumable-training-after-breakpoint). | bool, optional    | pre-train/finetune   |
-|           `--profile`           | Whether to use profile analysis. This parameter has been deprecated and will be removed in the next version.                                                                                               | bool, optional    | pre-train/finetune   |
 |           `--epochs`            | Train epochs.                                                                                                                                                                                              | int, optional     | pre-train/finetune   |
 |         `--batch_size`          | The sample size of the batch data.                                                                                                                                                                         | int, optional     | pre-train/finetune   |
 | `--gradient_accumulation_steps` | The number of gradient accumulation steps.                                                                                                                                                                 | int, optional     | pre-train/finetune   |
-|          `--sink_mode`          | Whether to use sink mode. This parameter has been deprecated and will be removed in the next version.                                                                                                      | bool, optional    | pre-train/finetune   |
 |         `--num_samples`         | Number of datasets samples used.                                                                                                                                                                           | int, optional     | pre-train/finetune   |
 
 ### Inference
@@ -61,8 +54,6 @@ In the root directory of the MindSpore Transformers code, execute the `run_mindf
 |       Parameters       | Parameter Descriptions                                                                                            | Value Description                                                                                                                                             | Applicable Scenarios |
 |:----------------------:|:------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
 |    `--predict_data`    | Input data for inference.                                                                                         | str, optional, It can be the input for predict (single-batch predict) or the file path of a txt file containing multiple lines of text (multi-batch predict). | predict              |
-|     `--modal_type`     | Modal type of input data for predict. This parameter has been deprecated and will be removed in the next version. | str, optional                                                                                                                                                 | predict              |
-|     `--adapter_id`     | LoRA ID for predict. This parameter has been deprecated and will be removed in the next version.                  | str, optional                                                                                                                                                 | predict              |
 | `--predict_batch_size` | The batch size for multi-batch inference.                                                                         | int, optional                                                                                                                                                 | predict              |
 |     `--do_sample`      | Whether to use random sampling when selecting tokens for inference.                                               | bool, optional, ``True`` means using sampling encoding, ``False`` means using greedy decoding.                                                                 | predict              |
 
@@ -110,43 +101,106 @@ The parameter descriptions of the script are as follows:
 
 ## Task Startup Tutorial
 
-Next, taking the fine-tuning of Qwen2.5-0.5B as an example, we will explain the usage of single-device, single-node, and multi-node tasks.
+Next, taking the fine-tuning of Qwen3-8B as an example, we will explain the usage of single-device, single-node, and multi-node tasks.
 
 ### Single-Device
 
 Execute the Python script in the root directory of the MindSpore Transformers code to perform single-device fine-tuning. The path in the command needs to be replaced with the real path.
 
-```shell
-python run_mindformer.py \
---register_path research/qwen2_5 \
---config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
---use_parallel False \
---run_mode finetune \
---train_dataset_dir ./path/alpaca-data.mindrecord
-```
+1. Modify the corresponding configuration file `configs/qwen3/finetune_qwen3.yaml` based on information such as the number of nodes used:
+
+    ```yaml
+    pretrained_model_dir: '/path/to/Qwen3-8B'
+    ...
+    train_dataset: &train_dataset
+      ...
+      data_loader:
+        type: HFDataLoader
+        path: "llm-wizard/alpaca-gpt4-data-zh" # Alpaca-style dataset. Ensure the network environment can access huggingface to enable automatic dataset download.
+        # path: "json"  # If using local JSON files for offline dataset loading, uncomment the following two lines and comment out the line above
+        # data_files: '/path/to/alpaca_gpt4_data_zh.json'
+        ...
+        handler:
+          - type: take # Call the datasets library's 'take' method to select the first n entries for demonstration purposes
+            n: 2000    # Use the first 2000 entries for demonstration. Remove this line and the line above for actual use
+    model:
+      model_config:
+        num_hidden_layers: 4
+        ...
+    parallel_config:
+      data_parallel: 1
+      model_parallel: 1
+      pipeline_stage: 1
+      use_seq_parallel: False
+      micro_batch_num: 1
+    ```
+
+2. Execute `run_mindformer.py` to start the single-GPU fine-tuning task. An example usage is provided below:
+
+    ```shell
+    python run_mindformer.py \
+     --config configs/qwen3/finetune_qwen3.yaml \
+     --use_parallel False \
+     --run_mode finetune
+    ```
 
 ### Single-Node
 
 Execute the msrun startup script in the root directory of the MindSpore Transformers code to perform single-node fine-tuning. The path in the command needs to be replaced with the real path.
 
-```shell
-bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/qwen2_5 \
- --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
- --run_mode finetune \
- --train_dataset_dir ./path/alpaca-data.mindrecord "
-```
+1. Modify the corresponding configuration file `configs/qwen3/finetune_qwen3.yaml` based on information such as the number of nodes used:
+
+    ```yaml
+    pretrained_model_dir: '/path/to/Qwen3-8B'
+    ...
+    train_dataset: &train_dataset
+      data_loader:
+        type: HFDataLoader
+        path: "llm-wizard/alpaca-gpt4-data-zh" # Alpaca-style dataset. Ensure the network environment can access HuggingFace to enable automatic dataset download.
+        # path: "json"  # If using local JSON files for offline dataset loading, uncomment the following two lines and comment out the line above
+        # data_files: '/path/to/alpaca_gpt4_data_zh.json'
+        ...
+        handler:
+          - type: take # Call the datasets library's take method to select the first n entries for demonstration
+            n: 2000    # Use the first 2000 entries for demonstration. Remove this line and the one above for actual use
+    parallel_config:
+      data_parallel: 1
+      model_parallel: 4
+      pipeline_stage: 2
+      micro_batch_num: 2
+    ```
+
+2. Execute the following msrun startup script to launch 8-card distributed training:
+
+    ```bash
+    total_rank_num=8
+    bash scripts/msrun_launcher.sh "run_mindformer.py \
+    --config configs/qwen3/finetune_qwen3.yaml \
+    --auto_trans_ckpt True \
+    --use_parallel True \
+    --run_mode finetune" \
+    $total_rank_num
+    ```
 
 ### Multi-Node
 
-Take Qwen2.5-0.5B as an example to perform 2-node 16-device fine-tuning.
+Take Qwen3-8B as an example to perform 2-node 16-device fine-tuning.
 
-1. Modify the corresponding config file `research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml` based on information such as the number of used nodes:
+1. Modify the corresponding config file `configs/qwen3/finetune_qwen3.yaml` based on information such as the number of used nodes:
 
     ```yaml
-    parallel_config:
-      data_parallel: 16
-      ...
+    pretrained_model_dir: '/path/to/Qwen3-8B'
+    ...
+    train_dataset: &train_dataset
+      data_loader:
+        type: HFDataLoader
+        path: "llm-wizard/alpaca-gpt4-data-zh" # Alpaca-style dataset. Ensure the network environment can access HuggingFace to enable automatic dataset download.
+        # path: "json"  # If using local JSON files for offline dataset loading, uncomment the following two lines and comment out the line above
+        # data_files: '/path/to/alpaca_gpt4_data_zh.json'
+        ...
+        handler:
+          - type: take # Call the datasets library's take method to select the first n entries for demonstration
+            n: 2000    # Use the first 2000 entries for demonstration. Remove this line and the one above for actual use
     ```
 
     > If the number of nodes and the number of devices are used to change, `data_parallel`, `model_parallel`, and `pipeline_stage` need to be modified to meet the actual number of running devices. `device_num=data_parallel×model_parallel×pipeline_stage`. Meanwhile, `micro_batch_num >= pipeline_stage`.
@@ -158,18 +212,14 @@ Take Qwen2.5-0.5B as an example to perform 2-node 16-device fine-tuning.
     ```shell
     # Node 0. Set the IP address of node 0 to the value of {master_addr}, which is used as the IP address of the primary node. There are 16 devices in total with 2 devices for each node.
     bash scripts/msrun_launcher.sh "run_mindformer.py \
-      --register_path research/qwen2_5 \
-      --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
-      --train_dataset_dir /{path}/wiki4096.mindrecord \
+      --config configs/qwen3/finetune_qwen3.yaml \
       --run_mode finetune" \
       16 8 {master_addr} 8118 0 output/msrun_log False 300
 
 
     # Node 1. Set the IP address of node 0 to the value of {master_addr}, which is used as the IP address of the primary node. The startup commands of node 0 and node 1 differ only in the parameter NODE_RANK.
     bash scripts/msrun_launcher.sh "run_mindformer.py \
-      --register_path research/qwen2_5 \
-      --config research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml \
-      --train_dataset_dir /{path}/wiki4096.mindrecord \
+      --config configs/qwen3/finetune_qwen3.yaml \
       --run_mode finetune" \
       16 8 {master_addr} 8118 1 output/msrun_log False 300
     ```

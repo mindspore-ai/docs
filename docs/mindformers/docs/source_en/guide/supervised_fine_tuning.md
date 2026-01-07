@@ -40,15 +40,15 @@ To handle exceptions such as training interruptions, MindSpore Transformers offe
 
 ### Selecting a Pre-Trained Model
 
-MindSpore Transformers currently supports mainstream large-scale models in the industry. This guide uses the Qwen2.5-7B model as an example.
+MindSpore Transformers currently supports mainstream large-scale models in the industry. This guide uses the Qwen3-8B model as an example.
 
 ### Downloading Model Weights
 
 MindSpore Transformers supports loading Hugging Face model weights, enabling direct loading of weights downloaded from the Hugging Face model hub. For details, refer to [MindSpore Transformers-Safetensors Weights](https://www.mindspore.cn/mindformers/docs/en/master/feature/safetensors.html).
 
-| Model Name  | Hugging Face Weight Download Link                     |
-| :---------- | :---------------------------------------------------: |
-| Qwen2.5-7B  | [Link](https://huggingface.co/Qwen/Qwen2.5-7B)        |
+| Model Name | Hugging Face Weight Download Link                     |
+|:-----------| :---------------------------------------------------: |
+| Qwen3-8B   | [Link](https://huggingface.co/Qwen/Qwen3-8B)        |
 
 ### Dataset Preparation
 
@@ -64,32 +64,44 @@ This guide uses [llm-wizard/alpaca-gpt4-data](https://huggingface.co/datasets/ll
 
 #### Single-NPU Training
 
-First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen2.5-7B model, `finetune_qwen2_5_7b_8k_1p.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k_1p.yaml).
+First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen3-8B model, `finetune_qwen3.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml).
 
 > Due to limited single-NPU memory, the `num_layers` in the configuration file is set to 4, used as an example only.
 
 Then, modify the parameters in the configuration file based on actual conditions, mainly including:
 
 ```yaml
-load_checkpoint: '/path/to/Qwen2.5-7B/'                   # Path to the pre-trained model weight folder
+pretrained_model_dir: '/path/to/Qwen3-8B'
 ...
 train_dataset: &train_dataset
   ...
   data_loader:
+    type: HFDataLoader
+    path: "llm-wizard/alpaca-gpt4-data-zh" # An Alpaca-style dataset. Ensure the network can access Hugging Face for automatic dataset download.
+    # path: "json"  # If using a local JSON file for offline dataset loading, uncomment the next two lines and comment out the line above
+    # data_files: '/path/to/alpaca_gpt4_data_zh.json'
     ...
     handler:
-      - type: AlpacaInstructDataHandler
-        tokenizer:
-          vocab_file: "/path/to/Qwen2.5-7B/vocab.json"    # Path to the vocabulary file
-          merges_file: "/path/to/Qwen2.5-7B/merges.txt"   # Path to the merges file
+      - type: take # Invoke the `take` method from the datasets library to fetch the first n samples for demonstration
+        n: 2000    # Take the first 2000 samples for demonstration. Remove this line and the one above during actual use.
+
+model:
+  model_config:
+    num_hidden_layers: 4
+    ...
+parallel_config:
+  data_parallel: 1
+  model_parallel: 1
+  pipeline_stage: 1
+  use_seq_parallel: False
+  micro_batch_num: 1
 ```
 
 Run `run_mindformer.py` to start the single-NPU fine-tuning task. The command is as follows:
 
 ```shell
 python run_mindformer.py \
- --config /path/to/finetune_qwen2_5_7b_8k_1p.yaml \
- --register_path research/qwen2_5 \
+ --config configs/qwen3/finetune_qwen3.yaml \
  --use_parallel False \
  --run_mode finetune
 ```
@@ -104,38 +116,48 @@ run_mode:          Running mode, train: training, finetune: fine-tuning, predict
 
 #### Single-Node Training
 
-First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen2.5-7B model, `finetune_qwen2_5_7b_8k.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/supervised_fine_tuning/finetune_qwen2_5_7b_8k.yaml).
+First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen3-8B model, `finetune_qwen3.yaml`, available for download from the [Gitee repository](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml).
 
 Then, modify the parameters in the configuration file based on actual conditions, mainly including:
 
 ```yaml
-load_checkpoint: '/path/to/Qwen2.5-7B/'                   # Path to the pre-trained model weight folder
+pretrained_model_dir: '/path/to/Qwen3-8B'
 ...
 train_dataset: &train_dataset
   ...
   data_loader:
+    type: HFDataLoader
+    path: "llm-wizard/alpaca-gpt4-data-zh" # An Alpaca-style dataset. Ensure the network can access Hugging Face for automatic dataset download.
+    # path: "json"  # If using a local JSON file for offline dataset loading, uncomment the next two lines and comment out the line above
+    # data_files: '/path/to/alpaca_gpt4_data_zh.json'
     ...
     handler:
-      - type: AlpacaInstructDataHandler
-        tokenizer:
-          vocab_file: "/path/to/Qwen2.5-7B/vocab.json"    # Path to the vocabulary file
-          merges_file: "/path/to/Qwen2.5-7B/merges.txt"   # Path to the merges file
+      - type: take # Invoke the `take` method from the datasets library to fetch the first n samples for demonstration
+        n: 2000    # Take the first 2000 samples for demonstration. Remove this line and the one above during actual use.
+parallel_config:
+  data_parallel: 1
+  model_parallel: 4
+  pipeline_stage: 2
+  micro_batch_num: 2
 ```
 
 Run the following msrun startup script for 8-NPU distributed training:
 
 ```bash
+total_rank_num=8
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/qwen2_5 \
- --config /path/to/finetune_qwen2_5_7b_8k.yaml \
- --use_parallel True \
- --run_mode finetune" 8
+--config configs/qwen3/finetune_qwen3.yaml \
+--auto_trans_ckpt True \
+--use_parallel True \
+--run_mode finetune" \
+$total_rank_num
 ```
 
 Parameter descriptions:
 
 ```text
 config:            Model configuration file
+auto_trans_ckpt:   Whether to automatically convert the weight file format
 use_parallel:      Whether to enable parallel training
 run_mode:          Running mode, train: training, finetune: fine-tuning, predict: inference
 ```
@@ -158,14 +180,14 @@ parallel_config:
 
 Modify the command as follows:
 
-1. Add the startup script parameter `--config /path/to/finetune_qwen2_5_7b_8k.yaml` to load pre-trained weights.
+1. Add the startup script parameter `--config configs/qwen3/finetune_qwen3.yaml` to load pre-trained weights.
 2. Set `--run_mode finetune` in the startup script, where run_mode indicates the running mode: train (training), finetune (fine-tuning), or predict (inference).
 
 After task completion, a checkpoint folder will be generated in the mindformers/output directory, and the model files will be saved in this folder.
 
 ## LoRA Fine-Tuning with MindSpore Transformers
 
-MindSpore Transformers supports configuration-driven LoRA fine-tuning, eliminating the need for code adaptations for each model. By modifying the model configuration in the full-parameter fine-tuning YAML file and adding the `pet_config` parameter-efficient fine-tuning configuration, LoRA fine-tuning tasks can be performed. Below is an example of the model configuration section in a YAML file for LoRA fine-tuning of the Llama2 model, with detailed explanations of the `pet_config` parameters.
+MindSpore Transformers supports configuration-driven LoRA fine-tuning, eliminating the need for code adaptations for each model. By modifying the model configuration in the full-parameter fine-tuning YAML file and adding the `pet_config` parameter-efficient fine-tuning configuration, LoRA fine-tuning tasks can be performed. Below is an example of the model configuration section in a YAML file for LoRA fine-tuning of the Qwen3 model, with detailed explanations of the `pet_config` parameters.
 
 ### Introduction to LoRA Principles
 
@@ -175,19 +197,24 @@ This approach not only drastically reduces the computational cost of fine-tuning
 
 ### Modifying the Configuration File
 
-Based on the full-parameter fine-tuning configuration file, add LoRA-related parameters to the model configuration and rename it to `fine_tune_qwen2_5_7b_8k_lora.yaml`. Below is an example configuration snippet showing how to add LoRA fine-tuning parameters for the Qwen2.5-7B model:
+Based on the full-parameter fine-tuning configuration file, add LoRA-related parameters to the model configuration and rename it to `finetune_qwen3_8b_lora.yaml`. Below is an example configuration snippet showing how to add LoRA fine-tuning parameters for the Qwen3-8B model:
 
 ```yaml
 # model config
 model:
   model_config:
     ...
+    # Add `pet_config` under the `model_config` level.
     pet_config:
       pet_type: lora
-      lora_rank: 16
+      lora_rank: 8
       lora_alpha: 16
-      lora_dropout: 0.05
-      target_modules: '.*wq|.*wk|.*wv|.*wo'
+      lora_dropout: 0.1
+      lora_a_init: 'normal'
+      lora_b_init: 'zeros'
+      target_modules: '.*word_embeddings|.*linear_qkv|.*linear_proj|.*linear_fc1|.*linear_fc2'
+      freeze_include: ['*']
+      freeze_exclude: ['*lora*']
 ```
 
 ### Detailed Explanation of pet_config Parameters
@@ -198,18 +225,19 @@ In the `model_config`, `pet_config` is the core configuration section for LoRA f
 - **lora_rank:** Defines the rank of the low-rank matrices. A smaller rank results in fewer parameters to update, reducing computational resource usage. Setting it to 16 is a common balance point, significantly reducing the parameter count while maintaining model performance.
 - **lora_alpha:** Controls the scaling factor for weight updates in the LoRA module. This value determines the magnitude and impact of weight updates during fine-tuning. Setting it to 16 indicates a moderate scaling factor, helping to stabilize the training process.
 - **lora_dropout:** Sets the dropout probability in the LoRA module. Dropout is a regularization technique used to reduce the risk of overfitting. A value of 0.05 means there is a 5% chance of randomly “disabling” certain neural connections during training, which is particularly important when data is limited.
-- **target_modules:** Specifies which weight matrices in the model LoRA will be applied to, using regular expressions. In Llama, this configuration applies LoRA to the Query (wq), Key (wk), Value (wv), and Output (wo) matrices in the self-attention mechanism. These matrices play critical roles in the Transformer architecture, and applying LoRA to them maintains model performance while reducing the parameter count.
+- **lora_a_init:** Specifies the initialization method for the LoRA A matrix. Common choices include 'normal' and 'zeros'.
+- **lora_b_init:** Specifies the initialization method for the LoRA B matrix. Common choices include 'normal' and 'zeros'.
+- **target_modules:** Apply LoRA to modules, with the above configuration applying LoRA to the weight matrices of word_embeddings, attention, and mlp.
 
-### LoRA Fine-Tuning Example for Qwen2.5-7B
+### LoRA Fine-Tuning Example for Qwen3-8B
 
 The dataset used for LoRA fine-tuning can be prepared as described in the [Dataset Preparation](#dataset-preparation) section of the full-parameter fine-tuning process.
 
-For the Qwen2.5-7B model, the following msrun startup command can be executed for 8-NPU distributed fine-tuning:
+For the Qwen3-8B model, the following msrun startup command can be executed for 8-NPU distributed fine-tuning:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --register_path research/qwen2_5 \
- --config /path/to/finetune_qwen2_5_7b_8k_lora.yaml \
+ --config /path/to/finetune_qwen3_8b_lora.yaml \
  --use_parallel True \
  --run_mode finetune" 8
 ```

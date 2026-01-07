@@ -69,7 +69,7 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
 3. Download the model's vocabulary file
 
    Since different models use different vocabulary files, you need to download the corresponding vocabulary file for the training model.
-   Taking the `Llama3` model as an example, download the [tokenizer.model](https://huggingface.co/meta-llama/Meta-Llama-3-8B/blob/main/original/tokenizer.model) for data preprocessing.
+   Taking the `Qwen3-8B` model as an example, download the [tokenizer](https://huggingface.co/Qwen/Qwen3-8B) for data preprocessing.
 
 4. Generate `.bin` and `.idx` data files
 
@@ -104,18 +104,6 @@ The following example demonstrates how to convert the `wikitext-103` dataset int
      --output-prefix /path/megatron_data \
      --tokenizer-type HuggingFaceTokenizer \
      --tokenizer-dir /path/to/huggingface/tokenizer
-   ```
-
-   Take outer tokenizer class [Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py) as an example, make sure **local** MindSpore Transformers repository has 'research/llama3_1/llama3_1_tokenizer.py', and execute the following command to preprocess the dataset:
-
-   ```shell
-   python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
-     --input /path/data.json \
-     --output-prefix /path/megatron_data \
-     --tokenizer-type AutoRegister \
-     --vocab-file /path/tokenizer.model \
-     --register_path research/llama3_1 \
-     --auto_register llama3_1_tokenizer.Llama3Tokenizer
    ```
 
 ### Model Pre-training
@@ -242,7 +230,7 @@ The following explains how to configure and use Megatron datasets in the configu
 3. Start Model Pre-training
 
    After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the model pre-training task.
-   Here, we take the [Llama3_1 model documentation](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md) as an example.
+   Here, we take the `qwen3` as an example.
 
 ## Hugging Face Dataset
 
@@ -686,52 +674,46 @@ After modifying the config, refer to the `qwen3` model documentation to start fi
 
 MindRecord is an efficient data storage and reading module provided by MindSpore. It reduces disk IO and network IO overhead, resulting in a better data loading experience. For more detailed feature introductions, refer to the [documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mindrecord.html). Here, we only cover how to use MindRecord in MindSpore Transformers model training tasks.
 
-The following example uses `qwen2_5-0.5b` fine-tuning to explain related functionalities.  The provided scripts are only applicable to the specified dataset. If you need to process a custom dataset, please refer to [MindRecord format conversion](https://www.mindspore.cn/tutorials/en/master/dataset/record.html) for data preprocessing.
+The following example uses `qwen3-8b` fine-tuning to explain related functionalities.  The provided scripts are only applicable to the specified dataset. If you need to process a custom dataset, please refer to [MindRecord format conversion](https://www.mindspore.cn/tutorials/en/master/dataset/record.html) for data preprocessing.
 
 ### Data Preprocessing
 
 1. Download the `alpaca` dataset: [Link](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)
 
-2. Execute the data processing script to convert the `alpaca` dataset into a dialogue format:
+2. Execute the data processing script [alpaca_converter.py](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/alpaca_converter.py) to convert the `alpaca` dataset into a dialogue format:
 
    ```shell
-   python research/qwen2/alpaca_converter.py \
+   python alpaca_converter.py \
      --data_path /path/alpaca_data.json \
      --output_path /path/alpaca-data-messages.json
    ```
 
    Here, `data_path` refers to the path where the downloaded `alpaca` dataset is stored, and `output_path` refers to the save path for the generated dialogue format data file.
 
-3. Execute the script to convert the dialogue format data file into MindRecord format:
+3. Execute the script [datasets_preprocess.py](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/datasets_preprocess.py) to convert the dialogue format data file into MindRecord format:
 
    ```shell
-   python research/qwen2/qwen2_preprocess.py \
-     --dataset_type 'qa' \
+   python datasets_preprocess.py \
      --input_glob /path/alpaca-data-messages.json \
-     --vocab_file /path/vocab.json \
-     --merges_file /path/merges.txt \
+     --tokenizer_dir /path/Qwen3-8B \
      --seq_length 32768 \
      --output_file /path/alpaca-messages.mindrecord
    ```
 
    The script parameters are explained as follows:
 
-    - `dataset_type`: Type of data preprocessing. For the alpaca dataset, set this to `qa`.
     - `input_glob`: Path to the dialogue format data file.
-    - `vocab_file`: Path to the `vocab.json` file of the qwen2 model.
-    - `merges_file`: Path to the `merges.txt` file of the qwen2 model.
+    - `tokenizer_dir`: Path to the qwen3 model.
     - `seq_length`: Sequence length for generating MindRecord data.
     - `output_file`: Save path for the generated MindRecord data.
 
-   > The `vocab_file` and `merges_file` can be obtained from the qwen2 model repository on the HuggingFace community.
-
 ### Model Fine-tuning
 
-Following the above data preprocessing steps, you can generate a MindRecord dataset for fine-tuning the `qwen2_5-0.5b` model. Below is an introduction on how to use the generated data file to start the model fine-tuning task.
+Following the above data preprocessing steps, you can generate a MindRecord dataset for fine-tuning the `qwen3-8b` model. Below is an introduction on how to use the generated data file to start the model fine-tuning task.
 
 1. Modify the model configuration file
 
-   The `qwen2_5-0.5b` model fine-tuning uses the [finetune_qwen2_5_0.5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml) configuration file. Modify the dataset section as follows:
+   The `qwen3-8b` model fine-tuning uses the [finetune_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml) configuration file. Modify the dataset section as follows:
 
    ```yaml
    train_dataset: &train_dataset
@@ -749,7 +731,7 @@ Following the above data preprocessing steps, you can generate a MindRecord data
 
 2. Start Model Fine-tuning
 
-   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen2_5 model documentation](https://gitee.com/mindspore/mindformers/blob/master/research/qwen2_5/README.md) as an example.
+   After modifying the dataset and parallel-related configurations in the model configuration file, you can refer to the model documentation to launch the fine-tuning task. Here, we take the [Qwen3 model documentation](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md) as an example.
 
 ### Multi-source Datasets
 
