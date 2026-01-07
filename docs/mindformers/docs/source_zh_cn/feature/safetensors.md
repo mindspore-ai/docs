@@ -29,24 +29,26 @@ Safetensors完整权重可通过以下两种方式获取：
 Huggingface Safetensors示例目录结构：
 
 ```text
-qwen2_7b
+qwen3_8b
  └── hf_unified_safetensors
-        ├── model-00001-of-00004.safetensors
-        ├── model-00002-of-00004.safetensors
-        ├── model-00003-of-00004.safetensors
-        ├── model-00004-of-00004.safetensors
+        ├── model-00001-of-00005.safetensors
+        ├── model-00002-of-00005.safetensors
+        ├── model-00003-of-00005.safetensors
+        ├── model-00004-of-00005.safetensors
+        ├── model-00005-of-00005.safetensors
         └── model.safetensors.index.json        # Huggingface权重参数和文件的存储关系映射json文件
 ```
 
 MindSpore Safetensors示例目录结构：
 
 ```text
-qwen2_7b
+qwen3_8b
  └── ms_unified_safetensors
-        ├── model-00001-of-00004.safetensors
-        ├── model-00002-of-00004.safetensors
-        ├── model-00003-of-00004.safetensors
-        ├── model-00004-of-00004.safetensors
+        ├── model-00001-of-00005.safetensors
+        ├── model-00002-of-00005.safetensors
+        ├── model-00003-of-00005.safetensors
+        ├── model-00004-of-00005.safetensors
+        ├── model-00005-of-00005.safetensors
         ├── hyper_param.safetensors            # 训练任务记录的超参文件
         └── param_name_map.json                # MindSpore权重参数和文件的存储关系映射json文件
 ```
@@ -61,15 +63,15 @@ Safetensors分布式权重可通过以下两种方式获取：
 分布式Safetensors示例目录结构：
 
 ```text
-qwen2_7b
+qwen3_8b
  └── distributed_safetensors
         ├── rank_0
-            └── qwen2_7b_rank_0.safetensors
+            └── qwen3_8b_rank_0.safetensors
         ├── rank_1
-            └── qwen2_7b_rank_1.safetensors
+            └── qwen3_8b_rank_1.safetensors
         ...
         └── rank_x
-            └── qwen2_7b_rank_x.safetensors
+            └── qwen3_8b_rank_x.safetensors
 ```
 
 ## 权重保存
@@ -183,7 +185,7 @@ MindSpore Transformers支持训练、推理、续训在单卡多卡全场景下�
 
 ```yaml
 # 配置文件
-load_checkpoint: '/qwen2_7b/unified_safetensors'    # 加载完整权重文件路径
+load_checkpoint: '/qwen3_8b/unified_safetensors'    # 加载完整权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: False                              # 完整权重+单卡加载时需关闭此配置项
 use_parallel: False                                 # 单卡加载
@@ -197,7 +199,7 @@ parallel_config:                                    # 配置目标分布式策�
 
 ```yaml
 # 配置文件
-load_checkpoint: '/qwen2_7b/unified_safetensors'    # 加载完整权重文件路径
+load_checkpoint: '/qwen3_8b/unified_safetensors'    # 加载完整权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重+分布式加载时需打开此配置项，开启在线切分功能
 use_parallel: True                                  # 多卡加载
@@ -252,7 +254,7 @@ parallel_config:                                    # 配置目标分布式策�
 
 ```yaml
 output_dir: './output'                              # 策略文件会生成在./output/strategy下，用于权重在线切分
-load_checkpoint: '/qwen2_7b/unified_safetensors'    # 加载完整权重文件路径
+load_checkpoint: '/qwen3_8b/unified_safetensors'    # 加载完整权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重+分布式加载时需打开此配置项，开启在线切分功能
 train_dataset: &train_dataset
@@ -347,7 +349,7 @@ ms.parallel.merge_pipeline_strategys("/output/strategy", "/output/merged_strateg
 
 ```yaml
 output_dir: './output'                              # 确保每个节点下的./output/merged_strategy/都有合并完后的策略文件
-load_checkpoint: '/qwen2_7b/unified_safetensors'    # 加载完整权重文件路径
+load_checkpoint: '/qwen3_8b/unified_safetensors'    # 加载完整权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重+分布式加载时需打开此配置项，开启在线切分功能
 ```
@@ -592,31 +594,31 @@ callbacks:
 
 ### 训练任务示例
 
-若使用完整权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
+若使用完整权重多卡在线微调，以Qwen3-8B模型为例，修改配置项[finetune_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/configs/qwen3/finetune_qwen3.yaml)：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2.5_7b/hf_unified_safetensors' # 加载权重文件路径
+load_checkpoint: '/qwen3_8b/hf_unified_safetensors' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重时需打开此配置项，开启在线切分功能
 parallel_config:                                    # 配置目标分布式策略
-  data_parallel: 2
-  model_parallel: 4
+  data_parallel: 1
+  model_parallel: 8
   pipeline_stage: 1
 callbacks:
   - type: CheckpointMonitor
     checkpoint_format: safetensors                  # 保存权重文件格式
 ```
 
-若使用分布式权重多卡在线微调，以Qwen2.5-7B模型为例，修改配置项[finetune_qwen2_5_7b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/qwen2_5/finetune_qwen2_5_7b_8k.yaml)：
+若使用分布式权重多卡在线微调，以Qwen3-8B模型为例，修改配置项[finetune_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/configs/qwen3/finetune_qwen3.yaml)：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2.5_7b/distributed_safetensors' # 加载权重文件路径
+load_checkpoint: '/qwen3_8b/distributed_safetensors' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                      # 加载权重文件格式
 parallel_config:                                     # 配置目标分布式策略
-  data_parallel: 2
-  model_parallel: 4
+  data_parallel: 1
+  model_parallel: 8
   pipeline_stage: 1
 callbacks:
   - type: CheckpointMonitor
@@ -627,11 +629,7 @@ callbacks:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
- --config research/qwen2_5/finetune_qwen2_5_7b_8k.yaml \
- --train_dataset_dir /{path}/alpaca-data.mindrecord \
- --register_path research/qwen2_5 \
- --use_parallel True \
- --run_mode finetune" 8
+ --config configs/qwen3/finetune_qwen3.yaml" 8
 ```
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
@@ -640,28 +638,28 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ### 推理任务示例
 
-若使用完整权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
+若使用完整权重多卡在线推理，以Qwen3-8B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2.5_7b/hf_unified_safetensors' # 加载权重文件路径
+load_checkpoint: '/qwen3_8b/hf_unified_safetensors' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                     # 加载权重文件格式
 auto_trans_ckpt: True                               # 完整权重时需打开此配置项，开启在线切分功能
 parallel_config:
   data_parallel: 1
-  model_parallel: 2
+  model_parallel: 4
   pipeline_stage: 1
 ```
 
-若使用分布式权重多卡在线推理，以Qwen2.5-7B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
+若使用分布式权重多卡在线推理，以Qwen3-8B模型为例，修改配置项[predict_qwen2_5_7b_instruct.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/qwen2_5/predict_qwen2_5_7b_instruct.yaml)：
 
 ```yaml
 # 修改后的配置
-load_checkpoint: '/qwen2.5_7b/distributed_safetensors' # 加载权重文件路径
+load_checkpoint: '/qwen3_8b/distributed_safetensors' # 加载权重文件路径
 load_ckpt_format: 'safetensors'                      # 加载权重文件格式
 parallel_config:
   data_parallel: 1
-  model_parallel: 2
+  model_parallel: 4
   pipeline_stage: 1
 ```
 
@@ -669,12 +667,11 @@ parallel_config:
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
---config research/qwen2_5/predict_qwen2_5_7b_instruct.yaml \
+--config configs/qwen3/predict_qwen3.yaml \
 --run_mode predict \
 --use_parallel True \
---register_path research/qwen2_5 \
 --predict_data 'I love Beijing, because'" \
-2
+4
 ```
 
 执行以上单卡推理和多卡推理命令的结果如下：
