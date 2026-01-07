@@ -176,6 +176,11 @@ def get_param_func(func):
             repl=r'dtype=mindspore.float32',
             string=all_params
         )
+        all_params = re.sub(
+            pattern=r'dtype=np\.float32',
+            repl=r'dtype=numpy.float32',
+            string=all_params
+        )
         return all_params
     except:
         return ''
