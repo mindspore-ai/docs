@@ -66,7 +66,7 @@ The main parameters for recomputation configuration are listed in the following 
 | select_comm_recompute             | Select communication recomputation (by operator).                                                                                     | The configuration method is the same as **select_recompute**. The default selection of communication recomputation operators is `['.*\\.norm']` . Generally, it is only configured for layer_norm or similar layers.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | parallel_optimizer_comm_recompute | Optimizer parallel communication recomputation. Whether to recompute AllGather communication in optimizer parallelism.                | (bool, optional) - After enabling, in automatic parallelism or semi-automatic parallelism mode, specify whether AllGather communication introduced by optimizer parallelism in Cell is recomputed. Default value: `False`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | mp_comm_recompute                 | Model parallel communication recomputation, whether to recompute communication operators in model parallelism.                        | (bool, optional) - After turning on, in automatic parallelism or semi-automatic parallelism mode, specify whether to recompute the communication operations introduced by model parallelism in the cell. Default value: `True`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| recompute_slice_activation        | Slice recomputation, whether to slice the cell output that will be kept in memory. This parameter is only supported in legacy models. | (bool, optional) - Default value: `False`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| recompute_slice_activation        | Slice recomputation, whether to slice the cell output that will be kept in memory. This parameter is only supported in Legacy models. | (bool, optional) - Default value: `False`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 ## Fine-Grained Activations SWAP
 
@@ -83,7 +83,6 @@ The fine-grained activations SWAP technology offers high flexibility in usage. D
 #### Constraint Scenarios
 
 - Only support static graph O0/O1 mode
-- Compatible with Llama-family dense models, MoE sparse models to be supported in future updates  
 - Somas does not support heterogeneity and needs to be set in the configuration file:
 
   ```yaml
@@ -95,15 +94,17 @@ The fine-grained activations SWAP technology offers high flexibility in usage. D
 
 #### Instruction for API
 
-Fine-grained activations SWAP is enabled through the `swap_config` field in YAML configuration, which includes four functional interfaces: `swap`, `default_prefetch`, `layer_swap`, and `op_swap`. These interfaces allow users to flexibly enable SWAP for specific layers or specific operators within layers.
+Fine-grained activations SWAP is enabled through the `model_config` field in YAML configuration, which includes four functional interfaces: `cpu_offloading`, `default_prefetch`, `cpu_offloading_num_layers`, and `op_swap`. These interfaces allow users to flexibly enable SWAP for specific layers or specific operators within layers.
 
+> This document mainly introduces the configuration method for Mcore models, with configuration items located under the `model_config` field. If using Legacy models, configuration items are located under the `swap_config` field with different parameter names. For specific configuration parameters, please refer to the Legacy configuration table in [Configuration File Descriptions](https://www.mindspore.cn/mindformers/docs/en/master/feature/configuration.html#model-optimization-configuration).
+>
 > MindSpore framework currently decouples memory offloading and memory release. When activations are offloaded from the device side to the host side, the memory space occupied on the device side is not immediately released even after all data has been transferred. An explicit release operation is required instead. Before triggering the memory release, the system checks whether the activation offloading is complete. If not, the process will wait in place until the offloading finishes.
 
 | Configuration Item | Type | Description |
 |:--:|:--:|:---|
-| swap | bool | Default False. When set to False, all four functional interfaces are disabled. When set to True, activations SWAP is enabled, and the system checks whether layer_swap and op_swap are None. If both are None, the default SWAP strategy is applied, which enables SWAP for the flash_attention operator across all layers. If either layer_swap or op_swap has a non-None value, the default policy is overridden, and SWAP is enabled according to the configurations in layer_swap and op_swap. |
-| default_prefetch | int | Default 1 and only takes effect when swap=True, layer_swap=None, and op_swap=None. It controls the timing of releasing memory in forward phase and starting prefetch in backward phase of the default SWAP strategy. A larger `default_prefetch` delays memory release during the forward phase, keeping device memory occupied by activations locked for an extended period after offloading, preventing reuse by other data blocks. It also starts earlier prefetching from host to device during the backward phase, applying memory pressure prematurely. A smaller `default_prefetch` releases memory earlier in the forward phase but may introduce idle waiting for copy operations to complete. Additionally, delayed prefetch in the backward phase may cause computation stalls if prefetching isn't finished before activation usage, impacting end-to-end performance. This interface allows users to fine-tune memory release and prefetch timing for optimal memory efficiency and performance.|
-| layer_swap | list | Default None. When set to None, this interface is inactive. When the type is List, this interface contains several list elements of the Dict type. Each Dict element contains two keys: `backward_prefetch`, and `layers`, and provides the prefetch opportunity and layer index for enabling swap. |
+| cpu_offloading | bool | Default False. When set to False, all four functional interfaces are disabled. When set to True, activations SWAP is enabled, and the system checks whether cpu_offloading_num_layers and op_swap are None. If both are None, the default SWAP strategy is applied, which enables SWAP for the flash_attention operator across all layers. If either cpu_offloading_num_layers or op_swap has a non-None value, the default policy is overridden, and SWAP is enabled according to the configurations in cpu_offloading_num_layers and op_swap. |
+| default_prefetch | int | Default 1 and only takes effect when cpu_offloading=True, cpu_offloading_num_layers=None, and op_swap=None. It controls the timing of releasing memory in the forward phase and starting prefetch in the backward phase of the default SWAP strategy. A larger `default_prefetch` delays memory release during the forward phase. This keeps device memory occupied by activations locked for an extended period after offloading, preventing reuse by other data blocks. It also starts prefetching earlier from host to device during the backward phase, which applies memory pressure prematurely. A smaller `default_prefetch` releases memory earlier in the forward phase but may introduce idle waiting for copy operations to complete. Additionally, delayed prefetch in the backward phase may cause computation stalls if prefetching isn't finished before activation usage, impacting end-to-end performance. This interface allows users to fine-tune memory release and prefetch timing for optimal memory efficiency and performance.|
+| cpu_offloading_num_layers | list | Default None. When set to None, this interface is inactive. When the type is List, this interface contains several list elements of the Dict type. Each Dict element contains two keys: `backward_prefetch`, and `layers`, and provides the prefetch opportunity and layer index for enabling swap. |
 | op_swap | list | Default None. When set to None, this interface is inactive. When the type is List, this interface contains several list elements of the Dict type. Each Dict element contains three keys: `op_name`, `backward_prefetch`, and `layers`, and provides the prefetch opportunity, operator name, and layer index for enabling swap. |
 
 #### Used together with Recomputation
@@ -112,7 +113,7 @@ Fine-Grained Activations SWAP and Recomputation have coupling effects:
 
 1. If any operator has both recomputation and SWAP enabled simultaneously, recomputation will take effect while SWAP will not.
 2. For any operator with SWAP enabled, if its output is used by an operator with recomputation enabled, then SWAP for that operator will not take effect.
-3. The YAML configuration interface for recomputation only supports enabling recomputation for a specific number of layers sequentially from front to back, rather than selecting specific layers or specific operators within layers. This means when using both SWAP and recomputation together, SWAP can only be enabled for later layers or operators within later layers, preventing full utilization of SWAP's benefits. Therefore, when and only when `swap=True`, the recomputation interface functionality will be adjusted as shown in the table below.
+3. The YAML configuration interface for recomputation only supports enabling recomputation for a specific number of layers sequentially from front to back, rather than selecting specific layers or specific operators within layers. This means when using both SWAP and recomputation together, SWAP can only be enabled for later layers or operators within later layers, preventing full utilization of SWAP's benefits. Therefore, when and only when `cpu_offloading=True`, the recomputation interface functionality will be adjusted as shown in the table below.
 
 | Interface Name | Original Functionality | Functionality When Enabling SWAP |
 |:--:|:---|:---|
@@ -122,7 +123,7 @@ Fine-Grained Activations SWAP and Recomputation have coupling effects:
 
 ### Cases of Fine-Grained Activations SWAP
 
-This section demonstrates the usage of fine-grained activations SWAP using Llama2-7B training as an example.
+This section demonstrates the usage of fine-grained activations SWAP using [DeepSeek-V3 pre-training's YAML file](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) as an example.
 
 #### Environmental Preparation
 
@@ -138,13 +139,12 @@ context:
 model:
   model_config:
     num_layers: 4
+    cpu_offloading: True
+    default_prefetch: 10
 recompute_config:
   recompute: False
   select_recompute: False
   select_comm_recompute: False
-swap_config:
-  swap: True
-  default_prefetch: 10
 ```
 
 Execute the following script to launch single-node 8-NPU training, with the script's execution path being the root directory, requiring the user to specify the YAML file path(machine_ip needs to fill in the local environment IP address):
@@ -183,15 +183,14 @@ context:
 model:
   model_config:
     num_layers: 4
+    cpu_offloading: True
+    cpu_offloading_num_layers:
+      - backward_prefetch: 20
+        layers: [0,3]
 recompute_config:
   recompute: False
   select_recompute: False
   select_comm_recompute: False
-swap_config:
-  swap: True
-  layer_swap:
-    - backward_prefetch: 20
-      layers: [0,3]
 ```
 
 Execute the following script to launch single-node 8-NPU training, with the script's execution path being the root directory, requiring the user to specify the YAML file path(machine_ip needs to fill in the local environment IP address):
@@ -228,22 +227,21 @@ context:
 model:
   model_config:
     num_layers: 4
+    cpu_offloading: True
+    op_swap:
+      - op_name: 'attention'
+        backward_prefetch: 20
+        layers: [0,1,2]
+      - op_name: 'attention'
+        backward_prefetch: 10
+        layers: [3]
+      - op_name: 'feed_forward'
+        backward_prefetch: 15
+        layers: [1,2]
 recompute_config:
   recompute: False
   select_recompute: False
   select_comm_recompute: False
-swap_config:
-  swap: True
-  op_swap:
-    - op_name: 'attention'
-      backward_prefetch: 20
-      layers: [0,1,2]
-    - op_name: 'attention'
-      backward_prefetch: 10
-      layers: [3]
-    - op_name: 'feed_forward'
-      backward_prefetch: 15
-      layers: [1,2]
 ```
 
 Execute the following script to launch single-node 8-NPU training, with the script's execution path being the root directory, requiring the user to specify the YAML file path(machine_ip needs to fill in the local environment IP address):
@@ -282,23 +280,22 @@ context:
 model:
   model_config:
     num_layers: 4
+    cpu_offloading: True
+    op_swap:
+      - op_name: 'attention'
+        backward_prefetch: 20
+        layers: [0,1,2]
+      - op_name: 'attention'
+        backward_prefetch: 10
+        layers: [3]
+      - op_name: 'feed_forward'
+        backward_prefetch: 15
+        layers: [1,2]
 recompute_config:
   recompute: False
   select_recompute:
     'feed_forward': [0,3]
   select_comm_recompute: False
-swap_config:
-  swap: True
-  op_swap:
-    - op_name: 'attention'
-      backward_prefetch: 20
-      layers: [0,1,2]
-    - op_name: 'attention'
-      backward_prefetch: 10
-      layers: [3]
-    - op_name: 'feed_forward'
-      backward_prefetch: 15
-      layers: [1,2]
 ```
 
 Execute the following script to launch single-node 8-NPU training, with the script's execution path being the root directory, requiring the user to specify the YAML file path(machine_ip needs to fill in the local environment IP address):
