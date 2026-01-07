@@ -511,14 +511,14 @@ Distributed Parallel
        Note: When the Ascend AI Processor is used, specified by user when a distributed case is executed.
      - Integer
      - The number of Ascend AI Processors to be called ranges from 1 to 8.
-     - This variable is used together with RANK_TABLE_FILE
-   * - RANK_TABLE_FILE or MINDSPORE_HCCL_CONFIG_PATH
+     -
+   * - RANK_TABLE_FILE
      - Specifies the file to which a path points, including `device_ip` corresponding to multiple Ascend AI Processor `device_id`.
 
        Note: When the Ascend AI Processor is used, specified by user when a distributed case is executed.
      - String
      - File path, which can be a relative path or an absolute path.
-     - This variable is used together with RANK_SIZE.
+     -
    * - MS_COMM_COMPILER_OPT
      - Specifies the maximum number of communication operators that can be replaced by corresponding communication subgraph during Ascend backend compilation in graph mode.
 
