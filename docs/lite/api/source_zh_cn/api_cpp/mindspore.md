@@ -1239,7 +1239,7 @@ using Key = struct MS_API Key {
 
 ## Serialization
 
-\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/serialization.h)&gt;
+\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/serialization.h)&gt;
 
 Serialization类汇总了模型文件读写的方法。
 
@@ -3376,7 +3376,7 @@ const SchemaVersion GetVersion()
 
 ## AbstractDelegate
 
-\#include &lt;[delegate_api.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate_api.h)&gt;
+\#include &lt;[delegate_api.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate_api.h)&gt;
 
 `AbstractDelegate`定义了MindSpore Lite 创建Delegate（抽象类）。
 
@@ -3432,7 +3432,7 @@ std::vector<mindspore::MSTensor> outputs_
 std::vector<mindspore::MSTensor> outputs_
 ```
 
-\#include &lt;[delegate_api.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate_api.h)&gt;
+\#include &lt;[delegate_api.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate_api.h)&gt;
 
 `IDelegate`定义了MindSpore Lite 创建Delegate（模板类）。
 
@@ -3478,7 +3478,7 @@ virtual std::shared_ptr<Kernel> CreateKernel(const std::shared_ptr<Node> &node) 
 
 ## TrainCfg
 
-\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cfg.h)&gt;
+\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/cfg.h)&gt;
 
 `TrainCfg`MindSpore Lite训练的相关配置参数。
 
@@ -3567,7 +3567,7 @@ inline void SetLossName(const std::vector<std::string> &loss_name)
 
 ## MixPrecisionCfg
 
-\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cfg.h)&gt;
+\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/cfg.h)&gt;
 
 `MixPrecisionCfg`MindSpore Lite训练混合精度配置类。
 
@@ -4077,7 +4077,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 
 ## Graph
 
-\#include &lt;[graph.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/graph.h)&gt;
+\#include &lt;[graph.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/graph.h)&gt;
 
 ### 构造函数和析构函数
 
