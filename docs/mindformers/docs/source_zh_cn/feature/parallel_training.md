@@ -251,15 +251,15 @@ model_config:
 
 ## MindSpore Transformers 分布式并行应用实践
 
-在官网提供的[Llama3_1-70B微调配置](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml#)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行策略和关键参数：
+在官网提供的[Qwen3微调配置](https://gitee.com/mindspore/mindformers/blob/r1.8.0/configs/qwen3/finetune_qwen3.yaml)文件中，使用了多种分布式并行策略，以提升多机多卡环境中的训练效率。以下是该配置文件中涉及的主要并行参数：
 
-- **数据并行**：未启用额外的数据并行（`data_parallel: 1`）。
-- **模型并行**：模型被切分成8个部分，在不同设备上计算（`model_parallel: 8`）。
-- **流水线并行**：模型分为8个流水线阶段，按顺序在不同设备上运行（`pipeline_stage: 8`）。
-- **序列并行**：开启序列并行（`use_seq_parallel: True`），将Transformer层中的LayerNorm及Dropout的输入按照序列维度进行切分，使各设备只需处理部分的LayerNorm和Dropout，减少模型显存占用。
-- **多副本并行**：通过执行序调度算法控制细粒度多分支的并行（`fine_grain_interleave: 2`），提高计算与通信的相互掩盖。
-- **优化器并行**：优化器计算分散到多个设备上，以减少内存占用（`enable_parallel_optimizer: True`）。
+- **数据并行**：输入的数据分片并分配到不同的计算设备上并行处理。
+- **模型并行**：模型被切分成多个部分，在不同设备上计算。
+- **流水线并行**：模型分为多个流水线阶段，按顺序在不同设备上运行。
+- **序列并行**：开启序列并行，将Transformer层中的LayerNorm及Dropout的输入按照序列维度进行切分，使各设备只需处理部分的LayerNorm和Dropout，减少模型显存占用。
+- **多副本并行**：通过执行序调度算法控制细粒度多分支的并行，提高计算与通信的相互掩盖。
+- **优化器并行**：优化器计算分散到多个设备上，以减少内存占用。
 
 > 开启细粒度多副本并行的同时必须开启序列并行。
 
-通过以上配置，Llama3_1-70B的分布式训练在多机多卡环境中可以有效利用硬件资源，实现高效、稳定的模型训练。
+通过以上配置，Qwen3的分布式训练在多机多卡环境中可以有效利用硬件资源，实现高效、稳定的模型训练。
