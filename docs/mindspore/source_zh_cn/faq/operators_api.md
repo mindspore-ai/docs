@@ -4,13 +4,21 @@
 
 ## 常见问题
 
-### Q: 在ascend机器上，使用mindspore 2.7.2分支的'nn.ctcloss' API,搭配CANN 8.0.0、8.1.0、8.2.0版本时，会出现算子精度问题,这种情况怎么处理？
+### Q: 在Ascend机器上，使用MindSpore 2.7.2版本的 `nn.ctcloss` API，搭配CANN 8.0.0、8.1.0、8.2.0版本时，会出现算子精度问题，这种情况怎么处理？
 
-A：确保mindspore分支与CANN版本的配套使用。推荐使用MindSpore 2.7.2分支与CANN 8.5.0 版本配套使用，MindSpore 2.8.0以上分支推荐与CANN 8.2.0以上版本配套使用。
+A：确保MindSpore版本与CANN版本的配套使用。推荐使用MindSpore 2.7.2版本与CANN 8.5.0 版本配套使用，MindSpore 2.8.0以上版本推荐与CANN 8.2.0以上版本配套使用。
+
+<br/>
 
 ### Q: 在Ascend机器上使用`ops.ring_attention_update`算子，搭配8.1.RC1的CANN包，发生报错`RuntimeError: aclnnRingAttentionUpdateGetWorkSpaceSize call failed`，是怎么回事？
 
 A: 出于性能考虑，[ops.ring_attention_update](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ring_attention_update.html)算子不再兼容8.1.RC1及更早之前版本的CANN包，建议安装8.2.RC1或更新版本的CANN包。
+
+<br/>
+
+### Q：在Ascend机器上，使用MindSpore 2.7.2版本的 `nn.Hardtanh` API，搭配CANN版本8.0.0.alpha003，发生报错`RuntimeError: Failed: Timeout >900.0s`，是怎么回事？
+
+A: 该问题为 MindSpore 2.7.2 及以上版本与 CANN 8.0.0.alpha003 不兼容导致。MindSpore 2.7.2 需要与 CANN 8.5.0配套使用，MindSpore 2.8.0 以上版本推荐与 CANN 8.2.0 以上版本配套使用。
 
 <br/>
 
