@@ -268,12 +268,23 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
    | recompute_config.select_comm_recompute_exclude     | 关闭指定算子的通讯重计算，只对Primitive算子有效。          | bool/list       |
 2. MindSpore Transformers提供细粒度激活值SWAP相关配置，以降低模型在训练时的内存占用，详情可参考[细粒度激活值SWAP](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/memory_optimization.html#%E7%BB%86%E7%B2%92%E5%BA%A6%E6%BF%80%E6%B4%BB%E5%80%BCswap)。
 
+   **Legacy配置（swap_config）：**
+
    | 参数                         | 说明                                                                                                              | 类型 |
    | ---------------------------- | ----------------------------------------------------------------------------------------------------------------- | ---- |
    | swap_config.swap             | 是否开启激活值SWAP。                                                                                              | bool |
    | swap_config.default_prefetch | 设置激活值卸载至host时的内存释放时机与开始取回device的时机，仅在开启激活值SWAP且未设置layer_swap与op_swap时生效。 | int  |
    | swap_config.layer_swap       | 选择特定的层使能激活值SWAP。                                                                                      | list |
    | swap_config.op_swap          | 选择特定层中的特定算子使能激活值SWAP。                                                                            | list |
+
+   **Mcore配置（model_config）：**
+
+   | 参数                                    | 说明                                                                                                                                    | 类型 |
+   | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+   | model_config.cpu_offloading             | 是否开启激活值SWAP。                                                                                                                      | bool |
+   | model_config.default_prefetch           | 设置激活值卸载至host时的内存释放时机与开始取回device的时机，仅在开启激活值SWAP且未设置cpu_offloading_num_layers与op_swap时生效。        | int  |
+   | model_config.cpu_offloading_num_layers  | 选择特定的层使能激活值SWAP。                                                                                                              | list |
+   | model_config.op_swap                    | 选择特定层中的特定算子使能激活值SWAP。                                                                                                  | list |
 
 ### Callbacks配置
 

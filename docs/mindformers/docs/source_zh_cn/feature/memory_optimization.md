@@ -66,7 +66,7 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 | select_comm_recompute             | （按算子）选择通信重计算。                                 | 配置方式与 **select_recompute** 相同，默认选择通信重计算算子为 `['.*\\.norm']` 。一般仅对 layer_norm 或类似层进行配置。                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | parallel_optimizer_comm_recompute | 优化器并行通信重计算。在优化器并行下，是否重计算 AllGather 通信。        | (bool, 可选) - 开启后在自动并行或半自动并行模式下，指定 Cell 内部由优化器并行引入的 AllGather 通信是否重计算。默认值： `False` 。                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | mp_comm_recompute                 | 模型并行通信重计算，在模型并行下，是否重计算通信算子。                   | (bool, 可选) - 开启后在自动并行或半自动并行模式下，指定 Cell 内部由模型并行引入的通信操作是否重计算。默认值： `True` 。                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| recompute_slice_activation        | 切片重计算，是否对将保留在内存中的 Cell 输出进行切片。该参数仅支持legacy模型。 | (bool, 可选) - 默认值： `False` 。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| recompute_slice_activation        | 切片重计算，是否对将保留在内存中的 Cell 输出进行切片。该参数仅支持Legacy模型。 | (bool, 可选) - 默认值： `False` 。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 ## 细粒度激活值SWAP
 
@@ -83,7 +83,6 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 #### 约束场景
 
 - 仅支持静态图O0/O1模式
-- 支持Llama系稠密模型，后续演进支持MoE稀疏模型
 - Somas不支持异构，需在配置文件中设置
 
   ```yaml
@@ -95,15 +94,17 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
 #### 接口说明
 
-细粒度激活值SWAP特性通过YAML配置`swap_config`字段使能，包括`swap`、`default_prefetch`、`layer_swap`、`op_swap`四个功能接口，用户可通过此接口灵活选择特定层或特定层的特定算子使能激活值SWAP功能。
+细粒度激活值SWAP特性通过YAML配置`model_config`字段使能，包括`cpu_offloading`、`default_prefetch`、`cpu_offloading_num_layers`、`op_swap`四个功能接口，用户可通过此接口灵活选择特定层或特定层的特定算子使能激活值SWAP功能。
 
+> 本文档主要介绍Mcore模型的配置方式，配置项位于`model_config`字段下。如果使用Legacy模型，配置项位于`swap_config`字段下，参数名称有所不同，具体配置参数可参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html#模型优化配置)中的Legacy配置表格。
+>
 > 当前MindSpore框架将内存搬运与内存释放解耦。将激活值从device侧卸载至host侧时，即便数据已全部卸载，其在device侧占用的内存空间并未被立刻释放，而是需要再触发释放操作。内存释放操作触发前，会检测激活值卸载是否完成，若未完成，则进程会原地等待，直至激活值卸载完成。
 
 | 配置项 | 类型 | 说明 |
 |:--:|:--:|:---|
-| swap | Bool | 默认值False。当为False时，本特性的四个功能接口全部不生效；当为True时，激活值SWAP功能开启，并检查`layer_swap`与`op_swap`是否为None，若均为None，则启用默认的SWAP策略，该策略将对所有层中的`flash_attention`算子使能SWAP。若`layer_swap`与`op_swap`存在非None值，则屏蔽默认策略并按照`layer_swap`与`op_swap`的配置使能SWAP功能。 |
-| default_prefetch | Int | 默认值1。当swap=True、layer_None、op_swap=None时生效。`default_prefetch`用于调控默认SWAP策略的激活值内存释放时机和预取开始时机。当`default_prefetch`较大时，正向阶段释放内存时机较晚，激活值占用的device内存会在激活值卸载完成后被长期锁住，不被其他数据块复用，同时反向阶段开始将激活值从host侧拷贝至device侧的时机较早，申请相应内存空间的时间较早，内存压力未得到真正缓解；当`default_prefetch`较小时，正向阶段内存释放时机较早，存在等待激活值拷贝任务完成的空等时间，且反向阶段预取的开始时机较晚，若在使用激活值计算时仍未完成激活值预取，则也会引入等待时间，影响端到端性能。因此开放本接口，供用户调试内存释放时机与激活值预期时机，以达到最少的内存占用和最优的端到端性能。|
-| layer_swap | List | 默认值None。当为None时，本接口不生效；当为List类型时，本接口包含若干Dict类型的列表元素，每个Dict类型元素包含`backward_prefetch`与`layers`两个键，提供使能SWAP的预取时机（即开始搬回操作的时机）和对应的层索引。 |
+| cpu_offloading | Bool | 默认值False。当为False时，本特性的四个功能接口全部不生效；当为True时，激活值SWAP功能开启，并检查`cpu_offloading_num_layers`与`op_swap`是否为None，若均为None，则启用默认的SWAP策略，该策略将对所有层中的`flash_attention`算子使能SWAP。若`cpu_offloading_num_layers`与`op_swap`存在非None值，则屏蔽默认策略并按照`cpu_offloading_num_layers`与`op_swap`的配置使能SWAP功能。 |
+| default_prefetch | Int | 默认值1。当cpu_offloading=True、cpu_offloading_num_layers=None、op_swap=None时生效。`default_prefetch`用于调控默认SWAP策略的激活值内存释放时机和预取开始时机。当`default_prefetch`较大时，正向阶段释放内存时机较晚，激活值占用的device内存会在激活值卸载完成后被长期锁住，不被其他数据块复用，同时反向阶段开始将激活值从host侧拷贝至device侧的时机较早，申请相应内存空间的时间较早，内存压力未得到真正缓解；当`default_prefetch`较小时，正向阶段内存释放时机较早，存在等待激活值拷贝任务完成的空等时间，且反向阶段预取的开始时机较晚，若在使用激活值计算时仍未完成激活值预取，则也会引入等待时间，影响端到端性能。因此开放本接口，供用户调试内存释放时机与激活值预期时机，以达到最少的内存占用和最优的端到端性能。|
+| cpu_offloading_num_layers | List | 默认值None。当为None时，本接口不生效；当为List类型时，本接口包含若干Dict类型的列表元素，每个Dict类型元素包含`backward_prefetch`与`layers`两个键，提供使能SWAP的预取时机（即开始搬回操作的时机）和对应的层索引。 |
 | op_swap | List | 默认值None。当为None时，本接口不生效；当为List类型时，本接口包含若干Dict类型的列表元素，每个Dict类型元素包含`op_name`、`backward_prefetch`与`layers`三个键，提供使能SWAP的预取时机和对应的算子名、层索引。 |
 
 #### 混合重计算
@@ -112,7 +113,7 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
 1. 任意算子在同时使能重计算与SWAP时，重计算将生效，SWAP不生效。
 2. 对于任意使能了SWAP的算子，若使用其输出的算子使能了重计算，则该算子的SWAP不生效。
-3. 重计算的YAML配置接口只支持从前至后选择特定数量的层使能重计算，而不支持选择特定层或特定层的特定算子使能重计算，这意味着同时使用SWAP与重计算时，SWAP只能使能靠后的层或靠后层中的算子，无法获取SWAP特性的最大收益。因此当且仅当`swap=True`时，重计算接口功能将按下表调整。
+3. 重计算的YAML配置接口只支持从前至后选择特定数量的层使能重计算，而不支持选择特定层或特定层的特定算子使能重计算，这意味着同时使用SWAP与重计算时，SWAP只能使能靠后的层或靠后层中的算子，无法获取SWAP特性的最大收益。因此当且仅当`cpu_offloading=True`时，重计算接口功能将按下表调整。
 
 | 接口名称 | 原功能 | 开启SWAP后功能 |
 |:--:|:---|:---|
@@ -122,7 +123,7 @@ INFO - Formative select_comm_recompute: {'ffn_norm\.norm': [[4, 5, 5, 5, 5], [5,
 
 ### 使用示例
 
-本章节以 Llama2-7B 训练为例，演示细粒度激活值SWAP特性的使用。
+本章节以 [DeepSeek-V3 预训练 yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/deepseek3/pretrain_deepseek3_671b.yaml) 为例，演示细粒度激活值SWAP特性的使用。
 
 #### 环境准备
 
@@ -138,13 +139,12 @@ context:
 model:
   model_config:
     num_layers: 4
+    cpu_offloading: True
+    default_prefetch: 10
 recompute_config:
   recompute: False
   select_recompute: False
   select_comm_recompute: False
-swap_config:
-  swap: True
-  default_prefetch: 10
 ```
 
 执行以下脚本启动单机八卡训练，启动脚本所在路径为MindSpore Transformers代码根目录，执行脚本需用户指定YAML文件路径（其中，machine_ip需要填写本地环境IP）：
@@ -183,15 +183,14 @@ context:
 model:
   model_config:
     num_layers: 4
+    cpu_offloading: True
+    cpu_offloading_num_layers:
+      - backward_prefetch: 20
+        layers: [0,3]
 recompute_config:
   recompute: False
   select_recompute: False
   select_comm_recompute: False
-swap_config:
-  swap: True
-  layer_swap:
-    - backward_prefetch: 20
-      layers: [0,3]
 ```
 
 执行以下脚本启动单机八卡训练，启动脚本所在路径为MindSpore Transformers代码根目录，执行脚本需用户指定YAML文件路径（其中，machine_ip需要填写本地环境IP）：
@@ -228,22 +227,21 @@ context:
 model:
   model_config:
     num_layers: 4
+    cpu_offloading: True
+    op_swap:
+      - op_name: 'attention'
+        backward_prefetch: 20
+        layers: [0,1,2]
+      - op_name: 'attention'
+        backward_prefetch: 10
+        layers: [3]
+      - op_name: 'feed_forward'
+        backward_prefetch: 15
+        layers: [1,2]
 recompute_config:
   recompute: False
   select_recompute: False
   select_comm_recompute: False
-swap_config:
-  swap: True
-  op_swap:
-    - op_name: 'attention'
-      backward_prefetch: 20
-      layers: [0,1,2]
-    - op_name: 'attention'
-      backward_prefetch: 10
-      layers: [3]
-    - op_name: 'feed_forward'
-      backward_prefetch: 15
-      layers: [1,2]
 ```
 
 执行以下脚本启动单机八卡训练，启动脚本所在路径为MindSpore Transformers代码根目录，执行脚本需用户指定YAML文件路径（其中，machine_ip需要填写本地环境IP）：
@@ -282,23 +280,22 @@ context:
 model:
   model_config:
     num_layers: 4
+    cpu_offloading: True
+    op_swap:
+      - op_name: 'attention'
+        backward_prefetch: 20
+        layers: [0,1,2]
+      - op_name: 'attention'
+        backward_prefetch: 10
+        layers: [3]
+      - op_name: 'feed_forward'
+        backward_prefetch: 15
+        layers: [1,2]
 recompute_config:
   recompute: False
   select_recompute:
     'feed_forward': [0,3]
   select_comm_recompute: False
-swap_config:
-  swap: True
-  op_swap:
-    - op_name: 'attention'
-      backward_prefetch: 20
-      layers: [0,1,2]
-    - op_name: 'attention'
-      backward_prefetch: 10
-      layers: [3]
-    - op_name: 'feed_forward'
-      backward_prefetch: 15
-      layers: [1,2]
 ```
 
 执行以下脚本启动单机八卡训练，启动脚本所在路径为MindSpore Transformers代码根目录，执行脚本需用户指定YAML文件路径（其中，machine_ip需要填写本地环境IP）：
