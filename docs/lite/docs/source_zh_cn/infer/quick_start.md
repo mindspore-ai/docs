@@ -162,15 +162,12 @@ include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/ru
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/third_party)
 
 add_library(mindspore-lite SHARED IMPORTED)
-add_library(minddata-lite SHARED IMPORTED)
 add_library(libmindspore-lite-train SHARED IMPORTED)
 add_library(libjpeg SHARED IMPORTED)
 add_library(libturbojpeg SHARED IMPORTED)
 
 set_target_properties(mindspore-lite PROPERTIES IMPORTED_LOCATION
         ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libmindspore-lite.so)
-set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libminddata-lite.so)
 set_target_properties(libmindspore-lite-train PROPERTIES IMPORTED_LOCATION
         ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libmindspore-lite-train.so)
 set_target_properties(libjpeg PROPERTIES IMPORTED_LOCATION
@@ -184,7 +181,6 @@ target_link_libraries( # Specifies the target library.
         mlkit-label-MS
 
         # --- mindspore ---
-        minddata-lite
         mindspore-lite
         libmindspore-lite-train
         libjpeg

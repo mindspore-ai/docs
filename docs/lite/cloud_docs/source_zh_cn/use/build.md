@@ -11,7 +11,6 @@
 | converter          | Linux    | 模型转换工具 |
 | runtime(cpp、java) | Linux    | 模型推理框架 |
 | benchmark          | Linux    | 基准测试工具 |
-| minddata           | Linux    | 图像处理库   |
 
 ## 环境要求
 
@@ -200,8 +199,6 @@ mindspore-lite-{version}-linux-{arch}
 │   ├── lib
 │   │   ├── libascend_kernel_plugin.so # Ascend Kernel插件动态库
 │   │   ├── libdvpp_utils.so           # DVPP图像预处理工具动态库
-│   │   ├── libminddata-lite.a         # 图像处理静态库
-│   │   ├── libminddata-lite.so        # 图像处理动态库
 │   │   ├── libmindspore-core.so       # MindSpore Core动态库
 │   │   ├── libmindspore-glog.so.0     # glog动态库
 │   │   ├── libmindspore-lite-jni.so   # MindSpore Lite推理框架的jni动态库

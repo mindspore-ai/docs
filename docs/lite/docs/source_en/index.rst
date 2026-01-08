@@ -128,7 +128,6 @@ Using the MindSpore Lite device-side inference framework primarily involves the 
    :caption: Advanced Development
    :hidden:
 
-   advanced/image_processing
    advanced/quantization
    advanced/micro
 

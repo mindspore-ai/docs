@@ -34,172 +34,24 @@ If the user creates a `Context` via `new` and no longer needs it, the user needs
 
 ### Creating TrainLoop
 
-User can create the object of the class `Model` by using the function `Build` to call MindData APIs. The member function `Build` of the class `Model` whose prototype is as follows:
+Currently, `MindSpore Lite` has removed `MindData` and its related high-level training APIs, including `Train`, `Evaluate`, as well as some dependent callback classes such as `AccuracyMetrics`, `CkptSaver`, `TrainAccuracy`, and `LossMonitor`.
+As a result, model training via high-level APIs is not supported at this time. Training usage based on the `RunStep` API will be provided in future updates.
 
-  `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`
-
-The following codes show how to create a training session based on the multi-threads CPU by using the class `Model`.
-
-```cpp
-int CreateSession() {
-  auto context = std::make_shared<mindspore::Context>();
-  auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
-  cpu_context->SetEnableFP16(enable_fp16_);
-  context->MutableDeviceInfo().push_back(cpu_context);
-
-  graph_ = new mindspore::Graph();
-  auto status = mindspore::Serialization::Load(ms_file_, mindspore::kFlatBuffer, graph_);
-  if (status != mindspore::kSuccess) {
-    std::cout << "Error " << status << " during serialization of graph " << ms_file_;
-    MS_ASSERT(status != mindspore::kSuccess);
-  }
-
-  auto cfg = std::make_shared<mindspore::TrainCfg>();
-  if (enable_fp16_) {
-    cfg.get()->optimization_level_ = mindspore::kO2;
-  }
-
-  model_ = new mindspore::Model();
-  status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
-  if (status != mindspore::kSuccess) {
-    std::cout << "Error " << status << " during build of model " << ms_file_;
-    MS_ASSERT(status != mindspore::kSuccess);
-  }
-  return status;
-}
-```
-
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc) for more details.
+In addition, since `libmindspore-lite-train` has a weak dependency on `libmindspore-lite`, when using the C++ `RunStep` interface for training, the training capability must be explicitly enabled by forcibly linking the `libmindspore-lite-train` shared library (.so). This can be achieved by adding the linker option `-Wl,--no-as-needed`.
 
 ## Data Processing
 
-### Data Reading Pipeline
+Currently, due to the removal of the `MindData` module and its dependent high-level training APIs (`Train` and `Evaluate`), all dataset-related classes have been removed.
+As a result, users are required to implement their own data preprocessing pipeline, converting image or text data into raw byte data, and then manually copying the processed data into the model inputs before inference or training.
 
-The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data processing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer to [Dataset](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset.html) for more details.
+## Executing Training and Evaluating
 
-### Data Preprocessing Pipeline
+Currently, `MindSpore Lite` has removed `MindData` and its related high-level training APIs, including `Train`, `Evaluate`, as well as some dependent callback classes such as `AccuracyMetrics`, `CkptSaver`, `TrainAccuracy`, and `LossMonitor`.
+As a result, model training via high-level APIs is not supported at this time. Training usage based on the `RunStep` API will be provided in future updates.
 
-The class `TensorTransform` has provided abundant data preprocessing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer to [Vision](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset_vision.html) for more details.
-
-### Example
-
-The following codes show how to read and process dataset by using the class `Dataset` and `TensorTransform`:
-
-```cpp
-int DataSetPipeline() {
-    train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
-
-    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
-    Resize resize({h_, w_});
-    train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
-
-    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
-    train_ds_ = train_ds_->Map({&typecast}, {"label"});
-
-    train_ds_ = train_ds_->Batch(batch_size_, true);
-    if (verbose_) {
-    std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
-    }
-    if (train_ds_->GetDatasetSize() == 0) {
-    std::cout << "No relevant data was found in " << data_dir_ << std::endl;
-    MS_ASSERT(train_ds_->GetDatasetSize() != 0);
-    }
-    return 0;
-}
-```
-
-The example allows the user to define the training data processing flow by calling existing functions of the `Dataset` class and the `TensorTransform` class via the shared pointer of the `MnistDataset` class returned by the Mnist function.
-
-## Executing Training
-
-MindSpore Lite has provided some off-the-shelf callback classes for users (e.g., `AccuracyMetrics`, `CkptSaver`, `TrainAccuracy`, `LossMonitor` and `Metrics`). The function `Train` and `Evaluate` of the class `Model` can set the model to the training or evaluation mode separately, specify the methods of the data processing and monitor the session status.
-
-### Training
-
-Create the objects of the off-the-shelf functions and call the `Train` function of the class `Model` for training:
-
-```cpp
-int Train() {
-  mindspore::LossMonitor lm(kPrintTimes);
-  mindspore::TrainAccuracy am(1);
-
-  mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
-  Rescaler rescale(kScalePoint);
-  Measurement measure(epochs_);
-
-  if (virtual_batch_ > 0) {
-    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
-  } else {
-    struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
-    mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
-  }
-
-  return 0;
-}
-```
-
-### Evaluating
-
-Also call the `Evaluate` function of the class `Model` to evaluate model.
-
-```cpp
-float Evaluate() {
-  test_ds_ = Mnist(data_dir_ + "/test", "all");
-  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
-  Resize resize({h_, w_});
-  test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
-
-  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
-  test_ds_ = test_ds_->Map({&typecast}, {"label"});
-  test_ds_ = test_ds_->Batch(batch_size_, true);
-
-  auto acc_metrics_ = model_->Evaluate(test_ds_, {});
-  auto res = acc_metrics_->Eval();
-  std::cout << "Accuracy is " << res << std::endl;
-
-  return res;
-}
-```
-
-> With TrainSessions, a network can be used for both inference and training. These two modes differ in several aspects:
->
-> - The input of the network: Running inference requires only the data, while running training requires both data and labels.
-> - The output of the network: Running inference returns the predicted values in the output, while running in training mode returns the loss.
-> - In training mode, the weights of the layers are updated in each Run, while in inference mode they are static.
-> - Some layers behave differently in inference vs. training mode, e.g., updating the accumulated batch mean and variance in Batch Normalization layers.
+In addition, since `libmindspore-lite-train` has a weak dependency on `libmindspore-lite`, when using the C++ `RunStep` interface for training, the training capability must be explicitly enabled by forcibly linking the `libmindspore-lite-train` shared library (.so). This can be achieved by adding the linker option `-Wl,--no-as-needed`.
 
 ## Others
-
-### Session Mode Switching
-
-The function prototypes for `Train` and `Evaluate` in the `Model` class are as follows:
-
-```cpp
-/// \brief Set model to train mode
-/// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-Status Train(int epochs, std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
-
-/// \brief Set model to Evaluate mode
-/// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
-```
-
-The following sample code shows how to set a `Model` object to train mode.
-
-```cpp
-auto ret = model->Train();
-if (ret != RET_OK) {
-    std::cerr << "Could not set to train mode" << std::endl;
-    return -1;
-}
-
-auto ret = model->Evaluate();
-if (ret != RET_OK) {
-    std::cerr << "Could not set to evaluate mode" << std::endl;
-    return -1;
-}
-```
 
 ### Resizing the Input Dimension
 
@@ -422,58 +274,6 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
     ```
 
     > Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputByTensorName` and `GetOutputs` methods do not need to be released by users.
-
-### Executing Callback
-
-MindSpore Lite framework allows the user to set two callback functions that will be called before and after running each node. Such functions can assist the developer in tracing the network, debugging it and measuring how long it took run each node. The callback parameters are as follows:
-
-- The current input tensors of the running node
-- The current output tensors of the running node
-- Name and type of the running node
-
-While the node name and type will be the same before and after running the node, the output tensors will differ between the two callbacks invocations.
-For some operators, also the input tensors will vary.
-
-```cpp
-/// \brief  CallBackParam defines input arguments for callback function.
-struct CallBackParam {
-  std::string node_name; /**< node name argument */
-  std::string node_type; /**< node type argument */
-};
-
-/// \brief KernelCallBack defined the function pointer for callBack.
-using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs,
- std::vector<tensor::MSTensor *> outputs,  const CallBackParam &opInfo)>;
-```
-
-The following sample code demonstrates how to define two callback functions, the first will be called before running each layer, and the second after running it.
-
-```cpp
-// Assuming model is a valid instance of Model and that data was assigned to the input tensors
-
-// Definition of a callback function that will be called before forwarding operator
-bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
- const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::MSCallBackParam &call_param) {
-    std::cout << call_param.node_name << std::endl;
-    std::cout << "Before forwarding: input size is " << inputs.size() << std::endl;
-    return true;
-};
-// Definition of callback function that will be called after forwarding operator
-bool after_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
- const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::MSCallBackParam &call_param) {
-    std::cout << "After forwarding: output size is " << outputs.size() << std::endl;
-    return true;
-};
-
-// Hand over the callback functions to RunGraph when performing the training or inference
-ret = model_->Train(epochs_, train_ds_, {&before_callback, &after_callback});
-if (ret != RET_OK) {
-  MS_LOG(ERROR) << "Run graph failed.";
-  return RET_ERROR;
-}
-```
 
 ### Saving Model
 

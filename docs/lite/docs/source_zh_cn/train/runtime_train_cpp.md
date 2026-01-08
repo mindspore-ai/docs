@@ -34,172 +34,23 @@ MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/
 
 ### 创建迭代训练
 
-用户可通过`Model`的`Build`方法将模型编译至可运行状态。`Build`原型如下：
+当前`MindSpore Lite`已移除`MindData`及其相关高阶训练接口，包括`Train`、`Evaluate`，以及部分依赖的回调类（如`AccuracyMetrics`、`CkptSaver`、`TrainAccuracy`、`LossMonitor` 等）。
+因此，暂不支持通过高阶接口进行模型训练。后续将补充基于 `RunStep` 接口的训练使用说明。
 
-  `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`
-
-下面示例代码演示了如何使用`Model`类在CPU多线程上创建训练会话：
-
-```cpp
-int CreateSession() {
-  auto context = std::make_shared<mindspore::Context>();
-  auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
-  cpu_context->SetEnableFP16(enable_fp16_);
-  context->MutableDeviceInfo().push_back(cpu_context);
-
-  graph_ = new mindspore::Graph();
-  auto status = mindspore::Serialization::Load(ms_file_, mindspore::kFlatBuffer, graph_);
-  if (status != mindspore::kSuccess) {
-    std::cout << "Error " << status << " during serialization of graph " << ms_file_;
-    MS_ASSERT(status != mindspore::kSuccess);
-  }
-
-  auto cfg = std::make_shared<mindspore::TrainCfg>();
-  if (enable_fp16_) {
-    cfg.get()->optimization_level_ = mindspore::kO2;
-  }
-
-  model_ = new mindspore::Model();
-  status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
-  if (status != mindspore::kSuccess) {
-    std::cout << "Error " << status << " during build of model " << ms_file_;
-    MS_ASSERT(status != mindspore::kSuccess);
-  }
-  return status;
-}
-```
-
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/examples/train_lenet_cpp/src/net_runner.cc)获取完整代码。
+另外，由于`libmindspore-lite-train`与`libmindspore-lite`之间为弱依赖关系，在使用 C++ 接口`RunStep`进行训练时，如需启用训练能力，需要显式强制链接`libmindspore-lite-train`对应的动态库（.so），可通过链接选项`-Wl,--no-as-needed`实现。
 
 ## 数据处理
 
-### 数据输入流
+当前由于移除了 `MindData` 模块及其依赖的高阶接口 `Train` 和 `Evaluate`，所有与 `dataset` 相关的类均已删除。因此，用户需要自行实现数据预处理流程，将图像或文本等原始数据处理为字节数据，并手动拷贝到模型输入中进行推理或训练。
 
-`Dataset`类及其扩展类（例如`MnistDataset`和`AlbumDataset`）为用户提供了丰富的数据处理API，用户只需要指定数据集的路径，通过接口函数返回对应类型的共享指针来设定训练中执行的数据处理操作，输入流会在训练过程中加载并解析数据。API说明详见[Dataset](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_dataset_Dataset.html)。
+## 执行训练和推理
 
-### 数据预处理流
+当前`MindSpore Lite`已移除`MindData`及其相关高阶训练接口，包括`Train`、`Evaluate`，以及部分依赖的回调类（如`AccuracyMetrics`、`CkptSaver`、`TrainAccuracy`、`LossMonitor` 等）。
+因此，暂不支持通过高阶接口进行模型训练。后续将补充基于 `RunStep` 接口的训练使用说明。
 
-`TensorTransform`类及其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数，Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/master/generate/namespace_mindspore__dataset__vision.html)。
-
-### 使用示例
-
-下述代码展示了如何使用`Dataset`类和`TensorTransform`类读取和处理数据：
-
-```cpp
-int DataSetPipeline() {
-    train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
-
-    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
-    Resize resize({h_, w_});
-    train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
-
-    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
-    train_ds_ = train_ds_->Map({&typecast}, {"label"});
-
-    train_ds_ = train_ds_->Batch(batch_size_, true);
-    if (verbose_) {
-    std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
-    }
-    if (train_ds_->GetDatasetSize() == 0) {
-    std::cout << "No relevant data was found in " << data_dir_ << std::endl;
-    MS_ASSERT(train_ds_->GetDatasetSize() != 0);
-    }
-    return 0;
-}
-```
-
-示例中用户可通过Mnist函数返回的`MnistDataset`类共享指针调用`Dataset`类和`TensorTransform`类的现有函数来定义训练数据处理流程。
-
-## 执行训练
-
-MindSpore Lite为用户提供了现有的回调类：`AccuracyMetrics`、`CkptSaver`、`TrainAccuracy`、`LossMonitor`和`Metrics`。`Model`类的`Train`和`Evaluate`函数分别将模型设置为训练和验证模式，指定数据预处理方法并监测会话状态。
-
-### 训练
-
-创建现有回调类对象并调用`Model`类的`Train`函数进行训练：
-
-```cpp
-int Train() {
-  mindspore::LossMonitor lm(kPrintTimes);
-  mindspore::TrainAccuracy am(1);
-
-  mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
-  Rescaler rescale(kScalePoint);
-  Measurement measure(epochs_);
-
-  if (virtual_batch_ > 0) {
-    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
-  } else {
-    struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
-    mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
-  }
-
-  return 0;
-}
-```
-
-### 推理
-
-同样，我们调用`Model`类的`Evaluate`函数进行推理：
-
-```cpp
-float Evaluate() {
-  test_ds_ = Mnist(data_dir_ + "/test", "all");
-  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
-  Resize resize({h_, w_});
-  test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
-
-  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
-  test_ds_ = test_ds_->Map({&typecast}, {"label"});
-  test_ds_ = test_ds_->Batch(batch_size_, true);
-
-  auto acc_metrics_ = model_->Evaluate(test_ds_, {});
-  auto res = acc_metrics_->Eval();
-  std::cout << "Accuracy is " << res << std::endl;
-
-  return res;
-}
-```
-
-> 推理和训练模式的不同点：
->
-> - 网络输入：训练需要数据和标签，而推理只需要数据。
-> - 网络输出：训练返回损失值，而推理返回预测标签值。
-> - 每一轮训练都会更新网络的各层权重值，但推理不会。
-> - 网络的某些层在训练和推理具有不同的输出，例如在批量标准化 (Batch Normalization) 层中更新批次累计均值和方差。
+另外，由于`libmindspore-lite-train`与`libmindspore-lite`之间为弱依赖关系，在使用 C++ 接口`RunStep`进行训练时，如需启用训练能力，需要显式强制链接`libmindspore-lite-train`对应的动态库（.so），可通过链接选项`-Wl,--no-as-needed`实现。
 
 ## 其他
-
-### 会话模式切换
-
-`Model`类中的`Train`和`Evaluate`的函数原型如下：
-
-```cpp
-/// \brief Set model to train mode
-/// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-Status Train(int epochs, std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
-
-/// \brief Set model to Evaluate mode
-/// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
-```
-
-下述代码展示了如何将一个当前训练会话设置为训练或验证模式：
-
-```cpp
-auto ret = model->Train();
-if (ret != RET_OK) {
-    std::cerr << "Could not set to train mode" << std::endl;
-    return -1;
-}
-
-auto ret = model->Evaluate();
-if (ret != RET_OK) {
-    std::cerr << "Could not set to evaluate mode" << std::endl;
-    return -1;
-}
-```
 
 ### 输入维度Resize
 
@@ -420,57 +271,6 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     ```
 
     > 用户无需手动释放 `GetOutputsByNodeName`、`GetOutputByTensorName`和`GetOutputs`函数返回的数组或是哈希表。
-
-### 执行回调
-
-MindSpore Lite框架允许用户设置两个在每个节点计算前后调用的回调函数。这两个函数能够帮助用户跟踪、调试网络，并测量各节点的计算时间。回调参数如下：
-
-- 计算节点的当前输入张量。
-- 计算节点的当前输出张量。
-- 计算节点的名称和类型。
-
-尽管节点计算前后的名称和类型一致，两个回调函数的输出张量却不同。对于某些计算操作，输入张量也不同。
-
-```cpp
-/// \brief  CallBackParam defines input arguments for callback function.
-struct CallBackParam {
-  std::string node_name; /**< node name argument */
-  std::string node_type; /**< node type argument */
-};
-
-/// \brief KernelCallBack defined the function pointer for callBack.
-using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs,
- std::vector<tensor::MSTensor *> outputs,  const CallBackParam &opInfo)>;
-```
-
-以下代码展示了如何在执行训练前后使用回调函数：
-
-```cpp
-// Assuming model is a valid instance of Model and that data was assigned to the input tensors
-
-// Definition of a callback function that will be called before forwarding operator
-bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
- const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::MSCallBackParam &call_param) {
-    std::cout << call_param.node_name << std::endl;
-    std::cout << "Before forwarding: input size is " << inputs.size() << std::endl;
-    return true;
-};
-// Definition of callback function that will be called after forwarding operator
-bool after_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
- const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::MSCallBackParam &call_param) {
-    std::cout << "After forwarding: output size is " << outputs.size() << std::endl;
-    return true;
-};
-
-// Hand over the callback functions to RunGraph when performing the training or inference
-ret = model_->Train(epochs_, train_ds_, {&before_callback, &after_callback});
-if (ret != RET_OK) {
-  MS_LOG(ERROR) << "Run graph failed.";
-  return RET_ERROR;
-}
-```
 
 ### 保存模型
 

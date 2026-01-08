@@ -85,17 +85,6 @@
 |--------------------------------------------------|---------------------------------------------------|--------|--------|
 | [TrainCfg](#traincfg)                            | MindSpore Lite训练配置类。            | ✕      | √      |
 | [MixPrecisionCfg](#mixprecisioncfg)              | MindSpore Lite训练混合精度配置类。        | ✕      | √      |
-| [AccuracyMetrics](#accuracymetrics)              | MindSpore Lite训练精度类。            | ✕      | √      |
-| [Metrics](#metrics)                              | MindSpore Lite训练指标类。            | ✕      | √      |
-| [TrainCallBack](#traincallback)                  | MindSpore Lite训练回调类。            | ✕      | √      |
-| [TrainCallBackData](#traincallbackdata)          | 定义了训练回调的一组参数。                   | ✕      | √      |
-| [CkptSaver](#ckptsaver)                          | MindSpore Lite训练模型文件保存类。        | ✕      | √      |
-| [LossMonitor](#lossmonitor)                      | MindSpore Lite训练学习率调度类。         | ✕      | √      |
-| [LRScheduler](#lrscheduler)                      | MindSpore Lite训练配置类。            | ✕      | √      |
-| [StepLRLambda](#steplrlambda)                    | MindSpore Lite训练学习率的一组参数。       | ✕      | √      |
-| [MultiplicativeLRLambda](#multiplicativelrlambda) | 每个epoch将学习率乘以一个因子。              | ✕      | √      |
-| [TimeMonitor](#timemonitor)                      | MindSpore Lite训练时间监测类。          | ✕      | √      |
-| [TrainAccuracy](#trainaccuracy)                  | MindSpore Lite训练学习率调度类。         | ✕      | √      |
 
 ### Delegate三方框架接入机制
 
@@ -1414,7 +1403,7 @@ static inline Status ExportWeightsCollaborateWithMicro(const Model &model, Model
 
 ## Buffer
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
 
 Buffer定义了MindSpore中Buffer数据的结构。
 
@@ -1575,8 +1564,6 @@ Model()
 | [static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)](#checkmodelsupport)     |    √    |    √    |
 | [Status SetTrainMode(bool train)](#settrainmode)     |    ✕    |    √    |
 | [bool GetTrainMode() const](#gettrainmode)     |    ✕    |    √    |
-| [Status Train(int epochs, std::shared_ptr\<dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#train)     |    ✕    |    √    |
-| [Status Evaluate(std::shared_ptr\<dataset::Dataset\> ds, std::vector\<TrainCallBack *\> cbs)](#evaluate)     |    ✕    |    √    |
 | [const std::shared_ptr\<ModelImpl\> impl()](#impl) | √    |  √     |
 | [inline std::string GetModelInfo(const std::string &key)](#getmodelinfo) | √    |  √     |
 | [Status Finalize()](#finalize)     |  √ |  √ |
@@ -2237,41 +2224,6 @@ bool GetTrainMode() const
 
   bool类型，表示是否是训练模式。
 
-#### Train
-
-```cpp
-Status Train(int epochs, std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs)
-```
-
-模型训练。
-
-- 参数
-
-    - `epochs`: 迭代轮数。
-    - `ds`: 训练数据。
-    - `cbs`: 包含训练回调类对象的`vector`。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-#### Evaluate
-
-```cpp
-Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs)
-```
-
-模型验证。
-
-- 参数
-
-    - `ds`: 训练数据。
-    - `cbs`: 包含训练回调类对象的`vector`。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
 #### impl
 
 ```cpp
@@ -2487,7 +2439,7 @@ inline Status UpdateConfig(const std::string &section, const std::pair<std::stri
 
 ## MSTensor
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
 
 `MSTensor`定义了MindSpore中的张量。
 
@@ -3011,7 +2963,7 @@ const std::shared_ptr<Impl> impl()
 
 ## QuantParam
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
 
 一个结构体。QuantParam定义了MSTensor的一组量化参数。
 
@@ -3059,7 +3011,7 @@ max
 
 ## MSKernelCallBack
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
 
 ```cpp
 using MSKernelCallBack = std::function<bool(const std::vector<MSTensor> &inputs, const std::vector<MSTensor> &outputs, const MSCallBackParam &opInfo)>
@@ -3069,7 +3021,7 @@ using MSKernelCallBack = std::function<bool(const std::vector<MSTensor> &inputs,
 
 ## MSCallBackParam
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
 
 一个结构体。MSCallBackParam定义了回调函数的输入参数。
 
@@ -3677,435 +3629,13 @@ bool keep_batchnorm_fp32_ = true
 
 原型模型是否保持BatchNorm算子为Fp32格式。
 
-## AccuracyMetrics
-
-\#include &lt;[accuracy.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/metrics/accuracy.h)&gt;
-
-`AccuracyMetrics`是MindSpore Lite训练精度类。
-
-### 构造函数
-
-```cpp
-explicit AccuracyMetrics(int accuracy_metrics = METRICS_CLASSIFICATION, const std::vector<int> &input_indexes = {1}, const std::vector<int> &output_indexes = {0})
-```
-
-- 参数
-
-    - `accuracy_metrics`: 精度度量标准。
-
-    - `input_indexes`: 输入的序列号。
-
-    - `output_indexes`: 输出的序列号。
-
-### 析构函数
-
-```cpp
-virtual ~AccuracyMetrics()
-```
-
-### 公有成员函数
-
-#### Clear
-
-```cpp
-void Clear() override
-```
-
-精度清零。
-
-#### Eval
-
-```cpp
-float Eval() override
-```
-
-模型验证。
-
-- 返回值
-
-  float，模型验证精度。
-
-## Metrics
-
-\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/metrics/metrics.h)&gt;
-
-`Metrics`MindSpore Lite训练指标类。
-
-### 析构函数
-
-```cpp
-virtual ~Metrics() = default
-```
-
-### 公有成员函数
-
-#### Clear
-
-```cpp
-virtual void Clear()
-```
-
-训练指标清零。
-
-#### Eval
-
-```cpp
-virtual float Eval()
-```
-
-模型验证。
-
-- 返回值
-
-  float，模型验证精度。
-
-#### Update
-
-```cpp
-virtual void Update(std::vector<MSTensor *> inputs, std::vector<MSTensor *> outputs)
-```
-
-模型输入输出数据更新。
-
-- 参数
-
-    - `inputs`: 模型输入MSTensor的`vector`。
-    - `outputs`: 模型输输出MSTensor的`vector`。
-
-## TrainCallBack
-
-\#include &lt;[callback.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/callback.h)&gt;
-
-`Metrics`MindSpore Lite训练回调类。
-
-### 析构函数
-
-```cpp
-virtual ~TrainCallBack() = default
-```
-
-### 公有成员函数
-
-#### Begin
-
-```cpp
-virtual void Begin(const TrainCallBackData &cb_data)
-```
-
-网络执行前调用。
-
-- 参数
-
-    - `cb_data`: 回调参数。
-
-#### End
-
-```cpp
-  virtual void End(const TrainCallBackData &cb_data)
-```
-
-网络执行后调用。
-
-- 参数
-
-    - `cb_data`: 回调参数。
-
-#### EpochBegin
-
-```cpp
-  virtual void EpochBegin(const TrainCallBackData &cb_data)
-```
-
-每轮迭代前回调。
-
-- 参数
-
-    - `cb_data`: 回调参数。
-
-#### EpochEnd
-
-```cpp
-  virtual CallbackRetValue EpochEnd(const TrainCallBackData &cb_data)
-```
-
-每轮迭代后回调。
-
-- 参数
-
-    - `cb_data`: 回调参数。
-
-- 返回值
-
-  `CallbackRetValue`，表示是否在训练中继续循环。
-
-    ```cpp
-    enum CallbackRetValue : uint32_t {
-      kContinue = 0,
-      kStopTraining = 1,
-      kExit = 2,
-      kUnknownRetValue = 0xFFFFFFFF
-    };
-    ```
-
-#### StepBegin
-
-```cpp
-  virtual void StepBegin(const TrainCallBackData &cb_data)
-```
-
-每步迭代前回调。
-
-- 参数
-
-    - `cb_data`: 回调参数。
-
-#### StepEnd
-
-```cpp
-  virtual void StepEnd(const TrainCallBackData &cb_data)
-```
-
-每步迭代后回调。
-
-- 参数
-
-    - `cb_data`: 回调参数。
-
-## TrainCallBackData
-
-\#include &lt;[callback.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/callback.h)&gt;
-
-一个结构体。TrainCallBackData定义了训练回调的一组参数。
-
-### 公有属性
-
-#### train_mode_
-
-```cpp
-train_mode_
-```
-
-**bool** 类型变量。训练模式。
-
-#### epoch_
-
-```cpp
-epoch_
-```
-
-**unsigned int** 类型变量。训练迭代的epoch次数。
-
-#### step_
-
-```cpp
-step_
-```
-
-**unsigned int** 类型变量。训练迭代的step次数。
-
-#### model_
-
-```cpp
-model_
-```
-
-**Model** 类型指针。训练模型对象。
-
-## CkptSaver
-
-\#include &lt;[ckpt_saver.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/callback/ckpt_saver.h)&gt;
-
-`Metrics`MindSpore Lite训练模型文件保存类。
-
-### 构造函数和析构函数
-
-```cpp
-  explicit CkptSaver(int save_every_n, const std::string &filename_prefix)
-  virtual ~CkptSaver()
-```
-
-## LossMonitor
-
-\#include &lt;[loss_monitor.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/loss_monitor.h)&gt;
-
-`Metrics`MindSpore Lite训练损失函数类。
-
-### 构造函数和析构函数
-
-```cpp
-  explicit LossMonitor(int print_every_n_steps = INT_MAX)
-  virtual ~LossMonitor()
-```
-
-### 公有成员函数
-
-#### GetLossPoints
-
-```cpp
-  const std::vector<GraphPoint> &GetLossPoints()
-```
-
-获取训练损失数据。
-
-- 返回值
-
-  包含`GraphPoint`数据的`vector`，训练的损失数据。
-
-## LRScheduler
-
-\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
-
-`Metrics`是MindSpore Lite训练学习率调度类。
-
-### 构造函数和析构函数
-
-```cpp
-  explicit LRScheduler(LR_Lambda lambda_func, void *lr_cb_data = nullptr, int step = 1)
-  virtual ~LRScheduler()
-```
-
-## StepLRLambda
-
-\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
-
-一个结构体。StepLRLambda定义了训练学习率的一组参数。
-
-### 公有属性
-
-#### step_size
-
-```cpp
-step_size
-```
-
-**int** 类型变量。学习率衰减步长。
-
-#### gamma
-
-```cpp
-gamma
-```
-
-**float** 类型变量。学习率衰减因子。
-
-## MultiplicativeLRLambda
-
-\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
-
-每个epoch将学习率乘以一个因子。
-
-```cpp
-using LR_Lambda = std::function<int(float *lr, int epoch, void *cb_data)>;
-int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication)
-```
-
-学习率更新。
-
-- 参数
-
-    - `lr`: 学习率。
-    - `epoch`: 迭代轮数。
-    - `multiplication`: 更新方式。
-
-- 返回值
-
-  int类型返回值，表示是否更新，DONT_UPDATE_LR为0表示不更新，UPDATE_LR为1表示更新。
-
-  ```cpp
-  constexpr int DONT_UPDATE_LR = 0;
-  constexpr int UPDATE_LR = 1;
-  ```
-
-## TimeMonitor
-
-\#include &lt;[time_monitor.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/time_monitor.h)&gt;
-
-`Metrics`MindSpore Lite训练时间监测类。
-
-### 析构函数
-
-```cpp
-  virtual ~TimeMonitor() = default
-```
-
-### 公有成员函数
-
-#### EpochBegin
-
-```cpp
-  void EpochBegin(const TrainCallBackData &cb_data) override
-```
-
-每轮迭代前调用。
-
-- 参数
-
-    - `cb_data`: 回调参数。
-
-- 返回值
-
-  `CallbackRetValue`，表示是否在训练中继续循环。
-
-#### EpochEnd
-
-```cpp
-  CallbackRetValue EpochEnd(const TrainCallBackData &cb_data) override
-```
-
-每轮迭代后调用。
-
-- 参数
-
-    - `cb_data`: 回调参数。
-
-- 返回值
-
-  `CallbackRetValue`，表示是否在训练中继续循环。
-
-## TrainAccuracy
-
-\#include &lt;[train_accuracy.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/callback/train_accuracy.h)&gt;
-
-`Metrics`是MindSpore Lite训练学习率调度类。
-
-### 构造函数和析构函数
-
-```cpp
-explicit TrainAccuracy(int print_every_n = INT_MAX, int accuracy_metrics = METRICS_CLASSIFICATION, const std::vector<int> &input_indexes = {1}, const std::vector<int> &output_indexes = {0})
-virtual ~TrainAccuracy()
-```
-
-- 参数
-
-    - `print_every_n`: 间隔print_every_n步打印一次。
-    - `accuracy_metrics`: 精度指标，默认值为METRICS_CLASSIFICATION表示0，METRICS_MULTILABEL表示1。
-    - `input_indexes`: 输入索引。
-    - `output_indexes`: 输出索引。
-
-```cpp
-constexpr int METRICS_CLASSIFICATION = 0;
-constexpr int METRICS_MULTILABEL = 1;
-```
-
-#### GetAccuracyPoints
-
-```cpp
-  const std::vector<GraphPoint> &GetAccuracyPoints()
-```
-
-获取训练精度。
-
-- 返回值
-
-  包含`GraphPoint`的`vector`，训练精度数据。
-
 ## CharVersion
 
 | 函数                | 云侧推理是否支持 | 端侧推理是否支持 |
 |-----------------------|--------|--------|
 | [std::vector\<char\> CharVersion()](#charversion)     |    ✕    |    √    |
 
-\#include &lt;types.h&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
 
 ```cpp
 std::vector<char> CharVersion()
@@ -4123,7 +3653,7 @@ std::vector<char> CharVersion()
 |-----------------------|--------|--------|
 | [std::string Version()](#version)     |    ✕    |    √    |
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
 
 ```cpp
 std::string Version()
@@ -4210,7 +3740,6 @@ virtual int SetRefCount(void *ptr, int ref_count)
 - 参数
 
     - `ptr`: 要操作的内存地址，该值由[Malloc](#malloc)分配。
-
     - `ref_count`: 引用计数值。
 
 #### DecRefCount
@@ -4224,7 +3753,6 @@ virtual int DecRefCount(void *ptr, int ref_count)
 - 参数
 
     - `ptr`: 要操作的内存地址，该值由[Malloc](#malloc)分配。
-
     - `ref_count`: 引用计数值。
 
 #### IncRefCount
@@ -4238,7 +3766,6 @@ virtual int IncRefCount(void *ptr, int ref_count)
 - 参数
 
     - `ptr`: 要操作的内存地址，该值由[Malloc](#malloc)分配。
-
     - `ref_count`: 引用计数值。
 
 #### Create
@@ -4269,7 +3796,7 @@ virtual void *Prepare(void *ptr)
 
 ## Status
 
-\#include &lt;status.h&gt;
+\#include &lt;[status.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/status.h)&gt;
 
 ### 构造函数和析构函数
 
@@ -4618,268 +4145,6 @@ enum CompCode : uint32_t {
 
 计算的类型。
 
-## InputAndOutput
-
-\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
-
-### 构造函数
-
-```cpp
-  InputAndOutput()
-  InputAndOutput(const std::shared_ptr<CellBase> &cell, const std::vector<InputAndOutput> &prev, int32_t index)
-```
-
-- 参数
-
-    - `cell`: 输入CellBase。
-
-    - `prev`: 之前的InputAndOutput。
-
-    - `index`: 序列号。
-
-### 析构函数
-
-```cpp
-~InputAndOutput() = default
-```
-
-### 公有成员函数
-
-#### GetIndex
-
-```cpp
-int32_t GetIndex() const
-```
-
-返回index。
-
-- 返回值
-
-  返回输入/输出的index。
-
-#### SetIndex
-
-```cpp
-void SetIndex(int32_t index)
-```
-
-设置输入/输出的index。
-
-- 参数
-
-    - `index`: 输入/输出的index。
-
-## CellBase
-
-\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
-
-### 构造函数和析构函数
-
-```cpp
-  CellBase() = default;
-  virtual ~CellBase() = default;
-```
-
-### 公有成员函数
-
-#### Clone
-
-```cpp
-  virtual std::shared_ptr<CellBase> Clone() const = 0
-```
-
-拷贝一份自身的副本。
-
-- 返回值
-
-  指向副本的指针。
-
-#### Construct
-
-```cpp
-virtual std::vector<Output> Construct(const std::vector<Input> &inputs)
-```
-
-构建CellBase。
-
-- 参数
-
-    - `inputs`: 输入。
-
-- 返回值
-
-  输出。
-
-## Cell
-
-\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
-
-### 析构函数
-
-```cpp
-  virtual ~Cell() = default
-```
-
-### 公有成员函数
-
-#### Clone
-
-```cpp
-  std::shared_ptr<CellBase> Clone() const
-```
-
-拷贝一份自身的副本。
-
-- 返回值
-
-  指向副本的指针。
-
-#### Construct
-
-```cpp
-virtual std::vector<Output> Construct(const std::vector<Input> &inputs)
-```
-
-构造一份CellBase。
-
-- 参数
-
-    - `inputs`: Input组成的vector。
-
-- 返回值
-
-  Output组成的vector。
-
-#### Run
-
-```cpp
-virtual Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs)
-```
-
-运行CellBase。
-
-- 参数
-
-    - `inputs`: Input组成的vector。
-    - `outputs`: Output组成的vector。
-
-- 返回值
-
-    状态码。
-
-#### operator()
-
-```cpp
-std::vector<Output> operator()(const std::vector<Input> &inputs) const
-```
-
-括号运行符。
-
-- 参数
-
-    - `inputs`: Input组成的vector。
-
-- 返回值
-
-    Output组成的vector。
-
-## GraphCell
-
-\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
-
-### 构造函数和析构函数
-
-```cpp
-  GraphCell() = default;
-  ~GraphCell() override = default;
-  explicit GraphCell(const Graph &)
-  explicit GraphCell(Graph &&)
-  explicit GraphCell(const std::shared_ptr<Graph> &)
-```
-
-### 公有成员函数
-
-#### GetGraph
-
-```cpp
-  const std::shared_ptr<Graph> &GetGraph() const
-```
-
-获取Graph指针。
-
-- 返回值
-
-  指向Graph的指针。
-
-#### SetContext
-
-```cpp
-void SetContext(const std::shared_ptr<Context> &context)
-```
-
-设置Context。
-
-- 参数
-
-    - `context`: 指向Context[Context]实例的共享指针。
-
-#### Run
-
-```cpp
-Status Run(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs) override
-```
-
-运行。
-
-- 参数
-
-    - `inputs`: [MSTensor]构成的vector。
-    - `outputs`: [MSTensor]构成的vector。
-
-- 返回值
-
-  状态码。
-
-#### GetInputs
-
-```cpp
-std::vector<MSTensor> GetInputs()
-```
-
-获取输入。
-
-- 返回值
-
-  [MSTensor]构成的vector。
-
-#### GetOutputs
-
-```cpp
-std::vector<MSTensor> GetOutputs()
-```
-
-获取输出。
-
-- 返回值
-
-  [MSTensor]构成的vector。
-
-#### Load
-
-```cpp
-Status Load(uint32_t device_id)
-```
-
-加载。
-
-- 参数
-
-    - `device_id`: 芯片编号。
-
-- 输出
-
-    状态码。
-
 ## RunnerConfig
 
 \#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/model_parallel_runner.h)&gt;
@@ -5130,97 +4395,6 @@ std::vector<MSTensor> GetOutputs()
 - 返回值
 
   包含模型所有输出张量的容器类型变量。
-
-## ModelGroup
-
-\#include &lt;[model_group.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model_group.h)&gt;
-
-ModelGroup 类定义MindSpore Lite模型分组信息，用于共享工作空间（Workspace）内存或者权重（包括常量和变量）内存。
-
-### 构造函数和析构函数
-
-```cpp
-ModelGroup(ModelGroupFlag flags = ModelGroupFlag::kShareWorkspace)
-~ModelGroup()
-```
-
-- 参数
-
-    - `flags`: 指示 ModelGroup 的类型，取值 ``ModelGroupFlag::kShareWorkspace`` ， ``ModelGroupFlag::kShareWorkspace`` 。默认 ``ModelGroupFlag::kShareWorkspace`` 。
-
-### 公有成员函数
-
-| 函数                   | 云侧推理是否支持 | 端侧推理是否支持 |
-|-------------------------------------------------------------|---------|---------|
-| [Status AddModel(const std::vector\<std::string\> &model_path_list)](#addmodel)     |    √    |    ✕    |
-| [Status AddModel(const std::vector\<std::pair\<const void *, size_t\>\> &model_buff_list)](#addmodel-1)     |    √    |    ✕    |
-| [Status AddModel(const std::vector\<Model\> &model_list)](#addmodel-2)     |    √    |    ✕    |
-| [Status CalMaxSizeOfWorkspace(ModelType model_type, const std::shared_ptr\<Context\> &ms_context)](#calmaxsizeofworkspace)     |    √    |    ✕    |
-
-#### AddModel
-
-```cpp
-Status AddModel(const std::vector<std::string> &model_path_list)
-```
-
-共享工作空间内存时，添加需要共享工作空间内存的模型路径。
-
-- 参数
-
-    - `model_path_list`: 需要共享工作空间内存的模型路径。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-#### AddModel
-
-```cpp
-Status AddModel(const std::vector<std::pair<const void *, size_t>> &model_buff_list)
-```
-
-共享工作空间内存时，添加需要共享工作空间内存的模型缓存。
-
-- 参数
-
-    - `model_buff_list`: 需要共享工作空间内存的模型缓存。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-#### AddModel
-
-```cpp
-Status AddModel(const std::vector<Model> &model_list)
-```
-
-共享权重内存时，添加需要共享权重内存的模型对象。
-
-- 参数
-
-    - `model_list`: 需要共享权重内存的模型对象[Model](#model)列表。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-#### CalMaxSizeOfWorkspace
-
-```cpp
-Status CalMaxSizeOfWorkspace(ModelType model_type, const std::shared_ptr<Context> &ms_context)
-```
-
-共享工作空间内存时，计算最大的工作空间内存大小。
-
-- 参数
-
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
-    - `model_context`: 模型[Context](#context)。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 ## ModelGroupFlag
 
