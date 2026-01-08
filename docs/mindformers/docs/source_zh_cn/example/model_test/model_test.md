@@ -1,8 +1,10 @@
 # MindSpore Transformers对接通用评测工具的实践案例
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/model_test/model_test.md)
+
 本文由Killjoy, chen-xialei, fuyao-15989607593, laozhuang, oacjiewen贡献。
 
-在实际进行大模型开发时，用户基于MindSpore Transformers对模型训练/微调后，往往会使用通用评测工具在自定义数据集上进行模型能力的评测。本文介绍了MindSpore Tranformers的模型通过部署后对接通用评测工具的实践，涵盖使用vLLM-MindSpore部署模型，并基于两种通用评测框架`lm-eval`和`opencompass`进行能力评测。通过本实践案例，您可以了解如何使用通用评测工具，对基于MindSpore Transformers训练/微调出的模型进行评测。
+在实际进行大模型开发时，用户基于MindSpore Transformers对模型训练/微调后，往往会使用通用评测工具在自定义数据集上进行模型能力的评测。本文介绍了MindSpore Transformers的模型通过部署后对接通用评测工具的实践，涵盖使用vLLM-MindSpore部署模型，并基于两种通用评测框架`lm-eval`和`opencompass`进行能力评测。通过本实践案例，您可以了解如何使用通用评测工具，对基于MindSpore Transformers训练/微调出的模型进行评测。
 
 ## 1. 环境准备
 
@@ -28,8 +30,7 @@ git clone https://gitee.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 
-> 如果构造镜像遇到超时问题，可以尝试在`build_image.sh`脚本中添加
-`ENV UV_HTTP_TIMEOUT=3000`，并且在仓库`install_depend_pkgs.sh`脚本中更换速度更快的镜像站。
+> 如果构造镜像遇到超时问题，可以尝试在`build_image.sh`脚本中添加 `ENV UV_HTTP_TIMEOUT=3000`，并且在仓库`install_depend_pkgs.sh`脚本中更换速度更快的镜像站。
 
 用户根据服务器配置创建容器，详细请参考[容器创建教程](https://www.mindspore.cn/vllm_mindspore/docs/zh-CN/master/getting_started/installation/installation.html)。
 
@@ -96,7 +97,7 @@ lm-eval是一个大型综合评测框架，适用于众多通用领域测试集�
 
 > 该步为自定义数据集所需步骤，测试通用测试集时，直接使用[官方教程](https://github.com/EleutherAI/lm-evaluation-harness)即可。
 
-假设本地存在一个用户自定义的数据集，该数据集为一个`csv`文件，每一条数据集是单选题，包含一个问题、四个选项、答案，共6个属性，该文件没有表头，文件名为 `output_filtered.csv`。首先执行如下代码，将csv文件转换为适合模型处理的`Dataset`格式：
+假设本地存在一个用户自定义的数据集，该数据集为一个`csv`文件，每一条数据集是单选题，包含一个问题、四个选项、答案，共6个属性，该文件没有表头，文件名为 `output_filtered.csv`。首先执行如下代码，将`csv`文件转换为适合模型处理的`Dataset`格式：
 
 ```python
 import pandas as pd
@@ -158,7 +159,7 @@ if __name__ == "__main__":
 
 ### 3.2 创建数据集配置文件
 
-在 `/lm-evaluation-harness/lm_eval/tasks` 下创建一个文件夹，命名为 `YOUR_DATASET_NAME`， 在这个文件夹下创建一个 `YOUR_DATASET_NAME.yaml`，内容为：
+在 `/lm-evaluation-harness/lm_eval/tasks` 下创建一个文件夹，命名为 `YOUR_DATASET_NAME`，在这个文件夹下创建一个 `YOUR_DATASET_NAME.yaml`，内容为：
 
 ```yaml
 task: YOUR_DATASET_NAME
@@ -214,7 +215,7 @@ unzip OpenCompassData-core-20240207.zip
 
 修改`path`为部署模型的名字，修改`openai_api_base`为部署模型的`url`，配置模型的`tokenizer_path`，`batch_size`可以适当调大来加速。
 
-数据集一般不用自己配置，参考[text](https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/accelerator_intro.html#api)获得推荐配置，或是在每个数据集的config路径下查找合适的配置。例如bbh（big bench hard）数据集，在```opencompass/opencompass/configs/datasets/bbh/```下有```bbh_gen_ee62e9.py```、```bbh_0shot_nocot_academic_gen.py```等， 分别是zero-shot和five-shot的配置，根据需要自由选择。
+数据集一般不用自己配置，参考[text](https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/accelerator_intro.html#api)获得推荐配置，或是在每个数据集的config路径下查找合适的配置。例如bbh（big bench hard）数据集，在`opencompass/opencompass/configs/datasets/bbh/`下有`bbh_gen_ee62e9.py`、`bbh_0shot_nocot_academic_gen.py`等， 分别是zero-shot和five-shot的配置，根据需要自由选择。
 
 运行脚本参考[eval_api_demo.py](https://github.com/open-compass/opencompass/blob/main/examples/eval_api_demo.py)进行修改, 导入需要评测的模型配置和需要测试的数据集即可
 
