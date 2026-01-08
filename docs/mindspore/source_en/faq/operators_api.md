@@ -2,6 +2,12 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_en/faq/operators_api.md)
 
+## Q: When using the `nn.ctcloss` API of MindSpore 2.7.2 version on an Ascend machine with CANN 8.0.0, 8.1.0, or 8.2.0, operator accuracy issues occur. How to handle this situation?
+
+A: Ensure that the MindSpore version is used with the matching CANN version. It is recommended to use MindSpore 2.7.2 version with CANN 8.5.0, and MindSpore 2.8.0 or later versions with CANN 8.2.0 or later versions.
+
+<br/>
+
 ## Q: When using the `ops.ring_attention_update` operator on an Ascend machine with the CANN 8.1.RC1 package, the error `RuntimeError: aclnnRingAttentionUpdateGetWorkSpaceSize call failed` occurs. What is the reason?
 
 A: For performance reasons, the [ops.ring_attention_update](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.ring_attention_update.html) operator is no longer compatible with CANN 8.1.RC1 and earlier versions. It is recommended to install CANN 8.2.RC1 or a newer version.
