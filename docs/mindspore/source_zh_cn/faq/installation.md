@@ -2,6 +2,13 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_zh_cn/faq/installation.md)
 
+## 兼容性
+
+### Q: MindSpore 2.7.2为什么只支持CANN 8.5.0版本？
+
+A: CANN 8.5.0版本组合包完成开源开放架构升级，由Toolkit+Ops两个组合包组成，解耦优化带来一系列命名、数量、使用关系，以及安装目录的变更，MindSpore 2.7.2版本需要与CANN 8.5.
+0配套使用，CANN旧版本的兼容将在MindSpore 2.8.0提供。
+
 ## Pip安装
 
 ### Q: 使用pip安装时报错: `ERROR: mindspore_{VERSION}.whl is not a supported wheel on this platform`应该怎么办？
