@@ -1,6 +1,18 @@
-# Operators Compile
+# Operators API
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_en/faq/operators_compile.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_en/faq/operators_api.md)
+
+## Q: When using the `ops.ring_attention_update` operator on an Ascend machine with the CANN 8.1.RC1 package, the error `RuntimeError: aclnnRingAttentionUpdateGetWorkSpaceSize call failed` occurs. What is the reason?
+
+A: For performance reasons, the [ops.ring_attention_update](https://www.mindspore.cn/docs/en/r2.7.2/api_python/ops/mindspore.ops.ring_attention_update.html) operator is no longer compatible with CANN 8.1.RC1 and earlier versions. It is recommended to install CANN 8.2.RC1 or a newer version.
+
+<br/>
+
+## Q: On Ascend, when using the `nn.Hardtanh` API in MindSpore version 2.7.2 with CANN version 8.0.0.alpha003, an error occurs: `RuntimeError: Failed: Timeout >900.0s`. What is the cause of this?
+
+A: This issue is caused by incompatibility between MindSpore 2.7.2 and later versions and CANN 8.0.0.alpha003. MindSpore 2.7.2 requires CANN 8.5.0 for compatibility. MindSpore 2.8.0 and later versions are recommended for use with CANN 8.2.0 and later versions.
+
+<br/>
 
 ## Q: When the `ops.concat` operator is used, the error message `Error:Input and (output + workspace) num should <=192!` is displayed, which indicates that the data volume is large. What can I do?
 

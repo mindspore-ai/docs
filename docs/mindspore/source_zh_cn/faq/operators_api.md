@@ -1,6 +1,18 @@
-# 算子编译
+# 算子API
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_zh_cn/faq/operators_compile.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindspore/source_zh_cn/faq/operators_api.md)
+
+## Q: 在Ascend机器上使用`ops.ring_attention_update`算子，搭配8.1.RC1的CANN包，发生报错`RuntimeError: aclnnRingAttentionUpdateGetWorkSpaceSize call failed`，是怎么回事？
+
+A: 出于性能考虑，[ops.ring_attention_update](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/ops/mindspore.ops.ring_attention_update.html)算子不再兼容8.1.RC1及更早之前版本的CANN包，建议安装8.2.RC1或更新版本的CANN包。
+
+<br/>
+
+## Q：在Ascend机器上，使用MindSpore 2.7.2版本的 `nn.Hardtanh` API，搭配CANN版本8.0.0.alpha003，发生报错`RuntimeError: Failed: Timeout >900.0s`，是怎么回事？
+
+A: 该问题为 MindSpore 2.7.2 及以上版本与 CANN 8.0.0.alpha003 不兼容导致。MindSpore 2.7.2 需要与 CANN 8.5.0配套使用，MindSpore 2.8.0 以上版本推荐与 CANN 8.2.0 以上版本配套使用。
+
+<br/>
 
 ## Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？
 
