@@ -4,12 +4,6 @@
 
 ## 常见问题
 
-### Q: 进行HCCL分布式训练出错：`Init plugin so failed, ret = 1343225860`，该如何处理？
-
-A: 在Ascend进行分布式训练时初始化HCCL失败了，通常由于`rank_table.json`配置不正确，可以执行此文件[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成一个新的`rank_table.json`。或者导出环境变量`export ASCEND_SLOG_PRINT_TO_STDOUT=1`打开HCCL的日志打印，根据日志中的ERROR信息来排查问题。
-
-<br/>
-
 ### Q: GPU分布式训练场景下，若错误设置环境变量CUDA_VISIBLE_DEVICES的个数小于执行的进程数时，可能导致进程阻塞问题，该如何处理？
 
 A: 此场景下，部分训练进程会提示如下报错：

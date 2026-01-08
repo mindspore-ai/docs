@@ -4,12 +4,6 @@
 
 ## FAQ
 
-### Q: What should I do if the error message `Init plugin so failed, ret = 1343225860` is displayed during the HCCL distributed training?
-
-A: When the user starts distributed training on the Ascend and meets the error that HCCL fails to be initialized, the possible cause is that `rank_table.json` is incorrect. You can use the tool in [hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py) to generate new `rank_table.json`. Alternatively, export the environment variable `export ASCEND_SLOG_PRINT_TO_STDOUT=1` to enable the log printing function of HCCL and check the ERROR log information.
-
-<br/>
-
 ### Q: In the GPU distributed training scenario, what should I do if the number of environment variables CUDA_VISIBLE_DEVICES set incorrectly is less than the number of processes executed, the process blocking problem may occur?
 
 A: In this scenario, some training processes will prompt the following error:
