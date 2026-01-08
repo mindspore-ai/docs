@@ -66,7 +66,7 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
 
 3. 下载模型的词表文件
 
-   由于不同模型对应不同的词表文件，因此需要下载对应训练模型的词表文件。这里以`Llama3`模型为例，下载[tokenizer.model](https://huggingface.co/meta-llama/Meta-Llama-3-8B/blob/main/original/tokenizer.model)以用于数据预处理。
+   由于不同模型对应不同的词表文件，因此需要下载对应训练模型的词表文件。这里以`Qwen3-8B`模型为例，下载[tokenizer](https://huggingface.co/Qwen/Qwen3-8B)以用于数据预处理。
 
 4. 生成`.bin`或`.idx`数据文件
 
@@ -101,18 +101,6 @@ MindSpore Transformers提供了数据预处理脚本[preprocess_indexed_dataset.
      --output-prefix /path/megatron_data \
      --tokenizer-type HuggingFaceTokenizer \
      --tokenizer-dir /path/to/huggingface/tokenizer
-   ```
-
-   以外部tokenizer类[Llama3Tokenizer](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/llama3_1/llama3_1_tokenizer.py)为例，确保**本地**mindformers仓库下存在'research/llama3_1/llama3_1_tokenizer.py'，执行如下命令处理数据集：
-
-   ```shell
-   python toolkit/data_preprocess/megatron/preprocess_indexed_dataset.py \
-     --input /path/data.json \
-     --output-prefix /path/megatron_data \
-     --tokenizer-type AutoRegister \
-     --vocab-file /path/tokenizer.model \
-     --register_path research/llama3_1 \
-     --auto_register llama3_1_tokenizer.Llama3Tokenizer
    ```
 
 ### 模型预训练
@@ -232,7 +220,7 @@ MindSpore Transformers推荐用户使用Megatron数据集进行模型预训练�
 
 3. 启动模型预训练
 
-   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型预训练任务，这里以[Llama3_1模型文档](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/llama3_1/README.md)为例。
+   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型预训练任务，这里以`qwen3`为例。
 
 ## Hugging Face数据集
 
@@ -675,52 +663,46 @@ parallel:
 
 MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁盘IO、网络IO开销，从而获得更好的数据加载体验，更多具体功能介绍可参考[文档](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore.mindrecord.html)，这里仅对如何在MindSpore Transformers模型训练任务中使用MindRecord进行介绍。
 
-下面以`qwen2_5-0.5b`进行微调为示例进行相关功能说明，示例中的脚本仅适用于指定数据集，如果需要对自定义数据集进行处理，可以参考[MindRecord格式转换](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/dataset/record.html)进行数据预处理。
+下面以`qwen3-8b`进行微调为示例进行相关功能说明，示例中的脚本仅适用于指定数据集，如果需要对自定义数据集进行处理，可以参考[MindRecord格式转换](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/dataset/record.html)进行数据预处理。
 
 ### 数据预处理
 
 1. 下载`alpaca`数据集：[链接](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)
 
-2. 执行数据处理脚本将`alpaca`数据集转换为对话形式：
+2. 执行数据处理脚本[alpaca_converter.py](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/qwen3/alpaca_converter.py)将`alpaca`数据集转换为对话形式：
 
    ```shell
-   python research/qwen2/alpaca_converter.py \
+   python alpaca_converter.py \
      --data_path /path/alpaca_data.json \
      --output_path /path/alpaca-data-messages.json
    ```
 
    其中，`data_path`表示下载后`alpaca`数据集的路径，`output_path`表示生成对话形式数据文件的保存路径。
 
-3. 执行脚本将对话形式的数据文件转换为MindRecord格式：
+3. 执行脚本[datasets_preprocess.py](https://gitee.com/mindspore/docs/blob/r2.7.2/docs/mindformers/docs/source_zh_cn/example/qwen3/datasets_preprocess.py)将对话形式的数据文件转换为MindRecord格式：
 
    ```shell
-   python research/qwen2/qwen2_preprocess.py \
-     --dataset_type 'qa' \
+   python datasets_preprocess.py \
      --input_glob /path/alpaca-data-messages.json \
-     --vocab_file /path/vocab.json \
-     --merges_file /path/merges.txt \
+     --tokenizer_dir /path/Qwen3-8B \
      --seq_length 32768 \
      --output_file /path/alpaca-messages.mindrecord
    ```
 
    该脚本各参数说明如下：
 
-    - dataset_type：预处理数据类型，对于alpaca数据集应填`qa`
     - input_glob：生成对话形式数据文件路径
-    - vocab_file：qwen2的vocab.json文件路径
-    - merges_file：qwen2的merges.txt文件路径
+    - tokenizer_dir：qwen3的文件路径
     - seq_length：生成MindRecord数据的序列长度
     - output_file：生成MindRecord数据的保存路径
 
-   > `vocab_file`和`merges_file`可以从HuggingFace社区上qwen2模型仓库获取
-
 ### 模型微调
 
-参考上述数据预处理流程可生成用于`qwen2_5-0.5b`模型微调的MindRecord数据集，下面介绍如何使用生成的数据文件启动模型微调任务。
+参考上述数据预处理流程可生成用于`qwen3-8b`模型微调的MindRecord数据集，下面介绍如何使用生成的数据文件启动模型微调任务。
 
 1. 修改模型配置文件
 
-   `qwen2_5-0.5b`模型微调使用[finetune_qwen2_5_0.5b_8k.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/qwen2_5/finetune_qwen2_5_0_5b_8k.yaml)配置文件，修改其中数据集部分配置：
+   `qwen3-8b`模型微调使用[finetune_qwen3.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/configs/qwen3/finetune_qwen3.yaml)配置文件，修改其中数据集部分配置：
 
    ```yaml
    train_dataset: &train_dataset
@@ -738,7 +720,7 @@ MindRecord是MindSpore提供的高效数据存储/读取模块，可以减少磁
 
 2. 启动模型微调
 
-   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen2_5模型文档](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/qwen2_5/README.md)为例。
+   修改模型配置文件中数据集以及并行相关配置项之后，即可参考模型文档拉起模型微调任务，这里以[Qwen3模型文档](https://gitee.com/mindspore/mindformers/blob/r1.8.0/configs/qwen3/README.md)为例。
 
 ### 多源数据集
 
