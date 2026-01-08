@@ -135,7 +135,7 @@ The relevant environment variables:
         <td align="left">Node heartbeat timeout in seconds.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">The default is 30 seconds.</td>
-        <td align="left">This value represents the heartbeat timeout time between the scheduler and the worker. If there are no heartbeat messages within this time window, the cluster will exit abnormally.</td>
+        <td align="left">The heartbeat timeout threshold between the Scheduler and Worker. If the Scheduler fails to receive heartbeat messages from the Worker within this period, it will trigger the cluster's abnormal exit process.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_RECEIVE_MSG_TIMEOUT</td>
@@ -164,6 +164,13 @@ The relevant environment variables:
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">Heartbeat feature is enabled by default.</td>
         <td align="left">If set to 1, the heartbeat between cluster nodes will be disabled. In this scenario, Scheduler will not detect Workers' exception and will not control the cluster to exit. This variable can reduce the message concurrency of the Scheduler.<br>It is recommended to set this environment variable when using `gdb attach` command for debugging.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_HEARTBEAT_RETRY_TIMEOUT</td>
+        <td align="left">Node heartbeat retry timeout in seconds.</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">The default is 20 seconds.</td>
+        <td align="left">The timeout threshold for reconnection when the Worker does not receive a heartbeat response from the Scheduler. If the Worker fails to re-establish a connection with the Scheduler within this time period, it will trigger its own abnormal exit. Ensure that the value of <code>MS_NODE_TIMEOUT</code> is greater than <code>MS_HEARTBEAT_RETRY_TIMEOUT</code>, so that the Scheduler can re-receive the heartbeat message from the Worker within the <code>MS_NODE_TIMEOUT</code> window, ensuring the stable operation of the cluster. Notes: this environment variable configuration does not take effect when the heartbeat function is disabled or the cluster is not managed by the Scheduler process.</td>
     </tr>
 </table>
 
