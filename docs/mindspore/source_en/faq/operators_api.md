@@ -4,15 +4,21 @@
 
 ## FAQ
 
-### Q: When using the `nn.ctcloss` API of MindSpore 2.7.2 branch on an Ascend machine with CANN 8.0.0, 8.1.0, or 8.2.0, operator accuracy issues occur. How to handle this situation?
+### Q: When using the `nn.ctcloss` API of MindSpore 2.7.2 version on an Ascend machine with CANN 8.0.0, 8.1.0, or 8.2.0, operator accuracy issues occur. How to handle this situation?
 
-A: Ensure that the MindSpore branch is used with the matching CANN version. It is recommended to use MindSpore 2.7.2 branch with CANN 8.5.0, and MindSpore 2.8.0 or later branches with CANN 8.2.0 or later versions.
+A: Ensure that the MindSpore version is used with the matching CANN version. It is recommended to use MindSpore 2.7.2 version with CANN 8.5.0, and MindSpore 2.8.0 or later versions with CANN 8.2.0 or later versions.
 
 <br/>
 
 ### Q: When using the `ops.ring_attention_update` operator on an Ascend machine with the CANN 8.1.RC1 package, the error `RuntimeError: aclnnRingAttentionUpdateGetWorkSpaceSize call failed` occurs. What is the reason?
 
 A: For performance reasons, the [ops.ring_attention_update](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ring_attention_update.html) operator is no longer compatible with CANN 8.1.RC1 and earlier versions. It is recommended to install CANN 8.2.RC1 or a newer version.
+
+<br/>
+
+## Q: On Ascend, when using the `nn.Hardtanh` API in MindSpore version 2.7.2 with CANN version 8.0.0.alpha003, an error occurs: `RuntimeError: Failed: Timeout >900.0s`. What is the cause of this?
+
+A: This issue is caused by incompatibility between MindSpore 2.7.2 and later versions and CANN 8.0.0.alpha003. MindSpore 2.7.2 requires CANN 8.5.0 for compatibility. MindSpore 2.8.0 and later versions are recommended for use with CANN 8.2.0 and later versions.
 
 <br/>
 
