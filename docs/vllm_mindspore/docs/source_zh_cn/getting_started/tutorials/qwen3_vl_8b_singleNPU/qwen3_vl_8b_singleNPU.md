@@ -1,8 +1,8 @@
-# 单卡推理（Qwen2.5-7B）
+# 多模态单卡推理（Qwen3-VL-8B-Instruct）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1.post1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1.post1/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/qwen2.5_7b_singleNPU/qwen2.5_7b_singleNPU.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1.post1/docs/vllm_mindspore/docs/source_zh_cn/getting_started/tutorials/qwen3_vl_8b_singleNPU/qwen3_vl_8b_singleNPU.md)
 
-本文档将介绍使用vLLM-MindSpore插件进行单卡推理的流程。以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)模型为例，用户可通过以下[docker安装](#docker安装)章节或[安装指南](../../installation/installation.md#安装指南)章节进行环境配置，并[下载模型权重](#下载模型权重)。在[设置环境变量](#设置环境变量)之后，可进行[离线推理](#离线推理)与[在线推理](#在线推理)，体验单卡推理功能。
+本文档将介绍使用vLLM-MindSpore插件进行单卡推理的流程。以[Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)模型为例，用户可通过以下[docker安装](#docker安装)章节或[安装指南](../../installation/installation.md#安装指南)章节进行环境配置，并[下载模型权重](#下载模型权重)。在[设置环境变量](#设置环境变量)之后，可进行[离线推理](#离线推理)与[在线推理](#在线推理)，体验单卡推理功能。
 
 ## docker安装
 
@@ -76,6 +76,8 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
 
 关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
+新建容器成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
+
 ```bash
 docker ps
 ```
@@ -94,13 +96,13 @@ docker exec -it $DOCKER_NAME bash
 
 ### Python工具下载
 
-执行以下 Python 脚本，从[Hugging Face社区](https://huggingface.co/)下载[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)权重及文件：
+执行以下 Python 脚本，从[Hugging Face社区](https://huggingface.co/)下载[Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)权重及文件：
 
 ```python
 from openmind_hub import snapshot_download
 snapshot_download(
-    repo_id="Qwen/Qwen2.5-7B-Instruct",
-    local_dir="/path/to/save/Qwen2.5-7B-Instruct",
+    repo_id="Qwen/Qwen3-VL-8B-Instruct",
+    local_dir="/path/to/save/Qwen3-VL-8B-Instruct",
     local_dir_use_symlinks=False
 )
 ```
@@ -126,16 +128,16 @@ Git LFS initialized.
 工具确认可用后，执行以下命令下载权重：
 
 ```bash
-git clone https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
+git clone https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct
 ```
 
 ## 设置环境变量
 
-以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，以下环境变量用于设置内存占用、后端以及模型相关的YAML文件：
+以[Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)为例，以下环境变量用于设置内存占用、后端以及模型相关的YAML文件：
 
 ```bash
 #set environment variables
-export VLLM_MS_MODEL_BACKEND=MindFormers # use MindSpore TransFormers as model backend.
+export VLLM_MS_MODEL_BACKEND=Native # use Native Model as model backend.
 ```
 
 以下是对上述环境变量的解释：
@@ -153,19 +155,37 @@ export ASCEND_RT_VISIBLE_DEVICES=0
 vLLM-MindSpore插件环境搭建之后，用户可以使用如下Python代码，进行模型的离线推理：
 
 ```python
+from PIL import Image
 import vllm_mindspore # Add this line on the top of script.
 from vllm import LLM, SamplingParams
 
 # Sample prompts.
-prompts = [
-    "I am",
-    "Today is",
-    "Llama is"
+PROMPT_TEMPLATE = (
+    "<|im_start|>system\nYou are a helpful assistant.<|im_end|>"
+    "\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>"
+    "Is there anyone in the picture?<|im_end|>\n"
+    "<|im_start|>assistant\n")
+
+# example:
+# https://tools.mindspore.cn/dataset/workspace/mindspore_dataset/images/houses_and_mountain.jpeg
+
+image_path = "/path/to/houses_and_mountain.jpeg"
+
+def pil_image() -> Image.Image:
+    return Image.open(image_path)
+
+inputs = [
+    {
+        "prompt": PROMPT_TEMPLATE,
+        "multi_modal_data": {
+            "image": pil_image()
+        },
+    },
 ]
 
 # Create a sampling params object.
 sampling_params = SamplingParams(temperature=0.0, top_p=0.95)
-model_path = "/path/to/save/Qwen2.5-7B-Instruct"
+model_path = "/path/to/save/Qwen3-VL-8B-Instruct"
 # Create a LLM
 llm = LLM(model=model_path)
 # Generate texts from the prompts. The output is a list of RequestOutput objects
@@ -175,27 +195,25 @@ outputs = llm.generate(prompts, sampling_params)
 for output in outputs:
     prompt = output.prompt
     generated_text = output.outputs[0].text
-    print(f"Prompt: {prompt!r}. Generated text: {generated_text!r}")
+    print(f"Generated text: {generated_text!r}")
 ```
 
 若成功执行，则可以获得类似的执行结果：
 
 ```text
-Prompt: 'I am'. Generated text: ' trying to create a virtual environment for my Python project, but I am encountering some'
-Prompt: 'Today is'. Generated text: ' the 100th day of school. To celebrate, the teacher has'
-Prompt: 'Llama is'. Generated text: ' a 100% natural, biodegradable, and compostable alternative'
+Generated text: This is a breathtaking landscape photograph capturing a serene, idyllic scene in a mountainous region. Here's a breakdown of what's in the image:\n\n*   **Foreground:** A vibrant green meadow dotted with wildflowers, including yellow dandelions and some
 ```
 
 ## 在线推理
 
-vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下以[Qwen2.5-7B](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)为例，介绍模型的[启动服务](#启动服务)和[发送请求](#发送请求)，得到在线推理的推理结果。
+vLLM-MindSpore插件可使用OpenAI的API协议，部署在线推理。以下以[Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)为例，介绍模型的[启动服务](#启动服务)和[发送请求](#发送请求)，得到在线推理的推理结果。
 
 ### 启动服务
 
 使用如下命令启动vLLM服务：
 
 ```bash
-nohup vllm-mindspore serve /path/to/save/Qwen2.5-7B-Instruct &
+nohup vllm-mindspore serve /path/to/save/Qwen3-VL-8B-Instruct &
 ```
 
 用户可以通过指定模型保存的本地路径作为模型标签。若服务成功启动，则可以获得类似的执行结果：
@@ -214,34 +232,51 @@ Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 
 
 ### 发送请求
 
-使用如下命令发送请求。其中`prompt`字段为模型输入：
+使用如下Python脚本发送请求。其中`prompt`字段为模型输入：
 
-```bash
-curl http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "prompt": "I am", "max_tokens": 20, "temperature": 0}'
-```
+```python
+import base64
+import requests
+from concurrent.futures import ThreadPoolExecutor
 
-其中，用户需确认`"model"`字段与启动服务中的模型标签一致，请求才能成功匹配到模型。若请求处理成功，将获得以下推理结果：
+def encode_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
 
-```text
-{
-    "id":"cmpl-bac2b14c726b48b9967bcfc724e7c2a8","object":"text_completion",
-    "create":1748485893,
-    "model":"Qwen2.5-7B-Instruct",
-    "choices":[
+def send_request():
+    response = requests.post(
+        "http://localhost:8000/v1/chat/completions",
+        headers={"Content-Type": "application/json"},
+        json=payload
+    )
+    print(response.json())
+
+# 编码图片
+# example:
+# https://tools.mindspore.cn/dataset/workspace/mindspore_dataset/images/houses_and_mountain.jpeg
+
+image_path = "/path/to/houses_and_mountain.jpeg"
+
+base64_image = encode_image(image_path)
+
+# 构造请求
+payload = {
+    "model": "/home/ckpt/Qwen2.5-VL-7B-Instruct",
+    "messages": [
         {
-            "index":0,
-            "text":"trying to create a virtual environment for my Python project, but I am encountering some issues with setting up",
-            "logprobs":null,
-            "finish_reason":"length",
-            "stop_reason":null,
-            "prompt_logprobs":null
+            "role": "user",
+            "content": [
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}
+                },
+                {"type": "text", "text": "Is there anyone in the picture?"}
+            ]
         }
     ],
-    "usage":{
-        "prompt_tokens":2,
-        "total_tokens":22,
-        "completion_tokens":20,
-        "prompt_tokens_details":null
-    }
+    "max_tokens": 100,
+    "temperature": 0.1,
 }
 ```
+
+其中，用户需确认`"model"`字段与启动服务中的模型标签一致，请求才能成功匹配到模型。

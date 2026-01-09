@@ -63,21 +63,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+关于docker运行参数，可以参考文档：[MindSpore安装指南](https://www.mindspore.cn/install/)的“运行MindSpore镜像”部分。
 
 新建容器后成功后，将返回容器ID。用户可执行以下命令，确认容器是否创建成功：
 
@@ -195,10 +192,10 @@ vLLM-MindSpore插件可使用OpenAI的API协议，进行在线推理部署。以
 
 #### 启动服务
 
-使用模型`Qwen/Qwen2.5-7B-Instruct`，执行如下命令启动vLLM服务：
+使用模型`/path/to/save/Qwen2.5-7B-Instruct`，执行如下命令启动vLLM服务：
 
 ```bash
-vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct
+nohup vllm-mindspore serve /path/to/save/Qwen2.5-7B-Instruct &
 ```
 
 用户可以通过指定模型保存的本地路径作为模型标签。若服务成功启动，则可以获得类似的执行结果：

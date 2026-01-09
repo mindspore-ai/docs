@@ -14,9 +14,14 @@
 
 我们将使用[MindSpore 金箍棒的PTQ算法](https://gitee.com/mindspore/golden-stick/blob/r1.3.0/mindspore_gs/ptq/ptq/README_CN.md)对DeepSeek-R1网络进行量化，详细方法参考[DeepSeekR1-OutlierSuppressionLite量化样例](https://gitee.com/mindspore/golden-stick/blob/r1.3.0/example/deepseekv3/a8w8-osl/readme.md)。
 
+注意事项：
+
+- 当前仅支持在Atlas 800I A2上进行量化校准；
+- 环境中不能安装accelerate库，否则会导致量化过程中报错。
+
 ### 直接下载量化权重
 
-我们已经将量化好的DeepSeek-R1上传到[魔乐社区](https://modelers.cn)：[MindSpore-Lab/DeepSeek-R1-0528-A8W8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-A8W8)，可以参考[魔乐社区文档](https://modelers.cn/docs/zh/openmind-hub-client/0.9/basic_tutorial/download.html)将权重下载到本地。
+我们已经将量化好的DeepSeek-R1上传到[魔乐社区](https://modelers.cn)：[MindSpore-Lab/DeepSeek-R1-0528-A8W8](https://modelers.cn/models/MindSpore-Lab/DeepSeek-R1-0528-gs-A8W8)，可以参考[魔乐社区文档](https://modelers.cn/docs/zh/openmind-hub-client/0.9/basic_tutorial/download.html)将权重下载到本地。
 
 ## 量化模型推理
 

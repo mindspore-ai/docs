@@ -10,18 +10,18 @@ This document will introduce the [Version Matching](#version-compatibility) of v
 ## Version Compatibility
 
 - OS: Linux-aarch64
-- Python: 3.9 / 3.10 / 3.11
+- Python：3.10 / 3.11 / 3.12
 - Depent Software version compatibility
 
    | Software | Version And Links |
    | -----    | -----   |
    | CANN  |   [8.3.RC1](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/index/index.html)      |
-   | MindSpore |  [2.7.1](https://repo.mindspore.cn/mindspore/mindspore/version/202510/20251023/r2.7.1_20251023150800_71340184dc86527cb1ac22c992b9a9b240bcd366_newest/)    |
+   | MindSpore |  [2.7.1.post1](https://repo.mindspore.cn/mindspore/mindspore/version/202512/20251225/r2.7.1_20251225204822_6eefcb41b2c30e42eb049908d5efea40c3425abc_newest/)    |
    | MSAdapter| [0.0.5](https://repo.mindspore.cn/mindspore/msadapter/version/202510/20251011/r0.3.0_20251011095813_951a8218d4c29785e48f304e720212b57056573e_newest/) |
    | MindSpore Transformers | [1.7.0](https://repo.mindspore.cn/mindspore/mindformers/version/202510/20251030/r1.7.0_20251030031507_8ccc49b3f6645d3d1abfab80b4c78f3cafe5c84e_newest/)  |
    | vLLM     | [0.11.0](https://repo.mindspore.cn/mirrors/vllm/version/202511/20251113/v0.11.0/) |
-   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251203/master_20251203031508_007121f1940bf26aa8c40d479eb6a56548897bf3_newest/) |
-   | MindSpore ONE | [0.5.0](https://repo.mindspore.cn/mindspore-lab/mindone/version/202512/20251205/master_20251205093444_4be9653bfac58cedc70a5696b9b91f7d40e25ebb_newest/) |
+   | ms_custom_ops | [0.1.0](https://repo.mindspore.cn/mindspore/ms_custom_ops/version/202512/20251210/r0.1.0_20251210100500_15d84de93ca616c1a9880275c15213a34f2c0a39_newest/) |
+   | MindSpore ONE  | [0.5.0](https://repo.mindspore.cn/mindspore-lab/mindone/version/202512/20251223/master_20251223115818_36c25653b3ebaff55eb40ca10bc742d603b21f0a_newest/) |
 
 ## Docker Installation
 
@@ -82,21 +82,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+For docker run parameters, please refer to the "Running MindSpore Image" section in the [MindSpore Installation Guide](https://www.mindspore.cn/install/en/).
 
 The container ID will be returned if docker is created successfully. User can also check the container by executing the following command:
 

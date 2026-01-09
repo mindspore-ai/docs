@@ -63,21 +63,18 @@ docker run -itd --name=${DOCKER_NAME} --ipc=host --network=host --privileged=tru
         --device=/dev/davinci_manager \
         --device=/dev/devmm_svm \
         --device=/dev/hisi_hdc \
-        -v /usr/local/sbin/:/usr/local/sbin/ \
-        -v /var/log/npu/slog/:/var/log/npu/slog \
-        -v /var/log/npu/profiling/:/var/log/npu/profiling \
-        -v /var/log/npu/dump/:/var/log/npu/dump \
-        -v /var/log/npu/:/usr/slog \
-        -v /etc/hccn.conf:/etc/hccn.conf \
         -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-        -v /usr/local/dcmi:/usr/local/dcmi \
         -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
         -v /etc/ascend_install.info:/etc/ascend_install.info \
-        -v /etc/vnpu.cfg:/etc/vnpu.cfg \
+        -v /var/log/npu/:/usr/slog \
+        -v /usr/bin/hccn_tool:/usr/bin/hccn_tool \
+        -v /etc/hccn.conf:/etc/hccn.conf \
         --shm-size="250g" \
         ${IMAGE_NAME} \
         bash
 ```
+
+For docker run parameters, please refer to the "Running MindSpore Image" section in the [MindSpore Installation Guide](https://www.mindspore.cn/install/en/).
 
 After successfully creating the container, the container ID will be returned. User can verify the creation by executing the following command:
 
@@ -195,10 +192,10 @@ vLLM-MindSpore Plugin supports online inference deployment with the OpenAI API p
 
 #### Starting the Service
 
-Use the model `Qwen/Qwen2.5-7B-Instruct` and start the vLLM service with the following command:
+Use the model `/path/to/save/Qwen2.5-7B-Instruct` and start the vLLM service with the following command:
 
 ```bash
-vllm-mindspore serve Qwen/Qwen2.5-7B-Instruct
+nohup vllm-mindspore serve /path/to/save/Qwen2.5-7B-Instruct &
 ```
 
 User can also pass the local model path to `vllm-mindspore serve` as model tag. If the service starts successfully, similar output will be obtained:
