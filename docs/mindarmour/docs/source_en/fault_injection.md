@@ -47,7 +47,6 @@ Decompress the downloaded dataset to a local path. The directory structure is as
 ### Downloading the Checkpoint File
 
 Download checkpoint file or just trained your own checkpoint.
-> Download the checkpoint file at <https://www.mindspore.cn/hub>
 
 ### Importing the Python Library and Modules
 

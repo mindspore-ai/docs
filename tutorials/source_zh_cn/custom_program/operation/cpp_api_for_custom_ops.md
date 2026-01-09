@@ -51,7 +51,7 @@ kNumberTypeEnd,         // Number 类型结束值
 
 ### class Tensor
 
-张量类定义在[tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/tensor.h)头文件中，表示 MindSpore 的张量对象，提供操作和查询张量属性的方法。
+张量类定义在[tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/tensor.h)头文件中，表示 MindSpore 的张量对象，提供操作和查询张量属性的方法。
 
 #### 构造函数
 
