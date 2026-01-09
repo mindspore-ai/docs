@@ -16,7 +16,7 @@ A: For performance reasons, the [ops.ring_attention_update](https://www.mindspor
 
 <br/>
 
-## Q: On Ascend, when using the `nn.Hardtanh` API in MindSpore version 2.7.2 with CANN version 8.0.0.alpha003, an error occurs: `RuntimeError: Failed: Timeout >900.0s`. What is the cause of this?
+### Q: On Ascend, when using the `nn.Hardtanh` API in MindSpore version 2.7.2 with CANN version 8.0.0.alpha003, an error occurs: `RuntimeError: Failed: Timeout >900.0s`. What is the cause of this?
 
 A: This issue is caused by incompatibility between MindSpore 2.7.2 and later versions and CANN 8.0.0.alpha003. MindSpore 2.7.2 requires CANN 8.5.0 for compatibility. MindSpore 2.8.0 and later versions are recommended for use with CANN 8.2.0 and later versions.
 
