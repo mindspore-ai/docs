@@ -4,7 +4,9 @@
 
 ## Overview
 
-The data skipping function refers to the process where, during the training process, when the parameter global norm exceeds the set threshold, it accumulates the number of out-of-bounds instances and skips the training data for the current step, and proceeds to retrain in the next step; When the cumulative number of violations reaches the threshold, an abnormal interrupt will be triggered to terminate the training. The health monitoring function refers to monitoring the health status of the saved weights when saving them, generating a file to record the health status of the weights, and using this file to select the latest healthy weights for the next training session.
+The data skipping function refers to the process where, during the training process, when the parameter global norm exceeds the set threshold, it accumulates the number of out-of-bounds instances and skips the training data for the current step, and proceeds to retrain in the next step; When the cumulative number of violations reaches the threshold, an abnormal interrupt will be triggered to terminate the training.
+
+The health monitoring function refers to monitoring the health status of the saved weights when saving them, generating a file to record the health status of the weights, and using this file to select the latest healthy weights for the next training session.
 
 Please refer to [Checkpoint Health Monitor](#checkpoint-health-monitor) for the determination of weight health status.
 
@@ -53,15 +55,13 @@ monitor_config:
 
 ### Conversion Example
 
-Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters according to the above [Configuration](#usage), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/llama3_1/README.md) for the remaining steps. Start training:
+Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters according to the above [Configuration](#usage). Please refer to the [Qwen3 Document](https://gitee.com/mindspore/mindformers/blob/r1.8.0/configs/qwen3/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
-    --register_path research/llama3_1 \
-    --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-    --train_data /{path}/wiki4096.mindrecord \
-    --run_mode train \
-    --use_parallel True" 8
+        --config path/to/pretrain_qwen3_8b.yaml \
+        --run_mode train \
+        --use_parallel True" 8
 ```
 
 When the model officially starts training, if the global norm is greater than the set threshold, the following log will be printed, indicating that the user has experienced abnormal global norm n times in a row and skipped the training data for the current step count.
@@ -155,15 +155,13 @@ parallel_config:
 
 ### Conversion Example
 
-Assuming Llama3.1-8B is taken as an example, use [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1), please refer to the [Llama3.1-8B Document](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/llama3_1/README.md) for the remaining steps. Start training:
+Assuming Qwen3-8B is taken as an example, use [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add parameters and modify according to the above [Configuration](#usage-1). Please refer to the [Qwen3 Document](https://gitee.com/mindspore/mindformers/blob/r1.8.0/configs/qwen3/README.md) for the remaining steps. Start training:
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
-    --register_path research/llama3_1 \
-    --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-    --train_data /{path}/wiki4096.mindrecord \
-    --run_mode train \
-    --use_parallel True" 8
+        --config path/to/pretrain_qwen3_8b.yaml \
+        --run_mode train \
+        --use_parallel True" 8
 ```
 
 When the model officially starts training, the log will print the embedding local norm for the current number of steps, making it easier for users to set thresholds after statistical observation.
@@ -186,11 +184,11 @@ The ckpt_name records the weight file name, while is_health records the health s
 [
     {
         "is_health": 0,
-        "ckpt_name": "llama3_1_8b_rank_0-1_1.safetensors"
+        "ckpt_name": "qwen3_8b_8b_rank_0-1_1.safetensors"
     },
     {
         "is_health": 1,
-        "ckpt_name": "llama3_1_8b_rank_0-2_1.safetensors"
+        "ckpt_name": "qwen3_8b_rank_0-2_1.safetensors"
     }
 ]
 ```

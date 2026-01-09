@@ -88,7 +88,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
     callbacks:
       - type: CheckpointMonitor
-        prefix: "llama2_13b"
+        prefix: "qwen3_8b"
         save_checkpoint_steps: 100
         integrated_save: False
         async_save: False
@@ -106,7 +106,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
     callbacks:
       - type: CheckpointMonitor
-        prefix: "llama2_13b"
+        prefix: "qwen3_8b"
         save_checkpoint_steps: 100
         integrated_save: False
         async_save: False
@@ -148,10 +148,10 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
 ### 临终 CKPT
 
-本章节以 Llama2-13B 训练为例演示临终 CKPT 的使用。
+本章节以 Qwen3-8B 训练为例演示临终 CKPT 的使用。
 
 1. 先安装 MindSpore 和 MindIO
-2. 下载 MindSpore Transformers，修改 `configs/llama2/pretrain_llama2_13b_bf16.yaml` 配置文件，主要配置如下：
+2. 下载 MindSpore Transformers，修改 [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) 配置文件，主要配置如下：
 
     ```yaml
     # runner config
@@ -208,12 +208,10 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
     export MS_TFT_PORT=30051
 
     bash scripts/msrun_launcher.sh "run_mindformer.py \
-      --config configs/llama2/pretrain_llama2_13b_bf16.yaml \
-      --train_dataset_dir "/YourDataSetPath" \
+      --config path/to/pretrain_qwen3_8b.yaml \
       --use_parallel True --run_mode train" 8
     ```
 
-    注意：需要将 `/YourDataSetPath` 换成实际数据集的路径。
 4. 待训练执行若干个 step 之后，终止 worker 进程，触发临终 CKPT 保存
 
     注意：通过上述启动方式，MindIO Controller 附着在 worker 0 进程上，此种情况下不能终止 worker 0，否则导致 MindIO Controller 退出，无法触发临终 CKPT。但是通过 taskd 方式启动训练时，MindIO Controller 是个单独的进程，可以终止 worker 0 进程。
@@ -225,10 +223,10 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
     ```text
     $ find output/checkpoint/ -name '*.ckpt'
-    output/checkpoint/rank_2/llama2_13b_rank_2-5_1.ckpt
-    output/checkpoint/rank_3/llama2_13b_rank_3-5_1.ckpt
-    output/checkpoint/rank_0/llama2_13b_rank_0-5_1.ckpt
-    output/checkpoint/rank_5/llama2_13b_rank_5-5_1.ckpt
+    output/checkpoint/rank_2/qwen3_8b_rank_2-5_1.ckpt
+    output/checkpoint/rank_3/qwen3_8b_rank_3-5_1.ckpt
+    output/checkpoint/rank_0/qwen3_8b_rank_0-5_1.ckpt
+    output/checkpoint/rank_5/qwen3_8b_rank_5-5_1.ckpt
     ```
 
     2). 执行命令 `cat output/msrun_log/worker_0.log | grep 'Epoch:'` 查看已经训练的 step：
@@ -252,7 +250,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
     2025-04-07 15:34:27.393515 info 1879142 [TTP controller.cpp:1512] rank:1, report group list: [1, 5]
     ```
 
-    从上面训练的 step 信息可以看出已经训练的 5 个 step，和 Checkpoint 的文件名 `llama2_13b_rank_2-5_1.ckpt` 中的 5 是一致的。
+    从上面训练的 step 信息可以看出已经训练的 5 个 step，和 Checkpoint 的文件名 `qwen3_8b_rank_2-5_1.ckpt` 中的 5 是一致的。
 
     从日志中输出的副本关系 `[0, 4]`、`[3, 7]`、`[2, 6]` 和 `[1, 5]` 得知：
 
@@ -263,12 +261,12 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 
 ### 故障快速恢复
 
-本章节以 Llama3.1-8B 训练为例演示故障快速恢复的使用。
+本章节以 Qwen3-8B 训练为例演示故障快速恢复的使用。
 
 > 以下示例所展示的参数数值仅作为实验数据，请以真实训练数据为准。
 
 1. 先安装 [MindSpore](https://www.mindspore.cn/install)。
-2. 下载 MindSpore Transformers，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.8.0/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照如下配置添加和修改参数：
+2. 下载 MindSpore Transformers，使用的[pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/tree/r2.7.2/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照如下配置添加和修改参数：
 
     ```yaml
     output_dir: './output'
@@ -307,9 +305,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
     cd mindformers
 
     bash scripts/msrun_launcher.sh "run_mindformer.py \
-        --register_path research/llama3_1 \
-        --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-        --train_data /{path}/wiki4096.mindrecord \
+        --config path/to/pretrain_qwen3_8b.yaml \
         --run_mode train \
         --use_parallel True" 8
     ```
