@@ -53,7 +53,7 @@ For the sample code, please refer to the unit case [ModelParserRegistryTest](htt
 
 ### Optimization Extension
 
-1. Self-defined Pass: The users need to inherit the base class [PassBase](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassBase.html), and override the interface function [Execute](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_dataset_Execute.html).
+1. Self-defined Pass: The users need to inherit the base class [PassBase](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_PassBase.html), and override the interface function Execute.
 
 2. Pass Registration: The users can directly call the registration interface [REG_PASS](https://www.mindspore.cn/lite/api/en/master/generate/define_pass_registry.h_REG_PASS-1.html), so that the self-defined pass can be registered in the converter tool of MindSpore Lite.
 
