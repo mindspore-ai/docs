@@ -55,15 +55,13 @@ monitor_config:
 
 ### 使用示例
 
-假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Llama3.1-8B文档](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md)。开启训练：
+假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法)添加参数，其余步骤请参考[Qwen3文档](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
-    --register_path research/llama3_1 \
-    --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-    --train_data /{path}/wiki4096.mindrecord \
-    --run_mode train \
-    --use_parallel True" 8
+        --config path/to/pretrain_qwen3_8b.yaml \
+        --run_mode train \
+        --use_parallel True" 8
 ```
 
 模型正式开始训练时，global norm大于设定阈值，则会打印如下日志，提示用户当前已经连续n次出现异常global norm，并跳过当前步数的训练数据。
@@ -157,15 +155,13 @@ parallel_config:
 
 ### 使用示例
 
-假设以Llama3.1-8B为例子，使用的[finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Llama3.1-8B文档](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md)。开启训练：
+假设以Qwen3-8B为例子，使用的[pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/tree/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照上述[配置](#使用方法-1)添加参数和修改，其余步骤请参考[Qwen3文档](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md)。开启训练：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
-    --register_path research/llama3_1 \
-    --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-    --train_data /{path}/wiki4096.mindrecord \
-    --run_mode train \
-    --use_parallel True" 8
+        --config path/to/pretrain_qwen3_8b.yaml \
+        --run_mode train \
+        --use_parallel True" 8
 ```
 
 模型正式开始训练时，日志会打印当前步数的embedding local norm，便于用户统计观测后设定阈值。
@@ -188,11 +184,11 @@ ckpt_name记录的是权重文件名，is_health记录的是对应权重的健�
 [
     {
         "is_health": 0,
-        "ckpt_name": "llama3_1_8b_rank_0-1_1.safetensors"
+        "ckpt_name": "qwen3_8b_rank_0-1_1.safetensors"
     },
     {
         "is_health": 1,
-        "ckpt_name": "llama3_1_8b_rank_0-2_1.safetensors"
+        "ckpt_name": "qwen3_1_8b_rank_0-2_1.safetensors"
     }
 ]
 ```

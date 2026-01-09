@@ -88,7 +88,7 @@ The end-of-life CheckPoint preservation and recovery capabilities are used for i
 
     callbacks:
       - type: CheckpointMonitor
-        prefix: "llama2_13b"
+        prefix: "qwen3_8b"
         save_checkpoint_steps: 100
         integrated_save: False
         async_save: False
@@ -106,7 +106,7 @@ The end-of-life CheckPoint preservation and recovery capabilities are used for i
 
     callbacks:
       - type: CheckpointMonitor
-        prefix: "llama2_13b"
+        prefix: "qwen3_8b"
         save_checkpoint_steps: 100
         integrated_save: False
         async_save: False
@@ -148,10 +148,10 @@ The key to the end-of-life CheckPoint, UCE and ARF functions of high availabilit
 
 ### End-of-life CheckPoint
 
-This section demonstrates the use of the end-of-life CKPT using Llama2-13B training as an example.
+This section demonstrates the use of the end-of-life CKPT using Qwen3-8B training as an example.
 
 1. First install MindSpore and MindIO
-2. Download MindSpore Transformers and modify the `configs/llama2/pretrain_llama2_13b_bf16.yaml` configuration file with the following main configuration:
+2. Download MindSpore Transformers and modify the [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) configuration file with the following main configuration:
 
     ```yaml
     # runner config
@@ -208,12 +208,10 @@ This section demonstrates the use of the end-of-life CKPT using Llama2-13B train
     export MS_TFT_PORT=30051
 
     bash scripts/msrun_launcher.sh "run_mindformer.py \
-      --config configs/llama2/pretrain_llama2_13b_bf16.yaml \
-      --train_dataset_dir "/YourDataSetPath" \
+      --config path/to/pretrain_qwen3_8b.yaml \
       --use_parallel True --run_mode train" 8
     ```
 
-    Note: You need to replace `/YourDataSetPath` with the path of the actual dataset.
 4. After a few steps of training, terminate the worker process and trigger an end-of-life CKPT save
 
     Note: With the above startup method, the MindIO Controller is attached to worker 0. In this case, worker 0 cannot be terminated, or else the MindIO Controller will exit and the end-of-life CKPT cannot be triggered. However, when training is started via taskd, the MindIO Controller is a separate process and the worker 0 process can be terminated.
@@ -225,10 +223,10 @@ This section demonstrates the use of the end-of-life CKPT using Llama2-13B train
 
     ```text
     $ find output/checkpoint/ -name '*.ckpt'
-    output/checkpoint/rank_2/llama2_13b_rank_2-5_1.ckpt
-    output/checkpoint/rank_3/llama2_13b_rank_3-5_1.ckpt
-    output/checkpoint/rank_0/llama2_13b_rank_0-5_1.ckpt
-    output/checkpoint/rank_5/llama2_13b_rank_5-5_1.ckpt
+    output/checkpoint/rank_2/qwen3_8b_rank_2-5_1.ckpt
+    output/checkpoint/rank_3/qwen3_8b_rank_3-5_1.ckpt
+    output/checkpoint/rank_0/qwen3_8b_rank_0-5_1.ckpt
+    output/checkpoint/rank_5/qwen3_8b_rank_5-5_1.ckpt
     ```
 
     2). Execute the command `cat output/msrun_log/worker_0.log | grep 'Epoch:'` to see the trained steps:
@@ -252,7 +250,7 @@ This section demonstrates the use of the end-of-life CKPT using Llama2-13B train
     2025-04-07 15:34:27.393515 info 1879142 [TTP controller.cpp:1512] rank:1, report group list: [1, 5]
     ```
 
-    From the training step information above, we can see that the 5 steps that have been trained, and the number is the same as the 5 in the file name `llama2_13b_rank_2-5_1.ckpt` of CheckPoint.
+    From the training step information above, we can see that the 5 steps that have been trained, and the number is the same as the 5 in the file name `qwen3_8b_rank_2-5_1.ckpt` of CheckPoint.
 
     The copy relations `[0, 4]`, `[3, 7]`, `[2, 6]` and `[1, 5]` are known from the output in the log:
 
@@ -263,12 +261,12 @@ This section demonstrates the use of the end-of-life CKPT using Llama2-13B train
 
 ### Abnormal Training Results Recovery
 
-This chapter uses Llama3.1-8B training as an example to demonstrate the use of rapid fault recovery.
+This chapter uses Qwen3-8B training as an example to demonstrate the use of rapid fault recovery.
 
 > The parameter values shown in the following examples are only experimental data, please refer to real training data.
 
 1. Install [MindSpore](https://www.mindspore.cn/install/en) first.
-2. Download MindSpore Transformers, using [finetune_llama3_1_8b.yaml](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml) to add and modify parameters according to the configuration below:
+2. Download MindSpore Transformers, using [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) to add and modify parameters according to the configuration below:
 
     ```yaml
     output_dir: './output'
@@ -307,9 +305,7 @@ This chapter uses Llama3.1-8B training as an example to demonstrate the use of r
     cd mindformers
 
     bash scripts/msrun_launcher.sh "run_mindformer.py \
-        --register_path research/llama3_1 \
-        --config research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml \
-        --train_data /{path}/wiki4096.mindrecord \
+        --config path/to/pretrain_qwen3_8b.yaml \
         --run_mode train \
         --use_parallel True" 8
     ```
