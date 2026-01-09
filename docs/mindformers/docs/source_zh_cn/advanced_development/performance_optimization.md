@@ -137,7 +137,7 @@ MindSpore Transformers本身集成了profiling数据采集的功能，使用步�
    | profile_rank_ids      | 设置开启性能采集的rank ids，默认值为`None`，表示所有rank id均开启性能采集。                                           | list |
    | profile_pipeline      | 设置是否按流水线并行每个stage的其中一张卡开启性能采集，默认值为`False`。                                                 | bool |
    | profile_output        | 设置保存性能采集生成文件的文件夹路径。                                                                        | str  |
-   | profile_level         | 设置采集数据的级别，可选值为(0, 1, 2)，默认值为`1`。                                                           | int  |
+   | profiler_level        | 设置采集数据的级别，可选值为(0, 1, 2)，默认值为`1`。                                                           | int  |
    | with_stack            | 设置是否收集Python侧的调用栈数据，默认值为`False`。                                                           | bool |
    | data_simplification   | 设置是否开启数据精简，开启后将在导出性能采集数据后删除FRAMEWORK目录以及其他多余数据，默认为`False`。                                 | bool  |
    | init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效。开启`profile_memory`时需要将该参数设为`True`。 | bool |
