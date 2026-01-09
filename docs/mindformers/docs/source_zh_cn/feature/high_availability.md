@@ -151,7 +151,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 本章节以 Qwen3-8B 训练为例演示临终 CKPT 的使用。
 
 1. 先安装 MindSpore 和 MindIO
-2. 下载 MindSpore Transformers，修改 [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) 配置文件，主要配置如下：
+2. 下载 MindSpore Transformers，修改 [pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml) 配置文件，主要配置如下：
 
     ```yaml
     # runner config
@@ -266,7 +266,7 @@ YAML配置包含两部分：临终 CKPT 的保存及恢复配置和卡间副本�
 > 以下示例所展示的参数数值仅作为实验数据，请以真实训练数据为准。
 
 1. 先安装 [MindSpore](https://www.mindspore.cn/install)。
-2. 下载 MindSpore Transformers，使用的[pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照如下配置添加和修改参数：
+2. 下载 MindSpore Transformers，使用的[pretrain_qwen3_8b.yaml](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/example/qwen3/pretrain_qwen3_8b.yaml)按照如下配置添加和修改参数：
 
     ```yaml
     output_dir: './output'
