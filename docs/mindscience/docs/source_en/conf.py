@@ -143,6 +143,8 @@ def remove_typehints_content(text):
 
 def get_param_func(func):
     try:
+        if func is None:
+            return ""
         source_code = inspect_.getsource(func)
         if func.__doc__:
             source_code = source_code.replace(func.__doc__, '')
@@ -187,6 +189,8 @@ def get_param_func(func):
 
 def get_obj(obj):
     if isinstance(obj, type):
+        if 'opt_init_args_register' in str(obj.__init__) and '__init__' not in obj.__dict__:
+            return None
         return obj.__init__
 
     return obj
@@ -197,6 +201,21 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+decorator_list = [("mindscience/common/derivatives.py","common api",
+                   "@constexpr","# The decorator has been deleted.")]
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for i in decorator_list:
+    try:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[3] not in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+    except:
+        print(f'替换{i[0]}下内容失败')
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import nbsphinx_mod
