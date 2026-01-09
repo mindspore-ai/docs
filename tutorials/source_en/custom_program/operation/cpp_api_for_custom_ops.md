@@ -51,7 +51,7 @@ kNumberTypeEnd,         // End value for the Number type
 
 ### class Tensor
 
-The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/pyboost/custom/tensor.h) header file, representing the tensor object in MindSpore. It provides methods for operating on and querying tensor properties.
+The `Tensor` class is defined in the [tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/include/pynative/utils/pyboost/custom/tensor.h) header file, representing the tensor object in MindSpore. It provides methods for operating on and querying tensor properties.
 
 #### Constructors
 
