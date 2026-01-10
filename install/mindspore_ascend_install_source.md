@@ -31,8 +31,8 @@
 |软件名称|版本|作用|
 |-|-|-|
 |Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|编译和运行MindSpore的操作系统|
-|[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 8.3.RC1、CANN 8.2.RC1、CANN 8.1.RC1|MindSpore使用的Ascend平台AI计算库|
+|[Python](#安装python)|3.9-3.12|MindSpore的使用依赖Python环境|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 8.5.0、CANN 8.3.RC1、CANN 8.2.RC1|MindSpore使用的Ascend平台AI计算库|
 |[wheel](#安装wheel-setuptools-pyyaml和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel-setuptools-pyyaml和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
@@ -40,7 +40,7 @@
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 |[git](#安装git-tclsh-patch-numa-flex)|-|MindSpore使用的源代码管理工具|
 |[git-lfs](#安装git-lfs)|-|MindSpore使用的源代码管理拓展工具|
-|[CMake](#安装cmake)|3.22.2及以上|编译构建MindSpore的工具|
+|[CMake](#安装cmake)|3.22.3及以上|编译构建MindSpore的工具|
 |[Flex](#安装git-tclsh-patch-numa-flex)|2.5.35及以上|MindSpore使用的词法分析器|
 |[tclsh](#安装git-tclsh-patch-numa-flex)|-|MindSpore sqlite编译依赖|
 |[patch](#安装git-tclsh-patch-numa-flex)|2.5及以上|MindSpore使用的源代码补丁工具|
@@ -80,23 +80,15 @@ python --version
 
 ### 安装昇腾AI处理器配套软件包
 
-昇腾软件包社区版下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.3.RC1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html)。
+昇腾软件包社区版下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.5.0`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html)。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
-安装昇腾AI处理器配套软件所包含的whl包。如果之前已经安装过昇腾AI处理器配套软件包，需要先使用以下命令卸载对应的whl包。
+安装昇腾AI处理器配套软件依赖的python软件包。如果之前已经安装过昇腾AI处理器配套软件包提供的`te topi hccl`，需要先使用以下命令卸载这些包，再安装依赖的python软件包。
 
 ```bash
 pip uninstall te topi hccl -y
-```
-
-默认安装路径使用以下命令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
-
-```bash
-pip install sympy
-pip install protobuf
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
+pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy tornado jinja2
 ```
 
 ### 安装wheel setuptools PyYAML和Numpy
@@ -107,7 +99,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 pip install wheel
 pip install -U setuptools
 pip install pyyaml
-pip install "numpy>=1.19.3,<=1.26.4"
+pip install "numpy>=1.20.0,<2.0.0"
 ```
 
 注意：运行环境使用的Numpy版本需不小于编译环境的Numpy版本，以保证框架内Numpy相关能力的正常使用。
@@ -199,22 +191,22 @@ pip install "numpy>=1.19.3,<=1.26.4"
 
     ```bash
     # x86使用
-    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-linux-x86_64.sh
+    curl -O https://cmake.org/files/v3.22/cmake-3.22.3-linux-x86_64.sh
     # aarch64使用
-    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-linux-aarch64.sh
+    curl -O https://cmake.org/files/v3.22/cmake-3.22.3-linux-aarch64.sh
     ```
 
     执行安装脚本安装CMake，默认安装到`/usr/local`目录下。
 
     ```bash
-    sudo mkdir /usr/local/cmake-3.22.2
-    sudo bash cmake-3.22.2-linux-*.sh --prefix=/usr/local/cmake-3.22.2 --exclude-subdir
+    sudo mkdir /usr/local/cmake-3.22.3
+    sudo bash cmake-3.22.3-linux-*.sh --prefix=/usr/local/cmake-3.22.3 --exclude-subdir
     ```
 
     最后需要将CMake添加到`PATH`环境变量中。如果使用默认安装目录执行以下命令，其他安装目录需要做相应修改。
 
     ```bash
-    echo -e "export PATH=/usr/local/cmake-3.22.2/bin:\$PATH" >> ~/.bashrc
+    echo -e "export PATH=/usr/local/cmake-3.22.3/bin:\$PATH" >> ~/.bashrc
     source ~/.bashrc
     ```
 
@@ -236,8 +228,8 @@ export GLOG_v=2
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
-source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
-export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit/
+source ${LOCAL_ASCEND}/cann/set_env.sh
+export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}
 ```
 
 ## 编译MindSpore

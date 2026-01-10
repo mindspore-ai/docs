@@ -80,7 +80,7 @@ conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
 conda activate mindspore_py39
 ```
 
-如果希望使用其他版本Python，只需更改以上命令中的Python版本。当前支持Python 3.9、Python 3.10和Python 3.11。
+如果希望使用其他版本Python，只需更改以上命令中的Python版本。当前支持Python 3.9、Python 3.10、Python 3.11和Python3.12。
 
 ### 安装MindSpore
 

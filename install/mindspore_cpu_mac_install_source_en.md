@@ -25,8 +25,8 @@ This document describes how to install MindSpore by compiling source code on mac
 
     |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9-3.11|Mambaforge or Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.9-3.11|Anaconda or Miniconda|
+    |M1|ARM|11.3|Python 3.9-3.12|Mambaforge or Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.9-3.12|Anaconda or Miniconda|
 
 - Ensure that the Conda version is compatible with the current system and chip.
 
@@ -37,7 +37,7 @@ This document describes how to install MindSpore by compiling source code on mac
 
 - Ensure that `Command Line Tools for Xcode` is installed. If not, use `sudo xcode-select --install` command to install Command Line Tools.
 
-- Ensure that [CMake 3.22.2 and the later version](https://cmake.org/download/) is installed. Use `brew install cmake` if it's not installed.
+- Ensure that [CMake 3.22.3 and the later version](https://cmake.org/download/) is installed. Use `brew install cmake` if it's not installed.
 
 - Ensure that [patch 2.5](https://ftp.gnu.org/gnu/patch/) is installed. Use `brew install patch` if it's not installed.
 
