@@ -23,7 +23,7 @@ The following table lists the system environment and third-party dependencies re
 |Software|Version|Description|
 |-|-|-|
 |Ubuntu|18.04|OS for running MindSpore|
-|[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends|
+|[Python](#installing-python)|3.9-3.12|Python environment that MindSpore depends|
 |[GCC](#installing-gcc)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
 
 The following describes how to install the third-party dependencies.

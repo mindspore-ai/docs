@@ -23,8 +23,8 @@
 
     |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9-3.11|Mambaforge 或 Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.9-3.11|Anaconda 或 MiniConda|
+    |M1|ARM|11.3|Python 3.9-3.12|Mambaforge 或 Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.9-3.12|Anaconda 或 MiniConda|
 
 - 确认安装与当前系统及芯片型号兼容的Conda版本。
 

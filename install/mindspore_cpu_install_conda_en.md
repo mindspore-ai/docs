@@ -80,7 +80,7 @@ conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
 conda activate mindspore_py39
 ```
 
-If you wish to use another version of Python, just change the Python version in the above command. Python 3.9, Python 3.10 and Python 3.11 are currently supported.
+If you wish to use another version of Python, just change the Python version in the above command. Python 3.9, Python 3.10, Python 3.11 and Python 3.12 are currently supported.
 
 ### Installing MindSpore
 

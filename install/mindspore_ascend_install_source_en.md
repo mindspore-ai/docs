@@ -13,8 +13,8 @@ The following table lists the system environment and third-party dependencies re
 |Software|Version|Description|
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|Operating Systems compatible to MindSpore|
-|[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.3.RC1, CANN 8.2.RC1, CANN 8.1.RC1|Ascend platform AI computing library used by MindSpore|
+|[Python](#installing-python)|3.9-3.12|Python environment that MindSpore depends on|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.5.0|Ascend platform AI computing library used by MindSpore|
 |[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compilation in MindSpore depends on|
@@ -22,7 +22,7 @@ The following table lists the system environment and third-party dependencies re
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[git](#installing-git-tclsh-patch-numa-and-flex)|-|Source code management tool used by MindSpore|
 |[git-lfs](#installing-git-lfs)|-|Source code management tool used by MindSpore|
-|[CMake](#installing-cmake)|3.22.2 or later|Build tool for MindSpore|
+|[CMake](#installing-cmake)|3.22.3 or later|Build tool for MindSpore|
 |[Flex](#installing-git-tclsh-patch-numa-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
 |[tclsh](#installing-git-tclsh-patch-numa-and-flex)|-|MindSpore SQLite build dependency|
 |[patch](#installing-git-tclsh-patch-numa-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
@@ -62,23 +62,15 @@ python --version
 
 ### Installing Ascend AI processor software package
 
-To install Ascend software package community edition, the recommended version is `8.3.RC1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html) to choose which packages are to be installed and how to install them.
+To install Ascend software package community edition, the recommended version is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
-Install the .whl packages provided in Ascend AI processor software package. If the .whl packages have been installed before, you should uninstall the .whl packages by running the following command.
+Install python packages required by Ascend AI processor software package. If packages `te topi hccl` have been installed before, you should uninstall these packages.
 
 ```bash
 pip uninstall te topi hccl -y
-```
-
-Run the following command to install the .whl packages in the default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
-
-```bash
-pip install sympy
-pip install protobuf
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
+pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy tornado jinja2
 ```
 
 ### Installing wheel setuptools PyYAML and Numpy
@@ -89,7 +81,7 @@ After installing Python, use the following command to install it.
 pip install wheel
 pip install -U setuptools
 pip install pyyaml
-pip install "numpy>=1.19.3,<=1.26.4"
+pip install "numpy>=1.20.0,<2.0.0"
 ```
 
 Note: The Numpy version used in the runtime environment must be no less than the Numpy version in the compilation environment to ensure the normal use of Numpy related capabilities in the framework.
@@ -181,22 +173,22 @@ Note: The Numpy version used in the runtime environment must be no less than the
 
     ```bash
     # x86 run
-    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-linux-x86_64.sh
+    curl -O https://cmake.org/files/v3.22/cmake-3.22.3-linux-x86_64.sh
     # aarch64 run
-    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-linux-aarch64.sh
+    curl -O https://cmake.org/files/v3.22/cmake-3.22.3-linux-aarch64.sh
     ```
 
     Run the script to install CMake, which is installed in the `/usr/local` by default.
 
     ```bash
-    sudo mkdir /usr/local/cmake-3.22.2
-    sudo bash cmake-3.22.2-linux-*.sh --prefix=/usr/local/cmake-3.22.2 --exclude-subdir
+    sudo mkdir /usr/local/cmake-3.22.3
+    sudo bash cmake-3.22.3-linux-*.sh --prefix=/usr/local/cmake-3.22.3 --exclude-subdir
     ```
 
     Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation paths need to be modified accordingly.
 
     ```bash
-    echo -e "export PATH=/usr/local/cmake-3.22.2/bin:\$PATH" >> ~/.bashrc
+    echo -e "export PATH=/usr/local/cmake-3.22.3/bin:\$PATH" >> ~/.bashrc
     source ~/.bashrc
     ```
 
@@ -218,7 +210,7 @@ export GLOG_v=2
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
-source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
+source ${LOCAL_ASCEND}/cann/set_env.sh
 export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit/
 ```
 

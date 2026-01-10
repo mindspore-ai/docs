@@ -37,12 +37,12 @@ The following table outlines the system requirements for deploying MindSpore usi
 |Software Name|Version|Function|
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|‌Recommended OS for MindSpore Container Deployment|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.3.RC1, CANN 8.2.RC1, CANN 8.1.RC1|Ascend platform AI computing library used by MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.5.0|Ascend platform AI computing library used by MindSpore|
 |Docker | Docker 18.03+ |Provides lightweight containerization environment for isolated deployment and cross-platform execution of MindSpore and its dependencies|
 
 ## Installing Ascend AI processor software package
 
-To install Ascend software package community edition, the recommended version is `8.3.RC1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html) to choose which packages are to be installed and how to install them.
+To install Ascend software package community edition, the recommended version is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 

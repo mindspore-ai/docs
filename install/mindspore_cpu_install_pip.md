@@ -23,7 +23,7 @@
 |软件名称|版本|作用|
 |-|-|-|
 |Ubuntu|18.04|运行MindSpore的操作系统|
-|[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
+|[Python](#安装python)|3.9-3.12|MindSpore的使用依赖Python环境|
 |[GCC](#安装gcc)|7.3.0-9.4.0|用于编译MindSpore的C++编译器|
 
 下面给出第三方依赖的安装方法。
