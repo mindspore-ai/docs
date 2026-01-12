@@ -25,8 +25,8 @@ The following table lists the system environment and third-party dependencies re
 |Software|Version|Description|
 |-|-|-|
 |Debian series OS / openEuler series OS|Debianseries: Debian, Ubuntu, veLinux / openEuler serires: openEuler, CentOS, Kylin, BCLinux, UOS V20, AntOS, CTyunOS, CULinux, Tlinux, MTOS|Operating Systems compatible to MindSpore|
-|[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.3.RC1, CANN 8.2.RC1, CANN 8.1.RC1|Ascend platform AI computing library used by MindSpore|
+|[Python](#installing-python)|3.9-3.12|Python environment that MindSpore depends on|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|CANN 8.5.0|Ascend platform AI computing library used by MindSpore|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 
 The following describes how to install the third-party dependencies.
@@ -69,22 +69,15 @@ python -m pip install -U pip
 
 ### Installing Ascend AI processor software package
 
-To install Ascend software package community edition, the recommended version is `8.3.RC1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html) to choose which packages are to be installed and how to install them.
+To install Ascend software package community edition, the recommended version is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
-Install the .whl packages provided in Ascend AI processor software package. If the .whl packages have been installed before, you should uninstall the .whl packages by running the following command.
+Install python packages required by Ascend AI processor software package. If packages `te topi hccl` have been installed before, you should uninstall these packages.
 
 ```bash
 pip uninstall te topi hccl -y
-```
-
-Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
-
-```bash
-pip install sympy
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
+pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy tornado jinja2
 ```
 
 ### Installing GCC
@@ -142,7 +135,7 @@ export GLOG_v=2
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
-source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
+source ${LOCAL_ASCEND}/cann/set_env.sh
 ```
 
 ## Installation Verification

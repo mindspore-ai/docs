@@ -26,14 +26,14 @@ This document describes how to install MindSpore by compiling source code on Lin
 |Software|Version|Description|
 |-|-|-|
 |Ubuntu|18.04|OS for compiling and running MindSpore|
-|[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends|
+|[Python](#installing-python)|3.9-3.12|Python environment that MindSpore depends|
 |[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compilation in MindSpore depends on|
 |[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3-1.26.4|Numpy module that Numpy-related functions in MindSpore depends on|
 |[GCC](#installing-gcc-git-tclsh-patch-and-numa)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-tclsh-patch-and-numa)|-|Source code management tools used by MindSpore|
-|[CMake](#installing-cmake)|3.22.2 or later|Compilation tool that builds MindSpore|
+|[CMake](#installing-cmake)|3.22.3 or later|Compilation tool that builds MindSpore|
 |[tclsh](#installing-gcc-git-tclsh-patch-and-numa)|-|MindSpore SQLite compilation dependency|
 |[patch](#installing-gcc-git-tclsh-patch-and-numa)|2.5 or later|Source code patching tool used by MindSpore|
 |[NUMA](#installing-gcc-git-tclsh-patch-and-numa)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
@@ -79,7 +79,7 @@ After installing Python, run the following command to install them.
 pip install wheel
 pip install -U setuptools
 pip install pyyaml
-pip install "numpy>=1.19.3,<=1.26.4"
+pip install "numpy>=1.20.0,<2.0.0"
 ```
 
 The Numpy version used in the runtime environment must be no less than the Numpy version in the compilation environment to ensure the normal use of Numpy related capabilities in the framework.
