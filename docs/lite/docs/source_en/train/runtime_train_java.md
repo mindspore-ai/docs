@@ -56,7 +56,7 @@ liteModel.build(g, context, cfg);
 
 ### Data Reading Pipeline
 
-Currently, java does not provide data processing API such as C++ `Dataset` class and its extended classes. Users need to define the data preprocessing process by themselves. After processing the image or text data into byte data, copy it to the input of the model.
+Currently, java does not provide data processing API. Users need to define the data preprocessing process by themselves. After processing the image or text data into byte data, copy it to the input of the model.
 
 ### Example
 
