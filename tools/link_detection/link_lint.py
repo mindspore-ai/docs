@@ -243,7 +243,7 @@ def update_url_status_to_json(url, access_token):
             status = check_atomgit_url_type1_valid(url, domain, access_token)
 
         path_parts = url.replace(domain, "").split("/")
-        if len(path_parts) == 1 and path_parts[0] != "mindspore":
+        if len(path_parts) == 1 and path_parts[0] != "mindspore" and path_parts[0]:
             status = check_user_org_valid(url, domain, access_token)
 
     data = {url: status}
