@@ -249,7 +249,7 @@ context->SetDelegate(coreml_delegate);
 
 ### Configuring the DSP Backend
 
-If the backend to be executed is Ascend(only support `ft04` and `ft78` inference product), you need to set [DSPDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DSPDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference.
+If the backend to be executed is DSP(only support `ft04` and `ft78` inference product), you need to set [DSPDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DSPDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference.
 
 The following sample code shows how to create the CPU and DSP heterogeneous inference backend.
 
