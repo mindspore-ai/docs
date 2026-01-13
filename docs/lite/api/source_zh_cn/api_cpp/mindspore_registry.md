@@ -334,7 +334,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 
 ## KernelDesc
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel.h)>
+\#include <[register_kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel.h)>
 
 **struct**类型结构体，定义扩展kernel的基本属性。
 
@@ -349,7 +349,7 @@ struct KernelDesc {
 
 ## RegisterKernel
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel.h)>
+\#include <[register_kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel.h)>
 
 ### CreateKernel
 
@@ -429,7 +429,7 @@ static CreateKernel GetCreator(const schema::Primitive *primitive, KernelDesc *d
 
 ## KernelReg
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel.h)>
+\#include <[register_kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel.h)>
 
 ### ~KernelReg
 
@@ -519,7 +519,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
 ## KernelInterfaceCreator
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
+\#include <[register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
 
 定义创建算子的函数指针类型。
 
@@ -529,7 +529,7 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<kernel::KernelInter
 
 ## RegisterKernelInterface
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
+\#include <[register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
 
 算子扩展能力注册实现类。
 
@@ -585,7 +585,7 @@ static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::st
 
 ## KernelInterfaceReg
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
+\#include <[register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
 
 算子扩展能力注册构造类。
 
@@ -621,7 +621,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 ## REGISTER_KERNEL_INTERFACE
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
+\#include <[register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
 
 注册KernelInterface的实现。
 
@@ -639,7 +639,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 ## REGISTER_CUSTOM_KERNEL_INTERFACE
 
-\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
+\#include <[register_kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/include/registry/register_kernel_interface.h)>
 
 注册Custom算子对应的KernelInterface实现。
 
