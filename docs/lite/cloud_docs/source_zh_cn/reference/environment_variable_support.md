@@ -23,11 +23,6 @@
 |            ASCEND_OPP_PATH             |                             Ascend算子路径                              |          文件路径           |     ""      |
 |     MSLITE_ENABLE_CLOUD_INFERENCE      |                            是否使能云侧推理                             |          "on"、""           |     ""      |
 |               ENABLE_AKG               |                               是否使能AKG                               |          "on"、""           |     ""      |
-|         MS_INDEPENDENT_DATASET         |                           是否使用外部数据集                            |         "true"、""          |     ""      |
-|                OPTIMIZE                |                     MindData业务场景下是否使能优化                      |         "true"、""          |     ""      |
-|             MS_CACHE_HOST              |                      MindData业务场景下的主机地址                       |          主机地址           |  127.0.0.1  |
-|             MS_CACHE_PORT              |                      MindData业务场景下的主机端口                       |           端口号            |    50052    |
-|               DEVICE_ID                |                    端上MindData使用场景下设置硬件ID                     |           0到7、""           |     ""      |
 |             MS_CPU_FEATURE             |                               CPU指令架构                               |           avx512            |     ""      |
 | MS_DEV_GRAPH_KERNEL_SPLIT_DEBUG_TUNING |                              切图调试开关                               |           on、""            |     ""      |
 |      MS_DEV_DUMP_GRAPH_KERNEL_IR       |                                 Dump IR                                 |           on、""            |     ""      |

@@ -23,11 +23,6 @@ This document lists the environment variables supported by MindSpore Lite along 
 |            ASCEND_OPP_PATH             |           Path to Ascend operator library           |          File path          |        ""         |
 |     MSLITE_ENABLE_CLOUD_INFERENCE      |             Enable cloud-side inference             |          "on", ""           |        ""         |
 |               ENABLE_AKG               |               Enable AKG optimization               |          "on", ""           |        ""         |
-|         MS_INDEPENDENT_DATASET         |                Use external dataset                 |         "true", ""          |        ""         |
-|                OPTIMIZE                |     Enable optimization for MindData scenarios      |         "true", ""          |        ""         |
-|             MS_CACHE_HOST              |          Host address for MindData scenarios          |        Host address         |     127.0.0.1     |
-|             MS_CACHE_PORT              |          Port number for MindData scenarios           |         Port number         |       50052       |
-|               DEVICE_ID                |      Hardware device ID for on-device MindData      |           0-7, ""           |        ""         |
 |             MS_CPU_FEATURE             |          CPU instruction set architecture           |           avx512            |        ""         |
 | MS_DEV_GRAPH_KERNEL_SPLIT_DEBUG_TUNING |         Graph kernel splitting debug switch         |           on, ""            |        ""         |
 |      MS_DEV_DUMP_GRAPH_KERNEL_IR       |                Dump graph kernel IR                 |           on, ""            |        ""         |
