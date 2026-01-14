@@ -11,4 +11,3 @@ Application Specific Integrated Circuit Integration Instructions
    dsp_info
    npu_info
    tensorrt_info
-   ascend_info
