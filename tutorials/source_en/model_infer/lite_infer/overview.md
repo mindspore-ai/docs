@@ -8,9 +8,9 @@ MindSpore Lite is a lightweight inference engine that focuses on efficient infer
 
 In order to achieve more efficient model inference, MindSpore Lite supports the conversion of MindSpore trained models and third-party models into `.mindir` format or `.ms` format for different hardware backends, where:
 
-- The `.mindir` model is used for inference on service-side devices and can better integrate with the model structure exported by the MindSpore training framework. It is mainly suitable for Ascend cards and X86/Arm architecture CPU hardware.
+- MindSpore Lite cloud-side inference exports `.mindir` models. It is compatible with models exported from the MindSpore training framework and with open-source formats such as ONNX, TFLite, and Pb, supporting Ascend accelerators including the Atlas 300I Duo and Atlas 800IA3 series as well as X86/ARM-based CPUs. Scenario-specific optimizations have been implemented; current features and enhancements are focused on multimodal generation, speech recognition, speech synthesis, autonomous driving, vector models, and traditional computer vision.
 
-- The `.ms` model is mainly used for inference of end and edge devices, as well as terminal devices, and is mainly suitable for terminal hardware such as Kirin NPU and Arm architecture CPUs.
+- MindSpore Lite on-device inference exports `.ms` models. It supports general-purpose CPUs and Kirin NPUs, and is shipped as the built-in lightweight AI engine of Harmony OS to serve full-scenario HarmonyOS intelligent applications. The framework also provides development support on Android/iOS platforms, delivering an end-to-end solution that is developer-friendly, runtime-efficient, and deployment-flexible for algorithm engineers and data scientists. It has been widely deployed in image classification and in object, face, text, and speech recognition applications.
 
 ## Inference Solution
 
