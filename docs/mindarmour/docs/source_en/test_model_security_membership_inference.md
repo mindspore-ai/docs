@@ -12,7 +12,7 @@ The following uses a VGG16 model and CIFAR-100 dataset as an example to describe
 
 > This example is for the Atlas training series. You can download the complete sample code in the following link:
 >
-> <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
+> <https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
 
 ## Implementation
 

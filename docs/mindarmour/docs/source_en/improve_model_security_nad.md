@@ -15,7 +15,7 @@ At the beginning of AI algorithm design, related security threats are sometimes 
 This section describes how to use MindSpore Armour in adversarial attack and defense on image classification tasks by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
 
 > The current sample is for CPU, GPU and Atlas training series. You can find the complete executable sample code at
-> <https://gitee.com/mindspore/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
+> <https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
 
 ## Creating an Target Model
 
