@@ -56,7 +56,6 @@ MindSpore Armour当前版本（v2.0）通过对抗鲁棒性、模型安全测试
 
    improve_model_security_nad
    test_model_security_fuzzing
-   evaluation_of_CNNCTC
    model_encrypt_protection
    dynamic_obfuscation_protection
 

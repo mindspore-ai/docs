@@ -12,7 +12,7 @@
 
 >本例面向Atlas训练系列产品，您可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
+><https://atomgit.com/mindspore-lab/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
 
 ## 实现阶段
 

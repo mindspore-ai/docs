@@ -203,4 +203,4 @@ python -c 'import mindquantum'
 
 ## Installing with Docker
 
-Mac or Windows users can install MindSpore Quantum through Docker. Please refer to the [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker_en.md).
+Mac or Windows users can install MindSpore Quantum through Docker. Please refer to the [Docker installation guide](https://atomgit.com/mindspore/mindquantum/blob/master/install_with_docker_en.md).

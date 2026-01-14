@@ -203,4 +203,4 @@ python -c 'import mindquantum'
 
 ## Docker 安装
 
-通过 Docker 也可以在 Mac 系统或者 Windows 系统中使用 MindQuantum。具体参考[Docker 安装指南](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker.md)。
+通过 Docker 也可以在 Mac 系统或者 Windows 系统中使用 MindQuantum。具体参考[Docker 安装指南](https://atomgit.com/mindspore/mindquantum/blob/master/install_with_docker.md)。

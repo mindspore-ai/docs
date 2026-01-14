@@ -56,7 +56,6 @@ Typical Application Scenarios
 
    improve_model_security_nad
    test_model_security_fuzzing
-   evaluation_of_CNNCTC
    dynamic_obfuscation_protection
    model_encrypt_protection
 
