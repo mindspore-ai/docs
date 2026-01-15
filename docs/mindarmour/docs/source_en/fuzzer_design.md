@@ -53,8 +53,8 @@ Through multiple rounds of mutations, you can obtain a series of variant data in
 
 1. [fuzzing.py](https://atomgit.com/mindspore-lab/mindarmour/blob/master/mindarmour/fuzz_testing/fuzzing.py): overall fuzz testing process.
 2. [model_coverage_metrics.py](https://atomgit.com/mindspore-lab/mindarmour/blob/master/mindarmour/fuzz_testing/model_coverage_metrics.py): neuron coverage rate metrics, including KMNC, NBC, and SNAC.
-3. [image transform methods](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image): image mutation methods, including a plurality of noise addition, blurring, brightness adjustment and affine transformation methods.
-4. [adversarial attacks](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/adv_robustness/attacks): methods for generating adversarial examples based on white-box and black-box attacks.
+3. [image transform methods](https://atomgit.com/mindspore-lab/mindarmour/tree/master/mindarmour/natural_robustness/transform/image): image mutation methods, including a plurality of noise addition, blurring, brightness adjustment and affine transformation methods.
+4. [adversarial attacks](https://atomgit.com/mindspore-lab/mindarmour/tree/master/mindarmour/adv_robustness/attacks): methods for generating adversarial examples based on white-box and black-box attacks.
 
 ## References
 
