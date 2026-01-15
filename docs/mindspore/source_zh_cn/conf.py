@@ -725,22 +725,10 @@ release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 
-hide_release = []
-if len(re.findall("\n## (.*?)\n",data)) > 1:
-    for i in hide_release:
-        del_doc = re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data)
-        if del_doc:
-            data = data.replace(del_doc[0], '')
-    content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
-    repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
-    content_new = ''
-    for i in content:
-        if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
-            content_new += i
-    content = content_new
-else:
-    content = re.findall("(\n## [\s\S\n]*)", data)
-    content = content[0]
+pattern = r"^(.*?\n## .*?)(?=\n## )"
+match = re.search(pattern, data, flags=re.DOTALL)
+content = match.group(1).rstrip()
+content = re.sub(r"^[\s\S]*?(?=\n## )", "", content, flags=re.DOTALL).lstrip('\n')
 
 with open(des_release, "w", encoding="utf-8") as p:
     # content = re.sub(re_url, r'\1/r2.7.0rc1', content)
