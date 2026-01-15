@@ -1,0 +1,3 @@
+"docs/docs/mindquantum/docs/source_zh_cn/case_library/vqe_for_quantum_chemistry.ipynb"
+"docs/docs/mindquantum/docs/source_zh_cn/case_library/quantum_annealing_inspired_algorithm.ipynb"
+"docs/docs/mindquantum/docs/source_en/case_library/vqe_for_quantum_chemistry.ipynb"

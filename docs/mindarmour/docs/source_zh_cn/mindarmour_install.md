@@ -15,10 +15,10 @@
 
 | MindSpore Armour | 分支                                                      | MindSpore |
 | ---------- | --------------------------------------------------------- | --------- |
-| 2.0.0      | [r2.0](https://gitee.com/mindspore/mindarmour/tree/r2.0/) | >=1.7.0   |
-| 1.9.0      | [r1.9](https://gitee.com/mindspore/mindarmour/tree/r1.9/) | >=1.7.0   |
-| 1.8.0      | [r1.8](https://gitee.com/mindspore/mindarmour/tree/r1.8/) | >=1.7.0   |
-| 1.7.0      | [r1.7](https://gitee.com/mindspore/mindarmour/tree/r1.7/) | 1.7.0     |
+| 2.0.0      | [r2.0](https://atomgit.com/mindspore-lab/mindarmour/tree/r2.0/) | >=1.7.0   |
+| 1.9.0      | [r1.9](https://atomgit.com/mindspore-lab/mindarmour/tree/r1.9/) | >=1.7.0   |
+| 1.8.0      | [r1.8](https://atomgit.com/mindspore-lab/mindarmour/tree/r1.8/) | >=1.7.0   |
+| 1.7.0      | [r1.7](https://atomgit.com/mindspore-lab/mindarmour/tree/r1.7/) | 1.7.0     |
 
 ## 安装方式
 
@@ -38,7 +38,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindAr
 1. 从Gitee下载源码。
 
     ```bash
-    git clone https://gitee.com/mindspore/mindarmour.git
+    git clone https://atomgit.com/mindspore-lab/mindarmour.git
     ```
 
 2. 在源码根目录下，执行如下命令编译并安装MindSpore Armour。
