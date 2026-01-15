@@ -30,4 +30,5 @@
 |              MAX_ROI_NUM               | 若用户模型含有proposal算子，需根据proposal算子实现情况配置MAX_ROI_NUM |        整数类型数据         |     300     |
 |            PARA_GROUP_FILE             |                             通信域配置文件                              |        配置文件路径         |     ""      |
 |             MS_ENABLE_HCCL             |                              是否使能HCCL                               |        0（空）、非0         |   0（空）   |
-
+|           MSLITE_DUMP_LEVEL   |     Dump图内容级别     |   0（表示Dump详细的图结构，以及常量Tensor数据）、1（表示仅Dump图结构，不Dump常量Tensor数据）、空（不Dump）    |   空 |
+|  MSLITE_DUMP_PATH |  Dump图保存路径，只在MSLITE_DUMP_LEVEL为0或者1时生效 | 文件路径 | "" |
