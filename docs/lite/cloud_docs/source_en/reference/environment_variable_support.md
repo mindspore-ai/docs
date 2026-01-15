@@ -30,3 +30,5 @@ This document lists the environment variables supported by MindSpore Lite along 
 |              MAX_ROI_NUM               |    Configure MAX_ROI_NUM according to the implementation of the proposal operator.    |           Integer           |        300        |
 |            PARA_GROUP_FILE             |       Communication domain configuration file       |   Configuration file path   |        ""         |
 |             MS_ENABLE_HCCL             |          Enable HCCL communication library          |     0 (empty), non-zero     |     0 (empty)     |
+|           MSLITE_DUMP_LEVEL   |     Dump graph content level     |   0(it means dumping detailed graph structures and constant Tensor data), 1(it means dumping only graph structures without constant Tensor data), empty    |   empty |
+|  MSLITE_DUMP_PATH |  Dump graph save path. Only takes effect when MSLITE_DUMP_LEVEL is set to 0 or 1 | File path | "" |
