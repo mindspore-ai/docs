@@ -1,12 +1,12 @@
 # 集成国产DSP使用说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/advanced/third_party/dsp_info.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_zh_cn/advanced/third_party/dsp_info.md)
 
 ## 使用步骤
 
 ### 环境准备
 
-在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用国产DSP需要集成dsp_sdk。dsp_sdk包含了使用国产DSP的异构编程接口，以及封装成静态库的接口实现（名为libhthread_host.a）。将dsp_sdk目录设置为环境变量`${DSP_SDK_PATH}`，构建脚本将使用这个环境变量寻找dsp_sdk。此外还需要交叉编译工具，安装命令如下：
+在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/use/build.html)之外，使用国产DSP需要集成dsp_sdk。dsp_sdk包含了使用国产DSP的异构编程接口，以及封装成静态库的接口实现（名为libhthread_host.a）。将dsp_sdk目录设置为环境变量`${DSP_SDK_PATH}`，构建脚本将使用这个环境变量寻找dsp_sdk。此外还需要交叉编译工具，安装命令如下：
 
 ```bash
 sudo apt-get update && apt-get install -y --no-install-recommends \
@@ -25,13 +25,13 @@ export MSLITE_ENABLE_TOOLS=ON
 bash build.sh -I arm32 -j8
 ```
 
-其中，`${your path}/dsp_sdk`为dsp_sdk的路径。`MSLITE_REGISTRY_DEVICE`有两个选项：`ft78`和`ft04`，分别对应不同的国产DSP芯片。有关编译详情见[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#linux环境编译)。
+其中，`${your path}/dsp_sdk`为dsp_sdk的路径。`MSLITE_REGISTRY_DEVICE`有两个选项：`ft78`和`ft04`，分别对应不同的国产DSP芯片。有关编译详情见[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/use/build.html#linux环境编译)。
 
 ### 集成使用
 
 - 集成说明
 
-    开发者集成国产DSP功能时，需要在代码中[配置国产DSP后端](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html#配置使用国产dsp后端)，相关使用方法可以参考[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html)。
+    开发者集成国产DSP功能时，需要在代码中[配置国产DSP后端](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/infer/runtime_cpp.html#配置使用国产dsp后端)，相关使用方法可以参考[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/infer/runtime_cpp.html)。
 
 - Benchmark测试国产DSP推理
 
@@ -41,7 +41,7 @@ bash build.sh -I arm32 -j8
     ./benchmark --device=DSP --modelFile=./models/test_benchmark.ms --timeProfiling=true
     ```
 
-有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html)。
+有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/tools/benchmark_tool.html)。
 
 有关环境变量设置，将libmindspore-lite.so拷贝到`ft78`或`ft04`设备的/usr/lib目录即可。
 
@@ -51,4 +51,4 @@ bash build.sh -I arm32 -j8
 
 ## 算子支持
 
-国产DSP算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)。
+国产DSP算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/reference/operator_list_lite.html)。

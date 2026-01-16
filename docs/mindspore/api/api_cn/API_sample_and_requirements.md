@@ -274,7 +274,7 @@
 
     教程样例：
         - `Graph Mode加速
-          <https://mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html>`_
+          <https://mindspore.cn/tutorials/zh-CN/r2.8.0/beginner/accelerate_with_static_graph.html>`_
 
 ```
 
@@ -288,7 +288,7 @@
 
     教程样例：
         - `Graph Mode加速
-          <https://mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html>`_
+          <https://mindspore.cn/tutorials/zh-CN/r2.8.0/beginner/accelerate_with_static_graph.html>`_
 
 ```
 
@@ -394,7 +394,7 @@
 
     例：
 
-    请参考 `tensor <https://www.gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>`_ 。
+    请参考 `tensor <https://www.gitee.com/mindspore/mindspore/blob/v2.8.0/mindspore/python/mindspore/common/tensor.py>`_ 。
     ```
 
     请注意，链接文本和 URL 的开头 < 之间必须有一个空格，且整体的前后需要有空格。
