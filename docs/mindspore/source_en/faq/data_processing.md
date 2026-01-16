@@ -73,16 +73,6 @@ A: When defining EmbedingLookup or Embedding, you only need to transfer the pre-
 
 <br/>
 
-### Q: What is the difference between `c_transforms` and `py_transforms`? Which one is recommended?
-
-A: `c_transforms` is recommended. Its performance is better because it is executed only at the C layer.
-
-Principle: The underlying layer of `c_transform` uses `opencv/jpeg-turbo` of the C version for data processing, and `py_transform` uses `Pillow` of the Python version for data processing.
-
-Data augmentation APIs are unified in MindSpore 1.8. Transformations of `c_transforms` and `py_transforms` will be selected automatically due to input tensor type instead of importing them manually. `c_transforms` is set to default option since its performance is better. More details please refer to [Latest API doc and import note](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision).
-
-<br/>
-
 ### Q: A piece of data contains multiple images which have different widths and heights. I need to perform the `map` operation on the data in mindrecord format. However, the data I read from `record` is in `np.ndarray` format. My `operations` of data processing are for the image format. How can I preprocess the generated data in mindrecord format?
 
 A: You are advised to perform the following operations:
@@ -235,49 +225,6 @@ A: Firstly, above error refers to failed sending data to the device through the 
 
 <br/>
 
-### Q: Can the py_transforms and c_transforms operations be used together? If yes, how should I use them?
-
-A: To ensure high performance, you are not advised to use the py_transforms and c_transforms operations together. However, if the main consideration is to streamline the process, the performance can be compromised more or less. If you cannot use all the c_transforms operations, that is, corresponding certain c_transforms operations are not available, the py_transforms operations can be used instead. In this case, the two operations are used together.
-Note that the c_transforms operation usually outputs numpy array, and the py_transforms operation outputs PIL Image. For details, check the operation description. The common method to use them together is as follows:
-
-- c_transforms operation + ToPIL operation + py_transforms operation + ToNumpy operation
-- py_transforms operation + ToNumpy operation + c_transforms operation
-
-```python
-# example that using c_transforms and py_transforms operations together
-# in following case: c_vision refers to c_transforms, py_vision refer to py_transforms
-import mindspore.vision.c_transforms as c_vision
-import mindspore.vision.py_transforms as py_vision
-
-decode_op = c_vision.Decode()
-
-# If input type is not PIL, then add ToPIL operation.
-transforms = [
-    py_vision.ToPIL(),
-    py_vision.CenterCrop(375),
-    py_vision.ToTensor()
-]
-transform = mindspore.dataset.transforms.Compose(transforms)
-data1 = data1.map(operations=decode_op, input_columns=["image"])
-data1 = data1.map(operations=transform, input_columns=["image"])
-```
-
-From MindSpore 1.8, the code above can be simpler since we unify the APIs of data augmentation.
-
-```python
-import mindspore.vision as vision
-
-transforms = [
-    vision.Decode(),         # default to use c_transforms
-    vision.ToPIL(),          # switch to PIL backend
-    vision.CenterCrop(375),  # use py_transforms
-]
-
-data1 = data1.map(operations=transforms, input_columns=["image"])
-```
-
-<br/>
-
 ### Q: Why is the error message "The data pipeline is not a tree (i.e., one node has 2 consumers)" displayed?
 
 A: The preceding error is usually caused by incorrect script writing. In normal cases, operations in the data processing pipeline are connected in sequence, for example
@@ -332,7 +279,7 @@ for item in Dataset:
 
 ### Q: Can the data processing operation and network computing operator be used together?
 
-A: Generally, if the data processing operation and network computing operator are used together, the performance deteriorates. If the corresponding data processing operation is unavailable and the user-defined py_transforms operation is inappropriate, you can try to use the data processing operation and network computing operator together. Note that because the inputs required are different, the input of the data processing operation is Numpy array or PIL Image, but the input of the network computing operator must be MindSpore.Tensor.
+A: Generally, if the data processing operation and network computing operator are used together, the performance deteriorates. If the corresponding data processing operation is unavailable and the user-defined transforms operation is inappropriate, you can try to use the data processing operation and network computing operator together. Note that because the inputs required are different, the input of the data processing operation is Numpy array or PIL Image, but the input of the network computing operator must be MindSpore.Tensor.
 To use these two together, ensure that the output format of the previous one is the same as the input format of the next. Data processing operations refer to APIs in [mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) module on the official website, for example, [mindspore.dataset.vision.CenterCrop](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html). Network computing operators include operators in the mindspore.nn and mindspore.ops modules.
 
 <br/>
