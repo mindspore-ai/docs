@@ -80,15 +80,15 @@ def vgg_create_dataset100(data_home, image_size, batch_size, rank_id=0, rank_siz
     changeswap_op = vision.HWC2CHW()
     type_cast_op = transforms.TypeCast(ms.int32)
 
-    c_trans = []
+    trans = []
     if training:
-        c_trans = [random_crop_op, random_horizontal_op]
-    c_trans += [resize_op, rescale_op, normalize_op,
+        trans = [random_crop_op, random_horizontal_op]
+    trans += [resize_op, rescale_op, normalize_op,
                 changeswap_op]
 
     # Apply map operations on images.
     data_set = data_set.map(operations=type_cast_op, input_columns="label")
-    data_set = data_set.map(operations=c_trans, input_columns="image")
+    data_set = data_set.map(operations=trans, input_columns="image")
 
     # Apply repeat operations.
     data_set = data_set.repeat(repeat_num)
