@@ -95,7 +95,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### 配置使用GPU后端
 
-当需要CPU和GPU异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中先后添加[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用GPU推理。如果使能float16推理，GPU和CPU都会优先使用float16算子。
+当需要CPU和GPU异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中先后添加[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_GPUDeviceInfo.html)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_CPUDeviceInfo.html)，配置后将会优先使用GPU推理。如果使能float16推理，GPU和CPU都会优先使用float16算子。
 
 下面代码演示了如何创建CPU与GPU异构推理后端，同时GPU也设定使能float16推理：
 
@@ -110,7 +110,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### 配置使用Kirin NPU后端
 
-当需要CPU和Kirin NPU异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中先后添加[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用Kirin NPU推理。如果使能float16推理，Kirin NPU和CPU都会优先使用float16算子。
+当需要CPU和Kirin NPU异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中先后添加[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_KirinNPUDeviceInfo.html)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_CPUDeviceInfo.html)，配置后将会优先使用Kirin NPU推理。如果使能float16推理，Kirin NPU和CPU都会优先使用float16算子。
 
 下面代码演示了如何创建CPU与Kirin NPU异构推理后端，其中KirinNPUDeviceInfo可通过`NPUFrequency`来设置Kirin NPU频率。
 

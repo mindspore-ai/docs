@@ -32,13 +32,13 @@ Kernel的默认与带参构造函数，构造Kernel实例。
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
     - `primitive`: 算子经由flatbuffers反序化为Primitive后的结果。
 
-    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html)。
 
 ### 析构函数
 
@@ -117,9 +117,9 @@ virtual Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<minds
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
     - `primitive`: 算子经过flatbuffers反序化后的结果，存储算子属性。
 
@@ -136,9 +136,9 @@ virtual Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<minds
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
     - `primitive`: 算子经过flatbuffers反序化后的结果，存储算子属性。
 
@@ -239,7 +239,7 @@ virtual void set_inputs(const std::vector<mindspore::MSTensor> &in_tensors) { th
 
 - 参数
 
-    - `in_tensors`: 算子的所有输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)列表。
+    - `in_tensors`: 算子的所有输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)列表。
 
 #### set_input
 
@@ -251,7 +251,7 @@ virtual void set_input(mindspore::MSTensor in_tensor, int index) { this->inputs_
 
 - 参数
 
-    - `in_tensor`: 算子的输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `in_tensor`: 算子的输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
     - `index`: 算子输入在所有输入中的下标，从0开始计数。
 
@@ -265,7 +265,7 @@ virtual void set_outputs(const std::vector<mindspore::MSTensor> &out_tensors) { 
 
 - 参数
 
-    - `out_tensors`: 算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)列表。
+    - `out_tensors`: 算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)列表。
 
 #### set_output
 
@@ -277,7 +277,7 @@ virtual void set_output(mindspore::MSTensor out_tensor, int index) { this->outpu
 
 - 参数
 
-    - `out_tensor`: 算子的输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `out_tensor`: 算子的输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
     - `index`: 算子输出在所有输出中的下标，从0开始计数。
 
@@ -287,7 +287,7 @@ virtual void set_output(mindspore::MSTensor out_tensor, int index) { this->outpu
 virtual const std::vector<mindspore::MSTensor *> &inputs()
 ```
 
-返回算子的所有输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)列表。
+返回算子的所有输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)列表。
 
 - 返回值
 
@@ -299,7 +299,7 @@ virtual const std::vector<mindspore::MSTensor *> &inputs()
 virtual const std::vector<mindspore::MSTensor *> &outputs()
 ```
 
-返回算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)列表。
+返回算子的所有输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)列表。
 
 - 返回值
 
@@ -335,7 +335,7 @@ void set_name(const std::string &name)
 const lite::Context *context() const
 ```
 
-返回算子对应的[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+返回算子对应的[Context](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html)。
 
 - 返回值
 

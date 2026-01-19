@@ -60,7 +60,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### Configuring to Use the Ascend Backend
 
-When the backend to be executed is Ascend, after `MSContext` is created, you need to add [AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo) in the [addDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo).
+When the backend to be executed is Ascend, after `MSContext` is created, you need to add [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html) in the [addDeviceInfo](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#adddeviceinfo).
 
 The following demonstrates how to create an Ascend backend:
 
