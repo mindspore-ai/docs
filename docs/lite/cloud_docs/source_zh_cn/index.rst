@@ -6,7 +6,7 @@
 MindSpore Lite云侧推理文档
 =================================
 
-MindSpore Lite推理包含云侧推理和端侧推理两部分，该文档主要介绍MindSpore Lite云侧推理，端侧推理请参考 `端侧推理文档 <https://www.mindspore.cn/lite/docs/zh-CN/master/index.html>`_ 。
+MindSpore Lite推理包含云侧推理和端侧推理两部分，该文档主要介绍MindSpore Lite云侧推理，端侧推理请参考 `端侧推理文档 <https://www.mindspore.cn/lite/docs/zh-CN/r2.8.0/index.html>`_ 。
 
 使用场景
 --------

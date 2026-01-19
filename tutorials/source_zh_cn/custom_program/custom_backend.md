@@ -1,12 +1,12 @@
 # 自定义后端
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/custom_backend.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/tutorials/source_zh_cn/custom_program/custom_backend.md)
 
 ## 概述
 
 当使用框架时遇到内置后端不足以满足需求时，你可以利用MindSpore的自定义后端功能，使能自己实现的后端。
 
-本教程提供一个简单的自定义后端用例作为展示。更多完整示例，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/backend/custom_backend/test_custom_backend.py)。
+本教程提供一个简单的自定义后端用例作为展示。更多完整示例，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/v2.8.0/tests/st/backend/custom_backend/test_custom_backend.py)。
 
 ## 实现自定义后端
 
@@ -156,7 +156,7 @@ make
 
 ## 使用自定义后端
 
-使用[mindspore.graph.register_custom_backend](https://www.mindspore.cn/docs/zh-CN/master/api_python/graph/mindspore.graph.register_custom_backend.html)接入后端，并通过[mindspore.jit](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)接口选择使用：
+使用[mindspore.graph.register_custom_backend](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/graph/mindspore.graph.register_custom_backend.html)接入后端，并通过[mindspore.jit](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/mindspore/mindspore.jit.html)接口选择使用：
 
 ```python
 import mindspore
