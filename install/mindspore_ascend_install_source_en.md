@@ -62,7 +62,7 @@ python --version
 
 ### Installing Ascend AI processor software package
 
-To install Ascend software package community edition, the recommended version is TBD.
+To install Ascend software package community edition, the recommended version is `8.5.0` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). For installation guide, please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html).
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 

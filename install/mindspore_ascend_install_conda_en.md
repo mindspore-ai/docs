@@ -36,7 +36,7 @@ The following describes how to install the third-party dependencies.
 
 ### Installing Ascend AI processor software package
 
-To install Ascend software package community edition, the recommended version is TBD.
+To install Ascend software package community edition, the recommended version is `8.5.0` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). For installation guide, please refer to [Installation guide](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html).
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -199,17 +199,8 @@ When upgrading from MindSpore 2.x:
 conda update mindspore -c mindspore -c conda-forge
 ```
 
-Please reinstall .whl packages provided with the Ascend AI Processor software package.
-
-First, uninstall old versions:
+If packages `te topi hccl` have been installed in your conda environment before, you should uninstall these packages:
 
 ```bash
 pip uninstall te topi hccl -y
-```
-
-Then, install again by running:
-
-```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```

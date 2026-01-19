@@ -36,7 +36,7 @@
 
 ### 安装昇腾AI处理器配套软件包
 
-昇腾软件包社区版下载链接即将发布。
+昇腾软件包社区版下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.5.0`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html)。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -199,17 +199,8 @@ conda install mindspore -c mindspore -c conda-forge
 conda update mindspore -c mindspore -c conda-forge
 ```
 
-注意：升级MindSpore Ascend版本conda安装包后请重新安装昇腾AI处理器配套软件包提供的whl包。
-
-首先卸载旧版本：
+注意：升级MindSpore Ascend版本conda安装包后，如果之前已经安装过昇腾AI处理器配套软件包提供的`te topi hccl`，需要先使用以下命令卸载这些包：
 
 ```bash
 pip uninstall te topi hccl -y
-```
-
-然后重新安装：
-
-```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
