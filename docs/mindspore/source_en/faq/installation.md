@@ -2,6 +2,12 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/installation.md)
 
+## Compatibility
+
+### Q: Why does MindSpore 2.7.2 only support CANN 8.5.0?
+
+A: CANN 8.5.0 has completed the open-source and open-architecture upgrade, consisting of two packages: Toolkit and Ops. The decoupling optimization has led to a series of changes in naming, quantity, usage relationships, and installation directories. MindSpore 2.7.2 must be used in conjunction with CANN 8.5.0, while compatibility with older versions of CANN will be provided in MindSpore 2.8.0.
+
 ## Installing by Using Pip
 
 ### Q: What should I do if an error message `ERROR: mindspore_{VERSION}.whl is not a supported wheel on this platform` is displayed when I install MindSpore using pip?

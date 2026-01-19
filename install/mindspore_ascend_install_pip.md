@@ -25,8 +25,8 @@
 |软件名称|版本|作用|
 |-|-|-|
 |Debian系列操作系统 / openEuler系列操作系统|Debian系列：Debian、Ubuntu、veLinux / openEuler系列：openEuler、CentOS、Kylin、BCLinux、UOS V20、AntOS、CTyunOS、CULinux、Tlinux、MTOS|编译和运行MindSpore的操作系统|
-|[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 8.3.RC1、CANN 8.2.RC1、CANN 8.1.RC1|MindSpore使用的Ascend平台AI计算库|
+|[Python](#安装python)|3.9-3.12|MindSpore的使用依赖Python环境|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|CANN 8.5.0、CANN 8.3.RC1、CANN 8.2.RC1|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 
 下面给出第三方依赖的安装方法。
@@ -69,22 +69,15 @@ python -m pip install -U pip
 
 ### 安装昇腾AI处理器配套软件包
 
-昇腾软件包社区版下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.3.RC1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/83RC1/softwareinst/instg/instg_quick.html)。
+昇腾软件包社区版下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，推荐优先选择`8.5.0`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照[安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html)。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
-安装昇腾AI处理器配套软件所包含的whl包。如果之前已经安装过昇腾AI处理器配套软件包，需要先使用以下命令卸载对应的whl包。
+安装昇腾AI处理器配套软件依赖的python软件包。如果之前已经安装过昇腾AI处理器配套软件包提供的`te topi hccl`，需要先使用以下命令卸载这些包，再安装依赖的python软件包。
 
 ```bash
 pip uninstall te topi hccl -y
-```
-
-默认安装路径使用以下命令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
-
-```bash
-pip install sympy
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
+pip install sympy protobuf attrs cloudpickle decorator ml-dtypes psutil scipy tornado jinja2
 ```
 
 ### 安装GCC
@@ -142,7 +135,7 @@ export GLOG_v=2
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
-source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
+source ${LOCAL_ASCEND}/cann/set_env.sh
 ```
 
 ## 验证是否成功安装
