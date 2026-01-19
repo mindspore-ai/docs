@@ -659,7 +659,7 @@ mindspore-lite-{version}-linux-x64
     (2) 初始化Context配置
 
     Context保存了模型推理时所需的相关配置，包括算子偏好、线程数、自动并发以及推理处理器相关的其他配置。
-    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html)。
     在MindSpore Lite加载模型时，必须提供一个`Context`类的对象，所以在本例中，首先申请了一个`Context`类的对象`context`。
 
     ```cpp
@@ -687,7 +687,7 @@ mindspore-lite-{version}-linux-x64
     (3) 加载模型
 
     首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore Lite中的模型，用于计算图管理。
-    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
+    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Model.html)。
 
     ```cpp
     auto model = new (std::nothrow) mindspore::Model();
@@ -706,7 +706,7 @@ mindspore-lite-{version}-linux-x64
 
     在执行模型推理前，需要设置推理的输入数据。
     此例，通过`Model.GetInputs`接口，获取模型的所有输入张量。单个张量的格式为`MSTensor`。
-    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
     ```cpp
     auto inputs = model->GetInputs();
@@ -1368,7 +1368,7 @@ mindspore-lite-{version}-win-x64
     (2) 初始化Context配置
 
     Context保存了模型推理时所需的相关配置，包括算子偏好、线程数、自动并发以及推理处理器相关的其他配置。
-    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html)。
     在MindSpore Lite加载模型时，必须提供一个`Context`类的对象，所以在本例中，首先申请了一个`Context`类的对象`context`。
 
     ```cpp
@@ -1396,7 +1396,7 @@ mindspore-lite-{version}-win-x64
     (3) 加载模型
 
     首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore Lite中的模型，用于计算图管理。
-    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
+    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Model.html)。
 
     ```cpp
     auto model = new (std::nothrow) mindspore::Model();
@@ -1415,7 +1415,7 @@ mindspore-lite-{version}-win-x64
 
     在执行模型推理前，需要设置推理的输入数据。
     此例，通过`Model.GetInputs`接口，获取模型的所有输入张量。单个张量的格式为`MSTensor`。
-    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
     ```cpp
     auto inputs = model->GetInputs();

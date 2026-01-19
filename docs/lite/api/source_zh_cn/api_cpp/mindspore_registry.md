@@ -363,13 +363,13 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
 - 参数
 
-    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
-    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_MSTensor.html)。
 
     - `primitive`: 算子经由flatbuffers反序化为Primitive后的结果。
 
-    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+    - `ctx`: 算子的上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html)。
 
 ### 公有成员函数
 
@@ -387,9 +387,9 @@ static Status RegKernel(const std::string &arch, const std::string &provider, Da
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/generate/enum_mindspore_DataType-1.html)。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编译时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
@@ -407,7 +407,7 @@ Custom算子注册。
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/generate/enum_mindspore_DataType-1.html)。
 
     - `type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -453,9 +453,9 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/generate/enum_mindspore_DataType-1.html)。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编译时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
@@ -471,7 +471,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/generate/enum_mindspore_DataType-1.html)。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -491,9 +491,9 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/generate/enum_mindspore_DataType-1.html)。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编译时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
@@ -511,7 +511,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `provider`: 生产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
+    - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/generate/enum_mindspore_DataType-1.html)。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -563,7 +563,7 @@ static Status Reg(const std::string &provider, int op_type, const KernelInterfac
 
     - `provider`: 生产商，由用户自定义。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编译时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
@@ -601,7 +601,7 @@ KernelInterfaceReg(const std::string &provider, int op_type, const KernelInterfa
 
     - `provider`: 生产商，由用户自定义。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编译时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
@@ -633,7 +633,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
     - `provider`: 生产商，由用户自定义。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore-lite/blob/master/mindspore-lite/schema/ops.fbs)中，编译时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建KernelInterface的函数指针，具体见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 

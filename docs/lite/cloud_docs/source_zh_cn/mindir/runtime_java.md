@@ -60,7 +60,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### 配置使用Ascend后端
 
-当需要执行的后端为Ascend时，`MSContext`初始化后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中添加[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)。
+当需要执行的后端为Ascend时，`MSContext`初始化后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)中添加[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_AscendDeviceInfo.html)。
 
 下面演示如何创建Ascend后端：
 
