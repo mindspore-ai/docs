@@ -6,7 +6,7 @@
 
 ## Overview
 
-This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore-lite/tree/r2.8.0/mindspore-lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device.
+This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore-lite/tree/r2.8/mindspore-lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device.
 
 The completed training procedure is as follows:
 
