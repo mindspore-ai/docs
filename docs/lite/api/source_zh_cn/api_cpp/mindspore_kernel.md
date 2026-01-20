@@ -13,7 +13,7 @@
 
 ## Kernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8.0/include/api/kernel.h)>
+\#include <[kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/kernel.h)>
 
 Kernel是算子实现的基类，定义了几个必须实现的接口。继承自IKernel。
 
@@ -84,7 +84,7 @@ virtual schema::QuantType quant_type()
 
 ## KernelInterface
 
-\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8.0/mindspore-lite/include/kernel_interface.h)>
+\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/mindspore-lite/include/kernel_interface.h)>
 
 算子扩展能力基类。
 
@@ -148,7 +148,7 @@ virtual Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<minds
 
 ## MSKernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8.0/include/api/kernel_api.h)>
+\#include <[kernel.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/kernel_api.h)>
 
 MindSpore Kernel 算子类。是IKernel的父类。
 

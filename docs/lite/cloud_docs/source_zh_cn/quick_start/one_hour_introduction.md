@@ -58,7 +58,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 
 4. 获取样例
 
-    本节样例代码放置在[mindspore-lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore-lite/tree/r2.8.0/mindspore-lite/examples/quick_start_cpp)目录。
+    本节样例代码放置在[mindspore-lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore-lite/tree/r2.8/mindspore-lite/examples/quick_start_cpp)目录。
 
     ```text
     quick_start_cpp
