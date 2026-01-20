@@ -544,6 +544,7 @@ Dump调试
 
        MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效。
      - Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。
+     - 当进程角色指定为MS_SCHED或MS_PSERVER时，MindSpore会自动将其运行在CPU后端。
    * - MS_SCHED_HOST
      - 指定Scheduler的IP地址。
      - String
