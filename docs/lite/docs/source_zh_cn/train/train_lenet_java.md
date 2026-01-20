@@ -25,7 +25,7 @@
 首先克隆源码，然后编译MindSpore Lite端侧训练Java包，`Linux`指令如下：
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore-lite.git
+git clone -b r2.8 https://gitee.com/mindspore/mindspore-lite.git
 cd mindspore-lite
 bash build.sh -I x86_64 -j8
 ```

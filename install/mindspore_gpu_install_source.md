@@ -223,7 +223,7 @@ cd -
 ## 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone -b v2.8.0 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore
