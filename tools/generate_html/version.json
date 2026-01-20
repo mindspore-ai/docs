@@ -21,16 +21,15 @@
        "uninstall_name" : ""
     },
     {
-    "id" : 3 ,
-    "name" : "mindformers",
-    "branch" : "r1.8.0",
-    "html_version" : "r1.8.0",
-    "whl_search" : "any/",
-    "whl_path" : "/mindformers/version/",
-    "whl_name" : "mindformers-.*-py3-none-any.whl$",
-    "environ" : "MFM_PATH",
-    "uninstall_name" : "mindformers",
-    "extra_whl_path" : "/mindspore/website/master/cpu/x86_64",
-    "extra_whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$"
+       "id" : 3 ,
+       "name" : "mindformers",
+       "branch" : "r1.8.0",
+       "html_version" : "r1.8.0",
+       "whl_path" : "2.7.2/MindFormers/any/",
+       "whl_name" : "mindformers-1.8.0-py3-none-any.whl",
+       "environ" : "MFM_PATH",
+       "uninstall_name" : "mindformers",
+       "extra_whl_path" : "2.7.2/MindSpore/unified/x86_64/",
+       "extra_whl_name" : "mindspore-2.7.2-cp39-cp39-linux_x86_64.whl"
     }
  ]
