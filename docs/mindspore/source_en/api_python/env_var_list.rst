@@ -546,7 +546,8 @@ Distributed Parallel
 
        MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode.
      - The Worker and Parameter Server processes register with the Scheduler process to complete the networking.
-     - When the process role is specified as MS_SCHED or MS_PSERVER, MindSpore automatically runs the process on the CPU backend.
+
+       When the process role is specified as MS_SCHED or MS_PSERVER, MindSpore automatically runs the process on the CPU backend.
    * - MS_SCHED_HOST
      - Specifies the IP address of the Scheduler.
      - String
