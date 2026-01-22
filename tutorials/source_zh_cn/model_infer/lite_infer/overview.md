@@ -52,6 +52,6 @@ MindSpore Lite推理框架支持将MindSpore训练导出的`.mindir`模型以及
 
 2. 集成部署
 
-    通过[MindSpore Lite推理API](https://www.mindspore.cn/lite/api/zh-CN/r2.7.2/index.html) 完成转换得到的模型推理集成，将用户推理输入数据码传递给相关API接口，即可实现MindSpore Lite的模型推理。
+    通过[MindSpore Lite推理API](https://www.mindspore.cn/lite/api/zh-CN/r2.7.1/index.html) 完成转换得到的模型推理集成，将用户推理输入数据码传递给相关API接口，即可实现MindSpore Lite的模型推理。
 
 其中，针对`.ms`模型的推理教程可以参考[端侧推理快速入门](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/quick_start/one_hour_introduction.html)，针对`.mindir`模型的推理教程可以参考[使用Python接口执行云侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.7.1/mindir/runtime_python.html)。
