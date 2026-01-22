@@ -1301,6 +1301,36 @@ def deal_with_generate_rst_files(app, env, docnames) -> None:
             print(f"文件读取失败：{e}")
             return
 
+        # 固定字母大小写排序
+        pattern = rf'- :{tag_type}:`(.*?)`'
+        matches = list(re.finditer(pattern, rst_content))
+
+        if matches:
+            entry_groups = defaultdict(list)
+            for match in matches:
+                full_entry = match.group(0)  # 完整内容
+                inner_content = match.group(1)  # 反引号内的内容
+                inner_lower = inner_content.lower()
+                entry_groups[inner_lower].append(full_entry)
+            sorted_entry = {}
+            for inner_lower, entries in entry_groups.items():
+                if len(entries) <= 1:
+                    # 无大小写差异，保留原内容
+                    for entry in entries:
+                        sorted_entry[entry] = entry
+                else:
+                    # 有大小写差异
+                    sorted_entries = sorted(entries, key=lambda x:
+                        re.search(pattern, x).group(1))
+                    for old_entry, new_entry in zip(entries, sorted_entries):
+                        sorted_entry[old_entry] = new_entry
+
+            def replace_func(match):
+                full_entry = match.group(0)
+                return sorted_entry.get(full_entry, full_entry)
+            rst_content = re.sub(pattern, replace_func, rst_content)
+        
+        # 固定末尾数字顺序
         capture_pattern = rf'- :{tag_type}:`(.*?)-(\d+)`'
         all_matches = re.findall(capture_pattern, rst_content)
         if not all_matches:
