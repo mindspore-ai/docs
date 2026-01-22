@@ -1,7 +1,0 @@
-样例
-=======
-
-.. toctree::
-  :maxdepth: 1
-
-  极简Demo↗ <https://www.mindspore.cn/lite/docs/zh-CN/r2.7.2/infer/quick_start_c.html>
