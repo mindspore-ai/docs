@@ -95,6 +95,12 @@
 |--------|------------------|
 | [安装指引文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/850/quickstart/instg_quick.html) | [CANN 8.5.0](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
+**配套资料**
+
+|        安装   |      教程      |  文档    |  API|
+|        ---   |       ---      |     ---     |     ---      |
+| [安装指南](https://gitee.com/mindspore/docs/tree/r2.7.2/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.7.2/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.7.2/api_python/mindspore.html)  |
+
 ## 2.7.1
 
 | 组件        | 硬件平台          | 操作系统          | Python版本   | 链接                                                                                                                                                                                        | SHA-256                                                          |
