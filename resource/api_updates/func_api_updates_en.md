@@ -1,5 +1,7 @@
 # mindspore.ops API Interface Change
 
+Compared with the version 2.7.1, the information of `mindspore.ops` operators in MindSpore has no changes in version 2.7.2.
+
 Compared with the version 2.6.0, the added, deleted and supported platforms change information of `mindspore.ops` operators in version 2.7.0, is shown in the following table.
 
 |API|Status|Description|Support Platform|Class
