@@ -1,0 +1,4 @@
+"docs/docs/mindearth/docs/source_en/medium-range/graphcast.ipynb"
+"docs/docs/mindearth/docs/source_zh_cn/medium-range/graphcast.ipynb"
+"docs/docs/mindearth_r0.2/docs/source_en/medium-range/graphcast.ipynb"
+"docs/docs/mindearth_r0.2/docs/source_zh_cn/medium-range/graphcast.ipynb"
