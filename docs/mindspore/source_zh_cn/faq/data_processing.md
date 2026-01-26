@@ -142,20 +142,6 @@ A: 当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline
 
 <br/>
 
-### Q: MindSpore能否支持按批次对不同尺寸的图片数据进行训练？
-
-A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放，脚本见[yolo_dataset](https://atomgit.com/mindspore-lab/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py)。
-
-<br/>
-
-### Q: 使用MindSpore做分割训练，必须将数据转为MindRecord吗？
-
-A: [build_seg_data.py](https://atomgit.com/mindspore-lab/models/blob/master/research/cv/FCN8s/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
-
-[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)
-
-<br/>
-
 ### Q: MindSpore在Ascend硬件平台进行多卡训练，自定义数据集如何给不同卡传递不同数据？
 
 A: 使用`GeneratorDataset`的时候，可以使用`num_shards=num_shards`,`shard_id=device_id`参数来控制不同卡读取哪个分片的数据，`__getitem__`和`__len__`按全量数据集处理即可。

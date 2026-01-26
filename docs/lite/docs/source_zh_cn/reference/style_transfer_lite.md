@@ -13,5 +13,3 @@
 选择左起第一张标准图片进行风格迁移，效果如图：
 
 ![image_after_transfer](images/after_transfer.png)
-
-使用MindSpore Lite实现风格迁移的[示例代码](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/style_transfer)。

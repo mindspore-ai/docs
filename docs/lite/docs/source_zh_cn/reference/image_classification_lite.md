@@ -15,8 +15,6 @@
 | 花瓣       | 0.7893 |
 | 花盆       | 0.6171 |
 
-使用MindSpore Lite实现图像分类的[示例代码](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/image_classification)。
-
 ## 图像分类模型列表
 
 下表是使用MindSpore Lite推理的部分图像分类模型的数据。
