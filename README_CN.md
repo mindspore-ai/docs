@@ -90,7 +90,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 2. 下载MindSpore Docs仓代码。
 
    ```bash
-   git clone https://gitee.com/mindspore/docs.git
+   git clone https://atomgit.com/mindspore/docs.git
    ```
 
 3. 进入API所在目录`docs/mindspore`，安装该目录下`requirements.txt`文件中的依赖项。
@@ -125,12 +125,12 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 
    | 对应API的生成 | 环境变量 | 仓库链接 | 仓库名 |
    | ---- | ---- | ---- | ---- |
-   | MindSpore | MS_PATH | <https://gitee.com/mindspore/mindspore.git> | mindspore |
-   | MindSpore Lite | MSL_PATH | <https://gitee.com/mindspore/mindspore-lite.git> | mindspore_lite |
-   | MindSpore Transformers | MFM_PATH | <https://gitee.com/mindspore/mindformers.git> | mindformers |
-   | MindSpore Golden Stick | GS_PATH | <https://gitee.com/mindspore/golden-stick.git> | golden_stick |
-   | MindSpore Quantum | MQ_PATH | <https://gitee.com/mindspore/mindquantum.git> | mindquantum |
-   | MindScience | MSC_PATH | <https://gitee.com/mindspore/mindscience.git> | mindscience |
+   | MindSpore | MS_PATH | <https://atomgit.com/mindspore/mindspore.git> | mindspore |
+   | MindSpore Lite | MSL_PATH | <https://atomgit.com/mindspore/mindspore-lite.git> | mindspore_lite |
+   | MindSpore Transformers | MFM_PATH | <https://atomgit.com/mindspore/mindformers.git> | mindformers |
+   | MindSpore Golden Stick | GS_PATH | <https://atomgit.com/mindspore/golden-stick.git> | golden_stick |
+   | MindSpore Quantum | MQ_PATH | <https://atomgit.com/mindspore/mindquantum.git> | mindquantum |
+   | MindScience | MSC_PATH | <https://atomgit.com/mindspore-lab/mindscience.git> | mindscience |
 
    克隆仓库以及设置环境变量的代码如下：
 
@@ -157,7 +157,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
              └───mindspore-lite-*.*.*-linux-x64.tar.gz
       ```
 
-3. 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
+3. 构建[MindSpore教程](https://atomgit.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://atomgit.com/mindspore/docs/tree/master/docs/mindspore)和[MindQuantum文档](https://atomgit.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 
 ## 版权
 

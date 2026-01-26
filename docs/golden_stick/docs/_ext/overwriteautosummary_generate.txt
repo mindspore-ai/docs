@@ -475,7 +475,7 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
             re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
                       f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
                       f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
-                      py_source_rel.split(app.config.cst_module_name)[-1] + '\n    :alt: View Source On Gitee\n\n'
+                      py_source_rel.split(app.config.cst_module_name)[-1] + '\n    :alt: View Source on AtomGit\n\n'
 
             if re_view not in content and py_source_rel:
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
