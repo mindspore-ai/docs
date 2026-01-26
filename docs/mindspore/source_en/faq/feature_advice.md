@@ -86,12 +86,6 @@ A: MindSpore supports Python native expression and `import mindspore` related pa
 
 <br/>
 
-### Q: Does MindSpore support truncated gradient?
-
-A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://atomgit.com/mindspore-lab/models/blob/master/official/nlp/Transformer/src/transformer_for_train.py#L35).
-
-<br/>
-
 ### Q: What is the MindSpore IR design concept?
 
 A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effect. `JIT` compilation capability: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. Graphically complete IR: More conversion of `Python` flexible syntax, including recursion, etc.

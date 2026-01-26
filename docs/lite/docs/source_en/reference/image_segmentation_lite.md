@@ -6,8 +6,6 @@
 
 Image segmentation is used to detect the position of the object in the picture or a pixel belongs to which object.
 
-Using MindSpore Lite to perform image segmentation [example](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/image_segmentation).
-
 ## Image Segmentation Model List
 
 The following table shows the data of some image segmentation models using MindSpore Lite inference.

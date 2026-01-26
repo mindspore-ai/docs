@@ -13,5 +13,3 @@ Using demo to open the target image:
 Selecting the first standard image from the left to perform the style transfer, as shown in the figure:
 
 ![image_after_transfer](images/after_transfer.png)
-
-Using MindSpore Lite to realize style transfer [example](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/style_transfer).
