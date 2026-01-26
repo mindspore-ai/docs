@@ -15,6 +15,7 @@ parser.add_argument("-c", "--check-list", type=str, default="./check_list.txt",
                     help="List of files that need to be checked for Link validity")
 parser.add_argument("-w", "--white-list", type=str, default="./filter_linklint.txt", help="Whitelisted link list")
 parser.add_argument("-p", "--path", type=str, default=None, help="check path")
+parser.add_argument("-a", "--access_token", type=str, default=None, help="access token")
 
 white_example = [
     "https://gluebenchmark.com/tasks",
@@ -99,6 +100,101 @@ def check_url_status(url):
     finally:
         return status
 
+def check_atomgit_url_type_valid(url, domain, access_token):
+    """
+    验证atomgit的blob和tree链接是否有效
+    """
+    path_parts = url.replace(domain, "").split("/")
+    namespace = path_parts[0]
+    repo = path_parts[1]
+    branch = path_parts[3]
+    file_path = "/".join(path_parts[4:])
+    api_url = f"{domain}api/v5/repos/{namespace}/{repo}/contents/{file_path}"
+
+    params = {
+        "access_token": access_token,
+        "ref": branch
+    }
+    headers = {
+        "Accept": "application/json"
+    }
+
+    try:
+        response = requests.get(api_url, params=params, headers=headers, allow_redirects=True)
+        status_code = response.status_code
+        return status_code
+    except requests.exceptions.RequestException as e:
+        return False, 500, f"网络/请求异常：{str(e)}"
+
+def check_atomgit_url_type1_valid(url, domain, access_token):
+    """
+    验证atomgit的pull,commit,milestone,issues链接是否有效
+    """
+    path_parts = url.replace(domain, "").split("/")
+    namespace = path_parts[0]
+    repo = path_parts[1]
+    target = path_parts[2]
+    if target == "pull":
+        num = path_parts[3]
+        api_url = f"{domain}api/v5/repos/{namespace}/{repo}/pulls/{num}"
+    elif target == "commit":
+        content = path_parts[3]
+        api_url = f"{domain}api/v5/repos/{namespace}/{repo}/commits/{content}"
+    elif target == "milestones":
+        num = path_parts[3]
+        api_url = f"{domain}api/v5/repos/{namespace}/{repo}/milestones/{num}"
+    else:
+        if len(path_parts) <= 3:
+            api_url = f"{domain}api/v5/repos/{namespace}/{repo}/issues"
+        else:
+            num = path_parts[3]
+            api_url = f"{domain}api/v5/repos/{namespace}/{repo}/issues/{num}"
+    params = {
+        "access_token": access_token,
+    }
+    headers = {
+        "Accept": "application/json"
+    }
+
+    try:
+        response = requests.get(api_url, params=params, headers=headers, allow_redirects=True)
+        status_code = response.status_code
+        return status_code
+    except requests.exceptions.RequestException as e:
+        return False, 500, f"网络/请求异常：{str(e)}"
+
+def check_user_org_valid(url, domain, access_token):
+    """
+    验证atomgit的user和orgs链接是否有效
+    """
+    path_parts = url.replace(domain, "").split("/")
+    namespace = path_parts[0]
+
+    api_url = f"{domain}api/v5/users/{namespace}"
+    params = {
+        "access_token": access_token,
+    }
+    headers = {
+        "Accept": "application/json"
+    }
+
+    try:
+        response = requests.get(api_url, params=params, headers=headers, allow_redirects=True)
+        status_code = response.status_code
+        if status_code != 200:
+            api_url = f"{domain}api/v5/orgs/{namespace}"
+            params = {
+                "access_token": access_token,
+            }
+            headers = {
+                "Accept": "application/json"
+            }
+            response = requests.get(api_url, params=params, headers=headers, allow_redirects=True)
+            status_code = response.status_code
+        return status_code
+    except requests.exceptions.RequestException as e:
+        return False, 500, f"网络/请求异常：{str(e)}"
+
 def get_content(file_path):
     """
     获取文档的内容
@@ -126,11 +222,30 @@ def update_json(data, json_file):
     with open(json_file, "w") as f:
         json.dump(json_content, f, indent=4)
 
-def update_url_status_to_json(url):
+def update_url_status_to_json(url, access_token):
     """
     检测链接的状态码并将链接与状态码的键值对存入到url_status.json中
     """
     status = check_url_status(url)
+    if url.startswith("https://atomgit.com/"):
+        domain = "https://atomgit.com/"
+    elif url.startswith("https://gitcode.com/"):
+        domain = "https://gitcode.com/"
+    else:
+        domain = ''
+    if domain and access_token:
+        url_type = ["blob", "tree"]
+        if any(item in url for item in url_type):
+            status = check_atomgit_url_type_valid(url, domain, access_token)
+        
+        url_type1 = ["issues", "pull", "commit", "milestones"]
+        if any(item in url for item in url_type1):
+            status = check_atomgit_url_type1_valid(url, domain, access_token)
+
+        path_parts = url.replace(domain, "").split("/")
+        if len(path_parts) == 1 and path_parts[0] and path_parts[0] != "mindspore":
+            status = check_user_org_valid(url, domain, access_token)
+
     data = {url: status}
     lock.acquire()
     update_json(data, "url_status.json")
@@ -145,7 +260,7 @@ def is_white_url(re_url, url):
         return results[0] == url
     return False
 
-def run_check(all_files):
+def run_check(all_files, access_token):
     """
     检测文件中的urls链接
     """
@@ -159,7 +274,7 @@ def run_check(all_files):
         urls -= white_url_save.keys()
     pool = []
     for url in urls:
-        k = threading.Thread(target=update_url_status_to_json, args=(url,))
+        k = threading.Thread(target=update_url_status_to_json, args=(url, access_token))
         k.start()
         pool.append(k)
     for j in pool:
@@ -213,8 +328,9 @@ def generator_report(all_files):
                     msg_list.extend(location_error_line(file_name, u))
 
     for msg in msg_list:
-        if "gitee.com" in msg:
-            print(f"WARNING:{msg}")
+        type = ["atomgit.com", "gitcode.com", "gitee.com"]
+        if any(item in msg for item in type):
+           print(f"WARNING:{msg}")
         else:
             print(f"ERROR:{msg}")
 
@@ -238,7 +354,7 @@ def get_check_info(info_type="check_list"):
 
 if __name__ == "__main__":
     all_file = get_all_files()
-    run_check(all_file)
+    run_check(all_file, args.access_token)
     if os.path.exists("url_status.json"):
         generator_report(all_file)
         os.remove("url_status.json")
