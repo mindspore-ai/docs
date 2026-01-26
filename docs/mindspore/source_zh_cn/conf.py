@@ -606,7 +606,7 @@ for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
 
 import mindspore
 
-# Use the linkcode extension to override [SOURCE] links to point to the gitee repo.
+# Use the linkcode extension to override [SOURCE] links to point to the atomgit repo.
 def linkcode_resolve(domain, info):
     if domain != "py":
         return None

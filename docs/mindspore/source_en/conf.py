@@ -77,7 +77,7 @@ with open(napoleon.__file__, "r", encoding="utf-8") as f:
 # with open('../_ext/overwriteviewcode_en.txt', 'r', encoding="utf8") as f:
 #     exec(f.read(), viewcode.__dict__)
 
-# Modify the extraction method of autosummary, and add a link to the Gitee source file on the English page.
+# Modify the extraction method of autosummary, and add a link to the AtomGit source file on the English page.
 with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as f:
     exec(f.read(), g.__dict__)
 
@@ -521,7 +521,7 @@ for cur, _, files in os.walk(des_sir):
 
 import mindspore
 
-# Use the linkcode extension to override [SOURCE] links to point to the gitee repo.
+# Use the linkcode extension to override [SOURCE] links to point to the atomgit repo.
 def linkcode_resolve(domain, info):
     if domain != "py":
         return None
