@@ -1,6 +1,6 @@
 # 基于Java接口实现端侧训练
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/train/train_lenet_java.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/train/train_lenet_java.md)
 
 ## 概述
 
@@ -25,7 +25,7 @@
 首先克隆源码，然后编译MindSpore Lite端侧训练Java包，`Linux`指令如下：
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore-lite.git
+git clone https://atomgit.com/mindspore/mindspore-lite.git
 cd mindspore-lite
 bash build.sh -I x86_64 -j8
 ```

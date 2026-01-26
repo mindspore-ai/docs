@@ -1,6 +1,6 @@
 # Class MSTensor
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/types.h)&gt;
 
 `MSTensor`定义了MindSpore中的张量。
 

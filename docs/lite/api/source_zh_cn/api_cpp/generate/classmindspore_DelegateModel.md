@@ -1,6 +1,6 @@
 # Template Class DelegateModel
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
 
 `DelegateModel`定义了MindSpore Lite Delegate机制操作的模型对象。
 

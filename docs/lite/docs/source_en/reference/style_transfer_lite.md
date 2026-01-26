@@ -1,6 +1,6 @@
 # Style Transfer Model
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/style_transfer_lite.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/reference/style_transfer_lite.md)
 
 ## Style Transfer Introduction
 
@@ -14,4 +14,4 @@ Selecting the first standard image from the left to perform the style transfer, 
 
 ![image_after_transfer](images/after_transfer.png)
 
-Using MindSpore Lite to realize style transfer [example](https://gitee.com/mindspore/models/tree/master/official/lite/style_transfer).
+Using MindSpore Lite to realize style transfer [example](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/style_transfer).

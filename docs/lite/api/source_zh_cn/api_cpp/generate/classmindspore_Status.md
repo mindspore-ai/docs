@@ -1,6 +1,6 @@
 # Class Status
 
-\#include &lt;[status.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/status.h)&gt;
+\#include &lt;[status.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/status.h)&gt;
 
 ## 构造函数和析构函数
 

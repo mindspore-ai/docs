@@ -1,6 +1,6 @@
 # Class RunnerConfig
 
-\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/model_parallel_runner.h)&gt;
+\#include &lt;[model_parallel_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/model_parallel_runner.h)&gt;
 
 RunnerConfig定义了ModelParallelRunner中使用的配置选项参数。
 

@@ -15,13 +15,13 @@
 
 <!-- /TOC -->
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_pip.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/install/mindspore_gpu_install_pip.md)
 
 MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可能未经完整的测试与验证，希望体验最新功能或者问题修复的用户可以使用该版本。
 
 本文档介绍如何在GPU环境的Linux系统上，使用pip方式快速安装MindSpore Nightly。
 
-在确认系统环境信息的过程中，如需了解如何安装第三方依赖软件，可以参考社区提供的实践——[在Linux上体验源码编译安装MindSpore GPU版本](https://www.mindspore.cn/news/newschildren?id=401)中的第三方依赖软件安装相关部分，在此感谢社区成员[飞翔的企鹅](https://gitee.com/zhang_yi2020)的分享。
+在确认系统环境信息的过程中，如需了解如何安装第三方依赖软件，可以参考社区提供的实践——[在Linux上体验源码编译安装MindSpore GPU版本](https://www.mindspore.cn/news/newschildren?id=401)中的第三方依赖软件安装相关部分，在此感谢社区成员[飞翔的企鹅](https://atomgit.com/zhang_yi2020)的分享。
 
 ## 安装MindSpore与依赖软件
 
@@ -180,7 +180,7 @@ pip install mindspore-dev -i https://repo.huaweicloud.com/repository/pypi/simple
 其中：
 
 - MindSpore Nightly支持CUDA11.1、11.6的任意版本，启动时会根据当前环境中安装的CUDA版本自动适配。
-- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
+- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://atomgit.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装依赖。
 - pip会自动安装当前最新版本的MindSpore Nightly，如果需要安装指定版本，请参照下方升级MindSpore版本相关指导，在下载时手动指定版本。
 
 ## 验证是否成功安装

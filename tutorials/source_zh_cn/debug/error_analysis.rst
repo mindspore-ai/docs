@@ -2,7 +2,7 @@
 ========
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/error_analysis.rst
+    :target: https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/debug/error_analysis.rst
     :alt: 查看源文件
 
 .. toctree::
@@ -124,7 +124,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    此外，MindSpore开源社区有很多开发者反馈的问题单，涉及网络开发报错、框架故障等多种问题。用户可以使用例如网络名称、报错内容关键字进行搜索相似问题。关键字选择可参考报错案例。
 
    搜索地址：\ `MindSpore
-   Issues <https://gitee.com/mindspore/mindspore/issues>`__\ 。
+   Issues <https://atomgit.com/mindspore/mindspore/issues>`__\ 。
 
 调试定位
 ~~~~~~~~

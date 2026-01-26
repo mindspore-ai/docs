@@ -1,6 +1,6 @@
 # 训练配置模板使用说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/training_template_instruction.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/training_template_instruction.md)
 
 ## 概述
 
@@ -11,13 +11,13 @@ MindSpore Transformers提供了训练的通用配置文件模板，主要有下�
 
 MindSpore Transformers对于不同训练场景提供了对应的配置模板，如下：
 
-进行稠密模型预训练时，请使用[llm_pretrain_dense_template.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/general/llm_pretrain_dense_template.yaml)。
+进行稠密模型预训练时，请使用[llm_pretrain_dense_template.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/general/llm_pretrain_dense_template.yaml)。
 
-进行MOE模型预训练时，请使用[llm_pretrain_moe_template.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/general/llm_pretrain_moe_template.yaml)。
+进行MOE模型预训练时，请使用[llm_pretrain_moe_template.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/general/llm_pretrain_moe_template.yaml)。
 
-进行稠密模型微调训练时，请使用[llm_finetune_dense_template.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/general/llm_finetune_dense_template.yaml)。
+进行稠密模型微调训练时，请使用[llm_finetune_dense_template.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/general/llm_finetune_dense_template.yaml)。
 
-进行MOE模型微调训练时，请使用[llm_finetune_moe_template.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/general/llm_finetune_moe_template.yaml)。
+进行MOE模型微调训练时，请使用[llm_finetune_moe_template.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/general/llm_finetune_moe_template.yaml)。
 
 ## 使用说明
 

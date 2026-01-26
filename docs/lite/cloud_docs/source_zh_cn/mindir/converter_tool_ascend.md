@@ -1,6 +1,6 @@
 # Ascend转换工具功能说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_zh_cn/mindir/converter_tool_ascend.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_zh_cn/mindir/converter_tool_ascend.md)
 
 ## 概述
 
@@ -289,7 +289,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型
 
 2. AOE选项
 
-    `[aoe_global_options]` 中的选项将传给AOE API的[全局选项](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_070.html)。 `[aoe_tuning_options]` 中的选项将传给AOE API的[调优选项](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_071.html)。
+    `[aoe_global_options]` 中的选项将传给AOE API的[全局选项](https://atomgit.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_070.html)。 `[aoe_tuning_options]` 中的选项将传给AOE API的[调优选项](https://atomgit.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_071.html)。
 
     我们将提取 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_session_options]` 、 `[ge_graph_options]` 等Section中的选项并转换为AOE选项，避免用户开启AOE调优时需要手动转换这些选项。提取的选项包括 `input_format` 、 `input_shape` 、 `dynamic_dims` 、 `precision_mode` 。相同选项在多个配置Section同时存在时，优先级从前往后由低到高，`[aoe_global_options]` 和 `[aoe_tuning_options]` 中的选项优先级最高。建议使用 `[ge_graph_options]` 和 `[aoe_tuning_options]` 。
 

@@ -1,6 +1,6 @@
 # Frequently Asked Questions
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/faqs/faqs.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/vllm_mindspore/docs/source_en/faqs/faqs.md)
 
 ## Installation-related Issues
 
@@ -11,7 +11,7 @@
     Execute the following command to install vLLM-MindSpore Plugin:
 
     ```bash
-    git clone https://gitee.com/mindspore/vllm-mindspore.git
+    git clone https://atomgit.com/mindspore/vllm-mindspore.git
     cd vllm-mindspore
     bash install_depend_pkgs.sh
     pip install .
@@ -29,7 +29,7 @@
     2. Please check if the `pip` version is greater than or equal to 25.3. If so, please use the following command to compile and install vLLM-MindSpore Plugin:
 
         ```bash
-        git clone https://gitee.com/mindspore/vllm-mindspore.git
+        git clone https://atomgit.com/mindspore/vllm-mindspore.git
         cd vllm-mindspore
         bash install_depend_pkgs.sh
         pip install --no-build-isolation .

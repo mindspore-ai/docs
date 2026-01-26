@@ -1,6 +1,6 @@
 # Enum SchemaVersion
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/delegate.h)&gt;
 
 定义了MindSpore Lite执行在线推理时模型文件的版本。
 

@@ -1,6 +1,6 @@
 # Tensor View 机制
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/view.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/features/view.md)
 
 ## 概述
 
@@ -231,4 +231,4 @@ view failed: The tensor is not contiguous. You can call .contiguous() to get a c
 | **核心目的** | 高效地以不同“视角”访问数据 | 节省内存，在原数据上直接计算和更新 |
 
 关于更多view inplace特性的用法，请参考下面的文档：
-参考[view inplace](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/static_graph.md#view%E5%92%8Cin-place%E5%8A%9F%E8%83%BD)
+参考[view inplace](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/compile/static_graph.md#view%E5%92%8Cin-place%E5%8A%9F%E8%83%BD)

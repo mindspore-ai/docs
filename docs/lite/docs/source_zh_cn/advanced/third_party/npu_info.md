@@ -1,6 +1,6 @@
 # 集成Kirin NPU使用说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/advanced/third_party/npu_info.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/advanced/third_party/npu_info.md)
 
 ## 使用步骤
 
@@ -12,7 +12,7 @@ DDK包含了使用Kirin NPU的对外接口（包括模型构建、加载、计�
 
 ### 编译构建
 
-在Linux环境下，使用MindSpore[源代码](https://gitee.com/mindspore/mindspore-lite)根目录下的build.sh脚本可以构建集成Kirin NPU的MindSpore Lite包，命令如下，它将在MindSpore Lite源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含Kirin NPU的动态库，libmindspore-lite动态库以及测试工具Benchmark。
+在Linux环境下，使用MindSpore[源代码](https://atomgit.com/mindspore/mindspore-lite)根目录下的build.sh脚本可以构建集成Kirin NPU的MindSpore Lite包，命令如下，它将在MindSpore Lite源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含Kirin NPU的动态库，libmindspore-lite动态库以及测试工具Benchmark。
 
 ```bash
 export MSLITE_ENABLE_NPU=ON

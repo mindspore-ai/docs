@@ -1,12 +1,12 @@
 # 自定义Pass
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/custom_pass.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_zh_cn/custom_program/custom_pass.md)
 
 ## 概述
 
 当需要改变计算图结构时，你可以利用MindSpore的自定义pass功能，编写pass逻辑，实现并注册自定义Pass插件，对计算图的结构进行变换优化。
 
-本教程提供一个简单的自定义pass用例作为展示。更多完整示例，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/backend/custom_pass/test_custom_passes.py)。
+本教程提供一个简单的自定义pass用例作为展示。更多完整示例，参见MindSpore源码中的[用例](https://atomgit.com/mindspore/mindspore/blob/master/tests/st/backend/custom_pass/test_custom_passes.py)。
 
 ## 实现自定义Pass
 

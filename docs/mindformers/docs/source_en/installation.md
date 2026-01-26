@@ -1,6 +1,6 @@
 # Installation Guidelines
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/installation.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/installation.md)
 
 ## Confirming Version Matching Relationship
 
@@ -37,7 +37,7 @@ Historical version matching relationship:
 Currently, only source code compilation installation is supported for in-development version, users can execute the following command to install MindSpore Transformers:
 
 ```bash
-git clone -b master https://gitee.com/mindspore/mindformers.git
+git clone -b master https://atomgit.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```

@@ -1,12 +1,12 @@
 # Custom Pass
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/custom_pass.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/custom_program/custom_pass.md)
 
 ## Overview
 
 When it is necessary to change the structure of the computation graph, you can utilize MindSpore's custom pass feature to write pass logic, implement and register a custom pass plugin, and optimize the structure of the computation graph.
 
-This tutorial provides a simple custom pass case as a demonstration. For more comprehensive examples, please refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/backend/custom_pass/test_custom_passes.py).
+This tutorial provides a simple custom pass case as a demonstration. For more comprehensive examples, please refer to the [examples](https://atomgit.com/mindspore/mindspore/blob/master/tests/st/backend/custom_pass/test_custom_passes.py).
 
 ## Implementing Custom Pass
 

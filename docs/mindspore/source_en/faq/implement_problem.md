@@ -1,12 +1,12 @@
 # Implement Problem
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/implement_problem.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/implement_problem.md)
 
 ## FAQ
 
 ### Q: How do I use MindSpore to implement multi-scale training?
 
-A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`, to implement the multi-scale training. Note that multi-scale training supports only the non-data sink mode and does not support the data offloading mode. For details, see the multi-scale training implement of [yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv3).
+A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`, to implement the multi-scale training. Note that multi-scale training supports only the non-data sink mode and does not support the data offloading mode. For details, see the multi-scale training implement of [yolov3](https://atomgit.com/mindspore-lab/models/tree/master/official/cv/YOLOv3).
 
 <br/>
 
@@ -96,7 +96,7 @@ def count_params(net):
     return total_params
 ```
 
-[Script Link](https://gitee.com/mindspore/models/blob/master/research/cv/tinynet/src/utils.py).
+[Script Link](https://atomgit.com/mindspore-lab/models/blob/master/research/cv/tinynet/src/utils.py).
 
 <br/>
 
@@ -251,7 +251,7 @@ A: The `dataset` received by the defined `model.train` API can consist of multip
 
 ### Q: What are the available recommendation or text generation networks or models provided by MindSpore?
 
-A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#).
+A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore ModelZoo](https://atomgit.com/mindspore-lab/models/blob/master/README.md#).
 
 <br/>
 

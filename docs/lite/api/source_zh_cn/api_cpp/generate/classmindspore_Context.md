@@ -1,6 +1,6 @@
 # Class Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
 

@@ -1,6 +1,6 @@
 # Java Interface Sample
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/train/train_lenet_java.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/docs/source_en/train/train_lenet_java.md)
 
 ## Overview
 
@@ -25,7 +25,7 @@ This tutorial demonstrates how to use the Java API on MindSpore Lite by building
 Clone the source code and build the Java package for MindSpore Lite training. The `Linux` command is as follows:
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore-lite.git
+git clone https://atomgit.com/mindspore/mindspore-lite.git
 cd mindspore-lite
 bash build.sh -I x86_64 -j8
 ```

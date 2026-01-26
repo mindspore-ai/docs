@@ -1,6 +1,6 @@
 # Class AscendDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/master/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](./classmindspore_DeviceInfoContext.md)，模型运行在Atlas 200/300/500推理产品、Atlas推理系列产品上的配置。
 

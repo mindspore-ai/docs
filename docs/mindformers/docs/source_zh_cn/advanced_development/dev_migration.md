@@ -1,6 +1,6 @@
 # 开发迁移
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/dev_migration.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/advanced_development/dev_migration.md)
 
 本文档将指导用户如何基于MindSpore Transformers构建一个大模型，并完成最基本的适配，以拉起训练和推理流程。
 
@@ -56,7 +56,7 @@ MindSpore Transformers使用`YAML`配置文件配置一个任务所需的所有�
 
 由于自定义模型的代码不在MindSpore Transformers库内，代码中的自定义模块没有注册在MindSpore Transformers中，因而不能被自动实例化。这些代码也称为外挂代码（如`research`目录下代码）。因此需要在编写的`YAML`配置文件中的对应模块配置下添加自动注册任意模块的配置项`auto_register`，设置为要注册的API接口的相对导入路径。后续在执行run_mindformer.py脚本拉起任务时添加注册路径的入参`--register_path`，设置为外挂代码所在目录的相对路径。
 
-例如，`research`目录下的Llama3.1-8B模型的推理`YAML`配置文件[`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)中，添加了自动注册的配置项`auto_register`，以注册[`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py)中自定义的`Llama3Tokenizer`：
+例如，`research`目录下的Llama3.1-8B模型的推理`YAML`配置文件[`research/llama3_1/predict_llama3_1_8b.yaml`](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)中，添加了自动注册的配置项`auto_register`，以注册[`research/llama3_1/llama3_1_tokenizer.py`](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_tokenizer.py)中自定义的`Llama3Tokenizer`：
 
 ```yaml
 ...
@@ -91,9 +91,9 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 |  register_path  | 外挂代码所在目录的路径   |
 |  predict_data   | 推理的输入数据       |
 
-其中设置了`register_path`为外挂代码所在目录的路径`research/llama3_1`，模型权重的准备参考[Llama3.1说明文档——模型权重下载](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)。
+其中设置了`register_path`为外挂代码所在目录的路径`research/llama3_1`，模型权重的准备参考[Llama3.1说明文档——模型权重下载](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)。
 
-配置文件的详细内容及可配置项可以参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)。在实际编写配置文件时，也可以参考库内已有的配置文件，例如[Llama3_1-8B微调的配置文件](https://gitee.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
+配置文件的详细内容及可配置项可以参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/master/feature/configuration.html)。在实际编写配置文件时，也可以参考库内已有的配置文件，例如[Llama3_1-8B微调的配置文件](https://atomgit.com/mindspore/mindformers/blob/master/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml)。
 
 在准备完上述所有基本要素之后，可以参考MindSpore Transformers使用教程中的其余文档进行模型训练、微调、推理等流程的实践。后续模型调试调优可以参考[大模型精度调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/precision_optimization.html)和[大模型性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/master/advanced_development/performance_optimization.html)。
 

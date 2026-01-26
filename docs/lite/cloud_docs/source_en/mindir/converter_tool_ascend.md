@@ -1,6 +1,6 @@
 # Ascend Conversion Tool Description
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_en/mindir/converter_tool_ascend.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/lite/cloud_docs/source_en/mindir/converter_tool_ascend.md)
 
 ## Introduction
 
@@ -289,7 +289,7 @@ AOE API tuning needs to be done through converter tool. When `optimize=ascend_or
 
 2. AOE options
 
-    The options in `[aoe_global_options]` will be passed through to the [global options](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_070.html) of the AOE API. The options in `[aoe_tuning_options]` will be passed through to the [tuning options](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_071.html) of the AOE API.
+    The options in `[aoe_global_options]` will be passed through to the [global options](https://atomgit.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_070.html) of the AOE API. The options in `[aoe_tuning_options]` will be passed through to the [tuning options](https://atomgit.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_071.html) of the AOE API.
 
     We will extract the options in sections `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_session_options]` and `[ge_graph_options]` and convert them into AOE options to avoid the need for users to manually convert these options. The extracted options include `input_format`, `input_shape`, `dynamic_dims` and `precision_mode`. When the same option exists in multiple configuration sections at the same time, the priority ranges from low to high, with options in `[aoe_global_options]` and `[aoe_tuning_options]` having the highest priority. It is recommended to use `[ge_graph_options]` and `aoe_tuning_options`.
 

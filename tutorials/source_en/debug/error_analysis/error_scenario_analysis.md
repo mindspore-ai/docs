@@ -1,6 +1,6 @@
 # Error Analysis
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis/error_scenario_analysis.md)&nbsp;&nbsp;
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/master/tutorials/source_en/debug/error_analysis/error_scenario_analysis.md)&nbsp;&nbsp;
 
 As mentioned before, error analysis refers to analyzing and inferring possible error causes based on the obtained network and framework information (such as error messages and network code).
 
@@ -246,7 +246,7 @@ Among them, the level is divided into E, W, I, respectively, indicating error, a
 > AICORE operator: The AI Core operator is the main component of the computational core of the Ascend AI processor and is responsible for performing computationally intensive operator related to vector and tensor.
 > AICPU operator: AI CPU operator is the AI CPU responsible for executing CPU-like operator (including control operator, scalar and vector, and other general-purpose computations) in the Hayes SoC of the Ascend processor.
 
-Among the 4-bit error codes, 0000~8999 are user-class errors and 9000~9999 are internal error codes. Generally, user-class error users can correct the error by themselves according to the error message, while internal error codes need to contact Huawei for troubleshooting. You can go to [MindSpore Community](https://gitee.com/mindspore) or [Ascend Community](https://gitee.com/ascend) to submit issue to get help. Some common error reporting scenarios are shown in the following table:
+Among the 4-bit error codes, 0000~8999 are user-class errors and 9000~9999 are internal error codes. Generally, user-class error users can correct the error by themselves according to the error message, while internal error codes need to contact Huawei for troubleshooting. You can go to [MindSpore Community](https://atomgit.com/mindspore) or [Ascend Community](https://atomgit.com/ascend) to submit issue to get help. Some common error reporting scenarios are shown in the following table:
 
 | Common Error Types   | Error Description | Case Analysis |
 | - | - | - |

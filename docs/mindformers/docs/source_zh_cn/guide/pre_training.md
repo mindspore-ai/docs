@@ -1,6 +1,6 @@
 # 预训练实践
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/pre_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/guide/pre_training.md)
 
 ## 概述
 
@@ -50,7 +50,7 @@ MindSpore Transformers 预训练阶段当前已支持[Megatron格式的数据集
 
 - `wiki.train.tokens` 转为 `jsonl`格式数据
 
-  用户需要**自行将`wiki.train.tokens`数据集处理成jsonl格式的文件**。作为参考，[社区issue](https://gitee.com/mindspore/mindformers/issues/ICOKGY)提供了一个转换方案，用户需要根据实际需求自行开发和验证转换逻辑。
+  用户需要**自行将`wiki.train.tokens`数据集处理成jsonl格式的文件**。作为参考，[社区issue](https://atomgit.com/mindspore/mindformers/issues/ICOKGY)提供了一个转换方案，用户需要根据实际需求自行开发和验证转换逻辑。
 
   下面是jsonl格式文件的示例：
 
@@ -84,7 +84,7 @@ MindSpore Transformers 预训练阶段当前已支持[Megatron格式的数据集
 
 ### 单机训练
 
-通过指定模型路径和配置文件[pretrain_qwen3_32b_4k.yaml](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/pretrain_qwen3_32b_4k.yaml)，修改配置后以msrun的方式启动[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/master/run_mindformer.py)脚本，进行8卡分布式训练。
+通过指定模型路径和配置文件[pretrain_qwen3_32b_4k.yaml](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/pretrain_qwen3_32b_4k.yaml)，修改配置后以msrun的方式启动[run_mindformer.py](https://atomgit.com/mindspore/mindformers/blob/master/run_mindformer.py)脚本，进行8卡分布式训练。
 
 仓上提供的配置为32B模型，参数量较大，无法直接在单机环境启动预训练。本例中缩减模型规模至0.6B，以演示单机训练。修改配置文件中的如下参数，其余参数保持不变：
 
@@ -117,7 +117,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 - `parallel_config.pipeline_stage`：设置流水线并行数。
 - `parallel_config.micro_batch_num`：设置流水线并行的微批次大小，在`parallel_config.pipeline_stage`大于1时，应满足`parallel_config.micro_batch_num` >= `parallel_config.pipeline_stage`。
 
-启动详细介绍详见[启动预训练任务](https://gitee.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#3-启动预训练任务)。
+启动详细介绍详见[启动预训练任务](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/README.md#3-启动预训练任务)。
 
 任务执行完成后，在 mindformers/output 目录下，会生成 checkpoint 文件夹，同时模型文件（`.safetensors`）会保存在该文件夹下。
 
