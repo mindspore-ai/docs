@@ -1,6 +1,6 @@
 # Data Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/parallel/data_parallel.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/parallel/data_parallel.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ The following is an illustration of data parallel operation using the Ascend sin
 
 ## Sample Code Description
 
-> You can download the full sample code here: [distributed_data_parallel](https://gitee.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_data_parallel).
+> You can download the full sample code here: [distributed_data_parallel](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_data_parallel).
 
 The directory structure is as follows:
 

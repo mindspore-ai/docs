@@ -1,4 +1,4 @@
-:gitee_url: https://gitee.com/mindspore/docs
+:gitee_url: https://atomgit.com/mindspore/docs
 
 
 .. _namespace_mindspore__abstract:

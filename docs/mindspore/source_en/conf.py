@@ -467,7 +467,7 @@ else:
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 repo_whl = 'mindspore/python/'
-giturl = 'https://gitee.com/mindspore/'
+giturl = 'https://atomgit.com/mindspore/'
 ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
 tensor_yaml = 'mindspore/ops/api_def/method_doc/'
 func_yaml = 'mindspore/ops/api_def/function_doc/'
@@ -506,7 +506,7 @@ for cur, _, files in os.walk(des_sir):
 
                 # master使用
                 # if i.endswith('.md'):
-                #     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                #     md_view = f'[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                 #     if 'resource/_static/logo_source' not in new_content:
                 #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
 
@@ -599,18 +599,18 @@ def linkcode_resolve(domain, info):
             py_source_rel = func_yaml + name.split('.')[-1] + '_doc.yaml'
 
         if py_source_rel:
-            return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
+            return f"https://atomgit.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
 
         source, linenum = inspect.getsourcelines(obj)
     except Exception:
         name = info["fullname"]
         if name.startswith('Tensor.') and name.split('.')[-1] + '_doc.yaml' in tensor_yaml_list:
             py_source_rel = tensor_yaml + name.split('.')[-1] + '_doc.yaml'
-            return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
+            return f"https://atomgit.com/mindspore/mindspore/blob/{branch}/{py_source_rel}"
         return None
 
     pkg_fn = os.path.relpath(pkg_fn, start=os.path.dirname(mindspore.__file__))
-    return f"https://gitee.com/mindspore/mindspore/blob/{branch}/{repo_whl}{copy_repo}/{pkg_fn}#L{linenum}"
+    return f"https://atomgit.com/mindspore/mindspore/blob/{branch}/{repo_whl}{copy_repo}/{pkg_fn}#L{linenum}"
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsPlatWarnAutoSummary
 
@@ -675,7 +675,7 @@ copy_image(src_dir, des_dir)
 # copy RELEASENotes
 src_release = os.path.join(repo_path, 'RELEASE.md')
 des_release = "./RELEASE.md"
-release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+release_source = f'[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
 
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()

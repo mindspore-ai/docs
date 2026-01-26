@@ -1,12 +1,12 @@
 # 数据处理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/mindspore/source_zh_cn/faq/data_processing.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/mindspore/source_zh_cn/faq/data_processing.md)
 
 ## 常见问题
 
 ### Q: 请问如果不使用高阶API，怎么实现数据下沉？
 
-A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/v2.8.0/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
+A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://atomgit.com/mindspore/mindspore/blob/v2.8.0/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
 
 <br/>
 
@@ -144,13 +144,13 @@ A: 当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline
 
 ### Q: MindSpore能否支持按批次对不同尺寸的图片数据进行训练？
 
-A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放，脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py)。
+A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放，脚本见[yolo_dataset](https://atomgit.com/mindspore-lab/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py)。
 
 <br/>
 
 ### Q: 使用MindSpore做分割训练，必须将数据转为MindRecord吗？
 
-A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/research/cv/FCN8s/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
+A: [build_seg_data.py](https://atomgit.com/mindspore-lab/models/blob/master/research/cv/FCN8s/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
 [GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/r2.8.0/api_python/dataset/mindspore.dataset.GeneratorDataset.html)
 

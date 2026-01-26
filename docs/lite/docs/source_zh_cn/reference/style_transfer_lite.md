@@ -1,6 +1,6 @@
 # 风格迁移模型
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_zh_cn/reference/style_transfer_lite.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_zh_cn/reference/style_transfer_lite.md)
 
 ## 风格迁移介绍
 
@@ -14,4 +14,4 @@
 
 ![image_after_transfer](images/after_transfer.png)
 
-使用MindSpore Lite实现风格迁移的[示例代码](https://gitee.com/mindspore/models/tree/master/official/lite/style_transfer)。
+使用MindSpore Lite实现风格迁移的[示例代码](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/style_transfer)。

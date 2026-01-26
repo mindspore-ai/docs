@@ -1,6 +1,6 @@
 # Android Application Development Based on Java Interface
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_en/infer/image_segmentation.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_en/infer/image_segmentation.md)
 
 ## Overview
 
@@ -34,7 +34,7 @@ The following describes how to build and execute an on-device image segmentation
 
 ### Building and Running
 
-1. Load the [sample source code](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation) into Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
+1. Load the [sample source code](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/image_segmentation) into Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -117,7 +117,7 @@ Note: If the download fails, manually download the model file [segment_model.ms]
 
 ### Writing On-Device Inference Code
 
-The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/models/blob/master/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
+The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://atomgit.com/mindspore-lab/models/blob/master/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
 
 1. Load the MindSpore Lite model file and build the context, model, and computational graph for inference.
 

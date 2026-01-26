@@ -1,6 +1,6 @@
 # Operator-level Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/parallel/operator_parallel.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/parallel/operator_parallel.md)
 
 ## Overview
 
@@ -16,7 +16,7 @@ The illustration of the ops operator parallel operation is based on the Ascend s
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -194,7 +194,7 @@ The illustration of the mint operator parallel operation is based on the Ascend 
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -348,7 +348,7 @@ An illustration of higher-order ops operator parallel operations follows, using 
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -470,7 +470,7 @@ An illustration of higher-order mint operator parallel operations follows, using
 
 #### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://atomgit.com/mindspore/docs/tree/r2.8.0/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 

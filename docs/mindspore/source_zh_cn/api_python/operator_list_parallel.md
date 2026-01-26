@@ -1,6 +1,6 @@
 # 算子级并行使用约束
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/mindspore/source_zh_cn/api_python/operator_list_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/mindspore/source_zh_cn/api_python/operator_list_parallel.md)
 
 | 操作名                                                       | 约束                                                         | Layout配置约束                                                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |

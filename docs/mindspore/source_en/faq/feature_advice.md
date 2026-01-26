@@ -1,6 +1,6 @@
 # Feature Advice
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/mindspore/source_en/faq/feature_advice.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/mindspore/source_en/faq/feature_advice.md)
 
 ## FAQ
 
@@ -88,7 +88,7 @@ A: MindSpore supports Python native expression and `import mindspore` related pa
 
 ### Q: Does MindSpore support truncated gradient?
 
-A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/models/blob/master/official/nlp/Transformer/src/transformer_for_train.py#L35).
+A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://atomgit.com/mindspore-lab/models/blob/master/official/nlp/Transformer/src/transformer_for_train.py#L35).
 
 <br/>
 

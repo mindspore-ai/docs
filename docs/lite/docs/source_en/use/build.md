@@ -1,6 +1,6 @@
 # Building Device-side
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_en/use/build.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_en/use/build.md)
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 
@@ -120,7 +120,7 @@ The construction of modules is controlled by environment variables. Users can co
 First, download source code from the MindSpore Lite code repository.
 
 ```bash
-git clone -b r2.8 https://gitee.com/mindspore/mindspore-lite.git
+git clone -b r2.8 https://atomgit.com/mindspore/mindspore-lite.git
 ```
 
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:
@@ -313,7 +313,7 @@ The script `build.bat` in the root directory of MindSpore Lite can be used to co
 First, use the git tool to download the source code from the MindSpore Lite code repository.
 
 ```bat
-git clone -b r2.8 https://gitee.com/mindspore/mindspore-lite.git
+git clone -b r2.8 https://atomgit.com/mindspore/mindspore-lite.git
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
@@ -406,7 +406,7 @@ The script `build.sh` in the root directory of MindSpore Lite can be used to com
 First, use the git tool to download the source code from the MindSpore Lite code repository.
 
 ```bash
-git clone -b r2.8 https://gitee.com/mindspore/mindspore-lite.git
+git clone -b r2.8 https://atomgit.com/mindspore/mindspore-lite.git
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.

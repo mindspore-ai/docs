@@ -1,6 +1,6 @@
 # 集成TensorRT使用说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_zh_cn/advanced/third_party/tensorrt_info.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_zh_cn/advanced/third_party/tensorrt_info.md)
 
 ## 使用步骤
 
@@ -14,7 +14,7 @@
 
 ### 编译构建
 
-在Linux环境下，使用MindSpore Lite[源代码](https://gitee.com/mindspore/mindspore-lite)根目录下的build.sh脚本可以构建集成TensorRT的MindSpore Lite包，先配置环境变量`MSLITE_GPU_BACKEND=tensorrt`，再执行编译命令如下，它将在MindSpore Lite源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含`libmindspore-lite.so`以及测试工具Benchmark。
+在Linux环境下，使用MindSpore Lite[源代码](https://atomgit.com/mindspore/mindspore-lite)根目录下的build.sh脚本可以构建集成TensorRT的MindSpore Lite包，先配置环境变量`MSLITE_GPU_BACKEND=tensorrt`，再执行编译命令如下，它将在MindSpore Lite源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含`libmindspore-lite.so`以及测试工具Benchmark。
 
 ```bash
 bash build.sh -I x86_64

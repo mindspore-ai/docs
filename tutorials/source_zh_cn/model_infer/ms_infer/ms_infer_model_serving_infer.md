@@ -1,7 +1,7 @@
 
 # 服务化模型推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/tutorials/source_zh_cn/model_infer/ms_infer/ms_infer_model_serving_infer.md)
 
 ## 特性背景
 
@@ -54,7 +54,7 @@ vLLM-MindSpore插件提供了[docker安装](https://www.mindspore.cn/vllm_mindsp
 用户可执行以下命令，拉取vLLM-MindSpore插件代码仓库，并构建镜像：
 
 ```bash
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone https://atomgit.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```
 
