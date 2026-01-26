@@ -12,8 +12,6 @@
 | ----- | ---- | ---------------- |
 | mouse | 0.78 | [10, 25, 35, 43] |
 
-使用MindSpore Lite实现目标检测的[示例代码](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/object_detection)。
-
 ## 目标检测模型列表
 
 下表是使用MindSpore Lite推理的部分目标检测模型的数据。

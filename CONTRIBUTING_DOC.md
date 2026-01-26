@@ -8,7 +8,7 @@ This project supports contribution documents in markdown and reStructuredText fo
 
 ## Document
 
-MindSpore docs repository provides [Document Writing Specifications](https://atomgit.com/mindspore/docs/wikis/Document%20Writing%20Specifications?sort_id=3379825) for your reference.
+MindSpore docs repository provides [Document Writing Specifications](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FDocument%20Writing%20Specifications.md) for your reference.
 
 ### Updating or Adding a Document
 
@@ -81,7 +81,7 @@ Take **Quick Start for Beginners** as an example. The document link is <
 
 ## API
 
-MindSpore docs repository provides [API Comment Specifications](https://atomgit.com/mindspore/docs/wikis/MindSpore%20API%20Comment%20Specifications?sort_id=3379820) for your reference.
+MindSpore docs repository provides [API Comment Specifications](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FMindSpore%20API%20Comment%20Specifications.md) for your reference.
 
 ### Updating or Adding an API
 
@@ -161,7 +161,7 @@ By default, APIs of the latest version are displayed. To view the newly merged c
 
 The images in the document are mainly divided into program flowcharts, configuration flowcharts, functional structure diagrams and so on.
 
-For specific image requirements and specifications, please refer to [Image Specifications](https://atomgit.com/mindspore/docs/wikis/%E4%BD%9C%E5%9B%BE%E8%A7%84%E8%8C%83?sort_id=3498531) provided by MindSpore docs.
+For specific image requirements and specifications, please refer to [Image Specifications](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2F%E4%BD%9C%E5%9B%BE%E8%A7%84%E8%8C%83.md) provided by MindSpore docs.
 
 ### Updating or Adding an Image
 
@@ -171,7 +171,7 @@ If you want to update an existing image or adding a new image, click ![View Sour
 
 ### Image Citation
 
-The format of the image citation is: \!\[image name] (the path where the image is located). For details, please refer to [Markdown Image Citation Requirements](https://atomgit.com/mindspore/docs/wikis/Document%20Writing%20Specifications?sort_id=3379825#image) and [Notebook Image Citation Requirements](https://atomgit.com/mindspore/docs/wikis/Notebook%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82?sort_id=3462614).
+The format of the image citation is: \!\[image name] (the path where the image is located). For details, please refer to [Markdown Image Citation Requirements](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FDocument%20Writing%20Specifications.md#image) and [Notebook Image Citation Requirements](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FNotebook%E6%96%87%E6%A1%A3%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82.md#%E5%9B%BE%E7%89%87).
 
 ### Confirming the Content
 

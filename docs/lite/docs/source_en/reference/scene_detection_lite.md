@@ -6,8 +6,6 @@
 
 Scene detection can identify the type of scene in the device's camera.
 
-Using MindSpore Lite to implement scene detection [example](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/scene_detection).
-
 ## Scene Detection Model List
 
 The following table shows the data of some scene detection models using MindSpore Lite inference.

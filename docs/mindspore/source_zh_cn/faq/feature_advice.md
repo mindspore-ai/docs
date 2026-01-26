@@ -86,12 +86,6 @@ A: MindSpore支持Python原生表达，`import mindspore`相关包即可使用�
 
 <br/>
 
-### Q: 请问MindSpore支持梯度截断吗？
-
-A: 支持，可以参考代码[梯度截断脚本](https://atomgit.com/mindspore-lab/models/blob/master/official/nlp/Transformer/src/transformer_for_train.py#L35)。
-
-<br/>
-
 ### Q: MindSpore的IR设计理念是什么？
 
 A: 函数式: 一切皆函数，易于微分实现；无副作用，易于实现自动并行化分析。`JIT`编译能力: 图形IR，控制流依赖和数据流合一，平衡通用性/易用性。图形完备的IR: 更多的转换`Python`灵活语法，包括递归等。
