@@ -288,11 +288,11 @@ re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.
 
 # 发版本时这里启用
 # modify urls
-re_url = r"(((gitee.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+re_url = r"(((atomgit.com/mindspore/docs/mindspore-lite)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 
-re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+re_url2 = r"(atomgit.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
 for cur, _, files in os.walk(present_path):
     for i in files:
