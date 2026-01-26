@@ -490,27 +490,30 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 - `b` (break)：设置断点，可以指定行号或函数名。
 - `h` (help)：显示帮助信息，列出所有可用命令。
 
-## 进程级绑核
+## 进程级 CPU/NUMA 亲和性配置
 
-`msrun` 支持通过 `--bind_core` 参数在进程启动时设置进程的 CPU 亲和性，其核心实现是在 `msrun` 内部调用 `taskset -c CPUA-CPUB python XXX.py` 命令，在启动 Python 文件的同时，为进程绑定 `CPUA` 到 `CPUB` 范围的 CPU 核。进程级绑核支持基于当前环境信息去自动获取绑核策略，也支持用户自定义绑核策略。
+`msrun` 提供 `--bind_core` 和 `--bind_numa` 参数，分别通过调用 `taskset` 和 `numactl` 系统命令，在进程启动时限定其 CPU 核心运行范围、NUMA 节点绑定关系。两者均支持自动分配策略和用户自定义策略。
 
-### 1. 自动绑核（--bind_core=True）
+### --bind_core（CPU 亲和性配置）
 
-- **功能**：基于当前环境信息（CPU 资源、NUMA 节点、设备亲和性）自动分配 CPU 核范围，无需手动指定具体核编号。
-- **自动分配逻辑**：
+核心调用`taskset -c CPUA-CPUB python XXX.py`，限制 Python 进程运行在 `CPUA` 到 `CPUB` 范围的 CPU 核心上。
+
+#### 1. 自动绑核（--bind_core=True）
+
+- **核心逻辑**：无需手动指定核编号，基于环境信息（CPU 资源、NUMA 节点、设备亲和性）自动分配 CPU 核：
 
     - 优先使用亲和池内的 CPU 核；若亲和池内 CPU 核不足，则使用非亲和池内的 CPU 核。
-    - 自动绑核功能依赖系统命令（如 `lscpu`、`npu-smi`）获取硬件信息；若命令执行失败，将仅根据可用 CPU 资源生成分配策略。
+    - 依赖 `lscpu`、`npu-smi` 等命令获取硬件信息，命令执行失败时仅基于可用 CPU 资源分配；
     - CPU 与 NPU 间亲和关系的获取方式，与 MindSpore 接口 `mindspore.runtime.set_cpu_affinity` 一致，可参考 [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html)。
 
-### 2. 自定义绑核
+#### 2. 自定义绑核
 
-- **功能**：依据用户传参，定制绑核策略。
 - **格式要求**：传入 JSON 格式的字典，在 shell 环境中需用 `''` 包裹 `{}`。
-- **参数说明**：
+
+- **参数规范**：
 
     - 字典的 `key` 支持 `scheduler`（调度进程）或 `deviceX`（设备进程，`X` 为设备编号）。
-    - 字典的 `value` 为 CPU 核范围段列表（如 `["0-9", "20-29"]`）。
+    - 字典的 `value` 为 CPU 核范围段列表（如 `["0-9", "20-29"]`）。空列表表示跳过该进程绑核。
 
 - **示例**：
 
@@ -518,7 +521,7 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
     --bind_core='{"scheduler":["0-9"], "device0":["10-19"], "device1":["20-29", "40-49"]}'
     ```
 
-    表示：
+    含义：
 
     - 为`scheduler`进程分配 CPU 核 0-9；
     - 为 0 号 worker 进程（对应`device0`）分配 CPU 核 10-19；
@@ -552,7 +555,52 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 
         错误示例中，0 号 worker 进程可能被误判为对应`device1`而跳过绑核，`scheduler`和 1 号 worker 进程因未在配置中也会被跳过。
 
-### 3. 关闭绑核（--bind_core=False）
+#### 3. 关闭绑核（--bind_core=False）
 
-- **功能**：不启用进程级绑核功能。
-- **默认值**：`msrun --bind_core` 参数默认值为`False`。
+不启用进程级 CPU 亲和性设置，为默认配置。
+
+### --bind_numa（NUMA 亲和性配置）
+
+核心调用`numactl --membind NUMAX --cpunodebind NUMAX python XXX.py`，将 Python 进程的内存区域绑定在 NUMA 节点X上，并且限制进程运行在NUMA 节点X所对应的 CPU 核心上。
+
+#### 1. 自动绑 NUMA（--bind_numa=True）
+
+- **核心逻辑**：无需手动指定节点编号，基于环境信息自动分配 NUMA 节点：
+
+    - 要求 NUMA 节点数量 ≥ 启动进程数量（保证每个进程独占一个节点），否则无法使能绑定 NUMA 功能；
+    - 优先使用设备亲和的 NUMA 节点，多进程亲和同一节点时使用非亲和节点；
+    - 依赖 lscpu、npu-smi 等命令获取硬件信息，命令执行失败时仅基于可用 NUMA 资源分配；
+    - NUMA 与 NPU 间亲和关系的获取方式，与 `--bind_core` 以及 MindSpore 接口 `mindspore.runtime.set_cpu_affinity` 一致。
+
+#### 2. 自定义绑NUMA
+
+- **格式要求**：传入 JSON 格式的字典，在 shell 环境中需用 `''` 包裹 `{}`。
+
+- **参数规范**：
+
+    - 字典的 `key` 支持 `scheduler`（调度进程）或 `deviceX`（设备进程，`X` 为设备编号）。
+    - 字典的 `value` 为 NUMA 节点列表，可以是单个或以`,`分割的正整数，也可以是范围段（如 `["0"，"1,2","3-4"]`。空列表表示跳过该进程绑 NUMA。
+
+- **示例**：
+
+    ```bash
+    --bind_numa='{"scheduler":["0"], "device0":["1,2"], "device1":["3-4"]}'
+    ```
+
+    含义：
+
+    - 为`scheduler`进程分配 NUMA 节点0；
+    - 为 0 号 worker 进程（对应`device0`）分配 NUMA 节点1和 NUMA 节点2；
+    - 为 1 号 worker 进程（对应`device1`）分配 NUMA 节点3和 NUMA 节点4。
+
+- **注意事项**：
+
+    `--bind_numa`可传入的自定义配置的字典格式规范与`--bind_core`保持一致。
+
+#### 3. 关闭绑核（--bind_numa=False）
+
+不启用进程级 NUMA 亲和性设置，为默认配置。
+
+### --bind_numa 与 --bind_core 配合使用
+
+同时使用`--bind_numa`和`--bind_core`时，启动进程时会调用`numactl --membind NUMAX --physcpubind CPUA-CPUB`，即`--bind_numa`依据 NUMA 架构控制内存区域绑定，`--bind_core`以 CPU 核心的力度设置进程的 CPU 亲和性。

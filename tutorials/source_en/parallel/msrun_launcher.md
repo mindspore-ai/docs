@@ -490,33 +490,38 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 - `b` (break): Set a breakpoint, either by specifying a line number or a function name.
 - `h` (help): Display a help message listing all available commands.
 
-## Process-Level Core Binding
+## Process-Level CPU/NUMA Affinity Configuration
 
-`msrun` supports setting the CPU affinity of a process at startup through the `--bind_core` parameter. The core implementation involves `msrun` internally calling the `taskset -c CPUA-CPUB python XXX.py` command to bind the process to CPU cores in the range from `CPUA` to `CPUB` while starting the Python file. Process-level core binding supports automatically obtaining the core binding strategy based on current environment information and also allows users to customize the core binding strategy.
+`msrun` provides the `--bind_core` and `--bind_numa` parameters, which invoke the `taskset` and `numactl` system commands respectively to restrict the CPU core running range and NUMA node binding relationship of a process at startup. Both parameters support automatic allocation policy and user-defined policy.
 
-### 1. Automatic Core Binding (`--bind_core=True`)
+### --bind_core (CPU Affinity Configuration)
 
-- **Function**: Automatically allocate CPU core ranges based on current environment information (CPU resources, NUMA nodes, device affinity) without manually specifying specific core numbers.
-- **Automated allocation logic**:
+Key invocation command: `taskset -c CPUA-CPUB python XXX.py`, which restricts the Python process to run on CPU cores ranging from `CPUA` to `PUB`.
 
-    - Priority is given to using CPU cores within the affinity pool; if there are insufficient CPU cores in the affinity pool, CPU cores outside the affinity pool will be used.
-    - The automatic core binding function relies on system commands (such as `lscpu`, `npu-smi`) to obtain hardware information; if the command execution fails, the allocation strategy will be generated only based on available CPU resources.
+#### 1. Automatic Core Binding (`--bind_core=True`)
+
+- **Core Allocation Logic**: No need to manually specify core numbers; CPU cores are automatically allocated based on environmental information (CPU resources, NUMA nodes, device affinity):
+
+    - Priority is given to CPU cores in the affinity pool; if the cores in the affinity pool are insufficient, cores in the non-affinity pool will be used.
+    - It relies on commands such as `lscpu` and `npu-smi` to obtain hardware information. If command execution fails, allocation will be performed based only on available CPU resources.
     - The method for obtaining the affinity relationship between CPUs and NPUs is consistent with the MindSpore interface `mindspore.runtime.set_cpu_affinity`, which can be referred to [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html).
 
-### 2. Custom Core Binding
+#### 2. Custom Core Binding
 
-- **Function**: Customize the core binding strategy based on user input parameters.
 - **Format Requirement**: Pass a dictionary in JSON format, which needs to be wrapped with `''` around `{}` in the shell environment.
-- **Parameter Description**:
+
+- **Parameter Specifications**:
 
     - The `key` of the dictionary supports `scheduler` (scheduling process) or `deviceX` (device process, where `X` is the device number).
-    - The `value` of the dictionary is a list of CPU core range segments (e.g., `["0-9", "20-29"]`).
+    - The `value` of the dictionary is a list of CPU core range segments (e.g., `["0-9", "20-29"]`). An empty list means skipping core binding for the process.
 
 - **Example Explanation**:
 
     ```bash
     --bind_core='{"scheduler":["0-9"], "device0":["10-19"], "device1":["20-29", "40-49"]}'
     ```
+
+    Meaning:
 
     - Allocate CPU cores 0-9 to the `scheduler` process.
     - Allocate CPU cores 10-19 to the worker process 0 (corresponding to `device0`).
@@ -550,7 +555,52 @@ msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log
 
         In the wrong example, worker process 0 may be mistakenly identified as corresponding to `device1` and thus have core binding skipped. The `scheduler` and worker process 1 will also be skipped because they are not included in the configuration.
 
-### 3. Disabling Core Binding (`--bind_core=False`)
+#### 3. Disabling Core Binding (`--bind_core=False`)
 
-- **Function**: Do not enable the process-level core binding function.
-- **Default Value**: The default value of the `msrun --bind_core` parameter is `False`.
+Do not enable process-level CPU affinity setting; this is the default configuration.
+
+### --bind_numa (NUMA Affinity Configuration)
+
+Key invocation command: `numactl --membind NUMAX --cpunodebind NUMAX python XXX.py`, which binds the memory area of the Python process to NUMA node X and restricts the process to run on the CPU cores corresponding to NUMA node X.
+
+#### 1. Automatic NUMA Binding (`--bind_numa=True`)
+
+- **Core Allocation Logic**: No need to manually specify node numbers; NUMA nodes are automatically allocated based on environmental information:
+
+    - Requires the number of NUMA nodes ≥ the number of started processes (to ensure each process exclusively occupies one node); otherwise, the NUMA binding function cannot be enabled.
+    - Priority is given to NUMA nodes with device affinity; if multiple processes are affine to the same NUMA node, non-affine nodes will be used.
+    - It relies on commands such as `lscpu` and `npu-smi` to obtain hardware information. If command execution fails, allocation will be performed based only on available NUMA resources.
+    - The method for acquiring the affinity relationship between NUMAs and NPUs is consistent with that of `--bind_core` and the MindSpore API `mindspore.runtime.set_cpu_affinity`.
+
+#### 2. Custom NUMA Binding
+
+- **Format Requirement**: Pass a dictionary in JSON format, which needs to be wrapped with `''` around `{}` in the shell environment.
+
+- **Parameter Specifications**:
+
+    - The `key` of the dictionary supports `scheduler` (scheduling process) or `deviceX` (device process, where `X` is the device number).
+    - The `value` of the dictionary is a list of NUMA nodes, which can be a single positive integer, multiple positive integers separated by commas, or a range segment (e.g., `["0", "1,2","3-4"]`). An empty list means skipping NUMA binding for the process.
+
+- **Example Explanation**:
+
+    ```bash
+    --bind_numa='{"scheduler":["0"], "device0":["1,2"], "device1":["3-4"]}'
+    ```
+
+    Meaning:
+
+    - Allocate NUMA node 0 to the scheduler process;
+    - Allocate NUMA nodes 1 and 2 to the worker process 0;
+    - Allocate NUMA nodes 3 and 4 to the worker process 1.
+
+- **Notes**:
+
+    The format specifications of the custom configuration dictionary passed to `--bind_numa` are consistent with those of `--bind_core`.
+
+#### 3. Disable NUMA Binding (`--bind_numa=False`)
+
+Do not enable process-level NUMA affinity setting; this is the default configuration.
+
+### Using --bind_numa and --bind_core Together
+
+When `--bind_numa` and `--bind_core` are used simultaneously, the process startup command will be `numactl --membind NUMAX --physcpubind CPUA-CPUB`. In other words, `--bind_numa` controls memory area binding based on the NUMA architecture, while `--bind_core` sets the CPU affinity of the process at the granularity of CPU cores.
