@@ -2,8 +2,8 @@ Environment Variables
 =====================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.8.0/docs/mindspore/source_en/api_python/env_var_list.rst
-    :alt: View Source On Gitee
+    :target: https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/mindspore/source_en/api_python/env_var_list.rst
+    :alt: View Source on AtomGit
 
 MindSpore environment variables are as follows:
 
@@ -831,7 +831,7 @@ Log
 
      - The assignment way is:`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 
-       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/v2.8.0/mindspore/core/utils/log_adapter.cc>`_.
+       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://atomgit.com/mindspore/mindspore/blob/v2.8.0/mindspore/core/utils/log_adapter.cc>`_.
 
        For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
    * - GLOG_logfile_mode

@@ -1,6 +1,6 @@
 # Image Classification Model
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_en/reference/image_classification_lite.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/lite/docs/source_en/reference/image_classification_lite.md)
 
 ## Image Classification Introduction
 
@@ -15,7 +15,7 @@ Image classification model is to identify what an image represents, to predict t
 | Petal       | 0.7893 |
 | Flowerpot   | 0.6171 |
 
-Use MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
+Use MindSpore Lite to realize image classification [example](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/image_classification).
 
 ## Image Classification Model List
 

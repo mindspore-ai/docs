@@ -1,6 +1,6 @@
 # Environment Setup Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/orange_pi/environment_setup.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/orange_pi/environment_setup.md)
 
 This section describes how to burn an image on OrangePi AIpro, customize the installation of CANN and MindSpore, and configure the runtime environment.
 

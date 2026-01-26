@@ -1,6 +1,6 @@
 # mindspore
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/docs/lite/api/source_zh_cn/api_cpp/mindspore.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/docs/lite/api/source_zh_cn/api_cpp/mindspore.md)
 
 ## 接口汇总
 
@@ -104,7 +104,7 @@
 
 ## Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
 
@@ -392,7 +392,7 @@ std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo()
 
 ## DelegateMode
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
 
 ```cpp
 enum DelegateMode {
@@ -405,7 +405,7 @@ Delegate模式。
 
 ## DeviceInfoContext
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
 
 DeviceInfoContext类定义不同硬件设备的环境信息。
 
@@ -536,7 +536,7 @@ std::shared_ptr<Allocator> GetAllocator() const
 
 ## CPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在CPU上的配置。
 
@@ -582,7 +582,7 @@ bool GetEnableFP16() const
 
 ## GPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置。
 
@@ -770,7 +770,7 @@ void *GetGLDisplay() const
 
 ## KirinNPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在NPU上的配置。
 
@@ -840,7 +840,7 @@ int GetFrequency() const
 
 ## AscendDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Atlas 200/300/500推理产品、Atlas推理系列产品上的配置。
 
@@ -1174,7 +1174,7 @@ inline std::string GetBufferOptimizeMode() const
 
 ## DSPDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
+\#include &lt;[context.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在DSP上的配置。
 
@@ -1234,7 +1234,7 @@ using Key = struct MS_API Key {
 
 ## Serialization
 
-\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/serialization.h)&gt;
+\#include &lt;[serialization.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/serialization.h)&gt;
 
 Serialization类汇总了模型文件读写的方法。
 
@@ -1398,7 +1398,7 @@ static inline Status ExportWeightsCollaborateWithMicro(const Model &model, Model
 
 ## Buffer
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
 
 Buffer定义了MindSpore中Buffer数据的结构。
 
@@ -1504,7 +1504,7 @@ Buffer Clone() const
 
 ## Model
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/model.h)&gt;
+\#include &lt;[model.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/model.h)&gt;
 
 Model定义了MindSpore中的模型，便于计算图管理。
 
@@ -2261,7 +2261,7 @@ Status Finalize()
 
 ## ModelExecutor
 
-\#include &lt;[multi_model_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/mindspore-lite/include/api/multi_model_runner.h)&gt;
+\#include &lt;[multi_model_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/mindspore-lite/include/api/multi_model_runner.h)&gt;
 
 ModelExecutor定义了对Model的封装，用于调度多个Model的推理。
 
@@ -2343,7 +2343,7 @@ std::vector<MSTensor> GetOutputs() const
 
 ## MultiModelRunner
 
-\#include &lt;[multi_model_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/mindspore-lite/include/api/multi_model_runner.h)&gt;
+\#include &lt;[multi_model_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/mindspore-lite/include/api/multi_model_runner.h)&gt;
 
 MultiModelRunner用于创建包含多个Model的mindir，并提供调度多个模型的方式。
 
@@ -2434,7 +2434,7 @@ inline Status UpdateConfig(const std::string &section, const std::pair<std::stri
 
 ## MSTensor
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
 
 `MSTensor`定义了MindSpore中的张量。
 
@@ -2958,7 +2958,7 @@ const std::shared_ptr<Impl> impl()
 
 ## QuantParam
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
 
 一个结构体。QuantParam定义了MSTensor的一组量化参数。
 
@@ -3006,7 +3006,7 @@ max
 
 ## MSKernelCallBack
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
 
 ```cpp
 using MSKernelCallBack = std::function<bool(const std::vector<MSTensor> &inputs, const std::vector<MSTensor> &outputs, const MSCallBackParam &opInfo)>
@@ -3016,7 +3016,7 @@ using MSKernelCallBack = std::function<bool(const std::vector<MSTensor> &inputs,
 
 ## MSCallBackParam
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
 
 一个结构体。MSCallBackParam定义了回调函数的输入参数。
 
@@ -3048,7 +3048,7 @@ execute_time
 
 ## Delegate
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
 
 `Delegate`定义了第三方AI框架接入MindSpore Lite的代理接口。
 
@@ -3135,7 +3135,7 @@ void ReplaceNodes(const std::shared_ptr<LiteDelegateGraph> &graph) override
 
 ## CoreMLDelegate
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
 
 `CoreMLDelegate`继承自`Delegate`类，定义了CoreML框架接入MindSpore Lite的代理接口。
 
@@ -3177,7 +3177,7 @@ CoreMLDelegate在线构图，仅在内部图编译阶段调用。
 
 ## SchemaVersion
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
 
 定义了MindSpore Lite执行在线推理时模型文件的版本。
 
@@ -3191,7 +3191,7 @@ typedef enum {
 
 ## KernelIter
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
 
 定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.8.0/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
 
@@ -3201,7 +3201,7 @@ using KernelIter = std::vector<kernel::Kernel *>::iterator
 
 ## DelegateModel
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate.h)&gt;
 
 `DelegateModel`定义了MindSpore Lite Delegate机制操作的模型对象。
 
@@ -3371,7 +3371,7 @@ const SchemaVersion GetVersion()
 
 ## AbstractDelegate
 
-\#include &lt;[delegate_api.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate_api.h)&gt;
+\#include &lt;[delegate_api.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate_api.h)&gt;
 
 `AbstractDelegate`定义了MindSpore Lite 创建Delegate（抽象类）。
 
@@ -3427,7 +3427,7 @@ std::vector<mindspore::MSTensor> outputs_
 std::vector<mindspore::MSTensor> outputs_
 ```
 
-\#include &lt;[delegate_api.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate_api.h)&gt;
+\#include &lt;[delegate_api.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/delegate_api.h)&gt;
 
 `IDelegate`定义了MindSpore Lite 创建Delegate（模板类）。
 
@@ -3473,7 +3473,7 @@ virtual std::shared_ptr<Kernel> CreateKernel(const std::shared_ptr<Node> &node) 
 
 ## TrainCfg
 
-\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/cfg.h)&gt;
+\#include &lt;[cfg.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/cfg.h)&gt;
 
 `TrainCfg`MindSpore Lite训练的相关配置参数。
 
@@ -3562,7 +3562,7 @@ inline void SetLossName(const std::vector<std::string> &loss_name)
 
 ## MixPrecisionCfg
 
-\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/cfg.h)&gt;
+\#include &lt;[cfg.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/cfg.h)&gt;
 
 `MixPrecisionCfg`MindSpore Lite训练混合精度配置类。
 
@@ -3630,7 +3630,7 @@ bool keep_batchnorm_fp32_ = true
 |-----------------------|--------|--------|
 | [std::vector\<char\> CharVersion()](#charversion)     |    ✕    |    √    |
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
 
 ```cpp
 std::vector<char> CharVersion()
@@ -3648,7 +3648,7 @@ std::vector<char> CharVersion()
 |-----------------------|--------|--------|
 | [std::string Version()](#version)     |    ✕    |    √    |
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
+\#include &lt;[types.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/types.h)&gt;
 
 ```cpp
 std::string Version()
@@ -3662,7 +3662,7 @@ std::string Version()
 
 ## Allocator
 
-\#include &lt;[allocator.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/allocator.h)&gt;
+\#include &lt;[allocator.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/allocator.h)&gt;
 
 内存管理基类。
 
@@ -3791,7 +3791,7 @@ virtual void *Prepare(void *ptr)
 
 ## Status
 
-\#include &lt;[status.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/status.h)&gt;
+\#include &lt;[status.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/status.h)&gt;
 
 ### 构造函数和析构函数
 
@@ -4072,7 +4072,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 
 ## Graph
 
-\#include &lt;[graph.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/graph.h)&gt;
+\#include &lt;[graph.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/graph.h)&gt;
 
 ### 构造函数和析构函数
 
@@ -4142,7 +4142,7 @@ enum CompCode : uint32_t {
 
 ## RunnerConfig
 
-\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/model_parallel_runner.h)&gt;
+\#include &lt;[model_parallel_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/model_parallel_runner.h)&gt;
 
 RunnerConfig定义了ModelParallelRunner中使用的配置选项参数。
 
@@ -4291,7 +4291,7 @@ std::vector<uint32_t> GetDeviceIds() const
 
 ## ModelParallelRunner
 
-\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore-lite/blob/r2.8/include/api/model_parallel_runner.h)&gt;
+\#include &lt;[model_parallel_runner.h](https://atomgit.com/mindspore/mindspore-lite/blob/r2.8/include/api/model_parallel_runner.h)&gt;
 
 ModelParallelRunner定义了MindSpore的多个Model以及并发策略，便于多个Model的调度与管理。
 

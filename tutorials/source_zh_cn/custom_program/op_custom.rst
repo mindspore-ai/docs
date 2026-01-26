@@ -2,7 +2,7 @@
 ============
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.8.0/tutorials/source_zh_cn/custom_program/op_custom.rst
+    :target: https://atomgit.com/mindspore/docs/blob/r2.8.0/tutorials/source_zh_cn/custom_program/op_custom.rst
     :alt: 查看源文件
 
 .. toctree::

@@ -1,7 +1,7 @@
 
 # Service-oriented Model Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/model_infer/ms_infer/ms_infer_model_serving_infer.md)
+[![View Source on AtomGit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.8.0/resource/_static/logo_source_en.svg)](https://atomgit.com/mindspore/docs/blob/r2.8.0/tutorials/source_en/model_infer/ms_infer/ms_infer_model_serving_infer.md)
 
 ## Background
 
@@ -53,7 +53,7 @@ The vLLM-MindSpore Plugin provides [Docker Installation](https://www.mindspore.c
 User can execute the following commands to clone the vLLM-MindSpore Plugin code repository and build the image:
 
 ```bash  
-git clone https://gitee.com/mindspore/vllm-mindspore.git
+git clone https://atomgit.com/mindspore/vllm-mindspore.git
 bash build_image.sh
 ```  
 
