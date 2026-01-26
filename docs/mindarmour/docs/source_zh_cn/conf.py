@@ -233,7 +233,7 @@ branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_i
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
-          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+          f"resource/_static/logo_source.svg\n    :target: https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/"
 
 for cur, _, files in os.walk(present_path):
     for i in files:
