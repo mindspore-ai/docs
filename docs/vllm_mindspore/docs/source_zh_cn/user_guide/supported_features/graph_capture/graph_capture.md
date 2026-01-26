@@ -1,6 +1,6 @@
 # 整图捕获和回放
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1.post1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.7.1.post1/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/graph_capture/graph_capture.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1.post1/resource/_static/logo_source.svg)](https://atomgit.com/mindspore/docs/blob/r2.7.1.post1/docs/vllm_mindspore/docs/source_zh_cn/user_guide/supported_features/graph_capture/graph_capture.md)
 
 vLLM-MindSpore插件支持通过对模型中的算子进行捕获，并在之后遇到相同输入shape时进行回放来提升算子下发性能，减少host侧瓶颈。在Ascend平台上，主要使用aclgraph来进行图的捕获和回放。
 
