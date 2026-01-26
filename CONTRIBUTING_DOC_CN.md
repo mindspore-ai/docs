@@ -8,7 +8,7 @@
 
 ## 文档
 
-MindSpore docs仓提供了[文档写作要求](https://atomgit.com/mindspore/docs/wikis/文档写作要求?sort_id=3363974)供写作时参考。
+MindSpore docs仓提供了[文档写作要求](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FMarkdown%E6%96%87%E6%A1%A3%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82.md)供写作时参考。
 
 ### 更新/新增文档
 
@@ -81,7 +81,7 @@ PR合入后次日，即可在MindSpore官网中查看到新增内容，新增文
 
 ## API
 
-MindSpore docs仓提供了[API注释写作要求](https://atomgit.com/mindspore/docs/wikis/API注释写作要求?sort_id=3364069)供写作时参考。
+MindSpore docs仓提供了[API注释写作要求](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FAPI%E6%B3%A8%E9%87%8A%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82.md)供写作时参考。
 
 ### 更新/新增API
 
@@ -161,7 +161,7 @@ PR合入后次日，即可在MindSpore官网[Python API页面](https://www.minds
 
 文档中的图片主要分为程序流程图、配置流程图和功能结构图等。
 
-具体的作图要求及规范，请参考MindSpore docs仓提供的[作图规范](https://atomgit.com/mindspore/docs/wikis/%E4%BD%9C%E5%9B%BE%E8%A7%84%E8%8C%83?sort_id=3498531)。
+具体的作图要求及规范，请参考MindSpore docs仓提供的[作图规范](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2F%E4%BD%9C%E5%9B%BE%E8%A7%84%E8%8C%83.md)。
 
 ### 更新/新增图片
 
@@ -171,7 +171,7 @@ PR合入后次日，即可在MindSpore官网[Python API页面](https://www.minds
 
 ### 图片引用
 
-图片引用的格式为：\!\[图片名称](图片所在目录)。详情请参考[Markdown图片引用要求](https://atomgit.com/mindspore/docs/wikis/%E6%96%87%E6%A1%A3%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82?sort_id=3363974#%E5%9B%BE%E7%89%87)和[Notebook图片引用要求](https://atomgit.com/mindspore/docs/wikis/Notebook%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82?sort_id=3462614)。
+图片引用的格式为：\!\[图片名称](图片所在目录)。详情请参考[Markdown图片引用要求](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FMarkdown%E6%96%87%E6%A1%A3%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82.md#%E5%9B%BE%E7%89%87)和[Notebook图片引用要求](https://atomgit.com/mindspore/docs/wiki/%E8%A7%84%E8%8C%83%2FNotebook%E6%96%87%E6%A1%A3%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82.md#%E5%9B%BE%E7%89%87)。
 
 ### 确认内容
 

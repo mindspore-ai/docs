@@ -212,7 +212,7 @@ train_lenet_cpp/
 
 ### 定义并导出模型
 
-首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore ModelZoo的现有[LeNet模型](https://atomgit.com/mindspore-lab/models/tree/master/research/cv/lenet)。
+首先我们需要基于MindSpore框架创建一个LeNet模型。
 
 > 本节使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/tutorials/zh-CN/r2.8.0/index.html)。
 

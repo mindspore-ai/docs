@@ -6,8 +6,6 @@
 
 场景检测可以识别设备摄像头中的场景类型。
 
-使用MindSpore Lite实现场景检测的[示例代码](https://atomgit.com/mindspore-lab/models/tree/master/official/lite/scene_detection)。
-
 ## 场景检测模型列表
 
 下表是使用MindSpore Lite推理的部分场景检测模型数据。
