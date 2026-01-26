@@ -64,7 +64,7 @@ This guide uses [llm-wizard/alpaca-gpt4-data](https://huggingface.co/datasets/ll
 
 #### Single-NPU Training
 
-First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen3-8B model, `finetune_qwen3.yaml`, available for download from the [Gitee repository](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml).
+First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen3-8B model, `finetune_qwen3.yaml`, available for download from the [AtomGit repository](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml).
 
 > Due to limited single-NPU memory, the `num_layers` in the configuration file is set to 4, used as an example only.
 
@@ -116,7 +116,7 @@ run_mode:          Running mode, train: training, finetune: fine-tuning, predict
 
 #### Single-Node Training
 
-First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen3-8B model, `finetune_qwen3.yaml`, available for download from the [Gitee repository](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml).
+First, prepare the configuration file. This guide provides a fine-tuning configuration file for the Qwen3-8B model, `finetune_qwen3.yaml`, available for download from the [AtomGit repository](https://atomgit.com/mindspore/mindformers/blob/master/configs/qwen3/finetune_qwen3.yaml).
 
 Then, modify the parameters in the configuration file based on actual conditions, mainly including:
 

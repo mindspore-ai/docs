@@ -48,8 +48,8 @@ Welcome every developer to the MindSpore community and contribute to this all-sc
 - **MindSpore official website**: provides comprehensive MindSpore information, including installation, tutorials, documents, community, resources, and news ([learn more](https://www.mindspore.cn/en)).
 - **MindSpore code**:
 
-    - [MindSpore Gitee](https://atomgit.com/mindspore/mindspore): Top 1 Gitee open-source project in 2020, where you can track the latest progress of MindSpore by clicking Watch, Star, and Fork, discuss issues, and commit code.
+    - [MindSpore AtomGit](https://atomgit.com/mindspore/mindspore): Top 1 AtomGit open-source project in 2020, where you can track the latest progress of MindSpore by clicking Watch, Star, and Fork, discuss issues, and commit code.
 
-    - [MindSpore GitHub](https://github.com/mindspore-ai/mindspore): MindSpore code image of Gitee. Developers who are accustomed to using GitHub can learn MindSpore and view the latest code implementation here.
+    - [MindSpore GitHub](https://github.com/mindspore-ai/mindspore): MindSpore code image of AtomGit. Developers who are accustomed to using GitHub can learn MindSpore and view the latest code implementation here.
 
 - **MindSpore forum**: We are dedicated to serving every developer. You can find your voice in MindSpore, regardless of whether you are an entry-level developer or a master. Let's learn and grow together. ([Learn more](https://discuss.mindspore.cn/))

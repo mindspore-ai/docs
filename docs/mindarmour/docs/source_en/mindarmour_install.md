@@ -35,7 +35,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindAr
 
 ### Installation by Source Code
 
-1. Download source code from Gitee.
+1. Download source code from AtomGit.
 
     ```bash
     git clone https://atomgit.com/mindspore-lab/mindarmour.git

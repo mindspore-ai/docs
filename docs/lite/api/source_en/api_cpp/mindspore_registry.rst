@@ -1,4 +1,4 @@
-:gitee_url: https://atomgit.com/mindspore/docs
+:atomgit_url: https://atomgit.com/mindspore/docs
 
 
 

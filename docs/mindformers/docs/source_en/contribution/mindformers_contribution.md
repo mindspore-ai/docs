@@ -39,7 +39,7 @@ Please follow this style for MindSpore Transformers review, maintenance and deve
   If you want to download the code to your local computer, it is best to use the git method.
 
   ```shell
-  # Clone repositories on Gitee
+  # Clone repositories on AtomGit
   git clone https://atomgit.com/(insert_your_forked_repo)/mindformers.git
   ```
 
