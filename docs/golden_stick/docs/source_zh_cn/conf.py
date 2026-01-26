@@ -376,7 +376,7 @@ else:
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo.replace('-', '_')][0]
 
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.7.1.post1/" + \
-          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+          f"resource/_static/logo_source.svg\n    :target: https://atomgit.com/mindspore/{copy_repo}/blob/{branch}/"
 
 # master使用
 # copy_list白名单转绝对路径（去重）
@@ -457,7 +457,7 @@ with open(des_release, "w", encoding="utf-8") as p:
     p.write(content[0])
 
 # 发版本时这里启用
-re_url1 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
+re_url1 = r"(((atomgit.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))/[\w\d/_.-]*?)/(master)"
 
 re_url2 = r"(mindspore.cn/vllm_mindspore/[\w\d/_.-]*?)/(master)"
 
